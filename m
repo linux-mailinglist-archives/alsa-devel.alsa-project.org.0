@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A05B43B121
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 13:20:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D039643B106
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 13:19:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3B0316FC;
-	Tue, 26 Oct 2021 13:19:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3B0316FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 730AA16F4;
+	Tue, 26 Oct 2021 13:18:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 730AA16F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635247249;
-	bh=bPda2TUTUH1gX1Xg9hBgmDKI7q9PXLRa4XsEr7mdU90=;
+	s=default; t=1635247146;
+	bh=JZQzshkhmop36bb+Vh9XP2nuXha8figps5of1PUNUzE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dIcz3OBvpiXY2NVo2z21F5v5Wn5Z6A8TEuuaiZsJOMdJbmi1sY25FrX3AEmxrDzUY
-	 wFauAiOIk+D11MWhKyQ0IFoWj3hTJWC+lpWJ1/ATWqVjBoZCLArsiXdpFuD4WFshE6
-	 07xIagGOqz3ORNuY/Ah2NOp8Q5SSxDUJ40IEXNHk=
+	b=sbYWTXZqfBC8YaFUdVLjFREQJ1hrZHV3N+kQmlw2PW2rUs12xvZ70nLvG6Z6nGoYz
+	 kNpsdU58TLwLBuCUC2sGNfKMD1h3a/kqZyp3mJJMS+QC+7xSpEZLAUC6i2CcxVl3nK
+	 MUFd4zFyYt61Ut6wUZAudPEYlK+HVxW+FNxFWbM8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57F89F804E3;
-	Tue, 26 Oct 2021 13:17:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73940F804ED;
+	Tue, 26 Oct 2021 13:17:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BC53F8051C; Tue, 26 Oct 2021 13:17:43 +0200 (CEST)
+ id 7C607F804E5; Tue, 26 Oct 2021 13:17:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2882F802E7
- for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 13:17:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2882F802E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FA97F80105
+ for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 13:17:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FA97F80105
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="T7zt8ngo"
-Received: by mail-wr1-x42a.google.com with SMTP id v17so17232040wrv.9
- for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 04:17:20 -0700 (PDT)
+ header.b="PnBD5rSK"
+Received: by mail-wr1-x431.google.com with SMTP id i9so2709029wrc.3
+ for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 04:17:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=0jO/T6gFZlV2PDcXQ3138bfY8llX2hfBU9CGw66prkk=;
- b=T7zt8ngodXCBGqBs7NrbajBlIfce1FPGoEbYkbCpuU1J4Vn6A7TTqF34L/kEccP4nl
- RaZRuz/zi9+EcDxRFl1juF956F0SJv+0fBf528VmVInpdW3DvIEIXI/1wLbt1kRBh8/S
- A1qPm1VfeqwoFBg23xYDXEjANzC0xhgMkWzr8dCIf4PHBZkP/cTu8LrqecwQeOWKek4n
- guKY+JG16cCenpdDND0Rl0dWELSe/83CMqmJ7ZM6VsbpUzdFDi5J1OprNOymTTQDcpB/
- az36++d/Nfu7CW6RqcnYDtZmT+m+vQiqXbJSNvqCs+4JDdcelweXXShb2BiZGMHvZZnx
- acVQ==
+ bh=TQi26kZD3NU6o9BQW3gnN4Gz9rwWQ34SGLUx3B9aDNU=;
+ b=PnBD5rSKy478W+5PchMVMOdBq5jedGzyXusGyhLr+koNpDE+L64dSTroBLAWTXGBnk
+ Efw2nq5gAi6q3Rxrmgxl5LlvYfWtaPwYMcfGo3oPT65S/EJD/WsfmhA6L2+RKwizfB3T
+ /4tVPbUt74dxRPT0nk6+0ix2bLs1J25tS9vKBCHGQabUKVOY1hvu8BBA/h3Ao4HuSY8T
+ GqvWSfYI0AQ29OIEP8YCTSkaMvKk17xqso9gOWS+RFqGxLQroNYbx6RyUBU5KqakbP09
+ 3fRZJjtMKashb5n2hqdStPr7Ll9C4ja9E4RI5D8eBFQjI3rDe7rnMELl3KTG6PkcDmWX
+ yoKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=0jO/T6gFZlV2PDcXQ3138bfY8llX2hfBU9CGw66prkk=;
- b=lbKEzXYYczdH6Ksd/YJ5sFOAbGMRwzGj23dZ+5iBOTjF7Lf3dmhZz29Gidlfj7BzB5
- I2AICK0eI6ZDEaexrX5VpOMLmOdE5LvAvD17PtgFc8qZkAiLpdrKZXZcxRiDfP+/AHKq
- Abf5ym0C8t98z6hYZZcWOVgV4wvLsNCRu3C5aW0qyI45H7+TXfcSz3gxT4O8yhhXS6wH
- OWr0uHXPZHmSlUeSkGZkLTA/tCAD4MWy96SxoTTUHMzw1hNjEvDxWkOLnbbrMpD9bJ4o
- IchI64Y5ZLPzkbI3qgjCDKBn7NIPfAx0CooYMvAHj5WVuwM5o5E5z/WHjsCMXHnrFTDc
- +51g==
-X-Gm-Message-State: AOAM532G7oY3HXzwz3h6scJFTe5rhAhKqTUk/uI93kx/p+Zx+JXRdlj0
- EFQM5UCOOjIlL9L155N2vnll7A==
-X-Google-Smtp-Source: ABdhPJxROvNWH6dy0Yg23/LiGugYuBi4oJdJwMldcc3XTjuvto9OkOrULC3os59IbkyTyLnqEa6cpQ==
-X-Received: by 2002:adf:f902:: with SMTP id b2mr31464303wrr.265.1635247035417; 
- Tue, 26 Oct 2021 04:17:15 -0700 (PDT)
+ bh=TQi26kZD3NU6o9BQW3gnN4Gz9rwWQ34SGLUx3B9aDNU=;
+ b=53n04DyY6uwqreI3GhG45xHDmC+jj+R5CJHOkDGs/uzOUlStXCikf7QKz68sGRqHWP
+ qFBAOFWoub0Y4MbLSSyAX8ThgJa7OpxIqU3Ryz+YpJtTuoiT+zhzr9mlETvZp/ObLFVP
+ 8OLhh4QLSZPYXymGdNXNDM1KNYL6vGy49gkjvWrl+sTQeXuJdGGzgV3cgeV+/8BIizkP
+ DVt5jwaPBvdK2XwLAiUd7If0ngOzWLQoBO780y84PNcVaNneRPGHBDGjlPLEaoU9lCUr
+ CGwegjebbGhBO/CWBRpSgLhZvms+vYpOfFWmWjBZyafoZCunIbwhvQpKqiEwUlASedRq
+ 0e9g==
+X-Gm-Message-State: AOAM533aabJaUHo5DfQBqPVaC0D8sX8AdbkLplpSm8LONA/8BOUxweKL
+ 22HvY8GTPM74adaf2+vu6Xe3DQ==
+X-Google-Smtp-Source: ABdhPJy3Gur/u6u5VPorO0QEJyEBZ0oFfFUSWcwl1hnK6xz8Z+BZ5B6VgPKVsKxy0VNvYsoCY61GQg==
+X-Received: by 2002:a5d:59a7:: with SMTP id p7mr31375421wrr.141.1635247036775; 
+ Tue, 26 Oct 2021 04:17:16 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id l124sm355483wml.8.2021.10.26.04.17.14
+ by smtp.gmail.com with ESMTPSA id l124sm355483wml.8.2021.10.26.04.17.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Oct 2021 04:17:14 -0700 (PDT)
+ Tue, 26 Oct 2021 04:17:16 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org,
 	bjorn.andersson@linaro.org,
 	robh@kernel.org
-Subject: [PATCH v11 04/17] ASoC: qdsp6: q6afe-dai: move lpass audio ports to
+Subject: [PATCH v11 05/17] ASoC: qdsp6: q6afe-clocks: move audio-clocks to
  common file
-Date: Tue, 26 Oct 2021 12:16:42 +0100
-Message-Id: <20211026111655.1702-5-srinivas.kandagatla@linaro.org>
+Date: Tue, 26 Oct 2021 12:16:43 +0100
+Message-Id: <20211026111655.1702-6-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20211026111655.1702-1-srinivas.kandagatla@linaro.org>
 References: <20211026111655.1702-1-srinivas.kandagatla@linaro.org>
@@ -105,1429 +105,493 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Various Q6DSP frameworks will use LPASS Audio IP, so move all the hardware
-specific details to a common file so that they could be reused across
-multiple Q6DSP frameworks.
+Move common parts of  q6afe-clocks to q6dsp-lpass-clocks so that we could
+reuse most of the driver for new Q6DSP audio frameworks.
 
-In this case all the audio ports definitions can be moved to a common file
-to be able to reuse across multiple Q6DSP frameworks.
+This is to make the code reuseable for new Q6DSP AudioReach framework.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/qcom/qdsp6/Makefile            |   4 +-
- sound/soc/qcom/qdsp6/q6afe-dai.c         | 687 +----------------------
- sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c | 627 +++++++++++++++++++++
- sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h |  22 +
- 4 files changed, 667 insertions(+), 673 deletions(-)
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h
+ sound/soc/qcom/qdsp6/Makefile             |   2 +-
+ sound/soc/qcom/qdsp6/q6afe-clocks.c       | 187 ++--------------------
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c | 186 +++++++++++++++++++++
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h |  30 ++++
+ 4 files changed, 232 insertions(+), 173 deletions(-)
+ create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h
 
 diff --git a/sound/soc/qcom/qdsp6/Makefile b/sound/soc/qcom/qdsp6/Makefile
-index 3c1dd9f32f1d..11e8705bbc5c 100644
+index 11e8705bbc5c..a4191d395557 100644
 --- a/sound/soc/qcom/qdsp6/Makefile
 +++ b/sound/soc/qcom/qdsp6/Makefile
-@@ -1,5 +1,7 @@
+@@ -1,5 +1,5 @@
  # SPDX-License-Identifier: GPL-2.0-only
--obj-$(CONFIG_SND_SOC_QDSP6_COMMON) += q6dsp-common.o
-+snd-q6dsp-common-objs := q6dsp-common.o q6dsp-lpass-ports.o
-+
-+obj-$(CONFIG_SND_SOC_QDSP6_COMMON) += snd-q6dsp-common.o
+-snd-q6dsp-common-objs := q6dsp-common.o q6dsp-lpass-ports.o
++snd-q6dsp-common-objs := q6dsp-common.o q6dsp-lpass-ports.o q6dsp-lpass-clocks.o
+ 
+ obj-$(CONFIG_SND_SOC_QDSP6_COMMON) += snd-q6dsp-common.o
  obj-$(CONFIG_SND_SOC_QDSP6_CORE) += q6core.o
- obj-$(CONFIG_SND_SOC_QDSP6_AFE) += q6afe.o
- obj-$(CONFIG_SND_SOC_QDSP6_AFE_DAI) += q6afe-dai.o
-diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
-index 8b664cbf6fa6..8bb7452b8f18 100644
---- a/sound/soc/qcom/qdsp6/q6afe-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
-@@ -11,91 +11,9 @@
- #include <sound/pcm.h>
- #include <sound/soc.h>
- #include <sound/pcm_params.h>
-+#include "q6dsp-lpass-ports.h"
+diff --git a/sound/soc/qcom/qdsp6/q6afe-clocks.c b/sound/soc/qcom/qdsp6/q6afe-clocks.c
+index 9431656283cd..1ccab64ff00b 100644
+--- a/sound/soc/qcom/qdsp6/q6afe-clocks.c
++++ b/sound/soc/qcom/qdsp6/q6afe-clocks.c
+@@ -7,115 +7,18 @@
+ #include <linux/module.h>
+ #include <linux/device.h>
+ #include <linux/platform_device.h>
+-#include <linux/of.h>
+-#include <linux/slab.h>
++#include "q6dsp-lpass-clocks.h"
  #include "q6afe.h"
  
--#define Q6AFE_TDM_PB_DAI(pre, num, did) {				\
--		.playback = {						\
--			.stream_name = pre" TDM"#num" Playback",	\
--			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
--				SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
--				SNDRV_PCM_RATE_176400,			\
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |		\
--				   SNDRV_PCM_FMTBIT_S24_LE |		\
--				   SNDRV_PCM_FMTBIT_S32_LE,		\
--			.channels_min = 1,				\
--			.channels_max = 8,				\
--			.rate_min = 8000,				\
--			.rate_max = 176400,				\
--		},							\
--		.name = #did,						\
--		.ops = &q6tdm_ops,					\
--		.id = did,						\
--		.probe = msm_dai_q6_dai_probe,				\
--		.remove = msm_dai_q6_dai_remove,			\
--	}
--
--#define Q6AFE_TDM_CAP_DAI(pre, num, did) {				\
--		.capture = {						\
--			.stream_name = pre" TDM"#num" Capture",		\
--			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
--				SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
--				SNDRV_PCM_RATE_176400,			\
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |		\
--				   SNDRV_PCM_FMTBIT_S24_LE |		\
--				   SNDRV_PCM_FMTBIT_S32_LE,		\
--			.channels_min = 1,				\
--			.channels_max = 8,				\
--			.rate_min = 8000,				\
--			.rate_max = 176400,				\
--		},							\
--		.name = #did,						\
--		.ops = &q6tdm_ops,					\
--		.id = did,						\
--		.probe = msm_dai_q6_dai_probe,				\
--		.remove = msm_dai_q6_dai_remove,			\
--	}
--
--#define Q6AFE_CDC_DMA_RX_DAI(did) {				\
--		.playback = {						\
--			.stream_name = #did" Playback",	\
--			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
--				SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
--				SNDRV_PCM_RATE_176400,			\
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |		\
--				   SNDRV_PCM_FMTBIT_S24_LE |		\
--				   SNDRV_PCM_FMTBIT_S32_LE,		\
--			.channels_min = 1,				\
--			.channels_max = 8,				\
--			.rate_min = 8000,				\
--			.rate_max = 176400,				\
--		},							\
--		.name = #did,						\
--		.ops = &q6dma_ops,					\
--		.id = did,						\
--		.probe = msm_dai_q6_dai_probe,				\
--		.remove = msm_dai_q6_dai_remove,			\
--	}
--
--#define Q6AFE_CDC_DMA_TX_DAI(did) {				\
--		.capture = {						\
--			.stream_name = #did" Capture",		\
--			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
--				SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
--				SNDRV_PCM_RATE_176400,			\
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |		\
--				   SNDRV_PCM_FMTBIT_S24_LE |		\
--				   SNDRV_PCM_FMTBIT_S32_LE,		\
--			.channels_min = 1,				\
--			.channels_max = 8,				\
--			.rate_min = 8000,				\
--			.rate_max = 176400,				\
--		},							\
--		.name = #did,						\
--		.ops = &q6dma_ops,					\
--		.id = did,						\
--		.probe = msm_dai_q6_dai_probe,				\
--		.remove = msm_dai_q6_dai_remove,			\
--	}
+ #define Q6AFE_CLK(id) {					\
+ 		.clk_id	= id,				\
+-		.afe_clk_id	= Q6AFE_##id,		\
++		.q6dsp_clk_id	= Q6AFE_##id,		\
+ 		.name = #id,				\
+ 		.rate = 19200000,			\
+ 	}
  
- struct q6afe_dai_priv_data {
- 	uint32_t sd_line_mask;
-@@ -784,591 +702,6 @@ static int msm_dai_q6_dai_remove(struct snd_soc_dai *dai)
- 	return 0;
- }
- 
--static struct snd_soc_dai_driver q6afe_dais[] = {
--	{
--		.playback = {
--			.stream_name = "HDMI Playback",
--			.rates = SNDRV_PCM_RATE_48000 |
--				 SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 2,
--			.channels_max = 8,
--			.rate_max =     192000,
--			.rate_min =	48000,
--		},
--		.ops = &q6hdmi_ops,
--		.id = HDMI_RX,
--		.name = "HDMI",
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.name = "SLIMBUS_0_RX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_0_RX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--		.playback = {
--			.stream_name = "Slimbus Playback",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--	}, {
--		.name = "SLIMBUS_0_TX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_0_TX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--		.capture = {
--			.stream_name = "Slimbus Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--	}, {
--		.playback = {
--			.stream_name = "Slimbus1 Playback",
--			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
--				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 2,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--		.name = "SLIMBUS_1_RX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_1_RX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.name = "SLIMBUS_1_TX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_1_TX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--		.capture = {
--			.stream_name = "Slimbus1 Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--	}, {
--		.playback = {
--			.stream_name = "Slimbus2 Playback",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--		.name = "SLIMBUS_2_RX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_2_RX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
+-#define Q6AFE_VOTE_CLK(id, blkid, n) {			\
+-		.clk_id	= id,				\
+-		.afe_clk_id = blkid,			\
+-		.name = n,				\
+-	}
 -
--	}, {
--		.name = "SLIMBUS_2_TX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_2_TX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--		.capture = {
--			.stream_name = "Slimbus2 Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--	}, {
--		.playback = {
--			.stream_name = "Slimbus3 Playback",
--			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
--				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 2,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--		.name = "SLIMBUS_3_RX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_3_RX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--
--	}, {
--		.name = "SLIMBUS_3_TX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_3_TX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--		.capture = {
--			.stream_name = "Slimbus3 Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--	}, {
--		.playback = {
--			.stream_name = "Slimbus4 Playback",
--			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
--				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 2,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--		.name = "SLIMBUS_4_RX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_4_RX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--
--	}, {
--		.name = "SLIMBUS_4_TX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_4_TX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--		.capture = {
--			.stream_name = "Slimbus4 Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--	}, {
--		.playback = {
--			.stream_name = "Slimbus5 Playback",
--			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
--				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 2,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--		.name = "SLIMBUS_5_RX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_5_RX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--
--	}, {
--		.name = "SLIMBUS_5_TX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_5_TX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--		.capture = {
--			.stream_name = "Slimbus5 Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--	}, {
--		.playback = {
--			.stream_name = "Slimbus6 Playback",
--			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
--				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 2,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--		.ops = &q6slim_ops,
--		.name = "SLIMBUS_6_RX",
--		.id = SLIMBUS_6_RX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--
--	}, {
--		.name = "SLIMBUS_6_TX",
--		.ops = &q6slim_ops,
--		.id = SLIMBUS_6_TX,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--		.capture = {
--			.stream_name = "Slimbus6 Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min = 8000,
--			.rate_max = 192000,
--		},
--	}, {
--		.playback = {
--			.stream_name = "Primary MI2S Playback",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     48000,
--		},
--		.id = PRIMARY_MI2S_RX,
--		.name = "PRI_MI2S_RX",
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.capture = {
--			.stream_name = "Primary MI2S Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     48000,
--		},
--		.id = PRIMARY_MI2S_TX,
--		.name = "PRI_MI2S_TX",
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.playback = {
--			.stream_name = "Secondary MI2S Playback",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     48000,
--		},
--		.name = "SEC_MI2S_RX",
--		.id = SECONDARY_MI2S_RX,
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.capture = {
--			.stream_name = "Secondary MI2S Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     48000,
--		},
--		.id = SECONDARY_MI2S_TX,
--		.name = "SEC_MI2S_TX",
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.playback = {
--			.stream_name = "Tertiary MI2S Playback",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     48000,
--		},
--		.name = "TERT_MI2S_RX",
--		.id = TERTIARY_MI2S_RX,
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.capture = {
--			.stream_name = "Tertiary MI2S Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     48000,
--		},
--		.id = TERTIARY_MI2S_TX,
--		.name = "TERT_MI2S_TX",
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.playback = {
--			.stream_name = "Quaternary MI2S Playback",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     48000,
--		},
--		.name = "QUAT_MI2S_RX",
--		.id = QUATERNARY_MI2S_RX,
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.capture = {
--			.stream_name = "Quaternary MI2S Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     48000,
--		},
--		.id = QUATERNARY_MI2S_TX,
--		.name = "QUAT_MI2S_TX",
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.playback = {
--			.stream_name = "Quinary MI2S Playback",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--			SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
--			SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     192000,
--		},
--		.id = QUINARY_MI2S_RX,
--		.name = "QUIN_MI2S_RX",
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	}, {
--		.capture = {
--			.stream_name = "Quinary MI2S Capture",
--			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
--				 SNDRV_PCM_RATE_16000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE,
--			.channels_min = 1,
--			.channels_max = 8,
--			.rate_min =     8000,
--			.rate_max =     48000,
--		},
--		.id = QUINARY_MI2S_TX,
--		.name = "QUIN_MI2S_TX",
--		.ops = &q6i2s_ops,
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	},
--	Q6AFE_TDM_PB_DAI("Primary", 0, PRIMARY_TDM_RX_0),
--	Q6AFE_TDM_PB_DAI("Primary", 1, PRIMARY_TDM_RX_1),
--	Q6AFE_TDM_PB_DAI("Primary", 2, PRIMARY_TDM_RX_2),
--	Q6AFE_TDM_PB_DAI("Primary", 3, PRIMARY_TDM_RX_3),
--	Q6AFE_TDM_PB_DAI("Primary", 4, PRIMARY_TDM_RX_4),
--	Q6AFE_TDM_PB_DAI("Primary", 5, PRIMARY_TDM_RX_5),
--	Q6AFE_TDM_PB_DAI("Primary", 6, PRIMARY_TDM_RX_6),
--	Q6AFE_TDM_PB_DAI("Primary", 7, PRIMARY_TDM_RX_7),
--	Q6AFE_TDM_CAP_DAI("Primary", 0, PRIMARY_TDM_TX_0),
--	Q6AFE_TDM_CAP_DAI("Primary", 1, PRIMARY_TDM_TX_1),
--	Q6AFE_TDM_CAP_DAI("Primary", 2, PRIMARY_TDM_TX_2),
--	Q6AFE_TDM_CAP_DAI("Primary", 3, PRIMARY_TDM_TX_3),
--	Q6AFE_TDM_CAP_DAI("Primary", 4, PRIMARY_TDM_TX_4),
--	Q6AFE_TDM_CAP_DAI("Primary", 5, PRIMARY_TDM_TX_5),
--	Q6AFE_TDM_CAP_DAI("Primary", 6, PRIMARY_TDM_TX_6),
--	Q6AFE_TDM_CAP_DAI("Primary", 7, PRIMARY_TDM_TX_7),
--	Q6AFE_TDM_PB_DAI("Secondary", 0, SECONDARY_TDM_RX_0),
--	Q6AFE_TDM_PB_DAI("Secondary", 1, SECONDARY_TDM_RX_1),
--	Q6AFE_TDM_PB_DAI("Secondary", 2, SECONDARY_TDM_RX_2),
--	Q6AFE_TDM_PB_DAI("Secondary", 3, SECONDARY_TDM_RX_3),
--	Q6AFE_TDM_PB_DAI("Secondary", 4, SECONDARY_TDM_RX_4),
--	Q6AFE_TDM_PB_DAI("Secondary", 5, SECONDARY_TDM_RX_5),
--	Q6AFE_TDM_PB_DAI("Secondary", 6, SECONDARY_TDM_RX_6),
--	Q6AFE_TDM_PB_DAI("Secondary", 7, SECONDARY_TDM_RX_7),
--	Q6AFE_TDM_CAP_DAI("Secondary", 0, SECONDARY_TDM_TX_0),
--	Q6AFE_TDM_CAP_DAI("Secondary", 1, SECONDARY_TDM_TX_1),
--	Q6AFE_TDM_CAP_DAI("Secondary", 2, SECONDARY_TDM_TX_2),
--	Q6AFE_TDM_CAP_DAI("Secondary", 3, SECONDARY_TDM_TX_3),
--	Q6AFE_TDM_CAP_DAI("Secondary", 4, SECONDARY_TDM_TX_4),
--	Q6AFE_TDM_CAP_DAI("Secondary", 5, SECONDARY_TDM_TX_5),
--	Q6AFE_TDM_CAP_DAI("Secondary", 6, SECONDARY_TDM_TX_6),
--	Q6AFE_TDM_CAP_DAI("Secondary", 7, SECONDARY_TDM_TX_7),
--	Q6AFE_TDM_PB_DAI("Tertiary", 0, TERTIARY_TDM_RX_0),
--	Q6AFE_TDM_PB_DAI("Tertiary", 1, TERTIARY_TDM_RX_1),
--	Q6AFE_TDM_PB_DAI("Tertiary", 2, TERTIARY_TDM_RX_2),
--	Q6AFE_TDM_PB_DAI("Tertiary", 3, TERTIARY_TDM_RX_3),
--	Q6AFE_TDM_PB_DAI("Tertiary", 4, TERTIARY_TDM_RX_4),
--	Q6AFE_TDM_PB_DAI("Tertiary", 5, TERTIARY_TDM_RX_5),
--	Q6AFE_TDM_PB_DAI("Tertiary", 6, TERTIARY_TDM_RX_6),
--	Q6AFE_TDM_PB_DAI("Tertiary", 7, TERTIARY_TDM_RX_7),
--	Q6AFE_TDM_CAP_DAI("Tertiary", 0, TERTIARY_TDM_TX_0),
--	Q6AFE_TDM_CAP_DAI("Tertiary", 1, TERTIARY_TDM_TX_1),
--	Q6AFE_TDM_CAP_DAI("Tertiary", 2, TERTIARY_TDM_TX_2),
--	Q6AFE_TDM_CAP_DAI("Tertiary", 3, TERTIARY_TDM_TX_3),
--	Q6AFE_TDM_CAP_DAI("Tertiary", 4, TERTIARY_TDM_TX_4),
--	Q6AFE_TDM_CAP_DAI("Tertiary", 5, TERTIARY_TDM_TX_5),
--	Q6AFE_TDM_CAP_DAI("Tertiary", 6, TERTIARY_TDM_TX_6),
--	Q6AFE_TDM_CAP_DAI("Tertiary", 7, TERTIARY_TDM_TX_7),
--	Q6AFE_TDM_PB_DAI("Quaternary", 0, QUATERNARY_TDM_RX_0),
--	Q6AFE_TDM_PB_DAI("Quaternary", 1, QUATERNARY_TDM_RX_1),
--	Q6AFE_TDM_PB_DAI("Quaternary", 2, QUATERNARY_TDM_RX_2),
--	Q6AFE_TDM_PB_DAI("Quaternary", 3, QUATERNARY_TDM_RX_3),
--	Q6AFE_TDM_PB_DAI("Quaternary", 4, QUATERNARY_TDM_RX_4),
--	Q6AFE_TDM_PB_DAI("Quaternary", 5, QUATERNARY_TDM_RX_5),
--	Q6AFE_TDM_PB_DAI("Quaternary", 6, QUATERNARY_TDM_RX_6),
--	Q6AFE_TDM_PB_DAI("Quaternary", 7, QUATERNARY_TDM_RX_7),
--	Q6AFE_TDM_CAP_DAI("Quaternary", 0, QUATERNARY_TDM_TX_0),
--	Q6AFE_TDM_CAP_DAI("Quaternary", 1, QUATERNARY_TDM_TX_1),
--	Q6AFE_TDM_CAP_DAI("Quaternary", 2, QUATERNARY_TDM_TX_2),
--	Q6AFE_TDM_CAP_DAI("Quaternary", 3, QUATERNARY_TDM_TX_3),
--	Q6AFE_TDM_CAP_DAI("Quaternary", 4, QUATERNARY_TDM_TX_4),
--	Q6AFE_TDM_CAP_DAI("Quaternary", 5, QUATERNARY_TDM_TX_5),
--	Q6AFE_TDM_CAP_DAI("Quaternary", 6, QUATERNARY_TDM_TX_6),
--	Q6AFE_TDM_CAP_DAI("Quaternary", 7, QUATERNARY_TDM_TX_7),
--	Q6AFE_TDM_PB_DAI("Quinary", 0, QUINARY_TDM_RX_0),
--	Q6AFE_TDM_PB_DAI("Quinary", 1, QUINARY_TDM_RX_1),
--	Q6AFE_TDM_PB_DAI("Quinary", 2, QUINARY_TDM_RX_2),
--	Q6AFE_TDM_PB_DAI("Quinary", 3, QUINARY_TDM_RX_3),
--	Q6AFE_TDM_PB_DAI("Quinary", 4, QUINARY_TDM_RX_4),
--	Q6AFE_TDM_PB_DAI("Quinary", 5, QUINARY_TDM_RX_5),
--	Q6AFE_TDM_PB_DAI("Quinary", 6, QUINARY_TDM_RX_6),
--	Q6AFE_TDM_PB_DAI("Quinary", 7, QUINARY_TDM_RX_7),
--	Q6AFE_TDM_CAP_DAI("Quinary", 0, QUINARY_TDM_TX_0),
--	Q6AFE_TDM_CAP_DAI("Quinary", 1, QUINARY_TDM_TX_1),
--	Q6AFE_TDM_CAP_DAI("Quinary", 2, QUINARY_TDM_TX_2),
--	Q6AFE_TDM_CAP_DAI("Quinary", 3, QUINARY_TDM_TX_3),
--	Q6AFE_TDM_CAP_DAI("Quinary", 4, QUINARY_TDM_TX_4),
--	Q6AFE_TDM_CAP_DAI("Quinary", 5, QUINARY_TDM_TX_5),
--	Q6AFE_TDM_CAP_DAI("Quinary", 6, QUINARY_TDM_TX_6),
--	Q6AFE_TDM_CAP_DAI("Quinary", 7, QUINARY_TDM_TX_7),
--	{
--		.playback = {
--			.stream_name = "Display Port Playback",
--			.rates = SNDRV_PCM_RATE_48000 |
--				 SNDRV_PCM_RATE_96000 |
--				 SNDRV_PCM_RATE_192000,
--			.formats = SNDRV_PCM_FMTBIT_S16_LE |
--				   SNDRV_PCM_FMTBIT_S24_LE,
--			.channels_min = 2,
--			.channels_max = 8,
--			.rate_max =     192000,
--			.rate_min =	48000,
--		},
--		.ops = &q6hdmi_ops,
--		.id = DISPLAY_PORT_RX,
--		.name = "DISPLAY_PORT",
--		.probe = msm_dai_q6_dai_probe,
--		.remove = msm_dai_q6_dai_remove,
--	},
--	Q6AFE_CDC_DMA_RX_DAI(WSA_CODEC_DMA_RX_0),
--	Q6AFE_CDC_DMA_TX_DAI(WSA_CODEC_DMA_TX_0),
--	Q6AFE_CDC_DMA_RX_DAI(WSA_CODEC_DMA_RX_1),
--	Q6AFE_CDC_DMA_TX_DAI(WSA_CODEC_DMA_TX_1),
--	Q6AFE_CDC_DMA_TX_DAI(WSA_CODEC_DMA_TX_2),
--	Q6AFE_CDC_DMA_TX_DAI(VA_CODEC_DMA_TX_0),
--	Q6AFE_CDC_DMA_TX_DAI(VA_CODEC_DMA_TX_1),
--	Q6AFE_CDC_DMA_TX_DAI(VA_CODEC_DMA_TX_2),
--	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_0),
--	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_0),
--	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_1),
--	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_1),
--	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_2),
--	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_2),
--	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_3),
--	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_3),
--	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_4),
--	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_4),
--	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_5),
--	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_5),
--	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_6),
--	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_7),
+-struct q6afe_clk_init {
+-	int clk_id;
+-	int afe_clk_id;
+-	char *name;
+-	int rate;
 -};
 -
--static int q6afe_of_xlate_dai_name(struct snd_soc_component *component,
--				   const struct of_phandle_args *args,
--				   const char **dai_name)
+-struct q6afe_clk {
+-	struct device *dev;
+-	int afe_clk_id;
+-	int attributes;
+-	int rate;
+-	uint32_t handle;
+-	struct clk_hw hw;
+-};
+-
+-#define to_q6afe_clk(_hw) container_of(_hw, struct q6afe_clk, hw)
+-
+-struct q6afe_cc {
+-	struct device *dev;
+-	struct q6afe_clk *clks[Q6AFE_MAX_CLK_ID];
+-};
+-
+-static int clk_q6afe_prepare(struct clk_hw *hw)
 -{
--	int id = args->args[0];
--	int ret = -EINVAL;
--	int i;
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
 -
--	for (i = 0; i  < ARRAY_SIZE(q6afe_dais); i++) {
--		if (q6afe_dais[i].id == id) {
--			*dai_name = q6afe_dais[i].name;
--			ret = 0;
--			break;
--		}
--	}
--
--	return ret;
+-	return q6afe_set_lpass_clock(clk->dev, clk->afe_clk_id, clk->attributes,
+-				     Q6AFE_LPASS_CLK_ROOT_DEFAULT, clk->rate);
 -}
 -
- static const struct snd_soc_dapm_widget q6afe_dai_widgets[] = {
- 	SND_SOC_DAPM_AIF_IN("HDMI_RX", NULL, 0, SND_SOC_NOPM, 0, 0),
- 	SND_SOC_DAPM_AIF_IN("SLIMBUS_0_RX", NULL, 0, SND_SOC_NOPM, 0, 0),
-@@ -1627,7 +960,7 @@ static const struct snd_soc_component_driver q6afe_dai_component = {
- 	.num_dapm_widgets = ARRAY_SIZE(q6afe_dai_widgets),
- 	.dapm_routes = q6afe_dapm_routes,
- 	.num_dapm_routes = ARRAY_SIZE(q6afe_dapm_routes),
--	.of_xlate_dai_name = q6afe_of_xlate_dai_name,
-+	.of_xlate_dai_name = q6dsp_audio_ports_of_xlate_dai_name,
+-static void clk_q6afe_unprepare(struct clk_hw *hw)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	q6afe_set_lpass_clock(clk->dev, clk->afe_clk_id, clk->attributes,
+-			      Q6AFE_LPASS_CLK_ROOT_DEFAULT, 0);
+-}
+-
+-static int clk_q6afe_set_rate(struct clk_hw *hw, unsigned long rate,
+-			      unsigned long parent_rate)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	clk->rate = rate;
+-
+-	return 0;
+-}
+-
+-static unsigned long clk_q6afe_recalc_rate(struct clk_hw *hw,
+-					   unsigned long parent_rate)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	return clk->rate;
+-}
+-
+-static long clk_q6afe_round_rate(struct clk_hw *hw, unsigned long rate,
+-				 unsigned long *parent_rate)
+-{
+-	return rate;
+-}
+-
+-static const struct clk_ops clk_q6afe_ops = {
+-	.prepare	= clk_q6afe_prepare,
+-	.unprepare	= clk_q6afe_unprepare,
+-	.set_rate	= clk_q6afe_set_rate,
+-	.round_rate	= clk_q6afe_round_rate,
+-	.recalc_rate	= clk_q6afe_recalc_rate,
+-};
+-
+-static int clk_vote_q6afe_block(struct clk_hw *hw)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	return q6afe_vote_lpass_core_hw(clk->dev, clk->afe_clk_id,
+-					clk_hw_get_name(&clk->hw), &clk->handle);
+-}
  
+-static void clk_unvote_q6afe_block(struct clk_hw *hw)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	q6afe_unvote_lpass_core_hw(clk->dev, clk->afe_clk_id, clk->handle);
+-}
+-
+-static const struct clk_ops clk_vote_q6afe_ops = {
+-	.prepare	= clk_vote_q6afe_block,
+-	.unprepare	= clk_unvote_q6afe_block,
+-};
+-
+-static const struct q6afe_clk_init q6afe_clks[] = {
++static const struct q6dsp_clk_init q6afe_clks[] = {
+ 	Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_IBIT),
+ 	Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_EBIT),
+ 	Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_IBIT),
+@@ -176,88 +79,28 @@ static const struct q6afe_clk_init q6afe_clks[] = {
+ 	Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_MCLK),
+ 	Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_NPL_MCLK),
+ 	Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_2X_MCLK),
+-	Q6AFE_VOTE_CLK(LPASS_HW_AVTIMER_VOTE,
++	Q6DSP_VOTE_CLK(LPASS_HW_AVTIMER_VOTE,
+ 		       Q6AFE_LPASS_CORE_AVTIMER_BLOCK,
+ 		       "LPASS_AVTIMER_MACRO"),
+-	Q6AFE_VOTE_CLK(LPASS_HW_MACRO_VOTE,
++	Q6DSP_VOTE_CLK(LPASS_HW_MACRO_VOTE,
+ 		       Q6AFE_LPASS_CORE_HW_MACRO_BLOCK,
+ 		       "LPASS_HW_MACRO"),
+-	Q6AFE_VOTE_CLK(LPASS_HW_DCODEC_VOTE,
++	Q6DSP_VOTE_CLK(LPASS_HW_DCODEC_VOTE,
+ 		       Q6AFE_LPASS_CORE_HW_DCODEC_BLOCK,
+ 		       "LPASS_HW_DCODEC"),
  };
  
-@@ -1715,19 +1048,29 @@ static void of_q6afe_parse_dai_data(struct device *dev,
- 
- static int q6afe_dai_dev_probe(struct platform_device *pdev)
- {
-+	struct q6dsp_audio_port_dai_driver_config cfg;
-+	struct snd_soc_dai_driver *dais;
- 	struct q6afe_dai_data *dai_data;
- 	struct device *dev = &pdev->dev;
-+	int num_dais;
- 
- 	dai_data = devm_kzalloc(dev, sizeof(*dai_data), GFP_KERNEL);
- 	if (!dai_data)
- 		return -ENOMEM;
- 
- 	dev_set_drvdata(dev, dai_data);
+-static struct clk_hw *q6afe_of_clk_hw_get(struct of_phandle_args *clkspec,
+-					  void *data)
+-{
+-	struct q6afe_cc *cc = data;
+-	unsigned int idx = clkspec->args[0];
+-	unsigned int attr = clkspec->args[1];
 -
- 	of_q6afe_parse_dai_data(dev, dai_data);
- 
--	return devm_snd_soc_register_component(dev, &q6afe_dai_component,
--					  q6afe_dais, ARRAY_SIZE(q6afe_dais));
-+	cfg.probe = msm_dai_q6_dai_probe;
-+	cfg.remove = msm_dai_q6_dai_remove;
-+	cfg.q6hdmi_ops = &q6hdmi_ops;
-+	cfg.q6slim_ops = &q6slim_ops;
-+	cfg.q6i2s_ops = &q6i2s_ops;
-+	cfg.q6tdm_ops = &q6tdm_ops;
-+	cfg.q6dma_ops = &q6dma_ops;
-+	dais = q6dsp_audio_ports_set_config(dev, &cfg, &num_dais);
-+
-+	return devm_snd_soc_register_component(dev, &q6afe_dai_component, dais, num_dais);
- }
+-	if (idx >= Q6AFE_MAX_CLK_ID || attr > LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR) {
+-		dev_err(cc->dev, "Invalid clk specifier (%d, %d)\n", idx, attr);
+-		return ERR_PTR(-EINVAL);
+-	}
+-
+-	if (cc->clks[idx]) {
+-		cc->clks[idx]->attributes = attr;
+-		return &cc->clks[idx]->hw;
+-	}
+-
+-	return ERR_PTR(-ENOENT);
+-}
+-
+-static int q6afe_clock_dev_probe(struct platform_device *pdev)
+-{
+-	struct q6afe_cc *cc;
+-	struct device *dev = &pdev->dev;
+-	int i, ret;
+-
+-	cc = devm_kzalloc(dev, sizeof(*cc), GFP_KERNEL);
+-	if (!cc)
+-		return -ENOMEM;
+-
+-	cc->dev = dev;
+-	for (i = 0; i < ARRAY_SIZE(q6afe_clks); i++) {
+-		unsigned int id = q6afe_clks[i].clk_id;
+-		struct clk_init_data init = {
+-			.name =  q6afe_clks[i].name,
+-		};
+-		struct q6afe_clk *clk;
+-
+-		clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
+-		if (!clk)
+-			return -ENOMEM;
+-
+-		clk->dev = dev;
+-		clk->afe_clk_id = q6afe_clks[i].afe_clk_id;
+-		clk->rate = q6afe_clks[i].rate;
+-		clk->hw.init = &init;
+-
+-		if (clk->rate)
+-			init.ops = &clk_q6afe_ops;
+-		else
+-			init.ops = &clk_vote_q6afe_ops;
+-
+-		cc->clks[id] = clk;
+-
+-		ret = devm_clk_hw_register(dev, &clk->hw);
+-		if (ret)
+-			return ret;
+-	}
+-
+-	ret = devm_of_clk_add_hw_provider(dev, q6afe_of_clk_hw_get, cc);
+-	if (ret)
+-		return ret;
+-
+-	dev_set_drvdata(dev, cc);
+-
+-	return 0;
+-}
++static const struct q6dsp_clk_desc q6dsp_clk_q6afe __maybe_unused = {
++	.clks = q6afe_clks,
++	.num_clks = ARRAY_SIZE(q6afe_clks),
++	.lpass_set_clk = q6afe_set_lpass_clock,
++	.lpass_vote_clk = q6afe_vote_lpass_core_hw,
++	.lpass_unvote_clk = q6afe_unvote_lpass_core_hw,
++};
  
  #ifdef CONFIG_OF
-diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
+ static const struct of_device_id q6afe_clock_device_id[] = {
+-	{ .compatible = "qcom,q6afe-clocks" },
++	{ .compatible = "qcom,q6afe-clocks", .data = &q6dsp_clk_q6afe },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, q6afe_clock_device_id);
+@@ -268,7 +111,7 @@ static struct platform_driver q6afe_clock_platform_driver = {
+ 		.name = "q6afe-clock",
+ 		.of_match_table = of_match_ptr(q6afe_clock_device_id),
+ 	},
+-	.probe = q6afe_clock_dev_probe,
++	.probe = q6dsp_clock_dev_probe,
+ };
+ module_platform_driver(q6afe_clock_platform_driver);
+ 
+diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
 new file mode 100644
-index 000000000000..f67c16fd90b9
+index 000000000000..4613867d1133
 --- /dev/null
-+++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
-@@ -0,0 +1,627 @@
++++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+@@ -0,0 +1,186 @@
 +// SPDX-License-Identifier: GPL-2.0
 +// Copyright (c) 2020, Linaro Limited
 +
-+#include <sound/pcm.h>
-+#include <sound/soc.h>
-+#include <sound/pcm_params.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+#include "q6dsp-lpass-ports.h"
++#include <linux/err.h>
++#include <linux/init.h>
++#include <linux/clk-provider.h>
++#include <linux/module.h>
++#include <linux/device.h>
++#include <linux/platform_device.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/slab.h>
++#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
++#include "q6dsp-lpass-clocks.h"
 +
-+#define Q6AFE_TDM_PB_DAI(pre, num, did) {				\
-+		.playback = {						\
-+			.stream_name = pre" TDM"#num" Playback",	\
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
-+				SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
-+				SNDRV_PCM_RATE_176400,			\
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |		\
-+				   SNDRV_PCM_FMTBIT_S24_LE |		\
-+				   SNDRV_PCM_FMTBIT_S32_LE,		\
-+			.channels_min = 1,				\
-+			.channels_max = 8,				\
-+			.rate_min = 8000,				\
-+			.rate_max = 176400,				\
-+		},							\
-+		.name = #did,						\
-+		.id = did,						\
-+	}
-+
-+#define Q6AFE_TDM_CAP_DAI(pre, num, did) {				\
-+		.capture = {						\
-+			.stream_name = pre" TDM"#num" Capture",		\
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
-+				SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
-+				SNDRV_PCM_RATE_176400,			\
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |		\
-+				   SNDRV_PCM_FMTBIT_S24_LE |		\
-+				   SNDRV_PCM_FMTBIT_S32_LE,		\
-+			.channels_min = 1,				\
-+			.channels_max = 8,				\
-+			.rate_min = 8000,				\
-+			.rate_max = 176400,				\
-+		},							\
-+		.name = #did,						\
-+		.id = did,						\
-+	}
-+
-+#define Q6AFE_CDC_DMA_RX_DAI(did) {				\
-+		.playback = {						\
-+			.stream_name = #did" Playback",	\
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
-+				SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
-+				SNDRV_PCM_RATE_176400,			\
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |		\
-+				   SNDRV_PCM_FMTBIT_S24_LE |		\
-+				   SNDRV_PCM_FMTBIT_S32_LE,		\
-+			.channels_min = 1,				\
-+			.channels_max = 8,				\
-+			.rate_min = 8000,				\
-+			.rate_max = 176400,				\
-+		},							\
-+		.name = #did,						\
-+		.id = did,						\
-+	}
-+
-+#define Q6AFE_CDC_DMA_TX_DAI(did) {				\
-+		.capture = {						\
-+			.stream_name = #did" Capture",		\
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
-+				SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
-+				SNDRV_PCM_RATE_176400,			\
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |		\
-+				   SNDRV_PCM_FMTBIT_S24_LE |		\
-+				   SNDRV_PCM_FMTBIT_S32_LE,		\
-+			.channels_min = 1,				\
-+			.channels_max = 8,				\
-+			.rate_min = 8000,				\
-+			.rate_max = 176400,				\
-+		},							\
-+		.name = #did,						\
-+		.id = did,						\
-+	}
++#define Q6DSP_MAX_CLK_ID			104
++#define Q6DSP_LPASS_CLK_ROOT_DEFAULT		0
 +
 +
-+static struct snd_soc_dai_driver q6dsp_audio_fe_dais[] = {
-+	{
-+		.playback = {
-+			.stream_name = "HDMI Playback",
-+			.rates = SNDRV_PCM_RATE_48000 |
-+				 SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 2,
-+			.channels_max = 8,
-+			.rate_max =     192000,
-+			.rate_min =	48000,
-+		},
-+		.id = HDMI_RX,
-+		.name = "HDMI",
-+	}, {
-+		.name = "SLIMBUS_0_RX",
-+		.id = SLIMBUS_0_RX,
-+		.playback = {
-+			.stream_name = "Slimbus Playback",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+	}, {
-+		.name = "SLIMBUS_0_TX",
-+		.id = SLIMBUS_0_TX,
-+		.capture = {
-+			.stream_name = "Slimbus Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+	}, {
-+		.playback = {
-+			.stream_name = "Slimbus1 Playback",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
-+				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+		.name = "SLIMBUS_1_RX",
-+		.id = SLIMBUS_1_RX,
-+	}, {
-+		.name = "SLIMBUS_1_TX",
-+		.id = SLIMBUS_1_TX,
-+		.capture = {
-+			.stream_name = "Slimbus1 Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+	}, {
-+		.playback = {
-+			.stream_name = "Slimbus2 Playback",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+		.name = "SLIMBUS_2_RX",
-+		.id = SLIMBUS_2_RX,
-+
-+	}, {
-+		.name = "SLIMBUS_2_TX",
-+		.id = SLIMBUS_2_TX,
-+		.capture = {
-+			.stream_name = "Slimbus2 Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+	}, {
-+		.playback = {
-+			.stream_name = "Slimbus3 Playback",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
-+				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+		.name = "SLIMBUS_3_RX",
-+		.id = SLIMBUS_3_RX,
-+
-+	}, {
-+		.name = "SLIMBUS_3_TX",
-+		.id = SLIMBUS_3_TX,
-+		.capture = {
-+			.stream_name = "Slimbus3 Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+	}, {
-+		.playback = {
-+			.stream_name = "Slimbus4 Playback",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
-+				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+		.name = "SLIMBUS_4_RX",
-+		.id = SLIMBUS_4_RX,
-+
-+	}, {
-+		.name = "SLIMBUS_4_TX",
-+		.id = SLIMBUS_4_TX,
-+		.capture = {
-+			.stream_name = "Slimbus4 Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+	}, {
-+		.playback = {
-+			.stream_name = "Slimbus5 Playback",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
-+				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+		.name = "SLIMBUS_5_RX",
-+		.id = SLIMBUS_5_RX,
-+
-+	}, {
-+		.name = "SLIMBUS_5_TX",
-+		.id = SLIMBUS_5_TX,
-+		.capture = {
-+			.stream_name = "Slimbus5 Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+	}, {
-+		.playback = {
-+			.stream_name = "Slimbus6 Playback",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
-+				 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+		.name = "SLIMBUS_6_RX",
-+		.id = SLIMBUS_6_RX,
-+
-+	}, {
-+		.name = "SLIMBUS_6_TX",
-+		.id = SLIMBUS_6_TX,
-+		.capture = {
-+			.stream_name = "Slimbus6 Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+		},
-+	}, {
-+		.playback = {
-+			.stream_name = "Primary MI2S Playback",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     48000,
-+		},
-+		.id = PRIMARY_MI2S_RX,
-+		.name = "PRI_MI2S_RX",
-+	}, {
-+		.capture = {
-+			.stream_name = "Primary MI2S Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     48000,
-+		},
-+		.id = PRIMARY_MI2S_TX,
-+		.name = "PRI_MI2S_TX",
-+	}, {
-+		.playback = {
-+			.stream_name = "Secondary MI2S Playback",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     48000,
-+		},
-+		.name = "SEC_MI2S_RX",
-+		.id = SECONDARY_MI2S_RX,
-+	}, {
-+		.capture = {
-+			.stream_name = "Secondary MI2S Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     48000,
-+		},
-+		.id = SECONDARY_MI2S_TX,
-+		.name = "SEC_MI2S_TX",
-+	}, {
-+		.playback = {
-+			.stream_name = "Tertiary MI2S Playback",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     48000,
-+		},
-+		.name = "TERT_MI2S_RX",
-+		.id = TERTIARY_MI2S_RX,
-+	}, {
-+		.capture = {
-+			.stream_name = "Tertiary MI2S Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     48000,
-+		},
-+		.id = TERTIARY_MI2S_TX,
-+		.name = "TERT_MI2S_TX",
-+	}, {
-+		.playback = {
-+			.stream_name = "Quaternary MI2S Playback",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     48000,
-+		},
-+		.name = "QUAT_MI2S_RX",
-+		.id = QUATERNARY_MI2S_RX,
-+	}, {
-+		.capture = {
-+			.stream_name = "Quaternary MI2S Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     48000,
-+		},
-+		.id = QUATERNARY_MI2S_TX,
-+		.name = "QUAT_MI2S_TX",
-+	}, {
-+		.playback = {
-+			.stream_name = "Quinary MI2S Playback",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+			SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_96000 |
-+			SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     192000,
-+		},
-+		.id = QUINARY_MI2S_RX,
-+		.name = "QUIN_MI2S_RX",
-+	}, {
-+		.capture = {
-+			.stream_name = "Quinary MI2S Capture",
-+			.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_8000 |
-+				 SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+			.channels_min = 1,
-+			.channels_max = 8,
-+			.rate_min =     8000,
-+			.rate_max =     48000,
-+		},
-+		.id = QUINARY_MI2S_TX,
-+		.name = "QUIN_MI2S_TX",
-+	},
-+	Q6AFE_TDM_PB_DAI("Primary", 0, PRIMARY_TDM_RX_0),
-+	Q6AFE_TDM_PB_DAI("Primary", 1, PRIMARY_TDM_RX_1),
-+	Q6AFE_TDM_PB_DAI("Primary", 2, PRIMARY_TDM_RX_2),
-+	Q6AFE_TDM_PB_DAI("Primary", 3, PRIMARY_TDM_RX_3),
-+	Q6AFE_TDM_PB_DAI("Primary", 4, PRIMARY_TDM_RX_4),
-+	Q6AFE_TDM_PB_DAI("Primary", 5, PRIMARY_TDM_RX_5),
-+	Q6AFE_TDM_PB_DAI("Primary", 6, PRIMARY_TDM_RX_6),
-+	Q6AFE_TDM_PB_DAI("Primary", 7, PRIMARY_TDM_RX_7),
-+	Q6AFE_TDM_CAP_DAI("Primary", 0, PRIMARY_TDM_TX_0),
-+	Q6AFE_TDM_CAP_DAI("Primary", 1, PRIMARY_TDM_TX_1),
-+	Q6AFE_TDM_CAP_DAI("Primary", 2, PRIMARY_TDM_TX_2),
-+	Q6AFE_TDM_CAP_DAI("Primary", 3, PRIMARY_TDM_TX_3),
-+	Q6AFE_TDM_CAP_DAI("Primary", 4, PRIMARY_TDM_TX_4),
-+	Q6AFE_TDM_CAP_DAI("Primary", 5, PRIMARY_TDM_TX_5),
-+	Q6AFE_TDM_CAP_DAI("Primary", 6, PRIMARY_TDM_TX_6),
-+	Q6AFE_TDM_CAP_DAI("Primary", 7, PRIMARY_TDM_TX_7),
-+	Q6AFE_TDM_PB_DAI("Secondary", 0, SECONDARY_TDM_RX_0),
-+	Q6AFE_TDM_PB_DAI("Secondary", 1, SECONDARY_TDM_RX_1),
-+	Q6AFE_TDM_PB_DAI("Secondary", 2, SECONDARY_TDM_RX_2),
-+	Q6AFE_TDM_PB_DAI("Secondary", 3, SECONDARY_TDM_RX_3),
-+	Q6AFE_TDM_PB_DAI("Secondary", 4, SECONDARY_TDM_RX_4),
-+	Q6AFE_TDM_PB_DAI("Secondary", 5, SECONDARY_TDM_RX_5),
-+	Q6AFE_TDM_PB_DAI("Secondary", 6, SECONDARY_TDM_RX_6),
-+	Q6AFE_TDM_PB_DAI("Secondary", 7, SECONDARY_TDM_RX_7),
-+	Q6AFE_TDM_CAP_DAI("Secondary", 0, SECONDARY_TDM_TX_0),
-+	Q6AFE_TDM_CAP_DAI("Secondary", 1, SECONDARY_TDM_TX_1),
-+	Q6AFE_TDM_CAP_DAI("Secondary", 2, SECONDARY_TDM_TX_2),
-+	Q6AFE_TDM_CAP_DAI("Secondary", 3, SECONDARY_TDM_TX_3),
-+	Q6AFE_TDM_CAP_DAI("Secondary", 4, SECONDARY_TDM_TX_4),
-+	Q6AFE_TDM_CAP_DAI("Secondary", 5, SECONDARY_TDM_TX_5),
-+	Q6AFE_TDM_CAP_DAI("Secondary", 6, SECONDARY_TDM_TX_6),
-+	Q6AFE_TDM_CAP_DAI("Secondary", 7, SECONDARY_TDM_TX_7),
-+	Q6AFE_TDM_PB_DAI("Tertiary", 0, TERTIARY_TDM_RX_0),
-+	Q6AFE_TDM_PB_DAI("Tertiary", 1, TERTIARY_TDM_RX_1),
-+	Q6AFE_TDM_PB_DAI("Tertiary", 2, TERTIARY_TDM_RX_2),
-+	Q6AFE_TDM_PB_DAI("Tertiary", 3, TERTIARY_TDM_RX_3),
-+	Q6AFE_TDM_PB_DAI("Tertiary", 4, TERTIARY_TDM_RX_4),
-+	Q6AFE_TDM_PB_DAI("Tertiary", 5, TERTIARY_TDM_RX_5),
-+	Q6AFE_TDM_PB_DAI("Tertiary", 6, TERTIARY_TDM_RX_6),
-+	Q6AFE_TDM_PB_DAI("Tertiary", 7, TERTIARY_TDM_RX_7),
-+	Q6AFE_TDM_CAP_DAI("Tertiary", 0, TERTIARY_TDM_TX_0),
-+	Q6AFE_TDM_CAP_DAI("Tertiary", 1, TERTIARY_TDM_TX_1),
-+	Q6AFE_TDM_CAP_DAI("Tertiary", 2, TERTIARY_TDM_TX_2),
-+	Q6AFE_TDM_CAP_DAI("Tertiary", 3, TERTIARY_TDM_TX_3),
-+	Q6AFE_TDM_CAP_DAI("Tertiary", 4, TERTIARY_TDM_TX_4),
-+	Q6AFE_TDM_CAP_DAI("Tertiary", 5, TERTIARY_TDM_TX_5),
-+	Q6AFE_TDM_CAP_DAI("Tertiary", 6, TERTIARY_TDM_TX_6),
-+	Q6AFE_TDM_CAP_DAI("Tertiary", 7, TERTIARY_TDM_TX_7),
-+	Q6AFE_TDM_PB_DAI("Quaternary", 0, QUATERNARY_TDM_RX_0),
-+	Q6AFE_TDM_PB_DAI("Quaternary", 1, QUATERNARY_TDM_RX_1),
-+	Q6AFE_TDM_PB_DAI("Quaternary", 2, QUATERNARY_TDM_RX_2),
-+	Q6AFE_TDM_PB_DAI("Quaternary", 3, QUATERNARY_TDM_RX_3),
-+	Q6AFE_TDM_PB_DAI("Quaternary", 4, QUATERNARY_TDM_RX_4),
-+	Q6AFE_TDM_PB_DAI("Quaternary", 5, QUATERNARY_TDM_RX_5),
-+	Q6AFE_TDM_PB_DAI("Quaternary", 6, QUATERNARY_TDM_RX_6),
-+	Q6AFE_TDM_PB_DAI("Quaternary", 7, QUATERNARY_TDM_RX_7),
-+	Q6AFE_TDM_CAP_DAI("Quaternary", 0, QUATERNARY_TDM_TX_0),
-+	Q6AFE_TDM_CAP_DAI("Quaternary", 1, QUATERNARY_TDM_TX_1),
-+	Q6AFE_TDM_CAP_DAI("Quaternary", 2, QUATERNARY_TDM_TX_2),
-+	Q6AFE_TDM_CAP_DAI("Quaternary", 3, QUATERNARY_TDM_TX_3),
-+	Q6AFE_TDM_CAP_DAI("Quaternary", 4, QUATERNARY_TDM_TX_4),
-+	Q6AFE_TDM_CAP_DAI("Quaternary", 5, QUATERNARY_TDM_TX_5),
-+	Q6AFE_TDM_CAP_DAI("Quaternary", 6, QUATERNARY_TDM_TX_6),
-+	Q6AFE_TDM_CAP_DAI("Quaternary", 7, QUATERNARY_TDM_TX_7),
-+	Q6AFE_TDM_PB_DAI("Quinary", 0, QUINARY_TDM_RX_0),
-+	Q6AFE_TDM_PB_DAI("Quinary", 1, QUINARY_TDM_RX_1),
-+	Q6AFE_TDM_PB_DAI("Quinary", 2, QUINARY_TDM_RX_2),
-+	Q6AFE_TDM_PB_DAI("Quinary", 3, QUINARY_TDM_RX_3),
-+	Q6AFE_TDM_PB_DAI("Quinary", 4, QUINARY_TDM_RX_4),
-+	Q6AFE_TDM_PB_DAI("Quinary", 5, QUINARY_TDM_RX_5),
-+	Q6AFE_TDM_PB_DAI("Quinary", 6, QUINARY_TDM_RX_6),
-+	Q6AFE_TDM_PB_DAI("Quinary", 7, QUINARY_TDM_RX_7),
-+	Q6AFE_TDM_CAP_DAI("Quinary", 0, QUINARY_TDM_TX_0),
-+	Q6AFE_TDM_CAP_DAI("Quinary", 1, QUINARY_TDM_TX_1),
-+	Q6AFE_TDM_CAP_DAI("Quinary", 2, QUINARY_TDM_TX_2),
-+	Q6AFE_TDM_CAP_DAI("Quinary", 3, QUINARY_TDM_TX_3),
-+	Q6AFE_TDM_CAP_DAI("Quinary", 4, QUINARY_TDM_TX_4),
-+	Q6AFE_TDM_CAP_DAI("Quinary", 5, QUINARY_TDM_TX_5),
-+	Q6AFE_TDM_CAP_DAI("Quinary", 6, QUINARY_TDM_TX_6),
-+	Q6AFE_TDM_CAP_DAI("Quinary", 7, QUINARY_TDM_TX_7),
-+	{
-+		.playback = {
-+			.stream_name = "Display Port Playback",
-+			.rates = SNDRV_PCM_RATE_48000 |
-+				 SNDRV_PCM_RATE_96000 |
-+				 SNDRV_PCM_RATE_192000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.channels_min = 2,
-+			.channels_max = 8,
-+			.rate_max =     192000,
-+			.rate_min =	48000,
-+		},
-+		.id = DISPLAY_PORT_RX,
-+		.name = "DISPLAY_PORT",
-+	},
-+	Q6AFE_CDC_DMA_RX_DAI(WSA_CODEC_DMA_RX_0),
-+	Q6AFE_CDC_DMA_TX_DAI(WSA_CODEC_DMA_TX_0),
-+	Q6AFE_CDC_DMA_RX_DAI(WSA_CODEC_DMA_RX_1),
-+	Q6AFE_CDC_DMA_TX_DAI(WSA_CODEC_DMA_TX_1),
-+	Q6AFE_CDC_DMA_TX_DAI(WSA_CODEC_DMA_TX_2),
-+	Q6AFE_CDC_DMA_TX_DAI(VA_CODEC_DMA_TX_0),
-+	Q6AFE_CDC_DMA_TX_DAI(VA_CODEC_DMA_TX_1),
-+	Q6AFE_CDC_DMA_TX_DAI(VA_CODEC_DMA_TX_2),
-+	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_0),
-+	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_0),
-+	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_1),
-+	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_1),
-+	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_2),
-+	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_2),
-+	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_3),
-+	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_3),
-+	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_4),
-+	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_4),
-+	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_5),
-+	Q6AFE_CDC_DMA_TX_DAI(TX_CODEC_DMA_TX_5),
-+	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_6),
-+	Q6AFE_CDC_DMA_RX_DAI(RX_CODEC_DMA_RX_7),
++struct q6dsp_clk {
++	struct device *dev;
++	int q6dsp_clk_id;
++	int attributes;
++	int rate;
++	uint32_t handle;
++	struct clk_hw hw;
 +};
 +
-+int q6dsp_audio_ports_of_xlate_dai_name(struct snd_soc_component *component,
-+					const struct of_phandle_args *args,
-+					const char **dai_name)
-+{
-+	int id = args->args[0];
-+	int ret = -EINVAL;
-+	int i;
++#define to_q6dsp_clk(_hw) container_of(_hw, struct q6dsp_clk, hw)
 +
-+	for (i = 0; i  < ARRAY_SIZE(q6dsp_audio_fe_dais); i++) {
-+		if (q6dsp_audio_fe_dais[i].id == id) {
-+			*dai_name = q6dsp_audio_fe_dais[i].name;
-+			ret = 0;
-+			break;
-+		}
++struct q6dsp_cc {
++	struct device *dev;
++	struct q6dsp_clk *clks[Q6DSP_MAX_CLK_ID];
++	const struct q6dsp_clk_desc *desc;
++};
++
++static int clk_q6dsp_prepare(struct clk_hw *hw)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++	struct q6dsp_cc *cc = dev_get_drvdata(clk->dev);
++
++	return cc->desc->lpass_set_clk(clk->dev, clk->q6dsp_clk_id, clk->attributes,
++				     Q6DSP_LPASS_CLK_ROOT_DEFAULT, clk->rate);
++}
++
++static void clk_q6dsp_unprepare(struct clk_hw *hw)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++	struct q6dsp_cc *cc = dev_get_drvdata(clk->dev);
++
++	cc->desc->lpass_set_clk(clk->dev, clk->q6dsp_clk_id, clk->attributes,
++			      Q6DSP_LPASS_CLK_ROOT_DEFAULT, 0);
++}
++
++static int clk_q6dsp_set_rate(struct clk_hw *hw, unsigned long rate,
++			      unsigned long parent_rate)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++
++	clk->rate = rate;
++
++	return 0;
++}
++
++static unsigned long clk_q6dsp_recalc_rate(struct clk_hw *hw,
++					   unsigned long parent_rate)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++
++	return clk->rate;
++}
++
++static long clk_q6dsp_round_rate(struct clk_hw *hw, unsigned long rate,
++				 unsigned long *parent_rate)
++{
++	return rate;
++}
++
++static const struct clk_ops clk_q6dsp_ops = {
++	.prepare	= clk_q6dsp_prepare,
++	.unprepare	= clk_q6dsp_unprepare,
++	.set_rate	= clk_q6dsp_set_rate,
++	.round_rate	= clk_q6dsp_round_rate,
++	.recalc_rate	= clk_q6dsp_recalc_rate,
++};
++
++static int clk_vote_q6dsp_block(struct clk_hw *hw)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++	struct q6dsp_cc *cc = dev_get_drvdata(clk->dev);
++
++	return cc->desc->lpass_vote_clk(clk->dev, clk->q6dsp_clk_id,
++				  clk_hw_get_name(&clk->hw), &clk->handle);
++}
++
++static void clk_unvote_q6dsp_block(struct clk_hw *hw)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++	struct q6dsp_cc *cc = dev_get_drvdata(clk->dev);
++
++	cc->desc->lpass_unvote_clk(clk->dev, clk->q6dsp_clk_id, clk->handle);
++}
++
++static const struct clk_ops clk_vote_q6dsp_ops = {
++	.prepare	= clk_vote_q6dsp_block,
++	.unprepare	= clk_unvote_q6dsp_block,
++};
++
++
++static struct clk_hw *q6dsp_of_clk_hw_get(struct of_phandle_args *clkspec,
++					  void *data)
++{
++	struct q6dsp_cc *cc = data;
++	unsigned int idx = clkspec->args[0];
++	unsigned int attr = clkspec->args[1];
++
++	if (idx >= Q6DSP_MAX_CLK_ID || attr > LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR) {
++		dev_err(cc->dev, "Invalid clk specifier (%d, %d)\n", idx, attr);
++		return ERR_PTR(-EINVAL);
 +	}
 +
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(q6dsp_audio_ports_of_xlate_dai_name);
-+
-+struct snd_soc_dai_driver *q6dsp_audio_ports_set_config(struct device *dev,
-+				struct q6dsp_audio_port_dai_driver_config *cfg,
-+				int *num_dais)
-+{
-+	int i;
-+
-+	for (i = 0; i  < ARRAY_SIZE(q6dsp_audio_fe_dais); i++) {
-+		q6dsp_audio_fe_dais[i].probe = cfg->probe;
-+		q6dsp_audio_fe_dais[i].remove = cfg->remove;
-+
-+		switch (q6dsp_audio_fe_dais[i].id) {
-+		case HDMI_RX:
-+		case DISPLAY_PORT_RX:
-+			q6dsp_audio_fe_dais[i].ops = cfg->q6hdmi_ops;
-+			break;
-+		case SLIMBUS_0_RX ... SLIMBUS_6_TX:
-+			q6dsp_audio_fe_dais[i].ops = cfg->q6slim_ops;
-+			break;
-+		case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
-+		case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
-+			q6dsp_audio_fe_dais[i].ops = cfg->q6i2s_ops;
-+			break;
-+		case PRIMARY_TDM_RX_0 ... QUINARY_TDM_TX_7:
-+			q6dsp_audio_fe_dais[i].ops = cfg->q6tdm_ops;
-+			break;
-+		case WSA_CODEC_DMA_RX_0 ... RX_CODEC_DMA_RX_7:
-+			q6dsp_audio_fe_dais[i].ops = cfg->q6dma_ops;
-+			break;
-+		default:
-+			break;
-+		}
++	if (cc->clks[idx]) {
++		cc->clks[idx]->attributes = attr;
++		return &cc->clks[idx]->hw;
 +	}
 +
-+	*num_dais = ARRAY_SIZE(q6dsp_audio_fe_dais);
-+	return q6dsp_audio_fe_dais;
++	return ERR_PTR(-ENOENT);
 +}
-+EXPORT_SYMBOL_GPL(q6dsp_audio_ports_set_config);
-diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h
++
++int q6dsp_clock_dev_probe(struct platform_device *pdev)
++{
++	struct q6dsp_cc *cc;
++	struct device *dev = &pdev->dev;
++	const struct q6dsp_clk_init *q6dsp_clks;
++	const struct q6dsp_clk_desc *desc;
++	int i, ret;
++
++	cc = devm_kzalloc(dev, sizeof(*cc), GFP_KERNEL);
++	if (!cc)
++		return -ENOMEM;
++
++	desc = of_device_get_match_data(&pdev->dev);
++	if (!desc)
++		return -EINVAL;
++
++	cc->desc = desc;
++	cc->dev = dev;
++	q6dsp_clks = desc->clks;
++
++	for (i = 0; i < desc->num_clks; i++) {
++		unsigned int id = q6dsp_clks[i].clk_id;
++		struct clk_init_data init = {
++			.name =  q6dsp_clks[i].name,
++		};
++		struct q6dsp_clk *clk;
++
++		clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
++		if (!clk)
++			return -ENOMEM;
++
++		clk->dev = dev;
++		clk->q6dsp_clk_id = q6dsp_clks[i].q6dsp_clk_id;
++		clk->rate = q6dsp_clks[i].rate;
++		clk->hw.init = &init;
++
++		if (clk->rate)
++			init.ops = &clk_q6dsp_ops;
++		else
++			init.ops = &clk_vote_q6dsp_ops;
++
++		cc->clks[id] = clk;
++
++		ret = devm_clk_hw_register(dev, &clk->hw);
++		if (ret)
++			return ret;
++	}
++
++	ret = devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
++	if (ret)
++		return ret;
++
++	dev_set_drvdata(dev, cc);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(q6dsp_clock_dev_probe);
+diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h
 new file mode 100644
-index 000000000000..7f052c8a1257
+index 000000000000..3770d81f2bd6
 --- /dev/null
-+++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h
-@@ -0,0 +1,22 @@
++++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h
+@@ -0,0 +1,30 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +
-+#ifndef __Q6DSP_AUDIO_PORTS_H__
-+#define __Q6DSP_AUDIO_PORTS_H__
++#ifndef __Q6DSP_AUDIO_CLOCKS_H__
++#define __Q6DSP_AUDIO_CLOCKS_H__
 +
-+struct q6dsp_audio_port_dai_driver_config {
-+	int (*probe)(struct snd_soc_dai *dai);
-+	int (*remove)(struct snd_soc_dai *dai);
-+	const struct snd_soc_dai_ops *q6hdmi_ops;
-+	const struct snd_soc_dai_ops *q6slim_ops;
-+	const struct snd_soc_dai_ops *q6i2s_ops;
-+	const struct snd_soc_dai_ops *q6tdm_ops;
-+	const struct snd_soc_dai_ops *q6dma_ops;
++struct q6dsp_clk_init {
++	int clk_id;
++	int q6dsp_clk_id;
++	char *name;
++	int rate;
 +};
 +
-+struct snd_soc_dai_driver *q6dsp_audio_ports_set_config(struct device *dev,
-+					struct q6dsp_audio_port_dai_driver_config *cfg,
-+					int *num_dais);
-+int q6dsp_audio_ports_of_xlate_dai_name(struct snd_soc_component *component,
-+					const struct of_phandle_args *args,
-+					const char **dai_name);
-+#endif /* __Q6DSP_AUDIO_PORTS_H__ */
++#define Q6DSP_VOTE_CLK(id, blkid, n) {			\
++		.clk_id	= id,				\
++		.q6dsp_clk_id = blkid,			\
++		.name = n,				\
++	}
++
++struct q6dsp_clk_desc {
++	const struct q6dsp_clk_init *clks;
++	size_t num_clks;
++	int (*lpass_set_clk)(struct device *dev, int clk_id, int attr,
++			      int root_clk, unsigned int freq);
++	int (*lpass_vote_clk)(struct device *dev, uint32_t hid, const char *n, uint32_t *h);
++	int (*lpass_unvote_clk)(struct device *dev, uint32_t hid, uint32_t h);
++};
++
++int q6dsp_clock_dev_probe(struct platform_device *pdev);
++
++#endif  /* __Q6DSP_AUDIO_CLOCKS_H__ */
 -- 
 2.21.0
 

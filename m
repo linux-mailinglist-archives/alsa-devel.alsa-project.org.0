@@ -2,82 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF5343C2F3
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 08:25:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F272843C32F
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 08:46:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 430F016BA;
-	Wed, 27 Oct 2021 08:24:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 430F016BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E40C16D4;
+	Wed, 27 Oct 2021 08:45:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E40C16D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635315921;
-	bh=+Zsgg68dtrM4YjODbLjWCUSrP04Xsz5iyDRe1GH6M8k=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=hhJ3RO49ZdqWEyoO7iObqHcrBJ0OdI6Gk5qJr4R+h/WNWgeH2DBn1E3pi54VV7wLZ
-	 0fFtnmscyGj9Jbuoh97u8jHrUq8rPi2pNnTWsQxZQZXYE1k01MyfXjRaMHvt6lBWNe
-	 gSS2VhHE3BodpxS2QUNg1UtnJQUUU3SwKc6NAsTA=
+	s=default; t=1635317176;
+	bh=3s1vcwYSSzx6oQj+7hiU3nwliO5IFKN785/KQtbvAuQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=klt0U0lG0D44GOdrfkXxUQLeJZV3d9JXYW9honOhbtdxYB1kMWS31RbXGoMDrtrPR
+	 8MRzdVV8264U+RWs3cSA9GZP/6YewCRyVPYMjvZoF7WuSs4ohSj+bhg/1pB1fqsJ9k
+	 Bc0uLJ0c08V8fhZ7V2lsSKBgpxtA8nPHycxfur90=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD3A5F800D1;
-	Wed, 27 Oct 2021 08:24:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC2A8F8025A;
+	Wed, 27 Oct 2021 08:44:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B890DF8025A; Wed, 27 Oct 2021 08:24:01 +0200 (CEST)
+ id CDF5BF8025A; Wed, 27 Oct 2021 08:44:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 145D2F800D1
- for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 08:23:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 145D2F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="HjL3NWIt"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="87RWXEyS"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 9341B1FD47;
- Wed, 27 Oct 2021 06:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635315836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Ua2RExmAJ4Oar37g/9kkjA5B9D0zknkT1W1DLUdKtBM=;
- b=HjL3NWItkFHCKayxxs+U+EBdLODYLkZ9H4E8ixvmJgbs9+akqz7QyYghW438CWKxNVPxFN
- b/dPfc/TwNA44/Os1cwQLGwOGMiuKSdtPpHr7dN3qBRZ6e/MYaVtTepaP5jxfFaZBqdNiZ
- txx8NmpaOQWxuG6qNxvKv2eHQgyqdVk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635315836;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Ua2RExmAJ4Oar37g/9kkjA5B9D0zknkT1W1DLUdKtBM=;
- b=87RWXEySjuuV1rfZGI1en85DOa9KoUPwsd3fTNMkQ7tCxyYi+sQ5C24i5BY4lgujeBqRUU
- wQ4izBLJJo8TZtAQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 67326A3B81;
- Wed, 27 Oct 2021 06:23:56 +0000 (UTC)
-Date: Wed, 27 Oct 2021 08:23:56 +0200
-Message-ID: <s5h7ddzx9xf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Johan Hovold <johan@kernel.org>
-Subject: Re: [PATCH] sound: ua101: fix division by zero at probe
-In-Reply-To: <20211026095401.26522-1-johan@kernel.org>
-References: <20211026095401.26522-1-johan@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- Clemens Ladisch <clemens@ladisch.de>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F4015F800D1
+ for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 08:44:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F4015F800D1
+Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4HfJvx5ZB1zbnRW;
+ Wed, 27 Oct 2021 14:39:57 +0800 (CST)
+Received: from dggpeml500017.china.huawei.com (7.185.36.243) by
+ dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.15; Wed, 27 Oct 2021 14:44:35 +0800
+Received: from huawei.com (10.175.103.91) by dggpeml500017.china.huawei.com
+ (7.185.36.243) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Wed, 27 Oct
+ 2021 14:44:35 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH -next] ASoC: amd: acp: Fix return value check in
+ acp_machine_select()
+Date: Wed, 27 Oct 2021 14:52:28 +0800
+Message-ID: <20211027065228.833825-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpeml500017.china.huawei.com (7.185.36.243)
+X-CFilter-Loop: Reflected
+Cc: lgirdwood@gmail.com, broonie@kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,23 +76,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 26 Oct 2021 11:54:01 +0200,
-Johan Hovold wrote:
-> 
-> Add the missing endpoint max-packet sanity check to probe() to avoid
-> division by zero in alloc_stream_buffers() in case a malicious device
-> has broken descriptors (or when doing descriptor fuzz testing).
-> 
-> Note that USB core will reject URBs submitted for endpoints with zero
-> wMaxPacketSize but that drivers doing packet-size calculations still
-> need to handle this (cf. commit 2548288b4fb0 ("USB: Fix: Don't skip
-> endpoint descriptors with maxpacket=0")).
-> 
-> Fixes: 63978ab3e3e9 ("sound: add Edirol UA-101 support")
-> Cc: stable@vger.kernel.org      # 2.6.34
-> Signed-off-by: Johan Hovold <johan@kernel.org>
+In case of error, platform_device_register_data() returns ERR_PTR()
+and never returns NULL. The NULL test in the return value check
+should be replaced with IS_ERR().
 
-Thanks, applied.
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Fixes: e646b51f5dd5 ("ASoC: amd: acp: Add callback for machine driver on ACP")
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+---
+ sound/soc/amd/acp/acp-platform.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/sound/soc/amd/acp/acp-platform.c b/sound/soc/amd/acp/acp-platform.c
+index 75003d0a41e3..65a809e2c29f 100644
+--- a/sound/soc/amd/acp/acp-platform.c
++++ b/sound/soc/amd/acp/acp-platform.c
+@@ -81,7 +81,7 @@ int acp_machine_select(struct acp_dev_data *adata)
+ 
+ 	adata->mach_dev = platform_device_register_data(adata->dev, mach->drv_name,
+ 							PLATFORM_DEVID_NONE, mach, size);
+-	if (!adata->mach_dev)
++	if (IS_ERR(adata->mach_dev))
+ 		dev_warn(adata->dev, "Unable to register Machine device\n");
+ 
+ 	return 0;
+-- 
+2.25.1
 
-Takashi

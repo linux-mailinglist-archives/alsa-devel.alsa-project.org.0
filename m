@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D113043CFBA
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 19:31:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2236143CFBD
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 19:31:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E51E16B1;
-	Wed, 27 Oct 2021 19:30:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E51E16B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7683816B4;
+	Wed, 27 Oct 2021 19:30:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7683816B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635355862;
-	bh=QsB0o9iZyLniecSH1J6KAGYPmw5EvswLCa0a3kuGrW4=;
+	s=default; t=1635355885;
+	bh=ktlPmVCSuV7Ef/nALqcRLnbx6/f5ml2xH/fYWgAsxJc=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RqoiJbYy9FQkTg9zyJeO16drDxFusCL9Cg3REbtE0AfVNaPyUVCimbx29LkPzSA5x
-	 mln/YzTogd02QlVBiTwy7Uehn3hWs+faDiG+wkqcrdhIguzTi81zTri/Q+fKtA24ZZ
-	 rZFLROrVz2Yc15z4EaTMlhmh3zy2AWi7Zm57h3qE=
+	b=LWSCf0SkUSmiJpwCuUL3IPHzJLWMK2GulmNqZhfwl5DWj0nv/kE+WBA/4YuiYNk3O
+	 ZJtgCYHIR7gPXwmVmEQxLW3GgarzSNlLP/NuqHlrrenC6t7Sqw9yi/nLASDHAdUMsW
+	 HgeRf8naScZ/h0xhBkkN5UsgRsuYz3N1AscyOm0A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66B7EF8010A;
-	Wed, 27 Oct 2021 19:29:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3CEDF8032B;
+	Wed, 27 Oct 2021 19:29:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CF20F8010A; Wed, 27 Oct 2021 19:29:19 +0200 (CEST)
+ id 66D05F8027B; Wed, 27 Oct 2021 19:29:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18794F8010A
- for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 19:29:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18794F8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63E4FF8016C
+ for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 19:29:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63E4FF8016C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WQ7HIJXm"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8C33560F02;
- Wed, 27 Oct 2021 17:29:08 +0000 (UTC)
+ header.b="pL0ARhvI"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 77B9E60E78;
+ Wed, 27 Oct 2021 17:29:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635355750;
- bh=QsB0o9iZyLniecSH1J6KAGYPmw5EvswLCa0a3kuGrW4=;
+ s=k20201202; t=1635355751;
+ bh=ktlPmVCSuV7Ef/nALqcRLnbx6/f5ml2xH/fYWgAsxJc=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=WQ7HIJXmQ2+MORKZl3R7A/w7XIl5BaHZshrFqk1Smo0fjiTSRjoX5PXbDGLjRGM9p
- NVYN0Qb/xG+HhYFYMv1z8ZSbG8xn//QdI2HaTVmxY3vz1r2BglzI9AetTcfVqxhmOc
- MSwbU17AECX9GKQwf+h5lScTjNgTXqc+fZGvefpWRMQ9bBrR1WXt5KYIwCAkHGWO6/
- J/cFafh+MqulN8bXThC30Yzx3whQlCPRmfm0VSpFaYE//L5UnWM6L8ODcCD3Fx2Grb
- cQegxGDcdHfWhYwtlyeQuJ5vaDlsHK7LOD9ocfkD6qqsksxQx988946Yl3XSVmYwVj
- 45Ku0e9uPdNdg==
+ b=pL0ARhvIuTDpnZzTHvC37mnkGGdIh6TCsLk9wndwACPfzHaIB2ZwjWFPuOZdQeW7S
+ K2bSQzhP+yF/71gLYN3IYgJ0Un1DU4U5F3sx3Bzafrm8YuXEUyuTkZdXQa0Sll8AYk
+ NuzSIJlpZqQFUo3R8ES7+wNZGlMvKJhhXMZxBX2ICwqkcMi8RJP1bSYn+PEfitmcCW
+ Q71efwCnNZzfO8vL8tH34Fkt1Pvx2sWc7rNKaeOlNcNjtFBymz6CNbVaaBK3y8TwYK
+ p+WSJ0rNsiCaE5UHvmQQg5ovJLgn8OZhfgTOuWMJsYgs7vD+exLf+r36YK70xsX8vG
+ pWMq+MWdzp+JA==
 From: Mark Brown <broonie@kernel.org>
-To: David Lin <CTLIN0@nuvoton.com>
-In-Reply-To: <20211026093828.4188145-1-CTLIN0@nuvoton.com>
-References: <20211026093828.4188145-1-CTLIN0@nuvoton.com>
-Subject: Re: [PATCH 0/3] Make genaral and simple for new sof machine driver
-Message-Id: <163535574829.4012075.6799937823075242004.b4-ty@kernel.org>
-Date: Wed, 27 Oct 2021 18:29:08 +0100
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ oder_chiou@realtek.com
+In-Reply-To: <20211026081030.422481-1-angelogioacchino.delregno@collabora.com>
+References: <20211026081030.422481-1-angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH] ASoC: rt5682-i2c: Use devm_clk_get_optional for optional
+ clock
+Message-Id: <163535575023.4012075.17015997876203514512.b4-ty@kernel.org>
+Date: Wed, 27 Oct 2021 18:29:10 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, WTLI@nuvoton.com, SJLIN0@nuvoton.com,
- KCHSU0@nuvoton.com, lgirdwood@gmail.com, YHCHuang@nuvoton.com,
- mac.chiang@intel.com
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,15 +80,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 26 Oct 2021 17:38:25 +0800, David Lin wrote:
-> The series of features will make general and simple for new sof machine driver.
+On Tue, 26 Oct 2021 10:10:30 +0200, AngeloGioacchino Del Regno wrote:
+> The mclk clock is optional, but it's currently using devm_clk_get:
+> simplify the handling by using devm_clk_get_optional instead.
 > 
-> David Lin (3):
->   ASoC: nau8825: add set_jack coponment support
->   ASoC: nau8825: add disable jack detection support
->   ASoC: nau8825: add clock management for power saving
 > 
-> [...]
 
 Applied to
 
@@ -95,12 +92,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: nau8825: add set_jack coponment support
-      commit: c6167e10e76fb97d37613004046e66027b3a569b
-[2/3] ASoC: nau8825: add disable jack detection support
-      (no commit info)
-[3/3] ASoC: nau8825: add clock management for power saving
-      commit: 6133148ca08a097ed8c57d7f5a7826723273049b
+[1/1] ASoC: rt5682-i2c: Use devm_clk_get_optional for optional clock
+      commit: 709d297503e64ec3804b3b8150628656db164d4b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

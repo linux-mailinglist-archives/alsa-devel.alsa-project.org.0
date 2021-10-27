@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F133343C2EB
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 08:23:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCF5343C2F3
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 08:25:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6990016D1;
-	Wed, 27 Oct 2021 08:23:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6990016D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 430F016BA;
+	Wed, 27 Oct 2021 08:24:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 430F016BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635315839;
-	bh=a9nll6ofPsoOhOLihwsz1FYcfHjr8pg0JktlRvzSyMc=;
+	s=default; t=1635315921;
+	bh=+Zsgg68dtrM4YjODbLjWCUSrP04Xsz5iyDRe1GH6M8k=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NGUtDAWI35OIzLwSGiUKW2QGL579fQv2SgkqmzMzCUR0ZoGGodxEnFah0xt3qciaX
-	 eRXYFTBeTr0dwumwTkuUelQ421qgYnrPpsNxvsDxGfMDY7xCQCof7hXQCZrgMnexn8
-	 OWSAS0PtXDoAzWjwFNbQ1esSKfX9jqE8Rc9k3744=
+	b=hhJ3RO49ZdqWEyoO7iObqHcrBJ0OdI6Gk5qJr4R+h/WNWgeH2DBn1E3pi54VV7wLZ
+	 0fFtnmscyGj9Jbuoh97u8jHrUq8rPi2pNnTWsQxZQZXYE1k01MyfXjRaMHvt6lBWNe
+	 gSS2VhHE3BodpxS2QUNg1UtnJQUUU3SwKc6NAsTA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8614F800D1;
-	Wed, 27 Oct 2021 08:22:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD3A5F800D1;
+	Wed, 27 Oct 2021 08:24:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00800F8025A; Wed, 27 Oct 2021 08:22:39 +0200 (CEST)
+ id B890DF8025A; Wed, 27 Oct 2021 08:24:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 19FBFF800FF
- for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 08:22:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19FBFF800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 145D2F800D1
+ for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 08:23:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 145D2F800D1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="FTi+w2m2"; 
+ header.b="HjL3NWIt"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="PUegoO66"
+ header.b="87RWXEyS"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id CDCF221709;
- Wed, 27 Oct 2021 06:22:31 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 9341B1FD47;
+ Wed, 27 Oct 2021 06:23:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635315751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635315836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SZZI12AlQOcZgrZcpXcAdPI8Jp4GPJWE1TbAlTdgSpY=;
- b=FTi+w2m2v9OqqOaVMaYPh1tBmz9r6jh6fWn59cOdFKqvFnXutTHknEokmD1mrx/rGdvrQQ
- VAMu+1vSxgWyu1lA1eQFSJKK14l1vym8nT5NTH6i16o7Pp3zDK3HlIuzzj8hVnWHsJNrpn
- Ecl9+n/lCfiQwz4KhXCfuvTe7LroLGY=
+ bh=Ua2RExmAJ4Oar37g/9kkjA5B9D0zknkT1W1DLUdKtBM=;
+ b=HjL3NWItkFHCKayxxs+U+EBdLODYLkZ9H4E8ixvmJgbs9+akqz7QyYghW438CWKxNVPxFN
+ b/dPfc/TwNA44/Os1cwQLGwOGMiuKSdtPpHr7dN3qBRZ6e/MYaVtTepaP5jxfFaZBqdNiZ
+ txx8NmpaOQWxuG6qNxvKv2eHQgyqdVk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635315751;
+ s=susede2_ed25519; t=1635315836;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SZZI12AlQOcZgrZcpXcAdPI8Jp4GPJWE1TbAlTdgSpY=;
- b=PUegoO66o/3CUmm/JTlezVwseCM8NNT+8Qep4fJOdJLCG4Nqun65shZYJpnWoz6TW4mtvS
- SwSfIfTR0soI4VBQ==
+ bh=Ua2RExmAJ4Oar37g/9kkjA5B9D0zknkT1W1DLUdKtBM=;
+ b=87RWXEySjuuV1rfZGI1en85DOa9KoUPwsd3fTNMkQ7tCxyYi+sQ5C24i5BY4lgujeBqRUU
+ wQ4izBLJJo8TZtAQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C61C1A3B84;
- Wed, 27 Oct 2021 06:22:31 +0000 (UTC)
-Date: Wed, 27 Oct 2021 08:22:31 +0200
-Message-ID: <s5ha6ivx9zs.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 67326A3B81;
+ Wed, 27 Oct 2021 06:23:56 +0000 (UTC)
+Date: Wed, 27 Oct 2021 08:23:56 +0200
+Message-ID: <s5h7ddzx9xf.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH] ALSA: intel-dsp-config: add quirk for JSL devices based
- on ES8336 codec
-In-Reply-To: <20211027023254.24955-1-yung-chuan.liao@linux.intel.com>
-References: <20211027023254.24955-1-yung-chuan.liao@linux.intel.com>
+To: Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH] sound: ua101: fix division by zero at probe
+In-Reply-To: <20211026095401.26522-1-johan@kernel.org>
+References: <20211026095401.26522-1-johan@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
+Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
+ Clemens Ladisch <clemens@ladisch.de>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,30 +93,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 27 Oct 2021 04:32:54 +0200,
-Bard Liao wrote:
+On Tue, 26 Oct 2021 11:54:01 +0200,
+Johan Hovold wrote:
 > 
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Add the missing endpoint max-packet sanity check to probe() to avoid
+> division by zero in alloc_stream_buffers() in case a malicious device
+> has broken descriptors (or when doing descriptor fuzz testing).
 > 
-> These devices are based on an I2C/I2S device, we need to force the use
-> of the SOF driver otherwise the legacy HDaudio driver will be loaded -
-> only HDMI will be supported.
+> Note that USB core will reject URBs submitted for endpoints with zero
+> wMaxPacketSize but that drivers doing packet-size calculations still
+> need to handle this (cf. commit 2548288b4fb0 ("USB: Fix: Don't skip
+> endpoint descriptors with maxpacket=0")).
 > 
-> We previously added support for other Intel platforms but missed
-> JasperLake.
-> 
-> BugLink: https://github.com/thesofproject/linux/issues/3210
-> Fixes: 9d36ceab9415 ('ALSA: intel-dsp-config: add quirk for APL/GLK/TGL devices based on ES8336 codec')
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Fixes: 63978ab3e3e9 ("sound: add Edirol UA-101 support")
+> Cc: stable@vger.kernel.org      # 2.6.34
+> Signed-off-by: Johan Hovold <johan@kernel.org>
 
-As the commit still didn't reach to me but only in Mark's tree,
-it should go through asoc tree.
+Thanks, applied.
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
-
-
-thanks,
 
 Takashi

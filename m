@@ -2,95 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2734443DBF5
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 09:27:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C14143DBF6
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 09:27:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A13FA16A8;
-	Thu, 28 Oct 2021 09:26:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A13FA16A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AE3616D3;
+	Thu, 28 Oct 2021 09:26:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AE3616D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635406058;
-	bh=4OpEMrzlBwhleaoXL13bSdT1h/wb8vO/Dc92DiWDNCA=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1635406066;
+	bh=720/VTR7jh3vIR214R3F8/MejRl17qVVw6QC6wbJ2s0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UeUvmKxd4pq6nOcJ7zp17tHaCp+fw0eY91RnJdhdEQiu3h3bOr8bORSsuov9o4IIf
-	 0fjIWv22Nnmap4J4pcgutzzdyA54og+54dvfqUyBDI0GjhAbQbeSu0J1C2QvyPFfd1
-	 7+9j/25BnUAJQ2xjnzxNNwkCvdeVyH/Pz01lXCrw=
+	b=kQXSvlSrmu5xiyLu4M0v5dpTUhn8H3rSYT2k9wRjae2tNhsuQnI35WthCVGDOA7ff
+	 l3dSZRKLGoZTvSsWriDuzAu3yH1p8E0s1yScphF+6Q0C6JkHiyXYB+HIPVoLkauHoO
+	 ryBPGFUQ6MUevimx8l2UPO0Wk2hyFmaMZ7dh5DW8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57C85F804E7;
-	Thu, 28 Oct 2021 09:25:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05ADDF804F3;
+	Thu, 28 Oct 2021 09:25:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 429A5F800FF; Wed, 27 Oct 2021 15:56:50 +0200 (CEST)
+ id 6879BF8025A; Wed, 27 Oct 2021 16:21:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 638EFF800D1
+ for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 16:21:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 638EFF800D1
+Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
+ [51.254.78.96])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82027F800FF
- for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 15:56:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82027F800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com
- header.b="WzTh3e1T"
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19RB7hVo012181; 
- Wed, 27 Oct 2021 15:56:42 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : from : to
- : cc : references : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=SonikwPLivf5Wf37m9QGw9Dbl0nfvPwQE843HNWkcTc=;
- b=WzTh3e1T+lbbR0asJHNFou5wy8ymDy2S+R6rPJyrqAzstKAMap8J47xdHxMl2RgiS0FA
- GmPrGi2x3OeVUYtOCqe6mJeZ8Qnqgr3AqxOk450p67gxTAT52rOaRO+ShqQ7sCyKWJnI
- akk/0WBtQxfWvGvmNBBFHNJxGj2edblZplh16L99+Icve2UKQ3u0Y7rBt6zEBSDWSZG4
- hjGa2jeJcZtnU6/w30poOeFwKUFpEn8VYHXLg/vCxFZY0lY9ng2HR45n3c8vhiJwnllz
- Jwmg2Jsob0VeZLHlpEugPKm678F0Rb6n0r6pPAbgzUx5bSgYL/7OoJXo5clDxcl3kg2U lg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3bxputnapf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 Oct 2021 15:56:42 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6BC43100034;
- Wed, 27 Oct 2021 15:56:39 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3742D22D168;
- Wed, 27 Oct 2021 15:56:39 +0200 (CEST)
-Received: from lmecxl0573.lme.st.com (10.75.127.50) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 27 Oct
- 2021 15:56:35 +0200
+ by mail.kernel.org (Postfix) with ESMTPSA id EDBB760D42;
+ Wed, 27 Oct 2021 14:21:32 +0000 (UTC)
+Received: from sofa.misterjones.org ([185.219.108.64] helo=why.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <maz@kernel.org>)
+ id 1mfjo2-001vW7-MU; Wed, 27 Oct 2021 15:21:30 +0100
+Date: Wed, 27 Oct 2021 15:21:28 +0100
+Message-ID: <874k92blav.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Patrice CHOTARD <patrice.chotard@foss.st.com>
 Subject: Re: dt-bindings: treewide: Update @st.com email address to
  @foss.st.com
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-To: Marc Zyngier <maz@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski@canonical.com>, <joe@perches.com>
+In-Reply-To: <865a4055-5c2f-0793-bdce-9f04eac167d2@foss.st.com>
 References: <20211020065000.21312-1-patrice.chotard@foss.st.com>
  <22fb6f19-21eb-dcb5-fa31-bb243d4a7eaf@canonical.com>
  <878ryoc4dc.wl-maz@kernel.org>
  <82492eb2-5a5e-39a2-a058-5e2ba75323e0@foss.st.com>
-Message-ID: <865a4055-5c2f-0793-bdce-9f04eac167d2@foss.st.com>
-Date: Wed, 27 Oct 2021 15:56:35 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <82492eb2-5a5e-39a2-a058-5e2ba75323e0@foss.st.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-10-27_04,2021-10-26_01,2020-04-07_01
+ <865a4055-5c2f-0793-bdce-9f04eac167d2@foss.st.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
+ (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: patrice.chotard@foss.st.com,
+ krzysztof.kozlowski@canonical.com, joe@perches.com, robh+dt@kernel.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ mturquette@baylibre.com, sboyd@kernel.org, herbert@gondor.apana.org.au,
+ davem@davemloft.net, airlied@linux.ie, daniel@ffwll.ch,
+ thierry.reding@gmail.com, sam@ravnborg.org, yannick.fertre@foss.st.com,
+ philippe.cornu@foss.st.com, benjamin.gaignard@linaro.org, vkoul@kernel.org,
+ ohad@wizery.com, bjorn.andersson@linaro.org, baolin.wang7@gmail.com,
+ jic23@kernel.org, lars@metafoo.de, olivier.moysan@foss.st.com,
+ arnaud.pouliquen@foss.st.com, tglx@linutronix.de, jassisinghbrar@gmail.com,
+ mchehab@kernel.org, hugues.fruchet@foss.st.com, fabrice.gasnier@foss.st.com,
+ lee.jones@linaro.org, miquel.raynal@bootlin.com, richard@nod.at,
+ vigneshr@ti.com, kuba@kernel.org, srinivas.kandagatla@linaro.org,
+ kishon@ti.com, linus.walleij@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, mathieu.poirier@linaro.org, mpm@selenic.com, a.
+ zummo@towertech.it, alexandre.belloni@bootlin.com, gregkh@linuxfoundation.org,
+ rafael@kernel.org, daniel.lezcano@linaro.org, amitk@kernel.org,
+ rui.zhang@intel.com, wim@linux-watchdog.org, linux@roeck-us.net,
+ geert+renesas@glider.be, viresh.kumar@linaro.org, a.fatoum@pengutronix.de,
+ jagan@amarulasolutions.com, dillon.minfei@gmail.com, marex@denx.de,
+ laurent.pinchart@ideasonboard.com, sre@kernel.org, dmitry.torokhov@gmail.com,
+ paul@crapouillou.net, fabien.dessenne@foss.st.com,
+ christophe.roullier@foss.st.com, gabriel.fernandez@foss.st.com,
+ lionel.debieve@foss.st.com, amelie.delaunay@foss.st.com,
+ pierre-yves.mordret@foss.st.com, ludovic.barre@foss.st.com,
+ christophe.kerello@foss.st.com, p.paillet@foss.st.com, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, erwan.leray@foss.st.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-crypto@vger.kernel.org, dri-devel@lists
+ .freedesktop.org, dmaengine@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-media@vger.kernel.org,
+ linux-mtd@lists.infradead.org, netdev@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-watchdog@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
 X-Mailman-Approved-At: Thu, 28 Oct 2021 09:25:10 +0200
 Cc: Ludovic Barre <ludovic.barre@foss.st.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -106,13 +122,14 @@ Cc: Ludovic Barre <ludovic.barre@foss.st.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
  Christophe Roullier <christophe.roullier@foss.st.com>,
- linux-spi@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-crypto@vger.kernel.org, joe@perches.com,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  david airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
  thierry reding <thierry.reding@gmail.com>, linux-i2c@vger.kernel.org,
- lars-peter
- clausen <lars@metafoo.de>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- linux-clk@vger.kernel.org, Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ lars-peter clausen <lars@metafoo.de>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, linux-clk@vger.kernel.org,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>,
  Jagan Teki <jagan@amarulasolutions.com>, linux-media@vger.kernel.org,
  linux-watchdog@vger.kernel.org, Amelie Delaunay <amelie.delaunay@foss.st.com>,
  linux-gpio@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
@@ -171,60 +188,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Marc
-
-+Joe Perches
-
-On 10/27/21 8:11 AM, Patrice CHOTARD wrote:
+On Wed, 27 Oct 2021 14:56:35 +0100,
+Patrice CHOTARD <patrice.chotard@foss.st.com> wrote:
+>=20
 > Hi Marc
-> 
-> On 10/20/21 1:39 PM, Marc Zyngier wrote:
->> On Wed, 20 Oct 2021 08:45:02 +0100,
->> Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com> wrote:
->>>
->>> On 20/10/2021 08:50, patrice.chotard@foss.st.com wrote:
->>>> From: Patrice Chotard <patrice.chotard@foss.st.com>
->>>>
->>>> Not all @st.com email address are concerned, only people who have
->>>> a specific @foss.st.com email will see their entry updated.
->>>> For some people, who left the company, remove their email.
->>>>
->>>
->>> Please split simple address change from maintainer updates (removal,
->>> addition).
->>>
->>> Also would be nice to see here explained *why* are you doing this.
->>
->> And why this can't be done with a single update to .mailmap, like
->> anyone else does.
-> 
-> Thanks for the tips, yes, it will be simpler.
-> 
-> Thanks
-> Patrice
-> 
->>
->> 	M.
->>
+>=20
+> +Joe Perches
+>=20
+> On 10/27/21 8:11 AM, Patrice CHOTARD wrote:
+> > Hi Marc
+> >=20
+> > On 10/20/21 1:39 PM, Marc Zyngier wrote:
+> >> On Wed, 20 Oct 2021 08:45:02 +0100,
+> >> Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com> wrote:
+> >>>
+> >>> On 20/10/2021 08:50, patrice.chotard@foss.st.com wrote:
+> >>>> From: Patrice Chotard <patrice.chotard@foss.st.com>
+> >>>>
+> >>>> Not all @st.com email address are concerned, only people who have
+> >>>> a specific @foss.st.com email will see their entry updated.
+> >>>> For some people, who left the company, remove their email.
+> >>>>
+> >>>
+> >>> Please split simple address change from maintainer updates (removal,
+> >>> addition).
+> >>>
+> >>> Also would be nice to see here explained *why* are you doing this.
+> >>
+> >> And why this can't be done with a single update to .mailmap, like
+> >> anyone else does.
+> >=20
+> > Thanks for the tips, yes, it will be simpler.
+> >=20
+> > Thanks
+> > Patrice
+> >=20
+> >>
+> >> 	M.
+> >>
+>=20
+> I made a try by updating .mailmap with adding a new entry with my @foss.s=
+t.com email :
+>=20
+>  Pali Roh=C3=A1r <pali@kernel.org> <pali.rohar@gmail.com>
+>  Paolo 'Blaisorblade' Giarrusso <blaisorblade@yahoo.it>
+> +Patrice Chotard <patrice.chotard@foss.st.com> <patrice.chotard@st.com>
+>  Patrick Mochel <mochel@digitalimplant.org>
+>  Paul Burton <paulburton@kernel.org> <paul.burton@imgtec.com>
+>=20
+> But when running ./scripts/get_maintainer.pl Documentation/devicetree/bin=
+dings/arm/sti.yaml, by old email is still displayed
+>=20
+> Rob Herring <robh+dt@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED =
+DEVICE TREE BINDINGS)
+> Patrice Chotard <patrice.chotard@st.com> (in file)
+> devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE =
+TREE BINDINGS)
+> linux-kernel@vger.kernel.org (open list)
+>=20
+> By default, the get_maintainer.pl script is using .mailmap file
+> ($email_use_mailmap =3D 1).
+>=20
+> It seems there is an issue with get_maintainer.pl and maintainer
+> name/e-mail found in yaml file ?
 
-I made a try by updating .mailmap with adding a new entry with my @foss.st.com email :
+Try this (warning though: my Perl-foo is non-existent).
 
- Pali Rohár <pali@kernel.org> <pali.rohar@gmail.com>
- Paolo 'Blaisorblade' Giarrusso <blaisorblade@yahoo.it>
-+Patrice Chotard <patrice.chotard@foss.st.com> <patrice.chotard@st.com>
- Patrick Mochel <mochel@digitalimplant.org>
- Paul Burton <paulburton@kernel.org> <paul.burton@imgtec.com>
+	M.
 
-But when running ./scripts/get_maintainer.pl Documentation/devicetree/bindings/arm/sti.yaml, by old email is still displayed
+diff --git a/scripts/get_maintainer.pl b/scripts/get_maintainer.pl
+index 2075db0c08b8..2a84a3fb0130 100755
+--- a/scripts/get_maintainer.pl
++++ b/scripts/get_maintainer.pl
+@@ -986,6 +986,7 @@ sub get_maintainers {
+ 	    my ($name, $address) =3D parse_email($email);
+=20
+ 	    my $tmp_email =3D format_email($name, $address, $email_usename);
++	    $tmp_email =3D mailmap_email($tmp_email);
+ 	    push_email_address($tmp_email, '');
+ 	    add_role($tmp_email, 'in file');
+ 	}
 
-Rob Herring <robh+dt@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-Patrice Chotard <patrice.chotard@st.com> (in file)
-devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-linux-kernel@vger.kernel.org (open list)
-
-By default, the get_maintainer.pl script is using .mailmap file ($email_use_mailmap = 1).
-
-It seems there is an issue with get_maintainer.pl and maintainer name/e-mail found in yaml file ?
-
-Thanks
-Patrice
+--=20
+Without deviation from the norm, progress is not possible.

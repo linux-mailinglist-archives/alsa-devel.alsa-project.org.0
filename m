@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07E8A43CB9D
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 16:09:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEBEA43CB9F
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 16:09:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66DDE16B4;
-	Wed, 27 Oct 2021 16:08:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66DDE16B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A430E16CD;
+	Wed, 27 Oct 2021 16:08:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A430E16CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635343746;
-	bh=y2iUyfxogYwzRhdZU9D/AnpQNxbxN3w7Kr2HaddMK7M=;
+	s=default; t=1635343770;
+	bh=0VOKqHKCz5e2amUVVtJ7TNvQM11rkmB5GlSHXz0Y1wE=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rt0w+PRpsr2YV8+Wo+FsiLoj4Nwmdu8Gj5CVxXrUHfn+Y7PkhN4wvbWPNQSul5oxS
-	 GT+F99EMqQt45w9q9ZdYcUnGEEyO/t3KGxQ84lvDz2GW5XiTyxnfhYcbCruczYXBD7
-	 vQS8vbN2kZtWb/uXz3KJj99YwDDC/mwr/XTxtb4E=
+	b=dkA8tzwa1yO2Zm2rVfU+yLyp233wILR7FW3SoXTk4UWf2vJsNLw0occZpLMQmrgmQ
+	 jL8OAJzQvc7qSS3y6Mgb+IHu/W8goCtglQ6NOzACZRlvAU1gH3AWANt6nJj8Xh8tpw
+	 HXXNnEnMe8iO10iRtzyPQTBOmXmQMClVQfIPDYSE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D17EAF80271;
-	Wed, 27 Oct 2021 16:07:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75BC1F804E6;
+	Wed, 27 Oct 2021 16:07:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BCD46F8025E; Wed, 27 Oct 2021 16:07:46 +0200 (CEST)
+ id 232E2F8016C; Wed, 27 Oct 2021 16:07:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A6E5F800FF
- for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 16:07:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A6E5F800FF
-X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="210947199"
-X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="210947199"
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0B7DF8016C
+ for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 16:07:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0B7DF8016C
+X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="210947223"
+X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="210947223"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 07:07:35 -0700
-X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="494848956"
+ 27 Oct 2021 07:07:39 -0700
+X-IronPort-AV: E=Sophos;i="5.87,186,1631602800"; d="scan'208";a="494848995"
 Received: from deryzhov-mobl1.ccr.corp.intel.com (HELO [10.212.69.94])
  ([10.212.69.94])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 07:07:35 -0700
-Subject: Re: [PATCH 1/3] ASoC: nau8825: add set_jack coponment support
+ 27 Oct 2021 07:07:39 -0700
+Subject: Re: [PATCH 2/3] ASoC: nau8825: add disable jack detection support
 To: David Lin <CTLIN0@nuvoton.com>, broonie@kernel.org
 References: <20211027025142.25898-1-CTLIN0@nuvoton.com>
- <20211027025142.25898-2-CTLIN0@nuvoton.com>
+ <20211027025142.25898-3-CTLIN0@nuvoton.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <27e07d55-9666-9c6a-0098-4ad9ba6e9d0d@linux.intel.com>
-Date: Wed, 27 Oct 2021 09:02:37 -0500
+Message-ID: <d581eb7a-cb61-0604-fb51-d9181d3eced3@linux.intel.com>
+Date: Wed, 27 Oct 2021 09:05:04 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20211027025142.25898-2-CTLIN0@nuvoton.com>
+In-Reply-To: <20211027025142.25898-3-CTLIN0@nuvoton.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -78,15 +78,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-typo in commit subject:
-coponment -> component
 
-please use scripts/checkpatch.pl --strict --codespell
 
 On 10/26/21 9:51 PM, David Lin wrote:
-> Use set_jack ops to set jack for new machine drivers. Meanwhile,
-> the old machine drivers can still call previous export function
-> "nau8825_enable_jack_detect".
+> A feature for disabling jack detection support.
 > 
 > Co-developed-by: Mac Chiang <mac.chiang@intel.com>
 > Signed-off-by: Mac Chiang <mac.chiang@intel.com>
@@ -96,31 +91,26 @@ On 10/26/21 9:51 PM, David Lin wrote:
 >  1 file changed, 7 insertions(+)
 > 
 > diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-> index 67de0e49ccf4..c845f19b7c41 100644
+> index c845f19b7c41..a356f26735bd 100644
 > --- a/sound/soc/codecs/nau8825.c
 > +++ b/sound/soc/codecs/nau8825.c
-> @@ -2416,6 +2416,12 @@ static int __maybe_unused nau8825_resume(struct snd_soc_component *component)
->  	return 0;
->  }
+> @@ -1434,6 +1434,13 @@ int nau8825_enable_jack_detect(struct snd_soc_component *component,
 >  
-> +static int nau8825_set_jack(struct snd_soc_component *component,
-> +			    struct snd_soc_jack *jack, void *data)
-> +{
-> +	return nau8825_enable_jack_detect(component, jack);
-> +}
+>  	nau8825->jack = jack;
+>  
+> +	if (!nau8825->jack) {
+> +		regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL,
+> +				   NAU8825_HSD_AUTO_MODE | NAU8825_SPKR_DWN1R |
+> +				   NAU8825_SPKR_DWN1L, 0);
+> +		return 0;
+> +	}
 > +
 
-in some cases, this function can be called with a NULL jack argument.
-See other codec drivers, e.g.
+oh, so you've addressed my comment from the first patch but it might be
+clearer to follow the flow from other codec drivers and test the jack
+argument at a higher level, then you have an enable/disable parameter.
 
-int arizona_jack_set_jack(struct snd_soc_component *component,
-			  struct snd_soc_jack *jack, void *data)
-{
-	struct arizona_priv *info = snd_soc_component_get_drvdata(component);
-
-	if (jack)
-		return arizona_jack_enable_jack_detect(info, jack);
-	else
-		return arizona_jack_disable_jack_detect(info);
-}
-
+>  	/* Ground HP Outputs[1:0], needed for headset auto detection
+>  	 * Enable Automatic Mic/Gnd switching reading on insert interrupt[6]
+>  	 */
+> 

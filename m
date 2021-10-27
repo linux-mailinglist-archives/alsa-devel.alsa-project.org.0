@@ -2,103 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 055B143CA33
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 14:57:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97CB843CA38
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Oct 2021 14:58:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 669B516B6;
-	Wed, 27 Oct 2021 14:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 669B516B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2452316B0;
+	Wed, 27 Oct 2021 14:57:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2452316B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635339429;
-	bh=PXoj76feWjO+stdYIcdW0lwLSZrsvu8FIzFG07F2OSA=;
+	s=default; t=1635339497;
+	bh=O3i0khfu7utppplQhx9V1l67JX8HqlTjx0fQePr8Oqo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EZkvaWCiKHGsQgbDFcJEpI3Af0LSfat+XK7UH+W10EuU4ZteFf5HUtIzJdwjG7xMm
-	 2sv4hkFyGa0DK/Vamt2IhCcvlgzui27A/W8GbXMXWKTal6hPOF3ETJyhGUjU7VsVkS
-	 uqV0SeAwkexLrhgw8+2RrdJ0cV+q87j97+B258kE=
+	b=Dis16Z4suiWHScAld1Irl8nE8Iuqn+zmdqkUwjhKUPSwRSsQO35Hht2jO5VSYZXPR
+	 s+uhnEKpblDeTGNDbqs4rXsc8C262RMd3gn1+zYpu4VTdEhraQoeKTkcsEwKdhFQf/
+	 AghdEGctfCatfdDyXoOqdd1pRO8KOnzowZ6wMNEE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5118F8027B;
-	Wed, 27 Oct 2021 14:55:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 780C3F80271;
+	Wed, 27 Oct 2021 14:56:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 772ABF8027B; Wed, 27 Oct 2021 14:55:49 +0200 (CEST)
+ id A974DF8025E; Wed, 27 Oct 2021 14:56:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
  [66.111.4.27])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68B4CF8010A
- for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 14:55:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68B4CF8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47E9CF8016C
+ for <alsa-devel@alsa-project.org>; Wed, 27 Oct 2021 14:55:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47E9CF8016C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="PE5FXjNZ"; 
+ header.b="M8iQQXd+"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="VxjUCUtQ"
+ header.i=@messagingengine.com header.b="VNy58LXd"
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4EC195C01F8;
- Wed, 27 Oct 2021 08:55:39 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id E2DF65C01B5;
+ Wed, 27 Oct 2021 08:55:40 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 27 Oct 2021 08:55:39 -0400
+ by compute4.internal (MEProxy); Wed, 27 Oct 2021 08:55:40 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=9/YlCOpawClvq
- rqYswASrbJgMx0dJ6xfjHZEBPgL6n8=; b=PE5FXjNZ7s/kXaAR9U3DS7t75Ibfa
- lEDPkA2R62OuA+VztDI4YWUFfmz2TCqy9MHKr06E2oXsdNK61n+p0NS1QPKDBkkN
- sfg+T0SOkr3fm1TlPBf8KO59ga57ZOyJ7TWaruzcp8DhM5ZzHBin5ywT1bXZBLJ2
- HY4IDrckh46q8c1HVwyckGmPuld9W3LQZ+KabWtO7Eez40BqwO44H2F6oR2Ni9hE
- wYofpZCiF49tRenble6FTloG0b+MgQc3EqmFFZGMTp1HAzmw366hIs3d1KevZ7TE
- CTkyA/GEPEU1xcIE26jp7t6TZF0zI/adHb5TPapt/FeY8iTDrQEwuU9RA==
+ :mime-version:content-transfer-encoding; s=fm2; bh=1bv6/YM+Satgn
+ 2IldKGW76/6iBaFtk08y5ZDUCZZQUw=; b=M8iQQXd+tFJFPu3iX7fGTWAKgYU3U
+ 1ttMxHIOkW6B/Cr4qQXldyDAMjTiaC3aapm/deytweQSNsenSMpOWfprCEnOnUyx
+ IaN10ykBGj8iT/RqsOuwaut7vFEy87nIXzrbS0TZeGu9YSv88y7n/CTH5DHr2nti
+ PGYGFkf130uhbg0V1E1a/ttH0oT7H75H+PFFZ2spKCM5DdAHKU9ytnVViaqFbRKa
+ a2H+joUBx9JGf3WgtfE7c41trqL4LUZSXWKkh7L1Pro5tLAM+hr0qkbUn/UpwHzr
+ IaRqb6zWXkO3EvTtDeX5CR1Q+J/mD3eQ3OSvBTV33SMUTzkASVV8EFuqw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=9/YlCOpawClvqrqYswASrbJgMx0dJ6xfjHZEBPgL6n8=; b=VxjUCUtQ
- pEXEh5wvWWshLvJRI6DpB6NldjWrUj0c7MdILo4RB/BY79J/qgsYqwsYWNXER6+r
- ejFOD2Gp4tixYKi7u3/yl7kTOkwEFCwi1CwHN9N8iWe25/uE86Z4JTcdBdEVphOR
- VtKLjAdfJpX1iCXJyMSUVTLvMpi22Lk9JxQzuMb80MJa5mgdKq2ow9Omdqvi4Hav
- HqcHIIqIuKjhUDkhgK7NZoMG0A/blqvptt5U3Z5pGjAz746t8690Xm8o73Mc2FaX
- O8HjgJl7+T1MeAWns1nl+MDkJXSUSs524R96+/7Z+jVWVvwxOlXMTaS00ov9IIiB
- OFUIo31CHphdiQ==
-X-ME-Sender: <xms:Skx5YcRtjPoT3KA-m7O_Otu7_j-haYueApevGKcpsD9bxbmwI55hjw>
- <xme:Skx5YZzwDkl3pVPzzPoLisAIZS56aEDHSBJPsf4TKsZANmz-3NZfyLB7eUNc_V4sJ
- 0aUkPEfW0BblKUeWHU>
-X-ME-Received: <xmr:Skx5YZ3yuJZYqPGO1aIRwlpLcBP1W1R71ic3Ject68yFP5vwbrZ86cJS1Op6ESzrIT7bOFPq54sObmstr3lnlrpgxOIMQlYQl6CTYWWF7-dmmAbgqCnq>
+ fm1; bh=1bv6/YM+Satgn2IldKGW76/6iBaFtk08y5ZDUCZZQUw=; b=VNy58LXd
+ wupsSfS0HdWHxTc5cbAhEp+9lSXTWY/2so9NyzrwNalDz1/OQCAUm6jPKASiTQFy
+ b/6q0XFnNEUIyaSNh5z0uWbLaGc7+YElLexnrxiViQLJGM32KaUDsFMZ4Yy1ja7m
+ HRgHacd8otxzo6BmKDb+Kx8OLMjbw8XqCZedxacjQGfHnkUdwEASfzRJ0slK8YRn
+ wD5IbcJV5OosEB3ZaIX7MYdWX4DhRJJ1Zyf0Mqpkam74IrxilH4LW15ddFNaiNeT
+ Q5H+jl4gONfcwg/RfF8ziYCjqI72h4lzcMaQu3PX4yMkm9zr+d8j9qAc/f2uDKzO
+ tdzJeFRyDfD6Qg==
+X-ME-Sender: <xms:TEx5Ydw6O6v5fPWXsIBEcdsb-OOeh0E4xNsuHNt9SN18UevGSuLlMg>
+ <xme:TEx5YdTT33GgHVBuSKOxgVZ_kziud5W3WicAsZoiTyHhMwVJXj3NjYLBvuXXIY_Go
+ rgBzpwbz7hvVv5c288>
+X-ME-Received: <xmr:TEx5YXUBbqvKwHSjc-ulLycgZrVA0Eu-sDLAEBHw85_6SAGP2h-Mora_yKGd6v6Qe4_KxwpTZ2o5w9LjAtOEiXTxjDo1jv9rfB4IHAjBkzB-e3VincG_>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdegtddgheehucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
  etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecuvehluhhsthgv
- rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
+ rhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
  grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:Skx5YQDHV2oCqsRZT7AAuVwiw7i39z6JIwgS6oIyKKD5SHZvLKxHkA>
- <xmx:Skx5YVh_bdQh99sk0itRb9Ha3xKIDW_N93NE0Uf6xKWFuPUrxrTQDw>
- <xmx:Skx5YcrkDgl7NwP7eW2OT8XnNNd7eFjZQBUwgBaoWdnusjWpAQ21Kw>
- <xmx:S0x5YatZ39d2Ics1d_NtLM7DtAZmtg6ExPOKeVN6CZO7bzh9PDXC_w>
+X-ME-Proxy: <xmx:TEx5Yfgo5eWyKFTeiWeTXnCY8Vd3uvVABI7PLsNS-oUZy91C0efQTA>
+ <xmx:TEx5YfAFRdauJ1sXVDlLOe8ply5ZaUXiWa8_9Ixh6ppnl-Y0iOKFPg>
+ <xmx:TEx5YYLD31hUvvoKj-TRBLlKm585_rxAc6gJjjKKEtrzPtt7ln9PUw>
+ <xmx:TEx5YSPhECY8KNVFqhGYMA5WEVJ2Mr2IlX_nUaV1f46-Vgchuj0eDQ>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 27 Oct 2021 08:55:37 -0400 (EDT)
+ 27 Oct 2021 08:55:39 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 1/3] ALSA: firewire-motu: fix null pointer dereference when
- polling hwdep character device
-Date: Wed, 27 Oct 2021 21:55:27 +0900
-Message-Id: <20211027125529.54295-2-o-takashi@sakamocchi.jp>
+Subject: [PATCH 2/3] ALSA: firewire-motu: refine parser for meter information
+ in register DSP models
+Date: Wed, 27 Oct 2021 21:55:28 +0900
+Message-Id: <20211027125529.54295-3-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211027125529.54295-1-o-takashi@sakamocchi.jp>
 References: <20211027125529.54295-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: ffado-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
- clemens@ladisch.de, kernel test robot <lkp@intel.com>
+ clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,70 +113,112 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ALSA firewire-motu driver recently got support for event notification via
-ALSA HwDep interface for register DSP models. However, when polling ALSA
-HwDep cdev, the driver can cause null pointer dereference for the other
-models due to accessing to unallocated memory or uninitialized memory.
+After further investigation, I realize that the total number of elements
+in array is not enough to store all of related messages from device.
+This commit refines meter array and message parser.
 
-This commit fixes the bug by check the type of model before accessing to
-the memory.
+In terms of channel identifier, register DSP models are classified to
+two categories:
 
-Reported-by: kernel test robot <lkp@intel.com>
-Suggested-by: Takashi Iwai <tiwai@suse.de>
-Fixes: 634ec0b2906e ("ALSA: firewire-motu: notify event for parameter change in register DSP model")
+1. the target of output is selectable
+
+828mk2, 896hd, and Traveler are in the category. They transfer messages
+with channel identifier between 0x00 and 0x13 for input meters,
+therefore 20 elements are needed to store.
+
+On the other hand, they transfer messages with channel identifier for one
+pair of output meters. The selection is done by asynchronous write
+transaction to offset 0x'ffff'f000'0b2c. The table for relationship
+between written value and available identifiers is below:
+
+=============  ===============
+written value  identifier pair
+=============  ===============
+0x00000b00     0x80/0x81
+0x00000b01     0x82/0x83
+...            ...
+0x00000b0b     0x96/0x97
+...            ...
+0x00000b10     0xa0/0xa1
+...            ...
+0x00000b3f     0xfe/0xff
+...            ...
+greater        0xfe/0xff
+=============  ===============
+
+Actually in the above three models, 0x96/0x97 pair is the maximum. Thus
+the number of available output meter is 24.
+
+2. all of output is available
+
+8 pre, Ultralite, Audio Express, and 4 pre are in the category. They
+transfer messages for output meters without any selection. The table for
+available identifier for each direction is below:
+
+==============  =========  ==========
+model           input      output
+==============  =========  ==========
+8 pre           0x00-0x0f  0x82-0x8d
+Ultralite       0x00-0x09  0x82-0x8f
+Audio Express   0x00-0x09  0x80-0x8d
+4 pre           0x00-0x09  0x80-0x8d
+==============  =========  ==========
+
+Some of available identifiers might not be used for actual output meters.
+
+Anyway, 24 plus 24 elements accommodate the input/output meters.
+
+I note that isochronous packet from V3HD/V4HD deliver no message.
+Notification by asynchronous transaction to registered address seems to be
+used for the purpose as well as for change of mixer parameter.
+
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/motu/motu-hwdep.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ include/uapi/sound/firewire.h                      |  5 ++++-
+ .../motu/motu-register-dsp-message-parser.c        | 14 +++++++++-----
+ 2 files changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/sound/firewire/motu/motu-hwdep.c b/sound/firewire/motu/motu-hwdep.c
-index 9c2e457ce692..a900fc0e7644 100644
---- a/sound/firewire/motu/motu-hwdep.c
-+++ b/sound/firewire/motu/motu-hwdep.c
-@@ -16,6 +16,14 @@
+diff --git a/include/uapi/sound/firewire.h b/include/uapi/sound/firewire.h
+index e52a97b3ceaa..68eb0e43c052 100644
+--- a/include/uapi/sound/firewire.h
++++ b/include/uapi/sound/firewire.h
+@@ -141,7 +141,10 @@ struct snd_firewire_tascam_state {
+  * up to 12.
+  */
  
- #include "motu.h"
+-#define SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_COUNT	40
++#define SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_INPUT_COUNT	24
++#define SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_OUTPUT_COUNT	24
++#define SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_COUNT \
++	(SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_INPUT_COUNT + SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_OUTPUT_COUNT)
  
-+static bool has_dsp_event(struct snd_motu *motu)
-+{
-+	if (motu->spec->flags & SND_MOTU_SPEC_REGISTER_DSP)
-+		return (snd_motu_register_dsp_message_parser_count_event(motu) > 0);
-+	else
-+		return false;
-+}
+ /**
+  * struct snd_firewire_motu_register_dsp_meter - the container for meter information in DSP
+diff --git a/sound/firewire/motu/motu-register-dsp-message-parser.c b/sound/firewire/motu/motu-register-dsp-message-parser.c
+index cbc06b3b70f6..0c587567540f 100644
+--- a/sound/firewire/motu/motu-register-dsp-message-parser.c
++++ b/sound/firewire/motu/motu-register-dsp-message-parser.c
+@@ -335,11 +335,15 @@ void snd_motu_register_dsp_message_parser_parse(struct snd_motu *motu, const str
+ 				else
+ 					pos = b[MSG_METER_IDX_POS_4PRE_AE];
+ 
+-				if (pos < 0x80)
+-					pos &= 0x1f;
+-				else
+-					pos = (pos & 0x1f) + 20;
+-				parser->meter.data[pos] = val;
++				if (pos < SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_INPUT_COUNT) {
++					parser->meter.data[pos] = val;
++				} else if (pos >= 0x80) {
++					pos -= (0x80 - SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_INPUT_COUNT);
 +
- static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf, long count,
- 		       loff_t *offset)
- {
-@@ -25,8 +33,7 @@ static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf, long count,
- 
- 	spin_lock_irq(&motu->lock);
- 
--	while (!motu->dev_lock_changed && motu->msg == 0 &&
--			snd_motu_register_dsp_message_parser_count_event(motu) == 0) {
-+	while (!motu->dev_lock_changed && motu->msg == 0 && !has_dsp_event(motu)) {
- 		prepare_to_wait(&motu->hwdep_wait, &wait, TASK_INTERRUPTIBLE);
- 		spin_unlock_irq(&motu->lock);
- 		schedule();
-@@ -55,7 +62,7 @@ static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf, long count,
- 		count = min_t(long, count, sizeof(event));
- 		if (copy_to_user(buf, &event, count))
- 			return -EFAULT;
--	} else if (snd_motu_register_dsp_message_parser_count_event(motu) > 0) {
-+	} else if (has_dsp_event(motu)) {
- 		size_t consumed = 0;
- 		u32 __user *ptr;
- 		u32 ev;
-@@ -94,8 +101,7 @@ static __poll_t hwdep_poll(struct snd_hwdep *hwdep, struct file *file,
- 	poll_wait(file, &motu->hwdep_wait, wait);
- 
- 	spin_lock_irq(&motu->lock);
--	if (motu->dev_lock_changed || motu->msg ||
--	    snd_motu_register_dsp_message_parser_count_event(motu) > 0)
-+	if (motu->dev_lock_changed || motu->msg || has_dsp_event(motu))
- 		events = EPOLLIN | EPOLLRDNORM;
- 	else
- 		events = 0;
++					if (pos < SNDRV_FIREWIRE_MOTU_REGISTER_DSP_METER_COUNT)
++						parser->meter.data[pos] = val;
++				}
++
+ 				// The message for meter is interruptible to the series of other
+ 				// types of messages. Don't cache it.
+ 				fallthrough;
 -- 
 2.30.2
 

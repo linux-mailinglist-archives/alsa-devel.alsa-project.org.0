@@ -2,97 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF03843E198
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 15:05:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D16343E2E3
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 15:59:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D62016A3;
-	Thu, 28 Oct 2021 15:04:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D62016A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15F8416AC;
+	Thu, 28 Oct 2021 15:58:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15F8416AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635426311;
-	bh=PqSRmw8QwDiFGRVBAcR7kg5YIIc12lTwMJIa7TSTMvk=;
+	s=default; t=1635429559;
+	bh=2SqKOulEdug787xrZHPxXi/uue4QIlEKKuos6YApJY0=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=AyY6xcX1yk8Cg7910Z9E+rFwG4QrFq38dFk3eHXiIKUmtxBtoGQhK3eRBeV64zO+a
-	 lbPg4x8s/e9O8kgwoBPH9F3l5M3F6zpd3439dOXO0rSSBRtakay9mpGygh5LEaJ+gq
-	 3+38sli1MznZAK6CS00yFDNQvLXco8PPiLt458ww=
+	b=cv+J8DAtTgQeDbOZ5vWjA43IcKzz0NC7S5pLsQf/tKS9x2CfYRT81EUzwb5kmQgNm
+	 ZbSRItnS8NOGhOzkDkHYi33WvMvnyQv0UYhsvVrxTVYKg6bYRFeJpCvkt5c0QqpTs9
+	 WxTnEOY6sNTBa+g+ViL/4f4mMlHniUiwAkxw3YKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7B4AF8014E;
-	Thu, 28 Oct 2021 15:03:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85D00F80300;
+	Thu, 28 Oct 2021 15:58:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEC81F802C8; Thu, 28 Oct 2021 15:03:49 +0200 (CEST)
+ id CB938F80300; Thu, 28 Oct 2021 15:57:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65375F8014E
- for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 15:03:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65375F8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="aQxuLzpx"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="KW+vC0Qf"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 4F5C43201C16;
- Thu, 28 Oct 2021 09:03:32 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Thu, 28 Oct 2021 09:03:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=EqV1+MwDCmEn47yUuATWJpLjgg
- O0XHBq8PLMtN0Irvo=; b=aQxuLzpxcy3aa/mRS9UolDnPbHI1XljbJ99QC/KLqT
- mpi6YRQ0kGOxsaBKLoIDBdbS/ExTPRz4reqCmpPAfLh+T9TEhFV8SjdcawQHh3Kf
- jP90/HAClzZ4xGebIUjJ+PDpdOHvWPxQmFj8sUUGNkuO8XvwQEyDqsrlgqPsqbFl
- oO3x9w8BwaVgoygj4jK3WYeMhgJwjvgMUzA1D/uWvxrd+YI7rpHOc90XowLK127q
- mKJ0w3q+DIF5F6wBq9WSO90F6TSdo0OWRPwwUguyfdrcOvcjt6AxAirEDAiCRJ9/
- AnFAh5eVJ9ZXrH/Mhz197W8L628ZQgZ7pFfkx6YXXldQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=EqV1+MwDCmEn47yUu
- ATWJpLjggO0XHBq8PLMtN0Irvo=; b=KW+vC0QfbT4A/17E/SiYrKKDtAy1LrP7/
- RftYPLFFMW/kQjrKYA5WPYl9eUWxV3M2yg9nDNVe5aZFxgctR5mOMHGwf+OpMXSW
- P1VrX/waAEzF6RvZBYZskH9j7R2oVzOwhBD7ZqyImdDrlPW2NCaxL+lcS3l1Q4lV
- pZo6oMEt8EhDUM6Wokk12R8ECf4zIiCfV4vPZL59x3KqMgBuEchIXNfEndhjQ2vF
- 04yOLTDZ5ptH3d0CuDewBrpNYNM6JWmkzYGyOna65Ia7uEs9pxDc352vV/CIVmFE
- rhMHNDtW6SoRLKjlCsshNu0/OTlGFX6Vrvp6KSOc3fO1xmWzuzcsA==
-X-ME-Sender: <xms:o596YRPghtwS0ficXi52osogInjwWvLMvm6XgJ-F6SRFWAd2BL0mAg>
- <xme:o596YT-WOGaMAKiMnokqYt6yUeXurUgEJfPH6DiU3a_UzucQr4GMme3lUyT3dTDc6
- jvOO6CFinJc_5WNiz0>
-X-ME-Received: <xmr:o596YQTriHjasKB-d-LIpO3d_n8CugAzM6U5to5ofD95a4tgtZ_eU6D2bAbuEQljMpa3ogPXDXTHxNl0DLWeZGL1hapQjvWiNYA1A5OaLnmW-NSX-Fgz>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdegvddgheegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepvddtgeegjeejte
- ejudffhfduvdefhfevhfelleevfeefhfelhefhgeeufeetvdehnecuffhomhgrihhnpehg
- ihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
- hlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:o596YdsUBboE9L-hlFaprX4TSLNsJOiBSK2wkVaenchiJ20VERVCdQ>
- <xmx:o596YZdnDiX6efOsWVCTvMmHxQQeVyOc4udjnWQo84JCt-4GLF8-fQ>
- <xmx:o596YZ1hTqordGfRBYhpnhUlve0Jh0l25BoBWFpsbXDJ-4vWsaJR1w>
- <xmx:o596YZHAmUborMsNikBVjYzGUjW_rEVN0XEJtYVCSRP7pKGb06rk3g>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 28 Oct 2021 09:03:30 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: oxfw: fix functional regression for Mackie Onyx 1640i
- in v5.14 or later
-Date: Thu, 28 Oct 2021 22:03:25 +0900
-Message-Id: <20211028130325.45772-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.30.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 477D6F8010A
+ for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 15:57:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 477D6F8010A
+X-UUID: 0451979e83e94840b4987c38a3560eb0-20211028
+X-UUID: 0451979e83e94840b4987c38a3560eb0-20211028
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <yc.hung@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 892179986; Thu, 28 Oct 2021 21:57:41 +0800
+Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Thu, 28 Oct 2021 21:57:40 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs10n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.792.3 via Frontend Transport; Thu, 28 Oct 2021 21:57:40 +0800
+From: YC Hung <yc.hung@mediatek.com>
+To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+ <matthias.bgg@gmail.com>
+Subject: [PATCH v4 0/2] Add code to manage DSP clocks and provide dts-binding
+ document
+Date: Thu, 28 Oct 2021 21:57:35 +0800
+Message-ID: <20211028135737.8625-1-yc.hung@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ allen-kh.cheng@mediatek.com, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ yc.hung@mediatek.com, daniel.baluta@nxp.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,96 +79,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A user reports functional regression for Mackie Onyx 1640i that the device
-generates slow sound with ALSA oxfw driver which supports media clock
-recovery. Although the device is based on OXFW971 ASIC, it does not
-transfer isochronous packet with own event frequency as expected. The
-device seems to adjust event frequency according to events in received
-isochronous packets in the beginning of packet streaming. This is
-unknown quirk.
+From: "yc.hung" <yc.hung@mediatek.com>
 
-This commit fixes the regression to turn the recovery off in driver
-side. As a result, nominal frequency is used in duplex packet streaming
-between device and driver. For stability of sampling rate in events of
-transferred isochronous packet, 4,000 isochronous packets are skipped
-in the beginning of packet streaming.
+This code is based on top of SOF topic/sof-dev branch and we want to have a review 
+with ALSA and device Tree communities the it will be merged to SOF tree and then
+merged into ALSA tree. It provides two patches, one is for mt8195 dsp clocks related.
+Another is for mt8195 dsp dts binding decription.
 
-Reference: https://github.com/takaswie/snd-firewire-improve/issues/38
-Fixes: 029ffc429440 ("ALSA: oxfw: perform sequence replay for media clock recovery")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/oxfw/oxfw-stream.c | 7 ++++++-
- sound/firewire/oxfw/oxfw.c        | 8 ++++++++
- sound/firewire/oxfw/oxfw.h        | 5 +++++
- 3 files changed, 19 insertions(+), 1 deletion(-)
+YC Hung (2):
+  ASoC: SOF: mediatek: Add mt8195 dsp clock support
+  dt-bindings: dsp: mediatek: Add mt8195 DSP binding support
 
-diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index fff18b5d4e05..f4a702def397 100644
---- a/sound/firewire/oxfw/oxfw-stream.c
-+++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -9,7 +9,7 @@
- #include <linux/delay.h>
- 
- #define AVC_GENERIC_FRAME_MAXIMUM_BYTES	512
--#define READY_TIMEOUT_MS	200
-+#define READY_TIMEOUT_MS	600
- 
- /*
-  * According to datasheet of Oxford Semiconductor:
-@@ -367,6 +367,11 @@ int snd_oxfw_stream_start_duplex(struct snd_oxfw *oxfw)
- 				// Just after changing sampling transfer frequency, many cycles are
- 				// skipped for packet transmission.
- 				tx_init_skip_cycles = 400;
-+			} else if (oxfw->quirks & SND_OXFW_QUIRK_VOLUNTARY_RECOVERY) {
-+				// It takes a bit time for target device to adjust event frequency
-+				// according to nominal event frequency in isochronous packets from
-+				// ALSA oxfw driver.
-+				tx_init_skip_cycles = 4000;
- 			} else {
- 				replay_seq = true;
- 			}
-diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index daf731364695..b496f87841ae 100644
---- a/sound/firewire/oxfw/oxfw.c
-+++ b/sound/firewire/oxfw/oxfw.c
-@@ -25,6 +25,7 @@
- #define MODEL_SATELLITE		0x00200f
- #define MODEL_SCS1M		0x001000
- #define MODEL_DUET_FW		0x01dddd
-+#define MODEL_ONYX_1640I	0x001640
- 
- #define SPECIFIER_1394TA	0x00a02d
- #define VERSION_AVC		0x010001
-@@ -192,6 +193,13 @@ static int detect_quirks(struct snd_oxfw *oxfw, const struct ieee1394_device_id
- 		// OXFW971-based models may transfer events by blocking method.
- 		if (!(oxfw->quirks & SND_OXFW_QUIRK_JUMBO_PAYLOAD))
- 			oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
-+
-+		if (model == MODEL_ONYX_1640I) {
-+			//Unless receiving packets without NOINFO packet, the device transfers
-+			//mostly half of events in packets than expected.
-+			oxfw->quirks |= SND_OXFW_QUIRK_IGNORE_NO_INFO_PACKET |
-+					SND_OXFW_QUIRK_VOLUNTARY_RECOVERY;
-+		}
- 	}
- 
- 	return 0;
-diff --git a/sound/firewire/oxfw/oxfw.h b/sound/firewire/oxfw/oxfw.h
-index c13034f6c2ca..d728e451a25c 100644
---- a/sound/firewire/oxfw/oxfw.h
-+++ b/sound/firewire/oxfw/oxfw.h
-@@ -47,6 +47,11 @@ enum snd_oxfw_quirk {
- 	// the device to process audio data even if the value is invalid in a point of
- 	// IEC 61883-1/6.
- 	SND_OXFW_QUIRK_IGNORE_NO_INFO_PACKET = 0x10,
-+	// Loud Technologies Mackie Onyx 1640i seems to configure OXFW971 ASIC so that it decides
-+	// event frequency according to events in received isochronous packets. The device looks to
-+	// performs media clock recovery voluntarily. In the recovery, the packets with NO_INFO
-+	// are ignored, thus driver should transfer packets with timestamp.
-+	SND_OXFW_QUIRK_VOLUNTARY_RECOVERY = 0x20,
- };
- 
- /* This is an arbitrary number for convinience. */
+ .../bindings/dsp/mtk,mt8195-dsp.yaml          | 139 +++++++++++++++
+ sound/soc/sof/mediatek/adsp_helper.h          |   2 +-
+ sound/soc/sof/mediatek/mt8195/Makefile        |   2 +-
+ sound/soc/sof/mediatek/mt8195/mt8195-clk.c    | 158 ++++++++++++++++++
+ sound/soc/sof/mediatek/mt8195/mt8195-clk.h    |  28 ++++
+ sound/soc/sof/mediatek/mt8195/mt8195.c        |  22 ++-
+ 6 files changed, 347 insertions(+), 4 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
+ create mode 100644 sound/soc/sof/mediatek/mt8195/mt8195-clk.c
+ create mode 100644 sound/soc/sof/mediatek/mt8195/mt8195-clk.h
+
 -- 
-2.30.2
+2.18.0
 

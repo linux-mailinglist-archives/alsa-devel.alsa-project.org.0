@@ -2,73 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A40E943E13B
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 14:48:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FA3143E173
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 15:00:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21F2216AD;
-	Thu, 28 Oct 2021 14:47:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21F2216AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id C054616A5;
+	Thu, 28 Oct 2021 14:59:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C054616A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635425301;
-	bh=aktKXU1bSinZYPhIHStKey2P4xTfbDNWK4vao4R1T8I=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qft/wNUg2PUTaRzmDuLHNyrSYI5DuCKtcKLLPfbRYIAHdwdHNiSbXmdf7cZl2CLAF
-	 3LO6buQDHoFRplSgdoY2VPXjbWT5RP0VvA7ISDDf+wP3jXP6LhBG+Bpt+tuQ+yyiMy
-	 nYQJLjWdltf+IHjoW5/K7dFSfjjIGG9bAFJP9jAM=
+	s=default; t=1635426039;
+	bh=GvK75DH60GBTMF2oKEW8i6qrOQxPMn6ekQ4+MJmZ6rQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=U0Gu/WUCZe9d4w+u7d3D4UCdNiOfdvY/PN6/M/YBxoCy/BPB9cZax7VAWlTzlFXNJ
+	 QLQL7dsx1W2hW1017vBjxRwDAmgkwzfpQ76TZbfflFgAUiHBTq5mINvnoWlc9OSX1Q
+	 rjRBRSiI76do/GMuWKhyeLHJJref9Qe6U8lR/PuE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C4C7F802C8;
-	Thu, 28 Oct 2021 14:47:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3ACBAF80300;
+	Thu, 28 Oct 2021 14:59:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A09BDF802C8; Thu, 28 Oct 2021 14:47:01 +0200 (CEST)
+ id E269FF802E7; Thu, 28 Oct 2021 14:59:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ixit.cz (ixit.cz [94.230.151.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB211F8014E
- for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 14:46:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB211F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09ED8F8010A
+ for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 14:59:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09ED8F8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz
- header.b="bskFoIBb"
-Received: from localhost.localdomain (ip-89-176-96-70.net.upcbroadband.cz
- [89.176.96.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 7E2E920064;
- Thu, 28 Oct 2021 14:46:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1635425212;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=xgjicstCdETA5yD5ttEWNXkXTM7bl4gND1HVg9nbOM0=;
- b=bskFoIBb0rfqZ7feenbLCcXO2DyUOYsS0T3S4f0eDorElFK3n0LR9Sg27Xxe1VH0JIbwUy
- k69E186equqEEVhEasOPu7wLy8AbJzwhKCou3wg2BBemgdxs9a8Cda8cECE0B/6x0/kuEY
- cyGQkZWM6cCrvzaLVFhzto39fzb+6ug=
-From: David Heidelberg <david@ixit.cz>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, - <patches@opensource.cirrus.com>
-Subject: [PATCH v2] dt-bindings: sound: wlf,
- wm8903: Convert txt bindings to yaml
-Date: Thu, 28 Oct 2021 14:46:38 +0200
-Message-Id: <20211028124639.38420-1-david@ixit.cz>
-X-Mailer: git-send-email 2.33.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jryR/6km"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CB746610C8;
+ Thu, 28 Oct 2021 12:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1635425949;
+ bh=GvK75DH60GBTMF2oKEW8i6qrOQxPMn6ekQ4+MJmZ6rQ=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=jryR/6kmEOc/UVWIyCd9yFf/i7ocGgBx9sI3KtCpt7b1HQnic1yGImQ7QIU6g5dOa
+ uSfLFjDzArFHaKAeMz+MdikYOVmFDLW4hoHO8u7AND9R4Xu6edn/2upW49z2RXgxCR
+ FmYq13061g1dc2Hruvs1uyVd5jLI9GUJOU/qpJxRGU326P1yHO+bnXYKhld3uTBhxj
+ c8LaZfkPD7WwhwQ3MvGMjqn13Cr+8YtJxdL8fKn49oUpfW8ivSc34AH6gpdM2q6o8f
+ TrjpI25S26SLxPcb92Ll6wFm+uxVw12rPp9/ua5y6b1P+0VTSAzyg8d2WANbvz/iqD
+ 8jyYZyRrXPQ/A==
+From: Mark Brown <broonie@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20211027190823.4057382-1-nathan@kernel.org>
+References: <20211027190823.4057382-1-nathan@kernel.org>
+Subject: Re: [PATCH] ASoC: qdsp6: audioreach: Fix clang -Wimplicit-fallthrough
+Message-Id: <163542594755.950250.9661229895167446444.b4-ty@kernel.org>
+Date: Thu, 28 Oct 2021 13:59:07 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Spam: Yes
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- ~okias/devicetree@lists.sr.ht, David Heidelberg <david@ixit.cz>,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,227 +80,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the Wolfson WM8903 Ultra-Low Power Stereo CODEC Device Tree
-binding documentation to json-schema.
+On Wed, 27 Oct 2021 12:08:23 -0700, Nathan Chancellor wrote:
+> Clang warns:
+> 
+> sound/soc/qcom/qdsp6/topology.c:465:3: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
+>                 default:
+>                 ^
+> sound/soc/qcom/qdsp6/topology.c:465:3: note: insert 'break;' to avoid fall-through
+>                 default:
+>                 ^
+>                 break;
+> 1 warning generated.
+> 
+> [...]
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- .../devicetree/bindings/sound/wlf,wm8903.yaml | 116 ++++++++++++++++++
- .../devicetree/bindings/sound/wm8903.txt      |  82 -------------
- 2 files changed, 116 insertions(+), 82 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8903.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/wm8903.txt
+Applied to
 
-diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8903.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8903.yaml
-new file mode 100644
-index 000000000000..7105ed5fd6c7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/wlf,wm8903.yaml
-@@ -0,0 +1,116 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: "http://devicetree.org/schemas/sound/wlf,wm8903.yaml#"
-+$schema: "http://devicetree.org/meta-schemas/core.yaml#"
-+
-+title: WM8903 audio codec
-+
-+description: |
-+  This device supports I2C only.
-+  Pins on the device (for linking into audio routes):
-+      * IN1L
-+      * IN1R
-+      * IN2L
-+      * IN2R
-+      * IN3L
-+      * IN3R
-+      * DMICDAT
-+      * HPOUTL
-+      * HPOUTR
-+      * LINEOUTL
-+      * LINEOUTR
-+      * LOP
-+      * LON
-+      * ROP
-+      * RON
-+      * MICBIAS
-+
-+maintainers:
-+  - patches@opensource.cirrus.com
-+
-+properties:
-+  compatible:
-+    const: wlf,wm8903
-+
-+  reg:
-+    maxItems: 1
-+
-+  gpio-controller: true
-+  '#gpio-cells':
-+    const: 2
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  micdet-cfg:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 0
-+    description: Default register value for R6 (Mic Bias).
-+
-+  micdet-delay:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 100
-+    description: The debounce delay for microphone detection in mS.
-+
-+  gpio-cfg:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      minItems: 5
-+      maxItems: 5
-+      A list of GPIO configuration register values.
-+      If absent, no configuration of these registers is performed.
-+      If any entry has the value 0xffffffff, that GPIO's
-+      configuration will not be modified.
-+
-+  AVDD-supply:
-+    description: Analog power supply regulator on the AVDD pin.
-+
-+  CPVDD-supply:
-+    description: Charge pump supply regulator on the CPVDD pin.
-+
-+  DBVDD-supply:
-+    description: Digital buffer supply regulator for the DBVDD pin.
-+
-+  DCVDD-supply:
-+    description: Digital core supply regulator for the DCVDD pin.
-+
-+
-+required:
-+  - compatible
-+  - reg
-+  - gpio-controller
-+  - '#gpio-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      wm8903: codec@1a {
-+        compatible = "wlf,wm8903";
-+        reg = <0x1a>;
-+        interrupts = <347>;
-+
-+        AVDD-supply = <&fooreg_a>;
-+        CPVDD-supply = <&fooreg_b>;
-+        DBVDD-supply = <&fooreg_c>;
-+        DCVDD-supply = <&fooreg_d>;
-+
-+        gpio-controller;
-+        #gpio-cells = <2>;
-+
-+        micdet-cfg = <0>;
-+        micdet-delay = <100>;
-+        gpio-cfg = <
-+          0x0600 /* DMIC_LR, output */
-+          0x0680 /* DMIC_DAT, input */
-+          0x0000 /* GPIO, output, low */
-+          0x0200 /* Interrupt, output */
-+          0x01a0 /* BCLK, input, active high */
-+        >;
-+      };
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/wm8903.txt b/Documentation/devicetree/bindings/sound/wm8903.txt
-deleted file mode 100644
-index 6371c2434afe..000000000000
---- a/Documentation/devicetree/bindings/sound/wm8903.txt
-+++ /dev/null
-@@ -1,82 +0,0 @@
--WM8903 audio CODEC
--
--This device supports I2C only.
--
--Required properties:
--
--  - compatible : "wlf,wm8903"
--
--  - reg : the I2C address of the device.
--
--  - gpio-controller : Indicates this device is a GPIO controller.
--
--  - #gpio-cells : Should be two. The first cell is the pin number and the
--    second cell is used to specify optional parameters (currently unused).
--
--Optional properties:
--
--  - interrupts : The interrupt line the codec is connected to.
--
--  - micdet-cfg : Default register value for R6 (Mic Bias). If absent, the
--    default is 0.
--
--  - micdet-delay : The debounce delay for microphone detection in mS. If
--    absent, the default is 100.
--
--  - gpio-cfg : A list of GPIO configuration register values. The list must
--    be 5 entries long. If absent, no configuration of these registers is
--    performed. If any entry has the value 0xffffffff, that GPIO's
--    configuration will not be modified.
--
--  - AVDD-supply : Analog power supply regulator on the AVDD pin.
--
--  - CPVDD-supply : Charge pump supply regulator on the CPVDD pin.
--
--  - DBVDD-supply : Digital buffer supply regulator for the DBVDD pin.
--
--  - DCVDD-supply : Digital core supply regulator for the DCVDD pin.
--
--Pins on the device (for linking into audio routes):
--
--  * IN1L
--  * IN1R
--  * IN2L
--  * IN2R
--  * IN3L
--  * IN3R
--  * DMICDAT
--  * HPOUTL
--  * HPOUTR
--  * LINEOUTL
--  * LINEOUTR
--  * LOP
--  * LON
--  * ROP
--  * RON
--  * MICBIAS
--
--Example:
--
--wm8903: codec@1a {
--	compatible = "wlf,wm8903";
--	reg = <0x1a>;
--	interrupts = < 347 >;
--
--	AVDD-supply = <&fooreg_a>;
--	CPVDD-supply = <&fooreg_b>;
--	DBVDD-supply = <&fooreg_c>;
--	DCVDC-supply = <&fooreg_d>;
--
--	gpio-controller;
--	#gpio-cells = <2>;
--
--	micdet-cfg = <0>;
--	micdet-delay = <100>;
--	gpio-cfg = <
--		0x0600 /* DMIC_LR, output */
--		0x0680 /* DMIC_DAT, input */
--		0x0000 /* GPIO, output, low */
--		0x0200 /* Interrupt, output */
--		0x01a0 /* BCLK, input, active high */
--	>;
--};
--- 
-2.33.0
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/1] ASoC: qdsp6: audioreach: Fix clang -Wimplicit-fallthrough
+      commit: c6c203bc4dfed6812cf77e7737074b9cff8dd78d
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

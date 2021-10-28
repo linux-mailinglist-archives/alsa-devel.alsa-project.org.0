@@ -2,74 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F05743E3CD
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 16:33:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D4F343E50B
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 17:24:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9113616F7;
-	Thu, 28 Oct 2021 16:32:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9113616F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9710E16EE;
+	Thu, 28 Oct 2021 17:24:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9710E16EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635431596;
-	bh=K+l5odgqXWaWSoZ5TSKrWFF1AGO0qpuukpQqVgkBT0I=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1635434698;
+	bh=ANEFYYSjA3bOF4gghQD5pDZp2J30g5S3NXwTqiJFRkw=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ibLLRDm0tM2l+IP/s7O+abucX6WQLG6kufRFtAxabku0dp7weHilAeK7qHYl4o78c
-	 KUxKe7c+UJrD+3ohUD6g/fokYZV8hdOal+K7DcQjD37G3rhDPAw5drqc4pUViw0QiS
-	 nk5q0lpaV5DU75tP22Iv+/ofjiUeQNIGZuLTCN24=
+	b=OdbiUfeFIcW7FACXoz+L2HAm2oDXuIczAdSM1/11HjcSHj1TNPDzoohY2bMK1woPg
+	 jvBhfLH3+GXO0hptKlsv89Hi7wWa2Zs/5lwoX0Wm0f8aOrLZOoOtmrjBTP1woQJ7GL
+	 zBM1hjgjwZZfmNECwlKQf6+jgKbM1d2wVieuiG+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EBC9F802E7;
-	Thu, 28 Oct 2021 16:31:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1752CF80269;
+	Thu, 28 Oct 2021 17:23:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A9AFF802C8; Thu, 28 Oct 2021 16:31:57 +0200 (CEST)
+ id 866BFF802C8; Thu, 28 Oct 2021 17:23:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 549F6F8014E
- for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 16:31:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 549F6F8014E
-X-IronPort-AV: E=McAfee;i="6200,9189,10151"; a="291255037"
-X-IronPort-AV: E=Sophos;i="5.87,190,1631602800"; d="scan'208";a="291255037"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 07:31:45 -0700
-X-IronPort-AV: E=Sophos;i="5.87,190,1631602800"; d="scan'208";a="573767285"
-Received: from sjsanghv-mobl.amr.corp.intel.com (HELO [10.212.61.51])
- ([10.212.61.51])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2021 07:31:43 -0700
-Subject: Re: [PATCH v2] ASoc: Intel: glk_rt5682_max98357a: support ALC5682I-VS
- codec
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-References: <20211028140909.496022-1-brent.lu@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <5a69b8e0-b602-a6bf-e98d-0593e500973e@linux.intel.com>
-Date: Thu, 28 Oct 2021 09:31:42 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E4D3F800D1
+ for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 17:23:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E4D3F800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="mE++Z0a0"
+Received: by mail-qv1-xf36.google.com with SMTP id c9so3950933qvm.5
+ for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 08:23:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=mOVoYXRHI5sNBWLXNQNXSjOsNry4SjlW/GjCDgN+QZw=;
+ b=mE++Z0a0PPlRUkk6R75IRCCUodjtsEUnnLfylnq63z4c5436WEDxvqrJgHpJtZn3K5
+ jMGtw3eWXI7rdw2Fik8lCefKcMChJ//NjezCloryhA7LWjmilO25wDcdkaOlb9s2o4yC
+ 57N1H6KhjCqlVAu3AtGl3hWmAmfAVs9pr8Q/5dgBJtg1PPUaUOhO3GBPImLcGUSiiSno
+ MlcWssjTT7oLHA4Gz8NEeumDYfdI6tSglF0rq+Na+i2Km7MEC5XiNa/LkKWCiaMXJAhL
+ ipV/7y6recr65xFDRn1mlrj1cFLPjfiLlqDaFY9mQ/mKo/xx1HLFjTt7RhAvfnu9ywED
+ NoHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=mOVoYXRHI5sNBWLXNQNXSjOsNry4SjlW/GjCDgN+QZw=;
+ b=KS0bxafbU1po5yQ+K1/jOWDXJGRlbK4NIDbPLNN9oACCoDLXHksn4X3ah5KCp2j2lD
+ u4ljAgWS/MGGgXIZF2tH3onQZFslm7kLzwToIx3OPcYj9r3BK/FYI0ZK+Mo8uiraQW9Y
+ YFpwxQDrDoOqBuHzI/ZlGO6UCNDVPqAulmZQzDtdic6vpaQKxMLVKXLBjtS3LhXJpmBl
+ OrvIWIEkyo/qSIP6gAnEUncA1Oc1nKW+Zixq5brlrjkR10X+B7VPJ0G3v6CZzxFYOrPg
+ ipQY8qZidgDOcR8XKBGpjslsMr3qo3qr79SpYcJrzo2opsPe7MHat7jx990cgoyqDNeP
+ 7jgQ==
+X-Gm-Message-State: AOAM533H8JAmmLxnIf6BkPSqZXQFB+4jEqGRIfHhya0otbqsCMbvlKCN
+ ga+JqhRGNMfeGDZOv+KbE7Q=
+X-Google-Smtp-Source: ABdhPJxZcqGt/AL0gMONY8/y92jwlGyjci7sYU0xuRmAp2TlTBvPQZI6R2lXM/zyqaYIZw/K2yuHcg==
+X-Received: by 2002:a05:6214:4119:: with SMTP id
+ kc25mr4650274qvb.65.1635434611069; 
+ Thu, 28 Oct 2021 08:23:31 -0700 (PDT)
+Received: from ubuntu-mate-laptop.localnet ([67.8.38.84])
+ by smtp.gmail.com with ESMTPSA id u22sm1131685qta.23.2021.10.28.08.23.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Oct 2021 08:23:30 -0700 (PDT)
+From: Julian Braha <julianbraha@gmail.com>
+To: Mark Brown <broonie@kernel.org>, perex@perex.cz
+Subject: Re: [PATCH RESEND] ASoC: fix unmet dependencies on GPIOLIB for
+ SND_SOC_DMIC
+Date: Thu, 28 Oct 2021 11:23:29 -0400
+Message-ID: <51280965.5nCgCKSeW0@ubuntu-mate-laptop>
+In-Reply-To: <YXqXdV0YC5BhEARB@sirena.org.uk>
+References: <20211027184835.112916-1-julianbraha@gmail.com>
+ <YXqXdV0YC5BhEARB@sirena.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <20211028140909.496022-1-brent.lu@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Julian Braha <julianbraha@gmail.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Nathan Chancellor <nathan@kernel.org>, Jie Yang <yang.jie@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Paul Olaru <paul.olaru@oss.nxp.com>, Rander Wang <rander.wang@intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: alsa-devel@alsa-project.org, fazilyildiran@gmail.co,
+ linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, Vijendar.Mukunda@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,13 +104,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 10/28/21 9:09 AM, Brent Lu wrote:
-> Detect the codec variant in probe function and update DAI link
-> accordingly. Also add an new entry in enumeration table for machine
-> driver enumeration.
+On Thursday, October 28, 2021 8:28:37 AM EDT you wrote:
+> On Wed, Oct 27, 2021 at 02:48:35PM -0400, Julian Braha wrote:
+> > When SND_SOC_AMD_RENOIR_MACH or SND_SOC_AMD_RV_RT5682_MACH
+> > are selected, and GPIOLIB is not selected, Kbuild gives
+> > the following warnings, respectively:
 > 
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> I can't seem to find any indication that this has been sent before...
+> 
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Hi Mark,
+
+When I previously submitted this patch, I did not send it to all relevant 
+maintainers. Also the subject line was flawed.
+Here's the original: 
+https://lore.kernel.org/lkml/20210430143919.43362-1-julianbraha@gmail.com/
+
+- Julian Braha
+
+

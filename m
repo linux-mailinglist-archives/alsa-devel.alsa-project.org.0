@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0093A43E12C
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 14:45:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A40E943E13B
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Oct 2021 14:48:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A3B416A1;
-	Thu, 28 Oct 2021 14:45:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A3B416A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21F2216AD;
+	Thu, 28 Oct 2021 14:47:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21F2216AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635425156;
-	bh=6lmmqeI+nFozMSO5CcIw3GPvnYlUpc3pRmn+X4nkpqI=;
+	s=default; t=1635425301;
+	bh=aktKXU1bSinZYPhIHStKey2P4xTfbDNWK4vao4R1T8I=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=s0bq+QOpjUVt9Fg+gfDBuWhmnX2e1I5SDJOxwx9Fpl1qufmp3upnuBAfIWCGMKC/k
-	 MZBuK0Xsc1J9kd4ZznEaMjSJ0KgTrONCWbMCQaXrfh4ELJjXc1y55rw8xuZopO6MoA
-	 Q03PUtb1S2K+nc2suT7p6Vxv1xtY6YyYMLZidOPs=
+	b=qft/wNUg2PUTaRzmDuLHNyrSYI5DuCKtcKLLPfbRYIAHdwdHNiSbXmdf7cZl2CLAF
+	 3LO6buQDHoFRplSgdoY2VPXjbWT5RP0VvA7ISDDf+wP3jXP6LhBG+Bpt+tuQ+yyiMy
+	 nYQJLjWdltf+IHjoW5/K7dFSfjjIGG9bAFJP9jAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE8D1F802E7;
-	Thu, 28 Oct 2021 14:44:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C4C7F802C8;
+	Thu, 28 Oct 2021 14:47:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6122F802C8; Thu, 28 Oct 2021 14:44:36 +0200 (CEST)
+ id A09BDF802C8; Thu, 28 Oct 2021 14:47:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,42 +32,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ixit.cz (ixit.cz [94.230.151.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02A5DF8010A
- for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 14:44:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02A5DF8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB211F8014E
+ for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 14:46:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB211F8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz
- header.b="IdqazLzg"
+ header.b="bskFoIBb"
 Received: from localhost.localdomain (ip-89-176-96-70.net.upcbroadband.cz
  [89.176.96.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id DFE2220064;
- Thu, 28 Oct 2021 14:44:25 +0200 (CEST)
+ by ixit.cz (Postfix) with ESMTPSA id 7E2E920064;
+ Thu, 28 Oct 2021 14:46:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1635425066;
+ t=1635425212;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding;
- bh=IY7xUuDtN9vgHkBumHzvY7GQZ03yGs1caOTK4uqAd4U=;
- b=IdqazLzgpcorXhJekaImxFXFgNjdsCrGHO6FDKipLs0i/0MOzQr4mNaMaSvUQ/EvFvKRMY
- BWUCE+pLXchnVEHv/iNgKZrOzmpeZHczpTrA6YitgUsFYjR8OEePnu1s3ywCfN6OtXC2pX
- qpjUU9CbbyzwtVsVyVUWOBQ22w/AhuQ=
+ bh=xgjicstCdETA5yD5ttEWNXkXTM7bl4gND1HVg9nbOM0=;
+ b=bskFoIBb0rfqZ7feenbLCcXO2DyUOYsS0T3S4f0eDorElFK3n0LR9Sg27Xxe1VH0JIbwUy
+ k69E186equqEEVhEasOPu7wLy8AbJzwhKCou3wg2BBemgdxs9a8Cda8cECE0B/6x0/kuEY
+ cyGQkZWM6cCrvzaLVFhzto39fzb+6ug=
 From: David Heidelberg <david@ixit.cz>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH] dt-bindings: sound: wlf,wm8903: Convert txt bindings to yaml
-Date: Thu, 28 Oct 2021 14:44:00 +0200
-Message-Id: <20211028124401.37686-1-david@ixit.cz>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, - <patches@opensource.cirrus.com>
+Subject: [PATCH v2] dt-bindings: sound: wlf,
+ wm8903: Convert txt bindings to yaml
+Date: Thu, 28 Oct 2021 14:46:38 +0200
+Message-Id: <20211028124639.38420-1-david@ixit.cz>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam: Yes
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com,
- Mark Brown <broonie@opensource.wolfsonmicro.com>, linux-kernel@vger.kernel.org,
- David Heidelberg <david@ixit.cz>, ~okias/devicetree@lists.sr.ht
+ ~okias/devicetree@lists.sr.ht, David Heidelberg <david@ixit.cz>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,7 +97,7 @@ Signed-off-by: David Heidelberg <david@ixit.cz>
 
 diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8903.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8903.yaml
 new file mode 100644
-index 000000000000..afdcf9002b60
+index 000000000000..7105ed5fd6c7
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/sound/wlf,wm8903.yaml
 @@ -0,0 +1,116 @@
@@ -129,7 +130,7 @@ index 000000000000..afdcf9002b60
 +      * MICBIAS
 +
 +maintainers:
-+  - Mark Brown <broonie@opensource.wolfsonmicro.com>
++  - patches@opensource.cirrus.com
 +
 +properties:
 +  compatible:

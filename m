@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC0D643FF5E
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 17:22:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F69343FF63
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 17:23:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C8DC1707;
-	Fri, 29 Oct 2021 17:21:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C8DC1707
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DC8D16FA;
+	Fri, 29 Oct 2021 17:22:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DC8D16FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635520928;
-	bh=rOheY0c4ksMLoID1zAZkXiKjzdta0g5IXspWnZj9+aw=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1635521026;
+	bh=K3N5Az/gCC0BKAsrlVXDoRH6GnWNwjX21xmwxUaiu4k=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tFbGrLWLw+dzIrwm15Gn9YR8fZGhqGTY/Kx7aFeLMeov33ha9Hz4LRtRkNow1lKZY
-	 RVLx8l8BM3TTDTarIlHe/iE5nUq3p0nSZ09O8hIAOayjH/MGUewqMbpUkRGZTykUpL
-	 po3WuFuYbpuDSNCJY99tJpsRkMQ0VCpZglD4Fxiw=
+	b=melIe8hE6ndObBh6c/Ii7AAR8fnBF+UMsegNh6tNH4ScNXODQ6mXWnVRfwiKpZz6b
+	 dIUef4NLPHEyzl5PaefkeArY2oAeWLzgWZcfgx5uUlYmY9gl9J/N/otQcPVzK1//5e
+	 Nemnu1KRArVpTP+uuxKh49+YlBG13fNwYhOKA5pY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DCE7F8025E;
-	Fri, 29 Oct 2021 17:20:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73547F800D1;
+	Fri, 29 Oct 2021 17:22:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F16B0F8025A; Fri, 29 Oct 2021 17:20:48 +0200 (CEST)
+ id E6AB7F800D1; Fri, 29 Oct 2021 17:22:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4304FF800D1
- for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 17:20:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4304FF800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EE29F800D1
+ for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 17:22:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EE29F800D1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ncmkwINq"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AB2EA6115B;
- Fri, 29 Oct 2021 15:20:39 +0000 (UTC)
+ header.b="tBBp5Tys"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5B48B60F55;
+ Fri, 29 Oct 2021 15:22:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635520841;
- bh=rOheY0c4ksMLoID1zAZkXiKjzdta0g5IXspWnZj9+aw=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ncmkwINq4yXDj8JbMwe0rb1GxUNShaIosYOwDlbvDQ1dsBN8ORnXDmF6zrzj09mbr
- 3goaBSZa0giEDVLGem5J8Z2IV1YDRSCwfU39fs6l9rCpvnXjxjV6uQY//NNskkcK7h
- k6SYbLO6cAlGHgKprHUT0tHjvkuiWs2gfWLsS8Dr7N7prGPFWnGQNffmc+DHHl/fQz
- G7I8SkdbrvSgAcsMvGSAfPc2TI1nLCLFhnuVzg8riqpc7rqkiuBOsPTYLczDLNx1mw
- DNvU1RrQvX697Fgxk/6Q9oRh1V9/y/nH3/IP98/Dc0FIZ7jjUigD99jblgKlY7bgUQ
- 1Z7o6N3jlpTXw==
+ s=k20201202; t=1635520934;
+ bh=K3N5Az/gCC0BKAsrlVXDoRH6GnWNwjX21xmwxUaiu4k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tBBp5TysnpZ7a3l8x+KecThcE6UPsz1Yy5AaHXezyrazZv6bk1dm0HM47XK1rv/B+
+ R4bGIYF0UGrY0f9OpnZZAKztniaDQ6e51sYkwXAcvLvoL/SDZT8a0bjoXfxK/mZUHn
+ /A/yqMQV2oopFAEAPiesebYEL1DQQIYDTDGKOuabxBbO6lyQqQKge1IHNtDXiPW03o
+ b+pZoU/1o0HdiVIJpJbQox7Hm0jJ0zifortCdbj53jjcdP027cg7Gg+TKQQQckd3pf
+ kF2G3swH+3BcQmsSE+lpjxz9QaM4WIH8RZ0aVOVbq89eKuJBDG5wJkxAq6mp59G4OB
+ edUELgF64F0ug==
+Date: Fri, 29 Oct 2021 16:22:09 +0100
 From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, Vincent Knecht <vincent.knecht@mailoo.org>,
- lgirdwood@gmail.com, robh+dt@kernel.org, tiwai@suse.com, stephan@gerhold.net
-In-Reply-To: <20211024085840.1536438-1-vincent.knecht@mailoo.org>
-References: <20211024085840.1536438-1-vincent.knecht@mailoo.org>
-Subject: Re: (subset) [PATCH v1 0/4] Add tfa9897 speaker/receiver modes
- switching
-Message-Id: <163552083943.187214.842641047380618790.b4-ty@kernel.org>
-Date: Fri, 29 Oct 2021 16:20:39 +0100
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH] ASoC: tegra: Add master volume/mute control support
+Message-ID: <YXwRoWPF+ctNJRyp@sirena.org.uk>
+References: <1635159976-17355-1-git-send-email-spujar@nvidia.com>
+ <79541c76-2c2b-fd4b-60c8-67ee6b8ea3fa@perex.cz>
+ <8cb777f9-b73b-136c-f560-de4c31af931e@nvidia.com>
+ <18b61046-ac0b-0fb3-669c-6524a03eecf0@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- ~postmarketos/upstreaming@lists.sr.ht, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="FzXysqnWhsplUAtn"
+Content-Disposition: inline
+In-Reply-To: <18b61046-ac0b-0fb3-669c-6524a03eecf0@nvidia.com>
+X-Cookie: "Just the facts, Ma'am"
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, jonathanh@nvidia.com,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,42 +84,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 24 Oct 2021 10:58:36 +0200, Vincent Knecht wrote:
-> Two tfa9897 are used in tandem on some devices (eg. alcatel-idol347)
-> to drive two speakers, for both receiver (earpiece) and speaker modes.
-> 
-> This series:
-> 1. adds a control to allow enabling only one tfa9897/speaker
->    (for the typical phone-call usecase)
-> 2. adds a control to switch between speaker and receiver modes
-> 3. adds support for an optional gpio also used to switch modes
-> 
-> [...]
 
-Applied to
+--FzXysqnWhsplUAtn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri, Oct 29, 2021 at 08:38:54PM +0530, Sameer Pujar wrote:
+> On 10/26/2021 11:53 AM, Sameer Pujar wrote:
+> > On 10/25/2021 6:28 PM, Jaroslav Kysela wrote:
 
-Thanks!
+> > > It's a bit unrelated comment to this change, but it may be worth to
+> > > verify all
+> > > kcontrol put callbacks in the tegra code. Ensure that value 1 is
+> > > returned only
+> > > when something was really changed in hardware.
 
-[2/4] ASoC: codecs: tfa989x: Add support for tfa9897 RCV bit
-      commit: b6a4e209fb7da1b49cb72fedb405f90e485d5a48
+> There are cases when the mixer control update is not immediately written to
+> HW, instead the update is ACKed (stored in variable) and writen to HW at a
+> later point of time. Do these cases qualify for "return 1" as well?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+What matters is the user visible effect.  It doesn't matter when the
+change gets written to the hardware, the important thing is that an
+applicaton will read back a new value and users will observe whatver
+change the control change caused.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--FzXysqnWhsplUAtn
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-----BEGIN PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmF8EaAACgkQJNaLcl1U
+h9AF8wf6Au6TOBbNtZfeRJ7HMsQ6sHTIYNis+bR/zS8cVSqlPF4sFhOLkx1Vk921
+mFw6qqrRgTXdq5mJSUXqgQwgl1KFxfFiJyzI2b8j7sz+AEhTzcx51ZFD+teKzejw
+QWoiOHtK6cS7fq9PAXVMaLnq0zA1EPCTU7sMDPb0xaJS1G+sFBULEEXnucT4UFPi
++aoQQ4SY8C1OCdT5MOFjhr79jeH0WTUa6RgkmhE5/mdqUF+6+yg7TTSwVETcaMk9
+3muMn/+qPURk/qT7wZ6KxQVkut5/5hhPHh23MuusFzM+SkAchrIgeho+nvrsKWDZ
+Zb3dE2wfxyWISHnG+Bo0iIepB8PrwA==
+=QxNz
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mark
+--FzXysqnWhsplUAtn--

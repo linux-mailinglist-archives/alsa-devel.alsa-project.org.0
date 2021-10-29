@@ -2,98 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 056FB43F45C
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 03:31:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF63E43F4E2
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 04:14:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8005F16E4;
-	Fri, 29 Oct 2021 03:30:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8005F16E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48EA916E8;
+	Fri, 29 Oct 2021 04:13:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48EA916E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635471071;
-	bh=1BwMNstO90EuxYKwIAhBVAtdAYugKnAsTDiXop4H77g=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=u6uExfSAdwVzfyIbdkiUhkdbocjUrhmtkIaBerTyEUMMqqCNO2Q1WfKytMpi0yl+I
-	 FQOmsXF5HMmePy0luwVcLLrMKPVNwGO1zD8V4yT2+ZcZI80F13SkSvkcRfYFGnzKqB
-	 s4Yx91fbWvseZnojRXwgSBwMyn1ySEgWy/cmdULQ=
+	s=default; t=1635473686;
+	bh=CQ214FmikX9u4kKCZmpuZG/ovlw5f+mYjdNxYzKvdUg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=r8tOcbD6Sep6owUEjRs+SryUb7PckMYCu2sJWOdHy/1IvOnAVfMxi6ALFduFL2QfR
+	 2WqezaZA55XogpZFVJzcOkrGgoM81gtyeB74BcEVOLALGjL7dxYu7oxqP4H4M7rFh4
+	 bRx+tjPDKJHo67q5nO2ZDyfWOxJjOD5lUxPhleLY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E342F801EC;
-	Fri, 29 Oct 2021 03:29:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 987EBF8025E;
+	Fri, 29 Oct 2021 04:13:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7762F8025A; Fri, 29 Oct 2021 03:29:17 +0200 (CEST)
+ id 49350F8025A; Fri, 29 Oct 2021 04:13:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD338F800D1
- for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 03:29:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD338F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="HuLU/xCA"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="WYOsjK2Q"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 85752320148A;
- Thu, 28 Oct 2021 21:28:53 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Thu, 28 Oct 2021 21:28:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=MjRCkssqgIpcNwZq/cnxBlQVWp
- NLUVotcLRFpsQWZ7Q=; b=HuLU/xCAbThTfOGyB2vwygFuCTKe8eGzoKLEkkqusE
- 6fwrGFeUO4NW4J6E9T+3V3nN3dmiEKiHX7gnuDWx+e89QA+nxfp7RAWJ0P6jVrp5
- 9J/npaOaV17X9rDNfnsW1lW8wohO5L5Wk13g+vrCLvOpeonZ5vqVKxg7PZugwBbG
- QLKZ8lQbDGlD6ZIUvz7RIHRN0wJAUrrpeS1jxjYCtP8804wT7kBu1nMGe6nQom3M
- C7cyJTK7caaDglVSIL7RHDL+xMEZMJ2ayw7FOM24guTOmfGJy7tmnWCFvjCxFRLd
- hxrmI498YEYRrGolWBoiU4RkhNGXbaXCiUzew6WSYBwg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=MjRCkssqgIpcNwZq/
- cnxBlQVWpNLUVotcLRFpsQWZ7Q=; b=WYOsjK2Q42souf1lg+QWuY8yT6jNT0iwG
- FnU3/SybzzGWjsLST7mDKzH1tHvBnceOKywuPp/q4XFODXiPGlSgpowfyVemXEzg
- hzqlEhevMusQwjElHPDq0+MXb+PhW/7kEF6vz8d3kcjx7uReuEiBUklLIPfrNoSn
- e0rtlT4y16Zj1YS5kDAwiMu7GIqRYyl59xKrbonMjsffyTRf9AWKh+LHgR2sH/6m
- gqpLEnuhJncAZ7xtSszEpimix6k2yaUrw6h8hGeUhoC9TjFNpMyzk64DP6FLJF/m
- MGlhpuAkwIAr+u29Gm75ZACOfrGs+deNswniXxtN9Ieun/jXKCMKw==
-X-ME-Sender: <xms:U057YWlEAZO1lbJpd1rj5p_WnmDchkIIe_SawmufIvPfqZ0sztKt6w>
- <xme:U057Yd2SwiFHVUdQyS4LT_S5lGIskCudssbsd92WYi58olORpaKW1uaeai-kTtvln
- StLHTF9qdXQcOkVsCQ>
-X-ME-Received: <xmr:U057YUpu5zAt7I--IpzrcHTMSuLUkAW8z3hdxZFraaQKyRI8YFUiHRVy3RxWATdUTYHf8Ozo9PeU24WHg_emhp-SfsvSJvKHKrBQ7SXXPprIm8Hvg0a5>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdeggedggeegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
- ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
- ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
- grmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:U057Yandu9wH9FIJHMb5tiPhdi9fUUxncbTAchJUeo21AP2PmOU6Og>
- <xmx:U057YU37Muf1wb8Ks5J4jBkPxWWCoRde_NkZ3bmpVlgRiLnthc_H1w>
- <xmx:U057YRvKXjBNjarTc1Ln0ypXYTf1iX-LLDE4Nz7Lu-JJ1KBCC9qFkw>
- <xmx:VU57YR-Vpz530vT6ASCADpunWEDSH1OKtZ4FIWIFuLumspG-W7wa7g>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 28 Oct 2021 21:28:50 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: firewire-motu: remove TODO for interaction with
- userspace about control message
-Date: Fri, 29 Oct 2021 10:28:47 +0900
-Message-Id: <20211029012847.11839-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.30.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA95BF8010A
+ for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 04:13:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA95BF8010A
+Received: by mail-ot1-f41.google.com with SMTP id
+ v2-20020a05683018c200b0054e3acddd91so11466797ote.8
+ for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 19:13:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=vM3EiRXQ2OSu4mmD6bWP+EUG0mzB9TpPF/rDTHfYIj8=;
+ b=Kky/NOQBaeRARHB3M6a6AW7gB05MsrqBINFEGYkuCucqP3QcNSmtlsDFoJnJGD4lam
+ yvk9vtm7n+d6C9xXZ9aTx2HGxDKEHnU8GCx5s1V1W9AD5fyJCytF/Hgw8aq0ikKZ0+Gp
+ ALKJBVBINNXSUSOxH+08sL0WEv9GGxpe45qsHcgmtK3i4M5IbSlugG2eAleDAC9m8lK1
+ qj98W5wJX7PkzOiSwyOC4gR9APnLGTzPU60vN5q+4d/XKi4yq9vo+pq/k8cayQinxFn5
+ qmiPpww9V8VQn21EA/rUoAOZTxf23LHcbyZj3xepQxFfniG5wO/JuJhjbN24Km2PKmvs
+ 8MEg==
+X-Gm-Message-State: AOAM530gGS0+IVM9ygJ+q60vhVIncQWTReF+TFCbQw083nYZD2xkoq24
+ Wlo2+m+Y1HRLh4eE9k1URg==
+X-Google-Smtp-Source: ABdhPJyMHDvpVhYUlm/I6enpqef/qbWhYuWCe25Mv9RYKjQCgibt2oEWqsEAdKdJakD46cNOTl/6Lg==
+X-Received: by 2002:a05:6830:3155:: with SMTP id
+ c21mr6450826ots.104.1635473592353; 
+ Thu, 28 Oct 2021 19:13:12 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id bo35sm727867oib.40.2021.10.28.19.13.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Oct 2021 19:13:11 -0700 (PDT)
+Received: (nullmailer pid 1021491 invoked by uid 1000);
+ Fri, 29 Oct 2021 02:13:10 -0000
+Date: Thu, 28 Oct 2021 21:13:10 -0500
+From: Rob Herring <robh@kernel.org>
+To: Vincent Knecht <vincent.knecht@mailoo.org>
+Subject: Re: [PATCH v1 3/4] ASoC: dt-bindings: nxp, tfa989x: Add rcv-gpios
+ property for tfa9897
+Message-ID: <YXtYtsPCeh937oF6@robh.at.kernel.org>
+References: <20211024085840.1536438-1-vincent.knecht@mailoo.org>
+ <20211024085840.1536438-4-vincent.knecht@mailoo.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211024085840.1536438-4-vincent.knecht@mailoo.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ stephan@gerhold.net, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, ~postmarketos/upstreaming@lists.sr.ht
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,28 +95,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now UAPI of ALSA firewire stack got enough functions to interact with
-userspace for protocol of MOTU FireWire series. Let's remove the relevant
-TODO.
+On Sun, Oct 24, 2021 at 10:58:39AM +0200, Vincent Knecht wrote:
+> Add optional rcv-gpios property specific to tfa9897 receiver mode.
+> 
+> Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
+> ---
+>  .../devicetree/bindings/sound/nxp,tfa989x.yaml         | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/nxp,tfa989x.yaml b/Documentation/devicetree/bindings/sound/nxp,tfa989x.yaml
+> index 7667471be1e4..a9e15baedafd 100644
+> --- a/Documentation/devicetree/bindings/sound/nxp,tfa989x.yaml
+> +++ b/Documentation/devicetree/bindings/sound/nxp,tfa989x.yaml
+> @@ -12,6 +12,16 @@ maintainers:
+>  allOf:
+>    - $ref: name-prefix.yaml#
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: nxp,tfa9897
+> +    then:
+> +      properties:
+> +        rcv-gpios:
+> +          description: optional GPIO to be asserted when receiver mode is enabled.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/motu/amdtp-motu.c | 2 --
- 1 file changed, 2 deletions(-)
+Did you test this works? 
 
-diff --git a/sound/firewire/motu/amdtp-motu.c b/sound/firewire/motu/amdtp-motu.c
-index 3ea91e281147..2fb52f481d12 100644
---- a/sound/firewire/motu/amdtp-motu.c
-+++ b/sound/firewire/motu/amdtp-motu.c
-@@ -424,8 +424,6 @@ static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
- 		if (p->midi_ports)
- 			write_midi_messages(s, buf, data_blocks);
- 
--		// TODO: how to interact control messages between userspace?
--
- 		write_sph(p->cache, buf, data_blocks, s->data_block_quadlets);
- 	}
- 
--- 
-2.30.2
+You have to define the property outside the if/then schema at the top 
+level. Then use an if/then schema to restrict it (rcv-gpios: false).
 
+> +
+>  properties:
+>    compatible:
+>      enum:
+> -- 
+> 2.31.1
+> 
+> 
+> 
+> 

@@ -2,84 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF63E43F4E2
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 04:14:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1875543F4F3
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 04:22:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48EA916E8;
-	Fri, 29 Oct 2021 04:13:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48EA916E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A97EE16E8;
+	Fri, 29 Oct 2021 04:21:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A97EE16E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635473686;
-	bh=CQ214FmikX9u4kKCZmpuZG/ovlw5f+mYjdNxYzKvdUg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1635474138;
+	bh=q/GkHknTFVy8p0Ym2Z9iyJNDs4qUZaNW2gBn5oJb+yE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=r8tOcbD6Sep6owUEjRs+SryUb7PckMYCu2sJWOdHy/1IvOnAVfMxi6ALFduFL2QfR
-	 2WqezaZA55XogpZFVJzcOkrGgoM81gtyeB74BcEVOLALGjL7dxYu7oxqP4H4M7rFh4
-	 bRx+tjPDKJHo67q5nO2ZDyfWOxJjOD5lUxPhleLY=
+	b=ubyKvSF+zX3bWdkM8lYoVbbwHU5MIL2gy4zzoeqbi7AWQ8Ex97svVJkYH7g+EWvQ0
+	 PvEp9tb/l7H9Hw8wtDceZYYyVGVRtTfKR9Twc9DAHSkjTg4d6Do+aEF/UWx0I3q9DY
+	 XhTOCw3vKPjdRwSz/+D8ri+8JevxykftnT8hTffo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 987EBF8025E;
-	Fri, 29 Oct 2021 04:13:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C6CDF800D1;
+	Fri, 29 Oct 2021 04:21:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49350F8025A; Fri, 29 Oct 2021 04:13:22 +0200 (CEST)
+ id CEDCCF801EC; Fri, 29 Oct 2021 04:20:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA95BF8010A
- for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 04:13:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA95BF8010A
-Received: by mail-ot1-f41.google.com with SMTP id
- v2-20020a05683018c200b0054e3acddd91so11466797ote.8
- for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 19:13:13 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E145F8010A
+ for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 04:20:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E145F8010A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="jlVG+VO1"
+Received: by mail-pf1-x42c.google.com with SMTP id p40so2978868pfh.8
+ for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 19:20:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=mhB6LkCbsKUbE+bUIvR/Nrpsu2M4JaioKKngIejiLhc=;
+ b=jlVG+VO1wHjL5B0Hkj2SEVVcUAGh7PrcbCyhNPcuXTVpP/NRyZrpYh2RlHOO6oYrTW
+ PbR1GOeMbg8NcIQgJRX5w78F9Knr93d2yQFXq2kJM0zWiWhnU9TgrsBNd9bFt+d6Nk2r
+ GjFs3JECWpH3fOdXFBWqqYTy/2L2M2iH/srfKEogAcW+JqlnBw8bFWlF5HgnlTIy44Wy
+ YFfHhdrDo4URqFGKHh0fb3WB2p3WUxS0Nk9QTXO4kNy3r2hmmJixp8x2tDyOhL1bPYfD
+ epKiICmzzvtTja91yNZDRFSpqL4TrY3h3VbVAcFNy1UHxrZUIbzek9ezqph5ss7aJmGj
+ vKBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=vM3EiRXQ2OSu4mmD6bWP+EUG0mzB9TpPF/rDTHfYIj8=;
- b=Kky/NOQBaeRARHB3M6a6AW7gB05MsrqBINFEGYkuCucqP3QcNSmtlsDFoJnJGD4lam
- yvk9vtm7n+d6C9xXZ9aTx2HGxDKEHnU8GCx5s1V1W9AD5fyJCytF/Hgw8aq0ikKZ0+Gp
- ALKJBVBINNXSUSOxH+08sL0WEv9GGxpe45qsHcgmtK3i4M5IbSlugG2eAleDAC9m8lK1
- qj98W5wJX7PkzOiSwyOC4gR9APnLGTzPU60vN5q+4d/XKi4yq9vo+pq/k8cayQinxFn5
- qmiPpww9V8VQn21EA/rUoAOZTxf23LHcbyZj3xepQxFfniG5wO/JuJhjbN24Km2PKmvs
- 8MEg==
-X-Gm-Message-State: AOAM530gGS0+IVM9ygJ+q60vhVIncQWTReF+TFCbQw083nYZD2xkoq24
- Wlo2+m+Y1HRLh4eE9k1URg==
-X-Google-Smtp-Source: ABdhPJyMHDvpVhYUlm/I6enpqef/qbWhYuWCe25Mv9RYKjQCgibt2oEWqsEAdKdJakD46cNOTl/6Lg==
-X-Received: by 2002:a05:6830:3155:: with SMTP id
- c21mr6450826ots.104.1635473592353; 
- Thu, 28 Oct 2021 19:13:12 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id bo35sm727867oib.40.2021.10.28.19.13.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Oct 2021 19:13:11 -0700 (PDT)
-Received: (nullmailer pid 1021491 invoked by uid 1000);
- Fri, 29 Oct 2021 02:13:10 -0000
-Date: Thu, 28 Oct 2021 21:13:10 -0500
-From: Rob Herring <robh@kernel.org>
-To: Vincent Knecht <vincent.knecht@mailoo.org>
-Subject: Re: [PATCH v1 3/4] ASoC: dt-bindings: nxp, tfa989x: Add rcv-gpios
- property for tfa9897
-Message-ID: <YXtYtsPCeh937oF6@robh.at.kernel.org>
-References: <20211024085840.1536438-1-vincent.knecht@mailoo.org>
- <20211024085840.1536438-4-vincent.knecht@mailoo.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mhB6LkCbsKUbE+bUIvR/Nrpsu2M4JaioKKngIejiLhc=;
+ b=QrFHpdsFHhtYGSkoWS8NLsnZhONoeewveJnSkow3qLs7eQyos6plZ1xNheostzBRFX
+ LMl9VoxWea8pjSMgFVZEkmIVXcXQ8CTFH/y6X9e3lwInxNP5q28h0qMfU4sfdZz/n/09
+ haPU/9i89/jy/WKg13N9yS3hO6sWgsP+jv8mfjDu3EMbFslabmdvHfqzNdnIfHCKYusU
+ U8SQvGuRWModnzOYQZNV60gA9wO5RYh0K9kXccsi0z4KhJc9dN3Hp4Oa0yZb/gbGewLo
+ vR1sU5q52XLUZjTFIUxoCHmxI5mEvcJMVjY+kGi05qcQuOOp2+8kg03Feo0l24MSa0vq
+ LenQ==
+X-Gm-Message-State: AOAM533os6JEZUW0zhdRATEVqZ2g1znYHMFb1WXdqiZx87YI7gAPUwDU
+ d3ik+cwuy2VciPZLSOwb1HUCAZpQUocZVUzmQXIIXQ==
+X-Google-Smtp-Source: ABdhPJwRHndRNkI7bhtBce/eYA5HiHNlGa+O3E5HB7Z9RmPlWNKvOeozIVu/Q5CdowIzhda3z/o19UtPjQ3coB7P6Gk=
+X-Received: by 2002:a63:7418:: with SMTP id p24mr6095486pgc.204.1635474044247; 
+ Thu, 28 Oct 2021 19:20:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211024085840.1536438-4-vincent.knecht@mailoo.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- stephan@gerhold.net, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20211029001225.27218-1-julianbraha@gmail.com>
+In-Reply-To: <20211029001225.27218-1-julianbraha@gmail.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Fri, 29 Oct 2021 10:20:33 +0800
+Message-ID: <CA+Px+wUi6t3n64EPWqX0Q3vMUkBw7UrRBK_5RwnVtNsa-ZuLGw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fix unmet dependencies on GPIOLIB for
+ SND_SOC_RT1015P
+To: Julian Braha <julianbraha@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, arnd@arndb.de, linux-kernel@vger.kernel.org,
+ fazilyildiran@gmail.com, tiwai@suse.com, Jiaxin.Yu@mediatek.com,
+ lgirdwood@gmail.com, broonie@kernel.org, linux-mediatek@lists.infradead.org,
+ trevor.wu@mediatek.com, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,44 +98,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Oct 24, 2021 at 10:58:39AM +0200, Vincent Knecht wrote:
-> Add optional rcv-gpios property specific to tfa9897 receiver mode.
-> 
-> Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
-> ---
->  .../devicetree/bindings/sound/nxp,tfa989x.yaml         | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/nxp,tfa989x.yaml b/Documentation/devicetree/bindings/sound/nxp,tfa989x.yaml
-> index 7667471be1e4..a9e15baedafd 100644
-> --- a/Documentation/devicetree/bindings/sound/nxp,tfa989x.yaml
-> +++ b/Documentation/devicetree/bindings/sound/nxp,tfa989x.yaml
-> @@ -12,6 +12,16 @@ maintainers:
->  allOf:
->    - $ref: name-prefix.yaml#
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: nxp,tfa9897
-> +    then:
-> +      properties:
-> +        rcv-gpios:
-> +          description: optional GPIO to be asserted when receiver mode is enabled.
+On Fri, Oct 29, 2021 at 8:12 AM Julian Braha <julianbraha@gmail.com> wrote:
+> WARNING: unmet direct dependencies detected for SND_SOC_DMIC
+>   Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
+>   Selected by [y]:
+>   - SND_SOC_MT8192_MT6359_RT1015_RT5682 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y] && SND_SOC_MT8192 [=y] && MTK_PMIC_WRAP [=y]
+The block is not for RT1015P but it can also be fixed by the patch.
 
-Did you test this works? 
+[...]
 
-You have to define the property outside the if/then schema at the top 
-level. Then use an if/then schema to restrict it (rcv-gpios: false).
-
-> +
->  properties:
->    compatible:
->      enum:
-> -- 
-> 2.31.1
-> 
-> 
-> 
-> 
+> This is because these config options select SND_SOC_RT1015P
+> without selecting or depending on GPIOLIB, despite
+> SND_SOC_RT1015P depending on GPIOLIB.
+>
+> These unmet dependency bugs were detected by Kismet,
+> a static analysis tool for Kconfig. Please advise if this
+> is not the appropriate solution.
+>
+> Signed-off-by: Julian Braha <julianbraha@gmail.com>
+Acked-by: Tzung-Bi Shih <tzungbi@google.com>

@@ -2,91 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 177BA43FBE3
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 13:56:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EACD643FEE0
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 17:01:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F6AB16D9;
-	Fri, 29 Oct 2021 13:55:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F6AB16D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 851B316E7;
+	Fri, 29 Oct 2021 17:00:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 851B316E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635508585;
-	bh=tNYWsba+D0W/csXywpKQFDLzllRPQcdyIe3tH7mDTCg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1635519674;
+	bh=R5FzHwmSwQfQlpdo5i1wIaXeUju+mJBwvASYAGgavDA=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AXAd+ft1sRj3cvTVGFoQP4BCl4F1toA2mRZbF3jThcj9RNWtasrMj4ivR0So2CH8x
-	 ELGWfbV0bJBaZlKx/hjfc/oZa0ne7JmM1X/Gy7yU8D1Ko0XyDPTYwsDlz9plPsNNR3
-	 /95u4kNe0SiaTwupscw0+5MmAU7et1NxZs0AxFt4=
+	b=NYlXb7mUX6YzXIzVRerpyVbxXwY5nSUeKP3k8/xGZPeAFAWfo/xzVBv2GlLz9YYdY
+	 JpRcQbZx5tfB1ykiq6W/Swj4YavnbVImOy9WIos5aROI5vG43lsprBoXx7wqnjn27R
+	 iPhaF7MF8pb5AbQErKn3aG1PKJSO7if7ErC0q5Nc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F14F7F8025E;
-	Fri, 29 Oct 2021 13:55:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F84CF804E3;
+	Fri, 29 Oct 2021 16:59:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C05A8F8025A; Fri, 29 Oct 2021 13:55:05 +0200 (CEST)
+ id 911F4F800D1; Fri, 29 Oct 2021 16:59:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1351F800D1
- for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 13:54:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1351F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50A9FF801EC
+ for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 16:59:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50A9FF801EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="p8RLolHR"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19T9dXwP027028; 
- Fri, 29 Oct 2021 06:54:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=kEDTtI4Kmg97IJO2WoQYdCw1XIYOjOxgPMAGQLirbPc=;
- b=p8RLolHRjCEpyfhksh07E2LR3dbEr4IZn13OqlX5t247kcqz/I3m2b47Y6cM6MKNlBQf
- V0H57S1tYPiYUeUiZ0DzHxyt9uxlatqUUxJdZip3FqNyskcZ8VuHEb4OONK539Pj6iL/
- 8ph8K8K2+VboJMW0cLD8Ul1RzGaEnxlpmv89shlXizowGwL/sMRuxzaOJQoYErw8b0ZR
- dQVfJf1m7SmRWEqgpEf/Y0MfNfxLZ49R/uS34HbgGImQxtOKhjyhzkwYUJVJWKm/fIhn
- l3zKICucUxtPI/XZ+gGVriqke5Pyne0jwN6KM+HhwZrKlAN+gESh+C7YShHyrkj/+JrJ Pw== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3c0egyr48q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 29 Oct 2021 06:54:53 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Fri, 29 Oct
- 2021 12:54:51 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
- Transport; Fri, 29 Oct 2021 12:54:51 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 805B711CB;
- Fri, 29 Oct 2021 11:54:50 +0000 (UTC)
-Date: Fri, 29 Oct 2021 11:54:50 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: David Heidelberg <david@ixit.cz>
-Subject: Re: [PATCH v2] dt-bindings: sound: wlf,wm8903: Convert txt bindings
- to yaml
-Message-ID: <20211029115450.GH28292@ediswmail.ad.cirrus.com>
-References: <20211028124639.38420-1-david@ixit.cz>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="taS8SPLP"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3DB51610FD;
+ Fri, 29 Oct 2021 14:58:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1635519537;
+ bh=R5FzHwmSwQfQlpdo5i1wIaXeUju+mJBwvASYAGgavDA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=taS8SPLPWZXwfIEGI+GHSRCUfwkkGDlzisA08qBpDDbzMh4i26Q40AH2HwqIzy/2Y
+ CpXHCt5C5nkkDkr1lPEmsxJcw4rtAZplhC84oL06IAGqAcRIp7vqyPqNKawgcPR6h3
+ 0MesEC/uJrUi1y5M7ETPZ9xQ0z4pmZTDHNpv8RaRP2ipSqwQES70hgAIWotsy5wMmq
+ fsPCMgpYBUsr23VpN5mZvQtl1IpNBQ0HwwCq/m1IDWn4hduLdGcf+McQ1ZehpTzRba
+ dpYhUINIi1u6ryqXyfI6fRV5WB9sXLDslfv+keKKP+qx8Knalr33DkKDZ31qDNSCV7
+ xOVcPcrrpmV1Q==
+From: Mark Brown <broonie@kernel.org>
+To: robh+dt@kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20211028140902.11786-1-rf@opensource.cirrus.com>
+References: <20211028140902.11786-1-rf@opensource.cirrus.com>
+Subject: Re: (subset) [PATCH 0/3] ASoC: cs42l42: Fix definition and handling
+ of jack switch invert
+Message-Id: <163551953598.3555751.8698233177978916153.b4-ty@kernel.org>
+Date: Fri, 29 Oct 2021 15:58:55 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20211028124639.38420-1-david@ixit.cz>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: AFVpuzUCs6QToA3GPdZe_C-FWua-QtNg
-X-Proofpoint-ORIG-GUID: AFVpuzUCs6QToA3GPdZe_C-FWua-QtNg
-X-Proofpoint-Spam-Reason: safe
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- - <patches@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, ~okias/devicetree@lists.sr.ht
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,14 +79,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Oct 28, 2021 at 02:46:38PM +0200, David Heidelberg wrote:
-> Convert the Wolfson WM8903 Ultra-Low Power Stereo CODEC Device Tree
-> binding documentation to json-schema.
+On Thu, 28 Oct 2021 15:08:59 +0100, Richard Fitzgerald wrote:
+> Summary: The driver applied the opposite of the DT setting to the
+> wrong register bit.
 > 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
+> The jack plug detect hardware in cs42l42 is somewhat confusing,
+> compounded by an unclear description in the datasheet. This is most
+> likely the reason that the driver implemented a DT property for the
+> wrong register bit, that had the opposite effect of what was
+> described in the binding.
+> 
+> [...]
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/3] ASoC: dt-bindings: cs42l42: Correct description of ts-inv
+      commit: 2a2df2a755172afb25f0883a52aedba3b67d8a48
+[2/3] ASoC: cs42l42: Correct configuring of switch inversion from ts-inv
+      commit: 778a0cbef5fb76bf506f84938517bb77e7a1c478
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Charles
+Mark

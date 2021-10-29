@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E08343F82A
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 09:51:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3B6F43F87A
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 10:03:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4C9A16DD;
-	Fri, 29 Oct 2021 09:50:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4C9A16DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62DCA16E3;
+	Fri, 29 Oct 2021 10:02:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62DCA16E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635493863;
-	bh=b0VLOnr720903/SKr8LZRYdD2OF3IfUjXxSV8/+BZhU=;
+	s=default; t=1635494624;
+	bh=x0HOfmxG8PHKdsdOUqZudrGWmswY4FpqkdgMbv2xj94=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JI+19nRRdJjULW+/SJBQDNy9TD8OKWckPvOHOD5LygdRaxrzotASelZ7M0lh89I08
-	 1+EXCHCYmPM4aRKlNGUmTgJ51P2ywb0YkB71jMfTalREP1GxqRkHURuMBwJ5zSqqxX
-	 u2XOEAnIT87UgWZMP13GWwe6BJeGzqNYBNolVmFI=
+	b=drnwYURzWAHfMLd50gBo1OxEkAoRxV/k6BF1WmMLXaYO0gx/UDjmerS9RaVGKRuod
+	 U0yTnwH8f7U8h/K3xJ8kcP9eHAj5iCuTbOWsndfP1Z9wYU6Xc7J38+FKUSY3E4F4KB
+	 W4pS6d+ttDqZIplzVpEHCKrfkXhEStPOQlaS0V9I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0375BF8010A;
-	Fri, 29 Oct 2021 09:49:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD4C4F800D1;
+	Fri, 29 Oct 2021 10:02:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C29B6F8025A; Fri, 29 Oct 2021 09:49:43 +0200 (CEST)
+ id 43D88F8025A; Fri, 29 Oct 2021 10:02:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7C10F800D1
- for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 09:49:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7C10F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6085F8010A
+ for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 10:02:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6085F8010A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="tzOGOWVr"; 
+ header.b="nL5Yp2J7"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="6dpJUTpW"
+ header.b="0VeTtUFX"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4FAA71FD60;
- Fri, 29 Oct 2021 07:49:35 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 28D6B212C9;
+ Fri, 29 Oct 2021 08:02:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635493775; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635494528; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=P7QczZe6UukLkWNHszkC1jlgIi1qD3c5Cc8F+RIUzs0=;
- b=tzOGOWVrBgi+3UgmmT1StKciepHWqImwta2JtyYxeEpodcOAutOzj0q0uhO2zdhyKd4F9c
- dHKvcZElGHztLsfcTsiPNWkMfIfYOx9i0tITd4UOh/iQhtIF9MH8dj6aiddgHjwZLs/3bW
- v/t+we2mLEf8Atzqwk+H54WFOmpU7UY=
+ bh=oxOSxyFzWFUd4cDplAIwxmUNZu6Yzy+3l+r/0a2STBc=;
+ b=nL5Yp2J7YOYGIgRBnM+6dxZUlwvAPVnL2Pbw/22KeZdfRgKZGXtYgyA1pyQg3hQHeWRJkC
+ OiuYcqsg5khA/yMrMuLW9Oznuee/RSDEqaFoe5cHsBADjjyt+x2KCeXwlyi+DiBB9gKTa7
+ edCXQBRU6q9BItBl1qz4f2LWr85qXf8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635493775;
+ s=susede2_ed25519; t=1635494528;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=P7QczZe6UukLkWNHszkC1jlgIi1qD3c5Cc8F+RIUzs0=;
- b=6dpJUTpWcC2GRGbVmoD1pVzWj32T7fuPFLS2cErumscQSd3eHLA/nwJvI9z7xambqGsdHq
- 1ityP+v6J4OOc5DQ==
+ bh=oxOSxyFzWFUd4cDplAIwxmUNZu6Yzy+3l+r/0a2STBc=;
+ b=0VeTtUFXOsqcyKqcC10WTRm6phtCclluDSe2xsu6XGIkUopOsRTLKiAF3sZJuqFCmV8C7q
+ 72Op3lOwt4K3yMCg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3D210A3B81;
- Fri, 29 Oct 2021 07:49:35 +0000 (UTC)
-Date: Fri, 29 Oct 2021 09:49:35 +0200
-Message-ID: <s5hh7d0tgmo.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 14BCFA3B83;
+ Fri, 29 Oct 2021 08:02:08 +0000 (UTC)
+Date: Fri, 29 Oct 2021 10:02:08 +0200
+Message-ID: <s5hee84tg1r.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: oxfw: fix functional regression for Mackie Onyx
- 1640i in v5.14 or later
-In-Reply-To: <YXtAnvKI13hQb/ex@workstation>
-References: <20211028130325.45772-1-o-takashi@sakamocchi.jp>
- <s5hlf2dtaqi.wl-tiwai@suse.de> <YXtAnvKI13hQb/ex@workstation>
+Subject: Re: [PATCH] ALSA: firewire-motu: remove TODO for interaction with
+ userspace about control message
+In-Reply-To: <20211029012847.11839-1-o-takashi@sakamocchi.jp>
+References: <20211029012847.11839-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -93,49 +92,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 29 Oct 2021 02:30:22 +0200,
+On Fri, 29 Oct 2021 03:28:47 +0200,
 Takashi Sakamoto wrote:
 > 
-> On Thu, Oct 28, 2021 at 05:44:37PM +0200, Takashi Iwai wrote:
-> > On Thu, 28 Oct 2021 15:03:25 +0200,
-> > Takashi Sakamoto wrote:
-> > > 
-> > > A user reports functional regression for Mackie Onyx 1640i that the device
-> > > generates slow sound with ALSA oxfw driver which supports media clock
-> > > recovery. Although the device is based on OXFW971 ASIC, it does not
-> > > transfer isochronous packet with own event frequency as expected. The
-> > > device seems to adjust event frequency according to events in received
-> > > isochronous packets in the beginning of packet streaming. This is
-> > > unknown quirk.
-> > > 
-> > > This commit fixes the regression to turn the recovery off in driver
-> > > side. As a result, nominal frequency is used in duplex packet streaming
-> > > between device and driver. For stability of sampling rate in events of
-> > > transferred isochronous packet, 4,000 isochronous packets are skipped
-> > > in the beginning of packet streaming.
-> > > 
-> > > Reference: https://github.com/takaswie/snd-firewire-improve/issues/38
-> > > Fixes: 029ffc429440 ("ALSA: oxfw: perform sequence replay for media clock recovery")
-> > > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> > 
-> > Thanks, applied.
-> > 
-> > 
-> > Takashi
+> Now UAPI of ALSA firewire stack got enough functions to interact with
+> userspace for protocol of MOTU FireWire series. Let's remove the relevant
+> TODO.
 > 
-> Oops. I forget to add tag to stable. It's preferable to apply the
-> patch to current stable (5.14.15) and mainline RC (5.15-rc7) as well...
-> 
-> Would I request you to post the patch for the purpose alternatively?
-> (It is perhaps too late for mainline, I guess...)
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-You can inform Greg and Sasha once after the commit gets merged to
-Linus tree by yourself.  Just tell them the upstream commit id and
-corresponding stable trees to merge.  Usually the stable AUTOSEL
-mechanism will pick up such a commit automatically, but doing the
-manual selection is more certain and faster.
+Thanks, applied.
 
-
-thanks,
 
 Takashi

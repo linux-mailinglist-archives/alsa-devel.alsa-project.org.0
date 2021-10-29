@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3181C44011E
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 19:19:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA6EC44011F
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 19:19:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0C6D1724;
-	Fri, 29 Oct 2021 19:18:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0C6D1724
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42EA016FE;
+	Fri, 29 Oct 2021 19:18:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42EA016FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635527953;
-	bh=1rg7rmtXbAiNm1j6/E64sya7NLWQUC1U5wgFuy9lcWs=;
+	s=default; t=1635527976;
+	bh=eulpuoQ0NBqoCHvM2zxSxdS0pms0Z6LneU/1pKMc9rU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G9iyhlDy82VlTtRa+T3jIG1sdclwSLwRhAe3REej+EMfcGDFlzRjCEryuzE78OQMS
-	 AP7UA6e6kSd72tIR1ykrkHm3z2O8YIgTwvO1TY1cy/sZZHqkp5+tFZ/T6k3xVttfoF
-	 Do11f0J+Kjq1NVlaopyhzWU7QZvyAY4f4OXOKiT4=
+	b=EnBFmt7OvBKMIJyRiJFHqC6ZMDMCIy5zbO/Z7jbo8VMD00DNJtQDjtJWQ/gsoo5Mp
+	 JHHdZ3lulbNlgCm+eX6TARLHxbEdqUa0EC9r3UWurO1+pkCnEoTkOVziIBmpDI1G0F
+	 YK+3SOrKos4S11M+bVHIBCUNbHGi+atwjZTx4d5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 393CDF80510;
-	Fri, 29 Oct 2021 19:16:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0B7FF80516;
+	Fri, 29 Oct 2021 19:16:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47ECAF8050F; Fri, 29 Oct 2021 19:16:36 +0200 (CEST)
+ id CFACCF80515; Fri, 29 Oct 2021 19:16:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,24 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7278F80506
- for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 19:16:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7278F80506
-X-IronPort-AV: E=McAfee;i="6200,9189,10152"; a="228166444"
-X-IronPort-AV: E=Sophos;i="5.87,193,1631602800"; d="scan'208";a="228166444"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04890F80507
+ for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 19:16:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04890F80507
+X-IronPort-AV: E=McAfee;i="6200,9189,10152"; a="228166468"
+X-IronPort-AV: E=Sophos;i="5.87,193,1631602800"; d="scan'208";a="228166468"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2021 10:16:22 -0700
+ 29 Oct 2021 10:16:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,193,1631602800"; d="scan'208";a="598276583"
+X-IronPort-AV: E=Sophos;i="5.87,193,1631602800"; d="scan'208";a="598276597"
 Received: from brentlu-brix.itwn.intel.com ([10.5.253.1])
- by orsmga004.jf.intel.com with ESMTP; 29 Oct 2021 10:16:17 -0700
+ by orsmga004.jf.intel.com with ESMTP; 29 Oct 2021 10:16:22 -0700
 From: Brent Lu <brent.lu@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v5 5/6] ASoC: Intel: soc-acpi-cht: shrink tables using
- compatible IDs
-Date: Sat, 30 Oct 2021 01:14:08 +0800
-Message-Id: <20211029171409.611600-6-brent.lu@intel.com>
+Subject: [PATCH v5 6/6] ASoC: Intel: soc-acpi: use const for all uses of
+ snd_soc_acpi_codecs
+Date: Sat, 30 Oct 2021 01:14:09 +0800
+Message-Id: <20211029171409.611600-7-brent.lu@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211029171409.611600-1-brent.lu@intel.com>
 References: <20211029171409.611600-1-brent.lu@intel.com>
@@ -91,126 +91,163 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-We have multiple entries for the same codecs, use the new compatible
-IDs to have a single entry.
+'const' qualifiers are missing on some platforms, add as needed.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Brent Lu <brent.lu@intel.com>
 ---
- .../intel/common/soc-acpi-intel-cht-match.c   | 69 +++++++------------
- 1 file changed, 25 insertions(+), 44 deletions(-)
+ sound/soc/intel/common/soc-acpi-intel-bxt-match.c |  2 +-
+ sound/soc/intel/common/soc-acpi-intel-cml-match.c |  8 ++++----
+ sound/soc/intel/common/soc-acpi-intel-glk-match.c |  2 +-
+ sound/soc/intel/common/soc-acpi-intel-jsl-match.c |  8 ++++----
+ sound/soc/intel/common/soc-acpi-intel-kbl-match.c | 12 ++++++------
+ sound/soc/intel/common/soc-acpi-intel-skl-match.c |  2 +-
+ 6 files changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-index 227424236fd5..c60a5e8e7bc9 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-@@ -51,18 +51,31 @@ static struct snd_soc_acpi_mach *cht_quirk(void *arg)
- 		return mach;
+diff --git a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
+index 78cfdc48ad45..342d34052204 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
+@@ -41,7 +41,7 @@ static struct snd_soc_acpi_mach *apl_quirk(void *arg)
+ 	return mach;
  }
  
-+static const struct snd_soc_acpi_codecs rt5640_comp_ids = {
-+	.num_codecs = 2,
-+	.codecs = { "10EC5640", "10EC3276" },
-+};
-+
-+static const struct snd_soc_acpi_codecs rt5670_comp_ids = {
-+	.num_codecs = 2,
-+	.codecs = { "10EC5670", "10EC5672" },
-+};
-+
-+static const struct snd_soc_acpi_codecs rt5645_comp_ids = {
-+	.num_codecs = 3,
-+	.codecs = { "10EC5645", "10EC5650", "10EC3270" },
-+};
-+
-+static const struct snd_soc_acpi_codecs da7213_comp_ids = {
-+	.num_codecs = 2,
-+	.codecs = { "DGLS7212", "DGLS7213"},
-+
-+};
-+
- /* Cherryview-based platforms: CherryTrail and Braswell */
- struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 	{
--		.id = "10EC5670",
--		.drv_name = "cht-bsw-rt5672",
--		.fw_filename = "intel/fw_sst_22a8.bin",
--		.board = "cht-bsw",
--		.sof_fw_filename = "sof-cht.ri",
--		.sof_tplg_filename = "sof-cht-rt5670.tplg",
--	},
--	{
--		.id = "10EC5672",
-+		.comp_ids = &rt5670_comp_ids,
- 		.drv_name = "cht-bsw-rt5672",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "cht-bsw",
-@@ -70,23 +83,7 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.sof_tplg_filename = "sof-cht-rt5670.tplg",
- 	},
- 	{
--		.id = "10EC5645",
--		.drv_name = "cht-bsw-rt5645",
--		.fw_filename = "intel/fw_sst_22a8.bin",
--		.board = "cht-bsw",
--		.sof_fw_filename = "sof-cht.ri",
--		.sof_tplg_filename = "sof-cht-rt5645.tplg",
--	},
--	{
--		.id = "10EC5650",
--		.drv_name = "cht-bsw-rt5645",
--		.fw_filename = "intel/fw_sst_22a8.bin",
--		.board = "cht-bsw",
--		.sof_fw_filename = "sof-cht.ri",
--		.sof_tplg_filename = "sof-cht-rt5645.tplg",
--	},
--	{
--		.id = "10EC3270",
-+		.comp_ids = &rt5645_comp_ids,
- 		.drv_name = "cht-bsw-rt5645",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "cht-bsw",
-@@ -110,15 +107,7 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.sof_tplg_filename = "sof-cht-nau8824.tplg",
- 	},
- 	{
--		.id = "DLGS7212",
--		.drv_name = "bytcht_da7213",
--		.fw_filename = "intel/fw_sst_22a8.bin",
--		.board = "bytcht_da7213",
--		.sof_fw_filename = "sof-cht.ri",
--		.sof_tplg_filename = "sof-cht-da7213.tplg",
--	},
--	{
--		.id = "DLGS7213",
-+		.comp_ids = &da7213_comp_ids,
- 		.drv_name = "bytcht_da7213",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "bytcht_da7213",
-@@ -135,7 +124,7 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 	},
- 	/* some CHT-T platforms rely on RT5640, use Baytrail machine driver */
- 	{
--		.id = "10EC5640",
-+		.comp_ids = &rt5640_comp_ids,
- 		.drv_name = "bytcr_rt5640",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "bytcr_rt5640",
-@@ -143,14 +132,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-rt5640.tplg",
- 	},
--	{
--		.id = "10EC3276",
--		.drv_name = "bytcr_rt5640",
--		.fw_filename = "intel/fw_sst_22a8.bin",
--		.board = "bytcr_rt5640",
--		.sof_fw_filename = "sof-cht.ri",
--		.sof_tplg_filename = "sof-cht-rt5640.tplg",
--	},
- 	{
- 		.id = "10EC5682",
- 		.drv_name = "sof_rt5682",
+-static struct snd_soc_acpi_codecs bxt_codecs = {
++static const struct snd_soc_acpi_codecs bxt_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98357A"}
+ };
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
+index b591c6fd13fd..b4eb0c97edf1 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
+@@ -9,22 +9,22 @@
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-acpi-intel-match.h>
+ 
+-static struct snd_soc_acpi_codecs rt1011_spk_codecs = {
++static const struct snd_soc_acpi_codecs rt1011_spk_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"10EC1011"}
+ };
+ 
+-static struct snd_soc_acpi_codecs rt1015_spk_codecs = {
++static const struct snd_soc_acpi_codecs rt1015_spk_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"10EC1015"}
+ };
+ 
+-static struct snd_soc_acpi_codecs max98357a_spk_codecs = {
++static const struct snd_soc_acpi_codecs max98357a_spk_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98357A"}
+ };
+ 
+-static struct snd_soc_acpi_codecs max98390_spk_codecs = {
++static const struct snd_soc_acpi_codecs max98390_spk_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98390"}
+ };
+diff --git a/sound/soc/intel/common/soc-acpi-intel-glk-match.c b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
+index 3900e3dbae30..8492b7e2a945 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-glk-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
+@@ -9,7 +9,7 @@
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-acpi-intel-match.h>
+ 
+-static struct snd_soc_acpi_codecs glk_codecs = {
++static const struct snd_soc_acpi_codecs glk_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98357A"}
+ };
+diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
+index ee703701bff2..278ec196da7b 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
+@@ -9,22 +9,22 @@
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-acpi-intel-match.h>
+ 
+-static struct snd_soc_acpi_codecs jsl_7219_98373_codecs = {
++static const struct snd_soc_acpi_codecs jsl_7219_98373_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98373"}
+ };
+ 
+-static struct snd_soc_acpi_codecs rt1015_spk = {
++static const struct snd_soc_acpi_codecs rt1015_spk = {
+ 	.num_codecs = 1,
+ 	.codecs = {"10EC1015"}
+ };
+ 
+-static struct snd_soc_acpi_codecs rt1015p_spk = {
++static const struct snd_soc_acpi_codecs rt1015p_spk = {
+ 	.num_codecs = 1,
+ 	.codecs = {"RTL1015"}
+ };
+ 
+-static struct snd_soc_acpi_codecs mx98360a_spk = {
++static const struct snd_soc_acpi_codecs mx98360a_spk = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98360A"}
+ };
+diff --git a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
+index 741bf2f9e081..4e817f559d38 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
+@@ -12,32 +12,32 @@
+ 
+ static struct skl_machine_pdata skl_dmic_data;
+ 
+-static struct snd_soc_acpi_codecs kbl_codecs = {
++static const struct snd_soc_acpi_codecs kbl_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"10508825"}
+ };
+ 
+-static struct snd_soc_acpi_codecs kbl_poppy_codecs = {
++static const struct snd_soc_acpi_codecs kbl_poppy_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"10EC5663"}
+ };
+ 
+-static struct snd_soc_acpi_codecs kbl_5663_5514_codecs = {
++static const struct snd_soc_acpi_codecs kbl_5663_5514_codecs = {
+ 	.num_codecs = 2,
+ 	.codecs = {"10EC5663", "10EC5514"}
+ };
+ 
+-static struct snd_soc_acpi_codecs kbl_7219_98357_codecs = {
++static const struct snd_soc_acpi_codecs kbl_7219_98357_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98357A"}
+ };
+ 
+-static struct snd_soc_acpi_codecs kbl_7219_98927_codecs = {
++static const struct snd_soc_acpi_codecs kbl_7219_98927_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98927"}
+ };
+ 
+-static struct snd_soc_acpi_codecs kbl_7219_98373_codecs = {
++static const struct snd_soc_acpi_codecs kbl_7219_98373_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"MX98373"}
+ };
+diff --git a/sound/soc/intel/common/soc-acpi-intel-skl-match.c b/sound/soc/intel/common/soc-acpi-intel-skl-match.c
+index 961df8d6b5e4..75302e956742 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-skl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-skl-match.c
+@@ -12,7 +12,7 @@
+ 
+ static struct skl_machine_pdata skl_dmic_data;
+ 
+-static struct snd_soc_acpi_codecs skl_codecs = {
++static const struct snd_soc_acpi_codecs skl_codecs = {
+ 	.num_codecs = 1,
+ 	.codecs = {"10508825"}
+ };
 -- 
 2.25.1
 

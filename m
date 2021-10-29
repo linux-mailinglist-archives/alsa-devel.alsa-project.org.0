@@ -2,94 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CE7A43F2B3
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 00:23:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CBA343F3BE
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 02:13:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3C1216E6;
-	Fri, 29 Oct 2021 00:22:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3C1216E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1131416E6;
+	Fri, 29 Oct 2021 02:13:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1131416E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635459813;
-	bh=EuunFU6F7Dvu2kYNSw7CevxvBHdBkbt2hyGll4tBNTM=;
-	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=STs4REjjLdqzqcvz3ZqZ2AW/1nbuGWLsSAwms8o4tr3uYdD27w3CDjQyDqxGV1+nw
-	 vjvg71+aN0MuryjCZnGWJ0gVP99kCD5ZVsgl+apSEHRpt4g30LQx+EGwnjtsgH0LHO
-	 +mJyI1eGG8eACVvN1fwX3+xC7hyPOGLvcxWaJEbc=
+	s=default; t=1635466433;
+	bh=dFfCqLiyAmtVBHjQUitf6B7CMpRwu8IF4SjZKjJA0Q8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ed5dvjlbfc5vuaj3JnpRBjU7EL0SqT0wwXffk9PWFabKh2DJRoBMuEhBOhcJmps33
+	 YSQAK7VwQW+fc9unAMeYL62wnAqDBSMAVJ6ynMbxgGbTjiTyHuyL0CbHCoFwlS2gv+
+	 hEJo1X9iQtVT2l8H8y8L82iN3anwx+xcbngs3Cxs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E750F800D1;
-	Fri, 29 Oct 2021 00:22:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6194BF80269;
+	Fri, 29 Oct 2021 02:12:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00E8BF802C8; Fri, 29 Oct 2021 00:22:13 +0200 (CEST)
+ id 52A69F802C8; Fri, 29 Oct 2021 02:12:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [IPv6:2607:f8b0:4864:20::f35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23BBEF8014E
- for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 00:22:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23BBEF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98678F8014E
+ for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 02:12:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98678F8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="U0ZkmgyT"
-Received: by mail-oi1-x229.google.com with SMTP id z126so10407600oiz.12
- for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 15:22:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=safjzndEbzjU2SwVTVE4zVWj+HK5y+hvxFtF+3nUUHI=;
- b=U0ZkmgyT3PB6z8814OGZKCNDizIxnQdvyYawTAPG4+SG23OU7CcuGn81meGhTVps2h
- 26NJy4m5OjlUnqEWnhqsu9dCo07ur5BZor+93s5vKlA5qdw7WV0S/K9zTk5tQ6ej+TSz
- 5rB5I89fDFJwaM6vz/CYeHumeD+voBqWcR/k4=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Av48rDYA"
+Received: by mail-qv1-xf35.google.com with SMTP id u16so320233qvk.4
+ for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 17:12:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zCdvHAMPb/U3XpOEmTJBvwKtKMr8OtCBU8SciZQYv0I=;
+ b=Av48rDYAzVf/RSt+M91LSQcSgR2dMlUJhcAugutzpsobYfduotKLHEMV4fMB4NOqoQ
+ igsM0xvRQUi9F+gcG9ys4/HsosHfBGwOl98gJV46c6r2eBGfHYJq3Qx30j0/GDPChDDH
+ yPid3AaULXuqNR8PWnQcMUDcRbIfuMGGrKSWWsOAY2aaEdgfXJZ+N9F8NbyxJ+Y/k/iW
+ jGZQwGDlIHk0a51qogNGras2lEkQgtyijMeaLvA2TtG0Nb5DHcopUknxgmhWmlAmfrRm
+ b3xS5u569mFrUT3EEi7tQn2xj7dzlGqAv3g1sWoHVcBy2ENZArkKWaZUQpK4HpSHNeap
+ KtrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=safjzndEbzjU2SwVTVE4zVWj+HK5y+hvxFtF+3nUUHI=;
- b=lXRRjP9KjpUdCBq1LZpYExsp124qaJ80LXUqC1IdBYtNaP++1Dv9HFgLm7gYOu8XvC
- j/3IQZxGXXSgrFFDvNVWvABtM+0/mSASHJMFGQIZnOcl9HUhuCKtyoiK22XFWgw50pRg
- q1UOQazb7ZNJ1iMzqAZUH3reot5wEs4HE+bBfvEakqcZ0i9D06HpX1s17itRzh4QduTw
- WoqwWpykhujUbnqOi48LeFOxca5Nnj3t7RY1SS3H3OVrmIPOswUdcFzgZhBbwKN0st5O
- 4jk0vZV440QOGMR48GsJRDnlgS+B26iN5HZQyybbOD/KTseVKmVozwbPOskmt8xVnAo1
- xb0Q==
-X-Gm-Message-State: AOAM531DZ9v0YMbMJFHUC2URwsLWdihCNzZM6pKKSEsfG9MTcA1HvjXN
- O+P+mVXVDq4IVLOaj8RXoh5P51gfVsuqjQB5YBdlng==
-X-Google-Smtp-Source: ABdhPJxwad3KZP7ykLYAovaRb+WkgtPUCXvy7JwNFEV0mCgGDN/cpVWWW0Gfk8jtDIeN7WucT9ADa66p1oLzUwiatZ8=
-X-Received: by 2002:a05:6808:2128:: with SMTP id
- r40mr3516798oiw.164.1635459721995; 
- Thu, 28 Oct 2021 15:22:01 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 28 Oct 2021 15:22:01 -0700
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=zCdvHAMPb/U3XpOEmTJBvwKtKMr8OtCBU8SciZQYv0I=;
+ b=yC3hQ/1EHshkEsILNCCxmmiJ9WgqFWZr8Ae1AMftaNJ+2k2HhnHVDGacRlGwWpzsE0
+ qlYRtvbxbrYYkdwJaF26LAB1FuIdBjBsxa2KY1SDu3tFzxPy0D+AqzPmxFGMpDzXIbBD
+ l/vsI0B6/8RsdIJ95ebZ0cF/Ycl/+phf+7/Gb8sKEv3Dep30Zh8xjqK97cThkDP8EVbI
+ T8JvYXqa9CDm92Rt6eDLyXP8goTB6xMalYPjlTbyR88wwKCU7js55JgPPApwtb3SSgkf
+ dKhPa7qZY8nobNQ2+X4wJQMk2nO2ownOC6eHluP/Avz8CHs3kGMB4qp1VDOJksIl5tOD
+ qNVg==
+X-Gm-Message-State: AOAM533+Rd9SuRau8eI4FUESWhKam/pvE5+VQ0A9P6I/upHMeTO8IJy7
+ QjLNHZtO4O5qJlm0oiQ6pjo=
+X-Google-Smtp-Source: ABdhPJy5ntN/HUll1913v6EiH0jp0EXjSai/uspe5ux/XvPebuhBFbYgC/ThsqZ+6FFFGA8m5zfjMw==
+X-Received: by 2002:a05:6214:98d:: with SMTP id
+ dt13mr7478426qvb.13.1635466346900; 
+ Thu, 28 Oct 2021 17:12:26 -0700 (PDT)
+Received: from localhost.localdomain ([67.8.38.84])
+ by smtp.gmail.com with ESMTPSA id f3sm514334qtf.55.2021.10.28.17.12.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Oct 2021 17:12:26 -0700 (PDT)
+From: Julian Braha <julianbraha@gmail.com>
+To: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ matthias.bgg@gmail.com, trevor.wu@mediatek.com, jiaxin.yu@mediatek.com,
+ tzungbi@google.com, arnd@arndb.de
+Subject: [PATCH] ASoC: fix unmet dependencies on GPIOLIB for SND_SOC_RT1015P
+Date: Thu, 28 Oct 2021 20:12:25 -0400
+Message-Id: <20211029001225.27218-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <d92c73d1-32b1-8d95-f3b5-ff103b330621@codeaurora.org>
-References: <1633614519-26680-1-git-send-email-srivasam@codeaurora.org>
- <1633614519-26680-3-git-send-email-srivasam@codeaurora.org>
- <CAE-0n51qO1q5ZF-fAf2Gma9a2B+iSyoQnJdJ8Fnmsz+DG0rwPg@mail.gmail.com>
- <d92c73d1-32b1-8d95-f3b5-ff103b330621@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Thu, 28 Oct 2021 15:22:01 -0700
-Message-ID: <CAE-0n537neZdwb3vP4=8N5vj0EwYnDnA-U7O=fckPvP52baCrg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] dt-bindings: pinctrl: qcom: Add sc7280 lpass lpi
- pinctrl compatible
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- alsa-devel@alsa-project.org, 
- bgoswami@codeaurora.org, bjorn.andersson@linaro.org, broonie@kernel.org, 
- devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
- plai@codeaurora.org, robh+dt@kernel.org, rohitkr@codeaurora.org, 
- srinivas.kandagatla@linaro.org, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
+Content-Transfer-Encoding: 8bit
+Cc: fazilyildiran@gmail.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,43 +101,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2021-10-27 00:47:52)
->
-> On 10/7/2021 11:29 PM, Stephen Boyd wrote:
-> > Quoting Srinivasa Rao Mandadapu (2021-10-07 06:48:38)
-> >> Add device tree binding compatible name for Qualcomm SC7280 LPASS LPI pinctrl driver.
-> >>
-> >> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> >> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> >> ---
-> >>   Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml | 4 +++-
-> >>   1 file changed, 3 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
-> >> index e47ebf9..578b283 100644
-> >> --- a/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
-> >> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
-> >> @@ -16,7 +16,9 @@ description: |
-> >>
-> >>   properties:
-> >>     compatible:
-> >> -    const: qcom,sm8250-lpass-lpi-pinctrl
-> >> +    enum:
-> >> +      - qcom,sc7280-lpass-lpi-pinctrl
-> >> +      - qcom,sm8250-lpass-lpi-pinctrl
-> > I suspect we need to split the binding because the function list needs
-> > to change. Can you make a whole new file that's probably largely a copy
-> > of this file and/or extract the common bits into a meta schema and
-> > include that in both the files? Then the function list can be different
-> > and the clock property can be omitted in the sc7280 file.
->
-> As most are common functions and fixed number of LPASS Lpi pin
-> configuration across platforms,
->
-> Only diff is ADSP bypass platforms 2 clocks are optional. Otherwise
-> clock design also same for SC7280 and SM8250 based architecture.
->
-> So I feel Keeping common file is better for now.
+When SND_SOC_MT8192_MT6359_RT1015_RT5682,
+SND_SOC_MT8192_MT6359_RT1015_RT5682,
+SND_SOC_MT8183_DA7219_MAX98357A, or
+SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A is selected,
+and GPIOLIB is not selected, Kbuild gives the following
+warnings, respectively:
 
-I don't agree. We want to be very strict about what is exposed. It needs
-to match exactly what is supported on the SoC, not be a superset of it.
+WARNING: unmet direct dependencies detected for SND_SOC_DMIC
+  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
+  Selected by [y]:
+  - SND_SOC_MT8192_MT6359_RT1015_RT5682 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y] && SND_SOC_MT8192 [=y] && MTK_PMIC_WRAP [=y]
+
+WARNING: unmet direct dependencies detected for SND_SOC_RT1015P
+  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
+  Selected by [y]:
+  - SND_SOC_MT8192_MT6359_RT1015_RT5682 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y] && SND_SOC_MT8192 [=y] && MTK_PMIC_WRAP [=y]
+
+WARNING: unmet direct dependencies detected for SND_SOC_RT1015P
+  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
+  Selected by [y]:
+  - SND_SOC_MT8183_DA7219_MAX98357A [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_MT8183 [=y] && I2C [=y]
+
+WARNING: unmet direct dependencies detected for SND_SOC_RT1015P
+  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
+  Selected by [y]:
+  - SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y] && SND_SOC_MT8183 [=y]
+
+This is because these config options select SND_SOC_RT1015P
+without selecting or depending on GPIOLIB, despite
+SND_SOC_RT1015P depending on GPIOLIB.
+
+These unmet dependency bugs were detected by Kismet,
+a static analysis tool for Kconfig. Please advise if this
+is not the appropriate solution.
+
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
+---
+ sound/soc/mediatek/Kconfig | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
+index 81ad2dcee9eb..d10d6a3bf5eb 100644
+--- a/sound/soc/mediatek/Kconfig
++++ b/sound/soc/mediatek/Kconfig
+@@ -120,7 +120,7 @@ config SND_SOC_MT8183
+ 
+ config SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A
+ 	tristate "ASoC Audio driver for MT8183 with MT6358 TS3A227E MAX98357A RT1015 codec"
+-	depends on I2C
++	depends on I2C && GPIOLIB
+ 	depends on SND_SOC_MT8183
+ 	select SND_SOC_MT6358
+ 	select SND_SOC_MAX98357A
+@@ -138,7 +138,7 @@ config SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A
+ 
+ config SND_SOC_MT8183_DA7219_MAX98357A
+ 	tristate "ASoC Audio driver for MT8183 with DA7219 MAX98357A RT1015 codec"
+-	depends on SND_SOC_MT8183 && I2C
++	depends on SND_SOC_MT8183 && I2C && GPIOLIB
+ 	select SND_SOC_MT6358
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_RT1015
+@@ -173,7 +173,7 @@ config SND_SOC_MT8192
+ 
+ config SND_SOC_MT8192_MT6359_RT1015_RT5682
+ 	tristate "ASoC Audio driver for MT8192 with MT6359 RT1015 RT5682 codec"
+-	depends on I2C
++	depends on I2C && GPIOLIB
+ 	depends on SND_SOC_MT8192 && MTK_PMIC_WRAP
+ 	select SND_SOC_MT6359
+ 	select SND_SOC_RT1015
+@@ -200,7 +200,7 @@ config SND_SOC_MT8195
+ 
+ config SND_SOC_MT8195_MT6359_RT1019_RT5682
+ 	tristate "ASoC Audio driver for MT8195 with MT6359 RT1019 RT5682 codec"
+-	depends on I2C
++	depends on I2C && GPIOLIB
+ 	depends on SND_SOC_MT8195 && MTK_PMIC_WRAP
+ 	select SND_SOC_MT6359
+ 	select SND_SOC_RT1015P
+-- 
+2.30.2
+

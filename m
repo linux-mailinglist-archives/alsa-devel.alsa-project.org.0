@@ -2,90 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CBA343F3BE
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 02:13:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1412B43F3F0
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 02:32:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1131416E6;
-	Fri, 29 Oct 2021 02:13:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1131416E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BD9916E7;
+	Fri, 29 Oct 2021 02:31:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BD9916E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635466433;
-	bh=dFfCqLiyAmtVBHjQUitf6B7CMpRwu8IF4SjZKjJA0Q8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ed5dvjlbfc5vuaj3JnpRBjU7EL0SqT0wwXffk9PWFabKh2DJRoBMuEhBOhcJmps33
-	 YSQAK7VwQW+fc9unAMeYL62wnAqDBSMAVJ6ynMbxgGbTjiTyHuyL0CbHCoFwlS2gv+
-	 hEJo1X9iQtVT2l8H8y8L82iN3anwx+xcbngs3Cxs=
+	s=default; t=1635467524;
+	bh=RmGXNHIxFeDc/Fix7juI94Pwkmt3/qz8YBMA9g+p1lw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=CoQxfqwJOlHlV1/3ZSwLhthMHkv2Sl7kTjvfcf0+m7+Cvdo5CIzSIMv8lGjL/Hd77
+	 e106bq/FA+2Wlw3tBkt3lrK1SFQRxZcq7R/oLdRUyCc3ZuY905qOZX/FRwQd8iTqY8
+	 j1LpYmv5HdwU34pJ05RWsXq0fgSl5qbNv6n++E1Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6194BF80269;
-	Fri, 29 Oct 2021 02:12:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED7FDF802E7;
+	Fri, 29 Oct 2021 02:30:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52A69F802C8; Fri, 29 Oct 2021 02:12:33 +0200 (CEST)
+ id 5BBCBF802C8; Fri, 29 Oct 2021 02:30:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [IPv6:2607:f8b0:4864:20::f35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98678F8014E
- for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 02:12:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98678F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01EDEF8010A
+ for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 02:30:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01EDEF8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Av48rDYA"
-Received: by mail-qv1-xf35.google.com with SMTP id u16so320233qvk.4
- for <alsa-devel@alsa-project.org>; Thu, 28 Oct 2021 17:12:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=zCdvHAMPb/U3XpOEmTJBvwKtKMr8OtCBU8SciZQYv0I=;
- b=Av48rDYAzVf/RSt+M91LSQcSgR2dMlUJhcAugutzpsobYfduotKLHEMV4fMB4NOqoQ
- igsM0xvRQUi9F+gcG9ys4/HsosHfBGwOl98gJV46c6r2eBGfHYJq3Qx30j0/GDPChDDH
- yPid3AaULXuqNR8PWnQcMUDcRbIfuMGGrKSWWsOAY2aaEdgfXJZ+N9F8NbyxJ+Y/k/iW
- jGZQwGDlIHk0a51qogNGras2lEkQgtyijMeaLvA2TtG0Nb5DHcopUknxgmhWmlAmfrRm
- b3xS5u569mFrUT3EEi7tQn2xj7dzlGqAv3g1sWoHVcBy2ENZArkKWaZUQpK4HpSHNeap
- KtrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=zCdvHAMPb/U3XpOEmTJBvwKtKMr8OtCBU8SciZQYv0I=;
- b=yC3hQ/1EHshkEsILNCCxmmiJ9WgqFWZr8Ae1AMftaNJ+2k2HhnHVDGacRlGwWpzsE0
- qlYRtvbxbrYYkdwJaF26LAB1FuIdBjBsxa2KY1SDu3tFzxPy0D+AqzPmxFGMpDzXIbBD
- l/vsI0B6/8RsdIJ95ebZ0cF/Ycl/+phf+7/Gb8sKEv3Dep30Zh8xjqK97cThkDP8EVbI
- T8JvYXqa9CDm92Rt6eDLyXP8goTB6xMalYPjlTbyR88wwKCU7js55JgPPApwtb3SSgkf
- dKhPa7qZY8nobNQ2+X4wJQMk2nO2ownOC6eHluP/Avz8CHs3kGMB4qp1VDOJksIl5tOD
- qNVg==
-X-Gm-Message-State: AOAM533+Rd9SuRau8eI4FUESWhKam/pvE5+VQ0A9P6I/upHMeTO8IJy7
- QjLNHZtO4O5qJlm0oiQ6pjo=
-X-Google-Smtp-Source: ABdhPJy5ntN/HUll1913v6EiH0jp0EXjSai/uspe5ux/XvPebuhBFbYgC/ThsqZ+6FFFGA8m5zfjMw==
-X-Received: by 2002:a05:6214:98d:: with SMTP id
- dt13mr7478426qvb.13.1635466346900; 
- Thu, 28 Oct 2021 17:12:26 -0700 (PDT)
-Received: from localhost.localdomain ([67.8.38.84])
- by smtp.gmail.com with ESMTPSA id f3sm514334qtf.55.2021.10.28.17.12.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Oct 2021 17:12:26 -0700 (PDT)
-From: Julian Braha <julianbraha@gmail.com>
-To: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- matthias.bgg@gmail.com, trevor.wu@mediatek.com, jiaxin.yu@mediatek.com,
- tzungbi@google.com, arnd@arndb.de
-Subject: [PATCH] ASoC: fix unmet dependencies on GPIOLIB for SND_SOC_RT1015P
-Date: Thu, 28 Oct 2021 20:12:25 -0400
-Message-Id: <20211029001225.27218-1-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.30.2
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="Al4nhVAN"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="jhbYMLvd"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id C32B53201DBC;
+ Thu, 28 Oct 2021 20:30:28 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Thu, 28 Oct 2021 20:30:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=TKHZZAOF7t59TffLKpgYy+AFEiy
+ J0SsifX+r1p8Jh0U=; b=Al4nhVANlDD0qlKmWqSWMECdLCgjVfMfYRL/FDM+ACD
+ o+JIOLfMunrHgS9XOmWkdbiEnsNWETuymigZ7wuMIUdc0Utg1f2f4byc8CfuDrvO
+ kKAq38GbXXVnhKNVHcIpWsvmMFPvg6CffCCRXbKuxfme5+FmzJFIyZRwofhaG5SF
+ fTQUR2gUaWIjZapUl3Cc1K27bXNK/bgVE7gZYMjBH/ru97/W8KGnBjmB8Kb9WNum
+ vV3hM9tEpbCMS/aqcT84qFfDA6AKqnyjojftGqQIfMxpqebTUJWI7QBZw8kdKfwZ
+ us0VhoHK/Mtq0zOvDg0qLueJjNyS3uMgS+gFR9sZF8Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=TKHZZA
+ OF7t59TffLKpgYy+AFEiyJ0SsifX+r1p8Jh0U=; b=jhbYMLvd4x1zDz5iSUphlY
+ Im+6G+Ruhqj//cjvLDaapbJXYVbpuSAMBy7hknBFyHGDRxelBNmtLLnR92Z1EXHH
+ QoWo8wXR8o6yJogxOFxVlFkS/UQh4dVD/pusxFK5upqQFPls546HWjFCsSGnsUpz
+ yRYKefx0z9V2pSvE3aLRAkq3VilnQWDHJ8Fp9YMm3diHQSF40Rki3il1UlADvzyb
+ yKgaY/qV46OO+RX4MVMPzzgaJ+QOiqsa/ZQgF13ZNtFd7+DcKRBOZlaw6fCvGfUc
+ vuMmM/7e7mRkt9l5Tt/00azzskhXAkVJiCgxNMmQ13PShGdsUnpH0y6U5nQT1MOg
+ ==
+X-ME-Sender: <xms:o0B7YV-BUlDIDTtf-OBxRNiqZoCIMkBLzlH5uYal9vSovKMMA-cFww>
+ <xme:o0B7YZuL5kDeulLx0fkyCCyEzlsd9mj9b3C4DvhCBJBBQgx6bC6Vh8r-tzxJRoKUY
+ MUCSb_qvA0C6B6_EyY>
+X-ME-Received: <xmr:o0B7YTAL29fHm5f3aTB07v5kIT24heLIStUSSwSzzHMRd6t_o89A4PQEXt0dG06PVmEUhV_NM5UWy_VwXTScKFjbkxMl9W14Sw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdeggedgfedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeelfeelieekieeivedtffefieehfefhudefieeifffh
+ tefffeehfedvveduudfgtdenucffohhmrghinhepghhithhhuhgsrdgtohhmnecuvehluh
+ hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:o0B7YZdPdOl9ayCKrlJiMkqEjVkSFU8F20J8RJcxswiJRhYU5LjIOA>
+ <xmx:o0B7YaNRf3Mbxm0zFuO4jdTwZ4LF1x8TEVv068DHya8KulMw5cJMQA>
+ <xmx:o0B7YbnQuK0EmSfGo6J6XJcW8v7sIENbAxfGllNObMZ7aXPxsDreew>
+ <xmx:pEB7Yc0Wl7rFA0tiVZsXS5nGFYo2ip2CamlbxlkU8VSNgI1bFJe_pA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 28 Oct 2021 20:30:26 -0400 (EDT)
+Date: Fri, 29 Oct 2021 09:30:22 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: oxfw: fix functional regression for Mackie Onyx
+ 1640i in v5.14 or later
+Message-ID: <YXtAnvKI13hQb/ex@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
+ alsa-devel@alsa-project.org
+References: <20211028130325.45772-1-o-takashi@sakamocchi.jp>
+ <s5hlf2dtaqi.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: fazilyildiran@gmail.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hlf2dtaqi.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,86 +117,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When SND_SOC_MT8192_MT6359_RT1015_RT5682,
-SND_SOC_MT8192_MT6359_RT1015_RT5682,
-SND_SOC_MT8183_DA7219_MAX98357A, or
-SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A is selected,
-and GPIOLIB is not selected, Kbuild gives the following
-warnings, respectively:
+On Thu, Oct 28, 2021 at 05:44:37PM +0200, Takashi Iwai wrote:
+> On Thu, 28 Oct 2021 15:03:25 +0200,
+> Takashi Sakamoto wrote:
+> > 
+> > A user reports functional regression for Mackie Onyx 1640i that the device
+> > generates slow sound with ALSA oxfw driver which supports media clock
+> > recovery. Although the device is based on OXFW971 ASIC, it does not
+> > transfer isochronous packet with own event frequency as expected. The
+> > device seems to adjust event frequency according to events in received
+> > isochronous packets in the beginning of packet streaming. This is
+> > unknown quirk.
+> > 
+> > This commit fixes the regression to turn the recovery off in driver
+> > side. As a result, nominal frequency is used in duplex packet streaming
+> > between device and driver. For stability of sampling rate in events of
+> > transferred isochronous packet, 4,000 isochronous packets are skipped
+> > in the beginning of packet streaming.
+> > 
+> > Reference: https://github.com/takaswie/snd-firewire-improve/issues/38
+> > Fixes: 029ffc429440 ("ALSA: oxfw: perform sequence replay for media clock recovery")
+> > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> 
+> Thanks, applied.
+> 
+> 
+> Takashi
 
-WARNING: unmet direct dependencies detected for SND_SOC_DMIC
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
-  Selected by [y]:
-  - SND_SOC_MT8192_MT6359_RT1015_RT5682 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y] && SND_SOC_MT8192 [=y] && MTK_PMIC_WRAP [=y]
+Oops. I forget to add tag to stable. It's preferable to apply the
+patch to current stable (5.14.15) and mainline RC (5.15-rc7) as well...
 
-WARNING: unmet direct dependencies detected for SND_SOC_RT1015P
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
-  Selected by [y]:
-  - SND_SOC_MT8192_MT6359_RT1015_RT5682 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y] && SND_SOC_MT8192 [=y] && MTK_PMIC_WRAP [=y]
+Would I request you to post the patch for the purpose alternatively?
+(It is perhaps too late for mainline, I guess...)
 
-WARNING: unmet direct dependencies detected for SND_SOC_RT1015P
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
-  Selected by [y]:
-  - SND_SOC_MT8183_DA7219_MAX98357A [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_MT8183 [=y] && I2C [=y]
 
-WARNING: unmet direct dependencies detected for SND_SOC_RT1015P
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
-  Selected by [y]:
-  - SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y] && SND_SOC_MT8183 [=y]
+Regards
 
-This is because these config options select SND_SOC_RT1015P
-without selecting or depending on GPIOLIB, despite
-SND_SOC_RT1015P depending on GPIOLIB.
-
-These unmet dependency bugs were detected by Kismet,
-a static analysis tool for Kconfig. Please advise if this
-is not the appropriate solution.
-
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
----
- sound/soc/mediatek/Kconfig | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-index 81ad2dcee9eb..d10d6a3bf5eb 100644
---- a/sound/soc/mediatek/Kconfig
-+++ b/sound/soc/mediatek/Kconfig
-@@ -120,7 +120,7 @@ config SND_SOC_MT8183
- 
- config SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A
- 	tristate "ASoC Audio driver for MT8183 with MT6358 TS3A227E MAX98357A RT1015 codec"
--	depends on I2C
-+	depends on I2C && GPIOLIB
- 	depends on SND_SOC_MT8183
- 	select SND_SOC_MT6358
- 	select SND_SOC_MAX98357A
-@@ -138,7 +138,7 @@ config SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A
- 
- config SND_SOC_MT8183_DA7219_MAX98357A
- 	tristate "ASoC Audio driver for MT8183 with DA7219 MAX98357A RT1015 codec"
--	depends on SND_SOC_MT8183 && I2C
-+	depends on SND_SOC_MT8183 && I2C && GPIOLIB
- 	select SND_SOC_MT6358
- 	select SND_SOC_MAX98357A
- 	select SND_SOC_RT1015
-@@ -173,7 +173,7 @@ config SND_SOC_MT8192
- 
- config SND_SOC_MT8192_MT6359_RT1015_RT5682
- 	tristate "ASoC Audio driver for MT8192 with MT6359 RT1015 RT5682 codec"
--	depends on I2C
-+	depends on I2C && GPIOLIB
- 	depends on SND_SOC_MT8192 && MTK_PMIC_WRAP
- 	select SND_SOC_MT6359
- 	select SND_SOC_RT1015
-@@ -200,7 +200,7 @@ config SND_SOC_MT8195
- 
- config SND_SOC_MT8195_MT6359_RT1019_RT5682
- 	tristate "ASoC Audio driver for MT8195 with MT6359 RT1019 RT5682 codec"
--	depends on I2C
-+	depends on I2C && GPIOLIB
- 	depends on SND_SOC_MT8195 && MTK_PMIC_WRAP
- 	select SND_SOC_MT6359
- 	select SND_SOC_RT1015P
--- 
-2.30.2
-
+Takashi Sakamoto

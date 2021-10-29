@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C99F3440477
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 22:56:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3041440486
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Oct 2021 22:57:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FD14170C;
-	Fri, 29 Oct 2021 22:55:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FD14170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56D051714;
+	Fri, 29 Oct 2021 22:56:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56D051714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635541006;
-	bh=pOJQpgaSJK6t2EtQjZhIopjYqTh/FOv6CfFCmJ6dhqE=;
+	s=default; t=1635541027;
+	bh=LpGNZwT4aagpghW7i3+R2HDAVuJ+NS7X/D1QITONxME=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pIs6aukcqebNzTggokcVzU4uUtseiB3UkoK45zxz8YCjiFdsmRRelK5IiOvy7lzDa
-	 CMg8Yz8gDQudHFRsa782BGI0K5cydVIQxXw/bZhnQZWBW2/mAT0t9j+6cK2JImf448
-	 DX/X4iI93/NMQ9q77NlZ79L5AQ7IyKsdK7clyK+w=
+	b=u7Bybi//yhRRuEasoshhMyFZd7lT+lKSoueZNtYOcfvItPS1AZb4rxeTe+N2W6nyl
+	 KmvEJn6eOzNGAKCKj3od3CSuIun2uUgKlST1Jg7HPnFaAV96wm39E6N61QF34jGX6e
+	 nfPRWvPVmMYaYzdX+xmkCNimLQfEsjFK4Dqg3mVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DADCF8032B;
-	Fri, 29 Oct 2021 22:55:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2E0EF804E3;
+	Fri, 29 Oct 2021 22:55:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E13C9F8025E; Fri, 29 Oct 2021 22:55:03 +0200 (CEST)
+ id B06BDF8025A; Fri, 29 Oct 2021 22:55:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A576F800F4
- for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 22:54:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A576F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BB61F801EC
+ for <alsa-devel@alsa-project.org>; Fri, 29 Oct 2021 22:55:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BB61F801EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uS4HqaU8"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8172A61075;
- Fri, 29 Oct 2021 20:54:53 +0000 (UTC)
+ header.b="rB9CwIZu"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E67BD6108F;
+ Fri, 29 Oct 2021 20:54:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635540895;
- bh=pOJQpgaSJK6t2EtQjZhIopjYqTh/FOv6CfFCmJ6dhqE=;
+ s=k20201202; t=1635540896;
+ bh=LpGNZwT4aagpghW7i3+R2HDAVuJ+NS7X/D1QITONxME=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=uS4HqaU85jBAkWVmi6fs6wzFG4WpNMC6VW447pGwOE+NKlvNBnhPvm4cdRS9InG/b
- bu11Ky4Ccr3F9Uxf3o0vtuSd8WdKyd1/a3UHaV0bGxVu06yq/MDsME2H3tBuy57bv1
- vA9X1746ZihdPiJJ2FbJZBAqTnotLaPRDkY+Ev2nE9shgUngx7bk2bQ7R5f/yGDWop
- yY7j2BGx55uz5QNVZagVJsUqtBoUojgqvBzcLAw5OwpeMHaK1POpmF4WM280kHuCmV
- cmwcZBniKmeo2aWcem3Q3sYFU63/sRXLGjFNS+BMC8BeTLzbDjyZrG63CPi5u/A6bW
- /Su2O7yYK4MCQ==
+ b=rB9CwIZu/hh7B7SMq8+QCo1sf3hqr2uMUTxKWUXjeIXTeKFWRlWMThSmVpfnHsT0b
+ p7ay+G6CmdVFywCAuBr/pxzKxEUEIlwkrAP3ntfxUinhbjCMTG3S35ivjryXqEe3mD
+ y0aH1YL23XwPqnfCbDEA/L9JP4Vqmd4mScDut9TiDtIuNSmBhXyEnq+Ly/TTY9ivhW
+ ZdFC8apao6eirPQztTWW679Juz8COmSLLruzPpQDuQuPIgxOw2aNmOr+hNEKzRIYEQ
+ alEcrr434iln6zYgxfjvJEtIxuxz2ZaFBuySiMafWKBSEpo8WWqJoTbRhIcMR941qu
+ +RqhQPSmx1S6Q==
 From: Mark Brown <broonie@kernel.org>
-To: Trevor Wu <trevor.wu@mediatek.com>, matthias.bgg@gmail.com,
- robh+dt@kernel.org, tiwai@suse.com
-In-Reply-To: <20211020071428.14297-1-trevor.wu@mediatek.com>
-References: <20211020071428.14297-1-trevor.wu@mediatek.com>
-Subject: Re: [RESEND,
- v2 0/2] ASoC: mediatek: Add support for MT8195 sound card with rt1011
- and rt5682
-Message-Id: <163554089329.1997146.2620727675711869109.b4-ty@kernel.org>
-Date: Fri, 29 Oct 2021 21:54:53 +0100
+To: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20211015161257.27052-1-cezary.rojewski@intel.com>
+References: <20211015161257.27052-1-cezary.rojewski@intel.com>
+Subject: Re: [PATCH 0/6] ASoC: Sanity checks and soc-topology updates
+Message-Id: <163554089570.1997146.12535245005312499427.b4-ty@kernel.org>
+Date: Fri, 29 Oct 2021 21:54:55 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org
+Cc: hdegoede@redhat.com, pierre-louis.bossart@linux.intel.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,15 +77,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 20 Oct 2021 15:14:26 +0800, Trevor Wu wrote:
-> This series of patches adds support for mt8195 board with mt6359, rt1011
-> and rt5682.
-> Patches are based on broonie tree "for-next" branch.
-> 
-> Changes since v1:
->   - refined code based on Pierre-Louis's suggestions
->   - added missing of_node_put
->   - fixed wrong fixup assignment on HDMITX
+On Fri, 15 Oct 2021 18:12:51 +0200, Cezary Rojewski wrote:
+> Couple of soc-topology related changes and a use-after-free fix. Said fix
+> and two sanity checks for soc-topology lead the way. While the
+> use-after-free is quite obvious, the sanity checks are here to cover for
+> cases where user malformed the topology file -or- access to filesystem
+> somehow got interrupted during copy operation. We shouldn't be reading
+> outside the file boundary.
 > 
 > [...]
 
@@ -101,10 +93,18 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: mediatek: mt8195: add machine driver with mt6359, rt1011 and rt5682
-      commit: 0261e36477cfa2608468c1300e30cb667c5e1269
-[2/2] dt-bindings: mediatek: mt8195: add mt8195-mt6359-rt1011-rt5682 document
-      commit: 6c8552ebba7742e7128134859846e17edbfdf222
+[1/6] ASoC: core: Remove invalid snd_soc_component_set_jack call
+      commit: 7db53c21b1c3c25676d1125049bc92c756421cd6
+[2/6] ASoC: topology: Add header payload_size verification
+      commit: 86e2d14b6d1a68941b6c0ef39502ec1433b680cb
+[3/6] ASoC: topology: Check for dapm widget completeness
+      commit: 2e288333e9e0a14f9895321a848992b25a0e5563
+[4/6] ASoC: topology: Use correct device for prints
+      commit: 2a710bb35a5abfbca48ed7c229205ace472692d3
+[5/6] ASoC: topology: Change topology device to card device
+      commit: f714fbc1e89a3533b2578e0c90ce4f5c05a57f96
+[6/6] ASoC: Stop dummy from overriding hwparams
+      commit: 6c504663ba2ee2abeaf5622e27082819326c1bd4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

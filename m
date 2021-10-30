@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F4744083A
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Oct 2021 11:23:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 875DA440854
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Oct 2021 12:02:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9951016E0;
-	Sat, 30 Oct 2021 11:22:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9951016E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0450316F0;
+	Sat, 30 Oct 2021 12:01:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0450316F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635585809;
-	bh=fwc5DZyVyJLeu+EoW/6GaxDEiFkF283t1KvJG+EjYqQ=;
+	s=default; t=1635588160;
+	bh=NmlTvAeDshWzs03wJ2jTzwvWNj2NTjlbmP6+o+KyhzU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f1f7vOKp0xHVMIncsTz1G0qTL9RJHR3zMdzmTWVkwgi4vsCd555WhddYqAHZqSBom
-	 tqN/6DEYlwDFdoACs4NG/muOYXwhKMMTXNoY0AD/ZKsxnQZl4ES+9bId6efMGxJS+K
-	 60uEFITAZqehE1Rk35xDXjDy28BGkJF+Uq8YJwy0=
+	b=aH+Wv29cVfTpDr/4wjfj7JCMMe54lplCkDQJe+WctymMaR5iB/CZfQw+SMQIk/i/G
+	 aqtPJButv0E/cfbe80gZCoijUWQUFlMYisIlqmQcetndrJ5wTv/2nBPfJh2eV20qfk
+	 iyD3N3V45SSetEnTGf/8ubYd7TbYJPCgYxMjeKAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1AEEF802C8;
-	Sat, 30 Oct 2021 11:22:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5A84F80269;
+	Sat, 30 Oct 2021 12:01:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0567DF800F4; Sat, 30 Oct 2021 11:22:07 +0200 (CEST)
+ id 1C7CBF8026C; Sat, 30 Oct 2021 12:01:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,49 +33,51 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F550F800F4
- for <alsa-devel@alsa-project.org>; Sat, 30 Oct 2021 11:22:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F550F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AE49F800F4
+ for <alsa-devel@alsa-project.org>; Sat, 30 Oct 2021 12:01:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AE49F800F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="MqfzLBAf"; 
+ header.b="o664jVw7"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="WjbYhh4V"
+ header.b="S2Fqa1ye"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A6380218B2;
- Sat, 30 Oct 2021 09:22:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 0202D2191A;
+ Sat, 30 Oct 2021 10:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635585722; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635588064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2IbgnJClChtQ3g+2cQKLme4WpbuPdsjYdHTGDTymMjU=;
- b=MqfzLBAfN92fErZRejaTVdiuYCE8Flt4JfQ7nAT051r1nsv4ior5Ow2dvNdT0qMzBZHwxR
- Mrku4CarcjMDupoEhDUO310f7oDApOMJ+BkF+l6JBY+3zr6pbVp3ipcBSm7zn4siNSbMCH
- vvuyn8iRIyAdG3RXLkKOt4voQxrffPk=
+ bh=aFMGLmJCawcoI6OdS2VCxYC6lot14lLtQM9mdxNkEx0=;
+ b=o664jVw7DTQNfoj99XSD+HM6crjQz6QR46qAUteTWFrfkaGRAv22UkpIzipS12RJXv0WJG
+ VmYtXHMLdawSahItfuCF54SnKQPAQp+94gx875SijzIjOJLwpb/xu4TERrqkzss0G1jq3L
+ 6Ia6XetyfnF9ua2kaEsv/ierfPwYT8k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635585722;
+ s=susede2_ed25519; t=1635588064;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2IbgnJClChtQ3g+2cQKLme4WpbuPdsjYdHTGDTymMjU=;
- b=WjbYhh4Vn++2NAG2uER+UrVXzyPhhA+Tjf91Q6qyUnONt9K7GQtVWjusEOKLzFoNWDsOyy
- CeCqs1zpm/oSinBw==
+ bh=aFMGLmJCawcoI6OdS2VCxYC6lot14lLtQM9mdxNkEx0=;
+ b=S2Fqa1yejVE5rMtXesA+ob4E5C3xdp0pCxq/ysj6ZLXspgNOkqjH0/fC7RF6StwsPwjNRq
+ oCGqSQV5va/GvDBg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 97C6EA3B84;
- Sat, 30 Oct 2021 09:22:02 +0000 (UTC)
-Date: Sat, 30 Oct 2021 11:22:02 +0200
-Message-ID: <s5h7ddusw91.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id EE76AA3B83;
+ Sat, 30 Oct 2021 10:01:03 +0000 (UTC)
+Date: Sat, 30 Oct 2021 12:01:03 +0200
+Message-ID: <s5h35oisug0.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jason Ormes <skryking@gmail.com>
-Subject: Re: [PATCH] HX-Stomp XL USB_ID.
-In-Reply-To: <20211029183105.28503-1-skryking@gmail.com>
-References: <20211029183105.28503-1-skryking@gmail.com>
+To: Jonathan Clarke <jonathan.a.clarke@gmail.com>
+Subject: Re: [PATCH] Make top/rear speaker,
+ mute and micmute leds work on HP x360 14-ea000 laptops that use
+ Realtek 245 codec
+In-Reply-To: <20211029154313.1005394-1-jonathan.a.clarke@gmail.com>
+References: <20211029154313.1005394-1-jonathan.a.clarke@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -92,35 +94,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 29 Oct 2021 20:31:05 +0200,
-Jason Ormes wrote:
+On Fri, 29 Oct 2021 17:43:13 +0200,
+Jonathan Clarke wrote:
 > 
-> Signed-off-by: Jason Ormes <skryking@gmail.com>
+> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=210633
+> Signed-off-by: Jonathan Clarke <jonathan.a.clarke@gmail.com>
 
-Could you give a bit more description?
-e.g. does the device work fully compatibly?
+Could you give more descriptions?  The patch isn't trivial at all, and
+it needs more explanations.
+
+> ---
+>  sound/pci/hda/patch_realtek.c | 46 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 46 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 22d27b12c..e3c6d17ea 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -4409,6 +4409,13 @@ static void alc245_fixup_hp_x360_amp(struct hda_codec *codec,
+>  	case HDA_FIXUP_ACT_PRE_PROBE:
+>  		spec->gpio_mask |= 0x01;
+>  		spec->gpio_dir |= 0x01;
+> +
+> +		/* use only amp at 0x02 for bottom(front) speaker,
+> +		 * otherwise it is set to use 0x02,0x03,0x06 and when used in conjunction
+> +		 * with top(rear) speaker 0x14, gets locked at full volume */
+> +		static const hda_nid_t conn1[] = { 0x02 };
+> +		snd_hda_override_conn_list(codec, 0x17, ARRAY_SIZE(conn1), conn1);
+> +
+>  		break;
+>  	case HDA_FIXUP_ACT_INIT:
+>  		/* need to toggle GPIO to enable the amp */
+> @@ -4503,6 +4510,26 @@ static void alc236_fixup_hp_mute_led_coefbit(struct hda_codec *codec,
+>  	}
+>  }
+>  
+> +static void alc245_fixup_hp_x360_mute_leds(struct hda_codec *codec,
+> +				const struct hda_fixup *fix, int action)
+> +{
+> +	struct alc_spec *spec = codec->spec;
+> +	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
+> +		/* mic mute is set via gpio 0x04 */
+> +		spec->micmute_led_polarity = 1;
+> +		codec->power_filter = led_power_filter;
+> +		alc_fixup_hp_gpio_led(codec, action, 0x00, 0x04);
+> +
+> +		/* output mute is set via SET_COEF_INDEX,SET_PROC_COEF */
+> +		spec->mute_led_polarity = 0;
+> +		spec->mute_led_coef.idx = 0x0b;
+> +		spec->mute_led_coef.mask = 0xffff;
+> +		spec->mute_led_coef.on = 0xa02f;
+> +		spec->mute_led_coef.off = 0x7774;
+> +		snd_hda_gen_add_mute_led_cdev(codec, coef_mute_led_set);
+
+I guess this COEF isn't only about mute-LED but actually does mute the
+output?  IIRC, the bit 0x08 corresponds to the LED.  If so, it's
+better to split.  Basically this snd_hda_gen_add_mute_led_cdev() and
+mute_led_coef stuff are only for the mute LED control.  e.g. you can
+change the mute LED independently via sysfs.
 
 
 thanks,
 
 Takashi
-
-> ---
->  sound/usb/format.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/usb/format.c b/sound/usb/format.c
-> index 50efccbffb8a..e8fc2c350a9f 100644
-> --- a/sound/usb/format.c
-> +++ b/sound/usb/format.c
-> @@ -414,6 +414,7 @@ static int line6_parse_audio_format_rates_quirk(struct snd_usb_audio *chip,
->  	case USB_ID(0x0e41, 0x4242): /* Line6 Helix Rack */
->  	case USB_ID(0x0e41, 0x4244): /* Line6 Helix LT */
->  	case USB_ID(0x0e41, 0x4246): /* Line6 HX-Stomp */
-> +        case USB_ID(0x0e41, 0x4253): /* Line6 HX-Stomp XL*/
->  	case USB_ID(0x0e41, 0x4247): /* Line6 Pod Go */
->  	case USB_ID(0x0e41, 0x4248): /* Line6 Helix >= fw 2.82 */
->  	case USB_ID(0x0e41, 0x4249): /* Line6 Helix Rack >= fw 2.82 */
-> -- 
-> 2.25.1
-> 

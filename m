@@ -2,85 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B594E441991
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 11:11:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC5E2441A02
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 11:36:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1EF0616DF;
-	Mon,  1 Nov 2021 11:11:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EF0616DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3674816E6;
+	Mon,  1 Nov 2021 11:35:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3674816E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635761514;
-	bh=U7RiVpcxF9qqi2jx0LDiQ9dFQer2cGy0Q8JrXDI39Uo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=OunEc6KIOfLjPIgNuQO+COoxjvNTbR6M3GLlNTbwLg9kbwrfzgfws33ZgA4AS2qpT
-	 kshc+px4BdNO7tnXA6SY9K6wwLLo/oQ+7Q/evPAgdtW1ThLtDakak56vIqszAfT6kE
-	 JT246KvWvnBxaYyVk7FXM+upBRg78ElDh24WJTPg=
+	s=default; t=1635762968;
+	bh=JOChUqOIQ09Mj4axUXhDIt0M6CFbhk5gNnWD2MW7lKg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fjOomELsgXPZYnTqht0clNNvJT277xFDKsHCAC0mD4NrPu9hMPSjZ4oWcHXNZ48Fq
+	 epM3Pvwk2h660w4Akc3MdeG1xk0mEIRchpRxwja+3ZIqhbeBu7Opd46KjsoGbXFQu6
+	 HJN9+++lUSh5Asseym81RFlg2ROLWF5NJ0ZpeDhM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70B80F8026A;
-	Mon,  1 Nov 2021 11:10:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82304F8026A;
+	Mon,  1 Nov 2021 11:34:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74571F8012E; Mon,  1 Nov 2021 11:10:35 +0100 (CET)
+ id 5262CF80269; Mon,  1 Nov 2021 11:34:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21042F8012E
- for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 11:10:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21042F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10C5BF8010A
+ for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 11:34:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10C5BF8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="Vm0pyE8M"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A17M1xZ007443;
- Mon, 1 Nov 2021 05:10:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=MuHTk7WWbI4FaMOqXKtopVQskFCqIgwcH1k0Lq3hmRo=;
- b=Vm0pyE8M/YIOxE4MGOwELCznlmtOENo8y39o9EcRXbZl4D2ue4f1fk9s8q8xtMWc6vMh
- qGm9sdGd4N/WGQGWKHoyZENJcq6k4r07op8oHW7+Yg4OH2RufkGDV+CtkeiLxtbRU2RM
- 9jV3wgkBGtdNluOdhfOvMbePY+TY2bbMSY/VOuFuBtxutJRh34WeFPsnQq7isr+d9heR
- d7fEIqpXkraUhq8gzyA7YeICjj7SP4el4/pnCRvIhs2oCt19l0MBNfDx10C0n7dcEctx
- UXqRa6p6ni/ode8i4KE9bCoUvd6s1MVxrSy/KNjlZtyduQ1PRhmhKbU2SUSLTbd6+gQd fg== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3c27qwrehr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 01 Nov 2021 05:10:25 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.12; Mon, 1 Nov
- 2021 10:10:23 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.12 via
- Frontend Transport; Mon, 1 Nov 2021 10:10:23 +0000
-Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
- [198.61.65.118])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id EA2B5B2F;
- Mon,  1 Nov 2021 10:10:16 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH v2] ASoC: cs42l42: Add control for audio slow-start switch
-Date: Mon, 1 Nov 2021 10:10:06 +0000
-Message-ID: <20211101101006.13092-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="TWgZd0lH"
+Received: by mail-wm1-x32a.google.com with SMTP id
+ b2-20020a1c8002000000b0032fb900951eso8677094wmd.4
+ for <alsa-devel@alsa-project.org>; Mon, 01 Nov 2021 03:34:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=SMxVE993gd6+Fa5JpVknnvYvOLxz+iLd5q1Fx2KECxk=;
+ b=TWgZd0lHH9CJqqOc3dgYEzoC6RktC0gVtYMX5f3/f4jLpjBGFCOiH/HfdnVKITYfJt
+ Ung48t8EZS6G6q6tRDp4ofGxwrTBvLWPgpZA4ZPIL2NxVg3A5JLfddOb7aJPZ3fP/WJr
+ yJKTqo7+MXBMfPoqKYOXKtT7I3a6PfQRFmKZ/pdVgDtbN3EgdJdfUGNJESWZIKq2OPHR
+ YTnqIgLin2GL9f81aNkwTrKpPoPxAWHrGQNK8gkDKWdDhpxEgi06O977kuEuNYIerq2s
+ IZHcxAqIa4xpbPS0pEXump22JPdbgy39Sp/S3QmC5SD/UiOyUHQUMyV5fc+9n9y9EjB2
+ sUvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=SMxVE993gd6+Fa5JpVknnvYvOLxz+iLd5q1Fx2KECxk=;
+ b=cvImHQR8oJk8iWhwJWeix2VHFrnFIFl/l3K6FlGQZLokxSz+xDrSTLfpxSBRj2e/AY
+ NiCvF+d3N7ngKR7zG2JjfsfrLkQoXTSUhlDVqZpJBkNg1OfjuaXFpE+uppeG3567fD8+
+ PwEf1yAsn/BLGCtU4uECxY9HgNcLETVCnCJs8bW3QaoyBapMQKvTsTD3u7RnCi/dlMqh
+ M5wf8kleamxg6jJFUuxYKlZ4IfgaZY4+tqPVjZzcUOYAzpt91iDs3LWqb3XUcKU/JXg3
+ FB8tGv6eZW5D4y5ThzPBQ42WBqHmmr7Sr+QljJLI1VaQX2m82vww2syN1DNIkiCMSqkB
+ L4vQ==
+X-Gm-Message-State: AOAM533HX057xZoeiMxHq2LJq5joqR4PEn08q37h3AhdSYkNpYwoc2Oh
+ pf3GGEd0FLct2Of3OXz8p/yXhv/cBhwt
+X-Google-Smtp-Source: ABdhPJxkfcWWxu0T1+SSX5tU5BJoP92EPP6ZG6PjzKeKR2VibuhpKhrJB0ZVt77ZGv3L+tMWdFmYWQ==
+X-Received: by 2002:a1c:f405:: with SMTP id z5mr30044230wma.72.1635762880402; 
+ Mon, 01 Nov 2021 03:34:40 -0700 (PDT)
+Received: from rampage-hp2 (static-90-251-248-205.vodafonexdsl.co.uk.
+ [90.251.248.205])
+ by smtp.gmail.com with ESMTPSA id p188sm12294386wmp.30.2021.11.01.03.34.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Nov 2021 03:34:39 -0700 (PDT)
+Date: Mon, 1 Nov 2021 10:34:45 +0000
+From: Jonathan Clarke <jonathan.a.clarke@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] Make top/rear speaker, mute and micmute leds work on HP
+ x360 14-ea000 laptops that use Realtek 245 codec
+Message-ID: <20211101103445.GA1064130@rampage-hp2>
+References: <20211029154313.1005394-1-jonathan.a.clarke@gmail.com>
+ <s5h35oisug0.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: v8mNlrN4fmjmj4_0JemTQZ59cjMICkPn
-X-Proofpoint-GUID: v8mNlrN4fmjmj4_0JemTQZ59cjMICkPn
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5h35oisug0.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,94 +104,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds an ALSA control so that the slow-start audio ramp feature
-can be disabled. This is useful for high-definition audio applications.
+Thanks for taking a look at this patch so quickly, Takashi.
 
-The register field is unusual in that it is a 3-bit field with only
-two valid values, 000=off and 111=on.
+On Sat, Oct 30, 2021 at 12:01:03PM +0200, Takashi Iwai wrote:
+> Could you give more descriptions?  The patch isn't trivial at all, and
+> it needs more explanations.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/soc/codecs/cs42l42.c | 30 +++++++++++++++++++++++++++++-
- sound/soc/codecs/cs42l42.h |  3 +++
- 2 files changed, 32 insertions(+), 1 deletion(-)
+Yes, will do.
 
-diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 27a1c4c73074..56804a3f285e 100644
---- a/sound/soc/codecs/cs42l42.c
-+++ b/sound/soc/codecs/cs42l42.c
-@@ -42,6 +42,7 @@ static const struct reg_default cs42l42_reg_defaults[] = {
- 	{ CS42L42_SRC_CTL,			0x10 },
- 	{ CS42L42_MCLK_CTL,			0x02 },
- 	{ CS42L42_SFTRAMP_RATE,			0xA4 },
-+	{ CS42L42_SLOW_START_ENABLE,		0x70 },
- 	{ CS42L42_I2C_DEBOUNCE,			0x88 },
- 	{ CS42L42_I2C_STRETCH,			0x03 },
- 	{ CS42L42_I2C_TIMEOUT,			0xB7 },
-@@ -177,6 +178,7 @@ static bool cs42l42_readable_register(struct device *dev, unsigned int reg)
- 	case CS42L42_MCLK_STATUS:
- 	case CS42L42_MCLK_CTL:
- 	case CS42L42_SFTRAMP_RATE:
-+	case CS42L42_SLOW_START_ENABLE:
- 	case CS42L42_I2C_DEBOUNCE:
- 	case CS42L42_I2C_STRETCH:
- 	case CS42L42_I2C_TIMEOUT:
-@@ -387,6 +389,28 @@ static const struct regmap_config cs42l42_regmap = {
- static DECLARE_TLV_DB_SCALE(adc_tlv, -9700, 100, true);
- static DECLARE_TLV_DB_SCALE(mixer_tlv, -6300, 100, true);
- 
-+static int cs42l42_slow_start_put(struct snd_kcontrol *kcontrol,
-+				  struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	u8 val;
-+
-+	/* all bits of SLOW_START_EN much change together */
-+	switch (ucontrol->value.integer.value[0]) {
-+	case 0:
-+		val = 0;
-+		break;
-+	case 1:
-+		val = CS42L42_SLOW_START_EN_MASK;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return snd_soc_component_update_bits(component, CS42L42_SLOW_START_ENABLE,
-+					     CS42L42_SLOW_START_EN_MASK, val);
-+}
-+
- static const char * const cs42l42_hpf_freq_text[] = {
- 	"1.86Hz", "120Hz", "235Hz", "466Hz"
- };
-@@ -431,7 +455,11 @@ static const struct snd_kcontrol_new cs42l42_snd_controls[] = {
- 				CS42L42_DAC_HPF_EN_SHIFT, true, false),
- 	SOC_DOUBLE_R_TLV("Mixer Volume", CS42L42_MIXER_CHA_VOL,
- 			 CS42L42_MIXER_CHB_VOL, CS42L42_MIXER_CH_VOL_SHIFT,
--				0x3f, 1, mixer_tlv)
-+				0x3f, 1, mixer_tlv),
-+
-+	SOC_SINGLE_EXT("Slow Start Switch", CS42L42_SLOW_START_ENABLE,
-+			CS42L42_SLOW_START_EN_SHIFT, true, false,
-+			snd_soc_get_volsw, cs42l42_slow_start_put),
- };
- 
- static int cs42l42_hp_adc_ev(struct snd_soc_dapm_widget *w,
-diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
-index f45bcc9a3a62..c8b3267a318b 100644
---- a/sound/soc/codecs/cs42l42.h
-+++ b/sound/soc/codecs/cs42l42.h
-@@ -62,6 +62,9 @@
- #define CS42L42_INTERNAL_FS_MASK	(1 << CS42L42_INTERNAL_FS_SHIFT)
- 
- #define CS42L42_SFTRAMP_RATE		(CS42L42_PAGE_10 + 0x0A)
-+#define CS42L42_SLOW_START_ENABLE	(CS42L42_PAGE_10 + 0x0B)
-+#define CS42L42_SLOW_START_EN_MASK	GENMASK(6, 4)
-+#define CS42L42_SLOW_START_EN_SHIFT	4
- #define CS42L42_I2C_DEBOUNCE		(CS42L42_PAGE_10 + 0x0E)
- #define CS42L42_I2C_STRETCH		(CS42L42_PAGE_10 + 0x0F)
- #define CS42L42_I2C_TIMEOUT		(CS42L42_PAGE_10 + 0x10)
--- 
-2.11.0
+> > +           /* output mute is set via SET_COEF_INDEX,SET_PROC_COEF */
+> > +           spec->mute_led_polarity = 0;
+> > +           spec->mute_led_coef.idx = 0x0b;
+> > +           spec->mute_led_coef.mask = 0xffff;
+> > +           spec->mute_led_coef.on = 0xa02f;
+> > +           spec->mute_led_coef.off = 0x7774;
+> > +           snd_hda_gen_add_mute_led_cdev(codec, coef_mute_led_set);
+>
+> I guess this COEF isn't only about mute-LED but actually does mute the
+> output?  IIRC, the bit 0x08 corresponds to the LED.  If so, it's
+> better to split.  Basically this snd_hda_gen_add_mute_led_cdev() and
+> mute_led_coef stuff are only for the mute LED control.  e.g. you can
+> change the mute LED independently via sysfs.
 
+Thanks for suggesting this.
+
+Having tested, I can confirm that setting this coef only affects
+the output mute LED, and does not affect output.
+
+I will therefore assume that current implementation in my patch is OK,
+but let me know if it still needs changing (maybe I've misunderstood).
+
+For reference to other users, the commands to test are:
+# output LED on
+hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX 0x0b
+hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0xa02f
+
+# output LED off
+hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX 0x0b
+hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0x7774
+
+Many thanks, Jonathan

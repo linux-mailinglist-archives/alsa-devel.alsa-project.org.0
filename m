@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C36C64413CA
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 07:36:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF9B4413CC
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 07:39:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A90D168F;
-	Mon,  1 Nov 2021 07:35:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A90D168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88CC016AF;
+	Mon,  1 Nov 2021 07:38:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88CC016AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635748594;
-	bh=l+HOzQ2lqXQUuJzUwovtXsfPrxBSHOUZ9HUUH6Eb/ts=;
+	s=default; t=1635748781;
+	bh=YeOG3EPnaZRoGDQlp8lTZdnPioL6NK47ym0awNC3ZV8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RB0rPmfvg1Ka+iK4F/IrjDVVrKX3lV5PQ4W62bn6RAUDj59+BdgONPobRD91uixmp
-	 pQve1FNjwB984U6KOpgh0Hvp1l7/dLvBoQUft12Ro7KBLrlbImoLrMKIfYjGS3YexS
-	 rS3vX+Si0Xqc/C4Ahq2Bl6CVJd1i80bU2c5rfLqc=
+	b=NNiDFvdx06qSgiuehnZM7b+3DvrC8KXvtFdSuxOIVqrQIPYNfXqnUCz05mkEHHv3N
+	 72SnJ36vAqcFnjVbRZoB/XgL7jJ5/dFm8FMn8H4iC6UQHOA646LMbsWVA08BcI3zcA
+	 fS8Sa5p55Gk+0czgdwNHVy2u6tmtxvrT+C1u6Tbw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B060F80269;
-	Mon,  1 Nov 2021 07:35:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC3B9F8026A;
+	Mon,  1 Nov 2021 07:38:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 413ADF80268; Mon,  1 Nov 2021 07:35:07 +0100 (CET)
+ id 9B709F80269; Mon,  1 Nov 2021 07:38:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2992FF8012E
- for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 07:34:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2992FF8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 017AAF8012E
+ for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 07:38:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 017AAF8012E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="d2KA8BwL"; 
+ header.b="vxTX8LYB"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="OlaAwbZx"
+ header.b="WEiQ3PD4"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 8C2D01FD4D;
- Mon,  1 Nov 2021 06:34:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id E12DA212C1;
+ Mon,  1 Nov 2021 06:38:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635748496; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635748691; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GGukDvpulhMG6uMEmaYELNDTH9dfUTNE2iPfPw8dWog=;
- b=d2KA8BwLdP/1bMqRbSQ8d0V2AeEMPceiNXtaNUJHTN6qgLCyrnE3Go4Mq8/82DW3YCi/Id
- Tcyy3QbDRbwQlerooVotlh98yoXeU836yKefcxakdzTskDMgbx0qocF9YvPna/M/PAAy4r
- cAaBsZcnBjksmCzRvb7h4NErydVSRK8=
+ bh=QXpSuDhqZLpzmL2/ZgAJ/Q94FNfLljIOF5XzFK6wn2o=;
+ b=vxTX8LYBOqSeltOx0Lu2f0N98/nTcn0HePqCrUaTi7zvgQh4c9MhfThoIvr64OcISKzPlE
+ GL/9XUH5oeFIh1pfebY0nJTi/59R4VR7vB4q2AfXU7mPptg3pzfBW0Fu7fM7X9xtBBZN+o
+ dYC9fpezYnVTl6s29CicvjYeKnnzFUs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635748496;
+ s=susede2_ed25519; t=1635748691;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GGukDvpulhMG6uMEmaYELNDTH9dfUTNE2iPfPw8dWog=;
- b=OlaAwbZxwNlrO2TBD3m9HGIABy1AeFayA28Mn0o6m/s2WLlYkAquKzdmfE5znp6H0vAcVr
- R5hxnjQFdsIKFQCQ==
+ bh=QXpSuDhqZLpzmL2/ZgAJ/Q94FNfLljIOF5XzFK6wn2o=;
+ b=WEiQ3PD4HIQUFF/F/css8DG8VEe4pod7iE6+vmBLAzuMHUHVR3L7+u+AVVcAmzMuqjytVA
+ MFNoT11gM/gSvMCg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7212EA3B85;
- Mon,  1 Nov 2021 06:34:55 +0000 (UTC)
-Date: Mon, 01 Nov 2021 07:34:55 +0100
-Message-ID: <s5hsfwgqt80.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id D107CA3B83;
+ Mon,  1 Nov 2021 06:38:11 +0000 (UTC)
+Date: Mon, 01 Nov 2021 07:38:11 +0100
+Message-ID: <s5hr1c0qt2k.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Tsoy <alexander@tsoy.me>
-Subject: Re: [PATCH] ALSA: usb-audio: Add registration quirk for JBL Quantum
- 400
-In-Reply-To: <20211030174308.1011825-1-alexander@tsoy.me>
-References: <20211030174308.1011825-1-alexander@tsoy.me>
+To: Jason Ormes <skryking@gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: Line6 HX-Stomp XL USB_ID
+In-Reply-To: <20211030200405.1358678-1-skryking@gmail.com>
+References: <20211030200405.1358678-1-skryking@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -93,15 +92,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 30 Oct 2021 19:43:08 +0200,
-Alexander Tsoy wrote:
+On Sat, 30 Oct 2021 22:04:05 +0200,
+Jason Ormes wrote:
 > 
-> Add another device ID for JBL Quantum 400. It requires the same quirk as
-> other JBL Quantum devices.
+> Adding the Line6 HX-Stomp XL USB_ID as it needs this fixed frequency quirk as well.
 > 
-> Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
+> The device is basically just the HX-Stomp with some more buttons on the face.  I've
+> Done some recording with it after adding it, and it seems to function properly with
+> this fix.  The Midi features appear to be working as well.
+> 
+> Signed-off-by: Jason Ormes <skryking@gmail.com>
 
-Thanks, applied.
+Thanks, applied now with a slight coding style fix.
+
+You can run scripts/checkpatch.pl before submission at next time to
+verify whether the patch is OK.
 
 
 Takashi

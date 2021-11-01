@@ -2,62 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25725441D5C
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 16:22:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91B0A441D96
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 16:54:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B31916C5;
-	Mon,  1 Nov 2021 16:21:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B31916C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 10CE816C5;
+	Mon,  1 Nov 2021 16:53:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10CE816C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635780129;
-	bh=EGnSWrP2loVUHZ2QC35mqqUP3Q/SlVmMKS1IjEe/0A8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Mx2Z4qA3MRBRos8MXzZiD5yLM9A+8fmTK4JRONf5CZn/513lF2+dEGwHQLJDw0cmS
-	 J6MOFyOCdVe3G9xQCwiak9F3/rwkMqKaaen6S/SN18niAtXmI+9fUQWS6bm5BGYMUO
-	 UY7CLgG/ScEiciB+AVyeg9hkZe99ME3BYSvhQ5ZU=
+	s=default; t=1635782074;
+	bh=utLX+bNg42u0e8XxQlI/gVT1YYrhxzFs5vCOtK0pmBM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rZOS3YaeBL7W5SucSBQJIGvaoj87f4bCTcVRK+jkHzaggFwuUYusPIwqUl4Wd/8Un
+	 VhByCfhMEB3ITNtGiI+8qTfgw+o8SOVMkRmL8Rsi9nEtLbKvQd+5N9kdrFYNhxtb2i
+	 g8hm1z2PRO84AF1c6VP5+grhRFIcXjwv0NzZF0Gw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C24CF800F8;
-	Mon,  1 Nov 2021 16:20:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66107F8026A;
+	Mon,  1 Nov 2021 16:53:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82241F80269; Mon,  1 Nov 2021 16:20:48 +0100 (CET)
+ id DA8F9F80269; Mon,  1 Nov 2021 16:53:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68E79F800F8
- for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 16:20:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68E79F800F8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XTf87zvF"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EF9B060F3A;
- Mon,  1 Nov 2021 15:20:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635780037;
- bh=EGnSWrP2loVUHZ2QC35mqqUP3Q/SlVmMKS1IjEe/0A8=;
- h=From:To:Cc:Subject:Date:From;
- b=XTf87zvFDvvInVtZonLfaFcP3BmkVEWk9Hs5c/bZjU6AQtUhlY+zb1H/73t3dWGAR
- 4ppJwVL2YGiMnk8N5A4MJIRdbV8RUQMIRUkdSOVxRdZ8a6lYCMP+CDQtdryoN4DgNi
- MATtbMJnbIb/T6gU7XAy+cwQ2+Qr7+yFEoWND5OuaUbMfKps5WAin5JzaCkovibX7V
- mCwXimo/vI6Z+nks1D7BA3E2lx0zqQdn90lT4N59k0jhDrTRoSwgpoUiLHHCw+MPGE
- VvPFNI/lyD7unOs0tuxm/kEprVacvwQuvtCZ/juDBKt6uJvH87IIsjjrCUXuYZMesf
- C3iFJ6nI9IzKg==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: [GIT PULL] ASoC updates for v5.16
-Date: Mon, 01 Nov 2021 15:20:17 +0000
-Message-Id: <20211101152036.EF9B060F3A@mail.kernel.org>
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D08DF8010A
+ for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 16:53:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D08DF8010A
+X-IronPort-AV: E=McAfee;i="6200,9189,10154"; a="228495073"
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; 
+ d="gz'50?scan'50,208,50";a="228495073"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2021 08:53:00 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,200,1631602800"; 
+ d="gz'50?scan'50,208,50";a="531221650"
+Received: from lkp-server02.sh.intel.com (HELO c20d8bc80006) ([10.239.97.151])
+ by orsmga001.jf.intel.com with ESMTP; 01 Nov 2021 08:52:56 -0700
+Received: from kbuild by c20d8bc80006 with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1mhZcF-0003Uh-L0; Mon, 01 Nov 2021 15:52:55 +0000
+Date: Mon, 1 Nov 2021 23:52:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ricard Wanderlof <ricardw@axis.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v2 2/2] ASoC: codec: tlv320adc3xxx: New codec driver
+Message-ID: <202111012304.OW9M7Dcq-lkp@intel.com>
+References: <alpine.DEB.2.21.2111011052500.14142@lnxricardw1.se.axis.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="oyUTqETQ0mS9luUI"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2111011052500.14142@lnxricardw1.se.axis.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel <alsa-devel@alsa-project.org>, kbuild-all@lists.01.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,1220 +78,954 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following changes since commit 519d81956ee277b4419c723adfb154603c2565ba:
 
-  Linux 5.15-rc6 (2021-10-17 20:00:13 -1000)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v5.16
-
-for you to fetch changes up to 318a54c0ee4aaa3bfd69fdf505588510c7672c0c:
-
-  Merge remote-tracking branch 'asoc/for-5.16' into asoc-next (2021-10-29 22:00:00 +0100)
-
-----------------------------------------------------------------
-ASoC: Updates for v5.16
-
-This is an unusually large set of updates, mostly a large crop of
-unusually big drivers coupled with extensive overhauls of existing code.
-There's a SH change here for the DAI format terminology, the change is
-straightforward and the SH maintainers don't seem very active.
-
- - A new version of the audio graph card which supports a wider range of
-   systems.
- - Move of the Cirrus DSP framework into drivers/firmware to allow for
-   future use by non-audio DSPs.
- - Several conversions to YAML DT bindings.
- - Continuing cleanups to the SOF and Intel code.
- - A very big overhaul of the cs42l42 driver, correcting many problems.
- - Support for AMD Vangogh and Yelow Cap, Cirrus CS35L41, Maxim
-   MAX98520 and MAX98360A, Mediatek MT8195, Nuvoton NAU8821, nVidia
-   Tegra210, NXP i.MX8ULP, Qualcomm AudioReach, Realtek ALC5682I-VS,
-   RT5682S, and RT9120 and Rockchip RV1126 and RK3568
-
-----------------------------------------------------------------
-Ajit Kumar Pandey (10):
-      ASoC: amd: Kconfig: Select fch clock support with machine driver
-      ASoC: amd: Add common framework to support I2S on ACP SOC
-      ASoC: amd: acp: Add I2S support on Renoir platform
-      ASoC: amd: acp: Add callback for machine driver on ACP
-      ASoC: amd: acp: Add generic machine driver support for ACP cards
-      ASoC: amd: acp: Add legacy sound card support for Chrome audio
-      ASoC: amd: acp: Add SOF audio support on Chrome board
-      ASoC: amd: acp: Add support for Maxim amplifier codec
-      ASoC: amd: acp: Add support for RT5682-VS codec
-      ASoC: amd: acp: Add acp_machine struct for renoir platform.
-
-Alejandro Tafalla (2):
-      ASoC: max98927: Handle reset gpio when probing i2c
-      ASoC: max98927: Add reset-gpios optional property
-
-Alexander Stein (1):
-      ASoC: meson: t9015: Add missing AVDD-supply property
-
-Amadeusz Sławiński (5):
-      ASoC: core: Remove invalid snd_soc_component_set_jack call
-      ASoC: topology: Check for dapm widget completeness
-      ASoC: topology: Use correct device for prints
-      ASoC: topology: Change topology device to card device
-      ASoC: Stop dummy from overriding hwparams
-
-Andy Shevchenko (12):
-      ASoC: Intel: bytcht_es8316: Get platform data via dev_get_platdata()
-      ASoC: Intel: bytcht_es8316: Use temporary variable for struct device
-      ASoC: Intel: bytcht_es8316: Switch to use gpiod_get_optional()
-      ASoC: Intel: bytcht_es8316: Utilize dev_err_probe() to avoid log saturation
-      ASoC: Intel: bytcr_rt5640: Get platform data via dev_get_platdata()
-      ASoC: Intel: bytcr_rt5640: Use temporary variable for struct device
-      ASoC: Intel: bytcr_rt5640: use devm_clk_get_optional() for mclk
-      ASoC: Intel: bytcr_rt5640: Utilize dev_err_probe() to avoid log saturation
-      ASoC: Intel: bytcr_rt5651: Get platform data via dev_get_platdata()
-      ASoC: Intel: bytcr_rt5651: Use temporary variable for struct device
-      ASoC: Intel: bytcr_rt5651: use devm_clk_get_optional() for mclk
-      ASoC: Intel: bytcr_rt5651: Utilize dev_err_probe() to avoid log saturation
-
-AngeloGioacchino Del Regno (1):
-      ASoC: rt5682-i2c: Use devm_clk_get_optional for optional clock
-
-Arnd Bergmann (3):
-      ASoC: samsung: add missing "fallthrough;"
-      ASoC: amd: acp: fix Kconfig dependencies
-      ASoC: amd: acp: select CONFIG_SND_SOC_ACPI
-
-Bard Liao (1):
-      ASoC: SOF: dai-intel: add SOF_DAI_INTEL_SSP_CLKCTRL_MCLK/BCLK_ES bits
-
-Bixuan Cui (1):
-      ASoC: mediatek: mt8195: Add missing of_node_put()
-
-Brent Lu (9):
-      ASoC: Intel: sof_rt5682: support ALC5682I-VS codec
-      ASoC: intel: sof_rt5682: support jsl_rt5682s_rt1015p board
-      ASoC: intel: sof_rt5682: support jsl_rt5682s_rt1015 board
-      ASoC: intel: sof_rt5682: support jsl_rt5682s_mx98360a board
-      ASoC: intel: sof_rt5682: update platform device name for Maxim amplifier
-      ASoC: Intel: glk_rt5682_max98357a: support ALC5682I-VS codec
-      ASoC: soc-acpi: add comp_ids field for machine driver matching
-      ASoC: Intel: sof_rt5682: detect codec variant in probe function
-      ASoC: Intel: sof_rt5682: use comp_ids to enumerate rt5682s
-
-Bud Liviu-Alexandru (1):
-      ASoC: SOF: Make Intel IPC stream ops generic
-
-Cai Huoqing (1):
-      ASoC: mediatek: mt8195: Make use of the helper function devm_platform_ioremap_resource()
-
-Cezary Rojewski (1):
-      ASoC: topology: Add header payload_size verification
-
-Charles Keepax (10):
-      ASoC: cs35l41: Fix use of an uninitialised variable
-      ASoC: cs35l41: Use regmap_read_poll_timeout to wait for OTP boot
-      ASoC: cs35l41: Combine adjacent register writes
-      ASoC: cs35l41: Don't overwrite returned error code
-      ASoC: cs35l41: Fixup the error messages
-      ASoC: cs35l41: Fix a bunch of trivial code formating/style issues
-      misc: cs35l41: Remove unused pdn variable
-      ASoC: wm_adsp: Move check for control existence
-      ASoC: wm_adsp: Switch to using wm_coeff_read_ctrl for compressed buffers
-      ASoC: wm_adsp: Move sys_config_size to wm_adsp
-
-ChiYuan Huang (4):
-      ASoC: dt-bindings: rt9120: Add initial bindings
-      ASoC: rt9120: Add rt9210 audio amplifier support
-      ASoC: dt-bindings: rt9120: Add initial bindings
-      ASoC: rt9120: Add rt9210 audio amplifier support
-
-Christian Hewitt (1):
-      ASoC: meson: implement driver_name for snd_soc_card in meson-card-utils
-
-Christophe JAILLET (1):
-      ASoC: rsnd: Fix an error handling path in 'rsnd_node_count()'
-
-Colin Ian King (7):
-      ASoC: mediatek: mt8195: Fix unused initialization of pointer etdm_data
-      ASoC: mediatek: mt8195: make array adda_dai_list static const
-      ASoC: qdsp6: q6afe-dai: Fix spelling mistake "Fronend" -> "Frontend"
-      ASoC: codecs: Fix spelling mistake "Unsupport" -> "Unsupported"
-      ASoC: meson: aiu: Fix spelling mistake "Unsupport" -> "Unsupported"
-      ASoC: rockchip: i2s-tdm: Remove call to rockchip_i2s_ch_to_io
-      ASoC: rockchip: i2s-tdm: Fix error handling on i2s_tdm_prepare_enable_mclk failure
-
-Daniel Baluta (4):
-      ASoC: SOF: OF: Add fw_path and tplg_path parameters
-      ASoC: SOF: Introduce snd_sof_mailbox_read / snd_sof_mailbox_write callbacks
-      ASoC: SOF: imx: Use newly introduced generic IPC stream ops
-      ASoC: SOF: Introduce fragment elapsed notification API
-
-David Lin (2):
-      ASoC: nau8825: add set_jack coponment support
-      ASoC: nau8825: add clock management for power saving
-
-David Rhodes (3):
-      ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
-      ASoC: cs35l41: Add bindings for CS35L41
-      ASoC: cs35l41: Binding fixes
-
-Derek Fang (11):
-      ASoC: rt5682s: Add driver for ALC5682I-VS codec
-      ASoC: dt-bindings: rt5682s: add bindings for rt5682s
-      ASoC: rt5682s: Remove the volatile SW reset register from reg_default
-      ASoC: rt5682s: Use dev_dbg instead of pr_debug
-      ASoC: rt5682s: Revise the macro RT5682S_PLLB_SRC_MASK
-      ASoC: dt-bindings: rt5682s: fix the device-tree schema errors
-      ASoC: rt5682s: Enable ASRC auto-disable to fix pop during jack plug-in while playback
-      ASoC: rt5682s: Fix HP noise caused by SAR mode switch when the system resumes
-      ASoC: rt5682s: Fix hp pop produced immediately after resuming
-      ASoC: rt5682: fix a little pop while playback
-      ASoC: rt5682s: Downsizing the DAC volume scale
-
-Dmitry Osipenko (2):
-      ASoC: tegra: Restore AC97 support
-      ASoC: tegra: Set default card name for Trimslice
-
-Geert Uytterhoeven (7):
-      ASoC: dt-bindings: wlf,wm8978: Fix I2C address in example
-      ASoC: dt-bindings: rockchip: i2s-tdm: Fix rockchip,i2s-[rt]x-route
-      ASoC: wm8962: Convert to devm_clk_get_optional()
-      ASoC: dt-bindings: wlf,wm8962: Convert to json-schema
-      ASoC: amd: acp: Wrap AMD Audio ACP components in SND_SOC_AMD_ACP_COMMON
-      ASoC: amd: acp: SND_SOC_AMD_{LEGACY_MACH,SOF_MACH} should depend on X86 && PCI && I2C
-      ASoC: amd: acp: SND_SOC_AMD_ACP_COMMON should depend on X86 && PCI
-
-George Song (2):
-      ASoC: dt-bindings: max98520: add initial bindings
-      ASoC: max98520: add max98520 audio amplifier driver
-
-Guennadi Liakhovetski (1):
-      ASoC: SOF: add error handling to snd_sof_ipc_msg_data()
-
-Guenter Roeck (1):
-      spi: tegra20-slink: Declare runtime suspend and resume functions conditionally
-
-Guo Zhengkui (1):
-      ASoC: wm_adsp: remove a repeated including
-
-Hans de Goede (6):
-      ASoC: es8316: Use IRQF_NO_AUTOEN when requesting the IRQ
-      ASoC: rt5651: Use IRQF_NO_AUTOEN when requesting the IRQ
-      ASoC: nau8824: Fix NAU8824_JACK_LOGIC define
-      ASoC: nau8824: Add DMI quirk mechanism for active-high jack-detect
-      ASoC: nau8824: Add a nau8824_components() helper
-      ASoC: Intel: cht_bsw_nau8824: Set card.components string
-
-Jack Yu (2):
-      ASoC: rt1011: add i2s reference control for rt1011
-      ASoC: rt5682: move clk related code to rt5682_i2c_probe
-
-Jerome Brunet (2):
-      ASoC: meson: axg-card: make links nonatomic
-      ASoC: meson: axg-tdm-interface: manage formatters in trigger
-
-Jiapeng Chong (1):
-      ASoC: rt5682s: make rt5682s_aif2_dai_ops and rt5682s_soc_component_dev
-
-John Keeping (1):
-      ASoC: doc: update codec example code
-
-Julian Braha (4):
-      ASoC: fix unmet dependency on GPIOLIB
-      ASoC: fix unmet dependency on GPIOLIB for SND_SOC_MAX98357A
-      ASoC: fix unmet dependencies on GPIOLIB for SND_SOC_DMIC
-      ASoC: fix unmet dependencies on GPIOLIB for SND_SOC_RT1015P
-
-Krzysztof Kozlowski (1):
-      ASoC: dt-bindings: rt5682s: correct several errors
-
-Kunihiko Hayashi (1):
-      ASoC: dt-bindings: uniphier: Add description of each port number
-
-Kuninori Morimoto (21):
-      ASoC: test-component: add Test Component YAML bindings
-      ASoC: test-component: add Test Component for Sound debug/test
-      ASoC: simple-card-utils: add asoc_graph_is_ports0()
-      ASoC: simple-card-utils: add codec2codec support
-      ASoC: add Audio Graph Card2 driver
-      ASoC: audio-graph-card2: add Multi CPU/Codec support
-      ASoC: audio-graph-card2: add DPCM support
-      ASoC: audio-graph-card2: add Codec2Codec support
-      ASoC: add Audio Graph Card2 Yaml Document
-      ASoC: add Audio Graph Card2 Custom Sample
-      ASoC: audio-graph-card2-custom-sample.dtsi: add Sample DT for Normal (Single)
-      ASoC: audio-graph-card2-custom-sample.dtsi: add Sample DT for Normal (Nulti)
-      ASoC: audio-graph-card2-custom-sample.dtsi: add DPCM sample (Single)
-      ASoC: audio-graph-card2-custom-sample.dtsi: add DPCM sample (Multi)
-      ASoC: audio-graph-card2-custom-sample.dtsi: add Codec2Codec sample (Single)
-      ASoC: audio-graph-card2-custom-sample.dtsi: add Codec2Codec sample (Multi)
-      ASoC: soc-pcm: tidyup soc_pcm_hw_clean() - step1
-      ASoC: soc-pcm: tidyup soc_pcm_hw_clean() - step2
-      ASoC: soc-component: add snd_soc_component_is_codec()
-      ASoC: soc-core: tidyup empty function
-      ASoC: soc-core: accept zero format at snd_soc_runtime_set_dai_fmt()
-
-Malik_Hsu (1):
-      ASoC: Intel: sof_rt5682: Add support for max98360a speaker amp
-
-Marc Herbert (1):
-      ASoC: SOF: prefix some terse and cryptic dev_dbg() with __func__
-
-Mark Brown (93):
-      Merge existing fixes from asoc/for-5.15
-      Merge series "Convert name-prefix doc to json-schema" from Sameer Pujar <spujar@nvidia.com>:
-      Merge series "ARM: dts: Last round of DT schema fixes" from Maxime Ripard <maxime@cerno.tech>:
-      Merge series "Cirrus Logic CS35L41 Amplifier" from David Rhodes <drhodes@opensource.cirrus.com>:
-      Merge series "Patches to update for rockchip pdm" from Sugar Zhang <sugar.zhang@rock-chips.com>:
-      Merge series "Support ALC5682I-VS codec" from Brent Lu <brent.lu@intel.com>:
-      Merge series "ASoC: SOF: Intel: hda: Cleanups for local function uses" from Peter Ujfalusi <peter.ujfalusi@linux.intel.com>:
-      Merge series "ASoC: SOF: Remove unused members from struct sof_dev_desc" from Peter Ujfalusi <peter.ujfalusi@linux.intel.com>:
-      ASoC: atmel: Convert to new style DAI format definitions
-      ASoC: au1x: Convert to modern terminology for DAI clocking
-      Merge series "ASoC: SOF: Clean up the probe support" from Peter Ujfalusi <peter.ujfalusi@linux.intel.com>:
-      Merge series "ASoC: cs42l42: Implement Manual Type detection as fallback" from Vitaly Rodionov <vitalyr@opensource.cirrus.com>:
-      ASoC: 88pm860x: Update to modern clocking terminology
-      Merge series "ASoC: SOF: ipc: Small cleanups for message handler functions" from Peter Ujfalusi <peter.ujfalusi@linux.intel.com>:
-      ASoC: ab8500: Update to modern clocking terminology
-      Merge series "Extend AHUB audio support for Tegra210 and later" from Sameer Pujar <spujar@nvidia.com>:
-      Merge series "ASoC: compress: Support module_get on stream open" from Peter Ujfalusi <peter.ujfalusi@linux.intel.com>:
-      ASoC: Drop mistakenly applied SPI patch
-      ASoC: cros_ec_codec: Use modern ASoC DAI format terminology
-      ASoC: eureka-tlv320: Update to modern clocking terminology
-      ASoC: fsl-asoc-card: Update to modern clocking terminology
-      ASoC: fsl-audmix: Update to modern clocking terminology
-      ASoC: fsl-esai: Update to modern clocking terminology
-      ASoC: fsl-mqs: Update to modern clocking terminology
-      ASoC: fsl_sai: Update to modern clocking terminology
-      ASoC: fsl_ssi: Update to modern clocking terminology
-      ASoC: imx-audmix: Update to modern clocking terminology
-      ASoC: imx-card: Update to modern clocking terminology
-      ASoC: imx-es8328: Update to modern clocking terminology
-      ASoC: imx-hdmi: Update to modern clocking terminology
-      ASoC: imx-rpmsg: Update to modern clocking terminology
-      ASoC: imx-sgtl5000: Update to modern clocking terminology
-      ASoC: mpc8610_hpcd: Update to modern clocking terminology
-      ASoC: pl1022_ds: Update to modern clocking terminology
-      ASoC: pl1022_rdk: Update to modern clocking terminology
-      ASoC: zl38060: Update to modern clocking terminology
-      ASoC: ak4118: Update to modern clocking terminology
-      ASoC: ak4104: Update to modern clocking terminology
-      ASoC: alc5632: Use modern ASoC DAI format terminology
-      ASoC: ak4642: Use modern ASoC DAI format terminology
-      ASoC: ep93xx: Convert to modern clocking terminology
-      ASoC: ad1836: Update to modern clocking terminology
-      ASoC: adau1372: Update to modern clocking terminology
-      ASoC: adau1373: Update to modern clocking terminology
-      ASoC: adau1701: Update to modern clocking terminology
-      ASoC: adau17x1: Update to modern clocking terminology
-      ASoC: adau1977: Update to modern clocking terminology
-      ASoC: adav80x: Update to modern clocking terminology
-      ASoC: ad193x: Update to modern clocking terminology
-      ASoC: cpcap: Use modern ASoC DAI format terminology
-      ASoC: bcm: Convert to modern clocking terminology
-      ASoC: alc5623: Use modern ASoC DAI format terminology
-      ASoC: ak4671: Use modern ASoC DAI format terminology
-      ASoC: dwc-i2s: Update to modern clocking terminology
-      ASoC: ak5558: Use modern ASoC DAI format terminology
-      ASoC: ak4458: Use modern ASoC DAI format terminology
-      Merge series "add driver to support firmware loading on Cirrus Logic DSPs" from Simon Trimmer <simont@opensource.cirrus.com>:
-      Merge series "Add support for on demand pipeline setup/destroy" from Peter Ujfalusi <peter.ujfalusi@linux.intel.com>:
-      Merge series "ASoC: SOF: topology: minor updates" from Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>:
-      Merge series "ASoC: SOF: Intel: add flags to turn on SSP clocks early" from Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>:
-      Merge series "ASoC: Intel: machine driver updates for 5.16" from Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>:
-      Merge series "Rockchip I2S/TDM controller" from Nicolas Frattaroli <frattaroli.nicolas@gmail.com>:
-      Merge series "ASoC: SOF: Improvements for debugging" from Peter Ujfalusi <peter.ujfalusi@linux.intel.com>:
-      Merge series "Introduce new SOF helpers" from Daniel Baluta <daniel.baluta@oss.nxp.com> Daniel Baluta <daniel.baluta@nxp.com>:
-      Merge series "Add reset-gpios handling for max98927" from Alejandro Tafalla <atafalla@dnyon.com>:
-      Merge series "ASoC: Intel: bytcht_es8316: few cleanups" from Andy Shevchenko <andriy.shevchenko@linux.intel.com>:
-      Merge series "ASoC: rt9120: Add Richtek RT9120 supprot" from cy_huang <u0084500@gmail.com> ChiYuan Huang <cy_huang@richtek.com>:
-      sh: Use modern ASoC DAI format terminology
-      Merge series "ASoC: Intel: bytcr_rt5651: few cleanups" from Andy Shevchenko <andriy.shevchenko@linux.intel.com>:
-      ASoC: rt9120: Drop rt9210 audio amplifier support
-      Merge series "ASoC: rt9120: Add Richtek RT9120 supprot" from cy_huang <u0084500@gmail.com> ChiYuan Huang <cy_huang@richtek.com>:
-      Merge series "ASoC: Add Audio Graph Card2 support" from Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>:
-      Merge tag 'v5.15-rc6' into asoc-5.16
-      Merge series "ASoC: cleanup / tidyup soc-pcm/core/component" from Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>:
-      Merge branch 'asoc-5.15' into asoc-5.16
-      Merge series "ASoC: qcom: sm8250: add support for TX and RX Macro dais" from Srinivas Kandagatla <srinivas.kandagatla@linaro.org>:
-      Merge branch 'asoc-5.15' into asoc-5.16
-      Merge series "ASoC: meson: axg: fix TDM channel order sync" from Jerome Brunet <jbrunet@baylibre.com>:
-      Merge series "Add Yellow Carp platform ASoC driver" from Vijendar Mukunda <Vijendar.Mukunda@amd.com>:
-      Merge series "ASoC: Add common modules support for ACP hw block" from Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>:
-      Merge series "ASoC: wm8962: Conversion to json-schema and fix" from Geert Uytterhoeven <geert+renesas@glider.be>:
-      ASoC: topology: Fix stub for snd_soc_tplg_component_remove()
-      Merge tag '20210927135559.738-6-srinivas.kandagatla@linaro.org' of https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux into v11_20211026_srinivas_kandagatla_asoc_qcom_add_audioreach_support for audioreach support
-      Merge series "ASoC: qcom: Add AudioReach support" from Srinivas Kandagatla <srinivas.kandagatla@linaro.org>:
-      Merge series "Update Lpass digital codec macro drivers" from Srinivasa Rao Mandadapu <srivasam@codeaurora.org>:
-      Merge series "ASoC: cs42l42: Fixes to power-down" from Richard Fitzgerald <rf@opensource.cirrus.com>:
-      Merge series "ASoC: minor cleanup of warnings" from Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>:
-      Merge series "Make genaral and simple for new sof machine driver" from David Lin <CTLIN0@nuvoton.com>:
-      Merge series "ASoC: cs42l42: Fix definition and handling of jack switch invert" from Richard Fitzgerald <rf@opensource.cirrus.com>:
-      Merge series "ASoC: Sanity checks and soc-topology updates" from Cezary Rojewski <cezary.rojewski@intel.com>:
-      Merge series "Multiple headphone codec driver support" from Brent Lu <brent.lu@intel.com>:
-      Merge remote-tracking branch 'asoc/for-5.15' into asoc-linus
-      Merge remote-tracking branch 'asoc/for-5.16' into asoc-next
-
-Masahiro Yamada (1):
-      ASoC: ti: rename CONFIG_SND_SOC_DM365_VOICE_CODEC_MODULE
-
-Masanari Iida (1):
-      ASoC: q6afe: q6asm: Fix typos in qcom,q6afe.txt and qcom,q6asm.txt
-
-Maxime Ripard (4):
-      ASoC: dt-bindings: Add WM8978 Binding
-      ASoC: dt-bindings: Convert Bluetooth SCO Link binding to a schema
-      ASoC: dt-bindings: Convert SPDIF Transmitter binding to a schema
-      ASoC: dt-bindings: Convert Simple Amplifier binding to a schema
-
-Nathan Chancellor (1):
-      ASoC: qdsp6: audioreach: Fix clang -Wimplicit-fallthrough
-
-Nicolas Frattaroli (5):
-      ASoC: rockchip: add support for i2s-tdm controller
-      ASoC: dt-bindings: rockchip: add i2s-tdm bindings
-      ASoC: rockchip: i2s-tdm: Strip out direct CRU use
-      ASoC: dt-bindings: rockchip: i2s-tdm: Drop rockchip,cru property
-      ASoC: rockchip: i2s-tdm: Fix refcount test
-
-Peter Ujfalusi (56):
-      ASoC: soc-topology: Move template info print soc_tplg_dapm_widget_create()
-      ASoC: SOF: Handle control change notification from firmware
-      ASoC: SOF: intel: Do no initialize resindex_dma_base
-      ASoC: SOF: Drop resindex_dma_base, dma_engine, dma_size from sof_dev_desc
-      ASoC: SOF: Intel: hda-dsp: Declare locally used functions as static
-      ASoC: SOF: Intel: hda: Remove boot_firmware skl and iccmax_icl declarations
-      ASoC: SOF: Intel: hda: Relocate inline definitions from hda.h to hda.c for sdw
-      ASoC: SOF: loader: load_firmware callback is mandatory, treat it like that
-      ASoC: SOF: Intel: bdw: Set the mailbox offset directly in bdw_probe
-      ASoC: SOF: ipc: Remove snd_sof_dsp_mailbox_init()
-      ASoC: SOF: imx: Do not initialize the snd_sof_dsp_ops.read64
-      ASoC: SOF: loader: No need to export snd_sof_fw_parse_ext_data()
-      ASoC: SOF: core: Do not use 'bar' as parameter for block_read/write
-      ASoC: SOF: debug: Add generic API and ops for DSP regions
-      ASoC: SOF: imx: Provide debugfs_add_region_item ops for core
-      ASoC: SOF: Intel: Provide debugfs_add_region_item ops for core
-      ASoC: SOF: loader: Use the generic ops for region debugfs handling
-      ASoC: SOF: debug: No need to export the snd_sof_debugfs_io_item()
-      ASoC: SOF: ipc: Add probe message logging to ipc_log_header()
-      ASoC: SOF: pcm: Remove non existent CONFIG_SND_SOC_SOF_COMPRESS reference
-      ASoC: SOF: probe: Merge and clean up the probe and compress files
-      ASoC: SOF: Intel: Rename hda-compress.c to hda-probes.c
-      ASoC: SOF: sof-probes: Correct the function names used for snd_soc_cdai_ops
-      ASoC: SOF: core: Move probe work related code under a single if () branch
-      ASoC: SOF: ipc: Clarify the parameter name for ipc_trace_message()
-      ASoC: SOF: ipc: Print 0x prefix for errors in ipc_trace/stream_message()
-      ASoC: SOF: ipc: Remove redundant error check from sof_ipc_tx_message_unlocked
-      ASoC: SOF: Rename sof_arch_ops to dsp_arch_ops
-      ASoC: soc-component: Convert the mark_module to void*
-      ASoC: compress/component: Use module_get_when_open/put_when_close for cstream
-      ASoC: SOF: Remove struct sof_ops_table and sof_get_ops() macro
-      ASoC: Intel: boards: Update to modern clocking terminology
-      ASoC: SOF: Intel: hda-stream: Print stream name on STREAM_SD_OFFSET timeout
-      ASoC: SOF: ipc: Make the error prints consistent in tx_wait_done()
-      ASoC: SOF: Change SND_SOC_SOF_TOPLEVEL from config to menuconfig
-      ASoC: SOF: debug: Swap the dsp_dump and ipc_dump sequence for fw_exception
-      ASoC: SOF: ipc and dsp dump: Add markers for better visibility
-      ASoC: SOF: Print the dbg_dump and ipc_dump once to reduce kernel log noise
-      ASoC: SOF: loader: Print the DSP dump if boot fails
-      ASoC: SOF: intel: atom: No need to do a DSP dump in atom_run()
-      ASoC: SOF: debug/ops: Move the IPC and DSP dump functions out from the header
-      ASoC: SOF: debug: Add SOF_DBG_DUMP_OPTIONAL flag for DSP dumping
-      ASoC: SOF: intel: hda-loader: Use snd_sof_dsp_dbg_dump() for DSP dump
-      ASoC: SOF: Drop SOF_DBG_DUMP_FORCE_ERR_LEVEL and sof_dev_dbg_or_err
-      ASoC: SOF: debug: Print out the fw_state along with the DSP dump
-      ASoC: SOF: ipc: Re-enable dumps after successful IPC tx
-      ASoC: SOF: ops: Force DSP panic dumps to be printed
-      ASoC: SOF: Introduce macro to set the firmware state
-      ASoC: SOF: intel: hda: Drop 'error' prefix from error dump functions
-      ASoC: SOF: core: Clean up snd_sof_get_status() prints
-      ASoC: SOF: loader: Drop SOF_DBG_DUMP_REGS flag when firmware start fails
-      ASoC: SOF: Intel: hda-loader: Drop SOF_DBG_DUMP_REGS flag from dbg_dump calls
-      ASoC: SOF: Intel: hda: Dump registers and stack when SOF_DBG_DUMP_REGS is set
-      ASoC: SOF: pipelines: Harmonize all functions to use struct snd_sof_dev
-      ASoC: rt1011: Fix 'I2S Reference' enum control caused error
-      ASoC: rt1011: Fix 'I2S Reference' enum control
-
-Pierre-Louis Bossart (29):
-      ASoC: amd: acp: declare and add prefix to 'bt_uart_enable' symbol
-      ASoC: SOF: core: allow module parameter to override dma trace Kconfig
-      ASoC: SOF: imx: add header file for ops
-      ASoC: Intel: soc-acpi: apl/glk/tgl: add entry for devices based on ES8336 codec
-      ALSA: intel-dsp-config: add quirk for APL/GLK/TGL devices based on ES8336 codec
-      ASoC: Intel: add machine driver for SOF+ES8336
-      ASoC: Intel: soc-acpi: add missing quirk for TGL SDCA single amp
-      ASoC: Intel: sof_sdw: add missing quirk for Dell SKU 0A45
-      ASoC: SOF: dai: mirror group_id definition added in firmware
-      ASoC: SOF: dai: include new flags for DAI_CONFIG
-      ASoC: SOF: Intel: hda: add new flags for DAI_CONFIG
-      ASoC: SOF: Intel: hda-dai: improve SSP DAI handling for dynamic pipelines
-      ASoC: SOF: topology: show clks_control value in dynamic debug
-      ASoC: SOF: topology: allow for dynamic pipelines override for debug
-      ASoC: SOF: core: debug: force all processing on primary core
-      ASoC: soc-pcm: restore mixer functionality
-      ASoC: topology: handle endianness warning
-      ASoC: rt5682s: use 'static' qualifier
-      ASoC: nau8821: fix kernel-doc
-      ASoC: nau8821: clarify out-of-bounds check
-      ASoC: mediatek: remove unnecessary initialization
-      ASoC: mediatek: mt8195: rename shadowed array
-      ASoC: mediatek: mt8195: fix return value
-      ASoC: rockchip: i2s_tdm: improve return value handling
-      ASoC: Intel: soc-acpi: add entry for ESSX8336 on JSL
-      ASoC: es8316: add support for ESSX8336 ACPI _HID
-      ASoC: Intel: soc-acpi-byt: shrink tables using compatible IDs
-      ASoC: Intel: soc-acpi-cht: shrink tables using compatible IDs
-      ASoC: Intel: soc-acpi: use const for all uses of snd_soc_acpi_codecs
-
-Rander Wang (2):
-      ASoC: SOF: control: fix a typo in put operations for kcontrol
-      ASoC: SOF: prepare code to allocate IPC messages in fw_ready
-
-Ranjani Sridharan (16):
-      ASoC: SOF: compress: move and export sof_probe_compr_ops
-      ASoC: SOF: pm: fix a stale comment
-      ASoC: topology: change the complete op in snd_soc_tplg_ops to return int
-      ASoC: SOF: control: Add access field in struct snd_sof_control
-      ASoC: SOF: topology: Add new token for dynamic pipeline
-      ASoC: SOF: sof-audio: add helpers for widgets, kcontrols and dai config set up
-      AsoC: dapm: export a couple of functions
-      ASoC: SOF: Add new fields to snd_sof_route
-      ASoC: SOF: restore kcontrols for widget during set up
-      ASoC: SOF: Don't set up widgets during topology parsing
-      ASoC: SOF: Introduce widget use_count
-      ASoC: SOF: Intel: hda: make sure DAI widget is set up before IPC
-      ASoC: SOF: Add support for dynamic pipelines
-      ASoC: SOF: topology: Add kernel parameter for topology verification
-      ASoC: SOF: topology: return error if sof_connect_dai_widget() fails
-      ASoC: SOF: topology: do not power down primary core during topology removal
-
-Richard Fitzgerald (18):
-      ASoC: cs42l42: Don't reconfigure the PLL while it is running
-      ASoC: cs42l42: Always configure both ASP TX channels
-      ASoC: cs42l42: Correct some register default values
-      ASoC: cs42l42: Don't set defaults for volatile registers
-      ASoC: cs42l42: Defer probe if request_threaded_irq() returns EPROBE_DEFER
-      ASoC: cs42l42: Don't claim to support 192k
-      ASoC: cs42l42: Use PLL for SCLK > 12.288MHz
-      ASoC: cs42l42: Allow time for HP/ADC to power-up after enable
-      ASoC: cs42l42: Set correct SRC MCLK
-      ASoC: cs42l42: Mark OSC_SWITCH_STATUS register volatile
-      ASoC: cs42l42: Fix WARN in remove() if running without an interrupt
-      ASoC: cs42l42: Always enable TS_PLUG and TS_UNPLUG interrupts
-      ASoC: cs42l42: Remove unused runtime_suspend/runtime_resume callbacks
-      ASoC: cs42l42: Prevent NULL pointer deref in interrupt handler
-      ASoC: cs42l42: Reset and power-down on remove() and failed probe()
-      ASoC: cs42l42: free_irq() before powering-down on probe() fail
-      ASoC: dt-bindings: cs42l42: Correct description of ts-inv
-      ASoC: cs42l42: Correct configuring of switch inversion from ts-inv
-
-Rikard Falkeborn (9):
-      ASoC: fsl: Constify static snd_soc_ops
-      ASoC: tegra: Constify static snd_soc_dai_ops structs
-      ASoC: ti: Constify static snd_soc_ops
-      ASoC: ux500: mop500: Constify static snd_soc_ops
-      ASoC: tegra: Constify static snd_soc_ops
-      ASoC: qcom: apq8096: Constify static snd_soc_ops
-      ASoC: amd: acp-rt5645: Constify static snd_soc_ops
-      ASoC: mediatek: Constify static snd_soc_ops
-      ASoC: amd: vangogh: constify static struct snd_soc_dai_ops
-
-Sameer Pujar (14):
-      ASoC: Add json-schema documentation for sound-name-prefix
-      ASoC: Use schema reference for sound-name-prefix
-      ASoC: Remove name-prefix.txt
-      ASoC: soc-pcm: Don't reconnect an already active BE
-      ASoC: simple-card-utils: Increase maximum DAI links limit to 512
-      ASoC: audio-graph: Fixup CPU endpoint hw_params in a BE<->BE link
-      ASoC: dt-bindings: tegra: Few more Tegra210 AHUB modules
-      ASoC: tegra: Add routes for few AHUB modules
-      ASoC: tegra: Add Tegra210 based MVC driver
-      ASoC: tegra: Add Tegra210 based SFC driver
-      ASoC: tegra: Add Tegra210 based AMX driver
-      ASoC: tegra: Add Tegra210 based ADX driver
-      ASoC: tegra: Add Tegra210 based Mixer driver
-      ASoC: Fix warning related to 'sound-name-prefix' binding
-
-Sebastian Andrzej Siewior (1):
-      ASoC: mediatek: mt8195: Remove unsued irqs_lock.
-
-Seven Lee (1):
-      ASoC: nau8821: new driver
-
-Shengjiu Wang (3):
-      ASoC: fsl_rpmsg: add soc specific data structure
-      ASoC: fsl_spdif: Add support for i.MX8ULP
-      ASoC: fsl_rpmsg: Add rpmsg audio support for i.MX8ULP
-
-Simon Trimmer (14):
-      ASoC: wm_adsp: Remove use of snd_ctl_elem_type_t
-      ASoC: wm_adsp: Cancel ongoing work when removing controls
-      ASoC: wm_adsp: Rename generic DSP support
-      ASoC: wm_adsp: Introduce cs_dsp logging macros
-      ASoC: wm_adsp: Separate some ASoC and generic functions
-      ASoC: wm_adsp: Split DSP power operations into helper functions
-      ASoC: wm_adsp: Separate generic cs_dsp_coeff_ctl handling
-      ASoC: wm_adsp: Move check of dsp->running to better place
-      ASoC: wm_adsp: Pass firmware names as parameters when starting DSP core
-      ASoC: wm_adsp: move firmware loading to client
-      ASoC: wm_adsp: Split out struct cs_dsp from struct wm_adsp
-      ASoC: wm_adsp: Separate wm_adsp specifics in cs_dsp_client_ops
-      firmware: cs_dsp: add driver to support firmware loading on Cirrus Logic DSPs
-      ASoC: soc-component: Remove conditional definition of debugfs data members
-
-Srinivas Kandagatla (25):
-      soc: dt-bindings: qcom: apr: convert to yaml
-      soc: dt-bindings: qcom: apr: deprecate qcom,apr-domain property
-      soc: qcom: apr: make code more reuseable
-      soc: dt-bindings: qcom: add gpr bindings
-      soc: qcom: apr: Add GPR support
-      ASoC: soc-component: improve error reporting for register access
-      ASoC: qcom: sm8250: add support for TX and RX Macro dais
-      ASoC: qcom: sm8250: Add Jack support
-      ASoC: dt-bindings: move LPASS dai related bindings out of q6afe
-      ASoC: dt-bindings: move LPASS clocks related bindings out of q6afe
-      ASoC: dt-bindings: rename q6afe.h to q6dsp-lpass-ports.h
-      ASoC: qdsp6: q6afe-dai: move lpass audio ports to common file
-      ASoC: qdsp6: q6afe-clocks: move audio-clocks to common file
-      ASoC: dt-bindings: q6dsp: add q6apm-lpass-dai compatible
-      ASoC: dt-bindings: lpass-clocks: add q6prm clocks compatible
-      ASoC: dt-bindings: add q6apm digital audio stream bindings
-      ASoC: qdsp6: audioreach: add basic pkt alloc support
-      ASoC: qdsp6: audioreach: add q6apm support
-      ASoC: qdsp6: audioreach: add module configuration command helpers
-      ASoC: qdsp6: audioreach: add Kconfig and Makefile
-      ASoC: qdsp6: audioreach: add topology support
-      ASoC: qdsp6: audioreach: add q6apm-dai support
-      ASoC: qdsp6: audioreach: add q6apm lpass dai support
-      ASoC: qdsp6: audioreach: add q6prm support
-      ASoC: qdsp6: audioreach: add support for q6prm-clocks
-
-Srinivasa Rao Mandadapu (7):
-      ASoC: dt-bindings: lpass: add binding headers for digital codecs
-      ASoC: dt-bindings: lpass: add binding headers for digital codecs
-      ASoC: qcom: Add compatible names in va,wsa,rx,tx codec drivers for sc7280
-      ASoC: qcom: dt-bindings: Add compatible names for lpass sc7280 digital codecs
-      ASoC: codecs: tx-macro: Enable tx top soundwire mic clock
-      ASoC: codecs: tx-macro: Update tx default values
-      ASoC: codecs: Change bulk clock voting to optional voting in digital codecs
-
-Stefan Binding (2):
-      ASoC: cs42l42: Implement Manual Type detection as fallback
-      ASoC: cs42l42: Use two thresholds and increased wait time for manual type detection
-
-Stephan Gerhold (1):
-      ASoC: qcom: common: Respect status = "disabled" on DAI link nodes
-
-Sugar Zhang (9):
-      ASoC: rockchip: Add support for rv1126 pdm
-      ASoC: dt-bindings: rockchip: Add binding for rv1126 pdm
-      ASoC: rockchip: pdm: Add support for rk3568 pdm
-      ASoC: dt-bindings: rockchip: Add binding for rk3568 pdm
-      ASoC: rockchip: pdm: Add support for path map
-      ASoC: dt-bindings: rockchip: pdm: Document property 'rockchip,path-map'
-      ASoC: dt-bindings: rockchip: Convert pdm bindings to yaml
-      ASoC: dmaengine: Introduce module option prealloc_buffer_size_kbytes
-      ASoC: rockchip: Use generic dmaengine code
-
-Trevor Wu (7):
-      ASoC: mt8195: remove unnecessary CONFIG_PM
-      ASoC: mediatek: mt6359: Fix unexpected error in bind/unbind flow
-      ASoC: mediatek: mt8195: add missing of_node_put in probe
-      ASoC: mediatek: mt8195: move of_node_put to remove function
-      ASoC: mediatek: mt8195: update audsys clock parent name
-      ASoC: mediatek: mt8195: add machine driver with mt6359, rt1011 and rt5682
-      ASoC: mediatek: mt8195: add mt8195-mt6359-rt1011-rt5682 bindings document
-
-Tzung-Bi Shih (2):
-      ASoC: dt-bindings: mediatek: mt8192: re-add audio afe document
-      ASoC: dt-bindings: mediatek: rename reset controller headers in DT example
-
-Uwe Kleine-König (5):
-      ASoC: tlv320aic32x4: Make aic32x4_remove() return void
-      ASoc: wm8731: Drop empty spi_driver remove callback
-      ASoc: wm8900: Drop empty spi_driver remove callback
-      ASoC: cs35l41: Make cs35l41_remove() return void
-      ASoC: tlv320aic3x: Make aic3x_remove() return void
-
-Vijendar Mukunda (16):
-      ASoc: amd: create platform device for VG machine driver
-      ASoC: amd: add vangogh machine driver
-      ASoC: amd: enable vangogh platform machine driver build
-      ASoC: amd: add Yellow Carp ACP6x IP register header
-      ASoC: amd: add Yellow Carp ACP PCI driver
-      ASoC: amd: add acp6x init/de-init functions
-      ASoC: amd: add platform devices for acp6x pdm driver and dmic driver
-      ASoC: amd: add acp6x pdm platform driver
-      ASoC: amd: add acp6x irq handler
-      ASoC: amd: add acp6x pdm driver dma ops
-      ASoC: amd: add acp6x pci driver pm ops
-      ASoC: amd: add acp6x pdm driver pm ops
-      ASoC: amd: enable Yellow carp acp6x drivers build
-      ASoC: amd: create platform device for acp6x machine driver
-      ASoC: amd: add YC machine driver using dmic
-      ASoC: amd: enable Yellow Carp platform machine driver build
-
-Vincent Knecht (1):
-      ASoC: codecs: tfa989x: Add support for tfa9897 RCV bit
-
-Viorel Suman (2):
-      ASoC: SOF: imx8m: add SAI1 info
-      ASoC: fsl_spdif: implement bypass mode from in to out
-
-Vitaly Rodionov (1):
-      ASoC: cs42l42: Minor fix all errors reported by checkpatch.pl script
-
-Wolfram Sang (1):
-      ASoC: codecs: max98390: simplify getting the adapter of a client
-
-Yang Yingliang (1):
-      ASoC: amd: acp: Fix return value check in acp_machine_select()
-
-Yassine Oudjana (1):
-      ASoC: wcd9335: Use correct version to initialize Class H
-
-gearhead (1):
-      ASoC: pcm5102a: increase rate from 192k to 384k
-
- .../devicetree/bindings/soc/qcom/qcom,apr.txt      |  134 -
- .../devicetree/bindings/soc/qcom/qcom,apr.yaml     |  177 +
- .../devicetree/bindings/sound/amlogic,t9015.yaml   |    6 +
- .../bindings/sound/audio-graph-card2.yaml          |   57 +
- Documentation/devicetree/bindings/sound/bt-sco.txt |   13 -
- .../devicetree/bindings/sound/cirrus,cs35l41.yaml  |  157 +
- .../devicetree/bindings/sound/cs42l42.txt          |   13 +-
- .../devicetree/bindings/sound/linux,bt-sco.yaml    |   38 +
- .../devicetree/bindings/sound/linux,spdif-dit.yaml |   32 +
- .../devicetree/bindings/sound/max9892x.txt         |    3 +
- .../devicetree/bindings/sound/maxim,max98520.yaml  |   36 +
- .../devicetree/bindings/sound/mt8192-afe-pcm.yaml  |  100 +
- .../sound/mt8195-mt6359-rt1011-rt5682.yaml         |   47 +
- .../devicetree/bindings/sound/name-prefix.txt      |   24 -
- .../devicetree/bindings/sound/name-prefix.yaml     |   21 +
- .../devicetree/bindings/sound/nau8821.txt          |   55 +
- .../bindings/sound/nvidia,tegra186-dspk.yaml       |    9 +-
- .../bindings/sound/nvidia,tegra210-adx.yaml        |   76 +
- .../bindings/sound/nvidia,tegra210-ahub.yaml       |   20 +
- .../bindings/sound/nvidia,tegra210-amx.yaml        |   76 +
- .../bindings/sound/nvidia,tegra210-dmic.yaml       |    9 +-
- .../bindings/sound/nvidia,tegra210-i2s.yaml        |    9 +-
- .../bindings/sound/nvidia,tegra210-mixer.yaml      |   74 +
- .../bindings/sound/nvidia,tegra210-mvc.yaml        |   76 +
- .../bindings/sound/nvidia,tegra210-sfc.yaml        |   73 +
- .../devicetree/bindings/sound/nxp,tfa989x.yaml     |    9 +-
- .../bindings/sound/qcom,lpass-rx-macro.yaml        |    4 +-
- .../bindings/sound/qcom,lpass-tx-macro.yaml        |    4 +-
- .../bindings/sound/qcom,lpass-va-macro.yaml        |    4 +-
- .../bindings/sound/qcom,lpass-wsa-macro.yaml       |    4 +-
- .../devicetree/bindings/sound/qcom,q6afe.txt       |  181 -
- .../devicetree/bindings/sound/qcom,q6apm-dai.yaml  |   53 +
- .../devicetree/bindings/sound/qcom,q6asm.txt       |    2 +-
- .../bindings/sound/qcom,q6dsp-lpass-clocks.yaml    |   77 +
- .../bindings/sound/qcom,q6dsp-lpass-ports.yaml     |  205 ++
- .../devicetree/bindings/sound/realtek,rt5682s.yaml |  117 +
- .../devicetree/bindings/sound/richtek,rt9120.yaml  |   59 +
- .../bindings/sound/rockchip,i2s-tdm.yaml           |  182 +
- .../devicetree/bindings/sound/rockchip,pdm.txt     |   46 -
- .../devicetree/bindings/sound/rockchip,pdm.yaml    |  120 +
- Documentation/devicetree/bindings/sound/rt5659.txt |    2 +-
- .../devicetree/bindings/sound/simple-amplifier.txt |   17 -
- .../bindings/sound/simple-audio-amplifier.yaml     |   45 +
- .../bindings/sound/simple-audio-mux.yaml           |    9 +-
- .../bindings/sound/socionext,uniphier-aio.yaml     |   22 +-
- .../bindings/sound/socionext,uniphier-evea.yaml    |    6 +-
- .../bindings/sound/spdif-transmitter.txt           |   10 -
- .../devicetree/bindings/sound/test-component.yaml  |   33 +
- .../devicetree/bindings/sound/wlf,wm8962.yaml      |  118 +
- .../devicetree/bindings/sound/wlf,wm8978.yaml      |   58 +
- Documentation/devicetree/bindings/sound/wm8962.txt |   43 -
- Documentation/sound/alsa-configuration.rst         |    9 +
- Documentation/sound/soc/codec.rst                  |    8 +-
- MAINTAINERS                                        |   18 +
- arch/sh/boards/mach-ecovec24/setup.c               |    2 +-
- arch/sh/boards/mach-se/7724/setup.c                |    2 +-
- drivers/firmware/Kconfig                           |    1 +
- drivers/firmware/Makefile                          |    1 +
- drivers/firmware/cirrus/Kconfig                    |    5 +
- drivers/firmware/cirrus/Makefile                   |    3 +
- drivers/firmware/cirrus/cs_dsp.c                   | 3109 +++++++++++++++++
- drivers/soc/qcom/Kconfig                           |    2 +-
- drivers/soc/qcom/apr.c                             |  287 +-
- include/dt-bindings/soc/qcom,gpr.h                 |   19 +
- include/dt-bindings/sound/qcom,lpass.h             |   31 +
- include/dt-bindings/sound/qcom,q6afe.h             |  203 +-
- include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h |  208 ++
- include/linux/firmware/cirrus/cs_dsp.h             |  242 ++
- .../linux/firmware/cirrus}/wmfw.h                  |    8 +-
- include/linux/soc/qcom/apr.h                       |   70 +-
- include/sound/cs35l41.h                            |   34 +
- include/sound/graph_card.h                         |   21 +
- include/sound/rt5682s.h                            |   48 +
- include/sound/simple_card_utils.h                  |    6 +-
- include/sound/soc-acpi.h                           |    3 +
- include/sound/soc-component.h                      |   21 +-
- include/sound/soc-dpcm.h                           |    1 +
- include/sound/soc-topology.h                       |    5 +-
- include/sound/sof.h                                |    5 -
- include/sound/sof/dai-intel.h                      |    4 +
- include/sound/sof/dai.h                            |   10 +-
- include/uapi/sound/snd_ar_tokens.h                 |  208 ++
- include/uapi/sound/sof/tokens.h                    |    1 +
- sound/hda/intel-dsp-config.c                       |   22 +-
- sound/soc/amd/Kconfig                              |   40 +-
- sound/soc/amd/Makefile                             |    2 +
- sound/soc/amd/acp-da7219-max98357a.c               |    6 +-
- sound/soc/amd/acp-pcm-dma.c                        |    6 +-
- sound/soc/amd/acp-rt5645.c                         |    2 +-
- sound/soc/amd/acp.h                                |    2 +
- sound/soc/amd/acp/Kconfig                          |   61 +
- sound/soc/amd/acp/Makefile                         |   26 +
- sound/soc/amd/acp/acp-i2s.c                        |  340 ++
- sound/soc/amd/acp/acp-legacy-mach.c                |  104 +
- sound/soc/amd/acp/acp-mach-common.c                |  600 ++++
- sound/soc/amd/acp/acp-mach.h                       |   57 +
- sound/soc/amd/acp/acp-platform.c                   |  315 ++
- sound/soc/amd/acp/acp-renoir.c                     |  163 +
- sound/soc/amd/acp/acp-sof-mach.c                   |  131 +
- sound/soc/amd/acp/amd.h                            |  145 +
- sound/soc/amd/acp/chip_offset_byte.h               |   76 +
- sound/soc/amd/vangogh/Makefile                     |    2 +
- sound/soc/amd/vangogh/acp5x-i2s.c                  |    2 +-
- sound/soc/amd/vangogh/acp5x-mach.c                 |  386 +++
- sound/soc/amd/vangogh/acp5x.h                      |    2 +-
- sound/soc/amd/vangogh/pci-acp5x.c                  |    3 +
- sound/soc/amd/yc/Makefile                          |    9 +
- sound/soc/amd/yc/acp6x-mach.c                      |  194 ++
- sound/soc/amd/yc/acp6x-pdm-dma.c                   |  448 +++
- sound/soc/amd/yc/acp6x.h                           |  107 +
- sound/soc/amd/yc/acp6x_chip_offset_byte.h          |  444 +++
- sound/soc/amd/yc/pci-acp6x.c                       |  338 ++
- sound/soc/atmel/atmel-i2s.c                        |    6 +-
- sound/soc/atmel/atmel_ssc_dai.c                    |   26 +-
- sound/soc/atmel/atmel_wm8904.c                     |    2 +-
- sound/soc/atmel/mchp-i2s-mcc.c                     |   10 +-
- sound/soc/atmel/mikroe-proto.c                     |    4 +-
- sound/soc/atmel/sam9g20_wm8731.c                   |    2 +-
- sound/soc/atmel/sam9x5_wm8731.c                    |    2 +-
- sound/soc/atmel/tse850-pcm5142.c                   |    2 +-
- sound/soc/au1x/db1200.c                            |    6 +-
- sound/soc/au1x/i2sc.c                              |    6 +-
- sound/soc/au1x/psc-i2s.c                           |   10 +-
- sound/soc/bcm/bcm2835-i2s.c                        |   56 +-
- sound/soc/bcm/cygnus-ssp.c                         |    6 +-
- sound/soc/cirrus/edb93xx.c                         |    2 +-
- sound/soc/cirrus/ep93xx-i2s.c                      |   10 +-
- sound/soc/cirrus/snappercl15.c                     |    2 +-
- sound/soc/codecs/88pm860x-codec.c                  |   18 +-
- sound/soc/codecs/Kconfig                           |   46 +
- sound/soc/codecs/Makefile                          |   12 +
- sound/soc/codecs/ab8500-codec.c                    |   20 +-
- sound/soc/codecs/ad1836.c                          |    6 +-
- sound/soc/codecs/ad193x.c                          |   10 +-
- sound/soc/codecs/adau1372.c                        |   14 +-
- sound/soc/codecs/adau1373.c                        |   14 +-
- sound/soc/codecs/adau1701.c                        |    6 +-
- sound/soc/codecs/adau17x1.c                        |    6 +-
- sound/soc/codecs/adau1977.c                        |   31 +-
- sound/soc/codecs/adav80x.c                         |    6 +-
- sound/soc/codecs/ak4104.c                          |    4 +-
- sound/soc/codecs/ak4118.c                          |   20 +-
- sound/soc/codecs/ak4458.c                          |   12 +-
- sound/soc/codecs/ak4642.c                          |    8 +-
- sound/soc/codecs/ak4671.c                          |    6 +-
- sound/soc/codecs/ak5558.c                          |   10 +-
- sound/soc/codecs/alc5623.c                         |    8 +-
- sound/soc/codecs/alc5632.c                         |    8 +-
- sound/soc/codecs/cpcap.c                           |   18 +-
- sound/soc/codecs/cros_ec_codec.c                   |    4 +-
- sound/soc/codecs/cs35l41-i2c.c                     |  115 +
- sound/soc/codecs/cs35l41-spi.c                     |  140 +
- sound/soc/codecs/cs35l41-tables.c                  |  594 ++++
- sound/soc/codecs/cs35l41.c                         | 1445 ++++++++
- sound/soc/codecs/cs35l41.h                         |  775 +++++
- sound/soc/codecs/cs42l42.c                         |  481 +--
- sound/soc/codecs/cs42l42.h                         |   64 +-
- sound/soc/codecs/cs4341.c                          |    7 +
- sound/soc/codecs/cs47l15.c                         |   26 +-
- sound/soc/codecs/cs47l24.c                         |   20 +-
- sound/soc/codecs/cs47l35.c                         |   26 +-
- sound/soc/codecs/cs47l85.c                         |   34 +-
- sound/soc/codecs/cs47l90.c                         |   36 +-
- sound/soc/codecs/cs47l92.c                         |   20 +-
- sound/soc/codecs/es8316.c                          |    8 +-
- sound/soc/codecs/lpass-rx-macro.c                  |    3 +-
- sound/soc/codecs/lpass-tx-macro.c                  |   25 +-
- sound/soc/codecs/lpass-va-macro.c                  |    3 +-
- sound/soc/codecs/lpass-wsa-macro.c                 |    1 +
- sound/soc/codecs/madera.c                          |   18 +-
- sound/soc/codecs/max98390.c                        |    2 +-
- sound/soc/codecs/max98520.c                        |  769 +++++
- sound/soc/codecs/max98520.h                        |  159 +
- sound/soc/codecs/max98927.c                        |   25 +
- sound/soc/codecs/max98927.h                        |    1 +
- sound/soc/codecs/mt6359.c                          |    2 +-
- sound/soc/codecs/nau8821.c                         | 1714 ++++++++++
- sound/soc/codecs/nau8821.h                         |  533 +++
- sound/soc/codecs/nau8824.c                         |   74 +-
- sound/soc/codecs/nau8824.h                         |    3 +-
- sound/soc/codecs/nau8825.c                         |   48 +-
- sound/soc/codecs/pcm179x-spi.c                     |    1 +
- sound/soc/codecs/pcm5102a.c                        |    2 +-
- sound/soc/codecs/pcm512x.c                         |    2 +
- sound/soc/codecs/rt1011.c                          |   10 +
- sound/soc/codecs/rt1015.c                          |    2 +-
- sound/soc/codecs/rt1016.c                          |    2 +-
- sound/soc/codecs/rt1019.c                          |    2 +-
- sound/soc/codecs/rt1305.c                          |    2 +-
- sound/soc/codecs/rt1308.c                          |    2 +-
- sound/soc/codecs/rt5514.c                          |    2 +-
- sound/soc/codecs/rt5616.c                          |    2 +-
- sound/soc/codecs/rt5640.c                          |    2 +-
- sound/soc/codecs/rt5645.c                          |    2 +-
- sound/soc/codecs/rt5651.c                          |    9 +-
- sound/soc/codecs/rt5659.c                          |    2 +-
- sound/soc/codecs/rt5660.c                          |    2 +-
- sound/soc/codecs/rt5663.c                          |    2 +-
- sound/soc/codecs/rt5665.c                          |    2 +-
- sound/soc/codecs/rt5668.c                          |    2 +-
- sound/soc/codecs/rt5670.c                          |    2 +-
- sound/soc/codecs/rt5677.c                          |    2 +-
- sound/soc/codecs/rt5682-i2c.c                      |   17 +
- sound/soc/codecs/rt5682.c                          |  132 +-
- sound/soc/codecs/rt5682.h                          |   23 +
- sound/soc/codecs/rt5682s.c                         | 3197 ++++++++++++++++++
- sound/soc/codecs/rt5682s.h                         | 1474 ++++++++
- sound/soc/codecs/rt9120.c                          |  495 +++
- sound/soc/codecs/tfa989x.c                         |   21 +
- sound/soc/codecs/tlv320aic32x4-i2c.c               |    4 +-
- sound/soc/codecs/tlv320aic32x4-spi.c               |    4 +-
- sound/soc/codecs/tlv320aic32x4.c                   |    4 +-
- sound/soc/codecs/tlv320aic32x4.h                   |    2 +-
- sound/soc/codecs/tlv320aic3x-i2c.c                 |    4 +-
- sound/soc/codecs/tlv320aic3x-spi.c                 |    4 +-
- sound/soc/codecs/tlv320aic3x.c                     |    3 +-
- sound/soc/codecs/tlv320aic3x.h                     |    2 +-
- sound/soc/codecs/wcd9335.c                         |    2 +-
- sound/soc/codecs/wcd938x.c                         |    6 +-
- sound/soc/codecs/wm2200.c                          |   30 +-
- sound/soc/codecs/wm5102.c                          |   16 +-
- sound/soc/codecs/wm5110.c                          |   24 +-
- sound/soc/codecs/wm8731.c                          |    6 -
- sound/soc/codecs/wm8900.c                          |    6 -
- sound/soc/codecs/wm8960.c                          |   13 +-
- sound/soc/codecs/wm8962.c                          |   13 +-
- sound/soc/codecs/wm_adsp.c                         | 3303 ++----------------
- sound/soc/codecs/wm_adsp.h                         |  105 +-
- sound/soc/codecs/zl38060.c                         |    4 +-
- sound/soc/dwc/dwc-i2s.c                            |   12 +-
- sound/soc/fsl/eukrea-tlv320.c                      |    2 +-
- sound/soc/fsl/fsl-asoc-card.c                      |   54 +-
- sound/soc/fsl/fsl_audmix.c                         |    8 +-
- sound/soc/fsl/fsl_esai.c                           |   28 +-
- sound/soc/fsl/fsl_mqs.c                            |    4 +-
- sound/soc/fsl/fsl_rpmsg.c                          |   47 +-
- sound/soc/fsl/fsl_rpmsg.h                          |   12 +
- sound/soc/fsl/fsl_sai.c                            |   34 +-
- sound/soc/fsl/fsl_sai.h                            |    2 +-
- sound/soc/fsl/fsl_spdif.c                          |   85 +
- sound/soc/fsl/fsl_ssi.c                            |   38 +-
- sound/soc/fsl/fsl_xcvr.c                           |   17 +-
- sound/soc/fsl/imx-audmix.c                         |   12 +-
- sound/soc/fsl/imx-card.c                           |    6 +-
- sound/soc/fsl/imx-es8328.c                         |    2 +-
- sound/soc/fsl/imx-hdmi.c                           |    6 +-
- sound/soc/fsl/imx-rpmsg.c                          |    2 +-
- sound/soc/fsl/imx-sgtl5000.c                       |    2 +-
- sound/soc/fsl/mpc8610_hpcd.c                       |   16 +-
- sound/soc/fsl/p1022_ds.c                           |   16 +-
- sound/soc/fsl/p1022_rdk.c                          |    2 +-
- sound/soc/generic/Kconfig                          |   20 +
- sound/soc/generic/Makefile                         |    6 +
- sound/soc/generic/audio-graph-card.c               |    4 +-
- .../soc/generic/audio-graph-card2-custom-sample.c  |  183 +
- .../generic/audio-graph-card2-custom-sample.dtsi   |  227 ++
- sound/soc/generic/audio-graph-card2.c              | 1281 +++++++
- sound/soc/generic/simple-card-utils.c              |   50 +-
- sound/soc/generic/test-component.c                 |  659 ++++
- sound/soc/intel/boards/Kconfig                     |   18 +-
- sound/soc/intel/boards/Makefile                    |    2 +
- sound/soc/intel/boards/bdw-rt5650.c                |    2 +-
- sound/soc/intel/boards/bdw-rt5677.c                |    2 +-
- sound/soc/intel/boards/broadwell.c                 |    2 +-
- sound/soc/intel/boards/bxt_da7219_max98357a.c      |    4 +-
- sound/soc/intel/boards/bxt_rt298.c                 |    2 +-
- sound/soc/intel/boards/bytcht_cx2072x.c            |    4 +-
- sound/soc/intel/boards/bytcht_da7213.c             |    4 +-
- sound/soc/intel/boards/bytcht_es8316.c             |   41 +-
- sound/soc/intel/boards/bytcht_nocodec.c            |    4 +-
- sound/soc/intel/boards/bytcr_rt5640.c              |  120 +-
- sound/soc/intel/boards/bytcr_rt5651.c              |  122 +-
- sound/soc/intel/boards/bytcr_wm5102.c              |    4 +-
- sound/soc/intel/boards/cht_bsw_max98090_ti.c       |    4 +-
- sound/soc/intel/boards/cht_bsw_nau8824.c           |    4 +-
- sound/soc/intel/boards/cht_bsw_rt5645.c            |    6 +-
- sound/soc/intel/boards/cht_bsw_rt5672.c            |    2 +-
- sound/soc/intel/boards/glk_rt5682_max98357a.c      |   56 +-
- sound/soc/intel/boards/haswell.c                   |    2 +-
- sound/soc/intel/boards/kbl_da7219_max98357a.c      |    4 +-
- sound/soc/intel/boards/kbl_da7219_max98927.c       |    6 +-
- sound/soc/intel/boards/kbl_rt5660.c                |    2 +-
- sound/soc/intel/boards/kbl_rt5663_max98927.c       |    6 +-
- .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  |    4 +-
- sound/soc/intel/boards/skl_nau88l25_max98357a.c    |    4 +-
- sound/soc/intel/boards/skl_nau88l25_ssm4567.c      |    4 +-
- sound/soc/intel/boards/skl_rt286.c                 |    2 +-
- sound/soc/intel/boards/sof_es8336.c                |  569 ++++
- sound/soc/intel/boards/sof_rt5682.c                |   96 +-
- sound/soc/intel/boards/sof_sdw.c                   |   10 +
- sound/soc/intel/common/soc-acpi-intel-adl-match.c  |   24 +-
- sound/soc/intel/common/soc-acpi-intel-bxt-match.c  |    8 +-
- sound/soc/intel/common/soc-acpi-intel-byt-match.c  |   68 +-
- sound/soc/intel/common/soc-acpi-intel-cht-match.c  |   69 +-
- sound/soc/intel/common/soc-acpi-intel-cml-match.c  |    8 +-
- sound/soc/intel/common/soc-acpi-intel-glk-match.c  |   17 +-
- sound/soc/intel/common/soc-acpi-intel-jsl-match.c  |   27 +-
- sound/soc/intel/common/soc-acpi-intel-kbl-match.c  |   12 +-
- sound/soc/intel/common/soc-acpi-intel-skl-match.c  |    2 +-
- sound/soc/intel/common/soc-acpi-intel-tgl-match.c  |   60 +-
- sound/soc/intel/skylake/skl-topology.c             |    6 +-
- sound/soc/mediatek/Kconfig                         |   23 +-
- sound/soc/mediatek/common/mtk-afe-fe-dai.c         |    3 +-
- sound/soc/mediatek/mt2701/mt2701-cs42448.c         |    2 +-
- sound/soc/mediatek/mt2701/mt2701-wm8960.c          |    2 +-
- .../mt8183/mt8183-mt6358-ts3a227-max98357.c        |    2 +-
- sound/soc/mediatek/mt8195/Makefile                 |    1 +
- sound/soc/mediatek/mt8195/mt8195-afe-pcm.c         |   10 +-
- sound/soc/mediatek/mt8195/mt8195-audsys-clk.c      |  152 +-
- sound/soc/mediatek/mt8195/mt8195-dai-adda.c        |    8 +-
- sound/soc/mediatek/mt8195/mt8195-dai-etdm.c        |    4 +-
- .../mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c  | 1155 +++++++
- .../mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c  |   54 +-
- sound/soc/meson/aiu-encoder-spdif.c                |    2 +-
- sound/soc/meson/axg-card.c                         |    1 +
- sound/soc/meson/axg-tdm-interface.c                |   26 +-
- sound/soc/meson/meson-card-utils.c                 |    1 +
- sound/soc/meson/meson-codec-glue.c                 |    3 -
- sound/soc/qcom/Kconfig                             |   25 +-
- sound/soc/qcom/apq8096.c                           |    2 +-
- sound/soc/qcom/common.c                            |    4 +-
- sound/soc/qcom/qdsp6/Makefile                      |   11 +-
- sound/soc/qcom/qdsp6/audioreach.c                  | 1130 +++++++
- sound/soc/qcom/qdsp6/audioreach.h                  |  726 ++++
- sound/soc/qcom/qdsp6/q6afe-clocks.c                |  187 +-
- sound/soc/qcom/qdsp6/q6afe-dai.c                   |  689 +---
- sound/soc/qcom/qdsp6/q6apm-dai.c                   |  416 +++
- sound/soc/qcom/qdsp6/q6apm-lpass-dais.c            |  260 ++
- sound/soc/qcom/qdsp6/q6apm.c                       |  822 +++++
- sound/soc/qcom/qdsp6/q6apm.h                       |  152 +
- sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c          |  186 +
- sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h          |   30 +
- sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c           |  627 ++++
- sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h           |   22 +
- sound/soc/qcom/qdsp6/q6prm-clocks.c                |   85 +
- sound/soc/qcom/qdsp6/q6prm.c                       |  202 ++
- sound/soc/qcom/qdsp6/q6prm.h                       |   78 +
- sound/soc/qcom/qdsp6/topology.c                    | 1113 ++++++
- sound/soc/qcom/sm8250.c                            |   79 +
- sound/soc/rockchip/Kconfig                         |   11 +
- sound/soc/rockchip/Makefile                        |    5 +-
- sound/soc/rockchip/rockchip_i2s.c                  |    3 +-
- sound/soc/rockchip/rockchip_i2s_tdm.c              | 1762 ++++++++++
- sound/soc/rockchip/rockchip_i2s_tdm.h              |  398 +++
- sound/soc/rockchip/rockchip_pcm.c                  |   44 -
- sound/soc/rockchip/rockchip_pcm.h                  |   11 -
- sound/soc/rockchip/rockchip_pdm.c                  |  112 +-
- sound/soc/rockchip/rockchip_pdm.h                  |    6 +
- sound/soc/samsung/s3c-i2s-v2.c                     |    2 +
- sound/soc/sh/rcar/core.c                           |    1 +
- sound/soc/soc-acpi.c                               |   24 +-
- sound/soc/soc-component.c                          |   87 +-
- sound/soc/soc-compress.c                           |   43 +-
- sound/soc/soc-core.c                               |   55 +-
- sound/soc/soc-dapm.c                               |   15 +-
- sound/soc/soc-generic-dmaengine-pcm.c              |    6 +-
- sound/soc/soc-pcm.c                                |   27 +-
- sound/soc/soc-topology.c                           |   52 +-
- sound/soc/soc-utils.c                              |   13 +
- sound/soc/sof/Kconfig                              |    6 +-
- sound/soc/sof/Makefile                             |    6 +-
- sound/soc/sof/compress.c                           |  158 +-
- sound/soc/sof/compress.h                           |   32 -
- sound/soc/sof/control.c                            |  192 +-
- sound/soc/sof/core.c                               |   35 +-
- sound/soc/sof/debug.c                              |   87 +-
- sound/soc/sof/imx/Kconfig                          |    2 +
- sound/soc/sof/imx/imx-ops.h                        |   10 +
- sound/soc/sof/imx/imx8.c                           |   47 +-
- sound/soc/sof/imx/imx8m.c                          |   41 +-
- sound/soc/sof/intel/Makefile                       |    5 +-
- sound/soc/sof/intel/apl.c                          |    7 +-
- sound/soc/sof/intel/atom.c                         |    5 +-
- sound/soc/sof/intel/bdw.c                          |   19 +-
- sound/soc/sof/intel/byt.c                          |   30 +-
- sound/soc/sof/intel/cnl.c                          |    7 +-
- sound/soc/sof/intel/hda-dai.c                      |  262 +-
- sound/soc/sof/intel/hda-dsp.c                      |   61 +-
- sound/soc/sof/intel/hda-ipc.c                      |   15 +-
- sound/soc/sof/intel/hda-loader.c                   |   11 +-
- .../soc/sof/intel/{hda-compress.c => hda-probes.c} |    0
- sound/soc/sof/intel/hda-stream.c                   |   92 +-
- sound/soc/sof/intel/hda.c                          |  232 +-
- sound/soc/sof/intel/hda.h                          |   52 +-
- sound/soc/sof/intel/icl.c                          |    7 +-
- sound/soc/sof/intel/pci-apl.c                      |    2 -
- sound/soc/sof/intel/pci-cnl.c                      |    3 -
- sound/soc/sof/intel/pci-icl.c                      |    2 -
- sound/soc/sof/intel/pci-tgl.c                      |    5 -
- sound/soc/sof/intel/pci-tng.c                      |   16 +-
- sound/soc/sof/intel/tgl.c                          |    7 +-
- sound/soc/sof/ipc.c                                |  217 +-
- sound/soc/sof/loader.c                             |  161 +-
- sound/soc/sof/ops.c                                |    3 +
- sound/soc/sof/ops.h                                |   77 +-
- sound/soc/sof/pcm.c                                |   71 +-
- sound/soc/sof/pm.c                                 |   12 +-
- sound/soc/sof/probe.h                              |   85 -
- sound/soc/sof/sof-audio.c                          |  715 +++-
- sound/soc/sof/sof-audio.h                          |   52 +-
- sound/soc/sof/sof-of-dev.c                         |   24 +-
- sound/soc/sof/sof-priv.h                           |  154 +-
- sound/soc/sof/{probe.c => sof-probes.c}            |  280 +-
- sound/soc/sof/sof-probes.h                         |   38 +
- sound/soc/sof/{intel/intel-ipc.c => stream-ipc.c}  |   56 +-
- sound/soc/sof/topology.c                           |  417 +--
- sound/soc/sof/trace.c                              |    5 +-
- sound/soc/sof/utils.c                              |   28 +-
- sound/soc/sof/xtensa/core.c                        |    2 +-
- sound/soc/tegra/Kconfig                            |   48 +
- sound/soc/tegra/Makefile                           |   10 +
- sound/soc/tegra/tegra210_adx.c                     |  531 +++
- sound/soc/tegra/tegra210_adx.h                     |   72 +
- sound/soc/tegra/tegra210_ahub.c                    |  511 ++-
- sound/soc/tegra/tegra210_amx.c                     |  600 ++++
- sound/soc/tegra/tegra210_amx.h                     |   93 +
- sound/soc/tegra/tegra210_mixer.c                   |  674 ++++
- sound/soc/tegra/tegra210_mixer.h                   |  100 +
- sound/soc/tegra/tegra210_mvc.c                     |  645 ++++
- sound/soc/tegra/tegra210_mvc.h                     |  117 +
- sound/soc/tegra/tegra210_sfc.c                     | 3549 ++++++++++++++++++++
- sound/soc/tegra/tegra210_sfc.h                     |   78 +
- sound/soc/tegra/tegra_asoc_machine.c               |   62 +-
- sound/soc/tegra/tegra_asoc_machine.h               |    1 +
- sound/soc/ti/Kconfig                               |    2 +-
- sound/soc/ti/davinci-evm.c                         |    2 +-
- sound/soc/ti/omap-abe-twl6040.c                    |    2 +-
- sound/soc/ux500/mop500_ab8500.c                    |    2 +-
- sound/soc/ux500/mop500_ab8500.h                    |    2 +-
- 429 files changed, 46511 insertions(+), 7638 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt
- create mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/audio-graph-card2.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/bt-sco.txt
- create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/linux,bt-sco.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/linux,spdif-dit.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/maxim,max98520.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1011-rt5682.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/name-prefix.txt
- create mode 100644 Documentation/devicetree/bindings/sound/name-prefix.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/nau8821.txt
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-adx.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-amx.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-mixer.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-mvc.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-sfc.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/richtek,rt9120.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/simple-amplifier.txt
- create mode 100644 Documentation/devicetree/bindings/sound/simple-audio-amplifier.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/spdif-transmitter.txt
- create mode 100644 Documentation/devicetree/bindings/sound/test-component.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8962.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8978.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/wm8962.txt
- create mode 100644 drivers/firmware/cirrus/Kconfig
- create mode 100644 drivers/firmware/cirrus/Makefile
- create mode 100644 drivers/firmware/cirrus/cs_dsp.c
- create mode 100644 include/dt-bindings/soc/qcom,gpr.h
- create mode 100644 include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
- create mode 100644 include/linux/firmware/cirrus/cs_dsp.h
- rename {sound/soc/codecs => include/linux/firmware/cirrus}/wmfw.h (91%)
- create mode 100644 include/sound/cs35l41.h
- create mode 100644 include/sound/rt5682s.h
- create mode 100644 include/uapi/sound/snd_ar_tokens.h
- create mode 100644 sound/soc/amd/acp/Kconfig
- create mode 100644 sound/soc/amd/acp/Makefile
- create mode 100644 sound/soc/amd/acp/acp-i2s.c
- create mode 100644 sound/soc/amd/acp/acp-legacy-mach.c
- create mode 100644 sound/soc/amd/acp/acp-mach-common.c
- create mode 100644 sound/soc/amd/acp/acp-mach.h
- create mode 100644 sound/soc/amd/acp/acp-platform.c
- create mode 100644 sound/soc/amd/acp/acp-renoir.c
- create mode 100644 sound/soc/amd/acp/acp-sof-mach.c
- create mode 100644 sound/soc/amd/acp/amd.h
- create mode 100644 sound/soc/amd/acp/chip_offset_byte.h
- create mode 100644 sound/soc/amd/vangogh/acp5x-mach.c
- create mode 100644 sound/soc/amd/yc/Makefile
- create mode 100644 sound/soc/amd/yc/acp6x-mach.c
- create mode 100644 sound/soc/amd/yc/acp6x-pdm-dma.c
- create mode 100644 sound/soc/amd/yc/acp6x.h
- create mode 100644 sound/soc/amd/yc/acp6x_chip_offset_byte.h
- create mode 100644 sound/soc/amd/yc/pci-acp6x.c
- create mode 100644 sound/soc/codecs/cs35l41-i2c.c
- create mode 100644 sound/soc/codecs/cs35l41-spi.c
- create mode 100644 sound/soc/codecs/cs35l41-tables.c
- create mode 100644 sound/soc/codecs/cs35l41.c
- create mode 100644 sound/soc/codecs/cs35l41.h
- create mode 100644 sound/soc/codecs/max98520.c
- create mode 100644 sound/soc/codecs/max98520.h
- create mode 100644 sound/soc/codecs/nau8821.c
- create mode 100644 sound/soc/codecs/nau8821.h
- create mode 100644 sound/soc/codecs/rt5682s.c
- create mode 100644 sound/soc/codecs/rt5682s.h
- create mode 100644 sound/soc/codecs/rt9120.c
- create mode 100644 sound/soc/generic/audio-graph-card2-custom-sample.c
- create mode 100644 sound/soc/generic/audio-graph-card2-custom-sample.dtsi
- create mode 100644 sound/soc/generic/audio-graph-card2.c
- create mode 100644 sound/soc/generic/test-component.c
- create mode 100644 sound/soc/intel/boards/sof_es8336.c
- create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
- create mode 100644 sound/soc/qcom/qdsp6/audioreach.c
- create mode 100644 sound/soc/qcom/qdsp6/audioreach.h
- create mode 100644 sound/soc/qcom/qdsp6/q6apm-dai.c
- create mode 100644 sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
- create mode 100644 sound/soc/qcom/qdsp6/q6apm.c
- create mode 100644 sound/soc/qcom/qdsp6/q6apm.h
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h
- create mode 100644 sound/soc/qcom/qdsp6/q6prm-clocks.c
- create mode 100644 sound/soc/qcom/qdsp6/q6prm.c
- create mode 100644 sound/soc/qcom/qdsp6/q6prm.h
- create mode 100644 sound/soc/qcom/qdsp6/topology.c
- create mode 100644 sound/soc/rockchip/rockchip_i2s_tdm.c
- create mode 100644 sound/soc/rockchip/rockchip_i2s_tdm.h
- delete mode 100644 sound/soc/rockchip/rockchip_pcm.c
- delete mode 100644 sound/soc/rockchip/rockchip_pcm.h
- delete mode 100644 sound/soc/sof/compress.h
- create mode 100644 sound/soc/sof/imx/imx-ops.h
- rename sound/soc/sof/intel/{hda-compress.c => hda-probes.c} (100%)
- delete mode 100644 sound/soc/sof/probe.h
- rename sound/soc/sof/{probe.c => sof-probes.c} (52%)
- create mode 100644 sound/soc/sof/sof-probes.h
- rename sound/soc/sof/{intel/intel-ipc.c => stream-ipc.c} (56%)
- create mode 100644 sound/soc/tegra/tegra210_adx.c
- create mode 100644 sound/soc/tegra/tegra210_adx.h
- create mode 100644 sound/soc/tegra/tegra210_amx.c
- create mode 100644 sound/soc/tegra/tegra210_amx.h
- create mode 100644 sound/soc/tegra/tegra210_mixer.c
- create mode 100644 sound/soc/tegra/tegra210_mixer.h
- create mode 100644 sound/soc/tegra/tegra210_mvc.c
- create mode 100644 sound/soc/tegra/tegra210_mvc.h
- create mode 100644 sound/soc/tegra/tegra210_sfc.c
- create mode 100644 sound/soc/tegra/tegra210_sfc.h
+--oyUTqETQ0mS9luUI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi Ricard,
+
+Thank you for the patch! Perhaps something to improve:
+
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on v5.15 next-20211101]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/0day-ci/linux/commits/Ricard-Wanderlof/Codec-driver-for-TLV320ADC3001-and-3101/20211101-175746
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: riscv-randconfig-r042-20211101 (attached as .config)
+compiler: riscv64-linux-gcc (GCC) 11.2.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/eefeedd45624e18f698bbbead028ab025018bbd1
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Ricard-Wanderlof/Codec-driver-for-TLV320ADC3001-and-3101/20211101-175746
+        git checkout eefeedd45624e18f698bbbead028ab025018bbd1
+        # save the attached .config to linux build tree
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross ARCH=riscv 
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> sound/soc/codecs/tlv320adc3xxx.c:244:5: warning: no previous prototype for 'adc3xxx_pll_delay' [-Wmissing-prototypes]
+     244 | int adc3xxx_pll_delay(struct snd_soc_dapm_widget *w,
+         |     ^~~~~~~~~~~~~~~~~
+>> sound/soc/codecs/tlv320adc3xxx.c:834:8: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     834 | static const char * const adc3xxx_pll_mode_text(int pll_mode)
+         |        ^~~~~
+
+
+vim +/adc3xxx_pll_delay +244 sound/soc/codecs/tlv320adc3xxx.c
+
+   243	
+ > 244	int adc3xxx_pll_delay(struct snd_soc_dapm_widget *w,
+   245			      struct snd_kcontrol *kcontrol, int event)
+   246	{
+   247		/* 10msec delay needed after PLL power-up to allow
+   248		 * PLL and dividers to stabilize (datasheet p13).
+   249		 */
+   250		usleep_range(10000, 20000);
+   251	
+   252		return 0;
+   253	}
+   254	
+
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+
+--oyUTqETQ0mS9luUI
+Content-Type: application/gzip
+Content-Disposition: attachment; filename=".config.gz"
+Content-Transfer-Encoding: base64
+
+H4sICNEFgGEAAy5jb25maWcAjDxJcyO3zvf8CtXkkhySWPas9ZUPbDZbYtSbSbYkz6VL8Wgm
+qnisebKc5d9/AHsj2Wglr14lFgCSIAhiIzrff/f9jL2cj19358PD7vHxn9mX/dP+tDvvP80+
+Hx73/zeLi1lemJmIpfkZiNPD08vfv5wOzw9/zt78PH/z89VPp4e3s9X+9LR/nPHj0+fDlxcY
+fzg+fff9d7zIE7moOa/XQmlZ5LURW3P7yo5/+/qnR5ztpy8PD7MfFpz/OJvPf77++eqVM07q
+GjC3/3SgxTDX7Xx+dX111ROnLF/0uB7MtJ0jr4Y5ANSRXd+8G2ZIYySNknggBRBN6iCuHHaX
+MDfTWb0oTDHMEiDqojJlZUi8zFOZixEqL+pSFYlMRZ3kNTNGDSRS3dWbQq0GiFkqwWAzeVLA
+P2rDNCLhPL6fLezxPs6e9+eXb8MJRapYibyGA9JZ6UydS1OLfF0zBXuWmTS3N9c9a0VWIkNG
+aNzL97MWvhFKFWp2eJ49Hc+4UC+0grO0k9qr/pSjSoI0NUuNA4xFwqrUWA4I8LLQJmeZuH31
+w9Pxaf9jT6Dv9VqW3OWnLLTc1tldJSpBcLVhhi9rix02XmmRyshRmQr0f/i5ZGsBMoFxFgGL
+ws7SgHyAWsnDMc2eX357/uf5vP86SH4hcqEkt6eol8XGUfUAU6diLVIaL/NfBTcoVxLNl7L0
+FSYuMiZzH6ZlRhHVSykUbvbexyZMG1HIAQ1iyeMUznfMRKYljplEjPhppuo48IbatQvFRdwq
+uswXA1aXTGlBL2YXElG1SLRVkP3Tp9nxc3Ay1KAMdE5223OOGTWAg1qvdFEBQ422jpa1FHB2
+uXEkY2Qm6lWFF6y9QFZLzOHr/vRMKcryY13CdEUsPe0GywAYCYy5uu2jScxSLpa1EtpyorRP
+00pmxE1/Z8uk4xj+pNgFcD3cgH5VBFd5qeS6v8tFkpCL+xN385ZKiKw0sDFrJodb3sLXRVrl
+hql7ctMtFWEGuvG8gOHd3nhZ/WJ2z3/MziCI2Q74ej7vzs+z3cPD8eXpfHj6MmzYSL6qYUDN
+uJ2j0cp+5bVUJkCjgpBcospZ/RhoCY4jHaNT4EJrJHQUL8TU6xtH8cAbaMOMdrlDIBxIyu7t
+AGI1S7Ft1/HHyeIyo6WWw/Lwoz/5WGoWpSJ2L+N/EHnvgECaUhcpaw2fPTLFq5keqyOwdl8D
+zmUeftZiC5eK2q9uiN3hAQjlaOdo7zmBGoGqWFBwoxgXPXutJPyd9NZv1fzh2MPVEoygZ3bT
+At0qXMClTMzt/N2g5DI3K/C1iQhpbtxLYqlkHostIZnOrGm+BBNsjVsnfP3w+/7Ty+P+NPu8
+351fTvtnC243RGCDMAfWnV+/DwysrsqyUGaM5QtVVKWnx5nI+IK8U1G6agcQW2oQzY6G+RMm
+Ve1j+ul4ApEi+IONjM2SXBCuuzN2etFSxjrcU63ijI2ACZioj67/aeGxWEsuRmC4HuF17ZYU
+KiF5bvFoeS+gM6n59H6sg3X8ccFXPYoZZ1cYv4G3BivlsljBQeeaNosln0JBvKYCXKfMMgaE
+5zGFoUnhnPiqLEDN0C+aQjkybZSdVaawW3HnAy8HyhAL8CCcGfKoFVpWzw2maG7XNmBQMa2w
+RYHeCP+meOV1UYKPkB8FBkP2SAuVsZx7XjEk0/AHZezAUZsUjCEXpbFpGhqkYfeNlRx+23gI
+Ze4IaCFMht5gFAw38hmBkyaccjyDjdObaMSBWmPk+DZXuSIGoV5SedNWkGIGP0EJgti9AfOs
+3PKlM58oC49zuchZmngX3/KXUIdsIzw3eWSycEeCm6xU4CF7JIvXEvbSSolWcjBuEVMKwm1i
+9RUOu88cyXWQ2hN7D7WyQ8U0cu2cwopnnnbDmiKOSa22kkTFq8PgtuTzq9edU2hrA+X+9Pl4
++rp7etjPxJ/7J/DpDPwCR68OQebgqv0Ze0asXWmQoHn1OoONFJyMHP/jik5wljULNtHfKBru
+LhMkvMxArryirlDKIs8qpFVEzqLTIpoYDyesFqILjxw9RBxa/1RqsE1wb4rMX8vFL5mKwUVT
+J6aXVZJAWlUyWMbKj4GZ8xxoxkqL2UCYjtZJshRsBjnZPeR/mTXqWAuRieTMT0GbkoWXnlnD
+Ym2sl4L5ZYmO+O3ryM2nFPiddRAcWH5VHtdAqcEz5bfz95cI2Pb2+rU3YZ3VWRELXwgVsd81
+s3Pc3nzo99dC3rwdICBYSGi0MLdXf7+/av7nMZTAjYObXIscY99gOxsGSmgDLJbWywpsahoF
+JH04VIF4I+HcOojq+aoJJVuicS7qmU8H2FuC2h4OmcSDZZKRAhfXZAoEga6yMXS5EZBqOryU
+C4Nbb+oZIE+nPrQCN+ow3wSVRw7H8Lh/8IuKEFjAeXNIc5YSQhpIA1QilXeOSKJBL9ekzwMk
+JmVeqAJ7zBnLKVi9up5f1bGJbMHKyH8haioCt6/+QIAtqh4eXjmxsLepLtmc7U+n3XnnbXcI
+KK22CqXwwrEUzii3J0aaQHIyO1v5uDujWZyd//m2d+e32qXWN9eSkFaLfPva8aQc700KRitO
+bd1qMJQ9guX3xGRwC8vlvcZbcL3wrWZGheemysU4y2rkASlkzTtVeX759u14wuJ1CVe43aBH
+br0eIF3jQ4zqw4fSo/Rl53o3J9/pvOPHen515W4OINdvruhizMf65moSBfNcUf734y1gHLEr
+ppd1XPkyDL3ikHvZ6s0RyI7fUD0c3nkW2zL0K7cUb929tTFgeIzg4Dlqk4b2Z8CBq+5Kz0Nq
+CccODixrIze5FTHJq8fWEPrZe4fXqzvw8vgXpJPg4ndf9l/Bw4+3UnqessyaOIJKFDLIZZ1A
+E353FqypQjo73dyBwdnA/kQCXk9i5DBy2uPx4Bg8ZZri3SvU704Pvx/OcIHhzH76tP8Gg8l9
+/grHXkMcILxyGxZ6gIGVALFrkSZYapyK5Ky3BcMCQS+mOhzLR0HYvApdTgNVwtCIBorPCkmQ
+UbRReG6L1rV9MaCK2I03k+oOvOZCj93aUIi3lMuiWI0dEBgVWyBty8VEXRiRGPqDjEzlVMrt
+zFiYgNzJyOS+s+rU+s2bizaq4qbeLKWx0VhIqm200T6ChPJSAvYI0V1zk9ojqBmRvbRyw2eZ
+SSobKuOUFNwmzM0yaDCoHXkadQFLJBEDmRYcw+YLKLAC6MscMxIOmSIkDNKUMQruhGum4MQK
+smyZmqKrMrsLwt/4iGkVbuXFthY9UecNqIgKb0CRFXhUVUyCszjQURs3YryIOAjzmVu74Cns
+AiwuX20gNXCLTU1Cc3ONFx/ZCWYtbDEAItEVxBp40Jvt2M5h1OZmT7qzzQterH/6bfcMfvWP
+xvV8Ox0/Hx6bqnl/HEjWLjAVd+ANtGTdG2j3qNBlDxdW8qSHr8dlWi2kXxFywKQ3+o+2uI80
+TJ1hfcG1h9bfacxZbx2PDaagSgVVi2oxoGUCS7XFyjVLUVtz7X82xaRI2yPNXAPq4LwHzaEA
+ZcRCSXN/AVWb+dUY/RGUKvbBm8irNragOrujXi/sNJh5JDqcvIFSK2jwTEXJ0nCZ5tkcciqu
+7q3Suis2kcLudD7gOc0MxG5ugMDAtDfWNF5j/cwr9zBeqHygoTRUbgf8wG2hEw88zJjJBaNn
+HGgMU/JfaDLGL/KV6bjQNAv4PhRLvbLmm54cUv8tuNvoMg/4+AJxdb19//YiLxXMBrZHDKu6
+7KRxdnG0Xkh6H2CHlCt9amyVU6ezYipj9KQimZB8N+O9Xr99T03aRs3BtF20F+ifq9UZhJNc
++poOMHQlsvDBNpxt+gmK4UHFUWcYJ4umWh1DQOJ3kzjI1X3k+tIOHCV3Ltf+Ir3K63w+DMU6
+kd23LiE4r3LfOPk1C2YKyNlrlW0CCjTxWSaLjWOjhvcOu2Hx9/7h5bz77XFvW5NmtrZ3fnZ9
+SSTzJDO15kqSj7z9Ui0h1mK8izGAKZM1YPFd3Ra+IJhQpqv4jGcKn0qcWqISk5na1E7tVrP9
+1+Ppn1l2IedpS0xOMFSm4OFLY301BCf69oP9X68XIivUPTipFFyNW8DDcpYSeHZehGLTOBbH
+kOCFRbocHFBVt5VDcF8ys88KkErMexIBiobZIYZJK4dNngowwAwUcYB9LIvCCUA/Rm5I9PEm
+KVIioBdMpfeg00pkzPGb6FDqOGM3185WhEI2Ri/ii6qsJ7KlXotKg0ovuGR9l0+MFRf28LB/
+fp5lx6fD+XjyugRi5rln+9NvA+m1YGqqDj+tCIOg3YMR2E21UF5Wh0ARwPQqgiMzIu9SFLux
+fH/+63j6AzggcmwILX31byBg7hkVWaM78OwHuBru6AFLGmBRRAEZTjiAtnFp3xeF+/bgADvy
+4QkG9ku3yQiDLXSYamSMrO+jpEpTYpuh1pAKejK0Y+FS2CAaVCkrg+4PoGmyF0qdjFeigJ+Q
+V+VkydI4yrxgyg0JlYwXIvxdr2GmNm8KOGoJMkUV3FokT5xDsVO9v7qe31GwerFW3ruRg8rW
+5CKx4J6CNr9rVVRelpem3Ptx7QuLpSvyRLfXb6icjpWOSpXLwuNACiGQ5TevKVidp+0f9jkU
+Tjo3fiTq0DYaSNY+ebgE7rprMLB37e5l/7KHm/ZL63uDjKmlr3l0N6XMFr801ENTj000D1TU
+wkH/Ls5aKggKpqe1T8N31MSKfEXqsDqJqEE6oZKHDmvEXUqNMhHdwDBIjsq5Oizc1dHh1Ibh
+xqnFFiosYgYEsQ5tyogE/i2yCyzFSo1Zyu5alkKZrSIawZfFSozBdwl5XhyL+Bd4Su4aEmId
+Ri1Dr7JcXj6qUlKWsMOSDs0OS92HruFkR50gVrpNTWOUM/LH3fPz4fPhIehnx3E8DVYFAGb5
+7gtFBzbc9lKNEckmZAeh1c31xJYRq/S6HM+E0LfUZElabC7MxkftLP1e/CYgYlqhxnxk2E0d
+9HzaIMMiLkzI/E4lBAMIq7KST2kAEiyY2/m4sGOUGzd0hJlUys/tO4wGf51eWiNnNG/4UcSF
+YVpmI8la+CoKR45ogKMpE4Vo9K7jLTZdudR6WTFtopBEJpf2b6ocy38rcT9ec8FMcNcN70JI
+wgbIxLOhMaebJOJcYw9WgZ8L0N1R4KaYLdlQL/WjoHAdRIQhGNKeEgukDsom39RUPmJUcYOt
+Qja8ClbC8/TFgZB6oQMznevlAFhqr3B9pwwVP7bNdTZA9cy+g2ii1thfS23rqNL3td/0FN31
+yUwb88/O++dzF4O0yccIFSDcPMF5y2SZYjEZP3BXoeFHrdjGB0RuioCARUDw6/zDzQcfJHVh
+Y+bGnLN8Fu//PDzsZ/Hp8KdXNkHi9YiH9XYEisXaB3CWcmwDwS47N0dGHDMf5j4kScV4zoUa
+gX5l+cdawl83Pny1ZvhyU3Ip/L40ROoqf0093iNui4047dJDmmadNVXlsjurA/IeCO6VGew3
+vDSyrWn5o/m7d9RTtj2rROK/3Q46BGdj1cic6cfgljUKZ+Afr7dvtj6uFGw1SNRVQc5UuAOE
+NWxObEP/yvC93p9JZHrMb/J+/vZqPnW+NI8hOz3vZEeuFcd2PFvLIzZP0AhaiLpI2jpQf590
+CQqH7XSfdw/74D4t5c18Hsg64+X1Gwv0ttGCE7obgFioZ6DS0SQD7/GdAgjC1fA07DhSYkLH
+iL0OTtAwDag374MNLTS1QnuM04tkPGLtwPA0iemq4JJ6kgkk4BsrfEpp+sO9fjvCFPb23/2Q
+BLsdRaw8iErQ5Xm1BCDLBVlIMKAFcemNX+pg7MSnSxYT062Y+KqkE3yHpRdlhS6bAMQd0n77
+RQ/p2iM67Y4eX/bn4/H8++xTI6hPoc+IjH0jS/3dcRmZ4AgdsG0h1xVwl0+0fTu04PEmZNpR
+ZGY1tZAyVPLWUvDs+upmO2K8hNs/hiaenjbA9dJ7sIDjUGtfEMwsb0Lm7kBzdDa58Sa0ohuC
+pk7DebPihlLBRIIs8C114G4jlUi9tLGD+FHrBt/5ufcdgAXh52vOxU0WWNFxDHlTKJrbim7Y
+W9pR460UaYFl8A1TOZjViabjjp4LbEFpe2zrIq/ITxg6aiXuKtiTbWEXMbaBxNGYZdtJ3T3u
+I4ntFCLoui+2ShrZfVI54lnFbNy006M3nrTbytjclVYHA7eLb5LaKLIk4ZJ1DQqvXnXto1/3
+s78Op/0jFtJbtZmd9v97AdhsN8OP3WcPx6fz6fg42z1+OZ4O59+/uvW2fvZMaCqF7fForsb7
+GcvHnVDjEwv2knjBoz8W6Nzv13tkXoSfi/coyJuiQov+axxiM2kmJpvheiptWPhFT49bmklU
+waNJnIy0nkSW0ygTp9PIRk5d+z5BgBtZYn9kxrb2Mxi3D0MlK5lO1bo+BOWWD+XoZbYFB8xx
+JhP/F0WBg4OkQiZ+aJAnfqU2AS2XC2kY/XiP+JzLSdzSx7Wp3u40Sw77R/w+4uvXl6e26DX7
+AUb82Bpdx/fhPGX+5ubG47IBjZhvwfKauzHIf1yym6dsyjS+0GXiANJNU6hwykGqALuZhqm3
+/SYt00GBEA4BE/cBaF8//efHhMm0WAsvKxBmaYCoS/xHop1KOZtmPNeNhj/GjacO0GmIdvI5
+aR9ro4p2JohnuqQL/IisS0OFHLhspgPmRp/uuzPV6H5Wk1xMd+ECTgn7aUr7hYSNmMLZtamo
+yBpR+N05YH1emQmEKDjLfIgs1uEq4OcnN1AyLakU0EoR5N80rRdJEp6PRRIV5zERfqZ7mcL5
+6u/fCIW6xn9Qzb+FwWp5mF064JqXnKoruCR6WfZt+EjdelT82ncInD0JMqbiNf3YavluKhZ1
+vkn9g0oM/HPuZtgIxV415oFEk6vjfyrEJ0XIqGzXI0bfGTjMkECQTqBKW5yDAI3v0PoG8o5M
+hoqH/cEQ500kRnZt+wEIm7gDdiNmWeUx1hJERmyzw44uAogNzKP/XwzxwGOJCvzUQzIjVhNg
+FOpNgIsUz7SJRtdj+KYH1yGs6fPhy9NmB7Ebqhk/wh+6+YDDaUjAieJNsGK8oVgHaNm0ARFQ
+QnvE9j4vdHhiMtu+nT4sSPeYmt9sqc/pcTRG3aYIdaaDEkyk7B5UhLNShIwspZ40WsImYFP3
+DVviIFx/Hx4iU6YU/C0N7Xjzl+lVpRX5NEM2ga4X1BOVxa8EfvR6HyzeQqnjXEk1ckbCSgXc
+Av3YYJ2Z0GS3nx1tbcv8w+tgqQ5My2AtNfw0ciQAl6jKZYn//ZxQuGkASKp3r6/c4OnSNWja
+xI6/gdU9PCJ6f+maZEUk10KGK3Zg8rZ3uDLon7PYQTfx2r8m0/kL3DVuYvdpj5/tWvTgSp67
+b7UCXyIgaI4FeMHh0k6e9K/vrueCIOkqY/+6ct/RSXu53gOKp0/fjoenkFcIa2L7jSW5vDew
+n+r5r8P54Xfap7pR0Qb+Lw1fGuFF2pencGoN27SOyLpCycGVxv5RZ1wyUspIGkzT7uSnh93p
+0+y30+HTl70XD/w/Z9fW7DZupP/KeUyqklqRulEP8wCRoASLt0NQEuUXltdxElec8ZTt2cz8
++0UDIIkGGzqzO1UeW1837iDQaHQ3HmBLQ2bWskZ4N0azf9Tnj1asfql9mzR2hd2ZgVXj1ZH9
+rsZT4cyLxv3qEKxku+6Mgo7durJxD/Ajor4EEy3I4uqQWWWsWIYm0rnnoi21FbSOeLZoUf75
+27//Ax/0l69qDn5zzDnvQ1FDhBfnHDJC+pCSQSCXmcj7rmVTaU5D5lTa/cfvBJKsjjxFga9G
+Zz5wILH2F9Nk85sxac6Y9pK7Taavc4bG35ymeeh8Q2xU260I3RBPuu+W08cQwwA6OpuNOniA
+ew01/cvhtZbYTnPMxSRtOEkFz2A0/1p+Qiap5vfA0sN+AZrzMsZkIUoiQ7C9XmBgT73M1A2M
+NiZO0yOV48BupSMcZiUzrkV6vuXu1AFSrhfg0c8PO88sP1SjY//1+1K1oOQQ63sCwQmGwqnB
+sYsGY8HnqI0V1NMiT1n3HWmEB+JAIdSPoWicPjbCiOibTd8PHBUDgpOCBGWZU54FHmQLLJRV
+Foal2j28jypupzMmXVBdVQsHNgjtZQNkhBeRWd2gcdWpL1JHkoIgnUbXqYp1jIfFeIX00nz7
++uPrx69fsHN4CTa6cCauuzqtaV+tkUf7xjp6AdvC/1cl/Do0dB0ILqcWJOe0HpccokQQLdKj
+bkyT8UxQmMr5XsE6qMNHPD3Rd9cWvGTUdBzae8C88piWm72adtWtZZSI3nG1b1R9Z2zGxumh
+5phEy+Kprk8QJNQ2jchInVRsIgeQODKahYZmuUt1n/7x7cPL38dpZoQI1zIkwLDYHvx7x1Ml
+cSivjlKvZJ3zvda5+28Qpjs/GKmC1e4CLuOUWKOo4CsBTnYoJ+M/QJIu9fEdArJHxUqBaqVd
+I9D9ksLQwlvn2Di/Bk9dtene1NqKPDcMAeygEAY6SBSCo2EtvmSxgFobk2R/2C0JUZxslmhV
+d4O7JFpvvwUwVFfVrUfXYT7N2rpcMoJ4LqVqVieaddz3Sw4wvqJRuPOxERkTn649/Wqb1qgG
+2mP28rfP38FxRkmZnz5++PW7Wkhgtczly9dvL9r830wBCInx6W/OXe7YrCOSckdY9gl1mWqp
+LSPaDVEOTNWjHUXTdxCb1WGH+m9oLl2a3TKvW0fYbrxSdccsbiOGu/afoVfGjumJAxprymrO
+GLahMZ0qLPXAmauCW8mXZ0lAx7vSRffpJMTtCqTRBuNa4v4d4ec7NqsDLGdHtWliG16NU9Yv
+mtKx9oRdUxwYlLiyO7dUtB+XzU4yMoucDkGFOskcyD9//7gUdiSvZN3KoRByXdxWsevYnW3j
+rVqrm7ojQSwfugQkDCrBuXzY1WcWIc5KGidVQZ3IS+/OW0Nqb3JuuNUgHNax3KzQbS14nRWD
+JKMDKuGwqOUVrqTVMmftUcaln59TJQKf0V3GWcmqBWUpqDfgVJ2g4WZnzkTDEJO4ddcv1mTy
+kKxi5t4BCVnEh9Vq7SOxo1MeB6ZTlO2WIBzP0X6P4ruMFF3mYUUp+85lultvHdOiTEa7xHVH
+A9v1s3t9AZuQ6q6Bp83axgNEhXriwny8uQ+9dlGEBTigdxxVEd6pxeq1ZZZzpyvBl3FoO+ms
+4FqtdhYX/vBsmWI3gBPnag0uKdWNoah5E2+oKTNRt87h1oAFP7H0sYBL1u+S/ZL9sE57ZB4/
+4X2/2YXLFlk3JIdzw2VPpOY8Wq1oBZfX5qljjvtotVgmDRq6EnOog1qv1Dm4cx3zuk+/ffiu
+BOfvP779+m8d5O77P5V89beXH98+/PwdSn/58vnnT7Axfvz8C/wTS2v/59TLCQ+L16AN9BaV
+Ryx4wdIXGKAyaXBQ8/sr939P9og2UkzLU9jIHnPsfZ6eXU9pJZ7fLt7UZUVaj5aVs5Q5TuqB
+vuKa6WiCn9mRVWxg+Obm1rBK0PsBWv2NXUoqxWjM9N3fTYEI5wrnVM5EpgP/u56awOVfZAHo
+saBgshqxd9XjHNJ1sZXQsa1e/qQG/F9/efnx4ZdPf3lJs7+qyfznpbQksQnyuTUofQqaEtH6
+mil1OH6vDWTxPDnpZaIbPW1BaP00fViB6q6jzgiaoahPJxxmHlCpbbzlo0pRR3bjp/PdG1Ct
+UiGGME9JWOj/UxQJr0UE8EIc1V+LJpoktI51YtA3g3QMNsPTNlO5cyg7r81ex929ZwtMq3R0
+Wx0Z1vlqeSzw7B0Hfa32MvWf/ggWLTs38kmzVNJDjy/eFgyq6WE6A3V2qEMYS22dECpSJS45
++6QFIEKEvrQfQzbPj2mMHHAK7Gwk9lL+tF25Ad5GJvNiBnXGX7CabcNYUlAqG8QG8Xudl1Om
+KmkVdtc9TDBeorEHv7GHNxt7+CONPfzxxh7+WGMPTxp7oBvrTQeRHjbkRa6ZjMJ8Sl4njfBo
+CzgZVPpRQM3Cf1vmoLFFcO2ZApH2Cu4PTnm7lv5uoMPcyIdfAIP7+NYDuco6xgFileCl96KK
+3733C3wOX0abCETrmm5NojG0TZvsnfhPUZxQqZ7RYypXsS79hoKLbte8+n11zeU59T9vA2Jr
+rZGgxO4UPOA8MQOlC/vOTLl09p6SyiO4BU4M5yYQetgsl0p8bML08tGS8YktDe0saq/xz7+o
+UxfSEJZK+nV0iGhrcLMv2udfaNHM7JHNYteE0CP1ouMUDK4tTyrb8Se7hHyU23WaqBWCugGw
+VfEnlUL8SOoTjm+5NPyqpAyRgmJutaj+a8EWqgafrjfPoPCTp/7ikKXrw/Y3fxmAdh72Gw++
+Z/vo0PsZ+MbFGm1KvSeGKtKUycr1ejLiQA7N80DfytaIamdeSFEr7trv1uy8AIY2Y+mihgo/
+N4OkjE5GOi/JZKy4erKGKwR50vy0t7ivHkg4kns2FQAZ90H0ddnA2tqOe/GmFuLSzyFRrdHn
+/3L2gHTsGf7z+cc/Ff/Pf5V5/vLzhx+f/+fT7EbkCK462jDy9tAQ2IBADOemND7azllsSkK4
+kWlYlL2HpPzGPMgzotPYa92KV68iJw7ByjxQIWm0i9Gh3VQLpDmdGf0t6ZhOoiD1EZqWTw8f
+Qb999Dv046/ff3z994s6cVGd2WRK0senMcj0VfohKnVRfagSx9LkYaoBUj1ZF83m3KvCXBBu
+5B0zF8XprA6zF398bx5Q+QAoOITkHur7TI49GpqdUkgvB3m7e8i18Mf3Jvw+vImOS10bY2vy
+R3ulMdG08UFeYyVp3qtJbefeWBisU127BJtkt+8XeSvReLehdxtDl9ttTPnJTtT1apkpwAEj
+RE1/aFuNMIMSSeklRlOV3LDePcke6HvSwHGk9nHl9Y9G1ySIlRaaILokjtaLdms4WPA7bU9a
+LVIpeU8dS6lpqckV76x6GSerRPWOkfE5DFkm+0209SpeF5n98HBmEF9VrxShPlXrRbyKw70K
+6wkKgKZRcLE38j3Orc1oAUITZRrFAfHI0ulnjgwRbi5biIL1ZHqpRWCXBCe1WQdwiq6WZ3Ek
+jZw1uRXgTu+1Hi0NGrmL6lhXU3SlRtR//frzl9/95cFbE/Q3uvIFeTPjjIVISkeuMdMLBjxM
+NvMk2BkwMbxGLLdSw5m7FG+83/uB45Hl3N8/fPny3x8+/uvlv16+fPrHh4+/L40Kzf66dDMB
+3JzuaLsbauW092Xe1VJaDmIMZzvbSygU4vySgSKA2Fg10XwQsfE7bCnUZnNsiMvA/CqpYLEQ
+yOslWh82L3/KP3/7dFd//rxU0sJzE3fhNmdEoLSYgKtaPlzV2dNyxtTGPwzfmJUCNb+yHUsa
+5eAoa+a3OmR4V3cWXm2jYCY4JIfFUteabcTq8rD67bcQjk9nY95CzYSAQc+YWC1QMb1EQdA8
+Y4kX8KLVzndLBkvm3RmcYF1n1Mz377vxKqvbYZ3it3dudRs6OHaP5lyTVuVOfiwdb3Nmm5V7
+AfGS6MXaTZqxpiMDP7hMJ44V3ryL1hFdYTdZwdJWiVTBmE0TX8fd2wd12K3wYmGQQcmKEGP8
+VFcD+b6IuQ3qJCd7nZXsvVsMrxgxaCgBDuNcZkkURQHLhwYm2Dr2EqgTyDEUFWk8nKCuMz4+
+t1DwrrFmr1dWdXqTmkt7DYZYdlO2b08J6JOa/gYctmNbs8xzBQnwgWH98wZZ03ukJGRpKPRg
+yoqeZ0x1VskW8QenHG/iGgqHN/IYPcA8+KNioEPr2owOEXm5OtI3RE6bW75EbbBjY34UaoBo
+W9KOHvHItHZntAh2hw6/G7C178GDi75wy9RqSz4ck1WeScxcVvbWepJhH9msiN2T47XK/CcI
+R0ybIz/Pm5dXJM8deYy+b/PbtwyyqPqLwNYLrIDKtAtYXh5ndr+Qiwl/j93hzO+hakD1XKkV
+FkKBqhEMrEXqWKWW6kegxyHKNTz698ZXZgw7A3lM9szP8zhf2Z0vBAdLFEm8Je81XB4c7oQj
+L0yOwx7pn6jC4kSrpRV+o2INih4/DiUCC7LGb8jRVmxW9FUREG603E7HGczLaOXMCnFKyTHW
+p0yIjzRT37nvaVzqVn3Cga4vREe+tOvmb46rjoBywyJKeVPcqIDy1jTkQbVn0S6BrRB9ppcT
+qUG8PJzPCn75d1B1ChJA18dDeax7Cmc4KmEG0QvkaDc7gL0i/W70nEOTU/necnooVD+xqkbH
+7bLotyEJWdHkfWGTM6NmvQkmRNdABkJ2LgYCHWXpuvUp2LXkVj+P+XASJ1r+genlfnkXmSRb
+tNEZROVDqTQu8n2SbHr/MOvPX1jV3piGeppz904x56yoerLWFesw7wzMdZDJOglI9W5WHEJY
+v7XAqX+2dVW7H16VN+iHP33d1LhiWgXtL/DPy0/WB6SXs8bXZKJ4Ec/NrcpNZIJSfBRNGt5o
+6ovT1+r7rkMShQ3PzquTEmXekFMaXkl4cdRZA+vKj3Jrec0N1kx6LdgaGUK8Fqkn5xhkkGpw
+b+QksAyhj1CV3vNqQDV6dZ+NUT9M7qhU/pZUq6T0wsY5G9OkbI92OAtgc1vjKGRkWwu1ZVje
+CunkXBYOh6Nw/OiJreIhQxaXDcKWUmEgHB7JSiW1uXYGsMPaHYNg5/yVJuhHOdUf95IAXfPl
+6VCmGZi6IQ0t4IsZ4aeZbbJQuhzG7Y11QklL6JHP9BCv1lFgiKR4s1NlGXjmA3VGqj4cOmKd
+y9bpNdapXFfCUz/+dm3QJ7YE2R0Y4D2Pk0T2gTZlcO1RQ/9GFR9V3XgKZjB76IuTp7VYpu34
++erqNv3fLqvLJoZMHQorsFlG35ZDwPJQB1FLYHs+PyC034LgVr4ryBioTl2QUln9GNozirs1
+QZ7TJeAQ5i1FL2w5Gd/Fe7Sam9/DfYtE6wld4xdFLa59DUXLU/oc6HCJasm35GLVgyhF18k3
+86UmkDEfp2TpLEOTLuM5bUl1cTdtNYJeXCYAHGNceVeIm2+hlvyuFacTOOaeqRdo9cujg0k2
+rR3TNXkpxAukWwR+ROohL+dZcoRQEsOpL4IcLAOjFrJio3YI183KEcfBa+ioxwmWdEzL7SaC
+awyyNEXeqQ0aF6ZAbffng8kmSaIluidYh/RxqsDT1cd1kGpv+FKRQtwRxGtVHhiED9021hFG
+0qbwSyr6zmPSjr39nT38HizANKaLVlGUhgfUnL0CfThSo9XJz3wkJUkfq/+CGfSgUWLqjI8q
+7QTPwa0xh4ElZl/CpuEuWtRulOVD9aq7ugURyE9YMfssJJ2u6psh3WyH7h2LomlyzKkV2SGR
+Jg7Jau1Nqtexoo5YZeQiH9RSkAeO4Wi8qsC2HaiD7Hi06pHXFyio1fwVqQzOlKyBw0xooIHa
+pUnkfUQ60SYhwN2eAg9+M6zpQ6BU68xzUota3J7MxRGeSOroeDhs3et22EpHs10MIj/3/F6B
+6zPeeOvcA8bMWnSBBaCOV+5hntmPxphsuCvSm5qI7shQzEyNwoUiuHwS+BWO4D7B6JrRdwHw
+qfED0bpUbc6b+3c0LgdWAQBS3pAHicFkCnFNRenjdc9a7zbKKj4WNRXN62YVHYIVaV6T1W7j
+5WWjf00bHkRYKX/98uPzL18+/YbfE7SjPpTXflG2xcctL4qpIyvi1DvOLlnOqpE6jR5dkj8u
+ZG20R2nBe1fNizlKeBtuCmTepDIY5FnRhr5JkccDwT+xFwItGk1Dm9pChGYddDJ4J3kvcPB9
++D3f/JXeiXBaOs8LhyCUEJ8igD3kdqZo24vHvL0s2T26tnelnzkDMtKWKehwUSd7H/Fb4KK+
+/sbQjl1a834ZalhTvUYcLgGDYkNj56Of+yKAr4H14+qqRvpv2XmOyTbpo2JpYKQU+V4vG39m
++rUVBXYoPvJY9dqND2C7sEuXRSuQinjuc93bKjiec6/DM4dqaCnlYsra4hBhV9gRW0Rw9+nL
+2NEj5d6kZI5PK7y7hIKCbLfxmjz1FLs48g5VGhqE1FdvgSOV4bGBm8MZOw106xmtqDlxT6v1
+zlWXWYDKBH/VZeAdX5eLuvQl2MZ7STIPLUi/WZLQQZjF24yEER7NZ0XhN6o+Sbuh6qsJ7EXo
+pZiMXOnm0XZFEpG2a4bixm4ygBcLXKE6LJr0GA8xviy1oKSUk5aWLRLs4zWjb7sslbw1MxVN
+3PAmtgQfSuKILbnSK4LuIhcLAC/3I4jkoBH0lvWxkMVeoAhmsReuCT2wqzPr1e8awAaICa7k
+edrRpO3uSfLmBGwDQTVdnoDbq8vSUduOy/D+kbn+SiAlvM+srZbF4HcUtfclsvTHcLPWigVe
+BewI5qDudylou5BRZGkruL670zoz8NkY8Fy4u6rWc1bgKA/qN9iVkSWOxIDZjiZ7ZhQay1sP
+UFKYh/Q6psAspqUiXq3kg2qSqn+PDIE18MQvccpzvVp1tVO5nLXWWXjKK5fFcFWHAKgU2Qey
+EGobl/FuG1OXuc6To1aUdLQeMy1nF17gy/SZqM7buzaP1/QlnMNYKq7Nuw21DjpcaRpv3Uga
+qCT07buULN/Hm5ikpSwxW3SItJQi3EqnbbxiJEnP9fEQcB+fiFDDO4v/dzR74deUavxyzsLg
+Sj4qCLg8CnS8bJtSnuYUuM/tAQPVZdKrQLQZIv68kBlhwfrzL7/+CIYXEFVzdd+9hZ/ejmWw
+PIdwVPitFEORjZrM/IKCGRpKybpW9JaiK3P9/unbF4j0Rj3UZBPVV8lNoKm5YYgCDwBcKW2x
+xybTlvNq6H+KVvHmOc/jp/0u8ct7Vz8US7AcfkPhsEbQLLxO14ei/psEF/441iaiqsVHRH0J
+KYk2222SuN3j0SgNwMzSXXBgq4ny2kWrLf3lIx7y2TaHI452K7KAtGjkPiIdNCaezL6Y2O6S
+LdH44hKqPW8OdFTtiQMUBmRSIOinDwOCwcTYpWy3iahLfJcl2UQJUXXzMZAVKMpkjc8kNM+a
+Orc4BfT79fZAFZ1KCm1aJS2QFZLVTQ7NvVXAsxKR956Lqs8KvxE6ESt+77DqaiLVDa/AyoY+
+o05sjZLtk/75UM/X1sRo10WWC3km4mYSHdHVd3ZnT3tB6o9Yei8kzuRrpebsG8WcTRbPiqnV
+MroherQr46Grr+mZ7vDefu+Lj5E1oHgnq0y/NjZPnO6iR2Gx3MOiivR1AKjVmgyVqmmStwK/
+nG5w1jQF160KJoULLeSdbOD0wRrmgxykX6yIRfhTmsRhdg31JtUUZGxZ87C62DT4UbFG3xyo
+rMPdMnF578dNGxMomajjq2HoIJSEs62b31puZylPWUaTRIMebnBIZ1bdGf6gHOrlqH6QjXaY
+Gn5iMvAajWUzs0FJ1eqoR3m82sbBtDD7tlPXGVS7oNwnm12IuE/2+ye0wzManigE3VgAzQ1D
+HNSAI45WSSrRkzJ0VL3SVQWS5KFbh1p4VTud6FPR0vTjVQnR2LNyQY4P9Bg6fKB5gecqRFol
+64gKmIm4H0nalSzarOhKGfopwso5zNF1sgmZdS45N77zGcERHIWRARl7uQyg6W3aOlTZMysb
+eRaBCDYuJ+ekmgCxnFjB+lBRhmq/q7eL6+GcSkl3Lld+fSc6eQ0VearrTFCbM+oCkXHeBDvo
+oUD1/80uEK3JZRaFUHPyrQIFGFZf6OFaXDO5RLmTj/2O8oRDjb5W7wPTiV+6PI7iwPfIkfUZ
+ptQ0Qa+Owx2HzlgyjE+sEQxKUIyiZBW92bdKbtyuAq7AiK+UUbR5m40XOcToEc0f4JWneLd+
+a+Uo9Y/AsJb97loMnQx8xqLivQj0cXnZRzFNUkKq99QDGrVMnZS7bb8K7D4tk82Rt+2jESh8
+NypcnOrA8qz//b+MXcuW2ziS/RUvZxZ1mm9Si1lQFCWxkpSYBJWic8OTbXu6fNpl13G5p6v/
+fhAAH3hcUF7YmRk3iDcCASAQ0VWnc+/qW/H7vUKnVyrbrdhzceuQt1sLxP3QCzufjeF1b3bp
+T0xc0gkoasSV8an5qJ8HNtadth/WYf0MTx/DfphmaONkNVvVB+6lr2dR9hNTgQ83IW7he2Wd
+L/C8wXpsYPMgRcjmih0DRoAO4TOBY+WaBq32pFcbx83YM6fMrOoyhw+/NSbmXmJZ7wehYwKy
+vjlu5O0IfK/zdC5Vg0NHriGHW3ocG7IkfizB+pYlsQc9Nqhsr2WfBEGIi/Mq3Pk41JBrXe27
+anw5xk69qLuem0lpw8cLmkB8ZvjZl1Yi4VRLUzimzV/lMHzumiqyNDNxPHZ++/5RBACo/nZ9
+Z3rJpDm0Vlz8Sa7ptc3sRC0qvsU0qbxxJHU9Pxd01w2DRKfHx3jLOmXHAjIrMfPLu2KEGebt
+3kjOYLjSS468ZQ5PbIJHDOvNYslDLL0AN5ckOuVNqZtHzJTxwuJYO1xckBpJogUtm5vvPfnw
+y2NjaRvT8TYaAotLBHRwLU1vf3v7/vbhB0WuWryor0O6xxZ50+ZSeI7Fka06cVut1qBuhUPY
+qyv8YmucD69zom0q2jQfamgBI+Anvr3fN6ofZGHcJuiCYa97Hru0whxXw92ZT6mPBVWYKA+K
+scy41ThBFodi24Pc1iT2k32gvOw/ak7uznc+4S4HNRrEQiJHZ5SnFuViRfd5FPoIkD5XEGK6
+iVO+aYaxu5z0C8cF5UtKiGfoyuMKC7hyLPaD9rf9EyIv8SMthLoa0ZXokKCIRdF30AJlZRmq
+9lyq0VHpoK0yHFnw7uR9AtLhgC41+oL/axtcnL6FUQXoE772W4qPpG98oe+3V+JYdKpX/hmh
+ozs3Is5KMFRxykVzZaGil9vLtTdBkNpLT/7wuuvwHtSSj7gwfG2DyDwFdDO6XlsMVV2/d0V5
+FiBXtJHRx9RJ3Y31wgfzElhuDYBoiVl5q8WLbN8jqqoctZM4KuZNqYmUSppxtDl6diLAM/9K
+u1XjRGlvKs1TV8tUUY7it89/oHACoou7vVwVeaJ1XV7gq+Yp/flyyKIatq4zUPdFFHroJmjm
+4LrzLo58O00J/AWA6qJfHM+AtE9ViIdyk7+ph6KtD2pXbrabXr0p2B/F2nZUbz4QX0ZD/uUf
+375//vHb739qA4JrU6frvur1EhKxLY6ImKtFNhJeMltUBoqStnb9ZL77jheO03/79uePzSCZ
+MtPKj8PYLAknJqHZ6YI8oG2kQJtDGifWN9LVDF6jqaWrIT4f8MIjBJGhNakQK85mduRnDJ6a
+k9QSG4nA/EQ+LubDHMW9EV1dcXVwZzQRJya618GJukvgrTwHtVdzE0Eeka4iRYaD+zvFvpO9
+9e6/fufd+OU/7z79/vdPHz9++vjubxPXL9++/vKBD+H/Nju01xY3QZtfDOhd0+9cTZsPg1nY
+fdEEmTlQwPuCmfx0vZgp2CGuhbgjM3TnjZGY6vJJo6Osh5JVp4uIXGeupwbM6vzF4QdDZ9x4
+R2py6u9GBVqduDJRX6HOy/HyFHiGOCib8iUwSEIvis3EHQb/ciadznV+0QKjSjqzylg1SEWS
+CBfsrbWSVdc2VPVNov36GqWZNQWeyqat8VUvwXyfF8A7O5LbpfY0V5D6JDbzbfo0CcxF5SWJ
+hsFepgakTIlZLzcSeipXcfVuJnLF0RAFdK8tCVTkj8ZPezHybYfcSmbI7fGq4DLsk2pPulBP
+5cXq8K6q4M6FoKfQKA4LiyDybeF2ntwcO+VkM0daVqktjBchoN5ipk3I0SXAJZoahb1dkmps
+g7tVZ/b+8nwzn19oHCKqqiMzgY37VvVLTnQ7RrlKHY9mKcgIMe8rx+6ZOO6NSxOc3iUZ3SOf
+sJn5DLW7nkPd7hyn0WIEFLqnWxmm6i+u9H59+0Lr0t+kQvH28e2PHy5F4lBdyVjgZkqOog0S
+31g2rPCMohTX/bU/3l5fxyurrGbsq4uIqmWV8/rjN6nPTYVU1k69gKtGqBCPzJhBy/ZZ08Gg
+vqWNQpqqxsAk0hQbCyFkhU0xOu0Fi+JxOK5xVwbSFk2NmOhSLdVKD3TcEEkDbXNJm0ozvgYn
+NTkzzocEVd8qS0/cfLPWvP1JA2Z1tG5bAIooQIbOstKMO2oBdLswGgxaf1ZtFiRbQ++ow1S9
+4ZG8cp+qVYB0IT688g46S52/Iqvxg9VK+SBjGUn/MTpmaU0KMb8NFj3RVlmFOJ6ZcRw/geOz
+I9QYwcujUP2rW0+HVLXjjJBOE6QTw0f43B6O7GdbR3NQzdqTQb9PTq61nA53V7wLCeoOJibi
+vvcRjUwqNQtd0WvCZlKnHZnV0mSZzqvjrCvhcHSIx7FPt0tbXk4AIR8tL6GuuRBI78LJnbM7
+R323ThSu1fGfx8qkGrX71Z5TdUOP02qjaeo2yyJ/7NQgw0tbaC4nJqJVeSIewLiVL2T5b4XD
+zF/lgeFMBYehHErapBzqafVP4wVq5KKtW+Fh+Wb1QSucKzt7oCbfFM8U4VMvw1UuVwaRj7wg
+sju6r7ZmMH01+p73ZH52dbj/Iow3q3pxuJBG9mz1BNczA+x1hIOzpwDzo8WDAHP2Tcdn7VEv
+Q2cNj+eblfSiwTrS5bppAlqRFX7Gd+QevBsinOuurLoaJWJnK50zF7SOU0aBV8cK6uQCFOt6
+0wcpKKChBlsguUFxpUt6r1HynoZdZOXiuPmdsMRo/0VDNubQUBkjWijD9LSERJw1ggk0bF+s
+bz0+VurcbvAFdTxFFDyWGiyo17aoq+ORgsTqiK2iE3WY/Jdp2Tud8wjQFIhDT97f+I9jezLU
+lVfelGIimzkQ0LTjaWOSS+/Mq9KknFPaoTCpf9azYOJvv3/78e3Dty+TtmXoVvyfdpgsmq4u
+k2Aw9KJZhdUHlFRVKxiwemVg77lW2IhH2t211tNdI8IrKTd4ip1hxKa21YMhtMz5TP/StxO7
+PAtt2bsPXz7LSK5mU1I6fASRL8MncQ1nZjKB024FF2xmmlbjJdd/UFiBtx/fvtvns33Ly/Tt
+wz/RmT0HRz/OMp7sFdo26wwiNAI5n1FVfjuD5WPztHyKZjAD46m73tQQYpzeqFqqwk+H7Mfb
+ZfHXrmTBf8NZSEC5Y6MNy5Q3qutUqpyFaRDoeQj60AbeTuu1GeHqPO8QbKCyMOGQNhO6b/ws
+8+xMD3kWe2N7aw8I23lJgApUt3yBguvszNHwjXLIvEy/RbJQbQ01URtRVnADYdXlpIZaXOiD
+H3sDqkNbsZ6806IDyOXrvjkOdqJtXjd6FNYZ4aUojbh4ZhWeMtWyayZfi7JWQ8EvbbH4eGK6
+hjwzPBkODpYE79tj0DxC15HxhNY/kyfeSgDdpC2jkbaM/gCadt1hWgmLraOPn3NrPMFP8MQ/
+wZPgexyd52fKkyCj12XI0IWD9ZJtRidfaw18HDkzXeBYvLDWfRGxMgUPE29HTWoudSs7rm0A
+OcblG5A0kn3cn6ICjHPrAHuZa0MOiUGMmYMU0BvWgHKazpM0IIvg/Lb9MSEeSvcxT7o1xzhH
+4vkZKgSvTRYEjmhdCk+SOEI+KTy7BMYpmjkODWdIQYMS4AM5RmkOKWhUkZmfOIA4dFV0l24J
+EsGxc2W3c2W3g+36XLAI2uauDGRZxPbV/FbOSoIVKXYlojAYEUBXhLyQbM1EdmiSBMwsTs8i
+0BfsMMSI3CQ+6jqiB5Ce+TEuMh+H8WZtGy7LQYnrNmeMLuZmHbPj+uWfb3++++Pz1w8/vn9B
+XjmXBdR2hWzmeh7bI9A6JH3E6ygHSf9zoPSdca2pQl2Wp+luB5etFd8WCUo629N2YUzRq3A7
+Odh1K+x4Hw4YsdmDXaztJXFNENsv23zoWt/mSh60/qagU9j87WRg0AWLC0/xFU9/ttHznyp1
+tJldmG+PvO4132piDsNNQPd6CrZ0zLV06XZrRPHPNUa0rY+tfMimx+YCq8YKFkBqrWjpb6H5
+JrqHA6x7vTwa5uycBl6IkyYMqTILBveVE5riaKQmExwEMxo+Fm7EFqc/kVPmnMkC3dIHJqYw
+d444UZVHA0QwQQVQooMhuqajCtcqZq01pgv+GVjMh618JULXgJvtvLI9UECFUYTjEl3hSaLN
+XT6d9IKllM5/WbHLoLIynf7auUljCcdTZIMr+RmuNNrWkSeun0nrbAgVzNW0fhhvNdfEFAON
+uq/G6noo6/y9jdknwCYy1gc4XBecbzK3B8TCyerD1nZVTRHO05VhgG9bQNGT/WbNfCBPFTiA
+c10thtZ10uj408fPb/2nfwKFc0qnrC69buW/7CAcxBFph8KxRt5VDEFB6sHFQNz6bY83wbI9
+cJs+2x6OxCBeMYNPg9Tf6rymT9IEbf84XTVdUOk7R1a8ItsLO5UzSR+ypFtSnRgysHgSfQfl
+kUC2NRPOEiYPWjiGe94+CafmmK25XQPS/PSFXOJdenBs2jftS6rZhyyrwvOtEi8L1bcstNHR
+rr0nwnjMWd+S8+C6aqr+f2I/mDmuR2N7NH9Sdc/mxao8DXcYeAobfvaeqV7dpF2/4SVsIY4v
+SD0S8BrDWKV25UkzjhBE4U/JW58efPr92/f/vPv97Y8/Pn18J8oKNp7iy5RiQjuCHAqGxehH
+/06ehsJRpODycHeDiwyC3LD6BL0c8KNDwThbMrsqQfhwYqYRtMQWe2etb5b4oBrVMpUR5MM9
+b80Eyqow1AhJbqymPPb0w4OBtdWBAKJpS7izB+9sTqyR6vvByry6bjSrCIz1gk79JSxvS4xs
+ODUMLGqzzxKWDlb+TevykCVhw4hYEgezD5vBnHB0kKX2gZ5rOziHCllZWvzdwc1vXd1IIZA3
+eXwIuKi67m8mJqwTrExYdcV6q0QpcGfBZ79T7KCKcoknIohsyKpCNeYWRHHZbyUl7QfgLkXi
+wuuAmdRqE6CnNqsxrtSU5UD/8GXIYrQ0CfBeHHSrQ0GVIY5171QScJkVSLQ2O5UC6BxVMwY5
+hQ59GEThoC97Tgm8vCIR1E9//fH29SOSzJPzRKdcPlxaq0Kn++iy6lfWCaegEXAAJqmk03Lo
+Tls8FgudrSng1BwfbXHM4tTssL6tiiDT7//mMbYzPVsoFrRGi8q18HiwW1pryK56vV7s8b4/
+pF4cONufw37mx+gzP9v6jLeC39xfjCrTnXRsp/Zrfnkd+x4dRwlcPuOwJHC4i0KLmKWhJZV5
+x3J91+qV+R5YExV1kC1v9fTeYkkcOC4wV44s2ZBugmPn49NDlQMp7xJ/boYsMQfSvU68yKye
+5VFGyg7jTH8mymuYdWbb42l6z1c9GGfyiZ2pffT2CirCqiJaYM/Mmq/g561JibwSThDfmVN8
+Ed9sNY6UEgoiA+oOfHH3NVEHKr7YPD0QcVz59BPoqmEanKG/s5QtKcN8uymKMMyyjRHUVuzK
+nAvO0JFXt1CtGaiB9AzM9qhm01cAFfDL5+8//vX2ZVsdz08nvsTnPTSCldXk+sbNlvzyQQSU
+jDDjOc27MiDv/iiVAVEs/5d/f56eUqwWa0umnFe+MRDOYh2Ky8p0YEG0Q+uOzpJpI1zJY0BK
+qPqtf2+0ikzApBmDJNmpgq0Fqq02B/vy9n+fzJaYzO/OJXxLtjCwRtf+F4Cq7iGlRufI3B9n
+FADisMdRWzRWP9TaSUkjcSbvOLNRebLH5Q89R856EFMdguFPNI4MpyqtowCQZo5ypJmPgaz0
+Ihfia6cd+iBZjiuu95IidDA9oK5Cnmzn0ImLytQXQWIYfSkwbWTNTbCTke94H+R2Kin8tyRd
+j8p6pDEZ88vE6NceP9dRWcmqeApM5EpNGpLJPx6kJl6XPyh4zdtyFwcYpGMs1c+VinHxfKtJ
+QLtgUV9XLWavKA9qYG7LbOxB9Tr5BHQFu5IcZ/DVQ4/EMiWmoI9KVgSaOdOF/K8YqWufUXSr
++j2m2rE/NNQVPbulwJvEqGgG0xFJfijGfU7vpvRgsEK3kx+BBOmNn5kiufegUKy0DfMSRTJM
+yY950We7KNY2DjNWkDs6kNGC3wNP3zvMCMkhh3mTygJtcTQGUGJBD1CudXm6juULErYzy2QB
+ir5me+zSZW5CA59QGaNeoHZR9880zAaU2wQ53dGYfOfDM8hdGCUPS6dbX5Pj0dSDUUMMFtig
+Agt8rBbN7eIaJTNesZYyUNOfIZ5+tvNQf80ctN/TL0FmxDyStZIW/WLPhLoPk9hH9CLyk6C2
+EWqFKFZdWM/IoezLor9OLEmcwI+NvamO7ELYMG3guj9aWLh0h0YzM4M0h2v2eztrPqgiX7XQ
+1IAdKCwBQQyagIBUfXOqALErjzjTzZ5UaAeFgsqhhWlbZmezDyNQPukUEmc3bfnx3dU8B075
+7VTKhTZClxwL3xTlAM2jro89qAPOJel6LoNBI9I6peuVx1tZT2WSi9hGqreC+Z4XgC447Ha7
+WJuS3SXuEz+zFxerMvSEa8xjeP4m1ro1P/En39QdTNL07FweOIttyOXtB9/S2Re9rLywa8fI
+23voK/qrQo98/WmaiqATrJWhIe/v+FuC0F5A50jcH+PZq/GEaDypHH6aOjLYBVCorxx9Oqhx
+m1Qg1I8kVSiC1zc6h49TjZLAAaSOckRpDIBzD8tNTwevTXsT++T4okXnXJgm03a7aqygC5it
+qg3VeKSwUNf5URlIxHlXuLD0Q4vNMGcOehjevsB3/xNHwf/LK1pWu6tdxRlt2c0GRRSyvlSd
+iCwQSwLQrAfmaxdTC906x52RKn4a8wbtumYOik41wG+PZH0dHze+JY4sOJ7w13GYxkgHmzlO
+rEAfTg6pHeEglo/r2M/UhwgKEHgQ4CpuDslgJsg7UtX3/Iycq3Pih6BzKrrt1AXqAvUZlAy/
+FhF2WCthLtw7P0ADgW9dS64vAUAsfGCiSiB1AvrTMhPUX2er4A7OYAlt1U3obzEYywQEPq5B
+FASgrwTgqHMUJK4CcmhLxIggAD5cbggKkO2lypB4CSiSQPydA0gyV3Y7rPUoLKGPz3J0FjRw
+OZJAsSKAEBc2SSLQFQKIXXnswPCTxdqhT4o29FCx+iKJgWrB1cMgzBJUj/JyDHzy4euYn02X
+xpo18LruFZoTiXn0NAlgJkcZkIp5oczl9O2e5gxbSlLdZHi8N9DFvwKj+dNkSGA0qLc4NcAZ
+77Yz3sVBCHpTABGSDwIApW2LLA3xbCco2pyxl76QR+kV007ZFrzo+ewEHUlAivuSQ2mGvU7M
+HOY7vQVgeYjk/uV16MenLn8qL2D2XYtibDMsyTmGW+aYxfhNiB7Va/kAk0n9DZLEASDNcV+S
+/XeJCrVv87FjCdyyLOoFa8fwvZ1stW/G4njUvQIselLLdoGXb6lD1YW1t26sWtaCalZdGAdI
+JnEggcKKA/q7yBVoWRx56BNWJ5kfQo2hboLYS5A5jLb0phmYOBJAZ8kKS5ihtZeWoDhEhZ2W
+OlBBuaI5vgk811LEEaQWyHUCSSlCoijCqWVJhtfUNsgcwawVll26tadsqyYKA9DSbZOkSdSD
+Bm6Hki//UEY9xxH71feyfEtgsL49HAos5Pj6F3nRpg7AWeIwScGKfisOO88DbUhA4MEMh0Nb
++pv5vda8slgi3xtSrzc7QDXEtE7lLW42WYpstd6+Z0CPZXsu9gGZb23BcONkfAjBgfCvrdzP
+vfBqjT4strehk5fhjcQPTcmVOygySr6hiuCprcIR+F7o+Diha4OtejWsiNIGzNkZwZqBRPfh
+bmtdZn3PoDxgTZMkcNnlOpsfZIfswWESS7MAigYBpZunD7xRMijsL7l0OgLohtunFQmDzaOO
+vkjheVl/bgrHa9OFpWn9Tf1DMMB+F8i2fOQs0ebAIAaovzdt7ANV6qXKkyzJUXFeej/wt/J6
+6bMgBHndszBNQ3hAQVDmb58QEc/O35IpgiM4uDJwPMvVWPCzCIWl5utev3WSInkSzYngCiVB
+ej66kPJ8hGUXd5ebelJPsTR9b1T3VUs6Qpd2hFS8531xPlyRTTGjOKhXxqq9eo3M2F77g6yO
+Vb+p4quiOl/FhSr4ekZ1ojh/6wgjp4fql2tzWGyOQk9Muk38vmhymCwBakJr6Ib//dfXDz8+
+f/s6h/WxDtib48FyZU60+WIYtjgxyAhJp9Y4VtMTYWEKp9kMGs9WG3H53cZxgAWR+Czvgyz1
+XE5rBcviYHVtO0knv6rk6dIIwLKC57qAx4QrB1MjCBFZxEX21F2XoNomsiINcWOLaGaEP0Ia
+ihCCjPZl+1VFaDUfHd2G+MaWPhInu4EzuInCUuFwyTNDrNfB9ka1ULHEmmDfseQIuL7gp2cE
+kjH8E1/sQ/f303Nb4c7i/xl7su3GcR1/xU/T3WfuPa19ebgPtCTbKmsrSZaVetFxp9y3ck4q
+ySSpO93z9QNSGxfQqYeqJADEFQBBEgQ0XdmTNjmX9XE+PObHPjLtXp7VCSieX/IIYa/MEOwq
+V4Kp2RVHsOUObaPAD6kH656UAXxCuG6vhDsB82+oGHdgV3QtS74t+FvTfGgp/yKAAhoeQGsb
+NXSVt/Isp58bz8IuIimS+X5HeRnziowiZKdvCguCKheeX6xAV66VgT00JMsoOsutvSRS9Nod
+fVO/ol2pCSOUd8xeoaGNQANHhQahgbUmCNGLxgUb4h+FmDXKsMwxQKp9ftHIw+ZDzBWcfOml
+FJRsdZhAQhu6tEpqlnJIK35F2yc6FVIn7Ukusop2LmgLjGknX3cpQDf7KA8UIV3du3lg6wS8
+QTfC6L283I46clsXPd1k2GPAx75joPHuXAQ2SYQ0t0kd3+tRBEhDMoqTrEKa9c0CD81dw0RA
+ks3A4Me7AITBkqDMf0BSK2Tbu+tAiws+2Nm6FXdKjFDzWdQYfHYBFEpqaRhS2wbV1TYRfi1H
+yZYXIMLH1CVIc9IylZ3lJy2axTimmXCp+aapVw0gSD1FTMPV5NhlLibozfmcklQZAAZHX6Gt
+6FAS4tldRYKm66MYZSAA4aJPoLnyAqSWwOsRaGhiLQpNC4eqjLxgpNC1Ew40v63JkX3OHMPW
+2nzTAxlErM6Zafk2gshy21VFv03zbVLHRJNAg5FEthuEulVneb8jKkv5tZ/I0GV0KMieYD6d
+zM5bnnapQHWMZ4RioUSN42f8Uxg2PrlrGorZRqEoP49IbE1iUL1UAtrRJHOe0Lapd4bkSPDA
+xjOBvG5PHrPKIJ2luHSjejs7gbJqsHy+9DGcsshMGPq6TveNBgMbgz4/7eTqc9sCiVWCA69I
+hsKdVEciqsp1uy0pWCobBfmd6bjJmd3zVSC2RTkeSExzzEdYRjP27ewvNiTSLDAPRWbwSeMk
+nAUoy3OTn25sThh61i98Mj7dTnj+mL/GWN3iZqA2CPRKsUv7BGS9zFrBk2IloK+bTiRjGW5P
+0iyvVDSHcFPBqC106IyvH4AhvA/QRHACjWhYryi60Q941wIOFbt2GKCYAn5UKGbSP1lcmrfw
+wKrUQR4fA/UhCUY0MuXNfsvb7RWj7to53PIqFkdZ6JgoaoJHKYcBEnJSCEg3df7VHGtK+3ER
+w3sjCRjTQicIMJaJcgrDmHgrd6RwbRd90y4RCYGuV5xota7wcfOrx3SumBlRwLvubfZImyy0
+DXTo6KWp5ZsEL5uapuiRvkRi6T4PfHTHLJLYKDMxq87VFDyaJ7dLBhrP97CiVVd3EecGus/Y
+nlqPc3W4wHNCLcrTzCxFBpqTcJEKttw/Q+V+pGumnfjHVOyY4Obwq6cGEi4wNFwzYq0Pip8O
+okSTV8T7AV47oIIQVRd5VJkwiTiuch0T54sqCNxQ0xnAad7S80Sf/RA9q+FoWs82UQWxPIDD
+Sm7lKOM4ia71yusLDZHmKbdIhN5YriRyIAMOs001iIiEjqsRnw8XlGoX9LixUO1OXxJTg+tA
+tetEliHRpx0STYiXfc7xcpkNWVc5FiBAoqKJQG4UQg8FOl1e75WWdyJoy1N0aKI6SQqwRmga
+pputkI6OOIR8gMShYMuAwlsnMFCuXw66sMbrHqLwJJ7poXMAGMFPjsd8tkzb0dWZd5rrHKEE
+z3exq+WVprHyiuB9pqgGVwKNmwe+h65oy+saFbMemCGNbbI97JpRbzKOiG3ZtmU5pTDUEHR1
+stvqTL+RpDpjJwM8Fdu4Dl0ubpY4CuiN4WH3SAJNYDmowcFQfoGhqAOQ6dnoukBPeywb56Xx
+hEunnOdjs5sNxl52SVjTvs1R6omaggtuFA/D9QFbYyFjcKIQN7nVEzZuo7jGHUWq7mhswQ+a
+p17K40RhiIU3kfRnRrYp/9iwls+/ASDE/MvSWnyIW+0YjD3ARieOph2NAFlza15aD0WyIPjy
+AFNH7oxBe8lIPIxkJfjU6UpvyuLuo+IbUtyVtytoDqSuuCpWTB7RO84YxfU5/k06vq/DRyPP
+bzSFDW+XRmJS6prmbk9hsvOyRZPE1vQqVmjCIe3dQ2wpzZKaw1pakzNeKPT9xLtp0A/aZIhS
+sbs7elZ0FEdNyuw9QYa2F4HtUWpQcerKFn2rTwcviWvS2kIR0jE2hbR1QvIveA5vkKW02JZF
+rPQi3Zd1lZ32So/3JyJktgeN0AJRqkxt72K7UTbKe2Xc9/php8jDGfmiQO/yJiTIiDTbeyYd
+SDmM23XSwgioxOirApFWqgIZFtRMVpYVjSIjEI6hL6WBH+NriYxBXUnbXpIB8bJImPJT0ePO
+FBSZ1KnGa4liU83ZXjT027If4k6T2x7YoMRszUi9dEzilDC4qGxXOD2FwzPOjTQTXi5yAoMA
+ZoKBM2O3cd0N5NSWTZIlLKfQGtp5PoJ9//vlyrsijW0iOc3FvFYrtRkEIiv3Q9t92PI43act
+yThStbSa0AhhSEkSXRPXP0E1xzb9sGksVgffKD7QsDg884ddGid0JemUyS3Zm9WMn4W4286M
+MIXt+np9drKHpx9/bZ5f6DE4N+5jyZ2TcSp7hYm3JxycznECc8xfNI1oEndyOu8RMR6R52nB
+NlLFPmlkivZU8P1gFeVJbtH4LFL0YYZjeT6HDEqNMtzNZyQ7F0JUFwYkzV0hdw1scRqGBYF2
+OcmyMuJnCxtVjsvv10zkypjLU0dnTD+xsPp8PlGWIWtSnurxenm70t4yXvl2eYf/rtC0yx+P
+169qE+rr//y4vr1vyHiDlvQV6KY8KUBC+MBv2qYzovjh3w/vl8dN23FdWmaEcl2eo4sfQ5Ee
+WINULTXgTI9HTXk7R9YQ7A+GTWgCyCZh+R9Bu9PsRKi7JyU+ZQkXkWfqFdJuXh0tTpFjJ8c/
+N38+PL5fX2EsL29QyeP1/p3+/r75ZccQm+/8x7/Ic0vPE1YJZwWfr3/cX75P4s0xAzt6YOzP
+mHjlAwkxpEV1aoekkySBku2bKsJ2eBRXnSOxTACoUYtmBFcJJk5jc6qUWGKZX2pbTpbMhqA9
+npMtKHVUbTIKy9Lcjo91AU0rtISNJXm6PD7/+/ev68TSkIXK0E4K6WRIzvk8nGmDGw2YqGr8
+cnoakN6yTTQax6TXcs8QX67w8IFkDe5pK1ABeyvjEH8wAEwkeLNyAsgKegGnWxvqEo8SZiQJ
+NJf43Nf0BxogQKaJ0MoNXxymGXXK2wF3spkpov4kRkcWEJPdcLP1eWgZ+JZ+bSCYFJhYzARd
+5Rv8IRkPt3oVvq+Cqjmq8KLswEqgv1pYl9guANsjLw1tW8swTmrBJah9PgXSMrW70DCQho/w
+af+noquo7RzXSrBGxmcLfy6yTEwKi/3+bmgthBXazhUOmpcGffEMy1fhbRIdirQh+kHrcCGn
+aDaew/YU79G4fCtJzDsxNHkztrXuxPZsrcia/MyrAeFKGa/1LqDEpBlddLgl5B9U3H+9CCrw
+N0n+JRUCNlSgySg02a5R+qHZSrOawwo8JoJeEl/fP3//Tv0q2EKoMy/bLknEVxZtS6uUodFd
+VSew1O3SOj8TfiszW2KWtMVZ4YgJy+BgPJaVbGoyTJyPZlYqm6pjeYvJh37Y7PWzLjJJk5Ki
+HHLgaZ4TVkyN7a05U7ut+PY52bh/GN+ICNbS9E2a3ygwFQIycUC6HcQR1HIDc6D5l+fIaDDN
+1W/oEZOygPBtVpax3cPr9Uyjjv6aJkmyMe3Q+W1Dvl5exCTztBzgjGQcSRU4Gi/IjooPWz+C
+Lk/3D4+Pl9e/ZfMPNuXUvWhi58uP9+d/LtbfH39vfiEAGQFqGb/IbE9PKNj+aTRafnx9eAYZ
+vX+mEZX/sXl5fQZhfaOJ2y/Q3O8Pfwm9nSWHnGIxQOmEiInvoEfcCz4M+HfMC9gMQz5c/QRP
+iOeYboRURDGaO5yRIm8qW+fgNxlIjW0b2IXrjHZtx1WrpvDMtjDLdmpb1tmWQdLIsrdyj07Q
+U9tRdrXnPPD5CAIrlI9NMvFyZflNXvVqy9jp77bdDYAV+z1x3s9N9phgNW4WQnn6G0I8d3p0
+Pmey48nX/b22CNiP09BLyDbdH9MuyQYvIJxAb8xSvMdHExbAmBqhqEAMMikg6Dfa6rY015Nc
+IgBdTy0PwB6eV27EHxsDD7Uz8XEWeNAJ/r5wmQXfNJUhHMEIdzA/HDzX5SzVlWs6qhBSsItt
+FKgFadzaprRnK0ATJM/oMORD0nBQD4OaSCO6qrct1B9jGj7ShxbzEeK4kjL7RZAFhMV9U1VI
+sKdygyl5Kn/igvL+9elG2WIIUQ4RYA5rnHT4uNCo2oOCbUcZXgYOUbDL31cLYFyAQjsIFQ1H
+jkGAst+hCSxNjhFpvLgxfPgOOuo/1+/Xp/fN/beHF8SMPFWx5xi2qVfII0Vgq9OmFr8uir+P
+JGBKvryCkqR+upoWUH3ou9ah0StdbWFjSoe43rz/eIK1fa1hzpUgoUZz4eHt/gqr/NP1+cfb
+5tv18YX7VB513zYQhZq7lo8mDpiMBPWEFUylPK3SePIFm40ZfVPGgbp8v75eoIInWGa0hyFg
+vRf0rDpTBC5qMPAhdTFVm+a9dWNFp2hTWSMYVFHmFOoGGNRHSwgVsQSojZZr21gJtq1IMIW6
+GNQxkXWr7AyLaDK9zBSW53xE4GKumis6QHQwg+vVFqB91eYrO9fTQJUuM6iyADKoMkVlJ4Zn
+W2lVzcmgaG0hAvUtV9GPAPUtZZkAKNo33/PR4aMJuW9OSwCWxQcE6KOqGQ1LoGJzAhRtZIgO
+X+irXFt2ph2oQtI1nmcpxHkb5oahDCAD2wg7U4SJvtRf8JVhY+W1eDWtiUkNIDrjdjWdYSuD
+R8Gmulw2tWEbVWQrA1iUZWGYM0rRxXmZoRdFqwnjm4OQfHNE1TGJckupbQQrras/uU6httk9
+eoSorWJwvbUIaCeJ9grvA9zdkp0MBkUug5I2SI4K9zRu5Nu5sFbjawhbXjKAqREkZgPFDSxk
+uMnRt9GoVyM6Poe+ukpQqKc0FqCB4Q9dlPPtFRo1niU8Xt6+aVe/mHoyKxYZfQ/oIc0HuCcn
+qp4qFqtZskXdMhD2jel5woqufMGdUFCcegQS9bEVBAZ1PpkOHqWzDuEz8fxuvl0djYUfb+/P
+3x/+70oPE5nVo9xPMvrpbfI6YjyOHiYElvDuTsQGwmKtIHmrXy3XN7XYMOBjSQrIhLi+J3jA
+qmhsC8hT5U0qKDYB11piuA8JJ/KRgkVflotEQuRDCWfammZ9bk3D1Ix1H1mG8BpRwLlCpDYR
+52hxeZ/Bh25zC+srfiMTNnKcJuC3owKWgJHIP0lTOcPUdGYXwbRp555hNTFFZLKPpmlqh4W3
+I9GP2y4CW1c3pkHAAlUamnFrTyTU8mWTWmPyerRTaRuaaGJLnqgGHY54ySxTahtmjQXwFvgw
+N2MTRlA87lEottBLB1WsmGLiNdbbdUNvQnevz0/v8MlycMueeb69X56+Xl6/bn59u7zDXunh
+/frb5k+OdGoPPTRu2q0RhNyuYQJ6ysVT03ZGaPyFAE2V0jNNhNSTgj8zjwgQEs2lDEMHQdzY
+phhrD+vqPfX52Pz3BlQ+bHjfXx/odZCm03HdS/eNs66NrDiWW0h5CjV2WfuKIHB86fJuBNrz
+KgOgfzbayRDqinrLwd+dL1g+nxWrrLVN5a7vSwbzZ2PPpFasPOnuwXQsZNKtIFDZw8DYw1IZ
+iXGCMqKMlfTX6HRZNNDwI/NcGYYYYmD+Co8/TrFd0ph9KI3drBZiU+nPiBrnw8arwjTJ+ClR
+xWcsycOAPgK01EEDNrwhKG0Dy5uOcUCElA7SRN7ExEYR2i4+7Fy4uN38+jPy1VRgmfRyydAv
+y0efjKxYC+FJWwKC9MYiJIPNemCqEg3aVfI3KPpWZV2QIFeqg0qI7UrcMvuFbHFwpIB9Ckah
+lQINVQ4ceyAJH3VGMKWGJZGpeoxQIbNRI28cbjChLaNWJwngjqnx5qcUdZtZgSbk2IrX+Tww
+ZSp3id7uDzvJteJLbMJSSx3fSmm6R4cR5YNpV8Br3WhaF7ScSrVCICu9ceAtlKFk7TuqPX+u
+lLQN1Fk8v75/2xDYRD7cX55+Pz6/Xi9Pm3aVnN8jtlrFbadtGXCqZRgS+5a1a1rqGkrB+EMf
+dicfwcZOXqOzfdzatlz+BHVRqBhGdETAZOo5gUmvgR3vsVk/Ba4lid0IG5Sr7QneOdm/VP1g
+ShMFFoUXLt4iaRP/vN4K5UkHwQwMVbaY7rQM9Q6f1Sau9f/1cRNEBRzR2IO6yWSmxZijXvB9
+48rePD89/j0Zjb9XWSb2UTjcXhc66nZm+OgayFDhIldNEs2+sfPOf/Pn8+to5cidAV1th/3d
+J01vsmJ7sGRuo7BQYbViW6ExfRekxEo0eIEjczIDynM8AiW5ppt2WxaDJthnimwAsJfEiLRb
+sFttVa14nitZxWlvuYYrsTvbAlnKgkBVvy016lDWp8YmEmETla3qkHZIskTMWDpO1+i7lAI7
+vv55ub9ufk0K17As8zfeB1o585pVrhEqk9VU1q1djbJ5Yc1on58f3zbv9GrzP9fH55fN0/V/
+tQb8Kc/vhinTgXDyo7q0sML3r5eXbw/3b5u3Hy8voJ25U6k9GUjNH3SOAObws69OzE17fXaS
+90NanTpbF4crrvkFv87ZFdYQb1MM2kjQuAJN1w9CNggOTnPXCY8fGI7lkctzDNok2Y66HIm4
+Y95QVqiExxLLN1BX3rRDW1ZlVu7vhjrZic7oQLljrx6SnL59TNHXYpQqK0k8wJY3RhzZpl4J
+t7wUtk/ygUb4xdpH263D0e+aA30hsWBHfWxF8zXvBnQUfjBJCwBCGF8wzTy5sxTTpBme334m
+KPqKnciFQY99v6Dlp6YT795q5mhX1Dnm10jLP8RZhL+RYoxGMmC0tKkygr2WYuNa5klMeFHi
+axOLO+ZbrDSBpoPJ0FTVwRyKE3eKMxFQRwSWnDN0K08RTNbFUgkVKZJsXQ7fXh4vf2+qy9P1
+UZpiRjiQbTvcGWD59IbnE6QoEH5oaFI3wNtiiGmOpDk1wxfDADnJ3codCthBuCG63V6+2ZbJ
+cEhpFBXLD2O8XErTdqZhnk/5UGT4FdxKDgoEJOIDIjpiNxu2nG0jHydZGpPhGNtua6JRE1bS
+XZL2aTEcofWgJq0tEWO4CIR3pNgPuzswOCwnTi2P2AYWEH79Js3SNjnCj9AWFnqVIA1tx8Qr
+5miCwMSfMnDURVFmoHWTT8AtmmTsKnVl+OEX9BXKSvspToeshc7nieHK1uVCNUWVaxsDDRrP
+EabFfpJJmCkj9GPeL41jhITEtP9Ze4QiD7bpeOcP6KB1hxg2SCHexIbkzQlmMotDPMMyVyhQ
+bWFL/dlAp4+i947Lp/VakfRxe5EFsBU+ZIKxv1KUHaFNZnIobHUwEs/zLVTyORrYZHsYSU6K
+Nu2HPCM7w/XPiYu2p8zSPOkHUMz01+IEglGidHXa0ATKh6FsaXC6kOADXTYx/Qei1Vpu4A+u
+3eJBWtZP4H/SlEUaDV3Xm8bOsJ1Cd+S2fKSJ7PLhV3dxCgqrzj3fRBNfobSBZaAzVZfFthxq
++gwmtlGKme9IWxDbphc7t6jire/YGiGbaRovNr34o+FZqRP7gCYVQmk9+5PRiz5RGrr8thBx
+tEFAjAH+pA9PdoZG4fH0hPxk2eUOCsQHNEmP5eDY525n7jU1skAO2Wfg1NpsejSXiULdGLbf
++fHZQGVpIXLs1swSbV/TFhgHRLNpfd/AY+jqqG8vbAJtEHZoI6knNIl6x3LIsbpF4XouOeZ4
+H9qYOnMD35+bg+6EbSWu/p+x63t2E0fW/0qe7tu9ZcCAvVXzIAO2lQOGILB98kJlZ7IzqZuZ
+2Upma/fP324BNpI+cfKQ1HF/jX6r1d2SWnyOfRPuOhIg6+08sW6jqiuEp/00T3PybD482dq+
+fJ30nXS4fbifoCS9SkWGQX3neb4P95714ybzgl/AVsNNhds3O42kaFPQEL03zSaOszDFVqal
+Ay4Ld2hlfipQgR+IoUY+beLDty+//Ooq31l+4SeEcfADzUDVqy/FILNLYj23Y/HRGOOQr2yE
+RDiun+ZrazXQeigu9zTxxADXxtWkEBCJls+uRtFORiON1jOSx2W32wfhwe6nJ7xPVkpvsvV3
+v27FAUxklyQBduZwWqSvDu7tGbZlipMYh4vq8ubOIf5OxXDYxRuyx48omgd/dbmVHnObrbKm
+u0TbxBF3rciLoVG7xNU2H9DWWVPITKR/coffVhg55N68BDkRjQc7R6KOho9GbHeWNKK6c5ZE
+1FjBJrQ+7Wp1lgcxHcBPHDXcwn12rcWWrmayW0PNtzw1TvrFscFvrU+4uiQxddnOUgkXiGOq
+c6pNHoRqE8D9WmIZr8CSMKcJlFjXbWw83cHbzAZb3qymkIT4WvfsGJiOu3ty0dKlOufNLt46
+lTXA4X0aBh5/FLamJ+IgzuxeN54mWcIyVINz92rJYN1acaSwK0Itb0HmG3/V3bL0iXA8mCTR
+Zs2pt8t2qoKwj1YmIU+tfOmp48CF2ply30VxmrsAG41haAyXJUQ2J8hsybFdxo2dgUrS+h19
+6FykLRpheLlmgJSQGCXFykkUW26xprRPXOhZksMoIbrl+tyWd5OdwlEydOyJD71sX6yeKeWB
+g5nk+hbreADx26ffP7/7+7/+8Y/P397l9jnE42HIqpxfXH+mc+Qb3508vi5Jy7LPXkTtUwTl
+pwTy5btB9PtQ1x3v8YEQPlyEI1+aLMt2DM5jAlndvFJmwgFkJU7FoZTuJ21xHRp5L0qOUjEc
+XjuzdupV4ewYgNkxsMzu2RRU8Lot5OkyFJdcCuSCnXM0rv1yGxVHsvCKfFhOeWa+noRx4vfI
+PnB+tqgwE+CwUqU8nc1KMN/kfDXZ2YvG5aeBeoKj47dP337596dv4GE2blfZtr2ZYFOFVlsQ
+hVr2WLPWMyk8uEGyslH2ZTXdpUjOM/8rWcPmRsyS6ow30Zq/6S8OX2PykJZAPWb3p6xUh+Mq
+EdjzGPaBpwMS/Nws1zY0sq5JfeZ9C2XlrYJcR0z25aBffcN5XK6Sxp85izXJvNHzJFsxN57A
+clgtM2/lFbnTuMmMWx56uFJr3wGJBG1ZFhdSUSH4qjr5oS+sjCcUx8t44r4XO7jopCp6ntjV
+rfoahFiDH1EfpLB5wIi4krTwCANpTiP6PUSm83GmQu3pyHF4hMV+1THGWKINTVtnR7SuTGwc
+j7tqaA05sB/21RwCRU1iTpoD5uW1NSVUlB/tmcsksqqzAgeYmznwWxlcsLrO6+UrDUzrSIGP
+rIw60sNpCcSpiPbFklCRKQZEW41r3TLJiUoLqKiG4irQDDN4sl51tTmCbxVZP7FF6tgsam25
+39yFcfKGWQO3/88kyamHisHzCiS3RWUtHUwYe6G0k4u8k0O/1OUZqpXK+qM5kceNIkNiHkhf
+uXfb2OPWZNFYl/lRKhQZm1dCsbvbA2p6oAR/UBXsCaorc13nwyDh/Y5oOqLIKc9syTKh3mF5
+aGuRq3NRWIqC4jNRqd3GVRogXyQL/Eo09mKpafMGsTfYyYPx0vN+r/opcpBcR+Oy9KAHhHOl
+T3xxXlymoz+RjGPCkdCR7QfSfAV8yddM0IxTamBXWhXf+n60dXTsF5DO9sHjTyd+8OAGG1Tu
+QwzPhYGQcBiO2cvQ6Nd0X37aeKqoyqJoBnHsiI+rS7qqMsP8aL2MPzgeRs+ZvrReTJvSOVDN
+xtRZo8gp1boRUYLH2szitfhdztmKh+lls09ryK8rDb5k9DT7k+ERUhNwjTZQ3qAUmsVGrBcu
+T82ZFr1GLffA3Hq95dd92NZvdtNcjoojJEtlPl050RaxFdFtBuJ6lOd8PQk7ieMBFg3afXps
+HT79/P9fv/z621/v/ucdn1iYInw6B3J402wM9TeGYn62KiPl9rjZhNuwW16c0UClyJQ+HZer
+oaZ31yjefDCiDjF9NOixyjvj2IXAaJfX4bay07yeTuE2CsXWm+ocHdXLICoVJfvjaYMOE0z1
+pHXz5WjuJzEy+i48n9UcRz+MF5r6Q9/2tPYTf+nycHkW+ok8nhB0kPG1Coesw6TfysI4//CE
+x4cbYOM8mUTO76bgNd/iSlH/GcVPoo3AZdEgOry6YGl2cXxH9XSfG31ibsj9J2Y9dv7M6RqH
+m7RsEHbIk8BUChat0Gb37IJNkEXqRQ4n8xtTdi4KSQdeg+14ZNgjMEni58itTzXM3DmyN6eg
+6v6y8FIp68cwPx+4IDVL4TwRhqLMXaIssv3yhjnT80oUlxOr4U4651teNCZJFR+cucT0Vtwq
+uVzimcgmkY71Vh+PfF7ORN8bAbxnyhSd1AqAymitFB/Kg709V1C3DhjVuqJ2CNoFxschyRrJ
+SRMMzVTnMNikaw/C86g68135tWRFjdjKS/fiK4LpHniQ5q/tKmddOZDpJHPnJKLBNrXb+yl+
+rk8H1cWshPleyZzNKLXMnu5JYzEfGXgMAT6i6smCcR4LZPUVl84dPu44YSqZJi5QNf12Ewy9
+aK10RLZPH9toy9Z0I+Zp8kpxBQeTN1PBZekacbVJKtm6zcMR4Yc+SGJ4tOlZL2t+0iirxCW8
+b0FVm/rG9z/FtVgF2f0p+rJbasrj1JCONnzO/1fH0nnqJnrK58KSAbngeNlUqYzHiHLRWUoY
+OTLQFiPB0wjMMk72Q2GLGRPT7tefAjeHRnTZWR/F9c56ZtMDhYojyvEpCSedkWElgKzJqOSp
+ohXBL4qerFeJ3Hsmj71omOjoI34zkUzttpv9SjL1pbgL6OOxGMXGiIPmossrawglgwF058Sh
+rwn7UCWjTbz1DkAX8Az9aZF9DHE3t7ZwE6NiT2PJxYp75/mq4XFV1lz4j8Uifqaed3fBnpBx
+48GUEitLCYd59WEcBvMm4eF8nWxtNRIRRiFhHLufkXlir+gAzDav4y4yH6T3I8NLf5HdMB3U
+N9uAy5YjG/eBVizibBVkArKP/NxZso15I+dsJ669+szrSf6QVWRRxTo1GYKqZa+nS++sJPRZ
+EmnnlhpuZ6k6bGAya9HsmdPpkrwg+XHRe31Oxgts7InxUtKf2RRskq8iHb99/vz9509fP7/L
+mv5xN3665/JkncL0gk/+Zop8ruxR8bHvFgweRpSwF+wJqD6AhtNp9STT7p7UlCc11eTyiKHC
+XwSZHWXp+cpfpXt2dRWbZ+HDc4c2zZZcbVOpk5s436FhTZSmFAb1eYO3vl6BuWl7q2mZPo4z
+a7xM1oU1CL78X3V/9/c/P337BY0FTqxQu8iMp79E1anj2B8+7ebBNvUnbmQ9x0jlfiORx0iC
+JfE4JZcsK03J2f+0jNWzNs+M9qbZf5ZJGGzcKfz+4zbdbrBceZHty62uZzltVGmJ8S0NkYso
+3Qy5fy0Yq+FXWDSuj92p8c5TSRo5cv6bzC9FUR0EEOl66TYe43og3ctw6LKrsm0Ije2CZfw3
+kz49wkqSPNgEey3QdyHqbcAeTOyOaiu4I5dDX/z+9c9fv/z87p9fP/1Fv3//bo768fkwIXuz
+lBP5ftLb716szfPWB3b1GphXfNCBVEnHIjOZuF/ao8gc+9Bgk+ichMNV950vK+16eE4KzMNz
+mtLwDjqLVfqt1idnk6MrVU8eLtLQd7K0rfYR1arjqewLhJ7uZr1chiAU1E8CWJMGA4uaDgqi
+6fW5vXUu73nh7O3haOR6V0g+6JwYWhe+k8oJFUH2T7rUsmEHKck4H2RuL5jY7PL14bL5sNsk
+QBMYYcHw8i6KCavMDGs9o6qDWU6pDergqfxzj8sGSfdP3kRt9f+JieMaNORIe3nCGZkPL0CT
+mjhyUNURamkmjgeP8JfK+yVBq6Vq3oTHHlpn8kFNO3+/XvUG9bKGwHqi+B1TADwGkTOdWsqb
+j1yvLInTxREr1ek2iWsszddMgCY7QdDWeHxX5S/61AMur81mPdvq8lei7T6ssyyT1MVea4xn
+vthQVE3xqmQO5kJXH4q2qlugVpT1rRQXZ83RkOzIwOLjTWulutQ3N9U6b2sJExXtJRfligX9
+vIHVykJNFV7rj0ryXcZbFewCN7IQVsbbz398/v7pO6PfXRVcnbekJDtOIT1maR1b7dH2I1yE
+fqAYoIL1EeqNLmOzqsir7vGqneqqLz9/+1M/r/Htzz94C0S/gv2OTfVPywKCZtHPZUNTcITw
+5Bq/4rHd3g11/8eLMqqVX7/++8sfHDzcaUyrrP1lK5F7moDdE7D2GR7QW45IYo03fl6nIG6r
+aPLTPJv1lJX6OfO5OLXAwNXkcKNdTn6UZosfhH04gx4XgYYjyvbcH/zoSsrB6rcMkw4EVbIH
+A6W+OkU0Y7BL2M3o2x8yC5RXAtvPD5bqig+gOYzq+IOMosKHBkDpfpCRrHevi+zBOHlF6K/m
+DDT1Jx+7+sYjg1cfi3YKAqVxRPkVmOV2v4PuzbMHNr7Hx9FMtq6VlSqdTdJFdcssTmw/+rKW
+9/1us/dWgquYpv5iIhth8T7RcgXoPv+H5L/84/tf3/7FDzf4lqRODgW/iQXXfb62tAb2T3CM
+huNkSnrkslh/W15FnBPKxVVeMkm665rGNnNVmbC3IZbwNcNzi08f6cm+Oro1V5UdzJL42Cz7
+1tMTo0Pu3b+//PWbv1dwFuJQDN2tTHCcAoMVbTYxqK9YDcW1wibsj44bO8/+IpuztN0bS2QQ
+sl5ByzwIVuDmrsAsesCkuAi4EBPTXZbycserwoSNUsnjo1nweZale3dsTgLnoO/H8d/PB391
+Od17Ig+9tSzHqjibEozudk21SzZrXmtSZz/WF7Bq36qBFj9QSAKEs5mnk+J7qRtfy/p25zWW
+B7sIWGlE30fATzDSp2bCmHEXY4kh14HI0yhCQ0rkokdOphkLohSMtBnxFWJCPcXXKFxuNJbC
+I+Qmy91TlWCMkO5BVorLqL+4RiRSG1lLdbeW6j4F2uKMrH/nz5Nf0/IgQbDzI8MZmJMP0Jfd
+dbeBo5cB3GRXIzz6E1BBkEI/o3jZBvD9ryUDrNnLdmsf+5rocQRc80y3t+EnehKgMhN9iyrJ
+dNQHRE8hfxztkGx4ieMY7kZpPSpEES4MDqRpHfJwugljA92gshrlljUZfPv8gX/YbPbRFdoJ
+c2iDUcivpKGiuETlHQFQ3hEA3TUCMSyNhtApXINj65m0MzhOBpD6Niy3a2qy5ojBEJgAPM1G
+ELYNA4m3LCm+U7bkidYmFjMkYKIwPQWLjKZ7apeuNlsa2EdDANP9DibzBHhbLgoiXNIITV1N
+30N6Wga4KdIyhKOQACRlNLDzAcj4GQHY//yIKPSZZvdws93iJyGWPGm4pjpNm7oenYbRMD54
+HDsTQ7J5c+4zW+rNpQRzPxektoOW0nQfPxg8mg66m+hRCNa1XOw3Mei6yUtiUafrRbBWhUoD
+JLyIHqKByScT0IbR48QCpONZMWFQxJ26KkEL9zkXmWdHbILQuQ89nSK4sc2x9Yb2JcIPGjy4
+FNl4ZQkcCmW13W9jqESWdXa+iJNoaUFbSbviI28CJTD6IXboDUCTBc3WCUFb/4xEcQpaaoTS
+wFuaeFUD0iwJUCY1sA99hdmHcPGYMHTtxCxUCGXPVJnIe4vaYVQ5CvRjsnnbOvYXIlnzC+id
+syAZbnxDR7uTQQYLnlyeZCfAmasmq4IEGQgMpDsgXyYAT08N7oH0mQDfOjrD6wspc+0SqGhP
+kOcGq80FxQeB0WYD5JEGEtCFE+BtCg1686J2B7NpRlZaasTfbKo42IRQRGgs/M+bQ3zmW8+J
+5KDn3Fn7sgvW5mFbkjIPhh7Roy2SNG1nvD26ICMThMh70JvjOSQPHQibkQ4cKuP5J0g3Xiww
+6LihNGJLEsjGRyVWBU7bxXEAGylOAigxGYnWvBY+7/x4lBfTkaGg6bDB4gRNL00HGpGme/JN
+YI+bT58adLDwjHQ8cR+n3SDdN2kn9M2eIyboKWy7dLP5gfGRBsEPc2Xih1jjH+ZyE3QY9wFe
+dem7oaqzl371XMe0Q+I2vpKkq4NFR1/6gM7QGRnagv5wrsKMLDrenaD/5VGu7odNrM4ZX435
+TtQqVYUkJ9aSJY4Yqf4MJMhTNgHT0IVZMry+SBLXNkYKmeoEtCyYHsMjXyIOwXwnerZPE3Tu
+h3elBJwCnVBhHK8bhZonWd3rI440AeJRA0hIEBBv0PLCQBqA5tBAiJNKtsje7shm26KlpDuK
+/S51rgg9oP2aAdyV1yjciDzjSEog7RGWGXKoLUCs3SwZoKB8MqC2m8EoWC1a5Fytc+A3iqdZ
+1guItjAW4FsZeLTJkYHMS+T/e3TNPYDb3ioSYZg6Z4dHbPQarXU8s8Tw+FN3K7ebaM2ymPYk
+0cd9LoJo1emmObagPTWA9nbIONlH2OGpoe36kQXNs1trjFsZhCnoghu/xY0KVAVhvBmKK1Bg
+blUI1x+ih5geB1469CwwAiOSPBl2ETYaCdmu3u/gQ4qB79N41SOvGcBMfJx7dOkp0rGZHsJD
+EBpZc1owAzIWNB0sVkxHzih9mMRTZHTIhOmpr9XSdM0BxAxIVyT6boNbk+hY3kwYFDX6BAyu
+0h7tV2k6zn+PxBHTYzxFCVn1U2gG3Av7BDfNHnnhNd1T5BRoSEzfQQebRta0Ls3gSRL5cTTd
+U+S9p/X3nqogz9vNc0Za031zab9fn0v7DfL5MB1XcZ8ii3Y8WuWh49ZXYrcL1uT1x5LWCWQN
+ltV2F8P6srssjVFkFIMDmYba04ZswCoLonQHuq8qwyRAslBfcwKNqukoa30tykfn6HV5YYdi
+GGFoLF9Ev4uQ/4KBGC/oDO1WlxvNEULX7gitKdsjB2iqEYASpWtEEkQb+JbFYyToawg0lPho
+YQtOIo0M1zfw9r6Od0/8+WCccd7H+G60AX33nhawCYBTlOalaAv3W0B8X1vf+64vODAkM3E4
+weXhrcVF8zHEhMzdA9Jn81Q+/RwO+nTVK1lsbXE5dSigIbG1YnEuowfJTLfZ3RP4//z8M78c
+ycVxTlfxh2LLr9Q8E9e0LOv1IzE2ue3vdsaaOByPsDU1Q9PACwcPTLZOmqrH54k12HPQAU+C
+h6J8kRez2IeiqxsqoUWVp0NxccjZmR/JsWmSftnEulXCLXpW9yeBXBwM0iwQZWkl1LR1Ll+K
+V2WlPweLMJNvwiDAI1fD1DSdvBaDOmxieB5Sc71aEQ2YSEPsVF/41aJlnk+q1cWLL4tKOc1Y
+lOJil70oC5pU3rIXZe3HPlIDebI/dmGycadDdZDwWoZGj8u7VZpS1q2se6tNzrUdNGWkrA33
+q7yKEgZ20Pl0yS5qzVyoamCyvbwWJqHP+PGBzK7pTZQ0vD3ZXWVx009FOe3z2voeeGRYZiK3
+spedRXgvDstbEEzqbvJyFhe7ehclSbLVzoAoMx3CxFMGIyjTSLjU19pJhBqFJZi3Q3T44Yr6
+tlhhKTn86wr+eiwFDDbLcFuM08QuWiX54FN9REuIxmu+21xY8qDqy06CAXHppJ3BpWthhCHG
+6ta4ra4ljbh0JN5oqC9adkEcZ7GRQ1NcqOngIjjCnShfL3crHxKXZeYsURPZiS8JWB4B7N7k
+9L2QafAU8J3EJUsmrUnZkADTj0NlygFe1fhgwrKCC/KadGhafifSC7cchjj3rZZtnWWis5uV
+ViHqac8nzhVOTSwq6QwOZaxw+k0rW6irpij4aQf7y64QlUMqSg4GZgak11B/acqV5b2tcHAg
+LbX4yTqhJA6Yr1PnW5/v61c7i6WQktfaElt1owpb2vBTPKfKprW96uwockuq02Y9q25DoyKL
+HB4/Fq0jzG5ibYW8SVnVnV+M3SVNVk+tOTdulGWOM21twH58zVl19y0UioQ7B+HtD04/j8gY
+2Xz65dMCy8aaZBXpOeFkLc0XFoEiqzVcjhgFlW0CJoXbmPALwsQxx1uccrITfDw3DHPhuwxa
+3hqy80kdTjXpd9aUXzwObORkfT3duh8L8Mdfn7++44jnZjH+S9mzLTeO6/grqfM0U7VTa0mW
+L7s1D7Ik2zyxLhFlR5kXVSbRpFOTTrJOus72fv0SJCXxAso5Lx03AIEkeANIEBiZoQTivU2W
+XNGtQFCzARBOiiEH26R/9YJ9MwQXQyoNwiz2MZEPl2X6El3YVq4WAJqRBwDGlmx4SLbTocdD
+SaSNNUhacMhzHmAVGWCAj6qYtS+i7T7We99kZMQK1HBRnrOdME7bPL2VYUC1JYZLOnv+eOhe
+Xu5fu7cfH3wkyVBU+rCU8doguDclenAwQG9ZCRB/ne8HJMVWMs7FDOqpMSlqTDWQGG51HOP6
+QKjRG4BMwOMOurBhS1oeHVrteajsH8o7aMfWPAawezViFiQz45gCAZG92O74u6/XL9MXlXEu
+v318XsVjenorQDnv8cWymc2s/mwbGIA4FAL2MxM7peoD3BFrxfIY2TEZbRB4Vl9j0FO6OZp9
+wTHm63UFnwJ+U8WZVRIKTNFWcmgFeZFYd7V1jWDrGkYvZUZuYlaR47cUf+quFtrmZZwtHSll
+NEIwqbCNQyNiIySq0MpwbI1ZUhpJVKuHxgOK7hFg2tzlBUUQ2claU3IK170cfakK+OApmqPv
+zfal3VOElp63aHBEsPAlQl8T2MSEJ8V7h8LLp1TUBHPfM2nMBdoqtpjsjOJyZ4wkQezP1dtA
+DWt31YCC95mBAyefrbrrpceMNEnoHv1SjAWnLPv+L9z9XyD9r/Ggh5U31RvVKlosINuq1SNy
+oYLfe3vb6lttlgdgfniZ4UaExblXLmDdFSH9r+KX+48P+6iQ744VD8alV+U2sZpdZ/Y5ZM4U
+1/+64kKpiwpSGT1270yb+LiCwI0xJVd//vi82hyuYWttaXL1/f5nH97x/uXj7erP7uq16x67
+x/9mTDuN0757eefvcr+/nbur59e/3tTHwioltt+Q7/dPz69PMgT6h/lplsQr9DaYI8HC10wp
+BiWlES5JwE7Y1BvhPAYy/X2FIHOmYDMz1NMqxpD7guIGsvz2mOBuqQLtipTNBz9koMSVNcBA
+wTY4QEDtLkp2KUbcM9EnHcc4lxmBJlmj88vqY2ByApglIBM/VM7+NDlGkK/8gFtbI9mEEDM+
+JRM1CucIRhrPEaJK7kK53ofVjY/bUgZVu9q9/OiuDvc/u7M1njkHWrpXPk5xbEIkhELGF4os
+YjPtsVM582+YAt4W+QE7qOWF3sZWNwGMq/XO2nCKqZEuKGy5mRSD1PpFTxeWUDNt82j4vjDc
+GwfEhY2E08D5fl3krkWZ04wR9/QBI0rfypsvBGdORg6U8e7sqrDps8qwA2NJ4SNf+VYPcAnu
+7h+fus//TH7cv/zGtPWOD4urc/c/P57PnTB/BMkQPeGTL+Td6/2fL92jOTR5QcwkIuU+rdAr
+noFK7Uybx9Ss5AR1BVkDMkJpCidfW0MlhLhoJEkja3mS8HZiZR2JJlafgSajGV60vcoNGCsg
+uIY1ghP1WuVyMUOBuA7KEaz6qIh7AjHlphfJnta9ZMEg4UNjVDk0DkdKl769EsFnurHt+D7N
+COrIKnGqUyWAouRY65ecXH9ITzTFg1IduTW8K2rHVQbHmzKWN3Ds7zJemPvmHZzHW3OXJO47
+DG4f1JB14hDhtxi8aXDZKrPHIxXl6DbbMiswonW8j6qdsdhQwgz6jcgYpbbOaBybXHmcnsim
+ipjaZbWjuI0qZhi6ZCWDpWtmFk1FEPV2S5r6WCEjEu4K0DzxgL5jnxiTKf2Dy6zxdTAYzuyv
+H3qNrVxTEsOPIJxhHn4qyXwxm5ufw7l5yyQPOdDSiYUhKui1eiUEBwBC+yY5sgNFtR1eB+ZG
++e3nx/PD/YtQAhz6/P5OZZcXJQc3cUpOjvrBIVt7Mo7g6mh/KgA9uQwEaEAP0eUQt0nURp35
+B9VHr4fwO01dL5VPh/vmKMe4DiloLUIUVLmy9RlrtKZInExa42yxyqJFk6eqzJhAW+7j4SNY
+abzwfI2b43YLOV58pae78/P7t+7MWjmempmr4KEEB27MXeyonC0cE2NX2VUSpjHrzdavWJg2
+TwVtrHwQvndp6vYnmwPAAmPRoTlidXEo+5wb6AYPaIGl6myS2NzbFWye1r6/NJYMCZQx77Ex
+IOIkuYwEfmSDiD7it23MADxaKxHP6GMfBKnjHh0T2qJNNtzDiWr3+nwwtBSyGRozr01hVzKB
+3KfK/DyPMxOU2qByz9Th2ir6uKE2tMoTQk1gxoMki7lh4kyFbtseo9hDYL7FVct9JKuKnXts
+29pslPi5xa4nOBwk41r3exJLUipmFA/On8vJrZgOnNKL1cB6Z0C6JT+QbNkIaqmpVo9YS+Me
+UbKn8KoLNChcUeyyM3Via44raOjsy+LawtXYV8iOJ9fKoRCNg8nFpo7xLV2aUu/n7uHt+/vb
+R/d49fD2+tfz04/zPXLHZN4v80UF5qv74B71PuQrmT2pxeJmTbRjzvOwueFQihOHTfQRixo+
+7sEol98aFFlz9YcUbejO7+qf3eQg2LW36SaOXNMKXACUsyZlob7cp4qadVeiEVR4Ccy0aukt
+qfVkQFmGfZClGa1JrDm29TDbdhYHP933t/NP+vn88LetSw7fHnMKId2ZaXNUM2lntKyKdgPR
+zlXgALFKuHgFOJRYk23GWClse8w/+dls3garBsFWoRpKZwSLNGkg0hEL97169jd++8lzq2Kw
+lvuKqcJVcNy7Ky4OqP3D6TYVGDM5mIf7WzAI8h2/reNSgnyelvz5Z1EezPxwHRk1gjDeB6su
+0a0/8/C4UKIOkOlJf0WEEITY0wjRVggWZsqmms28uefNrdqkBy/0Z8HMke2d0/B8tGjO3gHr
+GwWaKWx7oBaWbQCu1Qe5HArvB3zze37B1ZikcbFhA6e9OW5Su98FropuXLVnwlqHeoAcFe7y
+bOA0elpZ0ZoyWM/nCDC02l2GM6stDBg2DZIRfcD6mCE3YgP0I/QQRmJXoRptqAeu1COrUSBh
+gwsqbCxB2VSLAFPEOXp4EKgCE6Zt+HM6U0N1CWZqFmQOqdLd8SBPPLSpkvirmSX5OgjX5tiy
+nspwaE7Nj5lm1mxU3xgxpymJzW/rOFqEegZhAT/E4dpz3OGLukTNcrkIJ2Yko4B3U1NTMvxf
+oz5FrT3vFHzSfOt7myw24IQG3vYQeGu7vyUKN2jFNI2ZJdmwHaYeEoONS6eIOPzy/Pr3L96v
+fBuudpsrmSr5xyukW0e8za5+Gd0Cf1Xta9HLcL6D7f+iOnc0Vl2cxBDKVjP1PZOQxqFhA8lq
+8ZGih4uCOThF3almnOhjwvrg6JzHsOQt3b1LymCi76MYYheH6L2oYL8b4l1vX+4/vvFc9vXb
++eHb1BYW1Z6/nll1jShbs0MslyhHQxLzxdpePqGJM/SJnDLCrUlY1fNwZs72ql6FngmkuywQ
+r86H8VWfn5+e7IZJRylqz0PpQeVK3awRMYuM7ovayYSpztfuLuup9mlU1Zs0wk4gNcLBB9sc
+VxKvJU3SMBFT2E+kvnPWdHqdHtojneQQP7Hn90+4Qfq4+hQCHydu3n3+9fzyyX4JPfrqF+iX
+z/szU7N/xbuFH1hTIvI141Vhqn1aOQdgT1VGOTFXsR7H1mwjrbfxKbwCw5yldMnq5y1RHDM1
+kWzIQUi7f/F1//ePd2j/B9zJfbx33cM31VPUQdFzTSGU33j5P1S4qmOhxKJdl0AkPdwpkqE2
+x63tCUnv8rjdEi2w3y2HataX/NxRKEO1WXFK27xgxgB2JiCJjPzjEkrTwxbO46mFYROltKFs
+Jd+CvRm5vgCKOs1UQ89o/9B7x0bexoyc4NpFuy3aJ/P5cjWznGQlfASQjHGkMSGt+fSi9hbX
+gUPZjxMfO5suo4onfmcjOlVi3fH/9sjfZwa4KnhfhjpYGDBwuU01C11gN+Cu2OP+8Q9DDGxX
+bQv9UYqKwa+6FArXo52+WcM3py2qYZPqhu2s/A1rFuWsiopuB+8/lZTrClSdoeL/3PdUJELW
+4Uz3OWLEOAN+6GWhTkkZ2fRZmlnADeRqVgeRhPNk45o4ZO0yVCp6gWQbn5Q3D6fSrBC/RyZF
+rR4pn3QPIkFjCIPDtENIAQJnMRN2otrZggSKeoyt4lB4kkWlczpyjii9uB/Obx9vf31e7X++
+d+ffTldPP7qPT8zr/hJpX6Vdld5paagloE1V9Z7N8jTRHB0FxOnRMKDFVslXKPJH2l5vfvdn
+89UEGVN/VMqZQZoRGivD26zPpsgxp0aJNRNeS7BcONzfUXpqk7xEPiU06muDT3pZApsmCJlO
+xK9QzInbS6herzyrQ9qcf7XQzNSRW6KGK9PAcJOOtEYgeei0qdacsuvVDLVxJMHKV+MQK8CW
+Rhb8WvzVliGlv2xZcGibNpF0OzKrJ/A54ZkY0UcKbJvcaSkay4rQzNeP16rV0vOViV/VNPT1
+8I5FXKdFLq6g8tT2QyJsnfr4lG6cg2khnr48PHQv3fnte/ep6eUR23q9ha/nO5LAuWH59C9i
+dFaC/ev9y9sTuDU9Pj89fzKLkSlVrPxPwxMlSpYrDwtxwxC+THjYFzPFUi20R//5/Nvj87l7
+AO3CWXy9DPTyzfIucRPs7t/vHxjZ60PnbPPYsOV8oTbs8sdCW+Slsz8CTX++fn7rPp6N9qxX
+AXagxBFzTflysRNuyd3nv97Of3Mh/Py/7vwfV+T7e/fI6xijrQrXQaDy/yIHORg/2eBkX3bn
+p59XfBzBkCWx3rZ0uQrnjiHoYsA5VB3T5+GA42Lf+NTzPW3YXfp2eGaGzLWe73bT0mypR9Xi
+F0uZ46hJLhAiu7Y1raPXx/Pb86O63fYgY4Vh+5EWD2RHW8g+BNqlVpecMO2clo4skkLHZjbO
+ddsc8gZ+3P6BBhFgDa23imYi/t9Gu8zzF/NrpnhauE2ygGC8cwuxb9iInW1yHLFMUHgYaDq+
+ilm6K9yy1X/tLQLkU8AEPn7ko5FgEZ9UAj1AjobxLnGfr75AspgiKeOEzR08M6wkqaLVahlO
+UdBFMvMj7JB7JPA837N6hqYl27tCG773vNnCBtPE81drRF6AwUOaagQL16doFGKVIEQqXy+X
+QVih8NX6ZMFrkt8ZpmaPOdCVj4aqlwTH2Ft4dg0YeDnzEIbHMmEfLGeT/XrLj1CKGtMvs0KN
+6KNeF45GxngVyo0HkqSY8cORCcl8g4cWa67X7Y3jGg3cRuWYNMMggHWrUtOV94gtqbLbSPVy
+6jHaQ+ceaBzfDeBCO2AewUUJh36okHsiV8SOHq8FKuqBii+o2dKKJLs00Z3/eqS827LqgEfd
+HWp4iwhOC/fXAzU1dOicKt5r2u4mzsRoAPcy7DCBzNVbxoYc2qgh0Fdbpe+3JD0k3M1PPwXc
+Z3B1CyVTeNmM8L857LT63G4xi2BXHJItUR899hBWwVJX3/dsbKXDozXcoMrSwyHKi2YgQ6mK
+Qxm3TeEtsaVqH50gvbsaLUJCmB2QltowHrfe/hgzfnkbfA34hU3E6lB1f3XnDlSrR6bDPb1q
+SiGJUbdaKI+WK13b+SJ3RWiMy54mWJyNQ3bNDOjAx1ojbxnUsMc6km1oIYqrmO2nGUEKbk8W
+YYhrVAoVjR2hNDQax9MblYaErr3boAqxbUen0a//ddwc2zJ0EjWwtILZZN5qhaPiJE6XM1z+
+gNPyoqg4CiFq27hEsVsKp4tpY8QHNyhohL1kU4h2aUZygpYg/D9RFPWzkqr7JwDHcMMIr4bA
+312a69/cFBW50UEH6s38VcSm/SFRr5hV3Rj8sFBMGR2yiOIodVVW4EWTR+YBU487xbiaps6g
+rPRtrzZkgCRLb9U0eF+Shu1AcNiJoq99PdYvFyh3SXMcRUFxEbmODm2NzgfAx5kPyQOSU6mL
+HxArNWGYBLaLoGnMWvTwdhfV2M7U01xriU+VppGyKmK7rPhul+se/j1mX2FGd4/Nqd0a3X2h
+B9LK5F6x8b6B0HtoihRt7WPLzCI+BTN8rHP82okSHlL4ohosFrgBZFAtsWtvnWa5XsUn4evg
+WMB9H+NSpfDWZU/UI25aHzfKVypLBfWVym8KeISIabVNrO/UfHTAQ8EMgeUIrERgN78PsWue
+utfnB54l2b77Z/Z7mhNWgZ3irYDgRB46N84PNU95E+0Qj0m2/BrZCus9lajxtAjnOmql5+vr
+kXV8BOmhRz+oDLHlSr40VflDMgjugWJyxzWtrHt8vq+7v6GssZvUVReOa7Rn7yqy9g0rzkKy
+xZbVZ3oSSUqS7eida4OQNCfIC33nvBgwqPdk+9XC03p/sfBNUn6VHdunLrLbBckXm+IIA6pR
+LZYLTDM3aPS8GBbS7q0JWtFfXymT7T7plDg4TRz9G2V/eRwI6jT/N6iz7S7eOm7gDNKhm3GK
+9XICJWQ9IRNG8lURM1IpkakCpRgcJEu240ygxhnipBDTbYriwrRgNOvLnbTygsvKIqNa4D5v
+BpUjZ65BtcLegRo0a5f4AHWp6Zzmq1OAE39tbEjSsiVs07mtItzG6emmpymnyaxFcIr4S1NJ
+kE7OBkFCHW/xbVJm7EKK8fKL5Mhy4qYdZpGDYei4fZvefJX9uY+gwA8rvr+8PTFd4F1GsNCO
+QTS7b4c9+dGKnuY7KIi0jir2bxx4QZsx4xA38ghkpNqrhhSEoWh3CY3RD2SQCpU2CgONvQAu
+bRhvYBnTPj2nC02TRr0lj8qbdhfH7Wq2muvQLLPAhIGjktJWFD8qbD18MfPwVxJEFjOfeVg+
+hR4N3+vFibqpSdgAekChgla9U2KyEFAttcEAXeuJC0d4gC+xI4FDewaCwyRBIjgwPOYqPqJV
+91qAHkaoVpropan6iAqH2OI8ok2hSbYO8BoTsQu6wFksUOKVAS2PKLxnop0I3rDRLcYYmkoq
+hq2DoZfeSjcaY3AVLiUGv5cdSXzU0mEEu5G1AfQRINstZ41RC5EdAo7VL9RFSMWksPC+1c6M
+8Xd/Jk71kVYMCL0lbFQKia60ZJ1yCOvJRBLZZxZU1HWhh6yHnqyPFdxkzx23XEBys6AUchk4
+OlxWxK6dGFRzPU9Ikg3tZChc9IxGjgODRCHgvYjxb3htQgfrQZa+45EJHcueIOGS9zxnIQKP
+3lr3WD3lopShhwF9DGh9LqTtGcnFBoTRmBE/9IZZ9oDQyy8z0pYQ/5VtdQlRLmj5/rffGnvW
+NexXTexQluAweis7k5XpqOWgkev2PZzfiagOFw7wh2jko1yCeDEfnpvZpx89WVieIELFBTIR
+iqsNIPEcTqoTzvWLJ5NP6OZjky6+VmQ415ox9tqA92fTtYqqbDH/YrXAwKDiPsPhLi0JGUlx
+RHPdiIieaJUFznfj5oGjKXw0kC05uc6t4RH2AXIIgR+P+aWGRP3ALKqFnsWxrJLp3uIVPOaN
+ejnTg9ivIr62DsgFrqx4nIZ8gZ5jW2QrMs1mjV/PyXrEx+kJVxNm8Oja+gGeaZNyT1LrDP6w
+y+B8Ei1QBDFpT5dK/OMuv8k0D979LS1JDhJznDzStx9nuHM1z4X5oygRV12DlFWxSbUW0Sru
+72/Ua3u4SbGfVmkX+3A1MkEiI89OUZCdeM7tfMOV3HJXD44ea72t66yasXnVw0fLoSlhQXQX
+yeMELiYIituDszZVEtlFstE0n2okw4ek3VMXUxHAyWJ7YmbvbOasiowjbX8HyWcg0HpdxxOV
+imi2hkXXTSFHRrKBWJZ8RqGD91DSpec1Zg9lDTVBORvJVYp0Wc4lULNREJWXKzSYyVNEbOoG
+Pr62SwpaZ4HPdmx8neFzolQv36JKipNisHYx35BaxWRyvtFSS7LJEKdlxp85GTEkojqDd0AE
+D9UpsC4XDd4goR7Iu+LhQ37XXmdTAx4ukduqpM6xltXXZmfyPcCAyYr8E2wSaIhCvZfSiDPN
+WWyAZ/URP5Dv410VtMbeBw8M6kwLG58O4q8dHhqirvCMIaoJmmKtH2+NnkdsFcCszCr85GJA
+o/7qEqu+/RTVJFkDY6KNa3NfEWMVQpAh/KI6ZnL2ZjO7K9iswqaavCpzdHSPZ1UxQuz2GFco
+WR4vBMJoQsezyTBxZmbsWMMgi8hhU6hnNEwmmQbpvanabH/UplTE1uUAVsPqlg11+dE4htju
+yasGCEyKhzplK7D5mbgVdn0krpONCso2GGEYy+IQVVtY+0Suz76dinUKp3Rw3EbQboa9tkxi
+ozCxgrEvlNNBmKlxltyYpKBRMXt+p0NhDuuEvCaSpXSK//722b2f3x6wEKFVCil1wA8C7W/k
+Y8H0/fvH/3f2bEuO27j+SleedquSjSXfH/JAS7KtsW4tyW53v6g63c6Ma6cv1Zc9yfn6A5CU
+RJCQJ3seMmkDEO8EARAEvroiS1lAC/u2yJ/yQaINyyobogylNLuSjUGAje1eHPZtJm0zWFW+
+z8KbuHRjsMKkXv2j+uv94/R0lT9fBd/Or//EV8EP5z/OD0b0HSJhFKCf57AUMvfBb2tHrl4C
+LloQhjkORHagjj8aLq+XRbVnfS11iOQjLsM4M/0rO0zfLBsZRReQqVlm/9yA6YjqofTO4juo
+I/ehayQwQ6KDG6gqy9m0fZqk8EX7NUVwrXQb07PXpSf3LM0Y2oGrdenM3urt5f7x4eWJ710r
+V0tHYGMnQmEyKJDpZCWBXQITU/CWbktDvsSSWaQrs4tsm8xq0EtLOjnUSbvxs2Px6/rtdHp/
+uP9+urp+eYuv+S5d7+MgaKJsE5t+bWEhBKq2WdXGQG5f/PygXBWh4F/pka8ND4VNERx8uhqN
+bRoo9xmWITnlKgcb0Bn+/NOqz9YortMNe2IqbFaQTjIlyiIjGbr7Kjl/nFQ7Vp/n7xh4oWMX
+bmyPuDbD78qfspcAqMs8SfQJr2v++zXouGH9fRnDbPRpQs+XMDrAWUVhsKlKEaw3FCrta/qG
+tOdUtXSc5e8GeyTPbeqdcavZPiLm+iB7d/15/x2Wvb0XrXMXXzRfszHd1VUYqOcC0zAZ7u7q
+UAGBqKEJXxW8WnHWC4lLEvO0lqAixLAiSUE0C4m5TmMDQyuB44tP2imxVRoixVArboKsqiwG
+qWUQspjY8TP5Rp8RqhcJMO45n6sJGYzEkQ0rgQsxny+XrJ25x5spvI2vRnxxc/5SzvhywCze
+E/ygPd5AP1ivIRM/0OLljPcTNyjYfOQ9ejFU8oBfnkEhWLu6xKf5KqZvmPvvJj8smb/66NE+
+N6uT8UB1wXAzJT7y2OIED16RKez0hE3JZWvu0HGuGBP7LS/YGXvGSSraGpurA6oyDlzlJnDA
+HHvUqC6WGvCufZHYgoa0toDqcsiTGiNj90TkFJVkY4eMn22kZ/POSONRJ0JJ5ns8fz8/u8et
+5jkctgu987ck7U7tSvGoWpdR50mrf15tXoDw+cU86jSq2eQHnSqkybMwQs5vDoxJBnwZlVEM
+188ZLk1KFNUqcTDlIwON4cmqQgQDaLxUig+R3QknrCfanPQK0E+ldN8NPIpPFNlLtWiykqbI
+tga3U/2QNtHBCvlEEG1DsjzgDlaWtiioDYcSdRssXHMLLTrWgXR9VnLWnx8PL89tUi5npBRx
+I0Cl/iICcoskEetKLCfm5bWG03CRGpiKozeZzkmYwB41Hk85/tcTtFHUmG/n88WE88PoKTCE
+IPOtekky/GVRZ1NyTarhSnbAm1EMYOKgy3qxnI+FA6/S6dSM0ajBbcYDDgHsAiPY+6abTZTm
+pfGOMQwJS9IG0LAUbFRehY5W5EJIa0+gjKz5XAOr2msSUFNqLl0OXv9EaUxuUBoKwKxG0Ecz
++mIHchMgyOSWuKxXAxmc0VaLxtMsqpuAO4KQIF4btSln+iaLUksgr1IyEqFYgJYCQ8p3tbWy
+lkUQk4BRysa0TgMfx5bn/druzE6LYihm49rTJ3KA4xbYFS3Bnj9B+FDhqLkCuqkx56pdjWfV
+E5urMcagTjIjBAdrghULVpkKWLitAxtYjEUMuvA+tSvb4UNXpKJgHbIuCtkWqj/NKOHGNw6p
+rLXC46ojMZLJIlHVpuTlnfEUhf52kKRvsmTYrlnrB7FkiCjWAjnvPxEek7HppaMB9BV5CyRv
+lyVw7tOaJAjphuoCLCl6lQrLKQwg/IskQEzMhyzqt1McwkhDV2kADFqGKEx4qF2GgbFKikeL
+hVtSD6X0obAcwUIx9ni9BJZ8GY64ew6FIQ8jJMjjxmh9TKrFcuYLYw/0MNpPA05abeRMV32i
+ET52xyrkltLuGHzZeSOPHMBpMPbZYNlpKkCbMT0tFYA2sQWS9iGQOpWmYjExQ0oDYDmdeo1O
+w9K3RsH55gDGeDyfHgNYSNTn8xjM/CEnskDYUcMNDHkhWNW7xdgj+wZBK2G7lv3/gz11G66R
+kb0w63UtzJ07Hy29kuz6ORwN9Lf5XgBjQ81mdKvP/SU3khJhfWr6kMLvyXxGfs9Gzm84mUGG
+xzhtIknMzUbQ1ptnDPQ0GwhtNZ8tGo8UQ2JW4u+lhTcD8mLUrMWc/F76FL+cLK3GLJfsDVm4
+nMxIUbF8Fi3MvDvaxC5oyiNpLBdsViBlRxepmIa+89mx8EfHoQ8BidzLrB3N3vJFLgUHAb4k
+9OziZYj9gdKj7BAleRHBEqyjgATeaFV1swb0dEhK1CUIGEW19OhP7Zq3MQj1bMCH49x8ld5e
+uJJCQX2bhxSUFAG+zXaAGN/bAtaBP5mTY1aCFjx7kLglHy9I4ViXdNCGRr6xVBDgeSYzUZAF
+BfgTjwLGNNASBnuYDZxDaVCAJsFHdEDcxOfMZohZmiPevsuUqQtmI3viTDSoexiAVgw8nlGX
+YpUo+QWWFv7MX9LJycR+rgLdd6Wgh8/AElUKHqgZVhuVQTldYOrtY85/iwbYZnNb5rQBZTat
+Z561qTqlW/XFQNxt/ITS6qDxFIYZ0S2QXL+YY7uL929pG4i2o8VYJOFaupP/HaKhOZLOfcFo
+4V1Gj3m3lBY9qUZsPgeF93xvTN4caPBogXEiLny2qEZTn/lw5lUzn9+SkgKK9TjeopDzJfWq
+VtDFmI0copGzhbFRdR0ypYNbkDf2ohGX1ATQdRJMpuYWRxismNHEOEYP65k3oqtFO04e23X+
+30Z5XL+9PH9cRc+P5hUiKCtlBDIOvZh0v9C38a/fz3+cnZCQizF7bG/TYOJPSbl9Af+PKJCt
+I/x/FwUy+HZ6kpkbq9PzO7FzijoRmKBMS8vG6S0R0V3uYFZpNFuM7N+2/iFhdkCXoFp43PaI
+xTVNN1gF4XjUcDBSDTYtLmNkrpuCRgEgqAkr1RbVmLwAqOziD3cLnS+jHW57HOXobs+PGiDj
+OQYvT08vz/0QG7qI0sCt2OMU3WvtXa18+ebyTStdRKU70AVylWGL+lkngScJTrmuVEVbU9cL
+qvdXRVeT6ghnVqSUbc7F1mjv1EE+q62e8DiiTFk4vWp0+FO1IWBv3Kv9zO+r6WhGVIfpeDai
+v6kSDJAJy+gRMSGqAPxekt/TpY/5IKrIgVqAsQUY0SbO/ElpmzOmKjiW2U6ADBozprPlzDaT
+TOfTqVXEnM1NhYiZZ5POuMNDIuiozOej0v52SBkbj4iaslhQ41BY5DXmFuKNEtVk4nNtagVl
++JDIxB7Ry1GynZnRyNKZP6bZpUAUnXoDsu90YQa2BBETA6tQwNK39GgpqwjWwBkjYrTwaQol
+BZ5OqSyvoPMxy3A1cmZG51bHrRoOI+DvhQ3UcZnHz6env/T9nM1lCE7lsMGc9qfnh7+6+MH/
+ixmBwrD6tUiSNta0cg7dYHTe+4+Xt1/D8/vH2/n3TwylbG7dZZsjiziVDnwnSy6+3b+ffkmA
+7PR4lby8vF79A+r959UfXbvejXbRY34Nyhp/wy1xc0sj0W36b2tsv/vBSBEW9/Wvt5f3h5fX
+E1Tds/uucWg/HbFvNxXOGxOGp0AWL5E22BlfxrGsrGxDEjZhX76t0o03IyIE/rZFCAkjDG59
+FJUPyiM1AbYw2zTYwYdMg1LroZbBtNiPR9PRQFRMfdKo7zAupXMISRR8fAmNKaZsdL0ZtwGu
+rJ3nzqsSOk733z++GUd7C337uCrvP05X6cvz+YPKeutoMiGsVALMd9fiOB7ZyjlCfCKPcJUY
+SLNdqlWfT+fH88dfxspsW5D6Y/oqPdzWA2r9FjWlEet7HYLm4I3YOd7uMT0pTZ+0rSvfH6ik
+3rPnehXPR2YiK/ztk/lyOqmDdQGvxNxnT6f798+309MJtIlPGDRme05Y46vGzZztOZlP3e05
+Ybf4Ko2t/RYz+y1m9lteLeY08FoLG9giHZoUtEuPM2LMOjRxkE6AmYx4qG6b8d7AwPHiDJLA
+9p3J7Usu9kwEESoNBCdRJlU6C6vjEJyVUFtcq/p0AccG14FZAE4izW1jQvvLP5Uj7fz12wfP
+7b/A+h+6phHhHm1y7FpLxiManxEgwJj4xBqiCKvlmF+0iFqSNVvNx75pXlttvbnpc4C/SdRR
+kIO8hUcBVPICCICY6gNMVjcln85mZpTuTeGLYmQ6KSgIdHU0Mu9er6uZ78EoGLy600+qBE48
+03BJMb4ZiwQhnin6mTdUCfGYNDBFyb41+VIJzzdFt7IoR1NT0mxb0mVtNUy15XTEL4zkAJM/
+CQZCGIsjnBXsZGsUuTrIcmHHXO9weVHDquG4bAH9krlrqStl7HkDKbcQxTsU1rvx2CNXVs3+
+EFfmFHQgy6jQgS3zRR1U44nHB5SQuDnrjqmnooYlMKVGbAla8D2TOFYhQsycXloDaDJlw9Tv
+q6m38A13wUOQJRMSTFFBxuQwOURpMhuxt54KZYYOPiQz6/77DqYYJpIXhinbUm7n91+fTx/q
+epBlaDsMJsPxGUSYl4C70ZIY8fVFeCo2GQtkr80lgt7Xig2w09HANkX6qM7TqI5KkCfZu9lg
+PPVpNgd9YMjKpDh4YfFs02C6sJxgKWrgOLapSK9aZJmOidBH4a7JzcBZW+RWpGIr4H/V1M54
+2nrnc1OtFsHn94/z6/fTn/SBB5q39sQKRwi1lPXw/fzsrB93puIMX0J2M8WyY+X60pR5LTAu
+MT3FmXrojOJTv0b6gbouL21C06tfMOnL8yPo088n2lV8/FyW+6ImhkCyYtQ7Zf3M1XXCcWgJ
+pSWvyPyLjMmRb6mWOp5B/pcpaO+fv35+h79fX97PMsORM/Ty/Jw0RV6xQx3sqxofGMrYEpgL
+mFjg/05NRAV+ffkAserMuBRNPY/a8/y5cXyGFfAv03FCHKcT18hjJVQhGPOGMygmRCxAgDcm
+RxqCLIZNcN7I460MdZGMrLsiR2O0hoEdIpjVD/NVUVosdYjdweLUJ8qC8nZ6RymW5dWrYjQb
+pRu2+au04ENghckWThXqW12ACMuPAhGRooEcqttixMmGcVB4lo5bJB4JmCZ/W148CmaxO4CO
+PfaGLa2mKilLTyshA2xaI+mZA7Dx3NqwteowD2UVEoWxRZnpZMTLHdvCH814U+pdIUAA5yMv
+Oiui11CeMbmVq/lX4+V4Sre7TazX2suf5ydUrJERPJ7f1W2Xy2pQxCY5BZM4FKV8Idcc6GZe
+eT4b6KYg+fXKNWZdM5WEqlyb5pLquKQy5hEaMKLk5GIURa3xaCAx1CGZjpPR0V4hxhBfHIj/
+OmfZknBEzGFG9/8PylIn2unpFe2slBeYzH8k4CiLzIjmaFJfLii7jdMG0xGmuXpVMiBnYTk8
+y0yOy9HM4yREhTIt+HUKmt/M+k3c5gHisRb9Gg5Mc4XJ3z41IIrj2FtM+V3CDZehM9UrTt5O
+o0blOpUjDj+vVm/nx68n7ik5EtegFE34aBSIXoud+2Zdlvpy//boPo44pDF+Brr51GzD0FsK
+pMUHLP0gkWQV8ENJHRRkpZNGkPTgZ0CgapH3z4jonL24Pa3xNG+DhtL0EBIYlUmcWTD31TWC
+21g3A5WGN4H9RVQsx2wKUkTqyCz2N9t4deDCvCAuTjc2eZweebFCI30+ZLPGgnzBvRKVWCmk
+JRtrMvUmt5uh0gsMFLWLonQlbu1vkmK8nPCnkkKrC7sqGBoO7eZGGwiTVLkQmhe6h+qIIhQl
+/bcsED58js0UHYrQDuUvoUerAfJNSJhaMVoQUwRiOVtYS9KKOIMgI8EHCNe815Ok41/eSpR+
+46Giz9CvtJvXwJdM4EEJHopAJ5GJvwiKJHQ+Qo+woW8KMwulhNSxUwDqOIP956I6UQIM1jVQ
+v3wzQhtQx1EgCge2LR0md4gxRURtLTIVxKvlo3F5ffXw7fxqpMJuj87yGifA7KwA7hBzDO6L
+jK8kYsJt2tmFXRtgaSDZsGPQ0UGFnHNg+xDoTniShlgg9JzKSgaMWJMFGhBK7vGgmacDKLjW
+bxfVcOGYT74NvgfdDyOOLSBPA8Kqjojui9CsTs1U0yVM2EHWZghwckkDV6CDq91+sQFBnq7i
+jNXAMTv8Bh0/iwDTxpleBiYmrahKgekP6Xj15gd7vXT9KUSwa0hGdJnDFTZ3EPumSIoJ+Zot
+zqjMjYNLtAsa0Q2+gzEmBnGi3s655xMae6w8Gp1YwWWgEtZYq/HWyauh3dnLgbXjno3F3HJu
+A9BberB2dbxtbtzPMBjK4GeJgD1+7X6kD6uBPYcUabAtGsyeexwekvbgsT+V/sQ68WW5ulAJ
++gxfQLOx8whFFxLDHmIdqyKw4cbJ5KCkk/C+WhXbWyeYjyKxs+xRZGznTtdwFZR0+DsaeVQB
+uyw+bnktU7kwcB3f2SR7/vRVdBjAk0XrIJ9thio73xRPpRNWKbV4e3tVff7+Ll+/9wcHZpMr
+ganSFKA9sEljEBlCgkZwK1zhI9283lBkt0xokk9Etenruo5hARj6FNvHHro49yJr6lJkVRAB
+e+XHGelUJE0okTugFR7DmPE9kuFe3QZj9M2RhI8pQm6qxQoxPoNpNsdkGOf54ofIMcqcZKx6
+GswtgdjBoejJZHeRthGZSHIu9QfzgTs+bdwoaNmWYlTGura19JOmKumYdnFfsft62ZGWq7R1
+Ej3Yu55mQPwHmqzynSGy0Lj2wjJ0WiCj/4qa4xAd3lkourPuKHQBVfOyVDEPGKQ73i2mArZR
+CruNHVYkBz6SKVLJ994yGdyFXZHGRzjJBmZdhylUvSVl6/CGVrkOydwhIQR4JqNMxCwEzMMH
+x2yWX14LrVh4qSHq1G0O5dHHWLTDq0ITliBi6u3Zy9MyTOR4PpXxB5J9hVdCFtcyl4OUTuQy
+staJQjjrR73uhwqghfs6jXnsQgZrd6ZJoYPC87qPyQCAStj4iywFSSfmpWNCZQ+4RcOshjQt
+xpfWGKKxbqvZGBiWmXqE79fcBWeLPVbuGAB4GzoDhyG/5NquLIySpZoqKsOosvaefN7nTpEo
+im2eRZgiZUZckRCbB1GS1315pEdSBL4wQDpw5jVmrHErVsITLFvfLlcH+mJV7w5tL+UOgwxw
+OzTMHUWVFVWzjtI6t+ziVjkXVpZBJVfYD6usmAGA4cEsPMy8yKQIlokG4KWQcTuZ5aoesUXZ
+2DlDTKIuZIz8dbTmu4/nhDzKXXkUz80BpQiqOLwkBVHq0KXmaDkRokPWt0XEmkCBSOusYaES
+YNhlaLTcWZJgsNltdJ5L0kobA2R4z3cUjtDUJqdwMZ3QfRk1tvvWIS8cFL0hYWuvOnxaglYq
+bwytggFyBM0OPxnAx9vJaM6IotI4pfQhi5GqSCfLSVP4e4pRkVuYLRCmC09tpsFpEelsOtEM
+bWAcvsx9L2pu4ru+VmmtDJQ5wBbwQIsq4iIa2nEY1MfzPWujwUebNMZYiYndCaWFa/twE6Vs
+nBeX0BnazlgthZF8CIkVWPqMemBoJF5ob9+IvtV9gpG8AhrQMrRs6MbFPpkapcad3jA3nLzJ
+e1LO1IY10BRWmiDlkg0jJkyDGQh1bbystsUXijb0VDYwFAyocc+Jv9QVzbpqbsq4tjW+SbOD
+DVRL5xe266qEVDgU+nHm49vL+ZF0OAvLPA5pYd3LTEXemdPiVXYI45RcnawSGZkUBiXiTqcs
+RIq+i/A7SEScEsiqNqR78iNfy4INatkAmS+4B4biaFJYH8DP7iqsvwOUYGmfjNl2d/g8yGvD
+Eq0jP0XrPQ1Bqj5o1fsIg3MPl9uSkZIVCsMatFX2KxqEMVkjO+nqwwy3WxbmWChTsZJo1tgs
+Yolpz7Th4jsSvmBVO2px1kjpkZfMF2qNSL3dOeDUS75Wb6WsgrvY1+0k0AqzQwUDvCnM8Ivq
+jbxFL+OwD0xkaS1nCy1V2exQitTZZNubq4+3+wfpX2FfN1S1sTLhBzoeg3S4EkTC7xEYj7em
+iHCfprcUVOX7MoiMoM8ubgvnZr2KBM0C0ePXdSnYcIqKh9eG5aKFaLGxvyZo4Zt6e6EgqHXL
+fgZyCn/90NU3kFKiI5Cck+VkzJy07dKZmoxfTbopjRxOA5hG2A78MplBUYK47URIsMtoia0H
+tjY+OBQMEs/MoWbrY5UvNQ6iif3wpMWlItgec5/Brso43JhvaFXb1mUU3UUOVjegQPdOJsCp
+LLGMNvFAXi+JD9dcrDzS/7QYGgGZWSSxsfTuB342WSSDrzVZHrJTBSSpkLYKHUuRfK1R2z0v
+BBokOsw9X0MV5KlddLWKMDYd5xUTde+t4U8uiKsJ7rjlPqljmIdj/6DFcOxlgo/vMZjIZr70
+jQHUwMqbUEcrhOP4cA5BgOrSW7kexU47CzhACmO9VzHJmQG/ZARVGtmySuJUXccZt6VxqiOI
+1yW3kKTrL/ydRUFN2VoLxXN/GLOgApCL5pe2S8df1hpUshc5JqsdD9aoFTz2UmOPhM6X0us5
+yHgB0nRlvkzTukZbVL3CEl1HJvuq0aAiQmALxrLqstfUwaoB+b7e0yhsirdDQdwCy81kL/hL
+WUrC1IIGsM/JokVglfFCr+VvpR5Sn7+frpRGQr3ABLo+1nB8Vhh+rGKvpwEXo2rXNyo61n5j
+emZpQHMUdV264CKvYth+AdHiWmQVBXvQFDiDBpCMGyr2alBfJDvBLdXlsid2HyaXGjsZKpAS
+OWe4ieyVH6PiL6vQp79sLzeoOF0FcMAZ51QZxTBdgFlXDBBIzfDEBnE3R8YFZI9kh5Wha8fB
+aLfVlC/WUBpg4+OuEQgfGjr5Db6xwNRnRhVHq0r8Xe2LIi/r5jCh8Ot9XpO7lOMPFxFSlDwD
+QVSegaAQwQlYDpyhSHQjSp6ZHi/0F5Rnur1WdTfRvdpaX5oyl0yuCJ0yb2gBd8TlHi8wYK3e
+qsXKNFLRWgtVAUUF66R2mw8raI3iTbw21k0WJ3Z3177TWwnCNdCwhkL9hc1/WjC7pVvkxS0t
+idTQrQdCL8tiBMgoMLhf4ECzJEOrNrzDQT/72PQTbJHJXc4CS+rM0GM4P+YWe1fVofNVnOMg
+Ml/d5VlkbSd+A0dH3F82U1awZoX5RkEKYucoTqIG8cR1Hj6KsqC8LWo6IiYYJPYNXQ2VXEYs
+X19XWV6rFdYb2hRoQKqROOmKzBUn3OIkL+EsFAgHubyWlw9SVFmT4PySQKVK6tWufZ2vq8nQ
+8lLogVUPbSYzFhDrgEpRZm2kHAYuEbdWgTq+2MO3kyFHQ0d6hmpOTXsSGfMhQYMMTWJx/s22
+djAj3nkXrEy2RLUq/KXM01/DQyilmF6Iaeevypd4HU27+SVPYtbN7w7ozSHbh+v207ZyvkL1
+OCqvfl2L+tfoiP+C3EibZPjmAeXQlB7WQ2xMFmsJJQgJI81gckxqV0X1bz99fvyx+Kmbqdph
+mBLE2BNMdHkziBs7jW+ly0sjoAzV76fPx5erP/iRkYFW+csexIAonYRlZHCCXVRm5ohYbwI6
+N8VNvMEr/ADkWFOdV//rh6c1ebuN7EX6KpDMClOtRqlRV16KbBM5Qy1CZ4P2uPXQ5o0kd7Ol
+2xaIJsJKbGJWL9pajBp+F8mewlZuOyVoeEmsBlvqlBSUImVJK1CQqi2ZLg1R7N/hHBQdxmXE
++ux3ZGiTSQtQprNNwhekKaTRgFf+OEoMch8UvP2u+0BKF5dJ7pKYFwY7Cv7QNtA5M3jHOwao
+D3gbPJHXGSuZ6f2OH6MoXUWgx3JGnX5CSrFJMX+KYu2yrHF3tBydNZHGGYgK7KrIU3vBFhbg
+OjtOnBIBOBtak6VTpoKsRLDD3Ae3ShSx0SBLWPCiqknsSPW747g7zPW5ugUh+Ddv5E9GLlmC
+6nMr1TnlwHSayJ4NtuhJh+YvYzu6bfC3KBcTn6WjVLh0hhs9iLC72w4T27PcIbvUbtIi7gO+
+iV0Lfno8/fH9/uP0k0PYJ5KkGEzjOlwBcDiydW6rA78S99Y6VL+Zy88LCl9U5s7qb2E//Mgx
+urRw3pDRYi9bMlqqu5h/EQOy4U1e7sxzkrsCM6PhwI9+ts7vL4vFdPmL95NRZoLqURjhAd5M
+xpwHPiGZj8lbTIqb8xFlCNGCDTlnkfiDdSzYBE0WyZwOQI8xQx5ZGG8Qc6ExM861wiKZDBY8
+HcTMLlTJPe0gJMvx8OfLgfCIVgG8/yclmvywIYu51XdQA3ABNouBjns+DXltI7kAD0gjqiCO
++ao8Huzz4DEPHujG1G5ri+BCTZv4OV/ecqg8j/e7JiScgEMIrNW2y+NFUzKwvd2KVAR4kgvO
+wtLigwjkuYCWpuCgkO/LnMGUuahjkXG1BbdlnCQx7+DYEm1E9EOSMop2F1odQ7NVykAbke3j
+enAc4otDUe/LXVxtaaH7ek1uwPZZHFhXiH1YUfPeQAV+Pj18vmFogZdXDK9iKOLUowV/NWV0
+vccoN5bpGvPSxnBmgHAJZCXI8saHdYkO1qFVnDYG9fCu+fC7CbdNDoXKKDzcOYQ00owTB4qG
+HO36IGxC0Lnkc5y6jIOBi6Ph+4QWReRccYjgnzKMMmg5WpiCvLhtRAIyqCD5QRyiC6hmDQWs
+VPrBrmUuFXKqqmDXxzovpc1L+U4YOgQa2QNZRApLQqUQ/gEa6qm3v/306/vv5+dfP99Pb08v
+j6dfvp2+v57eOmGsFaf7sSaxlKv0t5++3z8/YkDen/Gfx5f/ef75r/une/h1//h6fv75/f6P
+E/Tg/Pjz+fnj9BWX4M+/v/7xk1qVu9Pb8+n71bf7t8eTDAzSr06drfrp5e2vq/PzGUMrnv/3
+nsYGjvFWBl8u7WCZkERsiJAGSJixrhemobKlQG8CliAIpHniDkQq2AcJPg2CWSojatFk0OyG
+HOhIix4ehy6our1/23Ye81LpRqaNDvccMkxlwXn76/Xj5erh5e109fJ2pabYtO0ocpAJWfuv
+xopkI0wXDQL2XXgkQhbokla7IC625oK1EO4nMDNbFuiSlqbVuoexhIZeZDV8sCViqPG7onCp
+d6afQVsC6kQuKRwSYsOUq+E0TKZC2aZwG68/xbAGmDvRvSIa+iA61qUYvFHSxJu15y/SfeK0
+ONsnPJDrg/wfZ+BoR2tfb+FQccrDxrULvvj8/fv54Zd/n/66epBr/+vb/eu3v3q+0c54JZxy
+QnddRYFbXRSwhCFTYhSUCmx3tUq5JzvtOOzLQ+RPp96y7ZX4/PiGYboeQFt+vIqeZdcwUtr/
+nD++XYn395eHs0SF9x/3Tl+DIHVatmFgwRbOfOGPijy5xfieTLtFtIkrmOtLK6eKruPDcO8i
+qAM48KHt20qGdMcT6N1t+cod/mC9cmH0dryDXliyEQ00o6EJta9TZM7UXHBNPNYVUzZINDel
+4JxK2n2xNUbeGvcQpMZ6nzLF4sUkGW7lEHr//m1oUFPhNnnLAY9c5w6Ksg08d3r/cGsog7HP
+zByC3UqOLEdfJWIX+e6AK7hz4GHhtTcKzYS97VJnyx8c6jScMDBuM6QxLGX5GpN7yNAymjQk
+0bnbTbI1s9T3QH8648BTj2OYgGADJLc8ZuwWVYPMs8o3TGE3BVTiXjCeX78RT72OEbhTALCG
+xnDp5iy/WYNSc4HliTQClc3loIFAXcTKqmPg3PlD6IxphPUsxpGA5P8vtFAzR24aorKwkuC6
+/J5TsNvz6yZfx8wS1fC++2pGXp5eMR4fkYa7Pkpjr1MSuaHQsMXE3YvJnbv2pR3bgeqLDBWX
+DtSAl6er7PPp99Nbm5yDa57IqrgJCk4sC8sV+thnex6j2ZMzpxIn6MpiiYKa8xQwKJx6v8R1
+HeEb8JKodoa81YiCW+0tymnYANmgDNxRcANmImHNH1zhsqPQ8vhgO6NMioT5Cq3uNeeYbEjZ
+oD2tbfXi+/n3t3tQcd5ePj/Oz8yRg+HtOY4h4WXALDqMh684fRvg4hINi1M79uLnioRHdULY
+5RJMWc1Ft6cMyJt4GeddIrlUzeBp1feCyG0uUXe22Mtgy0k8orpN0wiNKtIQg29P+1INZLFf
+JZqm2q80WX+T3hPWRWpSMVUep6NlE0SlNvlE2rnVMEHtgmrRFGV8QCwWxlHM9TU8//1chXCG
+j4k5Kd6gGaaI1JW2dHfTZif3QMRUD39ISfz96g98dXf++qyCPj58Oz38GzR44+mNvGYx7WMl
+8aRy8dVvPxnXKxqvdDBjbIYMXXkWivLWro+nVkXDBgp2SVzVPHHrX/M3Ot32aRVn2AaYp6xe
+/9ZlsxjiEKWIw1lTXPeD0kKaFSh7wPhL4+oX3TdF2UinDno5K6STGuf0GIPMgw80jBXcxswB
+cSgL0DpXyqfs5moxSZIoG8BmGC6ojs07syAvQxI6oYzTCHTedAVtMHuJy8uMbtUF8gli23m7
+qtNChy43N3cAql1cE5NF4M0ohSsUB01c7xv6FZXL4Se+311rxdrgGBIDOz5a3XJZ4wjBhPlU
+lDdDy1dRwGzx5c7IIRHYhXM3j8D2XE0kMG6PbNUDg27VLh+G1RbmKR0TjTKv7ilUeapQOHqa
+4PlJZTQJdSQ3ywvBgHIlm04JBGq4IFBqtn28i4EEc/THu0a9rOhdpCWkOS64OyyNlM+qC+6z
+WLAJBjVWmJE7e1i9ha3FFIYRQzi9TKNXwRfmI/sFs7U1mVuAEtOgg+CUEw3FhOJFyGIABXWa
+qeerKg9iYAyHCHpWCnKjIF90mI+MFUh6zhNmgfAwNaSaDGvE99n41h8vBMyzHH3xECfCsGzq
+ZjZZxcb6Rgy0MRHSLWMb0ZhIiM3yrEU0KWmHLBVjuVB/cwJuKqKKto3sOD93abNJ1DwYRV6b
+bDTJV/QXs2+zhDpgBMldUwszM1N5jUKXUW5axCR3Uxin5Df8WIfmK/JY3gnA0Voa87jOs5rx
+z0Xo4k+Td0sQehJD48mbsQrfECcxhRR5bjY1StVzxx60F0GAvjeACkx1Rs6/vEa5EeaTeQkK
+oyKvLZhSAuCMg+PQ73yrKlg1ZPILjMBk1J+vvogNcRh2RAJ7sym2qJ7EV3LKbyLjXkFUmYdb
+Kw/7N4bdXUorh0no69v5+ePfKrD60+n9q3sPKoWVnXyBRg5uBOINj3WjFuzky+VmtY8xQKp5
+2aFcl5ok3yQgdCTdrcJ8kOJ6H0f1b5N+7pT06pTQUazyvG4bF0aJySXC20ykceBsORPcptA1
+JMF0laMUH5Ul0HGyufoQ/gM5apVXJJHH4Oh21orz99MvH+cnLSu+S9IHBX9z52JdQhvkIxxY
+X5OF0U5QJAqYdgyswLoulaDnSk0WaAx2CNAI83ZlMHPmhtYMSD3/QBfiVNSBIQ3YGNkmfEJ0
+a5exzuVz9n0W6KcPoE8gJ7W22Y2ALa26V+TyqQF9IWFieC904DgZvnBlrchmW24iscM7+yYo
+SNiQvz0dcvKkKef80G6r8PT759eveEUZP79/vH1imjvzDa/YoLx8W5WGMG8Au6tWZW/4bfSn
+x1GBnB2bYrGLwxuGPQbUQ12Jdp4MaAtTvAP/ZUe1I8O7MUmZ4iPW4RFuC6T3ztJxQM7zbhOu
+huDN9XGNF/A7g69SeknVPjfsXSY6qHSIBRbA+Uwg0Y4UFq4uDDti4c8aFhX6edeiQmPXFmTf
+EVm4KFHsV5XQD8ziu6hRO6l3SEEs5/aOnQe9Gz5F8TFOaCaiv7XA6Ojj2wIaWkjB8QmAo6zr
+q/euXIPjI48FvRoTyZvnpCoMsa2MYdXToVqz2QW/V6wjv8mIEUJaJvK4yjNiCegLxxd3FuOQ
+Ep0kuDm6LYKjNQoGLnM1j0sEF8pOTo4eVThlE+AZdoN+BEd5Qgofytncm41GowHKztFivR4s
+DeWdpgqoW5fugxQ+9ng28vaMYItytaSKMOAPPgDkLFt0QA/Q/E0tN4bVqEPqQuTlF3WM6lDl
+ym20LB0Uuw13XCmSLE/TvY5OwXAvGJm8vJUuK5xerBxVdgI3mGs/VFh0+oW1BjX1uxeE/da7
+nXqp9FvFOia3Koq7uvZDoqv85fX95yvMe/35qk6R7f3zV1OqEhjqE9hVnhemY7oJxufse8Mw
+qpAoiOX7umdD6OSyRxNIDUvdVL+qfF27yP6BDDBKEEVFahLKOjhL0SCxbuXInB2srNlimDvg
+mzt2Td5cw5kPkkOY82a1y+OofPfgkH78xJPZZGK9axCDphOHQ7mLIp38SBnj8MK957X/eH89
+P+MlPLTi6fPj9OcJ/jh9PPzrX//6p5FEDF+JyiLxhZOrwhRlfjDfipqvxw7om3+jisjgDBuy
+SUqCgceuqjeo6+7r6GjeJegFCj2kz0T0BuLJb24UBnhjfiPd4SyC8qYiD8kUVLbQ0j4RFppR
+JzQAbVnVb97UBkv/h0pjZzZWcTCtX0iS5SUSqY0puolTUVwGe1DdQcWI9m1pvtsh0ngFFnWO
+CkOVRFHhMiU9y+r2SuvWHIeTowU7EgNsNFQB78efsTNWwZp8xtsLq1BVcCPi+kIYpv9mtbet
+U2MLHE/ybntwXHivExo9RG1BegdmVRSF6CEo7YjO4afOb8pb/60Eosf7j/srlIQe0NZusFY9
+DzEdNy1EIHhwB1WO0KG8bC1lRAoWWROCUIgKI4ZvccInES420GJaVVDCQIC8qZIiq8vjYM/K
+Z4prBMZ9ML+QMPozZono4F0XEPPDVYREGOKgL4JTLLEkPbvky+iafZ3Z5lgjXbP4z7XW1MpW
+R9PoLC9UXcTT+GCol5exm1IU2wEataxTGaMHeo03FRYJZk3ANSsppSpK3Lzx88B6pIeMoEtd
+roHRAc2BSE+EXNQ1QOZuqpsY9Wm7kUUZRSmsM1D0Busn5WmAcRj1yrQTW67nLgIzTfDysvIj
+12YnR514O78//IesVtPqVJ/eP5DD4AkevPzn9Hb/1cj/KsPIGIqZjCqjw27aYLrCFSw6ymaz
+ODljNEBNu6nRqCNT4+owF8ZopzyRYbNby0UyXJ454FlUq8hmDB071D+Ov9GJ6rsgPzhiLQiz
+ANaLsjDOY0qNv1pVDVVQUaLuRXVrJEHzULmXr2ctQwGhgrUpykgodWf0JybbNqTCEjYW3vbV
+SsiRDi1DHcNAELDI6Hz2ANs/nF1d5KwBDRjfWDdhHsh+GKtBnUWrWM1KxRTfmkz/D5a8zquO
+BgMA
+
+--oyUTqETQ0mS9luUI--

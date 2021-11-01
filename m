@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7F2D4414B1
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 09:04:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A2384414B0
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 09:03:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3428C16B8;
-	Mon,  1 Nov 2021 09:03:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3428C16B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 949D116BA;
+	Mon,  1 Nov 2021 09:02:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 949D116BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635753850;
-	bh=sYM+AQ2VI90tlRMyWDAGtQm/3ejy9/P9gDykux3i5Ys=;
+	s=default; t=1635753823;
+	bh=OJpGgYRNIncpF2GwbiQ/mq6gk1bqLz+54+/80XqZOhQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NUS0F0W1DIDQZZQ9oCwrdRrKfrZ/XWWb+B1QxH2mLOchbGn9C0AFHfy7Bw8Mjf477
-	 IcOcnfXVg4uYZH5ZCiF+p/KEXEOj72V1S4eDkAnmQNGOAVPB5FIZ1P8V2Dbdjl7X/c
-	 5iARIzP67t7SnKyHZ8cGXxudKkvMQxmMmi0gk+OI=
+	b=co86z+mdMC1mEkQuXU48i5IBSLVFxUfei4UH4+sgggmL9Nipxha/EdyZg1TfNOMJq
+	 83hUKUsaMu56G2V06mAfACYMZc9XyuN/Hu6RIsL06MWcSMu/ySuS8mbOua8Wu8Ws76
+	 rsGATFSUg82RlE3g1+y1ljwauCpxjJcn4drK6X2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9B44F80510;
-	Mon,  1 Nov 2021 09:01:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4A81F80507;
+	Mon,  1 Nov 2021 09:01:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C968BF8010A; Mon,  1 Nov 2021 09:01:16 +0100 (CET)
+ id A5B7CF804F2; Mon,  1 Nov 2021 09:01:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,45 +36,44 @@ Received: from EUR03-VE1-obe.outbound.protection.outlook.com
  [IPv6:2a01:111:f400:fe09::61b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D6D9F80269
- for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 09:01:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D6D9F80269
+ by alsa1.perex.cz (Postfix) with ESMTPS id EAF95F804B1
+ for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 09:01:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAF95F804B1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="UyUS4FDK"
+ header.i=@NXP1.onmicrosoft.com header.b="bAL+m+UJ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QT1qf1haEsgiGtUxS9M7WGmDBOF5fot4GivfYsCj4xu9Z4tOuca/uJfrEGVvVBe8Knc7C/R3UF9xeAlC/FoRo88KiVC0r550zhquBHfw4Q0eQDJqEePPSxp1cBStk4zv+ghCZhavOLzl9wMabyCSrC+DmclihN9WPGUerw+q4n9lip2YUPtxuXjvlxQCJqGqzxRgPvNc1C6sLeZTY67+eC/t3CIxU+mRIAuZgDtksL3f3HwlUUNMpoFowCx+XDky0a5WynFut2LQGi0agxRlDTmjJ5CG4S71/RLOIn6in3OCvetF4fbu3hPmq1Pn/M4joUINzESjEWER+h9+ErlAlw==
+ b=cE14NhI/usy5G6AB7Gzcj+w526+2mptmyLU8KSSetRUnAK+SgjeQur13Ue1nBTW3uRJL+bkdAtzi6vokFTHhalaNtt8SQ77Mq8CfXqBgNjoZ/+yGwir0uUzjpS00uus4rq4L6qychM2rILWehZhcU9mwMoxw201IC8V5m/iQVBYgQfp3pM+5KBMSSOn8ytD/PnhmPW6pBYgNd3qbv41OzIxzqSD1n8chHddCoxoQDIJo7Thn6a344UBCP//pqAPR0LC27gYkZvh+y2xKxebJzXfeuNsrlUaRXugm312cug3i8NfXc9u41P0eCwvvBrdFsScHFS5RYsu9gVjNZb249g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F1LywNPRrl9Cu1ZbF82MTzYSGrbHurHEZM0KMMfh3iM=;
- b=CHGdotp6UcLU1ksq5WcHcMyK19fjKuOzS5MnM4WRdfIvR0JcA9m7MIVYAdjHo72ayHeGxtAKl/mCXJqbnY4LDDtOHCzZaHgIxEpfYU/A8HPCLYokV2o+lqLLWH//ZdKWq0OIfhvyV+7SvIBLl/Tj1kppdwiX5uzfmZddqeqchAoyQqmNGOdOlMdjpHV/G2UxDjl4i8rzBS/91zLg+R5esGC2aqj3wjK4H1dmJxY5PkSG5o+1wvqcDXsfLmASusARcPvv4C/79qTfzqZlqdFkIEeWlgw+0RMO2UAzZyT5VTsaDtsPc+1UBHax8rWlqszcP6JA1p/TWq5Q/eiok1a/Lw==
+ bh=cG8P/WfZcRAHN57UVOx+Wd+RrVgZpkhz13HcXc8Xm+8=;
+ b=UvKUdJZl/htNWK9Mey3KudOjtV9peAage9DtcwUN+/X9StH+Bw9HwZDwSBtij5BI/lKMfdOjksuIgINBROvoC7GlePDZIGia6Q24KmtxSwVCLet6mj8wdx/ioYBSqheHt0pnCjbF0MN6UKGMuLKML5zSfGhNIpodZXUVPiMCPcMd/jFP4CA0q26Mgj+qdLrgy2QL5bw6sOczpG7EvgnUNQEQyP1qeoQIzGPdqlXxuAFC+ur9QI2NAf7sScJWPFH3DPyoZ12YMWhPqsRS8PZwkTenL/vk4XjDRUEn8+1izUfecM3vINwk8rIk4dkHF77tNQRkXVrjevlGxF6Xq0UIPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F1LywNPRrl9Cu1ZbF82MTzYSGrbHurHEZM0KMMfh3iM=;
- b=UyUS4FDKPmGykZGEGfmsrcWMaOZl7/uywMzSYVqUZ5YPpQdE3heWMCWUXeTiX7m/LklBv5CZNjHc27YMjPGpoBQWZuAw4+zKLTk5UeHbQBfHhKMfYHA9hEnnetTeL8jI943VOO6Ebcp1VdvQr96K6W43vYHElM8BiBwVw6Xy/O4=
+ bh=cG8P/WfZcRAHN57UVOx+Wd+RrVgZpkhz13HcXc8Xm+8=;
+ b=bAL+m+UJvKI2Ew3oC435IQ/VBbtZ/7ap+7IRK+QpcQyVcDJoTT+iZYYFMNTnCfduRyGENCln0fp+3sAyrExjzN+DwxjgPVkwIjRC27Bs67Jek0BetpZ8GzynKgwjRvtbSrWWnz6T7ssBmqUSJS11zy1WbY3GP4xeHSWStTPM7eg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
  by VI1PR0401MB2430.eurprd04.prod.outlook.com (2603:10a6:800:2b::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Mon, 1 Nov
- 2021 08:00:53 +0000
+ 2021 08:00:54 +0000
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f]) by VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f%3]) with mapi id 15.20.4649.019; Mon, 1 Nov 2021
- 08:00:53 +0000
+ 08:00:54 +0000
 From: Daniel Baluta <daniel.baluta@oss.nxp.com>
 To: broonie@kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH 4/6] ASoC: SOF: mediatek: Add fw loader and mt8195 dsp ops to
- load firmware
-Date: Mon,  1 Nov 2021 10:00:24 +0200
-Message-Id: <20211101080026.297360-5-daniel.baluta@oss.nxp.com>
+Subject: [PATCH 5/6] ASoC: SOF: Add mt8195 device descriptor
+Date: Mon,  1 Nov 2021 10:00:25 +0200
+Message-Id: <20211101080026.297360-6-daniel.baluta@oss.nxp.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20211101080026.297360-1-daniel.baluta@oss.nxp.com>
 References: <20211101080026.297360-1-daniel.baluta@oss.nxp.com>
@@ -89,70 +88,70 @@ Received: from localhost.localdomain (2a02:2f08:5719:1500:cdb2:376b:257c:429a)
  by AM3PR07CA0070.eurprd07.prod.outlook.com (2603:10a6:207:4::28) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.9 via Frontend
- Transport; Mon, 1 Nov 2021 08:00:51 +0000
+ Transport; Mon, 1 Nov 2021 08:00:53 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b3df016d-f463-4392-e28f-08d99d0db9ed
+X-MS-Office365-Filtering-Correlation-Id: 1e7550ad-8ac4-4874-9e6b-08d99d0dbad4
 X-MS-TrafficTypeDiagnostic: VI1PR0401MB2430:
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-Microsoft-Antispam-PRVS: <VI1PR0401MB2430EEBBBB8AD62A8E6C8473B88A9@VI1PR0401MB2430.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1332;
+X-Microsoft-Antispam-PRVS: <VI1PR0401MB2430DAE8622AC75EAF60C372B88A9@VI1PR0401MB2430.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1201;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: r9ke5Ptk5URX2ffJhAbv3FyoXA1BrUNXyUe8tUuS/P6u1Bri1cVGMvjB1pedLfW62ZnPiCEpHIsT6qObRJ6qVyY9K87kUsA0/fZSwwBn5UBRjaEDkETgbSx3bV5Ql/KFuvBqA+TV7xiJTOb7tLoqd3lMT+8XYTWkqUbnckC7LcKrxGzGZnf2doHjoUnv9YjJj/gQ2JaCzXbIJEad2379zR1OXZHdj38cS7gB7iEnLrLeElCAw1y4u+eSDmPoB2vE6y7Ngbyq7TQYOz2q5HSNiMBlO8Fuv/i1HoF3XRqNpFM2YOofzbn4ibFGVpKk8ke+BEaq/J/W6K1cSSLJ8xmI9ecIZ59zT0FeAvtLuXBfb6/e24rU3mMWPRlyX4atVwfqFjKkF++aYdbsonA56jNTmbvU29U2n7j9jY5XFE7ZvrdJ6GY4Gzy4oly+M6Xxme4+k4bq5lJ0+pzikVp1JTczhDD5bieFX90SnV+iYPAuFnaJFsg7a2oYZDatFTH/zSRpgN3tb/sgX7rNCnieLJuClKeLY3YWa8NfZIqhWkrBUvCoHN7py6JagexboXJkJgL46+7e2TY2VcFpXgbyRKb+ftJwuyv/lcW0Imoo9uoLYVKDHXMGjjKlHZ45kf3LilH1KKvaQhqhlbcvzn42aBLa8w==
+X-Microsoft-Antispam-Message-Info: OT1v0NMNEVyYjCX3MI+b26GYWR40vFqDNFZPfHZxcfXUzZxDVf//lAVB5hdC51RU6aF1jxwsziS6LBoSGG8efRy9KDF012lFIOlb5eXU1DfwqGx620+kXYCjHvoC4HLFmRWBSoDxvjaHdpbz96TWqGAxKdUTz/Lx7z6x+XJZJzWN+JH+L4edU01DG3A0fyEDB8a/3dOmbBXTk1tpHoD4Q4m2uUDtfKmi8G+AvX6hUUDxvCf6JkdN+atZj0uB5SZsHJwCSrlGuk+59J95cQnUQsA3d+eUm5JdroDzvWoIC0emefvEvsvW6I+HfajOkEfWmiVWiFj7lQsb/fkVAWhXk6mHRuHnBfb4CF6jRzeYToQruFVo3x5kGhDFt1gX5Xm6MRZ68dpl7Bx9rs1xtk4yIHfQWaBB9OpIj7uJ+RFLIEJqQtvGVF8t94YHGWfxxMvZsJo30I5emQn9Z3SFC/aMYLEdc/AGofh/4KLQQ9XnWf33Gx44AwCojrjmQFUKwbj+rgzkcCw4TYwezscNbVmg86J4JqJIM31K+nUUuT+A/lOVmzfrN+7PxlozGKvZdUeXKCqYiWH+/NEaRW6eMDMoLCLQJYPQqM3S8dMb0918zoYdCgZTT5evVBRuYNTp2vIDRuNmdl2LaXSQ0BT/8IOqxQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(316002)(8676002)(508600001)(54906003)(6486002)(8936002)(6506007)(1076003)(5660300002)(66574015)(83380400001)(52116002)(6666004)(44832011)(6512007)(66476007)(2906002)(7416002)(2616005)(66946007)(38100700002)(186003)(86362001)(66556008)(4326008);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LytLZkQ1RU1OTzg3MnJNbUF4WHRJNGpPakJROUNONzc4TWxpYU5DeE9OaTNS?=
- =?utf-8?B?aUU4Q21DQWZWcm44b1pBYmpaVkpvNzljYlFDTFFrV0lRVGsva1VhRHNIYSsz?=
- =?utf-8?B?WlFYc3A0QjcyMDFvbWRjQ1hrYUlJU1h0TGJIajRZZ0hZM04rS0RXRTNLZ0RF?=
- =?utf-8?B?MUdjYytXMS9BTUxuSlJpdjN1b0krVWUrWmhoelRlOG55NHo3aHltTUpkbHht?=
- =?utf-8?B?Mk16amEraSt1ai9xSlBWcm5yK0lVMnFOOGE5Z2NLaXpwbGRnZ0xyTmlXZ1ZH?=
- =?utf-8?B?SHRORUxCcFVGLy9mc2I2OTBmTlNDVlhjQS9FbmpoN0NsaXV3RTJ4YTd5eW1t?=
- =?utf-8?B?YmRhb1JpS0RNcUp5Q3FRWkYwTWR6b0JCaHdIQXA2dE1YZFFqNlRyVWVjb0pK?=
- =?utf-8?B?Q09XWkhIYnFlM2VIY3BSajZKc3JWdVFzeGNXa212RWw0Z3JoNncyZGNNTE9O?=
- =?utf-8?B?UDZ2TVE0WU9Dd3VOTGxMTFlwVnMxZDAySnp1OUVJUGdVZWdqS3VuQlFrYjFj?=
- =?utf-8?B?SitIN0VCb3d6QzdhVCs5ZTMxUTcwMmJiWHNQdTQ3Yk5pcHZrbktxSi9VTFBn?=
- =?utf-8?B?cG5DVlovZTFTOGlWaFJwbUtUSmpTUmFPR1hLczNBbDY2UDdvQlBDNWZZL3pk?=
- =?utf-8?B?M3FacDNGVWFQOW9qKzh5WTJSUGtNOWxubFFLaTErL3VyQS9hR1JBWGY5SGRI?=
- =?utf-8?B?YnpYc096ZnFpNVF4LzJNckhhNGRMQnVTT1lmVjMzaHFtb0JROGo4WjR2VXpa?=
- =?utf-8?B?RUxaUU85RVFHQ3JUcDcxZFZCTXJrYS9NOENMZUhlOHNZVlFaUzdaNUcvTGJz?=
- =?utf-8?B?THRVUFJiZU1vMElOWnVCeisvZndxdHBOd0lwbDdQcVZoUDA3NmZhMXhqVCtC?=
- =?utf-8?B?R2NwRkVrejZLL3M0OGhESnpjeGhiUEY4SllTVlFrV2RUN01aYjh2b3V4a0V1?=
- =?utf-8?B?U1lSd1J1TEsxUUtXdFBOdVJVSGhTcC94SUNEdU1VTzFhWnlPOHJEN3BkTmMx?=
- =?utf-8?B?MjdjdmtONDBTVFl1Y24yMlluaUpsN1FiSkNLVW1mMVZTeWErYmZwdXJzTUhq?=
- =?utf-8?B?Y3U2OFV1UmVTRWY0bTFRNUlRTnlMUEc3alg2SmVUR29uM1RoN2l6RE1yN3Fr?=
- =?utf-8?B?RkFmRisyRmlLUFJ1OTgrZkIvSUg2cXduc0xTMzdwWmN3cVJGWjNoQUswVCtF?=
- =?utf-8?B?Q3BIWmwxbEE4ckZnakxHQ25nTi9sWElGM21VWUhOUENqUys2K1E5WUdxRFBj?=
- =?utf-8?B?bWdtUGYxdmMxZFptbEEwZEtQT3hqMmRlUlRCOUxXT25IUG90OXVOb1VKRU95?=
- =?utf-8?B?WFFLcjB0OUVmd2JhYStrbE45aW1HWkY2RjVGc2dtYjdSckx0Zi9lclQvTk9l?=
- =?utf-8?B?Z3VScUtMK25zQVpMTVlhaStyR1RrRnRWUVd1NTBUL2pNaFdiSkVWVEE3Y0hw?=
- =?utf-8?B?OEM5RTNvbXhGN0Qrc3EwbUFrUmVPTHh5dmpZZTVaUDcyaUZnRlBvc2ZjeGRU?=
- =?utf-8?B?Q21SR1NMMGNvcVQxTHUrVE9rSytTcWQxOEhaYmNhM2NZL2FRL1FsSXlaZU8x?=
- =?utf-8?B?VUFrQktTc0VJdEI2d3FBMU0vQS9jZi9uSEhrSkFKT3IzdUZwMy80RUJJK21Z?=
- =?utf-8?B?QTZyOStJM2o5WDFoRXBDRC9jVTc1eU5WcWlramUzUnBKUUlnUUZpRi82UVgw?=
- =?utf-8?B?alpNRExGOWUxSVFIUk1DbGNYejhUUGxtSkF3VnA2aVNPamhIR0pzbkE5OE56?=
- =?utf-8?B?Z2xqbnFjSE1kK0hqdWg2Vk1ZU2NGWjZFbmJaTWVXRXhVOVBhWDRUNzRETDJB?=
- =?utf-8?B?OFhvcVhEN0ZVcUg4SjM0M3FqZzk3dVJkQnpzNnZkVk55RUJIUHlIcjdVQU9C?=
- =?utf-8?B?OVJFV3pna2NDWi9qeXBoeENpQnNVcWZWTXR1eDBhNGpBRmR4N05ERkM1TDNB?=
- =?utf-8?B?ekJpTURmRjlieWgrNXNNWG0veFR4c0o1RTA0RGt3T0Vwa3QvTDk2U3gxVDZ3?=
- =?utf-8?B?dko4RWttR2pFd2FnOXVBM0FBNlBXRWM0eFV0cStIMzE0V2JMblFxdzB0UTkw?=
- =?utf-8?B?YXBZN1FvYytoU2Q1REROQW9XTU9FdEJnRUo1NDBjdGljMTl1K3BzZEFOSnpl?=
- =?utf-8?B?UXNxeUo4b1l1eXB5R0x1SWpnMGFKVVFERUUvZ0NnNDFBa2hRMVVadm1pUWdu?=
- =?utf-8?B?UkxwSUk5bmhVL0htbWdEYjdTbkRURi8xMVlHWVgzaVU0NXRqTTZNeWpESjY4?=
- =?utf-8?B?NHBVUGtXbkl5NEJ1V0VyTHVmQlhvZG5BZ2JiZUpqTFFRN3RaVVZaVXRiMDhO?=
- =?utf-8?Q?xbeip03GKfIwk3VNOJ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1dQdzJMNksvRTRGcE1RN2lSWGJ5UVlkWkVTenlFdXhBOHdESitFZnA1S2h0?=
+ =?utf-8?B?SzAzajZpenlxalo2dmxBblVyVk9pWkwwMnlaejRGSU1wMFU4V3FtRXhLRXpq?=
+ =?utf-8?B?YmgyT1RldWx5Y0RveDBMZThjUndLZnZ5VlprZWlvMmNjYUVPR3FXVW8wczVL?=
+ =?utf-8?B?UFErRUZaVmM2eWttc3ZqWGNoMWZOUVlPdEdmRUVHQUYrVHBLM2xSMTR2S2g4?=
+ =?utf-8?B?VDMwYnJrc050dTZrSlBCMEVadHZnSFJWd1BrUHJ5UHJHUEdNbWhxK1duVEtV?=
+ =?utf-8?B?OGxmaENXb1VBSGVMeEltbE8veENMM1NPRWlQZytlVFJYK0loMnRmWm1Uc0t0?=
+ =?utf-8?B?SWNLR0x3SHpENW5yWFh6aU16OEZDNDFCa2JCeEo2RjAvMTV2NEJhd3M1bFQx?=
+ =?utf-8?B?WlJtSWk5WFozc0t3RkUwWUU0WWl5d1RMN0lpK01BTTlhMUJ5RElXWWtJQVFw?=
+ =?utf-8?B?MW0rdzcwb3FMeWhyOGswb0JWZm5vQkRmclFlRG0wSUFKTEp4bjJUaWhUVWw4?=
+ =?utf-8?B?L05RVXAwZ0hyUndzMjJ3YlQ1cE1ST09PKzZvTWdPb2dLbFFuRllpcit1R2sr?=
+ =?utf-8?B?YlNuemxWajIrSWRjL29aeGlmVEdKZE04cFl5dkFmM3l1cEdpWjl6dXRWY0Jt?=
+ =?utf-8?B?M0VEaUc2YURicGQvbHJQdTBRQ2F0R203bmlTTnBBTDB6QUtGdHpUcTFYeTRw?=
+ =?utf-8?B?VS93eXhwM2lDeUpna3NtSnFLRDhwcm41ZWE0WjNuSjY1TnhJOGZuWGN3alEz?=
+ =?utf-8?B?MTJFOGhpbEFKcmQra3pzdnNlOENhY3VvNzBoYkVBYmpEanNzeTlPaURXOGtt?=
+ =?utf-8?B?YmNlUDNDZEkzM3hPejNUWlFRdmlmYkhjUUJOVno4TmRUaWtSZitnS1BHZ0lr?=
+ =?utf-8?B?YVQydnNGK0FiVHhSK1k5VjU5NUdod3orZjNjakZPYklMOVhZZkgwWFVjZlU4?=
+ =?utf-8?B?clFYL2hwTTFwU0xoUC9EOTFlWmg4aVlTYkxmdFFmOFY0MUs3YUR5QnoxR1pM?=
+ =?utf-8?B?UVA1RmM3MGkwZkk4N09jaHBzSFJQWjd2dUxERC9EdG4zYnVJcGxYS2Qwc3NI?=
+ =?utf-8?B?eVJrZ2RTMVBNMnkxTlpMZ3lROHd1RzRXbFM0Ukc3ME9Cajd6YlRpcXh0NXZB?=
+ =?utf-8?B?WlFWN3JDVEw4VXNsVTBWYnVlRmZaaXpjaGdOL1BrREQ2dnp1Y09JT2pybUFH?=
+ =?utf-8?B?UGxHUHl6cTNNcWVaZEdGQUYycFZ3dmNSNTE5ajBKVGV4dnZuU25tREw0dmdo?=
+ =?utf-8?B?Y3pGZzJVWnNGOWcrMVJTQWp2R0JRZFFRdU9lV203WEVQTzY0bU4rZWlDVE5m?=
+ =?utf-8?B?bEZYb1paNmlObDBvditFNG5MVUc2N3RQZnc4a29mdW41Y2xLRjBkMFJzdEZq?=
+ =?utf-8?B?Z0l6VnBOcnZ0QlhlQzhrOFNFc0hYelJLVzBsd0JwMjhGZ1VjMjR1VWZybnBq?=
+ =?utf-8?B?RWZJZ0tHVHg1TFNLQWp0SkJwalRmM0hxOUtFT2VJMlRJRFo1cW5OYVFSTFcr?=
+ =?utf-8?B?T0RVYzdlYkZ6RXZZWTlDVFFWaVdSOUZIL2tydWJNS0R5NVgyN1dzM21md1ZR?=
+ =?utf-8?B?VTk2Z0dhUmo2b1d6L2hFeW5oL1lENVpyYTVLVFBkbS9YaHlCeEMybXFnVjAv?=
+ =?utf-8?B?ZUtiLzZVbFNEVlUzaXRoR3ZLdDdHcWRneHJabW9FQ3hVRTJ0T0hITk13T2RL?=
+ =?utf-8?B?TE9vV2RlUnQrSkUxUFdqcTFIcU55T0t4S1JyREF0NjhhVGNTd2xYakpFbUxL?=
+ =?utf-8?B?OW5sTEdhM0E0U1laVmJKditnSjZGbmlheTMzU2VpTm13SXFSRVJrQlBpL20z?=
+ =?utf-8?B?aVVBZzFWVFFYOVdUdWlGeEpMN09ya0M3UE94TXNPRDZtUW5xNThURzdxWGdn?=
+ =?utf-8?B?dlFUWmtrNU9USGozNGxSWmd0TktvUmh6U2t0Q3ZTTUs4Rmt1aUYwRmRHaDdn?=
+ =?utf-8?B?bkNLOWY1Y2t4WjByYkp4YVVERmduZmNBSitBTE1ibjJ6b0JZRG93ZDNpaHJY?=
+ =?utf-8?B?ckpWTXdYM01iY1NsN011cmhKa2xwbE55ZUNxb1hxeDM5T05MQTlrOXdmWEpV?=
+ =?utf-8?B?WU51UmhhNzhFUFk0ZjFCKzF0MVltK3R6R0d0MmJVamNLOTlPODdSckxEUkRK?=
+ =?utf-8?B?RUI3ZEdGWE9SS3k5cjhQNm9xL3hRd0hCQmNZbGFsTmV2UEhzclcwcjZZaHhY?=
+ =?utf-8?B?YmFKS2lSeW9jemhwNURpWjhqRVhlMEZSbklkTU1yZTAxOWNrM0s1OUgvN2ZN?=
+ =?utf-8?B?SUFqNGlPSzA4NkZ1eUh1eHRURzZjWXJLV3U3cVllVTRiWEo2Uk9mVXZvMUhI?=
+ =?utf-8?Q?gNXkIbw4tDSRglK82g?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3df016d-f463-4392-e28f-08d99d0db9ed
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e7550ad-8ac4-4874-9e6b-08d99d0dbad4
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2021 08:00:53.0735 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2021 08:00:54.5747 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mZFXN04+v44lk3ZhJfuC1bmu7viMCNOTaBQfcsaS1bB8ZFAdpO8owhix30AHAUF/y8EimdVkarS+uGcYPGkUoQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: pj7h+X9deZmePj11gQdqwp2uiNcnR0TNBuoTkOOiytnJvIt1XvH6MwAJLje7UUYyEtnF0OYdJzphM2cbkjgWNw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2430
 Cc: guennadi.liakhovetski@linux.intel.com, daniel.baluta@gmail.com,
  kai.vehmanen@linux.intel.com, Daniel Baluta <daniel.baluta@nxp.com>,
@@ -176,8 +175,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: YC Hung <yc.hung@mediatek.com>
 
-Add mt8195-loader module with ops callback to load and run firmware
-on mt8195 platform.
+Add SOF device and DT descriptor for Mediatek mt8195 platform.
 
 Signed-off-by: YC Hung <yc.hung@mediatek.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
@@ -187,130 +185,61 @@ Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- sound/soc/sof/mediatek/mt8195/Makefile        |  2 +-
- sound/soc/sof/mediatek/mt8195/mt8195-loader.c | 56 +++++++++++++++++++
- sound/soc/sof/mediatek/mt8195/mt8195.c        |  8 +++
- sound/soc/sof/mediatek/mt8195/mt8195.h        |  3 +
- 4 files changed, 68 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/sof/mediatek/mt8195/mt8195-loader.c
+ sound/soc/sof/Kconfig      |  2 +-
+ sound/soc/sof/sof-of-dev.c | 13 +++++++++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/mediatek/mt8195/Makefile b/sound/soc/sof/mediatek/mt8195/Makefile
-index bf23d88db828..60fca24c068a 100644
---- a/sound/soc/sof/mediatek/mt8195/Makefile
-+++ b/sound/soc/sof/mediatek/mt8195/Makefile
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
--snd-sof-mt8195-objs := mt8195.o
-+snd-sof-mt8195-objs := mt8195.o mt8195-loader.o
- obj-$(CONFIG_SND_SOC_SOF_MT8195) += snd-sof-mt8195.o
+diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
+index fd6ae0629a1c..0147d089553f 100644
+--- a/sound/soc/sof/Kconfig
++++ b/sound/soc/sof/Kconfig
+@@ -42,7 +42,7 @@ config SND_SOC_SOF_OF
+ 	depends on OF || COMPILE_TEST
+ 	help
+ 	  This adds support for Device Tree enumeration. This option is
+-	  required to enable i.MX8 devices.
++	  required to enable i.MX8 or Mediatek devices.
+ 	  Say Y if you need this option. If unsure select "N".
  
-diff --git a/sound/soc/sof/mediatek/mt8195/mt8195-loader.c b/sound/soc/sof/mediatek/mt8195/mt8195-loader.c
-new file mode 100644
-index 000000000000..ed18d6379e92
---- /dev/null
-+++ b/sound/soc/sof/mediatek/mt8195/mt8195-loader.c
-@@ -0,0 +1,56 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+//
-+// Copyright (c) 2021 Mediatek Corporation. All rights reserved.
-+//
-+// Author: YC Hung <yc.hung@mediatek.com>
-+//
-+// Hardware interface for mt8195 DSP code loader
-+
-+#include <sound/sof.h>
-+#include "mt8195.h"
-+#include "../../ops.h"
-+
-+void sof_hifixdsp_boot_sequence(struct snd_sof_dev *sdev, u32 boot_addr)
-+{
-+	/* ADSP bootup base */
-+	snd_sof_dsp_write(sdev, DSP_REG_BAR, DSP_ALTRESETVEC, boot_addr);
-+
-+	/* pull high RunStall (set bit3 to 1) */
-+	snd_sof_dsp_update_bits(sdev, DSP_REG_BAR, DSP_RESET_SW,
-+				ADSP_RUNSTALL, ADSP_RUNSTALL);
-+
-+	/* pull high StatVectorSel to use AltResetVec (set bit4 to 1) */
-+	snd_sof_dsp_update_bits(sdev, DSP_REG_BAR, DSP_RESET_SW,
-+				DSP_RESET_SW, DSP_RESET_SW);
-+
-+	/* toggle  DReset & BReset */
-+	/* pull high DReset & BReset */
-+	snd_sof_dsp_update_bits(sdev, DSP_REG_BAR, DSP_RESET_SW,
-+				ADSP_BRESET_SW | ADSP_DRESET_SW,
-+				ADSP_BRESET_SW | ADSP_DRESET_SW);
-+
-+	/* pull low DReset & BReset */
-+	snd_sof_dsp_update_bits(sdev, DSP_REG_BAR, DSP_RESET_SW,
-+				ADSP_BRESET_SW | ADSP_DRESET_SW,
-+				0);
-+
-+	/* Enable PDebug */
-+	snd_sof_dsp_update_bits(sdev, DSP_REG_BAR, DSP_PDEBUGBUS0,
-+				PDEBUG_ENABLE,
-+				PDEBUG_ENABLE);
-+
-+	/* release RunStall (set bit3 to 0) */
-+	snd_sof_dsp_update_bits(sdev, DSP_REG_BAR, DSP_RESET_SW,
-+				ADSP_RUNSTALL, 0);
-+}
-+
-+void sof_hifixdsp_shutdown(struct snd_sof_dev *sdev)
-+{
-+	/* Clear to 0 firstly */
-+	snd_sof_dsp_write(sdev, DSP_REG_BAR, DSP_RESET_SW, 0x0);
-+
-+	/* RUN_STALL pull high again to reset */
-+	snd_sof_dsp_update_bits(sdev, DSP_REG_BAR, DSP_RESET_SW,
-+				ADSP_RUNSTALL, ADSP_RUNSTALL);
-+}
-+
-diff --git a/sound/soc/sof/mediatek/mt8195/mt8195.c b/sound/soc/sof/mediatek/mt8195/mt8195.c
-index 945601a0dc37..88da6c2de070 100644
---- a/sound/soc/sof/mediatek/mt8195/mt8195.c
-+++ b/sound/soc/sof/mediatek/mt8195/mt8195.c
-@@ -305,6 +305,9 @@ const struct snd_sof_dsp_ops sof_mt8195_ops = {
- 	.probe		= mt8195_dsp_probe,
- 	.remove		= mt8195_dsp_remove,
+ config SND_SOC_SOF_OF_DEV
+diff --git a/sound/soc/sof/sof-of-dev.c b/sound/soc/sof/sof-of-dev.c
+index 885430a42226..412cbb824b84 100644
+--- a/sound/soc/sof/sof-of-dev.c
++++ b/sound/soc/sof/sof-of-dev.c
+@@ -13,6 +13,7 @@
  
-+	/* DSP core boot */
-+	.run		= mt8195_run,
-+
- 	/* Block IO */
- 	.block_read	= sof_block_read,
- 	.block_write	= sof_block_write,
-@@ -318,6 +321,11 @@ const struct snd_sof_dsp_ops sof_mt8195_ops = {
- 	/* misc */
- 	.get_bar_index	= mt8195_get_bar_index,
+ #include "ops.h"
+ #include "imx/imx-ops.h"
++#include "mediatek/mediatek-ops.h"
  
-+	/* module loading */
-+	.load_module	= snd_sof_parse_module_memcpy,
-+	/* firmware loading */
-+	.load_firmware	= snd_sof_load_firmware_memcpy,
-+
- 	/* Firmware ops */
- 	.dsp_arch_ops = &sof_xtensa_arch_ops,
- 
-diff --git a/sound/soc/sof/mediatek/mt8195/mt8195.h b/sound/soc/sof/mediatek/mt8195/mt8195.h
-index 48cbbb5aacb5..929424182357 100644
---- a/sound/soc/sof/mediatek/mt8195/mt8195.h
-+++ b/sound/soc/sof/mediatek/mt8195/mt8195.h
-@@ -10,6 +10,7 @@
- #define __MT8195_H
- 
- struct mtk_adsp_chip_info;
-+struct snd_sof_dev;
- 
- #define DSP_REG_BASE			0x10803000
- #define SCP_CFGREG_BASE			0x10724000
-@@ -152,4 +153,6 @@ struct mtk_adsp_chip_info;
- #define DRAM_REMAP_SHIFT	12
- #define DRAM_REMAP_MASK		(BIT(DRAM_REMAP_SHIFT) - 1)
- 
-+void sof_hifixdsp_boot_sequence(struct snd_sof_dev *sdev, u32 boot_addr);
-+void sof_hifixdsp_shutdown(struct snd_sof_dev *sdev);
+ static char *fw_path;
+ module_param(fw_path, charp, 0444);
+@@ -50,6 +51,15 @@ static struct sof_dev_desc sof_of_imx8mp_desc = {
+ 	.ops = &sof_imx8m_ops,
+ };
  #endif
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_MT8195)
++static const struct sof_dev_desc sof_of_mt8195_desc = {
++	.default_fw_path = "mediatek/sof",
++	.default_tplg_path = "mediatek/sof-tplg",
++	.default_fw_filename = "sof-mt8195.ri",
++	.nocodec_tplg_filename = "sof-mt8195-nocodec.tplg",
++	.ops = &sof_mt8195_ops,
++};
++#endif
+ 
+ static const struct dev_pm_ops sof_of_pm = {
+ 	.prepare = snd_sof_prepare,
+@@ -130,6 +140,9 @@ static const struct of_device_id sof_of_ids[] = {
+ #endif
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_IMX8M)
+ 	{ .compatible = "fsl,imx8mp-dsp", .data = &sof_of_imx8mp_desc},
++#endif
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_MT8195)
++	{ .compatible = "mediatek,mt8195-dsp", .data = &sof_of_mt8195_desc},
+ #endif
+ 	{ }
+ };
 -- 
 2.27.0
 

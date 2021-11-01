@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7F6144149A
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 09:03:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3547A4414AF
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 09:03:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B1E516A8;
-	Mon,  1 Nov 2021 09:02:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B1E516A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A245E16BC;
+	Mon,  1 Nov 2021 09:02:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A245E16BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635753781;
-	bh=0AdWe+wESoIZLkxShjcJpWZfEBeCUzz5t4tdBvx0xeU=;
+	s=default; t=1635753815;
+	bh=xkn4YHb6rptgE9jOZf7AvbiHtULKfHMCgupPxFwtkXA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HccCgqM3PuccSp2BqYqwEWESMgRKFcvBn5CScYs8kVgEEpLtc/v9uBx0XaIZ9iFL2
-	 SPc+UdqGGDJHDC3op2tnucCU2cJUG81aMtXLWtBot+VuifWDNCcSQeMmT+w6CnAyew
-	 VmUanZogZsmKjuK9/LmAS0HdwYgVz+8rOTmSwxgM=
+	b=Yz3a3XxawAkouY7N2oBnZONWeUmynsi9WJ37T5+f0sf4cK4FvOCwWo0RTaN5sW2Ze
+	 dPuPKm2BTYt9uPnnI5BZFoqvWIgniRspKiob14RoamCyBhyIs5uzIG8g4wANXHlV4d
+	 Is6I4p3ZZj+Vm540bGK5MZUa3t0ga2TA2z30cif8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12BB2F804ED;
-	Mon,  1 Nov 2021 09:01:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17CE4F80506;
+	Mon,  1 Nov 2021 09:01:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E8FAF804ED; Mon,  1 Nov 2021 09:01:08 +0100 (CET)
+ id 15800F804EC; Mon,  1 Nov 2021 09:01:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,44 +36,44 @@ Received: from EUR03-VE1-obe.outbound.protection.outlook.com
  [IPv6:2a01:111:f400:fe09::61b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7095DF800F8
- for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 09:00:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7095DF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0CA4F8010A
+ for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 09:01:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0CA4F8010A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="B5UESwyL"
+ header.i=@NXP1.onmicrosoft.com header.b="X7/8oyK5"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gzAfdJeoEPj/Z/W/jgXqdW+Tw06u6xkErJHMkUouc9iLnCrdfBmdvJLsXH6xVuybdy9ZyHMAW8VDSCU/NXbYFaCytFnxGQtQn0c5CRfKdtPhe9UEGAaUiTJ7lFabcXGAB6wQ4PHl5b0+g6suez2A5qiqDuvOemZy5ImPkqc3KEI6jGdnoubQPCVFUVlYKxYc1W8I2obwb5xtzStrP44JZN9CM6eUqhmzTWvYAxprfy367DP9qi07GKHqdMJr6Zj077/jTq7Lcn9M6fOARPfgso06boW+anrHEvuYugAA5YWv8EGAz7Y4eZ5gXlWSZ+/XbiVaWFqyrfi2oZOeaKQL1A==
+ b=SKeNsGJd4t8dx2JCM1Q9uIF/OdXjUBhjkbzI734CpZ3VFtuEQp6ycckrWUJM/aBiYp8CgC3mUyqTZ/W86fi3Sds0usxssR9kJlscZ2+BCeuMQFvNTeiMtLkIKq9zxWPS0yuE2TXGQmF1X9Sp5h9cL3A6UPVWmuo+QKZJfS8NNyLBLxPosqPXRPkkP7gz3hC/kRW+5Y+wm7ZlnDW+zKS9uOm8VpdzvCC4Cmyuqa7t4nl96JW1nKdSAcgr/5MtvI7BEGWt1TRWy9337VecirdkkToL24RPTsjC8CNRsh672n0TWteUuZXZWtpjvXD00n/c9pXlPaalwR/2zlczOZmcbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Aqt20fJUIGTFP4E/vWRRVNFTpG1mnUMB2/YdINTbsV4=;
- b=fIV2CzHBr/UsfNGnn03UXqBZJqQOD9rin2L8SWPjyaEI+Y80TExsBnsRcjWna4mXiE8DjCpCTQpqNU9PSwv8c4cZHaWshmiRleywdDuQSnxSMAVVjNLqHdYW3JKIRSom6udsCdpl/jOEbHluLwURWy9TRPKEclwkv386KNHoCl6xiJL8Ym8kZqtH/xOb5sjy2xv3fh8IqA0Utm8rc9+yjotYBOtV1od66r88hKFFcZwtztaRVWIVfQU2xQkUD7zafAgHkyKWwxhmd5WAq1SakTiaqZWck1rzxGF2+ZAUOLeKwZzh6R9JVSmgGYa3aKnjFVR+RmJ3Z2/nCK1pWHK54w==
+ bh=F/3xGWUwSSLI5yvDRcxvTWnoQRrkSl9b0fOqNKLsC4o=;
+ b=BGBkJFnGtBuy/sjDpLw+N+/LVwYxcIBH4E3wOgVFN9Vt57I3uk8Ml4sVu/K7CxzPGIPDy6f79UBs6psaz0aqAEubLdl/1Q8HNnKAImKiF3h0hueB3AtLPZnp8LnPRgd6kRaUbX40FsLVDXc8iceCUVs1KnU+84ieTVAmv/83Vi7NaH2gSRnIiVhImU0aGOT4phODwJ1AU4Pr3DjV4VKBLgirYXa2FR9G5c5YwK4bA8dw2CYvkMOHckFzdNdlc2td/m2ndf4jQX5SAJ+2GQF+9HhK7rJjWcCZpHOTWY8vRY6BKVjlgVmm9LjptTunZWemmSJpgEfzEtfPolIskdF3Ew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Aqt20fJUIGTFP4E/vWRRVNFTpG1mnUMB2/YdINTbsV4=;
- b=B5UESwyLVTEjNWZB3za2DG72jGdw5Wogp2Hk4F8yZYKyw6pDCr5wyKTyIJvocJV/s9krzKwh4J+l9n5yjN3NG8L8sLKAFm5AX7jbuvXuNZNXVCvqEY8CcLM/+SOyoDUCw9JD5lR0ClkoUY6iciiPkjr+lAK8Ncv7YA8uX2T06wA=
+ bh=F/3xGWUwSSLI5yvDRcxvTWnoQRrkSl9b0fOqNKLsC4o=;
+ b=X7/8oyK5o4OvN3KVnqctIbC5eZ+cNczsAvbq0pSW4AKQkAnRrBJx0ngbD1pyn8wUjpc+ygCWjDqDkSoAe9x0mQn6NEPzNnnJnUFtQFYpzlTH/xd5gxc1g4rj0wVPZrPVLFKuDvmeGtt/kVrLx1S/v5qOdfMvMwjzPvVf+etwKJI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
  by VI1PR0401MB2430.eurprd04.prod.outlook.com (2603:10a6:800:2b::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Mon, 1 Nov
- 2021 08:00:50 +0000
+ 2021 08:00:51 +0000
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f]) by VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f%3]) with mapi id 15.20.4649.019; Mon, 1 Nov 2021
- 08:00:50 +0000
+ 08:00:51 +0000
 From: Daniel Baluta <daniel.baluta@oss.nxp.com>
 To: broonie@kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH 2/6] ASoC: SOF: tokens: add token for Mediatek AFE
-Date: Mon,  1 Nov 2021 10:00:22 +0200
-Message-Id: <20211101080026.297360-3-daniel.baluta@oss.nxp.com>
+Subject: [PATCH 3/6] ASoC: SOF: topology: Add support for Mediatek AFE DAI
+Date: Mon,  1 Nov 2021 10:00:23 +0200
+Message-Id: <20211101080026.297360-4-daniel.baluta@oss.nxp.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20211101080026.297360-1-daniel.baluta@oss.nxp.com>
 References: <20211101080026.297360-1-daniel.baluta@oss.nxp.com>
@@ -88,69 +88,70 @@ Received: from localhost.localdomain (2a02:2f08:5719:1500:cdb2:376b:257c:429a)
  by AM3PR07CA0070.eurprd07.prod.outlook.com (2603:10a6:207:4::28) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.9 via Frontend
- Transport; Mon, 1 Nov 2021 08:00:48 +0000
+ Transport; Mon, 1 Nov 2021 08:00:50 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1c9dd50a-e17b-4483-0c26-08d99d0db816
+X-MS-Office365-Filtering-Correlation-Id: 3a3925e6-9b90-44b9-d058-08d99d0db901
 X-MS-TrafficTypeDiagnostic: VI1PR0401MB2430:
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-Microsoft-Antispam-PRVS: <VI1PR0401MB2430D52AA84F480DA1D2C22DB88A9@VI1PR0401MB2430.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
+X-Microsoft-Antispam-PRVS: <VI1PR0401MB24307E6359C40DF83D2C56D0B88A9@VI1PR0401MB2430.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:608;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EqxBmEOIB79aqUgcsADftyXcxLEnzYkKud9uGRBuEls6BFN/jLs+TETgRXFe6ozov8CmvhQAAAYCD60JHGKiKjtcY5oW57MURWOOvf//1yq0CQTzRsd0j/V4FJrEA3gqKwhZnIgOwysBlr9g7dEkT+/vmy2R8JYCMXkk8hFh0rcN01fyJXlLdUkZfRV7ucOXB/AwJbvMChI8WHwuoLcJc3+qAHzRqM7uLk1KFvfqWaBJATbR8dXd2JsLTqKHbPSKuM6GKUEV0ctujlomEpeKFdU8JBWbiHnVMV2RwAMet3CeNhw614AQ01Mf/WZNzzXjqUAXa+XLSHMCscquNhCR6IGkqFHurm3He67c2VKBcOoDPuZdXxxxsye2oxM3fDfExesmaheyh5as8yvtjFeZxXMg/EhCyGkVjKNV+qzlsUT89GWk79ZqJ7DDO8C2lwzwSPQiUTU7ENS9OR14fo3KDUHBAYcY9wniipeTOmOD7LIUNHjeK2qMLINYle1X7RxNpi9Jbd+HCkLwFvpsbWm7g3gbw9XF1gxZ36sX6al6VWOwYFFN6DDvOy4Ww60teyvdHdr7GqFS6CXar7pQ0T4a7L6nyUeUX2UTxTM6JD+bckCsFvfk8Mhj/fDJvm0LyttAmxtL/1Et8LMuq1lSp8JOPA==
+X-Microsoft-Antispam-Message-Info: c7kgBUQJzIdYrbtdk//+16HYBYX5h6YyQsydMZejR0UVjY+xVQsuex2IiAHrDGTmelImFJlHD6DLMOqs2C8xYkCof2SUuv3qRND80zYCuQgnI1o0ZB0pA0PXTSD2mJprFt0R+XYWAwyRhb7uD5uWpBE9ucIbp0ChyddWFnz3A6QEL16GoXQ8ibk686qUjWmAKDvrkr3TpHvQvHlYXbjQ7wq8JPfWSiehK8PcrSv6uDkHmDOMLWf/KdS9RXBBXY+YF/vIdK9J38MjYJSbRLX339vGf/sOtC6egNzPXq4gFTHJlk+LLDmXQvPUYyU3sqxmMgPM2RbEZ8Z9i7j2Ti+Xnw+in8JV22TpP4HrD58OvSdQjvd7YpbweeHAEKLn1KI+ONz4ez0rMmNo2YcWuDizICFUTB2mgdJG7AZheHmsMMmqeQEfNMYqeStAFhWV1AX73KYTTTnhsOE78xAfINT34o8o1ZuZ1WdErIosWEU7DTN9pzYZpCW+I1Q7SmgQlznpjKqpSuDYnN+Hbi++3DGp0g9md+I1VKoGcidPZkKg4vjKXVDQtcYmp5nxOM77RV9zuWDrEhKwNNFP3D2dcfNn54GHWFXtDGyM1kJNz9D5yX6iCLMj5Jzfp3GeC/phBaNBcrU/dBMst/KGom52otrLIg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(316002)(8676002)(508600001)(54906003)(6486002)(8936002)(6506007)(1076003)(5660300002)(52116002)(6666004)(44832011)(6512007)(66476007)(2906002)(7416002)(2616005)(66946007)(38100700002)(186003)(86362001)(66556008)(4326008);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c0tRdEcxRDJ0ZG53M2xaSTRJTWp4Nk81QVZrMnpqWTNYSEpXWnlnZTZObk40?=
- =?utf-8?B?dk5nL1o3UzlVc3hnVElTeTArRUI5QTJsYy9UdUdoVDVlYmg1L2YyUEQ2aER4?=
- =?utf-8?B?MEg4YlVHenJKWG5YSVMxMHFORXNNelRldUgrWmdKS0tnWTFhYmpmakhJeHVX?=
- =?utf-8?B?NU1YaU50QXQwa1lteFVFcUFqUlo5M2NpUStCdzFBWEVkRE8wNFhjQnR0UTBP?=
- =?utf-8?B?UzFiKzAxaDJoNkdLcHV3NE1ON3pEQzBnbjFDZEsvb3M0a0pTczZtZ2N0L2ln?=
- =?utf-8?B?Yncyc2czcnF2UW52bGpqSXphK0hrdzN2SUFoQmZBRERDVlg4Z2gvdVpiYmdG?=
- =?utf-8?B?R2UzbCsvdGkxMm1RMHRETlJPT05OMzZjbytNeUF2UjVQc1c3ZjhUU2xSU1JP?=
- =?utf-8?B?YXJ4LzAybExQWk0rMkdaZ1B6clFRVkxxaGFHbFQ4TlYrSVNISzFEOHdLTlN5?=
- =?utf-8?B?NVJCOVN1eTdVM0RKcHozRzZzbG0weTNYTlFqdmp4WDRQclBrZWRWV2dZU3Fr?=
- =?utf-8?B?TGk3MFNGamxROHN4UlllVytUbjVRWmYwOW9rODJOZkY5ekxaZG1YUFZ0aXRT?=
- =?utf-8?B?VUxYK21iTElUdi9ieHRoSjZtcFNuMHJFWHBwelQyTW9HNzBMd1NsUWhHWVhD?=
- =?utf-8?B?bUpaNWlhOE0wQjBLUVJybGlXbzNuSHlMbzVJM1pNaGxhQnFmUXhsb09yeVpW?=
- =?utf-8?B?QU9adHk4dU0yZldXZkZjdHlVR0puWUZHRWNsSE1lSXhuTnNRcUl1QTJLeEVp?=
- =?utf-8?B?OEJSK3cxdDEvMjZEWGpFNlBnZHJkNXozaCtBKzVhb2RkVm1rT3g4OHhUUEFa?=
- =?utf-8?B?ODlJeE9FRWdjNGZrNGJaN3MzaVowUDc5aXplbGUyV0ZkQldjcVdzWmxnakF5?=
- =?utf-8?B?TTVTeVV0aEVGK2ppaE5HVkIwZkFoRHdPSnNhMytkd0Z4VWYvR05oRXVqZEtl?=
- =?utf-8?B?RHNTbWgrSklwMTZQeCtQTXd0cmVScTRNMUEvT3NHNS9nODR1Qkt4QXNVYmhy?=
- =?utf-8?B?SlVIV0loMUJOeU5kR2sySklMM1dqTnhIMUtKUzRoWHdHS1Uvam5jbTlxcEpS?=
- =?utf-8?B?anczcExlRUFldlZtaERJZm1teTB1dHhGZWdBRHFOVXNqVG9vK2dVOUs5WUVH?=
- =?utf-8?B?Zjl4Q1JBcXdwWFhvYVhLNm1ZTDZYN3FiOFdldUg3cDRYYXhabDMvaG9GU3I1?=
- =?utf-8?B?d2xHS2Q3MmdjUkduVktJNzVxZHB0V3JvTTFkdnY5R2krTDl5TUdneEhCanVD?=
- =?utf-8?B?YjZqZEk4Z1R4NkViWWkza1lDR3pwQzdodjFieGVxUlp4SVRYV29JcnJrdC9X?=
- =?utf-8?B?eVZQNVBJeVZJa0RmOEtTY25kbUlsRDB3ZFhaZWk0Y08wTDJ5aGdFNUlGN3BZ?=
- =?utf-8?B?WlZMV3V6NktHYndIbUZpMGl5amZpN2c4NmRhcEFUeWhiMDVaSkoyTlJWUHpB?=
- =?utf-8?B?VElWNTEwR3FPcE03bmtnNmhUSjhWSVZBNThuQW02YnEvbGp5V2JkZlRwNThp?=
- =?utf-8?B?bkVHcUwwUUVmS3RCRnhZNng4VERENEhSMzA5RmRIOWJIWGlRbkpUcXpxaHVm?=
- =?utf-8?B?bVI0b2YrV1NBbmI0RUdRbDhpK1pQRFhaQkduMHkwYzFsZ21pYjAwT3pNc2NG?=
- =?utf-8?B?UjlTTFFDbXRvVnU5YWdLekI2a3hVN3lKYXMvaGt5ZG5tL2RFNnZraVVxNEVE?=
- =?utf-8?B?MFJ1NkxIYXZlelhDY1Z6NjVMK3hlZG9WZ2tNL1R1N0UrMVA2Y0dydk5EYkJK?=
- =?utf-8?B?Nk5mWm5pYUlQMGpMRTNod2hST2VIZVhsLzgxaU5SWEtxNmFScjdOejJHUVZy?=
- =?utf-8?B?MjVuaEtpdC92K0p6RE1hM3g2eHJTR2U1OXc1WUtRVDVrZ1RJVTdTRGJTSHhE?=
- =?utf-8?B?SzQ4MzFYZitRd01CWmFzZVF1RWZwQ28zZEZXTUlQVVRFRXROYk1LUWVBcWl4?=
- =?utf-8?B?RzRIeTdxNTJhSExRelovNFVBZ1BYY09JRklyT292MHBOeTR2MG1HVkU1V1hk?=
- =?utf-8?B?RjdLMWZVaTliQ3Y4a1pqRDA5ZkxKMW01L0tTZGcyeXEwYy9GQjk5OXFidXRM?=
- =?utf-8?B?M1V2ZlBOTnlMSThVcHVITnMyM2N3WXVyM24rekhSUHBiUE1tVFFVYVVhbW10?=
- =?utf-8?B?bTlrS1NoWG5JUGtzS1pEUTNLMDFxV1pyYms0VEdBU2lSb2NJT1VLS3JDYk9v?=
- =?utf-8?B?NXo1VjFWRml1ckk1Wm51dVllaTBERG1ZQW9ZRDBlSVRIbG1QQmRqTUlNYzBG?=
- =?utf-8?Q?N6KXwLiSFm8sHwWBSb+oDEBfVsEl42tIB0Y+e5h3C0=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MEM2eXpCQWlJV0dEYlQyanVxYTUwcUVBMm1ETUZFemdLMElPSGFPQzByRXh4?=
+ =?utf-8?B?STdLTmxaTzB6aTFhL3BNc01MbmJic3YyL0pXVUNXcVJCU0RWTGRCOHJxUTY5?=
+ =?utf-8?B?WTlHYlhMam55cUVrY1VjQlhId0U3aFgvYUNrZ1VTVWVoZlBmZXlkdXEwZkFZ?=
+ =?utf-8?B?UUVRRU03Y2tiaTRXWC9TU2g3d251anh6alluanBHNHY1bmR6N0ZHWHZBaFZx?=
+ =?utf-8?B?OWFPTnYwSVY1dDVCRkZZZjB6M2hEUStYaUpIcGh3Y1JLZWhaVEJwMU9jTHk0?=
+ =?utf-8?B?aVFocUxhcTVjbWd4bXV1c1VoVFhpeHNDbVd5R0hYd2FoZU1jTWd0dGZORS83?=
+ =?utf-8?B?NjhIZ0Uxd2l5bjFHTVNXbVJCTE9PaHpuUkp2YWhIQ3lBUjB0QVV6dEtnbUgy?=
+ =?utf-8?B?alNxTlRmOGRvUmpWRDFZRHoyTFFwUnovbXZNeFZzWjdKMVJxdkZLd3ZhZno1?=
+ =?utf-8?B?ZGxBYld1T3NYR1c4dkJSNml0UkEwMGt5NnBaWVAvWE91NHR1RHplQkQ4WUFX?=
+ =?utf-8?B?R21jYWVPdDlQNmdUSmF2ME1TOGRNQ0dSb3ZIaDZLR3pERFpmVDkwOXhzUi9l?=
+ =?utf-8?B?RnlzVzFLTjVqQ01lc3lRVmgvWXl5dCt2ZXgwOFVFa202TWlIZElMYnJ0MFJu?=
+ =?utf-8?B?ZGlUVGRlOHJVL04vZGl4MFovSjJRdUdTc1BUYmNmSXN2MEYvdVNOazlDMkZn?=
+ =?utf-8?B?NTUzZWVpaWNNT3RPQ3BOR0Erd250Vk91MmtqMHVvNlo5UnRYUlgzN2lZbVpD?=
+ =?utf-8?B?REk4UjB6RWZQY3VvRmNSZTQzdzFBZnNpeVZ0K01COUJsOVhET1dYRXFVcTRW?=
+ =?utf-8?B?ZmhnSjl0NExPVHl4U1hpd3QzUVRTODBpNmlXYXlVSk85c1B4SUs3MWFoMGxM?=
+ =?utf-8?B?SW85Nm1Vb1U3VndLU201QzZ0dllid3pyM0R0R1hoS25MVE1nRFkycGJXUVFk?=
+ =?utf-8?B?U1Mxak56dzMxZmFPVmdPWG1MK0cxZWZ0dGw4Y1VLYnVoNzYxR3UyNElhMVlD?=
+ =?utf-8?B?RmltdmZRSldkb0cwdUJpNW5sazZLT1hCbFdOL1lCeHhHZmo4ZFcwMERrekRZ?=
+ =?utf-8?B?WnRQS2htN1M2T2xpdm9GL1FjSmw5YnJMMFlLRUxGMTBPdTRGMFRJWHZvMnJB?=
+ =?utf-8?B?VlNoTmFTc0F0R2Jpczk3WmpCLzdVM2RuYllubHNYMlBXUmp3Ym96K3VhZ3FR?=
+ =?utf-8?B?K2F5YkliUzdOUC9lOGVGZm01emxZYzg0TWpHTVZGaTdGV0VQallSc1BubFdZ?=
+ =?utf-8?B?TllvaGRzZnpua2pkaGZZWVhWemt0cCs5OW85MFdDNVRBQ0kyWjhlb2JJbUNH?=
+ =?utf-8?B?endtYWZTUEJTR2hMeDJHTlVFTkh1bVg0ODdqdHRQZHl6TjZpeFZLSW1sV2t4?=
+ =?utf-8?B?eDFYYjlJdHlsWVNXeWdsS0dHZDQxL3JnUG9kdTRWOFZGckZxL2FuRXYzU1pw?=
+ =?utf-8?B?bnU3eDlVQUtGKzl0aFBwaGRBbEl3ZDRDVTY3VmlRbkZ6TGNkelorMnE4czNR?=
+ =?utf-8?B?aEprS2Z5c1UybnU1S2M1bCtMRERXVG9aa2trNU1KOGdtamdCK1ZlTzUyNUFu?=
+ =?utf-8?B?QldYa2o5Smd0d3I0UTUvcVFQWUFmamlmVzZVWS9YaHBZWkZXZTlnak9vUUFq?=
+ =?utf-8?B?dkVYM253QVZCekkzZGNnNUdqT29nQTE4UDVRaTZXZS9aSjA5ME83c2lwSktP?=
+ =?utf-8?B?a3NxaHNZV0JVOEVKYXRiVzJxakZNcnErUDhZS29HY013WTdDRGxiYW9LUVZ4?=
+ =?utf-8?B?VnZXRmVnNDN5TWs0WGlXeDcwbjBnZWIzamRkQjRUYzNvaVBUQzhuQ1luTWI3?=
+ =?utf-8?B?YW4rU1J2dGtRbXBzbHFUVnNyWFM5NnRKeDVMQUNiMWlmT1hob1M0cEFSdnRy?=
+ =?utf-8?B?TFBTOWFnZWlYWGpKd1lnOUxrcmVKR1RERUpQY3F6Ym5LeWlaZ2pIWFNLdzRx?=
+ =?utf-8?B?anBkWXlTbllWZDhiVlRFTHJLVmpCR3AwNjRBZVpJdWxRN0FZcS83d0E3Sis1?=
+ =?utf-8?B?VDFGTllRQU84ZjU5a1FtdWNkMVZ5elp3TnZYWDhadzdMbkVCaHVwQS80a25B?=
+ =?utf-8?B?NjdvVTcrKzFSVnloRWQxcE4vMlF1Q21hTHVZbEFxOXFraUhyMzdkK2Z5MjlJ?=
+ =?utf-8?B?a2x6UTVZdXozcFU3ODFmcHJsMkFxdjdDcGFzVUVIT2dJaDdrWmdJUzNpY0ho?=
+ =?utf-8?B?ZHlpZ0V5MWZFcE9oN1U5QXQwdVlzeXdYek1RU3JCNE5YbjEzU1V0NEJzVnRl?=
+ =?utf-8?B?Y3hRVzdnMkdscko1dUpydkZra2tCT3NjN1pjUytYSTROOWwwNHlKb0R4azEv?=
+ =?utf-8?Q?q5zieZMU1igXnuyY6J?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c9dd50a-e17b-4483-0c26-08d99d0db816
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a3925e6-9b90-44b9-d058-08d99d0db901
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2021 08:00:49.9923 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2021 08:00:51.4964 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cx6JJlzCq98sDjkq/HnSqM4ICmM9NROzjSnFVnRmv/qO8rJIR3fJ6q2i4xSx7I9aqJNo4naAb00OR3IduB+FVA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: j9uQ3BhtHT6RXS6CO8rgbLIRvMtKjBwPbEPHXxujxvvsAR2La/mvrC6d9VGM0FeapHyaSUE2gcyNeOY8R6MrEQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2430
 Cc: guennadi.liakhovetski@linux.intel.com, daniel.baluta@gmail.com,
  kai.vehmanen@linux.intel.com, Daniel Baluta <daniel.baluta@nxp.com>,
@@ -174,8 +175,9 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: YC Hung <yc.hung@mediatek.com>
 
-Add the definition for Mediatek audio front end(AFE) tokens,include
-AFE sampling rate, channels, and format.
+Add new sof dai and config to pass topology file configuration
+to SOF firmware running on Mediatek platform DSP core.
+Add mediatek audio front end(AFE) to the list of supported sof_dais
 
 Signed-off-by: YC Hung <yc.hung@mediatek.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
@@ -185,23 +187,184 @@ Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- include/uapi/sound/sof/tokens.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ include/sound/sof/dai-mediatek.h | 23 +++++++++++++
+ include/sound/sof/dai.h          |  3 ++
+ sound/soc/sof/pcm.c              | 12 +++++++
+ sound/soc/sof/topology.c         | 59 ++++++++++++++++++++++++++++++++
+ 4 files changed, 97 insertions(+)
+ create mode 100644 include/sound/sof/dai-mediatek.h
 
-diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
-index 02b71a8deea4..b72fa385bebf 100644
---- a/include/uapi/sound/sof/tokens.h
-+++ b/include/uapi/sound/sof/tokens.h
-@@ -140,4 +140,9 @@
- #define SOF_TKN_INTEL_HDA_RATE			1500
- #define SOF_TKN_INTEL_HDA_CH			1501
+diff --git a/include/sound/sof/dai-mediatek.h b/include/sound/sof/dai-mediatek.h
+new file mode 100644
+index 000000000000..62dd4720558d
+--- /dev/null
++++ b/include/sound/sof/dai-mediatek.h
+@@ -0,0 +1,23 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
++/*
++ * Copyright(c) 2021 Mediatek Corporation. All rights reserved.
++ *
++ * Author: Bo Pan <bo.pan@mediatek.com>
++ */
++
++#ifndef __INCLUDE_SOUND_SOF_DAI_MEDIATEK_H__
++#define __INCLUDE_SOUND_SOF_DAI_MEDIATEK_H__
++
++#include <sound/sof/header.h>
++
++struct sof_ipc_dai_mtk_afe_params {
++	struct sof_ipc_hdr hdr;
++	u32 channels;
++	u32 rate;
++	u32 format;
++	u32 stream_id;
++	u32 reserved[4]; /* reserve for future */
++} __packed;
++
++#endif
++
+diff --git a/include/sound/sof/dai.h b/include/sound/sof/dai.h
+index 3782127a7095..5132bc60f54b 100644
+--- a/include/sound/sof/dai.h
++++ b/include/sound/sof/dai.h
+@@ -13,6 +13,7 @@
+ #include <sound/sof/dai-intel.h>
+ #include <sound/sof/dai-imx.h>
+ #include <sound/sof/dai-amd.h>
++#include <sound/sof/dai-mediatek.h>
+ 
+ /*
+  * DAI Configuration.
+@@ -70,6 +71,7 @@ enum sof_ipc_dai_type {
+ 	SOF_DAI_AMD_BT,			/**< AMD ACP BT*/
+ 	SOF_DAI_AMD_SP,			/**< AMD ACP SP */
+ 	SOF_DAI_AMD_DMIC,		/**< AMD ACP DMIC */
++	SOF_DAI_MEDIATEK_AFE,		/**< Mediatek AFE */
+ };
+ 
+ /* general purpose DAI configuration */
+@@ -97,6 +99,7 @@ struct sof_ipc_dai_config {
+ 		struct sof_ipc_dai_acp_params acpbt;
+ 		struct sof_ipc_dai_acp_params acpsp;
+ 		struct sof_ipc_dai_acp_params acpdmic;
++		struct sof_ipc_dai_mtk_afe_params afe;
+ 	};
+ } __packed;
+ 
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index e40c2212a999..1bf7e60be772 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -807,6 +807,18 @@ int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_pa
+ 		channels->min = dai->dai_config->esai.tdm_slots;
+ 		channels->max = dai->dai_config->esai.tdm_slots;
+ 
++		dev_dbg(component->dev,
++			"rate_min: %d rate_max: %d\n", rate->min, rate->max);
++		dev_dbg(component->dev,
++			"channels_min: %d channels_max: %d\n",
++			channels->min, channels->max);
++		break;
++	case SOF_DAI_MEDIATEK_AFE:
++		rate->min = dai->dai_config->afe.rate;
++		rate->max = dai->dai_config->afe.rate;
++		channels->min = dai->dai_config->afe.channels;
++		channels->max = dai->dai_config->afe.channels;
++
+ 		dev_dbg(component->dev,
+ 			"rate_min: %d rate_max: %d\n", rate->min, rate->max);
+ 		dev_dbg(component->dev,
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 2f2aa63943b2..b3ad3a604918 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -379,6 +379,7 @@ static const struct sof_dai_types sof_dais[] = {
+ 	{"ACP", SOF_DAI_AMD_BT},
+ 	{"ACPSP", SOF_DAI_AMD_SP},
+ 	{"ACPDMIC", SOF_DAI_AMD_DMIC},
++	{"AFE", SOF_DAI_MEDIATEK_AFE},
+ };
+ 
+ static enum sof_ipc_dai_type find_dai(const char *name)
+@@ -806,6 +807,19 @@ static const struct sof_topology_token led_tokens[] = {
+ 	 get_token_u32, offsetof(struct snd_sof_led_control, direction), 0},
+ };
  
 +/* AFE */
-+#define SOF_TKN_MEDIATEK_AFE_RATE		1600
-+#define SOF_TKN_MEDIATEK_AFE_CH			1601
-+#define SOF_TKN_MEDIATEK_AFE_FORMAT		1602
++static const struct sof_topology_token afe_tokens[] = {
++	{SOF_TKN_MEDIATEK_AFE_RATE,
++		SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc_dai_mtk_afe_params, rate), 0},
++	{SOF_TKN_MEDIATEK_AFE_CH,
++		SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc_dai_mtk_afe_params, channels), 0},
++	{SOF_TKN_MEDIATEK_AFE_FORMAT,
++		SND_SOC_TPLG_TUPLE_TYPE_STRING, get_token_comp_format,
++		offsetof(struct sof_ipc_dai_mtk_afe_params, format), 0},
++};
 +
- #endif
+ static int sof_parse_uuid_tokens(struct snd_soc_component *scomp,
+ 				 void *object,
+ 				 const struct sof_topology_token *tokens,
+@@ -2991,6 +3005,48 @@ static int sof_link_acp_sp_load(struct snd_soc_component *scomp, int index,
+ 	return ret;
+ }
+ 
++static int sof_link_afe_load(struct snd_soc_component *scomp, int index,
++			     struct snd_soc_dai_link *link,
++			     struct snd_soc_tplg_link_config *cfg,
++			     struct snd_soc_tplg_hw_config *hw_config,
++			     struct sof_ipc_dai_config *config)
++{
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	struct snd_soc_tplg_private *private = &cfg->priv;
++	struct snd_soc_dai *dai;
++	u32 size = sizeof(*config);
++	int ret;
++
++	config->hdr.size = size;
++
++	/* get any bespoke DAI tokens */
++	ret = sof_parse_tokens(scomp, &config->afe, afe_tokens,
++			       ARRAY_SIZE(afe_tokens), private->array,
++			       le32_to_cpu(private->size));
++	if (ret != 0) {
++		dev_err(scomp->dev, "parse afe tokens failed %d\n",
++			le32_to_cpu(private->size));
++		return ret;
++	}
++
++	dev_dbg(scomp->dev, "AFE config rate %d channels %d format:%d\n",
++		config->afe.rate, config->afe.channels, config->afe.format);
++
++	dai = snd_soc_find_dai(link->cpus);
++	if (!dai) {
++		dev_err(scomp->dev, "%s: failed to find dai %s", __func__, link->cpus->dai_name);
++		return -EINVAL;
++	}
++
++	config->afe.stream_id = DMA_CHAN_INVALID;
++
++	ret = sof_set_dai_config(sdev, size, link, config);
++	if (ret < 0)
++		dev_err(scomp->dev, "failed to process afe dai link %s", link->name);
++
++	return ret;
++}
++
+ static int sof_link_dmic_load(struct snd_soc_component *scomp, int index,
+ 			      struct snd_soc_dai_link *link,
+ 			      struct snd_soc_tplg_link_config *cfg,
+@@ -3286,6 +3342,9 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
+ 		ret = sof_link_acp_dmic_load(scomp, index, link, cfg, hw_config + curr_conf,
+ 					     config);
+ 		break;
++	case SOF_DAI_MEDIATEK_AFE:
++		ret = sof_link_afe_load(scomp, index, link, cfg, hw_config + curr_conf, config);
++		break;
+ 	default:
+ 		dev_err(scomp->dev, "error: invalid DAI type %d\n", common_config.type);
+ 		ret = -EINVAL;
 -- 
 2.27.0
 

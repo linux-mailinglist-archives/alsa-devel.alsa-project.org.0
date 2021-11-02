@@ -2,86 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC7374422CD
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Nov 2021 22:38:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 163A9442950
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 09:27:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 393B316B8;
-	Mon,  1 Nov 2021 22:37:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 393B316B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4FF716B9;
+	Tue,  2 Nov 2021 09:26:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4FF716B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635802721;
-	bh=9TF3gGAhuHNCG24L/rBo3Ct/4tDDLf3RhkGmTbmZqQw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kVeDGhd8SDCqi2PWpj4YN0d4t6PuxR0Iwk3vptQRhyi2Fkxce6qzWuA+aDPmxLIJk
-	 UcmYDTSCYZzhkzJ9sK7jUyN/Xd4Yr/1H9Jxi6prDcre7oX6N6zzHu07BmLiqEsSCMU
-	 +o3Erb9adn5fOo61XhxUPy9D2EL4cn46G8q4Gtuc=
+	s=default; t=1635841630;
+	bh=Zgy+3gAR849m3cjS0YPUYrwCriSjvyb+Adu9TupfIgE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aXEQwKHTTE6thCUBu3NXHQPhY+Tot1QF01tKFsJdudWRfqSz/xzA8mlL+mj1/o1jr
+	 nMndKF8D/PvS+9ac3OXpf3UJ/BqQynNdSnESEoBm5xF6AzaIcW5YzoDZjiVfauu5Nb
+	 dc86Y4IkXE6v7GgMQLjfFuerqNDe/UZZBF1IN51U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E02AEF8026A;
-	Mon,  1 Nov 2021 22:37:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A582F8012E;
+	Tue,  2 Nov 2021 09:25:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B53CF80269; Mon,  1 Nov 2021 22:37:20 +0100 (CET)
+ id AE037F8025F; Tue,  2 Nov 2021 04:32:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
+ [IPv6:2607:f8b0:4864:20::42a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B165F8012E
- for <alsa-devel@alsa-project.org>; Mon,  1 Nov 2021 22:37:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B165F8012E
-Received: by mail-oi1-f175.google.com with SMTP id o83so26949785oif.4
- for <alsa-devel@alsa-project.org>; Mon, 01 Nov 2021 14:37:11 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D691FF8012E
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 04:32:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D691FF8012E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="f9u5ZqQM"
+Received: by mail-pf1-x42a.google.com with SMTP id o14so4828356pfu.10
+ for <alsa-devel@alsa-project.org>; Mon, 01 Nov 2021 20:32:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=EEtgEXOACUA3wKgJhhNtGNwsVVeGXT8yNYslnmQWcCk=;
+ b=f9u5ZqQMRscLfivm6j2Nct+cObOy/UZGbS5T4Pi580A/n7atUi1PCx6+1G36J367uT
+ /WW14bqFLXYyRJupCzQf26JBHnwguiXfPAK+UvpPQ5CSjwDCWI0DkYm85b/9di08A0h/
+ 5WiayzrfmhSkoi+FfFsqK3ZGFwL/46Iq0GLw7/HPzzIRqpma0dwOd2LOSMbIR17G0B70
+ LXJGgTcl3WiEvQGsWrRcky50MzXCxzb+h/A8849SzrhGA7opPOs86KSKNlmwmo9rnntd
+ j+99mD9rp8KLzE6c8CaARSB7dxZ8ty5O7o3MEw4Dz70uW0ryrzi2dy3LRHjDWeZXW2IV
+ j2bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=JAg6KdmFAXzUuXNGb8fBqgMEGAaw9CamDaT7qNQbpL8=;
- b=Dd5wxv7U6BLCGNHigMkP5Sn9WC6kDTOcB/ccYkg978kbFjTU/0Wro7/HDE1bUr6Cou
- 6o9K/8xsur6PB3QCpmJ3GJDhRRc60OMhe6yaVajYH18Whqq9nLXkrOAsTLZXQjo6L22H
- nBJ2xnfKJHUpZeyo1YT8DnHvW2aofS6bgaWAsFhUrngQhrdAg/wBfwPcoe4Pf0uocXbq
- K8zngD17mO18jET2lvrlLHxn4x7BSjxx1ICCt806WzVekEwR+OkHpv64X0bOhjdki1SO
- od00wYexbvtz4T++5yujSrscu+ZqLosSjpodpABbBeTouwlk/CkPsPTkGQV5RA+hHYRj
- 32YA==
-X-Gm-Message-State: AOAM531OO5chU3YwuBwsA4RYPBe6LfMD7ENfBq/MEUIQLgUTcJXfNBIS
- 8HOMDVrHnsuzQyJeDXvCPA==
-X-Google-Smtp-Source: ABdhPJwwHJSQi7dkJRcGUNwGb6a7bA1FO3rXq7O3icm5Iokg0YPIWwbrh3XTqnkeg8LqfAGHRmgsWQ==
-X-Received: by 2002:aca:42c5:: with SMTP id p188mr1447707oia.125.1635802629571; 
- Mon, 01 Nov 2021 14:37:09 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id z22sm4001594oth.63.2021.11.01.14.37.08
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=EEtgEXOACUA3wKgJhhNtGNwsVVeGXT8yNYslnmQWcCk=;
+ b=PUxvwl0hWX0Rs0Qz263BJnBvGjL0kIq5i2Kg/gGbrWXDlusTSUW8mo0VjWqbekScTn
+ FduRN8yed0CC9wDR/wTXbqzlczZi5/Z+wlNO41uFy7bqLnpqVHn6WfvMsWUg6fl0Facf
+ LRbvQVI9bBVHmpD7RXyvQJFz7OL6ACBt1cdwD+Dg62hk0moqewSBUphnudpCCcRy6/vz
+ hWVLCmRc64j5VbFjoH0NfKzQWSnIvCA/jtrBzECSdOs1ogNtvUbGY6Qb2mLAU9T1tyNq
+ Az0uEK/ev0jWqVuRdZZJ8xyrdj2tyS1R+JgqXTgGbBnVDeUX1EoKVHfWZEvVprNS+/sa
+ ePkQ==
+X-Gm-Message-State: AOAM532GVS3Z032BYyNyyOPLqro25uGRZwUYQIihUsocrVXIceKkwoJe
+ 091Oq5/pXvgudzt5Byb0Ebw=
+X-Google-Smtp-Source: ABdhPJx0rqGpL+96sH9guHKoU1KDdgjt8V/3RIX2d8+BiZ8N5riUsa5Fn6nlnDXVmEEwHg9D6CAXBQ==
+X-Received: by 2002:a63:455f:: with SMTP id u31mr5567894pgk.206.1635823948233; 
+ Mon, 01 Nov 2021 20:32:28 -0700 (PDT)
+Received: from BJ-zhangqiang.qcraft.lan ([137.59.101.13])
+ by smtp.gmail.com with ESMTPSA id c21sm3937785pfv.119.2021.11.01.20.32.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Nov 2021 14:37:09 -0700 (PDT)
-Received: (nullmailer pid 1110199 invoked by uid 1000);
- Mon, 01 Nov 2021 21:37:07 -0000
-Date: Mon, 1 Nov 2021 16:37:07 -0500
-From: Rob Herring <robh@kernel.org>
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Subject: Re: [PATCH v2 2/3] dt-bindings: pinctrl: qcom: Add sc7280 lpass lpi
- pinctrl compatible
-Message-ID: <YYBeA7Qt2vhFoMeO@robh.at.kernel.org>
-References: <1635342097-2726-1-git-send-email-srivasam@codeaurora.org>
- <1635342097-2726-3-git-send-email-srivasam@codeaurora.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1635342097-2726-3-git-send-email-srivasam@codeaurora.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, lgirdwood@gmail.com,
- Venkata Prasad Potturu <potturu@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, bjorn.andersson@linaro.org, agross@kernel.org,
- broonie@kernel.org, rohitkr@codeaurora.org, judyhsiao@chromium.org,
- plai@codeaurora.org
+ Mon, 01 Nov 2021 20:32:27 -0700 (PDT)
+From: Zqiang <qiang.zhang1211@gmail.com>
+To: tiwai@suse.com
+Subject: [PATCH] ALSA: seq: Fix RCU stall in snd_seq_write()
+Date: Tue,  2 Nov 2021 11:32:22 +0800
+Message-Id: <20211102033222.3849-1-qiang.zhang1211@gmail.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Tue, 02 Nov 2021 09:25:50 +0100
+Cc: alsa-devel@alsa-project.org, Zqiang <qiang.zhang1211@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,15 +94,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 27 Oct 2021 19:11:36 +0530, Srinivasa Rao Mandadapu wrote:
-> Add device tree binding compatible name for Qualcomm SC7280 LPASS LPI pinctrl driver.
-> 
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> ---
->  Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
+If we have a lot of cell object, this cycle may take a long time, and
+trigger RCU stall. insert a conditional reschedule point to fix it.
 
-Acked-by: Rob Herring <robh@kernel.org>
+rcu: INFO: rcu_preempt self-detected stall on CPU
+rcu: 	1-....: (1 GPs behind) idle=9f5/1/0x4000000000000000
+	softirq=16474/16475 fqs=4916
+	(t=10500 jiffies g=19249 q=192515)
+NMI backtrace for cpu 1
+......
+asm_sysvec_apic_timer_interrupt
+RIP: 0010:_raw_spin_unlock_irqrestore+0x38/0x70
+spin_unlock_irqrestore
+snd_seq_prioq_cell_out+0x1dc/0x360
+snd_seq_check_queue+0x1a6/0x3f0
+snd_seq_enqueue_event+0x1ed/0x3e0
+snd_seq_client_enqueue_event.constprop.0+0x19a/0x3c0
+snd_seq_write+0x2db/0x510
+vfs_write+0x1c4/0x900
+ksys_write+0x171/0x1d0
+do_syscall_64+0x35/0xb0
+
+Reported-by: syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
+Signed-off-by: Zqiang <qiang.zhang1211@gmail.com>
+---
+ sound/core/seq/seq_queue.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
+index d6c02dea976c..f5b1e4562a64 100644
+--- a/sound/core/seq/seq_queue.c
++++ b/sound/core/seq/seq_queue.c
+@@ -263,6 +263,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+ 		if (!cell)
+ 			break;
+ 		snd_seq_dispatch_event(cell, atomic, hop);
++		cond_resched();
+ 	}
+ 
+ 	/* Process time queue... */
+@@ -272,6 +273,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+ 		if (!cell)
+ 			break;
+ 		snd_seq_dispatch_event(cell, atomic, hop);
++		cond_resched();
+ 	}
+ 
+ 	/* free lock */
+-- 
+2.17.1
+

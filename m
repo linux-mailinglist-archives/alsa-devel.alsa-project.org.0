@@ -2,82 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFCE3442FF0
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 15:12:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1CFF4432A1
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 17:20:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 742FE16BC;
-	Tue,  2 Nov 2021 15:11:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 742FE16BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 192A3169F;
+	Tue,  2 Nov 2021 17:19:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 192A3169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635862343;
-	bh=czhq85D+Ik1Cgo/24pR7uTV1F/hiSwtIQh0zw78iOO4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=X08TfKRYSvgHKYoSt3CsuwXrTf4mIgKU/LFxSCFNxTOIiqEyT3qFOQjzHs1ZEE/lp
-	 5vy10GgfTfkNJZqnXm2PCk7LOzVl0e5Su+WAQM0ihAso8axOtgOYouYO+COXOsmLET
-	 L4didSbfeKNKFIeLvQI4k5qvrSlvvU5r+r2miOmM=
+	s=default; t=1635870030;
+	bh=0WgCq3bI1ceZjJvt1RWast7PoJyEeSr+v+fOAvt8bbY=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cbRx5MTHPohh5jjuK7sGOvCrTOMWocxxzAxiBNzdxlq3C6fjPC42RR8oJAsmdyXrr
+	 DRC0+F8mlGBSvy8orRnze7VFU4Er/aw1q9To9X8Vhig7FAGuraflW2CsIO6cCgKXYj
+	 j5e2ag5ePOGfva8Pkg1EV3nX9e0KUz6k7QNtWzgU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA497F800BF;
-	Tue,  2 Nov 2021 15:11:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BAEEF8025F;
+	Tue,  2 Nov 2021 17:19:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0DFF9F8025D; Tue,  2 Nov 2021 15:10:58 +0100 (CET)
+ id 6338FF8025D; Tue,  2 Nov 2021 17:19:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1CF34F800BF
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 15:10:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CF34F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63154F800BF
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 17:19:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63154F800BF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ewYngEG3"; 
+ header.b="06iQqkyC"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="dzF1lpO4"
+ header.b="AQagf692"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id C16361FD4C;
- Tue,  2 Nov 2021 14:10:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id B68642190C
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 16:19:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635862248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1DRWTC1TFIfMR6RNlvGI/qW1glO7XAqTrvN5XJswVzw=;
- b=ewYngEG3ImcmH8UfbJOem+z+BO4lsqJ4FnYkvyQqknNqbVgtUjzVWE3eQGr2U72pBiTs5u
- rn1Q5mAk57KtTLyC7Uc5vYVZ0uQ1huw6OCv9rBwcQ5BuAWuruJzWFU/ueDVwGAO8Z1SCIY
- 3EoXJDGvKoJmcMIzXKAs8qbRnHl4CQQ=
+ t=1635869940; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=icR1/laqkkoTf11aa2BK9LIzm6Du2s9N0wsVZ/eMMpQ=;
+ b=06iQqkyCBN3h6OTMdarSpAocLtnDZxX1218YnVpJ0LzUqOW9qg3TKVQ1UG5aTSAChQffVu
+ WvmezzJZ3Q9nHn9AhDfFJoyksPjPY99A01RHBa9vWOce588Fil8eBOq3kmcVBNmx200QXV
+ Iw5MIDmy6ruzcE4BtvCqGV/VtCPWCgE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635862248;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1DRWTC1TFIfMR6RNlvGI/qW1glO7XAqTrvN5XJswVzw=;
- b=dzF1lpO49/xA1F+tOalq+n4/LIVwzpx3dEgxuHiMS/2mB7M3yfc7vxTvS1cWg1v2Z7IVid
- VQv7QJlOpsIxCMCA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 99CB6A3B81;
- Tue,  2 Nov 2021 14:10:48 +0000 (UTC)
-Date: Tue, 02 Nov 2021 15:10:48 +0100
-Message-ID: <s5h5ytaps0n.wl-tiwai@suse.de>
+ s=susede2_ed25519; t=1635869940;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=icR1/laqkkoTf11aa2BK9LIzm6Du2s9N0wsVZ/eMMpQ=;
+ b=AQagf6923AY03kN8Lgnob+GI5EpmHySMajAzaflxdpfGViACDhh/eij8CuBGzHSXlxHwhL
+ dsJ7CRYzVSUbloCw==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id A490D2C154;
+ Tue,  2 Nov 2021 16:19:00 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Wang Wensheng <wangwensheng4@huawei.com>
-Subject: Re: [PATCH -next] ALSA: timer: Fix use-after-free problem
-In-Reply-To: <20211102134107.35126-1-wangwensheng4@huawei.com>
-References: <20211102134107.35126-1-wangwensheng4@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- rui.xiang@huawei.com, broonie@kernel.org, joe@perches.com
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Add quirk for Audient iD14
+Date: Tue,  2 Nov 2021 17:18:59 +0100
+Message-Id: <20211102161859.19301-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,121 +84,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 02 Nov 2021 14:41:07 +0100,
-Wang Wensheng wrote:
-> 
-> When the timer instance was add into ack_list but was not currently in
-> process, the user could stop it via snd_timer_stop1() without delete it
-> from the ack_list. Then the user could free the timer instance and when
-> it was actually processed UAF occurred.
-> 
-> This issue could be reproduced via testcase snd_timer01 in ltp - running
-> several instances of that testcase at the same time.
-> 
-> What I actually met was that the ack_list of the timer broken and the
-> kernel went into deadloop with irqoff. That could be detected by
-> hardlockup detector on board or when we run it on qemu, we could use gdb
-> to dump the ack_list when the console has no response.
-> 
-> To fix this issue, we introduce a new flag SNDRV_TIMER_IFLG_ACKING to
-> indicate the state where the timer instance is in ack_list but not
-> currently processed and check against the new flag in snd_timer_stop1()
-> and delete it from ack_list if the flag is set.
-> 
-> Signed-off-by: Wang Wensheng <wangwensheng4@huawei.com>
+Audient iD14 (2708:0002) may get a control message error that
+interferes the operation e.g. with alsactl.  Add the quirk to ignore
+such errors like other devices.
 
-Thanks for the patch.  Just through a quick glance, I wonder whether
-it'd be easier to do list_del_init(&timeri->ack_list) unconditionally
-before the check of timeri->flags in snd_timer1_stop().  Ditto for
-active_list.  So something like:
+BugLink: https://bugzilla.suse.com/show_bug.cgi?id=1191247
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/quirks.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/sound/core/timer.c
-+++ b/sound/core/timer.c
-@@ -624,13 +624,13 @@ static int snd_timer_stop1(struct snd_timer_instance *timeri, bool stop)
- 	if (!timer)
- 		return -EINVAL;
- 	spin_lock_irqsave(&timer->lock, flags);
-+	list_del_init(&timeri->ack_list);
-+	list_del_init(&timeri->active_list);
- 	if (!(timeri->flags & (SNDRV_TIMER_IFLG_RUNNING |
- 			       SNDRV_TIMER_IFLG_START))) {
- 		result = -EBUSY;
- 		goto unlock;
- 	}
--	list_del_init(&timeri->ack_list);
--	list_del_init(&timeri->active_list);
- 	if (timer->card && timer->card->shutdown)
- 		goto unlock;
- 	if (stop) {
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 1d418c3fc598..64e1c20311ed 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1888,6 +1888,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_SHARE_MEDIA_DEVICE | QUIRK_FLAG_ALIGN_TRANSFER),
+ 	DEVICE_FLG(0x21b4, 0x0081, /* AudioQuest DragonFly */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
++	DEVICE_FLG(0x2708, 0x0002, /* Audient iD14 */
++		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	DEVICE_FLG(0x2912, 0x30c8, /* Audioengine D1 */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x30be, 0x0101, /* Schiit Hel */
+-- 
+2.31.1
 
-
-Takashi
-
-> ---
->  include/sound/timer.h |  1 +
->  sound/core/timer.c    | 12 +++++++++---
->  2 files changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/sound/timer.h b/include/sound/timer.h
-> index 760e132cc0cd..549288e94a39 100644
-> --- a/include/sound/timer.h
-> +++ b/include/sound/timer.h
-> @@ -31,6 +31,7 @@
->  #define SNDRV_TIMER_IFLG_CALLBACK 0x00000020	/* timer callback is active */
->  #define SNDRV_TIMER_IFLG_EXCLUSIVE 0x00000040	/* exclusive owner - no more instances */
->  #define SNDRV_TIMER_IFLG_EARLY_EVENT 0x00000080	/* write early event to the poll queue */
-> +#define SNDRV_TIMER_IFLG_ACKING    0x00000100	/* the timeri was added to ack_list */
->  
->  #define SNDRV_TIMER_FLG_CHANGE	0x00000001
->  #define SNDRV_TIMER_FLG_RESCHED	0x00000002	/* need reschedule */
-> diff --git a/sound/core/timer.c b/sound/core/timer.c
-> index 92b7008fcdb8..1d1e4274919c 100644
-> --- a/sound/core/timer.c
-> +++ b/sound/core/timer.c
-> @@ -625,10 +625,12 @@ static int snd_timer_stop1(struct snd_timer_instance *timeri, bool stop)
->  		return -EINVAL;
->  	spin_lock_irqsave(&timer->lock, flags);
->  	if (!(timeri->flags & (SNDRV_TIMER_IFLG_RUNNING |
-> -			       SNDRV_TIMER_IFLG_START))) {
-> +			       SNDRV_TIMER_IFLG_START |
-> +			       SNDRV_TIMER_IFLG_ACKING))) {
->  		result = -EBUSY;
->  		goto unlock;
->  	}
-> +
->  	list_del_init(&timeri->ack_list);
->  	list_del_init(&timeri->active_list);
->  	if (timer->card && timer->card->shutdown)
-> @@ -649,7 +651,8 @@ static int snd_timer_stop1(struct snd_timer_instance *timeri, bool stop)
->  			}
->  		}
->  	}
-> -	timeri->flags &= ~(SNDRV_TIMER_IFLG_RUNNING | SNDRV_TIMER_IFLG_START);
-> +	timeri->flags &= ~(SNDRV_TIMER_IFLG_RUNNING | SNDRV_TIMER_IFLG_START |
-> +			   SNDRV_TIMER_IFLG_ACKING);
->  	if (stop)
->  		timeri->flags &= ~SNDRV_TIMER_IFLG_PAUSED;
->  	else
-> @@ -786,6 +789,7 @@ static void snd_timer_process_callbacks(struct snd_timer *timer,
->  
->  		/* remove from ack_list and make empty */
->  		list_del_init(&ti->ack_list);
-> +		ti->flags &= ~SNDRV_TIMER_IFLG_ACKING;
->  
->  		if (!(ti->flags & SNDRV_TIMER_IFLG_DEAD)) {
->  			ticks = ti->pticks;
-> @@ -890,8 +894,10 @@ void snd_timer_interrupt(struct snd_timer * timer, unsigned long ticks_left)
->  			ack_list_head = &timer->ack_list_head;
->  		else
->  			ack_list_head = &timer->sack_list_head;
-> -		if (list_empty(&ti->ack_list))
-> +		if (list_empty(&ti->ack_list)) {
->  			list_add_tail(&ti->ack_list, ack_list_head);
-> +			ti->flags |= SNDRV_TIMER_IFLG_ACKING;
-> +		}
->  		list_for_each_entry(ts, &ti->slave_active_head, active_list) {
->  			ts->pticks = ti->pticks;
->  			ts->resolution = resolution;
-> -- 
-> 2.17.1
-> 

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B47FE442A1F
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 10:10:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5353A442A20
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 10:11:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B3EE16E7;
-	Tue,  2 Nov 2021 10:10:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B3EE16E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDD5016F2;
+	Tue,  2 Nov 2021 10:10:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDD5016F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635844257;
-	bh=VicWCV0KuasMlpUU6JRahXjq/Dfm71N5x06N2LdM8jc=;
+	s=default; t=1635844275;
+	bh=rhya4TJUkO6ltyWMnVipBHAO5d3rPHKYbEC7rCA4ujw=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O7Qdxv/qFt/3CCYuihXu30EfMttjELYzIL7IdHIeUmMx9B4wrF2GPfNucAY+XZ5aZ
-	 HfPhOOKXQ/vmKLKp4iH5BZOjQ2K6gzHvNBHMiqOnildgF2SD2B00/NkEkjgSnBfS9r
-	 LrjU4n0GX+bG0zXS3d9oxxWG16eWjwAVXCoeUPEg=
+	b=tJQDwQgJRdqFd5UFq/y8g/45Wt/tqEiRU33/z5gFycqycjL79wGPTOHaeRNbvaU9v
+	 AOo43xl4TLImFMLMjytfeFID/c2knfzG/b1gV9k+dE1P2D+Iyzo6yFQs0S9HM/Dz0D
+	 Bi4pyNDUCaVhQsgR3Cwldl1bnNMVlr1eXizNTRRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07069F8025D;
-	Tue,  2 Nov 2021 10:10:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF069F804EB;
+	Tue,  2 Nov 2021 10:10:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3C6DF80229; Tue,  2 Nov 2021 10:10:04 +0100 (CET)
+ id 18DC7F804E7; Tue,  2 Nov 2021 10:10:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 8E937F800BF
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 10:10:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E937F800BF
+ by alsa1.perex.cz (Postfix) with ESMTP id F1499F8027C
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 10:10:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1499F8027C
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1635844200789022923-webhooks-bot@alsa-project.org>
-References: <1635844200789022923-webhooks-bot@alsa-project.org>
+In-Reply-To: <1635844213954025984-webhooks-bot@alsa-project.org>
+References: <1635844213954025984-webhooks-bot@alsa-project.org>
 Subject: Config file for a52 plugin (60-a52-encoder.conf) produces no/garbled
  sound via optical digital out (S/PDIF)
-Message-Id: <20211102091004.F3C6DF80229@alsa1.perex.cz>
-Date: Tue,  2 Nov 2021 10:10:04 +0100 (CET)
+Message-Id: <20211102091018.18DC7F804E7@alsa1.perex.cz>
+Date: Tue,  2 Nov 2021 10:10:18 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,7 +79,7 @@ When I replaced that file with a much simpler one (see below) 5.1 digital out wo
 
 I tried with onboard sound (PCH9) and dedicated card (Audigy Z) with the same result, the inlcuded a52 config file does not work.
 
-== Start a52.conf
+== Start working a52.conf
 ```
 pcm.a52 {
   @args [CARD]
@@ -98,7 +98,7 @@ pcm.a52 {
   }
 }
 ```
-== End a52.conf
+== End working a52.conf
 
 Therefore I assume the shipped config file with debian has an error somewhere. Please fix this.
 

@@ -2,94 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95757442BF5
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 11:58:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3AEF442C01
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 12:00:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2304016E5;
-	Tue,  2 Nov 2021 11:57:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2304016E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C4BE16E4;
+	Tue,  2 Nov 2021 11:59:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C4BE16E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635850720;
-	bh=pRpTL00UdUp5g26fO9m1l+wHQbmO2zvTfq4ybqVwYmQ=;
+	s=default; t=1635850817;
+	bh=qtCy+4Fg2hKaHJi+q5siJd6XWMA50FECeQC2SaXawKc=;
 	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rZ/ysoMM1+avOHlP2yoJ3e9MU77Vn0xivKjMQmQ6MJQH/RxZHux07+W/k4hTrqmzX
-	 s57dTbdiKxexSMTugk4A5kILuZUJVKmLGKJ2MuEXdz7TgBr1uweaxnEYlUBHae6YFK
-	 A3fhq42yQooX5WBzGU3TuDUpNLB9a3CNnhZUx5bM=
+	b=BU5Rri1Q0ItikSYaMfsHWi0Yre1Vt9kbGZ+BbYuPoPovBzKOsDWjfnA+u/SszgwSI
+	 3clWfJdKxbvRwFUoCA+oqTMkuHygiLdPI4xAZ6qzPe8PHhAgOUD3GwDvFp0NQk1iey
+	 uYeN+Dq4nDcyh28XfNCGLAFsSPc2HLisYg7GVmHo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87D0BF8025F;
-	Tue,  2 Nov 2021 11:57:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A95BFF8025F;
+	Tue,  2 Nov 2021 11:59:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD27CF8025D; Tue,  2 Nov 2021 11:57:16 +0100 (CET)
+ id 7CF3EF800BF; Tue,  2 Nov 2021 11:58:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BBB3BF800BF
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 11:57:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBB3BF800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A2B0F800BF
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 11:58:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A2B0F800BF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="dHVCoDvi"
+ header.i=@mg.codeaurora.org header.b="uRCUouiP"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1635850629; h=Content-Transfer-Encoding: Content-Type:
+ s=smtp; t=1635850731; h=Content-Transfer-Encoding: Content-Type:
  In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
- Subject: Sender; bh=fl4PsWpMd3O4F7G5HgD/5x9EXzeEBpRqdmiUnedU7UA=;
- b=dHVCoDvi5ontnwa0Sfs4q1ETJdPXtGUN4iTYbPEI+YU6gj65ZW7EvJ6W5BwZVqWHlhPTS1Ce
- kmXKE3k+XlPv0RP/TKmdp2fLXwRRDIYfSTW+mbSt8IFOsWFGZkdzT7nCYIwf4ZOBhwz5Tf+y
- 3jHBdyZjtZuZ3A+YKLNg6IfTZHk=
+ Subject: Sender; bh=bisdeD3X1MxFxI1OCeAyuj8O9/LL4EAudrvUEowmfCw=;
+ b=uRCUouiPnNgW2IHO4h2TARCsG3TO1JEbGxgrLlytrKztRTZh6sRIOU5lUqU3jRpiRaeE5bzT
+ zt9PtpX12JKQ8/8F3754weQwmxs2KnM2Y8XfcGmHisF0KATfoBV+aVw+cI4JKr/qUKyZqW3s
+ BDEqSx9Ya9cEt3umMTKhSch8tjQ=
 X-Mailgun-Sending-Ip: 198.61.254.9
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 61811982c8c1b282a56bd59e (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 02 Nov 2021 10:57:06
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 618119e8c8c1b282a56ceb44 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 02 Nov 2021 10:58:48
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 13B19C43617; Tue,  2 Nov 2021 10:57:06 +0000 (UTC)
+ id 63350C43460; Tue,  2 Nov 2021 10:58:48 +0000 (UTC)
 Received: from [10.242.143.72] (unknown [202.46.23.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 86E07C4338F;
- Tue,  2 Nov 2021 10:56:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 86E07C4338F
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 3002FC4338F;
+ Tue,  2 Nov 2021 10:58:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 3002FC4338F
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=codeaurora.org
-Subject: Re: [PATCH v4 1/2] ASoC: google: dt-bindings: Add sc7280-herobrine
- machine bindings
-To: Stephen Boyd <swboyd@chromium.org>, agross@kernel.org,
- alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- bjorn.andersson@linaro.org, broonie@kernel.org, devicetree@vger.kernel.org,
- judyhsiao@chromium.org, lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, perex@perex.cz, plai@codeaurora.org,
- robh+dt@kernel.org, rohitkr@codeaurora.org, srinivas.kandagatla@linaro.org,
- tiwai@suse.com
+Subject: Re: [PATCH v4 2/2] ASoC: qcom: SC7280: Add machine driver
+To: Randy Dunlap <rdunlap@infradead.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, srinivas.kandagatla@linaro.org,
+ rohitkr@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, swboyd@chromium.org, judyhsiao@chromium.org
 References: <1635519876-7112-1-git-send-email-srivasam@codeaurora.org>
- <1635519876-7112-2-git-send-email-srivasam@codeaurora.org>
- <CAE-0n53ok5muZ8nhpsigsw3w_qx_TSxGSdm7pf9nbb+s4K+HiQ@mail.gmail.com>
+ <1635519876-7112-3-git-send-email-srivasam@codeaurora.org>
+ <4d1ca1b5-6656-1b3b-65a0-c05c92824d18@infradead.org>
 From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 Organization: Qualcomm India Private Limited.
-Message-ID: <0cf52203-249a-2f6c-6106-888631ac85fa@codeaurora.org>
-Date: Tue, 2 Nov 2021 16:26:57 +0530
+Message-ID: <25b2a191-ff9e-25e0-1d46-bc37a92e1ff1@codeaurora.org>
+Date: Tue, 2 Nov 2021 16:28:40 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <CAE-0n53ok5muZ8nhpsigsw3w_qx_TSxGSdm7pf9nbb+s4K+HiQ@mail.gmail.com>
+In-Reply-To: <4d1ca1b5-6656-1b3b-65a0-c05c92824d18@infradead.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -107,96 +105,31 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 10/30/2021 12:37 AM, Stephen Boyd wrote:
-Thanks for Your time Stephen!!!
-> Quoting Srinivasa Rao Mandadapu (2021-10-29 08:04:35)
->> diff --git a/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml b/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
->> new file mode 100644
->> index 0000000..3a781c8
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
->> @@ -0,0 +1,170 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/sound/google,sc7280-herobrine.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Google SC7280-Herobrine ASoC sound card driver
->> +
->> +maintainers:
->> +  - Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
->> +  - Judy Hsiao <judyhsiao@chromium.org>
->> +
->> +description:
->> +  This binding describes the SC7280 sound card which uses LPASS for audio.
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - google,sc7280-herobrine
->> +
->> +  audio-routing:
->> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->> +    description:
->> +      A list of the connections between audio components. Each entry is a
->> +      pair of strings, the first being the connection's sink, the second
->> +      being the connection's source.
->> +
->> +  model:
->> +    $ref: /schemas/types.yaml#/definitions/string
->> +    description: User specified audio sound card name
->> +
->> +  "#address-cells":
->> +    const: 1
->> +
->> +  "#size-cells":
->> +    const: 0
->> +
->> +patternProperties:
->> +  "^dai-link@[0-9a-f]$":
->> +    description:
->> +      Each subnode represents a dai link. Subnodes of each dai links would be
->> +      cpu/codec dais.
->> +
->> +    type: object
->> +
->> +    properties:
->> +      link-name:
->> +        description: Indicates dai-link name and PCM stream name.
->> +        $ref: /schemas/types.yaml#/definitions/string
->> +        maxItems: 1
->> +
->> +      reg:
->> +        maxItems: 1
->> +        description: dai link address.
->> +
->> +      cpu:
->> +        description: Holds subnode which indicates cpu dai.
->> +        type: object
->> +        properties:
->> +          sound-dai: true
-> Is sound-dai required? And additionalProperties is false? I think we
-> need that yet again.
-Okay. Will mark additionalPropertiesas true.
+On 10/30/2021 5:04 AM, Randy Dunlap wrote:
+Thanks for your time Randy!!!
+> On 10/29/21 8:04 AM, Srinivasa Rao Mandadapu wrote:
+>> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+>> index cc7c1de..d9ffcb7 100644
+>> --- a/sound/soc/qcom/Kconfig
+>> +++ b/sound/soc/qcom/Kconfig
+>> @@ -152,4 +152,16 @@ config SND_SOC_SC7180
+>>         SC7180 SoC-based systems.
+>>         Say Y if you want to use audio device on this SoCs.
+>>   +config SND_SOC_SC7280
+>> +    tristate "SoC Machine driver for SC7280 boards"
+>> +    depends on I2C && SOUNDWIRE
+>> +    select SND_SOC_QCOM_COMMON
+>> +    select SND_SOC_MAX98357A
+>> +    select SND_SOC_LPASS_RX_MACRO
+>> +    select SND_SOC_LPASS_TX_MACRO
+>> +    help
+>> +      To add support for audio on Qualcomm Technologies Inc.
+>> +      SC7280 SoC-based systems.
+>> +      Say Y if you want to use audio device on this SoCs.
 >
->> +
->> +      codec:
->> +        description: Holds subnode which indicates codec dai.
->> +        type: object
->> +        properties:
->> +          sound-dai: true
->> +
-> Same here.
+>       Say Y or M if you want to use audio devices on this SoC.
 >
->> +    required:
->> +      - link-name
->> +      - cpu
->> +      - codec
->> +      - reg
->> +
->> +    additionalProperties: false
->> +
+Okay. Will change accordingly.
 
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,

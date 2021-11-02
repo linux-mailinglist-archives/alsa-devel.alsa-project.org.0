@@ -2,63 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BEF9442B75
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 11:14:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B178D442BB1
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 11:33:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C044816F4;
-	Tue,  2 Nov 2021 11:13:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C044816F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B81916E0;
+	Tue,  2 Nov 2021 11:32:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B81916E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635848060;
-	bh=2cBr2WBblmTWXVAr5alIcNvbqlvS1XqeK6h+vCNdVS8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1635849196;
+	bh=qYmjjB+C2oj/emYHt7IBXwqD4HzJGEeDAZRT0Tndb1E=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=J3egpatmOFngFUHrnaOBcVURXwqwqv9Op1EoiuIvphUFWnOzK9rv/AiJE7PD9kAsn
-	 jomCJxbfxVt2U6Rb/F+iB1ujJlzkflY1i7W6e3q6Oen6A6R9/4k1S4vl7ad1wJ3dk5
-	 mELShQzvipgQzpYrfI3kwLPCd9vtDeQwWKX9Mw0g=
+	b=DL89YtYLUTJC1hjfOPH0cNY8kVRcQc7P28UZNamfbJZgzv1WlEU01hOGlX0SDchZ8
+	 FAI45F1lXpNfAn/C6eA3JVpKZu81BDZlpT7rn2xobCQbIiv8KjOjTfyToTq9UoseZQ
+	 9CL7uwVknKWlpLxh5fgYj5DSZ45tfy2SORsBtycQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02A4CF804FB;
-	Tue,  2 Nov 2021 11:12:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FB3DF8025F;
+	Tue,  2 Nov 2021 11:31:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3D35F804FA; Tue,  2 Nov 2021 11:11:56 +0100 (CET)
+ id 566CCF8025D; Tue,  2 Nov 2021 11:31:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1046F80229
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 11:11:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1046F80229
-X-IronPort-AV: E=McAfee;i="6200,9189,10155"; a="211278032"
-X-IronPort-AV: E=Sophos;i="5.87,202,1631602800"; d="scan'208";a="211278032"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2021 03:10:15 -0700
-X-IronPort-AV: E=Sophos;i="5.87,202,1631602800"; d="scan'208";a="500477178"
-Received: from asorichi-mobl1.amr.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.249.44.213])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2021 03:10:13 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH 3/3] ASoC: SOF: trace: send DMA_TRACE_FREE IPC during release
-Date: Tue,  2 Nov 2021 12:10:19 +0200
-Message-Id: <20211102101019.14037-4-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211102101019.14037-1-peter.ujfalusi@linux.intel.com>
-References: <20211102101019.14037-1-peter.ujfalusi@linux.intel.com>
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5261EF8012E
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 11:31:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5261EF8012E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="yTJj+PFD"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="CLjRDNho"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 4896C212C6;
+ Tue,  2 Nov 2021 10:31:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1635849106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ayzifrmSx2RtPVVSxMWcHrbtaEbgK40zXrtwKXLG2m0=;
+ b=yTJj+PFDZGlSRK8ri2AI9FfcWQC82EMpqw/SOl+YfYouvFisqd6TIRg0SbbKBFC6/N5Fwm
+ /TcyJ0b4EyMUnb7mwZxx4A8nSBgayFmNyTcjiDLHC1osliatoG6GaoKJip922Y55Pwh1pj
+ Hrg9x8/BNPpYWdl2/pF88iO/QZddzBA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1635849106;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ayzifrmSx2RtPVVSxMWcHrbtaEbgK40zXrtwKXLG2m0=;
+ b=CLjRDNhoo6EdtlA8OvHxgZHImZDYvacHLMsYmwV1PPWOJG6kaDQ0GdV3+O7yUFatEsiWRn
+ gJKKv75OlrL7pNAg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 38DA1A3B84;
+ Tue,  2 Nov 2021 10:31:46 +0000 (UTC)
+Date: Tue, 02 Nov 2021 11:31:46 +0100
+Message-ID: <s5ho872q25p.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Zqiang <qiang.zhang1211@gmail.com>
+Subject: Re: [PATCH] ALSA: seq: Fix RCU stall in snd_seq_write()
+In-Reply-To: <2d05ceab-b8b7-0c7b-f847-69950c6db14e@gmail.com>
+References: <20211102033222.3849-1-qiang.zhang1211@gmail.com>
+ <s5hy267ot27.wl-tiwai@suse.de>
+ <2d05ceab-b8b7-0c7b-f847-69950c6db14e@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,76 +97,131 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+On Tue, 02 Nov 2021 10:41:57 +0100,
+Zqiang wrote:
+> 
+> 
+> On 2021/11/2 下午4:33, Takashi Iwai wrote:
+> > On Tue, 02 Nov 2021 04:32:22 +0100,
+> > Zqiang wrote:
+> >> If we have a lot of cell object, this cycle may take a long time, and
+> >> trigger RCU stall. insert a conditional reschedule point to fix it.
+> >>
+> >> rcu: INFO: rcu_preempt self-detected stall on CPU
+> >> rcu: 	1-....: (1 GPs behind) idle=9f5/1/0x4000000000000000
+> >> 	softirq=16474/16475 fqs=4916
+> >> 	(t=10500 jiffies g=19249 q=192515)
+> >> NMI backtrace for cpu 1
+> >> ......
+> >> asm_sysvec_apic_timer_interrupt
+> >> RIP: 0010:_raw_spin_unlock_irqrestore+0x38/0x70
+> >> spin_unlock_irqrestore
+> >> snd_seq_prioq_cell_out+0x1dc/0x360
+> >> snd_seq_check_queue+0x1a6/0x3f0
+> >> snd_seq_enqueue_event+0x1ed/0x3e0
+> >> snd_seq_client_enqueue_event.constprop.0+0x19a/0x3c0
+> >> snd_seq_write+0x2db/0x510
+> >> vfs_write+0x1c4/0x900
+> >> ksys_write+0x171/0x1d0
+> >> do_syscall_64+0x35/0xb0
+> >>
+> >> Reported-by: syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
+> >> Signed-off-by: Zqiang <qiang.zhang1211@gmail.com>
+> >> ---
+> >>   sound/core/seq/seq_queue.c | 2 ++
+> >>   1 file changed, 2 insertions(+)
+> >>
+> >> diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
+> >> index d6c02dea976c..f5b1e4562a64 100644
+> >> --- a/sound/core/seq/seq_queue.c
+> >> +++ b/sound/core/seq/seq_queue.c
+> >> @@ -263,6 +263,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+> >>   		if (!cell)
+> >>   			break;
+> >>   		snd_seq_dispatch_event(cell, atomic, hop);
+> >> +		cond_resched();
+> >>   	}
+> >>     	/* Process time queue... */
+> >> @@ -272,6 +273,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+> >>   		if (!cell)
+> >>   			break;
+> >>   		snd_seq_dispatch_event(cell, atomic, hop);
+> >> +		cond_resched();
+> >
+> > It's good to have cond_resched() in those places but it must be done
+> > more carefully, as the code path may be called from the non-atomic
+> > context, too.  That is, it must have a check of atomic argument, and
+> > cond_resched() is applied only when atomic==false.
+> >
+> > But I still wonder how this gets a RCU stall out of sudden.  Looking
+> > through https://syzkaller.appspot.com/bug?extid=bb950e68b400ab4f65f8
+> > it's triggered by many cases since the end of September...
+> 
+> I did not find useful information from the log,  through calltrace, I
+> guess it may be triggered by the long cycle time, which caused the
+> static state of the RCU to
+> 
+> not be reported in time.
 
-Send the DMA_TRACE_FREE IPC during release to stop and free the trace
-DMA in the DSP.
+Yes, I understand that logic.  But I wonder why this gets triggered
+*now* out of sudden.  The code has been present over decades, and I
+don't think the similar test case must have been performed by fuzzer.
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> I ignore the atomic parameter check,  I will resend v2 .   in
+> no-atomic context, we can insert
+> 
+> cond_resched() to avoid this situation, but in atomic context,
+> 
+> the RCU stall maybe still trigger.
+
+Right, so maybe it's better to have an upper limit for the processed
+cells, something like below (totally untested).
+
+Could you reproduce the problem locally?  Otherwise it's all nothing
+but a guess...
+
+
+thanks,
+
+Takashi
+
 ---
- sound/soc/sof/core.c  |  2 +-
- sound/soc/sof/trace.c | 18 ++++++++++++++++++
- 2 files changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index af5bbc861297..40549cdd6d58 100644
---- a/sound/soc/sof/core.c
-+++ b/sound/soc/sof/core.c
-@@ -370,6 +370,7 @@ int snd_sof_device_remove(struct device *dev)
- 	snd_sof_machine_unregister(sdev, pdata);
+diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
+index d6c02dea976c..7f796ee62ee7 100644
+--- a/sound/core/seq/seq_queue.c
++++ b/sound/core/seq/seq_queue.c
+@@ -235,12 +235,15 @@ struct snd_seq_queue *snd_seq_queue_find_name(char *name)
  
- 	if (sdev->fw_state > SOF_FW_BOOT_NOT_STARTED) {
-+		snd_sof_free_trace(sdev);
- 		ret = snd_sof_dsp_power_down_notify(sdev);
- 		if (ret < 0)
- 			dev_warn(dev, "error: %d failed to prepare DSP for device removal",
-@@ -377,7 +378,6 @@ int snd_sof_device_remove(struct device *dev)
+ /* -------------------------------------------------------- */
  
- 		snd_sof_ipc_free(sdev);
- 		snd_sof_free_debug(sdev);
--		snd_sof_free_trace(sdev);
++#define MAX_CELL_PROCESSES_IN_QUEUE	1000
++
+ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+ {
+ 	unsigned long flags;
+ 	struct snd_seq_event_cell *cell;
+ 	snd_seq_tick_time_t cur_tick;
+ 	snd_seq_real_time_t cur_time;
++	int processed = 0;
+ 
+ 	if (q == NULL)
+ 		return;
+@@ -263,6 +266,8 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+ 		if (!cell)
+ 			break;
+ 		snd_seq_dispatch_event(cell, atomic, hop);
++		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
++			return; /* the rest processed at the next batch */
  	}
  
- 	/*
-diff --git a/sound/soc/sof/trace.c b/sound/soc/sof/trace.c
-index e3afc3dac7d1..f13024c8ebf2 100644
---- a/sound/soc/sof/trace.c
-+++ b/sound/soc/sof/trace.c
-@@ -539,6 +539,10 @@ EXPORT_SYMBOL(snd_sof_trace_notify_for_error);
+ 	/* Process time queue... */
+@@ -272,6 +277,8 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+ 		if (!cell)
+ 			break;
+ 		snd_seq_dispatch_event(cell, atomic, hop);
++		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
++			return; /* the rest processed at the next batch */
+ 	}
  
- void snd_sof_release_trace(struct snd_sof_dev *sdev)
- {
-+	struct sof_ipc_fw_ready *ready = &sdev->fw_ready;
-+	struct sof_ipc_fw_version *v = &ready->version;
-+	struct sof_ipc_cmd_hdr hdr;
-+	struct sof_ipc_reply ipc_reply;
- 	int ret;
- 
- 	if (!sdev->dtrace_is_supported || !sdev->dtrace_is_enabled)
-@@ -549,6 +553,20 @@ void snd_sof_release_trace(struct snd_sof_dev *sdev)
- 		dev_err(sdev->dev,
- 			"error: snd_sof_dma_trace_trigger: stop: %d\n", ret);
- 
-+	/*
-+	 * stop and free trace DMA in the DSP. TRACE_DMA_FREE is only supported from
-+	 * ABI 3.20.0 onwards
-+	 */
-+	if (v->abi_version >= SOF_ABI_VER(3, 20, 0)) {
-+		hdr.size = sizeof(hdr);
-+		hdr.cmd = SOF_IPC_GLB_TRACE_MSG | SOF_IPC_TRACE_DMA_FREE;
-+
-+		ret = sof_ipc_tx_message(sdev->ipc, hdr.cmd, &hdr, hdr.size,
-+					 &ipc_reply, sizeof(ipc_reply));
-+		if (ret < 0)
-+			dev_err(sdev->dev, "DMA_TRACE_FREE failed with error: %d\n", ret);
-+	}
-+
- 	ret = snd_sof_dma_trace_release(sdev);
- 	if (ret < 0)
- 		dev_err(sdev->dev,
--- 
-2.33.1
-
+ 	/* free lock */

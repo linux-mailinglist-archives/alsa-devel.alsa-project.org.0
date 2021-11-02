@@ -2,71 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE8A34435A4
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 19:32:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F2B144379B
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 22:00:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6750A16A0;
-	Tue,  2 Nov 2021 19:31:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6750A16A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC24E1693;
+	Tue,  2 Nov 2021 21:59:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC24E1693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635877920;
-	bh=1yFmPUSLjQ6coZuPz6HKIjZgNys614LuubH4dIqXbWU=;
+	s=default; t=1635886825;
+	bh=zLpClEmfJnwqI8rbzoUQK1l2RL+NvDsEB9KkivRmg0Y=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CXs+KdIPXILhXLh4rxpqTRH6GUKZvHN/jlMXCMzGnbfOxNrbBYqtlaPMD51HELkmE
-	 kD+sMLD2wzMOPfEYqxN9H2C2EgkSq0xJFa+xmGqG8iXGRBsS+9unVvmyQEaDzhzFbP
-	 GdGCMc/6uYNcXp7ygjbPkMcdZ8vAG6ZQXdExmxR0=
+	b=DP1xCzciLSi3WcAEP0E0b/mi8kHDsefn2VfKEDPBLl7teq9adVEsZQCt/b9PjHL8G
+	 xwm7CkoRtX68soe4ecl07LWa57E1K2tDrDbTIErgPnhI4ZlZMmD476hCLPG3Hkq+gL
+	 5Cff20vvnLhOCV0ZAzT5veGbIEUQGNDZyk/yg3Bo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAABCF8025D;
-	Tue,  2 Nov 2021 19:30:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31B14F800BF;
+	Tue,  2 Nov 2021 21:59:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7B52F8025D; Tue,  2 Nov 2021 19:30:40 +0100 (CET)
+ id CDF25F8025D; Tue,  2 Nov 2021 21:59:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35650F8012E
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 19:30:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35650F8012E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="siESjPkS"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 03A6661050;
- Tue,  2 Nov 2021 18:30:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635877834;
- bh=1yFmPUSLjQ6coZuPz6HKIjZgNys614LuubH4dIqXbWU=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=siESjPkSKl5UHDw6/omsoUlDt0CmvEesN3M5wkcOwGnfcf4wwWFFNnkN13oVZtiMc
- QlagBst37O5BzgWx+qH0UdSGgmM8p5GMqlo7D4660ML+pAy9vG012pdci8tI/Wo39h
- Z54Rr+JowHJ3JyOj7Exeb+Hjj3WIozlHoa0D1Sa4esMB/q3ObBQgeWteLgs/1Jpx8Y
- wmZ1UWKqOraj9ZD81fb1Hr2SWZEbnPKrNHHVi/hv6vi084yrCGd91TZTxSxC0UZ/YA
- Gn/1Ut6c1K8N9Yus/5sPonk1KXqZJ7boRreHh3dV9SvFjS8f7OAd/3nqRExsil0Km5
- aFjwQ+nBNP7wA==
-From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, kuninori.morimoto.gx@renesas.com,
- tiwai@suse.com, Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- perex@perex.cz, lgirdwood@gmail.com, mikhail_durnev@mentor.com,
- joe@perches.com
-In-Reply-To: <4c0e893cbfa21dc76c1ede0b6f4f8cff42209299.1634586167.git.christophe.jaillet@wanadoo.fr>
-References: <4c0e893cbfa21dc76c1ede0b6f4f8cff42209299.1634586167.git.christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] ASoC: rsnd: Fix an error handling path in
- 'rsnd_node_count()'
-Message-Id: <163587783174.970357.16497711772885268572.b4-ty@kernel.org>
-Date: Tue, 02 Nov 2021 18:30:31 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id A72C0F80224
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 21:59:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A72C0F80224
+Received: by mail-ot1-f45.google.com with SMTP id
+ o10-20020a9d718a000000b00554a0fe7ba0so592021otj.11
+ for <alsa-devel@alsa-project.org>; Tue, 02 Nov 2021 13:59:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=X+PbCIBbupD5QlN7dstqXrkneFhSekQ8ud9fjKAPemE=;
+ b=14B5nbWexQ/xIbGDwGlhcsfZCip3OQmb4bQpsNNwHn8IJdihKCgMQM3xvkDDwaZUHr
+ ML230v75S9PSGZzfqyIeN7ZUPA+tcDlXCfNLVnI3RR7xiUdfU7CtmuiADh/Qo9tMPano
+ 9J9gPxd9RPQB4fWsEqX3RVByxJUIxeonWA7z1KdVAxkYowIhknCP2+2/dZEii3SIdoP1
+ nzWI1Q4VEm7xhPyY4Cu+uit0zpWsRyLq1qZnzySbQrdw6fAPOEiNeK14jY7cGaMRPOQM
+ is8yaf2lTqsHCHcZdHMO9nA3jYY3R2Kzbn39pNEsoXaiUKMLbvi4r8JbhIdPTnLSrbXu
+ wIKg==
+X-Gm-Message-State: AOAM531lR2LjnTT4Mk2ohohDrUpzQM/hJEOQ4zRI7OiVL3KHVNBWOdg+
+ iaJmp5cJJhkDbJfmOmEW/Q==
+X-Google-Smtp-Source: ABdhPJxd7nHSOxQQYcM1AqgSl5jOlctl2u+Zih91go3saWqDKwRuki9qZYS+68Gyo04l8qmpTPDT3Q==
+X-Received: by 2002:a9d:75c2:: with SMTP id c2mr29999973otl.69.1635886738566; 
+ Tue, 02 Nov 2021 13:58:58 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id q63sm17699oia.55.2021.11.02.13.58.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Nov 2021 13:58:58 -0700 (PDT)
+Received: (nullmailer pid 3465321 invoked by uid 1000);
+ Tue, 02 Nov 2021 20:58:57 -0000
+From: Rob Herring <robh@kernel.org>
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+In-Reply-To: <1635851372-19151-2-git-send-email-srivasam@codeaurora.org>
+References: <1635851372-19151-1-git-send-email-srivasam@codeaurora.org>
+ <1635851372-19151-2-git-send-email-srivasam@codeaurora.org>
+Subject: Re: [PATCH v5 1/2] ASoC: google: dt-bindings: Add sc7280-herobrine
+ machine bindings
+Date: Tue, 02 Nov 2021 15:58:56 -0500
+Message-Id: <1635886737.005870.3465320.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ plai@codeaurora.org, tiwai@suse.com, swboyd@chromium.org, robh+dt@kernel.org,
+ broonie@kernel.org, linux-arm-msm@vger.kernel.org, agross@kernel.org,
+ rohitkr@codeaurora.org, bjorn.andersson@linaro.org, judyhsiao@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,38 +93,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 18 Oct 2021 21:44:16 +0200, Christophe JAILLET wrote:
-> If we return before the end of the 'for_each_child_of_node()' iterator, the
-> reference taken on 'np' must be released.
+On Tue, 02 Nov 2021 16:39:31 +0530, Srinivasa Rao Mandadapu wrote:
+> Add devicetree bindings documentation file for sc7280 sound card
+> registration.
 > 
-> Add the missing 'of_node_put()' call.
+> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+> ---
+>  .../bindings/sound/google,sc7280-herobrine.yaml    | 170 +++++++++++++++++++++
+>  1 file changed, 170 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
 > 
-> 
 
-Applied to
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+yamllint warnings/errors:
 
-Thanks!
+dtschema/dtc warnings/errors:
+Error: Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dts:46.24-25 syntax error
+FATAL ERROR: Unable to parse input tree
+make[1]: *** [scripts/Makefile.lib:385: Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1441: dt_binding_check] Error 2
 
-[1/1] ASoC: rsnd: Fix an error handling path in 'rsnd_node_count()'
-      commit: 173632358fde7a567f28e07c4549b959ee857986
+doc reference errors (make refcheckdocs):
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+See https://patchwork.ozlabs.org/patch/1549576
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+pip3 install dtschema --upgrade
 
-Thanks,
-Mark
+Please check and re-submit.
+

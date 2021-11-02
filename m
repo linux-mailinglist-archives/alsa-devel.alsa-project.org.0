@@ -2,88 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 462E04428AA
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 08:36:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4602B442932
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 09:17:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C347216BA;
-	Tue,  2 Nov 2021 08:35:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C347216BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0CDE16BB;
+	Tue,  2 Nov 2021 09:16:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0CDE16BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635838566;
-	bh=wgQFg9soKqjVTnowFr2+F4cyE48rWSd0r5l+G0vOrck=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1635841058;
+	bh=626HRoTHNBH2QmZwoQkU2oY6J/bIFb7x6nH+GUe6IlU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BWN/ZI/ZAGoSpSaMkKXQQSEPvg2YtZ/KEllNzoaSymYlVmFgdA9fNexGFPzFVbkx4
-	 E3iX60obEB6m6FeIVkq15ZcOgdFlJ7NKhyKng2RDiGetWAJAwBKZ/DRZPIAlHT4wyl
-	 tfv1gEhvL/+myTQMyUrspAiNQGOsOv8ZlYiR741M=
+	b=MN6yLUqGbweEZCO7FRgJTe8Jq9XRr+455E/QyRqFlGdKuAYdt8Qn5/s/DNJuRshgy
+	 iEmfXP1f6F+lI2kfATmP3hEmmrxFfD7/9pJUYKp1TXnfnh6krurQv64WEydZ/PFqk2
+	 0S/v4yDJA99jIrwTplTOWZtmj2wg7EgFrjvv5vf8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B4C5F80526;
-	Tue,  2 Nov 2021 08:32:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FAA6F8025F;
+	Tue,  2 Nov 2021 09:16:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72F40F8052D; Tue,  2 Nov 2021 08:32:45 +0100 (CET)
+ id 0BB3CF8025D; Tue,  2 Nov 2021 09:16:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 399ACF80526
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 08:32:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 399ACF80526
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA9ADF8012E
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 09:16:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA9ADF8012E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="OxXdXxiQ"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1635838359; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=JiEOJqa3aqS2iNBJDoYuclB4bw9U3vBvyQW5D9XElQE=;
- b=OxXdXxiQ0Za23CJTMiSh9cHDA2o1gxex3JrxDU8J7L0eeB4lB/urfXe21mifI7DKjgd85Eq6
- mC3IyBjOFJ4w1fuYpnDWFIXs8Xuv/upu7qCaYc07eNLvwplLmw2kCrjVvHW2hGJML1lGYx3N
- h9spaGvHwfd3xqqODmPAWGYu6o4=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 6180e98897bbea7fcc5d9925 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 02 Nov 2021 07:32:24
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id B7D0EC4361A; Tue,  2 Nov 2021 07:32:23 +0000 (UTC)
-Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id C51ACC4363B;
- Tue,  2 Nov 2021 07:32:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org C51ACC4363B
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH v4 10/10] ASoC: qcom: SC7280: Update config for building codec
- dma drivers
-Date: Tue,  2 Nov 2021 13:01:05 +0530
-Message-Id: <1635838265-27346-11-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1635838265-27346-1-git-send-email-srivasam@codeaurora.org>
-References: <1635838265-27346-1-git-send-email-srivasam@codeaurora.org>
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="LSyLVzUx"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="72g9G37K"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 20C171FD77;
+ Tue,  2 Nov 2021 08:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1635840969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=svoAyV3/CjrsLzkKpT6lrwIeE7Vw55Koj6rAB92ac0k=;
+ b=LSyLVzUxP5c1JJjmBHmqzgnLP1B40wr8y7lPJnhA4Y/2113OxKTi5oZxVZr//Inl9IJO/f
+ ALWTtMbad76wqXtIR/UA8G9mEF65egyPTY8uCTVEmi+SDWkJ5oqYxA6kxhfaNjLxuDCpQf
+ x3SUpopE5Bvn78PLXWUoqmZGiF6qnw0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1635840969;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=svoAyV3/CjrsLzkKpT6lrwIeE7Vw55Koj6rAB92ac0k=;
+ b=72g9G37Kio18ha0hsUgDKMf46J3AwYU9yYqEV/rVez0l7LQpcFqLYanpCZ+8kpLSkB3VVJ
+ UuSusB7s4YF+TgDQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 0D1ABA3B83;
+ Tue,  2 Nov 2021 08:16:09 +0000 (UTC)
+Date: Tue, 02 Nov 2021 09:16:09 +0100
+Message-ID: <s5h35ofq8fq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Tim Crawford <tcrawford@system76.com>
+Subject: Re: [PATCH RESEND] ALSA: hda/realtek: Add quirk for Clevo PC70HS
+In-Reply-To: <20211101162134.5336-1-tcrawford@system76.com>
+References: <20211101162134.5336-1-tcrawford@system76.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: productdev@system76.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,83 +92,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add configuration for building SC7280 audio codec dma drivers.
+On Mon, 01 Nov 2021 17:21:34 +0100,
+Tim Crawford wrote:
+> 
+> Apply the PB51ED PCI quirk to the Clevo PC70HS. Fixes audio output from
+> the internal speakers.
+> 
+> Signed-off-by: Tim Crawford <tcrawford@system76.com>
 
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
----
- sound/soc/qcom/Kconfig  | 13 +++++++++++++
- sound/soc/qcom/Makefile |  4 ++++
- 2 files changed, 17 insertions(+)
+Thanks, applied now.
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index d9ffcb7..2b98ad9 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -20,6 +20,10 @@ config SND_SOC_LPASS_PLATFORM
- 	tristate
- 	select REGMAP_MMIO
- 
-+config SND_SOC_LPASS_CDC_DMA
-+	tristate
-+	select REGMAP_MMIO
-+
- config SND_SOC_LPASS_IPQ806X
- 	tristate
- 	select SND_SOC_LPASS_CPU
-@@ -36,6 +40,13 @@ config SND_SOC_LPASS_SC7180
- 	select SND_SOC_LPASS_PLATFORM
- 	select SND_SOC_LPASS_HDMI
- 
-+config SND_SOC_LPASS_SC7280
-+	tristate
-+	select SND_SOC_LPASS_CPU
-+	select SND_SOC_LPASS_PLATFORM
-+	select SND_SOC_LPASS_HDMI
-+	select SND_SOC_LPASS_CDC_DMA
-+
- config SND_SOC_STORM
- 	tristate "ASoC I2S support for Storm boards"
- 	select SND_SOC_LPASS_IPQ806X
-@@ -156,7 +167,9 @@ config SND_SOC_SC7280
- 	tristate "SoC Machine driver for SC7280 boards"
- 	depends on I2C && SOUNDWIRE
- 	select SND_SOC_QCOM_COMMON
-+	select SND_SOC_LPASS_SC7280
- 	select SND_SOC_MAX98357A
-+	select SND_SOC_WCD938X
- 	select SND_SOC_LPASS_RX_MACRO
- 	select SND_SOC_LPASS_TX_MACRO
- 	help
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 625aec6..8b7b876 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -1,18 +1,22 @@
- # SPDX-License-Identifier: GPL-2.0
- # Platform
- snd-soc-lpass-cpu-objs := lpass-cpu.o
-+snd-soc-lpass-cdc-dma-objs := lpass-cdc-dma.o
- snd-soc-lpass-hdmi-objs := lpass-hdmi.o
- snd-soc-lpass-platform-objs := lpass-platform.o
- snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
- snd-soc-lpass-apq8016-objs := lpass-apq8016.o
- snd-soc-lpass-sc7180-objs := lpass-sc7180.o
-+snd-soc-lpass-sc7280-objs := lpass-sc7280.o
- 
- obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
-+obj-$(CONFIG_SND_SOC_LPASS_CDC_DMA) += snd-soc-lpass-cdc-dma.o
- obj-$(CONFIG_SND_SOC_LPASS_HDMI) += snd-soc-lpass-hdmi.o
- obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
- obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
- obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
- obj-$(CONFIG_SND_SOC_LPASS_SC7180) += snd-soc-lpass-sc7180.o
-+obj-$(CONFIG_SND_SOC_LPASS_SC7280) += snd-soc-lpass-sc7280.o
- 
- # Machine
- snd-soc-storm-objs := storm.o
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+At the next time, please put maintainers (me) to Cc, for reducing the
+risk of overlooks.
 
+
+Takashi

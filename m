@@ -2,86 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B178D442BB1
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 11:33:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95757442BF5
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 11:58:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B81916E0;
-	Tue,  2 Nov 2021 11:32:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B81916E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2304016E5;
+	Tue,  2 Nov 2021 11:57:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2304016E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635849196;
-	bh=qYmjjB+C2oj/emYHt7IBXwqD4HzJGEeDAZRT0Tndb1E=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1635850720;
+	bh=pRpTL00UdUp5g26fO9m1l+wHQbmO2zvTfq4ybqVwYmQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DL89YtYLUTJC1hjfOPH0cNY8kVRcQc7P28UZNamfbJZgzv1WlEU01hOGlX0SDchZ8
-	 FAI45F1lXpNfAn/C6eA3JVpKZu81BDZlpT7rn2xobCQbIiv8KjOjTfyToTq9UoseZQ
-	 9CL7uwVknKWlpLxh5fgYj5DSZ45tfy2SORsBtycQ=
+	b=rZ/ysoMM1+avOHlP2yoJ3e9MU77Vn0xivKjMQmQ6MJQH/RxZHux07+W/k4hTrqmzX
+	 s57dTbdiKxexSMTugk4A5kILuZUJVKmLGKJ2MuEXdz7TgBr1uweaxnEYlUBHae6YFK
+	 A3fhq42yQooX5WBzGU3TuDUpNLB9a3CNnhZUx5bM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FB3DF8025F;
-	Tue,  2 Nov 2021 11:31:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87D0BF8025F;
+	Tue,  2 Nov 2021 11:57:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 566CCF8025D; Tue,  2 Nov 2021 11:31:56 +0100 (CET)
+ id CD27CF8025D; Tue,  2 Nov 2021 11:57:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5261EF8012E
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 11:31:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5261EF8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id BBB3BF800BF
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 11:57:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBB3BF800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="yTJj+PFD"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="CLjRDNho"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 4896C212C6;
- Tue,  2 Nov 2021 10:31:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635849106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ayzifrmSx2RtPVVSxMWcHrbtaEbgK40zXrtwKXLG2m0=;
- b=yTJj+PFDZGlSRK8ri2AI9FfcWQC82EMpqw/SOl+YfYouvFisqd6TIRg0SbbKBFC6/N5Fwm
- /TcyJ0b4EyMUnb7mwZxx4A8nSBgayFmNyTcjiDLHC1osliatoG6GaoKJip922Y55Pwh1pj
- Hrg9x8/BNPpYWdl2/pF88iO/QZddzBA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635849106;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ayzifrmSx2RtPVVSxMWcHrbtaEbgK40zXrtwKXLG2m0=;
- b=CLjRDNhoo6EdtlA8OvHxgZHImZDYvacHLMsYmwV1PPWOJG6kaDQ0GdV3+O7yUFatEsiWRn
- gJKKv75OlrL7pNAg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 38DA1A3B84;
- Tue,  2 Nov 2021 10:31:46 +0000 (UTC)
-Date: Tue, 02 Nov 2021 11:31:46 +0100
-Message-ID: <s5ho872q25p.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Zqiang <qiang.zhang1211@gmail.com>
-Subject: Re: [PATCH] ALSA: seq: Fix RCU stall in snd_seq_write()
-In-Reply-To: <2d05ceab-b8b7-0c7b-f847-69950c6db14e@gmail.com>
-References: <20211102033222.3849-1-qiang.zhang1211@gmail.com>
- <s5hy267ot27.wl-tiwai@suse.de>
- <2d05ceab-b8b7-0c7b-f847-69950c6db14e@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="dHVCoDvi"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1635850629; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
+ Subject: Sender; bh=fl4PsWpMd3O4F7G5HgD/5x9EXzeEBpRqdmiUnedU7UA=;
+ b=dHVCoDvi5ontnwa0Sfs4q1ETJdPXtGUN4iTYbPEI+YU6gj65ZW7EvJ6W5BwZVqWHlhPTS1Ce
+ kmXKE3k+XlPv0RP/TKmdp2fLXwRRDIYfSTW+mbSt8IFOsWFGZkdzT7nCYIwf4ZOBhwz5Tf+y
+ 3jHBdyZjtZuZ3A+YKLNg6IfTZHk=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 61811982c8c1b282a56bd59e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 02 Nov 2021 10:57:06
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 13B19C43617; Tue,  2 Nov 2021 10:57:06 +0000 (UTC)
+Received: from [10.242.143.72] (unknown [202.46.23.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 86E07C4338F;
+ Tue,  2 Nov 2021 10:56:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 86E07C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH v4 1/2] ASoC: google: dt-bindings: Add sc7280-herobrine
+ machine bindings
+To: Stephen Boyd <swboyd@chromium.org>, agross@kernel.org,
+ alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ bjorn.andersson@linaro.org, broonie@kernel.org, devicetree@vger.kernel.org,
+ judyhsiao@chromium.org, lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, perex@perex.cz, plai@codeaurora.org,
+ robh+dt@kernel.org, rohitkr@codeaurora.org, srinivas.kandagatla@linaro.org,
+ tiwai@suse.com
+References: <1635519876-7112-1-git-send-email-srivasam@codeaurora.org>
+ <1635519876-7112-2-git-send-email-srivasam@codeaurora.org>
+ <CAE-0n53ok5muZ8nhpsigsw3w_qx_TSxGSdm7pf9nbb+s4K+HiQ@mail.gmail.com>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <0cf52203-249a-2f6c-6106-888631ac85fa@codeaurora.org>
+Date: Tue, 2 Nov 2021 16:26:57 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+MIME-Version: 1.0
+In-Reply-To: <CAE-0n53ok5muZ8nhpsigsw3w_qx_TSxGSdm7pf9nbb+s4K+HiQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,131 +106,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 02 Nov 2021 10:41:57 +0100,
-Zqiang wrote:
-> 
-> 
-> On 2021/11/2 下午4:33, Takashi Iwai wrote:
-> > On Tue, 02 Nov 2021 04:32:22 +0100,
-> > Zqiang wrote:
-> >> If we have a lot of cell object, this cycle may take a long time, and
-> >> trigger RCU stall. insert a conditional reschedule point to fix it.
-> >>
-> >> rcu: INFO: rcu_preempt self-detected stall on CPU
-> >> rcu: 	1-....: (1 GPs behind) idle=9f5/1/0x4000000000000000
-> >> 	softirq=16474/16475 fqs=4916
-> >> 	(t=10500 jiffies g=19249 q=192515)
-> >> NMI backtrace for cpu 1
-> >> ......
-> >> asm_sysvec_apic_timer_interrupt
-> >> RIP: 0010:_raw_spin_unlock_irqrestore+0x38/0x70
-> >> spin_unlock_irqrestore
-> >> snd_seq_prioq_cell_out+0x1dc/0x360
-> >> snd_seq_check_queue+0x1a6/0x3f0
-> >> snd_seq_enqueue_event+0x1ed/0x3e0
-> >> snd_seq_client_enqueue_event.constprop.0+0x19a/0x3c0
-> >> snd_seq_write+0x2db/0x510
-> >> vfs_write+0x1c4/0x900
-> >> ksys_write+0x171/0x1d0
-> >> do_syscall_64+0x35/0xb0
-> >>
-> >> Reported-by: syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
-> >> Signed-off-by: Zqiang <qiang.zhang1211@gmail.com>
-> >> ---
-> >>   sound/core/seq/seq_queue.c | 2 ++
-> >>   1 file changed, 2 insertions(+)
-> >>
-> >> diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
-> >> index d6c02dea976c..f5b1e4562a64 100644
-> >> --- a/sound/core/seq/seq_queue.c
-> >> +++ b/sound/core/seq/seq_queue.c
-> >> @@ -263,6 +263,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
-> >>   		if (!cell)
-> >>   			break;
-> >>   		snd_seq_dispatch_event(cell, atomic, hop);
-> >> +		cond_resched();
-> >>   	}
-> >>     	/* Process time queue... */
-> >> @@ -272,6 +273,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
-> >>   		if (!cell)
-> >>   			break;
-> >>   		snd_seq_dispatch_event(cell, atomic, hop);
-> >> +		cond_resched();
-> >
-> > It's good to have cond_resched() in those places but it must be done
-> > more carefully, as the code path may be called from the non-atomic
-> > context, too.  That is, it must have a check of atomic argument, and
-> > cond_resched() is applied only when atomic==false.
-> >
-> > But I still wonder how this gets a RCU stall out of sudden.  Looking
-> > through https://syzkaller.appspot.com/bug?extid=bb950e68b400ab4f65f8
-> > it's triggered by many cases since the end of September...
-> 
-> I did not find useful information from the log,  through calltrace, I
-> guess it may be triggered by the long cycle time, which caused the
-> static state of the RCU to
-> 
-> not be reported in time.
 
-Yes, I understand that logic.  But I wonder why this gets triggered
-*now* out of sudden.  The code has been present over decades, and I
-don't think the similar test case must have been performed by fuzzer.
+On 10/30/2021 12:37 AM, Stephen Boyd wrote:
+Thanks for Your time Stephen!!!
+> Quoting Srinivasa Rao Mandadapu (2021-10-29 08:04:35)
+>> diff --git a/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml b/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+>> new file mode 100644
+>> index 0000000..3a781c8
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+>> @@ -0,0 +1,170 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/google,sc7280-herobrine.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Google SC7280-Herobrine ASoC sound card driver
+>> +
+>> +maintainers:
+>> +  - Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+>> +  - Judy Hsiao <judyhsiao@chromium.org>
+>> +
+>> +description:
+>> +  This binding describes the SC7280 sound card which uses LPASS for audio.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - google,sc7280-herobrine
+>> +
+>> +  audio-routing:
+>> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>> +    description:
+>> +      A list of the connections between audio components. Each entry is a
+>> +      pair of strings, the first being the connection's sink, the second
+>> +      being the connection's source.
+>> +
+>> +  model:
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    description: User specified audio sound card name
+>> +
+>> +  "#address-cells":
+>> +    const: 1
+>> +
+>> +  "#size-cells":
+>> +    const: 0
+>> +
+>> +patternProperties:
+>> +  "^dai-link@[0-9a-f]$":
+>> +    description:
+>> +      Each subnode represents a dai link. Subnodes of each dai links would be
+>> +      cpu/codec dais.
+>> +
+>> +    type: object
+>> +
+>> +    properties:
+>> +      link-name:
+>> +        description: Indicates dai-link name and PCM stream name.
+>> +        $ref: /schemas/types.yaml#/definitions/string
+>> +        maxItems: 1
+>> +
+>> +      reg:
+>> +        maxItems: 1
+>> +        description: dai link address.
+>> +
+>> +      cpu:
+>> +        description: Holds subnode which indicates cpu dai.
+>> +        type: object
+>> +        properties:
+>> +          sound-dai: true
+> Is sound-dai required? And additionalProperties is false? I think we
+> need that yet again.
+Okay. Will mark additionalPropertiesas true.
+>
+>> +
+>> +      codec:
+>> +        description: Holds subnode which indicates codec dai.
+>> +        type: object
+>> +        properties:
+>> +          sound-dai: true
+>> +
+> Same here.
+>
+>> +    required:
+>> +      - link-name
+>> +      - cpu
+>> +      - codec
+>> +      - reg
+>> +
+>> +    additionalProperties: false
+>> +
 
-> I ignore the atomic parameter check,  I will resend v2 .   in
-> no-atomic context, we can insert
-> 
-> cond_resched() to avoid this situation, but in atomic context,
-> 
-> the RCU stall maybe still trigger.
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-Right, so maybe it's better to have an upper limit for the processed
-cells, something like below (totally untested).
-
-Could you reproduce the problem locally?  Otherwise it's all nothing
-but a guess...
-
-
-thanks,
-
-Takashi
-
----
-
-diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
-index d6c02dea976c..7f796ee62ee7 100644
---- a/sound/core/seq/seq_queue.c
-+++ b/sound/core/seq/seq_queue.c
-@@ -235,12 +235,15 @@ struct snd_seq_queue *snd_seq_queue_find_name(char *name)
- 
- /* -------------------------------------------------------- */
- 
-+#define MAX_CELL_PROCESSES_IN_QUEUE	1000
-+
- void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
- {
- 	unsigned long flags;
- 	struct snd_seq_event_cell *cell;
- 	snd_seq_tick_time_t cur_tick;
- 	snd_seq_real_time_t cur_time;
-+	int processed = 0;
- 
- 	if (q == NULL)
- 		return;
-@@ -263,6 +266,8 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
- 		if (!cell)
- 			break;
- 		snd_seq_dispatch_event(cell, atomic, hop);
-+		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
-+			return; /* the rest processed at the next batch */
- 	}
- 
- 	/* Process time queue... */
-@@ -272,6 +277,8 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
- 		if (!cell)
- 			break;
- 		snd_seq_dispatch_event(cell, atomic, hop);
-+		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
-+			return; /* the rest processed at the next batch */
- 	}
- 
- 	/* free lock */

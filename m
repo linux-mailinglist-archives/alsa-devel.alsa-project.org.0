@@ -2,88 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79968442DD9
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 13:29:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BDDC442E5C
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 13:40:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0082E16E4;
-	Tue,  2 Nov 2021 13:28:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0082E16E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B72816EC;
+	Tue,  2 Nov 2021 13:39:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B72816EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635856150;
-	bh=4WW0GDiEykCoKvTxv/nrDqaqaVYAADX2YAsnTfyQLZg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1635856822;
+	bh=nrC8IMYVDnSOQHrq19rkRShvY4+eyERme40svcQeYm4=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=emzDM8MVO/Zb6AOm9XqUY/CKNVxqe22gAJuDlz1OHZXGABrBbsJJebLOi/OCnIFNy
-	 X6S5Ix1P8IxSIjVe5RbgJMLh3sDgCqxrl46khgmf3nc/PE4d62LuqM4BkoiCqpWj/m
-	 oVKddc5u6RhTP6SR0wJwJe4C0X0pix0tSDtzYqd0=
+	b=LYLIJNJ5waEdefYTtWcWllbdb+B6XnaNORknAXL6D+exK8YcaRrDYmP35l8Ullqy+
+	 waZo7Vf2FIQbva6OwH2DIJq2R0BJEGy9g1hGUf6VhrhcaUf5WqPDbDy0SwT7n35zhN
+	 4fjrb2ODT7vD2xjAJE5EXq6+staF9QCzzQeoQOg8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 741CAF8025F;
-	Tue,  2 Nov 2021 13:27:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1F1DF800BF;
+	Tue,  2 Nov 2021 13:39:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB56CF8025D; Tue,  2 Nov 2021 13:27:49 +0100 (CET)
+ id E0EA6F8025D; Tue,  2 Nov 2021 13:39:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1532BF800BF
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 13:27:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1532BF800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="0pdHwkfX"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yhJicjYR"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 6F8FA1FD4C;
- Tue,  2 Nov 2021 12:27:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635856057; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6nE7xU/FFP5yqVCM/ob/RuNgtbC6lpn41P9w84srlH8=;
- b=0pdHwkfXf5YZ4StFJg6TqAi1CeKQGLIQU2mBgHjm704zNZbIZptPz9stTyorKFWoXDUQ2j
- lpriAimphFUlhpu2eF5oFIfb9QZhn3bc8UCcp/fz34mEDh+dILuys/73Q07RnAWUt8pKct
- I3LVVqDoTwRowqR/1QCU2ce3XEKrMeI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635856057;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6nE7xU/FFP5yqVCM/ob/RuNgtbC6lpn41P9w84srlH8=;
- b=yhJicjYRrkKHRgsrsDY+4ApWmkaVIvtAaTstfy1FR3JmHxZXzBfr6T3rPWmbEXyzEM2+ka
- ClFe9L1hdKK/RrDg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 59436A3B88;
- Tue,  2 Nov 2021 12:27:37 +0000 (UTC)
-Date: Tue, 02 Nov 2021 13:27:37 +0100
-Message-ID: <s5hcznipwsm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Zqiang <qiang.zhang1211@gmail.com>
-Subject: Re: [PATCH] ALSA: seq: Fix RCU stall in snd_seq_write()
-In-Reply-To: <47f05b3a-811b-e64c-0366-3aebaece6c8e@gmail.com>
-References: <20211102033222.3849-1-qiang.zhang1211@gmail.com>
- <s5hy267ot27.wl-tiwai@suse.de>
- <2d05ceab-b8b7-0c7b-f847-69950c6db14e@gmail.com>
- <s5ho872q25p.wl-tiwai@suse.de>
- <47f05b3a-811b-e64c-0366-3aebaece6c8e@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47329F800BF
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 13:38:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47329F800BF
+Received: by mail-oi1-f169.google.com with SMTP id g125so29762827oif.9
+ for <alsa-devel@alsa-project.org>; Tue, 02 Nov 2021 05:38:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=0yfbsryEjmN9vwwP//YfNBCrdvNe0yYLPhJeAfuOOQs=;
+ b=3WKWM5idnd+GECXJTOo/JXPvndsRDyfeOwUC10KKlKA0Eh3qoFLwEhwbvI2gUBNyDk
+ Rr781Nb4Rk6YYCBHND8dur1GFzj0ZPUg9ldHEp0V6bYBJwIgQDQwB2Ugsiljej8HC+YD
+ PFj8BI5HrF7yJfnA144cYlJ//ujG6WdYEVjK3SiDUveUsiAMV5sxDWnuNaL38n3DRSJ1
+ RjYR1ZBjkjS0g2wZbTt4SCMcGNV/MI94ehsKDSSlFSivHzCALNkCwJgvj2JyiNdHhIcN
+ 8hzrjvM/GnAe5NLcbnKOh7AALgcFmSWNNNhuBlRznltAD6WsjM1i3NDGaYreBHF5mCZq
+ KYng==
+X-Gm-Message-State: AOAM532SFjAtU27Xfry5PfqymGHJFN0sBy5GFIwJmVK9PKqFCR9D2KoA
+ z5YtKlIUqgTv1TcMEslmnQ==
+X-Google-Smtp-Source: ABdhPJzNemQUYREkjWtK4Z7J5RwmZFURPklIkPVqCmGlI2S/6JIc3SWDKlpQ8oWJVKw+syDJjuRyDQ==
+X-Received: by 2002:a05:6808:e84:: with SMTP id
+ k4mr4928387oil.135.1635856734298; 
+ Tue, 02 Nov 2021 05:38:54 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id bd5sm2582438oib.2.2021.11.02.05.38.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Nov 2021 05:38:53 -0700 (PDT)
+Received: (nullmailer pid 2636024 invoked by uid 1000);
+ Tue, 02 Nov 2021 12:38:52 -0000
+From: Rob Herring <robh@kernel.org>
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+In-Reply-To: <1635838265-27346-9-git-send-email-srivasam@codeaurora.org>
+References: <1635838265-27346-1-git-send-email-srivasam@codeaurora.org>
+ <1635838265-27346-9-git-send-email-srivasam@codeaurora.org>
+Subject: Re: [PATCH v4 08/10] ASoC: dt-bindings: Add SC7280 sound card bindings
+Date: Tue, 02 Nov 2021 07:38:52 -0500
+Message-Id: <1635856732.594488.2636023.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ Venkata Prasad Potturu <potturu@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ plai@codeaurora.org, broonie@kernel.org, tiwai@suse.com, robh+dt@kernel.org,
+ agross@kernel.org, rohitkr@codeaurora.org, swboyd@chromium.org,
+ judyhsiao@chromium.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,100 +93,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 02 Nov 2021 12:20:32 +0100,
-Zqiang wrote:
+On Tue, 02 Nov 2021 13:01:03 +0530, Srinivasa Rao Mandadapu wrote:
+> Add bindings for lpass sc7280 based soundcards which supports
+> audio over i2s based speaker, soundwire based headset, msm dmics
+> and HDMI Port.
 > 
+> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+> ---
+>  .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 69 +++++++++++++++++++---
+>  1 file changed, 61 insertions(+), 8 deletions(-)
 > 
-> On 2021/11/2 下午6:31, Takashi Iwai wrote:
-> > On Tue, 02 Nov 2021 10:41:57 +0100,
-> > Zqiang wrote:
-> >>
-> >> On 2021/11/2 下午4:33, Takashi Iwai wrote:
-> >>> On Tue, 02 Nov 2021 04:32:22 +0100,
-> >>> Zqiang wrote:
-> >>>> If we have a lot of cell object, this cycle may take a long time, and
-> >>>> trigger RCU stall. insert a conditional reschedule point to fix it.
-> >>>>
-> >>>> rcu: INFO: rcu_preempt self-detected stall on CPU
-> >>>> rcu: 	1-....: (1 GPs behind) idle=9f5/1/0x4000000000000000
-> >>>> 	softirq=16474/16475 fqs=4916
-> >>>> 	(t=10500 jiffies g=19249 q=192515)
-> >>>> NMI backtrace for cpu 1
-> >>>> ......
-> >>>> asm_sysvec_apic_timer_interrupt
-> >>>> RIP: 0010:_raw_spin_unlock_irqrestore+0x38/0x70
-> >>>> spin_unlock_irqrestore
-> >>>> snd_seq_prioq_cell_out+0x1dc/0x360
-> >>>> snd_seq_check_queue+0x1a6/0x3f0
-> >>>> snd_seq_enqueue_event+0x1ed/0x3e0
-> >>>> snd_seq_client_enqueue_event.constprop.0+0x19a/0x3c0
-> >>>> snd_seq_write+0x2db/0x510
-> >>>> vfs_write+0x1c4/0x900
-> >>>> ksys_write+0x171/0x1d0
-> >>>> do_syscall_64+0x35/0xb0
-> >>>>
-> >>>> Reported-by: syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
-> >>>> Signed-off-by: Zqiang <qiang.zhang1211@gmail.com>
-> >>>> ---
-> >>>>    sound/core/seq/seq_queue.c | 2 ++
-> >>>>    1 file changed, 2 insertions(+)
-> >>>>
-> >>>> diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
-> >>>> index d6c02dea976c..f5b1e4562a64 100644
-> >>>> --- a/sound/core/seq/seq_queue.c
-> >>>> +++ b/sound/core/seq/seq_queue.c
-> >>>> @@ -263,6 +263,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
-> >>>>    		if (!cell)
-> >>>>    			break;
-> >>>>    		snd_seq_dispatch_event(cell, atomic, hop);
-> >>>> +		cond_resched();
-> >>>>    	}
-> >>>>      	/* Process time queue... */
-> >>>> @@ -272,6 +273,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
-> >>>>    		if (!cell)
-> >>>>    			break;
-> >>>>    		snd_seq_dispatch_event(cell, atomic, hop);
-> >>>> +		cond_resched();
-> >>> It's good to have cond_resched() in those places but it must be done
-> >>> more carefully, as the code path may be called from the non-atomic
-> >>> context, too.  That is, it must have a check of atomic argument, and
-> >>> cond_resched() is applied only when atomic==false.
-> >>>
-> >>> But I still wonder how this gets a RCU stall out of sudden.  Looking
-> >>> through https://syzkaller.appspot.com/bug?extid=bb950e68b400ab4f65f8
-> >>> it's triggered by many cases since the end of September...
-> >> I did not find useful information from the log,  through calltrace, I
-> >> guess it may be triggered by the long cycle time, which caused the
-> >> static state of the RCU to
-> >>
-> >> not be reported in time.
-> > Yes, I understand that logic.  But I wonder why this gets triggered
-> > *now* out of sudden.  The code has been present over decades, and I
-> > don't think the similar test case must have been performed by fuzzer.
-> >
-> >> I ignore the atomic parameter check,  I will resend v2 .   in
-> >> no-atomic context, we can insert
-> >>
-> >> cond_resched() to avoid this situation, but in atomic context,
-> >>
-> >> the RCU stall maybe still trigger.
-> > Right, so maybe it's better to have an upper limit for the processed
-> > cells, something like below (totally untested).
-> >
-> > Could you reproduce the problem locally?  Otherwise it's all nothing
-> > but a guess...
-> 
-> yes, this is just a guess.  I haven't reproduced locally, limiting the
-> number of cycles is a suitable modification,
-> 
-> but the  MAX_CELL_PROCESSES_IN_QUEUE is an experience value.
 
-Yes, that's why we need the reproducer in anyway before moving
-forward.  The problem is that the patch looks as if it were fixing the
-RCU stall, but we haven't verified it at all that it is really the
-cause.  Even we haven't checked whether it's really the too many cells
-queued, or just because the concurrent queuing made the function
-re-running.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
+yamllint warnings/errors:
 
-Takashi
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: reg: [[0, 1658351616, 0, 425984], [0, 1659895808, 0, 167936]] is too short
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: reg-names: ['lpass-hdmiif', 'lpass-lpaif'] is too short
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: interrupts: [[0, 160, 1], [0, 268, 1]] is too short
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: interrupt-names: ['lpass-irq-lpaif', 'lpass-irq-hdmi'] is too short
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: iommus: [[4294967295, 4128, 0], [4294967295, 4146, 0]] is too short
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1549500
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+

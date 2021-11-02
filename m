@@ -2,81 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4602B442932
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 09:17:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D08F5442940
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 09:20:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0CDE16BB;
-	Tue,  2 Nov 2021 09:16:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0CDE16BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5AD6A16BB;
+	Tue,  2 Nov 2021 09:20:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AD6A16BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635841058;
-	bh=626HRoTHNBH2QmZwoQkU2oY6J/bIFb7x6nH+GUe6IlU=;
+	s=default; t=1635841250;
+	bh=0WS6G7KJ1VOpK9BWbcE5KN2Nhp75c/uz3qemRZW4YUE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MN6yLUqGbweEZCO7FRgJTe8Jq9XRr+455E/QyRqFlGdKuAYdt8Qn5/s/DNJuRshgy
-	 iEmfXP1f6F+lI2kfATmP3hEmmrxFfD7/9pJUYKp1TXnfnh6krurQv64WEydZ/PFqk2
-	 0S/v4yDJA99jIrwTplTOWZtmj2wg7EgFrjvv5vf8=
+	b=Z0hW6RtqX5uNdAu4RbCZoZt7deWGp5fzoGLzBGlhpjTBwEADD3RY5IB5LJgS6JCnP
+	 R9ZWA6f+IwxMJ850Tx/Pnjbybwcv9S/8CEqcBuaTbBIufzUKO71sY/f7aiSMj+5AmQ
+	 22TQb3w3z42WX7xwVVPJ+VbddxKvI1x/lsFeZYSo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FAA6F8025F;
-	Tue,  2 Nov 2021 09:16:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFB17F800BF;
+	Tue,  2 Nov 2021 09:19:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BB3CF8025D; Tue,  2 Nov 2021 09:16:19 +0100 (CET)
+ id 5AE6FF8025D; Tue,  2 Nov 2021 09:19:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA9ADF8012E
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 09:16:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA9ADF8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89C9CF8012E
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 09:19:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89C9CF8012E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LSyLVzUx"; 
+ header.b="d+l0GKh4"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="72g9G37K"
+ header.b="fPUBajXw"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 20C171FD77;
- Tue,  2 Nov 2021 08:16:09 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 60A5D218A4;
+ Tue,  2 Nov 2021 08:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635840969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635841165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=svoAyV3/CjrsLzkKpT6lrwIeE7Vw55Koj6rAB92ac0k=;
- b=LSyLVzUxP5c1JJjmBHmqzgnLP1B40wr8y7lPJnhA4Y/2113OxKTi5oZxVZr//Inl9IJO/f
- ALWTtMbad76wqXtIR/UA8G9mEF65egyPTY8uCTVEmi+SDWkJ5oqYxA6kxhfaNjLxuDCpQf
- x3SUpopE5Bvn78PLXWUoqmZGiF6qnw0=
+ bh=9742+b7cYgGp8HGz78oVyltHXm7JrBnwMm8ZZHyByL4=;
+ b=d+l0GKh4GG4TgAYkt6HJZQPwte1Wubnj0zWF/cCNtH1/Enssnn8ZHpJltWKk2x6sA23ZjV
+ 0xTKW2+tgieXJWrbwa8h/FpOWl92+m6t5tVkrWA53sW7B5E37rdQgJp2k3vHpE+Jg843zu
+ IYHzdqYlEApm58fxmPxPr4L+V7lYCKU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635840969;
+ s=susede2_ed25519; t=1635841165;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=svoAyV3/CjrsLzkKpT6lrwIeE7Vw55Koj6rAB92ac0k=;
- b=72g9G37Kio18ha0hsUgDKMf46J3AwYU9yYqEV/rVez0l7LQpcFqLYanpCZ+8kpLSkB3VVJ
- UuSusB7s4YF+TgDQ==
+ bh=9742+b7cYgGp8HGz78oVyltHXm7JrBnwMm8ZZHyByL4=;
+ b=fPUBajXwl8ZCdrL4qcZQaf+Ykyp0o+b6IVSkmB/SbefYDObg20aa0TQQLCfaAOYvaHcovK
+ p4BPT0X0gAqnzHDA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 0D1ABA3B83;
- Tue,  2 Nov 2021 08:16:09 +0000 (UTC)
-Date: Tue, 02 Nov 2021 09:16:09 +0100
-Message-ID: <s5h35ofq8fq.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 594B9A3B8C;
+ Tue,  2 Nov 2021 08:19:25 +0000 (UTC)
+Date: Tue, 02 Nov 2021 09:19:25 +0100
+Message-ID: <s5hzgqnotpu.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Tim Crawford <tcrawford@system76.com>
-Subject: Re: [PATCH RESEND] ALSA: hda/realtek: Add quirk for Clevo PC70HS
-In-Reply-To: <20211101162134.5336-1-tcrawford@system76.com>
-References: <20211101162134.5336-1-tcrawford@system76.com>
+To: Jonathan Clarke <jonathan.a.clarke@gmail.com>
+Subject: Re: [PATCH] Make top/rear speaker,
+ mute and micmute leds work on HP x360 14-ea000 laptops that use
+ Realtek 245 codec
+In-Reply-To: <20211101103445.GA1064130@rampage-hp2>
+References: <20211029154313.1005394-1-jonathan.a.clarke@gmail.com>
+ <s5h35oisug0.wl-tiwai@suse.de>
+ <20211101103445.GA1064130@rampage-hp2>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: productdev@system76.com, alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,18 +96,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 01 Nov 2021 17:21:34 +0100,
-Tim Crawford wrote:
+On Mon, 01 Nov 2021 11:34:45 +0100,
+Jonathan Clarke wrote:
 > 
-> Apply the PB51ED PCI quirk to the Clevo PC70HS. Fixes audio output from
-> the internal speakers.
+> Thanks for taking a look at this patch so quickly, Takashi.
 > 
-> Signed-off-by: Tim Crawford <tcrawford@system76.com>
+> On Sat, Oct 30, 2021 at 12:01:03PM +0200, Takashi Iwai wrote:
+> > Could you give more descriptions?  The patch isn't trivial at all, and
+> > it needs more explanations.
+> 
+> Yes, will do.
+> 
+> > > +           /* output mute is set via SET_COEF_INDEX,SET_PROC_COEF */
+> > > +           spec->mute_led_polarity = 0;
+> > > +           spec->mute_led_coef.idx = 0x0b;
+> > > +           spec->mute_led_coef.mask = 0xffff;
+> > > +           spec->mute_led_coef.on = 0xa02f;
+> > > +           spec->mute_led_coef.off = 0x7774;
+> > > +           snd_hda_gen_add_mute_led_cdev(codec, coef_mute_led_set);
+> >
+> > I guess this COEF isn't only about mute-LED but actually does mute the
+> > output?  IIRC, the bit 0x08 corresponds to the LED.  If so, it's
+> > better to split.  Basically this snd_hda_gen_add_mute_led_cdev() and
+> > mute_led_coef stuff are only for the mute LED control.  e.g. you can
+> > change the mute LED independently via sysfs.
+> 
+> Thanks for suggesting this.
+> 
+> Having tested, I can confirm that setting this coef only affects
+> the output mute LED, and does not affect output.
+> 
+> I will therefore assume that current implementation in my patch is OK,
+> but let me know if it still needs changing (maybe I've misunderstood).
+> 
+> For reference to other users, the commands to test are:
+> # output LED on
+> hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX 0x0b
+> hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0xa02f
+> 
+> # output LED off
+> hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX 0x0b
+> hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0x7774
 
-Thanks, applied now.
+Could you try just to flip the bit 0x08?  At LED off state?
 
-At the next time, please put maintainers (me) to Cc, for reducing the
-risk of overlooks.
+% hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX 0x0b
+% hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0x77f4
+
+That is, the implementation in alc286_fixup_hp_mute_led_coefbit(),
+which is used by many other HP laptops.
 
 
 Takashi

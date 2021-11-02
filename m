@@ -2,85 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D08F5442940
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 09:20:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C513B442998
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 09:35:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5AD6A16BB;
-	Tue,  2 Nov 2021 09:20:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AD6A16BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FF0B16AE;
+	Tue,  2 Nov 2021 09:34:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FF0B16AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635841250;
-	bh=0WS6G7KJ1VOpK9BWbcE5KN2Nhp75c/uz3qemRZW4YUE=;
+	s=default; t=1635842105;
+	bh=djDhmyAWR8o6k1XY2urLa6DZRj+drxkt6bIZw4NOTdA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z0hW6RtqX5uNdAu4RbCZoZt7deWGp5fzoGLzBGlhpjTBwEADD3RY5IB5LJgS6JCnP
-	 R9ZWA6f+IwxMJ850Tx/Pnjbybwcv9S/8CEqcBuaTbBIufzUKO71sY/f7aiSMj+5AmQ
-	 22TQb3w3z42WX7xwVVPJ+VbddxKvI1x/lsFeZYSo=
+	b=Uixp4fGFCPMa5pDCjvCT8ZQ2dNaR5rhCDT2CMSL4J/Cg7Z0QpILOLA+8VuZDY9zhM
+	 RqT9I5Wo73LLFyGWvtoY05i1J8i12mRSlkzRZtqArvynaRSqzfx5yoPs2o+TzzPjY9
+	 fLhqDsvw2mwdHPCcYfM5qZadE8SwXFR+Rjooj72g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFB17F800BF;
-	Tue,  2 Nov 2021 09:19:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF0D0F8025D;
+	Tue,  2 Nov 2021 09:33:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5AE6FF8025D; Tue,  2 Nov 2021 09:19:31 +0100 (CET)
+ id E76CCF80229; Tue,  2 Nov 2021 09:33:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89C9CF8012E
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 09:19:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89C9CF8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2604CF8012E
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 09:33:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2604CF8012E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="d+l0GKh4"; 
+ header.b="eUXKYKr3"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="fPUBajXw"
+ header.b="bwE+Gm2y"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 60A5D218A4;
- Tue,  2 Nov 2021 08:19:25 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 1A8D91FD77;
+ Tue,  2 Nov 2021 08:33:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635841165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635842017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9742+b7cYgGp8HGz78oVyltHXm7JrBnwMm8ZZHyByL4=;
- b=d+l0GKh4GG4TgAYkt6HJZQPwte1Wubnj0zWF/cCNtH1/Enssnn8ZHpJltWKk2x6sA23ZjV
- 0xTKW2+tgieXJWrbwa8h/FpOWl92+m6t5tVkrWA53sW7B5E37rdQgJp2k3vHpE+Jg843zu
- IYHzdqYlEApm58fxmPxPr4L+V7lYCKU=
+ bh=t2IT/o+8Ln8itaqpCquNFH+qyCEqcX9y1LvXTcQoBW0=;
+ b=eUXKYKr3qhTxI6MybOhhgYX54RUP4tVin8j26AUUHBl12XiCLdOVH0yOzH+NmuYfgQ02uy
+ f4PkPrbtuND9wIxHXljEYaXzkzOhBftSBGBcARgbgMI6z23E6COsu/L+XJt4Qss6gCnd7a
+ /v1GAo+WcXnX/L4ASXkA8fiQocwc9dE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635841165;
+ s=susede2_ed25519; t=1635842017;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9742+b7cYgGp8HGz78oVyltHXm7JrBnwMm8ZZHyByL4=;
- b=fPUBajXwl8ZCdrL4qcZQaf+Ykyp0o+b6IVSkmB/SbefYDObg20aa0TQQLCfaAOYvaHcovK
- p4BPT0X0gAqnzHDA==
+ bh=t2IT/o+8Ln8itaqpCquNFH+qyCEqcX9y1LvXTcQoBW0=;
+ b=bwE+Gm2ya5r4gt++cvcXJ9lGHoKXmYofMipVBsxgzusZ71d0Yl+19UUqMISa79TpKLi/DW
+ XhWMwxP7PKwg1OCQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 594B9A3B8C;
- Tue,  2 Nov 2021 08:19:25 +0000 (UTC)
-Date: Tue, 02 Nov 2021 09:19:25 +0100
-Message-ID: <s5hzgqnotpu.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 0336CA3B84;
+ Tue,  2 Nov 2021 08:33:37 +0000 (UTC)
+Date: Tue, 02 Nov 2021 09:33:36 +0100
+Message-ID: <s5hy267ot27.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jonathan Clarke <jonathan.a.clarke@gmail.com>
-Subject: Re: [PATCH] Make top/rear speaker,
- mute and micmute leds work on HP x360 14-ea000 laptops that use
- Realtek 245 codec
-In-Reply-To: <20211101103445.GA1064130@rampage-hp2>
-References: <20211029154313.1005394-1-jonathan.a.clarke@gmail.com>
- <s5h35oisug0.wl-tiwai@suse.de>
- <20211101103445.GA1064130@rampage-hp2>
+To: Zqiang <qiang.zhang1211@gmail.com>
+Subject: Re: [PATCH] ALSA: seq: Fix RCU stall in snd_seq_write()
+In-Reply-To: <20211102033222.3849-1-qiang.zhang1211@gmail.com>
+References: <20211102033222.3849-1-qiang.zhang1211@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,55 +92,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 01 Nov 2021 11:34:45 +0100,
-Jonathan Clarke wrote:
+On Tue, 02 Nov 2021 04:32:22 +0100,
+Zqiang wrote:
 > 
-> Thanks for taking a look at this patch so quickly, Takashi.
+> If we have a lot of cell object, this cycle may take a long time, and
+> trigger RCU stall. insert a conditional reschedule point to fix it.
 > 
-> On Sat, Oct 30, 2021 at 12:01:03PM +0200, Takashi Iwai wrote:
-> > Could you give more descriptions?  The patch isn't trivial at all, and
-> > it needs more explanations.
+> rcu: INFO: rcu_preempt self-detected stall on CPU
+> rcu: 	1-....: (1 GPs behind) idle=9f5/1/0x4000000000000000
+> 	softirq=16474/16475 fqs=4916
+> 	(t=10500 jiffies g=19249 q=192515)
+> NMI backtrace for cpu 1
+> ......
+> asm_sysvec_apic_timer_interrupt
+> RIP: 0010:_raw_spin_unlock_irqrestore+0x38/0x70
+> spin_unlock_irqrestore
+> snd_seq_prioq_cell_out+0x1dc/0x360
+> snd_seq_check_queue+0x1a6/0x3f0
+> snd_seq_enqueue_event+0x1ed/0x3e0
+> snd_seq_client_enqueue_event.constprop.0+0x19a/0x3c0
+> snd_seq_write+0x2db/0x510
+> vfs_write+0x1c4/0x900
+> ksys_write+0x171/0x1d0
+> do_syscall_64+0x35/0xb0
 > 
-> Yes, will do.
+> Reported-by: syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
+> Signed-off-by: Zqiang <qiang.zhang1211@gmail.com>
+> ---
+>  sound/core/seq/seq_queue.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> > > +           /* output mute is set via SET_COEF_INDEX,SET_PROC_COEF */
-> > > +           spec->mute_led_polarity = 0;
-> > > +           spec->mute_led_coef.idx = 0x0b;
-> > > +           spec->mute_led_coef.mask = 0xffff;
-> > > +           spec->mute_led_coef.on = 0xa02f;
-> > > +           spec->mute_led_coef.off = 0x7774;
-> > > +           snd_hda_gen_add_mute_led_cdev(codec, coef_mute_led_set);
-> >
-> > I guess this COEF isn't only about mute-LED but actually does mute the
-> > output?  IIRC, the bit 0x08 corresponds to the LED.  If so, it's
-> > better to split.  Basically this snd_hda_gen_add_mute_led_cdev() and
-> > mute_led_coef stuff are only for the mute LED control.  e.g. you can
-> > change the mute LED independently via sysfs.
-> 
-> Thanks for suggesting this.
-> 
-> Having tested, I can confirm that setting this coef only affects
-> the output mute LED, and does not affect output.
-> 
-> I will therefore assume that current implementation in my patch is OK,
-> but let me know if it still needs changing (maybe I've misunderstood).
-> 
-> For reference to other users, the commands to test are:
-> # output LED on
-> hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX 0x0b
-> hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0xa02f
-> 
-> # output LED off
-> hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX 0x0b
-> hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0x7774
+> diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
+> index d6c02dea976c..f5b1e4562a64 100644
+> --- a/sound/core/seq/seq_queue.c
+> +++ b/sound/core/seq/seq_queue.c
+> @@ -263,6 +263,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+>  		if (!cell)
+>  			break;
+>  		snd_seq_dispatch_event(cell, atomic, hop);
+> +		cond_resched();
+>  	}
+>  
+>  	/* Process time queue... */
+> @@ -272,6 +273,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+>  		if (!cell)
+>  			break;
+>  		snd_seq_dispatch_event(cell, atomic, hop);
+> +		cond_resched();
 
-Could you try just to flip the bit 0x08?  At LED off state?
 
-% hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX 0x0b
-% hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0x77f4
+It's good to have cond_resched() in those places but it must be done
+more carefully, as the code path may be called from the non-atomic
+context, too.  That is, it must have a check of atomic argument, and
+cond_resched() is applied only when atomic==false.
 
-That is, the implementation in alc286_fixup_hp_mute_led_coefbit(),
-which is used by many other HP laptops.
+But I still wonder how this gets a RCU stall out of sudden.  Looking
+through https://syzkaller.appspot.com/bug?extid=bb950e68b400ab4f65f8
+it's triggered by many cases since the end of September...
 
+
+thanks,
 
 Takashi

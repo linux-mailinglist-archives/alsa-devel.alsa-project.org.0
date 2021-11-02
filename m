@@ -2,86 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB7E4442C42
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 12:11:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1980442C70
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Nov 2021 12:22:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78AAD16FC;
-	Tue,  2 Nov 2021 12:11:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78AAD16FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F4E716F2;
+	Tue,  2 Nov 2021 12:21:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F4E716F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635851517;
-	bh=EDcqAJThZvMf7IZuhs7B3iChOXZlm9NZSB43ruWpSc8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1635852130;
+	bh=yPEpXDx1iq12V34SW1li++FEdvTsOzJ+mAqQS3ugpLk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oT72sGsUYA6dIXOThJOFcu7a+87C5GrhB7dsL31wh6M5DOTpepg8r510y1h4O+s42
-	 MJ+SlVhy0udMy6F5AZIBW/VviTSZeS7qWMlInA05H2JJ9ckEtcqr65pAfpOSZU+vhr
-	 OOic0lDJPKL9syV+ICFz7IVaOX7AA+oc+BIyrujk=
+	b=FFoEKNYyMsAjDK6VKSgzyqi7SaF2+hcD+XhL+cFGUtYRce+oAVTBxxYy5/57JzgCh
+	 mfDtswwsdvfmu0/wNZ9RbI/wJ6k6eg7pOWCqkZfdj55AlrltCW5qEpDBbgB1YB8UBW
+	 9J7JxYKE9Z1OWqGi8oz8OyDY338JIRkVerIK1ytc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90062F804EB;
-	Tue,  2 Nov 2021 12:10:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1AF1F8025F;
+	Tue,  2 Nov 2021 12:20:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43BD5F804E7; Tue,  2 Nov 2021 12:10:12 +0100 (CET)
+ id D833EF8025D; Tue,  2 Nov 2021 12:20:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D2A3F8025F
- for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 12:10:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D2A3F8025F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E5C9F80224
+ for <alsa-devel@alsa-project.org>; Tue,  2 Nov 2021 12:20:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E5C9F80224
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="h4CMdMhE"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1635851407; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=e8j6ALxvJTjSs/uJsjjQm+ckDP3Dk4dyIuqapsZZwdI=;
- b=h4CMdMhE3GhekRJz+Gwf+SN0vNKiAYzbaQBgfiogElBZmP5tBC+5RrWvjvrWn+awv+WZqowF
- xjeOkC7BtpGhoQxucAeSD5PJL6JsOAt+UdVHArad87g+SBULt6ourQQ+6jZebHYantwNudjJ
- 0lM8Y8cuXRUQmd9QkSplEVryuns=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 61811c8a97bbea7fcce0699e (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 02 Nov 2021 11:10:02
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 1678FC43616; Tue,  2 Nov 2021 11:10:02 +0000 (UTC)
-Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id B6A90C4360C;
- Tue,  2 Nov 2021 11:09:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org B6A90C4360C
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH v5 2/2] ASoC: qcom: SC7280: Add machine driver
-Date: Tue,  2 Nov 2021 16:39:32 +0530
-Message-Id: <1635851372-19151-3-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1635851372-19151-1-git-send-email-srivasam@codeaurora.org>
-References: <1635851372-19151-1-git-send-email-srivasam@codeaurora.org>
-Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="oWBYPyF/"
+Received: by mail-pl1-x630.google.com with SMTP id t11so15560465plq.11
+ for <alsa-devel@alsa-project.org>; Tue, 02 Nov 2021 04:20:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=FTWB2h0dyxKiM9FMvKh0MoSErDEoHTPHRBZqjGYajGI=;
+ b=oWBYPyF/hQcwqMwlDpNYSWZcD/7LVq92NlwDX2HBuGciZdzl7SWi7LH3GbfHsSbcxK
+ uLXc6TQXlHKMT0zNX+Oca8DrcLViEQjLB4dlWvMEKmZRSBmohrFSJ6YzqEMnDfo2WTI0
+ e90OX4CKOxIQCLWjY0oQFR6xe7Y2CW9gFhJCircpI3WJbKhDYaC51SsRrml3m3NxNY52
+ hoOOYCicEPTgJGybbQnuP/odyAonI7E1nKAhKEaJWKdNSppR8H4CBB0/j+ulqYmDSA1i
+ BRrKw6UcAecvTD7pKtoF5FFnf8RKgb6cJc9ApzhuF26KQqfp/Ep9hgeoLAfeZ04es/yQ
+ U1Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=FTWB2h0dyxKiM9FMvKh0MoSErDEoHTPHRBZqjGYajGI=;
+ b=F4+k0DjfBrIcll4FiY7C2VSZfK4+H7K3U5OdFlrAjkGQBd9PalAxYtSuezn0juoLdz
+ vJtX7bJAIvaUmE3/O9fJTlH19WHTNJ1UOap5wcG5b0/egPSpvJlb2FZXZQT3b+uiG9Vl
+ h89fR4MoqvPVhz+8JraKhYYrykzzeNgJ/bmTBDHqgNt+SvWqofQHaR+AwwQqDkehtfH0
+ SgwDKesKaoXFdIjDR+VYCfm0IRb42OKzlxsP1RPi3El7dyPTaEnuFeQaWr3yV/dfyFzQ
+ NS14lsiH02IINrac+5Kj1zaGAybDpScoTLgu+YU+SzCCGbGgtuyzzOdHPIEibdeZq8e4
+ s4Rg==
+X-Gm-Message-State: AOAM532fIYU3qN/MtIvaZ0YafcaJYcuKW2jdRCz+k6hav6hUNjpkPqqc
+ dXeAf4M3Ze7MdIWhgLftuJo=
+X-Google-Smtp-Source: ABdhPJzTuKhsh+3hQ4DaUL1ZCN6nlfAM/tEzcjJCzU3ixpifRadaoyrAx6dcz1cNNoOMod9tkU3xXg==
+X-Received: by 2002:a17:90b:3758:: with SMTP id
+ ne24mr5999561pjb.59.1635852036666; 
+ Tue, 02 Nov 2021 04:20:36 -0700 (PDT)
+Received: from [172.18.2.138] ([137.59.101.13])
+ by smtp.gmail.com with ESMTPSA id g7sm15193777pgp.17.2021.11.02.04.20.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Nov 2021 04:20:36 -0700 (PDT)
+Subject: Re: [PATCH] ALSA: seq: Fix RCU stall in snd_seq_write()
+To: Takashi Iwai <tiwai@suse.de>
+References: <20211102033222.3849-1-qiang.zhang1211@gmail.com>
+ <s5hy267ot27.wl-tiwai@suse.de>
+ <2d05ceab-b8b7-0c7b-f847-69950c6db14e@gmail.com>
+ <s5ho872q25p.wl-tiwai@suse.de>
+From: Zqiang <qiang.zhang1211@gmail.com>
+Message-ID: <47f05b3a-811b-e64c-0366-3aebaece6c8e@gmail.com>
+Date: Tue, 2 Nov 2021 19:20:32 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <s5ho872q25p.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,366 +107,137 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add new machine driver to register sound card on sc7280 based targets and
-do the required configuration for lpass cpu dai and external codecs
-connected over MI2S and soundwire interfaces.
-Add support for audio jack detection, soundwire init and MBHC.
 
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
----
- sound/soc/qcom/Kconfig  |  12 ++
- sound/soc/qcom/Makefile |   2 +
- sound/soc/qcom/sc7280.c | 299 ++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 313 insertions(+)
- create mode 100644 sound/soc/qcom/sc7280.c
+On 2021/11/2 下午6:31, Takashi Iwai wrote:
+> On Tue, 02 Nov 2021 10:41:57 +0100,
+> Zqiang wrote:
+>>
+>> On 2021/11/2 下午4:33, Takashi Iwai wrote:
+>>> On Tue, 02 Nov 2021 04:32:22 +0100,
+>>> Zqiang wrote:
+>>>> If we have a lot of cell object, this cycle may take a long time, and
+>>>> trigger RCU stall. insert a conditional reschedule point to fix it.
+>>>>
+>>>> rcu: INFO: rcu_preempt self-detected stall on CPU
+>>>> rcu: 	1-....: (1 GPs behind) idle=9f5/1/0x4000000000000000
+>>>> 	softirq=16474/16475 fqs=4916
+>>>> 	(t=10500 jiffies g=19249 q=192515)
+>>>> NMI backtrace for cpu 1
+>>>> ......
+>>>> asm_sysvec_apic_timer_interrupt
+>>>> RIP: 0010:_raw_spin_unlock_irqrestore+0x38/0x70
+>>>> spin_unlock_irqrestore
+>>>> snd_seq_prioq_cell_out+0x1dc/0x360
+>>>> snd_seq_check_queue+0x1a6/0x3f0
+>>>> snd_seq_enqueue_event+0x1ed/0x3e0
+>>>> snd_seq_client_enqueue_event.constprop.0+0x19a/0x3c0
+>>>> snd_seq_write+0x2db/0x510
+>>>> vfs_write+0x1c4/0x900
+>>>> ksys_write+0x171/0x1d0
+>>>> do_syscall_64+0x35/0xb0
+>>>>
+>>>> Reported-by: syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
+>>>> Signed-off-by: Zqiang <qiang.zhang1211@gmail.com>
+>>>> ---
+>>>>    sound/core/seq/seq_queue.c | 2 ++
+>>>>    1 file changed, 2 insertions(+)
+>>>>
+>>>> diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
+>>>> index d6c02dea976c..f5b1e4562a64 100644
+>>>> --- a/sound/core/seq/seq_queue.c
+>>>> +++ b/sound/core/seq/seq_queue.c
+>>>> @@ -263,6 +263,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+>>>>    		if (!cell)
+>>>>    			break;
+>>>>    		snd_seq_dispatch_event(cell, atomic, hop);
+>>>> +		cond_resched();
+>>>>    	}
+>>>>      	/* Process time queue... */
+>>>> @@ -272,6 +273,7 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+>>>>    		if (!cell)
+>>>>    			break;
+>>>>    		snd_seq_dispatch_event(cell, atomic, hop);
+>>>> +		cond_resched();
+>>> It's good to have cond_resched() in those places but it must be done
+>>> more carefully, as the code path may be called from the non-atomic
+>>> context, too.  That is, it must have a check of atomic argument, and
+>>> cond_resched() is applied only when atomic==false.
+>>>
+>>> But I still wonder how this gets a RCU stall out of sudden.  Looking
+>>> through https://syzkaller.appspot.com/bug?extid=bb950e68b400ab4f65f8
+>>> it's triggered by many cases since the end of September...
+>> I did not find useful information from the log,  through calltrace, I
+>> guess it may be triggered by the long cycle time, which caused the
+>> static state of the RCU to
+>>
+>> not be reported in time.
+> Yes, I understand that logic.  But I wonder why this gets triggered
+> *now* out of sudden.  The code has been present over decades, and I
+> don't think the similar test case must have been performed by fuzzer.
+>
+>> I ignore the atomic parameter check,  I will resend v2 .   in
+>> no-atomic context, we can insert
+>>
+>> cond_resched() to avoid this situation, but in atomic context,
+>>
+>> the RCU stall maybe still trigger.
+> Right, so maybe it's better to have an upper limit for the processed
+> cells, something like below (totally untested).
+>
+> Could you reproduce the problem locally?  Otherwise it's all nothing
+> but a guess...
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index cc7c1de..530d01f 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -152,4 +152,16 @@ config SND_SOC_SC7180
- 	  SC7180 SoC-based systems.
- 	  Say Y if you want to use audio device on this SoCs.
- 
-+config SND_SOC_SC7280
-+	tristate "SoC Machine driver for SC7280 boards"
-+	depends on I2C && SOUNDWIRE || COMPILE_TEST
-+	select SND_SOC_QCOM_COMMON
-+	select SND_SOC_MAX98357A
-+	select SND_SOC_LPASS_RX_MACRO
-+	select SND_SOC_LPASS_TX_MACRO
-+	help
-+	  Add support for audio on Qualcomm Technologies Inc.
-+	  SC7280 SoC-based systems.
-+	  Say Y or M if you want to use audio device on this SoCs.
-+
- endif #SND_SOC_QCOM
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 1600ae5..625aec6 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -19,6 +19,7 @@ snd-soc-storm-objs := storm.o
- snd-soc-apq8016-sbc-objs := apq8016_sbc.o
- snd-soc-apq8096-objs := apq8096.o
- snd-soc-sc7180-objs := sc7180.o
-+snd-soc-sc7280-objs := sc7280.o
- snd-soc-sdm845-objs := sdm845.o
- snd-soc-sm8250-objs := sm8250.o
- snd-soc-qcom-common-objs := common.o
-@@ -27,6 +28,7 @@ obj-$(CONFIG_SND_SOC_STORM) += snd-soc-storm.o
- obj-$(CONFIG_SND_SOC_APQ8016_SBC) += snd-soc-apq8016-sbc.o
- obj-$(CONFIG_SND_SOC_MSM8996) += snd-soc-apq8096.o
- obj-$(CONFIG_SND_SOC_SC7180) += snd-soc-sc7180.o
-+obj-$(CONFIG_SND_SOC_SC7280) += snd-soc-sc7280.o
- obj-$(CONFIG_SND_SOC_SDM845) += snd-soc-sdm845.o
- obj-$(CONFIG_SND_SOC_SM8250) += snd-soc-sm8250.o
- obj-$(CONFIG_SND_SOC_QCOM_COMMON) += snd-soc-qcom-common.o
-diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
-new file mode 100644
-index 0000000..c20d4ab1
---- /dev/null
-+++ b/sound/soc/qcom/sc7280.c
-@@ -0,0 +1,299 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
-+//
-+// ALSA SoC Machine driver for sc7280
-+
-+#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/input.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/platform_device.h>
-+#include <sound/core.h>
-+#include <sound/jack.h>
-+#include <sound/pcm.h>
-+#include <sound/soc.h>
-+
-+#include <dt-bindings/sound/sc7180-lpass.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+
-+#include "../codecs/wcd938x.h"
-+#include "common.h"
-+#include "lpass.h"
-+
-+#define LPASS_MAX_PORTS  (LPASS_CDC_DMA_VA_TX8 + 1)
-+
-+struct sc7280_snd_data {
-+	bool stream_prepared[LPASS_MAX_PORTS];
-+	struct snd_soc_card card;
-+	struct sdw_stream_runtime *sruntime[LPASS_MAX_PORTS];
-+	struct snd_soc_jack hs_jack;
-+	struct snd_soc_jack hdmi_jack;
-+	bool jack_setup;
-+};
-+
-+static void sc7280_jack_free(struct snd_jack *jack)
-+{
-+	struct snd_soc_component *component = jack->private_data;
-+
-+	snd_soc_component_set_jack(component, NULL, NULL);
-+}
-+
-+static int sc7280_headset_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_component *component = codec_dai->component;
-+	struct snd_jack *jack;
-+	int rval, i;
-+
-+	if (!pdata->jack_setup) {
-+		rval = snd_soc_card_jack_new(card, "Headset Jack",
-+							SND_JACK_HEADSET | SND_JACK_LINEOUT |
-+							SND_JACK_MECHANICAL |
-+							SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+							SND_JACK_BTN_2 | SND_JACK_BTN_3 |
-+							SND_JACK_BTN_4 | SND_JACK_BTN_5,
-+							&pdata->hs_jack, NULL, 0);
-+
-+		if (rval < 0) {
-+			dev_err(card->dev, "Unable to add Headset Jack\n");
-+			return rval;
-+		}
-+
-+		jack = pdata->hs_jack.jack;
-+
-+		snd_jack_set_key(jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-+		snd_jack_set_key(jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+		snd_jack_set_key(jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+		snd_jack_set_key(jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-+
-+		jack->private_data = component;
-+		jack->private_free = sc7280_jack_free;
-+		pdata->jack_setup = true;
-+	}
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_TX3:
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+			rval = snd_soc_component_set_jack(component, &pdata->hs_jack, NULL);
-+			if (rval != 0 && rval != -ENOTSUPP) {
-+				dev_err(card->dev, "Failed to set jack: %d\n", rval);
-+				return rval;
-+			}
-+		}
-+
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int sc7280_hdmi_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_component *component = codec_dai->component;
-+	struct snd_jack *jack;
-+	int rval;
-+
-+	rval = snd_soc_card_jack_new(
-+			card, "HDMI Jack",
-+			SND_JACK_LINEOUT,
-+			&pdata->hdmi_jack, NULL, 0);
-+
-+	if (rval < 0) {
-+		dev_err(card->dev, "Unable to add HDMI Jack\n");
-+		return rval;
-+	}
-+
-+	jack = pdata->hdmi_jack.jack;
-+	jack->private_data = component;
-+	jack->private_free = sc7280_jack_free;
-+
-+	return snd_soc_component_set_jack(component, &pdata->hdmi_jack, NULL);
-+}
-+
-+static int sc7280_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_TX3:
-+		return sc7280_headset_init(rtd);
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_VA_TX0:
-+	case MI2S_SECONDARY:
-+		return 0;
-+	case LPASS_DP_RX:
-+		return sc7280_hdmi_init(rtd);
-+	default:
-+		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int sc7280_snd_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *codec_dai;
-+	const struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(rtd->card);
-+	struct sdw_stream_runtime *sruntime;
-+	int i;
-+
-+	snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_CHANNELS, 2, 2);
-+	snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_RATE, 48000, 48000);
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_TX3:
-+	case LPASS_CDC_DMA_RX0:
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+			sruntime = snd_soc_dai_get_sdw_stream(codec_dai, substream->stream);
-+			if (sruntime != ERR_PTR(-ENOTSUPP))
-+				pdata->sruntime[cpu_dai->id] = sruntime;
-+		}
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int sc7280_snd_swr_prepare(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	const struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct sc7280_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
-+	int ret;
-+
-+	if (!sruntime)
-+		return 0;
-+
-+	if (data->stream_prepared[cpu_dai->id]) {
-+		sdw_disable_stream(sruntime);
-+		sdw_deprepare_stream(sruntime);
-+		data->stream_prepared[cpu_dai->id] = false;
-+	}
-+
-+	ret = sdw_prepare_stream(sruntime);
-+	if (ret)
-+		return ret;
-+
-+	ret = sdw_enable_stream(sruntime);
-+	if (ret) {
-+		sdw_deprepare_stream(sruntime);
-+		return ret;
-+	}
-+	data->stream_prepared[cpu_dai->id] = true;
-+
-+	return ret;
-+}
-+
-+static int sc7280_snd_prepare(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	const struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_TX3:
-+		return sc7280_snd_swr_prepare(substream);
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int sc7280_snd_hw_free(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct sc7280_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	const struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_TX3:
-+		if (sruntime && data->stream_prepared[cpu_dai->id]) {
-+			sdw_disable_stream(sruntime);
-+			sdw_deprepare_stream(sruntime);
-+			data->stream_prepared[cpu_dai->id] = false;
-+		}
-+		break;
-+	default:
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops sc7280_ops = {
-+	.hw_params = sc7280_snd_hw_params,
-+	.hw_free = sc7280_snd_hw_free,
-+	.prepare = sc7280_snd_prepare,
-+};
-+
-+static const struct snd_soc_dapm_widget sc7280_snd_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+};
-+
-+static int sc7280_snd_platform_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_card *card;
-+	struct sc7280_snd_data *data;
-+	struct device *dev = &pdev->dev;
-+	struct snd_soc_dai_link *link;
-+	int ret, i;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	card = &data->card;
-+	snd_soc_card_set_drvdata(card, data);
-+
-+	card->owner = THIS_MODULE;
-+	card->driver_name = "SC7280";
-+	card->dev = dev;
-+
-+	ret = qcom_snd_parse_of(card);
-+	if (ret)
-+		return ret;
-+
-+	for_each_card_prelinks(card, i, link) {
-+		link->init = sc7280_init;
-+		link->ops = &sc7280_ops;
-+	}
-+
-+	return devm_snd_soc_register_card(dev, card);
-+}
-+
-+static const struct of_device_id sc7280_snd_device_id[]  = {
-+	{ .compatible = "google,sc7280-herobrine" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, sc7280_snd_device_id);
-+
-+static struct platform_driver sc7280_snd_driver = {
-+	.probe = sc7280_snd_platform_probe,
-+	.driver = {
-+		.name = "msm-snd-sc7280",
-+		.of_match_table = sc7280_snd_device_id,
-+		.pm = &snd_soc_pm_ops,
-+	},
-+};
-+module_platform_driver(sc7280_snd_driver);
-+
-+MODULE_DESCRIPTION("sc7280 ASoC Machine Driver");
-+MODULE_LICENSE("GPL v2");
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+yes, this is just a guess.  I haven't reproduced locally, limiting the 
+number of cycles is a suitable modification,
 
+but the  MAX_CELL_PROCESSES_IN_QUEUE is an experience value.
+
+thanks
+
+Zqiang
+
+>
+> thanks,
+>
+> Takashi
+>
+> ---
+>
+> diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
+> index d6c02dea976c..7f796ee62ee7 100644
+> --- a/sound/core/seq/seq_queue.c
+> +++ b/sound/core/seq/seq_queue.c
+> @@ -235,12 +235,15 @@ struct snd_seq_queue *snd_seq_queue_find_name(char *name)
+>   
+>   /* -------------------------------------------------------- */
+>   
+> +#define MAX_CELL_PROCESSES_IN_QUEUE	1000
+> +
+>   void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+>   {
+>   	unsigned long flags;
+>   	struct snd_seq_event_cell *cell;
+>   	snd_seq_tick_time_t cur_tick;
+>   	snd_seq_real_time_t cur_time;
+> +	int processed = 0;
+>   
+>   	if (q == NULL)
+>   		return;
+> @@ -263,6 +266,8 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+>   		if (!cell)
+>   			break;
+>   		snd_seq_dispatch_event(cell, atomic, hop);
+> +		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
+> +			return; /* the rest processed at the next batch */
+>   	}
+>   
+>   	/* Process time queue... */
+> @@ -272,6 +277,8 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+>   		if (!cell)
+>   			break;
+>   		snd_seq_dispatch_event(cell, atomic, hop);
+> +		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
+> +			return; /* the rest processed at the next batch */
+>   	}
+>   
+>   	/* free lock */

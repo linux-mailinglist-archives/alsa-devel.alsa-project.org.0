@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DFC7443FC3
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Nov 2021 11:02:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 812AF443FC5
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Nov 2021 11:02:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4D3D1689;
-	Wed,  3 Nov 2021 11:01:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4D3D1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3847516B0;
+	Wed,  3 Nov 2021 11:01:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3847516B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635933742;
-	bh=xCJKd1g/YYKa58I9XL71tngFKm46+R83zubqewbYsVQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=A6yxdJkXgIaKMFNeztsKZGGSK2r1TbCkAjvBwtw/+7D74SzDR71fxh/THdGiDeyzr
-	 DwTcxDSmSkwUecCEZGb464uDrQ1JCN/7zdg4gqDdbj1ty9H76SWy/tNVXQBZ9vht3Q
-	 sE9wZ/tk0kTLasBWlGzcNUgJ5pFCWkT9V2ZCItw0=
+	s=default; t=1635933767;
+	bh=u9cX9/136U4kNUEDzgVPciVF6mUyOos2r/ZsS+Di2Cg=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Bci5I/bpDFIBUxBXc3J0luv6FZio281RNh2f3lWVKP5uLwI86oN9CT0FU5nSs4Eal
+	 kqiSqfhe7+1kOLXpPLzKsFUep95tZMEHYoTrcbX4k9XxZHwS5djPd6pL1bUzajMTjz
+	 hpa89RzhB4YPTbEPc0PC+iV/xUOGS2aUGeTnRvUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 143EAF8049E;
-	Wed,  3 Nov 2021 11:01:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 961E8F804ED;
+	Wed,  3 Nov 2021 11:01:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFC38F804C3; Wed,  3 Nov 2021 11:01:01 +0100 (CET)
+ id 32A0BF804C3; Wed,  3 Nov 2021 11:01:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9DFEF800D2
- for <alsa-devel@alsa-project.org>; Wed,  3 Nov 2021 11:00:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9DFEF800D2
-X-UUID: da6ae55821ea4e10bbf10a84365b9deb-20211103
-X-UUID: da6ae55821ea4e10bbf10a84365b9deb-20211103
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw02.mediatek.com
- (envelope-from <trevor.wu@mediatek.com>)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3E6CF8026A
+ for <alsa-devel@alsa-project.org>; Wed,  3 Nov 2021 11:00:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3E6CF8026A
+X-UUID: e8a4a35adc504c0eab387ef931f0d75b-20211103
+X-UUID: e8a4a35adc504c0eab387ef931f0d75b-20211103
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw02.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1341963609; Wed, 03 Nov 2021 18:00:45 +0800
-Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Wed, 3 Nov 2021 18:00:44 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb02.mediatek.inc
- (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 3 Nov 2021 18:00:44 +0800
+ with ESMTP id 989518358; Wed, 03 Nov 2021 18:00:47 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 3 Nov 2021 18:00:45 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Wed, 3 Nov 2021 18:00:44 +0800
+ Frontend Transport; Wed, 3 Nov 2021 18:00:45 +0800
 From: Trevor Wu <trevor.wu@mediatek.com>
 To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
  <matthias.bgg@gmail.com>
-Subject: [PATCH 0/4] ASoC: mediatek: Update MT8195 machine driver
-Date: Wed, 3 Nov 2021 18:00:36 +0800
-Message-ID: <20211103100040.11933-1-trevor.wu@mediatek.com>
+Subject: [PATCH 1/4] ASoC: mediatek: mt8195: add headset codec rt5682s support
+Date: Wed, 3 Nov 2021 18:00:37 +0800
+Message-ID: <20211103100040.11933-2-trevor.wu@mediatek.com>
 X-Mailer: git-send-email 2.18.0
+In-Reply-To: <20211103100040.11933-1-trevor.wu@mediatek.com>
+References: <20211103100040.11933-1-trevor.wu@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-MTK: N
@@ -80,35 +80,189 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thes series of patches adds support for RT5682s headset codec and
-create a new machine driver for SOF support.
-Patches are based on broonie tree "for-next" branch.
+mt8195 machine driver adds rt5682s support in this patch.
+Card name can be specified from dts by model property, and driver makes
+use of the name to distinguish which headset codec is on the board.
 
+Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+---
+ sound/soc/mediatek/Kconfig                    |  2 ++
+ .../mt8195/mt8195-mt6359-rt1011-rt5682.c      | 29 +++++++++++++-----
+ .../mt8195/mt8195-mt6359-rt1019-rt5682.c      | 30 ++++++++++++++-----
+ 3 files changed, 47 insertions(+), 14 deletions(-)
 
-Trevor Wu (4):
-  ASoC: mediatek: mt8195: add headset codec rt5682s support
-  dt-bindings: mediatek: mt8195: add model property
-  ASoC: mediatek: mt8195: separate the common code from machine driver
-  ASoC: mediatek: mt8195: add machine driver for MT8195 SOF support
-
- .../sound/mt8195-mt6359-rt1011-rt5682.yaml    |   4 +
- .../sound/mt8195-mt6359-rt1019-rt5682.yaml    |   4 +
- sound/soc/mediatek/Kconfig                    |   2 +
- sound/soc/mediatek/mt8195/Makefile            |  16 +-
- sound/soc/mediatek/mt8195/mt8195-common.c     | 398 ++++++++++++
- sound/soc/mediatek/mt8195/mt8195-common.h     |  33 +
- .../mt8195/mt8195-mt6359-rt1011-rt5682.c      | 591 +-----------------
- .../mt8195/mt8195-mt6359-rt1019-rt5682-sof.c  | 557 +++++++++++++++++
- .../mt8195/mt8195-mt6359-rt1019-rt5682.c      | 551 +---------------
- .../mediatek/mt8195/mt8195-realtek-common.c   | 161 +++++
- .../mediatek/mt8195/mt8195-realtek-common.h   |  34 +
- 11 files changed, 1267 insertions(+), 1084 deletions(-)
- create mode 100644 sound/soc/mediatek/mt8195/mt8195-common.c
- create mode 100644 sound/soc/mediatek/mt8195/mt8195-common.h
- create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682-sof.c
- create mode 100644 sound/soc/mediatek/mt8195/mt8195-realtek-common.c
- create mode 100644 sound/soc/mediatek/mt8195/mt8195-realtek-common.h
-
+diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
+index 3b1ddea26a9e..9306b7ca2644 100644
+--- a/sound/soc/mediatek/Kconfig
++++ b/sound/soc/mediatek/Kconfig
+@@ -205,6 +205,7 @@ config SND_SOC_MT8195_MT6359_RT1019_RT5682
+ 	select SND_SOC_MT6359
+ 	select SND_SOC_RT1015P
+ 	select SND_SOC_RT5682_I2C
++	select SND_SOC_RT5682S
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_HDMI_CODEC
+ 	help
+@@ -220,6 +221,7 @@ config SND_SOC_MT8195_MT6359_RT1011_RT5682
+ 	select SND_SOC_MT6359
+ 	select SND_SOC_RT1011
+ 	select SND_SOC_RT5682_I2C
++	select SND_SOC_RT5682S
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_HDMI_CODEC
+ 	help
+diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
+index e103102d7ef6..797f155c882b 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
++++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
+@@ -27,6 +27,9 @@
+ #define RT5682_CODEC_DAI	"rt5682-aif1"
+ #define RT5682_DEV0_NAME	"rt5682.2-001a"
+ 
++#define RT5682S_CODEC_DAI	"rt5682s-aif1"
++#define RT5682S_DEV0_NAME	"rt5682s.2-001a"
++
+ struct mt8195_mt6359_rt1011_rt5682_priv {
+ 	struct device_node *platform_node;
+ 	struct device_node *hdmi_node;
+@@ -691,14 +694,12 @@ SND_SOC_DAILINK_DEFS(ETDM1_IN_BE,
+ 
+ SND_SOC_DAILINK_DEFS(ETDM2_IN_BE,
+ 		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM2_IN")),
+-		     DAILINK_COMP_ARRAY(COMP_CODEC(RT5682_DEV0_NAME,
+-						   RT5682_CODEC_DAI)),
++		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+ 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 
+ SND_SOC_DAILINK_DEFS(ETDM1_OUT_BE,
+ 		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM1_OUT")),
+-		     DAILINK_COMP_ARRAY(COMP_CODEC(RT5682_DEV0_NAME,
+-						   RT5682_CODEC_DAI)),
++		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+ 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 
+ SND_SOC_DAILINK_DEFS(ETDM2_OUT_BE,
+@@ -1046,9 +1047,19 @@ static int mt8195_mt6359_rt1011_rt5682_dev_probe(struct platform_device *pdev)
+ 	struct snd_soc_card *card = &mt8195_mt6359_rt1011_rt5682_soc_card;
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct mt8195_mt6359_rt1011_rt5682_priv *priv;
++	int is5682s = 0;
+ 	int ret, i;
+ 
+ 	card->dev = &pdev->dev;
++	ret = snd_soc_of_parse_card_name(card, "model");
++	if (ret) {
++		dev_err(&pdev->dev, "%s new card name parsing error %d\n",
++			__func__, ret);
++		return ret;
++	}
++
++	if (strstr(card->name, "_5682s"))
++		is5682s = 1;
+ 
+ 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+@@ -1078,9 +1089,7 @@ static int mt8195_mt6359_rt1011_rt5682_dev_probe(struct platform_device *pdev)
+ 				dai_link->codecs->dai_name = "i2s-hifi";
+ 				dai_link->init = mt8195_dptx_codec_init;
+ 			}
+-		}
+-
+-		if (strcmp(dai_link->name, "ETDM3_OUT_BE") == 0) {
++		} else if (strcmp(dai_link->name, "ETDM3_OUT_BE") == 0) {
+ 			priv->hdmi_node =
+ 				of_parse_phandle(pdev->dev.of_node,
+ 						 "mediatek,hdmi-codec", 0);
+@@ -1092,6 +1101,12 @@ static int mt8195_mt6359_rt1011_rt5682_dev_probe(struct platform_device *pdev)
+ 				dai_link->codecs->dai_name = "i2s-hifi";
+ 				dai_link->init = mt8195_hdmi_codec_init;
+ 			}
++		} else if (strcmp(dai_link->name, "ETDM1_OUT_BE") == 0 ||
++			   strcmp(dai_link->name, "ETDM2_IN_BE") == 0) {
++			dai_link->codecs->name =
++				is5682s ? RT5682S_DEV0_NAME : RT5682_DEV0_NAME;
++			dai_link->codecs->dai_name =
++				is5682s ? RT5682S_CODEC_DAI : RT5682_CODEC_DAI;
+ 		}
+ 	}
+ 
+diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+index 95abaadcd842..7209c70acf6e 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
++++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+@@ -25,6 +25,9 @@
+ #define RT5682_CODEC_DAI	"rt5682-aif1"
+ #define RT5682_DEV0_NAME	"rt5682.2-001a"
+ 
++#define RT5682S_CODEC_DAI	"rt5682s-aif1"
++#define RT5682S_DEV0_NAME	"rt5682s.2-001a"
++
+ struct mt8195_mt6359_rt1019_rt5682_priv {
+ 	struct device_node *platform_node;
+ 	struct device_node *hdmi_node;
+@@ -661,14 +664,12 @@ SND_SOC_DAILINK_DEFS(ETDM1_IN_BE,
+ 
+ SND_SOC_DAILINK_DEFS(ETDM2_IN_BE,
+ 		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM2_IN")),
+-		     DAILINK_COMP_ARRAY(COMP_CODEC(RT5682_DEV0_NAME,
+-						   RT5682_CODEC_DAI)),
++		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+ 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 
+ SND_SOC_DAILINK_DEFS(ETDM1_OUT_BE,
+ 		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM1_OUT")),
+-		     DAILINK_COMP_ARRAY(COMP_CODEC(RT5682_DEV0_NAME,
+-						   RT5682_CODEC_DAI)),
++		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+ 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 
+ SND_SOC_DAILINK_DEFS(ETDM2_OUT_BE,
+@@ -999,10 +1000,21 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
+ 	struct snd_soc_card *card = &mt8195_mt6359_rt1019_rt5682_soc_card;
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct mt8195_mt6359_rt1019_rt5682_priv *priv;
++	int is5682s = 0;
+ 	int ret, i;
+ 
+ 	card->dev = &pdev->dev;
+ 
++	ret = snd_soc_of_parse_card_name(card, "model");
++	if (ret) {
++		dev_err(&pdev->dev, "%s new card name parsing error %d\n",
++			__func__, ret);
++		return ret;
++	}
++
++	if (strstr(card->name, "_5682s"))
++		is5682s = 1;
++
+ 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+@@ -1031,9 +1043,7 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
+ 				dai_link->codecs->dai_name = "i2s-hifi";
+ 				dai_link->init = mt8195_dptx_codec_init;
+ 			}
+-		}
+-
+-		if (strcmp(dai_link->name, "ETDM3_OUT_BE") == 0) {
++		} else if (strcmp(dai_link->name, "ETDM3_OUT_BE") == 0) {
+ 			priv->hdmi_node =
+ 				of_parse_phandle(pdev->dev.of_node,
+ 						 "mediatek,hdmi-codec", 0);
+@@ -1045,6 +1055,12 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
+ 				dai_link->codecs->dai_name = "i2s-hifi";
+ 				dai_link->init = mt8195_hdmi_codec_init;
+ 			}
++		} else if (strcmp(dai_link->name, "ETDM1_OUT_BE") == 0 ||
++			   strcmp(dai_link->name, "ETDM2_IN_BE") == 0) {
++			dai_link->codecs->name =
++				is5682s ? RT5682S_DEV0_NAME : RT5682_DEV0_NAME;
++			dai_link->codecs->dai_name =
++				is5682s ? RT5682S_CODEC_DAI : RT5682_CODEC_DAI;
+ 		}
+ 	}
+ 
 -- 
 2.18.0
 

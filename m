@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C96D44434E
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Nov 2021 15:20:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A8474444FA
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Nov 2021 16:54:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33F14950;
-	Wed,  3 Nov 2021 15:19:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33F14950
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC665167D;
+	Wed,  3 Nov 2021 16:53:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC665167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635949202;
-	bh=6BYkqOYWDjpbeNj/kj6FklgRoYQCYacYYDGR97c+H08=;
+	s=default; t=1635954843;
+	bh=awGnwrHZitIgeKVX7Sy9UsMEAuDY4vZxMS8ZbpTSglg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k6AxDIVCVNcBWwmAXWaYgj19yVWw8U+SiXsusTSnfH7SDcYovKeI4pxy45KSdNVbp
-	 LP0zPYW0TJ/VDkqedaU/fUlQTfynVkoe0vxcy7iazFCzO38FYbRFCoCw8krJPatRmp
-	 C9h+Wy5keih4VaqOX1AP1P/eRy/BfntEkBsuDgic=
+	b=Ggtsy/RiA7yGMiQ14xFslum1VjBRANAdXERg/8DIh34UZg71kSypbM69HkcUquPvP
+	 feIQwbwNX4i2V7iz6Ks/AHdwP2GOCiVp8e1T4MuICY0V0eo3Ob/s+YceJPXtQGY05O
+	 laUJegAzArGBYeeCb2MG+u3eO4w4aMu97HxZqM+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C83AAF800FA;
-	Wed,  3 Nov 2021 15:18:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5ED87F8026A;
+	Wed,  3 Nov 2021 16:52:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0D27F8026A; Wed,  3 Nov 2021 15:18:41 +0100 (CET)
+ id 49C83F8026A; Wed,  3 Nov 2021 16:52:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,53 +34,50 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96A9AF800FA
- for <alsa-devel@alsa-project.org>; Wed,  3 Nov 2021 15:18:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96A9AF800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 603CFF80224
+ for <alsa-devel@alsa-project.org>; Wed,  3 Nov 2021 16:52:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 603CFF80224
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="We4FMch6"; 
+ header.b="E2XI9wAa"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="T8yGJQsN"
+ header.b="5Zt9wXEx"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 5810E1F782;
- Wed,  3 Nov 2021 14:18:34 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 58AE91FD38;
+ Wed,  3 Nov 2021 15:52:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635949114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635954752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=bZiy8+R10laDHdPkOqf3gl989LSBmS3/sKvlOAhnTdw=;
- b=We4FMch6fseCs7suiZ3KGV0K8nXA149QGZVVf4/B+fFqpy1tWOmwO8iWbjWB4e7KSnuaid
- PkIMZc1n6JkVyEphzhIVh1TLHXdvbDJ8XxHv1mNDtq1YR/xq0g4m/4lu51l5f3j1I/ahhW
- F030o5/Ga4IKoU88PJPRUD/x9+qhw7U=
+ bh=60dbNvRuq2+pDrxgqrR+rylMTFP+xsmOEnt2cj6YToc=;
+ b=E2XI9wAapZF7F6d2G0MiQqVizd3ExKXfknocGg8WIRvFlFt2bmcZ6mIwSkDwFfS85RFXQP
+ MS5U6OIUkGa4Z8at4eTfk9Xkr2DLWONXD5PMPdxdKUPAnOuzpKytn6msjDo23vzMH4/s07
+ m9d98WzQQzuBZHVgGYWkzdeQOHdSQD0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635949114;
+ s=susede2_ed25519; t=1635954752;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=bZiy8+R10laDHdPkOqf3gl989LSBmS3/sKvlOAhnTdw=;
- b=T8yGJQsNI9H//dm0c7XvhaZYye8UPugzBUp/g1WchImCdAG8jFQVK0lF4delNTnZI9hcq0
- RPicqXqb6Wn3Z9Aw==
+ bh=60dbNvRuq2+pDrxgqrR+rylMTFP+xsmOEnt2cj6YToc=;
+ b=5Zt9wXExfnqQ1pRvQsG2f5Kmov/jHhXxhJA5QZxrExOk28KNGiGElC27d+wF5CsTXtxxVV
+ RJH6KFbGH+1FHZDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 4A06D2C144;
- Wed,  3 Nov 2021 14:18:34 +0000 (UTC)
-Date: Wed, 03 Nov 2021 15:18:34 +0100
-Message-ID: <s5h7ddpmif9.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 2DC612C144;
+ Wed,  3 Nov 2021 15:52:31 +0000 (UTC)
+Date: Wed, 03 Nov 2021 16:52:31 +0100
+Message-ID: <s5hh7ctkzi8.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH v2 01/10] ASoC: tegra: Fix kcontrol put callback in ADMAIF
-In-Reply-To: <s5ha6ilmiiv.wl-tiwai@suse.de>
-References: <1635947547-24391-1-git-send-email-spujar@nvidia.com>
- <1635947547-24391-2-git-send-email-spujar@nvidia.com>
- <s5ha6ilmiiv.wl-tiwai@suse.de>
+To: Wang Wensheng <wangwensheng4@huawei.com>
+Subject: Re: [PATCH -next v2] ALSA: timer: Fix use-after-free problem
+In-Reply-To: <20211103033517.80531-1-wangwensheng4@huawei.com>
+References: <20211103033517.80531-1-wangwensheng4@huawei.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, jonathanh@nvidia.com,
- broonie@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ rui.xiang@huawei.com, broonie@kernel.org, joe@perches.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,161 +93,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 03 Nov 2021 15:16:24 +0100,
-Takashi Iwai wrote:
+On Wed, 03 Nov 2021 04:35:17 +0100,
+Wang Wensheng wrote:
 > 
-> On Wed, 03 Nov 2021 14:52:17 +0100,
-> Sameer Pujar wrote:
-> > 
-> > The kcontrol put callback is expected to return 1 when there is change
-> > in HW or when the update is acknowledged by driver. This would ensure
-> > that change notifications are sent to subscribed applications. Update
-> > the ADMAIF driver accordingly
-> > 
-> > Fixes: f74028e159bb ("ASoC: tegra: Add Tegra210 based ADMAIF driver")
-> > Suggested-by: Jaroslav Kysela <perex@perex.cz>
-> > Suggested-by: Mark Brown <broonie@kernel.org>
-> > Signed-off-by: Sameer Pujar <spujar@nvidia.com>
-> > ---
-> >  sound/soc/tegra/tegra210_admaif.c | 23 ++++++++++++++++++-----
-> >  1 file changed, 18 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/sound/soc/tegra/tegra210_admaif.c b/sound/soc/tegra/tegra210_admaif.c
-> > index bcccdf3..dc71075 100644
-> > --- a/sound/soc/tegra/tegra210_admaif.c
-> > +++ b/sound/soc/tegra/tegra210_admaif.c
-> > @@ -452,16 +452,29 @@ static int tegra_admaif_put_control(struct snd_kcontrol *kcontrol,
-> >  	struct tegra_admaif *admaif = snd_soc_component_get_drvdata(cmpnt);
-> >  	int value = ucontrol->value.integer.value[0];
-> >  
-> > -	if (strstr(kcontrol->id.name, "Playback Mono To Stereo"))
-> > +	if (strstr(kcontrol->id.name, "Playback Mono To Stereo")) {
-> > +		if (admaif->mono_to_stereo[ADMAIF_TX_PATH][ec->reg] == value)
-> > +			return 0;
-> > +
-> >  		admaif->mono_to_stereo[ADMAIF_TX_PATH][ec->reg] = value;
-> > -	else if (strstr(kcontrol->id.name, "Capture Mono To Stereo"))
-> > +	} else if (strstr(kcontrol->id.name, "Capture Mono To Stereo")) {
-> > +		if (admaif->mono_to_stereo[ADMAIF_RX_PATH][ec->reg] == value)
-> > +			return 0;
-> > +
-> >  		admaif->mono_to_stereo[ADMAIF_RX_PATH][ec->reg] = value;
-> > -	else if (strstr(kcontrol->id.name, "Playback Stereo To Mono"))
-> > +	} else if (strstr(kcontrol->id.name, "Playback Stereo To Mono")) {
-> > +		if (admaif->stereo_to_mono[ADMAIF_TX_PATH][ec->reg] == value)
-> > +			return 0;
-> > +
-> >  		admaif->stereo_to_mono[ADMAIF_TX_PATH][ec->reg] = value;
-> > -	else if (strstr(kcontrol->id.name, "Capture Stereo To Mono"))
-> > +	} else if (strstr(kcontrol->id.name, "Capture Stereo To Mono")) {
-> > +		if (admaif->stereo_to_mono[ADMAIF_RX_PATH][ec->reg] == value)
-> > +			return 0;
-> > +
-> >  		admaif->stereo_to_mono[ADMAIF_RX_PATH][ec->reg] = value;
-> > +	}
-> >  
-> > -	return 0;
-> > +	return 1;
+> When the timer instance was add into ack_list but was not currently in
+> process, the user could stop it via snd_timer_stop1() without delete it
+> from the ack_list. Then the user could free the timer instance and when
+> it was actually processed UAF occurred.
 > 
-> Hrm, that looks too redundant.  The similar checks are seen in the get
-> part, so we may have a better helper function to reduce the string
-> checks, something like below.
+> This issue could be reproduced via testcase snd_timer01 in ltp - running
+> several instances of that testcase at the same time.
 > 
+> What I actually met was that the ack_list of the timer broken and the
+> kernel went into deadloop with irqoff. That could be detected by
+> hardlockup detector on board or when we run it on qemu, we could use gdb
+> to dump the ack_list when the console has no response.
 > 
-> BTW, independent from this patch set, I noticed that those get/put
-> callbacks handle the wrong type.  For enum ctls, you have to use 
-> ucontrol->value.enumerated.value instead of
-> ucontrol->value.integer.value.  The former is long while the latter is
-> int, hence they may have different sizes.
+> To fix this issue, we delete the timer instance from ack_list and
+> active_list unconditionally in snd_timer_stop1().
 > 
-> Such a bug could be caught if you test once with
-> CONFIG_SND_CTL_VALIDATION=y.  It's recommended to test with that
-> config once for a new driver code.
-> 
-> So, please submit the fix patch(es) for correcting the ctl value
-> types, too.
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
-> --- a/sound/soc/tegra/tegra210_admaif.c
-> +++ b/sound/soc/tegra/tegra210_admaif.c
-> @@ -424,44 +424,46 @@ static const struct snd_soc_dai_ops tegra_admaif_dai_ops = {
->  	.trigger	= tegra_admaif_trigger,
->  };
->  
-> -static int tegra_admaif_get_control(struct snd_kcontrol *kcontrol,
-> -				    struct snd_ctl_elem_value *ucontrol)
-> +static unsigned int *tegra_admaif_route_val(struct snd_kcontrol *kcontrol)
->  {
->  	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
->  	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
->  	struct tegra_admaif *admaif = snd_soc_component_get_drvdata(cmpnt);
-> -	long *uctl_val = &ucontrol->value.integer.value[0];
->  
->  	if (strstr(kcontrol->id.name, "Playback Mono To Stereo"))
-> -		*uctl_val = admaif->mono_to_stereo[ADMAIF_TX_PATH][ec->reg];
-> +		return &admaif->mono_to_stereo[ADMAIF_TX_PATH][ec->reg];
->  	else if (strstr(kcontrol->id.name, "Capture Mono To Stereo"))
-> -		*uctl_val = admaif->mono_to_stereo[ADMAIF_RX_PATH][ec->reg];
-> +		return &admaif->mono_to_stereo[ADMAIF_RX_PATH][ec->reg];
->  	else if (strstr(kcontrol->id.name, "Playback Stereo To Mono"))
-> -		*uctl_val = admaif->stereo_to_mono[ADMAIF_TX_PATH][ec->reg];
-> +		return &admaif->stereo_to_mono[ADMAIF_TX_PATH][ec->reg];
->  	else if (strstr(kcontrol->id.name, "Capture Stereo To Mono"))
-> -		*uctl_val = admaif->stereo_to_mono[ADMAIF_RX_PATH][ec->reg];
-> +		return &admaif->stereo_to_mono[ADMAIF_RX_PATH][ec->reg];
-> +	return NULL;
-> +}
->  
-> +static int tegra_admaif_get_control(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	unsigned int *valp = tegra_admaif_route_val(admaif, kcontrol);
+> Signed-off-by: Wang Wensheng <wangwensheng4@huawei.com>
+> Suggested-by: Takashi Iwai <tiwai@suse.de>
 
-The admaif argument is superfluous here, drop it.
-
-My patch is just for bringing an idea, and feel free to cook in your
-own way, of course.
+Thanks, applied now.
 
 
 Takashi
-
-> +
-> +	if (!valp)
-> +		return -EINVAL;
-> +	ucontrol->value.integer.value[0] = *valp;
->  	return 0;
->  }
->  
->  static int tegra_admaif_put_control(struct snd_kcontrol *kcontrol,
->  				    struct snd_ctl_elem_value *ucontrol)
->  {
-> -	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
-> -	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
-> -	struct tegra_admaif *admaif = snd_soc_component_get_drvdata(cmpnt);
-> +	unsigned int *valp = tegra_admaif_route_val(admaif, kcontrol);
->  	int value = ucontrol->value.integer.value[0];
->  
-> -	if (strstr(kcontrol->id.name, "Playback Mono To Stereo"))
-> -		admaif->mono_to_stereo[ADMAIF_TX_PATH][ec->reg] = value;
-> -	else if (strstr(kcontrol->id.name, "Capture Mono To Stereo"))
-> -		admaif->mono_to_stereo[ADMAIF_RX_PATH][ec->reg] = value;
-> -	else if (strstr(kcontrol->id.name, "Playback Stereo To Mono"))
-> -		admaif->stereo_to_mono[ADMAIF_TX_PATH][ec->reg] = value;
-> -	else if (strstr(kcontrol->id.name, "Capture Stereo To Mono"))
-> -		admaif->stereo_to_mono[ADMAIF_RX_PATH][ec->reg] = value;
-> -
-> -	return 0;
-> +	if (!valp)
-> +		return -EINVAL;
-> +	if (value == *valp)
-> +		return 0;
-> +	*valp = value;
-> +	return 1;
->  }
->  
->  static int tegra_admaif_dai_probe(struct snd_soc_dai *dai)
-> 

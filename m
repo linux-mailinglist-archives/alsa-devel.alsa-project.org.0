@@ -2,48 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BEE4444FF1
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Nov 2021 09:09:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00D3F445003
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Nov 2021 09:16:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFC471693;
-	Thu,  4 Nov 2021 09:08:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFC471693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 80C9A167D;
+	Thu,  4 Nov 2021 09:15:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80C9A167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636013342;
-	bh=7wBWPUC3ijYVBCMwsE2Yvm2zU9deB0nYVWBkCQ17x7Y=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1636013792;
+	bh=uP7IAVmSu1pLzOZQjvDQSOIY2f7UGWlumSuQX/LrxIg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HAArIv5zD+x5FDqw2R1vWQMBZIoG8Djnw3M9ZFHX1vDVe3TtQAdpEdEqlCwdaFAKf
-	 gzYGzFLnNifCAxhUoMRgl+/pIbU/dekbCK7vjz5XpP6xa5mZSFeYLDrXD0IfsZohQ7
-	 bCYL3oXImGiAL+CS1tKmhzTasW2AbcTZD4Uqf5Xg=
+	b=Nf9V7Ehuk+XtqqwmBBiHD3ZT5DibQRhy6recBSV3XE48RfL4i3CQbkOYVPXLupIFu
+	 IzhpJDVDBpb82WghbT3K5h/0AaLXn6lYzMsX34u7PnBhZFRQbK5TbR6FV+y/vzDbMl
+	 Tn7PDrIbldvC8tDDqE3PJnTR2Z8acwl0eV5Sh0HI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD952F8049C;
-	Thu,  4 Nov 2021 09:07:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFA21F8025F;
+	Thu,  4 Nov 2021 09:15:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A746F802E8; Thu,  4 Nov 2021 09:07:45 +0100 (CET)
+ id EFEB4F8025D; Thu,  4 Nov 2021 09:15:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 9F55CF8025D
- for <alsa-devel@alsa-project.org>; Thu,  4 Nov 2021 09:07:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F55CF8025D
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1636013255463222980-webhooks-bot@alsa-project.org>
-References: <1636013255463222980-webhooks-bot@alsa-project.org>
-Subject: Intel SOF HDA: Lenovo m920sff support (Realtek ALC 233)
-Message-Id: <20211104080745.3A746F802E8@alsa1.perex.cz>
-Date: Thu,  4 Nov 2021 09:07:45 +0100 (CET)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE15DF80125
+ for <alsa-devel@alsa-project.org>; Thu,  4 Nov 2021 09:15:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE15DF80125
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="iuPabJfi"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="BTKgHI8s"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 35DA7212C1;
+ Thu,  4 Nov 2021 08:15:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636013705; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zjfpjf+wWG+a6PW8/Ph/9P7mUOMrhlSJIQZr1/dyvjA=;
+ b=iuPabJfi930FIxY1p7TzCKK4A5T2WfUTPWrsLxmFmJMdboVA9ueLfBRqH1ztz2Y5ZSCV8V
+ TckVjx1TgbBH4IigGlTZemmAISRedHkHbhiHKU4WUxo+G1bUNVM0j/R6kapLyswgYNeDPA
+ 656BVKIixK3b+aJrVTSDzixUXi3ZAcA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636013705;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zjfpjf+wWG+a6PW8/Ph/9P7mUOMrhlSJIQZr1/dyvjA=;
+ b=BTKgHI8sc6CGYmBYEGe6drTehIs4UvH5RLl9Nmagtjy58OaLLjhIH/QQ19VNIppvIrn3tz
+ 7qQZxB8VAtuOxcDg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id AB67E2C144;
+ Thu,  4 Nov 2021 08:15:04 +0000 (UTC)
+Date: Thu, 04 Nov 2021 09:15:04 +0100
+Message-ID: <s5hlf24jq0n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Guo Zhengkui <guozhengkui@vivo.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: fix flexible_array.cocci warning
+In-Reply-To: <20211104080017.589-1-guozhengkui@vivo.com>
+References: <20211104080017.589-1-guozhengkui@vivo.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Chris Chiu <chris.chiu@canonical.com>, alsa-devel@alsa-project.org,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ linux-kernel@vger.kernel.org, Elia Devito <eliadevito@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Werner Sembach <wse@tuxedocomputers.com>,
+ Hui Wang <hui.wang@canonical.com>, PeiSen Hou <pshou@realtek.com>,
+ Sami Loone <sami@loone.fi>, Cameron Berkenpas <cam@neo-zeon.de>,
+ kernel@vivo.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,36 +101,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #114 was edited from perexg:
+On Thu, 04 Nov 2021 08:59:41 +0100,
+Guo Zhengkui wrote:
+> 
+> Fix following coccicheck warnings:
+> ./sound/pci/hda/patch_realtek.c:128:4-24: WARNING use
+> flexible-array member instead.
+> 
+> There is a regular need in the kernel to provide a way
+> to declare having a dynamically sized set of trailing
+> elements in a structure. Kernel code should always use
+> “flexible array members” for these cases. The older style
+> of one-element or zero-length arrays should no longer be used.
+> 
+> Signed-off-by: Guo Zhengkui <guozhengkui@vivo.com>
 
-More info: https://github.com/thesofproject/linux/issues/3088
+It's a false positive.  That is no flexible array but really an array
+of the size 1.  It's written in that way so that you can extend more
+members in future in case other keys needed.
 
-```
-Simple mixer control 'Master',0
-Simple mixer control 'Headphone',0
-Simple mixer control 'Headphone+LO',0
-Simple mixer control 'Speaker',0
-Simple mixer control 'Front Mic',0
-Simple mixer control 'Front Mic Boost',0
-Simple mixer control 'Line Out',0
-Simple mixer control 'Mic',0
-Simple mixer control 'Mic Boost',0
-Simple mixer control 'IEC958',0
-Simple mixer control 'IEC958',1
-Simple mixer control 'IEC958',2
-Simple mixer control 'Capture',0
-Simple mixer control 'Auto-Mute Mode',0
-Simple mixer control 'Dmic0',0
-Simple mixer control 'Dmic1 2nd',0
-Simple mixer control 'Loopback Mixing',0
-Simple mixer control 'PGA1.0 1 Master',0
-Simple mixer control 'PGA2.0 2 Master',0
-Simple mixer control 'PGA3.0 3 Master',0
-Simple mixer control 'PGA4.0 4 Master',0
-Simple mixer control 'PGA7.0 7 Master',0
-Simple mixer control 'PGA8.0 8 Master',0
-Simple mixer control 'PGA9.0 9 Master',0
-```
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/114
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+thanks,
+
+Takashi
+
+> ---
+>  sound/pci/hda/patch_realtek.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 6322fac9e694..7935c363092e 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -125,7 +125,7 @@ struct alc_spec {
+>  	unsigned int pll_coef_idx, pll_coef_bit;
+>  	unsigned int coef0;
+>  	struct input_dev *kb_dev;
+> -	u8 alc_mute_keycode_map[1];
+> +	u8 alc_mute_keycode_map[];
+>  };
+>  
+>  /*
+> -- 
+> 2.20.1
+> 

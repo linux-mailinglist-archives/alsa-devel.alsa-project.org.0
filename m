@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB967444FF0
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Nov 2021 09:08:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BEE4444FF1
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Nov 2021 09:09:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F06D167B;
-	Thu,  4 Nov 2021 09:07:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F06D167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFC471693;
+	Thu,  4 Nov 2021 09:08:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFC471693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636013318;
-	bh=exzGIHHc1JAfFgJYDbtIPo/uV/ZpygpBG98azEYw0WA=;
+	s=default; t=1636013342;
+	bh=7wBWPUC3ijYVBCMwsE2Yvm2zU9deB0nYVWBkCQ17x7Y=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZOL8BYmVR4tLMrUnDqjVTS5zLMFwfzwOM6Gg7P6asXyIMNEMu5MVzYLQlXnqTGGWh
-	 pPKeRqylsauv0Ha6xjn2DCQoBkT4/ryFV4NBFJ/DwOGAfzeQuqvaOmCsHRfEAu8Q/e
-	 w2AR/iPdlhybCkF5j9QUvZkiF95PuYLlyuTxtr2k=
+	b=HAArIv5zD+x5FDqw2R1vWQMBZIoG8Djnw3M9ZFHX1vDVe3TtQAdpEdEqlCwdaFAKf
+	 gzYGzFLnNifCAxhUoMRgl+/pIbU/dekbCK7vjz5XpP6xa5mZSFeYLDrXD0IfsZohQ7
+	 bCYL3oXImGiAL+CS1tKmhzTasW2AbcTZD4Uqf5Xg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E5B9F8025F;
-	Thu,  4 Nov 2021 09:07:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD952F8049C;
+	Thu,  4 Nov 2021 09:07:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46A79F8025D; Thu,  4 Nov 2021 09:07:19 +0100 (CET)
+ id 3A746F802E8; Thu,  4 Nov 2021 09:07:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 8862CF80148
- for <alsa-devel@alsa-project.org>; Thu,  4 Nov 2021 09:07:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8862CF80148
+ by alsa1.perex.cz (Postfix) with ESMTP id 9F55CF8025D
+ for <alsa-devel@alsa-project.org>; Thu,  4 Nov 2021 09:07:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F55CF8025D
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1636013232695171118-webhooks-bot@alsa-project.org>
-References: <1636013232695171118-webhooks-bot@alsa-project.org>
-Subject: Lenovo m920sff support (Realtek ALC 233)
-Message-Id: <20211104080719.46A79F8025D@alsa1.perex.cz>
-Date: Thu,  4 Nov 2021 09:07:19 +0100 (CET)
+In-Reply-To: <1636013255463222980-webhooks-bot@alsa-project.org>
+References: <1636013255463222980-webhooks-bot@alsa-project.org>
+Subject: Intel SOF HDA: Lenovo m920sff support (Realtek ALC 233)
+Message-Id: <20211104080745.3A746F802E8@alsa1.perex.cz>
+Date: Thu,  4 Nov 2021 09:07:45 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #114 was opened from perexg:
+alsa-project/alsa-ucm-conf issue #114 was edited from perexg:
 
 More info: https://github.com/thesofproject/linux/issues/3088
 

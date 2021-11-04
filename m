@@ -2,63 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D33E4456AB
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Nov 2021 16:59:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1851E445958
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Nov 2021 19:10:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE5C01685;
-	Thu,  4 Nov 2021 16:58:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE5C01685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B9591685;
+	Thu,  4 Nov 2021 19:09:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B9591685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636041546;
-	bh=qIcX0/xhue9zwNrCtmMDMIOdPEEhxY4bJsWvCjQTitk=;
+	s=default; t=1636049424;
+	bh=fZk4eiWY5FDNa8b7tsxT0yPIv8ZIQC0dNCzxaYxgA7g=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=tHOXWTahuM8W7r08+7QJc+Wj5rmR6EBiOOA4sgLb8D1I7yJzJK63wK1sq3+G0f1iP
-	 lAp1UQBf2j9CeJZYBeiDNm6b/GRho6yNGRg/nseJ6itnqSuN7poIveOmedEbktZaYu
-	 /o3krUvVbDmr/76An808+yVdbh5QrfXX82ahd9BU=
+	b=sZKu6qakf7dfZDVHyOmRe4TQY59BOYy56C7pyQuzz9qGjLqrnIkC9U/IVzgRT2qlx
+	 UQvXHyqJhdug45LmTfLTM0Jg375IrCGYSM59Phqntfjte8ZgnWpA7Vl8lATDS4cGle
+	 tXAysR29mc7mtHDUqdAlkn9DVT1K5QkAg3JQV6Oo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E1B4F8025F;
-	Thu,  4 Nov 2021 16:57:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0495F8025F;
+	Thu,  4 Nov 2021 19:09:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15D71F8025D; Thu,  4 Nov 2021 16:57:47 +0100 (CET)
+ id AE6AFF8025D; Thu,  4 Nov 2021 19:08:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C867DF80224
- for <alsa-devel@alsa-project.org>; Thu,  4 Nov 2021 16:57:38 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BC57EA003F;
- Thu,  4 Nov 2021 16:57:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BC57EA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1636041452; bh=pfZ8RZy3I/F6SbkH7lQ7MZQAj2ISrTF/K/PjJLt7iSU=;
- h=From:To:Cc:Subject:Date:From;
- b=CCCCy/W5eybxcaN0MYTqx07IIGwyGGThjPG9zNUacWYqytgacIC5gapUKHIRHontT
- vZjKBUKrzLUsJgaybrgviCjCvfVOc6495dZsH3Ed6tqgDWa76V602xatq4B78tn7Vw
- 0jr8xfnhmc+54asGxokEFcgJC4tcAoySA4IPOD3E=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu,  4 Nov 2021 16:57:29 +0100 (CET)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ALSA: hda/realtek: Add a quirk for Acer Spin SP513-54N
-Date: Thu,  4 Nov 2021 16:57:26 +0100
-Message-Id: <20211104155726.2090997-1-perex@perex.cz>
-X-Mailer: git-send-email 2.31.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id B977EF80148
+ for <alsa-devel@alsa-project.org>; Thu,  4 Nov 2021 19:08:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B977EF80148
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="cBCbdYoJ"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="UyXLm+aW"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id A3F7A218ED;
+ Thu,  4 Nov 2021 18:08:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636049328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=R6CwwcGMACEbcQKpWl/HDy1IADPhqjxaQ3EWR0mnmy4=;
+ b=cBCbdYoJ9vLOBQ0ZnkOq4tj7Yw1/4sBJag67pdjKX+IWmLqowadUUfhbyhHBvPE2jF9GkW
+ /8e6RaN0wMp6D+XEVyyjX95cLX38jFJ0F/SGHADP2v7nv95DiVjD+bbVg/uPKuvgaLdcAR
+ Rsr5u81JuCwsYVZp1vRis2gHtoljjMM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636049328;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=R6CwwcGMACEbcQKpWl/HDy1IADPhqjxaQ3EWR0mnmy4=;
+ b=UyXLm+aW2qXr44uUPxsRY+EA4/KYAYPxGaTpYVpFlRFkAOPmDpwwSmCuY2LcmJyX0Es3Sv
+ Cqt8bo/SrJAwOICQ==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 997352C144;
+ Thu,  4 Nov 2021 18:08:48 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] Revert "ALSA: memalloc: Convert x86 SG-buffer handling with
+ non-contiguous type"
+Date: Thu,  4 Nov 2021 19:08:46 +0100
+Message-Id: <20211104180846.16340-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>
+Cc: Alex Xu <alex_y_xu@yahoo.ca>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,25 +86,348 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Another model requires ALC255_FIXUP_ACER_MIC_NO_PRESENCE fixup.
+This reverts commit 2d9ea39917a4e4293bc2caea902c7059a330b611.
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=211853
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+We've got a regression report showing that the audio got broken the
+device over AMD IOMMU.  The conversion assumed the wrong pointer /
+page mapping for the indirect mapping case, and we need to correct
+this urgently, so let's revert it for now.
+
+Fixes: 2d9ea39917a4 ("ALSA: memalloc: Convert x86 SG-buffer handling with non-contiguous type")
+Reported-and-tested-by: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/sound/memalloc.h |  14 +--
+ sound/core/Makefile      |   1 +
+ sound/core/memalloc.c    |  51 +---------
+ sound/core/sgbuf.c       | 201 +++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 213 insertions(+), 54 deletions(-)
+ create mode 100644 sound/core/sgbuf.c
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index e6b266416393..3601749f2df6 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8496,6 +8496,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x1308, "Acer Aspire Z24-890", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x132a, "Acer TravelMate B114-21", ALC233_FIXUP_ACER_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x1330, "Acer TravelMate X514-51T", ALC255_FIXUP_ACER_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1025, 0x141f, "Acer Spin SP513-54N", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1025, 0x142b, "Acer Swift SF314-42", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1025, 0x1430, "Acer TravelMate B311R-31", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1025, 0x1466, "Acer Aspire A515-56", ALC255_FIXUP_ACER_HEADPHONE_AND_MIC),
+diff --git a/include/sound/memalloc.h b/include/sound/memalloc.h
+index 653dfffb3ac8..1051b84e8579 100644
+--- a/include/sound/memalloc.h
++++ b/include/sound/memalloc.h
+@@ -36,6 +36,13 @@ struct snd_dma_device {
+ #define SNDRV_DMA_TYPE_CONTINUOUS	1	/* continuous no-DMA memory */
+ #define SNDRV_DMA_TYPE_DEV		2	/* generic device continuous */
+ #define SNDRV_DMA_TYPE_DEV_WC		5	/* continuous write-combined */
++#ifdef CONFIG_SND_DMA_SGBUF
++#define SNDRV_DMA_TYPE_DEV_SG		3	/* generic device SG-buffer */
++#define SNDRV_DMA_TYPE_DEV_WC_SG	6	/* SG write-combined */
++#else
++#define SNDRV_DMA_TYPE_DEV_SG	SNDRV_DMA_TYPE_DEV /* no SG-buf support */
++#define SNDRV_DMA_TYPE_DEV_WC_SG	SNDRV_DMA_TYPE_DEV_WC
++#endif
+ #ifdef CONFIG_GENERIC_ALLOCATOR
+ #define SNDRV_DMA_TYPE_DEV_IRAM		4	/* generic device iram-buffer */
+ #else
+@@ -44,13 +51,6 @@ struct snd_dma_device {
+ #define SNDRV_DMA_TYPE_VMALLOC		7	/* vmalloc'ed buffer */
+ #define SNDRV_DMA_TYPE_NONCONTIG	8	/* non-coherent SG buffer */
+ #define SNDRV_DMA_TYPE_NONCOHERENT	9	/* non-coherent buffer */
+-#ifdef CONFIG_SND_DMA_SGBUF
+-#define SNDRV_DMA_TYPE_DEV_SG		SNDRV_DMA_TYPE_NONCONTIG
+-#define SNDRV_DMA_TYPE_DEV_WC_SG	6	/* SG write-combined */
+-#else
+-#define SNDRV_DMA_TYPE_DEV_SG	SNDRV_DMA_TYPE_DEV /* no SG-buf support */
+-#define SNDRV_DMA_TYPE_DEV_WC_SG	SNDRV_DMA_TYPE_DEV_WC
+-#endif
+ 
+ /*
+  * info for buffer allocation
+diff --git a/sound/core/Makefile b/sound/core/Makefile
+index 350d704ced98..79e1407cd0de 100644
+--- a/sound/core/Makefile
++++ b/sound/core/Makefile
+@@ -19,6 +19,7 @@ snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
+ snd-pcm-y := pcm.o pcm_native.o pcm_lib.o pcm_misc.o \
+ 		pcm_memory.o memalloc.o
+ snd-pcm-$(CONFIG_SND_PCM_TIMER) += pcm_timer.o
++snd-pcm-$(CONFIG_SND_DMA_SGBUF) += sgbuf.o
+ snd-pcm-$(CONFIG_SND_PCM_ELD) += pcm_drm_eld.o
+ snd-pcm-$(CONFIG_SND_PCM_IEC958) += pcm_iec958.o
+ 
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index 99cd0f67daa1..ea778f868cf3 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -560,50 +560,6 @@ static const struct snd_malloc_ops snd_dma_noncontig_ops = {
+ 	.get_chunk_size = snd_dma_vmalloc_get_chunk_size,
+ };
+ 
+-/* x86-specific SG-buffer with WC pages */
+-#ifdef CONFIG_SND_DMA_SGBUF
+-#define vmalloc_to_virt(v) (unsigned long)page_to_virt(vmalloc_to_page(v))
+-
+-static void *snd_dma_sg_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
+-{
+-	void *p = snd_dma_noncontig_alloc(dmab, size);
+-	size_t ofs;
+-
+-	if (!p)
+-		return NULL;
+-	for (ofs = 0; ofs < size; ofs += PAGE_SIZE)
+-		set_memory_uc(vmalloc_to_virt(p + ofs), 1);
+-	return p;
+-}
+-
+-static void snd_dma_sg_wc_free(struct snd_dma_buffer *dmab)
+-{
+-	size_t ofs;
+-
+-	for (ofs = 0; ofs < dmab->bytes; ofs += PAGE_SIZE)
+-		set_memory_wb(vmalloc_to_virt(dmab->area + ofs), 1);
+-	snd_dma_noncontig_free(dmab);
+-}
+-
+-static int snd_dma_sg_wc_mmap(struct snd_dma_buffer *dmab,
+-			      struct vm_area_struct *area)
+-{
+-	area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
+-	/* FIXME: dma_mmap_noncontiguous() works? */
+-	return -ENOENT; /* continue with the default mmap handler */
+-}
+-
+-const struct snd_malloc_ops snd_dma_sg_wc_ops = {
+-	.alloc = snd_dma_sg_wc_alloc,
+-	.free = snd_dma_sg_wc_free,
+-	.mmap = snd_dma_sg_wc_mmap,
+-	.sync = snd_dma_noncontig_sync,
+-	.get_addr = snd_dma_vmalloc_get_addr,
+-	.get_page = snd_dma_vmalloc_get_page,
+-	.get_chunk_size = snd_dma_vmalloc_get_chunk_size,
+-};
+-#endif /* CONFIG_SND_DMA_SGBUF */
+-
+ /*
+  * Non-coherent pages allocator
+  */
+@@ -663,13 +619,14 @@ static const struct snd_malloc_ops *dma_ops[] = {
+ 	[SNDRV_DMA_TYPE_DEV_WC] = &snd_dma_wc_ops,
+ 	[SNDRV_DMA_TYPE_NONCONTIG] = &snd_dma_noncontig_ops,
+ 	[SNDRV_DMA_TYPE_NONCOHERENT] = &snd_dma_noncoherent_ops,
+-#ifdef CONFIG_SND_DMA_SGBUF
+-	[SNDRV_DMA_TYPE_DEV_WC_SG] = &snd_dma_sg_wc_ops,
+-#endif
+ #ifdef CONFIG_GENERIC_ALLOCATOR
+ 	[SNDRV_DMA_TYPE_DEV_IRAM] = &snd_dma_iram_ops,
+ #endif /* CONFIG_GENERIC_ALLOCATOR */
+ #endif /* CONFIG_HAS_DMA */
++#ifdef CONFIG_SND_DMA_SGBUF
++	[SNDRV_DMA_TYPE_DEV_SG] = &snd_dma_sg_ops,
++	[SNDRV_DMA_TYPE_DEV_WC_SG] = &snd_dma_sg_ops,
++#endif
+ };
+ 
+ static const struct snd_malloc_ops *snd_dma_get_ops(struct snd_dma_buffer *dmab)
+diff --git a/sound/core/sgbuf.c b/sound/core/sgbuf.c
+new file mode 100644
+index 000000000000..8352a5cdb19f
+--- /dev/null
++++ b/sound/core/sgbuf.c
+@@ -0,0 +1,201 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Scatter-Gather buffer
++ *
++ *  Copyright (c) by Takashi Iwai <tiwai@suse.de>
++ */
++
++#include <linux/slab.h>
++#include <linux/mm.h>
++#include <linux/vmalloc.h>
++#include <linux/export.h>
++#include <sound/memalloc.h>
++#include "memalloc_local.h"
++
++struct snd_sg_page {
++	void *buf;
++	dma_addr_t addr;
++};
++
++struct snd_sg_buf {
++	int size;	/* allocated byte size */
++	int pages;	/* allocated pages */
++	int tblsize;	/* allocated table size */
++	struct snd_sg_page *table;	/* address table */
++	struct page **page_table;	/* page table (for vmap/vunmap) */
++	struct device *dev;
++};
++
++/* table entries are align to 32 */
++#define SGBUF_TBL_ALIGN		32
++#define sgbuf_align_table(tbl)	ALIGN((tbl), SGBUF_TBL_ALIGN)
++
++static void snd_dma_sg_free(struct snd_dma_buffer *dmab)
++{
++	struct snd_sg_buf *sgbuf = dmab->private_data;
++	struct snd_dma_buffer tmpb;
++	int i;
++
++	if (!sgbuf)
++		return;
++
++	vunmap(dmab->area);
++	dmab->area = NULL;
++
++	tmpb.dev.type = SNDRV_DMA_TYPE_DEV;
++	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
++		tmpb.dev.type = SNDRV_DMA_TYPE_DEV_WC;
++	tmpb.dev.dev = sgbuf->dev;
++	for (i = 0; i < sgbuf->pages; i++) {
++		if (!(sgbuf->table[i].addr & ~PAGE_MASK))
++			continue; /* continuous pages */
++		tmpb.area = sgbuf->table[i].buf;
++		tmpb.addr = sgbuf->table[i].addr & PAGE_MASK;
++		tmpb.bytes = (sgbuf->table[i].addr & ~PAGE_MASK) << PAGE_SHIFT;
++		snd_dma_free_pages(&tmpb);
++	}
++
++	kfree(sgbuf->table);
++	kfree(sgbuf->page_table);
++	kfree(sgbuf);
++	dmab->private_data = NULL;
++}
++
++#define MAX_ALLOC_PAGES		32
++
++static void *snd_dma_sg_alloc(struct snd_dma_buffer *dmab, size_t size)
++{
++	struct snd_sg_buf *sgbuf;
++	unsigned int i, pages, chunk, maxpages;
++	struct snd_dma_buffer tmpb;
++	struct snd_sg_page *table;
++	struct page **pgtable;
++	int type = SNDRV_DMA_TYPE_DEV;
++	pgprot_t prot = PAGE_KERNEL;
++	void *area;
++
++	dmab->private_data = sgbuf = kzalloc(sizeof(*sgbuf), GFP_KERNEL);
++	if (!sgbuf)
++		return NULL;
++	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG) {
++		type = SNDRV_DMA_TYPE_DEV_WC;
++#ifdef pgprot_noncached
++		prot = pgprot_noncached(PAGE_KERNEL);
++#endif
++	}
++	sgbuf->dev = dmab->dev.dev;
++	pages = snd_sgbuf_aligned_pages(size);
++	sgbuf->tblsize = sgbuf_align_table(pages);
++	table = kcalloc(sgbuf->tblsize, sizeof(*table), GFP_KERNEL);
++	if (!table)
++		goto _failed;
++	sgbuf->table = table;
++	pgtable = kcalloc(sgbuf->tblsize, sizeof(*pgtable), GFP_KERNEL);
++	if (!pgtable)
++		goto _failed;
++	sgbuf->page_table = pgtable;
++
++	/* allocate pages */
++	maxpages = MAX_ALLOC_PAGES;
++	while (pages > 0) {
++		chunk = pages;
++		/* don't be too eager to take a huge chunk */
++		if (chunk > maxpages)
++			chunk = maxpages;
++		chunk <<= PAGE_SHIFT;
++		if (snd_dma_alloc_pages_fallback(type, dmab->dev.dev,
++						 chunk, &tmpb) < 0) {
++			if (!sgbuf->pages)
++				goto _failed;
++			size = sgbuf->pages * PAGE_SIZE;
++			break;
++		}
++		chunk = tmpb.bytes >> PAGE_SHIFT;
++		for (i = 0; i < chunk; i++) {
++			table->buf = tmpb.area;
++			table->addr = tmpb.addr;
++			if (!i)
++				table->addr |= chunk; /* mark head */
++			table++;
++			*pgtable++ = virt_to_page(tmpb.area);
++			tmpb.area += PAGE_SIZE;
++			tmpb.addr += PAGE_SIZE;
++		}
++		sgbuf->pages += chunk;
++		pages -= chunk;
++		if (chunk < maxpages)
++			maxpages = chunk;
++	}
++
++	sgbuf->size = size;
++	area = vmap(sgbuf->page_table, sgbuf->pages, VM_MAP, prot);
++	if (!area)
++		goto _failed;
++	return area;
++
++ _failed:
++	snd_dma_sg_free(dmab); /* free the table */
++	return NULL;
++}
++
++static dma_addr_t snd_dma_sg_get_addr(struct snd_dma_buffer *dmab,
++				      size_t offset)
++{
++	struct snd_sg_buf *sgbuf = dmab->private_data;
++	dma_addr_t addr;
++
++	addr = sgbuf->table[offset >> PAGE_SHIFT].addr;
++	addr &= ~((dma_addr_t)PAGE_SIZE - 1);
++	return addr + offset % PAGE_SIZE;
++}
++
++static struct page *snd_dma_sg_get_page(struct snd_dma_buffer *dmab,
++					size_t offset)
++{
++	struct snd_sg_buf *sgbuf = dmab->private_data;
++	unsigned int idx = offset >> PAGE_SHIFT;
++
++	if (idx >= (unsigned int)sgbuf->pages)
++		return NULL;
++	return sgbuf->page_table[idx];
++}
++
++static unsigned int snd_dma_sg_get_chunk_size(struct snd_dma_buffer *dmab,
++					      unsigned int ofs,
++					      unsigned int size)
++{
++	struct snd_sg_buf *sg = dmab->private_data;
++	unsigned int start, end, pg;
++
++	start = ofs >> PAGE_SHIFT;
++	end = (ofs + size - 1) >> PAGE_SHIFT;
++	/* check page continuity */
++	pg = sg->table[start].addr >> PAGE_SHIFT;
++	for (;;) {
++		start++;
++		if (start > end)
++			break;
++		pg++;
++		if ((sg->table[start].addr >> PAGE_SHIFT) != pg)
++			return (start << PAGE_SHIFT) - ofs;
++	}
++	/* ok, all on continuous pages */
++	return size;
++}
++
++static int snd_dma_sg_mmap(struct snd_dma_buffer *dmab,
++			   struct vm_area_struct *area)
++{
++	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
++		area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
++	return -ENOENT; /* continue with the default mmap handler */
++}
++
++const struct snd_malloc_ops snd_dma_sg_ops = {
++	.alloc = snd_dma_sg_alloc,
++	.free = snd_dma_sg_free,
++	.get_addr = snd_dma_sg_get_addr,
++	.get_page = snd_dma_sg_get_page,
++	.get_chunk_size = snd_dma_sg_get_chunk_size,
++	.mmap = snd_dma_sg_mmap,
++};
 -- 
-2.31.1
+2.26.2
+

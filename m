@@ -2,73 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F26CC44974B
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Nov 2021 15:59:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DEB6449854
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Nov 2021 16:32:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F727165D;
-	Mon,  8 Nov 2021 15:58:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F727165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A4B91674;
+	Mon,  8 Nov 2021 16:31:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A4B91674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636383561;
-	bh=TTXn9PV3pI/D3clAVubM7m55ar5R3N6k31NqaMUVzIg=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1636385527;
+	bh=uNzaz1UQPLUrJkRBXDRwzTGl0sqO9gSVTVjV0Zae6Kg=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=O/xyZOCgq2fedSLFz2IcW5K9RBDDv8T1u2wrOlFiwvUtOzH6lFUHvbh799X1XMMNM
-	 Y73RPWNh6jp+he2H2CV6BCyQoFHIg0c/vjFEHs2S1GaDu9P5lofRh79UGRMYmOJe4F
-	 QACjsoT/ZguZi+6linilH9IRukGwSA9c7ECjyY9M=
+	b=px0ZOErfGXWYP22uxmd7hwLD1iZqo03qD01u/UludJr3Rku0x7eO5S1iYFHFZYaa8
+	 IZyg4UukkrYZ0LySM97clHZbkKF+8XAHAfiVHI5Bn3fItpyuLzH8skc9MLwkspiMY/
+	 ch+5wx0D/i4G6bHdUpa62smbqwR4cVJjyFSPPINU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C138EF804B1;
-	Mon,  8 Nov 2021 15:58:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 459A1F804BC;
+	Mon,  8 Nov 2021 16:30:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85B84F8007E; Mon,  8 Nov 2021 15:58:01 +0100 (CET)
+ id E93CBF8025D; Thu,  4 Nov 2021 12:53:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A6E3F8007E
- for <alsa-devel@alsa-project.org>; Mon,  8 Nov 2021 15:57:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A6E3F8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62819F80125
+ for <alsa-devel@alsa-project.org>; Thu,  4 Nov 2021 12:53:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62819F80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="tnrVp+1l"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5MbrxT+Q"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 8ABCE1FDBC
- for <alsa-devel@alsa-project.org>; Mon,  8 Nov 2021 14:57:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636383473; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=tVmtdW2sDCa6caQKsIZlSfjRb57NePUPljVA5yZB7JY=;
- b=tnrVp+1ljfT7WOF9wIdJIlLIzj/SpbHHCrPc4TJVd5evcxzcrGfN2QGO8ud338cHn0j3sl
- mlfVjicZ3CbU+n3p2dTYB8WYqdvz+cflIbjfi3e7gZcPmy81Udjp7AB1Hadyen/mv2pn2w
- EGvrJX+brKbgq/q/P1USrSET8FToOzM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636383473;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=tVmtdW2sDCa6caQKsIZlSfjRb57NePUPljVA5yZB7JY=;
- b=5MbrxT+QyRiZ7EzrRVRIr/RCEzOxaTpwBqY0Kser30wy0k9k1e3xILLv0LhK56Ol3A0ekh
- +dx+HjcqbnBMGFCg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 777F2A3B87;
- Mon,  8 Nov 2021 14:57:53 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: pci: rme: Fix unaligned buffer addresses
-Date: Mon,  8 Nov 2021 15:57:52 +0100
-Message-Id: <20211108145752.30572-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="o6MTmTCK"
+Received: by mail-lj1-x236.google.com with SMTP id t11so9056640ljh.6
+ for <alsa-devel@alsa-project.org>; Thu, 04 Nov 2021 04:53:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=8hZuckGpSTLBxwV8a3u1nj+UStPsCRHwC+yMfEbOgy4=;
+ b=o6MTmTCKBt7v+nhfAzHtcaCe/0DbivhY/Fy7l+dVZYDg9zHai9vFp5rwWKogSqlPnm
+ NX75LFkiQk0C34gEhPnzC/eZ+98W9vBjfh0eSgJ48vnnqWHxLkBVUuyHVnesj/roRGUe
+ Gd5w/jRCEcPFSk8ufnSLYtrl3NngAllGuwz+7vJoK7RICpl8sxshz5HFNKJnIx6MYS+B
+ i+OMSWm4PvANAiEaHvR9yalKg5fftQTCrr+uxbk5zOsmsOc7+76qfkLqSIm6y3KcsjCe
+ AXwkNmV/ZdMWuecsJR2qibZdlpQPzD/IX5zGD3WG8GV+tvjYNwxCExjsuS8a/c8/t7xT
+ bJUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=8hZuckGpSTLBxwV8a3u1nj+UStPsCRHwC+yMfEbOgy4=;
+ b=54AHTwM8BtQx8BkS9MlEhbzin+gtru5EY0kxEnfmwSh3zK9yOcMD6D+JB7LjecoYav
+ Qn1PJx+mfuVNpewJhCXL08/t9st/5py9dymVnr/g5zu9Y9dvtD5pWePfSQGlJOF+zSl3
+ koZCMvnBaCv2nsCZJSv4maf0SLVSl5Ge15r8ktKIz7TgDvqTYBsOezAcPJcU5MwpKX/6
+ 11waL/58GL9GYLPafF1kB24kM4l+iVav3U7XjqkojWhZYEzdhIp7ly+/xv5eNz4McFTB
+ Tdg9aDcrXpQMRSjbgzxa1yIFZmH4vweVh1QblOirQHxFmkMmUprHqvsU915tvUSAHP1i
+ cBFA==
+X-Gm-Message-State: AOAM531/REbioVJdup8kN5nrqndamar6PdlmW2ogGsk048Aku2PULtUM
+ a4c7ZVypGO1LHv3iUkXPnrVtd9XYVXdnN8PYS9st0tFHb0l8CA==
+X-Google-Smtp-Source: ABdhPJx5KRrdvKOGpm4YmvcuBTFTPA+oA99RnzrrIW3KMVP7R9eqLbX13yd9doTuRIL3yJkvLgrSvfjmye1ZWWx3Q08=
+X-Received: by 2002:a2e:834b:: with SMTP id l11mr21698236ljh.339.1636026806106; 
+ Thu, 04 Nov 2021 04:53:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Emre Fidan <thepipespecialist@gmail.com>
+Date: Thu, 4 Nov 2021 11:53:15 +0000
+Message-ID: <CAAsP+8cBCV0FstEvaJS88+CWzLXBPdrR5yKP5KdyFf=EQcEk0w@mail.gmail.com>
+Subject: Creative Soundblaster AE-7 Headphones Issue
+To: alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Mon, 08 Nov 2021 16:29:17 +0100
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,193 +90,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent fix for setting up the DMA buffer type on RME drivers tried
-to address the non-standard memory managements and changed the DMA
-buffer information to the standard snd_dma_buffer object that is
-allocated at the probe time.  However, I overlooked that the RME
-drivers handle the buffer addresses based on 64k alignment, and the
-previous conversion broke that silently.
+Hi There,
 
-This patch is an attempt to fix the regression.  The snd_dma_buffer
-objects are copied to the original data with the correction to the
-aligned accesses, and those are passed to snd_pcm_set_runtime_buffer()
-helpers instead.  The original snd_dma_buffer objects are managed by
-devres, hence they'll be released automagically.
+Headphones connected to Creative Soundblaster AE-7 are normally
+auto-detected on alsamixer, but sink shows the headphone port as not
+available.
 
-Fixes: 0899a7a23047 ("ALSA: pci: rme: Set up buffer type properly")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/rme9652/hdsp.c    | 41 +++++++++++++++++++++----------------
- sound/pci/rme9652/rme9652.c | 41 +++++++++++++++++++++----------------
- 2 files changed, 46 insertions(+), 36 deletions(-)
+alsamixer can change speakers to headphones and vice-versa, however, the
+audio silences on the headphones after a couple of seconds unless you keep
+system sound settings/easyeffects/pavucontol opened or minimized.
 
-diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
-index 75aa2ea733a5..96c12dfb24cf 100644
---- a/sound/pci/rme9652/hdsp.c
-+++ b/sound/pci/rme9652/hdsp.c
-@@ -468,8 +468,11 @@ struct hdsp {
- 	unsigned char         ss_out_channels;
- 	u32                   io_loopback;          /* output loopback channel states*/
- 
--	struct snd_dma_buffer *capture_dma_buf;
--	struct snd_dma_buffer *playback_dma_buf;
-+	/* DMA buffers; those are copied instances from the original snd_dma_buf
-+	 * objects (which are managed via devres) for the address alignments
-+	 */
-+	struct snd_dma_buffer capture_dma_buf;
-+	struct snd_dma_buffer playback_dma_buf;
- 	unsigned char        *capture_buffer;	    /* suitably aligned address */
- 	unsigned char        *playback_buffer;	    /* suitably aligned address */
- 
-@@ -3764,30 +3767,32 @@ static void snd_hdsp_proc_init(struct hdsp *hdsp)
- 
- static int snd_hdsp_initialize_memory(struct hdsp *hdsp)
- {
--	unsigned long pb_bus, cb_bus;
-+	struct snd_dma_buffer *capture_dma, *playback_dma;
- 
--	hdsp->capture_dma_buf =
--		snd_hammerfall_get_buffer(hdsp->pci, HDSP_DMA_AREA_BYTES);
--	hdsp->playback_dma_buf =
--		snd_hammerfall_get_buffer(hdsp->pci, HDSP_DMA_AREA_BYTES);
--	if (!hdsp->capture_dma_buf || !hdsp->playback_dma_buf) {
-+	capture_dma = snd_hammerfall_get_buffer(hdsp->pci, HDSP_DMA_AREA_BYTES);
-+	playback_dma = snd_hammerfall_get_buffer(hdsp->pci, HDSP_DMA_AREA_BYTES);
-+	if (!capture_dma || !playback_dma) {
- 		dev_err(hdsp->card->dev,
- 			"%s: no buffers available\n", hdsp->card_name);
- 		return -ENOMEM;
- 	}
- 
--	/* Align to bus-space 64K boundary */
-+	/* copy to the own data for alignment */
-+	hdsp->capture_dma_buf = *capture_dma;
-+	hdsp->playback_dma_buf = *playback_dma;
- 
--	cb_bus = ALIGN(hdsp->capture_dma_buf->addr, 0x10000ul);
--	pb_bus = ALIGN(hdsp->playback_dma_buf->addr, 0x10000ul);
-+	/* Align to bus-space 64K boundary */
-+	hdsp->capture_dma_buf.addr = ALIGN(capture_dma->addr, 0x10000ul);
-+	hdsp->playback_dma_buf.addr = ALIGN(playback_dma->addr, 0x10000ul);
- 
- 	/* Tell the card where it is */
-+	hdsp_write(hdsp, HDSP_inputBufferAddress, hdsp->capture_dma_buf.addr);
-+	hdsp_write(hdsp, HDSP_outputBufferAddress, hdsp->playback_dma_buf.addr);
- 
--	hdsp_write(hdsp, HDSP_inputBufferAddress, cb_bus);
--	hdsp_write(hdsp, HDSP_outputBufferAddress, pb_bus);
--
--	hdsp->capture_buffer = hdsp->capture_dma_buf->area + (cb_bus - hdsp->capture_dma_buf->addr);
--	hdsp->playback_buffer = hdsp->playback_dma_buf->area + (pb_bus - hdsp->playback_dma_buf->addr);
-+	hdsp->capture_dma_buf.area += hdsp->capture_dma_buf.addr - capture_dma->addr;
-+	hdsp->playback_dma_buf.area += hdsp->playback_dma_buf.addr - playback_dma->addr;
-+	hdsp->capture_buffer = hdsp->capture_dma_buf.area;
-+	hdsp->playback_buffer = hdsp->playback_dma_buf.area;
- 
- 	return 0;
- }
-@@ -4507,7 +4512,7 @@ static int snd_hdsp_playback_open(struct snd_pcm_substream *substream)
- 	snd_pcm_set_sync(substream);
- 
-         runtime->hw = snd_hdsp_playback_subinfo;
--	snd_pcm_set_runtime_buffer(substream, hdsp->playback_dma_buf);
-+	snd_pcm_set_runtime_buffer(substream, &hdsp->playback_dma_buf);
- 
- 	hdsp->playback_pid = current->pid;
- 	hdsp->playback_substream = substream;
-@@ -4583,7 +4588,7 @@ static int snd_hdsp_capture_open(struct snd_pcm_substream *substream)
- 	snd_pcm_set_sync(substream);
- 
- 	runtime->hw = snd_hdsp_capture_subinfo;
--	snd_pcm_set_runtime_buffer(substream, hdsp->capture_dma_buf);
-+	snd_pcm_set_runtime_buffer(substream, &hdsp->capture_dma_buf);
- 
- 	hdsp->capture_pid = current->pid;
- 	hdsp->capture_substream = substream;
-diff --git a/sound/pci/rme9652/rme9652.c b/sound/pci/rme9652/rme9652.c
-index e76f737ac9e8..7755e19aa776 100644
---- a/sound/pci/rme9652/rme9652.c
-+++ b/sound/pci/rme9652/rme9652.c
-@@ -208,8 +208,11 @@ struct snd_rme9652 {
- 	unsigned char ds_channels;
- 	unsigned char ss_channels;	/* different for hammerfall/hammerfall-light */
- 
--	struct snd_dma_buffer *playback_dma_buf;
--	struct snd_dma_buffer *capture_dma_buf;
-+	/* DMA buffers; those are copied instances from the original snd_dma_buf
-+	 * objects (which are managed via devres) for the address alignments
-+	 */
-+	struct snd_dma_buffer playback_dma_buf;
-+	struct snd_dma_buffer capture_dma_buf;
- 
- 	unsigned char *capture_buffer;	/* suitably aligned address */
- 	unsigned char *playback_buffer;	/* suitably aligned address */
-@@ -1719,30 +1722,32 @@ static void snd_rme9652_card_free(struct snd_card *card)
- 
- static int snd_rme9652_initialize_memory(struct snd_rme9652 *rme9652)
- {
--	unsigned long pb_bus, cb_bus;
-+	struct snd_dma_buffer *capture_dma, *playback_dma;
- 
--	rme9652->capture_dma_buf =
--		snd_hammerfall_get_buffer(rme9652->pci, RME9652_DMA_AREA_BYTES);
--	rme9652->playback_dma_buf =
--		snd_hammerfall_get_buffer(rme9652->pci, RME9652_DMA_AREA_BYTES);
--	if (!rme9652->capture_dma_buf || !rme9652->playback_dma_buf) {
-+	capture_dma = snd_hammerfall_get_buffer(rme9652->pci, RME9652_DMA_AREA_BYTES);
-+	playback_dma = snd_hammerfall_get_buffer(rme9652->pci, RME9652_DMA_AREA_BYTES);
-+	if (!capture_dma || !playback_dma) {
- 		dev_err(rme9652->card->dev,
- 			"%s: no buffers available\n", rme9652->card_name);
- 		return -ENOMEM;
- 	}
- 
--	/* Align to bus-space 64K boundary */
-+	/* copy to the own data for alignment */
-+	rme9652->capture_dma_buf = *capture_dma;
-+	rme9652->playback_dma_buf = *playback_dma;
- 
--	cb_bus = ALIGN(rme9652->capture_dma_buf->addr, 0x10000ul);
--	pb_bus = ALIGN(rme9652->playback_dma_buf->addr, 0x10000ul);
-+	/* Align to bus-space 64K boundary */
-+	rme9652->capture_dma_buf.addr = ALIGN(capture_dma->addr, 0x10000ul);
-+	rme9652->playback_dma_buf.addr = ALIGN(playback_dma->addr, 0x10000ul);
- 
- 	/* Tell the card where it is */
-+	rme9652_write(rme9652, RME9652_rec_buffer, rme9652->capture_dma_buf.addr);
-+	rme9652_write(rme9652, RME9652_play_buffer, rme9652->playback_dma_buf.addr);
- 
--	rme9652_write(rme9652, RME9652_rec_buffer, cb_bus);
--	rme9652_write(rme9652, RME9652_play_buffer, pb_bus);
--
--	rme9652->capture_buffer = rme9652->capture_dma_buf->area + (cb_bus - rme9652->capture_dma_buf->addr);
--	rme9652->playback_buffer = rme9652->playback_dma_buf->area + (pb_bus - rme9652->playback_dma_buf->addr);
-+	rme9652->capture_dma_buf.area += rme9652->capture_dma_buf.addr - capture_dma->addr;
-+	rme9652->playback_dma_buf.area += rme9652->playback_dma_buf.addr - playback_dma->addr;
-+	rme9652->capture_buffer = rme9652->capture_dma_buf.area;
-+	rme9652->playback_buffer = rme9652->playback_dma_buf.area;
- 
- 	return 0;
- }
-@@ -2259,7 +2264,7 @@ static int snd_rme9652_playback_open(struct snd_pcm_substream *substream)
- 	snd_pcm_set_sync(substream);
- 
-         runtime->hw = snd_rme9652_playback_subinfo;
--	snd_pcm_set_runtime_buffer(substream, rme9652->playback_dma_buf);
-+	snd_pcm_set_runtime_buffer(substream, &rme9652->playback_dma_buf);
- 
- 	if (rme9652->capture_substream == NULL) {
- 		rme9652_stop(rme9652);
-@@ -2318,7 +2323,7 @@ static int snd_rme9652_capture_open(struct snd_pcm_substream *substream)
- 	snd_pcm_set_sync(substream);
- 
- 	runtime->hw = snd_rme9652_capture_subinfo;
--	snd_pcm_set_runtime_buffer(substream, rme9652->capture_dma_buf);
-+	snd_pcm_set_runtime_buffer(substream, &rme9652->capture_dma_buf);
- 
- 	if (rme9652->playback_substream == NULL) {
- 		rme9652_stop(rme9652);
+acpi_listen reports Line-In plugged/unplugged instead of headphones, trying
+to reassign the with hdajackretask does the sensing (acpi_listen shows
+headphones plugged/unplugged), however, no sound from headphones this time
+at all.
+
+Any suggestions?
+
+Thanks.
+
 -- 
-2.31.1
-
+Emre Fidan

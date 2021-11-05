@@ -2,78 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60F89446736
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 17:43:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 604AC4468A0
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 19:48:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE2EB1684;
-	Fri,  5 Nov 2021 17:42:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE2EB1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id C980B1685;
+	Fri,  5 Nov 2021 19:48:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C980B1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636130604;
-	bh=ocA+aw4pirZGTHGgqV169WIEms5jSzs7du1qenb+eZ4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1636138137;
+	bh=/ASQDBYjAROas2JHVkyd4JQIsJ3N09Pr340b9h64M4M=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=krZFlM1aQJhqfVOovJ/oQmOgzhzMVlzVbfZaKmjL6GMdBOoOv/38ykNlw9gxz1cON
-	 5Wn6LKYMdSato5cPfnNUlWwEKaZGXmFXwLRFdXDPDpnoYFScCCuXN3KiGelt00Wjc8
-	 s8M4pVQ+MPq+USaK2LWiMPzx2dIvP0qF8mtMwcVc=
+	b=qJSzTdXspb9i6pyCSAsF9dxwZohcY7iOSbk+8fWaqXUfSb/06jUwnzb+Xf2XmslNA
+	 opWyI2v13GKXdo75a8lNaRap4DDx1/F3Qr7ybm8gKa6/YIVrg4fekCCr8hmKnFdR+S
+	 270r+q+FESPWwP6/wAjtod7DxTW9PpWexpRN3xaI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 592AAF80279;
-	Fri,  5 Nov 2021 17:42:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 243E9F80279;
+	Fri,  5 Nov 2021 19:47:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7387EF8026A; Fri,  5 Nov 2021 17:42:05 +0100 (CET)
+ id 1B4EEF8026A; Fri,  5 Nov 2021 19:47:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from aye.elm.relay.mailchannels.net (aye.elm.relay.mailchannels.net
+ [23.83.212.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7187F8012A
- for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 17:42:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7187F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D1FDF8012A
+ for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 19:47:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D1FDF8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X0CrHeWX"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E46006125F;
- Fri,  5 Nov 2021 16:41:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636130517;
- bh=ocA+aw4pirZGTHGgqV169WIEms5jSzs7du1qenb+eZ4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=X0CrHeWXPSgOGxW1ABfOZe5F7iB9LiCCXc1YpXOPxUUw6gyKyCvDhXkyyWXCsSaz/
- Nc22Q44HTYx2dW5mblxoy0pSUOf3OexNeLYU7GnugM5i6eXQG+7mJZ4hP41FkdnDrl
- TsPFi3OY02thxiKa4A5MWAIcUwM/PsakN08TPiLuRddw6NmojaF8HzOnQrlun07jZR
- s2FXx4uO1+suYZlEYeC1T1a1BvfjNK1CHdLodhUruXzUXElsDVo9ntdWcw3RbPRxTp
- 7CIcxE6ghriTf1J3ZpSnt3E0Z40dgJbskVanPYkGje0Nk9UGVl9SjxPUFZLt59PElG
- ncqqOIWv351HA==
-Date: Fri, 5 Nov 2021 16:41:51 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 3/4] ASoC: mediatek: mt8195: separate the common code
- from machine driver
-Message-ID: <YYVez/V9ocCXhYmg@sirena.org.uk>
-References: <20211103100040.11933-1-trevor.wu@mediatek.com>
- <20211103100040.11933-4-trevor.wu@mediatek.com>
- <YYP+l7tMofYoB+aC@sirena.org.uk>
- <b4360ea17c3045759e85ee13fa9c001afe73c93c.camel@mediatek.com>
- <YYVQC7KLZx8oxdXT@sirena.org.uk>
- <e404d241-0685-643b-4b9d-d85bb8783385@linux.intel.com>
+ dkim=fail reason="signature verification failed" (1024-bit key)
+ header.d=thevertigo.com header.i=@thevertigo.com header.b="DJ7s5RwF"
+X-Sender-Id: dreamhost|x-authsender|kip@thevertigo.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+ by relay.mailchannels.net (Postfix) with ESMTP id A2C1B4612B4;
+ Fri,  5 Nov 2021 18:47:18 +0000 (UTC)
+Received: from pdx1-sub0-mail-a219.dreamhost.com (unknown [127.0.0.6])
+ (Authenticated sender: dreamhost)
+ by relay.mailchannels.net (Postfix) with ESMTPA id 2F96946123B;
+ Fri,  5 Nov 2021 18:47:18 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|kip@thevertigo.com
+Received: from pdx1-sub0-mail-a219.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+ by 100.114.196.211 (trex/6.4.3); Fri, 05 Nov 2021 18:47:18 +0000
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|kip@thevertigo.com
+X-MailChannels-Auth-Id: dreamhost
+X-Cold-Unite: 29d86660753f25b3_1636138038533_2716444247
+X-MC-Loop-Signature: 1636138038533:4216784495
+X-MC-Ingress-Time: 1636138038533
+Received: from kip-desktop.kip-router (unknown [192.252.230.5])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ (Authenticated sender: kip@thevertigo.com)
+ by pdx1-sub0-mail-a219.dreamhost.com (Postfix) with ESMTPSA id 4Hm8d12TmSz1Mw; 
+ Fri,  5 Nov 2021 11:47:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=thevertigo.com;
+ s=thevertigo.com; t=1636138037; bh=X3vSmLRHVEcF7t+mSIwEj0uAteU=;
+ h=Subject:From:To:Cc:Date:Content-Type;
+ b=DJ7s5RwF4GUb/Ktr07WJEcfSmGlpvxNC1auRNNomcXMKD2U1WUNdno/38KAKVFX5U
+ zuDAwAFbs2pFp4VuSc9T8ldYLHCbqm2vWI0IPkVQz9k0cREuJgGrn0To2EBPT+YGgN
+ LpsIehOc0EGVb83aRQnsc6E2tCV+f6BDbmcGTjhU=
+Message-ID: <3832054fd315605b19bd9d74977f83078a95ee08.camel@thevertigo.com>
+Subject: Re: [Alsa-user] USB audio on riscv64
+From: Kip Warner <kip@thevertigo.com>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Fri, 05 Nov 2021 11:47:16 -0700
+In-Reply-To: <s5h35oahppb.wl-tiwai@suse.de>
+References: <f2ec64dab6a74c7eee0625533d3c3630adb62a41.camel@thevertigo.com>
+ <CAJZ5D0bnMA=zZPztvQB4h0sXhU2og9D84QH8CXx5-GRWeu+4Ug@mail.gmail.com>
+ <e91d7a44b9a456141d856ea57aa2948c3be4422f.camel@thevertigo.com>
+ <s5h35oahppb.wl-tiwai@suse.de>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-AVzhzVWRLnQJG9ocm0GD"
+User-Agent: Evolution 3.40.0-1 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xu7RSJUInac+5dPD"
-Content-Disposition: inline
-In-Reply-To: <e404d241-0685-643b-4b9d-d85bb8783385@linux.intel.com>
-X-Cookie: For recreational use only.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, tiwai@suse.com, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, Trevor Wu <trevor.wu@mediatek.com>,
- yc.hung@mediatek.com, matthias.bgg@gmail.com, daniel.baluta@nxp.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Alsa-user@lists.sourceforge.net, alsa-devel@alsa-project.org,
+ Dmitri Seletski <drjoms@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,58 +103,233 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---xu7RSJUInac+5dPD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--=-AVzhzVWRLnQJG9ocm0GD
+Content-Type: multipart/mixed; boundary="=-EXss5v2DY8Ix2r97K/84"
 
-On Fri, Nov 05, 2021 at 11:16:05AM -0500, Pierre-Louis Bossart wrote:
-> On 11/5/21 10:38 AM, Mark Brown wrote:
 
-> > We shouldn't be requiring people to load completely different drivers
-> > based on software configuration, what if a system wants to bypass the
-> > DSP in some but not all configurations?  Can we not just have controls
-> > allowing users to route round the DSP where appropriate?
+--=-EXss5v2DY8Ix2r97K/84
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-> It was my understanding the card relies on separate components
+T24gRnJpLCAyMDIxLTExLTA1IGF0IDExOjE3ICswMTAwLCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4g
+Q2hlY2sgdGhlIGNvbnRlbnRzIGluIC9wcm9jL2Fzb3VuZC9jYXJkcy7CoCBJcyB0aGF0IGVtcHR5
+IGFzIHdlbGw/CgpUaGFua3MgZm9yIGdldHRpbmcgYmFjayB0byBtZSwgVGFrYXNoaS4gTG9va3Mg
+bGlrZSBpdCdzIGVtcHR5OgoKICAgJCBzdWRvIHRyZWUgL3Byb2MvYXNvdW5kLwogICAvcHJvYy9h
+c291bmQvCiAgIOKUnOKUgOKUgCBEZXZpY2UgLT4gY2FyZDEKICAg4pSc4pSA4pSAIGNhcmQxCiAg
+IOKUgsKgwqAg4pSc4pSA4pSAIGlkCiAgIOKUgsKgwqAg4pSc4pSA4pSAIHBjbTBwCiAgIOKUgsKg
+wqAg4pSCwqDCoCDilJzilIDilIAgaW5mbwogICDilILCoMKgIOKUgsKgwqAg4pSU4pSA4pSAIHN1
+YjAKICAg4pSCwqDCoCDilILCoMKgICAgICDilJzilIDilIAgaHdfcGFyYW1zCiAgIOKUgsKgwqAg
+4pSCwqDCoCAgICAg4pSc4pSA4pSAIGluZm8KICAg4pSCwqDCoCDilILCoMKgICAgICDilJzilIDi
+lIAgc3RhdHVzCiAgIOKUgsKgwqAg4pSCwqDCoCAgICAg4pSU4pSA4pSAIHN3X3BhcmFtcwogICDi
+lILCoMKgIOKUnOKUgOKUgCBzdHJlYW0wCiAgIOKUgsKgwqAg4pSc4pSA4pSAIHVzYmJ1cwogICDi
+lILCoMKgIOKUnOKUgOKUgCB1c2JpZAogICDilILCoMKgIOKUlOKUgOKUgCB1c2JtaXhlcgogICDi
+lJzilIDilIAgY2FyZHMKICAg4pSc4pSA4pSAIGRldmljZXMKICAg4pSc4pSA4pSAIGh3ZGVwCiAg
+IOKUnOKUgOKUgCBtb2R1bGVzCiAgIOKUnOKUgOKUgCBvc3MKICAg4pSCwqDCoCDilJzilIDilIAg
+ZGV2aWNlcwogICDilILCoMKgIOKUlOKUgOKUgCBzbmRzdGF0CiAgIOKUnOKUgOKUgCBwY20KICAg
+4pSc4pSA4pSAIHNlcQogICDilILCoMKgIOKUnOKUgOKUgCBjbGllbnRzCiAgIOKUgsKgwqAg4pSc
+4pSA4pSAIGRyaXZlcnMKICAg4pSCwqDCoCDilJzilIDilIAgcXVldWVzCiAgIOKUgsKgwqAg4pSU
+4pSA4pSAIHRpbWVyCiAgIOKUnOKUgOKUgCB0aW1lcnMKICAg4pSU4pSA4pSAIHZlcnNpb24KICAg
+CiAgIDYgZGlyZWN0b3JpZXMsIDIzIGZpbGVzCgo+IElmIHRoZSBjYXJkIGlzIHJlY29nbml6ZWQg
+dGhlcmUsIGNoZWNrIHRoZSAvc3lzL2NsYXNzL3NvdW5kLyouCgpUaGlzIGlzIHdoYXQgSSBzZWUg
+aW4gdGhhdCBkaXJlY3Rvcnk6CgogICAkIHN1ZG8gdHJlZSAvc3lzL2NsYXNzL3NvdW5kLwogICAv
+c3lzL2NsYXNzL3NvdW5kLwogICDilJzilIDilIAgY2FyZDEgLT4gLi4vLi4vZGV2aWNlcy9wbGF0
+Zm9ybS9zb2MvZTAwMDAwMDAwLnBjaWUvcGNpMDAwMDowMC8wMDAwOjAwOjAwLjAvMDAwMDowMTow
+MC4wLzAwMDA6MDI6MDIuMC8wMDAwOjA0OjAwLjAvdXNiMS8xLTIvMS0yLjEvMS0yLjE6MS4wL3Nv
+dW5kL2NhcmQxCiAgIOKUnOKUgOKUgCBjb250cm9sQzEgLT4gLi4vLi4vZGV2aWNlcy9wbGF0Zm9y
+bS9zb2MvZTAwMDAwMDAwLnBjaWUvcGNpMDAwMDowMC8wMDAwOjAwOjAwLjAvMDAwMDowMTowMC4w
+LzAwMDA6MDI6MDIuMC8wMDAwOjA0OjAwLjAvdXNiMS8xLTIvMS0yLjEvMS0yLjE6MS4wL3NvdW5k
+L2NhcmQxL2NvbnRyb2xDMQogICDilJzilIDilIAgcGNtQzFEMHAgLT4gLi4vLi4vZGV2aWNlcy9w
+bGF0Zm9ybS9zb2MvZTAwMDAwMDAwLnBjaWUvcGNpMDAwMDowMC8wMDAwOjAwOjAwLjAvMDAwMDow
+MTowMC4wLzAwMDA6MDI6MDIuMC8wMDAwOjA0OjAwLjAvdXNiMS8xLTIvMS0yLjEvMS0yLjE6MS4w
+L3NvdW5kL2NhcmQxL3BjbUMxRDBwCiAgIOKUnOKUgOKUgCBzZXEgLT4gLi4vLi4vZGV2aWNlcy92
+aXJ0dWFsL3NvdW5kL3NlcQogICDilJTilIDilIAgdGltZXIgLT4gLi4vLi4vZGV2aWNlcy92aXJ0
+dWFsL3NvdW5kL3RpbWVyCiAgIAogICA1IGRpcmVjdG9yaWVzLCAwIGZpbGVzCgo+IElmIGEgUENN
+IGRldmljZSBpcyBmb3VuZCB0aGVyZSwgaXQgbXVzdCBiZSB0aGUgbGFjayBvZiB0aGUKPiBjb3Jy
+ZXNwb25kaW5nIGRldmljZSBpbiAvZGV2L3NuZC8qIHRoYXQgaXMgdXN1YWxseSBjcmVhdGVkIHZp
+YSB1ZGV2LgoKQW5kIHRoaXMgaXMgd2hhdCBJIHNlZSB0aGVyZToKCiAgICQgc3VkbyB0cmVlIC9k
+ZXYvc25kLwogICAvZGV2L3NuZC8KICAg4pSc4pSA4pSAIGJ5LWlkCiAgIOKUgsKgwqAg4pSU4pSA
+4pSAIHVzYi1HZW5lcmljX1VTQjIuMF9EZXZpY2VfMjAxMzAxMDBwaDAtMDAgLT4gLi4vY29udHJv
+bEMxCiAgIOKUnOKUgOKUgCBieS1wYXRoCiAgIOKUgsKgwqAg4pSU4pSA4pSAIHBsYXRmb3JtLWUw
+MDAwMDAwMC5wY2llLXBjaS0wMDAwOjA0OjAwLjAtdXNiLTA6Mi4xOjEuMCAtPiAuLi9jb250cm9s
+QzEKICAg4pSc4pSA4pSAIGNvbnRyb2xDMQogICDilJzilIDilIAgcGNtQzFEMHAKICAg4pSc4pSA
+4pSAIHNlcQogICDilJTilIDilIAgdGltZXIKICAgCiAgIDIgZGlyZWN0b3JpZXMsIDYgZmlsZXMK
+CkEgYml0IG9mIGluZm9ybWF0aW9uIG9uIG15IHN5c3RlbToKCiAgICQgdW5hbWUgLWEKICAgTGlu
+dXgga2lwLXVubWF0Y2hlZCA1LjExLjAtMTAyMS1nZW5lcmljICMyMi1VYnVudHUgU01QIFR1ZSBT
+ZXAgMjggMTU6MTk6MTYgVVRDIDIwMjEgcmlzY3Y2NCByaXNjdjY0IHJpc2N2NjQgR05VL0xpbnV4
+CiAgIAogICAkIGxzY3B1IAogICBBcmNoaXRlY3R1cmU6ICAgICAgICByaXNjdjY0CiAgIEJ5dGUg
+T3JkZXI6ICAgICAgICAgIExpdHRsZSBFbmRpYW4KICAgQ1BVKHMpOiAgICAgICAgICAgICAgNAog
+ICBPbi1saW5lIENQVShzKSBsaXN0OiAwLTMKICAgVGhyZWFkKHMpIHBlciBjb3JlOiAgNAogICBD
+b3JlKHMpIHBlciBzb2NrZXQ6ICAxCiAgIFNvY2tldChzKTogICAgICAgICAgIDEKICAgTDFkIGNh
+Y2hlOiAgICAgICAgICAgMzIgS2lCCiAgIEwxaSBjYWNoZTogICAgICAgICAgIDMyIEtpQgogICBM
+MiBjYWNoZTogICAgICAgICAgICAyIE1pQgoKSSd2ZSBhbHNvIGF0dGFjaGVkIHRoZSBvdXRwdXQg
+b2YgdGhlIGFsc2EtaW5mbygxKSBnZW5lcmF0ZWQgbG9nLgoKLS0gCktpcCBXYXJuZXIgLS0gU2Vu
+aW9yIFNvZnR3YXJlIEVuZ2luZWVyCk9wZW5QR1DCoHNpZ25lZC9lbmNyeXB0ZWQgbWFpbCBwcmVm
+ZXJyZWQKaHR0cHM6Ly93d3cudGhldmVydGlnby5jb20K
 
-> - a SOF-based component to provide support for DSP-managed interfaces
-> - a 'non-SOF' component for 'regular' interfaces not handled by the DSP.
 
-> this was the basis for the changes discussed in
-> https://github.com/thesofproject/linux/pull/3217 and
-> https://github.com/thesofproject/linux/pull/3236
+--=-EXss5v2DY8Ix2r97K/84
+Content-Disposition: attachment; filename="alsa-info.log"
+Content-Type: text/x-log; name="alsa-info.log"; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-So it's actually supposed to end up as two different cards which can't
-possibly be interlinked?  That doesn't seem to add up entirely given
-that there's stuff being moved out of the current card, and I thought
-these systems had a fairly comprehensive audio muxing capability.
-Trevor, could you be a bit more specific about what's actually going on
-here physically please?
+dXBsb2FkPXRydWUmc2NyaXB0PXRydWUmY2FyZGluZm89CiEhIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMKISFBTFNBIEluZm9ybWF0aW9uIFNjcmlwdCB2IDAuNC42NQohISMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCgohIVNjcmlwdCByYW4gb246IEZyaSBOb3YgIDUgMTg6
+NDQ6NDkgVVRDIDIwMjEKCgohIUxpbnV4IERpc3RyaWJ1dGlvbgohIS0tLS0tLS0tLS0tLS0tLS0t
+LQoKVWJ1bnR1IDIxLjA0IFxuIFxsIERJU1RSSUJfSUQ9VWJ1bnR1IERJU1RSSUJfREVTQ1JJUFRJ
+T049IlVidW50dSAyMS4wNCIgTkFNRT0iVWJ1bnR1IiBJRD11YnVudHUgSURfTElLRT1kZWJpYW4g
+UFJFVFRZX05BTUU9IlVidW50dSAyMS4wNCIgSE9NRV9VUkw9Imh0dHBzOi8vd3d3LnVidW50dS5j
+b20vIiBTVVBQT1JUX1VSTD0iaHR0cHM6Ly9oZWxwLnVidW50dS5jb20vIiBCVUdfUkVQT1JUX1VS
+TD0iaHR0cHM6Ly9idWdzLmxhdW5jaHBhZC5uZXQvdWJ1bnR1LyIgUFJJVkFDWV9QT0xJQ1lfVVJM
+PSJodHRwczovL3d3dy51YnVudHUuY29tL2xlZ2FsL3Rlcm1zLWFuZC1wb2xpY2llcy9wcml2YWN5
+LXBvbGljeSIgVUJVTlRVX0NPREVOQU1FPWhpcnN1dGUgVWJ1bnR1IDIxLjA0IChIaXJzdXRlIEhp
+cHBvKQoKCiEhRE1JIEluZm9ybWF0aW9uCiEhLS0tLS0tLS0tLS0tLS0tCgpNYW51ZmFjdHVyZXI6
+ICAgICAgClByb2R1Y3QgTmFtZTogICAgICAKUHJvZHVjdCBWZXJzaW9uOiAgIApGaXJtd2FyZSBW
+ZXJzaW9uOiAgClN5c3RlbSBTS1U6ICAgICAgICAKQm9hcmQgVmVuZG9yOiAgICAgIApCb2FyZCBO
+YW1lOiAgICAgICAgCgoKISFBQ1BJIERldmljZSBTdGF0dXMgSW5mb3JtYXRpb24KISEtLS0tLS0t
+LS0tLS0tLS0KCgoKISFLZXJuZWwgSW5mb3JtYXRpb24KISEtLS0tLS0tLS0tLS0tLS0tLS0KCktl
+cm5lbCByZWxlYXNlOiAgICA1LjExLjAtMTAyMS1nZW5lcmljCk9wZXJhdGluZyBTeXN0ZW06ICBH
+TlUvTGludXgKQXJjaGl0ZWN0dXJlOiAgICAgIHJpc2N2NjQKUHJvY2Vzc29yOiAgICAgICAgIHJp
+c2N2NjQKU01QIEVuYWJsZWQ6ICAgICAgIFllcwoKCiEhQUxTQSBWZXJzaW9uCiEhLS0tLS0tLS0t
+LS0tCgpEcml2ZXIgdmVyc2lvbjogICAgIGs1LjExLjAtMTAyMS1nZW5lcmljCkxpYnJhcnkgdmVy
+c2lvbjogICAgMS4yLjQKVXRpbGl0aWVzIHZlcnNpb246ICAxLjIuNAoKCiEhTG9hZGVkIEFMU0Eg
+bW9kdWxlcwohIS0tLS0tLS0tLS0tLS0tLS0tLS0KCnNuZF91c2JfYXVkaW8KCgohIVNvdW5kIFNl
+cnZlcnMgb24gdGhpcyBzeXN0ZW0KISEtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgpQdWxz
+ZWF1ZGlvOgogICAgICBJbnN0YWxsZWQgLSBZZXMgKC91c3IvYmluL3B1bHNlYXVkaW8pCiAgICAg
+IFJ1bm5pbmcgLSBZZXMKCgohIVNvdW5kY2FyZHMgcmVjb2duaXNlZCBieSBBTFNBCiEhLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiAxIFtEZXZpY2UgICAgICAgICBdOiBVU0ItQXVkaW8g
+LSBVU0IyLjAgRGV2aWNlCiAgICAgICAgICAgICAgICAgICAgICBHZW5lcmljIFVTQjIuMCBEZXZp
+Y2UgYXQgdXNiLTAwMDA6MDQ6MDAuMC0yLjEsIGZ1bGwgc3BlZWQKCgohIVBDSSBTb3VuZGNhcmRz
+IGluc3RhbGxlZCBpbiB0aGUgc3lzdGVtCiEhLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0KCgoKISFNb2Rwcm9iZSBvcHRpb25zIChTb3VuZCByZWxhdGVkKQohIS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgpzbmRfcGNzcDogaW5kZXg9LTIKc25kX3VzYl9hdWRp
+bzogaW5kZXg9LTIKc25kX2F0aWl4cF9tb2RlbTogaW5kZXg9LTIKc25kX2ludGVsOHgwbTogaW5k
+ZXg9LTIKc25kX3ZpYTgyeHhfbW9kZW06IGluZGV4PS0yCnNuZF9hdGlpeHBfbW9kZW06IGluZGV4
+PS0yCnNuZF9pbnRlbDh4MG06IGluZGV4PS0yCnNuZF92aWE4Mnh4X21vZGVtOiBpbmRleD0tMgpz
+bmRfdXNiX2F1ZGlvOiBpbmRleD0tMgpzbmRfdXNiX2NhaWFxOiBpbmRleD0tMgpzbmRfdXNiX3Vh
+MTAxOiBpbmRleD0tMgpzbmRfdXNiX3VzMTIybDogaW5kZXg9LTIKc25kX3VzYl91c3gyeTogaW5k
+ZXg9LTIKc25kX2NtaXBjaTogbXB1X3BvcnQ9MHgzMzAgZm1fcG9ydD0weDM4OApzbmRfcGNzcDog
+aW5kZXg9LTIKc25kX3VzYl9hdWRpbzogaW5kZXg9LTIKCgohIUxvYWRlZCBzb3VuZCBtb2R1bGUg
+b3B0aW9ucwohIS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKISFNb2R1bGU6IHNuZF91c2Jf
+YXVkaW8KCWF1dG9jbG9jayA6IFkKCWRlbGF5ZWRfcmVnaXN0ZXIgOiAobnVsbCksKG51bGwpLChu
+dWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51
+bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVs
+bCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxs
+KSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpCglkZXZpY2Vfc2V0dXAgOiAwLDAs
+MCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCww
+LDAKCWVuYWJsZSA6IFksWSxZLFksWSxZLFksWSxZLFksWSxZLFksWSxZLFksWSxZLFksWSxZLFks
+WSxZLFksWSxZLFksWSxZLFksWQoJaWQgOiAobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51
+bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVs
+bCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxs
+KSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwp
+LChudWxsKSwobnVsbCksKG51bGwpCglpZ25vcmVfY3RsX2Vycm9yIDogTgoJaW1wbGljaXRfZmIg
+OiBOLE4sTixOLE4sTixOLE4sTixOLE4sTixOLE4sTixOLE4sTixOLE4sTixOLE4sTixOLE4sTixO
+LE4sTixOLE4KCWluZGV4IDogLTIsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEs
+LTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEK
+CXBpZCA6IC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0x
+LC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xCglxdWlya19hbGlh
+cyA6IChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVs
+bCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxs
+KSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwp
+LChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCkK
+CXNraXBfdmFsaWRhdGlvbiA6IE4KCXVzZV92bWFsbG9jIDogWQoJdmlkIDogLTEsLTEsLTEsLTEs
+LTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEs
+LTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEKCgohIVVTQiBNaXhlciBpbmZvcm1hdGlvbgohIS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLQotLXN0YXJ0Y29sbGFwc2UtLQoKVVNCIE1peGVyOiB1c2JfaWQ9
+MHgxOTA4MjA3MCwgY3RybGlmPTAsIGN0bGVycj0wCkNhcmQ6IEdlbmVyaWMgVVNCMi4wIERldmlj
+ZSBhdCB1c2ItMDAwMDowNDowMC4wLTIuMSwgZnVsbCBzcGVlZAogIFVuaXQ6IDIKICAgIENvbnRy
+b2w6IG5hbWU9IlBDTSBQbGF5YmFjayBWb2x1bWUiLCBpbmRleD0wCiAgICBJbmZvOiBpZD0yLCBj
+b250cm9sPTIsIGNtYXNrPTB4MCwgY2hhbm5lbHM9MSwgdHlwZT0iUzE2IgogICAgVm9sdW1lOiBt
+aW49LTMyNzY4LCBtYXg9LTMyNTEzLCBkQm1pbj0wLCBkQm1heD0wCiAgVW5pdDogMgogICAgQ29u
+dHJvbDogbmFtZT0iUENNIFBsYXliYWNrIFN3aXRjaCIsIGluZGV4PTAKICAgIEluZm86IGlkPTIs
+IGNvbnRyb2w9MSwgY21hc2s9MHgwLCBjaGFubmVscz0xLCB0eXBlPSJJTlZfQk9PTEVBTiIKICAg
+IFZvbHVtZTogbWluPTAsIG1heD0xLCBkQm1pbj0wLCBkQm1heD0wCi0tZW5kY29sbGFwc2UtLQoK
+CiEhQUxTQSBEZXZpY2Ugbm9kZXMKISEtLS0tLS0tLS0tLS0tLS0tLQoKY3J3LXJ3LS0tLSAxIHJv
+b3QgYXVkaW8gMTE2LCAgMyBOb3YgIDUgMTE6MzkgL2Rldi9zbmQvY29udHJvbEMxCmNydy1ydy0t
+LS0gMSByb290IGF1ZGlvIDExNiwgIDIgTm92ICA1IDExOjM5IC9kZXYvc25kL3BjbUMxRDBwCmNy
+dy1ydy0tLS0gMSByb290IGF1ZGlvIDExNiwgIDEgTm92ICA1IDExOjM5IC9kZXYvc25kL3NlcQpj
+cnctcnctLS0tIDEgcm9vdCBhdWRpbyAxMTYsIDMzIE5vdiAgNSAxMTozOSAvZGV2L3NuZC90aW1l
+cgoKL2Rldi9zbmQvYnktaWQ6CnRvdGFsIDAKZHJ3eHIteHIteCAyIHJvb3Qgcm9vdCAgNjAgTm92
+ICA1IDExOjM5IC4KZHJ3eHIteHIteCA0IHJvb3Qgcm9vdCAxNjAgTm92ICA1IDExOjM5IC4uCmxy
+d3hyd3hyd3ggMSByb290IHJvb3QgIDEyIE5vdiAgNSAxMTozOSB1c2ItR2VuZXJpY19VU0IyLjBf
+RGV2aWNlXzIwMTMwMTAwcGgwLTAwIC0+IC4uL2NvbnRyb2xDMQoKL2Rldi9zbmQvYnktcGF0aDoK
+dG90YWwgMApkcnd4ci14ci14IDIgcm9vdCByb290ICA2MCBOb3YgIDUgMTE6MzkgLgpkcnd4ci14
+ci14IDQgcm9vdCByb290IDE2MCBOb3YgIDUgMTE6MzkgLi4KbHJ3eHJ3eHJ3eCAxIHJvb3Qgcm9v
+dCAgMTIgTm92ICA1IDExOjM5IHBsYXRmb3JtLWUwMDAwMDAwMC5wY2llLXBjaS0wMDAwOjA0OjAw
+LjAtdXNiLTA6Mi4xOjEuMCAtPiAuLi9jb250cm9sQzEKCgohIUFwbGF5L0FyZWNvcmQgb3V0cHV0
+CiEhLS0tLS0tLS0tLS0tLS0tLS0tLS0KCkFQTEFZCgoqKioqIExpc3Qgb2YgUExBWUJBQ0sgSGFy
+ZHdhcmUgRGV2aWNlcyAqKioqCmNhcmQgMTogRGV2aWNlIFtVU0IyLjAgRGV2aWNlXSwgZGV2aWNl
+IDA6IFVTQiBBdWRpbyBbVVNCIEF1ZGlvXQogIFN1YmRldmljZXM6IDEvMQogIFN1YmRldmljZSAj
+MDogc3ViZGV2aWNlICMwCgpBUkVDT1JECgoqKioqIExpc3Qgb2YgQ0FQVFVSRSBIYXJkd2FyZSBE
+ZXZpY2VzICoqKioKCiEhQW1peGVyIG91dHB1dAohIS0tLS0tLS0tLS0tLS0KCiEhLS0tLS0tLU1p
+eGVyIGNvbnRyb2xzIGZvciBjYXJkIERldmljZQoKQ2FyZCBodzoxICdEZXZpY2UnLydHZW5lcmlj
+IFVTQjIuMCBEZXZpY2UgYXQgdXNiLTAwMDA6MDQ6MDAuMC0yLjEsIGZ1bGwgc3BlZWQnCiAgTWl4
+ZXIgbmFtZQk6ICdVU0IgTWl4ZXInCiAgQ29tcG9uZW50cwk6ICdVU0IxOTA4OjIwNzAnCiAgQ29u
+dHJvbHMgICAgICA6IDMKICBTaW1wbGUgY3RybHMgIDogMQpTaW1wbGUgbWl4ZXIgY29udHJvbCAn
+UENNJywwCiAgQ2FwYWJpbGl0aWVzOiBwdm9sdW1lIHB2b2x1bWUtam9pbmVkIHBzd2l0Y2ggcHN3
+aXRjaC1qb2luZWQKICBQbGF5YmFjayBjaGFubmVsczogTW9ubwogIExpbWl0czogUGxheWJhY2sg
+MCAtIDI1NQogIE1vbm86IFBsYXliYWNrIDE5MiBbNzUlXSBbb25dCgoKISFBbHNhY3RsIG91dHB1
+dAohIS0tLS0tLS0tLS0tLS0tCgotLXN0YXJ0Y29sbGFwc2UtLQpzdGF0ZS5EZXZpY2UgewoJY29u
+dHJvbC4xIHsKCQlpZmFjZSBQQ00KCQluYW1lICdQbGF5YmFjayBDaGFubmVsIE1hcCcKCQl2YWx1
+ZS4wIDAKCQl2YWx1ZS4xIDAKCQljb21tZW50IHsKCQkJYWNjZXNzIHJlYWQKCQkJdHlwZSBJTlRF
+R0VSCgkJCWNvdW50IDIKCQkJcmFuZ2UgJzAgLSAzNicKCQl9Cgl9Cgljb250cm9sLjIgewoJCWlm
+YWNlIE1JWEVSCgkJbmFtZSAnUENNIFBsYXliYWNrIFN3aXRjaCcKCQl2YWx1ZSB0cnVlCgkJY29t
+bWVudCB7CgkJCWFjY2VzcyAncmVhZCB3cml0ZScKCQkJdHlwZSBCT09MRUFOCgkJCWNvdW50IDEK
+CQl9Cgl9Cgljb250cm9sLjMgewoJCWlmYWNlIE1JWEVSCgkJbmFtZSAnUENNIFBsYXliYWNrIFZv
+bHVtZScKCQl2YWx1ZSAxOTIKCQljb21tZW50IHsKCQkJYWNjZXNzICdyZWFkIHdyaXRlJwoJCQl0
+eXBlIElOVEVHRVIKCQkJY291bnQgMQoJCQlyYW5nZSAnMCAtIDI1NScKCQl9Cgl9Cn0KLS1lbmRj
+b2xsYXBzZS0tCgoKISFBbGwgTG9hZGVkIE1vZHVsZXMKISEtLS0tLS0tLS0tLS0tLS0tLS0KCmFz
+eW5jX21lbWNweQphc3luY19wcQphc3luY19yYWlkNl9yZWNvdgphc3luY190eAphc3luY194b3IK
+YXV0b2ZzNApiYWNrbGlnaHQKYmxha2UyYl9nZW5lcmljCmJ0cmZzCmRhOTA2M19vbmtleQpkYTkw
+NjNfcmVndWxhdG9yCmRtX211bHRpcGF0aApkcm0KaTJjX29jb3JlcwppcF90YWJsZXMKbGliY3Jj
+MzJjCmxpbmVhcgpsbTkwCm1hY2IKbWFjc2VjCm1jCm1zY2MKbXVsdGlwYXRoCm5sc19pc284ODU5
+XzEKbnZtZQpudm1lX2NvcmUKcGh5bGluawpyYWlkMApyYWlkMQpyYWlkMTAKcmFpZDQ1NgpyYWlk
+Nl9wcQpydGNfZGE5MDYzCnNjaF9mcV9jb2RlbApzY3NpX2RoX2FsdWEKc2NzaV9kaF9lbWMKc2Nz
+aV9kaF9yZGFjCnNuZApzbmRfaHdkZXAKc25kX3BjbQpzbmRfcmF3bWlkaQpzbmRfc2VxCnNuZF9z
+ZXFfZGV2aWNlCnNuZF9zZXFfbWlkaQpzbmRfc2VxX21pZGlfZXZlbnQKc25kX3RpbWVyCnNuZF91
+c2JfYXVkaW8Kc25kX3VzYm1pZGlfbGliCnNvdW5kY29yZQp1aW8KdWlvX3BkcnZfZ2VuaXJxCnhf
+dGFibGVzCnhoY2lfcGNpCnhoY2lfcGNpX3JlbmVzYXMKeG9yCgoKISFBTFNBL0hEQSBkbWVzZwoh
+IS0tLS0tLS0tLS0tLS0tCgpbICAyMjAuOTAyODE1XSB1c2IgMS0yLjE6IDI6MDogYm9ndXMgZEIg
+dmFsdWVzICgtMTI4MDAvLTEyNzAwKSwgZGlzYWJsaW5nIGRCIHJlcG9ydGluZwpbICAyMjAuOTA1
+MzE0XSB1c2Jjb3JlOiByZWdpc3RlcmVkIG5ldyBpbnRlcmZhY2UgZHJpdmVyIHNuZC11c2ItYXVk
+aW8KCgohIVBhY2thZ2VzIGluc3RhbGxlZAohIS0tLS0tLS0tLS0tLS0tLS0tLS0tCgppaSAgYWxz
+YS10b29scyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEuMi4yLTEgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJpc2N2NjQg
+ICAgICBDb25zb2xlIGJhc2VkIEFMU0EgdXRpbGl0aWVzIGZvciBzcGVjaWZpYyBoYXJkd2FyZQpp
+aSAgYWxzYS10b3BvbG9neS1jb25mICAgICAgICAgICAgICAgICAgICAgIDEuMi40LTEgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFs
+bCAgICAgICAgICBBTFNBIHRvcG9sb2d5IGNvbmZpZ3VyYXRpb24gZmlsZXMKaWkgIGFsc2EtdWNt
+LWNvbmYgICAgICAgICAgICAgICAgICAgICAgICAgICAxLjIuNC0ydWJ1bnR1MS40ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhbGwgICAgICAgICAg
+QUxTQSBVc2UgQ2FzZSBNYW5hZ2VyIGNvbmZpZ3VyYXRpb24gZmlsZXMKaWkgIGFsc2EtdXRpbHMg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxLjIuNC0xdWJ1bnR1MyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByaXNjdjY0ICAgICAgVXRp
+bGl0aWVzIGZvciBjb25maWd1cmluZyBhbmQgdXNpbmcgQUxTQQoK
 
-> But indeed if the same interface can be managed by the DSP or not,
-> depending on software choices it's a different problem altogether.
 
-> We've looked into this recently, if the choice to involve the DSP or not
-> is at the interface level, it might be better to have both components
-> expose different DAIs for the same interface, with some sort of run-time
-> mutual exclusion, so that all possible/allowed permutations are allowed.
+--=-EXss5v2DY8Ix2r97K/84--
 
-Yes, if the interface can optionally be completely hidden by the DSP
-that's adding another layer of complication.
-
---xu7RSJUInac+5dPD
+--=-AVzhzVWRLnQJG9ocm0GD
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGFXs4ACgkQJNaLcl1U
-h9BRSAf/SkjWUf/cCKGy0zPR/tNt3CMqLlX0YCzYqYiswj6dKfU0LWjOlsXEClp2
-xvBonvHD9Ni048rh/n5re028LssK5IYCcxqNfi3WMM+g1nTe7msKcRWanYElCx1U
-vmZUv5k7H/1aYktEU5/KjPhz6YlGi4eJqGPLl397gC0fQX9GReu4b9tdipO+AJ+p
-UzDeHJ+pP/rvbpSiUcRKxA4MrFXYq17gd0xaRuUbrdOvNH6yKUfaeDcz8MBW29ex
-c5gA39zLIqFq9VsEmww6uDWqX0WattYGTzErTm2y2unLpvoxVdsidUgEESNtimpS
-AXlgO4XPiIZSX96+ACgiOB/MBzFFsg==
-=iro5
+iQIzBAABCgAdFiEEaUi0dj/qpTzsKe4xRLRlxF7U4wQFAmGFfDQACgkQRLRlxF7U
+4wRR1w//WK30w9RMrjgk0PGcRO7M6axOmd2VQx6HOHpln7wNHwFq68BAcI6Xdcv3
+pTEberE7oX7Kf9U+cK0Cx8PZHpwUawZinJZsPc8Jcw4PnzVJ6baRzq1b18GnlyRB
+uyKC219F7tAfDm23M/t8/pVAkmqvHbfRmd9KDQSBrMK84e6mkAvz41fpcibVtIps
+EIC0Dr+OiGqOTalzD4yq542M9XH/JH3Kjp6DDWXqzreLPkmSowbTzKsDx0X1jbT8
+c5IwJXO69DFZgx5IJFNiCmsmZL3aJV12U8pjcz55LhXzz5XTW6sngyHZVrS/0dMj
+wmlaWA0IxJXe63yNIEMzqmShEgqzY6HVT/hGU3/hEzySzl4X0jhvICqG//SNwBSc
+pikhisqs6LVlA94xOmatWKu8yzRJkspNf3b3yKF97VSCswsHRyD/e1oQ+4m0yuEH
+CqoaG5IRMASQkCAEyqKeYf77+290uMeorYtOQZl4leJ9D5593GkmXA+01wC2Fb3I
+WU34OoG2otyPoYWgs9ZUudHXPUzncPqG1vevkvE8UIO1NMwkLrlS0wEEOkwOaY/e
+JSyHRR2eMYTma3vGa9tblqitIybTGZZs9wTzGiaoK+B10PoOg8K1LFjcxtWimKgw
++q4pjWf9asVjeYKH9VRK2o2JKn2SKehSdeoN5dnBo/wwpWwQyQ4=
+=YnK/
 -----END PGP SIGNATURE-----
 
---xu7RSJUInac+5dPD--
+--=-AVzhzVWRLnQJG9ocm0GD--
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ACAE4460C3
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 09:40:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4847446126
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 10:09:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC987165D;
-	Fri,  5 Nov 2021 09:39:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC987165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46BA21684;
+	Fri,  5 Nov 2021 10:08:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46BA21684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636101608;
-	bh=Y1YGkmhCeE3FSQ7+6I+46H2ulyPLWh3SvVaW7fXr+pQ=;
+	s=default; t=1636103354;
+	bh=HQApCt84fmvzqWxpvQI6IoKlYGUrHVTl6xDiFyVqdSQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XpYIDZ3dAqSjZpF0eeJ0f/KFz2MSMxPLzYHomK+O/2d/vTOXJNIQ31jAbQPNGZRYY
-	 zQ6ROr0fEU1joErcaBxsdKFAjLIPjV3+KlOj3E+MIRPy0hKItd6ahtHpJJlEi/5SnP
-	 iqU4a0YoYNauL5KbiNBqAyCWqgQsPG9C0q0YPgO0=
+	b=A+1dfUDoEYHR0UBvYhC1vVfSBhWwD3qXSZYFw/M7x4bgQeTFuBmiJKBXpy2VP5QQH
+	 G3ZQyzP9nMLnrWotrVcgcM2P1bIuX8/Wd5mIAuuAA/8Bnhxqa3fzKCidYFs2S5enhR
+	 q9t6FlybzTjq5yH1LxfSKdkWla6i0/2QWYpBJMa4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4011AF80269;
-	Fri,  5 Nov 2021 09:38:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99B4EF8012A;
+	Fri,  5 Nov 2021 10:07:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39C4DF8026A; Fri,  5 Nov 2021 09:38:49 +0100 (CET)
+ id B0E65F80269; Fri,  5 Nov 2021 10:07:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,47 +34,48 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F02BF80148
- for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 09:38:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F02BF80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id E579BF8012A
+ for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 10:07:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E579BF8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="QIfZ4Cbx"; 
+ header.b="ytLTaSJG"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="AZf245Ko"
+ header.b="p39NRNI9"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id BD264217BA;
- Fri,  5 Nov 2021 08:38:41 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 523A8212C1;
+ Fri,  5 Nov 2021 09:07:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636101521; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1636103265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=t8gmPL1UYaojYU9wbHV2lUKXR1Dwv8hdyaoGcfRBuKY=;
- b=QIfZ4CbxCz4VyA9AJ8oofGYiQnJSBf+rrPRaer81ch2Wvg+pFoTkHM/tdM7JxVIwPNUrtX
- /3Rwj1j54JD77w4NVjnd6hiYAe9RZbaIydXDYDmD37dlTIsQ0lIvknbZ66btHXdi9tZEQl
- j6ypzhvXN3w9tpRv3fmJ9P70/qkppio=
+ bh=3DQZpKOYEUlsyM3Qo59h75iAf82da0u6F6vVeVWgEQA=;
+ b=ytLTaSJGLGyi92CVln5d6CeWzdEy15tWUrCCjdEgQykZq+4muQxADsAUQUOf/xXZZ5tz/R
+ u2fEYreywzU91WNCku0L7VoaURv5ltLL1dXND6qxBRxoYBsgduHeeVA1jGYa3sJXzR5+Zl
+ h4jqGU9TscaL1z9HvzklVuXCAhECpgY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636101521;
+ s=susede2_ed25519; t=1636103265;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=t8gmPL1UYaojYU9wbHV2lUKXR1Dwv8hdyaoGcfRBuKY=;
- b=AZf245KoLpLklcU9gInpuY5w5sXkJ4SXdnJmgdDycr7qnSBxrmwwFSxf5FYaGo1vymzo0c
- CAHsrJTYJ6hq4ZCg==
+ bh=3DQZpKOYEUlsyM3Qo59h75iAf82da0u6F6vVeVWgEQA=;
+ b=p39NRNI99I3C0B8jlBl5wdNXDC6MzU5FBPXoHd0F0Wyctj7qFxRPwY6PKZpSG3/YNyFLfO
+ 4nor7cRmOVnJ/XAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B78FD2C14A;
- Fri,  5 Nov 2021 08:38:41 +0000 (UTC)
-Date: Fri, 05 Nov 2021 09:38:41 +0100
-Message-ID: <s5hilx7gfou.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 4345B2C144;
+ Fri,  5 Nov 2021 09:07:45 +0000 (UTC)
+Date: Fri, 05 Nov 2021 10:07:45 +0100
+Message-ID: <s5hcznfgece.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
 Subject: Re: The regression caused by snd_soc_dapm_enable_pin
-In-Reply-To: <CAGvk5PoWi9sCiEAG84qmfH67nshFZOtX2r+z6P3vsJ5=7_pPHA@mail.gmail.com>
+In-Reply-To: <s5hilx7gfou.wl-tiwai@suse.de>
 References: <CAGvk5PoVp7LoFbaq93_F0Mf9xHzOqSt-HpK0gYh4WMAHrJ6vag@mail.gmail.com>
  <s5hmtmjgir3.wl-tiwai@suse.de>
  <CAGvk5PoWi9sCiEAG84qmfH67nshFZOtX2r+z6P3vsJ5=7_pPHA@mail.gmail.com>
+ <s5hilx7gfou.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -97,100 +98,107 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 05 Nov 2021 09:33:52 +0100,
-Yu-Hsuan Hsu wrote:
+On Fri, 05 Nov 2021 09:38:41 +0100,
+Takashi Iwai wrote:
 > 
-> Takashi Iwai <tiwai@suse.de> 於 2021年11月5日 週五 下午3:32寫道：
-> >
-> > On Fri, 05 Nov 2021 03:58:46 +0100,
-> > Yu-Hsuan Hsu wrote:
+> On Fri, 05 Nov 2021 09:33:52 +0100,
+> Yu-Hsuan Hsu wrote:
+> > 
+> > Takashi Iwai <tiwai@suse.de> 於 2021年11月5日 週五 下午3:32寫道：
 > > >
-> > > Hi Takashi,
+> > > On Fri, 05 Nov 2021 03:58:46 +0100,
+> > > Yu-Hsuan Hsu wrote:
+> > > >
+> > > > Hi Takashi,
+> > > >
+> > > > The patch 5af82c81b2c49cfb1cad84d9eb6eab0e3d1c4842(ASoC: DAPM: Fix
+> > > > missing kctl change notifications) caused the regression on some
+> > > > ChromeBook.
+> > > >
+> > > > The reason is that some drivers check the return value of
+> > > > snd_soc_dapm_enable_pin, like kabylake_ssp0_trigger(Which caused a
+> > > > regression). In addition, some SOF drivers may be also affected by
+> > > > this change(e.g. sof_sdw_max98373.c). Could you help to fix it?
 > > >
-> > > The patch 5af82c81b2c49cfb1cad84d9eb6eab0e3d1c4842(ASoC: DAPM: Fix
-> > > missing kctl change notifications) caused the regression on some
-> > > ChromeBook.
+> > > Does the patch below fix the problem?
 > > >
-> > > The reason is that some drivers check the return value of
-> > > snd_soc_dapm_enable_pin, like kabylake_ssp0_trigger(Which caused a
-> > > regression). In addition, some SOF drivers may be also affected by
-> > > this change(e.g. sof_sdw_max98373.c). Could you help to fix it?
-> >
-> > Does the patch below fix the problem?
-> >
-> >
-> > Takashi
-> >
-> >
-> > --- a/sound/soc/soc-dapm.c
-> > +++ b/sound/soc/soc-dapm.c
-> > @@ -3589,10 +3589,10 @@ int snd_soc_dapm_put_pin_switch(struct snd_kcontrol *kcontrol,
-> >         const char *pin = (const char *)kcontrol->private_value;
-> >         int ret;
-> >
-> > -       if (ucontrol->value.integer.value[0])
-> > -               ret = snd_soc_dapm_enable_pin(&T->dapm, pin);
-> > -       else
-> > -               ret = snd_soc_dapm_disable_pin(&card->dapm, pin);
-> > +       mutex_lock_nested(&dapm->card->dapm_mutex, SND_SOC_DAPM_CLASS_RUNTIME);
-> > +
-> > +       ret = snd_soc_dapm_set_pin(dapm, pin, !!ucontrol->value.integer.value[0]);
-> > +       mutex_unlock(&dapm->card->dapm_mutex);
-> >
-> >         snd_soc_dapm_sync(&card->dapm);
-> >         return ret;
-> > @@ -4506,7 +4506,9 @@ EXPORT_SYMBOL_GPL(snd_soc_dapm_stream_stop);
-> >  int snd_soc_dapm_enable_pin_unlocked(struct snd_soc_dapm_context *dapm,
-> >                                    const char *pin)
-> >  {
-> > -       return snd_soc_dapm_set_pin(dapm, pin, 1);
-> > +       int err = snd_soc_dapm_set_pin(dapm, pin, 1);
-> > +
-> > +       return err < 0 ? err : 0;
-> >  }
-> >  EXPORT_SYMBOL_GPL(snd_soc_dapm_enable_pin_unlocked);
-> >
-> > @@ -4527,7 +4529,7 @@ int snd_soc_dapm_enable_pin(struct snd_soc_dapm_context *dapm, const char *pin)
-> >
-> >         mutex_lock_nested(&dapm->card->dapm_mutex, SND_SOC_DAPM_CLASS_RUNTIME);
-> >
-> > -       ret = snd_soc_dapm_set_pin(dapm, pin, 1);
-> > +       ret = snd_soc_dapm_enable_pin_unlocked(dapm, pin);
-> >
-> >         mutex_unlock(&dapm->card->dapm_mutex);
-> >
-> > @@ -4618,7 +4620,9 @@ EXPORT_SYMBOL_GPL(snd_soc_dapm_force_enable_pin);
-> >  int snd_soc_dapm_disable_pin_unlocked(struct snd_soc_dapm_context *dapm,
-> >                                     const char *pin)
-> >  {
-> > -       return snd_soc_dapm_set_pin(dapm, pin, 0);
-> > +       int err = snd_soc_dapm_set_pin(dapm, pin, 0);
-> > +
-> > +       return err < 0 ? err : 0;
-> >  }
-> >  EXPORT_SYMBOL_GPL(snd_soc_dapm_disable_pin_unlocked);
-> >
-> > @@ -4639,7 +4643,7 @@ int snd_soc_dapm_disable_pin(struct snd_soc_dapm_context *dapm,
-> >
-> >         mutex_lock_nested(&dapm->card->dapm_mutex, SND_SOC_DAPM_CLASS_RUNTIME);
-> >
-> > -       ret = snd_soc_dapm_set_pin(dapm, pin, 0);
-> > +       ret = snd_soc_dapm_disable_pin_unlocked(dapm, pin);
-> >
-> >         mutex_unlock(&dapm->card->dapm_mutex);
-> >
+> > >
+> > > Takashi
+> > >
+> > >
+> > > --- a/sound/soc/soc-dapm.c
+> > > +++ b/sound/soc/soc-dapm.c
+> > > @@ -3589,10 +3589,10 @@ int snd_soc_dapm_put_pin_switch(struct snd_kcontrol *kcontrol,
+> > >         const char *pin = (const char *)kcontrol->private_value;
+> > >         int ret;
+> > >
+> > > -       if (ucontrol->value.integer.value[0])
+> > > -               ret = snd_soc_dapm_enable_pin(&T->dapm, pin);
+> > > -       else
+> > > -               ret = snd_soc_dapm_disable_pin(&card->dapm, pin);
+> > > +       mutex_lock_nested(&dapm->card->dapm_mutex, SND_SOC_DAPM_CLASS_RUNTIME);
+> > > +
+> > > +       ret = snd_soc_dapm_set_pin(dapm, pin, !!ucontrol->value.integer.value[0]);
+> > > +       mutex_unlock(&dapm->card->dapm_mutex);
+> > >
+> > >         snd_soc_dapm_sync(&card->dapm);
+> > >         return ret;
+> > > @@ -4506,7 +4506,9 @@ EXPORT_SYMBOL_GPL(snd_soc_dapm_stream_stop);
+> > >  int snd_soc_dapm_enable_pin_unlocked(struct snd_soc_dapm_context *dapm,
+> > >                                    const char *pin)
+> > >  {
+> > > -       return snd_soc_dapm_set_pin(dapm, pin, 1);
+> > > +       int err = snd_soc_dapm_set_pin(dapm, pin, 1);
+> > > +
+> > > +       return err < 0 ? err : 0;
+> > >  }
+> > >  EXPORT_SYMBOL_GPL(snd_soc_dapm_enable_pin_unlocked);
+> > >
+> > > @@ -4527,7 +4529,7 @@ int snd_soc_dapm_enable_pin(struct snd_soc_dapm_context *dapm, const char *pin)
+> > >
+> > >         mutex_lock_nested(&dapm->card->dapm_mutex, SND_SOC_DAPM_CLASS_RUNTIME);
+> > >
+> > > -       ret = snd_soc_dapm_set_pin(dapm, pin, 1);
+> > > +       ret = snd_soc_dapm_enable_pin_unlocked(dapm, pin);
+> > >
+> > >         mutex_unlock(&dapm->card->dapm_mutex);
+> > >
+> > > @@ -4618,7 +4620,9 @@ EXPORT_SYMBOL_GPL(snd_soc_dapm_force_enable_pin);
+> > >  int snd_soc_dapm_disable_pin_unlocked(struct snd_soc_dapm_context *dapm,
+> > >                                     const char *pin)
+> > >  {
+> > > -       return snd_soc_dapm_set_pin(dapm, pin, 0);
+> > > +       int err = snd_soc_dapm_set_pin(dapm, pin, 0);
+> > > +
+> > > +       return err < 0 ? err : 0;
+> > >  }
+> > >  EXPORT_SYMBOL_GPL(snd_soc_dapm_disable_pin_unlocked);
+> > >
+> > > @@ -4639,7 +4643,7 @@ int snd_soc_dapm_disable_pin(struct snd_soc_dapm_context *dapm,
+> > >
+> > >         mutex_lock_nested(&dapm->card->dapm_mutex, SND_SOC_DAPM_CLASS_RUNTIME);
+> > >
+> > > -       ret = snd_soc_dapm_set_pin(dapm, pin, 0);
+> > > +       ret = snd_soc_dapm_disable_pin_unlocked(dapm, pin);
+> > >
+> > >         mutex_unlock(&dapm->card->dapm_mutex);
+> > >
+> > 
+> > No, it's not compilable. There is no variable "dapm" in
+> > snd_soc_dapm_put_pin_switch.
 > 
-> No, it's not compilable. There is no variable "dapm" in
-> snd_soc_dapm_put_pin_switch.
+> Doh, I should have at least build-tested before posting :-<
+> 
+> > After changing to
+> > &card->dapm.card->dapm_mutex, the issue is fixed. Thanks!
+> 
+> OK, good to hear.  I'm going to submit the proper patch soon later.
 
-Doh, I should have at least build-tested before posting :-<
+I found yet one more place that calls snd_soc_dapm_set_pin().
+So it's maybe better to restore the behavior of snd_soc_dapm_set_pin()
+like before.
 
-> After changing to
-> &card->dapm.card->dapm_mutex, the issue is fixed. Thanks!
+I'll submit the revised patch.
 
-OK, good to hear.  I'm going to submit the proper patch soon later.
-
-
-thanks,
 
 Takashi

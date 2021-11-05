@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA9E74465A8
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 16:24:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2624C4465A6
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 16:24:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03B52168E;
-	Fri,  5 Nov 2021 16:23:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03B52168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A413C1688;
+	Fri,  5 Nov 2021 16:23:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A413C1688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636125866;
-	bh=qOEY7Np9ULGeqGYGXyeEfvvrjIzs7P0LvNLNYvHhPq8=;
+	s=default; t=1636125842;
+	bh=r1em5whzUFSTJ3MHveCEMa0RpNDStYYTVGiPZHyy4h8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WBexX8vQtPsxRwYOsWSlXWfmCPuidw/5puW074gP103zsOaV19UCPi0RptMOF3uAz
-	 WUBPffx8XOblWnCfUS91Tqwdgpu78eS6MuYkRGvPhRQTicVaPoLsAWA8Fj4nCTsnvl
-	 CzUC+fziGd8PPvl1BjqW7eHfmZPBEj+C7OMiiuqg=
+	b=npjDmTMJU/l+vrS6mYTfI8Fd3otA871Xe6FzcseNVY7iWqADauSmgyvRBhg61uYch
+	 6DBqZ+6zQmyo5LDq7RQauL+AKYplJlmM6yH7rGUOUEMRhVa1SPDAm3TIoDcLaTEB5Y
+	 WCFkrC99xBNaicuSjtXcdqhNaU+AbsO8A8wddgms=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DCE5F80148;
-	Fri,  5 Nov 2021 16:22:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A9D9F80269;
+	Fri,  5 Nov 2021 16:22:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E6F0F80431; Fri,  5 Nov 2021 16:22:47 +0100 (CET)
+ id 4C41CF8026A; Fri,  5 Nov 2021 16:22:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1A81F80279
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFAB9F80148
  for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 16:22:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1A81F80279
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFAB9F80148
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Sx44Vfkp"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7B97660EFE;
- Fri,  5 Nov 2021 15:22:35 +0000 (UTC)
+ header.b="upZaa5va"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9FA5661037;
+ Fri,  5 Nov 2021 15:22:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636125756;
- bh=qOEY7Np9ULGeqGYGXyeEfvvrjIzs7P0LvNLNYvHhPq8=;
+ s=k20201202; t=1636125758;
+ bh=r1em5whzUFSTJ3MHveCEMa0RpNDStYYTVGiPZHyy4h8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Sx44VfkpsBXc6pg+GAXCvvzHNVh2VgmvAAS/WY7JiwAWjCGTsWZnOueKUyR7eC1Wd
- uAD6tj+y16+g4Zcxk8SmLSLPStMIaB+QPhYi7epykEtfYR5aKEiRFMmPdMVBXoox+g
- 3OT00+N0Ou8N6ZLnlo8f2vEqxtEEY1/DNXTI+xIpxvB2Ab6FqGDR/X4v8+0PYCeYbq
- fRfngmMMaFgTycKaMwYFyjFomhZmKx58jJA91M+88mZSAzyHrBog+tRAVFMJFQc1iA
- 7sChO0DnaCMc84pcC4LZzmwuwbKsje/FkDIXQrZOwW9f6/frSLrTW+YLPBaXkUDwlY
- mQsr7ZBUP3aBg==
+ b=upZaa5vaA6U6lkdLW+ylUC5NtIFAuwZyB0wPFdH/wh3dUIkB0XGou3GD0OyJE3arw
+ 1T+moTAkxjtnK+0xIolVoQfhOZtSFqHCfNTyNqpaHzhijh67Lkcl91IXs0Jwf5Mt5s
+ Jzk+rZ2jKRwPvfEe9uwwNqRPWlZ+j/ekrmO/IPvdRLrUDT5OcZI3TZS1bMUFJW7LEV
+ G/EpBfPGKutxYwczvTcepLaJvLRCBW44tl0OAB6lKY0Ff5vWdepXuHvQyHm6Ha7ls1
+ NfG4u818/ZuCvblPIxUvFnWPq3XXSj4cbmnR1Q0nmikLck/Er3bX/HzTbkkXsOdSGS
+ YoYMH9cy18dSg==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20211105090925.20575-1-tiwai@suse.de>
-References: <20211105090925.20575-1-tiwai@suse.de>
-Subject: Re: [PATCH] ASoC: DAPM: Cover regression by kctl change notification
- fix
-Message-Id: <163612575521.951053.6704784727751788107.b4-ty@kernel.org>
-Date: Fri, 05 Nov 2021 15:22:35 +0000
+To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20211105111655.668777-1-kai.vehmanen@linux.intel.com>
+References: <20211105111655.668777-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: hda: fix hotplug when only codec is
+ suspended
+Message-Id: <163612575637.951053.11162596648833557009.b4-ty@kernel.org>
+Date: Fri, 05 Nov 2021 15:22:36 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Cc: yung-chuan.liao@linux.intel.com, Péter Ujfalusi <peter.ujfalusi@linux.intel.com>, pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, Hui Wang <hui.wang@canonical.com>, ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,16 +78,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 5 Nov 2021 10:09:25 +0100, Takashi Iwai wrote:
-> The recent fix for DAPM to correct the kctl change notification by the
-> commit 5af82c81b2c4 ("ASoC: DAPM: Fix missing kctl change
-> notifications") caused other regressions since it changed the behavior
-> of snd_soc_dapm_set_pin() that is called from several API functions.
-> Formerly it returned always 0 for success, but now it returns 0 or 1.
+On Fri, 5 Nov 2021 13:16:55 +0200, Kai Vehmanen wrote:
+> If codec is in runtime suspend, but controller is not, hotplug events
+> are missed as the codec has no way to alert the controller. Problem does
+> not occur if both controller and codec are active, or when both are
+> suspended.
 > 
-> This patch addresses it, restoring the old behavior of
-> snd_soc_dapm_set_pin() while keeping the fix in
-> snd_soc_dapm_put_pin_switch().
+> An easy way to reproduce is to play an audio stream on one codec (e.g.
+> to HDMI/DP display codec), wait for other HDA codec to go to runtime
+> suspend, and then plug in a headset to the suspended codec. The jack
+> event is not reported correctly in this case. Another way to reproduce
+> is to force controller to stay active with
+> "snd_sof_pci.sof_pci_debug=0x1"
 > 
 > [...]
 
@@ -97,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: DAPM: Cover regression by kctl change notification fix
-      commit: 827b0913a9d9d07a0c3e559dbb20ca4d6d285a54
+[1/1] ASoC: SOF: Intel: hda: fix hotplug when only codec is suspended
+      commit: fd572393baf0350835e8d822db588f679dc7bcb8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

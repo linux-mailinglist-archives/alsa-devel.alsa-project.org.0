@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE84C44613C
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 10:15:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 846A4446140
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 10:16:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 736DD3E;
-	Fri,  5 Nov 2021 10:14:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 736DD3E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E77173E;
+	Fri,  5 Nov 2021 10:15:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E77173E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636103724;
-	bh=GiLPqAge2dsWNkkftcfd8a4ooEPgoVX3MBmUT/LdNAU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AUhiZGCuQrgbHEFEIc937jMFo/YA3RP3YMm7dczrD0eDQl9v+TA4cNm3qqfbLSy/Z
-	 V15FCYRLil39F9te3a85nqZ8EUt/4WeEYviRBCosR7bfH/IiH+vBUd/8MWP5OE+lTC
-	 mWNgzMpTzdvsleVdPx+LLrKHJ/A8mSOLiLbAPQD0=
+	s=default; t=1636103809;
+	bh=N+fS2/FWfSWACLWIGidYX5qCcjvzB2aq23w/ReEKAY8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ayxSKfrwVTkNp2Yi9Je1TMvz0XZN7jCIgKfdjPfaQFRunTdEFS+VRKUUixLLc9+HG
+	 FDzIEK6TvWfTdflkeTzgWYFwog1vB/wHHhD/if3X0j5x16kcZVjhURLIkxL8BUdQJ/
+	 5fZFtgXrvvfaqMDzWB9rC3l8YAV+Ye7OpWtDyXvk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA579F804B1;
-	Fri,  5 Nov 2021 10:14:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19CD0F8012A;
+	Fri,  5 Nov 2021 10:15:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64419F80279; Fri,  5 Nov 2021 10:14:05 +0100 (CET)
+ id E5822F8026A; Fri,  5 Nov 2021 10:15:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,48 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31078F8012A
- for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 10:13:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31078F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72A81F80148
+ for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 10:15:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72A81F80148
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="umHq1ME4"; 
+ header.b="cVyc1aPL"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="HqZBUBZP"
+ header.b="E8nBqbRR"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 007571FD36;
- Fri,  5 Nov 2021 09:13:59 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id C8EAA1FD33;
+ Fri,  5 Nov 2021 09:15:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636103639; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JgTYwQBkTP0N/BiWHVP1GDmsFIEQP6KHCRn1HeuAnNI=;
- b=umHq1ME4T7FAgSSJRy5z4f11O3etx2ncn3vSPbCsshBEJViOURR79wGpqEYpfU0L2sl8fp
- 0Gz+DwYYHTbrQcyz+mdf4pXI3a+CBNe5CM/95sGqsZ8AwiHov7te3Y8a36cTHWgUrVlB/q
- wYYp5mL0XgAMqRib/kSoNrSuFXvhrLA=
+ t=1636103718; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EPlXW56q6X3EX4uVauMyFslZfzhPE5RKeAL9JGg4KAQ=;
+ b=cVyc1aPLXCgZrWWiXl3H+MUcBZGMoKdKSDSwm/glHweb9i25Y36FL0yiLHBH/Oov9/bq0D
+ zcByFyvhOoGGKsIF4jk0mXkDqXd1yhcL/3HJw0SgzEStSxu7uCoM54w+z41I1Nizf5mV1d
+ n+/uCozLeErSaMRD6Vuww/Nn2r4WdPM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636103639;
+ s=susede2_ed25519; t=1636103718;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JgTYwQBkTP0N/BiWHVP1GDmsFIEQP6KHCRn1HeuAnNI=;
- b=HqZBUBZPf1agJ4Na8MSEnIlUIR5lkBnLqmjeU6NMlz8PfDjrXzVSKDkNoU7iHtW9pKoSVP
- AFVdjoSYhus9ztCw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id DF6822C144;
- Fri,  5 Nov 2021 09:13:58 +0000 (UTC)
-Date: Fri, 05 Nov 2021 10:13:58 +0100
-Message-ID: <s5ha6ijge21.wl-tiwai@suse.de>
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EPlXW56q6X3EX4uVauMyFslZfzhPE5RKeAL9JGg4KAQ=;
+ b=E8nBqbRRdhCPg5LA175YKW65AKl+7MDWvVzq7bq+Vz1Ze2aAvzuOrhZvOnPKLiaKyPIH1q
+ 8gHrJbK0vmN03TDQ==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C23F42C154;
+ Fri,  5 Nov 2021 09:15:18 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ALSA: timer: Unconditionally unlink slave instances, too
-In-Reply-To: <20211103160707.21928-1-tiwai@suse.de>
-References: <20211103160707.21928-1-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+Subject: [PATCH v2] ALSA: timer: Unconditionally unlink slave instances, too
+Date: Fri,  5 Nov 2021 10:15:17 +0100
+Message-Id: <20211105091517.21733-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Cc: Wang Wensheng <wangwensheng4@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -92,20 +85,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 03 Nov 2021 17:07:07 +0100,
-Takashi Iwai wrote:
-> 
-> Like the previous fix (commit c0317c0e8709 "ALSA: timer: Fix
-> use-after-free problem"), we have to unlink slave timer instances
-> immediately at snd_timer_stop(), too.  Otherwise it may leave a stale
-> entry in the list if the slave instance is freed before actually
-> running.
-> 
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Like the previous fix (commit c0317c0e8709 "ALSA: timer: Fix
+use-after-free problem"), we have to unlink slave timer instances
+immediately at snd_timer_stop(), too.  Otherwise it may leave a stale
+entry in the list if the slave instance is freed before actually
+running.
 
-This patch changed the behavior of snd_timer_stop_slav(), it doesn't
-return -EBUSY.  I'll submit the revised patch to cover that, too.
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+v1->v2: return -EBUSY again if the instance isn't running
 
+ sound/core/timer.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-Takashi
+diff --git a/sound/core/timer.c b/sound/core/timer.c
+index 4f9bab931951..b3214baa8919 100644
+--- a/sound/core/timer.c
++++ b/sound/core/timer.c
+@@ -665,23 +665,22 @@ static int snd_timer_stop1(struct snd_timer_instance *timeri, bool stop)
+ static int snd_timer_stop_slave(struct snd_timer_instance *timeri, bool stop)
+ {
+ 	unsigned long flags;
++	bool running;
+ 
+ 	spin_lock_irqsave(&slave_active_lock, flags);
+-	if (!(timeri->flags & SNDRV_TIMER_IFLG_RUNNING)) {
+-		spin_unlock_irqrestore(&slave_active_lock, flags);
+-		return -EBUSY;
+-	}
++	running = timeri->flags & SNDRV_TIMER_IFLG_RUNNING;
+ 	timeri->flags &= ~SNDRV_TIMER_IFLG_RUNNING;
+ 	if (timeri->timer) {
+ 		spin_lock(&timeri->timer->lock);
+ 		list_del_init(&timeri->ack_list);
+ 		list_del_init(&timeri->active_list);
+-		snd_timer_notify1(timeri, stop ? SNDRV_TIMER_EVENT_STOP :
+-				  SNDRV_TIMER_EVENT_PAUSE);
++		if (running)
++			snd_timer_notify1(timeri, stop ? SNDRV_TIMER_EVENT_STOP :
++					  SNDRV_TIMER_EVENT_PAUSE);
+ 		spin_unlock(&timeri->timer->lock);
+ 	}
+ 	spin_unlock_irqrestore(&slave_active_lock, flags);
+-	return 0;
++	return running ? 0 : -EBUSY;
+ }
+ 
+ /*
+-- 
+2.26.2
+

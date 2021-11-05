@@ -2,60 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B39AE445DF6
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 03:30:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1012C445E2B
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 04:00:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 357CF167D;
-	Fri,  5 Nov 2021 03:29:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 357CF167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 837E71688;
+	Fri,  5 Nov 2021 03:59:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 837E71688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636079430;
-	bh=HZhfilTyIQxxbdhvU7wa0t5UrvePY3KrVxD8+Mq5aMk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OgCY5k8N6vappIq84/enYR3pvE29omSLKoTmCkPcOBJjw3KbMTEFVzXg37cWsH1Ew
-	 tgd63HPBn6ZRqNF+F3NGNM6sMKfYcY3lLLX3tR5XFqGxrH1zVF3/oAOg8fDt7L69z7
-	 xQrNx8H0BuV+MTc7r9VFfSLU0ZByWyWyOyGiIvqw=
+	s=default; t=1636081225;
+	bh=2SMivJVrGyIv6Sj47KXreRY9HtzgtAR/28R1v/HhQ0w=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IRAYZrJnColLuUs4pUFwQECjGPD3FsvS0OtJvgR3muuKwKx6bPIBJi9edFLQF/uDD
+	 wxTSYyOMBhQwLmkF/etCH1SsZ25ov6uf0HuTvXZs3Go1YFtovzzAJ6FMVgGQGcCuGR
+	 5SN0y00E0n33YeQOKv6XQ0Z8On+Abhe0sbJhKxUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88B67F80510;
-	Fri,  5 Nov 2021 03:27:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61DD7F80279;
+	Fri,  5 Nov 2021 03:59:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 335B6F80508; Fri,  5 Nov 2021 03:27:30 +0100 (CET)
+ id 21DF1F8026A; Fri,  5 Nov 2021 03:59:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74B4EF804EC
- for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 03:27:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74B4EF804EC
-X-IronPort-AV: E=McAfee;i="6200,9189,10158"; a="231678154"
-X-IronPort-AV: E=Sophos;i="5.87,210,1631602800"; d="scan'208";a="231678154"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 19:27:22 -0700
-X-IronPort-AV: E=Sophos;i="5.87,210,1631602800"; d="scan'208";a="501786519"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2021 19:27:20 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Subject: [PATCH 9/9] ASoC: Intel: sof_sdw: Add support for SKU 0B12 product
-Date: Fri,  5 Nov 2021 10:26:46 +0800
-Message-Id: <20211105022646.26305-10-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211105022646.26305-1-yung-chuan.liao@linux.intel.com>
-References: <20211105022646.26305-1-yung-chuan.liao@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1391F8012A
+ for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 03:58:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1391F8012A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="iZejZ489"
+Received: by mail-wr1-x42f.google.com with SMTP id u1so11515012wru.13
+ for <alsa-devel@alsa-project.org>; Thu, 04 Nov 2021 19:58:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=2SMivJVrGyIv6Sj47KXreRY9HtzgtAR/28R1v/HhQ0w=;
+ b=iZejZ489uiEwNswIoDkxrSm1+hw5nmku820vv0pNVbcybdvGBOgnZyMAAV05+CbiZ0
+ CgCnBQxYMdcbz1GEOtA/mcJdiosFSbS+gzmF3KlfIehaq2SFsxj/kbG+CbhQSHwe2mg7
+ E0Y05n0yUgpQ6SFVepO8Ojj6aNpZnDWtbN/EM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=2SMivJVrGyIv6Sj47KXreRY9HtzgtAR/28R1v/HhQ0w=;
+ b=4u/HzPIN7Bbg6VrCp0GKSHFyE98cj9diQTrKjPh6bq84obf6pV8bOFH8ZSWJMmykGI
+ PT0fhUZgGf/F7I/H+I64pjSr2rKAEQiWOOiO8H3xLxvqzQYG8ErP6d4sEjZbUVbhvl/l
+ qE/hxOhpwNOdVgwEuDdhV7YKfdo23FOag7BvYCA6TjN6H3+Y99VSQzdvAqfffVokgWyH
+ jLWuLjJSb0nWi9WSDB6snwu+TdatDL6EGSPJIYYSEA/wWG428u36lTdDv2WozNwgNdWE
+ 6gSE5LeZ/TE0HCGFTt423hYR/nYc0H69Q5YHLrkNb0YhMkhCicBcs7uWsKMmud1LT7cm
+ 6+Tg==
+X-Gm-Message-State: AOAM532A4LQ/yCDz5HMcea7HUD/4TDUIGgwaI9nivda4lJDMf9GatQQg
+ jGaCWN7qZNPCkCmAAu5CNn1ULeL722RibiHymQGPdQ==
+X-Google-Smtp-Source: ABdhPJzjcue2lVuH417mbsk7UkEQX22jLjG/F1yh9i56YE31+rFNKNCx8CpilsELVFf1++MVNbxtuewea7RT3+/g7UI=
+X-Received: by 2002:a5d:6d8c:: with SMTP id l12mr28590662wrs.435.1636081137136; 
+ Thu, 04 Nov 2021 19:58:57 -0700 (PDT)
+MIME-Version: 1.0
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Date: Fri, 5 Nov 2021 10:58:46 +0800
+Message-ID: <CAGvk5PoVp7LoFbaq93_F0Mf9xHzOqSt-HpK0gYh4WMAHrJ6vag@mail.gmail.com>
+Subject: The regression caused by snd_soc_dapm_enable_pin
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,41 +85,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Gongjun Song <gongjun.song@intel.com>
+Hi Takashi,
 
-This product supports a SoundWire headset codec, SoundWire
-capture from local microphones and two SoundWire amplifiers.
+The patch 5af82c81b2c49cfb1cad84d9eb6eab0e3d1c4842(ASoC: DAPM: Fix
+missing kctl change notifications) caused the regression on some
+ChromeBook.
 
-Signed-off-by: Libin Yang <libin.yang@intel.com>
-Signed-off-by: Gongjun Song <gongjun.song@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/intel/boards/sof_sdw.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+The reason is that some drivers check the return value of
+snd_soc_dapm_enable_pin, like kabylake_ssp0_trigger(Which caused a
+regression). In addition, some SOF drivers may be also affected by
+this change(e.g. sof_sdw_max98373.c). Could you help to fix it?
+Thanks.
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index bfbdda323b87..77219c3f8766 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -288,6 +288,16 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
- 					RT711_JD2 |
- 					SOF_SDW_FOUR_SPK),
- 	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0B12")
-+		},
-+		.driver_data = (void *)(SOF_SDW_TGL_HDMI |
-+					RT711_JD2 |
-+					SOF_SDW_FOUR_SPK),
-+	},
- 	{
- 		.callback = sof_sdw_quirk_cb,
- 		.matches = {
--- 
-2.17.1
-
+Best,
+Yu-Hsuan

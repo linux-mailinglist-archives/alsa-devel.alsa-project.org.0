@@ -2,70 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C726446982
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 21:16:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90120446981
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Nov 2021 21:15:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 564281699;
-	Fri,  5 Nov 2021 21:15:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 564281699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F81F1685;
+	Fri,  5 Nov 2021 21:14:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F81F1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636143365;
-	bh=BfJkmp/zQUz58AjoefSLkKZ/YEytniomZ7ATR4zR/dk=;
+	s=default; t=1636143342;
+	bh=LSAMD4csi9LYb+2Qq3f88TWLgN3S61nRAGU8TYjsLjM=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jrokU6RyPgdW0nopuggMCmJQAasGXTds9C8GNnM1tDS8ZOGqoG32f/cjJFz3MBfZb
-	 QEGnk0HHr9DiH81mhWBijIJEcljvydWaWZulDkFKjgq8BOnJYXzBjCJQ2N/KSiJ9hv
-	 8jC587vTI8j1fENB3EolqvdYSGGDcvV2jEkCVZI0=
+	b=bkeVE3woN+11zRxr10w5YGaU/0vr9g3pVIvdFTBnK1AlpOn1bo6JZ5IjyxJ+4Xzk+
+	 w0M3SCnqxp0L3oVpX7yT9CWsxjYJjaMwTpG0XIFhOF7BVvfBbqdeQvFHdnFROdFngD
+	 MOADBQWLONEaYA0TcsVnDEXe++52Tv0ZlV0jV0RA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FD75F804B1;
-	Fri,  5 Nov 2021 21:14:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 641EBF80148;
+	Fri,  5 Nov 2021 21:14:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDDD9F8026A; Fri,  5 Nov 2021 21:14:23 +0100 (CET)
+ id 1FDCAF80279; Fri,  5 Nov 2021 21:14:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06FDBF80148
- for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 21:14:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06FDBF80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 862B3F80224
+ for <alsa-devel@alsa-project.org>; Fri,  5 Nov 2021 21:14:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 862B3F80224
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="neJH8bau"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 95DD56108F;
- Fri,  5 Nov 2021 20:14:11 +0000 (UTC)
+ header.b="hUHYVV8k"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 17CEC61183;
+ Fri,  5 Nov 2021 20:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636143253;
- bh=BfJkmp/zQUz58AjoefSLkKZ/YEytniomZ7ATR4zR/dk=;
+ s=k20201202; t=1636143255;
+ bh=LSAMD4csi9LYb+2Qq3f88TWLgN3S61nRAGU8TYjsLjM=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=neJH8bauoAdPDOcCsijwl4LUlljFlHGa6hlx/RGRvD81oLSiHUFYAYb8vR1GLk3oa
- gCI2fpW3IGK0SWqCXJQCRkBzlCLrWA3aERn39UuttW4lrbF4CTYtknU0hepaXmpT7O
- G40+YRqq6hbCO2fs49deGTimDZThoqK8b8Besbj5hIT4XTsvXUGA4yuOR0+d8iY+Gs
- c/UozEcRJK4ywA6hxN9yOdUmeLCsca924RYw9Y9Ip2jZsKsXoesK3ndna+tbdap32t
- 90PjjJOhw2VwMP7M/mveTlZpdwTkKkQdoiR6MLiIGVsQe4JdsRmTGbnWwgJnRQe7s3
- x3wFHU6rYk7iw==
+ b=hUHYVV8kqKPAb/85qkCgZqkzvHDOVfURm3L/Ef+hGYJnQ6wBBAhdy37CPwEhswmYZ
+ zm6cNHaozYk6RPaG0aUZOoEbMzipDXBiBQdYCUA52rNNyBtoaTWoO5vBEJro4yBlQo
+ W1G7g+yZpalD3G7yAkLDM0WFsrKtmGUM4LC6KfU49/o4ldNJ5cxAsVCHtFsMYUS8fe
+ cw/Y1Xe9Vh33UxejeeWRtofruW5l8gTXmOgQVGcAzS9y8tQ+M1y74MTLgEZheyLvt3
+ Aof2znEUZKxYe0ueRv475Xwb7z1jysWUJnWveAc//qYbrmhunIasxEiRniarvC/k0b
+ W4+qUqTGlZMoA==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20211105152013.75252-1-angelogioacchino.delregno@collabora.com>
-References: <20211105152013.75252-1-angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8173-rt5650: Rename Speaker control to
- Ext Spk
-Message-Id: <163614325129.3446536.8434137401670448140.b4-ty@kernel.org>
-Date: Fri, 05 Nov 2021 20:14:11 +0000
+To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20211105022646.26305-1-yung-chuan.liao@linux.intel.com>
+References: <20211105022646.26305-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 0/9] ASoC: Ietel: Add Dell ADL products support
+Message-Id: <163614325381.3446536.13120847316924354587.b4-ty@kernel.org>
+Date: Fri, 05 Nov 2021 20:14:13 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- kernel@collabora.com, linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,14 +79,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 5 Nov 2021 16:20:13 +0100, AngeloGioacchino Del Regno wrote:
-> Some RT5645 and RT5650 powered platforms are using "Ext Spk"
-> instead of "Speaker", and this is also reflected in alsa-lib
-> configurations for the generic RT5645 usecase manager configs.
+On Fri, 5 Nov 2021 10:26:37 +0800, Bard Liao wrote:
+> This series adds configurations for Dell ADL products.
 > 
-> Rename the "Speaker" control to "Ext Spk" in order to be able
-> to make the userspace reuse/inherit the same configurations also
-> for this machine, along with the others.
+> Gongjun Song (9):
+>   ASoC: Intel: sof_sdw: Add support for SKU 0AF3 product
+>   ASoC: Intel: soc-acpi: add SKU 0AF3 SoundWire configuration
+>   ASoC: Intel: sof_sdw: Add support for SKU 0B00 and 0B01 products
+>   ASoC: Intel: sof_sdw: Add support for SKU 0B11 product
+>   ASoC: Intel: sof_sdw: Add support for SKU 0B13 product
+>   ASoC: Intel: soc-acpi: add SKU 0B13 SoundWire configuration
+>   ASoC: Intel: sof_sdw: Add support for SKU 0B29 product
+>   ASoC: Intel: soc-acpi: add SKU 0B29 SoundWire configuration
+>   ASoC: Intel: sof_sdw: Add support for SKU 0B12 product
 > 
 > [...]
 
@@ -98,8 +101,24 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8173-rt5650: Rename Speaker control to Ext Spk
-      commit: 0a8facac0d1e38dc8b86ade6d3f0d8b33dae7c58
+[1/9] ASoC: Intel: sof_sdw: Add support for SKU 0AF3 product
+      commit: 8f4fa45982b3f2daf5b3626ca0f12bde735f31ff
+[2/9] ASoC: Intel: soc-acpi: add SKU 0AF3 SoundWire configuration
+      commit: a1797d61cb35848432867a5bc294ce43058b5ead
+[3/9] ASoC: Intel: sof_sdw: Add support for SKU 0B00 and 0B01 products
+      commit: cf304329e4afb97ffabce232eadaba94f025641d
+[4/9] ASoC: Intel: sof_sdw: Add support for SKU 0B11 product
+      commit: 6fef4c2f458680399b7c512cb810c1e1784d7444
+[5/9] ASoC: Intel: sof_sdw: Add support for SKU 0B13 product
+      commit: 6448d0596e48dbc16a910f04ffc248c3f3c0a65c
+[6/9] ASoC: Intel: soc-acpi: add SKU 0B13 SoundWire configuration
+      commit: 11e18f582c14fdf08f52d99d439d2b82d98ac37d
+[7/9] ASoC: Intel: sof_sdw: Add support for SKU 0B29 product
+      commit: 0c2ed4f03f0bfe2be34efbabbebe9875c3aa9ca9
+[8/9] ASoC: Intel: soc-acpi: add SKU 0B29 SoundWire configuration
+      commit: 359ace2b9a411c3bd4b89fdc56f8b60e0f6696d2
+[9/9] ASoC: Intel: sof_sdw: Add support for SKU 0B12 product
+      commit: f55af7055cd465f6b767a0c1126977d4529c63c8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

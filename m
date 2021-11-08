@@ -2,94 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C471449880
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Nov 2021 16:34:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0EBE4497E2
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Nov 2021 16:12:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC8C51687;
-	Mon,  8 Nov 2021 16:33:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC8C51687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21CA91661;
+	Mon,  8 Nov 2021 16:11:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21CA91661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636385680;
-	bh=q/Gasl2Ve4BAgo9eU4Tvn7Z8xIWuAEq/+iFz7tkzSV4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iuZAiEjxkmS/AJClK1lVKil52VWfdr9u2HJFORQalQraQPcc1X6lzwSpCxHLztYiY
-	 a5nKgHfJyWVKOZMlv5Lc8MAMZ4HIKtFkNRUziQexjUAM2jmiFtAd2pE3ps9TTZcRDh
-	 uA/U3rqwqdHJS5Wf59kKd0NJ4PE/oNvm0WvSlSLM=
+	s=default; t=1636384348;
+	bh=dHeSDDHOv2k8Bj2t2gLKsIhG5xozzLXgoFVGFtvFCZc=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Vq8KRfBBLtysnyXSazhvZuovSAKgGNWLwl6mY3xsgoZmqg7SPkKMHSH7vn1diDphi
+	 JM2+J8wdO4gVfl/dHvlRY+Zm+MZmc7bT86Ykg6cHPOmYo0NHeIChf/h+bieZolEpMh
+	 ulHcO6OZjgvtJuGTACngF/8Mkr1ztUNwx6U6O+Yc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D291F8051F;
-	Mon,  8 Nov 2021 16:30:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78B2CF8007E;
+	Mon,  8 Nov 2021 16:11:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C6B1F8049E; Mon,  8 Nov 2021 15:36:03 +0100 (CET)
+ id 33432F8049E; Mon,  8 Nov 2021 16:11:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B03CF80107
- for <alsa-devel@alsa-project.org>; Mon,  8 Nov 2021 15:35:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B03CF80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 332ECF80107
+ for <alsa-devel@alsa-project.org>; Mon,  8 Nov 2021 16:11:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 332ECF80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=alien8.de header.i=@alien8.de
- header.b="Upd25Hzf"
-Received: from zn.tnic (p200300ec2f331100b486bab6e60d7aaf.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f33:1100:b486:bab6:e60d:7aaf])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 1A75E1EC01FC;
- Mon,  8 Nov 2021 15:35:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1636382156;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=B6oOQ1q4gjLTOu5usgfET43xDRmf4tLazw1TZ6CRXFw=;
- b=Upd25HzfEqhrG5TAXmV4X7VLTXjG+2mbIZvAcNaA5XdFGwWxC22cjGdH367SqKuC2YI35V
- XePkT+plNO8Rcdx9qRLbflORPHDjzc4q/HfinrM2oVoUmKJ3f3FbXqZbeiIVI7zzNRafCc
- NDGlsVX5pxz7i7hCYlNzvvCrAxbHbAs=
-Date: Mon, 8 Nov 2021 15:35:50 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: Alan Stern <stern@rowland.harvard.edu>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: [PATCH v0 00/42] notifiers: Return an error when callback is
- already registered
-Message-ID: <YYk1xi3eJdMJdjHC@zn.tnic>
-References: <20211108101157.15189-1-bp@alien8.de>
- <20211108101924.15759-1-bp@alien8.de>
- <20211108141703.GB1666297@rowland.harvard.edu>
- <YYkzJ3+faVga2Tl3@zn.tnic>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="un24smzd"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="fd+6zvqy"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id D4B4121639
+ for <alsa-devel@alsa-project.org>; Mon,  8 Nov 2021 15:10:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636384259; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=4wB4PaWkd7NDdG/Ydz/RHK5u7JUUyPIupaR/jGL6wGg=;
+ b=un24smzdZ4EnTtIPOVOE612pvWAEG7GzGC1zEMdTPRhL5lO2juWtaKZCbiVNXrF2dGdqbk
+ tcUBQ9cz0Q/GAQyplj+ZTHrlAy5G1INN6lBt8yo0Tjc2VT+t38XVlDTpgvrr+RmKiyH1yY
+ 8nDCVef//arwASpCl5yjXfvovZVF2ok=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636384259;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=4wB4PaWkd7NDdG/Ydz/RHK5u7JUUyPIupaR/jGL6wGg=;
+ b=fd+6zvqycJiG9jZnUHEljgY8f8wCfu1tjMAywGCW4BW9pjQT1aY//h6jN/lVaJocfXOsSB
+ Ar5Aa9O52cvCOfDg==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C3A49A3B87;
+ Mon,  8 Nov 2021 15:10:59 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: memalloc: Use proper SG helpers for noncontig
+ allocations
+Date: Mon,  8 Nov 2021 16:10:59 +0100
+Message-Id: <20211108151059.31898-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <YYkzJ3+faVga2Tl3@zn.tnic>
-X-Mailman-Approved-At: Mon, 08 Nov 2021 16:29:18 +0100
-Cc: alsa-devel@alsa-project.org, x86@kernel.org, linux-sh@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-mips@vger.kernel.org,
- netdev@vger.kernel.org, Ayush Sawal <ayush.sawal@chelsio.com>,
- sparclinux@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, Rohit Maheshwari <rohitm@chelsio.com>,
- linux-staging@lists.linux.dev, bcm-kernel-feedback-list@broadcom.com,
- xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
- Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Vinay Kumar Yadav <vinay.yadav@chelsio.com>,
- linux-um@lists.infradead.org, Steven Rostedt <rostedt@goodmis.org>,
- rcu@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-tegra@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, intel-gvt-dev@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
- linux-parisc@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- linux-renesas-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-alpha@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,63 +85,101 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Nov 08, 2021 at 03:24:39PM +0100, Borislav Petkov wrote:
-> I guess I can add another indirection to notifier_chain_register() and
-> avoid touching all the call sites.
+The recently introduced non-contiguous page allocation support helpers
+are using the simplified code to calculate the page and DMA address
+based on the vmalloc helpers, but this isn't quite right as the vmap
+is valid only for the direct DMA.
 
-IOW, something like this below.
+This patch corrects those accessors to use the proper SG helpers
+instead.
 
-This way I won't have to touch all the callsites and the registration
-routines would still return a proper value instead of returning 0
-unconditionally.
-
+Fixes: a25684a95646 ("ALSA: memalloc: Support for non-contiguous page allocation")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
-diff --git a/kernel/notifier.c b/kernel/notifier.c
-index b8251dc0bc0f..04f08b2ef17f 100644
---- a/kernel/notifier.c
-+++ b/kernel/notifier.c
-@@ -19,14 +19,12 @@ BLOCKING_NOTIFIER_HEAD(reboot_notifier_list);
-  *	are layered on top of these, with appropriate locking added.
-  */
- 
--static int notifier_chain_register(struct notifier_block **nl,
--		struct notifier_block *n)
-+static int __notifier_chain_register(struct notifier_block **nl,
-+				     struct notifier_block *n)
- {
- 	while ((*nl) != NULL) {
--		if (unlikely((*nl) == n)) {
--			WARN(1, "double register detected");
--			return 0;
--		}
-+		if (unlikely((*nl) == n))
-+			return -EEXIST;
- 		if (n->priority > (*nl)->priority)
- 			break;
- 		nl = &((*nl)->next);
-@@ -36,6 +34,18 @@ static int notifier_chain_register(struct notifier_block **nl,
- 	return 0;
+ sound/core/memalloc.c | 64 +++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 61 insertions(+), 3 deletions(-)
+
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index ad4a76b47b92..8c362bb5b81a 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -552,15 +552,73 @@ static void snd_dma_noncontig_sync(struct snd_dma_buffer *dmab,
+ 	}
  }
  
-+static int notifier_chain_register(struct notifier_block **nl,
-+				   struct notifier_block *n)
++static inline void snd_dma_noncontig_iter_set(struct snd_dma_buffer *dmab,
++					      struct sg_page_iter *piter,
++					      size_t offset)
 +{
-+	int ret = __notifier_chain_register(nl, n);
++	struct sg_table *sgt = dmab->private_data;
 +
-+	if (ret == -EEXIST)
-+		WARN(1, "double register of notifier callback %ps detected",
-+			n->notifier_call);
-+
-+	return ret;
++	__sg_page_iter_start(piter, sgt->sgl, sgt->orig_nents,
++			     offset >> PAGE_SHIFT);
 +}
 +
- static int notifier_chain_unregister(struct notifier_block **nl,
- 		struct notifier_block *n)
- {
-
-
++static dma_addr_t snd_dma_noncontig_get_addr(struct snd_dma_buffer *dmab,
++					     size_t offset)
++{
++	struct sg_dma_page_iter iter;
++
++	snd_dma_noncontig_iter_set(dmab, &iter.base, offset);
++	__sg_page_iter_dma_next(&iter);
++	return sg_page_iter_dma_address(&iter) + offset % PAGE_SIZE;
++}
++
++static struct page *snd_dma_noncontig_get_page(struct snd_dma_buffer *dmab,
++					       size_t offset)
++{
++	struct sg_page_iter iter;
++
++	snd_dma_noncontig_iter_set(dmab, &iter, offset);
++	__sg_page_iter_next(&iter);
++	return sg_page_iter_page(&iter);
++}
++
++static unsigned int
++snd_dma_noncontig_get_chunk_size(struct snd_dma_buffer *dmab,
++				 unsigned int ofs, unsigned int size)
++{
++	struct sg_dma_page_iter iter;
++	unsigned int start, end;
++	unsigned long addr;
++
++	start = ALIGN_DOWN(ofs, PAGE_SIZE);
++	end = ofs + size - 1; /* the last byte address */
++	snd_dma_noncontig_iter_set(dmab, &iter.base, start);
++	if (!__sg_page_iter_dma_next(&iter))
++		return 0;
++	/* check page continuity */
++	addr = sg_page_iter_dma_address(&iter);
++	for (;;) {
++		start += PAGE_SIZE;
++		if (start > end)
++			break;
++		addr += PAGE_SIZE;
++		if (!__sg_page_iter_dma_next(&iter) ||
++		    sg_page_iter_dma_address(&iter) != addr)
++			return start - ofs;
++	}
++	/* ok, all on continuous pages */
++	return size;
++}
++
+ static const struct snd_malloc_ops snd_dma_noncontig_ops = {
+ 	.alloc = snd_dma_noncontig_alloc,
+ 	.free = snd_dma_noncontig_free,
+ 	.mmap = snd_dma_noncontig_mmap,
+ 	.sync = snd_dma_noncontig_sync,
+ 	/* re-use vmalloc helpers for get_* ops */
+-	.get_addr = snd_dma_vmalloc_get_addr,
+-	.get_page = snd_dma_vmalloc_get_page,
+-	.get_chunk_size = snd_dma_vmalloc_get_chunk_size,
++	.get_addr = snd_dma_noncontig_get_addr,
++	.get_page = snd_dma_noncontig_get_page,
++	.get_chunk_size = snd_dma_noncontig_get_chunk_size,
+ };
+ 
+ /*
 -- 
-Regards/Gruss,
-    Boris.
+2.26.2
 
-https://people.kernel.org/tglx/notes-about-netiquette

@@ -2,81 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FCF5447FDD
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Nov 2021 13:51:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B31447FF3
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Nov 2021 13:57:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8012165D;
-	Mon,  8 Nov 2021 13:50:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8012165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C446165D;
+	Mon,  8 Nov 2021 13:56:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C446165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636375900;
-	bh=L/GG+8lkvXTSVWf/+skD3ID+KNMIVbeskvQKAuOj8h4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1636376264;
+	bh=sHUzkFv4Hsm9d2ZykQINs6urj6ai6c6PP/T8+zHneuA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bVeNwkkjUSc9DvElidzmqH6GWTAHn6Pmo1abC8NXSTSohoNpzDkjoT9XFoZLkzSjX
-	 EpYxyehxILRIa/SqHJl1Pl1eG/YHswsPuM8uR38SoqxXDitRbZDqlMc0aDP3tUkPAR
-	 5j23FIiuuKhsf0vUlSaqOp95tK3y9JPo/veF31iQ=
+	b=kLH0mHgK7errDKHQ3l3nSMGhTStmls1sI047o6mHUtUeyf9kL0FEunwjet4S9oCdf
+	 QwyAERZkHHV4Z57q63JVmrvU0XgZEJIg5sA5eieZI9fpvICvshVCSf8yXNQYQMb9wV
+	 odq7oJS8shoZPn6tSjzqsHsecvvhkTBi3biZbH8w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43E63F804B1;
-	Mon,  8 Nov 2021 13:50:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB821F8007E;
+	Mon,  8 Nov 2021 13:56:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB390F8049E; Mon,  8 Nov 2021 13:50:14 +0100 (CET)
+ id 618D1F8049E; Mon,  8 Nov 2021 13:56:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D799F8007E
- for <alsa-devel@alsa-project.org>; Mon,  8 Nov 2021 13:50:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D799F8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3DB9F8007E
+ for <alsa-devel@alsa-project.org>; Mon,  8 Nov 2021 13:56:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3DB9F8007E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="m0W/HeDB"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="h/H+MQE0"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 47E001FD73;
- Mon,  8 Nov 2021 12:50:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636375806; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NmkwOV2A9u2JKfXV49s3fsJp+CbdVlMuyqM5KRYgaFU=;
- b=m0W/HeDBc7Pakuu0M/59HDQK/9tKize4HM05dxexm9llah7KKAZqzep5TldODHYg0gJluj
- Xw5iW4RfIDpACaMINJlxdUocxLSvLClZSMdTVmG/ksVT26zyTHa5/wV52aZfswjIssx96+
- Sf2szlvo82bE5cBz5MLx+rSRltyQnYs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636375806;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NmkwOV2A9u2JKfXV49s3fsJp+CbdVlMuyqM5KRYgaFU=;
- b=h/H+MQE02eJUARq24MpxKivpoV0fKyLYGqxcdqfR2OKdbBbihXBQfa4FQhlUNQHCk2Ri9j
- ohMe4lfZS/S/sBCA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3769FA3B83;
- Mon,  8 Nov 2021 12:50:06 +0000 (UTC)
-Date: Mon, 08 Nov 2021 13:50:06 +0100
-Message-ID: <s5ha6iedd6p.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: firewire-motu: add support for MOTU Track 16
-In-Reply-To: <20211107110644.23511-1-o-takashi@sakamocchi.jp>
-References: <20211107110644.23511-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ZE4Fi2WX"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8E7D5610C8;
+ Mon,  8 Nov 2021 12:56:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1636376174;
+ bh=sHUzkFv4Hsm9d2ZykQINs6urj6ai6c6PP/T8+zHneuA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZE4Fi2WXKqU41O0yP4oFdly4C0HJytU41bf7HTVqAxwGMJdAhCd0NQlVBBGXDVUez
+ b4WOlbts3LuevL8yYBOE0GCSHZeFFb+TM9wrAQBlvZ9JzV9K7sVnweTGCVFoSQA1ST
+ bc1ff0l+PK0ZhABSGkz6tUR3XRuSIW4AYCNLbArAfZ50Ebz24ztO+8RyeGPm67qSoi
+ TM8v6NkM7rjTWp15EelNPETz0SoI7yp5lKv3gc1akcfj6LrJnQ64ptR03kIsdDI/mA
+ daytcpJq6aiYVIsg0CGm18/FPNL9wL1vT4hIvOpscR12yWd1x8t9pTxBUVRhUVKZfS
+ X4ATUBGekgc3A==
+Date: Mon, 8 Nov 2021 12:56:09 +0000
+From: Mark Brown <broonie@kernel.org>
+To: "Chiang, Mac" <mac.chiang@intel.com>
+Subject: Re: [PATCH v2] ASoC: Intel: add sof-nau8825 machine driver
+Message-ID: <YYkeaUfIOQZC03Cn@sirena.org.uk>
+References: <20211101110050.28384-1-mac.chiang@intel.com>
+ <31ae486f-7d0e-30a8-ea55-7cdf70a76020@linux.intel.com>
+ <PH0PR11MB5832F3AFC273BB4FBE0812F484919@PH0PR11MB5832.namprd11.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="unVRdwLPh28OZGZP"
+Content-Disposition: inline
+In-Reply-To: <PH0PR11MB5832F3AFC273BB4FBE0812F484919@PH0PR11MB5832.namprd11.prod.outlook.com>
+X-Cookie: Kleeneness is next to Godelness.
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "kai.vehmanen@linux.intel.com" <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>,
+ "CTLIN0@nuvoton.com" <CTLIN0@nuvoton.com>, "Liao, Bard" <bard.liao@intel.com>,
+ "M R, Sathya Prakash" <sathya.prakash.m.r@intel.com>, "Gopal,
+ Vamshi Krishna" <vamshi.krishna.gopal@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,64 +87,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 07 Nov 2021 12:06:44 +0100,
-Takashi Sakamoto wrote:
-> 
-> Mark of the Unicorn designed Track 16 2011 as one of models in third
-> generation of its FireWire series. The model is already discontinued.
-> It consists of below ICs:
-> 
->  * Texas Instruments TSB41AB1
->  * Microchip (SMSC) USB3300
->  * Xilinx Spartan-3A FPGA, XC3S700A
->  * Texas Instruments TMS320C6722
->  * Microchip (Atmel) AT91SAM SAM7S512
-> 
-> It supports sampling transfer frequency up to 192.0 kHz. The packet
-> format differs depending on both of current sampling transfer frequency
-> and the type of signal in optical interfaces. The model supports
-> transmission of PCM frames as well as MIDI messages.
-> 
-> The model supports command mechanism to configure internal DSP. Hardware
-> meter information is available in the first 2 chunks of each data block
-> of tx packet.
-> 
-> This commit adds support for it.
-> 
-> $ cd linux-firewire-tools/src
-> $ python crpp < /sys/bus/firewire/devices/fw1/config_rom
->                ROM header and bus information block
->                -----------------------------------------------------------------
-> 400  04107d95  bus_info_length 4, crc_length 16, crc 32149
-> 404  31333934  bus_name "1394"
-> 408  20ff7000  irmc 0, cmc 0, isc 1, bmc 0, cyc_clk_acc 255, max_rec 7 (256)
-> 40c  0001f200  company_id 0001f2     |
-> 410  000a83c4  device_id 00000a83c4  | EUI-64 0001f200000a83c4
-> 
->                root directory
->                -----------------------------------------------------------------
-> 414  0004ef04  directory_length 4, crc 61188
-> 418  030001f2  vendor
-> 41c  0c0083c0  node capabilities per IEEE 1394
-> 420  d1000002  --> unit directory at 428
-> 424  8d000005  --> eui-64 leaf at 438
-> 
->                unit directory at 428
->                -----------------------------------------------------------------
-> 428  00035b04  directory_length 3, crc 23300
-> 42c  120001f2  specifier id
-> 430  13000039  version
-> 434  17102800  model
-> 
->                eui-64 leaf at 438
->                -----------------------------------------------------------------
-> 438  0002b25f  leaf_length 2, crc 45663
-> 43c  0001f200  company_id 0001f2     |
-> 440  000a83c4  device_id 00000a83c4  | EUI-64 0001f200000a83c4
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Thanks, applied now.
+--unVRdwLPh28OZGZP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Nov 08, 2021 at 10:28:22AM +0000, Chiang, Mac wrote:
 
-Takashi
+> Add Mark for comments, CC: Mark Brown <broonie@kernel.org>
+> Or I need to RESEND V2 with Acked-by:... in comment messages for your app=
+lying?
+
+As documented in submitting-patches.rst please send patches to the=20
+maintainers for the code you would like to change.  The normal kernel
+workflow is that people apply patches from their inboxes, if they aren't
+copied they are likely to not see the patch at all and it is much more
+difficult to apply patches.
+
+--unVRdwLPh28OZGZP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGJHmgACgkQJNaLcl1U
+h9DOCQf/emsG6M7uB1Gko/Ofqbzh7YPcGxxFSQSyCc7QzeSfSq4AK9/K7SUvG4D5
+EC6SWwAY1GVEhXFrjo8eZ+POyGHWYj78x5sf60y+dDZ9DKvcPznCUT4LJDSBs0Lw
+kT5bBdPwxugKExiH5Tb+Yz5JMKc5RpCbhNju8Lsg+N6rpJW0idmc+T9QckSqmPjN
+igjbip1/TBNEtvXOOnqNXDqIgjuW+05HO4+ukbur9Y7YGyrtkfIv/uCKshwRXCfT
+n2Wx7N8fxc5DgR97XrZ3BeAROgadUuLHWW44C1dMqZq8WwARkLz4M3ovhobkroCg
+7f6JTeSwn7uFR3x0Mq6dYT1ZEosXrA==
+=QW6w
+-----END PGP SIGNATURE-----
+
+--unVRdwLPh28OZGZP--

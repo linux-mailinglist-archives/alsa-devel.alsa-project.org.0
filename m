@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2361344B5F0
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:21:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4F5944B5F3
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:21:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F4661685;
-	Tue,  9 Nov 2021 23:20:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F4661685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72A161664;
+	Tue,  9 Nov 2021 23:20:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72A161664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636496482;
-	bh=tMpF6sRtb7jnAh7DhZkd89nBO5Qf/AhhWvMTNOESrGU=;
+	s=default; t=1636496500;
+	bh=VCaC17jN1Wdo8pslLCFMNYiBLgm38Es6DupVPPAR6a4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aM0egHwgiXYkwmgqaFtKT14BWFYlGFP1TgJjBBroEOwB1YJ3USBzYA21jANpwzqCL
-	 +ZnBh2GTBBbt7y1pUI5xMuzblgaqBRM9kmUZh4zrYFPgCNKlveDOWYa8uYR4JgR0Ho
-	 V66AkKGNqmcOV/zJxFPtIHxpnqgMOI59bWJ5mIAw=
+	b=ujeY67bdz6x5uAL86Jjsez5x2bMeAnY3Vct9/xc7sVmHqn1Qs+OpNRR5/SFllfIlA
+	 Xu/5FqsR8UAvGPCsAzo2XXivX1mcOb5ohs+Qqz9unVNtWjVsu4PAnqU9ZfEtyZYNnW
+	 MY1p0YEWWKXXAGy2StVt5peoxHbydRitHLzphmLU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 725E8F8051B;
-	Tue,  9 Nov 2021 23:18:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DF6AF8051E;
+	Tue,  9 Nov 2021 23:18:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EE84EF8051C; Tue,  9 Nov 2021 23:18:17 +0100 (CET)
+ id 2A31EF80518; Tue,  9 Nov 2021 23:18:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0039F80517
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:18:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0039F80517
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30FB9F800C1
+ for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:18:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30FB9F800C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kuQR8a5T"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5753F611BF;
- Tue,  9 Nov 2021 22:18:08 +0000 (UTC)
+ header.b="kHLC96OH"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DC18161208;
+ Tue,  9 Nov 2021 22:18:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636496289;
- bh=tMpF6sRtb7jnAh7DhZkd89nBO5Qf/AhhWvMTNOESrGU=;
+ s=k20201202; t=1636496291;
+ bh=VCaC17jN1Wdo8pslLCFMNYiBLgm38Es6DupVPPAR6a4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kuQR8a5THZGyntAgEbQ04g4+UxRyZy6DwpMMf9Nx2JhZ96PiqJq3bY4tSDtUTvRMo
- lsNCySUS0WTaDBOUG8QakcdQa+G8p+mrUK+xzqVexSWfqZF49avFVkDdN1x5gVIfFv
- eG3zNM9xKuGyteJBBSbE6Ourat0FmBU1LEiSi0QTr/BaYZRoWLapUe4fqwCIco86Sr
- IiBrRwdijue6XJEqnSex3a6K38ch30VAkTyQdJCml/RdZg+8gCjPAy7iUvv3AcZI3D
- BHHj3K7iFpEIZdpc1gbfFa3keDpCOJligmamUv/EJswkDrTpMrywjaO4Vll+KQ9Qz9
- 6iGgMuZk977CA==
+ b=kHLC96OHWYxsN/zx4Xc4xUVPgpBwiOriySwMToIo9MrqxeKv9Z9czRC2perfKTcq6
+ mdc9h90zwj0rJHhPK0eIiqJctPsZtgz5pgYDUr6AlfB8v/jqJK8o94h3/qKNxWZuDd
+ xPh3bvecOHoNUPgKxPGDRROkQRgCg9k9aGadFEHy4n+T46A0lgLiMcpTecfdfppPJV
+ gnphfCaeWtMm7dNjn3O5/u0HKjiuTHhu5gtaCgrnJXNoOeC2a5F16nc4XCPKh61P4W
+ hQdYnxFgvflgpQLV9EeQKjb+27mwsp7PI5IXRyCX8vbT/WpxyLL2OZgy8R3ATD7WU0
+ wYRJaCjCRthwQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 47/82] ASoC: Intel: soc-acpi: add missing quirk
- for TGL SDCA single amp
-Date: Tue,  9 Nov 2021 17:16:05 -0500
-Message-Id: <20211109221641.1233217-47-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 48/82] ASoC: Intel: sof_sdw: add missing quirk
+ for Dell SKU 0A45
+Date: Tue,  9 Nov 2021 17:16:06 -0500
+Message-Id: <20211109221641.1233217-48-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211109221641.1233217-1-sashal@kernel.org>
 References: <20211109221641.1233217-1-sashal@kernel.org>
@@ -88,87 +88,43 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit f2470679b070a77ea22f8b791fae7084c2340c7d ]
+[ Upstream commit 64ba6d2ce72ffde70dc5a1794917bf1573203716 ]
 
-We don't have a configuration for a single amp on link1.
+This device is based on SDCA codecs but with a single amplifier
+instead of two.
 
 BugLink: https://github.com/thesofproject/linux/issues/3161
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Bard Liao <bard.liao@intel.com>
-Link: https://lore.kernel.org/r/20211004213512.220836-5-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20211004213512.220836-6-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../intel/common/soc-acpi-intel-tgl-match.c   | 41 +++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ sound/soc/intel/boards/sof_sdw.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-index 785d5f5f8a9c9..11801b905ecc2 100644
---- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-@@ -156,6 +156,15 @@ static const struct snd_soc_acpi_adr_device rt711_sdca_0_adr[] = {
- 	}
- };
- 
-+static const struct snd_soc_acpi_adr_device rt1316_1_single_adr[] = {
-+	{
-+		.adr = 0x000131025D131601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt1316-1"
-+	}
-+};
-+
- static const struct snd_soc_acpi_adr_device rt1316_1_group1_adr[] = {
- 	{
- 		.adr = 0x000131025D131601ull, /* unique ID is set for some reason */
-@@ -320,6 +329,25 @@ static const struct snd_soc_acpi_link_adr tgl_3_in_1_sdca[] = {
- 	{}
- };
- 
-+static const struct snd_soc_acpi_link_adr tgl_3_in_1_sdca_mono[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt711_sdca_0_adr),
-+		.adr_d = rt711_sdca_0_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1316_1_single_adr),
-+		.adr_d = rt1316_1_single_adr,
-+	},
-+	{
-+		.mask = BIT(3),
-+		.num_adr = ARRAY_SIZE(rt714_3_adr),
-+		.adr_d = rt714_3_adr,
-+	},
-+	{}
-+};
-+
- static const struct snd_soc_acpi_codecs tgl_max98373_amp = {
- 	.num_codecs = 1,
- 	.codecs = {"MX98373"}
-@@ -412,6 +440,19 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_sdw_machines[] = {
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-tgl-rt711-rt1316-rt714.tplg",
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index 6b06248a9327a..f10496206ceed 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -213,6 +213,16 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
+ 					SOF_RT715_DAI_ID_FIX |
+ 					SOF_SDW_FOUR_SPK),
  	},
 +	{
-+		/*
-+		 * link_mask should be 0xB, but all links are enabled by BIOS.
-+		 * This entry will be selected if there is no rt1316 amplifier exposed
-+		 * on link2 since it will fail to match the above entry.
-+		 */
-+
-+		.link_mask = 0xF, /* 4 active links required */
-+		.links = tgl_3_in_1_sdca_mono,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-tgl-rt711-l0-rt1316-l1-mono-rt714-l3.tplg",
++		.callback = sof_sdw_quirk_cb,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0A45")
++		},
++		.driver_data = (void *)(SOF_SDW_TGL_HDMI |
++					RT711_JD2 |
++					SOF_RT715_DAI_ID_FIX),
 +	},
-+
+ 	/* AlderLake devices */
  	{
- 		.link_mask = 0x3, /* rt711 on link 0 and 1 rt1308 on link 1 */
- 		.links = tgl_hp,
+ 		.callback = sof_sdw_quirk_cb,
 -- 
 2.33.0
 

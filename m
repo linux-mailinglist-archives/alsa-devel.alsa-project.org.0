@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B23A44B73D
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:31:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1404344B73E
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:31:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8E1E15F2;
-	Tue,  9 Nov 2021 23:30:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8E1E15F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CC1616BE;
+	Tue,  9 Nov 2021 23:30:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CC1616BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636497062;
-	bh=KFya8t7XucbD4ytnXfZ1+zfqS0YsfWJVp8FuMTEXMeU=;
+	s=default; t=1636497079;
+	bh=dp4wwUseV5qUf5xSbC9F2O0f3tz/bFtGcn0p2CQcR9g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JIDrkYfie+UUnQ4IYVstsZ0bDeAgU+dnaR3B6BsuDSGrzjl5y3A0NyJRSQ40tBQyq
-	 YF92QhWAMPacnRvcqeC53AtRL5fVadcg9gyG1kWQh4N5O2VtgTWT9xQLymZQvHsavU
-	 AgMCdt2lyA5QWRWkDyfnyzI6rd6T3grYc2hY7U/Q=
+	b=dG1A3iDrZtNhtRvhsMdINgaC+BUD0EYRP+9x0ztOKzqhZWOyU0TlTe8ARS5OHn5rk
+	 sqJr41RxIGdJ4zKVbQVzMEwQbBxc7CfVO0rvz+1eGRVQMZpc5Aw6/eajl5L+i7bjVq
+	 ErKEzcf9hOJMQZcYLno+i5v7SLY4mC3cTLvx+5Aw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5E60F805B3;
-	Tue,  9 Nov 2021 23:23:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 689AAF804E7;
+	Tue,  9 Nov 2021 23:23:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7ADAF805B3; Tue,  9 Nov 2021 23:23:16 +0100 (CET)
+ id 6A3D6F804FA; Tue,  9 Nov 2021 23:23:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF5DDF804EB
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:23:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF5DDF804EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4635F804D0
+ for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:23:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4635F804D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="svj0Yn8B"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D45E661AFE;
- Tue,  9 Nov 2021 22:23:07 +0000 (UTC)
+ header.b="vJeXNmmJ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0585F61B24;
+ Tue,  9 Nov 2021 22:23:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636496588;
- bh=KFya8t7XucbD4ytnXfZ1+zfqS0YsfWJVp8FuMTEXMeU=;
+ s=k20201202; t=1636496606;
+ bh=dp4wwUseV5qUf5xSbC9F2O0f3tz/bFtGcn0p2CQcR9g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=svj0Yn8Bb75tJmRODhxIWgEX8vSBU4cWeevHrjGuxxHyAwM6Q/tfovAdwap6zfCT+
- 5JkFM9in2FHG/7gaTh8g34fUN+bwtgicFNHdqfDr4U/VFA5VE6dro1eajylejs1Tj5
- +HcRZlVGsKgopfg0gC8AcjXq6s/9koNLwl23kx0s4UIPtVzq0lak8wteMjDk+z2yPx
- ATkv0mMdC2CoQW2VJ89AcuI0VrmTTiupSOE5Yd/SXl4iI+ZhDLRPh6jocGQyX7nn2i
- b3qxaDIePmDzgAtRppNg4cLJ4o+NuHU6cD/awtibOhnYK+aspjvTOQXp7knsTyXPuD
- kPL543KEci5oA==
+ b=vJeXNmmJzHqqMULJen/ITNbyY3+J8fdWp57c9cJqL456GZw7IxlZtvUNx17PPnfFN
+ 9Tcy8GiiL9atwjdG/FpPaI15b2Pl/ccdfACtkfNUnwQuFBuBVORlz3LL/rAzOtMQMp
+ eEnb5nO+Q/CliLjB9ZLlG2OihTpZzMgw3R/hXWZwIw+8PhqiXMnp59wunYXvlQuLvS
+ 6GknzCYbI/NIBGoo/S1HsqRzILdT2JVhT/my+SB/3l/rdQ/wBq2/1OgcA2MWcZ7aaP
+ kcq07QQn7KKRbszUOZyjAoTRiE5TGzUuu7xFm2IP8qV+gkba2YriKZH60GrPWkJv/R
+ 75HTNWyXJP7tg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 29/30] ALSA: gus: fix null pointer dereference on
- pointer block
-Date: Tue,  9 Nov 2021 17:22:23 -0500
-Message-Id: <20211109222224.1235388-29-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 09/21] ASoC: nau8824: Add DMI quirk mechanism for
+ active-high jack-detect
+Date: Tue,  9 Nov 2021 17:22:58 -0500
+Message-Id: <20211109222311.1235686-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211109222224.1235388-1-sashal@kernel.org>
-References: <20211109222224.1235388-1-sashal@kernel.org>
+In-Reply-To: <20211109222311.1235686-1-sashal@kernel.org>
+References: <20211109222311.1235686-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
- Chengfeng Ye <cyeaa@connect.ust.hk>
+ tiwai@suse.com, lgirdwood@gmail.com, Hans de Goede <hdegoede@redhat.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,35 +83,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Chengfeng Ye <cyeaa@connect.ust.hk>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit a0d21bb3279476c777434c40d969ea88ca64f9aa ]
+[ Upstream commit 92d3360108f1839ca40451bad20ff67dd24a1964 ]
 
-The pointer block return from snd_gf1_dma_next_block could be
-null, so there is a potential null pointer dereference issue.
-Fix this by adding a null check before dereference.
+Add a quirk mechanism to allow specifying that active-high jack-detection
+should be used on platforms where this info is not available in devicetree.
 
-Signed-off-by: Chengfeng Ye <cyeaa@connect.ust.hk>
-Link: https://lore.kernel.org/r/20211024104611.9919-1-cyeaa@connect.ust.hk
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+And add an entry for the Cyberbook T116 tablet to the DMI table, so that
+jack-detection will work properly on this tablet.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Link: https://lore.kernel.org/r/20211002211459.110124-2-hdegoede@redhat.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/isa/gus/gus_dma.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/codecs/nau8824.c | 40 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
-diff --git a/sound/isa/gus/gus_dma.c b/sound/isa/gus/gus_dma.c
-index a1c770d826dda..6d664dd8dde0b 100644
---- a/sound/isa/gus/gus_dma.c
-+++ b/sound/isa/gus/gus_dma.c
-@@ -126,6 +126,8 @@ static void snd_gf1_dma_interrupt(struct snd_gus_card * gus)
- 	}
- 	block = snd_gf1_dma_next_block(gus);
- 	spin_unlock(&gus->dma_lock);
-+	if (!block)
+diff --git a/sound/soc/codecs/nau8824.c b/sound/soc/codecs/nau8824.c
+index 663a208c2f784..4af87340b1655 100644
+--- a/sound/soc/codecs/nau8824.c
++++ b/sound/soc/codecs/nau8824.c
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/module.h>
+ #include <linux/delay.h>
++#include <linux/dmi.h>
+ #include <linux/init.h>
+ #include <linux/i2c.h>
+ #include <linux/regmap.h>
+@@ -30,6 +31,12 @@
+ 
+ #include "nau8824.h"
+ 
++#define NAU8824_JD_ACTIVE_HIGH			BIT(0)
++
++static int nau8824_quirk;
++static int quirk_override = -1;
++module_param_named(quirk, quirk_override, uint, 0444);
++MODULE_PARM_DESC(quirk, "Board-specific quirk override");
+ 
+ static int nau8824_config_sysclk(struct nau8824 *nau8824,
+ 	int clk_id, unsigned int freq);
+@@ -1878,6 +1885,34 @@ static int nau8824_read_device_properties(struct device *dev,
+ 	return 0;
+ }
+ 
++/* Please keep this list alphabetically sorted */
++static const struct dmi_system_id nau8824_quirk_table[] = {
++	{
++		/* Cyberbook T116 rugged tablet */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "Default string"),
++			DMI_EXACT_MATCH(DMI_BOARD_NAME, "Cherry Trail CR"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "20170531"),
++		},
++		.driver_data = (void *)(NAU8824_JD_ACTIVE_HIGH),
++	},
++	{}
++};
++
++static void nau8824_check_quirks(void)
++{
++	const struct dmi_system_id *dmi_id;
++
++	if (quirk_override != -1) {
++		nau8824_quirk = quirk_override;
 +		return;
- 	snd_gf1_dma_program(gus, block->addr, block->buf_addr, block->count, (unsigned short) block->cmd);
- 	kfree(block);
- #if 0
++	}
++
++	dmi_id = dmi_first_match(nau8824_quirk_table);
++	if (dmi_id)
++		nau8824_quirk = (unsigned long)dmi_id->driver_data;
++}
++
+ static int nau8824_i2c_probe(struct i2c_client *i2c,
+ 	const struct i2c_device_id *id)
+ {
+@@ -1902,6 +1937,11 @@ static int nau8824_i2c_probe(struct i2c_client *i2c,
+ 	nau8824->irq = i2c->irq;
+ 	sema_init(&nau8824->jd_sem, 1);
+ 
++	nau8824_check_quirks();
++
++	if (nau8824_quirk & NAU8824_JD_ACTIVE_HIGH)
++		nau8824->jkdet_polarity = 0;
++
+ 	nau8824_print_device_properties(nau8824);
+ 
+ 	ret = regmap_read(nau8824->regmap, NAU8824_REG_I2C_DEVICE_ID, &value);
 -- 
 2.33.0
 

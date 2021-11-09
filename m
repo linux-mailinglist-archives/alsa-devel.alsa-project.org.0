@@ -2,61 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69F344B60B
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:22:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E1E144B613
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:22:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
-	by alsa0.perex.cz (Postfix) with ESMTP id 67C8A1658;
-	Tue,  9 Nov 2021 23:21:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67C8A1658
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF0451666;
+	Tue,  9 Nov 2021 23:21:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF0451666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636496532;
-	bh=ElkS4QiHnUadwnwFY/s/b/QddH2qo6jnXRZBJtdHE20=;
+	s=default; t=1636496546;
+	bh=KWQyp4KUtiDZ2PSsjvtehTLYYsXDPgG/pPblwLRzOGk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DsKm17gMpm0GdZhnn3O88e6OVtdyirfrw/8hgbk4s5BMuyp+yliEdXyqKq5XU2hrk
-	 bhTumSRmNvBDS06wOHiEtiYH/tLkqlDmOfRFPX8lqYec0/m37XsKD36NmuGj/PTDVi
-	 EDuWakQymSjWRJwZTb3CIfLzyOg/3TE8frkDqLPI=
+	b=C0UnTmtIsogcvGONGCZXQOdHEv7BWwFd6WtxamzFq0BBHepbQXblxCkYSrYKPg7Bh
+	 0/+vu3iip9dySfmcdib8SR06rfSu6XCY/WxxXmt8KwFYAZ51zJtvYshS8K0uAj/NC+
+	 uFXdApjDYpxexCJaIusHX6SiscgkykoVWnt/r2UQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49AA6F80533;
-	Tue,  9 Nov 2021 23:18:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1EED6F80536;
+	Tue,  9 Nov 2021 23:18:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BC34F8052E; Tue,  9 Nov 2021 23:18:25 +0100 (CET)
+ id B60B1F80535; Tue,  9 Nov 2021 23:18:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A70FF80518
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:18:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A70FF80518
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB0B4F80529
+ for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:18:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB0B4F80529
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X0OHHU7/"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AFEC061350;
- Tue,  9 Nov 2021 22:18:15 +0000 (UTC)
+ header.b="VgMec/is"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3AE7F6134F;
+ Tue,  9 Nov 2021 22:18:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636496296;
- bh=ElkS4QiHnUadwnwFY/s/b/QddH2qo6jnXRZBJtdHE20=;
+ s=k20201202; t=1636496301;
+ bh=KWQyp4KUtiDZ2PSsjvtehTLYYsXDPgG/pPblwLRzOGk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X0OHHU7/RybZ120/Sn4+80ietJwBtHE/PKDpxgSxRx4dup2rKLViwaJSkPUQe3MuB
- hbM/pcd/DIP7TlAm+FRpqTXO0UxQl6VhVO775fVRvwFVTBWPztHCNpAJ1LuZwcy6Ct
- +v9OH5xgVeeJHQR3UqudHMdzemfOYj0pomxazLY/KO6XhJ6tDcEqpvRE3xX3TzwtwO
- m7Vj+ZNBv6W8qUEnGMwpvY6lxndP0YI5H7WjLUnVmN5ZfsONOGx7ezWjZK7SNO6/x0
- JqMnrg7lsBpLKR5d0HwVG1nUHFM4sEjgZT0WnZimVJy4xVAcNCDqIKUjxkbOo1VI0H
- /4m+FcH2w3yKA==
+ b=VgMec/isS0i82qmGs71Nn9GhCH4HOY5WpPvAdhLUj24t8IiDsP+nDpeDC9fchLBMq
+ wI8NMUdxb1kEr/MomT96g1Uq5xXcoLpCQQBsA+vBB+J+SuPfyzvxo8aD7+lwRUe0Ib
+ +Eju/QustXk8UqrA7PA/+FkTjFcsdy5KTpx2AdJ7ltLROKNzv9bnhIseEZ1AwqkjZm
+ dhaWCIYQqKW90MCTyTea62sMjkcatC5OGOLAcBNW8n3jrS1xf5hQSKiHKzrRzTXQCW
+ VngEHBGP9fC1jKQ/09O2s32XV+BYo9nIFiD5UaYHxFneY9r3GUWy23yBJFFFQD6PEc
+ zbmLTU4NzCtbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 52/82] ALSA: usb-audio: Add support for the
- Pioneer DJM 750MK2 Mixer/Soundcard
-Date: Tue,  9 Nov 2021 17:16:10 -0500
-Message-Id: <20211109221641.1233217-52-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 55/82] ASoC: rt5682: fix a little pop while
+ playback
+Date: Tue,  9 Nov 2021 17:16:13 -0500
+Message-Id: <20211109221641.1233217-55-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211109221641.1233217-1-sashal@kernel.org>
 References: <20211109221641.1233217-1-sashal@kernel.org>
@@ -64,10 +66,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, gregkh@linuxfoundation.org,
- brendan@grieve.com.au, tiwai@suse.com,
- William Overton <willovertonuk@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>, oder_chiou@realtek.com,
+ alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, Derek Fang <derek.fang@realtek.com>,
+ bardliao@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,159 +85,175 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: William Overton <willovertonuk@gmail.com>
+From: Derek Fang <derek.fang@realtek.com>
 
-[ Upstream commit 6d27788160362a7ee6c0d317636fe4b1ddbe59a7 ]
+[ Upstream commit 4b19e4a77cc6baa0f840e8bae62ab974667f6207 ]
 
-The kernel already has support for very similar Pioneer djm products
-and this work is based on that.
+A little pop can be heard obviously from HP while playing a silent.
+This patch fixes it by using two functions:
+1. Enable HP 1bit output mode.
+2. Change the charge pump switch size during playback on and off.
 
-Added device to quirks-table.h and added control info to
-mixer_quirks.c.
-
-Tested on my hardware and all working.
-
-Signed-off-by: William Overton <willovertonuk@gmail.com>
-Link: https://lore.kernel.org/r/20211010145841.11907-1-willovertonuk@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Derek Fang <derek.fang@realtek.com>
+Link: https://lore.kernel.org/r/20211014094054.811-1-derek.fang@realtek.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/mixer_quirks.c | 34 +++++++++++++++++++++++
- sound/usb/quirks-table.h | 58 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 92 insertions(+)
+ sound/soc/codecs/rt5682.c | 56 +++++++++++++++++++++++++++++++++------
+ sound/soc/codecs/rt5682.h | 20 ++++++++++++++
+ 2 files changed, 68 insertions(+), 8 deletions(-)
 
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index 46082dc57be09..d489c1de3baec 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -2795,6 +2795,7 @@ static int snd_bbfpro_controls_create(struct usb_mixer_interface *mixer)
- #define SND_DJM_750_IDX		0x1
- #define SND_DJM_850_IDX		0x2
- #define SND_DJM_900NXS2_IDX	0x3
-+#define SND_DJM_750MK2_IDX	0x4
- 
- 
- #define SND_DJM_CTL(_name, suffix, _default_value, _windex) { \
-@@ -2984,10 +2985,40 @@ static const struct snd_djm_ctl snd_djm_ctls_900nxs2[] = {
- 	SND_DJM_CTL("Ch5 Input",   900nxs2_cap5, 3, SND_DJM_WINDEX_CAP)
+diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+index 4a64cab99c55b..d550c0705c28b 100644
+--- a/sound/soc/codecs/rt5682.c
++++ b/sound/soc/codecs/rt5682.c
+@@ -46,6 +46,8 @@ static const struct reg_sequence patch_list[] = {
+ 	{RT5682_SAR_IL_CMD_1, 0x22b7},
+ 	{RT5682_SAR_IL_CMD_3, 0x0365},
+ 	{RT5682_SAR_IL_CMD_6, 0x0110},
++	{RT5682_CHARGE_PUMP_1, 0x0210},
++	{RT5682_HP_LOGIC_CTRL_2, 0x0007},
  };
  
-+// DJM-750MK2
-+static const u16 snd_djm_opts_750mk2_cap1[] = {
-+	0x0100, 0x0102, 0x0103, 0x0106, 0x0107, 0x0108, 0x0109, 0x010a };
-+static const u16 snd_djm_opts_750mk2_cap2[] = {
-+	0x0200, 0x0202, 0x0203, 0x0206, 0x0207, 0x0208, 0x0209, 0x020a };
-+static const u16 snd_djm_opts_750mk2_cap3[] = {
-+	0x0300, 0x0302, 0x0303, 0x0306, 0x0307, 0x0308, 0x0309, 0x030a };
-+static const u16 snd_djm_opts_750mk2_cap4[] = {
-+	0x0400, 0x0402, 0x0403, 0x0406, 0x0407, 0x0408, 0x0409, 0x040a };
-+static const u16 snd_djm_opts_750mk2_cap5[] = {
-+	0x0507, 0x0508, 0x0509, 0x050a, 0x0511, 0x0512, 0x0513, 0x0514 };
-+
-+static const u16 snd_djm_opts_750mk2_pb1[] = { 0x0100, 0x0101, 0x0104 };
-+static const u16 snd_djm_opts_750mk2_pb2[] = { 0x0200, 0x0201, 0x0204 };
-+static const u16 snd_djm_opts_750mk2_pb3[] = { 0x0300, 0x0301, 0x0304 };
-+
-+
-+static const struct snd_djm_ctl snd_djm_ctls_750mk2[] = {
-+	SND_DJM_CTL("Capture Level", cap_level, 0, SND_DJM_WINDEX_CAPLVL),
-+	SND_DJM_CTL("Ch1 Input",   750mk2_cap1, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch2 Input",   750mk2_cap2, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch3 Input",   750mk2_cap3, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch4 Input",   750mk2_cap4, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch5 Input",   750mk2_cap5, 3, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch1 Output",   750mk2_pb1, 0, SND_DJM_WINDEX_PB),
-+	SND_DJM_CTL("Ch2 Output",   750mk2_pb2, 1, SND_DJM_WINDEX_PB),
-+	SND_DJM_CTL("Ch3 Output",   750mk2_pb3, 2, SND_DJM_WINDEX_PB)
+ void rt5682_apply_patch_list(struct rt5682_priv *rt5682, struct device *dev)
+@@ -1515,21 +1517,29 @@ static int rt5682_hp_event(struct snd_soc_dapm_widget *w,
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_PRE_PMU:
+-		snd_soc_component_write(component,
+-			RT5682_HP_LOGIC_CTRL_2, 0x0012);
+-		snd_soc_component_write(component,
+-			RT5682_HP_CTRL_2, 0x6000);
++		snd_soc_component_update_bits(component, RT5682_HP_CTRL_2,
++			RT5682_HP_C2_DAC_AMP_MUTE, 0);
++		snd_soc_component_update_bits(component, RT5682_HP_LOGIC_CTRL_2,
++			RT5682_HP_LC2_SIG_SOUR2_MASK, RT5682_HP_LC2_SIG_SOUR2_REG);
+ 		snd_soc_component_update_bits(component,
+ 			RT5682_DEPOP_1, 0x60, 0x60);
+ 		snd_soc_component_update_bits(component,
+ 			RT5682_DAC_ADC_DIG_VOL1, 0x00c0, 0x0080);
++		snd_soc_component_update_bits(component, RT5682_HP_CTRL_2,
++			RT5682_HP_C2_DAC_L_EN | RT5682_HP_C2_DAC_R_EN,
++			RT5682_HP_C2_DAC_L_EN | RT5682_HP_C2_DAC_R_EN);
++		usleep_range(5000, 10000);
++		snd_soc_component_update_bits(component, RT5682_CHARGE_PUMP_1,
++			RT5682_CP_SW_SIZE_MASK, RT5682_CP_SW_SIZE_L);
+ 		break;
+ 
+ 	case SND_SOC_DAPM_POST_PMD:
++		snd_soc_component_update_bits(component, RT5682_HP_CTRL_2,
++			RT5682_HP_C2_DAC_L_EN | RT5682_HP_C2_DAC_R_EN, 0);
++		snd_soc_component_update_bits(component, RT5682_CHARGE_PUMP_1,
++			RT5682_CP_SW_SIZE_MASK, RT5682_CP_SW_SIZE_M);
+ 		snd_soc_component_update_bits(component,
+ 			RT5682_DEPOP_1, 0x60, 0x0);
+-		snd_soc_component_write(component,
+-			RT5682_HP_CTRL_2, 0x0000);
+ 		snd_soc_component_update_bits(component,
+ 			RT5682_DAC_ADC_DIG_VOL1, 0x00c0, 0x0000);
+ 		break;
+@@ -1637,6 +1647,23 @@ static SOC_VALUE_ENUM_SINGLE_DECL(rt5682_adcdat_pin_enum,
+ static const struct snd_kcontrol_new rt5682_adcdat_pin_ctrl =
+ 	SOC_DAPM_ENUM("ADCDAT", rt5682_adcdat_pin_enum);
+ 
++static const unsigned int rt5682_hpo_sig_out_values[] = {
++	2,
++	7,
 +};
 +
++static const char * const rt5682_hpo_sig_out_mode[] = {
++	"Legacy",
++	"OneBit",
++};
++
++static SOC_VALUE_ENUM_SINGLE_DECL(rt5682_hpo_sig_out_enum,
++	RT5682_HP_LOGIC_CTRL_2, 0, RT5682_HP_LC2_SIG_SOUR1_MASK,
++	rt5682_hpo_sig_out_mode, rt5682_hpo_sig_out_values);
++
++static const struct snd_kcontrol_new rt5682_hpo_sig_demux =
++	SOC_DAPM_ENUM("HPO Signal Demux", rt5682_hpo_sig_out_enum);
++
+ static const struct snd_soc_dapm_widget rt5682_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SUPPLY("LDO2", RT5682_PWR_ANLG_3, RT5682_PWR_LDO2_BIT,
+ 		0, NULL, 0),
+@@ -1820,6 +1847,10 @@ static const struct snd_soc_dapm_widget rt5682_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SWITCH("HPOR Playback", SND_SOC_NOPM, 0, 0,
+ 		&hpor_switch),
  
- static const struct snd_djm_device snd_djm_devices[] = {
- 	SND_DJM_DEVICE(250mk2),
- 	SND_DJM_DEVICE(750),
-+	SND_DJM_DEVICE(750mk2),
- 	SND_DJM_DEVICE(850),
- 	SND_DJM_DEVICE(900nxs2)
++	SND_SOC_DAPM_OUT_DRV("HPO Legacy", SND_SOC_NOPM, 0, 0, NULL, 0),
++	SND_SOC_DAPM_OUT_DRV("HPO OneBit", SND_SOC_NOPM, 0, 0, NULL, 0),
++	SND_SOC_DAPM_DEMUX("HPO Signal Demux", SND_SOC_NOPM, 0, 0, &rt5682_hpo_sig_demux),
++
+ 	/* CLK DET */
+ 	SND_SOC_DAPM_SUPPLY("CLKDET SYS", RT5682_CLK_DET,
+ 		RT5682_SYS_CLK_DET_SFT,	0, NULL, 0),
+@@ -1987,10 +2018,19 @@ static const struct snd_soc_dapm_route rt5682_dapm_routes[] = {
+ 	{"HP Amp", NULL, "Charge Pump"},
+ 	{"HP Amp", NULL, "CLKDET SYS"},
+ 	{"HP Amp", NULL, "Vref1"},
+-	{"HPOL Playback", "Switch", "HP Amp"},
+-	{"HPOR Playback", "Switch", "HP Amp"},
++
++	{"HPO Signal Demux", NULL, "HP Amp"},
++
++	{"HPO Legacy", "Legacy", "HPO Signal Demux"},
++	{"HPO OneBit", "OneBit", "HPO Signal Demux"},
++
++	{"HPOL Playback", "Switch", "HPO Legacy"},
++	{"HPOR Playback", "Switch", "HPO Legacy"},
++
+ 	{"HPOL", NULL, "HPOL Playback"},
+ 	{"HPOR", NULL, "HPOR Playback"},
++	{"HPOL", NULL, "HPO OneBit"},
++	{"HPOR", NULL, "HPO OneBit"},
  };
-@@ -3235,6 +3266,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
- 	case USB_ID(0x08e4, 0x017f): /* Pioneer DJ DJM-750 */
- 		err = snd_djm_controls_create(mixer, SND_DJM_750_IDX);
- 		break;
-+	case USB_ID(0x2b73, 0x001b): /* Pioneer DJ DJM-750MK2 */
-+		err = snd_djm_controls_create(mixer, SND_DJM_750MK2_IDX);
-+		break;
- 	case USB_ID(0x08e4, 0x0163): /* Pioneer DJ DJM-850 */
- 		err = snd_djm_controls_create(mixer, SND_DJM_850_IDX);
- 		break;
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 2af8c68fac275..b1522e43173e1 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -3892,6 +3892,64 @@ YAMAHA_DEVICE(0x7010, "UB99"),
- 		}
- 	}
- },
-+{
-+	/*
-+	 * Pioneer DJ DJM-750MK2
-+	 * 10 channels playback & 12 channels capture @ 48kHz S24LE
-+	 */
-+	USB_DEVICE_VENDOR_SPEC(0x2b73, 0x001b),
-+	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_COMPOSITE,
-+		.data = (const struct snd_usb_audio_quirk[]) {
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
-+					.channels = 10,
-+					.iface = 0,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x01,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC|
-+					    USB_ENDPOINT_SYNC_ASYNC,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) {
-+						48000
-+					}
-+				}
-+			},
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
-+					.channels = 12,
-+					.iface = 0,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x82,
-+					.ep_idx = 1,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC|
-+						USB_ENDPOINT_SYNC_ASYNC|
-+						USB_ENDPOINT_USAGE_IMPLICIT_FB,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 48000 }
-+				}
-+			},
-+			{
-+				.ifnum = -1
-+			}
-+		}
-+	}
-+},
- {
- 	/*
- 	 * Pioneer DJ DJM-850
+ 
+ static int rt5682_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
+diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
+index b59221048ebf9..8e3244a62c160 100644
+--- a/sound/soc/codecs/rt5682.h
++++ b/sound/soc/codecs/rt5682.h
+@@ -375,6 +375,14 @@
+ #define RT5682_R_VOL_MASK			(0x3f)
+ #define RT5682_R_VOL_SFT			0
+ 
++/* Headphone Amp Control 2 (0x0003) */
++#define RT5682_HP_C2_DAC_AMP_MUTE_SFT		15
++#define RT5682_HP_C2_DAC_AMP_MUTE		(0x1 << 15)
++#define RT5682_HP_C2_DAC_L_EN_SFT		14
++#define RT5682_HP_C2_DAC_L_EN			(0x1 << 14)
++#define RT5682_HP_C2_DAC_R_EN_SFT		13
++#define RT5682_HP_C2_DAC_R_EN			(0x1 << 13)
++
+ /*Headphone Amp L/R Analog Gain and Digital NG2 Gain Control (0x0005 0x0006)*/
+ #define RT5682_G_HP				(0xf << 8)
+ #define RT5682_G_HP_SFT				8
+@@ -1265,6 +1273,10 @@
+ #define RT5682_HPA_CP_BIAS_6UA			(0x3 << 2)
+ 
+ /* Charge Pump Internal Register1 (0x0125) */
++#define RT5682_CP_SW_SIZE_MASK			(0x7 << 8)
++#define RT5682_CP_SW_SIZE_L			(0x4 << 8)
++#define RT5682_CP_SW_SIZE_M			(0x2 << 8)
++#define RT5682_CP_SW_SIZE_S			(0x1 << 8)
+ #define RT5682_CP_CLK_HP_MASK			(0x3 << 4)
+ #define RT5682_CP_CLK_HP_100KHZ			(0x0 << 4)
+ #define RT5682_CP_CLK_HP_200KHZ			(0x1 << 4)
+@@ -1315,6 +1327,14 @@
+ #define RT5682_DEB_STO_DAC_MASK			(0x7 << 4)
+ #define RT5682_DEB_80_MS			(0x0 << 4)
+ 
++/* HP Behavior Logic Control 2 (0x01db) */
++#define RT5682_HP_LC2_SIG_SOUR2_MASK		(0x1 << 4)
++#define RT5682_HP_LC2_SIG_SOUR2_REG		(0x1 << 4)
++#define RT5682_HP_LC2_SIG_SOUR2_DC_CAL		(0x0 << 4)
++#define RT5682_HP_LC2_SIG_SOUR1_MASK		(0x7)
++#define RT5682_HP_LC2_SIG_SOUR1_1BIT		(0x7)
++#define RT5682_HP_LC2_SIG_SOUR1_LEGA		(0x2)
++
+ /* SAR ADC Inline Command Control 1 (0x0210) */
+ #define RT5682_SAR_BUTT_DET_MASK		(0x1 << 15)
+ #define RT5682_SAR_BUTT_DET_EN			(0x1 << 15)
 -- 
 2.33.0
 

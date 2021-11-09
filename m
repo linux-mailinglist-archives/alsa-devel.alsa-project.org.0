@@ -2,73 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43DF744A6CB
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 07:24:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC4044A6CE
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 07:25:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA72D1662;
-	Tue,  9 Nov 2021 07:23:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA72D1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B18C1661;
+	Tue,  9 Nov 2021 07:24:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B18C1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636439048;
-	bh=EWO1jBQTUWwyNzDFmTBumS1jSWV6/iYe73en+x7iGFw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1636439099;
+	bh=3dWfkK2Zqb+rUHKn4wUi4IwG0t2tlxF6lZ7GVDijGzM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ezpI4pyCAMhJ/KFWHPdnWAaVPq0E5VFLk9YpIJnYsNylOHFnSQvzhDYHv3WY/PWpD
-	 WUpzTytAY2AYbd96b5ddhqn561dtvQryhd/+911WKadtEiuPYYi+8M8Enl10ZRAfDb
-	 hzBODRtl7987D9ACYzLmJErBSpKf/m8nerQAyIu4=
+	b=fu/t4pe6Yfcl5VUeyc1SE/QFRVvAxn7E/ihCxOQdmT+ULHYvKN5Dl/vxr2dq4YucZ
+	 fIGvNGvy50LC52Uv5k4hktgaRn8JOLvIY2okMxzVdvWjL8GU/ghmoksaYC0hfZKR6U
+	 /4nZpcIrGf+ViTQOY6HJXBivC3Fw4zDYy3UjWnFY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CA39F802E3;
-	Tue,  9 Nov 2021 07:22:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 153B4F800C1;
+	Tue,  9 Nov 2021 07:24:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F49DF802D2; Tue,  9 Nov 2021 07:22:48 +0100 (CET)
+ id AEA43F804D0; Tue,  9 Nov 2021 07:24:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB159F801D8
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 07:22:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB159F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33B6BF801D8
+ for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 07:24:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33B6BF801D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="tLjiyBFZ"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ptATnzsz"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id A5E471FDB7
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 06:22:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636438957; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=6BfWhyyFwTERULrohouCyLzfEUh7vBavFhIBV5+bSC0=;
- b=tLjiyBFZSFyOQNge8RkD6FCEIj4uuLkOUauWfV86Jzx31QfKbc1HtARBCX5DAhBJfsnP7N
- E4KI1qJWliTbGrInzh07Jb1rKbKesi859Y0saMo9aBebthBMB2DVL5QATkMoFnc4ZTFHP/
- 78vGjdqXSNdsAATcACXRi+pD7TiyhcI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636438957;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=6BfWhyyFwTERULrohouCyLzfEUh7vBavFhIBV5+bSC0=;
- b=ptATnzszAxcy7Twt7Im89XbdyUEJ5B4mfFBNSYMUzkM9VNXECoJFbyYpKHYS+9NfPrr1u5
- vlf5MmZ4xpYRwPCA==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9385BA3B84;
- Tue,  9 Nov 2021 06:22:37 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: memalloc: Unify x86 SG-buffer handling (take#2)
-Date: Tue,  9 Nov 2021 07:22:35 +0100
-Message-Id: <20211109062235.22310-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="pPvXkt6q"
+Received: by mail-pg1-x52e.google.com with SMTP id n23so17524660pgh.8
+ for <alsa-devel@alsa-project.org>; Mon, 08 Nov 2021 22:24:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=LOtwJehnAZEQdODws1H/4hicAl69cBcZmemszXkR6A8=;
+ b=pPvXkt6qpQ2prIqpYuyCE3QK7sJAP52+7Qt4B+uYqhY8z8gC2jOs3SJEicQ4gJkSpX
+ XEUjAgt5DwhocDUGEQFNGYxxVIGaX2LJ0QOVUFbXBmGGFDiYvwAm+nVd/o+MrzbNF7X4
+ KYdzSatuq4nLqPrVT5J3nKUz8U+dULAlXcOE4rJX4cfMe9yy7TDSwqefVoSxikC39ukt
+ 523vrqGclwbuj7zEwoOYLxsS4IE4LaJ4maO8l6ElOxkfyWP3yRcliTEVd1KgRNS4xe1G
+ oP87jzGSaz6HjVrwweIc0RkwHV2S9YNq6w1stuMEHOxcwiWwcc7jolr+o1WIQlyqS23b
+ EOXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=LOtwJehnAZEQdODws1H/4hicAl69cBcZmemszXkR6A8=;
+ b=GheaWUkpzAFigLehmDXmqIyUu9KL2g3u7U0j0iN3rnyhpiyoXx/IPiVCV+1FxAXR2H
+ 5kEfnkLdwT356tRkgvOESmqs/K4LdhG8uVgfj1bZc8jxWR3hlf2Di3q7tVms9mRF5yao
+ FTa4x7g1nZ4t/GtNmQc9/CSucqhd3k36rQt+t1V/70azjRJ1cIDFfkThx1b2JbXlEk6O
+ RGmKBdo9PKogfp0YRUQE6xIAGDccHdgZ5zVz6fi1pfQnbYII7dQ0JNKIUCZNgVqDtWMe
+ iMftjgJ970VVQ4/1REgGLEgZZYXnspV8TFEf34s4n7vD8HGmRXTbHYxMY2l2ZGMJWzEb
+ rxwA==
+X-Gm-Message-State: AOAM533lNIbrx0mUUqk/ayKi3dNSGJGmz6Rc0zU93BByJ47OG0+h6d+O
+ YWGiCyCtinTwA73zjKq1gUEemafIev4=
+X-Google-Smtp-Source: ABdhPJw7TKjsRkUk6UfUap34xA5BAyFh0KRzyJST1/V2eA2xdEz7ekDNYBC2Z28TwglPzwe5bmesKw==
+X-Received: by 2002:a63:8c5c:: with SMTP id q28mr4110197pgn.244.1636439033488; 
+ Mon, 08 Nov 2021 22:23:53 -0800 (PST)
+Received: from localhost.localdomain ([2402:7500:578:468f:d592:ff78:ffa9:3df7])
+ by smtp.gmail.com with ESMTPSA id x33sm6856718pfh.133.2021.11.08.22.23.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 08 Nov 2021 22:23:52 -0800 (PST)
+From: cy_huang <u0084500@gmail.com>
+To: broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Subject: [PATCH 0/2] ASoC: rt9120: Fix settings and add rt9120s compatibility
+Date: Tue,  9 Nov 2021 14:23:42 +0800
+Message-Id: <1636439024-15877-1-git-send-email-u0084500@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, cy_huang@richtek.com, allen_lin@richtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,345 +95,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a second attempt to unify the x86-specific SG-buffer handling
-code with the new standard non-contiguous page handler.
+From: ChiYuan Huang <cy_huang@richtek.com>
 
-The first try (in commit 2d9ea39917a4) failed due to the wrong page
-and address calculations, hence reverted.  Now it's corrected with the
-previous fix for noncontig pages, and the proper sg page iteration by
-this patch.
+This patch series is to fix settings and add rt9120s compatibility
 
-After the migration, SNDRV_DMA_TYPE_DMA_SG becomes identical with
-SNDRV_DMA_TYPE_NONCONTIG on x86, while others still fall back to
-SNDRV_DMA_TYPE_DEV.
+ChiYuan Huang (2):
+  ASoC: rt9120: Update internal setting and fix auto sync problem
+  ASoC: rt9120: Add the compatibility with rt9120s
 
-Tested-by: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
-Link: https://lore.kernel.org/r/20211017074859.24112-4-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/memalloc.h |  14 +--
- sound/core/Makefile      |   1 -
- sound/core/memalloc.c    |  43 ++++++++-
- sound/core/sgbuf.c       | 201 ---------------------------------------
- 4 files changed, 46 insertions(+), 213 deletions(-)
- delete mode 100644 sound/core/sgbuf.c
+ sound/soc/codecs/rt9120.c | 59 +++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 49 insertions(+), 10 deletions(-)
 
-diff --git a/include/sound/memalloc.h b/include/sound/memalloc.h
-index 1051b84e8579..653dfffb3ac8 100644
---- a/include/sound/memalloc.h
-+++ b/include/sound/memalloc.h
-@@ -36,13 +36,6 @@ struct snd_dma_device {
- #define SNDRV_DMA_TYPE_CONTINUOUS	1	/* continuous no-DMA memory */
- #define SNDRV_DMA_TYPE_DEV		2	/* generic device continuous */
- #define SNDRV_DMA_TYPE_DEV_WC		5	/* continuous write-combined */
--#ifdef CONFIG_SND_DMA_SGBUF
--#define SNDRV_DMA_TYPE_DEV_SG		3	/* generic device SG-buffer */
--#define SNDRV_DMA_TYPE_DEV_WC_SG	6	/* SG write-combined */
--#else
--#define SNDRV_DMA_TYPE_DEV_SG	SNDRV_DMA_TYPE_DEV /* no SG-buf support */
--#define SNDRV_DMA_TYPE_DEV_WC_SG	SNDRV_DMA_TYPE_DEV_WC
--#endif
- #ifdef CONFIG_GENERIC_ALLOCATOR
- #define SNDRV_DMA_TYPE_DEV_IRAM		4	/* generic device iram-buffer */
- #else
-@@ -51,6 +44,13 @@ struct snd_dma_device {
- #define SNDRV_DMA_TYPE_VMALLOC		7	/* vmalloc'ed buffer */
- #define SNDRV_DMA_TYPE_NONCONTIG	8	/* non-coherent SG buffer */
- #define SNDRV_DMA_TYPE_NONCOHERENT	9	/* non-coherent buffer */
-+#ifdef CONFIG_SND_DMA_SGBUF
-+#define SNDRV_DMA_TYPE_DEV_SG		SNDRV_DMA_TYPE_NONCONTIG
-+#define SNDRV_DMA_TYPE_DEV_WC_SG	6	/* SG write-combined */
-+#else
-+#define SNDRV_DMA_TYPE_DEV_SG	SNDRV_DMA_TYPE_DEV /* no SG-buf support */
-+#define SNDRV_DMA_TYPE_DEV_WC_SG	SNDRV_DMA_TYPE_DEV_WC
-+#endif
- 
- /*
-  * info for buffer allocation
-diff --git a/sound/core/Makefile b/sound/core/Makefile
-index 79e1407cd0de..350d704ced98 100644
---- a/sound/core/Makefile
-+++ b/sound/core/Makefile
-@@ -19,7 +19,6 @@ snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
- snd-pcm-y := pcm.o pcm_native.o pcm_lib.o pcm_misc.o \
- 		pcm_memory.o memalloc.o
- snd-pcm-$(CONFIG_SND_PCM_TIMER) += pcm_timer.o
--snd-pcm-$(CONFIG_SND_DMA_SGBUF) += sgbuf.o
- snd-pcm-$(CONFIG_SND_PCM_ELD) += pcm_drm_eld.o
- snd-pcm-$(CONFIG_SND_PCM_IEC958) += pcm_iec958.o
- 
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index 8c362bb5b81a..29b5c613ca23 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -621,6 +621,42 @@ static const struct snd_malloc_ops snd_dma_noncontig_ops = {
- 	.get_chunk_size = snd_dma_noncontig_get_chunk_size,
- };
- 
-+/* x86-specific SG-buffer with WC pages */
-+#ifdef CONFIG_SND_DMA_SGBUF
-+#define sg_wc_address(it) ((unsigned long)page_address(sg_page_iter_page(it)))
-+
-+static void *snd_dma_sg_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
-+{
-+	void *p = snd_dma_noncontig_alloc(dmab, size);
-+	struct sg_table *sgt = dmab->private_data;
-+	struct sg_page_iter iter;
-+
-+	if (!p)
-+		return NULL;
-+	for_each_sgtable_page(sgt, &iter, 0)
-+		set_memory_wc(sg_wc_address(&iter), 1);
-+	return p;
-+}
-+
-+static void snd_dma_sg_wc_free(struct snd_dma_buffer *dmab)
-+{
-+	struct sg_table *sgt = dmab->private_data;
-+	struct sg_page_iter iter;
-+
-+	for_each_sgtable_page(sgt, &iter, 0)
-+		set_memory_wb(sg_wc_address(&iter), 1);
-+	snd_dma_noncontig_free(dmab);
-+}
-+
-+static int snd_dma_sg_wc_mmap(struct snd_dma_buffer *dmab,
-+			      struct vm_area_struct *area)
-+{
-+	area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
-+	return dma_mmap_noncontiguous(dmab->dev.dev, area,
-+				      dmab->bytes, dmab->private_data);
-+}
-+#endif /* CONFIG_SND_DMA_SGBUF */
-+
- /*
-  * Non-coherent pages allocator
-  */
-@@ -680,14 +716,13 @@ static const struct snd_malloc_ops *dma_ops[] = {
- 	[SNDRV_DMA_TYPE_DEV_WC] = &snd_dma_wc_ops,
- 	[SNDRV_DMA_TYPE_NONCONTIG] = &snd_dma_noncontig_ops,
- 	[SNDRV_DMA_TYPE_NONCOHERENT] = &snd_dma_noncoherent_ops,
-+#ifdef CONFIG_SND_DMA_SGBUF
-+	[SNDRV_DMA_TYPE_DEV_WC_SG] = &snd_dma_sg_wc_ops,
-+#endif
- #ifdef CONFIG_GENERIC_ALLOCATOR
- 	[SNDRV_DMA_TYPE_DEV_IRAM] = &snd_dma_iram_ops,
- #endif /* CONFIG_GENERIC_ALLOCATOR */
- #endif /* CONFIG_HAS_DMA */
--#ifdef CONFIG_SND_DMA_SGBUF
--	[SNDRV_DMA_TYPE_DEV_SG] = &snd_dma_sg_ops,
--	[SNDRV_DMA_TYPE_DEV_WC_SG] = &snd_dma_sg_ops,
--#endif
- };
- 
- static const struct snd_malloc_ops *snd_dma_get_ops(struct snd_dma_buffer *dmab)
-diff --git a/sound/core/sgbuf.c b/sound/core/sgbuf.c
-deleted file mode 100644
-index 8352a5cdb19f..000000000000
---- a/sound/core/sgbuf.c
-+++ /dev/null
-@@ -1,201 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * Scatter-Gather buffer
-- *
-- *  Copyright (c) by Takashi Iwai <tiwai@suse.de>
-- */
--
--#include <linux/slab.h>
--#include <linux/mm.h>
--#include <linux/vmalloc.h>
--#include <linux/export.h>
--#include <sound/memalloc.h>
--#include "memalloc_local.h"
--
--struct snd_sg_page {
--	void *buf;
--	dma_addr_t addr;
--};
--
--struct snd_sg_buf {
--	int size;	/* allocated byte size */
--	int pages;	/* allocated pages */
--	int tblsize;	/* allocated table size */
--	struct snd_sg_page *table;	/* address table */
--	struct page **page_table;	/* page table (for vmap/vunmap) */
--	struct device *dev;
--};
--
--/* table entries are align to 32 */
--#define SGBUF_TBL_ALIGN		32
--#define sgbuf_align_table(tbl)	ALIGN((tbl), SGBUF_TBL_ALIGN)
--
--static void snd_dma_sg_free(struct snd_dma_buffer *dmab)
--{
--	struct snd_sg_buf *sgbuf = dmab->private_data;
--	struct snd_dma_buffer tmpb;
--	int i;
--
--	if (!sgbuf)
--		return;
--
--	vunmap(dmab->area);
--	dmab->area = NULL;
--
--	tmpb.dev.type = SNDRV_DMA_TYPE_DEV;
--	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
--		tmpb.dev.type = SNDRV_DMA_TYPE_DEV_WC;
--	tmpb.dev.dev = sgbuf->dev;
--	for (i = 0; i < sgbuf->pages; i++) {
--		if (!(sgbuf->table[i].addr & ~PAGE_MASK))
--			continue; /* continuous pages */
--		tmpb.area = sgbuf->table[i].buf;
--		tmpb.addr = sgbuf->table[i].addr & PAGE_MASK;
--		tmpb.bytes = (sgbuf->table[i].addr & ~PAGE_MASK) << PAGE_SHIFT;
--		snd_dma_free_pages(&tmpb);
--	}
--
--	kfree(sgbuf->table);
--	kfree(sgbuf->page_table);
--	kfree(sgbuf);
--	dmab->private_data = NULL;
--}
--
--#define MAX_ALLOC_PAGES		32
--
--static void *snd_dma_sg_alloc(struct snd_dma_buffer *dmab, size_t size)
--{
--	struct snd_sg_buf *sgbuf;
--	unsigned int i, pages, chunk, maxpages;
--	struct snd_dma_buffer tmpb;
--	struct snd_sg_page *table;
--	struct page **pgtable;
--	int type = SNDRV_DMA_TYPE_DEV;
--	pgprot_t prot = PAGE_KERNEL;
--	void *area;
--
--	dmab->private_data = sgbuf = kzalloc(sizeof(*sgbuf), GFP_KERNEL);
--	if (!sgbuf)
--		return NULL;
--	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG) {
--		type = SNDRV_DMA_TYPE_DEV_WC;
--#ifdef pgprot_noncached
--		prot = pgprot_noncached(PAGE_KERNEL);
--#endif
--	}
--	sgbuf->dev = dmab->dev.dev;
--	pages = snd_sgbuf_aligned_pages(size);
--	sgbuf->tblsize = sgbuf_align_table(pages);
--	table = kcalloc(sgbuf->tblsize, sizeof(*table), GFP_KERNEL);
--	if (!table)
--		goto _failed;
--	sgbuf->table = table;
--	pgtable = kcalloc(sgbuf->tblsize, sizeof(*pgtable), GFP_KERNEL);
--	if (!pgtable)
--		goto _failed;
--	sgbuf->page_table = pgtable;
--
--	/* allocate pages */
--	maxpages = MAX_ALLOC_PAGES;
--	while (pages > 0) {
--		chunk = pages;
--		/* don't be too eager to take a huge chunk */
--		if (chunk > maxpages)
--			chunk = maxpages;
--		chunk <<= PAGE_SHIFT;
--		if (snd_dma_alloc_pages_fallback(type, dmab->dev.dev,
--						 chunk, &tmpb) < 0) {
--			if (!sgbuf->pages)
--				goto _failed;
--			size = sgbuf->pages * PAGE_SIZE;
--			break;
--		}
--		chunk = tmpb.bytes >> PAGE_SHIFT;
--		for (i = 0; i < chunk; i++) {
--			table->buf = tmpb.area;
--			table->addr = tmpb.addr;
--			if (!i)
--				table->addr |= chunk; /* mark head */
--			table++;
--			*pgtable++ = virt_to_page(tmpb.area);
--			tmpb.area += PAGE_SIZE;
--			tmpb.addr += PAGE_SIZE;
--		}
--		sgbuf->pages += chunk;
--		pages -= chunk;
--		if (chunk < maxpages)
--			maxpages = chunk;
--	}
--
--	sgbuf->size = size;
--	area = vmap(sgbuf->page_table, sgbuf->pages, VM_MAP, prot);
--	if (!area)
--		goto _failed;
--	return area;
--
-- _failed:
--	snd_dma_sg_free(dmab); /* free the table */
--	return NULL;
--}
--
--static dma_addr_t snd_dma_sg_get_addr(struct snd_dma_buffer *dmab,
--				      size_t offset)
--{
--	struct snd_sg_buf *sgbuf = dmab->private_data;
--	dma_addr_t addr;
--
--	addr = sgbuf->table[offset >> PAGE_SHIFT].addr;
--	addr &= ~((dma_addr_t)PAGE_SIZE - 1);
--	return addr + offset % PAGE_SIZE;
--}
--
--static struct page *snd_dma_sg_get_page(struct snd_dma_buffer *dmab,
--					size_t offset)
--{
--	struct snd_sg_buf *sgbuf = dmab->private_data;
--	unsigned int idx = offset >> PAGE_SHIFT;
--
--	if (idx >= (unsigned int)sgbuf->pages)
--		return NULL;
--	return sgbuf->page_table[idx];
--}
--
--static unsigned int snd_dma_sg_get_chunk_size(struct snd_dma_buffer *dmab,
--					      unsigned int ofs,
--					      unsigned int size)
--{
--	struct snd_sg_buf *sg = dmab->private_data;
--	unsigned int start, end, pg;
--
--	start = ofs >> PAGE_SHIFT;
--	end = (ofs + size - 1) >> PAGE_SHIFT;
--	/* check page continuity */
--	pg = sg->table[start].addr >> PAGE_SHIFT;
--	for (;;) {
--		start++;
--		if (start > end)
--			break;
--		pg++;
--		if ((sg->table[start].addr >> PAGE_SHIFT) != pg)
--			return (start << PAGE_SHIFT) - ofs;
--	}
--	/* ok, all on continuous pages */
--	return size;
--}
--
--static int snd_dma_sg_mmap(struct snd_dma_buffer *dmab,
--			   struct vm_area_struct *area)
--{
--	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
--		area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
--	return -ENOENT; /* continue with the default mmap handler */
--}
--
--const struct snd_malloc_ops snd_dma_sg_ops = {
--	.alloc = snd_dma_sg_alloc,
--	.free = snd_dma_sg_free,
--	.get_addr = snd_dma_sg_get_addr,
--	.get_page = snd_dma_sg_get_page,
--	.get_chunk_size = snd_dma_sg_get_chunk_size,
--	.mmap = snd_dma_sg_mmap,
--};
 -- 
-2.26.2
+2.7.4
 

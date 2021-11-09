@@ -2,60 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC60044AEF9
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 14:42:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B96FF44AEE9
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 14:40:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7167E1654;
-	Tue,  9 Nov 2021 14:41:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7167E1654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 444AB1655;
+	Tue,  9 Nov 2021 14:39:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 444AB1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636465326;
-	bh=lHMOeM2cq+x8djmrGg12T83Irml5ZeiKK/fTiYUheIE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uD1BwY17DPNoCsTTNpWw3Ewp0hiDDZqQT81vNiUd64e3J0SaXYZxg2L4SeN/qFDta
-	 0PFDiA9BlhOXZSkPxVvEaYBkI6x8aBaFvUEJBG8++rK2dngxWVXNxZ25dA5pRfRmSs
-	 zY9piAYrsct+EJ1CGLoOTxij3F6cskx+jPnE7kFk=
+	s=default; t=1636465232;
+	bh=uzRp8vCN25ahFTDWjwEjpeTfKpC5L49vieZ5b7ldAJg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FDFvls/+Y7dly1oENa+d2aZAvU93A1uH9PRfT4p+e2IaRVXnkCn+P893fXfrbhHh5
+	 fXtTZftvXkHU8zqLzjU5DCqJf5FuisN5c2LwmCmHS++OD0b1ohzico2lkx7YmzeiP8
+	 iAlhIBxuVCIuj/BtPTWRainBA6c1/serFfLQ3IrU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0025EF802E3;
-	Tue,  9 Nov 2021 14:40:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1145F800C1;
+	Tue,  9 Nov 2021 14:39:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71A7EF802D2; Tue,  9 Nov 2021 14:40:44 +0100 (CET)
+ id 22993F802D2; Tue,  9 Nov 2021 14:39:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9689DF800C1
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 14:40:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9689DF800C1
-X-IronPort-AV: E=McAfee;i="6200,9189,10162"; a="213173968"
-X-IronPort-AV: E=Sophos;i="5.87,220,1631602800"; d="scan'208";a="213173968"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2021 05:40:33 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,220,1631602800"; d="scan'208";a="503504829"
-Received: from macchian-builder.itwn.intel.com ([10.5.253.158])
- by orsmga008.jf.intel.com with ESMTP; 09 Nov 2021 05:40:30 -0800
-From: Mac Chiang <mac.chiang@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] [RESEND,v2] ASoC: Intel: add sof-nau8825 machine driver
-Date: Tue,  9 Nov 2021 08:38:08 -0500
-Message-Id: <20211109133808.8729-1-mac.chiang@intel.com>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D16A4F800C1
+ for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 14:38:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D16A4F800C1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="amJfQ8sH"
+Received: by mail-lj1-x22a.google.com with SMTP id s24so36338190lji.12
+ for <alsa-devel@alsa-project.org>; Tue, 09 Nov 2021 05:38:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Xf2lmT83dSNiE9eWoGnGn4bhukTvP6d6+kM7Kc5CSqo=;
+ b=amJfQ8sHmRSWmPUArZTLQgn5LsrKQ3Iz9PAqbKRjFJpXbf+kZpMG6JSvCpmru6i7Rd
+ supmpPHjE8ZTeFLsO8zkQmFLqRA6qpil0n5vTTnEVu+BWFDVuFo4HDC2AtMhX9/XpoJg
+ QEzzNuL1CD0AEWInEWjMkWz6sbLRj/qqj3NSkdwEmfKi+uwiJLPz1CyR8avIX884fQYD
+ Uld/5FlkCls2GOKfZ0YXgvI5peWZTTrtJLVhUWwPy9yMp2aq3kjLKVlFwQQ92jOMlR98
+ VqjDIvuTfaUad4WKoH6o8hhEK/upQXqobvJRL8cbE/pF9dT0TL0J6tMAb4QxeJkJO9fr
+ Fk3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Xf2lmT83dSNiE9eWoGnGn4bhukTvP6d6+kM7Kc5CSqo=;
+ b=jCmxq0MWgeZiEGK8/6dqo2j/ucDDASQ4gipc1GoseB5+C8aX2e/yNmAyL39EArHUFq
+ u2/m7Aphiqxm4syd0hCDIoZPPWR2JIxEr66rXdmsTSaLT75sUEtLqgDZmo/fkU3L28WV
+ JJgRgkOaWfvTXCh43ZfI6p74e5TI1ol5OsElnDlKTY8lR5pPvziW6pDrcFEFTm5kDR5I
+ r768lty0uRp9Qvx3KWdsYVLgBSghmwZuFmec7jKJMd2VL5fkehNIpLNdOEuGnRlxZGsh
+ 5ui0C6TdntYJ+botkiEJlyis6wBG0KKGZYHEFnTP6P3443FN7+7UGb2RwGkWTUDlHGIq
+ q04w==
+X-Gm-Message-State: AOAM5339pV6w7X/O2g4axWCMY2vtJ4unoY9cYtCsPR3HDtgiX3x9Kg9Q
+ XhUsaWt67Dw5YF82IryTz2KFNmd+PyjDZeYupQc=
+X-Google-Smtp-Source: ABdhPJwp/3yR0aKJzyyxnYPME8tdzmJXZFeiF4l88QOLnGXZJ0FpMU2lEfm3EzN+wCWR9J78xt3O+jujs2yYlAiq3d0=
+X-Received: by 2002:a2e:890d:: with SMTP id d13mr7561859lji.396.1636465136748; 
+ Tue, 09 Nov 2021 05:38:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- liam.r.girdwood@linux.intel.com, mac.chiang@intel.com, broonie@kernel.org,
- CTLIN0@nuvoton.com, bard.liao@intel.com, sathya.prakash.m.r@intel.com,
- vamshi.krishna.gopal@intel.com
+References: <1636439024-15877-1-git-send-email-u0084500@gmail.com>
+ <1636439024-15877-2-git-send-email-u0084500@gmail.com>
+ <YYp2+gqjn6+M/hZ7@sirena.org.uk>
+In-Reply-To: <YYp2+gqjn6+M/hZ7@sirena.org.uk>
+From: ChiYuan Huang <u0084500@gmail.com>
+Date: Tue, 9 Nov 2021 21:38:45 +0800
+Message-ID: <CADiBU38kyx6hA-xPp-EH34YmvDfXRtOBr3Zuzj2Yc7Sx+HJWcw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ASoC: rt9120: Update internal setting and fix auto
+ sync problem
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org,
+ lkml <linux-kernel@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ tiwai@suse.com, cy_huang <cy_huang@richtek.com>,
+ allen lin <allen_lin@richtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,800 +101,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The machine driver is a generic machine driver for SOF with nau8825
-codec w or w/o speaker additionally. Depending on the SOC
-HDMI, DMIC, Bluetooth offload support are added dynamically.
+Mark Brown <broonie@kernel.org> =E6=96=BC 2021=E5=B9=B411=E6=9C=889=E6=97=
+=A5 =E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=889:26=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On Tue, Nov 09, 2021 at 02:23:43PM +0800, cy_huang wrote:
+> > From: ChiYuan Huang <cy_huang@richtek.com>
+> >
+> > - Update internal setting to fix issue.
+> > - Disable auto sync if fs is divided by 48.
+>
+> Please submit one patch per change, each with a clear changelog, as
+> covered in SubmittingPatches.  This makes it much easier to review
+> things since it's easier to tell if the patch does what it was intended
+> to do.  When splitting patches up git gui can be helpful, you can stage
+> and unstage individual lines by right clicking on them.
 
-Only add information related to SOF since the machine driver was
-only tested with SOF.
-
-There are currently 4 i2s machine variants of ADL.
-This supports the headphone NUA8825(SSP0) alone or with smart or dumb
-speakers.
-Board 2,3,4 use SSP2 for Bluetooth offload support except board 1.
-
-Board 1 : NAU8825 + RT1019P(SSP2)
-Board 2 : NAU8825 + MAX98373(SSP1)
-Board 3 : NAU8825 + MAX98360A(SSP1)
-Board 4 : NAU8825
-
-Signed-off-by: David Lin <CTLIN0@nuvoton.com>
-Co-developed-by: Mac Chiang <mac.chiang@intel.com>
-Signed-off-by: Mac Chiang <mac.chiang@intel.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
-  1. remove hdac_hdmi relevant codes support
-  2. remove duplicated max_98360a_dai_link calls. Instead of checking no_amp condition
-  3. alter module license name to "GPL"
-  4. due to rt1019 non-i2c mode, so change to SND_SOC_RT1015P in KConfig
----
- sound/soc/intel/boards/Kconfig                |  19 +
- sound/soc/intel/boards/Makefile               |   2 +
- sound/soc/intel/boards/sof_nau8825.c          | 651 ++++++++++++++++++
- .../intel/common/soc-acpi-intel-adl-match.c   |  35 +
- 4 files changed, 707 insertions(+)
- create mode 100644 sound/soc/intel/boards/sof_nau8825.c
-
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 2dd5ff7e35ce..849445fcc05d 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -527,6 +527,25 @@ config SND_SOC_INTEL_SOF_ES8336_MACH
- 	   Say Y if you have such a device.
- 	   If unsure select "N".
- 
-+config SND_SOC_INTEL_SOF_NAU8825_MACH
-+	tristate "SOF with nau8825 codec in I2S Mode"
-+	depends on I2C && ACPI && GPIOLIB
-+	depends on ((SND_HDA_CODEC_HDMI && SND_SOC_SOF_HDA_AUDIO_CODEC) &&\
-+		    (MFD_INTEL_LPSS || COMPILE_TEST))
-+	select SND_SOC_NAU8825
-+	select SND_SOC_RT1015P
-+	select SND_SOC_MAX98373_I2C
-+	select SND_SOC_MAX98357A
-+	select SND_SOC_DMIC
-+	select SND_SOC_HDAC_HDMI
-+	select SND_SOC_INTEL_HDA_DSP_COMMON
-+	select SND_SOC_INTEL_SOF_MAXIM_COMMON
-+	help
-+	   This adds support for ASoC machine driver for SOF platforms
-+	   with nau8825 codec.
-+	   Say Y if you have such a device.
-+	   If unsure select "N".
-+
- endif ## SND_SOC_SOF_HDA_LINK || SND_SOC_SOF_BAYTRAIL
- 
- if (SND_SOC_SOF_COMETLAKE && SND_SOC_SOF_HDA_LINK)
-diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index 9ee8ed864f5d..3ea273d27168 100644
---- a/sound/soc/intel/boards/Makefile
-+++ b/sound/soc/intel/boards/Makefile
-@@ -22,6 +22,7 @@ snd-soc-sst-byt-cht-nocodec-objs := bytcht_nocodec.o
- snd-soc-sof_rt5682-objs := sof_rt5682.o sof_realtek_common.o
- snd-soc-sof_cs42l42-objs := sof_cs42l42.o
- snd-soc-sof_es8336-objs := sof_es8336.o
-+snd-soc-sof_nau8825-objs := sof_nau8825.o sof_realtek_common.o
- snd-soc-cml_rt1011_rt5682-objs := cml_rt1011_rt5682.o
- snd-soc-kbl_da7219_max98357a-objs := kbl_da7219_max98357a.o
- snd-soc-kbl_da7219_max98927-objs := kbl_da7219_max98927.o
-@@ -44,6 +45,7 @@ snd-soc-sof-sdw-objs += sof_sdw.o				\
- obj-$(CONFIG_SND_SOC_INTEL_SOF_RT5682_MACH) += snd-soc-sof_rt5682.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_CS42L42_MACH) += snd-soc-sof_cs42l42.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_ES8336_MACH) += snd-soc-sof_es8336.o
-+obj-$(CONFIG_SND_SOC_INTEL_SOF_NAU8825_MACH) += snd-soc-sof_nau8825.o
- obj-$(CONFIG_SND_SOC_INTEL_HASWELL_MACH) += snd-soc-sst-haswell.o
- obj-$(CONFIG_SND_SOC_INTEL_BXT_DA7219_MAX98357A_COMMON) += snd-soc-sst-bxt-da7219_max98357a.o
- obj-$(CONFIG_SND_SOC_INTEL_BXT_RT298_MACH) += snd-soc-sst-bxt-rt298.o
-diff --git a/sound/soc/intel/boards/sof_nau8825.c b/sound/soc/intel/boards/sof_nau8825.c
-new file mode 100644
-index 000000000000..33de043b66c6
---- /dev/null
-+++ b/sound/soc/intel/boards/sof_nau8825.c
-@@ -0,0 +1,651 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright(c) 2021 Intel Corporation.
-+// Copyright(c) 2021 Nuvoton Corporation.
-+
-+/*
-+ * Intel SOF Machine Driver with Nuvoton headphone codec NAU8825
-+ * and speaker codec RT1019P MAX98360a or MAX98373
-+ */
-+#include <linux/i2c.h>
-+#include <linux/input.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/dmi.h>
-+#include <sound/core.h>
-+#include <sound/jack.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/sof.h>
-+#include <sound/soc-acpi.h>
-+#include "../../codecs/nau8825.h"
-+#include "../common/soc-intel-quirks.h"
-+#include "hda_dsp_common.h"
-+#include "sof_realtek_common.h"
-+#include "sof_maxim_common.h"
-+
-+#define NAME_SIZE 32
-+
-+#define SOF_NAU8825_SSP_CODEC(quirk)		((quirk) & GENMASK(2, 0))
-+#define SOF_NAU8825_SSP_CODEC_MASK		(GENMASK(2, 0))
-+#define SOF_SPEAKER_AMP_PRESENT		BIT(3)
-+#define SOF_NAU8825_SSP_AMP_SHIFT		4
-+#define SOF_NAU8825_SSP_AMP_MASK		(GENMASK(6, 4))
-+#define SOF_NAU8825_SSP_AMP(quirk)	\
-+	(((quirk) << SOF_NAU8825_SSP_AMP_SHIFT) & SOF_NAU8825_SSP_AMP_MASK)
-+#define SOF_NAU8825_NUM_HDMIDEV_SHIFT		7
-+#define SOF_NAU8825_NUM_HDMIDEV_MASK		(GENMASK(9, 7))
-+#define SOF_NAU8825_NUM_HDMIDEV(quirk)	\
-+	(((quirk) << SOF_NAU8825_NUM_HDMIDEV_SHIFT) & SOF_NAU8825_NUM_HDMIDEV_MASK)
-+
-+/* BT audio offload: reserve 3 bits for future */
-+#define SOF_BT_OFFLOAD_SSP_SHIFT		10
-+#define SOF_BT_OFFLOAD_SSP_MASK		(GENMASK(12, 10))
-+#define SOF_BT_OFFLOAD_SSP(quirk)	\
-+	(((quirk) << SOF_BT_OFFLOAD_SSP_SHIFT) & SOF_BT_OFFLOAD_SSP_MASK)
-+#define SOF_SSP_BT_OFFLOAD_PRESENT		BIT(13)
-+#define SOF_RT1019P_SPEAKER_AMP_PRESENT	BIT(14)
-+#define SOF_MAX98373_SPEAKER_AMP_PRESENT	BIT(15)
-+#define SOF_MAX98360A_SPEAKER_AMP_PRESENT	BIT(16)
-+
-+static unsigned long sof_nau8825_quirk = SOF_NAU8825_SSP_CODEC(0);
-+
-+struct sof_hdmi_pcm {
-+	struct list_head head;
-+	struct snd_soc_dai *codec_dai;
-+	int device;
-+};
-+
-+struct sof_card_private {
-+	struct clk *mclk;
-+	struct snd_soc_jack sof_headset;
-+	struct list_head hdmi_pcm_list;
-+};
-+
-+static int sof_hdmi_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
-+	struct snd_soc_dai *dai = asoc_rtd_to_codec(rtd, 0);
-+	struct sof_hdmi_pcm *pcm;
-+
-+	pcm = devm_kzalloc(rtd->card->dev, sizeof(*pcm), GFP_KERNEL);
-+	if (!pcm)
-+		return -ENOMEM;
-+
-+	/* dai_link id is 1:1 mapped to the PCM device */
-+	pcm->device = rtd->dai_link->id;
-+	pcm->codec_dai = dai;
-+
-+	list_add_tail(&pcm->head, &ctx->hdmi_pcm_list);
-+
-+	return 0;
-+}
-+
-+static int sof_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
-+	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
-+
-+	struct snd_soc_jack *jack;
-+	int ret;
-+
-+	/*
-+	 * Headset buttons map to the google Reference headset.
-+	 * These can be configured by userspace.
-+	 */
-+	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
-+				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
-+				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
-+				    SND_JACK_BTN_3,
-+				    &ctx->sof_headset, NULL, 0);
-+	if (ret) {
-+		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	jack = &ctx->sof_headset;
-+
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-+	ret = snd_soc_component_set_jack(component, jack, NULL);
-+
-+	if (ret) {
-+		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return ret;
-+};
-+
-+static void sof_nau8825_codec_exit(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
-+
-+	snd_soc_component_set_jack(component, NULL, NULL);
-+}
-+
-+static int sof_nau8825_hw_params(struct snd_pcm_substream *substream,
-+				 struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	int clk_freq, ret;
-+
-+	clk_freq = sof_dai_get_bclk(rtd); /* BCLK freq */
-+
-+	if (clk_freq <= 0) {
-+		dev_err(rtd->dev, "get bclk freq failed: %d\n", clk_freq);
-+		return -EINVAL;
-+	}
-+
-+	/* Configure clock for codec */
-+	ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_BLK, 0,
-+				     SND_SOC_CLOCK_IN);
-+	if (ret < 0) {
-+		dev_err(codec_dai->dev, "can't set BCLK clock %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* Configure pll for codec */
-+	ret = snd_soc_dai_set_pll(codec_dai, 0, 0, clk_freq,
-+				  params_rate(params) * 256);
-+	if (ret < 0) {
-+		dev_err(codec_dai->dev, "can't set BCLK: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return ret;
-+}
-+
-+static struct snd_soc_ops sof_nau8825_ops = {
-+	.hw_params = sof_nau8825_hw_params,
-+};
-+
-+static struct snd_soc_dai_link_component platform_component[] = {
-+	{
-+		/* name might be overridden during probe */
-+		.name = "0000:00:1f.3"
-+	}
-+};
-+
-+static int sof_card_late_probe(struct snd_soc_card *card)
-+{
-+	struct sof_card_private *ctx = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dapm_context *dapm = &card->dapm;
-+	struct sof_hdmi_pcm *pcm;
-+	int err;
-+
-+	if (list_empty(&ctx->hdmi_pcm_list))
-+		return -EINVAL;
-+
-+	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct sof_hdmi_pcm, head);
-+
-+	if (sof_nau8825_quirk & SOF_MAX98373_SPEAKER_AMP_PRESENT) {
-+		/* Disable Left and Right Spk pin after boot */
-+		snd_soc_dapm_disable_pin(dapm, "Left Spk");
-+		snd_soc_dapm_disable_pin(dapm, "Right Spk");
-+		err = snd_soc_dapm_sync(dapm);
-+		if (err < 0)
-+			return err;
-+	}
-+
-+	return hda_dsp_hdmi_build_controls(card, pcm->codec_dai->component);
-+}
-+
-+static const struct snd_kcontrol_new sof_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-+	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-+	SOC_DAPM_PIN_SWITCH("Left Spk"),
-+	SOC_DAPM_PIN_SWITCH("Right Spk"),
-+};
-+
-+static const struct snd_kcontrol_new speaker_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Spk"),
-+};
-+
-+static const struct snd_soc_dapm_widget sof_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+	SND_SOC_DAPM_SPK("Left Spk", NULL),
-+	SND_SOC_DAPM_SPK("Right Spk", NULL),
-+};
-+
-+static const struct snd_soc_dapm_widget speaker_widgets[] = {
-+	SND_SOC_DAPM_SPK("Spk", NULL),
-+};
-+
-+static const struct snd_soc_dapm_widget dmic_widgets[] = {
-+	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
-+};
-+
-+static const struct snd_soc_dapm_route sof_map[] = {
-+	/* HP jack connectors - unknown if we have jack detection */
-+	{ "Headphone Jack", NULL, "HPOL" },
-+	{ "Headphone Jack", NULL, "HPOR" },
-+
-+	/* other jacks */
-+	{ "MIC", NULL, "Headset Mic" },
-+};
-+
-+static const struct snd_soc_dapm_route speaker_map[] = {
-+	/* speaker */
-+	{ "Spk", NULL, "Speaker" },
-+};
-+
-+static const struct snd_soc_dapm_route dmic_map[] = {
-+	/* digital mics */
-+	{"DMic", NULL, "SoC DMIC"},
-+};
-+
-+static int speaker_codec_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	int ret;
-+
-+	ret = snd_soc_dapm_new_controls(&card->dapm, speaker_widgets,
-+					ARRAY_SIZE(speaker_widgets));
-+	if (ret) {
-+		dev_err(rtd->dev, "unable to add dapm controls, ret %d\n", ret);
-+		/* Don't need to add routes if widget addition failed */
-+		return ret;
-+	}
-+
-+	ret = snd_soc_add_card_controls(card, speaker_controls,
-+					ARRAY_SIZE(speaker_controls));
-+	if (ret) {
-+		dev_err(rtd->dev, "unable to add card controls, ret %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dapm_add_routes(&card->dapm, speaker_map,
-+				      ARRAY_SIZE(speaker_map));
-+
-+	if (ret)
-+		dev_err(rtd->dev, "Speaker map addition failed: %d\n", ret);
-+	return ret;
-+}
-+
-+static int dmic_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	int ret;
-+
-+	ret = snd_soc_dapm_new_controls(&card->dapm, dmic_widgets,
-+					ARRAY_SIZE(dmic_widgets));
-+	if (ret) {
-+		dev_err(card->dev, "DMic widget addition failed: %d\n", ret);
-+		/* Don't need to add routes if widget addition failed */
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dapm_add_routes(&card->dapm, dmic_map,
-+				      ARRAY_SIZE(dmic_map));
-+
-+	if (ret)
-+		dev_err(card->dev, "DMic map addition failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+/* sof audio machine driver for nau8825 codec */
-+static struct snd_soc_card sof_audio_card_nau8825 = {
-+	.name = "nau8825", /* the sof- prefix is added by the core */
-+	.owner = THIS_MODULE,
-+	.controls = sof_controls,
-+	.num_controls = ARRAY_SIZE(sof_controls),
-+	.dapm_widgets = sof_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sof_widgets),
-+	.dapm_routes = sof_map,
-+	.num_dapm_routes = ARRAY_SIZE(sof_map),
-+	.fully_routed = true,
-+	.late_probe = sof_card_late_probe,
-+};
-+
-+static struct snd_soc_dai_link_component nau8825_component[] = {
-+	{
-+		.name = "i2c-10508825:00",
-+		.dai_name = "nau8825-hifi",
-+	}
-+};
-+
-+static struct snd_soc_dai_link_component dmic_component[] = {
-+	{
-+		.name = "dmic-codec",
-+		.dai_name = "dmic-hifi",
-+	}
-+};
-+
-+static struct snd_soc_dai_link_component rt1019p_component[] = {
-+	{
-+		.name = "RTL1019:00",
-+		.dai_name = "HiFi",
-+	}
-+};
-+
-+static struct snd_soc_dai_link_component dummy_component[] = {
-+	{
-+		.name = "snd-soc-dummy",
-+		.dai_name = "snd-soc-dummy-dai",
-+	}
-+};
-+
-+static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
-+							  int ssp_codec,
-+							  int ssp_amp,
-+							  int dmic_be_num,
-+							  int hdmi_num)
-+{
-+	struct snd_soc_dai_link_component *idisp_components;
-+	struct snd_soc_dai_link_component *cpus;
-+	struct snd_soc_dai_link *links;
-+	int i, id = 0;
-+
-+	links = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link) *
-+			     sof_audio_card_nau8825.num_links, GFP_KERNEL);
-+	cpus = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link_component) *
-+			     sof_audio_card_nau8825.num_links, GFP_KERNEL);
-+	if (!links || !cpus)
-+		goto devm_err;
-+
-+	/* codec SSP */
-+	links[id].name = devm_kasprintf(dev, GFP_KERNEL,
-+					"SSP%d-Codec", ssp_codec);
-+	if (!links[id].name)
-+		goto devm_err;
-+
-+	links[id].id = id;
-+	links[id].codecs = nau8825_component;
-+	links[id].num_codecs = ARRAY_SIZE(nau8825_component);
-+	links[id].platforms = platform_component;
-+	links[id].num_platforms = ARRAY_SIZE(platform_component);
-+	links[id].init = sof_nau8825_codec_init;
-+	links[id].exit = sof_nau8825_codec_exit;
-+	links[id].ops = &sof_nau8825_ops;
-+	links[id].dpcm_playback = 1;
-+	links[id].dpcm_capture = 1;
-+	links[id].no_pcm = 1;
-+	links[id].cpus = &cpus[id];
-+	links[id].num_cpus = 1;
-+
-+	links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+						  "SSP%d Pin",
-+						  ssp_codec);
-+	if (!links[id].cpus->dai_name)
-+		goto devm_err;
-+
-+	id++;
-+
-+	/* dmic */
-+	if (dmic_be_num > 0) {
-+		/* at least we have dmic01 */
-+		links[id].name = "dmic01";
-+		links[id].cpus = &cpus[id];
-+		links[id].cpus->dai_name = "DMIC01 Pin";
-+		links[id].init = dmic_init;
-+		if (dmic_be_num > 1) {
-+			/* set up 2 BE links at most */
-+			links[id + 1].name = "dmic16k";
-+			links[id + 1].cpus = &cpus[id + 1];
-+			links[id + 1].cpus->dai_name = "DMIC16k Pin";
-+			dmic_be_num = 2;
-+		}
-+	}
-+
-+	for (i = 0; i < dmic_be_num; i++) {
-+		links[id].id = id;
-+		links[id].num_cpus = 1;
-+		links[id].codecs = dmic_component;
-+		links[id].num_codecs = ARRAY_SIZE(dmic_component);
-+		links[id].platforms = platform_component;
-+		links[id].num_platforms = ARRAY_SIZE(platform_component);
-+		links[id].ignore_suspend = 1;
-+		links[id].dpcm_capture = 1;
-+		links[id].no_pcm = 1;
-+		id++;
-+	}
-+
-+	/* HDMI */
-+	if (hdmi_num > 0) {
-+		idisp_components = devm_kzalloc(dev,
-+						sizeof(struct snd_soc_dai_link_component) *
-+						hdmi_num, GFP_KERNEL);
-+		if (!idisp_components)
-+			goto devm_err;
-+	}
-+	for (i = 1; i <= hdmi_num; i++) {
-+		links[id].name = devm_kasprintf(dev, GFP_KERNEL,
-+						"iDisp%d", i);
-+		if (!links[id].name)
-+			goto devm_err;
-+
-+		links[id].id = id;
-+		links[id].cpus = &cpus[id];
-+		links[id].num_cpus = 1;
-+		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+							  "iDisp%d Pin", i);
-+		if (!links[id].cpus->dai_name)
-+			goto devm_err;
-+
-+		idisp_components[i - 1].name = "ehdaudio0D2";
-+		idisp_components[i - 1].dai_name = devm_kasprintf(dev,
-+								  GFP_KERNEL,
-+								  "intel-hdmi-hifi%d",
-+								  i);
-+		if (!idisp_components[i - 1].dai_name)
-+			goto devm_err;
-+
-+		links[id].codecs = &idisp_components[i - 1];
-+		links[id].num_codecs = 1;
-+		links[id].platforms = platform_component;
-+		links[id].num_platforms = ARRAY_SIZE(platform_component);
-+		links[id].init = sof_hdmi_init;
-+		links[id].dpcm_playback = 1;
-+		links[id].no_pcm = 1;
-+		id++;
-+	}
-+
-+	/* speaker amp */
-+	if (sof_nau8825_quirk & SOF_SPEAKER_AMP_PRESENT) {
-+		links[id].name = devm_kasprintf(dev, GFP_KERNEL,
-+						"SSP%d-Codec", ssp_amp);
-+		if (!links[id].name)
-+			goto devm_err;
-+
-+		links[id].id = id;
-+		if (sof_nau8825_quirk & SOF_RT1019P_SPEAKER_AMP_PRESENT) {
-+			links[id].codecs = rt1019p_component;
-+			links[id].num_codecs = ARRAY_SIZE(rt1019p_component);
-+			links[id].init = speaker_codec_init;
-+		} else if (sof_nau8825_quirk &
-+				SOF_MAX98373_SPEAKER_AMP_PRESENT) {
-+			links[id].codecs = max_98373_components;
-+			links[id].num_codecs = ARRAY_SIZE(max_98373_components);
-+			links[id].init = max_98373_spk_codec_init;
-+			links[id].ops = &max_98373_ops;
-+			/* feedback stream */
-+			links[id].dpcm_capture = 1;
-+		} else if (sof_nau8825_quirk &
-+				SOF_MAX98360A_SPEAKER_AMP_PRESENT) {
-+			max_98360a_dai_link(&links[id]);
-+		} else {
-+			goto devm_err;
-+		}
-+
-+		links[id].platforms = platform_component;
-+		links[id].num_platforms = ARRAY_SIZE(platform_component);
-+		links[id].dpcm_playback = 1;
-+		links[id].no_pcm = 1;
-+		links[id].cpus = &cpus[id];
-+		links[id].num_cpus = 1;
-+		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+							  "SSP%d Pin",
-+							  ssp_amp);
-+		if (!links[id].cpus->dai_name)
-+			goto devm_err;
-+		id++;
-+	}
-+
-+	/* BT audio offload */
-+	if (sof_nau8825_quirk & SOF_SSP_BT_OFFLOAD_PRESENT) {
-+		int port = (sof_nau8825_quirk & SOF_BT_OFFLOAD_SSP_MASK) >>
-+				SOF_BT_OFFLOAD_SSP_SHIFT;
-+
-+		links[id].id = id;
-+		links[id].cpus = &cpus[id];
-+		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+							  "SSP%d Pin", port);
-+		if (!links[id].cpus->dai_name)
-+			goto devm_err;
-+		links[id].name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-BT", port);
-+		if (!links[id].name)
-+			goto devm_err;
-+		links[id].codecs = dummy_component;
-+		links[id].num_codecs = ARRAY_SIZE(dummy_component);
-+		links[id].platforms = platform_component;
-+		links[id].num_platforms = ARRAY_SIZE(platform_component);
-+		links[id].dpcm_playback = 1;
-+		links[id].dpcm_capture = 1;
-+		links[id].no_pcm = 1;
-+		links[id].num_cpus = 1;
-+	}
-+
-+	return links;
-+devm_err:
-+	return NULL;
-+}
-+
-+static int sof_audio_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_dai_link *dai_links;
-+	struct snd_soc_acpi_mach *mach;
-+	struct sof_card_private *ctx;
-+	int dmic_be_num, hdmi_num;
-+	int ret, ssp_amp, ssp_codec;
-+
-+	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	if (pdev->id_entry && pdev->id_entry->driver_data)
-+		sof_nau8825_quirk = (unsigned long)pdev->id_entry->driver_data;
-+
-+	mach = pdev->dev.platform_data;
-+
-+	/* A speaker amp might not be present when the quirk claims one is.
-+	 * Detect this via whether the machine driver match includes quirk_data.
-+	 */
-+	if ((sof_nau8825_quirk & SOF_SPEAKER_AMP_PRESENT) && !mach->quirk_data)
-+		sof_nau8825_quirk &= ~SOF_SPEAKER_AMP_PRESENT;
-+
-+	dev_dbg(&pdev->dev, "sof_nau8825_quirk = %lx\n", sof_nau8825_quirk);
-+
-+	/* default number of DMIC DAI's */
-+	dmic_be_num = 2;
-+	hdmi_num = (sof_nau8825_quirk & SOF_NAU8825_NUM_HDMIDEV_MASK) >>
-+			SOF_NAU8825_NUM_HDMIDEV_SHIFT;
-+	/* default number of HDMI DAI's */
-+	if (!hdmi_num)
-+		hdmi_num = 3;
-+
-+	ssp_amp = (sof_nau8825_quirk & SOF_NAU8825_SSP_AMP_MASK) >>
-+			SOF_NAU8825_SSP_AMP_SHIFT;
-+
-+	ssp_codec = sof_nau8825_quirk & SOF_NAU8825_SSP_CODEC_MASK;
-+
-+	/* compute number of dai links */
-+	sof_audio_card_nau8825.num_links = 1 + dmic_be_num + hdmi_num;
-+
-+	if (sof_nau8825_quirk & SOF_SPEAKER_AMP_PRESENT)
-+		sof_audio_card_nau8825.num_links++;
-+
-+	if (sof_nau8825_quirk & SOF_MAX98373_SPEAKER_AMP_PRESENT)
-+		max_98373_set_codec_conf(&sof_audio_card_nau8825);
-+
-+	if (sof_nau8825_quirk & SOF_SSP_BT_OFFLOAD_PRESENT)
-+		sof_audio_card_nau8825.num_links++;
-+
-+	dai_links = sof_card_dai_links_create(&pdev->dev, ssp_codec, ssp_amp,
-+					      dmic_be_num, hdmi_num);
-+	if (!dai_links)
-+		return -ENOMEM;
-+
-+	sof_audio_card_nau8825.dai_link = dai_links;
-+
-+	INIT_LIST_HEAD(&ctx->hdmi_pcm_list);
-+
-+	sof_audio_card_nau8825.dev = &pdev->dev;
-+
-+	/* set platform name for each dailink */
-+	ret = snd_soc_fixup_dai_links_platform_name(&sof_audio_card_nau8825,
-+						    mach->mach_params.platform);
-+	if (ret)
-+		return ret;
-+
-+	snd_soc_card_set_drvdata(&sof_audio_card_nau8825, ctx);
-+
-+	return devm_snd_soc_register_card(&pdev->dev,
-+					  &sof_audio_card_nau8825);
-+}
-+
-+static const struct platform_device_id board_ids[] = {
-+	{
-+		.name = "sof_nau8825",
-+		.driver_data = (kernel_ulong_t)(SOF_NAU8825_SSP_CODEC(0) |
-+					SOF_NAU8825_NUM_HDMIDEV(4) |
-+					SOF_BT_OFFLOAD_SSP(2) |
-+					SOF_SSP_BT_OFFLOAD_PRESENT),
-+
-+	},
-+	{
-+		.name = "adl_rt1019p_nau8825",
-+		.driver_data = (kernel_ulong_t)(SOF_NAU8825_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_RT1019P_SPEAKER_AMP_PRESENT |
-+					SOF_NAU8825_SSP_AMP(2) |
-+					SOF_NAU8825_NUM_HDMIDEV(4)),
-+	},
-+	{
-+		.name = "adl_max98373_nau8825",
-+		.driver_data = (kernel_ulong_t)(SOF_NAU8825_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_MAX98373_SPEAKER_AMP_PRESENT |
-+					SOF_NAU8825_SSP_AMP(1) |
-+					SOF_NAU8825_NUM_HDMIDEV(4) |
-+					SOF_BT_OFFLOAD_SSP(2) |
-+					SOF_SSP_BT_OFFLOAD_PRESENT),
-+	},
-+	{
-+		/* The limitation of length of char array, shorten the name */
-+		.name = "adl_mx98360a_nau8825",
-+		.driver_data = (kernel_ulong_t)(SOF_NAU8825_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_MAX98360A_SPEAKER_AMP_PRESENT |
-+					SOF_NAU8825_SSP_AMP(1) |
-+					SOF_NAU8825_NUM_HDMIDEV(4) |
-+					SOF_BT_OFFLOAD_SSP(2) |
-+					SOF_SSP_BT_OFFLOAD_PRESENT),
-+
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(platform, board_ids);
-+
-+static struct platform_driver sof_audio = {
-+	.probe = sof_audio_probe,
-+	.driver = {
-+		.name = "sof_nau8825",
-+		.pm = &snd_soc_pm_ops,
-+	},
-+	.id_table = board_ids,
-+};
-+module_platform_driver(sof_audio)
-+
-+/* Module information */
-+MODULE_DESCRIPTION("SOF Audio Machine driver for NAU8825");
-+MODULE_AUTHOR("David Lin <ctlin0@nuvoton.com>");
-+MODULE_AUTHOR("Mac Chiang <mac.chiang@intel.com>");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-+MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_MAXIM_COMMON);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-index 06f503452aa5..4a3955473271 100644
---- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-@@ -290,6 +290,11 @@ static const struct snd_soc_acpi_codecs adl_rt5682_rt5682s_hp = {
- 	.codecs = {"10EC5682", "RTL5682"},
- };
- 
-+static const struct snd_soc_acpi_codecs adl_rt1019p_amp = {
-+	.num_codecs = 1,
-+	.codecs = {"RTL1019"}
-+};
-+
- struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 	{
- 		.comp_ids = &adl_rt5682_rt5682s_hp,
-@@ -315,6 +320,36 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-max98360a-rt5682.tplg",
- 	},
-+	{
-+		.id = "10508825",
-+		.drv_name = "adl_rt1019p_nau8825",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &adl_rt1019p_amp,
-+		.sof_fw_filename = "sof-adl.ri",
-+		.sof_tplg_filename = "sof-adl-rt1019-nau8825.tplg",
-+	},
-+	{
-+		.id = "10508825",
-+		.drv_name = "adl_max98373_nau8825",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &adl_max98373_amp,
-+		.sof_fw_filename = "sof-adl.ri",
-+		.sof_tplg_filename = "sof-adl-max98373-nau8825.tplg",
-+	},
-+	{
-+		.id = "10508825",
-+		.drv_name = "adl_mx98360a_nau8825",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &adl_max98360a_amp,
-+		.sof_fw_filename = "sof-adl.ri",
-+		.sof_tplg_filename = "sof-adl-mx98360a-nau8825.tplg",
-+	},
-+	{
-+		.id = "10508825",
-+		.drv_name = "sof_nau8825",
-+		.sof_fw_filename = "sof-adl.ri",
-+		.sof_tplg_filename = "sof-adl-nau8825.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_adl_machines);
--- 
-2.20.1
-
+OK, I'll split it with two changes to make it more clear.

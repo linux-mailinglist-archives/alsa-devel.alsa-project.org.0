@@ -2,67 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CECA44B0B8
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 16:53:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1151744B0BF
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 16:54:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD5C11655;
-	Tue,  9 Nov 2021 16:52:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD5C11655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 427AF1666;
+	Tue,  9 Nov 2021 16:53:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 427AF1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636473218;
-	bh=zyHw7BJPrLnqLDbSkmHwQ9EZ1GrgNEYHYlldCmw9vaI=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1636473254;
+	bh=jZljM6Yz3r3gIZRndW1XS7ZfDTdgZ4nQxuPpUlMf0CA=;
+	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=rgecZEbxeao/PtZ64BWkMCqGDrHN3RbTJfMrONMvXmZoppOKkGQwH39LGdlYsiLQn
-	 tQ6xcGgPFjsmAiGmjxTMKFRGQ7l9zSoHtzGk1Moi1UXwU6kOPLyctX5cWn+3bcEVl0
-	 LFWHWFW9XHt2/vOVw97L8vJDy0cTkPieNR9W+T60=
+	b=oXbpRa8rWrK81A2pa9gkpHcUD72yTH31uf2DquT3gy9U8wMXC6Moa0+3BElSvsAoa
+	 9xyYlpFks1Yq82gpIiLmvT8P7jtpI7po8h/7ekCW8MM0f+zCfoZgdx5W4WvIreqcyQ
+	 tGdBillXsJa/bmQpBTc9NdZe/sRgKVXSPLalwo6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 190D1F801D8;
-	Tue,  9 Nov 2021 16:52:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61E5CF802E3;
+	Tue,  9 Nov 2021 16:53:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5414CF802D2; Tue,  9 Nov 2021 16:52:15 +0100 (CET)
+ id 3C1BCF800C9; Tue,  9 Nov 2021 16:53:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD122F800C9
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 16:52:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD122F800C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB56DF800C9
+ for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 16:53:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB56DF800C9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="N9DGRUZt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1636473130;
- x=1668009130;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=o0C3d6r+mDDcs6NRZ0+omlKG+9ANSyCg4BkCCZlsxEc=;
- b=N9DGRUZtDq0dR/GEtttzPP4zXiJ14JPXtSOCs3GqM5jsYcc2mxp5/Rb9
- jb7su45loPTaMJUSIBdSRCavlsieXJ3GQR9EFcLVZysJaMnRecVfXZ2no
- UyXc8doY1lC+wMbHgY1CF3Wo31diiWiXHSMSvgXvL5kueZnwfDJiO8uaF
- lb3pNpcUVa69ce4rAO8c3kJH2OlS7u5ErqGjpyFKtM3Xs0H+wLeFaEaet
- vToo/tkjWopjNhxp0ewUmzxhqXkh9BR6v4OLbklXH422w6wH2AjeOBO3j
- yQen9itF3WOZpm/YVjlog5hb4UYhDNyXYCJOzQmvPQDyiPctLKX/P8WQK Q==;
-Date: Tue, 9 Nov 2021 16:52:01 +0100
-From: Ricard Wanderlof <ricardw@axis.com>
-X-X-Sender: ricardw@lnxricardw1.se.axis.com
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH v4 0/2] Codec driver for TLV320ADC3001 and 3101
-Message-ID: <alpine.DEB.2.21.2111091650260.24937@lnxricardw1.se.axis.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="GjRJK5Po"
+Received: by mail-wm1-x333.google.com with SMTP id
+ o4-20020a1c7504000000b0032cab7473caso1966330wmc.1
+ for <alsa-devel@alsa-project.org>; Tue, 09 Nov 2021 07:53:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=to:from:subject:message-id:date:user-agent:mime-version
+ :content-language;
+ bh=6e7Y2jSfhQdl+F9WbSrI8qqZG5X/wkXiL9DZwnMc+dg=;
+ b=GjRJK5PoAAd68WKKHvtJYMtLOlgBjFGd5hR8j71UO6Bb0x95AZ+UQYRNKCGPJ+y38n
+ CZSGpaZG08004VYQe34YEabWV+GcwzVkrZPj0xv6A64Ksj/WgSoYDj1oCS6yid1wWbtH
+ 1wMitrTlPIvTUvZDRtO5Q1YoybEaiafCWIoWTl0eHKxjBDpnWObMZRKVr2xWsQqld0VO
+ NJFK5y37K7/QmoUNyTsdx9V+7us4afb3JHKgmYEQ5kPDbQGj+BmSYQq5ClLX568ula1d
+ +oYYbs6/DhyIXjI3nItHRPnULXaMANMhHm9GPGfGGB1dV3i1psIa6ZRbJJ8Gc7tQv2rQ
+ 3+Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+ :mime-version:content-language;
+ bh=6e7Y2jSfhQdl+F9WbSrI8qqZG5X/wkXiL9DZwnMc+dg=;
+ b=0Wkf4JHIuJgePtrWIhNJbMtlWil2+UjA4j9YZM0DudTqH1txvErDSFK4nG+qc6L0Wf
+ wBb3SuxlSXQs5cRzlqIphi6Qnhf75qoCgpPdQLWFD4+m0k6LU7efPupD8Dk5fC9jL35t
+ lnbkcSrV0zJHobYRsBkpAhN+ShWvzQ1eILtzPJHaGD/ABMN6wPz+cRwwmRYcuA/RTyPD
+ RF61Cu9uP21j0KTMy0BTbBHSnFMcgxBYXMpmjV0WtuLqrQxj2CPR7VhvqJOU3RQPPAv5
+ d4l23D4UoLp+WaCBVGJ/SfSoFl642NUNm4zvX61Cerg7bBphSgrezqOXk2K2UnNVOVXV
+ IaiQ==
+X-Gm-Message-State: AOAM53212IYZ5S+4QisqUPwAqW3I4qhL4RA+mKnvy8t8rXFD45XfQAlc
+ q1Y+cwbKzE0zqdcroDMfT2sAJCM4d0o=
+X-Google-Smtp-Source: ABdhPJyL92FBdLVCMxub4HTd5w2QkQHWPJwR2u9oAdfRXIW5DctNspBm+HrfDLtWi3ZeGeJTuPUOOw==
+X-Received: by 2002:a05:600c:202:: with SMTP id
+ 2mr8376664wmi.134.1636473196839; 
+ Tue, 09 Nov 2021 07:53:16 -0800 (PST)
+Received: from [192.168.21.204] ([31.185.172.54])
+ by smtp.gmail.com with ESMTPSA id u15sm3083563wmq.13.2021.11.09.07.53.16
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Nov 2021 07:53:16 -0800 (PST)
+To: alsa-devel@alsa-project.org
+From: Alan Young <consult.awy@gmail.com>
+Subject: [PATCH] ALSA: ctl: Fix copy of updated id with element read/write
+Message-ID: <d0c9ba7f-56e5-3462-465b-1b6b6c0d856b@gmail.com>
+Date: Tue, 9 Nov 2021 15:53:15 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-Originating-IP: [10.0.5.60]
-X-ClientProxiedBy: se-mail04w.axis.com (10.20.40.10) To se-mail07w.axis.com
- (10.20.40.13)
-Cc: alsa-devel <alsa-devel@alsa-project.org>
+Content-Type: multipart/mixed; boundary="------------1450B8D93D9CB29AFCB8870A"
+Content-Language: en-GB
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,145 +100,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This is a multi-part message in MIME format.
+--------------1450B8D93D9CB29AFCB8870A
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This is a codec driver for the TLV320ADC3001 and TLV320ADC3101 2 channel
-audio ADC chips from Texas Instruments.
 
-Based on an old driver for these chips that I was referred to by Texas
-Instruments, but which apparently was never upstreamed, I've taken
-patches from various incarnations, ported them and augmented them with
-various new features in order to make a working driver.
 
-There is currently no support for the on-chip "miniDSP".
+--------------1450B8D93D9CB29AFCB8870A
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-ALSA-ctl-Fix-copy-of-updated-id-with-element-read-wr.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-ALSA-ctl-Fix-copy-of-updated-id-with-element-read-wr.pa";
+ filename*1="tch"
 
-Although the TLV320ADC3001 and TLV320ADC3101 have similarities with other
-TI codec chips for which there are existing drivers, upon closer
-inspection I decided the differences were too great to warrant attempting
-to modify an existing driver, especially without access to all supported
-chips and resources for testing them all.
+From 8dfd143c2e05405bc1f61107c5858eab9c5fc847 Mon Sep 17 00:00:00 2001
+From: Alan Young <consult.awy@gmail.com>
+Date: Mon, 8 Nov 2021 12:39:56 -0500
+Subject: [PATCH] ALSA: ctl: Fix copy of updated id with element read/write
 
-There are certainly things that could be improved, among others in the
-area of PLL register value calculations, but it has been tested on the
-Axis ARTPEC-8 platform and has been found to work satisfactorily at least
-with a TLV320ADC3101 operating as an I2S slave at 48 kHz with 32 bit bit
-depth, 1 or 2 channels, both with the on-chip PLL enabled and disabled.
+When control_compat.c:copy_ctl_value_to_user() is used, by
+ctl_elem_read_user() & ctl_elem_write_user(), it must also copy back the
+snd_ctl_elem_id value that may have been updated (filled in) by the call
+to snd_ctl_elem_read/snd_ctl_elem_write().
 
-I have not tested this on a TLV320ADC3001 chip; in the original driver
-the only differences were related to the now-removed initialization
-code, so I've just retained the compatible strings for both chips.
+This matches the functionality provided by snd_ctl_elem_read_user() and
+snd_ctl_elem_write_user(), via snd_ctl_build_ioff().
 
-Limitations:
-  - GPIO pins on chip can only be set up as outputs.
-  - Using BCLK as an input to clock chain is supported by the hw
-    but not by driver.
+Without this, and without making additional calls to snd_ctl_info()
+which are unnecessary when using the non-compat calls, a userspace
+application will not know the numid value for the element and
+consequently will not be able to use the poll/read interface on the
+control file to determine which elements have updates.
 
-Changes v3->v4:
+Signed-off-by: Alan Young <consult.awy@gmail.com>
+---
+ sound/core/control_compat.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-More fixes for issues reported by kernel test robot (lkp@intel.com).
-Don't know why these weren't reported the first time.
-
-Changes v2->v3:
-
-Fix a couple of issues reported by the kernel test robot (lkp@intel.com).
-
-Changes v1->v2:
-
-Large portions of the driver have been reworked from v1 based on remarks
-from Mark. More specifically:
-
-  - Remove an unneeded #ifdef and EXPORT_SYMBOL_GPL.
-  - Add ADC3XXX_ prefix to all macro names to avoid namespace contention.
-  - Clean up certain macro names with mixed lower case - upper case names.
-  - Do away with the D0..D7 macros representing bit values.
-  - Fix general formatting: spaces before and after {, },
-    replace multi spaces with tabs, maximum 2 blank lines anywhere,
-    and other minor issues.
-  - Page register does not need to be volatile.
-  - Rather than use 0 / -6dB enum for input attenuator, use standard TLV.
-  - The dither offset control contains reserved values so use
-    VALUE_ENUM instead of straight ENUM.
-  - Replace vector of SOC_ENUMs with individual variables.
-  - Fix ALSA control names:
-    - Use Volume at the end of all gain controls, and remove
-      "Gain" where applicable.
-    - Use "Switch" at the end of all switch controls, either adding
-      it or changing "switch" into "Switch" as applicable.
-    - Switches and Volumes related to capture should be set up
-      as such, so add "Capture" to widget names where appropriate.
-      This is mostly important for the PGA Capture and Switch widgets,
-      not just for consistency, but also because amixer simple Switch
-      controls expect different names (cap/nocap instead of on/off)
-      for control values for capture.
-  - Make widget names have capital first letters for all consitutent
-    words.
-  - When resuming, the registers will not have changed, so no need to
-    call snd_soc_component_cache_sync().
-  - Move reset gpio init to I2C probe
-  - Remove needless _priv at end of private struct name.
-  - Make hex constants lower case
-  - _CBM_CFM/_CBS_CFS -> _CBP_CFP/_CBC_CFC
-  - Instead of using device specific ALSA controls to control
-    the two GPIO pins, use GPIOLIB. GPIO pin functions still
-    can be set up in the devicetree as the pins can be used for
-    other functions which are not GPIO related.
-    - Limitation: The GPIO pins can only be used as outputs, even though
-      the hardware alternatively supports using them as inputs.
-  - Handle GPIO configs in a vector rather than separately.
-  - Use more appropriate module_i2c_driver
-    instead of generic module_init/module_exit.
-  - Remove useless initialization data.
-  - As the ADC mute function had no control, add it.
-  - Clean up GPIO initialization which was done both in the
-    I2C probe and in the component probe.
-  - Remove probe, remove, suspend and resume callbacks, which
-    either do not do anything at all anymore, or uselessly
-    just do set_bias_level.
-  - The PLL should not be configured in the devicetree, so
-    move the corresponding definitions to tlv320adc3xxx.h
-    where they can be picked up by a machine driver if needed.
-    - Default to PLL AUTO mode.
-  - Use "reset-gpios" instead of too-generic "gpios" for dt
-    property for configuring codec reset pin.
-  - Use function for printing PLL mode rather than macro.
-  - dev_info is too verbose for most of the printouts, change them
-    to dev_dbg.
-  - Add support for configuring micbias voltage in DT.
-  - Remove ALSA control for mic bias.
-  - Move PLL and NADC, MADC divisor enable to DAPM, including 10 ms
-    post PLL start up delay via POST_PMU event.
-  - ADC is powered on using DAPM, so needless to do it in
-    set_bias_level, thus remove it.
-  - Let DAPM handle BCLK divisor enable. With this, we can
-    remove set_bias_level as it doesn't do anything anymore.
-  - Fix incorrect argument order to a snd_soc_component_update_bits call.
-  - Although the chip itself can operate using BCLK as the clock
-    source, either directly to the divider chain or via the PLL,
-    this is not yet supported in the driver, so require the
-    clocks property for the MCLK for now.
-  - Move PLL rate structure out of .h file where it does not belong.
-
-/Ricard
-
-Ricard Wanderlof (2):
-  dt-bindings: sound: tlv320adc3xxx: New codec driver
-  ASoC: codec: tlv320adc3xxx: New codec driver
-
- .../bindings/sound/ti,tlv320adc3xxx.yaml      |  137 +++
- include/dt-bindings/sound/tlv320adc3xxx.h     |   28 +
- sound/soc/codecs/Kconfig                      |    7 +
- sound/soc/codecs/Makefile                     |    2 +
- sound/soc/codecs/tlv320adc3xxx.c              | 1071 +++++++++++++++++
- sound/soc/codecs/tlv320adc3xxx.h              |  379 ++++++
- 6 files changed, 1624 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
- create mode 100644 include/dt-bindings/sound/tlv320adc3xxx.h
- create mode 100644 sound/soc/codecs/tlv320adc3xxx.c
- create mode 100644 sound/soc/codecs/tlv320adc3xxx.h
-
+diff --git a/sound/core/control_compat.c b/sound/core/control_compat.c
+index 470dabc60aa0..edff063e088d 100644
+--- a/sound/core/control_compat.c
++++ b/sound/core/control_compat.c
+@@ -264,6 +264,7 @@ static int copy_ctl_value_to_user(void __user *userdata,
+ 				  struct snd_ctl_elem_value *data,
+ 				  int type, int count)
+ {
++	struct snd_ctl_elem_value32 __user *data32 = userdata;
+ 	int i, size;
+ 
+ 	if (type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
+@@ -280,6 +281,8 @@ static int copy_ctl_value_to_user(void __user *userdata,
+ 		if (copy_to_user(valuep, data->value.bytes.data, size))
+ 			return -EFAULT;
+ 	}
++	if (copy_to_user(&data32->id, &data->id, sizeof(data32->id)))
++		return -EFAULT;
+ 	return 0;
+ }
+ 
 -- 
-2.20.1
+2.25.1
 
--- 
-Ricard Wolf Wanderlof                           ricardw(at)axis.com
-Axis Communications AB, Lund, Sweden            www.axis.com
-Phone +46 46 272 2016                           Fax +46 46 13 61 30
+
+--------------1450B8D93D9CB29AFCB8870A--

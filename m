@@ -2,63 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4531944B6A9
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:26:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4EE844B6BE
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:27:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D747B167E;
-	Tue,  9 Nov 2021 23:25:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D747B167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79BD815F2;
+	Tue,  9 Nov 2021 23:26:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79BD815F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636496793;
-	bh=roLpUceVLm+Ma7x4DEjbGf9lFn2CGqSf1/yDwimyfrk=;
+	s=default; t=1636496822;
+	bh=YqdcfG9rMUg1aPmE15BG3JxqWSif0cagwCUxwHc/YEU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l5pAgWaGIS9XS75Pi3GhOMmM2vgys/p3WbEacCGp9CgEUmIm0vE7aQk9aoKLX5qZ3
-	 gU9TRo0H06HgslD6E/d4siaA0wqMoilDUnLTVCa5xwGbnFbh6yhNmgcWLjMhpzyC+M
-	 c/cRotx+kjpIH+LbPs9LexnY3P+VuL8sDp70qI38=
+	b=g5p/KBF5o0wGpUu3uvZGLm1hqPrt5w+RUWk2pXiRZf3i0d+b+36lIbzyBNM4NY12n
+	 4Nsborh5d8lnGZkGt6qfpZ9clRiYC/NefVlPE0FoA16WAKkUHqwVMdSAOV//ru7xuj
+	 ge8x4bLZ7JWy4w52I1jeEmOrKMSeWrh3tepMxuo4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56CFBF80552;
-	Tue,  9 Nov 2021 23:20:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCCF9F8057C;
+	Tue,  9 Nov 2021 23:20:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33B53F804FF; Tue,  9 Nov 2021 23:20:34 +0100 (CET)
+ id 02895F8057B; Tue,  9 Nov 2021 23:20:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92E77F80563
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:20:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92E77F80563
+ by alsa1.perex.cz (Postfix) with ESMTPS id CECEAF80511
+ for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:20:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CECEAF80511
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HOeoo8o4"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 664EF611BF;
- Tue,  9 Nov 2021 22:20:24 +0000 (UTC)
+ header.b="dLFReVA1"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0D9BB61350;
+ Tue,  9 Nov 2021 22:20:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636496425;
- bh=roLpUceVLm+Ma7x4DEjbGf9lFn2CGqSf1/yDwimyfrk=;
+ s=k20201202; t=1636496433;
+ bh=YqdcfG9rMUg1aPmE15BG3JxqWSif0cagwCUxwHc/YEU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HOeoo8o4RODpcSs8knpxJvTNq944g3FiIOUZhCnDOY4DDRdPq8uX/YxV8JD4YjUCa
- Zs/zYNM0SCmMM/LAORpFa1fHIRokLEXxiWK9ZrMhNtFtUgFJtBJwFSuLDK8cCVK+ks
- n2KmB/ToQeJauyUb5nWIaUQYlevgr3bl8Cpb7bQbXWEgGSXh9ccuL6NOfO5XDNi99u
- ea7XDUP+4TPswsc362JSDIyql1vvTPII5Y0WXCyxw/CGBrvU/SHJpqjPTkycoHS6oo
- AEwZAlvYyJfTBYbM7ecWUF4GdnND6NzZQD/0BcxJk/mixQftKXy3F8IApKPo78OwIA
- mojvJYgm7oOaQ==
+ b=dLFReVA1jNBzLqzwh+452RGEbfvRVp72UGpH9QlKEbUWpNmubDQQqPdeXgEHCI5Zr
+ eVehXluJZfdEG+qJ5EQH5naX/Nd6XBRxXm0QYCAqfqXZ50v1TXnSS5HNYAniQzQrrA
+ bmwrRpMeH6/D7iUYbcGoJLExdILLXVzju29619+sJZeNYYD4uwPuZKYRT7wBYuUqvP
+ 4XAHXyjENpt/V5mPjHYCAdFe5+grl140ygBZRhHdGFJG4NHrDjWJ9WufHwaPhuIVvo
+ L0ljVGoDHAhq8EqRlkDjugrZcMllM4X5ZjEdpTljUmu9AYWSBpQAuGrs1B2H79jkik
+ C0H3XY1ER63MA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.14 49/75] ALSA: usb-audio: Add support for the
- Pioneer DJM 750MK2 Mixer/Soundcard
-Date: Tue,  9 Nov 2021 17:18:39 -0500
-Message-Id: <20211109221905.1234094-49-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.14 54/75] ALSA: ISA: not for M68K
+Date: Tue,  9 Nov 2021 17:18:44 -0500
+Message-Id: <20211109221905.1234094-54-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211109221905.1234094-1-sashal@kernel.org>
 References: <20211109221905.1234094-1-sashal@kernel.org>
@@ -67,9 +66,9 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, gregkh@linuxfoundation.org,
- brendan@grieve.com.au, tiwai@suse.com,
- William Overton <willovertonuk@gmail.com>
+ Takashi Iwai <tiwai@suse.de>, Randy Dunlap <rdunlap@infradead.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-m68k@lists.linux-m68k.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,159 +84,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: William Overton <willovertonuk@gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
 
-[ Upstream commit 6d27788160362a7ee6c0d317636fe4b1ddbe59a7 ]
+[ Upstream commit 3c05f1477e62ea5a0a8797ba6a545b1dc751fb31 ]
 
-The kernel already has support for very similar Pioneer djm products
-and this work is based on that.
+On m68k, compiling drivers under SND_ISA causes build errors:
 
-Added device to quirks-table.h and added control info to
-mixer_quirks.c.
+../sound/core/isadma.c: In function 'snd_dma_program':
+../sound/core/isadma.c:33:17: error: implicit declaration of function 'claim_dma_lock' [-Werror=implicit-function-declaration]
+   33 |         flags = claim_dma_lock();
+      |                 ^~~~~~~~~~~~~~
+../sound/core/isadma.c:41:9: error: implicit declaration of function 'release_dma_lock' [-Werror=implicit-function-declaration]
+   41 |         release_dma_lock(flags);
+      |         ^~~~~~~~~~~~~~~~
 
-Tested on my hardware and all working.
+../sound/isa/sb/sb16_main.c: In function 'snd_sb16_playback_prepare':
+../sound/isa/sb/sb16_main.c:253:72: error: 'DMA_AUTOINIT' undeclared (first use in this function)
+  253 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_WRITE | DMA_AUTOINIT);
+      |                                                                        ^~~~~~~~~~~~
+../sound/isa/sb/sb16_main.c:253:72: note: each undeclared identifier is reported only once for each function it appears in
+../sound/isa/sb/sb16_main.c: In function 'snd_sb16_capture_prepare':
+../sound/isa/sb/sb16_main.c:322:71: error: 'DMA_AUTOINIT' undeclared (first use in this function)
+  322 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_READ | DMA_AUTOINIT);
+      |                                                                       ^~~~~~~~~~~~
 
-Signed-off-by: William Overton <willovertonuk@gmail.com>
-Link: https://lore.kernel.org/r/20211010145841.11907-1-willovertonuk@gmail.com
+and more...
+
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-m68k@lists.linux-m68k.org
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>
+Link: https://lore.kernel.org/r/20211016062602.3588-1-rdunlap@infradead.org
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/mixer_quirks.c | 34 +++++++++++++++++++++++
- sound/usb/quirks-table.h | 58 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 92 insertions(+)
+ sound/core/Makefile | 2 ++
+ sound/isa/Kconfig   | 2 +-
+ sound/pci/Kconfig   | 1 +
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index 4a4d3361ac047..ef92ac37cf1a9 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -2654,6 +2654,7 @@ static int snd_bbfpro_controls_create(struct usb_mixer_interface *mixer)
- #define SND_DJM_750_IDX		0x1
- #define SND_DJM_850_IDX		0x2
- #define SND_DJM_900NXS2_IDX	0x3
-+#define SND_DJM_750MK2_IDX	0x4
- 
- 
- #define SND_DJM_CTL(_name, suffix, _default_value, _windex) { \
-@@ -2843,10 +2844,40 @@ static const struct snd_djm_ctl snd_djm_ctls_900nxs2[] = {
- 	SND_DJM_CTL("Ch5 Input",   900nxs2_cap5, 3, SND_DJM_WINDEX_CAP)
- };
- 
-+// DJM-750MK2
-+static const u16 snd_djm_opts_750mk2_cap1[] = {
-+	0x0100, 0x0102, 0x0103, 0x0106, 0x0107, 0x0108, 0x0109, 0x010a };
-+static const u16 snd_djm_opts_750mk2_cap2[] = {
-+	0x0200, 0x0202, 0x0203, 0x0206, 0x0207, 0x0208, 0x0209, 0x020a };
-+static const u16 snd_djm_opts_750mk2_cap3[] = {
-+	0x0300, 0x0302, 0x0303, 0x0306, 0x0307, 0x0308, 0x0309, 0x030a };
-+static const u16 snd_djm_opts_750mk2_cap4[] = {
-+	0x0400, 0x0402, 0x0403, 0x0406, 0x0407, 0x0408, 0x0409, 0x040a };
-+static const u16 snd_djm_opts_750mk2_cap5[] = {
-+	0x0507, 0x0508, 0x0509, 0x050a, 0x0511, 0x0512, 0x0513, 0x0514 };
-+
-+static const u16 snd_djm_opts_750mk2_pb1[] = { 0x0100, 0x0101, 0x0104 };
-+static const u16 snd_djm_opts_750mk2_pb2[] = { 0x0200, 0x0201, 0x0204 };
-+static const u16 snd_djm_opts_750mk2_pb3[] = { 0x0300, 0x0301, 0x0304 };
-+
-+
-+static const struct snd_djm_ctl snd_djm_ctls_750mk2[] = {
-+	SND_DJM_CTL("Capture Level", cap_level, 0, SND_DJM_WINDEX_CAPLVL),
-+	SND_DJM_CTL("Ch1 Input",   750mk2_cap1, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch2 Input",   750mk2_cap2, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch3 Input",   750mk2_cap3, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch4 Input",   750mk2_cap4, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch5 Input",   750mk2_cap5, 3, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch1 Output",   750mk2_pb1, 0, SND_DJM_WINDEX_PB),
-+	SND_DJM_CTL("Ch2 Output",   750mk2_pb2, 1, SND_DJM_WINDEX_PB),
-+	SND_DJM_CTL("Ch3 Output",   750mk2_pb3, 2, SND_DJM_WINDEX_PB)
-+};
-+
- 
- static const struct snd_djm_device snd_djm_devices[] = {
- 	SND_DJM_DEVICE(250mk2),
- 	SND_DJM_DEVICE(750),
-+	SND_DJM_DEVICE(750mk2),
- 	SND_DJM_DEVICE(850),
- 	SND_DJM_DEVICE(900nxs2)
- };
-@@ -3094,6 +3125,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
- 	case USB_ID(0x08e4, 0x017f): /* Pioneer DJ DJM-750 */
- 		err = snd_djm_controls_create(mixer, SND_DJM_750_IDX);
- 		break;
-+	case USB_ID(0x2b73, 0x001b): /* Pioneer DJ DJM-750MK2 */
-+		err = snd_djm_controls_create(mixer, SND_DJM_750MK2_IDX);
-+		break;
- 	case USB_ID(0x08e4, 0x0163): /* Pioneer DJ DJM-850 */
- 		err = snd_djm_controls_create(mixer, SND_DJM_850_IDX);
- 		break;
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 91d40b4c851c1..ac55c7dad950f 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -3960,6 +3960,64 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
- 		}
- 	}
- },
-+{
-+	/*
-+	 * Pioneer DJ DJM-750MK2
-+	 * 10 channels playback & 12 channels capture @ 48kHz S24LE
-+	 */
-+	USB_DEVICE_VENDOR_SPEC(0x2b73, 0x001b),
-+	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_COMPOSITE,
-+		.data = (const struct snd_usb_audio_quirk[]) {
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
-+					.channels = 10,
-+					.iface = 0,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x01,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC|
-+					    USB_ENDPOINT_SYNC_ASYNC,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) {
-+						48000
-+					}
-+				}
-+			},
-+			{
-+				.ifnum = 0,
-+				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
-+				.data = &(const struct audioformat) {
-+					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
-+					.channels = 12,
-+					.iface = 0,
-+					.altsetting = 1,
-+					.altset_idx = 1,
-+					.endpoint = 0x82,
-+					.ep_idx = 1,
-+					.ep_attr = USB_ENDPOINT_XFER_ISOC|
-+						USB_ENDPOINT_SYNC_ASYNC|
-+						USB_ENDPOINT_USAGE_IMPLICIT_FB,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 48000 }
-+				}
-+			},
-+			{
-+				.ifnum = -1
-+			}
-+		}
-+	}
-+},
- {
- 	/*
- 	 * Pioneer DJ DJM-850
+diff --git a/sound/core/Makefile b/sound/core/Makefile
+index d774792850f31..79e1407cd0de7 100644
+--- a/sound/core/Makefile
++++ b/sound/core/Makefile
+@@ -9,7 +9,9 @@ ifneq ($(CONFIG_SND_PROC_FS),)
+ snd-y += info.o
+ snd-$(CONFIG_SND_OSSEMUL) += info_oss.o
+ endif
++ifneq ($(CONFIG_M68K),y)
+ snd-$(CONFIG_ISA_DMA_API) += isadma.o
++endif
+ snd-$(CONFIG_SND_OSSEMUL) += sound_oss.o
+ snd-$(CONFIG_SND_VMASTER) += vmaster.o
+ snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
+diff --git a/sound/isa/Kconfig b/sound/isa/Kconfig
+index 6ffa48dd59830..570b88e0b2018 100644
+--- a/sound/isa/Kconfig
++++ b/sound/isa/Kconfig
+@@ -22,7 +22,7 @@ config SND_SB16_DSP
+ menuconfig SND_ISA
+ 	bool "ISA sound devices"
+ 	depends on ISA || COMPILE_TEST
+-	depends on ISA_DMA_API
++	depends on ISA_DMA_API && !M68K
+ 	default y
+ 	help
+ 	  Support for sound devices connected via the ISA bus.
+diff --git a/sound/pci/Kconfig b/sound/pci/Kconfig
+index 93bc9bef7641f..41ce125971777 100644
+--- a/sound/pci/Kconfig
++++ b/sound/pci/Kconfig
+@@ -279,6 +279,7 @@ config SND_CS46XX_NEW_DSP
+ config SND_CS5530
+ 	tristate "CS5530 Audio"
+ 	depends on ISA_DMA_API && (X86_32 || COMPILE_TEST)
++	depends on !M68K
+ 	select SND_SB16_DSP
+ 	help
+ 	  Say Y here to include support for audio on Cyrix/NatSemi CS5530 chips.
 -- 
 2.33.0
 

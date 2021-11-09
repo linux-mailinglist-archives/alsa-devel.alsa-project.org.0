@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5000144B756
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:32:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C76044B76F
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:32:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E200D16C2;
-	Tue,  9 Nov 2021 23:31:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E200D16C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E280F16A8;
+	Tue,  9 Nov 2021 23:31:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E280F16A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636497120;
-	bh=tYjtW025gHLRr8426PhlfQYECjhcjlWc5ctzxhuJJ2o=;
+	s=default; t=1636497146;
+	bh=nj1FTzjwkeR7B4FSSl63i4tJKlVTSuNv7GNf3Bc4GDw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V9/VqMv7n/9psE++3+mq5rF6xgneZxgdLQ3BFRETykSvNIkvekRc/xI7qeddNCvlm
-	 NJV2zpCVyJ/iV45UNquWDAUrn4GglWw7xQXliX6tB4NlyjXUHHk5/fCxefV9BPrePi
-	 mx6ZpPpbx56MsojJYRTFo9ABKK8UMgIFp4SCrEkI=
+	b=bA1b5BHUk6Y2ZgS/URuKopyjyLrb1RwXgTYVRzhCD7oxbcGPh9C2tdLN5B56KWT3i
+	 8V3x4wGQ5ohtCnJFq0RZjuOaqhu7F6iyunxF7jYhHgh4SwfY1f0edPHsfQaUXIWfi0
+	 vurZ9MpSiw0Xr6CSLHiBB/TdFAHWEIZjkx06kpH0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5F3CF805B1;
-	Tue,  9 Nov 2021 23:23:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F31CEF805C2;
+	Tue,  9 Nov 2021 23:24:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73649F80542; Tue,  9 Nov 2021 23:23:52 +0100 (CET)
+ id ED782F80544; Tue,  9 Nov 2021 23:24:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,34 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1A05F805B1
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:23:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1A05F805B1
+ by alsa1.perex.cz (Postfix) with ESMTPS id B59CDF80516
+ for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:24:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B59CDF80516
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ponmLuvQ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E035761B1C;
- Tue,  9 Nov 2021 22:23:40 +0000 (UTC)
+ header.b="WmK4i1FL"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2E56E61B3A;
+ Tue,  9 Nov 2021 22:24:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636496621;
- bh=tYjtW025gHLRr8426PhlfQYECjhcjlWc5ctzxhuJJ2o=;
+ s=k20201202; t=1636496642;
+ bh=nj1FTzjwkeR7B4FSSl63i4tJKlVTSuNv7GNf3Bc4GDw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ponmLuvQfoM/ZCSHDR5SWTq++XUmF8J2JLlLuTT/UDH+qzqYYy73USl3pvMp4NcUG
- eVyOQdCohmLYfiVoR/VDFdEXfO9kVVJNyvhxBZJD395io4bs/orF3G9znIsnV8XsbX
- BplBcDSh9Y5ICiaB7QZX5mr+QbSfC6xeHaGqPWrxPW7bySzn7/acXrew+ZYNLS+piv
- tq2mf709gD6uLaC5XfccGq1+UGRBY4dnEuxXg8jzrApO81rM79Tu0rYLMSad24+6SW
- WRIcozFY2v/pylh7s7iZ9tnOR9F8uKD9+bftsXALOXiUj0CBo3NrdEKRtzl4aJwC7i
- uVKA5jVssC6fg==
+ b=WmK4i1FLquzk5fkIcjNa6BrLaw5ihyfpXllTl301E9/bGKSuKq+u0jF7f8QbTUXJj
+ O2TGJx3K9ajYlpzACeXILCdTEAEw8bErMuxX/NF+21+WpD8KJjS3tiUPXGMsYApwuY
+ R7yXNiPsff/1Tlp4k4PdVhplbxW5QhX1ABGZ+8Y3Hoypxj0zte/MiOmgrguCMeMLom
+ TIdXGLFl2t0Zu80AmkdsL8PRs4oXdGLT5s9lvft9sL4foskLou6muakxlhz6ZhxPEI
+ IR/EIC1YTKp//0IH5uFE36qqLdtkmS8dxlyY8wn67tAcgOSArAQvxuyfUxbG5XKOCi
+ VXMLUbE6ZlGcA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 20/21] ALSA: gus: fix null pointer dereference on
+Subject: [PATCH AUTOSEL 4.14 13/14] ALSA: gus: fix null pointer dereference on
  pointer block
-Date: Tue,  9 Nov 2021 17:23:09 -0500
-Message-Id: <20211109222311.1235686-20-sashal@kernel.org>
+Date: Tue,  9 Nov 2021 17:23:42 -0500
+Message-Id: <20211109222343.1235902-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211109222311.1235686-1-sashal@kernel.org>
-References: <20211109222311.1235686-1-sashal@kernel.org>
+In-Reply-To: <20211109222343.1235902-1-sashal@kernel.org>
+References: <20211109222343.1235902-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -101,7 +101,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/sound/isa/gus/gus_dma.c b/sound/isa/gus/gus_dma.c
-index 7f95f452f1064..48e76b8fede41 100644
+index 36c27c8323601..2e27cd3427c87 100644
 --- a/sound/isa/gus/gus_dma.c
 +++ b/sound/isa/gus/gus_dma.c
 @@ -141,6 +141,8 @@ static void snd_gf1_dma_interrupt(struct snd_gus_card * gus)

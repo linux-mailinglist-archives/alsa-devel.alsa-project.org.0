@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4F7E44B59B
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:19:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1815744B5CD
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Nov 2021 23:20:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E6C0166A;
-	Tue,  9 Nov 2021 23:18:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E6C0166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E60CE1661;
+	Tue,  9 Nov 2021 23:19:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E60CE1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636496349;
-	bh=3JAE28fSKA6qnrcEMQx9bPFgXNxbVen5lGwA92srAMo=;
+	s=default; t=1636496432;
+	bh=rZ9QWQfRU/US9o4SdMAl+V6Df536/kZ9QhPCdC8ndLk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L+zAsHRmBZ6rAJ4ctaRlL1SQYbQzGd+QahFJ3Unuvn/xdSYkl5C6eludOQxJdRi28
-	 ZeMvAQt5PzvqrG1a9Vij4U1BFs5V140Hr+yuYJMkozAxXDlN5X17P2AoUwlA1W3t99
-	 lh1lcEeJB1f8aUgCnjUjVk3gld/HC7pYiUfoRPEU=
+	b=sHaaST9MV3jb9sLyL/OFVp4geo2FE4bqTUvqqka8jzEdcqndE5rqyhI9ygKJmLvjs
+	 hHWj6hgkrvFZfHN0lqZKIKERpFC04bW10KAZeOtgVdkLtIhXf+ROsewvpITffzzKUt
+	 dHYUp1d6ewutAJjrqxTw2GyBDMuqFkXUfUBuo2jg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BE0DF804E0;
-	Tue,  9 Nov 2021 23:18:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EE52F80508;
+	Tue,  9 Nov 2021 23:18:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3FADF804E0; Tue,  9 Nov 2021 23:18:02 +0100 (CET)
+ id D235FF804ED; Tue,  9 Nov 2021 23:18:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98241F800C1
- for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:17:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98241F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 203E2F802E3
+ for <alsa-devel@alsa-project.org>; Tue,  9 Nov 2021 23:17:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 203E2F802E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oe5uDqn7"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7258761279;
- Tue,  9 Nov 2021 22:17:52 +0000 (UTC)
+ header.b="U7p8y3gz"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DC7E761361;
+ Tue,  9 Nov 2021 22:17:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636496273;
- bh=3JAE28fSKA6qnrcEMQx9bPFgXNxbVen5lGwA92srAMo=;
+ s=k20201202; t=1636496275;
+ bh=rZ9QWQfRU/US9o4SdMAl+V6Df536/kZ9QhPCdC8ndLk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oe5uDqn7b10fYzTZ/oBDwNi5M6Zdf+yPnpbcfxVw4iR4S6xjW1leC4rNJP3F51Uzf
- DeDcBEUKotSRlyKLJsc75dqEgskuPBnslKaNdewcqN5+vwm2TwkLrOlA+4kVZI25IX
- 4RrZtWMLGcX3V1FGku4eX7ppt+sELTob8XGxH7UGbROh5EVzm/7sngNAjPzd2JaCeg
- BTk8yQpzOZVfcLZi97oyhTii7/t/GyMDDQPH9TiJzTH7Ti83AE+kENVAT03v+Wu1Xw
- bkKTzfT12jkSNtY1jBDsx+KuKBUUxwu0zGSl/luv0LQorWvsasIo7turxeKi8x/hOm
- mKCDj0HdH4o2g==
+ b=U7p8y3gz8noLjjJbwDmrm/Jb/C42UFPQT4V0oHJPP+wfymq+hkwQ/30EjPSh0OqVE
+ XWnoMvc26tN2J8Kk+llgaq2dRWGGcrIPtr2OGJ2iVU2NRwuENlzi1aAqVgm+HpIwif
+ SXNt9zqDefaDd/ZNI0C+MR1pMxrbLRe6D5S0UQI8OhXH70LofkNOFXE1Vhd2LQDAxP
+ Er03p2R6cnfuPaoTDmYJ4pEUvZB0zJpq+vKME97HJM3eyX+eOhTecjl22vg3ecXukZ
+ 1aUDHPzz9xbxZFviGlIKNk37IBWyhlSQOXRtT07x0pr4Tc71esTFAj2gE6UUyo0z2Q
+ YJ1IQopQIqHgg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 36/82] ASoC: SOF: Intel: hda-dai: fix potential
- locking issue
-Date: Tue,  9 Nov 2021 17:15:54 -0500
-Message-Id: <20211109221641.1233217-36-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 38/82] ALSA: usb-audio: disable implicit feedback
+ sync for Behringer UFX1204 and UFX1604
+Date: Tue,  9 Nov 2021 17:15:56 -0500
+Message-Id: <20211109221641.1233217-38-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211109221641.1233217-1-sashal@kernel.org>
 References: <20211109221641.1233217-1-sashal@kernel.org>
@@ -67,9 +67,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
+ Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
+ Geraldo Nascimento <geraldogabriel@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,51 +84,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
 
-[ Upstream commit a20f3b10de61add5e14b6ce4df982f4df2a4cbbc ]
+[ Upstream commit 28c369e60827f706cef4604a3e2848198f25bd26 ]
 
-The initial hdac_stream code was adapted a third time with the same
-locking issues. Move the spin_lock outside the loops and make sure the
-fields are protected on read/write.
+Behringer UFX1204 and UFX1604 have Synchronous endpoints to which
+current ALSA code applies implicit feedback sync as if they were
+Asynchronous endpoints. This breaks UAC compliance and is unneeded.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Acked-by: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20210924192417.169243-5-pierre-louis.bossart@linux.intel.com
+The commit 5e35dc0338d85ccebacf3f77eca1e5dea73155e8 and subsequent
+1a15718b41df026cffd0e42cfdc38a1384ce19f9 were meant to clear up noise.
+
+Unfortunately, noise persisted for those using higher sample rates and
+this was only solved by commit d2e8f641257d0d3af6e45d6ac2d6f9d56b8ea964
+
+Since there are no more reports of noise, let's get rid of the
+implicit-fb quirks breaking UAC compliance.
+
+Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+Link: https://lore.kernel.org/r/YVYSnoQ7nxLXT0Dq@geday
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/hda-dai.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ sound/usb/implicit.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index c1f9f0f584647..6704dbcd101cd 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -68,6 +68,7 @@ static struct hdac_ext_stream *
- 		return NULL;
- 	}
+diff --git a/sound/usb/implicit.c b/sound/usb/implicit.c
+index 23767a14d1266..70319c822c10b 100644
+--- a/sound/usb/implicit.c
++++ b/sound/usb/implicit.c
+@@ -54,8 +54,6 @@ static const struct snd_usb_implicit_fb_match playback_implicit_fb_quirks[] = {
  
-+	spin_lock_irq(&bus->reg_lock);
- 	list_for_each_entry(stream, &bus->stream_list, list) {
- 		struct hdac_ext_stream *hstream =
- 			stream_to_hdac_ext_stream(stream);
-@@ -107,12 +108,12 @@ static struct hdac_ext_stream *
- 		 * is updated in snd_hdac_ext_stream_decouple().
- 		 */
- 		if (!res->decoupled)
--			snd_hdac_ext_stream_decouple(bus, res, true);
--		spin_lock_irq(&bus->reg_lock);
-+			snd_hdac_ext_stream_decouple_locked(bus, res, true);
-+
- 		res->link_locked = 1;
- 		res->link_substream = substream;
--		spin_unlock_irq(&bus->reg_lock);
- 	}
-+	spin_unlock_irq(&bus->reg_lock);
- 
- 	return res;
- }
+ 	/* Fixed EP */
+ 	/* FIXME: check the availability of generic matching */
+-	IMPLICIT_FB_FIXED_DEV(0x1397, 0x0001, 0x81, 1), /* Behringer UFX1604 */
+-	IMPLICIT_FB_FIXED_DEV(0x1397, 0x0002, 0x81, 1), /* Behringer UFX1204 */
+ 	IMPLICIT_FB_FIXED_DEV(0x2466, 0x8010, 0x81, 2), /* Fractal Audio Axe-Fx III */
+ 	IMPLICIT_FB_FIXED_DEV(0x31e9, 0x0001, 0x81, 2), /* Solid State Logic SSL2 */
+ 	IMPLICIT_FB_FIXED_DEV(0x31e9, 0x0002, 0x81, 2), /* Solid State Logic SSL2+ */
 -- 
 2.33.0
 

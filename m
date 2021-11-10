@@ -2,83 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 890F444CB7A
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Nov 2021 22:56:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD0544CCA1
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Nov 2021 23:24:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17565165D;
-	Wed, 10 Nov 2021 22:56:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17565165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC03B165D;
+	Wed, 10 Nov 2021 23:23:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC03B165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636581416;
-	bh=2xvjqHuasciJpTK3fWnYjRzxAGiB/h43nqKyzaRh+Dc=;
+	s=default; t=1636583073;
+	bh=UQzsQrfzIK5vwgeoPjpR1WwPp6jqjDsLLYv9eg3hiqo=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pW2APAQFe7o+3Y0C1G2LeQU3A2o7+bhamXKKrrQffgl9k0dAtiXU641K16qzkkLz1
-	 r0x8eb2ES7WSXejacqC1yQsBeIVW0SSMCBQsGALZo1hzkOWC/94KPl27JhGtqOnefB
-	 U6kHvxYfofSfL2WogeT/o3BCjv/C3CZ0jaPfcn44=
+	b=Y+vMdPUnf4jrbRdRGKISu8H8cbbR6nbnNhB8sAPN6fSr0LhARx7ZZ22BtuRODZUuA
+	 o/MhWLrKP6uIrvzUTxHkWpf21iVtkRRqS5hnWk37WZqwChGKAz1UtZb/dZvVao1lFl
+	 GKWpPQsGjPzZgJ4Bx3nFx/Cv71Mr9IvXSIEtBUZ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E42AF804B1;
-	Wed, 10 Nov 2021 22:55:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14016F800C1;
+	Wed, 10 Nov 2021 23:23:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5D03F8049E; Wed, 10 Nov 2021 22:55:36 +0100 (CET)
+ id 81B7EF8049E; Wed, 10 Nov 2021 23:23:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7B64F800C9
- for <alsa-devel@alsa-project.org>; Wed, 10 Nov 2021 22:55:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7B64F800C9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="uMr9eCqI"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="DBtWxiju"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id B35D521B28;
- Wed, 10 Nov 2021 21:55:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636581323; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5s6ry9PrsNAtJBmEbIUu0GOppraw+Wb2T9D1xbL6BxQ=;
- b=uMr9eCqIeIVOq+qxmFmDB5NAaRO6qjdvdVfYnzw9k7Im/9eOk7thzzYhwoVKzvgP3NDYNn
- VFPf7dLmzndH6HmTA7CdZNVctCCFsf8Vtb8C6gVyoqctiLPcIeWrrg7ZUJeiquv4PgOnsF
- x5rkIPY1KyGfIAMVL2NJuAbYb1RkCFs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636581323;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5s6ry9PrsNAtJBmEbIUu0GOppraw+Wb2T9D1xbL6BxQ=;
- b=DBtWxijukR/9GBCjipa9ih7mHbHcf9wwW5QPN99eoqqCD9r/Hf8fvyQPfZ/xAOCmwQ5bWF
- AU9bv6YKQHRPCzBg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 607E2A3B81;
- Wed, 10 Nov 2021 21:55:23 +0000 (UTC)
-Date: Wed, 10 Nov 2021 22:55:23 +0100
-Message-ID: <s5hzgqb65h0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0722F80054
+ for <alsa-devel@alsa-project.org>; Wed, 10 Nov 2021 23:23:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0722F80054
+X-IronPort-AV: E=McAfee;i="6200,9189,10164"; a="232646662"
+X-IronPort-AV: E=Sophos;i="5.87,225,1631602800"; d="scan'208";a="232646662"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2021 14:23:02 -0800
+X-IronPort-AV: E=Sophos;i="5.87,225,1631602800"; d="scan'208";a="602383961"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2021 14:23:00 -0800
+Date: Thu, 11 Nov 2021 00:15:40 +0200 (EET)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [PATCH] ALSA: hda: fix general protection fault in
  azx_runtime_idle
-In-Reply-To: <20211110210307.1172004-1-kai.vehmanen@linux.intel.com>
+In-Reply-To: <s5hzgqb65h0.wl-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.22.394.2111110015250.3554566@eliteleevi.tm.intel.com>
 References: <20211110210307.1172004-1-kai.vehmanen@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+ <s5hzgqb65h0.wl-tiwai@suse.de>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
- mahesh.meena@intel.com
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, mahesh.meena@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,70 +76,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Nov 2021 22:03:07 +0100,
-Kai Vehmanen wrote:
-> 
-> Fix a corner case between PCI device driver remove callback and
-> runtime PM idle callback.
-> 
-> Following sequence of events can happen:
->   - at azx_create, context is allocated with devm_kzalloc() and
->     stored as pci_set_drvdata()
->   - user-space requests to unbind audio driver
->   - dd.c:__device_release_driver() calls PCI remove
->   - pci-driver.c:pci_device_remove() calls the audio
->     driver azx_remove() callback and this is completed
->   - pci-driver.c:pm_runtime_put_sync() leads to a call
->     to rpm_idle() which again calls azx_runtime_idle()
->   - the azx context object, as returned by dev_get_drvdata(),
->     is no longer valid
->   -> access fault in azx_runtime_idle when executing
-> 	struct snd_card *card = dev_get_drvdata(dev);
-> 	chip = card->private_data;
-> 	if (chip->disabled || hda->init_failed)
-> 
-> This was discovered by i915_module_load test with 5.15.0 based
-> linux-next tree.
-> 
-> Example log caught by i915_module_load test with linux-next
-> https://intel-gfx-ci.01.org/tree/linux-next/
-> 
-> <4> [264.038232] general protection fault, probably for non-canonical address 0x6b6b6b6b6b6b73f0: 0000 [#1] PREEMPT SMP NOPTI
-> <4> [264.038248] CPU: 0 PID: 5374 Comm: i915_module_loa Not tainted 5.15.0-next-20211109-gc8109c2ba35e-next-20211109 #1
-> [...]
-> <4> [264.038267] RIP: 0010:azx_runtime_idle+0x12/0x60 [snd_hda_intel]
-> [...]
-> <4> [264.038355] Call Trace:
-> <4> [264.038359]  <TASK>
-> <4> [264.038362]  __rpm_callback+0x3d/0x110
-> <4> [264.038371]  rpm_idle+0x27f/0x380
-> <4> [264.038376]  __pm_runtime_idle+0x3b/0x100
-> <4> [264.038382]  pci_device_remove+0x6d/0xa0
-> <4> [264.038388]  device_release_driver_internal+0xef/0x1e0
-> <4> [264.038395]  unbind_store+0xeb/0x120
-> <4> [264.038400]  kernfs_fop_write_iter+0x11a/0x1c0
-> 
-> Fix the issue by setting drvdata to NULL at end of azx_remove().
-> 
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> ---
->  sound/pci/hda/hda_intel.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> Some non-persistent direct links showing the bug trigger on
-> different platforms with linux-next 20211109:
->  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/fi-tgl-1115g4/igt@i915_module_load@reload.html
->  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/fi-jsl-1/igt@i915_module_load@reload.html
-> 
-> Notably with 20211110 linux-next, the bug does not trigger:
->  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211110/fi-tgl-1115g4/igt@i915_module_load@reload.html
+Hey,
 
-Is this the case with CONFIG_DEBUG_KOBJECT_RELEASE?
-This would be the only logical explanation I can think of for now.
+On Wed, 10 Nov 2021, Takashi Iwai wrote:
 
-In anyway, the code change itself looks good, so I took the fix now.
+> On Wed, 10 Nov 2021 22:03:07 +0100, Kai Vehmanen wrote:
+> > Fix a corner case between PCI device driver remove callback and
+> > runtime PM idle callback.
+[...]
+> > Some non-persistent direct links showing the bug trigger on
+> > different platforms with linux-next 20211109:
+> >  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/fi-tgl-1115g4/igt@i915_module_load@reload.html
+> >  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/fi-jsl-1/igt@i915_module_load@reload.html
+> > 
+> > Notably with 20211110 linux-next, the bug does not trigger:
+> >  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211110/fi-tgl-1115g4/igt@i915_module_load@reload.html
+> 
+> Is this the case with CONFIG_DEBUG_KOBJECT_RELEASE?
+> This would be the only logical explanation I can think of for now.
 
+hmm, that doesn't seem to be used. Here's a link to kconfig used in the 
+failing CI run:
+https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/kconfig.txt
 
-thanks,
+It's still a bit odd, especially given Scott just reported the other HDA 
+related regression in 5.15 today. The two issues don't seem to be related 
+though, although both are fixed by clearing drvdata (but in different 
+places of hda_intel.c).
 
-Takashi
+I'll try to run some more tests tomorrow. The fix should be good in any 
+case, but it would be interesting to understand better what change made 
+this more (?) likely to hit than before. This is not a new test and the 
+problem happens on fairly old platforms, so something has changed.
+
+Br, Kai

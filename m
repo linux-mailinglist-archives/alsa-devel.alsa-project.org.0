@@ -2,73 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE29C44C2E1
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Nov 2021 15:20:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEB0944C307
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Nov 2021 15:34:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7ABAF1661;
-	Wed, 10 Nov 2021 15:19:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ABAF1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 671E61664;
+	Wed, 10 Nov 2021 15:33:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 671E61664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636554032;
-	bh=hA/nFdbKqQcRgApfgKw2CXnFmecHb87F3NKnhNL5Vzk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1636554870;
+	bh=mOPPc0T3XIDqP/4/tk73xJySaQwAzvD27cayC9sYNeg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DgxdRut4wFCZ4fB+pbs6KFV2R0oNWuwrwMtgIqXP12dHGB+NcicYYrm7PwBpS4ljY
-	 flWJrTSHy9zdA8TCjoRA+BWqnGv7jKtITMx98Qz6Qnqz15sr3gyJxzyjtxRFWCBkZU
-	 ZEaKQsQYTKwvJ4htRBNKslX9hr23fj3lxpUYVakQ=
+	b=sRJGzO8ljt6InB5Kh1PTwiYcAYx6Q1mrCeVfWk5Wo3b0J+MIANrDLcR58H20Qt5cx
+	 zm/58jTQlos7u2J+3qhNJRttXx2k7IKdJ8e9nFaOrkrAf3QJj3TnFJNFVr9MPl/lre
+	 nwUpjJ+bofkIRYMTwBxUdvEmZON2ohif2lfAC3Tw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB9E8F804B1;
-	Wed, 10 Nov 2021 15:19:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D94B3F804B1;
+	Wed, 10 Nov 2021 15:33:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE248F8049E; Wed, 10 Nov 2021 15:19:13 +0100 (CET)
+ id 7730BF8049E; Wed, 10 Nov 2021 15:33:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57E81F800C1
- for <alsa-devel@alsa-project.org>; Wed, 10 Nov 2021 15:19:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57E81F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 267E9F800C1
+ for <alsa-devel@alsa-project.org>; Wed, 10 Nov 2021 15:33:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 267E9F800C1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="U4RX9wxO"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 35F18610CF;
- Wed, 10 Nov 2021 14:19:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636553943;
- bh=hA/nFdbKqQcRgApfgKw2CXnFmecHb87F3NKnhNL5Vzk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=U4RX9wxOCzFucBhhVgjP3syAwAb0nxp6hZvu1hdwt9sCEq6XNX/S4RRyDczv326uj
- /YStOAyH9/YLnXuhOenWF4bQZH7lcEmVsC8HGPWWcD1R4GbRfFj3ojPoXcweyPtHES
- jJ4NeV3IzvTcQf7SVXhVzuA5Cf9kuPcA2GP2h1/TG6HzlvygqEYp7U2QJbYTZEPzTd
- +DM31iBHUPiKU2g+ey5bfFYtWlCM/h6EciC0215R47vPmBr3bwUooIbNpcT+yLGZQj
- LJOKGXCNo4jj0MSiXyrrNPlA4k9jGYnBkJPgrXvnSMVZDfEpxxW8N9AtX4/5xQsSnC
- MTcnsTIeK5sWQ==
-Date: Wed, 10 Nov 2021 14:18:59 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v3 4/4] ASoC: Intel: Skylake: Use NHLT API to search for
- blob
-Message-ID: <YYvU04nFBSNrrYTJ@sirena.org.uk>
-References: <20211110103117.3142450-1-cezary.rojewski@intel.com>
- <20211110103117.3142450-5-cezary.rojewski@intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+3ue7RapnSFBegBt"
-Content-Disposition: inline
-In-Reply-To: <20211110103117.3142450-5-cezary.rojewski@intel.com>
-X-Cookie: You have junk mail.
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.com, hdegoede@redhat.com,
- Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="FicL/c0k"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="jfDZfPEG"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id B755B1FD63;
+ Wed, 10 Nov 2021 14:33:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636554788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a7/tXrG1LGQXohNn+eUyg7B/bjycMfboDc+vZ1jI5Rg=;
+ b=FicL/c0kr+EzHMBL2Bq61fxVheD25oMosP70CyIlNBw6uEBMdJFj2umuTeIaxGe/HFeGFn
+ iS82Ab3uYeItt5+s1nRqVaNCThYrcLvU2U1hkHeQpf0OpZGDqgOaDWmfQyqKrJTIS2/b+J
+ NxwFi6vs+1PvZXUR1n+WuTar93jLWCg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636554788;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a7/tXrG1LGQXohNn+eUyg7B/bjycMfboDc+vZ1jI5Rg=;
+ b=jfDZfPEG1xsC2RkB/VfJWkpybybGB1qT8pOSUjs7PD4PsZ5G9logf5i2t6Raq20w6/2U7Y
+ sR5IkRyFzIWklTBg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 2141DA3B84;
+ Wed, 10 Nov 2021 14:33:04 +0000 (UTC)
+Date: Wed, 10 Nov 2021 15:33:08 +0100
+Message-ID: <s5hpmr86py3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Scott Branden <scott.branden@broadcom.com>
+Subject: Re: 5.15 Linux Regression in sound hda
+In-Reply-To: <063e2397-7edb-5f48-7b0d-618b938d9dd8@broadcom.com>
+References: <063e2397-7edb-5f48-7b0d-618b938d9dd8@broadcom.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ tiwai@suse.com, broonie@kernel.org, regressions@leemhuis.info
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,34 +93,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 09 Nov 2021 22:12:30 +0100,
+Scott Branden wrote:
+> 
+> I'm reporting a new WARN_ON in sound/hda/hdac_bus.c that was not
+> present in 5.15.  Sorry, I don't have time to bisect this right now
+> but report is below.
+> 
+> dmesg in 5.14 kernel was:
+> snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops 0xffffffffaa2ac520)
+> GACT probability on
+> Mirror/redirect action on
+> Simple TC action Loaded
+> u32 classifier
+>     Performance counters on
+>     input device check on
+>     Actions configured
+> hdaudio hdaudioC0D0: Unable to bind the codec
+> hdaudio hdaudioC0D2: Unable to bind the codec
+> 
+> dmesg in 5.15 kernel produces WARN_ON in sound/hda/hdac_bus.c
+> snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops 0xffffffffad8b02a0)
+> GACT probability on
+> Mirror/redirect action on
+> Simple TC action Loaded
+> u32 classifier
+>     Performance counters on
+>     input device check on
+>     Actions configured
+> snd_hda_intel 0000:00:1f.3: Cannot probe codecs, giving up
+> Initializing XFRM netlink socket
+> ------------[ cut here ]------------
+> NET: Registered PF_INET6 protocol family
+> WARNING: CPU: 14 PID: 186 at sound/hda/hdac_bus.c:73
 
---+3ue7RapnSFBegBt
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This indicates the leftover codecs on the bus, and it's likely
+triggered by the recent change to allow retrying the codec probes.
 
-On Wed, Nov 10, 2021 at 11:31:17AM +0100, Cezary Rojewski wrote:
-> From: Amadeusz S=C5=82awi=C5=84ski <amadeuszx.slawinski@linux.intel.com>
->=20
-> With NHLT enriched with new search functions, remove local code in
-> favour of them. This also fixes broken behaviour: search should be based
-> on significant bits count rather than container size.
+Did this HD-audio stuff work at all before 5.15?  The codec bind error
+itself shouldn't be brought by that change.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+The warning itself can be solved by the patch below, I suppose
+(note: totally untested!)
 
---+3ue7RapnSFBegBt
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+thanks,
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGL1NIACgkQJNaLcl1U
-h9Bs5wf/WpkDcD0wFiVxgS7l3hRUV398Wl+5oiXkMPOsFO/4lBVN+/zWxVOHh8fl
-W2Ck7yQie7mz/vikrySRnMF0SrL/TqBnqyvsJ84th2RXNQ8F0Q0lzFbxSvAuzkkU
-sSVUH5RY4IcmJGcnlfQs6a4fSLOushBLBGEE2Dn81lOzATJZgyUFjChtaJo3LnRF
-Gpq/zjh4irTrowWV2qRD2ivoEOTgT44TlQvLWtqfxZGIaTvkKyuWF8mp++VOrian
-bPiJe2on+AKfvA5HE7CBkxKRY6llTGmB9bz3vGihjn62REgj5liS1/n6Ozf7veTh
-dNWNFbK+FL/XCwBUlTbwmlsQ9t72Qw==
-=PFS5
------END PGP SIGNATURE-----
+Takashi
 
---+3ue7RapnSFBegBt--
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2327,7 +2327,8 @@ static int azx_probe_continue(struct azx *chip)
+ 
+ out_free:
+ 	if (err < 0) {
+-		azx_free(chip);
++		pci_set_drvdata(pci, NULL);
++		snd_card_free(chip->card);
+ 		return err;
+ 	}
+ 

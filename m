@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F7844D5BE
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Nov 2021 12:22:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFACE44D6FA
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Nov 2021 14:04:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D27761661;
-	Thu, 11 Nov 2021 12:21:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D27761661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FD051661;
+	Thu, 11 Nov 2021 14:03:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FD051661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636629759;
-	bh=JGDTOubghn9DbwDxfUWaiEvFwseu53XTmvyosU/KnjQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1636635884;
+	bh=GwiGt22oi81JteMfnW+YUg+y9C0FZUEXb2s6noofITI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FeterJkO84hocnxrwRFZqARMxWW5KtfzNsNmslmc8nRmy3cKenDZ3HVHfRe+6btiK
-	 CpGpqIRs/G+q6qnNxunQUOMo3taj4rC9OeAX+j16t5wczBu4vHjDPJsJeyuLbtkHyi
-	 Zy9UqLigoCa3y2tW6osrFz9keyrLhv1w7g73rZ6g=
+	b=RfUjWf3DX1kFGe/VFdupaMYI6dwbbiRRgwwVuPLGHdKKX35BUELPqCrhgDqAmlH4Z
+	 OhUhVTzwp8FBCHh/lZLSuvZDYjNjkXVqTEsb5RJsW/+1dXSy6MlOb9SKngDmjH8sck
+	 kC4lAXeC3SGhEmjVMzceExEBh6751fIH8zoCfqso=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44B30F802E3;
-	Thu, 11 Nov 2021 12:21:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD2FAF80224;
+	Thu, 11 Nov 2021 14:03:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7C78F802D2; Thu, 11 Nov 2021 12:21:21 +0100 (CET)
+ id 10446F802E3; Thu, 11 Nov 2021 14:03:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 867A0F80054
- for <alsa-devel@alsa-project.org>; Thu, 11 Nov 2021 12:21:13 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id AF82DA0040;
- Thu, 11 Nov 2021 12:21:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz AF82DA0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1636629667; bh=0R2kuYYgDCpcLn6tz/g+dQMEGtgvXoUtN8tiRUOnq5M=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=IAEnmIhzeRV/+xzCEE1+eXacP3zZijfcMxlG2/F1h6JjXl4gbT9rXs3tV9GRGwD9i
- tM8xy9dZdqzAY3a9jVPWy3G05yD4Cw+E+ux9UwsEwgCCvESvbTG1/mQEC8WIDKTAle
- rGpYoHlNwB8J1s7xHvwGxnZYVaZjA0ZdFCt3a+Jk=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 11 Nov 2021 12:20:55 +0100 (CET)
-Message-ID: <aaeb8737-b339-e647-eb82-dcf8dfc63792@perex.cz>
-Date: Thu, 11 Nov 2021 12:20:55 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.0
-Subject: Re: [PATCH] ALSA: usb-audio: add the profile name of Dell desktop
-Content-Language: en-US
-To: Hui Wang <hui.wang@canonical.com>, =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqY?=
- =?UTF-8?Q?=5d?= <shumingf@realtek.com>,
- "broonie@kernel.org" <broonie@kernel.org>, "tiwai@suse.de" <tiwai@suse.de>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>
-References: <20211111091914.20917-1-shumingf@realtek.com>
- <7e82a4cd-ed51-e853-7338-eb570c88cb68@perex.cz>
- <3654e59d-52bd-5442-39d1-f017f5a14b2b@perex.cz>
- <7be27e54d3ce41b2ade3e062c939ece2@realtek.com>
- <835606a2-586d-c5cb-7aa9-5775d14a4383@canonical.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <835606a2-586d-c5cb-7aa9-5775d14a4383@canonical.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- "Yijun.Shen@dell.com" <Yijun.Shen@dell.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D386BF80086
+ for <alsa-devel@alsa-project.org>; Thu, 11 Nov 2021 14:03:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D386BF80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="gpXnzB9R"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Lji5uZrP"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5F69A21B3F;
+ Thu, 11 Nov 2021 13:03:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636635791; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vGqKdnz7dV8Z5t1S9THYbSyhTD7QpjiGQEJnMa0ZO0E=;
+ b=gpXnzB9RiFUuBNxryAz2a20al7N+D2tENPVaMQrtXvIs4fOrXxyEsuqsvxM4QU7yBcwe9+
+ mIaCOvgyn0twR1yxnTjmdSQhmgaYX2E7RJu5DtpMST6hopKGeMBCU3jrIupHlOYCD46SWA
+ N9pKqXrnVeghmCikd3s/VkAXWlMjTsY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636635791;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vGqKdnz7dV8Z5t1S9THYbSyhTD7QpjiGQEJnMa0ZO0E=;
+ b=Lji5uZrP+kPDTjJQNDMKNJ8LlqmTKoPSZFcKKG+JJnsc4Cv97rEj24I5UtYxSX1q8/+Ujx
+ ERKYz182KSmvypCg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 4E942A3BED;
+ Thu, 11 Nov 2021 13:03:10 +0000 (UTC)
+Date: Thu, 11 Nov 2021 14:03:10 +0100
+Message-ID: <s5h5ysy6e0h.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: fireworks: add support for Loud Onyx 1200f quirk
+In-Reply-To: <20211111103015.7498-1-o-takashi@sakamocchi.jp>
+References: <20211111103015.7498-1-o-takashi@sakamocchi.jp>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,71 +92,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11. 11. 21 11:44, Hui Wang wrote:
+On Thu, 11 Nov 2021 11:30:15 +0100,
+Takashi Sakamoto wrote:
 > 
-> On 11/11/21 6:40 PM, Shuming [范書銘] wrote:
->> Hi Jaroslav,
->>
->>>>>> Add the profile name to let userspace pick correct UCM profile
->>>>> It's no longer necessary to force the card names in the drivers. UCM
->>>>> can match the USB vendor / device IDs from the 'components' string, too.
->>>>>
->>>>> I think that we should abandon this way of the UCM configuration
->>>>> selection for new devices with device IDs. The kernel already
->>>>> exports necessary information to select the right UCM configuration
->>>>> in the user
->>>> space.
->>>>
->>>> Untested example:
->>>>
->>>>
->>> https://github.com/perexg/alsa-ucm-conf/commit/74ced65440b5011bbec1680
->>>> b2804c8a9c82b5152
->>>>
->>>> 					Jaroslav
->>> Thanks a lot. I will take your example to test.
->> I had tested with USB-Audio.conf that the system seems not to apply the UCM config.
->>
->> The related info of the test machine shows below.
->> root@Latitude-5410:/usr/share/alsa/ucm2/USB-Audio# cat /proc/asound/cards
->>    0 [PCH            ]: HDA-Intel - HDA Intel PCH
->>                         HDA Intel PCH at 0xcc338000 irq 153
->>    1 [Rear           ]: USB-Audio - USB audio Rear
->>                         Generic USB audio Rear at usb-0000:00:14.0-2.2, high speed
->>    2 [FRONT          ]: USB-Audio - USB audio FRONT
->>                         Generic USB audio FRONT at usb-0000:00:14.0-2.1, high speed
->>
->> root@Latitude-5410:/usr/share/alsa/ucm2/USB-Audio# alsaucm --version
->> alsaucm: version 1.2.2
->>
->> root@Latitude-5410:/usr/share/alsa/ucm2/USB-Audio# lsusb
->> Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
->> Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
->> Bus 002 Device 002: ID 8564:4000 Transcend Information, Inc. RDF8
->> Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
->> Bus 001 Device 003: ID 0a5c:5842 Broadcom Corp. 58200
->> Bus 001 Device 002: ID 0bda:5532 Realtek Semiconductor Corp. Integrated_Webcam_HD
->> Bus 001 Device 008: ID 04f3:0235 Elan Microelectronics Corp. Optical Mouse
->> Bus 001 Device 007: ID 1c4f:0002 SiGma Micro Keyboard TRACER Gamma Ivory
->> Bus 001 Device 006: ID 0bda:4c55 Realtek Semiconductor Corp. USB2.0 Hub
->> Bus 001 Device 009: ID 0bda:4c54 Realtek Semiconductor Corp.
->>
->> May I ask you to give me some suggestions?
-> Looks like the alsa-lib in the ubuntu 20.04 doesn't support it.
+> Loud Technologies shipped Onyx 1200f 2008 in its Mackie brand and
+> already discontinued. The model uses component of Fireworks board
+> module as its communication and DSP function.
+> 
+> The latest firmware (v4.6.0) has a quirk that tx packet includes wrong
+> value (0x1f) in its dbs field at middle and higher sampling transfer
+> frequency. It brings ALSA fireworks driver discontinuity of data block
+> counter.
+> 
+> This commit fixes it by assuming it as a quirk of firmware version
+> 4.6.0.
+> 
+> $ cd linux-firewire-tools/src
+> $ python crpp < /sys/bus/firewire/devices/fw1/config_rom
+>                ROM header and bus information block
+>                -----------------------------------------------------------------
+> 400  0404b9ef  bus_info_length 4, crc_length 4, crc 47599
+> 404  31333934  bus_name "1394"
+> 408  e064a212  irmc 1, cmc 1, isc 1, bmc 0, pmc 0, cyc_clk_acc 100,
+>                max_rec 10 (2048), max_rom 2, gen 1, spd 2 (S400)
+> 40c  000ff209  company_id 000ff2     |
+> 410  62550ce0  device_id 0962550ce0  | EUI-64 000ff20962550ce0
+> 
+>                root directory
+>                -----------------------------------------------------------------
+> 414  0008088e  directory_length 8, crc 2190
+> 418  03000ff2  vendor
+> 41c  8100000f  --> descriptor leaf at 458
+> 420  1701200f  model
+> 424  81000018  --> descriptor leaf at 484
+> 428  0c008380  node capabilities
+> 42c  8d000003  --> eui-64 leaf at 438
+> 430  d1000005  --> unit directory at 444
+> 434  08000ff2  (immediate value)
+> 
+>                eui-64 leaf at 438
+>                -----------------------------------------------------------------
+> 438  000281ae  leaf_length 2, crc 33198
+> 43c  000ff209  company_id 000ff2     |
+> 440  62550ce0  device_id 0962550ce0  | EUI-64 000ff20962550ce0
+> 
+>                unit directory at 444
+>                -----------------------------------------------------------------
+> 444  00045d94  directory_length 4, crc 23956
+> 448  1200a02d  specifier id: 1394 TA
+> 44c  13010000  version
+> 450  1701200f  model
+> 454  8100000c  --> descriptor leaf at 484
+> 
+>                descriptor leaf at 458
+>                -----------------------------------------------------------------
+> 458  000a199d  leaf_length 10, crc 6557
+> 45c  00000000  textual descriptor
+> 460  00000000  minimal ASCII
+> 464  4d61636b  "Mack"
+> 468  69650000  "ie"
+> 46c  00000000
+> 470  00000000
+> 474  00000000
+> 478  00000000
+> 47c  00000000
+> 480  00000000
+> 
+>                descriptor leaf at 484
+>                -----------------------------------------------------------------
+> 484  000a0964  leaf_length 10, crc 2404
+> 488  00000000  textual descriptor
+> 48c  00000000  minimal ASCII
+> 490  4f6e7978  "Onyx"
+> 494  20313230  " 120"
+> 498  30460000  "0F"
+> 49c  00000000
+> 4a0  00000000
+> 4a4  00000000
+> 4a8  00000000
+> 4ac  00000000
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-I cannot comment specific distribution packages. It seems that alsa-lib-1.2.2 
-in Ubuntu has many later UCM upstream changes, but I cannot verify, if it's 
-enough for this file. I would recommend to use upstream alsa-lib and 
-alsa-ucm-conf 1.2.5 or later (from the repository) for tests.
+Thanks, applied.
 
-Also, please, create an issue or pull request on github for this problem:
 
-   https://github.com/alsa-project/alsa-ucm-conf/issues
-
-We can resolve it there.
-
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Takashi

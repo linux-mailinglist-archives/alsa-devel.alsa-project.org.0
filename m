@@ -2,96 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D4AB44D505
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Nov 2021 11:31:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDE4644D531
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Nov 2021 11:41:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E35561661;
-	Thu, 11 Nov 2021 11:31:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E35561661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 851BC1662;
+	Thu, 11 Nov 2021 11:40:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 851BC1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636626712;
-	bh=6ryvcwuugkv1MteHQ1mlDIY8Bvepqzej5MAn2oD/yvk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=otpPfHGpWtJrjYNhZY5KkA3KWitGOwWNOf1fScVdJwHInlm/2O1S9RwuJIKz5u80q
-	 MZfVX5z1HrcuVR1ctbFKT2z1S3WHP+cbr+fsa1a75GJAk2tl0zDnTweiBSe7Do8GPj
-	 qJWN0O52EvO8IhDMgiey3jGdt44Hrbg1e37tXDnU=
+	s=default; t=1636627298;
+	bh=VsajtJ+hQ5239gNSzSQ4wUEtEAEXwPtn693JeVo4Ko4=;
+	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=TtCwWh9my8jj00olWD7OCbYUkVgEhW4W0Y1rrE26IJesAFAJ8eHB5jySrC75tKiIH
+	 bs5824zO2As9pTlb3YZNacTEdNPz2b5lGjIdjZYOzI6GjexOjptJgAVDBOY+Zr/dBF
+	 AU3beUe3MnLfvHJ6MFv9VQqX17mTZogHuCF9cf+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4523AF80086;
-	Thu, 11 Nov 2021 11:30:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D614CF80086;
+	Thu, 11 Nov 2021 11:40:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6EB9F802D2; Thu, 11 Nov 2021 11:30:32 +0100 (CET)
+ id AF2D4F802D2; Thu, 11 Nov 2021 11:40:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_NONE autolearn=disabled version=3.4.0
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50F22F800C1
- for <alsa-devel@alsa-project.org>; Thu, 11 Nov 2021 11:30:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50F22F800C1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="m8LRApmD"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="RewpRZAC"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 94A8E3202135;
- Thu, 11 Nov 2021 05:30:20 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Thu, 11 Nov 2021 05:30:20 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=XNJWXfmHXQL4e9diX0tHCqZ+f1
- VOsLYB/zddVlEJ1u8=; b=m8LRApmDQ18x23EA5pytAxv0js8GW6AD5KtIEY+Yyn
- Rmq9hs4CAKldofWxPDqwbcs0eE+cVKrsIMXyNiwRB3n0JtyjWtLMsGIlUML6hwNz
- xq33wCP27GT/NxKrv5wOH9NQVWxe0vcLgVV2C5EOW8uFRzY4s9s7PZfXUAqMc+ES
- 8b/85NlEaHzi/UJ+Ea408d3d4PUEKHgAGDWwZ+wB5P4cOyudsgN+qBqTbzNhDI8L
- Gv+aQVNAm0aAgaauoQdtPfxHj6K/kGwQEhd2Ry2FSh0XmrbOQLDymrQvWaB1l7RZ
- PkAScTG1kBmCYStQeIeTocIy13+XJhUAds7QCax394aA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=XNJWXfmHXQL4e9diX
- 0tHCqZ+f1VOsLYB/zddVlEJ1u8=; b=RewpRZACE+1Q1cm8fFDND9XmmpIr496mv
- 3m0jZ3o0v0H58aceFhJH5tXsaJ2Vxm6SyPwihnPsS0TYRD/ASmf5yN/7NlCyMCpd
- CT3cyJHTVkBpcgYx/qe8lEWXUbD2lc0rhYG6tK+o/7U4X5glRACIDu3TT5mQkUZb
- RRTJmPoe/eMEUFR64/XqMDvfpsRSeC7pcvh6agU8PoPwDB3ESF58KFSsqBsClN/2
- APpAJFLWweiEah8vZGAcSEZGAIDVgpaTs8iaBiWBzcAvYLQUoT8u5Em3rZfqV2st
- 7QdemNrMtws4SoifaYu8ERDb5mFpzlzbx7OEh1Jy2bEhSYjF+0tcw==
-X-ME-Sender: <xms:u_CMYc9q4m_HifOaj4upfrlIZMVaENXkvpXiqau_YRCvmbJFAf1PUw>
- <xme:u_CMYUuQJ1AEEsz3PeBx3kvEKZJ6ujNWOSGl143rxC8V1jg22Dkfn6DjHjKYyMkmF
- QBKkR1PtbeIdHm-OI4>
-X-ME-Received: <xmr:u_CMYSAqALOD-sZbK1XIpwoudMkBHXmQZJU002wSvDPzgouFW8kfWth3Hst-34vq2UEergamt6gKoRPDQ3FFYUxXK_9ieOHEIYFHNCQ6fkT0ZQDS1dvj>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrvddugddujecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
- dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
- sehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpedujeetlefhtddtke
- fgtdeuieelhffgteejjeehkeegveduvdevgeeiheeuueekjeenucevlhhushhtvghrufhi
- iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrg
- hmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:u_CMYccbTjdRrsdC8I3rSqvGWmEemRmZ0q0yk9neyx8qAq4UvGr9Kw>
- <xmx:u_CMYRNi7iKi3pj9mUj1dqA7gQHhwKB9XK4cnUrXbCstbA6hQxZR-w>
- <xmx:u_CMYWlwB3AwvkwSsMjAF6sMTnM0k7nueyk7ZU7s4CYXaJXfM-VNUQ>
- <xmx:vPCMYf04bFyhI5jz_WDM3fr3zwL7gBwo5MTnp5GyC19iCr4jbmfx9A>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 11 Nov 2021 05:30:18 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: fireworks: add support for Loud Onyx 1200f quirk
-Date: Thu, 11 Nov 2021 19:30:15 +0900
-Message-Id: <20211111103015.7498-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.32.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68E37F80054
+ for <alsa-devel@alsa-project.org>; Thu, 11 Nov 2021 11:40:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68E37F80054
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 1ABAe2Dm9032315,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36504.realtek.com.tw[172.21.6.27])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 1ABAe2Dm9032315
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 11 Nov 2021 18:40:02 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36504.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Thu, 11 Nov 2021 18:40:01 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.15; Thu, 11 Nov 2021 05:40:01 -0500
+Received: from RTEXMBS01.realtek.com.tw ([fe80::301d:c3e3:433e:d34e]) by
+ RTEXMBS01.realtek.com.tw ([fe80::301d:c3e3:433e:d34e%5]) with mapi id
+ 15.01.2308.015; Thu, 11 Nov 2021 05:40:01 -0500
+From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
+To: Jaroslav Kysela <perex@perex.cz>, "broonie@kernel.org"
+ <broonie@kernel.org>, "tiwai@suse.de" <tiwai@suse.de>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>
+Subject: RE: [PATCH] ALSA: usb-audio: add the profile name of Dell desktop
+Thread-Topic: [PATCH] ALSA: usb-audio: add the profile name of Dell desktop
+Thread-Index: AQHX1t01ldBW7dWZzEeTxd7L+bgC+6v+ZNgAgAAFvwD//6xucIAAB5TA
+Date: Thu, 11 Nov 2021 10:40:01 +0000
+Message-ID: <7be27e54d3ce41b2ade3e062c939ece2@realtek.com>
+References: <20211111091914.20917-1-shumingf@realtek.com>
+ <7e82a4cd-ed51-e853-7338-eb570c88cb68@perex.cz>
+ <3654e59d-52bd-5442-39d1-f017f5a14b2b@perex.cz> 
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.209]
+x-kse-serverinfo: RTEXMBS01.realtek.com.tw, 9
+x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
+ rules found
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: =?utf-8?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzExLzExIOS4iuWNiCAwOToxMzowMA==?=
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+X-KSE-ServerInfo: RTEXH36504.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 11/11/2021 10:23:35
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 167202 [Nov 11 2021]
+X-KSE-AntiSpam-Info: Version: 5.9.20.0
+X-KSE-AntiSpam-Info: Envelope from: shumingf@realtek.com
+X-KSE-AntiSpam-Info: LuaCore: 465 465 eb31509370142567679dd183ac984a0cb2ee3296
+X-KSE-AntiSpam-Info: {Tracking_uf_ne_domains}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;
+ 127.0.0.199:7.1.2; realtek.com:7.1.1; github.com:7.1.1
+X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, from}
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 11/11/2021 10:25:00
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>, Hui Wang <hui.wang@canonical.com>,
+ =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ "Yijun.Shen@dell.com" <Yijun.Shen@dell.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,104 +126,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Loud Technologies shipped Onyx 1200f 2008 in its Mackie brand and
-already discontinued. The model uses component of Fireworks board
-module as its communication and DSP function.
-
-The latest firmware (v4.6.0) has a quirk that tx packet includes wrong
-value (0x1f) in its dbs field at middle and higher sampling transfer
-frequency. It brings ALSA fireworks driver discontinuity of data block
-counter.
-
-This commit fixes it by assuming it as a quirk of firmware version
-4.6.0.
-
-$ cd linux-firewire-tools/src
-$ python crpp < /sys/bus/firewire/devices/fw1/config_rom
-               ROM header and bus information block
-               -----------------------------------------------------------------
-400  0404b9ef  bus_info_length 4, crc_length 4, crc 47599
-404  31333934  bus_name "1394"
-408  e064a212  irmc 1, cmc 1, isc 1, bmc 0, pmc 0, cyc_clk_acc 100,
-               max_rec 10 (2048), max_rom 2, gen 1, spd 2 (S400)
-40c  000ff209  company_id 000ff2     |
-410  62550ce0  device_id 0962550ce0  | EUI-64 000ff20962550ce0
-
-               root directory
-               -----------------------------------------------------------------
-414  0008088e  directory_length 8, crc 2190
-418  03000ff2  vendor
-41c  8100000f  --> descriptor leaf at 458
-420  1701200f  model
-424  81000018  --> descriptor leaf at 484
-428  0c008380  node capabilities
-42c  8d000003  --> eui-64 leaf at 438
-430  d1000005  --> unit directory at 444
-434  08000ff2  (immediate value)
-
-               eui-64 leaf at 438
-               -----------------------------------------------------------------
-438  000281ae  leaf_length 2, crc 33198
-43c  000ff209  company_id 000ff2     |
-440  62550ce0  device_id 0962550ce0  | EUI-64 000ff20962550ce0
-
-               unit directory at 444
-               -----------------------------------------------------------------
-444  00045d94  directory_length 4, crc 23956
-448  1200a02d  specifier id: 1394 TA
-44c  13010000  version
-450  1701200f  model
-454  8100000c  --> descriptor leaf at 484
-
-               descriptor leaf at 458
-               -----------------------------------------------------------------
-458  000a199d  leaf_length 10, crc 6557
-45c  00000000  textual descriptor
-460  00000000  minimal ASCII
-464  4d61636b  "Mack"
-468  69650000  "ie"
-46c  00000000
-470  00000000
-474  00000000
-478  00000000
-47c  00000000
-480  00000000
-
-               descriptor leaf at 484
-               -----------------------------------------------------------------
-484  000a0964  leaf_length 10, crc 2404
-488  00000000  textual descriptor
-48c  00000000  minimal ASCII
-490  4f6e7978  "Onyx"
-494  20313230  " 120"
-498  30460000  "0F"
-49c  00000000
-4a0  00000000
-4a4  00000000
-4a8  00000000
-4ac  00000000
-
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/fireworks/fireworks_stream.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/sound/firewire/fireworks/fireworks_stream.c b/sound/firewire/fireworks/fireworks_stream.c
-index ac66f08acd6b..53dbd4d4b0d0 100644
---- a/sound/firewire/fireworks/fireworks_stream.c
-+++ b/sound/firewire/fireworks/fireworks_stream.c
-@@ -50,8 +50,9 @@ static int init_stream(struct snd_efw *efw, struct amdtp_stream *stream)
- 		     efw->firmware_version == 0x5070300 ||
- 		     efw->firmware_version == 0x5080000))
- 			efw->tx_stream.flags |= CIP_UNALIGHED_DBC;
--		// AudioFire9 always reports wrong dbs.
--		if (efw->is_af9)
-+		// AudioFire9 always reports wrong dbs. Onyx 1200F with the latest firmware (v4.6.0)
-+		// also report wrong dbs at 88.2 kHz or greater.
-+		if (efw->is_af9 || efw->firmware_version == 0x4060000)
- 			efw->tx_stream.flags |= CIP_WRONG_DBS;
- 		// Firmware version 5.5 reports fixed interval for dbc.
- 		if (efw->firmware_version == 0x5050000)
--- 
-2.32.0
-
+SGkgSmFyb3NsYXYsDQoNCj4gPiA+PiBBZGQgdGhlIHByb2ZpbGUgbmFtZSB0byBsZXQgdXNlcnNw
+YWNlIHBpY2sgY29ycmVjdCBVQ00gcHJvZmlsZQ0KPiA+ID4NCj4gPiA+IEl0J3Mgbm8gbG9uZ2Vy
+IG5lY2Vzc2FyeSB0byBmb3JjZSB0aGUgY2FyZCBuYW1lcyBpbiB0aGUgZHJpdmVycy4gVUNNDQo+
+ID4gPiBjYW4gbWF0Y2ggdGhlIFVTQiB2ZW5kb3IgLyBkZXZpY2UgSURzIGZyb20gdGhlICdjb21w
+b25lbnRzJyBzdHJpbmcsIHRvby4NCj4gPiA+DQo+ID4gPiBJIHRoaW5rIHRoYXQgd2Ugc2hvdWxk
+IGFiYW5kb24gdGhpcyB3YXkgb2YgdGhlIFVDTSBjb25maWd1cmF0aW9uDQo+ID4gPiBzZWxlY3Rp
+b24gZm9yIG5ldyBkZXZpY2VzIHdpdGggZGV2aWNlIElEcy4gVGhlIGtlcm5lbCBhbHJlYWR5DQo+
+ID4gPiBleHBvcnRzIG5lY2Vzc2FyeSBpbmZvcm1hdGlvbiB0byBzZWxlY3QgdGhlIHJpZ2h0IFVD
+TSBjb25maWd1cmF0aW9uDQo+ID4gPiBpbiB0aGUgdXNlcg0KPiA+IHNwYWNlLg0KPiA+DQo+ID4g
+VW50ZXN0ZWQgZXhhbXBsZToNCj4gPg0KPiA+DQo+IGh0dHBzOi8vZ2l0aHViLmNvbS9wZXJleGcv
+YWxzYS11Y20tY29uZi9jb21taXQvNzRjZWQ2NTQ0MGI1MDExYmJlYzE2ODANCj4gPiBiMjgwNGM4
+YTljODJiNTE1Mg0KPiA+DQo+ID4gCQkJCQlKYXJvc2xhdg0KPiANCj4gVGhhbmtzIGEgbG90LiBJ
+IHdpbGwgdGFrZSB5b3VyIGV4YW1wbGUgdG8gdGVzdC4NCg0KSSBoYWQgdGVzdGVkIHdpdGggVVNC
+LUF1ZGlvLmNvbmYgdGhhdCB0aGUgc3lzdGVtIHNlZW1zIG5vdCB0byBhcHBseSB0aGUgVUNNIGNv
+bmZpZy4NCg0KVGhlIHJlbGF0ZWQgaW5mbyBvZiB0aGUgdGVzdCBtYWNoaW5lIHNob3dzIGJlbG93
+Lg0Kcm9vdEBMYXRpdHVkZS01NDEwOi91c3Ivc2hhcmUvYWxzYS91Y20yL1VTQi1BdWRpbyMgY2F0
+IC9wcm9jL2Fzb3VuZC9jYXJkcw0KIDAgW1BDSCAgICAgICAgICAgIF06IEhEQS1JbnRlbCAtIEhE
+QSBJbnRlbCBQQ0gNCiAgICAgICAgICAgICAgICAgICAgICBIREEgSW50ZWwgUENIIGF0IDB4Y2Mz
+MzgwMDAgaXJxIDE1Mw0KIDEgW1JlYXIgICAgICAgICAgIF06IFVTQi1BdWRpbyAtIFVTQiBhdWRp
+byBSZWFyDQogICAgICAgICAgICAgICAgICAgICAgR2VuZXJpYyBVU0IgYXVkaW8gUmVhciBhdCB1
+c2ItMDAwMDowMDoxNC4wLTIuMiwgaGlnaCBzcGVlZA0KIDIgW0ZST05UICAgICAgICAgIF06IFVT
+Qi1BdWRpbyAtIFVTQiBhdWRpbyBGUk9OVA0KICAgICAgICAgICAgICAgICAgICAgIEdlbmVyaWMg
+VVNCIGF1ZGlvIEZST05UIGF0IHVzYi0wMDAwOjAwOjE0LjAtMi4xLCBoaWdoIHNwZWVkDQoNCnJv
+b3RATGF0aXR1ZGUtNTQxMDovdXNyL3NoYXJlL2Fsc2EvdWNtMi9VU0ItQXVkaW8jIGFsc2F1Y20g
+LS12ZXJzaW9uDQphbHNhdWNtOiB2ZXJzaW9uIDEuMi4yDQoNCnJvb3RATGF0aXR1ZGUtNTQxMDov
+dXNyL3NoYXJlL2Fsc2EvdWNtMi9VU0ItQXVkaW8jIGxzdXNiDQpCdXMgMDA0IERldmljZSAwMDE6
+IElEIDFkNmI6MDAwMyBMaW51eCBGb3VuZGF0aW9uIDMuMCByb290IGh1Yg0KQnVzIDAwMyBEZXZp
+Y2UgMDAxOiBJRCAxZDZiOjAwMDIgTGludXggRm91bmRhdGlvbiAyLjAgcm9vdCBodWINCkJ1cyAw
+MDIgRGV2aWNlIDAwMjogSUQgODU2NDo0MDAwIFRyYW5zY2VuZCBJbmZvcm1hdGlvbiwgSW5jLiBS
+REY4DQpCdXMgMDAyIERldmljZSAwMDE6IElEIDFkNmI6MDAwMyBMaW51eCBGb3VuZGF0aW9uIDMu
+MCByb290IGh1Yg0KQnVzIDAwMSBEZXZpY2UgMDAzOiBJRCAwYTVjOjU4NDIgQnJvYWRjb20gQ29y
+cC4gNTgyMDANCkJ1cyAwMDEgRGV2aWNlIDAwMjogSUQgMGJkYTo1NTMyIFJlYWx0ZWsgU2VtaWNv
+bmR1Y3RvciBDb3JwLiBJbnRlZ3JhdGVkX1dlYmNhbV9IRA0KQnVzIDAwMSBEZXZpY2UgMDA4OiBJ
+RCAwNGYzOjAyMzUgRWxhbiBNaWNyb2VsZWN0cm9uaWNzIENvcnAuIE9wdGljYWwgTW91c2UNCkJ1
+cyAwMDEgRGV2aWNlIDAwNzogSUQgMWM0ZjowMDAyIFNpR21hIE1pY3JvIEtleWJvYXJkIFRSQUNF
+UiBHYW1tYSBJdm9yeQ0KQnVzIDAwMSBEZXZpY2UgMDA2OiBJRCAwYmRhOjRjNTUgUmVhbHRlayBT
+ZW1pY29uZHVjdG9yIENvcnAuIFVTQjIuMCBIdWINCkJ1cyAwMDEgRGV2aWNlIDAwOTogSUQgMGJk
+YTo0YzU0IFJlYWx0ZWsgU2VtaWNvbmR1Y3RvciBDb3JwLg0KDQpNYXkgSSBhc2sgeW91IHRvIGdp
+dmUgbWUgc29tZSBzdWdnZXN0aW9ucz8NCg0KDQo=

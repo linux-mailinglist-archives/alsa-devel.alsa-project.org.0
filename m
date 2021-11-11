@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFACE44D6FA
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Nov 2021 14:04:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6575144D740
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Nov 2021 14:31:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FD051661;
-	Thu, 11 Nov 2021 14:03:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FD051661
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8C851663;
+	Thu, 11 Nov 2021 14:30:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8C851663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636635884;
-	bh=GwiGt22oi81JteMfnW+YUg+y9C0FZUEXb2s6noofITI=;
+	s=default; t=1636637482;
+	bh=va9LLq9jCrNB40FEXZBe7tZWd0bmf/X0bG7wckLjYbw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RfUjWf3DX1kFGe/VFdupaMYI6dwbbiRRgwwVuPLGHdKKX35BUELPqCrhgDqAmlH4Z
-	 OhUhVTzwp8FBCHh/lZLSuvZDYjNjkXVqTEsb5RJsW/+1dXSy6MlOb9SKngDmjH8sck
-	 kC4lAXeC3SGhEmjVMzceExEBh6751fIH8zoCfqso=
+	b=WhmRenIinotguOgq9cpyQJSrNlFG6jdXbViFm5ei7/CVLGitFdtDEC4pGdEqY1L8+
+	 ViUv54k79JHKVlXdw/iYidaHXi1MiZuykKrHwSnS1A6k7wRE/dW8gUxILg/w/iWKkw
+	 qXbAWduwlCVt/HrgX5WU7Ikf/Qt/msSBE71Fzzbo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD2FAF80224;
-	Thu, 11 Nov 2021 14:03:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FD98F80086;
+	Thu, 11 Nov 2021 14:30:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10446F802E3; Thu, 11 Nov 2021 14:03:25 +0100 (CET)
+ id E80B3F802D2; Thu, 11 Nov 2021 14:29:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,49 +34,53 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D386BF80086
- for <alsa-devel@alsa-project.org>; Thu, 11 Nov 2021 14:03:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D386BF80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55783F80054
+ for <alsa-devel@alsa-project.org>; Thu, 11 Nov 2021 14:29:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55783F80054
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="gpXnzB9R"; 
+ header.b="NCej04Bk"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Lji5uZrP"
+ header.b="ADufAHL/"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5F69A21B3F;
- Thu, 11 Nov 2021 13:03:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 929F721B3F;
+ Thu, 11 Nov 2021 13:29:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636635791; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1636637373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vGqKdnz7dV8Z5t1S9THYbSyhTD7QpjiGQEJnMa0ZO0E=;
- b=gpXnzB9RiFUuBNxryAz2a20al7N+D2tENPVaMQrtXvIs4fOrXxyEsuqsvxM4QU7yBcwe9+
- mIaCOvgyn0twR1yxnTjmdSQhmgaYX2E7RJu5DtpMST6hopKGeMBCU3jrIupHlOYCD46SWA
- N9pKqXrnVeghmCikd3s/VkAXWlMjTsY=
+ bh=LWluxz9DxDLw9ExF8OURHV8cbYos+TpPV+9ukpFRCd8=;
+ b=NCej04BkmR07rito9NQQ2YHnXNxRxoWFfEtLWcAyDpkXa3L6zisPKqa7tuKQRxng3MsHmf
+ 6GpZqz243BZ3LZTxrIVbOeCsEtLkkTIMUAqzGMhZUWl1AHP1QGxOIAcP9V/00smjgPn2xx
+ jBA5W94xRGnYfhiVv7gC8V6aBHabzwM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636635791;
+ s=susede2_ed25519; t=1636637373;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vGqKdnz7dV8Z5t1S9THYbSyhTD7QpjiGQEJnMa0ZO0E=;
- b=Lji5uZrP+kPDTjJQNDMKNJ8LlqmTKoPSZFcKKG+JJnsc4Cv97rEj24I5UtYxSX1q8/+Ujx
- ERKYz182KSmvypCg==
+ bh=LWluxz9DxDLw9ExF8OURHV8cbYos+TpPV+9ukpFRCd8=;
+ b=ADufAHL/oJP0KaT0wEC2Qk87WHDlqNRgL6Urgh7QNueKiVMUujPgFgv6fEUw0PM3mS5uiR
+ FqqFxn4rimD3KqCA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 4E942A3BED;
- Thu, 11 Nov 2021 13:03:10 +0000 (UTC)
-Date: Thu, 11 Nov 2021 14:03:10 +0100
-Message-ID: <s5h5ysy6e0h.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 7B14DA3B85;
+ Thu, 11 Nov 2021 13:29:33 +0000 (UTC)
+Date: Thu, 11 Nov 2021 14:29:33 +0100
+Message-ID: <s5h1r3m6csi.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: fireworks: add support for Loud Onyx 1200f quirk
-In-Reply-To: <20211111103015.7498-1-o-takashi@sakamocchi.jp>
-References: <20211111103015.7498-1-o-takashi@sakamocchi.jp>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: fix general protection fault in
+ azx_runtime_idle
+In-Reply-To: <alpine.DEB.2.22.394.2111110015250.3554566@eliteleevi.tm.intel.com>
+References: <20211110210307.1172004-1-kai.vehmanen@linux.intel.com>
+ <s5hzgqb65h0.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2111110015250.3554566@eliteleevi.tm.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Cc: alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
+ mahesh.meena@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,89 +96,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 11 Nov 2021 11:30:15 +0100,
-Takashi Sakamoto wrote:
+On Wed, 10 Nov 2021 23:15:40 +0100,
+Kai Vehmanen wrote:
 > 
-> Loud Technologies shipped Onyx 1200f 2008 in its Mackie brand and
-> already discontinued. The model uses component of Fireworks board
-> module as its communication and DSP function.
+> Hey,
 > 
-> The latest firmware (v4.6.0) has a quirk that tx packet includes wrong
-> value (0x1f) in its dbs field at middle and higher sampling transfer
-> frequency. It brings ALSA fireworks driver discontinuity of data block
-> counter.
+> On Wed, 10 Nov 2021, Takashi Iwai wrote:
 > 
-> This commit fixes it by assuming it as a quirk of firmware version
-> 4.6.0.
+> > On Wed, 10 Nov 2021 22:03:07 +0100, Kai Vehmanen wrote:
+> > > Fix a corner case between PCI device driver remove callback and
+> > > runtime PM idle callback.
+> [...]
+> > > Some non-persistent direct links showing the bug trigger on
+> > > different platforms with linux-next 20211109:
+> > >  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/fi-tgl-1115g4/igt@i915_module_load@reload.html
+> > >  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/fi-jsl-1/igt@i915_module_load@reload.html
+> > > 
+> > > Notably with 20211110 linux-next, the bug does not trigger:
+> > >  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211110/fi-tgl-1115g4/igt@i915_module_load@reload.html
+> > 
+> > Is this the case with CONFIG_DEBUG_KOBJECT_RELEASE?
+> > This would be the only logical explanation I can think of for now.
 > 
-> $ cd linux-firewire-tools/src
-> $ python crpp < /sys/bus/firewire/devices/fw1/config_rom
->                ROM header and bus information block
->                -----------------------------------------------------------------
-> 400  0404b9ef  bus_info_length 4, crc_length 4, crc 47599
-> 404  31333934  bus_name "1394"
-> 408  e064a212  irmc 1, cmc 1, isc 1, bmc 0, pmc 0, cyc_clk_acc 100,
->                max_rec 10 (2048), max_rom 2, gen 1, spd 2 (S400)
-> 40c  000ff209  company_id 000ff2     |
-> 410  62550ce0  device_id 0962550ce0  | EUI-64 000ff20962550ce0
-> 
->                root directory
->                -----------------------------------------------------------------
-> 414  0008088e  directory_length 8, crc 2190
-> 418  03000ff2  vendor
-> 41c  8100000f  --> descriptor leaf at 458
-> 420  1701200f  model
-> 424  81000018  --> descriptor leaf at 484
-> 428  0c008380  node capabilities
-> 42c  8d000003  --> eui-64 leaf at 438
-> 430  d1000005  --> unit directory at 444
-> 434  08000ff2  (immediate value)
-> 
->                eui-64 leaf at 438
->                -----------------------------------------------------------------
-> 438  000281ae  leaf_length 2, crc 33198
-> 43c  000ff209  company_id 000ff2     |
-> 440  62550ce0  device_id 0962550ce0  | EUI-64 000ff20962550ce0
-> 
->                unit directory at 444
->                -----------------------------------------------------------------
-> 444  00045d94  directory_length 4, crc 23956
-> 448  1200a02d  specifier id: 1394 TA
-> 44c  13010000  version
-> 450  1701200f  model
-> 454  8100000c  --> descriptor leaf at 484
-> 
->                descriptor leaf at 458
->                -----------------------------------------------------------------
-> 458  000a199d  leaf_length 10, crc 6557
-> 45c  00000000  textual descriptor
-> 460  00000000  minimal ASCII
-> 464  4d61636b  "Mack"
-> 468  69650000  "ie"
-> 46c  00000000
-> 470  00000000
-> 474  00000000
-> 478  00000000
-> 47c  00000000
-> 480  00000000
-> 
->                descriptor leaf at 484
->                -----------------------------------------------------------------
-> 484  000a0964  leaf_length 10, crc 2404
-> 488  00000000  textual descriptor
-> 48c  00000000  minimal ASCII
-> 490  4f6e7978  "Onyx"
-> 494  20313230  " 120"
-> 498  30460000  "0F"
-> 49c  00000000
-> 4a0  00000000
-> 4a4  00000000
-> 4a8  00000000
-> 4ac  00000000
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> hmm, that doesn't seem to be used. Here's a link to kconfig used in the 
+> failing CI run:
+> https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/kconfig.txt
 
-Thanks, applied.
+OK, then it's not due to the delayed release, but the cause should be
+the same, I suppose.
 
+> It's still a bit odd, especially given Scott just reported the other HDA 
+> related regression in 5.15 today. The two issues don't seem to be related 
+> though, although both are fixed by clearing drvdata (but in different 
+> places of hda_intel.c).
+
+I don't think it's the same issue, rather a coincidence of the
+timing.  There have been many changes in 5.15, after all :)
+
+> I'll try to run some more tests tomorrow. The fix should be good in any 
+> case, but it would be interesting to understand better what change made 
+> this more (?) likely to hit than before. This is not a new test and the 
+> problem happens on fairly old platforms, so something has changed.
+
+A potential problem with the current code is that it doesn't disable
+the runtime PM at the release procedure.  Could you try the patch
+below?  You can put WARN_ON(!chip) at azx_runtime_idle(), too, for
+catching the invalid runtime call.
+
+
+thanks,
 
 Takashi
+
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1347,8 +1347,13 @@ static void azx_free(struct azx *chip)
+ 	if (hda->freed)
+ 		return;
+ 
+-	if (azx_has_pm_runtime(chip) && chip->running)
++	if (azx_has_pm_runtime(chip) && chip->running) {
+ 		pm_runtime_get_noresume(&pci->dev);
++		pm_runtime_forbid(&pci->dev);
++		pm_runtime_dont_use_autosuspend(&pci->dev);
++		pm_runtime_disable(&pci->dev);
++	}
++
+ 	chip->running = 0;
+ 
+ 	azx_del_card_list(chip);
+@@ -2320,6 +2325,7 @@ static int azx_probe_continue(struct azx *chip)
+ 	set_default_power_save(chip);
+ 
+ 	if (azx_has_pm_runtime(chip)) {
++		pm_runtime_enable(&pci->dev);
+ 		pm_runtime_use_autosuspend(&pci->dev);
+ 		pm_runtime_allow(&pci->dev);
+ 		pm_runtime_put_autosuspend(&pci->dev);

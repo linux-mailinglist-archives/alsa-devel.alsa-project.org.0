@@ -2,85 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6575144D740
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Nov 2021 14:31:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EF6244D9F9
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Nov 2021 17:12:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8C851663;
-	Thu, 11 Nov 2021 14:30:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8C851663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B6641662;
+	Thu, 11 Nov 2021 17:11:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B6641662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636637482;
-	bh=va9LLq9jCrNB40FEXZBe7tZWd0bmf/X0bG7wckLjYbw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WhmRenIinotguOgq9cpyQJSrNlFG6jdXbViFm5ei7/CVLGitFdtDEC4pGdEqY1L8+
-	 ViUv54k79JHKVlXdw/iYidaHXi1MiZuykKrHwSnS1A6k7wRE/dW8gUxILg/w/iWKkw
-	 qXbAWduwlCVt/HrgX5WU7Ikf/Qt/msSBE71Fzzbo=
+	s=default; t=1636647164;
+	bh=CX9YgOE2Dnl9sKFDhi/Vy7+Gru9qmfIxKp+CcNPPD7Q=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=BK+Nr5sJpkocAs1P/XHCiXSeRB2cvuXRJGvLEGtgD3v7ztP7oMon1EsYPYB5WKYu4
+	 jXoGU4zqF3IJMZ92aojfdSrMsc8uImJaf+IuOSWRtoNGh4pdOaAcrjXBqHsc1odp+T
+	 rtdDOlPve1Gpkd40h4z5wb+llsnXk1BRriYi9QG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4FD98F80086;
-	Thu, 11 Nov 2021 14:30:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78D39F802E3;
+	Thu, 11 Nov 2021 17:11:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E80B3F802D2; Thu, 11 Nov 2021 14:29:55 +0100 (CET)
+ id 2C9C7F802D2; Thu, 11 Nov 2021 17:11:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55783F80054
- for <alsa-devel@alsa-project.org>; Thu, 11 Nov 2021 14:29:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55783F80054
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91FB2F80054
+ for <alsa-devel@alsa-project.org>; Thu, 11 Nov 2021 17:11:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91FB2F80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="NCej04Bk"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ADufAHL/"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 929F721B3F;
- Thu, 11 Nov 2021 13:29:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636637373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LWluxz9DxDLw9ExF8OURHV8cbYos+TpPV+9ukpFRCd8=;
- b=NCej04BkmR07rito9NQQ2YHnXNxRxoWFfEtLWcAyDpkXa3L6zisPKqa7tuKQRxng3MsHmf
- 6GpZqz243BZ3LZTxrIVbOeCsEtLkkTIMUAqzGMhZUWl1AHP1QGxOIAcP9V/00smjgPn2xx
- jBA5W94xRGnYfhiVv7gC8V6aBHabzwM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636637373;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LWluxz9DxDLw9ExF8OURHV8cbYos+TpPV+9ukpFRCd8=;
- b=ADufAHL/oJP0KaT0wEC2Qk87WHDlqNRgL6Urgh7QNueKiVMUujPgFgv6fEUw0PM3mS5uiR
- FqqFxn4rimD3KqCA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7B14DA3B85;
- Thu, 11 Nov 2021 13:29:33 +0000 (UTC)
-Date: Thu, 11 Nov 2021 14:29:33 +0100
-Message-ID: <s5h1r3m6csi.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: fix general protection fault in
- azx_runtime_idle
-In-Reply-To: <alpine.DEB.2.22.394.2111110015250.3554566@eliteleevi.tm.intel.com>
-References: <20211110210307.1172004-1-kai.vehmanen@linux.intel.com>
- <s5hzgqb65h0.wl-tiwai@suse.de>
- <alpine.DEB.2.22.394.2111110015250.3554566@eliteleevi.tm.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
- mahesh.meena@intel.com
+ dkim=fail reason="signature verification failed" (2048-bit key)
+ header.d=collabora.com header.i=@collabora.com header.b="FjXHacYd"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id B98A31F45F06
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=collabora.com; s=mail;
+ t=1636647073; bh=CX9YgOE2Dnl9sKFDhi/Vy7+Gru9qmfIxKp+CcNPPD7Q=;
+ h=From:To:Cc:Subject:Date:From;
+ b=FjXHacYdhUiv7pCF1M1W4pYSynoz4Psg8PiUe06ETK6zxbWP3QXSJZoSbOQ9Asgvc
+ YcIQps0YO+BNiIyw9fzQXVQVKxNlt2mIgbfglgk062leoi+Zh4VaRD2Il83WyySaVr
+ gxaf0n1XioYQVMycUpa4im8Pux9mnGx2AAFeN9VsqBEs7wOx4+qXkaYUHrQ3uUNZsq
+ IMKmAGOuN68o8zTY72Ics+AZiPAmv+N2Owr6Rxxuvgr89fUXCMYah3sEbK0AsrkiYD
+ 3hSA7EQn+f57d2b1odZBgYEKAZ0WQTf1zQ3koKhQf9ar58FPJyDyUa36remrWGvZAQ
+ 7HXWBLVsygu0A==
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: lgirdwood@gmail.com
+Subject: [PATCH] ASoC: mediatek: mt8173: Fix debugfs registration for
+ components
+Date: Thu, 11 Nov 2021 17:11:08 +0100
+Message-Id: <20211111161108.502344-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.33.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ dafna.hirschfeld@collabora.com, kuninori.morimoto.gx@renesas.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,80 +80,107 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Nov 2021 23:15:40 +0100,
-Kai Vehmanen wrote:
-> 
-> Hey,
-> 
-> On Wed, 10 Nov 2021, Takashi Iwai wrote:
-> 
-> > On Wed, 10 Nov 2021 22:03:07 +0100, Kai Vehmanen wrote:
-> > > Fix a corner case between PCI device driver remove callback and
-> > > runtime PM idle callback.
-> [...]
-> > > Some non-persistent direct links showing the bug trigger on
-> > > different platforms with linux-next 20211109:
-> > >  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/fi-tgl-1115g4/igt@i915_module_load@reload.html
-> > >  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/fi-jsl-1/igt@i915_module_load@reload.html
-> > > 
-> > > Notably with 20211110 linux-next, the bug does not trigger:
-> > >  - https://intel-gfx-ci.01.org/tree/linux-next/next-20211110/fi-tgl-1115g4/igt@i915_module_load@reload.html
-> > 
-> > Is this the case with CONFIG_DEBUG_KOBJECT_RELEASE?
-> > This would be the only logical explanation I can think of for now.
-> 
-> hmm, that doesn't seem to be used. Here's a link to kconfig used in the 
-> failing CI run:
-> https://intel-gfx-ci.01.org/tree/linux-next/next-20211109/kconfig.txt
+When registering the mt8173-afe-pcm driver, we are also adding two
+components: one is for the PCM DAIs and one is for the HDMI DAIs, but
+when debugfs is enabled, we're getting the following issue:
 
-OK, then it's not due to the delayed release, but the cause should be
-the same, I suppose.
+[   17.279176] debugfs: Directory '11220000.audio-controller' with parent 'mtk-rt5650' already present!
+[   17.288345] debugfs: Directory '11220000.audio-controller' with parent 'mtk-rt5650' already present!
 
-> It's still a bit odd, especially given Scott just reported the other HDA 
-> related regression in 5.15 today. The two issues don't seem to be related 
-> though, although both are fixed by clearing drvdata (but in different 
-> places of hda_intel.c).
+To overcome to that without any potentially big rewrite of this driver,
+similarly to what was done in mt8195-afe-pcm, add a debugfs_prefix to
+the components before actually adding them.
 
-I don't think it's the same issue, rather a coincidence of the
-timing.  There have been many changes in 5.15, after all :)
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ sound/soc/mediatek/mt8173/mt8173-afe-pcm.c | 51 ++++++++++++++++++----
+ 1 file changed, 43 insertions(+), 8 deletions(-)
 
-> I'll try to run some more tests tomorrow. The fix should be good in any 
-> case, but it would be interesting to understand better what change made 
-> this more (?) likely to hit than before. This is not a new test and the 
-> problem happens on fairly old platforms, so something has changed.
-
-A potential problem with the current code is that it doesn't disable
-the runtime PM at the release procedure.  Could you try the patch
-below?  You can put WARN_ON(!chip) at azx_runtime_idle(), too, for
-catching the invalid runtime call.
-
-
-thanks,
-
-Takashi
-
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1347,8 +1347,13 @@ static void azx_free(struct azx *chip)
- 	if (hda->freed)
- 		return;
+diff --git a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
+index 6350390414d4..31494930433f 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
++++ b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
+@@ -1054,6 +1054,7 @@ static int mt8173_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	int irq_id;
+ 	struct mtk_base_afe *afe;
+ 	struct mt8173_afe_private *afe_priv;
++	struct snd_soc_component *comp_pcm, *comp_hdmi;
  
--	if (azx_has_pm_runtime(chip) && chip->running)
-+	if (azx_has_pm_runtime(chip) && chip->running) {
- 		pm_runtime_get_noresume(&pci->dev);
-+		pm_runtime_forbid(&pci->dev);
-+		pm_runtime_dont_use_autosuspend(&pci->dev);
-+		pm_runtime_disable(&pci->dev);
+ 	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(33));
+ 	if (ret)
+@@ -1142,23 +1143,55 @@ static int mt8173_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_pm_disable;
+ 
+-	ret = devm_snd_soc_register_component(&pdev->dev,
+-					 &mt8173_afe_pcm_dai_component,
+-					 mt8173_afe_pcm_dais,
+-					 ARRAY_SIZE(mt8173_afe_pcm_dais));
++	comp_pcm = devm_kzalloc(&pdev->dev, sizeof(*comp_pcm), GFP_KERNEL);
++	if (!comp_pcm) {
++		ret = -ENOMEM;
++		goto err_pm_disable;
 +	}
 +
- 	chip->running = 0;
++	ret = snd_soc_component_initialize(comp_pcm,
++					   &mt8173_afe_pcm_dai_component,
++					   &pdev->dev);
+ 	if (ret)
+ 		goto err_pm_disable;
  
- 	azx_del_card_list(chip);
-@@ -2320,6 +2325,7 @@ static int azx_probe_continue(struct azx *chip)
- 	set_default_power_save(chip);
+-	ret = devm_snd_soc_register_component(&pdev->dev,
+-					 &mt8173_afe_hdmi_dai_component,
+-					 mt8173_afe_hdmi_dais,
+-					 ARRAY_SIZE(mt8173_afe_hdmi_dais));
++#ifdef CONFIG_DEBUG_FS
++	comp_pcm->debugfs_prefix = "pcm";
++#endif
++
++	ret = snd_soc_add_component(comp_pcm,
++				    mt8173_afe_pcm_dais,
++				    ARRAY_SIZE(mt8173_afe_pcm_dais));
++	if (ret)
++		goto err_pm_disable;
++
++	comp_hdmi = devm_kzalloc(&pdev->dev, sizeof(*comp_hdmi), GFP_KERNEL);
++	if (!comp_hdmi) {
++		ret = -ENOMEM;
++		goto err_pm_disable;
++	}
++
++	ret = snd_soc_component_initialize(comp_hdmi,
++					   &mt8173_afe_hdmi_dai_component,
++					   &pdev->dev);
+ 	if (ret)
+ 		goto err_pm_disable;
  
- 	if (azx_has_pm_runtime(chip)) {
-+		pm_runtime_enable(&pci->dev);
- 		pm_runtime_use_autosuspend(&pci->dev);
- 		pm_runtime_allow(&pci->dev);
- 		pm_runtime_put_autosuspend(&pci->dev);
++#ifdef CONFIG_DEBUG_FS
++	comp_hdmi->debugfs_prefix = "hdmi";
++#endif
++
++	ret = snd_soc_add_component(comp_hdmi,
++				    mt8173_afe_hdmi_dais,
++				    ARRAY_SIZE(mt8173_afe_hdmi_dais));
++	if (ret)
++		goto err_cleanup_components;
++
+ 	dev_info(&pdev->dev, "MT8173 AFE driver initialized.\n");
+ 	return 0;
+ 
++err_cleanup_components:
++	snd_soc_unregister_component(&pdev->dev);
+ err_pm_disable:
+ 	pm_runtime_disable(&pdev->dev);
+ 	return ret;
+@@ -1166,6 +1199,8 @@ static int mt8173_afe_pcm_dev_probe(struct platform_device *pdev)
+ 
+ static int mt8173_afe_pcm_dev_remove(struct platform_device *pdev)
+ {
++	snd_soc_unregister_component(&pdev->dev);
++
+ 	pm_runtime_disable(&pdev->dev);
+ 	if (!pm_runtime_status_suspended(&pdev->dev))
+ 		mt8173_afe_runtime_suspend(&pdev->dev);
+-- 
+2.33.1
+

@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C156A44E908
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 15:34:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFFB544EA16
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 16:31:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CE05166E;
-	Fri, 12 Nov 2021 15:33:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CE05166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52B1E166B;
+	Fri, 12 Nov 2021 16:30:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52B1E166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636727661;
-	bh=fEMx2xGhIdiro7MIogJux7meB8h6GcLTpGC08NvIs8I=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vgE6AWUIcJr+iD8HKEUnjulDWn8eBRWGKf3gXdHZoPuHbdYjuKiNB/GRrWSsb6+6k
-	 nXStbOG+dQ+7ZbOuESql5rI8EKphMHyn4cOLkkdLiLtzmvbYcpbD8Ex1vLknYttz86
-	 1KZKy/YtCP5GabQ/DFkm3TUbk9hRYhOlEhhnysWM=
+	s=default; t=1636731079;
+	bh=b/CTHbYrwSTaYSjQVcajyUSUyyDg4ptaN9a/TeY5HkI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=N4W75A+ge9jLdClvwL2UiMA76zvRY5lahQFyqUMx/u/fbZdfmfk53pgohyOiL6sEa
+	 recYVDbqCGsOWGY+lvd1YDM4gVLOBqY9ngMJeWtbo6sqeQvpEYVPRFaxepAEUVzTAx
+	 YVEoXbQcsdR0NOVsZc8YEp2RgY7xp0KbGVxIdFDE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C78A0F804B1;
-	Fri, 12 Nov 2021 15:33:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30C03F804B1;
+	Fri, 12 Nov 2021 16:30:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21270F8049E; Fri, 12 Nov 2021 15:33:03 +0100 (CET)
+ id BDA75F8049E; Fri, 12 Nov 2021 16:29:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF040F8014D
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 15:32:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF040F8014D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="iYKSx67s"
-Received: by mail-lf1-x134.google.com with SMTP id l22so22811891lfg.7
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 06:32:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=XD7crzKVcHIZR9TTwOk4zytaHNeiCt1V42QZSpHXq14=;
- b=iYKSx67sSjNPH6AypBmd3pP+jG1s+7vID6tEZCijzsCpiNsNr6bCMhmb1l79BWML/B
- 040ZtgneU8KNfYjMx8PGpvqtQOd2894HI2KxST9MGI0BIjSBecDgBJkTZ0x0nI3CFHsL
- 1NbIX7KOdTKO5CFi7O0qee5UXw1w5hzjJIWWeH/+0WgPKlNpF5YYJVbmJxi7bkLKoOPb
- VTlnL/biZc7ROvACEuJrd3gtd5wEwm/tb83o6NvC8P3+oIavpbqRpDXtDfgbspC/hxqH
- g6zmTVi+BGA53ysDDxRTSalJZB99JbCea+vG8J1y1jIt15N+HreHVCMr5JZO/95X9TsH
- dajw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41401F80086
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 16:29:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41401F80086
+Received: by mail-oi1-f177.google.com with SMTP id o4so18460594oia.10
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 07:29:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=XD7crzKVcHIZR9TTwOk4zytaHNeiCt1V42QZSpHXq14=;
- b=EuiGwBq9LNyEZ3plT/MoWC+3uRWOpEes7ZSFNS4Fy8W8h/aa0I53cOVLKGFiPYjXKC
- KU1AvrH/JJpJPdXIbsg9btBoaUODxIRCC+lYqRsrSsLDcVjL/6/mrknwotLggHALmekY
- GNkfCK5p6Zv8N4e2ca8kE4AP2tNNL2WMz1PHwpw35ZoQlB+rD0jXZFzDqugekQNiX1kp
- y+qCCY+659FkrZA85S+EoebEf+/uiE60FWJwLwUbeqtZ0U6Thxprjp4bNMnopUHm5aX/
- ijL1KVPP7YHsW2v3wYrk7RyxHYODNSNCBn2t82wohc7cFXVrUR0jgdQNfi9qG9FztEXo
- 7uQw==
-X-Gm-Message-State: AOAM5338MqNOJgfEFFNWGaYqG+hIJD50FYg1AJIgPdRuFlFk5AeEBbeb
- orVeFhByXa4XLDcH6WhL3wY6gSeFTRKzO8vWWB8q2Sl3nuw=
-X-Google-Smtp-Source: ABdhPJwlDOXo2+cTky7vzCRr5ASkUnKa1R3mrmqmPOGlWTLe0mjUTEwebjUagZmf/F58Uy44TqAbVVhLsEC198BTKug=
-X-Received: by 2002:a05:6512:2304:: with SMTP id
- o4mr14381389lfu.543.1636727573201; 
- Fri, 12 Nov 2021 06:32:53 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=DW8VgudtocUZU1HDUii+/dHVF3J3mG1GILU0W17O9qk=;
+ b=EpBNBbARQaBWUFjAmgGqJTbxbk6yn0xQDdd7IKuzBK95nobfWqTdq5zhYOwRPN0T4v
+ rd6GDXwAbxfU5N9Au+arOtkNMVDknavN5HlZ35N8Ir2d+iH+L0hh79AGdSDZOQeom86R
+ VEbIK0t4mIqKCTSbTWHLNUk5+m8fxk2Pp58EJHBgCMl2y4ShlBDZa7tyDMVGB848Q0k9
+ h0Y7cRLoauVnGoYL5lAZ4+S7DEZus9vHJ96sGnYpnQDG4DID5iftOTLd7BrcVRLbCXCx
+ LVR4pk7cBeRq5YNrcAd90hgX1hQzH48Y77/buCgxTiqxi/6oeOvQGnquSwwbQcQGUUPn
+ 6Lig==
+X-Gm-Message-State: AOAM531jZ5ks9ZnlGcECme8hEE3nYxsmcCTPC15AMTp1PYZnQgQ2nHrl
+ onsp8HyAzD9c067uQ2EaXg==
+X-Google-Smtp-Source: ABdhPJwbTtvg9M+B+8LafzsMv7N7DUzYI4eFvElyss/WrN8Ef8+ofOCHjyrSNmOpNl/xc9lWPCOELA==
+X-Received: by 2002:aca:30c5:: with SMTP id w188mr13002779oiw.35.1636730962320; 
+ Fri, 12 Nov 2021 07:29:22 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id bn41sm795096oib.18.2021.11.12.07.29.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Nov 2021 07:29:21 -0800 (PST)
+Received: (nullmailer pid 2884254 invoked by uid 1000);
+ Fri, 12 Nov 2021 15:29:20 -0000
+Date: Fri, 12 Nov 2021 09:29:20 -0600
+From: Rob Herring <robh@kernel.org>
+To: Vincent Knecht <vincent.knecht@mailoo.org>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: nxp, tfa989x: Add rcv-gpios
+ property for tfa9897
+Message-ID: <YY6IUOspigx/yDvj@robh.at.kernel.org>
+References: <20211031210956.812101-1-vincent.knecht@mailoo.org>
+ <20211031210956.812101-2-vincent.knecht@mailoo.org>
 MIME-Version: 1.0
-From: sujith kumar reddy <sujithreddy6192@gmail.com>
-Date: Fri, 12 Nov 2021 20:02:41 +0530
-Message-ID: <CAAd2w=bYJ9ooP717PQxGug=vKG8Zw_B+0z-Qp0s9v-40O2W0ig@mail.gmail.com>
-Subject: HDMI driver format channel mismatch bug
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211031210956.812101-2-vincent.knecht@mailoo.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ stephan@gerhold.net, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,96 +94,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Alsa Team,
+On Sun, 31 Oct 2021 22:09:55 +0100, Vincent Knecht wrote:
+> Add optional rcv-gpios property specific to tfa9897 receiver mode.
+> 
+> Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
+> ---
+>  .../bindings/sound/nxp,tfa989x.yaml           | 41 +++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+> 
 
-Sound is not coming in sony tv . which has below supported formats and
-channels.
-
-please find the attached  edid information and hw_params dump.
-
-with intel platform, same monitor populating 2 channels as max in hw_params
-in dump.
-but with AMD card, its populating as 6 channels.
-
-
-When we digged the code, we found that snd_hdmi_eld_update_pcm_info   API
-setting hinfo->channel_max as 8 and as channels max retrieved from sad info
-as 6.
-
-
-for LPCM , why the channel max assignment logic is not safeguared with
-audio format check as LPCM ?
-
-
-snippet code:
-
-/* update PCM info based on ELD */void
-snd_hdmi_eld_update_pcm_info(struct parsed_hdmi_eld *e,
-			      struct hda_pcm_stream *hinfo){
-	u32 rates;
-	u64 formats;
-	unsigned int maxbps;
-	unsigned int channels_max;
-	int i;
-
-	/* assume basic audio support (the basic audio flag is not in ELD;	 *
-however, all audio capable sinks are required to support basic	 *
-audio) */
-	rates = SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
-		SNDRV_PCM_RATE_48000;
-	formats = SNDRV_PCM_FMTBIT_S16_LE;
-	maxbps = 16;
-	channels_max = 2;
-	for (i = 0; i < e->sad_count; i++) {
-		struct cea_sad *a = &e->sad[i];
-		rates |= a->rates;
-		if (a->channels > channels_max)
-			channels_max = a->channels;
-		if (a->format == AUDIO_CODING_TYPE_LPCM) {
-			if (a->sample_bits & AC_SUPPCM_BITS_20) {
-				formats |= SNDRV_PCM_FMTBIT_S32_LE;
-				if (maxbps < 20)
-					maxbps = 20;
-			}
-			if (a->sample_bits & AC_SUPPCM_BITS_24) {
-				formats |= SNDRV_PCM_FMTBIT_S32_LE;
-				if (maxbps < 24)
-					maxbps = 24;
-			}
-		}
-	}
-
-	/* restrict the parameters by the values the codec provides */
-	hinfo->rates &= rates;
-	hinfo->formats &= formats;
-	hinfo->maxbps = min(hinfo->maxbps, maxbps);
-	hinfo->channels_max = min(hinfo->channels_max, channels_max);
-
->>>>>>>>>>the above statement channels_max is the maximum of channels supported of different formats.
-
-For example: the below attached edid is of sony tv. which supports two
-formats(LPCM and AC3)
-
-            LPCM --->supports 2 channels
-
-            AC3 ----->Supports 6 channels you can see in the attached edid info.
-
-       As AMD supports LPCM ...>when we keep logs here we got
-channels_max =6 .in which sound is not observed on tv .when we
-hardcode to 2 channels
-
-       the sound is heard from monitor. As you see the above code
-..for loop is not distinguishing channels_max for different formats.
-
-}
-
-
-Thanks in Advance
-
-
-
-https://pastebin.com/t41DqErH   ------edid information
-https://pastebin.com/4m56h10R  -----dump hw-params
-
-Thanks
-Sujith
+Reviewed-by: Rob Herring <robh@kernel.org>

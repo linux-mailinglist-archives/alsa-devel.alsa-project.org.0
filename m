@@ -2,78 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6059244ED45
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 20:28:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38F8E44EDBF
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 21:12:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4970166E;
-	Fri, 12 Nov 2021 20:27:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4970166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE954166E;
+	Fri, 12 Nov 2021 21:11:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE954166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636745318;
-	bh=Jo/Z11EWZPKvRLedOKsQToZMFXuL7ARMD/5XbJ+fiCA=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pe9vkbuQHigCofJz6flWEylSnRgR1bZLXf3hXvukghwqTehQ2QhJfmKnOP8NFbt2S
-	 F3K1sg0ginN3XOs237WkXwt5WiI6v0W7zkVdTWm2v2MDHS3JP6DIspiulJVJ2O1dZt
-	 Z5fvAE9S1sNrFnWrKSq9Pg0Rgpk/5DNFwJk7CeQQ=
+	s=default; t=1636747931;
+	bh=/zHeOhB6ZjQwW8gPSIRWR+vku0hvZ63fSHcn8R6MRU4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nqEeGgnymhbqFcqmQ+LHoPlcwiTOzINr3S9ngtPokV7lsHF1UhTEx7Dg/C75El3s0
+	 3749vnL1OkB3d3jhif9NRU4U00cNH/WOHSb0rcudCNZWYLZaJMElpcGPTfEy/UH2k5
+	 HkNO8//hLGScF8A/KafdlyaRiII6hJZCPU9J1NTc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59633F800C1;
-	Fri, 12 Nov 2021 20:27:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38FE6F800C1;
+	Fri, 12 Nov 2021 21:10:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82261F8049E; Fri, 12 Nov 2021 20:27:19 +0100 (CET)
+ id 1B350F8049E; Fri, 12 Nov 2021 21:10:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
+ [209.85.167.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C0F8F800C1
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 20:27:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C0F8F800C1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ptmhGFhl"
-Received: by mail-oi1-x234.google.com with SMTP id o4so19706633oia.10
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 11:27:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to;
- bh=Jo/Z11EWZPKvRLedOKsQToZMFXuL7ARMD/5XbJ+fiCA=;
- b=ptmhGFhl8m47uktjDc8N6GPEvvLV4DATBxwa1QCxcfI3sHhwhm+W/uK67qw+hb/Xrz
- QB9is6awtXzdRHSKyK4qqc81zWw0poGfrfeR7CCRIKckfZuxmEw/p3FyTh3bt13rUHej
- SpgT26B6uS4CSX+HVlX9pDlsmpbQrYmBXCL+DqnFBF+Km4IabwhjDcRtIQBP6yJ8Av+N
- KuxJ2nE8O0AXiOyoNnLxLA2ktOMpNUEmD7ieqtAXsfgRzFyuD2PK9VoWvqINzrI0hNwy
- G66QxE9ABwVTSGSLrV1BE33dl3J7d9zZXzo03eiZXMuaOz6wWHRXpSbMBaJIBhxHFw64
- ZBbA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9ED4F800C1
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 21:10:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9ED4F800C1
+Received: by mail-oi1-f172.google.com with SMTP id r26so19963252oiw.5
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 12:10:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=Jo/Z11EWZPKvRLedOKsQToZMFXuL7ARMD/5XbJ+fiCA=;
- b=Y/syx1qzcXUYoYBKz5i3/p4fDs4w9kVDNFzxV0LxA4RDam7xtwLRkDnMPhMvMTNNFZ
- nlZaYSuSYC9m1S4up90SeOW/fL8niUbZAv0m0dnhMiPNpUnEJbctrBJvKF2WdRCo+MTv
- OqofwzyoDtYu2XTU+EUKvf59D9jPieCwEqUBR32CTwgLmXRB5TKHKY4J2dy/HABANWcG
- deyKZbAvc1J4t+eOigowdvwCBUfUqEVtp3WXbQ3nhhN5TwPkWmufjKnq1K4mFUjejmcH
- 4vlOXuZC/nnprsR3SEfH/UwdaO7QzIflH4MyYeXiTBTcTCVUafBRP5KkeffBfHwOBpRa
- s9fQ==
-X-Gm-Message-State: AOAM532M5kVa3omh35FvNwJRxknXIokL8ICQNF+J2DbQ5OEnAixZi7sz
- DjHmkVGGppY5OWeW/QIca2IVWdnewvdQXuRm2y5RPL/grMpa8g==
-X-Google-Smtp-Source: ABdhPJyeOqB/sfCclk63IBIVaaCxg5izK3gQHRqDOdhd4bO/bVwFLrZGEI6fVRwpQccRpcPcGoffv0cUsdgtfbeunTY=
-X-Received: by 2002:a05:6808:1885:: with SMTP id
- bi5mr30328072oib.54.1636745228715; 
- Fri, 12 Nov 2021 11:27:08 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=9WhJ/EjNNePoaOZvGJkmcFbg7yvTKkxsOk56AmN7Y+s=;
+ b=qQ08xZHuU1G+BVRy1iJoJTi3fCrgza9SYgpOJ/33QaasxVcC6a1rMoUHUdONEZMzIz
+ 3oxMDmFHAM19x68kKSg/YvOuDQFiUyOnLNPDT+7yTnSquJ3jMg3o89JhgUmrCxzeSWIR
+ GK4ZnHiS7DWH7KQMqOkGeCD1hjUexUCD3iPkOXSIsA2GDpb435J/51VYIQPk0JYf/3Bb
+ mfmy3HLUC5ERKKQgFXkN+JQ947aiWYvyWSONhGN367QKrebB2wP3FCY+oxh8kG/PGtOQ
+ yKzfJW1bGKqebbS2zxE6WVtx1bI7CyQHP8RB4lyaa/JJbJ46DSgycKp/3ZVyW53x3rxX
+ SM5A==
+X-Gm-Message-State: AOAM532Kvm/r1g0NAfBPXik4+oAYIj22tT+Gt0iRH47qY4VUdUa7ef9Z
+ wH6A4w94Xoud/zDBTawUEQ==
+X-Google-Smtp-Source: ABdhPJz5m+fIBjpw5F5peYuJ09KQImnLYi9vaCrFoMWMk0nUKJK3nt3vBV8Ay7r+mVs5n1Db2c5vBQ==
+X-Received: by 2002:a05:6808:120e:: with SMTP id
+ a14mr28430803oil.122.1636747843746; 
+ Fri, 12 Nov 2021 12:10:43 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id t5sm1221415ool.10.2021.11.12.12.10.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Nov 2021 12:10:43 -0800 (PST)
+Received: (nullmailer pid 3287649 invoked by uid 1000);
+ Fri, 12 Nov 2021 20:10:42 -0000
+Date: Fri, 12 Nov 2021 14:10:42 -0600
+From: Rob Herring <robh@kernel.org>
+To: Trevor Wu <trevor.wu@mediatek.com>
+Subject: Re: [PATCH 2/4] dt-bindings: mediatek: mt8195: add model property
+Message-ID: <YY7KQi6KN4KzVvh1@robh.at.kernel.org>
+References: <20211103100040.11933-1-trevor.wu@mediatek.com>
+ <20211103100040.11933-3-trevor.wu@mediatek.com>
 MIME-Version: 1.0
-From: Ramon Fried <rfried.dev@gmail.com>
-Date: Fri, 12 Nov 2021 21:26:58 +0200
-Message-ID: <CAGi-RUJxadzSjuZoVPFKoW_jg+9=k8Onm9eo8W0R160Sjz-C6Q@mail.gmail.com>
-Subject: Possible issue with Intel 200 PCH HD on X299 AORUS Gaming 7
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211103100040.11933-3-trevor.wu@mediatek.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, broonie@kernel.org,
+ tiwai@suse.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, daniel.baluta@nxp.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,16 +95,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi all.
-Apparently on Linux Headphones and Line are switched.
-Dual booting Windows on the same machine proves that it's indeed
-connected correctly.
-I initially thought it was related to Pulseaudio, but together with
-Pulseaudio guys help we figured it's probably in ALSA.
+On Wed, 03 Nov 2021 18:00:38 +0800, Trevor Wu wrote:
+> This patch adds the description of model property used to specify card
+> name from dts.
+> 
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+> ---
+>  .../bindings/sound/mt8195-mt6359-rt1011-rt5682.yaml           | 4 ++++
+>  .../bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml           | 4 ++++
+>  2 files changed, 8 insertions(+)
+> 
 
-http://alsa-project.org/db/?f=535021978814678ea328b0d3a053ba3cbd39b709
-
-Where should I open a bug ? Is it kernel related, if user-space, to
-which ALSA component should I open a bug to ?
-Thanks,
-Ramon
+Acked-by: Rob Herring <robh@kernel.org>

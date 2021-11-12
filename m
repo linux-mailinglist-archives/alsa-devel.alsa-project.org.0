@@ -2,60 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB46544E41F
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 10:48:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B286644E452
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 11:04:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 220C31666;
-	Fri, 12 Nov 2021 10:47:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 220C31666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 368A5166E;
+	Fri, 12 Nov 2021 11:03:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 368A5166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636710519;
-	bh=l89nU3wl2UzJ/c+p8o/lJUx0xKJz8tYyDmMoibFWXXU=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Jy51j0uthxvzU64MxNjdsdzc/Zs044uJNn+ahkG4ch4KWfaer8/zHBGnRDOCRdDuQ
-	 +zi12jkv5+vxaj+5akvHNhGnob41++LUFvnDg3kPAw9QffPVNMpEfXH8P8QPO6RjPJ
-	 liKTssiAaPc+7slj+Oj3ZL5NRsI73syhcl/++Euw=
+	s=default; t=1636711457;
+	bh=Zja3AgBwb+MbrR23jZGxFFO/1DhVufbRA+Mj4LUn26w=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BZwe4XaegDjTcbdcdV8GbDs/4mELsybLlE+CuMYQZMg0SOjymgE9DbAfnSjC4lQVs
+	 B7U/No0PaYYbGd87HbJ9QrGAuRcWMqwRm90//2CDIN0ddCY+59Lyo/6A80EDIiG+vX
+	 7IBAemV4o0cck8/rDfWav5rUE1BTh+yDmrl9OEog=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F195F804B1;
-	Fri, 12 Nov 2021 10:47:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D92A9F80227;
+	Fri, 12 Nov 2021 11:03:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2692F8049E; Fri, 12 Nov 2021 10:47:19 +0100 (CET)
+ id BFEE9F8049E; Fri, 12 Nov 2021 11:02:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E488F800C1
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 10:47:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E488F800C1
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id DBC09C800BB;
- Fri, 12 Nov 2021 10:47:11 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id 7Q1scMJ8ElaS; Fri, 12 Nov 2021 10:47:11 +0100 (CET)
-Received: from wsembach-tuxedo.fritz.box
- (host-212-18-30-247.customer.m-online.net [212.18.30.247])
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 84DC5C800B8;
- Fri, 12 Nov 2021 10:47:11 +0100 (CET)
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for ASRock NUC Box 1100
-Date: Fri, 12 Nov 2021 10:47:11 +0100
-Message-Id: <20211112094711.963474-1-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 563C9F800C1
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 11:02:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 563C9F800C1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="fVBJeOT+"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="41EgDQfZ"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id BC6211FD57;
+ Fri, 12 Nov 2021 10:02:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636711370; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cWzkli2lfSBzp860hbw8mwlVH98EHp3pwl8SKM4oUuQ=;
+ b=fVBJeOT++GVpVQSwulT95Zrd6ZIa3dYFM2EF87x2u0dPIFkT92aIvjE8+/MF1Vp94UBMbY
+ mRRhSNz/9VTPwhPdLUDVbbYUe8e7zYwkefZ94NidWGZT68q2Y9GtCs3smkaBE+MQubH4f6
+ t8ZtgdB96r17SVRgxaUr4z10bbq+JXw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636711370;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cWzkli2lfSBzp860hbw8mwlVH98EHp3pwl8SKM4oUuQ=;
+ b=41EgDQfZdC5K+0eD+WCE786Owf3fecLfQZtXn54VhuvyVr1jZqnZvy7Q3mtoOAjAF0TvQ2
+ zC/78mwy6sAw7+Dw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id ADF6CA3B81;
+ Fri, 12 Nov 2021 10:02:50 +0000 (UTC)
+Date: Fri, 12 Nov 2021 11:02:50 +0100
+Message-ID: <s5hczn53d4l.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: fix general protection fault in
+ azx_runtime_idle
+In-Reply-To: <alpine.DEB.2.22.394.2111111920450.3554566@eliteleevi.tm.intel.com>
+References: <20211110210307.1172004-1-kai.vehmanen@linux.intel.com>
+ <s5hzgqb65h0.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2111110015250.3554566@eliteleevi.tm.intel.com>
+ <s5h1r3m6csi.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2111111920450.3554566@eliteleevi.tm.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
+ mahesh.meena@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,80 +98,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This applies a SND_PCI_QUIRK(...) to the ASRock NUC Box 1100 series. This
-fixes the issue of the headphone jack not being detected unless warm
-rebooted from a certain other OS.
+On Thu, 11 Nov 2021 18:39:36 +0100,
+Kai Vehmanen wrote:
+> 
+> Hi,
+> 
+> On Thu, 11 Nov 2021, Takashi Iwai wrote:
+> 
+> > A potential problem with the current code is that it doesn't disable
+> > the runtime PM at the release procedure.  Could you try the patch
+> > below?  You can put WARN_ON(!chip) at azx_runtime_idle(), too, for
+> > catching the invalid runtime call.
+> [...]
+> > --- a/sound/pci/hda/hda_intel.c
+> > +++ b/sound/pci/hda/hda_intel.c
+> > @@ -1347,8 +1347,13 @@ static void azx_free(struct azx *chip)
+> >  	if (hda->freed)
+> >  		return;
+> >  
+> > -	if (azx_has_pm_runtime(chip) && chip->running)
+> > +	if (azx_has_pm_runtime(chip) && chip->running) {
+> >  		pm_runtime_get_noresume(&pci->dev);
+> > +		pm_runtime_forbid(&pci->dev);
+> > +		pm_runtime_dont_use_autosuspend(&pci->dev);
+> > +		pm_runtime_disable(&pci->dev);
+> > +	}
+> > +
+> >  	chip->running = 0;
+> 
+> Tested with next-20211019 (first next tag where I've seen test failures) 
+> and your patch, and this seems to do the trick. I didn't have my drvdata 
+> patch included when I ran the test. No rpm_idle() calls 
+> anymore after azx_remove(), so the bug is not hit.
 
-When booting a certain other OS some coeff settings are changed that enable
-the audio jack. These settings are preserved on a warm reboot and can be
-easily dumped.
+So far, so good...
 
-The relevant indexes and values where gathered by naively diff-ing and
-reading a working and a non-working coeff dump.
+> >  	azx_del_card_list(chip);
+> > @@ -2320,6 +2325,7 @@ static int azx_probe_continue(struct azx *chip)
+> >  	set_default_power_save(chip);
+> >  
+> >  	if (azx_has_pm_runtime(chip)) {
+> > +		pm_runtime_enable(&pci->dev);
+> >  		pm_runtime_use_autosuspend(&pci->dev);
+> 
+> This does generate warnings
+> [   13.495059] snd_hda_intel 0000:00:1f.3: Unbalanced pm_runtime_enable!
+> 
+> And later
+> [   54.770701] Enabling runtime PM for inactive device (0000:00:1f.3) with active children
+> [   54.770718] WARNING: CPU: 0 PID: 10 at drivers/base/power/runtime.c:1439 pm_runtime_enable+0x98/0xb0
+> 
+> Adding a "pm_runtime_set_active(&pci->dev)" to both azx_free() and 
+> azx_probe_continue() seems to help and fix still works.
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Cc: <stable@vger.kernel.org>
+Ah yes, I was confused as if it were already called in hdac_device.c,
+but this was about the HD-audio bus controller, not the codec.
+
+Below is the revised one.
+
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: hda: intel: More comprehensive PM runtime setup for
+ controller driver
+
+Currently we haven't explicitly enable and allow/forbid the runtime PM
+at the probe and the remove phases of HD-audio controller driver, and
+this was the reason of a GPF mentioned in the commit e81478bbe7a1
+("ALSA: hda: fix general protection fault in azx_runtime_idle");
+namely, even after the resources are released, the runtime PM might be
+still invoked by the bound graphics driver during the remove of the
+controller driver.  Although we've fixed it by clearing the drvdata
+reference, it'd be also better to cover the runtime PM issue more
+properly.
+
+This patch adds a few more pm_runtime_*() calls at the probe and the
+remove time for setting and cleaning up the runtime PM.  Particularly,
+now more explicitly pm_runtime_enable() and _disable() get called as
+well as pm_runtime_forbid() call at the remove callback, so that a
+use-after-free should be avoided.
+
+Reported-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/patch_realtek.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ sound/pci/hda/hda_intel.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 2f1727faec69..2aef9866f170 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6521,6 +6521,25 @@ static void alc256_fixup_tongfang_reset_persistent_settings(struct hda_codec *co
- 	alc_write_coef_idx(codec, 0x45, 0x5089);
- }
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index fe51163f2d82..45e85180048c 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1347,8 +1347,14 @@ static void azx_free(struct azx *chip)
+ 	if (hda->freed)
+ 		return;
  
-+static void alc233_fixup_asrock_nuc_box_1100_no_audio_jack(struct hda_codec *codec,
-+							     const struct hda_fixup *fix,
-+							     int action)
-+{
-+	/*
-+	 * The audio jack input and output is not detected on the ASRock NUC Box 1100 series when
-+	 * cold booting without this fix. Warm rebooting from a certain other OS makes the audio
-+	 * functional, as COEF settings are preserved in this case. This fix sets these altered
-+	 * COEF values as the default.
-+	 */
-+	alc_write_coef_idx(codec, 0x1a, 0x9003);
-+	alc_write_coef_idx(codec, 0x1b, 0x0e2b);
-+	alc_write_coef_idx(codec, 0x37, 0xfe06);
-+	alc_write_coef_idx(codec, 0x38, 0x4981);
-+	alc_write_coef_idx(codec, 0x45, 0xd489);
-+	alc_write_coef_idx(codec, 0x46, 0x0074);
-+	alc_write_coef_idx(codec, 0x49, 0x0149);
-+}
+-	if (azx_has_pm_runtime(chip) && chip->running)
++	if (azx_has_pm_runtime(chip) && chip->running) {
+ 		pm_runtime_get_noresume(&pci->dev);
++		pm_runtime_disable(&pci->dev);
++		pm_runtime_set_suspended(&pci->dev);
++		pm_runtime_forbid(&pci->dev);
++		pm_runtime_dont_use_autosuspend(&pci->dev);
++	}
 +
- enum {
- 	ALC269_FIXUP_GPIO2,
- 	ALC269_FIXUP_SONY_VAIO,
-@@ -6740,6 +6759,7 @@ enum {
- 	ALC287_FIXUP_13S_GEN2_SPEAKERS,
- 	ALC256_FIXUP_TONGFANG_RESET_PERSISTENT_SETTINGS,
- 	ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE,
-+	ALC233_FIXUP_ASROCK_NUC_BOX_1100_NO_AUDIO_JACK,
- };
+ 	chip->running = 0;
  
- static const struct hda_fixup alc269_fixups[] = {
-@@ -8460,6 +8480,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC,
- 	},
-+	[ALC233_FIXUP_ASROCK_NUC_BOX_1100_NO_AUDIO_JACK] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc233_fixup_asrock_nuc_box_1100_no_audio_jack,
-+	},
- };
+ 	azx_del_card_list(chip);
+@@ -2322,6 +2328,8 @@ static int azx_probe_continue(struct azx *chip)
+ 	if (azx_has_pm_runtime(chip)) {
+ 		pm_runtime_use_autosuspend(&pci->dev);
+ 		pm_runtime_allow(&pci->dev);
++		pm_runtime_set_active(&pci->dev);
++		pm_runtime_enable(&pci->dev);
+ 		pm_runtime_put_autosuspend(&pci->dev);
+ 	}
  
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -8894,6 +8918,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x511e, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
- 	SND_PCI_QUIRK(0x17aa, 0x511f, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
- 	SND_PCI_QUIRK(0x17aa, 0x9e54, "LENOVO NB", ALC269_FIXUP_LENOVO_EAPD),
-+	SND_PCI_QUIRK(0x1849, 0x1233, "ASRock NUC Box 1100", ALC233_FIXUP_ASROCK_NUC_BOX_1100_NO_AUDIO_JACK),
- 	SND_PCI_QUIRK(0x19e5, 0x3204, "Huawei MACH-WX9", ALC256_FIXUP_HUAWEI_MACH_WX9_PINS),
- 	SND_PCI_QUIRK(0x1b35, 0x1235, "CZC B20", ALC269_FIXUP_CZC_B20),
- 	SND_PCI_QUIRK(0x1b35, 0x1236, "CZC TMI", ALC269_FIXUP_CZC_TMI),
 -- 
-2.25.1
+2.31.1
 

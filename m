@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32A6044EE9D
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 22:29:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BA0844EEA2
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 22:30:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5E01167E;
-	Fri, 12 Nov 2021 22:28:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5E01167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9D15168C;
+	Fri, 12 Nov 2021 22:29:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9D15168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636752548;
-	bh=AgghWFlwj08jaTwHsQSldw9SQNW5vIHNTtQtXlYwbGE=;
+	s=default; t=1636752601;
+	bh=v321wXb5ExpBsj4Ht3Qt02JFmLNjlWOT5QGSF6eP2c4=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VN1RAGzpykOvFkBS9HKa0/FEX0rFZWqAxSzaTbSBv6fO9vfn4d8dKo2os5E/C31r5
-	 8FKVwrxn2wtCEnV2mqD8mww4D1BQyseDz3xCWQp6twMsBcteLhCwItDsrp3lnXLTMa
-	 ZqicrtW0sp6fxiFML0OuUTnQUHRPMvCyV+7DvAA0=
+	b=kmbZuvLUYY2xQyUfBHCkflzQCHZiPLzba5gVLa1stPD8vskH3PBfZt8zJ31EZQr5y
+	 VGd/zGtTtSwRFLenBHHziUcdveaZ5KGhZAsOKuSc9P6QfHxy5tJJeC81IfJ8fQhGQ5
+	 RGQ+Kb0fHPKT7iBNCmNr5mEJGCFhYpJUnXA64jew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE35BF804E6;
-	Fri, 12 Nov 2021 22:27:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D86BDF804F3;
+	Fri, 12 Nov 2021 22:27:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61B39F804BC; Fri, 12 Nov 2021 22:27:25 +0100 (CET)
+ id CA3F7F804F2; Fri, 12 Nov 2021 22:27:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 577DBF80086
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 22:27:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 577DBF80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1EFBCF804B1
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 22:27:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EFBCF804B1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="n2UXpwF4"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6A06A60F51;
- Fri, 12 Nov 2021 21:27:14 +0000 (UTC)
+ header.b="p2zWjtdF"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7F0ED610A5;
+ Fri, 12 Nov 2021 21:27:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636752436;
- bh=AgghWFlwj08jaTwHsQSldw9SQNW5vIHNTtQtXlYwbGE=;
+ s=k20201202; t=1636752438;
+ bh=v321wXb5ExpBsj4Ht3Qt02JFmLNjlWOT5QGSF6eP2c4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=n2UXpwF46ZHr8RG9z+KSfNX3P7bqADR4UCcejG6a16Dlvxa7hZ2j3W9tqnsOukEM8
- ovvD1b01DPBDORbfKPIZbGfAy0VpCMQqtODj95CuvcOOSZtrWeGW2jVz7gjKcXJZSJ
- qgKEL0dZSJ59EE58ZvXq4swBtokITPUevjJtFjIHunj0EdzbqzbNqI/E2yr0JBHYpr
- baQgKGJRvdy8XO5fReaB4rcgW4c2fyONBxZfslARfEh6508OU43MFPPynVvLc1+OLy
- 4DPwWqrrUyw2Mag2swc58KGkP3/bLwOGnjQAjuu1CzfucXV/bCrzqSVCbODUVR0jc2
- EDkT3zOtW2eRw==
+ b=p2zWjtdFVCfkIXqUZlsxUQ4l9cDZOIKpi/xRyzdcIJgkX8AhyJ7jozju67mq06Mbs
+ 3qsAGOo220UFWIGCorTrlAFyqqY4BlNJ2JG6Xk69IopMcV72L/kUrbjZc2rnmgmtfS
+ ep48q+UvpQvWi1976fD5NkXJXmB8ixZm/IGbEaGv0BZJFrbqKsqx1nK6iHwPboq6Fl
+ reOHDJR6q2EqrNwx9Bm47ew8m8+VtQSymhTZQiLE9WyPBBE8KMC5BKEs59KgA65dZm
+ 0iVbQGFiiTDxJ84EcVUy3nB+oetDToIY8i6BEfvWyKFT9OPvpLIDKzDZf0GXimOUHP
+ lzXjJZ6CoM75g==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, perex@perex.cz, cy_huang <u0084500@gmail.com>
-In-Reply-To: <1636515921-31694-1-git-send-email-u0084500@gmail.com>
-References: <1636515921-31694-1-git-send-email-u0084500@gmail.com>
-Subject: Re: [PATCH v2 0/3] ASoC: rt9120: Fix settings and make compatible
- with rt9120s
-Message-Id: <163675243417.742274.8712537973718036345.b4-ty@kernel.org>
-Date: Fri, 12 Nov 2021 21:27:14 +0000
+To: derek.fang@realtek.com, lgirdwood@gmail.com
+In-Reply-To: <20211109095450.12950-1-derek.fang@realtek.com>
+References: <20211109095450.12950-1-derek.fang@realtek.com>
+Subject: Re: [PATCH 1/2] ASoC: rt5682: Avoid the unexpected IRQ event during
+ going to suspend
+Message-Id: <163675243626.742274.8169094214133344079.b4-ty@kernel.org>
+Date: Fri, 12 Nov 2021 21:27:16 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, cy_huang@richtek.com,
- allen_lin@richtek.com
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, albertchen@realtek.com, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,13 +81,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Nov 2021 11:45:18 +0800, cy_huang wrote:
-> From: ChiYuan Huang <cy_huang@richtek.com>
+On Tue, 9 Nov 2021 17:54:49 +0800, derek.fang@realtek.com wrote:
+> From: Derek Fang <derek.fang@realtek.com>
 > 
-> This patch series add the below changes
-> - Fix the wrong ocp level setting.
-> - Fix clock auto sync issue.
-> - Make the driver compatible with rt9120s
+> When the system suspends, the codec driver will set SAR to
+> power saving mode if a headset is plugged in.
+> There is a chance to generate an unexpected IRQ, and leads to
+> issues after resuming such as noise from OMTP type headsets.
 > 
 > [...]
 
@@ -97,12 +97,10 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: rt9120: Update internal ocp level to the correct value
-      commit: 9bb4e4bae5a19ca68527392e85ad5ee88fc4b786
-[2/3] ASoC: rt9120: Fix clock auto sync issue when fs is the multiple of 48
-      commit: 8f1f1846d78a318c7cdb8268b47a964a3dbc0075
-[3/3] ASoC: rt9120: Add the compatibility with rt9120s
-      commit: dbe638f71eaed5c7b5fbbf03fb044e429c4a2d48
+[1/2] ASoC: rt5682: Avoid the unexpected IRQ event during going to suspend
+      commit: a3774a2a6544a7a4a85186e768afc07044aa507f
+[2/2] ASoC: rt5682: Re-detect the combo jack after resuming
+      commit: 2cd9b0ef82d936623d789bb3fbb6fcf52c500367
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

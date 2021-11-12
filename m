@@ -2,72 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A40F344EEA1
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 22:29:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 596D044EEF8
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 22:59:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A4F91616;
-	Fri, 12 Nov 2021 22:29:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A4F91616
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2413166E;
+	Fri, 12 Nov 2021 22:58:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2413166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636752594;
-	bh=eoAl5B/8h3ZtzbA9rB3nBcwncqWuJUxuT/UFumATqZQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1636754369;
+	bh=EXFypx1hkx6XL2zsAx5VflkzExtSLUPuEBzP676xfp4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AMaxhGOu4I8vH32HdzpSR336Y7RYl/YbbV4LIVAxbDZdxkdKYq6M448D0fgGSZuxM
-	 LOBiQQ68V9Hsq6LQevoYa6wYcUAwn7nYmZ3pAPmcfYjcu4A/DXwze8ZYgWEnrElzJu
-	 jwmJPkzYSg7bz/vhcrqUWaLH16huZrfHkY6UL0tw=
+	b=MQiIX3SoMx6VsAKa14UOupMLqNmC5moVz15ncZIoLOdYre2iCvoSwdUTfCFDpvnEu
+	 ZxypIso61/Tt8FO+cLRimle8UzjMYRmZFmeJt5fG0POTtWCGJ4NNf+n6OIDy/siAzW
+	 2JGeuMzT4x+eYWAF/jpkJneT3a2mlHcfWPNxjTw0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A74AF804F2;
-	Fri, 12 Nov 2021 22:27:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E193F804B1;
+	Fri, 12 Nov 2021 22:58:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2ED4F804EB; Fri, 12 Nov 2021 22:27:29 +0100 (CET)
+ id B7703F8049E; Fri, 12 Nov 2021 22:58:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26332F804C1
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 22:27:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26332F804C1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PyDHCooH"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 25BF0610FF;
- Fri, 12 Nov 2021 21:27:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636752446;
- bh=eoAl5B/8h3ZtzbA9rB3nBcwncqWuJUxuT/UFumATqZQ=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=PyDHCooH3k3+HIQuMCsauOX0epOaMV29t1rOZWKdBiawNsX7KVbHe0BZDf+VJwlvD
- 3nCRB1RWAkUvTKWfOjJQ7k+Gic5ysfd64D7RTx1Iotg8FUvzvEKiKXxZiaI9OODWFk
- rJQXpWhFujB8vhG+H46Vpwcioq5p1II9amfUdXHq+yqiicVTulezO69s8llcFmmQIo
- tqQjP8G40R9SwbuQPcLVEMNoYRCAYEkPKmrJyk3O4TkHR0xk3SIA4EtHKJ84k/zW8G
- XZ8phQJ+dNfrJ6b37g79SH3cxZg+lTAQ7jS+sCr41cmfZ+YXLMSMJqdkHbCRKJOPKh
- mgpxORkd/4lUw==
-From: Mark Brown <broonie@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- lgirdwood@gmail.com
-In-Reply-To: <20211111161108.502344-1-angelogioacchino.delregno@collabora.com>
-References: <20211111161108.502344-1-angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8173: Fix debugfs registration for
- components
-Message-Id: <163675244389.742274.1874559646597511024.b4-ty@kernel.org>
-Date: Fri, 12 Nov 2021 21:27:23 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87248F8014D
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 22:57:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87248F8014D
+Received: by mail-oi1-f169.google.com with SMTP id r26so20421863oiw.5
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 13:57:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=xccSVfJVrdrr8KimAN3EMNzjL3fPcR3SofzIz95+CP4=;
+ b=C0NBO4nvap/1OxZNUnPWANImLWMaY1eGUAXeVn+SQAASu+S8qp2GVLsQRmSke/ZyQJ
+ +HIaLxJlHbV9bTs0kiJ4JYx3Gn7Zfq8eM2tDdpzbDiBeteG/SRW0dEgdbKcLNA44fWL/
+ g5GJfeQGiioH2f9R8TzoSY5ywAxMy/UIDu/tQHWfK9vM+5iE/9CzHmGbHjBpNIwTXsl5
+ fC1GfwW5Lq2bukeThhd0WyMFieT5PCqXlclFEiNH49H0F7swuKA8L5ny9Pff1PuRM8bC
+ UAYwhalGZvItkd5n27E5OPWPx+jj7RjNJkZX3yO4QO8mHk+73HsGN7/UdJejJTe8kenl
+ x0yA==
+X-Gm-Message-State: AOAM531i4XwOD6AOXZTCeU5BYGddJgO/m44w/Pduej+RqUhRMDA5KS/m
+ oPMg6dC7XV/TkG/mUN5keA==
+X-Google-Smtp-Source: ABdhPJzXH2uXtlwTPVV2Dnd3/REyaabvQJmrcCmiIDT4uAxXHmANZrjgTnOCq8iJBXTHbKI27bKF8A==
+X-Received: by 2002:a05:6808:179d:: with SMTP id
+ bg29mr28294193oib.138.1636754277332; 
+ Fri, 12 Nov 2021 13:57:57 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id k14sm1442785otb.50.2021.11.12.13.57.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Nov 2021 13:57:56 -0800 (PST)
+Received: (nullmailer pid 3444888 invoked by uid 1000);
+ Fri, 12 Nov 2021 21:57:55 -0000
+Date: Fri, 12 Nov 2021 15:57:55 -0600
+From: Rob Herring <robh@kernel.org>
+To: Ricard Wanderlof <ricardw@axis.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: sound: tlv320adc3xxx: New codec driver
+Message-ID: <YY7jY9+0n1RzdZ/1@robh.at.kernel.org>
+References: <alpine.DEB.2.21.2111041421580.31205@lnxricardw1.se.axis.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel@collabora.com,
- dafna.hirschfeld@collabora.com, kuninori.morimoto.gx@renesas.com,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com, linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2111041421580.31205@lnxricardw1.se.axis.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ alsa-devel <alsa-devel@alsa-project.org>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,40 +92,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 11 Nov 2021 17:11:08 +0100, AngeloGioacchino Del Regno wrote:
-> When registering the mt8173-afe-pcm driver, we are also adding two
-> components: one is for the PCM DAIs and one is for the HDMI DAIs, but
-> when debugfs is enabled, we're getting the following issue:
+On Thu, 04 Nov 2021 14:25:31 +0100, Ricard Wanderlof wrote:
 > 
-> [   17.279176] debugfs: Directory '11220000.audio-controller' with parent 'mtk-rt5650' already present!
-> [   17.288345] debugfs: Directory '11220000.audio-controller' with parent 'mtk-rt5650' already present!
+> DT bindings for tlv320adc3xxx driver, currently supporting
+> Texas Instruments TLV320ADC3001 and TLV320ADC3101 audio ADCs.
 > 
-> [...]
+> Signed-off-by: Ricard Wanderlof <ricardw@axis.com>
+> ---
+>  .../bindings/sound/ti,tlv320adc3xxx.yaml      | 137 ++++++++++++++++++
+>  include/dt-bindings/sound/tlv320adc3xxx.h     |  28 ++++
+>  2 files changed, 165 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
+>  create mode 100644 include/dt-bindings/sound/tlv320adc3xxx.h
+> 
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
-
-Thanks!
-
-[1/1] ASoC: mediatek: mt8173: Fix debugfs registration for components
-      commit: 8c32984bc7da29828260ac514d5d4967f7e8f62d
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Reviewed-by: Rob Herring <robh@kernel.org>

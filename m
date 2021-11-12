@@ -2,84 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6863544EDC9
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 21:16:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E641F44EE9C
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 22:28:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01C0A166F;
-	Fri, 12 Nov 2021 21:15:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01C0A166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50DB21671;
+	Fri, 12 Nov 2021 22:27:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50DB21671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636748203;
-	bh=4artUiOGxj/QrtNhrVLGBE3tGoRigOW370FqwMthFbo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1636752524;
+	bh=HsrloaHy0mKwVGhaJmlPLXBO0LEijxJ1kgXA3MRvdCU=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b9Vi1wV0ZBhFEwFJXodUSk+vAgYyiZnWTm0Q3cbw2Erzbgb/Q10oNxn5m7Mpvd2Ps
-	 imX8mt6igI4/9Bh0wm21EEXPVWEHzUOItnz6thqTKsalcUkWk3/HSCu2HzCgseKX7l
-	 BgnMr/fcr49etne3ysD1KuG4e3SmIB2T8hcPSv2s=
+	b=mUwX23JBrcFOZ2IjFkLibb1zK+RdfmjBNAGEmxVrU6g/pmLZXtpqyfc7gF7+vxKB5
+	 MVd3z7cLCWcRuHh3JNzwxAPYY8FbS8KLRAUkp8symsf5H+J/1/XZTACACxuMBs/nWj
+	 64VGg+e/a9JpupiCiyeRIJEp3cVetUWt58k4pXFY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4732DF800C1;
-	Fri, 12 Nov 2021 21:15:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6D2AF804BC;
+	Fri, 12 Nov 2021 22:27:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6398F8049E; Fri, 12 Nov 2021 21:15:24 +0100 (CET)
+ id 9103AF8014D; Fri, 12 Nov 2021 22:27:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E471F80086
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 21:15:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E471F80086
-Received: by mail-ot1-f54.google.com with SMTP id
- r10-20020a056830080a00b0055c8fd2cebdso15529158ots.6
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 12:15:16 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=keLT6GqkBxKBg5E7mpziqAGsje8UnIi4oJ/70fWYsOk=;
- b=RXHBcNfwbyqknOTaLOcCZrIaOPg7tdwHl97CStJ9PO90tuF6A0Q9gp2vTpWxuJiM7B
- FhgvODYhHLJRxK9z6dRPKOACaTVJt8hwLz4Oc1xwxA2qpnpHMktxTJH6C01LirjCuGh6
- t5gaRcpopPNF4a7q56ums96SqlLsTUs+pCLV+F2YAFXis4eohbVVyQj6Sk4/UEBUGXCE
- IiA1prohrZtXoJYhVLG0urqd+F4a6GKQEs8H7txMa7U3IakSnYOJ3KKYGVMsrUqbx51Y
- w2Z3g8AtROCmwnAPWE4ohTrCBYDBclbTvUfbPCVxocGkmk4KxkrJcrec6eIGNeBGYEs4
- WGLw==
-X-Gm-Message-State: AOAM530PK/V4TIJ+K1ZnDMqz9b64BzFrMAn7L0Kd2HqN/PS5rWMH8Eeq
- Bmd5oW4tX/fYRaHlgT6f7w==
-X-Google-Smtp-Source: ABdhPJz0IgudO9I+dADfCJrqhnAcSXUvXv7srFOWzM/tpxDv/VcAcn13Yy2W70rZqXpm+7Y/UoSzNQ==
-X-Received: by 2002:a9d:6307:: with SMTP id q7mr14945920otk.83.1636748115023; 
- Fri, 12 Nov 2021 12:15:15 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id y9sm1235608oon.8.2021.11.12.12.15.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Nov 2021 12:15:14 -0800 (PST)
-Received: (nullmailer pid 3294254 invoked by uid 1000);
- Fri, 12 Nov 2021 20:15:13 -0000
-Date: Fri, 12 Nov 2021 14:15:13 -0600
-From: Rob Herring <robh@kernel.org>
-To: YC Hung <yc.hung@mediatek.com>
-Subject: Re: [PATCH v5] dt-bindings: dsp: mediatek: Add mt8195 DSP binding
- support
-Message-ID: <YY7LUWS5YDBBl/Kp@robh.at.kernel.org>
-References: <20211103102607.12277-1-yc.hung@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E7E7F8014D
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 22:27:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E7E7F8014D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="aOcwXl/+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E8B3260F5B;
+ Fri, 12 Nov 2021 21:27:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1636752433;
+ bh=HsrloaHy0mKwVGhaJmlPLXBO0LEijxJ1kgXA3MRvdCU=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=aOcwXl/+FgOsDmzJHv4560+tWI9BoWdpYXY0RwKLK/HAHAQrE0sCq96LlWlHXax4m
+ OkRjyNl1eM8ni9It3ruOwXNnZlMp4aPA9RSH5ebU/HUnHezHXkCmB23m0cnTVnWjxH
+ TpXQ44hvP25UwuE4ieC23x90RdTKeJKqmkm2IlM2RBhq8N0qDBKtlAgVNE9MzpYVK4
+ JN2W90eYEketnQJxNyQqxNFGlig3KeYw2O5cd5WT61fG+kJtFiULq5grTX6duNYdeC
+ +vBTNszrfIxSbfr/C3agB3DPGc7pcdGFsCM0iVjCUvhZx7tAsazKjB7P06vzz5DTBg
+ tKSuPdFr6mUaA==
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87mtmfz36o.wl-kuninori.morimoto.gx@renesas.com>
+References: <87mtmfz36o.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: rsnd: fixup DMAEngine API
+Message-Id: <163675243262.742274.15174993310352691646.b4-ty@kernel.org>
+Date: Fri, 12 Nov 2021 21:27:12 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211103102607.12277-1-yc.hung@mediatek.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- allen-kh.cheng@mediatek.com, tiwai@suse.com, linux-kernel@vger.kernel.org,
- broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, daniel.baluta@nxp.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ oshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, stable@kernel.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,120 +80,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Nov 03, 2021 at 06:26:08PM +0800, YC Hung wrote:
-> From: "yc.hung" <yc.hung@mediatek.com>
+On 08 Nov 2021 13:22:55 +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> This describes the mt8195 DSP device tree node.
+> commit d5bb69dc54ec1 ("ASoC: sh: rcar: dma: : use proper DMAENGINE
+> API for termination") updated DMAEngine API _all() to _sync(),
+> but it should be _async().
+> _all() and _async() are almost same, the difference is only return
+> error code. _sync() will call dmaengine_synchronize() and will be
+> kernel panic.
+> This patch is needed for v5.15 or later.
 > 
-> Signed-off-by: yc.hung <yc.hung@mediatek.com>
-> ---
-> Changes since v4:
->   - remove patch 1 with clocks as it will be reviewed and merged to SOF tree.
->     https://github.com/thesofproject/linux/pull/3237
->   - refine DT file binding files with Rob's comments.
-> 
->  .../bindings/dsp/mtk,mt8195-dsp.yaml          | 142 ++++++++++++++++++
->  1 file changed, 142 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml b/Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
-> new file mode 100644
-> index 000000000000..aeeb7af69625
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
-> @@ -0,0 +1,142 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/dsp/mtk,mt8195-dsp.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Mediatek mt8195 DSP core
-> +
-> +maintainers:
-> +  - YC Hung <yc.hung@mediatek.com>
-> +
-> +description: |
-> +  Some boards from mt8195 contain a DSP core used for
-> +  advanced pre- and post- audio processing.
-> +properties:
-> +  compatible:
-> +    const: mediatek,mt8195-dsp
-> +
-> +  reg:
-> +    items:
-> +      - description: Address and size of the DSP Cfg registers
-> +      - description: Address and size of the DSP SRAM
-> +
-> +  reg-names:
-> +    items:
-> +      - const: cfg
-> +      - const: sram
-> +
-> +  interrupts:
-> +    items:
-> +      - description: watchdog interrupt
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: wdt
-> +
-> +  clocks:
-> +    items:
-> +      - description: mux for audio dsp clock
-> +      - description: 26M clock
-> +      - description: mux for audio dsp local bus
-> +      - description: default audio dsp local bus clock source
-> +      - description: clock gate for audio dsp clock
-> +      - description: mux for audio dsp access external bus
-> +
-> +  clock-names:
-> +    items:
-> +      - const: adsp_sel
-> +      - const: clk26m_ck
-> +      - const: audio_local_bus
-> +      - const: mainpll_d7_d2
-> +      - const: scp_adsp_audiodsp
-> +      - const: audio_h
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  mboxes:
-> +    items:
-> +      - description: a mailbox is ised for ipc reply between host and audio DSP.
-> +      - description: a mailbox is ised for ipc reuqest between host and audio DSP.
-> +
-> +  mbox-names:
-> +    items:
-> +      - const: mbox0
-> +      - const: mbox1
-> +
-> +  memory-region:      
-> +    items:
-> +      - description: A phandle to a reserved memory region is used for dma buffer between host and DSP.   
-> +      - description: A phandle to a reserved memory region is used for DSP system memory.
-> +
-> +  sound:
-> +    description:
-> +      Sound subnode includes ASoC platform, DPTx codec node, and
-> +      HDMI codec node.
-> +
-> +    type: object
+> [...]
 
-Same question as v4, why do you need a sub-node here. Just move these 
-properties up a level.
+Applied to
 
-> +
-> +    properties:
-> +      mediatek,platform:
-> +        $ref: "/schemas/types.yaml#/definitions/phandle"
-> +        description: The phandle of MT8195 ASoC platform.
-> +
-> +      mediatek,dptx-codec:
-> +        $ref: "/schemas/types.yaml#/definitions/phandle"
-> +        description: The phandle of MT8195 Display Port Tx codec node.
-> +
-> +      mediatek,hdmi-codec:
-> +        $ref: "/schemas/types.yaml#/definitions/phandle"
-> +        description: The phandle of MT8195 HDMI codec node.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
+
+Thanks!
+
+[1/1] ASoC: rsnd: fixup DMAEngine API
+      commit: 2ce1b21cb3326e12af3c72c47e1d294b19d73947
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBE0544EE9E
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 22:29:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A40F344EEA1
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 22:29:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54C941680;
-	Fri, 12 Nov 2021 22:28:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54C941680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A4F91616;
+	Fri, 12 Nov 2021 22:29:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A4F91616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636752570;
-	bh=Sj67EJTcfNfebO7+2dFYJs7CjOGrXVceD5/GOOnZkDA=;
+	s=default; t=1636752594;
+	bh=eoAl5B/8h3ZtzbA9rB3nBcwncqWuJUxuT/UFumATqZQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o3OMvIWq4UwXNIkmd3LEbx93MkgAaGbU1N1vemCvYMXmqyUdyOSjwFLwZ8uVW9pGn
-	 5rdlgGiTfBNpHJDts67LdLTKOXS7UAPjAX1iVWKYS5jMI3SrlYoW+Ff/3YIPMI50kv
-	 vB7CeYV2Tat0Guc8yGy8A4so35XVousoKlWsVLpM=
+	b=AMaxhGOu4I8vH32HdzpSR336Y7RYl/YbbV4LIVAxbDZdxkdKYq6M448D0fgGSZuxM
+	 LOBiQQ68V9Hsq6LQevoYa6wYcUAwn7nYmZ3pAPmcfYjcu4A/DXwze8ZYgWEnrElzJu
+	 jwmJPkzYSg7bz/vhcrqUWaLH16huZrfHkY6UL0tw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90F0EF804E7;
-	Fri, 12 Nov 2021 22:27:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A74AF804F2;
+	Fri, 12 Nov 2021 22:27:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4641F804E6; Fri, 12 Nov 2021 22:27:28 +0100 (CET)
+ id E2ED4F804EB; Fri, 12 Nov 2021 22:27:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 521ADF804B3
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 22:27:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 521ADF804B3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26332F804C1
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 22:27:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26332F804C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YCwHmgMd"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 10C0960F5B;
- Fri, 12 Nov 2021 21:27:21 +0000 (UTC)
+ header.b="PyDHCooH"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 25BF0610FF;
+ Fri, 12 Nov 2021 21:27:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636752443;
- bh=Sj67EJTcfNfebO7+2dFYJs7CjOGrXVceD5/GOOnZkDA=;
+ s=k20201202; t=1636752446;
+ bh=eoAl5B/8h3ZtzbA9rB3nBcwncqWuJUxuT/UFumATqZQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=YCwHmgMdKX91m0UCuH1lhfZWLoUNYbnfXDBzP1Tl4kfXG6SGA5E8nlJuG7YkzatvU
- 5VGjIJKbFKFQwsBKopuFe8mRtBEbLqanKlz082sVaU5DYRYRjDOu4c9FPDBvT8JNld
- OdUk65+M07FE2AV8e65cQ3kDicBuECcNdyWFrKQK4KX2m0yaAR7YQyON28h21ExdjW
- 13G4enLRK26jPJmBXwqiw7UvD5AsIZdF/6UeCJzmgJ92wNPIYS5b9GyQ80t/4agnKI
- NRBmNmaDJvm03O2ByPOog2hd7rFjZmblKaSaY6kmqYZVIXRUheTpYD9O+Vqa1ELWSi
- XXGBigHGc9Yhg==
+ b=PyDHCooH3k3+HIQuMCsauOX0epOaMV29t1rOZWKdBiawNsX7KVbHe0BZDf+VJwlvD
+ 3nCRB1RWAkUvTKWfOjJQ7k+Gic5ysfd64D7RTx1Iotg8FUvzvEKiKXxZiaI9OODWFk
+ rJQXpWhFujB8vhG+H46Vpwcioq5p1II9amfUdXHq+yqiicVTulezO69s8llcFmmQIo
+ tqQjP8G40R9SwbuQPcLVEMNoYRCAYEkPKmrJyk3O4TkHR0xk3SIA4EtHKJ84k/zW8G
+ XZ8phQJ+dNfrJ6b37g79SH3cxZg+lTAQ7jS+sCr41cmfZ+YXLMSMJqdkHbCRKJOPKh
+ mgpxORkd/4lUw==
 From: Mark Brown <broonie@kernel.org>
-To: Jack Yu <jack.yu@realtek.com>, lgirdwood@gmail.com
-In-Reply-To: <20211111091705.20879-1-jack.yu@realtek.com>
-References: <20211111091705.20879-1-jack.yu@realtek.com>
-Subject: Re: [PATCH] ASoC: rt1011: revert 'I2S Reference' to SOC_ENUM_EXT
-Message-Id: <163675244180.742274.7545715112047788968.b4-ty@kernel.org>
-Date: Fri, 12 Nov 2021 21:27:21 +0000
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ lgirdwood@gmail.com
+In-Reply-To: <20211111161108.502344-1-angelogioacchino.delregno@collabora.com>
+References: <20211111161108.502344-1-angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8173: Fix debugfs registration for
+ components
+Message-Id: <163675244389.742274.1874559646597511024.b4-ty@kernel.org>
+Date: Fri, 12 Nov 2021 21:27:23 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- kent_chen@realtek.com, derek.fang@realtek.com, shumingf@realtek.com,
- flove@realtek.com
+Cc: alsa-devel@alsa-project.org, kernel@collabora.com,
+ dafna.hirschfeld@collabora.com, kuninori.morimoto.gx@renesas.com,
+ linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,13 +83,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 11 Nov 2021 17:17:05 +0800, Jack Yu wrote:
-> Revert 'I2S Reference' to SOC_ENUM_EXT because the settings are specific
-> for some platforms, the default setting for 'I2S Reference' does nothing,
-> only some SoC platform need to configure it.
-> Previous 'I2S Reference' in SOC_ENUM format only toggles one bit of
-> RT1011_TDM1_SET_1 register, which isn't enough for specific platform.
+On Thu, 11 Nov 2021 17:11:08 +0100, AngeloGioacchino Del Regno wrote:
+> When registering the mt8173-afe-pcm driver, we are also adding two
+> components: one is for the PCM DAIs and one is for the HDMI DAIs, but
+> when debugfs is enabled, we're getting the following issue:
 > 
+> [   17.279176] debugfs: Directory '11220000.audio-controller' with parent 'mtk-rt5650' already present!
+> [   17.288345] debugfs: Directory '11220000.audio-controller' with parent 'mtk-rt5650' already present!
 > 
 > [...]
 
@@ -95,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt1011: revert 'I2S Reference' to SOC_ENUM_EXT
-      commit: a382285b6feda8db56955e5897453405c198048d
+[1/1] ASoC: mediatek: mt8173: Fix debugfs registration for components
+      commit: 8c32984bc7da29828260ac514d5d4967f7e8f62d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

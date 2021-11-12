@@ -2,73 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65EEA44E4A4
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 11:33:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E8C144E52E
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 11:57:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C94E6166A;
-	Fri, 12 Nov 2021 11:32:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C94E6166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99303166B;
+	Fri, 12 Nov 2021 11:56:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99303166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636713186;
-	bh=kyOOt82ZT/UFMBj2twV3Rzpx6oBxpHKQbkovq9beeUw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=g4IF04uVTCERhQRNI7zpt0SeP8mRytBqKprEOC0uezVUnhq41xMkoAXLPGpy1KEbl
-	 XF0UzF2mROh3xiPCz6hkoheECyVY6ilDB/FHmfHtGvDw/VYAqsjTTq6lcpCCUB7p/K
-	 k8kx8P0xKRWNAqsQPqIOHyiA40ly5p3HCIGpz9cQ=
+	s=default; t=1636714653;
+	bh=BloTkN8X8usgngL7gfhlZxmugdVr+s/mlIJSdL/MhXc=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fE/VpwOqL+6kH+Gx8rL/hy0IUnSgo2UZpazSmUSwGRLj6bTHQSh5KiDpogrtkRMkQ
+	 O8W80K/zoE+1lT1sIAzT9e5RIgsoD/XQbRWzNHVqIyljgon679xE9F17f02QjsSw2h
+	 +USmpluDI/kF+DEvO1TIwKO8M5Ro4z4/ai2a2Ha0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74A27F8014D;
-	Fri, 12 Nov 2021 11:31:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB6A9F800C1;
+	Fri, 12 Nov 2021 11:56:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C501F8049E; Fri, 12 Nov 2021 11:31:47 +0100 (CET)
+ id C7C97F8049E; Fri, 12 Nov 2021 11:56:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B13C5F800C1
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 11:31:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B13C5F800C1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="h1q4PYqw"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yFugC03P"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id DE93F1FD35
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 10:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636713097; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=AJ5i41qK+PYrguAJ8hyEdgTFcmRR4PNVz8NdASkIl9I=;
- b=h1q4PYqwyK54FmGUtQYbRXv0YcwfZua5lxKTI8XZKxLVkwj8Om0c+G5z05npEw9/kboFjx
- 7+NGGRK1ioC7G5jZULW+ktDNbNjkRABKxN2OMXyr48JoRrp4D4/njN3R9hgaW46OP5+k9g
- 1chej3AF9pubq3ztPxWtTjTCMDQFpTY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636713097;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=AJ5i41qK+PYrguAJ8hyEdgTFcmRR4PNVz8NdASkIl9I=;
- b=yFugC03PUrL24rCbv4gFxsMAjF7xRd/wY4Qel7nKyCE321jE/0y6mNbrbH/OQT2dZtJt20
- nlugheA7cgQ8vMCA==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CD707A3B92;
- Fri, 12 Nov 2021 10:31:37 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: cmipci: Drop stale variable assignment
-Date: Fri, 12 Nov 2021 11:31:37 +0100
-Message-Id: <20211112103137.9504-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F2C5F8014D
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 11:56:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F2C5F8014D
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id 3BA1EC8009C;
+ Fri, 12 Nov 2021 11:56:01 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id tvCNWA5uMmMo; Fri, 12 Nov 2021 11:56:01 +0100 (CET)
+Received: from [192.168.178.21] (host-212-18-30-247.customer.m-online.net
+ [212.18.30.247])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPSA id 8F3F2C80099;
+ Fri, 12 Nov 2021 11:56:00 +0100 (CET)
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASRock NUC Box 1100
+To: Takashi Iwai <tiwai@suse.de>
+References: <20211112094711.963474-1-wse@tuxedocomputers.com>
+ <s5h8rxt3cx3.wl-tiwai@suse.de>
+From: Werner Sembach <wse@tuxedocomputers.com>
+Message-ID: <db285b5c-9ac7-84b7-3123-1411259f5208@tuxedocomputers.com>
+Date: Fri, 12 Nov 2021 11:56:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <s5h8rxt3cx3.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: de-DE
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,41 +80,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since the recent code refactoring using devres, the variable cm in
-snd_cmipci_probe() is no longer referred.
+Am 12.11.21 um 11:07 schrieb Takashi Iwai:
+> On Fri, 12 Nov 2021 10:47:11 +0100,
+> Werner Sembach wrote:
+>> This applies a SND_PCI_QUIRK(...) to the ASRock NUC Box 1100 series. This
+>> fixes the issue of the headphone jack not being detected unless warm
+>> rebooted from a certain other OS.
+>>
+>> When booting a certain other OS some coeff settings are changed that enable
+>> the audio jack. These settings are preserved on a warm reboot and can be
+>> easily dumped.
+>>
+>> The relevant indexes and values where gathered by naively diff-ing and
+>> reading a working and a non-working coeff dump.
+>>
+>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>> Cc: <stable@vger.kernel.org>
+> Thanks, the change looks almost good but in some small details:
+>
+>> +static void alc233_fixup_asrock_nuc_box_1100_no_audio_jack(struct hda_codec *codec,
+>> +							     const struct hda_fixup *fix,
+>> +							     int action)
+> The function name could be a bit shorter?  It might be possible that
+> the fixup could be re-used by others, too.
+>
+>> +{
+>> +	/*
+>> +	 * The audio jack input and output is not detected on the ASRock NUC Box 1100 series when
+>> +	 * cold booting without this fix. Warm rebooting from a certain other OS makes the audio
+>> +	 * functional, as COEF settings are preserved in this case. This fix sets these altered
+>> +	 * COEF values as the default.
+> Fitting in 80 columns is still preferred, to align with other code.
+>
+>> +	alc_write_coef_idx(codec, 0x1a, 0x9003);
+>> +	alc_write_coef_idx(codec, 0x1b, 0x0e2b);
+>> +	alc_write_coef_idx(codec, 0x37, 0xfe06);
+>> +	alc_write_coef_idx(codec, 0x38, 0x4981);
+>> +	alc_write_coef_idx(codec, 0x45, 0xd489);
+>> +	alc_write_coef_idx(codec, 0x46, 0x0074);
+>> +	alc_write_coef_idx(codec, 0x49, 0x0149);
+> Can be put in the coef_fw table and processed via
+> alc_process_coef_fw() instead?
+>
+>
+> thanks,
+>
+> Takashi
 
-Fixes: 87e082ad84a7 ("ALSA: cmipci: Allocate resources with device-managed APIs")
-Reported-by: kernel test robot <lkp@intel.com>
-Link: https://lore.kernel.org/r/cc6383a2-cafb-ffe7-0b4f-27a310a1005c@intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/cmipci.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Done. I was not aware of the alc_process_coef_fw() function, thanks.
 
-diff --git a/sound/pci/cmipci.c b/sound/pci/cmipci.c
-index ea20236f35db..9a678b5cf285 100644
---- a/sound/pci/cmipci.c
-+++ b/sound/pci/cmipci.c
-@@ -3218,7 +3218,6 @@ static int snd_cmipci_probe(struct pci_dev *pci,
- {
- 	static int dev;
- 	struct snd_card *card;
--	struct cmipci *cm;
- 	int err;
- 
- 	if (dev >= SNDRV_CARDS)
-@@ -3229,10 +3228,9 @@ static int snd_cmipci_probe(struct pci_dev *pci,
- 	}
- 
- 	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
--				sizeof(*cm), &card);
-+				sizeof(struct cmipci), &card);
- 	if (err < 0)
- 		return err;
--	cm = card->private_data;
- 	
- 	switch (pci->device) {
- 	case PCI_DEVICE_ID_CMEDIA_CM8738:
--- 
-2.31.1
+Testing now and then sending v2.
+
+Kind regards,
+
+Werner Sembach
 

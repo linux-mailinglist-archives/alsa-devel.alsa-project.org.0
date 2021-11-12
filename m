@@ -2,87 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B286644E452
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 11:04:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB78A44E459
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 11:08:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 368A5166E;
-	Fri, 12 Nov 2021 11:03:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 368A5166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43DFD166F;
+	Fri, 12 Nov 2021 11:07:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43DFD166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636711457;
-	bh=Zja3AgBwb+MbrR23jZGxFFO/1DhVufbRA+Mj4LUn26w=;
+	s=default; t=1636711729;
+	bh=L72JWfBTRk3511DHkK3kE1iv4B/4gS+WWjk66OM4rt0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BZwe4XaegDjTcbdcdV8GbDs/4mELsybLlE+CuMYQZMg0SOjymgE9DbAfnSjC4lQVs
-	 B7U/No0PaYYbGd87HbJ9QrGAuRcWMqwRm90//2CDIN0ddCY+59Lyo/6A80EDIiG+vX
-	 7IBAemV4o0cck8/rDfWav5rUE1BTh+yDmrl9OEog=
+	b=HR6NegXdJGWANAqqegl253OIgcBusMNEoAv5Z1U4+/9pRZRJHd1oEbbNLIlsufXlI
+	 dl4cKdK7SLAOsEw/vvOUP4UUELbs6m7UZ4Aq7IgavvVrCXRX0/yyXA0PSNB+aQCQLX
+	 D9dIJsi/CWfPG8iBGEwPg5kDW4HM85ebld3AGqVo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D92A9F80227;
-	Fri, 12 Nov 2021 11:03:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9DA7F80086;
+	Fri, 12 Nov 2021 11:07:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFEE9F8049E; Fri, 12 Nov 2021 11:02:56 +0100 (CET)
+ id 0FC9AF8049E; Fri, 12 Nov 2021 11:07:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 563C9F800C1
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 11:02:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 563C9F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7FCAEF800C1
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 11:07:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FCAEF800C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="fVBJeOT+"; 
+ header.b="DMYUhJZO"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="41EgDQfZ"
+ header.b="Uik7+9d+"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id BC6211FD57;
- Fri, 12 Nov 2021 10:02:50 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id F208E2198A;
+ Fri, 12 Nov 2021 10:07:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636711370; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1636711640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=cWzkli2lfSBzp860hbw8mwlVH98EHp3pwl8SKM4oUuQ=;
- b=fVBJeOT++GVpVQSwulT95Zrd6ZIa3dYFM2EF87x2u0dPIFkT92aIvjE8+/MF1Vp94UBMbY
- mRRhSNz/9VTPwhPdLUDVbbYUe8e7zYwkefZ94NidWGZT68q2Y9GtCs3smkaBE+MQubH4f6
- t8ZtgdB96r17SVRgxaUr4z10bbq+JXw=
+ bh=joEFNSbRO/ShgxxO2z0AOoaVmuanQ8nbmf9/dfMHod4=;
+ b=DMYUhJZOjaEM/Vs7pqmL2XVivUOeKXpkjS8i3hBn3Hjk5D+jw8PdwGsFLxX2zwklohL6U1
+ 2+0v2tXrddA36kAhAWPYHKdhR3MBiwpmWxPQW0dUKt9fKm+lIMTVvOEvEJUmtorx8R02uw
+ YuP9OvpMTzE7WPKkQnNLucNrhrzu+Z4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636711370;
+ s=susede2_ed25519; t=1636711640;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=cWzkli2lfSBzp860hbw8mwlVH98EHp3pwl8SKM4oUuQ=;
- b=41EgDQfZdC5K+0eD+WCE786Owf3fecLfQZtXn54VhuvyVr1jZqnZvy7Q3mtoOAjAF0TvQ2
- zC/78mwy6sAw7+Dw==
+ bh=joEFNSbRO/ShgxxO2z0AOoaVmuanQ8nbmf9/dfMHod4=;
+ b=Uik7+9d+Lv6PrYaAnmC1OkuirIGChPVVABnsFD73+TrFLkiSlmZpEOZNWrkDPn9ZEXbdCH
+ BM7sSjM96bervfAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id ADF6CA3B81;
- Fri, 12 Nov 2021 10:02:50 +0000 (UTC)
-Date: Fri, 12 Nov 2021 11:02:50 +0100
-Message-ID: <s5hczn53d4l.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id DB11FA3B88;
+ Fri, 12 Nov 2021 10:07:20 +0000 (UTC)
+Date: Fri, 12 Nov 2021 11:07:20 +0100
+Message-ID: <s5h8rxt3cx3.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: fix general protection fault in
- azx_runtime_idle
-In-Reply-To: <alpine.DEB.2.22.394.2111111920450.3554566@eliteleevi.tm.intel.com>
-References: <20211110210307.1172004-1-kai.vehmanen@linux.intel.com>
- <s5hzgqb65h0.wl-tiwai@suse.de>
- <alpine.DEB.2.22.394.2111110015250.3554566@eliteleevi.tm.intel.com>
- <s5h1r3m6csi.wl-tiwai@suse.de>
- <alpine.DEB.2.22.394.2111111920450.3554566@eliteleevi.tm.intel.com>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASRock NUC Box 1100
+In-Reply-To: <20211112094711.963474-1-wse@tuxedocomputers.com>
+References: <20211112094711.963474-1-wse@tuxedocomputers.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
- mahesh.meena@intel.com
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,123 +92,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 11 Nov 2021 18:39:36 +0100,
-Kai Vehmanen wrote:
+On Fri, 12 Nov 2021 10:47:11 +0100,
+Werner Sembach wrote:
 > 
-> Hi,
+> This applies a SND_PCI_QUIRK(...) to the ASRock NUC Box 1100 series. This
+> fixes the issue of the headphone jack not being detected unless warm
+> rebooted from a certain other OS.
 > 
-> On Thu, 11 Nov 2021, Takashi Iwai wrote:
+> When booting a certain other OS some coeff settings are changed that enable
+> the audio jack. These settings are preserved on a warm reboot and can be
+> easily dumped.
 > 
-> > A potential problem with the current code is that it doesn't disable
-> > the runtime PM at the release procedure.  Could you try the patch
-> > below?  You can put WARN_ON(!chip) at azx_runtime_idle(), too, for
-> > catching the invalid runtime call.
-> [...]
-> > --- a/sound/pci/hda/hda_intel.c
-> > +++ b/sound/pci/hda/hda_intel.c
-> > @@ -1347,8 +1347,13 @@ static void azx_free(struct azx *chip)
-> >  	if (hda->freed)
-> >  		return;
-> >  
-> > -	if (azx_has_pm_runtime(chip) && chip->running)
-> > +	if (azx_has_pm_runtime(chip) && chip->running) {
-> >  		pm_runtime_get_noresume(&pci->dev);
-> > +		pm_runtime_forbid(&pci->dev);
-> > +		pm_runtime_dont_use_autosuspend(&pci->dev);
-> > +		pm_runtime_disable(&pci->dev);
-> > +	}
-> > +
-> >  	chip->running = 0;
+> The relevant indexes and values where gathered by naively diff-ing and
+> reading a working and a non-working coeff dump.
 > 
-> Tested with next-20211019 (first next tag where I've seen test failures) 
-> and your patch, and this seems to do the trick. I didn't have my drvdata 
-> patch included when I ran the test. No rpm_idle() calls 
-> anymore after azx_remove(), so the bug is not hit.
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Cc: <stable@vger.kernel.org>
 
-So far, so good...
+Thanks, the change looks almost good but in some small details:
 
-> >  	azx_del_card_list(chip);
-> > @@ -2320,6 +2325,7 @@ static int azx_probe_continue(struct azx *chip)
-> >  	set_default_power_save(chip);
-> >  
-> >  	if (azx_has_pm_runtime(chip)) {
-> > +		pm_runtime_enable(&pci->dev);
-> >  		pm_runtime_use_autosuspend(&pci->dev);
-> 
-> This does generate warnings
-> [   13.495059] snd_hda_intel 0000:00:1f.3: Unbalanced pm_runtime_enable!
-> 
-> And later
-> [   54.770701] Enabling runtime PM for inactive device (0000:00:1f.3) with active children
-> [   54.770718] WARNING: CPU: 0 PID: 10 at drivers/base/power/runtime.c:1439 pm_runtime_enable+0x98/0xb0
-> 
-> Adding a "pm_runtime_set_active(&pci->dev)" to both azx_free() and 
-> azx_probe_continue() seems to help and fix still works.
+> +static void alc233_fixup_asrock_nuc_box_1100_no_audio_jack(struct hda_codec *codec,
+> +							     const struct hda_fixup *fix,
+> +							     int action)
 
-Ah yes, I was confused as if it were already called in hdac_device.c,
-but this was about the HD-audio bus controller, not the codec.
+The function name could be a bit shorter?  It might be possible that
+the fixup could be re-used by others, too.
 
-Below is the revised one.
+> +{
+> +	/*
+> +	 * The audio jack input and output is not detected on the ASRock NUC Box 1100 series when
+> +	 * cold booting without this fix. Warm rebooting from a certain other OS makes the audio
+> +	 * functional, as COEF settings are preserved in this case. This fix sets these altered
+> +	 * COEF values as the default.
 
+Fitting in 80 columns is still preferred, to align with other code.
+
+> +	alc_write_coef_idx(codec, 0x1a, 0x9003);
+> +	alc_write_coef_idx(codec, 0x1b, 0x0e2b);
+> +	alc_write_coef_idx(codec, 0x37, 0xfe06);
+> +	alc_write_coef_idx(codec, 0x38, 0x4981);
+> +	alc_write_coef_idx(codec, 0x45, 0xd489);
+> +	alc_write_coef_idx(codec, 0x46, 0x0074);
+> +	alc_write_coef_idx(codec, 0x49, 0x0149);
+
+Can be put in the coef_fw table and processed via
+alc_process_coef_fw() instead?
+
+
+thanks,
 
 Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: hda: intel: More comprehensive PM runtime setup for
- controller driver
-
-Currently we haven't explicitly enable and allow/forbid the runtime PM
-at the probe and the remove phases of HD-audio controller driver, and
-this was the reason of a GPF mentioned in the commit e81478bbe7a1
-("ALSA: hda: fix general protection fault in azx_runtime_idle");
-namely, even after the resources are released, the runtime PM might be
-still invoked by the bound graphics driver during the remove of the
-controller driver.  Although we've fixed it by clearing the drvdata
-reference, it'd be also better to cover the runtime PM issue more
-properly.
-
-This patch adds a few more pm_runtime_*() calls at the probe and the
-remove time for setting and cleaning up the runtime PM.  Particularly,
-now more explicitly pm_runtime_enable() and _disable() get called as
-well as pm_runtime_forbid() call at the remove callback, so that a
-use-after-free should be avoided.
-
-Reported-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/hda_intel.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index fe51163f2d82..45e85180048c 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1347,8 +1347,14 @@ static void azx_free(struct azx *chip)
- 	if (hda->freed)
- 		return;
- 
--	if (azx_has_pm_runtime(chip) && chip->running)
-+	if (azx_has_pm_runtime(chip) && chip->running) {
- 		pm_runtime_get_noresume(&pci->dev);
-+		pm_runtime_disable(&pci->dev);
-+		pm_runtime_set_suspended(&pci->dev);
-+		pm_runtime_forbid(&pci->dev);
-+		pm_runtime_dont_use_autosuspend(&pci->dev);
-+	}
-+
- 	chip->running = 0;
- 
- 	azx_del_card_list(chip);
-@@ -2322,6 +2328,8 @@ static int azx_probe_continue(struct azx *chip)
- 	if (azx_has_pm_runtime(chip)) {
- 		pm_runtime_use_autosuspend(&pci->dev);
- 		pm_runtime_allow(&pci->dev);
-+		pm_runtime_set_active(&pci->dev);
-+		pm_runtime_enable(&pci->dev);
- 		pm_runtime_put_autosuspend(&pci->dev);
- 	}
- 
--- 
-2.31.1
-

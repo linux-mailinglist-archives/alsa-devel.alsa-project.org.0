@@ -2,83 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFFB544EA16
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 16:31:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6059244ED45
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 20:28:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52B1E166B;
-	Fri, 12 Nov 2021 16:30:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52B1E166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4970166E;
+	Fri, 12 Nov 2021 20:27:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4970166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636731079;
-	bh=b/CTHbYrwSTaYSjQVcajyUSUyyDg4ptaN9a/TeY5HkI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=N4W75A+ge9jLdClvwL2UiMA76zvRY5lahQFyqUMx/u/fbZdfmfk53pgohyOiL6sEa
-	 recYVDbqCGsOWGY+lvd1YDM4gVLOBqY9ngMJeWtbo6sqeQvpEYVPRFaxepAEUVzTAx
-	 YVEoXbQcsdR0NOVsZc8YEp2RgY7xp0KbGVxIdFDE=
+	s=default; t=1636745318;
+	bh=Jo/Z11EWZPKvRLedOKsQToZMFXuL7ARMD/5XbJ+fiCA=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pe9vkbuQHigCofJz6flWEylSnRgR1bZLXf3hXvukghwqTehQ2QhJfmKnOP8NFbt2S
+	 F3K1sg0ginN3XOs237WkXwt5WiI6v0W7zkVdTWm2v2MDHS3JP6DIspiulJVJ2O1dZt
+	 Z5fvAE9S1sNrFnWrKSq9Pg0Rgpk/5DNFwJk7CeQQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30C03F804B1;
-	Fri, 12 Nov 2021 16:30:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59633F800C1;
+	Fri, 12 Nov 2021 20:27:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDA75F8049E; Fri, 12 Nov 2021 16:29:35 +0100 (CET)
+ id 82261F8049E; Fri, 12 Nov 2021 20:27:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41401F80086
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 16:29:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41401F80086
-Received: by mail-oi1-f177.google.com with SMTP id o4so18460594oia.10
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 07:29:23 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C0F8F800C1
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 20:27:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C0F8F800C1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ptmhGFhl"
+Received: by mail-oi1-x234.google.com with SMTP id o4so19706633oia.10
+ for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 11:27:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Jo/Z11EWZPKvRLedOKsQToZMFXuL7ARMD/5XbJ+fiCA=;
+ b=ptmhGFhl8m47uktjDc8N6GPEvvLV4DATBxwa1QCxcfI3sHhwhm+W/uK67qw+hb/Xrz
+ QB9is6awtXzdRHSKyK4qqc81zWw0poGfrfeR7CCRIKckfZuxmEw/p3FyTh3bt13rUHej
+ SpgT26B6uS4CSX+HVlX9pDlsmpbQrYmBXCL+DqnFBF+Km4IabwhjDcRtIQBP6yJ8Av+N
+ KuxJ2nE8O0AXiOyoNnLxLA2ktOMpNUEmD7ieqtAXsfgRzFyuD2PK9VoWvqINzrI0hNwy
+ G66QxE9ABwVTSGSLrV1BE33dl3J7d9zZXzo03eiZXMuaOz6wWHRXpSbMBaJIBhxHFw64
+ ZBbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=DW8VgudtocUZU1HDUii+/dHVF3J3mG1GILU0W17O9qk=;
- b=EpBNBbARQaBWUFjAmgGqJTbxbk6yn0xQDdd7IKuzBK95nobfWqTdq5zhYOwRPN0T4v
- rd6GDXwAbxfU5N9Au+arOtkNMVDknavN5HlZ35N8Ir2d+iH+L0hh79AGdSDZOQeom86R
- VEbIK0t4mIqKCTSbTWHLNUk5+m8fxk2Pp58EJHBgCMl2y4ShlBDZa7tyDMVGB848Q0k9
- h0Y7cRLoauVnGoYL5lAZ4+S7DEZus9vHJ96sGnYpnQDG4DID5iftOTLd7BrcVRLbCXCx
- LVR4pk7cBeRq5YNrcAd90hgX1hQzH48Y77/buCgxTiqxi/6oeOvQGnquSwwbQcQGUUPn
- 6Lig==
-X-Gm-Message-State: AOAM531jZ5ks9ZnlGcECme8hEE3nYxsmcCTPC15AMTp1PYZnQgQ2nHrl
- onsp8HyAzD9c067uQ2EaXg==
-X-Google-Smtp-Source: ABdhPJwbTtvg9M+B+8LafzsMv7N7DUzYI4eFvElyss/WrN8Ef8+ofOCHjyrSNmOpNl/xc9lWPCOELA==
-X-Received: by 2002:aca:30c5:: with SMTP id w188mr13002779oiw.35.1636730962320; 
- Fri, 12 Nov 2021 07:29:22 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id bn41sm795096oib.18.2021.11.12.07.29.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Nov 2021 07:29:21 -0800 (PST)
-Received: (nullmailer pid 2884254 invoked by uid 1000);
- Fri, 12 Nov 2021 15:29:20 -0000
-Date: Fri, 12 Nov 2021 09:29:20 -0600
-From: Rob Herring <robh@kernel.org>
-To: Vincent Knecht <vincent.knecht@mailoo.org>
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: nxp, tfa989x: Add rcv-gpios
- property for tfa9897
-Message-ID: <YY6IUOspigx/yDvj@robh.at.kernel.org>
-References: <20211031210956.812101-1-vincent.knecht@mailoo.org>
- <20211031210956.812101-2-vincent.knecht@mailoo.org>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Jo/Z11EWZPKvRLedOKsQToZMFXuL7ARMD/5XbJ+fiCA=;
+ b=Y/syx1qzcXUYoYBKz5i3/p4fDs4w9kVDNFzxV0LxA4RDam7xtwLRkDnMPhMvMTNNFZ
+ nlZaYSuSYC9m1S4up90SeOW/fL8niUbZAv0m0dnhMiPNpUnEJbctrBJvKF2WdRCo+MTv
+ OqofwzyoDtYu2XTU+EUKvf59D9jPieCwEqUBR32CTwgLmXRB5TKHKY4J2dy/HABANWcG
+ deyKZbAvc1J4t+eOigowdvwCBUfUqEVtp3WXbQ3nhhN5TwPkWmufjKnq1K4mFUjejmcH
+ 4vlOXuZC/nnprsR3SEfH/UwdaO7QzIflH4MyYeXiTBTcTCVUafBRP5KkeffBfHwOBpRa
+ s9fQ==
+X-Gm-Message-State: AOAM532M5kVa3omh35FvNwJRxknXIokL8ICQNF+J2DbQ5OEnAixZi7sz
+ DjHmkVGGppY5OWeW/QIca2IVWdnewvdQXuRm2y5RPL/grMpa8g==
+X-Google-Smtp-Source: ABdhPJyeOqB/sfCclk63IBIVaaCxg5izK3gQHRqDOdhd4bO/bVwFLrZGEI6fVRwpQccRpcPcGoffv0cUsdgtfbeunTY=
+X-Received: by 2002:a05:6808:1885:: with SMTP id
+ bi5mr30328072oib.54.1636745228715; 
+ Fri, 12 Nov 2021 11:27:08 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211031210956.812101-2-vincent.knecht@mailoo.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- stephan@gerhold.net, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
+From: Ramon Fried <rfried.dev@gmail.com>
+Date: Fri, 12 Nov 2021 21:26:58 +0200
+Message-ID: <CAGi-RUJxadzSjuZoVPFKoW_jg+9=k8Onm9eo8W0R160Sjz-C6Q@mail.gmail.com>
+Subject: Possible issue with Intel 200 PCH HD on X299 AORUS Gaming 7
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,13 +89,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 31 Oct 2021 22:09:55 +0100, Vincent Knecht wrote:
-> Add optional rcv-gpios property specific to tfa9897 receiver mode.
-> 
-> Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
-> ---
->  .../bindings/sound/nxp,tfa989x.yaml           | 41 +++++++++++++++++++
->  1 file changed, 41 insertions(+)
-> 
+Hi all.
+Apparently on Linux Headphones and Line are switched.
+Dual booting Windows on the same machine proves that it's indeed
+connected correctly.
+I initially thought it was related to Pulseaudio, but together with
+Pulseaudio guys help we figured it's probably in ALSA.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+http://alsa-project.org/db/?f=535021978814678ea328b0d3a053ba3cbd39b709
+
+Where should I open a bug ? Is it kernel related, if user-space, to
+which ALSA component should I open a bug to ?
+Thanks,
+Ramon

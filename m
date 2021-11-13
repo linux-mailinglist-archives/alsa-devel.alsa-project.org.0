@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 596D044EEF8
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Nov 2021 22:59:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E554044F410
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 Nov 2021 17:07:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2413166E;
-	Fri, 12 Nov 2021 22:58:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2413166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DBB11666;
+	Sat, 13 Nov 2021 17:06:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DBB11666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636754369;
-	bh=EXFypx1hkx6XL2zsAx5VflkzExtSLUPuEBzP676xfp4=;
+	s=default; t=1636819620;
+	bh=DdY2DZUgfUPyBKRAv3qHqs1PQz63bpfEslMO6akg7/k=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MQiIX3SoMx6VsAKa14UOupMLqNmC5moVz15ncZIoLOdYre2iCvoSwdUTfCFDpvnEu
-	 ZxypIso61/Tt8FO+cLRimle8UzjMYRmZFmeJt5fG0POTtWCGJ4NNf+n6OIDy/siAzW
-	 2JGeuMzT4x+eYWAF/jpkJneT3a2mlHcfWPNxjTw0=
+	b=u0JHzJN+xC3Oj20IntLTU6gd6o4iSt8uuo1cdjTS4ORcOgTKlrxwOqqQVKIqW0F/u
+	 KRtlnw2maNd7EEMJ6wuswU725/pcqiPfE2y8sTI3hza787d8dqksm4yGQf31kFc6mU
+	 /zmpn6ZS5F2WILDOBQyqR++nftpgDuxyFyweWhTc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E193F804B1;
-	Fri, 12 Nov 2021 22:58:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2262F802E3;
+	Sat, 13 Nov 2021 17:05:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7703F8049E; Fri, 12 Nov 2021 22:58:10 +0100 (CET)
+ id B8407F802D2; Sat, 13 Nov 2021 17:05:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ua1-x930.google.com (mail-ua1-x930.google.com
+ [IPv6:2607:f8b0:4864:20::930])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87248F8014D
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 22:57:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87248F8014D
-Received: by mail-oi1-f169.google.com with SMTP id r26so20421863oiw.5
- for <alsa-devel@alsa-project.org>; Fri, 12 Nov 2021 13:57:59 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F444F80086
+ for <alsa-devel@alsa-project.org>; Sat, 13 Nov 2021 17:05:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F444F80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="TgwnacmL"
+Received: by mail-ua1-x930.google.com with SMTP id i6so25308169uae.6
+ for <alsa-devel@alsa-project.org>; Sat, 13 Nov 2021 08:05:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=o0U3gH8B9D/VbsgAVwtnXCUvS/Sl530bctFgmmTRN7Y=;
+ b=TgwnacmL1ZxsfEPv2gSbn74icEL0CJyvnwhN2lw/bIolDmxvR0FXPNzQPPxibFDaaQ
+ fB7q4IQ0mCm78CRFwQNXtsx0NwcdwUfnnLG7w0zrjW6G5nad5myU3R6pqqv7A8NHnNyA
+ Oo+Vlnp7hrF4Cn2QzA8lHmfDqaYZnMLSuG8wHDTGN+XnAa1trjfwfYDZseqmHqSlTkhI
+ JM3/nkrFxwxLfU6CDF3P1QE+zHsjRE7JMTXo5Sficf42ag4n30ZjSRKlayy44/+5WGmD
+ HYJW+JgMCz6wmbAdd14grpjZyqVdEREDsGg+A/JOasxfys/KUNyX5a584axfN5SsFaM6
+ OSEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=xccSVfJVrdrr8KimAN3EMNzjL3fPcR3SofzIz95+CP4=;
- b=C0NBO4nvap/1OxZNUnPWANImLWMaY1eGUAXeVn+SQAASu+S8qp2GVLsQRmSke/ZyQJ
- +HIaLxJlHbV9bTs0kiJ4JYx3Gn7Zfq8eM2tDdpzbDiBeteG/SRW0dEgdbKcLNA44fWL/
- g5GJfeQGiioH2f9R8TzoSY5ywAxMy/UIDu/tQHWfK9vM+5iE/9CzHmGbHjBpNIwTXsl5
- fC1GfwW5Lq2bukeThhd0WyMFieT5PCqXlclFEiNH49H0F7swuKA8L5ny9Pff1PuRM8bC
- UAYwhalGZvItkd5n27E5OPWPx+jj7RjNJkZX3yO4QO8mHk+73HsGN7/UdJejJTe8kenl
- x0yA==
-X-Gm-Message-State: AOAM531i4XwOD6AOXZTCeU5BYGddJgO/m44w/Pduej+RqUhRMDA5KS/m
- oPMg6dC7XV/TkG/mUN5keA==
-X-Google-Smtp-Source: ABdhPJzXH2uXtlwTPVV2Dnd3/REyaabvQJmrcCmiIDT4uAxXHmANZrjgTnOCq8iJBXTHbKI27bKF8A==
-X-Received: by 2002:a05:6808:179d:: with SMTP id
- bg29mr28294193oib.138.1636754277332; 
- Fri, 12 Nov 2021 13:57:57 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id k14sm1442785otb.50.2021.11.12.13.57.56
+ bh=o0U3gH8B9D/VbsgAVwtnXCUvS/Sl530bctFgmmTRN7Y=;
+ b=Y9MJ+/y0vjWl0732TP3A5+umVcXfDo1GYR/LflLEpKyIjEZq0vbd+tpZvTev9kkPlY
+ bZXq2tyRU1udwv3RHwHPYMZwyKzosILujEm06SNE5Agg+Jt2Wawa0uQleoI0hm5makGN
+ zgnaqrCcUcMRATOrhzak2T5Aqxh2S+CHoCE+M1QrWzR+AoHF3g2pXIdjRDV1oaPsKFg7
+ wpF4GhL5WqZznjNsMTbV3ZwLploRDCUj3a6SlOfcCHfMLYJ9f8eVixtte+BQT2VCYr8O
+ /KMkDj6h1KvNOo4DGrQzCex8pZn0M4x+ppNEAqlB4pz9E2TNbgVgTxSC2gpiHlk/ZGTG
+ 7W3w==
+X-Gm-Message-State: AOAM530C4UPioJrGGGrZzS4ftpZ5HOAA3i3X2rGDvoE1KoCMQ7RTal1L
+ KkeWNN9ATfX12G5C97Lo4gs=
+X-Google-Smtp-Source: ABdhPJy9/PLI/+QQD8/4A+BxH6vlFszsHSziffmUDxR5rQEWgyWW+84JBdahyxh8PMqn8rtVHNpBwg==
+X-Received: by 2002:ab0:6cea:: with SMTP id l10mr35551946uai.27.1636819525565; 
+ Sat, 13 Nov 2021 08:05:25 -0800 (PST)
+Received: from geday ([2804:7f2:8006:e23b:6c99:83cc:541f:b3a3])
+ by smtp.gmail.com with ESMTPSA id 128sm5800393vsx.19.2021.11.13.08.05.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Nov 2021 13:57:56 -0800 (PST)
-Received: (nullmailer pid 3444888 invoked by uid 1000);
- Fri, 12 Nov 2021 21:57:55 -0000
-Date: Fri, 12 Nov 2021 15:57:55 -0600
-From: Rob Herring <robh@kernel.org>
-To: Ricard Wanderlof <ricardw@axis.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: sound: tlv320adc3xxx: New codec driver
-Message-ID: <YY7jY9+0n1RzdZ/1@robh.at.kernel.org>
-References: <alpine.DEB.2.21.2111041421580.31205@lnxricardw1.se.axis.com>
+ Sat, 13 Nov 2021 08:05:24 -0800 (PST)
+Date: Sat, 13 Nov 2021 13:05:23 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Ramon Fried <rfried.dev@gmail.com>
+Subject: Re: Possible issue with Intel 200 PCH HD on X299 AORUS Gaming 7
+Message-ID: <YY/iQzxPoM+eWPgb@geday>
+References: <CAGi-RUJxadzSjuZoVPFKoW_jg+9=k8Onm9eo8W0R160Sjz-C6Q@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2111041421580.31205@lnxricardw1.se.axis.com>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- alsa-devel <alsa-devel@alsa-project.org>, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <CAGi-RUJxadzSjuZoVPFKoW_jg+9=k8Onm9eo8W0R160Sjz-C6Q@mail.gmail.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,18 +99,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 04 Nov 2021 14:25:31 +0100, Ricard Wanderlof wrote:
-> 
-> DT bindings for tlv320adc3xxx driver, currently supporting
-> Texas Instruments TLV320ADC3001 and TLV320ADC3101 audio ADCs.
-> 
-> Signed-off-by: Ricard Wanderlof <ricardw@axis.com>
-> ---
->  .../bindings/sound/ti,tlv320adc3xxx.yaml      | 137 ++++++++++++++++++
->  include/dt-bindings/sound/tlv320adc3xxx.h     |  28 ++++
->  2 files changed, 165 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
->  create mode 100644 include/dt-bindings/sound/tlv320adc3xxx.h
-> 
+On Fri, Nov 12, 2021 at 09:26:58PM +0200, Ramon Fried wrote:
+> Hi all.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Hello Ramon,
+
+> Apparently on Linux Headphones and Line are switched.
+> Dual booting Windows on the same machine proves that it's indeed
+> connected correctly.
+
+That's too bad.
+
+> I initially thought it was related to Pulseaudio, but together with
+> Pulseaudio guys help we figured it's probably in ALSA.
+> 
+> http://alsa-project.org/db/?f=535021978814678ea328b0d3a053ba3cbd39b709
+> 
+> Where should I open a bug ? Is it kernel related, if user-space, to
+> which ALSA component should I open a bug to ?
+
+Bugzilla is the right place for this. This will most likely require a quirk,
+probably inside sound/pci/hda/patch_realtek.c so it's kernel-side.
+
+> Thanks,
+> Ramon

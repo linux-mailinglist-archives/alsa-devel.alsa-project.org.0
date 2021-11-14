@@ -2,84 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A097244F73D
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Nov 2021 09:36:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9149E44F9FF
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Nov 2021 19:54:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46FDA166F;
-	Sun, 14 Nov 2021 09:35:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46FDA166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0BB41671;
+	Sun, 14 Nov 2021 19:53:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0BB41671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636879005;
-	bh=jn1ewaBEoTRIJ2y6TLhR4NIISkGSmnahFMOdSBvh5tI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1636916069;
+	bh=XT2E9oh2RfpW25nKOx9Xb0vmNkEU2ClC5GZpzhSDwX8=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OfxxFlOgmll8t2BtKqSNWdgPJ7jS3AODGlshJBJ60mQhmO2kQ8LXTJnxGpyJiVZ2P
-	 VKp5X/v9EpuOkLfYhY5rxetZ4+IM88nIbRaI6nbju65o4sAWQn4mxF98PEOuAtbMb7
-	 h0cAF6v1AyUcwBjA+zaIZyON8ey1NXOPUy2Vk/Vk=
+	b=EUABtgT2Bivag45gMgS9KGpf4C/Iuvj2jDPj2T+SpCg5jwYswL5/ITwvf4TaVbIhj
+	 8SLOccGk9Rw6M7csBYVlCImU/SDmzlP6o/oBrQrUIeghPnwORbpFdoJuZY7pQJYMrY
+	 H+RGbK0ugSsD+TD8Zka5KC8n1pll3p84SAsJyQgI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F3ABF802C4;
-	Sun, 14 Nov 2021 09:35:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E6B3F8026D;
+	Sun, 14 Nov 2021 19:53:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6BBA7F80272; Sun, 14 Nov 2021 09:35:26 +0100 (CET)
+ id 876BFF80272; Sun, 14 Nov 2021 19:53:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 662AAF80259
- for <alsa-devel@alsa-project.org>; Sun, 14 Nov 2021 09:35:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 662AAF80259
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="JML93/vx"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Z3AdRqKr"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 0A0501FD50;
- Sun, 14 Nov 2021 08:35:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636878916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xcw5VcGEk8LUqyU69XkIrwLwmQMhGp/hOc28AfT1V8s=;
- b=JML93/vxYX4OcYSpoGbWV+peVniCQAaEMkBSsM8Xw9wOmF87DCKe6emgQFNYyXKjzWtBhi
- SKwUdTcQ9oWlMvurAPjjrszb/4ymipY4UgrWv0RHEhfzNoBTY0FKlS+yzEO9pgYqPIMEY5
- 0rqCfXYekjq0w7a7PZiD5PojwnwbT+8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636878916;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xcw5VcGEk8LUqyU69XkIrwLwmQMhGp/hOc28AfT1V8s=;
- b=Z3AdRqKrW7jo9F4HNbF+dLMC6ccnXC0RwOTnE1LcV2iIhpftYF/43jjjTvNI31Ff8dvyKn
- iDqGo40XMnTdfkAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E37C9A3B81;
- Sun, 14 Nov 2021 08:35:15 +0000 (UTC)
-Date: Sun, 14 Nov 2021 09:35:15 +0100
-Message-ID: <s5ho86nyw1o.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v3 0/4] ALSA: hda: New NHLT functions and cleanup
-In-Reply-To: <20211110103117.3142450-1-cezary.rojewski@intel.com>
-References: <20211110103117.3142450-1-cezary.rojewski@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1C0DCF80134
+ for <alsa-devel@alsa-project.org>; Sun, 14 Nov 2021 19:53:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C0DCF80134
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1636915981275537014-webhooks-bot@alsa-project.org>
+References: <1636915981275537014-webhooks-bot@alsa-project.org>
+Subject: HP Probook Mute volume + mic LED indicators not working (Audio codec =
+ ALC236)
+Message-Id: <20211114185310.876BFF80272@alsa1.perex.cz>
+Date: Sun, 14 Nov 2021 19:53:10 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,41 +60,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Nov 2021 11:31:13 +0100,
-Cezary Rojewski wrote:
-> 
-> Changes add two crucial functions: endpoint presence-check and
-> retrieval of endpoint's BLOB (hardware configuration) to NHLT API.
-> 
-> Few cleanups accompany the above:
-> Work is done to align NHLT-struct naming with other, commonly used
-> ACPI-structs. While cleaning up, don't forget about "is DMIC in NHLT?"
-> check. No need to check for channel count or anything DMIC-configuration
-> related, just straight up verify link_type presence.
-> 
-> Changes in v3:
-> - no code changes
-> - appended Mark's Acked-by tag for patch 4/4
-> - appended Pierre's Reviewed-by tag for all patches
-> 
-> Changes in v2:
-> - patch "ALSA hda: Drop device-argument in NHLT functions" has been
->   dropped
-> - updated newly added declarations in intel-nhlt.h so warning:
->   "no-previous-prototype-for-function" and error:
->   "use-of-undeclared-identifier" are no longer observed when
->   CONFIG_SND_INTEL_NHLT is not enabled
-> - added Mark's tag to the last patch of the series
-> 
-> Amadeusz Sławiński (4):
->   ALSA: hda: Follow ACPI convention in NHLT struct naming
->   ALSA: hda: Fill gaps in NHLT endpoint-interface
->   ALSA: hda: Simplify DMIC-in-NHLT check
->   ASoC: Intel: Skylake: Use NHLT API to search for blob
+alsa-project/alsa-lib issue #190 was opened from antintin0:
 
-Merged to topic/for-5.16 branch now.
+Tested on kernel 5.13 and 5.15.2
+Not sure if this is the right place to ask, but no one else seems to be able to help.
+I have an HP Probook x360 435 g7 with the Realtek ALC236 codec and my mute volume + mute mic LED indicators aren't working (they do on windows). I found there were some patches mentioning mute LEDs on ALC236 on the below links:
+https://patchwork.kernel.org/project/alsa-devel/patch/20210701091417.9696-1-andy.chi@canonical.com/
+https://mailman.alsa-project.org/pipermail/alsa-devel/2021-November/192225.html
 
-thanks,
+But obviously they're not working for me, so I tried following this: https://wiki.archlinux.org/title/Laptop#Audio_mute_LED
+Theres nothing specific for ALC236 but I tried pretty much all the relevant parameters for the snd-hda-intel module option "model" under "ALC22x/23x/25x/269/27x/28x/29x (and vendor-specific ALC3xxx models)" and none worked.
 
+Any help would be appreciated
 
-Takashi
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/190
+Repository URL: https://github.com/alsa-project/alsa-lib

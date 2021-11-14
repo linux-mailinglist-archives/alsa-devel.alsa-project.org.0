@@ -2,81 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76BC044F73C
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Nov 2021 09:30:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A097244F73D
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Nov 2021 09:36:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BBFA1669;
-	Sun, 14 Nov 2021 09:30:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BBFA1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46FDA166F;
+	Sun, 14 Nov 2021 09:35:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46FDA166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636878656;
-	bh=XJSjDgbqcpPL3lIGQc4zLA+YdVo/+lfFYpItSTLzj/s=;
+	s=default; t=1636879005;
+	bh=jn1ewaBEoTRIJ2y6TLhR4NIISkGSmnahFMOdSBvh5tI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KhyXp0xIkA2OBB6B/9mT5hfX9PLnoGUidPO7AiIvp8tE/IDUOQIe3JIQ0WW3JVAn4
-	 MpbH2CldrhylbdpW5zz7o3gEOc/lA3Jxe3ZOx2rQrIHDHxWlWpInfdQSqaBDkCGOxd
-	 YQfSfXmXXGkvTX9lFvV9oe1L+wZH47dBWZ8GZtqc=
+	b=OfxxFlOgmll8t2BtKqSNWdgPJ7jS3AODGlshJBJ60mQhmO2kQ8LXTJnxGpyJiVZ2P
+	 VKp5X/v9EpuOkLfYhY5rxetZ4+IM88nIbRaI6nbju65o4sAWQn4mxF98PEOuAtbMb7
+	 h0cAF6v1AyUcwBjA+zaIZyON8ey1NXOPUy2Vk/Vk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E305AF80259;
-	Sun, 14 Nov 2021 09:29:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F3ABF802C4;
+	Sun, 14 Nov 2021 09:35:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6145BF80272; Sun, 14 Nov 2021 09:29:06 +0100 (CET)
+ id 6BBA7F80272; Sun, 14 Nov 2021 09:35:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70C7BF800FD
- for <alsa-devel@alsa-project.org>; Sun, 14 Nov 2021 09:28:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70C7BF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 662AAF80259
+ for <alsa-devel@alsa-project.org>; Sun, 14 Nov 2021 09:35:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 662AAF80259
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="QXHn4vM9"; 
+ header.b="JML93/vx"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jhMqU4KK"
+ header.b="Z3AdRqKr"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 452DC1FD50;
- Sun, 14 Nov 2021 08:28:45 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 0A0501FD50;
+ Sun, 14 Nov 2021 08:35:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636878525; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1636878916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=vtCq7TL0hcsk5Mlnw73260vad6hV07zL97h6OunIvwA=;
- b=QXHn4vM9qz9bsPc0tWLdsqi16L84RixQKYh0PD3m0PnAYdzo8zfSsAFeAyTkDlsoKuhMvT
- OhKLAdg0U/lxAuZGWKSN6Nj6a/d57BMwJTk0iw5O9cuiJCMejrrP+0GQzlq3RgLnk30/q5
- IZItDL7GGzYe7jBpTO0gZkChpJ4Iivs=
+ bh=xcw5VcGEk8LUqyU69XkIrwLwmQMhGp/hOc28AfT1V8s=;
+ b=JML93/vxYX4OcYSpoGbWV+peVniCQAaEMkBSsM8Xw9wOmF87DCKe6emgQFNYyXKjzWtBhi
+ SKwUdTcQ9oWlMvurAPjjrszb/4ymipY4UgrWv0RHEhfzNoBTY0FKlS+yzEO9pgYqPIMEY5
+ 0rqCfXYekjq0w7a7PZiD5PojwnwbT+8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636878525;
+ s=susede2_ed25519; t=1636878916;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=vtCq7TL0hcsk5Mlnw73260vad6hV07zL97h6OunIvwA=;
- b=jhMqU4KKVwhlhlKPygoiLGFVb1I64Fe4xZf5K+0rpLAI5LhQU+SlVSYTjnqY0qVwUgUJ5i
- LlUTIZEoq2I+9UAA==
+ bh=xcw5VcGEk8LUqyU69XkIrwLwmQMhGp/hOc28AfT1V8s=;
+ b=Z3AdRqKrW7jo9F4HNbF+dLMC6ccnXC0RwOTnE1LcV2iIhpftYF/43jjjTvNI31Ff8dvyKn
+ iDqGo40XMnTdfkAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2E036A3B81;
- Sun, 14 Nov 2021 08:28:45 +0000 (UTC)
-Date: Sun, 14 Nov 2021 09:28:45 +0100
-Message-ID: <s5hpmr3ywci.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id E37C9A3B81;
+ Sun, 14 Nov 2021 08:35:15 +0000 (UTC)
+Date: Sun, 14 Nov 2021 09:35:15 +0100
+Message-ID: <s5ho86nyw1o.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Add quirk for ASRock NUC Box 1100
-In-Reply-To: <20211112110704.1022501-1-wse@tuxedocomputers.com>
-References: <20211112110704.1022501-1-wse@tuxedocomputers.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v3 0/4] ALSA: hda: New NHLT functions and cleanup
+In-Reply-To: <20211110103117.3142450-1-cezary.rojewski@intel.com>
+References: <20211110103117.3142450-1-cezary.rojewski@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,23 +95,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 12 Nov 2021 12:07:04 +0100,
-Werner Sembach wrote:
+On Wed, 10 Nov 2021 11:31:13 +0100,
+Cezary Rojewski wrote:
 > 
-> This applies a SND_PCI_QUIRK(...) to the ASRock NUC Box 1100 series. This
-> fixes the issue of the headphone jack not being detected unless warm
-> rebooted from a certain other OS.
+> Changes add two crucial functions: endpoint presence-check and
+> retrieval of endpoint's BLOB (hardware configuration) to NHLT API.
 > 
-> When booting a certain other OS some coeff settings are changed that enable
-> the audio jack. These settings are preserved on a warm reboot and can be
-> easily dumped.
+> Few cleanups accompany the above:
+> Work is done to align NHLT-struct naming with other, commonly used
+> ACPI-structs. While cleaning up, don't forget about "is DMIC in NHLT?"
+> check. No need to check for channel count or anything DMIC-configuration
+> related, just straight up verify link_type presence.
 > 
-> The relevant indexes and values where gathered by naively diff-ing and
-> reading a working and a non-working coeff dump.
+> Changes in v3:
+> - no code changes
+> - appended Mark's Acked-by tag for patch 4/4
+> - appended Pierre's Reviewed-by tag for all patches
 > 
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Changes in v2:
+> - patch "ALSA hda: Drop device-argument in NHLT functions" has been
+>   dropped
+> - updated newly added declarations in intel-nhlt.h so warning:
+>   "no-previous-prototype-for-function" and error:
+>   "use-of-undeclared-identifier" are no longer observed when
+>   CONFIG_SND_INTEL_NHLT is not enabled
+> - added Mark's tag to the last patch of the series
+> 
+> Amadeusz Sławiński (4):
+>   ALSA: hda: Follow ACPI convention in NHLT struct naming
+>   ALSA: hda: Fill gaps in NHLT endpoint-interface
+>   ALSA: hda: Simplify DMIC-in-NHLT check
+>   ASoC: Intel: Skylake: Use NHLT API to search for blob
 
-Thanks, applied.
+Merged to topic/for-5.16 branch now.
+
+thanks,
 
 
 Takashi

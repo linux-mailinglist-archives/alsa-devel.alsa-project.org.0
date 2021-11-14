@@ -2,84 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C26A044F4BD
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 Nov 2021 20:00:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76BC044F73C
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Nov 2021 09:30:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1AA6A1666;
-	Sat, 13 Nov 2021 19:59:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AA6A1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BBFA1669;
+	Sun, 14 Nov 2021 09:30:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BBFA1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636830014;
-	bh=x2IV4/aUQRL29Pp9MU4khHIDyCwOiTSNauU9cnjw/80=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1636878656;
+	bh=XJSjDgbqcpPL3lIGQc4zLA+YdVo/+lfFYpItSTLzj/s=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iK6mY/xEtAVejOWOu/5LkpVLHqgaGVeBxz4IAixT3NlBAH2tVjy30UiZpPMtjeF2A
-	 5XEE2TGEMxSYEVICpNR5wsloX9ssLZTQ+JCydFcjSMitHI7a45XmGvg8NLfjnF8yib
-	 y4jthgVkV8LUKG3Y9c+uB7RjeY+AfPzbeOv1L5os=
+	b=KhyXp0xIkA2OBB6B/9mT5hfX9PLnoGUidPO7AiIvp8tE/IDUOQIe3JIQ0WW3JVAn4
+	 MpbH2CldrhylbdpW5zz7o3gEOc/lA3Jxe3ZOx2rQrIHDHxWlWpInfdQSqaBDkCGOxd
+	 YQfSfXmXXGkvTX9lFvV9oe1L+wZH47dBWZ8GZtqc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C140F800C1;
-	Sat, 13 Nov 2021 19:58:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E305AF80259;
+	Sun, 14 Nov 2021 09:29:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57112F802D2; Sat, 13 Nov 2021 19:58:53 +0100 (CET)
+ id 6145BF80272; Sun, 14 Nov 2021 09:29:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D18D7F80134
- for <alsa-devel@alsa-project.org>; Sat, 13 Nov 2021 19:58:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D18D7F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70C7BF800FD
+ for <alsa-devel@alsa-project.org>; Sun, 14 Nov 2021 09:28:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70C7BF800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="h2yJhbWR"
-Received: by mail-oi1-x22b.google.com with SMTP id bf8so25084673oib.6
- for <alsa-devel@alsa-project.org>; Sat, 13 Nov 2021 10:58:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=x2IV4/aUQRL29Pp9MU4khHIDyCwOiTSNauU9cnjw/80=;
- b=h2yJhbWRFNQdCQplnn7th9BVesFwC6Pv6YXajTkIhuWh2EJQFgqujBbsu/0UV86JKl
- S1UP7wr7q+2RGZg9T5rutgKVB03M09gqS71flAXlFRiAhSbu2a9QwZXutpcU4JZ7h9DW
- zu3hwyw3aj5/8CSwhR7hd+I2lMnVv0Ot2kqeM+T9eSj+jffCMxhe7E4o6uMVr5Yhh+7m
- 3OrM6QUhfjkSiisb5pd2P9FhnmmAhG5rqM9UP5/9zUldoRAMu3NdcsHLg6SR1AmkfAFD
- AQHff20Mqw05cKAfMpqfNXbrffV78li9HfUwhcf/Kc+/KSp55r5R+/6rVHb3hnLTLt1P
- oMtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=x2IV4/aUQRL29Pp9MU4khHIDyCwOiTSNauU9cnjw/80=;
- b=0Os3X+ezfEVBnAtm7xsWNyNuJYvyoVzK2vKSjEWIul23e6ZSS1lBBT3rhmNMeN82Ek
- 78OoM7PpFx8cryyybYfckWY+w6KBR1c8u9j1Mk8UTeIwTVT7/HHLLe6uA9mie2l4669P
- LpqdvYvW+wccFau0TQRUJDjT+a5q/vra86oloosWdaxoFxtJTLDHJZOYQyar5mIOdZVs
- Edw7SQB9PIodLvBPNfwu/eGyQUcA/bBoSb8gmZGkMInDtmi0OL5WnlG3zjkAxhuTpSyX
- atYE1bqgjG697BY6OPUsHFXNCfxFNhoMeMtqjTDNSCJ2W7y3gsED1pJ27/VfX/gfGNYy
- KS/g==
-X-Gm-Message-State: AOAM5325loRxLVVdjdBmb41MP2xTMlYtwVQwYvhPQnoKEVTgtAAKYzOa
- ihMfMofE5CLOKr9Fx4UlQEA0lwZ3WOWHvdkKEkk=
-X-Google-Smtp-Source: ABdhPJzcC1amBQaIO846wyKpdCVWS1N1WnNLy9sawQikBZlNeDE0YV3+fFvjpeWK0Wf+JDbcmpk9XdXHHDyVUdwwINM=
-X-Received: by 2002:a05:6808:1885:: with SMTP id
- bi5mr36909810oib.54.1636829924183; 
- Sat, 13 Nov 2021 10:58:44 -0800 (PST)
-MIME-Version: 1.0
-References: <CAGi-RUJxadzSjuZoVPFKoW_jg+9=k8Onm9eo8W0R160Sjz-C6Q@mail.gmail.com>
- <YY/iQzxPoM+eWPgb@geday>
-In-Reply-To: <YY/iQzxPoM+eWPgb@geday>
-From: Ramon Fried <rfried.dev@gmail.com>
-Date: Sat, 13 Nov 2021 20:58:33 +0200
-Message-ID: <CAGi-RUL=Rg4q52jjeYF9w88WHN9JHSnN8Kanx7KMy_ZCmzSrfw@mail.gmail.com>
-Subject: Re: Possible issue with Intel 200 PCH HD on X299 AORUS Gaming 7
-To: Geraldo Nascimento <geraldogabriel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="QXHn4vM9"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="jhMqU4KK"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 452DC1FD50;
+ Sun, 14 Nov 2021 08:28:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636878525; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vtCq7TL0hcsk5Mlnw73260vad6hV07zL97h6OunIvwA=;
+ b=QXHn4vM9qz9bsPc0tWLdsqi16L84RixQKYh0PD3m0PnAYdzo8zfSsAFeAyTkDlsoKuhMvT
+ OhKLAdg0U/lxAuZGWKSN6Nj6a/d57BMwJTk0iw5O9cuiJCMejrrP+0GQzlq3RgLnk30/q5
+ IZItDL7GGzYe7jBpTO0gZkChpJ4Iivs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636878525;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vtCq7TL0hcsk5Mlnw73260vad6hV07zL97h6OunIvwA=;
+ b=jhMqU4KKVwhlhlKPygoiLGFVb1I64Fe4xZf5K+0rpLAI5LhQU+SlVSYTjnqY0qVwUgUJ5i
+ LlUTIZEoq2I+9UAA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 2E036A3B81;
+ Sun, 14 Nov 2021 08:28:45 +0000 (UTC)
+Date: Sun, 14 Nov 2021 09:28:45 +0100
+Message-ID: <s5hpmr3ywci.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH v2] ALSA: hda/realtek: Add quirk for ASRock NUC Box 1100
+In-Reply-To: <20211112110704.1022501-1-wse@tuxedocomputers.com>
+References: <20211112110704.1022501-1-wse@tuxedocomputers.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,31 +92,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Nov 13, 2021 at 6:05 PM Geraldo Nascimento
-<geraldogabriel@gmail.com> wrote:
->
-> On Fri, Nov 12, 2021 at 09:26:58PM +0200, Ramon Fried wrote:
-> > Hi all.
->
-> Hello Ramon,
->
-> > Apparently on Linux Headphones and Line are switched.
-> > Dual booting Windows on the same machine proves that it's indeed
-> > connected correctly.
->
-> That's too bad.
->
-> > I initially thought it was related to Pulseaudio, but together with
-> > Pulseaudio guys help we figured it's probably in ALSA.
-> >
-> > http://alsa-project.org/db/?f=535021978814678ea328b0d3a053ba3cbd39b709
-> >
-> > Where should I open a bug ? Is it kernel related, if user-space, to
-> > which ALSA component should I open a bug to ?
->
-> Bugzilla is the right place for this. This will most likely require a quirk,
-> probably inside sound/pci/hda/patch_realtek.c so it's kernel-side.
->
-> > Thanks,
-> > Ramon
-Thanks Geraldo.
+On Fri, 12 Nov 2021 12:07:04 +0100,
+Werner Sembach wrote:
+> 
+> This applies a SND_PCI_QUIRK(...) to the ASRock NUC Box 1100 series. This
+> fixes the issue of the headphone jack not being detected unless warm
+> rebooted from a certain other OS.
+> 
+> When booting a certain other OS some coeff settings are changed that enable
+> the audio jack. These settings are preserved on a warm reboot and can be
+> easily dumped.
+> 
+> The relevant indexes and values where gathered by naively diff-ing and
+> reading a working and a non-working coeff dump.
+> 
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+
+Thanks, applied.
+
+
+Takashi

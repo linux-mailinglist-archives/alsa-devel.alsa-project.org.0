@@ -2,60 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E34845046D
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 13:27:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B44764504A4
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 13:44:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDB2116B8;
-	Mon, 15 Nov 2021 13:26:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDB2116B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3411416AA;
+	Mon, 15 Nov 2021 13:43:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3411416AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636979268;
-	bh=hw/zwd0vk6VJmIq+J8g31oZHknhIfUlWEtMDkWirOSQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1636980249;
+	bh=KcAaUhd3vsorFwttU/WfSwRyEQwy21iqgIsPl680jtI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VPHUro38vrYC2n5w3s5T4CU3v9jH9MHnifUMmRkJBIueoog5mvTYy70bSw3K1zbOq
-	 damtpCnwfSYEiM+Z0ix3fGnBavUn6Mi22oVkp+MuiUYtrnfnbekAmDaAtWob1ImhkS
-	 HeHJrXFc7c9kedEj2LCmaYysSmlpuQG0Uxp1RJag=
+	b=nXweauOy93YF0RqXfyyqxe2bAQ3sTq61ssy5xoNdZMf2/pfuHXnpA6wfUXpuja90A
+	 /a7kCO2n+xZfuQbw7Qiq35vbXr1Zms+7opmaC5TKO8jjDoPBx0DwmNMdg4Mb2+J9oN
+	 CkswwQe9JNvCjbta/n8CuChq0oF6hm+vZDlkmKvs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CAF7F80539;
-	Mon, 15 Nov 2021 13:23:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8C32F800FA;
+	Mon, 15 Nov 2021 13:42:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24171F80520; Mon, 15 Nov 2021 13:23:24 +0100 (CET)
+ id 6902BF801D5; Mon, 15 Nov 2021 13:42:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2CF5F804F3
- for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 13:23:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2CF5F804F3
-X-IronPort-AV: E=McAfee;i="6200,9189,10168"; a="220639153"
-X-IronPort-AV: E=Sophos;i="5.87,236,1631602800"; d="scan'208";a="220639153"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2021 04:23:11 -0800
-X-IronPort-AV: E=Sophos;i="5.87,236,1631602800"; d="scan'208";a="505899138"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2021 04:23:09 -0800
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Subject: [RESEND PATCH 10/10] ASoC: intel: sof_sdw: add link adr order check
-Date: Mon, 15 Nov 2021 20:22:41 +0800
-Message-Id: <20211115122241.13242-11-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211115122241.13242-1-yung-chuan.liao@linux.intel.com>
-References: <20211115122241.13242-1-yung-chuan.liao@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6008AF80134
+ for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 13:42:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6008AF80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="CrmwxIug"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AF7YtLX004622;
+ Mon, 15 Nov 2021 06:42:42 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=klCpXSSZcIP5qBOiDyPDjx6ZzQvL5Ruf69JbD5uSlcw=;
+ b=CrmwxIugYy3JUdEJryW5OK094USS//eBpgLXWFVRa8SU+qDZ0s/wllTZG8DSQRbXAJsW
+ 5wu+b3w5p3io6keKqo2gfDJhOA+dKGSydntwrMA+pbC9ooR9UqbOz/HrXtAOSxxw2J4L
+ jqm++FqwTEP6vTtDzBAfcAKBSRTJw5rOrxHSYOPNeYG2EpYVuMx/aq5yZ6vNtS7l/2qY
+ kxplvsOgQF9nPrtxpbt7T2EaL6aIidzE6v5Q9xcRteKW9CN6VwS2DPUNSGSrbGmJf5rs
+ 04wzKBtBQqr3kptsoFcLV7fE8KeHhPrmfCgkn8ZdNFFFb40SXOJU/7rqLcYwwCY1YlHY gg== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3cbjn009at-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 15 Nov 2021 06:42:42 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 15 Nov
+ 2021 12:42:40 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Mon, 15 Nov 2021 12:42:40 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 14F1FB2F;
+ Mon, 15 Nov 2021 12:42:39 +0000 (UTC)
+Date: Mon, 15 Nov 2021 12:42:39 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Simon Trimmer <simont@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: wm_adsp: wm_adsp_control_add() error:
+ uninitialized symbol 'ret'
+Message-ID: <20211115124239.GA18506@ediswmail.ad.cirrus.com>
+References: <20211115120154.56782-1-simont@opensource.cirrus.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20211115120154.56782-1-simont@opensource.cirrus.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: UE8Ucr8CbSSxKgU-vQvkbjP9uMiZu-Qn
+X-Proofpoint-ORIG-GUID: UE8Ucr8CbSSxKgU-vQvkbjP9uMiZu-Qn
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ broonie@kernel.org, Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,59 +100,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We assume the adr order described in a snd_soc_acpi_link_adr array is
-jack -> amp -> mic. We follow the same order to implement the topology.
-We will need a special topology if we configure a snd_soc_acpi_link_adr
-array with different order. Adding a check and a warning message can
-remind people to keep the order when adding a new snd_soc_acpi_link_adr
-array.
+On Mon, Nov 15, 2021 at 12:01:54PM +0000, Simon Trimmer wrote:
+> This patch fixes the static analysis warning as it is correctly
+> indicating a possible code path, it cannot know that for the affected
+> firmware versions subname would always be NULL.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+> ---
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/intel/boards/sof_sdw.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index df29f7b478a4..de303a980879 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -599,10 +599,11 @@ static inline int find_codec_info_acpi(const u8 *acpi_id)
-  * Since some sdw slaves may be aggregated, the CPU DAI number
-  * may be larger than the number of BE dailinks.
-  */
--static int get_sdw_dailink_info(const struct snd_soc_acpi_link_adr *links,
-+static int get_sdw_dailink_info(struct device *dev, const struct snd_soc_acpi_link_adr *links,
- 				int *sdw_be_num, int *sdw_cpu_dai_num)
- {
- 	const struct snd_soc_acpi_link_adr *link;
-+	int _codec_type = SOF_SDW_CODEC_TYPE_JACK;
- 	bool group_visited[SDW_MAX_GROUPS];
- 	bool no_aggregation;
- 	int i;
-@@ -628,6 +629,12 @@ static int get_sdw_dailink_info(const struct snd_soc_acpi_link_adr *links,
- 		if (codec_index < 0)
- 			return codec_index;
- 
-+		if (codec_info_list[codec_index].codec_type < _codec_type)
-+			dev_warn(dev,
-+				 "Unexpected address table ordering. Expected order: jack -> amp -> mic\n");
-+
-+		_codec_type = codec_info_list[codec_index].codec_type;
-+
- 		endpoint = link->adr_d->endpoints;
- 
- 		/* count DAI number for playback and capture */
-@@ -1136,7 +1143,7 @@ static int sof_card_dai_links_create(struct device *dev,
- 	ssp_num = ssp_codec_index >= 0 ? hweight_long(ssp_mask) : 0;
- 	comp_num = hdmi_num + ssp_num;
- 
--	ret = get_sdw_dailink_info(mach_params->links,
-+	ret = get_sdw_dailink_info(dev, mach_params->links,
- 				   &sdw_be_num, &sdw_cpu_dai_num);
- 	if (ret < 0) {
- 		dev_err(dev, "failed to get sdw link info %d", ret);
--- 
-2.17.1
-
+Thanks,
+Charles

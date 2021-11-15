@@ -2,83 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8237C44FF1C
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 08:13:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8324A44FF97
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 08:59:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB7DA1663;
-	Mon, 15 Nov 2021 08:12:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB7DA1663
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFD77166B;
+	Mon, 15 Nov 2021 08:58:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFD77166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636960395;
-	bh=NmaNMM9z+8Q8V2Jw8CpKQceUOw9d8LTVVzsu6BHTEoo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=C0mYaOpBCG3JfC/ArU4qoKa6S/pw5/CY0EtPdZpU8VceNi++3V+zXew3v2DLqVrd+
-	 Y6QWgwxncbcxiiLC2rCGxs/mpSMr8zfAxHRsCacInu1NFqLgpg0ldERSXl+KumgQvM
-	 DNmrKc4mO8xsrzly1jJnwdQarvMG3twgUgypBlBk=
+	s=default; t=1636963171;
+	bh=8lTcfxGSlo0EzK5A1iOOi03S4Ao0qkQ1KLkOBi2uC/s=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hjhPWjZPxeW0E+4+a5HlSV1EyGniGercZQ7WbHgIGRnz5aIk+p9/ghe1Y+DI6A7GH
+	 Obop+zCyIzqGD4uVh5S85oI4dMLKqhLw76EaFG4otO9A0pQKwk2KNFwZk227ssT0Y4
+	 wyY6e0RInBtdOoCxJrZjIvu8F1A4eb3eG49pbBMI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83189F80163;
-	Mon, 15 Nov 2021 08:11:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4774DF8028B;
+	Mon, 15 Nov 2021 08:58:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E955DF8027D; Mon, 15 Nov 2021 08:11:56 +0100 (CET)
+ id 8E6C5F801D5; Mon, 15 Nov 2021 08:58:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE892F80163
- for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 08:11:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE892F80163
+ by alsa1.perex.cz (Postfix) with ESMTPS id 783C6F80134
+ for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 08:58:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 783C6F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="L2fRp9uv"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1636960307; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=qGxv+XsX7+bD5RWmhMsu38FzWS6QGNazoB2gG6O7qcM=;
- b=L2fRp9uvJgZzhVRkFSRFLszmLSM3a1jWbyXi3jNrhNbtIBHGyjegbsgwNeHtzIvvvEhZiwQY
- joppSVGELbwMzG0lWXRZPUMSy7u2Voa2++KMtttQepXIpsx/Jfxu2p76t30mLVjFRPnt/EPN
- ToDj7B8kCiYkDwLYPDL3ARf4Ez0=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 619208314db4233966348453 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 15 Nov 2021 07:11:45
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 8838DC4360D; Mon, 15 Nov 2021 07:11:45 +0000 (UTC)
-Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 7A8F9C4338F;
- Mon, 15 Nov 2021 07:11:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 7A8F9C4338F
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH v2] ASoC: codecs: MBHC: Add support for special headset
-Date: Mon, 15 Nov 2021 12:41:28 +0530
-Message-Id: <1636960288-27537-1-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="kBlKwl9+"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="j/b8AT1L"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 892DE1FD50;
+ Mon, 15 Nov 2021 07:57:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636963076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MfJK66Q5Yf9s8KyRoh0tj2vHn6+Gv8C2aBOi72F6Px4=;
+ b=kBlKwl9+6f4ST8e3iIA8CAHRcMYdUKQm+n48JOaGJsei63MTzvrV/77MnAeNFOoZ1Um3Dj
+ FWl3yrW7wBUm+PNfkJIoItrwJaWbGJ1cv3X+khmBi8vwsc002sLlvqWzS+aki7B3nY8Nfy
+ s05QN/V02+oDfykWFcTe0xLL69dTrZY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636963076;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MfJK66Q5Yf9s8KyRoh0tj2vHn6+Gv8C2aBOi72F6Px4=;
+ b=j/b8AT1LHsvo5ipNJF28vtdZ60g0LbRDIqfhprKB182oKKANbRAyLsmowHFAiZq1uYPC1r
+ 8GAIe9MtN4a81jCQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 6ED54A3B85;
+ Mon, 15 Nov 2021 07:57:56 +0000 (UTC)
+Date: Mon, 15 Nov 2021 08:57:56 +0100
+Message-ID: <s5hsfvxvojf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: fix general protection fault in
+ azx_runtime_idle
+In-Reply-To: <alpine.DEB.2.22.394.2111121424170.3554566@eliteleevi.tm.intel.com>
+References: <20211110210307.1172004-1-kai.vehmanen@linux.intel.com>
+ <s5hzgqb65h0.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2111110015250.3554566@eliteleevi.tm.intel.com>
+ <s5h1r3m6csi.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2111111920450.3554566@eliteleevi.tm.intel.com>
+ <s5hczn53d4l.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2111121424170.3554566@eliteleevi.tm.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
+ mahesh.meena@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,138 +100,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update MBHC driver to support special headset such as apple
-and huwawei headsets.
+On Fri, 12 Nov 2021 13:27:34 +0100,
+Kai Vehmanen wrote:
+> 
+> Hi,
+> 
+> On Fri, 12 Nov 2021, Takashi Iwai wrote:
+> 
+> > On Thu, 11 Nov 2021 18:39:36 +0100, Kai Vehmanen wrote:
+> > > And later
+> > > [   54.770701] Enabling runtime PM for inactive device (0000:00:1f.3) with active children
+> > > [   54.770718] WARNING: CPU: 0 PID: 10 at drivers/base/power/runtime.c:1439 pm_runtime_enable+0x98/0xb0
+> > > 
+> > > Adding a "pm_runtime_set_active(&pci->dev)" to both azx_free() and 
+> > > azx_probe_continue() seems to help and fix still works.
+> > 
+> > Ah yes, I was confused as if it were already called in hdac_device.c,
+> > but this was about the HD-audio bus controller, not the codec.
+> > 
+> > Below is the revised one.
+> [...]
+> > Currently we haven't explicitly enable and allow/forbid the runtime PM
+> > at the probe and the remove phases of HD-audio controller driver, and
+> > this was the reason of a GPF mentioned in the commit e81478bbe7a1
+> > ("ALSA: hda: fix general protection fault in azx_runtime_idle");
+> > namely, even after the resources are released, the runtime PM might be
+> > still invoked by the bound graphics driver during the remove of the
+> > controller driver.  Although we've fixed it by clearing the drvdata
+> > reference, it'd be also better to cover the runtime PM issue more
+> > properly.
+> > 
+> > This patch adds a few more pm_runtime_*() calls at the probe and the
+> > remove time for setting and cleaning up the runtime PM.  Particularly,
+> > now more explicitly pm_runtime_enable() and _disable() get called as
+> > well as pm_runtime_forbid() call at the remove callback, so that a
+> > use-after-free should be avoided.
+> > 
+> > Reported-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> 
+> ack, tested this and no warnings anymore.
+> 
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Tested-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Changes Since V1:
-    -- Fix typo errors.
+OK, I'll submit and merge the patch.
 
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/codecs/wcd-mbhc-v2.c | 75 +++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 71 insertions(+), 4 deletions(-)
+As the original problem was fixed by NULL checks, I'd push this for
+5.16, though.
 
-diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
-index 405128c..d6545e4 100644
---- a/sound/soc/codecs/wcd-mbhc-v2.c
-+++ b/sound/soc/codecs/wcd-mbhc-v2.c
-@@ -1022,6 +1022,56 @@ static int wcd_mbhc_get_plug_from_adc(struct wcd_mbhc *mbhc, int adc_result)
- 	return plug_type;
- }
- 
-+static int wcd_mbhc_get_spl_hs_thres(struct wcd_mbhc *mbhc)
-+{
-+	int hs_threshold, micbias_mv;
-+
-+	micbias_mv = wcd_mbhc_get_micbias(mbhc);
-+	if (mbhc->cfg->hs_thr && mbhc->cfg->micb_mv != WCD_MBHC_ADC_MICBIAS_MV) {
-+		if (mbhc->cfg->micb_mv == micbias_mv)
-+			hs_threshold = mbhc->cfg->hs_thr;
-+		else
-+			hs_threshold = (mbhc->cfg->hs_thr * micbias_mv) / mbhc->cfg->micb_mv;
-+	} else {
-+		hs_threshold = ((WCD_MBHC_ADC_HS_THRESHOLD_MV * micbias_mv) /
-+							WCD_MBHC_ADC_MICBIAS_MV);
-+	}
-+	return hs_threshold;
-+}
-+
-+static bool wcd_mbhc_check_for_spl_headset(struct wcd_mbhc *mbhc)
-+{
-+	bool is_spl_hs = false;
-+	int output_mv, hs_threshold, hph_threshold;
-+
-+	if (!mbhc->mbhc_cb->mbhc_micb_ctrl_thr_mic)
-+		return false;
-+
-+	/* Bump up MIC_BIAS2 to 2.7V */
-+	mbhc->mbhc_cb->mbhc_micb_ctrl_thr_mic(mbhc->component, MIC_BIAS_2, true);
-+	usleep_range(10000, 10100);
-+
-+	output_mv = wcd_measure_adc_once(mbhc, MUX_CTL_IN2P);
-+	hs_threshold = wcd_mbhc_get_spl_hs_thres(mbhc);
-+	hph_threshold = wcd_mbhc_adc_get_hph_thres(mbhc);
-+
-+	if (output_mv > hs_threshold || output_mv < hph_threshold) {
-+		if (mbhc->force_linein == true)
-+			is_spl_hs = false;
-+	} else {
-+		is_spl_hs = true;
-+	}
-+
-+	/* Back MIC_BIAS2 to 1.8v if the type is not special headset */
-+	if (!is_spl_hs) {
-+		mbhc->mbhc_cb->mbhc_micb_ctrl_thr_mic(mbhc->component, MIC_BIAS_2, false);
-+		/* Add 10ms delay for micbias to settle */
-+		usleep_range(10000, 10100);
-+	}
-+
-+	return is_spl_hs;
-+}
-+
- static void wcd_correct_swch_plug(struct work_struct *work)
- {
- 	struct wcd_mbhc *mbhc;
-@@ -1029,12 +1079,14 @@ static void wcd_correct_swch_plug(struct work_struct *work)
- 	enum wcd_mbhc_plug_type plug_type = MBHC_PLUG_TYPE_INVALID;
- 	unsigned long timeout;
- 	int pt_gnd_mic_swap_cnt = 0;
--	int output_mv, cross_conn, hs_threshold, try = 0;
-+	int output_mv, cross_conn, hs_threshold, try = 0, micbias_mv;
-+	bool is_spl_hs = false;
- 	bool is_pa_on;
- 
- 	mbhc = container_of(work, struct wcd_mbhc, correct_plug_swch);
- 	component = mbhc->component;
- 
-+	micbias_mv = wcd_mbhc_get_micbias(mbhc);
- 	hs_threshold = wcd_mbhc_adc_get_hs_thres(mbhc);
- 
- 	/* Mask ADC COMPLETE interrupt */
-@@ -1097,6 +1149,16 @@ static void wcd_correct_swch_plug(struct work_struct *work)
- 		plug_type = wcd_mbhc_get_plug_from_adc(mbhc, output_mv);
- 		is_pa_on = wcd_mbhc_read_field(mbhc, WCD_MBHC_HPH_PA_EN);
- 
-+		if ((output_mv > hs_threshold) && (!is_spl_hs)) {
-+			is_spl_hs = wcd_mbhc_check_for_spl_headset(mbhc);
-+			output_mv = wcd_measure_adc_once(mbhc, MUX_CTL_IN2P);
-+
-+			if (is_spl_hs) {
-+				hs_threshold = (hs_threshold * wcd_mbhc_get_micbias(mbhc)) /
-+									micbias_mv;
-+			}
-+		}
-+
- 		if ((output_mv <= hs_threshold) && !is_pa_on) {
- 			/* Check for cross connection*/
- 			cross_conn = wcd_check_cross_conn(mbhc);
-@@ -1122,14 +1184,19 @@ static void wcd_correct_swch_plug(struct work_struct *work)
- 			}
- 		}
- 
--		if (output_mv > hs_threshold) /* cable is extension cable */
-+		/* cable is extension cable */
-+		if (output_mv > hs_threshold || mbhc->force_linein == true)
- 			plug_type = MBHC_PLUG_TYPE_HIGH_HPH;
- 	}
- 
- 	wcd_mbhc_bcs_enable(mbhc, plug_type, true);
- 
--	if (plug_type == MBHC_PLUG_TYPE_HIGH_HPH)
--		wcd_mbhc_write_field(mbhc, WCD_MBHC_ELECT_ISRC_EN, 1);
-+	if (plug_type == MBHC_PLUG_TYPE_HIGH_HPH) {
-+		if (is_spl_hs)
-+			plug_type = MBHC_PLUG_TYPE_HEADSET;
-+		else
-+			wcd_mbhc_write_field(mbhc, WCD_MBHC_ELECT_ISRC_EN, 1);
-+	}
- 
- 	wcd_mbhc_write_field(mbhc, WCD_MBHC_ADC_MODE, 0);
- 	wcd_mbhc_write_field(mbhc, WCD_MBHC_ADC_EN, 0);
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
+thanks,
+
+Takashi

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E6EB4500BE
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 10:00:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04B734500BF
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 10:00:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7906E168F;
-	Mon, 15 Nov 2021 09:59:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7906E168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 765EC166A;
+	Mon, 15 Nov 2021 09:59:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 765EC166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636966803;
-	bh=0aNffjFyOwM4u0Oo7aAQAYOuioDBDQQgvS3dt9nDAoY=;
+	s=default; t=1636966827;
+	bh=dVdHkl1ZmLXmEp0TH/FEFVdiPBDZ+d25p7vGAAo1Op0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UIY0IFJm4HaQ5qwNRDJjM+ILbBclCWe2dYE0faG3yVeRpB6HQV6yq3WlBpQ0qZutT
-	 soh1AEQrDS42rJzwBEQl9CG2FEW84lrhJyjj0WSFHUdhRzPk5yv8sWmm1yZ2dm98SS
-	 xedE7krxFgNLQVkC7MtT4LFYh0gYHXP63EWMLDQc=
+	b=Ev5g7OA4HXvBjmXEBCmNgxblgNZXY+XgkzwNPDKIUOqrAysNYmKEQ/UdvsV8suk5K
+	 VOIKfFQfqJwQZ0AtCTewIuzjzL0nJzZjPHUZe8sOiOi4NHgeT0vbdLmYp5+vjvHmYk
+	 R0WSn9+/Anob1zsnZXW083JtKY6Dj42OMfjlaS0A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08423F804FD;
+	by alsa1.perex.cz (Postfix) with ESMTP id D38ACF80510;
 	Mon, 15 Nov 2021 09:57:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3774FF8027D; Mon, 15 Nov 2021 09:55:23 +0100 (CET)
+ id 34107F8028B; Mon, 15 Nov 2021 09:55:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,29 +34,29 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94274F80163
- for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 09:55:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94274F80163
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79C85F800FA
+ for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 09:55:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79C85F800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lAj0mIyH"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A02B96322E;
- Mon, 15 Nov 2021 08:55:06 +0000 (UTC)
+ header.b="mRK/MrLI"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 22ED66322D;
+ Mon, 15 Nov 2021 08:55:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636966512;
- bh=0aNffjFyOwM4u0Oo7aAQAYOuioDBDQQgvS3dt9nDAoY=;
+ s=k20201202; t=1636966519;
+ bh=dVdHkl1ZmLXmEp0TH/FEFVdiPBDZ+d25p7vGAAo1Op0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lAj0mIyHUENlkP6yrlZxkqYSD5hocgglcT83E2dvJW5vsfypS+bCmhcsFYUNOkxLb
- VGm36iEtIrx5MsVBXb22F/vG+l2XPNfSwWhLmNnpXY2YEg1WtV9h7uDQ4GwxtuNv9L
- drDvkpdeYSJiDY3sEkXjDYk0eXhjJUhkOOej7yEfUcc6kxARiOwLRZ91ApCbkZq51a
- 1DlM4aygC8K+7tMPsuyHuPXgtlhUMsrKFmzWe5QnTopYr5GRXxpXJp9kRg4sUJG2px
- 7btIXMzPZaupxro9KeNOsc8eN7Q4CrodjLRdG9uMjUnyKFs+UCAV79ctDov27Vvgoc
- 1WIStRJ1SW5ww==
+ b=mRK/MrLIW0u6LLOVooQ0gN1KOgXTYhYKylaX2S32I4HonnlCFZurjXmSS8SVAK8uT
+ oms9xEfRjWR6ZFbM4n5WvC4swJa/tAasyMhklsk5Ir56gwJUPrslsn7ElKpFldUp/E
+ NlCAON7rV+dPkbJZagetmzGzxn9jWITAvoJTC1bh7hJM72/9cXRXvCjnZS1ul8EL2p
+ VBOA3hBnrk0Eb28v5ySeU5CAXlmyQ/9KxPR888YYSAX5yJSbDRY/Q7gBtrNNVxZYXZ
+ 1ZwPE4au/UVHJxcKYNQikMHfKZ7UNLmAPuOP8AEjGq++T8L8DQUNKbV7hN6zPua+j8
+ yXgozqEEWHHIg==
 From: Arnd Bergmann <arnd@kernel.org>
 To: Vinod Koul <vkoul@kernel.org>
-Subject: [PATCH 04/11] dmaengine: shdma: remove legacy slave_id parsing
-Date: Mon, 15 Nov 2021 09:53:56 +0100
-Message-Id: <20211115085403.360194-5-arnd@kernel.org>
+Subject: [PATCH 05/11] dmaengine: pxa/mmp: stop referencing config->slave_id
+Date: Mon, 15 Nov 2021 09:53:57 +0100
+Message-Id: <20211115085403.360194-6-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20211115085403.360194-1-arnd@kernel.org>
 References: <20211115085403.360194-1-arnd@kernel.org>
@@ -99,37 +99,53 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-The slave device is picked through either devicetree or a filter
-function, and any remaining out-of-tree drivers would have warned
-about this usage since 2015.
+The last driver referencing the slave_id on Marvell PXA and MMP platforms
+was the SPI driver, but this stopped doing so a long time ago, so the
+TODO from the earlier patch can no be removed.
 
-Stop interpreting the field finally so it can be removed from
-the interface.
-
+Fixes: b729bf34535e ("spi/pxa2xx: Don't use slave_id of dma_slave_config")
+Fixes: 13b3006b8ebd ("dma: mmp_pdma: add filter function")
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/dma/sh/shdma-base.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/dma/mmp_pdma.c | 6 ------
+ drivers/dma/pxa_dma.c  | 7 -------
+ 2 files changed, 13 deletions(-)
 
-diff --git a/drivers/dma/sh/shdma-base.c b/drivers/dma/sh/shdma-base.c
-index 7f72b3f4cd1a..41c6bc650fa3 100644
---- a/drivers/dma/sh/shdma-base.c
-+++ b/drivers/dma/sh/shdma-base.c
-@@ -786,14 +786,6 @@ static int shdma_config(struct dma_chan *chan,
- 	if (!config)
- 		return -EINVAL;
+diff --git a/drivers/dma/mmp_pdma.c b/drivers/dma/mmp_pdma.c
+index a23563cd118b..5a53d7fcef01 100644
+--- a/drivers/dma/mmp_pdma.c
++++ b/drivers/dma/mmp_pdma.c
+@@ -727,12 +727,6 @@ static int mmp_pdma_config_write(struct dma_chan *dchan,
  
--	/*
--	 * overriding the slave_id through dma_slave_config is deprecated,
--	 * but possibly some out-of-tree drivers still do it.
+ 	chan->dir = direction;
+ 	chan->dev_addr = addr;
+-	/* FIXME: drivers should be ported over to use the filter
+-	 * function. Once that's done, the following two lines can
+-	 * be removed.
 -	 */
--	if (WARN_ON_ONCE(config->slave_id &&
--			 config->slave_id != schan->real_slave_id))
--		schan->real_slave_id = config->slave_id;
+-	if (cfg->slave_id)
+-		chan->drcmr = cfg->slave_id;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/dma/pxa_dma.c b/drivers/dma/pxa_dma.c
+index 52d04641e361..6078cc81892e 100644
+--- a/drivers/dma/pxa_dma.c
++++ b/drivers/dma/pxa_dma.c
+@@ -909,13 +909,6 @@ static void pxad_get_config(struct pxad_chan *chan,
+ 		*dcmd |= PXA_DCMD_BURST16;
+ 	else if (maxburst == 32)
+ 		*dcmd |= PXA_DCMD_BURST32;
 -
- 	/*
- 	 * We could lock this, but you shouldn't be configuring the
- 	 * channel, while using it...
+-	/* FIXME: drivers should be ported over to use the filter
+-	 * function. Once that's done, the following two lines can
+-	 * be removed.
+-	 */
+-	if (chan->cfg.slave_id)
+-		chan->drcmr = chan->cfg.slave_id;
+ }
+ 
+ static struct dma_async_tx_descriptor *
 -- 
 2.30.2
 

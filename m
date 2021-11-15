@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2544451AA8
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 00:38:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A19F5451AAF
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 00:39:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AF10168E;
-	Tue, 16 Nov 2021 00:37:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AF10168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C7921676;
+	Tue, 16 Nov 2021 00:38:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C7921676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637019509;
-	bh=f/RAxHWMo22E5/g2HCmdkZC4w/uvaz1Ts603+IKDTac=;
+	s=default; t=1637019544;
+	bh=dNbrA5B4b4+Ag9RO7dz3zsWBu6pH2mX1Z0iPeM2m728=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PnXYjNg3Tjt2L/3rAhqoPvUxNO5VJeU2jj+wmhZwNe/h9MDSC9Vpm1wbDG1BRJUKd
-	 UE2USwQZBYzXqJSTBD5tfj+ADfP0V7V2AY6eyfMCvEsGummIa03YXrreBbbFz63Um+
-	 NTyWwVM5/qWJlhggFCGSwo/nVRZEiCA1j4HUqjJM=
+	b=mbb92h2uH2+f8VRq+Ude36U7oXPsP7OCShWyyb2LSwOzF1GPsUlqkxs0f6AJURatV
+	 tXR6jRd/nVDxUBt74wDiAM4jD9//RymRa8/llP9ilFAhzUoLB3DbzWVTqiqztule0u
+	 NX5Ss0XUJY9X17Kn8hmpIlWrwknfq0nVdHtR7vcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F145BF80510;
-	Tue, 16 Nov 2021 00:35:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 636C0F80518;
+	Tue, 16 Nov 2021 00:35:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77D8AF804FC; Tue, 16 Nov 2021 00:35:17 +0100 (CET)
+ id 94E45F80506; Tue, 16 Nov 2021 00:35:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B52FF804BD
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 00:35:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B52FF804BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01A52F804EC
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 00:35:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01A52F804EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CrVOZeG+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E6A7A63255;
- Mon, 15 Nov 2021 23:35:09 +0000 (UTC)
+ header.b="uq1lwOsY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8055663259;
+ Mon, 15 Nov 2021 23:35:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637019311;
- bh=f/RAxHWMo22E5/g2HCmdkZC4w/uvaz1Ts603+IKDTac=;
+ s=k20201202; t=1637019313;
+ bh=dNbrA5B4b4+Ag9RO7dz3zsWBu6pH2mX1Z0iPeM2m728=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=CrVOZeG+YfIgfam6NwLGYshVRJFS14Pkm26czAJx+CXeMU/3u+H0b2dRcRzHnhOFz
- OWLY4BHgq8j57QnPxQZOv4PDgvs4qry2F2f+Fm5SLT8s0Py2ur8KP6N4sNZ4M5xjh1
- tkNPE1RQ3MZlC2dlkKSS6djy09I6sGO+73z8veZs36GX8+sPOyIpI6fIxIks6COdDu
- CcP2lg9/N48zkXw6JZuLo5VeNH3zqrZkeMF2Zqf/PJq55V4AYBIGKxebyUjYOuaadj
- h4TmLQuIPTz3EJ2RRZL5mPoz3AnWiy4PzozHDc1wnB6ho4tpE8mBobl3YQoBb9xb1l
- gVxycreKjUupA==
+ b=uq1lwOsYHobSBucnRjy5gceiucdb4P2mGgvCC+sUBHLHxUCsL3Z0pg4KxXhSGpgZQ
+ KRRtm0dCl6qV6aEGUeEoO0vv1/QGRvl/XPjDQTaRna9EOhQG7dUeRJ3bvdIrAzmEex
+ FfPZT8PV5sfBfGKsAS4zWojUucqzjzZ1AF3QlBe2dZuumBifV/DnpJLAnoqE+dyvpK
+ l1zLnbP3JS3cbHVAzvC4Xs0wQJEYOFN7IiSxj7oyMscuyOMWRiajb/35OsBjqoNxL3
+ 9BTt5R4XKGRfyZuCFXdzZAzrjHOGmpfEzc27M0++mTkdINwHOsUA7b66JRw23hYxXr
+ NH0Bm0+oVhcSg==
 From: Mark Brown <broonie@kernel.org>
-To: robh+dt@kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20211028140902.11786-1-rf@opensource.cirrus.com>
-References: <20211028140902.11786-1-rf@opensource.cirrus.com>
-Subject: Re: (subset) [PATCH 0/3] ASoC: cs42l42: Fix definition and handling
- of jack switch invert
-Message-Id: <163701930968.675370.11970784121248131390.b4-ty@kernel.org>
-Date: Mon, 15 Nov 2021 23:35:09 +0000
+To: alsa-devel@alsa-project.org, Mac Chiang <mac.chiang@intel.com>
+In-Reply-To: <20211109133808.8729-1-mac.chiang@intel.com>
+References: <20211109133808.8729-1-mac.chiang@intel.com>
+Subject: Re: [PATCH] [RESEND,v2] ASoC: Intel: add sof-nau8825 machine driver
+Message-Id: <163701931125.675370.7511732416848901928.b4-ty@kernel.org>
+Date: Mon, 15 Nov 2021 23:35:11 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+Cc: kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, CTLIN0@nuvoton.com, bard.liao@intel.com,
+ sathya.prakash.m.r@intel.com, vamshi.krishna.gopal@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,15 +79,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 28 Oct 2021 15:08:59 +0100, Richard Fitzgerald wrote:
-> Summary: The driver applied the opposite of the DT setting to the
-> wrong register bit.
+On Tue, 9 Nov 2021 08:38:08 -0500, Mac Chiang wrote:
+> The machine driver is a generic machine driver for SOF with nau8825
+> codec w or w/o speaker additionally. Depending on the SOC
+> HDMI, DMIC, Bluetooth offload support are added dynamically.
 > 
-> The jack plug detect hardware in cs42l42 is somewhat confusing,
-> compounded by an unclear description in the datasheet. This is most
-> likely the reason that the driver implemented a DT property for the
-> wrong register bit, that had the opposite effect of what was
-> described in the binding.
+> Only add information related to SOF since the machine driver was
+> only tested with SOF.
 > 
 > [...]
 
@@ -97,8 +95,8 @@ Applied to
 
 Thanks!
 
-[3/3] ASoC: dt-bindings: cs42l42: Convert binding to yaml
-      commit: 0f9710603e803ae9b64ed3b54019170b323968d7
+[1/1] ASoC: Intel: add sof-nau8825 machine driver
+      commit: 8d0872f6239f9d067d538d8368bdec643bb0d255
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D17C4503F9
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 13:03:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E52B44503FA
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 13:03:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05F611682;
-	Mon, 15 Nov 2021 13:02:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05F611682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 487231690;
+	Mon, 15 Nov 2021 13:03:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 487231690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636977811;
-	bh=/9Dx0YdlRwZPevk2dit622AFlYyit0YJUltesf19JIQ=;
+	s=default; t=1636977835;
+	bh=Qkx6d+ivTfYHRmVr6kJ0J1IMDjFiA24Jt86B3TyZxvQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ubNrOkAjC1rl27RayAmypF+0GsQrQJ6SCB+c/SJMGVZZgQ373dk/pdbAh+nyWxBQI
-	 fZSoQcu1V8nrEH2neOYCtZEuZOripXyaFxlq0zW7IbTvzpiXGsShF+MSGvHttwnwAT
-	 RZ15ZG/APdYZ11VXLYBDj1JINoyKXvJRNetOFl80=
+	b=KYibKwIevHtMuyhp5/FAUXKHWEqVQhc4uZXyyCnizYP1FaDddXrcxcug7pWZZEbkt
+	 2V1WGrMGVO5cobFZoDknYkVDkhzi/bk5HRHDu/sTj8HsuFD0MQxB1YgZxdv6+58sr5
+	 FWlTCsrwWxw0CeRmMdGU5QI6FFVEq3zC0lD4HR/c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65250F800FA;
-	Mon, 15 Nov 2021 13:02:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 423C3F804BD;
+	Mon, 15 Nov 2021 13:02:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA075F80134; Mon, 15 Nov 2021 13:02:11 +0100 (CET)
+ id A9BBDF8049C; Mon, 15 Nov 2021 13:02:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,55 +33,53 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D7E5F80134
- for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 13:02:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D7E5F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 951A4F8028B
+ for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 13:02:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 951A4F8028B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="f0uaYMWH"
+ header.b="Vh0nFoIu"
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AF7nAsf005825;
- Mon, 15 Nov 2021 06:02:02 -0600
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AFBu7I1030566;
+ Mon, 15 Nov 2021 06:02:22 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : mime-version : content-transfer-encoding :
  content-type; s=PODMain02222019;
- bh=hPnjS/k7NJ8FcJVokz4adou63iq8Ssngsj/Yr0ArBgM=;
- b=f0uaYMWH9YenfLrJU77fA+Sjah0x7rOPcrom+KYJJkz4QM1o0lwUuq3SfStRqSqv6Asq
- 3K4GTi+tnAAKtzq0UNQzYGG3+ErVZvVz1Rfcc8jpDo0NhG7vyiin80aMMNkuViOzIc2c
- UwH2UbEjWAlP8AAQtXEgZ5ytcPWewoX+L+X8obmaVr3cx7GNxgSVO3PYZD+9gpeHTk7Q
- 8UF8jr4m3YsupRUTinY4TKTzknX4AMPjBs47Zs4BdjzCQVdBj3Z0NJQrX0FtlAbpb7Kb
- 3OFJ8WWI0cM0TjrotQUj5a/M1K/iHrr4bvbvmd2kfD7Fv6yrE5gUZO8Ap43+TR4YPwoN LA== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3cbdjgrfce-1
+ bh=ZsfDJPs3AQkoppYF0vvBIPQ+auuj++HTA/sVw3iUTIQ=;
+ b=Vh0nFoIurj+w7BD/f8pp83NbVxj26FmlU8vUj0ZMyznh5W3b5A4k8Q9oUuT+qrVS080m
+ 1u1nOb4xhESAWXTjMjKoLQe247QsaZ3dLWRoaixlKD5jdk4UMlc7lmNNPkd8Q270UO2e
+ y2T2YGhDZkrcVOdFpHGbae+Z2V0HtLdnAz+KRra+k+W36PpJ6bLJPgPsWXp6RR3CFdb3
+ FVPNRp55yh9VH1mbpuBG+xsKRJmg3DuYa67bGgHbNbwt+dVvdJfo5MR+IcNu5XpY/ry0
+ 3DJHUwS5mEPzhsDUxqq0mMq8+PxVOcUMHJO87g+KoctrlrkeR4gLpbIQur6AW34HZigD rQ== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3cbdjgrfcx-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 15 Nov 2021 06:02:02 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ Mon, 15 Nov 2021 06:02:22 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 15 Nov
- 2021 12:02:00 +0000
+ 2021 12:02:20 +0000
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
- Frontend Transport; Mon, 15 Nov 2021 12:02:00 +0000
+ Frontend Transport; Mon, 15 Nov 2021 12:02:20 +0000
 Received: from simont-vb.lan?044ad.cirrus.com (unknown [198.90.238.231])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D27F2B2F;
- Mon, 15 Nov 2021 12:01:59 +0000 (UTC)
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 82F86B2F;
+ Mon, 15 Nov 2021 12:02:20 +0000 (UTC)
 From: Simon Trimmer <simont@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: wm_adsp: wm_adsp_control_add() error: uninitialized
- symbol 'ret'
-Date: Mon, 15 Nov 2021 12:01:54 +0000
-Message-ID: <20211115120154.56782-1-simont@opensource.cirrus.com>
+Subject: [PATCH] firmware: cs_dsp: tidy includes in cs_dsp.c and cs_dsp.h
+Date: Mon, 15 Nov 2021 12:02:15 +0000
+Message-ID: <20211115120215.56824-1-simont@opensource.cirrus.com>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: kXTFqMASEdeS1C8X3bMwYzykUhe7o171
-X-Proofpoint-GUID: kXTFqMASEdeS1C8X3bMwYzykUhe7o171
+X-Proofpoint-ORIG-GUID: s5wn5ZZwwKNuipaX-mCAvYa6ih8nO0NH
+X-Proofpoint-GUID: s5wn5ZZwwKNuipaX-mCAvYa6ih8nO0NH
 X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- patches@opensource.cirrus.com, Simon Trimmer <simont@opensource.cirrus.com>,
- linux-kernel@vger.kernel.org, Dan Carpenter <dan.carpenter@oracle.com>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Simon Trimmer <simont@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,33 +95,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fixes the static analysis warning as it is correctly
-indicating a possible code path, it cannot know that for the affected
-firmware versions subname would always be NULL.
+This patch removes unused included header files and moves others into
+cs_dsp.h to ensure that types referenced in the header file are properly
+described to prevent compiler warnings.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
 Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
 ---
- sound/soc/codecs/wm_adsp.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/firmware/cirrus/cs_dsp.c       | 6 ------
+ include/linux/firmware/cirrus/cs_dsp.h | 5 +++++
+ 2 files changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index d4f0d72cbcc8..6cb01a8e08fb 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -617,8 +617,9 @@ static int wm_adsp_control_add(struct cs_dsp_coeff_ctl *cs_ctl)
- 	switch (cs_dsp->fw_ver) {
- 	case 0:
- 	case 1:
--		snprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s %s %x",
--			 cs_dsp->name, region_name, cs_ctl->alg_region.alg);
-+		ret = scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
-+				"%s %s %x", cs_dsp->name, region_name,
-+				cs_ctl->alg_region.alg);
- 		break;
- 	case 2:
- 		ret = scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
+diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
+index 948dd8382686..1a0c6c793f6a 100644
+--- a/drivers/firmware/cirrus/cs_dsp.c
++++ b/drivers/firmware/cirrus/cs_dsp.c
+@@ -12,16 +12,10 @@
+ #include <linux/ctype.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+-#include <linux/device.h>
+-#include <linux/firmware.h>
+-#include <linux/interrupt.h>
+-#include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+-#include <linux/regmap.h>
+ #include <linux/slab.h>
+ #include <linux/vmalloc.h>
+-#include <linux/workqueue.h>
+ 
+ #include <linux/firmware/cirrus/cs_dsp.h>
+ #include <linux/firmware/cirrus/wmfw.h>
+diff --git a/include/linux/firmware/cirrus/cs_dsp.h b/include/linux/firmware/cirrus/cs_dsp.h
+index 9ad9eaaaa552..3a54b1afc48f 100644
+--- a/include/linux/firmware/cirrus/cs_dsp.h
++++ b/include/linux/firmware/cirrus/cs_dsp.h
+@@ -11,6 +11,11 @@
+ #ifndef __CS_DSP_H
+ #define __CS_DSP_H
+ 
++#include <linux/device.h>
++#include <linux/firmware.h>
++#include <linux/list.h>
++#include <linux/regmap.h>
++
+ #define CS_ADSP2_REGION_0 BIT(0)
+ #define CS_ADSP2_REGION_1 BIT(1)
+ #define CS_ADSP2_REGION_2 BIT(2)
 -- 
 2.33.0
 

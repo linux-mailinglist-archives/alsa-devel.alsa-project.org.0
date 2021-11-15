@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A937B451A84
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 00:36:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A60D7451A94
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 00:37:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC93F1696;
-	Tue, 16 Nov 2021 00:35:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC93F1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDA5A16B6;
+	Tue, 16 Nov 2021 00:36:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDA5A16B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637019408;
-	bh=1OzdwxSFvxwVS6C/YLdAtuX4T43pG75TF2Jjh5ogIq0=;
+	s=default; t=1637019460;
+	bh=xw6CZxpP/GbyDNELCAndD/UsFGm9K4T5/E9P95cg9JQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hH6zuGuAyyJIO9eKsgMOz7i3Ete4EqyntNy8mJozkg1f4ta9Fm+yAuu5gcihNzdqd
-	 ScSYJLLkvtcAd7wycq1OLlBFxc1yGRu05m1en4Jy4MuPInXZU5Vkg1RMd0fS7I+PsN
-	 /92tryzT0PqGMG0UVX5whRU8XkwLOya60s9c8+rs=
+	b=pheopyV52mJoO0YvFmbcv1EAMj39niCdThyStzTX2V6Qn0dknO62uch8EQyrDpIAq
+	 UD4M7mO2g/zZDveGDs2m+i9hXIa6VdDnVeMGb6/TNGpigIbeQVigfZT9uIRKuTuYNw
+	 LqbXHW12LpZBgilVQxfOOjBJn28j5QtEwNMYpJsM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7393CF8049C;
-	Tue, 16 Nov 2021 00:35:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F477F804FB;
+	Tue, 16 Nov 2021 00:35:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1E44F802A0; Tue, 16 Nov 2021 00:35:07 +0100 (CET)
+ id 6043EF804E7; Tue, 16 Nov 2021 00:35:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 839BBF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DD7FF804BD
  for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 00:35:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 839BBF80134
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DD7FF804BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TfQIsHWD"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D914C63256;
- Mon, 15 Nov 2021 23:34:57 +0000 (UTC)
+ header.b="SQXhwZ9p"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1C7F861B49;
+ Mon, 15 Nov 2021 23:34:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637019298;
- bh=1OzdwxSFvxwVS6C/YLdAtuX4T43pG75TF2Jjh5ogIq0=;
+ s=k20201202; t=1637019300;
+ bh=xw6CZxpP/GbyDNELCAndD/UsFGm9K4T5/E9P95cg9JQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=TfQIsHWD+nxwDZ9mF0DKolJzWPO3OkxEILSAyAUun6rmVx2yRLp07vE/NrKuGpF36
- FkMlqg5Ww1PdjFbDkYkequ4PYf8F6e0tKUz/h/9FNYS3LdIhhbPb4zECluItFtkurC
- MvcyskrbyZ7RRPlcKPxQxhKAcB9TOhGA3UenNin2eWGuKvDNPetCz3KSrJuLfBy/pl
- GPbg2RCWWxU2QQEnqvlfSc27GpMNil1jAuzS00Xlt5KBaSVloTt6JP5z8vzQ1VvsiF
- IPJHaUUB+d4QkhuTNwHg3iThGllFX53EyQ6opvzMVs2V2H1hgovmNDuO2CCSimlPcI
- rc/IH8tHP3vZw==
+ b=SQXhwZ9pWJRuEeNnIl4vY+Wrippeyb9D+n5A/iozZvgSUEs7XuFzY9che9kNN8TBN
+ TlBCYCK5wM5CXK1tKprQ1JNXk0ESdihcPGJ3IEXelwHhH1tvTliFqMEDdJe3wNVmoN
+ 3FPe4rnj0VtLOrB2fH4nNPN9yj0u1t0mxKyCEBwLIhjrJvdoDvOSPQpGFfBC93I1eS
+ nsfAk+LvU9KJfPCsIfD/yZxXXlD6W+PN2pjAVHthJPj2c0HwmH1wdpnzZc3CoVgYcI
+ T/m9CxUar8ZaWgqLWDQH+qV+IxSY9vM0nfbLr/3hoyxPFMpvbgNd73y7hj3OkA5NU9
+ hK8jx1v09hE+g==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20211101101006.13092-1-rf@opensource.cirrus.com>
-References: <20211101101006.13092-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH v2] ASoC: cs42l42: Add control for audio slow-start switch
-Message-Id: <163701929762.675370.12528564443192014904.b4-ty@kernel.org>
-Date: Mon, 15 Nov 2021 23:34:57 +0000
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20211102094756.9317-1-peter.ujfalusi@linux.intel.com>
+References: <20211102094756.9317-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: core: Unregister machine driver before IPC and
+ debugfs
+Message-Id: <163701929885.675370.12389807799805041465.b4-ty@kernel.org>
+Date: Mon, 15 Nov 2021 23:34:58 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,12 +79,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 1 Nov 2021 10:10:06 +0000, Richard Fitzgerald wrote:
-> This adds an ALSA control so that the slow-start audio ramp feature
-> can be disabled. This is useful for high-definition audio applications.
+On Tue, 2 Nov 2021 11:47:56 +0200, Peter Ujfalusi wrote:
+> To ensure clean unload of the machine driver, components and topology, do
+> the unregister before we free IPC and debugfs.
 > 
-> The register field is unusual in that it is a 3-bit field with only
-> two valid values, 000=off and 111=on.
+> It is a possibility that part of the unregister we would have IPC
+> communication with the firmware.
 > 
 > 
 > [...]
@@ -94,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs42l42: Add control for audio slow-start switch
-      commit: 7ec4a058c16f3da9c2c0c66506f45c083198ed30
+[1/1] ASoC: SOF: core: Unregister machine driver before IPC and debugfs
+      commit: 5b59289bfdbe287d0756e5ccadf039329147de67
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

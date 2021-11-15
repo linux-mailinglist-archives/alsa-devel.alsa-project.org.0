@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A2A7451A8D
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 00:37:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07B4D451AA0
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 00:38:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6F0F1699;
-	Tue, 16 Nov 2021 00:36:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6F0F1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7292D16BA;
+	Tue, 16 Nov 2021 00:37:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7292D16BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637019427;
-	bh=pPWGsdSRc3ah+Za5nl35yZ+jRecYwDbqdAFCvmivTqQ=;
+	s=default; t=1637019485;
+	bh=phk22W087gGn63frwTpAzHA3cZd3qLIpMBGvdYs0Xec=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UD0FdVpKOYDKNqbXcqSvQqn4COy7uqozd+WgL9zeBwP7BdJs8pSPjzaB9451v5Te0
-	 OtA6SugPWkPRiUs3sNtPnQzUEPACdt1oiyREpEL5BRdzf8TgyRaH977l879sN1b2/S
-	 qEhZxaRRrNHGCzCrpVe2C8T/xoX44kvxr+vAOOHY=
+	b=Ls58WQDNxclab4UIPeJjzmmwDyHTI4TnDZdzxeS10T7IJmMw/SYAELRpVWb0gAA6z
+	 CyyLNcuXREXEkbQHw9/hcvBOhMJWhxtgSqQmPXQeCWewUu+dciS/iX9vzJg2c98TRI
+	 wbq83OvA4bIx/fa+sJZBl7DcmP+5wqUFzAEpxE2Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AB57F804E7;
-	Tue, 16 Nov 2021 00:35:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B39EF80506;
+	Tue, 16 Nov 2021 00:35:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E088F8049C; Tue, 16 Nov 2021 00:35:09 +0100 (CET)
+ id D58ABF804CF; Tue, 16 Nov 2021 00:35:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA8E9F8049C
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 00:35:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA8E9F8049C
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2608F80134
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 00:35:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2608F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YLfrj8o2"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3AA5C63257;
- Mon, 15 Nov 2021 23:35:02 +0000 (UTC)
+ header.b="RhO4m2JE"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C9E3F6325A;
+ Mon, 15 Nov 2021 23:35:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637019305;
- bh=pPWGsdSRc3ah+Za5nl35yZ+jRecYwDbqdAFCvmivTqQ=;
+ s=k20201202; t=1637019307;
+ bh=phk22W087gGn63frwTpAzHA3cZd3qLIpMBGvdYs0Xec=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=YLfrj8o20Wo/XsGDGyxXCbPKBjuMweX+vvptZPnj8vt7RC9yL9b6x/Wbsf5Bsh0Uz
- 1J0WKO2v9qBsglUnc9qzoaATUhWOJclaFGE8EfGFdFHaqXeMwzOcDAkS7VHEsVqEP/
- T0X2+1TWd00UQM5tzzwr/ov/HRnMtmCHTNpE+k73jc6x5kKnAnCDCc46SjbvcLvNxa
- JQHxTyrrJJTXZD9sMpfMsMMV6uqYUKxgCeC/+QuJfdXZ7RW/o526saQA80/xORbHcS
- NjTPiWdewyfaAJw+wTxVb0soDVZFXmpvlDg+Fqa2yP6InumhzndQz9zrFSY9EsbT5u
- rAyTkKLQIP7Ag==
+ b=RhO4m2JEy6bXBHq5uUN+RwQr5vrJhwnjrRDXpp5yE2Q95vvP7n//PUXdiLZk/D8ho
+ z58WraBiVj55cuW9nYycADs6GRvtTGOxiGYzCL0DLYU5RqqVU+PlIGlostQ5h1uMD9
+ zAilJNmVzw/ZT8DIKE0CLQC1zflbB5dabJEM0RDbrRYbz6p4VFotOvNcggyYiLM+br
+ VIPrJ11Tizw+OkLsKmdDwmmv+LliwLWNF2aZZmSoTNtUZdScQQ8B82AxQmHhkobsKI
+ PgmtqvgLakhMWJyiywfnjJkkLJlO6115no0Y+4ZTzes4lnATDmlRIoW3AUDTegWpj3
+ /yfEu9C3u1dfA==
 From: Mark Brown <broonie@kernel.org>
-To: swboyd@chromium.org, devicetree@vger.kernel.org, bjorn.andersson@linaro.org,
- linux-arm-msm@vger.kernel.org, perex@perex.cz, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, plai@codeaurora.org, robh+dt@kernel.org,
- rohitkr@codeaurora.org, judyhsiao@chromium.org, linux-kernel@vger.kernel.org,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, tiwai@suse.com,
- bgoswami@codeaurora.org, agross@kernel.org, srinivas.kandagatla@linaro.org
-In-Reply-To: <1635938324-17763-1-git-send-email-srivasam@codeaurora.org>
-References: <1635938324-17763-1-git-send-email-srivasam@codeaurora.org>
-Subject: Re: [PATCH] ASoC: codecs: MBHC: Add support for special headset
-Message-Id: <163701930197.675370.7604536221667945815.b4-ty@kernel.org>
-Date: Mon, 15 Nov 2021 23:35:01 +0000
+To: yang.lee@linux.alibaba.com, perex@perex.cz, lgirdwood@gmail.com,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org
+In-Reply-To: <57a89cc31eb2312addd3c77896d7df8206aef138.1635967035.git.christophe.jaillet@wanadoo.fr>
+References: <57a89cc31eb2312addd3c77896d7df8206aef138.1635967035.git.christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ASoC: codecs: Axe some dead code in
+ 'wcd_mbhc_adc_hs_rem_irq()'
+Message-Id: <163701930557.675370.6905108518323377395.b4-ty@kernel.org>
+Date: Mon, 15 Nov 2021 23:35:05 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,9 +81,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 3 Nov 2021 16:48:44 +0530, Srinivasa Rao Mandadapu wrote:
-> Update MBHC driver to support special headset such as apple
-> and huwawei headsets.
+On Wed, 3 Nov 2021 20:19:27 +0100, Christophe JAILLET wrote:
+> 'hphpa_on' is know to be false, so this is just dead code that should be
+> removed.
 > 
 > 
 
@@ -94,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: MBHC: Add support for special headset
-      commit: 3c8a3ad4019126f06016ab0128dde11817502f52
+[1/1] ASoC: codecs: Axe some dead code in 'wcd_mbhc_adc_hs_rem_irq()'
+      commit: 95cead06866a95baf0f8355bba81a8142d5908cf
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

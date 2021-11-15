@@ -2,87 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 401084504A6
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 13:44:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C1A0450569
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Nov 2021 14:28:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2D0616AF;
-	Mon, 15 Nov 2021 13:43:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2D0616AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 168D216CF;
+	Mon, 15 Nov 2021 14:27:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 168D216CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1636980273;
-	bh=xBU9M5zvSzPvUWKsbscg+uN4oQE7vFN7ga2bHvEGUUs=;
+	s=default; t=1636982900;
+	bh=VrvhXi38LVeGVj4zz/uSdMshhS6qkdQYs58zKEN+yCc=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=su3q+Yrhjv4VE3Dp8Hg+KZ81q1tgO6sVcThcTeQQsy5zN6z1pqb+wenWuOVnULl6m
-	 BFtqtE1SmKzKUCOnDjlZmbm8UwgP6ELEj+MFaudAH2MZmUve0wUkcAumtUDYI7D4kT
-	 esxvokKhKjIFKFRqZVXeKrB/ErsOov98ZJuuhmW4=
+	b=Qkg6WNJ35vp4A2fYasVkCaxgEqfVRpellEdhko26Oldk3I9KFyqILQjJUhdwnVLZP
+	 88IDilVVnBd2Z/hYcswV0IUZ4oHi9zILdri/e+W+scDZGE8HQ0KoEJuIRf6IJasdMZ
+	 iY6wlmn6OFnh2ofPAy8KKavcpyu0Se2WcOA1nzzI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 868AFF80134;
-	Mon, 15 Nov 2021 13:43:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C95B6F8049C;
+	Mon, 15 Nov 2021 14:26:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D78EF802A0; Mon, 15 Nov 2021 13:43:05 +0100 (CET)
+ id 4996FF8027D; Mon, 15 Nov 2021 14:26:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0142AF80134
- for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 13:42:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0142AF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB3B7F80134
+ for <alsa-devel@alsa-project.org>; Mon, 15 Nov 2021 14:26:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB3B7F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="hUq6LzPo"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AFBu7JO030566;
- Mon, 15 Nov 2021 06:42:54 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=TbN+T5UbW/pTZkZG+D5XfPYWd0dn7t2lMCwb7Cp5rjk=;
- b=hUq6LzPoRIb7mIw5aTUt6/FzmVTc6U1ltCNPAdXwz1D/TQz9QytVAfADDHtgCirwHmAW
- qTFBGWazzZbQSXNYDXvKFXxzZ/fMuLXEzdL3gquzvEidoW+A2MjD029Za78f9OsNxTih
- ErscuKc8st63gdnFxHKPZVLUHF8j9+O4L5/YTr6lS7c+eOFhqlA2sgN0bEUeV+Ae7LsT
- 3SSREYkNV/htiMLu+air3tOpBjXqT3pthve0wOEn4S0tDJcjKeQ4cfIJUiJvz9lo7sNc
- XNL87Iw1go2D+rkLq2J4nGLHKzii4S3dpqdoQg5MsZvnofd6WInSa8gX+QfxF3On4DpN Lw== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3cbdjgrgk6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 15 Nov 2021 06:42:54 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 15 Nov
- 2021 12:42:53 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
- Frontend Transport; Mon, 15 Nov 2021 12:42:53 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E7F7811DC;
- Mon, 15 Nov 2021 12:42:52 +0000 (UTC)
-Date: Mon, 15 Nov 2021 12:42:52 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Simon Trimmer <simont@opensource.cirrus.com>
-Subject: Re: [PATCH] firmware: cs_dsp: tidy includes in cs_dsp.c and cs_dsp.h
-Message-ID: <20211115124252.GB18506@ediswmail.ad.cirrus.com>
-References: <20211115120215.56824-1-simont@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Hxo8bgln"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B546861BB6;
+ Mon, 15 Nov 2021 13:26:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1636982788;
+ bh=VrvhXi38LVeGVj4zz/uSdMshhS6qkdQYs58zKEN+yCc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Hxo8bglnoiF02Ty2ZhPOlGBOV6Dh7ewtclRFrF6dmhdID076Q+dJnQLCSRKP+LIUf
+ 3lY6udJgn5nWkBP//3VuWjRkZIIC6TSSGNdbtWYVK3OlXoToTKZ4WM1P1nlnglMk7O
+ 2CJQz68SRGboLi2/X/trX0rYH8wa6mbN82tfmP4Go9hDigkkfcVGM+P/9/EperH8fR
+ tlZGsPzcnfZeB6Ht7eyuR7pp7e2Wnjp+fkLJGvAmKs83pUzG31S4zE4ydztBuza40Q
+ BO8EwZrOhPtQo3q39miOkGgsxt7FQaCfpt+QoZtOTLb93iCIY7X/fBY/ItohYEjxVV
+ rgKlUC5V2z/2Q==
+Date: Mon, 15 Nov 2021 13:26:22 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH 1/6] ASoC: SOF: mediatek: Add mt8195 hardware support
+Message-ID: <YZJf/viWnHhaHOnM@sirena.org.uk>
+References: <20211101080026.297360-1-daniel.baluta@oss.nxp.com>
+ <20211101080026.297360-2-daniel.baluta@oss.nxp.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="OowjvesRb/Z2qiBw"
 Content-Disposition: inline
-In-Reply-To: <20211115120215.56824-1-simont@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: hmLB5-5mIBc3XMAvWS7Suut0HITb8a46
-X-Proofpoint-GUID: hmLB5-5mIBc3XMAvWS7Suut0HITb8a46
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- broonie@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20211101080026.297360-2-daniel.baluta@oss.nxp.com>
+X-Cookie: Another megabytes the dust.
+Cc: guennadi.liakhovetski@linux.intel.com, daniel.baluta@gmail.com,
+ kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
+ Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
+ ranjani.sridharan@linux.intel.com, linux-mediatek@lists.infradead.org,
+ YC Hung <yc.hung@mediatek.com>, pierre-louis.bossart@linux.intel.com,
+ peter.ujfalusi@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,15 +86,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Nov 15, 2021 at 12:02:15PM +0000, Simon Trimmer wrote:
-> This patch removes unused included header files and moves others into
-> cs_dsp.h to ensure that types referenced in the header file are properly
-> described to prevent compiler warnings.
-> 
-> Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
-> ---
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+--OowjvesRb/Z2qiBw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
-Charles
+On Mon, Nov 01, 2021 at 10:00:21AM +0200, Daniel Baluta wrote:
+> From: YC Hung <yc.hung@mediatek.com>
+>=20
+> This patch initialize to support SOF on Mediatek mt8195 platform.
+> MT8195 has four Cortex A78 cores paired with four Cortex A55 cores.
+> It also has Cadence HiFi-4 DSP single core. There are shared DRAM and
+> mailbox interrupt between AP and DSP to use for IPC communication.
+
+This doesn't apply against current code, please check and resend.
+
+--OowjvesRb/Z2qiBw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGSX/4ACgkQJNaLcl1U
+h9B/6Qf6AvsZ3R/I80XSt7mkb657/qrTS2Gg9zvLgVOrFxn50Z31Q0pbXVl1aAwO
+uy71zZMN+mpd+UqASY8kZD1qA6wMKURIa4QF+FpcJdx5hxpogzN1EgNEm3zMs/6l
+MK3cDUPCtdYcEs3EdFzlU43PWv6sG7c93xcoEsItlFUSuz8VsOVQ9ggNNj/oeCER
+CJl+hRtteEzY60/X0vNjZ7iK5cMgNUOMqaig9B8c4R8mipRHX2SBuPobRlOoHftB
+Qm7rlIKZougF1KZxKRxqudco5B86Vz2/fuoFv826JDWwLCZexTLBtMRW9GHRLx0/
+O3hrm2FksF22m+2Um6IogCcJfGI7UA==
+=KQpy
+-----END PGP SIGNATURE-----
+
+--OowjvesRb/Z2qiBw--

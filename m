@@ -2,93 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25A28453993
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 19:45:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BD32453B2D
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 21:45:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD3F81883;
-	Tue, 16 Nov 2021 19:44:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD3F81883
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A31D188A;
+	Tue, 16 Nov 2021 21:44:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A31D188A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637088346;
-	bh=6dPUnHtL1TJnn/deUYCkiI/DRo7XgXt5QjI6FbdwmfU=;
-	h=From:To:References:In-Reply-To:Subject:Date:Cc:List-Id:
+	s=default; t=1637095514;
+	bh=6cRJpSX5Ff/VJA6lvSF8bt8uzvrweKJfjDcv9ETPiAg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L+zpBgXwVMk7Eyq1gQwgIOq0Fwi+MDynPpy7yxqtRV+kvXVH93FfHxy5hIRzpQeNV
-	 QTkkooEO06paYK6BE57u2M+1T8b7B4nAvvgvFW4qFQQFYNiwQkt1KY/04v64Vhuk4Y
-	 xy1YcjO1ntPN0890CrwB/qSXr5rmKk6uJ6XOOfSg=
+	b=ZsVuPyNHO2aicu+Xh1kC/OnTFzUFuUFsIDhxLzUukv+YLfH7/98ggaVPNTZl9UGSc
+	 MDLxXn6b1B4f92jGyZaFsKAto1h/1j5lsIKrmllkvLPoT6trcR6z5aN8pzcVuVYter
+	 bIsguW7x7x/oG2lvrdDgtbOPyrTm9Kmwxtoo/LO8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14A54F802C4;
-	Tue, 16 Nov 2021 19:44:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7005DF800FA;
+	Tue, 16 Nov 2021 21:43:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18BEEF80272; Tue, 16 Nov 2021 19:44:21 +0100 (CET)
+ id 2FFE9F80272; Tue, 16 Nov 2021 21:43:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0EBEF80134
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 19:44:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0EBEF80134
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="c3tlMxDN"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AGHB7XE002574;
- Tue, 16 Nov 2021 12:44:09 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- references : in-reply-to : subject : date : message-id : mime-version :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=hWu24fXT72BFCIemN1wBMW9x6jBYYlrawthJ6fCWl4w=;
- b=c3tlMxDNjannzT+OjW9UOR2j6iyGrs49OHQOhAwfCAdc367fCeao00UiqtKvSb69C2Zr
- fmlvQC9KCqB1SHnLQ2lkeuLE1YPCIs3rT/a3QxrVoidqSbxaurrP3/FjiiPg/a8Ra9CY
- VS1xKR5rEILasy77aXybMtxoILMMxdPYf5MjccJW+F6wsRkF4UN4OfKMQwWqMOvlttUn
- XreNrJQ3ofkRc4p4jnsDJ9EHtzjd2HJxWZdJ8xAgc604NecsIs8ugFrDFFoUA0ye1NoI
- X+BCwUQ9IQn1RIk0xbdrabbKTKtgCvBf+rvZ7Fbnz0Tna+vamjhWl/bnGy6KD03uLetS sw== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ccgtn03w7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 16 Nov 2021 12:44:08 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 16 Nov
- 2021 18:44:07 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
- Frontend Transport; Tue, 16 Nov 2021 18:44:07 +0000
-Received: from LONN13613Z2 (unknown [198.90.238.231])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A85C811DC;
- Tue, 16 Nov 2021 18:44:06 +0000 (UTC)
-From: Simon Trimmer <simont@opensource.cirrus.com>
-To: 'Mark Brown' <broonie@kernel.org>, 'Charles Keepax'
- <ckeepax@opensource.cirrus.com>
-References: <20211116161609.12223-1-ckeepax@opensource.cirrus.com>
- <20211116161609.12223-3-ckeepax@opensource.cirrus.com>
- <YZPzgvB2+oXaCupw@sirena.org.uk>
-In-Reply-To: <YZPzgvB2+oXaCupw@sirena.org.uk>
-Subject: RE: [PATCH 03/10] firmware: cs_dsp: Add version checks on coefficient
- loading
-Date: Tue, 16 Nov 2021 18:44:06 +0000
-Message-ID: <001901d7db19$efbc2830$cf347890$@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D29F7F80134
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 21:43:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D29F7F80134
+X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="231288246"
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="231288246"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2021 12:43:34 -0800
+X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="536055468"
+Received: from amritamu-mobl1.amr.corp.intel.com (HELO [10.209.162.237])
+ ([10.209.162.237])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2021 12:43:33 -0800
+Subject: Re: [PATCH 1/5] ASoC: soc-dai: update snd_soc_dai_delay() to
+ snd_soc_pcm_dai_delay()
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <877dd8y26l.wl-kuninori.morimoto.gx@renesas.com>
+ <875yssy25z.wl-kuninori.morimoto.gx@renesas.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <2cc78158-e288-e949-594f-0ab939a35942@linux.intel.com>
+Date: Tue, 16 Nov 2021 14:43:30 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+In-Reply-To: <875yssy25z.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQHLPByKRi77+1E8qPglckbSLl3OCQOO0onSAePGKSSr9CYI0A==
-Content-Language: en-us
-X-Proofpoint-GUID: WWb2ZJ8tJ1dxq0AB8zZZ5tNDTuVQS3KI
-X-Proofpoint-ORIG-GUID: WWb2ZJ8tJ1dxq0AB8zZZ5tNDTuVQS3KI
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
+ Hans de Goede <hdegoede@redhat.com>, Gu Shengxian <gushengxian@yulong.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,32 +81,173 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> -----Original Message-----
-> From: Mark Brown <broonie@kernel.org>
-> Sent: Tuesday, November 16, 2021 6:08 PM
-> To: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Cc: lgirdwood@gmail.com; patches@opensource.cirrus.com; alsa-devel@alsa-
-> project.org
-> Subject: Re: [PATCH 03/10] firmware: cs_dsp: Add version checks on
-coefficient
-> loading
-> 
-> On Tue, Nov 16, 2021 at 04:16:02PM +0000, Charles Keepax wrote:
-> > The firmware coefficient files contain version information that is
-> > currently ignored by the cs_dsp code. This information specifies which
-> > version of the firmware the coefficient were generated for. Add a check
-> > into the code which prints a warning in the case the coefficient and
-> > firmware differ in version, in many cases this will be ok but it is not
-> > always, so best to let the user know there is a potential issue.
-> >
-> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> > Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
-> > ---
-> 
-> This has Simon's signoff after yours but no other indication of his
-> involvement?
 
-I have been working with Charles on most of these patches over the last few
-months and I'd fixed some internal review comments on this one before we
-shared it. If it helps I can certainly ack the chain?
 
+On 11/16/21 1:45 AM, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> Current soc_pcm_pointer() is manually calculating
+> both CPU-DAI's   max delay (= A)
+> and  Codec-DAI's max delay (= B).
+> 
+> 	static snd_pcm_uframes_t soc_pcm_pointer(...)
+> 	{
+> 		...
+>  ^		for_each_rtd_cpu_dais(rtd, i, cpu_dai)
+> (A)			cpu_delay = max(cpu_delay, ...);
+>  v		delay += cpu_delay;
+> 
+>  ^		for_each_rtd_codec_dais(rtd, i, codec_dai)
+> (B)			codec_delay = max(codec_delay, ...);
+>  v		delay += codec_delay;
+> 
+> 		runtime->delay = delay;
+> 		...
+> 	}
+> 
+> Current soc_pcm_pointer() and the total delay calculating
+> is not readable / difficult to understand.
+> 
+> This patch update snd_soc_dai_delay() to snd_soc_pcm_dai_delay(),
+> and calcule both CPU/Codec delay in one function.
+
+When the hw_ptr is updated, the avail/delay value are also modified.
+
+see the diagram in
+https://www.kernel.org/doc/html/latest/sound/designs/timestamping.html?highlight=pcm%20timestamping
+
+I would think it's more accurate to update the delay information while
+dealing with the hw_ptr update, no?
+
+> 
+> Link: https://lore.kernel.org/r/87fszl4yrq.wl-kuninori.morimoto.gx@renesas.com
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  include/sound/soc-dai.h |  4 ++--
+>  sound/soc/soc-dai.c     | 40 ++++++++++++++++++++++++++++------------
+>  sound/soc/soc-pcm.c     | 18 ++----------------
+>  3 files changed, 32 insertions(+), 30 deletions(-)
+> 
+> diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+> index 0dcb361a98bb..5d4dd7c5450b 100644
+> --- a/include/sound/soc-dai.h
+> +++ b/include/sound/soc-dai.h
+> @@ -208,8 +208,6 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
+>  			struct snd_pcm_substream *substream);
+>  void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+>  			  struct snd_pcm_substream *substream, int rollback);
+> -snd_pcm_sframes_t snd_soc_dai_delay(struct snd_soc_dai *dai,
+> -				    struct snd_pcm_substream *substream);
+>  void snd_soc_dai_suspend(struct snd_soc_dai *dai);
+>  void snd_soc_dai_resume(struct snd_soc_dai *dai);
+>  int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
+> @@ -238,6 +236,8 @@ int snd_soc_pcm_dai_trigger(struct snd_pcm_substream *substream, int cmd,
+>  			    int rollback);
+>  int snd_soc_pcm_dai_bespoke_trigger(struct snd_pcm_substream *substream,
+>  				    int cmd);
+> +void snd_soc_pcm_dai_delay(struct snd_pcm_substream *substream,
+> +			   snd_pcm_sframes_t *cpu_delay, snd_pcm_sframes_t *codec_delay);
+>  
+>  int snd_soc_dai_compr_startup(struct snd_soc_dai *dai,
+>  			      struct snd_compr_stream *cstream);
+> diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+> index 3db0fcf24385..6078afe335f8 100644
+> --- a/sound/soc/soc-dai.c
+> +++ b/sound/soc/soc-dai.c
+> @@ -453,18 +453,6 @@ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+>  	soc_dai_mark_pop(dai, substream, startup);
+>  }
+>  
+> -snd_pcm_sframes_t snd_soc_dai_delay(struct snd_soc_dai *dai,
+> -				    struct snd_pcm_substream *substream)
+> -{
+> -	int delay = 0;
+> -
+> -	if (dai->driver->ops &&
+> -	    dai->driver->ops->delay)
+> -		delay = dai->driver->ops->delay(substream, dai);
+> -
+> -	return delay;
+> -}
+> -
+>  int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
+>  			     struct snd_soc_pcm_runtime *rtd, int num)
+>  {
+> @@ -693,6 +681,34 @@ int snd_soc_pcm_dai_bespoke_trigger(struct snd_pcm_substream *substream,
+>  	return 0;
+>  }
+>  
+> +void snd_soc_pcm_dai_delay(struct snd_pcm_substream *substream,
+> +			   snd_pcm_sframes_t *cpu_delay,
+> +			   snd_pcm_sframes_t *codec_delay)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+> +	struct snd_soc_dai *dai;
+> +	int i;
+> +
+> +	/*
+> +	 * We're looking for the delay through the full audio path so it needs to
+> +	 * be the maximum of the DAIs doing transmit and the maximum of the DAIs
+> +	 * doing receive (ie, all CPUs and all CODECs) rather than just the maximum
+> +	 * of all DAIs.
+> +	 */
+> +
+> +	/* for CPU */
+> +	for_each_rtd_cpu_dais(rtd, i, dai)
+> +		if (dai->driver->ops &&
+> +		    dai->driver->ops->delay)
+> +			*cpu_delay = max(*cpu_delay, dai->driver->ops->delay(substream, dai));
+> +
+> +	/* for Codec */
+> +	for_each_rtd_codec_dais(rtd, i, dai)
+> +		if (dai->driver->ops &&
+> +		    dai->driver->ops->delay)
+> +			*codec_delay = max(*codec_delay, dai->driver->ops->delay(substream, dai));
+> +}
+> +
+>  int snd_soc_dai_compr_startup(struct snd_soc_dai *dai,
+>  			      struct snd_compr_stream *cstream)
+>  {
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 4309e6131c40..b1ef4d02511f 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -1084,15 +1084,11 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+>   */
+>  static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
+>  {
+> -	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+> -	struct snd_soc_dai *cpu_dai;
+> -	struct snd_soc_dai *codec_dai;
+>  	struct snd_pcm_runtime *runtime = substream->runtime;
+>  	snd_pcm_uframes_t offset = 0;
+>  	snd_pcm_sframes_t delay = 0;
+>  	snd_pcm_sframes_t codec_delay = 0;
+>  	snd_pcm_sframes_t cpu_delay = 0;
+> -	int i;
+>  
+>  	/* clearing the previous total delay */
+>  	runtime->delay = 0;
+> @@ -1102,19 +1098,9 @@ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
+>  	/* base delay if assigned in pointer callback */
+>  	delay = runtime->delay;
+>  
+> -	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+> -		cpu_delay = max(cpu_delay,
+> -				snd_soc_dai_delay(cpu_dai, substream));
+> -	}
+> -	delay += cpu_delay;
+> -
+> -	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+> -		codec_delay = max(codec_delay,
+> -				  snd_soc_dai_delay(codec_dai, substream));
+> -	}
+> -	delay += codec_delay;
+> +	snd_soc_pcm_dai_delay(substream, &cpu_delay, &codec_delay);
+>  
+> -	runtime->delay = delay;
+> +	runtime->delay = delay + cpu_delay + codec_delay;
+>  
+>  	return offset;
+>  }
+> 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 504E7452B91
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 08:26:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B376452B9B
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 08:35:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEFA6168E;
-	Tue, 16 Nov 2021 08:25:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEFA6168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F253A1697;
+	Tue, 16 Nov 2021 08:34:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F253A1697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637047589;
-	bh=BUp8u6NV9PdNWLe+CeXdqTrah2G5aYQMAR4fRVAEaJk=;
+	s=default; t=1637048129;
+	bh=eMnPWWct9wTvFXdpAQnSjG+SrlBGOiZaXWCzRH3KbWE=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=RKjEPIFVIJcqo66ikQ6zsV0vO9K/5dJeew0Ei1CbaYv1m0HFfFB/UxbtXYTIrbvyM
-	 vQL6EJ4wQgQJ0fYkVdbTLmiORyW2qzIo0KG2ovaq3zFc/1A/3HxA8QLaV/d/YQdXMC
-	 tUrsgg1z+sPJaxdlhWBOxOuGhARCK0eWRkJgf3cM=
+	b=PAcIt4pKYTP+KauHitndBUM1z6G53lp9KfAhrwJnA+VNQIYjkUTbU9fKvgYeBQ7yl
+	 tkkrhshM5mUTjRhNJHtauHGLEqkVYQnlqxLhaKy7m/Jk+UdNM9d46EWgBLI0ssqhTF
+	 edn4lQC5QVQ+4hv5DcFhHexhUUkTPFVi0y3V+PSk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71453F80089;
-	Tue, 16 Nov 2021 08:25:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F340F8026D;
+	Tue, 16 Nov 2021 08:34:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABB20F80272; Tue, 16 Nov 2021 08:25:08 +0100 (CET)
+ id 39A1CF80272; Tue, 16 Nov 2021 08:34:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B59D2F800FA
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 08:25:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B59D2F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD932F800FA
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 08:34:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD932F800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="1jVIu4Ep"; 
+ header.b="gWRJeZQF"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="XgQPm8vy"
+ header.b="xA/nq9j9"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 76A961FCA1
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 07:25:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 65C831FC9E
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 07:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1637047500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1637048039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=EIXLqrbkOIvwCngI1dGwsgdc3L+08disgZ8Oz1YB5Bc=;
- b=1jVIu4EpkienCEdzVA9Qp5ouk5aCQXMe648CX8yjK8gr1Nb5YoOl5VOjSeP7DEoBpCP7lZ
- BV2bXi50noc9/LTiaPY98OplitU0XdTXtZSAPUyqU1zqYEQpipuYpDJ1c8UdPNUdcsrbza
- mUA8UsY4pPSWSGOfHqCb1FKxz/CF53g=
+ bh=cef84FciECZDkoptqQ18HVpwslW7HqvDW1KmmQPjalI=;
+ b=gWRJeZQFI4h1iOIAymslhlrqZ8KI7CgbW4EHxt0J+0s7Nc/7hyNEwkx03sDgCQfZI7qiU3
+ PY1i932xD4B/2O1HlfeXEOzYLP60CD9TFDLv8p4xjTqksySTKOhdx91C+xuH++Sj4aWy1Y
+ nPwafnYu83Lu7C3wf3vr1fEs8P8ECiI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1637047500;
+ s=susede2_ed25519; t=1637048039;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=EIXLqrbkOIvwCngI1dGwsgdc3L+08disgZ8Oz1YB5Bc=;
- b=XgQPm8vyUfj85GKyOlDXV3c8RDtFu/1//1H11ye/E5wavbLZNm0/Y5gB8W4utC/zq4P6zW
- tlCHBRNWNmo0k+AQ==
+ bh=cef84FciECZDkoptqQ18HVpwslW7HqvDW1KmmQPjalI=;
+ b=xA/nq9j9N/ZwQQM3DLWjrKSenxFhxuRX9imStAoed7zcXkB2hheu4jlC7rIm8JeK8SvqKe
+ azAXvFdT3jy21aBQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6FC6DA3B83;
- Tue, 16 Nov 2021 07:25:00 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 5DE00A3B85;
+ Tue, 16 Nov 2021 07:33:59 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda: Fix potential deadlock at codec unbinding
-Date: Tue, 16 Nov 2021 08:24:59 +0100
-Message-Id: <20211116072459.18930-1-tiwai@suse.de>
+Subject: [PATCH] ALSA: memalloc: Unify x86 SG-buffer handling (take#3)
+Date: Tue, 16 Nov 2021 08:33:58 +0100
+Message-Id: <20211116073358.19741-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -84,209 +84,357 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When a codec is unbound dynamically via sysfs while its stream is in
-use, we may face a potential deadlock at the proc remove or a UAF.
-This happens since the hda_pcm linked list, as it handles the hda_pcm
-object release via kref.
+This is a second attempt to unify the x86-specific SG-buffer handling
+code with the new standard non-contiguous page handler.
 
-When a PCM was opened at the unbinding time, the release of hda_pcm
-gets delayed and it ends up with the close of the PCM stream releasing
-the associated hda_pcm object of its own.  The hda_pcm destructor
-contains the PCM device release that includes the removal of procfs
-entries.  And, this removal has the sync of the close of all in-use
-files -- which would never finish because it's called from the PCM
-file descriptor itself, i.e. it's trying to shoot its foot.
+The first try (in commit 2d9ea39917a4) failed due to the wrong page
+and address calculations, hence reverted.  (And the second try failed
+due to a copy&paste error.)  Now it's corrected with the previous fix
+for noncontig pages, and the proper sg page iteration by this patch.
 
-For addressing the deadlock above, this patch changes the way to
-manage and release the hda_pcm object.  The kref of hda_pcm is
-dropped, and instead a simple refcount is introduced in hda_codec for
-keeping the track of the active PCM streams, and at each PCM open and
-close, this refcount is adjusted accordingly.  At unbinding, the
-driver calls snd_device_disconnect() for each PCM stream, then
-synchronizes with the refcount finish, and finally releases the object
-resources.
+After the migration, SNDRV_DMA_TYPE_DMA_SG becomes identical with
+SNDRV_DMA_TYPE_NONCONTIG on x86, while others still fall back to
+SNDRV_DMA_TYPE_DEV.
 
-Fixes: bbbc7e8502c9 ("ALSA: hda - Allocate hda_pcm objects dynamically")
+Tested-by: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
+Tested-by: Harald Arnesen <harald@skogtun.org>
+Link: https://lore.kernel.org/r/20211017074859.24112-4-tiwai@suse.de
+Link: https://lore.kernel.org/r/20211109062235.22310-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/hda_codec.h |  8 +++++---
- sound/pci/hda/hda_bind.c  |  5 +++++
- sound/pci/hda/hda_codec.c | 42 ++++++++++++++++++++++++---------------
- sound/pci/hda/hda_local.h |  1 +
- 4 files changed, 37 insertions(+), 19 deletions(-)
+ include/sound/memalloc.h |  14 +--
+ sound/core/Makefile      |   1 -
+ sound/core/memalloc.c    |  53 ++++++++++-
+ sound/core/sgbuf.c       | 201 ---------------------------------------
+ 4 files changed, 56 insertions(+), 213 deletions(-)
+ delete mode 100644 sound/core/sgbuf.c
 
-diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
-index 0e45963bb767..82d9daa17851 100644
---- a/include/sound/hda_codec.h
-+++ b/include/sound/hda_codec.h
-@@ -8,7 +8,7 @@
- #ifndef __SOUND_HDA_CODEC_H
- #define __SOUND_HDA_CODEC_H
+diff --git a/include/sound/memalloc.h b/include/sound/memalloc.h
+index 1051b84e8579..653dfffb3ac8 100644
+--- a/include/sound/memalloc.h
++++ b/include/sound/memalloc.h
+@@ -36,13 +36,6 @@ struct snd_dma_device {
+ #define SNDRV_DMA_TYPE_CONTINUOUS	1	/* continuous no-DMA memory */
+ #define SNDRV_DMA_TYPE_DEV		2	/* generic device continuous */
+ #define SNDRV_DMA_TYPE_DEV_WC		5	/* continuous write-combined */
+-#ifdef CONFIG_SND_DMA_SGBUF
+-#define SNDRV_DMA_TYPE_DEV_SG		3	/* generic device SG-buffer */
+-#define SNDRV_DMA_TYPE_DEV_WC_SG	6	/* SG write-combined */
+-#else
+-#define SNDRV_DMA_TYPE_DEV_SG	SNDRV_DMA_TYPE_DEV /* no SG-buf support */
+-#define SNDRV_DMA_TYPE_DEV_WC_SG	SNDRV_DMA_TYPE_DEV_WC
+-#endif
+ #ifdef CONFIG_GENERIC_ALLOCATOR
+ #define SNDRV_DMA_TYPE_DEV_IRAM		4	/* generic device iram-buffer */
+ #else
+@@ -51,6 +44,13 @@ struct snd_dma_device {
+ #define SNDRV_DMA_TYPE_VMALLOC		7	/* vmalloc'ed buffer */
+ #define SNDRV_DMA_TYPE_NONCONTIG	8	/* non-coherent SG buffer */
+ #define SNDRV_DMA_TYPE_NONCOHERENT	9	/* non-coherent buffer */
++#ifdef CONFIG_SND_DMA_SGBUF
++#define SNDRV_DMA_TYPE_DEV_SG		SNDRV_DMA_TYPE_NONCONTIG
++#define SNDRV_DMA_TYPE_DEV_WC_SG	6	/* SG write-combined */
++#else
++#define SNDRV_DMA_TYPE_DEV_SG	SNDRV_DMA_TYPE_DEV /* no SG-buf support */
++#define SNDRV_DMA_TYPE_DEV_WC_SG	SNDRV_DMA_TYPE_DEV_WC
++#endif
  
--#include <linux/kref.h>
-+#include <linux/refcount.h>
- #include <linux/mod_devicetable.h>
- #include <sound/info.h>
- #include <sound/control.h>
-@@ -166,8 +166,8 @@ struct hda_pcm {
- 	bool own_chmap;		/* codec driver provides own channel maps */
- 	/* private: */
- 	struct hda_codec *codec;
--	struct kref kref;
- 	struct list_head list;
-+	unsigned int disconnected:1;
+ /*
+  * info for buffer allocation
+diff --git a/sound/core/Makefile b/sound/core/Makefile
+index 79e1407cd0de..350d704ced98 100644
+--- a/sound/core/Makefile
++++ b/sound/core/Makefile
+@@ -19,7 +19,6 @@ snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
+ snd-pcm-y := pcm.o pcm_native.o pcm_lib.o pcm_misc.o \
+ 		pcm_memory.o memalloc.o
+ snd-pcm-$(CONFIG_SND_PCM_TIMER) += pcm_timer.o
+-snd-pcm-$(CONFIG_SND_DMA_SGBUF) += sgbuf.o
+ snd-pcm-$(CONFIG_SND_PCM_ELD) += pcm_drm_eld.o
+ snd-pcm-$(CONFIG_SND_PCM_IEC958) += pcm_iec958.o
+ 
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index 9fc971a704a9..d1fcd1d5adae 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -620,6 +620,52 @@ static const struct snd_malloc_ops snd_dma_noncontig_ops = {
+ 	.get_chunk_size = snd_dma_noncontig_get_chunk_size,
  };
  
- /* codec information */
-@@ -187,6 +187,8 @@ struct hda_codec {
- 
- 	/* PCM to create, set by patch_ops.build_pcms callback */
- 	struct list_head pcm_list_head;
-+	refcount_t pcm_ref;
-+	wait_queue_head_t remove_sleep;
- 
- 	/* codec specific info */
- 	void *spec;
-@@ -420,7 +422,7 @@ void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec);
- 
- static inline void snd_hda_codec_pcm_get(struct hda_pcm *pcm)
- {
--	kref_get(&pcm->kref);
-+	refcount_inc(&pcm->codec->pcm_ref);
- }
- void snd_hda_codec_pcm_put(struct hda_pcm *pcm);
- 
-diff --git a/sound/pci/hda/hda_bind.c b/sound/pci/hda/hda_bind.c
-index 1c8bffc3eec6..7153bd53e189 100644
---- a/sound/pci/hda/hda_bind.c
-+++ b/sound/pci/hda/hda_bind.c
-@@ -156,6 +156,11 @@ static int hda_codec_driver_remove(struct device *dev)
- 		return codec->bus->core.ext_ops->hdev_detach(&codec->core);
- 	}
- 
-+	refcount_dec(&codec->pcm_ref);
-+	snd_hda_codec_disconnect_pcms(codec);
-+	wait_event(codec->remove_sleep, !refcount_read(&codec->pcm_ref));
-+	snd_power_sync_ref(codec->bus->card);
++/* x86-specific SG-buffer with WC pages */
++#ifdef CONFIG_SND_DMA_SGBUF
++#define sg_wc_address(it) ((unsigned long)page_address(sg_page_iter_page(it)))
 +
- 	if (codec->patch_ops.free)
- 		codec->patch_ops.free(codec);
- 	snd_hda_codec_cleanup_for_unbind(codec);
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index eda70814369b..7016b48227bf 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -703,20 +703,10 @@ get_hda_cvt_setup(struct hda_codec *codec, hda_nid_t nid)
- /*
-  * PCM device
-  */
--static void release_pcm(struct kref *kref)
--{
--	struct hda_pcm *pcm = container_of(kref, struct hda_pcm, kref);
--
--	if (pcm->pcm)
--		snd_device_free(pcm->codec->card, pcm->pcm);
--	clear_bit(pcm->device, pcm->codec->bus->pcm_dev_bits);
--	kfree(pcm->name);
--	kfree(pcm);
--}
--
- void snd_hda_codec_pcm_put(struct hda_pcm *pcm)
- {
--	kref_put(&pcm->kref, release_pcm);
-+	if (refcount_dec_and_test(&pcm->codec->pcm_ref))
-+		wake_up(&pcm->codec->remove_sleep);
- }
- EXPORT_SYMBOL_GPL(snd_hda_codec_pcm_put);
- 
-@@ -731,7 +721,6 @@ struct hda_pcm *snd_hda_codec_pcm_new(struct hda_codec *codec,
- 		return NULL;
- 
- 	pcm->codec = codec;
--	kref_init(&pcm->kref);
- 	va_start(args, fmt);
- 	pcm->name = kvasprintf(GFP_KERNEL, fmt, args);
- 	va_end(args);
-@@ -741,6 +730,7 @@ struct hda_pcm *snd_hda_codec_pcm_new(struct hda_codec *codec,
- 	}
- 
- 	list_add_tail(&pcm->list, &codec->pcm_list_head);
-+	refcount_inc(&codec->pcm_ref);
- 	return pcm;
- }
- EXPORT_SYMBOL_GPL(snd_hda_codec_pcm_new);
-@@ -748,15 +738,31 @@ EXPORT_SYMBOL_GPL(snd_hda_codec_pcm_new);
- /*
-  * codec destructor
-  */
-+void snd_hda_codec_disconnect_pcms(struct hda_codec *codec)
++static void *snd_dma_sg_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
 +{
-+	struct hda_pcm *pcm;
++	void *p = snd_dma_noncontig_alloc(dmab, size);
++	struct sg_table *sgt = dmab->private_data;
++	struct sg_page_iter iter;
 +
-+	list_for_each_entry(pcm, &codec->pcm_list_head, list) {
-+		if (pcm->disconnected)
-+			continue;
-+		if (pcm->pcm)
-+			snd_device_disconnect(codec->card, pcm->pcm);
-+		snd_hda_codec_pcm_put(pcm);
-+		pcm->disconnected = 1;
-+	}
++	if (!p)
++		return NULL;
++	for_each_sgtable_page(sgt, &iter, 0)
++		set_memory_wc(sg_wc_address(&iter), 1);
++	return p;
 +}
 +
- static void codec_release_pcms(struct hda_codec *codec)
- {
- 	struct hda_pcm *pcm, *n;
++static void snd_dma_sg_wc_free(struct snd_dma_buffer *dmab)
++{
++	struct sg_table *sgt = dmab->private_data;
++	struct sg_page_iter iter;
++
++	for_each_sgtable_page(sgt, &iter, 0)
++		set_memory_wb(sg_wc_address(&iter), 1);
++	snd_dma_noncontig_free(dmab);
++}
++
++static int snd_dma_sg_wc_mmap(struct snd_dma_buffer *dmab,
++			      struct vm_area_struct *area)
++{
++	area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
++	return dma_mmap_noncontiguous(dmab->dev.dev, area,
++				      dmab->bytes, dmab->private_data);
++}
++
++static const struct snd_malloc_ops snd_dma_sg_wc_ops = {
++	.alloc = snd_dma_sg_wc_alloc,
++	.free = snd_dma_sg_wc_free,
++	.mmap = snd_dma_sg_wc_mmap,
++	.sync = snd_dma_noncontig_sync,
++	.get_addr = snd_dma_noncontig_get_addr,
++	.get_page = snd_dma_noncontig_get_page,
++	.get_chunk_size = snd_dma_noncontig_get_chunk_size,
++};
++#endif /* CONFIG_SND_DMA_SGBUF */
++
+ /*
+  * Non-coherent pages allocator
+  */
+@@ -679,14 +725,13 @@ static const struct snd_malloc_ops *dma_ops[] = {
+ 	[SNDRV_DMA_TYPE_DEV_WC] = &snd_dma_wc_ops,
+ 	[SNDRV_DMA_TYPE_NONCONTIG] = &snd_dma_noncontig_ops,
+ 	[SNDRV_DMA_TYPE_NONCOHERENT] = &snd_dma_noncoherent_ops,
++#ifdef CONFIG_SND_DMA_SGBUF
++	[SNDRV_DMA_TYPE_DEV_WC_SG] = &snd_dma_sg_wc_ops,
++#endif
+ #ifdef CONFIG_GENERIC_ALLOCATOR
+ 	[SNDRV_DMA_TYPE_DEV_IRAM] = &snd_dma_iram_ops,
+ #endif /* CONFIG_GENERIC_ALLOCATOR */
+ #endif /* CONFIG_HAS_DMA */
+-#ifdef CONFIG_SND_DMA_SGBUF
+-	[SNDRV_DMA_TYPE_DEV_SG] = &snd_dma_sg_ops,
+-	[SNDRV_DMA_TYPE_DEV_WC_SG] = &snd_dma_sg_ops,
+-#endif
+ };
  
- 	list_for_each_entry_safe(pcm, n, &codec->pcm_list_head, list) {
--		list_del_init(&pcm->list);
-+		list_del(&pcm->list);
- 		if (pcm->pcm)
--			snd_device_disconnect(codec->card, pcm->pcm);
--		snd_hda_codec_pcm_put(pcm);
-+			snd_device_free(pcm->codec->card, pcm->pcm);
-+		clear_bit(pcm->device, pcm->codec->bus->pcm_dev_bits);
-+		kfree(pcm->name);
-+		kfree(pcm);
- 	}
- }
- 
-@@ -769,6 +775,7 @@ void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec)
- 		codec->registered = 0;
- 	}
- 
-+	snd_hda_codec_disconnect_pcms(codec);
- 	cancel_delayed_work_sync(&codec->jackpoll_work);
- 	if (!codec->in_freeing)
- 		snd_hda_ctls_clear(codec);
-@@ -792,6 +799,7 @@ void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec)
- 	remove_conn_list(codec);
- 	snd_hdac_regmap_exit(&codec->core);
- 	codec->configured = 0;
-+	refcount_set(&codec->pcm_ref, 1); /* reset refcount */
- }
- EXPORT_SYMBOL_GPL(snd_hda_codec_cleanup_for_unbind);
- 
-@@ -958,6 +966,8 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
- 	snd_array_init(&codec->verbs, sizeof(struct hda_verb *), 8);
- 	INIT_LIST_HEAD(&codec->conn_list);
- 	INIT_LIST_HEAD(&codec->pcm_list_head);
-+	refcount_set(&codec->pcm_ref, 1);
-+	init_waitqueue_head(&codec->remove_sleep);
- 
- 	INIT_DELAYED_WORK(&codec->jackpoll_work, hda_jackpoll_work);
- 	codec->depop_delay = -1;
-diff --git a/sound/pci/hda/hda_local.h b/sound/pci/hda/hda_local.h
-index ea8ab8b43337..4662a47add7e 100644
---- a/sound/pci/hda/hda_local.h
-+++ b/sound/pci/hda/hda_local.h
-@@ -137,6 +137,7 @@ int __snd_hda_add_vmaster(struct hda_codec *codec, char *name,
- int snd_hda_codec_reset(struct hda_codec *codec);
- void snd_hda_codec_register(struct hda_codec *codec);
- void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec);
-+void snd_hda_codec_disconnect_pcms(struct hda_codec *codec);
- 
- #define snd_hda_regmap_sync(codec)	snd_hdac_regmap_sync(&(codec)->core)
- 
+ static const struct snd_malloc_ops *snd_dma_get_ops(struct snd_dma_buffer *dmab)
+diff --git a/sound/core/sgbuf.c b/sound/core/sgbuf.c
+deleted file mode 100644
+index 8352a5cdb19f..000000000000
+--- a/sound/core/sgbuf.c
++++ /dev/null
+@@ -1,201 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * Scatter-Gather buffer
+- *
+- *  Copyright (c) by Takashi Iwai <tiwai@suse.de>
+- */
+-
+-#include <linux/slab.h>
+-#include <linux/mm.h>
+-#include <linux/vmalloc.h>
+-#include <linux/export.h>
+-#include <sound/memalloc.h>
+-#include "memalloc_local.h"
+-
+-struct snd_sg_page {
+-	void *buf;
+-	dma_addr_t addr;
+-};
+-
+-struct snd_sg_buf {
+-	int size;	/* allocated byte size */
+-	int pages;	/* allocated pages */
+-	int tblsize;	/* allocated table size */
+-	struct snd_sg_page *table;	/* address table */
+-	struct page **page_table;	/* page table (for vmap/vunmap) */
+-	struct device *dev;
+-};
+-
+-/* table entries are align to 32 */
+-#define SGBUF_TBL_ALIGN		32
+-#define sgbuf_align_table(tbl)	ALIGN((tbl), SGBUF_TBL_ALIGN)
+-
+-static void snd_dma_sg_free(struct snd_dma_buffer *dmab)
+-{
+-	struct snd_sg_buf *sgbuf = dmab->private_data;
+-	struct snd_dma_buffer tmpb;
+-	int i;
+-
+-	if (!sgbuf)
+-		return;
+-
+-	vunmap(dmab->area);
+-	dmab->area = NULL;
+-
+-	tmpb.dev.type = SNDRV_DMA_TYPE_DEV;
+-	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
+-		tmpb.dev.type = SNDRV_DMA_TYPE_DEV_WC;
+-	tmpb.dev.dev = sgbuf->dev;
+-	for (i = 0; i < sgbuf->pages; i++) {
+-		if (!(sgbuf->table[i].addr & ~PAGE_MASK))
+-			continue; /* continuous pages */
+-		tmpb.area = sgbuf->table[i].buf;
+-		tmpb.addr = sgbuf->table[i].addr & PAGE_MASK;
+-		tmpb.bytes = (sgbuf->table[i].addr & ~PAGE_MASK) << PAGE_SHIFT;
+-		snd_dma_free_pages(&tmpb);
+-	}
+-
+-	kfree(sgbuf->table);
+-	kfree(sgbuf->page_table);
+-	kfree(sgbuf);
+-	dmab->private_data = NULL;
+-}
+-
+-#define MAX_ALLOC_PAGES		32
+-
+-static void *snd_dma_sg_alloc(struct snd_dma_buffer *dmab, size_t size)
+-{
+-	struct snd_sg_buf *sgbuf;
+-	unsigned int i, pages, chunk, maxpages;
+-	struct snd_dma_buffer tmpb;
+-	struct snd_sg_page *table;
+-	struct page **pgtable;
+-	int type = SNDRV_DMA_TYPE_DEV;
+-	pgprot_t prot = PAGE_KERNEL;
+-	void *area;
+-
+-	dmab->private_data = sgbuf = kzalloc(sizeof(*sgbuf), GFP_KERNEL);
+-	if (!sgbuf)
+-		return NULL;
+-	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG) {
+-		type = SNDRV_DMA_TYPE_DEV_WC;
+-#ifdef pgprot_noncached
+-		prot = pgprot_noncached(PAGE_KERNEL);
+-#endif
+-	}
+-	sgbuf->dev = dmab->dev.dev;
+-	pages = snd_sgbuf_aligned_pages(size);
+-	sgbuf->tblsize = sgbuf_align_table(pages);
+-	table = kcalloc(sgbuf->tblsize, sizeof(*table), GFP_KERNEL);
+-	if (!table)
+-		goto _failed;
+-	sgbuf->table = table;
+-	pgtable = kcalloc(sgbuf->tblsize, sizeof(*pgtable), GFP_KERNEL);
+-	if (!pgtable)
+-		goto _failed;
+-	sgbuf->page_table = pgtable;
+-
+-	/* allocate pages */
+-	maxpages = MAX_ALLOC_PAGES;
+-	while (pages > 0) {
+-		chunk = pages;
+-		/* don't be too eager to take a huge chunk */
+-		if (chunk > maxpages)
+-			chunk = maxpages;
+-		chunk <<= PAGE_SHIFT;
+-		if (snd_dma_alloc_pages_fallback(type, dmab->dev.dev,
+-						 chunk, &tmpb) < 0) {
+-			if (!sgbuf->pages)
+-				goto _failed;
+-			size = sgbuf->pages * PAGE_SIZE;
+-			break;
+-		}
+-		chunk = tmpb.bytes >> PAGE_SHIFT;
+-		for (i = 0; i < chunk; i++) {
+-			table->buf = tmpb.area;
+-			table->addr = tmpb.addr;
+-			if (!i)
+-				table->addr |= chunk; /* mark head */
+-			table++;
+-			*pgtable++ = virt_to_page(tmpb.area);
+-			tmpb.area += PAGE_SIZE;
+-			tmpb.addr += PAGE_SIZE;
+-		}
+-		sgbuf->pages += chunk;
+-		pages -= chunk;
+-		if (chunk < maxpages)
+-			maxpages = chunk;
+-	}
+-
+-	sgbuf->size = size;
+-	area = vmap(sgbuf->page_table, sgbuf->pages, VM_MAP, prot);
+-	if (!area)
+-		goto _failed;
+-	return area;
+-
+- _failed:
+-	snd_dma_sg_free(dmab); /* free the table */
+-	return NULL;
+-}
+-
+-static dma_addr_t snd_dma_sg_get_addr(struct snd_dma_buffer *dmab,
+-				      size_t offset)
+-{
+-	struct snd_sg_buf *sgbuf = dmab->private_data;
+-	dma_addr_t addr;
+-
+-	addr = sgbuf->table[offset >> PAGE_SHIFT].addr;
+-	addr &= ~((dma_addr_t)PAGE_SIZE - 1);
+-	return addr + offset % PAGE_SIZE;
+-}
+-
+-static struct page *snd_dma_sg_get_page(struct snd_dma_buffer *dmab,
+-					size_t offset)
+-{
+-	struct snd_sg_buf *sgbuf = dmab->private_data;
+-	unsigned int idx = offset >> PAGE_SHIFT;
+-
+-	if (idx >= (unsigned int)sgbuf->pages)
+-		return NULL;
+-	return sgbuf->page_table[idx];
+-}
+-
+-static unsigned int snd_dma_sg_get_chunk_size(struct snd_dma_buffer *dmab,
+-					      unsigned int ofs,
+-					      unsigned int size)
+-{
+-	struct snd_sg_buf *sg = dmab->private_data;
+-	unsigned int start, end, pg;
+-
+-	start = ofs >> PAGE_SHIFT;
+-	end = (ofs + size - 1) >> PAGE_SHIFT;
+-	/* check page continuity */
+-	pg = sg->table[start].addr >> PAGE_SHIFT;
+-	for (;;) {
+-		start++;
+-		if (start > end)
+-			break;
+-		pg++;
+-		if ((sg->table[start].addr >> PAGE_SHIFT) != pg)
+-			return (start << PAGE_SHIFT) - ofs;
+-	}
+-	/* ok, all on continuous pages */
+-	return size;
+-}
+-
+-static int snd_dma_sg_mmap(struct snd_dma_buffer *dmab,
+-			   struct vm_area_struct *area)
+-{
+-	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
+-		area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
+-	return -ENOENT; /* continue with the default mmap handler */
+-}
+-
+-const struct snd_malloc_ops snd_dma_sg_ops = {
+-	.alloc = snd_dma_sg_alloc,
+-	.free = snd_dma_sg_free,
+-	.get_addr = snd_dma_sg_get_addr,
+-	.get_page = snd_dma_sg_get_page,
+-	.get_chunk_size = snd_dma_sg_get_chunk_size,
+-	.mmap = snd_dma_sg_mmap,
+-};
 -- 
 2.31.1
 

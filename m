@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140B1452C1C
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 08:47:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 279A5452C1D
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 08:47:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 800D416A5;
-	Tue, 16 Nov 2021 08:46:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 800D416A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F75A1689;
+	Tue, 16 Nov 2021 08:46:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F75A1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637048823;
-	bh=sueDNKig6p9fGUvhkDt31Om0TNJvopAZVuJKf+2vf5I=;
+	s=default; t=1637048853;
+	bh=WUv+zvb6Qvf08R6fGGK7M2Ck2E5oLVwTsSymfhRn9y0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=awLkk62f6c/cSQbMyqt077m47KGtqenzZ9pi1mwP33yz7owzto9K1S9WTsWJXFFs6
-	 ul1ERHJQs3kuGVOGydHRxwHiM4MSzG53OAyL1c4buN5+nFD4yq4nY72iVJueR4JdYP
-	 GNUdY03BYgCw7UEyY6ASDZy9wHZFsiKPPLTMfkjY=
+	b=l5ZK7vo+moC67bKvvOWqAwOfhww3xr2sFFk6B1sa6IjCjfOOwZUY95jj0YYN8vd01
+	 EvvIqAYbmqPzPhzwrEXOASXZY0vTo+3IOqN6pQ/HkHlrVYKbEs0biobrNbcipf2rqn
+	 TCI1A2OYs27Zw1uqpmguiTUm95LoLrBi6MSXRTiU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9978F804FB;
-	Tue, 16 Nov 2021 08:45:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47285F804FA;
+	Tue, 16 Nov 2021 08:45:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A257FF804BC; Tue, 16 Nov 2021 08:45:27 +0100 (CET)
+ id 96DF0F804FE; Tue, 16 Nov 2021 08:45:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 889CFF80089
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 08:45:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 889CFF80089
-Date: 16 Nov 2021 16:45:18 +0900
-X-IronPort-AV: E=Sophos;i="5.87,238,1631545200"; d="scan'208";a="100767584"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Nov 2021 16:45:18 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 5955FF804C3
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 08:45:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5955FF804C3
+Date: 16 Nov 2021 16:45:23 +0900
+X-IronPort-AV: E=Sophos;i="5.87,238,1631545200"; d="scan'208";a="100767599"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 16 Nov 2021 16:45:23 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 47C95422A4DE;
- Tue, 16 Nov 2021 16:45:18 +0900 (JST)
-Message-ID: <874k8cy25t.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id C095140083D3;
+ Tue, 16 Nov 2021 16:45:23 +0900 (JST)
+Message-ID: <8735nwy25o.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/5] ASoC: soc-component: add snd_soc_pcm_component_delay()
+Subject: [PATCH 3/5] ASoC: amd: acp-pcm-dma: add .delay support
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dd8y26l.wl-kuninori.morimoto.gx@renesas.com>
@@ -74,120 +74,75 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Current soc-pcm.c :: soc_pcm_pointer() is assuming that
-component driver might update runtime->delay silently in
-snd_soc_pcm_component_pointer() (= A).
-
-	static snd_pcm_uframes_t soc_pcm_pointer(...)
-	{
-		...
-
-		/* clearing the previous total delay */
-=>		runtime->delay = 0;
-
-(A)		offset = snd_soc_pcm_component_pointer(substream);
-
-		/* base delay if assigned in pointer callback */
-=>		delay = runtime->delay;
-		...
-	}
-
-1) The behavior that ".pointer callback secretly updates
-   runtime->delay" is strange and confusable.
-
-2) Current snd_soc_pcm_component_pointer() uses 1st found component's
-   .pointer callback only, thus it is no problem for now.
-   But runtime->delay might be overwrote if it adjusted to multiple
-   components in the future.
-
-3) Component delay is updated at .pointer callback timing (secretly).
-   But some components which doesn't have .pointer callback might want
-   to increase runtime->delay for some reasons.
-
-We already have .delay function for DAI, but not have for Component.
-This patch adds new snd_soc_pcm_component_delay() for it.
+Now ALSA SoC supports .delay for component.
+This patch uses it, and not update runtime->delay on .pointer
+directly / secretly.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-component.h |  4 ++++
- sound/soc/soc-component.c     | 28 ++++++++++++++++++++++++++++
- sound/soc/soc-pcm.c           |  2 ++
- 3 files changed, 34 insertions(+)
+ sound/soc/amd/acp-pcm-dma.c | 15 ++++++++++++++-
+ sound/soc/amd/acp.h         |  1 +
+ 2 files changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index a4317144ab62..a52080407b98 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -148,6 +148,8 @@ struct snd_soc_component_driver {
- 		    struct vm_area_struct *vma);
- 	int (*ack)(struct snd_soc_component *component,
- 		   struct snd_pcm_substream *substream);
-+	snd_pcm_sframes_t (*delay)(struct snd_soc_component *component,
-+				   struct snd_pcm_substream *substream);
+diff --git a/sound/soc/amd/acp-pcm-dma.c b/sound/soc/amd/acp-pcm-dma.c
+index 1f322accd9ea..8fa2e2fde4f1 100644
+--- a/sound/soc/amd/acp-pcm-dma.c
++++ b/sound/soc/amd/acp-pcm-dma.c
+@@ -1003,6 +1003,7 @@ static snd_pcm_uframes_t acp_dma_pointer(struct snd_soc_component *component,
  
- 	const struct snd_compress_ops *compress_ops;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct audio_substream_data *rtd = runtime->private_data;
++	struct audio_drv_data *adata = dev_get_drvdata(component->dev);
  
-@@ -505,5 +507,7 @@ int snd_soc_pcm_component_pm_runtime_get(struct snd_soc_pcm_runtime *rtd,
- void snd_soc_pcm_component_pm_runtime_put(struct snd_soc_pcm_runtime *rtd,
- 					  void *stream, int rollback);
- int snd_soc_pcm_component_ack(struct snd_pcm_substream *substream);
-+void snd_soc_pcm_component_delay(struct snd_pcm_substream *substream,
-+				 snd_pcm_sframes_t *cpu_delay, snd_pcm_sframes_t *codec_delay);
- 
- #endif /* __SOC_COMPONENT_H */
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index c76ff9c59dfb..c0664f94990c 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -932,6 +932,34 @@ int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream)
- 	return 0;
+ 	if (!rtd)
+ 		return -EINVAL;
+@@ -1023,7 +1024,7 @@ static snd_pcm_uframes_t acp_dma_pointer(struct snd_soc_component *component,
+ 		}
+ 		if (bytescount > 0) {
+ 			delay = do_div(bytescount, period_bytes);
+-			runtime->delay = bytes_to_frames(runtime, delay);
++			adata->delay += bytes_to_frames(runtime, delay);
+ 		}
+ 	} else {
+ 		buffersize = frames_to_bytes(runtime, runtime->buffer_size);
+@@ -1035,6 +1036,17 @@ static snd_pcm_uframes_t acp_dma_pointer(struct snd_soc_component *component,
+ 	return bytes_to_frames(runtime, pos);
  }
  
-+void snd_soc_pcm_component_delay(struct snd_pcm_substream *substream,
-+				 snd_pcm_sframes_t *cpu_delay,
-+				 snd_pcm_sframes_t *codec_delay)
++static snd_pcm_sframes_t acp_dma_delay(struct snd_soc_component *component,
++				       struct snd_pcm_substream *substream)
 +{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_component *component;
-+	snd_pcm_sframes_t delay;
-+	int i;
++	struct audio_drv_data *adata = dev_get_drvdata(component->dev);
++	snd_pcm_sframes_t delay = adata->delay;
 +
-+	/*
-+	 * We're looking for the delay through the full audio path so it needs to
-+	 * be the maximum of the Components doing transmit and the maximum of the
-+	 * Components doing receive (ie, all CPUs and all CODECs) rather than
-+	 * just the maximum of all Components.
-+	 */
-+	for_each_rtd_components(rtd, i, component) {
-+		if (!component->driver->delay)
-+			continue;
++	adata->delay = 0;
 +
-+		delay = component->driver->delay(component, substream);
-+
-+		if (snd_soc_component_is_codec(component))
-+			*codec_delay = max(*codec_delay, delay);
-+		else
-+			*cpu_delay = max(*cpu_delay, delay);
-+	}
++	return delay;
 +}
 +
- int snd_soc_pcm_component_ioctl(struct snd_pcm_substream *substream,
- 				unsigned int cmd, void *arg)
+ static int acp_dma_prepare(struct snd_soc_component *component,
+ 			   struct snd_pcm_substream *substream)
  {
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index b1ef4d02511f..3aba9480cb0b 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1098,7 +1098,9 @@ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
- 	/* base delay if assigned in pointer callback */
- 	delay = runtime->delay;
+@@ -1198,6 +1210,7 @@ static const struct snd_soc_component_driver acp_asoc_platform = {
+ 	.hw_params	= acp_dma_hw_params,
+ 	.trigger	= acp_dma_trigger,
+ 	.pointer	= acp_dma_pointer,
++	.delay		= acp_dma_delay,
+ 	.prepare	= acp_dma_prepare,
+ 	.pcm_construct	= acp_dma_new,
+ };
+diff --git a/sound/soc/amd/acp.h b/sound/soc/amd/acp.h
+index 85529ed7e5f5..db80a73aa593 100644
+--- a/sound/soc/amd/acp.h
++++ b/sound/soc/amd/acp.h
+@@ -151,6 +151,7 @@ struct audio_drv_data {
+ 	struct snd_pcm_substream *capture_i2sbt_stream;
+ 	void __iomem *acp_mmio;
+ 	u32 asic_type;
++	snd_pcm_sframes_t delay;
+ };
  
-+	/* should be called *after* snd_soc_pcm_component_pointer() */
- 	snd_soc_pcm_dai_delay(substream, &cpu_delay, &codec_delay);
-+	snd_soc_pcm_component_delay(substream, &cpu_delay, &codec_delay);
- 
- 	runtime->delay = delay + cpu_delay + codec_delay;
- 
+ /*
 -- 
 2.25.1
 

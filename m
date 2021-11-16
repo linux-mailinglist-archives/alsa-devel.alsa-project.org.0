@@ -2,67 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC8D44538D4
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 18:50:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0820A453931
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 19:09:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FB23186E;
-	Tue, 16 Nov 2021 18:49:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FB23186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F5541887;
+	Tue, 16 Nov 2021 19:08:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F5541887
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637085046;
-	bh=kzq0dlu0gjzDR19x6UB8TtYBuQv/WXthmFOPYes7mv4=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1637086180;
+	bh=etpQTX48bmygiaYmk7wlzJSH1DuYnmgCAYBcwBzK3c0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ItCLPzRmjGZIWYq7VVYa6GXDW6FqOBhc1dNcAryeQYuAbfME/8sEOGhN+vx8SGV2j
-	 xP9woa8poTi3t0oM22x76QWwCRAgz33HGOhGOybAW+chkOtmtGhBj/tauPys6OThuK
-	 tAqkRcp0h2voMEKjphC/rOVutR5EkAg6rLIoYGQ0=
+	b=b0BsFD8V6UhqNJzjSJ72UJv8oSByCeKfcJTaE8Dj5DqQsuX/kWQKiYvxXk7FY9LbA
+	 DCoYAP3U0VpURQaElALFuVmeTfSFcE66BZqRyfK1IpTr0mh4YQoxVYWx0pPahpf1ax
+	 /x71c6njrQyIqgXHdXULsdjviVjbcKiCPDqQ9y1E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 497F5F8026D;
-	Tue, 16 Nov 2021 18:48:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2844AF802C4;
+	Tue, 16 Nov 2021 19:08:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB3AEF804F2; Tue, 16 Nov 2021 18:48:27 +0100 (CET)
+ id 8253DF80272; Tue, 16 Nov 2021 19:08:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F8E8F804ED
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 18:48:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F8E8F804ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id DAFBCF800FA
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 19:08:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAFBCF800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tE5KZQn6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F214F61BE2;
- Tue, 16 Nov 2021 17:48:19 +0000 (UTC)
+ header.b="S/WB0iFx"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 48B1B61546;
+ Tue, 16 Nov 2021 18:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637084901;
- bh=kzq0dlu0gjzDR19x6UB8TtYBuQv/WXthmFOPYes7mv4=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=tE5KZQn6XGHZxSTDoS6gQwYT24jKy4qJvWLYfMtNg27dhXaO3Hl9niha8HY9mYtwT
- XnScvK3Wnkl6DKnfYI3nkiG9reh2DxCtIkQNDVapeBrLsSzdDrCesenLty1+6o4u3T
- 3ulw3QTyOY9S2RC/ZRhlF5+9ilzHT6Mk9dM5fivWVNCbhLXWXfN1J7R7R7CXp+N0qC
- XkwzjFMsSPp0kF+kzwX+DXVjb6z9PF3PmZTzQQMGjLP2UuPzkyt/OjHPweXcJFOO5L
- NNkRAZwkzinV/ob26iMwzPEnmaFxCigJxP3RqEj/5f7rV19KmbtmdvnyGywZeRAYvK
- MPlfSGiur+roQ==
+ s=k20201202; t=1637086086;
+ bh=etpQTX48bmygiaYmk7wlzJSH1DuYnmgCAYBcwBzK3c0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=S/WB0iFx6wMFITIedZY7XmCqWv4zYMLPXAi0GzzbejfXSMpH6pIC96gzCWdyQIcuO
+ dmBu57jYyI14lNe2ltfFxgTr4WvghUaIoBBJ0sQGCI0rr5Qrc9niQ9ja/8J6uFWy/2
+ OrqecN0c6qrHWUvb3icM2LhfQughwLSwKQHioR9qbnaRJSXaQ1QYtPXaq1kYAfss/t
+ M1E7nkqlahyZ1rTt6/bahazd/jia5W/QDXKIvGzVHPHIiWlN1QVpxsrkjdVcA8a4+H
+ MopZdaCdxCgGlsjL/Aj2O5lBQENON5vlU8eAmSuQ1N9qwiq4QW/+HQF4/NBIntF2Va
+ 16BLJ6XABEQrw==
+Date: Tue, 16 Nov 2021 18:08:02 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20211116115021.14213-1-srinivas.kandagatla@linaro.org>
-References: <20211116115021.14213-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: qcom: sdm845: only setup slim ports once
-Message-Id: <163708489973.808776.5891488829987310491.b4-ty@kernel.org>
-Date: Tue, 16 Nov 2021 17:48:19 +0000
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH 03/10] firmware: cs_dsp: Add version checks on
+ coefficient loading
+Message-ID: <YZPzgvB2+oXaCupw@sirena.org.uk>
+References: <20211116161609.12223-1-ckeepax@opensource.cirrus.com>
+ <20211116161609.12223-3-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.com, linux-kernel@vger.kernel.org, lgirdwood@gmail.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="I4mzyHE60lWXyD8F"
+Content-Disposition: inline
+In-Reply-To: <20211116161609.12223-3-ckeepax@opensource.cirrus.com>
+X-Cookie: UNIX enhancements aren't.
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,36 +83,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 16 Nov 2021 11:50:21 +0000, Srinivas Kandagatla wrote:
-> Currently same slim channel map setup for every dai link, which is redundant.
-> Fix this by adding a flag and conditionally setting these channel maps.
-> 
-> 
 
-Applied to
+--I4mzyHE60lWXyD8F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, Nov 16, 2021 at 04:16:02PM +0000, Charles Keepax wrote:
+> The firmware coefficient files contain version information that is
+> currently ignored by the cs_dsp code. This information specifies which
+> version of the firmware the coefficient were generated for. Add a check
+> into the code which prints a warning in the case the coefficient and
+> firmware differ in version, in many cases this will be ok but it is not
+> always, so best to let the user know there is a potential issue.
+>=20
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+> ---
 
-Thanks!
+This has Simon's signoff after yours but no other indication of his
+involvement?
 
-[1/1] ASoC: qcom: sdm845: only setup slim ports once
-      commit: 5f55c9693a222ee1b8ec62a57fbcff59af0c4837
+--I4mzyHE60lWXyD8F
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGT84EACgkQJNaLcl1U
+h9Dybgf+IQYXZUqbI2ElORUCW7vtwWeAMjfyoMVXpkwx4ZKYe/OxxiTJXlzNqd/i
+Pw2GgRO2ZNO7acdNElAEl/qjqlcmZuHupmP3opa+2WGyQa/foiCstHZS3tayeLi0
+K1Zqz6my8Sc5TxpLeXgDk4wbwigfwOrd7ZZXXHBG4OgSI0pWEAy++IIa5DDGKOD6
+OHUsTsg+x8QQrGHx2nRelyQLAceSbsrbxCS0O9WFhUBFyXNVu33Phgwt6gX+88Su
+2CDweffxP4V5modqn7hDc8Lh53PeRbci4A7mcn8aU99+vpntZ9Xiy2YsSSGZ7A3M
+59N2hCxir7UUshZhguVYYidRADJMPw==
+=lr6Y
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--I4mzyHE60lWXyD8F--

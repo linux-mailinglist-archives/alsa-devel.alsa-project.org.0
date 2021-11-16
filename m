@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3F5A452C1E
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 08:47:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E12B6452C2B
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 08:48:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11F4316A3;
-	Tue, 16 Nov 2021 08:46:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11F4316A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63A7916A5;
+	Tue, 16 Nov 2021 08:47:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63A7916A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637048863;
-	bh=2KjTlpGu+ZDCp2dxJSRx5YGLgTocL/yoUObkjEY4DHA=;
+	s=default; t=1637048888;
+	bh=L3/yVO5MAaf67OJbbiawJSpT6/0gvCFlssNtW+n4cIo=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UqdRM3+l16HiGOkZ7kvBrzBDkI51+H56lS1AFsQcMeb6Slq1XCSBtdPKFmLtuPfGl
-	 EOWHXtg8j+ahQUt/OLF4xLbOLWjh9x2iBmFX1rteNLowYTtsmweFztg4WcxqSntHGy
-	 vwWuzoTAhww5NeOkTCMz7tqPsDcUSTRkPWZoJU74=
+	b=FiOcPWXKswJ+k+G3edc15hGUSNCHSsfpPmnVvwILOO8FJo/y7EwfU74dEIsXoqzTK
+	 yu86i5EnBCfga8cAsVm8xIgz0WyeDE0O1wZmFFEL34ewmAULILE2av6B4GlOsFnfWb
+	 zJ8g9NN4Hr5M638OSOljKITzUCfm0h1iU43fy9u0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4D75F8050F;
-	Tue, 16 Nov 2021 08:45:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A49EF80515;
+	Tue, 16 Nov 2021 08:45:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D3B0F804FF; Tue, 16 Nov 2021 08:45:35 +0100 (CET)
+ id 62B35F80511; Tue, 16 Nov 2021 08:45:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 5B9A6F804FA
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 08:45:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B9A6F804FA
-Date: 16 Nov 2021 16:45:29 +0900
-X-IronPort-AV: E=Sophos;i="5.87,238,1631545200"; d="scan'208";a="100433812"
+ by alsa1.perex.cz (Postfix) with ESMTP id 81F2BF804FC
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 08:45:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81F2BF804FC
+Date: 16 Nov 2021 16:45:34 +0900
+X-IronPort-AV: E=Sophos;i="5.87,238,1631545200"; d="scan'208";a="100433821"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 16 Nov 2021 16:45:29 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 16 Nov 2021 16:45:34 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id DA8BA400C9F0;
- Tue, 16 Nov 2021 16:45:28 +0900 (JST)
-Message-ID: <871r3gy25j.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 00FF5400C42E;
+ Tue, 16 Nov 2021 16:45:33 +0900 (JST)
+Message-ID: <87zgq4wnkx.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/5] ASoC: intel: sst-mfld-platform-pcm: add .delay support
+Subject: [PATCH 5/5] ASoC: soc-pcm: tidyup soc_pcm_pointer()'s delay update
+ method
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dd8y26l.wl-kuninori.morimoto.gx@renesas.com>
@@ -71,53 +72,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Now ALSA SoC supports .delay for component.
-This patch uses it, and not update runtime->delay on .pointer
-directly / secretly.
+No driver directly updates runtime->delay in .pointer.
+This patch cleanups its method.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/intel/atom/sst-mfld-platform-pcm.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ sound/soc/soc-pcm.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-index 5db2f4865bbb..a56dd48c045f 100644
---- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-+++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-@@ -653,10 +653,21 @@ static snd_pcm_uframes_t sst_soc_pointer(struct snd_soc_component *component,
- 		dev_err(rtd->dev, "sst: error code = %d\n", ret_val);
- 		return ret_val;
- 	}
--	substream->runtime->delay = str_info->pcm_delay;
- 	return str_info->buffer_ptr;
- }
- 
-+static snd_pcm_sframes_t sst_soc_delay(struct snd_soc_component *component,
-+				       struct snd_pcm_substream *substream)
-+{
-+	struct sst_runtime_stream *stream = substream->runtime->private_data;
-+	struct pcm_stream_info *str_info = &stream->stream_info;
-+
-+	if (sst_get_stream_status(stream) == SST_PLATFORM_INIT)
-+		return 0;
-+
-+	return str_info->pcm_delay;
-+}
-+
- static int sst_soc_pcm_new(struct snd_soc_component *component,
- 			   struct snd_soc_pcm_runtime *rtd)
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 3aba9480cb0b..7fbb59c61a7d 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1080,29 +1080,22 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ /*
+  * soc level wrapper for pointer callback
+  * If cpu_dai, codec_dai, component driver has the delay callback, then
+- * the runtime->delay will be updated accordingly.
++ * the runtime->delay will be updated via snd_soc_pcm_component/dai_delay().
+  */
+ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
  {
-@@ -695,6 +706,7 @@ static const struct snd_soc_component_driver sst_soc_platform_drv  = {
- 	.open		= sst_soc_open,
- 	.trigger	= sst_soc_trigger,
- 	.pointer	= sst_soc_pointer,
-+	.delay		= sst_soc_delay,
- 	.compress_ops	= &sst_platform_compress_ops,
- 	.pcm_construct	= sst_soc_pcm_new,
- };
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	snd_pcm_uframes_t offset = 0;
+-	snd_pcm_sframes_t delay = 0;
+ 	snd_pcm_sframes_t codec_delay = 0;
+ 	snd_pcm_sframes_t cpu_delay = 0;
+ 
+-	/* clearing the previous total delay */
+-	runtime->delay = 0;
+-
+ 	offset = snd_soc_pcm_component_pointer(substream);
+ 
+-	/* base delay if assigned in pointer callback */
+-	delay = runtime->delay;
+-
+ 	/* should be called *after* snd_soc_pcm_component_pointer() */
+ 	snd_soc_pcm_dai_delay(substream, &cpu_delay, &codec_delay);
+ 	snd_soc_pcm_component_delay(substream, &cpu_delay, &codec_delay);
+ 
+-	runtime->delay = delay + cpu_delay + codec_delay;
++	runtime->delay = cpu_delay + codec_delay;
+ 
+ 	return offset;
+ }
 -- 
 2.25.1
 

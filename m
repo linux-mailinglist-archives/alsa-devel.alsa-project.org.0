@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D74345371C
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 17:17:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4050045371E
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 17:18:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8739E169E;
-	Tue, 16 Nov 2021 17:16:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8739E169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86BAF16A6;
+	Tue, 16 Nov 2021 17:17:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86BAF16A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637079458;
-	bh=3fV/B9AlZYXuH8HlDffUvRhvPsD8016wWe/MtGSG/ak=;
+	s=default; t=1637079484;
+	bh=xGo1Djmw+aLN2agd5WRtKHmHqGIh1+j/nYisXlU+5fw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vFAZAidSglL/HtPF9yu2Vv18MyxNfdlylG/UEf7woIYjYY4CWb50vhdLQuDYNj41Z
-	 KF+h8LEI/6fov2oWKWoO0Z0iqcYbeVc2PSWPh3q8sxyonZ8bL9T9ohhIR4lcqIbqAK
-	 6wxlyw5MnfK7UHg9XkNb5s967fnkkEmZTguyQnVU=
+	b=fGrroHg/kCiZyq83qW+4NSJpYPLZavA17aH4kloSiTxJCCWMqXI5kuwSmnGZC3+/4
+	 40q40wTnJsoKgo/LuAdJClTsbrOHmSfeqI/54bYu0r5euBkJdsOvUIHwq1WmrVHacz
+	 DmC/0xJhX6vQtnnmaE9BpZ84VL+hKoWVTrPg08hs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9161CF804E7;
-	Tue, 16 Nov 2021 17:16:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47A32F804F1;
+	Tue, 16 Nov 2021 17:16:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26678F804E7; Tue, 16 Nov 2021 17:16:20 +0100 (CET)
+ id B6007F804E7; Tue, 16 Nov 2021 17:16:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,29 +34,29 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4CC3F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22166F80089
  for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 17:16:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4CC3F80134
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22166F80089
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="ErWegGfL"
+ header.b="BrcgFLKt"
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AG7FCjc005416;
- Tue, 16 Nov 2021 10:16:10 -0600
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AG7FCje005416;
+ Tue, 16 Nov 2021 10:16:12 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=PODMain02222019;
- bh=z0nJe9uGRxEe0PLwiAfAnOPr7nVq5vC8ndE2yaGCud4=;
- b=ErWegGfLxlwPyaZ5G1rBS6BrJFPgNYbwum0ByPw0I2ucKksoO8VtdlEkwLX17QXZYr2g
- OveYftKwNlftWJt7L/2oditH3Wpom2S07ULNexNw+cd48iCvpRXn1KJfihTD+iJyI5HZ
- aLJIqQAbqvDNaetWTilhnEVXlf4qPQEB51/TRsOnUnodD7joD6hqIQcujPiF/TgxQ9Qo
- b36cDNyCWfgu9Qd82Vg9dGI5GAtciCYj/kTiWTcqBglPSTv3HVFlLQAyKuqQS8v/c5xS
- p0u+7VguNicafVDoPMl0dsC2gXu2SM4IxApl6I3d9VPPvbRcNoxMn7AeLV7E8wOw+mHL TA== 
+ bh=yTQe6aIk3m8gNmEJY3lH31C5DaeG2jIj/jVzWrlFFJ8=;
+ b=BrcgFLKt6MK6h6DgbgEtHtdZWcCYbUNGps2Me/sxDBE3zEOtqriHLfK3APsvzsnWcqEE
+ nQ62UemEC/BKVWZGADMyJLszVrv1IQ8g8LF8Tp4AqTwHJD04InqOZYjBvEJK1nPPpn+M
+ u3J8rzV67xwLT6rBTCikP95harCZRXWNHADCKDRsRiOzycCVmHl9VTl6UNn+ZHP7NsTp
+ 86kADtfVnfq0z5VOux8Io6XGk9sMmdLqb/MR58y35+31cNzLHbPrBW8Etyn8MhZk4eil
+ Wkee5I3esY2ISwnC9EIzPud1TJKC9Hr3e2io6blSc+Koj+w2xaILIxZiekDFrpU3FUpk mQ== 
 Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3cbdjgt2t5-1
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3cbdjgt2t5-3
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 16 Nov 2021 10:16:10 -0600
+ Tue, 16 Nov 2021 10:16:11 -0600
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 16 Nov
@@ -65,21 +65,21 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
  Frontend Transport; Tue, 16 Nov 2021 16:16:09 +0000
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4316615A4;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5259611DB;
  Tue, 16 Nov 2021 16:16:09 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH 02/10] firmware: cs_dsp: Add lockdep asserts to interface
- functions
-Date: Tue, 16 Nov 2021 16:16:01 +0000
-Message-ID: <20211116161609.12223-2-ckeepax@opensource.cirrus.com>
+Subject: [PATCH 03/10] firmware: cs_dsp: Add version checks on coefficient
+ loading
+Date: Tue, 16 Nov 2021 16:16:02 +0000
+Message-ID: <20211116161609.12223-3-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211116161609.12223-1-ckeepax@opensource.cirrus.com>
 References: <20211116161609.12223-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: CV-C-aWJem_wlbeCisBWnY_K6F51FFQ0
-X-Proofpoint-GUID: CV-C-aWJem_wlbeCisBWnY_K6F51FFQ0
+X-Proofpoint-ORIG-GUID: o82EHPLcmIO5s3WcA9nsZ5YOW5c2OY_a
+X-Proofpoint-GUID: o82EHPLcmIO5s3WcA9nsZ5YOW5c2OY_a
 X-Proofpoint-Spam-Reason: safe
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  lgirdwood@gmail.com
@@ -98,82 +98,228 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some of the control functions exposed by the cs_dsp code require the
-pwr_lock to be held by the caller. Add lockdep_assert_held calls to
-ensure this is done correctly.
+The firmware coefficient files contain version information that is
+currently ignored by the cs_dsp code. This information specifies which
+version of the firmware the coefficient were generated for. Add a check
+into the code which prints a warning in the case the coefficient and
+firmware differ in version, in many cases this will be ok but it is not
+always, so best to let the user know there is a potential issue.
 
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
 ---
- drivers/firmware/cirrus/cs_dsp.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/firmware/cirrus/cs_dsp.c       | 49 +++++++++++++++++++++++++---------
+ include/linux/firmware/cirrus/cs_dsp.h |  2 ++
+ 2 files changed, 38 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
-index 1a0c6c793f6a7..0d1ba7d8efa47 100644
+index 0d1ba7d8efa47..0da454a8498d0 100644
 --- a/drivers/firmware/cirrus/cs_dsp.c
 +++ b/drivers/firmware/cirrus/cs_dsp.c
-@@ -653,6 +653,8 @@ int cs_dsp_coeff_write_acked_control(struct cs_dsp_coeff_ctl *ctl, unsigned int
- 	unsigned int reg;
- 	int i, ret;
+@@ -1569,7 +1569,7 @@ EXPORT_SYMBOL_GPL(cs_dsp_find_alg_region);
  
-+	lockdep_assert_held(&dsp->pwr_lock);
-+
- 	if (!dsp->running)
- 		return -EPERM;
- 
-@@ -754,6 +756,8 @@ int cs_dsp_coeff_write_ctrl(struct cs_dsp_coeff_ctl *ctl, const void *buf, size_
- {
- 	int ret = 0;
- 
-+	lockdep_assert_held(&ctl->dsp->pwr_lock);
-+
- 	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE)
- 		ret = -EPERM;
- 	else if (buf != ctl->cache)
-@@ -811,6 +815,8 @@ int cs_dsp_coeff_read_ctrl(struct cs_dsp_coeff_ctl *ctl, void *buf, size_t len)
- {
- 	int ret = 0;
- 
-+	lockdep_assert_held(&ctl->dsp->pwr_lock);
-+
- 	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE) {
- 		if (ctl->enabled && ctl->dsp->running)
- 			return cs_dsp_coeff_read_ctrl_raw(ctl, buf, len);
-@@ -1453,6 +1459,8 @@ struct cs_dsp_coeff_ctl *cs_dsp_get_ctl(struct cs_dsp *dsp, const char *name, in
- {
- 	struct cs_dsp_coeff_ctl *pos, *rslt = NULL;
- 
-+	lockdep_assert_held(&dsp->pwr_lock);
-+
- 	list_for_each_entry(pos, &dsp->ctl_list, list) {
- 		if (!pos->subname)
- 			continue;
-@@ -1548,6 +1556,8 @@ struct cs_dsp_alg_region *cs_dsp_find_alg_region(struct cs_dsp *dsp,
+ static struct cs_dsp_alg_region *cs_dsp_create_region(struct cs_dsp *dsp,
+ 						      int type, __be32 id,
+-						      __be32 base)
++						      __be32 ver, __be32 base)
  {
  	struct cs_dsp_alg_region *alg_region;
  
-+	lockdep_assert_held(&dsp->pwr_lock);
+@@ -1579,6 +1579,7 @@ static struct cs_dsp_alg_region *cs_dsp_create_region(struct cs_dsp *dsp,
+ 
+ 	alg_region->type = type;
+ 	alg_region->alg = be32_to_cpu(id);
++	alg_region->ver = be32_to_cpu(ver);
+ 	alg_region->base = be32_to_cpu(base);
+ 
+ 	list_add_tail(&alg_region->list, &dsp->alg_regions);
+@@ -1628,14 +1629,14 @@ static void cs_dsp_parse_wmfw_v3_id_header(struct cs_dsp *dsp,
+ 		    nalgs);
+ }
+ 
+-static int cs_dsp_create_regions(struct cs_dsp *dsp, __be32 id, int nregions,
+-				 const int *type, __be32 *base)
++static int cs_dsp_create_regions(struct cs_dsp *dsp, __be32 id, __be32 ver,
++				 int nregions, const int *type, __be32 *base)
+ {
+ 	struct cs_dsp_alg_region *alg_region;
+ 	int i;
+ 
+ 	for (i = 0; i < nregions; i++) {
+-		alg_region = cs_dsp_create_region(dsp, type[i], id, base[i]);
++		alg_region = cs_dsp_create_region(dsp, type[i], id, ver, base[i]);
+ 		if (IS_ERR(alg_region))
+ 			return PTR_ERR(alg_region);
+ 	}
+@@ -1670,12 +1671,14 @@ static int cs_dsp_adsp1_setup_algs(struct cs_dsp *dsp)
+ 	cs_dsp_parse_wmfw_id_header(dsp, &adsp1_id.fw, n_algs);
+ 
+ 	alg_region = cs_dsp_create_region(dsp, WMFW_ADSP1_ZM,
+-					  adsp1_id.fw.id, adsp1_id.zm);
++					  adsp1_id.fw.id, adsp1_id.fw.ver,
++					  adsp1_id.zm);
+ 	if (IS_ERR(alg_region))
+ 		return PTR_ERR(alg_region);
+ 
+ 	alg_region = cs_dsp_create_region(dsp, WMFW_ADSP1_DM,
+-					  adsp1_id.fw.id, adsp1_id.dm);
++					  adsp1_id.fw.id, adsp1_id.fw.ver,
++					  adsp1_id.dm);
+ 	if (IS_ERR(alg_region))
+ 		return PTR_ERR(alg_region);
+ 
+@@ -1698,6 +1701,7 @@ static int cs_dsp_adsp1_setup_algs(struct cs_dsp *dsp)
+ 
+ 		alg_region = cs_dsp_create_region(dsp, WMFW_ADSP1_DM,
+ 						  adsp1_alg[i].alg.id,
++						  adsp1_alg[i].alg.ver,
+ 						  adsp1_alg[i].dm);
+ 		if (IS_ERR(alg_region)) {
+ 			ret = PTR_ERR(alg_region);
+@@ -1719,6 +1723,7 @@ static int cs_dsp_adsp1_setup_algs(struct cs_dsp *dsp)
+ 
+ 		alg_region = cs_dsp_create_region(dsp, WMFW_ADSP1_ZM,
+ 						  adsp1_alg[i].alg.id,
++						  adsp1_alg[i].alg.ver,
+ 						  adsp1_alg[i].zm);
+ 		if (IS_ERR(alg_region)) {
+ 			ret = PTR_ERR(alg_region);
+@@ -1771,17 +1776,20 @@ static int cs_dsp_adsp2_setup_algs(struct cs_dsp *dsp)
+ 	cs_dsp_parse_wmfw_id_header(dsp, &adsp2_id.fw, n_algs);
+ 
+ 	alg_region = cs_dsp_create_region(dsp, WMFW_ADSP2_XM,
+-					  adsp2_id.fw.id, adsp2_id.xm);
++					  adsp2_id.fw.id, adsp2_id.fw.ver,
++					  adsp2_id.xm);
+ 	if (IS_ERR(alg_region))
+ 		return PTR_ERR(alg_region);
+ 
+ 	alg_region = cs_dsp_create_region(dsp, WMFW_ADSP2_YM,
+-					  adsp2_id.fw.id, adsp2_id.ym);
++					  adsp2_id.fw.id, adsp2_id.fw.ver,
++					  adsp2_id.ym);
+ 	if (IS_ERR(alg_region))
+ 		return PTR_ERR(alg_region);
+ 
+ 	alg_region = cs_dsp_create_region(dsp, WMFW_ADSP2_ZM,
+-					  adsp2_id.fw.id, adsp2_id.zm);
++					  adsp2_id.fw.id, adsp2_id.fw.ver,
++					  adsp2_id.zm);
+ 	if (IS_ERR(alg_region))
+ 		return PTR_ERR(alg_region);
+ 
+@@ -1806,6 +1814,7 @@ static int cs_dsp_adsp2_setup_algs(struct cs_dsp *dsp)
+ 
+ 		alg_region = cs_dsp_create_region(dsp, WMFW_ADSP2_XM,
+ 						  adsp2_alg[i].alg.id,
++						  adsp2_alg[i].alg.ver,
+ 						  adsp2_alg[i].xm);
+ 		if (IS_ERR(alg_region)) {
+ 			ret = PTR_ERR(alg_region);
+@@ -1827,6 +1836,7 @@ static int cs_dsp_adsp2_setup_algs(struct cs_dsp *dsp)
+ 
+ 		alg_region = cs_dsp_create_region(dsp, WMFW_ADSP2_YM,
+ 						  adsp2_alg[i].alg.id,
++						  adsp2_alg[i].alg.ver,
+ 						  adsp2_alg[i].ym);
+ 		if (IS_ERR(alg_region)) {
+ 			ret = PTR_ERR(alg_region);
+@@ -1848,6 +1858,7 @@ static int cs_dsp_adsp2_setup_algs(struct cs_dsp *dsp)
+ 
+ 		alg_region = cs_dsp_create_region(dsp, WMFW_ADSP2_ZM,
+ 						  adsp2_alg[i].alg.id,
++						  adsp2_alg[i].alg.ver,
+ 						  adsp2_alg[i].zm);
+ 		if (IS_ERR(alg_region)) {
+ 			ret = PTR_ERR(alg_region);
+@@ -1873,7 +1884,7 @@ static int cs_dsp_adsp2_setup_algs(struct cs_dsp *dsp)
+ 	return ret;
+ }
+ 
+-static int cs_dsp_halo_create_regions(struct cs_dsp *dsp, __be32 id,
++static int cs_dsp_halo_create_regions(struct cs_dsp *dsp, __be32 id, __be32 ver,
+ 				      __be32 xm_base, __be32 ym_base)
+ {
+ 	static const int types[] = {
+@@ -1882,7 +1893,7 @@ static int cs_dsp_halo_create_regions(struct cs_dsp *dsp, __be32 id,
+ 	};
+ 	__be32 bases[] = { xm_base, xm_base, ym_base, ym_base };
+ 
+-	return cs_dsp_create_regions(dsp, id, ARRAY_SIZE(types), types, bases);
++	return cs_dsp_create_regions(dsp, id, ver, ARRAY_SIZE(types), types, bases);
+ }
+ 
+ static int cs_dsp_halo_setup_algs(struct cs_dsp *dsp)
+@@ -1910,7 +1921,7 @@ static int cs_dsp_halo_setup_algs(struct cs_dsp *dsp)
+ 
+ 	cs_dsp_parse_wmfw_v3_id_header(dsp, &halo_id.fw, n_algs);
+ 
+-	ret = cs_dsp_halo_create_regions(dsp, halo_id.fw.id,
++	ret = cs_dsp_halo_create_regions(dsp, halo_id.fw.id, halo_id.fw.ver,
+ 					 halo_id.xm_base, halo_id.ym_base);
+ 	if (ret)
+ 		return ret;
+@@ -1934,6 +1945,7 @@ static int cs_dsp_halo_setup_algs(struct cs_dsp *dsp)
+ 			    be32_to_cpu(halo_alg[i].ym_base));
+ 
+ 		ret = cs_dsp_halo_create_regions(dsp, halo_alg[i].alg.id,
++						 halo_alg[i].alg.ver,
+ 						 halo_alg[i].xm_base,
+ 						 halo_alg[i].ym_base);
+ 		if (ret)
+@@ -1955,7 +1967,7 @@ static int cs_dsp_load_coeff(struct cs_dsp *dsp, const struct firmware *firmware
+ 	const struct cs_dsp_region *mem;
+ 	struct cs_dsp_alg_region *alg_region;
+ 	const char *region_name;
+-	int ret, pos, blocks, type, offset, reg;
++	int ret, pos, blocks, type, offset, reg, version;
+ 	struct cs_dsp_buf *buf;
+ 
+ 	if (!firmware)
+@@ -1999,6 +2011,7 @@ static int cs_dsp_load_coeff(struct cs_dsp *dsp, const struct firmware *firmware
+ 
+ 		type = le16_to_cpu(blk->type);
+ 		offset = le16_to_cpu(blk->offset);
++		version = le32_to_cpu(blk->ver) >> 8;
+ 
+ 		cs_dsp_dbg(dsp, "%s.%d: %x v%d.%d.%d\n",
+ 			   file, blocks, le32_to_cpu(blk->id),
+@@ -2056,6 +2069,16 @@ static int cs_dsp_load_coeff(struct cs_dsp *dsp, const struct firmware *firmware
+ 			alg_region = cs_dsp_find_alg_region(dsp, type,
+ 							    le32_to_cpu(blk->id));
+ 			if (alg_region) {
++				if (version != alg_region->ver)
++					cs_dsp_warn(dsp,
++						    "Algorithm coefficient version %d.%d.%d but expected %d.%d.%d\n",
++						   (version >> 16) & 0xFF,
++						   (version >> 8) & 0xFF,
++						   version & 0xFF,
++						   (alg_region->ver >> 16) & 0xFF,
++						   (alg_region->ver >> 8) & 0xFF,
++						   alg_region->ver & 0xFF);
 +
- 	list_for_each_entry(alg_region, &dsp->alg_regions, list) {
- 		if (id == alg_region->alg && type == alg_region->type)
- 			return alg_region;
-@@ -2783,6 +2793,8 @@ int cs_dsp_read_raw_data_block(struct cs_dsp *dsp, int mem_type, unsigned int me
- 	unsigned int reg;
- 	int ret;
- 
-+	lockdep_assert_held(&dsp->pwr_lock);
-+
- 	if (!mem)
- 		return -EINVAL;
- 
-@@ -2836,6 +2848,8 @@ int cs_dsp_write_data_word(struct cs_dsp *dsp, int mem_type, unsigned int mem_ad
- 	__be32 val = cpu_to_be32(data & 0x00ffffffu);
- 	unsigned int reg;
- 
-+	lockdep_assert_held(&dsp->pwr_lock);
-+
- 	if (!mem)
- 		return -EINVAL;
- 
+ 				reg = alg_region->base;
+ 				reg = dsp->ops->region_to_reg(mem, reg);
+ 				reg += offset;
+diff --git a/include/linux/firmware/cirrus/cs_dsp.h b/include/linux/firmware/cirrus/cs_dsp.h
+index 3a54b1afc48fc..ce54705e2becf 100644
+--- a/include/linux/firmware/cirrus/cs_dsp.h
++++ b/include/linux/firmware/cirrus/cs_dsp.h
+@@ -54,12 +54,14 @@ struct cs_dsp_region {
+  * struct cs_dsp_alg_region - Describes a logical algorithm region in DSP address space
+  * @list:	List node for internal use
+  * @alg:	Algorithm id
++ * @ver:	Expected algorithm version
+  * @type:	Memory region type
+  * @base:	Address of region
+  */
+ struct cs_dsp_alg_region {
+ 	struct list_head list;
+ 	unsigned int alg;
++	unsigned int ver;
+ 	int type;
+ 	unsigned int base;
+ };
 -- 
 2.11.0
 

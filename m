@@ -2,82 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E37C34534CC
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 16:01:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 850EC4535AB
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 16:23:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2248716A5;
-	Tue, 16 Nov 2021 16:00:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2248716A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3CAC16AA;
+	Tue, 16 Nov 2021 16:22:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3CAC16AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637074867;
-	bh=kLgNCOXcOMdbR7IPP44gOExLnRjFLRrAYmTTznSGFas=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JeCNg7IZBBRZgc7M2CM1ziuzzDHN/bNoX1C1guiw5xYMl8w0h75z3uA35lJhkfrOr
-	 zXVo8O/L41/eyzY9L2G1m4KO+9pUbMubXIJq5FQgWa9CwELb4GEqZ+btyxMMg4BCV5
-	 ty/mN1DBpMgGEuuMaeMCTPm1uK4jJAyi85DVhdYQ=
+	s=default; t=1637076210;
+	bh=GUy+oy4WUkK5YOsjShJK0WkJ6NGMiYBGIv0/zN0CDW8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=V+K3AiSpO5QDjhyi54/8f5VPB0tr1wN+cMfmfAwFuI0yLncABN0YjWWxznFETBu3I
+	 TzNJaD4YdEwXyIcgzZOMUYtMsjsmnpeQ92UkAOqAxeWRGRkBjKK9uIHhA+2ZIyppa2
+	 hCNP3/QXcPzSjGODR3u9LwSHOz1jIvGOAPzoHRqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D632F8026D;
-	Tue, 16 Nov 2021 15:59:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65DE2F804BC;
+	Tue, 16 Nov 2021 16:22:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A069F80272; Tue, 16 Nov 2021 15:59:47 +0100 (CET)
+ id 1CD09F804BC; Tue, 16 Nov 2021 16:22:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ MSGID_FROM_MTA_HEADER, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02on0613.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe07::613])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CD0AF80089
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 15:59:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CD0AF80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5022F80089
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 16:22:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5022F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PEt18bk5"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A60AA61C4F;
- Tue, 16 Nov 2021 14:59:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637074776;
- bh=kLgNCOXcOMdbR7IPP44gOExLnRjFLRrAYmTTznSGFas=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PEt18bk582cM292euP4s0OwFA1lx3lzTTclKy3RNrQ4QN2xysp9MJJSw7MGDMM9bH
- RNX30oV5vCIzcGXZ3oIULBZkWjAC5b0BJPnXeTziRvUR0cL8PUJvgF0msn25RAylB9
- hg7oPwHtqPsEYP5GG9CzRatQF6/l0DWdeT0Z8iruXDO72CV1FcF9jHuK8zB7nI32Rm
- 0u3tSnLIV6IQ0D2rKkx3Bo8j6mqp7HQxvqzTPG03hT83tt0r9pv5Zk1/ofT6/1hQLi
- eNXBow7yOCqovGhoca+j4usdpXbcdyElvdv6wvrx74u4+i2pixjcOD3GvttY5KKGkU
- 6EzdhT/s4h7Yw==
-Date: Tue, 16 Nov 2021 14:59:30 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Trevor Wu <trevor.wu@mediatek.com>
-Subject: Re: [PATCH 3/4] ASoC: mediatek: mt8195: separate the common code
- from machine driver
-Message-ID: <YZPHUmDdGF/59XqA@sirena.org.uk>
-References: <20211103100040.11933-1-trevor.wu@mediatek.com>
- <20211103100040.11933-4-trevor.wu@mediatek.com>
- <YYP+l7tMofYoB+aC@sirena.org.uk>
- <b4360ea17c3045759e85ee13fa9c001afe73c93c.camel@mediatek.com>
- <YYVQC7KLZx8oxdXT@sirena.org.uk>
- <e404d241-0685-643b-4b9d-d85bb8783385@linux.intel.com>
- <YYVez/V9ocCXhYmg@sirena.org.uk>
- <4e876c89ee58cd1408511a34573005e3df359cd0.camel@mediatek.com>
- <f915d1090abf2b6d188ce27068919a181828e463.camel@mediatek.com>
+ dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
+ header.i=@NXP1.onmicrosoft.com header.b="ikkr5Bfj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ffixyIU2uZpl63z3kO9NIRMSBxzJnU2YqMXM7H46WOiE8E6J0DihlnrcROa6ke/x93cr07/r4gfDobpJjuMn9XBu678WDCg2j8eSsHlsmBKX6LuL3dxZjWFJVwOrKz6qcd4/rikmYIclTWdqZ/yVBRpTydmOHFUVQlMrap6luAd/XDszo4+lNRW//T227nPclF67cbNtPhBGJ2AQcib4yWlT3fwkmLK/7ebSy5QgIZmiO2Hvohy6vVKADYUEslVTuNkfpzoT+X00j7sMHhgiRQe9z5I0f6HZXEeJ3uhjC4IJlFqO9l3yNm5AH1tuHDdBOMsNPWfkPFZNReGQb018kA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ODu0bLQYEOuXiH2fGIBDqIZIppgq8J9XHzZ5JuAWXoM=;
+ b=SvbBZOxKICFNo0QIyq9AowN48HHei5G669qJcrF3M5ExBqHWNiMoxlSF2izTlLWUEUyvuFm1ixC3VNkvUbHVkaXheV0IByGgpjpBNPR3DfgWp0Q28iMdzXsQ194AeOjpSp2e3UuJ/Qg1H4+5P9YQvYOSnYhsYH/de1dgd8OGD2i2sa8+XsrI1vd0Js6/ibkcIY6Padst7X9EfZMc75VM3pTSEGdKCO0R9KOjJFNBSDQ/nsMVYp2AnLcjSbtyb870CluHtXavL1vUvY8s9HwIUnuJtXcKAxXP+hTBxEvX4GhDogDwX3TR/q6xFEsuskY7jd7GNFpWDJFmGT4ZH13PwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector2-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ODu0bLQYEOuXiH2fGIBDqIZIppgq8J9XHzZ5JuAWXoM=;
+ b=ikkr5BfjGfYiD7OYjEXNU8ceJW4CZjlPClb7NubMzRfe7oFh0+e7/WaZ5QTj2lWJohx0oCkhvRGCsriKEHxYQwlup+TO2cZQB8x9LKS2biS1ovPKH577Gve32HljThztP4iaKrlpE5PhgPxNHuMbTyKNEU0/JH6eCqoA7lDAKKI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
+ by VI1PR04MB6880.eurprd04.prod.outlook.com (2603:10a6:803:130::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Tue, 16 Nov
+ 2021 15:21:59 +0000
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::85af:f8be:aa99:ba5f]) by VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::85af:f8be:aa99:ba5f%3]) with mapi id 15.20.4690.027; Tue, 16 Nov 2021
+ 15:21:59 +0000
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+To: broonie@kernel.org,
+	peter.ujfalusi@linux.intel.com
+Subject: [PATCH 0/4] New debug feature: IPC message injector
+Date: Tue, 16 Nov 2021 17:21:33 +0200
+Message-Id: <20211116152137.52129-1-daniel.baluta@oss.nxp.com>
+X-Mailer: git-send-email 2.27.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AM4PR0302CA0013.eurprd03.prod.outlook.com
+ (2603:10a6:205:2::26) To VI1PR04MB5151.eurprd04.prod.outlook.com
+ (2603:10a6:803:61::28)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="YuLN/D4BxE4Sko6x"
-Content-Disposition: inline
-In-Reply-To: <f915d1090abf2b6d188ce27068919a181828e463.camel@mediatek.com>
-X-Cookie: UNIX enhancements aren't.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, tiwai@suse.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
- YC Hung <yc.hung@mediatek.com>, matthias.bgg@gmail.com, daniel.baluta@nxp.com,
- linux-arm-kernel@lists.infradead.org
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (2a02:2f08:5706:b700:1e69:ee6:2dad:c9e7)
+ by AM4PR0302CA0013.eurprd03.prod.outlook.com (2603:10a6:205:2::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16 via Frontend
+ Transport; Tue, 16 Nov 2021 15:21:57 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8f6eb785-d24d-4d4f-b19c-08d9a914d4ce
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6880:
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-Microsoft-Antispam-PRVS: <VI1PR04MB6880BA13D0725CDA977F22BCB8999@VI1PR04MB6880.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rTzPEu727zLI3QBqv5k2TCbnMgYSl/68uM1CqDd1uP5eSygxgnqikZw6bKPTmC6wx71REuV/Td/DpOTZgXvyGOg53tOXjdIFeovADz4toS8N83V6NkowuABbKe+xBAQ+fucPDunTXCmmMJkgmjPA8V6O+u42bpZuGZ5pN85T/RrcIfZKwmjKT4nsjXthhPk2q+a8WvnO6AaCPAhmBxr2Y/1Av5OwEBZ7g2kI8w0+PWYg0QhYvsNzqUdEjQVcdczaPi2n/O2JZUWUI/DFnVV+UZhj/6f+q+UInluYXZXBLUQYserhmckmauHVqzJDe4riambNH+7jf7bFeEn1Cu8nraiAt5m2tyAIk8laCU1SK+QU02arRrJ+3yvQXaGxTsj/ydVuwLXFQQ4fPSdnAFoNcEX7XJU2XENZk1yBcgS5APHkkYWeUq+Tc0fBMQQgF5BNH1MVKGs2MTMXFltzCFiLNxj3eMgrGa7kmjWSgcInzLY6YU5atIxT/9/D7vixk0LSH+IvSKp8omrxW0BiElRPwBhDcLd9sM0f6Nh0hSSqQH8t2AWBu7WlMi8Og9bg66IJVrghuXXvIpCNgafY+4DR/1UltMbWGBAz99QOoGWPxOt67tplEPuww9WHxE0ZQeXnvAdzCuoVAjxqnhBrJmKz/Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(4326008)(8676002)(6666004)(38100700002)(5660300002)(8936002)(2616005)(52116002)(2906002)(86362001)(15650500001)(6512007)(316002)(66556008)(186003)(1076003)(508600001)(66476007)(66946007)(6486002)(44832011)(83380400001)(6506007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sg/OQBjQ16eDdJBvyZSHpcqFGjCcv1JIe71YK+thqsXTRg+MKJ5kRsD4sRjA?=
+ =?us-ascii?Q?O5qP7pq0gBjj6Kw/b64fasWzGxyfDAm++9fTnZSC6wx4Uq2Wy9nubNNHlOaR?=
+ =?us-ascii?Q?UlYG/7mr2lGjNMqb3iQH9xwI7SZIfAP8Uhkp3KHV7jAOoNHcvy25/p/fzraM?=
+ =?us-ascii?Q?nX76mKwgQb50utsXBuIBtkK4UPP5M07NU+kIi9Va9tH3NoVk1iu1ckccEI01?=
+ =?us-ascii?Q?fqoUigpQMBRgvyjyqYfQtUV9D7Ixma0HrKMDDwDCH/1clSLAzoKkgsuxsz6E?=
+ =?us-ascii?Q?CabyWChcP+rPYQPXInGYejwJOL8gaV5Z4J9OIigh2P6k6kV9nCdwmuB7KOYl?=
+ =?us-ascii?Q?Aj6tgne0QDMH7GbHMleEVbpD7uDXDbN4slIYJtGfuA53tQJRfvwc/onDZDcc?=
+ =?us-ascii?Q?7U22S9ksX+TiOQTCWhUPOLqOm7BbJv0u+sc9AtBQmOr7ih4ZTiFQ7zyDEWeI?=
+ =?us-ascii?Q?KmM9Y9e5Ok75sFsnOGMNdZwAqOrvCwfPWfswr8aIjaHv2joySmZmoNdVyB9+?=
+ =?us-ascii?Q?4OovZwV7J60sODMSLyJAJjZWMVrZVko3jjQauMolwhphJDPOJaNFPGu4ZdsR?=
+ =?us-ascii?Q?QcKqkrSJozT8zJ1ANKfLTAHGO6vKZNTt4DXdYyDWJJ5z+qIPSNZFhn8mSNb+?=
+ =?us-ascii?Q?YErYjT7z0S6P2BqNURz5UA8ya8Sqt8yfq8rR7M7/PdCssqa3V4wCJVeJfiY2?=
+ =?us-ascii?Q?q5wC71TwnnoHN8mma+wiwuaMqy0R58K+c1ER9Jqz6XOi/awRRShk7/l2dQfz?=
+ =?us-ascii?Q?A/cz3ibN8M1EMO6l3/a0E9vNwQLkwpCPYaKun8BbP8EEKhEMuYVvwfroqEm+?=
+ =?us-ascii?Q?sPmoMkv7SQ8jOQj66/XE78ajlDEvtEHh5Dzuo/+P9/0klh4sE+OUnMOfQlpm?=
+ =?us-ascii?Q?iYuRpdsYVZZvPCQmnd6EqOZ3MggJdfB9MjrZ5QKHMS9lSBKaMwB/ZdfPFTTj?=
+ =?us-ascii?Q?OzH6bmtD3DWLWwcw7rfiMwFtLdLXHWFc1SNrajVwsndyOjDiqAqV1g4OjdZk?=
+ =?us-ascii?Q?yhE5cUglzD5fUemJcmbmIztlD52ljTphEPDPgVIfB2k43+lSVsTHcAIbEV6i?=
+ =?us-ascii?Q?7RWtjG8GH6AVZn5aURsHyn4ysYty+1+snqiZpojzlXd8TPQJ3AfX1BazX3Xh?=
+ =?us-ascii?Q?GAgwcovWAh1oiFc6oiqaT7JC3Xg5/ziy5997khQyY3w/RO0wS0mC2G8rU7br?=
+ =?us-ascii?Q?F4eiF5wvbDOk4o8Xjn9j3tAtmzOgJzSkJgF5E0GFVbUngRyoqim2spLRXzXC?=
+ =?us-ascii?Q?7nGp2jZFzmlNYnWYX7lyZa38uwFHKB0ilnFgPZJEOqchOfcCsYR6BNMgzfvG?=
+ =?us-ascii?Q?uoQixdGlC6Z3PpEdNz2wpBpw2bJcGaDgYyl5IvEZUPRXk+lGtqKIDb4qWbqZ?=
+ =?us-ascii?Q?HK+uh/aMs5hXvlLtluSjxU2avCUhuNNCZp14euu6xptyS3vFgDpF/oPTOGhX?=
+ =?us-ascii?Q?cmQFQF2ihWmaFjtyrAf5TPAkjOjRcV4ZLxzNCCveX/9fE5IO66k4MFluQ2oK?=
+ =?us-ascii?Q?kNDEs4pf22q8yb8Svd+j7niDnnd7MGn7GdKBT6soCppzun1tnYYi8e1mooOB?=
+ =?us-ascii?Q?pMmOCy+tGFBz27S0emhSsiaOP99upvbYxEBnzFJ6qqtkTMMRlpy9VOS8TVZf?=
+ =?us-ascii?Q?vgtkQaygi76AEEnLR73yqSkMynkLYJbGqVPYHnfdQrfOXCtWeHHxvz/JIEoe?=
+ =?us-ascii?Q?wTmXUE58J0YsQx8EurUtrw78EZ0=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f6eb785-d24d-4d4f-b19c-08d9a914d4ce
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2021 15:21:58.8749 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: m5wIl8NOu0HM1s8oJaaFBRuQotPomaIsvyCOnoU34pSNKLBVErktT+6jXurlZdLvnBAkTo5NS7QzlKivKdP3nw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6880
+Cc: daniel.baluta@gmail.com, kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,43 +159,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Daniel Baluta <daniel.baluta@nxp.com>
 
---YuLN/D4BxE4Sko6x
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+With the new SND_SOC_SOF_DEBUG_IPC_MSG_INJECTOR it is going to be
+possible to inject arbitrary messages via the debugfs/sof/ipc_msg_inject
+file and get the reply from the same file as a binary.
 
-On Tue, Nov 16, 2021 at 05:33:48PM +0800, Trevor Wu wrote:
+The main use of this feature is to stress test the firmware's robustness
+against maliciously (or erroneous) crafted messages.
+We also receive firmware crash reports with only a binary of the sent
+message which caused the firmware crash.
 
-> Is the reply from YC clear? Any suggestion would be appreciated. If you
-> need more information, please let us know.=20
+Before adding the new debug feature we needed to make sure that the IPC
+reply handling is working correctly for cases when we don't know
+beforehand the size of the reply (since we don't know what kind of
+message we are sending).
 
-Not really.  It's super high level and only at the driver level, not
-talking about the hardware much.  As far as I can see it's showing a
-single physical system and even seems to have what looks like it's
-supposed to be two cards connected together which really seems like
-it's a single device.
+Peter Ujfalusi (4):
+  ASoC: SOF: utils: Add generic function to get the reply for a tx
+    message
+  ASoC: SOF: imx: Use the generic helper to get the reply
+  ASoC: SOF: intel: Use the generic helper to get the reply
+  ASoC: SOF: debug: Add support for IPC message injection
 
-> Additionally, it was my understanding you suggested that DSP routes
-> should be configurable in some ways, and we should not just add a new
-> driver for SOF in case we need to support some other interface
-> combinations in the future. If I'm wrong, please kindly correct me.
+ sound/soc/sof/Kconfig         |   8 +++
+ sound/soc/sof/debug.c         | 107 ++++++++++++++++++++++++++++++++++
+ sound/soc/sof/imx/imx8.c      |  37 +-----------
+ sound/soc/sof/imx/imx8m.c     |  37 +-----------
+ sound/soc/sof/intel/atom.c    |  43 +-------------
+ sound/soc/sof/intel/bdw.c     |  43 +-------------
+ sound/soc/sof/intel/hda-ipc.c |  29 +--------
+ sound/soc/sof/ipc.c           |  61 +++++++++++++++++++
+ sound/soc/sof/sof-priv.h      |  10 ++++
+ 9 files changed, 192 insertions(+), 183 deletions(-)
 
-Yes, I'd not expect a separate driver depending on system configuration.
+-- 
+2.27.0
 
---YuLN/D4BxE4Sko6x
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGTx1EACgkQJNaLcl1U
-h9DQcQf/UeSfcn6HVEpGYxZ8QFiUTj+pbv+kGdokbgKrS0ecwwnxMi4Py7KS5Z+G
-t3FU9D3QiuU1BnHL92LIKT0wdYM7r7yededEPF0t8bnU4+CiO6nJbCRNp9E3jfPA
-wlXwe7J+sTEWqmJ+HUNIX/MVHTBdAPwSIyYHWQmB3CgC2WDX8oLsLwobCOCZyh9n
-7hdw4rjGE5m4P95j+SHERYBB1osAixaTLMrQ4aa59f5epfn0M5iQ0ABQltYIR48u
-DOyGK2ZiJUs524JKVVbHtjz/JY3/SJqlY2DQKIt3vePa/fNNowo5Fjv4oReFJoQS
-uek9HwybelDl1KbN9VhWNQDm2SyfsQ==
-=42uA
------END PGP SIGNATURE-----
-
---YuLN/D4BxE4Sko6x--

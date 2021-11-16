@@ -2,79 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5476F4535AC
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 16:23:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B1F4535B9
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 16:24:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 604CE16BB;
-	Tue, 16 Nov 2021 16:23:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 604CE16BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CEB5169C;
+	Tue, 16 Nov 2021 16:23:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CEB5169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637076234;
-	bh=Vs+N7sq0do7XwpQFHAdVtHzWPm5XXnHcF4wX/An59Rw=;
+	s=default; t=1637076284;
+	bh=xYfVZylMS1kJOqJESZx349Jvxdes3uKwGEmuwznAoro=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AD9pfNT/+add2x6Nrgs2w7kfOvc6975kSCLYZsYyfvQRigU/XZLjfylfzTZUk5OAY
-	 a/loJGNjGTXdWccp+PQydaK7NqZsVbwIFb9DSrqjd6daO1BG1OzQl6Ch3A9YK2OgUs
-	 S2qbv98CS8QR/pCnGfMbQVkLRqv6avla33Io81bc=
+	b=S+YZ8FQbg2wVUZj2eIm27mYM9G4v6NGNrxCoAIPc92/YicezVH+6GiMHKDh8OYXWC
+	 IJkgUidQpISn6n+Mh3S0oMSIrDzbo++fVVB8zAg5GrBTF3xhd7mWBDcshZlL9e2w+9
+	 6MUNDQk/EbxPd2s0CmWPJFMWaoOMrgT7rGFQHhWw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 136D4F804E7;
-	Tue, 16 Nov 2021 16:22:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45B62F804FE;
+	Tue, 16 Nov 2021 16:22:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23999F804BC; Tue, 16 Nov 2021 16:22:11 +0100 (CET)
+ id D2889F804FB; Tue, 16 Nov 2021 16:22:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- MSGID_FROM_MTA_HEADER, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ MSGID_FROM_MTA_HEADER, SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from EUR02-AM5-obe.outbound.protection.outlook.com
  (mail-am5eur02on0613.outbound.protection.outlook.com
  [IPv6:2a01:111:f400:fe07::613])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1752DF80134
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 16:22:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1752DF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E8AAF80272
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 16:22:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E8AAF80272
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="Hf1qQgBq"
+ header.i=@NXP1.onmicrosoft.com header.b="arxXVUG7"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PpxqxfR8QESpGOdnNkO6aOv86apio0ul58q4rEPh0MxDWPfrCUfGDHIcHuvKKyGhgd+SigsL35BNQZ0MqW3R7ayNNJj9o77HMaVVqJGo5P1RR2qSFtrDR5VZZqnbzEwqvDB2PDqB8MIE2A5zFiI0qg/JzY03BWPdIFWM7C/6ExCr5bjujLoRF3pea//N01UayIuTpaskfR8W7wLM7rtiDuun7xmt45LpDgxNJ2Pb/sp2hG1WzQsKhI9HiqNWH2ecenLR8ULZPfyhmo11wYpGr6v6+2MTuZU0H7hhIVvxFoewK9B8a0N/edEA8pOtLHxVIOkd/pjqk7NZYyaAuTNrKQ==
+ b=aEkgF4l8uEpKouRPcbMiyI2KPaAMOdRf2zb3tmq0QMhLqyrCzaUoubkbZkvFoJ+dkHx0F3O8PJDgbaz2g5NVpGBRjhaHxUI+VUPCVlaxZGvDxVWiQUDQbnHGuf6WOX2htQe4SRTEdRgqmaTAC8OVHdxwPvRPhXMFSc5GI9mURnrzTBDauHxcJMFD6h+Ip1MqIKvPNO3TeNQl6taKZU3NA/dH2zfOtezw8krszXJtZK9BBpmaO4jIfGpOuStCQoaiCfRX0Y7Bbin05PVyRuY9aFom2dkRbTD1L/GF7gDQes2LJKlBIVEHUUnPY0cKbPA4wdbbwNH4IQbsbGuByVbm3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3konaJtcz55x7aht3QkCtIItCsufv6S9UWsCUk5a8T4=;
- b=ABKR/+3JzvkUGL9ChDTM/sLD7MIjr0RF78pUOIQAS41NX5OEaXc2oNlgAhTs0qhJCR3IeRgwWg1IUiSj26J8e6z/YDLGyusmdoCrxHW6UGhHMBgQI5/0dOxdYfJRnxWLFUSee12GN6mQNTntoXZ8V43brx3QeFkSvAVH2C++V0VSWdhKbvnKqeHXygiCjyBupmpBIeQ6QIMn5WA+nCLaZyiovrp+ZgOXVDiJYoP0KzM1yEPcoWCi5LdMOhjpaTw0NWXHlRYxQhLxsc3kQIRsx7TH5wqoFHTYfp6h1avdqS5sr9aVLDWJzmB3i2Cn11QgB6RlnLDhPcoZmwzdvCpQIw==
+ bh=BCZouXwTxARtL61XltXgJV4Uy2gLPG6QyAVTnp5xgiM=;
+ b=Aj0VWvHgm969h2JGcB4fnHd7OBUEBIREoVYtza2PReBzXQ+PMARQAjIpUjGpHZf/t2i8XTnTULTSHq4mfIfeAw9rJquSyKPngR93eeikx1plcLQ/unnO3N7z2vaBbSg//IBV15O/0lELQK2H/T8hwDHe9UqGl/EY2F/wVyPyDJ0GQWdfGLx+4yzwHL44HSaDcHoeu/mGk90Oye3K3/QiTfOYx3K1crtf8MmCtpHdJ7w/1lVJDhuObziZEaiVQ0HgWLLI9gqKbaJ6349y+R6dcMJYtftVijzpdJgzY7tJiLfpfA50N2g/1iVU61ozttpYuXwikKt0w7HNI1Lwkk4qPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3konaJtcz55x7aht3QkCtIItCsufv6S9UWsCUk5a8T4=;
- b=Hf1qQgBqxvhbmiuDRu92vf5UvNbKtJqJ6+t5KJRn1ByV6S4PRdEKglTKkZ6IFE4quiz5Kfd3qj6/cIcK5CJeYnWMT6sq5b3CVKJMeOB8s9vv20duy1SPxoqYvC4EdyFCIloIH8Shmy2oB29nCpZ9hHGxFsMJoUIr/2Er2Yo4WsM=
+ bh=BCZouXwTxARtL61XltXgJV4Uy2gLPG6QyAVTnp5xgiM=;
+ b=arxXVUG7g7mg+lbPT/AUl9ygI9srypS8ykDR3cAro17nCHNjCAKuoncONTMQnd6dUbyyh3RBtIJtKKkl+nZQskr5D6IwmnHizrkmLRfEgl9r12C8EW7WubouNVH9EIk0oRZhwalWRwC/u9CVevE5GtzWQslD37qkfGEoAMlq5FY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
  by VI1PR04MB6880.eurprd04.prod.outlook.com (2603:10a6:803:130::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Tue, 16 Nov
- 2021 15:22:00 +0000
+ 2021 15:22:02 +0000
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f]) by VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f%3]) with mapi id 15.20.4690.027; Tue, 16 Nov 2021
- 15:22:00 +0000
+ 15:22:02 +0000
 From: Daniel Baluta <daniel.baluta@oss.nxp.com>
 To: broonie@kernel.org,
 	peter.ujfalusi@linux.intel.com
-Subject: [PATCH 1/4] ASoC: SOF: utils: Add generic function to get the reply
- for a tx message
-Date: Tue, 16 Nov 2021 17:21:34 +0200
-Message-Id: <20211116152137.52129-2-daniel.baluta@oss.nxp.com>
+Subject: [PATCH 2/4] ASoC: SOF: imx: Use the generic helper to get the reply
+Date: Tue, 16 Nov 2021 17:21:35 +0200
+Message-Id: <20211116152137.52129-3-daniel.baluta@oss.nxp.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20211116152137.52129-1-daniel.baluta@oss.nxp.com>
 References: <20211116152137.52129-1-daniel.baluta@oss.nxp.com>
@@ -89,60 +87,60 @@ Received: from localhost.localdomain (2a02:2f08:5706:b700:1e69:ee6:2dad:c9e7)
  by AM4PR0302CA0013.eurprd03.prod.outlook.com (2603:10a6:205:2::26) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16 via Frontend
- Transport; Tue, 16 Nov 2021 15:21:59 +0000
+ Transport; Tue, 16 Nov 2021 15:22:00 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 622d9ce3-ca6c-464e-9adf-08d9a914d612
+X-MS-Office365-Filtering-Correlation-Id: b0404410-d5f6-47ac-1bc0-08d9a914d6df
 X-MS-TrafficTypeDiagnostic: VI1PR04MB6880:
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-Microsoft-Antispam-PRVS: <VI1PR04MB688035BE362725BA4628FF13B8999@VI1PR04MB6880.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <VI1PR04MB6880B7F5600A87469AF6E19EB8999@VI1PR04MB6880.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:632;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Kfp6f+hF94wquAsB75fAKk6s/XC6eMLLycufOldsAbpDxHdFQ3oLnBayLyPQ6E45gMOgjl0dRbAQHcz5c27jPtGz1N8SRfRdsZJRrNAn3ppkRvdlAtOKZpN++c+JJvDBhDWo4ES8ITpJyyEgWbgNqjcMCmBsnbj1iEAljRqoq7/DRWUOhvVfpxI19++rDKJo4o2jaWCMFqM3CxFCVe/IYFIDb1vtyd4pDrpw1PYuVo/J6sYesd01r1YCtYfnnGHrcKVi96pP5a9UvLELXCGellRZRRcDUEHDFNLSekNeMsp7kKS+WuHlaHdZod6Ii9xWRebO49q14oi4/n1hwl0XCkk+Epfy6WrL0HK2fpLRX+p/Vylrg4r4PgMXqdv+xdQw9Tm/Ni1vFo5SDZ4kvHMnIsbCW9zrxotfp8qj3ef1VXEUL9RR+4H7G1WAsixH7crFbOGyLRQv213beV5zE+s3Qf7Bw22BwnekmsAQw2qusbA6FtzUgy7fpwlMM2gTpvsXVCk+9d0roFS6ZvX7OwevNqAcFVWg/VUygdAmKEDeiyyGbOm4+f017noZ9XjXFGJysZ60aekLzu7i2A7j6T9zQBS9MhEO/N/yIrIA39GuQtIWZO0/poFVI0mTmhxo8W2t2WSwTNHl0bY4ACiKYfIZerVRWXlevD8TFg8+N2KeFg5t+lMGR+nHHr5VW8Z3cHRJT9KNVzfzeoUF90XFIkptHXAwKl9fdhTAqwsRdsSBLj8=
+X-Microsoft-Antispam-Message-Info: 9QO/LwXGfQmfn/fOfYKgQVRNwF2nyL+qVkVHMkZXdUtIEPItNNUNxIOLXB46mkTx9PQRT7jbSDgD3PgcsuLGGSQla4yDpV2AeUQE/gqQ+N8+YaS1hkGYSuEc1XJ3lIci+iAgNIzzoVe/QVJGMe/tlSMXK+hKcYv67VSCDgzr3IgFjeIRR+6pyNKfkcj6eJx5lTWwFCItDnSAL7YiASHTzmsTkWRpQkPmMiYnMyd0WfVldE9mjbra1XbbhJk9qIcYRyWdu759I+cBdshjnkXH7ktaCqwheJ6XaILdK+oVqHpnPBKKT/jlYyz+F8wDdWziX2pk02+Yo1dc2KGqCs5AqBbHvbMPGzGLgN9+Zy3TUAXZ78msr/CH92SDJIifgxS8fWrZpLfnryYzMiVQEufmQbJqAcZ10G8IcfmoawCXbR/GkXqt5d66qzNkbzmoOjhkp7KFN4DjGvhGgN4ajBIFPuqXs+qBvf5xsXJ8Zp+saGwplT4Iu/Kr8qzwYeXGo22aIxBHd0uO5He05C+YGc0V35ErMzl1yCo1uq1HFISM3hVNbottYqQ2yCNnemvkVX37uR6d/aRexXqMIvdflK+XNOWwpaO6Au9jhhWhQXQ7eUNf+R/FsVIYjrvv0v2tA6PhnnGuXGU824942TVGe3twpJJ0m4LRuM7IAdUU9cZx3YADJcL2ulvJ9KVHn2UwIiUXKpyY7lM7JbXqI/mKNmiCxdiJNFpOE5MjXdVgrX4NKBo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(4326008)(8676002)(6666004)(38100700002)(5660300002)(8936002)(2616005)(52116002)(2906002)(86362001)(15650500001)(6512007)(316002)(66556008)(186003)(1076003)(508600001)(66476007)(54906003)(66946007)(6486002)(7416002)(44832011)(83380400001)(6506007)(41533002)(15583001);
+ SFS:(4636009)(366004)(4326008)(8676002)(6666004)(38100700002)(5660300002)(8936002)(2616005)(52116002)(2906002)(86362001)(6512007)(316002)(66556008)(186003)(1076003)(508600001)(66476007)(54906003)(66946007)(6486002)(7416002)(44832011)(83380400001)(6506007)(41533002)(15583001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wr1Xp2ieUOguyqAnm/9NcIE1gh4xoCmg00qtckpmC0xLpS21pHXXtofpIj6M?=
- =?us-ascii?Q?Q17l8dmnKy4lnB4P4WLegfxQcLOPTjS++evUbG+fgokpVdHvI/JlmNcPx6Oa?=
- =?us-ascii?Q?7IsIw8aKyzmHdb1NKPlQEvUE/aXKuem58aVJmpZwEDz4jVp3sMkhVyGCrpos?=
- =?us-ascii?Q?ewiHzYMQqSeP3hT/3gP3Y08p9zHmfPL2HlPAfyviUS7uFT+jPxK9LUD3dXX0?=
- =?us-ascii?Q?nvN4VeJYXhvVud7T91xExvZtyM54Z7U1BKQKiPCnXCetdiHqVqQhmaWdi8tu?=
- =?us-ascii?Q?3eWfBm//jTnLSuGhccquyIW2mCeXZ+XvqMfIOHuOyGSBIkbyF+IR0TshKMmB?=
- =?us-ascii?Q?K7y9nbFESYVxHAedCEl89zqyhx/SP5JrKJsC1cBu3z6xrOnkMsgpLzen1Qac?=
- =?us-ascii?Q?ShumjMRvoB4w8zgo2IxVlBw65lhCStvRxRit23MzOkRSRS8Gb3jlHqON327f?=
- =?us-ascii?Q?xAffcoqdJsbowG6I6FOo3ppgct+lnVKqqBdtCipRg7yRrDB98Eh3JkF/01XF?=
- =?us-ascii?Q?IQDGsQKGhLx6R0w/jD4DRcwp4Je2W1OkMKtSoElEuxOH+HQvL8hTuohnqpn8?=
- =?us-ascii?Q?chwFoYfSvp6McQZsJ2F+gN6rdwdu3qt/VsoSm3ykyxGSZ2IXPvqZi8vmGkJG?=
- =?us-ascii?Q?nIrskEJppVTKdkV0Oibn2N85zGk8bI/DaZ9oQ6Bnvf+TVQrpbAwI++fyER2W?=
- =?us-ascii?Q?a1UFyveFrJn/Dgmvj6cGTnJVqwtmNLK1TO+FY6WBDQKY7hP+rvIp5bpCYAAh?=
- =?us-ascii?Q?TApK0+g95HYbuc4NCTvD7KzAreOXiyG4s1e05Xx/Sx33ucthYTQot+G8NYXN?=
- =?us-ascii?Q?msdsuB3RLgEnIsjKNwhVeXWaPl7YYyPuA2z/AhcvWQ2qkzVFnHxpXKRPbmao?=
- =?us-ascii?Q?GJqaMOxReUxsVsD1Pju8CkaRoGRbAyF0upcPG/sEaTS5SlT8nSEI36Dun9KS?=
- =?us-ascii?Q?hKyhhaG1OTQSoVU8KhcXfOdPNCCHlaT5xYnY3qxlM8HgK59yqXdGjyguJKbO?=
- =?us-ascii?Q?7PP8KrFYXi0g6kraT5SJ/ccsMSTRomnuxHiXH+vGa7aBXMA/8G7keeOysJQJ?=
- =?us-ascii?Q?vX5e3oM5ZCe8ibvgybApAfA/hV4w8EigrLrN7dk5Pqb+hZtkSSmahFMiDjvU?=
- =?us-ascii?Q?aiPNma0noklgaFyCy5dTZBItySbSE00PHm4zeSPFLLsgAndw8dBFYGN+p96f?=
- =?us-ascii?Q?0RgkLj1W0P3LChMG/s+Z+Elt8FF8P5io5YNrmU0mY++ieBvBAAcCZa/VxP3h?=
- =?us-ascii?Q?tESqV93DrcKYHdgd7xoZgYeLXSIYDkrqlnHj+G27GxEVrcf8Crx9JPOrsIPH?=
- =?us-ascii?Q?Dhls3NEsQlKTOX0R7cx0KSmyQPJ8nULxhroeBgpGoEvNIzzjN4ZiNK48GTqb?=
- =?us-ascii?Q?7NQOnpKlRE2bIYjpD5O+Db89kV7w+Pp9gkiahutjOHCSkUEGQAX8T0nAqvmb?=
- =?us-ascii?Q?c0sWC2DV8JY0y7FLMf8zMEPUy47tCsyRfQ215tzmWh14JTWox+GJXIiCniAE?=
- =?us-ascii?Q?j0qB4E+lUCzDAwoZTHlS4NqP7EoqcBxQWs3wfVY7ayup1iWQ8q4gScW3w2CE?=
- =?us-ascii?Q?nB73XHV+NOy7KtVfhENJqaokgjDl6iEdmks0Y/QWuLx/C5KSC7tAvYXJmZQ/?=
- =?us-ascii?Q?ZT/pm53Fvw86YCBm01RJNt9gcZ0+LtP1obh7giOhIfXH1+QdrstxXnQCMv+J?=
- =?us-ascii?Q?6ua2z34F9PiD6Gbz5RFQjVqvyGI=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?LcVBJe+1ogOCG10hAqTXBLwiwpshQr6A/aEpw2B1fiGaxVj2EqdELcUEhq5f?=
+ =?us-ascii?Q?GNR0gzVGdDK4Np5xOoOClsvvHKGDBZls1NR/ZEciTFKyQNdB2HfMvzcnD+24?=
+ =?us-ascii?Q?w2TUo70ppGrT5y5+Q+hITxvbBbESbMJnk3EMhEgw+u8dIo7pm6hnB9afGmHl?=
+ =?us-ascii?Q?AvaLCEVzGdBFZiGLh4SJ4zWKtFl0EmXqQA9TzysM1mrmPp/gj1SDLfRoE7qg?=
+ =?us-ascii?Q?Bgf7K7j2ACKJ/lkfhUtgoQmwL6OedFTqgk/JYm8EZnz4ialgNmtAySZD2bzI?=
+ =?us-ascii?Q?iIv8whK957NwLn4juEszrtgzS+X0QiTEDvURys+pkJnsbqnNe1JBBHu4fn7c?=
+ =?us-ascii?Q?z6Doa9I8Ri5c7z4woJ/stoO2v6qCCI6lfdn+UVhO1NxErhx9uMk07LcCfrS+?=
+ =?us-ascii?Q?5b8lzSRWlp++rnkAIZHYr2rOQshdaqDaKChMghbxktHw1d2W+GYY+73EuQKK?=
+ =?us-ascii?Q?X8YDIfoRsUvabsQF4DYMYU1iSBnIX+7Jder8GJOJjEmTJJax0T5olV8LTYWN?=
+ =?us-ascii?Q?9WjVYk24T81EW0tqnYCSIIidCJzboIImgnx2Kfc9S4BI5iA8ZqOH8d0wy6/s?=
+ =?us-ascii?Q?GD0FIpURj7ziX94D+C8OqQStAC1gJW1VU5KKM5tTCyApX3jqq3PmaVomfbXl?=
+ =?us-ascii?Q?EUe/F2gXiBcNp6kMLSV9g28Wf9IXQlSzaBIM4Ip1XynKf8Hqgsatre+9qtfK?=
+ =?us-ascii?Q?r47uQwZZWaMRnhZpy7Y849ppR6Zzcf2oKKIem3ZtRU3LFersjGsxH4jkDOAq?=
+ =?us-ascii?Q?AxQnVl4DXH2PF/ox+nRWRdjSdYUj3fy4USF+3csxtSCUFJJF+B5mMSv4hn9e?=
+ =?us-ascii?Q?TZvh4qmEqDakInTPtW2QaapLwvjrKZp7ftXsGY8H3z4YRmLx/rTWIaP7pjAf?=
+ =?us-ascii?Q?IiIh/+Cj+dedWpsAhHbVrtc90KIzeRGXTHWZA3b3GvY5PEY4MVtYlQAbcXb3?=
+ =?us-ascii?Q?haJ2NUd7AQ/7ygG9Rjnan/ez1/O88oo2wc2NX04uqFK1V6RnaHfmV3soliS2?=
+ =?us-ascii?Q?I9IF18/Mw3bDCAPfgg6afi6YQFHim3HYw1PosG4wFrLRe/4knxuiMxXRw6vC?=
+ =?us-ascii?Q?puZzj7cPOGWLLpUADzs+x02/Y+XC+oKjYzTP9AMOTHL/Qs4mE07EGfM54/Ec?=
+ =?us-ascii?Q?52ZCUWvYBRuEBnQ4AxEBwD6dIhylxCWDPNPnRTi9iQNAqMlsWxE6F2MDZXcf?=
+ =?us-ascii?Q?C87gKc0HvjOiE/7OH/x8fdIvvneq2vMwubhp8PSihxIYKYvLmyqsxtcgRIfR?=
+ =?us-ascii?Q?n7ybVeKV0SM8S+s1vOLwgbt6d/JOZWT9XgUM8vyqZW9FT91kNwNnRi4cnzuw?=
+ =?us-ascii?Q?2REj/QT9eSsf3+i98IDgqm7u6/qYwwhP/wwaYVtzSlLCwt2YAxKIYsaLtb5K?=
+ =?us-ascii?Q?Gdut8anKm0yQ2Cv4n0IzuS9COd/LVsTmbDVLd3gzTtPIlF0WuAdu0PBavf53?=
+ =?us-ascii?Q?fPnUaHnFlqIV84FK4ICaNQ2KKDV/PbV+bfzm4dCiHPrT9VyJllwWOoqCQyh6?=
+ =?us-ascii?Q?zSZrSaBWgjmFcgMytPzDvVF+2TqOfCD5STeHy+htjbv4qAc+YAo0XFDdt7Ow?=
+ =?us-ascii?Q?cHOTyw61g0ofuDMKKOIHuO8wH3HUXvT6YjRJ4xFSuwyscF4NWOmYnWotYeLl?=
+ =?us-ascii?Q?TCmj7GiPlBosB/TEAZ82zUbMXYiLrHK1xYhZ3ztnpampB6D02aKowIslaCiE?=
+ =?us-ascii?Q?gL9+Fl8GwrXogIfWtQLlPTgHdNg=3D?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 622d9ce3-ca6c-464e-9adf-08d9a914d612
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0404410-d5f6-47ac-1bc0-08d9a914d6df
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2021 15:22:00.7488 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2021 15:22:02.0590 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KKeTjgi7x8oEOq7SHX6vz33lwGonsDD0vWLqfXbLzOpW05r3i3dm/WdT2kKjtfTzp7FgUCyhBjf0FHrj6A0jAg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: BmvZlCVtaKoJS6A6PZedvA8h8iEZUjiHvNixRZEGZAa2jDxOQfZsEvGCQcuU7huTLx5qfJVWcB6sL1D0o1zlxw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6880
 Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
  daniel.baluta@gmail.com, kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
@@ -166,18 +164,9 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-The code to get the reply for a tx is identical in all but one place:
-imx8_get_reply(), imx8m_get_reply(), atom_get_reply(), bdw_get_reply().
-
-hda_dsp_ipc_get_reply() have additional check in place for PROBES and
-special handling of PM messages.
-
-Add a generic implementation to the core which can be used as drop in
-replacement.
-
-The reply size check is changed to be able to handle cases when the reply
-size is not know beforehand (this is the case for PROBES and
-DEBUG_MEM_USAGE for example).
+Make use of the generic snd_sof_ipc_process_reply() from the core instead
+the local implementation.
+snd_sof_ipc_process_reply() handles the reply retrieving and the ipc reply
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -186,106 +175,120 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- sound/soc/sof/ipc.c      | 61 ++++++++++++++++++++++++++++++++++++++++
- sound/soc/sof/sof-priv.h |  6 ++++
- 2 files changed, 67 insertions(+)
+ sound/soc/sof/imx/imx8.c  | 37 +------------------------------------
+ sound/soc/sof/imx/imx8m.c | 37 +------------------------------------
+ 2 files changed, 2 insertions(+), 72 deletions(-)
 
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index a4036d0b3d3a..6771b444065d 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -394,6 +394,67 @@ int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, u32 header,
- }
- EXPORT_SYMBOL(sof_ipc_tx_message_no_pm);
+diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
+index dd59a74480d6..0aeb44d0acc7 100644
+--- a/sound/soc/sof/imx/imx8.c
++++ b/sound/soc/sof/imx/imx8.c
+@@ -59,40 +59,6 @@ struct imx8_priv {
  
-+/* Generic helper function to retrieve the reply */
-+void snd_sof_ipc_get_reply(struct snd_sof_dev *sdev)
-+{
-+	struct snd_sof_ipc_msg *msg = sdev->msg;
-+	struct sof_ipc_reply reply;
-+	int ret = 0;
-+
-+	/*
-+	 * Sometimes, there is unexpected reply ipc arriving. The reply
-+	 * ipc belongs to none of the ipcs sent from driver.
-+	 * In this case, the driver must ignore the ipc.
-+	 */
-+	if (!msg) {
-+		dev_warn(sdev->dev, "unexpected ipc interrupt raised!\n");
-+		return;
-+	}
-+
-+	/* get the generic reply */
-+	snd_sof_dsp_mailbox_read(sdev, sdev->host_box.offset, &reply,
-+				 sizeof(reply));
-+
-+	if (reply.error < 0) {
-+		memcpy(msg->reply_data, &reply, sizeof(reply));
-+		ret = reply.error;
-+	} else if (!reply.hdr.size) {
-+		/* Reply should always be >= sizeof(struct sof_ipc_reply) */
-+		if (msg->reply_size)
-+			dev_err(sdev->dev,
-+				"empty reply received, expected %zu bytes\n",
-+				msg->reply_size);
-+		else
-+			dev_err(sdev->dev, "empty reply received\n");
-+
-+		ret = -EINVAL;
-+	} else if (msg->reply_size > 0) {
-+		if (reply.hdr.size == msg->reply_size) {
-+			ret = 0;
-+		} else if (reply.hdr.size < msg->reply_size) {
-+			dev_dbg(sdev->dev,
-+				"reply size (%u) is less than expected (%zu)\n",
-+				reply.hdr.size, msg->reply_size);
-+
-+			msg->reply_size = reply.hdr.size;
-+			ret = 0;
-+		} else {
-+			dev_err(sdev->dev,
-+				"reply size (%u) exceeds the buffer size (%zu)\n",
-+				reply.hdr.size, msg->reply_size);
-+			ret = -EINVAL;
-+		}
-+
-+		/* get the full message if reply.hdr.size <= msg->reply_size */
-+		if (!ret)
-+			snd_sof_dsp_mailbox_read(sdev, sdev->host_box.offset,
-+						 msg->reply_data, msg->reply_size);
-+	}
-+
-+	msg->reply_error = ret;
-+}
-+EXPORT_SYMBOL(snd_sof_ipc_get_reply);
-+
- /* handle reply message from DSP */
- void snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id)
+ };
+ 
+-static void imx8_get_reply(struct snd_sof_dev *sdev)
+-{
+-	struct snd_sof_ipc_msg *msg = sdev->msg;
+-	struct sof_ipc_reply reply;
+-	int ret = 0;
+-
+-	if (!msg) {
+-		dev_warn(sdev->dev, "unexpected ipc interrupt\n");
+-		return;
+-	}
+-
+-	/* get reply */
+-	sof_mailbox_read(sdev, sdev->host_box.offset, &reply, sizeof(reply));
+-
+-	if (reply.error < 0) {
+-		memcpy(msg->reply_data, &reply, sizeof(reply));
+-		ret = reply.error;
+-	} else {
+-		/* reply has correct size? */
+-		if (reply.hdr.size != msg->reply_size) {
+-			dev_err(sdev->dev, "error: reply expected %zu got %u bytes\n",
+-				msg->reply_size, reply.hdr.size);
+-			ret = -EINVAL;
+-		}
+-
+-		/* read the message */
+-		if (msg->reply_size > 0)
+-			sof_mailbox_read(sdev, sdev->host_box.offset,
+-					 msg->reply_data, msg->reply_size);
+-	}
+-
+-	msg->reply_error = ret;
+-}
+-
+ static int imx8_get_mailbox_offset(struct snd_sof_dev *sdev)
  {
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index ba341b1bda0c..2c97ffa98e3e 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -515,6 +515,7 @@ void snd_sof_fw_unload(struct snd_sof_dev *sdev);
-  */
- struct snd_sof_ipc *snd_sof_ipc_init(struct snd_sof_dev *sdev);
- void snd_sof_ipc_free(struct snd_sof_dev *sdev);
-+void snd_sof_ipc_get_reply(struct snd_sof_dev *sdev);
- void snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id);
- void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev);
- int snd_sof_ipc_stream_pcm_params(struct snd_sof_dev *sdev,
-@@ -527,6 +528,11 @@ int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, u32 header,
- 			     void *msg_data, size_t msg_bytes,
- 			     void *reply_data, size_t reply_bytes);
- int sof_ipc_init_msg_memory(struct snd_sof_dev *sdev);
-+static inline void snd_sof_ipc_process_reply(struct snd_sof_dev *sdev, u32 msg_id)
-+{
-+	snd_sof_ipc_get_reply(sdev);
-+	snd_sof_ipc_reply(sdev, msg_id);
-+}
+ 	return MBOX_OFFSET;
+@@ -109,8 +75,7 @@ static void imx8_dsp_handle_reply(struct imx_dsp_ipc *ipc)
+ 	unsigned long flags;
  
- /*
-  * Trace/debug
+ 	spin_lock_irqsave(&priv->sdev->ipc_lock, flags);
+-	imx8_get_reply(priv->sdev);
+-	snd_sof_ipc_reply(priv->sdev, 0);
++	snd_sof_ipc_process_reply(priv->sdev, 0);
+ 	spin_unlock_irqrestore(&priv->sdev->ipc_lock, flags);
+ }
+ 
+diff --git a/sound/soc/sof/imx/imx8m.c b/sound/soc/sof/imx/imx8m.c
+index e4618980cf8b..f454a5d0a87e 100644
+--- a/sound/soc/sof/imx/imx8m.c
++++ b/sound/soc/sof/imx/imx8m.c
+@@ -32,40 +32,6 @@ struct imx8m_priv {
+ 	struct platform_device *ipc_dev;
+ };
+ 
+-static void imx8m_get_reply(struct snd_sof_dev *sdev)
+-{
+-	struct snd_sof_ipc_msg *msg = sdev->msg;
+-	struct sof_ipc_reply reply;
+-	int ret = 0;
+-
+-	if (!msg) {
+-		dev_warn(sdev->dev, "unexpected ipc interrupt\n");
+-		return;
+-	}
+-
+-	/* get reply */
+-	sof_mailbox_read(sdev, sdev->host_box.offset, &reply, sizeof(reply));
+-
+-	if (reply.error < 0) {
+-		memcpy(msg->reply_data, &reply, sizeof(reply));
+-		ret = reply.error;
+-	} else {
+-		/* reply has correct size? */
+-		if (reply.hdr.size != msg->reply_size) {
+-			dev_err(sdev->dev, "error: reply expected %zu got %u bytes\n",
+-				msg->reply_size, reply.hdr.size);
+-			ret = -EINVAL;
+-		}
+-
+-		/* read the message */
+-		if (msg->reply_size > 0)
+-			sof_mailbox_read(sdev, sdev->host_box.offset,
+-					 msg->reply_data, msg->reply_size);
+-	}
+-
+-	msg->reply_error = ret;
+-}
+-
+ static int imx8m_get_mailbox_offset(struct snd_sof_dev *sdev)
+ {
+ 	return MBOX_OFFSET;
+@@ -82,8 +48,7 @@ static void imx8m_dsp_handle_reply(struct imx_dsp_ipc *ipc)
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&priv->sdev->ipc_lock, flags);
+-	imx8m_get_reply(priv->sdev);
+-	snd_sof_ipc_reply(priv->sdev, 0);
++	snd_sof_ipc_process_reply(priv->sdev, 0);
+ 	spin_unlock_irqrestore(&priv->sdev->ipc_lock, flags);
+ }
+ 
 -- 
 2.27.0
 

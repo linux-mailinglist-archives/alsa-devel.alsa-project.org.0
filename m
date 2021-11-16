@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4D27452B39
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 07:57:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39664452B35
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 07:55:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47B9E168E;
-	Tue, 16 Nov 2021 07:56:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47B9E168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A98A1696;
+	Tue, 16 Nov 2021 07:54:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A98A1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637045824;
-	bh=qqHaEvjpEfdUNXqsbc2Li0mviOEi3aNNWyWrekTnt+Y=;
+	s=default; t=1637045748;
+	bh=Gz6QD0CWlDLeTm+A3whk6Rwlfw0dfsjpoqHSnnlkfjo=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Lt8/kRDS4nulvCH/YAYBdb4EiXcReUGWGdvBLTEnfdSp+qhJObrohndY5tHTY11H9
-	 gTlNdljhetCK2627KqkPMbWC84KtKt/M53V/WwTZt1nDa7FXdb2i3OzzN4auZvFrfv
-	 gyBRc9tznZ8u1KEG1UaoT9467T6z5GxQNr+kvFFY=
+	b=unN9Ls5BbiqW3CNdE42UwpWyvLEWA2yAkv4d/k0z4DPGH491DzLCA+HAU3n6L9K/M
+	 RnFb/UEkfHJstBuSlU4fVULZYnDxz0mpEt4zwhjOqh3XL7/XKC6+1AEBL50zwkTxID
+	 Q4iJRYU/nMlqYxfIFyCEgQRBWaV7rAc8oc+lGMfs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 079A9F804FA;
-	Tue, 16 Nov 2021 07:55:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A373BF804C1;
+	Tue, 16 Nov 2021 07:54:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F572F804F3; Tue, 16 Nov 2021 07:55:19 +0100 (CET)
+ id 790F1F804BC; Tue, 16 Nov 2021 07:54:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42DC7F80272
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 07:54:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42DC7F80272
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96D35F8026D
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 07:54:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96D35F8026D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="x0R770lj"; 
+ header.b="kn2O8FSn"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Cp/snEcy"
+ header.b="xmP+s3p5"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 8A4581FCA1
+ by smtp-out2.suse.de (Postfix) with ESMTP id 960931FD33
  for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 06:54:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1637045658; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PTwoEKhCrG2l8C1ekei4omzPFhMokZIghkUs6mvdD44=;
- b=x0R770ljJe8+FgBAqJ66YPhfwWc+bph0VjwNTeyVj6TiUknu79a2Cnfb/XRm9xcOgNME7w
- UczzHwKBDAWOTEkN6oc4gXXdIvo2MshDXsj9UcBk1phNbTTS15WvtpdEJV3knnNhwzRe54
- Op3Q92PhSJZa8HZxBEAsoZEHWEMA4IA=
+ bh=AbdGGL/EnXzZstaqWol4rzrpDlCM1ZOAp4oXXsePJaM=;
+ b=kn2O8FSnCdjnKBFKNKL8ynXAuhyQwZKQyjjbJHpYVrKvWRYegRHsnioZQ5+hzDl1P/b0E7
+ zmTfBKEDC35hS/Zp+Ma5Mr/dxYcHmEgONHswXNl7tgjpWmRXEGqaOsnjUFi4M1nF6d2wlR
+ NCcHoNHA8KTd5rmnVDQBvQRs+H5gEvY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1637045658;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PTwoEKhCrG2l8C1ekei4omzPFhMokZIghkUs6mvdD44=;
- b=Cp/snEcyBTvyEGcceubzsfzQ5abmeZCS80X6D10evnD5FSusExw9HsWxR9Yynq6AmqkV8d
- 70MiqPx83CL9HSAw==
+ bh=AbdGGL/EnXzZstaqWol4rzrpDlCM1ZOAp4oXXsePJaM=;
+ b=xmP+s3p5Zm13B+0C61iwDrZy3xidErmIl90ZKUB/SbtYNaDrPPMlUMWZE2LEQgFGDY5qqr
+ MckHmMU61IirNQDg==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7AECCA3B83;
+ by relay2.suse.de (Postfix) with ESMTP id 87939A3B81;
  Tue, 16 Nov 2021 06:54:18 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/3] ALSA: usb-audio: Use int for dB map values
-Date: Tue, 16 Nov 2021 07:54:13 +0100
-Message-Id: <20211116065415.11159-2-tiwai@suse.de>
+Subject: [PATCH 2/3] ALSA: usb-audio: Add minimal-mute notion in dB mapping
+ table
+Date: Tue, 16 Nov 2021 07:54:14 +0100
+Message-Id: <20211116065415.11159-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20211116065415.11159-1-tiwai@suse.de>
 References: <20211116065415.11159-1-tiwai@suse.de>
@@ -91,27 +92,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The values in usbmix_dB_map should be rather signed while we're using
-u32.  As the copied target (usb_mixer_elem_info.dBmin and dBmax) is
-int, let's make them also int.
+Some devices do mute the volume at the minimal volume, and for such
+devices, we need to set SNDRV_CTL_TLVT_DB_MINMAX_MUTE to the TLV
+information.  It corresponds to setting usb_mixer_elem_info.min_mute
+flag in the USB-audio driver.
+
+This patch adds a new field min_mute in usbmix_dB_map so that the
+mixer map entry can pass the flag.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/mixer_maps.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/usb/mixer.c      | 1 +
+ sound/usb/mixer_maps.c | 1 +
+ 2 files changed, 2 insertions(+)
 
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 6e7bac8203ba..5b9fd07ce2a2 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -145,6 +145,7 @@ static inline void check_mapped_dB(const struct usbmix_name_map *p,
+ 	if (p && p->dB) {
+ 		cval->dBmin = p->dB->min;
+ 		cval->dBmax = p->dB->max;
++		cval->min_mute = p->dB->min_mute;
+ 		cval->initialized = 1;
+ 	}
+ }
 diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 55eea90ee993..92c06b1bb979 100644
+index 92c06b1bb979..9d71c569b148 100644
 --- a/sound/usb/mixer_maps.c
 +++ b/sound/usb/mixer_maps.c
-@@ -6,8 +6,8 @@
-  */
- 
+@@ -8,6 +8,7 @@
  struct usbmix_dB_map {
--	u32 min;
--	u32 max;
-+	int min;
-+	int max;
+ 	int min;
+ 	int max;
++	bool min_mute;
  };
  
  struct usbmix_name_map {

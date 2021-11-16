@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F24452E1A
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 10:35:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F09D6452F83
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 11:51:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 254311697;
-	Tue, 16 Nov 2021 10:34:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 254311697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71CB31697;
+	Tue, 16 Nov 2021 11:50:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71CB31697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637055333;
-	bh=QPLd/hj29+PVqi2UV4m46fdYojrevOREV5OAfaUcqHw=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gwvZcpnZf6J3N4nWHtzi0DXTVbXuo48kVWxnWynR2hlw2yXkfew7kKXFpCEr2Q3At
-	 dshWCmHfFDQDzUQ8AHVWC2sgCO26KNCsxo/o/I+mNj/XTlNCVLNhFTzmNfPu12ogbw
-	 pUrLlAVaLs0U9VMv7DxwqHy/Pj+gEJ7pFKajjHkc=
+	s=default; t=1637059909;
+	bh=SDQpc7H+okpbHxwn7UrqcwSlYBzTEN+7R791MSe7buM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=c+F0lRHUsw1QpNz+o/B8IIZujpFAonp81UONxyOXzbzDprIycZsZoc8EiE28ESedQ
+	 zEvj/7CP8I71sCjS64mlGCzarUYSuXOz/T4Z3jwMNZ5Zo0zkFSC2n0HH1WT/8UB88i
+	 75f/UfpdLs4f80KItAgfpnbewLdBJma6p5wslIQQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D604F802C4;
-	Tue, 16 Nov 2021 10:34:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD0DFF8026D;
+	Tue, 16 Nov 2021 11:50:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95A8AF80272; Tue, 16 Nov 2021 10:34:12 +0100 (CET)
+ id DE0D9F80272; Tue, 16 Nov 2021 11:50:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7CF4F800FA
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 10:34:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7CF4F800FA
-X-UUID: 04329e55bd3541b3b2a8b663cb736d41-20211116
-X-UUID: 04329e55bd3541b3b2a8b663cb736d41-20211116
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
- (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1937280426; Tue, 16 Nov 2021 17:33:49 +0800
-Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Tue, 16 Nov 2021 17:33:48 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb02.mediatek.inc
- (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Tue, 16 Nov 2021 17:33:48 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Tue, 16 Nov 2021 17:33:48 +0800
-Message-ID: <f915d1090abf2b6d188ce27068919a181828e463.camel@mediatek.com>
-Subject: Re: [PATCH 3/4] ASoC: mediatek: mt8195: separate the common code
- from machine driver
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: YC Hung <yc.hung@mediatek.com>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Tue, 16 Nov 2021 17:33:48 +0800
-In-Reply-To: <4e876c89ee58cd1408511a34573005e3df359cd0.camel@mediatek.com>
-References: <20211103100040.11933-1-trevor.wu@mediatek.com>
- <20211103100040.11933-4-trevor.wu@mediatek.com>
- <YYP+l7tMofYoB+aC@sirena.org.uk>
- <b4360ea17c3045759e85ee13fa9c001afe73c93c.camel@mediatek.com>
- <YYVQC7KLZx8oxdXT@sirena.org.uk>
- <e404d241-0685-643b-4b9d-d85bb8783385@linux.intel.com>
- <YYVez/V9ocCXhYmg@sirena.org.uk>
- <4e876c89ee58cd1408511a34573005e3df359cd0.camel@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7915AF80089
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 11:50:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7915AF80089
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="dacm7Whq"
+Received: by mail-wr1-x42f.google.com with SMTP id d5so36684515wrc.1
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 02:50:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=YLjmal7Qhx8zErQnGRhLc7RANFy4u7WCe+8FEMhJTbs=;
+ b=dacm7WhqtNBedETvp0LAUUsEyRWrxMZM+SRcyVDnJVZl1AMKFUTH72uWlBByUYPng5
+ n1q0cxOE1CDXrGZJQNhGM5wpneARTd3DysnVTsBRzNQ0vG00om+VrE0L6YWsIahvpU3V
+ zvD/hw11mbRV0BKntrJ2wuMkiayPuwSSr9QvPma80SYsQ+vUMgYmhVFND6VfUqlh1wHU
+ lR31ZqQ9NwDT8mtDsHu/8fva5ydx42rC5+detqmPVB8uPH8Q9lgN3tnVaJMyJh2tg1qY
+ JXcdMlYYIA9KaWcyiRbdmXuGOdZ7IbSoCbpFyR89XVFhlZ45vwL1fjaYvBBEtLJ1dgZH
+ uLLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=YLjmal7Qhx8zErQnGRhLc7RANFy4u7WCe+8FEMhJTbs=;
+ b=dftCKBWoGrZ9sQuVR1EDrizE6hPp9nkA3QZwu6+5DATdBxvTLwlJK/ZMiEN1eBgqc/
+ dzb2RNr5fznVXN2evJvijEU3usk4/FG2FzXsMZZbQQaxiGNa/p2WbvOiiZfI2OvrPSNi
+ HFRxnWo23/DP9Ue0iZUyQgyTh9isJuAPgskmRYYRElLuCUfJpIBZXkt6RprFtL4K6ESJ
+ ejxqDOycPnGO0QAKrSx0tHyGvR3NxpIL2J8hb8EpdxGDExv656VjybWpC9Wcpt/da8p3
+ pTBvozfdUfsx5jLnGdUbmOUa0jTqXnHvMJM9kWnDs/KJiRkqpNJ+9VD85wXpL3IRPLKK
+ GInA==
+X-Gm-Message-State: AOAM532vw2pHPKT/tPexDITCdSnu1vKtuutEU1c9t93En0mMg6lH4Ena
+ msRSRa3tL5b/ZB0uCqVb+m0SGw==
+X-Google-Smtp-Source: ABdhPJy+0eTYhJpxKeuQFu6opCFTs1aBuZF6B/EVcetH7tvQySS8Mg/YUeKxHvLw9FUpnF/1RLNzag==
+X-Received: by 2002:adf:f947:: with SMTP id q7mr7970820wrr.260.1637059820814; 
+ Tue, 16 Nov 2021 02:50:20 -0800 (PST)
+Received: from srini-hackbox.lan
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.gmail.com with ESMTPSA id c6sm2579684wmq.46.2021.11.16.02.50.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Nov 2021 02:50:20 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: vkoul@kernel.org
+Subject: [PATCH] soundwire: qcom: remove redundant version number read
+Date: Tue, 16 Nov 2021 10:50:17 +0000
+Message-Id: <20211116105017.12010-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- daniel.baluta@nxp.com, linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,75 +99,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2021-11-08 at 17:40 +0800, YC Hung wrote:
-> Hi Mark,
-> 
-> I am YC Hung from Mediatek. Let me show our block diagram as the link
-> below for the sound card which support SOF.
-> 
-> 
-https://user-images.githubusercontent.com/62316/132476344-923dfe3a-5305-43e5-9fc8-c63d9ab2c58f.png
-> In this sound card, there are two components , one is SOF based
-> component and another is non-SOF based component(called Normal in the
-> block).
-> We want to reuse some BEs of Normal which can control Mediatek Audio
-> Front End hardware power, clock , and DAI module and still keep some
-> FEs(e.g. DPTX) then we can use it on the same sound card.
-> Therefore, we use late_probe callback function
-> "mt8195_mt6359_rt1019_rt5682_card_late_probe" to add route path from
-> SOF widget to non-SOF BEs.
-> For two patches https://github.com/thesofproject/linux/pull/3217 and 
-> https://github.com/thesofproject/linux/pull/3236, we want to keep FEs
-> of non-SOF components and can reuse them. Please let me know if I am
-> not clear enough.Thanks.
-> 
-> On Fri, 2021-11-05 at 16:41 +0000, Mark Brown wrote:
-> > On Fri, Nov 05, 2021 at 11:16:05AM -0500, Pierre-Louis Bossart
-> > wrote:
-> > > On 11/5/21 10:38 AM, Mark Brown wrote:
-> > > > We shouldn't be requiring people to load completely different
-> > > > drivers
-> > > > based on software configuration, what if a system wants to
-> > > > bypass
-> > > > the
-> > > > DSP in some but not all configurations?  Can we not just have
-> > > > controls
-> > > > allowing users to route round the DSP where appropriate?
-> > > 
-> > > It was my understanding the card relies on separate components
-> > > - a SOF-based component to provide support for DSP-managed
-> > > interfaces
-> > > - a 'non-SOF' component for 'regular' interfaces not handled by
-> > > the
-> > > DSP.
-> > > this was the basis for the changes discussed in
-> > > https://github.com/thesofproject/linux/pull/3217 and
-> > > https://github.com/thesofproject/linux/pull/3236
-> > 
-> > So it's actually supposed to end up as two different cards which
-> > can't
-> > possibly be interlinked?  That doesn't seem to add up entirely
-> > given
-> > that there's stuff being moved out of the current card, and I
-> > thought
-> > these systems had a fairly comprehensive audio muxing capability.
-> > Trevor, could you be a bit more specific about what's actually
-> > going
-> > on
-> > here physically please?+++++++++
-> > 
+Controller version is already available in struct qcom_swrm_ctrl, Just make use
+of it instead of reading this again.
 
-Hi Mark,
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ drivers/soundwire/qcom.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-Is the reply from YC clear? Any suggestion would be appreciated. If you
-need more information, please let us know. 
-
-Additionally, it was my understanding you suggested that DSP routes
-should be configurable in some ways, and we should not just add a new
-driver for SOF in case we need to support some other interface
-combinations in the future. If I'm wrong, please kindly correct me.
-
-Thanks,
-Trevor
-
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index a317bea2d42d..46995bb382eb 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -1156,11 +1156,7 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+ 	ret = of_property_read_u8_array(np, "qcom,ports-block-pack-mode",
+ 					bp_mode, nports);
+ 	if (ret) {
+-		u32 version;
+-
+-		ctrl->reg_read(ctrl, SWRM_COMP_HW_VERSION, &version);
+-
+-		if (version <= 0x01030000)
++		if (ctrl->version <= 0x01030000)
+ 			memset(bp_mode, SWR_INVALID_PARAM, QCOM_SDW_MAX_PORTS);
+ 		else
+ 			return ret;
+-- 
+2.21.0
 

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 279A5452C1D
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 08:47:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F5A452C1E
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 08:47:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F75A1689;
-	Tue, 16 Nov 2021 08:46:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F75A1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11F4316A3;
+	Tue, 16 Nov 2021 08:46:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11F4316A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637048853;
-	bh=WUv+zvb6Qvf08R6fGGK7M2Ck2E5oLVwTsSymfhRn9y0=;
+	s=default; t=1637048863;
+	bh=2KjTlpGu+ZDCp2dxJSRx5YGLgTocL/yoUObkjEY4DHA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l5ZK7vo+moC67bKvvOWqAwOfhww3xr2sFFk6B1sa6IjCjfOOwZUY95jj0YYN8vd01
-	 EvvIqAYbmqPzPhzwrEXOASXZY0vTo+3IOqN6pQ/HkHlrVYKbEs0biobrNbcipf2rqn
-	 TCI1A2OYs27Zw1uqpmguiTUm95LoLrBi6MSXRTiU=
+	b=UqdRM3+l16HiGOkZ7kvBrzBDkI51+H56lS1AFsQcMeb6Slq1XCSBtdPKFmLtuPfGl
+	 EOWHXtg8j+ahQUt/OLF4xLbOLWjh9x2iBmFX1rteNLowYTtsmweFztg4WcxqSntHGy
+	 vwWuzoTAhww5NeOkTCMz7tqPsDcUSTRkPWZoJU74=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47285F804FA;
-	Tue, 16 Nov 2021 08:45:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4D75F8050F;
+	Tue, 16 Nov 2021 08:45:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96DF0F804FE; Tue, 16 Nov 2021 08:45:33 +0100 (CET)
+ id 5D3B0F804FF; Tue, 16 Nov 2021 08:45:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 5955FF804C3
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 08:45:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5955FF804C3
-Date: 16 Nov 2021 16:45:23 +0900
-X-IronPort-AV: E=Sophos;i="5.87,238,1631545200"; d="scan'208";a="100767599"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5B9A6F804FA
+ for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 08:45:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B9A6F804FA
+Date: 16 Nov 2021 16:45:29 +0900
+X-IronPort-AV: E=Sophos;i="5.87,238,1631545200"; d="scan'208";a="100433812"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 16 Nov 2021 16:45:23 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 16 Nov 2021 16:45:29 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id C095140083D3;
- Tue, 16 Nov 2021 16:45:23 +0900 (JST)
-Message-ID: <8735nwy25o.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id DA8BA400C9F0;
+ Tue, 16 Nov 2021 16:45:28 +0900 (JST)
+Message-ID: <871r3gy25j.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/5] ASoC: amd: acp-pcm-dma: add .delay support
+Subject: [PATCH 4/5] ASoC: intel: sst-mfld-platform-pcm: add .delay support
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <877dd8y26l.wl-kuninori.morimoto.gx@renesas.com>
@@ -80,69 +80,44 @@ directly / secretly.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/amd/acp-pcm-dma.c | 15 ++++++++++++++-
- sound/soc/amd/acp.h         |  1 +
- 2 files changed, 15 insertions(+), 1 deletion(-)
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/amd/acp-pcm-dma.c b/sound/soc/amd/acp-pcm-dma.c
-index 1f322accd9ea..8fa2e2fde4f1 100644
---- a/sound/soc/amd/acp-pcm-dma.c
-+++ b/sound/soc/amd/acp-pcm-dma.c
-@@ -1003,6 +1003,7 @@ static snd_pcm_uframes_t acp_dma_pointer(struct snd_soc_component *component,
- 
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct audio_substream_data *rtd = runtime->private_data;
-+	struct audio_drv_data *adata = dev_get_drvdata(component->dev);
- 
- 	if (!rtd)
- 		return -EINVAL;
-@@ -1023,7 +1024,7 @@ static snd_pcm_uframes_t acp_dma_pointer(struct snd_soc_component *component,
- 		}
- 		if (bytescount > 0) {
- 			delay = do_div(bytescount, period_bytes);
--			runtime->delay = bytes_to_frames(runtime, delay);
-+			adata->delay += bytes_to_frames(runtime, delay);
- 		}
- 	} else {
- 		buffersize = frames_to_bytes(runtime, runtime->buffer_size);
-@@ -1035,6 +1036,17 @@ static snd_pcm_uframes_t acp_dma_pointer(struct snd_soc_component *component,
- 	return bytes_to_frames(runtime, pos);
+diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+index 5db2f4865bbb..a56dd48c045f 100644
+--- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
++++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+@@ -653,10 +653,21 @@ static snd_pcm_uframes_t sst_soc_pointer(struct snd_soc_component *component,
+ 		dev_err(rtd->dev, "sst: error code = %d\n", ret_val);
+ 		return ret_val;
+ 	}
+-	substream->runtime->delay = str_info->pcm_delay;
+ 	return str_info->buffer_ptr;
  }
  
-+static snd_pcm_sframes_t acp_dma_delay(struct snd_soc_component *component,
++static snd_pcm_sframes_t sst_soc_delay(struct snd_soc_component *component,
 +				       struct snd_pcm_substream *substream)
 +{
-+	struct audio_drv_data *adata = dev_get_drvdata(component->dev);
-+	snd_pcm_sframes_t delay = adata->delay;
++	struct sst_runtime_stream *stream = substream->runtime->private_data;
++	struct pcm_stream_info *str_info = &stream->stream_info;
 +
-+	adata->delay = 0;
++	if (sst_get_stream_status(stream) == SST_PLATFORM_INIT)
++		return 0;
 +
-+	return delay;
++	return str_info->pcm_delay;
 +}
 +
- static int acp_dma_prepare(struct snd_soc_component *component,
- 			   struct snd_pcm_substream *substream)
+ static int sst_soc_pcm_new(struct snd_soc_component *component,
+ 			   struct snd_soc_pcm_runtime *rtd)
  {
-@@ -1198,6 +1210,7 @@ static const struct snd_soc_component_driver acp_asoc_platform = {
- 	.hw_params	= acp_dma_hw_params,
- 	.trigger	= acp_dma_trigger,
- 	.pointer	= acp_dma_pointer,
-+	.delay		= acp_dma_delay,
- 	.prepare	= acp_dma_prepare,
- 	.pcm_construct	= acp_dma_new,
+@@ -695,6 +706,7 @@ static const struct snd_soc_component_driver sst_soc_platform_drv  = {
+ 	.open		= sst_soc_open,
+ 	.trigger	= sst_soc_trigger,
+ 	.pointer	= sst_soc_pointer,
++	.delay		= sst_soc_delay,
+ 	.compress_ops	= &sst_platform_compress_ops,
+ 	.pcm_construct	= sst_soc_pcm_new,
  };
-diff --git a/sound/soc/amd/acp.h b/sound/soc/amd/acp.h
-index 85529ed7e5f5..db80a73aa593 100644
---- a/sound/soc/amd/acp.h
-+++ b/sound/soc/amd/acp.h
-@@ -151,6 +151,7 @@ struct audio_drv_data {
- 	struct snd_pcm_substream *capture_i2sbt_stream;
- 	void __iomem *acp_mmio;
- 	u32 asic_type;
-+	snd_pcm_sframes_t delay;
- };
- 
- /*
 -- 
 2.25.1
 

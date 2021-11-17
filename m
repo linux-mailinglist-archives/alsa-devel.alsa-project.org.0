@@ -2,67 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A3DA45509A
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 23:34:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EABD45509C
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 23:34:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE3EC1910;
-	Wed, 17 Nov 2021 23:33:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE3EC1910
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A6A318FC;
+	Wed, 17 Nov 2021 23:33:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A6A318FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637188450;
-	bh=82ceyM9vLIZ5d639AKquHRPRlsJyYThu0VLcLZrUCsQ=;
+	s=default; t=1637188477;
+	bh=Z+MeT6LT5Kb9JkETeAPAoQPtL76Z5bYCfF+s92dnR40=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S4c/lE/zetcngsJ/faDCXKFtba/ta87T4Zwjsro3OxU4KcgyeIu7wlxIrsJrdYe53
-	 4cuTtoIb8at8wEWVBlqRp7fe8KTibLMylMUY2Zx5tmjaucZJm0XAeh0z3+Jb74HcyB
-	 9s4ZkH30sq0VBruk6H0dZykp40uUrf3ER9m/PRaw=
+	b=Xliq05eUB+MFEn806gu1d2yHOPhxCGvSvct8dws3UTqitdlFnFVHbgG+VEB7jShTH
+	 HtkvVOP70KMAmleTYR9eQFRHk27tIpjRU6dy4JvDWFgcEkahJOlWVkrSJFpvJV88LN
+	 dEq8tzw1LGxWGlwIJxrhdtJmMq+XhwrTFKL+wA1c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABA14F804FD;
-	Wed, 17 Nov 2021 23:31:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1AEAF80515;
+	Wed, 17 Nov 2021 23:31:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0EE33F804ED; Wed, 17 Nov 2021 23:31:41 +0100 (CET)
+ id AE1C6F804F1; Wed, 17 Nov 2021 23:31:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2543CF8016C
- for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 23:31:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2543CF8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6DC8F802A0
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 23:31:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6DC8F802A0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="J3RSmq8f"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6783F61B51;
- Wed, 17 Nov 2021 22:31:32 +0000 (UTC)
+ header.b="rN8HDXYy"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A219361B6F;
+ Wed, 17 Nov 2021 22:31:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637188293;
- bh=82ceyM9vLIZ5d639AKquHRPRlsJyYThu0VLcLZrUCsQ=;
+ s=k20201202; t=1637188295;
+ bh=Z+MeT6LT5Kb9JkETeAPAoQPtL76Z5bYCfF+s92dnR40=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=J3RSmq8f5DtAtBMTpQuFXsUkdjHMe8QUYV+p3x5v+xz796JdL3g8Uv2Nhdw+lwCo6
- C73plujiJiR6fLtvWWbGALyLIZBTrT5w1+nkAiehFjvKxBKKHBuQDRT4NSC+JFO4s8
- A14gNpycG6xF8KXIjYVL36OCwe5J//tayhYUdcNvnpTWFozdzZkIhS/j2N9hXV1RQc
- Vits96ivmEMqmFFtvXAuJdr3crlKtSIezTZFNjebb2eCfjCl/PQwCoxunQRc+qYbly
- iGdOHWMJNN/CtwamBhT+R2pI5n1hLncm7Bf2C9juyZF0lPF89DUK/EPJyzgfgwru5f
- +IB1LYwt8JUQg==
+ b=rN8HDXYymUxaa8b0YMukBak1XAWQF82pA3DESm2D0B7qCbDzJt0qVu1K6HE1LbwDU
+ SvRaDSunpkf7B0Te5m0t3cHpLhNlQG9mv1lFwXlxHfGPljxQyNlzZnQJBZJEdxagQT
+ EtZPEpkuhlI5VFGzga+DWwT3NFxaLENq0uerKEbICOEIs10l/ebc800ExBhoulxZAW
+ 06Ax/ND55Vt15qV+KjWZbcX/JmnctVOROtNhJ04eW8Xixq+KJZrhFB2v+Y+lpyBiV/
+ //hJRelwxWMRUMdCBU4wYoTHTzM6fl/GbLBOsa0b6AZrTQC+hf5RweAt6vZQlzU9oK
+ eG1D2TYwjuSEQ==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20211116163901.45390-1-rf@opensource.cirrus.com>
-References: <20211116163901.45390-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH v2 0/4] ASoC: cs42l42: Remove redundant code
-Message-Id: <163718829216.136850.12619030505977686878.b4-ty@kernel.org>
-Date: Wed, 17 Nov 2021 22:31:32 +0000
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>, peter.ujfalusi@linux.intel.com
+In-Reply-To: <20211116152137.52129-1-daniel.baluta@oss.nxp.com>
+References: <20211116152137.52129-1-daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH 0/4] New debug feature: IPC message injector
+Message-Id: <163718829340.136850.578880691226569719.b4-ty@kernel.org>
+Date: Wed, 17 Nov 2021 22:31:33 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: pierre-louis.bossart@linux.intel.com, daniel.baluta@gmail.com,
+ kai.vehmanen@linux.intel.com, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,14 +81,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 16 Nov 2021 16:38:57 +0000, Richard Fitzgerald wrote:
-> - Remove field writes in regmap_update_bits() calls where the code
->   intends that the field value is not changed.
+On Tue, 16 Nov 2021 17:21:33 +0200, Daniel Baluta wrote:
+> From: Daniel Baluta <daniel.baluta@nxp.com>
 > 
-> - Remove unnecessary complexity from reporting jack unplug event
+> With the new SND_SOC_SOF_DEBUG_IPC_MSG_INJECTOR it is going to be
+> possible to inject arbitrary messages via the debugfs/sof/ipc_msg_inject
+> file and get the reply from the same file as a binary.
 > 
-> - Remove a PLL config value member that was introduced in a bugfix
->   but made redundant by a later bugfix.
+> The main use of this feature is to stress test the firmware's robustness
+> against maliciously (or erroneous) crafted messages.
+> We also receive firmware crash reports with only a binary of the sent
+> message which caused the firmware crash.
 > 
 > [...]
 
@@ -95,14 +101,14 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: cs42l42: Remove redundant writes to DETECT_MODE
-      commit: 976001b10fa4441917f216452e70fd8c5aeccd94
-[2/4] ASoC: cs42l42: Remove redundant writes to RS_PLUG/RS_UNPLUG masks
-      commit: f2dfbaaa5404cadf70213146a5b4b89b647d9092
-[3/4] ASoC: cs42l42: Simplify reporting of jack unplug
-      commit: 3edde6de090617adea18f2068489086c0d8087e3
-[4/4] ASoC: cs42l42: Remove redundant pll_divout member
-      commit: bbf0e1d36519a5cd2c08dc1348f997cd5240eb2e
+[1/4] ASoC: SOF: utils: Add generic function to get the reply for a tx message
+      commit: 8ae77801c81d16a09f6b67a6f8d91255d34f5f2c
+[2/4] ASoC: SOF: imx: Use the generic helper to get the reply
+      commit: 18c45f270352fb76c8b5b133b3ae3971769f8a22
+[3/4] ASoC: SOF: intel: Use the generic helper to get the reply
+      commit: 0bd2891bda4550774946abbfac88443a16c15d5a
+[4/4] ASoC: SOF: debug: Add support for IPC message injection
+      commit: 2f0b1b013bbc5d6f4c7c386e12f423d6b4ef3245
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

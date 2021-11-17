@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C40445440F
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 10:44:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3E5945440C
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 10:43:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC777186E;
-	Wed, 17 Nov 2021 10:43:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC777186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 532DC1832;
+	Wed, 17 Nov 2021 10:43:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 532DC1832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637142274;
-	bh=pTH6kEQv/zj/K25KnXPTaWAkYJTbdWhj0MQBn3fefAQ=;
+	s=default; t=1637142233;
+	bh=PEjLoj2ClAVXXFWnutwtNLa1Er0sO7E8nw4uMz+IvLw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YMoJSXgxpziPiE0wlg+8yqVQAUa4NMSv62AOgOc+5Qp1AWfZ1c+f9JO9p9WWkHPzE
-	 Mh+PNY7wICWI9RFhXmb9kdtPhffYHAufvPO+E3tizrkZMIfkSlquqEmf/RJ8geo9Ds
-	 Gf5hxurGLCc/sjEPjrOa42uZopPT8VFk/qHz/U4k=
+	b=YymjGEmy9MCt9SzHiTYNdS3BVSF1X8jEuf5bXGgyFPUFaNJ56uKwN89S5YomCMXIO
+	 qQ+hdj5s4cbMTMLL+dPJnUc7dXAyEhkvxwsZDWkex4sFuRim23W97pGRuyWF6pU/xf
+	 WzGmutoM/L1itFCM6vV56lJVyx7+OH7wlUzDxkBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24EBEF8057C;
-	Wed, 17 Nov 2021 10:38:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01BB4F80568;
+	Wed, 17 Nov 2021 10:38:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5418EF80510; Wed, 17 Nov 2021 10:38:38 +0100 (CET)
+ id 76538F80515; Wed, 17 Nov 2021 10:38:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  MSGID_FROM_MTA_HEADER, SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2043.outbound.protection.outlook.com [40.107.20.43])
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-eopbgr80073.outbound.protection.outlook.com [40.107.8.73])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 630B1F804FD
- for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 10:38:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 630B1F804FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id C627BF80506
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 10:38:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C627BF80506
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="e8k2RDPf"
+ header.i=@NXP1.onmicrosoft.com header.b="IHtNgfzT"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NtRx2u+5hYvhSZN9lYOaACVsNvbk3pclM6nEumAs5D20cqwgPx0jvAlpLW+oCkCKBwGRsYaBr7mGNB+N29+EBu/6GgFj3eeBVr46bGWVjWFjJZAKFOo3ipvG+qcyqjEvV/StCZPVODNlhipnKQxhLYJfYMUjAYyRjRHW1ZJJcNTFWhcrrzDrJvrMSgeVRJCyvV83BSVV4YweoU5gBwRyODp/o/b9sFuGBXJQDd1DwhBK6FhR0KmR9mDNjlONAve1LVT2FvNnDZ0YMIs2UBANxaVZpEB10vWVYPnZPUVG2/lKSL3KHGbyQGSpvXH5cx7+cyHSc2Pr8quheBvnufK/Gg==
+ b=dedfFeg5LVfA4fxqKHa2bSeDj+RO51mfUJzF/S5qZgjLbBJtVY1Z4GeiyrshIw0PWHaX7HB5v6y0de/NL0UdQQXYXCKuT9hM/xAsG64w82CyQB7m6uSHslNzesM81Y1Dz45wHtVCyUgKMj4zlUvgSosc0+yiKwg7RS5DF23fYAOeVUOtSSq5vd88Oxt4waUhwNNRJ6RVEWgUVvSs78InrhkHDnXLtoaBS4X94bwSsj3t3AjC4GafDYRxSPMuIezwxI5Ro94S9buFAhFeSS5i6xoYr2xN4mKSvemIjOdTd71d+AfjNm2+yt9wu/kzrv6vhwN/mMtjEA9BlY7NICC0oQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pHAp1DonNFQ+6pj6RVm34ZXbTZzInspElsG00tBCovs=;
- b=UhhZYfXH6oiNEyOQ9YgkZhqBJMQrlN5AupahLXBgzfaEtTEQa5R2g1ZdXC4+5Hvd89Su59dJ3HIKncznbj/+Ynp4QYDotwjIopYKf3TeHEPWnnYHqOajlCdF99yH/BFVoGmUVpHNCOpHEBwBm3CeP3IS4FzPVRcZmYNVKZoLR6O8JITKa+j8C5Ap0z5TH77JNA/0YTnIjO8H3r4ztU+vSBbJzhGWkazsZeSSmAjhvFGUMX4jLcKIXJM1z0AqEPSaCWjcqZgJJARSjyLiYKfVGH0GjKO+Wip4iXO+oJcCIsgrlqzQvK4z0dKK6AHVDAfs0f0o1yaQlZljwTXVWEZgdA==
+ bh=rdtHZDIv5NASSCwbbXRs5IgvOG61UBHZDcX4eipvbRI=;
+ b=KoiGVcZSwElI3L7VVGlzALHvCfSajklzchkVDHZjFZ+41fFefcSnkpIXTfb9kFxmGlUdFJhVe87NzpXWMRBSazjohwVZ3pzVZg4cW8Zlc1HekUM9ZZibHRRo2RdF1I/nr5sodu9atTk3pFU8OaRB3edHulb1S3peqrVSQXPWs0cGafcLK1LJgjNSD4Jq6F8YsY1AEB46R+sDqTJqdteudNDSNxbGav4IuW1Tyt5peB4rMKmigmCGsqD098bvHEssnBM7NEy2Yl5HS1X+dgPWqtnsZPtPVp6mL2mX9DFurS66s6JwNRkH8IuSFftj38fiiAyjf2P8KKEX3cLof3Ph/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pHAp1DonNFQ+6pj6RVm34ZXbTZzInspElsG00tBCovs=;
- b=e8k2RDPfMYmABL5Sb0uxDtXEPz2N7ckAgGa+w3k5pwXoEudXcoiKFr4awQ6fLrnUvwksm9SBYVg1eJ88yDQxlMZLN3nhl2VLow4F7cEpJB8HRyhTZDZWhd3+9qjCW3/0AuWIChBII8fKZ/99AooBbO9oRj+i2BvpJa6p3b/gqnM=
+ bh=rdtHZDIv5NASSCwbbXRs5IgvOG61UBHZDcX4eipvbRI=;
+ b=IHtNgfzToBGio2KUE21Z9AGyM1NeItqlaGcOTUK5Q9YwS5gj1DMDOCccCbO8zhGvtIm+9/lExxk+tFGurx6tzucBlQSygWyQ86Vcabj4GPdZtQ5FPpJ7mgxUW2d9oDpC8x4gM+SayRW1vX9/jcwxAjyqOakEJKyPTGIFUiSA9Cg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
- by VI1PR04MB3039.eurprd04.prod.outlook.com (2603:10a6:802:b::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.16; Wed, 17 Nov
- 2021 09:38:26 +0000
+ by VE1PR04MB6623.eurprd04.prod.outlook.com (2603:10a6:803:125::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Wed, 17 Nov
+ 2021 09:38:28 +0000
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f]) by VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f%3]) with mapi id 15.20.4690.027; Wed, 17 Nov 2021
- 09:38:26 +0000
+ 09:38:27 +0000
 From: Daniel Baluta <daniel.baluta@oss.nxp.com>
 To: broonie@kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH 12/21] ASoC: SOF: amd: Add trace logger support
-Date: Wed, 17 Nov 2021 11:37:25 +0200
-Message-Id: <20211117093734.17407-13-daniel.baluta@oss.nxp.com>
+Subject: [PATCH 13/21] ASoC: SOF: amd: Add support for SOF firmware
+ authentication
+Date: Wed, 17 Nov 2021 11:37:26 +0200
+Message-Id: <20211117093734.17407-14-daniel.baluta@oss.nxp.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20211117093734.17407-1-daniel.baluta@oss.nxp.com>
 References: <20211117093734.17407-1-daniel.baluta@oss.nxp.com>
@@ -87,68 +88,68 @@ Received: from localhost.localdomain (2a02:2f08:5706:b700:22bb:b216:ffff:73e1)
  by AM3PR03CA0060.eurprd03.prod.outlook.com (2603:10a6:207:5::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.19 via Frontend
- Transport; Wed, 17 Nov 2021 09:38:24 +0000
+ Transport; Wed, 17 Nov 2021 09:38:26 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 55a82735-97e9-4dfd-7b4d-08d9a9ae012a
-X-MS-TrafficTypeDiagnostic: VI1PR04MB3039:
+X-MS-Office365-Filtering-Correlation-Id: 019c06fe-ee48-4f0c-fc46-08d9a9ae0233
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6623:
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-Microsoft-Antispam-PRVS: <VI1PR04MB30399EEA124484EE8728677DB89A9@VI1PR04MB3039.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
+X-Microsoft-Antispam-PRVS: <VE1PR04MB66234B969E60A12B1CEFF27FB89A9@VE1PR04MB6623.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 20B9q8AqbLp+wZ3o0xvZQ8oIPzMVn9En2hvYMycjyS9Lb/LO5b1HDYRvo153RatcrChs4wF/FfERq8206HtlHUKpfhbXiU5AjgMDb1AZE8/f5L7kEcE/akj29z7aV/7Oh5h7YJBi6WblN2CURoL/niglyXsZNla8E1mDX3tXGdWjlfhYkmSz5J0ANcvysWBW//iUrduBz5mSn/CGrDFEPbTcDEax2p1r14/9KYYEUQlEEYrPf8eRUn/r1/PB3/OeJ25GWu2uv/MxD/2aVKN/MVZPZGU53DT4WLj6/ibzYHsKQpAxo7JBAQI+CMgdfQ77fvdTMkYR3KHmzVCRGIrJ6i31oyx9P4DP1FgBSAoe4r2j+se6xTtHCHrybOnw1epKrKAGREVuywpuT8vIbLFf4pvmhz35+FqtwbBy0ffpWYJj55Vr3moMBWH4O9uYXVaMPFxNN7phLDzgCEqcsLDAkIR02ABPUHabPVMiK7LSGvffLmDwWGlnxmJMurTBFElZK6s5OSknvMm6nVWE5HX6p25huU8LGTVrBPMIy0Gvsy4FaYA0QJRkHhIe2/cMLjy1LyUN93WqhgtxPr4aCdhcPtNt/oAybOkV2UUlc106fadngPIeTpq80Yr+KCfMjoDanccNRotSvSSJL93oTa2s1w==
+X-Microsoft-Antispam-Message-Info: Cb6EmpcMBgfA9DQ/8OOWpq4vZBD7x1Uce7AN4HkQQNf9+xisZBXkKFftc/HJSJcb3ZdPQ4qPDa9ChX9a0DClEHGMTI4PZFf3W1WWg2Ug3nRtYH4B0Te6Cf36c1QKQbzp6uiGsFjZ2iZLFq60npfdHlVPzI63VfiizHWnDL1VZKxM8Lwx5+dpACRuIMgF1DT5DtLFdBy3DORTtA0vhHg5ZjlJMGIxkmFc5a0+spkIgfp9htiDi/RKawC0gmSJXLOGbZJK8nRYkXwt71f+tSMK7Qh598dRJIfS0piwEEUq8C7DPxyWQeFSxXLeYjrs3ja3EKJsjC8E5ccBj405X8Y2f9cclsZYYFsCYpgbj7NQokbwD+vB+ZQf2rTkiyAZEbmqaXQgMOZ8AkicF29k601uKE3Wtf/TLbAvJYDzFqDCyaQRVpGi924gyvgjW5P3AHcGY0FuQ5BtA5cIH1vjCs5yPhe3uvj4m4rRNs7oX7T7Yta/ezWg4MeO8pWG+OVTX9S1g0S7Xg4r4UHdAPR1OgVoDyDgIb8kX3aTa3uCs6/IDU7M9Y6rip/M/ClLdMiEfT1CjXezdld8gNP+EtXUHw3wDqG2gNEF07RX9LZREcEVuFdVCUJKev29fO66Ap7zFJaHn0ZoXr5c6oobzNGgphFi5w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66476007)(186003)(44832011)(52116002)(6486002)(5660300002)(66556008)(6512007)(6506007)(4326008)(7416002)(2616005)(8936002)(8676002)(1076003)(2906002)(66946007)(83380400001)(508600001)(86362001)(316002)(38100700002)(54906003);
+ SFS:(4636009)(366004)(8936002)(1076003)(52116002)(6506007)(5660300002)(54906003)(8676002)(508600001)(186003)(86362001)(2616005)(6512007)(7416002)(83380400001)(44832011)(66556008)(66476007)(4326008)(66946007)(316002)(38100700002)(6486002)(2906002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?HBKmozfm8Qf5MTdz0tGcN50XKr3opQvIBoGgaiG5I8WuVhezqEU/RoDqd0v+?=
- =?us-ascii?Q?kiQ2C6oXCgDsJCeXdZKperhSZnOA4KWEbJh/JqH1+PBzBiOEmqLCPt9Kkinc?=
- =?us-ascii?Q?re5eZLMtjLYPSo8pL0ccxU6uSQBJDDuOigfBl9PLVg/e20+jKuLY7FAcYby0?=
- =?us-ascii?Q?p0upYp8z/YmFq/kgJbYLOeWqk5Y/NNvNZJAEVbfapRNSOtRqrGb39CQ8u/ok?=
- =?us-ascii?Q?B7FUVGtsbszQ8g1rXwHFsBko9Ck6lpAHVZlBZOH6xgIC+Gqak8jyEJdUcxAe?=
- =?us-ascii?Q?uJSDfYluhtzIdYAcwSjJVkHW6hp5kqHLZZAhYB94S6AVjzz/RQWY8ruJTYWe?=
- =?us-ascii?Q?7+t9r4rk1n/DIiwmza93QeYvKGAzC5oc8xqpZiJBIPXUVuIkRnY1AIa7KZGI?=
- =?us-ascii?Q?0+BdQEaE47mRj0EUHkixoPtlaaNGgU2ocZYDtH/D6pfkiFudWJh+tqWZLIUY?=
- =?us-ascii?Q?AgG0BakCzTfxXVWrue3xnby5gG4hB0mgfCFSKy6+55ejO4J7L6rsYgMn+D6C?=
- =?us-ascii?Q?Ctnlx6X2TnBT3hqnYoBuYH3MSqowtMUld9XEnh1L70BGlspTYouOwvA8gf2v?=
- =?us-ascii?Q?S7dZEWkXng1SJ88z6fXlrFm0yMKEnBE40D1Wc6iLekHJhT36myStmGmIQj3/?=
- =?us-ascii?Q?BS2a7iAC9CRqNMJtI2dw4iy1POppVhmiWwPt79wP9jXHIzefgtGZSDCimWBn?=
- =?us-ascii?Q?yzeyP8n2BIIpVfHwUKzW/I6fLtmuLdvUnQS7+cUdG7zpZWQrm2QM5iTrnFkg?=
- =?us-ascii?Q?KU5u4m8S2a5+I72Xbwsl7vGO16OZ8Rl4590ThZ7umcZNCuIRzYWWWgGioDEZ?=
- =?us-ascii?Q?hjnw+x7hAsJVseL+HE6lREQhAVipDRcyX1oQbSrcE+aIHwI0KE/P3Tf4Df31?=
- =?us-ascii?Q?rAYr8Tmr4b4QPKyAfUjk+rCZCsTjcoJNeUxIo+WwnR67/9bAIFxLqBWdB2Ii?=
- =?us-ascii?Q?YFmi6r8tzQPmg7MOhZoUeyDKCvF18qdAQDw8OkhEPgBcSktfdYcWqTZbifAR?=
- =?us-ascii?Q?SkLLFub762jiFyFIHNlvS2fcZsvTrFDgV8wDQITNafuK1DRBUy6JfwAybg8p?=
- =?us-ascii?Q?ye4J8bnInxWjcFixMkcXOgEH9IGwiPViWm9DdxBHON/jrFujNOHKqtPG2dzZ?=
- =?us-ascii?Q?zAV60Bm2Igvdwv7jN5+DbEfG5i1AJF4/0SFV+/ueZu3roX3sdhIxQ/q1kMu5?=
- =?us-ascii?Q?ol2xnG/RnlVN1yT1m6bHrRhM17sz9tXYAUb5/jY0AykrXlq9vXm312Fef1ZU?=
- =?us-ascii?Q?pIA7yxwZ1fG+CpBATEIwIW+QTZdy1w7d94D6aG53wNijpSPe8diw+hCl7kDn?=
- =?us-ascii?Q?+AOWYSxr1wWpYmh+i9WJ9xjrcH/iAjZ1PkQhDwZzrSqa4p1jNhuDDA4iexsV?=
- =?us-ascii?Q?m/e0JD1CCrXytkr+1FjzpJ0oEbBdu/XQRbDGy9UTwA7Kn98RgA/1j5mIjp6K?=
- =?us-ascii?Q?SEb+LxhjxtkIKyCgu+DsG0dkoFMUbdDqH7vscGRQa1gS7MSqrh/aO7ieeNhs?=
- =?us-ascii?Q?t89PY6qktJbiN4Dt2aZmvtnBh+eTFyCAS+dowYNMZx9hzJ4Fy8a16m+ktdWp?=
- =?us-ascii?Q?/M0WcjDphJMYvz7xI6/6FMcTXcaeTi1PpnE4eQzHljPnjzbyufFbMrJb4YZr?=
- =?us-ascii?Q?DN6cor29ez6Ok79VCCRf7ar9om/mpvkQgrnSnCc0WagIQAsl3v1ZXfIV8lOD?=
- =?us-ascii?Q?dSjAA958kz0MPCCDPDLS2UQUk0QOTEDuQPMmaTrTdkedJjX8?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1xNlSoOCSHxXtiqracHEaFqUtxPToYrnxFxfhMaKKJvmB/S+yaP31ZaVLOdK?=
+ =?us-ascii?Q?IiRYMyfDJtpLnLJ/aZqbQDgpPTi8pOXqE5Gpoi6OVQYtzWBUNs5wccNXAhDl?=
+ =?us-ascii?Q?MWQCG8dmqHfi2k8bqa6aQ/DV0HrUIOJIHVhZel6aksjKxy9FAwy1QvTgI6I6?=
+ =?us-ascii?Q?/4GXMD/rijR2xqXLfsQ1TVwA6ag5dpIJ/LAjrOnhGbycO1srmqzyX8f9m+3k?=
+ =?us-ascii?Q?Wc2sQRkMtWyxg0Y3+5+CfV+aPZqivhW5FeipEafnBofLNxau7tt1IHi0nG0b?=
+ =?us-ascii?Q?p6dCOp92jmcIyRhiCq/LUK2Za5M2a98zHHKN/Ow17Sw4xNCTYBv/ti58oKBT?=
+ =?us-ascii?Q?qPXnUp/YgwZb+fPvv8PyIN1bt2cKxFQkqqr5GNA9rWrIaIGljk7WsqCeej7m?=
+ =?us-ascii?Q?A+TLhLYI8Mbc1h0smONLYiIqqrd2CXK2X7kwGoPJTt4eC614XybYh+RK6AKp?=
+ =?us-ascii?Q?gwdfI/qkGbGwtCr4occY0tRYJMV8wKtlh3UavdxX/riQ7CyCahjDeIeHMvCH?=
+ =?us-ascii?Q?AI+PPLqYa5sHEc8Nd8WISBdAh6pO+9+wohbrWMbWNoSnXpWMnxPSLrUYaqnO?=
+ =?us-ascii?Q?0mYDW00wOxf7NhSA9IviyYT9MC0FsTkL26us8JEWnxkbfiaEIoYMpvvIVdO5?=
+ =?us-ascii?Q?inTXS6bc0fZ5FwOyj4C5gVoZRKNYQ5UboWtQNZG6atAval8QUZ+bpytsJ0t3?=
+ =?us-ascii?Q?qhnCRgKJrXLQVyaXsPjlCx0Jf74y+cVEW9j3KaeywZOZtFMIyo8vURcFMZPt?=
+ =?us-ascii?Q?HZHzsGsuHClEgGJJJqHapNhDTHH7oahZs1GDBjUCjOfnYyZd6KP/I0/3Ozy6?=
+ =?us-ascii?Q?B44R2mwcwhaSnStCGbpCl2TXpLNXkfO4kWQXylcYlFkLjk/urV9DWvG0JAcG?=
+ =?us-ascii?Q?YwU3+G/1yYW6WJQAYOYrHmC8lfKZ1PPUvspmOaXMk/PiDlbzysmaSzUPNNCb?=
+ =?us-ascii?Q?oJf92Uq/4JTIaAffIaagreNKzrCKhAnx3R/t+/54VV3Y18vtYzf2lZXXCAqv?=
+ =?us-ascii?Q?8CS4my+KQHofq87ScYV6W2b2avIgbblX67MTXk/FU5aN3Wu4RAW8Q7IBYMaP?=
+ =?us-ascii?Q?iYCW5hSYxXnetCrq24631arHUgIFh42hSVaFFOnrFWVV/+fIJzLkpUhFC6ah?=
+ =?us-ascii?Q?Unv7iSSWRPcU1X0RJHsd6cjIts563z/9l1o5E6npVZZ0FfQevmssp6UaJnKb?=
+ =?us-ascii?Q?6fZERXwMS5ZcYsMUZYG/Yukh4Ou2Lm9SoXAmEEiZtL/z3D0LKRH/alSbEGvT?=
+ =?us-ascii?Q?Jdf+F7naOtuvTHmH8KX+zv/b4B8OhaPx2U2fR0BXUapDICfevoUOaJNeayxr?=
+ =?us-ascii?Q?vUGBHXBqm+jj61D9LAKV1uVrspwULMXHovRMKS06PDo4Pv1zwpUhg3IiS5DJ?=
+ =?us-ascii?Q?fudMKCML1W4T9QX+6P6H7VJAayqrCqvPDw0o1jPyMlWVSLsq0abWaP30xH0A?=
+ =?us-ascii?Q?aKYq9cmzjhx6rg88WM2Up1iKIcxR431GEF7q31noojBrCB3F7cmOQzMfFTUh?=
+ =?us-ascii?Q?jzoxKIpsbS2j1DI3c1rpyrx3tionGfMyqu0YDJ6cG/XquvLg6AUsmvEjZDpZ?=
+ =?us-ascii?Q?FHn7Ljh5eVMTmjQVXxV9e8J83B9hFRvDYLaHP5N9W/tjbYkfyG/+pbhStMHg?=
+ =?us-ascii?Q?8DEJh3kgU583uVY+03c8uLbLaZbrxaNwuzaXA/id/rU4/Eixq0ugpubWNCXt?=
+ =?us-ascii?Q?qWG3WstAdyQOPmWFsFtkEmb1xTXwgK7XOOhUoQLhFQxfkeYE?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55a82735-97e9-4dfd-7b4d-08d9a9ae012a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 019c06fe-ee48-4f0c-fc46-08d9a9ae0233
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2021 09:38:25.9900 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2021 09:38:27.8679 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UOU0ycEpY6MbAZCp/JEFYyVYvVQkkLJSiKmyFEGPeYd13MI4OCZmce9eR2GAtFxtNdWYrM98BwDzE/oyAHF3wA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3039
-Cc: daniel.baluta@gmail.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- AjitKumar.Pandey@amd.com, linux-kernel@vger.kernel.org,
+X-MS-Exchange-CrossTenant-UserPrincipalName: u3gzlR7eqxefjJkFPd6FRs13ykwBkSRJpqJ5S6HaDzF0RhOKKn0wG50clvg49kKJEbyLXhPHXRK3T1C9PgzKtg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6623
+Cc: daniel.baluta@gmail.com, AjitKumar.Pandey@amd.com,
+ Curtis Malainey <curtis@malainey.com>, linux-kernel@vger.kernel.org,
  pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
  Julian.Schroeder@amd.com, linux-mediatek@lists.infradead.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Balakishore.pati@amd.com, yc.hung@mediatek.com,
- vishnuvardhanrao.ravulapati@amd.com, vsreddy@amd.com, daniel.baluta@nxp.com,
- Bard Liao <bard.liao@intel.com>
+ vishnuvardhanrao.ravulapati@amd.com, vsreddy@amd.com, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -164,162 +165,244 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: V sujith kumar Reddy <vsreddy@amd.com>
+From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 
-Add trace support and configure trace stream for ACP firmware.
+Add callback to notify PSP after loading firmware on DSP. PSP will
+validate the loaded firmware and set qualifier bit to run firmware
+on secured AMD systems.
 
-Signed-off-by: Vishnuvardhanrao Ravuapati <vishnuvardhanrao.ravulapati@amd.com>
-Signed-off-by: V sujith kumar Reddy <vsreddy@amd.com>
-Reviewed-by: Bard Liao <bard.liao@intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Julian Schroeder <Julian.Schroeder@amd.com>
+Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Curtis Malainey <curtis@malainey.com>
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- sound/soc/sof/amd/Makefile    |  2 +-
- sound/soc/sof/amd/acp-trace.c | 84 +++++++++++++++++++++++++++++++++++
- sound/soc/sof/amd/acp.h       |  5 +++
- sound/soc/sof/amd/renoir.c    |  4 ++
- 4 files changed, 94 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/sof/amd/acp-trace.c
+ sound/soc/sof/amd/acp-dsp-offset.h |  4 ++
+ sound/soc/sof/amd/acp.c            | 66 +++++++++++++++++++++++++++++-
+ sound/soc/sof/amd/acp.h            | 21 ++++++++++
+ sound/soc/sof/amd/pci-rn.c         |  5 +++
+ 4 files changed, 95 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/amd/Makefile b/sound/soc/sof/amd/Makefile
-index b27ce50014b8..7b9f1a0af3c8 100644
---- a/sound/soc/sof/amd/Makefile
-+++ b/sound/soc/sof/amd/Makefile
-@@ -4,7 +4,7 @@
- #
- # Copyright(c) 2021 Advanced Micro Devices, Inc. All rights reserved.
+diff --git a/sound/soc/sof/amd/acp-dsp-offset.h b/sound/soc/sof/amd/acp-dsp-offset.h
+index 1d11e9d69dce..63f13c111b24 100644
+--- a/sound/soc/sof/amd/acp-dsp-offset.h
++++ b/sound/soc/sof/amd/acp-dsp-offset.h
+@@ -54,6 +54,9 @@
+ #define ACP_PGFSM_STATUS			0x1420
  
--snd-sof-amd-acp-objs := acp.o acp-loader.o acp-ipc.o acp-pcm.o acp-stream.o
-+snd-sof-amd-acp-objs := acp.o acp-loader.o acp-ipc.o acp-pcm.o acp-stream.o acp-trace.o
- snd-sof-amd-renoir-objs := pci-rn.o renoir.o
+ /* Registers from ACP_INTR block */
++#define ACP_EXTERNAL_INTR_ENB			0x1800
++#define ACP_EXTERNAL_INTR_CNTL			0x1804
++#define ACP_EXTERNAL_INTR_STAT			0x1808
+ #define ACP_DSP_SW_INTR_CNTL			0x1814
+ #define ACP_DSP_SW_INTR_STAT                    0x1818
+ #define ACP_SW_INTR_TRIG                        0x181C
+@@ -68,6 +71,7 @@
+ #define ACP_SHA_DMA_CMD_STS			0x1CC0
+ #define ACP_SHA_DMA_ERR_STATUS			0x1CC4
+ #define ACP_SHA_TRANSFER_BYTE_CNT		0x1CC8
++#define ACP_SHA_PSP_ACK                         0x1C74
  
- obj-$(CONFIG_SND_SOC_SOF_AMD_COMMON) += snd-sof-amd-acp.o
-diff --git a/sound/soc/sof/amd/acp-trace.c b/sound/soc/sof/amd/acp-trace.c
-new file mode 100644
-index 000000000000..fa4da8947186
---- /dev/null
-+++ b/sound/soc/sof/amd/acp-trace.c
-@@ -0,0 +1,84 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+//
-+// This file is provided under a dual BSD/GPLv2 license.  When using or
-+// redistributing this file, you may do so under either license.
-+//
-+// Copyright(c) 2021 Advanced Micro Devices, Inc. All rights reserved.
-+//
-+// Authors: Vishnuvardhanrao Ravuapati <vishnuvardhanrao.ravulapati@amd.com>
-+//	    V Sujith Kumar Reddy <Vsujithkumar.Reddy@amd.com>
-+
-+/*This file support Host TRACE Logger driver callback for SOF FW */
-+
-+#include "acp.h"
-+
-+#define ACP_LOGGER_STREAM	8
-+#define NUM_PAGES		16
-+
-+int acp_sof_trace_release(struct snd_sof_dev *sdev)
+ #define ACP_SCRATCH_REG_0			0x10000
+ 
+diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
+index 74ede28aa8d8..4c5550e8d364 100644
+--- a/sound/soc/sof/amd/acp.c
++++ b/sound/soc/sof/amd/acp.c
+@@ -20,6 +20,22 @@
+ #include "acp.h"
+ #include "acp-dsp-offset.h"
+ 
++static int smn_write(struct pci_dev *dev, u32 smn_addr, u32 data)
 +{
-+	struct acp_dsp_stream *stream;
-+	struct acp_dev_data *adata;
-+	int ret;
-+
-+	adata = sdev->pdata->hw_pdata;
-+	stream = adata->dtrace_stream;
-+	ret = acp_dsp_stream_put(sdev, stream);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "Failed to release trace stream\n");
-+		return ret;
-+	}
-+
-+	adata->dtrace_stream = NULL;
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS(acp_sof_trace_release, SND_SOC_SOF_AMD_COMMON);
-+
-+static int acp_sof_trace_prepare(struct snd_sof_dev *sdev,
-+				 struct sof_ipc_dma_trace_params_ext *params)
-+{
-+	struct acp_dsp_stream *stream;
-+	struct acp_dev_data *adata;
-+	int ret;
-+
-+	adata = sdev->pdata->hw_pdata;
-+	stream = adata->dtrace_stream;
-+	stream->dmab = &sdev->dmatb;
-+	stream->num_pages = NUM_PAGES;
-+
-+	ret = acp_dsp_stream_config(sdev, stream);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "Failed to configure trace stream\n");
-+		return ret;
-+	}
-+
-+	params->buffer.phy_addr = stream->reg_offset;
-+	params->stream_tag = stream->stream_tag;
++	pci_write_config_dword(dev, 0x60, smn_addr);
++	pci_write_config_dword(dev, 0x64, data);
 +
 +	return 0;
 +}
 +
-+int acp_sof_trace_init(struct snd_sof_dev *sdev, u32 *stream_tag)
++static int smn_read(struct pci_dev *dev, u32 smn_addr, u32 *data)
 +{
-+	struct sof_ipc_dma_trace_params_ext *params;
-+	struct acp_dsp_stream *stream;
-+	struct acp_dev_data *adata;
-+	int ret;
++	pci_write_config_dword(dev, 0x60, smn_addr);
++	pci_read_config_dword(dev, 0x64, data);
 +
-+	adata = sdev->pdata->hw_pdata;
-+	stream = acp_dsp_stream_get(sdev, ACP_LOGGER_STREAM);
-+	if (!stream)
++	return 0;
++}
++
+ static void configure_acp_groupregisters(struct acp_dev_data *adata)
+ {
+ 	struct snd_sof_dev *sdev = adata->dev;
+@@ -135,6 +151,25 @@ int configure_and_run_dma(struct acp_dev_data *adata, unsigned int src_addr,
+ 	return ret;
+ }
+ 
++static int psp_fw_validate(struct acp_dev_data *adata)
++{
++	struct snd_sof_dev *sdev = adata->dev;
++	int timeout;
++	u32 data;
++
++	smn_write(adata->smn_dev, MP0_C2PMSG_26_REG, MBOX_ACP_SHA_DMA_COMMAND);
++
++	for (timeout = ACP_PSP_TIMEOUT_COUNTER; timeout > 0; timeout--) {
++		msleep(20);
++		smn_read(adata->smn_dev, MP0_C2PMSG_26_REG, &data);
++		if (data & MBOX_READY_MASK)
++			return 0;
++	}
++
++	dev_err(sdev->dev, "FW validation timedout: status %x\n", data & MBOX_STATUS_MASK);
++	return -ETIMEDOUT;
++}
++
+ int configure_and_run_sha_dma(struct acp_dev_data *adata, void *image_addr,
+ 			      unsigned int start_addr, unsigned int dest_addr,
+ 			      unsigned int image_length)
+@@ -174,7 +209,9 @@ int configure_and_run_sha_dma(struct acp_dev_data *adata, void *image_addr,
+ 		return ret;
+ 	}
+ 
+-	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SHA_DSP_FW_QUALIFIER, DSP_FW_RUN_ENABLE);
++	ret = psp_fw_validate(adata);
++	if (ret)
++		return ret;
+ 
+ 	fw_qualifier = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_SHA_DSP_FW_QUALIFIER);
+ 	if (!(fw_qualifier & DSP_FW_RUN_ENABLE)) {
+@@ -238,6 +275,13 @@ static irqreturn_t acp_irq_thread(int irq, void *context)
+ 	struct snd_sof_dev *sdev = context;
+ 	unsigned int val;
+ 
++	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_EXTERNAL_INTR_STAT);
++	if (val & ACP_SHA_STAT) {
++		/* Clear SHA interrupt raised by PSP */
++		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_EXTERNAL_INTR_STAT, val);
++		return IRQ_HANDLED;
++	}
++
+ 	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_STAT);
+ 	if (val & ACP_DSP_TO_HOST_IRQ) {
+ 		sof_ops(sdev)->irq_thread(irq, sdev);
+@@ -326,6 +370,7 @@ int amd_sof_acp_probe(struct snd_sof_dev *sdev)
+ {
+ 	struct pci_dev *pci = to_pci_dev(sdev->dev);
+ 	struct acp_dev_data *adata;
++	const struct sof_amd_acp_desc *chip;
+ 	unsigned int addr;
+ 	int ret;
+ 
+@@ -346,18 +391,32 @@ int amd_sof_acp_probe(struct snd_sof_dev *sdev)
+ 
+ 	sdev->pdata->hw_pdata = adata;
+ 
++	chip = get_chip_info(sdev->pdata);
++	if (!chip) {
++		dev_err(sdev->dev, "no such device supported, chip id:%x\n", pci->device);
++		return -EIO;
++	}
++
++	adata->smn_dev = pci_get_device(PCI_VENDOR_ID_AMD, chip->host_bridge_id, NULL);
++	if (!adata->smn_dev) {
++		dev_err(sdev->dev, "Failed to get host bridge device\n");
 +		return -ENODEV;
-+
-+	adata->dtrace_stream = stream;
-+	params = container_of(stream_tag, struct sof_ipc_dma_trace_params_ext, stream_tag);
-+	ret = acp_sof_trace_prepare(sdev, params);
-+	if (ret < 0) {
-+		acp_dsp_stream_put(sdev, stream);
-+		return ret;
 +	}
 +
-+	*stream_tag = stream->stream_tag;
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS(acp_sof_trace_init, SND_SOC_SOF_AMD_COMMON);
+ 	sdev->ipc_irq = pci->irq;
+ 	ret = request_threaded_irq(sdev->ipc_irq, acp_irq_handler, acp_irq_thread,
+ 				   IRQF_SHARED, "AudioDSP", sdev);
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev, "failed to register IRQ %d\n",
+ 			sdev->ipc_irq);
++		pci_dev_put(adata->smn_dev);
+ 		return ret;
+ 	}
+ 
+ 	ret = acp_init(sdev);
+ 	if (ret < 0) {
+ 		free_irq(sdev->ipc_irq, sdev);
++		pci_dev_put(adata->smn_dev);
+ 		return ret;
+ 	}
+ 
+@@ -371,6 +430,11 @@ EXPORT_SYMBOL_NS(amd_sof_acp_probe, SND_SOC_SOF_AMD_COMMON);
+ 
+ int amd_sof_acp_remove(struct snd_sof_dev *sdev)
+ {
++	struct acp_dev_data *adata = sdev->pdata->hw_pdata;
++
++	if (adata->smn_dev)
++		pci_dev_put(adata->smn_dev);
++
+ 	if (sdev->ipc_irq)
+ 		free_irq(sdev->ipc_irq, sdev);
+ 
 diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index 5f6e9eff116a..fd923f72a01a 100644
+index fd923f72a01a..a2f8e4219066 100644
 --- a/sound/soc/sof/amd/acp.h
 +++ b/sound/soc/sof/amd/acp.h
-@@ -139,6 +139,7 @@ struct acp_dev_data {
- 	u8 *data_buf;
+@@ -52,6 +52,15 @@
+ 
+ #define ACP_DSP_TO_HOST_IRQ			0x04
+ 
++#define HOST_BRIDGE_CZN				0x1630
++#define ACP_SHA_STAT				0x8000
++#define ACP_PSP_TIMEOUT_COUNTER			5
++#define ACP_EXT_INTR_ERROR_STAT			0x20000000
++#define MP0_C2PMSG_26_REG			0x03810570
++#define MBOX_ACP_SHA_DMA_COMMAND		0x330000
++#define MBOX_READY_MASK				0x80000000
++#define MBOX_STATUS_MASK			0xFFFF
++
+ struct  acp_atu_grp_pte {
+ 	u32 low;
+ 	u32 high;
+@@ -140,6 +149,7 @@ struct acp_dev_data {
  	struct dma_descriptor dscr_info[ACP_MAX_DESC];
  	struct acp_dsp_stream stream_buf[ACP_MAX_STREAM];
-+	struct acp_dsp_stream *dtrace_stream;
+ 	struct acp_dsp_stream *dtrace_stream;
++	struct pci_dev *smn_dev;
  };
  
  void memcpy_to_scratch(struct snd_sof_dev *sdev, u32 offset, unsigned int *src, size_t bytes);
-@@ -197,4 +198,8 @@ extern const struct snd_sof_dsp_ops sof_renoir_ops;
- 
- /* Machine configuration */
- int snd_amd_acp_find_config(struct pci_dev *pci);
+@@ -202,4 +212,15 @@ int snd_amd_acp_find_config(struct pci_dev *pci);
+ /* Trace */
+ int acp_sof_trace_init(struct snd_sof_dev *sdev, u32 *stream_tag);
+ int acp_sof_trace_release(struct snd_sof_dev *sdev);
 +
-+/* Trace */
-+int acp_sof_trace_init(struct snd_sof_dev *sdev, u32 *stream_tag);
-+int acp_sof_trace_release(struct snd_sof_dev *sdev);
++struct sof_amd_acp_desc {
++	unsigned int host_bridge_id;
++};
++
++static inline const struct sof_amd_acp_desc *get_chip_info(struct snd_sof_pdata *pdata)
++{
++	const struct sof_dev_desc *desc = pdata->desc;
++
++	return desc->chip_info;
++}
  #endif
-diff --git a/sound/soc/sof/amd/renoir.c b/sound/soc/sof/amd/renoir.c
-index 3cd269bfe75d..43037109e130 100644
---- a/sound/soc/sof/amd/renoir.c
-+++ b/sound/soc/sof/amd/renoir.c
-@@ -173,6 +173,10 @@ const struct snd_sof_dsp_ops sof_renoir_ops = {
- 	.machine_select		= amd_sof_machine_select,
- 	.machine_register	= sof_machine_register,
- 	.machine_unregister	= sof_machine_unregister,
-+
-+	/* Trace Logger */
-+	.trace_init		= acp_sof_trace_init,
-+	.trace_release		= acp_sof_trace_release,
+diff --git a/sound/soc/sof/amd/pci-rn.c b/sound/soc/sof/amd/pci-rn.c
+index 3c379a5ef231..392ffbdf6417 100644
+--- a/sound/soc/sof/amd/pci-rn.c
++++ b/sound/soc/sof/amd/pci-rn.c
+@@ -43,12 +43,17 @@ static const struct resource renoir_res[] = {
+ 	},
  };
- EXPORT_SYMBOL(sof_renoir_ops);
  
++static const struct sof_amd_acp_desc renoir_chip_info = {
++	.host_bridge_id = HOST_BRIDGE_CZN,
++};
++
+ static const struct sof_dev_desc renoir_desc = {
+ 	.machines		= snd_soc_acpi_amd_sof_machines,
+ 	.resindex_lpe_base	= 0,
+ 	.resindex_pcicfg_base	= -1,
+ 	.resindex_imr_base	= -1,
+ 	.irqindex_host_ipc	= -1,
++	.chip_info		= &renoir_chip_info,
+ 	.default_fw_path	= "amd/sof",
+ 	.default_tplg_path	= "amd/sof-tplg",
+ 	.default_fw_filename	= "sof-rn.ri",
 -- 
 2.27.0
 

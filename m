@@ -2,86 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E71FA454735
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 14:27:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 291E8454743
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 14:32:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 862A91911;
-	Wed, 17 Nov 2021 14:26:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 862A91911
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA21D192A;
+	Wed, 17 Nov 2021 14:31:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA21D192A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637155668;
-	bh=PylKyHKKMn6zrW7HNydXwOQN9nKd7SzVbFmfJZ9BXHs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=grUDLpWQInmbT4AlJwttUxaAD9LlGMPA6NKcYezG/ZzTntKkr1Yw5x6ZLPko8tuS5
-	 Jv9op+Jr2XRzWAcAAntPpspEDyzwgY25y7jrFCeCV6P2hK2YZ5Lawv7v4mQprbpAYn
-	 Y7kMH6TiQ8rAlALwBS+glzQl/qdX0BOEoH/TO6OA=
+	s=default; t=1637155933;
+	bh=egpKftjZA4UATBX6UMVTj2AbIQQsMuLIA1YpbnnCrVY=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XndP4MvmGVtuCS5lWAsYmKMd892edd74e9Mg0f+vi2NrymFF4K6qJtFrJ5oCFXHnx
+	 FtoV7FG66yN7AAAVLs9LzfdJS6u3eXPlD4MDcP27eMclJkI+ArkvDYehFuqJ1MtqAQ
+	 8hyMLNTzt9yHQx5ziA/YsflKlTIeMmECNcv0bQoI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84CE7F8052E;
-	Wed, 17 Nov 2021 14:23:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A52DF8028B;
+	Wed, 17 Nov 2021 14:30:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4552FF80524; Wed, 17 Nov 2021 14:23:29 +0100 (CET)
+ id 35D30F8027D; Wed, 17 Nov 2021 14:30:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D5A6F804BD
- for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 14:23:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D5A6F804BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id C854EF8016C
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 14:30:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C854EF8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="mHEbxYJN"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AH4qhZg020405;
- Wed, 17 Nov 2021 07:23:06 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=PODMain02222019;
- bh=QAoxXsT5eQgbB1Noac3ZqDQBjgotizDF6cr+IrrWqsI=;
- b=mHEbxYJN7mHu/UgzetWQK7GGEKqplMSi6H+tFwSkYzB4qfkX62FoDwIpwNvT+oU++fzV
- nuOtCRaIhYQb/hrgI/oMgcLG8tH3zSOktsNhI+kF75l2rQbqx9kS8Qk8SfPQC4Qyxewb
- smus31LAJfXBdNuooXn8B2+9zG+4yPLRtikn142dIcDpaFTqqrFlNwCKWrV0NFE36fzT
- sXzmali+gRv5i221XylMRjZM5kRLtioJju0mwB8s3jWFIXiCEjyPWbl6MNQkno9nnorN
- PVUlWdA94t77J9K/jq/hhcsdLsWWWSRGcRMP9YnpaaCFPJNyMq8csf4QcAFK+jVTzrrW 9A== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ccgtn14sf-8
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 17 Nov 2021 07:23:06 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 17 Nov
- 2021 13:23:00 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
- Frontend Transport; Wed, 17 Nov 2021 13:23:00 +0000
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id EF60911AF;
- Wed, 17 Nov 2021 13:23:00 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH v2 10/10] firmware: cs_dsp: Allow creation of event controls
-Date: Wed, 17 Nov 2021 13:23:00 +0000
-Message-ID: <20211117132300.1290-10-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20211117132300.1290-1-ckeepax@opensource.cirrus.com>
-References: <20211117132300.1290-1-ckeepax@opensource.cirrus.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="qBc/jJ6/"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="lVClk7C5"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id E7909212BE
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 13:30:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1637155841; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=WfP/WJ5UOBPscRr2Sh/ZnK2g7le7uEajckX+rx9UEvQ=;
+ b=qBc/jJ6/paE3qMOJGYM5OB7KqPngR0hPtjE4F4tvc2YvTSL3zVglcoD+S+k4fv3p6UyEX8
+ ZN1iBx7r/5DeaQsvuF032FQxXrLQCIdEHXrE5MyFXN8CH0tA6OoVj7kIhul12BAnrYb0G+
+ UYeLluU6qOwoDOlqSf4s9dBhV4chmag=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1637155841;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=WfP/WJ5UOBPscRr2Sh/ZnK2g7le7uEajckX+rx9UEvQ=;
+ b=lVClk7C5oZDaNQxjcFp27yxdxeH5CM+b+kp27VSGhadSRPPgM80eUPDWdCJBYPPmbU4Tj0
+ 0mN7Q7igAMevuPBA==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id D7C40A3B84;
+ Wed, 17 Nov 2021 13:30:41 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda: Do disconnect jacks at codec unbind
+Date: Wed, 17 Nov 2021 14:30:40 +0100
+Message-Id: <20211117133040.20272-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-GUID: V8N9hBfA7MLYggb5yBQ70DlRFey8WrsP
-X-Proofpoint-ORIG-GUID: V8N9hBfA7MLYggb5yBQ70DlRFey8WrsP
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,41 +84,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some firmwares contain controls intended to convey firmware state back
-to the host. Whilst more infrastructure will probably be needed for
-these in time, as a first step allow creation of the controls, so said
-firmwares arn't completely rejected.
+The HD-audio codec driver remove may happen also at dynamically
+unbinding during operation, hence it needs manual triggers of
+snd_device_disconnect() calls, while it's missing for the jack objects
+that are associated with the codec.
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+This patch adds the manual disconnection call for jacks when the
+remove happens without card->shutdown (i.e. not under the full
+removal).
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/firmware/cirrus/cs_dsp.c     | 1 +
- include/linux/firmware/cirrus/wmfw.h | 1 +
- 2 files changed, 2 insertions(+)
+ sound/pci/hda/hda_bind.c |  2 ++
+ sound/pci/hda/hda_jack.c | 11 +++++++++++
+ sound/pci/hda/hda_jack.h |  1 +
+ 3 files changed, 14 insertions(+)
 
-diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
-index 5fe08de91ecd3..3814cbba0a544 100644
---- a/drivers/firmware/cirrus/cs_dsp.c
-+++ b/drivers/firmware/cirrus/cs_dsp.c
-@@ -1177,6 +1177,7 @@ static int cs_dsp_parse_coeff(struct cs_dsp *dsp,
- 				return -EINVAL;
- 			break;
- 		case WMFW_CTL_TYPE_HOSTEVENT:
-+		case WMFW_CTL_TYPE_FWEVENT:
- 			ret = cs_dsp_check_coeff_flags(dsp, &coeff_blk,
- 						       WMFW_CTL_FLAG_SYS |
- 						       WMFW_CTL_FLAG_VOLATILE |
-diff --git a/include/linux/firmware/cirrus/wmfw.h b/include/linux/firmware/cirrus/wmfw.h
-index a19bf7c6fc8b0..74e5a4f6c13a0 100644
---- a/include/linux/firmware/cirrus/wmfw.h
-+++ b/include/linux/firmware/cirrus/wmfw.h
-@@ -29,6 +29,7 @@
- #define WMFW_CTL_TYPE_ACKED       0x1000 /* acked control */
- #define WMFW_CTL_TYPE_HOSTEVENT   0x1001 /* event control */
- #define WMFW_CTL_TYPE_HOST_BUFFER 0x1002 /* host buffer pointer */
-+#define WMFW_CTL_TYPE_FWEVENT     0x1004 /* firmware event control */
+diff --git a/sound/pci/hda/hda_bind.c b/sound/pci/hda/hda_bind.c
+index 7153bd53e189..c572fb5886d5 100644
+--- a/sound/pci/hda/hda_bind.c
++++ b/sound/pci/hda/hda_bind.c
+@@ -14,6 +14,7 @@
+ #include <sound/core.h>
+ #include <sound/hda_codec.h>
+ #include "hda_local.h"
++#include "hda_jack.h"
  
- struct wmfw_header {
- 	char magic[4];
+ /*
+  * find a matching codec id
+@@ -158,6 +159,7 @@ static int hda_codec_driver_remove(struct device *dev)
+ 
+ 	refcount_dec(&codec->pcm_ref);
+ 	snd_hda_codec_disconnect_pcms(codec);
++	snd_hda_jack_tbl_disconnect(codec);
+ 	wait_event(codec->remove_sleep, !refcount_read(&codec->pcm_ref));
+ 	snd_power_sync_ref(codec->bus->card);
+ 
+diff --git a/sound/pci/hda/hda_jack.c b/sound/pci/hda/hda_jack.c
+index f29975e3e98d..7d7786df60ea 100644
+--- a/sound/pci/hda/hda_jack.c
++++ b/sound/pci/hda/hda_jack.c
+@@ -158,6 +158,17 @@ snd_hda_jack_tbl_new(struct hda_codec *codec, hda_nid_t nid, int dev_id)
+ 	return jack;
+ }
+ 
++void snd_hda_jack_tbl_disconnect(struct hda_codec *codec)
++{
++	struct hda_jack_tbl *jack = codec->jacktbl.list;
++	int i;
++
++	for (i = 0; i < codec->jacktbl.used; i++, jack++) {
++		if (!codec->bus->shutdown && jack->jack)
++			snd_device_disconnect(codec->card, jack->jack);
++	}
++}
++
+ void snd_hda_jack_tbl_clear(struct hda_codec *codec)
+ {
+ 	struct hda_jack_tbl *jack = codec->jacktbl.list;
+diff --git a/sound/pci/hda/hda_jack.h b/sound/pci/hda/hda_jack.h
+index 2abf7aac243a..ff7d289c034b 100644
+--- a/sound/pci/hda/hda_jack.h
++++ b/sound/pci/hda/hda_jack.h
+@@ -69,6 +69,7 @@ struct hda_jack_tbl *
+ snd_hda_jack_tbl_get_from_tag(struct hda_codec *codec,
+ 			      unsigned char tag, int dev_id);
+ 
++void snd_hda_jack_tbl_disconnect(struct hda_codec *codec);
+ void snd_hda_jack_tbl_clear(struct hda_codec *codec);
+ 
+ void snd_hda_jack_set_dirty_all(struct hda_codec *codec);
 -- 
-2.11.0
+2.31.1
 

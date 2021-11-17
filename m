@@ -2,86 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DE3D4542CB
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 09:40:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D76B4542D2
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 09:41:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 018201852;
-	Wed, 17 Nov 2021 09:39:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 018201852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D8971865;
+	Wed, 17 Nov 2021 09:40:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D8971865
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637138402;
-	bh=ZgDqqTWwuRhYjuXB/a8oZ+bN2+be6qJYPTEp0zZD8CU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1637138471;
+	bh=aJJ7YOvJL2qOF1/l7IER9EwujId4JWVBiEv1r4/swZk=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DshGn56MdqWEaNa7WPUBcTcJeBtzbnbL0zgCAUNMtfEYPM8VwxMca5mWB2SdDEPB+
-	 KlQFYYbSULnz3VuG+FXuMbhjMDAZawdfnVIMoWEVH2D7Aqx9ZnwXvMl+fd3NbfPAPP
-	 NrA/a9rFdPRhu48rANMWJmEjfPSs0w7LbvUQXpB0=
+	b=MuMeZb+WvrGyHJMvXXRC2s1ySBXFifdAQJRENelB+RIYPLtdSR5TLshmnk9Yl5MRb
+	 rFHuv7i29/nkP3Ts4Pt/PMfHeMAT+LjARcSmYYkncRvFFBxKIIoO9KDN7xlbR0LaDZ
+	 aYo+edSwKBZf4ItBcViv8hXArICtolDnCGtcO3n8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEFADF800FA;
-	Wed, 17 Nov 2021 09:38:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C941F800FA;
+	Wed, 17 Nov 2021 09:40:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4EECF8027D; Wed, 17 Nov 2021 09:38:39 +0100 (CET)
+ id 665F6F8028B; Wed, 17 Nov 2021 09:40:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A0C2F8016C
- for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 09:38:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A0C2F8016C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LM5ecvHr"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="AHG6THBy"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A5E7E2170C;
- Wed, 17 Nov 2021 08:38:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1637138307; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=B5rmHWgfe/rYkxkipHFfALr08ffh06QSn2FzR8U5rMU=;
- b=LM5ecvHrPtNoLwGUQHTBIYswj4JYzz9DrVM5JeS9n6WsOCT1hhf50duryLZkYmTMjI3/id
- yJy2Ra1NHMzXEU2pnql1nitlTJiy64tuwL/jBNn1ADLNJWuUKQ+aNAph2u1uPk0njC6fJ7
- GVJQBrdGypuMmM00hGv16Hgyndqw2R0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1637138307;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=B5rmHWgfe/rYkxkipHFfALr08ffh06QSn2FzR8U5rMU=;
- b=AHG6THBysdEUUU6CCx3T0kHnhJx1B1D8BnQWfHdGz1SSH/nRQoJvWDNOlOvlGpfhmW/1l7
- VA62kwR7qNBR2eDA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9F8A9A3B83;
- Wed, 17 Nov 2021 08:38:27 +0000 (UTC)
-Date: Wed, 17 Nov 2021 09:38:27 +0100
-Message-ID: <s5hfsrvnpmk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: sujith kumar reddy <sujithreddy6192@gmail.com>
-Subject: Re: HDMI driver format channel mismatch bug
-In-Reply-To: <CAAd2w=aWdBJA_1MPTG0s2TcM3gY0SxvQxVwpKMtCUDrJOK0Vrg@mail.gmail.com>
-References: <CAAd2w=bYJ9ooP717PQxGug=vKG8Zw_B+0z-Qp0s9v-40O2W0ig@mail.gmail.com>
- <s5hlf1nnrwa.wl-tiwai@suse.de>
- <CAAd2w=aWdBJA_1MPTG0s2TcM3gY0SxvQxVwpKMtCUDrJOK0Vrg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 10A91F800FA
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 09:40:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10A91F800FA
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1637138410372616053-webhooks-bot@alsa-project.org>
+References: <1637138410372616053-webhooks-bot@alsa-project.org>
+Subject: how to get the log file of aplay
+Message-Id: <20211117084018.665F6F8028B@alsa1.perex.cz>
+Date: Wed, 17 Nov 2021 09:40:18 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,157 +59,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 17 Nov 2021 09:31:25 +0100,
-sujith kumar reddy wrote:
-> 
-> Hi Takashi,
-> 
-> By HBR definition macro its non-pcm right?
->  
-> /* HBR should be Non-PCM, 8 channels
->  
-> */#define is_hbr_format(format) \ ((format & AC_FMT_TYPE_NON_PCM) && (format &
-> AC_FMT_CHAN_MASK) == 7)
-> 
-> if we restrict channel_max for LPCM does it  break it for other formats in
-> passthrough mode?
+alsa-project/alsa-utils issue #119 was opened from MT-LeiZhao:
 
-It's the format for HD-audio codec, and it's set by the driver when
-IEC958 status bits contains the non-audio bit.  So this format value
-is basically independent from SAD contents.
+Hi guys, I'm a new guy for audio driver. I have added logs in my ko which have the pcm function. I can see the normal call stack log using pulseaudio. But I can't see any log about my driver through aplay. I guess there was something wrong in aplay. Can anyone tell me how to get the detail log for aplay? Thank you very much~~~
 
-But, the change I proposed was utterly untested, and I'm not sure
-whether it works at all.
-
-
-Takashi
-
-> 
-> Thanks
-> Sujith
-> 
-> On Wed, Nov 17, 2021 at 1:19 PM Takashi Iwai <tiwai@suse.de> wrote:
-> 
->     On Fri, 12 Nov 2021 15:32:41 +0100,
->     sujith kumar reddy wrote:
->     >
->     > Hi Alsa Team,
->     >
->     > Sound is not coming in sony tv . which has below supported formats and
->     > channels.
->     >
->     > please find the attached  edid information and hw_params dump.
->     >
->     > with intel platform, same monitor populating 2 channels as max in
->     hw_params
->     > in dump.
->     > but with AMD card, its populating as 6 channels.
->     >
->     >
->     > When we digged the code, we found that snd_hdmi_eld_update_pcm_info 
->      API
->     > setting hinfo->channel_max as 8 and as channels max retrieved from sad
->     info
->     > as 6.
->     >
->     >
->     > for LPCM , why the channel max assignment logic is not safeguared with
->     > audio format check as LPCM ?
->     >
->     >
->     > snippet code:
->     >
->     > /* update PCM info based on ELD */void
->     > snd_hdmi_eld_update_pcm_info(struct parsed_hdmi_eld *e,
->     >                             struct hda_pcm_stream *hinfo){
->     >       u32 rates;
->     >       u64 formats;
->     >       unsigned int maxbps;
->     >       unsigned int channels_max;
->     >       int i;
->     >
->     >       /* assume basic audio support (the basic audio flag is not in ELD;
->            *
->     > however, all audio capable sinks are required to support basic         *
->     > audio) */
->     >       rates = SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
->     >               SNDRV_PCM_RATE_48000;
->     >       formats = SNDRV_PCM_FMTBIT_S16_LE;
->     >       maxbps = 16;
->     >       channels_max = 2;
->     >       for (i = 0; i < e->sad_count; i++) {
->     >               struct cea_sad *a = &e->sad[i];
->     >               rates |= a->rates;
->     >               if (a->channels > channels_max)
->     >                       channels_max = a->channels;
->     >               if (a->format == AUDIO_CODING_TYPE_LPCM) {
->     >                       if (a->sample_bits & AC_SUPPCM_BITS_20) {
->     >                               formats |= SNDRV_PCM_FMTBIT_S32_LE;
->     >                               if (maxbps < 20)
->     >                                       maxbps = 20;
->     >                       }
->     >                       if (a->sample_bits & AC_SUPPCM_BITS_24) {
->     >                               formats |= SNDRV_PCM_FMTBIT_S32_LE;
->     >                               if (maxbps < 24)
->     >                                       maxbps = 24;
->     >                       }
->     >               }
->     >       }
->     >
->     >       /* restrict the parameters by the values the codec provides */
->     >       hinfo->rates &= rates;
->     >       hinfo->formats &= formats;
->     >       hinfo->maxbps = min(hinfo->maxbps, maxbps);
->     >       hinfo->channels_max = min(hinfo->channels_max, channels_max);
->     >
->     > >>>>>>>>>>the above statement channels_max is the maximum of channels
->     supported of different formats.
->     >
->     > For example: the below attached edid is of sony tv. which supports two
->     > formats(LPCM and AC3)
->     >
->     >             LPCM --->supports 2 channels
->     >
->     >             AC3 ----->Supports 6 channels you can see in the attached
->     edid info.
->     >
->     >        As AMD supports LPCM ...>when we keep logs here we got
->     > channels_max =6 .in which sound is not observed on tv .when we
->     > hardcode to 2 channels
->     >
->     >        the sound is heard from monitor. As you see the above code
->     > ..for loop is not distinguishing channels_max for different formats.
->     >
->     > }
->    
->     Hm, the number of channels advertised from SAD makes little sense for
->     the hw_params that is rather for the PCM stream.  So the patch like
->     below would work, at least, for your examples.
->    
->     The remaining question is whether it's only LPCM that we'd have to
->     take care of the channels.  For HBR, we'd have to set 8 channels.
->    
->     Is HBR always tied with LPCM?  Or may it be with
->     AUDIO_CODING_TYPE_DTS_HD that advertises the channels?
-> 
->     thanks,
->    
->     Takashi
->    
->     --- a/sound/pci/hda/hda_eld.c
->     +++ b/sound/pci/hda/hda_eld.c
->     @@ -572,9 +572,9 @@ void snd_hdmi_eld_update_pcm_info(struct
->     parsed_hdmi_eld *e,
->             for (i = 0; i < e->sad_count; i++) {
->                     struct cea_sad *a = &e->sad[i];
->                     rates |= a->rates;
->     -               if (a->channels > channels_max)
->     -                       channels_max = a->channels;
->                     if (a->format == AUDIO_CODING_TYPE_LPCM) {
->     +                       if (a->channels > channels_max)
->     +                               channels_max = a->channels;
->                             if (a->sample_bits & AC_SUPPCM_BITS_20) {
->                                     formats |= SNDRV_PCM_FMTBIT_S32_LE;
->                                     if (maxbps < 20)
-> 
-> 
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/119
+Repository URL: https://github.com/alsa-project/alsa-utils

@@ -2,70 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BD32453B2D
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Nov 2021 21:45:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86F09454219
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 08:50:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A31D188A;
-	Tue, 16 Nov 2021 21:44:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A31D188A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14A75185A;
+	Wed, 17 Nov 2021 08:50:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14A75185A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637095514;
-	bh=6cRJpSX5Ff/VJA6lvSF8bt8uzvrweKJfjDcv9ETPiAg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1637135455;
+	bh=fDkqeq/o69+UiQgbIr5Dsv0BqxIhj41YiTDg2J6GN8Y=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZsVuPyNHO2aicu+Xh1kC/OnTFzUFuUFsIDhxLzUukv+YLfH7/98ggaVPNTZl9UGSc
-	 MDLxXn6b1B4f92jGyZaFsKAto1h/1j5lsIKrmllkvLPoT6trcR6z5aN8pzcVuVYter
-	 bIsguW7x7x/oG2lvrdDgtbOPyrTm9Kmwxtoo/LO8=
+	b=uSqj5KPIypCaLGXL4yXRZJtP6R8h+T6IUGhAxbfZISuE6Ay/3jqZwcWwwDJBVnrvh
+	 0YiYnYKmGGmBvB0IKU7J//hyZnGwV6TFqmFgmJhhhUKIFb2kMnSXa2C1Vslp1flJEH
+	 rz5DtnUlcNPnZut5WVe3iS7iDlTnkb5VRxc3BXCQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7005DF800FA;
-	Tue, 16 Nov 2021 21:43:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B596F8016C;
+	Wed, 17 Nov 2021 08:49:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FFE9F80272; Tue, 16 Nov 2021 21:43:52 +0100 (CET)
+ id 1322DF8027D; Wed, 17 Nov 2021 08:49:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D29F7F80134
- for <alsa-devel@alsa-project.org>; Tue, 16 Nov 2021 21:43:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D29F7F80134
-X-IronPort-AV: E=McAfee;i="6200,9189,10170"; a="231288246"
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="231288246"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 12:43:34 -0800
-X-IronPort-AV: E=Sophos;i="5.87,239,1631602800"; d="scan'208";a="536055468"
-Received: from amritamu-mobl1.amr.corp.intel.com (HELO [10.209.162.237])
- ([10.209.162.237])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2021 12:43:33 -0800
-Subject: Re: [PATCH 1/5] ASoC: soc-dai: update snd_soc_dai_delay() to
- snd_soc_pcm_dai_delay()
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <877dd8y26l.wl-kuninori.morimoto.gx@renesas.com>
- <875yssy25z.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <2cc78158-e288-e949-594f-0ab939a35942@linux.intel.com>
-Date: Tue, 16 Nov 2021 14:43:30 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <875yssy25z.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
- Hans de Goede <hdegoede@redhat.com>, Gu Shengxian <gushengxian@yulong.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29065F8016C
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 08:49:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29065F8016C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="UYwqJYLR"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="jAcUD8Lj"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id C4166218B5;
+ Wed, 17 Nov 2021 07:49:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1637135365; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=PkcXAWerFeAYdUvJ379+LynRkAnmzciblpIuNHtZGeM=;
+ b=UYwqJYLRnWkEYLz6Pvc4Z2DDf6GdXspKkHWomm1IVYCiB7KMQUqhx5j0/ATcEZBHwD0H68
+ JS0YffhTxdB4UtMPmW5D8S5DDtuwrrbgJh/yKvExIH/EJ9L9lXCJfRecr0cytREvwuFsPj
+ 1iC96gC3dktDsAFcNXRD9lbHVckUT1Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1637135365;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=PkcXAWerFeAYdUvJ379+LynRkAnmzciblpIuNHtZGeM=;
+ b=jAcUD8Lj0xiAS9YUHlNO/5zSIVtIUMuerOe0YcH5nPXiwtfBnWXRrViZFROK0eMilCEDBL
+ NE2F/8Bvw9u+X7CA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 9AF2FA3B83;
+ Wed, 17 Nov 2021 07:49:25 +0000 (UTC)
+Date: Wed, 17 Nov 2021 08:49:25 +0100
+Message-ID: <s5hlf1nnrwa.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: sujith kumar reddy <sujithreddy6192@gmail.com>
+Subject: Re: HDMI driver format channel mismatch bug
+In-Reply-To: <CAAd2w=bYJ9ooP717PQxGug=vKG8Zw_B+0z-Qp0s9v-40O2W0ig@mail.gmail.com>
+References: <CAAd2w=bYJ9ooP717PQxGug=vKG8Zw_B+0z-Qp0s9v-40O2W0ig@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,173 +91,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 11/16/21 1:45 AM, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+On Fri, 12 Nov 2021 15:32:41 +0100,
+sujith kumar reddy wrote:
 > 
-> Current soc_pcm_pointer() is manually calculating
-> both CPU-DAI's   max delay (= A)
-> and  Codec-DAI's max delay (= B).
+> Hi Alsa Team,
 > 
-> 	static snd_pcm_uframes_t soc_pcm_pointer(...)
-> 	{
-> 		...
->  ^		for_each_rtd_cpu_dais(rtd, i, cpu_dai)
-> (A)			cpu_delay = max(cpu_delay, ...);
->  v		delay += cpu_delay;
+> Sound is not coming in sony tv . which has below supported formats and
+> channels.
 > 
->  ^		for_each_rtd_codec_dais(rtd, i, codec_dai)
-> (B)			codec_delay = max(codec_delay, ...);
->  v		delay += codec_delay;
+> please find the attached  edid information and hw_params dump.
 > 
-> 		runtime->delay = delay;
-> 		...
+> with intel platform, same monitor populating 2 channels as max in hw_params
+> in dump.
+> but with AMD card, its populating as 6 channels.
+> 
+> 
+> When we digged the code, we found that snd_hdmi_eld_update_pcm_info   API
+> setting hinfo->channel_max as 8 and as channels max retrieved from sad info
+> as 6.
+> 
+> 
+> for LPCM , why the channel max assignment logic is not safeguared with
+> audio format check as LPCM ?
+> 
+> 
+> snippet code:
+> 
+> /* update PCM info based on ELD */void
+> snd_hdmi_eld_update_pcm_info(struct parsed_hdmi_eld *e,
+> 			      struct hda_pcm_stream *hinfo){
+> 	u32 rates;
+> 	u64 formats;
+> 	unsigned int maxbps;
+> 	unsigned int channels_max;
+> 	int i;
+> 
+> 	/* assume basic audio support (the basic audio flag is not in ELD;	 *
+> however, all audio capable sinks are required to support basic	 *
+> audio) */
+> 	rates = SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
+> 		SNDRV_PCM_RATE_48000;
+> 	formats = SNDRV_PCM_FMTBIT_S16_LE;
+> 	maxbps = 16;
+> 	channels_max = 2;
+> 	for (i = 0; i < e->sad_count; i++) {
+> 		struct cea_sad *a = &e->sad[i];
+> 		rates |= a->rates;
+> 		if (a->channels > channels_max)
+> 			channels_max = a->channels;
+> 		if (a->format == AUDIO_CODING_TYPE_LPCM) {
+> 			if (a->sample_bits & AC_SUPPCM_BITS_20) {
+> 				formats |= SNDRV_PCM_FMTBIT_S32_LE;
+> 				if (maxbps < 20)
+> 					maxbps = 20;
+> 			}
+> 			if (a->sample_bits & AC_SUPPCM_BITS_24) {
+> 				formats |= SNDRV_PCM_FMTBIT_S32_LE;
+> 				if (maxbps < 24)
+> 					maxbps = 24;
+> 			}
+> 		}
 > 	}
 > 
-> Current soc_pcm_pointer() and the total delay calculating
-> is not readable / difficult to understand.
+> 	/* restrict the parameters by the values the codec provides */
+> 	hinfo->rates &= rates;
+> 	hinfo->formats &= formats;
+> 	hinfo->maxbps = min(hinfo->maxbps, maxbps);
+> 	hinfo->channels_max = min(hinfo->channels_max, channels_max);
 > 
-> This patch update snd_soc_dai_delay() to snd_soc_pcm_dai_delay(),
-> and calcule both CPU/Codec delay in one function.
-
-When the hw_ptr is updated, the avail/delay value are also modified.
-
-see the diagram in
-https://www.kernel.org/doc/html/latest/sound/designs/timestamping.html?highlight=pcm%20timestamping
-
-I would think it's more accurate to update the delay information while
-dealing with the hw_ptr update, no?
-
+> >>>>>>>>>>the above statement channels_max is the maximum of channels supported of different formats.
 > 
-> Link: https://lore.kernel.org/r/87fszl4yrq.wl-kuninori.morimoto.gx@renesas.com
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  include/sound/soc-dai.h |  4 ++--
->  sound/soc/soc-dai.c     | 40 ++++++++++++++++++++++++++++------------
->  sound/soc/soc-pcm.c     | 18 ++----------------
->  3 files changed, 32 insertions(+), 30 deletions(-)
+> For example: the below attached edid is of sony tv. which supports two
+> formats(LPCM and AC3)
 > 
-> diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-> index 0dcb361a98bb..5d4dd7c5450b 100644
-> --- a/include/sound/soc-dai.h
-> +++ b/include/sound/soc-dai.h
-> @@ -208,8 +208,6 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
->  			struct snd_pcm_substream *substream);
->  void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
->  			  struct snd_pcm_substream *substream, int rollback);
-> -snd_pcm_sframes_t snd_soc_dai_delay(struct snd_soc_dai *dai,
-> -				    struct snd_pcm_substream *substream);
->  void snd_soc_dai_suspend(struct snd_soc_dai *dai);
->  void snd_soc_dai_resume(struct snd_soc_dai *dai);
->  int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
-> @@ -238,6 +236,8 @@ int snd_soc_pcm_dai_trigger(struct snd_pcm_substream *substream, int cmd,
->  			    int rollback);
->  int snd_soc_pcm_dai_bespoke_trigger(struct snd_pcm_substream *substream,
->  				    int cmd);
-> +void snd_soc_pcm_dai_delay(struct snd_pcm_substream *substream,
-> +			   snd_pcm_sframes_t *cpu_delay, snd_pcm_sframes_t *codec_delay);
->  
->  int snd_soc_dai_compr_startup(struct snd_soc_dai *dai,
->  			      struct snd_compr_stream *cstream);
-> diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-> index 3db0fcf24385..6078afe335f8 100644
-> --- a/sound/soc/soc-dai.c
-> +++ b/sound/soc/soc-dai.c
-> @@ -453,18 +453,6 @@ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
->  	soc_dai_mark_pop(dai, substream, startup);
->  }
->  
-> -snd_pcm_sframes_t snd_soc_dai_delay(struct snd_soc_dai *dai,
-> -				    struct snd_pcm_substream *substream)
-> -{
-> -	int delay = 0;
-> -
-> -	if (dai->driver->ops &&
-> -	    dai->driver->ops->delay)
-> -		delay = dai->driver->ops->delay(substream, dai);
-> -
-> -	return delay;
-> -}
-> -
->  int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
->  			     struct snd_soc_pcm_runtime *rtd, int num)
->  {
-> @@ -693,6 +681,34 @@ int snd_soc_pcm_dai_bespoke_trigger(struct snd_pcm_substream *substream,
->  	return 0;
->  }
->  
-> +void snd_soc_pcm_dai_delay(struct snd_pcm_substream *substream,
-> +			   snd_pcm_sframes_t *cpu_delay,
-> +			   snd_pcm_sframes_t *codec_delay)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *dai;
-> +	int i;
-> +
-> +	/*
-> +	 * We're looking for the delay through the full audio path so it needs to
-> +	 * be the maximum of the DAIs doing transmit and the maximum of the DAIs
-> +	 * doing receive (ie, all CPUs and all CODECs) rather than just the maximum
-> +	 * of all DAIs.
-> +	 */
-> +
-> +	/* for CPU */
-> +	for_each_rtd_cpu_dais(rtd, i, dai)
-> +		if (dai->driver->ops &&
-> +		    dai->driver->ops->delay)
-> +			*cpu_delay = max(*cpu_delay, dai->driver->ops->delay(substream, dai));
-> +
-> +	/* for Codec */
-> +	for_each_rtd_codec_dais(rtd, i, dai)
-> +		if (dai->driver->ops &&
-> +		    dai->driver->ops->delay)
-> +			*codec_delay = max(*codec_delay, dai->driver->ops->delay(substream, dai));
-> +}
-> +
->  int snd_soc_dai_compr_startup(struct snd_soc_dai *dai,
->  			      struct snd_compr_stream *cstream)
->  {
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 4309e6131c40..b1ef4d02511f 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -1084,15 +1084,11 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
->   */
->  static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
->  {
-> -	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-> -	struct snd_soc_dai *cpu_dai;
-> -	struct snd_soc_dai *codec_dai;
->  	struct snd_pcm_runtime *runtime = substream->runtime;
->  	snd_pcm_uframes_t offset = 0;
->  	snd_pcm_sframes_t delay = 0;
->  	snd_pcm_sframes_t codec_delay = 0;
->  	snd_pcm_sframes_t cpu_delay = 0;
-> -	int i;
->  
->  	/* clearing the previous total delay */
->  	runtime->delay = 0;
-> @@ -1102,19 +1098,9 @@ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
->  	/* base delay if assigned in pointer callback */
->  	delay = runtime->delay;
->  
-> -	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
-> -		cpu_delay = max(cpu_delay,
-> -				snd_soc_dai_delay(cpu_dai, substream));
-> -	}
-> -	delay += cpu_delay;
-> -
-> -	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-> -		codec_delay = max(codec_delay,
-> -				  snd_soc_dai_delay(codec_dai, substream));
-> -	}
-> -	delay += codec_delay;
-> +	snd_soc_pcm_dai_delay(substream, &cpu_delay, &codec_delay);
->  
-> -	runtime->delay = delay;
-> +	runtime->delay = delay + cpu_delay + codec_delay;
->  
->  	return offset;
->  }
+>             LPCM --->supports 2 channels
 > 
+>             AC3 ----->Supports 6 channels you can see in the attached edid info.
+> 
+>        As AMD supports LPCM ...>when we keep logs here we got
+> channels_max =6 .in which sound is not observed on tv .when we
+> hardcode to 2 channels
+> 
+>        the sound is heard from monitor. As you see the above code
+> ..for loop is not distinguishing channels_max for different formats.
+> 
+> }
+
+Hm, the number of channels advertised from SAD makes little sense for
+the hw_params that is rather for the PCM stream.  So the patch like
+below would work, at least, for your examples.
+
+The remaining question is whether it's only LPCM that we'd have to
+take care of the channels.  For HBR, we'd have to set 8 channels.
+
+Is HBR always tied with LPCM?  Or may it be with
+AUDIO_CODING_TYPE_DTS_HD that advertises the channels?
+
+
+thanks,
+
+Takashi
+
+--- a/sound/pci/hda/hda_eld.c
++++ b/sound/pci/hda/hda_eld.c
+@@ -572,9 +572,9 @@ void snd_hdmi_eld_update_pcm_info(struct parsed_hdmi_eld *e,
+ 	for (i = 0; i < e->sad_count; i++) {
+ 		struct cea_sad *a = &e->sad[i];
+ 		rates |= a->rates;
+-		if (a->channels > channels_max)
+-			channels_max = a->channels;
+ 		if (a->format == AUDIO_CODING_TYPE_LPCM) {
++			if (a->channels > channels_max)
++				channels_max = a->channels;
+ 			if (a->sample_bits & AC_SUPPCM_BITS_20) {
+ 				formats |= SNDRV_PCM_FMTBIT_S32_LE;
+ 				if (maxbps < 20)

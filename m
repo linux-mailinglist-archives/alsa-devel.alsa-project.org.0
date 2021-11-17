@@ -2,72 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EDD7454901
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 15:40:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E6C45499F
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 16:12:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0310F1920;
-	Wed, 17 Nov 2021 15:39:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0310F1920
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4287917C2;
+	Wed, 17 Nov 2021 16:11:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4287917C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637160007;
-	bh=+sgGk1MAqqjZjV0T3zcDclmfwLLAWkR2iTA/ErTNlhw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=d0xyJmmG33iAsVk6JoHrEyEYkmrCjGGYrRzpz41mDrCGwlkN4paGfhIXtXp4mnVND
-	 PWppQzVSykyVkAzebNdllUG9Lc6Kr038fLQPCrpMVFjbiEonmL0xiJ5JULrkgRr6Kd
-	 GA9BtQDEi7FHpAeA+bfHSbG1+ZC30SQcQpAYC+sQ=
+	s=default; t=1637161925;
+	bh=J7nm1w026Lj0fzKHH96qDK02Rfn+BxuPr2vq5bDxdgU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gg2QMjfB8FEUKkovl2E5FUOiFG+C2MkCpeDCtUaDp9Qv1Rsz1iNkAyxaTFgTvjcB1
+	 t3CYkTTuwn0UWaLjppjWxmO/xR3S0vZggq6idKErN6MSliCaXHhUjXXhhvYW/1vZ6S
+	 aQIuslxLmtkq0HZnefbYqv6z8D8BTH0bAZ4DoCKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CB2CF8020D;
-	Wed, 17 Nov 2021 15:38:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9ADC3F8028B;
+	Wed, 17 Nov 2021 16:10:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0FF12F8027D; Wed, 17 Nov 2021 15:38:47 +0100 (CET)
+ id 637CDF8028B; Wed, 17 Nov 2021 16:10:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C3E9F80134
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 16:10:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C3E9F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="eVeQzpcJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1637161833;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=onbHpGDOHj34j8P09pCtbtSHIxBzzWQrWh5eZpQwss8=;
+ b=eVeQzpcJREFE8bFc7z10/8zP7DI2bDpQ//M1TSncewcQn57rWm1a12muwR2RASN+WVdaAU
+ 2KldbjiIWIGWGncENuw/QkI2x7Kt2yzzTg0NRurgRZzrhhgcZ9XjJ1ZDm+B1D2di74jjhH
+ c6Zrc4CfoJ5sV42yJtSj/Jqj01bjpW0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-402-XU5v64k_M5KhVEdloJMLgA-1; Wed, 17 Nov 2021 10:10:29 -0500
+X-MC-Unique: XU5v64k_M5KhVEdloJMLgA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB15EF800FA
- for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 15:38:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB15EF800FA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PgwUzmkV"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3EE5F613AD;
- Wed, 17 Nov 2021 14:38:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637159918;
- bh=+sgGk1MAqqjZjV0T3zcDclmfwLLAWkR2iTA/ErTNlhw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PgwUzmkVZnENX4tzSGFGDooaLrt5/UkyuxtbbZXKzWKo0sUbrnrJzzrJ9Gd7QmKQP
- J129HARnzukITzYfC79D7Kuf8LbMnjS2nm0f9rsxsfD5Szute22lWsgJqtZq3hh/Rx
- F+y9eIdpft/DFkGuuWwQ+TQ+LE2RUvVCfB9FFcfpp/9TrQb6QsBxv+u5btwPZPZSAJ
- CO7fJ6p6e0bIViBkz718wSTe8opN/sktvEjJ4+n8pZDLwx+oJi/oJjS8uieXdCPpHy
- t/AcawvxRT1ni+2IXBPMwF6tkr0OC45aYaivlXSIdUoXx7y+gWOAXKjg44x9dw2Qbd
- RdgkJlrGqJMnQ==
-Date: Wed, 17 Nov 2021 14:38:32 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Subject: Re: [PATCH v4 00/10] Add support for audio on SC7280 based targets
-Message-ID: <YZUT6BQKz00jXov9@sirena.org.uk>
-References: <1635838265-27346-1-git-send-email-srivasam@codeaurora.org>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4A77F1B2C9AF;
+ Wed, 17 Nov 2021 15:10:26 +0000 (UTC)
+Received: from x1.localdomain (unknown [10.39.193.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 033595DEFB;
+ Wed, 17 Nov 2021 15:10:23 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH 5.16 regression fix 1/2] ASoC: Intel: soc-acpi-byt: Revert
+ shrink tables using compatible IDs
+Date: Wed, 17 Nov 2021 16:10:21 +0100
+Message-Id: <20211117151022.122286-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="eAN7bUExa5adGLjm"
-Content-Disposition: inline
-In-Reply-To: <1635838265-27346-1-git-send-email-srivasam@codeaurora.org>
-X-Cookie: One Bell System - it sometimes works.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, linux-arm-msm@vger.kernel.org, plai@codeaurora.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- bjorn.andersson@linaro.org, agross@kernel.org, rohitkr@codeaurora.org,
- swboyd@chromium.org, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ Brent Lu <brent.lu@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,40 +96,147 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Commit dac7cbd55dca ("ASoC: Intel: soc-acpi-byt: shrink tables using
+compatible IDs") simplified the match tables in soc-acpi-intel-byt-match.c
+by merging identical entries using the new .comp_ids snd_soc_acpi_mach
+field to point a single entry to multiple ACPI HIDs and clearing the
+previously unique per entry .id field.
 
---eAN7bUExa5adGLjm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+But various machine drivers from sound/soc/intel/boards rely on mach->id
+in one or more ways. For example all of the following machine-drivers
+for entries combined during the shrinking:
+sound/soc/intel/boards/bytcr_rt5640.c
+sound/soc/intel/boards/bytcr_wm5102.c
+sound/soc/intel/boards/bytcht_da7213.c
+sound/soc/intel/boards/cht_bsw_rt5645.c
 
-On Tue, Nov 02, 2021 at 01:00:55PM +0530, Srinivasa Rao Mandadapu wrote:
+Do:
+	adev = acpi_dev_get_first_match_dev(mach->id, NULL, -1);
 
-> This patch set depends on:
-> 	-- https://patchwork.kernel.org/project/alsa-devel/list/?series=570161
-> 	-- https://patchwork.kernel.org/project/alsa-devel/list/?series=572615
-> 	-- https://patchwork.kernel.org/project/alsa-devel/list/?series=559677
+Which now no longer works and some of them also do:
 
-None of those links seem to show any patches (or errors)?
+	pkg_found = snd_soc_acpi_find_package_from_hid(mach->id, ...
 
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
+Which now also no longer works. All these calls need to be fixed before
+we can shrink the tables, so revert this change for now.
 
---eAN7bUExa5adGLjm
-Content-Type: application/pgp-signature; name="signature.asc"
+Fixes: dac7cbd55dca ("ASoC: Intel: soc-acpi-byt: shrink tables using compatible IDs")
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Brent Lu <brent.lu@intel.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ .../intel/common/soc-acpi-intel-byt-match.c   | 68 ++++++++++++-------
+ 1 file changed, 44 insertions(+), 24 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/sound/soc/intel/common/soc-acpi-intel-byt-match.c b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
+index 142000991813..510a5f38b7f1 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-byt-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
+@@ -120,29 +120,9 @@ static struct snd_soc_acpi_mach *byt_quirk(void *arg)
+ 	}
+ }
+ 
+-static const struct snd_soc_acpi_codecs rt5640_comp_ids = {
+-	.num_codecs = 3,
+-	.codecs = { "10EC5640", "10EC5642", "INTCCFFD"},
+-};
+-
+-static const struct snd_soc_acpi_codecs wm5102_comp_ids = {
+-	.num_codecs = 2,
+-	.codecs = { "WM510204", "WM510205"},
+-};
+-
+-static const struct snd_soc_acpi_codecs da7213_comp_ids = {
+-	.num_codecs = 2,
+-	.codecs = { "DGLS7212", "DGLS7213"},
+-};
+-
+-static const struct snd_soc_acpi_codecs rt5645_comp_ids = {
+-	.num_codecs = 2,
+-	.codecs = { "10EC5645", "10EC5648"},
+-};
+-
+ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
+ 	{
+-		.comp_ids = &rt5640_comp_ids,
++		.id = "10EC5640",
+ 		.drv_name = "bytcr_rt5640",
+ 		.fw_filename = "intel/fw_sst_0f28.bin",
+ 		.board = "bytcr_rt5640",
+@@ -150,6 +130,22 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
+ 		.sof_fw_filename = "sof-byt.ri",
+ 		.sof_tplg_filename = "sof-byt-rt5640.tplg",
+ 	},
++	{
++		.id = "10EC5642",
++		.drv_name = "bytcr_rt5640",
++		.fw_filename = "intel/fw_sst_0f28.bin",
++		.board = "bytcr_rt5640",
++		.sof_fw_filename = "sof-byt.ri",
++		.sof_tplg_filename = "sof-byt-rt5640.tplg",
++	},
++	{
++		.id = "INTCCFFD",
++		.drv_name = "bytcr_rt5640",
++		.fw_filename = "intel/fw_sst_0f28.bin",
++		.board = "bytcr_rt5640",
++		.sof_fw_filename = "sof-byt.ri",
++		.sof_tplg_filename = "sof-byt-rt5640.tplg",
++	},
+ 	{
+ 		.id = "10EC5651",
+ 		.drv_name = "bytcr_rt5651",
+@@ -159,7 +155,7 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
+ 		.sof_tplg_filename = "sof-byt-rt5651.tplg",
+ 	},
+ 	{
+-		.comp_ids = &wm5102_comp_ids,
++		.id = "WM510204",
+ 		.drv_name = "bytcr_wm5102",
+ 		.fw_filename = "intel/fw_sst_0f28.bin",
+ 		.board = "bytcr_wm5102",
+@@ -167,7 +163,23 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
+ 		.sof_tplg_filename = "sof-byt-wm5102.tplg",
+ 	},
+ 	{
+-		.comp_ids = &da7213_comp_ids,
++		.id = "WM510205",
++		.drv_name = "bytcr_wm5102",
++		.fw_filename = "intel/fw_sst_0f28.bin",
++		.board = "bytcr_wm5102",
++		.sof_fw_filename = "sof-byt.ri",
++		.sof_tplg_filename = "sof-byt-wm5102.tplg",
++	},
++	{
++		.id = "DLGS7212",
++		.drv_name = "bytcht_da7213",
++		.fw_filename = "intel/fw_sst_0f28.bin",
++		.board = "bytcht_da7213",
++		.sof_fw_filename = "sof-byt.ri",
++		.sof_tplg_filename = "sof-byt-da7213.tplg",
++	},
++	{
++		.id = "DLGS7213",
+ 		.drv_name = "bytcht_da7213",
+ 		.fw_filename = "intel/fw_sst_0f28.bin",
+ 		.board = "bytcht_da7213",
+@@ -190,7 +202,15 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
+ 	},
+ 	/* some Baytrail platforms rely on RT5645, use CHT machine driver */
+ 	{
+-		.comp_ids = &rt5645_comp_ids,
++		.id = "10EC5645",
++		.drv_name = "cht-bsw-rt5645",
++		.fw_filename = "intel/fw_sst_0f28.bin",
++		.board = "cht-bsw",
++		.sof_fw_filename = "sof-byt.ri",
++		.sof_tplg_filename = "sof-byt-rt5645.tplg",
++	},
++	{
++		.id = "10EC5648",
+ 		.drv_name = "cht-bsw-rt5645",
+ 		.fw_filename = "intel/fw_sst_0f28.bin",
+ 		.board = "cht-bsw",
+-- 
+2.31.1
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGVE+cACgkQJNaLcl1U
-h9As+wf7B+JAOPsfgU0nEW7ON59XP8K/aBZrQ0SjOCL5GE5Azb4/+FDOytGgwgae
-HW9ZIlOn+bYqo4VUVSwVoEdL91UnVUBxdTPrHS5pu5ZtT+wa7xYMGKHlQnxv5t80
-DUoPNFuQydEa0N51Xq13gUgvhrxnY9iFRx995WKowjXx51glDSuaT0+l4MhZbl29
-2ZzgTGyKOJSO3PgjSajop8/zWrOrKfOeSgPpA+NJxZU6HPhjfyEFozTKEieUbjHO
-/Ac2XgsD8whOKg/2FC4uycI2txWFGLGP+vuIMqeB/oNEcrVLzQN1eWFWO1YNLwXA
-IsonKPo/U83HY4hEFtapz0na0ScuUg==
-=NHdC
------END PGP SIGNATURE-----
-
---eAN7bUExa5adGLjm--

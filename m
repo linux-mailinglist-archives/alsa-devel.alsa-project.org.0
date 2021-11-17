@@ -2,90 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C99F6454551
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 12:02:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A31D0454553
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 12:02:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1BA7182F;
-	Wed, 17 Nov 2021 12:01:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1BA7182F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B8F7185F;
+	Wed, 17 Nov 2021 12:02:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B8F7185F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637146954;
-	bh=ojydqCk7OYowGSHuFjnYfcfbmqElJwnDXsvUPmsF0gw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ICXhWUvqFqOFS+zNeYuROWAQz2wPBavh9KXLL5DNIVPzaKk7wiQrwtxxUpXoHMCWw
-	 1nxmR+gy2bOkgrmj4x5c+EDyxgRELoG6FJVc8CvQLt4W5AWZyDPNOhLF1Sgxx3srXH
-	 Li+CZ9hcv57cus8cRr0uHE9Wt+YJV5O7oLhI/0TM=
+	s=default; t=1637146978;
+	bh=bR5faSYqlSoX1JQ/Lhs0sZ0Z+hrlhW683AB9bR2tOzs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Ht96//9bJK+B5mwj1pyQtQ//40K5Z05wTI7nnqXvdAjICvhE/ra700qEO4pd549xA
+	 duNbx/cq1Sv3QdjgIW8a1FRw0Ep81gWTA+TD4ezOIsomOUST60k8HdZwCeY/BICYQZ
+	 A2GmSD/5CqKZXRh3VXoGGpQ/sdpTF/OadxhtHyE0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2ED47F80134;
-	Wed, 17 Nov 2021 12:01:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8870F804BB;
+	Wed, 17 Nov 2021 12:01:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8274BF8016C; Wed, 17 Nov 2021 12:01:14 +0100 (CET)
+ id DCAD6F8027D; Wed, 17 Nov 2021 12:01:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4472DF8016C
- for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 12:01:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4472DF8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B50DAF80134
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 12:00:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B50DAF80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com
- header.b="cvoCf88s"
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AH7M65Y014827;
- Wed, 17 Nov 2021 12:01:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=1/Q21ux/FGI1kNRl1aPygtxOq6sHNR7PApw2cIasDJk=;
- b=cvoCf88sQ1fE7S+lU40DR7GmGIKEecZoHhIn+2hvhGTXeanJQ5K22JP6xVi3F2aWHeZg
- jJG0BQHz6bLC/ElfBdNr2uhAxEgLJrqORtrlPCjClDXDxIzBFpZ0x/ZIY4lRb4BL1AF5
- 7ztA2b5qy14O5dpkL2i4tI6rxl6hCLBmieNgudP6+iTbqKqk9+hzR9q8BQtTyFMifTXO
- eq0QXW6e+h/5FqUKyCoOptBuhRoAedJ22bW16RZXQJjuR/8CJLIK7lKKmN5i5DwvZc6C
- kdj9NHMwjgJyCieFlGH3tOSgmaU9anSMQ7se8rg8frUA0gLQiQZIH1YY8D5INcdUMbEP yA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ccq6auuhe-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Nov 2021 12:01:05 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 12A78100038;
- Wed, 17 Nov 2021 12:01:04 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2063B21B05F;
- Wed, 17 Nov 2021 12:01:04 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 17 Nov 2021 12:01:03
- +0100
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Arnaud Pouliquen
- <arnaud.pouliquen@foss.st.com>, Jaroslav Kysela <perex@perex.cz>, "Liam
- Girdwood" <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Olivier Moysan
- <olivier.moysan@foss.st.com>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ASoC: stm32: sai: increase channels_max limit
-Date: Wed, 17 Nov 2021 12:00:31 +0100
-Message-ID: <20211117110031.19345-1-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="L0IqkmmG"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AH4qhVM020405;
+ Wed, 17 Nov 2021 05:00:54 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=PM2cq25iT99QHflhpvg7GstfduZUCwNr69YKGcLToRM=;
+ b=L0IqkmmGuityHymJGHSmk7E8VlWMuDHoAgXlY7ZoBJikIfpgQ7Lup2NovRU8/IKOkTfJ
+ J5HzyW39OJYOabXKqcsjAdroqmX1e4ifhhXBYn8+JwNn+/DfjBaZVrO9PdFs3xNPoKRm
+ 6bZlbmWl+mQecH/MJaI0bzlTrK2Wvqje7EFtgY37B2mP7LJv//iDRBY2bL4WEnZ6Vb+S
+ UsZ013qN2Hhj4q7afwViVRBZkoWpJX+18P8Xa/DJB+EgVZvFqpNpcc+zKBzA0ePWHQgH
+ emuFz+FCjhEJB6+V0ta0dCS30U3zFjAVNj02yCw1FMh/4VE1PxiupXuAOeBUBrDKiYE5 mQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ccgtn10bb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 17 Nov 2021 05:00:54 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 17 Nov
+ 2021 11:00:52 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Wed, 17 Nov 2021 11:00:52 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D1F2C46D;
+ Wed, 17 Nov 2021 11:00:46 +0000 (UTC)
+Date: Wed, 17 Nov 2021 11:00:46 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Simon Trimmer <simont@opensource.cirrus.com>
+Subject: Re: [PATCH 03/10] firmware: cs_dsp: Add version checks on
+ coefficient loading
+Message-ID: <20211117110046.GE18506@ediswmail.ad.cirrus.com>
+References: <20211116161609.12223-1-ckeepax@opensource.cirrus.com>
+ <20211116161609.12223-3-ckeepax@opensource.cirrus.com>
+ <YZPzgvB2+oXaCupw@sirena.org.uk>
+ <001901d7db19$efbc2830$cf347890$@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-17_04,2021-11-17_01,2020-04-07_01
-Cc: alsa-devel@alsa-project.org, Olivier Moysan <olivier.moysan@st.com>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <001901d7db19$efbc2830$cf347890$@opensource.cirrus.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: YFf5TIw-De6D5ek_LVOe_020bG01_WCx
+X-Proofpoint-ORIG-GUID: YFf5TIw-De6D5ek_LVOe_020bG01_WCx
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ 'Mark Brown' <broonie@kernel.org>, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,40 +102,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Olivier Moysan <olivier.moysan@st.com>
+On Tue, Nov 16, 2021 at 06:44:06PM -0000, Simon Trimmer wrote:
+> > > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> > > Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+> > > ---
+> > 
+> > This has Simon's signoff after yours but no other indication of his
+> > involvement?
+> 
+> I have been working with Charles on most of these patches over the last few
+> months and I'd fixed some internal review comments on this one before we
+> shared it. If it helps I can certainly ack the chain?
+> 
 
-The SAI peripheral supports up to 16 channels in TDM mode (8L+8R).
-The driver currently supports TDM over two channels.
-Increase SAI DAI playback/record channels_max,
-to also allow up to 16 channels in TDM mode.
+Yeah apologies I am never quite sure what to do in this
+situation. We internally have someone add their sign-off when
+they make a change to a patch. I could change this to a
+Co-authored-by: if that is the preferred upstream approach?
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- sound/soc/stm/stm32_sai_sub.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 9c3b8e209656..95cd38a502bb 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -1294,7 +1294,7 @@ static struct snd_soc_dai_driver stm32_sai_playback_dai = {
- 		.id = 1, /* avoid call to fmt_single_name() */
- 		.playback = {
- 			.channels_min = 1,
--			.channels_max = 2,
-+			.channels_max = 16,
- 			.rate_min = 8000,
- 			.rate_max = 192000,
- 			.rates = SNDRV_PCM_RATE_CONTINUOUS,
-@@ -1312,7 +1312,7 @@ static struct snd_soc_dai_driver stm32_sai_capture_dai = {
- 		.id = 1, /* avoid call to fmt_single_name() */
- 		.capture = {
- 			.channels_min = 1,
--			.channels_max = 2,
-+			.channels_max = 16,
- 			.rate_min = 8000,
- 			.rate_max = 192000,
- 			.rates = SNDRV_PCM_RATE_CONTINUOUS,
--- 
-2.17.1
-
+Thanks,
+Charles

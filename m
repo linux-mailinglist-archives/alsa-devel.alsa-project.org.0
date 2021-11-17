@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E70034543F1
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 10:40:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F28704543F6
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Nov 2021 10:40:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77A27185B;
-	Wed, 17 Nov 2021 10:39:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77A27185B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E63C1865;
+	Wed, 17 Nov 2021 10:40:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E63C1865
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637142027;
-	bh=+OFKOxkIQMnrB2Jp24B2LFWr2aJmMcuVP0PZvRmWvvE=;
+	s=default; t=1637142054;
+	bh=0plfYqZYZMZsQMN/TO6FjNkHPUkACe+HWDYHukne2LQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CjNZiK1PIByge16Ls1soY3V064TXPbgIKKsZPADQsYarf8KXYeyeVlWJGrIM1XwzR
-	 R++wIGOsCXpGDNu+A6uH9Yh5pNHokR7Rl9rSd70XfGTkbGrQdkUMJqTIDezo10KopZ
-	 pLX7Fq72Nhsf5P6Fv+4F/CrafdAWcfjjRAPG3LLc=
+	b=bv4WNaPcsQEH4DjU1Ezz9f89AZVryNZEAvtOZStO4ScNXGfOCsRy+lZcEPjAaKTpR
+	 akVHOlCNSh6Tm/dvMrJTc8PB0fhU+wG95NLT7GhGTtZCUtBCAdxjREq2OPpBP57ymC
+	 5dhZ2S5Zwar0FPzccFhITjwryTfjxjQudAXCLBIY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D325F804F3;
-	Wed, 17 Nov 2021 10:38:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA07BF804FE;
+	Wed, 17 Nov 2021 10:38:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 689F8F804BB; Wed, 17 Nov 2021 10:38:20 +0100 (CET)
+ id 8D17AF8049C; Wed, 17 Nov 2021 10:38:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  MSGID_FROM_MTA_HEADER, SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60071.outbound.protection.outlook.com [40.107.6.71])
+ (mail-eopbgr60062.outbound.protection.outlook.com [40.107.6.62])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D392F8020D
- for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 10:38:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D392F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2D26F800FA
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 10:38:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2D26F800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="eSA15jq+"
+ header.i=@NXP1.onmicrosoft.com header.b="FBGz0DM8"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aYTAf7C7GGl1xH+Y269mLApb3apoOtmDu7VrAhwVYiWI264Oy4dyBl4Eubv/z9U8tSHYZxW4D7LK3UQJm4DiTe0OaDhyO70GfOc7qDbbZ8Dpb7tQvdwby4nVpe6eZwV04f/XF4vP75mVsN5HCZfZVM4TdixyTIpsvl+0Aema0Z5NA77sdCS6HQg0EzCEQ1JqzayQeWGPhcEf19Gd8QnEjCWFZt53ySPAtBPSTBH2sOF5CAskObcS4PW7wkUd6C1PV6c/lkIYdFvhXs6EdZ9cjYUD06BXw3n9fXNd3IdKS1uez1aiNN3Xgv1y4zVN0SEfNEnQRS0eEWNNZkayq5taQw==
+ b=BVc/kOCPHvPmItdXXIm56McRzjz+UiZ3yQWLZG/5iaMSHHevR/JlUMXgaj/MN953dsIfhb3JyDlbgl4Ly8Pry4T10B/NURkj0XAY+q/2EywOTQd85dRsS4g1YVHVsydnBR0CdPnD27iIgJm0jjQ2PQQ6Jy6zYzAgfr6hl64HJ1JfncUdCOXPMs7LIcJUxzwP1vGAxz0kQwSjuRpIZY6EEJ/rxBx9hmxGwSpXTTovxE/64YyCHWhuraD4lutaRdSWWQhT3jg0XGcSmavmvoUVauAM+PnpXRiB5aACr2mKM0sMWRbewQuhCy4tmcyLj0N8ksM4YvOJwVDzno6S73EAxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5SQtkRTR8criD+o3nbzDMRFdBeLReV2MJHMMi1lIszc=;
- b=V98aV9gSTUEU1M5UXFpbTGRdkADSaezuftI8quxyMWj+goIQOXnsKGiBVpYalxI0/wXt99RX/hSzseVGAIBANYYgfE2KvWPYPimldGnKBsnoLLfqEH3YvlTpHv0TMfrApjtUiJaIj5fhreHZoxoceZA24gQiVyuIjqCwJGabM8pnPX9wZLiqceSUW2fE/AWeVKmM2KqliEXxIiCBGAKLbLGur9Ub5SqLR0EXQ2R0CFLk+UeU8rREZLq3I3sTGQN5rolaj663X6FMxrj0qfe0EjFVcXMJf1CPDhBNWtKkn/DjuJgpjnqXC4uHMfQmyECP+li9j7R+jqx2cE9R1m0d5A==
+ bh=DPdlo+6pwsRBvInyTokAcfakh2ZqdIgg14lFc9xY4YM=;
+ b=RhifbhqZwmBYwxudg4aQ6u2SBOmXU7bfh6mCG/x0SDUVQGBU15Smqh/8DUT4UyZw5mp6rCfgLPHCFCI2Gi0ZFBJDpxCsMLl7945ObnmXZYDTerzRRDbDaubZZd0s9y5rnunwIIYbDeJPHVqKLegFQm6sc1OVG0SR3T72RJ9Xg9H24i/6Z/z6MDBInFLDdRDainqRjq8jlsI2/xL5xo1InW5jJ9LGhhB9rNJ/sdYjZDgjMQAp7exmetK5WevXyPK4b+chGhjQWGFM3DPX5NQQt+7P2w8K748Gma2wWye9qYbx6wkAQ9DB515InluULFiGYf3lipijpeFbqiaFFS+xZw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5SQtkRTR8criD+o3nbzDMRFdBeLReV2MJHMMi1lIszc=;
- b=eSA15jq+m8sayMrezYYRXq6gUI7FilhVAO1nXHZ3d+q0GEWWJJXD39NPz6692Sx37L5EW2968AyrKMiiTllN8QoZzhGW5gQpUJMhmyJTLmGBFVaCDpSn7YDjELzTuomE+pY6faDmauI/0qIRdYR+YTw7u3uCY4PFl2OnQ2djz4k=
+ bh=DPdlo+6pwsRBvInyTokAcfakh2ZqdIgg14lFc9xY4YM=;
+ b=FBGz0DM8O9E7tmiHuf4XYED8VptPCyXwp372DhDER/7v/wzXHbjhn/dULulmz/JjSstQtVoMEjtTKt/GrUq1e6fEmOILl2J+fw1xUe0b2Z/BuCE23VloS6g86jzWOVRzCR8669jfeHyty8j+1aokn5MoMlYSQ6q7uzvtLWxhfUE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
  by VI1PR04MB5807.eurprd04.prod.outlook.com (2603:10a6:803:ec::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.27; Wed, 17 Nov
- 2021 09:38:09 +0000
+ 2021 09:38:11 +0000
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f]) by VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f%3]) with mapi id 15.20.4690.027; Wed, 17 Nov 2021
- 09:38:09 +0000
+ 09:38:11 +0000
 From: Daniel Baluta <daniel.baluta@oss.nxp.com>
 To: broonie@kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH 03/21] ASoC: SOF: amd: Add fw loader and renoir dsp ops to
- load firmware
-Date: Wed, 17 Nov 2021 11:37:16 +0200
-Message-Id: <20211117093734.17407-4-daniel.baluta@oss.nxp.com>
+Subject: [PATCH 04/21] ASoC: SOF: amd: Add IPC support for ACP IP block
+Date: Wed, 17 Nov 2021 11:37:17 +0200
+Message-Id: <20211117093734.17407-5-daniel.baluta@oss.nxp.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20211117093734.17407-1-daniel.baluta@oss.nxp.com>
 References: <20211117093734.17407-1-daniel.baluta@oss.nxp.com>
@@ -88,60 +87,60 @@ Received: from localhost.localdomain (2a02:2f08:5706:b700:22bb:b216:ffff:73e1)
  by AM3PR03CA0060.eurprd03.prod.outlook.com (2603:10a6:207:5::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.19 via Frontend
- Transport; Wed, 17 Nov 2021 09:38:07 +0000
+ Transport; Wed, 17 Nov 2021 09:38:09 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5e3a6d6e-3106-4273-4cc4-08d9a9adf72a
+X-MS-Office365-Filtering-Correlation-Id: f748bd21-8c50-40d8-6945-08d9a9adf83d
 X-MS-TrafficTypeDiagnostic: VI1PR04MB5807:
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-Microsoft-Antispam-PRVS: <VI1PR04MB5807B5A0FCFFC5C251F49124B89A9@VI1PR04MB5807.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-Microsoft-Antispam-PRVS: <VI1PR04MB5807FEB62DB4D3017766223EB89A9@VI1PR04MB5807.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XHFRhCc7XTceA19Jol4MMeWoDAAMSVudzd4NZr0Uoev/hKHS8x6OF8HaHWUE5lQRN9RNc7IhivUeF0S9Z4fVocabvQ2dq2PYoso3Kso9JKpIU2LmoTDgos3uQwneMw0EyV+BK6wAPayW627DlPpE/P+L0YarVUW+MWcWV1A8caJmgOLwxnYgnRmMUKgwkt+3Zf+UDDOSWSK3h7/MkZBF9WDYSb4SIuhK6e/6kHer4siHaCuArke+zpgTwCfsZf2i5kqrbgeD/pApDz2MNqVPdO24KRt+ZShAjRvQO78O2rTreAnpLz3Pl5c3NyjoRhCUZm5EsehbknFPMous+aLwPE0OiC6sBUBF8jJXVhyR3aw/ubTs6J3dSyLZv7GAd2BVOQHOcGUoM6OM19rRyfkvdpgZTPAx3qdd4io4i/7M6NwgsHhwjVwdgdIJii9009gOKd9lJ6I9JpcEBm/qPzAZOMRO7l3xK6d55h2LAfAlaMGG0ifx4NfSCf2rnk8r6pXmk3Ep9btGA1OVrH7kjl4FO+3nxbWajfg0RPF3HdMTwL6V8kvzA0GBDnIfQ2MEHfeeVLmgebcnRUFGz58IHAFEfGspoZXwOTf3E6xpheCOk+q1ARKBnjteJhzDaLpPYkE/Gn1aCet3/ws1xSc4cUjLCw==
+X-Microsoft-Antispam-Message-Info: QbewlODu9LxKCt/NYU+ODqhh3TPJfFh2ws2Xyb0UgA7lDXzuDpzfXEA308/2stj4eXKe7FM81MfOccMpeq/FJmanwQhwyhUGNtFXtUGAUs8fNOUBP+sHionbQoVi7+O/VhufLf+AsQU3t9nBStUL0dyyxpurBFgxKBfEQ7Nd2Nhu9vtEWsQ6Did6FK329kwlD9xxYTtk18AlHATzo2Ckms36LZ4rVCyT5rePZGWl0bLr8/M4Jd/IuLgHCA05N+ZVTjJWzJ6oieMF3z4BgMqjDdFJO2HLIcV+YN42mv4i3F5lmsgJqkz3zmjG+uHB6X+Ol2Zt4+opHbQSpvlz2VuJxiK96pcjV+M6+5I0b3Cj9JDYEKAz7MTjxjwmpdxLtEHWsqzr5IyKG2sxtaxvnsGhxeoST/AOH4gvIMGPKkHFt/MwqwEaPwhvLSi974d68CZIrLIgbJNkDIWMzTsdNA2+VdQGmWA1UbmbM4WJaSucDq3IHM01NLmvu3Z4vse2DrzHX2XillXz8somI+Wy0OqxqfIHQs/ABOPJG7A2hMyh0jxxrME68G7pxSCWHmR8oDW+SHB6ehyR/kBXFEYIB55WmrVRYxktixwXwXsBalxx5er+yBqtbBDR/ui4CcIiWJ88CpFWjjGLOLnz77DyIlP8Cw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(316002)(5660300002)(508600001)(52116002)(86362001)(8676002)(54906003)(8936002)(66946007)(186003)(6512007)(2906002)(6666004)(6486002)(7416002)(6506007)(1076003)(2616005)(66556008)(66476007)(44832011)(83380400001)(38100700002)(4326008);
+ SFS:(4636009)(366004)(316002)(5660300002)(508600001)(52116002)(86362001)(8676002)(54906003)(8936002)(66946007)(186003)(6512007)(2906002)(6666004)(6486002)(7416002)(6506007)(30864003)(1076003)(2616005)(66556008)(66476007)(44832011)(83380400001)(38100700002)(4326008);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?UziMQVqiKB5clcesK5+dXrGcBOvF/ndvUXhRrEXNvp5LlSKfbhwrfPWB1IrT?=
- =?us-ascii?Q?tur4IT+/l9VQ2uOt/bZFsaRw241NZjgizPXVXCIVu1032+Zc10YSnJT/dztD?=
- =?us-ascii?Q?nu8WvkSsciYu0PyHDbUd4GP1Jc0uwFB8ltfEuv6aNH92mf/1SAaE7r2VTDol?=
- =?us-ascii?Q?DIGqRLBXjSs5imG0fEadlFJjBZG8jqUd0yRwfKTeiAM5NKVyDClr7e9UAaJB?=
- =?us-ascii?Q?ET9SuytX4ilPSm0vcOiscco5jfxDXTrHqsS/NoqAL4c32WzqoJinVf3qidFO?=
- =?us-ascii?Q?QEjWi66N/npju7kNfU5K3qpoY40+Dxs1Us2sjEIKbqBY7emrYEHZH/0BbTm3?=
- =?us-ascii?Q?/mvFT+FtvX3HZLZ3r8vGNQ24ehcfmemfTORH7wwgClPIvLphQcofUleqR0Py?=
- =?us-ascii?Q?mW6fjjIcWpMM6wiTff5z7KeQKfGe7AU7R/MRyvQRMKB56yWU9JPIGaDGdqyw?=
- =?us-ascii?Q?HMb6rAOz5qdC5P38A1yb9tjor+h77WAFhXlt9MDKtfXIQDlub1COS9P8O9kZ?=
- =?us-ascii?Q?lL/oSz7jzh2bsvEjT3HmF6XClN8bGyYLEnn01rdgu1iuIfx0GvHW9a25pmg2?=
- =?us-ascii?Q?vM+sticAirUZ8C6n1v6byyQr2Qy12hf3w5LanNscjmVhfi2F7qHukCguYwjN?=
- =?us-ascii?Q?tXB6MSJKYQKVst7CJbTntd0JSFx8AKXsVU6p7GDSlIMXai+sfk5ldNeqxzry?=
- =?us-ascii?Q?jOCrKfHHxItZMtPIWgkS/G3EVydwTnBV8MO7JA6biNjD7QeTqUpWKtAMf6Xh?=
- =?us-ascii?Q?5SDLoZbwnx7/DI0Hdij1/g1XmKv8sOVMJUXqTSHDlPXWFNw/48FG0UwbKVs8?=
- =?us-ascii?Q?LGqUU4COWlHygxsYRi+koN5cUM156/ZaVfjtNuKhUF1drOq/xxL3GiWwEkLJ?=
- =?us-ascii?Q?I14eGAj3zoCLhdeehykOyAxwDt0jIepIsTtnmicyOI8l/Sv5d+nAJFiHBkxM?=
- =?us-ascii?Q?WGaDhJZk9WyMhMXBTv/yR+2MUQc+0j9OTgaR+3l2I9DHgfpoByW49LQSml6B?=
- =?us-ascii?Q?xA5SnYMf+9X9wmGEjBeOfATizJ9+M/kgXrJvo5Y10yt0WIEYjDTWEIxRwrk4?=
- =?us-ascii?Q?F4xFVxJEBMRIZ3VbfBkuLv1IH6PMD4LAl3ElSJxjcdAYPo4pPMiPHVo1za4J?=
- =?us-ascii?Q?vxi80in2nUwkbF8ZqqKP8TSanSQ3IEyIN5dmQCfkRY9CFSGnyLOVo0iHVi6x?=
- =?us-ascii?Q?046Hu++amnwuxyNl7rvp8El/svKRvoLEDLcWoeJXNDH+umcHqmX9NscEuvKP?=
- =?us-ascii?Q?dl+oVbinQyLfCzArk4in8hSg6eWSP3zYh/ubnY5vvGmY2Z/DWii2TMnmevuf?=
- =?us-ascii?Q?f67x10HCjKv638bWenNwXqvLbmHdwjto/9IYCvqKpSGdMPDPeXU5rIx0v6XC?=
- =?us-ascii?Q?D7CFhcf0pqusfVEbgwjPpcBd2BKNJ/bsV7jC4/NE2A9fKLNM4bKOK5dPzVid?=
- =?us-ascii?Q?Ff+lZSF4rkbaGOlSs59Q+Lbn98Umx8MTu9/D1wy6PRsBLm7orMQo6zPmCClm?=
- =?us-ascii?Q?0nLcVABlSymjKRSRauz+xC9v0VupDsZSg5aHiy5u9+qkVsEoakjWPt7f0c0Q?=
- =?us-ascii?Q?OtD+gy3rqrbbBqZkOdEDYpNCUulLbTeCuf0kds2EaeIPUdU0+xznS3kQICCE?=
- =?us-ascii?Q?y3Jzh6D8Cs9xXkz7EcLQAUOQ70aj/Agdu9rgMPT89TIRMk9Lf5CyIQ6yGebj?=
- =?us-ascii?Q?gf8QmkN1zbY9DeTzXwnnhyosX2zVJ3wSfUeoLJ75oFzGigRK?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?YUDBYC290lVBfFCsbUPgNsYzIOIhix0Syk75ZH9YK7MmQq7Z5PpssajCTc7f?=
+ =?us-ascii?Q?s4pxTa4oDZ8Xkv8oqmEsKfX/Bx6STssXyDpA2sGHw3G2ed0Gfbx0NMT4757s?=
+ =?us-ascii?Q?zbwQmScJ6pxPf7tpN/sDe1M74Wee0D+E3o+4ppL9YA5VL1KTe2KlxtX3d5sG?=
+ =?us-ascii?Q?kXaaQxKq+UN8a6b3MjNm2O7gnZYeu3sdnNefTQJGYCydwt4c/ueUZCGmWlSM?=
+ =?us-ascii?Q?b+qOav8zdyoULtwHJvfSs2ITP9+NbfwKBdM3xm7qv4EqnBgXPIhVCddhkCh7?=
+ =?us-ascii?Q?+dgfaLn+U6H2ue0IQaSFsfjwxlJ2bqt9GNwivbbn+LQHIIrBln+/JAKdZsma?=
+ =?us-ascii?Q?6vQiF82d4A+Qh7oJA5Q5z+1u+c0MoZCwOuzV+ctPynN53T6Uycj6mjdHjWSP?=
+ =?us-ascii?Q?N0aP3yGpZeAV4kIfbaSgKsdx2q6AU7SBo+LnzJx9lU1hKYg4zTDYtW+8jwkZ?=
+ =?us-ascii?Q?iakMM6GEOHLIwa4YEayzeSETptnKbZ478XLagbsjcEKK/u37pYMnMI0/iDUi?=
+ =?us-ascii?Q?7l6Ley+miccqFyUwrbQ6/pjDJQEueWg1ksYJU2fnfalNOe7xQ0IiJ8+84mQc?=
+ =?us-ascii?Q?yGtnbVpeL15nCwokkOjFh6e+0iLV2KRJ8vFbNzNmP/gr3zy3H4WQgrg8krJw?=
+ =?us-ascii?Q?zRreblBD2W2qNTGpT91GDLQpYe33vE1U6XpEVspOtbysXDeYE7BiL8cjdioY?=
+ =?us-ascii?Q?HjhNKjFkBLhIF9p609Bn2Kr8G43wSjFWUzRWWtwvcRcf7chhc/oWWBIpESE8?=
+ =?us-ascii?Q?erMeumMHWWlbJQVTtB99v1JicOFfy0PC8tIEwSsxDupsf+4vqUpZKPcKiE8j?=
+ =?us-ascii?Q?44SZJ/QIYlUhs7pNpfBxAugC6/7hY8BOlnejmW0nW7nJ/cTXKp+iOHkuQysh?=
+ =?us-ascii?Q?Iz8IYX7RAP/SwZWTB2QoUO+DDJruE1b+lbc8UaWacyEypowLQTgzfFl+q/sY?=
+ =?us-ascii?Q?xyCDi533u/k8hmeUKG6mDZ3Yjk/vNb3LqYEdKK/vFj2zwQjeb5ks/WBEokxN?=
+ =?us-ascii?Q?g1k0s8PvtiXJ55jFK6Jcb+c1l8ZGBOy2Xfwnbv4uHHUeMVclQmb2IeObPGnd?=
+ =?us-ascii?Q?LwzmQ/Pe6ermj4qJwoOJRlnn6BeTSpXP85EtjWz/4OjEsPguyMaDSoG/Z12x?=
+ =?us-ascii?Q?052N+NDG3JSvdOKhWi9ga86wmkfNUj66j7OWVDuaOjXGkij7egqyyWaKiO2u?=
+ =?us-ascii?Q?8YOBh4texSpKT95w49OHWzb9su4Pi+RhtX/hi5y+QTQRbz7MfoOO1i8Pirdo?=
+ =?us-ascii?Q?Ksf9KkhMKKskQPEPXT2yCBzsqKHbNRj2Nj/ul/C+ShZy9ohllP0HPefgJQ2o?=
+ =?us-ascii?Q?9suAdLzcAlyACgtBosY3ZMNYyVGYr+t/0Ujn0ad9QE4jC6LVrNjLRsiCK6lg?=
+ =?us-ascii?Q?6uqSmUUK/dYXJjD6z5OuqcbqoTDfMp4Aw6vKzxfCwYrxlvn/TfyIqA1JGeV+?=
+ =?us-ascii?Q?fINgHlLtc6/xz2uNPskq+9dQnl7eOGwbleQ2E7n7QeggicFwqk/TtfzJawA+?=
+ =?us-ascii?Q?bRIsQmsPb4EUBiTA0Ljx13s2f6af3utlhUtQsGdjiV6FNsP0qSg+HZkfwMfI?=
+ =?us-ascii?Q?g9ObdA3Vz5IC/BwvOQb/Cw3yajODFiPr7UmlDW5KCFqcG28e2qKQFuEoHRPy?=
+ =?us-ascii?Q?fM3LLjCbK/KEQFt41qmuSK84n3kDqTlzbXZhWf1PioD/9zP7Sfh5i5wVhJrK?=
+ =?us-ascii?Q?Kha3eOpVa1qAR4i5G0GXgcFpOSSETBu1/K2h9srIFCGclti1?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e3a6d6e-3106-4273-4cc4-08d9a9adf72a
+X-MS-Exchange-CrossTenant-Network-Message-Id: f748bd21-8c50-40d8-6945-08d9a9adf83d
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2021 09:38:09.2405 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2021 09:38:11.0645 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8yZgMX0bmmdx4ogHhNzOiA0L7erokEZWgTHcv5vagxbw7nozYCHRtflmME0kTn/HeMqyLZpFX231qZi7NsMjag==
+X-MS-Exchange-CrossTenant-UserPrincipalName: xXxQ5mjpAU2uc0hWkrq2in0aTd2GilJvE+7mrwa1wIQ8Dn5G+/nA0KGlhKW8KG+EsulfnDaYSEPyJyGTfc4aOQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5807
 Cc: daniel.baluta@gmail.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  AjitKumar.Pandey@amd.com, linux-kernel@vger.kernel.org,
@@ -167,55 +166,56 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 
-Add acp-loader module with ops callback to load and run firmware
-on ACP DSP block on Renoir platform.
+Add IPC module for generic ACP block and exposed ops callback for
+to synchronize SOF IPC message between host and DSP
 
+Signed-off-by: Balakishore Pati <Balakishore.pati@amd.com>
 Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 Reviewed-by: Bard Liao <bard.liao@intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
  sound/soc/sof/amd/Makefile         |   2 +-
- sound/soc/sof/amd/acp-dsp-offset.h |   3 +
- sound/soc/sof/amd/acp-loader.c     | 199 +++++++++++++++++++++++++++++
- sound/soc/sof/amd/acp.h            |  27 ++++
- sound/soc/sof/amd/renoir.c         |  15 +++
- 5 files changed, 245 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/sof/amd/acp-loader.c
+ sound/soc/sof/amd/acp-dsp-offset.h |   2 +
+ sound/soc/sof/amd/acp-ipc.c        | 187 +++++++++++++++++++++++++++++
+ sound/soc/sof/amd/acp.c            |  44 ++++++-
+ sound/soc/sof/amd/acp.h            |  15 +++
+ sound/soc/sof/amd/renoir.c         |   8 ++
+ 6 files changed, 256 insertions(+), 2 deletions(-)
+ create mode 100644 sound/soc/sof/amd/acp-ipc.c
 
 diff --git a/sound/soc/sof/amd/Makefile b/sound/soc/sof/amd/Makefile
-index ac2ecd21be5f..031fb9493876 100644
+index 031fb9493876..29928b16002f 100644
 --- a/sound/soc/sof/amd/Makefile
 +++ b/sound/soc/sof/amd/Makefile
 @@ -4,7 +4,7 @@
  #
  # Copyright(c) 2021 Advanced Micro Devices, Inc. All rights reserved.
  
--snd-sof-amd-acp-objs := acp.o
-+snd-sof-amd-acp-objs := acp.o acp-loader.o
+-snd-sof-amd-acp-objs := acp.o acp-loader.o
++snd-sof-amd-acp-objs := acp.o acp-loader.o acp-ipc.o
  snd-sof-amd-renoir-objs := renoir.o
  
  obj-$(CONFIG_SND_SOC_SOF_AMD_COMMON) += snd-sof-amd-acp.o
 diff --git a/sound/soc/sof/amd/acp-dsp-offset.h b/sound/soc/sof/amd/acp-dsp-offset.h
-index bfb02390b414..f4bc7e9abafb 100644
+index f4bc7e9abafb..3a1c848020ca 100644
 --- a/sound/soc/sof/amd/acp-dsp-offset.h
 +++ b/sound/soc/sof/amd/acp-dsp-offset.h
-@@ -24,6 +24,9 @@
- #define ACP_DMA_CH_GROUP			0xEC
- #define ACP_DMA_CH_RST_STS			0xF0
+@@ -53,6 +53,8 @@
  
-+/* Registers from ACP_DSP_0 block */
-+#define ACP_DSP0_RUNSTALL			0x414
-+
- /* Registers from ACP_AXI2AXIATU block */
- #define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_1		0xC00
- #define ACPAXI2AXI_ATU_BASE_ADDR_GRP_1		0xC04
-diff --git a/sound/soc/sof/amd/acp-loader.c b/sound/soc/sof/amd/acp-loader.c
+ /* Registers from ACP_INTR block */
+ #define ACP_DSP_SW_INTR_CNTL			0x1814
++#define ACP_DSP_SW_INTR_STAT                    0x1818
++#define ACP_SW_INTR_TRIG                        0x181C
+ #define ACP_ERROR_STATUS			0x18C4
+ 
+ /* Registers from ACP_SHA block */
+diff --git a/sound/soc/sof/amd/acp-ipc.c b/sound/soc/sof/amd/acp-ipc.c
 new file mode 100644
-index 000000000000..2dc15ae38155
+index 000000000000..e132223b4c66
 --- /dev/null
-+++ b/sound/soc/sof/amd/acp-loader.c
-@@ -0,0 +1,199 @@
++++ b/sound/soc/sof/amd/acp-ipc.c
+@@ -0,0 +1,187 @@
 +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
 +//
 +// This file is provided under a dual BSD/GPLv2 license. When using or
@@ -223,279 +223,305 @@ index 000000000000..2dc15ae38155
 +//
 +// Copyright(c) 2021 Advanced Micro Devices, Inc.
 +//
-+// Authors: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
++// Authors: Balakishore Pati <Balakishore.pati@amd.com>
++//	    Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 +
-+/*
-+ * Hardware interface for ACP DSP Firmware binaries loader
-+ */
++/* ACP-specific SOF IPC code */
 +
-+#include <linux/firmware.h>
 +#include <linux/module.h>
-+#include <linux/pci.h>
-+
 +#include "../ops.h"
-+#include "acp-dsp-offset.h"
 +#include "acp.h"
++#include "acp-dsp-offset.h"
 +
-+#define FW_BIN		0
-+#define FW_DATA_BIN	1
-+
-+#define FW_BIN_PTE_OFFSET	0x00
-+#define FW_DATA_BIN_PTE_OFFSET	0x08
-+
-+#define ACP_DSP_RUN	0x00
-+
-+int acp_dsp_block_read(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_type,
-+		       u32 offset, void *dest, size_t size)
++void acp_mailbox_write(struct snd_sof_dev *sdev, u32 offset, void *message, size_t bytes)
 +{
-+	switch (blk_type) {
-+	case SOF_FW_BLK_TYPE_SRAM:
-+		offset = offset - ACP_SCRATCH_MEMORY_ADDRESS;
-+		memcpy_from_scratch(sdev, offset, dest, size);
-+		break;
-+	default:
-+		dev_err(sdev->dev, "bad blk type 0x%x\n", blk_type);
-+		return -EINVAL;
-+	}
++	memcpy_to_scratch(sdev, offset, message, bytes);
++}
++EXPORT_SYMBOL_NS(acp_mailbox_write, SND_SOC_SOF_AMD_COMMON);
 +
++void acp_mailbox_read(struct snd_sof_dev *sdev, u32 offset, void *message, size_t bytes)
++{
++	memcpy_from_scratch(sdev, offset, message, bytes);
++}
++EXPORT_SYMBOL_NS(acp_mailbox_read, SND_SOC_SOF_AMD_COMMON);
++
++static void acpbus_trigger_host_to_dsp_swintr(struct acp_dev_data *adata)
++{
++	struct snd_sof_dev *sdev = adata->dev;
++	u32 swintr_trigger;
++
++	swintr_trigger = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_SW_INTR_TRIG);
++	swintr_trigger |= 0x01;
++	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SW_INTR_TRIG, swintr_trigger);
++}
++
++static void acp_ipc_host_msg_set(struct snd_sof_dev *sdev)
++{
++	unsigned int host_msg = offsetof(struct scratch_ipc_conf, sof_host_msg_write);
++
++	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SCRATCH_REG_0 + host_msg, 1);
++}
++
++static void acp_dsp_ipc_host_done(struct snd_sof_dev *sdev)
++{
++	unsigned int dsp_msg = offsetof(struct scratch_ipc_conf, sof_dsp_msg_write);
++
++	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SCRATCH_REG_0 + dsp_msg, 0);
++}
++
++static void acp_dsp_ipc_dsp_done(struct snd_sof_dev *sdev)
++{
++	unsigned int dsp_ack = offsetof(struct scratch_ipc_conf, sof_dsp_ack_write);
++
++	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SCRATCH_REG_0 + dsp_ack, 0);
++}
++
++int acp_sof_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
++{
++	struct acp_dev_data *adata = sdev->pdata->hw_pdata;
++	unsigned int offset = offsetof(struct scratch_ipc_conf, sof_in_box);
++
++	acp_mailbox_write(sdev, offset, msg->msg_data, msg->msg_size);
++	acp_ipc_host_msg_set(sdev);
++
++	/* Trigger host to dsp interrupt for the msg */
++	acpbus_trigger_host_to_dsp_swintr(adata);
 +	return 0;
 +}
-+EXPORT_SYMBOL_NS(acp_dsp_block_read, SND_SOC_SOF_AMD_COMMON);
++EXPORT_SYMBOL_NS(acp_sof_ipc_send_msg, SND_SOC_SOF_AMD_COMMON);
 +
-+int acp_dsp_block_write(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_type,
-+			u32 offset, void *src, size_t size)
++static void acp_dsp_ipc_get_reply(struct snd_sof_dev *sdev)
 +{
-+	struct snd_sof_pdata *plat_data = sdev->pdata;
-+	struct pci_dev *pci = to_pci_dev(sdev->dev);
-+	struct acp_dev_data *adata;
-+	void *dest;
-+	u32 dma_size, page_count;
-+	unsigned int size_fw;
++	struct snd_sof_ipc_msg *msg = sdev->msg;
++	struct sof_ipc_reply reply;
++	struct sof_ipc_cmd_hdr *hdr;
++	unsigned int offset = offsetof(struct scratch_ipc_conf, sof_in_box);
++	int ret = 0;
 +
-+	adata = sdev->pdata->hw_pdata;
-+
-+	switch (blk_type) {
-+	case SOF_FW_BLK_TYPE_IRAM:
-+		if (!adata->bin_buf) {
-+			size_fw = plat_data->fw->size;
-+			page_count = PAGE_ALIGN(size_fw) >> PAGE_SHIFT;
-+			dma_size = page_count * ACP_PAGE_SIZE;
-+			adata->bin_buf = dma_alloc_coherent(&pci->dev, dma_size,
-+							    &adata->sha_dma_addr,
-+							    GFP_ATOMIC);
-+			if (!adata->bin_buf)
-+				return -ENOMEM;
-+		}
-+		adata->fw_bin_size = size + offset;
-+		dest = adata->bin_buf + offset;
-+		break;
-+	case SOF_FW_BLK_TYPE_DRAM:
-+		if (!adata->data_buf) {
-+			adata->data_buf = dma_alloc_coherent(&pci->dev,
-+							     ACP_DEFAULT_DRAM_LENGTH,
-+							     &adata->dma_addr,
-+							     GFP_ATOMIC);
-+			if (!adata->data_buf)
-+				return -ENOMEM;
-+		}
-+		dest = adata->data_buf + offset;
-+		adata->fw_data_bin_size = size + offset;
-+		break;
-+	case SOF_FW_BLK_TYPE_SRAM:
-+		offset = offset - ACP_SCRATCH_MEMORY_ADDRESS;
-+		memcpy_to_scratch(sdev, offset, src, size);
-+		return 0;
-+	default:
-+		dev_err(sdev->dev, "bad blk type 0x%x\n", blk_type);
-+		return -EINVAL;
-+	}
-+
-+	memcpy(dest, src, size);
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS(acp_dsp_block_write, SND_SOC_SOF_AMD_COMMON);
-+
-+int acp_get_bar_index(struct snd_sof_dev *sdev, u32 type)
-+{
-+	return type;
-+}
-+EXPORT_SYMBOL_NS(acp_get_bar_index, SND_SOC_SOF_AMD_COMMON);
-+
-+static void configure_pte_for_fw_loading(int type, int num_pages, struct acp_dev_data *adata)
-+{
-+	struct snd_sof_dev *sdev;
-+	unsigned int low, high;
-+	dma_addr_t addr;
-+	u16 page_idx;
-+	u32 offset;
-+
-+	sdev = adata->dev;
-+
-+	switch (type) {
-+	case FW_BIN:
-+		offset = FW_BIN_PTE_OFFSET;
-+		addr = adata->sha_dma_addr;
-+		break;
-+	case FW_DATA_BIN:
-+		offset = adata->fw_bin_page_count * 8;
-+		addr = adata->dma_addr;
-+		break;
-+	default:
-+		dev_err(sdev->dev, "Invalid data type %x\n", type);
++       /*
++	* Sometimes, there is unexpected reply ipc arriving. The reply
++	* ipc belongs to none of the ipcs sent from driver.
++	* In this case, the driver must ignore the ipc.
++	*/
++	if (!msg) {
++		dev_warn(sdev->dev, "unexpected ipc interrupt raised!\n");
 +		return;
 +	}
-+
-+	for (page_idx = 0; page_idx < num_pages; page_idx++) {
-+		low = lower_32_bits(addr);
-+		high = upper_32_bits(addr);
-+		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SCRATCH_REG_0 + offset, low);
-+		high |= BIT(31);
-+		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SCRATCH_REG_0 + offset + 4, high);
-+		offset += 8;
-+		addr += PAGE_SIZE;
++	hdr = msg->msg_data;
++	if (hdr->cmd == (SOF_IPC_GLB_PM_MSG | SOF_IPC_PM_CTX_SAVE) ||
++	    hdr->cmd == (SOF_IPC_GLB_PM_MSG | SOF_IPC_PM_GATE)) {
++		/*
++		 * memory windows are powered off before sending IPC reply,
++		 * so we can't read the mailbox for CTX_SAVE and PM_GATE
++		 * replies.
++		 */
++		reply.error = 0;
++		reply.hdr.cmd = SOF_IPC_GLB_REPLY;
++		reply.hdr.size = sizeof(reply);
++		memcpy(msg->reply_data, &reply, sizeof(reply));
++		goto out;
 +	}
++	/* get IPC reply from DSP in the mailbox */
++	acp_mailbox_read(sdev, offset, &reply, sizeof(reply));
++	if (reply.error < 0) {
++		memcpy(msg->reply_data, &reply, sizeof(reply));
++		ret = reply.error;
++	} else {
++		/* reply correct size ? */
++		if (reply.hdr.size != msg->reply_size &&
++		    !(reply.hdr.cmd & SOF_IPC_GLB_PROBE)) {
++			dev_err(sdev->dev, "reply expected %zu got %u bytes\n",
++				msg->reply_size, reply.hdr.size);
++			ret = -EINVAL;
++		}
++		/* read the message */
++		if (msg->reply_size > 0)
++			acp_mailbox_read(sdev, offset, msg->reply_data, msg->reply_size);
++	}
++out:
++	msg->reply_error = ret;
 +}
 +
-+/* pre fw run operations */
-+int acp_dsp_pre_fw_run(struct snd_sof_dev *sdev)
++irqreturn_t acp_sof_ipc_irq_thread(int irq, void *context)
 +{
-+	struct pci_dev *pci = to_pci_dev(sdev->dev);
-+	struct snd_sof_pdata *plat_data = sdev->pdata;
-+	struct acp_dev_data *adata;
-+	unsigned int src_addr, size_fw;
-+	u32 page_count, dma_size;
-+	int ret;
++	struct snd_sof_dev *sdev = context;
++	unsigned int dsp_msg_write = offsetof(struct scratch_ipc_conf, sof_dsp_msg_write);
++	unsigned int dsp_ack_write = offsetof(struct scratch_ipc_conf, sof_dsp_ack_write);
++	bool ipc_irq = false;
++	int dsp_msg, dsp_ack;
 +
-+	adata = sdev->pdata->hw_pdata;
-+	size_fw = adata->fw_bin_size;
-+
-+	page_count = PAGE_ALIGN(size_fw) >> PAGE_SHIFT;
-+	adata->fw_bin_page_count = page_count;
-+
-+	configure_pte_for_fw_loading(FW_BIN, page_count, adata);
-+	ret = configure_and_run_sha_dma(adata, adata->bin_buf, ACP_SYSTEM_MEMORY_WINDOW,
-+					ACP_IRAM_BASE_ADDRESS, size_fw);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "SHA DMA transfer failed status: %d\n", ret);
-+		return ret;
-+	}
-+	configure_pte_for_fw_loading(FW_DATA_BIN, ACP_DRAM_PAGE_COUNT, adata);
-+
-+	src_addr = ACP_SYSTEM_MEMORY_WINDOW + page_count * ACP_PAGE_SIZE;
-+	ret = configure_and_run_dma(adata, src_addr, ACP_DATA_RAM_BASE_ADDRESS,
-+				    adata->fw_data_bin_size);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "acp dma configuration failed: %d\n", ret);
-+		return ret;
++	dsp_msg = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_SCRATCH_REG_0 + dsp_msg_write);
++	if (dsp_msg) {
++		snd_sof_ipc_msgs_rx(sdev);
++		acp_dsp_ipc_host_done(sdev);
++		ipc_irq = true;
 +	}
 +
-+	ret = acp_dma_status(adata, 0);
-+	if (ret < 0)
-+		dev_err(sdev->dev, "acp dma transfer status: %d\n", ret);
++	dsp_ack = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_SCRATCH_REG_0 + dsp_ack_write);
++	if (dsp_ack) {
++		spin_lock_irq(&sdev->ipc_lock);
++		/* handle immediate reply from DSP core */
++		acp_dsp_ipc_get_reply(sdev);
++		snd_sof_ipc_reply(sdev, 0);
++		/* set the done bit */
++		acp_dsp_ipc_dsp_done(sdev);
++		spin_unlock_irq(&sdev->ipc_lock);
++		ipc_irq = true;
++	}
 +
-+	/* Free memory once DMA is complete */
-+	dma_size =  (PAGE_ALIGN(plat_data->fw->size) >> PAGE_SHIFT) * ACP_PAGE_SIZE;
-+	dma_free_coherent(&pci->dev, dma_size, adata->bin_buf, adata->sha_dma_addr);
-+	dma_free_coherent(&pci->dev, ACP_DEFAULT_DRAM_LENGTH, adata->data_buf, adata->dma_addr);
-+	adata->bin_buf = NULL;
-+	adata->data_buf = NULL;
++	if (!ipc_irq)
++		dev_dbg_ratelimited(sdev->dev, "nothing to do in IPC IRQ thread\n");
 +
-+	return ret;
++	return IRQ_HANDLED;
 +}
-+EXPORT_SYMBOL_NS(acp_dsp_pre_fw_run, SND_SOC_SOF_AMD_COMMON);
++EXPORT_SYMBOL_NS(acp_sof_ipc_irq_thread, SND_SOC_SOF_AMD_COMMON);
 +
-+int acp_sof_dsp_run(struct snd_sof_dev *sdev)
++int acp_sof_ipc_msg_data(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream,
++			 void *p, size_t sz)
 +{
-+	int val;
++	unsigned int offset = offsetof(struct scratch_ipc_conf, sof_out_box);
 +
-+	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_DSP0_RUNSTALL, ACP_DSP_RUN);
-+	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_DSP0_RUNSTALL);
-+	dev_dbg(sdev->dev, "ACP_DSP0_RUNSTALL : 0x%0x\n", val);
++	if (!substream || !sdev->stream_box.size)
++		acp_mailbox_read(sdev, offset, p, sz);
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL_NS(acp_sof_dsp_run, SND_SOC_SOF_AMD_COMMON);
++EXPORT_SYMBOL_NS(acp_sof_ipc_msg_data, SND_SOC_SOF_AMD_COMMON);
++
++int acp_sof_ipc_pcm_params(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream,
++			   const struct sof_ipc_pcm_params_reply *reply)
++{
++	/* TODO: Implement stream hw params to validate stream offset */
++	return 0;
++}
++EXPORT_SYMBOL_NS(acp_sof_ipc_pcm_params, SND_SOC_SOF_AMD_COMMON);
++
++int acp_sof_ipc_get_mailbox_offset(struct snd_sof_dev *sdev)
++{
++	return ACP_SCRATCH_MEMORY_ADDRESS;
++}
++EXPORT_SYMBOL_NS(acp_sof_ipc_get_mailbox_offset, SND_SOC_SOF_AMD_COMMON);
++
++MODULE_DESCRIPTION("AMD ACP sof-ipc driver");
+diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
+index 3778f781f16a..43a57d15e3ca 100644
+--- a/sound/soc/sof/amd/acp.c
++++ b/sound/soc/sof/amd/acp.c
+@@ -233,6 +233,34 @@ static int acp_memory_init(struct snd_sof_dev *sdev)
+ 	return 0;
+ }
+ 
++static irqreturn_t acp_irq_thread(int irq, void *context)
++{
++	struct snd_sof_dev *sdev = context;
++	unsigned int val;
++
++	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_STAT);
++	if (val & ACP_DSP_TO_HOST_IRQ) {
++		sof_ops(sdev)->irq_thread(irq, sdev);
++		val |= ACP_DSP_TO_HOST_IRQ;
++		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_STAT, val);
++		return IRQ_HANDLED;
++	}
++
++	return IRQ_NONE;
++};
++
++static irqreturn_t acp_irq_handler(int irq, void *dev_id)
++{
++	struct snd_sof_dev *sdev = dev_id;
++	unsigned int val;
++
++	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_STAT);
++	if (val)
++		return IRQ_WAKE_THREAD;
++
++	return IRQ_NONE;
++}
++
+ static int acp_power_on(struct snd_sof_dev *sdev)
+ {
+ 	unsigned int val;
+@@ -318,9 +346,20 @@ int amd_sof_acp_probe(struct snd_sof_dev *sdev)
+ 
+ 	sdev->pdata->hw_pdata = adata;
+ 
++	sdev->ipc_irq = pci->irq;
++	ret = request_threaded_irq(sdev->ipc_irq, acp_irq_handler, acp_irq_thread,
++				   IRQF_SHARED, "AudioDSP", sdev);
++	if (ret < 0) {
++		dev_err(sdev->dev, "failed to register IRQ %d\n",
++			sdev->ipc_irq);
++		return ret;
++	}
++
+ 	ret = acp_init(sdev);
+-	if (ret < 0)
++	if (ret < 0) {
++		free_irq(sdev->ipc_irq, sdev);
+ 		return ret;
++	}
+ 
+ 	acp_memory_init(sdev);
+ 
+@@ -330,6 +369,9 @@ EXPORT_SYMBOL_NS(amd_sof_acp_probe, SND_SOC_SOF_AMD_COMMON);
+ 
+ int amd_sof_acp_remove(struct snd_sof_dev *sdev)
+ {
++	if (sdev->ipc_irq)
++		free_irq(sdev->ipc_irq, sdev);
++
+ 	return acp_reset(sdev);
+ }
+ EXPORT_SYMBOL_NS(amd_sof_acp_remove, SND_SOC_SOF_AMD_COMMON);
 diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index ff01d0ef67ef..e755a31374c6 100644
+index e755a31374c6..ac8340119125 100644
 --- a/sound/soc/sof/amd/acp.h
 +++ b/sound/soc/sof/amd/acp.h
-@@ -11,6 +11,8 @@
- #ifndef __SOF_AMD_ACP_H
- #define __SOF_AMD_ACP_H
+@@ -48,6 +48,8 @@
+ #define ACP_DATA_RAM_BASE_ADDRESS		0x01000000
+ #define ACP_DRAM_PAGE_COUNT			128
  
-+#include "../sof-priv.h"
-+
- #define ACP_DSP_BAR	0
- 
- #define ACP_REG_POLL_INTERVAL                   500
-@@ -39,6 +41,13 @@
- #define ACP_MAX_DESC				128
- #define ACPBUS_REG_BASE_OFFSET			ACP_DMA_CNTL_0
- 
-+#define ACP_DEFAULT_DRAM_LENGTH			0x00080000
-+#define ACP_SCRATCH_MEMORY_ADDRESS		0x02050000
-+#define ACP_SYSTEM_MEMORY_WINDOW		0x4000000
-+#define ACP_IRAM_BASE_ADDRESS			0x000000
-+#define ACP_DATA_RAM_BASE_ADDRESS		0x01000000
-+#define ACP_DRAM_PAGE_COUNT			128
++#define ACP_DSP_TO_HOST_IRQ			0x04
 +
  struct  acp_atu_grp_pte {
  	u32 low;
  	u32 high;
-@@ -106,6 +115,13 @@ struct  scratch_reg_conf {
- /* Common device data struct for ACP devices */
- struct acp_dev_data {
- 	struct snd_sof_dev  *dev;
-+	unsigned int fw_bin_size;
-+	unsigned int fw_data_bin_size;
-+	u32 fw_bin_page_count;
-+	dma_addr_t sha_dma_addr;
-+	u8 *bin_buf;
-+	dma_addr_t dma_addr;
-+	u8 *data_buf;
- 	struct dma_descriptor dscr_info[ACP_MAX_DESC];
- };
+@@ -150,5 +152,18 @@ int acp_dsp_block_write(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_t
+ int acp_dsp_block_read(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_type,
+ 		       u32 offset, void *dest, size_t size);
  
-@@ -123,5 +139,16 @@ int configure_and_run_sha_dma(struct acp_dev_data *adata, void *image_addr,
- int amd_sof_acp_probe(struct snd_sof_dev *sdev);
- int amd_sof_acp_remove(struct snd_sof_dev *sdev);
- 
-+/* DSP Loader callbacks */
-+int acp_sof_dsp_run(struct snd_sof_dev *sdev);
-+int acp_dsp_pre_fw_run(struct snd_sof_dev *sdev);
-+int acp_get_bar_index(struct snd_sof_dev *sdev, u32 type);
-+
-+/* Block IO callbacks */
-+int acp_dsp_block_write(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_type,
-+			u32 offset, void *src, size_t size);
-+int acp_dsp_block_read(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_type,
-+		       u32 offset, void *dest, size_t size);
++/* IPC callbacks */
++irqreturn_t acp_sof_ipc_irq_thread(int irq, void *context);
++int acp_sof_ipc_msg_data(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream,
++			 void *p, size_t sz);
++int acp_sof_ipc_send_msg(struct snd_sof_dev *sdev,
++			 struct snd_sof_ipc_msg *msg);
++int acp_sof_ipc_get_mailbox_offset(struct snd_sof_dev *sdev);
++int acp_sof_ipc_get_window_offset(struct snd_sof_dev *sdev, u32 id);
++int acp_sof_ipc_pcm_params(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream,
++			   const struct sof_ipc_pcm_params_reply *reply);
++void acp_mailbox_write(struct snd_sof_dev *sdev, u32 offset, void *message, size_t bytes);
++void acp_mailbox_read(struct snd_sof_dev *sdev, u32 offset, void *message, size_t bytes);
 +
  extern const struct snd_sof_dsp_ops sof_renoir_ops;
  #endif
 diff --git a/sound/soc/sof/amd/renoir.c b/sound/soc/sof/amd/renoir.c
-index 3d1dc6c2fa9b..bca80784b322 100644
+index bca80784b322..9d95ea66f867 100644
 --- a/sound/soc/sof/amd/renoir.c
 +++ b/sound/soc/sof/amd/renoir.c
-@@ -26,6 +26,21 @@ const struct snd_sof_dsp_ops sof_renoir_ops = {
- 	/* Register IO */
- 	.write			= sof_io_write,
- 	.read			= sof_io_read,
+@@ -41,6 +41,14 @@ const struct snd_sof_dsp_ops sof_renoir_ops = {
+ 
+ 	/* DSP core boot */
+ 	.run			= acp_sof_dsp_run,
 +
-+	/* Block IO */
-+	.block_read		= acp_dsp_block_read,
-+	.block_write		= acp_dsp_block_write,
-+
-+	/* Module loading */
-+	.load_module		= snd_sof_parse_module_memcpy,
-+
-+	/*Firmware loading */
-+	.load_firmware		= snd_sof_load_firmware_memcpy,
-+	.pre_fw_run		= acp_dsp_pre_fw_run,
-+	.get_bar_index		= acp_get_bar_index,
-+
-+	/* DSP core boot */
-+	.run			= acp_sof_dsp_run,
++	/*IPC */
++	.send_msg		= acp_sof_ipc_send_msg,
++	.ipc_msg_data		= acp_sof_ipc_msg_data,
++	.ipc_pcm_params		= acp_sof_ipc_pcm_params,
++	.get_mailbox_offset	= acp_sof_ipc_get_mailbox_offset,
++	.irq_thread		= acp_sof_ipc_irq_thread,
++	.fw_ready		= sof_fw_ready,
  };
  EXPORT_SYMBOL(sof_renoir_ops);
  

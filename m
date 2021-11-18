@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BF11455CC2
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 14:33:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E872D455CCB
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 14:35:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8DB0184E;
-	Thu, 18 Nov 2021 14:32:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8DB0184E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94FC2179B;
+	Thu, 18 Nov 2021 14:34:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94FC2179B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637242420;
-	bh=OLuBpcpod4zAiJDYi4udk0LkgTwRzxyZC6IUYR4o39k=;
+	s=default; t=1637242524;
+	bh=Vk7B+SbTFVrp90gT6ZEYsUS/9d+P/IDQgl5CAcKG4qA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T0jotcc+9fyyoV9ctlioiJEVlpZW+VdiBL90DiN0kjOVvSITDNg7NG6/hAyj5YeIq
-	 1qhLHz2N7oRPoLqH65ns4wRejgdZXA6RRvSo0U6HGSId2xdRL/mERet8AAq2dCl7Yo
-	 eAfkcjeADkD8rUOFsZImG+Fs2KOMZq9nUOXgT/nQ=
+	b=CIuCGK7UVgYHRfNecr72RWXqmDVZwbcvX0ELL6SSYxUri6FhmPsZOvxzkU5ZkDN20
+	 5cDK5SluiwzD57EAR8Ni5K6tOydEaWMQ+KIuIW92FvF/yDI6Z5kAXMAcbmy9xH1zFS
+	 uTPWinKmoJSmcJ2GFGg/waShOqIjEsuVeimiSn4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2744FF80423;
-	Thu, 18 Nov 2021 14:32:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35E84F802C4;
+	Thu, 18 Nov 2021 14:34:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50B66F802C4; Thu, 18 Nov 2021 14:32:19 +0100 (CET)
+ id E770DF80272; Thu, 18 Nov 2021 14:34:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91543F800FA
- for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 14:32:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91543F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7EEB3F800FA
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 14:33:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EEB3F800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="coMFhzHH"; 
+ header.b="Z4vR9Aaf"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yU4K9TSD"
+ header.b="zj1mC8yk"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id DE56E1FD29;
- Thu, 18 Nov 2021 13:32:07 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id DC15221891;
+ Thu, 18 Nov 2021 13:33:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1637242327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1637242430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vJPpmSqwfQ+E7wyd/Ugvv0kRl9SOxF8b6yI9zshXapU=;
- b=coMFhzHHTNQpqP1vGLhw2kauOIpNkdWyBHBsqcWy9r4oHA9e68LtK1QoLLxzYzAiU6NtGj
- x2NUoxsicqy/j+e1B6vDvB/EM69jn9wLdI3wlqK35mUMvybrgWMMzMsXILsnoNE3qus2NR
- rls9WDtUkoFvCtON7XpNWB03Q9b1pSw=
+ bh=o/2YbNV6NVTFla3wlTg4xaDtv/fczGAO/Q0JkY4Ef/A=;
+ b=Z4vR9AafeEX8duGJjLirPBTKPhsQ5Iu1cbF+EpmARtTsGcpzcsNiNeKgwcRuDGp7O3X1Ai
+ LblfBCjeDzIa2THj4pkbzCqZiN/7sNBpzzIikSKPUb7PxxJTFoLZfwT9NSyFlbXP3X6Ov4
+ V/VTMBSsUnTRCL1MPsA/DdEzCuPKpNw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1637242327;
+ s=susede2_ed25519; t=1637242430;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vJPpmSqwfQ+E7wyd/Ugvv0kRl9SOxF8b6yI9zshXapU=;
- b=yU4K9TSDyOFY52UmX/MihBq1XfW8lh/RgMb9KD91z2TRONEEnOwARA5K/c1N63b6uzB7QM
- wN4j1FTX+8eEHQCA==
+ bh=o/2YbNV6NVTFla3wlTg4xaDtv/fczGAO/Q0JkY4Ef/A=;
+ b=zj1mC8ykvi7FIl78G73BAOmCVmYUZEtc8q84F/RNtcx4BrcdFcwMnQVok7PmWIf7FU8tmH
+ eEuwUCDIvGeb84CQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B17A4A3B81;
- Thu, 18 Nov 2021 13:32:07 +0000 (UTC)
-Date: Thu, 18 Nov 2021 14:32:07 +0100
-Message-ID: <s5hzgq1io88.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id CFC44A3B81;
+ Thu, 18 Nov 2021 13:33:50 +0000 (UTC)
+Date: Thu, 18 Nov 2021 14:33:50 +0100
+Message-ID: <s5hy25lio5d.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH v3 12/16] ASoC: tegra: Fix kcontrol put callback in MVC
-In-Reply-To: <1637219231-406-13-git-send-email-spujar@nvidia.com>
+Subject: Re: [PATCH v3 00/16] Kcontrol get/put cleanup in Tegra drivers
+In-Reply-To: <1637219231-406-1-git-send-email-spujar@nvidia.com>
 References: <1637219231-406-1-git-send-email-spujar@nvidia.com>
- <1637219231-406-13-git-send-email-spujar@nvidia.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -94,57 +93,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 18 Nov 2021 08:07:07 +0100,
+On Thu, 18 Nov 2021 08:06:55 +0100,
 Sameer Pujar wrote:
 > 
-> The kcontrol put callback is expected to return 1 when there is change
-> in HW or when the update is acknowledged by driver. This would ensure
-> that change notifications are sent to subscribed applications. Filter
-> out duplicate updates in MVC driver.
+> There are two cleanups in the series:
+>  1. Use correct value type for enum controls. This is suggested by
+>     Takashi during review of v2.
 > 
-> Fixes: e539891f9687 ("ASoC: tegra: Add Tegra210 based MVC driver")
-> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
-> Suggested-by: Jaroslav Kysela <perex@perex.cz>
-> Suggested-by: Mark Brown <broonie@kernel.org>
-> ---
->  sound/soc/tegra/tegra210_mvc.c | 22 ++++++++++++++++++----
->  1 file changed, 18 insertions(+), 4 deletions(-)
+>  2. This series fixes kcontrol put callback in some of the Tegra drivers
+>     which are used on platforms based on Tegra210 and later. The callback
+>     is expected to return 1 whenever the HW update is done.
 > 
-> diff --git a/sound/soc/tegra/tegra210_mvc.c b/sound/soc/tegra/tegra210_mvc.c
-> index b7e3170..85b1558 100644
-> --- a/sound/soc/tegra/tegra210_mvc.c
-> +++ b/sound/soc/tegra/tegra210_mvc.c
-> @@ -136,7 +136,7 @@ static int tegra210_mvc_put_mute(struct snd_kcontrol *kcontrol,
->  	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
->  	struct tegra210_mvc *mvc = snd_soc_component_get_drvdata(cmpnt);
->  	unsigned int value;
-> -	u8 mute_mask;
-> +	u8 new_mask, old_mask;
->  	int err;
->  
->  	pm_runtime_get_sync(cmpnt->dev);
-> @@ -148,11 +148,19 @@ static int tegra210_mvc_put_mute(struct snd_kcontrol *kcontrol,
->  	if (err < 0)
->  		goto end;
->  
-> -	mute_mask = ucontrol->value.integer.value[0];
-> +	regmap_read(mvc->regmap, TEGRA210_MVC_CTRL, &value);
-> +
-> +	old_mask = (value >> TEGRA210_MVC_MUTE_SHIFT) & TEGRA210_MUTE_MASK_EN;
-> +	new_mask = ucontrol->value.integer.value[0];
-> +
-> +	if (new_mask == old_mask) {
-> +		err = 0;
-> +		goto end;
-> +	}
->  
->  	err = regmap_update_bits(mvc->regmap, mc->reg,
->  				 TEGRA210_MVC_MUTE_MASK,
-> -				 mute_mask << TEGRA210_MVC_MUTE_SHIFT);
-> +				 new_mask << TEGRA210_MVC_MUTE_SHIFT);
+>     This idea is suggested by Jaroslav. Similar suggestion came from
+>     Mark during review of series [0] and drivers under this were updated
+>     to return 1, but missed to take care of duplicate updates. This series
+>     updates all concerned drivers to return proper values and duplicate
+>     updates are filtered out.
+> 
+> I have added 'Suggested-by" tags accordingly.
+> 
+> [0] https://lore.kernel.org/linux-arm-kernel/20210913142307.GF4283@sirena.org.uk/
+> 
+> Changelog
+> =========
+>  v2->v3:
+>  -------
+>    * Add fixes related to wrong value type as suggested by Takashi.
+>      Relevant drivers are updated as part of it.
+> 
+>    * Use separate get/put callbacks for each mixer control. The common
+>      part is pushed to separate function wherever applicable, thus
+>      removing usage of strstr() calls. The return values are fixed
+>      as suggested.
+> 
+> 
+>  v1->v2:
+>  -------
+>    * ADMAIF, I2S, DMIC and DSPK drivers updated to take care of
+>      duplicate updates.
+>    * Similarly new patches are added for AHUB, MVC, SFC, AMX, ADX
+>      and Mixer drivers.
+> 
+> Sameer Pujar (16):
+>   ASoC: tegra: Fix wrong value type in ADMAIF
+>   ASoC: tegra: Fix wrong value type in I2S
+>   ASoC: tegra: Fix wrong value type in DMIC
+>   ASoC: tegra: Fix wrong value type in DSPK
+>   ASoC: tegra: Fix wrong value type in SFC
+>   ASoC: tegra: Fix wrong value type in MVC
+>   ASoC: tegra: Fix kcontrol put callback in ADMAIF
+>   ASoC: tegra: Fix kcontrol put callback in I2S
+>   ASoC: tegra: Fix kcontrol put callback in DMIC
+>   ASoC: tegra: Fix kcontrol put callback in DSPK
+>   ASoC: tegra: Fix kcontrol put callback in AHUB
+>   ASoC: tegra: Fix kcontrol put callback in MVC
+>   ASoC: tegra: Fix kcontrol put callback in SFC
+>   ASoC: tegra: Fix kcontrol put callback in AMX
+>   ASoC: tegra: Fix kcontrol put callback in ADX
+>   ASoC: tegra: Fix kcontrol put callback in Mixer
 
-I guess this test-and-update procedure can be simplified with
-regmap_update_bits_check().
+Through a quick glance, the series looks good to me.  One place could
+be more optimized with a regmap helper, but it's a minor issue and can
+be updated later, too.
+
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
 
 thanks,

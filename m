@@ -2,74 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1807B455D20
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 14:58:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19324455D2F
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 14:59:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADE46184E;
-	Thu, 18 Nov 2021 14:57:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADE46184E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2A971868;
+	Thu, 18 Nov 2021 14:58:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2A971868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637243903;
-	bh=WyD60zF4TADv7Odqa4b6XduvB11Zc9zW6/nl4Y+HIfg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1637243966;
+	bh=ZvIvFWL/HM9LzOdH2o/5dAmfXYHay8GPdvZsv9M6RHU=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EDSmAjotASEEBcC/ld4FT9p7g2SOd5lw1cA3fSXjHdenp2/efsAWLcN3wB4jkNaTe
-	 YB8EjNJFqoXuUswVnfP87GkQTOlXklnJF07kyLOq6LkwO2GeR5QqrFHdVNT+CQ8J+e
-	 QGZ/UJ3wfModYvbkFB3nTjO+QUfu+oxxyT6OPmiA=
+	b=TOaLlgn2oqgT8a/G5lFKDvpsoTJaAqciiuvL32BSdY/EbKPfe1ZuTiQjkx3VJiGy2
+	 lDVX5Mlf2i1mQ81FBUPyvtXPBaWQutKuPLuiQClL9di5di8zPScQCcoEVV3zapbSvR
+	 C9X23aX8OEOfrhqIMDKgYuP29WX1U4cZpQtqkhaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B0ECF802C4;
-	Thu, 18 Nov 2021 14:57:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D5D9F802C4;
+	Thu, 18 Nov 2021 14:58:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D8ABF80272; Thu, 18 Nov 2021 14:57:03 +0100 (CET)
+ id BE778F80272; Thu, 18 Nov 2021 14:58:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F03BCF800FA
- for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 14:56:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F03BCF800FA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KSNT3Nis"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8C1AE61A88;
- Thu, 18 Nov 2021 13:56:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637243814;
- bh=WyD60zF4TADv7Odqa4b6XduvB11Zc9zW6/nl4Y+HIfg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KSNT3NisYQGLoK+k8jV9XStEAIBSLtOy3AwfJ3ZsSdbitcJgpSr45ucmlAkBoM1q0
- cFrD8wtYUSDxLvO76PmxuTmrsSpE2XY+lNKTGYAo9CEqBKa7/is0HSuNRXSDeIb/aD
- eVQyF3z5QqqpTDmPvF2q90VPMs2bKGtG8Zctjs5+JwqTOLA6gZVWXqJTcgo8C624kz
- +tB42/Jj7G5+Rdv4ff29qSci9IFMLFnYxf9KOiPuXOIAQzsmYWgFQtI0q5mU24jGRo
- aOlghhOy1yLc0genpTVf7xhF9rNw0rOF0XpMWGJMF18nVklg91gQEsVE1TYKEFBKDA
- CD0553Ou1FGlg==
-Date: Thu, 18 Nov 2021 13:56:49 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH 2/3] ASoC: stm32: dfsdm: add pm_runtime support for audio
-Message-ID: <YZZboeQpqK8CwmL+@sirena.org.uk>
-References: <20211118090035.5331-1-olivier.moysan@foss.st.com>
- <20211118090035.5331-3-olivier.moysan@foss.st.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/HMgHyk9z9XITysq"
-Content-Disposition: inline
-In-Reply-To: <20211118090035.5331-3-olivier.moysan@foss.st.com>
-X-Cookie: People respond to people who respond.
-Cc: alsa-devel@alsa-project.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id AEA8CF80115
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 14:58:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEA8CF80115
+Received: by mail-ot1-f52.google.com with SMTP id
+ h16-20020a9d7990000000b0055c7ae44dd2so11046682otm.10
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 05:58:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=WmMfhkzPjWTKlEZ9yIh2W7NHeFSMUgJDMyPJqo/TBCY=;
+ b=z+ExRqmKTjhOQfpSA9+kIeSxdukvY/4ytrCPn3YFClSgBksDcw0hZ4IvYbSMLKbD+u
+ TuPvd2eq9ORkkIDfaQtuD1sbomG/oaU7fwVTbDXDD7QEHil43EBy41J9yFkaT6rNvBJO
+ a+fdK8DO86Mhj/HUXR4Z1wtkrF2prqFhRwkFPNNJrLutqXCwETeQtMsca4fTuTMwSwPW
+ D17dP8Hos1eWm+uwICx96NWQ5ICA+TwFkO1yckwFfdxj907PVya2yh34WIcprtJ9UDbp
+ KiO0GIsJixaii3A9Sris3z4WooKuHpqUFc0DqM0laI8u6H+cGHh7DlJqxc/iCkltwrSj
+ 5YdA==
+X-Gm-Message-State: AOAM5301jfMHdDPtmxC8F6AFEbILv45rjfTXLe7OoUq15jX7JVtGTHNh
+ lK3Brbl64Hxx+8ZTfWOFsg==
+X-Google-Smtp-Source: ABdhPJzWykudMzngz7+fYsbqh9ICTA5Q5lY0M4wTA9me0nH9FEPyMXguhDFWK2e4MNPzw3UyklnkQw==
+X-Received: by 2002:a9d:7a42:: with SMTP id z2mr21463015otm.362.1637243903121; 
+ Thu, 18 Nov 2021 05:58:23 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id q33sm522530ooh.16.2021.11.18.05.58.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Nov 2021 05:58:22 -0800 (PST)
+Received: (nullmailer pid 998654 invoked by uid 1000);
+ Thu, 18 Nov 2021 13:58:21 -0000
+From: Rob Herring <robh@kernel.org>
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+In-Reply-To: <1637239506-9387-2-git-send-email-srivasam@codeaurora.org>
+References: <1637239506-9387-1-git-send-email-srivasam@codeaurora.org>
+ <1637239506-9387-2-git-send-email-srivasam@codeaurora.org>
+Subject: Re: [PATCH v6 1/2] ASoC: google: dt-bindings: Add sc7280-herobrine
+ machine bindings
+Date: Thu, 18 Nov 2021 07:58:21 -0600
+Message-Id: <1637243901.366064.998653.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
+ plai@codeaurora.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, bjorn.andersson@linaro.org, agross@kernel.org,
+ broonie@kernel.org, rohitkr@codeaurora.org, swboyd@chromium.org,
+ judyhsiao@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,44 +94,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 18 Nov 2021 18:15:05 +0530, Srinivasa Rao Mandadapu wrote:
+> Add devicetree bindings documentation file for sc7280 sound card
+> registration.
+> 
+> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+> ---
+>  .../bindings/sound/google,sc7280-herobrine.yaml    | 171 +++++++++++++++++++++
+>  1 file changed, 171 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+> 
 
---/HMgHyk9z9XITysq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-On Thu, Nov 18, 2021 at 10:00:34AM +0100, Olivier Moysan wrote:
+yamllint warnings/errors:
 
->  	ret =3D snd_soc_add_component(component, NULL, 0);
-> -	if (ret < 0)
-> +	if (ret < 0) {
->  		dev_err(&pdev->dev, "%s: Failed to register PCM platform\n",
->  			__func__);
-> +		return ret;
-> +	}
-> =20
-> -	return ret;
-> +	pm_runtime_enable(&pdev->dev);
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@0: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@1: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@2: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@3: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@5: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
 
-Enabling runtime PM after registering the component may potentially lead
-to a race where something manages to go in and starts using the device
-including what should be runtime PM stuff.  That'd lead to a reference
-not being taken that should be.  It's unlikely to actually happen but
-it's better to be safe.
+doc reference errors (make refcheckdocs):
 
---/HMgHyk9z9XITysq
-Content-Type: application/pgp-signature; name="signature.asc"
+See https://patchwork.ozlabs.org/patch/1556613
 
------BEGIN PGP SIGNATURE-----
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGWW6AACgkQJNaLcl1U
-h9CLGAf/ZPgpWw+sUfS92Ur9sKBg2iJ8B0peY+lx9xIeWYpe4VUroAOLj1ZPvJGA
-FuarngOZVU6HQb9qTBibk10pwkoYkyvH5g7wqCtj54sQQLx0TCD94mxFEx10ag33
-/4WbSlYmxgC4W2xLr5acaPCaik8qm2qQMMaNIYLyZpFgPya1cSAxUnUC8FMr5erl
-tctUP/CIoF7vBR+u+96lVB4BDqm0kQFGo8ftUg+h1kxf1gtEV/eD/Y1gCFZ1O/SW
-6IN5K1ATFMZPHNUMkEpPLt23NCLinzdkxy2/eF87sj+gkDk+7fbgya/deQmu5oLL
-0y++J0llhfmrUPbM25n7D//VjII/PA==
-=OGhT
------END PGP SIGNATURE-----
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
---/HMgHyk9z9XITysq--
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+

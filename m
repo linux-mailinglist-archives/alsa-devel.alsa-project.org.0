@@ -2,69 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58E7445632C
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 20:08:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AA8C45632D
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 20:08:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7227E186B;
-	Thu, 18 Nov 2021 20:07:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7227E186B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18FCC1877;
+	Thu, 18 Nov 2021 20:07:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18FCC1877
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637262479;
-	bh=1p374rqm2yFecVw91tYzgWhh9jitE6ft6AgdASjdY8E=;
+	s=default; t=1637262506;
+	bh=lrQXLGoucITfjQn5uVEsfBONwOxznfVVuvtAaJyD/90=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bhfiZn/VIe6S9Isp207Ks/5d1rltJGz77b79OKbNzxAjzyIklyIS9OtqybfGcuFMJ
-	 yesth+zKSb7Jus1kZOzhgTaD2vDKjKTVNGttH/JV0jJvOwPn1Js/90cW+huGTyEWSP
-	 BzM718yhTddQYqv+oE2yoMWohWH9bP/cUTPVvEsc=
+	b=M9yM7SyHvcz5SgXIB96OtVhT4t5qNQ5UtUe8PhdXeFwaXSHtDxL8iFOtkmM4cNXs4
+	 z2JzGRDd9CBSmwfbBZ64MyNtNwv5F+e2GSf2La+15kCEzPZ1p24Bd7BSv/i0G3b/ic
+	 axP4pgoe1cgqSS5wcY66hga0Ww6G+2DKdmDuaIyM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 862FEF800FA;
-	Thu, 18 Nov 2021 20:06:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23FC3F804EB;
+	Thu, 18 Nov 2021 20:06:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 005D4F804D6; Thu, 18 Nov 2021 20:06:21 +0100 (CET)
+ id A516EF804C1; Thu, 18 Nov 2021 20:06:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89257F80115
- for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 20:06:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89257F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28033F800FA
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 20:06:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28033F800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DLzxW8cF"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F38AF61AFF;
- Thu, 18 Nov 2021 19:06:10 +0000 (UTC)
+ header.b="P1ePkJJC"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A3EC161B04;
+ Thu, 18 Nov 2021 19:06:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637262373;
- bh=1p374rqm2yFecVw91tYzgWhh9jitE6ft6AgdASjdY8E=;
+ s=k20201202; t=1637262377;
+ bh=lrQXLGoucITfjQn5uVEsfBONwOxznfVVuvtAaJyD/90=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=DLzxW8cFoNvz9pU5J9KMn16xzIERY5PXKT0NMtWYdulf926rXwl6G+IeQs5fJ3Oea
- LbQ6DtBq++T+CpGi80H5nmKHdTDcVhiPrc50EgBnSqayfxSECvQexLF2OsesULCy2/
- RzsnElCPB8/Vt0z7cl4WLBxU9hrEm3OjkFSqFMnZStu9qmVHdoJ+6JYPC/FFF0RZr3
- VHnmx6rJWWm10cwR5kNryAinQpkKCRYMdHTN4xh8ao2rc4vT8IlKsXKVujP3tAM9oa
- GePClmr5Y1dT27Ce1CpSPXhfZ2NjxjZFv+GIN/x/uOsNLIlolEv4mhOb0/pMMSyPHj
- ZkGuvCTAxU3NA==
+ b=P1ePkJJCikKeYrGJ/a8zd/euNU1R/RZLpiajZIAyjotJoWtkIoEdFyqz3rt43uffd
+ Q94vWeDzVpGL5xCu6Ky5XjPgP25JVVOWVRl6PoXr++vTyogK6zdIhACbwnDU24e+pP
+ VXrobUniflyQIx3ZFqiWrmEU5KrETj/5QkpgPRvO93+JoNCB2DSb4scGTqE/l0XPwS
+ nfsKCZ5W3QMyUGWB+31MFpzwgCQ/hhBA+RVMM4ZIptWBJRhiAfDQIQZx1zaNV9cqUh
+ hBEMejqNHtDnRuh9FnySLY4J5PMRyj+WhtIc1Xa0Y6kR9pAP6txJGVq+Xa+m3kgw/u
+ NqUcbYf+bCGLg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20211118100749.54628-1-daniel.baluta@oss.nxp.com>
-References: <20211118100749.54628-1-daniel.baluta@oss.nxp.com>
-Subject: Re: [PATCH v2 0/8] ASoC: SOF: Add support for Mediatek MT8195
-Message-Id: <163726237074.96213.1724001387708213857.b4-ty@kernel.org>
-Date: Thu, 18 Nov 2021 19:06:10 +0000
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, lgirdwood@gmail.com,
+ linux-arm-msm@vger.kernel.org, rohitkr@codeaurora.org,
+ alsa-devel@alsa-project.org, perex@perex.cz, agross@kernel.org,
+ srinivas.kandagatla@linaro.org, swboyd@chromium.org, plai@codeaurora.org,
+ judyhsiao@chromium.org, robh+dt@kernel.org, bgoswami@codeaurora.org,
+ bjorn.andersson@linaro.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <1637234411-554-1-git-send-email-srivasam@codeaurora.org>
+References: <1637234411-554-1-git-send-email-srivasam@codeaurora.org>
+Subject: Re: [PATCH] ASoC: codecs: MBHC: Remove useless condition check
+Message-Id: <163726237329.96213.5010626132541741636.b4-ty@kernel.org>
+Date: Thu, 18 Nov 2021 19:06:13 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: daniel.baluta@gmail.com, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, linux-mediatek@lists.infradead.org,
- yc.hung@mediatek.com, daniel.baluta@nxp.com
+Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,17 +83,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 18 Nov 2021 12:07:41 +0200, Daniel Baluta wrote:
-> From: Daniel Baluta <daniel.baluta@nxp.com>
+On Thu, 18 Nov 2021 16:50:11 +0530, Srinivasa Rao Mandadapu wrote:
+> Remove redundant conditional check and clean code in special
+> headset support functions.
 > 
-> This adds sound open firmware driver support for MT8915 platform.
 > 
-> Changes since v1:
-> - removed AMD patches since they were already applied
-> - fixed compilation error reported by Mark, generated by the fact that
->   mt8195_run was declared too early in the series.
-> 
-> [...]
 
 Applied to
 
@@ -98,22 +95,8 @@ Applied to
 
 Thanks!
 
-[1/8] ASoC: SOF: mediatek: Add mt8195 hardware support
-      commit: 32d7e03d26fd93187c87ed0fbf59ec7023a61404
-[2/8] ASoC: SOF: tokens: add token for Mediatek AFE
-      commit: e6feefa541f309afed8aa54431681261bc57bcde
-[3/8] ASoC: SOF: topology: Add support for Mediatek AFE DAI
-      commit: b72bfcffcfc11858a8fc92998733372606db485e
-[4/8] ASoC: SOF: mediatek: Add fw loader and mt8195 dsp ops to load firmware
-      commit: b7f6503830cd8f3f7076635409460861b5ff6310
-[5/8] ASoC: SOF: Add mt8195 device descriptor
-      commit: 24281bc2bf1884e665dfbcd17aaaabbc5872e501
-[6/8] ASoC: SOF: mediatek: Add dai driver dsp ops callback for mt8195
-      commit: 24d75049c5ed5193bd12ce0d43c355c4ef74a7fa
-[7/8] ASoC: SOF: mediatek: Add mt8195 dsp clock support
-      commit: 424d6d1a9a51b7e6ab397132700a237082d64cf4
-[8/8] ASoC: SOF: mediatek: Add DSP system PM callback for mt8195
-      commit: 163fa3a5927e1d8f948ea1fc16c897944933a06a
+[1/1] ASoC: codecs: MBHC: Remove useless condition check
+      commit: b38892b5b85ae54b7b867313996f967122ede42e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

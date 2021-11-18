@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2577455D04
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 14:51:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1807B455D20
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 14:58:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77B0E184E;
-	Thu, 18 Nov 2021 14:50:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77B0E184E
+	by alsa0.perex.cz (Postfix) with ESMTPS id ADE46184E;
+	Thu, 18 Nov 2021 14:57:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADE46184E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637243485;
-	bh=EHKSkKOrT01rZkYPW4UuImNyGa7Bn6ryCr5Bieip2ns=;
+	s=default; t=1637243903;
+	bh=WyD60zF4TADv7Odqa4b6XduvB11Zc9zW6/nl4Y+HIfg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Da2gAZQ6XA54BSGEhHRzXdNCDqMk/hXMF80g94ZozvR69j0jC2NYwpIyT/+Eee9il
-	 apdG8Mqa1pZgeV6Kt9wTUt0uKtM5itbxSdbXJStRftMgpm5PtrlOvERU8B8rm+xQ7W
-	 YfHwW+USgeztn3agdorTOlqJArue0pga43QbA4Mc=
+	b=EDSmAjotASEEBcC/ld4FT9p7g2SOd5lw1cA3fSXjHdenp2/efsAWLcN3wB4jkNaTe
+	 YB8EjNJFqoXuUswVnfP87GkQTOlXklnJF07kyLOq6LkwO2GeR5QqrFHdVNT+CQ8J+e
+	 QGZ/UJ3wfModYvbkFB3nTjO+QUfu+oxxyT6OPmiA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D28BDF800FA;
-	Thu, 18 Nov 2021 14:50:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B0ECF802C4;
+	Thu, 18 Nov 2021 14:57:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1B98F80272; Thu, 18 Nov 2021 14:50:03 +0100 (CET)
+ id 4D8ABF80272; Thu, 18 Nov 2021 14:57:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
@@ -33,41 +33,43 @@ X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24599F800FA
- for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 14:49:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24599F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id F03BCF800FA
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 14:56:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F03BCF800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BND+dl5n"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E032261A55;
- Thu, 18 Nov 2021 13:49:52 +0000 (UTC)
+ header.b="KSNT3Nis"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8C1AE61A88;
+ Thu, 18 Nov 2021 13:56:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637243394;
- bh=EHKSkKOrT01rZkYPW4UuImNyGa7Bn6ryCr5Bieip2ns=;
+ s=k20201202; t=1637243814;
+ bh=WyD60zF4TADv7Odqa4b6XduvB11Zc9zW6/nl4Y+HIfg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BND+dl5nE0O9ftOYY91HxJfmFIo5zY5u6blBHoeIBAfPkhmBYBf2YrJZEPHrO/1W4
- mbsK8jeuqc/Gd7qDyvul5KyVKdtyMnrqbXbjPIutxFg7URfsT0HWdGnOgpXzm6Abai
- J349q2ySUxxhC7TqS3qrnYQv7StSQNNpEoAzLoANJWLOKh1Bz1mway82MSlHRAS4mH
- 7Vc7jsbB8fs9rjS5QbhOBHi/q9jEq/n8DtP5vvQBlMjzAPVoWMOOc6Nnu2JN1uZGy3
- weJ468p45cEGPax8dYY0nbi68tgMdFyAZqDEL7lK06yTbSnPXNvbJC5oUW4psoqgvi
- RxLknQozTP2Rg==
-Date: Thu, 18 Nov 2021 13:49:49 +0000
+ b=KSNT3NisYQGLoK+k8jV9XStEAIBSLtOy3AwfJ3ZsSdbitcJgpSr45ucmlAkBoM1q0
+ cFrD8wtYUSDxLvO76PmxuTmrsSpE2XY+lNKTGYAo9CEqBKa7/is0HSuNRXSDeIb/aD
+ eVQyF3z5QqqpTDmPvF2q90VPMs2bKGtG8Zctjs5+JwqTOLA6gZVWXqJTcgo8C624kz
+ +tB42/Jj7G5+Rdv4ff29qSci9IFMLFnYxf9KOiPuXOIAQzsmYWgFQtI0q5mU24jGRo
+ aOlghhOy1yLc0genpTVf7xhF9rNw0rOF0XpMWGJMF18nVklg91gQEsVE1TYKEFBKDA
+ CD0553Ou1FGlg==
+Date: Thu, 18 Nov 2021 13:56:49 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH v3 12/16] ASoC: tegra: Fix kcontrol put callback in MVC
-Message-ID: <YZZZ/Qk2/XX20qSS@sirena.org.uk>
-References: <1637219231-406-1-git-send-email-spujar@nvidia.com>
- <1637219231-406-13-git-send-email-spujar@nvidia.com>
- <s5hzgq1io88.wl-tiwai@suse.de>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH 2/3] ASoC: stm32: dfsdm: add pm_runtime support for audio
+Message-ID: <YZZboeQpqK8CwmL+@sirena.org.uk>
+References: <20211118090035.5331-1-olivier.moysan@foss.st.com>
+ <20211118090035.5331-3-olivier.moysan@foss.st.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3p2xpiMr+J6zdqeh"
+ protocol="application/pgp-signature"; boundary="/HMgHyk9z9XITysq"
 Content-Disposition: inline
-In-Reply-To: <s5hzgq1io88.wl-tiwai@suse.de>
+In-Reply-To: <20211118090035.5331-3-olivier.moysan@foss.st.com>
 X-Cookie: People respond to people who respond.
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>, tiwai@suse.com,
- jonathanh@nvidia.com, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+Cc: alsa-devel@alsa-project.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,47 +86,43 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---3p2xpiMr+J6zdqeh
+--/HMgHyk9z9XITysq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 18, 2021 at 02:32:07PM +0100, Takashi Iwai wrote:
-> Sameer Pujar wrote:
+On Thu, Nov 18, 2021 at 10:00:34AM +0100, Olivier Moysan wrote:
 
-> > +	old_mask =3D (value >> TEGRA210_MVC_MUTE_SHIFT) & TEGRA210_MUTE_MASK_=
-EN;
-> > +	new_mask =3D ucontrol->value.integer.value[0];
-> > +
-> > +	if (new_mask =3D=3D old_mask) {
-> > +		err =3D 0;
-> > +		goto end;
-> > +	}
-> > =20
-> >  	err =3D regmap_update_bits(mvc->regmap, mc->reg,
-> >  				 TEGRA210_MVC_MUTE_MASK,
-> > -				 mute_mask << TEGRA210_MVC_MUTE_SHIFT);
-> > +				 new_mask << TEGRA210_MVC_MUTE_SHIFT);
+>  	ret =3D snd_soc_add_component(component, NULL, 0);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+>  		dev_err(&pdev->dev, "%s: Failed to register PCM platform\n",
+>  			__func__);
+> +		return ret;
+> +	}
+> =20
+> -	return ret;
+> +	pm_runtime_enable(&pdev->dev);
 
-> I guess this test-and-update procedure can be simplified with
-> regmap_update_bits_check().
+Enabling runtime PM after registering the component may potentially lead
+to a race where something manages to go in and starts using the device
+including what should be runtime PM stuff.  That'd lead to a reference
+not being taken that should be.  It's unlikely to actually happen but
+it's better to be safe.
 
-Yes, this is exactly the application that _update_bits_check() was
-written for.
-
---3p2xpiMr+J6zdqeh
+--/HMgHyk9z9XITysq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGWWf0ACgkQJNaLcl1U
-h9D8jAf7BVgrmUDkAqGQIkedLOdK24v1N/Gp53lTao7cwUgUy+beBW3YsQU0w7Bg
-r1BcXrjWpusKLTBgo6Y/8mr2bzktqToKmlne3trxVUS/EWSGWWq4JINEw8SajpqT
-GcSmqwJ6BpF3giLyFPUTE7jJBGsv19qEohP3OUrW7Kph1GP+pm+LV/epWBmHamwN
-XVTyPHxk0bmxtsOXOTHi3+14iD0CwpyO8AWsxFxx70ZKjtL89v5IthEZzy98ZQV7
-4uZyh/GXN97rNizvH5k1DCjwnfyAUxvkP8L2ksIQ00RRfqDv2TmBujw1AetHsJ+g
-j3GyV0p/jUwFxXiSZ8t2+Vho2oUucg==
-=u/ik
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGWW6AACgkQJNaLcl1U
+h9CLGAf/ZPgpWw+sUfS92Ur9sKBg2iJ8B0peY+lx9xIeWYpe4VUroAOLj1ZPvJGA
+FuarngOZVU6HQb9qTBibk10pwkoYkyvH5g7wqCtj54sQQLx0TCD94mxFEx10ag33
+/4WbSlYmxgC4W2xLr5acaPCaik8qm2qQMMaNIYLyZpFgPya1cSAxUnUC8FMr5erl
+tctUP/CIoF7vBR+u+96lVB4BDqm0kQFGo8ftUg+h1kxf1gtEV/eD/Y1gCFZ1O/SW
+6IN5K1ATFMZPHNUMkEpPLt23NCLinzdkxy2/eF87sj+gkDk+7fbgya/deQmu5oLL
+0y++J0llhfmrUPbM25n7D//VjII/PA==
+=OGhT
 -----END PGP SIGNATURE-----
 
---3p2xpiMr+J6zdqeh--
+--/HMgHyk9z9XITysq--

@@ -2,82 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E872D455CCB
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 14:35:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2577455D04
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 14:51:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94FC2179B;
-	Thu, 18 Nov 2021 14:34:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94FC2179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77B0E184E;
+	Thu, 18 Nov 2021 14:50:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77B0E184E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637242524;
-	bh=Vk7B+SbTFVrp90gT6ZEYsUS/9d+P/IDQgl5CAcKG4qA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1637243485;
+	bh=EHKSkKOrT01rZkYPW4UuImNyGa7Bn6ryCr5Bieip2ns=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CIuCGK7UVgYHRfNecr72RWXqmDVZwbcvX0ELL6SSYxUri6FhmPsZOvxzkU5ZkDN20
-	 5cDK5SluiwzD57EAR8Ni5K6tOydEaWMQ+KIuIW92FvF/yDI6Z5kAXMAcbmy9xH1zFS
-	 uTPWinKmoJSmcJ2GFGg/waShOqIjEsuVeimiSn4I=
+	b=Da2gAZQ6XA54BSGEhHRzXdNCDqMk/hXMF80g94ZozvR69j0jC2NYwpIyT/+Eee9il
+	 apdG8Mqa1pZgeV6Kt9wTUt0uKtM5itbxSdbXJStRftMgpm5PtrlOvERU8B8rm+xQ7W
+	 YfHwW+USgeztn3agdorTOlqJArue0pga43QbA4Mc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35E84F802C4;
-	Thu, 18 Nov 2021 14:34:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D28BDF800FA;
+	Thu, 18 Nov 2021 14:50:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E770DF80272; Thu, 18 Nov 2021 14:34:03 +0100 (CET)
+ id A1B98F80272; Thu, 18 Nov 2021 14:50:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7EEB3F800FA
- for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 14:33:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EEB3F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24599F800FA
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 14:49:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24599F800FA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Z4vR9Aaf"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="zj1mC8yk"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id DC15221891;
- Thu, 18 Nov 2021 13:33:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1637242430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=o/2YbNV6NVTFla3wlTg4xaDtv/fczGAO/Q0JkY4Ef/A=;
- b=Z4vR9AafeEX8duGJjLirPBTKPhsQ5Iu1cbF+EpmARtTsGcpzcsNiNeKgwcRuDGp7O3X1Ai
- LblfBCjeDzIa2THj4pkbzCqZiN/7sNBpzzIikSKPUb7PxxJTFoLZfwT9NSyFlbXP3X6Ov4
- V/VTMBSsUnTRCL1MPsA/DdEzCuPKpNw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1637242430;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=o/2YbNV6NVTFla3wlTg4xaDtv/fczGAO/Q0JkY4Ef/A=;
- b=zj1mC8ykvi7FIl78G73BAOmCVmYUZEtc8q84F/RNtcx4BrcdFcwMnQVok7PmWIf7FU8tmH
- eEuwUCDIvGeb84CQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CFC44A3B81;
- Thu, 18 Nov 2021 13:33:50 +0000 (UTC)
-Date: Thu, 18 Nov 2021 14:33:50 +0100
-Message-ID: <s5hy25lio5d.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH v3 00/16] Kcontrol get/put cleanup in Tegra drivers
-In-Reply-To: <1637219231-406-1-git-send-email-spujar@nvidia.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="BND+dl5n"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E032261A55;
+ Thu, 18 Nov 2021 13:49:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1637243394;
+ bh=EHKSkKOrT01rZkYPW4UuImNyGa7Bn6ryCr5Bieip2ns=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BND+dl5nE0O9ftOYY91HxJfmFIo5zY5u6blBHoeIBAfPkhmBYBf2YrJZEPHrO/1W4
+ mbsK8jeuqc/Gd7qDyvul5KyVKdtyMnrqbXbjPIutxFg7URfsT0HWdGnOgpXzm6Abai
+ J349q2ySUxxhC7TqS3qrnYQv7StSQNNpEoAzLoANJWLOKh1Bz1mway82MSlHRAS4mH
+ 7Vc7jsbB8fs9rjS5QbhOBHi/q9jEq/n8DtP5vvQBlMjzAPVoWMOOc6Nnu2JN1uZGy3
+ weJ468p45cEGPax8dYY0nbi68tgMdFyAZqDEL7lK06yTbSnPXNvbJC5oUW4psoqgvi
+ RxLknQozTP2Rg==
+Date: Thu, 18 Nov 2021 13:49:49 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v3 12/16] ASoC: tegra: Fix kcontrol put callback in MVC
+Message-ID: <YZZZ/Qk2/XX20qSS@sirena.org.uk>
 References: <1637219231-406-1-git-send-email-spujar@nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+ <1637219231-406-13-git-send-email-spujar@nvidia.com>
+ <s5hzgq1io88.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="3p2xpiMr+J6zdqeh"
+Content-Disposition: inline
+In-Reply-To: <s5hzgq1io88.wl-tiwai@suse.de>
+X-Cookie: People respond to people who respond.
 Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, jonathanh@nvidia.com,
- broonie@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+ linux-kernel@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>, tiwai@suse.com,
+ jonathanh@nvidia.com, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,72 +83,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 18 Nov 2021 08:06:55 +0100,
-Sameer Pujar wrote:
-> 
-> There are two cleanups in the series:
->  1. Use correct value type for enum controls. This is suggested by
->     Takashi during review of v2.
-> 
->  2. This series fixes kcontrol put callback in some of the Tegra drivers
->     which are used on platforms based on Tegra210 and later. The callback
->     is expected to return 1 whenever the HW update is done.
-> 
->     This idea is suggested by Jaroslav. Similar suggestion came from
->     Mark during review of series [0] and drivers under this were updated
->     to return 1, but missed to take care of duplicate updates. This series
->     updates all concerned drivers to return proper values and duplicate
->     updates are filtered out.
-> 
-> I have added 'Suggested-by" tags accordingly.
-> 
-> [0] https://lore.kernel.org/linux-arm-kernel/20210913142307.GF4283@sirena.org.uk/
-> 
-> Changelog
-> =========
->  v2->v3:
->  -------
->    * Add fixes related to wrong value type as suggested by Takashi.
->      Relevant drivers are updated as part of it.
-> 
->    * Use separate get/put callbacks for each mixer control. The common
->      part is pushed to separate function wherever applicable, thus
->      removing usage of strstr() calls. The return values are fixed
->      as suggested.
-> 
-> 
->  v1->v2:
->  -------
->    * ADMAIF, I2S, DMIC and DSPK drivers updated to take care of
->      duplicate updates.
->    * Similarly new patches are added for AHUB, MVC, SFC, AMX, ADX
->      and Mixer drivers.
-> 
-> Sameer Pujar (16):
->   ASoC: tegra: Fix wrong value type in ADMAIF
->   ASoC: tegra: Fix wrong value type in I2S
->   ASoC: tegra: Fix wrong value type in DMIC
->   ASoC: tegra: Fix wrong value type in DSPK
->   ASoC: tegra: Fix wrong value type in SFC
->   ASoC: tegra: Fix wrong value type in MVC
->   ASoC: tegra: Fix kcontrol put callback in ADMAIF
->   ASoC: tegra: Fix kcontrol put callback in I2S
->   ASoC: tegra: Fix kcontrol put callback in DMIC
->   ASoC: tegra: Fix kcontrol put callback in DSPK
->   ASoC: tegra: Fix kcontrol put callback in AHUB
->   ASoC: tegra: Fix kcontrol put callback in MVC
->   ASoC: tegra: Fix kcontrol put callback in SFC
->   ASoC: tegra: Fix kcontrol put callback in AMX
->   ASoC: tegra: Fix kcontrol put callback in ADX
->   ASoC: tegra: Fix kcontrol put callback in Mixer
 
-Through a quick glance, the series looks good to me.  One place could
-be more optimized with a regmap helper, but it's a minor issue and can
-be updated later, too.
+--3p2xpiMr+J6zdqeh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+On Thu, Nov 18, 2021 at 02:32:07PM +0100, Takashi Iwai wrote:
+> Sameer Pujar wrote:
 
+> > +	old_mask =3D (value >> TEGRA210_MVC_MUTE_SHIFT) & TEGRA210_MUTE_MASK_=
+EN;
+> > +	new_mask =3D ucontrol->value.integer.value[0];
+> > +
+> > +	if (new_mask =3D=3D old_mask) {
+> > +		err =3D 0;
+> > +		goto end;
+> > +	}
+> > =20
+> >  	err =3D regmap_update_bits(mvc->regmap, mc->reg,
+> >  				 TEGRA210_MVC_MUTE_MASK,
+> > -				 mute_mask << TEGRA210_MVC_MUTE_SHIFT);
+> > +				 new_mask << TEGRA210_MVC_MUTE_SHIFT);
 
-thanks,
+> I guess this test-and-update procedure can be simplified with
+> regmap_update_bits_check().
 
-Takashi
+Yes, this is exactly the application that _update_bits_check() was
+written for.
+
+--3p2xpiMr+J6zdqeh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGWWf0ACgkQJNaLcl1U
+h9D8jAf7BVgrmUDkAqGQIkedLOdK24v1N/Gp53lTao7cwUgUy+beBW3YsQU0w7Bg
+r1BcXrjWpusKLTBgo6Y/8mr2bzktqToKmlne3trxVUS/EWSGWWq4JINEw8SajpqT
+GcSmqwJ6BpF3giLyFPUTE7jJBGsv19qEohP3OUrW7Kph1GP+pm+LV/epWBmHamwN
+XVTyPHxk0bmxtsOXOTHi3+14iD0CwpyO8AWsxFxx70ZKjtL89v5IthEZzy98ZQV7
+4uZyh/GXN97rNizvH5k1DCjwnfyAUxvkP8L2ksIQ00RRfqDv2TmBujw1AetHsJ+g
+j3GyV0p/jUwFxXiSZ8t2+Vho2oUucg==
+=u/ik
+-----END PGP SIGNATURE-----
+
+--3p2xpiMr+J6zdqeh--

@@ -2,71 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C54B458608
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Nov 2021 20:02:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 212AF45898E
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Nov 2021 08:03:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECCD71697;
-	Sun, 21 Nov 2021 20:01:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECCD71697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 577011693;
+	Mon, 22 Nov 2021 08:02:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 577011693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637521338;
-	bh=AyM2tYdgliO5izaM1KRne8DJGtyBDFGw5pk9sm/GLfc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=S5dfxNKEdQjpoaQ7zj304QPYh7Mqx/ArkeSi6CjZG+tSnynCz/HZ9TEgtedhZlN+m
-	 5GkYKmBmf49umRW5Isl2JMbPSYYP1SyTMpBE91tW3XwCRHTVDXi93U7oKxwjc+xO3a
-	 xzkac41/1LUzBsfHsYF4+tXPeJ/WCo+vhoYbf4ZY=
+	s=default; t=1637564590;
+	bh=EfUXEEINLQszA870ynwuSZ2Lf08STwo891yLHWgYUFU=;
+	h=Date:To:From:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TFQUMNeMpORjST65xIqxFO9qaMHXsift1Y0DPKsTBiOQREnQjrA4cRzqzuL5xkrdE
+	 9vv7NkGSI371lPcJFlUXDbdAapYPj+epeWVo+sKCIcJ8R4jIWqLidH8OZvtg/NyfI+
+	 Z+SvKCo7X/XbeH0iYT+m8rcKTg+3o4x3zKRKbw5E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59C9CF804AB;
-	Sun, 21 Nov 2021 20:00:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BED95F80245;
+	Mon, 22 Nov 2021 08:01:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC598F8049E; Sun, 21 Nov 2021 20:00:55 +0100 (CET)
+ id C5DEEF80272; Thu, 18 Nov 2021 21:33:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.7 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
+ DKIM_INVALID,DKIM_SIGNED,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ NML_ADSP_CUSTOM_MED,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7DCF7F80115
- for <alsa-devel@alsa-project.org>; Sun, 21 Nov 2021 20:00:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DCF7F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3C6DF8010B
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 21:33:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3C6DF8010B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VcpoFgZH"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 74E17604DC;
- Sun, 21 Nov 2021 19:00:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637521241;
- bh=AyM2tYdgliO5izaM1KRne8DJGtyBDFGw5pk9sm/GLfc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=VcpoFgZHaslhaAqgaT3u5UsOYi2/wgWJwoBvKO+Hx9vI9aKH/szI/9ui24QFQdpiF
- dAMOBmN+/nEYxVrbsqYY/uQM6qjmi+HHTbW8JCb0Dyc82S/DA16leHV2ItHYWY1Spg
- UvP4uBMZMv8DtYfZGf/a9jqU04e6MVZ5d9bfdtFiDoDNfqb1/XoO/123g8yu0XeZh2
- UsEFn3+6kCUaEtMAFnFnYYwH2pXCDDrHrmeWYggyLa+96YC8S6MlCAihgOaeHOTwaO
- Qy8JsVuj31acGopTMbzoirLaLJFi9QQFIWiWSlCe8kummhgRUUtpcFmwmijA+sDG/w
- V+vLCGVoYLUcg==
-Date: Sun, 21 Nov 2021 19:00:35 +0000
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Bard Liao
- <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 3/5] ASoC: Intel: add machine driver for SOF+ES8336
-Message-ID: <20211121190035.2a5e3ad7@sal.lan>
-In-Reply-To: <20211004213512.220836-4-pierre-louis.bossart@linux.intel.com>
-References: <20211004213512.220836-1-pierre-louis.bossart@linux.intel.com>
- <20211004213512.220836-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-redhat-linux-gnu)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ZLNhm57p"
+Received: by mail-wr1-x435.google.com with SMTP id d24so14000479wra.0
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 12:33:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:content-language:to:cc:from
+ :subject:content-transfer-encoding;
+ bh=EfUXEEINLQszA870ynwuSZ2Lf08STwo891yLHWgYUFU=;
+ b=ZLNhm57pDYSN7nVaLatlLr2zlOUpHpXpfKGPhdjPkkzON7XqldHyxk+N5KmsfbJEqZ
+ SGhXVXn5maQFYFQwNk+A0c5r3jh10fvLtq9k91rIhBQAvKUKd0TXb/MwlTZLlVSs5UF/
+ rDqOqIVlmrkiKxj+910yklIJtBmd/mG//3xVGDv6CtnSWyg/gqbdrRSxnN+Izq9Z2v3b
+ SXrf3aizAvESZGW2n1P8+RZ7TVFTdWU4Zg+6nU/ZEBlf/qfrt9fQ8R3FkYwe1HjhW3Fq
+ wtVYlAtA4nS45/6nz1S7z3lczlqVqWqtzTu1/RozFlYWlgPFYpSU0kvVmxq3qJIe9wWD
+ vKOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent
+ :content-language:to:cc:from:subject:content-transfer-encoding;
+ bh=EfUXEEINLQszA870ynwuSZ2Lf08STwo891yLHWgYUFU=;
+ b=UBLjQHPYnDDqI8ffN30UHYX/wElbSkj3YUBk6wgGLDN7BWtjGooOwc+MC7Q4URh3d0
+ nI6DB/z0noLJM3kZqm4P2CFQQDyN07Ho5LjzSpDF40ZQ8OERMZTTfCkTApiJxqonz0Hw
+ rJBjUT3qw0i+aDdVB4SZbCFyjThaf9TZ3H8eDJxhoVfdhePa/JmNmZt7xy7nowrf9w1A
+ GBLtrc8Nb8yI8k3xYx8rTU3H9WQWkyfwARFPAhB+XORzgQKK5R6O5eKLHOEcl7+0u27H
+ R6g7Kv2bGGB66GfFH3YVoJOB+Y9iKabDE19RiaLtRRbRgIZO94iB7Eq+b1K0fBM6slGC
+ TfdQ==
+X-Gm-Message-State: AOAM5332K+kuH+XjYwEXixdcNjVnC+N78nifL8VSqIUjouYHk+Pd8WRF
+ Nb5yc/ccO/VTcLwRcZM2nR9L0Hf+K0Q=
+X-Google-Smtp-Source: ABdhPJx1RGAefCdS9K6lVb3q1I66YXizjFffTzMiRHrhdzWFAr+JOb+sV3Bz6gJSA5IU0+MMTrI9OA==
+X-Received: by 2002:adf:ce08:: with SMTP id p8mr390887wrn.154.1637267620349;
+ Thu, 18 Nov 2021 12:33:40 -0800 (PST)
+Received: from ?IPV6:2003:ea:8f1a:f00:fc8d:4de8:c1d1:9213?
+ (p200300ea8f1a0f00fc8d4de8c1d19213.dip0.t-ipconnect.de.
+ [2003:ea:8f1a:f00:fc8d:4de8:c1d1:9213])
+ by smtp.googlemail.com with ESMTPSA id o12sm858270wmq.12.2021.11.18.12.33.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Nov 2021 12:33:39 -0800 (PST)
+Message-ID: <d9d76980-966a-e031-70d1-3254ba5be5eb@gmail.com>
+Date: Thu, 18 Nov 2021 21:33:34 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
+From: Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Warning due to "ALSA: hda: intel: More comprehensive PM runtime setup
+ for controller driver"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- Huajun Li <huajun.li@intel.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-Mailman-Approved-At: Mon, 22 Nov 2021 08:01:48 +0100
+Cc: alsa-devel@alsa-project.org, Linux PM <linux-pm@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,118 +103,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+I get the following warning caused by 4f66a9ef37d3 ("ALSA: hda: intel: More
+comprehensive PM runtime setup for controller driver"):
 
-Em Mon,  4 Oct 2021 16:35:10 -0500
-Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> escreveu:
+snd_hda_intel 0000:00:1f.3: Unbalanced pm_runtime_enable!
 
-> Add machine driver to support APL/GLK/TGL platforms.
-> The TGL platform supports DMIC, APL and GLK do not.
+Not sure how this patch was tested because the warning is obvious.
+The patch doesn't consider what the PCI sub-system does with regard to
+RPM. Have a look at pci_pm_init().
 
-I just bought a Comet Lake notebook with ES8336, but I'm having a hard
-time to make audio work on it.
+I'd understand to add the call to pm_runtime_dont_use_autosuspend(),
+but for all other added calls I see no justification.
 
-some info about the system from dmidecode:
-
-    BIOS Information
-	Vendor: HUAWEI
-	Version: 1.35
-	Release Date: 06/23/2021
-    System Information
-        Manufacturer: HUAWEI
-        Product Name: BOHB-WAX9
-        Version: M1110
-    Base Board Information
-        Manufacturer: HUAWEI
-        Product Name: BOHB-WAX9-PCB-B2
-        Version: M1110
-
-Some relevant data from DSDT:
-
-	 * Original Table Header:
-	 *     Signature        "DSDT"
-	 *     Length           0x00033D35 (212277)
-	 *     Revision         0x02
-	 *     Checksum         0x38
-	 *     OEM ID           "HUAWEI"
-	 *     OEM Table ID     "CML-ULT"
-	 *     OEM Revision     0x00000002 (2)
-	 *     Compiler ID      "    "
-	 *     Compiler Version 0x01000013 (16777235)
-
-        Device (ESSX)
-        {
-            Name (_ADR, Zero)  // _ADR: Address
-            Name (_HID, "ESSX8336")  // _HID: Hardware ID
-            Name (_CID, "ESSX8336")  // _CID: Compatible ID
-            Name (_DDN, "ES8336")  // _DDN: DOS Device Name
-            Name (_UID, One)  // _UID: Unique ID
-            Name (SBUF, ResourceTemplate ()
-            {
-                I2cSerialBusV2 (0x0010, ControllerInitiated, 0x00061A80,
-                    AddressingMode7Bit, "\\_SB.PCI0.I2C1",
-                    0x00, ResourceConsumer, , Exclusive,
-                    )
-                GpioIo (Exclusive, PullDefault, 0x0000, 0x0000, IoRestrictionOutputOnly,
-                    "\\_SB.PCI0.GPI0", 0x00, ResourceConsumer, ,
-                    )
-                    {   // Pin list
-                        0x0000
-                    }
-                GpioIo (Exclusive, PullDefault, 0x0000, 0x0000, IoRestrictionOutputOnly,
-                    "\\_SB.PCI0.GPI0", 0x00, ResourceConsumer, ,
-                    )
-                    {   // Pin list
-                        0x0000
-                    }
-                GpioInt (Edge, ActiveHigh, ExclusiveAndWake, PullDefault, 0x0000,
-                    "\\_SB.PCI0.GPI0", 0x00, ResourceConsumer, ,
-                    )
-                    {   // Pin list
-                        0x0000
-                    }
-            })
-
-
-lpci output:
-
-    00:1f.3 Multimedia audio controller [0401]: Intel Corporation Comet Lake PCH-LP cAVS [8086:02c8]
-	Subsystem: QUANTA Computer Inc Device [152d:125d]
-	Flags: bus master, fast devsel, latency 32, IRQ 149
-	Memory at b121c000 (64-bit, non-prefetchable) [size=16K]
-	Memory at b1000000 (64-bit, non-prefetchable) [size=1M]
-	Capabilities: [50] Power Management version 3
-	Capabilities: [80] Vendor Specific Information: Len=14 <?>
-	Capabilities: [60] MSI: Enable+ Count=1/1 Maskable- 64bit+
-	Kernel driver in use: sof-audio-pci-intel-cnl
-	Kernel modules: snd_hda_intel, snd_soc_skl, snd_sof_pci_intel_cnl
-
-So far I was unable to make speaker/mic to work on it on none of the
-tree modes (SOF, SST, legacy). With SST, nothing is recognized.
-With legacy mode, only HDMI works. With SOF, it says sound is disabled.
-
-On SOF mode, sof-essx8336 doesn't load (it loads instead snd_soc_es8316).
-While I never played with SOF, I suspect that it is because there's 
-no entry for ES8336 at soc-acpi-intel-cml-match.c nor there are any 
-firmwares for CML available at upstream sof-bin tree.
-
-Also, it currently complains about different firmware ABIs:
-
-[    9.547277] sof-audio-pci-intel-cnl 0000:00:1f.3: Firmware info: version 1:9:0-fa857
-[    9.547313] sof-audio-pci-intel-cnl 0000:00:1f.3: Firmware: ABI 3:19:0 Kernel ABI 3:18:0
-[    9.547316] sof-audio-pci-intel-cnl 0000:00:1f.3: warn: FW ABI is more recent than kernel
-[    9.577525] sof-audio-pci-intel-cnl 0000:00:1f.3: Topology: ABI 3:19:0 Kernel ABI 3:18:0
-[    9.577536] sof-audio-pci-intel-cnl 0000:00:1f.3: warn: topology ABI is more recent than kernel
-[    9.617573] input: sof-hda-dsp HDMI/DP,pcm=1 as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input14
-[    9.622472] input: sof-hda-dsp HDMI/DP,pcm=2 as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input15
-[    9.623151] input: sof-hda-dsp HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input16
-
-Any tips to make it start producing some sound?
-
-More details at:
-	https://alsa-project.org/db/?f=29b323d31ab516c5683356f5af56a2a631085bf9
-
-PS.: Tests were done against next-20211118.
-
-Thanks!
-Mauro
+If being unsure about when to use which RPM call best involve
+linux-pm@vger.kernel.org.

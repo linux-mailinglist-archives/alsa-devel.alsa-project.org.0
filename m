@@ -2,68 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 696674554C1
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 07:23:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 075744554EA
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 07:52:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5E0118B2;
-	Thu, 18 Nov 2021 07:22:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5E0118B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8800218AD;
+	Thu, 18 Nov 2021 07:51:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8800218AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637216612;
-	bh=ETdg/kHQIIdnA6Apr3tNx/zGzy58bfAyeLlGOhcC874=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=L9hk/Z0tQrretvb/PfwdOvlnhJsSaX4aQFb8l0QLbjZIiXt8bLVodmA5SP5HxdeUg
-	 eyjmJNfpleP0SzZRquWhKEZ+EC/hxD9J2FzSVwZL/QcRdX3aqDJqPTIAcnASV4Va+i
-	 sZEenE8eqoMU5SlbYAJifp0MZye7Hz3SuIwwQMsI=
+	s=default; t=1637218346;
+	bh=vXU1PQ80nAgAOCHyUEXJNbSkp77ba35D44eiJtwXCYc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VXWuOTc4MsOoVulKVB2Iny329ziqYG4YpYar3hij/k3gm0xUbafWTOhBbkrkt84aF
+	 5cVHMVK8r1ULeYk+1bsnAE3O5PEvXUHEgRbrs+7IvwdhcgZx6W/zJI/sWomPcw5bZv
+	 L2QlcwcG3SuxBH0JOYhKHj021NPb/seSDadjC2pQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48A22F8026D;
-	Thu, 18 Nov 2021 07:22:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED27FF8010B;
+	Thu, 18 Nov 2021 07:51:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A681F80115; Thu, 18 Nov 2021 07:22:11 +0100 (CET)
+ id 1CF1BF80272; Thu, 18 Nov 2021 07:51:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2720DF80115
- for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 07:22:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2720DF80115
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="PvpSdbtQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=q9zYad4IkVx8WQ5GILNcaiEsJwNxxgcbDaRqT7OPn10=; b=PvpSdbtQw9PNk+TIuIy4KalS3p
- 6kF6M10JOGUqUXOKvozEyDzDlLuQfrFZdOkJfDWZB59TzVxWfrdAgoqN3Qbh+z0Gk0TaUcGyELDEX
- xE/NhkZnw/W1eAZIYxG7jFz4E4wEvlUKG84OBjlhqiLhFJ/UYjOmDkQq7qQhbuIL1suWB3qP+tlYJ
- 5q7IEZ0Tnob+d8r6HTcAr1/C73Yl/Z7b/4SteTmbchEEd4jZrndGlBNIpkk/izsbqsET6ET0MclRS
- NCYib63P1yp8KLqmj5VQZFoS88njTBL2zEB9FpxZfngOqOxvsY8UGlHVtadx/fnusssXw+syj4I89
- c0eB8Qmw==;
-Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1mnanr-006yRc-3n; Thu, 18 Nov 2021 06:21:47 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH] sound/oss/dmasound: fix build when some drivers are =m and
- others are =y
-Date: Wed, 17 Nov 2021 22:21:46 -0800
-Message-Id: <20211118062146.11850-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.31.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6509FF8010B
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 07:50:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6509FF8010B
+Received: from mail-wm1-f54.google.com ([209.85.128.54]) by
+ mrelayeu.kundenserver.de (mreue108 [213.165.67.113]) with ESMTPSA (Nemesis)
+ id 1MVvGt-1nCVyW04t3-00Rssb for <alsa-devel@alsa-project.org>; Thu, 18 Nov
+ 2021 07:50:57 +0100
+Received: by mail-wm1-f54.google.com with SMTP id
+ z1-20020a05600c220100b00337f97d2464so5098301wml.1
+ for <alsa-devel@alsa-project.org>; Wed, 17 Nov 2021 22:50:56 -0800 (PST)
+X-Gm-Message-State: AOAM530cdvliw17WG94BdIwAKX5tWd8IOAv+EwapfSqGnZg8UdKoHiX6
+ ug2dQhrB54cBLzVnmCneboPkTAF0R6O/2kDZB9c=
+X-Google-Smtp-Source: ABdhPJyHvxob/UuoSUzAd4c5/hOqO7PUFiJTJfkYO0PtcEpImuf2l7+kFCPvNXXbbQ5QdTISxt9uzKaFtJ1GvZoteGU=
+X-Received: by 2002:a7b:c050:: with SMTP id u16mr7168120wmc.82.1637218256583; 
+ Wed, 17 Nov 2021 22:50:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- Arnd Bergmann <arnd@arndb.de>, Randy Dunlap <rdunlap@infradead.org>,
+References: <20211118062146.11850-1-rdunlap@infradead.org>
+In-Reply-To: <20211118062146.11850-1-rdunlap@infradead.org>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Thu, 18 Nov 2021 07:50:40 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a1s_toN_J=M8gxcVrtEazZ+Mu9UYbKMVkG3MzDLSCEOfQ@mail.gmail.com>
+Message-ID: <CAK8P3a1s_toN_J=M8gxcVrtEazZ+Mu9UYbKMVkG3MzDLSCEOfQ@mail.gmail.com>
+Subject: Re: [PATCH] sound/oss/dmasound: fix build when some drivers are =m
+ and others are =y
+To: Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:OfcrCWVVbbDLi0jWR13Akwg0vTIRH+XMKlV8ZHlEeZzEPvhSGPm
+ ixTByzu2WLHoc5CmL3oT+MlfBaj3U8jmwfyYS+AAskixP60fRAOyYWI5fcyLdgR71j7FdpL
+ IW7p4/BahIz8VP7Kc3t7lGVyKVelnnLK4ViRbyxSjYyWGwLi9CRdI/fKM32ZdH+2Gg9mGsl
+ zMEHva0hsV/u1M+edVjqw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Ed8qrQOmsrg=:TNZflNm7gMt9vIU3aLn5Wp
+ IYLxrPvV/ys5J+PXV9LytGdLVPgFQPaQOleA8c2j9DFvWvyVRQIm2Zzfli3qmGhDT+dCvr+j2
+ Abnj92gWeWT9exLqXNDxDLdPKrhYj6TFH66GwTVLwxG5XJYYb3xdc4/qhXtnBIgj3umcjXV0O
+ KDAf/ArxutW5n+e3WnYnofYveJt6VnC1rT9ziuC4xQJzgWzVi+2ZwaNW3NvvA+At4zp5R3wTy
+ mC0fj1SSwsY03PeGleUYfJjEHUWBrxhYGWErwiyWrrn/5FZqRE3uOJ8TNeAqzpLIkGaYEcY7S
+ kGnOmcFfKSPcp2AqlBchc0eKmuwcQTH6OuizvFoDfpjqihMO0G9f7/6ccyUt3eIUNjkq4rlix
+ 4Pz1S1WQHIJ/87SWZp3nN6hiaUO0DS2aCV+yTNDvtZHvBhkIKN/XrDo2EXTUPC/o2cu+8TqtP
+ PKJTFirrIL/5Lj7bttVnr4h9wWMMaCTV79R2JP8uyg/iEcYPjXTjv0mZhFq+tTF1OVn2vtzIa
+ nt+YQqJu2Wl1TnyXDwsxmciyYGE799y5xHeDz4S+nsa9Ic5ihTOl54wNADsWXXAAnKC1pAA+B
+ 88/qwfuONNFei96NJRxr4Yh/RSMbvlxsuNPzS4mgL80ml1opF79VLuEd+sv+VulOUXyYVAEmt
+ icDMCD3FJgVg1gyfpv7s0oBbtSLrMjbWCJ+Tdp5P5OJbGeCbN+ZCZEOeNaLCuco7k2aTXP52q
+ uN/CUlrEZXfShG/Q61DjtOTbo19frI4NJJApu0FsJqRx5OII+p+0FAMp10FX/Z56m7+aOg/HB
+ otpWtYK5CxeM5t9vlBzS3oeS5Beey7QJHeK2F5/z8GA06+gg8k=
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ kernel test robot <lkp@intel.com>, Arnd Bergmann <arnd@arndb.de>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Geert Uytterhoeven <geert@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -80,100 +95,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When CONFIG_DMASOUND_ATARI=y and CONFIG_DMASOUND_Q40=m,
-dmasound_atari.o is built first (listed first in the Makefile),
-so dmasound_core.o is built as builtin, not for use by loadable
-modules. Then dmasound_q40.o is built and linked with the
-already-built dmasound_core.o, but the latter does not support
-use by loadable modules. This causes the missing symbol to be
-undefined.
+On Thu, Nov 18, 2021 at 7:21 AM Randy Dunlap <rdunlap@infradead.org> wrote:
+>
+> When CONFIG_DMASOUND_ATARI=y and CONFIG_DMASOUND_Q40=m,
+> dmasound_atari.o is built first (listed first in the Makefile),
+> so dmasound_core.o is built as builtin, not for use by loadable
+> modules. Then dmasound_q40.o is built and linked with the
+> already-built dmasound_core.o, but the latter does not support
+> use by loadable modules. This causes the missing symbol to be
+> undefined.
+>
+> Fixes this build error:
+> ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_q40.ko] undefined!
 
-Fixes this build error:
-ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_q40.ko] undefined!
+I suspect your patch now breaks the case where multiple drivers are
+built-in, because that puts the same global symbols into vmlinux more
+than once.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2") # "forever"
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
----
-There may be some Makefile solution to this but I don't know what
-it is. I didn't want to spend lots of time on these old drivers.
+> -EXPORT_SYMBOL(dmasound);
+> -EXPORT_SYMBOL(dmasound_init);
+> -#ifdef MODULE
+> -EXPORT_SYMBOL(dmasound_deinit);
+> -#endif
 
- sound/oss/dmasound/Makefile         |    6 +++---
- sound/oss/dmasound/dmasound_atari.c |    2 +-
- sound/oss/dmasound/dmasound_core.c  |   16 ----------------
- sound/oss/dmasound/dmasound_paula.c |    2 +-
- sound/oss/dmasound/dmasound_q40.c   |    2 +-
- 5 files changed, 6 insertions(+), 22 deletions(-)
+From a very brief look, I would think that removing this #ifdef and
+unconditionally defining dmasound_deinit is the correct solution
+here, to solve the case of the core driver being built-in but called
+from a loadable module, the Makefile logic is otherwise correct.
 
---- linux-next-20211117.orig/sound/oss/dmasound/dmasound_atari.c
-+++ linux-next-20211117/sound/oss/dmasound/dmasound_atari.c
-@@ -27,7 +27,7 @@
- #include <asm/atariints.h>
- #include <asm/atari_stram.h>
- 
--#include "dmasound.h"
-+#include "dmasound_core.c"
- 
- #define DMASOUND_ATARI_REVISION 0
- #define DMASOUND_ATARI_EDITION 3
---- linux-next-20211117.orig/sound/oss/dmasound/dmasound_paula.c
-+++ linux-next-20211117/sound/oss/dmasound/dmasound_paula.c
-@@ -30,7 +30,7 @@
- #include <asm/amigaints.h>
- #include <asm/machdep.h>
- 
--#include "dmasound.h"
-+#include "dmasound_core.c"
- 
- #define DMASOUND_PAULA_REVISION 0
- #define DMASOUND_PAULA_EDITION 4
---- linux-next-20211117.orig/sound/oss/dmasound/dmasound_q40.c
-+++ linux-next-20211117/sound/oss/dmasound/dmasound_q40.c
-@@ -25,7 +25,7 @@
- #include <asm/q40ints.h>
- #include <asm/q40_master.h>
- 
--#include "dmasound.h"
-+#include "dmasound_core.c"
- 
- #define DMASOUND_Q40_REVISION 0
- #define DMASOUND_Q40_EDITION 3
---- linux-next-20211117.orig/sound/oss/dmasound/Makefile
-+++ linux-next-20211117/sound/oss/dmasound/Makefile
-@@ -3,6 +3,6 @@
- # Makefile for the DMA sound driver
- #
- 
--obj-$(CONFIG_DMASOUND_ATARI)	+= dmasound_core.o dmasound_atari.o
--obj-$(CONFIG_DMASOUND_PAULA)	+= dmasound_core.o dmasound_paula.o
--obj-$(CONFIG_DMASOUND_Q40)	+= dmasound_core.o dmasound_q40.o
-+obj-$(CONFIG_DMASOUND_ATARI)	+= dmasound_atari.o
-+obj-$(CONFIG_DMASOUND_PAULA)	+= dmasound_paula.o
-+obj-$(CONFIG_DMASOUND_Q40)	+= dmasound_q40.o
---- linux-next-20211117.orig/sound/oss/dmasound/dmasound_core.c
-+++ linux-next-20211117/sound/oss/dmasound/dmasound_core.c
-@@ -1570,19 +1570,3 @@ char dmasound_alaw2dma8[] = {
- 	3,	3,	3,	3,	3,	3,	3,	3
- };
- #endif /* HAS_8BIT_TABLES */
--
--    /*
--     *  Visible symbols for modules
--     */
--
--EXPORT_SYMBOL(dmasound);
--EXPORT_SYMBOL(dmasound_init);
--#ifdef MODULE
--EXPORT_SYMBOL(dmasound_deinit);
--#endif
--EXPORT_SYMBOL(dmasound_write_sq);
--EXPORT_SYMBOL(dmasound_catchRadius);
--#ifdef HAS_8BIT_TABLES
--EXPORT_SYMBOL(dmasound_ulaw2dma8);
--EXPORT_SYMBOL(dmasound_alaw2dma8);
--#endif
+         Arnd

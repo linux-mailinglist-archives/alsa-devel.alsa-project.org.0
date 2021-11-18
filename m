@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CCF6455828
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 10:36:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A2DD455840
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Nov 2021 10:49:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FDCA1899;
-	Thu, 18 Nov 2021 10:35:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FDCA1899
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBDE516C5;
+	Thu, 18 Nov 2021 10:48:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBDE516C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637228183;
-	bh=92vh7Ej4XtGP8qz6NkuObXUCtApJvg5jqTF7QV2scFw=;
+	s=default; t=1637228989;
+	bh=yZtWnV2AZaTtP7W31ku5iWN+RjlPIjMELYCK0vwIHbQ=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vn+cD61+c5A6mTa5tq+fDoKhrOTyhUlv8RW2jppIN7zUw1+MPW8BBLII+3O/5slCa
-	 8WCXtEfF1zT70QctU8263rrHeMAdetgkDhkGKjy6ZyXy5h6rClWSda9IuyKhk/u25T
-	 6+ZwnZzs6mI9Dy27TIw9nC4CqUBfSKYqzw+qd1sY=
+	b=ilL2agbeRharpNNdov0PPNJDU0D6GtlmiglGSFnJxJNJ9BoVh/caPVIAEZAOoKfmj
+	 PIqBKJNlZHJk0yBHZH3eUwp5iB5dhSxLwkiLuXPKsPmgcZyJ6FjFHjpovULRLf+SD6
+	 1GHCNru2sCqqwWyFAVszND0VmWpdU13hjl6C3ruU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E407F8010B;
-	Thu, 18 Nov 2021 10:35:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46F1AF8026D;
+	Thu, 18 Nov 2021 10:48:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 759D6F80272; Thu, 18 Nov 2021 10:35:01 +0100 (CET)
+ id E8D05F80272; Thu, 18 Nov 2021 10:48:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
  DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FROM,NML_ADSP_CUSTOM_MED,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 443ADF800FA
- for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 10:34:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 443ADF800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24035F800FA
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 10:48:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24035F800FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="CiErSrtG"
-Received: by mail-wm1-x329.google.com with SMTP id p18so4660952wmq.5
- for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 01:34:51 -0800 (PST)
+ header.b="HZWqpB6k"
+Received: by mail-wr1-x429.google.com with SMTP id d27so10320334wrb.6
+ for <alsa-devel@alsa-project.org>; Thu, 18 Nov 2021 01:48:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=D2DiSr4GR4f0kjFqr84VgVUga2wtQ7vPvvBID6YBxB0=;
- b=CiErSrtGCWUEyZLfMvqTPhoO+PVvYr8F4A/5/etcwClx83yVS+uPMJHMAV81hFpwuL
- ijJni+mNbJahK2jRN4xnBWN4RDUl03g5k3nH81jW+Bi8+N+mZcdxgjBQw6ggUb5/Lv+T
- 25/OlDXEoVqx+yw1VvwE1F6vhzIew79cm+7RpMypbiXuB91wHPxhurB5VblAa8iz0yBZ
- IEi6YXy2yKHdrHNXqrB6GADYDqg3tqovdTywZD5Be7MGQ8iC05jQKTj7UPC8wAxUGJ7p
- 49GezO1MH3RV148uGhPaQZcUy30h5v8dOsxT/JT3vV8g/MHDIzuwS8hcP423hBk7FE46
- El2Q==
+ :cc; bh=yZtWnV2AZaTtP7W31ku5iWN+RjlPIjMELYCK0vwIHbQ=;
+ b=HZWqpB6kFbD+fz5zJokWz51ktHZPeZ7IeIpoCZ407WXMnXPc7wpkgf+Fbv9QgTn6Ms
+ zaUZ2kCSuHX+PXyxJ8dDdCRoimWUriQbmsnvAMe8QZCGwH0c4d278pCrnUZ5f8tsU/5I
+ K8EscoS8cxrF+j2+pDpkuJmKFJcltxwSG0FqdaX8UPT8KbzpMVXFP3typfVGtKwE3mNt
+ ev3kxzF68C3cu0rrv5PDC4hIv7sAtGyWETSaSp6HytSy4bwOEx1PLDlS37Frz4R/xiAS
+ KkPr+jAoGY+32/8M3QqiSnfQZ1tXBBcVCQWy8h1TRgMUJYYgcaygaBu7fzvOEX6yU9l4
+ w2/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=D2DiSr4GR4f0kjFqr84VgVUga2wtQ7vPvvBID6YBxB0=;
- b=7j2eb7k03FvgGcUWK2ZR8FftBH1YRvexnZojbfXn4qTUJaA0akTGDnK1SCakYZpJzX
- m8r66IrPBx8ZwC6idfpj17pZAgczJf6A0wCctCAUA5XXM8nDYzjzbB3fmp67HVS1GwEZ
- cwfLyO43pzg38wgkWYbyoXojKshtMBjcaMSBFMFZauYQg4vtBNP4t2RaNNlphAThH8Ie
- JL4IBMZYPCWG31P4+rtqmWYEWyEV4DqrmIS/26LNv7Os3tJ7CLEGc9pBKbRDI7QlCdwC
- v1R0SRJk2rbCsxdssWYuGX8HN+Bd0WugOjf4rxRVaOUiGQBJ4hEOSZPPawAZP9DLY/sJ
- +YYQ==
-X-Gm-Message-State: AOAM532yPzqFdgTVdYYVtoW8DMV708PFalWIScqZYA93TYwF+WWMGyWU
- l8JpA1Jd9B8sQLpkJsAovAZZs5KdInmD9PV13H8=
-X-Google-Smtp-Source: ABdhPJxAyZQQg4jwIc6CPnTIVq1jJ9tsO++0Yd/XdFFaJWYGlAjIir88iOm9kpfeZWiCt8G3ActVocgcY5UV2vySexI=
-X-Received: by 2002:a05:600c:500a:: with SMTP id
- n10mr8907382wmr.136.1637228091333; 
- Thu, 18 Nov 2021 01:34:51 -0800 (PST)
+ bh=yZtWnV2AZaTtP7W31ku5iWN+RjlPIjMELYCK0vwIHbQ=;
+ b=mfwS1qX1ND4/i4ZrqPrFcbWhudGXWizPlM+ocYs0aVs3D2JN2hbCRzdtgrB/jRhy2G
+ OPteK5qMP2fImbzdijeunLx9B53rnM+wvjMmfFZ/p+o4SYuIlWkn5Gq9FJNJUJ4vf83M
+ tSzFIuctF8Ds4lQqjtrahfzn905GhcOuTGlVjxhrD2XrD4Va3x455rgFdh9J1cuNwKjs
+ oN0btCJG8cefIdLj9T60AVesI2yUynVaqKk4b2MFpQYYuYh54M8BtUY13nDxTfMstGcg
+ Qd0v+wq365VAFI1GO1spNpMDUg2v4Uhmw6hI17pVkh+kHAJom7MIPKMM8+fvgX3qQfk8
+ abiQ==
+X-Gm-Message-State: AOAM533KMiOQZmRkLFmPDHw4J010dEZzqB8K24TvPSsAJU6PZULkso9S
+ dCmmFLofnM8kt1mZmTqJP4uWpjrxn6DwLEXfeB0=
+X-Google-Smtp-Source: ABdhPJxiBmKacSHCnqardmw88c4Q0OW5/V3fLQzY75pI9koggT83OYbb35ZfIORvxITUz582p+Dl+EQo408sLfo+RiY=
+X-Received: by 2002:a5d:598c:: with SMTP id n12mr28836702wri.250.1637228903193; 
+ Thu, 18 Nov 2021 01:48:23 -0800 (PST)
 MIME-Version: 1.0
 References: <20211117093734.17407-1-daniel.baluta@oss.nxp.com>
  <20211117093734.17407-17-daniel.baluta@oss.nxp.com>
  <YZU75B2JHbYHy40l@sirena.org.uk>
  <e918b4c4-dc85-dcf5-2781-5edfcd1bf1a5@nxp.com>
-In-Reply-To: <e918b4c4-dc85-dcf5-2781-5edfcd1bf1a5@nxp.com>
+ <CAEnQRZBCc4bhX-sT43KT6Tb-=RK=J9poxRvEM_H=1oXh0_AsPA@mail.gmail.com>
+In-Reply-To: <CAEnQRZBCc4bhX-sT43KT6Tb-=RK=J9poxRvEM_H=1oXh0_AsPA@mail.gmail.com>
 From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Thu, 18 Nov 2021 11:34:38 +0200
-Message-ID: <CAEnQRZBCc4bhX-sT43KT6Tb-=RK=J9poxRvEM_H=1oXh0_AsPA@mail.gmail.com>
+Date: Thu, 18 Nov 2021 11:48:11 +0200
+Message-ID: <CAEnQRZAgRW-VRGOsKninEV29NJJH4GjoaOaEAEYbHFqtM3PiHQ@mail.gmail.com>
 Subject: Re: [PATCH 16/21] ASoC: SOF: topology: Add support for Mediatek AFE
  DAI
 To: Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>
@@ -110,44 +110,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+On Thu, Nov 18, 2021 at 11:34 AM Daniel Baluta <daniel.baluta@gmail.com> wrote:
+>
+> Hi Mark,
+>
+> I noticed that you already applied this. Should I resend the entire
+> series or just a fixup?
 
-I noticed that you already applied this. Should I resend the entire
-series or just a fixup?
+Later edit: All good. You applied only the AMD patches. Sorry for the noise.
 
-On Wed, Nov 17, 2021 at 7:32 PM Daniel Baluta <daniel.baluta@nxp.com> wrote:
->
->
-> On 11/17/21 7:29 PM, Mark Brown wrote:
-> > On Wed, Nov 17, 2021 at 11:37:29AM +0200, Daniel Baluta wrote:
-> >> From: YC Hung <yc.hung@mediatek.com>
-> >>
-> >> Add new sof dai and config to pass topology file configuration
-> >> to SOF firmware running on Mediatek platform DSP core.
-> >> Add mediatek audio front end(AFE) to the list of supported sof_dais
-> > This breaks an x86 allmodconfig build:
-> >
-> > /mnt/kernel/sound/soc/sof/mediatek/mt8195/mt8195.c: In function 'mt8195_run':
-> > /mnt/kernel/sound/soc/sof/mediatek/mt8195/mt8195.c:207:2: error: implicit declaration of function 'sof_hifixdsp_boot_sequence' [-Werror=implicit-function-declaration]
-> >    207 |  sof_hifixdsp_boot_sequence(sdev, adsp_bootup_addr);
-> >        |  ^~~~~~~~~~~~~~~~~~~~~~~~~~
-> > At top level:
-> > /mnt/kernel/sound/soc/sof/mediatek/mt8195/mt8195.c:201:12: error: 'mt8195_run' defined but not used [-Werror=unused-function]
-> >    201 | static int mt8195_run(struct snd_sof_dev *sdev)
-> >        |            ^~~~~~~~~~
-> > cc1: all warnings being treated as errors
-> >
-> > _boot_sequence is added in "ASoC: SOF: mediatek: Add fw loader and
-> > mt8195 dsp ops to load firmware" which is later in the series.
-> >
-> > mt8195_run should be either global, a static inline or not declared in
-> > the header at all.
->
->
-> YC,
->
-> Please send a fix for this on top of topic/sof-dev. I will take care of
-> the squash and resend.
->
->
->
+Will fix and resend the MTK patches.

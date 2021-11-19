@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33D2F456CAE
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 10:45:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CE4E456CAF
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 10:46:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE54917CD;
-	Fri, 19 Nov 2021 10:44:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE54917CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CAED17B6;
+	Fri, 19 Nov 2021 10:45:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CAED17B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637315144;
-	bh=qmzWD08Kfa8VlD+nxKsplmD7jlP0ovWLFkY4Le3ntNk=;
+	s=default; t=1637315163;
+	bh=gDXsePIINijFcRBl0JUvbKmwenpAxv3E2uwk50Gvf3E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E+lJzDbzl/xn3k1zITWXL6/U4BSHG2UgeHcTDKSdHzKBWtcIszg/X5SrVU/DwJjhE
-	 07eiwoCxjEM9x8SKhgKFWn7ZL4C1oL6Kj9VHx7cKvqUKZFH5x9LQXxwAp9CHgnbw1c
-	 nyB78WG8nh7BdsWXGf3c9GLwy4iRLkNGDbASJ2eo=
+	b=Y4Xw0AgfjljhXX0nTUdIBCFRx4tjWS5FHUDGqBh/msCaoZv6QrPkj2vI1dZ8EsXrC
+	 saBgC+/InGhEvw/k1p1gKuIu/+XTMsxEmJiFQdcwicJbEEVEL8jIA2nOpo70BLxCb7
+	 AIleIsu2gL/lhQ3caag9BR45J8tMrQD4LmzxiYyM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EAC5F80506;
-	Fri, 19 Nov 2021 10:43:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01EF1F80507;
+	Fri, 19 Nov 2021 10:43:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0D7DF804D2; Fri, 19 Nov 2021 10:43:44 +0100 (CET)
+ id 55D3EF804FE; Fri, 19 Nov 2021 10:43:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,44 +35,44 @@ Received: from EUR05-DB8-obe.outbound.protection.outlook.com
  (mail-db8eur05on2049.outbound.protection.outlook.com [40.107.20.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E0B4F8027D
- for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 10:43:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E0B4F8027D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5BA9F80272
+ for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 10:43:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5BA9F80272
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="fS305YoI"
+ header.i=@NXP1.onmicrosoft.com header.b="JVw7f5Rb"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PliBtMN8OrfXGNdMaNoghrOquiZ8c5j1N027Xrsop/moFJtddfn3jtKO07CdsSI33j7kBbzmn6VMrp7Z339c3SA2YsGC3p0Qm9FBQqON4kljn2LXfNsEfnzqd91Wq/IPXI6j7++dvQWZZ+6djij2k0mb2U3wskas4OsjzHTsaWFAP5J02drf5VFDlE+GZQoNAtCtZKTJ5nYf+IKYf8PSyIVDIczf0le7zJN3nxcSUz1GPrvJDKJ1XEevSXlmJcI2B4IAhaoDLYL7bFwmSG3TqwXNPcPykPVXSZ1PgI1El/3GlDR3cgwIHZmWI32XU42vtBn0Q3j+6wD/YffOzswahg==
+ b=alDLA4eBCCIbRv7zmBLtlChaVcV/rZsBss5biwlbSuwC9x8Kf5tDjY5DWoqM8c5xrysVj65K6bcGSdtLtjU+VFnDe0Sb0sUtzTVuzyrEQNWdSsqIYL5pN40+BAo+xFnJMvlz2CyiM8Qu7zxCDodAd28uG/gVj9Hnc/IlKcU8y1xRzNxJr5/2ynAI6GrZ18pXPOeobaBoJ7lHN4pmeULTshg3juFPmtRh0gp4CJJyrdPRKP5vP5BecUUXKqRc/SQlaqJsccfBxLb3oRBUzaH3cb0YPpsLW31DXqOyD96c2ozC8p1nX8ZmaHETOYW7V11gUef7gk6DkpryLieSqD7Vow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hxh10uJCvH4bSN1kqJK3p+nh3xdYf0fnlgTDIY2+/gk=;
- b=bn5HJ/L10GryVr3lUQEbaHbQOmghr9geEiKr/jx7rn4zprRL+nT9nm7kYjvAS9cXehDomljSKY8AsiVjsddueJx8f91TptlffgopqynNd86r7ojS8I6yAcQxsgZ/2kFRVu6yrQ9g/AOOEwpVFJxrrVirDNDWMuTLxLdYY2WdTdWmxoc5u9dx4Fu1OetHudYoj5vdVQGT1AfNZCwPsf4Eun7yVofQne8FRUU08Q41o7Ic1O7nFO+Fkfrc3WpV/CcQ1wr3PQnFWAhZ0XCq/0zcqwG2MiD7TfyTFrT3+9zLRvVjWccubMVrg6i26Nhvpq7Vqw4r7H5oWgpLaNKNTqCktg==
+ bh=cf3aF4hGrNpyw/4Xn2+HETnOhQMqs0Pa78OKvZGJSvs=;
+ b=Sy89tj39m4oHqg60eKsDrfQ1eYBrV7CX//guMX4Fu68xaPrbDMcPTY/EkXYMX8F/ndd7on9kcjJs/yuLfS1Frm2wWfeS1+ty3hIngkr284JVcdib1HCIPVg2YmvOjSYxuPp4Kwn9laHFZ5sRJM+tbXCxcHLZRopqV1Xj/yKhHG3dzYbJ14x6UsnpwW5GVvux0xmWay7k1sYjXw40YgOmOubC7BTsFk2yoUXs6c5IVYXl6oRL78gZeKq1i6QdmzZlXZph9/n8S3+zWq/pIYwJe9LAaJtTCS9hjT+qo0zaAXuSaYbBeQzIupIm3dNxn066Te8wsJIpf3crqxo6oseKUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hxh10uJCvH4bSN1kqJK3p+nh3xdYf0fnlgTDIY2+/gk=;
- b=fS305YoIRgiVhoQ/Txw978NBy886z+QLV3gbZIR/Rm9xNYzjiYCOoWdV3kd5GskuxNbMvrXaUhHdiT6oPcPzeSRpJz6VqWv6WWpnt3rLvibDodYmtCzSOJsFgZXYS5zZrv6T4ZTGGP6aIbhyjjFtx7NWJmYoF7jAqfqZJLRKq8s=
+ bh=cf3aF4hGrNpyw/4Xn2+HETnOhQMqs0Pa78OKvZGJSvs=;
+ b=JVw7f5RbNocRsBhQxhn02zhkyfn6BVBqqEThXs9P1ER2h78vuEHHvMmNEHnF6VzKunpKW0hFDjef7H8XshpfFnkLlEogAI5WjwOVV1Vnws7/NvNgvD1ZTiwfstG+jmDut9cCc8RdN9WiZJdJ4rz0f55WPklz4F8u6d7EEt+KteA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
  by VE1PR04MB7358.eurprd04.prod.outlook.com (2603:10a6:800:1a5::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.15; Fri, 19 Nov
- 2021 09:43:33 +0000
+ 2021 09:43:35 +0000
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f]) by VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::85af:f8be:aa99:ba5f%3]) with mapi id 15.20.4690.029; Fri, 19 Nov 2021
- 09:43:33 +0000
+ 09:43:35 +0000
 From: Daniel Baluta <daniel.baluta@oss.nxp.com>
 To: broonie@kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH v2 2/5] ASoC: SOF: imx8: Add runtime PM / System PM support
-Date: Fri, 19 Nov 2021 11:43:16 +0200
-Message-Id: <20211119094319.81674-3-daniel.baluta@oss.nxp.com>
+Subject: [PATCH v2 3/5] ASoC: SOF: imx8m: Add runtime PM / System PM support
+Date: Fri, 19 Nov 2021 11:43:17 +0200
+Message-Id: <20211119094319.81674-4-daniel.baluta@oss.nxp.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20211119094319.81674-1-daniel.baluta@oss.nxp.com>
 References: <20211119094319.81674-1-daniel.baluta@oss.nxp.com>
@@ -87,60 +87,60 @@ Received: from localhost.localdomain (2a02:2f08:5706:b700:187d:3f5e:91e7:280d)
  by AM0PR02CA0099.eurprd02.prod.outlook.com (2603:10a6:208:154::40) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19 via Frontend
- Transport; Fri, 19 Nov 2021 09:43:32 +0000
+ Transport; Fri, 19 Nov 2021 09:43:33 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: af825f02-2e29-46cb-dfbc-08d9ab410d62
+X-MS-Office365-Filtering-Correlation-Id: 0f1c8685-97a9-4d4e-8137-08d9ab410e0f
 X-MS-TrafficTypeDiagnostic: VE1PR04MB7358:
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-Microsoft-Antispam-PRVS: <VE1PR04MB735887BC4E72BF56038AA529B89C9@VE1PR04MB7358.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <VE1PR04MB735822A8A27E1ABAADA6ABF6B89C9@VE1PR04MB7358.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2+llvFKhw4kIzC983IPRTFY7McTJVsSHpTy65+LxMbaoGsXsZt3gJicQDrqumxfj+EUaW9X7GO3BfSpn8cM7pHnjZ+OjEd0uYFvcDlyJXEnZ1MFRgcgBZK1we7M027kApP+4ftqhc81h0rUDJOcSVVdPj/CFkUveD4gl4djlgIECkvagVYjEQTNI/neqkp0OIFlmn592mS5TqDYBobOtChOGFqVoGglYoggZQWQlUR+y/x8nmrxv37c9cwCWg1w86OMUlXBodHpbSG+lWyvm4me/W6Yj/Vc45nekTu3yIbLYU907csuAx0c6KHGbD0ZmD7xCMqtW0FNo9PUhsyb3zsznzaP/A8OZDoU9DKxHvdh/Xe2KHEhqOYtEXETnwaJMQjuduvLLhzrEtT/7G2FW/e5m474H9sO9POL28cWlYTCFRFD+wB2co9vdNMnc7hUL3Djy88DV5epnQh4+f6ZAwwYr0o/jTEp+cu/1ZOTcRXMcSFoj6UgRk9Yvy4chf0OCbYVrFHsFk7xBf1BAZ7AJJaOjTQl7DlUaWnPQpuEYdDH1kkySqX7kiStdM231yHxyP8MN5zbwLl0hfkd/p+2MPxRGF2O6b2KngBgGXqjRxniOwWFCrBRP6C4F2a2766Cy6MielNaaPQS7E7SnIMPN6w==
+X-Microsoft-Antispam-Message-Info: Npfom/nbKll3QlXapo7iEVBHNdTUfDbFieHaH5Ztr5i+dsGXRUcEKvKlU0t5+I3ZdFbicZbfrRkIWh+MZmxbMtw+k9trcRswMivKk5Kdo9Kz0uAdKx+zo6KKCQliCiWNeQn93T7z5XFY3c4vaI13iFPdh849mUyIyetQSylD74Gzi3B0WOabP4H70t1TkdUWegB0eDDwm4p/0tNFXfKCmreQNQ1Ukqw2U4u56IwMLy5v+4alX82fgpJsewiuM1KX8OCzxrHXnXxAyW+TM4/wuV1wV/gnuui+Y1XTxXK0WR+grP0Fz7M7JR6945hAuFmfqHKl6HQroe0HaN1PU7/Z10WPBamh/dk+j9d5+66lhR/3ZZzzJbqDkyPh3mr86YC9v2P/fwbBF658LOzCdQfD0gkd0xthml1dfZnF60gVfcNmfJdfepistTW4OHj1g7/hC+r3/iourkiSg0uX7wfv9wcgms6p4O5X6qhDybQ7dMGgMyjdIESwbeceNOY7nXlRCxdsqJ8rqZtZfI+s7TmSO3ML4E3y1k9DIugpUFUGyYwSR7nleNgTsd2JIHOU8QjxT70g1x5gVF7vwQHIxJMwFwX1al5t6gCLDqDjQYJ8wJ20AIQTZS0xg0MxHIfEbwcX/jbhdKHu2n6x+b3j8ieR2VuI6hxHBJhA6DRVG7fd4MAHS/02OK8ptmZ70HffOEIOxeRRrF97FXvuWXEu8ZUjCQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(2906002)(66556008)(52116002)(186003)(6506007)(6512007)(44832011)(2616005)(8936002)(508600001)(66476007)(66946007)(1076003)(5660300002)(83380400001)(38100700002)(6666004)(4326008)(6486002)(316002)(8676002)(86362001);
+ SFS:(4636009)(366004)(2906002)(66556008)(52116002)(186003)(6506007)(6512007)(44832011)(2616005)(8936002)(508600001)(66476007)(66946007)(1076003)(5660300002)(83380400001)(38100700002)(6666004)(4326008)(6486002)(316002)(8676002)(86362001)(32563001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?J8M3CkOxyZ1zSOqvzoWD1+J1fBhOiKWqY+gs1lKMOiMQ6Xoym5IoIhsaEcT8?=
- =?us-ascii?Q?B1m1zo1MIGmKRHMaONAR7E1jtyemE7JhcMenAzeoGrXVDW8SKzTab4KMaDWv?=
- =?us-ascii?Q?kMUpxC90OJICAYKKPmPzmz+HvoM4kaMH/ibKDsSF/nC2cmI1qGzC3xG/lZfT?=
- =?us-ascii?Q?sP9alsGRL6Fo6cNG60e/q5j2Z5D+V1sioEv073Qu+BXglSxlFL8cUdwOWnmb?=
- =?us-ascii?Q?coPzGSpjmAQBKypreRTVcB47/wOx9+bEBWgq/Qw1TzR+Qj8RSlcmMTTvaSJO?=
- =?us-ascii?Q?xZrN719ji8PxpsZqi/K6WYLcX3Pgp3BlVBNMf66R4B4DM666nb2Q7WG7EkLg?=
- =?us-ascii?Q?OVY08xInkTrROVkcd/AaZcX9dsb78hoBkA/3y1VVLDU1LQaM30gwtrjO1pZy?=
- =?us-ascii?Q?T+Os8GuSlsqQsm2kFaoDYUH0COpTfVxbTCx9peWiuOwtV1qqhR+JZIc+1INO?=
- =?us-ascii?Q?7cv4lIbw6RIAwS9ca/WfXsPuPmpf6mtRbRLPOJj0EWkaky4GfhsCB3rSM+ig?=
- =?us-ascii?Q?WCMhkZRDGpe2yZrQUQtmK5xzXNsMvZvbZ6/6nfBNzOBMla1YQtsqQIG9OIgc?=
- =?us-ascii?Q?UrzLw2pne395BE0jTYr3L3MKWBZw2z8n+lBWFtKDAVkKwRkY4u0w740pFd3E?=
- =?us-ascii?Q?ckjYneyxpteWv2sNppoFmX57qt2/JNCx9GeTq12teE87fvVbbY+MA8kHnab0?=
- =?us-ascii?Q?qXOWy32PzTPo+yN3XL/1m+aPMk8KKFxIh2xdtHamSTlY5aTAFgvuSq6bZirq?=
- =?us-ascii?Q?p6jHmvrWOInqiq1E/yUE4NgQpgDbHgqzXPDwneqz/awk5HnJNOnBfkuz8e8U?=
- =?us-ascii?Q?qqXKyPofebEod8SM9uYsgCpiqYllC5Mt5cPHW+c9Y+6J2+/FB0XbY0wPpnzc?=
- =?us-ascii?Q?9DU+5TiQ6g98m71eBjDW/0EyT6wVmElatmnYf/MxnUlDwIHcnbL1d8dNAm19?=
- =?us-ascii?Q?txh4QPZ822FjSj10co96ZndcD/P161Qesg4NyvL1gxXxUbAaqeEBzv9f7LNB?=
- =?us-ascii?Q?Q772TKieH6Fw9FHjgdy7GncyS8H1HLa4mDWS6v7izqZbGkem7KYm2WeLIJm2?=
- =?us-ascii?Q?TR7lBo2gN1oCWOoSoDWsIyosCkpWQM/8V+GMCyNaCOnzvdA3NCGXnjBOpcE1?=
- =?us-ascii?Q?/EYMkD1gCQfzy2LOQ6QLOv+5WuPl+EX7/bcuJk2LPGxUdfYRfxIJCDe7EEu0?=
- =?us-ascii?Q?Wn/6y76cxGmFCfNP6HHyYgnCpNzzYGNeY4O+03ie+C2SY7Yc2NxMzRXsShpM?=
- =?us-ascii?Q?CgD+iBurrjawjLUQY4jPxUKKQz5T6ak87Pt+UZC8Xl5ER8w2S0OAi7WvjZGg?=
- =?us-ascii?Q?r+zm6+0om/R3Ayf/NwuV+WV9h6txvK4F/T2fratEPTN0MwOwK65amLrrZCH8?=
- =?us-ascii?Q?cBi8yUMkbQeUnpH/86tVwBJi76waoTOG1C9ZVu/Q5yx+PUKq8kOxP0SLL31r?=
- =?us-ascii?Q?dUatNgrWhNVts4KL1cPjRoXxzJzS/Wt8eHF0GDsKDo8dssPwd85n4QVxGO9s?=
- =?us-ascii?Q?gLR0xAUDM/6FKfdF/0sPtInMZJtyonIoexKpCXR3NsDvZCXyOBMwU0T/nr6c?=
- =?us-ascii?Q?vH9/CHa5ije4im0RVRnB7K4/OqrDzAuUFpdROyrP9cSAIGjeMYBJo4GJdNX3?=
- =?us-ascii?Q?VSNdB3sFgQtiq0OAiFXcXDGE+7WTb+elU4ms3Qg5/IKfJJe87+pTg/2syVYa?=
- =?us-ascii?Q?lgPg1M6i9LJpBrdBO80udNLAjAGHZXAdmKJZgVSVm0l+jvsl?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yWWdE9R+sJfEWZBhfUODMwPGXDio5JHOtxZdOmEKGGGJC2qKkWXMd8Zy/+oN?=
+ =?us-ascii?Q?2J09BF5k8RzHQwhX8CPP6Tbvf2zjJL7QTLhmZmjHPZ7puE1+owuV8HgLyt3l?=
+ =?us-ascii?Q?wjw1wl8duhapAP0m0lwozMR87tMlkZJ21UQ5BO9vjTrT2Y2ypguNsH5adeN6?=
+ =?us-ascii?Q?RPbH4zYXmxq1trS5e2fkpJvxHZt/Pf0nMuqHumRCASpbxaGIH+5sfYkJhlXo?=
+ =?us-ascii?Q?QYToKNW68mcyR65xQ5Li/dWvKw/3bC9N79p0rHBGoZOMzoBN1F9trqYc8+ie?=
+ =?us-ascii?Q?f1nqvcI8VV/xlBjmbisNH1nfBm0iYlfnCgnYtM5uTbk4AMb+opI+iG50VQ4o?=
+ =?us-ascii?Q?D1cNcm9XPwuL58Rgngd1+rCHLQ3rlce2dsRKMtCenDaPfiXpG+HuJoNJtyjz?=
+ =?us-ascii?Q?z2f/cN1Gu0wVvzcU/KfNeqq6lYbudQGnxQ7bdbAnesd7wC6LEVlnchTUmuZM?=
+ =?us-ascii?Q?XLKkPUpMp9GpsfUua/Pz/+mhwBoxh0Y60IG5k19rn5+0M1bQ7ds94NscApC1?=
+ =?us-ascii?Q?RFhyTAyZ3Fya69x28xi6ZL9HU9XCfip98y+u4A+gmhQ30URtQTlety1Lk2dJ?=
+ =?us-ascii?Q?WKZMW6qzyfzcoW4kTtOw1BywOGM6/2MkeOncRy+joT5DukhTyNSbO0GosPbV?=
+ =?us-ascii?Q?fHQgaCk+FxB1jnpY4+eq0nSc6L+x6J2TtWb9tqai6LSx6eKMcFRy9VgJZMXB?=
+ =?us-ascii?Q?Ka4ffStt8MeZXcpUjkdLbMTFgFoF4xmUTuvHZ41swq96Q5vclj+Fd6r8MhE1?=
+ =?us-ascii?Q?aJF8mgiEPMSl4ySgDIqttoBT+lKguPzC1u1AsnqT7QLZaMNinA6M040fqEFU?=
+ =?us-ascii?Q?drWrr39a5BADhwnsKqHh9HWknpiApqVFz0FQJwrcTH8MfOX1KZy199vtxtSO?=
+ =?us-ascii?Q?yIJfq0ELDdfOg+j4AEWYtbVjVjYDRp7zWkW87/Sdezc9vqSF+MwkPEIVzPOH?=
+ =?us-ascii?Q?VMe0GwiF5WuW+AUyUsQL+nBaolSUnrz2K7ejVO6mIAbmOWpVhh7QMfAxu+N2?=
+ =?us-ascii?Q?tbQizJ37zAIrG+393LYrFGxjsPzkQrn5XNGpH9jN0tvLsrbVQcDHaCkiXtYP?=
+ =?us-ascii?Q?rtkI2DUIhZLZALPTva6jTFOB6YYuIF+lqopEf5GBf5ecZFFLXsA0mPKE/zVZ?=
+ =?us-ascii?Q?H+65r4Bd45KBr1bJPBVbYuj08KLA8YWPYccIlWX/8Sn2BgXgq4wnnXwpLa+U?=
+ =?us-ascii?Q?gitMAjFS8N3rENEpdGdhfDuWJwtdOUUWDspLgbrAK/RLpeV8r43nrjo9ELOx?=
+ =?us-ascii?Q?wLdSU19VXVhexndnjvOsINFDB0y24v+x1TfpZKn3uK2PU90oWPOMjikvzgb4?=
+ =?us-ascii?Q?fjHyx/Zqwh1xmMK2B+jxghHmQHlHTBuk543muav5R5TS022H524Q/vAWSthp?=
+ =?us-ascii?Q?+lA3j7WEMUlBR3ZA5mg3uJVZyqjuBEBaLvxyx69bfXbrLuS3RU1nrXn9Sdii?=
+ =?us-ascii?Q?MSMgQkf7UIBCYmUd5GOz40Nu4SucKovJYhBodAUi/eyZk7YkAVoGdeM/fNHR?=
+ =?us-ascii?Q?PHyFQZFYU3cc14XPKbe3Jy/3Sib4l8KFozt2NS2GyoOvoF9p/paH+RfL8QxG?=
+ =?us-ascii?Q?jJhBZc0bD5g93xBL8dPvCLdUiv+FJHzz9ukw7wK++ogJSkzPXS36B+ClJLlN?=
+ =?us-ascii?Q?XeXIdnXewBog0oCrTQEfOl1cC2xCCvKtoKzb93zhJsB7QAf4wWIiRaz9a/NP?=
+ =?us-ascii?Q?oQJ7P4XLFLH5Xi6t6LtbDYkH9bd8tKhP3F3KIK/PG+OM/YjS?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: af825f02-2e29-46cb-dfbc-08d9ab410d62
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f1c8685-97a9-4d4e-8137-08d9ab410e0f
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 09:43:33.6902 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 09:43:34.8555 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KT/DaHZyphvMUEJ+/JNji7O+/pSd0zkywnAjnVgGsl4ZPM/2v4tEnuxc7AXDQyFxQSnduKK1ho6o2fb5PFRt0Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ld6uO2JP+/phq/xGMSshPOw/t0XcShfUN2NphcEMDvM0DGn9AZXbXPVtT4vSJybk4ra6pHODSAE+D67fk5u+AQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7358
 Cc: daniel.baluta@gmail.com, lgirdwood@gmail.com,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
@@ -163,31 +163,49 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Daniel Baluta <daniel.baluta@nxp.com>
 
-Handle clocks and mailbox channels at runtime suspend/resume
-in order to save power.
+We make use of common imx8m_suspend / imx8m_resume functions
+for both system PM and runtime PM.
 
-DSP runtime PM uses a timeout of 2s. If device
-is idle for 2s system will enter runtime suspend.
+imx8m_suspend:
+	- frees the MU channels
+	- disables the clocks
 
-Because SOF state machine assumes that even if the DSP wasn't previously
-active at a System resume, will re-load the firmware we need to make sure
-that all needed resources are active.
+imx8m_resume
+	- enables the clocks
+	- requests the MU channels
 
-Kernel core will take care of enabling the PD, we need to make sure that
-we request the MU channels.
+On i.MX8MP there is no dedicated functionality to put the DSP in reset.
+The only way of doing this is to POWER DOWN the Audiomix domain.
+
+We are able to do this because turning off the clocks and freeing the
+channels makes the Audiomix to have no users thus PM kernel core turns
+it down.
+
+SOF core will not call system PM suspend handler if the DSP is already
+down, but at resume it will call the system PM resume. So, we need to
+keep track of the state via snd_sof_dsp_set_power_state
+
+Few insights on how SOF core handles the PM:
+ - SOF core uses PM runtime autosuspend (with a timeout of 2 secs)
+ - at probe, SOF core boots the DSP and lets the PM runtime suspend to
+   turn it off, if there is no activity
+ - when someone opens the ALSA sound card (aplay/arecord, etc) ALSA core
+   calls PM runtime resume to turn on the DSP
+ - when the ALSA sound card is closed SOF core make use of PM subsystem
+  to call PM runtime suspend and thus turning off the DSP.
 
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/imx/imx8.c | 116 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 115 insertions(+), 1 deletion(-)
+ sound/soc/sof/imx/imx8m.c | 106 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 105 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
-index 32f852cbba30..c4755c88d492 100644
---- a/sound/soc/sof/imx/imx8.c
-+++ b/sound/soc/sof/imx/imx8.c
-@@ -320,7 +320,9 @@ static int imx8_probe(struct snd_sof_dev *sdev)
+diff --git a/sound/soc/sof/imx/imx8m.c b/sound/soc/sof/imx/imx8m.c
+index ab40c0bdf796..b050d4cf9cd5 100644
+--- a/sound/soc/sof/imx/imx8m.c
++++ b/sound/soc/sof/imx/imx8m.c
+@@ -195,7 +195,9 @@ static int imx8m_probe(struct snd_sof_dev *sdev)
  	if (ret < 0)
  		goto exit_pdev_unregister;
  
@@ -198,24 +216,21 @@ index 32f852cbba30..c4755c88d492 100644
  
  	return 0;
  
-@@ -364,6 +366,92 @@ static int imx8_get_bar_index(struct snd_sof_dev *sdev, u32 type)
- 	}
- }
+@@ -252,6 +254,100 @@ static struct snd_soc_dai_driver imx8m_dai[] = {
+ },
+ };
  
-+static void imx8_suspend(struct snd_sof_dev *sdev)
++static int imx8m_dsp_set_power_state(struct snd_sof_dev *sdev,
++				     const struct sof_dsp_power_state *target_state)
 +{
-+	int i;
-+	struct imx8_priv *priv = (struct imx8_priv *)sdev->pdata->hw_pdata;
++	sdev->dsp_power_state = *target_state;
 +
-+	for (i = 0; i < DSP_MU_CHAN_NUM; i++)
-+		imx_dsp_free_channel(priv->dsp_ipc, i);
-+
-+	imx8_disable_clocks(sdev, priv->clks);
++	return 0;
 +}
 +
-+static int imx8_resume(struct snd_sof_dev *sdev)
++static int imx8m_resume(struct snd_sof_dev *sdev)
 +{
-+	struct imx8_priv *priv = (struct imx8_priv *)sdev->pdata->hw_pdata;
++	struct imx8m_priv *priv = (struct imx8m_priv *)sdev->pdata->hw_pdata;
 +	int ret;
 +	int i;
 +
@@ -229,51 +244,50 @@ index 32f852cbba30..c4755c88d492 100644
 +	return 0;
 +}
 +
-+static int imx8_dsp_runtime_resume(struct snd_sof_dev *sdev)
++static void imx8m_suspend(struct snd_sof_dev *sdev)
++{
++	struct imx8m_priv *priv = (struct imx8m_priv *)sdev->pdata->hw_pdata;
++	int i;
++
++	for (i = 0; i < DSP_MU_CHAN_NUM; i++)
++		imx_dsp_free_channel(priv->dsp_ipc, i);
++
++	imx8_disable_clocks(sdev, priv->clks);
++}
++
++static int imx8m_dsp_runtime_resume(struct snd_sof_dev *sdev)
 +{
 +	int ret;
 +	const struct sof_dsp_power_state target_dsp_state = {
 +		.state = SOF_DSP_PM_D0,
 +	};
 +
-+	ret = imx8_resume(sdev);
++	ret = imx8m_resume(sdev);
 +	if (ret < 0)
 +		return ret;
 +
 +	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
 +}
 +
-+static int imx8_dsp_runtime_suspend(struct snd_sof_dev *sdev)
++static int imx8m_dsp_runtime_suspend(struct snd_sof_dev *sdev)
 +{
 +	const struct sof_dsp_power_state target_dsp_state = {
 +		.state = SOF_DSP_PM_D3,
 +	};
 +
-+	imx8_suspend(sdev);
++	imx8m_suspend(sdev);
 +
 +	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
 +}
 +
-+static int imx8_dsp_suspend(struct snd_sof_dev *sdev, unsigned int target_state)
-+{
-+	const struct sof_dsp_power_state target_dsp_state = {
-+		.state = target_state,
-+	};
-+
-+	if (!pm_runtime_suspended(sdev->dev))
-+		imx8_suspend(sdev);
-+
-+	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
-+}
-+
-+static int imx8_dsp_resume(struct snd_sof_dev *sdev)
++static int imx8m_dsp_resume(struct snd_sof_dev *sdev)
 +{
 +	int ret;
 +	const struct sof_dsp_power_state target_dsp_state = {
 +		.state = SOF_DSP_PM_D0,
 +	};
 +
-+	ret = imx8_resume(sdev);
++	ret = imx8m_resume(sdev);
 +	if (ret < 0)
 +		return ret;
 +
@@ -288,56 +302,36 @@ index 32f852cbba30..c4755c88d492 100644
 +	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
 +}
 +
- static struct snd_soc_dai_driver imx8_dai[] = {
- {
- 	.name = "esai0",
-@@ -389,6 +477,14 @@ static struct snd_soc_dai_driver imx8_dai[] = {
- },
- };
- 
-+static int imx8_dsp_set_power_state(struct snd_sof_dev *sdev,
-+				    const struct sof_dsp_power_state *target_state)
++static int imx8m_dsp_suspend(struct snd_sof_dev *sdev, unsigned int target_state)
 +{
-+	sdev->dsp_power_state = *target_state;
++	const struct sof_dsp_power_state target_dsp_state = {
++		.state = target_state,
++	};
 +
-+	return 0;
++	if (!pm_runtime_suspended(sdev->dev))
++		imx8m_suspend(sdev);
++
++	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
 +}
 +
  /* i.MX8 ops */
- struct snd_sof_dsp_ops sof_imx8_ops = {
+ struct snd_sof_dsp_ops sof_imx8m_ops = {
  	/* probe and remove */
-@@ -441,6 +537,15 @@ struct snd_sof_dsp_ops sof_imx8_ops = {
- 			SNDRV_PCM_INFO_INTERLEAVED |
- 			SNDRV_PCM_INFO_PAUSE |
- 			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
-+
-+	/* PM */
-+	.runtime_suspend	= imx8_dsp_runtime_suspend,
-+	.runtime_resume		= imx8_dsp_runtime_resume,
-+
-+	.suspend	= imx8_dsp_suspend,
-+	.resume		= imx8_dsp_resume,
-+
-+	.set_power_state	= imx8_dsp_set_power_state,
- };
- EXPORT_SYMBOL(sof_imx8_ops);
+@@ -297,6 +393,14 @@ struct snd_sof_dsp_ops sof_imx8m_ops = {
+ 	.drv = imx8m_dai,
+ 	.num_drv = ARRAY_SIZE(imx8m_dai),
  
-@@ -490,6 +595,15 @@ struct snd_sof_dsp_ops sof_imx8x_ops = {
- 	.drv = imx8_dai,
- 	.num_drv = ARRAY_SIZE(imx8_dai),
- 
-+	/* PM */
-+	.runtime_suspend	= imx8_dsp_runtime_suspend,
-+	.runtime_resume		= imx8_dsp_runtime_resume,
++	.suspend	= imx8m_dsp_suspend,
++	.resume		= imx8m_dsp_resume,
 +
-+	.suspend	= imx8_dsp_suspend,
-+	.resume		= imx8_dsp_resume,
++	.runtime_suspend = imx8m_dsp_runtime_suspend,
++	.runtime_resume = imx8m_dsp_runtime_resume,
 +
-+	.set_power_state	= imx8_dsp_set_power_state,
++	.set_power_state = imx8m_dsp_set_power_state,
 +
- 	/* ALSA HW info flags */
- 	.hw_info =	SNDRV_PCM_INFO_MMAP |
- 			SNDRV_PCM_INFO_MMAP_VALID |
+ 	.hw_info = SNDRV_PCM_INFO_MMAP |
+ 		SNDRV_PCM_INFO_MMAP_VALID |
+ 		SNDRV_PCM_INFO_INTERLEAVED |
 -- 
 2.27.0
 

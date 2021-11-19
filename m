@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A0C845771D
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 20:38:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 820B545771E
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 20:38:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 287DE1793;
-	Fri, 19 Nov 2021 20:37:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 287DE1793
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F3F41797;
+	Fri, 19 Nov 2021 20:38:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F3F41797
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637350710;
-	bh=QLwgm5bE5qUf1AgDzlOGibL9HRkHPJXl6cMtYS0snR4=;
+	s=default; t=1637350731;
+	bh=4weLAB/C6UhmGkvQGo7jZMuuV/w23eVCC4DeJBrlQq4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hM4Ul9h3erL2DZ897d5Tc7TWj/9mQvFbPjBizB2sA2CH1A8aTzau74A24ycH4Oype
-	 Bh7W0Hr1xLj/13rUcdHagaxncdhawkKQWJp4OCkNYxYXyvvb7B7grbWg1spyRkWBb6
-	 LE8gO4xzMbOe5LXBgrp1orXhKjTFr+2MKn2eDltM=
+	b=EB03h0wZblQwzIfzQ1imZnsEKWOrhZ5B0RHdWp+9nS6S4VACTLLRjtgBv1mcOsTwh
+	 1/XLU+Q3CtOFeyA4Z29+cmeG/w0GvB9yWom7diOYhgN0ITKG7qb9i8d89WXzqoA5Ai
+	 J98o8Cau8tLpiShizU2eXh1W64b8dwBOs2Y7gHkQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 872AEF80534;
-	Fri, 19 Nov 2021 20:34:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 887DFF80535;
+	Fri, 19 Nov 2021 20:34:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58F67F8052D; Fri, 19 Nov 2021 20:34:50 +0100 (CET)
+ id 7BEBAF80529; Fri, 19 Nov 2021 20:34:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,24 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8EE63F80510
- for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 20:34:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EE63F80510
-X-IronPort-AV: E=McAfee;i="6200,9189,10173"; a="221697776"
-X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="221697776"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96DC0F80518
+ for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 20:34:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96DC0F80518
+X-IronPort-AV: E=McAfee;i="6200,9189,10173"; a="221697779"
+X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="221697779"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 11:34:24 -0800
+ 19 Nov 2021 11:34:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="473651235"
+X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="473651257"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga002.jf.intel.com with ESMTP; 19 Nov 2021 11:34:17 -0800
+ by orsmga002.jf.intel.com with ESMTP; 19 Nov 2021 11:34:23 -0800
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 06/10] ASoC: SOF: topology: remove sof_load_pipeline_ipc()
-Date: Fri, 19 Nov 2021 21:26:17 +0200
-Message-Id: <20211119192621.4096077-7-kai.vehmanen@linux.intel.com>
+Subject: [PATCH 07/10] ASoC: SOF: free widgets in sof_tear_down_pipelines()
+ for static pipelines
+Date: Fri, 19 Nov 2021 21:26:18 +0200
+Message-Id: <20211119192621.4096077-8-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211119192621.4096077-1-kai.vehmanen@linux.intel.com>
 References: <20211119192621.4096077-1-kai.vehmanen@linux.intel.com>
@@ -77,77 +78,56 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Remove the function sof_load_pipeline_ipc() and directly
-send the IPC instead. The pipeline core is already enabled
-with the call to sof_pipeline_core_enable() in sof_widget_setup().
+Free widgets for static pipelines in sof_tear_down_pipelines().
+But this feature is unavailable in older firmware with ABI < 3.19.
+Just reset widget use_count's for this case. This would ensure that
+the secondary cores enabled required for topology setup are powered
+down properly before the primary core is powered off during
+system suspend.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/sof-audio.c |  3 ++-
- sound/soc/sof/sof-audio.h |  4 ----
- sound/soc/sof/topology.c  | 17 -----------------
- 3 files changed, 2 insertions(+), 22 deletions(-)
+ sound/soc/sof/sof-audio.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 7cbe757c1fe2..a019355e0bcf 100644
+index a019355e0bcf..669d5c924f6b 100644
 --- a/sound/soc/sof/sof-audio.c
 +++ b/sound/soc/sof/sof-audio.c
-@@ -203,7 +203,8 @@ int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
- 		break;
- 	case snd_soc_dapm_scheduler:
- 		pipeline = swidget->private;
--		ret = sof_load_pipeline_ipc(sdev, pipeline, &r);
-+		ret = sof_ipc_tx_message(sdev->ipc, pipeline->hdr.cmd, pipeline,
-+					 sizeof(*pipeline), &r, sizeof(r));
- 		break;
- 	default:
- 		hdr = swidget->private;
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index 05e98e231b85..6c591b7a531c 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -184,10 +184,6 @@ void snd_sof_control_notify(struct snd_sof_dev *sdev,
- int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file);
- int snd_sof_complete_pipeline(struct snd_sof_dev *sdev,
- 			      struct snd_sof_widget *swidget);
--
--int sof_load_pipeline_ipc(struct snd_sof_dev *sdev,
--			  struct sof_ipc_pipe_new *pipeline,
--			  struct sof_ipc_comp_reply *r);
- int sof_pipeline_core_enable(struct snd_sof_dev *sdev,
- 			     const struct snd_sof_widget *swidget);
+@@ -665,11 +665,12 @@ int sof_set_up_pipelines(struct snd_sof_dev *sdev, bool verify)
+ }
  
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 10caf2b1a33c..3a49d7910326 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1707,23 +1707,6 @@ static int sof_widget_load_pcm(struct snd_soc_component *scomp, int index,
  /*
-  * Pipeline Topology
+- * This function doesn't free widgets during suspend. It only resets the set up status for all
+- * routes and use_count for all widgets.
++ * For older firmware, this function doesn't free widgets for static pipelines during suspend.
++ * It only resets use_count for all widgets.
   */
--int sof_load_pipeline_ipc(struct snd_sof_dev *sdev,
--			  struct sof_ipc_pipe_new *pipeline,
--			  struct sof_ipc_comp_reply *r)
--{
--	int ret = sof_core_enable(sdev, pipeline->core);
--
--	if (ret < 0)
--		return ret;
--
--	ret = sof_ipc_tx_message(sdev->ipc, pipeline->hdr.cmd, pipeline,
--				 sizeof(*pipeline), r, sizeof(*r));
--	if (ret < 0)
--		dev_err(sdev->dev, "error: load pipeline ipc failure\n");
--
--	return ret;
--}
--
- static int sof_widget_load_pipeline(struct snd_soc_component *scomp, int index,
- 				    struct snd_sof_widget *swidget,
- 				    struct snd_soc_tplg_dapm_widget *tw)
+ int sof_tear_down_pipelines(struct snd_sof_dev *sdev, bool verify)
+ {
++	struct sof_ipc_fw_version *v = &sdev->fw_ready.version;
+ 	struct snd_sof_widget *swidget;
+ 	struct snd_sof_route *sroute;
+ 	int ret;
+@@ -681,8 +682,14 @@ int sof_tear_down_pipelines(struct snd_sof_dev *sdev, bool verify)
+ 	 * loading the sound card unavailable to open PCMs.
+ 	 */
+ 	list_for_each_entry_reverse(swidget, &sdev->widget_list, list) {
+-		if (!verify) {
++		if (swidget->dynamic_pipeline_widget)
++			continue;
++
++		/* Do not free widgets for static pipelines with FW ABI older than 3.19 */
++		if (!verify && !swidget->dynamic_pipeline_widget &&
++		    v->abi_version < SOF_ABI_VER(3, 19, 0)) {
+ 			swidget->use_count = 0;
++			swidget->complete = 0;
+ 			continue;
+ 		}
+ 
 -- 
 2.33.0
 

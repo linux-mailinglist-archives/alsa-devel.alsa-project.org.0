@@ -2,77 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 564B845682C
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 03:34:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 606E8456A56
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 07:38:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D87A617CE;
-	Fri, 19 Nov 2021 03:33:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D87A617CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id D63DC17BE;
+	Fri, 19 Nov 2021 07:37:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D63DC17BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637289286;
-	bh=hn/vNgL99+1Xp42sF9VFY+lUcyll1N12+1PksQ4tDjA=;
+	s=default; t=1637303904;
+	bh=1DTtGw62gxAkpTFtf5OKy6BJFtGEafBiQdnE78vcg8E=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S8IAZyocNM2Hb74lxN+fXtHfxwiC69qwSLox3mK5ZRBjK6JwGLkQgMfiCr4OhXNn/
-	 X1OIpnE0o/V3YHpuJx4JpoueBBpsP/yQXsEUh23eJfHphuarNAFgQDSM/555m4Fv0x
-	 a1ulnVt00p1SDHY6MhljeiPIgzS5ErrlIrPRjzg8=
+	b=JjaIKLIGU/Q3IPnGMk6m00ZSp8N4H6J0Adhfsa8tJWIFpJsAUmMXM3Me2pgPQH62B
+	 TKUIBqHfT+fgMy6Zl+Y4A+RCL7dE8HqW/QnkTqIpckbTjdgNOtGnDZbQ50VXesxtHf
+	 6K+BOUMLTsAM5UWrU7jCv5iTSlJw3B4/TYAR/vzI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AC9DF802C4;
-	Fri, 19 Nov 2021 03:33:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C904F8026D;
+	Fri, 19 Nov 2021 07:37:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A8A4F8010B; Fri, 19 Nov 2021 03:33:25 +0100 (CET)
+ id 835E2F80217; Fri, 19 Nov 2021 07:37:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
  NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25447F8010B
- for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 03:33:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25447F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2C99F8010B
+ for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 07:36:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2C99F8010B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="UXlRrNIG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
- Subject:Sender:Reply-To:Content-ID:Content-Description;
- bh=b6FrkTAxRK+qLx2xZ5nzzRM1/+AwCFIgwe1ZBMf+k/U=; b=UXlRrNIG6xpu1yZ0YX8Wmp9F9e
- yHlvqMLEJUqP8WppnzBvUGNV/2ERkOG8b8syQr6YROAuYBXFrmT1ExmWVIo/JyM5TNmj3JKFq72yH
- HJBXMa4+TsxNb592IHgLI9dIXJQUbS7ZjEDCjGonv/2yuN1tc3vx13g4a+KPbqIZm3/5fTouEy+yN
- cCXGBuHmWnAo43KKhtBjTfwjdbXzJ7N7qvdaN4H1NlmBWn1ZbE+sms9sjts7XDLsvoeSm8U5Nn1dS
- biP8Edt+RXKOdTcQqkULU+AUUwaug0XjyUDQnivHOyiTcihYpp/8jPlnqDat2warVaXgH3HAWz918
- Xmub3ZKw==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1mnti6-009GwF-UP; Fri, 19 Nov 2021 02:33:07 +0000
-Subject: Re: [PATCH] sound/oss/dmasound: fix build when some drivers are =m
- and others are =y
-To: Arnd Bergmann <arnd@arndb.de>
-References: <20211118062146.11850-1-rdunlap@infradead.org>
- <CAK8P3a1s_toN_J=M8gxcVrtEazZ+Mu9UYbKMVkG3MzDLSCEOfQ@mail.gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <588b3e9e-df03-8bd6-b36e-b88212e01e3f@infradead.org>
-Date: Thu, 18 Nov 2021 18:33:04 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="LnZkpNHn"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1637303814; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=Ixwhfp9T0vaQlNYEIAG5gcw2ca2tRPTRKqoBDmGf6pw=;
+ b=LnZkpNHn+B7UdaMeKfg5AFA0FzP9Y1WxJZBjZ0mynTao04RUL+UPRm1zfoejyTg+f81k6ZNG
+ rUZ/Fujvj3rafnT6K17u/CKhGN9Y8uQ2VR80uBgLs7fWtqq79KDZmLMO35SM2vq6rQ2uGp9T
+ aynXwbcq9Ymd9LRywKFTf345rrI=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 619746041e1d2f52336b8a00 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 19 Nov 2021 06:36:52
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 7F2BAC4360D; Fri, 19 Nov 2021 06:36:52 +0000 (UTC)
+Received: from [10.242.143.72] (unknown [202.46.23.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id ED379C4338F;
+ Fri, 19 Nov 2021 06:36:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org ED379C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH v2 1/3] pinctrl: qcom: Update lpass variant independent
+ functions as generic
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+References: <1635342097-2726-1-git-send-email-srivasam@codeaurora.org>
+ <1635342097-2726-2-git-send-email-srivasam@codeaurora.org>
+ <01c32c7f-9639-b3c8-045b-35469a3e54aa@linaro.org>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <19df295b-a3f1-9c31-27a3-7ebb59254694@codeaurora.org>
+Date: Fri, 19 Nov 2021 12:06:43 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <CAK8P3a1s_toN_J=M8gxcVrtEazZ+Mu9UYbKMVkG3MzDLSCEOfQ@mail.gmail.com>
+In-Reply-To: <01c32c7f-9639-b3c8-045b-35469a3e54aa@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- kernel test robot <lkp@intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,39 +107,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/17/21 10:50 PM, Arnd Bergmann wrote:
-> On Thu, Nov 18, 2021 at 7:21 AM Randy Dunlap <rdunlap@infradead.org> wrote:
+
+On 11/3/2021 4:52 PM, Srinivas Kandagatla wrote:
+Thanks for your time Srini!!!
+> Hi Srinivasa,
+> Thanks for the patches, I think you forgot to add correct mailing list 
+> for this drivers.
+>
+> Please consider using scripts/get_maintainer.pl to help you with this 
+> list.
+>
+> On 27/10/2021 14:41, Srinivasa Rao Mandadapu wrote:
+>> Update pin control variable names to make common for all lpass varients.
+>> Update bulk clock voting to optional voting as ADSP bypass platform 
+>> doesn't
+>> need macro and decodec clocks, these are maintained as power domains and
+>> operated from lpass audio core cc.
+>
+> How are you going to ensure that the powerdomains are switched on when 
+> setting up the pinctrl configuration.
+>
+> Should we not take a reference to the power-domain in this driver?
+
+The required power domains are getting enabled in core-boot level. So no 
+need of reference in this driver.
+
+And still if power domain need to referenced, we can do it from device 
+tree itself.
+
+>
+>
+> --srini
 >>
->> When CONFIG_DMASOUND_ATARI=y and CONFIG_DMASOUND_Q40=m,
->> dmasound_atari.o is built first (listed first in the Makefile),
->> so dmasound_core.o is built as builtin, not for use by loadable
->> modules. Then dmasound_q40.o is built and linked with the
->> already-built dmasound_core.o, but the latter does not support
->> use by loadable modules. This causes the missing symbol to be
->> undefined.
+>> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+>> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>> ---
+>>   drivers/pinctrl/qcom/pinctrl-lpass-lpi.c | 16 ++++++++--------
+>>   1 file changed, 8 insertions(+), 8 deletions(-)
 >>
->> Fixes this build error:
->> ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_q40.ko] undefined!
-> 
-> I suspect your patch now breaks the case where multiple drivers are
-> built-in, because that puts the same global symbols into vmlinux more
-> than once.
-
-True dat.
-
->> -EXPORT_SYMBOL(dmasound);
->> -EXPORT_SYMBOL(dmasound_init);
->> -#ifdef MODULE
->> -EXPORT_SYMBOL(dmasound_deinit);
->> -#endif
-> 
->  From a very brief look, I would think that removing this #ifdef and
-> unconditionally defining dmasound_deinit is the correct solution
-> here, to solve the case of the core driver being built-in but called
-> from a loadable module, the Makefile logic is otherwise correct.
-
-OK, thanks for the info.
-I'm not going to spend any more time on it...
-
+>> diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c 
+>> b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
+>> index 2f19ab4..0bd0c16 100644
+>> --- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
+>> +++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
+>> @@ -107,7 +107,7 @@ struct lpi_pinctrl {
+>>   };
+>>     /* sm8250 variant specific data */
+>> -static const struct pinctrl_pin_desc sm8250_lpi_pins[] = {
+>> +static const struct pinctrl_pin_desc lpass_lpi_pins[] = {
+>>       PINCTRL_PIN(0, "gpio0"),
+>>       PINCTRL_PIN(1, "gpio1"),
+>>       PINCTRL_PIN(2, "gpio2"),
+>> @@ -124,7 +124,7 @@ static const struct pinctrl_pin_desc 
+>> sm8250_lpi_pins[] = {
+>>       PINCTRL_PIN(13, "gpio13"),
+>>   };
+>>   -enum sm8250_lpi_functions {
+>> +enum lpass_lpi_functions {
+>>       LPI_MUX_dmic1_clk,
+>>       LPI_MUX_dmic1_data,
+>>       LPI_MUX_dmic2_clk,
+>> @@ -203,7 +203,7 @@ static const struct lpi_pingroup sm8250_groups[] = {
+>>       LPI_PINGROUP(13, NO_SLEW, dmic3_data, i2s2_data, _, _),
+>>   };
+>>   -static const struct lpi_function sm8250_functions[] = {
+>> +static const struct lpi_function lpass_functions[] = {
+>>       LPI_FUNCTION(dmic1_clk),
+>>       LPI_FUNCTION(dmic1_data),
+>>       LPI_FUNCTION(dmic2_clk),
+>> @@ -228,12 +228,12 @@ static const struct lpi_function 
+>> sm8250_functions[] = {
+>>   };
+>>     static struct lpi_pinctrl_variant_data sm8250_lpi_data = {
+>> -    .pins = sm8250_lpi_pins,
+>> -    .npins = ARRAY_SIZE(sm8250_lpi_pins),
+>> +    .pins = lpass_lpi_pins,
+>> +    .npins = ARRAY_SIZE(lpass_lpi_pins),
+>>       .groups = sm8250_groups,
+>>       .ngroups = ARRAY_SIZE(sm8250_groups),
+>> -    .functions = sm8250_functions,
+>> -    .nfunctions = ARRAY_SIZE(sm8250_functions),
+>> +    .functions = lpass_functions,
+>> +    .nfunctions = ARRAY_SIZE(lpass_functions),
+>>   };
+>>     static int lpi_gpio_read(struct lpi_pinctrl *state, unsigned int 
+>> pin,
+>> @@ -615,7 +615,7 @@ static int lpi_pinctrl_probe(struct 
+>> platform_device *pdev)
+>>           return dev_err_probe(dev, PTR_ERR(pctrl->slew_base),
+>>                        "Slew resource not provided\n");
+>>   -    ret = devm_clk_bulk_get(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
+>> +    ret = devm_clk_bulk_get_optional(dev, MAX_LPI_NUM_CLKS, 
+>> pctrl->clks);
+>>       if (ret)
+>>           return dev_err_probe(dev, ret, "Can't get clocks\n");
+>>
 -- 
-~Randy
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+

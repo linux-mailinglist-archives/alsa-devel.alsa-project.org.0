@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 820B545771E
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 20:38:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45A2545771F
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 20:39:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F3F41797;
-	Fri, 19 Nov 2021 20:38:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F3F41797
+	by alsa0.perex.cz (Postfix) with ESMTPS id D93461790;
+	Fri, 19 Nov 2021 20:38:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D93461790
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637350731;
-	bh=4weLAB/C6UhmGkvQGo7jZMuuV/w23eVCC4DeJBrlQq4=;
+	s=default; t=1637350749;
+	bh=Onfs5Icmck1MBjj5S/AGV7W+A1rvgoSqA0vXDhlWNP8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EB03h0wZblQwzIfzQ1imZnsEKWOrhZ5B0RHdWp+9nS6S4VACTLLRjtgBv1mcOsTwh
-	 1/XLU+Q3CtOFeyA4Z29+cmeG/w0GvB9yWom7diOYhgN0ITKG7qb9i8d89WXzqoA5Ai
-	 J98o8Cau8tLpiShizU2eXh1W64b8dwBOs2Y7gHkQ=
+	b=MHlY3DgNbhBcBahODC46OMatKmmvz9cduW23MahXwdfOUw4DeszZnX3JQQKejsoH2
+	 8s7Ot/E/gZE51fvIISFbOtgYHrOOw1EQNIOQyMT7nmMWLKie2t4WDCPIvtvjkQOGBX
+	 1rJH1gSRM1zp+oKzJUtAwU5ie3C8LVl6Txd2XFGw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 887DFF80535;
-	Fri, 19 Nov 2021 20:34:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D50EF80539;
+	Fri, 19 Nov 2021 20:34:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7BEBAF80529; Fri, 19 Nov 2021 20:34:50 +0100 (CET)
+ id 80F97F80533; Fri, 19 Nov 2021 20:34:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96DC0F80518
- for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 20:34:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96DC0F80518
-X-IronPort-AV: E=McAfee;i="6200,9189,10173"; a="221697779"
-X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="221697779"
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA3C9F80519
+ for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 20:34:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA3C9F80519
+X-IronPort-AV: E=McAfee;i="6200,9189,10173"; a="221697780"
+X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="221697780"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 11:34:25 -0800
+ 19 Nov 2021 11:34:35 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="473651257"
+X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="473651277"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga002.jf.intel.com with ESMTP; 19 Nov 2021 11:34:23 -0800
+ by orsmga002.jf.intel.com with ESMTP; 19 Nov 2021 11:34:25 -0800
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 07/10] ASoC: SOF: free widgets in sof_tear_down_pipelines()
- for static pipelines
-Date: Fri, 19 Nov 2021 21:26:18 +0200
-Message-Id: <20211119192621.4096077-8-kai.vehmanen@linux.intel.com>
+Subject: [PATCH 08/10] ASoC: SOF: hda: don't use the core op for power
+ up/power down
+Date: Fri, 19 Nov 2021 21:26:19 +0200
+Message-Id: <20211119192621.4096077-9-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211119192621.4096077-1-kai.vehmanen@linux.intel.com>
 References: <20211119192621.4096077-1-kai.vehmanen@linux.intel.com>
@@ -78,56 +78,151 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Free widgets for static pipelines in sof_tear_down_pipelines().
-But this feature is unavailable in older firmware with ABI < 3.19.
-Just reset widget use_count's for this case. This would ensure that
-the secondary cores enabled required for topology setup are powered
-down properly before the primary core is powered off during
-system suspend.
+The core_power_up/down() ops will be deprecated. Use the
+HDA platform-specific functions for powering up/down
+the cores during probe/suspend/remove. The enabled_cores_mask
+and the core ref_count's are manually updated in each of
+these functions.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/sof-audio.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ sound/soc/sof/intel/hda-dsp.c    |  8 ++++++--
+ sound/soc/sof/intel/hda-loader.c | 24 +++++++++++++++++-------
+ sound/soc/sof/intel/hda.c        |  4 ++--
+ 3 files changed, 25 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index a019355e0bcf..669d5c924f6b 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -665,11 +665,12 @@ int sof_set_up_pipelines(struct snd_sof_dev *sdev, bool verify)
- }
+diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+index b2f6dcd1c23d..916a257ea96b 100644
+--- a/sound/soc/sof/intel/hda-dsp.c
++++ b/sound/soc/sof/intel/hda-dsp.c
+@@ -614,7 +614,7 @@ static int hda_suspend(struct snd_sof_dev *sdev, bool runtime_suspend)
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ #endif
+-	int ret;
++	int ret, j;
  
- /*
-- * This function doesn't free widgets during suspend. It only resets the set up status for all
-- * routes and use_count for all widgets.
-+ * For older firmware, this function doesn't free widgets for static pipelines during suspend.
-+ * It only resets use_count for all widgets.
-  */
- int sof_tear_down_pipelines(struct snd_sof_dev *sdev, bool verify)
- {
-+	struct sof_ipc_fw_version *v = &sdev->fw_ready.version;
- 	struct snd_sof_widget *swidget;
- 	struct snd_sof_route *sroute;
- 	int ret;
-@@ -681,8 +682,14 @@ int sof_tear_down_pipelines(struct snd_sof_dev *sdev, bool verify)
- 	 * loading the sound card unavailable to open PCMs.
- 	 */
- 	list_for_each_entry_reverse(swidget, &sdev->widget_list, list) {
--		if (!verify) {
-+		if (swidget->dynamic_pipeline_widget)
-+			continue;
+ 	hda_sdw_int_enable(sdev, false);
+ 
+@@ -629,13 +629,17 @@ static int hda_suspend(struct snd_sof_dev *sdev, bool runtime_suspend)
+ #endif
+ 
+ 	/* power down DSP */
+-	ret = snd_sof_dsp_core_power_down(sdev, chip->host_managed_cores_mask);
++	ret = hda_dsp_core_reset_power_down(sdev, chip->host_managed_cores_mask);
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev,
+ 			"error: failed to power down core during suspend\n");
+ 		return ret;
+ 	}
+ 
++	/* reset ref counts for all cores */
++	for (j = 0; j < chip->cores_num; j++)
++		sdev->dsp_core_ref_count[j] = 0;
 +
-+		/* Do not free widgets for static pipelines with FW ABI older than 3.19 */
-+		if (!verify && !swidget->dynamic_pipeline_widget &&
-+		    v->abi_version < SOF_ABI_VER(3, 19, 0)) {
- 			swidget->use_count = 0;
-+			swidget->complete = 0;
- 			continue;
+ 	/* disable ppcap interrupt */
+ 	hda_dsp_ctrl_ppcap_enable(sdev, false);
+ 	hda_dsp_ctrl_ppcap_int_enable(sdev, false);
+diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
+index abad6d0ceb83..40201e5ac201 100644
+--- a/sound/soc/sof/intel/hda-loader.c
++++ b/sound/soc/sof/intel/hda-loader.c
+@@ -88,12 +88,13 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag)
+ 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
+ 	const struct sof_intel_dsp_desc *chip = hda->desc;
+ 	unsigned int status;
+-	u32 flags;
++	unsigned long mask;
++	u32 flags, j;
+ 	int ret;
+ 	int i;
+ 
+ 	/* step 1: power up corex */
+-	ret = snd_sof_dsp_core_power_up(sdev, chip->host_managed_cores_mask);
++	ret = hda_dsp_enable_core(sdev, chip->host_managed_cores_mask);
+ 	if (ret < 0) {
+ 		if (hda->boot_iteration == HDA_FW_BOOT_ATTEMPTS)
+ 			dev_err(sdev->dev, "error: dsp core 0/1 power up failed\n");
+@@ -148,8 +149,8 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag)
+ 				       chip->ipc_ack_mask);
+ 
+ 	/* step 5: power down cores that are no longer needed */
+-	ret = snd_sof_dsp_core_power_down(sdev, chip->host_managed_cores_mask &
+-					  ~(chip->init_core_mask));
++	ret = hda_dsp_core_reset_power_down(sdev, chip->host_managed_cores_mask &
++					   ~(chip->init_core_mask));
+ 	if (ret < 0) {
+ 		if (hda->boot_iteration == HDA_FW_BOOT_ATTEMPTS)
+ 			dev_err(sdev->dev,
+@@ -168,8 +169,14 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag)
+ 					HDA_DSP_REG_POLL_INTERVAL_US,
+ 					chip->rom_init_timeout *
+ 					USEC_PER_MSEC);
+-	if (!ret)
++	if (!ret) {
++		/* set enabled cores mask and increment ref count for cores in init_core_mask */
++		sdev->enabled_cores_mask |= chip->init_core_mask;
++		mask = sdev->enabled_cores_mask;
++		for_each_set_bit(j, &mask, SOF_MAX_DSP_NUM_CORES)
++			sdev->dsp_core_ref_count[j]++;
+ 		return 0;
++	}
+ 
+ 	if (hda->boot_iteration == HDA_FW_BOOT_ATTEMPTS)
+ 		dev_err(sdev->dev,
+@@ -184,7 +191,7 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag)
+ 		flags &= ~SOF_DBG_DUMP_OPTIONAL;
+ 
+ 	snd_sof_dsp_dbg_dump(sdev, flags);
+-	snd_sof_dsp_core_power_down(sdev, chip->host_managed_cores_mask);
++	hda_dsp_core_reset_power_down(sdev, chip->host_managed_cores_mask);
+ 
+ 	return ret;
+ }
+@@ -501,12 +508,15 @@ int hda_dsp_post_fw_run_icl(struct snd_sof_dev *sdev)
+ 	 * the host whereas on TGL it is handled by the firmware.
+ 	 */
+ 	if (!hda->clk_config_lpro) {
+-		ret = snd_sof_dsp_core_power_up(sdev, BIT(3));
++		ret = hda_dsp_enable_core(sdev, BIT(3));
+ 		if (ret < 0) {
+ 			dev_err(sdev->dev, "error: dsp core power up failed on core 3\n");
+ 			return ret;
  		}
  
++		sdev->enabled_cores_mask |= BIT(3);
++		sdev->dsp_core_ref_count[3]++;
++
+ 		snd_sof_dsp_stall(sdev, BIT(3));
+ 	}
+ 
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 3c69e8fcd43b..1e1e9659ea86 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -1034,9 +1034,9 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ int hda_dsp_remove(struct snd_sof_dev *sdev)
+ {
+ 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
++	const struct sof_intel_dsp_desc *chip = hda->desc;
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ 	struct pci_dev *pci = to_pci_dev(sdev->dev);
+-	const struct sof_intel_dsp_desc *chip = hda->desc;
+ 
+ 	/* cancel any attempt for DSP D0I3 */
+ 	cancel_delayed_work_sync(&hda->d0i3_work);
+@@ -1061,7 +1061,7 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
+ 
+ 	/* disable cores */
+ 	if (chip)
+-		snd_sof_dsp_core_power_down(sdev, chip->host_managed_cores_mask);
++		hda_dsp_core_reset_power_down(sdev, chip->host_managed_cores_mask);
+ 
+ 	/* disable DSP */
+ 	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
 -- 
 2.33.0
 

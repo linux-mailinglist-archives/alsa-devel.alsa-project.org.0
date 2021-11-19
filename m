@@ -2,62 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC29D457966
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Nov 2021 00:15:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E78BE4579B8
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Nov 2021 00:49:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A0191737;
-	Sat, 20 Nov 2021 00:14:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A0191737
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B873177C;
+	Sat, 20 Nov 2021 00:48:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B873177C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637363732;
-	bh=xQ9GcuX4BjsrtskKzQhW8vM5VEFeURsi33iuVf8Zgdc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=p1Ge3klggTOpT8IFQAxKIGpluIJS3Oz+n1qkbqsNoCMotiKPyMeLKqDcSSAkv1Wq5
-	 zOuo2sD7GJRKJVQtH974hiMz1VGVLQgJesMYMFdis7whuTtPmzGbMHjpxAfp0InKf5
-	 dnOSRsxzjNz1AiF2V2MJmZyhvewS7to/tbBIpXGY=
+	s=default; t=1637365787;
+	bh=3VDfadjeBRiHxpHGiR11KFt76tSbWj1veqyTj+7SpR4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=oHMN/JFzY29RH62x/W2qELHaQf+JdptV14+TgcGGpOPvt//XjlO4sGVU7tcnSoxxe
+	 ZLU5t5bWNosPBxiBu5FqehAHYs2MuhDTHhudbDh510HKPgevuHDs2PD0ImpcSuwwpS
+	 m+GcEQ9Vd215c35H4YA7HHtZxmODDufYR2FVzc90=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00C59F800FA;
-	Sat, 20 Nov 2021 00:14:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB1ECF8026D;
+	Sat, 20 Nov 2021 00:48:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11329F800FA; Sat, 20 Nov 2021 00:14:12 +0100 (CET)
+ id CB44BF80217; Sat, 20 Nov 2021 00:48:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17488F800FA
- for <alsa-devel@alsa-project.org>; Sat, 20 Nov 2021 00:14:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17488F800FA
-X-IronPort-AV: E=McAfee;i="6200,9189,10173"; a="297926209"
-X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="297926209"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8CE23F80115
+ for <alsa-devel@alsa-project.org>; Sat, 20 Nov 2021 00:48:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CE23F80115
+X-IronPort-AV: E=McAfee;i="6200,9189,10173"; a="233233250"
+X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="233233250"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 15:14:00 -0800
-X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="508096251"
-Received: from mredenti-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.212.30.252])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2021 15:48:14 -0800
+X-IronPort-AV: E=Sophos;i="5.87,248,1631602800"; d="scan'208";a="508105829"
+Received: from mredenti-mobl.amr.corp.intel.com (HELO [10.212.30.252])
+ ([10.212.30.252])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2021 15:14:00 -0800
+ 19 Nov 2021 15:48:13 -0800
+Subject: Re: [PATCH] ALSA: intel-dsp-config: add quirk for JSL devices based
+ on ES8336 codec
+To: Takashi Iwai <tiwai@suse.de>, Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20211027023254.24955-1-yung-chuan.liao@linux.intel.com>
+ <s5ha6ivx9zs.wl-tiwai@suse.de>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: SOF: sof-pci-dev: use community key on all Up boards
-Date: Fri, 19 Nov 2021 17:13:27 -0600
-Message-Id: <20211119231327.211946-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+Message-ID: <3e70f05b-47d1-d1bb-5225-7fba5de96d91@linux.intel.com>
+Date: Fri, 19 Nov 2021 17:48:10 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
- broonie@kernel.org,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <s5ha6ivx9zs.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,48 +77,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are already 3 versions of the Up boards with support for the SOF
-community key (ApolloLake, WhiskyLake, TigerLake). Rather than
-continue to add quirks for each version, let's add a wildcard.
 
-For WHL and TGL, the authentication supports both the SOF community
-key and the firmware signed with the Intel production key. Given two
-choices, the community key is the preferred option to allow developers
-to sign their own firmware. The firmware signed with production key
-can still be selected if needed with a kernel module
-option (snd-sof-pci.fw_path="intel/sof")
 
-Tested-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/sof/sof-pci-dev.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+On 10/27/21 1:22 AM, Takashi Iwai wrote:
+> On Wed, 27 Oct 2021 04:32:54 +0200,
+> Bard Liao wrote:
+>>
+>> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>>
+>> These devices are based on an I2C/I2S device, we need to force the use
+>> of the SOF driver otherwise the legacy HDaudio driver will be loaded -
+>> only HDMI will be supported.
+>>
+>> We previously added support for other Intel platforms but missed
+>> JasperLake.
+>>
+>> BugLink: https://github.com/thesofproject/linux/issues/3210
+>> Fixes: 9d36ceab9415 ('ALSA: intel-dsp-config: add quirk for APL/GLK/TGL devices based on ES8336 codec')
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Reviewed-by: Kai Vehmanen <kai.vehmanen@intel.com>
+>> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> 
+> As the commit still didn't reach to me but only in Mark's tree,
+> it should go through asoc tree.
+> 
+> Acked-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index bc9e70765678..b4bc4f887b43 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -64,17 +64,9 @@ static const struct dmi_system_id sof_tplg_table[] = {
- 
- static const struct dmi_system_id community_key_platforms[] = {
- 	{
--		.ident = "Up Squared",
-+		.ident = "Up boards",
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "AAEON"),
--			DMI_MATCH(DMI_BOARD_NAME, "UP-APL01"),
--		}
--	},
--	{
--		.ident = "Up Extreme",
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "AAEON"),
--			DMI_MATCH(DMI_BOARD_NAME, "UP-WHL01"),
- 		}
- 	},
- 	{
--- 
-2.25.1
+Looks like this patch was missed, likely a merge window effect?
 
+Takashi, you should be able to apply this on your tree now? or do you
+want me to resend it?
+
+Thanks
+-Pierre

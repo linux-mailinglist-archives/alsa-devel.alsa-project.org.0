@@ -2,73 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA34A456D43
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 11:27:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A5AC456DCF
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 11:51:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66FD8171E;
-	Fri, 19 Nov 2021 11:27:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66FD8171E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0F4017B9;
+	Fri, 19 Nov 2021 11:50:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0F4017B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637317677;
-	bh=uZGg8AyI0f0mwfwJi0LG8t8CKp90/PGRvzReNGbbtwM=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1637319103;
+	bh=8smRVfD0Ggh6aT5Gw2FcV3uCXL36mUAN95fpRK/xpdw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=MTv0F9YtG9m/S2vg1vA/t14d5iHR2rMKEvbihGu+EBnZ4OF9tCYPeTiwXehKOuiC0
-	 wgU0wvoOi7sYQp9uslaYS88iZUrZZWjAhC2LYYcuuZgZrkWZZHOuC8/Bm4fCdpSKZj
-	 NdYomZuL+nyIsbhiEKxZ3Z/LBBDzr0vxOx3BxzAk=
+	b=Xi0s/5kG7HUzueJ7avthsHE9ZVtPMtacfSOflclbf5zRKGSUHoYmRubnleefgphYM
+	 7PsLTWZuG9J9XGzYflZJQ4ji7r+FiBzdFdhPgITgf8MYwIOky1QOomt5HnVn7rSfmw
+	 xpEXoFfl5XjAVlB9/3wbPk+6q9EA3bZMNmWVFZkY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1980F8026D;
-	Fri, 19 Nov 2021 11:26:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A44E7F8028B;
+	Fri, 19 Nov 2021 11:50:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06462F8010B; Fri, 19 Nov 2021 11:26:37 +0100 (CET)
+ id B7F83F80272; Fri, 19 Nov 2021 11:49:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E88FEF8010B
- for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 11:26:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E88FEF8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB474F80217
+ for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 11:49:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB474F80217
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="s8zHaADs"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="MQzwOO+W"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id B618A21637
- for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 10:26:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1637317590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=EsNgNYH2p20Mu2Po8feVZYaKzgReFQ3EqDk94Kv6pfw=;
- b=s8zHaADsffr3ibY40+6SbTpqrBBDuBmuLrN/c9rsQBiMcNILO0m+k4rgpgb7KxdVgsJLsr
- uhbPTk3Bph+g/8oLvL5IW23gCnRAc5xmjkB6SJkJnGdsox5QqgQNJ5x1suQIc1C642ZND+
- /jRJTK9RPP2u40xPucNjhk/q+H5UPq4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1637317590;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=EsNgNYH2p20Mu2Po8feVZYaKzgReFQ3EqDk94Kv6pfw=;
- b=MQzwOO+W/wxdoxhvv73PIgecqsH8RzEQyKO50Xv7H/CALKDJ0iXi52bef6au2ivI8J7va/
- VfoO/apPKo/sYqDQ==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id A6D64A3B87;
- Fri, 19 Nov 2021 10:26:30 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Don't start stream for capture at prepare
-Date: Fri, 19 Nov 2021 11:26:29 +0100
-Message-Id: <20211119102629.7476-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com
+ header.b="vs2g62Hs"
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AJ63puU028232;
+ Fri, 19 Nov 2021 11:49:46 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=FJTdF7AHag0JWwHMFiygmObAOJE6OAA0u6xWqdj9p7s=;
+ b=vs2g62HsUBxVjXGPYomg/X3Fo7ojwGSRj1ZQYdw75tCTB3b+7x6z7sSm4yC1nFLhyZk9
+ GiWyIADhPF5suHtyegKlHpS3u+aGnADVh69OvLtNRBihEi3yI5f1lcbaNztd0grUKv/0
+ EV64RfRS30llmVa3s02FCpsVDcarr1ve9lRVp+pzp3OYootY/CnkgFb+VbUrWzXQho8+
+ FTe2CDoELrSNI4kFTdcA/G7s3rGbym0ER+kLwLNes977g0N3xVmcDJGDFz1PeCDxEhhG
+ s+h65mLXrS1mYTeowGgACwZnnliWOQ0DzXvSmVCbYKVQNXt9ZyemFNY/ObSAGYAn7z9i Yg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ce6b1hqjf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Nov 2021 11:49:46 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 27D5410002A;
+ Fri, 19 Nov 2021 11:49:45 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 87EB92248C2;
+ Fri, 19 Nov 2021 11:49:45 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 19 Nov 2021 11:49:45
+ +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Arnaud Pouliquen
+ <arnaud.pouliquen@foss.st.com>, Jaroslav Kysela <perex@perex.cz>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2 0/3] ASoC: stm32: add pm runtime support
+Date: Fri, 19 Nov 2021 11:47:49 +0100
+Message-ID: <20211119104752.13564-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-11-19_08,2021-11-17_01,2020-04-07_01
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,29 +99,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent change made mistakenly the stream for capture started at
-prepare stage.  Add the stream direction check to avoid it.
+Enable support of pm runtime on STM32 SPDIFRX, I2S and DFSDM drivers
+to allow power state monitoring.
 
-Fixes: 9c9a3b9da891 ("ALSA: usb-audio: Rename early_playback_start flag with lowlatency_playback")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/pcm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v2:
+- Move pm runtime enabling before component registration
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 57b046e73bfe..cec6e91afea2 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -640,7 +640,8 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
- 	runtime->delay = 0;
- 
- 	subs->lowlatency_playback = lowlatency_playback_available(runtime, subs);
--	if (!subs->lowlatency_playback)
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
-+	    !subs->lowlatency_playback)
- 		ret = start_endpoints(subs);
- 
-  unlock:
+Olivier Moysan (3):
+  ASoC: stm32: i2s: add pm_runtime support
+  ASoC: stm32: dfsdm: add pm_runtime support for audio
+  ASoC: stm32: spdifrx: add pm_runtime support
+
+ sound/soc/stm/stm32_adfsdm.c  | 5 ++++-
+ sound/soc/stm/stm32_i2s.c     | 4 ++++
+ sound/soc/stm/stm32_spdifrx.c | 4 ++++
+ 3 files changed, 12 insertions(+), 1 deletion(-)
+
 -- 
-2.26.2
+2.17.1
 

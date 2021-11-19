@@ -2,86 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16974456F1A
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 13:50:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A666457019
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Nov 2021 14:52:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A930417AD;
-	Fri, 19 Nov 2021 13:49:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A930417AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE9B817B9;
+	Fri, 19 Nov 2021 14:51:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE9B817B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637326229;
-	bh=0W4TfFQOQhxqg4JjgsmGthPPNt5f1QkKpcS/HvKK/os=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ow6SKIK0/ys4nqDU7DW4y63S/kbTct1I9sAIHmKukuwiIj0Glb2oBmWhqKMuQVIr1
-	 bxbPa9EoE6eMIQ8+33/xXirnbD7P0TyJzqxGCQEU30VeT2gQkD1ytkfpQ9mnwkqbYI
-	 Lihh7Kvk9Kp1XnGpIgU3qBbvPPknuWElh3fCLAJA=
+	s=default; t=1637329964;
+	bh=nzcqYbh5/mKZIkEngjb+FvJ8e4okj+1CWwF8DZYK4Q4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=CbXGApXXsSg1bj6/Ns35dpXafESmK4W56XzEYJcr3fz3z87jMpL6NUR6EzJEsUwdE
+	 oCwYn/LCOyVevLA5rxfXhcCmt2ol0tCptDp4GtrI+DTDw5s5yRHmvbNU5HxM8Woelc
+	 /QS6U0McGfVCKBiXPP3Wq+ZD3z0cy9tBXWhXSYzM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FC55F8012E;
-	Fri, 19 Nov 2021 13:49:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DC04F8010B;
+	Fri, 19 Nov 2021 14:51:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BFF6F80217; Fri, 19 Nov 2021 13:49:09 +0100 (CET)
+ id 069EEF80217; Fri, 19 Nov 2021 14:51:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_29,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99F35F8010B
- for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 13:49:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99F35F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4909F8010B
+ for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 14:51:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4909F8010B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="k8d6gBvq"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AJCUn57016559;
- Fri, 19 Nov 2021 06:49:00 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=1KG6WEM5pcit/0cOBrJixvTwEkGLUWH0S9yAWcmK2K8=;
- b=k8d6gBvqOmlYfOzN6HioKcSb3hbK4/x6I43XRAQ/QdRJN4GqTJlGBNrpR/673gBQGCZj
- w/5ZyONTLdC33fdMAdKHFOdvGtIrGLBmSOw6AU9SVuAlRwLFNeOxpt2jWE4rMNhST6YQ
- MJI89U5ed/tRATIOISibkISzvFaippCg/hf/z+bCqPREWt6+aIgZk6W7Dg91AszFlV/T
- l5qGg1272NY/lA3PJ+0sNPAH48Z7f+uHoS/LEDOnIQqlpbdNEsej7/2+DjOII7mjWnqr
- j1am/FRKoebyVYiUsLCAfy5h8VFQpX8IwZHigzCHLwxxYdiLnT4v5+Lslqkuqj+DGLlp AQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3cdj9esurs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 19 Nov 2021 06:48:59 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 19 Nov
- 2021 12:48:58 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
- Frontend Transport; Fri, 19 Nov 2021 12:48:58 +0000
-Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
- [198.61.65.41])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 911CF2A1;
- Fri, 19 Nov 2021 12:48:57 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: cs42l42: Report initial jack state
-Date: Fri, 19 Nov 2021 12:48:54 +0000
-Message-ID: <20211119124854.58939-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 8fAUTdm_apuBc1B3nsIPDGY3x06OleEg
-X-Proofpoint-ORIG-GUID: 8fAUTdm_apuBc1B3nsIPDGY3x06OleEg
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="p8QnQeRR"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="hhwkJGNE"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 86BFA21637;
+ Fri, 19 Nov 2021 13:51:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1637329874; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3U5Mz4XSHc9uIhZuvE/ReOpDKhEiCOXpv6d+xy6j5lw=;
+ b=p8QnQeRRKeFyELws7bLLwRpwSmCGb+/xOznp6/OO3phCMsHouNF0+4rgusUy4m6EACkKLY
+ fqJ4MyGPxomjf+1ZruJiUQZ3/L3xBaFgmu6wpt8gv/gOfGU0h0PAd5AMXRRt/e+BN4CNM7
+ +iOJn/pdwd/kPYwl210eOGq1AUBv7lA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1637329874;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3U5Mz4XSHc9uIhZuvE/ReOpDKhEiCOXpv6d+xy6j5lw=;
+ b=hhwkJGNEy3BseOaXS0Jp5v4lp69sxyhXtHQjGrdSXdf5BGU6eKl7h+afq/aDYwhmYAt5t4
+ mZyYqWtSHNiUvTAw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 7CE26A3B81;
+ Fri, 19 Nov 2021 13:51:14 +0000 (UTC)
+Date: Fri, 19 Nov 2021 14:51:14 +0100
+Message-ID: <s5hczmwfe3x.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: Warning due to "ALSA: hda: intel: More comprehensive PM runtime
+ setup for controller driver"
+In-Reply-To: <bc281416-e28d-4c18-2475-add92d38a554@gmail.com>
+References: <d9d76980-966a-e031-70d1-3254ba5be5eb@gmail.com>
+ <s5hczmxgnm2.wl-tiwai@suse.de>
+ <bc281416-e28d-4c18-2475-add92d38a554@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Linux PM <linux-pm@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,100 +94,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When a jack handler is registered in cs42l42_set_jack() the
-initial state should be reported if an attached headphone/headset
-has already been detected.
+On Thu, 18 Nov 2021 23:13:50 +0100,
+Heiner Kallweit wrote:
+> 
+> On 18.11.2021 22:28, Takashi Iwai wrote:
+> > On Thu, 18 Nov 2021 21:33:34 +0100,
+> > Heiner Kallweit wrote:
+> >>
+> >> I get the following warning caused by 4f66a9ef37d3 ("ALSA: hda: intel: More
+> >> comprehensive PM runtime setup for controller driver"):
+> >>
+> >> snd_hda_intel 0000:00:1f.3: Unbalanced pm_runtime_enable!
+> >>
+> >> Not sure how this patch was tested because the warning is obvious.
+> >> The patch doesn't consider what the PCI sub-system does with regard to
+> >> RPM. Have a look at pci_pm_init().
+> >>
+> >> I'd understand to add the call to pm_runtime_dont_use_autosuspend(),
+> >> but for all other added calls I see no justification.
+> >>
+> >> If being unsure about when to use which RPM call best involve
+> >> linux-pm@vger.kernel.org.
+> > 
+> > Thanks for the notice.  It's been through Intel CI and tests on a few
+> > local machines, maybe we haven't checked carefully those errors but
+> > only concentrated on the other issues, as it seems.
+> > 
+> > There were two problems: one was the runtime PM being kicked off even
+> > during the PCI driver remove call, and another was the proper runtime
+> > PM setup after re-binding.
+> > 
+> 
+> Having a look at the commit message of "ALSA: hda: fix general protection
+> fault in azx_runtime_idle" the following sounds weird:
+> 
+>   - pci-driver.c:pm_runtime_put_sync() leads to a call
+>     to rpm_idle() which again calls azx_runtime_idle()
+> 
+> rpm_idle() is only called if usage_count is 1 when entering
+> pm_runtime_put_sync. And this should not be the case.
+> pm_runtime_get_sync() increments the usage counter before remove()
+> is called, and remove() should also increment the usage counter.
+> This doesn't seem to happen. Maybe for whatever reason 
+> pm_runtime_get_noresume() isn't called in azx_free(), or azx_free()
+> isn't called from remove().
+> I think you should trace the call chain from the PCI core calling
+> remove() to pm_runtime_get_noresume() getting called or not.
 
-The jack detect sequence takes around 1 second: typically long
-enough for the machine driver to probe and register the jack handler
-in time to receive the first report from the interrupt handler. So
-it is possible on some systems that the correct initial state was seen
-simply because of lucky timing. Modular builds were more likely to
-miss the reporting of the initial state.
+Neither of them, supposedly.  Now I took a deeper look at the code
+around it and dug into the git log, and found that the likely problem
+was the recent PCI core code refactoring (removal of pci->driver, etc)
+that have been already reverted; that was why linux-next-20211109 was
+broken and linux-next-20211110 worked.  With the leftover pci->driver,
+the stale runtime PM callback was called at the pm_runtime_put_sync()
+call in pci_device_remove().
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Fixes: 4ca239f33737 ("ASoC: cs42l42: Always enable TS_PLUG and TS_UNPLUG interrupts")
----
- sound/soc/codecs/cs42l42.c | 22 ++++++++++++++++++++++
- sound/soc/codecs/cs42l42.h |  2 ++
- 2 files changed, 24 insertions(+)
+In anyway, I'll drop the invalid calls of pm_runtime_enable() /
+disable() & co.  Maybe keeping pm_runtime_forbid() and
+pm_runtime_dont_use_autosuspend() at remove still makes some sense as
+a counter-part for the probe calls, though.
 
-diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 0c4303547fd8..43d98bdb5b5b 100644
---- a/sound/soc/codecs/cs42l42.c
-+++ b/sound/soc/codecs/cs42l42.c
-@@ -549,8 +549,25 @@ static int cs42l42_set_jack(struct snd_soc_component *component, struct snd_soc_
- {
- 	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
- 
-+	/* Prevent race with interrupt handler */
-+	mutex_lock(&cs42l42->jack_detect_mutex);
- 	cs42l42->jack = jk;
- 
-+	if (jk) {
-+		switch (cs42l42->hs_type) {
-+		case CS42L42_PLUG_CTIA:
-+		case CS42L42_PLUG_OMTP:
-+			snd_soc_jack_report(jk, SND_JACK_HEADSET, SND_JACK_HEADSET);
-+			break;
-+		case CS42L42_PLUG_HEADPHONE:
-+			snd_soc_jack_report(jk, SND_JACK_HEADPHONE, SND_JACK_HEADPHONE);
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+	mutex_unlock(&cs42l42->jack_detect_mutex);
-+
- 	return 0;
- }
- 
-@@ -1618,6 +1635,8 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
- 		CS42L42_M_DETECT_FT_MASK |
- 		CS42L42_M_HSBIAS_HIZ_MASK);
- 
-+	mutex_lock(&cs42l42->jack_detect_mutex);
-+
- 	/* Check auto-detect status */
- 	if ((~masks[5]) & irq_params_table[5].mask) {
- 		if (stickies[5] & CS42L42_HSDET_AUTO_DONE_MASK) {
-@@ -1686,6 +1705,8 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
- 		}
- 	}
- 
-+	mutex_unlock(&cs42l42->jack_detect_mutex);
-+
- 	return IRQ_HANDLED;
- }
- 
-@@ -2033,6 +2054,7 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client,
- 
- 	cs42l42->dev = &i2c_client->dev;
- 	i2c_set_clientdata(i2c_client, cs42l42);
-+	mutex_init(&cs42l42->jack_detect_mutex);
- 
- 	cs42l42->regmap = devm_regmap_init_i2c(i2c_client, &cs42l42_regmap);
- 	if (IS_ERR(cs42l42->regmap)) {
-diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
-index 75ade987d0db..9fff183dce8e 100644
---- a/sound/soc/codecs/cs42l42.h
-+++ b/sound/soc/codecs/cs42l42.h
-@@ -12,6 +12,7 @@
- #ifndef __CS42L42_H__
- #define __CS42L42_H__
- 
-+#include <linux/mutex.h>
- #include <sound/jack.h>
- 
- #define CS42L42_PAGE_REGISTER	0x00	/* Page Select Register */
-@@ -841,6 +842,7 @@ struct  cs42l42_private {
- 	struct gpio_desc *reset_gpio;
- 	struct completion pdn_done;
- 	struct snd_soc_jack *jack;
-+	struct mutex jack_detect_mutex;
- 	int pll_config;
- 	int bclk;
- 	u32 sclk;
--- 
-2.11.0
 
+thanks,
+
+Takashi

@@ -2,85 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDD3E457C15
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Nov 2021 08:25:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A131458184
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Nov 2021 03:29:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C0E3175A;
-	Sat, 20 Nov 2021 08:24:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C0E3175A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6FD5170B;
+	Sun, 21 Nov 2021 03:28:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6FD5170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637393116;
-	bh=QHDzwZYmBVbphYkjS2/qqU0GimOgAW/414SdgkfKdVQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1637461739;
+	bh=5B1tygrNXNV2A61CLamHESeJzyho+jTUiZ+gyVHVWpI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uBvMY4KYVWxhTHHeg50JHvUBfGqRZXVRn2srws5aoqDvmsHijhR95gWv0rEe2IJzH
-	 2uJW7w/z+WUPnSCtxTy8Kb710pRrLDUdKg2XjyInTGrSvhSu7KZhp+ZgW1hwVbf56A
-	 J6VhkjaJOwMaCStgp0cX7sMIdlLrAExj4nAm6W8Q=
+	b=F57viwhEGhg6E5Rt7puuISgeVRpr+0alSIs9MSbpXf6489az4DQauBXmUDqCfywIh
+	 5F1v9P3k8hvrI0H9Pj9yqgcFDz2rEMdFqDjm1THjxduRSlVAm+PdlwHZXi4dvgte9Q
+	 uIaaAAg3up2UZO4j7556sxSMw0t7bF1e3OtU5XbU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4343F800FA;
-	Sat, 20 Nov 2021 08:23:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6FEDF804AB;
+	Sun, 21 Nov 2021 03:27:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F234F8049C; Sat, 20 Nov 2021 08:23:55 +0100 (CET)
+ id CFEF1F8049E; Sun, 21 Nov 2021 03:27:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08CECF80171
- for <alsa-devel@alsa-project.org>; Sat, 20 Nov 2021 08:23:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08CECF80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B7DFF800E7
+ for <alsa-devel@alsa-project.org>; Sun, 21 Nov 2021 03:27:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B7DFF800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="pFZ8trh+"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="+thZS/by"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 54F77212CC;
- Sat, 20 Nov 2021 07:23:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1637393029; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Kb3g6HKRyNIRiXeacGIYRO9FVxnCYkeWgcH5paW93Xs=;
- b=pFZ8trh+xzkqvu7pvzV91gbwtaFa7yHjI4sfGh3jl3/pF3pE35cBHiAo6S3367+eyBgsB5
- wQbE2iwNDngXQea8FWevM3BJmBz8wxU1gSAUMTVkLzr9mH+3YtZjw/2EpKdlRX6PidaokX
- lP88guJJaNG9IOpDTsVWpljVftcn/tM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1637393029;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Kb3g6HKRyNIRiXeacGIYRO9FVxnCYkeWgcH5paW93Xs=;
- b=+thZS/byA+vQ9Gw0wXO5hzbmLjNF5VtMTqibBlET8RjJspzJUQ/fEBvXmS7F+hRI1PFRPU
- 0KmnLteYN8DpttCg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3E761A3B81;
- Sat, 20 Nov 2021 07:23:49 +0000 (UTC)
-Date: Sat, 20 Nov 2021 08:23:49 +0100
-Message-ID: <s5hmtlze1dm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ALSA: intel-dsp-config: add quirk for JSL devices based
- on ES8336 codec
-In-Reply-To: <3e70f05b-47d1-d1bb-5225-7fba5de96d91@linux.intel.com>
-References: <20211027023254.24955-1-yung-chuan.liao@linux.intel.com>
- <s5ha6ivx9zs.wl-tiwai@suse.de>
- <3e70f05b-47d1-d1bb-5225-7fba5de96d91@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="VUzwKFp8"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DA6DA608FE;
+ Sun, 21 Nov 2021 02:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1637461630;
+ bh=5B1tygrNXNV2A61CLamHESeJzyho+jTUiZ+gyVHVWpI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VUzwKFp86nAlK71IbLniCYP89vvzsMV6E10zFllboFOa0bb9tNs2vCa2ap3LX2bTK
+ e6REB7M6xS5aWrBAXPI5XNFr3B0LZ1A1fbT1CpxsPfZMgQ9PvmdGmzyelK/6yAm0iB
+ PiQgYUJ7Lwjo7iYH3VfYtyepzJTLdCfiEMWgBfX8s61fXOrKDdo+Plm6i4yTuZ9DcA
+ n2IzQCIuw+FsUeWEHldQMOrYZLKA9/G4zfCS1KmXbhnrIR6edTuqpTLOsx4LffpehB
+ aar/+hpZsHZf81VBSJuvXcj2QVkldV5iYyA2NiXY5tY7G27H51pdAwKWoo0ybcp96J
+ RkAxd0eZlbaZA==
+Date: Sun, 21 Nov 2021 10:27:04 +0800
+From: Shawn Guo <shawnguo@kernel.org>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: Re: [PATCH 1/2] arm64: dts: imx: imx8mn-beacon: Drop undocumented
+ clock-names reference
+Message-ID: <20211121022704.GF31998@dragon>
+References: <cover.1634565154.git.geert+renesas@glider.be>
+ <16af1bd2847da8b2a265e2a4389942ae11dea7c5.1634565154.git.geert+renesas@glider.be>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <16af1bd2847da8b2a265e2a4389942ae11dea7c5.1634565154.git.geert+renesas@glider.be>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Adam Ford <aford173@gmail.com>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,41 +83,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 20 Nov 2021 00:48:10 +0100,
-Pierre-Louis Bossart wrote:
+On Mon, Oct 18, 2021 at 03:59:02PM +0200, Geert Uytterhoeven wrote:
+> The wlf,wm8962 Device Tree bindings do not specify a clock-names
+> property.  Drop it.
 > 
-> 
-> 
-> On 10/27/21 1:22 AM, Takashi Iwai wrote:
-> > On Wed, 27 Oct 2021 04:32:54 +0200,
-> > Bard Liao wrote:
-> >>
-> >> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> >>
-> >> These devices are based on an I2C/I2S device, we need to force the use
-> >> of the SOF driver otherwise the legacy HDaudio driver will be loaded -
-> >> only HDMI will be supported.
-> >>
-> >> We previously added support for other Intel platforms but missed
-> >> JasperLake.
-> >>
-> >> BugLink: https://github.com/thesofproject/linux/issues/3210
-> >> Fixes: 9d36ceab9415 ('ALSA: intel-dsp-config: add quirk for APL/GLK/TGL devices based on ES8336 codec')
-> >> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> >> Reviewed-by: Kai Vehmanen <kai.vehmanen@intel.com>
-> >> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > 
-> > As the commit still didn't reach to me but only in Mark's tree,
-> > it should go through asoc tree.
-> > 
-> > Acked-by: Takashi Iwai <tiwai@suse.de>
-> 
-> Looks like this patch was missed, likely a merge window effect?
-> 
-> Takashi, you should be able to apply this on your tree now? or do you
-> want me to resend it?
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-I merged it now.  Thanks!
-
-
-Takashi
+Applied, thanks.

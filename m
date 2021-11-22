@@ -2,52 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0404459E19
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:33:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70536459DDC
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:24:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50C5C16EA;
-	Tue, 23 Nov 2021 09:32:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50C5C16EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0139F166E;
+	Tue, 23 Nov 2021 09:23:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0139F166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637656381;
-	bh=3qCtJDqxE06BEIya7Ex7qw7hiN17gpL9ZoeabUOJYSM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vRl7OxL+G15YTGkDKmEHWbFGKdM08qsVhtMcdVBaUCFr9YTIGRD3l6YtKlOoB8MHB
-	 CfYZr5Zv+2AcW40e3M5mQEk83DGmdhaD/htMoW573wFQsFzAPJl8+Iw1rKHHPXqz0Y
-	 I2KXJFKncojaidnIOIa50rg7SamlmEF+f+BkGAxM=
+	s=default; t=1637655854;
+	bh=RmX/W8x5vIlCgEQDQRY+SZ9WVGykVsxo/1ePY9tp/aw=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=oUt3CZT981kBBMLX333ib7sp1cnviEVQuPjO6+m2LP1TsnbTLfwYq1CFGoMIkxtJX
+	 r/JCXLrjGVGuKFmXgnHXtVPMUmMgNq+iWcWWFXYP0Cm7gy+Tf4stt92CRy6UEbSMou
+	 dK+uFUO7l2H0mp6BxuYaaYW/0V0ieaQAaYW80m+w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D740DF805ED;
-	Tue, 23 Nov 2021 09:22:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CCD0F80510;
+	Tue, 23 Nov 2021 09:21:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F93CF80245; Mon, 22 Nov 2021 16:57:07 +0100 (CET)
+ id AFB18F80302; Mon, 22 Nov 2021 16:55:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- PRX_BODY_135, SPF_HELO_NONE, SPF_NONE,
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
- [IPv6:2a02:1800:120:4::f00:14])
+Received: from laurent.telenet-ops.be (laurent.telenet-ops.be
+ [IPv6:2a02:1800:110:4::f00:19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39C33F800E7
- for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 16:56:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39C33F800E7
-Received: from ramsan.of.borg ([84.195.186.194])
- by xavier.telenet-ops.be with bizsmtp
- id MTwH260044C55Sk01TwHfq; Mon, 22 Nov 2021 16:56:58 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D4A1F80245
+ for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 16:55:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D4A1F80245
+Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed20:e4da:38c:79e9:48bf])
+ by laurent.telenet-ops.be with bizsmtp
+ id MTux2600m4yPVd601TuykH; Mon, 22 Nov 2021 16:55:39 +0100
 Received: from rox.of.borg ([192.168.97.57])
  by ramsan.of.borg with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
  (envelope-from <geert@linux-m68k.org>)
- id 1mpBe5-00EL3K-Py; Mon, 22 Nov 2021 16:54:17 +0100
+ id 1mpBe5-00EL3L-Rf; Mon, 22 Nov 2021 16:54:17 +0100
 Received: from geert by rox.of.borg with local (Exim 4.93)
  (envelope-from <geert@linux-m68k.org>)
- id 1mpBe5-00HGy1-9n; Mon, 22 Nov 2021 16:54:17 +0100
+ id 1mpBe5-00HGy7-BC; Mon, 22 Nov 2021 16:54:17 +0100
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 To: Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
  Rajendra Nayak <rnayak@codeaurora.org>, Paul Walmsley <paul@pwsan.com>,
@@ -72,10 +73,12 @@ To: Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
  Amit Kucheria <amitk@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 00/17] Non-const bitfield helper conversions
-Date: Mon, 22 Nov 2021 16:53:53 +0100
-Message-Id: <cover.1637592133.git.geert+renesas@glider.be>
+Subject: [PATCH 01/17] bitfield: Add non-constant field_{prep,get}() helpers
+Date: Mon, 22 Nov 2021 16:53:54 +0100
+Message-Id: <3a54a6703879d10f08cf0275a2a69297ebd2b1d4.1637592133.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1637592133.git.geert+renesas@glider.be>
+References: <cover.1637592133.git.geert+renesas@glider.be>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 23 Nov 2021 09:20:57 +0100
@@ -102,139 +105,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-	Hi all,
-
-<linux/bitfield.h> contains various helpers for accessing bitfields, as
-typically used in hardware registers for memory-mapped I/O blocks. These
-helpers ensure type safety, and deduce automatically shift values from
-mask values, avoiding mistakes due to inconsistent shifts and masks, and
-leading to a reduction in source code size.
-
-I have already submitted a few conversions to the FIELD_{GET,PREP}()
-helpers that were fixes for real bugs:
-  - [PATCH] mips: cm: Convert to bitfield API to fix out-of-bounds
-    access
-    https://lore.kernel.org/r/0471c545117c5fa05bd9c73005cda9b74608a61e.1635501373.git.geert+renesas@glider.be
-  - [PATCH] drm/armada: Fix off-by-one error in
-    armada_overlay_get_property()
-    https://lore.kernel.org/r/5818c8b04834e6a9525441bc181580a230354b69.1635501237.git.geert+renesas@glider.be
-
-Plus several patches for normal conversions:
-  - [PATCH] ARM: ptrace: Use bitfield helpers
-    https://lore.kernel.org/r/a1445d3abb45cfc95cb1b03180fd53caf122035b.1637593297.git.geert+renesas@glider.be
-  - [PATCH] MIPS: CPC: Use bitfield helpers
-    https://lore.kernel.org/r/35f0f17e3d987afaa9cd09cdcb8131d42a53c3e1.1637593297.git.geert+renesas@glider.be
-  - [PATCH] MIPS: CPS: Use bitfield helpers
-    https://lore.kernel.org/r/8bd8b1b9a3787e594285addcf2057754540d0a5f.1637593297.git.geert+renesas@glider.be
-  - [PATCH] crypto: sa2ul - Use bitfield helpers
-    https://lore.kernel.org/r/ca89d204ef2e40193479db2742eadf0d9cf3c0ff.1637593297.git.geert+renesas@glider.be
-  - [PATCH] dmaengine: stm32-mdma: Use bitfield helpers
-    https://lore.kernel.org/r/36ceab242a594233dc7dc6f1dddb4ac32d1e846f.1637593297.git.geert+renesas@glider.be
-  - [PATCH] intel_th: Use bitfield helpers
-    https://lore.kernel.org/r/b1e4f027aa88acfbdfaa771b0920bd1d977828ba.1637593297.git.geert+renesas@glider.be
-  - [PATCH] Input: palmas-pwrbutton - use bitfield helpers
-    https://lore.kernel.org/r/f8831b88346b36fc6e01e0910d0db6c94287d2b4.1637593297.git.geert+renesas@glider.be
-  - [PATCH] irqchip/mips-gic: Use bitfield helpers
-    https://lore.kernel.org/r/74f9d126961a90d3e311b92a54870eaac5b3ae57.1637593297.git.geert+renesas@glider.be
-  - [PATCH] mfd: mc13xxx: Use bitfield helpers
-    https://lore.kernel.org/r/afa46868cf8c1666e9cbbbec42767ca2294b024d.1637593297.git.geert+renesas@glider.be
-  - [PATCH] regulator: lp873x: Use bitfield helpers
-    https://lore.kernel.org/r/44d60384b640c8586b4ca7edbc9287a34ce21c5b.1637593297.git.geert+renesas@glider.be
-  - [PATCH] regulator: lp87565: Use bitfield helpers
-    https://lore.kernel.org/r/941c2dfd5b5b124b8950bcce42db4c343dfe9821.1637593297.git.geert+renesas@glider.be
-
 The existing FIELD_{GET,PREP}() macros are limited to compile-time
 constants.  However, it is very common to prepare or extract bitfield
 elements where the bitfield mask is not a compile-time constant.
+
 To avoid this limitation, the AT91 clock driver already has its own
-field_{prep,get}() macros.
+field_{prep,get}() macros.  Make them available for general use by
+moving them to <linux/bitfield.h>, and improve them slightly:
+  1. Avoid evaluating macro parameters more than once,
+  2. Replace "ffs() - 1" by "__ffs()", as the latter operates on
+     "unsigned long", just like BIT() and GENMASK().
 
-This patch series makes them available for general use, and converts
-several drivers to the existing FIELD_{GET,PREP}() and the new
-field_{get,prep}() helpers.
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+Using __ffs() actually reduces code size (16 bytes for each of
+drivers/clk/at91/clk-{generated,peripheral}.o), as __ffs() doesn't
+need to verify that the value passed is non-zero.
+---
+ drivers/clk/at91/clk-peripheral.c |  1 +
+ drivers/clk/at91/pmc.h            |  3 ---
+ include/linux/bitfield.h          | 30 ++++++++++++++++++++++++++++++
+ 3 files changed, 31 insertions(+), 3 deletions(-)
 
-I can take the first two patches through the reneas-clk tree for v5.17,
-but probably it is best for the remaining patches to be postponed to
-v5.18.
-
-Thanks for your comments!
-
-Geert Uytterhoeven (17):
-  bitfield: Add non-constant field_{prep,get}() helpers
-  clk: renesas: Use bitfield helpers
-  [RFC] soc: renesas: Use bitfield helpers
-  [RFC] ARM: OMAP2+: Use bitfield helpers
-  [RFC] bus: omap_l3_noc: Use bitfield helpers
-  [RFC] clk: ti: Use bitfield helpers
-  [RFC] iio: st_sensors: Use bitfield helpers
-  [RFC] iio: humidity: hts221: Use bitfield helpers
-  [RFC] iio: imu: st_lsm6dsx: Use bitfield helpers
-  [RFC] media: ti-vpe: cal: Use bitfield helpers
-  [RFC] mmc: sdhci-of-aspeed: Use bitfield helpers
-  [RFC] pinctrl: aspeed: Use bitfield helpers
-  [RFC] pinctl: ti: iodelay: Use bitfield helpers
-  [RFC] regulator: ti-abb: Use bitfield helpers
-  [RFC] thermal/ti-soc-thermal: Use bitfield helpers
-  [RFC] ALSA: ice1724: Use bitfield helpers
-  [RFC] rtw89: Use bitfield helpers
-
- arch/arm/mach-omap2/clkt2xxx_dpllcore.c       |  5 +-
- arch/arm/mach-omap2/cm2xxx.c                  | 11 ++-
- arch/arm/mach-omap2/cm2xxx_3xxx.h             |  9 +--
- arch/arm/mach-omap2/cm33xx.c                  |  9 +--
- arch/arm/mach-omap2/cm3xxx.c                  |  7 +-
- arch/arm/mach-omap2/cminst44xx.c              |  9 +--
- arch/arm/mach-omap2/powerdomains3xxx_data.c   |  3 +-
- arch/arm/mach-omap2/prm.h                     |  2 -
- arch/arm/mach-omap2/prm2xxx.c                 |  4 +-
- arch/arm/mach-omap2/prm2xxx_3xxx.c            |  7 +-
- arch/arm/mach-omap2/prm2xxx_3xxx.h            |  9 +--
- arch/arm/mach-omap2/prm33xx.c                 | 53 +++++-------
- arch/arm/mach-omap2/prm3xxx.c                 |  3 +-
- arch/arm/mach-omap2/prm44xx.c                 | 53 ++++--------
- arch/arm/mach-omap2/vc.c                      | 12 +--
- arch/arm/mach-omap2/vp.c                      | 11 +--
- drivers/bus/omap_l3_noc.c                     |  4 +-
- drivers/clk/at91/clk-peripheral.c             |  1 +
- drivers/clk/at91/pmc.h                        |  3 -
- drivers/clk/renesas/clk-div6.c                |  6 +-
- drivers/clk/renesas/r8a779a0-cpg-mssr.c       |  9 +--
- drivers/clk/renesas/rcar-gen3-cpg.c           | 15 ++--
- drivers/clk/ti/apll.c                         | 25 +++---
- drivers/clk/ti/dpll3xxx.c                     | 81 ++++++++-----------
- .../iio/common/st_sensors/st_sensors_core.c   |  5 +-
- drivers/iio/humidity/hts221_core.c            |  8 +-
- drivers/iio/imu/st_lsm6dsx/st_lsm6dsx.h       |  1 -
- .../iio/imu/st_lsm6dsx/st_lsm6dsx_buffer.c    |  7 +-
- drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c  | 45 +++++------
- drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_shub.c  | 11 +--
- drivers/media/platform/ti-vpe/cal.h           |  4 +-
- drivers/mmc/host/sdhci-of-aspeed.c            |  5 +-
- drivers/net/wireless/realtek/rtw89/core.h     | 38 ++-------
- drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c    |  3 +-
- drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c    |  3 +-
- drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c    |  3 +-
- drivers/pinctrl/aspeed/pinctrl-aspeed.c       |  5 +-
- drivers/pinctrl/aspeed/pinmux-aspeed.c        |  6 +-
- drivers/pinctrl/ti/pinctrl-ti-iodelay.c       | 35 +++-----
- drivers/regulator/ti-abb-regulator.c          |  7 +-
- drivers/soc/renesas/renesas-soc.c             |  4 +-
- drivers/thermal/ti-soc-thermal/ti-bandgap.c   | 11 ++-
- include/linux/bitfield.h                      | 30 +++++++
- sound/pci/ice1712/wm8766.c                    | 14 ++--
- sound/pci/ice1712/wm8776.c                    | 14 ++--
- 45 files changed, 263 insertions(+), 347 deletions(-)
-
+diff --git a/drivers/clk/at91/clk-peripheral.c b/drivers/clk/at91/clk-peripheral.c
+index e14fa5ac734cead7..e2f33498139a1b8c 100644
+--- a/drivers/clk/at91/clk-peripheral.c
++++ b/drivers/clk/at91/clk-peripheral.c
+@@ -3,6 +3,7 @@
+  *  Copyright (C) 2013 Boris BREZILLON <b.brezillon@overkiz.com>
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/bitops.h>
+ #include <linux/clk-provider.h>
+ #include <linux/clkdev.h>
+diff --git a/drivers/clk/at91/pmc.h b/drivers/clk/at91/pmc.h
+index 3a1bf6194c287d09..1256e1ab91526a25 100644
+--- a/drivers/clk/at91/pmc.h
++++ b/drivers/clk/at91/pmc.h
+@@ -114,9 +114,6 @@ struct at91_clk_pms {
+ 	unsigned int parent;
+ };
+ 
+-#define field_get(_mask, _reg) (((_reg) & (_mask)) >> (ffs(_mask) - 1))
+-#define field_prep(_mask, _val) (((_val) << (ffs(_mask) - 1)) & (_mask))
+-
+ #define ndck(a, s) (a[s - 1].id + 1)
+ #define nck(a) (a[ARRAY_SIZE(a) - 1].id + 1)
+ struct pmc_data *pmc_data_allocate(unsigned int ncore, unsigned int nsystem,
+diff --git a/include/linux/bitfield.h b/include/linux/bitfield.h
+index 4e035aca6f7e6000..f03b0712e4babec1 100644
+--- a/include/linux/bitfield.h
++++ b/include/linux/bitfield.h
+@@ -156,4 +156,34 @@ __MAKE_OP(64)
+ #undef __MAKE_OP
+ #undef ____MAKE_OP
+ 
++/**
++ * field_prep() - prepare a bitfield element
++ * @_mask: shifted mask defining the field's length and position
++ * @_val:  value to put in the field
++ *
++ * field_prep() masks and shifts up the value.  The result should be
++ * combined with other fields of the bitfield using logical OR.
++ * Unlike FIELD_PREP(), @_mask is not limited to a compile-time constant.
++ */
++#define field_prep(_mask, _val)						\
++	({								\
++		typeof(_mask) ___mask = (_mask);			\
++		(((_val) << __ffs(___mask)) & (___mask));		\
++	})
++
++/**
++ * field_get() - extract a bitfield element
++ * @_mask: shifted mask defining the field's length and position
++ * @_reg:  value of entire bitfield
++ *
++ * field_get() extracts the field specified by @_mask from the
++ * bitfield passed in as @_reg by masking and shifting it down.
++ * Unlike FIELD_GET(), @_mask is not limited to a compile-time constant.
++ */
++#define field_get(_mask, _reg)						\
++	({								\
++		typeof(_mask) ___mask = _mask;				\
++		(((_reg) & (___mask)) >> __ffs(___mask));		\
++	})
++
+ #endif
 -- 
 2.25.1
 
-Gr{oetje,eeting}s,
-
-						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-							    -- Linus Torvalds

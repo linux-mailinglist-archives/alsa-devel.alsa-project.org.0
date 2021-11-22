@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 446C8459DE7
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:25:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80FDE459E18
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:32:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB6F6168F;
-	Tue, 23 Nov 2021 09:24:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB6F6168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 10C2916EE;
+	Tue, 23 Nov 2021 09:31:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10C2916EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637655932;
-	bh=Lp3akKDVtgjWKRQUaU9qErK9mUbhewMefPuKVaXOgWM=;
+	s=default; t=1637656361;
+	bh=d5pWWVpz/fA93ZWwjk87aewZmzShqL5ZIE0KMO9Q2Sk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BVaePHP4hHxZTszlHcV8oWBiRDpbEVCUvxmw3rgBIRiSDH+s0MDqG381X15oylKFd
-	 xMEBLDNWjktxv00mLqDF6PQH2Pzi3U1Y3xB9WS49NHA4oA8An4C1ZTJ2mduMybyWp8
-	 0JWbsoHR5AHq70HHAHP8Jn6PR4QbtNfbqnNqX+OE=
+	b=kFAyeRT8YAhG70qxkJ3LQ1Jxd4QdoXUsOdRn3YmJuX+uWIcEtpTNcP7QsOAFJb8Cu
+	 yppfB6fO2keuv18nNGNN3u/RByTUAGrgEZeaEvl5bTUnHy+N24jnr+QzGTkiD0sc88
+	 EMm/JU33DgZxgZGxbUUp1LhF9l9Dn0U+j/P7oRqc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3BF4F80087;
-	Tue, 23 Nov 2021 09:21:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B854F80154;
+	Tue, 23 Nov 2021 09:22:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02C94F80245; Mon, 22 Nov 2021 16:56:18 +0100 (CET)
+ id A3F85F80212; Mon, 22 Nov 2021 16:57:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from albert.telenet-ops.be (albert.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:1a])
+Received: from baptiste.telenet-ops.be (baptiste.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94227F80141
- for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 16:56:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94227F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E01BF80154
+ for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 16:56:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E01BF80154
 Received: from ramsan.of.borg ([84.195.186.194])
- by albert.telenet-ops.be with bizsmtp
- id MTvb260044C55Sk06Tvb5d; Mon, 22 Nov 2021 16:56:16 +0100
+ by baptiste.telenet-ops.be with bizsmtp
+ id MTwG2600F4C55Sk01TwGVb; Mon, 22 Nov 2021 16:56:57 +0100
 Received: from rox.of.borg ([192.168.97.57])
  by ramsan.of.borg with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
  (envelope-from <geert@linux-m68k.org>)
- id 1mpBe6-00EL3k-Le; Mon, 22 Nov 2021 16:54:18 +0100
+ id 1mpBe6-00EL3m-Lm; Mon, 22 Nov 2021 16:54:18 +0100
 Received: from geert by rox.of.borg with local (Exim 4.93)
  (envelope-from <geert@linux-m68k.org>)
- id 1mpBe5-00HH0g-SI; Mon, 22 Nov 2021 16:54:17 +0100
+ id 1mpBe5-00HH1L-TK; Mon, 22 Nov 2021 16:54:17 +0100
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 To: Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
  Rajendra Nayak <rnayak@codeaurora.org>, Paul Walmsley <paul@pwsan.com>,
@@ -73,9 +73,9 @@ To: Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
  Amit Kucheria <amitk@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH/RFC 14/17] regulator: ti-abb: Use bitfield helpers
-Date: Mon, 22 Nov 2021 16:54:07 +0100
-Message-Id: <c8508cae36c52c750dbb12493dd44d92fcf51ad4.1637592133.git.geert+renesas@glider.be>
+Subject: [PATCH/RFC 15/17] thermal/ti-soc-thermal: Use bitfield helpers
+Date: Mon, 22 Nov 2021 16:54:08 +0100
+Message-Id: <37efc6013a24653e316215424b160d613f42dcd5.1637592133.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1637592133.git.geert+renesas@glider.be>
 References: <cover.1637592133.git.geert+renesas@glider.be>
@@ -114,48 +114,54 @@ Compile-tested only.
 Marked RFC, as this depends on [PATCH 01/17], but follows a different
 path to upstream.
 ---
- drivers/regulator/ti-abb-regulator.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/thermal/ti-soc-thermal/ti-bandgap.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/regulator/ti-abb-regulator.c b/drivers/regulator/ti-abb-regulator.c
-index 2931a0b89bffbf7a..3bc6ca5c382a4273 100644
---- a/drivers/regulator/ti-abb-regulator.c
-+++ b/drivers/regulator/ti-abb-regulator.c
-@@ -17,6 +17,7 @@
-  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
+diff --git a/drivers/thermal/ti-soc-thermal/ti-bandgap.c b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
+index ea0603b59309f5f0..83a34d698414b177 100644
+--- a/drivers/thermal/ti-soc-thermal/ti-bandgap.c
++++ b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
+@@ -9,6 +9,7 @@
+  *   Eduardo Valentin <eduardo.valentin@ti.com>
   */
+ 
 +#include <linux/bitfield.h>
  #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/err.h>
-@@ -132,7 +133,7 @@ static inline u32 ti_abb_rmw(u32 mask, u32 value, void __iomem *reg)
+ #include <linux/cpu_pm.h>
+ #include <linux/device.h>
+@@ -80,10 +81,10 @@ do {								\
+ 	struct temp_sensor_registers *t;			\
+ 	u32 r;							\
+ 								\
+-	t = bgp->conf->sensors[(id)].registers;		\
++	t = bgp->conf->sensors[(id)].registers;			\
+ 	r = ti_bandgap_readl(bgp, t->reg);			\
+ 	r &= ~t->mask;						\
+-	r |= (val) << __ffs(t->mask);				\
++	r |= field_prep(t->mask, val);				\
+ 	ti_bandgap_writel(bgp, r, t->reg);			\
+ } while (0)
  
- 	val = readl(reg);
- 	val &= ~mask;
--	val |= (value << __ffs(mask)) & mask;
-+	val |= field_prep(mask, value);
- 	writel(val, reg);
+@@ -342,8 +343,7 @@ static void ti_bandgap_read_counter(struct ti_bandgap *bgp, int id,
  
- 	return val;
-@@ -229,7 +230,7 @@ static void ti_abb_program_ldovbb(struct device *dev, const struct ti_abb *abb,
- 	case TI_ABB_SLOW_OPP:
- 	case TI_ABB_FAST_OPP:
- 		val |= abb->ldovbb_override_mask;
--		val |= info->vset << __ffs(abb->ldovbb_vset_mask);
-+		val |= field_prep(abb->ldovbb_vset_mask, info->vset);
- 		break;
- 	}
+ 	tsr = bgp->conf->sensors[id].registers;
+ 	time = ti_bandgap_readl(bgp, tsr->bgap_counter);
+-	time = (time & tsr->counter_mask) >>
+-					__ffs(tsr->counter_mask);
++	time = field_get(tsr->counter_mask, time);
+ 	time = time * 1000 / bgp->clk_rate;
+ 	*interval = time;
+ }
+@@ -363,8 +363,7 @@ static void ti_bandgap_read_counter_delay(struct ti_bandgap *bgp, int id,
+ 	tsr = bgp->conf->sensors[id].registers;
  
-@@ -606,7 +607,7 @@ static int ti_abb_init_table(struct device *dev, struct ti_abb *abb,
- 					pname, *volt_table, vset_mask);
- 			continue;
- 		}
--		info->vset = (efuse_val & vset_mask) >> __ffs(vset_mask);
-+		info->vset = field_get(vset_mask, efuse_val);
- 		dev_dbg(dev, "[%d]v=%d vset=%x\n", i, *volt_table, info->vset);
- check_abb:
- 		switch (info->opp_sel) {
+ 	reg_val = ti_bandgap_readl(bgp, tsr->bgap_mask_ctrl);
+-	reg_val = (reg_val & tsr->mask_counter_delay_mask) >>
+-				__ffs(tsr->mask_counter_delay_mask);
++	reg_val = field_get(tsr->mask_counter_delay_mask, reg_val);
+ 	switch (reg_val) {
+ 	case 0:
+ 		*interval = 0;
 -- 
 2.25.1
 

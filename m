@@ -2,81 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06FEF459DFD
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:28:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B686459E26
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:33:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9284E16BB;
-	Tue, 23 Nov 2021 09:27:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9284E16BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F86316FB;
+	Tue, 23 Nov 2021 09:32:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F86316FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637656090;
-	bh=Lq9M15s4GfRFwLb/SvxaPzpI/R3BYNJ6QW8NIrC7m6A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1637656419;
+	bh=ztIIYU3zzXT+BNVkVntbs7tP28S0TalcmnSmCNdo0gU=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=piMlZz3Z6ljw4EsGBNZdK3vaB4CMVZS7Fp/uiYtx2Pa7HbsnVaYiqcxefrQEcGNsg
-	 PP5OA2EPakauYTPsdu5D1zvgu75adRvUA81nCH8w8N6fBf924NKa58mCm54K7uj7o6
-	 YBAocMLn13z07Wvlpj+LjO3ZwlJGlKKpVvsN/XT0=
+	b=r1UCvJ+sR5v8ZT0y4YVusJN0SA/hpheS8GJbv63GGP22NVx804dpFBng3/SGD8qUi
+	 pJR+wJTiN3+dXWhG/Vj+gKRZZK8jgbF/b2lMJA8MumV3c2TQwPP9kkcd1Bnt17RFVo
+	 jeqrGs1xk+Gz90FqaqtvA0op32c0526cAUABAiFM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 654E4F8057D;
-	Tue, 23 Nov 2021 09:21:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F679F804E7;
+	Tue, 23 Nov 2021 09:22:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B9CAF80212; Mon, 22 Nov 2021 18:52:51 +0100 (CET)
+ id A04D6F80212; Mon, 22 Nov 2021 19:38:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85923F80141
- for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 18:52:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85923F80141
-Received: (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay2-d.mail.gandi.net (Postfix) with ESMTPSA id 2884840004;
- Mon, 22 Nov 2021 17:52:36 +0000 (UTC)
-Date: Mon, 22 Nov 2021 18:52:35 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Re: [PATCH/RFC 13/17] pinctl: ti: iodelay: Use bitfield helpers
-Message-ID: <YZvY4/FCgYMBMeDJ@piout.net>
-References: <cover.1637592133.git.geert+renesas@glider.be>
- <60257a3c5b567fb5b14d6f9adb770899bce88f7a.1637592133.git.geert+renesas@glider.be>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 366C1F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 19:38:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 366C1F800E7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="iF32sjGr"
+Received: by mail-ot1-x32c.google.com with SMTP id
+ x43-20020a056830246b00b00570d09d34ebso30164557otr.2
+ for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 10:38:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=UHFB4okDolhXrN2KtXNKGXY4xx9A6ENlJZJpcpYJSa4=;
+ b=iF32sjGrzSvaDDiDrzm4Jn8+gNbGxPrbBxZFxi4uCknK7CkuUHGcqoOD65h4RyWxyF
+ y+wOmbGDPKkCG8jIqPGxKaFK0D3GvGCi7E7vj/rSSTElZKQ4I+sO6sAsXlhvWm4LJdnp
+ 2KvDVCusXICAOU/8p8E70quXduhRoLziMS5wtCLJdF0xE54KuxD1Hx/LXZJoPAM3DNL1
+ BkvRF4pmS6od3lYRUbwlZMx97PcjFnI9HdmkEczPsl3ta8bzsAye+LybTN6gfUn7gNW8
+ MLS92ARh+GguAjdL9uq+LetI8B96GaD9Vc3Ip4BN7Uy3BSXQIu3jgX7O1p5U0Obaav48
+ V51g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
+ :subject:content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=UHFB4okDolhXrN2KtXNKGXY4xx9A6ENlJZJpcpYJSa4=;
+ b=rYnXS9h8VqbgGGHTY3LpaZKUm/yvooEdx2ac90ZZSosOG82XdnilVST/ypieWFotxa
+ dahYPqWtkyf4vjtPfcJylv43SLkbUTnIaa7ZbXWvo++xaCsAs9w3zHY/nXSkf/Bz4yLY
+ vsGi24Ge2w070uZY6pf0Cz98cBMZV7MrxfYFpGRCXU/2wKoe7NLPB392/m/XqCY03MYI
+ JzPq/JUWfRtK9KesPCD9VNcR5/YuJ91izIIevJhjfxF9uMKVRFgY4DGELFeci+94E4/+
+ 8gMz33cg7MCGSjvorkKjcoK7sdWAJo9BAArsiVVL3LbYGn2SYMfIvOEMedUS2VYcHf8P
+ pVWw==
+X-Gm-Message-State: AOAM531FIXq1sKNWH4Z5uKiaeXhilaVdzrYYnbyoQLt9INPId9QzpLqN
+ xPFlqqnQDfsqB+8SYkM9SpM=
+X-Google-Smtp-Source: ABdhPJwfr5gWpFAYZtUOP0l+WeTUOCLuMHjoxvBl19lgRYsYRNjGQbRkBWj0P0bUDebnG/bzTCmu0Q==
+X-Received: by 2002:a9d:5190:: with SMTP id y16mr27309322otg.364.1637606329228; 
+ Mon, 22 Nov 2021 10:38:49 -0800 (PST)
+Received: from [10.62.118.101] (cpe-24-31-246-181.kc.res.rr.com.
+ [24.31.246.181])
+ by smtp.gmail.com with ESMTPSA id f18sm1729016otl.28.2021.11.22.10.38.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Nov 2021 10:38:48 -0800 (PST)
+Message-ID: <a18f44bf-e590-0ebe-00c0-5658f3a51d86@lwfinger.net>
+Date: Mon, 22 Nov 2021 12:38:41 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <60257a3c5b567fb5b14d6f9adb770899bce88f7a.1637592133.git.geert+renesas@glider.be>
-X-Mailman-Approved-At: Tue, 23 Nov 2021 09:20:57 +0100
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, linux-aspeed@lists.ozlabs.org,
- Liam Girdwood <lgirdwood@gmail.com>, Tony Lindgren <tony@atomide.com>,
- linux-wireless@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Amit Kucheria <amitk@kernel.org>, alsa-devel@alsa-project.org,
- Adrian Hunter <adrian.hunter@intel.com>, linux-clk@vger.kernel.org,
- Ping-Ke Shih <pkshih@realtek.com>, Lars-Peter Clausen <lars@metafoo.de>,
- openbmc@lists.ozlabs.org, "Rafael J . Wysocki" <rafael@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
- linux-iio@vger.kernel.org, Ludovic Desroches <ludovic.desroches@microchip.com>,
- Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Linus Walleij <linus.walleij@linaro.org>,
- linux-media@vger.kernel.org, linux-omap@vger.kernel.org,
- Benoit Parrot <bparrot@ti.com>, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>,
- Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Kalle Valo <kvalo@codeaurora.org>,
- linux-arm-kernel@lists.infradead.org, Eduardo Valentin <edubezval@gmail.com>,
- Paul Walmsley <paul@pwsan.com>, Rajendra Nayak <rnayak@codeaurora.org>,
- Tero Kristo <kristo@kernel.org>, Andrew Jeffery <andrew@aj.id.au>,
- Keerthy <j-keerthy@ti.com>, linux-pm@vger.kernel.org,
- linux-mmc@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH/RFC 17/17] rtw89: Use bitfield helpers
+Content-Language: en-US
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
+ Rajendra Nayak <rnayak@codeaurora.org>, Paul Walmsley <paul@pwsan.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Tero Kristo <kristo@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>,
+ Benoit Parrot <bparrot@ti.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Joel Stanley <joel@jms.id.au>,
+ Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@codeaurora.org>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Eduardo Valentin <edubezval@gmail.com>,
+ Keerthy <j-keerthy@ti.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Amit Kucheria
+ <amitk@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <cover.1637592133.git.geert+renesas@glider.be>
+ <f7b81122f7596fa004188bfae68f25a68c2d2392.1637592133.git.geert+renesas@glider.be>
+From: Larry Finger <Larry.Finger@lwfinger.net>
+In-Reply-To: <f7b81122f7596fa004188bfae68f25a68c2d2392.1637592133.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 23 Nov 2021 09:20:58 +0100
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ linux-pm@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-wireless@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+ netdev@vger.kernel.org, linux-omap@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,13 +136,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Geert,
-
-There is a typo in pinctrl in the subject
-
-On 22/11/2021 16:54:06+0100, Geert Uytterhoeven wrote:
-> Use the field_{get,prep}() helpers, instead of defining a custom
-> function, or open-coding the same operations.
+On 11/22/21 09:54, Geert Uytterhoeven wrote:
+> Use the field_{get,prep}() helpers, instead of open-coding the same
+> operations.
 > 
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > ---
@@ -106,109 +146,105 @@ On 22/11/2021 16:54:06+0100, Geert Uytterhoeven wrote:
 > Marked RFC, as this depends on [PATCH 01/17], but follows a different
 > path to upstream.
 > ---
->  drivers/pinctrl/ti/pinctrl-ti-iodelay.c | 35 +++++++------------------
->  1 file changed, 10 insertions(+), 25 deletions(-)
+>   drivers/net/wireless/realtek/rtw89/core.h | 38 ++++-------------------
+>   1 file changed, 6 insertions(+), 32 deletions(-)
+
+Tested-by: Larry Finger <Larry,Finger@lwfinger.net>
+
+Larry
+
 > 
-> diff --git a/drivers/pinctrl/ti/pinctrl-ti-iodelay.c b/drivers/pinctrl/ti/pinctrl-ti-iodelay.c
-> index 4e2382778d38f557..b220dcd9215520db 100644
-> --- a/drivers/pinctrl/ti/pinctrl-ti-iodelay.c
-> +++ b/drivers/pinctrl/ti/pinctrl-ti-iodelay.c
-> @@ -9,6 +9,7 @@
->   * warranty of any kind, whether express or implied.
->   */
->  
-> +#include <linux/bitfield.h>
->  #include <linux/err.h>
->  #include <linux/init.h>
->  #include <linux/io.h>
-> @@ -155,18 +156,6 @@ struct ti_iodelay_device {
->  	struct ti_iodelay_reg_values reg_init_conf_values;
->  };
->  
-> -/**
-> - * ti_iodelay_extract() - extract bits for a field
-> - * @val: Register value
-> - * @mask: Mask
-> - *
-> - * Return: extracted value which is appropriately shifted
-> - */
-> -static inline u32 ti_iodelay_extract(u32 val, u32 mask)
-> -{
-> -	return (val & mask) >> __ffs(mask);
-> -}
+> diff --git a/drivers/net/wireless/realtek/rtw89/core.h b/drivers/net/wireless/realtek/rtw89/core.h
+> index c2885e4dd882f045..f9c0300ec373aaf2 100644
+> --- a/drivers/net/wireless/realtek/rtw89/core.h
+> +++ b/drivers/net/wireless/realtek/rtw89/core.h
+> @@ -2994,81 +2994,55 @@ rtw89_write32_clr(struct rtw89_dev *rtwdev, u32 addr, u32 bit)
+>   static inline u32
+>   rtw89_read32_mask(struct rtw89_dev *rtwdev, u32 addr, u32 mask)
+>   {
+> -	u32 shift = __ffs(mask);
+> -	u32 orig;
+> -	u32 ret;
 > -
->  /**
->   * ti_iodelay_compute_dpe() - Compute equation for delay parameter
->   * @period: Period to use
-> @@ -233,10 +222,10 @@ static int ti_iodelay_pinconf_set(struct ti_iodelay_device *iod,
->  	}
->  
->  	reg_mask = reg->signature_mask;
-> -	reg_val = reg->signature_value << __ffs(reg->signature_mask);
-> +	reg_val = field_prep(reg->signature_mask, reg->signature_value);
->  
->  	reg_mask |= reg->binary_data_coarse_mask;
-> -	tmp_val = c_elements << __ffs(reg->binary_data_coarse_mask);
-> +	tmp_val = field_prep(reg->binary_data_coarse_mask, c_elements);
->  	if (tmp_val & ~reg->binary_data_coarse_mask) {
->  		dev_err(dev, "Masking overflow of coarse elements %08x\n",
->  			tmp_val);
-> @@ -245,7 +234,7 @@ static int ti_iodelay_pinconf_set(struct ti_iodelay_device *iod,
->  	reg_val |= tmp_val;
->  
->  	reg_mask |= reg->binary_data_fine_mask;
-> -	tmp_val = f_elements << __ffs(reg->binary_data_fine_mask);
-> +	tmp_val = field_prep(reg->binary_data_fine_mask, f_elements);
->  	if (tmp_val & ~reg->binary_data_fine_mask) {
->  		dev_err(dev, "Masking overflow of fine elements %08x\n",
->  			tmp_val);
-> @@ -260,7 +249,7 @@ static int ti_iodelay_pinconf_set(struct ti_iodelay_device *iod,
->  	 * impacting iodelay configuration. Use with care!
->  	 */
->  	reg_mask |= reg->lock_mask;
-> -	reg_val |= reg->unlock_val << __ffs(reg->lock_mask);
-> +	reg_val |= field_prep(reg->lock_mask, reg->unlock_val);
->  	r = regmap_update_bits(iod->regmap, cfg->offset, reg_mask, reg_val);
->  
->  	dev_dbg(dev, "Set reg 0x%x Delay(a: %d g: %d), Elements(C=%d F=%d)0x%x\n",
-> @@ -296,16 +285,14 @@ static int ti_iodelay_pinconf_init_dev(struct ti_iodelay_device *iod)
->  	r = regmap_read(iod->regmap, reg->reg_refclk_offset, &val);
->  	if (r)
->  		return r;
-> -	ival->ref_clk_period = ti_iodelay_extract(val, reg->refclk_period_mask);
-> +	ival->ref_clk_period = field_get(reg->refclk_period_mask, val);
->  	dev_dbg(dev, "refclk_period=0x%04x\n", ival->ref_clk_period);
->  
->  	r = regmap_read(iod->regmap, reg->reg_coarse_offset, &val);
->  	if (r)
->  		return r;
-> -	ival->coarse_ref_count =
-> -	    ti_iodelay_extract(val, reg->coarse_ref_count_mask);
-> -	ival->coarse_delay_count =
-> -	    ti_iodelay_extract(val, reg->coarse_delay_count_mask);
-> +	ival->coarse_ref_count = field_get(reg->coarse_ref_count_mask, val);
-> +	ival->coarse_delay_count = field_get(reg->coarse_delay_count_mask, val);
->  	if (!ival->coarse_delay_count) {
->  		dev_err(dev, "Invalid Coarse delay count (0) (reg=0x%08x)\n",
->  			val);
-> @@ -326,10 +313,8 @@ static int ti_iodelay_pinconf_init_dev(struct ti_iodelay_device *iod)
->  	r = regmap_read(iod->regmap, reg->reg_fine_offset, &val);
->  	if (r)
->  		return r;
-> -	ival->fine_ref_count =
-> -	    ti_iodelay_extract(val, reg->fine_ref_count_mask);
-> -	ival->fine_delay_count =
-> -	    ti_iodelay_extract(val, reg->fine_delay_count_mask);
-> +	ival->fine_ref_count = field_get(reg->fine_ref_count_mask, val);
-> +	ival->fine_delay_count = field_get(reg->fine_delay_count_mask, val);
->  	if (!ival->fine_delay_count) {
->  		dev_err(dev, "Invalid Fine delay count (0) (reg=0x%08x)\n",
->  			val);
-> -- 
-> 2.25.1
+> -	orig = rtw89_read32(rtwdev, addr);
+> -	ret = (orig & mask) >> shift;
+> -
+> -	return ret;
+> +	return field_get(mask, rtw89_read32(rtwdev, addr));
+>   }
+>   
+>   static inline u16
+>   rtw89_read16_mask(struct rtw89_dev *rtwdev, u32 addr, u32 mask)
+>   {
+> -	u32 shift = __ffs(mask);
+> -	u32 orig;
+> -	u32 ret;
+> -
+> -	orig = rtw89_read16(rtwdev, addr);
+> -	ret = (orig & mask) >> shift;
+> -
+> -	return ret;
+> +	return field_get(mask, rtw89_read16(rtwdev, addr));
+>   }
+>   
+>   static inline u8
+>   rtw89_read8_mask(struct rtw89_dev *rtwdev, u32 addr, u32 mask)
+>   {
+> -	u32 shift = __ffs(mask);
+> -	u32 orig;
+> -	u32 ret;
+> -
+> -	orig = rtw89_read8(rtwdev, addr);
+> -	ret = (orig & mask) >> shift;
+> -
+> -	return ret;
+> +	return field_get(mask, rtw89_read8(rtwdev, addr));
+>   }
+>   
+>   static inline void
+>   rtw89_write32_mask(struct rtw89_dev *rtwdev, u32 addr, u32 mask, u32 data)
+>   {
+> -	u32 shift = __ffs(mask);
+>   	u32 orig;
+>   	u32 set;
+>   
+>   	WARN(addr & 0x3, "should be 4-byte aligned, addr = 0x%08x\n", addr);
+>   
+>   	orig = rtw89_read32(rtwdev, addr);
+> -	set = (orig & ~mask) | ((data << shift) & mask);
+> +	set = (orig & ~mask) | field_prep(mask, data);
+>   	rtw89_write32(rtwdev, addr, set);
+>   }
+>   
+>   static inline void
+>   rtw89_write16_mask(struct rtw89_dev *rtwdev, u32 addr, u32 mask, u16 data)
+>   {
+> -	u32 shift;
+>   	u16 orig, set;
+>   
+>   	mask &= 0xffff;
+> -	shift = __ffs(mask);
+>   
+>   	orig = rtw89_read16(rtwdev, addr);
+> -	set = (orig & ~mask) | ((data << shift) & mask);
+> +	set = (orig & ~mask) | field_prep(mask, data);
+>   	rtw89_write16(rtwdev, addr, set);
+>   }
+>   
+>   static inline void
+>   rtw89_write8_mask(struct rtw89_dev *rtwdev, u32 addr, u32 mask, u8 data)
+>   {
+> -	u32 shift;
+>   	u8 orig, set;
+>   
+>   	mask &= 0xff;
+> -	shift = __ffs(mask);
+>   
+>   	orig = rtw89_read8(rtwdev, addr);
+> -	set = (orig & ~mask) | ((data << shift) & mask);
+> +	set = (orig & ~mask) | field_prep(mask, data);
+>   	rtw89_write8(rtwdev, addr, set);
+>   }
+>   
 > 
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com

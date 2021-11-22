@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2437F459DE4
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:24:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC01459E16
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:32:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2F5A1688;
-	Tue, 23 Nov 2021 09:24:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2F5A1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C0E516EC;
+	Tue, 23 Nov 2021 09:31:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C0E516EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637655892;
-	bh=sczG2b2eb4PgIPT2N3pJ8+ot21MjTdKLTZqqWN1FAzk=;
+	s=default; t=1637656342;
+	bh=MlucnWA591AMyZeeTeyE/9PORMb1PoJ4pELrZC2QG1I=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cB/80HFQqm51h4KYDYVfvdQNzA1Y9cKVWBjm3jlsQDeqte5obG19IY58Gw3Mvl84G
-	 AO3rfT9drUpDnmM25rmnm7mQzB1Tk3sg6DebwhGfFp7kLnBdS72bpRrCyHXPmX7j4Z
-	 uM3nQbJEMvmfnFhmIkst6+ZBldVLPSy+6UZhpcFs=
+	b=U+EmJmQp09dO9QjfZpV3lZzVa28VMqQ8pf0llWNom0QVvRZrpmKzXALTx9Mt6hv6U
+	 iosi/nrgFl7J9hotJ4iHpqyDEQPFAFRSw+rnjANDMtzPtDUb9egD2ZrJpqU7t5lGsr
+	 plRwTyPbvrGlIwrzyWTfLwM/+0Iu8kxl/asUkLB0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C818DF80526;
-	Tue, 23 Nov 2021 09:21:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDFE8F805E9;
+	Tue, 23 Nov 2021 09:22:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C789F80212; Mon, 22 Nov 2021 16:55:52 +0100 (CET)
+ id 224A0F80212; Mon, 22 Nov 2021 16:56:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PRX_BODYSUB_1, SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from michel.telenet-ops.be (michel.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:18])
+Received: from laurent.telenet-ops.be (laurent.telenet-ops.be
+ [IPv6:2a02:1800:110:4::f00:19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 69ADBF80141
- for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 16:55:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69ADBF80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 066CFF801F7
+ for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 16:56:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 066CFF801F7
 Received: from ramsan.of.borg ([84.195.186.194])
- by michel.telenet-ops.be with bizsmtp
- id MTuz260074C55Sk06TuzF0; Mon, 22 Nov 2021 16:55:40 +0100
+ by laurent.telenet-ops.be with bizsmtp
+ id MTvi2600Z4C55Sk01TviwZ; Mon, 22 Nov 2021 16:56:23 +0100
 Received: from rox.of.borg ([192.168.97.57])
  by ramsan.of.borg with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
  (envelope-from <geert@linux-m68k.org>)
- id 1mpBe6-00EL3h-Gu; Mon, 22 Nov 2021 16:54:18 +0100
+ id 1mpBe6-00EL3i-LK; Mon, 22 Nov 2021 16:54:18 +0100
 Received: from geert by rox.of.borg with local (Exim 4.93)
  (envelope-from <geert@linux-m68k.org>)
- id 1mpBe5-00HGzF-Od; Mon, 22 Nov 2021 16:54:17 +0100
+ id 1mpBe5-00HGzM-PZ; Mon, 22 Nov 2021 16:54:17 +0100
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 To: Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
  Rajendra Nayak <rnayak@codeaurora.org>, Paul Walmsley <paul@pwsan.com>,
@@ -73,9 +73,9 @@ To: Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
  Amit Kucheria <amitk@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH/RFC 11/17] mmc: sdhci-of-aspeed: Use bitfield helpers
-Date: Mon, 22 Nov 2021 16:54:04 +0100
-Message-Id: <9e5d21f088c3b571d6a6bdeb8899726f51d5bc47.1637592133.git.geert+renesas@glider.be>
+Subject: [PATCH/RFC 12/17] pinctrl: aspeed: Use bitfield helpers
+Date: Mon, 22 Nov 2021 16:54:05 +0100
+Message-Id: <15158715ad2278191e310ac5a8d3dba7cc4fb9cc.1637592133.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1637592133.git.geert+renesas@glider.be>
 References: <cover.1637592133.git.geert+renesas@glider.be>
@@ -105,7 +105,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use the field_prep() helper, instead open-coding the same operation.
+Use the field_{get,prep}() helpers, instead of open-coding the same
+operations.
 
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
@@ -113,32 +114,136 @@ Compile-tested only.
 Marked RFC, as this depends on [PATCH 01/17], but follows a different
 path to upstream.
 ---
- drivers/mmc/host/sdhci-of-aspeed.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 3 ++-
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 3 ++-
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 3 ++-
+ drivers/pinctrl/aspeed/pinctrl-aspeed.c    | 5 +++--
+ drivers/pinctrl/aspeed/pinmux-aspeed.c     | 6 ++++--
+ 5 files changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
-index 6e4e132903a6346b..26ac73aafb2ed55d 100644
---- a/drivers/mmc/host/sdhci-of-aspeed.c
-+++ b/drivers/mmc/host/sdhci-of-aspeed.c
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+index bfed0e2746437b4a..bfb2a7b229915a68 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
 @@ -2,6 +2,7 @@
- /* Copyright (C) 2019 ASPEED Technology Inc. */
+ /*
+  * Copyright (C) 2016 IBM Corp.
+  */
++#include <linux/bitfield.h>
+ #include <linux/bitops.h>
+ #include <linux/init.h>
+ #include <linux/io.h>
+@@ -2551,7 +2552,7 @@ static int aspeed_g4_sig_expr_set(struct aspeed_pinmux_data *ctx,
+ 	for (i = 0; i < expr->ndescs; i++) {
+ 		const struct aspeed_sig_desc *desc = &expr->descs[i];
+ 		u32 pattern = enable ? desc->enable : desc->disable;
+-		u32 val = (pattern << __ffs(desc->mask));
++		u32 val = field_prep(desc->mask, pattern);
+ 
+ 		if (!ctx->maps[desc->ip])
+ 			return -ENODEV;
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
+index 4c0d26606b6cc7d6..8cc6d9c1f1c78296 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
+@@ -2,6 +2,7 @@
+ /*
+  * Copyright (C) 2016 IBM Corp.
+  */
++#include <linux/bitfield.h>
+ #include <linux/bitops.h>
+ #include <linux/init.h>
+ #include <linux/io.h>
+@@ -2724,7 +2725,7 @@ static int aspeed_g5_sig_expr_set(struct aspeed_pinmux_data *ctx,
+ 	for (i = 0; i < expr->ndescs; i++) {
+ 		const struct aspeed_sig_desc *desc = &expr->descs[i];
+ 		u32 pattern = enable ? desc->enable : desc->disable;
+-		u32 val = (pattern << __ffs(desc->mask));
++		u32 val = field_prep(desc->mask, pattern);
+ 		struct regmap *map;
+ 
+ 		map = aspeed_g5_acquire_regmap(ctx, desc->ip);
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+index a3fa03bcd9a30577..00f7b69a74e9e743 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
  /* Copyright (C) 2019 IBM Corp. */
++#include <linux/bitfield.h>
+ #include <linux/bitops.h>
+ #include <linux/init.h>
+ #include <linux/io.h>
+@@ -2649,7 +2650,7 @@ static int aspeed_g6_sig_expr_set(struct aspeed_pinmux_data *ctx,
+ 	for (i = 0; i < expr->ndescs; i++) {
+ 		const struct aspeed_sig_desc *desc = &expr->descs[i];
+ 		u32 pattern = enable ? desc->enable : desc->disable;
+-		u32 val = (pattern << __ffs(desc->mask));
++		u32 val = field_prep(desc->mask, pattern);
+ 		bool is_strap;
+ 
+ 		if (!ctx->maps[desc->ip])
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+index c94e24aadf922d2a..839ac48f75836352 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+@@ -3,6 +3,7 @@
+  * Copyright (C) 2016 IBM Corp.
+  */
  
 +#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-@@ -131,8 +132,8 @@ aspeed_sdc_set_phase_tap(const struct aspeed_sdhci_tap_desc *desc,
- {
- 	reg &= ~(desc->enable_mask | desc->tap_mask);
- 	if (enable) {
--		reg |= tap << __ffs(desc->tap_mask);
--		reg |= desc->enable_value << __ffs(desc->enable_mask);
-+		reg |= field_prep(desc->tap_mask, tap);
-+		reg |= field_prep(desc->enable_mask, desc->enable_value);
- 	}
+ #include <linux/mfd/syscon.h>
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
+@@ -547,7 +548,7 @@ int aspeed_pin_config_get(struct pinctrl_dev *pctldev, unsigned int offset,
+ 		return rc;
  
- 	return reg;
+ 	pmap = find_pinconf_map(pdata, param, MAP_TYPE_VAL,
+-			(val & pconf->mask) >> __ffs(pconf->mask));
++				field_get(pconf->mask, val));
+ 
+ 	if (!pmap)
+ 		return -EINVAL;
+@@ -595,7 +596,7 @@ int aspeed_pin_config_set(struct pinctrl_dev *pctldev, unsigned int offset,
+ 		if (WARN_ON(!pmap))
+ 			return -EINVAL;
+ 
+-		val = pmap->val << __ffs(pconf->mask);
++		val = field_prep(pconf->mask, pmap->val);
+ 
+ 		rc = regmap_update_bits(pdata->scu, pconf->reg,
+ 					pconf->mask, val);
+diff --git a/drivers/pinctrl/aspeed/pinmux-aspeed.c b/drivers/pinctrl/aspeed/pinmux-aspeed.c
+index 4aa46383c2c533f0..61ddd550439325ee 100644
+--- a/drivers/pinctrl/aspeed/pinmux-aspeed.c
++++ b/drivers/pinctrl/aspeed/pinmux-aspeed.c
+@@ -3,6 +3,8 @@
+ 
+ /* Pieces to enable drivers to implement the .set callback */
+ 
++#include <linux/bitfield.h>
++
+ #include "pinmux-aspeed.h"
+ 
+ static const char *const aspeed_pinmux_ips[] = {
+@@ -17,7 +19,7 @@ static inline void aspeed_sig_desc_print_val(
+ 	pr_debug("Want %s%X[0x%08X]=0x%X, got 0x%X from 0x%08X\n",
+ 			aspeed_pinmux_ips[desc->ip], desc->reg,
+ 			desc->mask, enable ? desc->enable : desc->disable,
+-			(rv & desc->mask) >> __ffs(desc->mask), rv);
++			field_get(desc->mask, rv), rv);
+ }
+ 
+ /**
+@@ -55,7 +57,7 @@ int aspeed_sig_desc_eval(const struct aspeed_sig_desc *desc,
+ 	aspeed_sig_desc_print_val(desc, enabled, raw);
+ 	want = enabled ? desc->enable : desc->disable;
+ 
+-	return ((raw & desc->mask) >> __ffs(desc->mask)) == want;
++	return field_get(desc->mask, raw) == want;
+ }
+ 
+ /**
 -- 
 2.25.1
 

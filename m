@@ -2,99 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41A60458999
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Nov 2021 08:05:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15657458A72
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Nov 2021 09:22:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBF4A16CD;
-	Mon, 22 Nov 2021 08:04:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBF4A16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89DD01686;
+	Mon, 22 Nov 2021 09:21:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89DD01686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637564748;
-	bh=KRie04s5kHf19yS+kh/bsZc59yI/hQ4YIijc+rdNLEg=;
-	h=Date:To:References:From:Subject:In-Reply-To:Cc:List-Id:
+	s=default; t=1637569326;
+	bh=zQvJbPTPncmR3BNRRp1V5M+hEgn2qiHIcsm4J4+28ho=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KP8ufATuVUF+SUMnr8gRzRThWwa1qWmil5glMmYLjwdRuVjxXA6NjtccMUHV2CM7Y
-	 y/fZeAExSDghxTfh4hkBLbNFyQ2T0AavS/VgfqL7kO4W2Ri7t84QsBUZKBfRm5ItRM
-	 mKiwibDqcvkz40gelZnw4icI4Qf9ArfQXrpbYb/c=
+	b=l/8fRtHWZROLua7wmGNovL3Xw+2WLrT4CMusI4Zjr4FBxyc0IFbq/kgTcTF0tSHoY
+	 S7lKlSIIELPTNYPiqWogTi0k9HiuZGkRs1k6oUR32LBNknZxKHPJWHf61uSWxmOBxM
+	 YHJgYPa6V/JFB9WTZBDYrbZ0yanhrcSoOlEVJTMA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DC0FF8051B;
-	Mon, 22 Nov 2021 08:02:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB9B4F80245;
+	Mon, 22 Nov 2021 09:20:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA0A4F80217; Fri, 19 Nov 2021 21:57:49 +0100 (CET)
+ id A512EF80212; Mon, 22 Nov 2021 09:20:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8A9CF8010B
- for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 21:57:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8A9CF8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 662BEF80154
+ for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 09:20:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 662BEF80154
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="L0WK59nF"
-Received: by mail-wr1-x433.google.com with SMTP id u1so20172053wru.13
- for <alsa-devel@alsa-project.org>; Fri, 19 Nov 2021 12:57:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:content-language:to:cc
- :references:from:subject:in-reply-to:content-transfer-encoding;
- bh=I4B5HFmy96F+nwrWPqo3yCY/gtnU/WqzBwP+duwHSo8=;
- b=L0WK59nFYAx5D1sVOWtIE+pfcFj77YnZRRca6xSi6oRHtVLRet9kQTIE8d3Vz1MBkS
- fVk+fBalwe4exDT+tgq4O10P9pO4O0NvTWIilEkcQruFmsOBmFgqGpXwHjaM2IwF9X/H
- UBxhFDfu/FJnYvWtuUh0IZmvZq0lI0sin83XCFfm9uY96DAXgmx470ktEey5o07BkRsV
- vwJRQzunIgehdNa+5fkMLujEBgqElBRnBMOaFrOEHi6BSdALFlHu7rXKTJubc4eyPhSP
- I6ErWfPES5Z4jmDaRKhTwS2CYLBDJHyBWxOHEt2NT3iNlQwPVnzGQ/aaKbtVz2xHyoBV
- wizA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent
- :content-language:to:cc:references:from:subject:in-reply-to
- :content-transfer-encoding;
- bh=I4B5HFmy96F+nwrWPqo3yCY/gtnU/WqzBwP+duwHSo8=;
- b=PbMdCdxX/U6Ibj2yQLMOxfLoZ8apAtIhSbTAqErUXMVM+gTxtRZV3vfalCEyMuvJJR
- ZHWRDMfTPaS5kcrpPlZfQYwJiJkUCohpXC7SBeH/+fSn27v0kFmAFHAnafl3GUsJOWrg
- i003NrSBMrvKWNWILNsOTwL2rG1D9PRqAbfbxUkGQgiFV+pwkYIWqAXQkzqxe4jb9DvA
- 6+LhZEa/SsJdnn+Ud4edrInNPvYQberm6dCZUjSiTM13jKBtcjyZ3+MA1RZQeIs1IB7q
- jy+7oLJzymaxlxD/PshRFZC9RDgIUnoMv01iIDFW+nsqoVP34w2FvyEO/v1VhjfvRgKb
- XW0Q==
-X-Gm-Message-State: AOAM530omzCQ4qxBJLSYKMShtQTvV8m0Puo4mhPnTaY6oz2/e/Hskro7
- woHgonSYUAeCtinCbpph4F4=
-X-Google-Smtp-Source: ABdhPJxThqyWTf0egpTyNTCp6Gr7jhSgpzMj1B/CMXcoDPlLYGFSCSstGGEn/cT9MiTXSGpY9jdDTw==
-X-Received: by 2002:a5d:64c3:: with SMTP id f3mr10883281wri.321.1637355462123; 
- Fri, 19 Nov 2021 12:57:42 -0800 (PST)
-Received: from ?IPV6:2003:ea:8f1a:f00:e956:6e6f:f307:5861?
- (p200300ea8f1a0f00e9566e6ff3075861.dip0.t-ipconnect.de.
- [2003:ea:8f1a:f00:e956:6e6f:f307:5861])
- by smtp.googlemail.com with ESMTPSA id n15sm14768925wmq.38.2021.11.19.12.57.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Nov 2021 12:57:41 -0800 (PST)
-Message-ID: <cf153c5c-e2f0-8d40-cdab-b893e63d2e9c@gmail.com>
-Date: Fri, 19 Nov 2021 21:57:32 +0100
+ dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com
+ header.b="iZuH8N02"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5E06D212C9;
+ Mon, 22 Nov 2021 08:20:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1637569236; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ff3sFJnwHj4g47uQQ2WaQKizkxdoi19uAVGPOc0LUYk=;
+ b=iZuH8N02ke6VpWOFbNvwci86IpLj6WoPAcypg/xzyuEndH5+rn0W4QbabTkCYJtWYJ8Dfz
+ 3X32MQcKvBCvmgo02rIihHMrRKOrt6rbI0RLss5Mci8NdQoXldX6ee71bluqqXIbUh+Rw6
+ 1uSX+eEVIgasLIjLP2aITuWCi2w0vaM=
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F03F313ACC;
+ Mon, 22 Nov 2021 08:20:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Ye0DOdNSm2HEMQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 22 Nov 2021 08:20:35 +0000
+Subject: Re: [PATCH 0/5] xen: cleanup detection of non-essential pv devices
+To: xen-devel@lists.xenproject.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+References: <20211022064800.14978-1-jgross@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <bf5a4749-0216-53db-a022-ef4f84d823c5@suse.com>
+Date: Mon, 22 Nov 2021 09:20:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-References: <d9d76980-966a-e031-70d1-3254ba5be5eb@gmail.com>
- <s5hczmxgnm2.wl-tiwai@suse.de>
- <bc281416-e28d-4c18-2475-add92d38a554@gmail.com>
- <s5hczmwfe3x.wl-tiwai@suse.de>
-From: Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: Warning due to "ALSA: hda: intel: More comprehensive PM runtime
- setup for controller driver"
-In-Reply-To: <s5hczmwfe3x.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 22 Nov 2021 08:01:48 +0100
-Cc: alsa-devel@alsa-project.org, Linux PM <linux-pm@vger.kernel.org>
+In-Reply-To: <20211022064800.14978-1-jgross@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="XEaNfdRUT9nxGyjL4aqukte3olVamRRGk"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Jiri Slaby <jirislaby@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,80 +101,169 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 19.11.2021 14:51, Takashi Iwai wrote:
-> On Thu, 18 Nov 2021 23:13:50 +0100,
-> Heiner Kallweit wrote:
->>
->> On 18.11.2021 22:28, Takashi Iwai wrote:
->>> On Thu, 18 Nov 2021 21:33:34 +0100,
->>> Heiner Kallweit wrote:
->>>>
->>>> I get the following warning caused by 4f66a9ef37d3 ("ALSA: hda: intel: More
->>>> comprehensive PM runtime setup for controller driver"):
->>>>
->>>> snd_hda_intel 0000:00:1f.3: Unbalanced pm_runtime_enable!
->>>>
->>>> Not sure how this patch was tested because the warning is obvious.
->>>> The patch doesn't consider what the PCI sub-system does with regard to
->>>> RPM. Have a look at pci_pm_init().
->>>>
->>>> I'd understand to add the call to pm_runtime_dont_use_autosuspend(),
->>>> but for all other added calls I see no justification.
->>>>
->>>> If being unsure about when to use which RPM call best involve
->>>> linux-pm@vger.kernel.org.
->>>
->>> Thanks for the notice.  It's been through Intel CI and tests on a few
->>> local machines, maybe we haven't checked carefully those errors but
->>> only concentrated on the other issues, as it seems.
->>>
->>> There were two problems: one was the runtime PM being kicked off even
->>> during the PCI driver remove call, and another was the proper runtime
->>> PM setup after re-binding.
->>>
->>
->> Having a look at the commit message of "ALSA: hda: fix general protection
->> fault in azx_runtime_idle" the following sounds weird:
->>
->>   - pci-driver.c:pm_runtime_put_sync() leads to a call
->>     to rpm_idle() which again calls azx_runtime_idle()
->>
->> rpm_idle() is only called if usage_count is 1 when entering
->> pm_runtime_put_sync. And this should not be the case.
->> pm_runtime_get_sync() increments the usage counter before remove()
->> is called, and remove() should also increment the usage counter.
->> This doesn't seem to happen. Maybe for whatever reason 
->> pm_runtime_get_noresume() isn't called in azx_free(), or azx_free()
->> isn't called from remove().
->> I think you should trace the call chain from the PCI core calling
->> remove() to pm_runtime_get_noresume() getting called or not.
-> 
-> Neither of them, supposedly.  Now I took a deeper look at the code
-> around it and dug into the git log, and found that the likely problem
-> was the recent PCI core code refactoring (removal of pci->driver, etc)
-> that have been already reverted; that was why linux-next-20211109 was
-> broken and linux-next-20211110 worked.  With the leftover pci->driver,
-> the stale runtime PM callback was called at the pm_runtime_put_sync()
-> call in pci_device_remove().
-> 
-I also noticed that partially I was on the wrong path.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--XEaNfdRUT9nxGyjL4aqukte3olVamRRGk
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
+Message-ID: <bf5a4749-0216-53db-a022-ef4f84d823c5@suse.com>
+Subject: Re: [PATCH 0/5] xen: cleanup detection of non-essential pv devices
+References: <20211022064800.14978-1-jgross@suse.com>
+In-Reply-To: <20211022064800.14978-1-jgross@suse.com>
+Content-Type: multipart/mixed;
+ boundary="------------2CA7EB0B620BD414B5FABDC4"
 
-> In anyway, I'll drop the invalid calls of pm_runtime_enable() /
-> disable() & co.  Maybe keeping pm_runtime_forbid() and
-> pm_runtime_dont_use_autosuspend() at remove still makes some sense as
-> a counter-part for the probe calls, though.
-> 
-The call to pm_runtime_forbid() in pci_pm_init() is a heritage from
-early ACPI times when broken ACPI implementations had problems with RPM.
-There's a discussion (w/o result yet) to enable RPM per default for
-newer ACPI versions.
+--------------2CA7EB0B620BD414B5FABDC4
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Calling pm_runtime_forbid() in the driver removal path isn't strictly
-needed but it doesn't hurt.
+On 22.10.21 08:47, Juergen Gross wrote:
+> Today the non-essential pv devices are hard coded in the xenbus driver
+> and this list is lacking multiple entries.
+>=20
+> This series reworks the detection logic of non-essential devices by
+> adding a flag for that purpose to struct xenbus_driver.
+>=20
+> Juergen Gross (5):
+>    xen: add "not_essential" flag to struct xenbus_driver
+>    xen: flag xen_drm_front to be not essential for system boot
+>    xen: flag hvc_xen to be not essential for system boot
+>    xen: flag pvcalls-front to be not essential for system boot
+>    xen: flag xen_snd_front to be not essential for system boot
+>=20
+>   drivers/gpu/drm/xen/xen_drm_front.c        |  1 +
+>   drivers/input/misc/xen-kbdfront.c          |  1 +
+>   drivers/tty/hvc/hvc_xen.c                  |  1 +
+>   drivers/video/fbdev/xen-fbfront.c          |  1 +
+>   drivers/xen/pvcalls-front.c                |  1 +
+>   drivers/xen/xenbus/xenbus_probe_frontend.c | 14 +++-----------
+>   include/xen/xenbus.h                       |  1 +
+>   sound/xen/xen_snd_front.c                  |  1 +
+>   8 files changed, 10 insertions(+), 11 deletions(-)
+>=20
 
-> 
-> thanks,
-> 
-> Takashi
-> 
+Any further comments?
 
+
+Juergen
+
+--------------2CA7EB0B620BD414B5FABDC4
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------2CA7EB0B620BD414B5FABDC4--
+
+--XEaNfdRUT9nxGyjL4aqukte3olVamRRGk
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGbUtMFAwAAAAAACgkQsN6d1ii/Ey8C
+1Qf/YfoBv1l6Tq2f0wMBQKsAOR+FYHvpwvebr7MgEpYdc2q31N7iFloujufNoVMHVVzMT1ALCHr6
+cQEwSvk+X0mXidxvXBLYi/ZMMJ5F/fKtK8M151B9E6XJ7rBikW71qu/3QbVbhqrVEw/nx73zyk3v
+OFc78wOoxCjYlkYffnub22qaVhnpYgrO3lka2nNEditpGCbIvKNcINTUp0exBLMTQxc3xZyvyNwR
+ZllRNBQrQacpDXFKr6mrmdLY1EYIejtoPaauTMBi7c/RBJCiLoNE4sxmV5u473jVZ8T9003BQ8qr
+9fWvu96QdIKHjAmdrdYobCzxRddVjj+QhYzqrDiFTQ==
+=GTer
+-----END PGP SIGNATURE-----
+
+--XEaNfdRUT9nxGyjL4aqukte3olVamRRGk--

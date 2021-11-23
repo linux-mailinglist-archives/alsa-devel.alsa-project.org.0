@@ -2,108 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939E9459ED4
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 10:05:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDD59459F89
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 10:51:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 116761686;
-	Tue, 23 Nov 2021 10:04:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 116761686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 390A41654;
+	Tue, 23 Nov 2021 10:50:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 390A41654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637658303;
-	bh=h98rL4dhUtB6qNqwMAP1oZsptqxsodAOucKvqEUUwlI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1637661104;
+	bh=eK8cNyw7sAT+aeXPMqxaBd/3F94Dku6ahUx4FSXj9aE=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eOPBzfcdIBveZbCKusfTlHBX8avRmS+Po89bObuX83OxsKK+jT73pIh1MbKlTEYIL
-	 tWIhyzzJTfhDafc2k4wWyFT3Lm+oEqveRMIL8FlIOgifbjJa5bUoQlA3Si2VSIMC3b
-	 TYXxteFzhnqrxoQ+aipSISggd7bgUV49EEyf0ouY=
+	b=hdPPGgsqzWu5kv08ySPKQxdl/dKwq+aBOka3iBpRXdjJuBcvATHJ+WLLhJ7EsDpL5
+	 IJ9H6l+6CTC9kqD468CPYLvBwFEa51pLDTnSjrYn7VKamgXeYwKcTlCIlR4haaZ9t0
+	 Z/nsuG+Ul5lB293uvxRcRiD7kFWF/oe/cbYV/K28=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78C1BF80430;
-	Tue, 23 Nov 2021 10:03:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77040F804AC;
+	Tue, 23 Nov 2021 10:50:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8549F804EB; Tue, 23 Nov 2021 09:20:54 +0100 (CET)
+ id 99687F804AB; Tue, 23 Nov 2021 10:50:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B27E2F804E6
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 09:20:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B27E2F804E6
-Received: by mail-qt1-f170.google.com with SMTP id a2so19107584qtx.11
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 00:20:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EqDPz0+moIASV8/u18qtwgFpVhcXgwVMGWtajI5MBd0=;
- b=7lnNqgwsY06/y8dwcCJTWG2wyXcV1IXA/3KeJYp+7eZe94jgr44mJu4Rmf5wy4rGm2
- P4krC5oQ9OL/QDV3L9b44gw1NCE0TB/N46thdV+Tng/RKim3ZprBuCmOyMxL5otmCzD+
- v4iOIcfGa9ajtmkL4/UiKwzfPcnD9V/85ufYru8C5xt1BlND2qyNZezf70bu4o6GCE/V
- UyWtSh90nAKoFrF09cJySGmzyw7eeag7yDGCAou7O8+8SYoGY3bMKra7ggYIAbDSh5RH
- mhq9wRYlOdm2pZoK8OsjXDEJuro4/Qo8aN09Y/ZVM3ZJbckMZ+P++auQ3AlJCdSu9UC+
- hcXg==
-X-Gm-Message-State: AOAM530QPbN14hCrMHIASdmASoC9ZJxOrOqMTfFTnH6gkE8+FvHdTtt0
- 97ZDCPDQKgK6xrLjSRBngi3JV+KtjL8o0A==
-X-Google-Smtp-Source: ABdhPJyBIZWJPDEq6AYNnRrxqO+jao36IiE4eAFMCp2C6tcc7DnAczMj57TMwWll1PCQUT4d4CA57Q==
-X-Received: by 2002:a05:622a:1002:: with SMTP id
- d2mr4119312qte.322.1637655645970; 
- Tue, 23 Nov 2021 00:20:45 -0800 (PST)
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com.
- [209.85.219.171])
- by smtp.gmail.com with ESMTPSA id p1sm3616885qke.109.2021.11.23.00.20.45
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Nov 2021 00:20:45 -0800 (PST)
-Received: by mail-yb1-f171.google.com with SMTP id x32so21145350ybi.12
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 00:20:45 -0800 (PST)
-X-Received: by 2002:a9f:248b:: with SMTP id 11mr5954157uar.14.1637655634916;
- Tue, 23 Nov 2021 00:20:34 -0800 (PST)
-MIME-Version: 1.0
-References: <cover.1637592133.git.geert+renesas@glider.be>
- <YZvYW1ElW7ZYZNTC@piout.net>
-In-Reply-To: <YZvYW1ElW7ZYZNTC@piout.net>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 23 Nov 2021 09:20:23 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWKHoBWm2XQmKwB0q8Ya8KzpCgA29D0igXJrGY8=3e8_A@mail.gmail.com>
-Message-ID: <CAMuHMdWKHoBWm2XQmKwB0q8Ya8KzpCgA29D0igXJrGY8=3e8_A@mail.gmail.com>
-Subject: Re: [PATCH 00/17] Non-const bitfield helper conversions
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38631F80087
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 10:50:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38631F80087
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="rGK3uz95"
+X-UUID: fd855079537643c4b9462606bf4cdca8-20211123
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=eK8cNyw7sAT+aeXPMqxaBd/3F94Dku6ahUx4FSXj9aE=; 
+ b=rGK3uz95OVIl5bMVczCheemocfss6rK5W3/FpyrEYRG4CYAQqx1mr1s+noPBZ71YDT/sdC3hfBpr0JWcWvwBBE9SAJ8+/q+JenX82uF02nBjBJBNCzTld7r4kOvA3Q677JVjJ0eIW0YtLCLs3rfDeDgNpRozlcwMHupiEv/nHuE=;
+X-UUID: fd855079537643c4b9462606bf4cdca8-20211123
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1528247596; Tue, 23 Nov 2021 17:49:58 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Tue, 23 Nov 2021 17:49:58 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 23 Nov 2021 17:49:57 +0800
+Message-ID: <a0eddcc82cf4fc28eb96d7cb37cf1ad4252d39c3.camel@mediatek.com>
+Subject: Re: [PATCH] ASoC: mt8192: remove unnecessary CONFIG_PM
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Date: Tue, 23 Nov 2021 17:49:57 +0800
+In-Reply-To: <CA+Px+wWeV=9DF7wdSyjaZKS=XCJjri1Dmpf-kfNVZOqm5fV33w@mail.gmail.com>
+References: <20211122164644.19442-1-jiaxin.yu@mediatek.com>
+ <20211122164644.19442-2-jiaxin.yu@mediatek.com>
+ <CA+Px+wWeV=9DF7wdSyjaZKS=XCJjri1Dmpf-kfNVZOqm5fV33w@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 23 Nov 2021 10:03:22 +0100
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, linux-aspeed@lists.ozlabs.org,
- Liam Girdwood <lgirdwood@gmail.com>, Tony Lindgren <tony@atomide.com>,
- linux-wireless@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Amit Kucheria <amitk@kernel.org>, alsa-devel@alsa-project.org,
- Adrian Hunter <adrian.hunter@intel.com>, linux-clk@vger.kernel.org,
- Ping-Ke Shih <pkshih@realtek.com>, Lars-Peter Clausen <lars@metafoo.de>,
- openbmc@lists.ozlabs.org, "Rafael J . Wysocki" <rafael@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
- linux-iio@vger.kernel.org, Ludovic Desroches <ludovic.desroches@microchip.com>,
- Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Linus Walleij <linus.walleij@linaro.org>,
- linux-media@vger.kernel.org, linux-omap@vger.kernel.org,
- Benoit Parrot <bparrot@ti.com>, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>,
- Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Kalle Valo <kvalo@codeaurora.org>,
- linux-arm-kernel@lists.infradead.org, Eduardo Valentin <edubezval@gmail.com>,
- Paul Walmsley <paul@pwsan.com>, Rajendra Nayak <rnayak@codeaurora.org>,
- Tero Kristo <kristo@kernel.org>, Andrew Jeffery <andrew@aj.id.au>,
- Keerthy <j-keerthy@ti.com>, linux-pm@vger.kernel.org,
- linux-mmc@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ linux-kernel@vger.kernel.org, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,34 +91,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Alexandre,
+T24gVHVlLCAyMDIxLTExLTIzIGF0IDExOjEyICswODAwLCBUenVuZy1CaSBTaGloIHdyb3RlOg0K
+PiBPbiBUdWUsIE5vdiAyMywgMjAyMSBhdCAxMjo0OCBBTSBKaWF4aW4gWXUgPGppYXhpbi55dUBt
+ZWRpYXRlay5jb20+DQo+IHdyb3RlOg0KPiA+IFNpZ25lZC1vZmYtYnk6IEppYXhpbiBZdSA8amlh
+eGluLnl1QG1lZGlhdGVrLmNvbT4NCj4gPiBSZXBvcnRlZC1ieToga2VybmVsIHRlc3Qgcm9ib3Qg
+PGxrcEBpbnRlbC5jb20+DQo+IA0KPiBBY2tlZC1ieTogVHp1bmctQmkgU2hpaCA8dHp1bmdiaUBn
+b29nbGUuY29tPg0KPiANCj4gQ291bGQgeW91IGFsc28gc3VibWl0IGFub3RoZXIgc2VyaWVzIGZv
+ciB0aGUgY2xlYW51cD8NCj4gDQo+IEF0IGxlYXN0IGZvciBzb3VuZC9zb2MvbWVkaWF0ZWsvOg0K
+PiAkIHJnIC0tZmlsZXMtd2l0aC1tYXRjaGVzIENPTkZJR19QTSBzb3VuZC9zb2MvbWVkaWF0ZWsv
+DQo+IHNvdW5kL3NvYy9tZWRpYXRlay9tdDgxNzMvbXQ4MTczLXJ0NTY1MC1ydDU2NzYuYw0KPiBz
+b3VuZC9zb2MvbWVkaWF0ZWsvbXQ4MTczL210ODE3My1ydDU2NTAuYw0KPiBzb3VuZC9zb2MvbWVk
+aWF0ZWsvbXQ4MTczL210ODE3My1tYXg5ODA5MC5jDQo+IHNvdW5kL3NvYy9tZWRpYXRlay9tdDgx
+NzMvbXQ4MTczLXJ0NTY1MC1ydDU1MTQuYw0KPiBzb3VuZC9zb2MvbWVkaWF0ZWsvbXQ2Nzk3L210
+Njc5Ny1hZmUtcGNtLmMNCj4gc291bmQvc29jL21lZGlhdGVrL210MjcwMS9tdDI3MDEtYWZlLXBj
+bS5jDQo+IHNvdW5kL3NvYy9tZWRpYXRlay9tdDgxOTIvbXQ4MTkyLWFmZS1wY20uYw0KPiBzb3Vu
+ZC9zb2MvbWVkaWF0ZWsvbXQ4MTgzL210ODE4My1hZmUtcGNtLmMNCg0KSGkgVHp1bmctQmksDQoN
+Ck9rLCBJIHdpbGwgcmVtb3ZlIHRoZW0gZnJvbSBzb3VuZC9zb2MvbWVkaWF0ZWsgZm9sZGVyIGlu
+IFBBVENIIHYyLg0KVGhhbmsgeW91IGZvciByZW1pbmRpbmcuDQo=
 
-On Mon, Nov 22, 2021 at 6:50 PM Alexandre Belloni
-<alexandre.belloni@bootlin.com> wrote:
-> On 22/11/2021 16:53:53+0100, Geert Uytterhoeven wrote:
-> > The existing FIELD_{GET,PREP}() macros are limited to compile-time
-> > constants.  However, it is very common to prepare or extract bitfield
-> > elements where the bitfield mask is not a compile-time constant.
-> > To avoid this limitation, the AT91 clock driver already has its own
-> > field_{prep,get}() macros.
->
-> My understanding was that this (being compile time only) was actually
-> done on purpose. Did I misunderstand?
-
-Yes, it was done on purpose, to maximize type safety.
-
-However, this imposes a severe limitation: we cannot use them in case
-the mask is non-const (i.e. stored in some data structure).  This
-is a quite common use-case, given the examples I found and converted,
-and given you added field_{get,prep}() to the AT91 clock driver.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds

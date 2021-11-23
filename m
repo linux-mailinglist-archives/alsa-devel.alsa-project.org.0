@@ -2,104 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3A8345A177
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 12:28:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B18245A178
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 12:28:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63767167F;
-	Tue, 23 Nov 2021 12:27:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63767167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF5EC1673;
+	Tue, 23 Nov 2021 12:27:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF5EC1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637666911;
-	bh=F8DwVxSzqfzu+WKSu+akPRT8gddREVTavyq4d7KS2io=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1637666919;
+	bh=q16TL+A4u6kbeuYtwm20z+XHqzV5ejAY+iUIk7Or050=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RFKhtiKYCDWCow4N4VC2ypYlE3wulWT7cTWre5CiCuknCq2ClYiU+hyX+p0sQ1jX/
-	 ACaIvnpLNkaoNjpuKwesgfbGmnAK0zYZMxgHEe+oXmrc9W+1Z8RNW34iusgr1oiVoU
-	 0bDubWHDas/reiCGRf6qesxHhQ5wPhYhuykftnR4=
+	b=d3h81lGKy2RJpNm8SYC5haHwNIJaxnv1JYdjV0ZVAZ8QPpceCYiDMwLDevccLPJq3
+	 odBp+EXRxav29+7rF1TUMEKX9ylfyuo++zMa1OYBONZ4WtopCx2JxlJ0nfbKXmb7bB
+	 zi1mxwkHr5Rb6xkDEyYUUX6HQP4+Jqm8YsR6eqSo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0876F804F1;
-	Tue, 23 Nov 2021 12:26:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F089F804F2;
+	Tue, 23 Nov 2021 12:26:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD8D8F80087; Tue, 23 Nov 2021 12:19:26 +0100 (CET)
+ id 46DD7F8049E; Tue, 23 Nov 2021 12:24:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA0CAF80087
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 12:19:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA0CAF80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 872D6F800E7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 12:24:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 872D6F800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="g2Y3CYQC"
-Received: by mail-lj1-x22f.google.com with SMTP id 13so10323598ljj.11
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 03:19:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=w+ogjWxG1DbsOOSKAdBRBvdcSf1vlOMjAXY68aT/3+U=;
- b=g2Y3CYQC1NcCLavzUvr4ErWMQvZ4fzsgBv6CCbmTOoZcOun8WjSds54sZrtzeYEA0U
- N5KF7mJ3kl8nFIULnhlxeAUeFZAuCfq+uX5Urd7Y31Xp8cHxNzCxkkp6HS46EZb3D6jZ
- c7TwybE0YdC9woGghm+c/KCOlK35CIfDZrYTO7zFljpZaTHjklc27An1TOol1n/1idvS
- kCKfDejnDdUw+aN2JJNNmUQf32+SP4pOXJVkzxhNH+rbEkLFMLkjE8yfz5ElxThNneaF
- SJXtBIs1DuxaYn0676eJKdryXGQlku5s0UQEwOdM0oGilYhXoK+2140z6YDVV15iHy6a
- 9PQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=w+ogjWxG1DbsOOSKAdBRBvdcSf1vlOMjAXY68aT/3+U=;
- b=17S3QRQiqGai7WihNK9ZUA4uxzpriuVyhiRtMyyMcFEm2snB87XHTzeRTr6bBVWda4
- w53mMccNwsm7dupVXq5mgJHmCSnwPhsayqY3sGQif/L/0yYkyO/uuWJ60h45lABHZ1jt
- gE56CnT+Jnux4XxT+ZcTHMTwcjfKtRqxVyf50Au/Fu6xA277QZVJOak8VZ6r8CixxQzc
- J4yS8ienZduPGCoqGgJJPZKf/LzI4b40dDTrKM97hagMfD3EearPd9/zJOuJug69lBZG
- KF53M3Y3QhtK7HsISsKboXymOBsGLezxRN9eUNSiTgdzp3rQEGdhnwX+rG58oZOAYdOF
- nzMw==
-X-Gm-Message-State: AOAM533UJXdgIq8T8SwYapZhTRS2AnmHurQ0Vf0RBnudjOESSFcE67zD
- iy/sNcmW6+qHRNLpLpEMyaaq0JF3kkqfvQu/vOH/3Q==
-X-Google-Smtp-Source: ABdhPJxH+dIDF8nBsp8fxznpkoFe9y9Zmc/xUzjvp4Mfv2L5TNuCMH6djlHGcQ7ManpwMDd1PzQBcWJG8pF2EVa/HSY=
-X-Received: by 2002:a05:651c:1507:: with SMTP id
- e7mr4381662ljf.300.1637666356182; 
- Tue, 23 Nov 2021 03:19:16 -0800 (PST)
-MIME-Version: 1.0
-References: <20211122222203.4103644-1-arnd@kernel.org>
- <20211122222203.4103644-5-arnd@kernel.org>
-In-Reply-To: <20211122222203.4103644-5-arnd@kernel.org>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 23 Nov 2021 12:18:40 +0100
-Message-ID: <CAPDyKFrCOoFWuM_6Renu+M5SHotyuzXeyH99WZb69G1PFQ1z5A@mail.gmail.com>
-Subject: Re: [PATCH v2 04/11] mmc: bcm2835: stop setting chan_config->slave_id
-To: Arnd Bergmann <arnd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="B5wgrGMQ"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="JvnlyRw9"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 210DC1FD39;
+ Tue, 23 Nov 2021 11:24:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1637666684; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UFMk9Bgs0C48EUfsk3ZFvxtIETbpuVrnTCZsE9y/THg=;
+ b=B5wgrGMQxccfarx7KLxD/v3wx8FzL961VMxubhW0cO/WUVPlEQomF+nVuFGnnBslrEEhT1
+ xudqYqMaf+YphX2nzCoCbfB0B6g9AeH9QfhE7lu7z3ACo7VQrklZRhovUB+NCMR7oDuaNe
+ 0hq0zD2HZHDxU7bsE6McRJtXzhuF0Ds=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1637666684;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UFMk9Bgs0C48EUfsk3ZFvxtIETbpuVrnTCZsE9y/THg=;
+ b=JvnlyRw9hsp7oaQ0km8FOqiXL/FSSMsTm/BLHjKdYHEZKscA/ru44PAvFmPvH3xzeJazLO
+ xpP7CG8EyA51s0BA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id E56A2A3B85;
+ Tue, 23 Nov 2021 11:24:41 +0000 (UTC)
+Date: Tue, 23 Nov 2021 12:24:41 +0100
+Message-ID: <s5hwnkz9ksm.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: Re: [PATCH/RFC 16/17] ALSA: ice1724: Use bitfield helpers
+In-Reply-To: <45fa162856814176045ffbb49ee64cf0ea7e00bc.1637592133.git.geert+renesas@glider.be>
+References: <cover.1637592133.git.geert+renesas@glider.be>
+ <45fa162856814176045ffbb49ee64cf0ea7e00bc.1637592133.git.geert+renesas@glider.be>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Tue, 23 Nov 2021 12:25:57 +0100
-Cc: alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, linux-tegra@vger.kernel.org,
- Laxman Dewangan <ldewangan@nvidia.com>, linux-mtd@lists.infradead.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- linux-spi@vger.kernel.org, Robert Jarzmik <robert.jarzmik@free.fr>,
- Lars-Peter Clausen <lars@metafoo.de>, Chunyan Zhang <zhang.lyra@gmail.com>,
- linux-staging@lists.linux.dev, Michal Simek <michal.simek@xilinx.com>,
- Jon Hunter <jonathanh@nvidia.com>, Andy Gross <agross@kernel.org>,
- bcm-kernel-feedback-list@broadcom.com, linux-serial@vger.kernel.org,
- Orson Zhai <orsonzhai@gmail.com>, Nicolas Saenz Julienne <nsaenz@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Manivannan Sadhasivam <mani@kernel.org>,
- linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-rpi-kernel@lists.infradead.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, Scott Branden <sbranden@broadcom.com>,
- Hyun Kwon <hyun.kwon@xilinx.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mmc@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Baolin Wang <baolin.wang7@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, linux-aspeed@lists.ozlabs.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Tony Lindgren <tony@atomide.com>,
+ linux-wireless@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ Amit Kucheria <amitk@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-clk@vger.kernel.org,
+ Ping-Ke Shih <pkshih@realtek.com>, Lars-Peter Clausen <lars@metafoo.de>,
+ openbmc@lists.ozlabs.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ linux-iio@vger.kernel.org, Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Linus Walleij <linus.walleij@linaro.org>,
+ linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-omap@vger.kernel.org, Benoit Parrot <bparrot@ti.com>,
+ linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Kalle Valo <kvalo@codeaurora.org>,
+ linux-arm-kernel@lists.infradead.org, Eduardo Valentin <edubezval@gmail.com>,
+ Paul Walmsley <paul@pwsan.com>, Rajendra Nayak <rnayak@codeaurora.org>,
+ Tero Kristo <kristo@kernel.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Keerthy <j-keerthy@ti.com>, linux-pm@vger.kernel.org,
+ linux-mmc@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
+ "David S . Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,47 +118,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 22 Nov 2021 at 23:23, Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> The field is not interpreted by the DMA engine driver, as all the data
-> is passed from devicetree instead. Remove the assignment so the field
-> can eventually be deleted.
->
-> Reviewed-by: Nicolas Saenz Julienne <nsaenz@kernel.org>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-I think I acked the previous version, but nevermind:
-
-Acked-by: Ulf Hansson <ulf.hansson@linaro.org>
-
-Kind regards
-Uffe
-
+On Mon, 22 Nov 2021 16:54:09 +0100,
+Geert Uytterhoeven wrote:
+> 
+> Use the field_{get,prep}() helpers, instead of open-coding the same
+> operations.
+> 
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > ---
->  drivers/mmc/host/bcm2835.c | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/mmc/host/bcm2835.c b/drivers/mmc/host/bcm2835.c
-> index 8c2361e66277..463b707d9e99 100644
-> --- a/drivers/mmc/host/bcm2835.c
-> +++ b/drivers/mmc/host/bcm2835.c
-> @@ -1293,14 +1293,12 @@ static int bcm2835_add_host(struct bcm2835_host *host)
->
->                 host->dma_cfg_tx.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
->                 host->dma_cfg_tx.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-> -               host->dma_cfg_tx.slave_id = 13;         /* DREQ channel */
->                 host->dma_cfg_tx.direction = DMA_MEM_TO_DEV;
->                 host->dma_cfg_tx.src_addr = 0;
->                 host->dma_cfg_tx.dst_addr = host->phys_addr + SDDATA;
->
->                 host->dma_cfg_rx.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
->                 host->dma_cfg_rx.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-> -               host->dma_cfg_rx.slave_id = 13;         /* DREQ channel */
->                 host->dma_cfg_rx.direction = DMA_DEV_TO_MEM;
->                 host->dma_cfg_rx.src_addr = host->phys_addr + SDDATA;
->                 host->dma_cfg_rx.dst_addr = 0;
-> --
-> 2.29.2
->
+> Compile-tested only.
+> Marked RFC, as this depends on [PATCH 01/17], but follows a different
+> path to upstream.
+
+Acked-by: Takashi Iwai <tiwai@suse.de>
+
+
+thanks,
+
+Takashi

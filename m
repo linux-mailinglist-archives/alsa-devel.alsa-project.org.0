@@ -2,101 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BB8445A2A9
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 13:31:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67E8645A499
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 15:09:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9256C167F;
-	Tue, 23 Nov 2021 13:30:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9256C167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD1611679;
+	Tue, 23 Nov 2021 15:08:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD1611679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637670702;
-	bh=ejDHRXdOmQbINNPbbH9Hs9O6g9wTBwX1bFMyLntwuNc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IR748US2QmcLxI+aH3WgRBUhb8JcmO9iGYOjiVkB1TxpAZ3gTF1I0XbQHLpCcCdVW
-	 nDpE2Vj2eySSS9G+SgcZROvzKrOVRvfvZo3Sw1sSb/3YPA4Do5+B2jk4vGtuG8mtKi
-	 UXIQkGmBL5m872DuvXYp+zeGdtrMGJo5S49kJPto=
+	s=default; t=1637676576;
+	bh=iris50O4t4fktKMtyC9fnY22LVX/sVeivA1l+ZhRRwo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KWqTz3knLmIUuT+7H+zRQRrnfSWhyfeJ44+SsGIMhDywUvgRgc3mift250XYy0m+3
+	 7x/YJyFBTKDTITTvge4Ms11PbowoTRtsnexVw6ALWFx+FP+8QTHyWR6ypVnAHTEI8W
+	 fTA4Xtaa86QPUhZflLK5QDxd3eT/3OsSwzLrnPkk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA465F8051C;
-	Tue, 23 Nov 2021 13:29:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BE7DF800E7;
+	Tue, 23 Nov 2021 15:08:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4821F804AB; Tue, 23 Nov 2021 13:29:07 +0100 (CET)
+ id 820BDF804AB; Tue, 23 Nov 2021 15:08:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2054.outbound.protection.outlook.com [40.107.96.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 907B9F804AB
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 13:29:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 907B9F804AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7CC1F80430
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 15:08:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7CC1F80430
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Z33F2YGT"
-Received: by mail-wr1-x431.google.com with SMTP id v11so186832wrw.10
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 04:29:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=d0Pvaf8Iq87VuzFU9MpCchTHu4jRAyvwzRspXxwnQHg=;
- b=Z33F2YGT7ZRfdz8pfEG6ZJV73PT1I7DMMwxe23HMxWHdxBwaoGwHOtbEWzqAJyd6jg
- VaGKiM9E0ObQ3G7qZfAYikrusozvFFEetl8aj7jh8aMVLfrjDM4RJiYsx2qUUQhu2rFh
- IcblPod4L20LLMifV2EODkpXh2Pqc9+eKkEzzMWzFcb/eUQAJ7JyCKd2x9r6rqN3Rnrp
- UOGct+0Or5vhhyxN69cafN2SOg38NPmN+6B0/ERyEBiRV7IQRO2lBQaxAQzAOIhcETFk
- pyUn6OISEUDRRHty0R/voWbj12yFpox4AmnFBb199SHlWOzwa28CHLXBzrfMbRPvFTl3
- Jd5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=d0Pvaf8Iq87VuzFU9MpCchTHu4jRAyvwzRspXxwnQHg=;
- b=GR30Ys0mOwry5AgZdlr6WWcK0CN14H0JCGb4RY/N3Aurfwzfo5FBzuzoBudYhSLSnk
- hiRKAL0VSsiIIpGjj9HkdFXU0bd1wy50UIEe/pt0/7cWTW31vwEkwp/HX4CiVUuTGTY9
- RoyLrgrsaiEeHuLM12b6HkXJ6Xa7P71XagvvLdx5+jhQm+nkI35/WCs2O0J631GyMEy+
- J3EXsHg2SjQMZtDvUJkPPIQc8MeVe3Tn6n4zpzUSuHKDpOaA2SM0+8q/U+4ChbESt3if
- wL+ADb2lymjiDwevcU33cBgz5PGKTU480kbemQgbiktSah8PabRqra7/sBINmKDCG+1p
- 4hog==
-X-Gm-Message-State: AOAM531HdXlAmfQeH8FniHB5C16FgJhwjZqdeS8Bj6MNYRWVL+ltaYjb
- nyaiejJduodmwLuAUYuJrx9qhg==
-X-Google-Smtp-Source: ABdhPJytAfGGswKRcscjDm8qGWxZUg0qf/E/aIxTGLpiOVrHwzl9BOtgo6o6XnwJtkndpw5Sv5I6sA==
-X-Received: by 2002:a5d:6da2:: with SMTP id u2mr6218498wrs.273.1637670538590; 
- Tue, 23 Nov 2021 04:28:58 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id h17sm12006790wrp.34.2021.11.23.04.28.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Nov 2021 04:28:58 -0800 (PST)
-Subject: Re: [PATCH v5 09/10] ASoC: qcom: lpass-sc7280: Add platform driver
- for lpass audio
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-References: <1637581599-24120-1-git-send-email-srivasam@codeaurora.org>
- <1637581599-24120-5-git-send-email-srivasam@codeaurora.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <6c9d9c3e-3ea4-cf91-aebf-a0b30447e42e@linaro.org>
-Date: Tue, 23 Nov 2021 12:28:56 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="jeVq91+2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e8M9uilgkOtTg9cUpPKHKuPc8KDTMl0hP1EYJtPoPS85vuYVVSYzgQrNVdKDW6GKkDDKXVPcNKkxYqOWzJ8H/e3pVJ5fzvuCFfG1rR94Kr0n5VIIb+MR/cvuei9aS/NWBXdbAzN2BwW1igG8uMosdza+CTLG2HNkr4r0ePbXoXWKDbFtKIy82nZRniTvQ8wvdDxfVTPUAnzu8auDpvxrKHBZsTcJ91A+cUzPbWhH95cKqlzwhibX/MN9NYExk+P74PBmFtoeq5c1tCh0/9E7yJSExGkUdaXsBBXUROPZGS7Zk3WfxZVanYCuvIUGDxDliR9XqKDtUsBJABYVQVgnaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3MpoRJ84As/I/N/Y6pGiFXefJbAU8u6V/tyoSmsdpZk=;
+ b=ehsXMqVLJxb9OFsOLb5aBD3ZdQwMcFSSOm9bsL10rSgWDfcWT2TkRItap4tXmrrmN4GZKyhlj3cIGma1pJrs3L6N0kVKZo8zsgbE5KKCg0mtrFt3NCcb1xsd9OnW8gmiAQvtti0mbwIArVvx1pGrCQmD8XPyS/mKbNRpi+omai3ZiMavfbghweLzzmZeHSgr8pepZeF65xN0IGLpkZG9xoloP6bmKYF5zKIYGlMd6X5wncf7xeWmwjuFq8UcCFGhyzT/BsFyY9v7EkS5x2HflpMID6rBYCy7qve7/YlVR9BcBjWxA2JTU17b4diO9CclZ0cY1DjHwpLh/b8sBfcXzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.112.32) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3MpoRJ84As/I/N/Y6pGiFXefJbAU8u6V/tyoSmsdpZk=;
+ b=jeVq91+2siVhTNgctDnpYazw1tXR+iiznrXNNzbnHz9MyUPyKnPU5PseH99RG3Gql9zYHV5i5aDnNEMPCNjzfZdZhswQxjRtSlcr7+tKsz9eh+J7TXfaUoYJ4D8lgvA4hjWpnECYx68dsraCQG7yOirfgduUONGWsfnHcQ7XeRv2Z4CRi9sRcv1KPOs0aPB2zeDRG/Tg6f24vLHBtm7N0rkJdd8M9zRQhrUyR+jvHUYTtJLI7xn6xFiqLxjwSIFHOMUAEN1SW+TMrCfE1jlsca0d4b+9MNoEfzqQrAZNrcs1WzlQ13Tv88laO+hpi9WP31Tmy/RtD80ntcHS76AGDA==
+Received: from MW4P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::17)
+ by BYAPR12MB2663.namprd12.prod.outlook.com (2603:10b6:a03:72::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Tue, 23 Nov
+ 2021 14:08:02 +0000
+Received: from CO1NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8b:cafe::7) by MW4P221CA0012.outlook.office365.com
+ (2603:10b6:303:8b::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22 via Frontend
+ Transport; Tue, 23 Nov 2021 14:08:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.32)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.112.32 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.32; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.32) by
+ CO1NAM11FT057.mail.protection.outlook.com (10.13.174.205) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.4713.20 via Frontend Transport; Tue, 23 Nov 2021 14:08:01 +0000
+Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 23 Nov
+ 2021 06:07:59 -0800
+Received: from audio.nvidia.com (172.20.187.6) by mail.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server id 15.0.1497.18 via Frontend
+ Transport; Tue, 23 Nov 2021 06:07:57 -0800
+From: Sameer Pujar <spujar@nvidia.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
+ <tiwai@suse.com>
+Subject: [PATCH 0/6] Suspend related fixes on Tegra
+Date: Tue, 23 Nov 2021 19:37:33 +0530
+Message-ID: <1637676459-31191-1-git-send-email-spujar@nvidia.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <1637581599-24120-5-git-send-email-srivasam@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e2054fef-8e9f-4534-9086-08d9ae8aa945
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2663:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB26638D63B8A1812FBF35E41EA7609@BYAPR12MB2663.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QA4i6xAlGcB9nN5uFnxlpwfsYptmogYKzcWKNB3VSmCYeCD4V5QeNQoprLfNze1UJHwfJSYL9xctB7uAWtgn9IeAql6D7CP9Ar+tU95ub2f7UwTHcI4uPUlivY6U800FtIvh/due210alwAtzETYXvKq8NvykCkvR/wrpLBPQpbB/9es3MCQKG7tM9PrOxINbZwxaL/skY+KyZVGIPXU3iZMoj8ndtMtrqH5m/FrZHgEKEzpVZ2D7ekbHu92tbMZ1kBsx1TOH8R41y92/Co5Kork5XIxMgHEMQW8jcGabWTKQ6TodRjaxRiHm2uJKquZsJa+m7b2nwun2CzzMZbfnVRqvQhsr7npBHGyK5KpR6kLQEoc/++XGzWwPfKRUOEfhV6/t7/qsrNpEL4S2QfIYgBFIoVqpOHLF4gKvGsPT2a5BPrJp5gFRe0IdTOfQkea5swWZhRcampIdqThkC7v8oSrb4imEGaczSMkLN5MRkRR6kXFXP9ZuMr0YU6wnU91EYSsOLIsaZ7cXhPBRF8JBgbJYIqDcWZpFTddXHfV+VgM4zQqo/r9IF4hG1hYH20ijyxxyytrH01zU9utX0QtDmAEAwP0LTweNw9yztrLfg2BpHyhaMLFKJytxv1vGJhXfD+D3TeaqpJn4ti269WusBpGy8YlHc7fADqxrlMgucgC14fdNGTQp3hQ77z0aHR8vyOpeeV1wVEABoSgwP+Z9g==
+X-Forefront-Antispam-Report: CIP:216.228.112.32; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid01.nvidia.com; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(2616005)(5660300002)(15650500001)(47076005)(36860700001)(2906002)(8936002)(186003)(70206006)(7696005)(107886003)(316002)(110136005)(54906003)(8676002)(36756003)(336012)(426003)(7636003)(4326008)(6666004)(26005)(356005)(508600001)(4744005)(86362001)(83380400001)(82310400004)(70586007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2021 14:08:01.7054 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2054fef-8e9f-4534-9086-08d9ae8aa945
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.32];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2663
+Cc: alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,465 +132,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This series addresses following problems:
+ * The runtime PM is not balanced in MVC driver, whenever
+   mute or volume mixer controls are set.
+ * Some of the AHUB devices (SFC, MVC, Mixer, AMX and ADX)
+   use late system sleep. Suspend failure is seen on Jetson
+   TX2 platform.
 
+Sameer Pujar (6):
+  ASoC: tegra: Balance runtime PM count
+  ASoC: tegra: Use normal system sleep for SFC
+  ASoC: tegra: Use normal system sleep for MVC
+  ASoC: tegra: Use normal system sleep for Mixer
+  ASoC: tegra: Use normal system sleep for AMX
+  ASoC: tegra: Use normal system sleep for ADX
 
-On 22/11/2021 11:46, Srinivasa Rao Mandadapu wrote:
-> Add platform driver for configuring sc7280 lpass core I2S and
-> DMA configuration to support playback & capture to external codecs
-> connected over secondary MI2S interface and soundwire interface.
-> 
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> ---
->   sound/soc/qcom/lpass-sc7280.c | 416 ++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 416 insertions(+)
->   create mode 100644 sound/soc/qcom/lpass-sc7280.c
-> 
-> diff --git a/sound/soc/qcom/lpass-sc7280.c b/sound/soc/qcom/lpass-sc7280.c
-> new file mode 100644
-> index 0000000..20ad3ee
-> --- /dev/null
-> +++ b/sound/soc/qcom/lpass-sc7280.c
-> @@ -0,0 +1,416 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
-> + *
-> + * lpass-sc7180.c -- ALSA SoC platform-machine driver for QTi LPASS
-> + */
-> +
-> +#include <linux/module.h>
-> +#include <sound/pcm.h>
-> +#include <sound/soc.h>
-> +#include <linux/pm_domain.h>
+ sound/soc/tegra/tegra210_adx.c   | 4 ++--
+ sound/soc/tegra/tegra210_amx.c   | 4 ++--
+ sound/soc/tegra/tegra210_mixer.c | 4 ++--
+ sound/soc/tegra/tegra210_mvc.c   | 8 ++++----
+ sound/soc/tegra/tegra210_sfc.c   | 4 ++--
+ 5 files changed, 12 insertions(+), 12 deletions(-)
 
-?? do you really use this
+-- 
+2.7.4
 
-> +#include <linux/pm_runtime.h>
-> +
-> +#include <dt-bindings/sound/sc7180-lpass.h>
-> +
-> +#include "lpass-lpaif-reg.h"
-> +#include "lpass.h"
-> +
-> +static struct snd_soc_dai_driver sc7280_lpass_cpu_dai_driver[] = {
-> +	{
-> +		.id = LPASS_CDC_DMA_RX0,
-> +		.name = "CDC DMA RX",
-> +		.playback = {
-> +			.stream_name = "WCD Playback",
-> +			.formats		= SNDRV_PCM_FMTBIT_S16,
-
-indentation is changing for every field, can we be consistent.
-
-> +			.rates = SNDRV_PCM_RATE_48000,
-> +			.rate_min		= 48000,
-> +			.rate_max		= 48000,
-> +			.channels_min	= 2,
-> +			.channels_max	= 2,
-> +		},
-> +		.ops	= &asoc_qcom_lpass_wcd_dai_ops,
-> +	},
-> +	{
-> +		.id = LPASS_CDC_DMA_TX3,
-> +		.name = "CDC DMA TX",
-> +		.capture = {
-> +			.stream_name = "WCD Capture",
-> +			.formats = SNDRV_PCM_FMTBIT_S16,
-> +			.rates = SNDRV_PCM_RATE_48000,
-> +			.rate_min		= 48000,
-> +			.rate_max		= 48000,
-> +			.channels_min	= 1,
-> +			.channels_max	= 2,
-> +		},
-> +		.ops	= &asoc_qcom_lpass_wcd_dai_ops,
-> +	},
-> +
-> +	{
-> +		.id = MI2S_SECONDARY,
-> +		.name = "Secondary MI2S",
-> +		.playback = {
-> +			.stream_name = "Secondary MI2S Playback",
-> +			.formats		= SNDRV_PCM_FMTBIT_S16,
-> +			.rates = SNDRV_PCM_RATE_48000,
-> +			.rate_min		= 48000,
-> +			.rate_max		= 48000,
-> +			.channels_min	= 2,
-> +			.channels_max	= 2,
-> +		},
-> +		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
-> +		.ops	= &asoc_qcom_lpass_cpu_dai_ops,
-> +	},
-> +	{
-> +		.id = LPASS_DP_RX,
-> +		.name = "Hdmi",
-> +		.playback = {
-> +			.stream_name = "DP Playback",
-> +			.formats		= SNDRV_PCM_FMTBIT_S24,
-> +			.rates = SNDRV_PCM_RATE_48000,
-> +			.rate_min		= 48000,
-> +			.rate_max		= 48000,
-> +			.channels_min	= 2,
-> +			.channels_max	= 2,
-> +		},
-> +		.ops	= &asoc_qcom_lpass_hdmi_dai_ops,
-> +	},
-> +	{
-> +		.id = LPASS_CDC_DMA_VA_TX0,
-> +		.name = "CDC DMA VA",
-> +		.capture = {
-> +			.stream_name = "DMIC Capture",
-> +			.formats = SNDRV_PCM_FMTBIT_S16,
-> +			.rates = SNDRV_PCM_RATE_48000,
-> +			.rate_min	= 48000,
-> +			.rate_max	= 48000,
-> +			.channels_min	= 2,
-> +			.channels_max	= 4,
-> +		},
-> +		.ops	= &asoc_qcom_lpass_wcd_dai_ops,
-> +	},
-> +};
-> +
-> +static int sc7280_lpass_alloc_dma_channel(struct lpass_data *drvdata,
-> +				int direction, unsigned int dai_id)
-
-Same indentation issue.
-> +{
-> +	struct lpass_variant *v = drvdata->variant;
-> +	int chan = 0;
-> +
-> +	if (dai_id == LPASS_CDC_DMA_RX0 ||
-> +	dai_id == LPASS_CDC_DMA_TX3) {
-
-this looks very badly indented..
-
-> +		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-> +			chan = find_first_zero_bit(&drvdata->rxtx_dma_ch_bit_map,
-> +									v->rxtx_rdma_channels);
-> +
-> +			if (chan >= v->rxtx_rdma_channels)
-> +				return -EBUSY;
-> +		} else {
-> +			chan = find_next_zero_bit(&drvdata->rxtx_dma_ch_bit_map,
-> +							v->rxtx_wrdma_channel_start +
-> +							v->rxtx_wrdma_channels,
-> +							v->rxtx_wrdma_channel_start);
-> +
-> +			if (chan >=	 v->rxtx_wrdma_channel_start + v->rxtx_wrdma_channels)
-multiple spaces after >=
-
-> +				return -EBUSY;
-> +		}
-> +
-> +		set_bit(chan, &drvdata->rxtx_dma_ch_bit_map);
-> +	} else if (dai_id == LPASS_CDC_DMA_VA_TX0) {
-> +		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-> +			chan = find_first_zero_bit(&drvdata->va_dma_ch_bit_map,
-> +									v->va_rdma_channels);
-> +
-> +			if (chan >= v->va_rdma_channels)
-> +				return -EBUSY;
-> +		} else {
-> +			chan = find_next_zero_bit(&drvdata->va_dma_ch_bit_map,
-> +							v->va_wrdma_channel_start +
-> +							v->va_wrdma_channels,
-> +							v->va_wrdma_channel_start);
-> +
-> +			if (chan >=	 v->va_wrdma_channel_start + v->va_wrdma_channels)
-> +				return -EBUSY;
-> +		}
-> +
-> +		set_bit(chan, &drvdata->va_dma_ch_bit_map);
-> +	} else if (dai_id == LPASS_DP_RX) {
-> +		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-> +			chan = find_first_zero_bit(&drvdata->hdmi_dma_ch_bit_map,
-> +									v->hdmi_rdma_channels);
-> +
-> +			if (chan >= v->hdmi_rdma_channels)
-> +				return -EBUSY;
-> +		}
-> +		set_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-> +	} else {
-> +		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-> +			chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
-> +									v->rdma_channels);
-> +
-> +			if (chan >= v->rdma_channels)
-> +				return -EBUSY;
-> +		} else {
-> +			chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
-> +							v->wrdma_channel_start +
-> +							v->wrdma_channels,
-> +							v->wrdma_channel_start);
-> +
-> +			if (chan >=	 v->wrdma_channel_start + v->wrdma_channels)
-> +				return -EBUSY;
-> +		}
-> +		set_bit(chan, &drvdata->dma_ch_bit_map);
-> +	}
-> +	return chan;
-> +}
-> +
-> +static int sc7280_lpass_free_dma_channel(struct lpass_data *drvdata, int chan, unsigned int dai_id)
-> +{
-> +	if (dai_id == LPASS_CDC_DMA_RX0 ||
-> +		dai_id == LPASS_CDC_DMA_TX3)
-> +		clear_bit(chan, &drvdata->rxtx_dma_ch_bit_map);
-> +	else if (dai_id == LPASS_CDC_DMA_VA_TX0)
-> +		clear_bit(chan, &drvdata->va_dma_ch_bit_map);
-> +	else if (dai_id == LPASS_DP_RX)
-> +		clear_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-> +	else
-> +		clear_bit(chan, &drvdata->dma_ch_bit_map);
-
-better move this to a switch case.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int sc7280_lpass_init(struct platform_device *pdev)
-> +{
-> +	struct lpass_data *drvdata = platform_get_drvdata(pdev);
-> +	struct lpass_variant *variant = drvdata->variant;
-> +	struct device *dev = &pdev->dev;
-> +
-> +	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
-> +					sizeof(*drvdata->clks), GFP_KERNEL);
-
-No check on return value ?
-
-> +	drvdata->num_clks = variant->num_clks;
-> +
-> +	drvdata->aon_cc_audio_hm_h = devm_clk_get(dev, "lpass_aon_cc_audio_hm_h_clk");
-> +	if (IS_ERR(drvdata->aon_cc_audio_hm_h))
-> +		return PTR_ERR(drvdata->aon_cc_audio_hm_h);
-> +	drvdata->core_cc_sysnoc_mport_core = devm_clk_get(dev,
-> +					"lpass_core_cc_sysnoc_mport_core_clk");
-> +	if (IS_ERR(drvdata->core_cc_sysnoc_mport_core))
-> +		return PTR_ERR(drvdata->core_cc_sysnoc_mport_core);
-> +
-> +	clk_prepare_enable(drvdata->aon_cc_audio_hm_h);
-> +	clk_prepare_enable(drvdata->core_cc_sysnoc_mport_core);
-> +	return 0;
-> +}
-> +
-> +static int sc7280_lpass_exit(struct platform_device *pdev)
-> +{
-> +	struct lpass_data *drvdata = platform_get_drvdata(pdev);
-> +
-> +	clk_disable_unprepare(drvdata->core_cc_sysnoc_mport_core);
-> +	clk_disable_unprepare(drvdata->aon_cc_audio_hm_h);
-> +
-> +	return 0;
-> +}
-> +
-> +static struct lpass_variant sc7280_data = {
-> +	.i2sctrl_reg_base		= 0x1000,
-> +	.i2sctrl_reg_stride		= 0x1000,
-> +	.i2s_ports			= 3,
-> +	.irq_reg_base			= 0x9000,
-> +	.irq_reg_stride			= 0x1000,
-> +	.irq_ports			= 3,
-> +	.rdma_reg_base			= 0xC000,
-> +	.rdma_reg_stride		= 0x1000,
-> +	.rdma_channels			= 5,
-> +	.rxtx_rdma_reg_base		= 0xC000,
-> +	.rxtx_rdma_reg_stride		= 0x1000,
-> +	.rxtx_rdma_channels		= 8,
-> +	.hdmi_rdma_reg_base		= 0x64000,
-> +	.hdmi_rdma_reg_stride		= 0x1000,
-> +	.hdmi_rdma_channels		= 4,
-> +	.dmactl_audif_start		= 1,
-> +	.wrdma_reg_base			= 0x18000,
-> +	.wrdma_reg_stride		= 0x1000,
-> +	.wrdma_channel_start		= 5,
-> +	.wrdma_channels			= 4,
-> +	.rxtx_irq_reg_base		= 0x9000,
-> +	.rxtx_irq_reg_stride		= 0x1000,
-> +	.rxtx_irq_ports			= 3,
-> +	.rxtx_wrdma_reg_base		= 0x18000,
-> +	.rxtx_wrdma_reg_stride		= 0x1000,
-> +	.rxtx_wrdma_channel_start	= 5,
-> +	.rxtx_wrdma_channels		= 6,
-> +	.va_wrdma_reg_base		= 0x18000,
-> +	.va_wrdma_reg_stride		= 0x1000,
-> +	.va_wrdma_channel_start		= 5,
-> +	.va_wrdma_channels		= 3,
-> +	.va_irq_reg_base		= 0x9000,
-> +	.va_irq_reg_stride		= 0x1000,
-> +	.va_irq_ports			= 3,
-> +
-> +	.loopback			= REG_FIELD_ID(0x1000, 17, 17, 3, 0x1000),
-> +	.spken				= REG_FIELD_ID(0x1000, 16, 16, 3, 0x1000),
-> +	.spkmode			= REG_FIELD_ID(0x1000, 11, 15, 3, 0x1000),
-> +	.spkmono			= REG_FIELD_ID(0x1000, 10, 10, 3, 0x1000),
-> +	.micen				= REG_FIELD_ID(0x1000, 9, 9, 3, 0x1000),
-> +	.micmode			= REG_FIELD_ID(0x1000, 4, 8, 3, 0x1000),
-> +	.micmono			= REG_FIELD_ID(0x1000, 3, 3, 3, 0x1000),
-> +	.wssrc				= REG_FIELD_ID(0x1000, 2, 2, 3, 0x1000),
-> +	.bitwidth			= REG_FIELD_ID(0x1000, 0, 1, 3, 0x1000),
-> +
-> +	.rdma_dyncclk			= REG_FIELD_ID(0xC000, 21, 21, 5, 0x1000),
-> +	.rdma_bursten			= REG_FIELD_ID(0xC000, 20, 20, 5, 0x1000),
-> +	.rdma_wpscnt			= REG_FIELD_ID(0xC000, 16, 19, 5, 0x1000),
-> +	.rdma_intf			= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
-> +	.rdma_fifowm			= REG_FIELD_ID(0xC000, 1, 5, 5, 0x1000),
-> +	.rdma_enable			= REG_FIELD_ID(0xC000, 0, 0, 5, 0x1000),
-> +
-> +	.rxtx_rdma_enable		= REG_FIELD_ID(0xC000, 0, 0, 7, 0x1000),
-> +	.rxtx_rdma_fifowm		= REG_FIELD_ID(0xC000, 1, 11, 7, 0x1000),
-> +	.rxtx_rdma_intf			= REG_FIELD_ID(0xC000, 12, 15, 7, 0x1000),
-> +	.rxtx_rdma_wpscnt		= REG_FIELD_ID(0xC000, 16, 19, 7, 0x1000),
-> +	.rxtx_rdma_bursten		= REG_FIELD_ID(0xC000, 20, 20, 7, 0x1000),
-> +	.rxtx_rdma_dyncclk		= REG_FIELD_ID(0xC000, 21, 21, 7, 0x1000),
-> +
-> +	.rxtx_rdma_codec_ch		= REG_FIELD_ID(0xC050, 0, 7, 7, 0x1000),
-> +	.rxtx_rdma_codec_intf		= REG_FIELD_ID(0xC050, 16, 19, 7, 0x1000),
-> +	.rxtx_rdma_codec_fs_delay	= REG_FIELD_ID(0xC050, 21, 24, 7, 0x1000),
-> +	.rxtx_rdma_codec_fs_sel		= REG_FIELD_ID(0xC050, 25, 27, 7, 0x1000),
-> +	.rxtx_rdma_codec_pack		= REG_FIELD_ID(0xC050, 29, 29, 5, 0x1000),
-> +	.rxtx_rdma_codec_enable		= REG_FIELD_ID(0xC050, 30, 30, 7, 0x1000),
-> +
-> +	.rxtx_wrdma_enable		= REG_FIELD_ID(0x18000, 0, 0, 5, 0x1000),
-> +	.rxtx_wrdma_fifowm		= REG_FIELD_ID(0x18000, 1, 11, 5, 0x1000),
-> +	.rxtx_wrdma_intf		= REG_FIELD_ID(0x18000, 12, 16, 5, 0x1000),
-> +	.rxtx_wrdma_wpscnt		= REG_FIELD_ID(0x18000, 17, 20, 5, 0x1000),
-> +	.rxtx_wrdma_bursten		= REG_FIELD_ID(0x18000, 21, 21, 5, 0x1000),
-> +	.rxtx_wrdma_dyncclk		= REG_FIELD_ID(0x18000, 22, 22, 5, 0x1000),
-> +
-> +	.rxtx_wrdma_codec_ch		= REG_FIELD_ID(0x18050, 0, 7, 5, 0x1000),
-> +	.rxtx_wrdma_codec_intf		= REG_FIELD_ID(0x18050, 16, 19, 5, 0x1000),
-> +	.rxtx_wrdma_codec_fs_delay	= REG_FIELD_ID(0x18050, 21, 24, 5, 0x1000),
-> +	.rxtx_wrdma_codec_fs_sel	= REG_FIELD_ID(0x18050, 25, 27, 5, 0x1000),
-> +	.rxtx_wrdma_codec_pack		= REG_FIELD_ID(0x18050, 29, 29, 5, 0x1000),
-> +	.rxtx_wrdma_codec_enable	= REG_FIELD_ID(0x18050, 30, 30, 5, 0x1000),
-> +
-> +	.va_wrdma_enable		= REG_FIELD_ID(0x18000, 0, 0, 5, 0x1000),
-> +	.va_wrdma_fifowm		= REG_FIELD_ID(0x18000, 1, 11, 5, 0x1000),
-> +	.va_wrdma_intf			= REG_FIELD_ID(0x18000, 12, 16, 5, 0x1000),
-> +	.va_wrdma_wpscnt		= REG_FIELD_ID(0x18000, 17, 20, 5, 0x1000),
-> +	.va_wrdma_bursten		= REG_FIELD_ID(0x18000, 21, 21, 5, 0x1000),
-> +	.va_wrdma_dyncclk		= REG_FIELD_ID(0x18000, 22, 22, 5, 0x1000),
-> +
-> +	.va_wrdma_codec_ch		= REG_FIELD_ID(0x18050, 0, 7, 5, 0x1000),
-> +	.va_wrdma_codec_intf		= REG_FIELD_ID(0x18050, 16, 19, 5, 0x1000),
-> +	.va_wrdma_codec_fs_delay	= REG_FIELD_ID(0x18050, 21, 24, 5, 0x1000),
-> +	.va_wrdma_codec_fs_sel		= REG_FIELD_ID(0x18050, 25, 27, 5, 0x1000),
-> +	.va_wrdma_codec_pack		= REG_FIELD_ID(0x18050, 29, 29, 5, 0x1000),
-> +	.va_wrdma_codec_enable		= REG_FIELD_ID(0x18050, 30, 30, 5, 0x1000),
-> +
-> +	.hdmi_tx_ctl_addr		= 0x1000,
-> +	.hdmi_legacy_addr		= 0x1008,
-> +	.hdmi_vbit_addr			= 0x610c0,
-> +	.hdmi_ch_lsb_addr		= 0x61048,
-> +	.hdmi_ch_msb_addr		= 0x6104c,
-> +	.ch_stride			= 0x8,
-> +	.hdmi_parity_addr		= 0x61034,
-> +	.hdmi_dmactl_addr		= 0x61038,
-> +	.hdmi_dma_stride		= 0x4,
-> +	.hdmi_DP_addr			= 0x610c8,
-> +	.hdmi_sstream_addr		= 0x6101c,
-> +	.hdmi_irq_reg_base		= 0x63000,
-> +	.hdmi_irq_ports			= 1,
-> +
-> +	.hdmi_rdma_dyncclk		= REG_FIELD_ID(0x64000, 14, 14, 4, 0x1000),
-> +	.hdmi_rdma_bursten		= REG_FIELD_ID(0x64000, 13, 13, 4, 0x1000),
-> +	.hdmi_rdma_burst8		= REG_FIELD_ID(0x64000, 15, 15, 4, 0x1000),
-> +	.hdmi_rdma_burst16		= REG_FIELD_ID(0x64000, 16, 16, 4, 0x1000),
-> +	.hdmi_rdma_dynburst		= REG_FIELD_ID(0x64000, 18, 18, 4, 0x1000),
-> +	.hdmi_rdma_wpscnt		= REG_FIELD_ID(0x64000, 10, 12, 4, 0x1000),
-> +	.hdmi_rdma_fifowm		= REG_FIELD_ID(0x64000, 1, 5, 4, 0x1000),
-> +	.hdmi_rdma_enable		= REG_FIELD_ID(0x64000, 0, 0, 4, 0x1000),
-> +
-> +	.sstream_en			= REG_FIELD(0x6101c, 0, 0),
-> +	.dma_sel			= REG_FIELD(0x6101c, 1, 2),
-> +	.auto_bbit_en			= REG_FIELD(0x6101c, 3, 3),
-> +	.layout				= REG_FIELD(0x6101c, 4, 4),
-> +	.layout_sp			= REG_FIELD(0x6101c, 5, 8),
-> +	.set_sp_on_en			= REG_FIELD(0x6101c, 10, 10),
-> +	.dp_audio			= REG_FIELD(0x6101c, 11, 11),
-> +	.dp_staffing_en			= REG_FIELD(0x6101c, 12, 12),
-> +	.dp_sp_b_hw_en			= REG_FIELD(0x6101c, 13, 13),
-> +
-> +	.mute				= REG_FIELD(0x610c8, 0, 0),
-> +	.as_sdp_cc			= REG_FIELD(0x610c8, 1, 3),
-> +	.as_sdp_ct			= REG_FIELD(0x610c8, 4, 7),
-> +	.aif_db4			= REG_FIELD(0x610c8, 8, 15),
-> +	.frequency			= REG_FIELD(0x610c8, 16, 21),
-> +	.mst_index			= REG_FIELD(0x610c8, 28, 29),
-> +	.dptx_index			= REG_FIELD(0x610c8, 30, 31),
-> +
-> +	.soft_reset			= REG_FIELD(0x1000, 31, 31),
-> +	.force_reset			= REG_FIELD(0x1000, 30, 30),
-> +
-> +	.use_hw_chs			= REG_FIELD(0x61038, 0, 0),
-> +	.use_hw_usr			= REG_FIELD(0x61038, 1, 1),
-> +	.hw_chs_sel			= REG_FIELD(0x61038, 2, 4),
-> +	.hw_usr_sel			= REG_FIELD(0x61038, 5, 6),
-> +
-> +	.replace_vbit			= REG_FIELD(0x610c0, 0, 0),
-> +	.vbit_stream			= REG_FIELD(0x610c0, 1, 1),
-> +
-> +	.legacy_en			=  REG_FIELD(0x1008, 0, 0),
-> +	.calc_en			=  REG_FIELD(0x61034, 0, 0),
-> +	.lsb_bits			=  REG_FIELD(0x61048, 0, 31),
-> +	.msb_bits			=  REG_FIELD(0x6104c, 0, 31),
-> +
-> +
-> +	.clk_name			= (const char*[]) {
-> +							"lpass_aon_cc_audio_hm_h_clk",
-> +							"lpass_core_cc_sysnoc_mport_core_clk"
-> +						},
-> +	.num_clks				= 2,
-> +	.cdc_dma_clk_names		= (const char*[]) {
-> +								"lpass_audio_cc_codec_mem0_clk",
-> +								"lpass_audio_cc_codec_mem1_clk",
-> +								"lpass_audio_cc_codec_mem2_clk",
-> +								"lpass_aon_cc_va_mem0_clk"
-> +							},
-> +	.cdc_dma_num_clks				= 4,
-> +	.dai_driver				= sc7280_lpass_cpu_dai_driver,
-> +	.num_dai				= ARRAY_SIZE(sc7280_lpass_cpu_dai_driver),
-> +	.dai_osr_clk_names		= (const char *[]) {
-> +							   "null",
-> +							   "null"
-> +							},
-> +	.dai_bit_clk_names		= (const char *[]) {
-> +								"null",
-> +								"lpass_core_cc_ext_if0_ibit_clk",
-> +								"lpass_core_cc_ext_if1_ibit_clk"
-> +							},
-> +	.init					= sc7280_lpass_init,
-> +	.exit					= sc7280_lpass_exit,
-> +	.alloc_dma_channel		= sc7280_lpass_alloc_dma_channel,
-> +	.free_dma_channel		= sc7280_lpass_free_dma_channel,
-> +};
-> +
-> +static const struct of_device_id sc7280_lpass_cpu_device_id[] = {
-> +	{.compatible = "qcom,sc7280-lpass-cpu", .data = &sc7280_data},
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, sc7280_lpass_cpu_device_id);
-> +
-> +static struct platform_driver sc7280_lpass_cpu_platform_driver = {
-> +	.driver = {
-> +		.name = "sc7280-lpass-cpu",
-> +		.of_match_table = of_match_ptr(sc7280_lpass_cpu_device_id),
-> +	},
-> +	.probe = asoc_qcom_lpass_cpu_platform_probe,
-> +	.remove = asoc_qcom_lpass_cpu_platform_remove,
-> +	.shutdown = asoc_qcom_lpass_cpu_platform_shutdown,
-> +};
-> +
-> +module_platform_driver(sc7280_lpass_cpu_platform_driver);
-> +
-> +MODULE_DESCRIPTION("SC7280 LPASS CPU DRIVER");
-> +MODULE_LICENSE("GPL v2");
-
-use "GPL"
-
---srini
-
-> 

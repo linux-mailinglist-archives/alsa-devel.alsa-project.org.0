@@ -2,123 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5109459E2E
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:34:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 087A1459E33
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:34:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8016F1699;
-	Tue, 23 Nov 2021 09:33:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8016F1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 874B816BD;
+	Tue, 23 Nov 2021 09:34:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 874B816BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637656477;
-	bh=74a1yw3Wfml6huxJ8bOUi/m1NZ8B9nzqL05RSjvCY6I=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Vfu5kBBEMXaB/Z+K2G1aqDXnuH1ZFEH/Bj4wa/yERhGLn0RxAZwZqPhduBozazufz
-	 BtVK5GbMMsrP2T2HsgpZ+oS/QVw4OgU+57cuJsMDVYbBci5QtIGL9UK5cMNEpIr2jl
-	 w0Z2VZxL4S0IhLm9paKk171MJGl4du6Da79eK3ek=
+	s=default; t=1637656496;
+	bh=M5NS5qNIUh+63sbSD4imHq8SlNBwm2vPrZvIBG0Cars=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Zajf3Esx1h2LA1BWzJPH9UDIpoJ0f2zkfekU9e8brpnov8Q5i39w/pgW3GGB5zTUs
+	 Mr+Xb33fzJya+Js/SXNhSEUZLgYjdhPKH5bTh7D2NACNsyl/02lX8GCg46hyNSdvJw
+	 FBvhyly86Lg80iQnZElvW5zB1iJo9D+RZpEEbyqU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 128BFF80601;
-	Tue, 23 Nov 2021 09:22:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEC8CF80602;
+	Tue, 23 Nov 2021 09:22:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81F1CF80212; Tue, 23 Nov 2021 02:52:57 +0100 (CET)
+ id 67E24F804AB; Tue, 23 Nov 2021 03:31:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E32FF80154
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 02:52:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E32FF80154
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org
- header.b="EMJHfp61"
-Received: by mail-io1-xd36.google.com with SMTP id k21so25916592ioh.4
- for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 17:52:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ieee.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=7Oi7YYe6mXZ9qFhiItC3cT+zBCj+1FGQIOXFSu9z5Og=;
- b=EMJHfp61byAPVM0d+YSPglX9cQhq+7ayPyr9zRTzuSPcvvgnxyLMG1ltK8vjfaD0FU
- tlPYxbO7NtBZeDgMPNcJJoHVx+Je8+bWQnN+DVWW1NrLrqmC5gQjAph9/LWH4uiuxcYY
- wd41pmLNfefVdVvVpoPO9twaon39sVO4IspOU=
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBCD5F800E7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 03:31:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBCD5F800E7
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
+ header.d=huaqin-corp-partner-google-com.20210112.gappssmtp.com
+ header.i=@huaqin-corp-partner-google-com.20210112.gappssmtp.com
+ header.b="hUP5zzcu"
+Received: by mail-pj1-x102a.google.com with SMTP id
+ fv9-20020a17090b0e8900b001a6a5ab1392so1574812pjb.1
+ for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 18:31:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=huaqin-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=SjomYuB3mIAoDTZTLD8mciVKT6P5jd4lu7zRg4g2c0U=;
+ b=hUP5zzcu//8p8k+qE4WlnWahTuqbbCvHLQ9fnky+e4uVeBF0XqPnWlMBZZs3WqSINz
+ WkhLiQI3BLakJcSvrF8GLKKS8M1xl2c2MVW8r9NjyFFUy6pZmtx5WfUEVNSJwwTOAZT4
+ PLBd2zsfN6AZaxBJWXz1TPnTGXL0KwvevH8tH/fsL1p+l7vUfxGaS2JMP3gXdSncEKZi
+ wiXpEr837+09E8/JSoJ/Z62rw+Vq5Y9tVYoCihJKfN7WcM5pa8HluV7cmI3kU8Z9a4H1
+ BppziX6KqeeDBa46miBZPIaxYjcU+1hAPvNA25NdeL36w02Vvdj1ikYoLC4LYNBlZ8O4
+ Arog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=7Oi7YYe6mXZ9qFhiItC3cT+zBCj+1FGQIOXFSu9z5Og=;
- b=pu1cfTjaZ3VhlnP7OJWPlKQNriPclrytbift8GdkktS4ZLvnXpNN6ieRTlEu9yJ6yg
- C+r/YQQ8pikE/5igjaSh4K8ar++FNFk5h8dqbTSqZlI9EalW44zJo3uBQDxI9fAn5FMB
- PCWvMNjDeJ3A1mmn0LZ7OidzBMt3GUNxTsPxbYW2vEBXnkbeAM7tekdATuoz7rb/ukoE
- Ci9WR9V7cvQuxL4AyCEEpf7iuKUKx8yFjNUEtNO6dZNS95yMeC6JOfUHdHNuH8EW3klx
- VXzA3OxyfjY9wtSchLdtpo9VEESsSrMmw4kuPY8FQ3BYSDrTKVZYMGiNK1ntY3u0YVvm
- ekIA==
-X-Gm-Message-State: AOAM533BFn8tSH0wtkHknhnQOTnVc35X6zMY+kJ3JwubPcBuF/+BkxbZ
- s6EmAs6nPsB8QHyBkV2/66i6FA==
-X-Google-Smtp-Source: ABdhPJwFYEXqq9O3YpMuHp49czIlbhiXDJHljcLoM+vErOaDm/O2cJ+JlOI+DmxoJkJ4K5f7Ve5+nA==
-X-Received: by 2002:a05:6638:14ca:: with SMTP id
- l10mr1120728jak.107.1637632367373; 
- Mon, 22 Nov 2021 17:52:47 -0800 (PST)
-Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net.
- [73.185.129.58])
- by smtp.googlemail.com with ESMTPSA id d137sm6102931iof.16.2021.11.22.17.52.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Nov 2021 17:52:47 -0800 (PST)
-Message-ID: <5936f811-fa48-33e9-2a1a-66c68f74aa5e@ieee.org>
-Date: Mon, 22 Nov 2021 19:52:43 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.1
-Subject: Re: [PATCH 01/17] bitfield: Add non-constant field_{prep,get}()
- helpers
-Content-Language: en-US
-To: Johannes Berg <johannes@sipsolutions.net>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
- Rajendra Nayak <rnayak@codeaurora.org>, Paul Walmsley <paul@pwsan.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Tero Kristo <kristo@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>,
- Benoit Parrot <bparrot@ti.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, Andrew Jeffery <andrew@aj.id.au>,
- Ulf Hansson <ulf.hansson@linaro.org>, Joel Stanley <joel@jms.id.au>,
- Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@codeaurora.org>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Eduardo Valentin <edubezval@gmail.com>,
- Keerthy <j-keerthy@ti.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Amit Kucheria
- <amitk@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <cover.1637592133.git.geert+renesas@glider.be>
- <3a54a6703879d10f08cf0275a2a69297ebd2b1d4.1637592133.git.geert+renesas@glider.be>
- <01b44b38c087c151171f8d45a2090474c2559306.camel@sipsolutions.net>
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <01b44b38c087c151171f8d45a2090474c2559306.camel@sipsolutions.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 23 Nov 2021 09:20:58 +0100
-Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
- linux-pm@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
- netdev@vger.kernel.org, linux-omap@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=SjomYuB3mIAoDTZTLD8mciVKT6P5jd4lu7zRg4g2c0U=;
+ b=aYKdkcWwK54LhNTDFrMR1IXFic5Gw4Rs/jASjXH8dvwFn4qHIUmDX1zWoU/pqzHaW3
+ /HDhRjUvKLNVMBUFxst1/VWDosW13dQaJoHRDcbbQhuHrHqFdKOodFj/VHrfEKO0q7ac
+ Uv4MjlKVEiBCMJ37FI9VUBv4wvz5NU27kx+t8K74Vq6XDwhineaRPnOrLrSxITwO5boX
+ zywAoyqQJxZ8RQb2dNnXgkdDBOzeoJ5aaAyakaYm64h0+Gk/gMCaAJ4FzTmrWl947Tb3
+ dWpb6F97/Mi7sD/NA/2fxViCa6pVLESnhqVd0ru+Vu8f+j8b9vsdHvNasc6wEUm2gJUR
+ N4Bg==
+X-Gm-Message-State: AOAM532IqzxtsU0a1cpMkMfRU2mMRGRa31NFo4xf4yR+KigupEEtBWN9
+ Ylc/JdNrwyIBLSsSGTHjhc8Sgg==
+X-Google-Smtp-Source: ABdhPJwsYwE1E8I84MR8vDMI0LgKBmDRgpGRGLngbGFYLHHpoYyiGhYY6KHmfdeSBDtMw0b0pM6+JQ==
+X-Received: by 2002:a17:903:41cb:b0:142:62a:4d86 with SMTP id
+ u11-20020a17090341cb00b00142062a4d86mr2526195ple.43.1637634700096; 
+ Mon, 22 Nov 2021 18:31:40 -0800 (PST)
+Received: from lvzhaoxiong-KLVC-WXX9.huaqin.com ([101.78.151.214])
+ by smtp.gmail.com with ESMTPSA id g21sm10912147pfc.95.2021.11.22.18.31.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Nov 2021 18:31:38 -0800 (PST)
+From: lvzhaoxiong <lvzhaoxiong@huaqin.corp-partner.google.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com
+Subject: [PATCH] ASoC: qcom: Add support for ALC5682I-VS codec
+Date: Tue, 23 Nov 2021 10:31:14 +0800
+Message-Id: <20211123023114.20514-1-lvzhaoxiong@huaqin.corp-partner.google.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Tue, 23 Nov 2021 09:20:57 +0100
+Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, judyhsiao@google.com,
+ lvzhaoxiong <lvzhaoxiong@huaqin.corp-partner.google.com>,
+ albertchen@realtek.com, derek.fang@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,42 +99,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/22/21 10:32 AM, Johannes Berg wrote:
-> On Mon, 2021-11-22 at 16:53 +0100, Geert Uytterhoeven wrote:
->> The existing FIELD_{GET,PREP}() macros are limited to compile-time
->> constants.  However, it is very common to prepare or extract bitfield
->> elements where the bitfield mask is not a compile-time constant.
->>
-> 
-> I'm not sure it's really a good idea to add a third API here?
-> 
-> We have the upper-case (constant) versions, and already
-> {u32,...}_get_bits()/etc.
+Qcom machine driver adds rt5682s support in this patch.
+Card name can be specified from dts by model property, and driver makes
+use of the name to distinguish which headset codec is on the board.
 
-I've used these a lot (and personally prefer the lower-case ones).
+Signed-off-by: lvzhaoxiong <lvzhaoxiong@huaqin.corp-partner.google.com>
+---
+ sound/soc/qcom/Kconfig  |  1 +
+ sound/soc/qcom/sc7180.c | 24 +++++++++++++++++++-----
+ 2 files changed, 20 insertions(+), 5 deletions(-)
 
-Your new macros don't do anything to ensure the field mask is
-of the right form, which is basically:  (2 ^ width - 1) << shift
-
-I really like the property that the field mask must be constant.
-
-That being said, I've had to use some strange coding patterns
-in order to adhere to the "const only" rule in a few cases.
-So if you can come up with a satisfactory naming scheme I'm
-all for it.
-
-					-Alex
-
-
-
-> Also, you're using __ffs(), which doesn't work for 64-bit on 32-bit
-> architectures (afaict), so that seems a bit awkward.
-> 
-> Maybe we can make {u32,...}_get_bits() be doing compile-time only checks
-> if it is indeed a constant? The __field_overflow() usage is already only
-> done if __builtin_constant_p(v), so I guess we can do the same with
-> __bad_mask()?
-> 
-> johannes
-> 
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index b2173847dc47..cf3e151bb635 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -169,6 +169,7 @@ config SND_SOC_SC7180
+ 	select SND_SOC_LPASS_SC7180
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_RT5682_I2C
++	select SND_SOC_RT5682S
+ 	select SND_SOC_ADAU7002
+ 	help
+ 	  To add support for audio on Qualcomm Technologies Inc.
+diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
+index 768566bb57a5..2fff764a00a7 100644
+--- a/sound/soc/qcom/sc7180.c
++++ b/sound/soc/qcom/sc7180.c
+@@ -17,6 +17,7 @@
+ #include <uapi/linux/input-event-codes.h>
+ 
+ #include "../codecs/rt5682.h"
++#include "../codecs/rt5682s.h"
+ #include "common.h"
+ #include "lpass.h"
+ 
+@@ -128,7 +129,21 @@ static int sc7180_snd_startup(struct snd_pcm_substream *substream)
+ 	struct sc7180_snd_data *data = snd_soc_card_get_drvdata(card);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+-	int ret;
++	int pll_id, pll_source, pll_in, pll_out, clk_id, ret;
++
++	if (!(strcmp(card->name, "sc7180-rt5682-max98357a-1mic"))) {
++		pll_source = RT5682_PLL1_S_MCLK;
++		pll_id = 0;
++		clk_id = RT5682_SCLK_S_PLL1;
++		pll_out = RT5682_PLL1_FREQ;
++		pll_in = DEFAULT_MCLK_RATE;
++	} else if (!(strcmp(card->name, "sc7180-rt5682s-max98357a-1mic"))) {
++		pll_source = RT5682S_PLL_S_MCLK;
++		pll_id = RT5682S_PLL2;
++		clk_id = RT5682S_SCLK_S_PLL2;
++		pll_out = RT5682_PLL1_FREQ;
++		pll_in = DEFAULT_MCLK_RATE;
++	}
+ 
+ 	switch (cpu_dai->id) {
+ 	case MI2S_PRIMARY:
+@@ -145,16 +160,15 @@ static int sc7180_snd_startup(struct snd_pcm_substream *substream)
+ 				    SND_SOC_DAIFMT_I2S);
+ 
+ 		/* Configure PLL1 for codec */
+-		ret = snd_soc_dai_set_pll(codec_dai, 0, RT5682_PLL1_S_MCLK,
+-					  DEFAULT_MCLK_RATE, RT5682_PLL1_FREQ);
++		ret = snd_soc_dai_set_pll(codec_dai, pll_id, pll_source,
++					  pll_in, pll_out);
+ 		if (ret) {
+ 			dev_err(rtd->dev, "can't set codec pll: %d\n", ret);
+ 			return ret;
+ 		}
+ 
+ 		/* Configure sysclk for codec */
+-		ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1,
+-					     RT5682_PLL1_FREQ,
++		ret = snd_soc_dai_set_sysclk(codec_dai, clk_id, pll_out,
+ 					     SND_SOC_CLOCK_IN);
+ 		if (ret)
+ 			dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n",
+-- 
+2.17.1
 

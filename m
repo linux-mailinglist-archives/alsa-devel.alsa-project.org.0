@@ -2,88 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 374F4459E34
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:35:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A489459DC5
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:21:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8A1716D9;
-	Tue, 23 Nov 2021 09:34:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8A1716D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id D145A1655;
+	Tue, 23 Nov 2021 09:20:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D145A1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637656516;
-	bh=M5NS5qNIUh+63sbSD4imHq8SlNBwm2vPrZvIBG0Cars=;
+	s=default; t=1637655684;
+	bh=1wPJuK/MRhvQFxtw44MDEir2V+UqnSCduBIwoSNnGHA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cCObxxB4U+zqR1qxs7GjcMe+63SMn2db66LGXImo0wAuT69gitRhb13j9k13x61D8
-	 vzNAWzcARrOKDClUcuU+00G5LBLLKhusixJO5hpREkoBMensL3lgIi3/rAWgLoTl9G
-	 qsbv6GweopU95m+/tR2iCHUHdjiU8bMHNkb+IkV0=
+	b=PHZaE4NVNu3sfbI03/qY/uCp/pLylgIZIQwgKAs6TLfXjqM0IKG7Xb29C8IaELBKL
+	 gH5kNGBFYSJqFrMsqkg0b1x2NgJAS3OTEZvHRZqNi7ICrG66QwDoYam67dvBJNqXao
+	 t2zXNE6W5emaA70lx67wfVgBYZLHaZMv4ZmxhOag=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACE69F804FC;
-	Tue, 23 Nov 2021 09:22:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12319F804AB;
+	Tue, 23 Nov 2021 09:20:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD056F8049E; Tue, 23 Nov 2021 03:43:49 +0100 (CET)
+ id 4F6ECF8049E; Tue, 23 Nov 2021 09:20:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HELO_DYNAMIC_IPADDR,RDNS_DYNAMIC,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com
+ [203.205.221.240])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3F6FF80087
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 03:43:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3F6FF80087
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
- header.d=huaqin-corp-partner-google-com.20210112.gappssmtp.com
- header.i=@huaqin-corp-partner-google-com.20210112.gappssmtp.com
- header.b="NcAryMbf"
-Received: by mail-pf1-x435.google.com with SMTP id z6so17891887pfe.7
- for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 18:43:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=huaqin-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
- h=from:to:cc:subject:date:message-id;
- bh=SjomYuB3mIAoDTZTLD8mciVKT6P5jd4lu7zRg4g2c0U=;
- b=NcAryMbfNMlnzLFMptuGQjwoETrpRyp7wrlNtt0VE03uNXCKmk0JMS5ZHyec7L0D7g
- MGf9Wb9BYPqM/GTaqu3qixWcdHKQYK4l+iFcB0fDoSSmPq79pFaBwCyD3uqbbMX8KdJr
- BDTZn2mtXVCEHgBcs+KH2F/nWg4dNHvpCR5OEJBXdIcwd3Kug/Zi3ykoiAe5YwzPREBW
- cnefVTHzBqmITVq9TZ/RTWjdEOQwnCD/KBzHI0OPEP5HwLM291aPKMk8itdIc9zf0/Is
- 4UB0nvHI/UNb5gsC67oox0p0JeQA/NRpoa1/2JKUzj0HnQpEWq53yrXAS3oi6J4nlUXq
- RAJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=SjomYuB3mIAoDTZTLD8mciVKT6P5jd4lu7zRg4g2c0U=;
- b=KeFGrcchNQ+kOTPZvKH/zWyqUnUoLYSpx/IgSFJu6v9BNUjVDtl9tbCcI2mJh7uJhW
- 33aNq/S6AGeHssdxQiduv5E0Tdjbo8+RcHFT3QZviJzPXmslaKpMf97qvAchOUKLwEO5
- ZeDelaFDsQAC/HJfaS2GMqe3l1u8Bzmf1V/XvsrfXDU1stT1QM/+PQCiqwGZeGeQzTTW
- xpA/8ps0HgWaMNNlD/GbLFJLdWGo/6uO9VVFCeH98eT+DmxmmV557bxj2LD9BZ7K6yPs
- PlTMJxuJvuyPAMvKLBDwwiJL6X5tWubjeF3ftl+IzNk11BEKNWhuUO5+ggPRRoHP0XNm
- Vh1Q==
-X-Gm-Message-State: AOAM5307cT1GEay23maxHgoY2uigiB16ZlUz8/oSgWtEKKwq8MLgANPf
- 7LLwBdB0hryaRhb5KRnBkrBONQ==
-X-Google-Smtp-Source: ABdhPJwtKTye1la96+6/qm4xdH8KimvoN04jghntv4ZyBBeShZImnpIt8kI3NV6oHCpQlTBw56aLCA==
-X-Received: by 2002:aa7:9511:0:b0:49f:e35c:f6f1 with SMTP id
- b17-20020aa79511000000b0049fe35cf6f1mr1769722pfp.45.1637635420096; 
- Mon, 22 Nov 2021 18:43:40 -0800 (PST)
-Received: from lvzhaoxiong-KLVC-WXX9.huaqin.com ([101.78.151.213])
- by smtp.gmail.com with ESMTPSA id j15sm10387380pfh.35.2021.11.22.18.43.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Nov 2021 18:43:39 -0800 (PST)
-From: lvzhaoxiong <lvzhaoxiong@huaqin.corp-partner.google.com>
-To: broonie@kernel.org,
-	lgirdwood@gmail.com
-Subject: [PATCH] ASoC: qcom: Add support for ALC5682I-VS codec
-Date: Tue, 23 Nov 2021 10:43:29 +0800
-Message-Id: <20211123024329.21998-1-lvzhaoxiong@huaqin.corp-partner.google.com>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Tue, 23 Nov 2021 09:20:57 +0100
-Cc: alsa-devel@alsa-project.org, judyhsiao@google.com,
- linux-kernel@vger.kernel.org,
- lvzhaoxiong <lvzhaoxiong@huaqin.corp-partner.google.com>,
- albertchen@realtek.com, derek.fang@realtek.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FECEF80154
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 09:19:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FECEF80154
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com
+ header.b="YwmyT7NC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1637655590;
+ bh=qDkdMkuGmnqM0WTZI7gs3hWemJNyPIZq32ImyXmJdVs=;
+ h=From:To:Cc:Subject:Date;
+ b=YwmyT7NCXIBpgaPmjNRhgtpbGoZAzuM/6j99tZSTLq9utm9oAD06EyGgFlFkTuh74
+ Yt4RVM0IYaY/rSYJ7X9eVCjK/muW9ww3yhLiNBTFHHAkC0g0ymavz5k3MLiPYE3+1N
+ oBJZ0JY/Yo0LzLbsvSOauYOe5uhVHfMyB/l4F7Do=
+Received: from localhost.localdomain ([106.37.198.34])
+ by newxmesmtplogicsvrsza28.qq.com (NewEsmtp) with SMTP
+ id 4E7B4A0C; Tue, 23 Nov 2021 16:19:39 +0800
+X-QQ-mid: xmsmtpt1637655579t9yevkson
+Message-ID: <tencent_E3D552E08140479185E91F9803CE3C6AFC09@qq.com>
+X-QQ-XMAILINFO: MFViGQwD1A+rYjvabUgI3r5adOyL5YOIDx2TcPsGbPpmMFsC/5hRiq4uNPV0sW
+ tQwCaRzAv+GAjgWh41P1Fk6yEYxEl6PsphIilnz36Dn3t25xspZADZt61YNPGNeUJvqPxyumAyo8
+ Wu0a3CmtYjyFu7Y8afEiUIHUTA5BTvO+Slj0tEYUdpfegPv+DK1mJwmZvFV2lf5ew9AJKqAEdCQF
+ 6KzxFcRo6PJFfX+9IZ6XF2rEmKh+tbQZKb8q4op1jPD/CRMvCWgN04fWU82HrxcfI1A1WMOc4zWV
+ 7jyJSlJ+6hDaxIm/bcEyMWdpo2WDjG4DfSVs3yN59/fRdlhHLKq5MqXv28vxzyYh4QGOLZnowbeT
+ R6So1sdwnUSuUCADznaeNihU1OCSGVI65UY5BbmErBhfqLTrUcGWJShqjuTGUCgaUWuI76WOosEf
+ SZzUHngbypf+cXEliyR+B0vhHR+YLlNsCoGrN2Iv/sDqWPrrr0YoO7pAGnk0GFKOK6mzcA9zFu3S
+ 2sns2FK4eZPuI31RxF7Q92E1mv/V7+KDTO4ugq3PJQIui50iox/Jd6AMxO2KmI+3fmEzDbKW4mtr
+ 4WoSNosqta+cYsKGPYqtU3oxlvouWCtx/3kJk2FR4UlE6cIY6HHZgjlWCOcs1hM4P7S0w06Gkg8r
+ RI5UXUzVS0PVe8kxWgEj7r3ZfgnCp8bJRK4P/74mT+ql2gHDsnnZavkXPBJqVvbS4pOcK0aegue8
+ ufyS4LhT3WT719d6V34+1g7L1kTTFFeWhfXCOxLRrdSGCm2FeYKrQoax689fkH5QLAD9pxcN/oEJ
+ eyrNgzrEiornnYsOqLQEom9ZtkNK7+5ik/XrMmkMSvZvt5c4IynRSfMqRkOG+jFukTEJpCWu9csV
+ ninyY1UsjkYMDbj56yG0xFUuRXXq/1IQ==
+From: tianyucode <tianyucode@foxmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/via - fix occasionally no sound with VT1802
+Date: Tue, 23 Nov 2021 16:18:57 +0800
+X-OQ-MSGID: <20211123081857.414213-1-tianyucode@foxmail.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: tianyu <tianyu@kylinos.cn>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,83 +92,189 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Qcom machine driver adds rt5682s support in this patch.
-Card name can be specified from dts by model property, and driver makes
-use of the name to distinguish which headset codec is on the board.
+From: tianyu <tianyu@kylinos.cn>
 
-Signed-off-by: lvzhaoxiong <lvzhaoxiong@huaqin.corp-partner.google.com>
+Hi guys, I'm a new guy for audio driver.
+
+I have encountered a problem. When using the VT1802 codec,
+there will be no sound occasionally. After checking the initialization process,
+I found that the cause of the problem is that the power state does not have
+hda_set_power_state(codec, AC_PWRST_D0).
+
+1. The power state is set to AC_PWRST_D0 during the first initialization：
+
+azx_probe_continue
+	azx_probe_codecs
+		snd_hda_codec_new
+			snd_hda_codec_device_new
+				hda_set_power_state(codec, AC_PWRST_D0);
+
+2. Then, the power state is set to AC_PWRST_D3 in VT1802, but not set in realtek (ALC269).
+
+azx_probe_continue
+	azx_codec_configure
+		…
+		patch_vt2002
+			via_parse_auto_config
+				snd_hda_gen_parse_auto_config
+					add_all_pin_power_ctls
+						add_pin_power_ctls
+							set_path_power
+
+static void add_all_pin_power_ctls(struct hda_codec *codec, bool on)
+{
+	/**/
+	if (!codec->power_save_node)
+		return;
+
+	add_pin_power_ctls(codec, cfg->line_outs, cfg->line_out_pins, on);
+	/**/
+}
+
+The power_save_node is set to 0 in patch_alc269 and it returns here,
+but it is set to 1 in VT1802.
+
+patch_vt2002P
+	via_new_spec
+		codec->power_save_node = 1;
+	via_parse_auto_config
+		snd_hda_gen_parse_auto_config
+		codec->power_save_node = 0;//it set to 0 here,but add_all_pin_power_ctls has been done
+
+patch_alc269
+	codec->power_save_node = 0;
+
+3. Next there is a suspend and resume process, the resume process will also set the
+power state to AC_PWRST_D0, but I think there is a problem with this process.
+
+(1)suspend:
+
+azx_probe_continue
+	snd_card_register
+		..
+		snd_hda_codec_dev_register
+			snd_hda_codec_register
+				snd_hda_power_down
+					pm_runtime_put_autosuspend
+					__pm_runtime_suspend(dev, RPM_GET_PUT | RPM_ASYNC | RPM_AUTO);
+						rpm_suspend
+
+static int rpm_suspend(struct device *dev, int rpmflags)
+{
+	/**/
+	if (rpmflags & RPM_ASYNC) {
+		dev->power.request = (rpmflags & RPM_AUTO) ?
+		    RPM_REQ_AUTOSUSPEND : RPM_REQ_SUSPEND;
+		if (!dev->power.request_pending) {
+			dev->power.request_pending = true;
+			queue_work(pm_wq, &dev->power.work);
+		}
+		goto out;
+	}
+
+	__update_runtime_status(dev, RPM_SUSPENDING);
+
+	/**/
+	retval = rpm_callback(callback, dev);
+	__update_runtime_status(dev, RPM_SUSPENDED);
+	/**/
+}
+
+The first call to rpm_suspend has the RPM_ASYNC flag, so queue_work is called,
+and the work queue is used to enter rpm_suspend
+
+pm_runtime_init
+	INIT_WORK(&dev->power.work, pm_runtime_work);
+
+(2)resume:
+
+azx_probe_continue
+	set_default_power_save
+		snd_hda_set_power_save(&chip->bus, val * 1000);
+			codec_set_power_save(c, delay);
+
+int val = power_save;
+static int power_save = CONFIG_SND_HDA_POWER_SAVE_DEFAULT;//It is 0 in my .config
+
+static void codec_set_power_save(struct hda_codec *codec, int delay)
+{
+	struct device *dev = hda_codec_dev(codec);
+	if (delay == 0 && codec->auto_runtime_pm)
+		delay = 3000;
+
+	if (delay > 0) {
+		pm_runtime_set_autosuspend_delay(dev, delay);
+		pm_runtime_use_autosuspend(dev);
+		pm_runtime_allow(dev);
+		if (!pm_runtime_suspended(dev))
+			pm_runtime_mark_last_busy(dev);
+	} else {
+		pm_runtime_dont_use_autosuspend(dev);
+		pm_runtime_forbid(dev);
+	}
+}
+
+pm_runtime_forbid
+	rpm_resume(dev, 0);
+
+static int rpm_resume(struct device *dev, int rpmflags)
+{
+	/**/
+	if (dev->power.runtime_status == RPM_ACTIVE) {
+		retval = 1;
+		goto out;
+	}
+
+	/**/
+	_update_runtime_status(dev, RPM_RESUMING);
+	retval = rpm_callback(callback, dev);
+	/**/
+	__update_runtime_status(dev, RPM_ACTIVE);
+	/**/
+}
+
+The callback functions of suspend and resume are as follows, which set the power state:
+
+hda_call_codec_suspend
+	state = hda_set_power_state(codec, AC_PWRST_D3);
+
+hda_call_codec_resume
+	hda_set_power_state(codec, AC_PWRST_D0);
+
+You can see that the resume function relies on dev->power.runtime_status,
+and the status is set in rpm_suspend. The operation of rpm_suspend depends
+on the scheduling of the work queue. I added print debugging on my machine,
+and occasionally there will be pm_runtime_work in Run after rpm_resume.
+At this time, the suspend and resume processes are not performed correctly.
+In VT1802, the power_state is still D3, and the machine has no sound.
+
+4. I searched the Internet and did not find the relevant modification,
+but found the commit 317d9313925c (ALSA: hda/realtek-Set default power save node to 0).
+
+Does VIA need to be modified like this?
+
+Since I am not familiar with ALSA and runtime pm, so come here to consult.
+
 ---
- sound/soc/qcom/Kconfig  |  1 +
- sound/soc/qcom/sc7180.c | 24 +++++++++++++++++++-----
- 2 files changed, 20 insertions(+), 5 deletions(-)
+ sound/pci/hda/patch_via.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index b2173847dc47..cf3e151bb635 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -169,6 +169,7 @@ config SND_SOC_SC7180
- 	select SND_SOC_LPASS_SC7180
- 	select SND_SOC_MAX98357A
- 	select SND_SOC_RT5682_I2C
-+	select SND_SOC_RT5682S
- 	select SND_SOC_ADAU7002
- 	help
- 	  To add support for audio on Qualcomm Technologies Inc.
-diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
-index 768566bb57a5..2fff764a00a7 100644
---- a/sound/soc/qcom/sc7180.c
-+++ b/sound/soc/qcom/sc7180.c
-@@ -17,6 +17,7 @@
- #include <uapi/linux/input-event-codes.h>
+diff --git a/sound/pci/hda/patch_via.c b/sound/pci/hda/patch_via.c
+index a29d7e989fe6..d01ea582cf25 100644
+--- a/sound/pci/hda/patch_via.c
++++ b/sound/pci/hda/patch_via.c
+@@ -1073,8 +1073,10 @@ static int patch_vt2002P(struct hda_codec *codec)
+ 	snd_hda_pick_fixup(codec, NULL, vt2002p_fixups, via_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
  
- #include "../codecs/rt5682.h"
-+#include "../codecs/rt5682s.h"
- #include "common.h"
- #include "lpass.h"
- 
-@@ -128,7 +129,21 @@ static int sc7180_snd_startup(struct snd_pcm_substream *substream)
- 	struct sc7180_snd_data *data = snd_soc_card_get_drvdata(card);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
--	int ret;
-+	int pll_id, pll_source, pll_in, pll_out, clk_id, ret;
-+
-+	if (!(strcmp(card->name, "sc7180-rt5682-max98357a-1mic"))) {
-+		pll_source = RT5682_PLL1_S_MCLK;
-+		pll_id = 0;
-+		clk_id = RT5682_SCLK_S_PLL1;
-+		pll_out = RT5682_PLL1_FREQ;
-+		pll_in = DEFAULT_MCLK_RATE;
-+	} else if (!(strcmp(card->name, "sc7180-rt5682s-max98357a-1mic"))) {
-+		pll_source = RT5682S_PLL_S_MCLK;
-+		pll_id = RT5682S_PLL2;
-+		clk_id = RT5682S_SCLK_S_PLL2;
-+		pll_out = RT5682_PLL1_FREQ;
-+		pll_in = DEFAULT_MCLK_RATE;
+-	if (spec->codec_type == VT1802)
++	if (spec->codec_type == VT1802) {
++		codec->power_save_node = 0;
+ 		err = snd_hda_add_verbs(codec, vt1802_init_verbs);
 +	}
- 
- 	switch (cpu_dai->id) {
- 	case MI2S_PRIMARY:
-@@ -145,16 +160,15 @@ static int sc7180_snd_startup(struct snd_pcm_substream *substream)
- 				    SND_SOC_DAIFMT_I2S);
- 
- 		/* Configure PLL1 for codec */
--		ret = snd_soc_dai_set_pll(codec_dai, 0, RT5682_PLL1_S_MCLK,
--					  DEFAULT_MCLK_RATE, RT5682_PLL1_FREQ);
-+		ret = snd_soc_dai_set_pll(codec_dai, pll_id, pll_source,
-+					  pll_in, pll_out);
- 		if (ret) {
- 			dev_err(rtd->dev, "can't set codec pll: %d\n", ret);
- 			return ret;
- 		}
- 
- 		/* Configure sysclk for codec */
--		ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1,
--					     RT5682_PLL1_FREQ,
-+		ret = snd_soc_dai_set_sysclk(codec_dai, clk_id, pll_out,
- 					     SND_SOC_CLOCK_IN);
- 		if (ret)
- 			dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n",
+ 	else
+ 		err = snd_hda_add_verbs(codec, vt2002P_init_verbs);
+ 	if (err < 0)
 -- 
-2.17.1
+2.25.1
 

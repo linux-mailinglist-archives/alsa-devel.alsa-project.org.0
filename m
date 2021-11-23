@@ -2,61 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E70145A7CC
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 17:33:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89E4945A829
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 17:36:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF04F167B;
-	Tue, 23 Nov 2021 17:32:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF04F167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9FE81685;
+	Tue, 23 Nov 2021 17:36:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9FE81685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637685183;
-	bh=KcmY8aUKRXEUEgZWIOD+OJQDfzv3cQ7OdDebNRS6PMk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ki9rV9g+swFFVtFzhQ57CpJ47mvDR6+stgiH3I+a7NN+JSD2yX3c8fvhtJATZCgUT
-	 SgueroN47TjXWLfKuiIZRyOKxgy0Hgq3LHkHrbJiq5+ZvL1j08lxwGkuKxDQnmSGxg
-	 7u6h/P0h6HebqKan293yVdXb7hoZjq+5j2v5SK4A=
+	s=default; t=1637685416;
+	bh=cWV3XS6kpitEv1mhZz8h4RPIvZmv/WjQdwxMNzqMDRU=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jfJlywnBh5tF75tS8b+0V35pDmCd7PukOEUesfpqfQfzMqaP2luhk//DaNB19EkvH
+	 D1HpKkPpTl2WHWMzDtLvnsyPMdoneuyFRhWE990033StrYZZmjYBd7qTc8YBezRdK7
+	 SDZEmgKuiksf90o3iRBCI97NNE34ZVQpNngpaCA0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C489F80154;
-	Tue, 23 Nov 2021 17:31:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC43FF804BC;
+	Tue, 23 Nov 2021 17:35:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9BABF8049E; Tue, 23 Nov 2021 17:31:41 +0100 (CET)
+ id 31158F804B1; Tue, 23 Nov 2021 17:35:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 215C9F80154
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 17:31:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 215C9F80154
-X-IronPort-AV: E=McAfee;i="6200,9189,10176"; a="298466261"
-X-IronPort-AV: E=Sophos;i="5.87,258,1631602800"; d="scan'208";a="298466261"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2021 08:31:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,258,1631602800"; d="scan'208";a="553481480"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga008.fm.intel.com with ESMTP; 23 Nov 2021 08:31:22 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: handle paused streams during system suspend
-Date: Tue, 23 Nov 2021 18:23:47 +0200
-Message-Id: <20211123162347.120336-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, Paul Olaru <paul.olaru@oss.nxp.com>,
- daniel.baluta@nxp.com, Bard Liao <bard.liao@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83A0CF80087
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 17:35:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83A0CF80087
+Received: by mail-io1-f51.google.com with SMTP id f9so28499372ioo.11
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 08:35:13 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=D6T/kSJ9srFChgFgIRsLj0E0OrT4xnoVPNKL7Xh9JN4=;
+ b=TBSKNB1rhJrXtoNr1LJil33VZ3T3hNsqZVWut3mCCuFWHGVHlQhOyt+7iCmFOqTqGn
+ 4v5DHKsECj1SVf2YgBc6+Ptqq34pzfaXN44hEQUG8T9Zwd7vLFuKFjKmKiRMGqcWHcBl
+ 9rQH/8Or8Eu7454d+Dqsa289KKxTQlPGZ+6K6HlrSwQEeJCjhpF3851WonJE66YYgArJ
+ jTpbwp2aLtBg2t3FLoNZcDIzJrQ37rIN8CznUzSrMYybSxfjiXyCrkMvlrHpryGowJFV
+ WINe4kiEo/uZPj+I7fgC+ofkcjnfDW4UyZUNiJHCx/b6jbm4pAY47Sk+5bzLv8kh3ZaE
+ LB5A==
+X-Gm-Message-State: AOAM5300siw+v1L3aTPfIaQcPELG/VZVn0dpsmRHZuYDh9OrKdN5kJSt
+ esTTY8g4yq+5PxD1t5Sev8w4zim7rQ==
+X-Google-Smtp-Source: ABdhPJxRUIRmOhuAJyjr0WFtSMk8x/c97hGhx+pkyvVMetgFjebYdZNJ0ZQRHk7wLwVxAUZ0Wp9bgw==
+X-Received: by 2002:a02:ab8f:: with SMTP id t15mr8110328jan.147.1637685312081; 
+ Tue, 23 Nov 2021 08:35:12 -0800 (PST)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id y21sm6846548ioj.41.2021.11.23.08.35.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Nov 2021 08:35:11 -0800 (PST)
+Received: (nullmailer pid 3442930 invoked by uid 1000);
+ Tue, 23 Nov 2021 16:34:29 -0000
+From: Rob Herring <robh@kernel.org>
+To: Jayesh Choudhary <j-choudhary@ti.com>
+In-Reply-To: <20211122091525.2290-1-j-choudhary@ti.com>
+References: <20211122091525.2290-1-j-choudhary@ti.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: davinci-mcasp: convert McASP bindings
+ to yaml schema
+Date: Tue, 23 Nov 2021 09:34:29 -0700
+Message-Id: <1637685269.740254.3442929.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,160 +88,575 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+On Mon, 22 Nov 2021 14:45:25 +0530, Jayesh Choudhary wrote:
+> Convert the bindings for McASP controllers for TI SOCs
+> from txt to YAML schema.
+> 
+> Adds additional properties 'clocks', 'clock-names', 'power-domains'
+> and '#sound-dai-cells' which were not there in txt file.
+> Adds 'dmas' and 'dma-names' in the example which were not there in
+> txt file.
+> Changes 'interrupts' and 'interrupt-names' from optional to
+> required properties.
+> 
+> Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
+> ---
+>  .../bindings/sound/davinci-mcasp-audio.txt    |  86 ----------
+>  .../bindings/sound/davinci-mcasp-audio.yaml   | 161 ++++++++++++++++++
+>  2 files changed, 161 insertions(+), 86 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+> 
 
-During system suspend, paused streams do not get suspended.
-Therefore, we need to explicitly free these PCMs in the DSP
-and free the associated DAPM widgets so that they can be set
-up again during resume.
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
 
-Fixes: 5fcdbb2d45df ("ASoC: SOF: Add support for dynamic pipelines")
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
-Reviewed-by: Bard Liao <bard.liao@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/sof/pcm.c       |  5 ++-
- sound/soc/sof/sof-audio.c | 74 +++++++++++++++++++++++++++++++++++++--
- sound/soc/sof/sof-audio.h |  2 ++
- 3 files changed, 76 insertions(+), 5 deletions(-)
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
 
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index 31dd79b794f1..0ceb1a9cbf73 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -100,9 +100,8 @@ void snd_sof_pcm_period_elapsed(struct snd_pcm_substream *substream)
- }
- EXPORT_SYMBOL(snd_sof_pcm_period_elapsed);
- 
--static int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream,
--				struct snd_sof_dev *sdev,
--				struct snd_sof_pcm *spcm)
-+int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream, struct snd_sof_dev *sdev,
-+			 struct snd_sof_pcm *spcm)
- {
- 	struct sof_ipc_stream stream;
- 	struct sof_ipc_reply reply;
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 0f2566f7c094..038cdb4a9aa2 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -129,6 +129,14 @@ int sof_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
- 	case snd_soc_dapm_buffer:
- 		ipc_free.hdr.cmd |= SOF_IPC_TPLG_BUFFER_FREE;
- 		break;
-+	case snd_soc_dapm_dai_in:
-+	case snd_soc_dapm_dai_out:
-+	{
-+		struct snd_sof_dai *dai = swidget->private;
-+
-+		dai->configured = false;
-+		fallthrough;
-+	}
- 	default:
- 		ipc_free.hdr.cmd |= SOF_IPC_TPLG_COMP_FREE;
- 		break;
-@@ -705,6 +713,55 @@ int sof_set_up_pipelines(struct snd_sof_dev *sdev, bool verify)
- 	return 0;
- }
- 
-+/*
-+ * Free the PCM, its associated widgets and set the prepared flag to false for all PCMs that
-+ * did not get suspended(ex: paused streams) so the widgets can be set up again during resume.
-+ */
-+static int sof_tear_down_left_over_pipelines(struct snd_sof_dev *sdev)
-+{
-+	struct snd_sof_widget *swidget;
-+	struct snd_sof_pcm *spcm;
-+	int dir, ret;
-+
-+	/*
-+	 * free all PCMs and their associated DAPM widgets if their connected DAPM widget
-+	 * list is not NULL. This should only be true for paused streams at this point.
-+	 * This is equivalent to the handling of FE DAI suspend trigger for running streams.
-+	 */
-+	list_for_each_entry(spcm, &sdev->pcm_list, list)
-+		for_each_pcm_streams(dir) {
-+			struct snd_pcm_substream *substream = spcm->stream[dir].substream;
-+
-+			if (!substream || !substream->runtime)
-+				continue;
-+
-+			if (spcm->stream[dir].list) {
-+				ret = sof_pcm_dsp_pcm_free(substream, sdev, spcm);
-+				if (ret < 0)
-+					return ret;
-+
-+				ret = sof_widget_list_free(sdev, spcm, dir);
-+				if (ret < 0) {
-+					dev_err(sdev->dev, "failed to free widgets during suspend\n");
-+					return ret;
-+				}
-+			}
-+		}
-+
-+	/*
-+	 * free any left over DAI widgets. This is equivalent to the handling of suspend trigger
-+	 * for the BE DAI for running streams.
-+	 */
-+	list_for_each_entry(swidget, &sdev->widget_list, list)
-+		if (WIDGET_IS_DAI(swidget->id) && swidget->use_count == 1) {
-+			ret = sof_widget_free(sdev, swidget);
-+			if (ret < 0)
-+				return ret;
-+		}
-+
-+	return 0;
-+}
-+
- /*
-  * For older firmware, this function doesn't free widgets for static pipelines during suspend.
-  * It only resets use_count for all widgets.
-@@ -719,8 +776,8 @@ int sof_tear_down_pipelines(struct snd_sof_dev *sdev, bool verify)
- 	/*
- 	 * This function is called during suspend and for one-time topology verification during
- 	 * first boot. In both cases, there is no need to protect swidget->use_count and
--	 * sroute->setup because during suspend all streams are suspended and during topology
--	 * loading the sound card unavailable to open PCMs.
-+	 * sroute->setup because during suspend all running streams are suspended and during
-+	 * topology loading the sound card unavailable to open PCMs.
- 	 */
- 	list_for_each_entry_reverse(swidget, &sdev->widget_list, list) {
- 		if (swidget->dynamic_pipeline_widget)
-@@ -739,6 +796,19 @@ int sof_tear_down_pipelines(struct snd_sof_dev *sdev, bool verify)
- 			return ret;
- 	}
- 
-+	/*
-+	 * Tear down all pipelines associated with PCMs that did not get suspended
-+	 * and unset the prepare flag so that they can be set up again during resume.
-+	 * Skip this step for older firmware.
-+	 */
-+	if (!verify && v->abi_version >= SOF_ABI_VER(3, 19, 0)) {
-+		ret = sof_tear_down_left_over_pipelines(sdev);
-+		if (ret < 0) {
-+			dev_err(sdev->dev, "failed to tear down paused pipelines\n");
-+			return ret;
-+		}
-+	}
-+
- 	list_for_each_entry(sroute, &sdev->route_list, list)
- 		sroute->setup = false;
- 
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index 389d56ac3aba..1c4f59d34717 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -265,4 +265,6 @@ int sof_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget);
- /* PCM */
- int sof_widget_list_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, int dir);
- int sof_widget_list_free(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, int dir);
-+int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream, struct snd_sof_dev *sdev,
-+			 struct snd_sof_pcm *spcm);
- #endif
+Full log is available here: https://patchwork.ozlabs.org/patch/1557927
 
-base-commit: 65c16dd2942f4476a3f96a2625b1475c6137c09a
--- 
-2.33.0
+
+mcasp@0: clock-names: Additional items are not allowed ('ahclkx', 'ahclkr' were unexpected)
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clock-names: Additional items are not allowed ('ahclkx' was unexpected)
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clock-names: ['fck', 'ahclkx', 'ahclkr'] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clock-names: ['fck', 'ahclkx'] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clocks: [[155, 0, 0], [155, 0, 24], [155, 0, 28]] is too long
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+
+mcasp@0: clocks: [[156, 0, 0], [156, 0, 24], [156, 0, 28]] is too long
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+
+mcasp@0: clocks: [[157, 0, 0], [157, 0, 24], [157, 0, 28]] is too long
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clocks: [[158, 0, 0], [158, 0, 24], [158, 0, 28]] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+
+mcasp@0: clocks: [[91, 340, 0], [156, 0, 24], [91, 340, 28]] is too long
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+
+mcasp@0: clocks: [[91, 348, 0], [91, 348, 24]] is too long
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+
+mcasp@0: clocks: [[91, 364, 0], [91, 364, 24]] is too long
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+
+mcasp@0: clocks: [[91, 388, 0], [91, 388, 24]] is too long
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+
+mcasp@0: clocks: [[91, 396, 0], [91, 396, 24]] is too long
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+
+mcasp@0: clocks: [[91, 504, 0], [91, 504, 24]] is too long
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+
+mcasp@0: clocks: [[91, 508, 0], [91, 508, 24]] is too long
+	arch/arm/boot/dts/dra71-evm.dt.yaml
+
+mcasp@0: clocks: [[92, 340, 0], [155, 0, 24], [92, 340, 28]] is too long
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+
+mcasp@0: clocks: [[92, 340, 0], [156, 0, 24], [92, 340, 28]] is too long
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+
+mcasp@0: clocks: [[92, 340, 0], [157, 0, 24], [92, 340, 28]] is too long
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clocks: [[92, 340, 0], [158, 0, 24], [92, 340, 28]] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+
+mcasp@0: clocks: [[92, 348, 0], [92, 348, 24]] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clocks: [[92, 364, 0], [92, 364, 24]] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clocks: [[92, 388, 0], [92, 388, 24]] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clocks: [[92, 396, 0], [92, 396, 24]] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clocks: [[92, 504, 0], [92, 504, 24]] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clocks: [[92, 508, 0], [92, 508, 24]] is too long
+	arch/arm/boot/dts/am571x-idk.dt.yaml
+	arch/arm/boot/dts/am5729-beagleboneai.dt.yaml
+	arch/arm/boot/dts/am572x-idk.dt.yaml
+	arch/arm/boot/dts/am574x-idk.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revb1.dt.yaml
+	arch/arm/boot/dts/am57xx-beagle-x15-revc.dt.yaml
+	arch/arm/boot/dts/am57xx-cl-som-am57x.dt.yaml
+	arch/arm/boot/dts/am57xx-sbc-am57x.dt.yaml
+	arch/arm/boot/dts/dra72-evm.dt.yaml
+	arch/arm/boot/dts/dra72-evm-revc.dt.yaml
+	arch/arm/boot/dts/dra7-evm.dt.yaml
+
+mcasp@0: clocks: [[94, 340, 0], [157, 0, 24], [94, 340, 28]] is too long
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+
+mcasp@0: clocks: [[94, 348, 0], [94, 348, 24]] is too long
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+
+mcasp@0: clocks: [[94, 364, 0], [94, 364, 24]] is too long
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+
+mcasp@0: clocks: [[94, 388, 0], [94, 388, 24]] is too long
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+
+mcasp@0: clocks: [[94, 396, 0], [94, 396, 24]] is too long
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+
+mcasp@0: clocks: [[94, 504, 0], [94, 504, 24]] is too long
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+
+mcasp@0: clocks: [[94, 508, 0], [94, 508, 24]] is too long
+	arch/arm/boot/dts/dra76-evm.dt.yaml
+
+mcasp@0: dma-names: ['tx'] is too short
+	arch/arm/boot/dts/omap4-droid4-xt894.dt.yaml
+	arch/arm/boot/dts/omap4-droid-bionic-xt875.dt.yaml
+	arch/arm/boot/dts/omap4-duovero-parlor.dt.yaml
+	arch/arm/boot/dts/omap4-kc1.dt.yaml
+	arch/arm/boot/dts/omap4-panda-a4.dt.yaml
+	arch/arm/boot/dts/omap4-panda.dt.yaml
+	arch/arm/boot/dts/omap4-panda-es.dt.yaml
+	arch/arm/boot/dts/omap4-sdp.dt.yaml
+	arch/arm/boot/dts/omap4-sdp-es23plus.dt.yaml
+	arch/arm/boot/dts/omap4-var-dvk-om44.dt.yaml
+	arch/arm/boot/dts/omap4-var-stk-om44.dt.yaml
+
+mcasp@0: dmas: [[119, 8]] is too short
+	arch/arm/boot/dts/omap4-droid4-xt894.dt.yaml
+	arch/arm/boot/dts/omap4-droid-bionic-xt875.dt.yaml
+	arch/arm/boot/dts/omap4-kc1.dt.yaml
+
+mcasp@0: dmas: [[124, 8]] is too short
+	arch/arm/boot/dts/omap4-duovero-parlor.dt.yaml
+
+mcasp@0: dmas: [[127, 8]] is too short
+	arch/arm/boot/dts/omap4-panda-a4.dt.yaml
+	arch/arm/boot/dts/omap4-panda.dt.yaml
+	arch/arm/boot/dts/omap4-sdp.dt.yaml
+	arch/arm/boot/dts/omap4-sdp-es23plus.dt.yaml
+
+mcasp@0: dmas: [[130, 8]] is too short
+	arch/arm/boot/dts/omap4-var-dvk-om44.dt.yaml
+	arch/arm/boot/dts/omap4-var-stk-om44.dt.yaml
+
+mcasp@0: dmas: [[132, 8]] is too short
+	arch/arm/boot/dts/omap4-panda-es.dt.yaml
+
+mcasp@0: interrupt-names: ['tx'] is too short
+	arch/arm/boot/dts/omap4-droid4-xt894.dt.yaml
+	arch/arm/boot/dts/omap4-droid-bionic-xt875.dt.yaml
+	arch/arm/boot/dts/omap4-duovero-parlor.dt.yaml
+	arch/arm/boot/dts/omap4-kc1.dt.yaml
+	arch/arm/boot/dts/omap4-panda-a4.dt.yaml
+	arch/arm/boot/dts/omap4-panda.dt.yaml
+	arch/arm/boot/dts/omap4-panda-es.dt.yaml
+	arch/arm/boot/dts/omap4-sdp.dt.yaml
+	arch/arm/boot/dts/omap4-sdp-es23plus.dt.yaml
+	arch/arm/boot/dts/omap4-var-dvk-om44.dt.yaml
+	arch/arm/boot/dts/omap4-var-stk-om44.dt.yaml
+
+mcasp@0: interrupts: [[0, 109, 4]] is too short
+	arch/arm/boot/dts/omap4-droid4-xt894.dt.yaml
+	arch/arm/boot/dts/omap4-droid-bionic-xt875.dt.yaml
+	arch/arm/boot/dts/omap4-duovero-parlor.dt.yaml
+	arch/arm/boot/dts/omap4-kc1.dt.yaml
+	arch/arm/boot/dts/omap4-panda-a4.dt.yaml
+	arch/arm/boot/dts/omap4-panda.dt.yaml
+	arch/arm/boot/dts/omap4-panda-es.dt.yaml
+	arch/arm/boot/dts/omap4-sdp.dt.yaml
+	arch/arm/boot/dts/omap4-sdp-es23plus.dt.yaml
+	arch/arm/boot/dts/omap4-var-dvk-om44.dt.yaml
+	arch/arm/boot/dts/omap4-var-stk-om44.dt.yaml
+
+mcasp@0: 'num-serializer' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/am335x-cm-t335.dt.yaml
+	arch/arm/boot/dts/am335x-sbc-t335.dt.yaml
+
+mcasp@0: 'port' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/am335x-sl50.dt.yaml
+
+mcasp@0: 'rt-num-evt' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/am335x-wega-rdk.dt.yaml
+
+mcasp@100000: interrupt-names:0: 'tx' was expected
+	arch/arm/boot/dts/da850-enbw-cmc.dt.yaml
+	arch/arm/boot/dts/da850-evm.dt.yaml
+	arch/arm/boot/dts/da850-lcdk.dt.yaml
+	arch/arm/boot/dts/da850-lego-ev3.dt.yaml
+
+mcasp@100000: interrupt-names: ['common'] is too short
+	arch/arm/boot/dts/da850-enbw-cmc.dt.yaml
+	arch/arm/boot/dts/da850-evm.dt.yaml
+	arch/arm/boot/dts/da850-lcdk.dt.yaml
+	arch/arm/boot/dts/da850-lego-ev3.dt.yaml
+
+mcasp@100000: interrupts: [[54]] is too short
+	arch/arm/boot/dts/da850-enbw-cmc.dt.yaml
+	arch/arm/boot/dts/da850-evm.dt.yaml
+	arch/arm/boot/dts/da850-lcdk.dt.yaml
+	arch/arm/boot/dts/da850-lego-ev3.dt.yaml
+
+mcasp@2b00000: 'op-mode' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
+
+mcasp@2b00000: 'serial-dir' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
+
+mcasp@2b00000: 'tdm-slots' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
+
+mcasp@2b10000: 'op-mode' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
+
+mcasp@2b10000: 'serial-dir' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
+
+mcasp@2b10000: 'tdm-slots' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
+
+mcasp@2b20000: 'op-mode' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
+
+mcasp@2b20000: 'serial-dir' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
+
+mcasp@2b20000: 'tdm-slots' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
 

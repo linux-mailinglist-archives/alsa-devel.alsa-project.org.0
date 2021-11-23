@@ -2,69 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E706F4598E8
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 01:02:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9624F4598E7
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 01:02:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7457E1670;
-	Tue, 23 Nov 2021 01:01:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7457E1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32BA5166A;
+	Tue, 23 Nov 2021 01:01:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32BA5166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637625768;
-	bh=+/8tGuihtwZs7BaBjZSeqkgIiZQe+9d5nEnft6ZuQuA=;
+	s=default; t=1637625757;
+	bh=vxGV5wzjy0QQFIApAyOfWagXPSDG+s+TC+Gf6T38UHo=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=azWVLOQmC/Xdi/2Wxtb0U13H1mjptv5c64DLFILnCN+owFzIrGRNpO2pitrbxfVNT
-	 HnOZtpxcNBSiRgHjtt7zy7DwIfsINQR52vyjuF7d4/8Q8uRZ+QWkFTWK/046JWcB68
-	 9JLFskisXoji0RQWSnth1xDyNsoKYpAxm9xe99ME=
+	b=ho4fbik0C0z5EIfVAUnfLsnoQuCNqEi2J8rXovqAI9tDVM7eSEAhQxlvu07V4e2L8
+	 hOkOMMddd0AarVFgsOhZZsDAoxRtKuBqk1Ns3ACOtjEWn9dBqSJs2tps9s4mfh62hx
+	 nbNAFDPm9ivAWlkePg4LghYZf9IIQb4JQhadvskM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 540E2F804FF;
-	Tue, 23 Nov 2021 01:00:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43A63F80506;
+	Tue, 23 Nov 2021 01:00:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 976EEF804F3; Tue, 23 Nov 2021 01:00:14 +0100 (CET)
+ id DE1C2F804FF; Tue, 23 Nov 2021 01:00:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C869F804ED
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 01:00:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C869F804ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1760AF804F1
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 01:00:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1760AF804F1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ALAqmcn1"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 680B661004;
- Tue, 23 Nov 2021 00:00:04 +0000 (UTC)
+ header.b="iMHjChp/"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E448660E08;
+ Tue, 23 Nov 2021 00:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637625606;
- bh=+/8tGuihtwZs7BaBjZSeqkgIiZQe+9d5nEnft6ZuQuA=;
+ s=k20201202; t=1637625610;
+ bh=vxGV5wzjy0QQFIApAyOfWagXPSDG+s+TC+Gf6T38UHo=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ALAqmcn1/bnAKFE5uypJTtNY4R7eabaPO1BdzpHIaoXN2keRxkc0xOxueP3zow4qn
- cFzZBQ7d34jH/PlIE1GzzIlLV2XfTXdRRL0cxzgDlFMdDfdxnh4+vJ5+s6gkxIfMmI
- NLzF/mt5zHamnSyXjhNz2WUn6tqYhQOfH/OH9YQ/6k5MaL7DEiP7xABYX9xrfZIvrF
- HtTJsFzoPj0t3QLWowKsHcPHLpi+GLJ0RdBUyXEja+DxG3eAa/kpfA+1viRwcQoRHQ
- 6SfttHUb9nkDr5T8DDKSHim6IqtD80Mi5XRDFlSwL71Xg9oLS7yogWitQuEOMalKxW
- mCSq1ndrAZblg==
+ b=iMHjChp/FsrwxsNjV9fA8FujPkuw61bjwbP/rc44PNuYuui1XSmiKtVsKiVnsrBPF
+ LN/mxz0WRpIYj74g2imnUlPHoQ0wE9dq3+6d2YOXIBnKFIn8Cur8YXC/kxlQY4C4zH
+ Hp/QuS1cBdPCIMZ+YcNZ3gR1FZEtdwSH/UDMbjDBFanJZn6Ur0DYre3zxJbp733zyJ
+ LYNHT4jKe/+VZzdagCP98b5kXeyAgQdWLzk/W3L9PftwuQQeGcljwJf/blP2EMpZ20
+ FXMBFN75M0TcSST6ldN1PBc7z3JG0GQbEAZdPz3Sqc9YeDYdmjdPmgUUTR3Xm50mmr
+ jVSCuWGlwrLHQ==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20211119094319.81674-1-daniel.baluta@oss.nxp.com>
-References: <20211119094319.81674-1-daniel.baluta@oss.nxp.com>
-Subject: Re: [PATCH v2 0/5] ASoC: SOF: Add PM support for i.MX8/i.MX8X/i.MX8M
-Message-Id: <163762560411.2471742.17777975323343821279.b4-ty@kernel.org>
-Date: Tue, 23 Nov 2021 00:00:04 +0000
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20211119104752.13564-1-olivier.moysan@foss.st.com>
+References: <20211119104752.13564-1-olivier.moysan@foss.st.com>
+Subject: Re: [PATCH v2 0/3] ASoC: stm32: add pm runtime support
+Message-Id: <163762560655.2471742.5896666264679935449.b4-ty@kernel.org>
+Date: Tue, 23 Nov 2021 00:00:06 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, daniel.baluta@gmail.com,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, linux-imx@nxp.com,
- daniel.baluta@nxp.com
+Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,15 +83,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 19 Nov 2021 11:43:14 +0200, Daniel Baluta wrote:
-> From: Daniel Baluta <daniel.baluta@nxp.com>
+On Fri, 19 Nov 2021 11:47:49 +0100, Olivier Moysan wrote:
+> Enable support of pm runtime on STM32 SPDIFRX, I2S and DFSDM drivers
+> to allow power state monitoring.
 > 
-> This patch series adds support for System PM and Runtime PM with SOF for
-> i.MX8 platforms.
+> Changes in v2:
+> - Move pm runtime enabling before component registration
 > 
-> First patch adds common code to manage clocks, patch 2/3 adds the actual
-> PM support, patch 4/5 implement the DSP start / reset callbacks for
-> i.mx8m.
+> Olivier Moysan (3):
+>   ASoC: stm32: i2s: add pm_runtime support
+>   ASoC: stm32: dfsdm: add pm_runtime support for audio
+>   ASoC: stm32: spdifrx: add pm_runtime support
 > 
 > [...]
 
@@ -98,16 +103,12 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: SOF: imx: Add code to manage DSP related clocks
-      commit: 8253aa4700b37cef1ca3bbda0d986349357608d3
-[2/5] ASoC: SOF: imx8: Add runtime PM / System PM support
-      commit: 6fc8515806dfd5b7d3198c189b51e7624aadafdc
-[3/5] ASoC: SOF: imx8m: Add runtime PM / System PM support
-      commit: a73b493d8e1b37acad686c15321d2eaab45567ce
-[4/5] ASoC: SOF: imx8m: Implement DSP start
-      commit: 9ba23717b2927071ddb49f3d6719244e3fe8f4c9
-[5/5] ASoC: SOF: imx8m: Implement reset callback
-      commit: 3bf4cd8b747a222f0f454f3220199c99f1c03da6
+[1/3] ASoC: stm32: i2s: add pm_runtime support
+      commit: 32a956a1fadfd7d3924ab8ada2b7754054375903
+[2/3] ASoC: stm32: dfsdm: add pm_runtime support for audio
+      commit: 98e500a12f934531b0d44eac6bc53c3d4b66aa74
+[3/3] ASoC: stm32: spdifrx: add pm_runtime support
+      commit: ac5e3efd55868d8c12a178123b24616a22db274d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

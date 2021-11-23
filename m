@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 087A1459E33
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:34:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 374F4459E34
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 09:35:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 874B816BD;
-	Tue, 23 Nov 2021 09:34:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 874B816BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8A1716D9;
+	Tue, 23 Nov 2021 09:34:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8A1716D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637656496;
+	s=default; t=1637656516;
 	bh=M5NS5qNIUh+63sbSD4imHq8SlNBwm2vPrZvIBG0Cars=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Zajf3Esx1h2LA1BWzJPH9UDIpoJ0f2zkfekU9e8brpnov8Q5i39w/pgW3GGB5zTUs
-	 Mr+Xb33fzJya+Js/SXNhSEUZLgYjdhPKH5bTh7D2NACNsyl/02lX8GCg46hyNSdvJw
-	 FBvhyly86Lg80iQnZElvW5zB1iJo9D+RZpEEbyqU=
+	b=cCObxxB4U+zqR1qxs7GjcMe+63SMn2db66LGXImo0wAuT69gitRhb13j9k13x61D8
+	 vzNAWzcARrOKDClUcuU+00G5LBLLKhusixJO5hpREkoBMensL3lgIi3/rAWgLoTl9G
+	 qsbv6GweopU95m+/tR2iCHUHdjiU8bMHNkb+IkV0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEC8CF80602;
-	Tue, 23 Nov 2021 09:22:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACE69F804FC;
+	Tue, 23 Nov 2021 09:22:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67E24F804AB; Tue, 23 Nov 2021 03:31:49 +0100 (CET)
+ id CD056F8049E; Tue, 23 Nov 2021 03:43:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBCD5F800E7
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 03:31:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBCD5F800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3F6FF80087
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 03:43:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3F6FF80087
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
  header.d=huaqin-corp-partner-google-com.20210112.gappssmtp.com
  header.i=@huaqin-corp-partner-google-com.20210112.gappssmtp.com
- header.b="hUP5zzcu"
-Received: by mail-pj1-x102a.google.com with SMTP id
- fv9-20020a17090b0e8900b001a6a5ab1392so1574812pjb.1
- for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 18:31:42 -0800 (PST)
+ header.b="NcAryMbf"
+Received: by mail-pf1-x435.google.com with SMTP id z6so17891887pfe.7
+ for <alsa-devel@alsa-project.org>; Mon, 22 Nov 2021 18:43:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=huaqin-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
  h=from:to:cc:subject:date:message-id;
  bh=SjomYuB3mIAoDTZTLD8mciVKT6P5jd4lu7zRg4g2c0U=;
- b=hUP5zzcu//8p8k+qE4WlnWahTuqbbCvHLQ9fnky+e4uVeBF0XqPnWlMBZZs3WqSINz
- WkhLiQI3BLakJcSvrF8GLKKS8M1xl2c2MVW8r9NjyFFUy6pZmtx5WfUEVNSJwwTOAZT4
- PLBd2zsfN6AZaxBJWXz1TPnTGXL0KwvevH8tH/fsL1p+l7vUfxGaS2JMP3gXdSncEKZi
- wiXpEr837+09E8/JSoJ/Z62rw+Vq5Y9tVYoCihJKfN7WcM5pa8HluV7cmI3kU8Z9a4H1
- BppziX6KqeeDBa46miBZPIaxYjcU+1hAPvNA25NdeL36w02Vvdj1ikYoLC4LYNBlZ8O4
- Arog==
+ b=NcAryMbfNMlnzLFMptuGQjwoETrpRyp7wrlNtt0VE03uNXCKmk0JMS5ZHyec7L0D7g
+ MGf9Wb9BYPqM/GTaqu3qixWcdHKQYK4l+iFcB0fDoSSmPq79pFaBwCyD3uqbbMX8KdJr
+ BDTZn2mtXVCEHgBcs+KH2F/nWg4dNHvpCR5OEJBXdIcwd3Kug/Zi3ykoiAe5YwzPREBW
+ cnefVTHzBqmITVq9TZ/RTWjdEOQwnCD/KBzHI0OPEP5HwLM291aPKMk8itdIc9zf0/Is
+ 4UB0nvHI/UNb5gsC67oox0p0JeQA/NRpoa1/2JKUzj0HnQpEWq53yrXAS3oi6J4nlUXq
+ RAJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
  bh=SjomYuB3mIAoDTZTLD8mciVKT6P5jd4lu7zRg4g2c0U=;
- b=aYKdkcWwK54LhNTDFrMR1IXFic5Gw4Rs/jASjXH8dvwFn4qHIUmDX1zWoU/pqzHaW3
- /HDhRjUvKLNVMBUFxst1/VWDosW13dQaJoHRDcbbQhuHrHqFdKOodFj/VHrfEKO0q7ac
- Uv4MjlKVEiBCMJ37FI9VUBv4wvz5NU27kx+t8K74Vq6XDwhineaRPnOrLrSxITwO5boX
- zywAoyqQJxZ8RQb2dNnXgkdDBOzeoJ5aaAyakaYm64h0+Gk/gMCaAJ4FzTmrWl947Tb3
- dWpb6F97/Mi7sD/NA/2fxViCa6pVLESnhqVd0ru+Vu8f+j8b9vsdHvNasc6wEUm2gJUR
- N4Bg==
-X-Gm-Message-State: AOAM532IqzxtsU0a1cpMkMfRU2mMRGRa31NFo4xf4yR+KigupEEtBWN9
- Ylc/JdNrwyIBLSsSGTHjhc8Sgg==
-X-Google-Smtp-Source: ABdhPJwsYwE1E8I84MR8vDMI0LgKBmDRgpGRGLngbGFYLHHpoYyiGhYY6KHmfdeSBDtMw0b0pM6+JQ==
-X-Received: by 2002:a17:903:41cb:b0:142:62a:4d86 with SMTP id
- u11-20020a17090341cb00b00142062a4d86mr2526195ple.43.1637634700096; 
- Mon, 22 Nov 2021 18:31:40 -0800 (PST)
-Received: from lvzhaoxiong-KLVC-WXX9.huaqin.com ([101.78.151.214])
- by smtp.gmail.com with ESMTPSA id g21sm10912147pfc.95.2021.11.22.18.31.37
+ b=KeFGrcchNQ+kOTPZvKH/zWyqUnUoLYSpx/IgSFJu6v9BNUjVDtl9tbCcI2mJh7uJhW
+ 33aNq/S6AGeHssdxQiduv5E0Tdjbo8+RcHFT3QZviJzPXmslaKpMf97qvAchOUKLwEO5
+ ZeDelaFDsQAC/HJfaS2GMqe3l1u8Bzmf1V/XvsrfXDU1stT1QM/+PQCiqwGZeGeQzTTW
+ xpA/8ps0HgWaMNNlD/GbLFJLdWGo/6uO9VVFCeH98eT+DmxmmV557bxj2LD9BZ7K6yPs
+ PlTMJxuJvuyPAMvKLBDwwiJL6X5tWubjeF3ftl+IzNk11BEKNWhuUO5+ggPRRoHP0XNm
+ Vh1Q==
+X-Gm-Message-State: AOAM5307cT1GEay23maxHgoY2uigiB16ZlUz8/oSgWtEKKwq8MLgANPf
+ 7LLwBdB0hryaRhb5KRnBkrBONQ==
+X-Google-Smtp-Source: ABdhPJwtKTye1la96+6/qm4xdH8KimvoN04jghntv4ZyBBeShZImnpIt8kI3NV6oHCpQlTBw56aLCA==
+X-Received: by 2002:aa7:9511:0:b0:49f:e35c:f6f1 with SMTP id
+ b17-20020aa79511000000b0049fe35cf6f1mr1769722pfp.45.1637635420096; 
+ Mon, 22 Nov 2021 18:43:40 -0800 (PST)
+Received: from lvzhaoxiong-KLVC-WXX9.huaqin.com ([101.78.151.213])
+ by smtp.gmail.com with ESMTPSA id j15sm10387380pfh.35.2021.11.22.18.43.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Nov 2021 18:31:38 -0800 (PST)
+ Mon, 22 Nov 2021 18:43:39 -0800 (PST)
 From: lvzhaoxiong <lvzhaoxiong@huaqin.corp-partner.google.com>
 To: broonie@kernel.org,
 	lgirdwood@gmail.com
 Subject: [PATCH] ASoC: qcom: Add support for ALC5682I-VS codec
-Date: Tue, 23 Nov 2021 10:31:14 +0800
-Message-Id: <20211123023114.20514-1-lvzhaoxiong@huaqin.corp-partner.google.com>
+Date: Tue, 23 Nov 2021 10:43:29 +0800
+Message-Id: <20211123024329.21998-1-lvzhaoxiong@huaqin.corp-partner.google.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 23 Nov 2021 09:20:57 +0100
-Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, judyhsiao@google.com,
+Cc: alsa-devel@alsa-project.org, judyhsiao@google.com,
+ linux-kernel@vger.kernel.org,
  lvzhaoxiong <lvzhaoxiong@huaqin.corp-partner.google.com>,
  albertchen@realtek.com, derek.fang@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org

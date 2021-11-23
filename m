@@ -2,109 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58E9845B52D
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 08:17:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0738345B52E
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 08:17:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D628517C1;
-	Wed, 24 Nov 2021 08:16:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D628517C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A1A617CE;
+	Wed, 24 Nov 2021 08:16:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A1A617CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637738221;
-	bh=TRTNZs8BhKFnAquUbsfZgiGOj5bO0mdsd83pZGHObcI=;
+	s=default; t=1637738239;
+	bh=Fmou/wuLUJUD4zJclGcPIdJu1KVjJ7yuzM0jDRLa/jU=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SVORKsWHb0BTmCULoLe4mCvY5t5vCqpNx3vIgcr8Nc5TWzGzKZghN8rb/l9HGAqHr
-	 BNe6K7mBqX4NvDFPhHJubr0IBhvrf+U9tDE780973Ga52ObPeJdPZH5OW0muRC/qIL
-	 0tT1Nw0G5zLrrOTiahAXiM+GmawUh0h+TjqqZn0E=
+	b=CoaenySfZPPiBg5ZNcXU6URn7zvBqNliRnkzzXtN/q1MY73RNR9exJIDHqu0madTO
+	 rOBSA74RGf6/rtZfLSaGJsdyfZE4/KC4iiN90yuLM65zPCTDB3gwc5yRyzn2bSIQvZ
+	 +NN4Mr8hrlDcFB0xjrQHJ3WfWZ9uzLFf5BlS43Tk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25F34F805E9;
+	by alsa1.perex.cz (Postfix) with ESMTP id 022D0F805F0;
 	Wed, 24 Nov 2021 08:06:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28F4BF8049E; Wed, 24 Nov 2021 00:02:06 +0100 (CET)
+ id 86162F8049E; Wed, 24 Nov 2021 00:35:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 444EEF80087
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 00:02:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 444EEF80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C155F800E7
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 00:35:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C155F800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="qGLwsyoG"
-Received: by mail-ed1-x52c.google.com with SMTP id v1so1730454edx.2
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 15:02:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="M1kOjxYt"
+Received: by mail-ot1-x32f.google.com with SMTP id
+ x19-20020a9d7053000000b0055c8b39420bso1361138otj.1
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 15:35:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Ht9E1p/DyzTpsAqMy6QR1zhTTEv9RdTNX9jIQ90EKf0=;
- b=qGLwsyoG1Pcf+l323FrU7zfkNsFBiEzV5p5s/wM7Hesk9nWnHJt0R1pIC6iiRlBomj
- NIf011wRJHUCAZWgYCsyh8UriNs3HfQjBFpDSXeoC/Cg21V2Yz5UOsuUK47O207wyekj
- +Qejdg9mnrlOc55iDAViSd0Iu/yIUcWRdvDbNskawt0WKFT0NcaMRLUHgG7TR6h2kpUw
- tOvVadWKaMapJYV7LYcfVTXwrorDKh/VKELoFAFbzKlNi1D8W90hZEziIj5B94Rga1f+
- iX4JVBap0gLwiltixQTrP9/YoYobHKAzMIaHZadLqsIabt6riHb9XERx98H/MucVrXHh
- PUHw==
+ :cc; bh=Fmou/wuLUJUD4zJclGcPIdJu1KVjJ7yuzM0jDRLa/jU=;
+ b=M1kOjxYtgXgq09yG/Tpxoql00WqAEf+/obBrTLesDBofwRUa7GWFazzYfDKZsB30ME
+ LP42xJGdAe5cnwer5SKD8Etmug0Nt6ulXzhr/sIoE9xx2sYU5ALDWZXfWHpEvjhc83X4
+ /EddGPPSnA96tKQr0ixoO9Iif78PSZQtfyiC4pLlvI90GT05IGmxb/4bv7ckDscOFVa0
+ j8mh7s4sgr6HP2CGrSy/5EINAIynCtUbqRAKwELOEpj3OmmDipt7FyRZkcV3y0yyaOqi
+ RMMwVrDE6PwHAX73yXnvFMVjk1xx32TWcnMG5ytYScelO405R1gRZUvoyiVzX+mFaqbl
+ +gIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Ht9E1p/DyzTpsAqMy6QR1zhTTEv9RdTNX9jIQ90EKf0=;
- b=OfGI+j7tzO5pHtLHsyygYmOhztOpedEpj8M7FILNXzkKESZBKvmqaI/g0+fUwMZd+j
- 7XDQnjkN1fFS9yeBwsuoUXgLkgyHpbn6VzhZUdbtsapaIclFz/bhJrAlsWwZ6vkNnzYu
- vrfQqCtymNPo6e5e+/Q/IcJNTlTO0oI7yGyURe4jL3iFniVYFMkjS7BSgbOTqeWi28F/
- fKOOUBIFGer239SmTQtNMvfAdoiXNgq3TCcgLThrgC1UyfgSuffndzi+eGzxeor/lmM2
- g8XpV8mNeAQFnnm6VbsOR2wGXFhuL4TLhI1rLWiDSyEPQkO93k4jrgcwDr8kkSMdvZxX
- CQiA==
-X-Gm-Message-State: AOAM532ImXvKwil+tVOXmumCxia2ikedW6c94KgtwrZIHKOi6FlsUrJT
- wytIConjjk/shyqIpB3ZvVpxzYJEVw2U7wVu9iU=
-X-Google-Smtp-Source: ABdhPJyGkjWgdJNmrGbvK5UhP73uvpIxjmfUItuL6e+QCzmzGC5HR6vmcZUBZndWYGeq7YneJzPMHREKrcnGnGuWkB8=
-X-Received: by 2002:a17:906:6a0a:: with SMTP id
- qw10mr13399358ejc.141.1637708517524; 
- Tue, 23 Nov 2021 15:01:57 -0800 (PST)
+ bh=Fmou/wuLUJUD4zJclGcPIdJu1KVjJ7yuzM0jDRLa/jU=;
+ b=n55L0IGTxyd8m5xkOizAlPXvEibHcVaukrSd5ybIiXpwMJrQy3i/snBotG3J2zbb+I
+ mD0n2Ho8bOejYU1M7PB8/V/f906FKwsjS40WDzl1BoAEchveUAq0zW2GzUCJ8LN8gbrQ
+ yRBo8R5yI51l95jg2MwAtHLZ73j9aSTQEeKcf1rvXHkK6qerb1WkNQCzTXlFgi40O9fq
+ s/GRwjAz38trkWWgwoMWMfINLLpy91Jw+9/bfASCF/+Xp24hv6w+FCZJ42830jwsvMvM
+ GBPxUI4YXmlclwhfe+mYYzxXA5Y/v+sx2L/MChapXeNX2etrioLyzka3pp4nrtswxVCk
+ oXnw==
+X-Gm-Message-State: AOAM533nAfjewPJrqsZSZ/6esvHGGSuE9RFPd0QgkUuoMT0lr85/J3TV
+ A9jXjoHOQGQZtfwTtvDE8v+TJMfojBSjfuHsGmgSlw==
+X-Google-Smtp-Source: ABdhPJzM/xqGhHncEHhl2AIgExbTLI27yZdnho4Z+I5VLuYNi5uSlNeNxRyIKiu1OCuHPC8HqiuPUo4+VogT8mYjGlE=
+X-Received: by 2002:a9d:74d0:: with SMTP id a16mr8027979otl.237.1637710535722; 
+ Tue, 23 Nov 2021 15:35:35 -0800 (PST)
 MIME-Version: 1.0
-References: <20211123163149.1530535-1-tanureal@opensource.cirrus.com>
- <20211123163149.1530535-12-tanureal@opensource.cirrus.com>
- <87af37a2-dc02-2ae0-a621-b82c8601c16c@redhat.com>
- <756f813c-cc3e-7ddf-e5db-cf6c874f907e@opensource.cirrus.com>
- <1605be8d-0913-4b52-32e2-8076fff01d30@redhat.com>
-In-Reply-To: <1605be8d-0913-4b52-32e2-8076fff01d30@redhat.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 24 Nov 2021 01:01:21 +0200
-Message-ID: <CAHp75VcanaEU89LXCs_CaBC5WvhotyuTeeS2FSxqhZntbz5FFg@mail.gmail.com>
-Subject: Re: [PATCH 11/11] ACPI / scan: Create platform device for CLSA0100
- ACPI nodes
-To: Hans de Goede <hdegoede@redhat.com>
+References: <cover.1637592133.git.geert+renesas@glider.be>
+ <afb895b597037a635acc4a1dc44b88598268a19b.1637592133.git.geert+renesas@glider.be>
+In-Reply-To: <afb895b597037a635acc4a1dc44b88598268a19b.1637592133.git.geert+renesas@glider.be>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 24 Nov 2021 00:35:23 +0100
+Message-ID: <CACRpkdZAA_XZQ7KXOsod8r5EZ0F9f1qaz3+FLsuyPfeD_mO5Dw@mail.gmail.com>
+Subject: Re: [PATCH/RFC 07/17] iio: st_sensors: Use bitfield helpers
+To: Geert Uytterhoeven <geert+renesas@glider.be>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 24 Nov 2021 08:05:53 +0100
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Elia Devito <eliadevito@gmail.com>,
- Lucas tanure <tanureal@opensource.cirrus.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Werner Sembach <wse@tuxedocomputers.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Shuming Fan <shumingf@realtek.com>, Lars-Peter Clausen <lars@metafoo.de>,
- Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
- Jeremy Szu <jeremy.szu@canonical.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Hui Wang <hui.wang@canonical.com>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Sami Loone <sami@loone.fi>, Len Brown <lenb@kernel.org>,
- Platform Driver <platform-driver-x86@vger.kernel.org>,
- Chris Chiu <chris.chiu@canonical.com>, Arnd Bergmann <arnd@arndb.de>,
- Mark Gross <markgross@kernel.org>, Mark Brown <broonie@kernel.org>,
- Cameron Berkenpas <cam@neo-zeon.de>, Jack Yu <jack.yu@realtek.com>,
- Kailang Yang <kailang@realtek.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- David Rhodes <david.rhodes@cirrus.com>
+ Daniel Lezcano <daniel.lezcano@linaro.org>, linux-aspeed@lists.ozlabs.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Tony Lindgren <tony@atomide.com>,
+ linux-wireless@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ Amit Kucheria <amitk@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-clk@vger.kernel.org,
+ Ping-Ke Shih <pkshih@realtek.com>, Lars-Peter Clausen <lars@metafoo.de>,
+ openbmc@lists.ozlabs.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ linux-iio@vger.kernel.org, Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Joel Stanley <joel@jms.id.au>, Jakub Kicinski <kuba@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, linux-media@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ Benoit Parrot <bparrot@ti.com>, linux-gpio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Kalle Valo <kvalo@codeaurora.org>,
+ linux-arm-kernel@lists.infradead.org, Eduardo Valentin <edubezval@gmail.com>,
+ Paul Walmsley <paul@pwsan.com>, Rajendra Nayak <rnayak@codeaurora.org>,
+ Tero Kristo <kristo@kernel.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Keerthy <j-keerthy@ti.com>, linux-pm@vger.kernel.org,
+ linux-mmc@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
+ "David S . Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,31 +120,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 23, 2021 at 8:36 PM Hans de Goede <hdegoede@redhat.com> wrote:
-> On 11/23/21 18:11, Lucas tanure wrote:
-> > On 11/23/21 17:05, Hans de Goede wrote:
-> >> On 11/23/21 17:31, Lucas Tanure wrote:
-> >>> The ACPI device with CLSA0100 is a sound card with multiple
-> >>> instances of CS35L41.
-> >>>
-> >>> We add an ID to the I2C multi instantiate list to enumerate
-> >>> all I2C slaves correctly.
+On Mon, Nov 22, 2021 at 4:55 PM Geert Uytterhoeven
+<geert+renesas@glider.be> wrote:
 
-...
+> Use the field_prep() helper, instead of open-coding the same operation.
+>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-> >>> @@ -1708,6 +1708,7 @@ static bool acpi_device_enumeration_by_parent(struct acpi_device *device)
-> >>>           {"BSG2150", },
-> >>>           {"INT33FE", },
-> >>>           {"INT3515", },
+Clever!
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-
-> >>> +        {"CLSA0100", },
-
-Can we keep it sorted, please?
-Ditto for the other driver.
-
-> >>>           {}
-
--- 
-With Best Regards,
-Andy Shevchenko
+Yours,
+Linus Walleij

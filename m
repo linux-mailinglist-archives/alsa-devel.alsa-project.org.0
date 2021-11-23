@@ -2,73 +2,197 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3D5145AAEF
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 19:09:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BBA745AD82
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 21:41:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72047165D;
-	Tue, 23 Nov 2021 19:09:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72047165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B83E1677;
+	Tue, 23 Nov 2021 21:40:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B83E1677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637690999;
-	bh=lgJrC8hxLXfGZ3Q/W/S+te9K5lGoU4XaUFoj+nHSu2g=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1637700079;
+	bh=wbd07SskJyfq9lGZee2wDVPsRPNPFK9VMcymRcUeS1I=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ieoGF/cTcZCILsXGEav83Mh8l7XnQcFRjwWBrEuplYmfNI+umUEZ4K3LBICqEnpcu
-	 OLzZiUvcu/cF9eHNfkAJMu0UGNWzqNHCFD2XThMEPAsIn+wSqveWJyl/3ILZfSYGJ2
-	 1zf7ZdnMcRalrfp0zPCoL+ReZ+NgI5Em4esJFads=
+	b=YTi0ufGyOGO215SMiPZfj/E0exmIgEI0yTClB/cl++delIpZwGHQx/yRw6RcgFFx4
+	 lYwECAlKwPiX1tKuF1xpdotvvNlSeAkOIoVKoDWace1tbIKrEaVyV4oPKDdcPPPM3T
+	 R9MiBzRuygNV5q1yoGXAoxdJIMVM3TuyKXA4jd84=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAC39F80154;
-	Tue, 23 Nov 2021 19:08:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA036F804AB;
+	Tue, 23 Nov 2021 21:40:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E951CF8049E; Tue, 23 Nov 2021 19:08:38 +0100 (CET)
+ id 9936DF8049E; Tue, 23 Nov 2021 21:39:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,PRX_BODY_13,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A3B5F80154
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 19:08:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A3B5F80154
+ by alsa1.perex.cz (Postfix) with ESMTPS id 419DAF800E7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 21:39:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 419DAF800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="V4YYDj1w"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9F46060F9D;
- Tue, 23 Nov 2021 18:08:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637690908;
- bh=lgJrC8hxLXfGZ3Q/W/S+te9K5lGoU4XaUFoj+nHSu2g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V4YYDj1w5ADBdq4zzsQPKQffdM9AfwERHuSB9wRYlO/RvJNjU2rkQBK9tPfolB1De
- KzCmknULPsYxM60Oj5BwYDGUohZOVkquRGBHYdA3Nnv7cmVBgdK8gz9tmjmcyXKp3N
- xp7Bx0BTUNiT3FNtOZ584pmj6YXQDw1KkBvz7g0ZbPNGRykPN5RxYZ1CxYSf/ggK7b
- xi4gHBJRqiCLRp+0gbDMLSkogC0/bL//2n+uoXq4XfBtpbEZXaLHXWR3GLCA9f4K8F
- ZXhJ+v3ibw62DXuNZjSbNlVndFRLJPf+/sCEQ7rvRS2f/vJfjJWG6/Zd2ic+dOaBb0
- H1d4ZD1qMAqYw==
-Date: Tue, 23 Nov 2021 18:08:23 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH v2 2/3] ASoC: SOF: topology: don't use
- list_for_each_entry_reverse()
-Message-ID: <YZ0uF3t9GJXIEO4L@sirena.org.uk>
-References: <20211123171606.129350-1-kai.vehmanen@linux.intel.com>
- <20211123171606.129350-2-kai.vehmanen@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="K1tlQYrk"; 
+ dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
+ header.i=@oracle.onmicrosoft.com header.b="AkbGmKkt"
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1ANJXv93004389; 
+ Tue, 23 Nov 2021 20:39:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=wbd07SskJyfq9lGZee2wDVPsRPNPFK9VMcymRcUeS1I=;
+ b=K1tlQYrkFD9/betcFf2F7XhCmGfWOhrp+5+IW3RdP+rjMAc0Ri6kwy/WFI5D7QB+9+Wy
+ 2/l8QAdbc3qlZ14ZPdTc2XquanS8XJvbyXUUhvVacqpNan23SWU7OtRpV4sBH4NwEfwt
+ 62tyPO7RmScTBc5VifE3QKYXVh+sfK4CPDdMz83EWi1q/8IeBoWb47hWqPiIRKLy/JTh
+ cJWXK2KAGA/FbUzsYg0f4DS6JXYNvilnRskNN+4if/LgwOnWp4Y5EcCd7tVMopulVlJJ
+ dttlugqKMvaFur8cmtuhC0RDuqfsJT2NZgwpAqm7JJ+bf0BcfwzpcaPeFXrCDNCBEU2e 8Q== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3cg305bs3s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 23 Nov 2021 20:39:50 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1ANKQmJ1148028;
+ Tue, 23 Nov 2021 20:39:48 GMT
+Received: from nam11-co1-obe.outbound.protection.outlook.com
+ (mail-co1nam11lp2172.outbound.protection.outlook.com [104.47.56.172])
+ by aserp3030.oracle.com with ESMTP id 3ceq2evfq2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 23 Nov 2021 20:39:48 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dD3ZFd0TBCOWTFh+5hDRtp47hRvAlZXrzOdUp7JFhKBnmBU6qduCI2f0az3LWn7P/TMlKqimXSnlbg55c6ntNp+WIEvNMI/pRaALwxEwpUd8J3WoUlXcw3Z5rXHomFAZ3E5qmXFhCYxJULskKrJxRPkkr9n5Bz3Ma8DIm/1z6hs+V/odVBNJZvXGVg8mZaF2Wd6YLDYddvvGuXyUTON+1XHlNitscjKmaqivMW9infmzS1ioZ2lJMW4o0bN2dRnFG2mUrVDAr0VtXS34tpWD7gvJlgxNRMivv+xWG8I/9DAcdZ9YyWeLs3NMrN9NkZu2pvdHWweYbKVqNgc1AwbLng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wbd07SskJyfq9lGZee2wDVPsRPNPFK9VMcymRcUeS1I=;
+ b=CdO+vuSYsRZh42bNQLBkLdim2O/p07rVuP2VQPimf1ZZ7yxVRMeno1J5gt7LGJpEsDhN3fA3/L42WyxFq/Xh100FYfkB2XrVG3z3DVEy+SjIFtXcO87QzHRHK72IrrtNYgD2VreziJ5To6YXN770SomzQ+CZOlsBK2ef54Qy88aGjaVWWdx84OYdmIDn1uRIRNU6WwHhA0PdcEGcxtKusXz9DgbWH2FjERhRhn1i3yoQDf4jlrDx7d8pJhE4AmCoqkk4WQSH9qExkI7dvUfRO7uRnjBM/lDATnulmUQ8UKt4l2IsBYSZFpuut42VOA7G264ZNSQy82PoSkXOPY9OqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wbd07SskJyfq9lGZee2wDVPsRPNPFK9VMcymRcUeS1I=;
+ b=AkbGmKktl4DLOxSvUWl16L0FRGwUfsmQZFtUyyHIpgU7j56zNzWLVfO4wxp0meW+iain0+Dk0DwhJV1wa1VgqWWJbr3yyD5YYA9w3T6X6j2TgEtBEFau5FTC3W14yKLmXHDjjN98R4RVcXAxptmUG0mINTzRg+et75JDnSBFu/g=
+Received: from BN0PR10MB5014.namprd10.prod.outlook.com (2603:10b6:408:115::5)
+ by BN0PR10MB5302.namprd10.prod.outlook.com (2603:10b6:408:117::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Tue, 23 Nov
+ 2021 20:39:46 +0000
+Received: from BN0PR10MB5014.namprd10.prod.outlook.com
+ ([fe80::40b1:8e73:d851:6dc9]) by BN0PR10MB5014.namprd10.prod.outlook.com
+ ([fe80::40b1:8e73:d851:6dc9%3]) with mapi id 15.20.4713.025; Tue, 23 Nov 2021
+ 20:39:46 +0000
+Message-ID: <07b650a8-7ede-3716-2e35-b0d4f94802cd@oracle.com>
+Date: Tue, 23 Nov 2021 15:39:39 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.1
+Subject: Re: [PATCH 0/5] xen: cleanup detection of non-essential pv devices
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <20211022064800.14978-1-jgross@suse.com>
+ <bf5a4749-0216-53db-a022-ef4f84d823c5@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+In-Reply-To: <bf5a4749-0216-53db-a022-ef4f84d823c5@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA0PR11CA0037.namprd11.prod.outlook.com
+ (2603:10b6:806:d0::12) To BN0PR10MB5014.namprd10.prod.outlook.com
+ (2603:10b6:408:115::5)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Qw3ugjQwRXOrgdtY"
-Content-Disposition: inline
-In-Reply-To: <20211123171606.129350-2-kai.vehmanen@linux.intel.com>
-X-Cookie: A closed mouth gathers no foot.
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
+Received: from [10.74.107.95] (138.3.200.31) by
+ SA0PR11CA0037.namprd11.prod.outlook.com (2603:10b6:806:d0::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4713.24 via Frontend Transport; Tue, 23 Nov 2021 20:39:42 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c079e34f-f15a-41dc-7975-08d9aec16307
+X-MS-TrafficTypeDiagnostic: BN0PR10MB5302:
+X-Microsoft-Antispam-PRVS: <BN0PR10MB530297E3D1AC49C4C7BAD6E38A609@BN0PR10MB5302.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UtmrreEWfLEixJIs71qdTO9z8BuD+G78109jS2832F+Igll9XQqsssMeM/AJbjeEX/Daxv60kjR219VSuvTJjSFmV6p5pKKE3Kt8bs1FsOX+SVEKJt35mGhIgXV7XHmM3ByST+f3xxJeyTBP6Wwnd3AQcJ9vby1CKP502LkopHtubkSjSO3LaRetTaKYMPxzYlDzgqMQomnIqLh38Yb3zFOD0LfLAYQrmCai3fWXWCWWLUk/eeALl+HArgnFphjW6Eomcj+UKnAiMVo95i84XBobgalkFzc7lWh1MPkpbK1QECbRop8DqiJ3LEE0HB5feg4laPemv8MUU/+LfwYBoNgdpeDIOnT2leakZpiS0rrqKK11DnnMaQEArvc0LQoIxdeX8z4N2xZVwW4YIxv5grTD4Zh4+2uHZxACyKmwRz5/fJVjozbCWEqo7CIWw54TOaIOxD60Sz22FMRPOAh319eYg/lV86mbIVWsWd7kJ48S0K0hNcDb5CU+5Fu4Izyz5QIaNfNSA5gyAmKT+2m5JMr68cLJ0PPxmyX7ggc63TAE2JQ1Q4jNxv97rulEBGeF8a4POAdyQuQS2kFq42AqWoz8ftsgQh4UfSTiRAo4t3MERHPEFubW0rnHYz80WgFZ4WRkGhKZSw2RqR0fFnfQ1a1fx8gi4W2ZEHN+6RgsK87pCawo93FTogQP/fQcbhSFwvWe93RRNiC6XkZbaVJHs2rw0LEqgAtD5zE9xMwM6/E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN0PR10MB5014.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(186003)(54906003)(16576012)(2906002)(316002)(26005)(38100700002)(7416002)(2616005)(66556008)(83380400001)(66946007)(66476007)(956004)(44832011)(6666004)(8936002)(6486002)(508600001)(4326008)(8676002)(31686004)(53546011)(5660300002)(31696002)(86362001)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjNHdUVucE95NFVFcFlUYm1wNncwbis4c2hXSngweGF4UlNwd0ZxRzRxaVJ6?=
+ =?utf-8?B?MzZlQWxaVU11ZU5wN1JONnVkNnVTYUlQMEUvanhFYVFZNW81Rkd3ZHJxdzdv?=
+ =?utf-8?B?d2pHSmZEV2s4aHBxYWkzUFVrQXN0SkcreU9HRmNETTZ6bnpDVlVpNXZ4bHBa?=
+ =?utf-8?B?VllsWWZFdk5aTEtyamo1TnNOQk5wZStiTHVSaE1GRElJMWcwT2IyakxzaUtn?=
+ =?utf-8?B?OTRNTHJ0RG0zMWh5eWRta2RHSEczbUw2ZThHenZYUTQrZWp6WEVKcEZpV1Zo?=
+ =?utf-8?B?eFV6c0pLV211UXBzQUlNSlFaR09JS05aL0Q0ZkFpMmVoQXk5a2NqYVRjNm1s?=
+ =?utf-8?B?Yi9HMERpNHorT2REL284b0ZwS0FhQ25maHRtci9UN0NCY0dnSUswem9pNW5T?=
+ =?utf-8?B?amVJRlpqYXdNYitTQmNnYlhwZnNTNVgvUHhTcXNTRzRjOTJEdlQ5Rnh6L0F3?=
+ =?utf-8?B?SjM3VzlkaGFmTlRHTlVpaThEMUtFVGNkK2NEUEN6RGh3QmhBbzVYY1NabEQ3?=
+ =?utf-8?B?eUJFRjAyL0pkMnYzMW9RR0x3SCtIRmpxVVI1MHg2ZDllNW5mTndqMzQrNVgx?=
+ =?utf-8?B?bGZmdWhiVFo3dVRKcmtKcmJndlFkWW9aOEhYWEFHYzh5d0hoVFNOUjNhWVNq?=
+ =?utf-8?B?b3E1eWc4TElKcFdpbDFDZXppSGM3L29PSy9qa0YwcmEzV2h4RlVmK3ptYk1I?=
+ =?utf-8?B?YldsVmlMVTZWZVBvL0RUZHdtMmJYUndQS0tibEpraGR0YVlpYWw2bGloTlNo?=
+ =?utf-8?B?WFhRTnVMdlJYNnNlT1dOTDludmp5cDV3RDc1cmo4emF2ZVRISnp5VFp5d1cz?=
+ =?utf-8?B?d2hkQzVDVG1PeUN5Q3RtMnJkenVpcEN5RUVlWHZIQ1VoaVAyNTZWeDJyWkEw?=
+ =?utf-8?B?Qkg5YkJPL3Y2ODg0YXdLVW1NTFdGZlJkMW16LzhScjZPTjhPbHpQUW50NVE5?=
+ =?utf-8?B?aXZiUnpHUktnQWM4YzZOMGZ2cUdpQVhhQ2VoaEoyaExjQkdYRnFnVFp1ZnVG?=
+ =?utf-8?B?dkh6S0c1WnpBSCs5MDBlTlZUbjNhRG9paXlFOGF0dWdWcHlZWHpHeEJOVEZF?=
+ =?utf-8?B?UGVsTTZjOGptK3MvNSt1WU9pb2MraTQvMnltem54NThFbGlhcWZ2cW9OTTg5?=
+ =?utf-8?B?TUtEaTVXUUJHWTBvc0ZEMmZqNUxDSGJuSzVVekVLek9zajMwTnQrYWk4S2ZQ?=
+ =?utf-8?B?cjY5YmEwRVlHS3hyQStkd00reEc1WEFMMlFnT0lpRFZGdVVpS2hsMEtRUG5l?=
+ =?utf-8?B?RlNuZ05qdE9SUUQ0Yi9hUmdEcTJNNUFKMzRuT05YRDRmM3lqV0pwdVcybnM2?=
+ =?utf-8?B?OFRYbEl0Vit3anE5YjV3R3Myb0tNOE9ZM2YwK3FvTS9UWGVtZFRUZmQyb3Fh?=
+ =?utf-8?B?MFVnV0RaRHpyb0xCQTBaY1hYeFFQNGpiNGg5dGlneFYzWUsreTk4QjZYRG1k?=
+ =?utf-8?B?ZUVIcVFsZFNJN2NzcFBPcGcxUmdLbGNEdDg4eDVMNkU3Q2JiM0dtNkxCbXpS?=
+ =?utf-8?B?d2o3ZFRIeDVlZkpHSFpjZEZZSjJJbXFEd1NMdXV1ZTZhNHdlRWEwcFhKMWw4?=
+ =?utf-8?B?U04zSDRtQ0pKd2QzbzQzalNiVlFZNVlIRFdkNDd5ZFBzdHN6QmJtR2Y3RHht?=
+ =?utf-8?B?UXhpbk02YlFoTFQ5RiszS3dHbEdYQkVCMmc0OUZPMVRJZXV5R3FFVzMzV2pt?=
+ =?utf-8?B?bjd6SnR3dWsyOVZYYjcxdjFIZHIyNVV0V2kyL01SblZDeUNZYW1jcit2eng2?=
+ =?utf-8?B?SVlnNWx2U1NhUTRmNkxTUmxHOG1BUDdaTG1Tcml5TDBmYy9rcmtMMGE3UnVF?=
+ =?utf-8?B?RGsxanM0QWtlejZja0lsMWJFT3YxOU9zQjVtNW1IU2h0S3ZhYmREV2xOd2VQ?=
+ =?utf-8?B?ZUFqUERTQkxIV0NmNmpsdEhjTjh2ZGl1V2RJVVBmRkFjS0VweVpNNnhTOW1X?=
+ =?utf-8?B?UTBSUXcvOXpoM1I5YzRVV25CRUY5b2I5ZUNaVFppN1ZsMGNJV2Npay9MajVO?=
+ =?utf-8?B?SjFZVldjV3dySnRjbmJuVW9wWUxudy9LWHhBNmxmKzIrT0VEMTJuc3EwWmFh?=
+ =?utf-8?B?SHM3RlNJcHNVN2x1QlU3OEkzcXdTWkgxWG9GMGNpNjBxaVNFOWtzRFJpdE5r?=
+ =?utf-8?B?b0dQSE91UnRuMmlNa1RONmQwRWc4SlcrSG4vVWNURHREWWtxZk9EdTQ1d1ND?=
+ =?utf-8?B?NDNFcHE1dmxBOG4zZFFMK2p2S1ZxcjRIb1oyamgvcHF6dEZlVXh6Ry9oWlRz?=
+ =?utf-8?Q?nLoQy1p7XsikijXTikqBhZh0ix9pP9keS0lztnCP2k=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c079e34f-f15a-41dc-7975-08d9aec16307
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR10MB5014.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2021 20:39:46.6037 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xdBIO6cmWfp7QEOOqKSVjSaq4WkOJ27h7FylC2afgUY6xufGZ3ti3zya2xSQMeXCV5juS43RqHnADupJqUdEZfUTyWsCvggnL52dFzVcfUc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR10MB5302
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10177
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ adultscore=0 spamscore=0
+ bulkscore=0 suspectscore=0 mlxscore=0 mlxlogscore=999 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
+ definitions=main-2111230100
+X-Proofpoint-GUID: 0KfI6w_OY80QNNxMKpeQKcEIe64cjXie
+X-Proofpoint-ORIG-GUID: 0KfI6w_OY80QNNxMKpeQKcEIe64cjXie
+Cc: alsa-devel@alsa-project.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Jiri Slaby <jirislaby@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,33 +209,37 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---Qw3ugjQwRXOrgdtY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 11/22/21 3:20 AM, Juergen Gross wrote:
+> On 22.10.21 08:47, Juergen Gross wrote:
+>> Today the non-essential pv devices are hard coded in the xenbus driver
+>> and this list is lacking multiple entries.
+>>
+>> This series reworks the detection logic of non-essential devices by
+>> adding a flag for that purpose to struct xenbus_driver.
+>>
+>> Juergen Gross (5):
+>>    xen: add "not_essential" flag to struct xenbus_driver
+>>    xen: flag xen_drm_front to be not essential for system boot
+>>    xen: flag hvc_xen to be not essential for system boot
+>>    xen: flag pvcalls-front to be not essential for system boot
+>>    xen: flag xen_snd_front to be not essential for system boot
+>>
+>>   drivers/gpu/drm/xen/xen_drm_front.c        |  1 +
+>>   drivers/input/misc/xen-kbdfront.c          |  1 +
+>>   drivers/tty/hvc/hvc_xen.c                  |  1 +
+>>   drivers/video/fbdev/xen-fbfront.c          |  1 +
+>>   drivers/xen/pvcalls-front.c                |  1 +
+>>   drivers/xen/xenbus/xenbus_probe_frontend.c | 14 +++-----------
+>>   include/xen/xenbus.h                       |  1 +
+>>   sound/xen/xen_snd_front.c                  |  1 +
+>>   8 files changed, 10 insertions(+), 11 deletions(-)
+>>
+>
+> Any further comments?
+>
 
-On Tue, Nov 23, 2021 at 07:16:05PM +0200, Kai Vehmanen wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->=20
-> It's not clear why we would walk the list backwards. That makes no
-> difference.
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
-Cleanup patches like this should come after fixes rather than in the
-middle of them to ensure that the fixes can be applied as such.
 
---Qw3ugjQwRXOrgdtY
-Content-Type: application/pgp-signature; name="signature.asc"
+(I'll fix the semicolon typo in the last patch, no need to resend)
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGdLhYACgkQJNaLcl1U
-h9A2uAf/UuWPpXeA1EhUOMgu2sXLZJ9d0Op/TL57ZXMDLyG980OuJ8ZumaKV6wYI
-ZQDMrI/654ZdZtY7mNjr6SbX2yIeCJUPhkNJTBhG1cx+bq1fHCCsa1HumY09RoVT
-sjHbhJpXX5wpb+9glJZiRYq+mkH8VZZqz4qVE9OSVdqAN3mp26Asm43jzevlX2yj
-UGldNCAQK2cCHRVQHQykQJEgHZ/Sllv88dcyxdK+1dirK3NtLPDW/WTJ8BYsaZ5s
-0SGslhS0Co5i2DYwuTbCKlk/+GPhCrB3rljIcgnOqZJtag0kY7i568Ql0pnuq+8Y
-SdYqbj+U51IQ6yS1qTNUcGFJg7Lf+w==
-=XXhX
------END PGP SIGNATURE-----
-
---Qw3ugjQwRXOrgdtY--

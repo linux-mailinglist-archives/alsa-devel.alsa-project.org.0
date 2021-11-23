@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4CAA4598E6
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 01:02:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E706F4598E8
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Nov 2021 01:02:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46A9A846;
-	Tue, 23 Nov 2021 01:01:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46A9A846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7457E1670;
+	Tue, 23 Nov 2021 01:01:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7457E1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637625733;
-	bh=VrIHNdICz10VyRFyRXO3RLq2Y8ZETUSMzSEpP0Ffoo8=;
+	s=default; t=1637625768;
+	bh=+/8tGuihtwZs7BaBjZSeqkgIiZQe+9d5nEnft6ZuQuA=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=psr5HJo3Zs//la9DHMauFCNvAA+OEE+uMoKUi9AIv7Mg0s6mbQKSkjHuA6QJoA+gQ
-	 Gnq1sR0aduhbn5K4vtCmaq0rrkqNu2eqeCxvMXXdv4uUivUXFI32+9zc9z8NugnA+b
-	 CEamNJYuavGuucpixwLFvaCYPua1OgzhzLHi3UjM=
+	b=azWVLOQmC/Xdi/2Wxtb0U13H1mjptv5c64DLFILnCN+owFzIrGRNpO2pitrbxfVNT
+	 HnOZtpxcNBSiRgHjtt7zy7DwIfsINQR52vyjuF7d4/8Q8uRZ+QWkFTWK/046JWcB68
+	 9JLFskisXoji0RQWSnth1xDyNsoKYpAxm9xe99ME=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77EDCF804FD;
-	Tue, 23 Nov 2021 01:00:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 540E2F804FF;
+	Tue, 23 Nov 2021 01:00:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B746F804F3; Tue, 23 Nov 2021 01:00:13 +0100 (CET)
+ id 976EEF804F3; Tue, 23 Nov 2021 01:00:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7241F804AD
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 01:00:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7241F804AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C869F804ED
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 01:00:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C869F804ED
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="l3JqfhsA"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AAC0C61002;
- Tue, 23 Nov 2021 00:00:01 +0000 (UTC)
+ header.b="ALAqmcn1"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 680B661004;
+ Tue, 23 Nov 2021 00:00:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637625603;
- bh=VrIHNdICz10VyRFyRXO3RLq2Y8ZETUSMzSEpP0Ffoo8=;
+ s=k20201202; t=1637625606;
+ bh=+/8tGuihtwZs7BaBjZSeqkgIiZQe+9d5nEnft6ZuQuA=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=l3JqfhsAyW3hGE51EDHarP+ODGx7QgwSkA/XqGGnrngyLfMbJlpDcJX+iFLOSIw4r
- /LloHVDw4uQ9+TW/dcbJXRm8vibHTifzXFk5MbOCF61kHHVgP6oczvJzVnqTqmjigR
- aTw8/EqTacbDe/pVEj1zUcj3Wd8nTAimPHqbX2FAaGI5l1m6t3jfSXsdnUgR0bxSYa
- D0HPK7KX4LdAQHB4TqAgpPecXqLNpmqB3sCF2/f1EgEokvXioDnUn/Hzh8eYC0z2AL
- +SToanKfl6B80t7R2CpGnwfBoXw3Y6pKMEMVUXqapCNakt3D+Dpmjjg2YGvZXuzaUC
- cUIwDQrZ6MTbA==
+ b=ALAqmcn1/bnAKFE5uypJTtNY4R7eabaPO1BdzpHIaoXN2keRxkc0xOxueP3zow4qn
+ cFzZBQ7d34jH/PlIE1GzzIlLV2XfTXdRRL0cxzgDlFMdDfdxnh4+vJ5+s6gkxIfMmI
+ NLzF/mt5zHamnSyXjhNz2WUn6tqYhQOfH/OH9YQ/6k5MaL7DEiP7xABYX9xrfZIvrF
+ HtTJsFzoPj0t3QLWowKsHcPHLpi+GLJ0RdBUyXEja+DxG3eAa/kpfA+1viRwcQoRHQ
+ 6SfttHUb9nkDr5T8DDKSHim6IqtD80Mi5XRDFlSwL71Xg9oLS7yogWitQuEOMalKxW
+ mCSq1ndrAZblg==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org, Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20211116154613.57122-1-daniel.baluta@oss.nxp.com>
-References: <20211116154613.57122-1-daniel.baluta@oss.nxp.com>
-Subject: Re: [PATCH 0/5] ASoC: SOF: Add PM support for i.MX8/i.MX8X/i.MX8M
-Message-Id: <163762560143.2471742.10413030949229818973.b4-ty@kernel.org>
-Date: Tue, 23 Nov 2021 00:00:01 +0000
+In-Reply-To: <20211119094319.81674-1-daniel.baluta@oss.nxp.com>
+References: <20211119094319.81674-1-daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH v2 0/5] ASoC: SOF: Add PM support for i.MX8/i.MX8X/i.MX8M
+Message-Id: <163762560411.2471742.17777975323343821279.b4-ty@kernel.org>
+Date: Tue, 23 Nov 2021 00:00:04 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, daniel.baluta@gmail.com,
- kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, peter.ujfalusi@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- linux-imx@nxp.com, Daniel Baluta <daniel.baluta@nxp.com>
+Cc: pierre-louis.bossart@linux.intel.com, daniel.baluta@gmail.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, linux-imx@nxp.com,
+ daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,7 +80,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 16 Nov 2021 17:46:08 +0200, Daniel Baluta wrote:
+On Fri, 19 Nov 2021 11:43:14 +0200, Daniel Baluta wrote:
 > From: Daniel Baluta <daniel.baluta@nxp.com>
 > 
 > This patch series adds support for System PM and Runtime PM with SOF for

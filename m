@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F65E45B520
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 08:15:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EB2A45B521
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 08:15:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFF30178C;
-	Wed, 24 Nov 2021 08:14:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFF30178C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E52DC1779;
+	Wed, 24 Nov 2021 08:14:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E52DC1779
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637738105;
-	bh=yN5v/ksH+/i7Kc2NikgDUOw2ePKQ2SBTXHTlo8gWoxA=;
+	s=default; t=1637738124;
+	bh=d9t+ZRTCK8H/Ezxf7VMaGXM5QRACAAA0uxZgA56l8E0=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TapVIvHbP4oXx16/HV+983CUpSHWS++Dz6LZMe8fvU+5edn6HziiDEaUeaSacQ3OM
-	 WWf91MYlXCOIFTQQ9W/unWMZD50FlBKkxCoJkC07bCmhbUtcdFjw4XbgOfFum2evpv
-	 Xt51HyrHSBrA0nxyIvYQ0q/spmKso9cGZGr4EKw0=
+	b=uM/g0DZsBKXcBldS0ARd+p1PWs5fAMRNGZJvTCp/yYBnXsk7xtBfynQrKwjm7k/pv
+	 EtMqhkF+JpZbaayN5+v9ZGgMzjWEfGnhtymhHnorLtonpBhWjPquoibLU9qQ+e2sLu
+	 pldFT5r04ORvRnV9r14DlSrcMFWQ8rEvdLue+6u8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EA99F805C7;
+	by alsa1.perex.cz (Postfix) with ESMTP id A5605F805C8;
 	Wed, 24 Nov 2021 08:06:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07C77F8049E; Tue, 23 Nov 2021 18:53:23 +0100 (CET)
+ id 27626F8049E; Tue, 23 Nov 2021 18:59:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D5ABF800E7
- for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 18:53:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D5ABF800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id B596DF800E7
+ for <alsa-devel@alsa-project.org>; Tue, 23 Nov 2021 18:59:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B596DF800E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Nnw3WWlu"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6A3AA60F42;
- Tue, 23 Nov 2021 17:53:09 +0000 (UTC)
+ header.b="bNZBmbF3"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6D4F56052B;
+ Tue, 23 Nov 2021 17:58:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637689994;
- bh=yN5v/ksH+/i7Kc2NikgDUOw2ePKQ2SBTXHTlo8gWoxA=;
+ s=k20201202; t=1637690338;
+ bh=d9t+ZRTCK8H/Ezxf7VMaGXM5QRACAAA0uxZgA56l8E0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Nnw3WWluGs1MwQ8YensIJzFnsFs9naMNTTXEf73dRJHQ2dkyx80IURcsycHoUC1k4
- 9qVkRQ7x/w+ng7cQ0/CZ7C1BWtICIkNEmQOOm8TMZiOgCuXJOpbKkGlP67NBBfIcZj
- I8gfkcdeejgAxnP2z0NCKgwmrolY1SfYEVWPRdHme50fAVSRukmheYWZi4B0U3OjwW
- 52x5AtrcYwjmY1BUPuJNkU1ONLD+JpQERButoiXiBsiLNWFP9OfkNek16SurXnHUud
- V05BMiT8CUZRc2HUSADQZmjeWyKtKir1Kuw01FIa3ozECn349WDceKZV8CxeVlk4cL
- vHbT+Zcpard3w==
-Date: Tue, 23 Nov 2021 17:53:06 +0000
+ b=bNZBmbF3y+P40zNaijOwN98W6E/nbrgj1dOdXuOQVuEyQhVOIuuyQGCIXq/2EEdPU
+ +sG2hEI2/1fVfgZsaiBK7pTeWewPN25szGvZseMRNX/+GhlwId4gM1D2ra9aGYn3f5
+ e5VfVEwxK7/DYB652JlE2kt2T5z04kCkFA8sop11UvC/yqhuBBLdCz1jfZPCHyDsWo
+ KwK4g8OH/KhH2YECZEw6nB/R0rOk6ysyk5DmTGCZZOAA4YgmYd3rsIhYjJhzrNfuZ1
+ F9aARDFvFDl2szGxOF0VXGHh01Q9ddsJ2SpbGFEppX+nEBOL/aNsU9c/5+/KaRuav5
+ JaUtudF73aLHA==
+Date: Tue, 23 Nov 2021 17:58:50 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH 02/11] ASoC: cs35l41: Convert tables to shared source code
-Message-ID: <YZ0qgjJnoljpmc9s@sirena.org.uk>
+Subject: Re: [PATCH 04/11] ASoC: cs35l41: Create function for init array of
+ Supplies
+Message-ID: <YZ0r2s1z15yXLVhb@sirena.org.uk>
 References: <20211123163149.1530535-1-tanureal@opensource.cirrus.com>
- <20211123163149.1530535-3-tanureal@opensource.cirrus.com>
+ <20211123163149.1530535-5-tanureal@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kBarSnr2m61LE+g9"
+ protocol="application/pgp-signature"; boundary="WkK+Jw7iuU6ibZtu"
 Content-Disposition: inline
-In-Reply-To: <20211123163149.1530535-3-tanureal@opensource.cirrus.com>
+In-Reply-To: <20211123163149.1530535-5-tanureal@opensource.cirrus.com>
 X-Cookie: A closed mouth gathers no foot.
 X-Mailman-Approved-At: Wed, 24 Nov 2021 08:05:53 +0100
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -97,46 +98,35 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---kBarSnr2m61LE+g9
+--WkK+Jw7iuU6ibZtu
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Nov 23, 2021 at 04:31:40PM +0000, Lucas Tanure wrote:
+On Tue, Nov 23, 2021 at 04:31:42PM +0000, Lucas Tanure wrote:
 
-> --- a/sound/soc/codecs/Makefile
-> +++ b/sound/soc/codecs/Makefile
-> @@ -54,8 +54,8 @@ snd-soc-cs35l33-objs := cs35l33.o
->  snd-soc-cs35l34-objs := cs35l34.o
->  snd-soc-cs35l35-objs := cs35l35.o
->  snd-soc-cs35l36-objs := cs35l36.o
-> -snd-soc-cs35l41-spi-objs := cs35l41-spi.o cs35l41.o cs35l41-tables.o
-> -snd-soc-cs35l41-i2c-objs := cs35l41-i2c.o cs35l41.o cs35l41-tables.o
-> +snd-soc-cs35l41-spi-objs := cs35l41-spi.o cs35l41.o cs35l41-lib.o
-> +snd-soc-cs35l41-i2c-objs := cs35l41-i2c.o cs35l41.o cs35l41-lib.o
->  snd-soc-cs42l42-objs := cs42l42.o
->  snd-soc-cs42l51-objs := cs42l51.o
->  snd-soc-cs42l51-i2c-objs := cs42l51-i2c.o
+> +	ret = regulator_bulk_enable(CS35L41_NUM_SUPPLIES, supplies);
+> +	if (ret != 0) {
+> +		dev_err(dev, "Failed to enable core supplies: %d\n", ret);
+> +		return ret;
+> +	}
 
-As was already called out on the HDA part of this patch I was expecting
-this to be more like how we handle sharing the PXA2xx driver code
-between the ASoC and AC'97 implementations - making it a library rather
-than linking the object files directly into both drivers.  I'm not sure
-that the current approach would DTRT if one or both of the drivers is
-built in.
+Where's the matching disable, I didn't see anything in the HDA code?  It
+is there in cs35l41_remove() in the CODEC driver but there's nothing
+sharing that bit of code here that I noticed.
 
---kBarSnr2m61LE+g9
+--WkK+Jw7iuU6ibZtu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGdKoEACgkQJNaLcl1U
-h9Cr4gf+LNGWPCz+MX/96IXsUS+wPozdceAjKSn80yGpnRSItYewxSIzu2F97cvm
-dnB0JfE7YXIR1bYMLulAWnpYyGWoJzI+uTiJJnxXdIfUSpPEMm1t7s7fZqrqhFGz
-2ABLlyV0gWZcj6ZGq1X1msELcdJuFgdQUpQZcnCXA/d/dhfadc7DGlBkuKQGpWos
-xardpAPBRITGzwQ6ool8+uCrCNcDAiUUMM6m9mzKXCzJ3gGb/hTjpgLymN0Twn/r
-oYqINRYJGZCpMPXY3mnDZZjAluSVQ15MT7MfQZx1vjQxTEMZm6crjbTQf1O5Xnd2
-WBukoE/U9Mfa1d9uYmqOjP4S9ZPgMA==
-=vneV
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGdK9kACgkQJNaLcl1U
+h9DmbQf/WBTOwnGah2RPWstqHbB4KVwvwuQL1bd7ZNWcCo0Tm7mJQ9fZijq/ymRX
+dygCYgN8kwNIQVjQ3Z8xagPhs7FHNJ+Iye3MYstcm87rXUabmvqgvLOVJ0H49Ttd
+QukPv/bLwugCmcvctZOtEcGv9CnkZ/P74/m+a54Bi4Rz0mnu+bs4AjyCMT4Ql//S
+K1B9/giEf7ZKuCcwUOZysoIs7xMK2LV15oQBlgC79XLZ6Q2hgxFoE4pEJZC7fAvo
+OQ3akqHcXS5W7KdM9B2TC3bJjEceOguigbs/2ETyg01M2a7Hfgaf5vmUdyM6cM/y
+NWZuJ6hwB/rXi6x7Sc6U3vcnduhh7Q==
+=bhpN
 -----END PGP SIGNATURE-----
 
---kBarSnr2m61LE+g9--
+--WkK+Jw7iuU6ibZtu--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4EA245BE61
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 13:44:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55CA245BFC8
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 13:59:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D81F17A3;
-	Wed, 24 Nov 2021 13:43:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D81F17A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id E825B17B2;
+	Wed, 24 Nov 2021 13:58:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E825B17B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637757867;
-	bh=aOK/IR1dpDc8S/kfx4aITc/e7OlsxFe9NaHm55Gg33M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1637758755;
+	bh=vsVsagoiY0F4/uydLZDgana7weWtcVQC3gXtJPCx/ig=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HYT0GhfOccjnn1hzKizzSfRnG1ea/8OeBSz8rT+B88KNpOf3E8jjItyjYCd6/kCS+
-	 RqEnmNkBQ/iFg/DskuXBUE+Q8PhoMznf/WyjylkUVxoL7suTDQPFn1Go4JghbmBKln
-	 ZV9vfwHlkKqjf99oBBnY8jz5YwEl1OOZNY6N2j4M=
+	b=Fa7ygxIDG8XRHTOwkqA5T6QpQinaeCRaWQo0745cbU4oev3hzi0rLX/AQ3RgBcKdK
+	 9/25RCtqlT+c43JiHyEkLj3ad9lx8ZqK6cEaJlqbGPs4nr6UzswNzi0wkreH55fP0R
+	 PnTOEjRLNON9iikBIvgWpGE7g8QhaCXwPRhh+2VU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A954F80212;
-	Wed, 24 Nov 2021 13:43:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8177DF8013A;
+	Wed, 24 Nov 2021 13:57:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9CEFF801F7; Wed, 24 Nov 2021 13:43:04 +0100 (CET)
+ id CE6A7F8011F; Wed, 24 Nov 2021 13:57:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88589F8013A
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 13:42:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88589F8013A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A0F8F8011F
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 13:57:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A0F8F8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="rtJ9/dQ+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CC8A061A8B;
- Wed, 24 Nov 2021 12:42:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1637757769;
- bh=aOK/IR1dpDc8S/kfx4aITc/e7OlsxFe9NaHm55Gg33M=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rtJ9/dQ+zkT5o9M8LrE0Oonw4ohPrXjDdDmnfQAbmCDg/rEpagM0K1LJlj1rGGpO1
- pgrC9ft2QBIc7JlErQg6UaClIQ5uTYzC+oObbKY0vFIj9OwauRt7LhZ1dzZYfLqXa/
- vQJJ+fdbU16sXXwh+wpIrhPCGq6dh5iUXNDJpMA0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH 4.19 271/323] ALSA: ISA: not for M68K
-Date: Wed, 24 Nov 2021 12:57:41 +0100
-Message-Id: <20211124115728.022427637@linuxfoundation.org>
-X-Mailer: git-send-email 2.34.0
-In-Reply-To: <20211124115718.822024889@linuxfoundation.org>
-References: <20211124115718.822024889@linuxfoundation.org>
-User-Agent: quilt/0.66
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="AneXnjUS"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0B2CA63258;
+ Wed, 24 Nov 2021 12:57:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1637758668;
+ bh=vsVsagoiY0F4/uydLZDgana7weWtcVQC3gXtJPCx/ig=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AneXnjUSbgfyG9nxkume3qkF/+uJjxM/A62J6fu76kGooRO90z7P0/Bed1LcxYUEN
+ XjIOmd2706PlSCC+F1gGtabuuy+HhVw75fmLvrtNRbrl3ceFvKMHL02oQr93tOZfOb
+ 3odDd5mTwLgqF1tb/yrqvfMQYuT6byZw5h7yPW/DJ0sJcp5QZ0zBNua1mW3CSexKxg
+ 3uPwi4M86ORZtJj9bag1204nlYansShR1DMI+u9+XJxDE65wTyeZL1Q9zJd40GXFB6
+ +LsbRvgP9vT3FuJ1Ak+7Wq4uH7GUTFILPn8Ears7Rl1aWgbNi2FTeDVga/IBESgUNm
+ UsIVa7uC9u/Mw==
+Date: Wed, 24 Nov 2021 12:57:43 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH v2 1/3] ASoC: SOF: sof-audio: setup sched widgets during
+ pipeline complete step
+Message-ID: <YZ42x4GkTEboP1bi@sirena.org.uk>
+References: <20211123171606.129350-1-kai.vehmanen@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Takashi Iwai <tiwai@suse.com>,
- stable@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ubdSIvIoQZalMlu7"
+Content-Disposition: inline
+In-Reply-To: <20211123171606.129350-1-kai.vehmanen@linux.intel.com>
+X-Cookie: (null cookie
+Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,88 +83,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Randy Dunlap <rdunlap@infradead.org>
 
-[ Upstream commit 3c05f1477e62ea5a0a8797ba6a545b1dc751fb31 ]
+--ubdSIvIoQZalMlu7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On m68k, compiling drivers under SND_ISA causes build errors:
+On Tue, Nov 23, 2021 at 07:16:04PM +0200, Kai Vehmanen wrote:
 
-../sound/core/isadma.c: In function 'snd_dma_program':
-../sound/core/isadma.c:33:17: error: implicit declaration of function 'claim_dma_lock' [-Werror=implicit-function-declaration]
-   33 |         flags = claim_dma_lock();
-      |                 ^~~~~~~~~~~~~~
-../sound/core/isadma.c:41:9: error: implicit declaration of function 'release_dma_lock' [-Werror=implicit-function-declaration]
-   41 |         release_dma_lock(flags);
-      |         ^~~~~~~~~~~~~~~~
+> Fixes: 5fcdbb2d45df ("ASoC: SOF: Add support for dynamic pipelines")
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-../sound/isa/sb/sb16_main.c: In function 'snd_sb16_playback_prepare':
-../sound/isa/sb/sb16_main.c:253:72: error: 'DMA_AUTOINIT' undeclared (first use in this function)
-  253 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_WRITE | DMA_AUTOINIT);
-      |                                                                        ^~~~~~~~~~~~
-../sound/isa/sb/sb16_main.c:253:72: note: each undeclared identifier is reported only once for each function it appears in
-../sound/isa/sb/sb16_main.c: In function 'snd_sb16_capture_prepare':
-../sound/isa/sb/sb16_main.c:322:71: error: 'DMA_AUTOINIT' undeclared (first use in this function)
-  322 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_READ | DMA_AUTOINIT);
-      |                                                                       ^~~~~~~~~~~~
+This doesn't actually apply as a fix FWIW, I've queued it for -next.
 
-and more...
+--ubdSIvIoQZalMlu7
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Cc: linux-m68k@lists.linux-m68k.org
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>
-Link: https://lore.kernel.org/r/20211016062602.3588-1-rdunlap@infradead.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/core/Makefile | 2 ++
- sound/isa/Kconfig   | 2 +-
- sound/pci/Kconfig   | 1 +
- 3 files changed, 4 insertions(+), 1 deletion(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/sound/core/Makefile b/sound/core/Makefile
-index ee4a4a6b99ba7..d123587c0fd8f 100644
---- a/sound/core/Makefile
-+++ b/sound/core/Makefile
-@@ -9,7 +9,9 @@ ifneq ($(CONFIG_SND_PROC_FS),)
- snd-y += info.o
- snd-$(CONFIG_SND_OSSEMUL) += info_oss.o
- endif
-+ifneq ($(CONFIG_M68K),y)
- snd-$(CONFIG_ISA_DMA_API) += isadma.o
-+endif
- snd-$(CONFIG_SND_OSSEMUL) += sound_oss.o
- snd-$(CONFIG_SND_VMASTER) += vmaster.o
- snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
-diff --git a/sound/isa/Kconfig b/sound/isa/Kconfig
-index d7db1eeebc844..f8f3433925bb4 100644
---- a/sound/isa/Kconfig
-+++ b/sound/isa/Kconfig
-@@ -21,7 +21,7 @@ config SND_SB16_DSP
- menuconfig SND_ISA
- 	bool "ISA sound devices"
- 	depends on ISA || COMPILE_TEST
--	depends on ISA_DMA_API
-+	depends on ISA_DMA_API && !M68K
- 	default y
- 	help
- 	  Support for sound devices connected via the ISA bus.
-diff --git a/sound/pci/Kconfig b/sound/pci/Kconfig
-index 4105d9f653d90..bbaf46dc3f804 100644
---- a/sound/pci/Kconfig
-+++ b/sound/pci/Kconfig
-@@ -278,6 +278,7 @@ config SND_CS46XX_NEW_DSP
- config SND_CS5530
- 	tristate "CS5530 Audio"
- 	depends on ISA_DMA_API && (X86_32 || COMPILE_TEST)
-+	depends on !M68K
- 	select SND_SB16_DSP
- 	help
- 	  Say Y here to include support for audio on Cyrix/NatSemi CS5530 chips.
--- 
-2.33.0
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGeNscACgkQJNaLcl1U
+h9Dnywf+LnO1gCmaSzt7vGSniDo3SGgTRNB78Uy0uw3ubtx9EXFjYTrVQ+XfCD+2
+o9bP6f0XGa9r5xqkJEu9s7zHSsfe+QdHt1PLSAbZKkGZAB+3Aa0yhsT0mnKHLFSe
+Qhhigl/nKiuMbUGQx6Jg4LTWzfuNP8cQ2o0ptN3bw/3LnoBh/homX5/PjVGq1lYf
+6EFdF7QHiKErBaFAcZDQD7QIl/VdE5yB0KdQrVFIhJM4jZrzTb2bykhuamQ0r4kS
+/FSVGW0/+8G6vCRjhkX3amcHEHtoTVOgzdE4vQDYjNek5+U0Ywd7+b+M4gjPnhw6
+P+pmZUzywjFXbZO4JXiQDm3TJaUQog==
+=RB+r
+-----END PGP SIGNATURE-----
 
-
-
+--ubdSIvIoQZalMlu7--

@@ -2,88 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160DD45CFDA
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 23:11:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCE5045CFD3
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 23:09:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB44517D9;
-	Wed, 24 Nov 2021 23:10:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB44517D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69AE417BD;
+	Wed, 24 Nov 2021 23:08:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69AE417BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637791881;
-	bh=yR4SWGDnOGE7JcXvzMIkyeUl/mS53sfrAoF7+FU5BDE=;
+	s=default; t=1637791753;
+	bh=8Jq3Q1/m+dsROHk9hVl8I3G5iOiKajzkzheVO2tqvI0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g7ajeOg627iV17/e5J7h9pe4VP8buidd4jF28wiWvrlADzpm1ZZ+9FTT0kqRnNfM+
-	 W3SbfyFUKOHulMkUmmoRbGI5AOxkTkhueRICF6lYHfhknDnNZTlNtTWFCR+iwPLFCW
-	 jtV9FzN8lT7gVTYNHuQAeNQIMtYNUH8yByae4lBQ=
+	b=HNTcL+xD/Nv1yIrOM+7QjzLZMJZHSW/9mL5vSwFss+jcWlHPNC2vEt4e18DvWB/ha
+	 I2sMIxBJqEuuhfA1bwFhUC/61ubU9ZrgLiv0jgupDaj89cVnCwU5uqPi5K6r8ETi7x
+	 iMyUZov/H9Cbs/xx+y9MUj+1H2hAyJPKo37fYuEU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8A3DF80535;
-	Wed, 24 Nov 2021 23:06:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17812F804F1;
+	Wed, 24 Nov 2021 23:06:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87663F8051E; Wed, 24 Nov 2021 23:06:55 +0100 (CET)
+ id EAFCAF804E7; Wed, 24 Nov 2021 23:06:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 515D0F804EC
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 23:06:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 515D0F804EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40397F8013A
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 23:06:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40397F8013A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="NY/QaCjl"
-Received: by mail-lj1-x231.google.com with SMTP id l9so8412089ljq.5
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 14:06:42 -0800 (PST)
+ header.b="a+huXng7"
+Received: by mail-lf1-x12d.google.com with SMTP id c32so10998200lfv.4
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 14:06:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=d38MEEq+r0QwqDvnuwxQbfydxKTbgpiZ5kKyEJPIo+w=;
- b=NY/QaCjlj9jgK5URhmeklHM2EVr5Cj9FkC04T9ouxfXOI/ffv1uanSeMvRRUUpTJMs
- yF3wA3QA85B6jL+LSwahSV1YxMRGC/ddxjdid3UBFwoYu1dTQBBy9MISi8MCWoQtD0R2
- XhKUeuiNCkCqUJwp7ZTES9DZGTf9sMdq5XdL2Paao7RFxLWYE0vPhtjrqdJrQb5uyRLF
- MKrYEcXGOPBU3pbDKHX7SbYYIe0gnm9nlkk3/ynK5oEwnUnfzSu1YWnWmdMgQoTQ3nJR
- Fo4tEdZ/FlnXzLv6sNB1CoMS/iMT02Gil98b83/0Yf4RzP2/cCE6XUDezUueY2X1Idad
- QVjg==
+ bh=Qt8PrFF5rWy8Gj1ABxOEOakxJdpJR0LJrG627NKAlx8=;
+ b=a+huXng7esgCNPuV7SwhtEtqPyIZia6XzlCsNh38W/pcBzm5vLO/WtN0fKU7aKh+8/
+ CIBprKjVIMWJngggQJIAhh/K3cv8cU0v6tqMBF+c4FbvO28PeEdAa7QgEYvw7BqBHKuF
+ tbtWmxtm5J7+z1rOoruqJlG7facc+QjOwA4UuOGVlenQ4F7M+ID+9zWzw3FQMMhO6rag
+ cOLQBiIHP+86c68dSSg8C+MoJCet4S7Yl7gAKa9BMrwcpui/lo/YDygOk8KX5bE/6q2j
+ Q0lKYbq6e9JUkorNC7H3DeIcG+HFS86rpuvXxAR6xJLhoAbYH9oeT9qlhqjFTJCdiBbL
+ Ir9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=d38MEEq+r0QwqDvnuwxQbfydxKTbgpiZ5kKyEJPIo+w=;
- b=jBwL4PzE7DSkAR7eP+AYzQ9TV3UGF1CDH9yNtJdTK8I+YeiXgpAkJrxz0ev1HBDJ5D
- ibG+/Ih2RewPaVGyI+3y7FVeIkAE3hzCU71Ao8WU++NzawXheqiIG4WvOdkhDnYepzr1
- KrsnQ8Zn2WeUM5/Bf6GlHUtcrtxYOjqdE2dHxiyOVVnEJVpiwY3yyu+DPjNWpqEI+Ad0
- fC1t81fKyU4//McZL1l3ix1yUGAuMazmRPeYa9PSyiPLR7qnJ+ryUBeE5l+Cp8PEBif6
- yDuVhUHL1iQUCIdOLc+4/nKDHMbF+d/p2X2FUy8ZSHDcwq9+sgmX1AbdHh5OKsDpgAjE
- tMFw==
-X-Gm-Message-State: AOAM5327gGNJvMxgsoxdztc/gHqSAlhnPuCl/ZPzlSfdPztLF/4bVV23
- CPbdpSpXIQXmKmA0zaKyefg=
-X-Google-Smtp-Source: ABdhPJxMcR5/ecEUq7nU2V2k+gv9udFcA9YjKObt98jdvy73sHqkqgxre2x8TdIo01cmYWP4KfK0OA==
-X-Received: by 2002:a05:651c:49b:: with SMTP id
- s27mr19200524ljc.404.1637791597212; 
- Wed, 24 Nov 2021 14:06:37 -0800 (PST)
+ bh=Qt8PrFF5rWy8Gj1ABxOEOakxJdpJR0LJrG627NKAlx8=;
+ b=GvTquLBVkbLGw6D5GFn0ExuZca16bp6y/mlZpJ6Lbt8/n0+z0QZamYLR1ypI+/paYw
+ uuWJ6EsdmsrSW11V5UsdRXEG8yRnV5RDOdr89LbYhvyu3yrGEwMuApOV7esjYik7xATZ
+ Sa5AJxJus7vfMfFgiEHZsbOEc6hRLtO+CGJr/BenS7zlftb6nAyo5+DkrhtcZGM/lJAo
+ BoVzv93sgK9OntD/aLouaHFXP0M36rsjsb8fgshwlYdEwsOIuT7IWmw2Mp3UJ/qoHi9i
+ A9TMMXfeYyR/Xl69bFajsvYwOrNPHFeIx5I8i1laH4pRZrhpSxBzwbnU3fzjYkhERHUD
+ Zkyg==
+X-Gm-Message-State: AOAM531RZw1sGjgqhGh8r6MjKJ2Y7sndnpAPEkBZvOx5ygzVVodpYiwS
+ dRzwubfbZ8X9Plb00Qz45DI=
+X-Google-Smtp-Source: ABdhPJxCMiI0o3HkziLhuPY402vnYenV2NdTnAA2rDvSVmJpZ2nJ1F/bnaflrwME9Hek/dqCHJ/c4w==
+X-Received: by 2002:a05:6512:3095:: with SMTP id
+ z21mr18114135lfd.423.1637791598355; 
+ Wed, 24 Nov 2021 14:06:38 -0800 (PST)
 Received: from localhost.localdomain (94-29-48-99.dynamic.spd-mgts.ru.
  [94.29.48.99])
- by smtp.gmail.com with ESMTPSA id w17sm93266ljh.15.2021.11.24.14.06.36
+ by smtp.gmail.com with ESMTPSA id w17sm93266ljh.15.2021.11.24.14.06.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Nov 2021 14:06:36 -0800 (PST)
+ Wed, 24 Nov 2021 14:06:38 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
  Liam Girdwood <lgirdwood@gmail.com>, Agneli <poczt@protonmail.ch>,
  Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH v1 08/20] ASoC: tegra20: spdif: Improve driver's code
-Date: Thu, 25 Nov 2021 01:00:45 +0300
-Message-Id: <20211124220057.15763-9-digetx@gmail.com>
+Subject: [PATCH v1 09/20] ASoC: tegra20: spdif: Use more resource-managed
+ helpers
+Date: Thu, 25 Nov 2021 01:00:46 +0300
+Message-Id: <20211124220057.15763-10-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211124220057.15763-1-digetx@gmail.com>
 References: <20211124220057.15763-1-digetx@gmail.com>
@@ -107,179 +108,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-- Clean up whitespaces, defines and variables.
-
-- Remove obsolete code.
-
-- Adhere to upstream coding style.
-
-- Don't override returned error code.
-
-- Replace pr_err with dev_err.
-
-No functional changes are made by this patch. This is a minor code's
-refactoring that will ease further maintenance of the driver.
+Use resource-managed helpers to make code cleaner. Driver's remove callback
+isn't needed anymore since driver is completely resource-managed now.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- sound/soc/tegra/tegra20_spdif.c | 49 ++++++++++++---------------------
- 1 file changed, 18 insertions(+), 31 deletions(-)
+ sound/soc/tegra/tegra20_spdif.c | 33 +++++++++------------------------
+ sound/soc/tegra/tegra_pcm.c     |  6 ++++++
+ sound/soc/tegra/tegra_pcm.h     |  1 +
+ 3 files changed, 16 insertions(+), 24 deletions(-)
 
 diff --git a/sound/soc/tegra/tegra20_spdif.c b/sound/soc/tegra/tegra20_spdif.c
-index 6650875d2555..9383683aa4e9 100644
+index 9383683aa4e9..6ca48bc322ae 100644
 --- a/sound/soc/tegra/tegra20_spdif.c
 +++ b/sound/soc/tegra/tegra20_spdif.c
-@@ -23,8 +23,6 @@
+@@ -289,38 +289,24 @@ static int tegra20_spdif_platform_probe(struct platform_device *pdev)
+ 	spdif->playback_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+ 	spdif->playback_dma_data.maxburst = 4;
  
- #include "tegra20_spdif.h"
+-	pm_runtime_enable(&pdev->dev);
++	ret = devm_pm_runtime_enable(&pdev->dev);
++	if (ret)
++		return ret;
  
--#define DRV_NAME "tegra20-spdif"
--
- static __maybe_unused int tegra20_spdif_runtime_suspend(struct device *dev)
- {
- 	struct tegra20_spdif *spdif = dev_get_drvdata(dev);
-@@ -49,11 +47,10 @@ static __maybe_unused int tegra20_spdif_runtime_resume(struct device *dev)
- }
- 
- static int tegra20_spdif_hw_params(struct snd_pcm_substream *substream,
--				struct snd_pcm_hw_params *params,
--				struct snd_soc_dai *dai)
-+				   struct snd_pcm_hw_params *params,
-+				   struct snd_soc_dai *dai)
- {
--	struct device *dev = dai->dev;
--	struct tegra20_spdif *spdif = snd_soc_dai_get_drvdata(dai);
-+	struct tegra20_spdif *spdif = dev_get_drvdata(dai->dev);
- 	unsigned int mask = 0, val = 0;
- 	int ret, spdifclock;
- 
-@@ -106,7 +103,7 @@ static int tegra20_spdif_hw_params(struct snd_pcm_substream *substream,
- 
- 	ret = clk_set_rate(spdif->clk_spdif_out, spdifclock);
- 	if (ret) {
--		dev_err(dev, "Can't set SPDIF clock rate: %d\n", ret);
-+		dev_err(dai->dev, "Can't set SPDIF clock rate: %d\n", ret);
- 		return ret;
- 	}
- 
-@@ -127,9 +124,9 @@ static void tegra20_spdif_stop_playback(struct tegra20_spdif *spdif)
- }
- 
- static int tegra20_spdif_trigger(struct snd_pcm_substream *substream, int cmd,
--				struct snd_soc_dai *dai)
-+				 struct snd_soc_dai *dai)
- {
--	struct tegra20_spdif *spdif = snd_soc_dai_get_drvdata(dai);
-+	struct tegra20_spdif *spdif = dev_get_drvdata(dai->dev);
- 
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
-@@ -151,7 +148,7 @@ static int tegra20_spdif_trigger(struct snd_pcm_substream *substream, int cmd,
- 
- static int tegra20_spdif_probe(struct snd_soc_dai *dai)
- {
--	struct tegra20_spdif *spdif = snd_soc_dai_get_drvdata(dai);
-+	struct tegra20_spdif *spdif = dev_get_drvdata(dai->dev);
- 
- 	dai->capture_dma_data = NULL;
- 	dai->playback_dma_data = &spdif->playback_dma_data;
-@@ -160,26 +157,26 @@ static int tegra20_spdif_probe(struct snd_soc_dai *dai)
- }
- 
- static const struct snd_soc_dai_ops tegra20_spdif_dai_ops = {
--	.hw_params	= tegra20_spdif_hw_params,
--	.trigger	= tegra20_spdif_trigger,
-+	.hw_params = tegra20_spdif_hw_params,
-+	.trigger = tegra20_spdif_trigger,
- };
- 
- static struct snd_soc_dai_driver tegra20_spdif_dai = {
--	.name = DRV_NAME,
-+	.name = "tegra20-spdif",
- 	.probe = tegra20_spdif_probe,
- 	.playback = {
- 		.stream_name = "Playback",
- 		.channels_min = 2,
- 		.channels_max = 2,
- 		.rates = SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
--				SNDRV_PCM_RATE_48000,
-+			 SNDRV_PCM_RATE_48000,
- 		.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 	},
- 	.ops = &tegra20_spdif_dai_ops,
- };
- 
- static const struct snd_soc_component_driver tegra20_spdif_component = {
--	.name		= DRV_NAME,
-+	.name = "tegra20-spdif",
- };
- 
- static bool tegra20_spdif_wr_rd_reg(struct device *dev, unsigned int reg)
-@@ -260,7 +257,7 @@ static const struct regmap_config tegra20_spdif_regmap_config = {
- static int tegra20_spdif_platform_probe(struct platform_device *pdev)
- {
- 	struct tegra20_spdif *spdif;
--	struct resource *mem, *dmareq;
-+	struct resource *mem;
- 	void __iomem *regs;
- 	int ret;
- 
-@@ -273,27 +270,19 @@ static int tegra20_spdif_platform_probe(struct platform_device *pdev)
- 
- 	spdif->clk_spdif_out = devm_clk_get(&pdev->dev, "spdif_out");
- 	if (IS_ERR(spdif->clk_spdif_out)) {
--		pr_err("Can't retrieve spdif clock\n");
--		ret = PTR_ERR(spdif->clk_spdif_out);
--		return ret;
-+		dev_err(&pdev->dev, "Could not retrieve spdif clock\n");
-+		return PTR_ERR(spdif->clk_spdif_out);
- 	}
- 
- 	regs = devm_platform_get_and_ioremap_resource(pdev, 0, &mem);
- 	if (IS_ERR(regs))
- 		return PTR_ERR(regs);
- 
--	dmareq = platform_get_resource(pdev, IORESOURCE_DMA, 0);
--	if (!dmareq) {
--		dev_err(&pdev->dev, "No DMA resource\n");
--		return -ENODEV;
--	}
--
- 	spdif->regmap = devm_regmap_init_mmio(&pdev->dev, regs,
--					    &tegra20_spdif_regmap_config);
-+					      &tegra20_spdif_regmap_config);
- 	if (IS_ERR(spdif->regmap)) {
- 		dev_err(&pdev->dev, "regmap init failed\n");
--		ret = PTR_ERR(spdif->regmap);
--		return ret;
-+		return PTR_ERR(spdif->regmap);
- 	}
- 
- 	spdif->playback_dma_data.addr = mem->start + TEGRA20_SPDIF_DATA_OUT;
-@@ -306,7 +295,6 @@ static int tegra20_spdif_platform_probe(struct platform_device *pdev)
- 					 &tegra20_spdif_dai, 1);
+-	ret = snd_soc_register_component(&pdev->dev, &tegra20_spdif_component,
+-					 &tegra20_spdif_dai, 1);
++	ret = devm_snd_soc_register_component(&pdev->dev,
++					      &tegra20_spdif_component,
++					      &tegra20_spdif_dai, 1);
  	if (ret) {
  		dev_err(&pdev->dev, "Could not register DAI: %d\n", ret);
--		ret = -ENOMEM;
- 		goto err_pm_disable;
+-		goto err_pm_disable;
++		return ret;
  	}
  
-@@ -349,14 +337,13 @@ MODULE_DEVICE_TABLE(of, tegra20_spdif_of_match);
+-	ret = tegra_pcm_platform_register(&pdev->dev);
++	ret = devm_tegra_pcm_platform_register(&pdev->dev);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Could not register PCM: %d\n", ret);
+-		goto err_unregister_component;
++		return ret;
+ 	}
  
- static struct platform_driver tegra20_spdif_driver = {
- 	.driver = {
--		.name = DRV_NAME,
-+		.name = "tegra20-spdif",
- 		.pm = &tegra20_spdif_pm_ops,
+-	return 0;
+-
+-err_unregister_component:
+-	snd_soc_unregister_component(&pdev->dev);
+-err_pm_disable:
+-	pm_runtime_disable(&pdev->dev);
+-
+-	return ret;
+-}
+-
+-static int tegra20_spdif_platform_remove(struct platform_device *pdev)
+-{
+-	tegra_pcm_platform_unregister(&pdev->dev);
+-	snd_soc_unregister_component(&pdev->dev);
+-
+-	pm_runtime_disable(&pdev->dev);
+-
+ 	return 0;
+ }
+ 
+@@ -342,7 +328,6 @@ static struct platform_driver tegra20_spdif_driver = {
  		.of_match_table = tegra20_spdif_of_match,
  	},
  	.probe = tegra20_spdif_platform_probe,
- 	.remove = tegra20_spdif_platform_remove,
+-	.remove = tegra20_spdif_platform_remove,
  };
--
  module_platform_driver(tegra20_spdif_driver);
  
- MODULE_AUTHOR("Stephen Warren <swarren@nvidia.com>");
+diff --git a/sound/soc/tegra/tegra_pcm.c b/sound/soc/tegra/tegra_pcm.c
+index ef1e74d95236..468c8e77de21 100644
+--- a/sound/soc/tegra/tegra_pcm.c
++++ b/sound/soc/tegra/tegra_pcm.c
+@@ -48,6 +48,12 @@ int tegra_pcm_platform_register(struct device *dev)
+ }
+ EXPORT_SYMBOL_GPL(tegra_pcm_platform_register);
+ 
++int devm_tegra_pcm_platform_register(struct device *dev)
++{
++	return devm_snd_dmaengine_pcm_register(dev, &tegra_dmaengine_pcm_config, 0);
++}
++EXPORT_SYMBOL_GPL(devm_tegra_pcm_platform_register);
++
+ int tegra_pcm_platform_register_with_chan_names(struct device *dev,
+ 				struct snd_dmaengine_pcm_config *config,
+ 				char *txdmachan, char *rxdmachan)
+diff --git a/sound/soc/tegra/tegra_pcm.h b/sound/soc/tegra/tegra_pcm.h
+index d602126c65b7..2a36eea1740d 100644
+--- a/sound/soc/tegra/tegra_pcm.h
++++ b/sound/soc/tegra/tegra_pcm.h
+@@ -32,6 +32,7 @@ int tegra_pcm_hw_params(struct snd_soc_component *component,
+ snd_pcm_uframes_t tegra_pcm_pointer(struct snd_soc_component *component,
+ 				    struct snd_pcm_substream *substream);
+ int tegra_pcm_platform_register(struct device *dev);
++int devm_tegra_pcm_platform_register(struct device *dev);
+ int tegra_pcm_platform_register_with_chan_names(struct device *dev,
+ 				struct snd_dmaengine_pcm_config *config,
+ 				char *txdmachan, char *rxdmachan);
 -- 
 2.33.1
 

@@ -2,70 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83B4D45CB33
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 18:38:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E4C445CB35
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 18:38:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79A6F1795;
-	Wed, 24 Nov 2021 18:37:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79A6F1795
+	by alsa0.perex.cz (Postfix) with ESMTPS id E10DF1793;
+	Wed, 24 Nov 2021 18:37:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E10DF1793
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637775499;
-	bh=JEeUexWEgyab1NljGHQNaWIyFZQlnmSROasR1Re9FXg=;
+	s=default; t=1637775519;
+	bh=WjNHfbL0WbJXqoNYs1NfKafdOJ56qEACQX0oSXUon7g=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sLUfakpQuSyVULWD2QQ4di6mEDseN7jPJmGgAwm98v4C9jNGDojlX96DwBXNzlQGw
-	 /zLtRk+IX3Njro12ZWgpqY29ly4qSpD4ZoY9BIoEUrAXYaD6ybUr4/+3D+L9HuQyZb
-	 v1WXWX9MRso5wvqp8zoyGzDOgGvAqnLFSd52yt5k=
+	b=H2yImIv4HBLClDSJYL5qHmyTS6gFYS4uW8nL5x6RtCTPpDuuAnj7fICMBlMsrJhkE
+	 eninji0Q09u9eOx6OwNOFbqvrke50lw4EfqRM9YVi5b0zXUkCcCBZFTEq/MnP+9EVe
+	 Yug8PldIzUDFoFjwKKSLQdUpl/nFrEnc6B6fZKWg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92BE6F8032D;
-	Wed, 24 Nov 2021 18:36:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79F85F804AD;
+	Wed, 24 Nov 2021 18:36:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E3DFF80087; Wed, 24 Nov 2021 18:36:39 +0100 (CET)
+ id 6660DF804EC; Wed, 24 Nov 2021 18:36:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_21,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 106F8F80087
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 18:36:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 106F8F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4DCDF804AD
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 18:36:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4DCDF804AD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qoI3EN2i"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C50AB60E0B;
- Wed, 24 Nov 2021 17:36:28 +0000 (UTC)
+ header.b="qwk/k4H5"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 99DBF60F5B;
+ Wed, 24 Nov 2021 17:36:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637775390;
- bh=JEeUexWEgyab1NljGHQNaWIyFZQlnmSROasR1Re9FXg=;
+ s=k20201202; t=1637775401;
+ bh=WjNHfbL0WbJXqoNYs1NfKafdOJ56qEACQX0oSXUon7g=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=qoI3EN2icsuEq+84/28slFKggX1HwQzUrFf0aTEv0Opcm60iGe2C59rv27kXFoshe
- rgENMjtj3bhiZ6dhLvKrdR4yPhpx21s6PBqJCMrw7y5fsrVUILoOPrvIInbkO3zYNz
- SDt+VpdO4WAwP4Xl2WmbiwNkZzshLejdd8Y2Sk1tGsb3GQVYt3WyZotXMSj1pcV6vK
- /+Zwi5yenTjJCMCPO3DKPzd6CUY5jAJTibw03Zs9niI22nOHn/z0kd4Ux3rBOqOKOO
- Oh+2Nk30e5zOKcK3tXbhbGKBPPALAOHUimIZz06+p2ifsyvwcvkZ0Q8xXJU/HfBTf+
- Y0zhV+oxLFE9w==
+ b=qwk/k4H58rCDFiwM4WsV51NBP86gUUgR7LY0FpIBTvSLGbxt9eBulRPOSqg1hAvee
+ hqcEY6exavtKPDi9w9OdA5k0+phvatS+el+oc1kJ28h6x87JW+iXuvVHnwEjZBiQ8B
+ Tr3jJmmVrM95iPGYqcgYOcnND3e5h2oboAYr3/SPpDcjZ2j8QlEUX+ZDcwl8ftotfU
+ uJyJe3bDYSa2inJxh99Vdk6PWvOI67EWtc8yNC019zZZPUUgFmsPEIBGmnqil6qcpK
+ e4moIqq2CYSGNalF6Myl/ahPhZadMTG+ngI8BRc734ayryq6dnsuMqUn0ypnjlgomt
+ BvRl4I8D3L1ow==
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20211123165759.127884-1-kai.vehmanen@linux.intel.com>
-References: <20211123165759.127884-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: hda: reset DAI widget before reconfiguring it
-Message-Id: <163777538854.2712035.15609353888586493899.b4-ty@kernel.org>
-Date: Wed, 24 Nov 2021 17:36:28 +0000
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20211119230852.206310-1-pierre-louis.bossart@linux.intel.com>
+References: <20211119230852.206310-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v4 0/4] ASoC: SOF: Intel: power optimizations with HDaudio
+ SPIB register
+Message-Id: <163777540037.2712097.15004732290629570498.b4-ty@kernel.org>
+Date: Wed, 24 Nov 2021 17:36:40 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- Paul Olaru <paul.olaru@oss.nxp.com>, daniel.baluta@nxp.com,
- Bard Liao <bard.liao@intel.com>
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,24 +80,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 23 Nov 2021 18:57:59 +0200, Kai Vehmanen wrote:
-> From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+On Fri, 19 Nov 2021 17:08:48 -0600, Pierre-Louis Bossart wrote:
+> This patchset was initially provided in a larger series that was split
+> in two [1]. This part only provides support for the SPIB register
+> support, added on Intel platforms since Skylake (2015).
 > 
-> It is not unusual for ALSA/ASoC hw_params callbacks to be invoked
-> multiple times. Reset and free the DAI widget before reconfiguring
-> it to keep the DAI widget use_count balanced.
-> 
+> The use of the SPIB register helps reduce power consumption - though
+> to a smaller degree than DMI_L1. This hardware capability is however
+> incompatible with userspace-initiated rewinds typically used by
+> PulseAudio.
 > 
 > [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
 Thanks!
 
-[1/1] ASoC: SOF: hda: reset DAI widget before reconfiguring it
-      commit: 86f74ba3fef56dd1cee19b7a15ae27fc0da5bb61
+[1/4] ALSA: pcm: unconditionally check if appl_ptr is in 0..boundary range
+      commit: 0e888a74e52db369e19aec908131cf171079b306
+[2/4] ALSA: pcm: introduce INFO_NO_REWINDS flag
+      commit: b456abe63f60ad93c83a526d33b71574bc32656c
+[3/4] ASoC: SOF: pcm: add .ack callback support
+      commit: 4a39ea3f07f14f21a6b97e78c972f71fc5761d3a
+[4/4] ASoC: SOF: Intel: add .ack support for HDaudio platforms
+      commit: 6c26b5054ce2b822856e32f1840d13f777c6f295
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

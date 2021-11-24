@@ -2,102 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F34445B85A
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 11:27:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B845545BF50
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 13:53:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CDE217BA;
-	Wed, 24 Nov 2021 11:26:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CDE217BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5438817AB;
+	Wed, 24 Nov 2021 13:53:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5438817AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637749630;
-	bh=J/fxyXU6XorbEB8q7buh5vRjgvB/7wImXjmxGvJlWLQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1637758431;
+	bh=ZMGpCI8oDIhIjEv0205Deqq+Gh7JpQMOGyNXtAcjAOI=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uzLH3dothSDffF836fGfk4zZ/VTYUSkrvmfO1/FN5zobYqwOOr8dBKL4BBXB2ShOm
-	 wm8pYc/Y/Bs/yeGrSxOY7JW5Tk/M30YnQRpm9F8hza2ZjLwXetWK0df6kfbEi4s0Ix
-	 bBjoaTouIlEGMsHF0l/Ti+vIDu4Hxw29WQr/4/K8=
+	b=ZqTfrlsf5k83s6msE2RcdFM5eCBRFkn/vSyYha5+ggPaUan5zbaNNQyopmh/3H7bT
+	 hlhArLqF3ENTmRk6tICHhPl2igawLUvbg5YQP6yz/owLVjMuULUgVneIuDQ1PdEC1q
+	 Yn8d44GU8HTO+ZjuVG23sPapMcl67fFSARTlZNKA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BAD5F804B4;
-	Wed, 24 Nov 2021 11:25:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B314FF8013A;
+	Wed, 24 Nov 2021 13:52:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04CC3F804E6; Wed, 24 Nov 2021 11:25:45 +0100 (CET)
+ id 69CD9F801F7; Wed, 24 Nov 2021 13:52:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2451F80245
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 11:25:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2451F80245
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F7F9F8011F
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 13:52:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F7F9F8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="VowkGQmd"
-Received: by mail-pj1-x1036.google.com with SMTP id
- j5-20020a17090a318500b001a6c749e697so3976214pjb.1
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 02:25:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=tHyc4vww6f6Wxw3/eQBdIL1Je73VlgA7JKdBmqCGaqQ=;
- b=VowkGQmdCxCl/a39pPTkWIbniAxWrdCHUsnAMenLISOVDapuFtot+ZCoAIEwY+DpO+
- NK/tnsSLBHrGigPWuscFnVh6tQZkOSgNYqvpsT2EZJt1Hx+iyTkg1YSBJeYFbRkfl36C
- uj+uL9HLk//ZN790gI6f6zcYkjVdMvHVXFu0s4He+PE6Ogh7ZfFHYQSm9034+1hd6Sr6
- PSH+E3CeS3mz4J6EuPObfwTOUcvU2hlHBO8XsElgtmA9kmOwDcO65PS+yaho+l2S4mD5
- qECsdYfGUEdUV3ZAZtssW5/2fp0oS2ynsO+UWRvZENTt8l7F/AB3S/y7naJqLsmq15ep
- QQZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=tHyc4vww6f6Wxw3/eQBdIL1Je73VlgA7JKdBmqCGaqQ=;
- b=RqnStXURMOo/o/jQJFIPFxzfqFnWU8YW6FT/kvwKAZ+SZ18242ZQnQXnQ0b1P82e+Y
- rxujVniiT+54z1EAEzsAK2BEvQpPSCbbT3uKfCQ5tH4IXt2xK+0VtIhxR8teGu1qPqBA
- t3aOCNEyMM6OLNx58v0fUCBUEbG/l40xwqdxwz6cJqui6tkSbVo80Yhv2aDSJGgyH0J6
- anFilOPyGjvrRVKl7KrWX5U+o61gADTqh1hc8xEQi1tWvdchIo+Hm2zQUvCIOP68ih9W
- ZEKcBBgcQpbv8xrrl5S81K5A4LJhz5Oi5Mv+CgoU1x0aPG3sqyOJpHFXHCNMqmCNmSaf
- J4Nw==
-X-Gm-Message-State: AOAM530FDUVC8FUxFgWzxElKaAkbF8EUgdl9fO0jIf+P7sUH5zhx/dkf
- AlaOQJKiAmOLUBuQpJxWTjC+xQ==
-X-Google-Smtp-Source: ABdhPJwLWZxBb9qwghOW25FeDDOjCEelQjT4dSKut4RYsVrgGIzla0FvveTn3livbxhFig7UgwmMkg==
-X-Received: by 2002:a17:903:2449:b0:142:b3c:f9c6 with SMTP id
- l9-20020a170903244900b001420b3cf9c6mr16910209pls.77.1637749534624; 
- Wed, 24 Nov 2021 02:25:34 -0800 (PST)
-Received: from google.com ([2401:fa00:1:10:104b:13b9:d53:e2aa])
- by smtp.gmail.com with ESMTPSA id q9sm11522330pfj.114.2021.11.24.02.25.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Nov 2021 02:25:34 -0800 (PST)
-Date: Wed, 24 Nov 2021 18:25:30 +0800
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: "allen-kh.cheng" <allen-kh.cheng@mediatek.com>
-Subject: Re: [PATCH v3 3/3] firmware: mediatek: add adsp ipc protocol interface
-Message-ID: <YZ4TGvtwO5ySCEkT@google.com>
-References: <20211124084514.28002-1-allen-kh.cheng@mediatek.com>
- <20211124084514.28002-4-allen-kh.cheng@mediatek.com>
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="raByjrgC"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 074F561183;
+ Wed, 24 Nov 2021 12:52:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1637758338;
+ bh=ZMGpCI8oDIhIjEv0205Deqq+Gh7JpQMOGyNXtAcjAOI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=raByjrgClzrxOVvRIc2/DRjsEIQSNayLKNe0GL18Zwzfr1AtHA0bFW+EHMNVOr4t8
+ 0Pru+o8iSJjT8jOBSV/3XN0hegniifokt15bIDjW+HCD95NX6dnC3YWpwGpJLXtxmv
+ hObxVVqacYDm7MaeYdm5zTqoTZS1m1QAKgQqLLew=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH 5.10 035/154] ALSA: ISA: not for M68K
+Date: Wed, 24 Nov 2021 12:57:11 +0100
+Message-Id: <20211124115703.493353371@linuxfoundation.org>
+X-Mailer: git-send-email 2.34.0
+In-Reply-To: <20211124115702.361983534@linuxfoundation.org>
+References: <20211124115702.361983534@linuxfoundation.org>
+User-Agent: quilt/0.66
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211124084514.28002-4-allen-kh.cheng@mediatek.com>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Jassi Brar <jassisinghbrar@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Takashi Iwai <tiwai@suse.com>,
+ stable@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,61 +81,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Nov 24, 2021 at 04:45:14PM +0800, allen-kh.cheng wrote:
->  drivers/firmware/Kconfig                      |   1 +
->  drivers/firmware/Makefile                     |   1 +
->  drivers/firmware/mediatek/Kconfig             |  10 ++
->  drivers/firmware/mediatek/Makefile            |   2 +
->  drivers/firmware/mediatek/mtk-adsp-ipc.c      | 130 ++++++++++++++++++
->  .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  72 ++++++++++
->  6 files changed, 216 insertions(+)
->  create mode 100644 drivers/firmware/mediatek/Kconfig
->  create mode 100644 drivers/firmware/mediatek/Makefile
->  create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
->  create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
+From: Randy Dunlap <rdunlap@infradead.org>
 
-The patch should move before the 2nd patch in the series as the 2nd patch uses mtk-adsp-ipc.h.
+[ Upstream commit 3c05f1477e62ea5a0a8797ba6a545b1dc751fb31 ]
 
-> diff --git a/drivers/firmware/mediatek/mtk-adsp-ipc.c b/drivers/firmware/mediatek/mtk-adsp-ipc.c
-[...]
-> +int adsp_ipc_send(struct mtk_adsp_ipc *ipc, unsigned int idx, uint32_t op)
-> +{
-> +	struct mtk_adsp_chan *dsp_chan = &ipc->chans[idx];
-> +	struct adsp_mbox_ch_info *ch_info = dsp_chan->ch->con_priv;
-> +	int ret;
-> +
-> +	if (idx >= MTK_ADSP_MBOX_NUM)
-> +		return -EINVAL;
+On m68k, compiling drivers under SND_ISA causes build errors:
 
-If idx >= MTK_ADSP_MBOX_NUM, the invalid memory access has occurred at beginning of the function.
+../sound/core/isadma.c: In function 'snd_dma_program':
+../sound/core/isadma.c:33:17: error: implicit declaration of function 'claim_dma_lock' [-Werror=implicit-function-declaration]
+   33 |         flags = claim_dma_lock();
+      |                 ^~~~~~~~~~~~~~
+../sound/core/isadma.c:41:9: error: implicit declaration of function 'release_dma_lock' [-Werror=implicit-function-declaration]
+   41 |         release_dma_lock(flags);
+      |         ^~~~~~~~~~~~~~~~
 
-> +static int mtk_adsp_ipc_probe(struct platform_device *pdev)
-> +{
-[...]
-> +	device_set_of_node_from_dev(&pdev->dev, pdev->dev.parent);
+../sound/isa/sb/sb16_main.c: In function 'snd_sb16_playback_prepare':
+../sound/isa/sb/sb16_main.c:253:72: error: 'DMA_AUTOINIT' undeclared (first use in this function)
+  253 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_WRITE | DMA_AUTOINIT);
+      |                                                                        ^~~~~~~~~~~~
+../sound/isa/sb/sb16_main.c:253:72: note: each undeclared identifier is reported only once for each function it appears in
+../sound/isa/sb/sb16_main.c: In function 'snd_sb16_capture_prepare':
+../sound/isa/sb/sb16_main.c:322:71: error: 'DMA_AUTOINIT' undeclared (first use in this function)
+  322 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_READ | DMA_AUTOINIT);
+      |                                                                       ^~~~~~~~~~~~
 
-Why does it need to call device_set_of_node_from_dev()?
+and more...
 
-> +	for (i = 0; i < MTK_ADSP_MBOX_NUM; i++) {
-> +		chan_name = kasprintf(GFP_KERNEL, "mbox%d", i);
-> +		if (!chan_name)
-> +			return -ENOMEM;
-> +
-> +		dsp_chan = &dsp_ipc->chans[i];
-> +		cl = &dsp_chan->cl;
-> +		cl->dev = dev->parent;
-> +		cl->tx_block = false;
-> +		cl->knows_txdone = false;
-> +		cl->tx_prepare = NULL;
-> +		cl->rx_callback = adsp_ipc_recv;
-> +
-> +		dsp_chan->ipc = dsp_ipc;
-> +		dsp_chan->idx = i;
-> +		dsp_chan->ch = mbox_request_channel_byname(cl, chan_name);
-> +		if (IS_ERR(dsp_chan->ch)) {
-> +			ret = PTR_ERR(dsp_chan->ch);
-> +			if (ret != -EPROBE_DEFER)
-> +				dev_err(dev, "Failed to request mbox chan %d ret %d\n",
-> +					i, ret);
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-m68k@lists.linux-m68k.org
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>
+Link: https://lore.kernel.org/r/20211016062602.3588-1-rdunlap@infradead.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/core/Makefile | 2 ++
+ sound/isa/Kconfig   | 2 +-
+ sound/pci/Kconfig   | 1 +
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-If ret == -EPROBE_DEFER, wouldn't it need to return -EPROBE_DEFER?  It doesn't retry later if -EPROBE_DEFER.
+diff --git a/sound/core/Makefile b/sound/core/Makefile
+index ee4a4a6b99ba7..d123587c0fd8f 100644
+--- a/sound/core/Makefile
++++ b/sound/core/Makefile
+@@ -9,7 +9,9 @@ ifneq ($(CONFIG_SND_PROC_FS),)
+ snd-y += info.o
+ snd-$(CONFIG_SND_OSSEMUL) += info_oss.o
+ endif
++ifneq ($(CONFIG_M68K),y)
+ snd-$(CONFIG_ISA_DMA_API) += isadma.o
++endif
+ snd-$(CONFIG_SND_OSSEMUL) += sound_oss.o
+ snd-$(CONFIG_SND_VMASTER) += vmaster.o
+ snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
+diff --git a/sound/isa/Kconfig b/sound/isa/Kconfig
+index 6ffa48dd59830..570b88e0b2018 100644
+--- a/sound/isa/Kconfig
++++ b/sound/isa/Kconfig
+@@ -22,7 +22,7 @@ config SND_SB16_DSP
+ menuconfig SND_ISA
+ 	bool "ISA sound devices"
+ 	depends on ISA || COMPILE_TEST
+-	depends on ISA_DMA_API
++	depends on ISA_DMA_API && !M68K
+ 	default y
+ 	help
+ 	  Support for sound devices connected via the ISA bus.
+diff --git a/sound/pci/Kconfig b/sound/pci/Kconfig
+index 93bc9bef7641f..41ce125971777 100644
+--- a/sound/pci/Kconfig
++++ b/sound/pci/Kconfig
+@@ -279,6 +279,7 @@ config SND_CS46XX_NEW_DSP
+ config SND_CS5530
+ 	tristate "CS5530 Audio"
+ 	depends on ISA_DMA_API && (X86_32 || COMPILE_TEST)
++	depends on !M68K
+ 	select SND_SB16_DSP
+ 	help
+ 	  Say Y here to include support for audio on Cyrix/NatSemi CS5530 chips.
+-- 
+2.33.0
+
+
+

@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D1E45CFD5
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 23:09:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FAAA45CFD8
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 23:10:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5976180F;
-	Wed, 24 Nov 2021 23:08:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5976180F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D9C2181F;
+	Wed, 24 Nov 2021 23:09:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D9C2181F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637791784;
-	bh=OsOturNdjtG3hBrUOewxcmKWr+GmrlJTjxY35LGB/0A=;
+	s=default; t=1637791840;
+	bh=yJLbY0Ibh5GGbjilTVPPqneyfq24PxZlF14d+djHmKE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B0L3zNLv1okCFAvKkQTJySROjN6Axh3UBEgVpmUTUkpFb2vi7MLzN+cWWn+ObfHoi
-	 jtkcUbA/BO/fXo1/uW6DrW0wCgYgK1LCK5509r1VE6hzUgrwtezyrw3SYbcyqV2Srm
-	 Ew/o9AX55I0X5m3HUCLekDfRZIyJbld5dXeMHi3U=
+	b=gUMVigTcYHZGXDo/XI5z6CWtYH0908MEcalPkqiauBHOHGL71DlxXiCpqQFemErFB
+	 OSootVia+ABO0e4Y774uHQ3xGUPR4cPZ8sPpaEyRcJdyZo8jduNJYzzJjjWGGaq33E
+	 uOPgRnldsXc/NoaF8FA4tttx9a5Ilvwdj9J2lVNU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 924CCF80518;
-	Wed, 24 Nov 2021 23:06:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BAE8F804FB;
+	Wed, 24 Nov 2021 23:06:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF774F804F2; Wed, 24 Nov 2021 23:06:46 +0100 (CET)
+ id 9E71AF80519; Wed, 24 Nov 2021 23:06:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CB2FF80302
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 23:06:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CB2FF80302
+ by alsa1.perex.cz (Postfix) with ESMTPS id B50A9F804ED
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 23:06:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B50A9F804ED
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="BNzkIwDk"
-Received: by mail-lj1-x22c.google.com with SMTP id z8so8367966ljz.9
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 14:06:35 -0800 (PST)
+ header.b="UqwzU78y"
+Received: by mail-lj1-x235.google.com with SMTP id 207so8350044ljf.10
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 14:06:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=GOTn7eXs/dAu+lzrstonS6bV/obhXYqPBxpagkI+NbQ=;
- b=BNzkIwDk3BqFtBCJnlx+pZQmG/hQM1mUvfdYmbK/URC1F7GJOyjCp6Dqw6Y6iSof3C
- AG6tZ/JnxcJIZp6CdFsRG30x78DWDWb+/ORdS5UeGUa9Q6EDRlcmDHjXKzDL5imjfzOz
- mHcg2mQyhXw0jwBL2Q81ZRQqvhvK74gMqRSUvJwAaiprZG7XzxytciuM4wHuDny9H2OW
- rEU1VKKCPULetRjUQHwAW9v+0p1yrCfyfYGZW9DrPxAnr/r75XAB1B3KjR7ayez0Js0Z
- 5vR6nGFjosAxh4Xd7C6uZe1wY5X1BUUYZQlPCV7IoXZs8NJ7sAEhxjT/Ky10YifQqYCP
- cp0w==
+ bh=1JU496kEAul2Xrq2ly7/mGbdp4YdTxxslXy87kjnkVE=;
+ b=UqwzU78ytiFl6/Y/ntkoBchG3Lc6SXt6mrHGgPBCHW5nh9kTIg+ls1wTiTKE4yID3C
+ we6f23L5TPwplR8LoL/OQ9Cp5QLkkALk6tyAMys6W6VkLak7/ZwmqIqbKtayFHFkxD31
+ LnTAE+RnHWBlZOGQrmklnFF1nUKQDd82jjO7PCZVmrcNOMS3Fz6Lvt3wSV0a+bSf4gOe
+ VfNb0TCxamCV9LKcR2Rrf05Elmd04arCw0ITH9RiP7vPHuhjMzO4bisyW1gmlkl64Ctv
+ GC8BtGu6I+eOvvfVohuGYchkVfQ5MRCz2ObBvNX7O4YGCtPv6Wug/RWU1+ySuc8hlE+c
+ EWGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=GOTn7eXs/dAu+lzrstonS6bV/obhXYqPBxpagkI+NbQ=;
- b=wieey8MaLDd1oUJcBGkSrYDRTDk2q8UwBdGIroQW4KLTtoB+FIA2/6Qx8Fj5Ew2KkS
- Mc98mCIeOePZX8f6gSX/ZKv9DCuSPTRgMs7i1m5hPAQOb1edRUrdFibc4RwprkPrOzf4
- GOF5BJbTVKmCEwqkZt77Qd6JL3PgaYXbdFZq78II+UhSDGs0zk774R4ib808jgz32InK
- T4gtKo45EXNetZL5QWDACApP6wNMEr92XT+x2x0zYuqvP4Q0geoMuSPhxOlMTCLw7YjY
- +zF+Lj9aKLipjdkO3erYx4yMzEZDvOSi/RZFwXV5Ez6yaGAUfNvj1Bw3CCZyIFavidfG
- HtEQ==
-X-Gm-Message-State: AOAM532z8rjN3T9YM6vXkB5uB/WKkhY1+f4LLKKkzm1LtEoqT7RyPzCR
- RN2inRErQJdXyJOgrWcbiQg=
-X-Google-Smtp-Source: ABdhPJyy8BytKEHwI+l4vFi0hWhPaJ69lP21xhKGo+0hoS+udh1c27JbDvdGiJMcQHn8m0xcPOexFA==
-X-Received: by 2002:a2e:b711:: with SMTP id j17mr20929790ljo.39.1637791594526; 
- Wed, 24 Nov 2021 14:06:34 -0800 (PST)
+ bh=1JU496kEAul2Xrq2ly7/mGbdp4YdTxxslXy87kjnkVE=;
+ b=hPpkr8K9/TwPSlB0DNtjAFOSd740KARKMg96tWh6L1LFcDdbZWbtKLkAa1nSG5UcXU
+ 84Wzn/5dvx0+zZOwEjJ97o1c7bksc02Hq03CnFq3hgSZ0MOkFdJ4Xet8XIQUrznCTwtr
+ tVEJEcQ3tGo7xBZbYI093k24TOuMKtwKY2mq3AXsqrk93hjsAPHbRPr65JY0rv6Ydcyz
+ 8txVVkUUfG0FFNMYFbUgF9Iogak8tMBt6pwGEx8hfSHfYGa4vl3HKTeuXBq8blLZ4dPi
+ Sz0b28dl2RHW3BCXkvuxaYNfMrVz38COdTS01LR4XRo4SXnjCSiiU3fSm3WckhIk8quj
+ oaGw==
+X-Gm-Message-State: AOAM533zZOGZVWz2Em6LkbsHI1TcnnbNR88lH9UAMXdd+cM0201t/SR3
+ f1V6cA0zscDApBH40Dvrl8E=
+X-Google-Smtp-Source: ABdhPJyzNTbRmF53l+Iw649bJHHzEY01rJ+pkrDrJDSRRi2322Eki64x9PXyd93QePOA6hecAJIOhA==
+X-Received: by 2002:a2e:9450:: with SMTP id o16mr19173212ljh.444.1637791595711; 
+ Wed, 24 Nov 2021 14:06:35 -0800 (PST)
 Received: from localhost.localdomain (94-29-48-99.dynamic.spd-mgts.ru.
  [94.29.48.99])
- by smtp.gmail.com with ESMTPSA id w17sm93266ljh.15.2021.11.24.14.06.33
+ by smtp.gmail.com with ESMTPSA id w17sm93266ljh.15.2021.11.24.14.06.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Nov 2021 14:06:34 -0800 (PST)
+ Wed, 24 Nov 2021 14:06:35 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
  Liam Girdwood <lgirdwood@gmail.com>, Agneli <poczt@protonmail.ch>,
  Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH v1 05/20] ASoC: tegra20-spdif: stop setting slave_id
-Date: Thu, 25 Nov 2021 01:00:42 +0300
-Message-Id: <20211124220057.15763-6-digetx@gmail.com>
+Subject: [PATCH v1 06/20] ASoC: tegra20: spdif: Support device-tree
+Date: Thu, 25 Nov 2021 01:00:43 +0300
+Message-Id: <20211124220057.15763-7-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211124220057.15763-1-digetx@gmail.com>
 References: <20211124220057.15763-1-digetx@gmail.com>
@@ -106,37 +106,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+Tegra20 S/PDIF driver was added in a pre-DT era and was never used since
+that time. Revive driver by adding device-tree support.
 
-The DMA resource is never set up anywhere, and passing this as slave_id
-has not been the proper procedure in a long time.
-
-As a preparation for removing all slave_id references from the ALSA code,
-remove this one.
-
-According to Dmitry Osipenko, this driver has never been used and
-the mechanism for configuring DMA would not work as it is implemented,
-so this part will get rewritten when the driver gets put into use
-again in the future.
-
-Reviewed-by: Dmitry Osipenko <digetx@gmail.com>
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- sound/soc/tegra/tegra20_spdif.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/tegra/tegra20_spdif.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/tegra/tegra20_spdif.c b/sound/soc/tegra/tegra20_spdif.c
-index 7751575cd6d6..57a6c576b91f 100644
+index 57a6c576b91f..bd81df5378d1 100644
 --- a/sound/soc/tegra/tegra20_spdif.c
 +++ b/sound/soc/tegra/tegra20_spdif.c
-@@ -290,7 +290,6 @@ static int tegra20_spdif_platform_probe(struct platform_device *pdev)
- 	spdif->playback_dma_data.addr = mem->start + TEGRA20_SPDIF_DATA_OUT;
- 	spdif->playback_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
- 	spdif->playback_dma_data.maxburst = 4;
--	spdif->playback_dma_data.slave_id = dmareq->start;
+@@ -10,6 +10,7 @@
+ #include <linux/device.h>
+ #include <linux/io.h>
+ #include <linux/module.h>
++#include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+@@ -332,10 +333,17 @@ static const struct dev_pm_ops tegra20_spdif_pm_ops = {
+ 			   tegra20_spdif_runtime_resume, NULL)
+ };
  
- 	pm_runtime_enable(&pdev->dev);
- 
++static const struct of_device_id tegra20_spdif_of_match[] = {
++	{ .compatible = "nvidia,tegra20-spdif", },
++	{},
++};
++MODULE_DEVICE_TABLE(of, tegra20_spdif_of_match);
++
+ static struct platform_driver tegra20_spdif_driver = {
+ 	.driver = {
+ 		.name = DRV_NAME,
+ 		.pm = &tegra20_spdif_pm_ops,
++		.of_match_table = tegra20_spdif_of_match,
+ 	},
+ 	.probe = tegra20_spdif_platform_probe,
+ 	.remove = tegra20_spdif_platform_remove,
+@@ -346,4 +354,3 @@ module_platform_driver(tegra20_spdif_driver);
+ MODULE_AUTHOR("Stephen Warren <swarren@nvidia.com>");
+ MODULE_DESCRIPTION("Tegra20 SPDIF ASoC driver");
+ MODULE_LICENSE("GPL");
+-MODULE_ALIAS("platform:" DRV_NAME);
 -- 
 2.33.1
 

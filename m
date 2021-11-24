@@ -2,84 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC33E45CEC3
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 22:09:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6452E45CEE2
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 22:23:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 327831714;
-	Wed, 24 Nov 2021 22:08:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 327831714
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B6C317D8;
+	Wed, 24 Nov 2021 22:22:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B6C317D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637788142;
-	bh=JEra3hZbiiinltoohENIBzij2WjTbkVHoWZnS4nGEJ0=;
+	s=default; t=1637789026;
+	bh=IeOouXmt/DKxcupQo9/iF6lhErUZ9GLlil7D/P+GD/M=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=W6rMTlQUJ30O2mLxrKOmq31utYEgHRrfSuptKQ6IxBkXw7Lv/O5Il7IktUcQ6IG44
-	 qPBEFRYQ7CIU1v9id+USGzhxTEWAmGKjNdIsDWWCNPa6CzKrymmBcvfw6KYkERjokZ
-	 IZVnRprJk4VpqvD44nHaVjt7IajhMrF57wPAYq78=
+	b=fV2UXvquw0wBobGtJDhJ+qyu5/bisGuEpmyLunUGoFHcPVep7SCX04pQhkBtQ3ALZ
+	 yD1n1KcWAfiHyXDEJqkJCxpyB32K7n9HRRGmkHpdtQXYrUbWN0rHhX5ugifFRngA/T
+	 xPdgl929elFssNeWjF19Gh9bygo0+OJOOeeyHPDQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CB74F80212;
-	Wed, 24 Nov 2021 22:07:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6ABD8F80087;
+	Wed, 24 Nov 2021 22:22:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6DD6F80087; Wed, 24 Nov 2021 22:07:39 +0100 (CET)
+ id 6273CF801F7; Wed, 24 Nov 2021 22:22:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF5F4F80087
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 22:07:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF5F4F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 834D7F8013A
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 22:22:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 834D7F8013A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="IvaqaftG"
-Received: by mail-wr1-x431.google.com with SMTP id b12so6771970wrh.4
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 13:07:29 -0800 (PST)
+ header.b="a/+Hbgjf"
+Received: by mail-wr1-x42e.google.com with SMTP id o13so6793493wrs.12
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 13:22:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=d0JcHrS7rw6PdBZ7/HfgOLWu1/etSoOgbibJUUNb29U=;
- b=IvaqaftGqGnaQmJOuJxs+JXXu84+4qZwObmBV1wM5y7nSK2aIDqKGuTYxsjPaheCih
- ISODKxDugG3uazJWeJLCEMHB+RRpRUxI1T2W3uB41tKolO0Sp4NVA4PpCkjLIqUVMqw4
- QY5cOFWQQSZsv5tN4Ean7QsGu4KS7nu9xAU2OPj1oghbwEpu8Za3cEM6ItVEeulu0Z40
- NfMt2uVWM0vxu5VxwXgEmzcc8HD2fdvOZTuPv08j9t7rf1K70Y35IxUZ87ECx1OH5UhK
- QX77dcsjSnSse++WXfoycLTnUj6yl6XUifHFrC6gTSXiBPKnkYGvKH3gbs7B2KUTCjaT
- w74A==
+ bh=KkTsSIQTgl65Jkq2RbrjmIOlxesXSk6YN9h1ULIzGuo=;
+ b=a/+HbgjfC0Xviq8bITaokRT5m8AxPOk5YRgGPtIjhTqCyV0mHnnXD9x5o8QdAPmhvL
+ GkmtbZBDsGAeG1eDD/p8IhF7pjGBZdplptRLcaPnLNviqmYG2eWo6W4sHJAHLtoCZzT4
+ Z4xc8vtYf9/u9HzTxFPVhGzmnRSkKqvaDqzIDlKsKY3LXOvhssL1RCOEkkY45Dnx/38Q
+ POHoc1xVEK/L1Acs4Gn53bN+0uAXcc9iXn0PsSy8rPmh3zdE6cfER8rhl5I+GPmMnvi+
+ iLDd6MDNMRkl8CUP9UbeirSLARr/CJmhWGOxeGLfptDnAIrQklRNqtn82Gbs4Ty9MEEr
+ DEPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=d0JcHrS7rw6PdBZ7/HfgOLWu1/etSoOgbibJUUNb29U=;
- b=teIXppYxwumcWvb+00nSaLVIGd2RUwfPK3QTwpI9RNudiSN7JBVt9IEwdt+QtJuQhG
- o+ts7EZgw7QIr99Lsh/SmAg2ZuclKvvyRmFHwJVbbWD61DIQLhp2A8t6Lco79g6oBwXx
- KDwE3k0FF98kU1frLdylRm0GuJzGbudefQlByiRkOZOkLh5Ah8qkTYtA/UHfg3g5ubR4
- DyJx8KmFJe7KLIPoTcdQ8YHrdnc+ALeUutrmzKmB/8oR+ddZTlGxLcie94+8hpqn0IL/
- FXnfziBBxYHsYZKCsNYSuUH5zykkPyTKQ6p+dCuYUKaOTs1Cwkm5jMZsHA2Onj71IVtb
- Asew==
-X-Gm-Message-State: AOAM531GoRq/ced3KxZY62mZupIWV6yDtYCKUBnBoqUHZvdKkNnBoTE5
- 7ZEqozTSQ8bq1azFkm1k7ds=
-X-Google-Smtp-Source: ABdhPJz+Ekiy9CMWyUTEC6BHBxlgNLP061y7vlYho7gG71cQT7b6wRZULUlzffYP12V3cXPPwJHlSg==
-X-Received: by 2002:a5d:45c4:: with SMTP id b4mr34041wrs.222.1637788043676;
- Wed, 24 Nov 2021 13:07:23 -0800 (PST)
+ bh=KkTsSIQTgl65Jkq2RbrjmIOlxesXSk6YN9h1ULIzGuo=;
+ b=CV+87cVZ/w24c1pQ0DUS7x3TUTkpalqm1Wy5RQN1Kxz3HxwkSfH5tFJ4+rZaWazY/a
+ gF1zVQLbwd6x8aDGWhPExuO2Q2+DwVEMi7Sj96k/puoEmF2VSHwOqFz0aO9vkSKhZOQW
+ j2nzrb1Ht3/QeOTXVDzs+7fqs8gY61QQBTHpoqyAsBwa9qoTxDhNJ7MrC5OqUDXIJvUD
+ gIa8OFVui6AN43nNMeLL38N1PFYB2TRSJX3WlD7DsswRID81EJA8/Pujjb41unJK0djE
+ ZFD1AZCZE8JRcjB2I/VNGH/UQAWo2TmsgZMz2gNVvrXzNnsWYIziovxc4CI1xURjN7So
+ LSPg==
+X-Gm-Message-State: AOAM5311HxBjcgCxHKf5OffaX9Ty7kuEg0mzum72VauzigJGpAL7B455
+ QXVzDLPbaMsm4J+D7QbVzUM=
+X-Google-Smtp-Source: ABdhPJzn4Yi5qwkymBP+9Ssw2nDNuFw2wS/hm5XhbyRb6XKDIQioqPM2bbYzaRaRf/fZCDudlHLcgg==
+X-Received: by 2002:adf:a193:: with SMTP id u19mr50196wru.563.1637788936819;
+ Wed, 24 Nov 2021 13:22:16 -0800 (PST)
 Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
  [84.72.105.84])
- by smtp.gmail.com with ESMTPSA id p8sm906195wrx.25.2021.11.24.13.07.22
+ by smtp.gmail.com with ESMTPSA id o12sm1466875wrc.85.2021.11.24.13.22.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Nov 2021 13:07:23 -0800 (PST)
+ Wed, 24 Nov 2021 13:22:16 -0800 (PST)
 From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
 To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Heiko Stuebner <heiko@sntech.de>
-Subject: [PATCH] ASoC: rockchip: i2s_tdm: Dup static DAI template
-Date: Wed, 24 Nov 2021 22:06:55 +0100
-Message-Id: <20211124210655.288108-1-frattaroli.nicolas@gmail.com>
+Subject: [PATCH v2] ASoC: rockchip: i2s_tdm: Dup static DAI template
+Date: Wed, 24 Nov 2021 22:21:45 +0100
+Message-Id: <20211124212146.289133-1-frattaroli.nicolas@gmail.com>
 X-Mailer: git-send-email 2.34.0
 MIME-Version: 1.0
 X-Patchwork-Bot: notify
@@ -111,14 +112,14 @@ struct, and then use that.
 Fixes: 081068fd6414 ("ASoC: rockchip: add support for i2s-tdm controller")
 Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
 ---
- sound/soc/rockchip/rockchip_i2s_tdm.c | 42 +++++++++++++++------------
- 1 file changed, 24 insertions(+), 18 deletions(-)
+ sound/soc/rockchip/rockchip_i2s_tdm.c | 38 ++++++++++++++++-----------
+ 1 file changed, 22 insertions(+), 16 deletions(-)
 
 diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.c b/sound/soc/rockchip/rockchip_i2s_tdm.c
-index 17b9b287853a..e9ddbbf4563e 100644
+index 17b9b287853a..4328c10ea830 100644
 --- a/sound/soc/rockchip/rockchip_i2s_tdm.c
 +++ b/sound/soc/rockchip/rockchip_i2s_tdm.c
-@@ -1312,22 +1312,17 @@ static const struct of_device_id rockchip_i2s_tdm_match[] = {
+@@ -1312,17 +1312,12 @@ static const struct of_device_id rockchip_i2s_tdm_match[] = {
  
  static struct snd_soc_dai_driver i2s_tdm_dai = {
  	.probe = rockchip_i2s_tdm_dai_probe,
@@ -138,13 +139,6 @@ index 17b9b287853a..e9ddbbf4563e 100644
  	struct property *dma_names;
  	const char *dma_name;
  	u64 formats = (SNDRV_PCM_FMTBIT_S8 | SNDRV_PCM_FMTBIT_S16_LE |
--		       SNDRV_PCM_FMTBIT_S20_3LE | SNDRV_PCM_FMTBIT_S24_LE |
--		       SNDRV_PCM_FMTBIT_S32_LE);
-+	SNDRV_PCM_FMTBIT_S20_3LE | SNDRV_PCM_FMTBIT_S24_LE |
-+	SNDRV_PCM_FMTBIT_S32_LE);
- 	struct device_node *node = i2s_tdm->dev->of_node;
- 
- 	of_property_for_each_string(node, "dma-names", dma_names, dma_name) {
 @@ -1337,19 +1332,28 @@ static void rockchip_i2s_tdm_init_dai(struct rk_i2s_tdm_dev *i2s_tdm)
  			i2s_tdm->has_capture = true;
  	}

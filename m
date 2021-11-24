@@ -2,73 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80C1045C936
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 16:52:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEB1745C961
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Nov 2021 17:00:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19A01179F;
-	Wed, 24 Nov 2021 16:52:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19A01179F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EB8A17AA;
+	Wed, 24 Nov 2021 16:59:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EB8A17AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637769175;
-	bh=KpprApMQuU1uh4J5NOgqdFbhex0M8TylTTMidZEjVf8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=jDEr1aVjEU5dhnS5cli5ayL2JKdohwvMwWXjk+XjAlfP4HGDUmKpds//u9x6yE2Rx
-	 ZgrK0/L5mFysu7jDtuHQlKL0mfJBJJQHfnaYHLOSBWV7wGRVsvCDjPieb95Pk7lCwa
-	 qmH7LYI0zTYH2RI3j4+4YR8rMP4waGieyNSztPUc=
+	s=default; t=1637769612;
+	bh=4tfCpgIIyHadTHjj0WlZd4H6STeE7N8SpeoyvEWND5M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=PmIleKZ6Bt/NQsDPNffe59YLxBvEiDEBat5bTM89iLGJ7Kn6kwdSg1PTg4jyJjgQ4
+	 sHbnys4RxYjQosbIJZqbEvVqLuNqbOv6LjLZ5QSOo+kDMrpXQL+4PZG8lrBWcpv9sl
+	 ObuOReqc/086DtnlnK8MoDUSkiHV6cSBuXBlLaAI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B87EF8011F;
-	Wed, 24 Nov 2021 16:51:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1474FF80212;
+	Wed, 24 Nov 2021 16:58:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B973F801F7; Wed, 24 Nov 2021 16:51:34 +0100 (CET)
+ id EE306F801F7; Wed, 24 Nov 2021 16:58:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ixit.cz (ixit.cz [94.230.151.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com
+ [209.85.222.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62FE8F8013A
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 16:51:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62FE8F8013A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz
- header.b="MIAJzKFX"
-Received: from localhost.localdomain (ip-89-176-96-70.net.upcbroadband.cz
- [89.176.96.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 4C34A20064;
- Wed, 24 Nov 2021 16:51:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1637769083;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=IU5q06TQT1C9vzgb5Uz3GHm36Avlp6WLGrtHyJxiET4=;
- b=MIAJzKFXWT+bddlCrj3j5q0t8K83XBjdckPE/hJOBahw4KDwUAiZHmISMLgX32ZqTXSPsA
- M83GTfm7Sqad5USsi9YjW3fet+mXohuIDqTMJmsmyXOS9nOhO/sewovr/QngCLH/ZsIyjg
- jJ1K4T57qYNJBHrK2ry1Z1vfK8el6sc=
-From: David Heidelberg <david@ixit.cz>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, - <patches@opensource.cirrus.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH] ASoC: dt-bindings: wlf, wm8962: add missing interrupt property
-Date: Wed, 24 Nov 2021 16:51:01 +0100
-Message-Id: <20211124155101.59694-1-david@ixit.cz>
-X-Mailer: git-send-email 2.33.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8E90F8013A
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 16:58:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8E90F8013A
+Received: by mail-ua1-f45.google.com with SMTP id n6so6143951uak.1
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 07:58:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Ptv6aIhfTWN4MeV+ze8LFVjMsNdx8UNG/X8//1/4PrE=;
+ b=12oqB5M0jAlB14TA1dcr2V30uQkZBiGSCk6WR9bVousghIrl04iSALt0UQV4P4BIas
+ +MA8JERr7BV5bzMDQZ0rNC8r9jNbzdB5XBQPpvVrapOk/N5QVh0IUaCcXLhIwzAxTLWi
+ 2UFUv3+0QewM41TG3f5QlAJHcegXGcy6yR2iel2tFU4YKY+VgJuAN/pYL5Ue2Uu1j4a0
+ R446SdYE0M/TGtPx9E+Ir7HAogGewvVIKNXCNDJJVEYkRLU9SetKsHlUyl6y9WBnlafN
+ 0blAbR3cM1qyaDoTKKz0W5u+97kj7GzW5LfD0+Xi8wpYKS23dfC1E5u3lqIogaw3gqxi
+ VoBg==
+X-Gm-Message-State: AOAM5329/c8LPwirjyXHDDweAvw6NCxjYX+skj0GI1MuIxFn17Yeu56m
+ 2VsdZ6uXF3EyV7sq6lNOtYCk/DFxNpVnHQ==
+X-Google-Smtp-Source: ABdhPJxHiL8/91gFGO9urDPULakSBKbPtkkJbNaWX3VGCk2HINEAYAdob8ND7jHNb6iCNfmngyF0/Q==
+X-Received: by 2002:a05:6102:94b:: with SMTP id
+ a11mr26354360vsi.39.1637769522084; 
+ Wed, 24 Nov 2021 07:58:42 -0800 (PST)
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com.
+ [209.85.222.41])
+ by smtp.gmail.com with ESMTPSA id w2sm106621vsw.29.2021.11.24.07.58.41
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Nov 2021 07:58:41 -0800 (PST)
+Received: by mail-ua1-f41.google.com with SMTP id o1so6098865uap.4
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 07:58:41 -0800 (PST)
+X-Received: by 2002:a9f:3e01:: with SMTP id o1mr12046695uai.89.1637769521047; 
+ Wed, 24 Nov 2021 07:58:41 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- David Heidelberg <david@ixit.cz>, ~okias/devicetree@lists.sr.ht
+References: <20211124155101.59694-1-david@ixit.cz>
+In-Reply-To: <20211124155101.59694-1-david@ixit.cz>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 24 Nov 2021 16:58:29 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdU4c1CMc_GzORTN-j1j3LZ0jui=h2RDVoVVMQmXfOuAmQ@mail.gmail.com>
+Message-ID: <CAMuHMdU4c1CMc_GzORTN-j1j3LZ0jui=h2RDVoVVMQmXfOuAmQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: wlf,
+ wm8962: add missing interrupt property
+To: David Heidelberg <david@ixit.cz>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Rob Herring <robh@kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, - <patches@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, ~okias/devicetree@lists.sr.ht
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +102,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Both, hardware and drivers does support interrupts.
+On Wed, Nov 24, 2021 at 4:51 PM David Heidelberg <david@ixit.cz> wrote:
+> Both, hardware and drivers does support interrupts.
+>
+> Fix warnings as:
+> arch/arm/boot/dts/tegra30-microsoft-surface-rt-efi.dt.yaml: audio-codec@1a: 'interrupt-parent', 'interrupts' do not match any of the regexes: 'pinctrl-[0-9]+'
+>         From schema: /home/runner/work/linux/linux/Documentation/devicetree/bindings/sound/wlf,wm8962.yaml
+>
+> Fixes: cd51b942f344 ("ASoC: dt-bindings: wlf,wm8962: Convert to json-schema")
+>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 
-Fix warnings as:
-arch/arm/boot/dts/tegra30-microsoft-surface-rt-efi.dt.yaml: audio-codec@1a: 'interrupt-parent', 'interrupts' do not match any of the regexes: 'pinctrl-[0-9]+'
-	From schema: /home/runner/work/linux/linux/Documentation/devicetree/bindings/sound/wlf,wm8962.yaml
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Fixes: cd51b942f344 ("ASoC: dt-bindings: wlf,wm8962: Convert to json-schema")
+Gr{oetje,eeting}s,
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- Documentation/devicetree/bindings/sound/wlf,wm8962.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+                        Geert
 
-diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8962.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8962.yaml
-index 0e6249d7c133..5e172e9462b9 100644
---- a/Documentation/devicetree/bindings/sound/wlf,wm8962.yaml
-+++ b/Documentation/devicetree/bindings/sound/wlf,wm8962.yaml
-@@ -19,6 +19,9 @@ properties:
-   clocks:
-     maxItems: 1
- 
-+  interrupts:
-+    maxItems: 1
-+
-   "#sound-dai-cells":
-     const: 0
- 
--- 
-2.33.0
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

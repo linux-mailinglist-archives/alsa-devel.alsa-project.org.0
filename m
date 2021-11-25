@@ -2,63 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C61445D83E
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 11:27:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B038D45D861
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 11:43:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09AB3189A;
-	Thu, 25 Nov 2021 11:26:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09AB3189A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41098188F;
+	Thu, 25 Nov 2021 11:43:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41098188F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637836040;
-	bh=evF2avG3od/CtDOeABxDdpKY0wug4HA2fXTsVY1GLMg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FXt9Sg3UI0R/1QV8Tr6+pXopOdxFKec++ENLfFAAKFnoPYFxn3nWBlX10C9CVte4H
-	 25va5BKfQKrOoMuB31iHY9ehmALi78+i2wPEphkuPD2VKiWabUohG6Fz6k26wv8GuQ
-	 2iPfH4RMe8Et5B55AtUuaoBjvud/c/wm34jbKkPg=
+	s=default; t=1637837037;
+	bh=mE2P2jDkGwDcZaYghjETqHNpTx+Q/S+88YkVhVG6BCY=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CLoOcO+h88obYOfFZXEtWW8XdBgCA+dIQ+NiGfeHn/s9qGslNnZU1750eEWwTuIOs
+	 Y5EnH718K1qV7/wIZ+0/xBWC6O98h14A4R/oyKkVkPrt9tJjFvNOOK7YFtAUB8bQhM
+	 uyvWaMjCZdHvfdt8Ni2gI+pCtFycSDgkRVi3Amuw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92910F804AB;
-	Thu, 25 Nov 2021 11:24:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AD7EF804AB;
+	Thu, 25 Nov 2021 11:42:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB316F80525; Thu, 25 Nov 2021 11:23:57 +0100 (CET)
+ id B83DEF8049E; Thu, 25 Nov 2021 11:42:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PDS_TONAME_EQ_TOLOCAL_SHORT,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
+ [IPv6:2607:f8b0:4864:20::b2a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 693CAF80519
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 11:23:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 693CAF80519
-X-IronPort-AV: E=McAfee;i="6200,9189,10178"; a="215515377"
-X-IronPort-AV: E=Sophos;i="5.87,263,1631602800"; d="scan'208";a="215515377"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2021 02:23:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,263,1631602800"; d="scan'208";a="741672158"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga006.fm.intel.com with ESMTP; 25 Nov 2021 02:23:50 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 10/10] ASoC: SOF: Intel: hda: send DAI_CONFIG IPC during pause
-Date: Thu, 25 Nov 2021 12:15:20 +0200
-Message-Id: <20211125101520.291581-11-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211125101520.291581-1-kai.vehmanen@linux.intel.com>
-References: <20211125101520.291581-1-kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 964C5F8007E
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 11:42:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 964C5F8007E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="pxKVbb4/"
+Received: by mail-yb1-xb2a.google.com with SMTP id j2so10476808ybg.9
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 02:42:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=L9/imlFwxOFxdWIFhAQqL8HsQe1uKJNSnelwt+HA440=;
+ b=pxKVbb4/ap0FRql97tkgA4z9Uh3tFc2Us4hR5r0qXU4oebtLzl9SpDMgFhPPwwY79F
+ C0oqoKV+Tca2lY2pQjTkKJnq+vGRI6kFCQwy+lfRDiwgiN1Vx16iErAQB05jmMREWJTX
+ /srL/Dry3TU8qKKx4vc4nLAXqqRCjXu4Kw71TM8jsZAQ6UIfg0LbGxBnQBT2H+ZVCv15
+ +nDjF5f9hKVCAl0yXYURCQ96BDOB05NPj+pI4w+YZvyllQiqGQVRzTjef5Zu/jXPw908
+ H2E4mmk6T37tqR+DG99V1mrCSbl58S57olt1+OSL9AI186FPb0DfdTZXxtoolqAzlVLk
+ qiFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=L9/imlFwxOFxdWIFhAQqL8HsQe1uKJNSnelwt+HA440=;
+ b=BoMwb+1clWKfRgDs+oP/yyhm43I+KbEZPdqTaS/2fFNQcEJF/khXbE0Bf8lIcPk+B5
+ 15f20wRpaObqwST1+QY7tfTPlVHOynwfBpZR4aTGWkTV5NvFIOP3WF3dpRXsl1ATnLCK
+ OKgH13ZXuszcarivJLiKB3eMJJqnQnY5iby4PY1Wv4FljLeWHZyECZvVMXgzTGy97MF8
+ e5TEnjYEqnadjMSgPXPGqcRTBSTvcr0toIQmpjh+NpFbvr3VZ6fR8q4AojDH/+QxbAR2
+ QslnPJYNWzUkoZXv6LnK8/91lsqOJ4ayxdYBXcNx2XVbxdW5ev3XWJcd0VnDiBxboFbC
+ DUXQ==
+X-Gm-Message-State: AOAM530QgAu5kSkGczsfrcugiw8B8RNO5KMTPwevP5Y1DKym8PSS+FYr
+ Rv8Cr79EghdL5io+Bh4BBOeelEbPNdQGfWTiog3skeKtv1k=
+X-Google-Smtp-Source: ABdhPJyIqAql5GOi1A0SK9lv/gFs1mhVrZqGsLQcgvZn2MHpRLtj23V6WDdFTxkGYzma6YdsJ5P96vpXtu6kExRM/dM=
+X-Received: by 2002:a25:830f:: with SMTP id s15mr5159618ybk.549.1637836945375; 
+ Thu, 25 Nov 2021 02:42:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
+From: Muni Sekhar <munisekharrms@gmail.com>
+Date: Thu, 25 Nov 2021 16:12:14 +0530
+Message-ID: <CAHhAz+iG6+duCsU4oY__4J9NoLQArc-Cfh_2O8HjmgVCTZkYQg@mail.gmail.com>
+Subject: sound: X86: Xilinx : PCIe : ALSA PCM sample driver code
+To: alsa-devel <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,93 +88,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Hi All,
 
-For HDA DAI's the DMA must be paused after the RUN bit is cleared by the
-host. So, send the DAI_CONFIG IPC with just the SOF_DAI_CONFIG_FLAGS_PAUSE
-flag set to indicate this to the firmware.
+I am using a Linux X86 machine where Xilinx FPGA sound card connected
+to X86 machine's PCIe slot. The sound card supports PCM playback and
+capture capabilities. I need to write an ALSA driver for my sound
+card.
+Since I am using X86 machine and it don't have the  devicetree, can
+someone please suggest the what driver architecture I should use for
+this type of sound card, also please point me to the ALSA driver
+reference code for this type of sound card.
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/sof/intel/hda-dai.c | 42 ++++++++++++++++++++++++++++++-----
- 1 file changed, 37 insertions(+), 5 deletions(-)
-
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index bce5366cf913..8c1d7ddb00e2 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -287,6 +287,36 @@ static int hda_link_pcm_prepare(struct snd_pcm_substream *substream,
- 				  dai);
- }
- 
-+static int hda_link_dai_config_pause_push_ipc(struct snd_soc_dapm_widget *w)
-+{
-+	struct snd_sof_widget *swidget = w->dobj.private;
-+	struct snd_soc_component *component = swidget->scomp;
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-+	struct sof_ipc_dai_config *config;
-+	struct snd_sof_dai *sof_dai;
-+	struct sof_ipc_reply reply;
-+	int ret;
-+
-+	sof_dai = swidget->private;
-+
-+	if (!sof_dai || !sof_dai->dai_config) {
-+		dev_err(sdev->dev, "No config for DAI %s\n", w->name);
-+		return -EINVAL;
-+	}
-+
-+	config = &sof_dai->dai_config[sof_dai->current_config];
-+
-+	/* set PAUSE command flag */
-+	config->flags = FIELD_PREP(SOF_DAI_CONFIG_FLAGS_CMD_MASK, SOF_DAI_CONFIG_FLAGS_PAUSE);
-+
-+	ret = sof_ipc_tx_message(sdev->ipc, config->hdr.cmd, config, config->hdr.size,
-+				 &reply, sizeof(reply));
-+	if (ret < 0)
-+		dev_err(sdev->dev, "DAI config for %s failed during pause push\n", w->name);
-+
-+	return ret;
-+}
-+
- static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
- 				int cmd, struct snd_soc_dai *dai)
- {
-@@ -312,6 +342,9 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
- 	hda_stream = hstream_to_sof_hda_stream(link_dev);
- 
- 	dev_dbg(dai->dev, "In %s cmd=%d\n", __func__, cmd);
-+
-+	w = snd_soc_dai_get_widget(dai, substream->stream);
-+
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 		/* set up hw_params */
-@@ -331,11 +364,6 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
- 	case SNDRV_PCM_TRIGGER_STOP:
- 		snd_hdac_ext_link_stream_clear(link_dev);
- 
--		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--			w = dai->playback_widget;
--		else
--			w = dai->capture_widget;
--
- 		/*
- 		 * free DAI widget during stop/suspend to keep widget use_count's balanced.
- 		 */
-@@ -352,6 +380,10 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
- 		break;
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
- 		snd_hdac_ext_link_stream_clear(link_dev);
-+
-+		ret = hda_link_dai_config_pause_push_ipc(w);
-+		if (ret < 0)
-+			return ret;
- 		break;
- 	default:
- 		return -EINVAL;
 -- 
-2.33.0
-
+Thanks,
+Sekhar

@@ -2,99 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69ADB45D31B
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 03:19:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4E5545D373
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 04:09:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A82817EC;
-	Thu, 25 Nov 2021 03:19:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A82817EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7889A17C3;
+	Thu, 25 Nov 2021 04:08:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7889A17C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637806791;
-	bh=NWjgRMbTFaDlMLIZ3peUhmZ/EV7zkgLgE5pJqF36AD8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=e0+SSZb/OMDtN55cI2PVbblAWecnLQ2gPdAEGhUgdZGHFdZhqB6oCCwPaUv9wZ88q
-	 DEnsN9lP+icCEdVwrfgZc5zxGcxplNXI8iQYHvlq/Ga8odAJFAGMQ7QohE7qBD56WH
-	 /g5OLISGlS3gRGE/zu2/utEfgh/RiCx3C7mMQdik=
+	s=default; t=1637809744;
+	bh=1cKKwEYPK6z6VZMUdRx9DpQ2wOSiQliAaEMlYaiFA70=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=p+xSDjO5NusHvSgHKqIfNTlwiYJpkmYu0PaN3aVOc4AiZOQFjcIDU5SmRctPAJS/l
+	 GdF7nIiIcOrl+bq/ADkHihbdVm9JOSS/w0LM/pe6b72XDphxMYmKPR5Y7PtcMO596S
+	 AtoLNsIOg58vWodvET3QUMiZ7MXRWoxijnV48gn8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A930F8007E;
-	Thu, 25 Nov 2021 03:18:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05192F804AB;
+	Thu, 25 Nov 2021 04:07:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33E45F8049E; Thu, 25 Nov 2021 03:18:26 +0100 (CET)
+ id 1C826F8049E; Thu, 25 Nov 2021 04:07:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F60DF80087
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 03:18:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F60DF80087
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="a3PBYNYA"
-Received: by mail-lf1-x132.google.com with SMTP id k37so12292436lfv.3
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 18:18:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=oH9Wf/bCoVOg217LfdMoYUSgPjXtU02E7tSuaqxWMRg=;
- b=a3PBYNYAAcgi1TZXNVqrpSjlO4HapMS90v4JQNwRGoxgwyRr74YQB0CVRb//bI41pL
- 6pNSCy5wG7I1vVxO0z9X2Bg5gk3NuuvBLRrOotseaFkyLTeiX2JiF1dLA0OeoTcS/RGg
- Q9H3kzbos5THo5yUaeLm4c7P5AkcERHEYQGNRg8veLS/RsNSrvYi+IjN/7ddv7drxn2o
- 1N4q1Y+XlljgLGbYigdztD7fpRc6TWrK/QVAUrAI7QL3G19yBsiyBqMEZ4DIG6BERcF1
- o+9jtoDW2zh0WmzYLJeutxGniZY0QYQCfcWyeXtnsD/4Amx8u+tH7pAFRuStmtT4SeV9
- MN+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=oH9Wf/bCoVOg217LfdMoYUSgPjXtU02E7tSuaqxWMRg=;
- b=bCrMhbXvwgkFRN/dcCYMLB3rNoCP5Wg06kKZuWwrn5HlbrkE3QTAsCVq6VYE3oDrmB
- HcdhFreP2KZ+PJBNao/GvJ2O+M07989W9S4/ARQ0Ybow85n76iuAv6BxlpHfb7noxTFN
- B5/ewmc+JSjfskoZ2tnL4NeczH8hb22Buwtaizf4EAUj5qlN6/QlQhbPiRcjTZgnzqjO
- RQGc5kJD4iYJM21EnFv0HDAWE48wwk5ufIA/rybW2htasR49/JDkBOjTmg+zExtyRo1U
- 5Ntg7bK0bAOWwR3sf5PEK5/MO6HU1LHpT7FSGygTyKDHxYYQ/3ghVWDPwSLhNowRGv4D
- QCYw==
-X-Gm-Message-State: AOAM532h7yxXXR7wc1R1/nuPNXbBPlCKaMC51gwLDnim6nh4Y4wvPOuR
- oWgOXwkmJgil3xV4Tl+N5x0=
-X-Google-Smtp-Source: ABdhPJwQvFDJcTZLyU54104ekq6m0/v4CmZYU+nu8u1y7IOzZ2X7pM5sbP+It5lOSDCeG4E2gRSy9A==
-X-Received: by 2002:a05:6512:3d8d:: with SMTP id
- k13mr19266189lfv.672.1637806700554; 
- Wed, 24 Nov 2021 18:18:20 -0800 (PST)
-Received: from [192.168.2.145] (94-29-48-99.dynamic.spd-mgts.ru. [94.29.48.99])
- by smtp.googlemail.com with ESMTPSA id 27sm135095lft.299.2021.11.24.18.18.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Nov 2021 18:18:20 -0800 (PST)
-Subject: Re: [PATCH] dt-bindings: sound: nvidia, tegra-audio: Convert multiple
- txt bindings to yaml
-To: David Heidelberg <david@ixit.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
-References: <20211025171927.92332-1-david@ixit.cz>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <49fd57aa-05a1-b330-6684-31c80339e56d@gmail.com>
-Date: Thu, 25 Nov 2021 05:18:19 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id CAD38F80302
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 04:07:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAD38F80302
+X-IronPort-AV: E=McAfee;i="6200,9189,10178"; a="222653694"
+X-IronPort-AV: E=Sophos;i="5.87,261,1631602800"; d="scan'208";a="222653694"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2021 19:07:28 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,261,1631602800"; d="scan'208";a="554493529"
+Received: from macchian-builder.itwn.intel.com ([10.5.253.188])
+ by fmsmga008.fm.intel.com with ESMTP; 24 Nov 2021 19:07:24 -0800
+From: Mac Chiang <mac.chiang@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v4] ASoC: Intel: boards: add max98390 2/4 speakers support
+Date: Wed, 24 Nov 2021 22:04:53 -0500
+Message-Id: <20211125030453.4382-1-mac.chiang@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20211025171927.92332-1-david@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, ~okias/devicetree@lists.sr.ht,
- linux-kernel@vger.kernel.org
+Cc: kai.vehmanen@linux.intel.com, yang.jie@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ mac.chiang@intel.com, broonie@kernel.org, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,45 +70,454 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-25.10.2021 20:19, David Heidelberg пишет:
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - pattern: '^[a-z0-9]+,tegra-audio-alc5632(-[a-z0-9])+'
-> +          - const: nvidia,tegra-audio-alc5632
-> +      - items:
-> +          - enum:
-> +              - nvidia,tegra-audio-max98090-nyan-big
-> +              - nvidia,tegra-audio-max98090-nyan-blaze
-> +          - const: nvidia,tegra-audio-max98090-nyan
-> +          - const: nvidia,tegra-audio-max98090
-> +      - items:
-> +          - pattern: '^[a-z0-9]+,tegra-audio-max98090(-[a-z0-9])+'
-> +          - const: nvidia,tegra-audio-max98090
-> +      - items:
-> +          - pattern: '^[a-z0-9]+,tegra-audio-rt56(39|40)(-[a-z0-9])+'
-> +          - const: nvidia,tegra-audio-rt5640
-> +      - items:
-> +          - pattern: '^[a-z0-9]+,tegra-audio-rt5677(-[a-z0-9])+'
-> +          - const: nvidia,tegra-audio-rt5677
-> +      - items:
-> +          - enum:
-> +              - toradex,tegra-audio-sgtl5000-apalis_t30
-> +              - toradex,tegra-audio-sgtl5000-colibri_t30
-> +              - toradex,tegra-audio-sgtl5000-apalis_tk1
-> +          - const: nvidia,tegra-audio-sgtl5000
-> +      - const: nvidia,tegra-audio-trimslice
-> +      - items:
-> +          - pattern: '^[a-z0-9]+,tegra-audio-wm8753(-[a-z0-9])+'
-> +          - const: nvidia,tegra-audio-wm8753
-> +      - items:
-> +          - pattern: '^[a-z0-9]+,tegra-audio-(plutux|wm8903(-[a-z0-9])+)'
-> +          - const: nvidia,tegra-audio-wm8903
-> +      - items:
-> +          - pattern: '^[a-z0-9]+,tegra-audio-wm9712(-[a-z0-9])+'
-> +          - const: nvidia,tegra-audio-wm9712
-> +
+support 2 hw boards.
+1. SSP2 connects max98390, 2 speakers.
+2. SSP1 connects max98390, 2/4 speakers.
 
-I'm now wondering whether these patterns need to have the end of string
-"$" mark, for completeness.
+2 or 4 speakers playback
+add echo reference capture
+add bt offload support
+add DMI_OEM_STRING for board variants
+add ALC5682I-VS support
+
+Signed-off-by: Mark Hsieh <mark_hsieh@wistron.corp-partner.google.com>
+Signed-off-by: Mac Chiang <mac.chiang@intel.com>
+Signed-off-by: Kieth Tzeng <keith.tzeng@quantatw.com>
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
+v3 -> v4:
+  - use comp_ids to scan acpi support ALC5682I-VD or ALC5682I-VS
+  - remove redundant drv_name "adl_max98390_rt5682s" from soc-acpi-intel-adl-match.c
+    and device table in sof_rt5682.c
+---
+ sound/soc/intel/boards/Kconfig                |   1 +
+ sound/soc/intel/boards/sof_maxim_common.c     | 180 ++++++++++++++++++
+ sound/soc/intel/boards/sof_maxim_common.h     |  16 ++
+ sound/soc/intel/boards/sof_rt5682.c           |  72 +++++++
+ .../intel/common/soc-acpi-intel-adl-match.c   |  13 ++
+ sound/soc/sof/sof-pci-dev.c                   |   9 +
+ 6 files changed, 291 insertions(+)
+
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index 849445fcc05d..34ccefcc30c7 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -467,6 +467,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
+ 		    (MFD_INTEL_LPSS || COMPILE_TEST)) ||\
+ 		   (SND_SOC_SOF_BAYTRAIL && (X86_INTEL_LPSS || COMPILE_TEST))
+ 	select SND_SOC_MAX98373_I2C
++	select SND_SOC_MAX98390
+ 	select SND_SOC_RT1011
+ 	select SND_SOC_RT1015
+ 	select SND_SOC_RT1015P
+diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
+index e66dfe666915..9171d9cd179e 100644
+--- a/sound/soc/intel/boards/sof_maxim_common.c
++++ b/sound/soc/intel/boards/sof_maxim_common.c
+@@ -5,6 +5,7 @@
+ #include <linux/string.h>
+ #include <sound/pcm.h>
+ #include <sound/soc.h>
++#include <sound/soc-acpi.h>
+ #include <sound/soc-dai.h>
+ #include <sound/soc-dapm.h>
+ #include <uapi/sound/asound.h>
+@@ -133,6 +134,185 @@ void max_98373_set_codec_conf(struct snd_soc_card *card)
+ }
+ EXPORT_SYMBOL_NS(max_98373_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+ 
++/*
++ * Maxim MAX98390
++ */
++const struct snd_soc_dapm_route max_98390_dapm_routes[] = {
++	/* speaker */
++	{ "Left Spk", NULL, "Left BE_OUT" },
++	{ "Right Spk", NULL, "Right BE_OUT" },
++};
++
++static const struct snd_kcontrol_new max_98390_tt_kcontrols[] = {
++	SOC_DAPM_PIN_SWITCH("TL Spk"),
++	SOC_DAPM_PIN_SWITCH("TR Spk"),
++};
++
++static const struct snd_soc_dapm_widget max_98390_tt_dapm_widgets[] = {
++	SND_SOC_DAPM_SPK("TL Spk", NULL),
++	SND_SOC_DAPM_SPK("TR Spk", NULL),
++};
++
++const struct snd_soc_dapm_route max_98390_tt_dapm_routes[] = {
++	/* Tweeter speaker */
++	{ "TL Spk", NULL, "Tweeter Left BE_OUT" },
++	{ "TR Spk", NULL, "Tweeter Right BE_OUT" },
++};
++
++static struct snd_soc_codec_conf max_98390_codec_conf[] = {
++	{
++		.dlc = COMP_CODEC_CONF(MAX_98390_DEV0_NAME),
++		.name_prefix = "Right",
++	},
++	{
++		.dlc = COMP_CODEC_CONF(MAX_98390_DEV1_NAME),
++		.name_prefix = "Left",
++	},
++};
++
++static struct snd_soc_codec_conf max_98390_4spk_codec_conf[] = {
++	{
++		.dlc = COMP_CODEC_CONF(MAX_98390_DEV0_NAME),
++		.name_prefix = "Right",
++	},
++	{
++		.dlc = COMP_CODEC_CONF(MAX_98390_DEV1_NAME),
++		.name_prefix = "Left",
++	},
++	{
++		.dlc = COMP_CODEC_CONF(MAX_98390_DEV2_NAME),
++		.name_prefix = "Tweeter Right",
++	},
++	{
++		.dlc = COMP_CODEC_CONF(MAX_98390_DEV3_NAME),
++		.name_prefix = "Tweeter Left",
++	},
++};
++
++struct snd_soc_dai_link_component max_98390_components[] = {
++	{
++		.name = MAX_98390_DEV0_NAME,
++		.dai_name = MAX_98390_CODEC_DAI,
++	},
++	{
++		.name = MAX_98390_DEV1_NAME,
++		.dai_name = MAX_98390_CODEC_DAI,
++	},
++};
++EXPORT_SYMBOL_NS(max_98390_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
++
++struct snd_soc_dai_link_component max_98390_4spk_components[] = {
++	{
++		.name = MAX_98390_DEV0_NAME,
++		.dai_name = MAX_98390_CODEC_DAI,
++	},
++	{
++		.name = MAX_98390_DEV1_NAME,
++		.dai_name = MAX_98390_CODEC_DAI,
++	},
++	{
++		.name = MAX_98390_DEV2_NAME,
++		.dai_name = MAX_98390_CODEC_DAI,
++	},
++	{
++		.name = MAX_98390_DEV3_NAME,
++		.dai_name = MAX_98390_CODEC_DAI,
++	},
++};
++EXPORT_SYMBOL_NS(max_98390_4spk_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
++
++static int max_98390_hw_params(struct snd_pcm_substream *substream,
++			       struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct snd_soc_dai *codec_dai;
++	int i;
++
++	for_each_rtd_codec_dais(rtd, i, codec_dai) {
++		if (i >= ARRAY_SIZE(max_98390_4spk_components)) {
++			dev_err(codec_dai->dev, "invalid codec index %d\n", i);
++			return -ENODEV;
++		}
++
++		if (!strcmp(codec_dai->component->name, MAX_98390_DEV0_NAME)) {
++			/* DEV0 tdm slot configuration Right */
++			snd_soc_dai_set_tdm_slot(codec_dai, 0x01, 3, 4, 32);
++		}
++		if (!strcmp(codec_dai->component->name, MAX_98390_DEV1_NAME)) {
++			/* DEV1 tdm slot configuration Left */
++			snd_soc_dai_set_tdm_slot(codec_dai, 0x02, 3, 4, 32);
++		}
++
++		if (!strcmp(codec_dai->component->name, MAX_98390_DEV2_NAME)) {
++			/* DEVi2 tdm slot configuration Tweeter Right */
++			snd_soc_dai_set_tdm_slot(codec_dai, 0x04, 3, 4, 32);
++		}
++		if (!strcmp(codec_dai->component->name, MAX_98390_DEV3_NAME)) {
++			/* DEV3 tdm slot configuration Tweeter Left */
++			snd_soc_dai_set_tdm_slot(codec_dai, 0x08, 3, 4, 32);
++		}
++	}
++	return 0;
++}
++
++int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_card *card = rtd->card;
++	int ret;
++
++	/* add regular speakers dapm route */
++	ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_dapm_routes,
++				      ARRAY_SIZE(max_98390_dapm_routes));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add Left/Right Speaker dapm, ret %d\n", ret);
++		return ret;
++	}
++
++	/* add widgets/controls/dapm for tweeter speakers */
++	if (acpi_dev_present("MX98390", "3", -1)) {
++		ret = snd_soc_dapm_new_controls(&card->dapm, max_98390_tt_dapm_widgets,
++						ARRAY_SIZE(max_98390_tt_dapm_widgets));
++
++		if (ret) {
++			dev_err(rtd->dev, "unable to add tweeter dapm controls, ret %d\n", ret);
++			/* Don't need to add routes if widget addition failed */
++			return ret;
++		}
++
++		ret = snd_soc_add_card_controls(card, max_98390_tt_kcontrols,
++						ARRAY_SIZE(max_98390_tt_kcontrols));
++		if (ret) {
++			dev_err(rtd->dev, "unable to add tweeter card controls, ret %d\n", ret);
++			return ret;
++		}
++
++		ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_tt_dapm_routes,
++					      ARRAY_SIZE(max_98390_tt_dapm_routes));
++		if (ret)
++			dev_err(rtd->dev,
++				"unable to add Tweeter Left/Right Speaker dapm, ret %d\n", ret);
++	}
++	return ret;
++}
++EXPORT_SYMBOL_NS(max_98390_spk_codec_init, SND_SOC_INTEL_SOF_MAXIM_COMMON);
++
++const struct snd_soc_ops max_98390_ops = {
++	.hw_params = max_98390_hw_params,
++};
++EXPORT_SYMBOL_NS(max_98390_ops, SND_SOC_INTEL_SOF_MAXIM_COMMON);
++
++void max_98390_set_codec_conf(struct snd_soc_card *card, int ch)
++{
++	if (ch == ARRAY_SIZE(max_98390_4spk_codec_conf)) {
++		card->codec_conf = max_98390_4spk_codec_conf;
++		card->num_configs = ARRAY_SIZE(max_98390_4spk_codec_conf);
++	} else {
++		card->codec_conf = max_98390_codec_conf;
++		card->num_configs = ARRAY_SIZE(max_98390_codec_conf);
++	}
++}
++EXPORT_SYMBOL_NS(max_98390_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
++
+ /*
+  * Maxim MAX98357A/MAX98360A
+  */
+diff --git a/sound/soc/intel/boards/sof_maxim_common.h b/sound/soc/intel/boards/sof_maxim_common.h
+index 3ff5e8fec4de..7a8c53049e4d 100644
+--- a/sound/soc/intel/boards/sof_maxim_common.h
++++ b/sound/soc/intel/boards/sof_maxim_common.h
+@@ -24,6 +24,22 @@ int max_98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
+ void max_98373_set_codec_conf(struct snd_soc_card *card);
+ int max_98373_trigger(struct snd_pcm_substream *substream, int cmd);
+ 
++/*
++ * Maxim MAX98390
++ */
++#define MAX_98390_CODEC_DAI     "max98390-aif1"
++#define MAX_98390_DEV0_NAME     "i2c-MX98390:00"
++#define MAX_98390_DEV1_NAME     "i2c-MX98390:01"
++#define MAX_98390_DEV2_NAME     "i2c-MX98390:02"
++#define MAX_98390_DEV3_NAME     "i2c-MX98390:03"
++
++extern struct snd_soc_dai_link_component max_98390_components[2];
++extern struct snd_soc_dai_link_component max_98390_4spk_components[4];
++extern const struct snd_soc_ops max_98390_ops;
++
++void max_98390_set_codec_conf(struct snd_soc_card *card, int ch);
++int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
++
+ /*
+  * Maxim MAX98357A/MAX98360A
+  */
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index c41f386b4138..6cadb5fb72e0 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -59,6 +59,9 @@
+ 	(((quirk) << SOF_BT_OFFLOAD_SSP_SHIFT) & SOF_BT_OFFLOAD_SSP_MASK)
+ #define SOF_SSP_BT_OFFLOAD_PRESENT		BIT(22)
+ #define SOF_RT5682S_HEADPHONE_CODEC_PRESENT	BIT(23)
++#define SOF_MAX98390_SPEAKER_AMP_PRESENT	BIT(24)
++#define SOF_MAX98390_TWEETER_SPEAKER_PRESENT	BIT(25)
++
+ 
+ /* Default: MCLK on, MCLK 19.2M, SSP0  */
+ static unsigned long sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
+@@ -179,6 +182,36 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
+ 					SOF_RT5682_SSP_AMP(2) |
+ 					SOF_RT5682_NUM_HDMIDEV(4)),
+ 	},
++	{
++		.callback = sof_rt5682_quirk_cb,
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Brya"),
++			DMI_MATCH(DMI_OEM_STRING, "AUDIO-MAX98390_ALC5682I_I2S"),
++		},
++		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_MAX98390_SPEAKER_AMP_PRESENT |
++					SOF_RT5682_SSP_AMP(2) |
++					SOF_RT5682_NUM_HDMIDEV(4)),
++	},
++	{
++		.callback = sof_rt5682_quirk_cb,
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Brya"),
++			DMI_MATCH(DMI_OEM_STRING, "AUDIO-MAX98390_ALC5682I_I2S_4SPK"),
++		},
++		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_MAX98390_SPEAKER_AMP_PRESENT |
++					SOF_MAX98390_TWEETER_SPEAKER_PRESENT |
++					SOF_RT5682_SSP_AMP(1) |
++					SOF_RT5682_NUM_HDMIDEV(4) |
++					SOF_BT_OFFLOAD_SSP(2) |
++					SOF_SSP_BT_OFFLOAD_PRESENT),
++
++	},
+ 	{}
+ };
+ 
+@@ -486,6 +519,7 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+ 		if (err < 0)
+ 			return err;
+ 	}
++
+ 	return hdac_hdmi_jack_port_init(component, &card->dapm);
+ }
+ 
+@@ -784,6 +818,20 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 		} else if (sof_rt5682_quirk &
+ 				SOF_RT1011_SPEAKER_AMP_PRESENT) {
+ 			sof_rt1011_dai_link(&links[id]);
++		} else if (sof_rt5682_quirk &
++				SOF_MAX98390_SPEAKER_AMP_PRESENT) {
++			if (sof_rt5682_quirk &
++				SOF_MAX98390_TWEETER_SPEAKER_PRESENT) {
++				links[id].codecs = max_98390_4spk_components;
++				links[id].num_codecs = ARRAY_SIZE(max_98390_4spk_components);
++			} else {
++				links[id].codecs = max_98390_components;
++				links[id].num_codecs = ARRAY_SIZE(max_98390_components);
++			}
++			links[id].init = max_98390_spk_codec_init;
++			links[id].ops = &max_98390_ops;
++			links[id].dpcm_capture = 1;
++
+ 		} else {
+ 			max_98357a_dai_link(&links[id]);
+ 		}
+@@ -868,6 +916,10 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	if (acpi_dev_present("RTL5682", NULL, -1))
+ 		sof_rt5682_quirk |= SOF_RT5682S_HEADPHONE_CODEC_PRESENT;
+ 
++	/* Detect the headset codec variant to support machines in DMI quirk */
++	if (acpi_dev_present("RTL5682", NULL, -1))
++		sof_rt5682_quirk |= SOF_RT5682S_HEADPHONE_CODEC_PRESENT;
++
+ 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
+ 		is_legacy_cpu = 1;
+ 		dmic_be_num = 0;
+@@ -924,6 +976,14 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 		sof_rt1011_codec_conf(&sof_audio_card_rt5682);
+ 	else if (sof_rt5682_quirk & SOF_RT1015P_SPEAKER_AMP_PRESENT)
+ 		sof_rt1015p_codec_conf(&sof_audio_card_rt5682);
++	else if (sof_rt5682_quirk & SOF_MAX98390_SPEAKER_AMP_PRESENT) {
++		if (sof_rt5682_quirk & SOF_MAX98390_TWEETER_SPEAKER_PRESENT)
++			max_98390_set_codec_conf(&sof_audio_card_rt5682,
++						 ARRAY_SIZE(max_98390_4spk_components));
++		else
++			max_98390_set_codec_conf(&sof_audio_card_rt5682,
++						 ARRAY_SIZE(max_98390_components));
++	}
+ 
+ 	if (sof_rt5682_quirk & SOF_SSP_BT_OFFLOAD_PRESENT)
+ 		sof_audio_card_rt5682.num_links++;
+@@ -1050,6 +1110,17 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_RT5682_SSP_AMP(2) |
+ 					SOF_RT5682_NUM_HDMIDEV(4)),
+ 	},
++	{
++		.name = "adl_max98390_rt5682",
++		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_MAX98390_SPEAKER_AMP_PRESENT |
++					SOF_RT5682_SSP_AMP(1) |
++					SOF_RT5682_NUM_HDMIDEV(4) |
++					SOF_BT_OFFLOAD_SSP(2) |
++					SOF_SSP_BT_OFFLOAD_PRESENT),
++	},
+ 	{
+ 		.name = "adl_mx98360_rt5682",
+ 		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
+@@ -1080,6 +1151,7 @@ MODULE_DESCRIPTION("SOF Audio Machine driver");
+ MODULE_AUTHOR("Bard Liao <bard.liao@intel.com>");
+ MODULE_AUTHOR("Sathya Prakash M R <sathya.prakash.m.r@intel.com>");
+ MODULE_AUTHOR("Brent Lu <brent.lu@intel.com>");
++MODULE_AUTHOR("Mac Chiang <mac.chiang@intel.com>");
+ MODULE_LICENSE("GPL v2");
+ MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
+ MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_MAXIM_COMMON);
+diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+index fde310e5724b..f32bcb2b2e09 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+@@ -379,6 +379,11 @@ static const struct snd_soc_acpi_codecs adl_rt1019p_amp = {
+ 	.codecs = {"RTL1019"}
+ };
+ 
++static const struct snd_soc_acpi_codecs adl_max98390_amp = {
++	.num_codecs = 1,
++	.codecs = {"MX98390"}
++};
++
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 	{
+ 		.comp_ids = &adl_rt5682_rt5682s_hp,
+@@ -434,6 +439,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 		.sof_fw_filename = "sof-adl.ri",
+ 		.sof_tplg_filename = "sof-adl-nau8825.tplg",
+ 	},
++	{
++		.comp_ids = &adl_rt5682_rt5682s_hp,
++		.drv_name = "adl_max98390_rt5682",
++		.machine_quirk = snd_soc_acpi_codec_list,
++		.quirk_data = &adl_max98390_amp,
++		.sof_fw_filename = "sof-adl.ri",
++		.sof_tplg_filename = "sof-adl-max98390-rt5682.tplg",
++	},
+ 	{},
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_adl_machines);
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index bc9e70765678..be90a5f79766 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -59,6 +59,15 @@ static const struct dmi_system_id sof_tplg_table[] = {
+ 		},
+ 		.driver_data = "sof-adl-rt5682-ssp0-max98373-ssp2.tplg",
+ 	},
++	{
++		.callback = sof_tplg_cb,
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Brya"),
++			DMI_MATCH(DMI_OEM_STRING, "AUDIO-MAX98390_ALC5682I_I2S"),
++		},
++		.driver_data = "sof-adl-max98390-ssp2-rt5682-ssp0.tplg",
++	},
++
+ 	{}
+ };
+ 
+-- 
+2.20.1
+

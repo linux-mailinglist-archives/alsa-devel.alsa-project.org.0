@@ -2,67 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8BA45D52E
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 08:10:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DA8745D54F
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 08:18:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE216182F;
-	Thu, 25 Nov 2021 08:09:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE216182F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE2D81841;
+	Thu, 25 Nov 2021 08:17:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE2D81841
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637824249;
-	bh=r80PrVTE65eHYvH2xmvcdx5v+S9+23y+RTuZZNnKt2s=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YgRgtsUiSeeXpPa7h43mvrTnGddzEcVLpb9YB5qsBvTsOSaCqDliCvz2W0/6LXSRZ
-	 96psPUHcd2mzxQ0BYfXXEkli7ZZGwdDfXtVMmX/sNOr7PQ8B14J5dxGLqccGdp67T3
-	 BHvjbOsripaRnBBrbLYqIchTLHRI2QtHB2/nTV7o=
+	s=default; t=1637824686;
+	bh=tPn2WiUnpYf5GPAHnZeHqHoa/34A3lvbXGyA+ZIWtD0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=E8DXIxd3+15T857X3vgUlJlHPnrEMYZhMYXju3N31niHtKecYktKsLpBYiGAunzHx
+	 vd7BIEFZZXUgzTDBTlWTvgUcHuaYqjZn04v4IxrLB6p7C7NIQ43ErPWdV+R0y7Vx1P
+	 L9P6xwU+E7jiOedobXJ91IZnYy+Wiv/RFRsH3Rhc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3749BF804AB;
-	Thu, 25 Nov 2021 08:09:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44BBBF804AB;
+	Thu, 25 Nov 2021 08:16:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30505F8049E; Thu, 25 Nov 2021 08:09:28 +0100 (CET)
+ id C8F73F8049E; Thu, 25 Nov 2021 08:16:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2CFF8F80302;
- Thu, 25 Nov 2021 08:09:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CFF8F80302
-Received: from dggpeml500021.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4J087N5d5LzZd6Q;
- Thu, 25 Nov 2021 15:06:40 +0800 (CST)
-Received: from dggpeml500017.china.huawei.com (7.185.36.243) by
- dggpeml500021.china.huawei.com (7.185.36.21) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Thu, 25 Nov 2021 15:09:14 +0800
-Received: from huawei.com (10.175.103.91) by dggpeml500017.china.huawei.com
- (7.185.36.243) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Thu, 25 Nov
- 2021 15:09:13 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <alsa-devel@alsa-project.org>,
- <sound-open-firmware@alsa-project.org>
-Subject: [PATCH -next] ASoC: SOF: mediatek: Add missing of_node_put() in
- platform_parse_resource()
-Date: Thu, 25 Nov 2021 15:16:08 +0800
-Message-ID: <20211125071608.3056715-1-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- dggpeml500017.china.huawei.com (7.185.36.243)
-X-CFilter-Loop: Reflected
-Cc: broonie@kernel.org, daniel.baluta@nxp.com, yc.hung@mediatek.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39FE9F80087
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 08:16:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39FE9F80087
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="BPAh724K"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="PZfSu3jh"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id DE7B31FD37;
+ Thu, 25 Nov 2021 07:16:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1637824595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Bivuk8+TOfI88WAx+Dq2CA6QO4hbkTvK3r7JmyxWBDo=;
+ b=BPAh724KjTcaM7uKk1k7LXxFUb04i9xuI0sFmsosYE17XXCS58y0e82FN+Jql8lEeZkqZX
+ WDihlsdgUZwHdjJrNoCoxxF7oweC7y+hvwl03rAqqvY8iYOLSV3IqyAMi6kxqp8q8r2CgP
+ oSk2MlNpo6ZcrNadlFneTPvEaT9y3Uw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1637824595;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Bivuk8+TOfI88WAx+Dq2CA6QO4hbkTvK3r7JmyxWBDo=;
+ b=PZfSu3jh/frN9T5YmYM9ooocboq/KcoVOCFcQrgUW5DrMyUIjvaO4AInEAg/vZu/ibEOas
+ gu2FFZL6qKCeeyDg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C3CEFA3B83;
+ Thu, 25 Nov 2021 07:16:35 +0000 (UTC)
+Date: Thu, 25 Nov 2021 08:16:35 +0100
+Message-ID: <s5h5ysg7lik.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH] ALSA: hda/cs8409: Schedule delayed work for jack detect
+ on resume
+In-Reply-To: <20211124181908.50672-1-vitalyr@opensource.cirrus.com>
+References: <20211124181908.50672-1-vitalyr@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>, James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,36 +97,220 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The node pointer is returned by of_parse_phandle() with
-refcount incremented in platform_parse_resource(). Calling
-of_node_put() to aovid the refcount leak.
+On Wed, 24 Nov 2021 19:19:08 +0100,
+Vitaly Rodionov wrote:
+> 
+> From: Stefan Binding <sbinding@opensource.cirrus.com>
+> 
+> CS42L42 runs jack detect on resume, however this requires unsol
+> events, and unsol events are ignored whilst the power state is
+> not set to ON. The power state is set to ON only after the resume
+> finishes.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
- sound/soc/sof/mediatek/mt8195/mt8195.c | 2 ++
- 1 file changed, 2 insertions(+)
+This statement isn't clear to me: which power state and who ignores?
+In the basic design of hda_jack, the all jack states get updated once
+after the resume by reading the pin sense.  Doesn't this work in the
+case of cs8409 because the code relies on unsol event?
 
-diff --git a/sound/soc/sof/mediatek/mt8195/mt8195.c b/sound/soc/sof/mediatek/mt8195/mt8195.c
-index 40e5a25875a6..55d9812870a4 100644
---- a/sound/soc/sof/mediatek/mt8195/mt8195.c
-+++ b/sound/soc/sof/mediatek/mt8195/mt8195.c
-@@ -43,6 +43,7 @@ static int platform_parse_resource(struct platform_device *pdev, void *data)
- 	}
- 
- 	ret = of_address_to_resource(mem_region, 0, &res);
-+	of_node_put(mem_region);
- 	if (ret) {
- 		dev_err(dev, "of_address_to_resource dma failed\n");
- 		return ret;
-@@ -64,6 +65,7 @@ static int platform_parse_resource(struct platform_device *pdev, void *data)
- 	}
- 
- 	ret = of_address_to_resource(mem_region, 0, &res);
-+	of_node_put(mem_region);
- 	if (ret) {
- 		dev_err(dev, "of_address_to_resource sysmem failed\n");
- 		return ret;
--- 
-2.25.1
+> Schedule a delayed work timer to run jack detect
+> after the resume call finishes.
 
+This kind of approach is OK-ish as a last resort workaround, but I
+think it'd be cleaner to rewrite the code to use directly snd_jack
+stuff like HDMI codec driver without hda_jack stuff, supposing that
+all jack states on cs8409 are read rather via i2c.  HDMI codec driver
+re-probes jacks at its own resume callback, and issue
+snd_jack_report() accordingly, as well as the same check for the
+unsol_event.
+
+Or, just faked unsol event handling at the resume callback would be
+minimalistic change, I suppose.
+
+
+thanks,
+
+Takashi
+
+> 
+> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> ---
+>  sound/pci/hda/patch_cs8409.c | 79 +++++++++++++++++++++++++++++-------
+>  sound/pci/hda/patch_cs8409.h |  1 +
+>  2 files changed, 65 insertions(+), 15 deletions(-)
+> 
+> diff --git a/sound/pci/hda/patch_cs8409.c b/sound/pci/hda/patch_cs8409.c
+> index 31ff11ab868e..88213e95f0b3 100644
+> --- a/sound/pci/hda/patch_cs8409.c
+> +++ b/sound/pci/hda/patch_cs8409.c
+> @@ -634,6 +634,30 @@ static void cs42l42_run_jack_detect(struct sub_codec *cs42l42)
+>  	cs8409_i2c_write(cs42l42, 0x1120, 0xc0);
+>  }
+>  
+> +static void cs42l42_run_jack_detect_all(struct hda_codec *codec)
+> +{
+> +	struct cs8409_spec *spec = codec->spec;
+> +	struct sub_codec *cs42l42;
+> +	int i;
+> +
+> +	for (i = 0; i < spec->num_scodecs; i++) {
+> +		cs42l42 = spec->scodecs[i];
+> +		cs42l42_enable_jack_detect(cs42l42);
+> +		if (!cs42l42->hp_jack_in)
+> +			cs42l42_run_jack_detect(cs42l42);
+> +	}
+> +}
+> +
+> +/*
+> + * cs42l42_jack_detect_worker - Worker that retries jack detect
+> + */
+> +static void cs42l42_jack_detect_worker(struct work_struct *work)
+> +{
+> +	struct cs8409_spec *spec = container_of(work, struct cs8409_spec, jack_detect_work.work);
+> +
+> +	cs42l42_run_jack_detect_all(spec->codec);
+> +}
+> +
+>  static int cs42l42_handle_tip_sense(struct sub_codec *cs42l42, unsigned int reg_ts_status)
+>  {
+>  	int status_changed = 0;
+> @@ -749,8 +773,6 @@ static void cs42l42_resume(struct sub_codec *cs42l42)
+>  
+>  	if (cs42l42->full_scale_vol)
+>  		cs8409_i2c_write(cs42l42, 0x2001, 0x01);
+> -
+> -	cs42l42_enable_jack_detect(cs42l42);
+>  }
+>  
+>  #ifdef CONFIG_PM
+> @@ -800,6 +822,7 @@ static void cs8409_free(struct hda_codec *codec)
+>  
+>  	/* Cancel i2c clock disable timer, and disable clock if left enabled */
+>  	cancel_delayed_work_sync(&spec->i2c_clk_work);
+> +	cancel_delayed_work_sync(&spec->jack_detect_work);
+>  	cs8409_disable_i2c_clock(codec);
+>  
+>  	snd_hda_gen_free(codec);
+> @@ -863,6 +886,7 @@ static int cs8409_cs42l42_suspend(struct hda_codec *codec)
+>  
+>  	/* Cancel i2c clock disable timer, and disable clock if left enabled */
+>  	cancel_delayed_work_sync(&spec->i2c_clk_work);
+> +	cancel_delayed_work_sync(&spec->jack_detect_work);
+>  	cs8409_disable_i2c_clock(codec);
+>  
+>  	snd_hda_shutup_pins(codec);
+> @@ -970,6 +994,8 @@ void cs8409_cs42l42_fixups(struct hda_codec *codec, const struct hda_fixup *fix,
+>  		spec->scodecs[CS8409_CODEC0]->codec = codec;
+>  		codec->patch_ops = cs8409_cs42l42_patch_ops;
+>  
+> +		INIT_DELAYED_WORK(&spec->jack_detect_work, cs42l42_jack_detect_worker);
+> +
+>  		spec->gen.suppress_auto_mute = 1;
+>  		spec->gen.no_primary_hp = 1;
+>  		spec->gen.suppress_vmaster = 1;
+> @@ -1029,9 +1055,16 @@ void cs8409_cs42l42_fixups(struct hda_codec *codec, const struct hda_fixup *fix,
+>  	case HDA_FIXUP_ACT_INIT:
+>  		cs8409_cs42l42_hw_init(codec);
+>  		spec->init_done = 1;
+> -		if (spec->init_done && spec->build_ctrl_done
+> -			&& !spec->scodecs[CS8409_CODEC0]->hp_jack_in)
+> -			cs42l42_run_jack_detect(spec->scodecs[CS8409_CODEC0]);
+> +		if (spec->init_done && spec->build_ctrl_done) {
+> +			/* No point in running jack detect until we have fully resumed */
+> +			if (codec->core.dev.power.power_state.event != PM_EVENT_ON) {
+> +				codec_warn(codec, "Not ready to detect jack, deferring...\n");
+> +				schedule_delayed_work(&spec->jack_detect_work, msecs_to_jiffies(25));
+> +				return;
+> +			} else {
+> +				cs42l42_run_jack_detect_all(codec);
+> +			}
+> +		}
+>  		break;
+>  	case HDA_FIXUP_ACT_BUILD:
+>  		spec->build_ctrl_done = 1;
+> @@ -1040,9 +1073,16 @@ void cs8409_cs42l42_fixups(struct hda_codec *codec, const struct hda_fixup *fix,
+>  		 * been already plugged in.
+>  		 * Run immediately after init.
+>  		 */
+> -		if (spec->init_done && spec->build_ctrl_done
+> -			&& !spec->scodecs[CS8409_CODEC0]->hp_jack_in)
+> -			cs42l42_run_jack_detect(spec->scodecs[CS8409_CODEC0]);
+> +		if (spec->init_done && spec->build_ctrl_done) {
+> +			/* No point in running jack detect until we have fully resumed */
+> +			if (codec->core.dev.power.power_state.event != PM_EVENT_ON) {
+> +				codec_warn(codec, "Not ready to detect jack, deferring...\n");
+> +				schedule_delayed_work(&spec->jack_detect_work, msecs_to_jiffies(25));
+> +				return;
+> +			} else {
+> +				cs42l42_run_jack_detect_all(codec);
+> +			}
+> +		}
+>  		break;
+>  	default:
+>  		break;
+> @@ -1178,7 +1218,6 @@ void dolphin_fixups(struct hda_codec *codec, const struct hda_fixup *fix, int ac
+>  {
+>  	struct cs8409_spec *spec = codec->spec;
+>  	struct snd_kcontrol_new *kctrl;
+> -	int i;
+>  
+>  	switch (action) {
+>  	case HDA_FIXUP_ACT_PRE_PROBE:
+> @@ -1193,6 +1232,8 @@ void dolphin_fixups(struct hda_codec *codec, const struct hda_fixup *fix, int ac
+>  		spec->scodecs[CS8409_CODEC1]->codec = codec;
+>  		spec->num_scodecs = 2;
+>  
+> +		INIT_DELAYED_WORK(&spec->jack_detect_work, cs42l42_jack_detect_worker);
+> +
+>  		codec->patch_ops = cs8409_dolphin_patch_ops;
+>  
+>  		/* GPIO 1,5 out, 0,4 in */
+> @@ -1237,9 +1278,13 @@ void dolphin_fixups(struct hda_codec *codec, const struct hda_fixup *fix, int ac
+>  		dolphin_hw_init(codec);
+>  		spec->init_done = 1;
+>  		if (spec->init_done && spec->build_ctrl_done) {
+> -			for (i = 0; i < spec->num_scodecs; i++) {
+> -				if (!spec->scodecs[i]->hp_jack_in)
+> -					cs42l42_run_jack_detect(spec->scodecs[i]);
+> +			/* No point in running jack detect until we have fully resumed */
+> +			if (codec->core.dev.power.power_state.event != PM_EVENT_ON) {
+> +				codec_warn(codec, "Not ready to detect jack, deferring...\n");
+> +				schedule_delayed_work(&spec->jack_detect_work, msecs_to_jiffies(25));
+> +				return;
+> +			} else {
+> +				cs42l42_run_jack_detect_all(codec);
+>  			}
+>  		}
+>  		break;
+> @@ -1251,9 +1296,13 @@ void dolphin_fixups(struct hda_codec *codec, const struct hda_fixup *fix, int ac
+>  		 * Run immediately after init.
+>  		 */
+>  		if (spec->init_done && spec->build_ctrl_done) {
+> -			for (i = 0; i < spec->num_scodecs; i++) {
+> -				if (!spec->scodecs[i]->hp_jack_in)
+> -					cs42l42_run_jack_detect(spec->scodecs[i]);
+> +			/* No point in running jack detect until we have fully resumed */
+> +			if (codec->core.dev.power.power_state.event != PM_EVENT_ON) {
+> +				codec_warn(codec, "Not ready to detect jack, deferring...\n");
+> +				schedule_delayed_work(&spec->jack_detect_work, msecs_to_jiffies(25));
+> +				return;
+> +			} else {
+> +				cs42l42_run_jack_detect_all(codec);
+>  			}
+>  		}
+>  		break;
+> diff --git a/sound/pci/hda/patch_cs8409.h b/sound/pci/hda/patch_cs8409.h
+> index ade2b838590c..632d3ec8322d 100644
+> --- a/sound/pci/hda/patch_cs8409.h
+> +++ b/sound/pci/hda/patch_cs8409.h
+> @@ -330,6 +330,7 @@ struct cs8409_spec {
+>  	unsigned int i2c_clck_enabled;
+>  	unsigned int dev_addr;
+>  	struct delayed_work i2c_clk_work;
+> +	struct delayed_work jack_detect_work;
+>  
+>  	unsigned int playback_started:1;
+>  	unsigned int capture_started:1;
+> -- 
+> 2.25.1
+> 

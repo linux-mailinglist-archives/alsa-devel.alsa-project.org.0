@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDE2245DF4A
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 18:03:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2A4445E269
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 22:28:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26DDD189B;
-	Thu, 25 Nov 2021 18:02:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26DDD189B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5D1618E9;
+	Thu, 25 Nov 2021 22:27:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5D1618E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637859820;
-	bh=I/cZxyMPuPCNOusl9hUHqL2Hbc8uwjYJVKJ2CuG/2aw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1637875684;
+	bh=tOSdBjUx5TQniFhRkXb3LhxEkjCzX4K3hkghT5YEuqk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ucBb2AhDGVqkpLyxTKSpXeejnjpbWFdGzqh25JytpL+DDGNChsz8CCDyKN/CEiUv9
-	 bRgnPhXV5q3PUG5L3KWEg7fTYHBn4BV50zHJ/drbZJn5abMU5fDuD24KIHWp82VgT8
-	 LMzUC5AOK6xHOsMdQMUK8RSAqnk1DtFXN04SBlUo=
+	b=fEu6O1Bax4J6dlQAZvqXVZtsdJOG2FygYQRE6V9GurqU58TTuizXrXdKaPST27NU7
+	 KdClphq4xeGIkEpmXG8MpBY3/BIPPqeymNvgU3NDdIAsG06wJMokfTYh+6/oe4UTVC
+	 CM/mRth9ivyEL2+6mIhgwRlxHWZ9mNYpf4Eh2wAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70963F804AB;
-	Thu, 25 Nov 2021 18:02:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69248F804DF;
+	Thu, 25 Nov 2021 22:26:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AAD92F8007E; Thu, 25 Nov 2021 18:02:19 +0100 (CET)
+ id E998BF804BC; Thu, 25 Nov 2021 22:26:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A1FDF8007E
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 18:02:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A1FDF8007E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="WuNTzhmV"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1APDwa56011922;
- Thu, 25 Nov 2021 11:02:08 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=fUfqRxiYoRbxdy1ZSEccjSxBRfTJK48M8Na1ieirrOI=;
- b=WuNTzhmVFPJLsxBdvwfPc7dNsg7RAGTBPmTnsEOoR5va3MbI9L+nxKLx0l8T3pprJCs1
- pZjfihzItOrhrHWIK9q0tCRxwxl8akq9bG3T8kRnmjpCiN2FWjpfmaN8UE30wm65KBcL
- Ztm+tIYR8tpsxzbe5QlwnybQ9SlWS1/FinleT2hl0yp63z73xNAy+2AN9FNyUWRxT1gt
- /35PQ/wiHSyz1JAVlPy16wcV8e4Nlu11wKhekUKKSoKZoMwO7g9vTTHveJWbMH15vNx1
- /ainImGUhbVq5q8N9+HKX+SAN/3CsNojQKfg/SL0lSLJfdhD9YPk9GVg8ZzLRFFrfrj3 gA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3chds7hykr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 25 Nov 2021 11:02:08 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 25 Nov
- 2021 17:02:06 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
- Frontend Transport; Thu, 25 Nov 2021 17:02:06 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4F127477;
- Thu, 25 Nov 2021 17:02:05 +0000 (UTC)
-Date: Thu, 25 Nov 2021 17:02:05 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l41: Fix link problem
-Message-ID: <20211125170205.GI18506@ediswmail.ad.cirrus.com>
-References: <20211125143501.7720-1-tanureal@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20211125143501.7720-1-tanureal@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: Wanejz1T9KWz8nrSOxWt-KMBgAk10tNK
-X-Proofpoint-ORIG-GUID: Wanejz1T9KWz8nrSOxWt-KMBgAk10tNK
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- David Rhodes <david.rhodes@cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89BD3F80087
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 22:26:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89BD3F80087
+Received: by mail-ot1-f53.google.com with SMTP id
+ a23-20020a9d4717000000b0056c15d6d0caso11133730otf.12
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 13:26:31 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=enKrWb01zIUlLDcWec9IsDV9nL4gjphxHjIfLcnFxNM=;
+ b=g99dlkcqhdWmAaBOIxr34mDq5govJW83v1wAWZmkXXKu1Sd/RBRUdfhdm+dN5GAvZj
+ ga8vH6nsqN1kC4ttQhGBBHQroGCuB9u1c1ddd3zh00xAXD5FaoXwqQkWCYFN65k6jCYz
+ 69Engvyn9ckKbQ+2zJl9QcHVrPLbFsst793qjzRAAsuYLXqyfOUhXwwoGHxQTRzEkCBh
+ KaAM2lID5wk8dqVmmaILxPsK6MFYwFOU3iwlKhCvKTroFISj4uxFi2OaoQ3UoTSTMv9v
+ BxLkvsGofmxcaWT+dJjdvJUFlcCYphgB7sCsVcyVWSGYRT4kTIcPTdP9fsiSFmpFVnt2
+ cLQA==
+X-Gm-Message-State: AOAM533u2HXdU5vsGEmDYFrK/IHuXmaJ12mA0+X4c9p1nirraNd6qPUj
+ 2yTHzgY3V4mpFl9w56Jppg==
+X-Google-Smtp-Source: ABdhPJzC8WF3V4q4Zkszhtmy5n3Ib8vaC3VBok3QPb6dv92gkCyEe7pE4+MBOF2mLf3L8Jo3yfdidQ==
+X-Received: by 2002:a05:6830:25d6:: with SMTP id
+ d22mr24856709otu.87.1637875589845; 
+ Thu, 25 Nov 2021 13:26:29 -0800 (PST)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id z8sm654248oot.7.2021.11.25.13.26.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Nov 2021 13:26:29 -0800 (PST)
+Received: (nullmailer pid 2858315 invoked by uid 1000);
+ Thu, 25 Nov 2021 21:26:02 -0000
+From: Rob Herring <robh@kernel.org>
+To: Jayesh Choudhary <j-choudhary@ti.com>
+In-Reply-To: <20211125121521.31554-1-j-choudhary@ti.com>
+References: <20211125121521.31554-1-j-choudhary@ti.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: davinci-mcasp: convert McASP
+ bindings to yaml schema
+Date: Thu, 25 Nov 2021 14:26:02 -0700
+Message-Id: <1637875562.316639.2858314.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,19 +90,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 25, 2021 at 02:35:01PM +0000, Lucas Tanure wrote:
-> Can't link I2C and SPI to the same binary, better
-> to move CS35L41 to 3 modules approach.
-> And instead of exposing cs35l41_reg, volatile_reg,
-> readable_reg and precious_reg arrays, move
-> cs35l41_regmap_i2c/spi to new module and expose it.
+On Thu, 25 Nov 2021 17:45:21 +0530, Jayesh Choudhary wrote:
+> Convert the bindings for McASP controllers for TI SOCs
+> from txt to YAML schema.
 > 
-> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+> Adds additional properties 'clocks', 'clock-names', 'power-domains'
+> '#sound-dai-cells', 'num-serializer' and 'port' which were not there
+> in the txt file.
+> Adds 'dmas' and 'dma-names' in the example which were not there in
+> the txt file.
+> Changes 'interrupts' and 'interrupt-names' from optional to
+> required properties.
+> 
+> Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
 > ---
+> Changelog:
+> v2:
+> - changes the commit message
+> - modifies the properties 'clocks', 'clock-names', 'dma-names',
+>   'dmas', 'interrupts' and 'interrupt-names' according to the
+>   arm SOCs
+> - adds 'port' and 'num-serializer' as node properties.
+> 
+>  .../bindings/sound/davinci-mcasp-audio.txt    |  86 ---------
+>  .../bindings/sound/davinci-mcasp-audio.yaml   | 179 ++++++++++++++++++
+>  2 files changed, 179 insertions(+), 86 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+> 
 
-Thanks for picking this up looks good to me.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+yamllint warnings/errors:
 
-Thanks,
-Charles
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml: properties:clock-names: {'minItems': 1, 'maxItems': 3, 'items': [{'const': 'fck'}, {'const': 'ahclkx'}, {'const': 'ahclkr'}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml: ignoring, error in schema: properties: clock-names
+warning: no schema found in file: ./Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+Documentation/devicetree/bindings/sound/davinci-mcasp-audio.example.dt.yaml:0:0: /example-0/mcasp0@1d00000: failed to match any schema with compatible: ['ti,da830-mcasp-audio']
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1559662
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+

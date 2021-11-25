@@ -2,198 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B70545DD4E
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 16:23:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 866D445DE46
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 17:05:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E87C18C9;
-	Thu, 25 Nov 2021 16:22:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E87C18C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1534A18D5;
+	Thu, 25 Nov 2021 17:04:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1534A18D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637853803;
-	bh=xOJcvQ6fbJUOm0/j1nsNc/L5/Wzc3OVZQ2WAo52zC7I=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1637856347;
+	bh=KdhSkXjkdaP3MlPJHTn/Y5rldvqlD30vDk4OrRZDGKk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NGMapWA0IIud6OHhaFpIOuH/e7JU+3hX3Af17Pxmo/YzO8Ijrt7hl2KnlRME0czy5
-	 7NcCkABtBXiOUyXzSV/O4lEpeiugD1sa3YdaJi+5HmWz5MZw2GfmZ7n+AvWOHtABqP
-	 4hLGVoQBKS7nVs0fEbMRfgOrwwKdV3beF65WBP24=
+	b=CEEdZNuV2Fi69qBe9XtobMCrH5QSRIx9eVtAzF72VuYKwDcRa2aV0+W/37/Fg8irF
+	 Bf7a7tWAEttQlIb1yQijcYz59KaDIkoYeY++ht6LrUVyzKs0/HtlGfwUlfcz2asgYl
+	 MMkroGkVX9+kPJZ3D6LbFvOT/SpK8QltwYbRn0ps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16CE7F80430;
-	Thu, 25 Nov 2021 16:22:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DD0EF8007E;
+	Thu, 25 Nov 2021 17:04:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74C08F8049E; Thu, 25 Nov 2021 16:22:02 +0100 (CET)
+ id BBFAEF8049E; Thu, 25 Nov 2021 17:04:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,PRX_BODY_13,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAF27F80087
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 16:21:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAF27F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B8A0F80302
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 17:04:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B8A0F80302
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="QpYK6mQO"; 
- dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
- header.i=@oracle.onmicrosoft.com header.b="eXBfqvFr"
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1APFLBG1005318; 
- Thu, 25 Nov 2021 15:21:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=xOJcvQ6fbJUOm0/j1nsNc/L5/Wzc3OVZQ2WAo52zC7I=;
- b=QpYK6mQOKyrTNKIfAy2cVNxQnPy9dfkLabZekvWqd3CN36hupZTVX3iACv7rSY/mRAMh
- g6QwZuGXqMKaApM6va3d2+Oh5Cks6+MRpp6n1eCnLP+K0DD9V8n5oWMqjQLzFJFp8R2h
- sazGJEvDkRorWn1DFI86L/zRevO0T6HsDX/GCbgSerdoMOVWeHlme22KXFI/3Y1Myr8b
- /niJp/UJX9aBL0Cwn9JHsrZ0VHdDlVTy1mr36Zf2W2zEPv6Od0zRN0Nd8lYIXW+BQu2I
- /4wjuRo7dvVnLvc7JcLKc9FbVxfZbWnNYvo6KXLxrbLxLw9RjKhiKjG+X5EMIHyFSSFt uA== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by mx0b-00069f02.pphosted.com with ESMTP id 3chk007rcx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 25 Nov 2021 15:21:54 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1APFFIaw111632;
- Thu, 25 Nov 2021 15:21:53 GMT
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2176.outbound.protection.outlook.com [104.47.56.176])
- by aserp3030.oracle.com with ESMTP id 3ceq2hsqse-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 25 Nov 2021 15:21:53 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=deVhZjW2ErlAfMn2kpwIWCCcr70VkysnkinuhioojLMjnQBbs+cD3wvdf+/FmvIi1GxIWSBXVE/cqvqWbML/GRNChS+FgPzeER9qZxF6AXZPvBkMMQxRZXHWINpyw0FbLX3KHg88CDC9Jd5TWYnpCtWmzdgktG9Sz4a//0syX0eoRlBqnbhJBKwdbxtocV+7/+YBp5FUPjWZsFJmGWdGEbyh1imFG12t4qJLZLGARaAuRSLEPzgO4yYud7tTdHj6xk8zsXCyWV2uyTlNOkP4zVFSFxVISOHhYw6s/aG9TZZAO6WCtjEtShYCozIWIBIYhmR59g1dge4pa0kZ+Tdiiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xOJcvQ6fbJUOm0/j1nsNc/L5/Wzc3OVZQ2WAo52zC7I=;
- b=jgBpGXqqlljaGHB0ei0+oD6676Dfy+aaaGfJq+X8PidpStyo3EfeBUZIDC9p434fch825+jbqwK8MlBwlg5QXWrxUww2D4qkEFXB8TVM7yMh6wbZvrjiOKmP1Dh4Il3syWIlB44MBO0FAYjt0rm2Ib9bwtLmQfVR1nqpZfObC3iwnl+Xq2zgakmU4NXmOFSgi8RkJoGgGT1jDD7GvZpoEMmYpZHzJNzXMW0ndT5wm2fr52enO1q6zbu2GQGShuEvAUMbv5tafDew06sIi+UxZdjlhvHOlzqO3SQMZjjWM5VVczcZ7qdkOskaqjONAYkyEdYBHndBhlRhThIXqCmvuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xOJcvQ6fbJUOm0/j1nsNc/L5/Wzc3OVZQ2WAo52zC7I=;
- b=eXBfqvFrwjT8KKGhqwNICDf/TLh0E3jD39WvuExuaZ666g6yB1oNnRoKa2UetW6vof5s9knru3Sls8Pn10gnFTN0OsaTkdt9RTndqaxvhOpR2ovF+HE/KrPrVJGIfqQhDTzn1aShh/rZ9NI0Rmw8wWqZhRzM5j5VrM2cfvL4UZc=
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by MN2PR10MB4383.namprd10.prod.outlook.com (2603:10b6:208:1d4::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Thu, 25 Nov
- 2021 15:21:51 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::8d84:1f40:881:7b12]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::8d84:1f40:881:7b12%4]) with mapi id 15.20.4713.025; Thu, 25 Nov 2021
- 15:21:51 +0000
-Message-ID: <b14018d0-a978-7c51-431b-ebdfe902e172@oracle.com>
-Date: Thu, 25 Nov 2021 10:21:41 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.1
-Subject: Re: [PATCH 0/5] xen: cleanup detection of non-essential pv devices
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-References: <20211022064800.14978-1-jgross@suse.com>
- <bf5a4749-0216-53db-a022-ef4f84d823c5@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <bf5a4749-0216-53db-a022-ef4f84d823c5@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR03CA0040.namprd03.prod.outlook.com
- (2603:10b6:a03:33e::15) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="lt0lqCFz"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 39F0C60200;
+ Thu, 25 Nov 2021 16:04:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1637856255;
+ bh=KdhSkXjkdaP3MlPJHTn/Y5rldvqlD30vDk4OrRZDGKk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lt0lqCFzS2OgfQbao/5lQKll2XYntB/PIV6jwUtWT0qBqf/hIz4IVt/mPVut2SyL9
+ 3A1gtB+ozJ4Ip4e7N4fCBK7aBbqGZljrGO7iCL71oMLftVpTrQsMxt63EQZjrakvI3
+ EA4BB2njilar/v2O4ZYz6q2W1uppOkOC9RgeuoKMU3I4BLKL/N/gyI2OlxbIw3yBjR
+ +LtAtY0Si3WewtPBtNh/R+diN370QEpwvlgPWLJi/7nvB2qwRf/bZimJltZj7E4G2m
+ p1Qy9e92OFQGPIt4NEfNgECw4r66Ix4mXzTjmLMIXAFZuZElBD5sUQMyu0FSJvZXGp
+ mcj3Zb7Rsq5Ww==
+Date: Thu, 25 Nov 2021 16:04:09 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Subject: Re: [PATCH v4 00/10] Add support for audio on SC7280 based targets
+Message-ID: <YZ+z+XPyecvDJA88@sirena.org.uk>
+References: <1635838265-27346-1-git-send-email-srivasam@codeaurora.org>
+ <YZUT6BQKz00jXov9@sirena.org.uk>
+ <e01729cd-0b2b-fe27-809b-c75ccbb6fac4@codeaurora.org>
 MIME-Version: 1.0
-Received: from [10.74.106.108] (138.3.200.44) by
- SJ0PR03CA0040.namprd03.prod.outlook.com (2603:10b6:a03:33e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22 via Frontend
- Transport; Thu, 25 Nov 2021 15:21:46 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bca32ac4-babd-4bd0-7609-08d9b0274e39
-X-MS-TrafficTypeDiagnostic: MN2PR10MB4383:
-X-Microsoft-Antispam-PRVS: <MN2PR10MB438351371AD34DE6301057148A629@MN2PR10MB4383.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: izFBXKiEDIni2MgEDXHJ4qsQDAWTTRuCQKVdzdDC34prTkeOouN+dpq94lkKFZnhEnffMdYZ4bX7zIXKnX2X9L3TkelkAla6+D6UbTRVHeg7zln+z7YAe521Tat6q0PmVIDbnJHByU8+os9PUbEeefWwQx3XCjuZ4jKjzBu5Bqc9Ysl61JNCxI2CdwRDKb1fSVHGTarb0NTi43KbZ2Kfosmty2txN7/uq8ERbXjElm3YuAnbbogc50AfrBVs8NyFOG1gtbx2atpEXDnquHzcemBKgQz2dQoi5IBAAxUDBD47DSudZYQAYHXRJJB+mU2O6Sg521qzJkzLLbOT6u4scOz+gs4n41w0lUHud/71GqofqYqUfhIEmbbMuUSDyRO3KpTSBiEx1AUqtzePz0xtlypszpK9Y8oWVEYpzX+xuAhxgU25+XfMrZp32MO2hpXdRZ1y3kLmttQ9a0Jp6RSUEJ58eMm+kIVBdbRj51Us73KeZtHC67pRV6YKqOu7zG3kNCk139MP2s7VXGrE4sZ5rd68QECz8s4YjwuTjM+qNPGHfJeqTpcfhvwucN0xppu8AB7cTv5pWtrXNs9xAQIild5GKf6vdCYwW7Y++iJ9n9pOqNje5028ODhbhaIvpaVV0Wal07ai6oAZTahU36SW6p0n23D5WrTXbsHlc2af+MjbeThHOxYVNZ8em8qM94l/Em6ZxAqGCh5TYmBvaNQhNbjm6Lngiu23qbGcu4NFD685zCkBElgR6TdGyzlK8v36
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BLAPR10MB5009.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(83380400001)(44832011)(4326008)(54906003)(2616005)(31696002)(66946007)(66556008)(186003)(316002)(6486002)(5660300002)(16576012)(7416002)(38100700002)(508600001)(956004)(2906002)(66476007)(86362001)(26005)(8676002)(53546011)(8936002)(6666004)(31686004)(36756003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZGhHSjF4VC9FTGZwN2puR3FWQWkvc1N0a1RER0U4MmxOUXZibU1TRHRpT1NM?=
- =?utf-8?B?alU2bFVSREg5REp1dC9ydHdXSm5JdjFjQ2xXNG8yMUNmY0lkMGhMYkxiKzBB?=
- =?utf-8?B?ZGhBS3IvRERqTXRhOFgvWHFCMThZNzNIQ0t5MUpGOWk1Q1pWc2t4OUZwUmxH?=
- =?utf-8?B?WkFIbnUvSllKT3M3ejI2SjhtQjZDbzNnVHlCSDdVWnpQbjVFczN4cG9rVWg4?=
- =?utf-8?B?T25rN09iRlRzQVVxMVp1TTNzOXhmSTN1bStVd1ZBbkRHSDg3bmREVlJiVitu?=
- =?utf-8?B?bzU4cjFGZm1FR1lhUzVLemxRWGlocDRnVGlFd2p5S0xuOFAwM1lrcFVFY3Rv?=
- =?utf-8?B?M3BYOHFveUl1MEJ0QUhMRFRTMEMrZ2ZKbUVnY0VEMlJaOXVyOEdmcHFvbTk0?=
- =?utf-8?B?UUFVWVVMczF3c3lQZmNUM2o5QjBGU0E0emZwQkZ2TjJueDVMTlErSFExOUNE?=
- =?utf-8?B?cmtiazJwT0lEZUlIaE84SG5wNkNRZzBlY214eTZSRnFUWFRQZG9Od3VuV0d6?=
- =?utf-8?B?M2Joamx6RmJLZGtvZ0E1dmkxQVlQbEFpYzQ4ZllFNkxsVGJmYkl5UW5QMzRN?=
- =?utf-8?B?VWV6WDBYWXJIeTJpYk9NTXB5RkZoWUxRRzE2ZTJWWGJVRnhCSWZYY3dyQUhQ?=
- =?utf-8?B?elVUOGROSlVuS0JFTTVMZEdsNWVFNjF0MDByUm0zTWl3TmJUVnEvK1hnUXlS?=
- =?utf-8?B?eWlSczZRc3Fpeko3cmFCRnRuOTgzNDY1TlM1UmQ5eEd2a1YrRmY5Y082NVFI?=
- =?utf-8?B?ZjNTeVFGS2N6NTlxb0hGUU0vOEkvaFJ4WjEzdG5ndWQ0NE1JZld4TGtReUZO?=
- =?utf-8?B?d1Axdzd3dFJlVS93WXBHeVJJVk1IelhGVEttc1p2d1NQa1pITjd6akhSZlhX?=
- =?utf-8?B?Qk1LU21FSW1qRkJXK0RmMWtlcGRmL3NjYWd6UkZrZy9VTFZuSzhlZ1BaZVlY?=
- =?utf-8?B?d2xuUm03eDZId2duZngvZ0NVWTYva1d3d1R4NGlhQThISWZpUEV0VjQ1UXlt?=
- =?utf-8?B?V1NYU1EwZm5XaFNaZUcyRjZXY256Y0MwYm9LeDFxQjY2Mmdra2tIUmYzOVlR?=
- =?utf-8?B?QWREcWg1OElsVXphRG40VTlZTDIvc1RrMzZjUDRNdDNuckpmY3ByYnZUeFhh?=
- =?utf-8?B?ZzdZVjIzWjdtaktaYS9IQVBvbmh5cXJ2N00xREhGakRORThOaDhKV2RuUzJR?=
- =?utf-8?B?QVp6QjgvQ1llVzNIWG9HclgrelI2Umt2M0FKYmFjQkJJQnExK0JnMFBVSXJP?=
- =?utf-8?B?cnYyUDV0OHJpdFBLOER5THpjeHd2bFJNa0c3ODF6S3hWSHVMZm1ML2ljKzZV?=
- =?utf-8?B?S0JWV0xlSVgxRUdoVkR6c1FlM3JaRlZGaW5Qc3dWNjhpZjhxOWxLTEdGVmpv?=
- =?utf-8?B?TnQ2OVI0V1hrc3lJRW5jeksySUIzem5OK3FKZ1AzQ2d1akY3eWp0RGdwdWxW?=
- =?utf-8?B?enA1RGlZWVNtSFRzNURsZHhkQU50ZXYzSExDb3dVclJ6RGxzTzdVQ2dUUXNX?=
- =?utf-8?B?dWUwYWE1UDVocTc1SThXWmtZQXFETlU0ZWxKTHRkMXRvU1BYYk90VkpZMTZq?=
- =?utf-8?B?S1BsMFhHQlhwYlQ1aTFmRkt5eVFuaUtQNmtVYk1NZDlybGJpMmdIT2htc201?=
- =?utf-8?B?ZnovSkhIMmtvRFJ0eU5NNlBKT1BzOWNlTmxlRVVhVnBXL1BhbkFsc253Z09u?=
- =?utf-8?B?VHB0bVpheFBUVDhkcHlTSXY5b3dMZGlueVBCUDhHd1B5bE5oVDMyZ3dKTjVW?=
- =?utf-8?B?RWN0K0tKRnRZWWpNVlArWVk1ZUpzTjI5UVhhZS84cFczNmdIVkM0L3M2Uldh?=
- =?utf-8?B?NkRaZmJDeTJMaGVEbnNHcW5KUGZSTFJpN3l6V2ozNUt5UHA5NGZiQlFjdzVt?=
- =?utf-8?B?dloydDdIam8rUW0rWmJjUUhLQnZ3SFBzNEc3YUZnU1Mrb0tua2ZTQk90cjl4?=
- =?utf-8?B?eWh6bFZoanlNQzNGWUlnZWNoUlRXRDR6U1RRa0t2azFNYSsrOWMyUmZSREpM?=
- =?utf-8?B?anA4U2lYcEZITm11UzJmMUtjYjg2ME1zVmpJRzlud05vL1Z0c05LWURYT3I2?=
- =?utf-8?B?bFNkaEExbEY0N1NvVEpKZmozb2JoSUFjVm1POEJhdGFWMG03akJLSkdzOXhm?=
- =?utf-8?B?cjdRdkN1dk9IU0lBRW1DZUFBRzhqQnU1WWsxT2RIZDVQTndTV0FxQ2huR2w1?=
- =?utf-8?B?bksyeUh1REloaksvdHd3ZUJScElEUFFldHZRTkk1THZUeFJRWDBvbFJBQzZk?=
- =?utf-8?B?cndIQUVyRjM1Y3FMckFZSVdJQnJBPT0=?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bca32ac4-babd-4bd0-7609-08d9b0274e39
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 15:21:51.3711 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WNwnUwzlptoU7PN9FlUem6dEYoTxBzr3Ll6KrPKYNLOaqjfs0npiEmctdtfiaN/RiSWNLmnc3NvfHZ67c0ht+7MQt2nosKscLQCd6yzalwg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4383
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10179
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- adultscore=0 spamscore=0
- bulkscore=0 suspectscore=0 mlxscore=0 mlxlogscore=999 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2111250085
-X-Proofpoint-ORIG-GUID: X_NWAn0AHYKFSi1y9iGuMiKi1e_UfJMo
-X-Proofpoint-GUID: X_NWAn0AHYKFSi1y9iGuMiKi1e_UfJMo
-Cc: alsa-devel@alsa-project.org, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jiri Slaby <jirislaby@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="4hRPBrvlJm1eOICO"
+Content-Disposition: inline
+In-Reply-To: <e01729cd-0b2b-fe27-809b-c75ccbb6fac4@codeaurora.org>
+X-Cookie: This bag is recyclable.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, linux-arm-msm@vger.kernel.org, plai@codeaurora.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ bjorn.andersson@linaro.org, agross@kernel.org, rohitkr@codeaurora.org,
+ swboyd@chromium.org, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -210,37 +86,60 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 11/22/21 3:20 AM, Juergen Gross wrote:
-> On 22.10.21 08:47, Juergen Gross wrote:
->> Today the non-essential pv devices are hard coded in the xenbus driver
->> and this list is lacking multiple entries.
->>
->> This series reworks the detection logic of non-essential devices by
->> adding a flag for that purpose to struct xenbus_driver.
->>
->> Juergen Gross (5):
->>    xen: add "not_essential" flag to struct xenbus_driver
->>    xen: flag xen_drm_front to be not essential for system boot
->>    xen: flag hvc_xen to be not essential for system boot
->>    xen: flag pvcalls-front to be not essential for system boot
->>    xen: flag xen_snd_front to be not essential for system boot
->>
->>   drivers/gpu/drm/xen/xen_drm_front.c        |  1 +
->>   drivers/input/misc/xen-kbdfront.c          |  1 +
->>   drivers/tty/hvc/hvc_xen.c                  |  1 +
->>   drivers/video/fbdev/xen-fbfront.c          |  1 +
->>   drivers/xen/pvcalls-front.c                |  1 +
->>   drivers/xen/xenbus/xenbus_probe_frontend.c | 14 +++-----------
->>   include/xen/xenbus.h                       |  1 +
->>   sound/xen/xen_snd_front.c                  |  1 +
->>   8 files changed, 10 insertions(+), 11 deletions(-)
->>
->
+--4hRPBrvlJm1eOICO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Nov 18, 2021 at 03:35:46PM +0530, Srinivasa Rao Mandadapu wrote:
+> On 11/17/2021 8:08 PM, Mark Brown wrote:
+> > On Tue, Nov 02, 2021 at 01:00:55PM +0530, Srinivasa Rao Mandadapu wrote:
+> >=20
+> > > This patch set depends on:
+> > > 	-- https://patchwork.kernel.org/project/alsa-devel/list/?series=3D57=
+0161
+> > > 	-- https://patchwork.kernel.org/project/alsa-devel/list/?series=3D57=
+2615
+> > > 	-- https://patchwork.kernel.org/project/alsa-devel/list/?series=3D55=
+9677
+> > None of those links seem to show any patches (or errors)?
+>=20
+> Sorry for Inconvenience Rob. I think due to it's status change patches are
+> not being appeared on provided link.
 
+I'm not Rob...
 
-Applied to for-linus-5.16c
+> With removing filter able to see patch set. Below are the links with view
+> filter change.
+>=20
+> --=20
+> https://patchwork.kernel.org/project/alsa-devel/list/?series=3D570161&arc=
+hive=3Dboth&state=3D*
 
+Please note this bit of the mail:
 
--boris
+> > Please include human readable descriptions of things like commits and
+> > issues being discussed in e-mail in your mails, this makes them much
+> > easier for humans to read especially when they have no internet access.
+> > I do frequently catch up on my mail on flights or while otherwise
+> > travelling so this is even more pressing for me than just being about
+> > making things a bit easier to read.
 
+So it looks like we still depend on at least the sc7280 machine driver?
+
+--4hRPBrvlJm1eOICO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGfs/gACgkQJNaLcl1U
+h9D8cwf7Bff6TgE+WAzqNt2VB/K+kGas4TbADTHreLi1oEV1ONDQb+aKeV5FQXbl
+mQi1ps0bNGYak+GLne3wYLWe+H6xJKlPKh7SssQDqoSSEhKxJvf0ZVivuhTlcKK/
+IUTPJJBcnh6ftPjn5u8XJN9JWm2HMj5LgkG6itJZcK+/Au7RfpPmrCGl/+UYmfZc
+IXZGhdIkk/k3g6ZK/+UE/gAtDfsznLHDNKQMU/wygs+j4vjF5vUhkt5HBAnksnrK
+tr1LWGjemENfMvsTRfXtokbL39lJ4Ej9t1qz7qknJc02ZSuhUJS/8JBamgJpbtTH
+GpCeSMkLRDocDDSSAjs9EnDjCS9FnA==
+=8KsA
+-----END PGP SIGNATURE-----
+
+--4hRPBrvlJm1eOICO--

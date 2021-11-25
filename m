@@ -2,81 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3AB145E267
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 22:27:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A3D545E277
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 22:28:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D6D318E3;
-	Thu, 25 Nov 2021 22:26:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D6D318E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98BE618E5;
+	Thu, 25 Nov 2021 22:27:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98BE618E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637875662;
-	bh=UkzdxWtRbXWwRzSMeExs9dwcLOftMNn6Q0z3cMCm0aU=;
+	s=default; t=1637875711;
+	bh=75S+hBrFEX3VzSy/0739q0wIlGlNXGImZl2tfL9tNzo=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aWz2P1GqsKyRGhZeHU1ijFCVfcVKWmgT1oTP2rzisq6/qMOlzJEC19Wx0fNiJRhAL
-	 ysjVUw0Ki8RpUlA4/gEhj0jJLDlvx6K5d2DDD5K8KT5EbPujIa8/XpdXuzPuqd/j9/
-	 Yq3sJ8nfAJ6A7XJCcBzPPWOtmd69CHWHYK9XU2mg=
+	b=RA51RszDlQwK79g+nD/bc/GxG8Gjy6/XvxmEw8V8GsbACLC0X+KJECmFg0Ja9cw4v
+	 sDJrSlPh/0bQKG4nRQwtCtkoHIJog809RqHNacjXywAxh5KDwZAp7AiURy29WPeTTO
+	 SuW9CUz7lt5JPuSSndVD1NfSVbiZg2BmB4pay2og=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A481DF80302;
-	Thu, 25 Nov 2021 22:26:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4026BF804E7;
+	Thu, 25 Nov 2021 22:26:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C884F8049E; Thu, 25 Nov 2021 22:26:21 +0100 (CET)
+ id 10745F804B1; Thu, 25 Nov 2021 22:26:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D400F80302
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 22:26:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D400F80302
-Received: by mail-ot1-f42.google.com with SMTP id
- u18-20020a9d7212000000b00560cb1dc10bso11131056otj.11
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 13:26:13 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06674F804AB
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 22:26:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06674F804AB
+Received: by mail-oi1-f171.google.com with SMTP id o4so14895684oia.10
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 13:26:28 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
  :message-id;
- bh=K9sBfhhvh3TyySdJ4+kH3HFS2nUgK5mo6oF+b8evIIw=;
- b=QsY+RyX+1h/rtjoYAOZD0sJqj+p6UO7HbsYhk6vm/yXNhBQjOw9M0BS/m2fkfRK5C7
- xaVGU7UYungJ3XKXFDL8sTNwGzDfCqHnEn+4mwt0F6GR7pZ88dqvfadvDAAVuMaJ4e52
- GNhzUoPOShkLPMqNcv4NQ1JTOj+mq5hXckI939IaX7N7jUsuT7IY3mUgqGEWkh2CPOvd
- Rxy+uxEkZWpC2b4qDcqfG74XVS0o3dVa5vZoiXb6mKpkhoW4f074VubYAd197QKEzz/V
- SJ5uJXJO646tAg7Dv6SkSozAszwfo/lSQSi0WXNrRN6Qzl5xK2dr9/Q7vxitq2ehLmWR
- Q4gw==
-X-Gm-Message-State: AOAM5304L6IAbOsvNCROYaGRCmkyyCqlQ4Rkfe7SuWF2bBXSo3guv6x4
- HoQH8BMQlt0i7FrgZPvJ7A==
-X-Google-Smtp-Source: ABdhPJzzt0Csr7okspWgSLe+I1n4SZvDhCX1LyaO2Mr9NAGUFau59mr2FaZq2piH3W6tpFyYwBeH1w==
-X-Received: by 2002:a9d:6c54:: with SMTP id g20mr24876267otq.30.1637875571987; 
- Thu, 25 Nov 2021 13:26:11 -0800 (PST)
+ bh=Irmkz+2IkREM42YOJmVlq/heQU408FIz6tCFuZLCU8s=;
+ b=Jmc5nw4oT9YlapX9bA0RjAgLmIAVh790tq52U111UTAwJLf8SU4KlZ2Ap/ZQBD+UWp
+ axk12wTO5z3YkzmdVuYrc0luJyZeLpkT44mHWoL/TiZ6N2Zb4dpZY2voC6zs0/T93Ftl
+ sADhvq9xIuC10gT3yVVTddK/KfgBj78hN9xkvo4pt8G52OI7S60xpiJ4IChzEPW4OccW
+ Hm6/+EUIJ9zo6rRSLoXyrVD8zpkQKMf+bl8Al5kEIM739mXtj1BM2LidSqybtheia/tq
+ oiHHCFuh0Mc11V+LyTF6Mmjyt85xM6dkntPvv5etnSu8dIPDYmVog/s85GIXMrQAb1Ys
+ wVbQ==
+X-Gm-Message-State: AOAM530spcRJrPNXqxtv9gUFlAbXituoPYQrptQqa6t5npLahIw9t4v6
+ D2faIy5kR8dtCUcTwHxauQ==
+X-Google-Smtp-Source: ABdhPJyEIeYGx4xMc1J7Gwjxw4a3IIrOE4Xx6LFo3WAtPewKP4oi94Bvlm37BYHDgo8Y45xaFqR2Wg==
+X-Received: by 2002:a05:6808:3d2:: with SMTP id
+ o18mr18848517oie.14.1637875586898; 
+ Thu, 25 Nov 2021 13:26:26 -0800 (PST)
 Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id w19sm870433oih.44.2021.11.25.13.26.09
+ by smtp.gmail.com with ESMTPSA id p14sm670414oov.0.2021.11.25.13.26.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Nov 2021 13:26:11 -0800 (PST)
-Received: (nullmailer pid 2858311 invoked by uid 1000);
+ Thu, 25 Nov 2021 13:26:26 -0800 (PST)
+Received: (nullmailer pid 2858319 invoked by uid 1000);
  Thu, 25 Nov 2021 21:26:02 -0000
 From: Rob Herring <robh@kernel.org>
-To: Dmitry Osipenko <digetx@gmail.com>
-In-Reply-To: <20211124220057.15763-3-digetx@gmail.com>
-References: <20211124220057.15763-1-digetx@gmail.com>
- <20211124220057.15763-3-digetx@gmail.com>
-Subject: Re: [PATCH v1 02/20] ASoC: dt-bindings: tegra20-i2s: Convert to schema
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+In-Reply-To: <20211125144053.774-2-olivier.moysan@foss.st.com>
+References: <20211125144053.774-1-olivier.moysan@foss.st.com>
+ <20211125144053.774-2-olivier.moysan@foss.st.com>
+Subject: Re: [PATCH v2 1/4] ASoC: dt-bindings: stm32: i2s: add
+ audio-graph-card port
 Date: Thu, 25 Nov 2021 14:26:02 -0700
-Message-Id: <1637875562.276093.2858310.nullmailer@robh.at.kernel.org>
+Message-Id: <1637875562.357461.2858318.nullmailer@robh.at.kernel.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, Agneli <poczt@protonmail.ch>,
- linux-tegra@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>
+ Olivier Moysan <olivier.moysan@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ amelie.delaunay@foss.st.com, fabrice.gasnier@foss.st.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, alain.volmat@foss.st.com,
+ arnaud.pouliquen@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,39 +96,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 25 Nov 2021 01:00:39 +0300, Dmitry Osipenko wrote:
-> Convert NVIDIA Tegra20 I2S binding to schema.
+On Thu, 25 Nov 2021 15:40:50 +0100, Olivier Moysan wrote:
+> The STM2 I2S DAI can be connected via the audio-graph-card.
+> Add port entry into the bindings.
 > 
-> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 > ---
->  .../bindings/sound/nvidia,tegra20-i2s.txt     | 30 --------
->  .../bindings/sound/nvidia,tegra20-i2s.yaml    | 71 +++++++++++++++++++
->  2 files changed, 71 insertions(+), 30 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml
+>  Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
 
-yamllint warnings/errors:
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.example.dt.yaml: i2s@70002800: 'clock-names' is a required property
-	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml
+Full log is available here: https://patchwork.ozlabs.org/patch/1559750
 
-doc reference errors (make refcheckdocs):
 
-See https://patchwork.ozlabs.org/patch/1559387
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
+audio-controller@4000b000: 'port' does not match any of the regexes: '^port@[0-9]', 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/stm32mp157a-dk1.dt.yaml
+	arch/arm/boot/dts/stm32mp157c-dk2.dt.yaml
 

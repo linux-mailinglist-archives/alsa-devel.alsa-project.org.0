@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866D445DE46
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 17:05:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2100545DEAF
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 17:41:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1534A18D5;
-	Thu, 25 Nov 2021 17:04:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1534A18D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 992B218CF;
+	Thu, 25 Nov 2021 17:40:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 992B218CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637856347;
-	bh=KdhSkXjkdaP3MlPJHTn/Y5rldvqlD30vDk4OrRZDGKk=;
+	s=default; t=1637858490;
+	bh=HFepSg/saujvX6ju4FwtfxkShtW/oKrH9zgYsRrXdcs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CEEdZNuV2Fi69qBe9XtobMCrH5QSRIx9eVtAzF72VuYKwDcRa2aV0+W/37/Fg8irF
-	 Bf7a7tWAEttQlIb1yQijcYz59KaDIkoYeY++ht6LrUVyzKs0/HtlGfwUlfcz2asgYl
-	 MMkroGkVX9+kPJZ3D6LbFvOT/SpK8QltwYbRn0ps=
+	b=g4XinycBlE2y57zZQHdywemoE1RJq033oBwqIrssLYlFEJ4/zXKkwx9C71cOMXR41
+	 5IWSmKt7t096n5Hl1zwYvaJGxRfjN/SN6prHD4w4luzQHngSJdo/dWO65fmaMcQKtL
+	 DmeZJdpRZxaBLhzT7tnMb7o5lQ6RQmLaADQk8RGc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DD0EF8007E;
-	Thu, 25 Nov 2021 17:04:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B7ECF80302;
+	Thu, 25 Nov 2021 17:40:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBFAEF8049E; Thu, 25 Nov 2021 17:04:27 +0100 (CET)
+ id B2FE4F8049E; Thu, 25 Nov 2021 17:40:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B8A0F80302
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 17:04:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B8A0F80302
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B630F80302
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 17:40:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B630F80302
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lt0lqCFz"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 39F0C60200;
- Thu, 25 Nov 2021 16:04:12 +0000 (UTC)
+ header.b="s+FD/J55"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7C742610A2;
+ Thu, 25 Nov 2021 16:39:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637856255;
- bh=KdhSkXjkdaP3MlPJHTn/Y5rldvqlD30vDk4OrRZDGKk=;
+ s=k20201202; t=1637858398;
+ bh=HFepSg/saujvX6ju4FwtfxkShtW/oKrH9zgYsRrXdcs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lt0lqCFzS2OgfQbao/5lQKll2XYntB/PIV6jwUtWT0qBqf/hIz4IVt/mPVut2SyL9
- 3A1gtB+ozJ4Ip4e7N4fCBK7aBbqGZljrGO7iCL71oMLftVpTrQsMxt63EQZjrakvI3
- EA4BB2njilar/v2O4ZYz6q2W1uppOkOC9RgeuoKMU3I4BLKL/N/gyI2OlxbIw3yBjR
- +LtAtY0Si3WewtPBtNh/R+diN370QEpwvlgPWLJi/7nvB2qwRf/bZimJltZj7E4G2m
- p1Qy9e92OFQGPIt4NEfNgECw4r66Ix4mXzTjmLMIXAFZuZElBD5sUQMyu0FSJvZXGp
- mcj3Zb7Rsq5Ww==
-Date: Thu, 25 Nov 2021 16:04:09 +0000
+ b=s+FD/J55f9OixobL9kZxJ/MqDETvoDkgyiJGIXMCTM04hnuyKZNauVrjDvZ0xwUCY
+ qiZ4+EPdzKpmzO3EZNnQFgnZkITjTG2rpk+RRh7MpkLLXtAXopuhymTH8wC/lBDLVc
+ 27Wlo13CXxNxrRmcjV2aEx0gpe5XuWknKbXTcI/kKzsFkxuiYd3z+q0/T+ggsjxPIi
+ G/7MCXu89CSFRKYiTD74EURWxgkc7GHaaJKKuO2PiEKQ0lqyWuhmr7H0wzNUlUCCOT
+ rb+bFzgAKnYgR30ZEL9s5uI3TFJJFhE+vdXl31x3r7bSAqrVajj6/NHe/Ehws/6zL0
+ 6KJz0ClbEsiMQ==
+Date: Thu, 25 Nov 2021 16:39:53 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Subject: Re: [PATCH v4 00/10] Add support for audio on SC7280 based targets
-Message-ID: <YZ+z+XPyecvDJA88@sirena.org.uk>
-References: <1635838265-27346-1-git-send-email-srivasam@codeaurora.org>
- <YZUT6BQKz00jXov9@sirena.org.uk>
- <e01729cd-0b2b-fe27-809b-c75ccbb6fac4@codeaurora.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/5] ASoC: soc-dai: update snd_soc_dai_delay() to
+ snd_soc_pcm_dai_delay()
+Message-ID: <YZ+8WbwDA9oQoRSk@sirena.org.uk>
+References: <877dd8y26l.wl-kuninori.morimoto.gx@renesas.com>
+ <875yssy25z.wl-kuninori.morimoto.gx@renesas.com>
+ <2cc78158-e288-e949-594f-0ab939a35942@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4hRPBrvlJm1eOICO"
+ protocol="application/pgp-signature"; boundary="a+KCp9XbWIz00NwG"
 Content-Disposition: inline
-In-Reply-To: <e01729cd-0b2b-fe27-809b-c75ccbb6fac4@codeaurora.org>
+In-Reply-To: <2cc78158-e288-e949-594f-0ab939a35942@linux.intel.com>
 X-Cookie: This bag is recyclable.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, linux-arm-msm@vger.kernel.org, plai@codeaurora.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- bjorn.andersson@linaro.org, agross@kernel.org, rohitkr@codeaurora.org,
- swboyd@chromium.org, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
+ Hans de Goede <hdegoede@redhat.com>, Gu Shengxian <gushengxian@yulong.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,60 +87,35 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---4hRPBrvlJm1eOICO
+--a+KCp9XbWIz00NwG
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 18, 2021 at 03:35:46PM +0530, Srinivasa Rao Mandadapu wrote:
-> On 11/17/2021 8:08 PM, Mark Brown wrote:
-> > On Tue, Nov 02, 2021 at 01:00:55PM +0530, Srinivasa Rao Mandadapu wrote:
-> >=20
-> > > This patch set depends on:
-> > > 	-- https://patchwork.kernel.org/project/alsa-devel/list/?series=3D57=
-0161
-> > > 	-- https://patchwork.kernel.org/project/alsa-devel/list/?series=3D57=
-2615
-> > > 	-- https://patchwork.kernel.org/project/alsa-devel/list/?series=3D55=
-9677
-> > None of those links seem to show any patches (or errors)?
->=20
-> Sorry for Inconvenience Rob. I think due to it's status change patches are
-> not being appeared on provided link.
+On Tue, Nov 16, 2021 at 02:43:30PM -0600, Pierre-Louis Bossart wrote:
 
-I'm not Rob...
+> When the hw_ptr is updated, the avail/delay value are also modified.
 
-> With removing filter able to see patch set. Below are the links with view
-> filter change.
->=20
-> --=20
-> https://patchwork.kernel.org/project/alsa-devel/list/?series=3D570161&arc=
-hive=3Dboth&state=3D*
+> see the diagram in
+> https://www.kernel.org/doc/html/latest/sound/designs/timestamping.html?highlight=pcm%20timestamping
 
-Please note this bit of the mail:
+> I would think it's more accurate to update the delay information while
+> dealing with the hw_ptr update, no?
 
-> > Please include human readable descriptions of things like commits and
-> > issues being discussed in e-mail in your mails, this makes them much
-> > easier for humans to read especially when they have no internet access.
-> > I do frequently catch up on my mail on flights or while otherwise
-> > travelling so this is even more pressing for me than just being about
-> > making things a bit easier to read.
+Morimoto-san?
 
-So it looks like we still depend on at least the sc7280 machine driver?
-
---4hRPBrvlJm1eOICO
+--a+KCp9XbWIz00NwG
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGfs/gACgkQJNaLcl1U
-h9D8cwf7Bff6TgE+WAzqNt2VB/K+kGas4TbADTHreLi1oEV1ONDQb+aKeV5FQXbl
-mQi1ps0bNGYak+GLne3wYLWe+H6xJKlPKh7SssQDqoSSEhKxJvf0ZVivuhTlcKK/
-IUTPJJBcnh6ftPjn5u8XJN9JWm2HMj5LgkG6itJZcK+/Au7RfpPmrCGl/+UYmfZc
-IXZGhdIkk/k3g6ZK/+UE/gAtDfsznLHDNKQMU/wygs+j4vjF5vUhkt5HBAnksnrK
-tr1LWGjemENfMvsTRfXtokbL39lJ4Ej9t1qz7qknJc02ZSuhUJS/8JBamgJpbtTH
-GpCeSMkLRDocDDSSAjs9EnDjCS9FnA==
-=8KsA
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGfvFgACgkQJNaLcl1U
+h9DEbAf/WhAbJadKwrRsn63Z/QxhdptaxHUZd8fJBn0nxAPV4pevKn1jEcWgoUJ+
+af4Xpd5jKk132bLezG7UH+kdcLkyShOyCape9VnxrP9APG9luoWwTOrTbt+c+s2M
+zuRSR5+gDXQXwSY9UvS6TLdKX2qCEzweHqPdSmb1GqGT2LVG4Zi8ICF8Mr0Rpz8u
+tPzohHB4o8kt0OSiPt6/yH4pGmqcyE2gMZ6uZ9pQaZ/ZmViB9LiIGKHzyXQVRudZ
+dfI2C7MOl4RaukEcQWNrkjPNJ3GoqIi6EH3sjgVJ8JPqT5V4SZPzfEF+HZi1YXO6
+NZoFF+9TcSKvVBkIvWLfZ8CNi/vQpw==
+=/r6a
 -----END PGP SIGNATURE-----
 
---4hRPBrvlJm1eOICO--
+--a+KCp9XbWIz00NwG--

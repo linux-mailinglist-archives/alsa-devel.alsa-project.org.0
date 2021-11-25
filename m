@@ -2,87 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 864DD45D3DE
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 05:21:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49E2A45D3E5
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 05:24:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 248FF180D;
-	Thu, 25 Nov 2021 05:20:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 248FF180D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8C3317E7;
+	Thu, 25 Nov 2021 05:23:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8C3317E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637814099;
-	bh=NRSE6VjEWgNC41RLdVKKEe+ug2L6LxXQPzbgg9pbubU=;
+	s=default; t=1637814268;
+	bh=O0aDBe4u+jcf4Tcq8bBjqsKNls0Jj0zcxv5S6inEwu8=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JjvRmoB5kR515kslC5kDLHvGH2M+lhfu4pY3g9uCJOumU/bjHaipi7oaLStcOkWy6
-	 6B2djp4lN+NeChbFwgpb7CBDUoQQ6g2FPloywASqG+LwIoEc/wbLZXR0OAvYMLRW3M
-	 TvkLVyTGFbPUYjbvLHruFnKcfXlCG38gUtGnXYdM=
+	b=SVxZ/icfeoTjejgJrZW6ic/mVv8MjeAA6dhSglyNwlFV8Sj/VUTFOtTcLjuAz3nfq
+	 oJss2UEXo9hbYAJhdQhRhMEbjHm/vyMP88lR+Ga8i/6iHjz70Mp0btardBes+ln+cq
+	 D4s4XK8AwPMAaR2DvsyHztVs0e++gQefD2EEpQJM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EE8EF804AB;
-	Thu, 25 Nov 2021 05:20:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CAEDF80302;
+	Thu, 25 Nov 2021 05:23:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76BEEF8049E; Thu, 25 Nov 2021 05:20:18 +0100 (CET)
+ id 9D87DF8049E; Thu, 25 Nov 2021 05:23:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
- DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FROM,NICE_REPLY_A,NML_ADSP_CUSTOM_MED,
- SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7525CF8007E
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 05:20:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7525CF8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id BDBCCF8007E
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 05:23:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDBCCF8007E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="o++SMOtW"
-Received: by mail-lf1-x130.google.com with SMTP id t26so12872178lfk.9
- for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 20:20:03 -0800 (PST)
+ header.b="XubA+7Gt"
+Received: by mail-lf1-x129.google.com with SMTP id u3so12927637lfl.2
+ for <alsa-devel@alsa-project.org>; Wed, 24 Nov 2021 20:23:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=BE19aF5UvkexXFXpNDupHLeqTikRuVPoKcnXFT9OpTc=;
- b=o++SMOtWY5OxrJrk2defJIuKEwAPjWW5ACHeX6LzrD2Vy8igEeRLV3ODdIBe353VBs
- eYRFggmy1FJXJ+UwqTJ6vgdxWbPxHLFbr77UhZe/e+tQL31kSq9e7aEZ/e+I3gv6lJOc
- XTMp942TXxjbhSwZ7UXMYo2Kh0q5Da2dM08gnGRI4uMtZDYtBA7FE/ve7LhkGHAy5+oM
- 1AjrnYHoxM8IVeiTSqTxZhQ97foDo2nkJ51JmTP1hkPSvJ0BrH4gYwlJXT6FXFahtBOc
- Fp/3IndpEa1t5iEpKBuxrhFnPPzNUAsyyPinxnutr5dlh9apIz9n+Dp4FDYNvyTZ0GFP
- 8HjQ==
+ bh=yW96xTqN22+VgfWvofFKJ2uQthCcWS6JMEwqDhv1mBo=;
+ b=XubA+7GtvDkj0ES1YstwmKTLp3xvVzHzRaeqB//qspqLlT8c48Wlax7bQSlzp42qNC
+ +stMeEnSn6dW90xZoBfnm4+YUAwZdF5NTf56STCg0KHDg5/wUrPGZGtbtfcvcx0EmYAl
+ OFb9mNbpoQ1kvJpKgux/RtthQduVob3vB7uRzR1CE5fWlugQqqrl43yTIpGlayo3utdl
+ 0210Y4AAyzU1iD5uyNIYK87Gvqp2UyfZZZXC1YbpHxShhim6MTnFSYP90wJsv4kHD+iE
+ UzBK0TCOQHc8Z5y7fo35nnCF+o829D1RtNIzvCexl4mWWq42ixAFQe632iS1Ianz7p9F
+ 5fyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=BE19aF5UvkexXFXpNDupHLeqTikRuVPoKcnXFT9OpTc=;
- b=5773d2YiwGluTLjrmRHm84xgTNdBVz4LlsgAt9r0oK7ys1V43H3/e6pDi4ioh0S6kA
- r6ikg0UMd+Q7JDVly/3gmbzireltv4yOdGO2VFjZrO0dIt96GY50Dbmy3lujmCwhV2/J
- Wf/A2hv6xrUCc2J0QFByNzL++ry4lx738pwmj1xhOf7G6NxQ9aVZcqTPZUCVRgN+GtIu
- 1Ay/XFOqWamyp03/phfdyxnFujy837kP3eg/nL4/5cpThmSrMWpFBD+Fh0olxIq2i2E7
- LYpuKL3K0EqVD8J6uWxT7l0hC3NEnb6vJmxV6LzTcfRi1XjHiyKe61FXFZzChelAgK4H
- DAmQ==
-X-Gm-Message-State: AOAM533+Q2voErPNNclyHlDof3pEiQznNYFn6IDT1LHNjDfAIZfilpat
- 2VNtSx1iGrBLEv/Nz9+AhmQ=
-X-Google-Smtp-Source: ABdhPJy0VrtiWGY5aK9Ntm6ZqTo5OoljLalg9RN9ABto5r2FcHYdh5wqlaU+y5c/FmJvhFIMbcdVdg==
-X-Received: by 2002:a05:6512:3d8c:: with SMTP id
- k12mr21946258lfv.365.1637813999593; 
- Wed, 24 Nov 2021 20:19:59 -0800 (PST)
+ bh=yW96xTqN22+VgfWvofFKJ2uQthCcWS6JMEwqDhv1mBo=;
+ b=Li4DHTLVvfG0HIQHi8HWBZL2zb++TujgDmStrE2S+3G68YrepHC0mwPsiE74js2MSv
+ z8VkyUHao/0QVfRNafbegaGks1EvaL7JhL3Lk97HYH/8ZVWRwhMywXTJPkTXDcDnz4VA
+ ZBnpfTn6+jBjAwO8tflk7kv7eQ9iB46Bpd/b94/Qzs9767FDohtR4hPJkhvSq0PWTawJ
+ nJJIK5St91T0sbFkA6wyTBzc5QGp1Giv5Fz7dBncJnswIJJZ6Vd85yjqvrJRKdwZGufE
+ RZm6f7AWIc0wEx+ZZfZsaGRR7S/ENemQT1ruN99bz96yUeOLHv2tFOoFRkkDKeWgicRq
+ gjRA==
+X-Gm-Message-State: AOAM532vCm8eJvhSRTP6osC2iSrSaZOe7nSfgs7BInO+Tv4lSMP4Z+we
+ 31x/17qQw2eBwSMQaAXovLA=
+X-Google-Smtp-Source: ABdhPJzSViA3nbJpeKg2as0KQ93wxdxlYCRirpiJ3L9FZiRWPS2phT5FbugeHgNJ3EZGhLvHMdIfaA==
+X-Received: by 2002:a19:495c:: with SMTP id l28mr21433144lfj.484.1637814181497; 
+ Wed, 24 Nov 2021 20:23:01 -0800 (PST)
 Received: from [192.168.2.145] (94-29-48-99.dynamic.spd-mgts.ru. [94.29.48.99])
- by smtp.googlemail.com with ESMTPSA id m8sm160775lfq.27.2021.11.24.20.19.58
+ by smtp.googlemail.com with ESMTPSA id v2sm144156ljg.46.2021.11.24.20.23.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Nov 2021 20:19:59 -0800 (PST)
+ Wed, 24 Nov 2021 20:23:01 -0800 (PST)
 Subject: Re: [PATCH] dt-bindings: sound: nvidia, tegra-audio: Convert multiple
  txt bindings to yaml
 To: Rob Herring <robh@kernel.org>, David Heidelberg <david@ixit.cz>
 References: <20211025171927.92332-1-david@ixit.cz>
  <YYBRTK9KGglu/s9m@robh.at.kernel.org>
 From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <3ed2725b-3a78-d0fc-b09d-5725ca573215@gmail.com>
-Date: Thu, 25 Nov 2021 07:19:58 +0300
+Message-ID: <39c21327-c2ec-b9c5-95c2-047ac347fd23@gmail.com>
+Date: Thu, 25 Nov 2021 07:23:00 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
@@ -111,54 +110,13 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 01.11.2021 23:42, Rob Herring пишет:
->> +  nvidia,audio-routing:
->> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->> +    description: |
->> +      A list of the connections between audio components.
->> +      Each entry is a pair of strings, the first being the connection's sink,
->> +      the second being the connection's source. Valid names for sources and
->> +      sinks are the pins (documented in the binding document),
->> +      and the jacks on the board:
->> +        ALC5632:
->> +          * Headset Stereophone
->> +          * Int Spk
->> +          * Headset Mic
->> +          * Digital Mic
->> +        MAXX98090:
->> +          * Headphones
->> +          * SPeakers
+>> +  assigned-clocks: true
+>> +
+>> +  assigned-clock-parents: true
+>> +
+>> +  assigned-clock-rates: true
+> These properties are always allowed when 'clocks' is present. So you 
+> don't have to list them.
+> 
 
-Speakers
- -
-
->> +          * Mic Jack
->> +          * Int Mic
->> +        RT5640:
->> +          * Headphones
->> +          * Speakers
->> +          * Mic Jack
->> +        RT5677:
->> +          * Headphone
->> +          * Speaker
->> +          * Headset Mic
->> +          * Internal Mic 1
->> +          * Internal Mic 2
->> +        SGTL5000:
->> +          * Headphone Jack
->> +          * Line In Jack
->> +          * Mic Jack
->> +        WM8753:
->> +          * Headphone Jack
->> +          * Mic Jack
->> +        WM8903:
->> +          * Headphone Jack
->> +          * Int Spk
->> +          * Mic Jack
->> +          * Int Mic
->> +        WM9712:
->> +          * Headphone
->> +          * LineIn
->> +          * Mic
-> All these strings should be part of the schema.
-
-Well, seems this can be done only using a separated bindings.
+That is a very nice new feature!

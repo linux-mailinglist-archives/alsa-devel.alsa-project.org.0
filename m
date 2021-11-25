@@ -2,77 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6471A45D7B1
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 10:53:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B223B45D7B7
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 10:54:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBC0B17E8;
-	Thu, 25 Nov 2021 10:52:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBC0B17E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D0BE1865;
+	Thu, 25 Nov 2021 10:53:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D0BE1865
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637834024;
-	bh=swg0u6f2H1HmiwrKTwvjk56qo1yt1pf1gRQ7xpKbxjI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=X535+YiaoHO+sVA4Ed8izKBmsbigXd8qG8HDrWRcVPHJn85CLnCxJ7RGvxdNSmaKe
-	 XODBC69Jl//S7KfuV+Zlan5EmROJQYDT2TUYSCyPGXA5hzDpIpCOSAuPrCv+DJlNXc
-	 XEHC4j40Ut9xrHX2+NkNrdwsMSmEvY7vcNB8K2/U=
+	s=default; t=1637834048;
+	bh=hN9HiGbsXLQ1C0bTfGeXKyEX4q5EpQNFCa/MLLKj5f0=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Nbx5NYaRNV5es6wBzqGJTVVBEkMOODw/oHOg6Fau+YEbF7QG70fBPnrr/qvnO0pPb
+	 RLmNOoPqgCwF81Wirp+cQXYCF3Vk6rkVtfWyGMZ0mLydUN3tm1o3xlXOnN06qec74r
+	 XzlQC3eHc9NCS789a2s5m1TlqjFFMgFtXLrl1XoU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27FFAF804AB;
-	Thu, 25 Nov 2021 10:52:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B55BF804BC;
+	Thu, 25 Nov 2021 10:52:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC70CF8049E; Thu, 25 Nov 2021 10:52:22 +0100 (CET)
+ id DE36AF804BC; Thu, 25 Nov 2021 10:52:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0024F80087
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 10:52:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0024F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1E51F8049E
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 10:52:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1E51F8049E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="M49MUuzV"
-Received: by mail-wr1-x42a.google.com with SMTP id c4so10285352wrd.9
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 01:52:13 -0800 (PST)
+ header.b="NN50d0DQ"
+Received: by mail-wm1-x329.google.com with SMTP id
+ p3-20020a05600c1d8300b003334fab53afso7814010wms.3
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 01:52:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LubwOIycbs75WP/0QNBKRsHGq+GD5WppuGlmADCSChY=;
- b=M49MUuzVEN2wten8Ow2ZJxr5fn8ozedMlUDS5Vhguf7tIXQSyT1uqTEDcvSjYcByLI
- Q3gv3O5RNUO0frlPadFHGafDi5oWig+LRvD4DZgNN71igoJfB3Azr5DLhkAw+PZCYK+g
- PbQlOhXAddLIFxc7m265nk8SRdVJUa9otaqqnWgiUTGD3+oBzBKjY2bkMxf+vyhLCru9
- bMybH1rLnlwNkCqEbB0tcvlt0PCC2rgrP3YPmh68SnDp+lXVjZWW3bk8RUGZWOrXAQ0r
- 5557YqH+KvpIw95HPSt2O6ju9+PL/BkO7vGxIx/NCnlbsDXwMhFZJxRB63rT0qTr9br/
- 4SBg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=xy2z4qlxanl4Hw2PX18g8lYJVE5ndrvEF3pAOx4MLrY=;
+ b=NN50d0DQt9wmmVdxQYef9+Y7/G2a4VAenOiUMA9QQe5EE3Sq1Kkl4Ix5HnvsOPJ/D5
+ bvKVEMaRVzY2W2zromU5gWBk0W8bT+o+tXgHAPo627o2hPpjJarSMUfGYHwbqDpYARtN
+ 84f3PbeOtHqsOyAXrmZWv0ZWcCTg+JuFiK/OFTAlmRDSQiI2pa9+HWYzNWTu+EFxDpU/
+ G+ma9Mcm4MXOskLGHf08pbTa49wFkQxD1NGWyb55R5z7QiaCRK4uJaBr5n3ona9E10aO
+ 7FxpKTotpNtATCiPwFRT2JYgQMkZPx0O6sAbb9Ebl+WIZnt6xp89P2cofLbrvDihffCZ
+ cnPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LubwOIycbs75WP/0QNBKRsHGq+GD5WppuGlmADCSChY=;
- b=zdsVtEBaWAYiC6AKfelvFhHoa0VRanQMfFlQStbwPoG7k4Yl053Mku9Z6KlXITqu8K
- 1wMsos/bBaNvd1aeLTkYMy1ns+IC6GyVs4u237qxvhQLqjTrsbV2S1dgkvexd16v6E5A
- xDbRcN4Qqho+xZgi+8JnKrvd0xWqol3AkA9M5DD0KQp13O+g897rO5UKGFK/qAxpkhJi
- adRFQ+0xEuoiJynoT3FbRNE9RQaVMpOpNolU4Sybll2+hoCfmwZgnn9ZwT37C9T5rfJL
- SKUs3wcwIIaWtOXj7yQjO5UFyJzJEDO1dRbUNed2oAYvx2k/IbafWJ2q8PJWIeQXqweC
- TyFQ==
-X-Gm-Message-State: AOAM532URmZ/IfpPXBv1AbFTq8yz1JcXSlCh1rXRlsCxbyuHcPqGMRh9
- l2jlf2twHB8tlRNUVkBxru8=
-X-Google-Smtp-Source: ABdhPJz5zAa8xgSOacNbN1QEP4WUOE0mulQoH6wZbGntvCmTU1aJI3geojJMrx5vchJS3EnAJ8blsA==
-X-Received: by 2002:adf:cd09:: with SMTP id w9mr4919379wrm.619.1637833931579; 
- Thu, 25 Nov 2021 01:52:11 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=xy2z4qlxanl4Hw2PX18g8lYJVE5ndrvEF3pAOx4MLrY=;
+ b=wtH1XfNU27r170OsUkgw+ORkrUMoKz+gpC0eaWzN7vWcNwB/PQPXTbEQuPGJzEkDmW
+ bIOlDCYfcXZbgWVnqjg4RnwFr4ZYPeVzFd/PsGbMrctVJR4OD0WVBpSn7r4bSYIo85ZE
+ 42uSUIMCLzT9NuQn7Xh3XzJRD5cQDCMS4NpknEQfn9t5RlwIvva8wlgXTuTiQ7IFWnqb
+ ht3uQ7rAj9xJ3zOeNgsuyvj457fr2JRPp7M2Hdd+VDJyZIlCOk3r5zvGhI6PLEiSVKaH
+ cXmPyl4PBfM9gP9j7ghzBIOTH6WFQnH3HMmEvDwJHYhMNyt0tc5kpkH5pFe46gTDTlb+
+ L0eQ==
+X-Gm-Message-State: AOAM5317ak3v+E6bB2niSkeQZHg9fM6vZ4nd4b5L1V9HTJkJufMh0i04
+ dbsCsKF3New0lgm/n40+b/4=
+X-Google-Smtp-Source: ABdhPJyIFG1pqgyPP+GLxBDWtvShEO+05+7/3fMA5MdoRv7XDsSxvdvFu9CR6pgNbFVnLIg47Bn3lg==
+X-Received: by 2002:a1c:f30d:: with SMTP id q13mr5361861wmq.55.1637833940778; 
+ Thu, 25 Nov 2021 01:52:20 -0800 (PST)
 Received: from localhost.elektrobit.com (eth1-fw1-nbg6.eb.noris.de.
  [213.95.148.172])
- by smtp.gmail.com with ESMTPSA id c1sm2310853wrt.14.2021.11.25.01.52.10
+ by smtp.gmail.com with ESMTPSA id c1sm2310853wrt.14.2021.11.25.01.52.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Nov 2021 01:52:10 -0800 (PST)
+ Thu, 25 Nov 2021 01:52:20 -0800 (PST)
 From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -81,10 +83,13 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Katsuhiro Suzuki <suzuki.katsuhiro@socionext.com>,
  alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 0/2] Kconfig symbol clean-up for sound
-Date: Thu, 25 Nov 2021 10:51:56 +0100
-Message-Id: <20211125095158.8394-1-lukas.bulwahn@gmail.com>
+Subject: [PATCH 1/2] ASoC: uniphier: drop selecting non-existing
+ SND_SOC_UNIPHIER_AIO_DMA
+Date: Thu, 25 Nov 2021 10:51:57 +0100
+Message-Id: <20211125095158.8394-2-lukas.bulwahn@gmail.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20211125095158.8394-1-lukas.bulwahn@gmail.com>
+References: <20211125095158.8394-1-lukas.bulwahn@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, kernel-janitors@vger.kernel.org,
@@ -104,63 +109,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dear sound maintainers,
+Commit f37fe2f9987b ("ASoC: uniphier: add support for UniPhier AIO common
+driver") adds configs SND_SOC_UNIPHIER_{LD11,PXS2}, which select the
+non-existing config SND_SOC_UNIPHIER_AIO_DMA.
 
-The script ./scripts/checkkconfigsymbols.py warns on invalid references to
-Kconfig symbols (often, minor typos, name confusions or outdated references).
-This is a patch series addressing the issues reported by
-./scripts/checkkconfigsymbols.py in the ./sound/ directory for Kconfig files,
-quickly filtered down with:
-
-  ./scripts/checkkconfigsymbols.py | grep "sound.*Kconfig" -B 1
-
-
-This patch series addresses:
+Hence, ./scripts/checkkconfigsymbols.py warns:
 
   SND_SOC_UNIPHIER_AIO_DMA
   Referencing files: sound/soc/uniphier/Kconfig
 
+Probably, there is actually no further config intended to be selected
+here. So, just drop selecting the non-existing config.
 
-  SND_SOC_WCD937X
-  Referencing files: sound/soc/codecs/Kconfig
-
-
-This patch series does not address:
-
-  CLK_FIXED_FCH
-  Referencing files: sound/soc/amd/Kconfig, sound/soc/amd/acp/Kconfig
-
-  Rationale: config definition has been submitted, but is still pending for
-    inclusion through another tree.
-
-
-  SND_SOC_AC97_BUS_NEW
-  Referencing files: sound/soc/pxa/Kconfig
-
-  Rationale: waiting for response; the kernel developer has been informed here:
-    https://lore.kernel.org/all/CAKXUXMzqgyNGEnxAMQqZiXJYSK-X8uB-nxHWwPg41H6yS0GWNg@mail.gmail.com/
-
-
-Both patches in this series can be discussed and applied individually. They are
-sent in one patch series, as they orginate from the investigation guided by the
-same tool and hence share similar topics and resolutions.
-
-Please pick this series of minor clean-up patches. It applies cleanly on next-20211124.
-
-
-Best regards,
-
-Lukas
-
-
-Lukas Bulwahn (2):
-  ASoC: uniphier: drop selecting non-existing SND_SOC_UNIPHIER_AIO_DMA
-  ASoC: codecs: wcd938x: add SND_SOC_WCD938_SDW to codec list instead
-
- sound/soc/codecs/Kconfig   | 3 +--
+Fixes: f37fe2f9987b ("ASoC: uniphier: add support for UniPhier AIO common driver")
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+---
  sound/soc/uniphier/Kconfig | 2 --
- 2 files changed, 1 insertion(+), 4 deletions(-)
+ 1 file changed, 2 deletions(-)
 
+diff --git a/sound/soc/uniphier/Kconfig b/sound/soc/uniphier/Kconfig
+index aa3592ee1358..ddfa6424c656 100644
+--- a/sound/soc/uniphier/Kconfig
++++ b/sound/soc/uniphier/Kconfig
+@@ -23,7 +23,6 @@ config SND_SOC_UNIPHIER_LD11
+ 	tristate "UniPhier LD11/LD20 Device Driver"
+ 	depends on SND_SOC_UNIPHIER
+ 	select SND_SOC_UNIPHIER_AIO
+-	select SND_SOC_UNIPHIER_AIO_DMA
+ 	help
+ 	  This adds ASoC driver for Socionext UniPhier LD11/LD20
+ 	  input and output that can be used with other codecs.
+@@ -34,7 +33,6 @@ config SND_SOC_UNIPHIER_PXS2
+ 	tristate "UniPhier PXs2 Device Driver"
+ 	depends on SND_SOC_UNIPHIER
+ 	select SND_SOC_UNIPHIER_AIO
+-	select SND_SOC_UNIPHIER_AIO_DMA
+ 	help
+ 	  This adds ASoC driver for Socionext UniPhier PXs2
+ 	  input and output that can be used with other codecs.
 -- 
 2.26.2
 

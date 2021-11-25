@@ -2,69 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BF6B45D5DC
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 08:59:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6EF145D61F
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 09:25:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B733B1843;
-	Thu, 25 Nov 2021 08:58:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B733B1843
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5A3D184D;
+	Thu, 25 Nov 2021 09:24:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5A3D184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637827144;
-	bh=sJ8Txe4SoEA9uCaOjye83wBldQa/ifsK2uHBvvIdnGs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1637828747;
+	bh=QwPZq/jl5XuE9VBWfjOrXWTriG7Q8YL7m/hdAlaferw=;
+	h=Subject:From:To:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lf/Tu7GvyaCPsNd9PV9ZbeLzEgdnPPQGd3nCaQdFxHd79ldPPHg3JgMNMHA4S4MLD
-	 48AaUoCbotNz4YXHNuOVqXfCo4ny+S1CUJ7rLSOkxbh7XurUGZfRsyMd16bxxVIPM3
-	 NyNkQP6Z2GFoEfxzrBwtfXzkxihe89YjhDj6lSY8=
+	b=TnW0kxPKLN3rLj9q90LH7D4aNuVtu8JTWdc0EFPFwr2C1Q3SM0yHSbBWoJaIW1OXR
+	 yvkhxtLOeNnTD5B+BBQ77YH0AcaI+1TnOWw2CSC9nR4YWwIYu4YthHANutbYpRmuqU
+	 hBvqv8CLkc890uII6KrpChVE/n8lTABJdf9cTV+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49329F804AB;
-	Thu, 25 Nov 2021 08:57:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 675DDF80430;
+	Thu, 25 Nov 2021 09:24:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04B8AF8049E; Thu, 25 Nov 2021 08:57:42 +0100 (CET)
+ id 25BC4F8049E; Thu, 25 Nov 2021 09:24:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FFE9F80302
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 08:57:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FFE9F80302
-X-IronPort-AV: E=McAfee;i="6200,9189,10178"; a="215491145"
-X-IronPort-AV: E=Sophos;i="5.87,262,1631602800"; d="scan'208";a="215491145"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2021 23:57:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,262,1631602800"; d="scan'208";a="741636594"
-Received: from lkp-server02.sh.intel.com (HELO 9e1e9f9b3bcb) ([10.239.97.151])
- by fmsmga006.fm.intel.com with ESMTP; 24 Nov 2021 23:57:28 -0800
-Received: from kbuild by 9e1e9f9b3bcb with local (Exim 4.92)
- (envelope-from <lkp@intel.com>)
- id 1mq9dG-000607-RJ; Thu, 25 Nov 2021 07:57:26 +0000
-Date: Thu, 25 Nov 2021 15:57:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Arnd Bergmann <arnd@kernel.org>, Vinod Koul <vkoul@kernel.org>
-Subject: Re: [PATCH 07/11] dmaengine: qcom-adm: stop abusing slave_id config
-Message-ID: <202111251538.x6sJNCka-lkp@intel.com>
-References: <20211115085403.360194-8-arnd@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4395FF80087;
+ Thu, 25 Nov 2021 09:24:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4395FF80087
+X-UUID: ce4a736e9ec949118e53bf084a580923-20211125
+X-UUID: ce4a736e9ec949118e53bf084a580923-20211125
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw01.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1816071343; Thu, 25 Nov 2021 16:24:34 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Thu, 25 Nov 2021 16:24:32 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Thu, 25 Nov 2021 16:24:32 +0800
+Message-ID: <d7626397a034ff429e0d915994c0ebc16f2706fe.camel@mediatek.com>
+Subject: Re: [PATCH v3 2/3] mailbox: mediatek: add support for adsp mailbox
+ controller
+From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Date: Thu, 25 Nov 2021 16:24:32 +0800
+References: <20211124084514.28002-1-allen-kh.cheng@mediatek.com>
+ <20211124084514.28002-3-allen-kh.cheng@mediatek.com>
+ <YZ4TCYmvegnC/kR0@google.com>
+ <f3642bcd031fbfd461b5efae1eba4816cc4856b2.camel@mediatek.com>
+ <YZ8r9GvUFqkGCqSz@google.com>
+In-Reply-To: <YZ8r9GvUFqkGCqSz@google.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211115085403.360194-8-arnd@kernel.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- linux-tegra@vger.kernel.org, linux-spi@vger.kernel.org,
- Robert Jarzmik <robert.jarzmik@free.fr>
+Content-Transfer-Encoding: 8bit
+X-MTK: N
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Kai
+ Vehmanen <kai.vehmanen@linux.intel.com>,
+ "cujomalainey@google.com" <cujomalainey@google.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Jassi Brar <jassisinghbrar@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Project_Global_Chrome_Upstream_Group
+ <Project_Global_Chrome_Upstream_Group@mediatek.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "sound-open-firmware@alsa-project.org" <sound-open-firmware@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,90 +97,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Arnd,
+On Thu, 2021-11-25 at 14:23 +0800, Tzung-Bi Shih wrote:
+> > On Thu, Nov 25, 2021 at 09:51:27AM +0800, allen-kh.cheng wrote:
+> > > > On Wed, 2021-11-24 at 18:25 +0800, Tzung-Bi Shih wrote:
+> > > > > > > > On Wed, Nov 24, 2021 at 04:45:13PM +0800, allen-
+> > > > kh.cheng wrote:
+> > > > > > > > > > > > +static int mtk_adsp_mbox_send_data(struct
+> > > > > > mbox_chan *chan,
+> > > > 
+> > > > > > > >
+> > > > > > > > void
+> > > > > > > > > > > > *data)
+> > > > > > > > > > > > +{
+> > > > > > > > > > > > +  struct adsp_mbox_ch_info *ch_info = chan-
+> > > > > > >con_priv;
+> > > > > > > > > > > > +  void __iomem *reg = ch_info->va_reg;
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +  spin_lock(&ch_info->lock);
+> > > > > > > > > > > > +  writel(ch_info->ipc_op_val, reg +
+> > > > > > MTK_ADSP_MBOX_IN_CMD);
+> > > > > > > > > > > > +  spin_unlock(&ch_info->lock);
+> > > > 
+> > > > > > > >
+> > > > > > > > Why does it need the lock?
+> > > > > > > >
+> > > > > > > > Is the write to MTK_ADSP_MBOX_IN_CMD a synchronous
+> > > > operation?
+> > > > > > > > - If yes, I failed to understand why does it need the
+> > > > > > > > lock.  Every
+> > > > > > > > calls to mtk_adsp_mbox_send_data() should wait for the
+> > > > data
+> > > 
+> > > > > >
+> > > > > > transfer
+> > > > > > > > completion.
+> > > > > > > > - If no, I also failed to understand
+> > > 
+> > > > > >
+> > > > > > why.  mtk_adsp_mbox_send_data()
+> > > > > > > > has no way to be aware of the transfer
+> > > > completion.  Would
+> > > > > > > > expect a
+> > > > > > > > loop for checking the completion for the case.
+> > > > > > > >
+> > > 
+> > > > > >
+> > > > > >  
+> > 
+> > > >
+> > > > In ADSP MBOX IPC flow,
+> > > >  
+> > > > Host would call mbox send data when the shared data transfer
+> > > > completed.
+> > > >  
+> > > > (mtk_adsp_mbox_send_data will notice client using
+> > > > MTK_ADSP_MBOX_IN_CMD)
+> > > >  
+> > > > It’s more like a signal.
+> > > >  
+> > > > In general case,
+> > > >  
+> > > > There may be some hosts use the same mbox channel.
+> > > >  
+> > > > I think it’s better using lock to protect access to
+> > > > MTK_ADSP_MBOX_IN_CMD registers
+> 
+> >
+> > I still failed to understand.  What if 2 hosts notify the same
+> client
+> > by writing MTK_ADSP_MBOX_IN_CMD at the same time?
 
-I love your patch! Perhaps something to improve:
+ 
+Hi Tzung-Bi,
+ 
+After I think carefully. There is no need to add lock in
+mtk_adsp_mbox_send_data.
+ 
+In our dsp ipc design, we only have one host(ap) and one client(dsp).
+ 
+If sof ip message transfer is complete, host will use mbox notice dsp
+message arrived.
+ 
+(MTK_ADSP_MBOX_IN_CMD is signal to trigger mbox irq)
+ 
+I will remove this in next version.
+ 
+ 
 
-[auto build test WARNING on vkoul-dmaengine/next]
-[also build test WARNING on tiwai-sound/for-next staging/staging-testing linus/master v5.16-rc2 next-20211125]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
-
-url:    https://github.com/0day-ci/linux/commits/Arnd-Bergmann/dmaengine-kill-off-dma_slave_config-slave_id/20211115-165731
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git next
-config: riscv-randconfig-r016-20211115 (https://download.01.org/0day-ci/archive/20211125/202111251538.x6sJNCka-lkp@intel.com/config)
-compiler: clang version 14.0.0 (https://github.com/llvm/llvm-project fbe72e41b99dc7994daac300d208a955be3e4a0a)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install riscv cross compiling tool for clang build
-        # apt-get install binutils-riscv64-linux-gnu
-        # https://github.com/0day-ci/linux/commit/f2e7f9ee67ce784864f75db39f20d1060c932279
-        git remote add linux-review https://github.com/0day-ci/linux
-        git fetch --no-tags linux-review Arnd-Bergmann/dmaengine-kill-off-dma_slave_config-slave_id/20211115-165731
-        git checkout f2e7f9ee67ce784864f75db39f20d1060c932279
-        # save the config file to linux build tree
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 ARCH=riscv 
-
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
->> drivers/dma/qcom/qcom_adm.c:712:18: warning: no previous prototype for function 'adm_dma_xlate' [-Wmissing-prototypes]
-   struct dma_chan *adm_dma_xlate(struct of_phandle_args *dma_spec,
-                    ^
-   drivers/dma/qcom/qcom_adm.c:712:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
-   struct dma_chan *adm_dma_xlate(struct of_phandle_args *dma_spec,
-   ^
-   static 
-   1 warning generated.
-
-
-vim +/adm_dma_xlate +712 drivers/dma/qcom/qcom_adm.c
-
-   700	
-   701	/**
-   702	 * adm_dma_xlate
-   703	 * @dma_spec:	pointer to DMA specifier as found in the device tree
-   704	 * @ofdma:	pointer to DMA controller data
-   705	 *
-   706	 * This can use either 1-cell or 2-cell formats, the first cell
-   707	 * identifies the slave device, while the optional second cell
-   708	 * contains the crci value.
-   709	 *
-   710	 * Returns pointer to appropriate dma channel on success or NULL on error.
-   711	 */
- > 712	struct dma_chan *adm_dma_xlate(struct of_phandle_args *dma_spec,
-   713				       struct of_dma *ofdma)
-   714	{
-   715		struct dma_device *dev = ofdma->of_dma_data;
-   716		struct dma_chan *chan, *candidate = NULL;
-   717		struct adm_chan *achan;
-   718	
-   719		if (!dev || dma_spec->args_count > 2)
-   720			return NULL;
-   721	
-   722		list_for_each_entry(chan, &dev->channels, device_node)
-   723			if (chan->chan_id == dma_spec->args[0]) {
-   724				candidate = chan;
-   725				break;
-   726			}
-   727	
-   728		if (!candidate)
-   729			return NULL;
-   730	
-   731		achan = to_adm_chan(candidate);
-   732		if (dma_spec->args_count == 2)
-   733			achan->crci = dma_spec->args[1];
-   734		else
-   735			achan->crci = 0;
-   736	
-   737		return dma_get_slave_channel(candidate);
-   738	}
-   739	
-
----
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org

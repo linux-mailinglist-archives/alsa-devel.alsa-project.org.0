@@ -2,74 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1983245DB53
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 14:39:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D30645DB68
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 14:42:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF0CE18C1;
-	Thu, 25 Nov 2021 14:38:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF0CE18C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id ADA0518B8;
+	Thu, 25 Nov 2021 14:41:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADA0518B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637847559;
-	bh=B1iBf1QPUALSQQKiuuX3NST4yrrSJuif87J5949d9G0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1637847745;
+	bh=2d2Fdi8u4iaTCHKgP2S1TSUhwRrOlHD3mhVm2clr4xo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gT/a/3YrMtBHa5EHeq4N5El+bYAYVR/R7hN/Nxct/22Qt/RLqfDFPiOrtl4wMyEVT
-	 S/CjXh9b0lm2qv4BTD5WNuIidqMw+wZjmBRVOfGfy2mfRd10H7h/GHaZPE5NQEpimz
-	 IaDlu1EXQz6jLvy2oQHu/AkOPh3oYRbk6VMfy4Y4=
+	b=g4oK55IRuNci2L6nj6bW/rtfC6c3yQWy+fFTXFG265Lsdpds9hiVw3raBy14BtcwB
+	 uwd0kXYZ2ZQV/pNF6j7w48bqLh/EPCu5SWoQOcRsc95IftVmMbg4qZ0xee031fkXHP
+	 4/3/x10Hp4imMtUCWxyuEtcrqmcco392EOB/b7wo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B705F804FD;
-	Thu, 25 Nov 2021 14:37:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 283ACF80430;
+	Thu, 25 Nov 2021 14:41:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E07AFF804FF; Thu, 25 Nov 2021 14:37:17 +0100 (CET)
+ id 7CEB5F8049E; Thu, 25 Nov 2021 14:41:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 501BCF804EB
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 14:37:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 501BCF804EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06977F80087
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 14:40:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06977F80087
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NHKMBCqh"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9B6CD6109D;
- Thu, 25 Nov 2021 13:37:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637847423;
- bh=B1iBf1QPUALSQQKiuuX3NST4yrrSJuif87J5949d9G0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=NHKMBCqhpUQzYWt6Yk+i5Yatrz8lrc1N6FV9SoJPRtOz1NlFG59UFGMMvGrd5RXvo
- XMnFnOfypyogSMUpLxvW2uTQQr/xMK5oc1+TmUdY5brHhhT3+GQ7S42tmAnZbCBZO9
- 9PDHxyQV+clYZQUy40CsOy5sYiSgYaS9RdilQn8kIqxjvDAiys5XXxYf8FlEzue4qB
- Ke5ZamvTqBoGvvB8wHdb+s2Di8xbDc0ew35t/f6h1qtVU2OBkHaa4N3XqwrYMg5ME6
- zR6BiJPPo12GqFYZczjAwe61ya381hNf4YY0AZ2xp+RS050EFa76rJkTP0V2lJwe0k
- nfg7hh0eBWqgw==
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Takashi Iwai <tiwai@suse.com>, linux-arm-kernel@lists.infradead.org,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Lukas Bulwahn <lukas.bulwahn@gmail.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Katsuhiro Suzuki <suzuki.katsuhiro@socionext.com>
-In-Reply-To: <20211125095158.8394-1-lukas.bulwahn@gmail.com>
-References: <20211125095158.8394-1-lukas.bulwahn@gmail.com>
-Subject: Re: [PATCH 0/2] Kconfig symbol clean-up for sound
-Message-Id: <163784742137.3101847.1051508589113120656.b4-ty@kernel.org>
-Date: Thu, 25 Nov 2021 13:37:01 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ljhn3qKt"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="LEbFxRCy"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 9B4411FD34;
+ Thu, 25 Nov 2021 13:40:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1637847656; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SuHjf+8BpVYP7+1TUEIgLOk6YeaGk3Yh+h+MEZfYGso=;
+ b=ljhn3qKtIJsk6QTgCibg8T6c6DLGVJa7yAmL1GUIK4Z91swHxGpRuuy2FAdp4Sdvk6VAP7
+ nwh188fNqTAY31vvWwinSIgv0G3BgD8SC0yqZ8fTx18oTyJgnxg7pTJvb4XKTuvi8Q2liM
+ NLe2YK7vCfGTYn3VRVUrGyK0ThaF52c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1637847656;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SuHjf+8BpVYP7+1TUEIgLOk6YeaGk3Yh+h+MEZfYGso=;
+ b=LEbFxRCyNXy7eHICGCY5KGTujdWpZJgf8nJ7EzImVXZoeD4XbT/Mkpy81uuCCI7TmqwmAX
+ ILaTnAExKY/oPmBg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 965DDA3B89;
+ Thu, 25 Nov 2021 13:40:56 +0000 (UTC)
+Date: Thu, 25 Nov 2021 14:40:56 +0100
+Message-ID: <s5hee749wuv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v5.16-rc3
+In-Reply-To: <20211125132822.111ED60273@mail.kernel.org>
+References: <20211125132822.111ED60273@mail.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,43 +91,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 25 Nov 2021 10:51:56 +0100, Lukas Bulwahn wrote:
-> The script ./scripts/checkkconfigsymbols.py warns on invalid references to
-> Kconfig symbols (often, minor typos, name confusions or outdated references).
-> This is a patch series addressing the issues reported by
-> ./scripts/checkkconfigsymbols.py in the ./sound/ directory for Kconfig files,
-> quickly filtered down with:
+On Thu, 25 Nov 2021 14:28:05 +0100,
+Mark Brown wrote:
 > 
->   ./scripts/checkkconfigsymbols.py | grep "sound.*Kconfig" -B 1
+> The following changes since commit 424fe7edbed18d47f7b97f7e1322a6f8969b77ae:
 > 
-> [...]
+>   ASoC: stm32: i2s: fix 32 bits channel length without mclk (2021-11-17 13:04:38 +0000)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.16-rc3
+> 
+> for you to fetch changes up to 86f74ba3fef56dd1cee19b7a15ae27fc0da5bb61:
+> 
+>   ASoC: SOF: hda: reset DAI widget before reconfiguring it (2021-11-24 12:57:11 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v5.16
+> 
+> There's a large but repetitive set of fixes here for issues with the
+> Tegra kcontrols not correctly reporting changes to userspace, a fix for
+> some issues with matching on older x86 platforms introduced during the
+> merge window together with a set of smaller fixes and one new system
+> quirk.
 
-Applied to
+Thanks, pulled now.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
-
-[1/2] ASoC: uniphier: drop selecting non-existing SND_SOC_UNIPHIER_AIO_DMA
-      commit: 49f893253ab43566e34332a969324531fea463f6
-[2/2] ASoC: codecs: wcd938x: add SND_SOC_WCD938_SDW to codec list instead
-      commit: 2039cc1da4bee1fd0df644e26b28ed769cd32a81
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

@@ -2,104 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCDFC45D8C0
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 12:06:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D11245D97D
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Nov 2021 12:45:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6208D1891;
-	Thu, 25 Nov 2021 12:05:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6208D1891
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24541188A;
+	Thu, 25 Nov 2021 12:44:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24541188A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637838371;
-	bh=3+5jwHZvudHojAHNLl8zxRL6lLP2Jrr9H959gQx1ek8=;
-	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hGU8JRANujIWSY36nQd9Fu/uP2LIvIRXcWY2PH/S+4RFfPumPaJsK8B+o9Wt0wa1u
-	 mICmgtMBp9wqE1OozPCZWwDTVqtN9vc6pVdvAynV6llJtOxmPRoezA2iveRnxeJucS
-	 /+q46LClQOCO+tWrlJAP7b3QVkZzKSUrL6oqEYaA=
+	s=default; t=1637840708;
+	bh=K2M1yqKZUgblfcjM8LaaXU2ul6oa5aOnD8zPjtr9PoM=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=L2InJ2l+jTqBdTVxGGT50st7SDaTxf4q/ikvh4ekRfb0NV/LnY2ow0eZRAddMmHWW
+	 JtB9uL6skSLMsDQELWoXhat11jUkmLwReR5Vvh1X8kUMKLZI4v0ullVZS7xA2WU0Zh
+	 endVq021zea9AmlVVd2r3dITxGuQQlQrDpZhJOcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6751F804AB;
-	Thu, 25 Nov 2021 12:04:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93B26F804AB;
+	Thu, 25 Nov 2021 12:43:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC96CF8049E; Thu, 25 Nov 2021 12:04:50 +0100 (CET)
+ id 115B9F8049E; Thu, 25 Nov 2021 12:43:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU, FREEMAIL_FROM, NICE_REPLY_A, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D5F0F80087
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 12:04:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D5F0F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59134F80087
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 12:43:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59134F80087
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="QHIVzc3e"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1637838286;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=3+5jwHZvudHojAHNLl8zxRL6lLP2Jrr9H959gQx1ek8=;
- b=QHIVzc3ewpSwri21SIVxbZ010LyvZkXcHEE20G41lxwRpkQxigH4LzN5qBYtFWkm7Ou714
- CQKCcjFOJDmc21aaCMRIiMFc2s7CQNI+FGAXS+zmurcbzcqRm7nw/iMGaajM1G7oHtZY3X
- 04qY/pdedGBlJ284oVGAc+mMFGoNkOY=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-521-LkBepe_5MEKbXkXxlPLPqQ-1; Thu, 25 Nov 2021 06:04:44 -0500
-X-MC-Unique: LkBepe_5MEKbXkXxlPLPqQ-1
-Received: by mail-ed1-f71.google.com with SMTP id
- m17-20020aa7d351000000b003e7c0bc8523so5220150edr.1
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 03:04:44 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Ds59G03w"
+Received: by mail-lf1-x136.google.com with SMTP id u3so15631233lfl.2
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 03:43:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:from:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=bDXVYx5X81obSGfTLlaLT+GQEL0WeJIjOW6vbyLiEIY=;
+ b=Ds59G03w1Vnbc4r3C/ctDco8l7MllxzeTm8/WKHZSxDwIzMP5jW1DiqINzqP3vD494
+ +FkfeLnUOZqaEVrvi3hEDDSWw5X9AnACaklqj+SAAGPaD655qnmtAI3Xq51MgC6Let37
+ oQ2w48Rdc8hakZcrTRmulpW7v7gHPl5KytSsU/AMiZi1m9I0bEuGuSam9qKjmQ8YWCAK
+ vnuzkguNtGnHektjNtmblraZoMwFkA9Ep1uCl1SYYpoxJaMwBTNQlt54HENkmBSFvN28
+ Hz6TiGOSfE1AYILSBQhQ4WICaXMmdNeALgAFZBx+gWTGdgkMrhqbhBebDiiGYDx3Y14J
+ G1vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent
- :content-language:to:from:subject:content-transfer-encoding;
- bh=3+5jwHZvudHojAHNLl8zxRL6lLP2Jrr9H959gQx1ek8=;
- b=r58nzF6/Wd/M1vunPNzKB1sA4RvqvyFNnDkQdN2ILSlHMczBz/U3RTGwgFXMVpVnLT
- 0+QrBi3cj+8gg9stU/NDuv1h8Y16JpJhi0mDcLiT0AixmwLoyHDGAhYp3cU8zzMZRFcV
- VZHWfO8MrDZxKyFxkzFESXXTRhiodx9vWnRdU4CzX8wAqhbslVPUV47qcbrf/OsxrfeW
- r/6dKREw4G7gaPWGDaHf4vz4GixCmAwSgR6cZPPDpNmH36sV7fWOyvMrfDAX4+jK/obo
- NM81V9zIq9llxq2mu7X+VqMYjohdxy21V91dZoZZLevQG5cvGWvkMWu488xEKkTFl2rB
- AsMw==
-X-Gm-Message-State: AOAM5318UTm/TSbEoKZl2x/Lrnh9YuCZbF71kH0W9R20PEOHY3zF8zDA
- bgKyZSytdL2UhW9DDORLbW/WftyvyWUxD9Wi6mh0T4Gs1PEDqQBmOBtffvw9gXrtT+FmWPn38oj
- PQ2S0XRJzEN/mo4fCLSCUsaZSM6UM+97Cqk2HtmMSHX8sYymHeAtscshXjPHIDKIQ9kHryFfIxe
- 8=
-X-Received: by 2002:a17:907:7da0:: with SMTP id
- oz32mr30157424ejc.176.1637838283048; 
- Thu, 25 Nov 2021 03:04:43 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwwWnP3XJ5KJDBt1CB3XpV8Rnz0n0tlCnxxhMNoFtROD4hGKI5rTuv3A4saZIoefy5tCu1u1A==
-X-Received: by 2002:a17:907:7da0:: with SMTP id
- oz32mr30157387ejc.176.1637838282843; 
- Thu, 25 Nov 2021 03:04:42 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c1e:bf00:1054:9d19:e0f0:8214?
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id h10sm1698624edr.95.2021.11.25.03.04.42
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=bDXVYx5X81obSGfTLlaLT+GQEL0WeJIjOW6vbyLiEIY=;
+ b=UoB4Hk13ounpo97oqAtLuS2E5rT0ROsS6I+tdPXL7PzEO9l+SVaq2MJox8yl0A0pGT
+ jduLl7mlXymWULo+ljeRADjIAmvg/EltTIyBuXgl/zbWVVQG/+sJAWlKspIxCBCz5lHe
+ IXXKV9dpaQI8UZeG6PzY5+esj1oQEvc4e8KYqUL6/Z4OZFHsXu8+7+zMNFIFWoeXJSqp
+ oRPB54d7wLKMbtV8d3BeAytZKW1foIumxSbwA9eiK2huv3V15Z76lYdlcZJZSDBswUwv
+ 0FE+G1knvBYCc3Nko3vg+6+IlXInXDeuUaUzHv+gP465DBLdnsx8IWfBpneNleOmm2Xa
+ pQ3A==
+X-Gm-Message-State: AOAM530V1/xrS6ceCeqH8xItoRV2s8vn6XSNwTkzw0tUhO7GwVBvi5KP
+ 1N09tBe/V7qmxo5IyzWewuw=
+X-Google-Smtp-Source: ABdhPJyG2BdjoNmTWcafcsMypZIAKd/rFtxtTYdkkGEr8bnVW9y8tdzQ7/Un1LStjvFQVYlQwjMe5g==
+X-Received: by 2002:a05:6512:2246:: with SMTP id
+ i6mr24042132lfu.24.1637840609979; 
+ Thu, 25 Nov 2021 03:43:29 -0800 (PST)
+Received: from [192.168.2.145] (94-29-48-99.dynamic.spd-mgts.ru. [94.29.48.99])
+ by smtp.googlemail.com with ESMTPSA id v2sm216571ljg.46.2021.11.25.03.43.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Nov 2021 03:04:42 -0800 (PST)
-Message-ID: <cf7dd2f0-512c-1b8c-efb1-53f79ddfb41e@redhat.com>
-Date: Thu, 25 Nov 2021 12:04:41 +0100
+ Thu, 25 Nov 2021 03:43:29 -0800 (PST)
+Subject: Re: [PATCH v1 17/20] ARM: tegra: Add S/PDIF node to Tegra20
+ device-tree
+From: Dmitry Osipenko <digetx@gmail.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <lgirdwood@gmail.com>, Agneli <poczt@protonmail.ch>,
+ Rob Herring <robh+dt@kernel.org>
+References: <20211124220057.15763-1-digetx@gmail.com>
+ <20211124220057.15763-18-digetx@gmail.com>
+Message-ID: <98072c48-31ca-aec1-b3a5-3d75d6892e9a@gmail.com>
+Date: Thu, 25 Nov 2021 14:43:28 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.de>
-From: Hans de Goede <hdegoede@redhat.com>
-Subject: Logitech Z10 USB speakers need a volume change before audio works
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <20211124220057.15763-18-digetx@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,21 +112,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+25.11.2021 01:00, Dmitry Osipenko пишет:
+> Add S/PDIF node to Tegra20 device-tree. It's needed for enabling HDMI
+> audio support.
+> 
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> ---
+>  arch/arm/boot/dts/tegra20.dtsi | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/tegra20.dtsi b/arch/arm/boot/dts/tegra20.dtsi
+> index 63c2c2f8c0ce..799da7dc929b 100644
+> --- a/arch/arm/boot/dts/tegra20.dtsi
+> +++ b/arch/arm/boot/dts/tegra20.dtsi
+> @@ -197,6 +197,7 @@ hdmi@54280000 {
+>  			reset-names = "hdmi";
+>  			power-domains = <&pd_core>;
+>  			operating-points-v2 = <&hdmi_dvfs_opp_table>;
+> +			#sound-dai-cells = <0>;
+>  			status = "disabled";
+>  		};
+>  
+> @@ -396,6 +397,23 @@ tegra_ac97: ac97@70002000 {
+>  		status = "disabled";
+>  	};
+>  
+> +	tegra_spdif: spdif@70002400 {
+> +		compatible = "nvidia,tegra20-spdif";
+> +		reg = <0x70002400 0x200>;
+> +		interrupts = <GIC_SPI 45 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks = <&tegra_car TEGRA20_CLK_SPDIF_OUT>,
+> +			 <&tegra_car TEGRA20_CLK_SPDIF_IN>;
+> +		clock-names = "spdif_out", "spdif_in";
+> +		resets = <&tegra_car 10>;
+> +		dmas = <&apbdma 3>, <&apbdma 3>;
+> +		dma-names = "rx", "tx";
+> +		#sound-dai-cells = <0>;
+> +		status = "disabled";
+> +
+> +		assigned-clocks = <&tegra_car TEGRA20_CLK_SPDIF_OUT>;
+> +		assigned-clock-parents = <&tegra_car TEGRA20_CLK_PLL_A_OUT0>;
+> +	};
+> +
+>  	tegra_i2s1: i2s@70002800 {
+>  		compatible = "nvidia,tegra20-i2s";
+>  		reg = <0x70002800 0x200>;
+> 
 
-I've a set of Logitech Z10 USB speakers, which act as a USB soundcard.
+@Thierry, this patch is made on top of [1].
 
-They have this weird glitch where after turning off my PC (and their
-power-supply as well) and then turning things back on, they are silent
-until I change the PCM volume control for the speakers inside
-alsa-mixer.
-
-It seems like they need some "set-volume" command to be send over the
-USB bus to unmute them when initially powered-up / turned on.
-
-Is their some existing usb-audio quirk which I can try to work around this?
-
-Regards,
-
-Hans
-
+[1] https://patchwork.ozlabs.org/project/linux-tegra/list/?series=271954

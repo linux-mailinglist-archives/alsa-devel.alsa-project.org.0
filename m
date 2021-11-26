@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F164045F1D9
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 17:26:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A907D45F1DB
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 17:27:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A0F71ACE;
-	Fri, 26 Nov 2021 17:26:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A0F71ACE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E0351AB1;
+	Fri, 26 Nov 2021 17:26:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E0351AB1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637944015;
-	bh=2uXCgcmnLPw/UxUc6tU22WhvW6eiURJr8LMnJ4vK018=;
+	s=default; t=1637944050;
+	bh=In3mLWtGDD+dbq28/TAIw2GWqp3plC4mvHCKuvHKlMU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BbPh5Uf2/WNkBASn2dC5YP3+997XC+XbH1QEqS4ZbH3a0pnC/kT1gNEfOGP6hSPV6
-	 4dlWi36pvh7lv2K22jkDHvvTwajEnyaxqUNI8JojSiumtdjYxraRlP8jNXz6qia6dL
-	 8eVikPqgfDCn7vY0w4N+WR6yrkttwUP9Oz0UXTlo=
+	b=ZwJ0EzCXHgeKn3mNjIZ68nKI2DLS9/z7/iEwGArZgS/x3ZaFxZme1NyHsaiCPzzl9
+	 XwxCn7HKiby0jqlnrrqyO8oWLJcT4KOW/jQwY2wa3YNFb3xSiz7Dg0fOAcy3bQVRIN
+	 kmK6L7Qm63QauV5PE7wlDjOq0afWfWuINhWoJlnQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE27FF80571;
-	Fri, 26 Nov 2021 17:20:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C659F805AA;
+	Fri, 26 Nov 2021 17:20:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E94F6F80517; Fri, 26 Nov 2021 17:20:08 +0100 (CET)
+ id 97B70F80520; Fri, 26 Nov 2021 17:20:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02E97F80508
- for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 17:20:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02E97F80508
+ by alsa1.perex.cz (Postfix) with ESMTPS id B440CF80508
+ for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 17:20:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B440CF80508
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="o1DWMEb1"
-Received: by mail-lf1-x130.google.com with SMTP id k37so25546028lfv.3
- for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 08:20:00 -0800 (PST)
+ header.b="kzlqHTAd"
+Received: by mail-lj1-x22b.google.com with SMTP id k2so19766379lji.4
+ for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 08:20:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=n2CS486VK3pErXweLhn8rqAyzxInSDaJTqOjIWkbv/Q=;
- b=o1DWMEb1T5JGVr+QWfi0T8rJPO9ShLpM0eQbXgMMr1Ed0qb2n7CzvFC7hCAawvCPjx
- FV77MEtaOndwrCgVn5Sl4KDEhJsbBKzAxNGNRXVBjPaL/LmhyrnWk260AE3Kij5qsMxv
- WaEC377zdSgBY0l6XBQdtMnvb65ENAdKn+3FvcPi/297odNW3wdI6m3NJI+lf72WHljj
- EVyvLb6/gON+hYDViwFpZGMAbtDN6k8BbdmGS2dSfkwbEVaklbvQsAgfgDnwTBcx6lTG
- HnR5BI5gcu1hbvTRG2a3Rbio74zanVGBd4Pj8kVpHVZ9Er58G3FegIsKtV4ByQChJjjw
- EDEQ==
+ bh=FxP5tB2iw5BzQOiwdyEyNre1QfPs8oOiaNDQeHGYp/A=;
+ b=kzlqHTAdAhqx9uMFzd+CS4o7MQx3tt2NukcjKGssEu7kZMdW6fHarWUCrdqGzEAwPl
+ fpuAPJ+zod57zNo+qtkm16mdGqs0Lh7iJJmFsIz6PMJ8AdXsA79F7/qVESlXK84AuKM1
+ jATo9QykkskeMCYiqB+uKO0bxgT5WZL1Ni6iXRzMNQG1pph0oy763E1aOMuKM2wmLvQ5
+ 8ktA43IdTnoWWp/YlUGc4H9Jx+6+if72dzmi747LiVxyMPDfwsw+Wwj37c/TWmviZiFy
+ 1r77P+bQkb8YTtwu0AV9LbDAZQpvvyPyHhjYNAgOY211JJBMx6WUp/3/uGtrlDrdpbf5
+ 8t8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=n2CS486VK3pErXweLhn8rqAyzxInSDaJTqOjIWkbv/Q=;
- b=lNYF4i9xbwnbYJaJpp7PyPwCxsln8DNKcYupEIzbSqpj4e1xrQ2ebabljCOnvL1Ip5
- 5DIeuEg7OxNIOkMf5DDk5aFr9hKoRSxcyxZDux9U/2vDtpcXMNzo2reA0ZUyMNBRqffK
- BlpCpMO7o5KypSVyRJ/LnbUsFQbkAujhHwiAyOgwMTA3g7mBMqRFXtlQnAjSYJ46D2Un
- wwTe0t6VnZ89YCBLwWY3FP17L+RguYzAuGLkhQv5uYNVZNTD5P8+8690dMyoj4ncqPAR
- F0lfnJ/d7OgzCVHPAimuaz7/3XYTyITbCobFCBtyfJl7hD3yu44hBObURGt6tFZM9QzZ
- p2vA==
-X-Gm-Message-State: AOAM532Q/g9cjyMPN6KGMXWnGIUqjBy4KDefammP7Sef/Za2s9DG2Kdv
- wRtXNY6tIsq6+g6RmPKrKHg=
-X-Google-Smtp-Source: ABdhPJxufa09SdYBqo/kYgmkWvAdAZeSGh63a/rnmEQbEH51oFmeKfaB2ac9qq451gtYc6UF3a/UoQ==
-X-Received: by 2002:ac2:4571:: with SMTP id k17mr29916266lfm.631.1637943598334; 
- Fri, 26 Nov 2021 08:19:58 -0800 (PST)
+ bh=FxP5tB2iw5BzQOiwdyEyNre1QfPs8oOiaNDQeHGYp/A=;
+ b=Qmovi9SdOXYX/vtQGF8a9VLzjdJ3vPOqsTfsQHfz1yA9cZzgUKPc4o/HiF5ZaSumtX
+ kxIZnG4+KYFI9M4yqjM+RJ10zRTH7Hd0Ofl13lhpshM4zKZzZWsaQeWY3WSuQfPM3j+z
+ xvljdyuSMhdusyw2zL1x3BhrluRH5dKdmkt/ISkpBavLODQhJ+LhTW2qvE/CH5FIHdoV
+ uORdMl87TxrWTNWLJb6kyXBP0tAxlWu60SlrvN3VZ4WOwdDOVgDLlkhM4ZIzmdTCg6o1
+ GNaygMUzDx4aUufDV2sF6S862x9EZMAZIwMY5c3CspKnaENdH4an+5+4ZDwLl93L4Ye/
+ gXsg==
+X-Gm-Message-State: AOAM530Y5fanXllTbIKR1aiqxPjPHpnhfQOr3puumHOs5Yh+r/A6cDpF
+ e25CGH5BlwrQJvTXMdZmuoM=
+X-Google-Smtp-Source: ABdhPJzxsTtZB9drLrB4WxixNDRQ7Fx6NNECUmkUX+4V5l25QUsz4gPwn3zgWqi6R9W+ucTu1kGc3w==
+X-Received: by 2002:a2e:8991:: with SMTP id c17mr30947654lji.361.1637943599494; 
+ Fri, 26 Nov 2021 08:19:59 -0800 (PST)
 Received: from localhost.localdomain (94-29-48-99.dynamic.spd-mgts.ru.
  [94.29.48.99])
- by smtp.gmail.com with ESMTPSA id t7sm613381lfl.260.2021.11.26.08.19.57
+ by smtp.gmail.com with ESMTPSA id t7sm613381lfl.260.2021.11.26.08.19.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Nov 2021 08:19:57 -0800 (PST)
+ Fri, 26 Nov 2021 08:19:58 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
  Liam Girdwood <lgirdwood@gmail.com>, Agneli <poczt@protonmail.ch>,
  Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH v2 18/20] ARM: tegra: Add HDMI audio graph to Tegra20
- device-tree
-Date: Fri, 26 Nov 2021 19:18:05 +0300
-Message-Id: <20211126161807.15776-19-digetx@gmail.com>
+Subject: [PATCH v2 19/20] ARM: tegra: acer-a500: Enable S/PDIF and HDMI audio
+Date: Fri, 26 Nov 2021 19:18:06 +0300
+Message-Id: <20211126161807.15776-20-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211126161807.15776-1-digetx@gmail.com>
 References: <20211126161807.15776-1-digetx@gmail.com>
@@ -107,52 +106,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add HDMI audio graph to Tegra20 device-tree to enable HDMI audio on
-Tegra20 devices.
+Enable S/PDIF controller to enable HDMI audio support on Acer A500.
+Use nvidia,fixed-parent-rate property that prevents audio rate conflict
+between S/PDIF and I2S.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- arch/arm/boot/dts/tegra20.dtsi | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/tegra20-acer-a500-picasso.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm/boot/dts/tegra20.dtsi b/arch/arm/boot/dts/tegra20.dtsi
-index 799da7dc929b..a2cdc591b4be 100644
---- a/arch/arm/boot/dts/tegra20.dtsi
-+++ b/arch/arm/boot/dts/tegra20.dtsi
-@@ -186,7 +186,7 @@ rgb {
- 			};
+diff --git a/arch/arm/boot/dts/tegra20-acer-a500-picasso.dts b/arch/arm/boot/dts/tegra20-acer-a500-picasso.dts
+index db388ddd062f..f47b946627c3 100644
+--- a/arch/arm/boot/dts/tegra20-acer-a500-picasso.dts
++++ b/arch/arm/boot/dts/tegra20-acer-a500-picasso.dts
+@@ -376,8 +376,16 @@ pta {
  		};
- 
--		hdmi@54280000 {
-+		tegra_hdmi: hdmi@54280000 {
- 			compatible = "nvidia,tegra20-hdmi";
- 			reg = <0x54280000 0x00040000>;
- 			interrupts = <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>;
-@@ -1063,4 +1063,24 @@ pmu {
- 		interrupt-affinity = <&{/cpus/cpu@0}>,
- 				     <&{/cpus/cpu@1}>;
  	};
+ 
++	tegra_spdif: spdif@70002400 {
++		status = "okay";
 +
-+	sound-hdmi {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,name = "NVIDIA Tegra20 HDMI";
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		simple-audio-card,dai-link@0 {
-+			reg = <0>;
-+
-+			cpu {
-+				sound-dai = <&tegra_spdif>;
-+			};
-+
-+			codec {
-+				sound-dai = <&tegra_hdmi>;
-+			};
-+		};
++		nvidia,fixed-parent-rate;
 +	};
- };
++
+ 	tegra_i2s1: i2s@70002800 {
+ 		status = "okay";
++
++		nvidia,fixed-parent-rate;
+ 	};
+ 
+ 	uartb: serial@70006040 {
 -- 
 2.33.1
 

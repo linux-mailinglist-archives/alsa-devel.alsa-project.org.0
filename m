@@ -2,99 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B6345E3E7
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 02:10:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC19245E6E9
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 05:41:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8898018EB;
-	Fri, 26 Nov 2021 02:09:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8898018EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 58C9318DD;
+	Fri, 26 Nov 2021 05:40:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58C9318DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637889006;
-	bh=5xbh4X4pCsv3FSndus2wpPYw9GjF0D+jnSTbXmCIct0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1637901670;
+	bh=Mx9mWGCvY4XzqIEJNhqMBkTcFKubkKPBUm+dmYaNStM=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qfHes1zPyMm7iRI9FVqD7/44ZeQmAkb7RY0WLWIUb2F6LHcbhr+uf/FXn+wWQuv/J
-	 8gYjYY/vFzQz/SA61vxvGiyPqVF9meFLclFizI3LIXENfAHQCrMLqsYghwWf4f47+t
-	 bpKX8I7zazfAu2f3J5UtNiSlH0zK456iPYevEZYY=
+	b=K1jcghG44K9Nwzbv377r1P3+UN2H5VFeQTrZAZIvjNHB5wJU/tI9wzyTYGj77Li+q
+	 v7lIJwQEOGjoee4Lyo4SLlXFv22DcA6+kHini5dhtPy/9G7gVp/yle67VgsoH4tc4o
+	 8/XLAIm8z6vZvKrmTnm6+7WunMRPluvyZpgo5PJU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEE01F804AB;
-	Fri, 26 Nov 2021 02:08:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6811F80245;
+	Fri, 26 Nov 2021 05:39:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A6B2F8049E; Fri, 26 Nov 2021 02:08:44 +0100 (CET)
+ id 78D52F80212; Fri, 26 Nov 2021 05:39:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, NICE_REPLY_A, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95A05F80302
- for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 02:08:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95A05F80302
+ by alsa1.perex.cz (Postfix) with ESMTPS id 654F8F80132
+ for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 05:39:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 654F8F80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HK1690AT"
-Received: by mail-lj1-x231.google.com with SMTP id k23so15611730lje.1
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 17:08:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=UGO6rN17miNJTMO6kEKzbLFRfLfEsZ5XOCr8ahzcsGE=;
- b=HK1690ATF2nVNKaPt4pcQ/SDRvwvKGIyUie/R+Ts0aO0XKAnxrlKyp4NTqDOxuYs4M
- 9L4pDu9CaYXbl8S1JvKp7yAT/Zbu/BECeB9F4k/8i1ftew3HsHmb93PTSP6+uMXwIX1z
- UoZWxjOytY6YLF6cfmuc7jfVmVFuLSr8hQ4xoZDuhYBZ+0OUvDczc/6ERD8GYlBz6v1Q
- +QlX0NKojruA72vchivpj5Ws2QKiXfwTl1z0/cJJCNIXLWYdtbIOgw2UdT7/9+VxiANA
- G/DaPjjWEH3WVuEHymvrWcWs2ifI4mdK2KU6DZQSt5svH3wpVQr3DcODzIrWlXzYt9JE
- AL9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=UGO6rN17miNJTMO6kEKzbLFRfLfEsZ5XOCr8ahzcsGE=;
- b=WvUbdHg9h5FJfq2XLPfutPPlNLds2JIQ5+vm1kJBsbodZ2Kn9Fp+xhRZJRj4I5oVS1
- 5G1DtrcuJf5E/0cPW7j5PGPyoTQpA+YaW0s4zPOMVUE/6NpScxFKVrT20HBHeMTGVjE5
- 8e6kkFwFLhlY4Hnb+QmqIgTOB0kO1knRQPfPjKeNJCUqGtBB+jHQ/TrQlOPlGcjoOoNL
- s6GMMKufCSd2l368xTW5Hbbdw341PmJHtFWkmMXP7F7h78qynXbM4b1pX0znHQf6AEaz
- 6QxcG8/89w0XtqRlXDSaFHulk/yWuMpug9wXSZ/EDtKzA0lCJbSrTOpPDvr0pz7Fa5ZO
- AD6w==
-X-Gm-Message-State: AOAM530TuspcMcL0Xe7rx1UjH4jy+C8pDUrXD6dWkc43UubPo4iGHJqa
- Betg3kX2otR90yIFDjwEX2o=
-X-Google-Smtp-Source: ABdhPJw5u/B8ZH1YuKd4akVumwownmSG11mUWnxsExAZ8MTck+K+I3tFpmYsTmIOkMfN8rDKfnoapQ==
-X-Received: by 2002:a2e:e09:: with SMTP id 9mr20584527ljo.172.1637888906336;
- Thu, 25 Nov 2021 17:08:26 -0800 (PST)
-Received: from [192.168.2.145] (94-29-48-99.dynamic.spd-mgts.ru. [94.29.48.99])
- by smtp.googlemail.com with ESMTPSA id z4sm372582ljj.26.2021.11.25.17.08.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Nov 2021 17:08:25 -0800 (PST)
-Subject: Re: [PATCH v1 02/20] ASoC: dt-bindings: tegra20-i2s: Convert to schema
-To: Rob Herring <robh@kernel.org>
-References: <20211124220057.15763-1-digetx@gmail.com>
- <20211124220057.15763-3-digetx@gmail.com>
- <1637875562.276093.2858310.nullmailer@robh.at.kernel.org>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <d12b0e75-4605-b65a-2f87-a4c4d363fc90@gmail.com>
-Date: Fri, 26 Nov 2021 04:08:25 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="sr4sTVbH"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1637901584; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
+ Subject: Sender; bh=+pUbjW7Z8WLps/cKoiWRu8LdT/rmntmlr+hAGcdaE8Y=;
+ b=sr4sTVbHvOnvk0f2islkiKJ6mRNN3/rRKrrvXop/dlYawFpUrMxZssGS4Izm8pX5KVIdqTgp
+ m/kxtg9nxBCkNioXQPRjx4e43H1+D+EAyfK3CzX8TVrPu/s7JOfhdFm1XwxILXyCvLw7E+wZ
+ stSdd4JoXzJ/FopyOCK8wDpBXjw=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 61a0650ebebfa3d4d5dc2bde (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 26 Nov 2021 04:39:42
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 30A8DC4360D; Fri, 26 Nov 2021 04:39:42 +0000 (UTC)
+Received: from [10.242.143.72] (unknown [202.46.23.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id DA7BAC4338F;
+ Fri, 26 Nov 2021 04:39:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org DA7BAC4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH v5 00/10] Add support for audio on SC7280 based targets
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+References: <1637239714-11211-1-git-send-email-srivasam@codeaurora.org>
+ <5f750cfc-dace-59a7-2eb4-4831a313064c@linaro.org>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <f8d17e44-c131-8ca5-6abd-baea44d72044@codeaurora.org>
+Date: Fri, 26 Nov 2021 10:09:34 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <1637875562.276093.2858310.nullmailer@robh.at.kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <5f750cfc-dace-59a7-2eb4-4831a313064c@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, Agneli <poczt@protonmail.ch>,
- linux-tegra@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>
+Content-Language: en-US
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,46 +103,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-26.11.2021 00:26, Rob Herring пишет:
-> On Thu, 25 Nov 2021 01:00:39 +0300, Dmitry Osipenko wrote:
->> Convert NVIDIA Tegra20 I2S binding to schema.
->>
->> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
->> ---
->>  .../bindings/sound/nvidia,tegra20-i2s.txt     | 30 --------
->>  .../bindings/sound/nvidia,tegra20-i2s.yaml    | 71 +++++++++++++++++++
->>  2 files changed, 71 insertions(+), 30 deletions(-)
->>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.txt
->>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml
->>
-> 
-> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.example.dt.yaml: i2s@70002800: 'clock-names' is a required property
-> 	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml
-> 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.ozlabs.org/patch/1559387
-> 
-> This check can fail if there are any dependencies. The base for a patch
-> series is generally the most recent rc1.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit.
-> 
 
-Indeed, I missed to re-check the I2S binding after last minute changes.
-That's compelling reason to make v2.
+On 11/23/2021 5:58 PM, Srinivas Kandagatla wrote:
+Thanks for your time Srini!!!
+>
+> On 18/11/2021 12:48, Srinivasa Rao Mandadapu wrote:
+>> This patch set is to add support for Audio over wcd codec,
+>> digital mics, through digital codecs and without ADSP.
+>> This patch set depends on:
+>
+>>     -- 
+>> https://patchwork.kernel.org/project/alsa-devel/list/?series=570161
+>
+>>     -- 
+>> https://patchwork.kernel.org/project/alsa-devel/list/?series=572615
+>
+> Except this one, rest of the patches are already in sound-next.
+> and the only dependency I see here is the final patch which adds 
+> Kconfigs to the soundcard SND_SOC_SC7280.
+> Why not just move those two lines in the patchset that adds the 
+> soundcard?
+>
+>
+>
+> --srini
+>
+Okay. will move this dependency to corresponding patch.
+>
+>>     -- 
+>> https://patchwork.kernel.org/project/alsa-devel/list/?series=559677
+>
+>>
+>> Changes Since V4:
+>>      -- Remove unused variable in lpass-sc7280 platform driver.
+>> Changes Since V3:
+>>      -- Remove redundant power domain controls. As power domains can 
+>> be configured from dtsi.
+>> Changes Since V2:
+>>      -- Split lpass sc7280 cpu driver patch and create regmap config 
+>> patch.
+>>      -- Create patches based on latest kernel tip.
+>>      -- Add helper function to get dma control and lpaif handle.
+>>      -- Remove unused variables.
+>> Changes Since V1:
+>>      -- Typo errors fix
+>>      -- CPU driver readable/writable apis optimization.
+>>      -- Add Missing config patch
+>>      -- Add Common api for repeated dmactl initialization.
+>>
+>> Srinivasa Rao Mandadapu (10):
+>>    ASoC: qcom: Move lpass_pcm_data structure to lpass header
+>>    ASoC: qcom: lpass: Add dma fields for codec dma lpass interface
+>>    ASoC: qcom: Add register definition for codec rddma and wrdma
+>>    ASoC: qcom: Add lpass CPU driver for codec dma control
+>>    ASoC: qcom: Add helper function to get dma control and lpaif handle
+>>    ASoC: qcom: Add support for codec dma driver
+>>    ASoC: qcom: Add regmap config support for codec dma driver
+>>    ASoC: dt-bindings: Add SC7280 sound card bindings
+>>    ASoC: qcom: lpass-sc7280: Add platform driver for lpass audio
+>>    ASoC: qcom: SC7280: Update config for building codec dma drivers
+>>
+>>   .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  |  69 ++-
+>>   sound/soc/qcom/Kconfig                             |  13 +
+>>   sound/soc/qcom/Makefile                            |   4 +
+>>   sound/soc/qcom/common.c                            |  39 ++
+>>   sound/soc/qcom/common.h                            |   1 +
+>>   sound/soc/qcom/lpass-cdc-dma.c                     | 195 ++++++++
+>>   sound/soc/qcom/lpass-cpu.c                         | 245 +++++++++-
+>>   sound/soc/qcom/lpass-lpaif-reg.h                   | 103 ++++-
+>>   sound/soc/qcom/lpass-platform.c                    | 513 
+>> ++++++++++++++++++---
+>>   sound/soc/qcom/lpass-sc7280.c                      | 416 
+>> +++++++++++++++++
+>>   sound/soc/qcom/lpass.h                             | 150 ++++++
+>>   11 files changed, 1669 insertions(+), 79 deletions(-)
+>>   create mode 100644 sound/soc/qcom/lpass-cdc-dma.c
+>>   create mode 100644 sound/soc/qcom/lpass-sc7280.c
+>>
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-Then I'll also remove the now-unnecessary assigned-clocks property from
-the S/PDIF binding.

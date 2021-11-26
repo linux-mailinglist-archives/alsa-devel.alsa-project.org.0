@@ -2,100 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73F8E45E880
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 08:34:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DA1045E9BB
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 09:57:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF81B16D0;
-	Fri, 26 Nov 2021 08:33:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF81B16D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D02D718F0;
+	Fri, 26 Nov 2021 09:56:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D02D718F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637912042;
-	bh=jZxouEtAEdXNSAu22CTeKbUyWiSnqY6uTM1/cCcWB2A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1637917035;
+	bh=QmAjfTegY44iTVHUZVa6uxD042LBrRoYeUCFo9trGWA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=M3aWGsB8S8gYwaeJvetDGoD0Ts09W+fIjMjaNH2wpLbpaeBf71u+48s4C9lTh29yh
-	 /+tthTccyYrU67LyBGXrPRNYoPY+poH9A+S6vC8cmgfT/93x7ZjabDIm4m6APZd3ja
-	 Ww2wC8Xyna8o5wiCRjRo/lJhXQagXIj+IFegop+M=
+	b=P5UUf9wI9762DPz6kGnBOYGXqqr5OCfIA9DN5F0EouDNyGiiZD1zKUVTCZwWN1HzL
+	 M0FqomlXaQfdAihPdWeT/LIuXfoNE9Y4bD4gJFOO+Acl/Fl7R3N0LR5p+CcCma8+c8
+	 +MAV+Z2Btw4K8PaaRqhucUKdX7v1zfg3IlD67WyU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B974F804E6;
-	Fri, 26 Nov 2021 08:32:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17B6FF80132;
+	Fri, 26 Nov 2021 09:55:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 188CAF804CF; Fri, 26 Nov 2021 08:32:30 +0100 (CET)
+ id 3A7CBF80212; Fri, 26 Nov 2021 09:55:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PDS_TONAME_EQ_TOLOCAL_SHORT,SPF_HELO_NONE,SPF_NONE,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
- [IPv6:2607:f8b0:4864:20::531])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37533F80087
- for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 08:32:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37533F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id A09F0F80166
+ for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 09:55:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A09F0F80166
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="rUX7EPkO"
-Received: by mail-pg1-x531.google.com with SMTP id 137so362206pgg.3
- for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 23:32:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=/AAtVNxSEEMIS2MWinkvg2Tqw1EN5wSqX+XDPy/nWgI=;
- b=rUX7EPkOpCeOT0XDzv3zPUO65mVufrZATtBDv60kEPRIqIXnd367uOnp27jiHhW1RH
- pfZDsfZurY3opAdcGf9KbD0CAfhLVt2lc23p8w5m5g7ZsI1vPM3dDlMayAl8unNLuaAi
- G7XpZttHEAyra0B8n1oEx1fJSRyN5ROr1twSvleukoCpfjG3iT1ywnNB2G438p+WUIys
- BpRXFIC11cFbUlGHe9PDWmgBInA1QAq8cAUe8RW5pHox17z+ePwRAIRe0iXrndMiPpku
- 1llMHJ4ZOUODS2L0ni5PspcTSM8HJ1XdmckmEqkByum9Rjj5mNFqQ6aAS4S/l9AgDrq8
- E8WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=/AAtVNxSEEMIS2MWinkvg2Tqw1EN5wSqX+XDPy/nWgI=;
- b=gPlLCQ7PhoeMznnWDaLzpQaup6T8B80iMDQ2fiVtWglkLfKtK8hStoo5cMphOANIbD
- +JW/8nu+TtoGP2LoI9vfwMYSht8yPjQFmxJpicnP+5t3ojuQDper5i9tt79DMQcYajU6
- MMaZzZSs1yyuLDo/pUJtntb9yhPmCNdVfc7vW07n4DX4MPT7ZBgcTOeQjuUr+YQQmQez
- KRhG2zPif1Gmm19TNagfy+uMM5XY10cqZzw2xejpdjCTcCzUKWoIuaxvc2VXqK6ecnZA
- 4XZEzak4E+VbU3eeh5M/NBJsLcezGSfYFefbvYgN7IAaKMcsXMAqipYoivf+2ufGGhN/
- gB3g==
-X-Gm-Message-State: AOAM5311uI1xDMSZieLnXFIKCAAKSB4dOT1Z+3EqjhW4GgVmL0CbuVfB
- QA3tIOE6mqFQUUoe3k7pScu0vA==
-X-Google-Smtp-Source: ABdhPJxBCLapsVbR8S32cbgSLGdf670vLzwnMC/H4p+iIY7hAahthtNMoj8b3XEDxeZJspFRP89tZA==
-X-Received: by 2002:a65:4b87:: with SMTP id t7mr19646091pgq.115.1637911941740; 
- Thu, 25 Nov 2021 23:32:21 -0800 (PST)
-Received: from google.com ([2401:fa00:1:10:5eda:d984:1426:91ca])
- by smtp.gmail.com with ESMTPSA id d12sm4112656pgf.19.2021.11.25.23.32.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Nov 2021 23:32:21 -0800 (PST)
-Date: Fri, 26 Nov 2021 15:32:17 +0800
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: "allen-kh.cheng" <allen-kh.cheng@mediatek.com>
-Subject: Re: [PATCH v5 3/3] mailbox: mediatek: add support for adsp mailbox
- controller
-Message-ID: <YaCNgRHFSoHv4toK@google.com>
-References: <20211126071432.21990-1-allen-kh.cheng@mediatek.com>
- <20211126071432.21990-4-allen-kh.cheng@mediatek.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211126071432.21990-4-allen-kh.cheng@mediatek.com>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
- linux-kernel@vger.kernel.org, Jassi Brar <jassisinghbrar@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="QDubRnoF"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="4MMAPU+x"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 23228212BC;
+ Fri, 26 Nov 2021 08:55:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1637916945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NoDLuvtLqM5derAZ9Lqjf99UB8mwCd87lURkljhybuw=;
+ b=QDubRnoFsCou5ByoWZPyTmZHqfP3C0xTZrX/zVoI4cv5EIEOaeCTGB2TR4jLeFjXdeSCRu
+ tqJREcci7T3/WSckwAt0Z05CyrcrEyMvTKWGtIYCSEs09jlrELSg/EaNLO0DUffSln8oi2
+ YSvUkrMoU9pX56pNkMNG0NkqTJpIEB0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1637916945;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NoDLuvtLqM5derAZ9Lqjf99UB8mwCd87lURkljhybuw=;
+ b=4MMAPU+xElQjfwqrzP2652ULJ2Tz3u9PWwj1XZ9wmeiN3+7U+a2NahZhpHP+7O0WpcKscB
+ oWOn3EtbJwF27uBw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 089A4A3B90;
+ Fri, 26 Nov 2021 08:55:45 +0000 (UTC)
+Date: Fri, 26 Nov 2021 09:55:44 +0100
+Message-ID: <s5hr1b38fe7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: ALSA: hda: Make proper use of timecounter
+In-Reply-To: <871r35kwji.ffs@tglx>
+References: <871r35kwji.ffs@tglx>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,14 +96,117 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 26, 2021 at 03:14:32PM +0800, allen-kh.cheng wrote:
-> diff --git a/drivers/mailbox/mtk-adsp-mailbox.c b/drivers/mailbox/mtk-adsp-mailbox.c
-[...]
-> +static bool mtk_adsp_mbox_last_tx_done(struct mbox_chan *chan)
-> +{
-> +	struct adsp_mbox_ch_info *ch_info = chan->con_priv;
-> +	void __iomem *reg = ch_info->va_reg;
-> +
-> +	return readl(reg + MTK_ADSP_MBOX_IN_CMD) == 0 ? true : false;
+On Wed, 24 Nov 2021 23:40:01 +0100,
+Thomas Gleixner wrote:
+> 
+> HDA uses a timecounter to read a hardware clock running at 24 MHz. The
+> conversion factor is set with a mult value of 125 and a shift value of 0,
+> which is not converting the hardware clock to nanoseconds, it is converting
+> to 1/3 nanoseconds because the conversion factor from 24Mhz to nanoseconds
+> is 125/3. The usage sites divide the "nanoseconds" value returned by
+> timecounter_read() by 3 to get a real nanoseconds value.
+> 
+> There is a lengthy comment in azx_timecounter_init() explaining this
+> choice. That comment makes blatantly wrong assumptions about how
+> timecounters work and what can overflow.
+> 
+> The comment says:
+> 
+>      * Applying the 1/3 factor as part of the multiplication
+>      * requires at least 20 bits for a decent precision, however
+>      * overflows occur after about 4 hours or less, not a option.
+> 
+> timecounters operate on time deltas between two readouts of a clock and use
+> the mult/shift pair to calculate a precise nanoseconds value:
+> 
+>     delta_nsec = (delta_clock * mult) >> shift;
+> 
+> The fractional part is also taken into account and preserved to prevent
+> accumulated rounding errors. For details see cyclecounter_cyc2ns().
+> 
+> The mult/shift pair has to be chosen so that the multiplication of the
+> maximum expected delta value does not result in a 64bit overflow. As the
+> counter wraps around on 32bit, the maximum observable delta between two
+> reads is (1 << 32) - 1 which is about 178.9 seconds.
+> 
+> That in turn means the maximum multiplication factor which fits into an u32
+> will not cause a 64bit overflow ever because it's guaranteed that:
+> 
+>      ((1 << 32) - 1) ^ 2 < (1 << 64)
+> 
+> The resulting correct multiplication factor is 2796202667 and the shift
+> value is 26, i.e. 26 bit precision. The overflow of the multiplication
+> would happen exactly at a clock readout delta of 6597069765 which is way
+> after the wrap around of the hardware clock at around 274.8 seconds which
+> is off from the claimed 4 hours by more than an order of magnitude.
+> 
+> If the counter ever wraps around the last read value then the calculation
+> is off by the number of wrap arounds times 178.9 seconds because the
+> overflow cannot be observed.
+> 
+> Use clocks_calc_mult_shift(), which calculates the most accurate mult/shift
+> pair based on the given clock frequency, and remove the bogus comment along
+> with the divisions at the readout sites.
+> 
+> Fixes: 5d890f591d15 ("ALSA: hda: support for wallclock timestamps")
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 
-The expression "readl(...) == 0" should be already a boolean.
+Looks like a nice fix / cleanup.  Pierre, could you check it?
+
+
+thanks,
+
+Takashi
+
+
+> ---
+>  sound/hda/hdac_stream.c           |   14 ++++----------
+>  sound/pci/hda/hda_controller.c    |    1 -
+>  sound/soc/intel/skylake/skl-pcm.c |    1 -
+>  3 files changed, 4 insertions(+), 12 deletions(-)
+> 
+> --- a/sound/hda/hdac_stream.c
+> +++ b/sound/hda/hdac_stream.c
+> @@ -534,17 +534,11 @@ static void azx_timecounter_init(struct
+>  	cc->mask = CLOCKSOURCE_MASK(32);
+>  
+>  	/*
+> -	 * Converting from 24 MHz to ns means applying a 125/3 factor.
+> -	 * To avoid any saturation issues in intermediate operations,
+> -	 * the 125 factor is applied first. The division is applied
+> -	 * last after reading the timecounter value.
+> -	 * Applying the 1/3 factor as part of the multiplication
+> -	 * requires at least 20 bits for a decent precision, however
+> -	 * overflows occur after about 4 hours or less, not a option.
+> +	 * Calculate the optimal mult/shift values. The counter wraps
+> +	 * around after ~178.9 seconds.
+>  	 */
+> -
+> -	cc->mult = 125; /* saturation after 195 years */
+> -	cc->shift = 0;
+> +	clocks_calc_mult_shift(&cc->mult, &cc->shift, 24000000,
+> +			       NSEC_PER_SEC, 178);
+>  
+>  	nsec = 0; /* audio time is elapsed time since trigger */
+>  	timecounter_init(tc, cc, nsec);
+> --- a/sound/pci/hda/hda_controller.c
+> +++ b/sound/pci/hda/hda_controller.c
+> @@ -504,7 +504,6 @@ static int azx_get_time_info(struct snd_
+>  		snd_pcm_gettime(substream->runtime, system_ts);
+>  
+>  		nsec = timecounter_read(&azx_dev->core.tc);
+> -		nsec = div_u64(nsec, 3); /* can be optimized */
+>  		if (audio_tstamp_config->report_delay)
+>  			nsec = azx_adjust_codec_delay(substream, nsec);
+>  
+> --- a/sound/soc/intel/skylake/skl-pcm.c
+> +++ b/sound/soc/intel/skylake/skl-pcm.c
+> @@ -1251,7 +1251,6 @@ static int skl_platform_soc_get_time_inf
+>  		snd_pcm_gettime(substream->runtime, system_ts);
+>  
+>  		nsec = timecounter_read(&hstr->tc);
+> -		nsec = div_u64(nsec, 3); /* can be optimized */
+>  		if (audio_tstamp_config->report_delay)
+>  			nsec = skl_adjust_codec_delay(substream, nsec);
+>  
+> 

@@ -2,92 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC19245E6E9
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 05:41:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2A4445E6F1
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 05:44:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58C9318DD;
-	Fri, 26 Nov 2021 05:40:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58C9318DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5347C18E4;
+	Fri, 26 Nov 2021 05:43:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5347C18E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637901670;
-	bh=Mx9mWGCvY4XzqIEJNhqMBkTcFKubkKPBUm+dmYaNStM=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1637901876;
+	bh=TDwYnwqapzz4q+G+mih8il/d6D9oROepfoVLcSuav0Y=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K1jcghG44K9Nwzbv377r1P3+UN2H5VFeQTrZAZIvjNHB5wJU/tI9wzyTYGj77Li+q
-	 v7lIJwQEOGjoee4Lyo4SLlXFv22DcA6+kHini5dhtPy/9G7gVp/yle67VgsoH4tc4o
-	 8/XLAIm8z6vZvKrmTnm6+7WunMRPluvyZpgo5PJU=
+	b=C9uC0GuL3/b10PwrpKNvjwPf8K9HAs/a+WMzGbVOGf/crOJIWwzNtcBgghJk31xkq
+	 IF2Xs331x+iOD+fO0Sq3KbtZZEeOi7bIcU0ELWcWLodwiqtBarBcjArKjYXGhlBCrh
+	 qjUs96ydg18lu5Y33sjSNsvbgP5pb9SHmwnSiNQU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6811F80245;
-	Fri, 26 Nov 2021 05:39:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B236FF80259;
+	Fri, 26 Nov 2021 05:43:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78D52F80212; Fri, 26 Nov 2021 05:39:48 +0100 (CET)
+ id 25B17F80212; Fri, 26 Nov 2021 05:43:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 654F8F80132
- for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 05:39:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 654F8F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F130F80087
+ for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 05:43:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F130F80087
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="sr4sTVbH"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1637901584; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: To:
- Subject: Sender; bh=+pUbjW7Z8WLps/cKoiWRu8LdT/rmntmlr+hAGcdaE8Y=;
- b=sr4sTVbHvOnvk0f2islkiKJ6mRNN3/rRKrrvXop/dlYawFpUrMxZssGS4Izm8pX5KVIdqTgp
- m/kxtg9nxBCkNioXQPRjx4e43H1+D+EAyfK3CzX8TVrPu/s7JOfhdFm1XwxILXyCvLw7E+wZ
- stSdd4JoXzJ/FopyOCK8wDpBXjw=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 61a0650ebebfa3d4d5dc2bde (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 26 Nov 2021 04:39:42
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 30A8DC4360D; Fri, 26 Nov 2021 04:39:42 +0000 (UTC)
-Received: from [10.242.143.72] (unknown [202.46.23.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id DA7BAC4338F;
- Fri, 26 Nov 2021 04:39:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org DA7BAC4338F
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-Subject: Re: [PATCH v5 00/10] Add support for audio on SC7280 based targets
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-References: <1637239714-11211-1-git-send-email-srivasam@codeaurora.org>
- <5f750cfc-dace-59a7-2eb4-4831a313064c@linaro.org>
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Organization: Qualcomm India Private Limited.
-Message-ID: <f8d17e44-c131-8ca5-6abd-baea44d72044@codeaurora.org>
-Date: Fri, 26 Nov 2021 10:09:34 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="OMrr+Nwu"
+Received: by mail-pj1-x1034.google.com with SMTP id
+ gx15-20020a17090b124f00b001a695f3734aso7201395pjb.0
+ for <alsa-devel@alsa-project.org>; Thu, 25 Nov 2021 20:43:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=2LgS2eMeGMdnukM8cUoBve3IMu8b+A022tBUdPAN3OI=;
+ b=OMrr+Nwu0J1jMehGE7uVSNYBlFIZq8YEo1TshuWAuOw8rXnVxBWCnOTWjX0tJ8xk/B
+ p/Y59W0vsB2Wi3nvclkhheA1yJPtWLGCQz5/4tkKL1gPMOU2yaJCZLPkduIJmevR+iY3
+ vswhEHp1va64ULvN+IMrCNIV1d2YA61/uy2GPkHqP2FTr1PXJiPtEZ0UPZJBgLuBmyBf
+ y8cGvCCOLzRmUZVK5fD4B7khJLpGmSqs27GzUwOIZBA8TW1UWIdSWXg5lNS+PXZKiJBG
+ i8E2GgHrlX/vOX7yqdeWm+uof9bMapyGZc8cAcILcgUrEmOl0V9Ycq6yjJMMtFtCKdRx
+ JRnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=2LgS2eMeGMdnukM8cUoBve3IMu8b+A022tBUdPAN3OI=;
+ b=HpaH4p/BJLx9hr44UD+pI3ZUBcrDXadLUJnpXbIPy8JqycHwb8iIR3lfpTHbnqDfWd
+ W9qhozXc+aD4g0nwjAFm59xdmqP7UnpdQA/Aa3yOd4i51Vx+1F67XZpyKeziwOpTCLKH
+ VbJL9nsUvnUzu2wn5C25ELVofnMtFP3WczxNQjqC5yLvSV1AZcJfDhvp+NHTGFfRecez
+ 5mvW1y6WQHqgeu146Pv9lPQuVTBVab1EE25iJIzXXikfspAmWlF5VqLsPYGjeouPdS7U
+ 8YhAHPtXGglDFFa6dLsf8QxQMJv3KKaX70Op4c0gb2NHNvuIpvTiiQZNgtUBNsOPNvPm
+ 8wHg==
+X-Gm-Message-State: AOAM531XZNvH+NBPXjkESXixaIV0IPTauzsYsFOtU9ADpze8eQl3xEVW
+ 6zygP0z/1YELarmzIiTYFoBFUw==
+X-Google-Smtp-Source: ABdhPJzHNlb6Iu4GBBMDy3fHylI190Sir9kysQUFJV6XRqGjoRO7VKp/xNJdJgj00ozyg+MXwQzm1g==
+X-Received: by 2002:a17:902:7890:b0:143:c4f7:59e6 with SMTP id
+ q16-20020a170902789000b00143c4f759e6mr36149485pll.87.1637901788687; 
+ Thu, 25 Nov 2021 20:43:08 -0800 (PST)
+Received: from google.com ([2401:fa00:1:10:5eda:d984:1426:91ca])
+ by smtp.gmail.com with ESMTPSA id o23sm4843770pfp.209.2021.11.25.20.43.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Nov 2021 20:43:08 -0800 (PST)
+Date: Fri, 26 Nov 2021 12:43:04 +0800
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: "allen-kh.cheng" <allen-kh.cheng@mediatek.com>
+Subject: Re: [PATCH v4 2/3] firmware: mediatek: add adsp ipc protocol interface
+Message-ID: <YaBl2PMPHnOMGKY+@google.com>
+References: <20211125122925.1303-1-allen-kh.cheng@mediatek.com>
+ <20211125122925.1303-3-allen-kh.cheng@mediatek.com>
 MIME-Version: 1.0
-In-Reply-To: <5f750cfc-dace-59a7-2eb4-4831a313064c@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211125122925.1303-3-allen-kh.cheng@mediatek.com>
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
+ Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Jassi Brar <jassisinghbrar@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,84 +112,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Nov 25, 2021 at 08:29:24PM +0800, allen-kh.cheng wrote:
+> diff --git a/drivers/firmware/mediatek/mtk-adsp-ipc.c b/drivers/firmware/mediatek/mtk-adsp-ipc.c
+[...]
+> +static void adsp_ipc_recv(struct mbox_client *c, void *msg)
+> +{
+> +	struct mtk_adsp_chan *chan = container_of(c, struct mtk_adsp_chan, cl);
+> +
+> +	if (chan->idx == MTK_ADSP_MBOX_REPLY)
+> +		chan->ipc->ops->handle_reply(chan->ipc);
+> +	else
+> +		chan->ipc->ops->handle_request(chan->ipc);
 
-On 11/23/2021 5:58 PM, Srinivas Kandagatla wrote:
-Thanks for your time Srini!!!
->
-> On 18/11/2021 12:48, Srinivasa Rao Mandadapu wrote:
->> This patch set is to add support for Audio over wcd codec,
->> digital mics, through digital codecs and without ADSP.
->> This patch set depends on:
->
->>     -- 
->> https://patchwork.kernel.org/project/alsa-devel/list/?series=570161
->
->>     -- 
->> https://patchwork.kernel.org/project/alsa-devel/list/?series=572615
->
-> Except this one, rest of the patches are already in sound-next.
-> and the only dependency I see here is the final patch which adds 
-> Kconfigs to the soundcard SND_SOC_SC7280.
-> Why not just move those two lines in the patchset that adds the 
-> soundcard?
->
->
->
-> --srini
->
-Okay. will move this dependency to corresponding patch.
->
->>     -- 
->> https://patchwork.kernel.org/project/alsa-devel/list/?series=559677
->
->>
->> Changes Since V4:
->>      -- Remove unused variable in lpass-sc7280 platform driver.
->> Changes Since V3:
->>      -- Remove redundant power domain controls. As power domains can 
->> be configured from dtsi.
->> Changes Since V2:
->>      -- Split lpass sc7280 cpu driver patch and create regmap config 
->> patch.
->>      -- Create patches based on latest kernel tip.
->>      -- Add helper function to get dma control and lpaif handle.
->>      -- Remove unused variables.
->> Changes Since V1:
->>      -- Typo errors fix
->>      -- CPU driver readable/writable apis optimization.
->>      -- Add Missing config patch
->>      -- Add Common api for repeated dmactl initialization.
->>
->> Srinivasa Rao Mandadapu (10):
->>    ASoC: qcom: Move lpass_pcm_data structure to lpass header
->>    ASoC: qcom: lpass: Add dma fields for codec dma lpass interface
->>    ASoC: qcom: Add register definition for codec rddma and wrdma
->>    ASoC: qcom: Add lpass CPU driver for codec dma control
->>    ASoC: qcom: Add helper function to get dma control and lpaif handle
->>    ASoC: qcom: Add support for codec dma driver
->>    ASoC: qcom: Add regmap config support for codec dma driver
->>    ASoC: dt-bindings: Add SC7280 sound card bindings
->>    ASoC: qcom: lpass-sc7280: Add platform driver for lpass audio
->>    ASoC: qcom: SC7280: Update config for building codec dma drivers
->>
->>   .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  |  69 ++-
->>   sound/soc/qcom/Kconfig                             |  13 +
->>   sound/soc/qcom/Makefile                            |   4 +
->>   sound/soc/qcom/common.c                            |  39 ++
->>   sound/soc/qcom/common.h                            |   1 +
->>   sound/soc/qcom/lpass-cdc-dma.c                     | 195 ++++++++
->>   sound/soc/qcom/lpass-cpu.c                         | 245 +++++++++-
->>   sound/soc/qcom/lpass-lpaif-reg.h                   | 103 ++++-
->>   sound/soc/qcom/lpass-platform.c                    | 513 
->> ++++++++++++++++++---
->>   sound/soc/qcom/lpass-sc7280.c                      | 416 
->> +++++++++++++++++
->>   sound/soc/qcom/lpass.h                             | 150 ++++++
->>   11 files changed, 1669 insertions(+), 79 deletions(-)
->>   create mode 100644 sound/soc/qcom/lpass-cdc-dma.c
->>   create mode 100644 sound/soc/qcom/lpass-sc7280.c
->>
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+Using switch ... case ... makes the intention more clear.
 
+> +static int mtk_adsp_ipc_probe(struct platform_device *pdev)
+> +{
+[...]
+> +	for (i = 0; i < MTK_ADSP_MBOX_NUM; i++) {
+> +		chan_name = kasprintf(GFP_KERNEL, "mbox%d", i);
+> +		if (!chan_name)
+> +			return -ENOMEM;
+
+It needs to go error handling path.
+
+> +static int mtk_adsp_remove(struct platform_device *pdev)
+> +{
+> +	struct mtk_adsp_chan *dsp_chan;
+> +	struct mtk_adsp_ipc *dsp_ipc;
+> +	int i;
+> +
+> +	dsp_ipc = dev_get_drvdata(&pdev->dev);
+
+To be concise, I would prefer dev_get_drvdata() inline to the line where the variable is declared.

@@ -2,65 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E85345EF8C
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 15:04:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89DC845EF9D
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 15:11:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A8381934;
-	Fri, 26 Nov 2021 15:03:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A8381934
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A107193B;
+	Fri, 26 Nov 2021 15:10:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A107193B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637935462;
-	bh=UIueY/7SqtLiqrX8lOaLVBjW5vpomLoC/jnUN6z583o=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1637935877;
+	bh=Yp7ZWaRLZqo2+/HaAB8QKWWqg0JyRavrODFXqssH2Og=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C29P/mbJEsCS8LAn+OaC0uxQIlPevTK3J3+26swpP1jTZZEF4WHYnTM+ppYESilSf
-	 UJOvvyAXl8ksPYluCCVPfQdLLLXjQGvydVQfej49+qU1EaOcaJt7c2fYBQmFyI0mMw
-	 m8F8RQ+dsHvqM9W2OZ+ng5DpVn7og5Upzn33L8FE=
+	b=PuX7AtEZnfbdYWcfvsOmufTcqQ9P61vTCnejGVTfh0RfLTNsDUEEoaeXjIU6LCtbl
+	 u7k1eGOWTp0r9iJ6yyr7TxPFUMl8fEiv7qbT7T119+cvoYxFlGY//Z1Puq0xGylPqA
+	 il0j6VXobkSpHyLPa3DE4rjHngs0aaUube8gs8ow=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4154F804F1;
-	Fri, 26 Nov 2021 15:01:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AAB9F80245;
+	Fri, 26 Nov 2021 15:09:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97E9CF804ED; Fri, 26 Nov 2021 15:01:56 +0100 (CET)
+ id B34B8F80212; Fri, 26 Nov 2021 15:09:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46800F80166
+ for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 15:09:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46800F80166
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="eQn3+544"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70287F801F7
- for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 15:01:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70287F801F7
-X-IronPort-AV: E=McAfee;i="6200,9189,10179"; a="222539448"
-X-IronPort-AV: E=Sophos;i="5.87,266,1631602800"; d="scan'208";a="222539448"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2021 06:01:35 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,266,1631602800"; d="scan'208";a="510649454"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga008.jf.intel.com with ESMTP; 26 Nov 2021 06:01:32 -0800
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v5 3/3] ASoC: Intel: Skylake: Use NHLT API to search for blob
-Date: Fri, 26 Nov 2021 15:03:55 +0100
-Message-Id: <20211126140355.1042684-4-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211126140355.1042684-1-cezary.rojewski@intel.com>
-References: <20211126140355.1042684-1-cezary.rojewski@intel.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BA1CE6227D;
+ Fri, 26 Nov 2021 14:09:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F494C93056;
+ Fri, 26 Nov 2021 14:09:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1637935786;
+ bh=Yp7ZWaRLZqo2+/HaAB8QKWWqg0JyRavrODFXqssH2Og=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=eQn3+5441B/ajChtiLu15N5k6PSLbI1xHwXrReloGCO/0G5EVPptg+xq2WvchSIlQ
+ tt/DjGA9xZvlmRAzlFArOKf4rSuWkNyZWVt0/FHLhWuz968xrujX6EqboWj7wHSIXt
+ 4VzjdtggVANSI8x6ilLgLGSsmag5p7QzQbvun0KCAPdSojL//I+l6kanRxKQtBLd5O
+ N7wfjyYNAHmOaP7WN6hTvJKg+jo0++6ycbyEZNAgb+U4lZjfZQUGXNi/8Wzii5qzuo
+ kGiDnyNP6gQZ4vlSzdQ/OmR/z2OYfRk3+NmBPZqahMKWRTldeXeuPTS41n0nHDw2ak
+ C194HiOZMJjBg==
+Date: Fri, 26 Nov 2021 14:09:39 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 1/5] ASoC: soc-dai: update snd_soc_dai_delay() to
+ snd_soc_pcm_dai_delay()
+Message-ID: <YaDqo6MC8/zjhpoh@sirena.org.uk>
+References: <877dd8y26l.wl-kuninori.morimoto.gx@renesas.com>
+ <875yssy25z.wl-kuninori.morimoto.gx@renesas.com>
+ <2cc78158-e288-e949-594f-0ab939a35942@linux.intel.com>
+ <YZ+8WbwDA9oQoRSk@sirena.org.uk>
+ <TYCPR01MB5581F87D324E2499303E36EAD4629@TYCPR01MB5581.jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com,
- Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.com,
- hdegoede@redhat.com, broonie@kernel.org,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Du4t0Y5KMQdT5MbR"
+Content-Disposition: inline
+In-Reply-To: <TYCPR01MB5581F87D324E2499303E36EAD4629@TYCPR01MB5581.jpnprd01.prod.outlook.com>
+X-Cookie: You fill a much-needed gap.
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Hans de Goede <hdegoede@redhat.com>, Gu Shengxian <gushengxian@yulong.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,268 +94,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 
-With NHLT enriched with new search functions, remove local code in
-favour of them. This also fixes broken behaviour: search should be based
-on significant bits count rather than container size.
+--Du4t0Y5KMQdT5MbR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/skylake/skl-nhlt.c     | 102 -------------------------
- sound/soc/intel/skylake/skl-pcm.c      |   3 +
- sound/soc/intel/skylake/skl-topology.c |  29 ++++---
- sound/soc/intel/skylake/skl-topology.h |   1 +
- sound/soc/intel/skylake/skl.h          |   4 -
- 5 files changed, 21 insertions(+), 118 deletions(-)
+On Thu, Nov 25, 2021 at 11:41:38PM +0000, Kuninori Morimoto wrote:
 
-diff --git a/sound/soc/intel/skylake/skl-nhlt.c b/sound/soc/intel/skylake/skl-nhlt.c
-index 64226072f0ee..2439a574ac2f 100644
---- a/sound/soc/intel/skylake/skl-nhlt.c
-+++ b/sound/soc/intel/skylake/skl-nhlt.c
-@@ -13,108 +13,6 @@
- #include "skl.h"
- #include "skl-i2s.h"
- 
--static struct nhlt_specific_cfg *skl_get_specific_cfg(
--		struct device *dev, struct nhlt_fmt *fmt,
--		u8 no_ch, u32 rate, u16 bps, u8 linktype)
--{
--	struct nhlt_specific_cfg *sp_config;
--	struct wav_fmt *wfmt;
--	struct nhlt_fmt_cfg *fmt_config = fmt->fmt_config;
--	int i;
--
--	dev_dbg(dev, "Format count =%d\n", fmt->fmt_count);
--
--	for (i = 0; i < fmt->fmt_count; i++) {
--		wfmt = &fmt_config->fmt_ext.fmt;
--		dev_dbg(dev, "ch=%d fmt=%d s_rate=%d\n", wfmt->channels,
--			 wfmt->bits_per_sample, wfmt->samples_per_sec);
--		if (wfmt->channels == no_ch && wfmt->bits_per_sample == bps) {
--			/*
--			 * if link type is dmic ignore rate check as the blob is
--			 * generic for all rates
--			 */
--			sp_config = &fmt_config->config;
--			if (linktype == NHLT_LINK_DMIC)
--				return sp_config;
--
--			if (wfmt->samples_per_sec == rate)
--				return sp_config;
--		}
--
--		fmt_config = (struct nhlt_fmt_cfg *)(fmt_config->config.caps +
--						fmt_config->config.size);
--	}
--
--	return NULL;
--}
--
--static void dump_config(struct device *dev, u32 instance_id, u8 linktype,
--		u8 s_fmt, u8 num_channels, u32 s_rate, u8 dirn, u16 bps)
--{
--	dev_dbg(dev, "Input configuration\n");
--	dev_dbg(dev, "ch=%d fmt=%d s_rate=%d\n", num_channels, s_fmt, s_rate);
--	dev_dbg(dev, "vbus_id=%d link_type=%d\n", instance_id, linktype);
--	dev_dbg(dev, "bits_per_sample=%d\n", bps);
--}
--
--static bool skl_check_ep_match(struct device *dev, struct nhlt_endpoint *epnt,
--		u32 instance_id, u8 link_type, u8 dirn, u8 dev_type)
--{
--	dev_dbg(dev, "vbus_id=%d link_type=%d dir=%d dev_type = %d\n",
--			epnt->virtual_bus_id, epnt->linktype,
--			epnt->direction, epnt->device_type);
--
--	if ((epnt->virtual_bus_id == instance_id) &&
--			(epnt->linktype == link_type) &&
--			(epnt->direction == dirn)) {
--		/* do not check dev_type for DMIC link type */
--		if (epnt->linktype == NHLT_LINK_DMIC)
--			return true;
--
--		if (epnt->device_type == dev_type)
--			return true;
--	}
--
--	return false;
--}
--
--struct nhlt_specific_cfg
--*skl_get_ep_blob(struct skl_dev *skl, u32 instance, u8 link_type,
--			u8 s_fmt, u8 num_ch, u32 s_rate,
--			u8 dirn, u8 dev_type)
--{
--	struct nhlt_fmt *fmt;
--	struct nhlt_endpoint *epnt;
--	struct hdac_bus *bus = skl_to_bus(skl);
--	struct device *dev = bus->dev;
--	struct nhlt_specific_cfg *sp_config;
--	struct nhlt_acpi_table *nhlt = skl->nhlt;
--	u16 bps = (s_fmt == 16) ? 16 : 32;
--	u8 j;
--
--	dump_config(dev, instance, link_type, s_fmt, num_ch, s_rate, dirn, bps);
--
--	epnt = (struct nhlt_endpoint *)nhlt->desc;
--
--	dev_dbg(dev, "endpoint count =%d\n", nhlt->endpoint_count);
--
--	for (j = 0; j < nhlt->endpoint_count; j++) {
--		if (skl_check_ep_match(dev, epnt, instance, link_type,
--						dirn, dev_type)) {
--			fmt = (struct nhlt_fmt *)(epnt->config.caps +
--						 epnt->config.size);
--			sp_config = skl_get_specific_cfg(dev, fmt, num_ch,
--							s_rate, bps, link_type);
--			if (sp_config)
--				return sp_config;
--		}
--
--		epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
--	}
--
--	return NULL;
--}
--
- static void skl_nhlt_trim_space(char *trim)
- {
- 	char *s = trim;
-diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
-index 9ecaf6a1e847..34908af50046 100644
---- a/sound/soc/intel/skylake/skl-pcm.c
-+++ b/sound/soc/intel/skylake/skl-pcm.c
-@@ -317,6 +317,7 @@ static int skl_pcm_hw_params(struct snd_pcm_substream *substream,
- 	dev_dbg(dai->dev, "dma_id=%d\n", dma_id);
- 
- 	p_params.s_fmt = snd_pcm_format_width(params_format(params));
-+	p_params.s_cont = snd_pcm_format_physical_width(params_format(params));
- 	p_params.ch = params_channels(params);
- 	p_params.s_freq = params_rate(params);
- 	p_params.host_dma_id = dma_id;
-@@ -405,6 +406,7 @@ static int skl_be_hw_params(struct snd_pcm_substream *substream,
- 	struct skl_pipe_params p_params = {0};
- 
- 	p_params.s_fmt = snd_pcm_format_width(params_format(params));
-+	p_params.s_cont = snd_pcm_format_physical_width(params_format(params));
- 	p_params.ch = params_channels(params);
- 	p_params.s_freq = params_rate(params);
- 	p_params.stream = substream->stream;
-@@ -569,6 +571,7 @@ static int skl_link_hw_params(struct snd_pcm_substream *substream,
- 		snd_soc_dai_set_tdm_slot(codec_dai, 0, stream_tag, 0, 0);
- 
- 	p_params.s_fmt = snd_pcm_format_width(params_format(params));
-+	p_params.s_cont = snd_pcm_format_physical_width(params_format(params));
- 	p_params.ch = params_channels(params);
- 	p_params.s_freq = params_rate(params);
- 	p_params.stream = substream->stream;
-diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
-index 89e4231304dd..9bdf020a2b64 100644
---- a/sound/soc/intel/skylake/skl-topology.c
-+++ b/sound/soc/intel/skylake/skl-topology.c
-@@ -285,7 +285,7 @@ static int skl_tplg_update_be_blob(struct snd_soc_dapm_widget *w,
- {
- 	struct skl_module_cfg *m_cfg = w->priv;
- 	int link_type, dir;
--	u32 ch, s_freq, s_fmt;
-+	u32 ch, s_freq, s_fmt, s_cont;
- 	struct nhlt_specific_cfg *cfg;
- 	u8 dev_type = skl_tplg_be_dev_type(m_cfg->dev_type);
- 	int fmt_idx = m_cfg->fmt_idx;
-@@ -301,7 +301,8 @@ static int skl_tplg_update_be_blob(struct snd_soc_dapm_widget *w,
- 		link_type = NHLT_LINK_DMIC;
- 		dir = SNDRV_PCM_STREAM_CAPTURE;
- 		s_freq = m_iface->inputs[0].fmt.s_freq;
--		s_fmt = m_iface->inputs[0].fmt.bit_depth;
-+		s_fmt = m_iface->inputs[0].fmt.valid_bit_depth;
-+		s_cont = m_iface->inputs[0].fmt.bit_depth;
- 		ch = m_iface->inputs[0].fmt.channels;
- 		break;
- 
-@@ -310,12 +311,14 @@ static int skl_tplg_update_be_blob(struct snd_soc_dapm_widget *w,
- 		if (m_cfg->hw_conn_type == SKL_CONN_SOURCE) {
- 			dir = SNDRV_PCM_STREAM_PLAYBACK;
- 			s_freq = m_iface->outputs[0].fmt.s_freq;
--			s_fmt = m_iface->outputs[0].fmt.bit_depth;
-+			s_fmt = m_iface->outputs[0].fmt.valid_bit_depth;
-+			s_cont = m_iface->outputs[0].fmt.bit_depth;
- 			ch = m_iface->outputs[0].fmt.channels;
- 		} else {
- 			dir = SNDRV_PCM_STREAM_CAPTURE;
- 			s_freq = m_iface->inputs[0].fmt.s_freq;
--			s_fmt = m_iface->inputs[0].fmt.bit_depth;
-+			s_fmt = m_iface->inputs[0].fmt.valid_bit_depth;
-+			s_cont = m_iface->inputs[0].fmt.bit_depth;
- 			ch = m_iface->inputs[0].fmt.channels;
- 		}
- 		break;
-@@ -325,16 +328,17 @@ static int skl_tplg_update_be_blob(struct snd_soc_dapm_widget *w,
- 	}
- 
- 	/* update the blob based on virtual bus_id and default params */
--	cfg = skl_get_ep_blob(skl, m_cfg->vbus_id, link_type,
--					s_fmt, ch, s_freq, dir, dev_type);
-+	cfg = intel_nhlt_get_endpoint_blob(skl->dev, skl->nhlt, m_cfg->vbus_id,
-+					   link_type, s_fmt, s_cont, ch,
-+					   s_freq, dir, dev_type);
- 	if (cfg) {
- 		m_cfg->formats_config[SKL_PARAM_INIT].caps_size = cfg->size;
- 		m_cfg->formats_config[SKL_PARAM_INIT].caps = (u32 *)&cfg->caps;
- 	} else {
- 		dev_err(skl->dev, "Blob NULL for id %x type %d dirn %d\n",
- 					m_cfg->vbus_id, link_type, dir);
--		dev_err(skl->dev, "PCM: ch %d, freq %d, fmt %d\n",
--					ch, s_freq, s_fmt);
-+		dev_err(skl->dev, "PCM: ch %d, freq %d, fmt %d/%d\n",
-+					ch, s_freq, s_fmt, s_cont);
- 		return -EIO;
- 	}
- 
-@@ -1849,10 +1853,11 @@ static int skl_tplg_be_fill_pipe_params(struct snd_soc_dai *dai,
- 		pipe_fmt = &pipe->configs[pipe->pipe_config_idx].in_fmt;
- 
- 	/* update the blob based on virtual bus_id*/
--	cfg = skl_get_ep_blob(skl, mconfig->vbus_id, link_type,
--					pipe_fmt->bps, pipe_fmt->channels,
--					pipe_fmt->freq, pipe->direction,
--					dev_type);
-+	cfg = intel_nhlt_get_endpoint_blob(dai->dev, skl->nhlt,
-+					mconfig->vbus_id, link_type,
-+					pipe_fmt->bps, params->s_cont,
-+					pipe_fmt->channels, pipe_fmt->freq,
-+					pipe->direction, dev_type);
- 	if (cfg) {
- 		mconfig->formats_config[SKL_PARAM_INIT].caps_size = cfg->size;
- 		mconfig->formats_config[SKL_PARAM_INIT].caps = (u32 *)&cfg->caps;
-diff --git a/sound/soc/intel/skylake/skl-topology.h b/sound/soc/intel/skylake/skl-topology.h
-index f0695b2ac5dd..22963634fbea 100644
---- a/sound/soc/intel/skylake/skl-topology.h
-+++ b/sound/soc/intel/skylake/skl-topology.h
-@@ -284,6 +284,7 @@ struct skl_pipe_params {
- 	u32 ch;
- 	u32 s_freq;
- 	u32 s_fmt;
-+	u32 s_cont;
- 	u8 linktype;
- 	snd_pcm_format_t format;
- 	int link_index;
-diff --git a/sound/soc/intel/skylake/skl.h b/sound/soc/intel/skylake/skl.h
-index 33ed274fc0cb..f55f8b3dbdc3 100644
---- a/sound/soc/intel/skylake/skl.h
-+++ b/sound/soc/intel/skylake/skl.h
-@@ -165,10 +165,6 @@ struct skl_dsp_ops {
- int skl_platform_unregister(struct device *dev);
- int skl_platform_register(struct device *dev);
- 
--struct nhlt_specific_cfg *skl_get_ep_blob(struct skl_dev *skl, u32 instance,
--					u8 link_type, u8 s_fmt, u8 num_ch,
--					u32 s_rate, u8 dirn, u8 dev_type);
--
- int skl_nhlt_update_topology_bin(struct skl_dev *skl);
- int skl_init_dsp(struct skl_dev *skl);
- int skl_free_dsp(struct skl_dev *skl);
--- 
-2.25.1
+> Sorry for my late response.
+> (It was PC replace week)
 
+No worries, hope the new PC is working well!
+
+> >> I would think it's more accurate to update the delay information while=
+=20
+> >> dealing with the hw_ptr update, no?
+
+> > Morimoto-san?
+
+> I think your opinion is very correct.
+> But this patch-set is for "cleanup/refactoring",
+> and your opinion is for "add new feature", I think.
+
+Hrm, right - this isn't making anything better or worse in terms of the
+accuracy, it's just moving things around so Pierre's suggestion is a
+separate thing.
+
+--Du4t0Y5KMQdT5MbR
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGg6qIACgkQJNaLcl1U
+h9B23gf/TS2f8Uhwz/3aBj7dhy2c1WyFcZPt8ykzlZ9OTzJO5yO0q221pX2VOO2+
+NC+ODlQFCGpYSLTBkXp+f98XdSunkPj1EQPdRxDococSfxUaUYRCyr+JEiR7vokR
+upJg3Yflizx6A9V4lpJ42dyt4L49bHwGz9mhEmRNPmoOq6NlOI7S1b1aZRc1msSF
+mu6DeoC9B/6dHuScaiDYXmK/FfinWrwDZoihD71jtEAsrCsdPnnAly1fNGSr5pH1
+drbh0Wh8ooGIygoWwOJBpW6uP8oJDKcOgvh7pJUxD6xjrjtTDyh8YhVVe32XejkC
+IGVPaLg9Mn32Pa6Ta+DHFEbmM9SScw==
+=eRAB
+-----END PGP SIGNATURE-----
+
+--Du4t0Y5KMQdT5MbR--

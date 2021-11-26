@@ -2,81 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A974F45EF4C
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 14:40:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40B4C45EF61
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Nov 2021 14:46:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 224261926;
-	Fri, 26 Nov 2021 14:40:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 224261926
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4EC9192E;
+	Fri, 26 Nov 2021 14:45:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4EC9192E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637934056;
-	bh=NC4SpiZ2SHdTDSCTPOpq9t5x7oRVWD4HdHwzbrrZNBQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vNfK4CTKi9iWOzxvy5VDDD9OM9arvw2K1jzh8NauLUs0+PemOESAPKtEfdrAD/657
-	 YzlJ3kkwiPqJm0XeSG8qXU3lEbyI6fBd/UUkzWkKYxDYezoss90P4UsWtbXA0Z0L74
-	 4C+gHASsUxSJW+GnDofpl+DTLoHUT6C+TDbSFUgo=
+	s=default; t=1637934398;
+	bh=rLbf6WnJK1EE/Xx+mmqf8PdAXSZs6DP6rUiMD5QcB6U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FLy0l8H3yfjsEr6XfG/YX3i97xKpsN6n0L3ivgEYD7A+08d9jystEMwqbOgj7Vog7
+	 d8KLyFAqBgaz45YqQng3jyjzKISwl3eDXMKOftCPpBp0e+BJRplF3IenbFuZp0xvai
+	 HDSM1kYYxz9EbRa9L50ksPta87h0eGkz3lZFMgfw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 634D1F80245;
-	Fri, 26 Nov 2021 14:39:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13E3AF80302;
+	Fri, 26 Nov 2021 14:45:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1A97F80132; Fri, 26 Nov 2021 14:39:36 +0100 (CET)
+ id 4985BF80166; Fri, 26 Nov 2021 14:45:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 655BBF80132
- for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 14:39:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 655BBF80132
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LnzuaG0a"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7F24BB827E9;
- Fri, 26 Nov 2021 13:39:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83BD4C93056;
- Fri, 26 Nov 2021 13:39:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637933969;
- bh=NC4SpiZ2SHdTDSCTPOpq9t5x7oRVWD4HdHwzbrrZNBQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LnzuaG0aGkSbR11VcYAhw+LABMdgP93Eb79e+hjZKIh/WOMreVmEeXBxIpXzyXXms
- BGTLlweG4pPZYKxUtGXROXQClLNB3esFBYx+eQUBYRgyA+GVObOOdBCjD7dSj5mcJE
- oniJJGSEqxtsYfCiu0YgPTAJynNzUVpcc9YGmdWQlSkk8msyd9OQBHV3w33o4UKcCV
- jzbckwgg1rO5e+AqN+wuVvV+czHcDglgU85iBbjs2zjRz/DimZWx3G+/ktXeSrGYZt
- OOPazXpd42BZegLzm3RZaaaFs4EGjXET5mb2im3HE7FwmRUy3g0d+h+saTXQhBRYtT
- 808fo/59GQffQ==
-Date: Fri, 26 Nov 2021 13:39:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Subject: Re: [PATCH v6 10/10] ASoC: qcom: SC7280: Update config for building
- codec dma drivers
-Message-ID: <YaDjiip57q5hDe+l@sirena.org.uk>
-References: <1637928282-2819-1-git-send-email-srivasam@codeaurora.org>
- <1637928282-2819-11-git-send-email-srivasam@codeaurora.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 393EBF80166
+ for <alsa-devel@alsa-project.org>; Fri, 26 Nov 2021 14:45:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 393EBF80166
+X-IronPort-AV: E=McAfee;i="6200,9189,10179"; a="215689416"
+X-IronPort-AV: E=Sophos;i="5.87,266,1631602800"; d="scan'208";a="215689416"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2021 05:45:11 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,266,1631602800"; d="scan'208";a="675566575"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by orsmga005.jf.intel.com with ESMTP; 26 Nov 2021 05:45:09 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v4 0/3] ALSA: hda: New NHLT functions and cleanup
+Date: Fri, 26 Nov 2021 14:47:36 +0100
+Message-Id: <20211126134739.1041596-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8VdVWGcSreCkYakr"
-Content-Disposition: inline
-In-Reply-To: <1637928282-2819-11-git-send-email-srivasam@codeaurora.org>
-X-Cookie: You fill a much-needed gap.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, Venkata Prasad Potturu <potturu@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, plai@codeaurora.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, bjorn.andersson@linaro.org,
- agross@kernel.org, rohitkr@codeaurora.org, swboyd@chromium.org,
- judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com,
+ Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.com,
+ hdegoede@redhat.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,38 +71,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Changes add two crucial functions: endpoint presence-check and
+retrieval of endpoint's BLOB (hardware configuration) to NHLT API.
 
---8VdVWGcSreCkYakr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Outside of that, "is DMIC in NHLT?" check is being re-visited. No need
+to check for channel count or anything DMIC-configuration related, just
+straight up verify link_type presence.
 
-On Fri, Nov 26, 2021 at 05:34:42PM +0530, Srinivasa Rao Mandadapu wrote:
+Changes in v4:
+- patch renaming nhlt_acpi_table struct to acpi_nhlt_table has been
+  dropped due to naming conflicts with other parts of the kernel
+- revoked previously appended tags from Mark and Pierre as every patch
+  required an update due to above
 
-> This patch set depends on:
->     -- https://patchwork.kernel.org/project/alsa-devel/list/?series=582321
+Changes in v3:
+- no code changes
+- appended Mark's Acked-by tag for patch 4/4
+- appended Pierre's Reviewed-by tag for all patches
 
-To repeat yet again:
+Changes in v2:
+- patch "ALSA hda: Drop device-argument in NHLT functions" has been
+  dropped
+- updated newly added declarations in intel-nhlt.h so warning:
+  "no-previous-prototype-for-function" and error:
+  "use-of-undeclared-identifier" are no longer observed when
+  CONFIG_SND_INTEL_NHLT is not enabled
+- added Mark's tag to the last patch of the series
 
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
+Amadeusz Sławiński (3):
+  ALSA: hda: Fill gaps in NHLT endpoint-interface
+  ALSA: hda: Simplify DMIC-in-NHLT check
+  ASoC: Intel: Skylake: Use NHLT API to search for blob
 
---8VdVWGcSreCkYakr
-Content-Type: application/pgp-signature; name="signature.asc"
+ include/sound/intel-nhlt.h             |  37 +++++++--
+ sound/hda/intel-dsp-config.c           |   2 +-
+ sound/hda/intel-nhlt.c                 | 102 +++++++++++++++++++++++++
+ sound/soc/intel/skylake/skl-nhlt.c     | 102 -------------------------
+ sound/soc/intel/skylake/skl-pcm.c      |   3 +
+ sound/soc/intel/skylake/skl-topology.c |  29 ++++---
+ sound/soc/intel/skylake/skl-topology.h |   1 +
+ sound/soc/intel/skylake/skl.h          |   4 -
+ 8 files changed, 153 insertions(+), 127 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.25.1
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGg44kACgkQJNaLcl1U
-h9B2PAf9HFtpuSJkMDBV0v+tqGL4HutQce5WtAopOh7XBAr+9F4S0Zc/wjf7/rEo
-XsZ5s26AzXEBFCam543O95L/8xOKJoRBTCpzNI9shL0I9Us7v3OrnpKmtlmFfguz
-pdHWM/ynf7GukdQkiKCjFdvb7ecDnIhcUotEmrod4v0JlHbTa8oTNHAm3xW1sOVV
-aJN9QVOLSErb033mTnfCRakno8KqclFjBFrYE9Kr5mQTGHwduq36zTDrVM268eyX
-LH+vhF0mKVUkfuTZKQbY/8NpnLbmBSnQ6Uf4LjBs1itPiv9cWJGuE/lPqB8GNecj
-VIfGGvzQFpOlGDGmYRb4RAyPvuOJAg==
-=eXdC
------END PGP SIGNATURE-----
-
---8VdVWGcSreCkYakr--

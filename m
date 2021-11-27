@@ -2,75 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5EDE45FB0D
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Nov 2021 02:33:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BDA045FD93
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Nov 2021 10:22:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45D4C1729;
-	Sat, 27 Nov 2021 02:32:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45D4C1729
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C5391714;
+	Sat, 27 Nov 2021 10:21:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C5391714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637976794;
-	bh=7AWEXiGxKVo0rxNDO4Gv6765Xqx7YOoQNOOTEkYt5ck=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JSbvIzyWeJMzRA4G5snRz9rnchwH9sMGh0xPF54Bt/mI9JqBXRkjVNLb8k/m6Hk+D
-	 kmpjS8fYs9GWBVR8weelDoqB96Z3OGsWYd+uNhNU4gZnLcXYMAVhZ/2X1h2PB0SUiD
-	 4eCWpjAVAm7oJd/SoJ2CgBVDuApg5YwP9ulBjO/o=
+	s=default; t=1638004956;
+	bh=GAuxfKWzQ8w4e/sEv0+DQGGZvg4Ir0ZzrTyI01zMRfU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eKmNPDzXkhwn4ULLynWAPiwB17eWk7+Oa4fpVH4W6Ee5FDNT2oHZXwLwS18t+/1Tk
+	 vdDpqbjZR8rRGk8ei5flVLPPGnTxalmMdb2UcFwUx281SjfCg79/x90+L1vWW8t1S1
+	 LO0VB/GmYhs38rGkQ2OZmlK5l6DvRtBSpR6HTQdQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B82DF80516;
-	Sat, 27 Nov 2021 02:30:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 615C9F80132;
+	Sat, 27 Nov 2021 10:21:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01BA3F80508; Sat, 27 Nov 2021 02:30:07 +0100 (CET)
+ id A392BF8049E; Sat, 27 Nov 2021 10:21:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F652F80507
- for <alsa-devel@alsa-project.org>; Sat, 27 Nov 2021 02:30:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F652F80507
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8878BF80132
+ for <alsa-devel@alsa-project.org>; Sat, 27 Nov 2021 10:20:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8878BF80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZrMFgaq6"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6C49C60ADE;
- Sat, 27 Nov 2021 01:29:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42F51C53FC1;
- Sat, 27 Nov 2021 01:29:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637976598;
- bh=7AWEXiGxKVo0rxNDO4Gv6765Xqx7YOoQNOOTEkYt5ck=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ZrMFgaq6NFixSl9xJq9wHuGHgt0TQ3RCTqELC328nzVGzSru6ElAxtdRiUoI5NB1R
- tRfNSq1XelnckovGNfEe0au0rfS2/n/6EwLJ0yDieAo/SsG3Yk0bh2s4fdbEQPxryH
- 3Jypruss4lfBfOk/rHiJQNFYp+AihDkd5/w8yfMuuv/rbXhuJm/e4JWfzrWLqCxxIv
- nteKI5SWy/B9s9RWY3XAitTm+7P/3D+1GjfQvh3QjFy4WXgejGQFU4xZAnoqN6S/Lx
- R9QEw0ESwUXRngkVrs3gpjcGe7JEO+AeqCP/Kor5Gjpmvg6wdj7shnaznQXtHR3Rnt
- H/4rD6VPk8bYQ==
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Paul Cercueil <paul@crapouillou.net>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20211125232543.117074-1-paul@crapouillou.net>
-References: <20211125232543.117074-1-paul@crapouillou.net>
-Subject: Re: [PATCH] ASoC: codecs/jz4770: Add missing gain control after
- DAC/ADC mixer
-Message-Id: <163797659699.2987942.6238411233460719577.b4-ty@kernel.org>
-Date: Sat, 27 Nov 2021 01:29:56 +0000
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="d9ijPY1V"
+Received: by mail-lf1-x12e.google.com with SMTP id f18so30135575lfv.6
+ for <alsa-devel@alsa-project.org>; Sat, 27 Nov 2021 01:20:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9CVjzfYPDceDBXmW9CFOxQhvY2AD/vo1bVX7QojZu30=;
+ b=d9ijPY1Vc7Y5ROoNnm4XMRAgMwJ4EKvCQceea7CUeIN0h7egU0pGRRJgGa4v11YvPs
+ Gnr7or+QKknle615+BATi1e1lF/FtP3dcRm8B2wr9l/nBld6hTl2/7zTUzHtS0s2Pba1
+ d/fIHGvvTc7nbzK6u3wAx0yS9RhP35bquHtiW1jLZPCiMQ71XeTjsweEn/Ojl6kE7Ctb
+ gWyeN4Mn/1ASc2qpayqZDRA/Us+7cvQJ5ioVnAsEUMj6YVTr4l7COBvM9Tb78WvcA9hZ
+ aReXq5jsS7ary1yHrOZQsrTqEABiTWl794YAkLU5Blx84t6X0l5q2DnSZQhIM1l2x7+Z
+ byig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9CVjzfYPDceDBXmW9CFOxQhvY2AD/vo1bVX7QojZu30=;
+ b=6xBC/6ITkrQ8zJC/4EpzNvcxtO1uDLKS4r6LQv9qX5MO9V/GZi0lquOmdSRvU+yfRk
+ KQ9NMht98TPiIawRVaroHzrfAB9rwtc6uehamGKmDAK7kK1+UYxZOonRDffzdywX7ezx
+ jwogJjpd9ahPxxSfY1DPM3wS3/Y7/VnpSv9dzYDZIam80nJov1Y1nYLCoTmXYCKDf2NJ
+ DJXDorVsrTGuDk2rPdKBR7WS8IISC78LbnaUSDFvxw1A8pHg6v3e8IF5F9zgurE2Bwwu
+ V+scAppYB9RiZj/yxNDNh5ZQdaaWzoije8KQJCzaxMm0v4UQ5A5JzBI3ZYUUTcRC+vwG
+ Qg2A==
+X-Gm-Message-State: AOAM533xJU4vlm8E0+dayCL8Pz3A3+YWBSg6qcOvbrhR91U2lVIL0hr5
+ +s+5KF9swTzrx0bPWGERhro=
+X-Google-Smtp-Source: ABdhPJxYeR3a8otPywQ9MUA/07Tz4Y5IjKsyDu01fisdQG64wt1KKDIiDBQd/KXjf+BlQjb1Q581dw==
+X-Received: by 2002:a05:6512:519:: with SMTP id
+ o25mr33652054lfb.422.1638004801650; 
+ Sat, 27 Nov 2021 01:20:01 -0800 (PST)
+Received: from localhost.localdomain (h-155-4-221-129.NA.cust.bahnhof.se.
+ [155.4.221.129])
+ by smtp.gmail.com with ESMTPSA id v7sm743066ljd.31.2021.11.27.01.20.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 27 Nov 2021 01:20:00 -0800 (PST)
+From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+To: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: intel: boards: bytcht*: Constify static snd_soc_ops
+Date: Sat, 27 Nov 2021 10:19:54 +0100
+Message-Id: <20211127091954.12075-1-rikard.falkeborn@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, list@opendingux.net,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, alsa-devel@alsa-project.org,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,36 +104,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 25 Nov 2021 23:25:43 +0000, Paul Cercueil wrote:
-> The capture and playback paths both have a configurable gain after their
-> respective mixer, which can be set from -31 dB to 0 dB in 32 steps.
-> 
-> 
+These are only assigned to the ops fields in the snd_soc_dai_link struct
+which is a pointer to const struct snd_soc_ops. Make them const to allow
+the compiler to put them in read-only memory.
 
-Applied to
+Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+---
+ sound/soc/intel/boards/bytcht_cx2072x.c | 2 +-
+ sound/soc/intel/boards/bytcht_nocodec.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/sound/soc/intel/boards/bytcht_cx2072x.c b/sound/soc/intel/boards/bytcht_cx2072x.c
+index 0a736308052a..ffd497a5b5a5 100644
+--- a/sound/soc/intel/boards/bytcht_cx2072x.c
++++ b/sound/soc/intel/boards/bytcht_cx2072x.c
+@@ -147,7 +147,7 @@ static int byt_cht_cx2072x_aif1_startup(struct snd_pcm_substream *substream)
+ 					    SNDRV_PCM_HW_PARAM_RATE, 48000);
+ }
+ 
+-static struct snd_soc_ops byt_cht_cx2072x_aif1_ops = {
++static const struct snd_soc_ops byt_cht_cx2072x_aif1_ops = {
+ 	.startup = byt_cht_cx2072x_aif1_startup,
+ };
+ 
+diff --git a/sound/soc/intel/boards/bytcht_nocodec.c b/sound/soc/intel/boards/bytcht_nocodec.c
+index 67b3c4e97864..115c2bcaabd4 100644
+--- a/sound/soc/intel/boards/bytcht_nocodec.c
++++ b/sound/soc/intel/boards/bytcht_nocodec.c
+@@ -93,7 +93,7 @@ static int aif1_startup(struct snd_pcm_substream *substream)
+ 			&constraints_48000);
+ }
+ 
+-static struct snd_soc_ops aif1_ops = {
++static const struct snd_soc_ops aif1_ops = {
+ 	.startup = aif1_startup,
+ };
+ 
+-- 
+2.34.1
 
-Thanks!
-
-[1/1] ASoC: codecs/jz4770: Add missing gain control after DAC/ADC mixer
-      commit: 0b189395945dc59d327c1e0588d144ce439dfa55
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

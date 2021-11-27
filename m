@@ -2,74 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950AA45FAE4
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Nov 2021 02:32:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B63D045FB04
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Nov 2021 02:32:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32DC91714;
-	Sat, 27 Nov 2021 02:31:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32DC91714
+	by alsa0.perex.cz (Postfix) with ESMTPS id 544AD1743;
+	Sat, 27 Nov 2021 02:32:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 544AD1743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1637976755;
-	bh=ZpNC2uXBWg4aE1yqjzMMzmZtkt79PHdcIC+9Ks0xsCU=;
+	s=default; t=1637976771;
+	bh=mdcPkROBkg6g+bcaNVjEFJmr2PWE2x4mGjdd+HKP0EU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H7n5nW01281W99q5QnZItDotU5NvVm5bDfg8H0aR7c++LxrN+R0tj4xjuMI1jd9XI
-	 tNwU052t2MoTYsX2bwizQdBVKQAJ0bb/s8eC4nD76BtvFePb9egp1WNtSHSBZWsyQA
-	 8U+vcMqdYQkMbtc/dQ3ytaPLGJI2qVwN4DtdnKr4=
+	b=Ljo5jsmYrZqQChosRLz8oPxHEMXdQT9J2d+EO+OnRmEXdHkBWy9feCyaydmtKEgPk
+	 qTA7zNXN0f5wy9KfL8hkuD3mYPWLRsarJkMBlZPEHg64SREf6KGzn/TTiBHOzcsper
+	 G6LHtLqSYsNtayeHQCn9/qWVLbV2LCe8gKCcjIFw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E201F80506;
-	Sat, 27 Nov 2021 02:30:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB78CF8050F;
+	Sat, 27 Nov 2021 02:30:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B48A4F804ED; Sat, 27 Nov 2021 02:29:58 +0100 (CET)
+ id ADBC9F8050F; Sat, 27 Nov 2021 02:30:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF551F80166
- for <alsa-devel@alsa-project.org>; Sat, 27 Nov 2021 02:29:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF551F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED11CF804EB
+ for <alsa-devel@alsa-project.org>; Sat, 27 Nov 2021 02:29:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED11CF804EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XGfVPOjI"
+ header.b="ZMTM9jxM"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1EE0D60B32;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 382E7B829B8;
+ Sat, 27 Nov 2021 01:29:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6360DC004E1;
  Sat, 27 Nov 2021 01:29:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58888C53FAD;
- Sat, 27 Nov 2021 01:29:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637976592;
- bh=ZpNC2uXBWg4aE1yqjzMMzmZtkt79PHdcIC+9Ks0xsCU=;
+ s=k20201202; t=1637976596;
+ bh=mdcPkROBkg6g+bcaNVjEFJmr2PWE2x4mGjdd+HKP0EU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=XGfVPOjI52SEbgP0ABhWqMJsZSiLY+/PcBhZL5YzNftisw3AvnUveTCbyceziGGRf
- eWUu6R+0fPk7iBi5KQRV5c1BpphyMpT/7yGKIxoZwgAKYZL3WRkqSZ6q8FzY1Ze43s
- yez08Ri0mXHl7HO64O27D/86rZIzGc4PUzj3502KAfcoOYHWvPhe2rJUB+GEVI7hxs
- Zb4jxv4sImTjgFcXSoZwzZiQhqczMRdnN1gf7fr9jzvCRHUW3yAZbOjWC8z0jhCnO8
- hpkex93yFe0ybx7GLkQWjMxdPL159+QxBL56d2Zls9yKXSNiYPJurX0+zE79f+M8K2
- 2NTXdbSQWhRlQ==
+ b=ZMTM9jxMVLZOo0Vs2eGBhYKOI2tNG4bFm5tdAEyS+K9NNLD/lLvWOLCMhmHV8LqAu
+ J0BFSLxe6W1FAsCY57gZJza8++/h/vOsoiL6h43XNzuKW0GBXBeB9iUy5xObZf8fIN
+ +HAZrmYvmz0F0RzL6MXSpGrEVTx9XqHi/AAVh2dV4N5HZlLGjFPhuZ54cRwDdwSlnn
+ Vur7Zhm64fubEi0D3OAXVhpFaeRzzet4qpF+E/5KX1hjW9cz38IaqFPGm9Y0Z67nw4
+ xpSk2zjyGL8/FoUWyRC0MC18tpYAUFiXyigTJkuVFheKwa3SZY9vvQPTxd5arWKzV2
+ 1xQjfkqIq1+6w==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, David Rhodes <david.rhodes@cirrus.com>
-In-Reply-To: <20211125143501.7720-1-tanureal@opensource.cirrus.com>
-References: <20211125143501.7720-1-tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l41: Fix link problem
-Message-Id: <163797659108.2987942.14749282669169455911.b4-ty@kernel.org>
-Date: Sat, 27 Nov 2021 01:29:51 +0000
+To: cgel.zte@gmail.com, nicoleotsuka@gmail.com
+In-Reply-To: <20211110002910.134915-1-ye.guojin@zte.com.cn>
+References: <20211110002910.134915-1-ye.guojin@zte.com.cn>
+Subject: Re: [PATCH] ASoC: imx-hdmi: add put_device() after
+ of_find_device_by_node()
+Message-Id: <163797659312.2987942.8864055300904325575.b4-ty@kernel.org>
+Date: Sat, 27 Nov 2021 01:29:53 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, shengjiu.wang@gmail.com,
+ Xiubo.Lee@gmail.com, shawnguo@kernel.org, Zeal Robot <zealci@zte.com.cn>,
+ tiwai@suse.com, linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-imx@nxp.com, kernel@pengutronix.de, Ye Guojin <ye.guojin@zte.com.cn>,
+ festevam@gmail.com, s.hauer@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,13 +90,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 25 Nov 2021 14:35:01 +0000, Lucas Tanure wrote:
-> Can't link I2C and SPI to the same binary, better
-> to move CS35L41 to 3 modules approach.
-> And instead of exposing cs35l41_reg, volatile_reg,
-> readable_reg and precious_reg arrays, move
-> cs35l41_regmap_i2c/spi to new module and expose it.
+On Wed, 10 Nov 2021 00:29:10 +0000, cgel.zte@gmail.com wrote:
+> From: Ye Guojin <ye.guojin@zte.com.cn>
 > 
+> This was found by coccicheck:
+> ./sound/soc/fsl/imx-hdmi.c,209,1-7,ERROR  missing put_device; call
+> of_find_device_by_node on line 119, but without a corresponding object
+> release within this function.
 > 
 > [...]
 
@@ -101,8 +106,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs35l41: Fix link problem
-      commit: a5e0091d62abb9599d9dea505ec0e8c820001831
+[1/1] ASoC: imx-hdmi: add put_device() after of_find_device_by_node()
+      commit: f670b274f7f6f4b2722d7f08d0fddf606a727e92
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,87 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C20214605FD
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Nov 2021 12:57:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C126D4607B9
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Nov 2021 17:55:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 904A11733;
-	Sun, 28 Nov 2021 12:56:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 904A11733
+	by alsa0.perex.cz (Postfix) with ESMTPS id C96FE174D;
+	Sun, 28 Nov 2021 17:54:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C96FE174D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638100663;
-	bh=cyJcBUcVhLFNn3pKKdcCEQxDlyFA4R574DQPdCEbyWs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qHftRIqn6VWZSW1VmxT0l44fnbiMM70F1qpLYAI+MyvSqh0u8rHR3WOZg69eSX7J3
-	 jHEJ0sfLLqZ+OYrjvHhf5itJtzD72/L6qYCPboex9khBcr4B0+7TZFYtfkGwL0Iz3U
-	 beTOrnC2uxigOfo9132olKIgbhChGsAyHadF4+K0=
+	s=default; t=1638118512;
+	bh=gLIh2+fpFx3OuqE2Y7rFPy1u0rXNEuEUIIsaTQqXlHM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Wf1mZ815u7e4AUt9ZKXNiCYaKzBkJ843yKT8ef5Fj0jxTr4der6YKHUh4rQh00PUs
+	 6XHkR5rlOBhdqCU8x9QpoAdRiNJ1ncB3Fu/hviG6A0rqhJdCGOL6cLer4kwgMxphNi
+	 JbW6wsntb36ae1muewzKUqI+Vg79oBdWEoRd27gE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4011F80290;
-	Sun, 28 Nov 2021 12:56:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 305F5F80149;
+	Sun, 28 Nov 2021 17:53:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2964F8028D; Sun, 28 Nov 2021 12:56:20 +0100 (CET)
+ id 4FA03F8028D; Sun, 28 Nov 2021 17:53:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
+ [209.85.167.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6FA7BF800EE
- for <alsa-devel@alsa-project.org>; Sun, 28 Nov 2021 12:56:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FA7BF800EE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="gg0ecbHV"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1ASBmlIa001661;
- Sun, 28 Nov 2021 05:56:11 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=Ki+QojrxDU5JUpAcdyetKCTFr00V0YhLcue4lnkDJsQ=;
- b=gg0ecbHVxCfge1E4sBslc3ZSGhyCTBFrbPEt6HYB8oY2v9iXzQScTNj1Dv1LWENkBZF0
- aeXBmUmmKp/VxmPCbzEyblsfIAC0VlZA59ubv7RfNa0XRdiCWcWTawiPc9qa7d9e4v/u
- RqprHU70IS6Jgem3QD1jCLX0vMvo26sW+XLMSsRqcxOoUOrJ92mtnpymKGKca6IkeP8J
- c3A7LqHz5eNVOZLbQ+5lWK6tKJ+TGA4v2EhPbXOrsKbZ88QizzSENWZquiKVvs2EBabg
- FTAewZPGa/8be4+2rg+9tIEufDREdgDxVKtKDSsTJLfhJhBwBdQ1ioBjPcRaergNOcYf JA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ckjy80v9w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Sun, 28 Nov 2021 05:56:10 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Sun, 28 Nov
- 2021 11:56:08 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
- Frontend Transport; Sun, 28 Nov 2021 11:56:08 +0000
-Received: from vitaly-Inspiron-5415.ad.cirrus.com (unknown [198.90.238.68])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 37E3F2A9;
- Sun, 28 Nov 2021 11:55:59 +0000 (UTC)
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, Stefan
- Binding <sbinding@opensource.cirrus.com>, Vitaly Rodionov
- <vitalyr@opensource.cirrus.com>, Lucas Tanure
- <tanureal@opensource.cirrus.com>
-Subject: [PATCH] ALSA: hda/cs8409: Set PMSG_ON earlier inside cs8409 driver
-Date: Sun, 28 Nov 2021 11:55:58 +0000
-Message-ID: <20211128115558.71683-1-vitalyr@opensource.cirrus.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE94AF80217
+ for <alsa-devel@alsa-project.org>; Sun, 28 Nov 2021 17:53:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE94AF80217
+Received: by mail-oi1-f179.google.com with SMTP id u74so29773737oie.8
+ for <alsa-devel@alsa-project.org>; Sun, 28 Nov 2021 08:53:44 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=45c1gacm72RX4cF7zNnpU51xQn+kJSWSAn4Mo9Q7trc=;
+ b=QIFEpZTxSk0luI7MlCj7gTg148jueAk9H6L+RGxkxvaEr7/2HATZBf1crookw3bTgs
+ x3DleB6chiVEcjwQGQXYEvvibmjFqudw5xkixGVllrJ9SFz4QnFMt48SmKlEPNDSuZ4e
+ B26OT9bfqAxqyeCgBHsleCHNhUXVDjOgXZO3c2MU0UazclUg7eJNymeR0tlzurSHvVWa
+ YSxcNhauRrHKX9IH6cVpKtJp3fuoIofM7hJvqv1POQZVsiHFcuO/b942uola3u5U1c1w
+ eLlu0SHLk6y+fKQQktiQAoQrDmgMpEUKgKCU7urdrSWSaCG2opv+g/0kt0bHj4XS9l3G
+ xJtw==
+X-Gm-Message-State: AOAM5305I3/8rerJeRR17HcqDQbgqRglgqKsEAmag8+uQi+UVIT4T9EN
+ ULtrkw32PauIHkvh52nbIw==
+X-Google-Smtp-Source: ABdhPJy7pyUbgpVnYnG9saZFi8PYobUToY1xZuAG64h436uSkvorpWBdVmBhJPtgTE5wStLGhyx8Cw==
+X-Received: by 2002:a05:6808:120b:: with SMTP id
+ a11mr36930823oil.128.1638118422790; 
+ Sun, 28 Nov 2021 08:53:42 -0800 (PST)
+Received: from robh.at.kernel.org ([2607:fb90:20d6:afc8:f6e9:d57a:3e26:ee41])
+ by smtp.gmail.com with ESMTPSA id
+ a17sm2437469oiw.43.2021.11.28.08.53.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 28 Nov 2021 08:53:42 -0800 (PST)
+Received: (nullmailer pid 2708024 invoked by uid 1000);
+ Sun, 28 Nov 2021 16:53:37 -0000
+Date: Sun, 28 Nov 2021 10:53:37 -0600
+From: Rob Herring <robh@kernel.org>
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Subject: Re: [PATCH v6 08/10] ASoC: dt-bindings: Add SC7280 lpass cpu bindings
+Message-ID: <YaO0ER2pNIQrvlxM@robh.at.kernel.org>
+References: <1637928282-2819-1-git-send-email-srivasam@codeaurora.org>
+ <1637928282-2819-9-git-send-email-srivasam@codeaurora.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: _FR5QcA7hi8KulKl7QlPQ4CygCn93E8L
-X-Proofpoint-GUID: _FR5QcA7hi8KulKl7QlPQ4CygCn93E8L
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1637928282-2819-9-git-send-email-srivasam@codeaurora.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, Venkata Prasad Potturu <potturu@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, plai@codeaurora.org, tiwai@suse.com,
+ agross@kernel.org, swboyd@chromium.org, lgirdwood@gmail.com,
+ broonie@kernel.org, rohitkr@codeaurora.org, bjorn.andersson@linaro.org,
+ judyhsiao@chromium.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,64 +96,150 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Stefan Binding <sbinding@opensource.cirrus.com>
+On Fri, Nov 26, 2021 at 05:34:40PM +0530, Srinivasa Rao Mandadapu wrote:
+> Add bindings for sc7280 lpass cpu driver which supports
+> audio over i2s based speaker, soundwire based headset, msm dmics
+> and HDMI Port.
+> 
+> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+> ---
+>  .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 69 +++++++++++++++++++---
+>  1 file changed, 61 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> index 1e23c0e..0f5a57c 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> @@ -22,35 +22,36 @@ properties:
+>        - qcom,lpass-cpu
+>        - qcom,apq8016-lpass-cpu
+>        - qcom,sc7180-lpass-cpu
+> +      - qcom,sc7280-lpass-cpu
+>  
+>    reg:
+> -    maxItems: 2
+> +    maxItems: 5
+>      description: LPAIF core registers
+>  
+>    reg-names:
+> -    maxItems: 2
+> +    maxItems: 5
+>  
+>    clocks:
+>      minItems: 3
+> -    maxItems: 6
+> +    maxItems: 7
+>  
+>    clock-names:
+>      minItems: 3
+> -    maxItems: 6
+> +    maxItems: 7
+>  
+>    interrupts:
+> -    maxItems: 2
+> +    maxItems: 4
+>      description: LPAIF DMA buffer interrupt
+>  
+>    interrupt-names:
+> -    maxItems: 2
+> +    maxItems: 4
+>  
+>    qcom,adsp:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description: Phandle for the audio DSP node
+>  
+>    iommus:
+> -    maxItems: 2
+> +    maxItems: 3
+>      description: Phandle to apps_smmu node with sid mask
+>  
+>    power-domains:
+> @@ -69,7 +70,7 @@ patternProperties:
+>    "^dai-link@[0-9a-f]$":
+>      type: object
+>      description: |
+> -      LPASS CPU dai node for each I2S device. Bindings of each node
+> +      LPASS CPU dai node for each I2S device or Soundwire device. Bindings of each node
+>        depends on the specific driver providing the functionality and
+>        properties.
+>      properties:
+> @@ -174,6 +175,58 @@ allOf:
+>          - iommus
+>          - power-domains
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sc7280-lpass-cpu
+> +
+> +    then:
+> +      properties:
+> +        clock-names:
+> +          oneOf:
+> +            - items:   #for I2S
+> +                - const: lpass_aon_cc_audio_hm_h_clk
+> +                - const: lpass_core_cc_sysnoc_mport_core_clk
+> +                - const: lpass_core_cc_ext_if1_ibit_clk
+> +            - items:   #for Soundwire
+> +                - const: lpass_aon_cc_audio_hm_h_clk
+> +                - const: lpass_audio_cc_codec_mem0_clk
+> +                - const: lpass_audio_cc_codec_mem1_clk
+> +                - const: lpass_audio_cc_codec_mem2_clk
+> +            - items:   #for HDMI
+> +                - const: lpass_aon_cc_audio_hm_h_clk
 
-For cs8409, it is required to run Jack Detect on resume.
-Jack Detect on cs8409+cs42l42 requires an interrupt from
-cs42l42 to be sent to cs8409 which is propogated to the driver
-via an unsolicited event.
-However, the hda_codec drops unsolicited events if the power_state
-is not set to PMSG_ON. Which is set at the end of the resume call.
-This means there is a race condition between setting power_state
-to PMSG_ON and receiving the interrupt.
-To solve this, we can add an API to set the power_state earlier
-and call that before we start Jack Detect.
-This does not cause issues, since we know inside our driver that
-we are already initialized, and ready to handle the unsolicited
-events.
+'lpass_' and '_clk' are redundant.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
----
- sound/pci/hda/hda_local.h    | 8 ++++++++
- sound/pci/hda/patch_cs8409.c | 5 +++++
- 2 files changed, 13 insertions(+)
+> +
+> +        reg-names:
+> +          anyOf:
+> +            - items:   #for I2S
+> +                - const: lpass-lpaif
+> +            - items:   #for I2S and HDMI
+> +                - const: lpass-hdmiif
+> +                - const: lpass-lpaif
 
-diff --git a/sound/pci/hda/hda_local.h b/sound/pci/hda/hda_local.h
-index 4662a47add7e..96f78daf90f0 100644
---- a/sound/pci/hda/hda_local.h
-+++ b/sound/pci/hda/hda_local.h
-@@ -439,6 +439,14 @@ int snd_hda_codec_set_pin_target(struct hda_codec *codec, hda_nid_t nid,
- #define for_each_hda_codec_node(nid, codec) \
- 	for ((nid) = (codec)->core.start_nid; (nid) < (codec)->core.end_nid; (nid)++)
- 
-+/* Set the codec power_state flag to indicate to allow unsol event handling;
-+ * see hda_codec_unsol_event() in hda_bind.c.  Calling this might confuse the
-+ * state tracking, so use with care.
-+ */
-+static inline void snd_hda_codec_allow_unsol_events(struct hda_codec *codec) {
-+	codec->core.dev.power.power_state = PMSG_ON;
-+}
-+
- /*
-  * get widget capabilities
-  */
-diff --git a/sound/pci/hda/patch_cs8409.c b/sound/pci/hda/patch_cs8409.c
-index 31ff11ab868e..039b9f2f8e94 100644
---- a/sound/pci/hda/patch_cs8409.c
-+++ b/sound/pci/hda/patch_cs8409.c
-@@ -750,6 +750,11 @@ static void cs42l42_resume(struct sub_codec *cs42l42)
- 	if (cs42l42->full_scale_vol)
- 		cs8409_i2c_write(cs42l42, 0x2001, 0x01);
- 
-+	/* we have to explicitly allow unsol event handling even during the
-+	 * resume phase so that the jack event is processed properly
-+	 */
-+	snd_hda_codec_allow_unsol_events(cs42l42->codec);
-+
- 	cs42l42_enable_jack_detect(cs42l42);
- }
- 
--- 
-2.25.1
+Doesn't this apply to other SoCs?
 
+> +            - items:   #for I2S, soundwire and HDMI
+> +                - const: lpass-cdc-lpm
+> +                - const: lpass-rxtx-lpaif
+> +                - const: lpass-va-lpaif
+> +                - const: lpass-hdmiif
+> +                - const: lpass-lpaif
+
+'lpass-' is redundant too, but consistency across SoCs is better.
+
+hdmiif and lpaif should be first. (Add new resources on the end.)
+
+> +        interrupt-names:
+> +          anyOf:
+> +            - items:   #for I2S
+> +                - const: lpass-irq-lpaif
+> +            - items:   #for I2S and HDMI
+> +                - const: lpass-irq-lpaif
+> +                - const: lpass-irq-hdmi
+> +            - items:   #for I2S, soundwire and HDMI
+> +                - const: lpass-irq-lpaif
+> +                - const: lpass-irq-vaif
+> +                - const: lpass-irq-rxtxif
+> +                - const: lpass-irq-hdmi
+
+Again, add new entries to the end.
+
+> +
+> +      required:
+> +        - iommus
+> +        - power-domains
+> +
+>  examples:
+>    - |
+>      #include <dt-bindings/sound/sc7180-lpass.h>
+> -- 
+> Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+> is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+> 
+> 

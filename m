@@ -2,63 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EE1B461D78
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Nov 2021 19:19:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9299C461FD5
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Nov 2021 20:03:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E51217E1;
-	Mon, 29 Nov 2021 19:19:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E51217E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3519518F3;
+	Mon, 29 Nov 2021 20:03:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3519518F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638209999;
-	bh=5yScbZTV4bvQ9UZi6KVDVnfYnwevvo18CjwgTjDLPa4=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1638212635;
+	bh=8jKsksVd0d4nfIvtTOvPPSuHcBwHJn48f4XlriyKYLw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Razqyovdte5QT3p3GC9PFrKxexEBsn5SwhgNJCyPjnpR5AhM0itOHr+8Um7MyL0ee
-	 Jpr5VgBhdZkIUdT4ohJ3rjPd+H//5lvEJ7WGMZlY0XcmPFz8HMpAeFrzzEXAZkXrb8
-	 E8jvw71Yhu4BmNtGjzX+yflaD6PfXlbUSOsjse2Q=
+	b=HY7EREhfv9xLsShwwGp/XQkf/cBLNA1JicUq6UtFIiJ5fRZRLi8VlnC9XlNOHtT0E
+	 L4LwqMoA7/c4mKXAolXq7/q5wqWC27C7zuPiWvYKTwXAw5nA92Dz2Pzgnjl+2qZlZa
+	 18qzjRRsQ75o8OuF6BnHT56UP0r8NOyb2lgY5ovM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A29F2F80217;
-	Mon, 29 Nov 2021 19:18:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E7DEF8020D;
+	Mon, 29 Nov 2021 20:02:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5646DF80240; Mon, 29 Nov 2021 19:18:40 +0100 (CET)
+ id B0B28F80240; Mon, 29 Nov 2021 20:02:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1E8FF80084
- for <alsa-devel@alsa-project.org>; Mon, 29 Nov 2021 19:18:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1E8FF80084
-X-IronPort-AV: E=McAfee;i="6200,9189,10183"; a="236272491"
-X-IronPort-AV: E=Sophos;i="5.87,273,1631602800"; d="scan'208";a="236272491"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2021 10:18:27 -0800
-X-IronPort-AV: E=Sophos;i="5.87,273,1631602800"; d="scan'208";a="676464231"
-Received: from ticela-nm-11.amr.corp.intel.com (HELO [10.212.98.225])
- ([10.212.98.225])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2021 10:18:27 -0800
-Subject: Re: Dual simulatenous output on single card not recognized
-To: Eldred HABERT <stuff@eldred.fr>, alsa-devel@alsa-project.org
-References: <8b18294d-d082-2be4-18ba-39b4ec4b9e91@eldred.fr>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <cdafcbb1-9eeb-6337-ee2b-d6a168996153@linux.intel.com>
-Date: Mon, 29 Nov 2021 12:18:24 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 530F7F8020D
+ for <alsa-devel@alsa-project.org>; Mon, 29 Nov 2021 20:02:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 530F7F8020D
+X-IronPort-AV: E=McAfee;i="6200,9189,10183"; a="299449755"
+X-IronPort-AV: E=Sophos;i="5.87,273,1631602800"; d="scan'208";a="299449755"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2021 11:02:24 -0800
+X-IronPort-AV: E=Sophos;i="5.87,273,1631602800"; d="scan'208";a="540104285"
+Received: from smile.fi.intel.com ([10.237.72.184])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2021 11:02:21 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1mrlts-0007uP-K5; Mon, 29 Nov 2021 21:01:16 +0200
+Date: Mon, 29 Nov 2021 21:01:16 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: Intel: atom: Remove redundant check to simplify
+ the code
+Message-ID: <YaUjfFNA6IScPCY9@smile.fi.intel.com>
+References: <20211125075028.8500-1-tangbin@cmss.chinamobile.com>
+ <3ca07ce3-6d5c-20cc-8992-4700490ea472@linux.intel.com>
+ <YaUJ2EfU6kYFfjWn@sirena.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <8b18294d-d082-2be4-18ba-39b4ec4b9e91@eldred.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YaUJ2EfU6kYFfjWn@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: cezary.rojewski@intel.com, alsa-devel@alsa-project.org,
+ Tang Bin <tangbin@cmss.chinamobile.com>, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, yang.jie@linux.intel.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ liam.r.girdwood@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,36 +82,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Nov 29, 2021 at 05:11:52PM +0000, Mark Brown wrote:
+> On Mon, Nov 29, 2021 at 10:22:41AM -0600, Pierre-Louis Bossart wrote:
+> > On 11/25/21 1:50 AM, Tang Bin wrote:
+> 
+> > > In the function sst_platform_get_resources(), if platform_get_irq()
+> > > failed, the return should not be zero, as the example in
+> > > platform.c is
+> > >   * int irq = platform_get_irq(pdev, 0)
+> > >   * if (irq < 0)
+> > >   * return irq;
+> > > So remove the redundant check to simplify the code.
+> 
+> > Humm, it's a bit of a gray area.
+> 
+> > the comments for platform_get_irq and platform_get_irq_optional say:
+> 
+> > * Return: non-zero IRQ number on success, negative error number on failure.
+> 
+> > but if you look at platform_get_irq_optional, there are two references
+> > to zero being a possible return value:
+> 
+> Zero is (or was, people were working on changing it partly due to
+> confusion and partly due to moving to newer infrastructure which
+> doesn't use it) a valid IRQ on some architectures.  x86 wasn't one of
+> those though, at least AFAIR.
+
+I guess it's about x86, but the API returns Linux virtual IRQ and 0 shouldn't
+be among them (hardware IRQ != Linux virtual IRQ). Legacy x86 used 1:1 mapping
+for ISA IRQs (lower 16) among which the Timer IRQ is 0. I believe that timer
+code does not use any of those APIs (it most likely and IIRC has it hardcoded).
+
+Nevertheless, I have planned to make platform_irq_get_optional() to be optional
+indeed, where we return 0 when there is no IRQ provided and error when it's a
+real error happens. This needs to clean up the current (mis-)use of the API.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-On 11/28/21 7:28 AM, Eldred HABERT wrote:
-> Hello,
-> 
-> I bought a laptop with integrated sound output (either to speakers or
-> headphones), and a HDMI output. Attached is the output of `aplay -l`.
-> 
-> Under both PipeWire and PulseAudio, I only get a single output/sink (by
-> default to the built-in output), but I can get simultaneous output to both:
-> - under PulseAudio, by adding a `load-module module-alsa-sink
-> device=hw:0,7` line to the config;
-> - under PipeWire, by adding a profile to the card to enable both
-> outputs, which correctly provides two outputs that work fine concurrently.
-> 
-> I was directed to this mailing list after the following discussion:
-> 
->> It's a kernel ALSA bug if SOF actually must contain enough data for
-> the driver to figure this out (or at least pass that data on to
-> userspace to deal with it)
->> if [we are] right that hardware itself does not contain the required
-> data, then it can only be fixed in userspace via a card database
->> which is one thing to do, another would be maybe a heuristic rule that
-> attempts to guess if such cards with analog and digital sub-devices
-> might be independent
-> 
-> Please tell me if more details are needed—it would be nice if hardware
-> configurations like mine could be fully supported out of the box ^^
-
-You may want to run 'alsa-info' and provide a link to the uploaded
-results. It's hard to comment without any information on 'hardware
-configurations like mine'.
-Thanks.

@@ -2,80 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC711460C1D
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Nov 2021 02:17:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 471F2460ED7
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Nov 2021 07:41:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 223D8175D;
-	Mon, 29 Nov 2021 02:17:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 223D8175D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55B6D1770;
+	Mon, 29 Nov 2021 07:40:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55B6D1770
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638148674;
-	bh=O5jEWsp74rcGF5sdyuoMKNKt1ZufTFSYFC8vDBnV/mw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cNHWOIYN5HEVOkIkVPhkljz1FnSuNPt37XNLB5Ws5C2FixGmoHrckDP+QKUskfbRu
-	 9wejvomJpZykLnDSVX89ygRJxa2wPFiwDT6XzvDZQgkjxhHk3XEz79IDB3ah8vhm/G
-	 GfspT5irgAuD3VSXckWcxreO3AIaFQfZrZOqpkeo=
+	s=default; t=1638168103;
+	bh=+I0ASTFL0VPbwT2J+bN9MQQXUQ3YW6p++gBV+HWVzlo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ixUYoY4vDciCinPGMjGmgf2W/D66voSTGdQCz1uvAG+aQ88LBJRqkahwk4OILDhRx
+	 kaT/D/cfzNIWGi0TyGiOYWwOMXv/7n63VOgr9XB/UaeJteWIKrefPKHuuqaVboGrpO
+	 Ms2bVGq1iYm+R9C8lZANJOjDYrvViQA/RW1+e/cs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8222FF80290;
-	Mon, 29 Nov 2021 02:16:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B58DF80254;
+	Mon, 29 Nov 2021 07:40:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E707F8028D; Mon, 29 Nov 2021 02:16:34 +0100 (CET)
+ id 2194FF80249; Mon, 29 Nov 2021 07:40:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62D3DF80149
- for <alsa-devel@alsa-project.org>; Mon, 29 Nov 2021 02:16:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62D3DF80149
-Received: by mail-ot1-f54.google.com with SMTP id
- b5-20020a9d60c5000000b0055c6349ff22so23186214otk.13
- for <alsa-devel@alsa-project.org>; Sun, 28 Nov 2021 17:16:28 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=230w9ape9JpzqZr74e2sVyCORpXl3Wj9yImdFjz57gs=;
- b=1IDoMZFZCV5Ja6uVKTSW1dVlxcHBeSUkUNrmSGrkH8KddTvoYK3KOsxEqBLukLyVN3
- EMWflJsUp13iiFzkFoRUGFEAqQvRPVUyKBW8q93qmBxFzlX2QP4xFK1JNblzeBLfxugM
- ZROQ6zETEus9UTaNS6yezvPQ0umHsTOuALj8u7glT8wzpWvU/UyiZJM6sVqjq7CbcQED
- FT50qy43n5XejKxw8W5Rh03wefpdyVcJND8T6MSAQiNc5Qc5mXxnGWm0ALuCs9MlFor8
- LmuH7NTsTHRHRhKTzkMN3O8ZZ6V6B6TrnBhotcUcJ2ffKsPh0dFKzpYl18zu6cXkiDWT
- Ri1Q==
-X-Gm-Message-State: AOAM531AXSK1A6i8zbvvJd6ZgWeXcNRPqUPMS88C0ORWkLCQi55MwzLp
- 6lpKTjU2VYNQoUf/1SXK/A==
-X-Google-Smtp-Source: ABdhPJxw7RaRn8u7lMfZwgPBfX9c0xo3f1wQiGd25fOtpLSff7OrzkM36mL2nrRKmheta6i+/knLlw==
-X-Received: by 2002:a9d:750c:: with SMTP id r12mr41395664otk.273.1638148587262; 
- Sun, 28 Nov 2021 17:16:27 -0800 (PST)
-Received: from robh.at.kernel.org ([172.58.99.229])
- by smtp.gmail.com with ESMTPSA id q22sm2401602ots.62.2021.11.28.17.16.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 28 Nov 2021 17:16:26 -0800 (PST)
-Received: (nullmailer pid 2958524 invoked by uid 1000);
- Mon, 29 Nov 2021 01:16:19 -0000
-Date: Sun, 28 Nov 2021 19:16:19 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jayesh Choudhary <j-choudhary@ti.com>
-Subject: Re: [PATCH v3] ASoC: dt-bindings: davinci-mcasp: convert McASP
- bindings to yaml schema
-Message-ID: <YaQp4wkSBfh5lREV@robh.at.kernel.org>
-References: <20211126050228.6257-1-j-choudhary@ti.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10B26F800EE;
+ Mon, 29 Nov 2021 07:40:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10B26F800EE
+X-UUID: 28a4c85160b54425a552989a5c3cdd18-20211129
+X-UUID: 28a4c85160b54425a552989a5c3cdd18-20211129
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw01.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 715309939; Mon, 29 Nov 2021 14:40:01 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Mon, 29 Nov 2021 14:40:00 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Mon, 29 Nov 2021 14:40:00 +0800
+From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jassi Brar
+ <jassisinghbrar@gmail.com>
+Subject: [PATCH v7 0/3] This patches provide ADSP IPC support for MT8195
+Date: Mon, 29 Nov 2021 14:39:51 +0800
+Message-ID: <20211129063954.1616-1-allen-kh.cheng@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211126050228.6257-1-j-choudhary@ti.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, broonie@kernel.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, cujomalainey@google.com,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,331 +84,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 26, 2021 at 10:32:28AM +0530, Jayesh Choudhary wrote:
-> Convert the bindings for McASP controllers for TI SOCs
-> from txt to YAML schema.
-> 
-> Adds additional properties 'clocks', 'clock-names', 'power-domains',
-> '#sound-dai-cells', 'num-serializer' and 'port' which were not there
-> in the txt file.
-> Adds 'dmas' and 'dma-names' in the example which were not there in
-> the txt file.
-> Changes 'interrupts' and 'interrupt-names' from optional to
-> required properties.
-> 
-> Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
-> ---
-> Changelog:
-> v3:
-> - removes maxItems from 'clock-names'
-> 
-> v2:
-> - changes the commit message
-> - modifies the properties 'clocks', 'clock-names', 'dma-names',
->   'dmas', 'interrupts' and 'interrupt-names' according to the
->   arm SOCs
-> - adds 'port' and 'num-serializer' as node properties
->  
->  .../bindings/sound/davinci-mcasp-audio.txt    |  86 ---------
->  .../bindings/sound/davinci-mcasp-audio.yaml   | 178 ++++++++++++++++++
->  2 files changed, 178 insertions(+), 86 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
-> deleted file mode 100644
-> index bd863bd69501..000000000000
-> --- a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
-> +++ /dev/null
-> @@ -1,86 +0,0 @@
-> -Texas Instruments McASP controller
-> -
-> -Required properties:
-> -- compatible :
-> -	"ti,dm646x-mcasp-audio"	: for DM646x platforms
-> -	"ti,da830-mcasp-audio"	: for both DA830 & DA850 platforms
-> -	"ti,am33xx-mcasp-audio"	: for AM33xx platforms (AM33xx, AM43xx, TI81xx)
-> -	"ti,dra7-mcasp-audio"	: for DRA7xx platforms
-> -	"ti,omap4-mcasp-audio"	: for OMAP4
-> -
-> -- reg : Should contain reg specifiers for the entries in the reg-names property.
-> -- reg-names : Should contain:
-> -         * "mpu" for the main registers (required). For compatibility with
-> -           existing software, it is recommended this is the first entry.
-> -         * "dat" for separate data port register access (optional).
-> -- op-mode : I2S/DIT ops mode. 0 for I2S mode. 1 for DIT mode used for S/PDIF,
-> -  	    IEC60958-1, and AES-3 formats.
-> -- tdm-slots : Slots for TDM operation. Indicates number of channels transmitted
-> -  	      or received over one serializer.
-> -- serial-dir : A list of serializer configuration. Each entry is a number
-> -               indication for serializer pin direction.
-> -               (0 - INACTIVE, 1 - TX, 2 - RX)
-> -- dmas: two element list of DMA controller phandles and DMA request line
-> -        ordered pairs.
-> -- dma-names: identifier string for each DMA request line in the dmas property.
-> -	     These strings correspond 1:1 with the ordered pairs in dmas. The dma
-> -	     identifiers must be "rx" and "tx".
-> -
-> -Optional properties:
-> -
-> -- ti,hwmods : Must be "mcasp<n>", n is controller instance starting 0
-> -- tx-num-evt : FIFO levels.
-> -- rx-num-evt : FIFO levels.
-> -- dismod : Specify the drive on TX pin during inactive slots
-> -	0 : 3-state
-> -	2 : logic low
-> -	3 : logic high
-> -	Defaults to 'logic low' when the property is not present
-> -- sram-size-playback : size of sram to be allocated during playback
-> -- sram-size-capture  : size of sram to be allocated during capture
-> -- interrupts : Interrupt numbers for McASP
-> -- interrupt-names : Known interrupt names are "tx" and "rx"
-> -- pinctrl-0: Should specify pin control group used for this controller.
-> -- pinctrl-names: Should contain only one value - "default", for more details
-> -  		 please refer to pinctrl-bindings.txt
-> -- fck_parent : Should contain a valid clock name which will be used as parent
-> -	       for the McASP fck
-> -- auxclk-fs-ratio: When McASP is bus master indicates the ratio between AUCLK
-> -		   and FS rate if applicable:
-> -		   AUCLK rate = auxclk-fs-ratio * FS rate
-> -
-> -Optional GPIO support:
-> -If any McASP pin need to be used as GPIO then the McASP node must have:
-> -...
-> -  gpio-controller
-> -  #gpio-cells = <2>;
-> -...
-> -
-> -When requesting a GPIO, the first parameter is the PIN index in McASP_P*
-> -registers.
-> -For example to request the AXR2 pin of mcasp8:
-> -function-gpios = <&mcasp8 2 0>;
-> -
-> -Or to request the ACLKR pin of mcasp8:
-> -function-gpios = <&mcasp8 29 0>;
-> -
-> -For generic gpio information, please refer to bindings/gpio/gpio.txt
-> -
-> -Example:
-> -
-> -mcasp0: mcasp0@1d00000 {
-> -	compatible = "ti,da830-mcasp-audio";
-> -	reg = <0x100000 0x3000>;
-> -	reg-names "mpu";
-> -	interrupts = <82>, <83>;
-> -	interrupt-names = "tx", "rx";
-> -	op-mode = <0>;		/* MCASP_IIS_MODE */
-> -	tdm-slots = <2>;
-> -	serial-dir = <
-> -			0 0 0 0	/* 0: INACTIVE, 1: TX, 2: RX */
-> -			0 0 0 0
-> -			0 0 0 1
-> -			2 0 0 0 >;
-> -	tx-num-evt = <1>;
-> -	rx-num-evt = <1>;
-> -};
-> diff --git a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
-> new file mode 100644
-> index 000000000000..c4d3f56470bf
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
-> @@ -0,0 +1,178 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/davinci-mcasp-audio.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: McASP Controller for TI SoCs
-> +
-> +maintainers:
-> +  - Jayesh Choudhary <j-choudhary@ti.com>
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,dm646x-mcasp-audio
-> +      - ti,da830-mcasp-audio
-> +      - ti,am33xx-mcasp-audio
-> +      - ti,dra7-mcasp-audio
-> +      - ti,omap4-mcasp-audio
-> +
-> +  reg:
-> +    minItems: 1
-> +    items:
-> +      - description: main registers
-> +      - description: data port register
-> +
-> +  reg-names:
-> +    minItems: 1
-> +    items:
-> +      - const: mpu
-> +      - const: dat
-> +
-> +  op-mode:
-> +    description: I2S - 0 or DIT - 1 mode
-> +    enum:
-> +      - 0
-> +      - 1
+From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 
-Needs a type.
+Mediatek ADSP IPC is used to send notification or short message between
+processors with dsp.·
 
-> +
-> +  tdm-slots:
-> +    maxItems: 1
+It will place the message to the share buffer and will access the ADSP mailbox
+registers to kick dsp.
 
-An array? Needs a type.
+Two mailboxes used to send notification or short message between processors with
+dsp
 
-> +
-> +  serial-dir:
-> +    description:
-> +      A list of serializer configuration
-> +      Entry is indication for serializer pin direction
-> +      0 - Inactive, 1 - TX, 2 - RX
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 1
-> +    maxItems: 16
-> +    items:
-> +      minimum: 0
-> +      maximum: 2
-> +      default: 0
-> +
-> +  dmas:
-> +    minItems: 1
-> +    items:
-> +      - description: transmission DMA channel
-> +      - description: reception DMA channel
-> +
-> +  dma-names:
-> +    minItems: 1
-> +    items:
-> +      - const: tx
-> +      - const: rx
-> +
-> +  ti,hwmods:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: Name of hwmod associated with McASP
-> +    maxItems: 1
-> +    deprecated: true
-> +
-> +  tx-num-evt:
-> +    maxItems: 1
+changes since v6:
+- dt-bindings: change example dtsi node.
+- change config MTK_ADSP_IPC_MBOX to MTK_ADSP_MBOX
+- remove unused variable
+- add reviewers
 
-Array? Needs a type.
+changes since v5:
+- remove some redundant code
 
-> +
-> +  rx-num-evt:
-> +    maxItems: 1
+changes since v4:
+- use switch ... case in adsp_ipc_recv
+- add error handling path for chan_name pointer
+- refine some code to be concise
 
-Array? Needs a type.
+changes since v3:
+- reorder MTK_ADSP_IPC_MBOX config
+- remove some redundant code
+- remove lock in mtk-adsp-mailbox
 
-> +
-> +  dismod:
-> +    enum:
-> +      - 0
-> +      - 2
-> +      - 3
-> +    default: 2
+changes since v2:
+- separate adsp_mailbox into two instances
 
-Needs a type.
+changes since v1:
+- fix dt_binding_check error
 
-And so on...
+Allen-KH Cheng (3):
+  dt-bindings: mediatek: add adsp-mbox document
+  firmware: mediatek: add adsp ipc protocol interface
+  mailbox: mediatek: add support for adsp mailbox controller
 
-> +
-> +  sram-size-playback:
-> +    maxItems: 1
-> +
-> +  sram-size-capture:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    items:
-> +      - description: TX FIFO interrupt
-> +      - description: RX FIFO interrupt
-> +
-> +  interrupt-names:
-> +    oneOf:
-> +      - minItems: 1
-> +        items:
-> +          - const: tx
-> +          - const: rx
-> +      - const: common
-> +
-> +  fck_parent:
-> +    description: parent clock for McASP fck
-> +    maxItems: 1
-> +
-> +  auxclk-fs-ratio:
-> +    description: ratio of AUCLK and FS if applicable
-> +    maxItems: 1
-> +
-> +  gpio-controller: true
-> +
-> +  "#gpio-cells":
-> +    const: 2
-> +
-> +  function-gpios:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 3
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    items:
-> +      - const: fck
-> +      - const: ahclkx
-> +      - const: ahclkr
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  num-serializer:
-> +    maxItems: 1
-> +
-> +  port:
-> +    type: object
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - dmas
-> +  - dma-names
-> +  - interrupts
-> +  - interrupt-names
-> +  - serial-dir
-> +  - op-mode
-> +  - tdm-slots
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    mcasp0: mcasp0@1d00000 {
-> +      compatible = "ti,da830-mcasp-audio";
-> +      reg = <0x100000 0x3000>;
-> +      reg-names = "mpu";
-> +      interrupts = <82>, <83>;
-> +      interrupt-names = "tx", "rx";
-> +      op-mode = <0>;		/* MCASP_IIS_MODE */
-> +      tdm-slots = <2>;
-> +      dmas = <&main_udmap 0xc400>, <&main_udmap 0x4400>;
-> +      dma-names = "tx", "rx";
-> +      serial-dir = <
-> +          0 0 0 0	/* 0: INACTIVE, 1: TX, 2: RX */
-> +          0 0 0 0
-> +          0 0 0 1
-> +          2 0 0 0 >;
-> +      tx-num-evt = <1>;
-> +      rx-num-evt = <1>;
-> +    };
-> -- 
-> 2.17.1
-> 
-> 
+ .../bindings/mailbox/mtk,adsp-mbox.yaml       |  52 ++++++
+ drivers/firmware/Kconfig                      |   1 +
+ drivers/firmware/Makefile                     |   1 +
+ drivers/firmware/mediatek/Kconfig             |   9 +
+ drivers/firmware/mediatek/Makefile            |   2 +
+ drivers/firmware/mediatek/mtk-adsp-ipc.c      | 138 ++++++++++++++
+ drivers/mailbox/Kconfig                       |   7 +
+ drivers/mailbox/Makefile                      |   2 +
+ drivers/mailbox/mtk-adsp-mailbox.c            | 175 ++++++++++++++++++
+ .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  70 +++++++
+ 10 files changed, 457 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
+ create mode 100644 drivers/firmware/mediatek/Kconfig
+ create mode 100644 drivers/firmware/mediatek/Makefile
+ create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
+ create mode 100644 drivers/mailbox/mtk-adsp-mailbox.c
+ create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
+
+-- 
+2.18.0
+

@@ -2,94 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44C0C463BE0
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 17:35:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91C5C463BF7
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 17:38:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B531233B;
-	Tue, 30 Nov 2021 17:34:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B531233B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2240A234A;
+	Tue, 30 Nov 2021 17:38:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2240A234A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638290102;
-	bh=opMAp361KP5liz1gZEs0ZUJlXSfb3EZNmu0sVXW9JKE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1638290338;
+	bh=XZVRKFmSETjefhPpu5bQxSVyU35juJLlT5lRP+0/n+8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MhU3brL10fjbrtA33HJ5TSUkcJZUOGcL0776jRQKsb7fKCdyV52E5PYQxj9uyGfuC
-	 /j/aLnYMtDIu6ILJ7lGge09miaYLehMSyhRBiYeBHIYQ4+oZagX+lUBrlJAcq1XOkw
-	 KNVvSx2+PiEUo65eugIrlSLI0u+d9GnoDY65SqRU=
+	b=SPJ03kOs5gF+67T5SEwB5xqq5AiHEyEUnYxolo/xarBj1TN8wtxzykrCB4c155uq4
+	 vnPY9M2bYQeGqhYONwXZVNHgWIuV4XnCfrv38LWj9Cz2b3IsZ00ilckoDh37bVTVmO
+	 r6/+MnhP0ldVSea+9xWBc4qCTT7VsCk04cQYMPyQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F894F8020D;
-	Tue, 30 Nov 2021 17:33:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AED2F8020D;
+	Tue, 30 Nov 2021 17:37:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BCFCF80290; Tue, 30 Nov 2021 17:33:44 +0100 (CET)
+ id 96779F80290; Tue, 30 Nov 2021 17:37:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F012F800EE
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 17:33:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F012F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 455D0F8020D
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 17:37:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 455D0F8020D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="P0thRGyl"
-Received: by mail-wr1-x429.google.com with SMTP id u1so45683599wru.13
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 08:33:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=HRnctZBN3KhAIJkBe2HZYJWNwVrPzx0pDMVoslI75XM=;
- b=P0thRGylkwgkwe5JrcvGJEUyRiKjZaaVV/oow9f9vVq0QSt5xQL0NDr4uvHuqheUew
- XrvKbxvZ/TyA6p68OGvEJKqzxsPewzFwIR9g2aAAoQTS7IvGBEsxRzb6hG8N00HqgHZF
- vWZ9JGHbAVV091c64Qde1cvjR19LiIqfFgRat+Cxaa3B3SJhh61gWJ0IGCu++7BauNu1
- W9Isf2WGFXwxEeZz16gNViyZSn5VCq1rMUED1A1eobCGk+tf4Vs+bViUodqAt2wosY/+
- 4xk87MeAWqnQc6ge/zsURP7UAb6zuNL/eWqxLoltJ7zlniTHqxyy1vybnpqcz0qkmluU
- cqlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=HRnctZBN3KhAIJkBe2HZYJWNwVrPzx0pDMVoslI75XM=;
- b=EP9jHi/nHuMpxO7aII+Nban3Q+kw/NCj0KZV7IP5eZrceBBf6T/TJFV5wEYycghXrB
- Vxr8E8/Vmw944OANIOwgUaqyRqEixCkFJvQh+3DafWXinblVAFg6bkxJ4SKfWOdGCkbm
- EEiiHC5ljPARJRHDsVvF75mfy/8R4Fxmyz3/WhJxNjiS28X6cvT57nZuugVGijDbQ42E
- 2q6QJHnb/rv6teGESSK9ODRImnVK7mc7PeGmsoSvMuZY/UmIIq2vUfxeC72z8VdH/Ogq
- 1TMYSvv33EH94H0Kht9wRpxccM/rUORNchYTzoXl9y7F63NIkYjhxtiLOWkheMgL9DJe
- yCCw==
-X-Gm-Message-State: AOAM533M6Cmv0n+D2ZG+NApSdayr91ryKBfdNuMBp0vrZMaUA27nDUpz
- 8LWGfLQMV5TCk5Lg13o/S6dZVg==
-X-Google-Smtp-Source: ABdhPJxDvVSIxypQLPI5sKKXXwPixI86qAmokC49hWqFpxnWDPCBTHPW5JcCFMMIkxCEwqb7AKMsQQ==
-X-Received: by 2002:a5d:61ca:: with SMTP id q10mr33081wrv.102.1638290020056;
- Tue, 30 Nov 2021 08:33:40 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id t17sm3325441wmq.15.2021.11.30.08.33.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Nov 2021 08:33:39 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ZyNng5jA"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8B93DB81A1C;
+ Tue, 30 Nov 2021 16:37:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0C2C53FC1;
+ Tue, 30 Nov 2021 16:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1638290246;
+ bh=XZVRKFmSETjefhPpu5bQxSVyU35juJLlT5lRP+0/n+8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZyNng5jAAcHVLsHMvRUbt97yJmdcTtGzDSZ6OXSobePScLVtfysWzDEU/rLBHI51m
+ zFf2PoG35hcx5LhGGH3A1XrvdHWrbohq8bsZox//Zk4O8cl9A0W27NTPXemgEHuJ8J
+ HFHh7/bms6H9DNyhYs5BG1bNen2QDmACf+rEVmgkB6eHm6WgeEMLJiH5qAYmGxPEyc
+ rxzzrq/0s9mukSQGvqXQ5WI2JoUDmzRc8nysmki/FMegVuAfu5m9Wh+IP2H8Qx5Ei0
+ FTmKr77lUaKwvIYNIewRHKLqnsePSQPNoBk9Le8P16lsuYtfbSuoPEIqOVNWy6zCLz
+ 06P9YFx+g2fnw==
+Date: Tue, 30 Nov 2021 16:37:21 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Subject: Re: [PATCH 2/4] ASoC: codecs: wcd934x: remove redundant ret variable
-To: Mark Brown <broonie@kernel.org>
+Message-ID: <YaZTQVP6YMFZcSVI@sirena.org.uk>
 References: <20211130160507.22180-1-srinivas.kandagatla@linaro.org>
  <20211130160507.22180-3-srinivas.kandagatla@linaro.org>
  <YaZR56MLanjnQH1p@sirena.org.uk>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <8279f250-59cc-368d-13aa-b46cc3cb108e@linaro.org>
-Date: Tue, 30 Nov 2021 16:33:38 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ <8279f250-59cc-368d-13aa-b46cc3cb108e@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <YaZR56MLanjnQH1p@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="03VrqDkxPp6THSgC"
+Content-Disposition: inline
+In-Reply-To: <8279f250-59cc-368d-13aa-b46cc3cb108e@linaro.org>
+X-Cookie: Check your local listings.
 Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
  linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
  tiwai@suse.com
@@ -109,15 +90,38 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--03VrqDkxPp6THSgC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 30/11/2021 16:31, Mark Brown wrote:
-> On Tue, Nov 30, 2021 at 04:05:05PM +0000, Srinivas Kandagatla wrote:
->> return value form snd_soc_dapm_put_enum_double() directly instead
->> of taking this in another redundant variable.
-> 
-> Cleanups like this should come after any fixes in a series.
-> 
+On Tue, Nov 30, 2021 at 04:33:38PM +0000, Srinivas Kandagatla wrote:
+>=20
+>=20
+> On 30/11/2021 16:31, Mark Brown wrote:
+> > On Tue, Nov 30, 2021 at 04:05:05PM +0000, Srinivas Kandagatla wrote:
+> > > return value form snd_soc_dapm_put_enum_double() directly instead
+> > > of taking this in another redundant variable.
 
-Noted, do you want me to resend a v2 fixing the order?
+> > Cleanups like this should come after any fixes in a series.
 
---srini
+> Noted, do you want me to resend a v2 fixing the order?
+
+It should be fine, I'll let you know if it's needed.
+
+--03VrqDkxPp6THSgC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGmU0AACgkQJNaLcl1U
+h9DoyQf9HI5h5I7DW0vLk/TIjjAbCkQDq7F2wZ0ti34lgQtG4+VA6tT1y6ikFvhK
+hH59Q6bLC4WNm6KnJURgtbsH+lcsZghttcMVnyUXuBEFpxt9IwqC0XY1jJbQPfVT
+p+cP6wIaEQZvEpEm6vN6D4Lk7mFXvi87HVRV9e1FXqWqfcWYNBeF5ydHkIf5s4NC
+CRfrYIiLjSWVIOkel3Zkl4H13RpCdx7hJkKjx1JcGdT25CR9q66e3AVkaHWzB3En
+9FG/db6hmROhB92dgubXMHk/Oq/X9CT9asmBUGhvnDW2njcq3l+R/mcZKyixH3J8
+Zrm6aE3K03y/ZcNwDzMNRBNWVzSnOA==
+=4l9I
+-----END PGP SIGNATURE-----
+
+--03VrqDkxPp6THSgC--

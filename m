@@ -2,94 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A8D546358C
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 14:34:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6ADB46358E
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 14:34:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A05142016;
-	Tue, 30 Nov 2021 14:33:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A05142016
+	by alsa0.perex.cz (Postfix) with ESMTPS id E95E12025;
+	Tue, 30 Nov 2021 14:34:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E95E12025
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638279272;
-	bh=cFFFl09QNcchSnkdreOFc4IyRatOzaoQLRp3ZQpCB+4=;
+	s=default; t=1638279297;
+	bh=coct70ajcV2zi0dztvNHFowQOMJGePRsCH+DvdQQJZM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=moJWky2VNCCfHOAGoipN+CHWEVCY7tuudjKRJLUNmP4dC6od4rqWUv23EoUlCJ/fg
-	 NZCbTFssmomwP9MmWnQGtPL/ShnhaPJSqetN8PnZA8NNJ4lngGOVZP8LokTZ/oWDf5
-	 q9cxgvBAcqRGQ2yGiXqp2DQlviVKXjryeimvlzC0=
+	b=IOq7PgZp4rAIRbBV/9Hpp71fXDaggSQK54ZtTgo4uDnEiHSGceAN0qc4nDULjNy1j
+	 4UhPy8rOUGAe76iZf532UCZcvkRNluCEOjwKYQRHHUPG3iIfWwwK8SDQTyYo8Wto0T
+	 mabeo1XEiAveHGX7g49UlrxTa7uS7eem9BVVQTIc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D4F3F8020D;
+	by alsa1.perex.cz (Postfix) with ESMTP id D4DF8F8032D;
 	Tue, 30 Nov 2021 14:33:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 492FBF80240; Mon, 29 Nov 2021 23:42:48 +0100 (CET)
+ id 16AF6F80290; Tue, 30 Nov 2021 12:17:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from out30-54.freemail.mail.aliyun.com
+ (out30-54.freemail.mail.aliyun.com [115.124.30.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9D7DF800EE
- for <alsa-devel@alsa-project.org>; Mon, 29 Nov 2021 23:42:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9D7DF800EE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com
- header.b="jxpzTHsc"
-Received: by mail-wm1-x32f.google.com with SMTP id
- g191-20020a1c9dc8000000b0032fbf912885so13433139wme.4
- for <alsa-devel@alsa-project.org>; Mon, 29 Nov 2021 14:42:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dSJ69WXnC1WdVb/bXAkyJh3OPxw+iRBQYM0yKG9SCbc=;
- b=jxpzTHscIrNgspMXiFoVTJk0lBc6o0Zapq0FvaHXff2MvLPuzzp1f6YZtng2TbXySG
- TMwos1nkY+pX15tSV53a9Pg2NvdenlwbkSwMxXEArijQ0btkPpfCO28bpl/5dTLWVFPN
- t0ZeA8HG5XF8EAjNl63KhFZrJTyN7yRVOyIxZRAPjcc9YsH0BmVg8KzoFoi+OdIBCBet
- YBDEDDmgQ3LU+g7KvdjYoQ3dd+YxSgomukiWJIVBhj7t5x5jxN0EM3mKpRLwwaQN5MkT
- 8jR/tWxjV8l+mrIJXbUb46ZZz5OI0Kj8FYNLvtc+HPI609Z5R82DOKyXYe3reEWRr7Ro
- zWzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dSJ69WXnC1WdVb/bXAkyJh3OPxw+iRBQYM0yKG9SCbc=;
- b=R1UT4+MJ73VBmk1eTmRdrtEBdFeZQ7HhutVMtQ7preMXkTyrbIwd6DREglZIGitvzT
- Hx/f6dcpjt4uemveNjlkvEr0VaFZeTtNn8xK0xo20T//WL6NYSVTyOHLYEbcmCKZMU8a
- 0QPARzVcLPaQjIJ3R2AWG+hLENkWa3H4qo0cjKbcph4eNQUNuEf9YjO4ZjQn2IVTN02G
- lhxoIZPys130nnhFJiYwfLbRgVn8qQxlqpmG/RtWrb3sk3KMuFNwwvuyhdT7/2cn6uYB
- SNP5HU6m/sVS4yFbnKsJWMGN1JXBz8fW7NhPAjBBOVbCLt1SQHfbm04Nsf9/1F4mESkM
- HLnA==
-X-Gm-Message-State: AOAM5307NiZGF4MbnU3kU8SxRNJZkOmdfTvYKwH1pDyYNnlwBENrDdHY
- jzjTlgjJcV31Tg==
-X-Google-Smtp-Source: ABdhPJzCmAftKlAJF7pKfmu2M4+OGjYiKrbAcjK/ELLGn47QwqrbukpbA9WU3WWxGyWtm9i+SJrvKQ==
-X-Received: by 2002:a05:600c:4982:: with SMTP id h2mr887917wmp.4.1638225758085; 
- Mon, 29 Nov 2021 14:42:38 -0800 (PST)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194])
- by smtp.gmail.com with ESMTPSA id a1sm19126546wri.89.2021.11.29.14.42.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Nov 2021 14:42:37 -0800 (PST)
-From: Colin Ian King <colin.i.king@googlemail.com>
-X-Google-Original-From: Colin Ian King <colin.i.king@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, alsa-devel@alsa-project.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: [PATCH] ASoC: mediatek: mt8195: make several arrays static const
-Date: Mon, 29 Nov 2021 22:42:36 +0000
-Message-Id: <20211129224236.506883-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.33.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 30 Nov 2021 14:33:14 +0100
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4416BF8020D
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 12:17:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4416BF8020D
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R371e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=cuibixuan@linux.alibaba.com;
+ NM=1; PH=DS; RN=5; SR=0; TI=SMTPD_---0UyrsuvV_1638270978; 
+Received: from VM20210331-25.tbsite.net(mailfrom:cuibixuan@linux.alibaba.com
+ fp:SMTPD_---0UyrsuvV_1638270978) by smtp.aliyun-inc.com(127.0.0.1);
+ Tue, 30 Nov 2021 19:16:23 +0800
+From: Bixuan Cui <cuibixuan@linux.alibaba.com>
+To: alsa-devel@alsa-project.org,
+	inux-kernel@vger.kernel.org
+Subject: [PATCH -next] ALSA: Fix oversized kvmalloc() calls
+Date: Tue, 30 Nov 2021 19:16:18 +0800
+Message-Id: <1638270978-42412-1-git-send-email-cuibixuan@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
+X-Mailman-Approved-At: Tue, 30 Nov 2021 14:33:13 +0100
+Cc: cuibixuan@linux.alibaba.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,65 +66,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Don't populate various arrays on the stack but instead make them
-static const. Also makes the object code smaller by a few hundred
-bytes.
+The commit 7661809d493b ("mm: don't allow oversized kvmalloc()
+calls") limits the max allocatable memory via kvzalloc() to MAX_INT.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+Reported-by: syzbot+bb348e9f9a954d42746f@syzkaller.appspotmail.com
+Signed-off-by: Bixuan Cui <cuibixuan@linux.alibaba.com>
 ---
- sound/soc/mediatek/mt8195/mt8195-afe-clk.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ sound/core/oss/pcm_plugin.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-index 8420b2c71332..c2543f4cffb7 100644
---- a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-@@ -326,7 +326,7 @@ int mt8195_afe_enable_reg_rw_clk(struct mtk_base_afe *afe)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
- 	int i;
--	unsigned int clk_array[] = {
-+	static const unsigned int clk_array[] = {
- 		MT8195_CLK_SCP_ADSP_AUDIODSP, /* bus clock for infra */
- 		MT8195_CLK_TOP_AUDIO_H_SEL, /* clock for ADSP bus */
- 		MT8195_CLK_TOP_AUDIO_LOCAL_BUS_SEL, /* bus clock for DRAM access */
-@@ -347,7 +347,7 @@ int mt8195_afe_disable_reg_rw_clk(struct mtk_base_afe *afe)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
- 	int i;
--	unsigned int clk_array[] = {
-+	static const unsigned int clk_array[] = {
- 		MT8195_CLK_AUD_A1SYS,
- 		MT8195_CLK_AUD_A1SYS_HP,
- 		MT8195_CLK_AUD_AFE,
-@@ -380,11 +380,11 @@ static int mt8195_afe_enable_timing_sys(struct mtk_base_afe *afe)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
- 	int i;
--	unsigned int clk_array[] = {
-+	static const unsigned int clk_array[] = {
- 		MT8195_CLK_AUD_A1SYS,
- 		MT8195_CLK_AUD_A2SYS,
- 	};
--	unsigned int cg_array[] = {
-+	static const unsigned int cg_array[] = {
- 		MT8195_TOP_CG_A1SYS_TIMING,
- 		MT8195_TOP_CG_A2SYS_TIMING,
- 		MT8195_TOP_CG_26M_TIMING,
-@@ -403,11 +403,11 @@ static int mt8195_afe_disable_timing_sys(struct mtk_base_afe *afe)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
- 	int i;
--	unsigned int clk_array[] = {
-+	static const unsigned int clk_array[] = {
- 		MT8195_CLK_AUD_A2SYS,
- 		MT8195_CLK_AUD_A1SYS,
- 	};
--	unsigned int cg_array[] = {
-+	static const unsigned int cg_array[] = {
- 		MT8195_TOP_CG_26M_TIMING,
- 		MT8195_TOP_CG_A2SYS_TIMING,
- 		MT8195_TOP_CG_A1SYS_TIMING,
+diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
+index 061ba06..61fccb5 100644
+--- a/sound/core/oss/pcm_plugin.c
++++ b/sound/core/oss/pcm_plugin.c
+@@ -68,6 +68,10 @@ static int snd_pcm_plugin_alloc(struct snd_pcm_plugin *plugin, snd_pcm_uframes_t
+ 	size /= 8;
+ 	if (plugin->buf_frames < frames) {
+ 		kvfree(plugin->buf);
++
++		if (size > INT_MAX)
++			return -ENOMEM;
++
+ 		plugin->buf = kvzalloc(size, GFP_KERNEL);
+ 		plugin->buf_frames = frames;
+ 	}
 -- 
-2.33.1
+1.8.3.1
 

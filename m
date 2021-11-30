@@ -2,66 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04195462DD7
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 08:46:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEB42462EBB
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 09:44:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85B801EF7;
-	Tue, 30 Nov 2021 08:45:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85B801EF7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 484ED18D3;
+	Tue, 30 Nov 2021 09:43:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 484ED18D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638258403;
-	bh=IqA9YAhxm9uEkGH5VqOygurvNHGgNO5ZQnPWHrsQ+Ho=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1638261880;
+	bh=/b8XGKIL7n77Pz8OOu+vmYLYY+1+owzqkRsNYEJPpko=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iCtArzAdRMcurUcHBoAfrOCMfyY0XbtHaQxQNaZRlYE3d9LyST2ymWAvxEEEedYfo
-	 2isl6uWLos9Eh4i4y5vUk1XpnC1Rovz9iYD+gN/pJdOPmlwLqZxUphrK31S3fSDDyF
-	 4ZxId+ytjl8zHFWED1nl7qaD3KIJ0tgKjYKqrJhA=
+	b=pFH2WQ53ArNApigSTVubdm4uRa7QoyQh8LVQge+WUxkEWJN+KiVReVzarnzeRL4/5
+	 zDQG3tCVWaS/K/hgfW1IPnNsMLuADb2xSjLXRQJsWnF6rsuUSRPR1b9CmFAfxu5Coz
+	 loAJTZSHLAug5RDZ3t+j2BDj3tmQjd3q4kUKYHg0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F314AF80113;
-	Tue, 30 Nov 2021 08:45:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F08AF8028D;
+	Tue, 30 Nov 2021 09:43:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76F13F80290; Tue, 30 Nov 2021 08:45:19 +0100 (CET)
+ id D3697F800EE; Tue, 30 Nov 2021 09:43:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from celforyon.fr (ns352767.ip-91-121-87.eu [91.121.87.121])
- by alsa1.perex.cz (Postfix) with ESMTP id 21E7CF8020D
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 08:45:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21E7CF8020D
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B185BF800EE
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 09:43:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B185BF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=eldred.fr header.i=@eldred.fr
- header.b="dm8VTKoP"
-Received: from [192.168.1.65] (91-171-18-197.subs.proxad.net [91.171.18.197])
- by celforyon.fr (Postfix) with ESMTPSA id F1D531204338;
- Tue, 30 Nov 2021 08:45:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=eldred.fr; s=mail;
- t=1638258306; bh=IqA9YAhxm9uEkGH5VqOygurvNHGgNO5ZQnPWHrsQ+Ho=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=dm8VTKoPHOQLHRClvrtrgbJB5CO9d1AAeGUz1S6a3gVey+1q4TLjVDJ9nTmj7xdD5
- cxtcDwqbFpD9IFsJ3wB1QP0/9NubgWm9PS7SHFg2XuUfgVous4AGVwZbD3FR0wOGCH
- njX6YQ6sY4IV4crVarFOsPwEhqaz7v3nheCTPqs8=
-Message-ID: <a006b912-71e1-548a-22ef-8f315e3be281@eldred.fr>
-Date: Tue, 30 Nov 2021 08:44:41 +0100
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="dkAqbyqT"
+Received: by mail-pj1-x1036.google.com with SMTP id
+ n15-20020a17090a160f00b001a75089daa3so17738524pja.1
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 00:43:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=fHVy98BTaUQF52BWKLZtuQVRzz01N8+H95C8cB4Mhtg=;
+ b=dkAqbyqTPRY4L/DB0uLdYdRPU6b1N+TybDCY0FHBvSZn/2S8Ae0v0tdFZwYj7zBLDi
+ 8QqrjFuNnxaIPD8BAr2rJhpwB2cDkqWynWjh0Ac4qLo6dTsE54UqsPiCOX+RddtIHAO2
+ 8JBLdxXwcjC/F/oqOtekIMDpqcxK4ymeEg2t/OKu6eb2DQDHJUzH+N2n7plAhq184vX+
+ 3ilr42mjOAMqMwT+OGrhYyComtrMz2+AeX0KPKFk06V5xiL+cTmcyS3TObk+6xDdalRD
+ 5Gaot3pJL+djNMmQ9F1IXX3Sxk97PgB1c7iou+/rl9Rq5op0ena4PcLEXQYlr5biumJp
+ qtzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=fHVy98BTaUQF52BWKLZtuQVRzz01N8+H95C8cB4Mhtg=;
+ b=RHNMOle0txS1qWHniiMqgudcvj3bOZOPelpv+kLtAF9B9CuiFHRLBUwaGFoDQviUey
+ X7TWgPR3rU8ZFBN2c4IyzNkyd+nlKAqozgs98owLZfqW2xu+LnTgqY5yrmYg/cKGhWsS
+ AgPV9WbwylZSuSUflKUKTmpePm3Pic+gTk/aczEMVmMVH6+NTIkN8TEWAepfnhuIAg6C
+ YTRYpYCKlxQM8zkgFOwfdvbUs/zpi+SRTDQd56brkQOFGnlVsh+f90v6ycfAOiwno1Uj
+ Cf6j47pljdwIS4EgDRBj+ZgRhqpZBZBZPG5JqaS9qZKMEuYES4RcrCsKhb11/YckkDRp
+ 432w==
+X-Gm-Message-State: AOAM533+t71QLGSZZRvF2HZem58kGNdL51dAdxy9k4aZJ6OvVFwi7v7f
+ johmJ68hJfR5PDuLe+9TmNzJkw==
+X-Google-Smtp-Source: ABdhPJxue2FBF6O8NbPbziRrwGNOciaOEZ/z8FnZ1b/zhjeFgaTTmvLKkjb9rz4cIuDD9UU5GWKBaQ==
+X-Received: by 2002:a17:903:24d:b0:143:beb5:b6b1 with SMTP id
+ j13-20020a170903024d00b00143beb5b6b1mr66622707plh.54.1638261792852; 
+ Tue, 30 Nov 2021 00:43:12 -0800 (PST)
+Received: from google.com ([2401:fa00:1:10:6cb4:a0cc:6d7f:cba7])
+ by smtp.gmail.com with ESMTPSA id v10sm20770644pfu.123.2021.11.30.00.43.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Nov 2021 00:43:12 -0800 (PST)
+Date: Tue, 30 Nov 2021 16:43:07 +0800
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: "allen-kh.cheng" <allen-kh.cheng@mediatek.com>
+Subject: Re: [PATCH v8 3/3] mailbox: mediatek: add support for adsp mailbox
+ controller
+Message-ID: <YaXkGym5QQDBSfcP@google.com>
+References: <20211129101946.6008-1-allen-kh.cheng@mediatek.com>
+ <20211129101946.6008-4-allen-kh.cheng@mediatek.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: Dual simulatenous output on single card not recognized
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <8b18294d-d082-2be4-18ba-39b4ec4b9e91@eldred.fr>
- <cdafcbb1-9eeb-6337-ee2b-d6a168996153@linux.intel.com>
-From: Eldred HABERT <stuff@eldred.fr>
-In-Reply-To: <cdafcbb1-9eeb-6337-ee2b-d6a168996153@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211129101946.6008-4-allen-kh.cheng@mediatek.com>
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
+ linux-kernel@vger.kernel.org, Jassi Brar <jassisinghbrar@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, linux-arm-kernel@lists.infradead.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,15 +113,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Nov 29, 2021 at 06:19:45PM +0800, allen-kh.cheng wrote:
+> diff --git a/drivers/mailbox/mtk-adsp-mailbox.c b/drivers/mailbox/mtk-adsp-mailbox.c
+[...]
+> +static int mtk_adsp_mbox_probe(struct platform_device *pdev)
+> +{
+[...]
+> +	mbox->dev = dev;
+> +	mbox->ops = &mtk_adsp_mbox_chan_ops;
+> +	mbox->txdone_irq = false;
+> +	mbox->txdone_poll = true;
+> +	mbox->of_xlate = mtk_adsp_mbox_xlate;
+> +	mbox->num_chans = 1;
+> +	mbox->chans = devm_kzalloc(mbox->dev, sizeof(*mbox->chans), GFP_KERNEL);
 
-On 29/11/2021 19:18, Pierre-Louis Bossart wrote:
-> You may want to run 'alsa-info' and provide a link to the uploaded
-> results. It's hard to comment without any information on 'hardware
-> configurations like mine'.
-> Thanks.
-Sorry, I thought the output of `aplay -l` would be enough. The results 
-are here;
-http://alsa-project.org/db/?f=bc64421df5181d1ba3bdf157c40d06dd52a7224b
+I have commented in the v3[1].  To be neat, I prefer to use "dev" instead of "mbox->dev".  If you ever have the chance to respin the series, please fix it.
 
-~ Eldred
-
+[1]: https://patchwork.kernel.org/project/linux-mediatek/patch/20211124084514.28002-3-allen-kh.cheng@mediatek.com/#24614933

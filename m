@@ -2,95 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CAD1463BA9
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 17:23:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58EA7463BCD
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 17:32:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07A352300;
-	Tue, 30 Nov 2021 17:23:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07A352300
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BBA12313;
+	Tue, 30 Nov 2021 17:31:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BBA12313
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638289434;
-	bh=zV9sY6TE7ql/VBXP4sdhXWhC5DdW/yjH1pUTX7vkq8E=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cy44/AANfCRcnGa9JVsAV3i4rbyxrHrLluL2qat14imsOy+RnvN12fBmx575yXg5b
-	 x/be6Rd5lVycRNvo9bFb+FsRTlg+A1L7CjzoSgtjQ3y/5y53C22VnSXWYflZzg44OV
-	 rOU8f3JukzKI1t9Ck/NRnkpXGCScjK1g3i0pT1Uk=
+	s=default; t=1638289967;
+	bh=cgsfoZ5K+bVvgquLfWdqMpJR0iy1lSIe9jkl2JnBIIU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Na89ILlzYGwwPmdBwOSqVMt9QI42r74c0MnsrSqBAThm45JrjFTlOE5qbeyMolPmJ
+	 17yDpfhdtVe+jw9n2srxh15lZioFSdJDagTPZKdJ7nFOIjRRhaHjkY4oP3CcxmR3X0
+	 gfYnc77CnnlSG9fND6atfpEHdu7PkJOFsAnR4dGQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DE65F8020D;
-	Tue, 30 Nov 2021 17:22:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBC05F802A0;
+	Tue, 30 Nov 2021 17:31:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A022F80290; Tue, 30 Nov 2021 17:22:36 +0100 (CET)
+ id 8CE08F80290; Tue, 30 Nov 2021 17:31:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8291F8020D
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 17:22:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8291F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD913F8020D
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 17:31:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD913F8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="U7yVGOdq"
-Received: by mail-wm1-x332.google.com with SMTP id
- az34-20020a05600c602200b0033bf8662572so15205012wmb.0
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 08:22:32 -0800 (PST)
+ header.b="LObOyDUu"
+Received: by mail-wr1-x432.google.com with SMTP id i5so45725836wrb.2
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 08:31:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=b6a6PLyF+M7wwZ1FDN/UTeFdO9+p7QSJdzSxXo0nQ6w=;
- b=U7yVGOdqpzRq412biVH6h4R9wrDhW/Cw4WDky3rZrAYQyvrJiTYAh3ZfQVcKrwZ8Ud
- O7MFHnJga29Yhrf4pZEfZQ95tXiVSgtMSpvV2xosWhpDmaqgsPOHRIxN0sbXD1GaC3p6
- cQUvOQtAtzoavUjpNSm7PN9uXsg1JQhkzNtIaCa1ZPlN+wifCO+1OEehUN3eLWE/UAmC
- mQS0qCYu2KGBxmC4HaXTejkNfRGpYT8+lVX+/3RCPI4pguqDv7fT3DLCLglba3pG+gk8
- h4aAe95hTF5TWBl8LhioJuVoa7OeZ7e3RZQZrBkxtpjHMQ+WBMJCJ0m5nCBk0r7RaOJH
- 2B2w==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=W10woHZpi0yaDIjYw0FpzhAqwn1F6zlCzTC2v3vpIcc=;
+ b=LObOyDUuFFkHoDoRVHkoP6QvDsbJhcNuOM6BtpA0qdm5n4tfBcNIW+GstxjF7LntQq
+ jyyxsk88JUGpEbzg9hnQdAbZErNRf2fcheQwkGPPu6NTHH+6pJYLEY92YGBZ2+Cj09Rq
+ CgtIZ0DBFZWerBYK7EW+NfgPzuSnuxNmYhqt0zaK7AB35onfxsnC210TCAlQRH6MZcpH
+ e/H4mbDFqCa7CUXIKSVCI/lpVvfEKggGJ8UZf0GdQPXDQAiUwKxsG9OOoWGVsx73siA4
+ sq0D5Y9rOfI3QF82mEFhW0//KzgzGud9eedun+CshQ9AA9OltdmPylhWt5er96rONPl5
+ pcbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=b6a6PLyF+M7wwZ1FDN/UTeFdO9+p7QSJdzSxXo0nQ6w=;
- b=k2h7TPLOs00CwlJMD/hjv6dyD93obkX9XVbdkJy2Oa0oX96DBHhyhca48cuWH2awQR
- gOHlJH3ehtyX3CfPJiIpBso0R6QjYa/y2M76eHrCT4Fg3vf04iO1RLiAPahCO3IDmbuk
- j6uXE0y05+WhbXo19FFwv+yywFYsTqaJrka9jU7P1h/7JyTRwuefQmDLbwq0SeF0AsoU
- bvkf36qBLTK6JIRzVjSLDsy9C4rgkYcGpcnciF/khe7tyto01LhzhUHhIOY137m/wiIw
- FnNbj5vL7OymJ4sWBy+QWCc9HpTL0YAQZYDbjBpiYnDo39ElwD9opxCJV7DTUXgKC1Ch
- l3cw==
-X-Gm-Message-State: AOAM531OFGewsbTskTcqHFWx3UrX0Y3Xvw1GY2mFDkc+pSycILy2tfSk
- VbIrbUEK8qG9ygvJzSxrPYzl5Q==
-X-Google-Smtp-Source: ABdhPJwOIBYOKR3hSaNFiEBsqZLhO8lZTu4Kh9Wv9+SiBlvi7awXIKHajW0vvKtRvI5aaU1uoAI51g==
-X-Received: by 2002:a1c:1f94:: with SMTP id f142mr517714wmf.192.1638289350935; 
- Tue, 30 Nov 2021 08:22:30 -0800 (PST)
-Received: from [192.168.86.34]
+ bh=W10woHZpi0yaDIjYw0FpzhAqwn1F6zlCzTC2v3vpIcc=;
+ b=OGPaGH0X0jaSlzw/JrOpwFBMCIydcNWQ/YGmzwgnT+7xDrgMUUskbieQDRaEx/ncuq
+ k+vAQtwLyMLN6NOJ0OxE5ZQK6/3/AGQib0S3SLGd9uLxy05TKOpAas00QVZXvvmAeXrs
+ Ug2/q3mrkAwmvjEJYemW+BsCAxFGkB3J9I6ZcyKCXwUKXLyO2CNVFuK0zz7lXDdX6bBJ
+ yMx+VjCR+Wrgj7RbCq1kf+PXyEbKkQoQmX8sabrrOoOKgxdDTn0N+awrNFrxdER/huJz
+ pDY5YlYmf+kn45/P714591NGEmGSObMRtcalu6JlH+GK5ylA7sMxOnxDIsVjz8iwD3Af
+ 0mRw==
+X-Gm-Message-State: AOAM532YRtgz8rZcxM5pWLo9TenB39hxZdeuEHGvsOrFJACsKI2C4t7b
+ ZM4Tmvbt3Bnj5o1i1X46ESuplA==
+X-Google-Smtp-Source: ABdhPJy2/6mcj0f9rWAnlluxbk1tHyaWCLL7ZqCSP8Lh+AcZ82VRWGNDeET8o4erufcgaZXybp0Ozw==
+X-Received: by 2002:adf:dd87:: with SMTP id x7mr7667wrl.158.1638289881104;
+ Tue, 30 Nov 2021 08:31:21 -0800 (PST)
+Received: from srini-hackbox.lan
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id j18sm3278314wmq.44.2021.11.30.08.22.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Nov 2021 08:22:30 -0800 (PST)
-Subject: Re: [PATCH] ASoC: qdsp6: q6routing: Fix return value from
- msm_routing_put_audio_mixer
-To: Mark Brown <broonie@kernel.org>
-References: <20211130160414.21616-1-srinivas.kandagatla@linaro.org>
- <YaZOnJIrl2bO98mL@sirena.org.uk>
+ by smtp.gmail.com with ESMTPSA id l26sm3335900wms.15.2021.11.30.08.31.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Nov 2021 08:31:20 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <b663a16e-e503-3f74-6d16-1b59df41e619@linaro.org>
-Date: Tue, 30 Nov 2021 16:22:29 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+To: broonie@kernel.org
+Subject: [PATCH v2] ASoC: qdsp6: q6routing: Fix return value from
+ msm_routing_put_audio_mixer
+Date: Tue, 30 Nov 2021 16:31:10 +0000
+Message-Id: <20211130163110.5628-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <YaZOnJIrl2bO98mL@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
  linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
  tiwai@suse.com
@@ -109,36 +100,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 30/11/2021 16:17, Mark Brown wrote:
-> On Tue, Nov 30, 2021 at 04:04:14PM +0000, Srinivas Kandagatla wrote:
->> msm_routing_put_audio_mixer() can return incorrect value in various scenarios.
->> Fix this, so that change notifications are sent correctly.
-> 
-> This really isn't a good commit message - I can't tell what the change
-> is supposed to fix or how it fixes it.  Which values in which scenarios
-> are incorrect in what way?
-
-I agree,
-
-the cases that get incorrect return values are:
+msm_routing_put_audio_mixer() can return incorrect value in various scenarios.
 
 scenario 1:
 amixer cset iface=MIXER,name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1
 amixer cset iface=MIXER,name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0
 
-return value is  0 instead of 1
+return value is 0 instead of 1 eventhough value was changed
 
 scenario 2:
 amixer cset iface=MIXER,name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1
 amixer cset iface=MIXER,name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1
 
-return value is  1 instead of 0
+return value is 1 instead of 0 eventhough the value was not changed
 
+scenario 3:
+amixer cset iface=MIXER,name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0
+return value is 1 instead of 0 eventhough the value was not changed
 
-I will add these details in next spin commit log.
+Fix this by adding checks, so that change notifications are sent correctly.
 
---srini
-> 
+Fixes: e3a33673e845 ("ASoC: qdsp6: q6routing: Add q6routing driver")
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ sound/soc/qcom/qdsp6/q6routing.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
+index cd74681e811e..928fd23e2c27 100644
+--- a/sound/soc/qcom/qdsp6/q6routing.c
++++ b/sound/soc/qcom/qdsp6/q6routing.c
+@@ -498,14 +498,16 @@ static int msm_routing_put_audio_mixer(struct snd_kcontrol *kcontrol,
+ 	struct session_data *session = &data->sessions[session_id];
+ 
+ 	if (ucontrol->value.integer.value[0]) {
++		if (session->port_id == be_id)
++			return 0;
++
+ 		session->port_id = be_id;
+ 		snd_soc_dapm_mixer_update_power(dapm, kcontrol, 1, update);
+ 	} else {
+-		if (session->port_id == be_id) {
+-			session->port_id = -1;
++		if (session->port_id == -1 || session->port_id != be_id)
+ 			return 0;
+-		}
+ 
++		session->port_id = -1;
+ 		snd_soc_dapm_mixer_update_power(dapm, kcontrol, 0, update);
+ 	}
+ 
+-- 
+2.21.0
 

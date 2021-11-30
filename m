@@ -2,90 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B81346301B
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 10:49:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0939F4630AC
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 11:08:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7F461F7D;
-	Tue, 30 Nov 2021 10:48:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7F461F7D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D2FA1F93;
+	Tue, 30 Nov 2021 11:07:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D2FA1F93
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638265764;
-	bh=pOxkINqgLIejjBvv+dNOnGRFh1ML72uuMUewN60BWIc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1638266908;
+	bh=1u2P8VcDBaxTuHrNOVkt0WLqI+w0XF8E6zJqlLLrur8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WU+Sgyc2xL/7TxhVDCVCU6SBneiZbyWA5s2YF/h3Wop2iVoXrz5L4GLSy3/8HT1F1
-	 24tn+fN5jOAv/84wn62HFTMMSY39CbhXQktELVJlxYwZAHL1FGuCpmgdG2x/JUcRpM
-	 ZleAtiUJ7U5skixzzNLqM4FZUSFoBosltMdMWmQo=
+	b=pm8nY7IHVqNi7jRPw5Fwh+FxxdjpkDvFyIVUZaBFWTRGWfJtjNOXFY7m36jZZrCUH
+	 p5QlSPurITe/2lhn6tjdao9sW0HqwBAqjaQ5Xemltns4VTLu+eLV8ZWfusjeRfJDJW
+	 N3IiB/gDfHVTUQGCvYr2UYveZX188mUqM+AvyVsI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68A18F80113;
-	Tue, 30 Nov 2021 10:48:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D50DBF802A0;
+	Tue, 30 Nov 2021 11:07:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E0E6F80290; Tue, 30 Nov 2021 10:48:05 +0100 (CET)
+ id E22DAF80113; Tue, 30 Nov 2021 11:07:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4416EF8020D
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 10:47:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4416EF8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24CE3F80113
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 11:06:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24CE3F80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Nv2spEEi"
-Received: by mail-ed1-x530.google.com with SMTP id v1so84122025edx.2
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 01:47:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=r5t08q6UdMIk/Z0F+ph/MHmT6H9HF75pUl30jI7VgeY=;
- b=Nv2spEEi9chh+joFjxYfwERQ9mCM/Vl5fZ5/NNN3lLUq9TAUbXFdoLKFAd0K/yz8To
- uIJdzjyPsFdcDb3k+JUW0newg8OfDGarnwbZJb+rfRQJOMiOGz7DMp2TLzA9li7u950H
- E5+WQOjhwlUlusDdqojYSB3N4hj3xnxbtvX5lgchWgtQ79ln7D9sOyd77Fwd//3X9BTn
- K3WwEF+t3h9DoKsryKHMTn11IN7llyauzVyBzxqW5ul+BbM1DxO+fijphmXwJoRJOrV/
- iCrE5zvQlrVt6OuX5cJmoCEUdQUf+RnhaPxxW91QpyUh+uWF8WsMiQtdDIdedAXu6o2I
- Mowg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=r5t08q6UdMIk/Z0F+ph/MHmT6H9HF75pUl30jI7VgeY=;
- b=uUaZPRSw1+JD9ctXT65pCqfgO7iz1gcRu22xUfWz0EobJr7wRJd2nPeDI0XXK8Dj0Q
- P3xD74hi2XkuR7vgFx9URO/Oo17cRjSD1av4UpofAVpPtsznS8LezL/b4bUV9/WT8vSF
- c/J8ldVYlu1+JZpPYuRNV1i5JwG+t0NyaRvDimSSpfXfR35dw6CN4L06REapv6X+KARl
- 1IS7CKcOaffqpKxjFu4C1xXlMRjVTYhywLBVkQbANbjklT5dxfOKTdWmWkCXVgVs6eNW
- eqv0vZNqze/Voq0Z+GRXLydG0BFw6XiADebmn6l8T2UDZFspeer5w+nVngL6sfQKZSgX
- DIpQ==
-X-Gm-Message-State: AOAM533Vz+kZk6VxrrQ6AcgZm44U9qM9uTtF12vHxW+Itj6pkYYdpuSH
- RQinIHJ77h9jDbB8+C46/+zg9gJAIMQIHHZFwzs=
-X-Google-Smtp-Source: ABdhPJyE1eNIvqBZt3RCTvssXi6N4xDKblDz3pnEWAnVqCjGrMWu/UyGFfqdHSnfdzGBhKd4ZJMZ7Uh05f75MBvw2jI=
-X-Received: by 2002:a05:6402:270c:: with SMTP id
- y12mr81877950edd.258.1638265676773; 
- Tue, 30 Nov 2021 01:47:56 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
+ header.b="aLT77dDj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1638266820;
+ x=1669802820; h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-transfer-encoding;
+ bh=UCgk7kbDQh7QdhPkOEMiahIQV6+21NZJki0/IukQ16o=;
+ b=aLT77dDjbubA+nhN37fBPTQtRmmvAkDk4pCw0hMOvuxKXyANsg1Z9ivx
+ NGCdgwDRscHJjBX8tF15ZrvIj053SPSuDgUMAd2+Vw3uKLSom4CNV4Cm2
+ O8vL431ublpRYua2xirqKTBTT5viTeVZ5hkIVVWS1pS1JA8TXEVhhmbUn
+ f/PKR+VTp0S6J4otl+ZeykdnHplj/ar+O5rh5Muu9KDBzlsZSvWDKBytm
+ dyCwhNDq0ty1cv9UJeIOnKePEcsd1WJn6PFThtm5F8z3pyweMCe3jjl4F
+ cZZSJ2ml5+9ntxLWD1YJ/nFfhs2s7i4w2og5+YVgdpRtXDVmG2V+YHmNO w==;
+Date: Tue, 30 Nov 2021 11:06:52 +0100
+From: Ricard Wanderlof <ricardw@axis.com>
+X-X-Sender: ricardw@lnxricardw1.se.axis.com
+To: Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [PATCH] ASoC: meson: use dev_err_probe
+In-Reply-To: <20211130093617.103147-1-jbrunet@baylibre.com>
+Message-ID: <alpine.DEB.2.21.2111301104440.30606@lnxricardw1.se.axis.com>
+References: <20211130093617.103147-1-jbrunet@baylibre.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-References: <20211125075028.8500-1-tangbin@cmss.chinamobile.com>
-In-Reply-To: <20211125075028.8500-1-tangbin@cmss.chinamobile.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 30 Nov 2021 11:46:19 +0200
-Message-ID: <CAHp75VfS+u56RDG6AhGwSuB35ERUTjw-e3h05OZmZowstWJL8g@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: Intel: atom: Remove redundant check to simplify the
- code
-To: Tang Bin <tangbin@cmss.chinamobile.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8BIT
+X-Originating-IP: [10.0.5.60]
+X-ClientProxiedBy: se-mail08w.axis.com (10.20.40.14) To se-mail07w.axis.com
+ (10.20.40.13)
+Cc: "linux-amlogic@lists.infradead.org" <linux-amlogic@lists.infradead.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,48 +85,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 26, 2021 at 2:37 PM Tang Bin <tangbin@cmss.chinamobile.com> wrote:
->
-> In the function sst_platform_get_resources(), if platform_get_irq()
-> failed, the return should not be zero, as the example in
-> platform.c is
->   * int irq = platform_get_irq(pdev, 0)
->   * if (irq < 0)
->   * return irq;
-> So remove the redundant check to simplify the code.
 
-FWIW,
-Acked-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+On Tue, 30 Nov 2021, Jerome Brunet wrote:
 
-Code is correct, I haven't checked the rest, though.
-
-> Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+> Use dev_err_probe() helper function to handle probe deferral.
+> It removes the open coded test for -EPROBE_DEFER but more importantly, it
+> sets the deferral reason in debugfs which is great for debugging.
+> 
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 > ---
->  sound/soc/intel/atom/sst/sst_acpi.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
-> index 3be64430c..696d547c5 100644
-> --- a/sound/soc/intel/atom/sst/sst_acpi.c
-> +++ b/sound/soc/intel/atom/sst/sst_acpi.c
-> @@ -226,8 +226,8 @@ static int sst_platform_get_resources(struct intel_sst_drv *ctx)
->         /* Find the IRQ */
->         ctx->irq_num = platform_get_irq(pdev,
->                                 ctx->pdata->res_info->acpi_ipc_irq_index);
-> -       if (ctx->irq_num <= 0)
-> -               return ctx->irq_num < 0 ? ctx->irq_num : -EIO;
-> +       if (ctx->irq_num < 0)
-> +               return ctx->irq_num;
->
->         return 0;
->  }
-> --
-> 2.20.1.windows.1
->
->
->
+>  sound/soc/meson/aiu.c               | 17 +++++++----------
+>  sound/soc/meson/axg-fifo.c          |  9 +++------
+>  sound/soc/meson/axg-pdm.c           |  9 +++------
+>  sound/soc/meson/axg-spdifin.c       |  6 ++----
+>  sound/soc/meson/axg-spdifout.c      |  6 ++----
+>  sound/soc/meson/axg-tdm-formatter.c | 18 ++++++------------
+>  sound/soc/meson/axg-tdm-interface.c |  9 +++------
+>  sound/soc/meson/meson-card-utils.c  |  4 ++--
+>  sound/soc/meson/t9015.c             |  8 ++++----
+>  9 files changed, 32 insertions(+), 54 deletions(-)
+> 
+> diff --git a/sound/soc/meson/aiu.c b/sound/soc/meson/aiu.c
+> index ba15d5762b0b..37036adf14ce 100644
+> --- a/sound/soc/meson/aiu.c
+> +++ b/sound/soc/meson/aiu.c
+> @@ -219,31 +219,29 @@ static int aiu_clk_get(struct device *dev)
+>  
+>          aiu->pclk = devm_clk_get(dev, "pclk");
+>          if (IS_ERR(aiu->pclk)) {
+> -               if (PTR_ERR(aiu->pclk) != -EPROBE_DEFER)
+> -                       dev_err(dev, "Can't get the aiu pclk\n");
+> +               dev_err_probe(dev, PTR_ERR(aiu->pclk),
+> +                             "Can't get the aiu pclk\n");
+>                  return PTR_ERR(aiu->pclk);
+>          }
 
+A minor thing, but dev_err_probe returns its err argument, so this 
+construct can be written more tersely as:
 
+		return dev_err_probe(dev, PTR_ERR(aio->pclk),
+                                     "Can't get the aio pclk\n");
+
+and that also seems to be in common usage when browsing existing code.
+
+/Ricard
 -- 
-With Best Regards,
-Andy Shevchenko
+Ricard Wolf Wanderlof                           ricardw(at)axis.com
+Axis Communications AB, Lund, Sweden            www.axis.com
+Phone +46 46 272 2016                           Fax +46 46 13 61 30

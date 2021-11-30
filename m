@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05876463611
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 15:07:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09342463625
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 15:09:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 730BE2014;
-	Tue, 30 Nov 2021 15:06:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 730BE2014
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88C331FEC;
+	Tue, 30 Nov 2021 15:08:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88C331FEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638281222;
-	bh=NAwPQCUy1BGxOlnNotTwi+KrfApK4PHgcNvIsd1x+BU=;
+	s=default; t=1638281369;
+	bh=j61iUxCgAjN4Km8YPUaDSa3h39trE/FrGxFqWTv0D9E=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CWPVkGMSWFPg708ATJ6k/qRcyJajQirr2Ng2Fussa96i89nU/ZYA6tgsW1uH++7ag
-	 MNKhXlgR19WH/Vi2Pfku7i0Swupby4TFXjKXBSmSfLllQG+m7FCJAIpoDJG/l8YO4H
-	 suJTFY49+1fxc8qzl7JqD0Vs2KOzTLQ/L0UNF9pk=
+	b=nteugGYy50zNbmkDr+5vf9lRYH0ZU0ThD6fkwXWJZNDyMAn6axAk86cQys/x/rQbv
+	 On/DpPDw3d6oLtnMHdiBIV0EKsP4mRHjGxfziY6g40EF7Swf5/b9vjY5iADlBcSmzW
+	 YX1uqsWHDwV4mpj0rwOeZAUz5C1eqPrG3HQ3Ios4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB75CF80290;
-	Tue, 30 Nov 2021 15:05:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBD64F8028D;
+	Tue, 30 Nov 2021 15:08:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74FF4F8028D; Tue, 30 Nov 2021 15:05:43 +0100 (CET)
+ id 6399AF80290; Tue, 30 Nov 2021 15:08:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3DABF800EE
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 15:05:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3DABF800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A2BDF800EE
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 15:08:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A2BDF800EE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="CaporChH"; 
+ header.b="M7Jt81TE"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="uexdbrWa"
+ header.b="C0UEvUd4"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 806AF1FD58;
- Tue, 30 Nov 2021 14:05:37 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5EE332177B;
+ Tue, 30 Nov 2021 14:08:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638281137; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1638281289; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=NHXBrR7i1OGu523xcIotySpqaWXASrqHn5kSuGL1M5c=;
- b=CaporChHvYIBIHGiKPHJmNkdf0iEFo1BKHEQ8y6rM9S32WdjsCLRj1CxsYFqFFh2/QNleL
- Y9+SGIwvxohaWz8cCdkmIXAbxpYA3dVj85LH1FvRmMlFY2QEhmSSM3kFM0zCnw+Jx+2UXC
- oh+Sx0x4Q+feBHKq4jiHUquTZpiCuIw=
+ bh=fhVG9te8dkHB0sTFP6xWt7VkxNjASZNKZJ6u8TV/abE=;
+ b=M7Jt81TEfkqCXgvidqo8KyYXqczQYbk2s5luK62430Wyc2YyU8M/1TrF9yqLbOPYvVpt6E
+ 9TkQqfdoQm0Y3N9lgNQaNKD8Vy7DXL8k9ao09XeQshZHpACjBlfIh/Uo/3fFM3Xq6mV0Sv
+ DbgJXaIF95YUie0QPapXdGJc5ZaS6eo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638281137;
+ s=susede2_ed25519; t=1638281289;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=NHXBrR7i1OGu523xcIotySpqaWXASrqHn5kSuGL1M5c=;
- b=uexdbrWarlULPJF8wPXtaOlViO29PdrK+FEK6J8rcwMUXSc8n5Viblf7J+FW4ogw/etKhH
- n9l6BjtM0ICIimCA==
+ bh=fhVG9te8dkHB0sTFP6xWt7VkxNjASZNKZJ6u8TV/abE=;
+ b=C0UEvUd4QfaniftjiRueGoMqWYDYR2XlM3HlzpuDsToCbJlgCQXnmY3UXCTRRJvIt8CVsL
+ 7eOvKSfqKwDAk8DA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7060BA3B88;
- Tue, 30 Nov 2021 14:05:37 +0000 (UTC)
-Date: Tue, 30 Nov 2021 15:05:37 +0100
-Message-ID: <s5htuft20y6.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 46A55A3B89;
+ Tue, 30 Nov 2021 14:08:09 +0000 (UTC)
+Date: Tue, 30 Nov 2021 15:08:09 +0100
+Message-ID: <s5hr1ax20ty.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Bixuan Cui <cuibixuan@linux.alibaba.com>
-Subject: Re: [PATCH -next] ALSA: Fix oversized kvmalloc() calls
-In-Reply-To: <s5h1r2x50uo.wl-tiwai@suse.de>
-References: <1638270978-42412-1-git-send-email-cuibixuan@linux.alibaba.com>
- <s5h1r2x50uo.wl-tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 1/2] ALSA: hda: Add Intel DG2 PCI ID and HDMI codec vid
+In-Reply-To: <20211130124732.696896-1-kai.vehmanen@linux.intel.com>
+References: <20211130124732.696896-1-kai.vehmanen@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, inux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Uma Shankar <uma.shankar@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,117 +92,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 30 Nov 2021 12:39:27 +0100,
-Takashi Iwai wrote:
+On Tue, 30 Nov 2021 13:47:31 +0100,
+Kai Vehmanen wrote:
 > 
-> On Tue, 30 Nov 2021 12:16:18 +0100,
-> Bixuan Cui wrote:
-> > 
-> > The commit 7661809d493b ("mm: don't allow oversized kvmalloc()
-> > calls") limits the max allocatable memory via kvzalloc() to MAX_INT.
-> > 
-> > Reported-by: syzbot+bb348e9f9a954d42746f@syzkaller.appspotmail.com
-> > Signed-off-by: Bixuan Cui <cuibixuan@linux.alibaba.com>
+> Add HD Audio PCI ID and HDMI codec vendor ID for Intel DG2.
 > 
-> We should check the allocation size a lot earlier than here.
-> IOW, such a big size shouldn't have been passed to this function but
-> it should have been handled as an error in the caller side
-> (snd_pcm_oss_change_params*()).
-> 
-> Could you give the reproducer?
+> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-I'm asking it because the patch like below might cover the case.
+Thanks, applied both patches now.
 
 
 Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: pcm: oss: Fix negative period/buffer sizes
-
-The period size calculation in OSS layer may receive a negative value
-as an error, but the code there assumes only the positive values and
-handle them with size_t.  Due to that, a too big value may be passed
-to the lower layers.
-
-This patch changes the code to handle with ssize_t and adds the proper
-error checks appropriately.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/oss/pcm_oss.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
-
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index 82a818734a5f..bec7590bc84b 100644
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -147,7 +147,7 @@ snd_pcm_hw_param_value_min(const struct snd_pcm_hw_params *params,
-  *
-  * Return the maximum value for field PAR.
-  */
--static unsigned int
-+static int
- snd_pcm_hw_param_value_max(const struct snd_pcm_hw_params *params,
- 			   snd_pcm_hw_param_t var, int *dir)
- {
-@@ -682,18 +682,24 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
- 				   struct snd_pcm_hw_params *oss_params,
- 				   struct snd_pcm_hw_params *slave_params)
- {
--	size_t s;
--	size_t oss_buffer_size, oss_period_size, oss_periods;
--	size_t min_period_size, max_period_size;
-+	ssize_t s;
-+	ssize_t oss_buffer_size;
-+	ssize_t oss_period_size, oss_periods;
-+	ssize_t min_period_size, max_period_size;
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	size_t oss_frame_size;
- 
- 	oss_frame_size = snd_pcm_format_physical_width(params_format(oss_params)) *
- 			 params_channels(oss_params) / 8;
- 
-+	oss_buffer_size = snd_pcm_hw_param_value_max(slave_params,
-+						     SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
-+						     NULL);
-+	if (oss_buffer_size <= 0)
-+		return -EINVAL;
- 	oss_buffer_size = snd_pcm_plug_client_size(substream,
--						   snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_BUFFER_SIZE, NULL)) * oss_frame_size;
--	if (!oss_buffer_size)
-+						   oss_buffer_size * oss_frame_size);
-+	if (oss_buffer_size <= 0)
- 		return -EINVAL;
- 	oss_buffer_size = rounddown_pow_of_two(oss_buffer_size);
- 	if (atomic_read(&substream->mmap_count)) {
-@@ -730,7 +736,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
- 
- 	min_period_size = snd_pcm_plug_client_size(substream,
- 						   snd_pcm_hw_param_value_min(slave_params, SNDRV_PCM_HW_PARAM_PERIOD_SIZE, NULL));
--	if (min_period_size) {
-+	if (min_period_size > 0) {
- 		min_period_size *= oss_frame_size;
- 		min_period_size = roundup_pow_of_two(min_period_size);
- 		if (oss_period_size < min_period_size)
-@@ -739,7 +745,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
- 
- 	max_period_size = snd_pcm_plug_client_size(substream,
- 						   snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_PERIOD_SIZE, NULL));
--	if (max_period_size) {
-+	if (max_period_size > 0) {
- 		max_period_size *= oss_frame_size;
- 		max_period_size = rounddown_pow_of_two(max_period_size);
- 		if (oss_period_size > max_period_size)
-@@ -752,7 +758,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
- 		oss_periods = substream->oss.setup.periods;
- 
- 	s = snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_PERIODS, NULL);
--	if (runtime->oss.maxfrags && s > runtime->oss.maxfrags)
-+	if (s > 0 && runtime->oss.maxfrags && s > runtime->oss.maxfrags)
- 		s = runtime->oss.maxfrags;
- 	if (oss_periods > s)
- 		oss_periods = s;
--- 
-2.31.1
-

@@ -2,100 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB9A2463CA9
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 18:20:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE825463D0D
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 18:42:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6867F238F;
-	Tue, 30 Nov 2021 18:19:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6867F238F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DA7322FA;
+	Tue, 30 Nov 2021 18:41:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DA7322FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638292825;
-	bh=vP1gOxpWYPAIQlMTwhoxIT14ZcEJgFWWlGVkqAobYg8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1638294163;
+	bh=sgi8hVAxJ2TC6lAQZcV7YIf3cslbDjz/FU37PQWsli0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZAS3iN6nZFS072cmEolOsLb3uzipOAX5v9rmNASE7HPZDyTFOZDYj0aSmATBgF73K
-	 JBcA+5Gp/LsjlBywOH3Rf/Fe/96ZDzVOzY3JbyIS4qa/TwnsJFIryKHxzGinjg8n3f
-	 qjJ427qf74O6XZe0HW1L/xaYX3/jNn6RCIOkrc+A=
+	b=Tbbj73vw8Sh+Oi6LKKPgWkGuyR3dUcDelPBX7HizrtoDcLTocjz5s+1ZTGfkNS5pc
+	 +f31vuAD0OvStirLnqmGdB045Uwdj3RsCNS7hx2tvvuv0Vcus5mcsaS+J24wgi5kll
+	 pMiFIB5pyXSiyQtCHHFxl8+GtLRlvJjqBNox/nSI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEAB1F800EE;
-	Tue, 30 Nov 2021 18:19:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92D22F802A0;
+	Tue, 30 Nov 2021 18:41:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF4AEF80290; Tue, 30 Nov 2021 18:19:06 +0100 (CET)
+ id E00FEF80290; Tue, 30 Nov 2021 18:41:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 322F9F80113
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 18:19:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 322F9F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 095D9F800EE
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 18:41:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 095D9F800EE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Y37uRRP6"
-Received: by mail-pf1-x430.google.com with SMTP id r130so21353902pfc.1
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 09:19:03 -0800 (PST)
+ header.b="qWcEKjhS"
+Received: by mail-wm1-x330.google.com with SMTP id
+ i8-20020a7bc948000000b0030db7b70b6bso20153036wml.1
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 09:41:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=vP1gOxpWYPAIQlMTwhoxIT14ZcEJgFWWlGVkqAobYg8=;
- b=Y37uRRP6o5MgMyQkqD8PiX/6xflfPptaSOoyAyqy3Lfk2a5P/z7mGFluDx4VVWa7Jh
- BnE+fEbZc12cpwUlbwjg0Au2pJyCvopQscefnR2glrX1+Xietw2AEtyiiQxrjJeUOZJg
- 9cjNHfsNmtfIewzx6a89icdLEvynVHHy447Iv3YZ6zSxKKcpQRGgcHrm/hLyqJWZ+JDx
- mi92gUoptO/NICpuQsiy25PIkfOGf23mvVewgyObhm+RZ0hJ1PQfXVH7vmze3+xuktI3
- ricyOMbMarDy8ltTqLqZXKRd9NAT/+LcoyNKYjEqve6DojhMykVJzSjrYNYXcCLOmSP6
- EM5A==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=sgi8hVAxJ2TC6lAQZcV7YIf3cslbDjz/FU37PQWsli0=;
+ b=qWcEKjhS9fZxpthQ0sYoRA1mHDvYqBvtUfeqHNrQ0BDIg+02mH3WwN77xCgRzB6MaD
+ 5o8FaxMnn5F/sb1kB6F27fIvo46TINJc2gOF5b24aWGcHLnsGw/giiveZYRv/HAgGhYz
+ onXo6RokHNdVlOmefDIehZFEaoll2Qzl5BhdnnPhvXqHWjaPB5ApiusiCxRvx1050UVh
+ TSuSRVxM9G5SHMwr99VECJtZ1h8dMO5i2qOZbNgI69Zvo6AFPLjZd3GjE4ENeJ5kSOZK
+ 9s+q5LMrCpmEnXbYzHy2UdE+loIRJCza0Kkp5xFK6fT9bBIgat6CWGHmPJ6eFzqYmWuP
+ PMsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=vP1gOxpWYPAIQlMTwhoxIT14ZcEJgFWWlGVkqAobYg8=;
- b=n5ObwasKzDgXblO1ozfZTDDyJE5XFbpq5Q3WXOlRCo2PwweM/Yt1v1fN9LLN75eSSF
- /eoYNSeuCwUw3efT5ZnuGuomwhTPH0UH0HTexkIChB6lr+AZD+uSeuznp19hzJpIyNU1
- 1fT2E5pdD8qlwzxV03lGRSOfwIPePqx3Sz/PMzFLhdd/yjgAUpLZBgDcIO/2BryTG8LK
- t2utNTid0nG+UvCQixewG+rlb9cTWaLZK+zFGtGQNK+aklvqUlIpWtL2HxUtR8bXGiKO
- CzDrF1q+K3dMxFk71SWt1lZoGyn+/bCk8x8NqsBhsE2LtiprA7WuoY/ZVCD5hRNp5eEx
- xWgg==
-X-Gm-Message-State: AOAM530xqyGQ7bCxUmllvutk0L4dJVt0AXNy3uXuo2K3HhqyIyTWcqGg
- t3XXQD+/x7JMrkD0SBfuD/c=
-X-Google-Smtp-Source: ABdhPJy9Yxr+6bmNEhtjihDtbK4VluzB9Hi4XbxmPxyhDIcAapDKFGM9GnicxQgxuAJYtDpfqnG7Ww==
-X-Received: by 2002:aa7:9a4e:0:b0:4a2:71f9:21e0 with SMTP id
- x14-20020aa79a4e000000b004a271f921e0mr272066pfj.77.1638292740085; 
- Tue, 30 Nov 2021 09:19:00 -0800 (PST)
-Received: from localhost.localdomain ([47.242.44.139])
- by smtp.gmail.com with ESMTPSA id il7sm3446332pjb.54.2021.11.30.09.18.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Nov 2021 09:18:59 -0800 (PST)
-From: youling257 <youling257@gmail.com>
-To: brent.lu@intel.com
-Subject: Re: [PATCH v5 4/6] ASoC: Intel: soc-acpi-byt: shrink tables using
- compatible IDs
-Date: Wed,  1 Dec 2021 01:18:41 +0800
-Message-Id: <20211130171841.17277-1-youling257@gmail.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211029171409.611600-5-brent.lu@intel.com>
-References: <20211029171409.611600-5-brent.lu@intel.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=sgi8hVAxJ2TC6lAQZcV7YIf3cslbDjz/FU37PQWsli0=;
+ b=PZ4hFbJONJhiJkhKzEvjyndvZr7UmuWviQll7HlQXbNToblQVj2QglxRoJNu8mlTE5
+ 1V26b9+a7jpDALhCMW/OD/mMhNIxf0OhIlu6ggjH2dPH/biec/BSiw2kzY6kR+1BGTlK
+ FDFMX7Hvv1g/VjvnkVpyvJV8slmDxls81IuJ9a/rWw2TyJTghap2IZ078C44UkzqLspO
+ u0j7AMsNqD2fBx7q029iISA+sQmiZymfFFlxjzG8/kAQPcKx2JwXrZ7CGOZr+OyBE139
+ AbMqlfKLNqwUYv7AUPDZ2U1NoFb1LLuGN1b8/85JO+DrnsflziONvEp4yKNvn750m75B
+ nIIw==
+X-Gm-Message-State: AOAM533J/swLMihk2g0Yau7FARl8sWPBXWpfIZS8vRWfha8ig+HIyrd2
+ 2d5J7AyICBrYfIajCbSY4qIerCGYM/Y+bhXw9PU=
+X-Google-Smtp-Source: ABdhPJwhnV01V8gG6iYtFPGsQ5YkF+4GQRLPbqDPYOVqcxI9xtzW4TnJhFihxZBeGpP0rt5m8BM4SaONGY5cZSsG3WM=
+X-Received: by 2002:a1c:4c19:: with SMTP id z25mr54768wmf.177.1638294077177;
+ Tue, 30 Nov 2021 09:41:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, yang.jie@linux.intel.com, cezary.rojewski@intel.com,
- rander.wang@intel.com, liam.r.girdwood@linux.intel.com, mac.chiang@intel.com,
- gongjun.song@intel.com, bard.liao@intel.com, yung-chuan.liao@linux.intel.com,
- tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
- vamshi.krishna.gopal@intel.com, rander.wang@linux.intel.com,
- yong.zhi@intel.com, ckeepax@opensource.cirrus.com, hdegoede@redhat.com,
- broonie@kernel.org, christophe.jaillet@wanadoo.fr, paul.olaru@oss.nxp.com,
- libin.yang@intel.com, malik_hsu@wistron.corp-partner.google.com,
- kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org,
- cujomalainey@chromium.org
+References: <20211117093734.17407-1-daniel.baluta@oss.nxp.com>
+ <20211117093734.17407-8-daniel.baluta@oss.nxp.com>
+ <CAMuHMdVV6Os8Gzc9JVjD2CAtN38=7KFn9GqosnWvByQc-7uA=Q@mail.gmail.com>
+ <bdbea252-09e4-eb60-acf8-4ea8a1d924c4@linux.intel.com>
+ <YaZZzSPQDz0vHRQY@sirena.org.uk>
+In-Reply-To: <YaZZzSPQDz0vHRQY@sirena.org.uk>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Tue, 30 Nov 2021 19:41:05 +0200
+Message-ID: <CAEnQRZA7Nr+MMP7v+4T8G2y4L4HvSPVdoy4zekBFgynXJ16tCg@mail.gmail.com>
+Subject: Re: [PATCH 07/21] ASoC: amd: Add module to determine ACP configuration
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ AjitKumar.Pandey@amd.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Daniel Baluta <daniel.baluta@oss.nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Bard Liao <bard.liao@intel.com>,
+ Balakishore.pati@amd.com,
+ =?UTF-8?B?WUMgSHVuZyAo5rSq5aCv5L+KKQ==?= <yc.hung@mediatek.com>,
+ vishnuvardhanrao.ravulapati@amd.com, linux-mediatek@lists.infradead.org,
+ Julian.Schroeder@amd.com, Daniel Baluta <daniel.baluta@nxp.com>,
+ vsreddy@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,4 +108,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch cause Bay trail-CR z3735f tablet rt5640 no sound, bytcr_rt5640 bytcr_rt5640: Error cannot find '' dev.
+On Tue, Nov 30, 2021 at 7:05 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Tue, Nov 30, 2021 at 10:49:30AM -0600, Pierre-Louis Bossart wrote:
+>
+> > To Geert's point, there may be an additional need to add a
+>
+> > depends on SND_SOC_AMD_ACP
+>
+> > There are also a set of
+>
+> > SND_SOC_AMD_ACPyx options, not sure if any applies as a dependency here?
+>
+> Or put them in an if block (IIRC I thought they were which was why the
+> dependency wasn't needed but I don't know what I was looking at if I did
+> check that).
+
+There will be some delays in handling this as I'm in vacation until next Monday.

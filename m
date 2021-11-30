@@ -2,89 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2C1E463B02
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 17:07:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2333463B8F
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 17:19:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E73C22C6;
-	Tue, 30 Nov 2021 17:06:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E73C22C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12FDA83E;
+	Tue, 30 Nov 2021 17:18:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12FDA83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638288447;
-	bh=dSLH0Tr+jiDPYsMflrW6NjCV0XVWegqMUDfAXC/s1EY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1638289151;
+	bh=MZnl0m0UlSGNeDrL9sapE0g2YD1NMkMtPnbDj8SAK+0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pWybP4+FSFM5T9sPL8rQtxvoth9gn/DDW5nNQJ51GfqwYhyyjQAYrCkxor0Go4pdE
-	 t+7QEmKRBZcbWS8uYD4kzYoFn113hrU9ipN7Nu14K8mXEKb2WOnTnmdoQFfQ73R9WB
-	 +1OlMhU+TqMHXikFv5VSQJY5m0zzfXjSclBrBETg=
+	b=e5Apy543N8t97+S+v5/V1ArqE4rz1t133yaXa8Q/Pdf+U5lnXBmHUms/NCOu1AQEn
+	 8cnufeFVojjGOZ8zbVMh741T3V3rjVTXsgUPfcgNi9UXCrwiBY1U/TKoTVuc0d3XHS
+	 WbIh8UyzhsnUkY7DtrWiNVkXxOvWTAcNQdqD0Ftg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46D22F804FE;
-	Tue, 30 Nov 2021 17:05:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CA49F802A0;
+	Tue, 30 Nov 2021 17:17:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77501F8032D; Tue, 30 Nov 2021 17:05:28 +0100 (CET)
+ id F2FA3F80290; Tue, 30 Nov 2021 17:17:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B494F804AD
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 17:05:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B494F804AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72F19F8020D
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 17:17:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72F19F8020D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="DC3LRUkn"
-Received: by mail-wm1-x332.google.com with SMTP id 133so17955176wme.0
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 08:05:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=zwiut7mFwVpOIkozl/7l8HWaVugd0GDlQFwZ0pbcpWc=;
- b=DC3LRUknToLtww9XliTaOCRIG9zbvS3PC1QegcsvRglKmY7uWF5UlMZDIPFsQkgCtH
- XNHlkiTBMAl1cqz+qKkWUWiTdTf9HDc2eYiVL7p9ViGDCqXzASbxn5dlvZNmcHwbV7pf
- 2eLtPbNilBuHNPVAgK2SmyNk4FtW4w/ynJr/IbiRvx1G0nNqDcVev5hQc0WJ/z4nRj62
- uVmB8D8d4THEISnVdo7tbBqj1WCSYZWkyk3GjAtmEOmlXm8rEdLi+WK6p4JG/M4TU1eQ
- 5Qj+a2nNreS3aF6+5vZYbT4JThzIWiqUQI69+DgVDatZx2fWfaPtKLl5dp2iQWcVSSge
- ULwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=zwiut7mFwVpOIkozl/7l8HWaVugd0GDlQFwZ0pbcpWc=;
- b=JilRWYitnEqdsn1u0bilcyhxb/P7d5RS6XyfIbJ/J7jFL6SdpwKlyLvqdU6TezrjTR
- ztnMas15uWTtRlDYaq91i9cPaytHYcvIi3P78hJNUNx/N3Mc84ntS3WLffublNHDXFWT
- 10voJUI9ftNNftBdkAxWPMTdTOuEAERBI68Oh51Gx0JwPCRt5opWScrt7qyxBwVeyQsC
- 4i0QGgaDF++58uWh6CHrA33Ipc8xbSFY65mj31CS+ypC3p/f9am7kS6s15vqosIJFHpw
- fUvWnKzmfVM2yANrEHhzV2ptC91kESXs8RGO+NNZgjt1/hPKIQ2KgLNGvudcsMzniqpG
- BUrA==
-X-Gm-Message-State: AOAM532EzK2ZOgbnmzoQv39swX/uj2kG5eaMZ2dyTjdsV9tA3RStaLNn
- DqQLWxIIHiRheeamQ+4aU78L3w==
-X-Google-Smtp-Source: ABdhPJxtW93MuDdgIrHLAiFiqQ3gvI5ucjAo1K99MBBW5zlCNu9ULHrL5CDQWbObdUNIoy6DfRriiw==
-X-Received: by 2002:a05:600c:1f17:: with SMTP id
- bd23mr360470wmb.57.1638288320134; 
- Tue, 30 Nov 2021 08:05:20 -0800 (PST)
-Received: from srini-hackbox.lan
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id g18sm16719409wrv.42.2021.11.30.08.05.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Nov 2021 08:05:19 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH 4/4] ASoC: codecs: wsa881x: fix return values from kcontrol put
-Date: Tue, 30 Nov 2021 16:05:07 +0000
-Message-Id: <20211130160507.22180-5-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20211130160507.22180-1-srinivas.kandagatla@linaro.org>
-References: <20211130160507.22180-1-srinivas.kandagatla@linaro.org>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="gg3STzay"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 82E0CCE1A2E;
+ Tue, 30 Nov 2021 16:17:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40918C53FC7;
+ Tue, 30 Nov 2021 16:17:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1638289057;
+ bh=MZnl0m0UlSGNeDrL9sapE0g2YD1NMkMtPnbDj8SAK+0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gg3STzay0QZRm3E9SW2UXSNlJlPrWOia6C2DHwbH1gviANhFaHenZJqyzTQYr1+Vz
+ AejGr4duQzTULR+N9JM1fw3I3ymCYe0u6flainBkcRjTfvx7y22R+se3M9eODLib9l
+ rwlp+udvw6zUlE9MnUY2JRgCxQhEtXPkJv3CS/nY9/OU2g8YoRlI5+nGsZjr5AU072
+ 5B7xQbXWt51P5fvjmRt/dZ8QE83Y2cOyMO5d27dlgsrZ1jGFDciQsV32pboynjoQuD
+ eoxJuNN9GFXLU6/A3Sbv0v65I6T6Lm6H24uJxMLd9JUkEC/vHpKjCK3r77fMjQ0nwD
+ LbE0nOayjqZFQ==
+Date: Tue, 30 Nov 2021 16:17:32 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH] ASoC: qdsp6: q6routing: Fix return value from
+ msm_routing_put_audio_mixer
+Message-ID: <YaZOnJIrl2bO98mL@sirena.org.uk>
+References: <20211130160414.21616-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="reGMIgm/lItL/shk"
+Content-Disposition: inline
+In-Reply-To: <20211130160414.21616-1-srinivas.kandagatla@linaro.org>
+X-Cookie: Check your local listings.
 Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
  linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
  tiwai@suse.com
@@ -103,56 +87,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-wsa881x_set_port() and wsa881x_put_pa_gain() currently returns zero eventhough
-it changes the value. Fix this, so that change notifications are sent
-correctly.
 
-Fixes: a0aab9e1404a ("ASoC: codecs: add wsa881x amplifier support")
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/codecs/wsa881x.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+--reGMIgm/lItL/shk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
-index 2da4a5fa7a18..564b78f3cdd0 100644
---- a/sound/soc/codecs/wsa881x.c
-+++ b/sound/soc/codecs/wsa881x.c
-@@ -772,7 +772,8 @@ static int wsa881x_put_pa_gain(struct snd_kcontrol *kc,
- 
- 		usleep_range(1000, 1010);
- 	}
--	return 0;
-+
-+	return 1;
- }
- 
- static int wsa881x_get_port(struct snd_kcontrol *kcontrol,
-@@ -816,15 +817,22 @@ static int wsa881x_set_port(struct snd_kcontrol *kcontrol,
- 		(struct soc_mixer_control *)kcontrol->private_value;
- 	int portidx = mixer->reg;
- 
--	if (ucontrol->value.integer.value[0])
-+	if (ucontrol->value.integer.value[0]) {
-+		if (data->port_enable[portidx])
-+			return 0;
-+
- 		data->port_enable[portidx] = true;
--	else
-+	} else {
-+		if (!data->port_enable[portidx])
-+			return 0;
-+
- 		data->port_enable[portidx] = false;
-+	}
- 
- 	if (portidx == WSA881X_PORT_BOOST) /* Boost Switch */
- 		wsa881x_boost_ctrl(comp, data->port_enable[portidx]);
- 
--	return 0;
-+	return 1;
- }
- 
- static const char * const smart_boost_lvl_text[] = {
--- 
-2.21.0
+On Tue, Nov 30, 2021 at 04:04:14PM +0000, Srinivas Kandagatla wrote:
+> msm_routing_put_audio_mixer() can return incorrect value in various scenarios.
+> Fix this, so that change notifications are sent correctly.
 
+This really isn't a good commit message - I can't tell what the change
+is supposed to fix or how it fixes it.  Which values in which scenarios
+are incorrect in what way?
+
+--reGMIgm/lItL/shk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGmTpwACgkQJNaLcl1U
+h9DZWQgAhJmvaqN0eGrzB9U7ieeGabIcljlgUyilqA/VqDFY67InjYGqepeftVTD
+Ku5SexhDIBYUC4VyY3aLpdmezxPMV5K7FOpnQoqrHMmyB9HT0EOWariE5DML5Dyj
+C5vnHJklRawGk8pTUQWVRi0PW9thM4Bh1XyFqaP4JTutrpQbjv4cP5s+KNwlVKnO
+o7zc+f3aD8QhgidTIHSgN3DRaD7/w8VcxhpoKINuHyTcPz8bjA+qeTiGCmqSbuqe
+3uVpANXD1JboUIKXfgErBeQJWKCRBOHxYI3FZaeTdO1XlwLK+VpTfXM7TZv6g7uP
+ZjntZxXtF6ytmDCYvP1rytMj5KLzfA==
+=2i4Y
+-----END PGP SIGNATURE-----
+
+--reGMIgm/lItL/shk--

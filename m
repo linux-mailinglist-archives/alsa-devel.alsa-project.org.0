@@ -2,81 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39F5A46329C
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 12:40:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9C8C4634F0
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 13:56:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 983CB1FE9;
-	Tue, 30 Nov 2021 12:40:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 983CB1FE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 241FF1FCD;
+	Tue, 30 Nov 2021 13:55:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 241FF1FCD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638272455;
-	bh=yYUhUPaSLoQGGSU3Kyv59Q4fJiuqlZku8dh7cgKPpDY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=B2fPLKGYxYDXPX6tH7m+d8ELJlFKZgyRa0Feh2UvIh2wztuYV/FbZeeE6PnHtkFLu
-	 fBT8WYEr02jwSHsK4QeBNxXtuPaayyUE18LOIsXGDchbmL//AS07yO4PW1vQ5wMRGj
-	 6+H0gpRu0H1R7h9MW9am+corsO1/jNUcIywMB+6I=
+	s=default; t=1638277003;
+	bh=MpFwLhKVNMn1saxBdBIG9xO+TorWk9qdBiH3+LPOsvA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ut2tX8870+86n6PcXez/vC8ldPkuZvfASJGdvfy94iF/J1B72wNSvgrKq5GaVbhzK
+	 vE/2phgK5UAoloElZPfCskYDmvXTUI1R+IeoCNi8eyGP0EbAAwThArZ04Pqwd8gXf5
+	 W1fplbJ9xPyNWTrl4uP4eOgrGYYqzJjYMRbWyTU4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1060F802A0;
-	Tue, 30 Nov 2021 12:39:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D108F802C4;
+	Tue, 30 Nov 2021 13:55:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F936F8020D; Tue, 30 Nov 2021 12:39:36 +0100 (CET)
+ id 8BC68F802A0; Tue, 30 Nov 2021 13:55:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 157DEF8020D
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 12:39:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 157DEF8020D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="gi+075jV"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Wbc3PYz6"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 609F41FD58;
- Tue, 30 Nov 2021 11:39:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638272367; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Cfe8qmTyb5KIaIycVQvdAAB33V12gUsPhqtvYqTVlYY=;
- b=gi+075jVIu/JV3NEy3Gl5F4DUm56RhTeXnVXKXODAqygmOaEreqjkgTrVX7FqfCp8Vk4sm
- 3eLrogdZBeaVXGoy2+4uQAstza89hD0mX8gINqLKPfXap7gPd6ai4delqURL8l6C4Ax75U
- //FSXFnyHPk0ea80uBfQlJUXgI4bYrc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638272367;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Cfe8qmTyb5KIaIycVQvdAAB33V12gUsPhqtvYqTVlYY=;
- b=Wbc3PYz6TIcbe3kfl6KBmgRji650Dx+k5w0iv0FkWekfLqShvAPtTSMX2hIMtbKPp//1FX
- dTizs2QBllWWfZBw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 5290EA3B8B;
- Tue, 30 Nov 2021 11:39:27 +0000 (UTC)
-Date: Tue, 30 Nov 2021 12:39:27 +0100
-Message-ID: <s5h1r2x50uo.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Bixuan Cui <cuibixuan@linux.alibaba.com>
-Subject: Re: [PATCH -next] ALSA: Fix oversized kvmalloc() calls
-In-Reply-To: <1638270978-42412-1-git-send-email-cuibixuan@linux.alibaba.com>
-References: <1638270978-42412-1-git-send-email-cuibixuan@linux.alibaba.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, inux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id A09CDF80113
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 13:55:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A09CDF80113
+X-IronPort-AV: E=McAfee;i="6200,9189,10183"; a="236151119"
+X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="236151119"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2021 04:55:12 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,275,1631602800"; d="scan'208";a="511473768"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga007.fm.intel.com with ESMTP; 30 Nov 2021 04:55:10 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Subject: [PATCH 1/2] ALSA: hda: Add Intel DG2 PCI ID and HDMI codec vid
+Date: Tue, 30 Nov 2021 14:47:31 +0200
+Message-Id: <20211130124732.696896-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Uma Shankar <uma.shankar@intel.com>, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,46 +69,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 30 Nov 2021 12:16:18 +0100,
-Bixuan Cui wrote:
-> 
-> The commit 7661809d493b ("mm: don't allow oversized kvmalloc()
-> calls") limits the max allocatable memory via kvzalloc() to MAX_INT.
-> 
-> Reported-by: syzbot+bb348e9f9a954d42746f@syzkaller.appspotmail.com
-> Signed-off-by: Bixuan Cui <cuibixuan@linux.alibaba.com>
+Add HD Audio PCI ID and HDMI codec vendor ID for Intel DG2.
 
-We should check the allocation size a lot earlier than here.
-IOW, such a big size shouldn't have been passed to this function but
-it should have been handled as an error in the caller side
-(snd_pcm_oss_change_params*()).
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/pci/hda/hda_intel.c  | 12 +++++++++++-
+ sound/pci/hda/patch_hdmi.c |  1 +
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-Could you give the reproducer?
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 221afacbc7fd..b98d7975adea 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -335,7 +335,10 @@ enum {
+ 					((pci)->device == 0x0c0c) || \
+ 					((pci)->device == 0x0d0c) || \
+ 					((pci)->device == 0x160c) || \
+-					((pci)->device == 0x490d))
++					((pci)->device == 0x490d) || \
++					((pci)->device == 0x4f90) || \
++					((pci)->device == 0x4f91) || \
++					((pci)->device == 0x4f92))
+ 
+ #define IS_BXT(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0x5a98)
+ 
+@@ -2477,6 +2480,13 @@ static const struct pci_device_id azx_ids[] = {
+ 	/* DG1 */
+ 	{ PCI_DEVICE(0x8086, 0x490d),
+ 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
++	/* DG2 */
++	{ PCI_DEVICE(0x8086, 0x4f90),
++	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
++	{ PCI_DEVICE(0x8086, 0x4f91),
++	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
++	{ PCI_DEVICE(0x8086, 0x4f92),
++	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
+ 	/* Alderlake-S */
+ 	{ PCI_DEVICE(0x8086, 0x7ad0),
+ 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 65d2c5539919..98633d2684de 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -4382,6 +4382,7 @@ HDA_CODEC_ENTRY(0x80862814, "DG1 HDMI",	patch_i915_tgl_hdmi),
+ HDA_CODEC_ENTRY(0x80862815, "Alderlake HDMI",	patch_i915_tgl_hdmi),
+ HDA_CODEC_ENTRY(0x8086281c, "Alderlake-P HDMI", patch_i915_tgl_hdmi),
+ HDA_CODEC_ENTRY(0x80862816, "Rocketlake HDMI",	patch_i915_tgl_hdmi),
++HDA_CODEC_ENTRY(0x80862819, "DG2 HDMI",	patch_i915_tgl_hdmi),
+ HDA_CODEC_ENTRY(0x8086281a, "Jasperlake HDMI",	patch_i915_icl_hdmi),
+ HDA_CODEC_ENTRY(0x8086281b, "Elkhartlake HDMI",	patch_i915_icl_hdmi),
+ HDA_CODEC_ENTRY(0x80862880, "CedarTrail HDMI",	patch_generic_hdmi),
 
+base-commit: d7aca8d8f548570f650d9b1dfedf6902f56f2bce
+-- 
+2.34.1
 
-thanks,
-
-Takashi
-
-> ---
->  sound/core/oss/pcm_plugin.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
-> index 061ba06..61fccb5 100644
-> --- a/sound/core/oss/pcm_plugin.c
-> +++ b/sound/core/oss/pcm_plugin.c
-> @@ -68,6 +68,10 @@ static int snd_pcm_plugin_alloc(struct snd_pcm_plugin *plugin, snd_pcm_uframes_t
->  	size /= 8;
->  	if (plugin->buf_frames < frames) {
->  		kvfree(plugin->buf);
-> +
-> +		if (size > INT_MAX)
-> +			return -ENOMEM;
-> +
->  		plugin->buf = kvzalloc(size, GFP_KERNEL);
->  		plugin->buf_frames = frames;
->  	}
-> -- 
-> 1.8.3.1
-> 

@@ -2,67 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06C13463877
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 16:00:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DC3E463879
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Nov 2021 16:00:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49BF92261;
-	Tue, 30 Nov 2021 15:59:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49BF92261
+	by alsa0.perex.cz (Postfix) with ESMTPS id 009992270;
+	Tue, 30 Nov 2021 15:59:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 009992270
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638284408;
-	bh=0+3Ym9+8lvkQFX27bQsSayMoZxPuQ4FYLs8LPgF5CZs=;
+	s=default; t=1638284428;
+	bh=JWpQU+pdeo6LQiXtbDlI3Oa0FNGZAoWYgx7fgdX1lGc=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Gl5KO0UGpphLAjnJxAxQnnBOChzdZRmvB+/UFkOmkTHcjHm4kcQS9rZNtbbAy+sHv
-	 I/gE1NEu6WqLro3FVeeYjPwB2q+UtOb12GZs3aF1gYVfGqH9kgfxsNw+Wh2AgxXBXR
-	 ir4tq2QdBy7S+crJqqiFsGcuwaYn+XA12DLvug5U=
+	b=qacJOnoAkS5cuNCBSBiYVh4zLKsPQWTRI6qnjJIh2Yi3nNFS3VaT9KQJlDzAM33gb
+	 kzzG8JsKvt+EQTueAPtRHTd6MdC4nBXEMl/JGp/xJ4gTWF9mHnniF259/V1F/X6TmW
+	 yPdXuylWYhvJYQuLHPDIfWjeaKPPu8AjxO4R33IU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72101F805A8;
-	Tue, 30 Nov 2021 15:53:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D26BF80537;
+	Tue, 30 Nov 2021 15:53:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26BE4F8054A; Tue, 30 Nov 2021 15:53:30 +0100 (CET)
+ id 5E167F80536; Tue, 30 Nov 2021 15:53:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ DKIM_VALID_AU,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD988F8032D
- for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 15:53:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD988F8032D
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCBF4F8028D
+ for <alsa-devel@alsa-project.org>; Tue, 30 Nov 2021 15:53:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCBF4F8028D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OvymiwdN"
+ header.b="lxY3cJ1n"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 1B1E3CE1A7F;
- Tue, 30 Nov 2021 14:53:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE72C53FC7;
- Tue, 30 Nov 2021 14:53:18 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D5B0BB81A4F;
+ Tue, 30 Nov 2021 14:53:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A4CC53FCD;
+ Tue, 30 Nov 2021 14:53:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638284000;
- bh=0+3Ym9+8lvkQFX27bQsSayMoZxPuQ4FYLs8LPgF5CZs=;
+ s=k20201202; t=1638284024;
+ bh=JWpQU+pdeo6LQiXtbDlI3Oa0FNGZAoWYgx7fgdX1lGc=;
  h=From:To:Cc:Subject:Date:From;
- b=OvymiwdNah2sXlGx3Jzbt92R66+AuEvF0mRGHk7cJp8DEjG4dRjDZCpgKecEfO9lw
- LDP85vkqlymQ53JYUKn1Jn6Kpcy2eTsZ2206Q7dLV+sMw+hpdV/9UXktcojTdtw/dT
- NnnBhoHER1zNWuFtqGB48I5DWtCN1Ct+r1DARI0/IjOpXqC66y/SjBj8oG1P56kRrf
- pthqnRUXxjRQN7qtRhoWzj67j1OUPEuS0SbbZHj9HWcE9UA9n4woMgMuw1h9Ds1SgV
- WGJNk6gug11S2sfCf460scszlvf9YvDXoTe1yDIn5CD3WHi0M5zuvYIdIXLR4KHYwS
- yp9Y/fyfrI30w==
+ b=lxY3cJ1ne8YmclqVQ54lj27ixx8I34vJ63FmQ5VWsTUE2AmhHIviusoSV27EgdCwS
+ 2HugSukHpJGmc45dvwNCN84IrzjF9EEI5hPtJ1mh5ESIOmE2hu/tUzNCqG75xE/Y9I
+ IiEmVG+TJZyoH3NhVp5IOGdEXtldxtAe27RGe4Ud6Y2Xcs5exZtvrmVCl7gwNSQrpl
+ INfjYM8ZOb4bRGTX9UFA9MTwkN818QrMvDpiHmPIIx+CThzyPZ0KVMd98SDElLUP9V
+ zcPo5UD9hp5s6/mFkQ2W8T2eelD4lBzW4P7whUYYbuFcdZgWWehuA5t8BicjFmEvl2
+ GjMvzEykTd7Sw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 01/14] ASoC: mediatek: mt8173-rt5650: Rename
+Subject: [PATCH AUTOSEL 4.9 01/12] ASoC: mediatek: mt8173-rt5650: Rename
  Speaker control to Ext Spk
-Date: Tue, 30 Nov 2021 09:53:02 -0500
-Message-Id: <20211130145317.946676-1-sashal@kernel.org>
+Date: Tue, 30 Nov 2021 09:53:29 -0500
+Message-Id: <20211130145341.946891-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 X-stable: review
@@ -109,7 +108,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-index e69c141d8ed4c..60a6a83aa772c 100644
+index ba65f4157a7e0..eeb7f4c66d47a 100644
 --- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
 +++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
 @@ -38,15 +38,15 @@ static struct mt8173_rt5650_platform_data mt8173_rt5650_priv = {

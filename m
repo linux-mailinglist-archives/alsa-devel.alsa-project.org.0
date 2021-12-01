@@ -2,72 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94D794650FD
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 16:10:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0DC0465112
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 16:12:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8DC525C4;
-	Wed,  1 Dec 2021 16:09:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8DC525C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F15625D7;
+	Wed,  1 Dec 2021 16:12:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F15625D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638371443;
-	bh=DSVPT1RETG549ajOLLGEnilMUMx9Lq5dsNal0HI0fyQ=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=MlLTRhKUfWb435zyHOFEUU9vVdMtdBZ0xXmRDYpEcEBCRePyR+KUsBqd3eh6Ch2wf
-	 EQiDd42HNq5kVEkmc9b8BwqjOVG4zXDyT+0zA3WHvm1Yq4QAIt7drUChW7tIzUk25E
-	 LHzkTK9rWwF7N/5A1NmYZG9nhDwRnB0LNGm+aZvU=
+	s=default; t=1638371571;
+	bh=so9YfV6CqMSuBx8vroHOFWZL1pnMPMy7F4BS2s1uWWU=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KmyWCpNBxMR73dZEdEAh58oY5yHU2jPtZSFdz/YXQX0L/wOmik6ZXmbzrBtG5hOmH
+	 jw106t+2yN4ikhSg/VKapeKbZWlLJ/2IwlSdoBLCJy7nPIug8BOdQdLPzaS1UvLI2R
+	 o8vYdor6278hWI9CNF39OstLj2+6u6EEz8j5V/oI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 101BAF8028D;
-	Wed,  1 Dec 2021 16:09:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4689F80217;
+	Wed,  1 Dec 2021 16:11:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 073D8F8025C; Wed,  1 Dec 2021 16:09:35 +0100 (CET)
+ id C4450F80246; Wed,  1 Dec 2021 16:11:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0BB7F80217
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 16:09:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0BB7F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1FC0DF80217
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 16:11:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FC0DF80217
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="RF4X5oIe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1638371370;
- x=1669907370;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=DSVPT1RETG549ajOLLGEnilMUMx9Lq5dsNal0HI0fyQ=;
- b=RF4X5oIetG0g4Nr84L8+djOey6Nb3w+D7jvDrJ9yTJoIsGl33JYpJB5V
- lWkbBNDHCvtrFn2HDMF4DdIBytYWe8AFi9hnH/W8XAaQX7e899wFM9yMu
- UbMyFROaKs7cDR9m1Ug8uTqqkR7CzqHUI2TALjSK/heFiIAwvrHyv/5et
- IICs9Qx5rcWm9lXtg/WY4zt+JQXfRXj/WxfdR+ZzN8bOjFpdTFa7NXY1m
- /OjYiHi/Hy8bDO/s5IL7Hvl1I4GKKhY7rbjNGklcqlf/POl2ezoNY20X9
- PdIHDysF94NJppJ3s/DgzJThHg8Q0i8cu81BDWFAUscWsK774OhXVNYhM Q==;
-Date: Wed, 1 Dec 2021 16:09:17 +0100
-From: Ricard Wanderlof <ricardw@axis.com>
-X-X-Sender: ricardw@lnxricardw1.se.axis.com
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob
- Herring <robh+dt@kernel.org>
-Subject: [RESEND, PATCH v6 1/2] dt-bindings: sound: tlv320adc3xxx: New codec
- driver
-Message-ID: <alpine.DEB.2.21.2112011603080.30606@lnxricardw1.se.axis.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="RIF8UZNj"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1638371488; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=hzfR5Iy/ZH4JZgmh+ej8VUvwQgSQ07CnUGKU2GOo0f0=;
+ b=RIF8UZNjv3k0Cll0pTR4D33HF2tqmm4H3VooNgK9GysXLzKbrVqgpeeuVbQtF1mj1IWszqzK
+ /4WI33wbNS2QRYpi9jadwPASgYxU3vVuJlb0R7yiRZaz+NpdbuR4EhBVjKk7MA+M3LlpN0sn
+ DVPyZ5cy7fo4cvo6jwD7PlAzIcQ=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 61a7909d6bacc185a57c64bf (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 01 Dec 2021 15:11:25
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 5F4BAC4360C; Wed,  1 Dec 2021 15:11:23 +0000 (UTC)
+Received: from [10.242.143.72] (unknown [202.46.23.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 44557C4338F;
+ Wed,  1 Dec 2021 15:11:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 44557C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH v3 3/5] pinctrl: qcom: Move chip specific functions to
+ right files
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org,
+ Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org
+References: <1638179932-3353-1-git-send-email-srivasam@codeaurora.org>
+ <1638179932-3353-4-git-send-email-srivasam@codeaurora.org>
+ <bb08af7e-3b90-2d64-3bb1-f82cc6686184@linaro.org>
+ <342898d1-59ef-9104-658d-d992c0126361@codeaurora.org>
+ <a9e561cc-67f7-450b-fc08-61ece48e9070@linaro.org>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <c05aee0c-9cd7-38e0-61cf-eaf138185b00@codeaurora.org>
+Date: Wed, 1 Dec 2021 20:41:14 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: 8BIT
-X-Originating-IP: [10.0.5.60]
-X-ClientProxiedBy: se-mail05w.axis.com (10.20.40.11) To se-mail07w.axis.com
- (10.20.40.13)
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- alsa-devel <alsa-devel@alsa-project.org>
+In-Reply-To: <a9e561cc-67f7-450b-fc08-61ece48e9070@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,211 +110,78 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-DT bindings for tlv320adc3xxx driver, currently supporting
-Texas Instruments TLV320ADC3001 and TLV320ADC3101 audio ADCs.
-
-Signed-off-by: Ricard Wanderlof <ricardw@axis.com>
----
- .../bindings/sound/ti,tlv320adc3xxx.yaml      | 137 ++++++++++++++++++
- include/dt-bindings/sound/tlv320adc3xxx.h     |  28 ++++
- 2 files changed, 165 insertions(+)
- create mode 100644
-Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
- create mode 100644 include/dt-bindings/sound/tlv320adc3xxx.h
-
-diff --git a/Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
-b/Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
-new file mode 100644
-index 000000000000..c4fed6335230
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
-@@ -0,0 +1,137 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ti,tlv320adc3xxx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments TLV320ADC3001/TLV320ADC3101 Stereo ADC
-+
-+maintainers:
-+  - Ricard Wanderlof <ricardw@axis.com>
-+
-+description: |
-+  Texas Instruments TLV320ADC3001 and TLV320ADC3101 Stereo ADC
-+  https://www.ti.com/product/TLV320ADC3001
-+  https://www.ti.com/product/TLV320ADC3101
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,tlv320adc3001
-+      - ti,tlv320adc3101
-+
-+  reg:
-+    maxItems: 1
-+    description: I2C address
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+  '#gpio-cells':
-+    const: 2
-+
-+  gpio-controller: true
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: GPIO pin used for codec reset (RESET pin)
-+
-+  clocks:
-+    maxItems: 1
-+    description: Master clock (MCLK)
-+
-+  ti,dmdin-gpio1:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # ADC3XXX_GPIO_DISABLED       - I/O buffers powered down and not
-used
-+      - 1 # ADC3XXX_GPIO_INPUT          - Various non-GPIO input functions
-+      - 2 # ADC3XXX_GPIO_GPI            - General purpose input
-+      - 3 # ADC3XXX_GPIO_GPO            - General purpose output
-+      - 4 # ADC3XXX_GPIO_CLKOUT         - Clock source set in CLKOUT_MUX
-reg
-+      - 5 # ADC3XXX_GPIO_INT1           - INT1 output
-+      - 6 # ADC3XXX_GPIO_SECONDARY_BCLK - Codec interface secondary BCLK
-+      - 7 # ADC3XXX_GPIO_SECONDARY_WCLK - Codec interface secondary WCLK
-+    default: 0
-+    description: |
-+      Configuration for DMDIN/GPIO1 pin.
-+
-+      When ADC3XXX_GPIO_GPO is configured, this causes corresponding the
-+      ALSA control "GPIOx Output" to appear, as a switch control.
-+
-+  ti,dmclk-gpio2:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # ADC3XXX_GPIO_DISABLED       - I/O buffers powered down and not
-used
-+      - 1 # ADC3XXX_GPIO_INPUT          - Various non-GPIO input functions
-+      - 2 # ADC3XXX_GPIO_GPI            - General purpose input
-+      - 3 # ADC3XXX_GPIO_GPO            - General purpose output
-+      - 4 # ADC3XXX_GPIO_CLKOUT         - Clock source set in CLKOUT_MUX
-reg
-+      - 5 # ADC3XXX_GPIO_INT1           - INT1 output
-+      - 6 # ADC3XXX_GPIO_SECONDARY_BCLK - Codec interface secondary BCLK
-+      - 7 # ADC3XXX_GPIO_SECONDARY_WCLK - Codec interface secondary WCLK
-+    default: 0
-+    description: |
-+      Configuration for DMCLK/GPIO2 pin.
-+
-+      When ADC3XXX_GPIO_GPO is configured, this causes corresponding the
-+      ALSA control "GPIOx Output" to appear, as a switch control.
-+
-+      Note that there is currently no support for reading the GPIO pins as
-+      inputs.
-+
-+  ti,micbias1-vg:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # ADC3XXX_MICBIAS_OFF                - Mic bias is powered down
-+      - 1 # ADC3XXX_MICBIAS_2_0V       - Mic bias is set to 2.0V
-+      - 2 # ADC3XXX_MICBIAS_2_5V       - Mic bias is set to 2.5V
-+      - 3 # ADC3XXX_MICBIAS_AVDD       - Mic bias is same as AVDD supply
-+    default: 0
-+    description: |
-+      Mic bias voltage output on MICBIAS1 pin
-+
-+  ti,micbias2-vg:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # ADC3XXX_MICBIAS_OFF                - Mic bias is powered down
-+      - 1 # ADC3XXX_MICBIAS_2_0V       - Mic bias is set to 2.0V
-+      - 2 # ADC3XXX_MICBIAS_2_5V       - Mic bias is set to 2.5V
-+      - 3 # ADC3XXX_MICBIAS_AVDD       - Mic bias is same as AVDD supply
-+    default: 0
-+    description: |
-+      Mic bias voltage output on MICBIAS2 pin
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/sound/tlv320adc3xxx.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        tlv320adc3101: tlv320adc3101@18 {
-+            compatible = "ti,tlv320adc3101";
-+            reg = <0x18>;
-+            reset-gpios = <&gpio_pc 3 GPIO_ACTIVE_LOW>;
-+            clocks = <&audio_mclk>;
-+            gpio-controller;
-+            #gpio-cells = <2>;
-+            ti,dmdin-gpio1 = <ADC3XXX_GPIO_GPO>;
-+            ti,micbias1-vg = <ADC3XXX_MICBIAS_AVDD>;
-+        };
-+    };
-+
-+    audio_mclk: clock {
-+        compatible = "fixed-clock";
-+        #clock-cells = <0>;
-+        clock-frequency = <24576000>;
-+    };
-+...
-diff --git a/include/dt-bindings/sound/tlv320adc3xxx.h
-b/include/dt-bindings/sound/tlv320adc3xxx.h
-new file mode 100644
-index 000000000000..3b3fa43fa961
---- /dev/null
-+++ b/include/dt-bindings/sound/tlv320adc3xxx.h
-@@ -0,0 +1,28 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Devicetree bindings definitions for tlv320adc3xxx driver.
-+ *
-+ * Copyright (C) 2021 Axis Communications AB
-+ */
-+#ifndef __DT_TLV320ADC3XXX_H
-+#define __DT_TLV320ADC3XXX_H
-+
-+#define ADC3XXX_GPIO_DISABLED          0 /* I/O buffers powered down */
-+#define ADC3XXX_GPIO_INPUT             1 /* Various non-GPIO inputs */
-+#define ADC3XXX_GPIO_GPI               2 /* General purpose input */
-+#define ADC3XXX_GPIO_GPO               3 /* General purpose output */
-+#define ADC3XXX_GPIO_CLKOUT            4 /* Source set in reg. CLKOUT_MUX
-*/
-+#define ADC3XXX_GPIO_INT1              5 /* INT1 output */
-+#define ADC3XXX_GPIO_INT2              6 /* INT2 output */
-+/* value 7 is reserved */
-+#define ADC3XXX_GPIO_SECONDARY_BCLK    8 /* Codec interface secondary BCLK
-*/
-+#define ADC3XXX_GPIO_SECONDARY_WCLK    9 /* Codec interface secondary WCLK
-*/
-+#define ADC3XXX_GPIO_ADC_MOD_CLK       10 /* Clock output for digital mics
-*/
-+/* values 11-15 reserved */
-+
-+#define ADC3XXX_MICBIAS_OFF            0 /* Micbias pin powered off */
-+#define ADC3XXX_MICBIAS_2_0V           1 /* Micbias pin set to 2.0V */
-+#define ADC3XXX_MICBIAS_2_5V           2 /* Micbias pin set to 2.5V */
-+#define ADC3XXX_MICBIAS_AVDD           3 /* Use AVDD voltage for micbias
-pin */
-+
-+#endif /* __DT_TLV320ADC3XXX_H */
---
-2.20.1
-
---
-Ricard Wolf Wanderlof                           ricardw(at)axis.com
-Axis Communications AB, Lund, Sweden            www.axis.com
-Phone +46 46 272 2016                           Fax +46 46 13 61 30
+On 12/1/2021 8:37 PM, Srinivas Kandagatla wrote:
+Thanks for clarification Srini!!
+>
+> On 01/12/2021 14:33, Srinivasa Rao Mandadapu wrote:
+>>>
+>>>
+>>>> +enum lpass_lpi_functions {
+>>>> +Â Â Â  LPI_MUX_dmic1_clk,
+>>>> +Â Â Â  LPI_MUX_dmic1_data,
+>>>> +Â Â Â  LPI_MUX_dmic2_clk,
+>>>> +Â Â Â  LPI_MUX_dmic2_data,
+>>>> +Â Â Â  LPI_MUX_dmic3_clk,
+>>>> +Â Â Â  LPI_MUX_dmic3_data,
+>>>> +Â Â Â  LPI_MUX_i2s1_clk,
+>>>> +Â Â Â  LPI_MUX_i2s1_data,
+>>>> +Â Â Â  LPI_MUX_i2s1_ws,
+>>>> +Â Â Â  LPI_MUX_i2s2_clk,
+>>>> +Â Â Â  LPI_MUX_i2s2_data,
+>>>> +Â Â Â  LPI_MUX_i2s2_ws,
+>>>> +Â Â Â  LPI_MUX_qua_mi2s_data,
+>>>> +Â Â Â  LPI_MUX_qua_mi2s_sclk,
+>>>> +Â Â Â  LPI_MUX_qua_mi2s_ws,
+>>>> +Â Â Â  LPI_MUX_swr_rx_clk,
+>>>> +Â Â Â  LPI_MUX_swr_rx_data,
+>>>> +Â Â Â  LPI_MUX_swr_tx_clk,
+>>>> +Â Â Â  LPI_MUX_swr_tx_data,
+>>>> +Â Â Â  LPI_MUX_wsa_swr_clk,
+>>>> +Â Â Â  LPI_MUX_wsa_swr_data,
+>>>> +Â Â Â  LPI_MUX_gpio,
+>>>> +Â Â Â  LPI_MUX__,
+>>>> +};
+>>>> +
+>>>> +static const unsigned int gpio0_pins[] = { 0 };
+>>>> +static const unsigned int gpio1_pins[] = { 1 };
+>>>> +static const unsigned int gpio2_pins[] = { 2 };
+>>>> +static const unsigned int gpio3_pins[] = { 3 };
+>>>> +static const unsigned int gpio4_pins[] = { 4 };
+>>>> +static const unsigned int gpio5_pins[] = { 5 };
+>>>> +static const unsigned int gpio6_pins[] = { 6 };
+>>>> +static const unsigned int gpio7_pins[] = { 7 };
+>>>> +static const unsigned int gpio8_pins[] = { 8 };
+>>>> +static const unsigned int gpio9_pins[] = { 9 };
+>>>> +static const unsigned int gpio10_pins[] = { 10 };
+>>>> +static const unsigned int gpio11_pins[] = { 11 };
+>>>> +static const unsigned int gpio12_pins[] = { 12 };
+>>>> +static const unsigned int gpio13_pins[] = { 13 };
+>>> >>>
+>>> to here are specific to sm8250, so it should not be in header file 
+>>> to start with.
+>>
+>> As these are common to all lpass variants.. I feel it's better to 
+>> keep in Header file.
+>
+> You realize that every include of this file will add these static 
+> variables to file, in this case to pinctrl-lpass-lpi.c, 
+> pinctrl-sm8250-lpass-lpi.c and pinctrl-sc7280-lpass-lpi.c
+> so in first file(pinctrl-lpass-lpi.c) you never use those variables in 
+> second file (pinctrl-sm8250-lpass-lpi.c)you only use up to gpio13 and 
+> in third file pinctrl-sc7280-lpass-lpi.c you could use them.
+>
+> so its really bad idea to add static variables in header files.
+>
+Okay. Understood. will move it SoC specific files.
+> --srini
+>
+>>
+>> And if new pins comes in later variants, we can add them 
+>> incrementally, and they will not impact existing pin numbers.
+>>
+>> I think in upcoming variants number of pins will not decrease.
+>>
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 

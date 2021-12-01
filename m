@@ -2,77 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0684465172
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 16:22:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B68CE4651C7
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 16:35:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C94224D2;
-	Wed,  1 Dec 2021 16:21:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C94224D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FD2D25A6;
+	Wed,  1 Dec 2021 16:34:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FD2D25A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638372162;
-	bh=D58/6QGqnnVxmXKUhpKUqCmH6MS+vp6LBDiBbA6uGo4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1638372901;
+	bh=0pdw8gleOyTFVu7gPaAIrfIV8EaDOTi0emHZJ6/AIXA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T/8pems0Cv38Yc6cXw7VvvIRd+og7D8aiBZRNhiEnztRdEyIE77lSRt9xz2oB0BbJ
-	 yZ/LgzcNhkv+eAWOEdRfmkJKJKjR5HFgVBgZRQgFcVL0uKvekxsurOWn4eqUqTBqvx
-	 PUbu4cMb7FUk8GcFpUDuOob4EzKLe13/g0BZg4rE=
+	b=QeY55NxLkklsHsm8Nu7DLjWz4evzDbbEA3G4P1kbHtowzFVccW7PwonYJKvd4M7N2
+	 rPNw5rBiDoZ4/DoQZeXdgdNCqXZQ8XoZQb31uBda4x9CwSZrseo+D1KW0Mf61n5XOP
+	 eCOWHSlA3mWXaGfAwLqA4iPGc5Fp1iu/XDW3cyps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4B1EF80249;
-	Wed,  1 Dec 2021 16:21:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA0C1F80217;
+	Wed,  1 Dec 2021 16:33:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3154F80246; Wed,  1 Dec 2021 16:21:23 +0100 (CET)
+ id 11D21F80246; Wed,  1 Dec 2021 16:33:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04AFAF80217
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 16:21:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04AFAF80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23B28F80121
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 16:33:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23B28F80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kl3KRwAS"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 27583B81FE7;
- Wed,  1 Dec 2021 15:21:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40DA4C53FCC;
- Wed,  1 Dec 2021 15:21:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638372077;
- bh=D58/6QGqnnVxmXKUhpKUqCmH6MS+vp6LBDiBbA6uGo4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kl3KRwASmPVgL/nH9VPiSPynx1Xer46raq4kVVmFWUlE0gT/0QQjnOyHu6W6OwJoa
- 8Tj2wjSwFC20fS9vckRQpGCL1LF9layRWja7gSg/JgiuPSPOPOucN7RJ7T5vnFbMU8
- UxEUcQ5wPTNfGJ3ZTloSPE9qlV9OQIQvDmWiKCoe/AEtnb61KcdImhEQL/U4WhBiDP
- ePld6PO1bkNQPehzLrWfT7hHkOIa8/3wUtH84JvmLwDpHlVVELgNvSmFMaSWQUBsTo
- tJbN2C6zRcW5o80SpqMd2LzS2wD3JHsy7ybHOh3RvUUKGRhVr4Q9ElD0gsMpDiEyjF
- AlX4qUeFreRBQ==
-Date: Wed, 1 Dec 2021 15:21:13 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Ricard Wanderlof <ricardw@axis.com>
-Subject: Re: [RESEND, PATCH v6 1/2] dt-bindings: sound: tlv320adc3xxx: New
- codec driver
-Message-ID: <YaeS6WqKNRpX2IGs@sirena.org.uk>
-References: <alpine.DEB.2.21.2112011603080.30606@lnxricardw1.se.axis.com>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="mjr7e2Ck"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1638372812; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=Q6HUfZt5oXc1duwzRmR4q+p0TcjKzuDlkMig1w3ztew=;
+ b=mjr7e2Ck9jQbOfhwKa77hN5ODRKhS55M3pZTdt2criGpnhwHZvUellgaBpDchIxtDkhbTbfj
+ fakyGgZvY60ivjErrFHSxF4+vRCDLhcZEUEJX7MW7tg5MvQDaJDX09VMi96Lor5JdGgYwW2Y
+ udlmxOIk6tW6Z1yip+ajyL9IBWY=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
+ 61a795c9135a8a9d0e87fa93 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 01 Dec 2021 15:33:29
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id DC90DC43619; Wed,  1 Dec 2021 15:33:28 +0000 (UTC)
+Received: from [10.242.143.72] (unknown [202.46.23.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 9A681C4338F;
+ Wed,  1 Dec 2021 15:33:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 9A681C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH v6 10/10] ASoC: qcom: SC7280: Update config for building
+ codec dma drivers
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+References: <1637928282-2819-1-git-send-email-srivasam@codeaurora.org>
+ <1637928282-2819-11-git-send-email-srivasam@codeaurora.org>
+ <0d51b0fd-61a9-e68f-6ab8-27708667d787@linaro.org>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <a3663a8d-5a05-3bbe-4d5d-2b5b4a55d0d4@codeaurora.org>
+Date: Wed, 1 Dec 2021 21:03:20 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="E+YjiY8Ir+JvjXPZ"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2112011603080.30606@lnxricardw1.se.axis.com>
-X-Cookie: All true wisdom is found on T-shirts.
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- alsa-devel <alsa-devel@alsa-project.org>, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <0d51b0fd-61a9-e68f-6ab8-27708667d787@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,35 +108,104 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---E+YjiY8Ir+JvjXPZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 12/1/2021 4:20 PM, Srinivas Kandagatla wrote:
+Thanks for Your time Srini!!!
+>
+> On 26/11/2021 12:04, Srinivasa Rao Mandadapu wrote:
+>> Add configuration for building SC7280 audio codec dma drivers.
+>>
+>> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+>> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>> ---
+>> This patch set depends on:
+>>      -- 
+>> https://patchwork.kernel.org/project/alsa-devel/list/?series=582321
+>>
+>>   sound/soc/qcom/Kconfig  | 13 +++++++++++++
+>>   sound/soc/qcom/Makefile |  4 ++++
+>>   2 files changed, 17 insertions(+)
+>>
+>> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+>> index 530d01f..b46a2e7 100644
+>> --- a/sound/soc/qcom/Kconfig
+>> +++ b/sound/soc/qcom/Kconfig
+>> @@ -20,6 +20,10 @@ config SND_SOC_LPASS_PLATFORM
+>>       tristate
+>>       select REGMAP_MMIO
+>>   +config SND_SOC_LPASS_CDC_DMA
+>> +    tristate
+>> +    select REGMAP_MMIO
+>> +
+>>   config SND_SOC_LPASS_IPQ806X
+>>       tristate
+>>       select SND_SOC_LPASS_CPU
+>> @@ -36,6 +40,13 @@ config SND_SOC_LPASS_SC7180
+>>       select SND_SOC_LPASS_PLATFORM
+>>       select SND_SOC_LPASS_HDMI
+>>   +config SND_SOC_LPASS_SC7280
+>> +    tristate
+>> +    select SND_SOC_LPASS_CPU
+>> +    select SND_SOC_LPASS_PLATFORM
+>> +    select SND_SOC_LPASS_HDMI
+>> +    select SND_SOC_LPASS_CDC_DMA
+>> +
+>>   config SND_SOC_STORM
+>>       tristate "ASoC I2S support for Storm boards"
+>>       select SND_SOC_LPASS_IPQ806X
+>> @@ -156,7 +167,9 @@ config SND_SOC_SC7280
+>>       tristate "SoC Machine driver for SC7280 boards"
+>>       depends on I2C && SOUNDWIRE || COMPILE_TEST
+>>       select SND_SOC_QCOM_COMMON
+>> +    select SND_SOC_LPASS_SC7280
+>>       select SND_SOC_MAX98357A
+>> +    select SND_SOC_WCD938X
+>
+> Why are we updating machine Kconfigs in this patch, should that be not 
+> in your machine driver patch series?
 
-On Wed, Dec 01, 2021 at 04:09:17PM +0100, Ricard Wanderlof wrote:
->=20
-> DT bindings for tlv320adc3xxx driver, currently supporting
-> Texas Instruments TLV320ADC3001 and TLV320ADC3101 audio ADCs.
+Actually, SND_SOC_LPASS_SC7280 is of lpass-sc7280 platform driver.  
+SND_SOC_WCD938X is for wcd codec driver.
 
-I realise that the threading is broken on all your patch serieses (it
-would be good to fix this) but please don't send isolated patches from a
-series separately in the middle of pending review for the series, it
-just makes things even harder to follow since now there's two different
-groups of patches and they're not even grouped by sending date.
+Will add WCD Kconfig as separate patch.
 
---E+YjiY8Ir+JvjXPZ
-Content-Type: application/pgp-signature; name="signature.asc"
+>
+> I think I did point this out in previous versions too.
+>
+>
+> --srini
+>
+>
+>>       select SND_SOC_LPASS_RX_MACRO
+>>       select SND_SOC_LPASS_TX_MACRO
+>>       help
+>> diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
+>> index 625aec6..8b7b876 100644
+>> --- a/sound/soc/qcom/Makefile
+>> +++ b/sound/soc/qcom/Makefile
+>> @@ -1,18 +1,22 @@
+>>   # SPDX-License-Identifier: GPL-2.0
+>>   # Platform
+>>   snd-soc-lpass-cpu-objs := lpass-cpu.o
+>> +snd-soc-lpass-cdc-dma-objs := lpass-cdc-dma.o
+>>   snd-soc-lpass-hdmi-objs := lpass-hdmi.o
+>>   snd-soc-lpass-platform-objs := lpass-platform.o
+>>   snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
+>>   snd-soc-lpass-apq8016-objs := lpass-apq8016.o
+>>   snd-soc-lpass-sc7180-objs := lpass-sc7180.o
+>> +snd-soc-lpass-sc7280-objs := lpass-sc7280.o
+>>     obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
+>> +obj-$(CONFIG_SND_SOC_LPASS_CDC_DMA) += snd-soc-lpass-cdc-dma.o
+>>   obj-$(CONFIG_SND_SOC_LPASS_HDMI) += snd-soc-lpass-hdmi.o
+>>   obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
+>>   obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
+>>   obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
+>>   obj-$(CONFIG_SND_SOC_LPASS_SC7180) += snd-soc-lpass-sc7180.o
+>> +obj-$(CONFIG_SND_SOC_LPASS_SC7280) += snd-soc-lpass-sc7280.o
+>>     # Machine
+>>   snd-soc-storm-objs := storm.o
+>>
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGnkugACgkQJNaLcl1U
-h9CoPAf9GtGPHt7BObhWyxMnKRZn9j9gDytFFXLfrfAokadiEtMvEz4mkmLht4lD
-mmb18xtiFJayuJHfZF+ExMIKPtDq1jzJx4KKKrhDUUSy+lVQp6VHnEcWbtfsVWVz
-4wxxDgx5cGQtKEBTe1WQOA3Sk0gyEmKf+E5fbeoqf1R+Us0727zovObWBXwtvSuj
-FL8DMSnUCPyby895QzH2eRK0O7wisLZRN97wU4kiIUEwihrGx8vu8d0p38fwg62U
-IHt9lsq79dosqWjcK56dhNdRHPe6y43AlmYHzItJJ/kI7bHKR+OCm7Wxj86pRRvv
-u0X+ImSUACqr48IccSWVwkg2/1KIMg==
-=du47
------END PGP SIGNATURE-----
-
---E+YjiY8Ir+JvjXPZ--

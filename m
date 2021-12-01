@@ -2,78 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E5604658F1
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 23:09:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E691E465950
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 23:33:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B5E624C6;
-	Wed,  1 Dec 2021 23:09:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B5E624C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AAF6266B;
+	Wed,  1 Dec 2021 23:32:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AAF6266B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638396595;
-	bh=Nzk4xuBnLua+Ch7FNlliRtr6zY/RQhBET5UD098bDuQ=;
+	s=default; t=1638397992;
+	bh=VCggAWdn5CwvXF3xxO8qfVdxeyozx3ZirbZTIz8iW+c=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A/prg2LMpgNzMYRnAMBBi2Qd9+CwWuMdmcqaHxECVIUDqAX32IyqhXkBEX47vWLaw
-	 8cwGrCWctlo0Ey1WgPKHz8j6f9PgSmlth/v71rbjB1hhKMip7/DF4wuRa2ttpLyY5Z
-	 EQSjiJWm19pM+kW//IsyT/njUB3SKoX//kvtoFXQ=
+	b=l0BIHxvo1wwvBpfVKX/1i6tuWLnsC6BpBo+PWoFkhivT61vo/zRp7znOjBIGw9YEk
+	 /p8EC4D9Qx6tgEMZmnRgyccU5HCAw1V44ePZs5VkT4sQcOavm5q3ll5L0yD15CtzGB
+	 lXxrU+avmy4RFQSIyYPlXICclvA0c9DMa2nrEXEI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78314F80249;
-	Wed,  1 Dec 2021 23:08:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F184EF800EE;
+	Wed,  1 Dec 2021 23:31:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6CE5F80246; Wed,  1 Dec 2021 23:08:36 +0100 (CET)
+ id EE505F80246; Wed,  1 Dec 2021 23:31:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 331DCF80217
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 23:08:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 331DCF80217
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mgLeqX22"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AD6ACB8200E;
- Wed,  1 Dec 2021 22:08:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E526C53FAD;
- Wed,  1 Dec 2021 22:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638396510;
- bh=Nzk4xuBnLua+Ch7FNlliRtr6zY/RQhBET5UD098bDuQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mgLeqX22nSJ5as6n4hru6rcn5e/oaMcbN0AoDLM3lAi0iV4ao2zy5CU8OkntE3/7k
- FKSgkTMmZJhs/md8BOuojPkdkq3GV8oflHmAcseebwPI3qTdKJSMWI7MtyeN40C+5m
- Ff42FyiLxvrWJzS9sB9kQpmVPuXiUagRmxrwgXdPKuMIgFb8NuepqRtEDu5O0/sP2I
- qtDo7QE+YVcMbpnFk9Y+PzdBbkg26Rjz3Ke8ppSGzFMXPyn2jTGPB8avsX+PgWTtRi
- pvP5Ey0W+84MkHXQjO8IgLqf28/qeS6lkiHGvaUEQP9m4pw/9XnR17a/ScUJqHKK9p
- zyJmowDyMMlzQ==
-Date: Wed, 1 Dec 2021 22:08:26 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs42l42: Implement system suspend
-Message-ID: <YafyWnVA1J1rgCf1@sirena.org.uk>
-References: <20211201153648.17259-1-rf@opensource.cirrus.com>
- <YaejghraYE6lD7FD@sirena.org.uk>
- <87930df9-6220-807e-a655-1c7d7ec020ab@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A894F800EE
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 23:31:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A894F800EE
+Received: by mail-ot1-f45.google.com with SMTP id
+ n17-20020a9d64d1000000b00579cf677301so37353885otl.8
+ for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 14:31:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=T5dDFTbqoVtVfAAIqapjKcFefz1Su1Y3Jb3TmXDSfLM=;
+ b=qvVWExDeKySYyJtpCmTGpJ8wCn3SZtXfDp2jU07Mazeg5rQzcFaOxfv9WejSVUE30c
+ JN1EoE/QPWaDgXmfEth74rOWMH7bw42ksJidX/IOkdL4CwyI8fTMwPd9JbSSyif0iSKM
+ SihJIeADEAqDZ2n1ScQAyk/o/y3BA0co7oS+AL9gnROGsZKRVlXfTmnozf+JjU0VLxPI
+ qpZIVnN+yfxwGyq+JhP1EGwbEYH3r6alfXRi2d0iKm9DRCBBg4dkjufroEd2nun165R5
+ 4OxnBX1SFKvNIZuoFrLkEvhLJ0QmURBzbKThbPPmgWUU4UHbzAEV2HrDtDK4ySGd0nEX
+ EEqQ==
+X-Gm-Message-State: AOAM533r/VrAVkrosmuyYZnkTh+/a3/ZOtqEixLxWxiPq3ghEi+yL01E
+ Fb+fnBqZ3Qfzmi0yKe6cDA==
+X-Google-Smtp-Source: ABdhPJy8bnGR48W/xJpn01QnF07dEzkJUHFVw79LlhkqiRr6++P/Ysr9/PjH2SDv8XKQNdKBo6V6lg==
+X-Received: by 2002:a05:6830:2aa7:: with SMTP id
+ s39mr8424157otu.151.1638397901599; 
+ Wed, 01 Dec 2021 14:31:41 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id bi20sm592910oib.29.2021.12.01.14.31.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Dec 2021 14:31:40 -0800 (PST)
+Received: (nullmailer pid 2899335 invoked by uid 1000);
+ Wed, 01 Dec 2021 22:31:39 -0000
+Date: Wed, 1 Dec 2021 16:31:39 -0600
+From: Rob Herring <robh@kernel.org>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH v2 2/4] ASoC: dt-bindings: stm32: i2s: allow additional
+ properties.
+Message-ID: <Yaf3yy3tiTOaNBDY@robh.at.kernel.org>
+References: <20211125144053.774-1-olivier.moysan@foss.st.com>
+ <20211125144053.774-3-olivier.moysan@foss.st.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="MZbxPQY3xGbOgcXr"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87930df9-6220-807e-a655-1c7d7ec020ab@opensource.cirrus.com>
-X-Cookie: This is now.  Later is later.
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+In-Reply-To: <20211125144053.774-3-olivier.moysan@foss.st.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Olivier Moysan <olivier.moysan@st.com>, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, amelie.delaunay@foss.st.com,
+ Mark Brown <broonie@kernel.org>, fabrice.gasnier@foss.st.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, alain.volmat@foss.st.com,
+ arnaud.pouliquen@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,167 +100,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Nov 25, 2021 at 03:40:51PM +0100, Olivier Moysan wrote:
+> The STM32 SPI peripheral supports both SPI and I2S protocols.
+> In the SoC device tree the node describes the peripheral as an
+> SPI peripheral by default. This default configuration can be
+> overwritten in board device tree to use the IP as an I2S peripheral.
+> In this case the address-cells and size-cells properties from
+> SoC DT SPI node should not be checked against STM32 I2S bindings.
+> Set additionalProperties to "true" to allow these extra properties.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> ---
+>  Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+> index 64b70ac539f8..33ba15363c0f 100644
+> --- a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+> +++ b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+> @@ -73,7 +73,7 @@ required:
+>    - dmas
+>    - dma-names
+>  
+> -additionalProperties: false
+> +additionalProperties: true
 
---MZbxPQY3xGbOgcXr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This is only allowed for schemas that are incomplete collections of 
+properties such as common bindings.
 
-On Wed, Dec 01, 2021 at 06:04:00PM +0000, Richard Fitzgerald wrote:
-> On 01/12/2021 16:32, Mark Brown wrote:
-> > On Wed, Dec 01, 2021 at 03:36:48PM +0000, Richard Fitzgerald wrote:
-
-> > > +	/*
-> > > +	 * PWR_CTL2 must be volatile so it can be used as a canary bit to
-> > > +	 * detect a reset during system suspend.
-> > > +	 */
-> > > +	case CS42L42_PWR_CTL2:
-
-> > This feels a bit hackish
-
-> I can't think of a better way of detecting whether the chip reset. If
-> we don't have control of the reset GPIO we can't force a reset. So it
-> depends whether power turned off (also whether it dropped below the
-> Vmin voltage at which a reset is triggered). The regulator framework
-> can't tell us if it really turned off power and on ACPI systems the
-> power is all controlled magically.
-
-Right, hence the second part of the question - the general thing for
-drivers has just been to assume that the power might've gone out over
-suspend and behave as though it did unless we were using the device as a
-wake source.  We could if required extend the existing regulator API
-notification stuff to generate notifications, though they'd not work
-when it's compiled out.
-
-> >     - is the cost of doing the cache sync really so> expensive that it's
-> worth the effort of trying to skip it?
-
-> It's not cost, it's about getting the correct values in the registers.
-> If we call regcache_mark_dirty() it tells regmap that all the hardware
-> registers have reset to default. Then regcache_sync() will skip writing
-> cache values that are the register default value, assuming that the
-> register already has this value. If the chip didn't reset, the registers
-> could retain non-default values while the cache contains a dirty
-> default value, in that case the register needs updating to match the
-> cache.
-
-(note BTW that at the point I queried the performance thing I'd not got
-as far as the magic bypassed write sequences)
-
-So this is clearly a being done at the wrong level - it is needlessly
-complex, non-idiomatic and making fragile and non-obvious assumptions
-about how the cache code operates.  The issue you've got is that the
-cache code is presenting interfaces for the common case where you'd only
-want to resync the cache in cases where the device has been reset but
-you've added code which bypasses the cache and pulls the device out of
-sync with the cache.  You need to teach regmap about that, not try to
-hack around things in the driver code.  But...
-
-> I tried to persuade myself that a cache value couldn't possibly change
-> at any time from suspend() being called to resume disabling cache-only
-> so I could safely accept default values being skipped. But that
-> assumption made me very uncomfortable - I don't like leaving potential
-> bugs in when its simple enough to prevent them.
-
-=2E..that's based on the assumption that this is all about the magic write
-sequences you're using for shutdown potentially conflicting with default
-values you've got in the cache?  If it's not those then the assumption
-is that either the device was reset in which case it has reset values or
-the device was not reset and held it's previous value, in which case the
-cache sync is redundant.  If we don't trust the device to reset cleanly
-for some reason then it's probably a bad idea to tell regmap about
-default values in the first place since even on initial boot we might
-actually be doing a soft reboot and the device could be holding values
-=66rom whatever was running beforehand.
-
-This clearly isn't simple, and other than those shutdown sequences or
-potential issues with the device not resetting cleanly this should be
-done by extending regmap so it explicitly knows what's going on.  If it
-is those shutdown sequences then you're probably looking for something
-like doing a _sync_region() on the registers the sequences touch.
-Possibly a _sync_region() variant that writes everything requested, or
-just make sync_region() not skip defaults.  Or just remove all the
-defaults from the driver, the sync will be a bit more expensive but
-that's hopefully fine.  If it's not those shutdown sequences it should
-still be handled genericly but I'd really like to understand the
-scenario you're concerned about here, especially the fact that any issue
-will show up in this single register that the code is checking.
-
-> > > +	if (cs42l42->suspended) {
-> > > +		mutex_unlock(&cs42l42->irq_lock);
-> > > +		return IRQ_NONE;
-> > > +	}
-
-> > Given that you're using disable_irq() to force the interrupt off (which
-> > is a bit rude but often the best one can do) how might we be getting an
-> > interrupt while suspended?  This seems to indicate an error condition.
-
-> I may have misunderstood here, but the documentation says that
-> enables/disables are nested. The interrupt starts out enabled right
-> after calling request_threaded_irq(), so I expected that all users of
-> the shared interrupt would have to call disable_irq() for it to actually
-> get disabled (I put the call in on that basis that it does no harm). If
-> disable_irq() forces the irq off even if it's shared then I'll remove it
-> because as you say that would be rude.
-
-Hrm, that may have changed since I last looked - if that's the case then
-I guess it's best not to warn which was what I was thinking here.
-
-> > > +		/*
-> > > +		 * Only call regcache_mark_dirty() if cs42l42 reset, so
-> > > +		 * regcache_sync() writes all non-default cached values.
-> > > +		 * If it didn't reset we don't want to filter out syncing
-> > > +		 * dirty cache entries that have default value.
-> > > +		 * DISCHARGE_FILT=3D=3D1 after suspend. If the cs42l42 reset
-> > > +		 * it will now be 0.
-> > > +		 */
-
-> > Something needs to tell regmap that the cache is dirty otherwise it
-
-> Regmap knows if it has dirty values that it hasn't written out to the
-> hardware.
-
-Well, apparently it doesn't since otherwise we could just do a resync.
-
-> > won't sync anything, including the non-default register values?  There's
-
-> That's fine. If the registers have not been reset they still have the
-> value of every clean cache entry. Every dirty cache entry will be
-> written out by regcache_sync().
-
-What about the shutdown sequence - does that not touch cached registers?
-
-> > currently an assumption coded in there that the cache is dirty because
-> > the device was reset and everything has default values.
-
-> Regmap only assumes that if regcache_mark_dirty() is called.
-
-Right, but the point here is that coming out of suspend the driver is
-expected to be unconditionally marking the cache as dirty and doing a
-resync since we probably lost power.  The code is trying to avoid that
-for reasons that are not at all apparent but I *think* are due to the
-bypassed writes in shutdown(), especially if you say it's not a
-performance thing.  We shouldn't need to worry about there being non
-default states in the hardware.
-
-The whole thing is just really confusing as it stands.  Like I say I
-think this needs to express what it's trying to do clearly in both the
-regmap operations it's doing and the code in general, at the minute it's
-not clear looking at things what the goal is.
-
---MZbxPQY3xGbOgcXr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGn8lkACgkQJNaLcl1U
-h9AY6wf+NO6Z2euXBl8DqEPROLW3ucXDLxPW1AQkm0HivSrPNUz4M+UP0QogAWIM
-DRQAAV7PBOc9HfjDGzOwsnY2qX7KmIE8NYW5H2Z67AD07neE/m8u5zVTQekQ2g/U
-2Wug+2Z42ssi+v5L02CzBs6v/XxeMPKHhzdFqkeoZB3XIAT08v4d0LkEZfxXYUG4
-ZOx5KDUmrsrdlVeZ7CsLBTeRU2HpBl2aLnuE+6a2ohAvdZzb8AWVAwLsqcfzWol7
-lq/8V1aERLytQkZssL5olF4wJUgSUhf/deFPp5xYEtWGWE0R2XGFuEdQav7kY6xt
-TWv+LT1HvO7vX+uKd1lszBv4V6GivQ==
-=vARI
------END PGP SIGNATURE-----
-
---MZbxPQY3xGbOgcXr--
+Rob

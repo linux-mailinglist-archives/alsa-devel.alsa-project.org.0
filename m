@@ -2,81 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD28B464ABA
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 10:34:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3E01464B17
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 10:58:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4128F256B;
-	Wed,  1 Dec 2021 10:33:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4128F256B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46CF52585;
+	Wed,  1 Dec 2021 10:57:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46CF52585
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638351275;
-	bh=Jvxfnt8rs8XMfNbrsmaFmSwZC8SskicDyYeVKAXc15w=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=B+arKD/jFJ7wyxUza1iJXyRZ3yOg+LPrJXSinqsWs2SV4PQ9BKZfC1TjaXaGdTcPl
-	 AVzRTtzbk6HuscclBU6D4IZbBs1u8iuFTVnUDkbDqzqT9f8OZPjWLJk04fhF+88BIy
-	 KamNSCDTq04C/DlcfUNhIdYzyMZrM8OTOPwfbDyA=
+	s=default; t=1638352699;
+	bh=/c3k/ImVdbOJuhNSJnVSZMzIfwOgZctQU0u6d+isWRM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Yebu1hOF9h30IPj2VHJ0HBpJdAi5cXQZPeUDLJtJrYqc1A2bPxPCo8kWCCVfIUAEK
+	 Wg/ljjruqxhIoT9hweOeGrVejFzsPVLkpeHDk0B50aWTY4xttGJoh2fMgAiK8M7Ana
+	 9ngXmIWz7muEPiDG5uvbYJ3B074L9C4CJy3biJMA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77669F80249;
-	Wed,  1 Dec 2021 10:33:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9CE9F80249;
+	Wed,  1 Dec 2021 10:57:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36976F80246; Wed,  1 Dec 2021 10:33:04 +0100 (CET)
+ id 911EEF80246; Wed,  1 Dec 2021 10:56:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34E3BF80121
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 10:33:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34E3BF80121
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="JoNv4XUw"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="wTXH/AX7"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 0E2CD212C6;
- Wed,  1 Dec 2021 09:32:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638351179; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FfoZZlhm62xgq22VwE8vzMHKJoholHu0tZx7i/QBv6k=;
- b=JoNv4XUwRSLUgLJBVMWOWuncHBQLWHyMAwQephDN0dDtsyiAOrjsiBcozy23aTDYgvMcBt
- MFy9S5kL63T8VVaN2J+E1udsaWrXOcZROvVa4LoPJwIolTMXSWTs5yTImkZSLLEPCOLMzF
- hhvbdIWrBFyV+8M2hxC50IOp6YQGUu4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638351179;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FfoZZlhm62xgq22VwE8vzMHKJoholHu0tZx7i/QBv6k=;
- b=wTXH/AX7DMfnLDs7tEg/q1y1r+3xYseXHwuwwHU9ezbis6cv2g+oHPoqWdI/mwmYENZD/1
- NLOYpumXfzhPNyAw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E7540A3B85;
- Wed,  1 Dec 2021 09:32:58 +0000 (UTC)
-Date: Wed, 01 Dec 2021 10:32:58 +0100
-Message-ID: <s5h1r2wzn3p.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Bixuan Cui <cuibixuan@linux.alibaba.com>
-Subject: Re: [PATCH -next] ALSA: oss: fix compile error when OSS_DEBUG is
- enabled
-In-Reply-To: <1638349134-110369-1-git-send-email-cuibixuan@linux.alibaba.com>
-References: <1638349134-110369-1-git-send-email-cuibixuan@linux.alibaba.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8A6BF800EE
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 10:56:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8A6BF800EE
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 1B19uZyY5023469,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36503.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 1B19uZyY5023469
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 1 Dec 2021 17:56:35 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36503.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Wed, 1 Dec 2021 17:56:35 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.15; Wed, 1 Dec 2021 17:56:34 +0800
+From: Oder Chiou <oder_chiou@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt5640: Fix the wrong state of the JD in the HDA header
+Date: Wed, 1 Dec 2021 17:56:29 +0800
+Message-ID: <20211201095629.21818-1-oder_chiou@realtek.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXH36504.realtek.com.tw (172.21.6.27) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: trusted connection
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Deterministic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 12/01/2021 09:31:00
+X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
+ rules found
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzEyLzEgpFekyCAwNjo1NDowMA==?=
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-ServerInfo: RTEXH36503.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+Cc: Oder Chiou <oder_chiou@realtek.com>, jack.yu@realtek.com,
+ alsa-devel@alsa-project.org, jacal_tseng@realtek.com, danielz@nvidia.com,
+ spujar@nvidia.com, albertchen@realtek.com, derek.fang@realtek.com,
+ shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,20 +96,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 01 Dec 2021 09:58:54 +0100,
-Bixuan Cui wrote:
-> 
-> Fix compile error when OSS_DEBUG is enabled:
->     sound/core/oss/pcm_oss.c: In function 'snd_pcm_oss_set_trigger':
->     sound/core/oss/pcm_oss.c:2055:10: error: 'substream' undeclared (first
->     use in this function); did you mean 'csubstream'?
->       pcm_dbg(substream->pcm, "pcm_oss: trigger = 0x%x\n", trigger);
->               ^
-> 
-> Fixes: 61efcee8608c ("ALSA: oss: Use standard printk helpers")
-> Signed-off-by: Bixuan Cui <cuibixuan@linux.alibaba.com>
+The patch fixes the wrong state of the JD with 1M pull up resistor in the
+HDA header.
 
-Thanks, applied.
+Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+---
+ sound/soc/codecs/rt5640.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index 08b37878cb00..f3659b14c74e 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -1973,7 +1973,7 @@ static int rt5640_set_bias_level(struct snd_soc_component *component,
+ 				RT5640_PWR_FV1 | RT5640_PWR_FV2,
+ 				RT5640_PWR_FV1 | RT5640_PWR_FV2);
+ 			snd_soc_component_update_bits(component, RT5640_DUMMY1,
+-						0x0301, 0x0301);
++						0x1, 0x1);
+ 			snd_soc_component_update_bits(component, RT5640_MICBIAS,
+ 						0x0030, 0x0030);
+ 		}
+@@ -2533,7 +2533,7 @@ static void rt5640_enable_hda_jack_detect(
+ 	snd_soc_component_update_bits(component, RT5640_GPIO_CTRL3,
+ 		RT5640_GP1_PF_MASK, RT5640_GP1_PF_OUT);
+ 
+-	snd_soc_component_update_bits(component, RT5640_DUMMY1, 0x700, 0x300);
++	snd_soc_component_update_bits(component, RT5640_DUMMY1, 0x400, 0x0);
+ 
+ 	rt5640->jack = jack;
+ 
+@@ -2651,13 +2651,16 @@ static int rt5640_probe(struct snd_soc_component *component)
+ 
+ 	if (device_property_read_u32(component->dev,
+ 				     "realtek,jack-detect-source", &val) == 0) {
+-		if (val <= RT5640_JD_SRC_GPIO4)
++		if (val <= RT5640_JD_SRC_GPIO4) {
+ 			rt5640->jd_src = val << RT5640_JD_SFT;
+-		else if (val == RT5640_JD_SRC_HDA_HEADER)
++		} else if (val == RT5640_JD_SRC_HDA_HEADER) {
+ 			rt5640->jd_src = RT5640_JD_SRC_HDA_HEADER;
+-		else
++			snd_soc_component_update_bits(component, RT5640_DUMMY1,
++				0x0300, 0x0);
++		} else {
+ 			dev_warn(component->dev, "Warning: Invalid jack-detect-source value: %d, leaving jack-detect disabled\n",
+ 				 val);
++		}
+ 	}
+ 
+ 	if (!device_property_read_bool(component->dev, "realtek,jack-detect-not-inverted"))
+-- 
+2.34.1
 
-Takashi

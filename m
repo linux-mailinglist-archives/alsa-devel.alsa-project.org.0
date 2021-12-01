@@ -2,106 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53DAC4650F6
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 16:08:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD8E44650F8
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 16:10:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D17F525A6;
-	Wed,  1 Dec 2021 16:07:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D17F525A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 792AC25B4;
+	Wed,  1 Dec 2021 16:09:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 792AC25B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638371326;
-	bh=8ALXMW8rz9JIcsQ9/eoBLodlEhhOcRk/FaYb5nyfRfg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1638371419;
+	bh=iGvyVNeshu/8b8+8hat1t39hznxnfHgLyRF1JAYtbko=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KDRF0KIYZeavuPuikF6IhrSxBCbV3EBG8qVeI6GLL3hzOZQznnZxSChD6O89FcPR4
-	 5ODfDqEA8hcxnO07fwr6Vvk9pd2MgqiYjqahSPHIh6H2JDJWK++PBwdpu1htZo1yVJ
-	 xhxFXBRdX7GEaeSSiC8K5TtL6FaCFrZu+is8CvFw=
+	b=rRjDhZkA7G2ujDLbwOgiZGNTzYtZFsTqsW5fBs2m9Yq7T4w1ENp279uMcTPui/Pav
+	 uytMV2xOYS34uE7cz6dUETp5CKOvpFEgFr1tdHPtRQPDDxrT5Xf9eeGKHz56PQVfJI
+	 GIa7Tfh+d2CoVNm6SdpbiKdRp8nziRanyMBIlWlQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E7E7F80249;
-	Wed,  1 Dec 2021 16:07:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00D66F80121;
+	Wed,  1 Dec 2021 16:09:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 836FFF80246; Wed,  1 Dec 2021 16:07:28 +0100 (CET)
+ id B9993F80246; Wed,  1 Dec 2021 16:09:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9D69F80121
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 16:07:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9D69F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76392F80217
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 16:08:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76392F80217
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="jzA4kko/"
-Received: by mail-wm1-x334.google.com with SMTP id
- k37-20020a05600c1ca500b00330cb84834fso22538060wms.2
- for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 07:07:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=qTmietPPTH/OEWz3+GN173yo9RKau03sCp5APng7zRc=;
- b=jzA4kko/2OjjeaobiNKn612JAkABJ27wZLaAMOy6eKCrhon866eDrxxG5nmZ/pRRq2
- NE4zTNZUiSvjcGJnqr9jMhKnIZbPDhYN1GaWw4oZ94U+BAFGZl7jgNf5GNCtyAa/IsNQ
- EqGL+Nfy7ZbYzWlFeKH4LkKnkcjq+YOO8ToWS+Fq9ampksyPKnVye2nICbuZSLTaZWRb
- RyXjpO1L/uC+Wvu0ROkT4uIRvFJUNQ00AR87Gaz4pSTiSg8x+3KFgIIWbfNOYYbVRh0j
- sKLAyrhMOKy3vcG8EgSt2jZmHeqQobEtCv7bY6R0wX+GFvwlckNBPNTZMgFneXXxFPJa
- Z3BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=qTmietPPTH/OEWz3+GN173yo9RKau03sCp5APng7zRc=;
- b=lLGQK4swCkQlVh0BJLeh5gfRR1gLbxmvnrCyjEJ5GcrkXiRsEtlB4nj25HRmkIlq0H
- 8S/I5Ykj6va7jvk68CBZE9QxsWyUOAwelgdNI6r0iPFZokPFE+fjU39xknC6h+UTt17M
- Q7Ovzmw64vWQ3/8oqmN7JS2MECtb50jNPA7gqt4cow7Q9dweyoXVJyVPx3xinDC6Bl4u
- Law94qA7S8lpl+QWX0QvdRFIkxWNcRWGgzkXVcL1TVIOMGQqQYR+h6MfzsGgNF+39DIT
- Z0CCyVGlnDgqNXsmbsd43bUCdR/zBvQ6gTV05BAaYhQ4WC4cQhj8uKANlHztSkX3DOV2
- eUYQ==
-X-Gm-Message-State: AOAM533n+dc1FjFcTWwyp8aY7AZe77fRvOLBzRfsKK1cwlXkUsEznovk
- Wdl3YHQlEaXwng9BVOpS7Eh0pw==
-X-Google-Smtp-Source: ABdhPJw7rj6qis9EWXaZFE/0EATQh6xhhQa51TzS6S/onkXNA+4TsiXKIUSFBX+s/THVcjWw3y8IVA==
-X-Received: by 2002:a05:600c:501f:: with SMTP id
- n31mr7688078wmr.101.1638371244569; 
- Wed, 01 Dec 2021 07:07:24 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id n15sm1360511wmq.38.2021.12.01.07.07.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Dec 2021 07:07:23 -0800 (PST)
-Subject: Re: [PATCH v3 3/5] pinctrl: qcom: Move chip specific functions to
- right files
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org,
- Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org
-References: <1638179932-3353-1-git-send-email-srivasam@codeaurora.org>
- <1638179932-3353-4-git-send-email-srivasam@codeaurora.org>
- <bb08af7e-3b90-2d64-3bb1-f82cc6686184@linaro.org>
- <342898d1-59ef-9104-658d-d992c0126361@codeaurora.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <a9e561cc-67f7-450b-fc08-61ece48e9070@linaro.org>
-Date: Wed, 1 Dec 2021 15:07:22 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
+ header.b="UEKYvnRD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1638371336;
+ x=1669907336; h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-transfer-encoding;
+ bh=IyzzGWlzKAXwqc+qc3u4pYga8XTqhHA9jBEig8JEp14=;
+ b=UEKYvnRDftG0IraY/4J2kMaqjCosrhxtXjUA9E7hXTwxxtf61SkWDLrb
+ egSENw57365TDfRcY0FMIqlHEu5besyW/JQSvg2+AE8H3KF1dj+kf8oI9
+ H7AxxXxX9EpCM58KWC14sGlmGzYLhyvwxDQwCfCyhhz7svDcfzt511ELV
+ uy2/x9Ii5zCwSjCbdAmK9JE5+msZUjRZ4SGuPmk4/4vtpGDK7Jy0tzvy0
+ 2A1la7WJ0RGWaUp3D2REEiKl+Rng17miUahq/yWamJbwkJomADmnj0Emp
+ RV6ctHkJ3M+NovAICQnWVBZVY3GIyzS4gOeGJPUr9AXiBGSUQT4wBGwqB g==;
+Date: Wed, 1 Dec 2021 16:08:43 +0100
+From: Ricard Wanderlof <ricardw@axis.com>
+X-X-Sender: ricardw@lnxricardw1.se.axis.com
+To: Rob Herring <robh+dt@kernel.org>
+Subject: Re: [PATCH v6 1/2] dt-bindings: sound: tlv320adc3xxx: New codec driver
+In-Reply-To: <CAL_JsqLLeSRKmjowWdSHLBiewChRjVzvEn0M3t4_MA5GtAvkZw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2112011606390.30606@lnxricardw1.se.axis.com>
+References: <alpine.DEB.2.21.2112011341340.1159@lnxricardw1.se.axis.com>
+ <CAL_JsqLLeSRKmjowWdSHLBiewChRjVzvEn0M3t4_MA5GtAvkZw@mail.gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <342898d1-59ef-9104-658d-d992c0126361@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
+Content-Type: text/plain; charset="ISO-8859-15"
+Content-Transfer-Encoding: 8BIT
+X-Originating-IP: [10.0.5.60]
+X-ClientProxiedBy: se-mail05w.axis.com (10.20.40.11) To se-mail07w.axis.com
+ (10.20.40.13)
+Cc: alsa-devel <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,71 +85,30 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+On Wed, 1 Dec 2021, Rob Herring wrote:
 
-On 01/12/2021 14:33, Srinivasa Rao Mandadapu wrote:
->>
->>
->>> +enum lpass_lpi_functions {
->>> +    LPI_MUX_dmic1_clk,
->>> +    LPI_MUX_dmic1_data,
->>> +    LPI_MUX_dmic2_clk,
->>> +    LPI_MUX_dmic2_data,
->>> +    LPI_MUX_dmic3_clk,
->>> +    LPI_MUX_dmic3_data,
->>> +    LPI_MUX_i2s1_clk,
->>> +    LPI_MUX_i2s1_data,
->>> +    LPI_MUX_i2s1_ws,
->>> +    LPI_MUX_i2s2_clk,
->>> +    LPI_MUX_i2s2_data,
->>> +    LPI_MUX_i2s2_ws,
->>> +    LPI_MUX_qua_mi2s_data,
->>> +    LPI_MUX_qua_mi2s_sclk,
->>> +    LPI_MUX_qua_mi2s_ws,
->>> +    LPI_MUX_swr_rx_clk,
->>> +    LPI_MUX_swr_rx_data,
->>> +    LPI_MUX_swr_tx_clk,
->>> +    LPI_MUX_swr_tx_data,
->>> +    LPI_MUX_wsa_swr_clk,
->>> +    LPI_MUX_wsa_swr_data,
->>> +    LPI_MUX_gpio,
->>> +    LPI_MUX__,
->>> +};
->>> +
->>> +static const unsigned int gpio0_pins[] = { 0 };
->>> +static const unsigned int gpio1_pins[] = { 1 };
->>> +static const unsigned int gpio2_pins[] = { 2 };
->>> +static const unsigned int gpio3_pins[] = { 3 };
->>> +static const unsigned int gpio4_pins[] = { 4 };
->>> +static const unsigned int gpio5_pins[] = { 5 };
->>> +static const unsigned int gpio6_pins[] = { 6 };
->>> +static const unsigned int gpio7_pins[] = { 7 };
->>> +static const unsigned int gpio8_pins[] = { 8 };
->>> +static const unsigned int gpio9_pins[] = { 9 };
->>> +static const unsigned int gpio10_pins[] = { 10 };
->>> +static const unsigned int gpio11_pins[] = { 11 };
->>> +static const unsigned int gpio12_pins[] = { 12 };
->>> +static const unsigned int gpio13_pins[] = { 13 };
->> >>>
->> to here are specific to sm8250, so it should not be in header file to 
->> start with.
+> On Wed, Dec 1, 2021 at 6:44 AM Ricard Wanderlof <ricardw@axis.com> wrote:
+> >
+> >
+> > DT bindings for tlv320adc3xxx driver, currently supporting
+> > Texas Instruments TLV320ADC3001 and TLV320ADC3101 audio ADCs.
+> >
+> > Signed-off-by: Ricard Wanderlof <ricardw@axis.com>
+> > ---
+> >� .../bindings/sound/ti,tlv320adc3xxx.yaml����� | 137 ++++++++++++++++++
+> >� include/dt-bindings/sound/tlv320adc3xxx.h���� |� 28 ++++
+> >� 2 files changed, 165 insertions(+)
+> >� create mode 100644
+> Documentation/devicetree/bindings/sound/ti,tlv320adc3xxx.yaml
+> >� create mode 100644 include/dt-bindings/sound/tlv320adc3xxx.h
 > 
-> As these are common to all lpass variants.. I feel it's better to keep 
-> in Header file.
+> DT patches need to be sent to DT list for automated checks and to be
+> in my review queue.
 
-You realize that every include of this file will add these static 
-variables to file, in this case to pinctrl-lpass-lpi.c, 
-pinctrl-sm8250-lpass-lpi.c and pinctrl-sc7280-lpass-lpi.c
-so in first file(pinctrl-lpass-lpi.c) you never use those variables in 
-second file (pinctrl-sm8250-lpass-lpi.c)you only use up to gpio13 and in 
-third file pinctrl-sc7280-lpass-lpi.c you could use them.
+Sorry. Will resend this particular patch.
 
-so its really bad idea to add static variables in header files.
-
---srini
-
-> 
-> And if new pins comes in later variants, we can add them incrementally, 
-> and they will not impact existing pin numbers.
-> 
-> I think in upcoming variants number of pins will not decrease.
-> 
+/Ricard
+-- 
+Ricard Wolf Wanderlof                           ricardw(at)axis.com
+Axis Communications AB, Lund, Sweden            www.axis.com
+Phone +46 46 272 2016                           Fax +46 46 13 61 30

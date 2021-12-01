@@ -2,90 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED12146595C
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 23:36:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A73984659FF
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 00:50:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94A762680;
-	Wed,  1 Dec 2021 23:35:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94A762680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2995D2632;
+	Thu,  2 Dec 2021 00:49:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2995D2632
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638398186;
-	bh=MCKdvCEOb/1GIfaanT/gj9t4Gr94IZY+r2Rb5BEveN0=;
+	s=default; t=1638402617;
+	bh=WXficBsL3R8p9bQBI/HNUk8t2ml3NEEwtJR6/vxMJLY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n59P76rvDkINREPHQNFgWoltuoAIO5occDhzEFD2FJ5vi7VhP0GDScwNOWqWYL5lD
-	 90ZlklpWJ9eahqXdIxghm/sUrARcEUb6j6yHbvY1lq9Hs1M6TuIghNhOHKE67nDMaN
-	 YLc2AvB65OO5ewP3u5YJrdEYRt7N8NFb6Zpbor+k=
+	b=RTwwDJRS23WtvskAUni5rmJcM+E3q4ASdizdpa+Q8VmSIA5vtA3eEzguaYFIppP/r
+	 qsWBZd6aQW9tZysNoBrGBF/XOBOBRBaBLDLau74C/JPaXNArBlMbOVudcez791Cok8
+	 dev85p+hpgrNpXWMIcoKop2xuc8CYU7XAXYv2PBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 030A4F80249;
-	Wed,  1 Dec 2021 23:35:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 799D8F80249;
+	Thu,  2 Dec 2021 00:49:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EC5EF80246; Wed,  1 Dec 2021 23:35:06 +0100 (CET)
+ id 8685BF80246; Thu,  2 Dec 2021 00:48:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
+ [209.85.210.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8767F800EE
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 23:34:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8767F800EE
-Received: by mail-oi1-f173.google.com with SMTP id n66so51646976oia.9
- for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 14:34:57 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61A5BF80121
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 00:48:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61A5BF80121
+Received: by mail-ot1-f48.google.com with SMTP id
+ 47-20020a9d0332000000b005798ac20d72so37530353otv.9
+ for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 15:48:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=1cxGpGuXFYT7z9IMgpvEZhppfpCtenqGacj+Q88IAEE=;
- b=yfnn89uwfnDKUwYFZRJRgdMCpDpq/HR8U1hviwk0NLPKmAVydy2zXsbT5d22y1TXJr
- k6TL3QbN46+LrItAobEhhZDDwOZzQzAf2Rs7zHi/8AgG0kOJu0l4AfZzks68Cn6IyF55
- 5EGc52NDUqXsKb1kWnG2PTMe2crXRaMc/zxO8LwXXLezxKEnxaebOLCEg3+v1dcntC4u
- 3VOtW+4tN0W4Vp/+ULW9Q0NegRXIKSoihaoTICIsmHBZy7E3++0iCtn4EWGo6cYE3lba
- 5cdJZqnuTpqCdvbPkQjATCQCRagJbDaa1O7hYWmHuPOrVzwjE+SPeFlfbYGVIPl6p2Bm
- ElQQ==
-X-Gm-Message-State: AOAM533Ezg4et4/Q9RNIjBwLp1OzvWelXv0mBfCUCldGGddQgf/2caG/
- Mvj/DUj9Cg59lKiLS9TMzw==
-X-Google-Smtp-Source: ABdhPJzYVbv04PWEmrUTCr7W5O/7iNRMV3i5k8Bm9QEVICIoEC+6CgArt/iFDuAT12MH7ix6AtarcQ==
-X-Received: by 2002:aca:d608:: with SMTP id n8mr1145835oig.89.1638398095643;
- Wed, 01 Dec 2021 14:34:55 -0800 (PST)
+ bh=fyGAOeBxtb/YjCFPCWVtQ1oMycSzDCqhNkiAf3lW5sQ=;
+ b=i0uFItOYxrK3BBY4tniO3DaOTj3NnugAT1xI3//aohlu8S3NGxvaJ7ZoQ99jaqRfYN
+ GVD50VVgJrKeNXz3y8AIrNhIR9YsZz5vGVLKTcTSqxuvFnDdtFGbtZNcdNCSMXwK5Sgd
+ VU9TZfIlUM2U6x8xWVcRuMGk3SCLZPi/0hphnuM+VS00o6YfGny5Lo+9mSHxcNKOyHEY
+ JbvL52fE0/c1ckxh36Y7vjwuqdBP32IVGjgT31oVf/X6qrub51W9B6JlfTAXoZmW989N
+ JWa93VTNfICqnhzkeWajTTriog9DN6otuaJlmmdufxEKVWZx2ix0hN/3ss6KU+nR/W8X
+ /11w==
+X-Gm-Message-State: AOAM532aQl1ldt7uD4sZV2/LpEsFSGBNmw0uSPUZw8fR1O5kIzf2zBds
+ DyTIgeMhweQBUCQm5Shwzw==
+X-Google-Smtp-Source: ABdhPJwBi/tdif29xfYoe8iVx4zcgBRkwLZVbOdrMx5Fmu2uZy2Kzg0shDNa0g5juvB2yC9OFPvevA==
+X-Received: by 2002:a05:6830:3155:: with SMTP id
+ c21mr8637036ots.7.1638402528023; 
+ Wed, 01 Dec 2021 15:48:48 -0800 (PST)
 Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
  [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id bf17sm655019oib.27.2021.12.01.14.34.54
+ by smtp.gmail.com with ESMTPSA id 109sm506737otv.30.2021.12.01.15.48.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Dec 2021 14:34:55 -0800 (PST)
-Received: (nullmailer pid 2914345 invoked by uid 1000);
- Wed, 01 Dec 2021 22:34:54 -0000
-Date: Wed, 1 Dec 2021 16:34:54 -0600
+ Wed, 01 Dec 2021 15:48:47 -0800 (PST)
+Received: (nullmailer pid 3239358 invoked by uid 1000);
+ Wed, 01 Dec 2021 23:48:46 -0000
+Date: Wed, 1 Dec 2021 17:48:46 -0600
 From: Rob Herring <robh@kernel.org>
-To: Olivier MOYSAN <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH v2 1/4] ASoC: dt-bindings: stm32: i2s: add
- audio-graph-card port
-Message-ID: <Yaf4jiZIp8+ndaXs@robh.at.kernel.org>
-References: <20211125144053.774-1-olivier.moysan@foss.st.com>
- <20211125144053.774-2-olivier.moysan@foss.st.com>
- <1637875562.357461.2858318.nullmailer@robh.at.kernel.org>
- <237f56b3-0597-2526-a182-f1fbdd327338@foss.st.com>
+To: Dmitry Osipenko <digetx@gmail.com>
+Subject: Re: [PATCH v2 01/20] ASoC: dt-bindings: Add binding for Tegra20 S/PDIF
+Message-ID: <YagJ3rKTmE3xSGg4@robh.at.kernel.org>
+References: <20211126161807.15776-1-digetx@gmail.com>
+ <20211126161807.15776-2-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <237f56b3-0597-2526-a182-f1fbdd327338@foss.st.com>
+In-Reply-To: <20211126161807.15776-2-digetx@gmail.com>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Olivier Moysan <olivier.moysan@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, amelie.delaunay@foss.st.com,
- fabrice.gasnier@foss.st.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- alain.volmat@foss.st.com, arnaud.pouliquen@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ dri-devel@lists.freedesktop.org, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Agneli <poczt@protonmail.ch>,
+ linux-tegra@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,66 +97,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 26, 2021 at 11:25:27AM +0100, Olivier MOYSAN wrote:
-> Hi Rob,
+On Fri, Nov 26, 2021 at 07:17:48PM +0300, Dmitry Osipenko wrote:
+> Add device-tree binding for Tegra20 S/PDIF controller.
 > 
-> On 11/25/21 10:26 PM, Rob Herring wrote:
-> > On Thu, 25 Nov 2021 15:40:50 +0100, Olivier Moysan wrote:
-> > > The STM2 I2S DAI can be connected via the audio-graph-card.
-> > > Add port entry into the bindings.
-> > > 
-> > > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> > > ---
-> > >   Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml | 5 +++++
-> > >   1 file changed, 5 insertions(+)
-> > > 
-> > 
-> > Running 'make dtbs_check' with the schema in this patch gives the
-> > following warnings. Consider if they are expected or the schema is
-> > incorrect. These may not be new warnings.
-> > 
-> > Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-> > This will change in the future.
-> > 
-> > Full log is available here: https://patchwork.ozlabs.org/patch/1559750
-> > 
-> > 
-> > audio-controller@4000b000: 'port' does not match any of the regexes: '^port@[0-9]', 'pinctrl-[0-9]+'
-> > 	arch/arm/boot/dts/stm32mp157a-dk1.dt.yaml
-> > 	arch/arm/boot/dts/stm32mp157c-dk2.dt.yaml
-> > 
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> ---
+>  .../bindings/sound/nvidia,tegra20-spdif.yaml  | 85 +++++++++++++++++++
+>  1 file changed, 85 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-spdif.yaml
 > 
-> This warning is not a new one.
-> 
-> The i2s2 node in stm32mp15xx-dkx.dtsi would require the following binding:
-> port:
-> 	$ref: audio-graph-port.yaml#
-> 	unevaluatedProperties: false
-> 
-> However the spi binding requires to introduce a unit address:
-> patternProperties:
->   '^port@[0-9]':
->     $ref: audio-graph-port.yaml#
->     unevaluatedProperties: false
-> 
-> The warning can be removed by re-ordering the bindings patches in the serie,
-> as "additionalProperties: true" makes the check more tolerant on extra
-> properties.
+> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra20-spdif.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra20-spdif.yaml
+> new file mode 100644
+> index 000000000000..00240205817d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra20-spdif.yaml
+> @@ -0,0 +1,85 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/nvidia,tegra20-spdif.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: NVIDIA Tegra20 S/PDIF Controller
+> +
+> +description: |
+> +  The S/PDIF controller supports both input and output in serial audio
+> +  digital interface format. The input controller can digitally recover
+> +  a clock from the received stream. The S/PDIF controller is also used
+> +  to generate the embedded audio for HDMI output channel.
+> +
+> +maintainers:
+> +  - Thierry Reding <treding@nvidia.com>
+> +  - Jon Hunter <jonathanh@nvidia.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: nvidia,tegra20-spdif
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    minItems: 2
+> +
+> +  clock-names:
+> +    items:
+> +      - const: spdif_out
+> +      - const: spdif_in
 
-That's never right.
+'spdif_' is redundant.
 
-> The patch "ASoC: dt-bindings: stm32: i2s: add audio-graph-card port" can
-> even be merely dropped.
-> So, I suggest to resend the serie without audio-graph-card patch.
+Otherwise,
 
-Only if you aren't using audio-graph-card.
-
-> 
-> Does it sound too permissive to you ?
-
-I think perhaps you need to combine the schemas into 1. Or you need to 
-restructure your dtsi files such that you only add spi specific 
-properties when spi mode is enabled and only add i2s specific properties 
-when i2s mode is enabled. Or use the /delete-property/ directive.
-
-Rob
+Reviewed-by: Rob Herring <robh@kernel.org>

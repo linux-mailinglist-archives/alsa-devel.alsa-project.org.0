@@ -2,76 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D769F465448
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 18:50:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA7934654A7
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 19:02:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 764D72608;
-	Wed,  1 Dec 2021 18:49:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 764D72608
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CE5B263B;
+	Wed,  1 Dec 2021 19:01:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CE5B263B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638381047;
-	bh=Brk69ITNANm8GtoKP5Z3rUd/O8O8TMXLqjraNs7vWXk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=B2DoaUzGIh+RLlUuWfeeH2XPeRdxZiLgqyY9aKveliXSW0LCCaZ3K5ip0mu9xZx+M
-	 fL52w9pNrn1nY0patg0CMGtgYZAjBRiPEWApQcT6L4VnF2A8EmE7TqYTV9ijBr/2p6
-	 9ZAwKlUt1fMLEsWmZznzic2qEqYlyrjhuq4ZqWVw=
+	s=default; t=1638381722;
+	bh=mskSgyAJDQ8WEoHrGfm+8+QCDWx1Yf7zW0xDLbn3D9Q=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=B0nwXNaVLvWD94PoQEmUBmj09Ql21H4H8MFJl/2w1kKw+zelI/NSWEglMZMVpDR9F
+	 ppFVTQvxcPBXi1W6LsocvCmP6uqKTEQC8UrhLhEKqQv6yk0t99/fH524260aWM645z
+	 Oxg0TY7ipZlMPe+08HeMhzXKmQf3U+Ds+jqYlHXk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8FDCF800EE;
-	Wed,  1 Dec 2021 18:49:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 589EAF804EB;
+	Wed,  1 Dec 2021 19:00:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA892F80246; Wed,  1 Dec 2021 18:49:28 +0100 (CET)
+ id DFD38F8028D; Wed,  1 Dec 2021 19:00:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE409F800EE
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 18:49:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE409F800EE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="b01bWCud"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 7730ACE2003;
- Wed,  1 Dec 2021 17:49:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF970C53FCC;
- Wed,  1 Dec 2021 17:49:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638380957;
- bh=Brk69ITNANm8GtoKP5Z3rUd/O8O8TMXLqjraNs7vWXk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=b01bWCud5jDr259w60dEanzC7vuitJxiazlBIf4djq4Qj1kMUl6dCmS/XMhONnSXw
- 2s1ywsPWkvXhaXI+bws6DttM4XoYscBGvC3iGLbAKv57kCp70Y/F31hEXwfyUsWt7m
- H15HEZf0MkMo2hur8s12IKc0U+3hpOpx1g4vnr5zPvxVgSANHKRxk6huwF2WDPdRkn
- mKS/RFZHLbs33oe7c8/We4cYd2U+CoFw7eupfyFg8VlYEh4qLI+kc+Vvkp6uKQZYnb
- DoDZK4ILq2kRTpXpWbmHBiI6jbxFXu2FKxjUBmBdJghF1wJeLwK5QFzbwuNsx6JjUl
- SsL+o1Z3qBLuQ==
-Date: Wed, 1 Dec 2021 17:49:12 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH 1/2] ASoC: amd: Fix dependency for SPI master
-Message-ID: <Yae1mPxvy82OfORz@sirena.org.uk>
-References: <20211201174307.1399625-1-tanureal@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8D4EF80240
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 19:00:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8D4EF80240
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="Ejv2gTYd"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B150FOq020440;
+ Wed, 1 Dec 2021 12:00:08 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=zvuDB81jMVYurNmZDyITgoCw52lNavBJMeVaz+gA898=;
+ b=Ejv2gTYdRmu5lhj5yJisIj2rkHWMpnFqoIdTE4lSQc6vwPALdJc0/6md1cqZifAIOQet
+ c1q9bJz6k7jBnlUde/oHrgv3HpoiZ+AmtaX9byDO6JtlpA35kG1OTz0M+s2tZNkHhVlf
+ l6GDXSIxZoTvo82HGHdctZWfBn6HzPI5RN+r3lVEk7v9jAVZRO/FM/FzlgTmxcTYFyjn
+ upcVenYm/Sig69HqF/Q4Fr8XWT0rdQqYvMRXfFNjumnbTdwV77C/ks5J0b0uSC8/ZBof
+ wLvTleyPm7cePy6/6BRPweMK68Te22sB3SuEfuD8npV5nbiRAlxv6S8C3ssGE6weRYS+ iw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3cp1x10txm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 01 Dec 2021 12:00:08 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 1 Dec
+ 2021 18:00:06 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Wed, 1 Dec 2021 18:00:06 +0000
+Received: from aryzen.ad.cirrus.com (unknown [198.61.64.238])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2831A2A9;
+ Wed,  1 Dec 2021 18:00:06 +0000 (UTC)
+From: Lucas Tanure <tanureal@opensource.cirrus.com>
+To: Len Brown <lenb@kernel.org>, Takashi Iwai <tiwai@suse.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Mark Brown
+ <broonie@kernel.org>
+Subject: [PATCH v2 1/2] ASoC: amd: Fix dependency for SPI master
+Date: Wed, 1 Dec 2021 18:00:03 +0000
+Message-ID: <20211201180004.1402156-1-tanureal@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Rl5rCMjYGRvwkRHy"
-Content-Disposition: inline
-In-Reply-To: <20211201174307.1399625-1-tanureal@opensource.cirrus.com>
-X-Cookie: All true wisdom is found on T-shirts.
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Len Brown <lenb@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: OpJqvcrtiV-HFQpB1iRBmDess_psbXKa
+X-Proofpoint-ORIG-GUID: OpJqvcrtiV-HFQpB1iRBmDess_psbXKa
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ kernel test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,33 +98,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Set SPI_MASTER as dependency as is using CS35L41 SPI driver
 
---Rl5rCMjYGRvwkRHy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: 96792fdd77cd1 ("ASoC: amd: enable vangogh platform machine driver build")
 
-On Wed, Dec 01, 2021 at 05:43:06PM +0000, Lucas Tanure wrote:
-> Select SPI_MASTER as is using CS35L41 SPI driver
+Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+Reported-by: kernel test robot <lkp@intel.com>
+---
+v2 -> Fix patch description
 
-> -	depends on SND_SOC_AMD_ACP5x && I2C
-> +	depends on SND_SOC_AMD_ACP5x && I2C && SPI_MASTER
+ sound/soc/amd/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This is a depends not a select (which is good, a select wouldn't be
-appropriate here).
+diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+index 092966ff5ea7..8961b8fd23eb 100644
+--- a/sound/soc/amd/Kconfig
++++ b/sound/soc/amd/Kconfig
+@@ -68,7 +68,7 @@ config SND_SOC_AMD_VANGOGH_MACH
+ 	tristate "AMD Vangogh support for NAU8821 CS35L41"
+ 	select SND_SOC_NAU8821
+ 	select SND_SOC_CS35L41_SPI
+-	depends on SND_SOC_AMD_ACP5x && I2C
++	depends on SND_SOC_AMD_ACP5x && I2C && SPI_MASTER
+ 	help
+ 	  This option enables machine driver for Vangogh platform
+ 	  using NAU8821 and CS35L41 codecs.
+-- 
+2.34.1
 
---Rl5rCMjYGRvwkRHy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGntZcACgkQJNaLcl1U
-h9BPaAf/eSG+AALgRUVHBsCL7mBTlkMMB+SpF0gPhWHYYZb/3RY7ehJmKagYeR1N
-79PiIcGmuIRJrgQESqdBva18ZRUKNYCU0pV/QgeUBqYLgoEOUMFLu7C/PN0QTLRO
-DxldjkK9419RHw+4MIrUA+JuHCCi9MrsmPl+KhCWShSwNJRVU2HczFxy3nUS2jJB
-WApP7Cx5zQDNjQGvKRIRgOO+rrm40h0QRgAjiM2X4RSpwPQyilDFWJPO6snxls3A
-rwi/GrKuj/GYz7pQvYaebqwczJYnhdH/v1iNioqHVhLDvzJL/VQ4rdaiFGthAVDa
-GOHrisWoarI53pzxugUG7AzBcVWOBQ==
-=fKwA
------END PGP SIGNATURE-----
-
---Rl5rCMjYGRvwkRHy--

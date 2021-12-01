@@ -2,96 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E52C64644F9
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 03:37:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC46464718
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 07:17:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8801322DF;
-	Wed,  1 Dec 2021 03:37:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8801322DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 641B12232;
+	Wed,  1 Dec 2021 07:16:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 641B12232
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638326279;
-	bh=eKpADFNI9r0wosrDhGeGe21CBCvWOY24FRk45QpAwAw=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1638339469;
+	bh=GEv0bc4q9vmFhTfuUAQuQd+YXzdtbaahTS1VLi6Kd60=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fT3PhnW4MUZTlYLUgCtcvOFh4I8vK2hwGAWbbTQB9gfowg4+CTpqvwa+dPcoF01LK
-	 /vzjhlqPDlcfRbNBBiMChzmSqKKdE2xCPmf4ikuSNvymo2jeLt8+ep/N0QeyB5lRV4
-	 2uMYxvYvP1k1FwJk/BDjKMSaBK6SFpIKWrfO6YIQ=
+	b=pPTUdmbBv5dsZfG53kkC9PFq4QUmLHqvLuBfHee7KqaXhbXTVxZbzV/79m1Kra1yv
+	 CdgWHJ9h316iudZWJWIsWiSDbyapJkkcOOCKRQZ7/i5R59J0z7+oFmcb2SqlxPfVH+
+	 RXoYxY7CH0pP3GCqj9SkDzBbgQGzIxTMEgbk125c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A8F7F802E0;
-	Wed,  1 Dec 2021 03:36:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8373F800EE;
+	Wed,  1 Dec 2021 07:16:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59722F802A0; Wed,  1 Dec 2021 03:36:41 +0100 (CET)
+ id 5A605F80246; Wed,  1 Dec 2021 07:16:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=0.0 required=5.0 tests=HTML_MESSAGE,NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97A25F8028D
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 03:36:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97A25F8028D
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 1B12aImvD010321,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36503.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 1B12aImvD010321
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 1 Dec 2021 10:36:19 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36503.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Wed, 1 Dec 2021 10:36:18 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.15; Wed, 1 Dec 2021 10:36:18 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::107e:9fac:eaf0:4da2]) by
- RTEXMBS01.realtek.com.tw ([fe80::107e:9fac:eaf0:4da2%5]) with mapi id
- 15.01.2308.015; Wed, 1 Dec 2021 10:36:18 +0800
-From: Jack Yu <jack.yu@realtek.com>
-To: =?utf-8?B?UMOpdGVyIFVqZmFsdXNp?= <peter.ujfalusi@linux.intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>
-Subject: RE: [PATCH] ASoC: rt1011: revert 'I2S Reference' to SOC_ENUM_EXT
-Thread-Topic: [PATCH] ASoC: rt1011: revert 'I2S Reference' to SOC_ENUM_EXT
-Thread-Index: AQHX1tzpRRhfu9oUlky/cwl9pXXLAKwbhdYAgAF+YpA=
-Date: Wed, 1 Dec 2021 02:36:18 +0000
-Message-ID: <58fb5f01ad11482f8777e7d4d1ced173@realtek.com>
-References: <20211111091705.20879-1-jack.yu@realtek.com>
- <2c3eb3db-d32c-edbf-75b3-29ab478cea13@linux.intel.com>
-In-Reply-To: <2c3eb3db-d32c-edbf-75b3-29ab478cea13@linux.intel.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.167]
-x-kse-serverinfo: RTEXMBS01.realtek.com.tw, 9
-x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
- rules found
-x-kse-antivirus-interceptor-info: scan successful
-x-kse-antivirus-info: =?utf-8?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzExLzMwIOS4i+WNiCAxMToxNjowMA==?=
-x-kse-bulkmessagesfiltering-scan-result: protection disabled
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B41AF800EE
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 07:16:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B41AF800EE
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R301e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=cuibixuan@linux.alibaba.com;
+ NM=1; PH=DS; RN=5; SR=0; TI=SMTPD_---0Uz-5p3q_1638339372; 
+Received: from 30.43.84.33(mailfrom:cuibixuan@linux.alibaba.com
+ fp:SMTPD_---0Uz-5p3q_1638339372) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 01 Dec 2021 14:16:13 +0800
+Message-ID: <30df3dc3-9160-e14f-16f5-139c63effd30@linux.alibaba.com>
+Date: Wed, 1 Dec 2021 14:16:12 +0800
 MIME-Version: 1.0
-X-KSE-ServerInfo: RTEXH36503.realtek.com.tw, 9
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- =?utf-8?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFvpmbPlu7rlro9d?=
- <kent_chen@realtek.com>,
- =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.1.1
+Subject: Re: [PATCH -next] ALSA: Fix oversized kvmalloc() calls
+To: Takashi Iwai <tiwai@suse.de>
+References: <1638270978-42412-1-git-send-email-cuibixuan@linux.alibaba.com>
+ <s5h1r2x50uo.wl-tiwai@suse.de> <s5htuft20y6.wl-tiwai@suse.de>
+From: Bixuan Cui <cuibixuan@linux.alibaba.com>
+In-Reply-To: <s5htuft20y6.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, inux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,110 +74,144 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgUGV0ZXIsDQoNCj4gT24gMTEvMTEvMjAyMSAxMToxNywgSmFjayBZdSB3cm90ZToNCj4gPiBS
-ZXZlcnQgJ0kyUyBSZWZlcmVuY2UnIHRvIFNPQ19FTlVNX0VYVCBiZWNhdXNlIHRoZSBzZXR0aW5n
-cyBhcmUNCj4gPiBzcGVjaWZpYyBmb3Igc29tZSBwbGF0Zm9ybXMsIHRoZSBkZWZhdWx0IHNldHRp
-bmcgZm9yICdJMlMgUmVmZXJlbmNlJw0KPiA+IGRvZXMgbm90aGluZywgb25seSBzb21lIFNvQyBw
-bGF0Zm9ybSBuZWVkIHRvIGNvbmZpZ3VyZSBpdC4NCj4gPiBQcmV2aW91cyAnSTJTIFJlZmVyZW5j
-ZScgaW4gU09DX0VOVU0gZm9ybWF0IG9ubHkgdG9nZ2xlcyBvbmUgYml0IG9mDQo+ID4gUlQxMDEx
-X1RETTFfU0VUXzEgcmVnaXN0ZXIsIHdoaWNoIGlzbid0IGVub3VnaCBmb3Igc3BlY2lmaWMgcGxh
-dGZvcm0uDQo+IA0KPiBUaGlzIHBhdGNoIGFnYWluIGJyZWFrcyBhdWRpbyBidXQgaW4gYSBsZXNz
-IG9idmlvdXMgd2F5Lg0KPiBJZiBhIHVzZXIgX2V2ZXJfIHRvdWNoZXMgdGhlICJJMlMgUmVmZXJl
-bmNlIiB0aGVuIGF1ZGlvIHBsYXliYWNrIHdpbGwgbmV2ZXINCj4gZ29pbmcgdG8gd29yayBhZ2Fp
-biBhcyBpbnN0ZWFkIG9mIGNoYW5naW5nIHRoZSBpMnMgcmVmZXJlbmNlIHRoZSBjb2RlIGNsZWFy
-cyBhbGwNCj4gc2V0dGluZ3MgZG9uZSBieSBzZXRfdGRtX3Nsb3QsIGRhaV9mbXQgdG8gc29tZXRo
-aW5nIHdoaWNoIGlzIHNvbWUgcHJvZHVjdA0KPiBzcGVjaWZpYyBzZXR0aW5nLg0KPiBPbmUgd291
-bGQgdGhpbmsgdGhhdCBhIHJlYm9vdCBoZWxwcywgYnV0IG9uIGJvb3Qgd2UgdGVuZCB0byByZXN0
-b3JlIHRoZSBzYXZlZA0KPiBhbWl4ZXIgc2V0dGluZ3MgLT4gYXVkaW8gcGxheWJhY2sgaXMgYnJv
-a2VuLg0KPiBTbywgYmVmb3JlIHJlYm9vdCBvbmUgaGFzIHRvIHNldCB0aGUgcmVmZXJlbmNlIHRv
-IE5vbmUgYW5kIHJlYm9vdCBhbmQgaG9wZQ0KPiB0aGF0IG9uIGJvb3QgdGhlIE5PUCAoTm9uZSkg
-aXMgZ29pbmcgdG8gYmUgc2V0IHdoaWNoIG1lYW5zIHRoYXQgdGhlIGN1c3RvbQ0KPiBlbnVtIGNv
-ZGUgd291bGQgbm90IG92ZXJ3cml0ZSB0aGUgY29uZmlndXJhdGlvbiBvZiB0aGUgY29kZWMuDQo+
-IA0KPiBUaGVyZSBpcyBhIHNpbmdsZSBiaXQgaW4gUlQxMDExX1RETTFfU0VUXzEgKGJpdCA3KSB3
-aGljaCBzZWxlY3RzIHRoZSBJMlMNCj4gcmVmZXJlbmNlIGFuZCB0aGUgcmVzZXQgdmFsdWUgaXMg
-TGVmdCAoMCkuDQo+IA0KPiBXaXRoIHRoaXMgY3VzdG9tIGVudW0gcHV0IGNvZGUgeW91IGVmZmVj
-dGl2ZWx5IHJlY29uZmlndXJlIHRoZSBjb2RlIHRvIGJlDQo+IHVudXNhYmxlIG9uIG1vc3QgbGlr
-ZWx5IGluIGFsbCBzeXN0ZW1zIGV4Y2VwdCB0aGUgb25lIHdoaWNoIG5lZWRzIHRoZXNlDQo+IHNl
-dHRpbmdzLi4uDQo+IA0KVGhpcyBwYXRjaCBpcyBzcGVjaWZpYyBmb3IgZGV2aWNlIHdoaWNoIHVz
-ZXMgSTJTIGZvcm1hdCBhbmQgbmVlZCB0aGUgcmVmZXJlbmNlIGRhdGEsIA0KaWYgdGhlIGRldmlj
-ZSB1c2VzIFRETSBmb3JtYXQsIGl0IGRvZXNuJ3QgbmVlZCB0byBjYWxsICJJMlMgUmVmZXJlbmNl
-ICIuDQoNCklmIGRldmljZSBydW5zIFRETSBtb2RlLCBtYWNoaW5lIGRyaXZlciBzZXRzIFRETSBz
-bG90IGFuZCBEQUkgZm9ybWF0LCBidXQgbm8gbmVlZCB0byBjYWxsICIgSTJTIHJlZmVyZW5jZSAi
-Lg0KSWYgZGV2aWNlIHJ1bnMgSTJTIG1vZGUsIG1hY2hpbmUgZHJpdmVyIHNldHMgSTJTIERBSSBm
-b3JtYXQsIGFuZCB1Y20gc2V0cyAiSTJTIHJlZmVyZW5jZSIgKGl0J3Mgb3B0aW9uYWwsIG9ubHkg
-aWYgZGV2aWNlIG5lZWRzIHJlZmVyZW5jZSBzaWduYWwgKQ0KDQo+ID4NCj4gPiBTaWduZWQtb2Zm
-LWJ5OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29tPg0KPiA+IC0tLQ0KPiA+ICBzb3VuZC9z
-b2MvY29kZWNzL3J0MTAxMS5jIHwgNTUNCj4gPiArKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrLS0tLS0NCj4gPiAgc291bmQvc29jL2NvZGVjcy9ydDEwMTEuaCB8ICA3ICsrKysrDQo+
-ID4gIDIgZmlsZXMgY2hhbmdlZCwgNTYgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkNCj4g
-Pg0KPiA+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL3J0MTAxMS5jIGIvc291bmQvc29j
-L2NvZGVjcy9ydDEwMTEuYw0KPiA+IGluZGV4IDI5N2FmN2ZmODI0Yy4uYjYyMzAxYTYyODFmIDEw
-MDY0NA0KPiA+IC0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDExLmMNCj4gPiArKysgYi9zb3Vu
-ZC9zb2MvY29kZWNzL3J0MTAxMS5jDQo+ID4gQEAgLTEzMTEsMTMgKzEzMTEsNTQgQEAgc3RhdGlj
-IGludCBydDEwMTFfcjBfbG9hZF9pbmZvKHN0cnVjdA0KPiBzbmRfa2NvbnRyb2wgKmtjb250cm9s
-LA0KPiA+ICAJLnB1dCA9IHJ0MTAxMV9yMF9sb2FkX21vZGVfcHV0IFwNCj4gPiAgfQ0KPiA+DQo+
-ID4gLXN0YXRpYyBjb25zdCBjaGFyICogY29uc3QgcnQxMDExX2kyc19yZWZfdGV4dHNbXSA9IHsN
-Cj4gPiAtCSJMZWZ0IENoYW5uZWwiLCAiUmlnaHQgQ2hhbm5lbCINCj4gPiArc3RhdGljIGNvbnN0
-IGNoYXIgKiBjb25zdCBydDEwMTFfaTJzX3JlZltdID0gew0KPiA+ICsJIk5vbmUiLCAiTGVmdCBD
-aGFubmVsIiwgIlJpZ2h0IENoYW5uZWwiDQo+ID4gIH07DQo+ID4NCj4gPiAtc3RhdGljIFNPQ19F
-TlVNX1NJTkdMRV9ERUNMKHJ0MTAxMV9pMnNfcmVmX2VudW0sDQo+ID4gLQkJCSAgICBSVDEwMTFf
-VERNMV9TRVRfMSwgNywNCj4gPiAtCQkJICAgIHJ0MTAxMV9pMnNfcmVmX3RleHRzKTsNCj4gPiAr
-c3RhdGljIFNPQ19FTlVNX1NJTkdMRV9ERUNMKHJ0MTAxMV9pMnNfcmVmX2VudW0sIDAsIDAsDQo+
-ID4gKwlydDEwMTFfaTJzX3JlZik7DQo+ID4gKw0KPiA+ICtzdGF0aWMgaW50IHJ0MTAxMV9pMnNf
-cmVmX3B1dChzdHJ1Y3Qgc25kX2tjb250cm9sICprY29udHJvbCwNCj4gPiArCQlzdHJ1Y3Qgc25k
-X2N0bF9lbGVtX3ZhbHVlICp1Y29udHJvbCkgew0KPiA+ICsJc3RydWN0IHNuZF9zb2NfY29tcG9u
-ZW50ICpjb21wb25lbnQgPQ0KPiA+ICsJCXNuZF9zb2Nfa2NvbnRyb2xfY29tcG9uZW50KGtjb250
-cm9sKTsNCj4gPiArCXN0cnVjdCBydDEwMTFfcHJpdiAqcnQxMDExID0NCj4gPiArCQlzbmRfc29j
-X2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOw0KPiA+ICsNCj4gPiArCXJ0MTAxMS0+
-aTJzX3JlZiA9IHVjb250cm9sLT52YWx1ZS5lbnVtZXJhdGVkLml0ZW1bMF07DQo+ID4gKwlzd2l0
-Y2ggKHJ0MTAxMS0+aTJzX3JlZikgew0KPiA+ICsJY2FzZSBSVDEwMTFfSTJTX1JFRl9MRUZUX0NI
-Og0KPiA+ICsJCXJlZ21hcF93cml0ZShydDEwMTEtPnJlZ21hcCwgUlQxMDExX1RETV9UT1RBTF9T
-RVQsIDB4MDI0MCk7DQo+ID4gKwkJcmVnbWFwX3dyaXRlKHJ0MTAxMS0+cmVnbWFwLCBSVDEwMTFf
-VERNMV9TRVRfMiwgMHg4KTsNCj4gPiArCQlyZWdtYXBfd3JpdGUocnQxMDExLT5yZWdtYXAsIFJU
-MTAxMV9URE0xX1NFVF8xLCAweDEwMjIpOw0KPiA+ICsJCXJlZ21hcF93cml0ZShydDEwMTEtPnJl
-Z21hcCwgUlQxMDExX0FEQ0RBVF9PVVRfU09VUkNFLA0KPiAweDQpOw0KPiA+ICsJCWJyZWFrOw0K
-PiA+ICsJY2FzZSBSVDEwMTFfSTJTX1JFRl9SSUdIVF9DSDoNCj4gPiArCQlyZWdtYXBfd3JpdGUo
-cnQxMDExLT5yZWdtYXAsIFJUMTAxMV9URE1fVE9UQUxfU0VULCAweDAyNDApOw0KPiA+ICsJCXJl
-Z21hcF93cml0ZShydDEwMTEtPnJlZ21hcCwgUlQxMDExX1RETTFfU0VUXzIsIDB4OCk7DQo+ID4g
-KwkJcmVnbWFwX3dyaXRlKHJ0MTAxMS0+cmVnbWFwLCBSVDEwMTFfVERNMV9TRVRfMSwgMHgxMGEy
-KTsNCj4gPiArCQlyZWdtYXBfd3JpdGUocnQxMDExLT5yZWdtYXAsIFJUMTAxMV9BRENEQVRfT1VU
-X1NPVVJDRSwNCj4gMHg0KTsNCj4gPiArCQlicmVhazsNCj4gPiArCWRlZmF1bHQ6DQo+ID4gKwkJ
-ZGV2X2luZm8oY29tcG9uZW50LT5kZXYsICJJMlMgUmVmZXJlbmNlOiBEbyBub3RoaW5nXG4iKTsN
-Cj4gPiArCX0NCj4gPiArDQo+ID4gKwlyZXR1cm4gMDsNCj4gPiArfQ0KPiA+ICsNCj4gPiArc3Rh
-dGljIGludCBydDEwMTFfaTJzX3JlZl9nZXQoc3RydWN0IHNuZF9rY29udHJvbCAqa2NvbnRyb2ws
-DQo+ID4gKwkJc3RydWN0IHNuZF9jdGxfZWxlbV92YWx1ZSAqdWNvbnRyb2wpIHsNCj4gPiArCXN0
-cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50ID0NCj4gPiArCQlzbmRfc29jX2tjb250
-cm9sX2NvbXBvbmVudChrY29udHJvbCk7DQo+ID4gKwlzdHJ1Y3QgcnQxMDExX3ByaXYgKnJ0MTAx
-MSA9DQo+ID4gKwkJc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsNCj4g
-PiArDQo+ID4gKwl1Y29udHJvbC0+dmFsdWUuZW51bWVyYXRlZC5pdGVtWzBdID0gcnQxMDExLT5p
-MnNfcmVmOw0KPiA+ICsNCj4gPiArCXJldHVybiAwOw0KPiA+ICt9DQo+ID4NCj4gPiAgc3RhdGlj
-IGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHJ0MTAxMV9zbmRfY29udHJvbHNbXSA9IHsN
-Cj4gPiAgCS8qIEkyUyBEYXRhIEluIFNlbGVjdGlvbiAqLw0KPiA+IEBAIC0xMzU4LDcgKzEzOTks
-OCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9rY29udHJvbF9uZXcNCj4gcnQxMDExX3NuZF9j
-b250cm9sc1tdID0gew0KPiA+ICAJU09DX1NJTkdMRSgiUjAgVGVtcGVyYXR1cmUiLCBSVDEwMTFf
-U1RQX0lOSVRJQUxfUkVTSVNUQU5DRV9URU1QLA0KPiA+ICAJCTIsIDI1NSwgMCksDQo+ID4gIAkv
-KiBJMlMgUmVmZXJlbmNlICovDQo+ID4gLQlTT0NfRU5VTSgiSTJTIFJlZmVyZW5jZSIsIHJ0MTAx
-MV9pMnNfcmVmX2VudW0pLA0KPiA+ICsJU09DX0VOVU1fRVhUKCJJMlMgUmVmZXJlbmNlIiwgcnQx
-MDExX2kyc19yZWZfZW51bSwNCj4gPiArCQlydDEwMTFfaTJzX3JlZl9nZXQsIHJ0MTAxMV9pMnNf
-cmVmX3B1dCksDQo+ID4gIH07DQo+ID4NCj4gPiAgc3RhdGljIGludCBydDEwMTFfaXNfc3lzX2Ns
-a19mcm9tX3BsbChzdHJ1Y3Qgc25kX3NvY19kYXBtX3dpZGdldA0KPiA+ICpzb3VyY2UsIEBAIC0y
-MDE3LDYgKzIwNTksNyBAQCBzdGF0aWMgaW50IHJ0MTAxMV9wcm9iZShzdHJ1Y3QNCj4gPiBzbmRf
-c29jX2NvbXBvbmVudCAqY29tcG9uZW50KQ0KPiA+DQo+ID4gIAlzY2hlZHVsZV93b3JrKCZydDEw
-MTEtPmNhbGlfd29yayk7DQo+ID4NCj4gPiArCXJ0MTAxMS0+aTJzX3JlZiA9IDA7DQo+ID4gIAly
-dDEwMTEtPmJxX2RyY19wYXJhbXMgPSBkZXZtX2tjYWxsb2MoY29tcG9uZW50LT5kZXYsDQo+ID4g
-IAkJUlQxMDExX0FEVk1PREVfTlVNLCBzaXplb2Yoc3RydWN0IHJ0MTAxMV9icV9kcmNfcGFyYW1z
-ICopLA0KPiA+ICAJCUdGUF9LRVJORUwpOw0KPiA+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29k
-ZWNzL3J0MTAxMS5oIGIvc291bmQvc29jL2NvZGVjcy9ydDEwMTEuaA0KPiA+IGluZGV4IDY4ZmFk
-YzE1ZmE4Yy4uNGQ2ZTc0OTJkOTljIDEwMDY0NA0KPiA+IC0tLSBhL3NvdW5kL3NvYy9jb2RlY3Mv
-cnQxMDExLmgNCj4gPiArKysgYi9zb3VuZC9zb2MvY29kZWNzL3J0MTAxMS5oDQo+ID4gQEAgLTY1
-NCw2ICs2NTQsMTIgQEAgZW51bSB7DQo+ID4gIAlSVDEwMTFfQUlGUw0KPiA+ICB9Ow0KPiA+DQo+
-ID4gK2VudW0gew0KPiA+ICsJUlQxMDExX0kyU19SRUZfTk9ORSwNCj4gPiArCVJUMTAxMV9JMlNf
-UkVGX0xFRlRfQ0gsDQo+ID4gKwlSVDEwMTFfSTJTX1JFRl9SSUdIVF9DSCwNCj4gPiArfTsNCj4g
-PiArDQo+ID4gIC8qIEJpUXVhbCAmIERSQyByZWxhdGVkIHNldHRpbmdzICovDQo+ID4gICNkZWZp
-bmUgUlQxMDExX0JRX0RSQ19OVU0gMTI4DQo+ID4gIHN0cnVjdCBydDEwMTFfYnFfZHJjX3BhcmFt
-cyB7DQo+ID4gQEAgLTY5Miw2ICs2OTgsNyBAQCBzdHJ1Y3QgcnQxMDExX3ByaXYgew0KPiA+ICAJ
-dW5zaWduZWQgaW50IHIwX3JlZywgY2FsaV9kb25lOw0KPiA+ICAJdW5zaWduZWQgaW50IHIwX2Nh
-bGliLCB0ZW1wZXJhdHVyZV9jYWxpYjsNCj4gPiAgCWludCByZWN2X3Nwa19tb2RlOw0KPiA+ICsJ
-aW50IGkyc19yZWY7DQo+ID4gIH07DQo+ID4NCj4gPiAgI2VuZGlmCQkvKiBlbmQgb2YgX1JUMTAx
-MV9IXyAqLw0KPiA+DQo+IA0KPiAtLQ0KPiBQw6l0ZXINCj4gLS0tLS0tUGxlYXNlIGNvbnNpZGVy
-IHRoZSBlbnZpcm9ubWVudCBiZWZvcmUgcHJpbnRpbmcgdGhpcyBlLW1haWwuDQo=
+
+在 2021/11/30 下午10:05, Takashi Iwai 写道:
+> On Tue, 30 Nov 2021 12:39:27 +0100,
+> Takashi Iwai wrote:
+>> On Tue, 30 Nov 2021 12:16:18 +0100,
+>> Bixuan Cui wrote:
+>>> The commit 7661809d493b ("mm: don't allow oversized kvmalloc()
+>>> calls") limits the max allocatable memory via kvzalloc() to MAX_INT.
+>>>
+>>> Reported-by:syzbot+bb348e9f9a954d42746f@syzkaller.appspotmail.com
+>>> Signed-off-by: Bixuan Cui<cuibixuan@linux.alibaba.com>
+>> We should check the allocation size a lot earlier than here.
+>> IOW, such a big size shouldn't have been passed to this function but
+>> it should have been handled as an error in the caller side
+>> (snd_pcm_oss_change_params*()).
+>>
+>> Could you give the reproducer?
+> I'm asking it because the patch like below might cover the case.
+>
+>
+> Takashi
+>
+> -- 8< --
+> From: Takashi Iwai<tiwai@suse.de>
+> Subject: [PATCH] ALSA: pcm: oss: Fix negative period/buffer sizes
+>
+> The period size calculation in OSS layer may receive a negative value
+> as an error, but the code there assumes only the positive values and
+> handle them with size_t.  Due to that, a too big value may be passed
+> to the lower layers.
+>
+> This patch changes the code to handle with ssize_t and adds the proper
+> error checks appropriately.
+>
+> Signed-off-by: Takashi Iwai<tiwai@suse.de>
+> ---
+>   sound/core/oss/pcm_oss.c | 24 +++++++++++++++---------
+>   1 file changed, 15 insertions(+), 9 deletions(-)
+>
+> diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+> index 82a818734a5f..bec7590bc84b 100644
+> --- a/sound/core/oss/pcm_oss.c
+> +++ b/sound/core/oss/pcm_oss.c
+> @@ -147,7 +147,7 @@ snd_pcm_hw_param_value_min(const struct snd_pcm_hw_params *params,
+>    *
+>    * Return the maximum value for field PAR.
+>    */
+> -static unsigned int
+> +static int
+>   snd_pcm_hw_param_value_max(const struct snd_pcm_hw_params *params,
+>   			   snd_pcm_hw_param_t var, int *dir)
+>   {
+> @@ -682,18 +682,24 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+>   				   struct snd_pcm_hw_params *oss_params,
+>   				   struct snd_pcm_hw_params *slave_params)
+>   {
+> -	size_t s;
+> -	size_t oss_buffer_size, oss_period_size, oss_periods;
+> -	size_t min_period_size, max_period_size;
+> +	ssize_t s;
+> +	ssize_t oss_buffer_size;
+> +	ssize_t oss_period_size, oss_periods;
+> +	ssize_t min_period_size, max_period_size;
+>   	struct snd_pcm_runtime *runtime = substream->runtime;
+>   	size_t oss_frame_size;
+>   
+>   	oss_frame_size = snd_pcm_format_physical_width(params_format(oss_params)) *
+>   			 params_channels(oss_params) / 8;
+>   
+> +	oss_buffer_size = snd_pcm_hw_param_value_max(slave_params,
+> +						     SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
+> +						     NULL);
+> +	if (oss_buffer_size <= 0)
+> +		return -EINVAL;
+>   	oss_buffer_size = snd_pcm_plug_client_size(substream,
+> -						   snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_BUFFER_SIZE, NULL)) * oss_frame_size;
+> -	if (!oss_buffer_size)
+> +						   oss_buffer_size * oss_frame_size);
+> +	if (oss_buffer_size <= 0)
+>   		return -EINVAL;
+>   	oss_buffer_size = rounddown_pow_of_two(oss_buffer_size);
+>   	if (atomic_read(&substream->mmap_count)) {
+> @@ -730,7 +736,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+>   
+>   	min_period_size = snd_pcm_plug_client_size(substream,
+>   						   snd_pcm_hw_param_value_min(slave_params, SNDRV_PCM_HW_PARAM_PERIOD_SIZE, NULL));
+> -	if (min_period_size) {
+> +	if (min_period_size > 0) {
+>   		min_period_size *= oss_frame_size;
+>   		min_period_size = roundup_pow_of_two(min_period_size);
+>   		if (oss_period_size < min_period_size)
+> @@ -739,7 +745,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+>   
+>   	max_period_size = snd_pcm_plug_client_size(substream,
+>   						   snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_PERIOD_SIZE, NULL));
+> -	if (max_period_size) {
+> +	if (max_period_size > 0) {
+>   		max_period_size *= oss_frame_size;
+>   		max_period_size = rounddown_pow_of_two(max_period_size);
+>   		if (oss_period_size > max_period_size)
+> @@ -752,7 +758,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+>   		oss_periods = substream->oss.setup.periods;
+>   
+>   	s = snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_PERIODS, NULL);
+> -	if (runtime->oss.maxfrags && s > runtime->oss.maxfrags)
+> +	if (s > 0 && runtime->oss.maxfrags && s > runtime->oss.maxfrags)
+>   		s = runtime->oss.maxfrags;
+>   	if (oss_periods > s)
+>   		oss_periods = s;
+Hi,
+
+I got the bug report from syzbot: 
+https://syzkaller.appspot.com/bug?id=c224c2af9ed367315fc048b50f008385bd5c4c3f 
+.
+
+
+I checked the call stack that reported the error, and then tried to 
+construct a case, but it relied on some hardware
+
+devices. My machine did not have it, so I couldn't construct it. :-(
+
+I reviewed the code again and found that 'format->channels' in 'size = 
+frames * format->channels * width'
+
+should come from file->private_data in snd_pcm_oss_ioctl(). And 
+file->private_data is initialized in snd_pcm_oss_open_file().
+
+Maybe this patch cannot cover this problem.
+
+But I think we can wait for this patch to be applied whether the problem 
+occurs.
+
+
+Thanks
+
+Bixuan Cui
+
+
+
+
+

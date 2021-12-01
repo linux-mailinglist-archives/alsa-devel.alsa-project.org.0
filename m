@@ -2,74 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7A0E465595
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 19:35:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AFAB46559A
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 19:35:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 800132693;
-	Wed,  1 Dec 2021 19:34:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 800132693
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC88426B0;
+	Wed,  1 Dec 2021 19:35:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC88426B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638383712;
-	bh=V6YRKpSIrVHzwm9o+oYBP5E3FknqANMjKoHFfd/iP20=;
+	s=default; t=1638383751;
+	bh=eTOf0ZAeC2V3Egfrxq0AtFk5umjjg4bM+zXOg1szGO8=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SMlZPcQeyjbTGzlnhGs34fSkcUF0Vyt9As6gQcQRPc+EQUIgJc5w996xoA3eIsDBT
-	 KOLnJMy1/sAsOF+IYt/8vkTcDqNMXvvykXlK1wW8HP161xJIxPch0BwIihDvDCKkjE
-	 ZvOB8FmUATy5qbomZFsdOrHKKQuvOJN5Kh0TPRDc=
+	b=sNahV2/lThl8pFqaLPc7oe8L8f0I4Ra3T0hkw08fRKy6CwA5UmjfJJWoasKuI6ahf
+	 3D8zjK7TXPUM58y/A858Y0OEx6634JxlKloJ/FEbutc6hr4buVwY6AruCaefCFoTfv
+	 Wy0n2phnhdWiwGP0vTUJrA4R/UiJr90wVIPz39Jg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B6A4F80516;
-	Wed,  1 Dec 2021 19:32:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF93EF8051F;
+	Wed,  1 Dec 2021 19:32:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53DE2F8028D; Wed,  1 Dec 2021 19:32:15 +0100 (CET)
+ id 87F6AF8051F; Wed,  1 Dec 2021 19:32:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71F52F80217
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 19:32:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71F52F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06BD6F80511
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 19:32:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06BD6F80511
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="G2mspX2G"
+ header.b="pwPBym3F"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 527D1B820FA;
- Wed,  1 Dec 2021 18:32:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D32C53FCF;
- Wed,  1 Dec 2021 18:32:05 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 8C6E5CE20CA;
+ Wed,  1 Dec 2021 18:32:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5AC7C53FAD;
+ Wed,  1 Dec 2021 18:32:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638383527;
- bh=V6YRKpSIrVHzwm9o+oYBP5E3FknqANMjKoHFfd/iP20=;
+ s=k20201202; t=1638383533;
+ bh=eTOf0ZAeC2V3Egfrxq0AtFk5umjjg4bM+zXOg1szGO8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=G2mspX2Gj2RAB2bqOT1DEejPw0xs/OrOFnx3DVvosKwwXTk0jNTs4Lv7L0qanmOKN
- de7zfozXCy8KiCvrXdtokZVjU4qeFD/dSXjEUUJ+UQX0cb9sHLDn4Iu9eIoBSOucTl
- B/V4uP52tDEVmvp2zxbZhGi60GIjVne18x7PBwxLdJXvCXiy5FPQ0Y5kOlWetdNcpt
- 9HMUamr2qMV4t9a1Iw8kdno5lc5owAAEhp8YwBqGtyDppNgykHYTaqhIwSHjKD+F0Q
- 8JS1czRTsYFKqYbZsikJ21zFL65w70mj4oFtm7nNF/klQgxv17zXu/W4bgELeHaSpN
- q+dWJxt6STRog==
+ b=pwPBym3FzHDRdjW5tMGiY94PqpsZLY9uKdAHxfA4l/S523ERoo8MMcRb69hktUyhH
+ kxC5IXV36IbXQxHoWqCYjn3baMTMnLqZcSj0MfLEhforwkcj1bHlc/RqYCVTk3ALot
+ mvVoSH4lLT6sy4BIoTCnziff8J4UzBfMKHWflGVSu1xG9hi5NAOwYEfH08KWNYjp14
+ XnuY5TsI3sh+PUMLD6aQQW8ZBSn2OsUT5k5oPklkLJ97p0x9xPbumNo8RwbDm8TU/3
+ JiJfDMZhjECT57LezoK3hTGoYcf5M9nqLIKxBWilEEHYs6xpZD0fhGSH/hIy+QQeMK
+ F9avyv7KKXDXA==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20211130163110.5628-1-srinivas.kandagatla@linaro.org>
-References: <20211130163110.5628-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v2] ASoC: qdsp6: q6routing: Fix return value from
- msm_routing_put_audio_mixer
-Message-Id: <163838352534.2179725.3915150186055501532.b4-ty@kernel.org>
-Date: Wed, 01 Dec 2021 18:32:05 +0000
+To: Takashi Iwai <tiwai@suse.com>,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20211127091954.12075-1-rikard.falkeborn@gmail.com>
+References: <20211127091954.12075-1-rikard.falkeborn@gmail.com>
+Subject: Re: [PATCH] ASoC: intel: boards: bytcht*: Constify static snd_soc_ops
+Message-Id: <163838353065.2179787.7204772157932440988.b4-ty@kernel.org>
+Date: Wed, 01 Dec 2021 18:32:10 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, alsa-devel@alsa-project.org,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,25 +90,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 30 Nov 2021 16:31:10 +0000, Srinivas Kandagatla wrote:
-> msm_routing_put_audio_mixer() can return incorrect value in various scenarios.
+On Sat, 27 Nov 2021 10:19:54 +0100, Rikard Falkeborn wrote:
+> These are only assigned to the ops fields in the snd_soc_dai_link struct
+> which is a pointer to const struct snd_soc_ops. Make them const to allow
+> the compiler to put them in read-only memory.
 > 
-> scenario 1:
-> amixer cset iface=MIXER,name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1
-> amixer cset iface=MIXER,name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0
 > 
-> return value is 0 instead of 1 eventhough value was changed
-> 
-> [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
 Thanks!
 
-[1/1] ASoC: qdsp6: q6routing: Fix return value from msm_routing_put_audio_mixer
-      commit: 4739d88ad8e1900f809f8a5c98f3c1b65bf76220
+[1/1] ASoC: intel: boards: bytcht*: Constify static snd_soc_ops
+      commit: 10b155fd413d31c89057986d0fc3d4ceef8e0e9f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

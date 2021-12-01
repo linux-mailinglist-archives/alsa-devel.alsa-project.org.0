@@ -2,79 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AFAB46559A
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 19:35:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AB44465597
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 19:35:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC88426B0;
-	Wed,  1 Dec 2021 19:35:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC88426B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C30126A3;
+	Wed,  1 Dec 2021 19:34:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C30126A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638383751;
-	bh=eTOf0ZAeC2V3Egfrxq0AtFk5umjjg4bM+zXOg1szGO8=;
+	s=default; t=1638383733;
+	bh=lBaPOUZJmUtbZKlgrSKtTk0qMpZA6cIcxSaxVjlcZyQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sNahV2/lThl8pFqaLPc7oe8L8f0I4Ra3T0hkw08fRKy6CwA5UmjfJJWoasKuI6ahf
-	 3D8zjK7TXPUM58y/A858Y0OEx6634JxlKloJ/FEbutc6hr4buVwY6AruCaefCFoTfv
-	 Wy0n2phnhdWiwGP0vTUJrA4R/UiJr90wVIPz39Jg=
+	b=gqAiC8nywT0tPQgekqRVhZfupc+VkKCt1l75yv3KrSOBMnHmkmZcqAzwgfG0Fs05T
+	 SXyHJFCKxusQmIpUUZN1dtTEelAxwb5iIcwvKi5ZcAOlnh6Une1aTt3X4NJRZwu91a
+	 LyV2jKNPbkMlw80Yjo9mIokDp9WMeRs1QGItVN30=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF93EF8051F;
-	Wed,  1 Dec 2021 19:32:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 331C5F8051A;
+	Wed,  1 Dec 2021 19:32:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87F6AF8051F; Wed,  1 Dec 2021 19:32:23 +0100 (CET)
+ id F308FF8050F; Wed,  1 Dec 2021 19:32:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06BD6F80511
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 19:32:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06BD6F80511
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94D68F804FE
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 19:32:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94D68F804FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pwPBym3F"
+ header.b="hG+8g64f"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 8C6E5CE20CA;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 86B59B82100;
  Wed,  1 Dec 2021 18:32:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5AC7C53FAD;
- Wed,  1 Dec 2021 18:32:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02C42C53FCC;
+ Wed,  1 Dec 2021 18:32:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638383533;
- bh=eTOf0ZAeC2V3Egfrxq0AtFk5umjjg4bM+zXOg1szGO8=;
+ s=k20201202; t=1638383536;
+ bh=lBaPOUZJmUtbZKlgrSKtTk0qMpZA6cIcxSaxVjlcZyQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=pwPBym3FzHDRdjW5tMGiY94PqpsZLY9uKdAHxfA4l/S523ERoo8MMcRb69hktUyhH
- kxC5IXV36IbXQxHoWqCYjn3baMTMnLqZcSj0MfLEhforwkcj1bHlc/RqYCVTk3ALot
- mvVoSH4lLT6sy4BIoTCnziff8J4UzBfMKHWflGVSu1xG9hi5NAOwYEfH08KWNYjp14
- XnuY5TsI3sh+PUMLD6aQQW8ZBSn2OsUT5k5oPklkLJ97p0x9xPbumNo8RwbDm8TU/3
- JiJfDMZhjECT57LezoK3hTGoYcf5M9nqLIKxBWilEEHYs6xpZD0fhGSH/hIy+QQeMK
- F9avyv7KKXDXA==
+ b=hG+8g64fYX1CCPqLktdc/KeUe5tTBQhDYMZTSeHWsJtNLBoYztor8Vt9Fb3Tl/auE
+ 1DNSsWwVj80q9QhNo7ZkT/C701j8mMQJXDoYBVMulierpEv5r2YJZMEOdSvuk0TaL7
+ Bl1wCxS7oEC+eKAg5MjZ5nRam7qcjPpIoVVDYzeA/f3reC1jSdgHW9EEYKdih+RzI1
+ g4GSHPbQqKXZ03QHrStgE37gFaf99DmWq9/i0bq30KezFTboZ1qxrkuRa0cx+TKl11
+ Ei1TJslKP1e4HNadXFp/T4ofIdaZblSEWDTrNalwApMDzFXS1PjYyX6m5y/6P27mSo
+ /zCjyEt1W9TMQ==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>,
- Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20211127091954.12075-1-rikard.falkeborn@gmail.com>
-References: <20211127091954.12075-1-rikard.falkeborn@gmail.com>
-Subject: Re: [PATCH] ASoC: intel: boards: bytcht*: Constify static snd_soc_ops
-Message-Id: <163838353065.2179787.7204772157932440988.b4-ty@kernel.org>
-Date: Wed, 01 Dec 2021 18:32:10 +0000
+To: Chris Down <chris@chrisdown.name>, alsa-devel@alsa-project.org
+In-Reply-To: <YaOS0sBueAfApwOx@chrisdown.name>
+References: <YaOS0sBueAfApwOx@chrisdown.name>
+Subject: Re: [PATCH] ASoC: Intel: hda_dsp_common: don't multiline PCM topology
+ warning
+Message-Id: <163838353472.2179787.17911571217332274520.b4-ty@kernel.org>
+Date: Wed, 01 Dec 2021 18:32:14 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>, alsa-devel@alsa-project.org,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: tiwai@suse.de,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,12 +87,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 27 Nov 2021 10:19:54 +0100, Rikard Falkeborn wrote:
-> These are only assigned to the ops fields in the snd_soc_dai_link struct
-> which is a pointer to const struct snd_soc_ops. Make them const to allow
-> the compiler to put them in read-only memory.
+On Sun, 28 Nov 2021 14:31:46 +0000, Chris Down wrote:
+> On my T14s Gen2 I saw the following:
 > 
+>     [   16.057258] skl_hda_dsp_generic skl_hda_dsp_generic: hda_dsp_hdmi_build_controls: no PCM in topology for HDMI converter 3
 > 
+>     [   16.057261] skl_hda_dsp_generic skl_hda_dsp_generic: hda_dsp_hdmi_build_controls: no PCM in topology for HDMI converter 4
+> 
+>     [   16.057263] skl_hda_dsp_generic skl_hda_dsp_generic: hda_dsp_hdmi_build_controls: no PCM in topology for HDMI converter 5
+> 
+> [...]
 
 Applied to
 
@@ -103,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: intel: boards: bytcht*: Constify static snd_soc_ops
-      commit: 10b155fd413d31c89057986d0fc3d4ceef8e0e9f
+[1/1] ASoC: Intel: hda_dsp_common: don't multiline PCM topology warning
+      commit: 11918cdcffb127b6b35fe5c438e2ca8aa78249d0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

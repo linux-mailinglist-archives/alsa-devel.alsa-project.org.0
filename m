@@ -2,48 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88ED5464D1E
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 12:37:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87D92464DE7
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 13:31:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 117D92515;
-	Wed,  1 Dec 2021 12:36:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 117D92515
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E4CB248C;
+	Wed,  1 Dec 2021 13:31:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E4CB248C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638358659;
-	bh=PyxTOygh1dyGj5i8hppLeD0g6SWtsu9MEMTPg2lCiB4=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1638361910;
+	bh=03+6fKNtnIgT0q2NIgHnMNKIjLxO+j7dkflRHgSq0Rs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SkULe5DI9a6o1jA09D1hv0282vYWWzOAQjJV4X1izuRxOuUt0faMVNC/FyOIpoRxE
-	 djIXP6qsFc4oLbXhhQUEiQKVsHwO6h0PIVFtRdMyu3d/4FgzbzIapV8ZByIUy9ioi+
-	 L6kbkQm6gwk6zlzgTOFw7J0lFptsV9KoiB9QAE9U=
+	b=dEYU4tYa9CF16kxGfqsfmUiwiqrr7fVx4J52WAnGbXqd12LxvbfrLOMi6oor+d22S
+	 SLLqqju19lbxtAZM3ImX/xXUBjsU0AU/suziWkxJC4QDsj1vHz5Z4/YDSiFanDZ6AF
+	 XRerxAFhvVRdqVmUfqGaTwVftfGQkXUW8MOyfhko=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66B98F80249;
-	Wed,  1 Dec 2021 12:36:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76F1FF800EE;
+	Wed,  1 Dec 2021 13:30:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B4B5F80246; Wed,  1 Dec 2021 12:36:19 +0100 (CET)
+ id BDB9AF80246; Wed,  1 Dec 2021 13:30:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 1FC69F80217
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 12:36:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FC69F80217
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 924D0F80217
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 13:30:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 924D0F80217
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="SACOknNh"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0697CB81EAF;
+ Wed,  1 Dec 2021 12:30:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21404C53FAD;
+ Wed,  1 Dec 2021 12:30:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1638361823;
+ bh=03+6fKNtnIgT0q2NIgHnMNKIjLxO+j7dkflRHgSq0Rs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SACOknNhgH92KqQkFAfVnywMMZQs79GIZLesJve4a2LJrRE1E5lCxnJZ6ITsYhW7g
+ 8uKceFPdWRtR9Bq2BEqniFn280n/mJXZOpLMYLOs3i07oQJUOU/LV2c3BOFN+2n8qk
+ f13h5KKWPNaVaP5x4LsTbZ91uUnE+Y2co5yEmdVWaVKM5350fHTUynQrNiVYncAsQH
+ d6Is0YsPUR4ySTGj6jrry9MxwbKVYoOS4NxuXzOK2jf2S/RUAVlNK9tBdZC+Ngz0dJ
+ cOST6r4TYzrERa4jbNv3eksxrAxJv9vq4kQv1JCkhpWB1XMpEyb3b3+mHVsT7LHN00
+ PERogFZH8oCpw==
+Date: Wed, 1 Dec 2021 12:30:16 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: rt1011: revert 'I2S Reference' to SOC_ENUM_EXT
+Message-ID: <Yadq2FLkU62sJD6F@sirena.org.uk>
+References: <20211111091705.20879-1-jack.yu@realtek.com>
+ <2c3eb3db-d32c-edbf-75b3-29ab478cea13@linux.intel.com>
+ <58fb5f01ad11482f8777e7d4d1ced173@realtek.com>
+ <fa42decd-44a3-b27d-550f-df1d5b893cea@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1638358571215815067-webhooks-bot@alsa-project.org>
-References: <1638358571215815067-webhooks-bot@alsa-project.org>
-Subject: ALC1220 Broken Front Panel
-Message-Id: <20211201113619.3B4B5F80246@alsa1.perex.cz>
-Date: Wed,  1 Dec 2021 12:36:19 +0100 (CET)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ao6hkJSXxPoxyWsv"
+Content-Disposition: inline
+In-Reply-To: <fa42decd-44a3-b27d-550f-df1d5b893cea@linux.intel.com>
+X-Cookie: All true wisdom is found on T-shirts.
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ =?utf-8?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFvpmbPlu7rlro9d?=
+ <kent_chen@realtek.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ Derek =?utf-8?B?W+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ Shuming =?utf-8?B?W+iMg+abuOmKmF0=?= <shumingf@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,54 +95,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #123 was opened from vs49688:
 
-Since upgrading from v1.2.4 -> v1.2.5.1, I can no longer get any input/output from my front-panel.
+--ao6hkJSXxPoxyWsv
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I've bisected the issue to 5947daef124c84fae511233248196576dfbfab7c. Reverting fixes it, but this may break other cards.
+On Wed, Dec 01, 2021 at 09:00:02AM +0200, P=E9ter Ujfalusi wrote:
 
-The hardware is an "AX370-Gaming K7", with a ALC1220 chip.
+> This is something like drop dai_fmt and all configuration and
+> set ADCDAT1/2 pin to output
+> set I2S, 24 bit for rx/tx
+> set undocumented BIT12 in RT1011_TDM1_SET_1
+> set 'TDM1 DOUT Source' to ALC
 
-##### alsa-info Before revert
-[alsainfo_before.txt](https://github.com/alsa-project/alsa-ucm-conf/files/7633415/alsainfo_before.txt)
+I'd expect that last one in particular to be a DAPM route.
 
-##### alsa-info After revert
-[alsainfo_after.txt](https://github.com/alsa-project/alsa-ucm-conf/files/7633416/alsainfo_after.txt)
+--ao6hkJSXxPoxyWsv
+Content-Type: application/pgp-signature; name="signature.asc"
 
-##### Relevant dmesg output:
-```
-[   11.455796] snd_hda_intel 0000:0b:00.3: enabling device (0000 -> 0002)
-[   11.532977] snd_hda_codec_realtek hdaudioC1D0: autoconfig for ALC1220: line_outs=3 (0x14/0x15/0x16/0x0/0x0) type:line
-[   11.532980] snd_hda_codec_realtek hdaudioC1D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-[   11.532981] snd_hda_codec_realtek hdaudioC1D0:    hp_outs=0 (0x0/0x0/0x0/0x0/0x0)
-[   11.532982] snd_hda_codec_realtek hdaudioC1D0:    mono: mono_out=0x0
-[   11.532983] snd_hda_codec_realtek hdaudioC1D0:    dig-out=0x1e/0x0
-[   11.532984] snd_hda_codec_realtek hdaudioC1D0:    inputs:
-[   11.532985] snd_hda_codec_realtek hdaudioC1D0:      Rear Mic=0x18
-[   11.532986] snd_hda_codec_realtek hdaudioC1D0:      Line=0x1a
-[   11.543432] snd_hda_codec_realtek hdaudioC1D1: autoconfig for ALC1220: line_outs=1 (0x14/0x0/0x0/0x0/0x0) type:hp
-[   11.543434] snd_hda_codec_realtek hdaudioC1D1:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-[   11.543435] snd_hda_codec_realtek hdaudioC1D1:    hp_outs=0 (0x0/0x0/0x0/0x0/0x0)
-[   11.543436] snd_hda_codec_realtek hdaudioC1D1:    mono: mono_out=0x0
-[   11.543436] snd_hda_codec_realtek hdaudioC1D1:    inputs:
-[   11.543437] snd_hda_codec_realtek hdaudioC1D1:      Front Mic=0x1a
-[   11.548516] input: HD-Audio Generic Rear Mic as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input19
-[   11.548554] input: HD-Audio Generic Line as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input20
-[   11.548583] input: HD-Audio Generic Line Out Front as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input21
-[   11.548613] input: HD-Audio Generic Line Out Surround as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input22
-[   11.548641] input: HD-Audio Generic Line Out CLFE as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input23
-[   11.548669] input: HD-Audio Generic Front Mic as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input24
-[   11.548695] input: HD-Audio Generic Front Headphone as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input25
+-----BEGIN PGP SIGNATURE-----
 
-```
+iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGnatcACgkQJNaLcl1U
+h9CdNAf44VZwJEGumrYNBIcTgbydPdxOqyWouFYKjuZe5o0C9zjw8fAvSs7bLjZe
+TZXYQSo7NI5OYyaJP8KN6+iwOb+nsjuUZqG9LypvtcrK4Ok5uy9LVTauGD+t9//b
+6M1sQ8uO1iE+x2B1uOIsWouVUTfrsgYuGF7ySoRSomr+WlTw5VhsF47a3R/rMVTF
+txCm6aQHvzSKYJdlSAJeFUHqqy36ULpr5KQdPLuZvzMNiH1o7fv7nzzRtToaSMbF
+FhjpWwFg+3DwOlOX2Vj1YQW6sBUlikkcxGZ4Qv0GqeNfEMfpWWrqyc0DiCvgkJlG
++yYmyxcU6/pX5CXz7FjxnZujRh5Q
+=y74c
+-----END PGP SIGNATURE-----
 
-##### pavucontrol Before revert (doesn't work):
-![ssbad](https://user-images.githubusercontent.com/4423262/144226384-0d338bef-9cda-439c-9bba-cc0cb63551eb.png)
-
-##### pavucontrol After revert (works):
-
-Appears the same as it did on v1.2.4:
-![ssgood](https://user-images.githubusercontent.com/4423262/144226410-14e3cd07-b179-4ce3-a224-17e7a35ae1dd.png)
-
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/123
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+--ao6hkJSXxPoxyWsv--

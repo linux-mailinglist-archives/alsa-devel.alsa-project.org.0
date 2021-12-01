@@ -2,101 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2158D464C03
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 11:52:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88ED5464D1E
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 12:37:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC5092599;
-	Wed,  1 Dec 2021 11:51:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC5092599
+	by alsa0.perex.cz (Postfix) with ESMTPS id 117D92515;
+	Wed,  1 Dec 2021 12:36:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 117D92515
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638355937;
-	bh=hEiFZkksQzRQyGuew8Oc0031DbJI5By30N2tI4LrZjA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1638358659;
+	bh=PyxTOygh1dyGj5i8hppLeD0g6SWtsu9MEMTPg2lCiB4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jDYgPo2oq/EllihdTmGKQc0czTMiHCdWUi4QvL608QMnRiUuf0ircp/G78DAa3+sY
-	 hkjydvIMdnS2uPdqIcRlt1U4L6Dcovp5aVG0FiqwDB+U2r5CJeGQKZ8lF89puwM/Qc
-	 IBLkoaRQzPT6c2xbYLrB6bCcR/aICVWqoOeYDmn4=
+	b=SkULe5DI9a6o1jA09D1hv0282vYWWzOAQjJV4X1izuRxOuUt0faMVNC/FyOIpoRxE
+	 djIXP6qsFc4oLbXhhQUEiQKVsHwO6h0PIVFtRdMyu3d/4FgzbzIapV8ZByIUy9ioi+
+	 L6kbkQm6gwk6zlzgTOFw7J0lFptsV9KoiB9QAE9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A7ECF80249;
-	Wed,  1 Dec 2021 11:51:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66B98F80249;
+	Wed,  1 Dec 2021 12:36:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4460CF80246; Wed,  1 Dec 2021 11:50:57 +0100 (CET)
+ id 3B4B5F80246; Wed,  1 Dec 2021 12:36:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E0A1F80217
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 11:50:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E0A1F80217
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="LjOJIErs"
-Received: by mail-wr1-x42e.google.com with SMTP id q3so28369576wru.5
- for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 02:50:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=iaRWBZ6wVn64G1eYkYsgJ4iKQtxS+t5xqE+mjeZLe9c=;
- b=LjOJIErsYA3H5R/SQ3MD0negXvGCfLzN7pYzmbRI9icpQz6ov+X3wjjzpbSp4pqnko
- pD1xP83AEpwysggEIadi2K24Tft1s86g/mSUuCA9d/EfpZrr7aDhCPEXwV4VwAzg9Spj
- 9M4Qya3M8XGahlRBFlyBp+oG0hWjyZ1JLUftiNsKgkGkgyU0y/Z5oOga0mJQU3Q4xzri
- CPA/Z1FFGRhDjJCg2ApbPw9jHL/GJDgPlI2jCPMl/KPZlmHw1zBWQppm75vtf5dQBYfG
- 6FV9+D2Jy8jucyR7nkc+Dp2VgTa5xP9E+0IvUHXQGhbIE+r8RbkIfyhwU8ol8hze8rV7
- v8ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=iaRWBZ6wVn64G1eYkYsgJ4iKQtxS+t5xqE+mjeZLe9c=;
- b=UYIEi1XnOpQiDHPFZtuOhBMFpOnkOP4jVnnNmp/lD8PBXFtjI374acTQI6/bwwP9dj
- SstOPa/2ChYdM+T0XAq9+tVg4YQvltXUC1D1eKshJvHp6iLdI846bMTVHE59C+FM27YQ
- S9EHjOKaS3CHPjIAtDKwkTLug3ptr/gKixnp8wkNzhserogqfjEp1N3wCD4PlxcAB4Er
- ldQNEMFVb2/INCrGgXINRRuzZsYYrkf8v5Dt7I0qThQMsl1Jr39BQCsaheW0OX+yBK1a
- lw5oOrR20nFaQZ7qzUpOOXyzC3A2RNdz/t7A216djxM741wlNoqJ+Nxwg8WYIrvRQLmK
- KXXw==
-X-Gm-Message-State: AOAM532dRYW8DpBTgQDamYEztBogOD6qxeUQzVFLbtb58BfHdW2V4+vu
- aD1bIDg6SgQ8We4eUJ8dPrM2zg==
-X-Google-Smtp-Source: ABdhPJzUoU308MNHGmdz4H3mCfq+Qg4jBYUexDHukpCokTgVqQC15BFqy/Uc3KNflk686Ows/ubGPA==
-X-Received: by 2002:adf:ab53:: with SMTP id r19mr5827984wrc.584.1638355847050; 
- Wed, 01 Dec 2021 02:50:47 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id g18sm853449wmq.4.2021.12.01.02.50.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Dec 2021 02:50:46 -0800 (PST)
-Subject: Re: [PATCH v6 10/10] ASoC: qcom: SC7280: Update config for building
- codec dma drivers
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-References: <1637928282-2819-1-git-send-email-srivasam@codeaurora.org>
- <1637928282-2819-11-git-send-email-srivasam@codeaurora.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <0d51b0fd-61a9-e68f-6ab8-27708667d787@linaro.org>
-Date: Wed, 1 Dec 2021 10:50:45 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1FC69F80217
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 12:36:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FC69F80217
 MIME-Version: 1.0
-In-Reply-To: <1637928282-2819-11-git-send-email-srivasam@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1638358571215815067-webhooks-bot@alsa-project.org>
+References: <1638358571215815067-webhooks-bot@alsa-project.org>
+Subject: ALC1220 Broken Front Panel
+Message-Id: <20211201113619.3B4B5F80246@alsa1.perex.cz>
+Date: Wed,  1 Dec 2021 12:36:19 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,96 +59,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-ucm-conf issue #123 was opened from vs49688:
 
+Since upgrading from v1.2.4 -> v1.2.5.1, I can no longer get any input/output from my front-panel.
 
-On 26/11/2021 12:04, Srinivasa Rao Mandadapu wrote:
-> Add configuration for building SC7280 audio codec dma drivers.
-> 
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> ---
-> This patch set depends on:
->      -- https://patchwork.kernel.org/project/alsa-devel/list/?series=582321
-> 
->   sound/soc/qcom/Kconfig  | 13 +++++++++++++
->   sound/soc/qcom/Makefile |  4 ++++
->   2 files changed, 17 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-> index 530d01f..b46a2e7 100644
-> --- a/sound/soc/qcom/Kconfig
-> +++ b/sound/soc/qcom/Kconfig
-> @@ -20,6 +20,10 @@ config SND_SOC_LPASS_PLATFORM
->   	tristate
->   	select REGMAP_MMIO
->   
-> +config SND_SOC_LPASS_CDC_DMA
-> +	tristate
-> +	select REGMAP_MMIO
-> +
->   config SND_SOC_LPASS_IPQ806X
->   	tristate
->   	select SND_SOC_LPASS_CPU
-> @@ -36,6 +40,13 @@ config SND_SOC_LPASS_SC7180
->   	select SND_SOC_LPASS_PLATFORM
->   	select SND_SOC_LPASS_HDMI
->   
-> +config SND_SOC_LPASS_SC7280
-> +	tristate
-> +	select SND_SOC_LPASS_CPU
-> +	select SND_SOC_LPASS_PLATFORM
-> +	select SND_SOC_LPASS_HDMI
-> +	select SND_SOC_LPASS_CDC_DMA
-> +
->   config SND_SOC_STORM
->   	tristate "ASoC I2S support for Storm boards"
->   	select SND_SOC_LPASS_IPQ806X
-> @@ -156,7 +167,9 @@ config SND_SOC_SC7280
->   	tristate "SoC Machine driver for SC7280 boards"
->   	depends on I2C && SOUNDWIRE || COMPILE_TEST
->   	select SND_SOC_QCOM_COMMON
-> +	select SND_SOC_LPASS_SC7280
->   	select SND_SOC_MAX98357A
-> +	select SND_SOC_WCD938X
+I've bisected the issue to 5947daef124c84fae511233248196576dfbfab7c. Reverting fixes it, but this may break other cards.
 
-Why are we updating machine Kconfigs in this patch, should that be not 
-in your machine driver patch series?
+The hardware is an "AX370-Gaming K7", with a ALC1220 chip.
 
-I think I did point this out in previous versions too.
+##### alsa-info Before revert
+[alsainfo_before.txt](https://github.com/alsa-project/alsa-ucm-conf/files/7633415/alsainfo_before.txt)
 
+##### alsa-info After revert
+[alsainfo_after.txt](https://github.com/alsa-project/alsa-ucm-conf/files/7633416/alsainfo_after.txt)
 
---srini
+##### Relevant dmesg output:
+```
+[   11.455796] snd_hda_intel 0000:0b:00.3: enabling device (0000 -> 0002)
+[   11.532977] snd_hda_codec_realtek hdaudioC1D0: autoconfig for ALC1220: line_outs=3 (0x14/0x15/0x16/0x0/0x0) type:line
+[   11.532980] snd_hda_codec_realtek hdaudioC1D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+[   11.532981] snd_hda_codec_realtek hdaudioC1D0:    hp_outs=0 (0x0/0x0/0x0/0x0/0x0)
+[   11.532982] snd_hda_codec_realtek hdaudioC1D0:    mono: mono_out=0x0
+[   11.532983] snd_hda_codec_realtek hdaudioC1D0:    dig-out=0x1e/0x0
+[   11.532984] snd_hda_codec_realtek hdaudioC1D0:    inputs:
+[   11.532985] snd_hda_codec_realtek hdaudioC1D0:      Rear Mic=0x18
+[   11.532986] snd_hda_codec_realtek hdaudioC1D0:      Line=0x1a
+[   11.543432] snd_hda_codec_realtek hdaudioC1D1: autoconfig for ALC1220: line_outs=1 (0x14/0x0/0x0/0x0/0x0) type:hp
+[   11.543434] snd_hda_codec_realtek hdaudioC1D1:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+[   11.543435] snd_hda_codec_realtek hdaudioC1D1:    hp_outs=0 (0x0/0x0/0x0/0x0/0x0)
+[   11.543436] snd_hda_codec_realtek hdaudioC1D1:    mono: mono_out=0x0
+[   11.543436] snd_hda_codec_realtek hdaudioC1D1:    inputs:
+[   11.543437] snd_hda_codec_realtek hdaudioC1D1:      Front Mic=0x1a
+[   11.548516] input: HD-Audio Generic Rear Mic as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input19
+[   11.548554] input: HD-Audio Generic Line as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input20
+[   11.548583] input: HD-Audio Generic Line Out Front as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input21
+[   11.548613] input: HD-Audio Generic Line Out Surround as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input22
+[   11.548641] input: HD-Audio Generic Line Out CLFE as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input23
+[   11.548669] input: HD-Audio Generic Front Mic as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input24
+[   11.548695] input: HD-Audio Generic Front Headphone as /devices/pci0000:00/0000:00:08.1/0000:0b:00.3/sound/card1/input25
 
+```
 
->   	select SND_SOC_LPASS_RX_MACRO
->   	select SND_SOC_LPASS_TX_MACRO
->   	help
-> diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-> index 625aec6..8b7b876 100644
-> --- a/sound/soc/qcom/Makefile
-> +++ b/sound/soc/qcom/Makefile
-> @@ -1,18 +1,22 @@
->   # SPDX-License-Identifier: GPL-2.0
->   # Platform
->   snd-soc-lpass-cpu-objs := lpass-cpu.o
-> +snd-soc-lpass-cdc-dma-objs := lpass-cdc-dma.o
->   snd-soc-lpass-hdmi-objs := lpass-hdmi.o
->   snd-soc-lpass-platform-objs := lpass-platform.o
->   snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
->   snd-soc-lpass-apq8016-objs := lpass-apq8016.o
->   snd-soc-lpass-sc7180-objs := lpass-sc7180.o
-> +snd-soc-lpass-sc7280-objs := lpass-sc7280.o
->   
->   obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
-> +obj-$(CONFIG_SND_SOC_LPASS_CDC_DMA) += snd-soc-lpass-cdc-dma.o
->   obj-$(CONFIG_SND_SOC_LPASS_HDMI) += snd-soc-lpass-hdmi.o
->   obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
->   obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
->   obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
->   obj-$(CONFIG_SND_SOC_LPASS_SC7180) += snd-soc-lpass-sc7180.o
-> +obj-$(CONFIG_SND_SOC_LPASS_SC7280) += snd-soc-lpass-sc7280.o
->   
->   # Machine
->   snd-soc-storm-objs := storm.o
-> 
+##### pavucontrol Before revert (doesn't work):
+![ssbad](https://user-images.githubusercontent.com/4423262/144226384-0d338bef-9cda-439c-9bba-cc0cb63551eb.png)
+
+##### pavucontrol After revert (works):
+
+Appears the same as it did on v1.2.4:
+![ssgood](https://user-images.githubusercontent.com/4423262/144226410-14e3cd07-b179-4ce3-a224-17e7a35ae1dd.png)
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/123
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

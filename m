@@ -2,74 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B93BA464785
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 08:01:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC75464812
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 08:25:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD2CC232A;
-	Wed,  1 Dec 2021 08:00:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD2CC232A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40F9E24FE;
+	Wed,  1 Dec 2021 08:24:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40F9E24FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638342069;
-	bh=D+NRen2wtf9orNHP96lw9UBEWZPu/26ivmq6iyedtMI=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1638343520;
+	bh=a77bKzUV1xo1MUAHGk9f5004dr7PYqjC0FYEsldplzA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fgxZwo71q6Mjaj4fwR2yzsLz7FwFquhPWHOce328oeTQAJNCwvRkwp//MVHZkVsF0
-	 YY8a+7B68Lx3qVEYbORCQXhvSuLBcNTAeN6H1mTveNs4gAzTESgtQyl7DD/oEismFc
-	 hFJjTBeaujIB8R+Lazp2tXYu+TAHZka7H3CX7gt8=
+	b=Pe0avz3F1LrjsyVtGFstku60lakeEMUNy7s0cCFr8bm0rI6Rui8lIpdA6ZyQ2p6RV
+	 ZYQTYLIJ/iH+K00ndALrdpYzGAiiP5e4xwEHCMGjz2avjMAxOngAUl8T3pA8t0tVq9
+	 lX4XfNAxSSfqkHnJANqV8eLCPUkIUydTCosyFpUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F176F80217;
-	Wed,  1 Dec 2021 07:59:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72EDDF80249;
+	Wed,  1 Dec 2021 08:24:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A764EF80246; Wed,  1 Dec 2021 07:59:50 +0100 (CET)
+ id 39C0CF80246; Wed,  1 Dec 2021 08:24:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D642F80217
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 07:59:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D642F80217
-X-IronPort-AV: E=McAfee;i="6200,9189,10184"; a="223276975"
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="223276975"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2021 22:59:39 -0800
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="654664912"
-Received: from eromano1-mobl.ger.corp.intel.com (HELO [10.252.34.207])
- ([10.252.34.207])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2021 22:59:36 -0800
-Message-ID: <fa42decd-44a3-b27d-550f-df1d5b893cea@linux.intel.com>
-Date: Wed, 1 Dec 2021 09:00:02 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH] ASoC: rt1011: revert 'I2S Reference' to SOC_ENUM_EXT
-Content-Language: en-US
-To: Jack Yu <jack.yu@realtek.com>, "broonie@kernel.org" <broonie@kernel.org>, 
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>
-References: <20211111091705.20879-1-jack.yu@realtek.com>
- <2c3eb3db-d32c-edbf-75b3-29ab478cea13@linux.intel.com>
- <58fb5f01ad11482f8777e7d4d1ced173@realtek.com>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <58fb5f01ad11482f8777e7d4d1ced173@realtek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2D1CF80217
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 08:23:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2D1CF80217
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="JOw1BUHy"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="F7mStAjd"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 8B8FA1FD34;
+ Wed,  1 Dec 2021 07:23:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1638343435; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rhbSTSQcHs+gz6xhblTrlDcmw06t904WNwNqJO3yIX0=;
+ b=JOw1BUHyhJTngWfQpfMiLFWKSPFFDlOEXtSgq4TlYb+n1gxHxIz5ciosj5tf8SVlOFihgQ
+ VRpg2NNhCKL9rYrxzQ5Yd+XFlro5XGpLkaXC/BoxddArjxZJ9KIluo39+nRH7EtPFYw8tt
+ bhSpL+BcYmlas4aVSQH9LtMnJbqZDnc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1638343435;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rhbSTSQcHs+gz6xhblTrlDcmw06t904WNwNqJO3yIX0=;
+ b=F7mStAjd6sdpE+g1Geq2rEwTCWyXnwG/npKNkkcxfi8dqrQqpTpmeLBEZywwnrpTjV3Rd5
+ dWQpXxTqzbsyD5CA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 79795A3B92;
+ Wed,  1 Dec 2021 07:23:55 +0000 (UTC)
+Date: Wed, 01 Dec 2021 08:23:55 +0100
+Message-ID: <s5hmtlkzt2s.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Bixuan Cui <cuibixuan@linux.alibaba.com>
+Subject: Re: [PATCH -next] ALSA: Fix oversized kvmalloc() calls
+In-Reply-To: <30df3dc3-9160-e14f-16f5-139c63effd30@linux.alibaba.com>
+References: <1638270978-42412-1-git-send-email-cuibixuan@linux.alibaba.com>
+ <s5h1r2x50uo.wl-tiwai@suse.de> <s5htuft20y6.wl-tiwai@suse.de>
+ <30df3dc3-9160-e14f-16f5-139c63effd30@linux.alibaba.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- =?UTF-8?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFvpmbPlu7rlro9d?=
- <kent_chen@realtek.com>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, inux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,181 +97,157 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi jack,
-
-On 01/12/2021 04:36, Jack Yu wrote:
-> Hi Peter,
+On Wed, 01 Dec 2021 07:16:12 +0100,
+Bixuan Cui wrote:
 > 
->> On 11/11/2021 11:17, Jack Yu wrote:
->>> Revert 'I2S Reference' to SOC_ENUM_EXT because the settings are
->>> specific for some platforms, the default setting for 'I2S Reference'
->>> does nothing, only some SoC platform need to configure it.
->>> Previous 'I2S Reference' in SOC_ENUM format only toggles one bit of
->>> RT1011_TDM1_SET_1 register, which isn't enough for specific platform.
->>
->> This patch again breaks audio but in a less obvious way.
->> If a user _ever_ touches the "I2S Reference" then audio playback will never
->> going to work again as instead of changing the i2s reference the code clears all
->> settings done by set_tdm_slot, dai_fmt to something which is some product
->> specific setting.
->> One would think that a reboot helps, but on boot we tend to restore the saved
->> amixer settings -> audio playback is broken.
->> So, before reboot one has to set the reference to None and reboot and hope
->> that on boot the NOP (None) is going to be set which means that the custom
->> enum code would not overwrite the configuration of the codec.
->>
->> There is a single bit in RT1011_TDM1_SET_1 (bit 7) which selects the I2S
->> reference and the reset value is Left (0).
->>
->> With this custom enum put code you effectively reconfigure the code to be
->> unusable on most likely in all systems except the one which needs these
->> settings...
->>
-> This patch is specific for device which uses I2S format and need the reference data, 
-> if the device uses TDM format, it doesn't need to call "I2S Reference ".
+> 在 2021/11/30 下午10:05, Takashi Iwai 写道:
 > 
-> If device runs TDM mode, machine driver sets TDM slot and DAI format, but no need to call " I2S reference ".
-> If device runs I2S mode, machine driver sets I2S DAI format, and ucm sets "I2S reference" (it's optional, only if device needs reference signal )
-
-But then this should not be called as 'I2S Reference'
-'I2S Reference' is _one_ bit.
-This is something like drop dai_fmt and all configuration and
-set ADCDAT1/2 pin to output
-set I2S, 24 bit for rx/tx
-set undocumented BIT12 in RT1011_TDM1_SET_1
-set 'TDM1 DOUT Source' to ALC
-
-What happens if one starts 16bit audio playback after triggering this
-macro? It is going to change some of the settings and things might brake
-here and there?
-
-What I'm saying is that the implementation is misleading and it is
-covertly reconfigures the codec to some static config
-
+>     On Tue, 30 Nov 2021 12:39:27 +0100,
+>     Takashi Iwai wrote:
+>     
+>         On Tue, 30 Nov 2021 12:16:18 +0100,
+>         Bixuan Cui wrote:
+>         
+>             The commit 7661809d493b ("mm: don't allow oversized kvmalloc()
+>             calls") limits the max allocatable memory via kvzalloc() to MAX_INT.
+>             
+>             Reported-by: syzbot+bb348e9f9a954d42746f@syzkaller.appspotmail.com
+>             Signed-off-by: Bixuan Cui <cuibixuan@linux.alibaba.com>
+>             
+>         We should check the allocation size a lot earlier than here.
+>         IOW, such a big size shouldn't have been passed to this function but
+>         it should have been handled as an error in the caller side
+>         (snd_pcm_oss_change_params*()).
+>         
+>         Could you give the reproducer?
+>         
+>     I'm asking it because the patch like below might cover the case.
 > 
->>>
->>> Signed-off-by: Jack Yu <jack.yu@realtek.com>
->>> ---
->>>  sound/soc/codecs/rt1011.c | 55
->>> ++++++++++++++++++++++++++++++++++-----
->>>  sound/soc/codecs/rt1011.h |  7 +++++
->>>  2 files changed, 56 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
->>> index 297af7ff824c..b62301a6281f 100644
->>> --- a/sound/soc/codecs/rt1011.c
->>> +++ b/sound/soc/codecs/rt1011.c
->>> @@ -1311,13 +1311,54 @@ static int rt1011_r0_load_info(struct
->> snd_kcontrol *kcontrol,
->>>  	.put = rt1011_r0_load_mode_put \
->>>  }
->>>
->>> -static const char * const rt1011_i2s_ref_texts[] = {
->>> -	"Left Channel", "Right Channel"
->>> +static const char * const rt1011_i2s_ref[] = {
->>> +	"None", "Left Channel", "Right Channel"
->>>  };
->>>
->>> -static SOC_ENUM_SINGLE_DECL(rt1011_i2s_ref_enum,
->>> -			    RT1011_TDM1_SET_1, 7,
->>> -			    rt1011_i2s_ref_texts);
->>> +static SOC_ENUM_SINGLE_DECL(rt1011_i2s_ref_enum, 0, 0,
->>> +	rt1011_i2s_ref);
->>> +
->>> +static int rt1011_i2s_ref_put(struct snd_kcontrol *kcontrol,
->>> +		struct snd_ctl_elem_value *ucontrol) {
->>> +	struct snd_soc_component *component =
->>> +		snd_soc_kcontrol_component(kcontrol);
->>> +	struct rt1011_priv *rt1011 =
->>> +		snd_soc_component_get_drvdata(component);
->>> +
->>> +	rt1011->i2s_ref = ucontrol->value.enumerated.item[0];
->>> +	switch (rt1011->i2s_ref) {
->>> +	case RT1011_I2S_REF_LEFT_CH:
->>> +		regmap_write(rt1011->regmap, RT1011_TDM_TOTAL_SET, 0x0240);
->>> +		regmap_write(rt1011->regmap, RT1011_TDM1_SET_2, 0x8);
->>> +		regmap_write(rt1011->regmap, RT1011_TDM1_SET_1, 0x1022);
->>> +		regmap_write(rt1011->regmap, RT1011_ADCDAT_OUT_SOURCE,
->> 0x4);
->>> +		break;
->>> +	case RT1011_I2S_REF_RIGHT_CH:
->>> +		regmap_write(rt1011->regmap, RT1011_TDM_TOTAL_SET, 0x0240);
->>> +		regmap_write(rt1011->regmap, RT1011_TDM1_SET_2, 0x8);
->>> +		regmap_write(rt1011->regmap, RT1011_TDM1_SET_1, 0x10a2);
->>> +		regmap_write(rt1011->regmap, RT1011_ADCDAT_OUT_SOURCE,
->> 0x4);
->>> +		break;
->>> +	default:
->>> +		dev_info(component->dev, "I2S Reference: Do nothing\n");
->>> +	}
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +static int rt1011_i2s_ref_get(struct snd_kcontrol *kcontrol,
->>> +		struct snd_ctl_elem_value *ucontrol) {
->>> +	struct snd_soc_component *component =
->>> +		snd_soc_kcontrol_component(kcontrol);
->>> +	struct rt1011_priv *rt1011 =
->>> +		snd_soc_component_get_drvdata(component);
->>> +
->>> +	ucontrol->value.enumerated.item[0] = rt1011->i2s_ref;
->>> +
->>> +	return 0;
->>> +}
->>>
->>>  static const struct snd_kcontrol_new rt1011_snd_controls[] = {
->>>  	/* I2S Data In Selection */
->>> @@ -1358,7 +1399,8 @@ static const struct snd_kcontrol_new
->> rt1011_snd_controls[] = {
->>>  	SOC_SINGLE("R0 Temperature", RT1011_STP_INITIAL_RESISTANCE_TEMP,
->>>  		2, 255, 0),
->>>  	/* I2S Reference */
->>> -	SOC_ENUM("I2S Reference", rt1011_i2s_ref_enum),
->>> +	SOC_ENUM_EXT("I2S Reference", rt1011_i2s_ref_enum,
->>> +		rt1011_i2s_ref_get, rt1011_i2s_ref_put),
->>>  };
->>>
->>>  static int rt1011_is_sys_clk_from_pll(struct snd_soc_dapm_widget
->>> *source, @@ -2017,6 +2059,7 @@ static int rt1011_probe(struct
->>> snd_soc_component *component)
->>>
->>>  	schedule_work(&rt1011->cali_work);
->>>
->>> +	rt1011->i2s_ref = 0;
->>>  	rt1011->bq_drc_params = devm_kcalloc(component->dev,
->>>  		RT1011_ADVMODE_NUM, sizeof(struct rt1011_bq_drc_params *),
->>>  		GFP_KERNEL);
->>> diff --git a/sound/soc/codecs/rt1011.h b/sound/soc/codecs/rt1011.h
->>> index 68fadc15fa8c..4d6e7492d99c 100644
->>> --- a/sound/soc/codecs/rt1011.h
->>> +++ b/sound/soc/codecs/rt1011.h
->>> @@ -654,6 +654,12 @@ enum {
->>>  	RT1011_AIFS
->>>  };
->>>
->>> +enum {
->>> +	RT1011_I2S_REF_NONE,
->>> +	RT1011_I2S_REF_LEFT_CH,
->>> +	RT1011_I2S_REF_RIGHT_CH,
->>> +};
->>> +
->>>  /* BiQual & DRC related settings */
->>>  #define RT1011_BQ_DRC_NUM 128
->>>  struct rt1011_bq_drc_params {
->>> @@ -692,6 +698,7 @@ struct rt1011_priv {
->>>  	unsigned int r0_reg, cali_done;
->>>  	unsigned int r0_calib, temperature_calib;
->>>  	int recv_spk_mode;
->>> +	int i2s_ref;
->>>  };
->>>
->>>  #endif		/* end of _RT1011_H_ */
->>>
->>
->> --
->> Péter
->> ------Please consider the environment before printing this e-mail.
+>     Takashi
+>     
+>     -- 8< --
+>     From: Takashi Iwai <tiwai@suse.de>
+>     Subject: [PATCH] ALSA: pcm: oss: Fix negative period/buffer sizes
+>     
+>     The period size calculation in OSS layer may receive a negative value
+>     as an error, but the code there assumes only the positive values and
+>     handle them with size_t.  Due to that, a too big value may be passed
+>     to the lower layers.
+>     
+>     This patch changes the code to handle with ssize_t and adds the proper
+>     error checks appropriately.
+>     
+>     Signed-off-by: Takashi Iwai <tiwai@suse.de>
+>     ---
+>      sound/core/oss/pcm_oss.c | 24 +++++++++++++++---------
+>      1 file changed, 15 insertions(+), 9 deletions(-)
+>     
+>     diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+>     index 82a818734a5f..bec7590bc84b 100644
+>     --- a/sound/core/oss/pcm_oss.c
+>     +++ b/sound/core/oss/pcm_oss.c
+>     @@ -147,7 +147,7 @@ snd_pcm_hw_param_value_min(const struct snd_pcm_hw_params *params,
+>       *
+>       * Return the maximum value for field PAR.
+>       */
+>     -static unsigned int
+>     +static int
+>      snd_pcm_hw_param_value_max(const struct snd_pcm_hw_params *params,
+>                                snd_pcm_hw_param_t var, int *dir)
+>      {
+>     @@ -682,18 +682,24 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+>                                        struct snd_pcm_hw_params *oss_params,
+>                                        struct snd_pcm_hw_params *slave_params)
+>      {
+>     -       size_t s;
+>     -       size_t oss_buffer_size, oss_period_size, oss_periods;
+>     -       size_t min_period_size, max_period_size;
+>     +       ssize_t s;
+>     +       ssize_t oss_buffer_size;
+>     +       ssize_t oss_period_size, oss_periods;
+>     +       ssize_t min_period_size, max_period_size;
+>             struct snd_pcm_runtime *runtime = substream->runtime;
+>             size_t oss_frame_size;
+>      
+>             oss_frame_size = snd_pcm_format_physical_width(params_format(oss_params)) *
+>                              params_channels(oss_params) / 8;
+>      
+>     +       oss_buffer_size = snd_pcm_hw_param_value_max(slave_params,
+>     +                                                    SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
+>     +                                                    NULL);
+>     +       if (oss_buffer_size <= 0)
+>     +               return -EINVAL;
+>             oss_buffer_size = snd_pcm_plug_client_size(substream,
+>     -                                                  snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_BUFFER_SIZE, NULL)) * oss_frame_size;
+>     -       if (!oss_buffer_size)
+>     +                                                  oss_buffer_size * oss_frame_size);
+>     +       if (oss_buffer_size <= 0)
+>                     return -EINVAL;
+>             oss_buffer_size = rounddown_pow_of_two(oss_buffer_size);
+>             if (atomic_read(&substream->mmap_count)) {
+>     @@ -730,7 +736,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+>      
+>             min_period_size = snd_pcm_plug_client_size(substream,
+>                                                        snd_pcm_hw_param_value_min(slave_params, SNDRV_PCM_HW_PARAM_PERIOD_SIZE, NULL));
+>     -       if (min_period_size) {
+>     +       if (min_period_size > 0) {
+>                     min_period_size *= oss_frame_size;
+>                     min_period_size = roundup_pow_of_two(min_period_size);
+>                     if (oss_period_size < min_period_size)
+>     @@ -739,7 +745,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+>      
+>             max_period_size = snd_pcm_plug_client_size(substream,
+>                                                        snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_PERIOD_SIZE, NULL));
+>     -       if (max_period_size) {
+>     +       if (max_period_size > 0) {
+>                     max_period_size *= oss_frame_size;
+>                     max_period_size = rounddown_pow_of_two(max_period_size);
+>                     if (oss_period_size > max_period_size)
+>     @@ -752,7 +758,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+>                     oss_periods = substream->oss.setup.periods;
+>      
+>             s = snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_PERIODS, NULL);
+>     -       if (runtime->oss.maxfrags && s > runtime->oss.maxfrags)
+>     +       if (s > 0 && runtime->oss.maxfrags && s > runtime->oss.maxfrags)
+>                     s = runtime->oss.maxfrags;
+>             if (oss_periods > s)
+>                     oss_periods = s;
+>     
+> Hi,
+> 
+> I got the bug report from syzbot: 
+> https://syzkaller.appspot.com/bug?id=c224c2af9ed367315fc048b50f008385bd5c4c3f
+> .
 
--- 
-Péter
+Thanks!
+
+> I checked the call stack that reported the error, and then tried to construct
+> a case, but it relied on some hardware
+> 
+> devices. My machine did not have it, so I couldn't construct it. :-(
+> 
+> I reviewed the code again and found that 'format->channels' in 'size = frames
+> * format->channels * width'
+> 
+> should come from file->private_data in snd_pcm_oss_ioctl(). And file->
+> private_data is initialized in snd_pcm_oss_open_file().
+> 
+> Maybe this patch cannot cover this problem.
+
+The code path is about the ioctl changing the PCM channels, and it's
+calling the common parameter update function.  So it goes through the
+point the patch touches, at least.  It's not clear, though, whether
+the overflow is due to the lack of the error checks or the driver
+still allowed a larger value.  Unfortunately, there seems no
+reproducer.
+
+> But I think we can wait for this patch to be applied whether the problem
+> occurs.
+
+OK, I wrote a couple of more fixes for covering such cases in OSS
+layer.  Will submit a series later.
+
+
+thanks,
+
+Takashi

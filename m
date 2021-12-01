@@ -2,100 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 510D3464BDA
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 11:43:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2158D464C03
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 11:52:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D584D259C;
-	Wed,  1 Dec 2021 11:42:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D584D259C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC5092599;
+	Wed,  1 Dec 2021 11:51:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC5092599
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638355382;
-	bh=lTvpeAXvEpLVQ+W3qw/FdMew3SVyxrQDa/AnzwSCf74=;
+	s=default; t=1638355937;
+	bh=hEiFZkksQzRQyGuew8Oc0031DbJI5By30N2tI4LrZjA=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WG01ALy26LhYdpHRO6B5swWkxKw6yFWj0FSWe5I9Fr66858T489AnuUpi+bxFHOcb
-	 AHgHl1oN655hegC5DlWtHDdiqgkRrlGij5K6kzHN2tJ1esimlUQkFPPSUUmdQxvjTt
-	 Q+26uHgYpIm4dO6MwymnTykbqP8YNJTuvZSSGcJA=
+	b=jDYgPo2oq/EllihdTmGKQc0czTMiHCdWUi4QvL608QMnRiUuf0ircp/G78DAa3+sY
+	 hkjydvIMdnS2uPdqIcRlt1U4L6Dcovp5aVG0FiqwDB+U2r5CJeGQKZ8lF89puwM/Qc
+	 IBLkoaRQzPT6c2xbYLrB6bCcR/aICVWqoOeYDmn4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F774F80121;
-	Wed,  1 Dec 2021 11:41:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A7ECF80249;
+	Wed,  1 Dec 2021 11:51:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3B06F80246; Wed,  1 Dec 2021 11:41:39 +0100 (CET)
+ id 4460CF80246; Wed,  1 Dec 2021 11:50:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B087F800EE
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 11:41:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B087F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E0A1F80217
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 11:50:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E0A1F80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="M0xlwYkM"
-Received: by mail-wm1-x32d.google.com with SMTP id
- 77-20020a1c0450000000b0033123de3425so21921237wme.0
- for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 02:41:32 -0800 (PST)
+ header.b="LjOJIErs"
+Received: by mail-wr1-x42e.google.com with SMTP id q3so28369576wru.5
+ for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 02:50:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=ibHT0Tw2kI63la9g5/e7JK0voy9pB0hwBxOsML4cQWY=;
- b=M0xlwYkMfBSDhb1COxiSIw3PukI0zbWBcPI5Lr06ZioqlX127taxVighQ90uy21gaZ
- TzbbNtLfUHjJctXzFMJAsKDqC0wfm/nPNOdYjf/KutokP7fKJxCaioGgRDiSToJJWWXZ
- /9cXUNYtiA0JKmZmMUEsNi0lETQDif8W4FtxHpqEgFzIMOhMAVfJQsP5qegLyQM5oaZ8
- LxwGFEgQDO5Xh3PMizhp9zLOeh9kWIvdLhQaFl6ylrorGQq9l1S7gipy8B7u3hc299hN
- 8sVakR2W1Fe9vHUP17IaYkkIvUUKv8YN3c/TlslXRL+r8KH7AeRE8aixBeIghhyG5q3y
- HkHA==
+ bh=iaRWBZ6wVn64G1eYkYsgJ4iKQtxS+t5xqE+mjeZLe9c=;
+ b=LjOJIErsYA3H5R/SQ3MD0negXvGCfLzN7pYzmbRI9icpQz6ov+X3wjjzpbSp4pqnko
+ pD1xP83AEpwysggEIadi2K24Tft1s86g/mSUuCA9d/EfpZrr7aDhCPEXwV4VwAzg9Spj
+ 9M4Qya3M8XGahlRBFlyBp+oG0hWjyZ1JLUftiNsKgkGkgyU0y/Z5oOga0mJQU3Q4xzri
+ CPA/Z1FFGRhDjJCg2ApbPw9jHL/GJDgPlI2jCPMl/KPZlmHw1zBWQppm75vtf5dQBYfG
+ 6FV9+D2Jy8jucyR7nkc+Dp2VgTa5xP9E+0IvUHXQGhbIE+r8RbkIfyhwU8ol8hze8rV7
+ v8ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=ibHT0Tw2kI63la9g5/e7JK0voy9pB0hwBxOsML4cQWY=;
- b=Ap7G4BdLP7AM1WQQIJ5Y9gK7pdCJuHr8+TTo4fB6dD5c1CYC8tYAt6N/2dLMu8qWLC
- UCsTsKqyhQQg2/scKsxesvCBeUuF38rVusF3Jlf8YsTU0WsZYJQldr5lVnw+ZdW3EYt+
- snOEse9gn6LunUOmGaTmakip/MqZzTcGsDPnUBXK4Z5qZxBim8ARz/e3xPJkA3qnJBhU
- DS4W2p8QR6WzEZQgwwGEIDwKi300LCkksP2G2Au+VGEDrtnz8SoOdMqwpKs4ELc5KALb
- cybsUc6mTnfXoJzNmaZaG4goCufKzbtVT/6BVs9ljyJcAJAQyfZz1rxngz/QTIUV94Qq
- xXpA==
-X-Gm-Message-State: AOAM532d/VyPdx6BOpOyskBZB9h0H2IgIBD5qiMlf/KRni0IHJR1zDrA
- vvz8YGzhIMjJOrJGcT6/b+x3dA==
-X-Google-Smtp-Source: ABdhPJzcxkjtMoybZu6h0nI9AlFS5ZtL6bj9Td4YIh1MJlCIRbBS8WWcU39uUn2eJZsxwi73jj30sQ==
-X-Received: by 2002:a05:600c:35c8:: with SMTP id
- r8mr5997191wmq.8.1638355287096; 
- Wed, 01 Dec 2021 02:41:27 -0800 (PST)
+ bh=iaRWBZ6wVn64G1eYkYsgJ4iKQtxS+t5xqE+mjeZLe9c=;
+ b=UYIEi1XnOpQiDHPFZtuOhBMFpOnkOP4jVnnNmp/lD8PBXFtjI374acTQI6/bwwP9dj
+ SstOPa/2ChYdM+T0XAq9+tVg4YQvltXUC1D1eKshJvHp6iLdI846bMTVHE59C+FM27YQ
+ S9EHjOKaS3CHPjIAtDKwkTLug3ptr/gKixnp8wkNzhserogqfjEp1N3wCD4PlxcAB4Er
+ ldQNEMFVb2/INCrGgXINRRuzZsYYrkf8v5Dt7I0qThQMsl1Jr39BQCsaheW0OX+yBK1a
+ lw5oOrR20nFaQZ7qzUpOOXyzC3A2RNdz/t7A216djxM741wlNoqJ+Nxwg8WYIrvRQLmK
+ KXXw==
+X-Gm-Message-State: AOAM532dRYW8DpBTgQDamYEztBogOD6qxeUQzVFLbtb58BfHdW2V4+vu
+ aD1bIDg6SgQ8We4eUJ8dPrM2zg==
+X-Google-Smtp-Source: ABdhPJzUoU308MNHGmdz4H3mCfq+Qg4jBYUexDHukpCokTgVqQC15BFqy/Uc3KNflk686Ows/ubGPA==
+X-Received: by 2002:adf:ab53:: with SMTP id r19mr5827984wrc.584.1638355847050; 
+ Wed, 01 Dec 2021 02:50:47 -0800 (PST)
 Received: from [192.168.86.34]
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id o5sm18419836wrx.83.2021.12.01.02.41.25
+ by smtp.googlemail.com with ESMTPSA id g18sm853449wmq.4.2021.12.01.02.50.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Dec 2021 02:41:26 -0800 (PST)
-Subject: Re: [PATCH v3 3/5] pinctrl: qcom: Move chip specific functions to
- right files
+ Wed, 01 Dec 2021 02:50:46 -0800 (PST)
+Subject: Re: [PATCH v6 10/10] ASoC: qcom: SC7280: Update config for building
+ codec dma drivers
 To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
  bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
  robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
  perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org,
- Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org
-References: <1638179932-3353-1-git-send-email-srivasam@codeaurora.org>
- <1638179932-3353-4-git-send-email-srivasam@codeaurora.org>
+ swboyd@chromium.org, judyhsiao@chromium.org
+References: <1637928282-2819-1-git-send-email-srivasam@codeaurora.org>
+ <1637928282-2819-11-git-send-email-srivasam@codeaurora.org>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <bb08af7e-3b90-2d64-3bb1-f82cc6686184@linaro.org>
-Date: Wed, 1 Dec 2021 10:41:25 +0000
+Message-ID: <0d51b0fd-61a9-e68f-6ab8-27708667d787@linaro.org>
+Date: Wed, 1 Dec 2021 10:50:45 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <1638179932-3353-4-git-send-email-srivasam@codeaurora.org>
+In-Reply-To: <1637928282-2819-11-git-send-email-srivasam@codeaurora.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -117,261 +114,94 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 29/11/2021 09:58, Srinivasa Rao Mandadapu wrote:
-> Update lpass lpi pin control driver to accommodate new lpass variant
-> SoC specific drivers.
-> Move sm8250 SoC specific functions to pinctrl-sm8250-lpass-lpi.c file
-> and common declarations to pinctrl-lpass-lpi.h header file.
+On 26/11/2021 12:04, Srinivasa Rao Mandadapu wrote:
+> Add configuration for building SC7280 audio codec dma drivers.
 > 
 > Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 > Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
 > Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
 > ---
->   drivers/pinctrl/qcom/Makefile                   |   1 +
->   drivers/pinctrl/qcom/pinctrl-lpass-lpi.c        | 251 +-----------------------
->   drivers/pinctrl/qcom/pinctrl-lpass-lpi.h        | 139 +++++++++++++
->   drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c | 125 ++++++++++++
->   4 files changed, 271 insertions(+), 245 deletions(-)
->   create mode 100644 drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
->   create mode 100644 drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c
+> This patch set depends on:
+>      -- https://patchwork.kernel.org/project/alsa-devel/list/?series=582321
 > 
-> diff --git a/drivers/pinctrl/qcom/Makefile b/drivers/pinctrl/qcom/Makefile
-> index 7a12e8c..74568cf 100644
-> --- a/drivers/pinctrl/qcom/Makefile
-> +++ b/drivers/pinctrl/qcom/Makefile
-> @@ -37,3 +37,4 @@ obj-$(CONFIG_PINCTRL_SM8150) += pinctrl-sm8150.o
->   obj-$(CONFIG_PINCTRL_SM8250) += pinctrl-sm8250.o
->   obj-$(CONFIG_PINCTRL_SM8350) += pinctrl-sm8350.o
->   obj-$(CONFIG_PINCTRL_LPASS_LPI) += pinctrl-lpass-lpi.o
-> +obj-$(CONFIG_PINCTRL_LPASS_LPI) += pinctrl-sm8250-lpass-lpi.o
-
-This is confusing, either we make new
-CONFIG_PINCTRL_SM8250_LPASS_LPI here and use it for 
-pinctrl-sm8250-lpass-lpi.o
-
-> diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> index 2f19ab4..2641489 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> @@ -4,237 +4,16 @@
->    * Copyright (c) 2020 Linaro Ltd.
->    */
+>   sound/soc/qcom/Kconfig  | 13 +++++++++++++
+>   sound/soc/qcom/Makefile |  4 ++++
+>   2 files changed, 17 insertions(+)
+> 
+> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+> index 530d01f..b46a2e7 100644
+> --- a/sound/soc/qcom/Kconfig
+> +++ b/sound/soc/qcom/Kconfig
+> @@ -20,6 +20,10 @@ config SND_SOC_LPASS_PLATFORM
+>   	tristate
+>   	select REGMAP_MMIO
 >   
-> -#include <linux/bitops.h>
-> -#include <linux/bitfield.h>
-
-Looks like some of these are removed without a reason.
-
-
->   #include <linux/clk.h>
->   #include <linux/gpio/driver.h>
-> -#include <linux/io.h>
-> -#include <linux/module.h>
->   #include <linux/of_device.h>
-> -#include <linux/of.h>
->   #include <linux/pinctrl/pinconf-generic.h>
->   #include <linux/pinctrl/pinconf.h>
->   #include <linux/pinctrl/pinmux.h>
-> -#include <linux/platform_device.h>
-> -#include <linux/slab.h>
-> -#include <linux/types.h>
->   #include "../core.h"
->   #include "../pinctrl-utils.h"
-> +#include "pinctrl-lpass-lpi.h"
-
-...
-
-
-> -
-> -module_platform_driver(lpi_pinctrl_driver);
-> -MODULE_DESCRIPTION("QTI LPI GPIO pin control driver");
-> -MODULE_LICENSE("GPL");
-
-if you build this as Modules your build would fail without MODULE_LICENSE().
-
-
-> diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-> new file mode 100644
-> index 0000000..b0afb40
-> --- /dev/null
-> +++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-> @@ -0,0 +1,139 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
-> + * Copyright (c) 2020 Linaro Ltd.
-> + */
-> +#ifndef __PINCTRL_LPASS_LPI_H__
-> +#define __PINCTRL_LPASS_LPI_H__
+> +config SND_SOC_LPASS_CDC_DMA
+> +	tristate
+> +	select REGMAP_MMIO
 > +
-> +#define LPI_SLEW_RATE_CTL_REG	0xa000
-> +#define LPI_TLMM_REG_OFFSET		0x1000
-> +#define LPI_SLEW_RATE_MAX		0x03
-> +#define LPI_SLEW_BITS_SIZE		0x02
-> +#define LPI_SLEW_RATE_MASK		GENMASK(1, 0)
-> +#define LPI_GPIO_CFG_REG		0x00
-> +#define LPI_GPIO_PULL_MASK		GENMASK(1, 0)
-> +#define LPI_GPIO_FUNCTION_MASK		GENMASK(5, 2)
-> +#define LPI_GPIO_OUT_STRENGTH_MASK	GENMASK(8, 6)
-> +#define LPI_GPIO_OE_MASK		BIT(9)
-> +#define LPI_GPIO_VALUE_REG		0x04
-> +#define LPI_GPIO_VALUE_IN_MASK		BIT(0)
-> +#define LPI_GPIO_VALUE_OUT_MASK		BIT(1)
+>   config SND_SOC_LPASS_IPQ806X
+>   	tristate
+>   	select SND_SOC_LPASS_CPU
+> @@ -36,6 +40,13 @@ config SND_SOC_LPASS_SC7180
+>   	select SND_SOC_LPASS_PLATFORM
+>   	select SND_SOC_LPASS_HDMI
+>   
+> +config SND_SOC_LPASS_SC7280
+> +	tristate
+> +	select SND_SOC_LPASS_CPU
+> +	select SND_SOC_LPASS_PLATFORM
+> +	select SND_SOC_LPASS_HDMI
+> +	select SND_SOC_LPASS_CDC_DMA
 > +
-> +#define LPI_GPIO_BIAS_DISABLE		0x0
-> +#define LPI_GPIO_PULL_DOWN		0x1
-> +#define LPI_GPIO_KEEPER			0x2
-> +#define LPI_GPIO_PULL_UP		0x3
-> +#define LPI_GPIO_DS_TO_VAL(v)		(v / 2 - 1)
-> +#define NO_SLEW				-1
-> +
-> +#define LPI_FUNCTION(fname)			                \
-> +	[LPI_MUX_##fname] = {		                \
-> +		.name = #fname,				\
-> +		.groups = fname##_groups,               \
-> +		.ngroups = ARRAY_SIZE(fname##_groups),	\
-> +	}
-> +
-> +#define LPI_PINGROUP(id, soff, f1, f2, f3, f4)		\
-> +	{						\
-> +		.name = "gpio" #id,			\
-> +		.pins = gpio##id##_pins,		\
-> +		.pin = id,				\
-> +		.slew_offset = soff,			\
-> +		.npins = ARRAY_SIZE(gpio##id##_pins),	\
-> +		.funcs = (int[]){			\
-> +			LPI_MUX_gpio,			\
-> +			LPI_MUX_##f1,			\
-> +			LPI_MUX_##f2,			\
-> +			LPI_MUX_##f3,			\
-> +			LPI_MUX_##f4,			\
-> +		},					\
-> +		.nfuncs = 5,				\
-> +	}
-> +
-> +struct lpi_pingroup {
-> +	const char *name;
-> +	const unsigned int *pins;
-> +	unsigned int npins;
-> +	unsigned int pin;
-> +	/* Bit offset in slew register for SoundWire pins only */
-> +	int slew_offset;
-> +	unsigned int *funcs;
-> +	unsigned int nfuncs;
-> +};
-> +
-> +struct lpi_function {
-> +	const char *name;
-> +	const char * const *groups;
-> +	unsigned int ngroups;
-> +};
-> +
-> +struct lpi_pinctrl_variant_data {
-> +	const struct pinctrl_pin_desc *pins;
-> +	int npins;
-> +	const struct lpi_pingroup *groups;
-> +	int ngroups;
-> +	const struct lpi_function *functions;
-> +	int nfunctions;
-> +};
-> +
-> +#define MAX_LPI_NUM_CLKS	2
-> +
-> +struct lpi_pinctrl {
-> +	struct device *dev;
-> +	struct pinctrl_dev *ctrl;
-> +	struct gpio_chip chip;
-> +	struct pinctrl_desc desc;
-> +	char __iomem *tlmm_base;
-> +	char __iomem *slew_base;
-> +	struct clk_bulk_data clks[MAX_LPI_NUM_CLKS];
-> +	struct mutex slew_access_lock;
-> +	const struct lpi_pinctrl_variant_data *data;
-> +};
-> +
+>   config SND_SOC_STORM
+>   	tristate "ASoC I2S support for Storm boards"
+>   	select SND_SOC_LPASS_IPQ806X
+> @@ -156,7 +167,9 @@ config SND_SOC_SC7280
+>   	tristate "SoC Machine driver for SC7280 boards"
+>   	depends on I2C && SOUNDWIRE || COMPILE_TEST
+>   	select SND_SOC_QCOM_COMMON
+> +	select SND_SOC_LPASS_SC7280
+>   	select SND_SOC_MAX98357A
+> +	select SND_SOC_WCD938X
 
- From here
-<<<
+Why are we updating machine Kconfigs in this patch, should that be not 
+in your machine driver patch series?
 
-> +enum lpass_lpi_functions {
-> +	LPI_MUX_dmic1_clk,
-> +	LPI_MUX_dmic1_data,
-> +	LPI_MUX_dmic2_clk,
-> +	LPI_MUX_dmic2_data,
-> +	LPI_MUX_dmic3_clk,
-> +	LPI_MUX_dmic3_data,
-> +	LPI_MUX_i2s1_clk,
-> +	LPI_MUX_i2s1_data,
-> +	LPI_MUX_i2s1_ws,
-> +	LPI_MUX_i2s2_clk,
-> +	LPI_MUX_i2s2_data,
-> +	LPI_MUX_i2s2_ws,
-> +	LPI_MUX_qua_mi2s_data,
-> +	LPI_MUX_qua_mi2s_sclk,
-> +	LPI_MUX_qua_mi2s_ws,
-> +	LPI_MUX_swr_rx_clk,
-> +	LPI_MUX_swr_rx_data,
-> +	LPI_MUX_swr_tx_clk,
-> +	LPI_MUX_swr_tx_data,
-> +	LPI_MUX_wsa_swr_clk,
-> +	LPI_MUX_wsa_swr_data,
-> +	LPI_MUX_gpio,
-> +	LPI_MUX__,
-> +};
-> +
-> +static const unsigned int gpio0_pins[] = { 0 };
-> +static const unsigned int gpio1_pins[] = { 1 };
-> +static const unsigned int gpio2_pins[] = { 2 };
-> +static const unsigned int gpio3_pins[] = { 3 };
-> +static const unsigned int gpio4_pins[] = { 4 };
-> +static const unsigned int gpio5_pins[] = { 5 };
-> +static const unsigned int gpio6_pins[] = { 6 };
-> +static const unsigned int gpio7_pins[] = { 7 };
-> +static const unsigned int gpio8_pins[] = { 8 };
-> +static const unsigned int gpio9_pins[] = { 9 };
-> +static const unsigned int gpio10_pins[] = { 10 };
-> +static const unsigned int gpio11_pins[] = { 11 };
-> +static const unsigned int gpio12_pins[] = { 12 };
-> +static const unsigned int gpio13_pins[] = { 13 };
- >>>
-to here are specific to sm8250, so it should not be in header file to 
-start with.
+I think I did point this out in previous versions too.
 
-
-> +
-> +int lpi_pinctrl_probe(struct platform_device *pdev);
-> +int lpi_pinctrl_remove(struct platform_device *pdev);
-> +
-> +#endif /*__PINCTRL_LPASS_LPI_H__*/
-> +
-> diff --git a/drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c
-> new file mode 100644
-> index 0000000..3eba8b3
-> --- /dev/null
-> +++ b/drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c
-> @@ -0,0 +1,125 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-
-...
-
-> +
-> +static struct platform_driver lpi_pinctrl_driver = {
-> +	.driver = {
-> +		   .name = "qcom-sm8250-lpass-lpi-pinctrl",
-> +		   .of_match_table = lpi_pinctrl_of_match,
-> +	},
-> +	.probe = lpi_pinctrl_probe,
-> +	.remove = lpi_pinctrl_remove,
-> +};
-> +
-> +module_platform_driver(lpi_pinctrl_driver);
-> +MODULE_DESCRIPTION("QTI LPI GPIO pin control driver");
-
-may be :
-"SM8250 LPI GPIO pin control driver"
 
 --srini
-> +MODULE_LICENSE("GPL");
-> +
+
+
+>   	select SND_SOC_LPASS_RX_MACRO
+>   	select SND_SOC_LPASS_TX_MACRO
+>   	help
+> diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
+> index 625aec6..8b7b876 100644
+> --- a/sound/soc/qcom/Makefile
+> +++ b/sound/soc/qcom/Makefile
+> @@ -1,18 +1,22 @@
+>   # SPDX-License-Identifier: GPL-2.0
+>   # Platform
+>   snd-soc-lpass-cpu-objs := lpass-cpu.o
+> +snd-soc-lpass-cdc-dma-objs := lpass-cdc-dma.o
+>   snd-soc-lpass-hdmi-objs := lpass-hdmi.o
+>   snd-soc-lpass-platform-objs := lpass-platform.o
+>   snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
+>   snd-soc-lpass-apq8016-objs := lpass-apq8016.o
+>   snd-soc-lpass-sc7180-objs := lpass-sc7180.o
+> +snd-soc-lpass-sc7280-objs := lpass-sc7280.o
+>   
+>   obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
+> +obj-$(CONFIG_SND_SOC_LPASS_CDC_DMA) += snd-soc-lpass-cdc-dma.o
+>   obj-$(CONFIG_SND_SOC_LPASS_HDMI) += snd-soc-lpass-hdmi.o
+>   obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
+>   obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
+>   obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
+>   obj-$(CONFIG_SND_SOC_LPASS_SC7180) += snd-soc-lpass-sc7180.o
+> +obj-$(CONFIG_SND_SOC_LPASS_SC7280) += snd-soc-lpass-sc7280.o
+>   
+>   # Machine
+>   snd-soc-storm-objs := storm.o
 > 

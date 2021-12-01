@@ -2,70 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93CE44648F1
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 08:37:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65B24648F8
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 08:39:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 328942517;
-	Wed,  1 Dec 2021 08:36:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 328942517
+	by alsa0.perex.cz (Postfix) with ESMTP id 7953924AD;
+	Wed,  1 Dec 2021 08:39:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7953924AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638344253;
-	bh=8/myr05LK2LoOXphs3EKhcofTN3rSjeTREGp+mG5tuY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Ws/u4tvER6dIbTmOmF9ROrqzV9+0uDpZsOIqhFGmJb0Zf3qO5RksGsHuWMceEB3sf
-	 KRk56K5VF1Oe/9AwXvgZ7Sje/dLAHIj+pzS9EMLO+IfGMkYz5n+bAmG6Jc1zur0Phm
-	 i5BF20HcTb683gsWplSKEb5ej1D8AXky7OZa+0eY=
+	s=default; t=1638344395;
+	bh=TQEyL6uLWh22xitKcE97WuM+3DflTMGyNR5pT5ZBAI8=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Mko5Zh5Zvcgp16qE19xBQvrE4ArAti9VHT3U4WsqPUKw1Jq/2AomYfFVSay1mEx6u
+	 sCuKx8/ISHuUMcfBYi7cbn2Y7v2iq9K/LpUtF9NpF9Ma6pKAN7UBvWpi9ThqMQB8Q2
+	 U02H8ljiG0Beto7YqszPO4cfzJ2v43Jy30J24UoM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BC8FF80256;
-	Wed,  1 Dec 2021 08:36:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3304F804F1;
+	Wed,  1 Dec 2021 08:36:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6247F80121; Wed,  1 Dec 2021 08:36:13 +0100 (CET)
+ id 133BCF804D9; Wed,  1 Dec 2021 08:36:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 624FBF80121
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 08:36:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 624FBF80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6FFC1F80240
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 08:36:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FFC1F80240
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="jawUE7Yi"; 
+ header.b="cyUbOXhh"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="TQOFqEuQ"
+ header.b="VsEDilyn"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 33D391FD5B;
+ by smtp-out1.suse.de (Postfix) with ESMTP id 378B62171F;
  Wed,  1 Dec 2021 07:36:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1638344169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=20LA+sdJJV19G4/U8oidDyffbMr+SD5DGP5jCxVb8Zk=;
- b=jawUE7YicucNoWlD0/xyM7LLYUxUPT+1V3FO90sUNkT5NX0+uVBObYa2Rdv6Hs0IgsOYfc
- m0CMQPxQDRVCbVcBDTK2pbeSk+Ds7I3pj/Spvhz/J/2/Gq14kLoe3lhfckHpD+XSJWvdEr
- NmNxdBG/f6cCXYT8U9ltDK2lsYrS8T8=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5+y/slb0uNmB384pyoT5O8vyq4IsX7gjTbE5TWw+muk=;
+ b=cyUbOXhhrYs3livietmV/2qPv6GwHXmu97Ta2r5F/YGvgMNBLvE1dlG7dk9iDBjCbtPwlm
+ tNEfibrIrYie0evDnatIzoQ2AhqYpG+Ue+QbVDELLRXmeF/2eEPhbQ87TsWqKHewJ9B17T
+ 2KYiBaft7wKM/3CZrK+6Z01mDVLyMj4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1638344169;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=20LA+sdJJV19G4/U8oidDyffbMr+SD5DGP5jCxVb8Zk=;
- b=TQOFqEuQNRaYsPUFTqAfna3DkjKOL4NJ6U1k2SLlfjScYDVU2yYrzd02YPLEGEczcrHGO/
- Vq1iESb1RkWegRBg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5+y/slb0uNmB384pyoT5O8vyq4IsX7gjTbE5TWw+muk=;
+ b=VsEDilynFuyDoX+EoViJjVgQBU25mMbpu9o7SXmdtHqLZvopW/VA9Ca5dpDg9XFHFhYIy7
+ 3ZTfVhrZdAVo8RAw==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id F186BA3E4B;
- Wed,  1 Dec 2021 07:36:08 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 31E10A3E63;
+ Wed,  1 Dec 2021 07:36:09 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/3] ALSA: pcm: oss: various fixes
-Date: Wed,  1 Dec 2021 08:36:03 +0100
-Message-Id: <20211201073606.11660-1-tiwai@suse.de>
+Subject: [PATCH 1/3] ALSA: pcm: oss: Fix negative period/buffer sizes
+Date: Wed,  1 Dec 2021 08:36:04 +0100
+Message-Id: <20211201073606.11660-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20211201073606.11660-1-tiwai@suse.de>
+References: <20211201073606.11660-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Bixuan Cui <cuibixuan@linux.alibaba.com>
@@ -84,25 +90,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+The period size calculation in OSS layer may receive a negative value
+as an error, but the code there assumes only the positive values and
+handle them with size_t.  Due to that, a too big value may be passed
+to the lower layers.
 
-here is a patch set to cover several corner-cases that are found
-in PCM OSS layer.  Mostly for addressing the missing error handlings,
-but also limit the period size to a reasonable value.
+This patch changes the code to handle with ssize_t and adds the proper
+error checks appropriately.
 
+Reported-by: syzbot+bb348e9f9a954d42746f@syzkaller.appspotmail.com
+Reported-by: Bixuan Cui <cuibixuan@linux.alibaba.com>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/1638270978-42412-1-git-send-email-cuibixuan@linux.alibaba.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/oss/pcm_oss.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-Takashi
-
-===
-
-Takashi Iwai (3):
-  ALSA: pcm: oss: Fix negative period/buffer sizes
-  ALSA: pcm: oss: Limit the period size to 16MB
-  ALSA: pcm: oss: Handle missing errors in snd_pcm_oss_change_params*()
-
- sound/core/oss/pcm_oss.c | 37 +++++++++++++++++++++++++------------
- 1 file changed, 25 insertions(+), 12 deletions(-)
-
+diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+index 82a818734a5f..bec7590bc84b 100644
+--- a/sound/core/oss/pcm_oss.c
++++ b/sound/core/oss/pcm_oss.c
+@@ -147,7 +147,7 @@ snd_pcm_hw_param_value_min(const struct snd_pcm_hw_params *params,
+  *
+  * Return the maximum value for field PAR.
+  */
+-static unsigned int
++static int
+ snd_pcm_hw_param_value_max(const struct snd_pcm_hw_params *params,
+ 			   snd_pcm_hw_param_t var, int *dir)
+ {
+@@ -682,18 +682,24 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+ 				   struct snd_pcm_hw_params *oss_params,
+ 				   struct snd_pcm_hw_params *slave_params)
+ {
+-	size_t s;
+-	size_t oss_buffer_size, oss_period_size, oss_periods;
+-	size_t min_period_size, max_period_size;
++	ssize_t s;
++	ssize_t oss_buffer_size;
++	ssize_t oss_period_size, oss_periods;
++	ssize_t min_period_size, max_period_size;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	size_t oss_frame_size;
+ 
+ 	oss_frame_size = snd_pcm_format_physical_width(params_format(oss_params)) *
+ 			 params_channels(oss_params) / 8;
+ 
++	oss_buffer_size = snd_pcm_hw_param_value_max(slave_params,
++						     SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
++						     NULL);
++	if (oss_buffer_size <= 0)
++		return -EINVAL;
+ 	oss_buffer_size = snd_pcm_plug_client_size(substream,
+-						   snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_BUFFER_SIZE, NULL)) * oss_frame_size;
+-	if (!oss_buffer_size)
++						   oss_buffer_size * oss_frame_size);
++	if (oss_buffer_size <= 0)
+ 		return -EINVAL;
+ 	oss_buffer_size = rounddown_pow_of_two(oss_buffer_size);
+ 	if (atomic_read(&substream->mmap_count)) {
+@@ -730,7 +736,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+ 
+ 	min_period_size = snd_pcm_plug_client_size(substream,
+ 						   snd_pcm_hw_param_value_min(slave_params, SNDRV_PCM_HW_PARAM_PERIOD_SIZE, NULL));
+-	if (min_period_size) {
++	if (min_period_size > 0) {
+ 		min_period_size *= oss_frame_size;
+ 		min_period_size = roundup_pow_of_two(min_period_size);
+ 		if (oss_period_size < min_period_size)
+@@ -739,7 +745,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+ 
+ 	max_period_size = snd_pcm_plug_client_size(substream,
+ 						   snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_PERIOD_SIZE, NULL));
+-	if (max_period_size) {
++	if (max_period_size > 0) {
+ 		max_period_size *= oss_frame_size;
+ 		max_period_size = rounddown_pow_of_two(max_period_size);
+ 		if (oss_period_size > max_period_size)
+@@ -752,7 +758,7 @@ static int snd_pcm_oss_period_size(struct snd_pcm_substream *substream,
+ 		oss_periods = substream->oss.setup.periods;
+ 
+ 	s = snd_pcm_hw_param_value_max(slave_params, SNDRV_PCM_HW_PARAM_PERIODS, NULL);
+-	if (runtime->oss.maxfrags && s > runtime->oss.maxfrags)
++	if (s > 0 && runtime->oss.maxfrags && s > runtime->oss.maxfrags)
+ 		s = runtime->oss.maxfrags;
+ 	if (oss_periods > s)
+ 		oss_periods = s;
 -- 
 2.31.1
 

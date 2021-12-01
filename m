@@ -2,85 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3E01464B17
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 10:58:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1897A464B84
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Dec 2021 11:22:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46CF52585;
-	Wed,  1 Dec 2021 10:57:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46CF52585
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EB6A258C;
+	Wed,  1 Dec 2021 11:21:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EB6A258C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638352699;
-	bh=/c3k/ImVdbOJuhNSJnVSZMzIfwOgZctQU0u6d+isWRM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Yebu1hOF9h30IPj2VHJ0HBpJdAi5cXQZPeUDLJtJrYqc1A2bPxPCo8kWCCVfIUAEK
-	 Wg/ljjruqxhIoT9hweOeGrVejFzsPVLkpeHDk0B50aWTY4xttGJoh2fMgAiK8M7Ana
-	 9ngXmIWz7muEPiDG5uvbYJ3B074L9C4CJy3biJMA=
+	s=default; t=1638354149;
+	bh=LMWx/dBrUq33oaMPYPVzEZQcyCuMuSupyCLhch7HdqU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iGrZeO2VhB7Ty8wWM8CVipDUYUlZI1f0DriPGEIWgy5NFX7l4+TzYEqdVqNnhi1q4
+	 5lOGlF2akUYxgSQRS+ff0x3MWSzRKXs/7J7x8w45Djgry+vrelGqm8CEU7+r7EYBHe
+	 khxNDTQrgKpuAvBp3YTBHV2DRdaCh9nzGkXHDgsY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9CE9F80249;
-	Wed,  1 Dec 2021 10:57:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67DB6F80249;
+	Wed,  1 Dec 2021 11:21:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 911EEF80246; Wed,  1 Dec 2021 10:56:55 +0100 (CET)
+ id 9E5E5F80246; Wed,  1 Dec 2021 11:21:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com
+ [209.85.222.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8A6BF800EE
- for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 10:56:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8A6BF800EE
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 1B19uZyY5023469,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36503.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 1B19uZyY5023469
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 1 Dec 2021 17:56:35 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36503.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Wed, 1 Dec 2021 17:56:35 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.15; Wed, 1 Dec 2021 17:56:34 +0800
-From: Oder Chiou <oder_chiou@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt5640: Fix the wrong state of the JD in the HDA header
-Date: Wed, 1 Dec 2021 17:56:29 +0800
-Message-ID: <20211201095629.21818-1-oder_chiou@realtek.com>
-X-Mailer: git-send-email 2.34.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72E53F80121
+ for <alsa-devel@alsa-project.org>; Wed,  1 Dec 2021 11:20:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72E53F80121
+Received: by mail-ua1-f49.google.com with SMTP id n6so47883785uak.1
+ for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 02:20:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=urLNBsFGliR6FhvwlQWsAIf0ZWR7LeLf64IUUPE+zmE=;
+ b=v9+oF2qACSG8EfuGjHZfmUrW6ZOXYoPHFJDJgtvvcWRc9/Wn4HMxNwOa+vriBYEIe1
+ 9SUrVWaiWzw5ELYhQ1EZxRXjgLPthqyO6stGkj9R8rWO+FXyVN6MujXzt1z/i/9A1Kzc
+ w+sKRkXuFU6ymslu/O2SfQPvmx2Jn6LiaechpOHW4SFvnaimtomCgusSjIIJ+sD2+ROI
+ rHqJNRtyPHhNzypjQiNsah6R9uDr2JEGiH1xTROoG4P7eAguy7kR3Ahxqo3/7oTRWU9x
+ UFEBe+TXGBYZqnNXtP6rTfA1HEDfQJO5uQJOhDgzJW87ZFwvCPi7owQJxr6c4dh7n9RA
+ I5MQ==
+X-Gm-Message-State: AOAM530e/5qGZflaoAbdpd5l4m/zexB2lwdUKG2SZVd2+VFjHyjeQH5s
+ 497D7P7U2+1lj1ypeDYdN+BYBoSTtMi6BQ==
+X-Google-Smtp-Source: ABdhPJwipIwVghDCxEQpohj4agFQBC+tlErkFSzrgL35vQckR8dlmf44A3Xw82DKLX2SLET+2QpHuw==
+X-Received: by 2002:a05:6102:953:: with SMTP id
+ a19mr5434904vsi.28.1638354056048; 
+ Wed, 01 Dec 2021 02:20:56 -0800 (PST)
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com.
+ [209.85.221.178])
+ by smtp.gmail.com with ESMTPSA id l28sm11670405vkn.45.2021.12.01.02.20.55
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Dec 2021 02:20:55 -0800 (PST)
+Received: by mail-vk1-f178.google.com with SMTP id j1so15734382vkr.1
+ for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 02:20:55 -0800 (PST)
+X-Received: by 2002:a05:6122:2193:: with SMTP id
+ j19mr5849899vkd.7.1638354055034; 
+ Wed, 01 Dec 2021 02:20:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXH36504.realtek.com.tw (172.21.6.27) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: trusted connection
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 12/01/2021 09:31:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzEyLzEgpFekyCAwNjo1NDowMA==?=
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-ServerInfo: RTEXH36503.realtek.com.tw, 9
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-Cc: Oder Chiou <oder_chiou@realtek.com>, jack.yu@realtek.com,
- alsa-devel@alsa-project.org, jacal_tseng@realtek.com, danielz@nvidia.com,
- spujar@nvidia.com, albertchen@realtek.com, derek.fang@realtek.com,
- shumingf@realtek.com, flove@realtek.com
+References: <20211117093734.17407-1-daniel.baluta@oss.nxp.com>
+ <20211117093734.17407-8-daniel.baluta@oss.nxp.com>
+ <CAMuHMdVV6Os8Gzc9JVjD2CAtN38=7KFn9GqosnWvByQc-7uA=Q@mail.gmail.com>
+ <bdbea252-09e4-eb60-acf8-4ea8a1d924c4@linux.intel.com>
+ <YaZZzSPQDz0vHRQY@sirena.org.uk>
+In-Reply-To: <YaZZzSPQDz0vHRQY@sirena.org.uk>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 1 Dec 2021 11:20:43 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdU5Lc9x4mnoKn2xUPku1tT1XM=ALY-vPtos=NBjcrzAWQ@mail.gmail.com>
+Message-ID: <CAMuHMdU5Lc9x4mnoKn2xUPku1tT1XM=ALY-vPtos=NBjcrzAWQ@mail.gmail.com>
+Subject: Re: [PATCH 07/21] ASoC: amd: Add module to determine ACP configuration
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: daniel.baluta@gmail.com, AjitKumar.Pandey@amd.com,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Daniel Baluta <daniel.baluta@oss.nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Balakishore.pati@amd.com, linux-mediatek@lists.infradead.org,
+ Bard Liao <bard.liao@intel.com>, Julian.Schroeder@amd.com,
+ yc.hung@mediatek.com, vishnuvardhanrao.ravulapati@amd.com,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ daniel.baluta@nxp.com, vsreddy@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,56 +107,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch fixes the wrong state of the JD with 1M pull up resistor in the
-HDA header.
+Hi Mark,
 
-Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
----
- sound/soc/codecs/rt5640.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+On Tue, Nov 30, 2021 at 6:05 PM Mark Brown <broonie@kernel.org> wrote:
+> On Tue, Nov 30, 2021 at 10:49:30AM -0600, Pierre-Louis Bossart wrote:
+> > To Geert's point, there may be an additional need to add a
+>
+> > depends on SND_SOC_AMD_ACP
+>
+> > There are also a set of
+>
+> > SND_SOC_AMD_ACPyx options, not sure if any applies as a dependency here?
+>
+> Or put them in an if block (IIRC I thought they were which was why the
+> dependency wasn't needed but I don't know what I was looking at if I did
+> check that).
 
-diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index 08b37878cb00..f3659b14c74e 100644
---- a/sound/soc/codecs/rt5640.c
-+++ b/sound/soc/codecs/rt5640.c
-@@ -1973,7 +1973,7 @@ static int rt5640_set_bias_level(struct snd_soc_component *component,
- 				RT5640_PWR_FV1 | RT5640_PWR_FV2,
- 				RT5640_PWR_FV1 | RT5640_PWR_FV2);
- 			snd_soc_component_update_bits(component, RT5640_DUMMY1,
--						0x0301, 0x0301);
-+						0x1, 0x1);
- 			snd_soc_component_update_bits(component, RT5640_MICBIAS,
- 						0x0030, 0x0030);
- 		}
-@@ -2533,7 +2533,7 @@ static void rt5640_enable_hda_jack_detect(
- 	snd_soc_component_update_bits(component, RT5640_GPIO_CTRL3,
- 		RT5640_GP1_PF_MASK, RT5640_GP1_PF_OUT);
- 
--	snd_soc_component_update_bits(component, RT5640_DUMMY1, 0x700, 0x300);
-+	snd_soc_component_update_bits(component, RT5640_DUMMY1, 0x400, 0x0);
- 
- 	rt5640->jack = jack;
- 
-@@ -2651,13 +2651,16 @@ static int rt5640_probe(struct snd_soc_component *component)
- 
- 	if (device_property_read_u32(component->dev,
- 				     "realtek,jack-detect-source", &val) == 0) {
--		if (val <= RT5640_JD_SRC_GPIO4)
-+		if (val <= RT5640_JD_SRC_GPIO4) {
- 			rt5640->jd_src = val << RT5640_JD_SFT;
--		else if (val == RT5640_JD_SRC_HDA_HEADER)
-+		} else if (val == RT5640_JD_SRC_HDA_HEADER) {
- 			rt5640->jd_src = RT5640_JD_SRC_HDA_HEADER;
--		else
-+			snd_soc_component_update_bits(component, RT5640_DUMMY1,
-+				0x0300, 0x0);
-+		} else {
- 			dev_warn(component->dev, "Warning: Invalid jack-detect-source value: %d, leaving jack-detect disabled\n",
- 				 val);
-+		}
- 	}
- 
- 	if (!device_property_read_bool(component->dev, "realtek,jack-detect-not-inverted"))
--- 
-2.34.1
+Probably you were looking at sound/soc/amd/acp/Kconfig, where all the
+other ACP options live, and where you had applied my earlier patch
+to wrap everything in a big "if".
 
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

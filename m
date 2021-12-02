@@ -2,89 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E87D44665CC
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 15:50:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 555F44665F8
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 15:58:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6203626FF;
-	Thu,  2 Dec 2021 15:49:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6203626FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08819271A;
+	Thu,  2 Dec 2021 15:57:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08819271A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638456630;
-	bh=VnqBObnHKSyQymRoDWGRwBEmJoaCzR+2RjRtMXqEq7Y=;
-	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1638457110;
+	bh=SQe2hKW2ZQz78/Pai5aX2YSW0E6n5G47x4TKcILhwLM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=CsJQygdgYVmtHbuKZLw9DOpRuoBc6HovGodRCuhaPrF5IH3js9Em2RG3Ywx07JW0S
-	 pzQ/5+wazPZjmaURqGKZXcaTH/cTkabMlOFgzIRFtbxdKfKs/g2JI/HYuucexSRhbz
-	 iytsb5woYYNMGNI0MFsnX5CVQ2tqJZOnFh0uU6YM=
+	b=Sn7eAcfDaPwwFwt26mIoXKw67Uz2p8FMOCLRZDSV4q6aUM+wz7F3RVBD8RZ1R3qa1
+	 dxssW/YIfE9J4zNvN6LvcK9yUxTYT2NSeu4NbStkVckFDOpf9mM0IiitmTnN01w1qq
+	 XCVuDGCFVa9DtvzAXEwM5mFOzYqFeznpAFN7EUBg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29CA7F804AD;
-	Thu,  2 Dec 2021 15:49:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A280EF804E2;
+	Thu,  2 Dec 2021 15:57:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A18BF804F1; Thu,  2 Dec 2021 15:49:13 +0100 (CET)
+ id CEFB4F800CE; Thu,  2 Dec 2021 15:57:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D86BF804EC
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 15:49:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D86BF804EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 057FFF800CE
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 15:57:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 057FFF800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="KTfZbkE1"
-Received: by mail-wr1-x42b.google.com with SMTP id d9so39355870wrw.4
- for <alsa-devel@alsa-project.org>; Thu, 02 Dec 2021 06:49:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:subject:to:cc:message-id:date:user-agent:mime-version
- :content-language;
- bh=OfuY+eiincZMQL8kVF+3iuVVEEjBU8iSSXMtx2zz3h8=;
- b=KTfZbkE1sxtQNJQGDoCIB5uNXx6pIR5tocB6eVy/XyLdo60tmps5aVl+Z7AIq1iW0o
- Cl8CXdrSyaz42F1WJkS5fH82dQljkL3UsnNieGExVGFGYBkA3OCFY/wTEF2E0cKXh1x0
- 6OAkVds8u3Yf2EHR7XlSUlAMuVgRITE+w+weWwug2HbooWLP5w4nO1zGvVzxytMGLOAv
- 624KhRlQBgykzpysF0+hMY1Yc7EaOi7LCPSlH+ntx9CvBiKrX+pdndciY2tU2kW1XuaW
- YjJradqX9CAtM3pUhOKRCNC54e8aFS3PeqEVEVy1jBtENrxEJiceJN9DYHIiAWROhKcQ
- pDxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
- :mime-version:content-language;
- bh=OfuY+eiincZMQL8kVF+3iuVVEEjBU8iSSXMtx2zz3h8=;
- b=N2KvO8WkRSxs/5bsgcVL6RbYcN/zyKzrysl1+gIpmflcaS1XYfIWnYB/h7XgABUwOx
- Qgjlo1cqFcWeUw8kMOq9FjYk2Ua7VeRiieFSrTQFS4rbeJvxIZ4Qjmgrqja4lOUizFYd
- bYyMyBCW/XAOmVyljAvyxRRKeRO0tUxM3EL19NIoez7kYupH2NNm7ogRpIgY9SzEKZlb
- XKxhy8VT5nhciqkpF3oK4fiEaKBQB/Ev+xRD9umYrljilTrQJ0wK6hWoG/yjylGO91fc
- SGjThSY5go70OA0mdIfoGQxv0EZNvtAMBIkOOFZWZWIeNLNmDd4FRTWxse2NuVTGScl3
- ToHA==
-X-Gm-Message-State: AOAM530DdkGhQQduF4VX07u3FKGvq9vlLyflf/hBXX1QWX9worNQ+yBP
- v/sqWvU18pdercJ6pxWyP4M=
-X-Google-Smtp-Source: ABdhPJzEewYRFG8JbWqVUXCLGEwlG4VUWOHCA00n8L5NafxB+QOtu55jNCbVSKheb3nVAxT6S0GYzA==
-X-Received: by 2002:a5d:628f:: with SMTP id k15mr15709189wru.363.1638456542872; 
- Thu, 02 Dec 2021 06:49:02 -0800 (PST)
-Received: from [192.168.11.11] (37.194.143.150.dyn.plus.net. [150.143.194.37])
- by smtp.googlemail.com with ESMTPSA id
- g18sm3035210wmq.4.2021.12.02.06.49.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Dec 2021 06:49:02 -0800 (PST)
-From: Alan Young <consult.awy@gmail.com>
-Subject: [PATCH] ALSA: ctl: Fix copy of updated id with element read/write
-To: alsa-devel@alsa-project.org
-Message-ID: <0d3e1401-22c7-701c-b38a-2f757e9b6022@gmail.com>
-Date: Thu, 2 Dec 2021 14:49:01 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="AiL/0KmL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1638457025;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=+On65RK/P0y1X+9L5FVYKDm1EJ1ZjlP8KZD5YNFlWzM=;
+ b=AiL/0KmL7ZK4SQLe3rdZ9bYTPplrQgRl3H6Cod7RHEqmL4Bo9X8IdwbisltTUT6Tvs
+ lUOfCXkYZ9F9S0IZ1E6zWtMcAnOD/Po1DJ8H+HurkHzht7iVoTy3loZxn1jeZ/JAjyUk
+ zUrgY+/CFlUl7jrU82kMKRLtitze7pX9RS4PRv/TWVqwKRr1LPzoF4iZa5LMfpGjykRT
+ 35mk1QYwuDIYp7+90KGo4xAnfY3zhkROPVb3y7TmG8ZFyogOfStTQ9zMa0PW0Y0N+ax7
+ x7UJwPd1WJYUZ/wZukwfC2NwdkNnXcz7ecj9mVGS4mf5DoBQnhe3TMezp8NhR9hqgXKV
+ MZdQ==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXQ7UOGqRde+a0fyLyu9s="
+X-RZG-CLASS-ID: mo00
+Received: from droid.. by smtp.strato.de (RZmta 47.34.10 AUTH)
+ with ESMTPSA id j03bcbxB2Ev5pxu
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 2 Dec 2021 15:57:05 +0100 (CET)
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/5] ASoC: qcom: apq8016_sbc: Allow routing audio through QDSP6
+Date: Thu,  2 Dec 2021 15:55:00 +0100
+Message-Id: <20211202145505.58852-1-stephan@gerhold.net>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------69514240A094609E25D9C5B5"
-Content-Language: en-GB
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Takashi Iwai <tiwai@suse.de>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,114 +87,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a multi-part message in MIME format.
---------------69514240A094609E25D9C5B5
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+This series makes it possible to route audio through the combined
+audio/modem DSP on MSM8916/APQ8016 devices instead of bypassing it using
+the LPASS drivers. This is necessary to support certain functionality such
+as voice call audio. See PATCH 4/5 for details.
 
-When control_compat.c:copy_ctl_value_to_user() is used, by
-ctl_elem_read_user() & ctl_elem_write_user(), it must also copy back the
-snd_ctl_elem_id value that may have been updated (filled in) by the call
-to snd_ctl_elem_read/snd_ctl_elem_write().
+Also, qcom,apq8016-sbc.txt is converted to DT schema by adding it to the
+existing qcom,sm8250.yaml. The bindings are similar enough that it is easier
+to share a single schema instead of duplicating everything into multiple ones.
 
-This matches the functionality provided by snd_ctl_elem_read_user() and
-snd_ctl_elem_write_user(), via snd_ctl_build_ioff().
+Stephan Gerhold (5):
+  ASoC: dt-bindings: qcom: sm8250: Drop redundant MultiMedia routes
+  ASoC: dt-bindings: qcom: sm8250: Document "aux-devs"
+  ASoC: dt-bindings: qcom: apq8016-sbc: Move to qcom,sm8250 DT schema
+  ASoC: dt-bindings: qcom: Document qcom,msm8916-qdsp6-sndcard
+    compatible
+  ASoC: qcom: apq8016_sbc: Allow routing audio through QDSP6
 
-Without this, and without making additional calls to snd_ctl_info()
-which are unnecessary when using the non-compat calls, a userspace
-application will not know the numid value for the element and
-consequently will not be able to use the poll/read interface on the
-control file to determine which elements have updates.
+ .../bindings/sound/qcom,apq8016-sbc.txt       |  96 -------------
+ .../bindings/sound/qcom,sm8250.yaml           | 136 +++++++++++++++++-
+ sound/soc/qcom/apq8016_sbc.c                  | 134 ++++++++++++++++-
+ 3 files changed, 259 insertions(+), 107 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/qcom,apq8016-sbc.txt
 
-Signed-off-by: Alan Young [1]<consult.awy@gmail.com>
----
- sound/core/control_compat.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/core/control_compat.c b/sound/core/control_compat.c
-index 470dabc60aa0..edff063e088d 100644
---- a/sound/core/control_compat.c
-+++ b/sound/core/control_compat.c
-@@ -264,6 +264,7 @@ static int copy_ctl_value_to_user(void __user *userdata,
-                                  struct snd_ctl_elem_value *data,
-                                  int type, int count)
- {
-+       struct snd_ctl_elem_value32 __user *data32 = userdata;
-        int i, size;
-
-        if (type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
-@@ -280,6 +281,8 @@ static int copy_ctl_value_to_user(void __user *userdata,
-                if (copy_to_user(valuep, data->value.bytes.data, size))
-                        return -EFAULT;
-        }
-+       if (copy_to_user(&data32->id, &data->id, sizeof(data32->id)))
-+               return -EFAULT;
-        return 0;
- }
-
---
-2.25.1
-
-References
-
-   1. mailto:consult.awy@gmail.com
-
---------------69514240A094609E25D9C5B5
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-ALSA-ctl-Fix-copy-of-updated-id-with-element-read-wr.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0001-ALSA-ctl-Fix-copy-of-updated-id-with-element-read-wr.pa";
- filename*1="tch"
-
-From 8dfd143c2e05405bc1f61107c5858eab9c5fc847 Mon Sep 17 00:00:00 2001
-From: Alan Young <consult.awy@gmail.com>
-Date: Mon, 8 Nov 2021 12:39:56 -0500
-Subject: [PATCH] ALSA: ctl: Fix copy of updated id with element read/write
-
-When control_compat.c:copy_ctl_value_to_user() is used, by
-ctl_elem_read_user() & ctl_elem_write_user(), it must also copy back the
-snd_ctl_elem_id value that may have been updated (filled in) by the call
-to snd_ctl_elem_read/snd_ctl_elem_write().
-
-This matches the functionality provided by snd_ctl_elem_read_user() and
-snd_ctl_elem_write_user(), via snd_ctl_build_ioff().
-
-Without this, and without making additional calls to snd_ctl_info()
-which are unnecessary when using the non-compat calls, a userspace
-application will not know the numid value for the element and
-consequently will not be able to use the poll/read interface on the
-control file to determine which elements have updates.
-
-Signed-off-by: Alan Young <consult.awy@gmail.com>
----
- sound/core/control_compat.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/core/control_compat.c b/sound/core/control_compat.c
-index 470dabc60aa0..edff063e088d 100644
---- a/sound/core/control_compat.c
-+++ b/sound/core/control_compat.c
-@@ -264,6 +264,7 @@ static int copy_ctl_value_to_user(void __user *userdata,
- 				  struct snd_ctl_elem_value *data,
- 				  int type, int count)
- {
-+	struct snd_ctl_elem_value32 __user *data32 = userdata;
- 	int i, size;
- 
- 	if (type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
-@@ -280,6 +281,8 @@ static int copy_ctl_value_to_user(void __user *userdata,
- 		if (copy_to_user(valuep, data->value.bytes.data, size))
- 			return -EFAULT;
- 	}
-+	if (copy_to_user(&data32->id, &data->id, sizeof(data32->id)))
-+		return -EFAULT;
- 	return 0;
- }
- 
 -- 
-2.25.1
+2.34.1
 
-
-
---------------69514240A094609E25D9C5B5--

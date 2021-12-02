@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 373C5466820
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 17:27:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 173A746683A
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 17:28:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7156B2885;
-	Thu,  2 Dec 2021 17:26:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7156B2885
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93AC928BA;
+	Thu,  2 Dec 2021 17:27:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93AC928BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638462430;
-	bh=0MP+PZGNBknj1hujieRlMG1tYoG+ZyNynY16LCfKHio=;
+	s=default; t=1638462489;
+	bh=+yFzHirHX3Xclw/SmIm5qWAgpVbPdV5afTLP2mMhsRk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c8+57uoJBBfKQylskX4FaL5jwou99MugTwiEgW23+Gz21usvFnwALRh2sDIfOeAMm
-	 W5R6jtErY7vlXmuWTM259isQNCbLI82qU5hZ/4qOr9oQpSImpWcCqylM2FITKa03Bk
-	 a8o3jmvuqxEYlKUZUsjGRKh/SDNtH7TgwCxA/ZW4=
+	b=YC2u+Lu8NcXETCU+viME4LB87wRqA+PQNAMPPDNIwdcRQWNVLz2Q6j+ghAQ0HIYDk
+	 0TfjiVR58+h4nDFm9GFuzXjqQWBOrTtDYRy+rkrX85+ZDDI+5slEeSWvYDEbiZPk32
+	 xyJL+g/3P0vVQwwq9PVQwqBKqH22stzay9bQTr9A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93C35F800CE;
-	Thu,  2 Dec 2021 17:25:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B2B3F80511;
+	Thu,  2 Dec 2021 17:25:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96C6FF804AD; Thu,  2 Dec 2021 17:25:26 +0100 (CET)
+ id DB91BF804FE; Thu,  2 Dec 2021 17:25:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3CD64F800CE
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 17:25:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CD64F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 532EBF802E0
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 17:25:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 532EBF802E0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="W43m5joc"
-Received: by mail-lf1-x12d.google.com with SMTP id bi37so72771297lfb.5
- for <alsa-devel@alsa-project.org>; Thu, 02 Dec 2021 08:25:18 -0800 (PST)
+ header.b="BQwLoD5G"
+Received: by mail-lj1-x229.google.com with SMTP id k23so784300lje.1
+ for <alsa-devel@alsa-project.org>; Thu, 02 Dec 2021 08:25:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=vxGUSMvrOv7nlYjHA3TMjrIWjar7r9+1jQfmAuKVGRM=;
- b=W43m5jocQ289+28xlZ6+uA9a7QkX28CBnvzxIO8HGfGCH2lzrvrfK0M42wuQ0y3UxL
- P2tnTL3d/0/zKvCyAxJnKtSwqsl7d4NwRwg9oRo1gDeJsCbtzKjS5QrQI4TrdTQCfNzK
- c77s94pgRlxq27g6Iy11JgH7cn6Haa/QAbBngTF1a/ELy75WWNA5JlpTwwfFaZEzqnV2
- tyjpz+TJSwoyz1REURW2JQZuZy4GQGg2EkUqRhnHS//r1Cifs5nBmgFKvfH6miWtR/xu
- aUnhsVig1xfgANJNXFwrKHwVB0gVBid+3H3xpSDXKygC9sLHGsevH+s8518vsqdFSib3
- LxFw==
+ bh=TqYniy4pFRsXD92ySrc+ZxB/2v4IriL3y3/YUqS2PUE=;
+ b=BQwLoD5GsKuHwGcm9CCRNNoWfhuNnvmOM/2ZfVxwRSvlj+i9mrX6Mzj+ppnnqAI2rq
+ E4tEwLGLm2ZnzLcmo7YCVVDjFY/vifIM4jmBBPiT9ZNPUUc6jzq+1MFNWnx+tx+iOPx1
+ iCqsC/b3kAPfUNlk7ZZvnIGQb82xDqikIR2SFjicK1Bq8gRWRMpOORG1GxFsWkYuCL+4
+ HshbFPgGDw1cizhpzuODlQc4P6wY2GQ3HLYY8tmbpgbAXrmgv4ynsB2RGnML4RhD0PEA
+ hOOHxPmFfl9yyVqq1ELu6U0RJDWBjL6/FD8csHQz7n6CUkw0CaSpULEtIoeWnNSCiXy+
+ A+Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=vxGUSMvrOv7nlYjHA3TMjrIWjar7r9+1jQfmAuKVGRM=;
- b=GBIAWgrpbsq28fy+0rHRqbfl42d2ioJES68GKl/vF+b6k+pKSlzkPXqF2FjjmKiYak
- qjMEGgUL/Q0fMhP4cV1Xq9NJk7ICaeDOEM9icCgIXrSMZmIiCJwn5asA9QFtd/ng90VW
- axmqOXsz3NUOReyVHcwO/a5K/6ujqtpoFteEY58FtSD3lT9UqTjC5j3Py+fKj3JdXdBT
- Rf1YPPWdwCQheBEjGMznZ+SZUKqifRmplqOdaLqvHgUejpFVf2igxWLoBfKgDMgpDQVj
- +WavhaHsAI1W31L64vKWawhKVxPlezprWAoQapx4KlokBBDFoFbwXgvzr+OIRlw3cv5M
- weuA==
-X-Gm-Message-State: AOAM531z3NVxrSqxltJWfa1KzNjLqgcfeGMrxSk7XHZ2va0I6gV5asUW
- cmQ66m9NLYS1DedzJVhJYiU=
-X-Google-Smtp-Source: ABdhPJwq2SpoAfSQL23cz1xKV9VZxeJ1OEVvlCmGgz7Z+pAzoGdFLVFZhRV/ER/vZsDh1+jYUXg54g==
-X-Received: by 2002:ac2:4e07:: with SMTP id e7mr12687162lfr.632.1638462317737; 
- Thu, 02 Dec 2021 08:25:17 -0800 (PST)
+ bh=TqYniy4pFRsXD92ySrc+ZxB/2v4IriL3y3/YUqS2PUE=;
+ b=5Q4DaBlI0KP3RWfrHv/VITdvRnYM/iLtdLNyFYjs1fliZJ9LgLYuCqgK/FXBYX+m1a
+ hf/62N6njy02GoP1B7R418fNy6yn3jNFqnPaspiBA+4l4uob5J8shY1f8vIaVt23NciD
+ xIMUlzEqZ0YwcF1K5CcBG5qHUI4sK9VawBM7Ihxpi9Z/fq3J67TR959Xfj8O6e4e7bya
+ 9xH/k9cBkBfulQTRnYrrap9ZUS6Dtt8+sdKwxYJguXLKehRh+FMJEO9GxTeWtxJnD+X+
+ xkIlfrrqe/6GgLRwEzloXftnBtBTgNTvcPTRX0kynGlgrxe7jo02TDcHFWViJwmu1cHJ
+ 8jYQ==
+X-Gm-Message-State: AOAM530J1Xx+42Jgq48ALUmxDNpsUbPLInOfzRD5XeUezhRyDfYlAPAS
+ i0Z5QPbg1GXS25ijSPshOrY=
+X-Google-Smtp-Source: ABdhPJySugSp1rA4YrKTD7/t4BqlpGfdBZL4TlGHm+Feas4m0Bqsz3MGvtiX9EqaRmuZilIyrhztTA==
+X-Received: by 2002:a2e:948:: with SMTP id 69mr12422486ljj.82.1638462318795;
+ Thu, 02 Dec 2021 08:25:18 -0800 (PST)
 Received: from localhost.localdomain (94-29-46-111.dynamic.spd-mgts.ru.
  [94.29.46.111])
- by smtp.gmail.com with ESMTPSA id d18sm36806lfl.30.2021.12.02.08.25.16
+ by smtp.gmail.com with ESMTPSA id d18sm36806lfl.30.2021.12.02.08.25.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Dec 2021 08:25:17 -0800 (PST)
+ Thu, 02 Dec 2021 08:25:18 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
  Liam Girdwood <lgirdwood@gmail.com>, Agneli <poczt@protonmail.ch>,
  Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH v3 02/20] ASoC: dt-bindings: tegra20-i2s: Convert to schema
-Date: Thu,  2 Dec 2021 19:23:23 +0300
-Message-Id: <20211202162341.1791-3-digetx@gmail.com>
+Subject: [PATCH v3 03/20] ASoC: dt-bindings: tegra20-i2s: Document new nvidia,
+ fixed-parent-rate property
+Date: Thu,  2 Dec 2021 19:23:24 +0300
+Message-Id: <20211202162341.1791-4-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211202162341.1791-1-digetx@gmail.com>
 References: <20211202162341.1791-1-digetx@gmail.com>
@@ -106,129 +107,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert NVIDIA Tegra20 I2S binding to schema.
+Document new nvidia,fixed-parent-rate property which instructs that this
+board wants parent clock to stay at a fixed rate. It allows to prevent
+conflicts between audio components that share same parent PLL. For
+instance, this property allows to have HDMI audio, speaker and headphones
+in the system playing audio simultaneously, which is a common pattern for
+consumer devices.
 
 Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- .../bindings/sound/nvidia,tegra20-i2s.txt     | 30 --------
- .../bindings/sound/nvidia,tegra20-i2s.yaml    | 70 +++++++++++++++++++
- 2 files changed, 70 insertions(+), 30 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.txt
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml
+ .../devicetree/bindings/sound/nvidia,tegra20-i2s.yaml      | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.txt b/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.txt
-deleted file mode 100644
-index dc30c6bfbe95..000000000000
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.txt
-+++ /dev/null
-@@ -1,30 +0,0 @@
--NVIDIA Tegra 20 I2S controller
--
--Required properties:
--- compatible : "nvidia,tegra20-i2s"
--- reg : Should contain I2S registers location and length
--- interrupts : Should contain I2S interrupt
--- resets : Must contain an entry for each entry in reset-names.
--  See ../reset/reset.txt for details.
--- reset-names : Must include the following entries:
--  - i2s
--- dmas : Must contain an entry for each entry in clock-names.
--  See ../dma/dma.txt for details.
--- dma-names : Must include the following entries:
--  - rx
--  - tx
--- clocks : Must contain one entry, for the module clock.
--  See ../clocks/clock-bindings.txt for details.
--
--Example:
--
--i2s@70002800 {
--	compatible = "nvidia,tegra20-i2s";
--	reg = <0x70002800 0x200>;
--	interrupts = < 45 >;
--	clocks = <&tegra_car 11>;
--	resets = <&tegra_car 11>;
--	reset-names = "i2s";
--	dmas = <&apbdma 21>, <&apbdma 21>;
--	dma-names = "rx", "tx";
--};
 diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml
-new file mode 100644
-index 000000000000..ad43b237d9af
---- /dev/null
+index ad43b237d9af..68ae124eaf80 100644
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml
 +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml
-@@ -0,0 +1,70 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/nvidia,tegra20-i2s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+@@ -42,6 +42,13 @@ properties:
+       - const: rx
+       - const: tx
+ 
++  nvidia,fixed-parent-rate:
++    description: |
++      Specifies whether board prefers parent clock to stay at a fixed rate.
++      This allows multiple Tegra20 audio components work simultaneously by
++      limiting number of supportable audio rates.
++    type: boolean
 +
-+title: NVIDIA Tegra20 I2S Controller
-+
-+description: |
-+  The I2S Controller streams synchronous serial audio data between system
-+  memory and an external audio device. The controller supports the I2S Left
-+  Justified Mode, Right Justified Mode, and DSP mode formats.
-+
-+maintainers:
-+  - Thierry Reding <treding@nvidia.com>
-+  - Jon Hunter <jonathanh@nvidia.com>
-+
-+properties:
-+  compatible:
-+    const: nvidia,tegra20-i2s
-+
-+  reg:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  reset-names:
-+    const: i2s
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    minItems: 1
-+
-+  dmas:
-+    minItems: 2
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - reset-names
-+  - interrupts
-+  - clocks
-+  - dmas
-+  - dma-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2s@70002800 {
-+        compatible = "nvidia,tegra20-i2s";
-+        reg = <0x70002800 0x200>;
-+        interrupts = <45>;
-+        clocks = <&tegra_car 11>;
-+        resets = <&tegra_car 11>;
-+        reset-names = "i2s";
-+        dmas = <&apbdma 21>, <&apbdma 21>;
-+        dma-names = "rx", "tx";
-+    };
-+
-+...
+ required:
+   - compatible
+   - reg
 -- 
 2.33.1
 

@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B10A346682B
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 17:27:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4185466850
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 17:29:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C6C7289B;
-	Thu,  2 Dec 2021 17:26:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C6C7289B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6027A2906;
+	Thu,  2 Dec 2021 17:29:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6027A2906
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638462455;
-	bh=tAN41LYEO4Im+uxTfYf9YsqL8/qCZeUu4zYtpncCODc=;
+	s=default; t=1638462596;
+	bh=UORYBz1eeo61x50Z3tys3rviKpDlzvxFjX1T9Mjtuqw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YXUQ2RFpV9DXqaqS2y0y2NIX9X9MULU7GfNaL+dk/84ts6iKZHW2QdT23BJGtxYXF
-	 /cM1Zw4A2vmHumdvhBvQcTC/wjqXeoxvNwJ4vI39nb0ft7th1PeGZkA6M/mgCP2Boh
-	 M+db/teSt6lHTkQdtD5M/ZNprnPz3i+obOFe9goc=
+	b=lTcmqn+sE4yAfFo+uctv3V0ob00XL9YfFxxjhrB7n0WIaMWBapC9bOt+fr9mS7jGk
+	 XRY+uJfREBYAHH/FFdwj7WqbVsMlEI74L0TOB9Dny0HwHl++8cy+eWSWiyWxb+DmdE
+	 b2TMbOLKV6QtQL1FJs6Mp0hPbdG2dJ3bp5EqMEhI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0828FF804ED;
-	Thu,  2 Dec 2021 17:25:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A863F80537;
+	Thu,  2 Dec 2021 17:25:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53D95F80506; Thu,  2 Dec 2021 17:25:31 +0100 (CET)
+ id CD63BF80510; Thu,  2 Dec 2021 17:25:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5037F8032D
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 17:25:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5037F8032D
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD3DDF804E2
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 17:25:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD3DDF804E2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="oR1svtpF"
-Received: by mail-lf1-x130.google.com with SMTP id t26so72771362lfk.9
- for <alsa-devel@alsa-project.org>; Thu, 02 Dec 2021 08:25:22 -0800 (PST)
+ header.b="pLQ4GJmo"
+Received: by mail-lj1-x22c.google.com with SMTP id d11so709711ljg.8
+ for <alsa-devel@alsa-project.org>; Thu, 02 Dec 2021 08:25:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=wwvCc+bauYKKq4pTyZaKz2pCnGZty8ijk6MykhM6LJk=;
- b=oR1svtpFFFrX6rnK1/i6hTs3JfvrWzZLGz+BNZ7MGG1iAqeVqZHD5xG5kTrA3u/jSl
- s15Q6dojw39Auj8CN0XO2FI5wmxyYl3p3EKf7mDJAku4r7BNCwqds3yBkDHyAXaGCQxy
- GduQFHq10+2oaKKnx2+2SBJO+ke+fYSB+k1qu7/5ltFxZ0wOj5tcFqTA3sw13+Y24oeg
- 94WOSY8quWXzpexYWKXqSJDuZA9AEGEtLlVtS0kFGLiDqnqWh5e497qz21iuFqaj8wAj
- hs+P2RIRIOA5/frljQdARGykDlBwPfTEnDuzJmYOkREs9EkQbmzzXMrUMLl1BArGClaz
- xh3g==
+ bh=AAin265JOVL+o94pQxCU+sQvf2Xm5+tMWz8fFEKib7U=;
+ b=pLQ4GJmoBOJuH7wLOkufv40oGn+6v3Gytz8bM59miPiudq6sFxymrpgus4KfVo/Rgx
+ 2um5/3RpKDCATnI9f9SoujwYqxlxpSSh1bYp7EU7phmb3XldHo/1H5lKDnlSaWqtGNQn
+ WuiFjTv79YtRFAcAtKQtgmHpoxO+GA5jrjgtPdQtSH3kar4oAzrCjWE0BjIZ1aO3iKyu
+ jevLCOpllTOA+bHXXOcUfrwtcziyuvKzGU1hRi2XoVpddsMTIJe7JlVC+3lU5lA0g98G
+ 4bTrwrRxbAsfMZet31PKmGihDNbFS02bDeAlNTDN6sn4XAqCwlNGoorksOYpqZBjS2tc
+ u01w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=wwvCc+bauYKKq4pTyZaKz2pCnGZty8ijk6MykhM6LJk=;
- b=MiZ6d3/9X83of8OM59edstP+m2f8+OFJjVgMSVhxYNG82oyNmVGUCVeUEQhwfVKA5M
- G1rKV9L1hME5wDEHq51EsgPiOkMSCza65nXK9h7sXueSdSic8AuViPuEXwqJxomOJD/o
- rhrj1jNihWNTK5Uq55YxgVoy/Ba5ZGLmxtcLuCxQFvmCuq6lXEtEiWDj5h7rWNuceMH5
- W3+JtptGLO6Mwma0EPdylxYJyToLLu3KCiiA6GmnJXLc7YPeXT088x1bzYerd/rp8e91
- YnDpDgXRrfgZabBHVEPd1CAtYEIIiedxwEtKe/v1R7/ITac6DmT8kW7wcN+gyRtA8PNc
- EXAQ==
-X-Gm-Message-State: AOAM530yIDpk5Rqlxbwu+HXobEd+SjxvafRJd996y4Eb3PEnOyp+QMbk
- F93dzHH6q9R60Q+UxowVLAA=
-X-Google-Smtp-Source: ABdhPJzzfGS2ufUUhP2/9TRcFenSN5tQ2vXd3c+kggMycyFqzrFJs422Hi0yfHfkBSOhAXlwwSc3Kg==
-X-Received: by 2002:a05:6512:40c:: with SMTP id
- u12mr12933189lfk.473.1638462320726; 
- Thu, 02 Dec 2021 08:25:20 -0800 (PST)
+ bh=AAin265JOVL+o94pQxCU+sQvf2Xm5+tMWz8fFEKib7U=;
+ b=qH/XoefJCs4oREHYoRUXUOE5EblOM7Z+zJ4xtkERmyYKzOVynT+G7NRXkvCJ2Z1uhc
+ Afgv7Se8zRxwSWFZDw5zwtfb8Xbc3jogw9xD0LUBg0a8bIUZvobHAD+dvphDAhxVXKwy
+ V7Uwp1/znUoGNUzqa2X4AH2QWuR5M8SWl+P/I2/OoVpUja2VhPGI/qx+w7NDugqZJaTg
+ QjHjLcp/ZOjcvKneNW21WQRfOgBuMZ0/pXMSEWEhDRQ/UgysifFW1RU4rVEPl46bWZI5
+ u5UOy6QE11ZD24ZAdKdIunE1Fnb3Wz/WdNQwAn151Ykb3KIaS4YyBtPUOAGk3T4w/DhO
+ lFZA==
+X-Gm-Message-State: AOAM532z3kF3XHYX0lmiHTnrlmoa5O4lf+R7K4V/6XN6IKLVVe1lUa+N
+ QKEclgu8K3OMo9n0obgmEOA=
+X-Google-Smtp-Source: ABdhPJxgWCKXWtE9NQnfcQEL8rdvlyRa84HGrFT6R25Bd2ruhzIx24D62gwZG3WFq54S3UptLypkqQ==
+X-Received: by 2002:a2e:a378:: with SMTP id i24mr13292701ljn.290.1638462321626; 
+ Thu, 02 Dec 2021 08:25:21 -0800 (PST)
 Received: from localhost.localdomain (94-29-46-111.dynamic.spd-mgts.ru.
  [94.29.46.111])
- by smtp.gmail.com with ESMTPSA id d18sm36806lfl.30.2021.12.02.08.25.19
+ by smtp.gmail.com with ESMTPSA id d18sm36806lfl.30.2021.12.02.08.25.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Dec 2021 08:25:20 -0800 (PST)
+ Thu, 02 Dec 2021 08:25:21 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
  Liam Girdwood <lgirdwood@gmail.com>, Agneli <poczt@protonmail.ch>,
  Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH v3 05/20] ASoC: tegra20: spdif: Set FIFO trigger level
-Date: Thu,  2 Dec 2021 19:23:26 +0300
-Message-Id: <20211202162341.1791-6-digetx@gmail.com>
+Subject: [PATCH v3 06/20] ASoC: tegra20-spdif: stop setting slave_id
+Date: Thu,  2 Dec 2021 19:23:27 +0300
+Message-Id: <20211202162341.1791-7-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211202162341.1791-1-digetx@gmail.com>
 References: <20211202162341.1791-1-digetx@gmail.com>
@@ -107,34 +106,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-FIFO trigger level must be not less than the size of DMA burst, otherwise
-audio will be played x4 faster that it should be because part of the DMA
-data will be dropped on FIFO input buffer overflow.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+The DMA resource is never set up anywhere, and passing this as slave_id
+has not been the proper procedure in a long time.
+
+As a preparation for removing all slave_id references from the ALSA code,
+remove this one.
+
+According to Dmitry Osipenko, this driver has never been used and
+the mechanism for configuring DMA would not work as it is implemented,
+so this part will get rewritten when the driver gets put into use
+again in the future.
+
+Reviewed-by: Dmitry Osipenko <digetx@gmail.com>
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- sound/soc/tegra/tegra20_spdif.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/tegra/tegra20_spdif.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/sound/soc/tegra/tegra20_spdif.c b/sound/soc/tegra/tegra20_spdif.c
-index 7751575cd6d6..6f0570cde964 100644
+index 6f0570cde964..e45e371edc42 100644
 --- a/sound/soc/tegra/tegra20_spdif.c
 +++ b/sound/soc/tegra/tegra20_spdif.c
-@@ -69,6 +69,14 @@ static int tegra20_spdif_hw_params(struct snd_pcm_substream *substream,
+@@ -298,7 +298,6 @@ static int tegra20_spdif_platform_probe(struct platform_device *pdev)
+ 	spdif->playback_dma_data.addr = mem->start + TEGRA20_SPDIF_DATA_OUT;
+ 	spdif->playback_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+ 	spdif->playback_dma_data.maxburst = 4;
+-	spdif->playback_dma_data.slave_id = dmareq->start;
  
- 	regmap_update_bits(spdif->regmap, TEGRA20_SPDIF_CTRL, mask, val);
+ 	pm_runtime_enable(&pdev->dev);
  
-+	/*
-+	 * FIFO trigger level must be bigger than DMA burst or equal to it,
-+	 * otherwise data is discarded on overflow.
-+	 */
-+	regmap_update_bits(spdif->regmap, TEGRA20_SPDIF_DATA_FIFO_CSR,
-+			   TEGRA20_SPDIF_DATA_FIFO_CSR_TX_ATN_LVL_MASK,
-+			   TEGRA20_SPDIF_DATA_FIFO_CSR_TX_ATN_LVL_TU4_WORD_FULL);
-+
- 	switch (params_rate(params)) {
- 	case 32000:
- 		spdifclock = 4096000;
 -- 
 2.33.1
 

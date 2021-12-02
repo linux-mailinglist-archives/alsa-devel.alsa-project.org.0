@@ -2,168 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C82DB465F3A
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 09:17:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D0F465F4E
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 09:26:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52C7024C9;
-	Thu,  2 Dec 2021 09:16:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52C7024C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C21D2511;
+	Thu,  2 Dec 2021 09:25:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C21D2511
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638433034;
-	bh=zNsztMK+PoP/sknVm+sJnr2DGFZmlFn1XBPfzre/0+M=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1638433594;
+	bh=TEffq+M+EAubqBb4BXhWNbyk2dEj6eCn6wCDrIffurM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ETWmA6LQEiTRnphW9w8QGC5EzG1oageTAFqskSd9rw+9CwZwdKJPN9JwGelnjdenm
-	 7jsZsQG0UKM/iPZvEvdZK1jEamGTTctjUgQ8mPsIq0vpDukZ3Y90ZVTU/CWNVArDWw
-	 /tr8jFUdFvWZQOP4ULmASL99JaKo3vppdlSd6y3w=
+	b=lKCMrcWCmzF4mEl/OkppBW0FQdrgeoApdUx02Xool9fuoVibE350/5UN4WBH5yklg
+	 yyOG6MGZuksUz3qIxctJBbBRG/ajq2hs4e+Qo1YtAP9VsQzDUBd8wruGdomsVMXGUC
+	 49eQcifQ2+ustd6GX0Od7njZ6mqtj0KbElu+FQgI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9795DF802E0;
-	Thu,  2 Dec 2021 09:15:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EBAAF802E0;
+	Thu,  2 Dec 2021 09:25:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41E16F802A0; Thu,  2 Dec 2021 09:15:50 +0100 (CET)
+ id EF07AF802A0; Thu,  2 Dec 2021 09:25:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE546F800EE
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 09:15:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE546F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7B74F800EE
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 09:25:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7B74F800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="kK4wUvPB"
-X-IronPort-AV: E=McAfee;i="6200,9189,10185"; a="216669126"
-X-IronPort-AV: E=Sophos;i="5.87,281,1631602800"; d="scan'208";a="216669126"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2021 00:15:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,281,1631602800"; d="scan'208";a="513089425"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by orsmga008.jf.intel.com with ESMTP; 02 Dec 2021 00:15:40 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Thu, 2 Dec 2021 00:15:40 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20 via Frontend Transport; Thu, 2 Dec 2021 00:15:40 -0800
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.175)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.20; Thu, 2 Dec 2021 00:15:38 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GsykUx+MD7t6av/VXRDCDTkuIr8EBC18Yw75qUn3hQ9WNtMFGTQYZX13Vn9a0HzgBpgVLxHMIrzKD0Iu+gEOttKwAEn9GnEDXJHhks/xx1x7hcPOtvaUZmR6Lvvif/L/IbGIyKhkM2Gkgr+x6EGNMtVgqCNXGccMX1zTSJE7JM2etejjZ5DZZWIBn9duqRrvabbVctkFI5Z5jMD1X1Z64sPiyANjqBB3QtiZbHRmizrJygyTDV5+zsk34Z5eCIrrz0ocGBtwcIgLyZ8VB2s4jFvYi1g8rZj5Rm6P8AsQRoXugth6BVCDXmoYkpdY//OUHEYAn1a02yUj5zilpKTLww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yN5lG9m56BaPOHgEbkNPaF8NPaTLUNtgzoKbXR1DQmo=;
- b=IYUgxKRqOCaTgdJE6PLR1pY5ephzsMHWazm7Ag40GQnMHNqTR6P/KjhTY1VPHdS7NE8n9OhDefz8yYeLphV2o4GefwXtVGH+/apJKh6u9dEf7Y3X4L17bfojA8ytt6GK23aPsXDuMqjMciMVHY1aSvPE29yKQS28X0hkU+VrNF1A2ghM5r7D+Ur1b/W5JjFX4ykoKzyrPsxNMpRWQnPVV76WvQXJb36nqmNyVOu4VlaGPKCKPmWNZgWCVsLNtVTa6WkXjNIHP5MFy+gBQKhel6m6blCpYfCVZymMi4JCTf7noxzdCQhS9lYvL6/KDM59pOaveFlGcDViQroz4WiaRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yN5lG9m56BaPOHgEbkNPaF8NPaTLUNtgzoKbXR1DQmo=;
- b=kK4wUvPBvHcYmWtWFmOmgYYEAIus5NDFkr8Ba+mlX5U+Dls6RO44fexEYxkDz9D1gNAqJbvVlupDVeU5pkepgZ++n6BEo/SD7aCU6cvIRutEFXi4ltHU0pvp7Czg2vbk4Iqp2He+aH1RcCGkUYLoEyiWcgnjCY8+P8bfxoeSfaI=
-Received: from SA2PR11MB4891.namprd11.prod.outlook.com (2603:10b6:806:11e::18)
- by SN6PR11MB2736.namprd11.prod.outlook.com (2603:10b6:805:5a::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Thu, 2 Dec
- 2021 08:15:37 +0000
-Received: from SA2PR11MB4891.namprd11.prod.outlook.com
- ([fe80::ec60:3876:66d4:e910]) by SA2PR11MB4891.namprd11.prod.outlook.com
- ([fe80::ec60:3876:66d4:e910%7]) with mapi id 15.20.4734.024; Thu, 2 Dec 2021
- 08:15:37 +0000
-From: "Lu, Brent" <brent.lu@intel.com>
-To: Takashi Iwai <tiwai@suse.de>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>
-Subject: RE: [PATCH] ALSA: hda: intel-dsp-config: add JasperLake support
-Thread-Topic: [PATCH] ALSA: hda: intel-dsp-config: add JasperLake support
-Thread-Index: AQHX5k061a6qpg0Us0uUNHqGdJ+diawc6tCAgABGU4CAAaaFgA==
-Date: Thu, 2 Dec 2021 08:15:37 +0000
-Message-ID: <SA2PR11MB489124ED42353956827A2EC597699@SA2PR11MB4891.namprd11.prod.outlook.com>
-References: <20211201004628.1153763-1-brent.lu@intel.com>
- <4e0ec119-2b15-644d-9cab-b2e19b5c0e48@linux.intel.com>
- <s5hsfvczuwq.wl-tiwai@suse.de>
-In-Reply-To: <s5hsfvczuwq.wl-tiwai@suse.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.6.200.16
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 204b86d2-56ee-492d-ed90-08d9b56bebcb
-x-ms-traffictypediagnostic: SN6PR11MB2736:
-x-microsoft-antispam-prvs: <SN6PR11MB273697A18251EA362EC7E9A697699@SN6PR11MB2736.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3FPxl30t6uwdGhiA8SdTzOASQSNtgEFBp0i/Rc1CtHHtjtz6wd2usyS62ejqpOD/8wm6vSgNkAsI+dF99ZR6KKG6jVPBYPllA+Jco6q7hGuGpPBt8Vwgao93CSZ3st53sfgsbiu1WZFcOLeHnOhIYA1yjTn5U17U2dwdG0MAB2t8LSmUf2ILI1HHSCMuYvR/+msw9tgBWRjFEsCE5kV7J6iYYAZ3X7FH+a2Uzgyti6BxYqh+FLrJts5O2h67Jyt7C+uvBMJsmT6Jlumlp22Vsjlu2oWd+cmlnV30jwaIBmefmztDxD1Xpnq4+zQuz9I930wVSqhipvcDZN2HZZgDt4wTGRxBoAVF7qpYyH87QNaRmoqM912M3yc8P9qBDYN9+iiIYiyrtVELpWfqRVggQgb7FmxpdDP5XbtKg97PKszej1YdquRPiIsi7fl3DbrJJtaBTmd6d6i4l69usKMHjsrBYR9HGoCpri0wHj5AlbcgYXuZF3KUmwKGAVx3l0aBpf4TtdeZksgZc+Vv4BzXJOnogSRw2NzSLgKJV9RbJBIyl/k5mU0Zt+/kw+OgYBmKwlD3HHuOY6bnfHdEYdodwAUpy99bZOq0ADZeIc3M1oRiqHvUiaQ38Ug4S375IhMwWvg1pXn4NgBu1DcW9/5fnzHZ2Sk43NMmBhQhuvBEbqeNY5mpq/BjZ7oXcLs7d+cM2QBygyyd+PA6rkOEPuL4zYlKlOLB1lwz28YJlpTlH9Y=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA2PR11MB4891.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(4326008)(38070700005)(66946007)(26005)(66556008)(508600001)(82960400001)(66446008)(66476007)(186003)(5660300002)(8676002)(55016003)(2906002)(52536014)(64756008)(71200400001)(316002)(110136005)(86362001)(54906003)(6506007)(7696005)(33656002)(8936002)(83380400001)(122000001)(38100700002)(9686003)(76116006)(11716005);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?70pL3SlOPDEUFsLK8Ppwo5O/igKeiSOpCzv1hGklLXBBaeX9FHQNnnqcn3yo?=
- =?us-ascii?Q?tsraPFTgdrqjOtvcdVU7uWkvSClAtzek+B1hsB8QFwG79nS/jZwhpdaErBWo?=
- =?us-ascii?Q?1JAVG9TgqLsLiykNULdsIKVoz7VcDkQkzoREwgbhqf6W4mlqURM5CkXHf/6t?=
- =?us-ascii?Q?OPDutyaRZhOHyBZyymx+A4nfAT0oU+ErBJjAVpGH6CFZmbMXVeUsQKsVOXwa?=
- =?us-ascii?Q?vwEFwCMKlz/qknpnMaDlVhwkZNxjJUJaxI0aEJZSU1XIT9s33D/thWMX/VzM?=
- =?us-ascii?Q?OUpD1o8ACa/90DpxkYS2Y1MKPLyW1plAzVeq1zlNRioIaMXN/Fram4xP7Esv?=
- =?us-ascii?Q?W0+XPb1MY3wc2MHdwKuNsPN9g9EoqD2q8Dca0zaL9/Kufb4FuoNu5lf8TeT3?=
- =?us-ascii?Q?pB6YslGmWhgotp/SzYImXKEIa5DlVV05cISFCdKsIEjlzXK7Z+Z5nq3LFBVm?=
- =?us-ascii?Q?m47qfPU4e5uUv5GBVKpI75nLS6U1ITSCKA/GRuZR/Wi4KcLx7nnzi/SWozfl?=
- =?us-ascii?Q?Du+3qRuXY7ZKE3EHI5G9G5/r55DKzq0YtrGbJdqa2OUrL0qhOIsg4Z6WCCLZ?=
- =?us-ascii?Q?kjLEpt5K1YOXFM7Els3KDQBKrQm4E3RcFdTMmcEVZPkHgrvLUVhxzrg5Rlv2?=
- =?us-ascii?Q?u4M4zCoFT7FGJiejLji9cGVi2UKxB6+xvRxH9PkIy1A45DLF/h1ZP79KBbGZ?=
- =?us-ascii?Q?sYKX+J0g+nN2MVLPhhIyyZps3fSoo67JLe2InscXyh0koGXr215KgIihHKRI?=
- =?us-ascii?Q?3pv1NxAMzRIOcoBcc4NSZPr8bAyf2KhTPicdAcbirXjn2xlf3yLB1wxgX5TK?=
- =?us-ascii?Q?Q7jsRpmxQ/H+WYqbZCm6i0euattXhIlMUXRS4fDjDe8MlyZPhZjVXzfIYVug?=
- =?us-ascii?Q?6mS5qHXMgGpn0MvJdfyVUbwNh4XNBQoaA6ysEn5bfDGNKJ3f3Koo7u/NHHgz?=
- =?us-ascii?Q?JFVpCMLAedN+/1JiLY600i7gqPBizhgoCW2SmIghBZc0oUrgCAtVI20DcVsS?=
- =?us-ascii?Q?4Y1kGP39szGXU1VBQXWG07L1phzOLxfXOFFF9FWXKIDnCer9KUw+4VG7MJ5j?=
- =?us-ascii?Q?TCmJXOPz7UIoS3uWjJfLN+u3LUeYBgksgstZZM+77K/WnVPRkptjZJb86p5V?=
- =?us-ascii?Q?kEFudQJ3HTmxLmjOhYfFFep6yvCcMmNhMV6sxR6rgpW/PYgo5vB1gCBZ6tz4?=
- =?us-ascii?Q?X0XFRdqClCYkaqdbB21Y6Ez7TieZN0pxScz0Dp3PfXez28q0yWz9suw7kG/1?=
- =?us-ascii?Q?74lXijUl13w3H8d+2kL7OiUbG1Y/pFvqrLDIvBF+EfYDfCC6Jrv8I2Bh10dY?=
- =?us-ascii?Q?t6YOoJoAuI6LrB69HKpkK55qYgbas/4WNoVDNVgD/C5Rmc8uRJY9DIpX+hub?=
- =?us-ascii?Q?fplewd8/O17XoopxFhobG8C/yZiQ9TkS7OHyarH50BbbBXKShoM0GIU8I8V/?=
- =?us-ascii?Q?zD2qiKJM0tmU/Eg9IuEEVd2c2/SEMuCwr0AYws6KrpMKBWkVyhe4fJ9ZpPIy?=
- =?us-ascii?Q?bdQCwc6oNLBffub/xY+rmGgY08TVt3vNwJlVA0TUW9EPBCmyoXoZy9cqzSGl?=
- =?us-ascii?Q?zOyZLbS90fSmC18o4aiAqvBAytqE6zZR/r8HNcwZlzQingZPTziXYqkfScky?=
- =?us-ascii?Q?Og=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA2PR11MB4891.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 204b86d2-56ee-492d-ed90-08d9b56bebcb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Dec 2021 08:15:37.1037 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2KWRthHxDw5DQwfFTFGBURXo5M79d/OXv5Ps+7TQmGrGVpWlo+c9KRpGCVlMAhoGkVTA4EvP77ee4mYzt5W+qQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB2736
-X-OriginatorOrg: intel.com
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, "Liao, Bard" <bard.liao@intel.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Hj2UOxvd"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="S83a8uXU"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 67FB321891;
+ Thu,  2 Dec 2021 08:25:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1638433500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HpxFLjlPoCTe3V7CTWP3+DMrxPf3XgP3jLWo12+ZIYo=;
+ b=Hj2UOxvdG4cLSLANkvLBHJ8b7Dn25ci5T0JCU2eVMAXaXSnWJSLYqKw0ItUH/r9xWyFR/k
+ Ec3gVaKE3WDR+G+L8/UP0ww/2z8KlHK1/RfSXgKNP9g6idw2HhDPV4jZOtBSmSM9CfADhv
+ l51KaJgxDL54QVXkIfEztXJyES5MxBo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1638433500;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HpxFLjlPoCTe3V7CTWP3+DMrxPf3XgP3jLWo12+ZIYo=;
+ b=S83a8uXU/jbJUVTcKg17zjYIv2w/gkSOlw0Ew3vce1arEHhGNETHHeX0nc12APN3gnKF0u
+ eOtdjG885c44b8DA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 58C9FA3C85;
+ Thu,  2 Dec 2021 08:25:00 +0000 (UTC)
+Date: Thu, 02 Dec 2021 09:25:00 +0100
+Message-ID: <s5h7dcnwh0j.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: Logitech Z10 USB speakers need a volume change before audio works
+In-Reply-To: <2af48c9f-60d7-ed63-845d-9adb8cb7b037@redhat.com>
+References: <cf7dd2f0-512c-1b8c-efb1-53f79ddfb41e@redhat.com>
+ <s5ho8689zl3.wl-tiwai@suse.de>
+ <c1deb0b9-b0f1-3ea5-43ea-ac96b29e93f5@redhat.com>
+ <7f36906e-fd4b-c14e-4189-0d8b7de271ac@redhat.com>
+ <s5hfsrd1vt3.wl-tiwai@suse.de>
+ <2af48c9f-60d7-ed63-845d-9adb8cb7b037@redhat.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -179,46 +97,208 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> >
-> > Thanks Brent, yes this is an oversight, we should have added this a
-> > long time ago.
-> >
-> > I don't think however that this will apply on Takashi's for-next
-> > branch, it'll conflict with the ALSA: intel-dsp-config: add quirk for
-> > JSL devices based on ES8336 codec
->=20
-> Actually it's for-linus branch, destined to 5.16-rc4.
->=20
-> > +/* JasperLake */
-> > +#if IS_ENABLED(CONFIG_SND_SOC_SOF_JASPERLAKE)
-> > +	{
-> > +		.flags =3D FLAG_SOF,
-> > +		.device =3D 0x4dc8,
-> > +		.codec_hid =3D "ESSX8336",
-> > +	},
-> > +#endif
-> >
-> > Do you mind rebasing and resending the update? Let's keep the ESS
-> > stuff last as done in other platforms, and add your changes on top of t=
-his.
->=20
-> Yes, please resubmit.  I can merge and resolve the conflict in my side, b=
-ut it's
-> better to get a cleaner patch from the beginning.
->=20
-Hi gentlement,
+On Wed, 01 Dec 2021 16:44:11 +0100,
+Hans de Goede wrote:
+> 
+> Hi,
+> 
+> On 11/30/21 16:56, Takashi Iwai wrote:
+> > On Tue, 30 Nov 2021 15:33:35 +0100,
+> > Hans de Goede wrote:
+> >>
+> >> Hi,
+> >>
+> >> On 11/30/21 12:07, Hans de Goede wrote:
+> >>> Hi,
+> >>>
+> >>> On 11/25/21 13:42, Takashi Iwai wrote:
+> >>>> On Thu, 25 Nov 2021 12:04:41 +0100,
+> >>>> Hans de Goede wrote:
+> >>>>>
+> >>>>> Hi,
+> >>>>>
+> >>>>> I've a set of Logitech Z10 USB speakers, which act as a USB soundcard.
+> >>>>>
+> >>>>> They have this weird glitch where after turning off my PC (and their
+> >>>>> power-supply as well) and then turning things back on, they are silent
+> >>>>> until I change the PCM volume control for the speakers inside
+> >>>>> alsa-mixer.
+> >>>>>
+> >>>>> It seems like they need some "set-volume" command to be send over the
+> >>>>> USB bus to unmute them when initially powered-up / turned on.
+> >>>>>
+> >>>>> Is their some existing usb-audio quirk which I can try to work around this?
+> >>>>
+> >>>> No such quirk is present for now.
+> >>>>
+> >>>> Was it tested with 5.16-rc?  There was a change in USB-audio driver
+> >>>> initialization (commit b96681bd5827) and it might have some effect in
+> >>>> your case.
+> >>>
+> >>> Yes I'm at 5.16-rc3 atm but I've been seeing this for quite some time.
+> >>> I just never got around to reporting it. Mainly because I also never
+> >>> got around to getting a bit clearer picture of the problem.
+> >>>
+> >>> I've spend some time this morning to get that clearer picture,
+> >>> which was insightful.
+> >>>
+> >>>> Also, it's interesting to know whether it happens also once after
+> >>>> suspend-resume, too.
+> >>>
+> >>> suspend-resume makes no difference, not even rebooting or
+> >>> powering off the machine makes a difference.
+> >>>
+> >>> Once the speakers are in working order they stay in working order
+> >>> until I turn off my machine; and then flick the power-switch on
+> >>> the 240V AC power-bar which I use to power my laptop + dock +
+> >>> monitors + the speakers and turn things back on the next morning.
+> >>>
+> >>> To be clear these speakers get their audio-data over USB
+> >>> (as an usb-audio device) but they have their own power-supply
+> >>> they are not USB powered. They also have a "soft" on/off button
+> >>> which turns on/off the amplifier and LCD screen parts but leaves
+> >>> the USB audio interface active.
+> >>>
+> >>> So I've been experimenting with reproducing the issue and I
+> >>> need to do the following minimal steps to reproduce:
+> >>>
+> >>>  1. Unplug USB
+> >>>  2. Unplug power
+> >>>  3. Re-plug power
+> >>>  4. Re-plug USB
+> >>>  5. speaker-test -Dfront:CARD=Speaker,DEV=0 -S1
+> >>>  6. Turn speakers on (with the on/off button on the speakers), no audio
+> >>>
+> >>>  5 and 6 may be swapped, same result
+> >>>
+> >>> And now that I have a reliable reproducer I've also been
+> >>> playing with a reliable workaround which looks like this:
+> >>>
+> >>> 1. Start playing audio to the speakers
+> >>> 2. Turn speakers on (with the on/off button on the speakers)
+> >>> 3. Make a change to the 'PCM Playback Volume' ctrl
+> >>>
+> >>> Where 1. and 2. may be swapped. But the
+> >>> 'PCM Playback Volume' ctrl change must be made while the
+> >>> speakers are on and playing audio !
+> >>>
+> >>> Although I have found that this also works:
+> >>>
+> >>> 1. Start playing audio to the speakers
+> >>> 2. Turn speakers on (with the on/off button on the speakers)
+> >>> 3. Stop playing audio
+> >>> 4. Make a change to the 'PCM Playback Volume' ctrl
+> >>> 5. Start playing audio to the speakers again
+> >>>
+> >>> I then even here a brief "power-up buzz" coming from the
+> >>> speakers at 4.
+> >>>
+> >>> And this sequence also works:
+> >>>
+> >>> 1. Start playing audio to the speakers
+> >>> 2. Stop playing audio
+> >>> 3. Turn speakers on (with the on/off button on the speakers)
+> >>> 4. Make a change to the 'PCM Playback Volume' ctrl
+> >>> 5. Start playing audio to the speakers again
+> >>>
+> >>> So it seems that to work (after having been unplugged
+> >>> form the mains) these speakers need to:
+> >>>
+> >>> 1. Have had some audio send to them at least once
+> >>> 2. After this have their 'PCM Playback Volume' ctrl poked
+> >>>    at once while they are on (and if they are on cannot
+> >>>    be seen from the PC side AFAICT).
+> >>>
+> >>> Note instead of changing the 'PCM Playback Volume' ctrl
+> >>> toggling the associated mute ctrl works too.
+> >>>
+> >>> TL;DR: Since getting the speakers to work involves
+> >>> setting a ctrl while they are on, which is something
+> >>> which we cannot tell from the kernel side I don't believe
+> >>> that there is anything we can do about this from within
+> >>> the kernel.
+> >>
+> >> So thinking more about this I guess we could do something
+> >> where we resend the last PCM volume to the device every
+> >> 5 seconds *when the device is playing audio*, assuming that
+> >> the resending of the same PCM volume is sufficient to fix
+> >> things.
+> >>
+> >> These are pretty nice speakers so getting them to work without
+> >> this glitch would be nice. But it would require a significant
+> >> bit of (quirk enabled) code just for this 1 model speakers.
+> >>
+> >> Takashi, what do you think. Should I give the resend volume
+> >> once every 5 seconds idea a try, or is it likely going to
+> >> end up being too ugly to merge ?
+> > 
+> > It sounds too hackish and fragile to me...
+> 
+> Yes, I agree,
+> 
+> > Do we need to repeat each
+> > 5 seconds?  Wouldn't it suffice to touch only once at setting up the
+> > stream (or need before or after the stream start), instead?
+> 
+> The problem is that at least with my testing with alsamixer + speaker-test
+> I need to make the PCM ctl change when the speakers are on.
+> 
+> And I often find myself doing the following:
+> 
+> 1. Start something which requires working audio
+> 2. Oh wait, the speakers are off, turn them on
+> 
+> At which point if we do this at stream-start this would require
+> a pause + unpause. At which point just hitting volume up + down
+> hotkeys is just as easy (easier even when in say a video-conf-call).
+> 
+> So I believe my time is better spend to track down the pipewire
+> regression where newer pipewire versions no longer use hw-volume-ctrl
+> on these speakers for some reason. Fixing that will restore my old
+> workaround and will hopefully also help other users.
+> 
+> I guess this is mostly an issue for me because I turn of the
+> mains power to the speakers every evening, other users just
+> need to fiddle with the volume once and then things will work
+> until the speakers get unplugged from the mains.
+> 
+> > In anyway, alsa-info.sh output would be helpful.
+> 
+> Sure here you go:
+> http://alsa-project.org/db/?f=8b93e72b6fb4be5c426eade5f78ed58137bdf0ef'
+> 
+> Note there are quite a few audio devices in my setup:
+> 
+> 1. My X1 carbon laptop's builtin sound
+> 2. The Thunderbolt docks' USB audio (unused)
+> 3. A TI USB audio codec going to the receiver connected to
+> my proper/real speakers for listening music
+> 4. The Logitech Z-10 speakers which we are discussing here
+> 
+> Anyway, not sure if this is worth spending much (more) time on
+> but if you have some idea for me to test, let me know.
 
-I found following two patches in sof github do not exist in both broonie:fo=
-r-next
-and broonie:for-linus. Maybe it would be easier if I resubmit my patch to s=
-of
-github instead of alsa-dev?
+Below is a quick hack, let's see whether this kind of change is
+enough for this device.
 
-sof: topic/sof-dev
-986f58741d0d ALSA: intel-dsp-config: add quirk for CML devices based on ES8=
-336 codec
-2cccdf5b4414 ALSA: intel-dsp-config: add quirk for JSL devices based on ES8=
-336 codec
 
-Regards,
-Brent
+Takashi
+
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1280,6 +1280,15 @@ int snd_usb_apply_interface_quirk(struct snd_usb_audio *chip,
+ 				  int iface,
+ 				  int altno)
+ {
++#ifdef CONFIG_PM
++	if (chip->usb_id == USB_ID(0x046d, 0x0a07)) {
++		struct usb_mixer_interface *mixer;
++		list_for_each_entry(mixer, &chip->mixer_list, list)
++			snd_usb_mixer_resume(mixer);
++		return 0;
++	}
++#endif
++
+ 	/* audiophile usb: skip altsets incompatible with device_setup */
+ 	if (chip->usb_id == USB_ID(0x0763, 0x2003))
+ 		return audiophile_skip_setting_quirk(chip, iface, altno);

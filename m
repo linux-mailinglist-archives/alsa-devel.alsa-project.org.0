@@ -2,103 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D5C466276
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 12:37:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CFDD4662A0
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 12:44:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9466525FB;
-	Thu,  2 Dec 2021 12:37:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9466525FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id CED70262B;
+	Thu,  2 Dec 2021 12:43:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CED70262B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638445071;
-	bh=jTDH0PZLxupRRoH6by9YXZljKPXrp24j0DPy3IfwXFw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JrT39y7OcEvPZ+4TKyXAW/cjGSH2299Ulj9DZM/thV1xe3sEH20FPhLVXGPhnXJ9m
-	 zswfheHIFapFE546BWDGaAZ+ytGwB6DArhiH1eev4FqbBCkyW6EGEwz6ks/ZQ2s6aA
-	 zVPIyga6g/IS5IQWR7Cd4aiOPbhSEs9EfCskZZbM=
+	s=default; t=1638445450;
+	bh=hjAk3nWo6LB3Cnl0JVrUyNnyjT7PDjiLG7TKhU9u5rI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UTv4vzD2yhGSzoYfJRl7nTvJaAD74sxeGMGyE/E6auoGMznhqyObVcSDATzIR0Nly
+	 2BxyKUrfYKKc4xlfGzHOZxu0M584I3rZMT/muj23JzTf/TqYTl+iods7a3FkOYvJap
+	 WvndWh1MjtzPrVu7FFlPVmNFVS1LBZKo72KshxUw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B59E2F80506;
-	Thu,  2 Dec 2021 12:35:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84B0CF804AD;
+	Thu,  2 Dec 2021 12:43:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0826F804FA; Thu,  2 Dec 2021 12:35:25 +0100 (CET)
+ id 37828F8032D; Thu,  2 Dec 2021 12:43:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 723B9F80290
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 12:35:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 723B9F80290
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="LB0DMAE8"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="M/xSxlx7"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 47DE23201EF4;
- Thu,  2 Dec 2021 06:35:14 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 02 Dec 2021 06:35:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=HYA2baR9g9uxh
- 0vIU8ekgamWzAVAwChaw229O58ZZJg=; b=LB0DMAE8Y2qCVUl1aYoFZx0OO1Oy6
- BE6b6+iQgdTXh9sN7tsC+6tEhB7SDtMI3gIb3xgHms+qYrwzihtbKen6PtQjE1tc
- zSSUi5vgh34vpY521sxfh0FL0SdUCs4/82sJUZNLWEiGfeGhzHe7plE/YkNhrzB6
- NCWFXG7lT2c1LEf3unCoD7+tq/z03/kzUymvje1x0SyF43raJZ8gRlpWbPM9n2ta
- lIFgl3PdsA5OmvYpxr0R0FGea/bGOruWHuHuLD37/OUybBlD6gfJUVh7PIJFGEU/
- yXV9wubzM/XgzVxvsrg12awKy5Wom/RmciGMh+HmYpZtBTyXdg/XA55Hw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=HYA2baR9g9uxh0vIU8ekgamWzAVAwChaw229O58ZZJg=; b=M/xSxlx7
- 63mVkOuO6JR7TLx7WnHEXdy+Tddn0t8rCibgySMiEQR5Mn5B+dqBMpY43XW9CT8F
- OKMzUoHXdiZe4b1UtiJGolyyuTPw634wEg6a5ZO981eI9RSVMPCrYr53SyNHh0hu
- 43p4GawKvXM0NUcmOg2F/6bmmRK+Vg1JTkAKIo5DiAr542N/D68LSFwUSVVpxWox
- Rzjz4cZuKKGq7YrUEJtoss0YZ7xUKJKSuD8mcorRWOB8GvJi/tjYY4ETAoPTENnr
- Ka5dKUgg3zfsL3xB5dba9q8XPlNP1W4iKds7a7WG20J0kesxXaJg5efJMWJN3a/R
- PHK5HkPNSleWig==
-X-ME-Sender: <xms:ca-oYaQoH-M39LTDHE3qjbnNTLOP5Ux-54AFK72KmIEyELPtVjfnFg>
- <xme:ca-oYfzB7amdRsIFp6yBdg5QKlwn7Ramnu2TtFieDWKZ2j8rDO33gifsaZ6WLcZyr
- MP7j1dGHjNhM7Q7Gvw>
-X-ME-Received: <xmr:ca-oYX1YNEqced0s9pHETmyw7T2-wo4uPmA_Il_mKPRCk3Tvec7m-u35uy6S8Nber4kQ89i21lWBKpUChFd5WHS6P0M0TUoypzje2Cm3RC2eDVbryCJk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrieehgddvlecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
- ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
- hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeevfefffeekte
- fgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucevlhhushhtvghr
- ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrg
- hkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:ca-oYWBn6d2KdwS7HCxY4y4hyWOoxc3MIS5Jl2-0YUJfe7NGl-Qw-g>
- <xmx:ca-oYTgIBfgRgdwSD2X3kQTc9CH07HTCW6mIpZJz-D2HJvkGEdv2bQ>
- <xmx:ca-oYSpsDcT_YJNQSDuPatJmgw8avuzaH89Ylp7pqa4JtVJw3kSioQ>
- <xmx:ca-oYTfvREdZGq9ULktFoqBIqNg5cGFSUHDZRdKAFk3123vzYsr6qw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Dec 2021 06:35:12 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: stefanr@s5r6.in-berlin.de
-Subject: [PATCH 3/3] firewire: add kernel API to access packet structure in
- request structure for AR context
-Date: Thu,  2 Dec 2021 20:34:57 +0900
-Message-Id: <20211202113457.24011-4-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211202113457.24011-1-o-takashi@sakamocchi.jp>
-References: <20211202113457.24011-1-o-takashi@sakamocchi.jp>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4771F800EE;
+ Thu,  2 Dec 2021 12:42:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4771F800EE
+X-UUID: 80bf37aaeece4781a37dc2c23dcdabf2-20211202
+X-UUID: 80bf37aaeece4781a37dc2c23dcdabf2-20211202
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
+ (envelope-from <allen-kh.cheng@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1271632236; Thu, 02 Dec 2021 19:42:43 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Thu, 2 Dec 2021 19:42:42 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Thu, 2 Dec 2021 19:42:42 +0800
+From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jassi Brar
+ <jassisinghbrar@gmail.com>
+Subject: [PATCH v10 0/3] This patches provide ADSP IPC support for MT8195
+Date: Thu, 2 Dec 2021 19:42:37 +0800
+Message-ID: <20211202114240.26976-1-allen-kh.cheng@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
- clemens@ladisch.de, linux-kernel@vger.kernel.org, marcan@marcan.st
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, cujomalainey@google.com,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,81 +85,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In 1394 OHCI specification, descriptor of Asynchronous Receive DMA context
-has timeStamp field in its trailer quadlet. The field is written by
-the host controller for the time to receive asynchronous request
-subaction in isochronous cycle time.
+From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 
-In Linux FireWire subsystem, the value of field is stored to fw_packet
-structure and copied to fw_request structure as the part. The fw_request
-structure is hidden from unit driver and passed as opaque pointer when
-calling registered handler. It's inconvenient to the unit driver which
-needs timestamp of packet.
+Mediatek ADSP IPC is used to send notification or short message between
+processors with dsp.·
 
-This commit adds kernel API to pick up timestamp from opaque pointer to
-fw_request structure.
+It will place the message to the share buffer and will access the ADSP mailbox
+registers to kick dsp.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- drivers/firewire/core-transaction.c | 18 ++++++++++++++++++
- include/linux/firewire.h            |  1 +
- 2 files changed, 19 insertions(+)
+Two mailboxes used to send notification or short message between processors with
+dsp
 
-diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
-index ac487c96bb71..e12a0a4c33f7 100644
---- a/drivers/firewire/core-transaction.c
-+++ b/drivers/firewire/core-transaction.c
-@@ -619,6 +619,7 @@ struct fw_request {
- 	struct fw_packet response;
- 	u32 request_header[4];
- 	int ack;
-+	u32 timestamp;
- 	u32 length;
- 	u32 data[];
- };
-@@ -788,6 +789,7 @@ static struct fw_request *allocate_request(struct fw_card *card,
- 	request->response.ack = 0;
- 	request->response.callback = free_response_callback;
- 	request->ack = p->ack;
-+	request->timestamp = p->timestamp;
- 	request->length = length;
- 	if (data)
- 		memcpy(request->data, data, length);
-@@ -832,6 +834,22 @@ int fw_get_request_speed(struct fw_request *request)
- }
- EXPORT_SYMBOL(fw_get_request_speed);
- 
-+/**
-+ * fw_request_get_timestamp: Get timestamp of the request.
-+ * @request: The opaque pointer to request structure.
-+ *
-+ * Get timestamp when 1394 OHCI controller receives the asynchronous request subaction. The
-+ * timestamp consists of the low order 3 bits of second field and the full 13 bits of count
-+ * field of isochronous cycle time register.
-+ *
-+ * Returns: timestamp of the request.
-+ */
-+u32 fw_request_get_timestamp(const struct fw_request *request)
-+{
-+	return request->timestamp;
-+}
-+EXPORT_SYMBOL_GPL(fw_request_get_timestamp);
-+
- static void handle_exclusive_region_request(struct fw_card *card,
- 					    struct fw_packet *p,
- 					    struct fw_request *request,
-diff --git a/include/linux/firewire.h b/include/linux/firewire.h
-index 2f467c52bdec..980019053e54 100644
---- a/include/linux/firewire.h
-+++ b/include/linux/firewire.h
-@@ -354,6 +354,7 @@ void fw_core_remove_address_handler(struct fw_address_handler *handler);
- void fw_send_response(struct fw_card *card,
- 		      struct fw_request *request, int rcode);
- int fw_get_request_speed(struct fw_request *request);
-+u32 fw_request_get_timestamp(const struct fw_request *request);
- void fw_send_request(struct fw_card *card, struct fw_transaction *t,
- 		     int tcode, int destination_id, int generation, int speed,
- 		     unsigned long long offset, void *payload, size_t length,
+changes since v9:
+- rename adsp_mbox_chan_ops to mtk_adsp_mbox_chan_ops
+
+changes since v8:
+- remove struct adsp_mbox_ch_info
+- add get_mtk_adsp_mbox_priv
+- use mtk_adsp_mbox_priv va_mboxreg address in adsp mbox driver
+- add struct mtk_adsp_mbox_cfg for DSP mbox register offset
+- remove adsp mbox register offset hard code define
+- remove mtk-adsp-ipc.h reference in adsp mbox driver
+
+changes since v7:
+- add mtk prefix for adsp ipc functions
+- rename adsp_mbox_ch_info to mtk_adsp_mbox_ch_info
+- remove incorrect reviewers in commit message
+
+changes since v6:
+- dt-bindings: change example dtsi node.
+- rename config MTK_ADSP_IPC_MBOX to MTK_ADSP_MBOX
+- remove unused variable
+- add reviewers
+
+changes since v5:
+- remove some redundant code
+
+changes since v4:
+- use switch ... case in adsp_ipc_recv
+- add error handling path for chan_name pointer
+- refine some code to be concise
+
+changes since v3:
+- reorder MTK_ADSP_IPC_MBOX config
+- remove some redundant code
+- remove lock in mtk-adsp-mailbox
+
+changes since v2:
+- separate adsp_mailbox into two instances
+
+changes since v1:
+- fix dt_binding_check error
+
+
+Allen-KH Cheng (3):
+  dt-bindings: mediatek: add adsp-mbox document
+  firmware: mediatek: add adsp ipc protocol interface
+  mailbox: mediatek: add support for adsp mailbox controller
+
+ .../bindings/mailbox/mtk,adsp-mbox.yaml       |  52 ++++++
+ drivers/firmware/Kconfig                      |   1 +
+ drivers/firmware/Makefile                     |   1 +
+ drivers/firmware/mediatek/Kconfig             |   9 +
+ drivers/firmware/mediatek/Makefile            |   2 +
+ drivers/firmware/mediatek/mtk-adsp-ipc.c      | 135 ++++++++++++++
+ drivers/mailbox/Kconfig                       |   7 +
+ drivers/mailbox/Makefile                      |   2 +
+ drivers/mailbox/mtk-adsp-mailbox.c            | 176 ++++++++++++++++++
+ .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 +++++++
+ 10 files changed, 450 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
+ create mode 100644 drivers/firmware/mediatek/Kconfig
+ create mode 100644 drivers/firmware/mediatek/Makefile
+ create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
+ create mode 100644 drivers/mailbox/mtk-adsp-mailbox.c
+ create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
+
 -- 
-2.32.0
+2.18.0
 

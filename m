@@ -2,73 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C923465FC1
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 09:42:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E5B4660F6
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 10:55:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87BFB2580;
-	Thu,  2 Dec 2021 09:41:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87BFB2580
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C22C24A9;
+	Thu,  2 Dec 2021 10:54:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C22C24A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638434540;
-	bh=NcL9wcXvToWlJHwN6SodHBnBy1p132vHia45k6+xpb0=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UebIUm+cRaQjSF/1oZVeKycmFYwTcvst7GikpEZ5q+RBs8mUQagFaHOPYdrjtg+Xn
-	 ZBBNiUf0g1a71PiFYtFkzFmIWc+0MUE2NnIAVLKoAGYMZjdGfkh+F8vzhRxFp/84a8
-	 IC5eAkWbR102RGB4jt3WnGxlQipfFRWe96JRk7YY=
+	s=default; t=1638438902;
+	bh=4zvJGeuNRhrII/30IdsXFyfuvGVGvUgcPp76pJV9dqw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IFEDzsBRJ2GQJGuS2mKs7RcnLjGROC/MnhJ11XBfNHGHh4d2Nb7e3CVsJqAOCiBsN
+	 QZE9e78lwDCZAcU482opntBuqudXMMaQb+aOCTGLcCCYbhBNZvdwgZWDGl9MJueBGB
+	 Z1fi3E3475kzjFIj2DtOAUYKo+S4+htpSTEJY6Z8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1325FF802E0;
-	Thu,  2 Dec 2021 09:41:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4D2DF802E0;
+	Thu,  2 Dec 2021 10:53:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10CEEF802A0; Thu,  2 Dec 2021 09:41:02 +0100 (CET)
+ id 4A3E3F802A0; Thu,  2 Dec 2021 10:53:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF15AF800EE
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 09:40:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF15AF800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2240FF800EE
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 10:53:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2240FF800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="0rIZCAK8"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="SYpX7PSs"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id F343D212BC
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 08:40:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638434454; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=ouDdS0X35gU7+BoGhTbiNMz7nFwty4/f6AJfodB6vlo=;
- b=0rIZCAK8RcnsreL86jB4e4HD6qqh9UBfxmZpfuiy3VU5L8mRxcW42KnK3bYdfujBQMo6RQ
- FB30qywKxOkyGhSEkK+ucjLJxuaWCRk0OWbkciedvLSd5ebz9XzV8T1Gth7ldL3+l6pYxi
- jVfVxhvu2mAYr6qHDYDCJmEnoXSSQvw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638434454;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=ouDdS0X35gU7+BoGhTbiNMz7nFwty4/f6AJfodB6vlo=;
- b=SYpX7PSsWAfXQKfDJ4Is4n3cEYEaarUj5avc+tMDO56I/zMA2U71vKKiE76dBLvG5wD9Rc
- sGM2mhzmfvgR0NDg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E2D8EA3FA4;
- Thu,  2 Dec 2021 08:40:54 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Drop CONFIG_PM
-Date: Thu,  2 Dec 2021 09:40:53 +0100
-Message-Id: <20211202084053.18201-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="SMp8dNRX"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B29G25c029166;
+ Thu, 2 Dec 2021 03:53:35 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=r8zaAsLHo07c7hy3+fKjG+IGB1xKyHnCMkRrTxygNJU=;
+ b=SMp8dNRXnf5E43N0eWevahK7KzW4uD67PXj1iAVHzbUZ0u1tvRh25k7DIgDecvfmdo6z
+ TUEbIZzYyuNVwPdI04TSga3Jzmr8C3EXfiPliAqo3td1JMe3FLjagUk459ro+fCEb8Tp
+ FBmiN3CNpqA47HbxBwG8ZBTwjwfQ4RcNImo1qhFQeANPDEOkyYRavOkr+mar4DAGyEKA
+ 5tyL/eu8CZhhCVeo6lhaHMoPMKn5Yn56oy5F7Xlw99SDXZBQzaJe7PzPwGa0Umbk2Dld
+ tlZi3MfpBUq3AHnirKZmiDvRqFGg+FWPtxWNoltmlfGfCzQrWwXt5nOPppFo/iXSgfhA nA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3cp6c89f9e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 02 Dec 2021 03:53:35 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 2 Dec
+ 2021 09:53:33 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Thu, 2 Dec 2021 09:53:33 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 58B912A9;
+ Thu,  2 Dec 2021 09:53:33 +0000 (UTC)
+Date: Thu, 2 Dec 2021 09:53:33 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: cs42l42: Implement system suspend
+Message-ID: <20211202095333.GK18506@ediswmail.ad.cirrus.com>
+References: <20211201153648.17259-1-rf@opensource.cirrus.com>
+ <YaejghraYE6lD7FD@sirena.org.uk>
+ <87930df9-6220-807e-a655-1c7d7ec020ab@opensource.cirrus.com>
+ <YafyWnVA1J1rgCf1@sirena.org.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <YafyWnVA1J1rgCf1@sirena.org.uk>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: __Af_305nabKEyouY-eabprAXCrJVWQ5
+X-Proofpoint-GUID: __Af_305nabKEyouY-eabprAXCrJVWQ5
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,143 +102,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Practically seen, CONFIG_PM is almost mandatory.
-Let's drop the ugly ifdef lines and simplify the code.
+On Wed, Dec 01, 2021 at 10:08:26PM +0000, Mark Brown wrote:
+> On Wed, Dec 01, 2021 at 06:04:00PM +0000, Richard Fitzgerald wrote:
+> > On 01/12/2021 16:32, Mark Brown wrote:
+> > > On Wed, Dec 01, 2021 at 03:36:48PM +0000, Richard Fitzgerald wrote:
+> ...that's based on the assumption that this is all about the magic write
+> sequences you're using for shutdown potentially conflicting with default
+> values you've got in the cache?  If it's not those then the assumption
+> is that either the device was reset in which case it has reset values or
+> the device was not reset and held it's previous value, in which case the
+> cache sync is redundant.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/card.c         |  7 -------
- sound/usb/mixer.c        |  4 ----
- sound/usb/mixer.h        |  2 --
- sound/usb/mixer_quirks.c |  2 --
- sound/usb/mixer_quirks.h |  2 --
- sound/usb/power.h        | 10 ----------
- 6 files changed, 27 deletions(-)
+This isn't quite accurate though, as whilst the device was
+suspended the user may have touched ALSA controls which will have
+updated the state of the cache. Thus the cache requires a sync
+regardless of if the hardware turned off.
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 1764b9302d46..376962291c4d 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -987,8 +987,6 @@ void snd_usb_unlock_shutdown(struct snd_usb_audio *chip)
- 		wake_up(&chip->shutdown_wait);
- }
- 
--#ifdef CONFIG_PM
--
- int snd_usb_autoresume(struct snd_usb_audio *chip)
- {
- 	int i, err;
-@@ -1100,11 +1098,6 @@ static int usb_audio_resume(struct usb_interface *intf)
- 	atomic_dec(&chip->active); /* allow autopm after this point */
- 	return err;
- }
--#else
--#define usb_audio_suspend	NULL
--#define usb_audio_resume	NULL
--#define usb_audio_resume	NULL
--#endif		/* CONFIG_PM */
- 
- static const struct usb_device_id usb_audio_ids [] = {
- #include "quirks-table.h"
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 5b9fd07ce2a2..e8f3f8d622ec 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -3629,7 +3629,6 @@ void snd_usb_mixer_disconnect(struct usb_mixer_interface *mixer)
- 	mixer->disconnected = true;
- }
- 
--#ifdef CONFIG_PM
- /* stop any bus activity of a mixer */
- static void snd_usb_mixer_inactivate(struct usb_mixer_interface *mixer)
- {
-@@ -3711,7 +3710,6 @@ int snd_usb_mixer_resume(struct usb_mixer_interface *mixer)
- 
- 	return snd_usb_mixer_activate(mixer);
- }
--#endif
- 
- void snd_usb_mixer_elem_init_std(struct usb_mixer_elem_list *list,
- 				 struct usb_mixer_interface *mixer,
-@@ -3720,7 +3718,5 @@ void snd_usb_mixer_elem_init_std(struct usb_mixer_elem_list *list,
- 	list->mixer = mixer;
- 	list->id = unitid;
- 	list->dump = snd_usb_mixer_dump_cval;
--#ifdef CONFIG_PM
- 	list->resume = restore_mixer_value;
--#endif
- }
-diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
-index 98ea24d91d80..d43895c1ae5c 100644
---- a/sound/usb/mixer.h
-+++ b/sound/usb/mixer.h
-@@ -118,10 +118,8 @@ void snd_usb_mixer_elem_init_std(struct usb_mixer_elem_list *list,
- int snd_usb_mixer_vol_tlv(struct snd_kcontrol *kcontrol, int op_flag,
- 			  unsigned int size, unsigned int __user *_tlv);
- 
--#ifdef CONFIG_PM
- int snd_usb_mixer_suspend(struct usb_mixer_interface *mixer);
- int snd_usb_mixer_resume(struct usb_mixer_interface *mixer);
--#endif
- 
- int snd_usb_set_cur_mix_value(struct usb_mixer_elem_info *cval, int channel,
-                              int index, int value);
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index db194ad168d0..1f9863725c7c 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -3280,7 +3280,6 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
- 	return err;
- }
- 
--#ifdef CONFIG_PM
- void snd_usb_mixer_resume_quirk(struct usb_mixer_interface *mixer)
- {
- 	switch (mixer->chip->usb_id) {
-@@ -3289,7 +3288,6 @@ void snd_usb_mixer_resume_quirk(struct usb_mixer_interface *mixer)
- 		break;
- 	}
- }
--#endif
- 
- void snd_usb_mixer_rc_memory_change(struct usb_mixer_interface *mixer,
- 				    int unitid)
-diff --git a/sound/usb/mixer_quirks.h b/sound/usb/mixer_quirks.h
-index 52be26db558f..4ba01ba3fe8b 100644
---- a/sound/usb/mixer_quirks.h
-+++ b/sound/usb/mixer_quirks.h
-@@ -14,9 +14,7 @@ void snd_usb_mixer_fu_apply_quirk(struct usb_mixer_interface *mixer,
- 				  struct usb_mixer_elem_info *cval, int unitid,
- 				  struct snd_kcontrol *kctl);
- 
--#ifdef CONFIG_PM
- void snd_usb_mixer_resume_quirk(struct usb_mixer_interface *mixer);
--#endif
- 
- #endif /* SND_USB_MIXER_QUIRKS_H */
- 
-diff --git a/sound/usb/power.h b/sound/usb/power.h
-index 6004231a7c75..396e3e51440a 100644
---- a/sound/usb/power.h
-+++ b/sound/usb/power.h
-@@ -21,17 +21,7 @@ struct snd_usb_power_domain *
- snd_usb_find_power_domain(struct usb_host_interface *ctrl_iface,
- 			  unsigned char id);
- 
--#ifdef CONFIG_PM
- int snd_usb_autoresume(struct snd_usb_audio *chip);
- void snd_usb_autosuspend(struct snd_usb_audio *chip);
--#else
--static inline int snd_usb_autoresume(struct snd_usb_audio *chip)
--{
--	return 0;
--}
--static inline void snd_usb_autosuspend(struct snd_usb_audio *chip)
--{
--}
--#endif
- 
- #endif /* __USBAUDIO_POWER_H */
--- 
-2.31.1
+I suspect we do need to have a think about the write sequences,
+but there is also a more general issue here. The sequence looks
+like this:
 
+1) Device enters cache only mode.
+2) User writes an ALSA control causing a register to return to
+its default value.
+3) Device exits cache only and does a cache sync.
+
+This flow works if the device was reset but not if the registers
+retained their value since the register written by the user will
+be at default in the cache, but not on the hardware. The cache
+sync code assumes the device returned to defaults.
+
+It is often tricky to know if the device reset since the
+regulator could be shared and even if they arn't capacitance can
+play a part if the off time is very small. Usually we mandate a
+hard reset or use a soft reset if the hard isn't available. I
+think the soft reset has some issues on this chip but perhaps we
+should look into that more.
+
+> > > Given that you're using disable_irq() to force the interrupt off (which
+> > > is a bit rude but often the best one can do) how might we be getting an
+> > > interrupt while suspended?  This seems to indicate an error condition.
+> 
+> > I may have misunderstood here, but the documentation says that
+> > enables/disables are nested. The interrupt starts out enabled right
+> > after calling request_threaded_irq(), so I expected that all users of
+> > the shared interrupt would have to call disable_irq() for it to actually
+> > get disabled (I put the call in on that basis that it does no harm). If
+> > disable_irq() forces the irq off even if it's shared then I'll remove it
+> > because as you say that would be rude.
+> 
+> Hrm, that may have changed since I last looked - if that's the case then
+> I guess it's best not to warn which was what I was thinking here.
+> 
+
+No I am pretty sure you are correct here calling disable_irq will
+immediately disable the IRQ for everyone using it. The reference
+counting is on the other side, ie. if I call disable_irq 5 times
+I have to call enable_irq 5 times before it turns back on.
+
+Thanks,
+Charles

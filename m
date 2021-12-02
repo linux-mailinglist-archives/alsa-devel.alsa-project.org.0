@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 931C946626C
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 12:37:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D5C466276
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 12:37:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 243B025B2;
-	Thu,  2 Dec 2021 12:36:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 243B025B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9466525FB;
+	Thu,  2 Dec 2021 12:37:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9466525FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638445044;
-	bh=Hc3nIev0ZEDH1IY5gZ57/Pl56H7Z3NbgHG0+3yzo9Io=;
+	s=default; t=1638445071;
+	bh=jTDH0PZLxupRRoH6by9YXZljKPXrp24j0DPy3IfwXFw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E+m3V6FXXeP1iza3W4mKN8W4BI7UuSQW1157RlpGuNWmTX7BilHVKyuycNJBl+Bsu
-	 JgEs0muRF0ob9DFn82dzMB8marAvIo1mlQ5r2y+Q/ttJYPcRcEoDj6kljHVHOaKP+y
-	 V2ZyMzsaODFXA4ukxbc/M70JjweMmGmGKemkh5JY=
+	b=JrT39y7OcEvPZ+4TKyXAW/cjGSH2299Ulj9DZM/thV1xe3sEH20FPhLVXGPhnXJ9m
+	 zswfheHIFapFE546BWDGaAZ+ytGwB6DArhiH1eev4FqbBCkyW6EGEwz6ks/ZQ2s6aA
+	 zVPIyga6g/IS5IQWR7Cd4aiOPbhSEs9EfCskZZbM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93ACDF804F1;
-	Thu,  2 Dec 2021 12:35:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B59E2F80506;
+	Thu,  2 Dec 2021 12:35:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27AC6F804AD; Thu,  2 Dec 2021 12:35:23 +0100 (CET)
+ id D0826F804FA; Thu,  2 Dec 2021 12:35:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,44 +35,44 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10D19F800EE
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 12:35:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10D19F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 723B9F80290
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 12:35:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 723B9F80290
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="LFxFkEKN"; 
+ header.b="LB0DMAE8"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="H2MbYVzw"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id DCB5E3200FA9;
- Thu,  2 Dec 2021 06:35:10 -0500 (EST)
+ header.i=@messagingengine.com header.b="M/xSxlx7"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 47DE23201EF4;
+ Thu,  2 Dec 2021 06:35:14 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 02 Dec 2021 06:35:11 -0500
+ by compute5.internal (MEProxy); Thu, 02 Dec 2021 06:35:15 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=dSfEsYJV8YT9G
- 1mY+w+3xNKGP/jLbaYvgOYk7MgI61U=; b=LFxFkEKNZPPy+UrCGmddyYj4Yfucl
- 1oH7uT0osUDuvU/E00EgKYNj6kciaOeNHK0sPoQkiGzjyV//d7nz/L6O1K0VYKdR
- emRZFjNvQL4KzUtZfb7prMMX4KVAaRYd4lShb14vg6aCJORHFABKCQ5sy73hcpez
- tYwpYkhrj3qGnipxLtjQ9pUmJRnfalPRlUVoImGefW6fn+QJedL+Nzm1eRr79wff
- C4EXTliiOhtvzbxg7VCvE4unKaSnPo0GkgsUQLMg28CQrjiNKDqH3RGSGz/SX9L/
- DDh7MGQr7ChMmFrLAIcZ6oIqc4hDivRYqRmV3vFYXYp8MAlXCJXsIaauQ==
+ :mime-version:content-transfer-encoding; s=fm3; bh=HYA2baR9g9uxh
+ 0vIU8ekgamWzAVAwChaw229O58ZZJg=; b=LB0DMAE8Y2qCVUl1aYoFZx0OO1Oy6
+ BE6b6+iQgdTXh9sN7tsC+6tEhB7SDtMI3gIb3xgHms+qYrwzihtbKen6PtQjE1tc
+ zSSUi5vgh34vpY521sxfh0FL0SdUCs4/82sJUZNLWEiGfeGhzHe7plE/YkNhrzB6
+ NCWFXG7lT2c1LEf3unCoD7+tq/z03/kzUymvje1x0SyF43raJZ8gRlpWbPM9n2ta
+ lIFgl3PdsA5OmvYpxr0R0FGea/bGOruWHuHuLD37/OUybBlD6gfJUVh7PIJFGEU/
+ yXV9wubzM/XgzVxvsrg12awKy5Wom/RmciGMh+HmYpZtBTyXdg/XA55Hw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=dSfEsYJV8YT9G1mY+w+3xNKGP/jLbaYvgOYk7MgI61U=; b=H2MbYVzw
- irJUbwSjyntpffnMwaKAhWbZLmAJM9P2j1/X8ffK3OFzfVFcqI60Nx/elApANE0F
- KYyABJ10LaVIyfwaF4nr5mym3uo5aqthfg8Qw/04rsUq7I68ysKfFpnlG0eNtTW1
- KGRxcj3eElEjswcHNtVNaTZibrhnC1/g4zOguiIqiVYXY0u2fE2lzCD8KfpUZRJJ
- Khy0U+yroKjaDIRn/VbzTaQ3WNEplHQ6nIoEYgDYU3yIDd/GycoWTC+LP3gujDsb
- tpTpKl0Pr6L9goCN7OANEQGvyHAAo1k+U0nvg3YbRcgjFr3SAJ/EAvIDdzxN2svS
- baPASCXp3ObzJQ==
-X-ME-Sender: <xms:ba-oYRak8gf3eXySuD9cs_VPsw-Uqd7Uq52YDfiuXAkH0yFJFcyLLg>
- <xme:ba-oYYa9-QE6Njg288f7ZFU9KI991sqplxWUP-aEgQkrRomxXjAXV5qnmQ55w2DIq
- G37SCkHREI3f6W4c7Q>
-X-ME-Received: <xmr:ba-oYT9uhBrxHQI1sZwxZBpnG7iQJhX_7dkse6B6ApFMmpIGYkHH0aUqkV-Ibx509pArNeRDzWK9HXoFQqCuaiX2rHKGrVPWj6rjzIrIX-0B5IXBl1Za>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrieehgdeftdcutefuodetggdotefrodftvf
+ fm1; bh=HYA2baR9g9uxh0vIU8ekgamWzAVAwChaw229O58ZZJg=; b=M/xSxlx7
+ 63mVkOuO6JR7TLx7WnHEXdy+Tddn0t8rCibgySMiEQR5Mn5B+dqBMpY43XW9CT8F
+ OKMzUoHXdiZe4b1UtiJGolyyuTPw634wEg6a5ZO981eI9RSVMPCrYr53SyNHh0hu
+ 43p4GawKvXM0NUcmOg2F/6bmmRK+Vg1JTkAKIo5DiAr542N/D68LSFwUSVVpxWox
+ Rzjz4cZuKKGq7YrUEJtoss0YZ7xUKJKSuD8mcorRWOB8GvJi/tjYY4ETAoPTENnr
+ Ka5dKUgg3zfsL3xB5dba9q8XPlNP1W4iKds7a7WG20J0kesxXaJg5efJMWJN3a/R
+ PHK5HkPNSleWig==
+X-ME-Sender: <xms:ca-oYaQoH-M39LTDHE3qjbnNTLOP5Ux-54AFK72KmIEyELPtVjfnFg>
+ <xme:ca-oYfzB7amdRsIFp6yBdg5QKlwn7Ramnu2TtFieDWKZ2j8rDO33gifsaZ6WLcZyr
+ MP7j1dGHjNhM7Q7Gvw>
+X-ME-Received: <xmr:ca-oYX1YNEqced0s9pHETmyw7T2-wo4uPmA_Il_mKPRCk3Tvec7m-u35uy6S8Nber4kQ89i21lWBKpUChFd5WHS6P0M0TUoypzje2Cm3RC2eDVbryCJk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrieehgddvlecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
  ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
@@ -80,17 +80,18 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrieehgdeftdcutefuodetggdote
  fgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucevlhhushhtvghr
  ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrg
  hkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:ba-oYfr2Zs5YtpPUkhIBk7ZYc8SkZC8TK_LK6d9QY4cTu8v-3Db4_A>
- <xmx:ba-oYcqIdxoG6zr71RvtaSngB9ODpJ_6-QPBxgqASazlyznsJ8ZcCg>
- <xmx:ba-oYVRW6XAwzkY4EDvHZc1Yq2V7uOO4oK6PMf2PPAlrcinPZavezQ>
- <xmx:bq-oYVm5tmqEg5yQkleF8KR29dWlvgSdXyFaMz6NC5f9kYWO_AjJmQ>
+X-ME-Proxy: <xmx:ca-oYWBn6d2KdwS7HCxY4y4hyWOoxc3MIS5Jl2-0YUJfe7NGl-Qw-g>
+ <xmx:ca-oYTgIBfgRgdwSD2X3kQTc9CH07HTCW6mIpZJz-D2HJvkGEdv2bQ>
+ <xmx:ca-oYSpsDcT_YJNQSDuPatJmgw8avuzaH89Ylp7pqa4JtVJw3kSioQ>
+ <xmx:ca-oYTfvREdZGq9ULktFoqBIqNg5cGFSUHDZRdKAFk3123vzYsr6qw>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Dec 2021 06:35:08 -0500 (EST)
+ 2 Dec 2021 06:35:12 -0500 (EST)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: stefanr@s5r6.in-berlin.de
-Subject: [PATCH 2/3] firewire: add kernel API to access CYCLE_TIME register
-Date: Thu,  2 Dec 2021 20:34:56 +0900
-Message-Id: <20211202113457.24011-3-o-takashi@sakamocchi.jp>
+Subject: [PATCH 3/3] firewire: add kernel API to access packet structure in
+ request structure for AR context
+Date: Thu,  2 Dec 2021 20:34:57 +0900
+Message-Id: <20211202113457.24011-4-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211202113457.24011-1-o-takashi@sakamocchi.jp>
 References: <20211202113457.24011-1-o-takashi@sakamocchi.jp>
@@ -113,100 +114,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-1394 OHCI specification defined Isochronous Cycle Timer Register to get
-value of CYCLE_TIME register defined by IEEE 1394 for CSR architecture
-defined by ISO/IEC 13213. Unit driver can calculate packet time by
-compute with the value of CYCLE_TIME and timeStamp field in descriptor
-of each isochronous and asynchronous context. The resolution of CYCLE_TIME
-is 49.576 MHz, while the one of timeStamp is 8,000 Hz.
+In 1394 OHCI specification, descriptor of Asynchronous Receive DMA context
+has timeStamp field in its trailer quadlet. The field is written by
+the host controller for the time to receive asynchronous request
+subaction in isochronous cycle time.
 
-Current implementation of Linux FireWire subsystem allows the driver to
-get the value of CYCLE_TIMER CSR register by transaction service. The
-transaction service has overhead in regard of access to MMIO register.
+In Linux FireWire subsystem, the value of field is stored to fw_packet
+structure and copied to fw_request structure as the part. The fw_request
+structure is hidden from unit driver and passed as opaque pointer when
+calling registered handler. It's inconvenient to the unit driver which
+needs timestamp of packet.
 
-This commit adds kernel API for unit driver to access the register
-directly.
+This commit adds kernel API to pick up timestamp from opaque pointer to
+fw_request structure.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- drivers/firewire/core-card.c | 28 ++++++++++++++++++++++++++++
- drivers/firewire/core-cdev.c |  6 ++++--
- include/linux/firewire.h     |  2 ++
- 3 files changed, 34 insertions(+), 2 deletions(-)
+ drivers/firewire/core-transaction.c | 18 ++++++++++++++++++
+ include/linux/firewire.h            |  1 +
+ 2 files changed, 19 insertions(+)
 
-diff --git a/drivers/firewire/core-card.c b/drivers/firewire/core-card.c
-index d994da6cf465..cd09de61bc4f 100644
---- a/drivers/firewire/core-card.c
-+++ b/drivers/firewire/core-card.c
-@@ -702,3 +702,31 @@ void fw_core_remove_card(struct fw_card *card)
- 	WARN_ON(!list_empty(&card->transaction_list));
+diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
+index ac487c96bb71..e12a0a4c33f7 100644
+--- a/drivers/firewire/core-transaction.c
++++ b/drivers/firewire/core-transaction.c
+@@ -619,6 +619,7 @@ struct fw_request {
+ 	struct fw_packet response;
+ 	u32 request_header[4];
+ 	int ack;
++	u32 timestamp;
+ 	u32 length;
+ 	u32 data[];
+ };
+@@ -788,6 +789,7 @@ static struct fw_request *allocate_request(struct fw_card *card,
+ 	request->response.ack = 0;
+ 	request->response.callback = free_response_callback;
+ 	request->ack = p->ack;
++	request->timestamp = p->timestamp;
+ 	request->length = length;
+ 	if (data)
+ 		memcpy(request->data, data, length);
+@@ -832,6 +834,22 @@ int fw_get_request_speed(struct fw_request *request)
  }
- EXPORT_SYMBOL(fw_core_remove_card);
-+
+ EXPORT_SYMBOL(fw_get_request_speed);
+ 
 +/**
-+ * fw_card_read_cycle_time: read from Isochronous Cycle Timer Register of 1394 OHCI in MMIO region
-+ *			    for controller card.
-+ * @card: The instance of card for 1394 OHCI controller.
-+ * @cycle_time: The mutual reference to value of cycle time for the read operation.
++ * fw_request_get_timestamp: Get timestamp of the request.
++ * @request: The opaque pointer to request structure.
 + *
-+ * Read value from Isochronous Cycle Timer Register of 1394 OHCI in MMIO region for the given
-+ * controller card. This function accesses the region without any lock primitives or IRQ mask.
-+ * When returning successfully, the content of @value argument has value aligned to host endianness,
-+ * formetted by CYCLE_TIME CSR Register of IEEE 1394 std.
++ * Get timestamp when 1394 OHCI controller receives the asynchronous request subaction. The
++ * timestamp consists of the low order 3 bits of second field and the full 13 bits of count
++ * field of isochronous cycle time register.
 + *
-+ * Context: Any context.
-+ * Return:
-+ * * 0 - Read successfully.
-+ * * -ENODEV - The controller is unavailable due to being removed or unbound.
++ * Returns: timestamp of the request.
 + */
-+int fw_card_read_cycle_time(struct fw_card *card, u32 *cycle_time)
++u32 fw_request_get_timestamp(const struct fw_request *request)
 +{
-+	if (card->driver->read_csr == dummy_read_csr)
-+		return -ENODEV;
-+
-+	// It's possible to switch to dummy driver between the above and the below. This is the best
-+	// effort to return -ENODEV.
-+	*cycle_time = card->driver->read_csr(card, CSR_CYCLE_TIME);
-+	return 0;
++	return request->timestamp;
 +}
-+EXPORT_SYMBOL_GPL(fw_card_read_cycle_time);
-diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
-index 9f89c17730b1..8e9670036e5c 100644
---- a/drivers/firewire/core-cdev.c
-+++ b/drivers/firewire/core-cdev.c
-@@ -1216,7 +1216,9 @@ static int ioctl_get_cycle_timer2(struct client *client, union ioctl_arg *arg)
- 
- 	local_irq_disable();
- 
--	cycle_time = card->driver->read_csr(card, CSR_CYCLE_TIME);
-+	ret = fw_card_read_cycle_time(card, &cycle_time);
-+	if (ret < 0)
-+		goto end;
- 
- 	switch (a->clk_id) {
- 	case CLOCK_REALTIME:      ktime_get_real_ts64(&ts);	break;
-@@ -1225,7 +1227,7 @@ static int ioctl_get_cycle_timer2(struct client *client, union ioctl_arg *arg)
- 	default:
- 		ret = -EINVAL;
- 	}
--
-+end:
- 	local_irq_enable();
- 
- 	a->tv_sec      = ts.tv_sec;
++EXPORT_SYMBOL_GPL(fw_request_get_timestamp);
++
+ static void handle_exclusive_region_request(struct fw_card *card,
+ 					    struct fw_packet *p,
+ 					    struct fw_request *request,
 diff --git a/include/linux/firewire.h b/include/linux/firewire.h
-index 07967a450eaa..2f467c52bdec 100644
+index 2f467c52bdec..980019053e54 100644
 --- a/include/linux/firewire.h
 +++ b/include/linux/firewire.h
-@@ -150,6 +150,8 @@ static inline void fw_card_put(struct fw_card *card)
- 	kref_put(&card->kref, fw_card_release);
- }
- 
-+int fw_card_read_cycle_time(struct fw_card *card, u32 *cycle_time);
-+
- struct fw_attribute_group {
- 	struct attribute_group *groups[2];
- 	struct attribute_group group;
+@@ -354,6 +354,7 @@ void fw_core_remove_address_handler(struct fw_address_handler *handler);
+ void fw_send_response(struct fw_card *card,
+ 		      struct fw_request *request, int rcode);
+ int fw_get_request_speed(struct fw_request *request);
++u32 fw_request_get_timestamp(const struct fw_request *request);
+ void fw_send_request(struct fw_card *card, struct fw_transaction *t,
+ 		     int tcode, int destination_id, int generation, int speed,
+ 		     unsigned long long offset, void *payload, size_t length,
 -- 
 2.32.0
 

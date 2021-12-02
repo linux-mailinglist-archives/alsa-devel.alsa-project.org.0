@@ -2,100 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36B3E465D85
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 05:43:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC488465EC5
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 08:36:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E1542564;
-	Thu,  2 Dec 2021 05:43:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E1542564
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5581F2459;
+	Thu,  2 Dec 2021 08:35:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5581F2459
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638420230;
-	bh=Q/XmdYzmWlBC/voF+84Cd3udQjdonRFCNCIqCUmDhDk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=sU4udmjcW2tlryffQ8N9NeNEIowJefcXgnBDWWpKB7bHcpPBWWfLHIqzsN+c4dcvb
-	 lhZhZHAVgohCBqBw168F9VIi0Za+vSOO2ixARfVxWqdzRgNMJB3UfvwfPSYf2ZNRRl
-	 XQ0Tyvs2yqTywrqA9VAcXcRaXHy8N42euOB68nyY=
+	s=default; t=1638430564;
+	bh=gKdSC1IMxkGrpuEBbzAIqUn1qALu8KCYfv7jQxTPq5A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=egrdH/2S82sdi40LD2t+PqQ8jJZQ3BnT9JF8egwT1SiD9Kt/eQK0Vkr63sNIqhtVk
+	 jDg76MZYl8uk+9PxWPEYvt9wAj5EzPawPV8kbKmYI1noO2rOpcEXNljA6k0t0UMQXX
+	 DR1NN/xwqYAnRdncLFqL0Rov8UEpxQS544eRj9Lw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7E0CF8032D;
-	Thu,  2 Dec 2021 05:42:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C635CF802E0;
+	Thu,  2 Dec 2021 08:34:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE6EEF804E2; Thu,  2 Dec 2021 05:42:54 +0100 (CET)
+ id BCE42F802A0; Thu,  2 Dec 2021 08:34:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PDS_TONAME_EQ_TOLOCAL_SHORT,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66DDCF800BE
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 05:42:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66DDCF800BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62735F800CE
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 08:34:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62735F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="NNI4lbBL"
-Received: by mail-pl1-x62a.google.com with SMTP id y7so19386603plp.0
- for <alsa-devel@alsa-project.org>; Wed, 01 Dec 2021 20:42:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=Q/XmdYzmWlBC/voF+84Cd3udQjdonRFCNCIqCUmDhDk=;
- b=NNI4lbBLOzUh6enNA2zXDD6i/1bbGmC+FP6nollo+ZHi511xLiHCuXuklfoEatdbSW
- c/K2UDB3imN6OpU5wZVX9y/cgHytjg748J8xZWdpWc5c2s/mjPDhWwgVMqKKaZGX/KR8
- N5KEWOuSX6ObkcWzGMI0QUSJfrREjzwt0FlH38L7xhCnOUlCDKqwF76FdcUJMuPKFyyf
- NcPOfpJLQ3fdoJX6usozrWel3ddfQu+4oIgNFru6sBQG3JAIVq+ToAIk0jcJUNombClm
- 98B1D6VwKpA9QpeCwgFuO6oyX8A9MSk+vYb9i38GLAnPQQTpxaDTVACDW5OSlJ7IfZLR
- NVnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Q/XmdYzmWlBC/voF+84Cd3udQjdonRFCNCIqCUmDhDk=;
- b=KwLnKoZh6AlsDzxxapVNngdVl7YEXOalHzvkfDrCrpkzJOWbthqIjQB4OtZYwZf/L+
- KQD60ylFv7pmkLJ6lAhEoSmHV88EFEz5HNiOvm6P1jiaShuKWm/f9HZ7QFfuAOOyIKyV
- 6k14TF8ZQ2EIKewr1vlt7E7zQbBHBnEKigcsxMb4PRk43OVkbm2lxikXC9AY+OM7h5SZ
- vOax5yv+zx4eiz6ypVBjxeG7xEPIFEzYsFIo9V+TAtVZgQZArWTATR+iD0T5+V0sJi1V
- EwIzKiIC4GvC9LYBzEsnQ3cfBzX+wlmnePQhWsIEBZEGHJ+CEPqvURrh5xLs0wcL+Czr
- GSsw==
-X-Gm-Message-State: AOAM533hymA1G5TYVeFg6dinYKU/GXBO1NUvRytFKJIo7rcQwozmmpJX
- gKnPo1ep1z33fyZRLgCRiVlOIF+OZxbB4g==
-X-Google-Smtp-Source: ABdhPJwd7LFTasLsCKCBBJSOBzXW1hcUhBvCVvh8QO8kQ/q9LWJdPJFWFfi3xByxw9fLIekXcskJdw==
-X-Received: by 2002:a17:903:1208:b0:143:e4e9:4ce3 with SMTP id
- l8-20020a170903120800b00143e4e94ce3mr12739440plh.21.1638420159291; 
- Wed, 01 Dec 2021 20:42:39 -0800 (PST)
-Received: from google.com ([2401:fa00:1:10:ce4d:ddd8:41f4:d987])
- by smtp.gmail.com with ESMTPSA id p19sm1545646pfo.92.2021.12.01.20.42.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Dec 2021 20:42:39 -0800 (PST)
-Date: Thu, 2 Dec 2021 12:42:34 +0800
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: "allen-kh.cheng" <allen-kh.cheng@mediatek.com>
-Subject: Re: [PATCH v9 2/3] firmware: mediatek: add adsp ipc protocol interface
-Message-ID: <YahOuiIZ/wGR/TpD@google.com>
-References: <20211201075604.27864-1-allen-kh.cheng@mediatek.com>
- <20211201075604.27864-3-allen-kh.cheng@mediatek.com>
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="Y9JzoMKt"
+Received: from localhost.localdomain (unknown [10.101.196.174])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 4BE0140078; 
+ Thu,  2 Dec 2021 07:34:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1638430466;
+ bh=daGfkCmFd2T/mh9PjPT6uP/gwdzM5b89BaR4Dee9AME=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=Y9JzoMKtUSVYu7DWExsE8O7aCVt5r9gqMeOMA14v4kdvgJ1dHQavtfbv2KNN/d4XI
+ hZ/CCtgN5EVwSapE6+KdCO7ekaEQgBZEQl6q7v9xrMSiKoPneeX9ndOaDxPdipbZJl
+ R/NvmazaFiTCNPxbpjCpglLBD8KQpSiX912SL1o9FCmSMaHesXmBiR5RoOPXZ3ldWg
+ 3UsjIzIw84hwjp/lFSphRMD8d85/xmHJCiqrL42lIaOEfHDH5t3xCyaOciNeTTkMDD
+ KCcxS0T18DZpkIBzffcKGHpqboQTAjj7H1dlvbxwEfO4LSSFtTUmv3zIE+ucXVbr9Z
+ WFOaABUwDfMgg==
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH] ALSA: hda/hdmi: Consider ELD is invalid when no SAD is present
+Date: Thu,  2 Dec 2021 15:33:35 +0800
+Message-Id: <20211202073338.1384768-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211201075604.27864-3-allen-kh.cheng@mediatek.com>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
- linux-kernel@vger.kernel.org, Jassi Brar <jassisinghbrar@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+Content-Transfer-Encoding: 8bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ linux-kernel@vger.kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+ Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,7 +84,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Dec 01, 2021 at 03:56:03PM +0800, allen-kh.cheng wrote:
-> Signed-off-by: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
+There's a system that reports a bogus HDMI audio interface:
+$ cat eld#2.0
+monitor_present         1
+eld_valid               1
+monitor_name
+connection_type         DisplayPort
+eld_version             [0x2] CEA-861D or below
+edid_version            [0x3] CEA-861-B, C or D
+manufacture_id          0xe430
+product_id              0x690
+port_id                 0x0
+support_hdcp            0
+support_ai              0
+audio_sync_delay        0
+speakers                [0xffff] FL/FR LFE FC RL/RR RC FLC/FRC RLC/RRC FLW/FRW FLH/FRH TC FCH
+sad_count               0
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+Since playing audio is not possible without SAD, also consider ELD is
+invalid for this case.
+
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ sound/pci/hda/patch_hdmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 415701bd10ac8..e7c2f3167f311 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -1535,7 +1535,7 @@ static void update_eld(struct hda_codec *codec,
+ 		}
+ 	}
+ 
+-	if (!eld->eld_valid || eld->eld_size <= 0) {
++	if (!eld->eld_valid || eld->eld_size <= 0 || eld->info.sad_count <= 0) {
+ 		eld->eld_valid = false;
+ 		eld->eld_size = 0;
+ 	}
+-- 
+2.32.0
+

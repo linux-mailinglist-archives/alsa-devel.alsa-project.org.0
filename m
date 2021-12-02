@@ -2,103 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57911466242
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 12:23:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A24B466268
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 12:37:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E94002573;
-	Thu,  2 Dec 2021 12:22:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E94002573
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1B0A2580;
+	Thu,  2 Dec 2021 12:36:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1B0A2580
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638444218;
-	bh=9+RIZOWHSUdBU44gWo7ZhkjF02D0Pp6P+e51fJ6pZW8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Zjh1l1IUBWCsFM+IYMAoBboFsQ6l9vwGtCByz9j8wh5/wUHyiYNqGKWSS+Z3Rz6b9
-	 FyHkLevM/Ti2FDLr8J7eKHxcKRDYbYl1sEw+2RiNeYuQ+fEOfEdBKVOW7a2RaP26oG
-	 T/SkwWtnMAqrsRhnFv3P/t0qoaLZ46sIglGDb4a0=
+	s=default; t=1638445021;
+	bh=7FHLAtYKCz7fj7tTnXgrqZ0cdp7sTBU0ENzh40KyxgU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cisUujaySDw6ybxPEf2bSa64veTBjvMKNUNsIqjoYmC+HxTz2srD7eF8BV48mg252
+	 XBgHxsnwp+hAUcQbEn/3XqoiUMazV8R9YLvYRU+quA/jqsLiDSwbbUw0ZKZ+MTP5K3
+	 CvzxhokQ9mngOQxkd6rU4RJHLPyPd84r1GHetyN4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 488CFF802E0;
-	Thu,  2 Dec 2021 12:22:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3F4CF804E2;
+	Thu,  2 Dec 2021 12:35:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29464F802A0; Thu,  2 Dec 2021 12:22:19 +0100 (CET)
+ id 9C8ABF800BE; Thu,  2 Dec 2021 12:35:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89F88F800EE
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 12:22:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89F88F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA273F800BE
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 12:35:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA273F800BE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="j/lo7Y+8"
-Received: by mail-wr1-x42b.google.com with SMTP id s13so58947758wrb.3
- for <alsa-devel@alsa-project.org>; Thu, 02 Dec 2021 03:22:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=57MihNmUyq2yL5Hp/EvWIEoULb+nvWcaJPe8Tm/kK3I=;
- b=j/lo7Y+8i3x/bYaN1cp6hiulf75jS1A+Lk0q6kayJ4J8UCI1s8URhPTKaZssoIBl6V
- 2NfAp26ve0kg29/NBBarRV9zhSNVKkoEfOLiP20FJsF6t7HArfrUhpSFtzww4Y+9L6v1
- rXlBZpu85XURN3J0ZOD5R2WrsffY9LsVZiyE7SBy/6OjCSYm5SoQGzQeRuiio3ATKt6q
- 13VrrojWhA7jXNuPGAT3c4wxaP0frleUZYI0fbZyDkEknjAgh8xAOx76ft5QMVHgc7hN
- 8w68sya6W8sovRSW1JKTidfgaWguTV6S1pUTWVZRP2vqVkrNSXUkGI1FpJzJPIFNdaxd
- dPsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=57MihNmUyq2yL5Hp/EvWIEoULb+nvWcaJPe8Tm/kK3I=;
- b=Sbdj20FYAltjTmQh58R6cEjcJxZZmasQC8FewCa9/zyb5vDAUqZIPv46+17zRTW4qI
- bdGU6EpnvBBcRSRPjy1wlShhriBTusVD9SWC1iqvdLhA1ly4AzfTrOfOEkniM5dbip+K
- QlU/k+modZxXKt4DqSr82zyIwk4xmR+SvzIo1zxh62nFNoWePWszp8h7KKaGj5336D9v
- gW6wsFcWlFocYi/nvTynCZX0sLrmxOdeksFFhjH8rR4rtawRBG0UAwXVPGBYYQJERE6x
- FTIXt2RGwbisbDCnPkyulheQ3N9RmCyIwEO6xP5FRP2ylqRQIm9dLoIXQQOagVtb+Zyk
- xNzg==
-X-Gm-Message-State: AOAM5321HuoZyvVQy28WwCA+ETM4dzr+Cqw+lETDroIdxqDQkGaWajzr
- IxZAZgTjVTCaSPWhVzzFsTKg5Q==
-X-Google-Smtp-Source: ABdhPJzv2sMtPSd0XDLh5Macj8qITjActzhDy+HoOIouRPrsCxZNACCQB+UrNGU00jKFXN2yn5bV4w==
-X-Received: by 2002:adf:b35d:: with SMTP id k29mr13179787wrd.466.1638444134961; 
- Thu, 02 Dec 2021 03:22:14 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id z14sm2337734wrp.70.2021.12.02.03.22.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Dec 2021 03:22:14 -0800 (PST)
-Subject: Re: [PATCH v6 03/10] ASoC: qcom: Add register definition for codec
- rddma and wrdma
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-References: <1637928282-2819-1-git-send-email-srivasam@codeaurora.org>
- <1637928282-2819-4-git-send-email-srivasam@codeaurora.org>
- <3bb4aea6-2f47-8b6b-e7a9-1518d478e32d@linaro.org>
- <efb98b22-e56a-d193-6ca0-e950dc3c4a42@codeaurora.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <928c419e-ae92-38bd-3974-e81efbe301ff@linaro.org>
-Date: Thu, 2 Dec 2021 11:22:13 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="LNyw9nr3"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="iwyrb1qC"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 3F5463201EE7;
+ Thu,  2 Dec 2021 06:35:03 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Thu, 02 Dec 2021 06:35:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm3; bh=MWDOJiV7eBjWcPXOnu0j5XNbpz
+ BsWzhlK6tNHfjT1Kg=; b=LNyw9nr36KA0eyni69wBg2vuM1wXOUh5BTEIGrVX56
+ nuznzaKvnEAPwWi5G9HzoNDeZS/RKrmqsQYj3/adcnlufbJB2tK8FvGFhr1pCKUB
+ DcJok7uqPdEE8dG923rhisDT+3bkEQUW/xh1iZSv3OXfVNzrNYtegvOk+4SRP9X2
+ gIKFcckcVwmCUgdSeA6rMfXBfobD023Do2nAkDMopsuavD5lnFto+kJCJJKGaRTv
+ v3DBE4un1xRHNhiWhsxx/BmVb6M/gQm2BylQsQoBCcaYDs2vO7nsAy97ZX2cwUie
+ ArPqB2pZ50UjaMuZ04OpSD3Ud/1n8zUZ8QXnDA90b1UQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=MWDOJiV7eBjWcPXOn
+ u0j5XNbpzBsWzhlK6tNHfjT1Kg=; b=iwyrb1qC0yZh25MM/6bB9X72K/6jokl0i
+ /bl98rWGP6KH6n5kZ5xK00oZxvRwYopuBnPuGVhUKXiOK2tM7oT5iyppkl+Fo9vY
+ Qbk6YQFiUVMIzPbkJcW+sb6EYSKGxEk9BPkgEl/H2PNhYGFA0A83wqV2LZ68/6B8
+ N3TK4iMBjKe7S8xP4lQqOG1qTN4f7It/GD0qQT79WFYDk46DJwDNsWtyJPZxG/Mz
+ oBB7HNgNvapW8tojTel0KnwteFOT5bKhcvpSTth/qnmuilZKwUyJC1qSryPYLEjG
+ mU4D/TaRmub5EQBAYDueyWCJHKtCHj0o/bQ2AxAqIHzxeuKvDJS3g==
+X-ME-Sender: <xms:Zq-oYX7ZkaV_lTw5dPGjow9LRTNRA3YPkJMTg0NwLnKBdhF9zIaROw>
+ <xme:Zq-oYc7qnpSRUeCgPjx7Hrrt62N0-CW6nSwfy4zp3kMZaRhQZMFRluPW6DodPi3iV
+ F1lyxttaoQ_ivMDIM8>
+X-ME-Received: <xmr:Zq-oYedl5x_hKzGL_FqW7naI2B5UjMwzvno5DuY33PBrh3Jjhsc-T8o_vXxXOuG3Tr29aHof5nlhiYncnvQAei3jMUnBGwO5XxvDObQPwxRUrH-PcDwv>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrieehgddvlecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
+ dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
+ sehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeetieeuhfejkeekfe
+ ehteeikedvgeefhffggfdvieehhefhheeivdfhgfejjeduudenucffohhmrghinhepkhgv
+ rhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:Zq-oYYJZ6wLcEDDuWCnfhCc9AIlWwJelJFGN9Zu-CwWU-TM5U4AyrQ>
+ <xmx:Zq-oYbKsuyzHtogCRs2MvQriOJHqbhh93t_Pv5q4vj7f5Gl6BMW7YA>
+ <xmx:Zq-oYRwQD7ovEoEP-gXySfSJ0ltxLcHAzg9inZN5SrqRyGF9FgQIRg>
+ <xmx:Zq-oYYGgoMhV3_OC8HewPGIFDBZp4dwxD0rMc6YRW0P5PGsiKmk8Ag>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 2 Dec 2021 06:35:00 -0500 (EST)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: stefanr@s5r6.in-berlin.de
+Subject: [PATCH 0/3] firewire: assist unit driver to compute packet timestamp
+Date: Thu,  2 Dec 2021 20:34:54 +0900
+Message-Id: <20211202113457.24011-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <efb98b22-e56a-d193-6ca0-e950dc3c4a42@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
+Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
+ clemens@ladisch.de, linux-kernel@vger.kernel.org, marcan@marcan.st
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,78 +108,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
+In 1394 OHCI specification, each descriptor of IR/IT/AR/AT DMA context
+has timeStamp field. The value of timeStamp field express the time in
+which the controller accept packet. The resolution of value is isochronous
+cycle count (8,000 Hz) with second up to 7.
 
-On 02/12/2021 10:55, Srinivasa Rao Mandadapu wrote:
->>>   +/* LPAIF RXTX IRQ */
->>> +#define LPAIF_RXTX_IRQ_REG_ADDR(v, addr, port, dai_id) \
->>> +        ((dai_id == LPASS_CDC_DMA_RX0 || dai_id == 
->>> LPASS_CDC_DMA_TX3) ? \
->>> +        (v->rxtx_irq_reg_base + (addr) + v->rxtx_irq_reg_stride * 
->>> (port)) : \
->>> +        (v->va_irq_reg_base + (addr) + v->va_irq_reg_stride * (port)))
->>> +
->>> +#define LPAIF_RXTX_IRQEN_REG(v, port, dai_id) 
->>> LPAIF_RXTX_IRQ_REG_ADDR(v, 0x0, port, dai_id)
->>> +#define LPAIF_RXTX_IRQSTAT_REG(v, port, dai_id) 
->>> LPAIF_RXTX_IRQ_REG_ADDR(v, 0x4, port, dai_id)
->>> +#define LPAIF_RXTX_IRQCLEAR_REG(v, port, dai_id) 
->>> LPAIF_RXTX_IRQ_REG_ADDR(v, 0xC, port, dai_id)
->>> +
->>
->> How about doing like this:
->>
->>
->> /* LPAIF RXTX IRQ */
->> #define LPAIF_RXTX_IRQ_REG_ADDR(v, addr, port) \
->>         (v->rxtx_irq_reg_base + (addr) + v->rxtx_irq_reg_stride * (port))
->>
->> #define LPAIF_RXTX_IRQEN_REG(v, port, dai_id) 
->> LPAIF_RXTX_IRQ_REG_ADDR(v, 0x0, port)
->> #define LPAIF_RXTX_IRQSTAT_REG(v, port, dai_id) 
->> LPAIF_RXTX_IRQ_REG_ADDR(v, 0x4, port)
->> #define LPAIF_RXTX_IRQCLEAR_REG(v, port, dai_id) 
->> LPAIF_RXTX_IRQ_REG_ADDR(v, 0xC, port)
->>
->> /* LPAIF VA IRQ */
->> #define LPAIF_VA_IRQ_REG_ADDR(v, addr, port) \
->>         (v->va_irq_reg_base + (addr) + v->va_irq_reg_stride * (port))
->>
->> #define LPAIF_VA_IRQEN_REG(v, port, dai_id) LPAIF_VA_IRQ_REG_ADDR(v, 
->> 0x0, port)
->> #define LPAIF_VA_IRQSTAT_REG(v, port, dai_id) LPAIF_VA_IRQ_REG_ADDR(v, 
->> 0x4, port)
->> #define LPAIF_VA_IRQCLEAR_REG(v, port, dai_id) 
->> LPAIF_VA_IRQ_REG_ADDR(v, 0xC, port)
->>
-> With this we are seeing number macros increasing. How about handling 
+I have a plan to use the value of timeStamp field for ALSA firewire stack
+so that userspace ALSA PCM/Rawmidi applications can get converted timestamp
+(ktime) for PCM frame/MIDI message. The timestamp can ideally express
+finer granularity than the time to invoke IRQ handler (and co).
 
-Its okay to add new macros, this makes them much clear to the reader and 
-inline with rest of the macros in the file.
+Current implementation of Linux FireWire subsystem delivers the value of
+timeStamp field to unit driver for IR/IT/AT DMA context, but not for AR
+DMA context. Additionally, the way to refer to Isochronous Cycle Timer
+Register in MMIO region of 1394 OHCI controller is transaction to local
+node. It includes overhead of transaction and it's preferable to add
+less-overhead way available in any type of IRQ context.
 
+This patchset adds two functions exposed in kernel space:
 
---srini
-> like below.
->> lpass.h:
-> 
-> static inline bool is_rxtx_cdc_dma_port(int dai_id)
-> {
-> 
->      switch (dai_id) {
->          case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
->          case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
->              return true;
->          default:
->              return false;
->        }
-> }
-> 
-> 
-> Usage:
-> 
-> #define LPAIF_RXTX_IRQ_REG_ADDR(v, addr, port, dai_id) \
-> is_rxtx_cdc_dma_port(dai_id) ? \
-> (v->rxtx_irq_reg_base + (addr) + v->rxtx_irq_reg_stride * (port)) : \
-> (v->va_irq_reg_base + (addr) + v->va_irq_reg_stride * (port))
-> 
-> 
+ * fw_card_read_cycle_time()
+    * allow unit driver to access to CYCLE_TIME register in MMIO region
+      without initiate transaction
+ * fw_request_get_timestamp()
+    * allow unit driver to get timestamp of request packet inner request
+      handler
+
+I note that Hector Martin found kernel null pointer dereference during
+process to remove PCI card and has posted a patch:
+
+ * https://lore.kernel.org/lkml/20211027113130.8802-1-marcan@marcan.st/
+
+His patch is included in the series with my comment for relevant commit
+20802224298c ("firewire: core: add forgotten dummy driver methods, remove
+unused ones"). The patch is required since unit driver can refer to dummy
+driver between removal callback of PCI subsystem and removal callback of
+FireWire subsystem.
+
+Hector Martin (1):
+  firewire: Add dummy read_csr/write_csr functions
+
+Takashi Sakamoto (2):
+  firewire: add kernel API to access CYCLE_TIME register
+  firewire: add kernel API to access packet structure in request
+    structure for AR context
+
+ drivers/firewire/core-card.c        | 39 +++++++++++++++++++++++++++++
+ drivers/firewire/core-cdev.c        |  6 +++--
+ drivers/firewire/core-transaction.c | 18 +++++++++++++
+ include/linux/firewire.h            |  3 +++
+ 4 files changed, 64 insertions(+), 2 deletions(-)
+
+-- 
+2.32.0
+

@@ -2,63 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CFDD4662A0
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 12:44:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C1C54662A6
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 12:45:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CED70262B;
-	Thu,  2 Dec 2021 12:43:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CED70262B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32CFB26D9;
+	Thu,  2 Dec 2021 12:44:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32CFB26D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638445450;
-	bh=hjAk3nWo6LB3Cnl0JVrUyNnyjT7PDjiLG7TKhU9u5rI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UTv4vzD2yhGSzoYfJRl7nTvJaAD74sxeGMGyE/E6auoGMznhqyObVcSDATzIR0Nly
-	 2BxyKUrfYKKc4xlfGzHOZxu0M584I3rZMT/muj23JzTf/TqYTl+iods7a3FkOYvJap
-	 WvndWh1MjtzPrVu7FFlPVmNFVS1LBZKo72KshxUw=
+	s=default; t=1638445532;
+	bh=HPKmfZTEqi7g/4O8fYdF0/J3SkXKL2Z64mL4+WS80l0=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=o5xHL2xFeM4ufYVAZZS7y2tfyrfQJGjsdyap5DW9c/+I3mhQCVl+q2KcEupxTUxer
+	 CcCDlqC4wp/xiATfTKYsxSXqGvqbHSjq4/9d0rr2B++MYn3TbgF3FBtOmtFfRck0w5
+	 AYzyoM9DbeOfLkb3AgcIG8Y/rvv5ozaal/FIEj4E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84B0CF804AD;
-	Thu,  2 Dec 2021 12:43:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBCCFF802A0;
+	Thu,  2 Dec 2021 12:44:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37828F8032D; Thu,  2 Dec 2021 12:43:01 +0100 (CET)
+ id 50D9CF80301; Thu,  2 Dec 2021 12:44:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4771F800EE;
- Thu,  2 Dec 2021 12:42:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4771F800EE
-X-UUID: 80bf37aaeece4781a37dc2c23dcdabf2-20211202
-X-UUID: 80bf37aaeece4781a37dc2c23dcdabf2-20211202
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
- (envelope-from <allen-kh.cheng@mediatek.com>)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9733FF802E0;
+ Thu,  2 Dec 2021 12:42:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9733FF802E0
+X-UUID: 6d4a5c4ff46442c281209aaa145362b9-20211202
+X-UUID: 6d4a5c4ff46442c281209aaa145362b9-20211202
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw01.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1271632236; Thu, 02 Dec 2021 19:42:43 +0800
+ with ESMTP id 1409248428; Thu, 02 Dec 2021 19:42:43 +0800
 Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Thu, 2 Dec 2021 19:42:42 +0800
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 2 Dec 2021 19:42:43 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Thu, 2 Dec 2021 19:42:42 +0800
+ Frontend Transport; Thu, 2 Dec 2021 19:42:43 +0800
 From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
 To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
  Matthias Brugger <matthias.bgg@gmail.com>, Jassi Brar
  <jassisinghbrar@gmail.com>
-Subject: [PATCH v10 0/3] This patches provide ADSP IPC support for MT8195
-Date: Thu, 2 Dec 2021 19:42:37 +0800
-Message-ID: <20211202114240.26976-1-allen-kh.cheng@mediatek.com>
+Subject: [PATCH v10 1/3] dt-bindings: mediatek: add adsp-mbox document
+Date: Thu, 2 Dec 2021 19:42:38 +0800
+Message-ID: <20211202114240.26976-2-allen-kh.cheng@mediatek.com>
 X-Mailer: git-send-email 2.18.0
+In-Reply-To: <20211202114240.26976-1-allen-kh.cheng@mediatek.com>
+References: <20211202114240.26976-1-allen-kh.cheng@mediatek.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-MTK: N
 Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
  Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
@@ -87,80 +88,72 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 
-Mediatek ADSP IPC is used to send notification or short message between
-processors with dsp.·
+This patch adds document for mediatek adsp mbox
 
-It will place the message to the share buffer and will access the ADSP mailbox
-registers to kick dsp.
-
-Two mailboxes used to send notification or short message between processors with
-dsp
-
-changes since v9:
-- rename adsp_mbox_chan_ops to mtk_adsp_mbox_chan_ops
-
-changes since v8:
-- remove struct adsp_mbox_ch_info
-- add get_mtk_adsp_mbox_priv
-- use mtk_adsp_mbox_priv va_mboxreg address in adsp mbox driver
-- add struct mtk_adsp_mbox_cfg for DSP mbox register offset
-- remove adsp mbox register offset hard code define
-- remove mtk-adsp-ipc.h reference in adsp mbox driver
-
-changes since v7:
-- add mtk prefix for adsp ipc functions
-- rename adsp_mbox_ch_info to mtk_adsp_mbox_ch_info
-- remove incorrect reviewers in commit message
-
-changes since v6:
-- dt-bindings: change example dtsi node.
-- rename config MTK_ADSP_IPC_MBOX to MTK_ADSP_MBOX
-- remove unused variable
-- add reviewers
-
-changes since v5:
-- remove some redundant code
-
-changes since v4:
-- use switch ... case in adsp_ipc_recv
-- add error handling path for chan_name pointer
-- refine some code to be concise
-
-changes since v3:
-- reorder MTK_ADSP_IPC_MBOX config
-- remove some redundant code
-- remove lock in mtk-adsp-mailbox
-
-changes since v2:
-- separate adsp_mailbox into two instances
-
-changes since v1:
-- fix dt_binding_check error
-
-
-Allen-KH Cheng (3):
-  dt-bindings: mediatek: add adsp-mbox document
-  firmware: mediatek: add adsp ipc protocol interface
-  mailbox: mediatek: add support for adsp mailbox controller
-
- .../bindings/mailbox/mtk,adsp-mbox.yaml       |  52 ++++++
- drivers/firmware/Kconfig                      |   1 +
- drivers/firmware/Makefile                     |   1 +
- drivers/firmware/mediatek/Kconfig             |   9 +
- drivers/firmware/mediatek/Makefile            |   2 +
- drivers/firmware/mediatek/mtk-adsp-ipc.c      | 135 ++++++++++++++
- drivers/mailbox/Kconfig                       |   7 +
- drivers/mailbox/Makefile                      |   2 +
- drivers/mailbox/mtk-adsp-mailbox.c            | 176 ++++++++++++++++++
- .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 +++++++
- 10 files changed, 450 insertions(+)
+Signed-off-by: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
+---
+ .../bindings/mailbox/mtk,adsp-mbox.yaml       | 52 +++++++++++++++++++
+ 1 file changed, 52 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
- create mode 100644 drivers/firmware/mediatek/Kconfig
- create mode 100644 drivers/firmware/mediatek/Makefile
- create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
- create mode 100644 drivers/mailbox/mtk-adsp-mailbox.c
- create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
 
+diff --git a/Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml b/Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
+new file mode 100644
+index 000000000000..25756837797f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
+@@ -0,0 +1,52 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mailbox/mtk,adsp-mbox.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Mediatek ADSP mailbox
++
++maintainers:
++  - Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
++
++description: |
++  The MTK ADSP mailbox Inter-Processor Communication (IPC) enables the SoC
++  to ommunicate with ADSP by passing messages through two mailbox channels.
++  The MTK ADSP mailbox IPC also provides the ability for one processor to
++  signal the other processor using interrupts.
++
++properties:
++  compatible:
++    items:
++      - const: mediatek,mt8195-adsp-mbox
++
++  "#mbox-cells":
++    const: 0
++
++  reg:
++    description:
++      Physical address base for dsp mbox registers.
++
++  interrupts:
++    description:
++      adsp mbox interrupt
++
++required:
++  - compatible
++  - "#mbox-cells"
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    adsp_mailbox0:mailbox@10816000 {
++        compatible = "mediatek,mt8195-adsp-mbox";
++        #mbox-cells = <0>;
++        reg = <0x10816000 0x1000>;
++        interrupts = <GIC_SPI 702 IRQ_TYPE_LEVEL_HIGH 0>;
++    };
 -- 
 2.18.0
 

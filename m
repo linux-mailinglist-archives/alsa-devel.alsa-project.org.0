@@ -2,91 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9E5B4660F6
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 10:55:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFDC84661D3
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 11:57:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C22C24A9;
-	Thu,  2 Dec 2021 10:54:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C22C24A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6306E240C;
+	Thu,  2 Dec 2021 11:56:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6306E240C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638438902;
-	bh=4zvJGeuNRhrII/30IdsXFyfuvGVGvUgcPp76pJV9dqw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1638442653;
+	bh=AOV8wcU97TepQRuBzOJW7jcOkBsie2SCJkuJ1lJqIQo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IFEDzsBRJ2GQJGuS2mKs7RcnLjGROC/MnhJ11XBfNHGHh4d2Nb7e3CVsJqAOCiBsN
-	 QZE9e78lwDCZAcU482opntBuqudXMMaQb+aOCTGLcCCYbhBNZvdwgZWDGl9MJueBGB
-	 Z1fi3E3475kzjFIj2DtOAUYKo+S4+htpSTEJY6Z8=
+	b=RDHb14R2rv37Ktk4JxmHeXeZY+Eva0KPos2Cwn6DBXkcBSGqhuxEbyjYDBlMLq2mz
+	 POfKK0HFxwUX+abR9dPnrx2XCyh7g2CU7bfLDSKFxNxCy+zs5/NPXK+tnqHaL+y0Np
+	 IGwvSL43tLm4VFplgRUQWERMB30BlymPQfT3J3o0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4D2DF802E0;
-	Thu,  2 Dec 2021 10:53:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D05CAF800BE;
+	Thu,  2 Dec 2021 11:56:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A3E3F802A0; Thu,  2 Dec 2021 10:53:43 +0100 (CET)
+ id E2561F802A0; Thu,  2 Dec 2021 11:56:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2240FF800EE
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 10:53:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2240FF800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CCF1F800EE
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 11:56:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CCF1F800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="SMp8dNRX"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B29G25c029166;
- Thu, 2 Dec 2021 03:53:35 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=r8zaAsLHo07c7hy3+fKjG+IGB1xKyHnCMkRrTxygNJU=;
- b=SMp8dNRXnf5E43N0eWevahK7KzW4uD67PXj1iAVHzbUZ0u1tvRh25k7DIgDecvfmdo6z
- TUEbIZzYyuNVwPdI04TSga3Jzmr8C3EXfiPliAqo3td1JMe3FLjagUk459ro+fCEb8Tp
- FBmiN3CNpqA47HbxBwG8ZBTwjwfQ4RcNImo1qhFQeANPDEOkyYRavOkr+mar4DAGyEKA
- 5tyL/eu8CZhhCVeo6lhaHMoPMKn5Yn56oy5F7Xlw99SDXZBQzaJe7PzPwGa0Umbk2Dld
- tlZi3MfpBUq3AHnirKZmiDvRqFGg+FWPtxWNoltmlfGfCzQrWwXt5nOPppFo/iXSgfhA nA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3cp6c89f9e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 02 Dec 2021 03:53:35 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 2 Dec
- 2021 09:53:33 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
- Frontend Transport; Thu, 2 Dec 2021 09:53:33 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 58B912A9;
- Thu,  2 Dec 2021 09:53:33 +0000 (UTC)
-Date: Thu, 2 Dec 2021 09:53:33 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: cs42l42: Implement system suspend
-Message-ID: <20211202095333.GK18506@ediswmail.ad.cirrus.com>
-References: <20211201153648.17259-1-rf@opensource.cirrus.com>
- <YaejghraYE6lD7FD@sirena.org.uk>
- <87930df9-6220-807e-a655-1c7d7ec020ab@opensource.cirrus.com>
- <YafyWnVA1J1rgCf1@sirena.org.uk>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="D4mX8COl"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1638442567; h=Content-Type: In-Reply-To: MIME-Version: Date:
+ Message-ID: From: References: Cc: To: Subject: Sender;
+ bh=oFZy8m9+T9KQEBP8EaIwlge/XKxnthcQKa7uJ+1k6tY=;
+ b=D4mX8COlTLY2TXb5ymci6quzAOiGw9eZHZ5h7PebRBeMGsoVErBkA22Htn7EBSg3JW/DZfdr
+ wRMfp8sboZ1wOn46dW91bVNV35oP53GzG2SezmLrA7816Wj4tv1FdFAbTAr6N6ROfzO4nlX7
+ b2MpvTAxZ1N0zHopTeDuuv4OraA=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n09.prod.us-east-1.postgun.com with SMTP id
+ 61a8a6457d878c8ded4ca01c (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 02 Dec 2021 10:56:05
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1A61FC43619; Thu,  2 Dec 2021 10:56:05 +0000 (UTC)
+Received: from [10.242.143.72] (unknown [202.46.23.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id E6CB9C4338F;
+ Thu,  2 Dec 2021 10:55:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org E6CB9C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH v6 03/10] ASoC: qcom: Add register definition for codec
+ rddma and wrdma
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+References: <1637928282-2819-1-git-send-email-srivasam@codeaurora.org>
+ <1637928282-2819-4-git-send-email-srivasam@codeaurora.org>
+ <3bb4aea6-2f47-8b6b-e7a9-1518d478e32d@linaro.org>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <efb98b22-e56a-d193-6ca0-e950dc3c4a42@codeaurora.org>
+Date: Thu, 2 Dec 2021 16:25:54 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <YafyWnVA1J1rgCf1@sirena.org.uk>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: __Af_305nabKEyouY-eabprAXCrJVWQ5
-X-Proofpoint-GUID: __Af_305nabKEyouY-eabprAXCrJVWQ5
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com,
- Richard Fitzgerald <rf@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+In-Reply-To: <3bb4aea6-2f47-8b6b-e7a9-1518d478e32d@linaro.org>
+Content-Language: en-US
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,63 +108,246 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Dec 01, 2021 at 10:08:26PM +0000, Mark Brown wrote:
-> On Wed, Dec 01, 2021 at 06:04:00PM +0000, Richard Fitzgerald wrote:
-> > On 01/12/2021 16:32, Mark Brown wrote:
-> > > On Wed, Dec 01, 2021 at 03:36:48PM +0000, Richard Fitzgerald wrote:
-> ...that's based on the assumption that this is all about the magic write
-> sequences you're using for shutdown potentially conflicting with default
-> values you've got in the cache?  If it's not those then the assumption
-> is that either the device was reset in which case it has reset values or
-> the device was not reset and held it's previous value, in which case the
-> cache sync is redundant.
 
-This isn't quite accurate though, as whilst the device was
-suspended the user may have touched ALSA controls which will have
-updated the state of the cache. Thus the cache requires a sync
-regardless of if the hardware turned off.
+On 12/1/2021 8:21 PM, Srinivas Kandagatla wrote:
+Thanks for your time Srini!!!
+>
+> On 26/11/2021 12:04, Srinivasa Rao Mandadapu wrote:
+>> This patch adds register definitions for codec read dma and write dma
+>> lpass interface.
+>>
+>> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+>> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>> ---
+>>   sound/soc/qcom/lpass-lpaif-reg.h | 103 
+>> ++++++++++++++++++++++++++++++++++++---
+>>   1 file changed, 97 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/sound/soc/qcom/lpass-lpaif-reg.h 
+>> b/sound/soc/qcom/lpass-lpaif-reg.h
+>> index 2eb03ad..697a11f 100644
+>> --- a/sound/soc/qcom/lpass-lpaif-reg.h
+>> +++ b/sound/soc/qcom/lpass-lpaif-reg.h
+>> @@ -74,6 +74,16 @@
+>>   #define LPAIF_IRQSTAT_REG(v, port)    LPAIF_IRQ_REG_ADDR(v, 0x4, 
+>> (port))
+>>   #define LPAIF_IRQCLEAR_REG(v, port)    LPAIF_IRQ_REG_ADDR(v, 0xC, 
+>> (port))
+>>   +/* LPAIF RXTX IRQ */
+>> +#define LPAIF_RXTX_IRQ_REG_ADDR(v, addr, port, dai_id) \
+>> +        ((dai_id == LPASS_CDC_DMA_RX0 || dai_id == 
+>> LPASS_CDC_DMA_TX3) ? \
+>> +        (v->rxtx_irq_reg_base + (addr) + v->rxtx_irq_reg_stride * 
+>> (port)) : \
+>> +        (v->va_irq_reg_base + (addr) + v->va_irq_reg_stride * (port)))
+>> +
+>> +#define LPAIF_RXTX_IRQEN_REG(v, port, dai_id) 
+>> LPAIF_RXTX_IRQ_REG_ADDR(v, 0x0, port, dai_id)
+>> +#define LPAIF_RXTX_IRQSTAT_REG(v, port, dai_id) 
+>> LPAIF_RXTX_IRQ_REG_ADDR(v, 0x4, port, dai_id)
+>> +#define LPAIF_RXTX_IRQCLEAR_REG(v, port, dai_id) 
+>> LPAIF_RXTX_IRQ_REG_ADDR(v, 0xC, port, dai_id)
+>> +
+>
+> How about doing like this:
+>
+>
+> /* LPAIF RXTX IRQ */
+> #define LPAIF_RXTX_IRQ_REG_ADDR(v, addr, port) \
+>         (v->rxtx_irq_reg_base + (addr) + v->rxtx_irq_reg_stride * (port))
+>
+> #define LPAIF_RXTX_IRQEN_REG(v, port, dai_id) 
+> LPAIF_RXTX_IRQ_REG_ADDR(v, 0x0, port)
+> #define LPAIF_RXTX_IRQSTAT_REG(v, port, dai_id) 
+> LPAIF_RXTX_IRQ_REG_ADDR(v, 0x4, port)
+> #define LPAIF_RXTX_IRQCLEAR_REG(v, port, dai_id) 
+> LPAIF_RXTX_IRQ_REG_ADDR(v, 0xC, port)
+>
+> /* LPAIF VA IRQ */
+> #define LPAIF_VA_IRQ_REG_ADDR(v, addr, port) \
+>         (v->va_irq_reg_base + (addr) + v->va_irq_reg_stride * (port))
+>
+> #define LPAIF_VA_IRQEN_REG(v, port, dai_id) LPAIF_VA_IRQ_REG_ADDR(v, 
+> 0x0, port)
+> #define LPAIF_VA_IRQSTAT_REG(v, port, dai_id) LPAIF_VA_IRQ_REG_ADDR(v, 
+> 0x4, port)
+> #define LPAIF_VA_IRQCLEAR_REG(v, port, dai_id) 
+> LPAIF_VA_IRQ_REG_ADDR(v, 0xC, port)
+>
+With this we are seeing number macros increasing. How about handling 
+like below.
+> lpass.h:
 
-I suspect we do need to have a think about the write sequences,
-but there is also a more general issue here. The sequence looks
-like this:
+static inline bool is_rxtx_cdc_dma_port(int dai_id)
+{
 
-1) Device enters cache only mode.
-2) User writes an ALSA control causing a register to return to
-its default value.
-3) Device exits cache only and does a cache sync.
+     switch (dai_id) {
+         case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
+         case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
+             return true;
+         default:
+             return false;
+       }
+}
 
-This flow works if the device was reset but not if the registers
-retained their value since the register written by the user will
-be at default in the cache, but not on the hardware. The cache
-sync code assumes the device returned to defaults.
 
-It is often tricky to know if the device reset since the
-regulator could be shared and even if they arn't capacitance can
-play a part if the off time is very small. Usually we mandate a
-hard reset or use a soft reset if the hard isn't available. I
-think the soft reset has some issues on this chip but perhaps we
-should look into that more.
+Usage:
 
-> > > Given that you're using disable_irq() to force the interrupt off (which
-> > > is a bit rude but often the best one can do) how might we be getting an
-> > > interrupt while suspended?  This seems to indicate an error condition.
-> 
-> > I may have misunderstood here, but the documentation says that
-> > enables/disables are nested. The interrupt starts out enabled right
-> > after calling request_threaded_irq(), so I expected that all users of
-> > the shared interrupt would have to call disable_irq() for it to actually
-> > get disabled (I put the call in on that basis that it does no harm). If
-> > disable_irq() forces the irq off even if it's shared then I'll remove it
-> > because as you say that would be rude.
-> 
-> Hrm, that may have changed since I last looked - if that's the case then
-> I guess it's best not to warn which was what I was thinking here.
-> 
+#define LPAIF_RXTX_IRQ_REG_ADDR(v, addr, port, dai_id) \
+is_rxtx_cdc_dma_port(dai_id) ? \
+(v->rxtx_irq_reg_base + (addr) + v->rxtx_irq_reg_stride * (port)) : \
+(v->va_irq_reg_base + (addr) + v->va_irq_reg_stride * (port))
 
-No I am pretty sure you are correct here calling disable_irq will
-immediately disable the IRQ for everyone using it. The reference
-counting is on the other side, ie. if I call disable_irq 5 times
-I have to call enable_irq 5 times before it turns back on.
 
-Thanks,
-Charles
+>
+>>     #define LPASS_HDMITX_APP_IRQ_REG_ADDR(v, addr)  \
+>>       ((v->hdmi_irq_reg_base) + (addr))
+>> @@ -139,12 +149,93 @@
+>>           (LPAIF_INTFDMA_REG(v, chan, reg, dai_id)) : \
+>>           LPAIF_WRDMA##reg##_REG(v, chan))
+>>   -#define LPAIF_DMACTL_REG(v, chan, dir, dai_id) __LPAIF_DMA_REG(v, 
+>> chan, dir, CTL, dai_id)
+>> -#define LPAIF_DMABASE_REG(v, chan, dir, dai_id) __LPAIF_DMA_REG(v, 
+>> chan, dir, BASE, dai_id)
+>> -#define    LPAIF_DMABUFF_REG(v, chan, dir, dai_id) 
+>> __LPAIF_DMA_REG(v, chan, dir, BUFF, dai_id)
+>> -#define LPAIF_DMACURR_REG(v, chan, dir, dai_id) __LPAIF_DMA_REG(v, 
+>> chan, dir, CURR, dai_id)
+>> -#define    LPAIF_DMAPER_REG(v, chan, dir, dai_id) __LPAIF_DMA_REG(v, 
+>> chan, dir, PER, dai_id)
+>> -#define    LPAIF_DMAPERCNT_REG(v, chan, dir, dai_id) 
+>> __LPAIF_DMA_REG(v, chan, dir, PERCNT, dai_id)
+>> +#define LPAIF_DMACTL_REG(v, chan, dir, dai_id)  \
+>> +    (((dai_id == LPASS_CDC_DMA_RX0) || \
+>> +    (dai_id == LPASS_CDC_DMA_TX3) || \
+>> +    (dai_id == LPASS_CDC_DMA_VA_TX0)) ? \
+>> +    __LPAIF_CDC_DMA_REG(v, chan, dir, CTL, dai_id) : \
+>> +    __LPAIF_DMA_REG(v, chan, dir, CTL, dai_id))
+>
+>
+> How about:
+>
+> #define LPAIF_DMACTL_REG(v, chan, dir, dai_id)  \
+>     is_cdc_dma_port(dai_id) ? \
+>     __LPAIF_CDC_DMA_REG(v, chan, dir, CTL, dai_id) : \
+>     __LPAIF_DMA_REG(v, chan, dir, CTL, dai_id)
+>
+Yes this looks clean and handles all ports.
+>
+> simillar comments to most of the macros in this patch that are 
+> directly comparing the dai_ids.
+Okay. Will change accordingly.
+>
+>
+>> +#define LPAIF_DMABASE_REG(v, chan, dir, dai_id) \
+>> +    ((dai_id == LPASS_CDC_DMA_RX0 || \
+>> +    dai_id == LPASS_CDC_DMA_TX3 || \
+>> +    dai_id == LPASS_CDC_DMA_VA_TX0) ? \
+>> +    __LPAIF_CDC_DMA_REG(v, chan, dir, BASE, dai_id) : \
+>> +    __LPAIF_DMA_REG(v, chan, dir, BASE, dai_id))
+>> +#define LPAIF_DMABUFF_REG(v, chan, dir, dai_id) \
+>> +    ((dai_id == LPASS_CDC_DMA_RX0 || \
+>> +    dai_id == LPASS_CDC_DMA_TX3 || \
+>> +    dai_id == LPASS_CDC_DMA_VA_TX0) ? \
+>> +    __LPAIF_CDC_DMA_REG(v, chan, dir, BUFF, dai_id) : \
+>> +    __LPAIF_DMA_REG(v, chan, dir, BUFF, dai_id))
+>> +#define LPAIF_DMACURR_REG(v, chan, dir, dai_id) \
+>> +    ((dai_id == LPASS_CDC_DMA_RX0 || \
+>> +    dai_id == LPASS_CDC_DMA_TX3 || \
+>> +    dai_id == LPASS_CDC_DMA_VA_TX0) ? \
+>> +    __LPAIF_CDC_DMA_REG(v, chan, dir, CURR, dai_id) : \
+>> +    __LPAIF_DMA_REG(v, chan, dir, CURR, dai_id))
+>> +#define LPAIF_DMAPER_REG(v, chan, dir, dai_id)  \
+>> +    ((dai_id == LPASS_CDC_DMA_RX0 || \
+>> +    dai_id == LPASS_CDC_DMA_TX3 || \
+>> +    dai_id == LPASS_CDC_DMA_VA_TX0) ? \
+>> +    __LPAIF_CDC_DMA_REG(v, chan, dir, PER, dai_id) : \
+>> +    __LPAIF_DMA_REG(v, chan, dir, PER, dai_id))
+>> +#define LPAIF_DMAPERCNT_REG(v, chan, dir, dai_id) \
+>> +    ((dai_id == LPASS_CDC_DMA_RX0 || \
+>> +    dai_id == LPASS_CDC_DMA_TX3 || \
+>> +    dai_id == LPASS_CDC_DMA_VA_TX0) ? \
+>> +    __LPAIF_CDC_DMA_REG(v, chan, dir, PERCNT, dai_id) : \
+>> +    __LPAIF_DMA_REG(v, chan, dir, PERCNT, dai_id))
+>> +
+>> +#define LPAIF_CDC_RDMA_REG_ADDR(v, addr, chan, dai_id) \
+>> +    ((dai_id == LPASS_CDC_DMA_RX0 || dai_id == LPASS_CDC_DMA_TX3) ? \
+>> +    (v->rxtx_rdma_reg_base + (addr) + v->rxtx_rdma_reg_stride * 
+>> (chan)) : \
+>> +    (v->va_rdma_reg_base + (addr) + v->va_rdma_reg_stride * (chan)))
+>> +
+>> +#define LPAIF_CDC_RDMACTL_REG(v, chan, dai_id) 
+>> LPAIF_CDC_RDMA_REG_ADDR(v, 0x00, (chan), dai_id)
+>> +#define LPAIF_CDC_RDMABASE_REG(v, chan, dai_id) 
+>> LPAIF_CDC_RDMA_REG_ADDR(v, 0x04, (chan), dai_id)
+>> +#define LPAIF_CDC_RDMABUFF_REG(v, chan, dai_id) 
+>> LPAIF_CDC_RDMA_REG_ADDR(v, 0x08, (chan), dai_id)
+>> +#define LPAIF_CDC_RDMACURR_REG(v, chan, dai_id) 
+>> LPAIF_CDC_RDMA_REG_ADDR(v, 0x0C, (chan), dai_id)
+>> +#define LPAIF_CDC_RDMAPER_REG(v, chan, dai_id) 
+>> LPAIF_CDC_RDMA_REG_ADDR(v, 0x10, (chan), dai_id)
+>> +
+>> +#define LPAIF_CDC_RDMA_INTF_REG(v, chan, dai_id) \
+>> +    LPAIF_CDC_RDMA_REG_ADDR(v, 0x50, (chan), dai_id)
+>> +
+>> +#define LPAIF_CDC_WRDMA_REG_ADDR(v, addr, chan, dai_id) \
+>> +    ((dai_id == LPASS_CDC_DMA_RX0 || dai_id == LPASS_CDC_DMA_TX3) ? \
+>> +    (v->rxtx_wrdma_reg_base + (addr) + \
+>> +    v->rxtx_wrdma_reg_stride * (chan - v->rxtx_wrdma_channel_start)) 
+>> : \
+>> +    (v->va_wrdma_reg_base + (addr) + \
+>> +    v->va_wrdma_reg_stride * (chan - v->va_wrdma_channel_start)))
+>
+> Can we split this to LPAIF_CDC_TXRX_WRDMA_REG_ADDR and
+> LPAIF_CDC_VA_WRDMA_REG_ADDR macros?
+
+How about this way?
+
+#define LPAIF_CDC_WRDMA_REG_ADDR(v, addr, chan, dai_id) \
+is_rxtx_cdc_dma_port(dai_id) ? \
+(v->rxtx_wrdma_reg_base + (addr) + \
+v->rxtx_wrdma_reg_stride * (chan - v->rxtx_wrdma_channel_start)) : \
+(v->va_wrdma_reg_base + (addr) + \
+v->va_wrdma_reg_stride * (chan - v->va_wrdma_channel_start))
+
+>
+> --srini
+>
+>> +
+>> +#define LPAIF_CDC_WRDMACTL_REG(v, chan, dai_id) \
+>> +    LPAIF_CDC_WRDMA_REG_ADDR(v, 0x00, (chan), dai_id)
+>> +#define LPAIF_CDC_WRDMABASE_REG(v, chan, dai_id) \
+>> +    LPAIF_CDC_WRDMA_REG_ADDR(v, 0x04, (chan), dai_id)
+>> +#define LPAIF_CDC_WRDMABUFF_REG(v, chan, dai_id) \
+>> +    LPAIF_CDC_WRDMA_REG_ADDR(v, 0x08, (chan), dai_id)
+>> +#define LPAIF_CDC_WRDMACURR_REG(v, chan, dai_id) \
+>> +    LPAIF_CDC_WRDMA_REG_ADDR(v, 0x0C, (chan), dai_id)
+>> +#define LPAIF_CDC_WRDMAPER_REG(v, chan, dai_id) \
+>> +    LPAIF_CDC_WRDMA_REG_ADDR(v, 0x10, (chan), dai_id)
+>> +#define LPAIF_CDC_WRDMA_INTF_REG(v, chan, dai_id) \
+>> +    LPAIF_CDC_WRDMA_REG_ADDR(v, 0x50, (chan), dai_id)
+>> +
+>> +#define __LPAIF_CDC_DMA_REG(v, chan, dir, reg, dai_id)  \
+>> +        ((dir ==  SNDRV_PCM_STREAM_PLAYBACK) ? \
+>> +        (LPAIF_CDC_RDMA##reg##_REG(v, chan, dai_id)) : \
+>> +        LPAIF_CDC_WRDMA##reg##_REG(v, chan, dai_id))
+>> +
+>> +#define LPAIF_CDC_INTF_REG(v, chan, dir, dai_id) \
+>> +        ((dir ==  SNDRV_PCM_STREAM_PLAYBACK) ? \
+>> +        LPAIF_CDC_RDMA_INTF_REG(v, chan, dai_id) : \
+>> +        LPAIF_CDC_WRDMA_INTF_REG(v, chan, dai_id))
+>> +
+>> +#define LPAIF_INTF_REG(v, chan, dir, dai_id) \
+>> +        ((dai_id == LPASS_CDC_DMA_RX0 || \
+>> +        dai_id == LPASS_CDC_DMA_TX3 || \
+>> +        dai_id == LPASS_CDC_DMA_VA_TX0) ? \
+>> +        LPAIF_CDC_INTF_REG(v, chan, dir, dai_id) : \
+>> +        LPAIF_DMACTL_REG(v, chan, dir, dai_id))
+>>     #define LPAIF_DMACTL_BURSTEN_SINGLE    0
+>>   #define LPAIF_DMACTL_BURSTEN_INCR4    1
+>>
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+

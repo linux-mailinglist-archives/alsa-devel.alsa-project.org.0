@@ -2,68 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E593A46678C
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 17:04:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3205E4667C3
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 17:20:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D5FC282B;
-	Thu,  2 Dec 2021 17:03:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D5FC282B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF0C32853;
+	Thu,  2 Dec 2021 17:20:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF0C32853
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638461065;
-	bh=WQAZhvjZRbwJa0U0GbMWZrB6O7pA4Wx89xvZtJ92q0c=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1638462057;
+	bh=wpCxbxShECS0/KFdndPN1dx/uy43a38bswZtXRNGUrE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZzmZFZ2Upv88aH//gWa32EbehQ+6OTvyr23MTBHlSw5ainFSoXy15BGsFUgwEsuJ4
-	 kXudNfGWTBcNOZxbCbww59c+oUX+tqKuqa9xxDqoFKbl7nwmZBUp0ahrEqZhYMcCuI
-	 kPYR1M/rI0V8ziTuUz6rqQM/XIUE7FXj99FuVzKY=
+	b=UatsrSddPMcH38Dmp9ac9sZw22uURpEgjd7Vpwc7Psxpt3SE7VNy9dlJxDLF4A0v0
+	 P2uoGFSJyTO1reAfw2vQyaUXyWg+FckCmj4yP+HGu2kDAKK5wV0T3/EVw62EtFZNYB
+	 rvyAYh7hRMT3M3bOQqBKgqwJknZ+n5OAZqZKq3Zc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB391F800EE;
-	Thu,  2 Dec 2021 17:03:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24D71F802E0;
+	Thu,  2 Dec 2021 17:19:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2299F802A0; Thu,  2 Dec 2021 17:03:05 +0100 (CET)
+ id 795B7F802A0; Thu,  2 Dec 2021 17:19:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B631DF800CE
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 17:02:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B631DF800CE
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id F1FD9C80089;
- Thu,  2 Dec 2021 17:02:51 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id 5ZuMYjBuvyF4; Thu,  2 Dec 2021 17:02:51 +0100 (CET)
-Received: from [192.168.178.21] (host-212-18-30-247.customer.m-online.net
- [212.18.30.247])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id 90911C80086;
- Thu,  2 Dec 2021 17:02:51 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7D76EF800CE
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 17:19:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D76EF800CE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="sfI8g/bK"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="VSQXWx8U"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5CCD92170C;
+ Thu,  2 Dec 2021 16:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1638461965; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=X0J1d29ZOQVKeJb1k69vqGdWr3xPJ1fUWOfZk85Z3fI=;
+ b=sfI8g/bKthPHHmCqGgcJ4bdmiBYP/5zkCX20jQ2kQgoIVZZ9i1+eNRzSgmIyk6tiQlnB1A
+ 0y31LxEMRk7OCoOcG3roj3ToIY8ckPl4TakRQVcp3PAsYSQwIl09lFxf8Zboqe1QleSKMr
+ RrHZwIKHitPTW+I5WtrIfMnF5ubi5xc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1638461965;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=X0J1d29ZOQVKeJb1k69vqGdWr3xPJ1fUWOfZk85Z3fI=;
+ b=VSQXWx8U+XM9kyHnelhSKcojnRglfThzory+st0Y/MyHGRb3j53Eu5c/TC1G9MJWiDSudv
+ iJfgcMUS646vbFAg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 47178A3B81;
+ Thu,  2 Dec 2021 16:19:25 +0000 (UTC)
+Date: Thu, 02 Dec 2021 17:19:25 +0100
+Message-ID: <s5hbl1zt1wy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Werner Sembach <wse@tuxedocomputers.com>
 Subject: Re: [PATCH] ALSA: hda/realtek: Fix quirk for TongFang PHxTxX1
-To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <aceae41d-eeaa-9f13-2e37-9fce08e693c6@tuxedocomputers.com>
 References: <20211202152843.818617-1-wse@tuxedocomputers.com>
  <s5ho85zt3xm.wl-tiwai@suse.de>
-From: Werner Sembach <wse@tuxedocomputers.com>
-Message-ID: <aceae41d-eeaa-9f13-2e37-9fce08e693c6@tuxedocomputers.com>
-Date: Thu, 2 Dec 2021 17:02:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <s5ho85zt3xm.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+ <aceae41d-eeaa-9f13-2e37-9fce08e693c6@tuxedocomputers.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -80,91 +94,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Am 02.12.21 um 16:35 schrieb Takashi Iwai:
-> On Thu, 02 Dec 2021 16:28:43 +0100,
-> Werner Sembach wrote:
->> This fixes the SND_PCI_QUIRK(...) of the TongFang PHxTxX1 barebone. This
->> fixes the issue of sound not working after s3 suspend.
->>
->> When waking up from s3 suspend the Coef 0x10 is set to 0x0220 instead of
->> 0x0020. Setting the value manually makes the sound work again. This patch
->> does this automatically.
->>
->> While being on it, I also fixed the comment formatting of the quirk.
->>
->> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
->> Cc: <stable@vger.kernel.org>
-> Please try to put Fixes tag as this is a fix for the existing change.
-Sorry, wasn't aware of this. I guess it's [PATCH Fixes] as the beginning of the subject line?
->
-> The code change looks almost good, but just minor nitpicking:
->
->> ---
->>  sound/pci/hda/patch_realtek.c | 25 ++++++++++++++-----------
->>  1 file changed, 14 insertions(+), 11 deletions(-)
->>
->> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
->> index 9ce7457533c96..d3a16843c7afd 100644
->> --- a/sound/pci/hda/patch_realtek.c
->> +++ b/sound/pci/hda/patch_realtek.c
->> @@ -6503,22 +6503,25 @@ static void alc287_fixup_legion_15imhg05_speakers(struct hda_codec *codec,
->>  /* for alc285_fixup_ideapad_s740_coef() */
->>  #include "ideapad_s740_helper.c"
->>  
->> +static const struct coef_fw alc256_fixup_tongfang_reset_persistent_settings_coefs[] = {
-> The variable name is unnecessarily too long.  Please use a shorter
-> one.
-Done.
->
->> +	WRITE_COEF(0x10, 0x0020), WRITE_COEF(0x24, 0x0000), WRITE_COEF(0x26, 0x0000),
->> +	WRITE_COEF(0x29, 0x3000), WRITE_COEF(0x37, 0xfe05), WRITE_COEF(0x45, 0x5089),
-> Try to keep the line in 80 column.  It's OK to take a longer if it has
-> to be, but in a case like this, it doesn't need to be that long.
+On Thu, 02 Dec 2021 17:02:51 +0100,
+Werner Sembach wrote:
+> 
+> Am 02.12.21 um 16:35 schrieb Takashi Iwai:
+> > On Thu, 02 Dec 2021 16:28:43 +0100,
+> > Werner Sembach wrote:
+> >> This fixes the SND_PCI_QUIRK(...) of the TongFang PHxTxX1 barebone. This
+> >> fixes the issue of sound not working after s3 suspend.
+> >>
+> >> When waking up from s3 suspend the Coef 0x10 is set to 0x0220 instead of
+> >> 0x0020. Setting the value manually makes the sound work again. This patch
+> >> does this automatically.
+> >>
+> >> While being on it, I also fixed the comment formatting of the quirk.
+> >>
+> >> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> >> Cc: <stable@vger.kernel.org>
+> > Please try to put Fixes tag as this is a fix for the existing change.
+> Sorry, wasn't aware of this. I guess it's [PATCH Fixes] as the beginning of the subject line?
 
-Wrong tab width in my editor so I didn't see it, fixed in v2.
+No, the Fixes tag is another line you add around your Signed-off-by
+line for indicating that that the patch is for fixing the given
+commit.  In your case, it'll be like
 
-Compiling and testing now.
+Fixes: dd6dd6e3c791 ("ALSA: hda/realtek: Add quirk for TongFang PHxTxX1")
 
-Kind regards,
 
-Werner Sembach
+HTH,
 
->
->
-> thanks,
->
-> Takashi
->
->> +	{}
->> +};
->> +
->>  static void alc256_fixup_tongfang_reset_persistent_settings(struct hda_codec *codec,
->>  							    const struct hda_fixup *fix,
->>  							    int action)
->>  {
->>  	/*
->> -	* A certain other OS sets these coeffs to different values. On at least one TongFang
->> -	* barebone these settings might survive even a cold reboot. So to restore a clean slate the
->> -	* values are explicitly reset to default here. Without this, the external microphone is
->> -	* always in a plugged-in state, while the internal microphone is always in an unplugged
->> -	* state, breaking the ability to use the internal microphone.
->> -	*/
->> -	alc_write_coef_idx(codec, 0x24, 0x0000);
->> -	alc_write_coef_idx(codec, 0x26, 0x0000);
->> -	alc_write_coef_idx(codec, 0x29, 0x3000);
->> -	alc_write_coef_idx(codec, 0x37, 0xfe05);
->> -	alc_write_coef_idx(codec, 0x45, 0x5089);
->> +	 * A certain other OS sets these coeffs to different values. On at least
->> +	 * one TongFang barebone these settings might survive even a cold
->> +	 * reboot. So to restore a clean slate the values are explicitly reset
->> +	 * to default here. Without this, the external microphone is always in a
->> +	 * plugged-in state, while the internal microphone is always in an
->> +	 * unplugged state, breaking the ability to use the internal microphone.
->> +	 */
->> +	alc_process_coef_fw(codec, alc256_fixup_tongfang_reset_persistent_settings_coefs);
->>  }
->>  
->>  static const struct coef_fw alc233_fixup_no_audio_jack_coefs[] = {
->> -- 
->> 2.25.1
->>
+Takashi

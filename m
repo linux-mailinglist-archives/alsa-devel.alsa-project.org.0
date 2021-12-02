@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8D0F465F4E
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 09:26:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1016E465F5E
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Dec 2021 09:29:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C21D2511;
-	Thu,  2 Dec 2021 09:25:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C21D2511
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DA562511;
+	Thu,  2 Dec 2021 09:28:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DA562511
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638433594;
-	bh=TEffq+M+EAubqBb4BXhWNbyk2dEj6eCn6wCDrIffurM=;
+	s=default; t=1638433769;
+	bh=9VDMFTD9yzbdFm5FdKBDJLLecAuW2SmhgEg2bik73Qw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lKCMrcWCmzF4mEl/OkppBW0FQdrgeoApdUx02Xool9fuoVibE350/5UN4WBH5yklg
-	 yyOG6MGZuksUz3qIxctJBbBRG/ajq2hs4e+Qo1YtAP9VsQzDUBd8wruGdomsVMXGUC
-	 49eQcifQ2+ustd6GX0Od7njZ6mqtj0KbElu+FQgI=
+	b=RZKI2SfPWi3ZtJIwdO5SMuD43Hkw18SvoXJGqwn4yWk7qGscvbj+vsOUx/KdScJPu
+	 kQNAw1eUSrGW4kpfNWN18v7j4WLhF+QGQANQ3r1QbXnW2t+1KcgbgMAncJTqQm2rMB
+	 qfyuLizSt7Bs/a5AVOt9ddIKFPIQtOCPGAkuVOQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EBAAF802E0;
-	Thu,  2 Dec 2021 09:25:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DBF1F802E0;
+	Thu,  2 Dec 2021 09:28:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF07AF802A0; Thu,  2 Dec 2021 09:25:12 +0100 (CET)
+ id 07B52F802A0; Thu,  2 Dec 2021 09:28:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7B74F800EE
- for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 09:25:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7B74F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id F032DF800EE
+ for <alsa-devel@alsa-project.org>; Thu,  2 Dec 2021 09:28:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F032DF800EE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Hj2UOxvd"; 
+ header.b="hHGfouOe"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="S83a8uXU"
+ header.b="vZsKqVbr"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 67FB321891;
- Thu,  2 Dec 2021 08:25:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id CAAE01FDFB;
+ Thu,  2 Dec 2021 08:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638433500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1638433679; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HpxFLjlPoCTe3V7CTWP3+DMrxPf3XgP3jLWo12+ZIYo=;
- b=Hj2UOxvdG4cLSLANkvLBHJ8b7Dn25ci5T0JCU2eVMAXaXSnWJSLYqKw0ItUH/r9xWyFR/k
- Ec3gVaKE3WDR+G+L8/UP0ww/2z8KlHK1/RfSXgKNP9g6idw2HhDPV4jZOtBSmSM9CfADhv
- l51KaJgxDL54QVXkIfEztXJyES5MxBo=
+ bh=iDV5vQMBmxyQ2OBH5tskQu/eRMvhadIMzgWPWuOQ00s=;
+ b=hHGfouOe+pN7xFj+PwCTlXXU/i7MiDK8DRsgnuk7q9INKADn4ErjkzTVaDZS0cE76hC3qm
+ pAiPLv2GbROVdtgFQrlZvcnHZFSCGLPuHQwOgPNopmnRcExRPz4plgcMUol3IhJALHkABy
+ ZBKmiXfDk0kpyay+Qj8FEUeOeeS7+Yw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638433500;
+ s=susede2_ed25519; t=1638433679;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HpxFLjlPoCTe3V7CTWP3+DMrxPf3XgP3jLWo12+ZIYo=;
- b=S83a8uXU/jbJUVTcKg17zjYIv2w/gkSOlw0Ew3vce1arEHhGNETHHeX0nc12APN3gnKF0u
- eOtdjG885c44b8DA==
+ bh=iDV5vQMBmxyQ2OBH5tskQu/eRMvhadIMzgWPWuOQ00s=;
+ b=vZsKqVbrpvesOixC8GRwPRPZGXEZ2itBjzoLOkOQdBveNOgOcvoNvc+CVcQBtnIH6fNqca
+ K3dQCDFAEgLxmIBw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 58C9FA3C85;
- Thu,  2 Dec 2021 08:25:00 +0000 (UTC)
-Date: Thu, 02 Dec 2021 09:25:00 +0100
-Message-ID: <s5h7dcnwh0j.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id BA732A3DA8;
+ Thu,  2 Dec 2021 08:27:59 +0000 (UTC)
+Date: Thu, 02 Dec 2021 09:27:59 +0100
+Message-ID: <s5h4k7rwgvk.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: Logitech Z10 USB speakers need a volume change before audio works
-In-Reply-To: <2af48c9f-60d7-ed63-845d-9adb8cb7b037@redhat.com>
-References: <cf7dd2f0-512c-1b8c-efb1-53f79ddfb41e@redhat.com>
- <s5ho8689zl3.wl-tiwai@suse.de>
- <c1deb0b9-b0f1-3ea5-43ea-ac96b29e93f5@redhat.com>
- <7f36906e-fd4b-c14e-4189-0d8b7de271ac@redhat.com>
- <s5hfsrd1vt3.wl-tiwai@suse.de>
- <2af48c9f-60d7-ed63-845d-9adb8cb7b037@redhat.com>
+To: "Lu, Brent" <brent.lu@intel.com>
+Subject: Re: [PATCH] ALSA: hda: intel-dsp-config: add JasperLake support
+In-Reply-To: <SA2PR11MB489124ED42353956827A2EC597699@SA2PR11MB4891.namprd11.prod.outlook.com>
+References: <20211201004628.1153763-1-brent.lu@intel.com>
+ <4e0ec119-2b15-644d-9cab-b2e19b5c0e48@linux.intel.com>
+ <s5hsfvczuwq.wl-tiwai@suse.de>
+ <SA2PR11MB489124ED42353956827A2EC597699@SA2PR11MB4891.namprd11.prod.outlook.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, "Liao, Bard" <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,208 +98,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 01 Dec 2021 16:44:11 +0100,
-Hans de Goede wrote:
+On Thu, 02 Dec 2021 09:15:37 +0100,
+Lu, Brent wrote:
 > 
-> Hi,
-> 
-> On 11/30/21 16:56, Takashi Iwai wrote:
-> > On Tue, 30 Nov 2021 15:33:35 +0100,
-> > Hans de Goede wrote:
-> >>
-> >> Hi,
-> >>
-> >> On 11/30/21 12:07, Hans de Goede wrote:
-> >>> Hi,
-> >>>
-> >>> On 11/25/21 13:42, Takashi Iwai wrote:
-> >>>> On Thu, 25 Nov 2021 12:04:41 +0100,
-> >>>> Hans de Goede wrote:
-> >>>>>
-> >>>>> Hi,
-> >>>>>
-> >>>>> I've a set of Logitech Z10 USB speakers, which act as a USB soundcard.
-> >>>>>
-> >>>>> They have this weird glitch where after turning off my PC (and their
-> >>>>> power-supply as well) and then turning things back on, they are silent
-> >>>>> until I change the PCM volume control for the speakers inside
-> >>>>> alsa-mixer.
-> >>>>>
-> >>>>> It seems like they need some "set-volume" command to be send over the
-> >>>>> USB bus to unmute them when initially powered-up / turned on.
-> >>>>>
-> >>>>> Is their some existing usb-audio quirk which I can try to work around this?
-> >>>>
-> >>>> No such quirk is present for now.
-> >>>>
-> >>>> Was it tested with 5.16-rc?  There was a change in USB-audio driver
-> >>>> initialization (commit b96681bd5827) and it might have some effect in
-> >>>> your case.
-> >>>
-> >>> Yes I'm at 5.16-rc3 atm but I've been seeing this for quite some time.
-> >>> I just never got around to reporting it. Mainly because I also never
-> >>> got around to getting a bit clearer picture of the problem.
-> >>>
-> >>> I've spend some time this morning to get that clearer picture,
-> >>> which was insightful.
-> >>>
-> >>>> Also, it's interesting to know whether it happens also once after
-> >>>> suspend-resume, too.
-> >>>
-> >>> suspend-resume makes no difference, not even rebooting or
-> >>> powering off the machine makes a difference.
-> >>>
-> >>> Once the speakers are in working order they stay in working order
-> >>> until I turn off my machine; and then flick the power-switch on
-> >>> the 240V AC power-bar which I use to power my laptop + dock +
-> >>> monitors + the speakers and turn things back on the next morning.
-> >>>
-> >>> To be clear these speakers get their audio-data over USB
-> >>> (as an usb-audio device) but they have their own power-supply
-> >>> they are not USB powered. They also have a "soft" on/off button
-> >>> which turns on/off the amplifier and LCD screen parts but leaves
-> >>> the USB audio interface active.
-> >>>
-> >>> So I've been experimenting with reproducing the issue and I
-> >>> need to do the following minimal steps to reproduce:
-> >>>
-> >>>  1. Unplug USB
-> >>>  2. Unplug power
-> >>>  3. Re-plug power
-> >>>  4. Re-plug USB
-> >>>  5. speaker-test -Dfront:CARD=Speaker,DEV=0 -S1
-> >>>  6. Turn speakers on (with the on/off button on the speakers), no audio
-> >>>
-> >>>  5 and 6 may be swapped, same result
-> >>>
-> >>> And now that I have a reliable reproducer I've also been
-> >>> playing with a reliable workaround which looks like this:
-> >>>
-> >>> 1. Start playing audio to the speakers
-> >>> 2. Turn speakers on (with the on/off button on the speakers)
-> >>> 3. Make a change to the 'PCM Playback Volume' ctrl
-> >>>
-> >>> Where 1. and 2. may be swapped. But the
-> >>> 'PCM Playback Volume' ctrl change must be made while the
-> >>> speakers are on and playing audio !
-> >>>
-> >>> Although I have found that this also works:
-> >>>
-> >>> 1. Start playing audio to the speakers
-> >>> 2. Turn speakers on (with the on/off button on the speakers)
-> >>> 3. Stop playing audio
-> >>> 4. Make a change to the 'PCM Playback Volume' ctrl
-> >>> 5. Start playing audio to the speakers again
-> >>>
-> >>> I then even here a brief "power-up buzz" coming from the
-> >>> speakers at 4.
-> >>>
-> >>> And this sequence also works:
-> >>>
-> >>> 1. Start playing audio to the speakers
-> >>> 2. Stop playing audio
-> >>> 3. Turn speakers on (with the on/off button on the speakers)
-> >>> 4. Make a change to the 'PCM Playback Volume' ctrl
-> >>> 5. Start playing audio to the speakers again
-> >>>
-> >>> So it seems that to work (after having been unplugged
-> >>> form the mains) these speakers need to:
-> >>>
-> >>> 1. Have had some audio send to them at least once
-> >>> 2. After this have their 'PCM Playback Volume' ctrl poked
-> >>>    at once while they are on (and if they are on cannot
-> >>>    be seen from the PC side AFAICT).
-> >>>
-> >>> Note instead of changing the 'PCM Playback Volume' ctrl
-> >>> toggling the associated mute ctrl works too.
-> >>>
-> >>> TL;DR: Since getting the speakers to work involves
-> >>> setting a ctrl while they are on, which is something
-> >>> which we cannot tell from the kernel side I don't believe
-> >>> that there is anything we can do about this from within
-> >>> the kernel.
-> >>
-> >> So thinking more about this I guess we could do something
-> >> where we resend the last PCM volume to the device every
-> >> 5 seconds *when the device is playing audio*, assuming that
-> >> the resending of the same PCM volume is sufficient to fix
-> >> things.
-> >>
-> >> These are pretty nice speakers so getting them to work without
-> >> this glitch would be nice. But it would require a significant
-> >> bit of (quirk enabled) code just for this 1 model speakers.
-> >>
-> >> Takashi, what do you think. Should I give the resend volume
-> >> once every 5 seconds idea a try, or is it likely going to
-> >> end up being too ugly to merge ?
+> > >
+> > > Thanks Brent, yes this is an oversight, we should have added this a
+> > > long time ago.
+> > >
+> > > I don't think however that this will apply on Takashi's for-next
+> > > branch, it'll conflict with the ALSA: intel-dsp-config: add quirk for
+> > > JSL devices based on ES8336 codec
 > > 
-> > It sounds too hackish and fragile to me...
+> > Actually it's for-linus branch, destined to 5.16-rc4.
+> > 
+> > > +/* JasperLake */
+> > > +#if IS_ENABLED(CONFIG_SND_SOC_SOF_JASPERLAKE)
+> > > +	{
+> > > +		.flags = FLAG_SOF,
+> > > +		.device = 0x4dc8,
+> > > +		.codec_hid = "ESSX8336",
+> > > +	},
+> > > +#endif
+> > >
+> > > Do you mind rebasing and resending the update? Let's keep the ESS
+> > > stuff last as done in other platforms, and add your changes on top of this.
+> > 
+> > Yes, please resubmit.  I can merge and resolve the conflict in my side, but it's
+> > better to get a cleaner patch from the beginning.
+> > 
+> Hi gentlement,
 > 
-> Yes, I agree,
+> I found following two patches in sof github do not exist in both broonie:for-next
+> and broonie:for-linus. Maybe it would be easier if I resubmit my patch to sof
+> github instead of alsa-dev?
 > 
-> > Do we need to repeat each
-> > 5 seconds?  Wouldn't it suffice to touch only once at setting up the
-> > stream (or need before or after the stream start), instead?
-> 
-> The problem is that at least with my testing with alsamixer + speaker-test
-> I need to make the PCM ctl change when the speakers are on.
-> 
-> And I often find myself doing the following:
-> 
-> 1. Start something which requires working audio
-> 2. Oh wait, the speakers are off, turn them on
-> 
-> At which point if we do this at stream-start this would require
-> a pause + unpause. At which point just hitting volume up + down
-> hotkeys is just as easy (easier even when in say a video-conf-call).
-> 
-> So I believe my time is better spend to track down the pipewire
-> regression where newer pipewire versions no longer use hw-volume-ctrl
-> on these speakers for some reason. Fixing that will restore my old
-> workaround and will hopefully also help other users.
-> 
-> I guess this is mostly an issue for me because I turn of the
-> mains power to the speakers every evening, other users just
-> need to fiddle with the volume once and then things will work
-> until the speakers get unplugged from the mains.
-> 
-> > In anyway, alsa-info.sh output would be helpful.
-> 
-> Sure here you go:
-> http://alsa-project.org/db/?f=8b93e72b6fb4be5c426eade5f78ed58137bdf0ef'
-> 
-> Note there are quite a few audio devices in my setup:
-> 
-> 1. My X1 carbon laptop's builtin sound
-> 2. The Thunderbolt docks' USB audio (unused)
-> 3. A TI USB audio codec going to the receiver connected to
-> my proper/real speakers for listening music
-> 4. The Logitech Z-10 speakers which we are discussing here
-> 
-> Anyway, not sure if this is worth spending much (more) time on
-> but if you have some idea for me to test, let me know.
+> sof: topic/sof-dev
+> 986f58741d0d ALSA: intel-dsp-config: add quirk for CML devices based on ES8336 codec
+> 2cccdf5b4414 ALSA: intel-dsp-config: add quirk for JSL devices based on ES8336 codec
 
-Below is a quick hack, let's see whether this kind of change is
-enough for this device.
+You'll need to rebase to the target tree, i.e. my sound.git tree in
+this case, as it's not directly about ASoC.
 
+Mark will need to sync his tree eventually later, but for this
+particular patch, just use my tree (for-linus branch) as the base or
+use linux-next tree.
+
+
+thanks,
 
 Takashi
-
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1280,6 +1280,15 @@ int snd_usb_apply_interface_quirk(struct snd_usb_audio *chip,
- 				  int iface,
- 				  int altno)
- {
-+#ifdef CONFIG_PM
-+	if (chip->usb_id == USB_ID(0x046d, 0x0a07)) {
-+		struct usb_mixer_interface *mixer;
-+		list_for_each_entry(mixer, &chip->mixer_list, list)
-+			snd_usb_mixer_resume(mixer);
-+		return 0;
-+	}
-+#endif
-+
- 	/* audiophile usb: skip altsets incompatible with device_setup */
- 	if (chip->usb_id == USB_ID(0x0763, 0x2003))
- 		return audiophile_skip_setting_quirk(chip, iface, altno);

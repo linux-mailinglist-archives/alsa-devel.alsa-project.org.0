@@ -2,67 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58769467D70
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Dec 2021 19:42:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C36B3467C49
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Dec 2021 18:10:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6B3424DB;
-	Fri,  3 Dec 2021 19:41:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6B3424DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B859217B;
+	Fri,  3 Dec 2021 18:10:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B859217B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638556936;
-	bh=XM1+/Jzfzb7gqO43NKHDi78c3yiKqmC4Xqja123FQvw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FOJOjHC0up5XAkZFVlxgGT29Va2TM+rxDMiKCUvelmc6GY85Je6Go53wSjVAlPsA/
-	 Wj6W0qRAWgWgmVJngfD2rO8jxxBGTjGa9IB4GwmwKSy+RvvXXF6Luu5NP89iL3F9OR
-	 iZvLKS6WpaJKdP0EQTmh5bv1TYyBpjultHmIwhNQ=
+	s=default; t=1638551457;
+	bh=HTNStJOVurnp3KXFZJr08Muw0W3evgQMTMQgx3MEmZ4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AOqU/CwE6JYuwyTgom4Hh+eCdus5Srr76qRfcWgDA5d8usX5O5jFEkolWOznJ9idm
+	 xUm3L5U017AfX/LOV9xxCXKDf/MkiRYOecjCh8LtBYI2UgxK1UPVl4RmJ2gwgkpCrk
+	 cl+UPnpYvXwWStu0cwatN0BN0cI/N/jP7tpw+bsI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AE31F80249;
-	Fri,  3 Dec 2021 19:40:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBEDDF8015B;
+	Fri,  3 Dec 2021 18:09:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7780DF80246; Fri,  3 Dec 2021 19:40:57 +0100 (CET)
+ id 709B9F80246; Fri,  3 Dec 2021 18:09:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD83CF800D3
- for <alsa-devel@alsa-project.org>; Fri,  3 Dec 2021 19:40:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD83CF800D3
-X-IronPort-AV: E=McAfee;i="6200,9189,10187"; a="217722775"
-X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="217722775"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2021 10:40:49 -0800
-X-IronPort-AV: E=Sophos;i="5.87,284,1631602800"; d="scan'208";a="678189148"
-Received: from hkagda-mobl2.amr.corp.intel.com (HELO [10.212.71.79])
- ([10.212.71.79])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2021 10:40:48 -0800
-Subject: Re: [bug report] ASoC: Intel: mrfld - create separate module for pci
- part
-To: Dan Carpenter <dan.carpenter@oracle.com>, vkoul@kernel.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-References: <20211202151322.GA21325@kili>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <19647b98-83fd-b493-0fed-3c4e43cbeba8@linux.intel.com>
-Date: Fri, 3 Dec 2021 07:46:04 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <20211202151322.GA21325@kili>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1A7FF800D3
+ for <alsa-devel@alsa-project.org>; Fri,  3 Dec 2021 18:09:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1A7FF800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="X5lLFpYw"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1638551376; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=5AV0HBQ5bTOZ1ZlXigUPvuk/UL1rFaf1lLay1WSO41c=;
+ b=X5lLFpYwXu5CeH9LijVicZW34pnytP1ZTczsPEcmfG8BbFVrwfIH/1VE6pDlbL9AlmiJA6nc
+ 29ukaxFFf5+vrj7OCmqNuEA9UmrJWUEUSzpk8Qxuv3ja9wLG/ROqL24e6W+WbJik6LTWq7Ty
+ To4cLpUZ6uVevFPV4WURIKsBuwg=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 61aa4f4d2c7dc0a764d2ebab (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 03 Dec 2021 17:09:33
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id DEDFBC43616; Fri,  3 Dec 2021 17:09:32 +0000 (UTC)
+Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B0BBAC4338F;
+ Fri,  3 Dec 2021 17:09:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org B0BBAC4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.com
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.com
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.com>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+Subject: [PATCH v8 0/3] Machine driver to support LPASS SC7280 sound card
+ registration
+Date: Fri,  3 Dec 2021 22:39:02 +0530
+Message-Id: <1638551345-24979-1-git-send-email-srivasam@codeaurora.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,124 +95,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch set is to add support for SC7280 sound card registration and
+to add dt-bindings documentation file.
 
+Srinivasa Rao Mandadapu (3):
+  ASoC: google: dt-bindings: Add sc7280-herobrine machine bindings
+  ASoC: qcom: Add macro for lpass DAI id's max limit
+  ASoC: qcom: SC7280: Add machine driver
 
-On 12/3/21 4:13 AM, Dan Carpenter wrote:
-> Hello Vinod Koul,
-> 
-> The patch f533a035e4da: "ASoC: Intel: mrfld - create separate module
-> for pci part" from Nov 4, 2014, leads to the following Smatch static
-> checker warning:
-> 
-> 	sound/soc/intel/atom/sst/sst_pci.c:102 sst_platform_get_resources()
-> 	warn: resource freed on success: 'ctx->pci'
-> 
-> sound/soc/intel/atom/sst/sst_pci.c
->     25 static int sst_platform_get_resources(struct intel_sst_drv *ctx)
->     26 {
->     27         int ddr_base, ret = 0;
->     28         struct pci_dev *pci = ctx->pci;
->     29 
->     30         ret = pci_request_regions(pci, SST_DRV_NAME);
->     31         if (ret)
->     32                 return ret;
->     33 
->     34         /* map registers */
->     35         /* DDR base */
->     36         if (ctx->dev_id == SST_MRFLD_PCI_ID) {
->     37                 ctx->ddr_base = pci_resource_start(pci, 0);
->     38                 /* check that the relocated IMR base matches with FW Binary */
->     39                 ddr_base = relocate_imr_addr_mrfld(ctx->ddr_base);
->     40                 if (!ctx->pdata->lib_info) {
->     41                         dev_err(ctx->dev, "lib_info pointer NULL\n");
->     42                         ret = -EINVAL;
->     43                         goto do_release_regions;
->     44                 }
->     45                 if (ddr_base != ctx->pdata->lib_info->mod_base) {
->     46                         dev_err(ctx->dev,
->     47                                         "FW LSP DDR BASE does not match with IFWI\n");
->     48                         ret = -EINVAL;
->     49                         goto do_release_regions;
->     50                 }
->     51                 ctx->ddr_end = pci_resource_end(pci, 0);
->     52 
->     53                 ctx->ddr = pcim_iomap(pci, 0,
->     54                                         pci_resource_len(pci, 0));
->     55                 if (!ctx->ddr) {
->     56                         ret = -EINVAL;
->     57                         goto do_release_regions;
->     58                 }
->     59                 dev_dbg(ctx->dev, "sst: DDR Ptr %p\n", ctx->ddr);
->     60         } else {
->     61                 ctx->ddr = NULL;
->     62         }
->     63         /* SHIM */
->     64         ctx->shim_phy_add = pci_resource_start(pci, 1);
->     65         ctx->shim = pcim_iomap(pci, 1, pci_resource_len(pci, 1));
->     66         if (!ctx->shim) {
->     67                 ret = -EINVAL;
->     68                 goto do_release_regions;
->     69         }
->     70         dev_dbg(ctx->dev, "SST Shim Ptr %p\n", ctx->shim);
->     71 
->     72         /* Shared SRAM */
->     73         ctx->mailbox_add = pci_resource_start(pci, 2);
->     74         ctx->mailbox = pcim_iomap(pci, 2, pci_resource_len(pci, 2));
->     75         if (!ctx->mailbox) {
->     76                 ret = -EINVAL;
->     77                 goto do_release_regions;
->     78         }
->     79         dev_dbg(ctx->dev, "SRAM Ptr %p\n", ctx->mailbox);
->     80 
->     81         /* IRAM */
->     82         ctx->iram_end = pci_resource_end(pci, 3);
->     83         ctx->iram_base = pci_resource_start(pci, 3);
->     84         ctx->iram = pcim_iomap(pci, 3, pci_resource_len(pci, 3));
->     85         if (!ctx->iram) {
->     86                 ret = -EINVAL;
->     87                 goto do_release_regions;
->     88         }
->     89         dev_dbg(ctx->dev, "IRAM Ptr %p\n", ctx->iram);
->     90 
->     91         /* DRAM */
->     92         ctx->dram_end = pci_resource_end(pci, 4);
->     93         ctx->dram_base = pci_resource_start(pci, 4);
->     94         ctx->dram = pcim_iomap(pci, 4, pci_resource_len(pci, 4));
->     95         if (!ctx->dram) {
->     96                 ret = -EINVAL;
->     97                 goto do_release_regions;
->     98         }
->     99         dev_dbg(ctx->dev, "DRAM Ptr %p\n", ctx->dram);
->     100 do_release_regions:
->     101         pci_release_regions(pci);
-> --> 102         return ret;
->     103 }
-> 
-> Surely there should be a "return 0;" before the do_release_regions:
-> label?  How does this code work?
+Changes Since V7:
+    -- Create separate patch for dai id's macro.
+    -- Remove unused dapm widget structure. 
+Changes Since V6:
+    -- Remove redundant headers.
+    -- Move max ports macro to lpass.h header.
+    -- Arrange structure alignment.
+    -- Fix indentation errors.
+    -- Update module license.
+Changes Since V5:
+    -- Add required properties to dt-bindings
+Changes Since V4:
+    -- Add COMPILE_TEST flag in sc7280 configuration.
+    -- Remove redundant startup and shutdown callbacks of snd_soc_ops.
+    -- Fix typo errors.
+Changes Since V3:
+    -- Change audio jack playpause key value.
+Changes Since V2:
+    -- updated required field in bindings
+    -- updated Return type check with proper enum in sc7280.c
+    -- Updated Header name and Typos in sc7280.c
+Changes Since V1:
+    -- Indentation changes and typo.
 
-Thanks for reporting this Dan. Yes this doesn't look good at all.
+ .../bindings/sound/google,sc7280-herobrine.yaml    | 171 +++++++++++++
+ sound/soc/qcom/Kconfig                             |  14 +
+ sound/soc/qcom/Makefile                            |   2 +
+ sound/soc/qcom/lpass.h                             |   1 +
+ sound/soc/qcom/sc7280.c                            | 284 +++++++++++++++++++++
+ 5 files changed, 472 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+ create mode 100644 sound/soc/qcom/sc7280.c
 
-This PCI part is only used on Merrifield/Tangier, and I am not sure if
-anyone ever managed to make audio work with the upstream version of this
-driver. It's my understanding that this platform is no longer maintained
-by Intel, and the Edison Yocto code uses the SOF driver.
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-The Kconfig updated in 2018 hints at those limitations:
-
-config SND_SST_ATOM_HIFI2_PLATFORM_PCI
-	tristate "PCI HiFi2 (Merrifield) Platforms"
-	depends on X86 && PCI
-	select SND_SST_ATOM_HIFI2_PLATFORM
-	help
-	  If you have a Intel Merrifield/Edison platform, then
-	  enable this option by saying Y or m. Distros will typically not
-	  enable this option: while Merrifield/Edison can run a mainline
-	  kernel with limited functionality it will require a firmware file
-	  which is not in the standard firmware tree
-
-I would guess that indeed a return 0; is missing, but maybe it's time to
-remove this PCI code completely. I can't think of any user of the PCI
-parts of this driver.
-
-Andy, Hans, Mark, Takashi, what do you think?

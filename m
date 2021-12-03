@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 210904671DD
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Dec 2021 07:27:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBE584671DE
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Dec 2021 07:27:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 684CC2235;
-	Fri,  3 Dec 2021 07:26:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 684CC2235
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC2C9225C;
+	Fri,  3 Dec 2021 07:26:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC2C9225C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638512846;
-	bh=nx4Rfh8aIWeZ0IdbVM3Sa3tJKLUCSnfTHWvXcs/FmFc=;
+	s=default; t=1638512870;
+	bh=2Z2vlLzF+DMH7Qmvw1Sxnr2gulfR2MYI3WreNqNQHcI=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=brYAIJ3HGZZqugc5LTZrpPMCw/Qdi3RG1+ruDA+qyAqDWhrzr6RVjXiD8Amqgn0g6
-	 /MEYkqfywyh/CqIRHgQMDVz0S5v2SRi0HpMYrSFaIWG0/seI8yeCCbI5zfSlE+iy+/
-	 k5ZXIa+w+gW/B5FtzprpKAeS8s0HPcGS5tSA6yXY=
+	b=LswW4vjbXYWc8zdlu1DhhooKZZP/1UHuzm/9RB6SORrPOyVrdbxYNxCgxku1zNchy
+	 sNqW54+lk20uAs/uJVnB5e919CC81LxLkZ50qBS+2UH6byDjNGI1+azM2rw+vxJk+f
+	 Y61pWUCkK6U3vMVRLzg8ZQNoHYoc49lrsHrkcvUA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D75D9F80249;
-	Fri,  3 Dec 2021 07:26:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C3C5F8028D;
+	Fri,  3 Dec 2021 07:26:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8346EF80085; Fri,  3 Dec 2021 07:26:05 +0100 (CET)
+ id 0CDD0F8025C; Fri,  3 Dec 2021 07:26:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 6F024F80085
- for <alsa-devel@alsa-project.org>; Fri,  3 Dec 2021 07:25:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F024F80085
+ by alsa1.perex.cz (Postfix) with ESMTP id 14EF1F80246
+ for <alsa-devel@alsa-project.org>; Fri,  3 Dec 2021 07:26:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14EF1F80246
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1638512753923007011-webhooks-bot@alsa-project.org>
-References: <1638512753923007011-webhooks-bot@alsa-project.org>
+In-Reply-To: <1638512782003710032-webhooks-bot@alsa-project.org>
+References: <1638512782003710032-webhooks-bot@alsa-project.org>
 Subject: init procedure is executed during a store and restore process when
  the final snd_ctl_elem is not readable
-Message-Id: <20211203062605.8346EF80085@alsa1.perex.cz>
-Date: Fri,  3 Dec 2021 07:26:05 +0100 (CET)
+Message-Id: <20211203062629.0CDD0F8025C@alsa1.perex.cz>
+Date: Fri,  3 Dec 2021 07:26:29 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,12 +60,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils issue #122 was opened from yixingwang0517:
+alsa-project/alsa-utils issue #122 was edited from yixingwang0517:
 
 When i execute the following commands sequencitally,
 
-    alsa store -f 1.txt
-    alsa restore -f 1.txt
+    alsactl store -f 1.txt
+    alsactl restore -f 1.txt
 
 my playing volume was initialized.
 

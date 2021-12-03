@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CA55467891
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Dec 2021 14:38:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19A91467896
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Dec 2021 14:39:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3BBF2277;
-	Fri,  3 Dec 2021 14:37:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3BBF2277
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C21B229F;
+	Fri,  3 Dec 2021 14:38:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C21B229F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638538718;
-	bh=FrOpQQ0G9Bs5Sv/mB+Vp+EOV+OCEeYd1MQaNcuTwelE=;
+	s=default; t=1638538754;
+	bh=xX8BFxyx9p06of+GfEBZtucYNmXvkj6x84X/HPoRuXM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fIJAm9ExHcpTiUcMH1YSgIWfVIfA4O+WCz4E4U+aB1eEUakVq8L0J/J3fzmzVmAXr
-	 +1BUqCaKMOFhj+eRgNhjrDp2ierfCKM0tCSxCZTs88h2khbRXig9Jd/gthGLakyawP
-	 IpSO/pZyenSyxAnjwuoD6auc80ZIuMMhHBdO6S3U=
+	b=cbhC2wIpjN/m08JvZ+bG16ChEsjYTv09tEojAft47Z/EzQWgi5ilm5UzxFzATVXix
+	 8Vuo9W+9t7rD5IvqEeXavbXBnivd3EtX9rxBDgXEztoonMQvqD5Id9i4rZLjSOSW4v
+	 MyKkR7vuS0W1c8B5R2FZQ8RpiewcgnNYS2C7dRy4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43E32F80085;
-	Fri,  3 Dec 2021 14:37:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCB62F8025C;
+	Fri,  3 Dec 2021 14:38:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55875F800D3; Fri,  3 Dec 2021 14:37:19 +0100 (CET)
+ id 755EFF80249; Fri,  3 Dec 2021 14:38:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C336F800D3
- for <alsa-devel@alsa-project.org>; Fri,  3 Dec 2021 14:37:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C336F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 433C5F800D3
+ for <alsa-devel@alsa-project.org>; Fri,  3 Dec 2021 14:38:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 433C5F800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Eh3NbrNZ"; 
+ header.b="xtVfH5ZN"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="N4+q3uy/"
+ header.b="1phH+osA"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 7B7ED218B8;
- Fri,  3 Dec 2021 13:37:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id B45F51FD3F;
+ Fri,  3 Dec 2021 13:38:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638538627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1638538686; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=jTjChgwPK+3EEs3o5LFKt4B4iVdG1mllMwF9Eq1oOYQ=;
- b=Eh3NbrNZcQI5wQMIXRrYExMu2i2wD+S3rbGqfLOI1sPU/TXjsaUd1vskCbrXXABLmLSf70
- MoUrhNJMsq77fDPaa+6r/fb2jEgjei6+Z4qiTd+x5cTofwaMKFrq+WgTYQMBYmHcIUP801
- pudiJFb64yo6XsbgMNuiDkCOr+o1cUU=
+ bh=/VcPIsmqzeeRu55wHcmrUPkfoUuFXcqt0KH2X7NHE5k=;
+ b=xtVfH5ZNpHCJ1rTOG+z1lRdHP3oKiLAcX/i0vA28vbY0cuI5h8LDFDzZwJogkvbGcOZas6
+ 5vbLLNxrqerqgQnyYb/RXty3hCnFjVMYIyqi8mRLtO054cQQ3D0SeATSJ/5ClHPwIXYSQY
+ Bf5r20YkpqZsXvQX+OOqq87Y2E1exZU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638538627;
+ s=susede2_ed25519; t=1638538686;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=jTjChgwPK+3EEs3o5LFKt4B4iVdG1mllMwF9Eq1oOYQ=;
- b=N4+q3uy/EaVSawt0sZUipWLgG30eVi5813iqNxQxfA42JRFEDH9Hu6+kuRWQPe6/0RYh1k
- LTe2OsXeBTekILCg==
+ bh=/VcPIsmqzeeRu55wHcmrUPkfoUuFXcqt0KH2X7NHE5k=;
+ b=1phH+osAL5Pugp71279eHr7s5Ct0sHx54bNXn1J0VAo5mdB4FVrSiCgpRav5xVv4OsPY/C
+ +pszFM38m5ZFenAw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6CCDFA3B83;
- Fri,  3 Dec 2021 13:37:07 +0000 (UTC)
-Date: Fri, 03 Dec 2021 14:37:07 +0100
-Message-ID: <s5hsfv9stbw.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 9F87FA3B88;
+ Fri,  3 Dec 2021 13:38:06 +0000 (UTC)
+Date: Fri, 03 Dec 2021 14:38:06 +0100
+Message-ID: <s5hr1atsta9.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Geraldo Nascimento <geraldogabriel@gmail.com>
-Subject: Re: [PATCH] ALSA: usb-audio: Reorder snd_djm_devices entries
-In-Reply-To: <Yaky19EeHagfRSTD@geday>
-References: <Yaky19EeHagfRSTD@geday>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Subject: Re: [PATCH v2] ALSA: hda/realtek: Fix quirk for TongFang PHxTxX1
+In-Reply-To: <20211202165010.876431-1-wse@tuxedocomputers.com>
+References: <20211202165010.876431-1-wse@tuxedocomputers.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: William Overton <willovertonuk@gmail.com>,
- ALSA-devel <alsa-devel@alsa-project.org>, Olivia Mackintosh <livvy@base.nu>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,54 +92,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 02 Dec 2021 21:55:51 +0100,
-Geraldo Nascimento wrote:
+On Thu, 02 Dec 2021 17:50:10 +0100,
+Werner Sembach wrote:
 > 
-> Olivia Mackintosh has posted to alsa-devel reporting that
-> there's a potential bug that could break mixer quirks for Pioneer
-> devices introduced by 6d27788160362a7ee6c0d317636fe4b1ddbe59a7
-> "ALSA: usb-audio: Add support for the Pioneer DJM 750MK2
-> Mixer/Soundcard".
+> This fixes the SND_PCI_QUIRK(...) of the TongFang PHxTxX1 barebone. This
+> fixes the issue of sound not working after s3 suspend.
 > 
-> This happened because the DJM 750 MK2 was added last to the Pioneer DJM
-> device table index and defined as 0x4 but was added to snd_djm_devices[]
-> just after the DJM 750 (MK1) entry instead of last, after the DJM 900
-> NXS2. This escaped review.
+> When waking up from s3 suspend the Coef 0x10 is set to 0x0220 instead of
+> 0x0020. Setting the value manually makes the sound work again. This patch
+> does this automatically.
 > 
-> Let's reorder the entries in snd_djm_devices[] so they match the Pioneer
-> DJM device table index #define's.
+> While being on it, I also fixed the comment formatting of the quirk and
+> shortened variable and function names.
 > 
-> Reported-by: Olivia Mackintosh <livvy@base.nu>
-> Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Fixes: dd6dd6e3c791 ("ALSA: hda/realtek: Add quirk for TongFang PHxTxX1")
+> Cc: <stable@vger.kernel.org>
 
-Thanks the patch.
+Thanks, applied now.
 
-The code change is OK, but better to use more explicit form in C99
-style initialization, something like below.
-
-Could you check whether this works?
-
-
-thanks,
 
 Takashi
-
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -3016,11 +3016,11 @@ static const struct snd_djm_ctl snd_djm_ctls_750mk2[] = {
- 
- 
- static const struct snd_djm_device snd_djm_devices[] = {
--	SND_DJM_DEVICE(250mk2),
--	SND_DJM_DEVICE(750),
--	SND_DJM_DEVICE(750mk2),
--	SND_DJM_DEVICE(850),
--	SND_DJM_DEVICE(900nxs2)
-+	[SND_DJM_250MK2_IDX] =	SND_DJM_DEVICE(250mk2),
-+	[SND_DJM_750_IDX] =	SND_DJM_DEVICE(750),
-+	[SND_DJM_850_IDX] =	SND_DJM_DEVICE(850),
-+	[SND_DJM_900NXS2_IDX] =	SND_DJM_DEVICE(900nxs2),
-+	[SND_DJM_750MK2_IDX] =	SND_DJM_DEVICE(750mk2),
- };
- 
- 

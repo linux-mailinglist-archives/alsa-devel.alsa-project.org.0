@@ -2,81 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19A91467896
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Dec 2021 14:39:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BA584678D2
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Dec 2021 14:51:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C21B229F;
-	Fri,  3 Dec 2021 14:38:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C21B229F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B8231ED6;
+	Fri,  3 Dec 2021 14:50:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B8231ED6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638538754;
-	bh=xX8BFxyx9p06of+GfEBZtucYNmXvkj6x84X/HPoRuXM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cbhC2wIpjN/m08JvZ+bG16ChEsjYTv09tEojAft47Z/EzQWgi5ilm5UzxFzATVXix
-	 8Vuo9W+9t7rD5IvqEeXavbXBnivd3EtX9rxBDgXEztoonMQvqD5Id9i4rZLjSOSW4v
-	 MyKkR7vuS0W1c8B5R2FZQ8RpiewcgnNYS2C7dRy4=
+	s=default; t=1638539476;
+	bh=AnDiFrsgV5WgdCgD8vjRtGdtU3v0T9/rxm9SYGxtvnE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=moO8zPFH2Wvm9CC8BKSRdhLkdCI+KZ5azFyi8HBmsEXb1KqMlFaKwVaKNXO9vW9dc
+	 CinkYGUZ3zGcpFWfnxb1cQTFianjBQmFHbnZdGeotA04vYLPe2P3sGTijwRoUCbuid
+	 wyvcIiBf+b3XPQkL29t7/cpmgJcn7JsXkTVCAuks=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCB62F8025C;
-	Fri,  3 Dec 2021 14:38:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 953A0F8015B;
+	Fri,  3 Dec 2021 14:49:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 755EFF80249; Fri,  3 Dec 2021 14:38:20 +0100 (CET)
+ id 83AE2F80246; Fri,  3 Dec 2021 14:49:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 433C5F800D3
- for <alsa-devel@alsa-project.org>; Fri,  3 Dec 2021 14:38:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 433C5F800D3
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5A1FF80085
+ for <alsa-devel@alsa-project.org>; Fri,  3 Dec 2021 14:49:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5A1FF80085
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xtVfH5ZN"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="1phH+osA"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B45F51FD3F;
- Fri,  3 Dec 2021 13:38:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638538686; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/VcPIsmqzeeRu55wHcmrUPkfoUuFXcqt0KH2X7NHE5k=;
- b=xtVfH5ZNpHCJ1rTOG+z1lRdHP3oKiLAcX/i0vA28vbY0cuI5h8LDFDzZwJogkvbGcOZas6
- 5vbLLNxrqerqgQnyYb/RXty3hCnFjVMYIyqi8mRLtO054cQQ3D0SeATSJ/5ClHPwIXYSQY
- Bf5r20YkpqZsXvQX+OOqq87Y2E1exZU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638538686;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/VcPIsmqzeeRu55wHcmrUPkfoUuFXcqt0KH2X7NHE5k=;
- b=1phH+osAL5Pugp71279eHr7s5Ct0sHx54bNXn1J0VAo5mdB4FVrSiCgpRav5xVv4OsPY/C
- +pszFM38m5ZFenAw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9F87FA3B88;
- Fri,  3 Dec 2021 13:38:06 +0000 (UTC)
-Date: Fri, 03 Dec 2021 14:38:06 +0100
-Message-ID: <s5hr1atsta9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Fix quirk for TongFang PHxTxX1
-In-Reply-To: <20211202165010.876431-1-wse@tuxedocomputers.com>
-References: <20211202165010.876431-1-wse@tuxedocomputers.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+ dkim=fail reason="signature verification failed" (2048-bit key)
+ header.d=collabora.com header.i=@collabora.com header.b="U4qKWwHG"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: adalessandro) with ESMTPSA id AE14E1F46E6B
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=collabora.com; s=mail;
+ t=1638539389; bh=AnDiFrsgV5WgdCgD8vjRtGdtU3v0T9/rxm9SYGxtvnE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=U4qKWwHGBDOLXZNq09fFcdqG5Z0XOoQSRBlzu69SNN/pCMIkTqYPVmTGrVflpYhZc
+ wzOEwvU7RzU3bn1wHyYOVfLkpJJK1hGOlA1NsHggtOJcgnv0zLSIGNN7MnNk6DgDC4
+ gPtCqQ8n4X9+cI1JrO8ofbrC6wh4bl2ittvPPsrYO8P6Hh37HmwLEZRN6nh4BS+Yte
+ THRnwVeBVc4rbY4EKE8SF8QfgE0B9Fvyagc++Js66UmJrzbscdgNnneNl5toYzxWXa
+ DwFILZWXXsrD4plKThLJ+R3Lto9OsxPBJbGGN81MmGURWGYr5rq/MV3uDmaVBJIPbd
+ hm6Qgag1EZ4Kg==
+From: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+To: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH 0/4] fsl-asoc-card: Add optional dt property for setting
+ mclk-id
+Date: Fri,  3 Dec 2021 10:49:26 -0300
+Message-Id: <20211203134930.128703-1-ariel.dalessandro@collabora.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: ariel.dalessandro@collabora.com, kuninori.morimoto.gx@renesas.com,
+ Xiubo.Lee@gmail.com, tony@atomide.com, shengjiu.wang@gmail.com, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, nicoleotsuka@gmail.com,
+ broonie@kernel.org, bcousson@baylibre.com, michael@amarulasolutions.com,
+ festevam@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,24 +80,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 02 Dec 2021 17:50:10 +0100,
-Werner Sembach wrote:
-> 
-> This fixes the SND_PCI_QUIRK(...) of the TongFang PHxTxX1 barebone. This
-> fixes the issue of sound not working after s3 suspend.
-> 
-> When waking up from s3 suspend the Coef 0x10 is set to 0x0220 instead of
-> 0x0020. Setting the value manually makes the sound work again. This patch
-> does this automatically.
-> 
-> While being on it, I also fixed the comment formatting of the quirk and
-> shortened variable and function names.
-> 
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> Fixes: dd6dd6e3c791 ("ALSA: hda/realtek: Add quirk for TongFang PHxTxX1")
-> Cc: <stable@vger.kernel.org>
+This is a follow up of patchset:
 
-Thanks, applied now.
+    [RFC patch 0/5] Support BCLK input clock in tlv320aic31xx
 
+Sound cards may allow using different main clock inputs. In the generic
+fsl-asoc-card driver, these values are hardcoded for each specific card
+configuration.
 
-Takashi
+Let's make it more flexible, allowing setting mclk-id from the
+device-tree node.
+
+Ariel D'Alessandro (4):
+  dt-bindings: sound: Rename tlv320aic31xx-micbias as tlv320aic31xx
+  dt-bindings: tlv320aic31xx: Define PLL clock inputs
+  ASoC: fsl-asoc-card: Add optional dt property for setting mclk-id
+  ASoC: fsl-asoc-card: Remove BCLK default value for tlv320aic31xx card
+
+ .../devicetree/bindings/sound/fsl-asoc-card.txt    |  1 +
+ .../devicetree/bindings/sound/tlv320aic31xx.txt    |  2 +-
+ arch/arm/boot/dts/am43x-epos-evm.dts               |  2 +-
+ include/dt-bindings/sound/tlv320aic31xx-micbias.h  |  9 ---------
+ include/dt-bindings/sound/tlv320aic31xx.h          | 14 ++++++++++++++
+ sound/soc/codecs/tlv320aic31xx.c                   |  2 +-
+ sound/soc/fsl/fsl-asoc-card.c                      |  7 ++++++-
+ 7 files changed, 24 insertions(+), 13 deletions(-)
+ delete mode 100644 include/dt-bindings/sound/tlv320aic31xx-micbias.h
+ create mode 100644 include/dt-bindings/sound/tlv320aic31xx.h
+
+-- 
+2.30.2
+

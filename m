@@ -2,114 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC0BE468526
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Dec 2021 14:51:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A4BC468598
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Dec 2021 15:39:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45E3521DA;
-	Sat,  4 Dec 2021 14:51:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45E3521DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 122DD2182;
+	Sat,  4 Dec 2021 15:38:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 122DD2182
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638625915;
-	bh=hkAW9GveBAQdTQ5fGd7ij5hYWa/KqoW+DCBlFq7zN1Q=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lXs6pqrKySUzvEUSMZ8Uqt0qvTMoTbNAXYAo2LIBoL9EOIFCYqCE4ukvVpuM32XSA
-	 U3oe3KYK/+/9wmQQs6AKoFlOsUEbJBFAj/3XsuwQbkzbhrNEzvLjfufE5UCKY5OAkm
-	 m/6XeMaq7gGLZcVxvOdkWsMSXWKq31EtSe3LSMtM=
+	s=default; t=1638628742;
+	bh=wdGs3l/8VayEjp+naTtNYAPzT6ADpDLo0S5YFJrhTOI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pqfW3kCMhtf2D0dxyG4Miyv56CE1Q9wjJFsfCZicPDqP1KOcp8edSvC6HpxOCC4eW
+	 Mr7AXHVPELKujJLZuCyg1UHMqXlxeYn+hrnJDHOGlN8Q1yM47t8UiMBTQkOO7tEg9S
+	 tq8zO1bquklgslmvzPp+nxJucTQUA8WMY/+HkqxI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E410F80240;
-	Sat,  4 Dec 2021 14:50:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E3D4F804EC;
+	Sat,  4 Dec 2021 15:37:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03B82F8023B; Sat,  4 Dec 2021 14:50:34 +0100 (CET)
+ id 0EA2FF804E1; Sat,  4 Dec 2021 15:37:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0507BF80134
- for <alsa-devel@alsa-project.org>; Sat,  4 Dec 2021 14:50:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0507BF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14C6BF800D3
+ for <alsa-devel@alsa-project.org>; Sat,  4 Dec 2021 15:37:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14C6BF800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="cabSvCzN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1638625824;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=n9JNfwvrqzqZBXE6iJOUQR5m9fqUmYDhlbUkU9f5D6E=;
- b=cabSvCzNuPvKxa5F1CKX0YYyya7sNiYE3v/RVNYosYDaosK8SkCiiIiotra3GJ/WP12GzH
- 8+JMFrCrSGDTlT8ysTTcwyd3bBoj6YdO8X6dByHnNE8bZOkGIICVLHpSgKaVBc3IsKWfLM
- jYP7B6y9usqOjM/tL0Blj52PpqYF8zk=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-150-4XPg56DFMF6lX_REkFml-Q-1; Sat, 04 Dec 2021 08:50:22 -0500
-X-MC-Unique: 4XPg56DFMF6lX_REkFml-Q-1
-Received: by mail-ed1-f71.google.com with SMTP id
- w5-20020a05640234c500b003f1b9ab06d2so4838195edc.13
- for <alsa-devel@alsa-project.org>; Sat, 04 Dec 2021 05:50:22 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="HUoDSKQf"
+Received: by mail-lj1-x231.google.com with SMTP id i63so11976971lji.3
+ for <alsa-devel@alsa-project.org>; Sat, 04 Dec 2021 06:37:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ZgU/pHcLq1kPA4XVEXWEET210DA2xlasJUSyPcUCpCY=;
+ b=HUoDSKQfpe/g37xMOmAVxOTpFaTt/lTR6dyV10GKZMZt22VPgvwSZj4z8Dzk+RBRRU
+ sZl62gd/ycHvHWj79abbNFKJmBXn1FkiFvX4Wfy9bfbH1RfmC5yJqHXTC4Z9OxxUtTEH
+ egcggw7Ax2wqp0to/h395s50F9EZVnY/lVuEG6zAhdl3hpbsDZS1X8YwCTm1yy+wJViS
+ Sx9kdbmRH+S8L0TUPnjgU1dDTRY1/X78kNjXv3NRG+TqoEnu6Q0VpVf/u4R+LytFslmA
+ slLzaz5hfuA2fR/sp4N08+ZwcU2gAT0KqIoq/lQIN8mVEmvQyLG3ZOlZSXdRD7dzXKS2
+ AGVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=n9JNfwvrqzqZBXE6iJOUQR5m9fqUmYDhlbUkU9f5D6E=;
- b=52KcofA+Y2+Svm931gNPNjWuslnBBetew+7BZj1mlBZWY9RCHNcwYEMYqJWF+1HguV
- Wl/G2Ai4sJ0FOS0wJKnUxc1Y1iUSmVkzcJ5NQFM4nsMaszvMcpXtOdqkARHFddtuPuPN
- gWcMsaRAl3uhzPM5ONBDaWXXaeFJ2PXyBvHi9fFlu33Wz9JwJq+OtTrH5cDcTF6/afTX
- GlsPLRvCVnHEGnrsKsEDZUrA2YQGyni0RsG0DuaI4uXq7PZbRmIMGZpKeJsTgOCeym5H
- VYeHyYyjnmUXgEFxI38rvb8x1GeWPym5GtyykCYUGuQl+B3IO8+oXn/8HOOf82c94m59
- sABw==
-X-Gm-Message-State: AOAM5310kDr/bHISaUpOFCH2lYMDYxK9YHQGFUtm2kTkBxFTcmXUoeeZ
- tChas+ogmmgPqdn+nNDosm6lyD4uNIIRg30nlda0iEXRGRcNX2QwLl5e7wVAQ0dVh1Sy/2qeETL
- Nj/ZNbpwy039pE5xkWpRNmtM=
-X-Received: by 2002:a05:6402:51c7:: with SMTP id
- r7mr36615768edd.359.1638625820846; 
- Sat, 04 Dec 2021 05:50:20 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwl1KM8bbQ7YrKD1YOQY1tMOCpJz/Vniat1jK4ytnXvQSBAnOoWLnclUg8H/rgWutJus+ID6A==
-X-Received: by 2002:a05:6402:51c7:: with SMTP id
- r7mr36615748edd.359.1638625820648; 
- Sat, 04 Dec 2021 05:50:20 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c1e:bf00:1054:9d19:e0f0:8214?
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id cs12sm3537954ejc.15.2021.12.04.05.50.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 04 Dec 2021 05:50:20 -0800 (PST)
-Message-ID: <45e6c26e-f804-1f2f-bbb1-07f71f915ff4@redhat.com>
-Date: Sat, 4 Dec 2021 14:50:19 +0100
+ bh=ZgU/pHcLq1kPA4XVEXWEET210DA2xlasJUSyPcUCpCY=;
+ b=73iTEAtK2N9O1epHOTiqLjMum37UTaKGNoRS65vGYhlwE/msyHXTF2y4LiSzs7XeTa
+ sIW/2mLnMvIxZgnxxzfl78tPfPR8UAT+C9NkUeoyUMCXAf7GBu+sE6Z/x6O8Wu2K/dvb
+ 3NT4FKsdTVj2Z62srIBHzPFE6oWM71qQ2MBuwqJ+PcBliaF/7JBsQeIcDBsU4NxvR1Tc
+ /VOmvt15sSbLxkbhL89AJX6BClyf8CBBILdWYrifyQUTlhGpXsDGK5TasIsu943imwl0
+ VhoqsNJ1r+U5kLoCauHOQzfW3BH8oAHtVFaqcarvEN8rjnGsqg09mInMSARSrJr33tLz
+ OTrA==
+X-Gm-Message-State: AOAM5329+0pBQI0EIEOR4r32/9E3wjyyAMeTOxCObWNPX+lNq93r1gOW
+ BPDoRWioKdrNU4FnCSoPA+s=
+X-Google-Smtp-Source: ABdhPJwCMJfyK3vFo8uYHtqyUUuRe56EKohyxSP/whDcCXw+74GQlAzEA2DCOd8dbo/Bvyh+x1cOIA==
+X-Received: by 2002:a2e:8991:: with SMTP id c17mr23781559lji.361.1638628651146; 
+ Sat, 04 Dec 2021 06:37:31 -0800 (PST)
+Received: from localhost.localdomain (94-29-46-111.dynamic.spd-mgts.ru.
+ [94.29.46.111])
+ by smtp.gmail.com with ESMTPSA id g36sm782934lfv.16.2021.12.04.06.37.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 04 Dec 2021 06:37:30 -0800 (PST)
+From: Dmitry Osipenko <digetx@gmail.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <lgirdwood@gmail.com>, Agneli <poczt@protonmail.ch>
+Subject: [PATCH v4 00/22] Support HDMI audio on NVIDIA Tegra20
+Date: Sat,  4 Dec 2021 17:37:03 +0300
+Message-Id: <20211204143725.31646-1-digetx@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [bug report] ASoC: Intel: mrfld - create separate module for pci
- part
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Dan Carpenter <dan.carpenter@oracle.com>, vkoul@kernel.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-References: <20211202151322.GA21325@kili>
- <19647b98-83fd-b493-0fed-3c4e43cbeba8@linux.intel.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <19647b98-83fd-b493-0fed-3c4e43cbeba8@linux.intel.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,136 +103,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+This series revives Tegra20 S/PDIF driver which was upstreamed long time
+ago, but never was used. It also turns Tegra DRM HDMI driver into HDMI
+audio CODEC provider. Finally, HDMI audio is enabled in device-trees.
+For now the audio is enable only for Acer A500 tablet and Toshiba AC100
+netbook because they're already supported by upstream, later on ASUS TF101
+tablet will join them.
 
-On 12/3/21 14:46, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 12/3/21 4:13 AM, Dan Carpenter wrote:
->> Hello Vinod Koul,
->>
->> The patch f533a035e4da: "ASoC: Intel: mrfld - create separate module
->> for pci part" from Nov 4, 2014, leads to the following Smatch static
->> checker warning:
->>
->> 	sound/soc/intel/atom/sst/sst_pci.c:102 sst_platform_get_resources()
->> 	warn: resource freed on success: 'ctx->pci'
->>
->> sound/soc/intel/atom/sst/sst_pci.c
->>     25 static int sst_platform_get_resources(struct intel_sst_drv *ctx)
->>     26 {
->>     27         int ddr_base, ret = 0;
->>     28         struct pci_dev *pci = ctx->pci;
->>     29 
->>     30         ret = pci_request_regions(pci, SST_DRV_NAME);
->>     31         if (ret)
->>     32                 return ret;
->>     33 
->>     34         /* map registers */
->>     35         /* DDR base */
->>     36         if (ctx->dev_id == SST_MRFLD_PCI_ID) {
->>     37                 ctx->ddr_base = pci_resource_start(pci, 0);
->>     38                 /* check that the relocated IMR base matches with FW Binary */
->>     39                 ddr_base = relocate_imr_addr_mrfld(ctx->ddr_base);
->>     40                 if (!ctx->pdata->lib_info) {
->>     41                         dev_err(ctx->dev, "lib_info pointer NULL\n");
->>     42                         ret = -EINVAL;
->>     43                         goto do_release_regions;
->>     44                 }
->>     45                 if (ddr_base != ctx->pdata->lib_info->mod_base) {
->>     46                         dev_err(ctx->dev,
->>     47                                         "FW LSP DDR BASE does not match with IFWI\n");
->>     48                         ret = -EINVAL;
->>     49                         goto do_release_regions;
->>     50                 }
->>     51                 ctx->ddr_end = pci_resource_end(pci, 0);
->>     52 
->>     53                 ctx->ddr = pcim_iomap(pci, 0,
->>     54                                         pci_resource_len(pci, 0));
->>     55                 if (!ctx->ddr) {
->>     56                         ret = -EINVAL;
->>     57                         goto do_release_regions;
->>     58                 }
->>     59                 dev_dbg(ctx->dev, "sst: DDR Ptr %p\n", ctx->ddr);
->>     60         } else {
->>     61                 ctx->ddr = NULL;
->>     62         }
->>     63         /* SHIM */
->>     64         ctx->shim_phy_add = pci_resource_start(pci, 1);
->>     65         ctx->shim = pcim_iomap(pci, 1, pci_resource_len(pci, 1));
->>     66         if (!ctx->shim) {
->>     67                 ret = -EINVAL;
->>     68                 goto do_release_regions;
->>     69         }
->>     70         dev_dbg(ctx->dev, "SST Shim Ptr %p\n", ctx->shim);
->>     71 
->>     72         /* Shared SRAM */
->>     73         ctx->mailbox_add = pci_resource_start(pci, 2);
->>     74         ctx->mailbox = pcim_iomap(pci, 2, pci_resource_len(pci, 2));
->>     75         if (!ctx->mailbox) {
->>     76                 ret = -EINVAL;
->>     77                 goto do_release_regions;
->>     78         }
->>     79         dev_dbg(ctx->dev, "SRAM Ptr %p\n", ctx->mailbox);
->>     80 
->>     81         /* IRAM */
->>     82         ctx->iram_end = pci_resource_end(pci, 3);
->>     83         ctx->iram_base = pci_resource_start(pci, 3);
->>     84         ctx->iram = pcim_iomap(pci, 3, pci_resource_len(pci, 3));
->>     85         if (!ctx->iram) {
->>     86                 ret = -EINVAL;
->>     87                 goto do_release_regions;
->>     88         }
->>     89         dev_dbg(ctx->dev, "IRAM Ptr %p\n", ctx->iram);
->>     90 
->>     91         /* DRAM */
->>     92         ctx->dram_end = pci_resource_end(pci, 4);
->>     93         ctx->dram_base = pci_resource_start(pci, 4);
->>     94         ctx->dram = pcim_iomap(pci, 4, pci_resource_len(pci, 4));
->>     95         if (!ctx->dram) {
->>     96                 ret = -EINVAL;
->>     97                 goto do_release_regions;
->>     98         }
->>     99         dev_dbg(ctx->dev, "DRAM Ptr %p\n", ctx->dram);
->>     100 do_release_regions:
->>     101         pci_release_regions(pci);
->> --> 102         return ret;
->>     103 }
->>
->> Surely there should be a "return 0;" before the do_release_regions:
->> label?  How does this code work?
-> 
-> Thanks for reporting this Dan. Yes this doesn't look good at all.
-> 
-> This PCI part is only used on Merrifield/Tangier, and I am not sure if
-> anyone ever managed to make audio work with the upstream version of this
-> driver. It's my understanding that this platform is no longer maintained
-> by Intel, and the Edison Yocto code uses the SOF driver.
-> 
-> The Kconfig updated in 2018 hints at those limitations:
-> 
-> config SND_SST_ATOM_HIFI2_PLATFORM_PCI
-> 	tristate "PCI HiFi2 (Merrifield) Platforms"
-> 	depends on X86 && PCI
-> 	select SND_SST_ATOM_HIFI2_PLATFORM
-> 	help
-> 	  If you have a Intel Merrifield/Edison platform, then
-> 	  enable this option by saying Y or m. Distros will typically not
-> 	  enable this option: while Merrifield/Edison can run a mainline
-> 	  kernel with limited functionality it will require a firmware file
-> 	  which is not in the standard firmware tree
-> 
-> I would guess that indeed a return 0; is missing, but maybe it's time to
-> remove this PCI code completely. I can't think of any user of the PCI
-> parts of this driver.
-> 
-> Andy, Hans, Mark, Takashi, what do you think?
+I based S/PDIF patches on Arnd's Bergmann patch from a separate series [1]
+that removes obsolete slave_id. This eases merging of the patches by
+removing the merge conflict. This is a note for Mark Brown.
 
-Merrifield/Edison is something Andy focuses on. I'm more focused on
-Bay Trail and Cherry Trail, so this is best answered by Andy (which
-he has already done).
+I also based this series on top of power management series [2]. I.e. [2]
+should be applied first, otherwise "Add S/PDIF node to Tegra20 device-tree"
+patch should have merge conflict. This is a note for Thierry.
 
-Regards,
+[1] https://patchwork.ozlabs.org/project/linux-tegra/list/?series=273312
+[2] https://patchwork.ozlabs.org/project/linux-tegra/list/?series=274534
 
-Hans
+Changelog:
+
+v4: - Added patches that update multi_v7_defconfig with the enabled S/PDIF
+      and APB DMA drivers.
+
+v3: - Renamed S/PDIF device-tree clocks as was suggested by Rob Herring.
+
+    - Added r-bs and acks that were given by Rob Herring to v2.
+
+v2: - Corrected I2S yaml problem that was reported by the DT bot for v1
+      by removing the non-existent required clock-names property.
+
+    - Removed assigned-clocks property from S/PDIF yaml since this property
+      is now inherited from the clocks property.
+
+    - Reordered the "tegra20: spdif: Set FIFO trigger level" patch, making
+      it the first sound/soc patch in the series, like it was suggested by
+      Mark Brown in the comment to v1. Also reworded commit message of this
+      patch to *not* make it looks like it should be backported to stable
+      kernels.
+
+Arnd Bergmann (1):
+  ASoC: tegra20-spdif: stop setting slave_id
+
+Dmitry Osipenko (21):
+  ASoC: dt-bindings: Add binding for Tegra20 S/PDIF
+  ASoC: dt-bindings: tegra20-i2s: Convert to schema
+  ASoC: dt-bindings: tegra20-i2s: Document new nvidia,fixed-parent-rate
+    property
+  dt-bindings: host1x: Document optional HDMI sound-dai-cells
+  ASoC: tegra20: spdif: Set FIFO trigger level
+  ASoC: tegra20: spdif: Support device-tree
+  ASoC: tegra20: spdif: Improve driver's code
+  ASoC: tegra20: spdif: Use more resource-managed helpers
+  ASoC: tegra20: spdif: Reset hardware
+  ASoC: tegra20: spdif: Support system suspend
+  ASoC: tegra20: spdif: Filter out unsupported rates
+  ASoC: tegra20: i2s: Filter out unsupported rates
+  drm/tegra: hdmi: Unwind tegra_hdmi_init() errors
+  drm/tegra: hdmi: Register audio CODEC on Tegra20
+  ARM: tegra_defconfig: Enable S/PDIF driver
+  ARM: config: multi v7: Enable NVIDIA Tegra20 S/PDIF driver
+  ARM: config: multi v7: Enable NVIDIA Tegra20 APB DMA driver
+  ARM: tegra: Add S/PDIF node to Tegra20 device-tree
+  ARM: tegra: Add HDMI audio graph to Tegra20 device-tree
+  ARM: tegra: acer-a500: Enable S/PDIF and HDMI audio
+  ARM: tegra: paz00: Enable S/PDIF and HDMI audio
+
+ .../display/tegra/nvidia,tegra20-host1x.txt   |   1 +
+ .../bindings/sound/nvidia,tegra20-i2s.txt     |  30 ---
+ .../bindings/sound/nvidia,tegra20-i2s.yaml    |  77 +++++++
+ .../bindings/sound/nvidia,tegra20-spdif.yaml  |  85 ++++++++
+ .../boot/dts/tegra20-acer-a500-picasso.dts    |   8 +
+ arch/arm/boot/dts/tegra20-paz00.dts           |   8 +
+ arch/arm/boot/dts/tegra20.dtsi                |  40 +++-
+ arch/arm/configs/multi_v7_defconfig           |   2 +
+ arch/arm/configs/tegra_defconfig              |   1 +
+ drivers/gpu/drm/tegra/Kconfig                 |   3 +
+ drivers/gpu/drm/tegra/hdmi.c                  | 168 +++++++++++++--
+ sound/soc/tegra/tegra20_i2s.c                 |  49 +++++
+ sound/soc/tegra/tegra20_spdif.c               | 197 ++++++++++++------
+ sound/soc/tegra/tegra20_spdif.h               |   1 +
+ sound/soc/tegra/tegra_pcm.c                   |   6 +
+ sound/soc/tegra/tegra_pcm.h                   |   1 +
+ 16 files changed, 574 insertions(+), 103 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-i2s.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra20-spdif.yaml
+
+-- 
+2.33.1
 

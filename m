@@ -2,58 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62EDB468333
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Dec 2021 08:30:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2C99468348
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Dec 2021 09:00:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFAE022FB;
-	Sat,  4 Dec 2021 08:29:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFAE022FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2AE9022B0;
+	Sat,  4 Dec 2021 09:00:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AE9022B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638603010;
-	bh=tvpiBWluiI0t0HiFf9DTim6D5QC9SQxtEoEl7rvRhs4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=D7X2+fYs/yx610fLt+MpV9kEoEPSoeLQLL1+HuNdqO5ShfO+WYEmxCzzCTqJiiR7a
-	 Ypzue9eTTicXehJXghCTqyofg1Co+g9MYe7uQ2GOr+jd6Tj3f/YlnVMq0a5wGrWH47
-	 8TXjBDzzxk7z+XXmW3Y74Im1yP8ovd3eC7tsTsj0=
+	s=default; t=1638604850;
+	bh=Zln2aKJz0zZQyiiakVGBGHV2ssqKTmvUobKfpfHXas4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XEnWN0h6j0tuSlgDh6qlqHrlLNEGv7mDqxpIs2HGmg4GzGJ0EcI5xmbw1gTB8uT04
+	 IxwNR0nQbbogcz0gXArLi3/e47LWWX8AZZJ8WtB2soh0bTOrRgPmdNwXRlHtijqCGG
+	 xS7m2fM/AJPvqkM4izpfFZ2spg0en2sPluI5iP7o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62746F80240;
-	Sat,  4 Dec 2021 08:28:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89058F80240;
+	Sat,  4 Dec 2021 08:59:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2171F8023B; Sat,  4 Dec 2021 08:28:48 +0100 (CET)
+ id 1D7ECF8023B; Sat,  4 Dec 2021 08:59:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp.smtpout.orange.fr (smtp07.smtpout.orange.fr
- [80.12.242.129])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1D85F800D3
- for <alsa-devel@alsa-project.org>; Sat,  4 Dec 2021 08:28:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1D85F800D3
-Received: from pop-os.home ([86.243.171.122]) by smtp.orange.fr with ESMTPA
- id tPTNmu8nXMNzvtPTNm2IQC; Sat, 04 Dec 2021 08:28:42 +0100
-X-ME-Helo: pop-os.home
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Sat, 04 Dec 2021 08:28:42 +0100
-X-ME-IP: 86.243.171.122
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
- leon@kernel.org
-Subject: [PATCH] sound: Fix some typo
-Date: Sat,  4 Dec 2021 08:28:40 +0100
-Message-Id: <7b2bcbda298f02a34d46d8b6593daaaed9a09a45.1638602790.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.30.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 148E3F800D3
+ for <alsa-devel@alsa-project.org>; Sat,  4 Dec 2021 08:59:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 148E3F800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="fV5jGNBr"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1638604763; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=RPYFRq2tetZ3XfrNaT2ZW8JmIgt6VIgZNLFs/5bLiyw=;
+ b=fV5jGNBrPdmoVMp5cPAol5OCmHcUJR14FG8fPBqjl7criYXJrP2fupPTcskCirkgie6Vdgcl
+ hRY6ExeXB3XakUCbp7afqZoCoSIryOlsFPhI5OgpZD9cyYsebVSYXZTLkS9gFqplLLvBd0Vk
+ Cyuj7gEabkELLAA5/9b/fTkYCc0=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 61ab1fd9e7d68470af316bb1 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 04 Dec 2021 07:59:21
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 9089FC4360D; Sat,  4 Dec 2021 07:59:20 +0000 (UTC)
+Received: from [192.168.29.24] (unknown [49.37.168.155])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B7A07C4338F;
+ Sat,  4 Dec 2021 07:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org B7A07C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH v8 09/10] ASoC: dt-bindings: Add SC7280 lpass cpu bindings
+To: Rob Herring <robh+dt@kernel.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.com>
+References: <1638547658-22032-1-git-send-email-srivasam@codeaurora.com>
+ <1638547658-22032-10-git-send-email-srivasam@codeaurora.com>
+ <1638574455.248037.1043006.nullmailer@robh.at.kernel.org>
+ <CAL_JsqKf4Y84+_PQqhwMEEiJNrR92urMUYSqYTEU0_c7fYnyhQ@mail.gmail.com>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <07f5a5f2-cdf5-75de-9635-0edcd5e5c905@codeaurora.org>
+Date: Sat, 4 Dec 2021 13:29:11 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+In-Reply-To: <CAL_JsqKf4Y84+_PQqhwMEEiJNrR92urMUYSqYTEU0_c7fYnyhQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, lgirdwood@gmail.com,
+ Venkata Prasad Potturu <potturu@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ plai@codeaurora.org, linux-kernel@vger.kernel.org, swboyd@chromium.org,
+ tiwai@suse.com, agross@kernel.org, rohitkr@codeaurora.org, broonie@kernel.org,
+ bjorn.andersson@linaro.org, judyhsiao@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,92 +107,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some comments and include guards are not consistent with the name of the
-file where they can be found.
 
-This is likely some typo or cut'n'paste issues.
+On 12/4/2021 5:08 AM, Rob Herring wrote:
+Thanks for your time and notifying the issue!!!
+> On Fri, Dec 3, 2021 at 5:34 PM Rob Herring <robh@kernel.org> wrote:
+>> On Fri, 03 Dec 2021 21:37:37 +0530, Srinivasa Rao Mandadapu wrote:
+>>> From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+>>>
+>>> Add bindings for sc7280 lpass cpu driver which supports
+>>> audio over i2s based speaker, soundwire based headset, msm dmics
+>>> and HDMI Port.
+>>>
+>>> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+>>> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>>> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>>> ---
+>>>   .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 70 +++++++++++++++++++---
+>>>   1 file changed, 62 insertions(+), 8 deletions(-)
+>>>
+>> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+>> on your patch (DT_CHECKER_FLAGS is new in v5.13):
+>>
+>> yamllint warnings/errors:
+>>
+>> dtschema/dtc warnings/errors:
+>> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: reg: [[0, 1658351616, 0, 425984], [0, 1659895808, 0, 167936]] is too short
+>>          From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> Are you running the checks before you send out your patches. Because
+> it seems like you keep sending things with the same errors.
+>
+> If there's errors, I'm not going to review this. If you need help
+> getting it to work, then ask.
+Actually, the too short name errors are coming for the existing names 
+also. could you please suggest on how to go ahead?
+>
+> And what's with your email setup? codeaurora.com bounces.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- sound/pci/ac97/ac97_pcm.c      | 2 +-
- sound/pci/hda/hda_generic.h    | 2 +-
- sound/soc/codecs/sta350.h      | 2 +-
- sound/soc/codecs/tlv320aic26.h | 6 +++---
- sound/usb/usx2y/usbusx2y.c     | 2 +-
- 5 files changed, 7 insertions(+), 7 deletions(-)
+ From December 3 Qualcomm mail domain got changed to quicinc.com from 
+codeaurora.org.
 
-diff --git a/sound/pci/ac97/ac97_pcm.c b/sound/pci/ac97/ac97_pcm.c
-index 491de1a623cb..5fee8e89790f 100644
---- a/sound/pci/ac97/ac97_pcm.c
-+++ b/sound/pci/ac97/ac97_pcm.c
-@@ -231,7 +231,7 @@ static int set_spdif_rate(struct snd_ac97 *ac97, unsigned short rate)
-  * If the codec doesn't support VAR, the rate must be 48000 (except
-  * for SPDIF).
-  *
-- * The valid registers are AC97_PMC_MIC_ADC_RATE,
-+ * The valid registers are AC97_PCM_MIC_ADC_RATE,
-  * AC97_PCM_FRONT_DAC_RATE, AC97_PCM_LR_ADC_RATE.
-  * AC97_PCM_SURR_DAC_RATE and AC97_PCM_LFE_DAC_RATE are accepted
-  * if the codec supports them.
-diff --git a/sound/pci/hda/hda_generic.h b/sound/pci/hda/hda_generic.h
-index c43bd0f0338e..8e1bc8ea74fc 100644
---- a/sound/pci/hda/hda_generic.h
-+++ b/sound/pci/hda/hda_generic.h
-@@ -183,7 +183,7 @@ struct hda_gen_spec {
- 	struct automic_entry am_entry[MAX_AUTO_MIC_PINS];
- 
- 	/* for pin sensing */
--	/* current status; set in hda_geneic.c */
-+	/* current status; set in hda_generic.c */
- 	unsigned int hp_jack_present:1;
- 	unsigned int line_jack_present:1;
- 	unsigned int speaker_muted:1; /* current status of speaker mute */
-diff --git a/sound/soc/codecs/sta350.h b/sound/soc/codecs/sta350.h
-index f16900e00afa..80bf56093d94 100644
---- a/sound/soc/codecs/sta350.h
-+++ b/sound/soc/codecs/sta350.h
-@@ -14,7 +14,7 @@
- #ifndef _ASOC_STA_350_H
- #define _ASOC_STA_350_H
- 
--/* STA50 register addresses */
-+/* STA350 register addresses */
- 
- #define STA350_REGISTER_COUNT	0x4D
- #define STA350_COEF_COUNT 62
-diff --git a/sound/soc/codecs/tlv320aic26.h b/sound/soc/codecs/tlv320aic26.h
-index 1f2879b7a080..c86569883e0c 100644
---- a/sound/soc/codecs/tlv320aic26.h
-+++ b/sound/soc/codecs/tlv320aic26.h
-@@ -6,8 +6,8 @@
-  * Copyright (C) 2008 Secret Lab Technologies Ltd.
-  */
- 
--#ifndef _TLV320AIC16_H_
--#define _TLV320AIC16_H_
-+#ifndef _TLV320AIC26_H_
-+#define _TLV320AIC26_H_
- 
- /* AIC26 Registers */
- #define AIC26_PAGE_ADDR(page, offset)	((page << 11) | offset << 5)
-@@ -88,4 +88,4 @@ enum aic26_wlen {
- 	AIC26_WLEN_32	= 3 << 10,
- };
- 
--#endif /* _TLV320AIC16_H_ */
-+#endif /* _TLV320AIC26_H_ */
-diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
-index 099bee662af6..52f4e6652407 100644
---- a/sound/usb/usx2y/usbusx2y.c
-+++ b/sound/usb/usx2y/usbusx2y.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- * usbusy2y.c - ALSA USB US-428 Driver
-+ * usbusx2y.c - ALSA USB US-428 Driver
-  *
- 2005-04-14 Karsten Wiese
- 	Version 0.8.7.2:
+May be that's the reason for bouncing.
+
+>
+> Rob
+
 -- 
-2.30.2
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 

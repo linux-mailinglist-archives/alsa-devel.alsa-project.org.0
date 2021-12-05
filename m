@@ -2,146 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAE22468DBD
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Dec 2021 23:41:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57CAF468E1E
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 00:32:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43C9A1FFB;
-	Sun,  5 Dec 2021 23:41:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43C9A1FFB
+	by alsa0.perex.cz (Postfix) with ESMTPS id E00F71FD3;
+	Mon,  6 Dec 2021 00:31:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E00F71FD3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638744119;
-	bh=CVT+eiapO9jRF4ejSwNHA4ibWK/IUOOv57yuRsuEoMQ=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1638747158;
+	bh=0/WBQJOC1r9F/mgvlmPWSC2dfS2fO6RdLt6eShBJGEw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p2IuOloAK6O/qbQZVa1GDi2jmR37cKLxMh3J+m8/O0qgwgByY0+T1SYc3k3/JpA47
-	 0FsK7zsp5+Ar0DuRq5KeWWn0n2TM8dlcuMhvJcen7LjLPUPi9r8wn1xaWQIitPUrn/
-	 XgtlkAjT3qi6MY77I8QVwe8ccs2z8b/G5UDCDxW0=
+	b=OwqRewrjyQimRLvChmBRjGnG3HvMLhtqTPqL7KzCKVA8k03rSrsYjCdD+LU0J7PcX
+	 B84NlEYE391WfZdev8f37ZnRN8MjgUg9mkXbmf7g+wD3CUI3krqzFVvH/lv5nBbLzC
+	 0oYUX4YnKy+m0Vx+Qrv/IvKTUguX941MFat0+y9A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 904FFF800D3;
-	Sun,  5 Dec 2021 23:40:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34CD9F80118;
+	Mon,  6 Dec 2021 00:31:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A96EAF80253; Sun,  5 Dec 2021 23:40:39 +0100 (CET)
+ id 67F9BF80253; Mon,  6 Dec 2021 00:31:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20708.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::708])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-vk1-xa33.google.com (mail-vk1-xa33.google.com
+ [IPv6:2607:f8b0:4864:20::a33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D66FCF800D3
- for <alsa-devel@alsa-project.org>; Sun,  5 Dec 2021 23:40:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D66FCF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id AFADFF80118
+ for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 00:31:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFADFF80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
- header.b="VXPyDh8s"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KLUFKOUU+uWkTGJdsMy8V2pXmIE1RskYUY0XDs0fMmZ46khJsy2l6a3327TNYbGraasgFDCsw9KTChWMXOmdjGsthNO7+xPVwwwE3ZM0y27BhJJ1TsDXW+j1NhyHAEi9hEHHPH97asAE4wRe/vBY9ztJs8plXwAf8AcYg7vpv2mMMvbqleE1FDaEjM73Y4nfUIhPICCRsTkLFbol/BxR2f5f17PWYK5LWKytAqf8KH6ecjwLLCkL8WQISS+67uOBeWbRm8I6i5Nm7ljPmdRrhbNKM3yNfcY8zQC1DEylvGoMMI6Q3p80H3p/lqwU5fR7QlOYeAt7zUkkp+WBvBtnOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rVG0Fk+I7OB0GfrzT6M5p6lcLbn8KXT9W7gJxDu6qnY=;
- b=l8kFCMKyUFV3ogpm3lubW2ZqBgtGzMaEaayrd6038wkZXlUgaekSr1f6pfC9fa9yzIyY+TZs8uTdzlLwBieJxtzApAW60d16hqKZHoNNIgZ+5g0dVjmzr4RkxHnGTq00mzlseWrtiKdwpYMBigTvtC8V1kxflnaNxMzUT6QoCuD942IU5EkjW2ELN+p1enMmvMWw7ylewzGQsjSRXvS5oiyWrktk4AUQbjmrKKNeYjzh8nnGrQUU+fqeidL2U+3m3NBweXGA+9L/fuf+q0F2mnsSCtYJ4dS462F8sQUpkWQtbHiRc+64HOJzuHAfjNI+c7g3qLix3aK4FlSPKlcK9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rVG0Fk+I7OB0GfrzT6M5p6lcLbn8KXT9W7gJxDu6qnY=;
- b=VXPyDh8scl7tswUGYuE8PJyBlbIvE1Fr/thRIPSjyX7BTPTrbkoQOEiF0CiBtADcKTZ1WoEatyGvijPnS+aG0pusTUTpuxA22srfCBM4ldC1CRqgIHBNJZrZQfT6HzWK6M1TDzAvh2LMIZOkXolMGwa686tXUnj76Kgp3TAAmvg=
-Received: from TYCPR01MB5581.jpnprd01.prod.outlook.com (2603:1096:400:a::10)
- by TYCPR01MB6240.jpnprd01.prod.outlook.com (2603:1096:400:78::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11; Sun, 5 Dec
- 2021 22:40:27 +0000
-Received: from TYCPR01MB5581.jpnprd01.prod.outlook.com
- ([fe80::3d74:9c2e:e85a:df82]) by TYCPR01MB5581.jpnprd01.prod.outlook.com
- ([fe80::3d74:9c2e:e85a:df82%5]) with mapi id 15.20.4755.021; Sun, 5 Dec 2021
- 22:40:27 +0000
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Ameer Hamza <amhamza.mgc@gmail.com>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>, "broonie@kernel.org" <broonie@kernel.org>,
- "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH] ASoC: test-component: fix null pointer dereference.
-Thread-Topic: [PATCH] ASoC: test-component: fix null pointer dereference.
-Thread-Index: AQHX6hiZRK5cTb56bk2m5NVbTZyjx6wkenEw
-Date: Sun, 5 Dec 2021 22:40:27 +0000
-Message-ID: <TYCPR01MB55813B26BB2B3BB6D1E072F2D46C9@TYCPR01MB5581.jpnprd01.prod.outlook.com>
-References: <20211205204200.7852-1-amhamza.mgc@gmail.com>
-In-Reply-To: <20211205204200.7852-1-amhamza.mgc@gmail.com>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4938372d-7ffe-4bff-0d64-08d9b8403c1c
-x-ms-traffictypediagnostic: TYCPR01MB6240:
-x-microsoft-antispam-prvs: <TYCPR01MB6240F1AA5BA57C72E9939935D46C9@TYCPR01MB6240.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4941;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BrbAbpc8wzM2weMkZsx3IcDuWCzQwM/AXpm7q/7LAutB/Plk5hLfvFOiZrYoW8LUTYtuw+P1HkEItIuIz7xPG8GT+DykJdWAiJMYXHQkUtC/Acn3IJp50P6azyzBji74d34t/i9kcHA5iopp7OXJf2zNLGaqN9WBxEkdvGpcg0nlLrXHqUwe8tCwVAjsqePhj6xBAZCw9feg8Y7wpcPnDWSv+9U/QjNrYmKxP2qvHhWQTKgqfrsf8C8WEgpPlO6Tr83m6ry2CwLM5oYj1dlcKSEw0TDF1hrjoG/GE/N15Uweqr9oMxC1gZYfogwU029fgXBtYoFgyAvm6EMDSbXT0G/CJBxBj4Tur006T0qTsJHF0EjuZtqknAhctp/EJ//TaSIWFGoa+uezr6CaEG7PU5ZIaReHUGh/eQXjrrRKMpn/J/TpoNtbG+yY/Ed7gswrpiV4c1ZByZH/1ihu+JbDO881wY338alsR3y3I6RY3KmpK8cZkJCM9ewxBzNegQCPbCR3APilmOhm+Faw0Ffa3rTfeTkmouHYwbWHj4foWcTc7FD6uY8GnLZb3oSSVU+mPOJm+ajhJgjKrSSL8lotXlEJ1UdYZapw9bcT1TmnzWwHt55/79OqDWHnf0iv50xBqsSBXaRrVFZdcYDBsCMs337Og5WsyQr3XyouZGMs3Tpt8kXO8gFLYciIlfoDpfaoeFoll4CC1GcOoRd8vrk5EQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB5581.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(76116006)(66946007)(66476007)(38070700005)(64756008)(66446008)(122000001)(66556008)(8936002)(110136005)(316002)(71200400001)(26005)(52536014)(55016003)(508600001)(33656002)(4744005)(86362001)(6506007)(186003)(9686003)(8676002)(2906002)(5660300002)(7696005)(38100700002)(4326008);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5EjQ88F+vCfyiyHC4CsSB9RxfmxXh+Y7L6RLCfYftHanGjtfvTB34AFJaCvD?=
- =?us-ascii?Q?dauDJ4ZZLDFZNBTMt6W4SRKO5239qOIrkwAWXUeBFm4zdPVM9V/G0Df6K+Bc?=
- =?us-ascii?Q?IZeHVhkyIEN8nGgxOXw7xiCpTwFCCzYDUEbYyrollSD4x+gMEK7AGgkJSmJJ?=
- =?us-ascii?Q?GU92OfgiXDuygxxRoK5o/BQ1VlwD1Gc/KDk931YdmlDn7xTvgahNV5pSqqGi?=
- =?us-ascii?Q?MiWRR7riktanwSAnsGvKELpOTX127/swTSlpRe/a3E1MTb6kUy/00LvxYyXl?=
- =?us-ascii?Q?P6nAvrK1BaxTWF1O7Z/T9ftNB/6e1UIJ7btMWaA9LSjywSth5sIKxLf9LJDc?=
- =?us-ascii?Q?SoxNNHla6a5JhF+geiC2rB+5O0B3aaY30zjl3kQmG7kq0msguXTp+9NeLNlr?=
- =?us-ascii?Q?Cnpyb/zGm+FsqDYJh10TZFLO+6M6mykRDwgabxM4tclQmH5sX6TyidHuvE9f?=
- =?us-ascii?Q?J7lQ1hPmhlcv5vjPeiUATNANTDjd3YHR5XsBo67Igt7z7w1qMriHW6YEBrtY?=
- =?us-ascii?Q?3o/+JIIlstKbHD9fkJsV57eNz0aXROFfHsn8oQmInFjzbrqYX7N626Ax3+M4?=
- =?us-ascii?Q?Y2J0h+/o1uKFGv7Of4Of0Abe2i5HOQG368maBkKI7n5HXL2j42365pPPW0Vp?=
- =?us-ascii?Q?Y2/Z9DpLnG3e3WuxhxNtVLMiI5J+jaJr7BtmwThC7KLhBIZ5bWiciRKfkIZC?=
- =?us-ascii?Q?JuVZXDkW2onSJujy9BXqhgeQw7zomF63/zCxq19WoXb2RIQtxy5fEzF99XZQ?=
- =?us-ascii?Q?hXWzgYQzE0PuTPCsPUTbitNa/urxz6IFZDqoEqqiLLOX8jrTf+7UBFVbQspW?=
- =?us-ascii?Q?yuqjKKxgaMVajx8YA44lE16s22ZPKFM1UukU1Xfj+Y/bsxEbHvQpp+1N59V0?=
- =?us-ascii?Q?r6MLdlZsw4m+kfVWNwpSiAuzTX7S4MGphwzsinQaXFVY6fFfYmldfE+HR8K8?=
- =?us-ascii?Q?lB7jYmiFB2Z9WMR1ucfE3HiOfi2WNVNnUEKOO4Hy3SWr1Be8SoYsN3BaD1XN?=
- =?us-ascii?Q?zdGKd21gbAhZ/ihMmckAQSuGyx6DvfLpufRYqXhSN7nhJZzMFoUxso/qrIiP?=
- =?us-ascii?Q?Q+B5hjwmcWdvIQun7DF5hnaqKWke3IfSf70AJ3lYZTKNur12J0oh8JhdNihw?=
- =?us-ascii?Q?jzxKDd+BW0r84jgRr+PqoX7ldA3CAFSX+Xq7Q9zPbI7fYb5C/D86yy3ay/0y?=
- =?us-ascii?Q?beZtopKzqNPyhzexKOpJ8HoAYCmajkOg+HxrrgbAr5ZX+auU5W44EUak3H36?=
- =?us-ascii?Q?p2mSPf2ruvlOn8ZcvEX2aptqWJfXcdDpFSJwoWQSGC6jAT6OwJZ/esw//zFX?=
- =?us-ascii?Q?8kH6kwCEGWonh/kJbhC8DL2CG/vzjYzdqwO8fdPOB+kIXafn9v2OkCrLaXUl?=
- =?us-ascii?Q?jvIG1WwoXiExd08XQn1d4JE0cvvg1fJPujd05cpTJTlR2kMxe0YLJ15jZL/G?=
- =?us-ascii?Q?GWPlFpyx2tUULvKx+fA2mB405OFBFO3fp1v/owoleF6oPDOl+6g0bzBXkw0K?=
- =?us-ascii?Q?LLBB23T5PgbE+T5eBnsTYwT+NG4C5VlW+LxFBGsKru4KvstGO85sF/tRktWe?=
- =?us-ascii?Q?1xiuLj/bH8h880u5xee7294JEif7CQ+JTMqwindLkbkqtOJL+j158gkm+LfO?=
- =?us-ascii?Q?mXES6GgBSkzbS5tyagxSQzZhP9doAimJecfdYrhXb4lZGT/jbQG5Y4H7nGnR?=
- =?us-ascii?Q?yaWCxpgF68TgP8SlXfUYM3sdwsAHwlvg8o/v9UT6OGH5eQVP3SVHcQcso84b?=
- =?us-ascii?Q?bu9n2HWX7w=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="dSMO9H3S"
+Received: by mail-vk1-xa33.google.com with SMTP id f7so5618011vkf.10
+ for <alsa-devel@alsa-project.org>; Sun, 05 Dec 2021 15:31:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=d3zLncXG+PQsNSIxNxS/1QO1tpBEgTzG8HllI/EvpGk=;
+ b=dSMO9H3SxhTocvFK5d8bl+J79twoNQ0iC0uPVdJqHI4++QnpeSPAMR5T3lfGY84tqh
+ dtREvaT3bI+mU3CEnhiAShUceQyh74lFofIK6QPrkwaKPMf7yGebjLAdsX17yJI17in/
+ PdxqAu0ZDWdgOdOXVKPvX9xWpj2WYhPa7DfxNoxRJujs48KfKmUOUOso1HHK3OVmLyF0
+ 504+9T0qcUvckUC6+0q0F2HOOYkEuXPWOPNwoiPLWtWuDLglyLDmIdhlC7oqldrg+KWK
+ 93j3BlSRLdPz9CLx8n062Siv50h2+xHB0kEPGGwgqpoIP5wNrn+k7WDE6rz3QGHP6C2M
+ e50w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=d3zLncXG+PQsNSIxNxS/1QO1tpBEgTzG8HllI/EvpGk=;
+ b=cMPFakg8k8ZonHNIRa+j+fjyDlfLv1GEsHQKWcR14lVLjy1F3nx1Jnt9cr+EGAnIeU
+ oAQV9EXCqY4goKtkcbtJmNAx9m53oDMt5BrJ/+fewSThH9pO6+XOqnNMFHf3zskd4OPU
+ f1HD7xEPGAM/FmtBVOdBByIKXK8qlhFpGtajdLPScgDCi2sGlZb2VbyVFgD84Y7dK66u
+ O1B1+Q7vDbXD8+kbiHowlBdrQjbUa2CQf2abxP0PDWdsjOvL/o8sEIQUDhb2qGdXGZMp
+ 1JN8Y6GcqCUgYVlJcyt7tKu0HTvIHJ7b9U9uyyZExumIpY+V1PiIFHSvo3ukhtyvX9Aq
+ 500A==
+X-Gm-Message-State: AOAM531x7/D6qnNxmI8UAcEe36ZWJ7RL7+AmK0Ru3SH18+o1RNqU8imG
+ 4ux92XYihCKC0U8/HvHcl5g=
+X-Google-Smtp-Source: ABdhPJxDBYmOEWl6jseDDRbSpn7ysh4nlGhWuahlraDnJXYwXOCg3ynzr95WzAR6FUF7+kJJghyO8Q==
+X-Received: by 2002:a1f:3f4f:: with SMTP id m76mr39515074vka.1.1638747060135; 
+ Sun, 05 Dec 2021 15:31:00 -0800 (PST)
+Received: from geday ([2804:7f2:8006:9290:f481:1c3e:161e:f26d])
+ by smtp.gmail.com with ESMTPSA id y7sm3315969uad.2.2021.12.05.15.30.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Dec 2021 15:30:59 -0800 (PST)
+Date: Sun, 5 Dec 2021 20:30:51 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Subject: Re: [PATCH RFC v1 2/2] ASoC: meson: aiu: Move AIU_I2S_MISC hold
+ setting to aiu-fifo-i2s
+Message-ID: <Ya1Lq1ZLccxetJwx@geday>
+References: <20211205180816.2083864-1-martin.blumenstingl@googlemail.com>
+ <20211205180816.2083864-3-martin.blumenstingl@googlemail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB5581.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4938372d-7ffe-4bff-0d64-08d9b8403c1c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Dec 2021 22:40:27.4431 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DaOKFZJ6f2DBFi0uesJkGI8jd3uCClz1NbRqsfl/AJz+s3ryEBAzBN0D8wX0hsBVWVO1PTZeNVzvGjlH7rlkK0coz7BBv/VSBd4KyUCn2TrRWEz0fNaxtGYBggfdCI7V
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6240
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211205180816.2083864-3-martin.blumenstingl@googlemail.com>
+Cc: alsa-devel@alsa-project.org, Christian Hewitt <christianshewitt@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, jbrunet@baylibre.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -157,37 +103,159 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sun, Dec 05, 2021 at 07:08:16PM +0100, Martin Blumenstingl wrote:
+> The out-of-tree vendor driver uses the following approach to set the
+> AIU_I2S_MISC register:
+> 1) write AIU_MEM_I2S_START_PTR and AIU_MEM_I2S_RD_PTR
+> 2) configure AIU_I2S_MUTE_SWAP[15:0]
+> 3) write AIU_MEM_I2S_END_PTR
+> 4) set AIU_I2S_MISC[2] to 1 (documented as: "put I2S interface in hold
+>    mode")
+> 5) set AIU_I2S_MISC[4] to 1 (depending on the driver revision it always
+>    stays at 1 while for older drivers this bit is unset in step 4)
+> 6) set AIU_I2S_MISC[2] to 0
+> 7) write AIU_MEM_I2S_MASKS
+> 8) toggle AIU_MEM_I2S_CONTROL[0]
+> 9) toggle AIU_MEM_I2S_BUF_CNTL[0]
+> 
+> Additional testing shows that when AIU_I2S_MISC[2] is set to 1 then no
+> interrupts are generated anymore. The way this bit is managed by the
+> vendor driver as well as not getting any interrupts can mean that it's
+> related to the FIFO and not the encoder.
+> 
+> Move setting the AIU_I2S_MISC[2] bit to aiu_fifo_i2s_hw_params() so it
+> closer resembles the flow in the vendor kernel. While here also
+> configure AIU_I2S_MISC[4] (documented as: "force each audio data to
+> left or right according to the bit attached with the audio data")
+> similar to how the vendor driver does this. This fixes the infamous and
+> long-standing "machine gun noise" issue (a buffer underrun issue).
+>
 
-Hi Ameer
+Tested-by: Geraldo Nascimento <geraldogabriel@gmail.com>
 
-Thank you for your patch.
-
-> Dereferncing of_id pointer will result in exception in current
-> implementation since of_match_device() will assign it to NULL.
-> Adding NULL check for protection.
-(snip)
-> @@ -532,13 +532,16 @@ static int test_driver_probe(struct platform_device=
- *pdev)
->  	struct device_node *node =3D dev->of_node;
->  	struct device_node *ep;
->  	const struct of_device_id *of_id =3D of_match_device(test_of_match, &pd=
-ev->dev);
-> -	const struct test_adata *adata =3D of_id->data;
-> +	const struct test_adata *adata;
->  	struct snd_soc_component_driver *cdriv;
->  	struct snd_soc_dai_driver *ddriv;
->  	struct test_dai_name *dname;
->  	struct test_priv *priv;
->  	int num, ret, i;
-> =20
-> +	if (!of_id)
-> +		return -EINVAL;
-> +	adata =3D of_id->data;
-
-But hmm...
-Probing this driver without adata is strange for me.
-How did probe this driver ??
-
-Best regards
 ---
-Kuninori Morimoto
+
+About the test setup:
+
+Board is from H96Pro+ TV BOX, Amlogic S912 with 3G RAM, 32GB eMMC and a
+QCA9377 SDIO wifi chip. Sticker in the underside of the board says
+CZ-S32-V6 which I suppose is the manufacturer's name/revision of the
+PCB.
+
+Tested with Audacious, audio output is ALSA without any plugins such as
+dmix, etc.
+
+First I made sure the problem was reproducible. Just skipping the track
+on Audacious from one point to another would result in severe noise. I
+then applied Martin's patch and noise is gone for good.
+
+Thanks,
+Geraldo Nascimento
+
+> Fixes: 6ae9ca9ce986bf ("ASoC: meson: aiu: add i2s and spdif support")
+> Reported-by: Christian Hewitt <christianshewitt@gmail.com>
+> Reported-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+> Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+> ---
+>  sound/soc/meson/aiu-encoder-i2s.c | 33 -------------------------------
+>  sound/soc/meson/aiu-fifo-i2s.c    | 12 +++++++++++
+>  2 files changed, 12 insertions(+), 33 deletions(-)
+> 
+> diff --git a/sound/soc/meson/aiu-encoder-i2s.c b/sound/soc/meson/aiu-encoder-i2s.c
+> index 932224552146..67729de41a73 100644
+> --- a/sound/soc/meson/aiu-encoder-i2s.c
+> +++ b/sound/soc/meson/aiu-encoder-i2s.c
+> @@ -18,7 +18,6 @@
+>  #define AIU_RST_SOFT_I2S_FAST		BIT(0)
+>  
+>  #define AIU_I2S_DAC_CFG_MSB_FIRST	BIT(2)
+> -#define AIU_I2S_MISC_HOLD_EN		BIT(2)
+>  #define AIU_CLK_CTRL_I2S_DIV_EN		BIT(0)
+>  #define AIU_CLK_CTRL_I2S_DIV		GENMASK(3, 2)
+>  #define AIU_CLK_CTRL_AOCLK_INVERT	BIT(6)
+> @@ -36,37 +35,6 @@ static void aiu_encoder_i2s_divider_enable(struct snd_soc_component *component,
+>  				      enable ? AIU_CLK_CTRL_I2S_DIV_EN : 0);
+>  }
+>  
+> -static void aiu_encoder_i2s_hold(struct snd_soc_component *component,
+> -				 bool enable)
+> -{
+> -	snd_soc_component_update_bits(component, AIU_I2S_MISC,
+> -				      AIU_I2S_MISC_HOLD_EN,
+> -				      enable ? AIU_I2S_MISC_HOLD_EN : 0);
+> -}
+> -
+> -static int aiu_encoder_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
+> -				   struct snd_soc_dai *dai)
+> -{
+> -	struct snd_soc_component *component = dai->component;
+> -
+> -	switch (cmd) {
+> -	case SNDRV_PCM_TRIGGER_START:
+> -	case SNDRV_PCM_TRIGGER_RESUME:
+> -	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> -		aiu_encoder_i2s_hold(component, false);
+> -		return 0;
+> -
+> -	case SNDRV_PCM_TRIGGER_STOP:
+> -	case SNDRV_PCM_TRIGGER_SUSPEND:
+> -	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> -		aiu_encoder_i2s_hold(component, true);
+> -		return 0;
+> -
+> -	default:
+> -		return -EINVAL;
+> -	}
+> -}
+> -
+>  static int aiu_encoder_i2s_setup_desc(struct snd_soc_component *component,
+>  				      struct snd_pcm_hw_params *params)
+>  {
+> @@ -353,7 +321,6 @@ static void aiu_encoder_i2s_shutdown(struct snd_pcm_substream *substream,
+>  }
+>  
+>  const struct snd_soc_dai_ops aiu_encoder_i2s_dai_ops = {
+> -	.trigger	= aiu_encoder_i2s_trigger,
+>  	.hw_params	= aiu_encoder_i2s_hw_params,
+>  	.hw_free	= aiu_encoder_i2s_hw_free,
+>  	.set_fmt	= aiu_encoder_i2s_set_fmt,
+> diff --git a/sound/soc/meson/aiu-fifo-i2s.c b/sound/soc/meson/aiu-fifo-i2s.c
+> index 2388a2d0b3a6..d0a1090d6465 100644
+> --- a/sound/soc/meson/aiu-fifo-i2s.c
+> +++ b/sound/soc/meson/aiu-fifo-i2s.c
+> @@ -20,6 +20,8 @@
+>  #define AIU_MEM_I2S_CONTROL_MODE_16BIT	BIT(6)
+>  #define AIU_MEM_I2S_BUF_CNTL_INIT	BIT(0)
+>  #define AIU_RST_SOFT_I2S_FAST		BIT(0)
+> +#define AIU_I2S_MISC_HOLD_EN		BIT(2)
+> +#define AIU_I2S_MISC_FORCE_LEFT_RIGHT	BIT(4)
+>  
+>  #define AIU_FIFO_I2S_BLOCK		256
+>  
+> @@ -90,6 +92,10 @@ static int aiu_fifo_i2s_hw_params(struct snd_pcm_substream *substream,
+>  	unsigned int val;
+>  	int ret;
+>  
+> +	snd_soc_component_update_bits(component, AIU_I2S_MISC,
+> +				      AIU_I2S_MISC_HOLD_EN,
+> +				      AIU_I2S_MISC_HOLD_EN);
+> +
+>  	ret = aiu_fifo_hw_params(substream, params, dai);
+>  	if (ret)
+>  		return ret;
+> @@ -117,6 +123,12 @@ static int aiu_fifo_i2s_hw_params(struct snd_pcm_substream *substream,
+>  	snd_soc_component_update_bits(component, AIU_MEM_I2S_MASKS,
+>  				      AIU_MEM_I2S_MASKS_IRQ_BLOCK, val);
+>  
+> +	snd_soc_component_update_bits(component, AIU_I2S_MISC,
+> +				      AIU_I2S_MISC_FORCE_LEFT_RIGHT,
+> +				      AIU_I2S_MISC_FORCE_LEFT_RIGHT);
+> +	snd_soc_component_update_bits(component, AIU_I2S_MISC,
+> +				      AIU_I2S_MISC_HOLD_EN, 0);
+> +
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.34.1
+> 

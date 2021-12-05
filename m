@@ -2,100 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5612469258
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 10:26:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1D34469259
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 10:26:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70E7D1FA6;
-	Mon,  6 Dec 2021 10:25:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70E7D1FA6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8ED6E200A;
+	Mon,  6 Dec 2021 10:25:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ED6E200A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638782794;
-	bh=2SBWyfOLBccLkLmxkFufZ+IVkohjSe1U0/MvMvmoPmA=;
-	h=Date:From:To:Subject:References:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=bntByFr4ShMqtomZVn5HASlDcqvFufu7bH+VivwBI42PT59pawS+jC0fUN1/3OSrl
-	 1fYpVQlg0WMgJC36Yeo0+XIKQypiIF/v0n23VFZYpWYFNRVyBA5eoigzAxV1fFdZSA
-	 bkDRoiVR8IWvcTee/Jnn6fqfhN+09G3X111eGAcM=
+	s=default; t=1638782802;
+	bh=8ZkHxX6KHjpqWmZqqUITtS5Ml11doxfzvaXPwvQmryY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FJux6yTF5/m2e8muRo+e0hzyj6+YpcNOkgVR6Yj6xiGb/1j8bm/hPUYOwLKcNSZCi
+	 mVEOVXVcFjeEESGWV9lYgEjXZOD8SGgo9yJoPPOJRJet4OcEEB9YxgAqg1ZIMesVzm
+	 zMs76mcQOc9B0sYa2KBba04QDecAm8jZ1mMFgWuw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B845F804F1;
-	Mon,  6 Dec 2021 10:24:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F758F804F2;
+	Mon,  6 Dec 2021 10:24:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB07CF8023B; Sun,  5 Dec 2021 00:36:14 +0100 (CET)
+ id 76F1FF80118; Sun,  5 Dec 2021 21:42:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from sonic311-20.consmr.mail.bf2.yahoo.com
- (sonic311-20.consmr.mail.bf2.yahoo.com [74.6.131.194])
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37864F80134
- for <alsa-devel@alsa-project.org>; Sun,  5 Dec 2021 00:36:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37864F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA606F80118
+ for <alsa-devel@alsa-project.org>; Sun,  5 Dec 2021 21:42:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA606F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=att.net header.i=@att.net
- header.b="tVCWp1GM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=att.net; s=s1024;
- t=1638660968; bh=P8d2sq8JxCs8A8a1SWLPnyidVJFMTXIc0yK6QrdKsyg=;
- h=Date:From:To:Subject:References:From:Subject:Reply-To;
- b=tVCWp1GM2at1Dx8ZmrR85000ORz6SxhJ2Rr8X/DzzmD2DM7K6Yb4OtHK2440ugIjqvKHQaI4+SW4Ynv3r/9B5WGLZBWO47zJmvyyzNLCCQTvGiSWYlKauL+vcvr7/Tb3diU1ILcZsHtcIejYZ0UvNAzH43w9UYhCbjBkPJlUwaQ=
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1638660968; bh=mosWu5LFINnVbwtO38LSBlSg4HZmm/pG+Q76YQcqhvT=;
- h=X-Sonic-MF:Date:From:To:Subject:From:Subject;
- b=bqjMYliuwPSFeFzIov9CmgcXhb0ZP8WS7QbixlaRMEeiMi6Q5hCgdU9tBojbD1rLuUZo94BKDeuAUIqS7zVeNlBJnEc7sn6QWqRoG3kRgeQzDJ/pRD1N1GTrvJ/ewedO9MwPRPcDJ4hggOybtKpS1sz/oE3MENI2K9xDgSlsPAXtZdaPnThtYi7SCShBoo0WsitSaHOgcjiz1E7MAj+U/PnvS1RQ2fsd8wHrFtOxDxncLeFLntI1hkxC0BSHvHLyEKHqzwEyyTv09/OWgxFFsc1/mJ4Vfyxp8ndGPx8aZpus7pOps5+MkTRhwilqDJJRJQdhFb20g1afujAkUAnRRA==
-X-YMail-OSG: tp3uzMAVM1mmIUJ00X3pdVNw6GiNs14SzocQVssEAVwqj_TL0wFQfhh3Vb5SiNV
- bHAcEPy2thOhzHqZ39I2rVWO9PSPI_FqKOd3TUsnSf10O4OT_lyxxNidn25kuIo.aDtJNNmSMUgt
- TLgAJXmBHa4HF7kxZzUdCWXZbDMc9m8xJFJhNxQ1vfYytkEA46ttB23AqRmLL3gdB.8s8xIcYGg.
- LMdrA_WFGRvPxPG9Rt19g.uUaj5Sw6dOk3lSF0hyhiNB.rkq9W2vCo0ZgN52Agxm9hL_WyJmd_94
- v5q1kTdbguTMuqn_WU6qYdnBsDxI.FifloK2heV4QHZ5cB33WhlF6.sk_asqwDGJJtzAml6BCh0B
- 0xkDIVGVZeQk8SMccpbXZTBx3cpFxuc2lwlBq5tLNAVlE0o22Se9lyiQhfjPVnDxq.HvqrGPVmgZ
- BgN28PQt9kt1uQxV6FlfFtElsc6EQKc71V46VXgCfzUUyi0hcNf6TQ3_R_WAOrlEHmxprui60jJu
- kh97DO54w3jHyAe1QwFSLmHvPpMOiHiNIJVoIZFI0CVj__OOsBj228143mbui1_LzJpVVW3PbHQC
- 4ErXkmtdIiIrZ9xlpEoALmXWmPzSNh6JB.y28cNlt2mjIKHeTbHfn4EPKTWYcc7o7CvMeFrcbO3D
- hItNKp1vpwWrZ1ENZ26_cSre0IKHFyOG39fR4zxKC.PncxWtzmR.SS5KRyN_iIHJDwP7FtwhqOAA
- ebzuMo._2B6F398mDkvMz5Prs2ABoDYf6ePbul691TTBDhszsckBTtx7OrQFYJbsgs_u1mrUjNrl
- AqgSaIvnpqkaItVu0DmCH_XiYRXk2f0tD4xkobgKCDCdipswoXl80U4SxrZs1ABAJyjP3_celVUw
- y67rp7oM9SsCul_o5IZBMssehpnUiMS5QjqSybdyMFcrqW2roZJrgVcQmbhHiKnAtt1XgMAc.UJ8
- XInS8OewDa7ESPvEIG2iQLZvyjqZrn2ssywHzM4flZ64CLOuK8Dz6WIwTXTnWAdavl8iLd3znorD
- H2yJZzZKzkY8AUbVDfU9v60YEW53nIw6mBz0WDCMJFdM8CA9s8Cb6GtvwC33I1MtoxjKPyaft0zz
- T5mUzLFuffIGvifsPFIs_fxcONW.PT9SEVdryrz_ivmRTeIqWznyjrHp4ZMHS0kpIbmMmTkkjF.g
- PqlHzDIglRt2VvWVmQ5R5vamX15nJA55WQB26PX.Tl6GQtFhQY5.39eXHeKUW80308NaY5tWTIUH
- iIelx6hQ8ju1neTW7zTRvW62U1FE.AIovjqS6X71gpD8uuIesqjXygpGTCzLrjBV0ty_QMc6YJkx
- pLCmgQ6U3rpyujooWd3d4BVzdupwOwcIbge.JzqWahQEptCro8C.p1pn9BaPYOMIKLFcdGbu95VX
- JwdT91AQ66QMw6pCI8wYzjt7ezPrn_HcvV.qoTNBm1WeBXaKlnZIbZk1gKaJrtyV5w7zdxTQNgAc
- uJpp.YRGQ.lbHJPPAghGEWG3mEyNexh7Pl6foHLnBOZIn7s8udMqZsH2BOaUzwhelDD0KH7iuWGY
- Uwp2SI6.l1k2FjzahBvRaksC4qvmKyfYr_FEhEUTkGt8HsssxqCo291jUpDTjzFGVNsDqmZGDvg_
- nY3qMxEd7YZUJ2lcJNBAVzUv_.qBSpb9Bh5EIFw.zFXokCs124dIDRarufGYpuv41OkxEbqD3ofQ
- 9M2FkSeC57GYgFzMVnXVL_3UjYEYhENfptDE5fwuCMwrn_Zv3Qe1_jm7X6xKkltVKG1B9VmFYqkL
- p2TVdGx_l50qKbhQ0151ryQLnuhmUBh4tfsQ.Fw_RDZ.SqPrWVNF6RzvvL1kQtiCiBVUL2hHJR1.
- Df5GfDcKlqT1DZLR.rUSbUcFqL6s4GeZclfKpFNp3F7SXMqcNE_wuxt8Lq4JjKsDD_VRJi.zyo_p
- _ts_hM2IWM6oajfP0CU8I3hwv6fpBU_zbnx4OfZDYdrjokooJUQJXfIkFi.Ei5ba_5JhhbKDMYV1
- 5VMntz8JLASv_koY.1zBUdFD9LioIYq5j5C2jIP1KiRe7QCRJWES8deWc_rl7T_hTSD8kVQ2.toT
- x8O_Dn2LWmRZctrdikuC._RkkB_E55IA5oDx_Udug4kHx5wWe19avMIsnEugpIHJMmOC8hpw7tEg
- 2mxXVleBLpWn21bvYRPKFgHmkg6QCHJaVJuUyeFZh
-X-Sonic-MF: <kilgota@att.net>
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic311.consmr.mail.bf2.yahoo.com with HTTP; Sat, 4 Dec 2021 23:36:08 +0000
-Received: by kubenode548.mail-prod1.omega.bf1.yahoo.com (VZM Hermes SMTP
- Server) with ESMTPA ID 0ca99bdd5a67f5c7cb8eeb32825bfa27; 
- Sat, 04 Dec 2021 23:36:05 +0000 (UTC)
-Date: Sat, 4 Dec 2021 17:35:52 -0600 (CST)
-From: Theodore Kilgore <kilgota@att.net>
-To: alsa-devel@alsa-project.org
-Subject: GLK board with ESSX8336 sound. Would like to get sound working on
- this system
-Message-ID: <0a98323-e429-ea9b-fb8d-6eceddd9215c@att.net>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="aZPRWWj6"
+Received: by mail-wr1-x434.google.com with SMTP id i5so18204174wrb.2
+ for <alsa-devel@alsa-project.org>; Sun, 05 Dec 2021 12:42:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Rhy8UiEQpnUYiYMsnqfzPU8AwFzNfD4+zpkpcL/Vs9I=;
+ b=aZPRWWj68yw79Cj6AOj9CaoYBPvlgQJPPH/C8gXeP/WAWH3zqVmVyaBhuT3csJBtAI
+ WEAwpnic0rMwbcgVmOGjON7bs+jvmfiN8e7EcineJXv90Mj23NyPIPaYfw+oD2v5TloL
+ YcZLMPey/nkMmaCPBWPrVOMosegfQokW6m7gQ+B+0ge2/djVkOzGy98YeNdwBwJxwCQi
+ AvBfNbyjkDoqgN6dQc2bwkbxvfcNinzibuUJMvmt7Nutwrn/8Z2YqSmM/YBSY48Fwipm
+ vKZvlQTkcch9RXNAGHz61FYy+wxf/3scrxf8SC+9jFzfWhCQd9UYDydUb20TcfxU3jwE
+ HdLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Rhy8UiEQpnUYiYMsnqfzPU8AwFzNfD4+zpkpcL/Vs9I=;
+ b=r0dsOvHPZLUwoEU2xzU9LemeeVT9nNe1vXY7amen6+KjFH9Br2eoPv/qX1SpRCn30A
+ cKWaNJ0ONP8CcvoF962qETn8WxGc3TwnEhgnBCmF7L/exR/37QK5r5tXttuz7ixORct8
+ fciz0wytoakTrDOziHTDT0VbpepFb9/clby/i5YR/yLayB4kELuCucMKPxVcVKkpliGQ
+ WNo0yC2dHFxGFJN69GzPLS2F/F9oCQN9vG7+khG586tr5EdcGyEaabKfR8xotsf7VqOP
+ QaYnTEmta2hqrXxSr3gu8lM3B8ul5iLmqemHyvseBjWYlbbpx8mkw6+L8oLuHDySx1Es
+ /5jg==
+X-Gm-Message-State: AOAM531gIXy+sWEN9NKG0qUAM5ChLRg5oDNU3ms7/fKym39nsMTQrKiI
+ 3/bq9frMToe+Ko2f4Sm2f+U=
+X-Google-Smtp-Source: ABdhPJxXJvtbk0zbEsczc3eNieyvgsO9yrjJJLB3RdcmFJI5MHdqtIcSMAi81+Wdt+7+Gwmr16iTTQ==
+X-Received: by 2002:adf:f489:: with SMTP id l9mr39249389wro.268.1638736926668; 
+ Sun, 05 Dec 2021 12:42:06 -0800 (PST)
+Received: from localhost.localdomain ([39.48.147.147])
+ by smtp.gmail.com with ESMTPSA id t11sm9530345wrz.97.2021.12.05.12.42.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Dec 2021 12:42:06 -0800 (PST)
+From: Ameer Hamza <amhamza.mgc@gmail.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: test-component: fix null pointer dereference.
+Date: Mon,  6 Dec 2021 01:42:00 +0500
+Message-Id: <20211205204200.7852-1-amhamza.mgc@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed; charset=US-ASCII
-References: <0a98323-e429-ea9b-fb8d-6eceddd9215c.ref@att.net>
-X-Mailer: WebService/1.1.19306
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 Dec 2021 10:24:03 +0100
+Cc: amhamza.mgc@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,11 +98,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dereferncing of_id pointer will result in exception in current
+implementation since of_match_device() will assign it to NULL.
+Adding NULL check for protection.
 
-Hello,
+Signed-off-by: Ameer Hamza <amhamza.mgc@gmail.com>
+---
+ sound/soc/generic/test-component.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-I assume that someone is already working on this but I do not know 
-who. I have some experience with coding and kernel stuff (see 
-drivers/media/usb/gspca). Not experienced with doing sound support.
+diff --git a/sound/soc/generic/test-component.c b/sound/soc/generic/test-component.c
+index 85385a771d80..8fc97d3ff011 100644
+--- a/sound/soc/generic/test-component.c
++++ b/sound/soc/generic/test-component.c
+@@ -532,13 +532,16 @@ static int test_driver_probe(struct platform_device *pdev)
+ 	struct device_node *node = dev->of_node;
+ 	struct device_node *ep;
+ 	const struct of_device_id *of_id = of_match_device(test_of_match, &pdev->dev);
+-	const struct test_adata *adata = of_id->data;
++	const struct test_adata *adata;
+ 	struct snd_soc_component_driver *cdriv;
+ 	struct snd_soc_dai_driver *ddriv;
+ 	struct test_dai_name *dname;
+ 	struct test_priv *priv;
+ 	int num, ret, i;
+ 
++	if (!of_id)
++		return -EINVAL;
++	adata = of_id->data;
+ 	num = of_graph_get_endpoint_count(node);
+ 	if (!num) {
+ 		dev_err(dev, "no port exits\n");
+-- 
+2.25.1
 
-Theodore Kilgore

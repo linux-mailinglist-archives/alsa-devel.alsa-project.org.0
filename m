@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AACA46A3C2
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 19:03:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54C8646A3C4
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 19:04:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A9F7233D;
-	Mon,  6 Dec 2021 19:02:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A9F7233D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E41D0218D;
+	Mon,  6 Dec 2021 19:03:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E41D0218D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638813821;
-	bh=gpgEzgtitb8ZbtTgNSGacdRk0bS0lGGyk4+yjPMNTXs=;
+	s=default; t=1638813863;
+	bh=2RiRaDMe4pCK1VB/Bu/ITd8PZTYEbSQhnyGAdnBQUrk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Oq1RKDIPE7ZO8gPwB7xpES3mUG4lkZjOMQke1cGJFBx76H9dddSrMK5fBuQlonnUZ
-	 bcSzR2w0zNMJxvdVNbhPzYknkTiI021flwzmENuIxIbdkWqiLKkzrlLhonb7QGebJG
-	 iVBVB/7Ixq8ZHwq82Nv9EiC1NPNYe/XMMIGohBk0=
+	b=HXeMZXAuZHGwqD2l99RcHPBKqOa3gwQoGjyiBnmAoEwJ0prE1vjMbnAskmUlxvrtc
+	 3ot18hCRtnvwm/36JZIEog7EGOa0729FgE+hSHx2Rxtx550udVQKFyYhR2gPoCJAMa
+	 LC8WQUVGEWDIsfQsjeMC5UTbykQcM2VgRCYnkcks=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C650F80524;
-	Mon,  6 Dec 2021 19:00:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B423F80527;
+	Mon,  6 Dec 2021 19:00:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6FCAF80507; Mon,  6 Dec 2021 19:00:45 +0100 (CET)
+ id D4E60F80520; Mon,  6 Dec 2021 19:00:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17F12F804F3
- for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 19:00:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17F12F804F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 110B4F8051C
+ for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 19:00:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 110B4F8051C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="D5WtIidF"
+ header.b="XlI4NPX0"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6B15AB811A3;
+ by ams.source.kernel.org (Postfix) with ESMTPS id A761AB811E9;
+ Mon,  6 Dec 2021 18:00:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C02DCC341C1;
  Mon,  6 Dec 2021 18:00:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10AF3C341C5;
- Mon,  6 Dec 2021 18:00:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638813642;
- bh=gpgEzgtitb8ZbtTgNSGacdRk0bS0lGGyk4+yjPMNTXs=;
+ s=k20201202; t=1638813645;
+ bh=2RiRaDMe4pCK1VB/Bu/ITd8PZTYEbSQhnyGAdnBQUrk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=D5WtIidFy4blBoZa2JP7SnPul5vQI0db0zKSrraKthjPknYr9a40tzQ/Jn7OR3P63
- EEgKbfiHfeI7v60S4BBxhFp9I1YhF3eJtEA8BRBrLf1TCWEA86XgVakMamN58FSbBV
- po0WZfAPwhUBO8QdGjNJM5ii0pzhh4Dj6dHqQs8LmlkgeHajkAsoj7uV62psbXU44Q
- CNOURxpCBSXHSZj2H9cin/tzWvaKsFnJGGZ/quFCebmlvXuR8c8Ipb8K3Gx9hj36OF
- XInsTmBacISGo7fHHgTFNgqrQ72w8KgjAyp4l40+PS0buAeCUa1L4Llgh/EGOXjARE
- Pzizs53OBVtEA==
+ b=XlI4NPX0kqvOLhI7fnk4Iwv3mg3BDGMu80RHDRDWvAyJAaklrga3eGZ7XKR9z58mQ
+ ZGr4RHfoL3Td6RkVEzP1b0veYy6sWLOZTlQfa0apubFRwresEEl2AxsAbVDrHxgzBt
+ SoW7YhLmvm+dKBgYHOcN5M6Und6tG7or3xfdH/DR9S/t2fZGcPDy8fgPQqGCnRc4Fz
+ 9JJ051TZUqWIfU3XqC8hOQrMe58l3RwT0Mi8gjEFrh+pAr8mpFpKJGMN7DuP9Tv31e
+ lu6qPmgMoo4XJneKmZyrfQCyJo/BqahBJnnusEgZTNylYJFnzC09K69mR+tJLYEJFu
+ xRtgUObS75QtQ==
 From: Mark Brown <broonie@kernel.org>
-To: Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20211204110848.21322-1-rikard.falkeborn@gmail.com>
-References: <20211204110848.21322-1-rikard.falkeborn@gmail.com>
-Subject: Re: [PATCH] ASoC: amd: acp6x-pdm-dma: Constify static snd_soc_dai_ops
-Message-Id: <163881363969.2769299.3291648369913552767.b4-ty@kernel.org>
-Date: Mon, 06 Dec 2021 18:00:39 +0000
+To: alsa-devel@alsa-project.org, Ameer Hamza <amhamza.mgc@gmail.com>,
+ perex@perex.cz, kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com,
+ tiwai@suse.com
+In-Reply-To: <20211205204200.7852-1-amhamza.mgc@gmail.com>
+References: <20211205204200.7852-1-amhamza.mgc@gmail.com>
+Subject: Re: [PATCH] ASoC: test-component: fix null pointer dereference.
+Message-Id: <163881364233.2769299.1844028008704672549.b4-ty@kernel.org>
+Date: Mon, 06 Dec 2021 18:00:42 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,11 +84,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 4 Dec 2021 12:08:48 +0100, Rikard Falkeborn wrote:
-> The only usage of acp6x_pdm_dai_ops is to assign its address to the ops
-> field in the snd_soc_dai_driver struct, which is a pointer to const
-> snd_soc_dai_ops. Make it const to allow the compiler to put it in
-> read-only memory.
+On Mon, 6 Dec 2021 01:42:00 +0500, Ameer Hamza wrote:
+> Dereferncing of_id pointer will result in exception in current
+> implementation since of_match_device() will assign it to NULL.
+> Adding NULL check for protection.
 > 
 > 
 
@@ -99,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: acp6x-pdm-dma: Constify static snd_soc_dai_ops
-      commit: 7bef00106bc68beddcddcd06e3b02dde5525face
+[1/1] ASoC: test-component: fix null pointer dereference.
+      commit: c686316ec1210d43653c91e104c1e4cd0156dc89
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

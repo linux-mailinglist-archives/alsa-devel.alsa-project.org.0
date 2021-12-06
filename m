@@ -2,56 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2958F469323
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 11:00:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9D974696FA
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 14:26:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7D472044;
-	Mon,  6 Dec 2021 10:59:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7D472044
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68508200B;
+	Mon,  6 Dec 2021 14:25:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68508200B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638784848;
-	bh=CIntIpBUIbzQw6LZwrF6mXoI//YSlzn93Rhjac1ZEwg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=G8hnmYjFPeL5GXR41sV+gh5Ru7qTh9XJAvfsM1EEnI/f4j10m+yrYn+nIfq8+rxxS
-	 o96R+/pHW0LlqgypWXJ4uDH4SlmePQqhmlN7W+/PqM69MAUQr+3kBHQX/8pX5fPjbk
-	 mKwFctYkn/45l6UMffERzIbHBMxnML/QcADyDDbE=
+	s=default; t=1638797187;
+	bh=23bWVipbi4lQe7/wbua2k2oEGCpFGNw9N0040dL29Bc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=k2j6plbFFZGAVj4y22Ui6EcG5yDenN3kv9bO3nHmsxbQvUnSc+1ldR5Hl+yvRdw2O
+	 TidhWOUudn5730GpNkDG+kvAJLZ5mQZwuv6p44voR5Jv79Fd2OSbUV9CLSmFTHV6Rp
+	 BJBox9Gk1+zN4mBKqplaMvPZ4S/Oi9pF0oDgYN5s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6019F802C8;
-	Mon,  6 Dec 2021 10:59:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEF82F804AE;
+	Mon,  6 Dec 2021 14:25:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 203C5F8026C; Mon,  6 Dec 2021 10:59:29 +0100 (CET)
+ id 5FE43F804EC; Mon,  6 Dec 2021 14:25:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9D04F80147
- for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 10:59:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9D04F80147
-Received: (Authenticated sender: kory.maincent@bootlin.com)
- by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id 9E527FF812;
- Mon,  6 Dec 2021 09:59:20 +0000 (UTC)
-From: Kory Maincent <kory.maincent@bootlin.com>
-To: alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: soc-core: add the driver component name to the
- component struc
-Date: Mon,  6 Dec 2021 10:59:20 +0100
-Message-Id: <20211206095920.40552-1-kory.maincent@bootlin.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11CA0F804E4
+ for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 14:25:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11CA0F804E4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="EVcLpM3W"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0C503B8104F;
+ Mon,  6 Dec 2021 13:25:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0FAC341C1;
+ Mon,  6 Dec 2021 13:24:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1638797101;
+ bh=23bWVipbi4lQe7/wbua2k2oEGCpFGNw9N0040dL29Bc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EVcLpM3WUMdsxyWLGN9cEr9kcyzceJY24/tBFQ/LkCyxpL5lR8/C83yQ/WeFyXxr3
+ 3l61rgFn+5kHUa0liy1Wp5PyCxxF+dyjntuHqVHd+hNL0uYP2Upj2wJHffcQetEGhr
+ cBXiJ08oGQ4Ejxacp/D/1MpuZRpM9FMrpbgYeQbtLO8e+IBKTOiPaFTU/PksidMUFU
+ 5dMRrSsApdjGs5+geP3HcMB9qW/SsT+B3cE6LYsu3UQXa9ccOQUoMkd4oeoo/NxlpP
+ 3mgderEZ7IP10vnpSPdXPRkubOpqX+EnrwrsdamMgpDt/uDo/64XWYMLFXx5/IYGoC
+ 6/vwUDINR8Jtg==
+Date: Mon, 6 Dec 2021 13:24:56 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Bernard Zhao <bernard@vivo.com>
+Subject: Re: [PATCH] sound/soc: remove useless bool conversion to bool variable
+Message-ID: <Ya4PKMFCP1n5Sthz@sirena.org.uk>
+References: <20211206021100.321170-1-bernard@vivo.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alexandre.belloni@bootlin.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- thomas.petazzoni@bootlin.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="IQbEZeBX9Rukd5iP"
+Content-Disposition: inline
+In-Reply-To: <20211206021100.321170-1-bernard@vivo.com>
+X-Cookie: You will soon forget this.
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,74 +87,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The function fmt_single_name is using to sanitize namings, and it return
-the name set to component->name.
-This function is returning either the "device_name" or the
-"device_name.driver_name" for i2c devices. There is no use of the component
-driver name.
-If a non i2c driver register two components the function will return the
-same "device_name" for both components. This could cause unexpected issue,
-in my case it is a debugfs error which tries to create two directory with
-the same component name.
 
-I have fixed it by prefixing the component name with the driver component
-name.
+--IQbEZeBX9Rukd5iP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
----
- sound/soc/soc-core.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+On Sun, Dec 05, 2021 at 06:11:00PM -0800, Bernard Zhao wrote:
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index dcf6be4c4aaa..21ff77b231b8 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2342,10 +2342,10 @@ EXPORT_SYMBOL_GPL(snd_soc_unregister_card);
-  * Simplify DAI link configuration by removing ".-1" from device names
-  * and sanitizing names.
-  */
--static char *fmt_single_name(struct device *dev, int *id)
-+static char *fmt_single_name(struct device *dev, const char *snd_drv_name, int *id)
- {
- 	const char *devname = dev_name(dev);
--	char *found, *name;
-+	char *found, *name, *tmp;
- 	unsigned int id1, id2;
- 
- 	if (devname == NULL)
-@@ -2380,6 +2380,14 @@ static char *fmt_single_name(struct device *dev, int *id)
- 		*id = 0;
- 	}
- 
-+	if (snd_drv_name != NULL) {
-+		/* Add driver component name if present */
-+		tmp = devm_kasprintf(dev, GFP_KERNEL, "%s.%s", snd_drv_name, name);
-+		devm_kfree(dev, name);
-+		name = devm_kstrdup(dev, tmp, GFP_KERNEL);
-+		devm_kfree(dev, tmp);
-+	}
-+
- 	return name;
- }
- 
-@@ -2444,7 +2452,7 @@ struct snd_soc_dai *snd_soc_register_dai(struct snd_soc_component *component,
- 	 */
- 	if (legacy_dai_naming &&
- 	    (dai_drv->id == 0 || dai_drv->name == NULL)) {
--		dai->name = fmt_single_name(dev, &dai->id);
-+		dai->name = fmt_single_name(dev, dai_drv->name, &dai->id);
- 	} else {
- 		dai->name = fmt_multiple_name(dev, dai_drv);
- 		if (dai_drv->id)
-@@ -2578,7 +2586,7 @@ int snd_soc_component_initialize(struct snd_soc_component *component,
- 	INIT_LIST_HEAD(&component->list);
- 	mutex_init(&component->io_mutex);
- 
--	component->name = fmt_single_name(dev, &component->id);
-+	component->name = fmt_single_name(dev, driver->name, &component->id);
- 	if (!component->name) {
- 		dev_err(dev, "ASoC: Failed to allocate name\n");
- 		return -ENOMEM;
--- 
-2.25.1
+> This patch remove useless bool conversion to bool variable
 
+> -	classh_config->classh_algo_enable = classh ? true : false;
+> +	classh_config->classh_algo_enable = (classh != NULL);
+
+There's no bool variable here...
+
+--IQbEZeBX9Rukd5iP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGuDygACgkQJNaLcl1U
+h9Dv3Qf3XG7gVlM3Kturxyb43OVC6b6mRkv+is7OA5mf9kilrBwbUQe3yBUwXvFG
+kkWosDZFuFwdyDaeU+0htZhJDIUOvwXMX8NL69GCyS2Kc0wumOj2zsQ2GCKqgRmD
+8izZQotqMC86KK0hXmJUY3TKGolt33k8xrXzJ2K/noaMpBcC5aEWmqitFOmsc9mF
+lnODiutQarhVX0w4h4s5ndag5HoLuMFEjL1jDY8LuN4kAEfuShg3JF39k1MTtRZy
+ShXAFbszJfUoPsM4Z9BZ0/FWMYGpfzKJWrkoKWileC0OhAInGkHUt/L+UvayBnEC
+EVzHDkj/bYekXOfvuIdfkVAsh3kg
+=Q00E
+-----END PGP SIGNATURE-----
+
+--IQbEZeBX9Rukd5iP--

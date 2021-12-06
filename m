@@ -2,77 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F8E246A195
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 17:40:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78C5C46A1F5
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 18:04:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D900A20CF;
-	Mon,  6 Dec 2021 17:40:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D900A20CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5AC11F85;
+	Mon,  6 Dec 2021 18:03:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5AC11F85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638808852;
-	bh=LCXcChvr0AeOJPtSkeNtOPUaD6QgKLC0oPv7MRncYFw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oKCNCTarXlj8n/LkJbU4W1PxV5SOCirlm0tebdudKsZKWJTJrCgwl2xq3gg/DFRt8
-	 BkpRImydE7xr6UkQv/mdf0/0g3YyoWnNNdiydgSkX99XyEPFPliwxIr31uSsbAgYr0
-	 L+3gphPu21fLFT1qsU0K4AInH21Heb0UDKKIJ/ZY=
+	s=default; t=1638810263;
+	bh=dXtNaYbZL7AX9MGvEI7aQ1DsACf/GwcgEp4EQX6sTwY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hDSOzSwbJw90OjNYF7+M5NI0iayfSWqNPDA2oqTrS/Fmk4MS48WXUO5dHhrPcpYQI
+	 fJhBSgu/Vld5lrbM/zMZkJCbnbSdqkqTmoNjt2YIVSufaLp/vZ3ltfCqclHP6mIQ19
+	 qWuh/EXmPM5nIk6ajaKUJjTFPi916wzGWweD98GI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20006F80118;
-	Mon,  6 Dec 2021 17:39:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4143EF804E5;
+	Mon,  6 Dec 2021 18:03:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EE912F804EC; Mon,  6 Dec 2021 17:39:32 +0100 (CET)
+ id 57DEDF804ED; Mon,  6 Dec 2021 14:11:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FD15F804AE
- for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 17:39:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FD15F804AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0B6BF804E4
+ for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 14:11:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0B6BF804E4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lpqYkzQv"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id F07C0B81177;
- Mon,  6 Dec 2021 16:39:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35D7DC341C2;
- Mon,  6 Dec 2021 16:39:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638808767;
- bh=LCXcChvr0AeOJPtSkeNtOPUaD6QgKLC0oPv7MRncYFw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lpqYkzQvcKjkGRub0G5/DUHQncJMLVxJlwTebmZIRMf3mtOWGnAQXdNjnBpaWdFnq
- +2N9Mm1unnenob8Lu2uXJuL/gFKfqFrdXcFk0vBQahfLB/CpyxAYASfSRaIHtTkyQN
- /oFsSXFX6ZmQQg++U2zbc6wRJOrnqP2DgDyzkL44Q+thNuZZFoFVOmGKwgVBbfxL7t
- wpptJvEfLvqli21w1foY1qJTdX8fj/FqOzj1qZF3tYWdb9Vcve5Ff31CdKMAIjckhG
- f4q9Ps5kNlHnhdM18ENMsfwCWFxcPLzKJbI8JZzPV1WXZScqIGI54u9bTSLWkmZNii
- CE0vK8q55XD2Q==
-Date: Mon, 6 Dec 2021 16:39:23 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2] kselftest: alsa: Add simplistic test for ALSA mixer
- controls kselftest
-Message-ID: <Ya48u+Wx+ZZyfYIO@sirena.org.uk>
-References: <20211206160305.194011-1-broonie@kernel.org>
- <33692870-fccc-6d63-2c95-056a21fff791@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="VqC5J65P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1638796289; x=1670332289;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=oMjq8zFrglbyjH+zylWx61MB+80sU/3TxTg+wGA9w1M=;
+ b=VqC5J65Pz8nanWqViEQDqkh6uU6DcW/6YU5iVFZAa6zhJA90qzFjXI2r
+ KcYaouIG1mOsu+VQmtUwePZMznJWHyTkNsOceQwW1EVTfTQphLIiXNADY
+ 69ZnxSqkaCkHHiLttda9tGosDBNunhgjdp7y+mDs2AHgX1wBndzpZFVTb 0=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 06 Dec 2021 05:11:20 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2021 05:11:19 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 6 Dec 2021 05:11:18 -0800
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 6 Dec 2021 05:11:13 -0800
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <plai@codeaurora.org>,
+ <bgoswami@codeaurora.org>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <rohitkr@codeaurora.org>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <swboyd@chromium.org>, <judyhsiao@chromium.org>
+Subject: [PATCH v9 00/10] Add support for audio on SC7280 based targets
+Date: Mon, 6 Dec 2021 18:40:49 +0530
+Message-ID: <1638796259-24813-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="cc7zcVw8/hFRex4a"
-Content-Disposition: inline
-In-Reply-To: <33692870-fccc-6d63-2c95-056a21fff791@linux.intel.com>
-X-Cookie: You will soon forget this.
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-Mailman-Approved-At: Mon, 06 Dec 2021 18:03:29 +0100
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,76 +94,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch set is to add support for Audio over wcd codec,
+digital mics, through digital codecs and without ADSP.
 
---cc7zcVw8/hFRex4a
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Changes Since V8:
+    -- Fix errors in sc7280 lpass cpu dt-bindings.
+    -- Move to quicinc domain email id's.
+Changes Since V7:
+    -- Fix indentation errors.
+    -- Bisect patches to avoid interdependency.
+Changes Since V6:
+    -- Split cdc dma regmap config macros.
+    -- Add write dma reg fields for i2s path.
+    -- Add helper function to distinguish rxtx and va dma ports.
+    -- Optimizing clock and reg name in cpu dt-bindings.
+    -- Update buffer management for cdc dma path.
+    -- Remove Kconfig fields of machine driver.
+Changes Since V5:
+    -- Include MI2S primary node to snd_soc_dai_driver in lpass-sc7280 platform driver.
+    -- Move dependency patch list to corresponding patch.
+    -- Add support for missing cdc-dma ports.
+    -- Change if/else conditional statements to switch cases.
+    -- Add missing error handlings.
+    -- Typo errors fix.
+Changes Since V4:
+    -- Remove unused variable in lpass-sc7280 platform driver.
+Changes Since V3:
+    -- Remove redundant power domain controls. As power domains can be configured from dtsi.
+Changes Since V2:
+    -- Split lpass sc7280 cpu driver patch and create regmap config patch.
+    -- Create patches based on latest kernel tip.
+    -- Add helper function to get dma control and lpaif handle.
+    -- Remove unused variables.
+Changes Since V1:
+    -- Typo errors fix
+    -- CPU driver readable/writable apis optimization.
+    -- Add Missing config patch
+    -- Add Common api for repeated dmactl initialization.
 
-On Mon, Dec 06, 2021 at 10:27:26AM -0600, Pierre-Louis Bossart wrote:
+Srinivasa Rao Mandadapu (10):
+  ASoC: qcom: SC7280: Update config for building codec dma drivers
+  ASoC: qcom: Move lpass_pcm_data structure to lpass header
+  ASoC: qcom: lpass: Add dma fields for codec dma lpass interface
+  ASoC: qcom: Add helper function to get dma control and lpaif handle
+  ASoC: qcom: Add register definition for codec rddma and wrdma
+  ASoC: qcom: Add regmap config support for codec dma driver
+  ASoC: qcom: Add support for codec dma driver
+  ASoC: qcom: Add lpass CPU driver for codec dma control
+  ASoC: dt-bindings: Add SC7280 lpass cpu bindings
+  ASoC: qcom: lpass-sc7280: Add platform driver for lpass audio
 
-> > This is added as a kselftest since unlike other ALSA test programs it d=
-oes
-> > not require either physical setup of the device or interactive monitori=
-ng
+ .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  |  75 ++-
+ sound/soc/qcom/Kconfig                             |  11 +
+ sound/soc/qcom/Makefile                            |   4 +
+ sound/soc/qcom/lpass-cdc-dma.c                     | 275 +++++++++
+ sound/soc/qcom/lpass-cpu.c                         | 244 +++++++-
+ sound/soc/qcom/lpass-lpaif-reg.h                   | 127 ++++-
+ sound/soc/qcom/lpass-platform.c                    | 617 ++++++++++++++++++---
+ sound/soc/qcom/lpass-sc7280.c                      | 441 +++++++++++++++
+ sound/soc/qcom/lpass.h                             | 162 ++++++
+ 9 files changed, 1869 insertions(+), 87 deletions(-)
+ create mode 100644 sound/soc/qcom/lpass-cdc-dma.c
+ create mode 100644 sound/soc/qcom/lpass-sc7280.c
 
-> what did you mean by 'not require physical setup of the device'?
+-- 
+2.7.4
 
-You don't need for example a loopback cable plugging in.
-
-> > +// This test will iterate over all cards detected in the system, exerc=
-ising
-
-> would it make sense to test only specific cards? People doing automated
-> tests might have a USB device for capture of analog loopbacks, or
-> injection of specific streams for capture, and usually care about
-> testing such devices - which do need manual setups and wiring btw.
-
-It's not really idiomatic for kselftest to require any per system
-configuration by default - half the thing is that you can just run it
-and it should do as much as it can sensibly on the system.  You could
-definitely add some command line options for development or manual usage
-though.
-
-> > +		    snd_ctl_elem_info_get_step64(ctl->info)) {
-> > +			ksft_print_msg("%s value %lld invalid for step %lld minimum %lld\n",
-> > +				       ctl->name, int64_val,
-> > +				       snd_ctl_elem_info_get_step64(ctl->info),
-> > +				       snd_ctl_elem_info_get_min64(ctl->info));
-> > +			err =3D -1;
-> > +		}
-> > +		break;
-> > +
-> > +	default:
-> > +		/* No tests for other types */
-
-> these types include ENUMERATED, BYTES and IEC958, but see below for
-> ENUMERATED...
-
-These are tests that the information returned when we query the card
-status is coherent, we're not doing any validation at present that the
-enumeration's return value was sensible.
-
-> > +	case SND_CTL_ELEM_TYPE_ENUMERATED:
->=20
-> ... here you are handling ENUMERATED types?
->=20
-
-This is a different test, that we can write all valid values.=20
-
---cc7zcVw8/hFRex4a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGuPLoACgkQJNaLcl1U
-h9ChFgf+OqiL9LUTGCZicKoiCRADcu9TRdfoxPCcW2xJrlkzYKyZh4uXW/elrQ2N
-W+sQIwZfOhACSDLagAp+bmg3RGe0i1nSpd69dXIec2xVdzvktLnvZt8TRMYVtuFQ
-fTp6GPBv+ANsUjFPU70UFXX3ri6T3GwmmDm7i0r4ACWzj4z0knPrhXVNI6sE7gC3
-02KRgFGUVW5HC8M9fl79w6GXRQjDnlUHciMcRAqyo1Fei8RFCacGtza961sUwgqi
-Vib5+nvG4NeJ6+mpMWMofJPfKY/5NB+I+9fekb8kUX3DAxRHXlVzDZUnsDXxow66
-UFNGGkNiPZO7iJM6xyKvBW9GDcWetg==
-=RkwC
------END PGP SIGNATURE-----
-
---cc7zcVw8/hFRex4a--

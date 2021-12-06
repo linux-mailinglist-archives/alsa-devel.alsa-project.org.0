@@ -2,73 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18A6246A3BA
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 19:03:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6346546A3C3
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 19:04:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4576C2319;
-	Mon,  6 Dec 2021 19:02:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4576C2319
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4E28234A;
+	Mon,  6 Dec 2021 19:03:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4E28234A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638813792;
-	bh=AiU1xc1Jnt2ICB58kMPE7QKt3CB5Vizbk3iw6XtQqK0=;
+	s=default; t=1638813840;
+	bh=ihT/6qJ0Zr2R4hify6TOdcwqdthiWpb5EcRPA1/C5J4=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WWTksXcnrLsQ38dik3z4ETgWXFPdamuafmXLgTZuN8O5P/zPPhqGmlYxWt49XaCpd
-	 9Oc86p92ybrNVn1gov42zCVfNO1eyHC+1zhK3VxYnp1tPndJUMJ0dWlF6qwPvq81rG
-	 uyg1lKooGxY1FxQKU5vIxnBf+hx50maPe9DO9//k=
+	b=mseobGWdrtvYUF1z3EmVHxYgwi/pUrmyhKQFBJUamZyhuLYv6M23L2H3eiunxcztt
+	 qfFQmfyKrBkc8VFDZxlWOYIqCFQLOOorzpHa9qxH4aPuXHNvmUN98+aTTXTN4UVV9x
+	 nMAXvYeOk+VZKBKnSijByDWUt+erembstJ+KBCOU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3EBB4F80515;
-	Mon,  6 Dec 2021 19:00:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C408F8051C;
+	Mon,  6 Dec 2021 19:00:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0111F80506; Mon,  6 Dec 2021 19:00:43 +0100 (CET)
+ id 3F55AF80525; Mon,  6 Dec 2021 19:00:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC5B3F804FE
- for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 19:00:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC5B3F804FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF196F804FE
+ for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 19:00:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF196F804FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mciFNq34"
+ header.b="CGU+sDOh"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id DFD1FB811EA;
+ by ams.source.kernel.org (Postfix) with ESMTPS id EB065B811E1;
+ Mon,  6 Dec 2021 18:00:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278BFC341C2;
  Mon,  6 Dec 2021 18:00:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E49EFC341C5;
- Mon,  6 Dec 2021 18:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638813636;
- bh=AiU1xc1Jnt2ICB58kMPE7QKt3CB5Vizbk3iw6XtQqK0=;
+ s=k20201202; t=1638813639;
+ bh=ihT/6qJ0Zr2R4hify6TOdcwqdthiWpb5EcRPA1/C5J4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=mciFNq34peMArE3urpNFdCWCDAh3GA2RtbopuFzoJI381ImLflVp3/sRmyQ8N8AKY
- lsvSmqFCQVnA5lg0wbHGGC0xVvPQgzTI2HlV9taN6Jnb+jN9k5ocZCJ0DiY4TjSKVo
- 42w4slGBBURvfyjvXZ8xmkc5jwAxwXRx8a3R8dVJ4tW8NiaBcMA6+3Sm004OpAthWI
- Q/hhxHZhId6sHYlDymMjFP3/KxsNr6khJgZIlEsCeYtjd5hPNm8Pu88ygoBdVKCxfI
- ockfAzoleyIi0iro5iLPrqg+2YN0vDu4vwEj4OP5z/z7U6+TxUuHtdF2itkBd8Sjak
- u/u9kGzzlMbwg==
+ b=CGU+sDOhs9RvR4UyPuFKTjYnBB3qjQsM6BcZbA4JvGOv2DRdL3AkYmO5NEp0x6hLx
+ G/GpUnDSq/6HvPVONSMVGWzlmYCU0AxXI1fGWeeua0+rLEqt2GuOwCypp/MEVxcrKe
+ 57xo1K9XSTX4/iWX1YujXretZeSPiaPvQS1mUfM8MpIjXA/GvxPthqlFpYo6D0gIxH
+ SQJVHZDGpDFYUWLjgCqNKDjv91/DsPI19E9hA9TOwn32QK/yCr6nH3wWvQtbMNPTSR
+ Fg9OOvZuGQkEEDh4ruUjkXpXQ6E+muY1JcEOQtirVaPlmFe72ZUwdbLQ0JkR3PdNfR
+ KVNvgGbp/1IMQ==
 From: Mark Brown <broonie@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20211202204838.75287-1-andriy.shevchenko@linux.intel.com>
-References: <20211202204838.75287-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v1 1/1] ASoC: zl38060: Setup parent device and get rid of
- unnecessary of_node assignment
-Message-Id: <163881363460.2769299.5427691491147846285.b4-ty@kernel.org>
-Date: Mon, 06 Dec 2021 18:00:34 +0000
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20211203154721.923496-1-kai.vehmanen@linux.intel.com>
+References: <20211203154721.923496-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: fix build issue related to
+ CODEC_PROBE_ENTRIES
+Message-Id: <163881363681.2769299.9661270976888735275.b4-ty@kernel.org>
+Date: Mon, 06 Dec 2021 18:00:36 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>
+Cc: kernel test robot <lkp@intel.com>, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,13 +87,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2 Dec 2021 22:48:38 +0200, Andy Shevchenko wrote:
-> Some of the drivers do not set parent device. This may lead to obstacles
-> during debugging or understanding the device relations from the Linux
-> point of view. Assign parent device for GPIO chips created by these
-> drivers.
+On Fri, 3 Dec 2021 17:47:21 +0200, Kai Vehmanen wrote:
+> Fix following error:
+> sound/soc/sof/intel/hda-codec.c:132:35: error: use of undeclared identifier 'CODEC_PROBE_RETRIES'
 > 
-> While at it, let GPIO library to assign of_node from the parent device.
+> Found with config: i386-randconfig-r033-20211202
+> (https://download.01.org/0day-ci/archive/20211203/202112031943.Twg19fWT-lkp@intel.com/config)
+> 
 > 
 > [...]
 
@@ -100,8 +103,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: zl38060: Setup parent device and get rid of unnecessary of_node assignment
-      commit: 766cc7f12078fe80dd88469e3dfe045e49bdf2bb
+[1/1] ASoC: SOF: Intel: fix build issue related to CODEC_PROBE_ENTRIES
+      commit: 9a83dfcc5ae8230fbf12b63e281d5bb8450ec0e7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

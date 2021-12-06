@@ -2,66 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B78D46AE84
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 00:37:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68ECB46AE9A
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 00:49:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BA912353;
-	Tue,  7 Dec 2021 00:36:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BA912353
+	by alsa0.perex.cz (Postfix) with ESMTPS id 088292356;
+	Tue,  7 Dec 2021 00:48:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 088292356
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638833859;
-	bh=zN+9TEljUERr/qzgu4GGTgKF0ehFalc7GHWbDtrmj5U=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1638834588;
+	bh=JxMQgGqccNWUQd0RpRkxa9FD7KL6YpAzoDnbG7JLD1s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mNTYHClgsChN1LM/k3pPO1mRxGrurjXx+Z2su2wY9Sr24gl31s9i+wWH7RyQlJ9WE
-	 ygEd8vPQfKI34BPr2NgNMSQlDYUk7DKJA9RVCT9DaIaqCVsYALYzVQrvHSrEyww+ph
-	 SzDhnplYRgJZqLnNMJqxV79hjQajw8T6vnKC9ufE=
+	b=QRQRgn5NjJtQ1PZOZJ5PqzltrR5QHz3+KrO+5ssnyKN1VqVDWCQaJXNtf+N5Sg8CI
+	 dSSdM0mrBgmSYk1agOiOQqxTwsg0m+pZgccl/ku5DofY8zwyteXdInKGBqhp0AZ8y0
+	 W8EEouK54GtDBTKq48gVd9odxo8fAInLKRT3xRcU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CCA2F804ED;
-	Tue,  7 Dec 2021 00:36:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 889F5F804ED;
+	Tue,  7 Dec 2021 00:48:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7910BF804EC; Tue,  7 Dec 2021 00:36:19 +0100 (CET)
+ id 8596DF804EC; Tue,  7 Dec 2021 00:48:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 170C0F80118
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 00:36:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 170C0F80118
-X-IronPort-AV: E=McAfee;i="6200,9189,10190"; a="323688574"
-X-IronPort-AV: E=Sophos;i="5.87,292,1631602800"; d="scan'208";a="323688574"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2021 15:36:11 -0800
-X-IronPort-AV: E=Sophos;i="5.87,292,1631602800"; d="scan'208";a="462054472"
-Received: from jcsee-mobl2.ccr.corp.intel.com (HELO [10.209.128.127])
- ([10.209.128.127])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2021 15:36:10 -0800
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from hz.preining.info (hz.preining.info [IPv6:2a01:4f9:2a:1a08::2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CBC0F804E4
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 00:48:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CBC0F804E4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=preining.info header.i=@preining.info
+ header.b="V1U8vb5i"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=preining.info; s=201909; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hzMzy1zXRp0TtHr0icW2SoANj+8WxOG1nf1hBs517r8=; b=V1U8vb5ib240vxqZSeeD9S5n5N
+ 1/RXNxM0oLfZGovOrubA3F+egzpE2c4dL/h36vUNuuzoAfwTYbiil8LyWFz3DdcDR6XHIsrBTGL2v
+ K58fxh8uERz9yT7TtTenEtEztCMtJm6vV7XrZxb2JM6IOcLqKZbtKWoMWidkRVz5P0MM1LnM+b3wn
+ qnwBdi/AUGSOtEVQIdO7Y5hVe7aFDxqQso9Thg05wDw3l6jSzdBN66qmh2Mm3yQnYRCkIS0JBUt23
+ Q9QKILwAwQiK+Qoh0UUYfisdEpSPPXBXJoE960DPO9DFMc8J0NECip8gQJYL5BhIp7BdIGkTSdmdY
+ R/4NVAXw==;
+Received: from tvk213002.tvk.ne.jp ([180.94.213.2] helo=bulldog.preining.info)
+ by hz.preining.info with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <norbert@preining.info>)
+ id 1muNiS-0003kE-Cf; Mon, 06 Dec 2021 23:48:16 +0000
+Received: by bulldog.preining.info (Postfix, from userid 1000)
+ id E0D761A7B32C1; Tue,  7 Dec 2021 08:48:12 +0900 (JST)
+Date: Tue, 7 Dec 2021 08:48:12 +0900
+From: Norbert Preining <norbert@preining.info>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Subject: Re: Support for 8086:ae20 Intel Smart Sound Technology on Fujitsu
  Lifebook
-To: Norbert Preining <norbert@preining.info>
+Message-ID: <Ya6hPK9zqD/kjHyx@bulldog.preining.info>
 References: <Yat56SpjuUAxm2Gc@sakefilet.preining.info>
  <94bfe11e-c774-4f9e-1cec-297fcedfef85@linux.intel.com>
  <Ya6agUY8ClmkONp7@bulldog.preining.info>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <f01c9a7f-7534-c4fa-ea24-c5bf4d120128@linux.intel.com>
-Date: Mon, 6 Dec 2021 17:36:08 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
+ <f01c9a7f-7534-c4fa-ea24-c5bf4d120128@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <Ya6agUY8ClmkONp7@bulldog.preining.info>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f01c9a7f-7534-c4fa-ea24-c5bf4d120128@linux.intel.com>
 Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -78,54 +89,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Pierre-Louis,
 
+> snd_intel_dspcfg: dsp_driver=1 option, which will select the HDaudio
+> legacy.
 
-> [~] cat /sys/bus/pci/devices/0000\:00\:1f.3/device 
-> 0x02c8
+Bingo! I carried that over (without thinking) from my previous laptop
+(lenovo where it was necessary).
 
-so that's CometLake LP
+Removing the modprobe.d file, *and* installing the firmware files
+helped.
 
-> [~] cat /sys/bus/pci/devices/0000\:00\:1f.3/class
-> 0x040100
+Now the device shows up and everything seems to work. Puuuh.
 
-this one means the audio DSP is enabled, but might not be required for
-your platform.
+Thanks a big lot for your help, that is much appreciated.
 
-> [~] sudo lspci -vvv -s 00:1f.3
-> 00:1f.3 Multimedia audio controller: Intel Corporation Comet Lake PCH-LP cAVS
->         Subsystem: Fujitsu Client Computing Limited Comet Lake PCH-LP cAVS
->         Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
->         Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
->         Latency: 32, Cache Line Size: 64 bytes
->         Interrupt: pin A routed to IRQ 173
->         IOMMU group: 13
->         Region 0: Memory at a2130000 (64-bit, non-prefetchable) [size=16K]
->         Region 4: Memory at 604e000000 (64-bit, non-prefetchable) [size=1M]
->         Capabilities: [50] Power Management version 3
->                 Flags: PMEClk- DSI- D1- D2- AuxCurrent=55mA PME(D0-,D1-,D2-,D3hot+,D3cold+)
->                 Status: D3 NoSoftRst+ PME-Enable+ DSel=0 DScale=0 PME-
->         Capabilities: [80] Vendor Specific Information: Len=14 <?>
->         Capabilities: [60] MSI: Enable+ Count=1/1 Maskable- 64bit+
->                 Address: 00000000fee008d8  Data: 0000
->         Kernel driver in use: snd_hda_intel
+Sorry for the noise, and all the best
 
-and this means the kernel did not detect an interface that requires the DSP.
+Norbert
 
-Looking at your alsa-info log, an alternate explanation is that your
-distribution forces the use of the
-
-snd_intel_dspcfg: dsp_driver=1 option, which will select the HDaudio
-legacy.
-
-If you happen to have a device with microphones attached to the PCH, not
-the HDaudio codec, then by design you *cannot* use the legacy HDaudio
-driver (snd-hda-intel). you will have to use the SOF driver
-(snd-sof-pci-intel-cnl).
-
-Can you check in /etc/modprobe.d/*.conf if you see a configuration that
-sets this module parameter?
-
-If you see this option set, try to comment it out and reboot. You should
-really avoid setting the dsp_driver option since it will bypass the
-autodetection and might result in the wrong driver being used.
-
+--
+PREINING Norbert                              https://www.preining.info
+Fujitsu Research  +  IFMGA Guide  +  TU Wien  +  TeX Live  + Debian Dev
+GPG: 0x860CDC13   fp: F7D8 A928 26E3 16A1 9FA0 ACF0 6CAC A448 860C DC13

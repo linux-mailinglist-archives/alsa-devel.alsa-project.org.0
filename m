@@ -2,97 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA36646A150
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 17:26:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB22C46A15D
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 17:29:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 261F92092;
-	Mon,  6 Dec 2021 17:25:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 261F92092
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FD161F44;
+	Mon,  6 Dec 2021 17:28:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FD161F44
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638807998;
-	bh=ah0dxGEsL1C8C0szWKnnfZ2RLifpWZRTBS8ea9QM1IU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1638808167;
+	bh=Mfg4LL2CFBgS+yBGEJYVcK+wPvyjZJx/2rqPOig1RHE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iKpQ+dv0TdHkLJNlqzYjgRC6AfvcaiPbwx7TDawJV6p4MGgU/HuHZyOPYTzFLVXaW
-	 Q2IBm0ixrfkDAXo+T9UFeEV2h4vRrlSis8xAFPqRXm34Su0ZjnCfEUussDre/Sysi+
-	 2vJ4mmAJuGpE3Nv8hh39LrmiIwr8BpW2RKcRfefM=
+	b=vXD3eUgBv7kioy4DpJH97EwdQ6Ie5w34I1vb67ebFpuMBsX+hIaJHl++ZOjh4J9L+
+	 CP6MRcFBf8KGr26WSC0WpLg68xNUtDxUeY3FVm704Cq/uT5fpvxkzySfRgSoat7712
+	 I+6DZTU7AAGpXyFCYgLpUvstAONI25CZ8rdWvVQc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 809DBF804ED;
-	Mon,  6 Dec 2021 17:25:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF3E7F804E5;
+	Mon,  6 Dec 2021 17:28:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0831CF804EC; Mon,  6 Dec 2021 17:25:20 +0100 (CET)
+ id 46D20F804EC; Mon,  6 Dec 2021 17:28:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BABE4F804AE
- for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 17:25:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BABE4F804AE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Su0TIZSI"
-Received: by mail-ot1-x331.google.com with SMTP id
- i5-20020a05683033e500b0057a369ac614so14261656otu.10
- for <alsa-devel@alsa-project.org>; Mon, 06 Dec 2021 08:25:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=oxjEfTWOmaP7pZiU/lsiM3HBFWw8g2ciGnA41bmg1W4=;
- b=Su0TIZSIS2211s1e9/4DNfZ9QdbllmaHoRHcVCCZ9jyW7UxvZa1wCK53vfymIdUszn
- 89pg0kJRVK61ZBQTxRTxXBHkWDC2T4SeEtcUeIXHuaJrEkmgSVwBrp/Tvxhi14nwh/m1
- BFtUgO744XQdRJlejLJWqE9AVLuVOqvx+BQQXAhBPFOp0RwBkcqvqescgf0V67URRz11
- SevGG79T6AbZUW3JXcJaAgo4ysorw4iSos/4RO8PfAS4vokL6dRZ+3NnMTO68IN2DY/C
- 3T8RB/1K6TKNe5wF0zDtiA4G22Vod4Sb9E5r0JE0PyvOvY2ZT6LdMfjvF2ngTN/QXzLa
- i07Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=oxjEfTWOmaP7pZiU/lsiM3HBFWw8g2ciGnA41bmg1W4=;
- b=CUk6r7udErEHcjOGlk8B7WzQbM5pjUkLAUtiqx3WGLP48XjDfjwXoS+cfvsGfLkH4U
- 8VOQix5yMA9kvqNQ5VX3/+sCVsu3TMCrniKm0SboNvz9aopTJ9vHji3CF3I/zxdolw4L
- KJ77wcdLIjzUjj2+jvImJEL24LysBF6KdMUzGFAosuXefvGMHSicyJmxHz8sHkp3sSY3
- tQBg85rmyrXweo5RgZxppuU3c0Jc8H7FLsm4lJRsj65EcNjGTS2281h8UWwGaN/ulfJP
- P53FI5d6+iAb8mvCBSmoz4gIqGunnSx3MfsIwl+i3yeBjsQO0bnXPpO5pvmDG61rj2lE
- Rxug==
-X-Gm-Message-State: AOAM530EJ7JBI7mg5hH88aS1zZQ69aWPr+IVQ2BAgaJM/bNkDQEFaS0W
- +Yim/qpNbjAQ7lthOizknfiXpA==
-X-Google-Smtp-Source: ABdhPJwEa0lxr4O/X502RfLfqHwoH3oj9UIuY7xIL8wEUyBkouiZ73MniMtOownAxVsYRQpcLzdcDg==
-X-Received: by 2002:a9d:6348:: with SMTP id y8mr30396341otk.243.1638807909676; 
- Mon, 06 Dec 2021 08:25:09 -0800 (PST)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id z7sm2694067oib.0.2021.12.06.08.25.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Dec 2021 08:25:09 -0800 (PST)
-Date: Mon, 6 Dec 2021 10:25:04 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.com>
-Subject: Re: [PATCH v4 5/5] pinctrl: qcom: Add SC7280 lpass pin configuration
-Message-ID: <Ya45YKsdloY8l8do@builder.lan>
-References: <1638531140-25899-1-git-send-email-srivasam@codeaurora.com>
- <1638531140-25899-6-git-send-email-srivasam@codeaurora.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A27FF804AE
+ for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 17:28:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A27FF804AE
+X-IronPort-AV: E=McAfee;i="6200,9189,10190"; a="237161017"
+X-IronPort-AV: E=Sophos;i="5.87,292,1631602800"; d="scan'208";a="237161017"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2021 08:27:30 -0800
+X-IronPort-AV: E=Sophos;i="5.87,292,1631602800"; d="scan'208";a="479170337"
+Received: from jcsee-mobl2.ccr.corp.intel.com (HELO [10.209.128.127])
+ ([10.209.128.127])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2021 08:27:29 -0800
+Subject: Re: [PATCH v2] kselftest: alsa: Add simplistic test for ALSA mixer
+ controls kselftest
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ Shuah Khan <shuah@kernel.org>, Jaroslav Kysela <perex@perex.cz>
+References: <20211206160305.194011-1-broonie@kernel.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <33692870-fccc-6d63-2c95-056a21fff791@linux.intel.com>
+Date: Mon, 6 Dec 2021 10:27:26 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1638531140-25899-6-git-send-email-srivasam@codeaurora.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Venkata Prasad Potturu <potturu@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- plai@codeaurora.org, tiwai@suse.com, agross@kernel.org, robh+dt@kernel.org,
- lgirdwood@gmail.com, linux-gpio@vger.kernel.org, broonie@kernel.org,
- rohitkr@codeaurora.org, swboyd@chromium.org, judyhsiao@chromium.org,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org
+In-Reply-To: <20211206160305.194011-1-broonie@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,233 +77,180 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri 03 Dec 05:32 CST 2021, Srinivasa Rao Mandadapu wrote:
 
-> From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> 
-> Add pin control support for SC7280 LPASS LPI.
-> 
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> ---
->  drivers/pinctrl/qcom/Kconfig                    |   8 ++
->  drivers/pinctrl/qcom/Makefile                   |   1 +
->  drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c | 169 ++++++++++++++++++++++++
->  3 files changed, 178 insertions(+)
->  create mode 100644 drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-> 
-> diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
-> index e750e10..37fe868 100644
-> --- a/drivers/pinctrl/qcom/Kconfig
-> +++ b/drivers/pinctrl/qcom/Kconfig
-> @@ -328,4 +328,12 @@ config PINCTRL_SM8250_LPASS_LPI
->  	  Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
->  	  (Low Power Island) found on the Qualcomm Technologies Inc SM8250 platform.
->  
-> +config PINCTRL_SC7280_LPASS_LPI
-> +	tristate "Qualcomm Technologies Inc SM8250 LPASS LPI pin controller driver"
 
-You misspelled SC7280 here.
+> This is added as a kselftest since unlike other ALSA test programs it does
+> not require either physical setup of the device or interactive monitoring
 
-> +	depends on PINCTRL_LPASS_LPI
-> +	help
-> +	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-> +	  Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
-> +	  (Low Power Island) found on the Qualcomm Technologies Inc SC7280 platform.
-> +
->  endif
-> diff --git a/drivers/pinctrl/qcom/Makefile b/drivers/pinctrl/qcom/Makefile
-> index 8bc877e..6c3ddaf 100644
-> --- a/drivers/pinctrl/qcom/Makefile
-> +++ b/drivers/pinctrl/qcom/Makefile
-> @@ -38,3 +38,4 @@ obj-$(CONFIG_PINCTRL_SM8250) += pinctrl-sm8250.o
->  obj-$(CONFIG_PINCTRL_SM8350) += pinctrl-sm8350.o
->  obj-$(CONFIG_PINCTRL_LPASS_LPI) += pinctrl-lpass-lpi.o
->  obj-$(CONFIG_PINCTRL_SM8250_LPASS_LPI) += pinctrl-sm8250-lpass-lpi.o
-> +obj-$(CONFIG_PINCTRL_SC7280_LPASS_LPI) += pinctrl-sc7280-lpass-lpi.o
+what did you mean by 'not require physical setup of the device'?
 
-Please keep these entries sorted alphabetically, same with Kconfig.
-
-Regards,
-Bjorn
-
-> diff --git a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
+> diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
 > new file mode 100644
-> index 0000000..94bec15
+> index 000000000000..6082efa0b426
 > --- /dev/null
-> +++ b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-> @@ -0,0 +1,169 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
-> + * ALSA SoC platform-machine driver for QTi LPASS
-> + */
+> +++ b/tools/testing/selftests/alsa/mixer-test.c
+> @@ -0,0 +1,616 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +//
+> +// kselftest for the ALSA mixer API
+> +//
+> +// Original author: Mark Brown <broonie@kernel.org>
+> +// Copyright (c) 2021 Arm Limited
 > +
-> +#include <linux/clk.h>
-> +#include <linux/gpio/driver.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
+> +// This test will iterate over all cards detected in the system, exercising
+
+would it make sense to test only specific cards? People doing automated
+tests might have a USB device for capture of analog loopbacks, or
+injection of specific streams for capture, and usually care about
+testing such devices - which do need manual setups and wiring btw.
+
+> +	switch (snd_ctl_elem_info_get_type(ctl->info)) {
+> +	case SND_CTL_ELEM_TYPE_NONE:
+> +		ksft_print_msg("%s Invalid control type NONE\n", ctl->name);
+> +		err = -1;
+> +		break;
 > +
-> +#include "pinctrl-lpass-lpi.h"
+> +	case SND_CTL_ELEM_TYPE_BOOLEAN:
+> +		int_val = snd_ctl_elem_value_get_boolean(ctl->def_val, 0);
+> +		switch (int_val) {
+> +		case 0:
+> +		case 1:
+> +			break;
+> +		default:
+> +			ksft_print_msg("%s Invalid boolean value %ld\n",
+> +				       ctl->name, int_val);
+> +			err = -1;
+> +			break;
+> +		}
+> +		break;
 > +
-> +enum lpass_lpi_functions {
-> +	LPI_MUX_dmic1_clk,
-> +	LPI_MUX_dmic1_data,
-> +	LPI_MUX_dmic2_clk,
-> +	LPI_MUX_dmic2_data,
-> +	LPI_MUX_dmic3_clk,
-> +	LPI_MUX_dmic3_data,
-> +	LPI_MUX_i2s1_clk,
-> +	LPI_MUX_i2s1_data,
-> +	LPI_MUX_i2s1_ws,
-> +	LPI_MUX_i2s2_clk,
-> +	LPI_MUX_i2s2_data,
-> +	LPI_MUX_i2s2_ws,
-> +	LPI_MUX_qua_mi2s_data,
-> +	LPI_MUX_qua_mi2s_sclk,
-> +	LPI_MUX_qua_mi2s_ws,
-> +	LPI_MUX_swr_rx_clk,
-> +	LPI_MUX_swr_rx_data,
-> +	LPI_MUX_swr_tx_clk,
-> +	LPI_MUX_swr_tx_data,
-> +	LPI_MUX_wsa_swr_clk,
-> +	LPI_MUX_wsa_swr_data,
-> +	LPI_MUX_gpio,
-> +	LPI_MUX__,
-> +};
+> +	case SND_CTL_ELEM_TYPE_INTEGER:
+> +		int_val = snd_ctl_elem_value_get_integer(ctl->def_val, 0);
 > +
-> +static const unsigned int gpio0_pins[] = { 0 };
-> +static const unsigned int gpio1_pins[] = { 1 };
-> +static const unsigned int gpio2_pins[] = { 2 };
-> +static const unsigned int gpio3_pins[] = { 3 };
-> +static const unsigned int gpio4_pins[] = { 4 };
-> +static const unsigned int gpio5_pins[] = { 5 };
-> +static const unsigned int gpio6_pins[] = { 6 };
-> +static const unsigned int gpio7_pins[] = { 7 };
-> +static const unsigned int gpio8_pins[] = { 8 };
-> +static const unsigned int gpio9_pins[] = { 9 };
-> +static const unsigned int gpio10_pins[] = { 10 };
-> +static const unsigned int gpio11_pins[] = { 11 };
-> +static const unsigned int gpio12_pins[] = { 12 };
-> +static const unsigned int gpio13_pins[] = { 13 };
-> +static const unsigned int gpio14_pins[] = { 14 };
+> +		if (int_val < snd_ctl_elem_info_get_min(ctl->info)) {
+> +			ksft_print_msg("%s value %ld less than minimum %ld\n",
+> +				       ctl->name, int_val,
+> +				       snd_ctl_elem_info_get_min(ctl->info));
+> +			err = -1;
+> +		}
 > +
-> +/* sc7280 variant specific data */
-> +static const struct pinctrl_pin_desc sc7280_lpi_pins[] = {
-> +	PINCTRL_PIN(0, "gpio0"),
-> +	PINCTRL_PIN(1, "gpio1"),
-> +	PINCTRL_PIN(2, "gpio2"),
-> +	PINCTRL_PIN(3, "gpio3"),
-> +	PINCTRL_PIN(4, "gpio4"),
-> +	PINCTRL_PIN(5, "gpio5"),
-> +	PINCTRL_PIN(6, "gpio6"),
-> +	PINCTRL_PIN(7, "gpio7"),
-> +	PINCTRL_PIN(8, "gpio8"),
-> +	PINCTRL_PIN(9, "gpio9"),
-> +	PINCTRL_PIN(10, "gpio10"),
-> +	PINCTRL_PIN(11, "gpio11"),
-> +	PINCTRL_PIN(12, "gpio12"),
-> +	PINCTRL_PIN(13, "gpio13"),
-> +	PINCTRL_PIN(14, "gpio14"),
-> +};
+> +		if (int_val > snd_ctl_elem_info_get_max(ctl->info)) {
+> +			ksft_print_msg("%s value %ld more than maximum %ld\n",
+> +				       ctl->name, int_val,
+> +				       snd_ctl_elem_info_get_max(ctl->info));
+> +			err = -1;
+> +		}
 > +
-> +static const char * const swr_tx_clk_groups[] = { "gpio0" };
-> +static const char * const swr_tx_data_groups[] = { "gpio1", "gpio2", "gpio14" };
-> +static const char * const swr_rx_clk_groups[] = { "gpio3" };
-> +static const char * const swr_rx_data_groups[] = { "gpio4", "gpio5" };
-> +static const char * const dmic1_clk_groups[] = { "gpio6" };
-> +static const char * const dmic1_data_groups[] = { "gpio7" };
-> +static const char * const dmic2_clk_groups[] = { "gpio8" };
-> +static const char * const dmic2_data_groups[] = { "gpio9" };
-> +static const char * const i2s2_clk_groups[] = { "gpio10" };
-> +static const char * const i2s2_ws_groups[] = { "gpio11" };
-> +static const char * const dmic3_clk_groups[] = { "gpio12" };
-> +static const char * const dmic3_data_groups[] = { "gpio13" };
-> +static const char * const qua_mi2s_sclk_groups[] = { "gpio0" };
-> +static const char * const qua_mi2s_ws_groups[] = { "gpio1" };
-> +static const char * const qua_mi2s_data_groups[] = { "gpio2", "gpio3", "gpio4" };
-> +static const char * const i2s1_clk_groups[] = { "gpio6" };
-> +static const char * const i2s1_ws_groups[] = { "gpio7" };
-> +static const char * const i2s1_data_groups[] = { "gpio8", "gpio9" };
-> +static const char * const wsa_swr_clk_groups[] = { "gpio10" };
-> +static const char * const wsa_swr_data_groups[] = { "gpio11" };
-> +static const char * const i2s2_data_groups[] = { "gpio12", "gpio13" };
+> +		/* Only check step size if there is one and we're in bounds */
+> +		if (err >= 0 && snd_ctl_elem_info_get_step(ctl->info) &&
+> +		    (int_val - snd_ctl_elem_info_get_min(ctl->info) %
+> +		     snd_ctl_elem_info_get_step(ctl->info))) {
+> +			ksft_print_msg("%s value %ld invalid for step %ld minimum %ld\n",
+> +				       ctl->name, int_val,
+> +				       snd_ctl_elem_info_get_step(ctl->info),
+> +				       snd_ctl_elem_info_get_min(ctl->info));
+> +			err = -1;
+> +		}
+> +		break;
 > +
-> +static const struct lpi_pingroup sc7280_groups[] = {
-> +	LPI_PINGROUP(0, 0, swr_tx_clk, qua_mi2s_sclk, _, _),
-> +	LPI_PINGROUP(1, 2, swr_tx_data, qua_mi2s_ws, _, _),
-> +	LPI_PINGROUP(2, 4, swr_tx_data, qua_mi2s_data, _, _),
-> +	LPI_PINGROUP(3, 8, swr_rx_clk, qua_mi2s_data, _, _),
-> +	LPI_PINGROUP(4, 10, swr_rx_data, qua_mi2s_data, _, _),
-> +	LPI_PINGROUP(5, 12, swr_rx_data, _, _, _),
-> +	LPI_PINGROUP(6, NO_SLEW, dmic1_clk, i2s1_clk, _,  _),
-> +	LPI_PINGROUP(7, NO_SLEW, dmic1_data, i2s1_ws, _, _),
-> +	LPI_PINGROUP(8, NO_SLEW, dmic2_clk, i2s1_data, _, _),
-> +	LPI_PINGROUP(9, NO_SLEW, dmic2_data, i2s1_data, _, _),
-> +	LPI_PINGROUP(10, 16, i2s2_clk, wsa_swr_clk, _, _),
-> +	LPI_PINGROUP(11, 18, i2s2_ws, wsa_swr_data, _, _),
-> +	LPI_PINGROUP(12, NO_SLEW, dmic3_clk, i2s2_data, _, _),
-> +	LPI_PINGROUP(13, NO_SLEW, dmic3_data, i2s2_data, _, _),
-> +	LPI_PINGROUP(14, 6, swr_tx_data, _, _, _),
-> +};
+> +	case SND_CTL_ELEM_TYPE_INTEGER64:
+> +		int64_val = snd_ctl_elem_value_get_integer64(ctl->def_val, 0);
 > +
-> +static const struct lpi_function sc7280_functions[] = {
-> +	LPI_FUNCTION(dmic1_clk),
-> +	LPI_FUNCTION(dmic1_data),
-> +	LPI_FUNCTION(dmic2_clk),
-> +	LPI_FUNCTION(dmic2_data),
-> +	LPI_FUNCTION(dmic3_clk),
-> +	LPI_FUNCTION(dmic3_data),
-> +	LPI_FUNCTION(i2s1_clk),
-> +	LPI_FUNCTION(i2s1_data),
-> +	LPI_FUNCTION(i2s1_ws),
-> +	LPI_FUNCTION(i2s2_clk),
-> +	LPI_FUNCTION(i2s2_data),
-> +	LPI_FUNCTION(i2s2_ws),
-> +	LPI_FUNCTION(qua_mi2s_data),
-> +	LPI_FUNCTION(qua_mi2s_sclk),
-> +	LPI_FUNCTION(qua_mi2s_ws),
-> +	LPI_FUNCTION(swr_rx_clk),
-> +	LPI_FUNCTION(swr_rx_data),
-> +	LPI_FUNCTION(swr_tx_clk),
-> +	LPI_FUNCTION(swr_tx_data),
-> +	LPI_FUNCTION(wsa_swr_clk),
-> +	LPI_FUNCTION(wsa_swr_data),
-> +};
+> +		if (int64_val < snd_ctl_elem_info_get_min64(ctl->info)) {
+> +			ksft_print_msg("%s value %lld less than minimum %lld\n",
+> +				       ctl->name, int64_val,
+> +				       snd_ctl_elem_info_get_min64(ctl->info));
+> +			err = -1;
+> +		}
 > +
-> +static const struct lpi_pinctrl_variant_data sc7280_lpi_data = {
-> +	.pins = sc7280_lpi_pins,
-> +	.npins = ARRAY_SIZE(sc7280_lpi_pins),
-> +	.groups = sc7280_groups,
-> +	.ngroups = ARRAY_SIZE(sc7280_groups),
-> +	.functions = sc7280_functions,
-> +	.nfunctions = ARRAY_SIZE(sc7280_functions),
-> +};
+> +		if (int64_val > snd_ctl_elem_info_get_max64(ctl->info)) {
+> +			ksft_print_msg("%s value %lld more than maximum %lld\n",
+> +				       ctl->name, int64_val,
+> +				       snd_ctl_elem_info_get_max(ctl->info));
+> +			err = -1;
+> +		}
 > +
-> +static const struct of_device_id lpi_pinctrl_of_match[] = {
-> +	{
-> +	       .compatible = "qcom,sc7280-lpass-lpi-pinctrl",
-> +	       .data = &sc7280_lpi_data,
-> +	},
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, lpi_pinctrl_of_match);
+> +		/* Only check step size if there is one and we're in bounds */
+> +		if (err >= 0 && snd_ctl_elem_info_get_step64(ctl->info) &&
+> +		    (int64_val - snd_ctl_elem_info_get_min64(ctl->info)) %
+> +		    snd_ctl_elem_info_get_step64(ctl->info)) {
+> +			ksft_print_msg("%s value %lld invalid for step %lld minimum %lld\n",
+> +				       ctl->name, int64_val,
+> +				       snd_ctl_elem_info_get_step64(ctl->info),
+> +				       snd_ctl_elem_info_get_min64(ctl->info));
+> +			err = -1;
+> +		}
+> +		break;
 > +
-> +static struct platform_driver lpi_pinctrl_driver = {
-> +	.driver = {
-> +		   .name = "qcom-sc7280-lpass-lpi-pinctrl",
-> +		   .of_match_table = lpi_pinctrl_of_match,
-> +	},
-> +	.probe = lpi_pinctrl_probe,
-> +	.remove = lpi_pinctrl_remove,
-> +};
+> +	default:
+> +		/* No tests for other types */
+
+these types include ENUMERATED, BYTES and IEC958, but see below for
+ENUMERATED...
+
+> +		ksft_test_result_skip("get_value.%d.%d\n",
+> +				      ctl->card->card, ctl->elem);
+> +		return;
+> +	}
 > +
-> +module_platform_driver(lpi_pinctrl_driver);
-> +MODULE_DESCRIPTION("QTI SC7280 LPI GPIO pin control driver");
-> +MODULE_LICENSE("GPL");
+> +out:
+> +	ksft_test_result(err >= 0, "get_value.%d.%d\n",
+> +			 ctl->card->card, ctl->elem);
+> +}
 > +
-> -- 
-> Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-> is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
-> 
+> +bool show_mismatch(struct ctl_data *ctl, int index,
+> +		   snd_ctl_elem_value_t *read_val,
+> +		   snd_ctl_elem_value_t *expected_val)
+> +{
+> +	long long expected_int, read_int;
+> +
+> +	/*
+> +	 * We factor out the code to compare values representable as
+> +	 * integers, ensure that check doesn't log otherwise.
+> +	 */
+> +	expected_int = 0;
+> +	read_int = 0;
+> +
+> +	switch (snd_ctl_elem_info_get_type(ctl->info)) {
+> +	case SND_CTL_ELEM_TYPE_BOOLEAN:
+> +		expected_int = snd_ctl_elem_value_get_boolean(expected_val,
+> +							      index);
+> +		read_int = snd_ctl_elem_value_get_boolean(read_val, index);
+> +		break;
+> +
+> +	case SND_CTL_ELEM_TYPE_INTEGER:
+> +		expected_int = snd_ctl_elem_value_get_integer(expected_val,
+> +							      index);
+> +		read_int = snd_ctl_elem_value_get_integer(read_val, index);
+> +		break;
+> +
+> +	case SND_CTL_ELEM_TYPE_INTEGER64:
+> +		expected_int = snd_ctl_elem_value_get_integer64(expected_val,
+> +								index);
+> +		read_int = snd_ctl_elem_value_get_integer64(read_val,
+> +							    index);
+> +		break;
+> +
+> +	case SND_CTL_ELEM_TYPE_ENUMERATED:
+
+... here you are handling ENUMERATED types?
+
+> +		expected_int = snd_ctl_elem_value_get_enumerated(expected_val,
+> +								 index);
+> +		read_int = snd_ctl_elem_value_get_enumerated(read_val,
+> +							     index);
+> +		break;
+> +
+> +	default:
+> +		break;
+> +	}
+> +
+> +	if (expected_int != read_int) {
+> +		ksft_print_msg("%s.%d expected %lld but read %lld\n",
+> +			       ctl->name, index, expected_int, read_int);
+> +		return true;
+> +	} else {
+> +		return false;
+> +	}
+> +}
+

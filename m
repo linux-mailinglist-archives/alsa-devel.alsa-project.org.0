@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA1DC4691F2
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 10:06:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C278469207
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Dec 2021 10:08:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 466FD1F51;
-	Mon,  6 Dec 2021 10:05:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 466FD1F51
+	by alsa0.perex.cz (Postfix) with ESMTPS id 283931F59;
+	Mon,  6 Dec 2021 10:08:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 283931F59
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638781561;
-	bh=XN7fCggbcgBYOk6kC3/C0lx5qtJtudtVXLTn1i/LRw4=;
+	s=default; t=1638781736;
+	bh=IphYrt5nQxd56MpcGhio86H57bhGwmEvgVpFjvxOPvc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fmNov/HGTa2rPaDnB1Xs1uowS9/WtPVtOsgLprp1PAp+i3ERiHTsZZyT8LsevlnPl
-	 QH3tqPKc3T2nSvy/9oUczSnRlh01b/rOVxTtVboDcJsLSSNPpDVhdj383SVrzWcGCZ
-	 PEoltX0Ao9VNIvQ4RLKVNuGcqD7W3Wxaq22iAXtc=
+	b=U7QaT2bSN9H9HeGYUWa9aV3iEVKyGPWVEpdImkK+35FTNk1l/WB2g2uw1sMmvC95M
+	 DlO3KNogcwg5sFcVAOoFe2aBwCI9Vt6zgks1ueYBkjLnpp7UXsq1U7eG60vyVN6jdp
+	 uHaUXy8dCB4S9mSdxrzhav1vs8dlLlEQpeoVWDJ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A751FF802C8;
-	Mon,  6 Dec 2021 10:04:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D338F80108;
+	Mon,  6 Dec 2021 10:07:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FAF7F8026C; Mon,  6 Dec 2021 10:04:42 +0100 (CET)
+ id 486BCF8026C; Mon,  6 Dec 2021 10:07:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B214DF80118
- for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 10:04:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B214DF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68D03F80118
+ for <alsa-devel@alsa-project.org>; Mon,  6 Dec 2021 10:07:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68D03F80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LZGFFaKC"; 
+ header.b="vovqJyG1"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="vGmaS9Ly"
+ header.b="u41FBGWI"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 901DC1FD2F;
- Mon,  6 Dec 2021 09:04:36 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 613CD1FD59;
+ Mon,  6 Dec 2021 09:07:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638781476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1638781650; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PWMr88WEoo/q4N/V1fit62Ztt5lQ50Z/rNHF4FlH/UQ=;
- b=LZGFFaKCgMCNI3cLZlBH8yXbr0raba3rSFVUwZilPROki2Eb1NemkAtAYAhVrD3vr7bVzq
- Vf4xemCLNY7D6ZQrVIHDhMrAPOcqiFF+74kDNHYtWE885alY5l3rR8ZbCWnDE/AaU+1n4V
- JssYfxgj+AXkOHzwjX76LDs4AYJTaWE=
+ bh=kIdsvKanlrdX4YaSaYvfrT4WVmDy50bs35ZxRhqdGKY=;
+ b=vovqJyG1WPtdxWDP50szLqLGcn+qGr2L1Cdpcas4T8sJoZtZN8I3WVB1k57K6HYG+9GDdP
+ Nu8ngfDMj1L3Wg4Gb1lng/CqiLzv3jkFadZoGbVA6dZzo+Kt6wWuFqBFLLHZJ6wzOZpVYm
+ VvQCXT3WbTPp+2FM+xhsdJIccIlgnwU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638781476;
+ s=susede2_ed25519; t=1638781650;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PWMr88WEoo/q4N/V1fit62Ztt5lQ50Z/rNHF4FlH/UQ=;
- b=vGmaS9Lyv4vF7mDywb0QEXkSFe3Cr4x6oBxWawQwoWT5gP45/QE6NE+4OGOgO8150K2h9W
- SGUq0rO13yXDK/AQ==
+ bh=kIdsvKanlrdX4YaSaYvfrT4WVmDy50bs35ZxRhqdGKY=;
+ b=u41FBGWI3jahmGYyeTU7pBlg1RK4+auYZ7VUp2A0HMi2RcCmb8ri9H3qoA5UiambzYRnSJ
+ S2E1CgAE946Wk4DA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6DEDCA3B92;
- Mon,  6 Dec 2021 09:04:36 +0000 (UTC)
-Date: Mon, 06 Dec 2021 10:04:36 +0100
-Message-ID: <s5hr1aqqf2z.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 5358CA3B81;
+ Mon,  6 Dec 2021 09:07:30 +0000 (UTC)
+Date: Mon, 06 Dec 2021 10:07:30 +0100
+Message-ID: <s5hpmqaqey5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] sound: Fix some typo
-In-Reply-To: <7b2bcbda298f02a34d46d8b6593daaaed9a09a45.1638602790.git.christophe.jaillet@wanadoo.fr>
-References: <7b2bcbda298f02a34d46d8b6593daaaed9a09a45.1638602790.git.christophe.jaillet@wanadoo.fr>
+To: Geraldo Nascimento <geraldogabriel@gmail.com>
+Subject: Re: [PATCH v2] ALSA: usb-audio: Reorder snd_djm_devices[] entries
+In-Reply-To: <Yau46FDzoql0SNnW@geday>
+References: <Yau46FDzoql0SNnW@geday>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, leon@kernel.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
- broonie@kernel.org
+Cc: William Overton <willovertonuk@gmail.com>,
+ ALSA-devel <alsa-devel@alsa-project.org>, Olivia Mackintosh <livvy@base.nu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,17 +93,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 04 Dec 2021 08:28:40 +0100,
-Christophe JAILLET wrote:
+On Sat, 04 Dec 2021 19:52:24 +0100,
+Geraldo Nascimento wrote:
 > 
-> Some comments and include guards are not consistent with the name of the
-> file where they can be found.
+> Olivia Mackintosh has posted to alsa-devel reporting that
+> there's a potential bug that could break mixer quirks for Pioneer
+> devices introduced by 6d27788160362a7ee6c0d317636fe4b1ddbe59a7
+> "ALSA: usb-audio: Add support for the Pioneer DJM 750MK2
+> Mixer/Soundcard".
 > 
-> This is likely some typo or cut'n'paste issues.
+> This happened because the DJM 750 MK2 was added last to the Pioneer DJM
+> device table index and defined as 0x4 but was added to snd_djm_devices[]
+> just after the DJM 750 (MK1) entry instead of last, after the DJM 900
+> NXS2. This escaped review.
 > 
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> To prevent that from ever happening again, Takashi Iwai suggested to use
+> C99 array designators in snd_djm_devices[] instead of simply reordering
+> the entries.
+> 
+> Reported-by: Olivia Mackintosh <livvy@base.nu>
+> Suggested-by: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+> 
+> ---
+> 
+> V1 -> V2: added C99 array designators to prevent the order of entries
+> ever being an issue again.
 
-Thanks, applied now.
+Thanks, applied now with Fixes tag.
 
 
 Takashi

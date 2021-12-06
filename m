@@ -2,148 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8956146AE54
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 00:21:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B78D46AE84
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 00:37:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81A612353;
-	Tue,  7 Dec 2021 00:20:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81A612353
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BA912353;
+	Tue,  7 Dec 2021 00:36:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BA912353
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638832890;
-	bh=CZTuzhAp6FCklxS0SeQBmOYUtvcHPF82pvAPOaUIWns=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1638833859;
+	bh=zN+9TEljUERr/qzgu4GGTgKF0ehFalc7GHWbDtrmj5U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HZP/IgFrqxqBBhLRVnnhKfb9o7fMV9MccEmhoKTmgu2mPN8vNbiMzdwwPSnf5ZQH0
-	 IEDKvoqD6AJlshrFp0leh2LGoHDyG4FsutEvisevtnSzs7kV5rxgv4CW0Hvyj5kraF
-	 SwF7HyG2cJPDoboZSxK1TD19GR2No//LbSH/b1KA=
+	b=mNTYHClgsChN1LM/k3pPO1mRxGrurjXx+Z2su2wY9Sr24gl31s9i+wWH7RyQlJ9WE
+	 ygEd8vPQfKI34BPr2NgNMSQlDYUk7DKJA9RVCT9DaIaqCVsYALYzVQrvHSrEyww+ph
+	 SzDhnplYRgJZqLnNMJqxV79hjQajw8T6vnKC9ufE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46440F804FF;
-	Tue,  7 Dec 2021 00:19:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CCA2F804ED;
+	Tue,  7 Dec 2021 00:36:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B87B2F804FE; Tue,  7 Dec 2021 00:19:51 +0100 (CET)
+ id 7910BF804EC; Tue,  7 Dec 2021 00:36:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on2070c.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::70c])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE6B9F804EC
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 00:19:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE6B9F804EC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
- header.b="BieFd0yy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mN2uT6sKTzj8D9R6XiZU0mdhBNsgyc3+Qj2DyWbO8uOleTQyfEmYVcdgAcgsoFwa+nW+QUxsM0QzBteJCUIDX663ET0iFIM+yn7G78sIMcbhU8qh38pIkyW7ka3m/y9dsVycaAWzWHoToZ6bamMPSTWCV6YuMq4/TW1fsNwcbEqJL6pN+Qc27ZuiBY0pkj0HLm+8+FjwqqTh+8IeLS6maMn/4UCJsrvpQZ9uE7YWTTkM7kTCEBphv/5b1lrZoB3tN9PVFFzQgK9wV7vY4SUNfg0UuvAhXVZGgpfxM+O3RZnMQOHzV5APqoqmqrpBtN/PSvIyK934UdJ8uOQcMafS/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/LQTu28OgIxp9uoQilEo/+kbo1AnANJ1aOXoKQrO4Ko=;
- b=WUeNry6xxdOWiglbdhph6DN55QLpJdBdYOkJaasLOiZcj05ewxYfUuZO+porIqEdgzs9DrnRQuxM5R3OdycXlMxULKDk6KrDLrgzzqqcKXOqS5XSKkZNpaWHP9Wh9DTmhEEe/gdbYWITc5g00AWSWT6p9tFEyAyNzMzuLiCSdErcu3sS2X6C8VOmQCB1/Def67IqGGtKiQ3qImsD35JKdDLnHSmnpi66BqRziTB5a0jH3Uk3JjNMTcA2EkR7tBUjGym8koRbmFbXX4Q5qLvlKPB3Bj4Pkuket1oJuNVwMOwwHdq2SI9Y1cDIrnxAMbqZvlM6X/C3uKnk4K6hdI9gSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/LQTu28OgIxp9uoQilEo/+kbo1AnANJ1aOXoKQrO4Ko=;
- b=BieFd0yyFzp2yg4tqnWs077QNaUq+QSjk6diNTI1/ALGQnb3meDxssEDAZZKD1BzDpRBENNhQv2UjJn1jeLtc5L1mqYBPWj88lXEm87NCiywQjNhv3hA6g4wuhbBNPn1yLyftMcPsfyN5PKqVzlpGTvBjZgqrGGPQXMWlXaIjZM=
-Received: from TYCPR01MB5581.jpnprd01.prod.outlook.com (2603:1096:400:a::10)
- by TYAPR01MB1981.jpnprd01.prod.outlook.com (2603:1096:404:6::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20; Mon, 6 Dec
- 2021 23:19:36 +0000
-Received: from TYCPR01MB5581.jpnprd01.prod.outlook.com
- ([fe80::3d74:9c2e:e85a:df82]) by TYCPR01MB5581.jpnprd01.prod.outlook.com
- ([fe80::3d74:9c2e:e85a:df82%5]) with mapi id 15.20.4755.022; Mon, 6 Dec 2021
- 23:19:36 +0000
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Ameer Hamza <amhamza.mgc@gmail.com>
-Subject: RE: [PATCH] ASoC: test-component: fix null pointer dereference.
-Thread-Topic: [PATCH] ASoC: test-component: fix null pointer dereference.
-Thread-Index: AQHX6hiZRK5cTb56bk2m5NVbTZyjx6wkenEwgAC48ICAAOYnsA==
-Date: Mon, 6 Dec 2021 23:19:36 +0000
-Message-ID: <TYCPR01MB5581998AD64AE249C7D86C26D46D9@TYCPR01MB5581.jpnprd01.prod.outlook.com>
-References: <20211205204200.7852-1-amhamza.mgc@gmail.com>
- <TYCPR01MB55813B26BB2B3BB6D1E072F2D46C9@TYCPR01MB5581.jpnprd01.prod.outlook.com>
- <20211206092937.GA5609@hamza-OptiPlex-7040>
-In-Reply-To: <20211206092937.GA5609@hamza-OptiPlex-7040>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 658da310-2711-4f42-6af7-08d9b90eded7
-x-ms-traffictypediagnostic: TYAPR01MB1981:EE_
-x-microsoft-antispam-prvs: <TYAPR01MB19816EC8BA29F93B429CE1C6D46D9@TYAPR01MB1981.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: WfFVzXt0VGA9lS2eYpkGYez9YUnKTREAD9s4IBevY8S9jZQQjewkLAPY5VMM1rEsjM3WpYZUcFm88WHnKp7sKuR4qregRm+KuHVbVmS6xEVByvJxEg2u1sIPml07EDuL5+Be8mlDRmAvlPYHqFfFP9u6GEaD/RRnGrfDuwrlyws30wIaqUNfms5qqNSgdNfkdvbSbMhD5V0OdPu1GAYakRBUDXx97DiMGsOiXVy8H0aY8t5c/xNbbRWbTBxqUCf7/h3SuLLht2AP1tZKAN8J17VRihn3PtOwB59c6NcYLAeR70oBDH1rI+kvUjm12gvryNS9+y87jPrkInDoKiN/wKIbXPpsRYVu6xQxs7vCItnn/ZbOCyuX4JjkX1kYdPLKq2fgmnGi00aSP31GCha9AMPoZTYmWtsc7ms16nTG1Ua+ElPBYo1S+kLoNJPCvjM11YQKqv9f02Lg7FsmR0eBC59LzhgJrrh7eCTVbIqlkO5zZo/F1AcTQ5FltNOQr0aV4KTVAu51jsg7ewYx5AJoPa7k8/reugU3X4yLduhRfNvraCYZVewpy2Q5o9+JEV/ag+ie8Jx1KJmyCzNA75ZkarjaEFq/E06oHoiDeIjhxUx1QhAOA5U9MEIwdaqwsyzMH3JZSLzSk6Zn9uf80sxhdt00t66A6l598CS9Ao1SyHj/JKVOKX8ScBKT3rp6iahb+OLiORC7A0PBOG6KLTydDQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB5581.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(316002)(7696005)(6506007)(122000001)(38100700002)(26005)(6916009)(83380400001)(52536014)(2906002)(86362001)(76116006)(186003)(5660300002)(71200400001)(9686003)(66446008)(66476007)(66946007)(33656002)(55016003)(64756008)(8676002)(66556008)(4744005)(8936002)(54906003)(4326008)(38070700005)(508600001);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BWLILlyWwr2vgLOciQfnSFsNkY28u798HX0+TTQDyODl61IDuvNCLQaC5P/z?=
- =?us-ascii?Q?eDYlLKA/gww5BIwE+SGg8IA9tdvShmbr2Ub0g3KzyLRuo4MScFk11sv5i2sp?=
- =?us-ascii?Q?Y0Czq57YDKYQV6XAWjI9tp7+AluFBuWTJ2atjKi6OgzbvgdMeXaXDGwGjJtm?=
- =?us-ascii?Q?igfJi/+1d7p5zHJyB30kwoTwREmH6Noy6rrqXWVP1TIAN/jAebhIg2rJ5awP?=
- =?us-ascii?Q?IFcQRscP/aAjYzjs4Ex9XnYQeERYFYbiJRMvMH0s7Bs0sqixPdlm52v6x+Yf?=
- =?us-ascii?Q?snqpR+hAyN+yofxgQ3aMBjBFeXWivrIVOwZp3b1Wi532k+s92fyxmpT762jW?=
- =?us-ascii?Q?IJWckdELFtj4A8Avz1aw7iJq6xyTReIcsOOfOeurU1vaotmiMZsEIYomOG9R?=
- =?us-ascii?Q?4D9HnDLbUJCXHHMG9+oi8UHyKMCXp+vj3EmIAKIg+xqGBpDK0NgZ1DsbaLv6?=
- =?us-ascii?Q?GFK5luIN/kjG3fxBQxqMYp13JQRZQrwcJfPfJwMUr2l4FA0KiPQzia6rs5Pg?=
- =?us-ascii?Q?P2NEWxhPTCiUzuYuF2+F8DGtkgrI8Qh5hc3OYvTuw5nnKSl0QoLqvxVeUuGs?=
- =?us-ascii?Q?rfUg777naM6CaASYfoGxWpKWMGcJTjtfiRYdW7Fk6c0kpBAt6UhftJzDlI9b?=
- =?us-ascii?Q?MeL1DINXRlWbxVdsJf/tiRTcv+l26jSZeXiIYiVB6tEQdbwbGRDjT6nq5CXY?=
- =?us-ascii?Q?gWO5pMqeSpznS3XfXCqtfHfyEx01VK/MGmtWn46XsyZTJ3kq13uIUv4Fwrep?=
- =?us-ascii?Q?bmU1xqMkviQKl6FbA45MqWgiQKU0zeM+bb09kr2NAHeXEW4Jhcq0zBCdYKVz?=
- =?us-ascii?Q?PaT00V8kXA0R+o5yllRPQ1G9GhAs+/bQQ4ANaSdkhT6/R5qt3TX/2KyjAwzP?=
- =?us-ascii?Q?ptuFGAx2PMgkcXoI72dxMCb57SH5diqPquFjsXbXexlYfxrx+s2uh0RqcPan?=
- =?us-ascii?Q?zYbOs0eaMA2MgWjMDRHFpmGj0WVZzYr21jbssQRLVVsU+lxiEMollAW5L6uw?=
- =?us-ascii?Q?8cFWClvsOOiTRnVkIzYGQDhswjhBMadz/OtncIvMfeJp0ilYQZ8f+lDO6HRS?=
- =?us-ascii?Q?4w/0hInyDiH9wvD1QN3k6Px9TroP+W9ydQZhV3zEd+ubgXVKR9V77eTafRkn?=
- =?us-ascii?Q?7FzXyWixXlur2USxR776iN/VoeU5gFzXxkykB9zcpmTmqA4ApZ68olHlxWak?=
- =?us-ascii?Q?fzDTElgvKy6kuWwJf7Z1Pfjg/x/wop3omQ2H07EfbDtx61F2EWGOHXTMEYuV?=
- =?us-ascii?Q?lQtqJ2IfCorksH0eOv4o1f4Mh1U8nASPNTvQvEctoux27/6Mnvdd8BGIIe+D?=
- =?us-ascii?Q?UL56QC+Wdf0T2wJUnQsAAoBbQ5WRQ36wfRjbChukXSy8/Ln9D3Kj9EdXlqwz?=
- =?us-ascii?Q?Wy+sgG9EhwskVcUhXeTvNDtJ/Gj2R/Avp1yBX1zeU0F0KuBuF+uYAJ5KjUBj?=
- =?us-ascii?Q?tcQoDt6ND24CKLdODfnGLAsZOVy03Doswc/nlIrMigYqL8+dJjfbT51vFi5P?=
- =?us-ascii?Q?UqUKJgo+7BH/4T0RdS89H1i4djgPZNAmsAE724+flE3vweWpuS7lOdVyFkDY?=
- =?us-ascii?Q?vuc8vk3jpiJA9B+oGjXn/a7yfHSOVQDMvQGwS9bJicASDRR/7Tgb6R1zhWfb?=
- =?us-ascii?Q?e6Ry/xKV7FjUl4MwnXKxag7yi6NkprxcapLTinYp1pM3sFMk+jrE6If5mNpb?=
- =?us-ascii?Q?cT2Is20EuTmaaoKraA5dqT1r0wPak2UCDBjwZQ3lz5XXt3D+FIpDx4iBJUUA?=
- =?us-ascii?Q?V+eMLw04LA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by alsa1.perex.cz (Postfix) with ESMTPS id 170C0F80118
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 00:36:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 170C0F80118
+X-IronPort-AV: E=McAfee;i="6200,9189,10190"; a="323688574"
+X-IronPort-AV: E=Sophos;i="5.87,292,1631602800"; d="scan'208";a="323688574"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2021 15:36:11 -0800
+X-IronPort-AV: E=Sophos;i="5.87,292,1631602800"; d="scan'208";a="462054472"
+Received: from jcsee-mobl2.ccr.corp.intel.com (HELO [10.209.128.127])
+ ([10.209.128.127])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2021 15:36:10 -0800
+Subject: Re: Support for 8086:ae20 Intel Smart Sound Technology on Fujitsu
+ Lifebook
+To: Norbert Preining <norbert@preining.info>
+References: <Yat56SpjuUAxm2Gc@sakefilet.preining.info>
+ <94bfe11e-c774-4f9e-1cec-297fcedfef85@linux.intel.com>
+ <Ya6agUY8ClmkONp7@bulldog.preining.info>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <f01c9a7f-7534-c4fa-ea24-c5bf4d120128@linux.intel.com>
+Date: Mon, 6 Dec 2021 17:36:08 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB5581.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 658da310-2711-4f42-6af7-08d9b90eded7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Dec 2021 23:19:36.7882 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: U/gtHbFRgRF7cYKhbIoUAXiBYVImcbQw8NXI8+C2PjdusFVPvMeUlm1djGY+foSTERV3bE1eNevbc4qKlpHitMQjx0xJMD1deI5LDRVCIqKocNJnLThcMRRq1Pi8AOdS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB1981
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "broonie@kernel.org" <broonie@kernel.org>
+In-Reply-To: <Ya6agUY8ClmkONp7@bulldog.preining.info>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -160,29 +79,53 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Hi Ameer
 
->> Probing this driver without adata is strange for me.
->> How did probe this driver ??
->
-> Thank you for your response. Unfortunately, I am not aware of
-> implementation details of this component. Coverity suggested that there
-> can be a potential NULL pointer access which seems logical to me. Do you
-> agree with coverity here?
+> [~] cat /sys/bus/pci/devices/0000\:00\:1f.3/device 
+> 0x02c8
 
-I think no potential NULL pointer access, because this driver can't
-be called without of_id->data.
-But, potential NULL pointer check itself is good idea.
-It seems your patch was already accepted :)
+so that's CometLake LP
 
-I noticed that we can replace it to use of_device_get_match_data()
+> [~] cat /sys/bus/pci/devices/0000\:00\:1f.3/class
+> 0x040100
 
--	const struct of_device_id *of_id =3D of_match_device(test_of_match, &pdev=
-->dev);
--	const struct test_adata *adata =3D of_id->data;
-+	const struct test_adata *adata =3D of_device_get_match_data(&pdev->dev);
+this one means the audio DSP is enabled, but might not be required for
+your platform.
 
+> [~] sudo lspci -vvv -s 00:1f.3
+> 00:1f.3 Multimedia audio controller: Intel Corporation Comet Lake PCH-LP cAVS
+>         Subsystem: Fujitsu Client Computing Limited Comet Lake PCH-LP cAVS
+>         Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+>         Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+>         Latency: 32, Cache Line Size: 64 bytes
+>         Interrupt: pin A routed to IRQ 173
+>         IOMMU group: 13
+>         Region 0: Memory at a2130000 (64-bit, non-prefetchable) [size=16K]
+>         Region 4: Memory at 604e000000 (64-bit, non-prefetchable) [size=1M]
+>         Capabilities: [50] Power Management version 3
+>                 Flags: PMEClk- DSI- D1- D2- AuxCurrent=55mA PME(D0-,D1-,D2-,D3hot+,D3cold+)
+>                 Status: D3 NoSoftRst+ PME-Enable+ DSel=0 DScale=0 PME-
+>         Capabilities: [80] Vendor Specific Information: Len=14 <?>
+>         Capabilities: [60] MSI: Enable+ Count=1/1 Maskable- 64bit+
+>                 Address: 00000000fee008d8  Data: 0000
+>         Kernel driver in use: snd_hda_intel
 
-Best regards
----
-Kuninori Morimoto
+and this means the kernel did not detect an interface that requires the DSP.
+
+Looking at your alsa-info log, an alternate explanation is that your
+distribution forces the use of the
+
+snd_intel_dspcfg: dsp_driver=1 option, which will select the HDaudio
+legacy.
+
+If you happen to have a device with microphones attached to the PCH, not
+the HDaudio codec, then by design you *cannot* use the legacy HDaudio
+driver (snd-hda-intel). you will have to use the SOF driver
+(snd-sof-pci-intel-cnl).
+
+Can you check in /etc/modprobe.d/*.conf if you see a configuration that
+sets this module parameter?
+
+If you see this option set, try to comment it out and reboot. You should
+really avoid setting the dsp_driver option since it will bypass the
+autodetection and might result in the wrong driver being used.
+

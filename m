@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9356946B4E7
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 08:57:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C80846B508
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 09:02:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D0552350;
-	Tue,  7 Dec 2021 08:56:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D0552350
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2645E2361;
+	Tue,  7 Dec 2021 09:01:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2645E2361
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638863835;
-	bh=SbOgkcAsjP+KC52uFm3+68V+fnl5oUP6F15npNuClLs=;
+	s=default; t=1638864135;
+	bh=unNiXjN6/3qhxhfzDXSIhGRPKgn8+VAYsSfJVfnlbaU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZZIetlNpD/vjF20ku1sXTdpXq5wxvdAQsRDlvXZu2cryB2qv83l0LzTx8ayE+zANg
-	 QudBEYcmzaWDIF062A5G9mV2lFM4OCu7IMBI4VtggFaFxABHWkFlkMhq33DfHi8YDg
-	 IuYWcsJQ9LRweAxByYAyV7IOGQ7UeT1AuwFIGZjg=
+	b=IF5UhpaoNczLhPFcb+aYrMDjGdbMmv/xSHP+bNODTwdyx+g8of4d4g0Wu+PL4H9vf
+	 mVhZEnPwSbUI9IAzV3UYZLWZRytqUxEIPetBs7ugxTuJlZFXNuq7+N6Uua1ZWbTFry
+	 IAiVqkKr3YhjghJ/hHVgMK/ybPAF+Y++lVWgC/+c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78734F80259;
-	Tue,  7 Dec 2021 08:56:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9901BF8032B;
+	Tue,  7 Dec 2021 09:01:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20168F8028D; Tue,  7 Dec 2021 08:55:58 +0100 (CET)
+ id 0540BF8028D; Tue,  7 Dec 2021 09:00:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A87BCF80217
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 08:55:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A87BCF80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20E1AF80253
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 09:00:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20E1AF80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="I77RQ42t"; 
+ header.b="t3tHG/Ho"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="LXMR54ke"
+ header.b="wMjgm9fE"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 2764421B3D;
- Tue,  7 Dec 2021 07:55:52 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 5FA5E1FD2F;
+ Tue,  7 Dec 2021 08:00:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638863752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1638864054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QfPmzCp0c0pSnj+pnR/UOJY5BO47gsQw/LGWVqhdZbg=;
- b=I77RQ42t269EZFJJ6Iew60Z7c7fkz5SMSspr1JVba1mFaetlOiuYhF7DpEXndm0SGIDy6l
- QvWWplBCiaPJ6nw45IChq2u+pQmZKbUkLL/M2iyCvEI+HrWcT2NtoxEVDORBpSq1T38E4B
- 9T5ZoLCOHPrCuyTF/ymHwrKE0k0ccQs=
+ bh=WunL9IcKom/g+o4e32dvibfGKSiyLe40+462fTACWsg=;
+ b=t3tHG/HoiLkECGDJLM3HxfPNdiujFEaWRR03HAESaWzxmQ2K3mnDTXv4lqoafzWwRukfbC
+ jngbEbjsnrQVLRA2/R6E7dcM8434jDSaF77jIVaJnxzvwqimUtKxUzaox3om5NRMEswtZo
+ auAFpC3bwx4s53pZd81Q/PgLw2edJGA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638863752;
+ s=susede2_ed25519; t=1638864054;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QfPmzCp0c0pSnj+pnR/UOJY5BO47gsQw/LGWVqhdZbg=;
- b=LXMR54kebw6L2uE9At8tCYh7H5I1AeJiT4jV84cSCmvQzzapUgvP51lCXVw1/3ugcJkV2e
- 3V4UscpPlDx2AlCw==
+ bh=WunL9IcKom/g+o4e32dvibfGKSiyLe40+462fTACWsg=;
+ b=wMjgm9fEeBB6NJnAYeotB2CiqLCX5ZgF8f3A+zXSJ+Ql8mDUNrRbuXodmS9mx6ulXGoDYB
+ Q2UllJTop6ILVMAg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1794EA3B84;
- Tue,  7 Dec 2021 07:55:52 +0000 (UTC)
-Date: Tue, 07 Dec 2021 08:55:52 +0100
-Message-ID: <s5h1r2oq25z.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 548E4A3B87;
+ Tue,  7 Dec 2021 08:00:54 +0000 (UTC)
+Date: Tue, 07 Dec 2021 09:00:54 +0100
+Message-ID: <s5hzgpcond5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.16-rc4
-In-Reply-To: <20211206160603.E22C8C341C1@smtp.kernel.org>
-References: <20211206160603.E22C8C341C1@smtp.kernel.org>
+To: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH] ALSA: mixart: Reduce size of mixart_timer_notify
+In-Reply-To: <20211207062941.2413679-1-keescook@chromium.org>
+References: <20211207062941.2413679-1-keescook@chromium.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-hardening@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,32 +93,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 06 Dec 2021 17:05:47 +0100,
-Mark Brown wrote:
+On Tue, 07 Dec 2021 07:29:41 +0100,
+Kees Cook wrote:
 > 
-> The following changes since commit 86f74ba3fef56dd1cee19b7a15ae27fc0da5bb61:
+> The mixart_timer_notify structure was larger than could be represented
+> by the mixart_msg_data array storage. Adjust the size to as large as
+> possible to fix the warning seen with -Warray-bounds builds:
 > 
->   ASoC: SOF: hda: reset DAI widget before reconfiguring it (2021-11-24 12:57:11 +0000)
+> sound/pci/mixart/mixart_core.c: In function 'snd_mixart_threaded_irq':
+> sound/pci/mixart/mixart_core.c:447:50: error: array subscript 'struct mixart_timer_notify[0]' is partly outside array bounds of 'u32[128]' {aka 'unsigned int[128]'} [-Werror=array-bounds]
+>   447 |                                 for(i=0; i<notify->stream_count; i++) {
+>       |                                                  ^~
+> sound/pci/mixart/mixart_core.c:328:12: note: while referencing 'mixart_msg_data'
+>   328 | static u32 mixart_msg_data[MSG_DEFAULT_SIZE / 4];
+>       |            ^~~~~~~~~~~~~~~
 > 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.16-rc4
-> 
-> for you to fetch changes up to 3fc27e9a1f619b50700f020e6cd270c1b74755f0:
-> 
->   ASoC: codecs: wsa881x: fix return values from kcontrol put (2021-12-01 14:13:53 +0000)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v5.16
-> 
-> A relatively large collection of updates, the size is increased quite a
-> bit by there being some repetitive changes for similar issues that occur
-> multiple times with both notifying control value changes and runtime PM.
-> 
-> The Rockchip update looks at first glance like a cleanup but fixes
-> instantiation of the hardware on some systems.
+> Signed-off-by: Kees Cook <keescook@chromium.org>
 
-Thanks, pulled.
+Thanks, applied now.
+
+> @@ -444,6 +442,7 @@ irqreturn_t snd_mixart_threaded_irq(int irq, void *dev_id)
+>  				struct mixart_timer_notify *notify;
+>  				notify = (struct mixart_timer_notify *)mixart_msg_data;
+>  
+> +				BUILD_BUG_ON(sizeof(notify) > sizeof(mixart_msg_data));
+>  				for(i=0; i<notify->stream_count; i++) {
+>  
+>  					u32 buffer_id = notify->streams[i].buffer_id;
+
+I guess we should add the array boundary check of
+notify->stream_count, instead of fully relying on the hardware reply,
+too.  Will submit the additional check.
 
 
 Takashi

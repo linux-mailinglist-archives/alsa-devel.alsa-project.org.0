@@ -2,89 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93DAB46BD89
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 15:24:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97C3846BD97
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 15:26:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03F40244E;
-	Tue,  7 Dec 2021 15:23:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03F40244E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 374722457;
+	Tue,  7 Dec 2021 15:25:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 374722457
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638887088;
-	bh=sZ06HnMVwe5Lv2Q24ZdKFSq5a6IweAvob3t9x/Pjq1k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1638887192;
+	bh=XWSl8z8bDIc3cY4UlMtxEGhBhJpDvfLHCNlG3LBUaZ8=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cSwBXjI7FThC7MRKTyomAHBm+zK6kAZitRNEb1bK5hGM3k8c7PjmYPbgE+IDAN7Or
-	 trWv/Bs+wQGgY+C7R1C7LxQleu3AbZefydXPhdOnDYD+amuOkQ5+AaYmAaFFc/bcBv
-	 wtYVDLAkqOFoZzHdQQ/b8/2hVoxbB/bRJylDhIpY=
+	b=JlYk3MSsyN9DyG/YG3UYaJsWhWJxMMSohM4/+Qj9KRXXe2RBLsOSFIjPEm9fHeSjj
+	 9Gbs8uRVrcmT43einD8EpqYSPEjjWL+wAyljXnJ2JY1hdEq7/yjGHCGqVgJQ0cfvKr
+	 7kvIDh7bhHDlO7zhYO6jrcx4r3asHFCfabxjaOR4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC2C7F8032B;
-	Tue,  7 Dec 2021 15:23:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8D44F80253;
+	Tue,  7 Dec 2021 15:25:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CA63F8028D; Tue,  7 Dec 2021 15:23:32 +0100 (CET)
+ id 45C14F8028D; Tue,  7 Dec 2021 15:25:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28ECDF80217
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 15:23:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28ECDF80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id B895CF80253
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 15:25:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B895CF80253
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="K3IUYo1B"
-Received: by mail-wr1-x436.google.com with SMTP id o13so29760146wrs.12
- for <alsa-devel@alsa-project.org>; Tue, 07 Dec 2021 06:23:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=uY+Ye5lZK/paRfbOIv1ilOUmqS6UHZavsbAKwAI2Ayo=;
- b=K3IUYo1B7pu/wgpmnj5bernzE9trlHIFClUHa0V8zVeHm0hf0QwfDKtFh/hEol2P+I
- GZuUSDRzddkmH1Zab8ISaKbpcsrE/tXEnbWh+s8yClNOxj2NrTF1aWKNWIWtb1k8D2IA
- bM1dSMFqx1R3jZ/l+40UEoore5l8lyKO8Zh9thpw+nQ2hczIRxG3dE1IrH1mVfxuyF40
- 4kNQjOlzxKNn+42q8M0/qWb0W1bXC4LJvcXBosgdlOe3Hms9aCH5L24eUmQ8Sse2Shpk
- E05pAjLY5Flu9kYILYteFpf7c6jdqriH1Cr1A0a9F5LGvW759vdsT/NbLyBn02/Gdrr/
- 9wQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=uY+Ye5lZK/paRfbOIv1ilOUmqS6UHZavsbAKwAI2Ayo=;
- b=BovJ9bNLkkeedowqPgOJqyf/irR3akC899HHcdaTM6N3sPOr9oxC3iy2k07t+A1YnE
- pYfBp1OA6elHn/iLPX7WQfN8zIOhm7r1Vlj/F9R5wT8i1YSErRrPvGG8GQ5g4HE6UmnH
- y//4wVN2iGIvHs4MJZDLD0RS1Q0gmAgA4pTzUaKdHn7vjBfRxU+gl50fJ8uMjodRhDx5
- nV9Djv+bz7j2AXsoXa3i8z0mPD79hMOJ32/hX8/QUDtUMyCDE4/I9Pt8hSCr/FY8LPBu
- 29N7Rv22JXMWiYCKp8/fDTr33R5/QL0yLMb+DY1H0Hc9/ITuQ/Nrp/toZzxNkLtEaQ+X
- HBnw==
-X-Gm-Message-State: AOAM533He3wZg6lbKbw4U3iuJmiMsjyftJwBF3X4aXmVl6Z7UDHRoWzl
- PJPjK7dodprpy3R9XJIVw10=
-X-Google-Smtp-Source: ABdhPJzEGZxqvOkgDTrQ2wpZCusW5PWJyq2nGJ4WUdYa/7ExbD3EXioqx2hhLFY6t6Q7uUsVNmZu/Q==
-X-Received: by 2002:a5d:45c4:: with SMTP id b4mr51085122wrs.222.1638887001943; 
- Tue, 07 Dec 2021 06:23:21 -0800 (PST)
-Received: from localhost.localdomain ([39.48.199.136])
- by smtp.gmail.com with ESMTPSA id h18sm16075887wre.46.2021.12.07.06.23.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Dec 2021 06:23:21 -0800 (PST)
-From: Ameer Hamza <amhamza.mgc@gmail.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org
-Subject: [PATCH v2] ASoC: test-component: fix null pointer dereference.
-Date: Tue,  7 Dec 2021 19:23:09 +0500
-Message-Id: <20211207142309.222820-1-amhamza.mgc@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <Ya9YxoUqkATCOASh@sirena.org.uk>
-References: <Ya9YxoUqkATCOASh@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="OqMMp3h8"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4BAC6B817E4;
+ Tue,  7 Dec 2021 14:25:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB319C341C1;
+ Tue,  7 Dec 2021 14:25:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1638887105;
+ bh=XWSl8z8bDIc3cY4UlMtxEGhBhJpDvfLHCNlG3LBUaZ8=;
+ h=Date:From:To:Subject:References:In-Reply-To:From;
+ b=OqMMp3h8+WcxB+3zPWJNtOi3Qh50Y5G+/OQrvzMIlvXn836K57U2yXDfpGiptO4J6
+ JXfmF5UQIasH07KYkwBfg+w5IYGrnMkwJv+T6Q/jd07+CiExz137ewTjHVuEXtumEZ
+ 31uXCoUXzOmElSubyJL6wZIFSDESDb1Bc/HAuNlb534mb2NYMzcPJSGzGYxXyzX7tJ
+ Y5SBZNAirdZYzKwtXK7ZmaHa+VVBm9WRLFkhvY2b42+qER1NaAuBvX8gX6BTz3SQ3Y
+ ZeOKw+31Wib1ZgA4JsRT0Mqr6s7DpVmgQgjkPH8CF6gtGOlLpO8siE1cKMNEvCssD1
+ yp0PQNfR4REng==
+Date: Tue, 7 Dec 2021 14:25:00 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>, Shuah Khan <shuah@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
+ linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2] kselftest: alsa: Add simplistic test for ALSA mixer
+ controls kselftest
+Message-ID: <Ya9uvPx37AcOdwLK@sirena.org.uk>
+References: <20211206160305.194011-1-broonie@kernel.org>
+ <Ya7TAHdMe9i41bsC@workstation>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: amhamza.mgc@gmail.com, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="SAnHYBT7G/FMxttc"
+Content-Disposition: inline
+In-Reply-To: <Ya7TAHdMe9i41bsC@workstation>
+X-Cookie: Only God can make random selections.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,51 +87,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dereferncing of_id pointer will result in exception in current
-implementation since of_match_device() will assign it to NULL.
-Adding NULL check for protection.
 
-Signed-off-by: Ameer Hamza <amhamza.mgc@gmail.com>
----
-changes in v2:
-Replace of_match_device() with of_device_get_match_data to simplify the
-logic as suggested by Kuninori Morimoto
----
- sound/soc/generic/test-component.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+--SAnHYBT7G/FMxttc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/generic/test-component.c b/sound/soc/generic/test-component.c
-index 8fc97d3ff011..5da4725d9e16 100644
---- a/sound/soc/generic/test-component.c
-+++ b/sound/soc/generic/test-component.c
-@@ -531,17 +531,13 @@ static int test_driver_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct device_node *node = dev->of_node;
- 	struct device_node *ep;
--	const struct of_device_id *of_id = of_match_device(test_of_match, &pdev->dev);
--	const struct test_adata *adata;
-+	const struct test_adata *adata = of_device_get_match_data(&pdev->dev);
- 	struct snd_soc_component_driver *cdriv;
- 	struct snd_soc_dai_driver *ddriv;
- 	struct test_dai_name *dname;
- 	struct test_priv *priv;
- 	int num, ret, i;
- 
--	if (!of_id)
--		return -EINVAL;
--	adata = of_id->data;
- 	num = of_graph_get_endpoint_count(node);
- 	if (!num) {
- 		dev_err(dev, "no port exits\n");
-@@ -552,7 +548,7 @@ static int test_driver_probe(struct platform_device *pdev)
- 	cdriv	= devm_kzalloc(dev, sizeof(*cdriv),		GFP_KERNEL);
- 	ddriv	= devm_kzalloc(dev, sizeof(*ddriv) * num,	GFP_KERNEL);
- 	dname	= devm_kzalloc(dev, sizeof(*dname) * num,	GFP_KERNEL);
--	if (!priv || !cdriv || !ddriv || !dname)
-+	if (!priv || !cdriv || !ddriv || !dname || !adata)
- 		return -EINVAL;
- 
- 	priv->dev		= dev;
--- 
-2.25.1
+On Tue, Dec 07, 2021 at 12:20:32PM +0900, Takashi Sakamoto wrote:
+> On Mon, Dec 06, 2021 at 04:03:05PM +0000, Mark Brown wrote:
 
+> I think it safer to take care of volatile attribute when comparing read
+> value to written value. I'm glad if you review below patch.
+
+Yes, that's a good spot, it was an oversight to not take care of
+volatile controls - I'll roll that in if I send a new version or
+I guess Takashi could apply on top of my v2?  If people are mostly happy
+and at Jaroslav is also preparing patches on top of this it might make
+sense to get it into git sooner.
+
+Reviewed-by: Mark Brown <broonie@kernel.org>
+
+> As another topic, the runtime of alsa-lib application largely differs
+> between process user due to the result of parsing text files for
+> configuration space. I can easily imagine that developers unfamiliar to
+> alsa-lib carelessly adds invalid or inadequate configurations to files
+> under target path of alsa-lib configuration space, and they are puzzled
+> since they are unaware of the fact that the kselftest is affected by
+> userspace stuffs for the runtime.
+
+> If we respect the basic theory of test (idempotence), we can use ioctl(2)
+> with requests for ALSA control interface since it's not so complicated
+> (at least it is easier than ALSA PCM interface). The purpose of
+> kselftest is to test kernel stuffs, not to test userspace stuffs
+> including alsa-lib implementation and variety of plugins.
+
+Right, I was originally thinking of implementing this in terms of
+tinyalsa which is much more direct (though I was amused to see that's
+gained userspace plugins at some point!) partly for this reason but the
+lack of widespread packaging for it was a bit of a blocker and it didn't
+feel like a great idea to essentially do yet another userspace ALSA
+library even if as you say it can be pretty trivial.  Jaroslav's
+suggestion of using a custom configuration to override the default seems
+like it addresses everything though.
+
+I do think there's an advantage for test comprehensibility in having the
+test written in terms of similar APIs to a normal userspace application
+- it makes it easier to relate what the test is doing to normal usage
+which is helpful when trying to understand what the test is trying to
+tell you.
+
+--SAnHYBT7G/FMxttc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGvbrsACgkQJNaLcl1U
+h9BLrAf/T3grq1I+17ob6+wag4tm9GXkoicm9ezwbnlqflJSIKCoXltGpJUBck85
+K3rSaFASldn9oPicWZ5zB7QoCblVJOQrvhUsFs3uZnWYZqsfgY50OXkFLzUp8wtT
+9gvMghXWSTaF1u55l5JJ9FkC1dChoEynb5vowP+3UzQKPocaJSZ3/RKZSdwy1o80
+Jw7fAsOQ8sMzj6SrtIrL9QOj8DMbIBMwx3S9T+GfR8chJA8Ovo8M3O7mnJRxH/TU
+WGcR0paAbBsCV/YJhQDkpelLQEmuvmcfV9a5a5Dp/ir7nPlI4ShGZ3yX3Pxpa//8
+4QZgLL9OEPMnmTjN+19Wr7+o8HYY0w==
+=RWoN
+-----END PGP SIGNATURE-----
+
+--SAnHYBT7G/FMxttc--

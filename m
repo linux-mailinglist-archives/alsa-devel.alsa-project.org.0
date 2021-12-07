@@ -2,87 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F216046B210
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 06:04:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB87046B2EE
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 07:31:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 659AE21C1;
-	Tue,  7 Dec 2021 06:03:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 659AE21C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 469C62215;
+	Tue,  7 Dec 2021 07:30:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 469C62215
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638853473;
-	bh=LqWhjEL0TxrR0dEInQAnGRlkcx2rwO0T+sl2uMd7Q7A=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mAWv4jY/fRguZvDV59/yZLetaxLHi4Q+QSfy4W9/g/S6Eta3R+ss3C6pJwBPyv7D3
-	 CA1Uga4EGx660MtmUAA7X2U5eKqGDHaOz9RTSRw8NsV9olYzUL8sUFhntWrUErw/kx
-	 N9Vv2ptUwcnXj83Kjw6YlP+udGUuWfHVf6BA91qM=
+	s=default; t=1638858674;
+	bh=Bxtg+Md4Tx2O3zfguW43xRX6QWLK3nr94r5jvTZ6XgY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a3vqCy9sHVMeJfmak+SBbbkKQW5N0Qm+97hnFgAZmhKQx/KcmRG+AiXXzEOnpgDR/
+	 fXBKmwtH89Ly2RoQfqmx3PS5/QywFu7YeGzJRB0K7hOb2bANCiroE4H7X55poXatf/
+	 WBDBFm1BUYSGWN4Z1OeixMx9cpC8+lpZcOKfjbE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A57DAF80103;
-	Tue,  7 Dec 2021 06:03:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBF44F80217;
+	Tue,  7 Dec 2021 07:29:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58CD5F8028D; Tue,  7 Dec 2021 06:03:16 +0100 (CET)
+ id D210FF8028D; Tue,  7 Dec 2021 07:29:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45BB9F80103
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 06:03:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45BB9F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5AD0F80217
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 07:29:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5AD0F80217
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Pz2Snm26"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 1B7535He028160;
- Mon, 6 Dec 2021 23:03:05 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1638853385;
- bh=gS5qRRdJFapqcyUi0/EkgP/aZO8T3aw4DbK7IE3Zxc0=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=Pz2Snm2610uopRqDqLRpN5SKVdG5MH/jaWAGz2NteDWtPRBkZO0QLedjCjBQ51gWT
- B6+OSjTZXDzzXQy0lkGph7eppOO7FfN4QV4y1P/lQ84QuD6qvP7Y/YnWaP1mrlWbuf
- TFWo9US/oTwib6iI7Ajz5odxyAonSyHiOj1W+k+8=
-Received: from DLEE108.ent.ti.com (dlee108.ent.ti.com [157.170.170.38])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 1B75359M069532
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 6 Dec 2021 23:03:05 -0600
-Received: from DLEE115.ent.ti.com (157.170.170.26) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Mon, 6
- Dec 2021 23:03:04 -0600
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14 via
- Frontend Transport; Mon, 6 Dec 2021 23:03:04 -0600
-Received: from [172.24.145.75] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 1B7532JM129163;
- Mon, 6 Dec 2021 23:03:02 -0600
-Subject: Re: [PATCH v4] ASoC: dt-bindings: davinci-mcasp: convert McASP
- bindings to yaml schema
-To: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>,
- <robh+dt@kernel.org>
-References: <20211203120243.24173-1-j-choudhary@ti.com>
- <ed6c9be9-32d3-719a-ee0d-608b228f36b3@gmail.com>
-From: Jayesh Choudhary <j-choudhary@ti.com>
-Message-ID: <20449d7b-0524-a8df-7852-a4c495157682@ti.com>
-Date: Tue, 7 Dec 2021 10:33:01 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="J/GkOY2J"
+Received: by mail-pg1-x52a.google.com with SMTP id f125so12922505pgc.0
+ for <alsa-devel@alsa-project.org>; Mon, 06 Dec 2021 22:29:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=f+udiqaZ67AekRJsfuEVb5uj3ROe2vP5ghr0oV195W0=;
+ b=J/GkOY2JatD7FBAKkj7zo7qm0zu83gr3gssEcq7tECGOevoO4it7Y04ne6Pp3FnK0H
+ zsGa0Q8F3qsvT6I4+YPKlNUfN4AUrxlPRJLNc4bitT7GsWdPgyBy5X6Nz9QXCwIMWniZ
+ rEetwE3QNb+HZei31v9cbKSlBOd55Mtp6/JL0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=f+udiqaZ67AekRJsfuEVb5uj3ROe2vP5ghr0oV195W0=;
+ b=zyiBIXshllxoDF/OjGnXY91WZK9c7DlSiBIrqHKc2g4/3qCWsX9nfMk9+cQdKrQNFt
+ 4B50J2Up4TFN4MMH91KGo9z1jgprUseh8Q61SOJ6xOAXFTxe5P2Jc26HoTccpfEWifK7
+ Z8GrPeZ0J98kn0y5mF0l5sRah6f18lflXgpbfpNWoG+lx/xtRaCxsaZTbnWfIEiMUaNO
+ EbRLtIGL5GwuxJZ/R19E1WeAeR1c88lLqAbf2aVo0DkjS9B9Qt9jAsRPP9kL42zwGWym
+ Myd38G1NDaSSPCbcNNhuh1fddaF2CtXM9PH5RTa8Dp34o1MSvsU0xHJkvwxpZywAcMgJ
+ 53sw==
+X-Gm-Message-State: AOAM532GSqO+p034/ynnd2sLJygNtfagA1tNJjVoE//DIAYbThLoBPi+
+ p9+9L3G5x5dFW/C7ksTjtJCq4a/C8wiKew==
+X-Google-Smtp-Source: ABdhPJyZvwNoT4oSGFb3KwxVMh+6xEESFDRswigiC1MShWxc/lpwRffNVSSyabXgOqaqPo9je5cC7w==
+X-Received: by 2002:aa7:9438:0:b0:4a2:c941:9ac4 with SMTP id
+ y24-20020aa79438000000b004a2c9419ac4mr40707651pfo.12.1638858583943; 
+ Mon, 06 Dec 2021 22:29:43 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id t13sm14347377pfl.98.2021.12.06.22.29.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Dec 2021 22:29:43 -0800 (PST)
+From: Kees Cook <keescook@chromium.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH] ALSA: mixart: Reduce size of mixart_timer_notify
+Date: Mon,  6 Dec 2021 22:29:41 -0800
+Message-Id: <20211207062941.2413679-1-keescook@chromium.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <ed6c9be9-32d3-719a-ee0d-608b228f36b3@gmail.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3108; h=from:subject;
+ bh=Bxtg+Md4Tx2O3zfguW43xRX6QWLK3nr94r5jvTZ6XgY=;
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBhrv9VWCfHEI86ECNtov7rQKCtIX1smQa5Ihsv4FCj
+ 5Fqfs7KJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYa7/VQAKCRCJcvTf3G3AJoAZD/
+ 9I4Bg7/tASi7/MTVYDZ2OFnqA7LGqGWzz6D1FZaf1OaIyQ7gz6QVCW+qLJQHpISRu7Z+vbvnEESekZ
+ /qMW/R7pzdFdXaRWK2+XUIxBHgEo145KJOnnMI2qfmhsKgEWiThjnktZ53fZumZwQD/IylG4KOdrGO
+ 1mu+8wuNxCLXj9wAZn3MoawwpPwZwkAkAx4PSK1hqmXFtW6p+bK8AmSdukZJkZE4J3Zpx5x/Zy4sHU
+ he4eUP/OdqVsQ+DsznpT2xT6DFLHO3PrSDol+dKyzNoNKaDsWTmclO6fYG0zY7+EeYAxIBOVk6oWJ9
+ 5XGK3CRaJU9LzoWiW27o1nRExmRCmWPO5dMpKTT62BxFzl+GsNljCaPCtyyFrQWSud8imTFzuuzz95
+ key5HrZkeMwpHeT6H5LxTDVkBjw0exV6ajR8MXsjxyOlXS5JAa1jc3yCZ07Sk7hNMarx+VVgLmIa5g
+ aS9ZQJCLqg2u5qX07BddMQNGu2K6g6RjicdGWxlFNPjquU0B2wtq0/G7cswcx2PVycAui9Pv96hAuH
+ c0DNtqpb5uH3d4ctWK0rOjK4Ba22wacYENz2WJkQcQnQGWMV0gfllH4QhMmntSXjyfXD9NR/53xKov
+ m407NkStVJqCGCut2aywT/IyRhZmtPESfh94Kx8hkLX93rqdItGmwdip/QZg==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, broonie@kernel.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-hardening@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,153 +111,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+The mixart_timer_notify structure was larger than could be represented
+by the mixart_msg_data array storage. Adjust the size to as large as
+possible to fix the warning seen with -Warray-bounds builds:
 
-On 04/12/21 1:50 pm, Péter Ujfalusi wrote:
-> Hi,
-> 
-> On 03/12/2021 14:02, Jayesh Choudhary wrote:
->> Convert the bindings for McASP controllers for TI SOCs from txt
->> to YAML schema.
->>
->> Adds additional properties 'clocks', 'clock-names', 'power-domains',
->> '#sound-dai-cells' and 'port' which were missing from txt file.
->> Removes properties 'sram-size-playback' and 'sram-size-capture'
->> since they are not used.
->> Adds 'dmas' and 'dma-names' in the example which were missing from
->> the txt file.
->> Changes 'interrupts' and 'interrupt-names' from optional to
->> required properties.
->> Changes 'op-mode', 'serial-dir' and 'tdm-slots' to optional properties
->> as they are not needed if the McASP is used only as GPIO.
->>
->> Adds the yaml file in the 'MAINTAINERS' under the heading 'TEXAS
->> INSTRUMENTS ASoC DRIVERS'
->>
->> Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
->> ---
->> Changelog:
->> v4:
->> - changes the commit message
->> - adds type and description to relevant properties
->> - changes maxItems for 'serial-dir'
->> - removes properties 'sram-size-playback' and 'sram-size-capture'
->>    as they are not used
->> - removes 'function-gpios'
->> - removes 'num-serializer'
->> - marks 'tdm-slots', 'serial-dir' and 'op-mode' as optional properties
->> - adds the yaml file in MAINTAINERS
->>
-> 
-> ...
-> 
->> +  reg:
->> +    minItems: 1
->> +    items:
->> +      - description: main registers
-> 
-> The TRM refers to this area as CFG registers
-> 
->> +      - description: data port register
-> 
-> Data registers
-> 
->> +
->> +  op-mode:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: I2S - 0 or DIT - 1 operation mode
-> 
-> 0 - I2S, or 1 - DIT operation mode
-> 
+sound/pci/mixart/mixart_core.c: In function 'snd_mixart_threaded_irq':
+sound/pci/mixart/mixart_core.c:447:50: error: array subscript 'struct mixart_timer_notify[0]' is partly outside array bounds of 'u32[128]' {aka 'unsigned int[128]'} [-Werror=array-bounds]
+  447 |                                 for(i=0; i<notify->stream_count; i++) {
+      |                                                  ^~
+sound/pci/mixart/mixart_core.c:328:12: note: while referencing 'mixart_msg_data'
+  328 | static u32 mixart_msg_data[MSG_DEFAULT_SIZE / 4];
+      |            ^~~~~~~~~~~~~~~
 
-I will change the description for 'reg' and 'op-mode'.
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+ sound/pci/mixart/mixart_core.c |  3 +--
+ sound/pci/mixart/mixart_core.h | 10 +++++++++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
->> +    enum:
->> +      - 0
->> +      - 1
->> +
->> +  tdm-slots:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: number of channels over one serializer
->> +    maxItems: 1
-> 
-> and it has to be between 2 and 32, ignored in DIT mode (384 slots)
-> 
+diff --git a/sound/pci/mixart/mixart_core.c b/sound/pci/mixart/mixart_core.c
+index fb8895af0363..853083dd4bad 100644
+--- a/sound/pci/mixart/mixart_core.c
++++ b/sound/pci/mixart/mixart_core.c
+@@ -23,8 +23,6 @@
+ #define MSG_DESCRIPTOR_SIZE         0x24
+ #define MSG_HEADER_SIZE             (MSG_DESCRIPTOR_SIZE + 4)
+ 
+-#define MSG_DEFAULT_SIZE            512
+-
+ #define MSG_TYPE_MASK               0x00000003    /* mask for following types */
+ #define MSG_TYPE_NOTIFY             0             /* embedded -> driver (only notification, do not get_msg() !) */
+ #define MSG_TYPE_COMMAND            1             /* driver <-> embedded (a command has no answer) */
+@@ -444,6 +442,7 @@ irqreturn_t snd_mixart_threaded_irq(int irq, void *dev_id)
+ 				struct mixart_timer_notify *notify;
+ 				notify = (struct mixart_timer_notify *)mixart_msg_data;
+ 
++				BUILD_BUG_ON(sizeof(notify) > sizeof(mixart_msg_data));
+ 				for(i=0; i<notify->stream_count; i++) {
+ 
+ 					u32 buffer_id = notify->streams[i].buffer_id;
+diff --git a/sound/pci/mixart/mixart_core.h b/sound/pci/mixart/mixart_core.h
+index fbf4731a276d..2f0e29ed5d63 100644
+--- a/sound/pci/mixart/mixart_core.h
++++ b/sound/pci/mixart/mixart_core.h
+@@ -49,6 +49,7 @@ enum mixart_message_id {
+ 	MSG_CLOCK_SET_PROPERTIES             = 0x200002,
+ };
+ 
++#define MSG_DEFAULT_SIZE            512
+ 
+ struct mixart_msg
+ {
+@@ -251,10 +252,17 @@ struct mixart_sample_pos
+ 	u32   sample_pos_low_part;
+ } __attribute__((packed));
+ 
++/*
++ * This structure is limited by the size of MSG_DEFAULT_SIZE. Instead of
++ * having MIXART_MAX_STREAM_PER_CARD * MIXART_MAX_CARDS many streams,
++ * this is capped to have a total size below MSG_DEFAULT_SIZE.
++ */
++#define MIXART_MAX_TIMER_NOTIFY_STREAMS				\
++	((MSG_DEFAULT_SIZE - sizeof(u32)) / sizeof(struct mixart_sample_pos))
+ struct mixart_timer_notify
+ {
+ 	u32                  stream_count;
+-	struct mixart_sample_pos  streams[MIXART_MAX_STREAM_PER_CARD * MIXART_MAX_CARDS];
++	struct mixart_sample_pos  streams[MIXART_MAX_TIMER_NOTIFY_STREAMS];
+ } __attribute__((packed));
+ 
+ 
+-- 
+2.30.2
 
-Will add minimum and maximum. Should this be added as a conditional
-property when op-mode is 0 (I2S mode) and mark it as required?
-
->> +
->> +  serial-dir:
->> +    description:
->> +      A list of serializer configuration
->> +      Entry is indication for serializer pin direction
->> +      0 - Inactive, 1 - TX, 2 - RX
->> +      All AXR pins should be present in the array even if inactive
->> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->> +    minItems: 1
->> +    maxItems: 25
->> +    items:
->> +      minimum: 0
->> +      maximum: 2
->> +      default: 0
-> 
-> There is no default as all pins must be accounted for.
-> 
-
-Okay. Will remove it.
-
->> +
->> +  tx-num-evt:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: configures WFIFO threshold
-> 
-> 0 disables the FIFO use
-> If the property is missing, it also disables the FIFO use.
-> 
-
-Will mention this in the description of both tx/rx-num-evt.
-
->> +    maxItems: 1
->> +
->> +  rx-num-evt:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: configures RFIFO threshold
->> +    maxItems: 1
-
->> +
->> +  interrupts:
->> +    anyOf:
->> +      - minItems: 1
->> +        items:
->> +          - description: TX FIFO interrupt
->> +          - description: RX FIFO interrupt
->> +      - items:
->> +          - description: common FIFO interrupt
-> 
-> These has nothing to do with FIFO, they are just transmit, receive and
-> common or combined
-> 
-
-Okay.
-
->> +
->> +  port:
->> +    description: connection for when McASP is used via graph card
->> +    type: object
-> 
-> I understand that it can be present under the mcasp node as it is part
-> of the graph card binding (or a card binding using graph).
-> I mean if a new card binding comes around then we need to document it
-> here as well?
-> 
-
-Specific properties are not marked for the port. So it should not be an
-issue. Other alternative is to mark the additional properties as true
-but that is not preferred.
-
-Peter,
-Any other changes I should make?
-
->> +
-> 

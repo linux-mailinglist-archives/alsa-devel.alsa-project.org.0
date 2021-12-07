@@ -2,148 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3870646BC01
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 13:58:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BFDE46BC2F
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 14:10:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84FED22EE;
-	Tue,  7 Dec 2021 13:57:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84FED22EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 176782446;
+	Tue,  7 Dec 2021 14:09:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 176782446
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638881923;
-	bh=tjBbiCwg+YPBo8vlNXjaEaDZUqei/AHufqD5nvqw2bs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TKZJcioQ0CTe32wcqD17gfb3ge1enDSCuqvuwEo812r/1SJRGVwUhkXlinp34cTIa
-	 SL9VmZUhQXgtZ1mU3hxDypBWuwPeoXE0RJO0A3Tw7u+i7ZiwMuZuTgSk2CDtgAMjKg
-	 XHosMMjUHKR3g11SODBC5XgvRlSWdRZyR6/GHDbc=
+	s=default; t=1638882608;
+	bh=F/fKPrZyU0Us2AwQLVOm7PVNFqhIL/DCq08fX5U079g=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NFr1vWnhuxDksKKvCXRBAE325bXwlt+KimVYyd+sIL8T38uhSh6+jeXRBgFqkxdWF
+	 kJofW6Xd+k3xTw4lIenW+RrrAaMW0VnvcmGHUyLQRMSiF4LeHugYF+C4zyM5FO6gHQ
+	 5w8IwXmjzZsw4mq/0fAW0Jcn1NtD0hUn7P7a4JMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9904F80253;
-	Tue,  7 Dec 2021 13:57:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77BB7F80259;
+	Tue,  7 Dec 2021 14:08:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8C14F8028D; Tue,  7 Dec 2021 13:57:27 +0100 (CET)
+ id D2086F8028D; Tue,  7 Dec 2021 14:08:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,MSGID_FROM_MTA_HEADER,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on20726.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:feab::726])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8D85F80253
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 14:08:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8D85F80253
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="mgyETY26"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47549F80103
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 13:57:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47549F80103
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=vivo0.onmicrosoft.com
- header.i=@vivo0.onmicrosoft.com header.b="Mi52BNgW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AQR5PtIfQZd3VzSQ2IjFIFI5VoW3qhfF68+/wbU2cNLJ7vjy3euB/ZYlhPKGi/HxT3WE681U2ldoteE7NQrO1YKGlx6pKuBCPDtpvXNpFxXQMH/9QuswdTuQoN+YB75BzPJnOpKUgg7oPxkhXpVLcBgtPOYgtR+BAgAy4zaqshZrF2n/v17JbYEfL2Bcwfp51ycQZgiipvr6f9rlD2kd5dKrPg12/zC+LcHcoAaiaq/ik5Ia/9v35M52w11IRVNkEc9jWXfI/egcHFIjhclrlOMdmzR9cV/8/5MSfvmL0TD/WLfL167blXekMnqA7Qratk6N54HC6/+V+4GK3v+Abw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oy6PvJAcwgcCGvjUqjJgS4Jnugfiedl0bwvStSCFAG4=;
- b=eRu5vEQcNNT/6J/+0/eebG6Jxvb7YBfC5uKoRNnPJlIORGFENMSTQZOmzjiGq+ZzwRix8Hq7R+lbL214ZKUstHk9catrRspZeS4HeqIA5VzON5HxSjPV0toF3RPwWRCObJkPpIpjpHBS/kLgFJxwgYL75JbU0xFIp++uP1Mg9n49K2+wd1nOaNY+lLN2IvaOxL47n0EVpTbDcEZ5Ni/FBZlcTa2lDM7rWEyCP2TDnv0madrKWpeMM8uvl4aM/4yM7+C5Tq/IZTb3ckW7fK266Y5NM/CJ+1mmfHn915PPcjD2qqNlauBMV4NNnWiASw9f1e7oK25H+um4nDytk6ZfGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oy6PvJAcwgcCGvjUqjJgS4Jnugfiedl0bwvStSCFAG4=;
- b=Mi52BNgWDJB50bBKZvDkdGDYzWsR3qVzYlbIINWPYOdc+kMTDaoGwoaCQH3K3e1cNOJwSL2BidxgGXilbAVq8/CHRJJztp9/0f5yeuM8qQAY3SCNSaEX6OW6NzIZu920860yIQ2MnJw7c7yWKzHWJpLiqu3cC6gdw9B6ef/n2IA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
- by SL2PR06MB3388.apcprd06.prod.outlook.com (2603:1096:100:3c::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Tue, 7 Dec
- 2021 12:57:12 +0000
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::a0cf:a0e2:ee48:a396]) by SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::a0cf:a0e2:ee48:a396%4]) with mapi id 15.20.4755.021; Tue, 7 Dec 2021
- 12:57:12 +0000
-From: Qing Wang <wangqing@vivo.com>
-To: Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- NXP Linux Team <linux-imx@nxp.com>, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] sound: fsl: add missing put_device() call in imx_hdmi_probe()
-Date: Tue,  7 Dec 2021 04:56:58 -0800
-Message-Id: <1638881818-3407-1-git-send-email-wangqing@vivo.com>
-X-Mailer: git-send-email 2.7.4
-Content-Type: text/plain
-X-ClientProxiedBy: HK2PR02CA0212.apcprd02.prod.outlook.com
- (2603:1096:201:20::24) To SL2PR06MB3082.apcprd06.prod.outlook.com
- (2603:1096:100:37::17)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E18D4B817A2;
+ Tue,  7 Dec 2021 13:08:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F560C341C3;
+ Tue,  7 Dec 2021 13:08:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1638882519;
+ bh=F/fKPrZyU0Us2AwQLVOm7PVNFqhIL/DCq08fX5U079g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mgyETY26JMkK2rPd3KETqwzJtFKtha6lCdv/3XD+UUxn68MNPLNW0eSTdwqsYLWsm
+ Ht/YdrHOq18UH3RrM5jpknDUONfXqE+sADTEnxBZBwU27dfWo5tU9nfFEKc8tL4He1
+ exEXNWYB2/W00ospNAsc73LGuQIBdlFiije08TCQfgOFgUtsBWCb9dd6xjpCbHUGcv
+ uI54WfuWEncPP49g1baY2ot0KQ+o+VKLOpJN1hWWrZtxXQ+LOuAj5tq334PdgtYEpf
+ TLNGFK1ML6Yaftdp1pxbb4OyjmWlwl9ZqiKtu9O3JfqaIBnRPGlHhQKqIKJUZybZI9
+ IkF3S1nm+K7CQ==
+Date: Tue, 7 Dec 2021 13:08:33 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?K=F6ry?= Maincent <kory.maincent@bootlin.com>
+Subject: Re: [PATCH] ASoC: soc-core: add the driver component name to the
+ component struc
+Message-ID: <Ya9c0d/X0z1QUVN6@sirena.org.uk>
+References: <20211206095920.40552-1-kory.maincent@bootlin.com>
+ <Ya5lplIoyhKsqFmZ@sirena.org.uk>
+ <20211207094732.3be5befb@kmaincent-XPS-13-7390>
 MIME-Version: 1.0
-Received: from ubuntu.localdomain (103.220.76.181) by
- HK2PR02CA0212.apcprd02.prod.outlook.com (2603:1096:201:20::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.4755.14 via Frontend Transport; Tue, 7 Dec 2021 12:57:11 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4d751b8b-ab56-41db-0286-08d9b981164c
-X-MS-TrafficTypeDiagnostic: SL2PR06MB3388:EE_
-X-Microsoft-Antispam-PRVS: <SL2PR06MB33880223E7DAFFC374BEF712BD6E9@SL2PR06MB3388.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1923;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zu0pz4PwI1gyAoAvdDN8OuiKtk+6Uu67AZo+ylvT8oLiKjiEnUdqI2fqUzH7XLxlEe+HD8ZSxmjO7P4S3KRChK78t00dPe+5cwZ1LO/UUMksaHoi/oy/rpa39VfrZ0edDqknpe+HlzLeBJnfoXQ7yPWO8Z+4Lnq9EoUpQmojk95oU/9MujWuro77omA/opFA7gRjthWQdLeCFaS0S3M+qtBQOPMdZPI6PH7NY8uGAJyIzhkq92ckTe+A5NDJmIhwCjR38tkflhS77oRhpBAqUkTqTgU4Hwk5EyoWZ4scXTsDsY3FWT2F4BLYnw6jwo9UW+fxj801wQ67quYKwtfhFB9fukY87l7re3yRoWaPcLbU43Vx2BxnK0R86dIvyfzke+nAoQ5nVTdnQ57gF5bD4oEyer7cTrav19PMvMaCTEmUMAIC3Rlkh9Nqxdt3vg9c9BDaKN/Uo+iADxqrXTZX3pfyi1C2/6MY5GDL+j+aIigYvHNgRiO74ivve3QQrXDpOUJJDGM96V63rIddyyPIQpQP2Dd87d5O1bQcJr58yZVmUZN/PlRf26Vhimkd9noFymJ2wbbtBTObauT0vDhBP4mT2cdHzFCmBpr+Bp5Q0SPhmF+mWyZ3fteKrojYPz4O4uKChprS+9mjHimRTviW5ZtFZ02D2A1bkhPB6FZkPu1eob4zkmNF/PAEpYOXH90+IbA2PlUXevRfDQT5zsf9ReUAzA2A5BrlYadmE5O1Deg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(38100700002)(186003)(956004)(36756003)(5660300002)(38350700002)(107886003)(7416002)(8676002)(26005)(2616005)(4326008)(6666004)(4744005)(316002)(6512007)(6506007)(66946007)(6486002)(508600001)(110136005)(66556008)(66476007)(52116002)(86362001)(2906002)(8936002)(921005);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?UwDB0846iqfkR7NLgaNgztq765pWeO0AIH0C+Xdc4AXLCQbUBHp/jpGP+gU8?=
- =?us-ascii?Q?d+LihZE5ImNlUkQyWDfW1UUIm0YcAn6TyG0iaCxwuwjLR/EtR5xWUOM56vpw?=
- =?us-ascii?Q?M4gxzHWOZpYaGNR8zLY+zswYIjYVlm6TkNz+qSHlk393M7qKzo9nKLE7m/PN?=
- =?us-ascii?Q?fXlh1hMnFocEm5JbyldwiYT8DdWgHg2H7Qn4DhG6laxN3rlUQ+4Fv5nHfL2c?=
- =?us-ascii?Q?Eiras1K++viMnzZh6gGfks3At7qsbF3ENXtfNqEUGrqhi4UBsbwZ5Vguz9Of?=
- =?us-ascii?Q?+WPCrs+7I1XmruZyqzh+Fe7QUSUQWFTQGTu6buKqQ6gyurkbuR1s5SDZ4tLA?=
- =?us-ascii?Q?S74gSf0ggBWqhv6p6ymeSHPw/piljaWlwl/yWyjShXNZVjU0UXX9zzvx66lB?=
- =?us-ascii?Q?zEAXWN1pLBtLhDB8N8YYByRScGy/xr/qKidLfi6sg28ajLXgGcyOcrqPDxOt?=
- =?us-ascii?Q?dsuzMm04DwhO0exyEGJKvZ7rRBB280rN+IneAkcfdpniyrm/BqAA0JMLDqzY?=
- =?us-ascii?Q?y73I+JkPycGQO0dDJZndIWbxgZm7DJxNnhy96eryb9PTPRRa0/440p0yKymN?=
- =?us-ascii?Q?IQfG2ZB59YY8YQk9nh5s7ewn0kgRHPB54k/5lQdqSh04FvnSmgebipyBxdaJ?=
- =?us-ascii?Q?5ZP6ijDd9nAS6iXjqb9S8lMSV2HaO9/RNfVGGa8YXIk1e7G9n58A1OJIqiZx?=
- =?us-ascii?Q?0gpgsDAEP8bOdmXZOQtrC2Rjcd2Z1qUfWKhKQGGm0WRYvsSHkwpwf4Ql2KiS?=
- =?us-ascii?Q?06tDMeVTBHgydddNtnBTiANirfr+hRO5t2sE3qdeI+u4x6srRJsXlJPOWuPp?=
- =?us-ascii?Q?1BRkPig4c0ww3WGORI5bm34x1N1vhL8TF2F8z4FINldX8UVekZ7C6bMFCbmd?=
- =?us-ascii?Q?21mCgV2gMmy+vmbSyKAgVI6wITYhkChtqvYwxqaQmn2mELYL2zj4tqfWcVoE?=
- =?us-ascii?Q?ZJWQBCjuO1bYYRx+Unm2RCG+XTi6wKJlVp3qOOek+NkdfMHMlRnQSp3KMSnu?=
- =?us-ascii?Q?aK8+pTZ2Cbu5wQC1KW8z6Z+PT+12x6uWpbvhW5NtzyxyLk3eUvD6UBl/WqRe?=
- =?us-ascii?Q?pUNUbFpsfcteGtV4zEfKmUWKwC4L2SLj1Oqi2dG50nsMvk6Ge3bS9ToO+dGT?=
- =?us-ascii?Q?UouNVaqUfLDYrDnUbdvvorEJpe6zCp8ycL6RDdeMpc1Ns2KFdxed3aEupG5u?=
- =?us-ascii?Q?JXpMpdD810FyD9AIvd76CcBCNQKUpRuualuvK3OxjIv50Eh6P71armmYzxPH?=
- =?us-ascii?Q?mPOdmyxT+n8Cgwo5TR/vJwo/Poa72YX62P7lF2psu/L+bSGAGaFeTjzXo5GB?=
- =?us-ascii?Q?KF4RuXl5/vCxGlVo+CJ60SLpbDAp/ejbVeeQOiVjbErrggUOoGrIHAC8okui?=
- =?us-ascii?Q?3SJha4uV/HjlfWRQT/o1Bu5MVxBiD+60LFajYrPkhM7q7gXQPyK5hgtODCY7?=
- =?us-ascii?Q?RsS5yeCPYH9UjP03ns7pf6V+baG1vP/VTIVcfGXO8VIxj6iGKMUtlXaBYymG?=
- =?us-ascii?Q?yjwaq5QUqo/jdNWN/kAJbywt6h+ZhmgCZbczbtYypPc3Koey0wInKfPQ/9RL?=
- =?us-ascii?Q?YNQp85pKAkS+gyOySM9xX/7cWkz/05rw9NFoTcIVvp15zyhVUd9IWvwlJ/IM?=
- =?us-ascii?Q?t4qCP6AYBpp7DhoG12A8d6Y=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d751b8b-ab56-41db-0286-08d9b981164c
-X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2021 12:57:12.7302 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rX1+xgqEihJC+wrcHRcs2IzaAk3Yn2DxwQ2WoQtGxvH2+0QBZfafPHTxZbZdgbbIA+kZakea3oZNhQU8mZ9zkQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SL2PR06MB3388
-Cc: Wang Qing <wangqing@vivo.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="5MYbYLXEWzFbrHqI"
+Content-Disposition: inline
+In-Reply-To: <20211207094732.3be5befb@kmaincent-XPS-13-7390>
+X-Cookie: Only God can make random selections.
+Cc: alsa-devel@alsa-project.org, alexandre.belloni@bootlin.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -159,28 +89,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Wang Qing <wangqing@vivo.com>
 
-of_find_device_by_node() takes a reference to the embedded struct device 
-which needs to be dropped when error return.
+--5MYbYLXEWzFbrHqI
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Wang Qing <wangqing@vivo.com>
----
- sound/soc/fsl/imx-hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+On Tue, Dec 07, 2021 at 09:47:32AM +0100, K=F6ry Maincent wrote:
+> Mark Brown <broonie@kernel.org> wrote:
 
-diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
-index 929f69b..89fd8ad
---- a/sound/soc/fsl/imx-hdmi.c
-+++ b/sound/soc/fsl/imx-hdmi.c
-@@ -125,6 +125,7 @@ static int imx_hdmi_probe(struct platform_device *pdev)
- 
- 	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
- 	if (!data) {
-+		put_device(&cpu_pdev->dev);
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
--- 
-2.7.4
+> > Why is one device registering multiple components in the first place?
 
+> Because the sound components are more and more complex. Why they shouldn'=
+t?
+
+In what way are they more complex? =20
+
+> It seems to be already the case:
+> sound/soc/codecs/cros_ec_codec.c
+> sound/soc/fsl/fsl_easrc.c
+> sound/soc/mediatek/mt*/mt*-afe-pcm.c
+> sound/soc/sunxi/sun4i-codec.c
+> sound/soc/soc-utils.c
+
+Quite a few (I think all?) of these are quite old and and are the result
+of refactoring from pre-component code rather than modern drivers, it's
+likely there is no concrete reason for them to behave as they do.
+
+--5MYbYLXEWzFbrHqI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGvXNAACgkQJNaLcl1U
+h9D1vwf/WQeUnLt47+xN/hYRPXv4uwS7J4Sxig4UAKgRuuEvgicbcorrZGgO0ag9
+fxRHkkGPKGBySIntd+S5lAjVY3WPDNa474hMJgI2rfqshgRCAQ77GG85QbW/XZ85
+foGcx5vkTDGi/NW6unO2sFWkBjtYIkzdlJpPYZMOJeRlsFqeOyrGmnAsQKQQ4uzQ
+i8VKky9LpEmMmbW+POVuV0jQ1Uvz3Zkk5MTwTDDauMsdCT+FzpWQu+oWjRqhePG2
+RPfhWbGYhiDJmUIz07Mk+jVfUM7N6in1CNgZO7HmxfZnObR5QDfiM7mRkILkyQ5J
+sO8bZoaOotmrfE13OkQQPxMonOJAww==
+=arkY
+-----END PGP SIGNATURE-----
+
+--5MYbYLXEWzFbrHqI--

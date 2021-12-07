@@ -2,84 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B8F46B51A
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 09:06:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39F5046B521
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 09:06:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E6B32383;
-	Tue,  7 Dec 2021 09:05:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E6B32383
+	by alsa0.perex.cz (Postfix) with ESMTPS id 928F52392;
+	Tue,  7 Dec 2021 09:06:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 928F52392
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638864378;
-	bh=ht2VUhSciiR4Cgsmp90zbf9Xbn178bELqUQTUbafG0A=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1638864411;
+	bh=KG457nwU5+qWy5ezICVo2atjVfc8cD4lPwcIlnZzUbk=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I0LjqeTzP4zEsIi3KzWeammuxyj4wYQ1TuKkgavQvtcNlHKh4hE/QimwYv4qfJs1m
-	 fjSe7ceVkCjnBHtwGKnnwpZY1nFYB1u06hbLf6yOHzxOFuAtwQxDqqQ1XkVhRTlMOQ
-	 CNV/Vzq34d0ddykM0TUl2y0ppEYKwL738D+BQVnk=
+	b=Gwcd/Tw4HbANx3uuEZXt6vnOehok129CjouldElSPATWSaUI7iskwBKaQLy5t3jtK
+	 PQ3ekITDGVHIciz4/bUpVMWEGThJziggBPgtUSQc6aREnnKSJBbFqIxFYNGfqv4PbP
+	 J0sC+bH+LZQ9LAqdunICoMo2xtYL1Y1SXMnh0mMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F25FF8032B;
-	Tue,  7 Dec 2021 09:05:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46F12F80431;
+	Tue,  7 Dec 2021 09:06:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 682A6F8028D; Tue,  7 Dec 2021 09:05:02 +0100 (CET)
+ id C0E19F8028D; Tue,  7 Dec 2021 09:05:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F13EF80217
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 09:04:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F13EF80217
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="F/gMsgU4"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="8lrGCggm"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 2AACE1FD2F;
- Tue,  7 Dec 2021 08:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638864294; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UqPhgHSE9MgwMn7Ma+99O/Ry7xOln778EEbdlbH3hcw=;
- b=F/gMsgU4rNyxG+bLUwJ2cJdYCw7zUpJB5D0Cn/SD/bu+QmM/taCQRIbFcwBGNlRGz0tJoU
- TN5Eabe9T4eqfVcJhyKeFlR6g+L6N6Oylycc9GsW1CrOZ7WMVKPgcZCh6cPDUi0PGYRAkX
- gKKszWEyCDLNsLbVmOt60tVheEcWkeE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638864294;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UqPhgHSE9MgwMn7Ma+99O/Ry7xOln778EEbdlbH3hcw=;
- b=8lrGCggmUEXxYyoeZFvz/IjAkJigHKJ24XxulspRfJMLBmH4b+cfC5ybj4jbGN4t+7ymFw
- +BFm7MVaxKWq9wDQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 12E12A3B81;
- Tue,  7 Dec 2021 08:04:54 +0000 (UTC)
-Date: Tue, 07 Dec 2021 09:04:54 +0100
-Message-ID: <s5hy24won6h.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH 0/3] Fix Tegra194 HDA regression
-In-Reply-To: <1638858770-22594-1-git-send-email-spujar@nvidia.com>
-References: <1638858770-22594-1-git-send-email-spujar@nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- robh+dt@kernel.org, broonie@kernel.org, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org, digetx@gmail.com, jonathanh@nvidia.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A945F80253
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 09:05:49 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 26E37A0040;
+ Tue,  7 Dec 2021 09:05:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 26E37A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1638864349; bh=1orcYpfi/OgeJ4wNPA5bcXbBCkkoQFBO4OLDelq5IzI=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=bxlAi9XA9DALDvGb6GMD6pgGDFtfNDa9MPWA6sAc3rroPYm6m3bowDSY4yzc/GbOY
+ INuAxefzWFZWd0d2/jyc6z4gGyLTIJAl3rr/AeXakLZQ3blH0R7IaTOb1Vgn8c1pXL
+ b621BVcIL38JyaMquawLuOF4ft7qDnFuT7HUGYkE=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue,  7 Dec 2021 09:05:44 +0100 (CET)
+Message-ID: <77e39efd-e49d-cea1-1822-0e2262a766c9@perex.cz>
+Date: Tue, 7 Dec 2021 09:05:43 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH v2] kselftest: alsa: Add simplistic test for ALSA mixer
+ controls kselftest
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ Shuah Khan <shuah@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kselftest@vger.kernel.org
+References: <20211206160305.194011-1-broonie@kernel.org>
+ <Ya7TAHdMe9i41bsC@workstation>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <Ya7TAHdMe9i41bsC@workstation>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,28 +83,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 07 Dec 2021 07:32:47 +0100,
-Sameer Pujar wrote:
-> 
-> HDA probe failure is observed on Tegra194 based platforms and this
-> happens due to a reset failure. The series fixes this problem by
-> avoiding explicit resets on BPMP based devices.
-> 
-> Sameer Pujar (3):
->   ALSA: hda/tegra: Skip reset on BPMP devices
->   dt-bindings: sound: tegra: Update HDA resets
->   arm64: tegra: Remove non existent Tegra194 reset
+On 07. 12. 21 4:20, Takashi Sakamoto wrote:
+> As another topic, the runtime of alsa-lib application largely differs
+> between process user due to the result of parsing text files for
+> configuration space. I can easily imagine that developers unfamiliar to
+> alsa-lib carelessly adds invalid or inadequate configurations to files
+> under target path of alsa-lib configuration space, and they are puzzled
+> since they are unaware of the fact that the kselftest is affected by
+> userspace stuffs for the runtime.
+The alsa-lib configuration can be restricted. I would suggest to use 
+snd_ctl_open_lconf() function with a simple configuration which defines only 
+ctl.hw device. In this case, the global configuration is not used, so the user 
+errors are eliminated. Another way is to use the environment variable for the 
+global alsa-lib configuration - ALSA_CONFIG_DIR.
 
-The change in HDA drier looks fine, and the question how to take those
-patches.  If other people can give acks, I can take those to sound.git
-tree destined for 5.16.
+I will try prepare a patch for snd_ctl_open_lconf().
 
-Or, if anyone else prefers taking those, feel free to do: for the
-first patch,
+					Jaroslav
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+BTW: Thank you Mark for this test.
 
-
-thanks,
-
-Takashi
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

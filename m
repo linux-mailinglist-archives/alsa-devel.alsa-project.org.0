@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 750D046BDDC
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 15:37:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B2E046BDF2
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 15:38:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1617F245A;
-	Tue,  7 Dec 2021 15:36:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1617F245A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFE2E2466;
+	Tue,  7 Dec 2021 15:37:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFE2E2466
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638887853;
-	bh=IfZ8ICBJpTdpBYojTyqqYCLCWr0aZdpq+4dw6uyeXjs=;
+	s=default; t=1638887927;
+	bh=/GY4HjjzgZSF+4eAlKrJI+iNchD5rLrPMG4fEtDWA0M=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XP+JOhYhD2wxnxPy4tc1eXHQWBOkrw3k3x1lVhaBNC15K17CLxbkpvGVb8xdcENlo
-	 rpW+Ug2n9KxCSWapa5Qt5jEcJXuPpbPNsOdgJQrO9RP2emd7vQSCcfkiEA/kHyLMAB
-	 iVmzNrbNy9fQZtPlYSBMPoGbEnLaeQk/7XuFjhKo=
+	b=tlzAwahrHneYm8HAnvdapSGTHJq8tNACgAbQIZEsqfk0nWHbJNl8/itaLa4OFFsqu
+	 D5y4AnggX+o2W8dFs2kptBWhMH1zyyWQKu1DvZzmf5JyyBbCqUgMJUUbaf1qSmvEMt
+	 ooieu0+hgBdHN+X/yk7hRAHaVfJfKKZaRNrFz+Cs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67C1BF80259;
-	Tue,  7 Dec 2021 15:36:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FBBBF80253;
+	Tue,  7 Dec 2021 15:37:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9148F8028D; Tue,  7 Dec 2021 15:36:16 +0100 (CET)
+ id BC936F8032B; Tue,  7 Dec 2021 15:37:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1883EF80253
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 15:36:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1883EF80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91C9EF80217
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 15:37:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91C9EF80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="qtRTP4XX"; 
+ header.b="moHx4OzQ"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ePIn0P2S"
+ header.b="F2vGVeUN"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9AA5021958;
- Tue,  7 Dec 2021 14:36:12 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 829071FD56;
+ Tue,  7 Dec 2021 14:37:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638887772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1638887840; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iq7zpDwumO/J2nR5Fwq+tP1tpVuWfzPRGA6E+Fvxh8E=;
- b=qtRTP4XX5/CRAq4ovSgOMtBqKYBDPJvm4eo0VwHyDodaZYKDs2VVAVx/LTg2S3DXImVeEw
- Ae79dnP7uDZU5aDgE54aokS10mQqsObfOAG9gsvO3FZHm+2bDkSd1wrP8JnFCPrvCxDz6V
- +z8GebW5kFMtEfJUGOsdUY0vmkwDY/Q=
+ bh=486I88iG5iTiPXlrozcDOPpJfLCaalP50/kaI6xgM8s=;
+ b=moHx4OzQMMSAegKyA5u7PneXP3PwdnVOP/mr407/5Ls5i6IvSWZ4uDS+/lw7fCwyYb8KKh
+ rTGZROsSR23pYYK2t3QTGaOVuH867w9fVUwnStpX7KTCERqJgVVxTIwp32ftjKoYcw/yn/
+ QaqB9+BmSowt1Mh73wUW2Aw7AbRbb0c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638887772;
+ s=susede2_ed25519; t=1638887840;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iq7zpDwumO/J2nR5Fwq+tP1tpVuWfzPRGA6E+Fvxh8E=;
- b=ePIn0P2So2LLZcN7bW+bZyy6/IOSGQjINg0HGPh+IEBpIYgBUEq9nXBnog7z+ZSL1FcZ0M
- rfxZOP/fpr6mRNCQ==
+ bh=486I88iG5iTiPXlrozcDOPpJfLCaalP50/kaI6xgM8s=;
+ b=F2vGVeUN+TLm8RtXXGzCqdnS68oeajvDTNJAAvzzT2KHdVQxGl6JZ0e9BLW+Gk7b4SF3VJ
+ hWO8MvEj4H7P+DBQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 87997A3B81;
- Tue,  7 Dec 2021 14:36:12 +0000 (UTC)
-Date: Tue, 07 Dec 2021 15:36:12 +0100
-Message-ID: <s5hwnkgmqhv.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 72E70A3B84;
+ Tue,  7 Dec 2021 14:37:20 +0000 (UTC)
+Date: Tue, 07 Dec 2021 15:37:20 +0100
+Message-ID: <s5htufkmqfz.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2] kselftest: alsa: Add simplistic test for ALSA mixer
- controls kselftest
-In-Reply-To: <Ya9uvPx37AcOdwLK@sirena.org.uk>
-References: <20211206160305.194011-1-broonie@kernel.org>
- <Ya7TAHdMe9i41bsC@workstation> <Ya9uvPx37AcOdwLK@sirena.org.uk>
+To: Anders Roxell <anders.roxell@linaro.org>
+Subject: Re: [PATCH] sound: ppc: beep: fix clang -Wimplicit-fallthrough
+In-Reply-To: <20211207110053.695712-1-anders.roxell@linaro.org>
+References: <20211207110053.695712-1-anders.roxell@linaro.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Naresh Kamboju <naresh.kamboju@linaro.org>,
+ llvm@lists.linux.dev, ndesaulniers@google.com, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, nathan@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,68 +94,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 07 Dec 2021 15:25:00 +0100,
-Mark Brown wrote:
+On Tue, 07 Dec 2021 12:00:53 +0100,
+Anders Roxell wrote:
 > 
-> On Tue, Dec 07, 2021 at 12:20:32PM +0900, Takashi Sakamoto wrote:
-> > On Mon, Dec 06, 2021 at 04:03:05PM +0000, Mark Brown wrote:
+> Clang warns:
 > 
-> > I think it safer to take care of volatile attribute when comparing read
-> > value to written value. I'm glad if you review below patch.
+> sound/ppc/beep.c:103:2: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
+>         case SND_TONE: break;
+>         ^
+> sound/ppc/beep.c:103:2: note: insert 'break;' to avoid fall-through
+>         case SND_TONE: break;
+>         ^
+>         break;
+> 1 warning generated.
 > 
-> Yes, that's a good spot, it was an oversight to not take care of
-> volatile controls - I'll roll that in if I send a new version or
-> I guess Takashi could apply on top of my v2?  If people are mostly happy
-> and at Jaroslav is also preparing patches on top of this it might make
-> sense to get it into git sooner.
+> Clang is more pedantic than GCC, which does not warn when failing
+> through to a case that is just break or return. Clang's version
+> is more in line with the kernel's own stance in deprecated.rst.
+> Add athe missing break to silence the warning.
 > 
-> Reviewed-by: Mark Brown <broonie@kernel.org>
+> Reported-by: Naresh Kamboju <naresh.kamboju@linaro.org>
+> Signed-off-by: Anders Roxell <anders.roxell@linaro.org>
 
-I'd like to get a comment from kselftest people about this addition
-with the external alsa-lib.  Shua, what do you think?
+Thanks, applied.
 
-If it's acceptable, I'd happily take the v2 patch and Sakamoto-san's
-additional fix to sound.git tree.
-
-
-> > As another topic, the runtime of alsa-lib application largely differs
-> > between process user due to the result of parsing text files for
-> > configuration space. I can easily imagine that developers unfamiliar to
-> > alsa-lib carelessly adds invalid or inadequate configurations to files
-> > under target path of alsa-lib configuration space, and they are puzzled
-> > since they are unaware of the fact that the kselftest is affected by
-> > userspace stuffs for the runtime.
-> 
-> > If we respect the basic theory of test (idempotence), we can use ioctl(2)
-> > with requests for ALSA control interface since it's not so complicated
-> > (at least it is easier than ALSA PCM interface). The purpose of
-> > kselftest is to test kernel stuffs, not to test userspace stuffs
-> > including alsa-lib implementation and variety of plugins.
-> 
-> Right, I was originally thinking of implementing this in terms of
-> tinyalsa which is much more direct (though I was amused to see that's
-> gained userspace plugins at some point!) partly for this reason but the
-> lack of widespread packaging for it was a bit of a blocker and it didn't
-> feel like a great idea to essentially do yet another userspace ALSA
-> library even if as you say it can be pretty trivial.  Jaroslav's
-> suggestion of using a custom configuration to override the default seems
-> like it addresses everything though.
-> 
-> I do think there's an advantage for test comprehensibility in having the
-> test written in terms of similar APIs to a normal userspace application
-> - it makes it easier to relate what the test is doing to normal usage
-> which is helpful when trying to understand what the test is trying to
-> tell you.
-
-This comes to the question again to the test with external libraries,
-IMO.  If a self-contained test code is much preferred, we can go for
-implementing open-code with raw kernel ABI.  The control API is
-relatively simple and fairly solid over years, hence it's likely
-feasible.  OTOH, using alsa-lib is also showing the test with the
-actual use case, and in that sense, it's not bad at all as more
-practical tests.
-
-
-thanks,
 
 Takashi

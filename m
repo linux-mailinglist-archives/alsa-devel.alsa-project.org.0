@@ -2,158 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AB4746B6C4
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 10:11:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F69946B6E0
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 10:17:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8991243F;
-	Tue,  7 Dec 2021 10:10:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8991243F
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC474242D;
+	Tue,  7 Dec 2021 10:17:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC474242D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638868283;
-	bh=h3s15NfZcHwugGH7mpUZiJqOAdAVptawotBIVYdyu1I=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1638868672;
+	bh=Xt1UlJnOTcGQY1lefYr09jAWRRohnk7UZU2TldpPiSg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gp47rXKToFjHKINGMbkfjgpD/KDgtVXisRwpCm+3vyTB0UxNUJ3R9JBpGNUBmTfBc
-	 8OEU5QPvN7HVCFbNVbi/y3yvPARvB5ygKOhm6zAKOCEOhHVKITzNg0gWKPztioZOkD
-	 Wc/wOsumZb3l+ER006aO0lw964rmkcJjuhG5rLC8=
+	b=Iesm4+NjM9X7JGqUTDlDCXqwNw7gGkJ5lx/vS3Mhnb5iGWjG77T7qY3cWjP238DFs
+	 r9FfoIJ/EhD5TVvcQB0tw84JgQ09kkUgFC+GKPZsJ+zMPkzt78YxxJd4eAjatPkusF
+	 nZqDE+gcli5KbNBH8BnwvilWelpiQ8Sw4UluKK1w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E154F8032B;
-	Tue,  7 Dec 2021 10:10:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57E8CF80103;
+	Tue,  7 Dec 2021 10:16:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FC47F8028D; Tue,  7 Dec 2021 10:10:07 +0100 (CET)
+ id 4BE1EF8028D; Tue,  7 Dec 2021 10:16:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82B16F80253
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 10:09:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82B16F80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4FE2DF80253
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 10:16:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FE2DF80253
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="ERBZoTK2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TozuHYkzH2IM9Tipsyq1vrAhVHw1o4iq1DDhIR/w8fKTnaytE5bO8IiT3FkknbRqj4/SwSb3GX2WtXioWw1r9zen/KCgrnRjVP7dqzVgLeejuvKHxiiPjzpdUeeS0Xmw4QKbCxqJgndYXOz85WrmhNa7SAE1RQnwK3N+Fh2szpcuzMTY/q5jrnjwGf7SbI+kCWYkT40zhARSyEEjS04z9azSt0kIcQXMSPtoVzrA/02yjIbmzCJ+/+Gz5fsIRD5ixTswwy7n5Ki0iq1AY9LQk4PXk6RzNbFLc+fA/FUWr7vzqWPncfCd4+AMUQd4DCxb0M5xNH2lX3oniIOLMFX+gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gKfjMJwQhVk5yv2eGJlF4rmKA0iqXWvPud+M9B5suDw=;
- b=oRIKp+PMD444rrCWzJeZQ72sB9CX6MPRy8KnaSjTrlnkyoQ90QCJjo24P1+fotErNpFGPlbRotAEv8HwmkxEkkKSb/pWUFyjXLvD4684SEdZQI4eWN8Pzz6NzZB6+EO6DX1GQ6W99ru6RxZGc+8V3IRSCZ+aIuFxSnth4ft/gvfK/QnL49F/KGT/tvRt/Ywv/RPBbsgymU6mHLAb/Vt0vtl/2Dw7CGVfSB5ERA59LRcpjx++GYAHsgnud+x4WlK5xDDPfm/kviqFszg2ohvzdI9hsxZEufcsrIrNpC5z+m5kq90twoN8pYpv+omMxjkDGvmXIGkgc66/CGpIZD35gQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gKfjMJwQhVk5yv2eGJlF4rmKA0iqXWvPud+M9B5suDw=;
- b=ERBZoTK2S41ZnbVz6RuDABy4K2icTjzN2Zs88IsNzg86kfYu48F2XAkqPmpAgbvijQo8qPd1W3hLrKh7rGw66ngGZiU91jVEAS1VeJKsIdAU1FpdxNGzq4AiTNWJOAMnskFENKqPFltAdxSbhee03+YZpk1ijclG0Qx9j00OuuT1zy1Uq+VPtZQo4SCJry3sAM4KTLbXudM0YSeRwS8Q/GL/VPWyhXdngZCDB/x8XBEaP+Qgf0s5OXUYq7uDGMEj8p/I2nBV+hNUz8fuB2HSo+zWrrkCYAKg2CFAjRKuZDVyYpwz+/VN/L/oUK4gVZakzGtSToLELqlmqX9K71RNvA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY4PR12MB1576.namprd12.prod.outlook.com (2603:10b6:910:10::9)
- by CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20; Tue, 7 Dec
- 2021 09:09:57 +0000
-Received: from CY4PR12MB1576.namprd12.prod.outlook.com
- ([fe80::24b0:46e7:d3c0:a77b]) by CY4PR12MB1576.namprd12.prod.outlook.com
- ([fe80::24b0:46e7:d3c0:a77b%7]) with mapi id 15.20.4755.022; Tue, 7 Dec 2021
- 09:09:57 +0000
-Subject: Re: [PATCH 1/3] ALSA: hda/tegra: Skip reset on BPMP devices
-To: Takashi Iwai <tiwai@suse.de>, Thierry Reding <thierry.reding@gmail.com>
-References: <1638858770-22594-1-git-send-email-spujar@nvidia.com>
- <1638858770-22594-2-git-send-email-spujar@nvidia.com>
- <Ya8Ya2en5Tm5Ol2u@orome.fritz.box> <s5htufkolpr.wl-tiwai@suse.de>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <d1e222e4-a260-06da-6c01-6b96ec707c8b@nvidia.com>
-Date: Tue, 7 Dec 2021 14:39:42 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-In-Reply-To: <s5htufkolpr.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: PN2PR01CA0025.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::30) To CY4PR12MB1576.namprd12.prod.outlook.com
- (2603:10b6:910:10::9)
-MIME-Version: 1.0
-Received: from [10.25.102.117] (202.164.25.5) by
- PN2PR01CA0025.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:25::30) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.19 via Frontend Transport; Tue, 7 Dec 2021 09:09:52 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 59720d4d-433f-4fa4-f68d-08d9b96156c2
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1287:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1287CF99C7F4C8FD1D76E4B9A76E9@CY4PR12MB1287.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eEy1bjWNYRC64TVlYnuGSMT59lBiqabx4N1MhP73sUw/LDyKZJ1M6PDqrnQTwMMeSjeYQ+orvSXkFu6UBcJzowBca3bH/TgWfoWKIEH7zHVdrLyPpCJdjvI5+1cpeZj8OnP/lhGfb51TQcbMHH/LLfm4Qm/Zkg9bXklaJco/d6V/fH++fFUY+zIxK8LZToS6I1MXE8J6gU8Cr+yQYgL8tQcH89v8abK+0djwfKJVAgsysrGdIe9SENp7imNPSA1qpu7HH21LGR5kCFuBAdH5xLaejTJre45b1Ja0QlAVjXv1M8CDvqv41lD/qcyyBFT4VPBWx8mk/Sm4bKjeRDe0L34j9wfF1fM3lH5bPRIZDNLfgCa6QlusSDdqecCzWw6y3Wezbrro8wnWt8//8g8LHGrnIHjjU8n2EfS/RRKtp9F6sDyoM7Xahlar2NCROqeCXMxIMXxje5xdS/itnGV34Gd73vBf/ASDh4HgpAAuANaAhlIO+kidro0+YH6ZharALnMBeVhWKFAFAaxR1q0R/i0gtLYdEAClt5kf8lukcrzYY8S6OadtasWC0C4XRhEarkzK25Ycnh8/UlCc1fuDqZ1wWBkHmeTGyr6IQJtRL86IrN/U1nl9flv7c+5iGVeojP7Y++Ls3uMI9P6drI12LATd/6CtzEPYyHJUYGw6Nps05YadvhDDeZB3Vxmy2ihchV+RMb1CMJrAFowtZHQi+iuI0Wk7eY/c3/NE7HcWZxo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1576.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(4326008)(31696002)(38100700002)(186003)(6666004)(16576012)(508600001)(110136005)(7416002)(316002)(31686004)(26005)(86362001)(66946007)(2906002)(6486002)(36756003)(53546011)(2616005)(8676002)(8936002)(66476007)(66556008)(956004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0JsRHVja3puZ2o2eE1sRkI1RGs1TTF5VHlRb0p1MzJHaUhFNERHUWVsdVpX?=
- =?utf-8?B?TzdjMUlhVG5RNVJGZXB6eHE3L0hweE9YQmxrTmxDdjZJK2JiaVZpN0hLRWh3?=
- =?utf-8?B?QjFaZ1JLcmdXcXlRRlJEM3cycUo2bGt1NGhXeVYxa3VvcUZyMHpHSEhjYklS?=
- =?utf-8?B?bXRFWFE1N09jQnJSU2M5QU0wWDRua3pMTFptdEpjUWN1YVRETnErN3oyakty?=
- =?utf-8?B?b1dkWE1OcE0xdG5LMVE0SUdQaWJiUmYzN25VVGFSZy9wblVzaTROeEFlamtY?=
- =?utf-8?B?N2dBaTkwRmd2Z3REK2c1WWlXMU1YZHRFaE13RVhrMjZiWDdkNFFWd0QyaHoz?=
- =?utf-8?B?QlZEamtuT0EreG5sL2tSVHZ2Z2dtQUVhdkxEREZtYVduZVhQaytCSDV2dklo?=
- =?utf-8?B?QktGRDBaYnRhcVMraE8rTWl2d0lFNUt5MVcvS2hxd3pkUUh0cVp0WlhDNGN5?=
- =?utf-8?B?SFRGV0RSMHFvdnZ5Z3Z3SDZ0ZFdOVXZRMUorMGtVSkIwbHFwQUVyR0Q2MFdl?=
- =?utf-8?B?c1NwV1ZsclBTZ1hOS2NFUXlaRjRIazlzbzR3cFlJZmE1OS9ZVmc3dnB4V09G?=
- =?utf-8?B?bC9XQjV1OFZEcXdhQW9nL0drUGtmbnR1VjN2aThDZHB4ODJ4bkV3dlo4cTk5?=
- =?utf-8?B?R0J1ZDJKazA1a1hQRE5iNFo0eTJUcllmbkg4U2IwQ2VjN0RLKzd0T0Y3Ny96?=
- =?utf-8?B?L1ZacDVCUlk2emd2dkR3VWIvaU5UZitrRHdzbTd1QlZWb3BWMExpcVhEWnFW?=
- =?utf-8?B?WG9MZjB3c2pER3JCdnN0ZFVOK3MybTdxSXFSSkNjaDJWd1h4Rnd3ZzhUQXNO?=
- =?utf-8?B?MU1sUklqeklYRXdoUit0SXkzRldMVEdmaGtUQSs2NUxNVHl0b282YWZtdmlN?=
- =?utf-8?B?c1RVZGkvMGdyZWNQVVIvaXhxU0VHU3VCT2JMc3RoeVZYYkIzYXgvNHZzYzcz?=
- =?utf-8?B?RTltUHZBMXR3NUc3L2RaeDdGVE80VDlBSUF0WG9LTGkyZWMrYmZWVWJvbCtB?=
- =?utf-8?B?SnQvUHErU3pzVUlWYjJuNUdsVitpTnZZbUNwZS9TSTlGRmhNMmE1OFZSaDBt?=
- =?utf-8?B?TFlNQ20xN0dFQWFDdFFZTzMydDRIKzdZMXVYZUg5cngrcmJ6R2YrT0NiVjlN?=
- =?utf-8?B?UHlaVjluZXJlUjh6cDYxVW40c3c5R0M0cXJLSnMyOUd6bVRTRWpVcWFGOG9x?=
- =?utf-8?B?NjV6aGRyZENvUmN6Nk9tTTZNNzB6a2d6cmRmalV0VGlkeGdIZ2Z0WTRwMWlT?=
- =?utf-8?B?Sjk2NFZIUEZQUnhpUlNyU1V3cGQ2UWpiT2dINUF6a0RsVkZKWldpYkw4TlpU?=
- =?utf-8?B?U0NZUDZFMWUwbnZoL213aVluSFhKYzM0YXUwTk5CaDI1My9rLy9TanFqbDZz?=
- =?utf-8?B?dG5vTStKaVlKS3hGK0hKWFZtYnBKRnUyeW4wOVNnTTUzTlczTGVmR3dpTnMy?=
- =?utf-8?B?amNDTnN2VUxXQ1VJV3EwZTFpVGRtM2NkVThQNkVoM0Y3cExnbW5QanFHa1Jp?=
- =?utf-8?B?SGJ1TWgySW9ReWxMejdseWVvQ09LNHRwRkU4aTFQQ1huZVRzL1kyeWp5Q2ls?=
- =?utf-8?B?YW00TmM0THVwM0ZSZUp4WXFBVG1NRURQVWZUVklBR1dRVWlnZDJRT3hEdkZP?=
- =?utf-8?B?VnpvRnBJRVZDS3l3NFlVa2RJOFhpQlVvZXZPTFdKMXFyZk53RThodGxtVHVs?=
- =?utf-8?B?ZjNKYTQrZ3VJYmwrRlNJREZxZ2poeWRTK0lGSTRKb0V3TzNJU3NhRWRpK0Zv?=
- =?utf-8?B?bnc3NGEyelFSeU9RaktzeWFNTk91MzRLWm5RdktMdjRrNnJYM2ZsT09iLytB?=
- =?utf-8?B?Z3VFWmNYcENZdDEvc2NwT1kzUmhrYjNlTjQ5aGhlVGxSc0NQejRiRGd6SlRC?=
- =?utf-8?B?NFE2cjNDTURSazdNRmdXVTM5KzdyZFdhcU04bUk4S1ZHY01jc0RiUEtqQjBz?=
- =?utf-8?B?YjgrVFJJUTk0cXhHZkxWdUgyZFlvQ3RFZXhGZ1k1THBNaGFDS3hUYUM1RVJo?=
- =?utf-8?B?T3dmVnR1Z3hzektzcmpsSGxSbllrUy9TQjl1QkVHTU0wUkFZYUFwQWFKZ2s0?=
- =?utf-8?B?TXEyU2RVNDBOQVlyNEZuWkQ5TFlQUXo1L2I1V0ZhWmJlcXgybktycTdPM2da?=
- =?utf-8?B?NHIyUnRCa2lkSjlnQit6N2MrTTFPN3piQnFuT2tNNnNSTXZxZEdMS3FDUHg5?=
- =?utf-8?Q?Ad3put3iIZjgSd/oFMEuRX8=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59720d4d-433f-4fa4-f68d-08d9b96156c2
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1576.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2021 09:09:57.2248 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZNf49uUc3PDcJo9ap0YcBcH+HlQ+KpBZ/1wiRWGBcusd6WFRov74dEQkdWqtoH2/xfEk9Ss67a4+jiWwb53UEw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1287
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- robh+dt@kernel.org, broonie@kernel.org, stable@vger.kernel.org,
- linux-tegra@vger.kernel.org, digetx@gmail.com, jonathanh@nvidia.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="XJBGCkuG"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="FXZcZWFv"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 187181FD58;
+ Tue,  7 Dec 2021 09:16:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1638868588; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=loye1qmv+paIyZPcklVihT0m7IN60lrA6KGqF/6F0mg=;
+ b=XJBGCkuGOQaN99dHvwlNIkTfGrqJIwohwrkHmNAMPFbVreb6HXOQLwAnx2vQtEpePf03yC
+ dW2h/zV13WLNPrLUpnPzO1anU8fZAwE7sCfCJwh1BponiuqzpP7Q+5E2SQTaZXpoDcPMzi
+ TB7DnsD8E93RSHJ1W/D1OvuIs1xvkk4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1638868588;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=loye1qmv+paIyZPcklVihT0m7IN60lrA6KGqF/6F0mg=;
+ b=FXZcZWFvO0l6ia/Af7TToaXhVyqnwgmy+4bv0RWmWieQE3yAAJ02rY3VHStQwjC86I+vqQ
+ MOATKtBOAkHk/JAg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 0EB6DA3B88;
+ Tue,  7 Dec 2021 09:16:27 +0000 (UTC)
+Date: Tue, 07 Dec 2021 10:16:27 +0100
+Message-ID: <s5hlf0wojv8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: u34@net9.ga
+Subject: Re: Is it a regression? 5.15.5: No sound with speaker-test. 5.12.13:
+ it works.
+In-Reply-To: <E1mrgJF-000RWu-7d@mx1.net9.ga>
+References: <E1mrgJF-000RWu-7d@mx1.net9.ga>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -169,50 +93,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 29 Nov 2021 14:03:05 +0100,
+u34@net9.ga wrote:
+> 
+> The following looks to me a regression in the linux sound driver.
+> alsa-info.sh output is included at the bottom of this message. There are 2 
+> outputs. An output with a 5.12.13 kernel. The other output is with a 
+> 5.15.5. They were obtained with the same PC. With 5.12.13, the 
+> speaker-test program works as expected. There is no sound when the 
+> speaker-test program is ran with 5.15.5.
+> 5.15.5 has 
+>     options snd-hda-intel id=PCH index=0
+>     options snd-hda-intel id=HDMI index=1
+> , which 5.12.13 does not have.
+
+Both those lines conflict with each other, so they make no sense and
+are already incorrect.
+
+If you want to swap the card indices inevitably needed, just pass a
+single option line below instead.
+
+  options snd-hda-intel index=1,0
+
+And how did you invoke speaker-test?  Is it only about speaker-test
+and aplay works as is?
 
 
-On 12/7/2021 2:06 PM, Takashi Iwai wrote:
-> On Tue, 07 Dec 2021 09:16:43 +0100,
-> Thierry Reding wrote:
->> I suppose this could also be a bool. Not sure if we need to care about
->> packing optimizations at this point.
->>
->> It may also be useful to rename this to something less generic to avoid
->> potential clashes with other data structures in the future. We've often
->> used the _soc suffix in other drivers to mark this kind of SoC-specific
->> data. In this case it would be struct hda_tegra_soc.
->>
->> If Takashi is fine with this as-is, I don't have any strong objections,
->> though.
-> Indeed, a bit more prefix would be better for avoiding the possible
-> conflict in future, but the struct name is local, so I don't mind to
-> use the simple name for now.  We can change it later once when needed,
-> too.
-
-[...]
-
->>
->> One other thing we've done in the past is to explicitly pass these
->> structures for each compatible string. That simplifies things a bit
->> because we don't have to keep checking for non-NULL pointers and instead
->> rely on the fact that there's always a valid pointer.
->>
->> To do so, you'd basically add:
->>
->>        static const struct hda_data tegra186_data = {
->>                .do_reset = 0,
->>        };
->>
->> And reference that for both the Tegra186 and Tegra194 entries. Again,
->> not strictly necessary and since we have only one occurrence where we
->> need to check this, it seems fine as-is, so:
->>
->> Acked-by: Thierry Reding <treding@nvidia.com>
-> That's true, too.  OTOH, completely without a NULL check would be also
-> unsafe, so some sanity check would be still required.
->
-> That said, the current patch is good enough for taking as a regression
-> fix, but I'm fine to wait for a while for v2 to address those, too :)
->
-
-Let me send a v2 for above.
+Takashi

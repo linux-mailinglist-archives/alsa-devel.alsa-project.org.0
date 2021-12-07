@@ -2,88 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33BAC46B52E
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 09:08:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83FD046B583
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Dec 2021 09:16:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F05D9239A;
-	Tue,  7 Dec 2021 09:07:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F05D9239A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19B5D23A0;
+	Tue,  7 Dec 2021 09:16:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19B5D23A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638864515;
-	bh=1yMHsnh5Gskta62Pbpk+W8UkfQPLEDDGfCZtlcAdOro=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1638865010;
+	bh=AzyUAEWATMIvCoDYu98AFpMGjzgMX6NNyOloO/w7Cjc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EeEeP9WLNlhGrmrVaP2DVPqg7pAhzfSGJXhaq3TokHHHizweqdI1ezH8AXpYr73f+
-	 HCVqakHYz/Yfd7IpgRx2urQ5tCnx4yzd4JsivFvInA5dKmTMM8ahk+kkGav1d939gD
-	 Yoaaf1DDHZNMBxBAGCLj2QwrscaIEb5PyWiCPiQM=
+	b=Bdvobn8jkYI09Xu5RFUDZYZR2RTk2T6svb1W9WWUC/uHxFHkx3VAjVByM54lHZ+Ei
+	 SLI+uEgkVCuU8nKUhrrDirWGFw+ZF8DecsC4DpUiDm54P5an9Nn0/vfDq9lVTH1Wmc
+	 AUCaUqxE8hITMWkNnAd1Qra3s7WgOt9R+xfKSL2Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEFF8F804CF;
-	Tue,  7 Dec 2021 09:07:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6691EF80217;
+	Tue,  7 Dec 2021 09:15:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C07D3F80253; Tue,  7 Dec 2021 09:07:28 +0100 (CET)
+ id DF084F8028D; Tue,  7 Dec 2021 09:15:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73C61F80253
- for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 09:07:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73C61F80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0B52F80253
+ for <alsa-devel@alsa-project.org>; Tue,  7 Dec 2021 09:15:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0B52F80253
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Fc758gQu"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="tlyEB9Hg"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4CFC51FD2F;
- Tue,  7 Dec 2021 08:07:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1638864444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=il5a5JJR0ZfdJ2jUiyG6AT13ksKGx4mpOYxIh/QTUOw=;
- b=Fc758gQu1PbHz5/6ZwWbiBmSJizg5xxDlljPRYgY9odWMgaVzmRTdAi47e+nN/0exejH7t
- B9OT6agT5XkRrcdS2z0RXQ6Dnr4mwnEqHuTuk8IX1+6FPdcpUBsdQAT2W8Nm0dswdM3NwV
- 0+DRbmyZTjA9QON8lJA6Fxwe1B3pDY4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1638864444;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=il5a5JJR0ZfdJ2jUiyG6AT13ksKGx4mpOYxIh/QTUOw=;
- b=tlyEB9HgvbkMTNO+h1lMI3+ifDq0icWHlwsWr63x9yxiifTdrFKlt/SRDsgEkmdp/Mv09G
- wujrBT1jvmACA8Bg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 46886A3B8A;
- Tue,  7 Dec 2021 08:07:24 +0000 (UTC)
-Date: Tue, 07 Dec 2021 09:07:24 +0100
-Message-ID: <s5hv900on2b.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: Logitech Z10 USB speakers need a volume change before audio works
-In-Reply-To: <e90fb2c1-190f-1f96-60f4-1931224f0cfe@redhat.com>
-References: <cf7dd2f0-512c-1b8c-efb1-53f79ddfb41e@redhat.com>
- <s5ho8689zl3.wl-tiwai@suse.de>
- <c1deb0b9-b0f1-3ea5-43ea-ac96b29e93f5@redhat.com>
- <7f36906e-fd4b-c14e-4189-0d8b7de271ac@redhat.com>
- <s5hfsrd1vt3.wl-tiwai@suse.de>
- <2af48c9f-60d7-ed63-845d-9adb8cb7b037@redhat.com>
- <s5h7dcnwh0j.wl-tiwai@suse.de>
- <e90fb2c1-190f-1f96-60f4-1931224f0cfe@redhat.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="O8SFw4q1"
+Received: by mail-wm1-x32d.google.com with SMTP id
+ n33-20020a05600c502100b0032fb900951eso1073045wmr.4
+ for <alsa-devel@alsa-project.org>; Tue, 07 Dec 2021 00:15:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=rOIlXsz0PGlaxQV5U7jqAgR4am707r4hcnOeW2eWLV8=;
+ b=O8SFw4q1q5ubvaw3zVvh8753feNo1rPiMnkGhekMVUnsCFUaohyqvaZe68fvMGM8N8
+ sZmBEpSiVbkdsKuPImwoM1u5FiZ+b+3/jl5Cd0KKSsu0dAAUUeqYVX6DyIrQHlcS2fms
+ 7J+rRho0iI5Mqzw7u+u11SgF0A/cbP3eBI5MwbYzydorih2gOxyIWaFLdlSVq4M2dIQx
+ kdM/tlGiBGVBROrQ1X4OhBFx20/WgzcPgZJr+dTbXD6brOe0JaMKxU5CoJuSJde6YFaP
+ yenPSry8I10ZwYJWXiRKF+2uhZuEtGMSxrM6BuGZ241OzmK6K4AK8C0JWM9tfaCYbfgc
+ YQqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=rOIlXsz0PGlaxQV5U7jqAgR4am707r4hcnOeW2eWLV8=;
+ b=dA20URYOA9wOAsb9dBi+fGMVcQahsp4mg3gY/eqfDyykMQtn5CfBDnmiKm/TGDakR/
+ DVRRu6oOQbR9KOphgNMgelB1dP4Q8sv5qAhpfAElcKKyefKNmFNVd/WODWwzd7AOTgBF
+ cNlHJ2Y63pbctxQ+0rRUqyTnQSIofz7ZRoN5y6pOyPvBfvkULZj/XWQuNb8f0dFjB95r
+ FkLx7HgN1NasztDsb35bOUeVktdU983nozf2i2R0KVviOhbf98e4p5fIc/QkCImxRwIF
+ YPmdFP23djEYBlm9FLDkz/yTIEKhY25OzHUSRt35i81FRvglBsPvnUFtMhSsITP4CKnR
+ t1nw==
+X-Gm-Message-State: AOAM532XmuMyyA0pkB9KH9IPvBKsn1wMcsdBEKa67Ucj10bOSlN5Lg33
+ 8FLSQOKTx5N4GpvjXjKcO30=
+X-Google-Smtp-Source: ABdhPJy2X3TxTv34u8UaDIlSKuFZUwju+YHjlgxlUlnKm60GtggT+2vqZhY/Oj9PuKjuvpLCt4hQ/Q==
+X-Received: by 2002:a05:600c:510d:: with SMTP id
+ o13mr5051389wms.104.1638864926845; 
+ Tue, 07 Dec 2021 00:15:26 -0800 (PST)
+Received: from hamza-OptiPlex-7040 ([39.48.238.254])
+ by smtp.gmail.com with ESMTPSA id r8sm16944910wrz.43.2021.12.07.00.15.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Dec 2021 00:15:26 -0800 (PST)
+Date: Tue, 7 Dec 2021 13:15:22 +0500
+From: Ameer Hamza <amhamza.mgc@gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: test-component: fix null pointer dereference.
+Message-ID: <20211207081522.GA9690@hamza-OptiPlex-7040>
+References: <20211205204200.7852-1-amhamza.mgc@gmail.com>
+ <TYCPR01MB55813B26BB2B3BB6D1E072F2D46C9@TYCPR01MB5581.jpnprd01.prod.outlook.com>
+ <20211206092937.GA5609@hamza-OptiPlex-7040>
+ <TYCPR01MB5581998AD64AE249C7D86C26D46D9@TYCPR01MB5581.jpnprd01.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <TYCPR01MB5581998AD64AE249C7D86C26D46D9@TYCPR01MB5581.jpnprd01.prod.outlook.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "broonie@kernel.org" <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,222 +107,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 06 Dec 2021 14:54:08 +0100,
-Hans de Goede wrote:
+On Mon, Dec 06, 2021 at 11:19:36PM +0000, Kuninori Morimoto wrote:
 > 
-> Hi Takashi,
+> Hi Ameer
 > 
-> On 12/2/21 09:25, Takashi Iwai wrote:
-> > On Wed, 01 Dec 2021 16:44:11 +0100,
-> > Hans de Goede wrote:
-> >>
-> >> Hi,
-> >>
-> >> On 11/30/21 16:56, Takashi Iwai wrote:
-> >>> On Tue, 30 Nov 2021 15:33:35 +0100,
-> >>> Hans de Goede wrote:
-> >>>>
-> >>>> Hi,
-> >>>>
-> >>>> On 11/30/21 12:07, Hans de Goede wrote:
-> >>>>> Hi,
-> >>>>>
-> >>>>> On 11/25/21 13:42, Takashi Iwai wrote:
-> >>>>>> On Thu, 25 Nov 2021 12:04:41 +0100,
-> >>>>>> Hans de Goede wrote:
-> >>>>>>>
-> >>>>>>> Hi,
-> >>>>>>>
-> >>>>>>> I've a set of Logitech Z10 USB speakers, which act as a USB soundcard.
-> >>>>>>>
-> >>>>>>> They have this weird glitch where after turning off my PC (and their
-> >>>>>>> power-supply as well) and then turning things back on, they are silent
-> >>>>>>> until I change the PCM volume control for the speakers inside
-> >>>>>>> alsa-mixer.
-> >>>>>>>
-> >>>>>>> It seems like they need some "set-volume" command to be send over the
-> >>>>>>> USB bus to unmute them when initially powered-up / turned on.
-> >>>>>>>
-> >>>>>>> Is their some existing usb-audio quirk which I can try to work around this?
-> >>>>>>
-> >>>>>> No such quirk is present for now.
-> >>>>>>
-> >>>>>> Was it tested with 5.16-rc?  There was a change in USB-audio driver
-> >>>>>> initialization (commit b96681bd5827) and it might have some effect in
-> >>>>>> your case.
-> >>>>>
-> >>>>> Yes I'm at 5.16-rc3 atm but I've been seeing this for quite some time.
-> >>>>> I just never got around to reporting it. Mainly because I also never
-> >>>>> got around to getting a bit clearer picture of the problem.
-> >>>>>
-> >>>>> I've spend some time this morning to get that clearer picture,
-> >>>>> which was insightful.
-> >>>>>
-> >>>>>> Also, it's interesting to know whether it happens also once after
-> >>>>>> suspend-resume, too.
-> >>>>>
-> >>>>> suspend-resume makes no difference, not even rebooting or
-> >>>>> powering off the machine makes a difference.
-> >>>>>
-> >>>>> Once the speakers are in working order they stay in working order
-> >>>>> until I turn off my machine; and then flick the power-switch on
-> >>>>> the 240V AC power-bar which I use to power my laptop + dock +
-> >>>>> monitors + the speakers and turn things back on the next morning.
-> >>>>>
-> >>>>> To be clear these speakers get their audio-data over USB
-> >>>>> (as an usb-audio device) but they have their own power-supply
-> >>>>> they are not USB powered. They also have a "soft" on/off button
-> >>>>> which turns on/off the amplifier and LCD screen parts but leaves
-> >>>>> the USB audio interface active.
-> >>>>>
-> >>>>> So I've been experimenting with reproducing the issue and I
-> >>>>> need to do the following minimal steps to reproduce:
-> >>>>>
-> >>>>>  1. Unplug USB
-> >>>>>  2. Unplug power
-> >>>>>  3. Re-plug power
-> >>>>>  4. Re-plug USB
-> >>>>>  5. speaker-test -Dfront:CARD=Speaker,DEV=0 -S1
-> >>>>>  6. Turn speakers on (with the on/off button on the speakers), no audio
-> >>>>>
-> >>>>>  5 and 6 may be swapped, same result
-> >>>>>
-> >>>>> And now that I have a reliable reproducer I've also been
-> >>>>> playing with a reliable workaround which looks like this:
-> >>>>>
-> >>>>> 1. Start playing audio to the speakers
-> >>>>> 2. Turn speakers on (with the on/off button on the speakers)
-> >>>>> 3. Make a change to the 'PCM Playback Volume' ctrl
-> >>>>>
-> >>>>> Where 1. and 2. may be swapped. But the
-> >>>>> 'PCM Playback Volume' ctrl change must be made while the
-> >>>>> speakers are on and playing audio !
-> >>>>>
-> >>>>> Although I have found that this also works:
-> >>>>>
-> >>>>> 1. Start playing audio to the speakers
-> >>>>> 2. Turn speakers on (with the on/off button on the speakers)
-> >>>>> 3. Stop playing audio
-> >>>>> 4. Make a change to the 'PCM Playback Volume' ctrl
-> >>>>> 5. Start playing audio to the speakers again
-> >>>>>
-> >>>>> I then even here a brief "power-up buzz" coming from the
-> >>>>> speakers at 4.
-> >>>>>
-> >>>>> And this sequence also works:
-> >>>>>
-> >>>>> 1. Start playing audio to the speakers
-> >>>>> 2. Stop playing audio
-> >>>>> 3. Turn speakers on (with the on/off button on the speakers)
-> >>>>> 4. Make a change to the 'PCM Playback Volume' ctrl
-> >>>>> 5. Start playing audio to the speakers again
-> >>>>>
-> >>>>> So it seems that to work (after having been unplugged
-> >>>>> form the mains) these speakers need to:
-> >>>>>
-> >>>>> 1. Have had some audio send to them at least once
-> >>>>> 2. After this have their 'PCM Playback Volume' ctrl poked
-> >>>>>    at once while they are on (and if they are on cannot
-> >>>>>    be seen from the PC side AFAICT).
-> >>>>>
-> >>>>> Note instead of changing the 'PCM Playback Volume' ctrl
-> >>>>> toggling the associated mute ctrl works too.
-> >>>>>
-> >>>>> TL;DR: Since getting the speakers to work involves
-> >>>>> setting a ctrl while they are on, which is something
-> >>>>> which we cannot tell from the kernel side I don't believe
-> >>>>> that there is anything we can do about this from within
-> >>>>> the kernel.
-> >>>>
-> >>>> So thinking more about this I guess we could do something
-> >>>> where we resend the last PCM volume to the device every
-> >>>> 5 seconds *when the device is playing audio*, assuming that
-> >>>> the resending of the same PCM volume is sufficient to fix
-> >>>> things.
-> >>>>
-> >>>> These are pretty nice speakers so getting them to work without
-> >>>> this glitch would be nice. But it would require a significant
-> >>>> bit of (quirk enabled) code just for this 1 model speakers.
-> >>>>
-> >>>> Takashi, what do you think. Should I give the resend volume
-> >>>> once every 5 seconds idea a try, or is it likely going to
-> >>>> end up being too ugly to merge ?
-> >>>
-> >>> It sounds too hackish and fragile to me...
-> >>
-> >> Yes, I agree,
-> >>
-> >>> Do we need to repeat each
-> >>> 5 seconds?  Wouldn't it suffice to touch only once at setting up the
-> >>> stream (or need before or after the stream start), instead?
-> >>
-> >> The problem is that at least with my testing with alsamixer + speaker-test
-> >> I need to make the PCM ctl change when the speakers are on.
-> >>
-> >> And I often find myself doing the following:
-> >>
-> >> 1. Start something which requires working audio
-> >> 2. Oh wait, the speakers are off, turn them on
-> >>
-> >> At which point if we do this at stream-start this would require
-> >> a pause + unpause. At which point just hitting volume up + down
-> >> hotkeys is just as easy (easier even when in say a video-conf-call).
-> >>
-> >> So I believe my time is better spend to track down the pipewire
-> >> regression where newer pipewire versions no longer use hw-volume-ctrl
-> >> on these speakers for some reason. Fixing that will restore my old
-> >> workaround and will hopefully also help other users.
-> >>
-> >> I guess this is mostly an issue for me because I turn of the
-> >> mains power to the speakers every evening, other users just
-> >> need to fiddle with the volume once and then things will work
-> >> until the speakers get unplugged from the mains.
-> >>
-> >>> In anyway, alsa-info.sh output would be helpful.
-> >>
-> >> Sure here you go:
-> >> http://alsa-project.org/db/?f=8b93e72b6fb4be5c426eade5f78ed58137bdf0ef'
-> >>
-> >> Note there are quite a few audio devices in my setup:
-> >>
-> >> 1. My X1 carbon laptop's builtin sound
-> >> 2. The Thunderbolt docks' USB audio (unused)
-> >> 3. A TI USB audio codec going to the receiver connected to
-> >> my proper/real speakers for listening music
-> >> 4. The Logitech Z-10 speakers which we are discussing here
-> >>
-> >> Anyway, not sure if this is worth spending much (more) time on
-> >> but if you have some idea for me to test, let me know.
-> > 
-> > Below is a quick hack, let's see whether this kind of change is
-> > enough for this device.
-> > 
-> > 
-> > Takashi
-> > 
-> > --- a/sound/usb/quirks.c
-> > +++ b/sound/usb/quirks.c
-> > @@ -1280,6 +1280,15 @@ int snd_usb_apply_interface_quirk(struct snd_usb_audio *chip,
-> >  				  int iface,
-> >  				  int altno)
-> >  {
-> > +#ifdef CONFIG_PM
-> > +	if (chip->usb_id == USB_ID(0x046d, 0x0a07)) {
-> > +		struct usb_mixer_interface *mixer;
-> > +		list_for_each_entry(mixer, &chip->mixer_list, list)
-> > +			snd_usb_mixer_resume(mixer);
-> > +		return 0;
-> > +	}
-> > +#endif
-> > +
-> >  	/* audiophile usb: skip altsets incompatible with device_setup */
-> >  	if (chip->usb_id == USB_ID(0x0763, 0x2003))
-> >  		return audiophile_skip_setting_quirk(chip, iface, altno);
-> > 
+> >> Probing this driver without adata is strange for me.
+> >> How did probe this driver ??
+> >
+> > Thank you for your response. Unfortunately, I am not aware of
+> > implementation details of this component. Coverity suggested that there
+> > can be a potential NULL pointer access which seems logical to me. Do you
+> > agree with coverity here?
 > 
-> Thanks, unfortunately this does not make any difference.
+> I think no potential NULL pointer access, because this driver can't
+> be called without of_id->data.
+> But, potential NULL pointer check itself is good idea.
+> It seems your patch was already accepted :)
+Yes, indeed.
 
-OK, then it's not that straightforward :-<
+> I noticed that we can replace it to use of_device_get_match_data()
+> 
+> -	const struct of_device_id *of_id = of_match_device(test_of_match, &pdev->dev);
+> -	const struct test_adata *adata = of_id->data;
+> +	const struct test_adata *adata = of_device_get_match_data(&pdev->dev);
+Thanks, that's a cleaner way. Can you advise how should proceed with
+this since previous patch is already applied. Should I send a updated
+version of patch, e.g., v2 or a new patch. 
 
-
-Takashi
+> 
+> Best regards
+> ---
+> Kuninori Morimoto

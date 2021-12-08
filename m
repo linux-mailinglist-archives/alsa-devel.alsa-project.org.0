@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB17846D1C5
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 12:13:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85C0446D1D1
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 12:14:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BF14232C;
-	Wed,  8 Dec 2021 12:12:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BF14232C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 701ED23A5;
+	Wed,  8 Dec 2021 12:13:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 701ED23A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638962015;
-	bh=NFynsp0qFdEoVcSPQUB1vC1EDjskbXJF8VuPYmcq+BY=;
+	s=default; t=1638962039;
+	bh=gqdw4CeBemOk6jiRSN0//8sL7hfIn+9UDsA/rkwzCDU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rxfTmHeq3byOl30tLAa29AlBH8rR3SAMab7cZMsQNeYFiUEMhA7Ar70DfZKfD45bO
-	 vg5VxQn6cgeRFedpRMaAN5cFNsmivxZsX7LodGN8f1vNmmBNWIMNcyqrd7nHTOWzM7
-	 rtwrE6OuKhvrdl7BB3I/H9Q2HtZYVxPObWAkGQe4=
+	b=Z1BdkW+aiYDD7y6o8fN4vkDx095M9W1Zdu1FpYITBmk8yM+EZ0FMvng/s5ov4GRuM
+	 flN4XLz/eDnBxauT0xhk9lOZa47GBJaedmipeam2TOE1BOjDYk1VNCHd0ncvKA2Wfg
+	 uoPCXu86qEb1uM2UXm4k4wiFkdfcM6/CsXD3VC+4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFA6AF80508;
-	Wed,  8 Dec 2021 12:11:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14A35F8051F;
+	Wed,  8 Dec 2021 12:11:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3111CF80506; Wed,  8 Dec 2021 12:11:09 +0100 (CET)
+ id 05E4EF804FE; Wed,  8 Dec 2021 12:11:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22F1DF804F3
- for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 12:11:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22F1DF804F3
-X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="301192816"
-X-IronPort-AV: E=Sophos;i="5.87,297,1631602800"; d="scan'208";a="301192816"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 229A7F804FE
+ for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 12:11:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 229A7F804FE
+X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="301192825"
+X-IronPort-AV: E=Sophos;i="5.87,297,1631602800"; d="scan'208";a="301192825"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 03:11:02 -0800
+ 08 Dec 2021 03:11:06 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,297,1631602800"; d="scan'208";a="600600086"
+X-IronPort-AV: E=Sophos;i="5.87,297,1631602800"; d="scan'208";a="600600096"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by FMSMGA003.fm.intel.com with ESMTP; 08 Dec 2021 03:10:59 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 08 Dec 2021 03:11:02 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [RFC 04/37] ALSA: hda: Expose codec cleanup and power-save functions
-Date: Wed,  8 Dec 2021 12:12:28 +0100
-Message-Id: <20211208111301.1817725-5-cezary.rojewski@intel.com>
+Subject: [RFC 05/37] ALSA: hda: Add helper macros for DSP capable devices
+Date: Wed,  8 Dec 2021 12:12:29 +0100
+Message-Id: <20211208111301.1817725-6-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211208111301.1817725-1-cezary.rojewski@intel.com>
 References: <20211208111301.1817725-1-cezary.rojewski@intel.com>
@@ -76,98 +76,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With few changes, snd_hda_codec_set_power_save() and
-snd_hda_codec_cleanup_for_unbind() can be re-used by ASoC drivers.
-While at it, provide kernel doc for the exposed functions.
+HDAudio drivers make heavy use of I/O operations. Declare a range of
+update, read and write helpers similar to those available for HDAudio
+legacy driver. These macros are used by AVS driver to improve code
+readability.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- include/sound/hda_codec.h |  3 +++
- sound/pci/hda/hda_codec.c | 14 ++++++++++++--
- sound/pci/hda/hda_local.h |  1 -
- 3 files changed, 15 insertions(+), 3 deletions(-)
+ include/sound/hdaudio.h     |  2 ++
+ include/sound/hdaudio_ext.h | 49 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 51 insertions(+)
 
-diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
-index e1a65d529e00..d70af1a809b2 100644
---- a/include/sound/hda_codec.h
-+++ b/include/sound/hda_codec.h
-@@ -316,6 +316,7 @@ int snd_hda_codec_configure(struct hda_codec *codec);
- int snd_hda_codec_update_widgets(struct hda_codec *codec);
- void snd_hda_codec_register(struct hda_codec *codec);
- void snd_hda_codec_unregister(struct hda_codec *codec);
-+void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec);
+diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+index 22af68b01426..629a83aa98df 100644
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -448,6 +448,8 @@ static inline u16 snd_hdac_reg_readw(struct hdac_bus *bus, void __iomem *addr)
+ 
+ #define snd_hdac_reg_writel(bus, addr, val)	writel(val, addr)
+ #define snd_hdac_reg_readl(bus, addr)	readl(addr)
++#define snd_hdac_reg_writeq(bus, addr, val)	writeq(val, addr)
++#define snd_hdac_reg_readq(bus, addr)		readq(addr)
  
  /*
-  * low level functions
-@@ -494,9 +495,11 @@ int hda_call_check_power_status(struct hda_codec *codec, hda_nid_t nid)
- #define snd_hda_power_down(codec)	snd_hdac_power_down(&(codec)->core)
- #define snd_hda_power_down_pm(codec)	snd_hdac_power_down_pm(&(codec)->core)
- #ifdef CONFIG_PM
-+void snd_hda_codec_set_power_save(struct hda_codec *codec, int delay);
- void snd_hda_set_power_save(struct hda_bus *bus, int delay);
- void snd_hda_update_power_acct(struct hda_codec *codec);
- #else
-+static inline void snd_hda_codec_set_power_save(struct hda_codec *codec, int delay) {}
- static inline void snd_hda_set_power_save(struct hda_bus *bus, int delay) {}
- #endif
+  * macros for easy use
+diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
+index 8b7ee918f540..40e448383355 100644
+--- a/include/sound/hdaudio_ext.h
++++ b/include/sound/hdaudio_ext.h
+@@ -2,6 +2,7 @@
+ #ifndef __SOUND_HDAUDIO_EXT_H
+ #define __SOUND_HDAUDIO_EXT_H
  
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index f89ac0aece97..2e69f570f9ee 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -760,6 +760,10 @@ static void codec_release_pcms(struct hda_codec *codec)
- 	}
- }
++#include <linux/iopoll.h>
+ #include <sound/hdaudio.h>
  
-+/**
-+ * snd_hda_codec_cleanup_for_unbind - Prepare codec for removal
-+ * @codec: codec device to cleanup
-+ */
- void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec)
- {
- 	if (codec->registered) {
-@@ -3385,7 +3389,12 @@ int snd_hda_add_new_ctls(struct hda_codec *codec,
- EXPORT_SYMBOL_GPL(snd_hda_add_new_ctls);
+ int snd_hdac_ext_bus_init(struct hdac_bus *bus, struct device *dev,
+@@ -145,6 +146,54 @@ void snd_hdac_ext_bus_link_power(struct hdac_device *codec, bool enable);
+ 	writew(((readw(addr + reg) & ~(mask)) | (val)), \
+ 		addr + reg)
  
- #ifdef CONFIG_PM
--static void codec_set_power_save(struct hda_codec *codec, int delay)
-+/**
-+ * snd_hda_codec_set_power_save - Configure codec's runtime PM
-+ * @codec: codec device to configure
-+ * @delay: autosuspend delay
-+ */
-+void snd_hda_codec_set_power_save(struct hda_codec *codec, int delay)
- {
- 	struct device *dev = hda_codec_dev(codec);
++#define snd_hdac_adsp_writeb(chip, reg, value) \
++	snd_hdac_reg_writeb(chip, (chip)->adsp_ba + (reg), value)
++#define snd_hdac_adsp_readb(chip, reg) \
++	snd_hdac_reg_readb(chip, (chip)->adsp_ba + (reg))
++#define snd_hdac_adsp_writew(chip, reg, value) \
++	snd_hdac_reg_writew(chip, (chip)->adsp_ba + (reg), value)
++#define snd_hdac_adsp_readw(chip, reg) \
++	snd_hdac_reg_readw(chip, (chip)->adsp_ba + (reg))
++#define snd_hdac_adsp_writel(chip, reg, value) \
++	snd_hdac_reg_writel(chip, (chip)->adsp_ba + (reg), value)
++#define snd_hdac_adsp_readl(chip, reg) \
++	snd_hdac_reg_readl(chip, (chip)->adsp_ba + (reg))
++#define snd_hdac_adsp_writeq(chip, reg, value) \
++	snd_hdac_reg_writeq(chip, (chip)->adsp_ba + (reg), value)
++#define snd_hdac_adsp_readq(chip, reg) \
++	snd_hdac_reg_readq(chip, (chip)->adsp_ba + (reg))
++
++#define snd_hdac_adsp_updateb(chip, reg, mask, val) \
++	snd_hdac_adsp_writeb(chip, reg, \
++			(snd_hdac_adsp_readb(chip, reg) & ~(mask)) | (val))
++#define snd_hdac_adsp_updatew(chip, reg, mask, val) \
++	snd_hdac_adsp_writew(chip, reg, \
++			(snd_hdac_adsp_readw(chip, reg) & ~(mask)) | (val))
++#define snd_hdac_adsp_updatel(chip, reg, mask, val) \
++	snd_hdac_adsp_writel(chip, reg, \
++			(snd_hdac_adsp_readl(chip, reg) & ~(mask)) | (val))
++#define snd_hdac_adsp_updateq(chip, reg, mask, val) \
++	snd_hdac_adsp_writeq(chip, reg, \
++			(snd_hdac_adsp_readq(chip, reg) & ~(mask)) | (val))
++
++#define snd_hdac_adsp_readb_poll(chip, reg, val, cond, delay_us, timeout_us) \
++	readb_poll_timeout((chip)->adsp_ba + (reg), val, cond, \
++			   delay_us, timeout_us)
++#define snd_hdac_adsp_readw_poll(chip, reg, val, cond, delay_us, timeout_us) \
++	readw_poll_timeout((chip)->adsp_ba + (reg), val, cond, \
++			   delay_us, timeout_us)
++#define snd_hdac_adsp_readl_poll(chip, reg, val, cond, delay_us, timeout_us) \
++	readl_poll_timeout((chip)->adsp_ba + (reg), val, cond, \
++			   delay_us, timeout_us)
++#define snd_hdac_adsp_readq_poll(chip, reg, val, cond, delay_us, timeout_us) \
++	readq_poll_timeout((chip)->adsp_ba + (reg), val, cond, \
++			   delay_us, timeout_us)
++#define snd_hdac_stream_readb_poll(strm, reg, val, cond, delay_us, timeout_us) \
++	readb_poll_timeout((strm)->sd_addr + AZX_REG_ ## reg, val, cond, \
++			   delay_us, timeout_us)
++#define snd_hdac_stream_readl_poll(strm, reg, val, cond, delay_us, timeout_us) \
++	readl_poll_timeout((strm)->sd_addr + AZX_REG_ ## reg, val, cond, \
++			   delay_us, timeout_us)
  
-@@ -3403,6 +3412,7 @@ static void codec_set_power_save(struct hda_codec *codec, int delay)
- 		pm_runtime_forbid(dev);
- 	}
- }
-+EXPORT_SYMBOL_GPL(snd_hda_codec_set_power_save);
- 
- /**
-  * snd_hda_set_power_save - reprogram autosuspend for the given delay
-@@ -3416,7 +3426,7 @@ void snd_hda_set_power_save(struct hda_bus *bus, int delay)
- 	struct hda_codec *c;
- 
- 	list_for_each_codec(c, bus)
--		codec_set_power_save(c, delay);
-+		snd_hda_codec_set_power_save(c, delay);
- }
- EXPORT_SYMBOL_GPL(snd_hda_set_power_save);
- 
-diff --git a/sound/pci/hda/hda_local.h b/sound/pci/hda/hda_local.h
-index 8d47d3679c10..541ee8a3d9dd 100644
---- a/sound/pci/hda/hda_local.h
-+++ b/sound/pci/hda/hda_local.h
-@@ -135,7 +135,6 @@ int __snd_hda_add_vmaster(struct hda_codec *codec, char *name,
- #define snd_hda_add_vmaster(codec, name, tlv, followers, suffix, access) \
- 	__snd_hda_add_vmaster(codec, name, tlv, followers, suffix, true, access, NULL)
- int snd_hda_codec_reset(struct hda_codec *codec);
--void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec);
- 
- #define snd_hda_regmap_sync(codec)	snd_hdac_regmap_sync(&(codec)->core)
+ struct hdac_ext_device;
  
 -- 
 2.25.1

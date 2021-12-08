@@ -2,78 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A13846DB63
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 19:41:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18CE046DB91
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 19:51:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08A07251D;
-	Wed,  8 Dec 2021 19:40:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08A07251D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA4B02529;
+	Wed,  8 Dec 2021 19:50:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA4B02529
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638988884;
-	bh=qg7tK4XkdsAtUIRtwJYp+FmwaKvcGXkqB7uE9WmRf7U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VXw05q9jPYBJBEgozSgw2w5PPyRprZ4/rh4imAxHayiSgi3VTrS0h7jDDhnBbIHr7
-	 h7XSjv+G83wH4EmDWjaSE3ybZcjoAjePpfDfGZaBGRAlUn2OzSROheSwSPybe5WM9b
-	 Fcd2EIirV+6QMp/Hw+wy4QUsKKY/gPx7vMLBEKfA=
+	s=default; t=1638989480;
+	bh=BThVGfHrummsCs7uQYDLuDmsPiKcU2o/C0hkIKn4+pw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tVtE45qKKv8snLVHqiyHM7xRUKxrMEWPknr5w2FWDghk8FGLPo/UvOXpG4HWog2il
+	 dmwa03e1Sh1Ks0Qr60MY9HMegze0UW/QqtwsrIMyDRyBRA1R0a8Blt+IxyJgwynH4s
+	 gYF9pPb225X7bCGID7y1ceU94o/VRCEy0vhWzTiI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F32DF80217;
-	Wed,  8 Dec 2021 19:40:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4754F804EC;
+	Wed,  8 Dec 2021 19:50:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B47FF80217; Wed,  8 Dec 2021 19:40:10 +0100 (CET)
+ id 6F31AF804E5; Wed,  8 Dec 2021 19:50:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A62BFF80217
- for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 19:40:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A62BFF80217
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tAHWuE5X"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2041.outbound.protection.outlook.com [40.107.92.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 7D8EFCE2033;
- Wed,  8 Dec 2021 18:39:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43EF1C341C7;
- Wed,  8 Dec 2021 18:39:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638988796;
- bh=qg7tK4XkdsAtUIRtwJYp+FmwaKvcGXkqB7uE9WmRf7U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tAHWuE5XulXWELwI5J1v+8rJRzYLKu/th6ertmSRihsiV2kS6Hry3bVhQRNAAV3NU
- zA64K9U0QwdL+Nb0IVcCEnOGxWCCahXJlo2qf0SpNpYUGY5OetqE1P3HF8GuCCCyml
- vcEJCA+OHwsU4Prpkl28xyFFVoxedEhRs/yjrwJCN/JapfnVOWD5d9f2t05OVRNtxD
- FqJQyJw9t9O9hcEjHBaOsZiQQs2yJOA7bi+qdN194wXOgO1a2PRNje4bxZ+TBabqm5
- iT0sKPrbhiuROdJk8MGE7LZHIWfu5839e6AmoFsTx3KTkCzn4XaDCYUysLOF1u68dp
- 3k7/K9wso9IdQ==
-Date: Wed, 8 Dec 2021 18:39:52 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v2] kselftest: alsa: Add simplistic test for ALSA mixer
- controls kselftest
-Message-ID: <YbD7+C74DFlZEokt@sirena.org.uk>
-References: <20211206160305.194011-1-broonie@kernel.org>
- <de0c5677-c2cf-d1ab-68c5-2f410d17b66c@linuxfoundation.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 251EBF80217
+ for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 19:50:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 251EBF80217
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="xMNTv7vw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Q9YRruANwyQd6qI5ZFxqAj8hrglcCvRLKj5GkheYvALQdCqTA1pqak6yWsjRHvljX5Yo5e5hWrz7DsS9pq8T6j/+tk9UpYJw45LYUvoGYJ2rRCRR1BIa1uJmzSWkR5+o0WYK+W2ETV+l7yNSPRHRQPSdpS2e/pB7MrxkiIKmp/aWE+42yHn09P8HbKCpTL7RnXfIoJh6m6OeWTeT3R9CKDgLgUyYNqnN30eigQatf50bnAO0TjhAEm701TaROYuzHhGAfTXYZid0gWQs2hV/IjkzHo4MqHGKxIwcr2DYiEYBZYlrQYEuuzpR2ddAJk6N+9kCdUh7Im3/z7JwAGrc/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SA7KR4GddPQekZKIr2pZTEEx8XUvcN+w61O6jk7OSBo=;
+ b=BExApH9X1CnRLf2+FAs+1IHxl39IuJ6UZimbqC5PkY18KxkuyqQnbLFAN1SsxtRYeRJA7nn7fI5LtQoTj2dCbkhVtOhzYYUkhkbtUJPt5n3t0v7glW4aPnFe6qTm7hhdI/oBhWJn5pzZ8/pnJw5aTUXrP3lxdBa+t8xZYt2rkniwNF/j0aLfJuI91gVIF8KZfEEEipeKtiquGu6p4wTMTwzx7lCpAYPW+KWEbsCWIkBziOdZdRS1ykk/MMYxZfeTQexdN5yktAv6pE2fIxYoJMAXMxS2YsR442+xJe2piMZ7Blj5LnQfTFSgfsToz4pFJymC8HMgEH0kj2eYUlT4pA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SA7KR4GddPQekZKIr2pZTEEx8XUvcN+w61O6jk7OSBo=;
+ b=xMNTv7vw+BXJ4B50m4TkuM1mB3sPeB2qciQx86EqsKtFJ4LZGXHp8hJ+GMFgfdR6PiZTNjOLfG/G6GP2ULO0t6m7CX3yNn+BC2CFqPEihhiyxjI2UZjGan7n7M0fkFyhqL71tsJeeq/e0S8hUHNcdaOxHgM9JCnWHhRHLajCix8=
+Received: from DM5PR1401CA0001.namprd14.prod.outlook.com (2603:10b6:4:4a::11)
+ by MN2PR12MB4048.namprd12.prod.outlook.com (2603:10b6:208:1d5::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Wed, 8 Dec
+ 2021 18:49:57 +0000
+Received: from DM6NAM11FT059.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:4a:cafe::22) by DM5PR1401CA0001.outlook.office365.com
+ (2603:10b6:4:4a::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.17 via Frontend
+ Transport; Wed, 8 Dec 2021 18:49:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT059.mail.protection.outlook.com (10.13.172.92) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4755.13 via Frontend Transport; Wed, 8 Dec 2021 18:49:57 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 8 Dec
+ 2021 12:49:57 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 8 Dec
+ 2021 10:49:56 -0800
+Received: from chrome.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
+ Transport; Wed, 8 Dec 2021 12:49:53 -0600
+From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH] ASoC: rt5682s: Add dapm switch to mute/unmute HP playback
+ output
+Date: Thu, 9 Dec 2021 00:18:55 +0530
+Message-ID: <20211208184855.1555741-1-AjitKumar.Pandey@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="aRILJPDDQZM38Bc7"
-Content-Disposition: inline
-In-Reply-To: <de0c5677-c2cf-d1ab-68c5-2f410d17b66c@linuxfoundation.org>
-X-Cookie: Alex Haley was adopted!
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5e1b6435-18ff-44ea-476a-08d9ba7b880a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4048:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB40483B39A6DD58D26685DCD5826F9@MN2PR12MB4048.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2L72wdxXs3GygvsvfIPEUGQx7MBjVJfEgl3+5shJdJUMW1YUhCGX+Rog5UXelg9s51vEeMq1RTvD489FgquqhCJyOCQrv15V5Y6C4CvF82u7KnyQ1p+vfbvcHXLTHrjPx0HD+dTWkW4eQgSXI5l49cbDhFxVjo+BYE3fb2c23Qtpt+5lAxGv8dgpjnEMojFkDk1aoTIX4T05ShfoV0San0drCb7yOYO5ZhAnvy2y6m25cSpJYKRjxfibYjh8DLafU7d9LJ+KWnRNh3TTW02Mw1nmb9+vgghkKOjR7reKirz1hBFRRJbAM6uQmiAfaMmvQ0lLhpNbaKBsz6oookHjbshO2G7yEYnxAqJCWV6tVEpDRi5NbI+DQXfxf5YHpV1JSgK8x9OF/qJrRT8LDjHfkHMUZcM18Tn+vYPl+T9SLvERohSI5iPNE5mTgdPKyxpaGg7pw/phYyuFPMnWkUkjc9lpOFyJO7GyhEWqxicMF8O372sPBfKJU8dk7RC1c4VFXmSpcIiND8yNmkN6WU79Qy1vMNFrCF9PgGKE+FZK63oAjpmj+L6W+N9lACsHQ7cooNN+wE56y0M1ftLn6GkVEA3/poIJRTnaW/U+H5hejg841VqWka8FUARigZK5nMgWy/TNowriwUp/hmU9K45pJFWDzK44Ke5WLZYjMEFMC713dzQdFDHNWMrYIriMKdIBDPtApP85rZ+r4ef3bZ5GMaL9DmzVBhnx74FEqu7tn5e8q8WX89xFCpDUTVFyOtsPOIi2VGRY/nA9eYBnFZjEgNsQn7UDPakvXtct8+8SwKM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(40470700001)(36860700001)(81166007)(54906003)(356005)(82310400004)(5660300002)(47076005)(2906002)(316002)(110136005)(8676002)(36756003)(426003)(70206006)(86362001)(1076003)(7696005)(83380400001)(70586007)(336012)(2616005)(4326008)(508600001)(8936002)(40460700001)(26005)(186003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 18:49:57.4660 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e1b6435-18ff-44ea-476a-08d9ba7b880a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT059.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4048
+Cc: Oder Chiou <oder_chiou@realtek.com>, Sunil-kumar.Dommati@amd.com,
+ Ajit Kumar
+ Pandey <AjitKumar.Pandey@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Vijendar.Mukunda@amd.com,
+ Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,119 +141,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add dapm switch in playback path to mute or unmute HP output data.
+We will set and reset MUTE_SFT bit in RT5682S_HP_CTRL_1 register
+based on switch value to mute or umute respective channel.
 
---aRILJPDDQZM38Bc7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+---
+ sound/soc/codecs/rt5682s.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-On Wed, Dec 08, 2021 at 10:42:35AM -0700, Shuah Khan wrote:
-> On 12/6/21 9:03 AM, Mark Brown wrote:
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index d49a4f68566d..21ab5f7df422 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -1573,6 +1573,14 @@ static const char * const rt5682s_adcdat_pin_select[] = {
+ 	"ADCDAT1", "ADCDAT2",
+ };
+ 
++/* Out Switch */
++static const struct snd_kcontrol_new hpol_switch =
++	SOC_DAPM_SINGLE_AUTODISABLE("Switch", RT5682S_HP_CTRL_1,
++		RT5682S_L_MUTE_SFT, 1, 1);
++static const struct snd_kcontrol_new hpor_switch =
++	SOC_DAPM_SINGLE_AUTODISABLE("Switch", RT5682S_HP_CTRL_1,
++		RT5682S_R_MUTE_SFT, 1, 1);
++
+ static SOC_VALUE_ENUM_SINGLE_DECL(rt5682s_adcdat_pin_enum,
+ 	RT5682S_GPIO_CTRL_1, RT5682S_GP4_PIN_SFT, RT5682S_GP4_PIN_MASK,
+ 	rt5682s_adcdat_pin_select, rt5682s_adcdat_pin_values);
+@@ -1746,6 +1754,11 @@ static const struct snd_soc_dapm_widget rt5682s_dapm_widgets[] = {
+ 	SND_SOC_DAPM_PGA_S("HP Amp", 1, SND_SOC_NOPM, 0, 0, rt5682s_hp_amp_event,
+ 		SND_SOC_DAPM_POST_PMD | SND_SOC_DAPM_POST_PMU),
+ 
++	SND_SOC_DAPM_SWITCH("HPOL Playback", SND_SOC_NOPM, 0, 0,
++		&hpol_switch),
++	SND_SOC_DAPM_SWITCH("HPOR Playback", SND_SOC_NOPM, 0, 0,
++		&hpor_switch),
++
+ 	/* CLK DET */
+ 	SND_SOC_DAPM_SUPPLY("CLKDET SYS", RT5682S_CLK_DET,
+ 		RT5682S_SYS_CLK_DET_SFT, 0, NULL, 0),
+@@ -1895,8 +1908,10 @@ static const struct snd_soc_dapm_route rt5682s_dapm_routes[] = {
+ 	{"HP Amp", NULL, "CLKDET SYS"},
+ 	{"HP Amp", NULL, "SAR"},
+ 
+-	{"HPOL", NULL, "HP Amp"},
+-	{"HPOR", NULL, "HP Amp"},
++	{"HPOL Playback", "Switch", "HP Amp"},
++	{"HPOR Playback", "Switch", "HP Amp"},
++	{"HPOL", NULL, "HPOL Playback"},
++	{"HPOR", NULL, "HPOR Playback"},
+ };
+ 
+ static int rt5682s_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
+-- 
+2.25.1
 
-> > +SOUND - ALSA SELFTESTS
-> > +M:	Mark Brown <broonie@kernel.org>
-> > +L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
-
-> Please add linux-kselftest list as well here.
-
-get_maintainers pulls it in from the wider entry (the mention of
-alsa-devel is reudnant too).
-
-> > +int num_cards =3D 0;
-> > +int num_controls =3D 0;
-> > +struct card_data *card_list =3D NULL;
-> > +struct ctl_data *ctl_list =3D NULL;
-
-> No need to initailize the above globals.
-
-They're not declared static so the initial value is undefined.
-
-> > +void find_controls(void)
-> > +{
-> > +	char name[32];
-
-> Use SYSFS_PATH_MAX =3D 255 like other tools do?
-
-This isn't a path, it's an ALSA limit for a name that is embedded in a
-struct (snd_ctl_card_info->name).  There's no magic define for these
-lengths.
-
-> > +
-> > +			ctl_data->next =3D ctl_list;
-> > +			ctl_list =3D ctl_data;
-> > +		}
-> > +
-> > +	next_card:
-
-> No need to indent the label
-
-No need but it looks wrong otherwise - it's certainly what I'd expect
-for normal kernel code.
-
-> > +	if (snd_ctl_elem_info_is_inactive(ctl->info)) {
-> > +		ksft_print_msg("%s is inactive\n", ctl->name);
-> > +		ksft_test_result_skip("get_value.%d.%d\n",
-> > +				      ctl->card->card, ctl->elem);
->=20
-> The two messages could be combined?
-
-The user facing control names almost always have spaces in them so while
-it's useful to have them for diagnostic purposes I don't think it's a
-good idea to put them in the KTAP test names, that's likely to confuse
-things trying to work with the KTAP output.  The general pattern I'm
-following for these tests is to print one or more diagnostic lines
-explaining why a tests was skipped or failed with the human readable
-control name so people can hopefully figure out what's going on and have
-the KTAP facing name that tooling will deal with be a consistent
-test.card.control format for parsers and databases dealing with test
-results en masse.
-
-> > +bool test_ctl_write_valid_boolean(struct ctl_data *ctl)
-> > +{
-> > +	int err, i, j;
-> > +	bool fail =3D false;
-> > +	snd_ctl_elem_value_t *val;
->=20
-> Add blank line after declarations.
->=20
-> > +	snd_ctl_elem_value_alloca(&val);
-
-This is idiomatic for alsa-lib code.
-
-> > +int main(void)
-> > +{
-> > +	struct ctl_data *ctl;
-> > +
-> > +	ksft_print_header();
-
-> Add a check for root and skil the test.
-
-There is no need for this test to run as root in most configurations,
-it is common to provide direct access to the sound cards to some or all
-users - for example with desktop distros the entire userspace audio
-subsystem normally runs as the logged in user by default.  alsa-lib's
-card enumeration should deal with any permissions problems accessing
-cards in the system cleanly.  If the user running the test can't access
-any cards or the cards that can be accessed don't have any controls to
-test then we will find no controls during enumeration, report a plan to
-do zero tests and then exit cleanly which seems reasonable to me.  If we
-do need to explicitly bomb out rather than report zero tests we should
-be doing it based on the number of controls we find rather than the user
-we're running as.
-
---aRILJPDDQZM38Bc7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGw+/cACgkQJNaLcl1U
-h9ATXwf/RFucHFfZAKm1nsoZEt1MUBOS9jAryVUkGvnvwmoNV+DO2DrnD0dPFQf3
-LU3JcjG+IXSQbI0sHEjXAeRz3jR7q58OwcR8Bsd64Bl7znV380FF4bIThuMXy4D5
-q1LhgRWA7jCl5t1zChQBoFasomX6QsympY7wmW39IEX5Lu5e/91flf1udLHYGiQe
-c9Dgk+7/bO1I45j/ajRNgu6Vsx59mk4E7s45FkPYPPRSkhX8OFGho4yDYEgJsWNn
-/xZDb8evoq/r0c2Tthuhozsg0o7JqJz+yD6/CzeBvfFCOeWuu2t5XKNq8nFE7Qbm
-5tUFrgwJc6mt/skc34LwU/lXNhP/eQ==
-=AFXz
------END PGP SIGNATURE-----
-
---aRILJPDDQZM38Bc7--

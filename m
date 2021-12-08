@@ -2,81 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1523E46DA65
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 18:53:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A13846DB63
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 19:41:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A64C025C6;
-	Wed,  8 Dec 2021 18:52:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A64C025C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08A07251D;
+	Wed,  8 Dec 2021 19:40:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08A07251D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638985991;
-	bh=CQyllldqUe3sZMM+raaViUfgVi189mi0EE42YGu8z14=;
+	s=default; t=1638988884;
+	bh=qg7tK4XkdsAtUIRtwJYp+FmwaKvcGXkqB7uE9WmRf7U=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RHFyqIUwPY/mbqzzzQ3K8iqVqzJRdmSpuSONvZCZ+a5410QgXgT98Vq//uWQjKtNF
-	 wYu9tthGp50NPBH7n6WcvaSdhvn1QEgAumTEz60EA0LNkaDwK7Bw+lLsyVf9g3polq
-	 /USbHCJm9jJ4aprVbkh44kvrJUtXSxLV+E8qKP24=
+	b=VXw05q9jPYBJBEgozSgw2w5PPyRprZ4/rh4imAxHayiSgi3VTrS0h7jDDhnBbIHr7
+	 h7XSjv+G83wH4EmDWjaSE3ybZcjoAjePpfDfGZaBGRAlUn2OzSROheSwSPybe5WM9b
+	 Fcd2EIirV+6QMp/Hw+wy4QUsKKY/gPx7vMLBEKfA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F0D2F804EC;
-	Wed,  8 Dec 2021 18:52:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F32DF80217;
+	Wed,  8 Dec 2021 19:40:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FAFBF804E5; Wed,  8 Dec 2021 18:51:58 +0100 (CET)
+ id 1B47FF80217; Wed,  8 Dec 2021 19:40:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,PRX_BODY_72,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from sin.source.kernel.org (sin.source.kernel.org
  [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94AC5F80103
- for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 18:51:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94AC5F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id A62BFF80217
+ for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 19:40:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A62BFF80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GYI18wol"
+ header.b="tAHWuE5X"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 7E4E1CE22A7;
- Wed,  8 Dec 2021 17:51:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAA98C00446;
- Wed,  8 Dec 2021 17:51:45 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 7D8EFCE2033;
+ Wed,  8 Dec 2021 18:39:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43EF1C341C7;
+ Wed,  8 Dec 2021 18:39:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638985908;
- bh=CQyllldqUe3sZMM+raaViUfgVi189mi0EE42YGu8z14=;
+ s=k20201202; t=1638988796;
+ bh=qg7tK4XkdsAtUIRtwJYp+FmwaKvcGXkqB7uE9WmRf7U=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GYI18wolvRbbQcT/NeBTv0fC0vSJMSeB3KFv3mcZxmYWQJcdn8SCPW9H+zTZ5Rs9z
- 93DM+wPS9tY/CsYva1eHvEYyRwAhdZVxFwTVAUqY5UGc2A+1ZSiJfwB5amdsGlwk22
- A6awebHmmHNBU7acdEeTWnZfLTzjQWoywb3YS7AU/ur3vKgC3tsSM/NRL6Tv+vUzlE
- PYs2W28Xd9Lb6t8OIbXrKOwN4dPU2uWpWdyZZ/ofKOrJF6nqQspfJT2js8VBl5tcyT
- vilxUinuMeCiDVPxz2X/gqCfqt72TZyHWbISEGqRTDFauwSPPBo4nWOTMFcb8ry+oz
- uCvP91GE13RpA==
-Date: Wed, 8 Dec 2021 17:51:42 +0000
+ b=tAHWuE5XulXWELwI5J1v+8rJRzYLKu/th6ertmSRihsiV2kS6Hry3bVhQRNAAV3NU
+ zA64K9U0QwdL+Nb0IVcCEnOGxWCCahXJlo2qf0SpNpYUGY5OetqE1P3HF8GuCCCyml
+ vcEJCA+OHwsU4Prpkl28xyFFVoxedEhRs/yjrwJCN/JapfnVOWD5d9f2t05OVRNtxD
+ FqJQyJw9t9O9hcEjHBaOsZiQQs2yJOA7bi+qdN194wXOgO1a2PRNje4bxZ+TBabqm5
+ iT0sKPrbhiuROdJk8MGE7LZHIWfu5839e6AmoFsTx3KTkCzn4XaDCYUysLOF1u68dp
+ 3k7/K9wso9IdQ==
+Date: Wed, 8 Dec 2021 18:39:52 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC 00/37] ASoC: Intel: AVS - Audio DSP for cAVS
-Message-ID: <YbDwrkw7BbIoc1H3@sirena.org.uk>
-References: <20211208111301.1817725-1-cezary.rojewski@intel.com>
- <59681534-aeee-003b-0fea-af17503bb813@linux.intel.com>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v2] kselftest: alsa: Add simplistic test for ALSA mixer
+ controls kselftest
+Message-ID: <YbD7+C74DFlZEokt@sirena.org.uk>
+References: <20211206160305.194011-1-broonie@kernel.org>
+ <de0c5677-c2cf-d1ab-68c5-2f410d17b66c@linuxfoundation.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="rlK4yh087kkOf+91"
+ protocol="application/pgp-signature"; boundary="aRILJPDDQZM38Bc7"
 Content-Disposition: inline
-In-Reply-To: <59681534-aeee-003b-0fea-af17503bb813@linux.intel.com>
+In-Reply-To: <de0c5677-c2cf-d1ab-68c5-2f410d17b66c@linuxfoundation.org>
 X-Cookie: Alex Haley was adopted!
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, rad@semihalf.com,
- upstream@semihalf.com, harshapriya.n@intel.com,
- yung-chuan.liao@linux.intel.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- hdegoede@redhat.com, ranjani.sridharan@linux.intel.com,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- peter.ujfalusi@linux.intel.com, lma@semihalf.com
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,92 +90,118 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---rlK4yh087kkOf+91
+--aRILJPDDQZM38Bc7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 08, 2021 at 10:27:43AM -0600, Pierre-Louis Bossart wrote:
+On Wed, Dec 08, 2021 at 10:42:35AM -0700, Shuah Khan wrote:
+> On 12/6/21 9:03 AM, Mark Brown wrote:
 
-> @@ -0,0 +1,24 @@
-> +What:=09
-> /sys/devices/pci0000:00/<dev>/<tplg_name>/<path_template>:<path>/<pipelin=
-e>/state
+> > +SOUND - ALSA SELFTESTS
+> > +M:	Mark Brown <broonie@kernel.org>
+> > +L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
 
-> That was my biggest worry in internal reviews, I do not see any
-> rationale for exposing an interface to userspace to modify pipeline
-> states. I believe the intent is to have a follow-up series on this
-> topic, but it's not clear what problem this is trying to solve. There's
-> a fundamental disconnect here as to why the kernel driver could not
-> control states on its own, and it begs the question if the 37 patches
-> actually work without this odd userspace interface.
+> Please add linux-kselftest list as well here.
 
-If it's mainly used for debugging then it could be exposed through
-debugfs with less worry.
+get_maintainers pulls it in from the wider entry (the mention of
+alsa-devel is reudnant too).
 
-> b) the concept of 'path' is totally specific to this driver and will not
-> be used by any other Intel solution. The notion of having more
-> flexibility in dynamic reconfiguration of a pipeline, e.g. to avoid
-> instantiating an unnecessary sample-rate conversion, is on paper a good
-> one and is used in Windows solutions, but in practice all the existing
-> end-to-end integrations in Linux/Chrome do require fairly static
-> configurations with fixed sample rates. In other words, it's debatable
-> whether any end-user will see any benefits in terms of
-> experience/power/performance, and the added complexity is handled with a
-> custom solution instead of improvements to DAPM/DPCM - which as we found
-> out does need significant love to support multiple streams being
-> mixed/demuxed. At the ALSA/ASoC level, I believe we have more important
-> priorities such as the notion of 'DAPM domain', constraint propagation
-> and hardening for complex use-cases, and improvements to the pipeline
-> handling shall be done at the framework level, not the platform-specific
-> driver level.
+> > +int num_cards =3D 0;
+> > +int num_controls =3D 0;
+> > +struct card_data *card_list =3D NULL;
+> > +struct ctl_data *ctl_list =3D NULL;
 
-I've not meaningfully looked at the series yet (it's quite large!) but
-commenting generally I do agree that if we're adding interfaces offering
-detailed control of the digital domain we should be doing this at the
-framework level - it's a common problem affecting a bunch of SoCs and
-some CODECs too and it's only going to get harder to address in a
-generic fashion if we add per driver interfaces.  On the other hand if
-there's good interfaces that work for people in practice with driver
-specific implementations perhaps they can be adapted to be more generic.
+> No need to initailize the above globals.
 
-> I completely disagree with Cezary and his management's decision to float
-> 37 patches upstream as RFC, with more coming. This goes against
-> everything we've tried to do in the last 3 years to improve Intel's
-> standing. I don't think it's right to ask for feedback from the
-> maintainers and community when internally we were unable to make
-> progress. What can I say other than 'this is really sad'.
+They're not declared static so the initial value is undefined.
 
-> The work in the SOF driver will continue regardless of what happens with
-> this patchset, which I am not going to comment further on.
+> > +void find_controls(void)
+> > +{
+> > +	char name[32];
 
-This is obviously not ideal, I would like to have a consistent view from
-at least Intel about the direction this is heading but I understand that
-this might be difficult to achieve in such a large organization.  Input
-=66rom users like the distributions and PulseAudio/PipeWire is also very
-important here, they'll face a lot of the complexity and hassle from end
-users.  What conversations have been had thus far?  I guess ChromeOS is
-going to prefer some combination of sticking with what it's got for
-stability and transitioning to SoF for control of the firmware?
+> Use SYSFS_PATH_MAX =3D 255 like other tools do?
 
-I do see that the code is using snd_intel_dsp_driver_probe() so we
-should be able to manage any transition between implementations here,
-though for that to be fully effective we'd need to be able to build both
-=66rom once.
+This isn't a path, it's an ALSA limit for a name that is embedded in a
+struct (snd_ctl_card_info->name).  There's no magic define for these
+lengths.
 
---rlK4yh087kkOf+91
+> > +
+> > +			ctl_data->next =3D ctl_list;
+> > +			ctl_list =3D ctl_data;
+> > +		}
+> > +
+> > +	next_card:
+
+> No need to indent the label
+
+No need but it looks wrong otherwise - it's certainly what I'd expect
+for normal kernel code.
+
+> > +	if (snd_ctl_elem_info_is_inactive(ctl->info)) {
+> > +		ksft_print_msg("%s is inactive\n", ctl->name);
+> > +		ksft_test_result_skip("get_value.%d.%d\n",
+> > +				      ctl->card->card, ctl->elem);
+>=20
+> The two messages could be combined?
+
+The user facing control names almost always have spaces in them so while
+it's useful to have them for diagnostic purposes I don't think it's a
+good idea to put them in the KTAP test names, that's likely to confuse
+things trying to work with the KTAP output.  The general pattern I'm
+following for these tests is to print one or more diagnostic lines
+explaining why a tests was skipped or failed with the human readable
+control name so people can hopefully figure out what's going on and have
+the KTAP facing name that tooling will deal with be a consistent
+test.card.control format for parsers and databases dealing with test
+results en masse.
+
+> > +bool test_ctl_write_valid_boolean(struct ctl_data *ctl)
+> > +{
+> > +	int err, i, j;
+> > +	bool fail =3D false;
+> > +	snd_ctl_elem_value_t *val;
+>=20
+> Add blank line after declarations.
+>=20
+> > +	snd_ctl_elem_value_alloca(&val);
+
+This is idiomatic for alsa-lib code.
+
+> > +int main(void)
+> > +{
+> > +	struct ctl_data *ctl;
+> > +
+> > +	ksft_print_header();
+
+> Add a check for root and skil the test.
+
+There is no need for this test to run as root in most configurations,
+it is common to provide direct access to the sound cards to some or all
+users - for example with desktop distros the entire userspace audio
+subsystem normally runs as the logged in user by default.  alsa-lib's
+card enumeration should deal with any permissions problems accessing
+cards in the system cleanly.  If the user running the test can't access
+any cards or the cards that can be accessed don't have any controls to
+test then we will find no controls during enumeration, report a plan to
+do zero tests and then exit cleanly which seems reasonable to me.  If we
+do need to explicitly bomb out rather than report zero tests we should
+be doing it based on the number of controls we find rather than the user
+we're running as.
+
+--aRILJPDDQZM38Bc7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGw8K0ACgkQJNaLcl1U
-h9AbvAf/fUbvQXyvXD71FjuUlEnd0Xq+wFy8BA1Y6POBMyyJjPoOybjiQetl4UHl
-0OkOzZi9kY5iAbfnmue6mXdIU7pyin0GrwUqjKgUzXhbGqXe6q3yhHK/rrTvc/IC
-E/n+nAleeCvnIOzg+YYesi3gXXRV+nUDRc2okv65KJZG4hLpghS1KraU2R+LiZot
-Zt+gf1YcJUtOxpGaDzmGwwhoWDHkTVGkA30R3pqB0eu+zgOJ0IMZTCgKzPfH+gcR
-E1OAfHQlyR/F/1zt7a7IEfr+uFBl6NuMgGVeWB5dDXr+MWryvwUnTzWN0Daa1nzy
-Dz9GSK3ln1/ZYVb798Ph18t4iz8KwQ==
-=kDqI
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGw+/cACgkQJNaLcl1U
+h9ATXwf/RFucHFfZAKm1nsoZEt1MUBOS9jAryVUkGvnvwmoNV+DO2DrnD0dPFQf3
+LU3JcjG+IXSQbI0sHEjXAeRz3jR7q58OwcR8Bsd64Bl7znV380FF4bIThuMXy4D5
+q1LhgRWA7jCl5t1zChQBoFasomX6QsympY7wmW39IEX5Lu5e/91flf1udLHYGiQe
+c9Dgk+7/bO1I45j/ajRNgu6Vsx59mk4E7s45FkPYPPRSkhX8OFGho4yDYEgJsWNn
+/xZDb8evoq/r0c2Tthuhozsg0o7JqJz+yD6/CzeBvfFCOeWuu2t5XKNq8nFE7Qbm
+5tUFrgwJc6mt/skc34LwU/lXNhP/eQ==
+=AFXz
 -----END PGP SIGNATURE-----
 
---rlK4yh087kkOf+91--
+--aRILJPDDQZM38Bc7--

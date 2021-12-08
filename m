@@ -2,77 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 162DB46DD75
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 22:10:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC7F246DD7A
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 22:16:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1B52246D;
-	Wed,  8 Dec 2021 22:09:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1B52246D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99CD7264B;
+	Wed,  8 Dec 2021 22:15:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99CD7264B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638997814;
-	bh=Nhr8a+1T083m2arRQNZR7McftHPXBYN3WlT9Z9eaZmk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1638998168;
+	bh=qsWPlaDKGrX1SyvB69hlTaXYqHbm7YjYXcHP19xgs50=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QjxVds36r4i6ZzWCupbVuo2nkb6lY/AXsZmmIx/fO7d/sQpJWPwzT5IDxuRU07s6U
-	 QxGuCuY2QdGnlzYu6fKMlHRQnN1xv+yh0NYLlNcM1H+N5OgwPE0g5GedUWWJB0jdWA
-	 FEuwOQL579ViYnJcEYzVD6ZFpd6x3u/esgyr62JM=
+	b=u5dItx4ZntaqrrcYLQMeir/domcr8tooLc2yYdaH0iuiVZ7du2JrVc3+T5hi8n3Tp
+	 w/Aaf0iDWkzWWl1hOK80xSA6A/W53J6xNiGFHgHBpX+AbyW3uaarJ0Ro5b8tQUq6yW
+	 5YDsDXf6eEpSAagK+FBPIVtEsEDf956Rw75FLj5g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32D92F804EC;
-	Wed,  8 Dec 2021 22:09:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3EBAF804EC;
+	Wed,  8 Dec 2021 22:14:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B99CFF804E5; Wed,  8 Dec 2021 22:09:00 +0100 (CET)
+ id 82F46F804E5; Wed,  8 Dec 2021 22:14:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
+ [IPv6:2607:f8b0:4864:20::129])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55BF1F80103
- for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 22:08:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55BF1F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id 174D0F80103
+ for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 22:14:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 174D0F80103
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="m1PBDOja"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2E5A1B8210A;
- Wed,  8 Dec 2021 21:08:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62C36C00446;
- Wed,  8 Dec 2021 21:08:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638997731;
- bh=Nhr8a+1T083m2arRQNZR7McftHPXBYN3WlT9Z9eaZmk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m1PBDOjaUDP3E0h1I76hKmsAi6s1tKbxYbnLs91sbHMcp9JxE1FOs2u1xLkW0Peh7
- XKInZosNW2DMNAQ3gzp8EaeICvmj9+qdwp4d/+pC2P+ZMA36O9gdho1pBbOFX/8KlA
- AwgxKoAVjxxAp2z6/kRSiJTlOlIVOmfzZy4HtOOVMl/tXmloz8I4LRMrlu+ZfIDU59
- hqnUVNQ9XUO0pVZPyvdHTkSo/MLohc6EoJ3cG4K+Oh1YGnhPajC8LXDt9ONyML01WL
- OM3W7JmxF7sgYAACg+U3aiA4CKn/ZSTJuc23eAHViF8RwcqjEZyr+9umpYbU2A95x+
- XJGJ/THUjaNnA==
-Date: Wed, 8 Dec 2021 21:08:46 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] kselftest: alsa: Use private alsa-lib configuration in
- mixer test
-Message-ID: <YbEe3tz95ObwMxoL@sirena.org.uk>
-References: <20211208095209.1772296-1-perex@perex.cz>
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="EVNwBxgQ"
+Received: by mail-il1-x129.google.com with SMTP id j21so3445935ila.5
+ for <alsa-devel@alsa-project.org>; Wed, 08 Dec 2021 13:14:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=8ryZ1w0c8Aj/WW7+0em9KmWOSOY1s/jaKp4hTYC9QsQ=;
+ b=EVNwBxgQOuoMQUYnwj5gMOldcJnqQfZ6TrJpizobhcirfVHLG6WyblU28pYX+Stdt+
+ At95sZd4WdUxBPuIC0lZiTRR8+mwQU4Yqzvn5ML5ZKXyZG1V7cJ0XLbmoeoelJxYmOoR
+ 2iw4w9HTlYQLAySsjRd2DceDDMq3tW3zJAqkY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=8ryZ1w0c8Aj/WW7+0em9KmWOSOY1s/jaKp4hTYC9QsQ=;
+ b=8EzG6QxZs+BLIIcnh7pw37/wXidCfAxToLQd11Iz/2X3hKiIASgP14z1NYA76eKUU4
+ PuhnDVxmNMIgNg2EKOwk5jzzcSctF6zFz/Uix5KaDs22QXhnC8r7c25D4CmVnH4DyQTl
+ hJ7hCNE/40M6Hs5N3V0dBxhxwGVyZcc4EzApU7bADqBsvtd+GA+8FShpy+91WaVxcUXP
+ /Et7JMcsPQgK5jMxTdPAhyRazUMKOqaT9eOVhKrCrRZu+WgjwABzG4uVqTwbEz7okTgp
+ BbpI90slzMpAdiTe1GwJPksYWHKZ6W/6g1dhHrU/H0DsyWm1rs7gYhynJ6U0p1J7xxr8
+ 6+6Q==
+X-Gm-Message-State: AOAM531aIceUDVwT0KvlQiOvh2Q1F/5te6pQtS2JetJARN/zVsuBi0nq
+ +gj/GcXyxJIbrXsq9oiubkuV4w==
+X-Google-Smtp-Source: ABdhPJzqBvRkuxbtSleJynpQuoNdEXo758C/5IbACtreWQ+T5Hr+sGPcYbPH1rQ0f00rRkCM0f1tTw==
+X-Received: by 2002:a05:6e02:154c:: with SMTP id
+ j12mr9719269ilu.51.1638998080338; 
+ Wed, 08 Dec 2021 13:14:40 -0800 (PST)
+Received: from [192.168.1.112] (c-24-9-64-241.hsd1.co.comcast.net.
+ [24.9.64.241])
+ by smtp.gmail.com with ESMTPSA id b3sm2612084ile.26.2021.12.08.13.14.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Dec 2021 13:14:39 -0800 (PST)
+Subject: Re: [PATCH v2] kselftest: alsa: Add simplistic test for ALSA mixer
+ controls kselftest
+To: Mark Brown <broonie@kernel.org>
+References: <20211206160305.194011-1-broonie@kernel.org>
+ <de0c5677-c2cf-d1ab-68c5-2f410d17b66c@linuxfoundation.org>
+ <YbD7+C74DFlZEokt@sirena.org.uk>
+ <37f87d39-b5a9-46f6-2667-c0b7aafb731a@linuxfoundation.org>
+ <YbERo5FxA6Rm3bhd@sirena.org.uk>
+From: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <f18f28f8-fb78-3ddd-153e-40675e5e6e8e@linuxfoundation.org>
+Date: Wed, 8 Dec 2021 14:14:39 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="R7r1l1UNUadmy4Co"
-Content-Disposition: inline
-In-Reply-To: <20211208095209.1772296-1-perex@perex.cz>
-X-Cookie: Alex Haley was adopted!
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.de>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>
+In-Reply-To: <YbERo5FxA6Rm3bhd@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
+ linux-kselftest@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>,
+ Shuah Khan <shuah@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,50 +110,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 12/8/21 1:12 PM, Mark Brown wrote:
+> On Wed, Dec 08, 2021 at 11:59:18AM -0700, Shuah Khan wrote:
+>> On 12/8/21 11:39 AM, Mark Brown wrote:
+>>> On Wed, Dec 08, 2021 at 10:42:35AM -0700, Shuah Khan wrote:
+> 
+>>>>> +	snd_ctl_elem_value_alloca(&val);
+> 
+>>> This is idiomatic for alsa-lib code.
+> 
+>> This is kernel code that is going into kernel sources. Why follow
+>> alsa-lib convention?
+> 
+> Well, the kernel doesn't generally use alloca() as a pattern given the
+> relatively small stack sizes we have and doesn't define helpers like
+> these for it...  it's a toss up here between the conventions for use of
+> the library we're using and the conventions of the kernel.
+> 
+>>>>> +	ksft_print_header();
+> 
+>>>> Add a check for root and skil the test.
+> 
+>>> There is no need for this test to run as root in most configurations,
+>>> it is common to provide direct access to the sound cards to some or all
+>>> users - for example with desktop distros the entire userspace audio
+>>> subsystem normally runs as the logged in user by default.  alsa-lib's
+> 
+>> On my system, I don't see any output if run as root. Are there some tests
+>> that work as non-root?
+> 
+> All of them work as non-root if the user they're running as has access
+> to a card, if they do or not is system dependent - there may not be any
+> cards at all in a given system to find.  Running as root will punch
+> through most permission problems but it's not a requirement and a system
+> could use a security module like SELinux to restrict what root can do.
+> The sound devices are usually in /dev/snd, though userspace can place
+> them where it wants - if run as a user that can access the relevant
+> devices for the mixer interface (usually /dev/snd/controlC* though again
+> userspace can rename them) then the tests will run on those devices.
+> 
 
---R7r1l1UNUadmy4Co
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Sounds good to me.
 
-On Wed, Dec 08, 2021 at 10:52:09AM +0100, Jaroslav Kysela wrote:
+Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
 
-> +#if !defined(SND_LIB_VER) || SND_LIB_VERSION < SND_LIB_VER(1, 2, 6)
-
-This barfs if the local definition is used since the preprocessor will
-try to evaluate SND_LIB_VER even if the macro is not defined and the
-left hand side of the || is true:
-
-mixer-test.c:66:60: error: missing binary operator before token "("
-   66 | #if !defined(SND_LIB_VER) || (SND_LIB_VERSION < SND_LIB_VER(1, 2, 6))
-      |                                                            ^
-
-SND_LIB_VER was only added in v1.2.5 so currently used distros run into
-this.  I've restructured to:
-
-	#ifdef SND_LIB_VER
-	#if SND_LIB_VERSION >= SND_LIB_VER(1, 2, 6)
-	#define LIB_HAS_LOAD_STRING
-	#endif
-	#endif
-
-	#ifndef LIB_HAS_LOAD_STRING
-
-which is a bit ugly but splits the use of SND_LIB_VER into a separate if
-statement which causes the preprocessor to do the right thing.
-
---R7r1l1UNUadmy4Co
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGxHt0ACgkQJNaLcl1U
-h9AgsAf+J2ovDjD3qesqpI2me9WifDmIlXWGCrVAcfX9prKCdWbEkrzh89T0/JEC
-eMAjUtpx3AtYI9OCW67mP+tIDp/z6qpTCcth2XhV2kxAJvs28T+nuVHEs0Wrd6h/
-coPN7n99tQ93CGTfYJSSyRIkG564muLVZCZXUv7KKmlNfWyYzGYO2b5o/+pyQ/Eu
-bAVMYxDKKjz/newUBzRKCLxckzyBavSYEomuCuYzi6zLpGyGbT07Tq/jO3qhwiw4
-kqt6VeXa/jiIjqPtPBRy+jZqpoHP9E/vOBrkD45nifrZZ8KT5XqVdGxT9BzMEcwv
-X/uSB1ldcbY5JfStDr2+v7AIEGGndA==
-=JMHp
------END PGP SIGNATURE-----
-
---R7r1l1UNUadmy4Co--
+thanks,
+-- Shuah

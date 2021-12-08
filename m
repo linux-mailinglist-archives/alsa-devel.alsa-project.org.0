@@ -2,147 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 063C046C87A
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 01:07:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82EF546CCA5
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 05:43:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 805DF22CC;
-	Wed,  8 Dec 2021 01:06:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 805DF22CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEF9E230C;
+	Wed,  8 Dec 2021 05:42:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEF9E230C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638922036;
-	bh=Luu4wSNQ5gxaryq6/1gImxVKUmO2S3wI2u0c+rOGUUg=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cDSh6y3GsLiJQ218FsHW64ZiF4dLbxoItXl7clGeXTVcop8iYYFIFrt7Ppnx5hX+H
-	 HbcYeRuAo5FUHed117GcVGfFtuieNQRSQuOdG2LCYMrUJkilNJrhayOf7vuC1DFhGF
-	 /p3Y8AJjQB7MxDe32ge+Tan6BOgwQM4hmeLEgeks=
+	s=default; t=1638938586;
+	bh=+66BPnYSMyGn7XYqYzhPcLKMsBIhKw4jMLinryvUPu0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sF5yV5bD3zEFYr6Sv+NR+rvQaLtY33QDD8OTA7HqnciUXv78vfnJQ6qc4OWv+RJ99
+	 3BlQQHj3DM/z73iwrIdkybVxMYfCPeIPCmdMCKzlqSvzal50NwGlm3+3ASiiX7HnhF
+	 R7O085VD74xWpHWIziiXZmsBn9qgtW/BzOZ2nC6U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA9AAF80217;
-	Wed,  8 Dec 2021 01:06:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56A3FF800AB;
+	Wed,  8 Dec 2021 05:41:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1327BF80217; Wed,  8 Dec 2021 01:06:02 +0100 (CET)
+ id 0407BF804E5; Wed,  8 Dec 2021 05:41:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20714.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::714])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A30DEF80217
- for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 01:05:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A30DEF80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A2D5F800AB
+ for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 05:41:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A2D5F800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com
- header.b="oFh9+s5q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GINWifmu0yGYoxrwzQfHl9pkvPDiQEz8Sf3r9QHh3JJtB5ToOYRiazG+BtXkjd+sdSZhI5aq7Q93l3kiP8CespXAbYKFsYtaxjJUQpgwOEGxbhjwRWTyEiuYbmA+GcrDjXzQNcbj80psUdGuQLtx2/+DeqUytYSqLKdjBQyO6uw6ibHOuOV4QygUG/Gg7yIAf3l8stkN+xtxPCoshVc5HIYX561lOSkg2n68y8ihUrjjA3VioBNuDS1wjwJDAVNhmzVPIcTLMsPbxTn+jxzrTP+OQ/5mzfBJpiYduCEByL2Ri/rR7cQmJ7xAk5Bz9xcTqQ8dIwxTG5/Xg9pHxzUpEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Luu4wSNQ5gxaryq6/1gImxVKUmO2S3wI2u0c+rOGUUg=;
- b=FR87DztvND66TBlbkj9FWGYyR/7g40SJCRb/lkrhxi/ba75OqMzLCsn83bcn3mVe4fLulXnqAi1Afb99gTeT2cUjrzs0KwXh/6D79PSCsl8jG/Fn+9YdI4w9nWszTbwkc7rnibkUvoRVwvNbfvojXx2tYxS/dUZVu3Ar/WVp7IYHQdcmqkvtFdY1AR/Aj8f4gAqdep76csMUDGr8JCQGvJbZyJglp4Vy1wmAYXnDETSuL4GUGC8u8KoHAtY5edWCkl1L506O5Vc0zJ3WC2rXOgqubYjCE4iqWVLhJRoEKGzZDR4NOA1LDo+byJp+d6IrmNKweeIboGpAHe1LLfDojA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Luu4wSNQ5gxaryq6/1gImxVKUmO2S3wI2u0c+rOGUUg=;
- b=oFh9+s5qF43PsUPdQhH5sbYEuta725+Upq08uszFevHfpE8wuiKF0vQr4RSGcEEU4Hm7PUWcp8bezPTt/S5ca9+RXOVkz4x8laaKogbxghAbQyEzBSAv/YVghRD8p5aDuErddh0ZKmfWBDpYQlkWFvk/k6KLhfO+Tr1VQdNYM90=
-Received: from TYCPR01MB5581.jpnprd01.prod.outlook.com (2603:1096:400:a::10)
- by TYAPR01MB3278.jpnprd01.prod.outlook.com (2603:1096:404:8e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.20; Wed, 8 Dec
- 2021 00:05:46 +0000
-Received: from TYCPR01MB5581.jpnprd01.prod.outlook.com
- ([fe80::3d74:9c2e:e85a:df82]) by TYCPR01MB5581.jpnprd01.prod.outlook.com
- ([fe80::3d74:9c2e:e85a:df82%5]) with mapi id 15.20.4755.023; Wed, 8 Dec 2021
- 00:05:46 +0000
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="oWcfD5Xc"
+Received: by mail-pg1-x533.google.com with SMTP id 137so1032802pgg.3
+ for <alsa-devel@alsa-project.org>; Tue, 07 Dec 2021 20:41:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gVTXx2Ftul3axT9kG8wb/hHelrk+iyq3wOYFqWlWjWk=;
+ b=oWcfD5XcW0oT9QFTheXHFeLXwtCC85oNZb8SpB3TnmgJmQgEaF2RvSXun/lAaoTTLn
+ cUNhQlmRfL9ts8Yr+zpOIuQp0wWgqy7/6K7CDt6WERgsv0lc8h8CmyYLRDb4Yh5g3Hmh
+ x1bpMJ/+rpJauk9VAdSxWjo3RiSYO2u2eEwo15VHIOuba1OcvFT/no/dfewvTd+YzJ7t
+ m5wXVhaMvjcyWjeKMbynqLt1BFnov51x1kxoICPkAYX051Y9SvX8puihTyZjM7xFz+zU
+ SRIvuYmKEFw2TWB2RYfSCObmlbpwY6Ifsiy7tx3NjceTY+63A4OEShHOYVmnzpXM+bqH
+ xfVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=gVTXx2Ftul3axT9kG8wb/hHelrk+iyq3wOYFqWlWjWk=;
+ b=FmjBClmGAeP3O0aWOqoCBdi1HypfAFN1ROAP2szGAl5/lkuCo3ON4tf1W3HIOgECzg
+ 1y5JIi9TdsgsbWhhyk0NHQDeDTr4BxhnuvuOuWiLyMqJMFoPz0hQlF9YusXEGzZMEiwi
+ Lr0wlf83nVWwSMvV3JexM7Nb1JuTNXh/MCuYmae+0jIzTIGv5zB4MJFethETZrOwtnIl
+ SWTJBL2PDRNakOG5XispHyXzyrAy+d/cO4VWenw9/SjPsW09hTq/PwvUIFwQDll42pIY
+ c7pDVPvDrqusMhWEPdp75Z6Q/527nDacpwraMt69fdQVEHkeq5u6uFQaKw/d+BFYOsot
+ f8ag==
+X-Gm-Message-State: AOAM533mKMqOCSxEA4/zw8hOlQy3qp0lPB2GdJ9P8ew7rD5v3qyT1dpr
+ ouH8CDyAfKYJK9eTqgAb6mk=
+X-Google-Smtp-Source: ABdhPJxs2WOshOlJoxL1kNg/Hwp/A6wY4SGHd6+tt5PnePyQJwe3IBGTnJriHXVFxjPsS/FNyLIfvg==
+X-Received: by 2002:a63:1166:: with SMTP id 38mr27404118pgr.368.1638938496739; 
+ Tue, 07 Dec 2021 20:41:36 -0800 (PST)
+Received: from localhost.localdomain (fs76eeeb6c.tkyc601.ap.nuro.jp.
+ [118.238.235.108])
+ by smtp.gmail.com with ESMTPSA id l2sm1469249pfc.42.2021.12.07.20.41.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Dec 2021 20:41:36 -0800 (PST)
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Ameer Hamza <amhamza.mgc@gmail.com>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>, "broonie@kernel.org" <broonie@kernel.org>,
- "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH v2] ASoC: test-component: fix null pointer dereference.
-Thread-Topic: [PATCH v2] ASoC: test-component: fix null pointer dereference.
-Thread-Index: AQHX63X/efmSO580GUGeokqOxsO5kawnte7w
-Date: Wed, 8 Dec 2021 00:05:46 +0000
-Message-ID: <TYCPR01MB55814819F7AAAC654084615AD46F9@TYCPR01MB5581.jpnprd01.prod.outlook.com>
-References: <Ya9YxoUqkATCOASh@sirena.org.uk>
- <20211207142309.222820-1-amhamza.mgc@gmail.com>
-In-Reply-To: <20211207142309.222820-1-amhamza.mgc@gmail.com>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6c6d888a-e120-4f23-125b-08d9b9de7c46
-x-ms-traffictypediagnostic: TYAPR01MB3278:EE_
-x-microsoft-antispam-prvs: <TYAPR01MB3278FFC69A388FEE06AA79FCD46F9@TYAPR01MB3278.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: uEeAvYOEQc/7jyZilCoyqKKupdd/f62bXt+bhulKyvHYYUf18awa3z5eBBG1VLwerZjGGgHkvsasZb4lzV56gQxwdkemL+ktSG44qmbESbOKmtF6Hnn4JW5W4ezW23jp/wgfE+5aRGilf8ZjXv5lhfUOIErLMNG1kiF2r+hLVStEfCUwV7SsuNAR8OhRbSK2+ce/YE/7AV/3ZQtIF1qGq4TtW7+vQqwLPyEb+I9KPCP4zzaIPqd/FIdeVbJtojj/N1booq39t6LbUY9jIYp7P5PKuIcRVrfx3jwa6O7voPHv9gYqNeb5GtTyN4sO4YDlc/c8eLKPvtdQRj3i1mARlMbaw+NkL01FNhEB8SM0O9odQu5r+21d+gNpxWMSMC4021bevm59ZzPQgWncBebTC3jsB3NhCKDYU0+/bEOk1JlHIK2cY7U1+4H1R94O6idDwXd18h0/9ZbWMSV4Ss6h9DmZbsBttwZs2Z1LJJz572hETORrUjwkwptivpal/p4jg858h/ahoE3bVR0NUNUNXNAZEz7lBJB9iZ3eRrpXSHNyQbIrZZ9N7lfYX0Qc2APqt5j17kRKF2slUWgMi/W0HQHQoSjJN+lX5S6355Dfnz2DLZN3AYkvlTaQU66PtRhqYwihVBmW5CDfAz9fgyUnbIaGnrwBHM8Acdu/uWmD68pYiFE28vs/m2aVYZkK7hPuKzQL7v8OCkTaa6/W8HFEjQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB5581.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(9686003)(8676002)(71200400001)(33656002)(7696005)(76116006)(4326008)(55016003)(186003)(26005)(316002)(66946007)(2906002)(52536014)(508600001)(110136005)(38070700005)(6506007)(8936002)(4744005)(122000001)(66556008)(86362001)(66476007)(38100700002)(64756008)(66446008);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EoZEdPguhQgn5mqgS/r53V6R7QaOm+bSLjKSWyLd+qpfdACD2C2B9zw94xCA?=
- =?us-ascii?Q?YKqmeCeaJkbP6n9GBGAlptah+Kj4s0vgapSb6a7NegzOl7/R2YuZgxNlyO18?=
- =?us-ascii?Q?sttqFLnWlx+6rAEiVTirZzZtJZydOHLciL57WESdtM1iSi7IyctqxAi8VGCr?=
- =?us-ascii?Q?C+JJ0SkbX7i806uw65NyjFM4sv6d6cck7a3QfpiIAlen1VKVeqil46xebEA6?=
- =?us-ascii?Q?oZhFG/jPiUtpN87uCso3DhZ+FcCDM5MaK0m+cv4OXWxA12X33vEb4jpZX0ZC?=
- =?us-ascii?Q?btqqQywSgCeDoMcC6TcZStgD+8wF9Yto/Xzz3TaEW7MUnYni/55wGIgBVRRM?=
- =?us-ascii?Q?+XDhOVhYvDOdYBWQ6drcWQItkzhD9hsG35Sj1bFPeVJOmhsq999aXkqLLMI7?=
- =?us-ascii?Q?gqvX8uwUciiIjU1h6spgdoUm2WwVn7cUv2eqwWPsQjC48DtQo/9F/+mSF391?=
- =?us-ascii?Q?+fZPStOiZ01xVQ+br0nB5as91hoqXn/+YBAi/eVnMwHz1OABi7NEHzshTPRp?=
- =?us-ascii?Q?qD2Ic8RbFIxHBDinKM70hG6yyTZegsK0gIPKverMloECPUU05d224up/JQ4B?=
- =?us-ascii?Q?MYPZ0D7ZIgcV3IcUdyibcAtw/7zSr9I85sPUKDO3/AjIlxjZomwDq3tT4XFw?=
- =?us-ascii?Q?x/wIMOyC+hhwlpVs/G0g3hsYptbhLOb8U74wy3p0t4bo5nE6WU8FUldKIW4T?=
- =?us-ascii?Q?51w/owspvsxwy8vGcLhgr5p6c5TFMOxRYA/pF4OdZS9+Ul/bG/pWtUMMeNJM?=
- =?us-ascii?Q?ZQV643swf2ljSNd1P3f5E4Tye7bIDsXAvzNeHFg1NwJuxrwO/cXka2coPcrK?=
- =?us-ascii?Q?hQlNAeAKojQ/DikKY0OX2YkGmdO2tgWD1QkixoyzrspabsloVhPesvNkYBtM?=
- =?us-ascii?Q?ZJ46wsFpCOH1vptt0i8XnDW42DlohVldFnLKhCdy7d8bME/uEc2COciSJ028?=
- =?us-ascii?Q?Gm1af91/DHAIRf+SAZs/zaeQRtZ4zxgOuCKZXbxDc//MuxzXGZO5b39vV/Zf?=
- =?us-ascii?Q?proaZLVS+uwMTHmhq71IYRV0q+Df3V7DwSh54HHWW74yAotRSWnG10iKohAX?=
- =?us-ascii?Q?oQEAfkNvELtpMwOI2Xj1Vlls2Xlgr7b+Z0wDGWmeQ0KZP0G6B5GblX2RZlio?=
- =?us-ascii?Q?6+e+/cmibDB0AIceKTPRk6nhj+FFPd8teaIlLXF2iJoZA0V67m4OfAg4Vu6J?=
- =?us-ascii?Q?Ko3WDAEa89nAQgYosDjtNZ1DySpZcXkqNMAWfmGo7jzIUYQjrz5P2C9PXVBv?=
- =?us-ascii?Q?ZggiL+9R/xD1sAWIDAEoQCAtxTANn6wtb6i/VxuFqrp51bj6zajl1zPs77rg?=
- =?us-ascii?Q?4kUsaGczhV8ojrFfKjDF0DwJxXd4MMA5wv0H1cNDrv8202arA5yAFnahRKtP?=
- =?us-ascii?Q?cnqWCeLSNIqpsBq1yTm/aYIF2jGMbMep6W/7Nrbvcen0SjfI4tD5/yg1XdMs?=
- =?us-ascii?Q?C20L6TuDL2peXme2TzkbBNN8nMNotcS1w7q7gq3WduIswsYxZ+fjypXGzabR?=
- =?us-ascii?Q?eJ14PZeMdVCuW7ekCmpgKyRinoT6aVdBd/Lnx/7F96DmkobAioZ77KvaRUJ6?=
- =?us-ascii?Q?SKqLFuEWs0aASclb7GVP8t9GHlPeXMvQunATX+Vn9zRCj96j6lOeKI6FRlHa?=
- =?us-ascii?Q?yJnt9JrAyBnEH4RrRdkjgJMfWSCGXZruHkMmKGh3SVaxubI+7x7091qLCQmZ?=
- =?us-ascii?Q?0pjQxqMskk7jqGCUdJ4JVPQwjgHZ9mM+Xc9f9zl0CQgdvDvdArt0UQTgaCXA?=
- =?us-ascii?Q?1Rm7ovnXag=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+To: Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>
+Subject: [PATCH 1/1] ASoC: dt-bindings: audio-graph-port: enable both
+ flag/phandle for bitclock/frame-master
+Date: Wed,  8 Dec 2021 13:41:03 +0900
+Message-Id: <20211208044103.405292-1-kuninori.morimoto.gx@renesas.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB5581.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c6d888a-e120-4f23-125b-08d9b9de7c46
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Dec 2021 00:05:46.7231 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MCGcXokyvAkNl6BjvoZ0lWtwf/AXBiH1ThK3WuwII7V2JKBd4GIBbngCTLwy/aw3NhclbpBugc8w5DKTf39IbcWBle04OAyddYZ7FLtMz9oSTWK1KCL/LQzaITCA+g7N
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB3278
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -158,22 +100,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Hi Ameer
+snd_soc_daifmt_parse_clock_provider_raw() is handling both
+bitclock/frame-master, and is supporting both flag/phandle.
+Current DT is assuming it is flag style.
+This patch allows both case.
 
-Ah, you posted the patch :)
-
-> Subject: [PATCH v2] ASoC: test-component: fix null pointer dereference.
->
-> Dereferncing of_id pointer will result in exception in current
-> implementation since of_match_device() will assign it to NULL.
-> Adding NULL check for protection.
-
-Previous your patch was already accepted,
-thus this is not v2 patch.
-git log should indicate is replace of_match_device() to of_device_get_match=
-_data()
-
-Best regards
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
-Kuninori Morimoto
+ .../bindings/sound/audio-graph-port.yaml      | 23 +++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+index 43e7f86e3b23..6c3645a0d36b 100644
+--- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
++++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+@@ -14,6 +14,24 @@ select: false
+ allOf:
+   - $ref: /schemas/graph.yaml#/$defs/port-base
+ 
++definitions:
++  flag_or_phandle:
++    oneOf:
++      - type: boolean
++        const: true
++      - type: 'null'
++      - type: array
++        minItems: 1
++        maxItems: 1
++        items:
++          type: array
++          items:
++            phandle: true
++            type: integer
++            maximum: 0xffffffff
++          minItems: 1
++          maxItems: 1
++
+ properties:
+   prefix:
+     description: "device name prefix"
+@@ -42,10 +60,11 @@ patternProperties:
+         $ref: /schemas/types.yaml#/definitions/flag
+       frame-master:
+         description: Indicates dai-link frame master.
+-        $ref: /schemas/types.yaml#/definitions/phandle
++        $ref: "#/definitions/flag_or_phandle"
+       bitclock-master:
+         description: Indicates dai-link bit clock master
+-        $ref: /schemas/types.yaml#/definitions/phandle
++        $ref: "#/definitions/flag_or_phandle"
++
+       dai-format:
+         description: audio format.
+         items:
+-- 
+2.25.1
+

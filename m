@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A2D346DD23
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 21:35:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57BBE46DD3C
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 21:42:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77C212621;
-	Wed,  8 Dec 2021 21:34:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77C212621
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0252A2648;
+	Wed,  8 Dec 2021 21:41:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0252A2648
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638995714;
-	bh=r1/q2rQ0/0tYGAU7ST7svoRBXsOnMiacT4GBfHWjxdY=;
+	s=default; t=1638996139;
+	bh=qS1YFNi0D65kir09x3DJYrKReoP5VFnl6iuSSTE4i8w=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vRtq3jHC7eD5WYcS3ybOCPbWQCJK9dnmbIdRI5yp88RRXBTtzKbqC1nIHKgaKBG/H
-	 Hd4h6Qn2/loAKBKZL3KMrxSPGQmfcCYE8Rsh3nOsjlG0wFZ+JiSwUq27dyFGB85hP/
-	 KjFhmXY1c384N/ZwyMR2WMOWPZt15RX3yeWyCseA=
+	b=bJK36y1ZV5CEAxtl6/pfKys3sMda6j6TWhfAItfzQ6T6+1XSoY99MtcZlexURxGYq
+	 CuzYxBiBd38XsOOtevl4FRzq7UBMV/Bie/YT8Ax2kGW3qadWhkIw8/PyQ3TPPNIxao
+	 Uh9/HtE0aTMDExxhNldFtEvp30HmZmMA8Lbgm854=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC7ECF804EC;
-	Wed,  8 Dec 2021 21:34:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 310DCF804E5;
+	Wed,  8 Dec 2021 21:41:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5426F804E5; Wed,  8 Dec 2021 21:33:58 +0100 (CET)
+ id 377C3F804E5; Wed,  8 Dec 2021 21:41:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,46 +34,45 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C092F80103
- for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 21:33:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C092F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC0DFF80103
+ for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 21:41:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC0DFF80103
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H/fW5CAQ"
+ header.b="i053DmNd"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5C80FB82285;
- Wed,  8 Dec 2021 20:33:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01BE0C00446;
- Wed,  8 Dec 2021 20:33:47 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C4116B82285;
+ Wed,  8 Dec 2021 20:41:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65C3AC00446;
+ Wed,  8 Dec 2021 20:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638995630;
- bh=r1/q2rQ0/0tYGAU7ST7svoRBXsOnMiacT4GBfHWjxdY=;
+ s=k20201202; t=1638996059;
+ bh=qS1YFNi0D65kir09x3DJYrKReoP5VFnl6iuSSTE4i8w=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=H/fW5CAQfTPKV7dY2YpSc0nf28ZfU5WYILbZeoN/Br8Pb7agTZpThA1/8gfZ78yrf
- em8fCmy113CGj84ziw60ukL50wqp8sWmkkF2lJOBG7FRDebRJnkg1hEYOGrOIGWkS/
- xbwC8XwNrFZBGqUU4JfZDquY48fbbtVxJYM5dtkmphMMe57Uc5MbuwCysynOPrN0Dh
- HR2b8KJHjQ0qdkxk4293ohUM1QihRnUp9ieLX/haPK6X+39ewvnooLAyWIGBJSLloO
- xcuxFNLc8jpcxQQicYAphPca8CCtw8wsbMAdIWM1NpxFTLCveHF5XzWy33iZy4PCm6
- ZajpDbIYrzROA==
-Date: Wed, 8 Dec 2021 20:33:44 +0000
+ b=i053DmNdMcrKb983aRWSIpYU+wEI7ALCzQBJxFF59F+kwRVA8/NXmbuwb/iBJvdj4
+ oi/sYTC7f/BXE8XpUOPw6Nfl4v6NTDcPefQXPK71ADF9m9HjAa004CSxM6HyIUNw4j
+ 0A9klDy+TumTHYeBo9iI7t7TFEenb2J4E+SnW6OnzzDYb4eQlQ5sKyrllijOWKn11F
+ sydLxDmQFC+nYBsdLqluNudfOsvb98PrDagaxls8lX8YQJtCTRpDSKx6fLpHHTrPAN
+ 8RR6Q2gKA6f8BWHb2GrfSGDVHwWQnajttQC2Ic9ZQo/gUwKbxMz60b7cvOagIGO3xG
+ 70yJ+fidRMNGQ==
+Date: Wed, 8 Dec 2021 20:40:54 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
+To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 Subject: Re: [PATCH] ASoC: max98357a: Add mixer control to mute/unmute speaker
-Message-ID: <YbEWqP6/TOCJn0gk@sirena.org.uk>
+Message-ID: <YbEYVq+uvIcoxqko@sirena.org.uk>
 References: <20211208185850.1555996-1-AjitKumar.Pandey@amd.com>
- <1571a09a-a766-a733-e23f-36cf1ab14b86@perex.cz>
+ <YbETxcwa83U8WXTO@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="TA1bawbBm9qo3pPG"
+ protocol="application/pgp-signature"; boundary="vxKfQpHFiM/DHo+x"
 Content-Disposition: inline
-In-Reply-To: <1571a09a-a766-a733-e23f-36cf1ab14b86@perex.cz>
+In-Reply-To: <YbETxcwa83U8WXTO@sirena.org.uk>
 X-Cookie: Alex Haley was adopted!
 Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
  open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Vijendar.Mukunda@amd.com, Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,34 +90,54 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---TA1bawbBm9qo3pPG
+--vxKfQpHFiM/DHo+x
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 08, 2021 at 09:25:04PM +0100, Jaroslav Kysela wrote:
-> On 08. 12. 21 19:58, Ajit Kumar Pandey wrote:
-> > Add "Playback Switch" mixer control to mute or unmute speaker
-> > playback from ucm conf depend on use cases.
+On Wed, Dec 08, 2021 at 08:21:31PM +0000, Mark Brown wrote:
+> On Thu, Dec 09, 2021 at 12:28:49AM +0530, Ajit Kumar Pandey wrote:
+>=20
+> > +static int speaker_mute_put(struct snd_kcontrol *kcontrol,
+> > +			    struct snd_ctl_elem_value *ucontrol)
+> > +{
+> > +	struct snd_soc_component *component =3D snd_soc_kcontrol_component(kc=
+ontrol);
+> > +	struct max98357a_priv *max98357a =3D snd_soc_component_get_drvdata(co=
+mponent);
+> > +	int mode =3D ucontrol->value.enumerated.item[0];
+> > +
+> > +	max98357a->sdmode_switch =3D mode;
+> > +	gpiod_set_value_cansleep(max98357a->sdmode, mode);
+> > +	dev_dbg(component->dev, "set sdmode to %d", mode);
+>=20
+> This looks like it should just be a DAPM widget - it's just a generic
+> GPIO control, there's no connection with the CODEC that I can see so it
+> definitely shouldn't be in the CODEC driver.  Often trivial stuff like
+> this is done in the machine driver, though the simple-amplifier driver
+> is probably a good fit here.
 
-> The "Playback Switch" is too short. It should be more specific (Headphone,
-> Speaker etc.).
+Actually now I look again the only control interface this driver has is
+GPIOs but it does expose a digital interface with constraints as input
+so doesn't fit within simple-amplifier.  However this is just powering
+off the amplifier to achieve mute rather than a separate mute control so
+it'd probably be better to use a SND_SOC_DAPM_PIN_SWITCH() for the
+Speaker widget to do this, this would also end up addressing Jaroslav's
+thing with the naming as a side effect.  Sorry about the confusion there.
 
-The device is a speaker driver, it's likely to be getting a prefix added
-as it's bound into the machine driver if there's any issues here.
-
---TA1bawbBm9qo3pPG
+--vxKfQpHFiM/DHo+x
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGxFqcACgkQJNaLcl1U
-h9B8ZAf/UwgVSTLxxiaMAAeFArbqjreZZ+s4y1+l+ILfdze6v2axOfqMlvGgDZgT
-IF1tVBmcKT16JSQOdoRnx0Ca8h+LeHj6Oxa/3KMdB3IqXOmjr8Jt08/bxI/rZ4hE
-nSjONcl+0gDdbXXNJsyOXilXzQWrYENomcNbdAHjjkqTpDx+wLQjAr+5ssoJ0muO
-sSGAPxe6aYUHGSHgO4kwalfOOaY4ULFqOAWS3dPmgfb4R93r0+WURcBhrg8Dm0Ad
-pyEzt74ZEgKx/kTjP4ZX5oIkDuvKhg/S041WoCtdLah9k6yTeMc2x4HrTrK3fwlo
-hODKZLvxg9oiRe9zvJ89lpCdQRmAOQ==
-=IwSH
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGxGFUACgkQJNaLcl1U
+h9D/aQf/S3ZOBoeRlFrMlyiqHO6GldTqaps0Jb0ZtH6Cq6Zxle1FBwo+UMSq+lgK
+zUa5D/Xfn0xptu0aRx+ylL9kuA6Nj//6bhOaLuLiAguPKB0KPfZFs3IwUKLc1oJ9
+D+DkVfurjSOJE6bbz/YzPqVUiMkv6aT8ZpFqcyN8juTBqOoY2xoETmTfH0vM71lD
+zYgZuXClqlocT5RijlKQ31rdAnyWxuOSCm7Q/MCgOJAUiR//z90wVurKzgUnie2i
+W7E5Q3VJQIT5NWhNea56eWOLCXIxMq5QZArSpCIT0ycjiIsOXmLbE1REU+UK2SEV
++kr5IxEznvYKyl93LgUJiw/SCdMqxA==
+=Gh2o
 -----END PGP SIGNATURE-----
 
---TA1bawbBm9qo3pPG--
+--vxKfQpHFiM/DHo+x--

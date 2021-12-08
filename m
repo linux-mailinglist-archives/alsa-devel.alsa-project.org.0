@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABFE246D1FD
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 12:18:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B489646D200
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 12:19:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F46F25FA;
-	Wed,  8 Dec 2021 12:18:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F46F25FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DAB61663;
+	Wed,  8 Dec 2021 12:18:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DAB61663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638962337;
-	bh=/qSawSSIyk0mX0KQgXEW/fbdCpuZOAsM/kC13zEe1bg=;
+	s=default; t=1638962360;
+	bh=xLtR2CxL0cNJhiLi0LgNLqwDeMwCwc5Cycu7yl+ar30=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UK0hZDBh5/y9gFuvpe/15C4ZJ+PJmTssP8wz6Y3E//gX7sz3DfjUNYaEHp/jj/4mM
-	 CV1IV1KR54hpBVf7s+Zfkmfg30HnLBTOZZG3oSbRx1qVO0N7qC/ieTnP6NMybR9UFJ
-	 3AKjVewyttwaMBo2tYbW9ZI4t8AW87ztMYsa3O4s=
+	b=pALYKLiJMOkVUhwXIsnTOObJVPEzzBcTFuH6JEsO8nriqakBnSqi6avbF03C3iqJB
+	 fnkQf4F/nyOOpsj0whvIn32VNU6P3q97zH4Ryipuey+i2K4x3kfDCHjIog4NjXV8sC
+	 61uh1/p46bTtSq/2RLD942Y7JpQqQgnYidOesxGU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EBD8F805C2;
-	Wed,  8 Dec 2021 12:12:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B580FF805B3;
+	Wed,  8 Dec 2021 12:12:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20645F805C0; Wed,  8 Dec 2021 12:12:08 +0100 (CET)
+ id F13B6F805CA; Wed,  8 Dec 2021 12:12:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0E98F8058C
- for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 12:11:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0E98F8058C
-X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="236548390"
-X-IronPort-AV: E=Sophos;i="5.87,297,1631602800"; d="scan'208";a="236548390"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B04BF805AC
+ for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 12:12:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B04BF805AC
+X-IronPort-AV: E=McAfee;i="6200,9189,10191"; a="236548397"
+X-IronPort-AV: E=Sophos;i="5.87,297,1631602800"; d="scan'208";a="236548397"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2021 03:11:57 -0800
+ 08 Dec 2021 03:12:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,297,1631602800"; d="scan'208";a="600600277"
+X-IronPort-AV: E=Sophos;i="5.87,297,1631602800"; d="scan'208";a="600600287"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by FMSMGA003.fm.intel.com with ESMTP; 08 Dec 2021 03:11:53 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 08 Dec 2021 03:11:57 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [RFC 19/37] ASoC: Intel: avs: Path management
-Date: Wed,  8 Dec 2021 12:12:43 +0100
-Message-Id: <20211208111301.1817725-20-cezary.rojewski@intel.com>
+Subject: [RFC 20/37] ASoC: Intel: avs: Conditional-path support
+Date: Wed,  8 Dec 2021 12:12:44 +0100
+Message-Id: <20211208111301.1817725-21-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211208111301.1817725-1-cezary.rojewski@intel.com>
 References: <20211208111301.1817725-1-cezary.rojewski@intel.com>
@@ -77,1214 +77,655 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To implement ASoC PCM operations, DSP path handling is needed. With path
-template concept present, information carried by topology file can be
-converted into runtime path representation. Each may be composed of
-several pipelines and each pipeline can contain a number of processing
-modules inside. Number of templates and variants found within topology
-may vastly outnumber the total amount of pipelines and modules supported
-by AudioDSP firmware simultaneously (in runtime) so none of the IDs are
-specified in the topology. These are assigned dynamically when needed
-and account for limitations described by FIRMWARE_CONFIG and
-HARDWARE_CONFIG basefw parameters.
+Compared to standard paths, conditional paths are not invoked by the
+means of FE being opened by userspace and thus their variant selection
+is not FE/BE audio format based. These are a side effect of standard path
+creation if specific criteria are met.
 
-Paths are created on ->hw_params() and are freed on ->hw_free() ALSA PCM
-operations. This choice is based on firmware expectations - need for
-complete set of information when attempting to instantiate pipelines and
-modules on AudioDSP side. With DMA and audio format provided, search
-mechanism tests all path variants available in given path template until
-a matching variant is found. Once found, information already available
-is combined with all avs_tplg_* pieces pointed by matching path variant.
-This finally allows to begin a cascade of IPCs which goes is to reserve
-resources and prepare DSP for upcoming audio streaming.
+Algorithm is implemented to walk on all existing runtime paths and match
+them against conditions provided by topology. These conditions are based
+on source and sink path formats, rather than formats provided from
+userspace app or present on the codec. If match is found, new path is
+created and tied to those which brought it into existence: source and
+sink path. If any of its parents perishes, so does the conditional path.
 
-DSP pipelines follow simple state machine scheme:
-CREATE -> RESET -> PAUSE -> RUNNING -> PAUSE -> RESET -> DELETE
-
-There is no STOP, PAUSE serves for both. Helpers are provided to ease
-with state changing for all objects found in the path.
+Conditional paths are used to enable any complex, modern audio scenario
+which involves usage of KPB, AEC and WoV modules and more.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- .../ABI/testing/sysfs-bus-pci-devices-avs     |   24 +
- sound/soc/intel/Kconfig                       |    1 +
- sound/soc/intel/avs/Makefile                  |    2 +-
- sound/soc/intel/avs/avs.h                     |    7 +
- sound/soc/intel/avs/path.c                    | 1012 +++++++++++++++++
- sound/soc/intel/avs/path.h                    |   72 ++
- 6 files changed, 1117 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/ABI/testing/sysfs-bus-pci-devices-avs
- create mode 100644 sound/soc/intel/avs/path.c
- create mode 100644 sound/soc/intel/avs/path.h
+ include/uapi/sound/intel/avs/tokens.h |  16 ++
+ sound/soc/intel/avs/path.c            | 275 ++++++++++++++++++++++++++
+ sound/soc/intel/avs/path.h            |  13 ++
+ sound/soc/intel/avs/topology.c        | 139 ++++++++++++-
+ sound/soc/intel/avs/topology.h        |  12 ++
+ 5 files changed, 454 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-pci-devices-avs b/Documentation/ABI/testing/sysfs-bus-pci-devices-avs
-new file mode 100644
-index 000000000000..785e680ac1a3
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-pci-devices-avs
-@@ -0,0 +1,24 @@
-+What:		/sys/devices/pci0000:00/<dev>/<tplg_name>/<path_template>:<path>/<pipeline>/state
-+Date:		December 2021
-+Contact:	Cezary Rojewski <cezary.rojewski@intel.com>
-+Description:
-+		File is only present when specific pipeline is instantiated in
-+		driver. It is used to check or change pipeline state. Possible
-+		read values: invalid, uninitialized, reset, paused, running,
-+		eos, error_stop, saved, restored.
-+		Allows only to set state to: reset, paused, running.
+diff --git a/include/uapi/sound/intel/avs/tokens.h b/include/uapi/sound/intel/avs/tokens.h
+index 3621227b89b9..d8aed26e06c8 100644
+--- a/include/uapi/sound/intel/avs/tokens.h
++++ b/include/uapi/sound/intel/avs/tokens.h
+@@ -19,6 +19,7 @@ enum avs_tplg_token {
+ 	AVS_TKN_MANIFEST_NUM_MODCFGS_EXT_U32		= 6,
+ 	AVS_TKN_MANIFEST_NUM_PPLCFGS_U32		= 7,
+ 	AVS_TKN_MANIFEST_NUM_BINDINGS_U32		= 8,
++	AVS_TKN_MANIFEST_NUM_CONDPATH_TMPLS_U32		= 9,
+ 
+ 	/* struct avs_tplg_library */
+ 	AVS_TKN_LIBRARY_ID_U32				= 101,
+@@ -122,6 +123,21 @@ enum avs_tplg_token {
+ 	AVS_TKN_PATH_FE_FMT_ID_U32			= 1902,
+ 	AVS_TKN_PATH_BE_FMT_ID_U32			= 1903,
+ 
++	/* struct avs_tplg_path_template (conditional) */
++	AVS_TKN_CONDPATH_TMPL_ID_U32			= 1801,
++	AVS_TKN_CONDPATH_TMPL_SOURCE_TPLG_NAME_STRING	= 2002,
++	AVS_TKN_CONDPATH_TMPL_SOURCE_PATH_TMPL_ID_U32	= 2003,
++	AVS_TKN_CONDPATH_TMPL_SINK_TPLG_NAME_STRING	= 2004,
++	AVS_TKN_CONDPATH_TMPL_SINK_PATH_TMPL_ID_U32	= 2005,
++	AVS_TKN_CONDPATH_TMPL_COND_TYPE_U32		= 2006,
++	AVS_TKN_CONDPATH_TMPL_OVERRIDABLE_BOOL		= 2007,
++	AVS_TKN_CONDPATH_TMPL_PRIORITY_U8		= 2008,
 +
-+What:		/sys/devices/pci0000:00/<dev>/<tplg_name>/<path_template>:<path>/<pipeline>/<module>/fw_id
-+Date:		December 2021
-+Contact:	Cezary Rojewski <cezary.rojewski@intel.com>
-+Description:
-+		File is only present when specific module is instantiated in
-+		driver. Used to get module id used by FW for module in question.
++	/* struct avs_tplg_path (conditional) */
++	AVS_TKN_CONDPATH_ID_U32				= 1901,
++	AVS_TKN_CONDPATH_SOURCE_PATH_ID_U32		= 2102,
++	AVS_TKN_CONDPATH_SINK_PATH_ID_U32		= 2103,
 +
-+What:		/sys/devices/pci0000:00/<dev>/<tplg_name>/<path_template>:<path>/<pipeline>/<module>/fw_instance
-+Date:		December 2021
-+Contact:	Cezary Rojewski <cezary.rojewski@intel.com>
-+Description:
-+		File is only present when specific module is instantiated in
-+		driver. Used to get instance id assigned from pool of ids
-+		for module in question.
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index dddd2cc8fef3..d549ce83a9c4 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -218,6 +218,7 @@ config SND_SOC_INTEL_AVS
- 	select SND_SOC_ACPI
- 	select SND_SOC_TOPOLOGY
- 	select SND_HDA_EXT_CORE
-+	select SND_INTEL_NHLT
- 	help
- 	  Enable support for Intel(R) cAVS 1.5 platforms with DSP
- 	  capabilities. This includes Skylake, Kabylake, Amberlake and
-diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
-index c7f1623264af..41a11506e5b8 100644
---- a/sound/soc/intel/avs/Makefile
-+++ b/sound/soc/intel/avs/Makefile
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
--snd-soc-avs-objs := dsp.o ipc.o messages.o utils.o topology.o
-+snd-soc-avs-objs := dsp.o ipc.o messages.o utils.o topology.o path.o
- 
- obj-$(CONFIG_SND_SOC_INTEL_AVS) += snd-soc-avs.o
-diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index 701802017423..45861db1a4c3 100644
---- a/sound/soc/intel/avs/avs.h
-+++ b/sound/soc/intel/avs/avs.h
-@@ -79,6 +79,13 @@ struct avs_dev {
- 	atomic_t *core_refs;
- 
- 	struct completion fw_ready;
-+
-+	struct nhlt_acpi_table *nhlt;
-+	struct list_head comp_list;
-+	struct mutex comp_list_mutex;
-+	struct list_head path_list;
-+	spinlock_t path_list_lock;
-+	struct mutex path_mutex;
- };
- 
- /* from hda_bus to avs_dev */
+ 	/* struct avs_tplg_pin_format */
+ 	AVS_TKN_PIN_FMT_INDEX_U32			= 2201,
+ 	AVS_TKN_PIN_FMT_IOBS_U32			= 2202,
 diff --git a/sound/soc/intel/avs/path.c b/sound/soc/intel/avs/path.c
-new file mode 100644
-index 000000000000..b27ec9686a9b
---- /dev/null
+index b27ec9686a9b..a7c391eed7b9 100644
+--- a/sound/soc/intel/avs/path.c
 +++ b/sound/soc/intel/avs/path.c
-@@ -0,0 +1,1012 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2021 Intel Corporation. All rights reserved.
-+//
-+// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
-+//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
-+//
-+
-+#include <sound/intel-nhlt.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include "avs.h"
-+#include "path.h"
-+#include "topology.h"
-+
-+/* Must be called with adev->comp_list_mutex held. */
-+static struct avs_tplg *
-+avs_path_find_tplg(struct avs_dev *adev, const char *name)
-+{
-+	struct avs_soc_component *acomp;
-+
-+	list_for_each_entry(acomp, &adev->comp_list, node)
-+		if (!strcmp(acomp->tplg->name, name))
-+			return acomp->tplg;
-+	return NULL;
-+}
-+
-+static struct avs_path_module *
-+avs_path_find_module(struct avs_path_pipeline *ppl, u32 template_id)
-+{
-+	struct avs_path_module *mod;
-+
-+	list_for_each_entry(mod, &ppl->mod_list, node)
-+		if (mod->template->id == template_id)
-+			return mod;
-+	return NULL;
-+}
-+
-+static struct avs_path_pipeline *
-+avs_path_find_pipeline(struct avs_path *path, u32 template_id)
-+{
-+	struct avs_path_pipeline *ppl;
-+
-+	list_for_each_entry(ppl, &path->ppl_list, node)
-+		if (ppl->template->id == template_id)
-+			return ppl;
-+	return NULL;
-+}
-+
-+static struct avs_path *
-+avs_path_find_path(struct avs_dev *adev, const char *name, u32 template_id)
-+{
-+	struct avs_tplg_path_template *pos, *template = NULL;
-+	struct avs_tplg *tplg;
-+	struct avs_path *path;
-+
-+	tplg = avs_path_find_tplg(adev, name);
-+	if (!tplg)
-+		return NULL;
-+
-+	list_for_each_entry(pos, &tplg->path_tmpl_list, node) {
-+		if (pos->id == template_id) {
-+			template = pos;
-+			break;
-+		}
-+	}
-+	if (!template)
-+		return NULL;
-+
-+	spin_lock(&adev->path_list_lock);
-+	/* Only one variant of given path template may be instantiated at a time. */
-+	list_for_each_entry(path, &adev->path_list, node) {
-+		if (path->template->owner == template) {
-+			spin_unlock(&adev->path_list_lock);
-+			return path;
-+		}
-+	}
-+
-+	spin_unlock(&adev->path_list_lock);
-+	return NULL;
-+}
-+
-+static bool avs_test_hw_params(struct snd_pcm_hw_params *params,
-+			       struct avs_audio_format *fmt)
-+{
-+	return (params_rate(params) == fmt->sampling_freq &&
-+		params_channels(params) == fmt->num_channels &&
-+		params_physical_width(params) == fmt->bit_depth &&
-+		params_width(params) == fmt->valid_bit_depth);
-+}
-+
+@@ -113,6 +113,79 @@ avs_path_find_variant(struct avs_dev *adev,
+ 	return NULL;
+ }
+ 
 +static struct avs_tplg_path *
-+avs_path_find_variant(struct avs_dev *adev,
-+		      struct avs_tplg_path_template *template,
-+		      struct snd_pcm_hw_params *fe_params,
-+		      struct snd_pcm_hw_params *be_params)
++avs_condpath_find_variant(struct avs_dev *adev,
++			  struct avs_tplg_path_template *template,
++			  struct avs_path *source, struct avs_path *sink)
 +{
 +	struct avs_tplg_path *variant;
 +
 +	list_for_each_entry(variant, &template->path_list, node) {
-+		dev_dbg(adev->dev, "check FE rate %d chn %d vbd %d bd %d\n",
-+			variant->fe_fmt->sampling_freq, variant->fe_fmt->num_channels,
-+			variant->fe_fmt->valid_bit_depth, variant->fe_fmt->bit_depth);
-+		dev_dbg(adev->dev, "check BE rate %d chn %d vbd %d bd %d\n",
-+			variant->be_fmt->sampling_freq, variant->be_fmt->num_channels,
-+			variant->be_fmt->valid_bit_depth, variant->be_fmt->bit_depth);
-+
-+		if (variant->fe_fmt && avs_test_hw_params(fe_params, variant->fe_fmt) &&
-+		    variant->be_fmt && avs_test_hw_params(be_params, variant->be_fmt))
++		if (variant->source_path_id == source->template->id &&
++		    variant->sink_path_id == sink->template->id)
 +			return variant;
 +	}
 +
 +	return NULL;
 +}
 +
-+__maybe_unused
-+static bool avs_dma_type_is_host(u32 dma_type)
++static bool avs_tplg_path_template_id_equal(struct avs_tplg_path_template_id *id,
++					    struct avs_tplg_path_template_id *id2)
 +{
-+	return dma_type == AVS_DMA_HDA_HOST_OUTPUT ||
-+	       dma_type == AVS_DMA_HDA_HOST_INPUT;
++	return id->id == id2->id && !strcmp(id->tplg_name, id2->tplg_name);
 +}
 +
-+__maybe_unused
-+static bool avs_dma_type_is_link(u32 dma_type)
++static struct avs_path *
++avs_condpath_find_match(struct avs_dev *adev,
++			struct avs_tplg_path_template *template,
++			struct avs_path *path, int dir)
 +{
-+	return !avs_dma_type_is_host(dma_type);
-+}
-+
-+__maybe_unused
-+static bool avs_dma_type_is_output(u32 dma_type)
-+{
-+	return dma_type == AVS_DMA_HDA_HOST_OUTPUT ||
-+	       dma_type == AVS_DMA_HDA_LINK_OUTPUT ||
-+	       dma_type == AVS_DMA_I2S_LINK_OUTPUT;
-+}
-+
-+__maybe_unused
-+static bool avs_dma_type_is_input(u32 dma_type)
-+{
-+	return !avs_dma_type_is_output(dma_type);
-+}
-+
-+static int avs_copier_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct nhlt_acpi_table *nhlt = adev->nhlt;
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_copier_cfg *cfg;
-+	struct nhlt_specific_cfg *ep_blob;
-+	union avs_connector_node_id node_id = {0};
-+	size_t cfg_size, data_size = 0;
-+	void *data = NULL;
-+	u32 dma_type;
-+	int ret;
-+
-+	dma_type = t->cfg_ext->copier.dma_type;
-+	node_id.dma_type = dma_type;
-+
-+	switch (dma_type) {
-+		struct avs_audio_format *fmt;
-+		int direction;
-+
-+	case AVS_DMA_I2S_LINK_OUTPUT:
-+	case AVS_DMA_I2S_LINK_INPUT:
-+		if (avs_dma_type_is_input(dma_type))
-+			direction = SNDRV_PCM_STREAM_CAPTURE;
-+		else
-+			direction = SNDRV_PCM_STREAM_PLAYBACK;
-+
-+		if (t->cfg_ext->copier.blob_fmt)
-+			fmt = t->cfg_ext->copier.blob_fmt;
-+		else if (direction == SNDRV_PCM_STREAM_CAPTURE)
-+			fmt = t->in_fmt;
-+		else
-+			fmt = t->cfg_ext->copier.out_fmt;
-+
-+		ep_blob = intel_nhlt_get_endpoint_blob(adev->dev,
-+			nhlt, t->cfg_ext->copier.vindex.i2s.instance,
-+			NHLT_LINK_SSP, fmt->valid_bit_depth, fmt->bit_depth,
-+			fmt->num_channels, fmt->sampling_freq, direction,
-+			NHLT_DEVICE_I2S);
-+		if (!ep_blob) {
-+			dev_err(adev->dev, "no I2S ep_blob found\n");
-+			return -ENOENT;
-+		}
-+
-+		data = ep_blob->caps;
-+		data_size = ep_blob->size;
-+		/* I2S gateway's vindex is statically assigned in topology */
-+		node_id.vindex = t->cfg_ext->copier.vindex.val;
-+
-+		break;
-+
-+	case AVS_DMA_DMIC_LINK_INPUT:
-+		direction = SNDRV_PCM_STREAM_CAPTURE;
-+
-+		if (t->cfg_ext->copier.blob_fmt)
-+			fmt = t->cfg_ext->copier.blob_fmt;
-+		else
-+			fmt = t->in_fmt;
-+
-+		ep_blob = intel_nhlt_get_endpoint_blob(adev->dev, nhlt, 0,
-+				NHLT_LINK_DMIC, fmt->valid_bit_depth,
-+				fmt->bit_depth, fmt->num_channels,
-+				fmt->sampling_freq, direction, NHLT_DEVICE_DMIC);
-+		if (!ep_blob) {
-+			dev_err(adev->dev, "no DMIC ep_blob found\n");
-+			return -ENOENT;
-+		}
-+
-+		data = ep_blob->caps;
-+		data_size = ep_blob->size;
-+		/* DMIC gateway's vindex is statically assigned in topology */
-+		node_id.vindex = t->cfg_ext->copier.vindex.val;
-+
-+		break;
-+
-+	case AVS_DMA_HDA_HOST_OUTPUT:
-+	case AVS_DMA_HDA_HOST_INPUT:
-+		/* HOST gateway's vindex is dynamically assigned with DMA id */
-+		node_id.vindex = mod->owner->owner->dma_id;
-+		break;
-+
-+	case AVS_DMA_HDA_LINK_OUTPUT:
-+	case AVS_DMA_HDA_LINK_INPUT:
-+		node_id.vindex = t->cfg_ext->copier.vindex.val |
-+				 mod->owner->owner->dma_id;
-+		break;
-+
-+	case INVALID_OBJECT_ID:
-+	default:
-+		node_id = INVALID_NODE_ID;
-+		break;
-+	}
-+
-+	cfg_size = sizeof(*cfg);
-+	if (data_size) {
-+		/* Gateway attributes are path of every config-BLOB. */
-+		cfg_size -= sizeof(cfg->gtw_cfg.config.attrs);
-+		cfg_size += data_size;
-+	}
-+
-+	cfg = kzalloc(cfg_size, GFP_KERNEL);
-+	if (!cfg)
-+		return -ENOMEM;
-+
-+	cfg->base.cpc = t->cfg_base->cpc;
-+	cfg->base.ibs = t->cfg_base->ibs;
-+	cfg->base.obs = t->cfg_base->obs;
-+	cfg->base.is_pages = t->cfg_base->is_pages;
-+	cfg->base.audio_fmt = *t->in_fmt;
-+	cfg->out_fmt = *t->cfg_ext->copier.out_fmt;
-+	cfg->feature_mask = t->cfg_ext->copier.feature_mask;
-+	cfg->gtw_cfg.node_id = node_id;
-+	cfg->gtw_cfg.dma_buffer_size = t->cfg_ext->copier.dma_buffer_size;
-+	if (data) {
-+		/* config_length in DWORDs */
-+		memcpy(&cfg->gtw_cfg.config, data, data_size);
-+		cfg->gtw_cfg.config_length = DIV_ROUND_UP(data_size, 4);
-+	}
-+
-+	mod->gtw_attrs = cfg->gtw_cfg.config.attrs;
-+
-+	ret = avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				  t->core_id, t->domain, cfg, cfg_size,
-+				  &mod->instance_id);
-+	kfree(cfg);
-+	return ret;
-+}
-+
-+static int avs_updown_mix_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_updown_mixer_cfg cfg;
-+	int i;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.out_channel_config = t->cfg_ext->updown_mix.out_channel_config;
-+	cfg.coefficients_select = t->cfg_ext->updown_mix.coefficients_select;
-+	for (i = 0; i < AVS_CHANNELS_MAX; i++)
-+		cfg.coefficients[i] = t->cfg_ext->updown_mix.coefficients[i];
-+	cfg.channel_map = t->cfg_ext->updown_mix.channel_map;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_src_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_src_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.out_freq = t->cfg_ext->src.out_freq;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_asrc_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_asrc_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.out_freq = t->cfg_ext->asrc.out_freq;
-+	cfg.mode = t->cfg_ext->asrc.mode;
-+	cfg.disable_jitter_buffer = t->cfg_ext->asrc.disable_jitter_buffer;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_aec_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_aec_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.ref_fmt = *t->cfg_ext->aec.ref_fmt;
-+	cfg.out_fmt = *t->cfg_ext->aec.out_fmt;
-+	cfg.cpc_lp_mode = t->cfg_ext->aec.cpc_lp_mode;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_mux_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_aec_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.ref_fmt = *t->cfg_ext->mux.ref_fmt;
-+	cfg.out_fmt = *t->cfg_ext->mux.out_fmt;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_wov_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_wov_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.cpc_lp_mode = t->cfg_ext->wov.cpc_lp_mode;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_micsel_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_micsel_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.out_fmt = *t->cfg_ext->micsel.out_fmt;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_modbase_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_modcfg_base cfg;
-+
-+	cfg.cpc = t->cfg_base->cpc;
-+	cfg.ibs = t->cfg_base->ibs;
-+	cfg.obs = t->cfg_base->obs;
-+	cfg.is_pages = t->cfg_base->is_pages;
-+	cfg.audio_fmt = *t->in_fmt;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_modext_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_tplg_modcfg_ext *tcfg = t->cfg_ext;
-+	struct avs_modcfg_ext *cfg;
-+	size_t cfg_size, num_pins;
-+	int ret, i;
-+
-+	num_pins = tcfg->generic.num_input_pins + tcfg->generic.num_output_pins;
-+	cfg_size = sizeof(*cfg) + sizeof(*cfg->pin_fmts) * num_pins;
-+
-+	cfg = kzalloc(cfg_size, GFP_KERNEL);
-+	if (!cfg)
-+		return -ENOMEM;
-+
-+	cfg->base.cpc = t->cfg_base->cpc;
-+	cfg->base.ibs = t->cfg_base->ibs;
-+	cfg->base.obs = t->cfg_base->obs;
-+	cfg->base.is_pages = t->cfg_base->is_pages;
-+	cfg->base.audio_fmt = *t->in_fmt;
-+	cfg->num_input_pins = tcfg->generic.num_input_pins;
-+	cfg->num_output_pins = tcfg->generic.num_output_pins;
-+
-+	/* configure pin formats */
-+	for (i = 0; i < num_pins; i++) {
-+		struct avs_tplg_pin_format *tpin = &tcfg->generic.pin_fmts[i];
-+		struct avs_pin_format *pin = &cfg->pin_fmts[i];
-+
-+		pin->pin_index = tpin->pin_index;
-+		pin->iobs = tpin->iobs;
-+		pin->audio_fmt = *tpin->fmt;
-+	}
-+
-+	ret = avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				  t->core_id, t->domain, cfg, cfg_size,
-+				  &mod->instance_id);
-+	kfree(cfg);
-+	return ret;
-+}
-+
-+static int avs_path_module_type_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	const guid_t *type = &mod->template->cfg_ext->type;
-+
-+	if (guid_equal(type, &AVS_MIXIN_MOD_UUID) ||
-+	    guid_equal(type, &AVS_MIXOUT_MOD_UUID) ||
-+	    guid_equal(type, &AVS_KPBUFF_MOD_UUID))
-+		return avs_modbase_create(adev, mod);
-+	if (guid_equal(type, &AVS_COPIER_MOD_UUID))
-+		return avs_copier_create(adev, mod);
-+	if (guid_equal(type, &AVS_MICSEL_MOD_UUID))
-+		return avs_micsel_create(adev, mod);
-+	if (guid_equal(type, &AVS_MUX_MOD_UUID))
-+		return avs_mux_create(adev, mod);
-+	if (guid_equal(type, &AVS_UPDWMIX_MOD_UUID))
-+		return avs_updown_mix_create(adev, mod);
-+	if (guid_equal(type, &AVS_SRCINTC_MOD_UUID))
-+		return avs_src_create(adev, mod);
-+	if (guid_equal(type, &AVS_AEC_MOD_UUID))
-+		return avs_aec_create(adev, mod);
-+	if (guid_equal(type, &AVS_ASRC_MOD_UUID))
-+		return avs_asrc_create(adev, mod);
-+	if (guid_equal(type, &AVS_INTELWOV_MOD_UUID))
-+		return avs_wov_create(adev, mod);
-+
-+	if (guid_equal(type, &AVS_PROBE_MOD_UUID)) {
-+		dev_err(adev->dev, "Probe module can't be instantiated by topology");
-+		return -EINVAL;
-+	}
-+
-+	return avs_modext_create(adev, mod);
-+}
-+
-+static void avs_path_module_free(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	kfree(mod);
-+}
-+
-+static struct avs_path_module *
-+avs_path_module_create(struct avs_dev *adev,
-+		       struct avs_path_pipeline *owner,
-+		       struct avs_tplg_module *template)
-+{
-+	struct avs_path_module *mod;
-+	int module_id, ret;
-+
-+	module_id = avs_get_module_id(adev, &template->cfg_ext->type);
-+	if (module_id < 0)
-+		return ERR_PTR(module_id);
-+
-+	mod = kzalloc(sizeof(*mod), GFP_KERNEL);
-+	if (!mod)
-+		return ERR_PTR(-ENOMEM);
-+
-+	mod->template = template;
-+	mod->module_id = module_id;
-+	mod->owner = owner;
-+	INIT_LIST_HEAD(&mod->node);
-+
-+	ret = avs_path_module_type_create(adev, mod);
-+	if (ret) {
-+		dev_err(adev->dev, "module-type create failed: %d\n", ret);
-+		kfree(mod);
-+		return ERR_PTR(ret);
-+	}
-+
-+	return mod;
-+}
-+
-+static void avs_path_binding_free(struct avs_dev *adev, struct avs_path_binding *binding)
-+{
-+	kfree(binding);
-+}
-+
-+static struct avs_path_binding *avs_path_binding_create(struct avs_dev *adev,
-+							struct avs_path_pipeline *owner,
-+							struct avs_tplg_binding *t)
-+{
-+	struct avs_path_binding *binding;
-+
-+	binding = kzalloc(sizeof(*binding), GFP_KERNEL);
-+	if (!binding)
-+		return ERR_PTR(-ENOMEM);
-+
-+	binding->template = t;
-+	binding->owner = owner;
-+	INIT_LIST_HEAD(&binding->node);
-+
-+	return binding;
-+}
-+
-+static int avs_path_binding_arm(struct avs_dev *adev, struct avs_path_binding *binding)
-+{
-+	struct avs_path_module *this_mod, *target_mod;
-+	struct avs_path_pipeline *target_ppl;
-+	struct avs_path *target_path;
-+	struct avs_tplg_binding *t;
-+
-+	t = binding->template;
-+	this_mod = avs_path_find_module(binding->owner,
-+					t->mod_id);
-+	if (!this_mod) {
-+		dev_err(adev->dev, "path mod %d not found\n", t->mod_id);
-+		return -EINVAL;
-+	}
-+
-+	/* update with target_tplg_name too */
-+	target_path = avs_path_find_path(adev, t->target_tplg_name,
-+					 t->target_path_tmpl_id);
-+	if (!target_path) {
-+		dev_err(adev->dev, "target path %s:%d not found\n",
-+			t->target_tplg_name, t->target_path_tmpl_id);
-+		return -EINVAL;
-+	}
-+
-+	target_ppl = avs_path_find_pipeline(target_path,
-+					    t->target_ppl_id);
-+	if (!target_ppl) {
-+		dev_err(adev->dev, "target ppl %d not found\n", t->target_ppl_id);
-+		return -EINVAL;
-+	}
-+
-+	target_mod = avs_path_find_module(target_ppl, t->target_mod_id);
-+	if (!target_mod) {
-+		dev_err(adev->dev, "target mod %d not found\n", t->target_mod_id);
-+		return -EINVAL;
-+	}
-+
-+	if (t->is_sink) {
-+		binding->sink = this_mod;
-+		binding->sink_pin = t->mod_pin;
-+		binding->source = target_mod;
-+		binding->source_pin = t->target_mod_pin;
++	struct avs_tplg_path_template_id *id, *id2;
++
++	if (dir) {
++		id = &template->source;
++		id2 = &template->sink;
 +	} else {
-+		binding->sink = target_mod;
-+		binding->sink_pin = t->target_mod_pin;
-+		binding->source = this_mod;
-+		binding->source_pin = t->mod_pin;
++		id = &template->sink;
++		id2 = &template->source;
 +	}
 +
-+	return 0;
++	/* Check whether this path is either source or sink of condpath template. */
++	if (id->id != path->template->owner->id ||
++	    strcmp(id->tplg_name, path->template->owner->owner->name))
++		return NULL;
++
++	/* Unidirectional condpaths are allowed. */
++	if (avs_tplg_path_template_id_equal(id, id2))
++		return path;
++
++	/* Now find the counterpart */
++	return avs_path_find_path(adev, id2->tplg_name, id2->id);
 +}
 +
-+static void avs_path_pipeline_free(struct avs_dev *adev,
-+				   struct avs_path_pipeline *ppl)
++static struct avs_path *
++avs_condpath_find_conflict(struct avs_dev *adev, u32 cond_type,
++			   struct avs_path *path, int dir)
 +{
-+	struct avs_path_binding *binding, *bsave;
-+	struct avs_path_module *mod, *save;
++	struct avs_path *pos, *target;
 +
-+	list_for_each_entry_safe(binding, bsave, &ppl->binding_list, node) {
-+		list_del(&binding->node);
-+		avs_path_binding_free(adev, binding);
-+	}
-+
-+	avs_dsp_delete_pipeline(adev, ppl->instance_id);
-+
-+	/* Unload resources occupied by owned modules */
-+	list_for_each_entry_safe(mod, save, &ppl->mod_list, node) {
-+		avs_dsp_delete_module(adev, mod->module_id, mod->instance_id,
-+				      mod->owner->instance_id,
-+				      mod->template->core_id);
-+		avs_path_module_free(adev, mod);
-+	}
-+
-+	list_del(&ppl->node);
-+	kfree(ppl);
-+}
-+
-+static int avs_path_pipeline_arm(struct avs_dev *adev,
-+				 struct avs_path_pipeline *ppl)
-+{
-+	struct avs_path_module *mod;
-+
-+	list_for_each_entry(mod, &ppl->mod_list, node) {
-+		struct avs_path_module *source, *sink;
-+		int ret;
-+
-+		/*
-+		 * Only one module (so it's implicitly last) or it is the last
-+		 * one, either way we don't have next module to bind it to.
-+		 */
-+		if (mod == list_last_entry(&ppl->mod_list,
-+					   struct avs_path_module, node))
-+			break;
-+
-+		/* bind current module to next module on list */
-+		source = mod;
-+		sink = list_next_entry(mod, node);
-+		if (!source || !sink)
-+			return -EINVAL;
-+
-+		ret = avs_ipc_bind(adev, source->module_id, source->instance_id,
-+				   sink->module_id, sink->instance_id, 0, 0);
-+		if (ret)
-+			return AVS_IPC_RET(ret);
-+	}
-+
-+	return 0;
-+}
-+
-+static struct avs_path_pipeline *
-+avs_path_pipeline_create(struct avs_dev *adev,
-+			 struct avs_path *owner,
-+			 struct avs_tplg_pipeline *template)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_tplg_pplcfg *cfg = template->cfg;
-+	struct avs_tplg_module *tmod;
-+	int ret, i;
-+
-+	ppl = kzalloc(sizeof(*ppl), GFP_KERNEL);
-+	if (!ppl)
-+		return ERR_PTR(-ENOMEM);
-+
-+	ppl->template = template;
-+	ppl->owner = owner;
-+	INIT_LIST_HEAD(&ppl->binding_list);
-+	INIT_LIST_HEAD(&ppl->mod_list);
-+	INIT_LIST_HEAD(&ppl->node);
-+
-+	ret = avs_dsp_create_pipeline(adev, cfg->req_size, cfg->priority,
-+				      cfg->lp, cfg->attributes,
-+				      &ppl->instance_id);
-+	if (ret) {
-+		dev_err(adev->dev, "error creating pipeline %d\n", ret);
-+		kfree(ppl);
-+		return ERR_PTR(ret);
-+	}
-+
-+	list_for_each_entry(tmod, &template->mod_list, node) {
-+		struct avs_path_module *mod;
-+
-+		mod = avs_path_module_create(adev, ppl, tmod);
-+		if (IS_ERR(mod)) {
-+			ret = PTR_ERR(mod);
-+			dev_err(adev->dev, "error creating module %d\n", ret);
-+			goto init_err;
++	if (cond_type != AVS_COND_TYPE_NONE) {
++		spin_lock(&adev->path_list_lock);
++		list_for_each_entry(pos, &adev->path_list, node) {
++			if (pos->template->owner->cond_type != cond_type)
++				continue;
++			target = dir ? pos->source : pos->sink;
++			if (path == target) {
++				spin_unlock(&adev->path_list_lock);
++				return pos;
++			}
 +		}
-+
-+		list_add_tail(&mod->node, &ppl->mod_list);
++		spin_unlock(&adev->path_list_lock);
 +	}
 +
-+	for (i = 0; i < template->num_bindings; i++) {
-+		struct avs_path_binding *binding;
-+
-+		binding = avs_path_binding_create(adev, ppl, template->bindings[i]);
-+		if (IS_ERR(binding)) {
-+			ret = PTR_ERR(binding);
-+			dev_err(adev->dev, "error creating binding %d\n", ret);
-+			goto init_err;
-+		}
-+
-+		list_add_tail(&binding->node, &ppl->binding_list);
-+	}
-+
-+	return ppl;
-+
-+init_err:
-+	avs_path_pipeline_free(adev, ppl);
-+	return ERR_PTR(ret);
++	return NULL;
 +}
 +
-+static int avs_path_init(struct avs_dev *adev, struct avs_path *path,
-+			 struct avs_tplg_path *template, u32 dma_id)
+ __maybe_unused
+ static bool avs_dma_type_is_host(u32 dma_type)
+ {
+@@ -724,6 +797,10 @@ static int avs_path_init(struct avs_dev *adev, struct avs_path *path,
+ 	path->dma_id = dma_id;
+ 	INIT_LIST_HEAD(&path->ppl_list);
+ 	INIT_LIST_HEAD(&path->node);
++	INIT_LIST_HEAD(&path->source_list);
++	INIT_LIST_HEAD(&path->sink_list);
++	INIT_LIST_HEAD(&path->source_node);
++	INIT_LIST_HEAD(&path->sink_node);
+ 
+ 	/* create all the pipelines */
+ 	list_for_each_entry(tppl, &template->ppl_list, node) {
+@@ -810,6 +887,162 @@ static struct avs_path *avs_path_create_unlocked(struct avs_dev *adev, u32 dma_i
+ 	return ERR_PTR(ret);
+ }
+ 
++static void avs_condpath_free(struct avs_dev *adev, struct avs_path *path)
 +{
-+	struct avs_tplg_pipeline *tppl;
-+
-+	path->owner = adev;
-+	path->template = template;
-+	path->dma_id = dma_id;
-+	INIT_LIST_HEAD(&path->ppl_list);
-+	INIT_LIST_HEAD(&path->node);
-+
-+	/* create all the pipelines */
-+	list_for_each_entry(tppl, &template->ppl_list, node) {
-+		struct avs_path_pipeline *ppl;
-+
-+		ppl = avs_path_pipeline_create(adev, path, tppl);
-+		if (IS_ERR(ppl))
-+			return PTR_ERR(ppl);
-+
-+		list_add_tail(&ppl->node, &path->ppl_list);
-+	}
-+
-+	spin_lock(&adev->path_list_lock);
-+	list_add_tail(&path->node, &adev->path_list);
-+	spin_unlock(&adev->path_list_lock);
-+
-+	return 0;
-+}
-+
-+static int avs_path_arm(struct avs_dev *adev, struct avs_path *path)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_path_binding *binding;
 +	int ret;
 +
-+	list_for_each_entry(ppl, &path->ppl_list, node) {
-+		/*
-+		 * Arm all ppl bindings before binding internal modules
-+		 * as it costs no IPCs which isn't true for the latter.
-+		 */
-+		list_for_each_entry(binding, &ppl->binding_list, node) {
-+			ret = avs_path_binding_arm(adev, binding);
-+			if (ret < 0)
-+				return ret;
-+		}
++	list_del(&path->source_node);
++	list_del(&path->sink_node);
 +
-+		ret = avs_path_pipeline_arm(adev, ppl);
-+		if (ret < 0)
-+			return ret;
-+	}
++	ret = avs_path_reset(path);
++	if (ret < 0)
++		dev_err(adev->dev, "reset condpath failed: %d\n", ret);
 +
-+	return 0;
++	ret = avs_path_unbind(path);
++	if (ret < 0)
++		dev_err(adev->dev, "unbind condpath failed: %d\n", ret);
++
++	avs_path_free_unlocked(path);
 +}
 +
-+static void avs_path_free_unlocked(struct avs_path *path)
++static struct avs_path *avs_condpath_create(struct avs_dev *adev, u32 dma_id,
++					    struct avs_tplg_path *template,
++					    struct avs_path *source,
++					    struct avs_path *sink)
 +{
-+	struct avs_path_pipeline *ppl, *save;
-+
-+	spin_lock(&path->owner->path_list_lock);
-+	list_del(&path->node);
-+	spin_unlock(&path->owner->path_list_lock);
-+
-+	list_for_each_entry_safe(ppl, save, &path->ppl_list, node)
-+		avs_path_pipeline_free(path->owner, ppl);
-+
-+	kfree(path);
-+}
-+
-+static struct avs_path *avs_path_create_unlocked(struct avs_dev *adev, u32 dma_id,
-+						 struct avs_tplg_path *template)
-+{
-+	struct avs_soc_component *acomp;
 +	struct avs_path *path;
 +	int ret;
 +
-+	acomp = to_avs_soc_component(template->owner->owner->comp);
++	path = avs_path_create_unlocked(adev, dma_id, template);
++	if (IS_ERR(path))
++		return path;
 +
-+	path = kzalloc(sizeof(*path), GFP_KERNEL);
-+	if (!path)
-+		return ERR_PTR(-ENOMEM);
-+
-+	ret = avs_path_init(adev, path, template, dma_id);
-+	if (ret < 0)
++	ret = avs_path_bind(path);
++	if (ret)
 +		goto err;
 +
-+	ret = avs_path_arm(adev, path);
-+	if (ret < 0)
++	ret = avs_path_reset(path);
++	if (ret)
 +		goto err;
 +
-+	path->state = AVS_PPL_STATE_INVALID;
++	path->source = source;
++	path->sink = sink;
++	list_add_tail(&path->source_node, &source->source_list);
++	list_add_tail(&path->sink_node, &sink->sink_list);
++
 +	return path;
 +err:
 +	avs_path_free_unlocked(path);
 +	return ERR_PTR(ret);
 +}
 +
-+struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
-+				 struct avs_tplg_path_template *template,
-+				 struct snd_pcm_hw_params *fe_params,
-+				 struct snd_pcm_hw_params *be_params)
++static int avs_condpath_walk(struct avs_dev *adev, struct avs_path *path, int dir)
 +{
++	struct avs_tplg_path_template *template;
++	struct avs_soc_component *acomp;
 +	struct avs_tplg_path *variant;
-+	struct avs_path *path;
++	struct avs_path **other, *conflict;
++	struct avs_path *source, *sink;
++	struct avs_path *cpath;
++	unsigned long type, types = 0;
++	int max, i;
 +
-+	variant = avs_path_find_variant(adev, template, fe_params, be_params);
-+	if (!variant) {
-+		dev_err(adev->dev, "no matching variant found\n");
-+		return ERR_PTR(-ENOENT);
++	if (dir) {
++		source = path;
++		other = &sink;
++	} else {
++		sink = path;
++		other = &source;
 +	}
 +
-+	/* Serialize path and its components creation. */
-+	mutex_lock(&adev->path_mutex);
-+	/* Satisfy needs of avs_path_find_tplg(). */
-+	mutex_lock(&adev->comp_list_mutex);
++	/* First create all non-conflicting condpaths. */
++	list_for_each_entry(acomp, &adev->comp_list, node) {
++		for (i = 0; i < acomp->tplg->num_condpath_tmpls; i++) {
++			template = &acomp->tplg->condpath_tmpls[i];
 +
-+	path = avs_path_create_unlocked(adev, dma_id, variant);
++			/* Do not create unidirectional condpaths twice */
++			if (avs_tplg_path_template_id_equal(&template->source,
++							    &template->sink) && dir)
++				continue;
 +
-+	mutex_unlock(&adev->comp_list_mutex);
-+	mutex_unlock(&adev->path_mutex);
++			if (template->cond_type != AVS_COND_TYPE_NONE) {
++				/* Save conflicting types to check later on. */
++				types |= BIT(template->cond_type);
++				continue;
++			}
 +
-+	return path;
++			*other = avs_condpath_find_match(adev, template, path, dir);
++			if (!*other)
++				continue;
++			variant = avs_condpath_find_variant(adev, template, source, sink);
++			if (!variant)
++				continue;
++
++			cpath = avs_condpath_create(adev, 0, variant, source, sink);
++			if (IS_ERR(cpath))
++				return PTR_ERR(cpath);
++		}
++	}
++	/* Now deal with exclusive condpaths. */
++	for_each_set_bit(type, &types, 32) {
++		variant = NULL;
++		*other = NULL;
++
++		conflict = avs_condpath_find_conflict(adev, type, path, dir);
++		if (conflict) {
++			/* Does existing conflict allow for override? */
++			if (!conflict->template->owner->overridable)
++				continue;
++			max = conflict->template->owner->priority;
++		} else {
++			max = -1;
++		}
++
++		/* Find best match - with highest priority. */
++		list_for_each_entry(acomp, &adev->comp_list, node) {
++			for (i = 0; i < acomp->tplg->num_condpath_tmpls; i++) {
++				template = &acomp->tplg->condpath_tmpls[i];
++
++				/* Do not create unidirectional condpaths twice */
++				if (avs_tplg_path_template_id_equal(&template->source,
++								    &template->sink) && dir)
++					continue;
++
++				if (template->cond_type != type || template->priority <= max)
++					continue;
++
++				*other = avs_condpath_find_match(adev, template, path, dir);
++				if (!*other)
++					continue;
++				variant = avs_condpath_find_variant(adev, template, source,
++								    sink);
++				if (variant)
++					max = template->priority;
++			}
++		}
++
++		if (variant) {
++			cpath = avs_condpath_create(adev, 0, variant, source, sink);
++			if (IS_ERR(cpath))
++				return PTR_ERR(cpath);
++		}
++	}
++
++	return 0;
 +}
 +
-+void avs_path_free(struct avs_path *path)
++/* caller responsible for holding adev->path_mutex */
++static int avs_condpath_walk_all(struct avs_dev *adev, struct avs_path *path)
 +{
-+	struct avs_dev *adev = path->owner;
-+
-+	mutex_lock(&adev->path_mutex);
-+	avs_path_free_unlocked(path);
-+	mutex_unlock(&adev->path_mutex);
-+}
-+
-+static int avs_path_bind_prepare(struct avs_dev *adev,
-+				 struct avs_path_binding *binding)
-+{
-+	const struct avs_audio_format *src_fmt, *sink_fmt;
-+	struct avs_tplg_module *tsource = binding->source->template;
-+	struct avs_path_module *source = binding->source;
 +	int ret;
 +
-+	/*
-+	 * only copier modules about to be bound
-+	 * to output pin other than 0 need preparation
-+	 */
-+	if (!binding->source_pin)
-+		return 0;
-+	if (!guid_equal(&tsource->cfg_ext->type, &AVS_COPIER_MOD_UUID))
-+		return 0;
++	ret = avs_condpath_walk(adev, path, 1);
++	if (ret)
++		return ret;
 +
-+	src_fmt = tsource->in_fmt;
-+	sink_fmt = binding->sink->template->in_fmt;
++	return avs_condpath_walk(adev, path, 0);
++}
 +
-+	ret = avs_ipc_copier_set_sink_format(adev, source->module_id,
-+					     source->instance_id, binding->source_pin,
-+					     src_fmt, sink_fmt);
+ struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
+ 				 struct avs_tplg_path_template *template,
+ 				 struct snd_pcm_hw_params *fe_params,
+@@ -817,6 +1050,7 @@ struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
+ {
+ 	struct avs_tplg_path *variant;
+ 	struct avs_path *path;
++	int ret;
+ 
+ 	variant = avs_path_find_variant(adev, template, fe_params, be_params);
+ 	if (!variant) {
+@@ -830,7 +1064,16 @@ struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
+ 	mutex_lock(&adev->comp_list_mutex);
+ 
+ 	path = avs_path_create_unlocked(adev, dma_id, variant);
++	if (IS_ERR(path))
++		goto exit;
++
++	ret = avs_condpath_walk_all(adev, path);
 +	if (ret) {
-+		dev_err(adev->dev, "config copier failed: %d\n", ret);
-+		return AVS_IPC_RET(ret);
++		avs_path_free_unlocked(path);
++		path = ERR_PTR(ret);
++	}
+ 
++exit:
+ 	mutex_unlock(&adev->comp_list_mutex);
+ 	mutex_unlock(&adev->path_mutex);
+ 
+@@ -839,10 +1082,19 @@ struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
+ 
+ void avs_path_free(struct avs_path *path)
+ {
++	struct avs_path *cpath, *csave;
+ 	struct avs_dev *adev = path->owner;
+ 
+ 	mutex_lock(&adev->path_mutex);
++
++	/* Free all condpaths this path spawned. */
++	list_for_each_entry_safe(cpath, csave, &path->source_list, source_node)
++		avs_condpath_free(path->owner, cpath);
++	list_for_each_entry_safe(cpath, csave, &path->sink_list, sink_node)
++		avs_condpath_free(path->owner, cpath);
++
+ 	avs_path_free_unlocked(path);
++
+ 	mutex_unlock(&adev->path_mutex);
+ }
+ 
+@@ -965,12 +1217,19 @@ int avs_path_reset(struct avs_path *path)
+ int avs_path_pause(struct avs_path *path)
+ {
+ 	struct avs_path_pipeline *ppl;
++	struct avs_path *cpath;
+ 	struct avs_dev *adev = path->owner;
+ 	int ret;
+ 
+ 	if (path->state == AVS_PPL_STATE_PAUSED)
+ 		return 0;
+ 
++	/* if either source or sink stops, so do attached conditional paths */
++	list_for_each_entry(cpath, &path->source_list, source_node)
++		avs_path_pause(cpath);
++	list_for_each_entry(cpath, &path->sink_list, sink_node)
++		avs_path_pause(cpath);
++
+ 	list_for_each_entry_reverse(ppl, &path->ppl_list, node) {
+ 		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
+ 						 AVS_PPL_STATE_PAUSED);
+@@ -988,6 +1247,7 @@ int avs_path_pause(struct avs_path *path)
+ int avs_path_run(struct avs_path *path, int trigger)
+ {
+ 	struct avs_path_pipeline *ppl;
++	struct avs_path *cpath;
+ 	struct avs_dev *adev = path->owner;
+ 	int ret;
+ 
+@@ -1008,5 +1268,20 @@ int avs_path_run(struct avs_path *path, int trigger)
+ 	}
+ 
+ 	path->state = AVS_PPL_STATE_RUNNING;
++
++	/* granular pipeline triggering not intended for conditional paths */
++	if (trigger == AVS_TPLG_TRIGGER_AUTO) {
++		/* run conditional paths only if source and sink are both running */
++		list_for_each_entry(cpath, &path->source_list, source_node)
++			if (cpath->source->state == AVS_PPL_STATE_RUNNING &&
++			    cpath->sink->state == AVS_PPL_STATE_RUNNING)
++				avs_path_run(cpath, trigger);
++
++		list_for_each_entry(cpath, &path->sink_list, sink_node)
++			if (cpath->source->state == AVS_PPL_STATE_RUNNING &&
++			    cpath->sink->state == AVS_PPL_STATE_RUNNING)
++				avs_path_run(cpath, trigger);
 +	}
 +
-+	return 0;
-+}
-+
-+int avs_path_bind(struct avs_path *path)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	list_for_each_entry(ppl, &path->ppl_list, node) {
-+		struct avs_path_binding *binding;
-+
-+		list_for_each_entry(binding, &ppl->binding_list, node) {
-+			struct avs_path_module *source, *sink;
-+
-+			source = binding->source;
-+			sink = binding->sink;
-+
-+			ret = avs_path_bind_prepare(adev, binding);
-+			if (ret < 0)
-+				return ret;
-+
-+			ret = avs_ipc_bind(adev, source->module_id,
-+					   source->instance_id, sink->module_id,
-+					   sink->instance_id, binding->sink_pin,
-+					   binding->source_pin);
-+			if (ret) {
-+				dev_err(adev->dev, "bind path failed: %d\n", ret);
-+				return AVS_IPC_RET(ret);
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int avs_path_unbind(struct avs_path *path)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	list_for_each_entry(ppl, &path->ppl_list, node) {
-+		struct avs_path_binding *binding;
-+
-+		list_for_each_entry(binding, &ppl->binding_list, node) {
-+			struct avs_path_module *source, *sink;
-+
-+			source = binding->source;
-+			sink = binding->sink;
-+
-+			ret = avs_ipc_unbind(adev, source->module_id,
-+					     source->instance_id, sink->module_id,
-+					     sink->instance_id, binding->sink_pin,
-+					     binding->source_pin);
-+			if (ret) {
-+				dev_err(adev->dev, "unbind path failed: %d\n", ret);
-+				return AVS_IPC_RET(ret);
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int avs_path_reset(struct avs_path *path)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	if (path->state == AVS_PPL_STATE_RESET)
-+		return 0;
-+
-+	list_for_each_entry(ppl, &path->ppl_list, node) {
-+		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
-+						 AVS_PPL_STATE_RESET);
-+		if (ret) {
-+			dev_err(adev->dev, "reset path failed: %d\n", ret);
-+			path->state = AVS_PPL_STATE_INVALID;
-+			return AVS_IPC_RET(ret);
-+		}
-+	}
-+
-+	path->state = AVS_PPL_STATE_RESET;
-+	return 0;
-+}
-+
-+int avs_path_pause(struct avs_path *path)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	if (path->state == AVS_PPL_STATE_PAUSED)
-+		return 0;
-+
-+	list_for_each_entry_reverse(ppl, &path->ppl_list, node) {
-+		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
-+						 AVS_PPL_STATE_PAUSED);
-+		if (ret) {
-+			dev_err(adev->dev, "pause path failed: %d\n", ret);
-+			path->state = AVS_PPL_STATE_INVALID;
-+			return AVS_IPC_RET(ret);
-+		}
-+	}
-+
-+	path->state = AVS_PPL_STATE_PAUSED;
-+	return 0;
-+}
-+
-+int avs_path_run(struct avs_path *path, int trigger)
-+{
-+	struct avs_path_pipeline *ppl;
-+	struct avs_dev *adev = path->owner;
-+	int ret;
-+
-+	if (path->state == AVS_PPL_STATE_RUNNING && trigger == AVS_TPLG_TRIGGER_AUTO)
-+		return 0;
-+
-+	list_for_each_entry(ppl, &path->ppl_list, node) {
-+		if (ppl->template->cfg->trigger != trigger)
-+			continue;
-+
-+		ret = avs_ipc_set_pipeline_state(adev, ppl->instance_id,
-+						 AVS_PPL_STATE_RUNNING);
-+		if (ret) {
-+			dev_err(adev->dev, "run path failed: %d\n", ret);
-+			path->state = AVS_PPL_STATE_INVALID;
-+			return AVS_IPC_RET(ret);
-+		}
-+	}
-+
-+	path->state = AVS_PPL_STATE_RUNNING;
-+	return 0;
-+}
+ 	return 0;
+ }
 diff --git a/sound/soc/intel/avs/path.h b/sound/soc/intel/avs/path.h
-new file mode 100644
-index 000000000000..c30ff44c07ca
---- /dev/null
+index c30ff44c07ca..ea754001b4f3 100644
+--- a/sound/soc/intel/avs/path.h
 +++ b/sound/soc/intel/avs/path.h
-@@ -0,0 +1,72 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright(c) 2021 Intel Corporation. All rights reserved.
-+ *
-+ * Authors: Cezary Rojewski <cezary.rojewski@intel.com>
-+ *          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
-+ */
+@@ -13,11 +13,24 @@
+ #include "avs.h"
+ #include "topology.h"
+ 
++#define AVS_COND_TYPE_NONE	0
++#define AVS_COND_TYPE_AECREF	1
 +
-+#ifndef __SOUND_SOC_INTEL_AVS_PATH_H
-+#define __SOUND_SOC_INTEL_AVS_PATH_H
+ struct avs_path {
+ 	u32 dma_id;
+ 	struct list_head ppl_list;
+ 	u32 state;
+ 
++	/* condpath navigation for standard paths */
++	struct list_head source_list;
++	struct list_head sink_list;
 +
-+#include <linux/list.h>
-+#include "avs.h"
-+#include "topology.h"
++	/* conditional path fields */
++	struct avs_path *source;
++	struct avs_path *sink;
++	struct list_head source_node;
++	struct list_head sink_node;
 +
-+struct avs_path {
-+	u32 dma_id;
-+	struct list_head ppl_list;
-+	u32 state;
-+
-+	struct avs_tplg_path *template;
-+	struct avs_dev *owner;
-+	/* device path management */
-+	struct list_head node;
+ 	struct avs_tplg_path *template;
+ 	struct avs_dev *owner;
+ 	/* device path management */
+diff --git a/sound/soc/intel/avs/topology.c b/sound/soc/intel/avs/topology.c
+index c33e1b415f52..ae267a3b7127 100644
+--- a/sound/soc/intel/avs/topology.c
++++ b/sound/soc/intel/avs/topology.c
+@@ -1171,6 +1171,27 @@ static const struct avs_tplg_token_parser path_parsers[] = {
+ 	},
+ };
+ 
++static const struct avs_tplg_token_parser condpath_parsers[] = {
++	{
++		.token = AVS_TKN_CONDPATH_ID_U32,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_WORD,
++		.offset = offsetof(struct avs_tplg_path, id),
++		.parse = avs_parse_word_token,
++	},
++	{
++		.token = AVS_TKN_CONDPATH_SOURCE_PATH_ID_U32,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_WORD,
++		.offset = offsetof(struct avs_tplg_path, source_path_id),
++		.parse = avs_parse_word_token,
++	},
++	{
++		.token = AVS_TKN_CONDPATH_SINK_PATH_ID_U32,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_WORD,
++		.offset = offsetof(struct avs_tplg_path, sink_path_id),
++		.parse = avs_parse_word_token,
++	},
 +};
 +
-+struct avs_path_pipeline {
-+	u8 instance_id;
-+	struct list_head mod_list;
-+	struct list_head binding_list;
-+
-+	struct avs_tplg_pipeline *template;
-+	struct avs_path *owner;
-+	/* path pipelines management */
-+	struct list_head node;
+ static struct avs_tplg_path *
+ avs_tplg_path_create(struct snd_soc_component *comp, struct avs_tplg_path_template *owner,
+ 		     struct snd_soc_tplg_vendor_array *tuples, u32 block_size,
+@@ -1238,6 +1259,57 @@ static const struct avs_tplg_token_parser path_tmpl_parsers[] = {
+ 	},
+ };
+ 
++static const struct avs_tplg_token_parser condpath_tmpl_parsers[] = {
++	{
++		.token = AVS_TKN_CONDPATH_TMPL_ID_U32,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_WORD,
++		.offset = offsetof(struct avs_tplg_path_template, id),
++		.parse = avs_parse_word_token,
++	},
++	{
++		.token = AVS_TKN_CONDPATH_TMPL_SOURCE_TPLG_NAME_STRING,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_STRING,
++		.offset = offsetof(struct avs_tplg_path_template, source.tplg_name),
++		.parse = avs_parse_string_token,
++	},
++	{
++		.token = AVS_TKN_CONDPATH_TMPL_SOURCE_PATH_TMPL_ID_U32,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_WORD,
++		.offset = offsetof(struct avs_tplg_path_template, source.id),
++		.parse = avs_parse_word_token,
++	},
++	{
++		.token = AVS_TKN_CONDPATH_TMPL_SINK_TPLG_NAME_STRING,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_STRING,
++		.offset = offsetof(struct avs_tplg_path_template, sink.tplg_name),
++		.parse = avs_parse_string_token,
++	},
++	{
++		.token = AVS_TKN_CONDPATH_TMPL_SINK_PATH_TMPL_ID_U32,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_WORD,
++		.offset = offsetof(struct avs_tplg_path_template, sink.id),
++		.parse = avs_parse_word_token,
++	},
++	{
++		.token = AVS_TKN_CONDPATH_TMPL_COND_TYPE_U32,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_WORD,
++		.offset = offsetof(struct avs_tplg_path_template, cond_type),
++		.parse = avs_parse_word_token,
++	},
++	{
++		.token = AVS_TKN_CONDPATH_TMPL_OVERRIDABLE_BOOL,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_BOOL,
++		.offset = offsetof(struct avs_tplg_path_template, overridable),
++		.parse = avs_parse_bool_token,
++	},
++	{
++		.token = AVS_TKN_CONDPATH_TMPL_PRIORITY_U8,
++		.type = SND_SOC_TPLG_TUPLE_TYPE_BYTE,
++		.offset = offsetof(struct avs_tplg_path_template, priority),
++		.parse = avs_parse_byte_token,
++	},
 +};
 +
-+struct avs_path_module {
-+	u16 module_id;
-+	u16 instance_id;
-+	union avs_gtw_attributes gtw_attrs;
+ static int parse_path_template(struct snd_soc_component *comp,
+ 			       struct snd_soc_tplg_vendor_array *tuples, u32 block_size,
+ 			       struct avs_tplg_path_template *template,
+@@ -1308,6 +1380,56 @@ avs_tplg_path_template_create(struct snd_soc_component *comp, struct avs_tplg *o
+ 	return template;
+ }
+ 
++static int avs_tplg_parse_condpath_templates(struct snd_soc_component *comp,
++					     struct snd_soc_tplg_vendor_array *tuples,
++					     u32 block_size)
++{
++	struct avs_soc_component *acomp = to_avs_soc_component(comp);
++	struct avs_tplg *tplg = acomp->tplg;
++	int ret, i;
 +
-+	struct avs_tplg_module *template;
-+	struct avs_path_pipeline *owner;
-+	/* pipeline modules management */
-+	struct list_head node;
-+};
++	ret = parse_dictionary_header(comp, tuples, (void **)&tplg->condpath_tmpls,
++				      &tplg->num_condpath_tmpls,
++				      sizeof(*tplg->condpath_tmpls),
++				      AVS_TKN_MANIFEST_NUM_CONDPATH_TMPLS_U32);
++	if (ret)
++		return ret;
 +
-+struct avs_path_binding {
-+	struct avs_path_module *source;
-+	u8 source_pin;
-+	struct avs_path_module *sink;
-+	u8 sink_pin;
++	block_size -= le32_to_cpu(tuples->size);
++	/* With header parsed, move on to parsing entries. */
++	tuples = avs_tplg_vendor_array_next(tuples);
 +
-+	struct avs_tplg_binding *template;
-+	struct avs_path_pipeline *owner;
-+	/* pipeline bindings management */
-+	struct list_head node;
-+};
++	for (i = 0; i < tplg->num_condpath_tmpls; i++) {
++		struct avs_tplg_path_template *template;
++		u32 esize;
 +
-+struct avs_path *avs_path_create(struct avs_dev *adev, u32 dma_id,
-+				 struct avs_tplg_path_template *template,
-+				 struct snd_pcm_hw_params *fe_params,
-+				 struct snd_pcm_hw_params *be_params);
-+void avs_path_free(struct avs_path *path);
-+int avs_path_bind(struct avs_path *path);
-+int avs_path_unbind(struct avs_path *path);
-+int avs_path_reset(struct avs_path *path);
-+int avs_path_pause(struct avs_path *path);
-+int avs_path_run(struct avs_path *path, int trigger);
++		template = &tplg->condpath_tmpls[i];
++		template->owner = tplg; /* Used when building sysfs hierarchy. */
++		INIT_LIST_HEAD(&template->path_list);
++		INIT_LIST_HEAD(&template->node);
 +
-+#endif
++		ret = avs_tplg_vendor_entry_size(tuples, block_size,
++						 AVS_TKN_CONDPATH_TMPL_ID_U32, &esize);
++		if (ret)
++			return ret;
++
++		ret = parse_path_template(comp, tuples, esize, template,
++					  condpath_tmpl_parsers,
++					  ARRAY_SIZE(condpath_tmpl_parsers),
++					  condpath_parsers,
++					  ARRAY_SIZE(condpath_parsers));
++		if (ret < 0) {
++			dev_err(comp->dev, "parse condpath_tmpl: %d failed: %d\n", i, ret);
++			return ret;
++		}
++
++		block_size -= esize;
++		tuples = avs_tplg_vendor_array_at(tuples, esize);
++	}
++
++	return 0;
++}
++
+ static int avs_route_load(struct snd_soc_component *comp, int index,
+ 			  struct snd_soc_dapm_route *route)
+ {
+@@ -1512,8 +1634,23 @@ static int avs_manifest(struct snd_soc_component *comp, int index,
+ 	remaining -= offset;
+ 	tuples = avs_tplg_vendor_array_at(tuples, offset);
+ 
++	ret = avs_tplg_vendor_array_lookup(tuples, remaining,
++					   AVS_TKN_MANIFEST_NUM_CONDPATH_TMPLS_U32, &offset);
++	if (ret) {
++		dev_err(comp->dev, "condpath lookup failed: %d\n", ret);
++		return ret;
++	}
++
+ 	/* Bindings dictionary. */
+-	return avs_tplg_parse_bindings(comp, tuples, remaining);
++	ret = avs_tplg_parse_bindings(comp, tuples, offset);
++	if (ret < 0)
++		return ret;
++
++	remaining -= offset;
++	tuples = avs_tplg_vendor_array_at(tuples, offset);
++
++	/* Condpaths dictionary. */
++	return avs_tplg_parse_condpath_templates(comp, tuples, remaining);
+ }
+ 
+ static struct snd_soc_tplg_ops avs_tplg_ops = {
+diff --git a/sound/soc/intel/avs/topology.h b/sound/soc/intel/avs/topology.h
+index 6058d868f802..3d229f11fc93 100644
+--- a/sound/soc/intel/avs/topology.h
++++ b/sound/soc/intel/avs/topology.h
+@@ -33,6 +33,8 @@ struct avs_tplg {
+ 	u32 num_pplcfgs;
+ 	struct avs_tplg_binding *bindings;
+ 	u32 num_bindings;
++	struct avs_tplg_path_template *condpath_tmpls;
++	u32 num_condpath_tmpls;
+ 
+ 	struct list_head path_tmpl_list;
+ };
+@@ -139,6 +141,13 @@ struct avs_tplg_path_template_id {
+ struct avs_tplg_path_template {
+ 	u32 id;
+ 
++	/* Conditional path. */
++	struct avs_tplg_path_template_id source;
++	struct avs_tplg_path_template_id sink;
++	u32 cond_type;
++	bool overridable;
++	u8 priority;
++
+ 	struct list_head path_list;
+ 
+ 	struct avs_tplg *owner;
+@@ -152,6 +161,9 @@ struct avs_tplg_path {
+ 	/* Path format requirements. */
+ 	struct avs_audio_format *fe_fmt;
+ 	struct avs_audio_format *be_fmt;
++	/* Condpath path-variant requirements. */
++	u32 source_path_id;
++	u32 sink_path_id;
+ 
+ 	struct list_head ppl_list;
+ 
 -- 
 2.25.1
 

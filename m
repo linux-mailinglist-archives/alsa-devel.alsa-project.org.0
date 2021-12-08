@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57BBE46DD3C
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 21:42:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 162DB46DD75
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Dec 2021 22:10:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0252A2648;
-	Wed,  8 Dec 2021 21:41:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0252A2648
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1B52246D;
+	Wed,  8 Dec 2021 22:09:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1B52246D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1638996139;
-	bh=qS1YFNi0D65kir09x3DJYrKReoP5VFnl6iuSSTE4i8w=;
+	s=default; t=1638997814;
+	bh=Nhr8a+1T083m2arRQNZR7McftHPXBYN3WlT9Z9eaZmk=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bJK36y1ZV5CEAxtl6/pfKys3sMda6j6TWhfAItfzQ6T6+1XSoY99MtcZlexURxGYq
-	 CuzYxBiBd38XsOOtevl4FRzq7UBMV/Bie/YT8Ax2kGW3qadWhkIw8/PyQ3TPPNIxao
-	 Uh9/HtE0aTMDExxhNldFtEvp30HmZmMA8Lbgm854=
+	b=QjxVds36r4i6ZzWCupbVuo2nkb6lY/AXsZmmIx/fO7d/sQpJWPwzT5IDxuRU07s6U
+	 QxGuCuY2QdGnlzYu6fKMlHRQnN1xv+yh0NYLlNcM1H+N5OgwPE0g5GedUWWJB0jdWA
+	 FEuwOQL579ViYnJcEYzVD6ZFpd6x3u/esgyr62JM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 310DCF804E5;
-	Wed,  8 Dec 2021 21:41:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32D92F804EC;
+	Wed,  8 Dec 2021 22:09:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 377C3F804E5; Wed,  8 Dec 2021 21:41:05 +0100 (CET)
+ id B99CFF804E5; Wed,  8 Dec 2021 22:09:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC0DFF80103
- for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 21:41:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC0DFF80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55BF1F80103
+ for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 22:08:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55BF1F80103
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="i053DmNd"
+ header.b="m1PBDOja"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C4116B82285;
- Wed,  8 Dec 2021 20:41:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65C3AC00446;
- Wed,  8 Dec 2021 20:40:57 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2E5A1B8210A;
+ Wed,  8 Dec 2021 21:08:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62C36C00446;
+ Wed,  8 Dec 2021 21:08:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638996059;
- bh=qS1YFNi0D65kir09x3DJYrKReoP5VFnl6iuSSTE4i8w=;
+ s=k20201202; t=1638997731;
+ bh=Nhr8a+1T083m2arRQNZR7McftHPXBYN3WlT9Z9eaZmk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=i053DmNdMcrKb983aRWSIpYU+wEI7ALCzQBJxFF59F+kwRVA8/NXmbuwb/iBJvdj4
- oi/sYTC7f/BXE8XpUOPw6Nfl4v6NTDcPefQXPK71ADF9m9HjAa004CSxM6HyIUNw4j
- 0A9klDy+TumTHYeBo9iI7t7TFEenb2J4E+SnW6OnzzDYb4eQlQ5sKyrllijOWKn11F
- sydLxDmQFC+nYBsdLqluNudfOsvb98PrDagaxls8lX8YQJtCTRpDSKx6fLpHHTrPAN
- 8RR6Q2gKA6f8BWHb2GrfSGDVHwWQnajttQC2Ic9ZQo/gUwKbxMz60b7cvOagIGO3xG
- 70yJ+fidRMNGQ==
-Date: Wed, 8 Dec 2021 20:40:54 +0000
+ b=m1PBDOjaUDP3E0h1I76hKmsAi6s1tKbxYbnLs91sbHMcp9JxE1FOs2u1xLkW0Peh7
+ XKInZosNW2DMNAQ3gzp8EaeICvmj9+qdwp4d/+pC2P+ZMA36O9gdho1pBbOFX/8KlA
+ AwgxKoAVjxxAp2z6/kRSiJTlOlIVOmfzZy4HtOOVMl/tXmloz8I4LRMrlu+ZfIDU59
+ hqnUVNQ9XUO0pVZPyvdHTkSo/MLohc6EoJ3cG4K+Oh1YGnhPajC8LXDt9ONyML01WL
+ OM3W7JmxF7sgYAACg+U3aiA4CKn/ZSTJuc23eAHViF8RwcqjEZyr+9umpYbU2A95x+
+ XJGJ/THUjaNnA==
+Date: Wed, 8 Dec 2021 21:08:46 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-Subject: Re: [PATCH] ASoC: max98357a: Add mixer control to mute/unmute speaker
-Message-ID: <YbEYVq+uvIcoxqko@sirena.org.uk>
-References: <20211208185850.1555996-1-AjitKumar.Pandey@amd.com>
- <YbETxcwa83U8WXTO@sirena.org.uk>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] kselftest: alsa: Use private alsa-lib configuration in
+ mixer test
+Message-ID: <YbEe3tz95ObwMxoL@sirena.org.uk>
+References: <20211208095209.1772296-1-perex@perex.cz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vxKfQpHFiM/DHo+x"
+ protocol="application/pgp-signature"; boundary="R7r1l1UNUadmy4Co"
 Content-Disposition: inline
-In-Reply-To: <YbETxcwa83U8WXTO@sirena.org.uk>
+In-Reply-To: <20211208095209.1772296-1-perex@perex.cz>
 X-Cookie: Alex Haley was adopted!
-Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Vijendar.Mukunda@amd.com, Alexander.Deucher@amd.com
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.de>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,54 +89,49 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---vxKfQpHFiM/DHo+x
+--R7r1l1UNUadmy4Co
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 08, 2021 at 08:21:31PM +0000, Mark Brown wrote:
-> On Thu, Dec 09, 2021 at 12:28:49AM +0530, Ajit Kumar Pandey wrote:
->=20
-> > +static int speaker_mute_put(struct snd_kcontrol *kcontrol,
-> > +			    struct snd_ctl_elem_value *ucontrol)
-> > +{
-> > +	struct snd_soc_component *component =3D snd_soc_kcontrol_component(kc=
-ontrol);
-> > +	struct max98357a_priv *max98357a =3D snd_soc_component_get_drvdata(co=
-mponent);
-> > +	int mode =3D ucontrol->value.enumerated.item[0];
-> > +
-> > +	max98357a->sdmode_switch =3D mode;
-> > +	gpiod_set_value_cansleep(max98357a->sdmode, mode);
-> > +	dev_dbg(component->dev, "set sdmode to %d", mode);
->=20
-> This looks like it should just be a DAPM widget - it's just a generic
-> GPIO control, there's no connection with the CODEC that I can see so it
-> definitely shouldn't be in the CODEC driver.  Often trivial stuff like
-> this is done in the machine driver, though the simple-amplifier driver
-> is probably a good fit here.
+On Wed, Dec 08, 2021 at 10:52:09AM +0100, Jaroslav Kysela wrote:
 
-Actually now I look again the only control interface this driver has is
-GPIOs but it does expose a digital interface with constraints as input
-so doesn't fit within simple-amplifier.  However this is just powering
-off the amplifier to achieve mute rather than a separate mute control so
-it'd probably be better to use a SND_SOC_DAPM_PIN_SWITCH() for the
-Speaker widget to do this, this would also end up addressing Jaroslav's
-thing with the naming as a side effect.  Sorry about the confusion there.
+> +#if !defined(SND_LIB_VER) || SND_LIB_VERSION < SND_LIB_VER(1, 2, 6)
 
---vxKfQpHFiM/DHo+x
+This barfs if the local definition is used since the preprocessor will
+try to evaluate SND_LIB_VER even if the macro is not defined and the
+left hand side of the || is true:
+
+mixer-test.c:66:60: error: missing binary operator before token "("
+   66 | #if !defined(SND_LIB_VER) || (SND_LIB_VERSION < SND_LIB_VER(1, 2, 6))
+      |                                                            ^
+
+SND_LIB_VER was only added in v1.2.5 so currently used distros run into
+this.  I've restructured to:
+
+	#ifdef SND_LIB_VER
+	#if SND_LIB_VERSION >= SND_LIB_VER(1, 2, 6)
+	#define LIB_HAS_LOAD_STRING
+	#endif
+	#endif
+
+	#ifndef LIB_HAS_LOAD_STRING
+
+which is a bit ugly but splits the use of SND_LIB_VER into a separate if
+statement which causes the preprocessor to do the right thing.
+
+--R7r1l1UNUadmy4Co
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGxGFUACgkQJNaLcl1U
-h9D/aQf/S3ZOBoeRlFrMlyiqHO6GldTqaps0Jb0ZtH6Cq6Zxle1FBwo+UMSq+lgK
-zUa5D/Xfn0xptu0aRx+ylL9kuA6Nj//6bhOaLuLiAguPKB0KPfZFs3IwUKLc1oJ9
-D+DkVfurjSOJE6bbz/YzPqVUiMkv6aT8ZpFqcyN8juTBqOoY2xoETmTfH0vM71lD
-zYgZuXClqlocT5RijlKQ31rdAnyWxuOSCm7Q/MCgOJAUiR//z90wVurKzgUnie2i
-W7E5Q3VJQIT5NWhNea56eWOLCXIxMq5QZArSpCIT0ycjiIsOXmLbE1REU+UK2SEV
-+kr5IxEznvYKyl93LgUJiw/SCdMqxA==
-=Gh2o
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGxHt0ACgkQJNaLcl1U
+h9AgsAf+J2ovDjD3qesqpI2me9WifDmIlXWGCrVAcfX9prKCdWbEkrzh89T0/JEC
+eMAjUtpx3AtYI9OCW67mP+tIDp/z6qpTCcth2XhV2kxAJvs28T+nuVHEs0Wrd6h/
+coPN7n99tQ93CGTfYJSSyRIkG564muLVZCZXUv7KKmlNfWyYzGYO2b5o/+pyQ/Eu
+bAVMYxDKKjz/newUBzRKCLxckzyBavSYEomuCuYzi6zLpGyGbT07Tq/jO3qhwiw4
+kqt6VeXa/jiIjqPtPBRy+jZqpoHP9E/vOBrkD45nifrZZ8KT5XqVdGxT9BzMEcwv
+X/uSB1ldcbY5JfStDr2+v7AIEGGndA==
+=JMHp
 -----END PGP SIGNATURE-----
 
---vxKfQpHFiM/DHo+x--
+--R7r1l1UNUadmy4Co--

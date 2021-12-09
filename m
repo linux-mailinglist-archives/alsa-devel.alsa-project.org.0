@@ -2,89 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6C9746E22A
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Dec 2021 06:50:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D9046E33F
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Dec 2021 08:34:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AA4623E0;
-	Thu,  9 Dec 2021 06:49:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AA4623E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D395A22F9;
+	Thu,  9 Dec 2021 08:33:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D395A22F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639029035;
-	bh=kK/h+NSEFYzg44ULry5GUHoFGQnU/GHJzyuxxwIzZQc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QAPLEPfZnGxAzoxeqYKhe9yeDu1bK/NmsdoLcJds3dVXt8oCmdSlgCM0fHiUZJ9qQ
-	 9aoTOgI/peSAcCuQsLm9iAGm0QkgS60am9VwARKqClqlRfRq/K84qea+9MmnnEiaIX
-	 0B2EDv5fzCCRgAQ6Ox8DiKhEUctc2HllsgfV3IaQ=
+	s=default; t=1639035245;
+	bh=dWZc0MIfRNwVjljX5Paq8GQZctDRgFpdh7TD70mF8Nk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NVCBEa/u6oB5QRJPeWfrtivx/Vp4MgMlGtuH9hR8hC+5AanTPF3eP9P9Zx/tF3nnH
+	 3Gkbg1hRNy4yJIgrufGNeAUgwbk5S7qdvMQJDfnhhRoy58Cc5TOoWzMVVV4ejQ1tPg
+	 +ZyRzyBDfhcPR4C1JegSTAfhDQQQyRXx6iXm4FeU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9561BF802A9;
-	Thu,  9 Dec 2021 06:49:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B79DF800FC;
+	Thu,  9 Dec 2021 08:32:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68B2EF8028D; Thu,  9 Dec 2021 06:49:21 +0100 (CET)
+ id 868D4F800AB; Thu,  9 Dec 2021 08:32:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0BE3BF800AB
- for <alsa-devel@alsa-project.org>; Thu,  9 Dec 2021 06:49:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BE3BF800AB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="ITeY9XQJ"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 1B95n9QI054338;
- Wed, 8 Dec 2021 23:49:09 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1639028949;
- bh=3DzJ5UfTbjOyfKamsLgBOyMkZhB6TUL60sGkvETPZm4=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=ITeY9XQJRzzelezhViOi+Fk2Xp7xyDTwYTSPuxE9K9mkOeJeL+39V9ybyw0kPjUM1
- nVRpPx17xZUyUoDrCIdcGM74dwgUAjbPolswAN5mZzKjDRZ68+6hGI53umAIR/3/Bo
- dOVgSf9M15pH21HW+P+LWkWtnepvzNrZhRy4viDg=
-Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 1B95n8kn040541
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 8 Dec 2021 23:49:09 -0600
-Received: from DLEE106.ent.ti.com (157.170.170.36) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Wed, 8
- Dec 2021 23:49:08 -0600
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE106.ent.ti.com
- (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14 via
- Frontend Transport; Wed, 8 Dec 2021 23:49:08 -0600
-Received: from [172.24.145.75] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 1B95n6S9013694;
- Wed, 8 Dec 2021 23:49:06 -0600
-Subject: Re: [PATCH v4] ASoC: dt-bindings: davinci-mcasp: convert McASP
- bindings to yaml schema
-To: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>,
- <robh+dt@kernel.org>
-References: <20211203120243.24173-1-j-choudhary@ti.com>
- <ed6c9be9-32d3-719a-ee0d-608b228f36b3@gmail.com>
- <20449d7b-0524-a8df-7852-a4c495157682@ti.com>
- <b6af56f1-7e6b-81ca-7bae-8f2a2dfaf0eb@gmail.com>
-From: Jayesh Choudhary <j-choudhary@ti.com>
-Message-ID: <5c032067-3396-dcf2-5f1a-09aca6f8e647@ti.com>
-Date: Thu, 9 Dec 2021 11:19:05 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D109F800AB
+ for <alsa-devel@alsa-project.org>; Thu,  9 Dec 2021 08:32:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D109F800AB
+X-UUID: b641029928e94b418ac0d281571828e2-20211209
+X-UUID: b641029928e94b418ac0d281571828e2-20211209
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1055023594; Thu, 09 Dec 2021 15:32:29 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Thu, 9 Dec 2021 15:32:28 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkcas10.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.0.1497.2 via Frontend Transport; Thu, 9 Dec 2021 15:32:27 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <matthias.bgg@gmail.com>,
+ <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-mediatek@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: mediatek: assign correct type to argument
+Date: Thu, 9 Dec 2021 15:32:24 +0800
+Message-ID: <20211209073224.21793-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <b6af56f1-7e6b-81ca-7bae-8f2a2dfaf0eb@gmail.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, broonie@kernel.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-MTK: N
+Cc: tzungbi@google.com, kernel test robot <lkp@intel.com>,
+ trevor.wu@mediatek.com, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ yc.hung@mediatek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,25 +78,149 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Fix the following sparse warning: (new ones prefixed by >>)
+>> sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c:370:33:
+     sparse: sparse: incorrect type in argument 3 (different base types)
+   sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c:370:33: sparse:
+     expected unsigned int to
+   sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c:370:33: sparse:
+     got restricted snd_pcm_format_t [usertype]
 
+Correct discription of format, use S32_LE and S24_LE to distinguish the
+different 32bit.
 
-On 08/12/21 1:14 am, Péter Ujfalusi wrote:
+Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Reported-by: kernel test robot <lkp@intel.com>
+---
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c   |  8 ++++----
+ .../mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c | 12 ++++++------
+ .../mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c    |  4 ++--
+ .../mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c    |  4 ++--
+ .../mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c    |  4 ++--
+ 5 files changed, 16 insertions(+), 16 deletions(-)
 
-> 
-> I'm fine if the port remains here
-> 
->> Peter,
->> Any other changes I should make?
-> 
-> Not much, this already looking good.
-> I would fix the dts files which generates warning/error with this yaml
-> as they are incorrect.
-> 
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index a4d26a6fc849..f8a72a5102ad 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -155,9 +155,9 @@ static const struct snd_soc_ops mt8183_da7219_rt1015_i2s_ops = {
+ static int mt8183_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 				      struct snd_pcm_hw_params *params)
+ {
+-	/* fix BE i2s format to 32bit, clean param mask first */
++	/* fix BE i2s format to S32_LE, clean param mask first */
+ 	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+-			     0, SNDRV_PCM_FORMAT_LAST);
++			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+ 
+ 	params_set_format(params, SNDRV_PCM_FORMAT_S32_LE);
+ 
+@@ -167,9 +167,9 @@ static int mt8183_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int mt8183_rt1015_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 					     struct snd_pcm_hw_params *params)
+ {
+-	/* fix BE i2s format to 32bit, clean param mask first */
++	/* fix BE i2s format to S24_LE, clean param mask first */
+ 	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+-			     0, SNDRV_PCM_FORMAT_LAST);
++			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+ 
+ 	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
+ 
+diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+index aeb1af86047e..d5fc86132b49 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+@@ -94,11 +94,11 @@ static const struct snd_soc_ops mt8183_mt6358_rt1015_i2s_ops = {
+ static int mt8183_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 				      struct snd_pcm_hw_params *params)
+ {
+-	dev_dbg(rtd->dev, "%s(), fix format to 32bit\n", __func__);
++	dev_dbg(rtd->dev, "%s(), fix format to S32_LE\n", __func__);
+ 
+-	/* fix BE i2s format to 32bit, clean param mask first */
++	/* fix BE i2s format to S32_LE, clean param mask first */
+ 	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+-			     0, SNDRV_PCM_FORMAT_LAST);
++			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+ 
+ 	params_set_format(params, SNDRV_PCM_FORMAT_S32_LE);
+ 	return 0;
+@@ -107,11 +107,11 @@ static int mt8183_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int mt8183_rt1015_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 					     struct snd_pcm_hw_params *params)
+ {
+-	dev_dbg(rtd->dev, "%s(), fix format to 32bit\n", __func__);
++	dev_dbg(rtd->dev, "%s(), fix format to S24_LE\n", __func__);
+ 
+-	/* fix BE i2s format to 32bit, clean param mask first */
++	/* fix BE i2s format to S24_LE, clean param mask first */
+ 	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+-			     0, SNDRV_PCM_FORMAT_LAST);
++			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+ 
+ 	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
+ 	return 0;
+diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+index a606133951b7..1d16939f80e3 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
++++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+@@ -350,9 +350,9 @@ static int mt8192_mt6359_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+ static int mt8192_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 				      struct snd_pcm_hw_params *params)
+ {
+-	/* fix BE i2s format to 32bit, clean param mask first */
++	/* fix BE i2s format to S24_LE, clean param mask first */
+ 	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+-			     0, SNDRV_PCM_FORMAT_LAST);
++			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+ 
+ 	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
+ 
+diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
+index cca1c739e690..5cdbfaafd479 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
++++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1011-rt5682.c
+@@ -359,7 +359,7 @@ static int mt8195_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+ static int mt8195_etdm_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 				       struct snd_pcm_hw_params *params)
+ {
+-	/* fix BE i2s format to 32bit, clean param mask first */
++	/* fix BE i2s format to S24_LE, clean param mask first */
+ 	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+ 			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+ 
+@@ -464,7 +464,7 @@ static int mt8195_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 				       struct snd_pcm_hw_params *params)
+ 
+ {
+-	/* fix BE i2s format to 32bit, clean param mask first */
++	/* fix BE i2s format to S24_LE, clean param mask first */
+ 	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+ 			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+ 
+diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+index 11a185da0d96..fa50a31e9718 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
++++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+@@ -355,7 +355,7 @@ static int mt8195_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+ static int mt8195_etdm_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 				       struct snd_pcm_hw_params *params)
+ {
+-	/* fix BE i2s format to 32bit, clean param mask first */
++	/* fix BE i2s format to S24_LE, clean param mask first */
+ 	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+ 			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+ 
+@@ -463,7 +463,7 @@ static int mt8195_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 				       struct snd_pcm_hw_params *params)
+ 
+ {
+-	/* fix BE i2s format to 32bit, clean param mask first */
++	/* fix BE i2s format to S24_LE, clean param mask first */
+ 	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+ 			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+ 
+-- 
+2.25.1
 
-One patch has already been sent for the typo error in the dts file which
-generates a warning:
-https://lore.kernel.org/all/20211125105326.17000-1-j-choudhary@ti.com/
-
-The 'num-serializer' issue needs to be fixed.
-
--Jayesh

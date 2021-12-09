@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2057546E95A
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Dec 2021 14:47:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0790C46E960
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Dec 2021 14:49:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9854821F7;
-	Thu,  9 Dec 2021 14:46:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9854821F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98BF52201;
+	Thu,  9 Dec 2021 14:48:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98BF52201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639057631;
-	bh=nzHJ+8AUgscYkeKl42+DtprhAE5fDcB0eMN1+c5CDg8=;
+	s=default; t=1639057744;
+	bh=x+agiAdO+O8HMfHk6nHrE9Ld8pw385XGK369338bWJg=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RXK6Kd5nmr5tF+t9eScAnGEI/pzTnaawHN6cjWi0n5NsMoEmkGmRU14r7Ffh5hpfD
-	 t4A6NOpYicZtjZkIdbiVFD/+utKDL5sB/h+moYJHV5FVrrIdOjpZnz/Jm5KKEefQ4x
-	 o2ukxXSFFhzdWqu+pr2GV09RP7ufmEZkdSZxXQ2M=
+	b=KAAj3wwHXBgrRV8HeJbUh+6nY+RRBbbCmdIkshLX7WQzFcW3mN7SyqoNgaXZzAZm9
+	 hB4v89tM0TicC4At+T6BK5218lyAli6iidA33R6fjuG7V0QKqV1yX6muG0FyuUjwo3
+	 K/jLwXyuU7W9n4j3g6tDDc86VYytsn7QfxO6HLRM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0146CF802A9;
-	Thu,  9 Dec 2021 14:46:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1ECD3F80103;
+	Thu,  9 Dec 2021 14:47:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E44A4F8028D; Thu,  9 Dec 2021 14:45:56 +0100 (CET)
+ id 67AF3F8028D; Thu,  9 Dec 2021 14:47:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFCF9F800AB
- for <alsa-devel@alsa-project.org>; Thu,  9 Dec 2021 14:45:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFCF9F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00773F80103
+ for <alsa-devel@alsa-project.org>; Thu,  9 Dec 2021 14:47:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00773F80103
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GjFY2KAg"
+ header.b="J6raT8fn"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 21627B8245E;
- Thu,  9 Dec 2021 13:45:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68540C341C7;
- Thu,  9 Dec 2021 13:45:45 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 9397BCE25B6;
+ Thu,  9 Dec 2021 13:47:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E28F7C004DD;
+ Thu,  9 Dec 2021 13:47:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639057546;
- bh=nzHJ+8AUgscYkeKl42+DtprhAE5fDcB0eMN1+c5CDg8=;
+ s=k20201202; t=1639057657;
+ bh=x+agiAdO+O8HMfHk6nHrE9Ld8pw385XGK369338bWJg=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=GjFY2KAgxOB3/B5Dv8BE3Zhq+MjQkHI1wBUQUnFyNRttv/4quQ2wtmcxlCyFsdMJP
- yTntvXjxRei4oh5no34BYOXB7Jew3bsdeFZMq1HzjbSih9SGzpX2nnfQl50LBMtGdX
- 88MEWAGxPcF8lzpQuRnKuDNOcJDRVDg0uJWENKb3k5/s/LWkZxbLf2q/Y5aYWQVd9m
- LhRc7IeaZZn1f0WIIMu4Duh1//Uc2uU6xKdr3Le5nz153Z6OckyNXb1+S4I+mpJDx4
- Zwyo/+zTp/XsEc5RhsYzBW0FycTj5nqAGdbkbiIhITYhKI8nghVoj32E5CAby30Nvp
- BaMTTcPdQdtfg==
+ b=J6raT8fnRMM+0hL/+PwZjxcJX/lilIyDfXOGxb+K+/o4bBk+3EXmMi7yxdHQE4U+I
+ 9v3yn/ifnHJ5tVkPFCpF+CTYFOdXnDL/FN9QkLed0K8H+mp/fOjSMDXDw5c0ZoJ03o
+ x9ZyX/EDVf54NOdW1d3a9wNGm5OctHhSfk+rfQc2cuuJCillSx7HK5YxruZTJlxdlH
+ Bs0yKqyWcXdqFkHkBoDaF1GiwwajuI04SzXGQkygL6rYNOeBNp+t1WqOTa9aUkVe/G
+ vcgnQwFMSPlWI+rD9jzCXr89kkxlM1Eg1r/8Jj4ZW9OKRx3vTdy5tV2rpT1SrPkuhK
+ Kt9gKxRFwt9zA==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, perex@perex.cz,
- kuninori.morimoto.gx@renesas.com, Ameer Hamza <amhamza.mgc@gmail.com>,
- lgirdwood@gmail.com, tiwai@suse.com
-In-Reply-To: <20211207142309.222820-1-amhamza.mgc@gmail.com>
-References: <Ya9YxoUqkATCOASh@sirena.org.uk>
- <20211207142309.222820-1-amhamza.mgc@gmail.com>
-Subject: Re: [PATCH v2] ASoC: test-component: fix null pointer dereference.
-Message-Id: <163905754513.1053127.9268237437282458172.b4-ty@kernel.org>
-Date: Thu, 09 Dec 2021 13:45:45 +0000
+To: Mark Brown <broonie@kernel.org>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20210915180957.39996-1-broonie@kernel.org>
+References: <20210915180957.39996-1-broonie@kernel.org>
+Subject: Re: [PATCH v2] ASoC: amd: Convert to new style DAI format definitions
+Message-Id: <163905765661.1055325.9010200484005767100.b4-ty@kernel.org>
+Date: Thu, 09 Dec 2021 13:47:36 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,10 +85,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 7 Dec 2021 19:23:09 +0500, Ameer Hamza wrote:
-> Dereferncing of_id pointer will result in exception in current
-> implementation since of_match_device() will assign it to NULL.
-> Adding NULL check for protection.
+On Wed, 15 Sep 2021 19:09:57 +0100, Mark Brown wrote:
+> Convert the AMD machine drivers to use the new style defines for clocking
+> in DAI formats.
 > 
 > 
 
@@ -99,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: test-component: fix null pointer dereference.
-      commit: c686316ec1210d43653c91e104c1e4cd0156dc89
+[1/1] ASoC: amd: Convert to new style DAI format definitions
+      commit: 62df22396bea321435153cdba37585ad8ff9c567
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

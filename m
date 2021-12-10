@@ -2,67 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F6C44705C3
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 17:31:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3DC5470647
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 17:49:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BF5120C7;
-	Fri, 10 Dec 2021 17:30:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BF5120C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3966F20D9;
+	Fri, 10 Dec 2021 17:48:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3966F20D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639153865;
-	bh=F25tk6LC9Q2F6QmZS81dv7AZROYjqrE7MmVLMsst1MI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1639154954;
+	bh=6ULRFlF6ggAUebNwOsW20mMAGwZd17GitGH1nC/qLc0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=obz1y6gWwzzqIbkLT1J5hEkw7Bc71/rAMjqAn56q7qwOE0YKl6+Ci+Tp7IvD+o0D2
-	 epmcsjnKGnhehhnzaiUzegFD1KG6TW7AuPbp8RltbkyMCWj03YhlKm91VCJ6K/iRTE
-	 SouiCmmMxgg7hmVj79uhRU6VC0M5tBWJb/S98Yuo=
+	b=Q8EBsE+330YOrOtwnwrWCURwOW78c79gIcnapcmdLIsP2H2EuxRWjTWebwO8Gj+BJ
+	 FdiG8RaA3ur9XFRYAFgaITMK88AnEEhdqF5fpZncM2BkB+QLolsXs9Ad2wdcOyzvJy
+	 IL0qFOrEqBWjPEnqPnhM3Tq5TW6YomaKm3lx7lQI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D437F804FF;
-	Fri, 10 Dec 2021 17:29:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92A42F8028D;
+	Fri, 10 Dec 2021 17:48:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48BC4F804F3; Fri, 10 Dec 2021 17:29:33 +0100 (CET)
+ id 54496F804EC; Fri, 10 Dec 2021 17:48:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 039DFF804E5
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 17:47:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 039DFF804E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="S86sY7tC"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA581F8028D
- for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 17:29:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA581F8028D
-X-IronPort-AV: E=McAfee;i="6200,9189,10193"; a="219063152"
-X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="219063152"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 08:29:16 -0800
-X-IronPort-AV: E=Sophos;i="5.88,196,1635231600"; d="scan'208";a="612974184"
-Received: from lclopezf-mobl.amr.corp.intel.com (HELO [10.209.164.172])
- ([10.209.164.172])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 08:29:15 -0800
+ by ams.source.kernel.org (Postfix) with ESMTPS id CC855B828FC;
+ Fri, 10 Dec 2021 16:47:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41F41C341C5;
+ Fri, 10 Dec 2021 16:47:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1639154871;
+ bh=6ULRFlF6ggAUebNwOsW20mMAGwZd17GitGH1nC/qLc0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=S86sY7tCtmaIad9AR7OGz+bxVwKLFTNZr/3GJs5jBRVv+nc/sx/7x6ySIqhVjSfZm
+ Ng3QoJfjsey7EeJ3Q/k3s2slWZmePliSrV5yI2rAbjZfHtVuoiyA1rSau0tXBA9O4y
+ mD4/vN0vfpvOJ6WmzyR7iofd6YWoHyVcWuXIL4ykgKYtwgn9gJbHg5rBMzNY0RjgvY
+ 3tXtUhcitAmwbEPnSpg1PJNxc+2X4ZjvqFM+210itrQBzKoErD1tru2Ko899QRt/mt
+ +D4G6vWmTtSH7zR8mD2lhkIqIHjk5EwLwlzO0+Q3UIZF8CD4z2aFP+OuS1/LvqvPYm
+ srqPUpYR3dGzg==
+Date: Fri, 10 Dec 2021 16:47:47 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Shumin Chen <chenshumin86@sina.com>
 Subject: Re: [PATCH 2/2] ASoC: convert Everest ES8156 binding to yaml
-To: Shumin Chen <chenshumin86@sina.com>, perex@perex.cz, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org
+Message-ID: <YbOEs4HCdJYA3j/1@sirena.org.uk>
 References: <20211210151041.108751-1-chenshumin86@sina.com>
  <20211210151041.108751-3-chenshumin86@sina.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <4c665ce2-1df3-5fc3-018a-e8eff49794a2@linux.intel.com>
-Date: Fri, 10 Dec 2021 10:29:14 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="sZ83QS/cFF5Ofdsn"
+Content-Disposition: inline
 In-Reply-To: <20211210151041.108751-3-chenshumin86@sina.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
+X-Cookie: One picture is worth 128K words.
+Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org, tiwai@suse.com,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -80,40 +88,12 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--sZ83QS/cFF5Ofdsn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 12/10/21 9:10 AM, Shumin Chen wrote:
-> This patch converts Everest Semiconductor ES8156 low power audio
-> CODEC binding to DT schema.
+On Fri, Dec 10, 2021 at 11:10:41PM +0800, Shumin Chen wrote:
 
-this doesn't really convert anything but *adds* properties for ES8156.
-
-You're probably missing the device tree folks, added Rob + device tree
-mailing list in CC:
-
-> 
-> Signed-off-by: Shumin Chen <chenshumin86@sina.com>
-> ---
->  .../bindings/sound/everest,es8156.yaml        | 49 +++++++++++++++++++
->  1 file changed, 49 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/everest,es8156.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/everest,es8156.yaml b/Documentation/devicetree/bindings/sound/everest,es8156.yaml
-> new file mode 100644
-> index 000000000000..695d542013c2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/everest,es8156.yaml
-> @@ -0,0 +1,49 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/everest,es8156.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Everest ES8156 audio CODEC
-> +
-> +maintainers:
-> +  - Shumin Chen <chenshumin86@sina.com>
-> +
 > +properties:
 > +  compatible:
 > +    const: everest,es8156
@@ -124,32 +104,22 @@ mailing list in CC:
 > +  clocks:
 > +    items:
 > +      - description: clock for master clock (MCLK)
-> +
-> +  clock-names:
-> +    items:
-> +      - const: mclk
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#sound-dai-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c0 {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +      es8156: codec@8 {
-> +        compatible = "everest,es8156";
-> +        reg = <0x11>;
-> +        clocks = <&clks 10>;
-> +        clock-names = "mclk";
-> +        #sound-dai-cells = <0>;
-> +      };
-> +    };
-> 
+
+This was optional in the code but is mandatory in the binding.
+
+--sZ83QS/cFF5Ofdsn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmGzhLIACgkQJNaLcl1U
+h9Aywwf/bCaMMeg4FUrNaO8S3/ctSVTmAVyydCmnsYgPm74lkejOxnCZld4ngSK7
+oE+sJqtPCCWgv0N4MFkJmjHZqmDQZGUDiLHhcmPnlNxoZcpH/hVGz9wk5EIEPn0I
+xC7vilb8j6ps7H5g/y4E7JrcMt7Smb6t9l9WbcreLp7EWPGr342wW+ZJH7yNwbnR
+nWvhSWlBgpRWfgywA52ZHNvEav44GA6UVJzamV2jAn3JRUrsEFI4sYBsMlxGv4Sh
+/2wQiGJQA4hErHQAQIXR3P22YeSzQN2Q5jVmASJi3DRVqB6yLdWp3MNl6LQ4wgN2
+Xb+mSBqCgZliigQPnFNdwPqSNjKHnw==
+=o+40
+-----END PGP SIGNATURE-----
+
+--sZ83QS/cFF5Ofdsn--

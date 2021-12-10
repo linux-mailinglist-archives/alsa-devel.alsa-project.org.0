@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27AC4470C83
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 22:25:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB47F470E77
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Dec 2021 00:17:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AFC3D2160;
-	Fri, 10 Dec 2021 22:25:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFC3D2160
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66BCB1F32;
+	Sat, 11 Dec 2021 00:16:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66BCB1F32
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639171557;
-	bh=TslYx+/MBS8nrn7jxd9L3CWlU6f67qqmX96xEJnIiGQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1639178227;
+	bh=Z5bRxq+x8TJ7J0J1HFTAUrQytifvTWmyDMRxffXIE4A=;
+	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UYayO+fd7paxxxQkiChUmiOiq83HLnHKgkY0ewSLFIqoSiB4T7Zr9L5H1wN9Nrncl
-	 O1hhhfGuBMUOeetoD0oPgyTysnP6+ppr+ey4rWZHlaL8EhvKFGMQCopVvHoUibiIe3
-	 VOXRqFH+DGy2XDcoS/p1OsNGDhcsyPDDoM1rzvBo=
+	b=mPZZEW3aNBL5SS0cJ7WMkZinLm4LPrk8CD9ftn/L/WhNzh9ihD8kHh9hdIvlD8vq4
+	 jm7AACzdKfxKmh28Hxpf+R60HTSIHVtqEdFO4jDyisHMGo/5VkseZNWVzkM0l/IA6R
+	 Lxl5wDiyaz9dIe2fhEMxbjuCaJBcg6GNJTDCy/yU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19EDBF804E6;
-	Fri, 10 Dec 2021 22:24:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D51A0F8028D;
+	Sat, 11 Dec 2021 00:15:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6088F804EC; Fri, 10 Dec 2021 22:24:41 +0100 (CET)
+ id 3E3CDF804EC; Sat, 11 Dec 2021 00:15:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
- [209.85.210.48])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [IPv6:2607:f8b0:4864:20::c2f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01079F8028D
- for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 22:24:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01079F8028D
-Received: by mail-ot1-f48.google.com with SMTP id
- u18-20020a9d7212000000b00560cb1dc10bso10887595otj.11
- for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 13:24:32 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57993F804E5
+ for <alsa-devel@alsa-project.org>; Sat, 11 Dec 2021 00:15:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57993F804E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="DuPabAfn"
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ v30-20020a4a315e000000b002c52d555875so2756267oog.12
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 15:15:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=2E/HqmRHKH+zgE860lOcmO9kTAmvQuppX5PXoGMTC2I=;
+ b=DuPabAfndZ1iQbASG8w8zzNXc/VBOj18R8H7SulSlHGCLczfzOA743vNLCE2/OL0Vt
+ 8ceCz81+JlHbpdyTqBw8vCbyBycL46FoKHtEUG0hBjLFRDukeT3BsTpGBK26YD9vIIKs
+ gU6XK15LtvsxbLzba7s9XDq7NZSWmI4q81/BA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=4ShH1E6Z2JK4xPJTdqZzslqHBgFJuNalRHDivGh6RDc=;
- b=1UFuuSXUHyUJ5u4v7Ic7ESUKOIzTyXq2K/bjZv1t3uHjZke+APNs4cTCpNIJpF1PKa
- Qhn6HwVMrxep1rboHrlP8EHxkUG0/2iH3E4bhViU3Iewb/bb/5yorI2j8jmPvtZNbV4Z
- SHYhGdkfHQWOWe8DAcy6OWjPV/SmZsWZW4svQR9+IKnULkY8bfrSlGWQkX5v6VskkPFj
- lBvgZWdl883ZNPHi4ARUOoHpshwguFBYX1nAZrHvz3ODUYX3hQDQ0pNhF6rBj7mqwLeN
- dLdVl8jrSwL9q6Zx3XwSSUBu4Vx0pgQrqck34JqHmouRorYWHkYWw8zu/qADf54qEtt3
- C/fA==
-X-Gm-Message-State: AOAM5326gj6xRzRFWOUH5OGODMuHwfSjY8TJC/NXdXFPlbAFbX1HYUic
- ZDS4Sk0sbBv/DiBxEnfRarne0w4ySw==
-X-Google-Smtp-Source: ABdhPJyhUS0viL9BdOphzRZz9dlpObr3OmI5m++i5XYvmz8q1ZQuIXHQeSElrrbIjZgsG39SC+5GKQ==
-X-Received: by 2002:a05:6830:2453:: with SMTP id
- x19mr13042138otr.32.1639171471327; 
- Fri, 10 Dec 2021 13:24:31 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id u40sm972728oiw.56.2021.12.10.13.24.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Dec 2021 13:24:30 -0800 (PST)
-Received: (nullmailer pid 1925119 invoked by uid 1000);
- Fri, 10 Dec 2021 21:24:29 -0000
-Date: Fri, 10 Dec 2021 15:24:29 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jayesh Choudhary <j-choudhary@ti.com>
-Subject: Re: [PATCH v4] ASoC: dt-bindings: davinci-mcasp: convert McASP
- bindings to yaml schema
-Message-ID: <YbPFjUpDl29f7SQa@robh.at.kernel.org>
-References: <20211203120243.24173-1-j-choudhary@ti.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=2E/HqmRHKH+zgE860lOcmO9kTAmvQuppX5PXoGMTC2I=;
+ b=2RyDZ/f6VM/4pQDhoc87ubKUBRVkXQxu8QLSRYKHG/UltBIur7Fe+ZdM5S93jHQR5m
+ gDVan4fQ6gmbTi8oH9Bnpy9wzhkon2zcjQXdXcVowoPOXumB9gcJvoC25ohmLnKFEnJq
+ Az+RfPIbeIN0Vrqf9LI8ILlPQcUoOpFRZ/+wvnH/1Rspf/ViNrcAyQJgY4Gd0pvGX9AR
+ barfJQB/YaiSc80zyRMcGCgJJ5UiaY1WjNswxjhzq7KzhkKmAKq4rDtjwuUZbAe/02iP
+ vGo3c2MvBBSd+JuaqvJ9CJEfpuZYJ3J4RPrT/MfpL1L9T5p58+ZxtoqfrziGQYRMjSYY
+ NdCQ==
+X-Gm-Message-State: AOAM530YIG5KVPK9JjgXPYFFxXcC+jdEeNm5wu6J2u2genUts0vpCIQU
+ Hn+ff1ufUx/fgFnasgxFQ49pq4fN3cOkO8GDI45XsQ==
+X-Google-Smtp-Source: ABdhPJwPLhUm9uvRAgxsSfKFIIZg5Uii0nz0JiWg2h15zZUlIHrmEOqRL1qpXP9yg7RXJYbVtBujXg+mO7Go9x1zlpA=
+X-Received: by 2002:a4a:acca:: with SMTP id c10mr10031474oon.1.1639178150426; 
+ Fri, 10 Dec 2021 15:15:50 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 10 Dec 2021 15:15:50 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211203120243.24173-1-j-choudhary@ti.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
- peter.ujfalusi@gmail.com
+In-Reply-To: <20211210051907.3870109-1-judyhsiao@chromium.org>
+References: <20211210051907.3870109-1-judyhsiao@chromium.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Fri, 10 Dec 2021 15:15:49 -0800
+Message-ID: <CAE-0n52z=wRS3rXM=zQzcy1yryvzwW6iGA75UYBiYSkR_5edTA@mail.gmail.com>
+Subject: Re: [PATCH] SoC: qcom: Distinguish headset codec by codec_dai->name
+To: Judy Hsiao <judyhsiao@chromium.org>, broonie@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: judyhsiao@google.com, Banajit Goswami <bgoswami@codeaurora.org>,
+ cychiang@google.com, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dianders@chromium.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,265 +98,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Dec 03, 2021 at 05:32:43PM +0530, Jayesh Choudhary wrote:
-> Convert the bindings for McASP controllers for TI SOCs from txt
-> to YAML schema.
-> 
-> Adds additional properties 'clocks', 'clock-names', 'power-domains',
-> '#sound-dai-cells' and 'port' which were missing from txt file.
-> Removes properties 'sram-size-playback' and 'sram-size-capture'
-> since they are not used.
-> Adds 'dmas' and 'dma-names' in the example which were missing from
-> the txt file.
-> Changes 'interrupts' and 'interrupt-names' from optional to
-> required properties.
-> Changes 'op-mode', 'serial-dir' and 'tdm-slots' to optional properties
-> as they are not needed if the McASP is used only as GPIO.
-> 
-> Adds the yaml file in the 'MAINTAINERS' under the heading 'TEXAS
-> INSTRUMENTS ASoC DRIVERS'
-> 
-> Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
-> ---
-> Changelog:
-> v4:
-> - changes the commit message
-> - adds type and description to relevant properties
-> - changes maxItems for 'serial-dir'
-> - removes properties 'sram-size-playback' and 'sram-size-capture'
->   as they are not used
-> - removes 'function-gpios'
-> - removes 'num-serializer'
-> - marks 'tdm-slots', 'serial-dir' and 'op-mode' as optional properties
-> - adds the yaml file in MAINTAINERS
-> 
-> v3:
-> - removes maxItems from 'clock-names'
-> 
-> v2:
-> - changes the commit message
-> - modifies the properties 'clocks', 'clock-names', 'dma-names',
->   'dmas', 'interrupts' and 'interrupt-names' according to the
->   arm SOCs
-> - adds 'ports' and 'num-serializer' as node properties
-> 
->  .../bindings/sound/davinci-mcasp-audio.txt    |  86 --------
->  .../bindings/sound/davinci-mcasp-audio.yaml   | 185 ++++++++++++++++++
->  MAINTAINERS                                   |   1 +
->  3 files changed, 186 insertions(+), 86 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+Quoting Judy Hsiao (2021-12-09 21:19:07)
+> Distinguish which headset codec is on the board by codec_dai->name
+> instead of card->name.
 
+Yes that's what the patch does but why is it important?
 
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
-> @@ -0,0 +1,185 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/davinci-mcasp-audio.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: McASP Controller for TI SoCs
-> +
-> +maintainers:
-> +  - Jayesh Choudhary <j-choudhary@ti.com>
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,dm646x-mcasp-audio
-> +      - ti,da830-mcasp-audio
-> +      - ti,am33xx-mcasp-audio
-> +      - ti,dra7-mcasp-audio
-> +      - ti,omap4-mcasp-audio
-> +
-> +  reg:
-> +    minItems: 1
-> +    items:
-> +      - description: main registers
-> +      - description: data port register
-> +
-> +  reg-names:
-> +    minItems: 1
-> +    items:
-> +      - const: mpu
-> +      - const: dat
-> +
-> +  op-mode:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: I2S - 0 or DIT - 1 operation mode
-> +    enum:
-> +      - 0
-> +      - 1
-> +
-> +  tdm-slots:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: number of channels over one serializer
-> +    maxItems: 1
+>
+> Fixes: 425c5fce8a03 ("ASoC: qcom: Add support for ALC5682I-VS codec")
 
-It's a uint32, so there's always 1 item. Drop.
+It fixes something so what is it fixing? Can you add the call stack of
+the failure and explain how this patch fixes it? We have that patch
+backported to our chromeos 5.4 kernel tree but I assume this reproduces
+upstream.
 
-No constraints? 0-2^32 is valid?
-
-> +
-> +  serial-dir:
-> +    description:
-> +      A list of serializer configuration
-> +      Entry is indication for serializer pin direction
-> +      0 - Inactive, 1 - TX, 2 - RX
-> +      All AXR pins should be present in the array even if inactive
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 1
-> +    maxItems: 25
-> +    items:
-> +      minimum: 0
-> +      maximum: 2
-> +      default: 0
-> +
-> +  dmas:
-> +    minItems: 1
-> +    items:
-> +      - description: transmission DMA channel
-> +      - description: reception DMA channel
-> +
-> +  dma-names:
-> +    minItems: 1
-> +    items:
-> +      - const: tx
-> +      - const: rx
-> +
-> +  ti,hwmods:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: Name of hwmod associated with McASP
-> +    maxItems: 1
-> +    deprecated: true
-> +
-> +  tx-num-evt:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: configures WFIFO threshold
-> +    maxItems: 1
-> +
-> +  rx-num-evt:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: configures RFIFO threshold
-> +    maxItems: 1
-> +
-> +  dismod:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      specify the drive on TX pin during inactive time slots
-> +      0 - 3-state, 2 - logic low, 3 - logic high
-> +    enum:
-> +      - 0
-> +      - 2
-> +      - 3
-> +    default: 2
-> +
-> +  interrupts:
-> +    anyOf:
-> +      - minItems: 1
-> +        items:
-> +          - description: TX FIFO interrupt
-> +          - description: RX FIFO interrupt
-> +      - items:
-> +          - description: common FIFO interrupt
-> +
-> +  interrupt-names:
-> +    oneOf:
-> +      - minItems: 1
-> +        items:
-> +          - const: tx
-> +          - const: rx
-> +      - const: common
-> +
-> +  fck_parent:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: parent clock name for McASP fck
-> +    maxItems: 1
-> +
-> +  auxclk-fs-ratio:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: ratio of AUCLK and FS rate if applicable
-> +    maxItems: 1
-> +
-> +  gpio-controller: true
-> +
-> +  "#gpio-cells":
-> +    const: 2
-> +
-> +  clocks:
-> +    minItems: 1
-> +    items:
-> +      - description: functional clock
-> +      - description: module specific optional ahclkx clock
-> +      - description: module specific optional ahclkr clock
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    items:
-> +      - const: fck
-> +      - const: ahclkx
-> +      - const: ahclkr
-> +
-> +  power-domains:
-> +    description: phandle to the corresponding power-domain
-> +    maxItems: 1
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  port:
-> +    description: connection for when McASP is used via graph card
-> +    type: object
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - dmas
-> +  - dma-names
-> +  - interrupts
-> +  - interrupt-names
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    mcasp0: mcasp0@1d00000 {
-
-Drop unused labels.
-
-> +      compatible = "ti,da830-mcasp-audio";
-> +      reg = <0x100000 0x3000>;
-> +      reg-names = "mpu";
-> +      interrupts = <82>, <83>;
-> +      interrupt-names = "tx", "rx";
-> +      op-mode = <0>;		/* MCASP_IIS_MODE */
-> +      tdm-slots = <2>;
-> +      dmas = <&main_udmap 0xc400>, <&main_udmap 0x4400>;
-> +      dma-names = "tx", "rx";
-> +      serial-dir = <
-> +          0 0 0 0	/* 0: INACTIVE, 1: TX, 2: RX */
-> +          0 0 0 0
-> +          0 0 0 1
-> +          2 0 0 0 >;
-> +      tx-num-evt = <1>;
-> +      rx-num-evt = <1>;
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 00ad0cb5cb05..3fdf1e23f7d7 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -18855,6 +18855,7 @@ TEXAS INSTRUMENTS ASoC DRIVERS
->  M:	Peter Ujfalusi <peter.ujfalusi@gmail.com>
->  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
->  S:	Maintained
-> +F:	Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
->  F:	sound/soc/ti/
->  
->  TEXAS INSTRUMENTS' DAC7612 DAC DRIVER
-> -- 
-> 2.17.1
-> 
-> 
+ Unable to handle kernel paging request at virtual address ffffffbfe7bba9ce
+ Mem abort info:
+   ESR = 0x96000005
+   EC = 0x25: DABT (current EL), IL = 32 bits
+   SET = 0, FnV = 0
+   EA = 0, S1PTW = 0
+ Data abort info:
+   ISV = 0, ISS = 0x00000005
+   CM = 0, WnR = 0
+ swapper pgtable: 4k pages, 39-bit VAs, pgdp=000000008379a000
+ [ffffffbfe7bba9ce] pgd=0000000000000000, pud=0000000000000000
+ Internal error: Oops: 96000005 [#1] PREEMPT SMP
+ Modules linked in: ip6table_nat fuse uvcvideo videobuf2_vmalloc [trimmed]
+ CPU: 7 PID: 2168 Comm: cras Not tainted 5.4.163-lockdep-17364-gfe3d4f499cf1 #1
+ Hardware name: Google Pompom (rev2) with LTE (DT)
+ pstate: 00400009 (nzcv daif +PAN -UAO)
+ pc : rt5682_set_component_pll+0xcc/0xb78 [snd_soc_rt5682]
+ lr : rt5682_set_component_pll+0xbc/0xb78 [snd_soc_rt5682]
+ sp : ffffff808ed7f320
+ x29: ffffff808ed7f390 x28: dfffffd000000000
+ x27: ffffff80b1409550 x26: 00000000aaaaaaaa
+ x25: ffffff80d0a0b820 x24: ffffff80bc1f7098
+ x23: ffffff809332a080 x22: 00000000aaaaaaaa
+ x21: 1ffffff01783ee13 x20: 00000000aaaaaaaa
+ x19: 00000000aaaaaaaa x18: 1ffffff011dafe18
+ x17: 0000000000000000 x16: 0000000000000201
+ x15: 0000000000000000 x14: 0000000062f77d15
+ x13: dfffffd000000000 x12: ffffffd01302ed7c
+ x11: 0000000000000000 x10: ffffff7f3ddd4e74
+ x9 : 0000000000000000 x8 : 1fffffefe7bba9ce
+ x7 : aaaaaaaaaaaaaaaa x6 : 0000000000000000
+ x5 : 0000000000000000 x4 : 0000000000000008
+ x3 : 0000000000000000 x2 : 0000000000000008
+ x1 : 00000000000000aa x0 : ffffff808ed7f358
+ Call trace:
+  rt5682_set_component_pll+0xcc/0xb78 [snd_soc_rt5682]
+  snd_soc_component_set_pll+0x90/0x154
+  snd_soc_dai_set_pll+0xf4/0x1ac
+  sc7180_snd_startup+0x268/0x3c0 [snd_soc_sc7180]
+  snd_soc_link_startup+0xa4/0x180
+  soc_pcm_open+0x35c/0x15c8
+  snd_pcm_open_substream+0xa90/0x13b0
+  snd_pcm_open+0x1a4/0x55c
+  snd_pcm_capture_open+0x7c/0xe8
+  snd_open+0x2b8/0x2e4
+  chrdev_open+0x364/0x3d4
+  do_dentry_open+0x66c/0xc58
+  vfs_open+0x7c/0x8c
+  path_openat+0x108c/0x2bbc
+  do_filp_open+0x15c/0x258
+  do_sys_open+0x278/0x62c
+  __arm64_compat_sys_openat+0x9c/0xb0
+  el0_svc_common+0x1c0/0x3dc
+  el0_svc_compat_handler+0x88/0xd4
+  el0_svc_compat+0x8/0x2c
+ Code: 8b3acae8 910d310a d343fd48 a9012be8 (38fc6908)

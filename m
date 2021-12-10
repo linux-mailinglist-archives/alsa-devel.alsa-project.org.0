@@ -2,48 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 830EE4701D3
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 14:37:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40B334702DB
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 15:30:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 069ED2020;
-	Fri, 10 Dec 2021 14:36:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 069ED2020
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E39C204B;
+	Fri, 10 Dec 2021 15:29:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E39C204B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639143430;
-	bh=+la3FfHfnZ4xI0LfWqESGnQlpYCMpIWIStFnv5Ck5SE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Z0NqTHHnwnQ3WzIiLSLLsYPiV6SZXfgix8P7hNCeVkqG4CKP9WHfo89EzzS+dCe9q
-	 qeuTmoOiiMBNHWBerB642QyoTylUx1wbOqAPhVhSNuDE3l1Jiv9bSAYhl/br3nvLs9
-	 2poJf1o6suqVQyH+s7/0aUiGRPG5eS3z8dENpo/M=
+	s=default; t=1639146599;
+	bh=vYr7ai1Y/QYM9SXpnQW9J1SPyOHuP3ilj3tnJu0vmeg=;
+	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=o8miO2bjRQECeFTDp7gn2J01ZM4H6xbV43CE9hua8jlt+uuhVCY0cOimxkL3pXr/N
+	 sq61pE66PYdc/NLfuuuU8QuktSE7k5PaIn19mHnl0vtHSh4wJD9Sk2GsTHY+1dZt96
+	 2aF5zVNrgtycPAEbBPs2uYyV+8LnYYLohhu3uPZk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71C2BF8028D;
-	Fri, 10 Dec 2021 14:35:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2A1EF8028D;
+	Fri, 10 Dec 2021 15:28:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BE98F804EC; Fri, 10 Dec 2021 14:35:57 +0100 (CET)
+ id ACAB9F804EC; Fri, 10 Dec 2021 15:28:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 9A5C9F804E5
- for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 14:35:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A5C9F804E5
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2898F8028D
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 15:28:38 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 06A01A0040
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 15:28:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 06A01A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1639146513; bh=m266FMGrZ81suO4vO9/gt4abUd1+GkLYybGgb2a8cKE=;
+ h=Date:To:From:Subject:From;
+ b=cXTtKKAKExpetynRu1B3o30BtEKi9UM1eslqY9QTPHs407sCtRu16WYi5RBzeut+y
+ f/85+qVsIOH0R9PxfUr9y044T8o8EGkImntDp7yeeTngorpKLFKnzBudUDN14yzQS2
+ CrS2SGsitDRdBswqYL36TFOCXuZ08iCtFOlrNM6E=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 15:28:31 +0100 (CET)
+Message-ID: <d39d643c-2276-580d-ba8c-c59921ffa680@perex.cz>
+Date: Fri, 10 Dec 2021 15:28:31 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Content-Language: en-US
+To: ALSA development <alsa-devel@alsa-project.org>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: ALSA 1.2.6.2 release
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1639143353802089930-webhooks-bot@alsa-project.org>
-References: <1639143353802089930-webhooks-bot@alsa-project.org>
-Subject: Add UCM support for SDM845 based Lenovo yoga c630
-Message-Id: <20211210133557.2BE98F804EC@alsa1.perex.cz>
-Date: Fri, 10 Dec 2021 14:35:57 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,14 +76,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #88 was edited from Srinivas-Kandagatla:
+Hello all,
 
-One of the Lenovo YOGA C360 variant is based off Qualcomm SDM845  SoC. This PR adds support to On Board Speakers and Headset. 
-This PR also has a small change to the codec Headphone sequences to be inline with other Sequences.
+        new ALSA userspace packages were released. This is second bugfix
+release. You may download them from the ALSA website
+http://www.alsa-project.org or directly:
 
-thanks,
-srini
+        HTTP: https://www.alsa-project.org/files/pub
+        FTP:  ftp://ftp.alsa-project.org/pub
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/88
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/88.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Released packages:
+
+        alsa-ucm-conf
+
+Full list of changes:
+
+        https://www.alsa-project.org/wiki/Changes_v1.2.6.1_v1.2.6.2
+
+The fingerprint of the public signing key is:
+
+        F04D F507 37AC 1A88 4C4B 3D71 8380 596D A6E5 9C91
+
+				Have fun,
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

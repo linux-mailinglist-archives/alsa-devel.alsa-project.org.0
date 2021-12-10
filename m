@@ -2,77 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D43C746FEE3
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 11:44:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1E9846FF77
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 12:08:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62555209F;
-	Fri, 10 Dec 2021 11:43:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62555209F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5979F20DA;
+	Fri, 10 Dec 2021 12:07:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5979F20DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639133079;
-	bh=iWI8BOTdxLnhByqrkizBz6BiOjZlbB2d7gbIweOfK+o=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=limFTk7qRm1GAxiEVQJCSwL7R57uHHHH70gd4bocSCzsNwxDupyoVGdVY4qGEasDx
-	 FqBM1Wo3XXBLC0Mpyde8i/3iUezN7qtgdLXykEnuctRn3xly6WCbC3UZ1PimZG4vPG
-	 lGknE//Lnlzo3dC5h1g8ali7ha/34FRab3J0g4hc=
+	s=default; t=1639134500;
+	bh=RqBi9/3VoQjJ0h92wXXAWW4g+Rcwu/qM21BGuJRZVEw=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=O1iuXyV1jD28gK4kUDcV+j511oJmwUiZ3aUUIMEIOXT264Th6bSr7ga+t68Fx4KHG
+	 gnYfxWFfxpOgZlgam9eWoaL3K0Nhs+dRLZ8xr9YzBxe7VOt0/D21GpE3oBjKL50lmB
+	 3MD8v2iy638/S5aboxC2X8xmgr3mhyStCWKb+SnQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEFD4F804F2;
-	Fri, 10 Dec 2021 11:42:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1A09F804ED;
+	Fri, 10 Dec 2021 12:07:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51558F80507; Fri, 10 Dec 2021 11:42:20 +0100 (CET)
+ id 17ACFF8028D; Fri, 10 Dec 2021 12:07:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4513EF804E6;
- Fri, 10 Dec 2021 11:42:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4513EF804E6
-X-UUID: e3d25766031344ac9e8c5811302a91de-20211210
-X-UUID: e3d25766031344ac9e8c5811302a91de-20211210
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1100073186; Fri, 10 Dec 2021 18:41:59 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 10 Dec 2021 18:41:57 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Fri, 10 Dec 2021 18:41:57 +0800
-From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jassi Brar
- <jassisinghbrar@gmail.com>
-Subject: [RESEND PATCH v10 3/3] mailbox: mediatek: add support for adsp
- mailbox controller
-Date: Fri, 10 Dec 2021 18:41:53 +0800
-Message-ID: <20211210104153.24181-4-allen-kh.cheng@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20211210104153.24181-1-allen-kh.cheng@mediatek.com>
-References: <20211210104153.24181-1-allen-kh.cheng@mediatek.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, cujomalainey@google.com,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88AB4F8028D
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 12:07:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88AB4F8028D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="PzE8wHJ5"
+Received: by mail-wm1-x335.google.com with SMTP id
+ 77-20020a1c0450000000b0033123de3425so8772533wme.0
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 03:07:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:content-transfer-encoding:mime-version:subject:message-id:date
+ :cc:to; bh=x9gEq6s4SQ/Y/FxoC+bzykQK0mZXKAzCdkeCzV1aA48=;
+ b=PzE8wHJ5AA4Vg/9XGrhH4yAo5g4vnZzwcLKYrlFvcR4JNyvCIBHTLr4TIhwN4qxum1
+ kMOxslNDujtntCR/TzSk3LiD/JSJndwUBsiCXZB89M+VbMzPEwQ1bKSMF7mh4KdRQL93
+ 7ARWd4oMGvhRzIecK7lo0kzJZIGrbQfN7Yc+mWIO8JW/eakLaAuXl98jtlerDeVEUh1y
+ b5tl3G/sh59ZvYAcLRLZWNx9M+2e4cCbg5Qxrgkz5Vvhohixxj7J0fptwNA0n/WbBj2a
+ d1TG84Fiph/jO81Rvlgt7x8r3TAJvM0M7F9K6gzVrZWm26H7CJOLZ3EsM6i2ZXUr/tD2
+ KNQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:content-transfer-encoding:mime-version
+ :subject:message-id:date:cc:to;
+ bh=x9gEq6s4SQ/Y/FxoC+bzykQK0mZXKAzCdkeCzV1aA48=;
+ b=KKRe/tawzb1FLTMkFIcuI8UiRI8eAhH4IYM2bEDtIZwoJAoDwBKTiNXovK9vd8xvLk
+ 9qOgCC3P/D2gjTskHOgBFWeE8Ah+BVe0klE2bJ3WNu6OqFK1r8k/5ptXjoU3cbZDGOrp
+ HoqIDPa4dR0jUbzSAQ78FfkYkIn14KGRB3aIEYwtZvEia+t31IxEHuBVFNLSGgzRRVTx
+ tdZUZzC88KkTfV3Yz60hb2BovtDRRsF0vopudPZvQ6go1PzKbi1tX42IvXs8ImGBcEe+
+ ykcsjhxBJzGUo56SonutZH+xXzvsoVWs+yzcwoztFxhApz8jTTMtzVC5yAo1wKEhNMj0
+ wVyg==
+X-Gm-Message-State: AOAM531TWza0Em+6kpVcsKEGqHAZupRTiAy+w70Vt7WRVy65J1zl0Nnz
+ 7v+KsAwRKu6KP2+8wyOjwSMaRAXT7pBz5Q==
+X-Google-Smtp-Source: ABdhPJwI++kvSmDLzeExD7eKzUBdlEK2U4U5g+Q0LUpop3GCZumCJMuSR2LQoGCxbBrwgOu59XJ3Og==
+X-Received: by 2002:a1c:7309:: with SMTP id d9mr6727518wmb.172.1639134418400; 
+ Fri, 10 Dec 2021 03:06:58 -0800 (PST)
+Received: from [10.127.0.11] ([167.99.200.149])
+ by smtp.gmail.com with ESMTPSA id x1sm2293334wru.40.2021.12.10.03.06.57
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 10 Dec 2021 03:06:58 -0800 (PST)
+From: Christian Hewitt <christianshewitt@gmail.com>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.7\))
+Subject: Amlogic DPCM audio card(s) speaker placement issue
+Message-Id: <10DB0841-1BBB-4F06-A2A1-2B25D48A5F72@gmail.com>
+Date: Fri, 10 Dec 2021 15:06:55 +0400
+To: alsa-devel@alsa-project.org,
+ linux-amlogic@lists.infradead.org
+X-Mailer: Apple Mail (2.3608.120.23.2.7)
+Cc: Matthias Reichl <hias@horus.com>, Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,233 +99,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
+Hello alsa-dev / linux-amlogic,
 
-This patch is to for MediaTek ADSP IPC mailbox controller driver
-It is used to send short messages between processors with adsp
+I=E2=80=99d like to describe a problem with speaker placement seen with =
+the Amlogic
+(meson) AIU and AXG audio drivers. Playing media in Kodi I=E2=80=99d =
+noticed that
+placement is consistently wrong; meaning the incorrect placement remains
+the same over different media and Amlogic hardwares.
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
-Signed-off-by: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
----
- drivers/mailbox/Kconfig            |   7 ++
- drivers/mailbox/Makefile           |   2 +
- drivers/mailbox/mtk-adsp-mailbox.c | 176 +++++++++++++++++++++++++++++
- 3 files changed, 185 insertions(+)
- create mode 100644 drivers/mailbox/mtk-adsp-mailbox.c
+This was traced to a failure to get the channel map via =
+snd_pcm_get_chmap()
+and further analysis showed this failed because the PCM controls are =
+exposed
+on a different device than the PCM stream.
 
-diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
-index c9fc06c7e685..6922ffef6036 100644
---- a/drivers/mailbox/Kconfig
-+++ b/drivers/mailbox/Kconfig
-@@ -226,6 +226,13 @@ config STM32_IPCC
- 	  with hardware for Inter-Processor Communication Controller (IPCC)
- 	  between processors. Say Y here if you want to have this support.
- 
-+config MTK_ADSP_MBOX
-+	tristate "MediaTek ADSP Mailbox Controller"
-+	depends on ARCH_MEDIATEK || COMPILE_TEST
-+	help
-+	  Say yes here to add support for MediaTek ADSP mailbox controller
-+	  driver. It is used to send short messages between processors with dsp.
-+
- config MTK_CMDQ_MBOX
- 	tristate "MediaTek CMDQ Mailbox Support"
- 	depends on ARCH_MEDIATEK || COMPILE_TEST
-diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
-index c2089f04887e..18793e6caa2f 100644
---- a/drivers/mailbox/Makefile
-+++ b/drivers/mailbox/Makefile
-@@ -49,6 +49,8 @@ obj-$(CONFIG_TEGRA_HSP_MBOX)	+= tegra-hsp.o
- 
- obj-$(CONFIG_STM32_IPCC) 	+= stm32-ipcc.o
- 
-+obj-$(CONFIG_MTK_ADSP_MBOX)	+= mtk-adsp-mailbox.o
-+
- obj-$(CONFIG_MTK_CMDQ_MBOX)	+= mtk-cmdq-mailbox.o
- 
- obj-$(CONFIG_ZYNQMP_IPI_MBOX)	+= zynqmp-ipi-mailbox.o
-diff --git a/drivers/mailbox/mtk-adsp-mailbox.c b/drivers/mailbox/mtk-adsp-mailbox.c
-new file mode 100644
-index 000000000000..b8174f155f8d
---- /dev/null
-+++ b/drivers/mailbox/mtk-adsp-mailbox.c
-@@ -0,0 +1,176 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2021 MediaTek Corporation. All rights reserved.
-+ * Author: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
-+ */
-+
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/kernel.h>
-+#include <linux/mailbox_controller.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/slab.h>
-+
-+struct mtk_adsp_mbox_priv {
-+	struct device *dev;
-+	struct mbox_controller mbox;
-+	void __iomem *va_mboxreg;
-+	const struct mtk_adsp_mbox_cfg *cfg;
-+};
-+
-+struct mtk_adsp_mbox_cfg {
-+	u32 set_in;
-+	u32 set_out;
-+	u32 clr_in;
-+	u32 clr_out;
-+};
-+
-+static struct mtk_adsp_mbox_priv *get_mtk_adsp_mbox_priv(struct mbox_controller *mbox)
-+{
-+	return container_of(mbox, struct mtk_adsp_mbox_priv, mbox);
-+}
-+
-+static irqreturn_t mtk_adsp_mbox_irq(int irq, void *data)
-+{
-+	struct mbox_chan *chan = data;
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+	u32 op = readl(priv->va_mboxreg + priv->cfg->set_out);
-+
-+	writel(op, priv->va_mboxreg + priv->cfg->clr_out);
-+
-+	return IRQ_WAKE_THREAD;
-+}
-+
-+static irqreturn_t mtk_adsp_mbox_isr(int irq, void *data)
-+{
-+	struct mbox_chan *chan = data;
-+
-+	mbox_chan_received_data(chan, NULL);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static struct mbox_chan *mtk_adsp_mbox_xlate(struct mbox_controller *mbox,
-+					     const struct of_phandle_args *sp)
-+{
-+	return mbox->chans;
-+}
-+
-+static int mtk_adsp_mbox_startup(struct mbox_chan *chan)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+
-+	/* Clear DSP mbox command */
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_in);
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_out);
-+
-+	return 0;
-+}
-+
-+static void mtk_adsp_mbox_shutdown(struct mbox_chan *chan)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+
-+	/* Clear DSP mbox command */
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_in);
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_out);
-+}
-+
-+static int mtk_adsp_mbox_send_data(struct mbox_chan *chan, void *data)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+	u32 *msg = data;
-+
-+	writel(*msg, priv->va_mboxreg + priv->cfg->set_in);
-+
-+	return 0;
-+}
-+
-+static bool mtk_adsp_mbox_last_tx_done(struct mbox_chan *chan)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+
-+	return readl(priv->va_mboxreg + priv->cfg->set_in) == 0;
-+}
-+
-+static const struct mbox_chan_ops mtk_adsp_mbox_chan_ops = {
-+	.send_data	= mtk_adsp_mbox_send_data,
-+	.startup	= mtk_adsp_mbox_startup,
-+	.shutdown	= mtk_adsp_mbox_shutdown,
-+	.last_tx_done	= mtk_adsp_mbox_last_tx_done,
-+};
-+
-+static int mtk_adsp_mbox_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct mtk_adsp_mbox_priv *priv;
-+	const struct mtk_adsp_mbox_cfg *cfg;
-+	struct mbox_controller *mbox;
-+	int ret, irq;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	mbox = &priv->mbox;
-+	mbox->dev = dev;
-+	mbox->ops = &mtk_adsp_mbox_chan_ops;
-+	mbox->txdone_irq = false;
-+	mbox->txdone_poll = true;
-+	mbox->of_xlate = mtk_adsp_mbox_xlate;
-+	mbox->num_chans = 1;
-+	mbox->chans = devm_kzalloc(dev, sizeof(*mbox->chans), GFP_KERNEL);
-+	if (!mbox->chans)
-+		return -ENOMEM;
-+
-+	priv->va_mboxreg = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->va_mboxreg))
-+		return PTR_ERR(priv->va_mboxreg);
-+
-+	cfg = of_device_get_match_data(dev);
-+	if (!cfg)
-+		return -EINVAL;
-+	priv->cfg = cfg;
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_threaded_irq(dev, irq, mtk_adsp_mbox_irq,
-+					mtk_adsp_mbox_isr, IRQF_TRIGGER_NONE,
-+					dev_name(dev), mbox->chans);
-+	if (ret < 0)
-+		return ret;
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	return devm_mbox_controller_register(dev, &priv->mbox);
-+}
-+
-+static const struct mtk_adsp_mbox_cfg mt8195_adsp_mbox_cfg = {
-+	.set_in		= 0x00,
-+	.set_out	= 0x1c,
-+	.clr_in		= 0x04,
-+	.clr_out	= 0x20,
-+};
-+
-+static const struct of_device_id mtk_adsp_mbox_of_match[] = {
-+	{ .compatible = "mediatek,mt8195-adsp-mbox", .data = &mt8195_adsp_mbox_cfg },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, mtk_adsp_mbox_of_match);
-+
-+static struct platform_driver mtk_adsp_mbox_driver = {
-+	.probe		= mtk_adsp_mbox_probe,
-+	.driver = {
-+		.name	= "mtk_adsp_mbox",
-+		.of_match_table = mtk_adsp_mbox_of_match,
-+	},
-+};
-+module_platform_driver(mtk_adsp_mbox_driver);
-+
-+MODULE_AUTHOR("Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>");
-+MODULE_DESCRIPTION("MTK ADSP Mailbox Controller");
-+MODULE_LICENSE("GPL v2");
--- 
-2.18.0
+e.g. on LibreTech LePotato with DPCM routing configured for HDMI output,
+the hw PCM is on the single frontend device 0 but the PCM controls are
+on device 2:
+
+LePotato:~ # aplay -l
+**** List of PLAYBACK Hardware Devices ****
+card 0: LIBRETECHCC [LIBRETECH-CC], device 0: fe.dai-link-0 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+
+LePotato:~ # amixer controls
+numid=3D19,iface=3DMIXER,name=3D'PCM Playback Volume'
+numid=3D18,iface=3DMIXER,name=3D'ACODEC Left DAC Sel'
+numid=3D7,iface=3DMIXER,name=3D'ACODEC Mute Ramp Switch'
+numid=3D2,iface=3DMIXER,name=3D'ACODEC Playback Channel Mode'
+numid=3D3,iface=3DMIXER,name=3D'ACODEC Playback Switch'
+numid=3D4,iface=3DMIXER,name=3D'ACODEC Playback Volume'
+numid=3D5,iface=3DMIXER,name=3D'ACODEC Ramp Rate'
+numid=3D17,iface=3DMIXER,name=3D'ACODEC Right DAC Sel'
+numid=3D8,iface=3DMIXER,name=3D'ACODEC Unmute Ramp Switch'
+numid=3D6,iface=3DMIXER,name=3D'ACODEC Volume Ramp Switch'
+numid=3D1,iface=3DMIXER,name=3D'AIU ACODEC I2S Lane Select'
+numid=3D16,iface=3DMIXER,name=3D'AIU ACODEC OUT EN Switch'
+numid=3D15,iface=3DMIXER,name=3D'AIU ACODEC SRC'
+numid=3D14,iface=3DMIXER,name=3D'AIU HDMI CTRL SRC'
+numid=3D13,iface=3DMIXER,name=3D'AIU SPDIF SRC SEL'
+numid=3D12,iface=3DPCM,name=3D'ELD',device=3D2
+numid=3D11,iface=3DPCM,name=3D'IEC958 Playback Default',device=3D2
+numid=3D10,iface=3DPCM,name=3D'IEC958 Playback Mask',device=3D2
+numid=3D9,iface=3DPCM,name=3D'Playback Channel Map',device=3D2
+
+=
+https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/amlogic/=
+meson-gxl-s905x-libretech-cc.dts#L136-L188
+
+or on a Wetek Play 2:
+
+WP2:~ # aplay -l
+**** List of PLAYBACK Hardware Devices ****
+card 0: WETEKPLAY2 [WETEK-PLAY2], device 0: fe.dai-link-0 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: WETEKPLAY2 [WETEK-PLAY2], device 1: fe.dai-link-1 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+
+WP2:~ # amixer controls
+numid=3D7,iface=3DMIXER,name=3D'PCM Playback Volume'
+numid=3D6,iface=3DMIXER,name=3D'AIU HDMI CTRL SRC'
+numid=3D5,iface=3DMIXER,name=3D'AIU SPDIF SRC SEL'
+numid=3D4,iface=3DPCM,name=3D'ELD',device=3D4
+numid=3D3,iface=3DPCM,name=3D'IEC958 Playback Default',device=3D4
+numid=3D2,iface=3DPCM,name=3D'IEC958 Playback Mask',device=3D4
+numid=3D1,iface=3DPCM,name=3D'Playback Channel Map',device=3D4
+
+=
+https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/amlogic/=
+meson-gxbb-wetek-play2.dts#L51-L97
+
+It looks like the PCM controls of the backend hdmi-codec are not routed
+through the DPCM driver the same way as PCM streams. We discussed that
+issue with Jerome, the driver author, but it=E2=80=99s not clear which =
+bits we
+are missing. i.e. if it's something ASoC DPCM should be handling or if
+some further plumbing in the card driver or userspace is needed?
+
+Any hints into the right direction would be highly appreciated!
+
+Christian
 

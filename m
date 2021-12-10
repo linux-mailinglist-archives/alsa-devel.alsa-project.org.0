@@ -2,89 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E85A46FA1B
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 06:20:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F1B146FB04
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 07:59:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE233209B;
-	Fri, 10 Dec 2021 06:19:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE233209B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B24E9170A;
+	Fri, 10 Dec 2021 07:58:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B24E9170A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639113638;
-	bh=TIqWcH4mt44tVR0i/M7G7ObLRkHCB/4pkd7TuhyTWZk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=aJ05gWf3YP4fATscVy1iBpjjqswKyh2FVVLU2URNPVwfaWcKeN1giFw2ff12U9IUH
-	 UlGg1gUmpsOtLkRdozkx9CqZFOd032/B4xjBleXlFZOD4woKdB8KFeysqk69r2KnkY
-	 nA4wbQkEMQxQ6uAD7AYPHf0jOPE9WK3bmxa7EPso=
+	s=default; t=1639119563;
+	bh=3aDH0qIozabq3xwoeaOdGfIoY5fUGWsvCNViv0SDHOA=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=inekI/V5WzHg5DaXu+HXywKlkAUL610GwhoRH9jtz9qO8ZmAS4+wKPcwVadZsfJ8d
+	 MqfDUUlray6vFQUDcuBbZmS9gd//R9eACpBluYdjr0aFxAXFXzp0GrWe+GWgN8MudL
+	 sJ6YLatDRkJQOzQeAfMdwVWTy/qagGGHsM9tHHxM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19F21F800AB;
-	Fri, 10 Dec 2021 06:19:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAD50F8028D;
+	Fri, 10 Dec 2021 07:58:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B632F804E5; Fri, 10 Dec 2021 06:19:26 +0100 (CET)
+ id 5D19EF804E5; Fri, 10 Dec 2021 07:58:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D410EF800AB
- for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 06:19:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D410EF800AB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="IHdhVUZR"
-Received: by mail-pj1-x1033.google.com with SMTP id
- n15-20020a17090a160f00b001a75089daa3so8626738pja.1
- for <alsa-devel@alsa-project.org>; Thu, 09 Dec 2021 21:19:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1n5pw55TMAAP+SKn+79BLK8ytK8/fOHPCl2GwuSHIGk=;
- b=IHdhVUZRyIP1kDwF23TNlIYr6AflXGTL2Qhb9EsRD1szNGl8+dGgQ5n1MhRenEftjk
- Xwkz7FuxaLl0mJCgdMdD33+Kgb5Uh3THJ/6L9xAKMBCoL1ND/sQXakUU1Xd+DJvB6Qnz
- 693i9PEsie4ilayw7bYnX/sVTT+U+AsT8yAcI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1n5pw55TMAAP+SKn+79BLK8ytK8/fOHPCl2GwuSHIGk=;
- b=3vwGl9zgb3c/Lmp+3kW2h69SXfmZW7fwmHja1c0Ipt+bVierNjeP9mlk8U53Aj+jSg
- /7wiZiXYM/e/UOIsGldwfBW/fcX8abYoPIEFPTpxTLL0EgJdfmepW9LEJ8G4E9Q/Ob3u
- szGhU8zHrCcDLwGDWe3NaSA/nqWcdDouqfEmE33tcD/ofhxyXVz1vQmHlXcQ+HB3pRIQ
- aKmd3J4ThfBX5Og82PCv/Xd1ogLJyN2BvQdxs1fgZQS5a7PiJNYJHR+7vNk0+G3OwTt4
- 3rzHgnAptOXo7CY5SGMwSPdamBaYuKzxUDFpPPeSPzeBb/T2HVq4a9uO3U4j4Qs3Z1x6
- YrqA==
-X-Gm-Message-State: AOAM5308U8Q3XGaOKvVqj0Nsk1UcHhEa7DdEFuJked3V0e70iVbG1P9k
- rYfUEWx9ZLuiSXyQF8iYILKbhA==
-X-Google-Smtp-Source: ABdhPJz5InQ30owmtXBOEYTl9rLRYViCgmknbgMPnXE21LrK5AmdsKgwgw42dmFnbwrS3kjE08um9A==
-X-Received: by 2002:a17:90b:50c:: with SMTP id
- r12mr21177490pjz.71.1639113553400; 
- Thu, 09 Dec 2021 21:19:13 -0800 (PST)
-Received: from judyhsiao-p920.tpe.corp.google.com
- ([2401:fa00:1:10:ac18:fa:d4fe:57bf])
- by smtp.gmail.com with ESMTPSA id f3sm1197853pgv.51.2021.12.09.21.19.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Dec 2021 21:19:12 -0800 (PST)
-From: Judy Hsiao <judyhsiao@chromium.org>
-To: broonie@kernel.org
-Subject: [PATCH] SoC: qcom: Distinguish headset codec by codec_dai->name
-Date: Fri, 10 Dec 2021 13:19:07 +0800
-Message-Id: <20211210051907.3870109-1-judyhsiao@chromium.org>
-X-Mailer: git-send-email 2.34.1.173.g76aa8bc2d0-goog
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 55F98F8028D
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 07:57:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55F98F8028D
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: judyhsiao@google.com, Banajit Goswami <bgoswami@codeaurora.org>,
- cychiang@google.com, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, dianders@chromium.org, Takashi Iwai <tiwai@suse.com>,
- Judy Hsiao <judyhsiao@chromium.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1639119476102976084-webhooks-bot@alsa-project.org>
+References: <1639119476102976084-webhooks-bot@alsa-project.org>
+Subject: PA reports possible bug in 'snd_usb_audio'
+Message-Id: <20211210065807.5D19EF804E5@alsa1.perex.cz>
+Date: Fri, 10 Dec 2021 07:58:07 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,35 +59,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Distinguish which headset codec is on the board by codec_dai->name
-instead of card->name.
+alsa-project/alsa-lib issue #201 was opened from riveravaldez:
 
-Fixes: 425c5fce8a03 ("ASoC: qcom: Add support for ALC5682I-VS codec")
-Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
----
- sound/soc/qcom/sc7180.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Hi, I'm having some hangs with an until-yesterday perfectly-working setup.
+Only way to fix it seems to be restarting JACK.
 
-diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
-index 2fff764a00a7..37225ef2563a 100644
---- a/sound/soc/qcom/sc7180.c
-+++ b/sound/soc/qcom/sc7180.c
-@@ -131,13 +131,13 @@ static int sc7180_snd_startup(struct snd_pcm_substream *substream)
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
- 	int pll_id, pll_source, pll_in, pll_out, clk_id, ret;
- 
--	if (!(strcmp(card->name, "sc7180-rt5682-max98357a-1mic"))) {
-+	if (!strcmp(codec_dai->name, "rt5682-aif1")) {
- 		pll_source = RT5682_PLL1_S_MCLK;
- 		pll_id = 0;
- 		clk_id = RT5682_SCLK_S_PLL1;
- 		pll_out = RT5682_PLL1_FREQ;
- 		pll_in = DEFAULT_MCLK_RATE;
--	} else if (!(strcmp(card->name, "sc7180-rt5682s-max98357a-1mic"))) {
-+	} else if (!strcmp(codec_dai->name, "rt5682s-aif1")) {
- 		pll_source = RT5682S_PLL_S_MCLK;
- 		pll_id = RT5682S_PLL2;
- 		clk_id = RT5682S_SCLK_S_PLL2;
--- 
-2.34.1.173.g76aa8bc2d0-goog
+Looking at system messages I found:
 
+```
+$ sudo journalctl -b -exp3
+- Journal begins at Mon 2020-09-07 22:43:48 -03, ends at Thu 2021-12-09 17:38:30 -03. --
+dic 02 20:05:13 debian pulseaudio[73378]: Failed to load module "module-alsa-card" (argument: "device_id="1" name="usb-Burr-Brown_from_TI_USB_Audio_CODEC-00" card_name=">
+dic 03 14:31:49 debian pulseaudio[92221]: Failed to find a working profile.
+dic 03 14:31:49 debian pulseaudio[92221]: Failed to load module "module-alsa-card" (argument: "device_id="2" name="usb-Evolution_Electronics_Ltd._USB_Keystation_61es-00">
+dic 03 16:54:00 debian kernel: usb 1-1.2: urb status -32
+dic 03 16:54:00 debian kernel: usb 1-1.2: urb status -32
+(...)
+dic 03 16:54:02 debian kernel: usb 1-1.2: urb status -32
+dic 03 16:54:02 debian kernel: usb 1-1.2: urb status -32
+dic 03 16:56:37 debian pulseaudio[92221]: Failed to load module "module-alsa-card" (argument: "device_id="1" name="usb-Burr-Brown_from_TI_USB_Audio_CODEC-00" card_name=">
+dic 04 13:04:55 debian pulseaudio[95017]: ALSA woke us up to write new data to the device, but there was actually nothing to write.
+dic 04 13:04:55 debian pulseaudio[95017]: Most likely this is a bug in the ALSA driver 'snd_usb_audio'. Please report this issue to the ALSA developers.
+dic 04 13:04:55 debian pulseaudio[95017]: We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.
+dic 08 10:47:20 debian pulseaudio[174863]: Failed to find a working profile.
+dic 08 10:47:20 debian pulseaudio[174863]: Failed to load module "module-alsa-card" (argument: "device_id="2" name="usb-Evolution_Electronics_Ltd._USB_Keystation_61es-00>
+dic 08 18:16:06 debian kernel: usb 1-1.2: urb status -32
+dic 08 18:16:07 debian kernel: usb 1-1.2: urb status -32
+(...)
+dic 08 18:16:08 debian kernel: usb 1-1.2: urb status -32
+dic 08 18:16:08 debian kernel: usb 1-1.2: urb status -32
+dic 08 18:17:50 debian pulseaudio[174863]: Failed to load module "module-alsa-card" (argument: "device_id="1" name="usb-Burr-Brown_from_TI_USB_Audio_CODEC-00" card_name=>
+dic 09 13:10:40 debian pulseaudio[202715]: Failed to find a working profile.
+dic 09 13:10:40 debian pulseaudio[202715]: Failed to load module "module-alsa-card" (argument: "device_id="2" name="usb-Evolution_Electronics_Ltd._USB_Keystation_61es-00>
+dic 09 13:59:46 debian pulseaudio[202715]: Failed to load module "module-alsa-card" (argument: "device_id="1" name="usb-Burr-Brown_from_TI_USB_Audio_CODEC-00" card_name=>
+dic 09 14:13:31 debian pulseaudio[204356]: Failed to find a working profile.
+dic 09 14:13:31 debian pulseaudio[204356]: Failed to load module "module-alsa-card" (argument: "device_id="2" name="usb-Evolution_Electronics_Ltd._USB_Keystation_61es-00>
+dic 09 14:13:52 debian pulseaudio[204395]: Failed to find a working profile.
+dic 09 14:13:52 debian pulseaudio[204395]: Failed to load module "module-alsa-card" (argument: "device_id="2" name="usb-Evolution_Electronics_Ltd._USB_Keystation_61es-00>
+dic 09 14:31:20 debian pulseaudio[204395]: Failed to load module "module-alsa-card" (argument: "device_id="1" name="usb-Burr-Brown_from_TI_USB_Audio_CODEC-00" card_name=>
+dic 09 14:38:26 debian pulseaudio[205228]: Failed to find a working profile.
+dic 09 14:38:26 debian pulseaudio[205228]: Failed to load module "module-alsa-card" (argument: "device_id="2" name="usb-Evolution_Electronics_Ltd._USB_Keystation_61es-00>
+dic 09 15:05:37 debian pulseaudio[205228]: Failed to load module "module-alsa-card" (argument: "device_id="1" name="usb-Burr-Brown_from_TI_USB_Audio_CODEC-00" card_name=>
+dic 09 17:25:21 debian pulseaudio[205228]: jack_client_open() failed.
+dic 09 17:25:21 debian pulseaudio[205228]: Failed to load module "module-jack-sink" (argument: ""): initialization failed.
+```
+
+This is a ThinkPad X220T with updated Debian 11 (Stable) with the internal audio-interface turned-off through PA and an external Behringer U-PHORIA UMC22 handling all the audio.
+
+```
+$ uname -a
+Linux debian 5.10.0-9-amd64 #1 SMP Debian 5.10.70-1 (2021-09-30) x86_64 GNU/Linux
+$ lspci 
+00:00.0 Host bridge: Intel Corporation 2nd Generation Core Processor Family DRAM Controller (rev 09)
+00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
+00:16.0 Communication controller: Intel Corporation 6 Series/C200 Series Chipset Family MEI Controller #1 (rev 04)
+00:16.3 Serial controller: Intel Corporation 6 Series/C200 Series Chipset Family KT Controller (rev 04)
+00:19.0 Ethernet controller: Intel Corporation 82579LM Gigabit Network Connection (Lewisville) (rev 04)
+00:1a.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #2 (rev 04)
+00:1b.0 Audio device: Intel Corporation 6 Series/C200 Series Chipset Family High Definition Audio Controller (rev 04)
+00:1c.0 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 1 (rev b4)
+00:1c.1 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 2 (rev b4)
+00:1c.3 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 4 (rev b4)
+00:1c.4 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 5 (rev b4)
+00:1d.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #1 (rev 04)
+00:1f.0 ISA bridge: Intel Corporation QM67 Express Chipset LPC Controller (rev 04)
+00:1f.2 SATA controller: Intel Corporation 6 Series/C200 Series Chipset Family 6 port Mobile SATA AHCI Controller (rev 04)
+00:1f.3 SMBus: Intel Corporation 6 Series/C200 Series Chipset Family SMBus Controller (rev 04)
+03:00.0 Network controller: Intel Corporation Centrino Advanced-N 6205 [Taylor Peak] (rev 34)
+0d:00.0 System peripheral: Ricoh Co Ltd PCIe SDXC/MMC Host Controller (rev 07)
+$ lsusb 
+Bus 002 Device 004: ID 056a:00e6 Wacom Co., Ltd TPCE6
+Bus 002 Device 024: ID 0000:3825   USB OPTICAL MOUSE
+Bus 002 Device 028: ID 08bb:2902 Texas Instruments PCM2902 Audio Codec
+Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 003: ID 04f2:b217 Chicony Electronics Co., Ltd Lenovo Integrated Camera (0.3MP)
+Bus 001 Device 034: ID 0a4d:0091 Evolution Electronics, Ltd Keystation 61es Driver
+Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+```
+
+Sorry if this is useless or out of place. I'm reporting just in case (considering the PA message about a possible ALSA driver bug).
+
+Thanks a lot in advance. Any recommendation would be most welcome.
+
+Kind regards.
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/201
+Repository URL: https://github.com/alsa-project/alsa-lib

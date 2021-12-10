@@ -2,78 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A299246F9E5
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 05:32:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E85A46FA1B
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Dec 2021 06:20:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E17F20AF;
-	Fri, 10 Dec 2021 05:31:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E17F20AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE233209B;
+	Fri, 10 Dec 2021 06:19:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE233209B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639110763;
-	bh=nB7QYm9urQJKbc9uYXsk1KL3glp5y5ldxkED3Mj5ja8=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1639113638;
+	bh=TIqWcH4mt44tVR0i/M7G7ObLRkHCB/4pkd7TuhyTWZk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=T2AmHSF2pxv7WtIDzcAva6zVI/BFPIpXVMoq86oMfV+LuxVvxBvw0CxHKEisbAuOL
-	 03EtqGSmmHRyUZrtlw0R/pOR9nWiBgE0LY0fl1CjqGxIpMm3MSFu6HrYz+4EiilKGX
-	 YWLN5+7M70PSWOWdWMfPBtqAtQdIpnDJm13s+TaQ=
+	b=aJ05gWf3YP4fATscVy1iBpjjqswKyh2FVVLU2URNPVwfaWcKeN1giFw2ff12U9IUH
+	 UlGg1gUmpsOtLkRdozkx9CqZFOd032/B4xjBleXlFZOD4woKdB8KFeysqk69r2KnkY
+	 nA4wbQkEMQxQ6uAD7AYPHf0jOPE9WK3bmxa7EPso=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7319AF800AB;
-	Fri, 10 Dec 2021 05:31:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19F21F800AB;
+	Fri, 10 Dec 2021 06:19:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14ECBF804E5; Fri, 10 Dec 2021 05:31:30 +0100 (CET)
+ id 1B632F804E5; Fri, 10 Dec 2021 06:19:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1CDEFF800AB
- for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 05:31:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CDEFF800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id D410EF800AB
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 06:19:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D410EF800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="RT2Ptoch"
-Received: by mail-lj1-x22b.google.com with SMTP id k2so12041939lji.4
- for <alsa-devel@alsa-project.org>; Thu, 09 Dec 2021 20:31:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to;
- bh=abewUfgpZVuWoPcL0FsZFQghePVgHt2ZXLTFm571Ssg=;
- b=RT2PtochQyRdSQkhPVJld1yRvlNwLgUsE4wnI6sb9eMrxaGOYsLq5oveH61C1+4P1T
- wVeEtBXxaDkOEQ+KqNwC3K4VthDXSpc9yQjYMjTGY3JEClItr59X79XLNHiXboOMHJ09
- N16OpILrnvCsz4kUz5bpaxhMhvQNTk20HG4sFgx6kwH86MaSfUg5E234Ts4jAshLfSZA
- PExVj44OqwLEVgNd9lCFoQbRxgim2l8CRhjI4BqBJL5DHwnXwDGUufbnmEkRuHYNGf/y
- IkWR87lZkcuKqfdyYflOFtBKDNYPGzkpR6BmFVN97gcPlE5EtmR95yEVX96P5dKadCgo
- +Qkw==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="IHdhVUZR"
+Received: by mail-pj1-x1033.google.com with SMTP id
+ n15-20020a17090a160f00b001a75089daa3so8626738pja.1
+ for <alsa-devel@alsa-project.org>; Thu, 09 Dec 2021 21:19:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1n5pw55TMAAP+SKn+79BLK8ytK8/fOHPCl2GwuSHIGk=;
+ b=IHdhVUZRyIP1kDwF23TNlIYr6AflXGTL2Qhb9EsRD1szNGl8+dGgQ5n1MhRenEftjk
+ Xwkz7FuxaLl0mJCgdMdD33+Kgb5Uh3THJ/6L9xAKMBCoL1ND/sQXakUU1Xd+DJvB6Qnz
+ 693i9PEsie4ilayw7bYnX/sVTT+U+AsT8yAcI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=abewUfgpZVuWoPcL0FsZFQghePVgHt2ZXLTFm571Ssg=;
- b=sufhUDmdSw2NCVHIHWx1NX0MfZ1UyNSb29gwyeeCnN2y57+zrAV1QxYc6EvsjhRNaA
- HKgdcdFv7zhwn8vRpNJ6712obort0nCjzGJQNHBRwAxPydO+iZMT5yN22n0r/4RUs8aN
- oESTVZHbaHC+8vu0+GqhPeM7LtbA0GJkJxGpCeVi1fTuiy9rkvkOMZfWn2jShGRXBT91
- XGnjO2+nHD6wSXw6QTN6NWJNKuCINIqKs7XPaoHRcp0LGrAZNM5QYNPGoMBJGvH1s90K
- IgcWX4pxw+Gou8ecx628iW02frdloDs5+D8w7puHEBDY+xfRXR3ROq6Lh93pzDjT+XVP
- X14Q==
-X-Gm-Message-State: AOAM531PZKbhlNvouyiAC1DgTXgTC9GjFOAYhuR2PdLxzNf/EidvxQAG
- M8IdX8PKJOZqffqcPpiXo3o69qYAr0/m67SDD1sTf6Ek
-X-Google-Smtp-Source: ABdhPJytTovCrgLJ2ffCVnSA6v/lijwXLp7uS243a5LRkxQGcq9k2LYP/2T1m0j4X0XOKeI/jjtPNd3OUkIfEUf1wOc=
-X-Received: by 2002:a05:651c:210:: with SMTP id
- y16mr10732474ljn.97.1639110684638; 
- Thu, 09 Dec 2021 20:31:24 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1n5pw55TMAAP+SKn+79BLK8ytK8/fOHPCl2GwuSHIGk=;
+ b=3vwGl9zgb3c/Lmp+3kW2h69SXfmZW7fwmHja1c0Ipt+bVierNjeP9mlk8U53Aj+jSg
+ /7wiZiXYM/e/UOIsGldwfBW/fcX8abYoPIEFPTpxTLL0EgJdfmepW9LEJ8G4E9Q/Ob3u
+ szGhU8zHrCcDLwGDWe3NaSA/nqWcdDouqfEmE33tcD/ofhxyXVz1vQmHlXcQ+HB3pRIQ
+ aKmd3J4ThfBX5Og82PCv/Xd1ogLJyN2BvQdxs1fgZQS5a7PiJNYJHR+7vNk0+G3OwTt4
+ 3rzHgnAptOXo7CY5SGMwSPdamBaYuKzxUDFpPPeSPzeBb/T2HVq4a9uO3U4j4Qs3Z1x6
+ YrqA==
+X-Gm-Message-State: AOAM5308U8Q3XGaOKvVqj0Nsk1UcHhEa7DdEFuJked3V0e70iVbG1P9k
+ rYfUEWx9ZLuiSXyQF8iYILKbhA==
+X-Google-Smtp-Source: ABdhPJz5InQ30owmtXBOEYTl9rLRYViCgmknbgMPnXE21LrK5AmdsKgwgw42dmFnbwrS3kjE08um9A==
+X-Received: by 2002:a17:90b:50c:: with SMTP id
+ r12mr21177490pjz.71.1639113553400; 
+ Thu, 09 Dec 2021 21:19:13 -0800 (PST)
+Received: from judyhsiao-p920.tpe.corp.google.com
+ ([2401:fa00:1:10:ac18:fa:d4fe:57bf])
+ by smtp.gmail.com with ESMTPSA id f3sm1197853pgv.51.2021.12.09.21.19.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Dec 2021 21:19:12 -0800 (PST)
+From: Judy Hsiao <judyhsiao@chromium.org>
+To: broonie@kernel.org
+Subject: [PATCH] SoC: qcom: Distinguish headset codec by codec_dai->name
+Date: Fri, 10 Dec 2021 13:19:07 +0800
+Message-Id: <20211210051907.3870109-1-judyhsiao@chromium.org>
+X-Mailer: git-send-email 2.34.1.173.g76aa8bc2d0-goog
 MIME-Version: 1.0
-From: Kolten Pearson <koltenpearson@gmail.com>
-Date: Thu, 9 Dec 2021 21:31:12 -0700
-Message-ID: <CAC0M1CVW=3vizh8MYxPRVtBqNtOiChYfReYJ2SrY7TkKP0Dg7A@mail.gmail.com>
-Subject: rawmidi driver dropping some sysex commands
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Cc: judyhsiao@google.com, Banajit Goswami <bgoswami@codeaurora.org>,
+ cychiang@google.com, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+ swboyd@chromium.org, dianders@chromium.org, Takashi Iwai <tiwai@suse.com>,
+ Judy Hsiao <judyhsiao@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,100 +100,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I have been working on reverse engineering the sysex commands to
-control an Arturia MiniLab mkII controller, and have run into an issue
-where the rawmidi driver is dropping some of the commands.
-Here is a snippet of my code that illustrates the problem
+Distinguish which headset codec is on the board by codec_dai->name
+instead of card->name.
+
+Fixes: 425c5fce8a03 ("ASoC: qcom: Add support for ALC5682I-VS codec")
+Signed-off-by: Judy Hsiao <judyhsiao@chromium.org>
 ---
-snd_rawmidi_t* midi_input;
-snd_rawmidi_t* midi_output;
+ sound/soc/qcom/sc7180.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-void midi_init() {
-    int ret = snd_rawmidi_open(&midi_input, &midi_output, "hw:3,0,0",
-SND_RAWMIDI_NONBLOCK);
-    assert (ret == 0 && "could not open midi device");
+diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
+index 2fff764a00a7..37225ef2563a 100644
+--- a/sound/soc/qcom/sc7180.c
++++ b/sound/soc/qcom/sc7180.c
+@@ -131,13 +131,13 @@ static int sc7180_snd_startup(struct snd_pcm_substream *substream)
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	int pll_id, pll_source, pll_in, pll_out, clk_id, ret;
+ 
+-	if (!(strcmp(card->name, "sc7180-rt5682-max98357a-1mic"))) {
++	if (!strcmp(codec_dai->name, "rt5682-aif1")) {
+ 		pll_source = RT5682_PLL1_S_MCLK;
+ 		pll_id = 0;
+ 		clk_id = RT5682_SCLK_S_PLL1;
+ 		pll_out = RT5682_PLL1_FREQ;
+ 		pll_in = DEFAULT_MCLK_RATE;
+-	} else if (!(strcmp(card->name, "sc7180-rt5682s-max98357a-1mic"))) {
++	} else if (!strcmp(codec_dai->name, "rt5682s-aif1")) {
+ 		pll_source = RT5682S_PLL_S_MCLK;
+ 		pll_id = RT5682S_PLL2;
+ 		clk_id = RT5682S_SCLK_S_PLL2;
+-- 
+2.34.1.173.g76aa8bc2d0-goog
 
-    uint8_t pad_list[] = {
-        MA_PAD_1, MPC_NO_COLOR,
-        MA_PAD_2, MPC_RED,
-        MA_PAD_3, MPC_GREEN,
-        MA_PAD_4, MPC_YELLOW,
-        MA_PAD_5, MPC_BLUE,
-        MA_PAD_6, MPC_CYAN,
-        MA_PAD_7, MPC_MAGENTA,
-        MA_PAD_8, MPC_WHITE,
-
-        MA_PAD_9, MPC_NO_COLOR,
-        MA_PAD_10, MPC_RED,
-        MA_PAD_11, MPC_GREEN,
-        MA_PAD_12, MPC_YELLOW,
-        MA_PAD_13, MPC_BLUE,
-        MA_PAD_14, MPC_CYAN,
-        MA_PAD_15, MPC_MAGENTA,
-        MA_PAD_16, MPC_WHITE,
-    };
-
-    for (int i = 0; i < 16; i++) {
-        midi_set(MC_ON_OFF, pad_list[2*i], 0x08); //sets the pad to be
-a control instead of a note
-        midi_set(MC_MIN_RANGE, pad_list[2*i], 0);
-        midi_set(MC_MAX_RANGE, pad_list[2*i], 1);
-        midi_set(MC_MODE_SET, pad_list[2*i], 1); //set it to gate, 0 is toggle
-        midi_set(MC_PAD_COLOR, pad_list[2*i], pad_list[2*i+1]);
-    }
-
-    midi_set(MC_GLOBAL_SET, MA_PAD_BACKLIGHTS, 0x0f); //updates the
-pad backlights
-
-    uint8_t knob_list[] = {
-        MA_KNOB_1,
-        MA_KNOB_2,
-        MA_KNOB_3,
-        MA_KNOB_4,
-        MA_KNOB_5,
-        MA_KNOB_6,
-        MA_KNOB_7,
-        MA_KNOB_8,
-        MA_KNOB_9,
-        MA_KNOB_10,
-        MA_KNOB_11,
-        MA_KNOB_12,
-        MA_KNOB_13,
-        MA_KNOB_14,
-        MA_KNOB_15,
-        MA_KNOB_16
-    };
-
-    for (int i = 0; i < 16; i++) {
-        midi_set(MC_MODE_SET, knob_list[i], 0x02); //sets it to
-relative mode where 0-3 is right turn, 7f-7d is left turn
-        midi_set(MC_CC_SET, knob_list[i], i);
-    }
-
-}
-
-void midi_set(enum midi_set_command command, enum midi_set_address
-address, uint8_t data) {
-
-    uint8_t raw_command[] = {0xf0, 0x00, 0x20, 0x6b, 0x7f, 0x42, 0x02,
-0x00, command, address, data, 0xf7};
-
-    int count = snd_rawmidi_write(midi_output, raw_command,
-sizeof(raw_command));
-    assert(count == sizeof(raw_command) && "bad write");
-    //SDL_Delay(1);
-    int ret = snd_rawmidi_drain(midi_output);
-    assert(ret == 0 && "could not drain");
-}
----
-When this code is run, the minilab will only respond to a
-nondeterministic number of calls to the midi_set function and ignore
-the rest.
-However if the SDL_Delay(1) line is uncommented, it will work
-correctly every time (This function call causes the process to sleep
-for at least 1 millisecond).
-
-I feel like the call to snd_rawmidi_drain should make the SDL_Delay
-call unnecessary, but that is not the case. Is there something I am
-not understanding about how the api works?
-Thanks for any help!

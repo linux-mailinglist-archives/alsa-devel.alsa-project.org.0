@@ -2,107 +2,176 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE5A2471943
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 09:25:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34AE4471944
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 09:25:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D20A193A;
-	Sun, 12 Dec 2021 09:24:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D20A193A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6FEA193E;
+	Sun, 12 Dec 2021 09:24:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6FEA193E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639297517;
-	bh=QY8sgz94Wa9kckSiAu6WJa+g/P7YpX4ms7BAVFB52Bw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UKeAjGHULdtMefx2fXRDrU6CePQplvomOZ8chOM+aHFg8xbFxbLRRMoLDxqwLDQFu
-	 qE3Tzyz1DUv4nhD3TXfPbFZ6f0a833ljEhkn8N69FHah3ZOEVeHHaTqb+35CL8JLGe
-	 In4xA3HdS98yWIvReVzeoWv4P95bathBqHEv05vI=
+	s=default; t=1639297539;
+	bh=X6OTL9ECJLMn38ZWYi1CS0UAIPRkxNhdAEIAmfSaVV8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=M1W2vDvTSvMaX7dGpaKKagopJwc5DlsTYPgmGBBLy6F5X51zA0G2p74hUWfn1o+eL
+	 SKq88/EqPHWks68gQHXYCPLZP5WSym2RgupbbqEee9aACqhSvr98epR4dImOVyr5/3
+	 D0DOaFzv7ZMkp62oa5tM7+dXe+YJQY3H/dUS8Q5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8FC4F80510;
-	Sun, 12 Dec 2021 09:23:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F1FFF80516;
+	Sun, 12 Dec 2021 09:23:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 335AFF804E5; Wed,  8 Dec 2021 14:35:00 +0100 (CET)
+ id D8710F804EC; Fri, 10 Dec 2021 20:29:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx0b-0011f701.pphosted.com (mx0b-0011f701.pphosted.com
+ [148.163.158.185])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42C02F800AB
- for <alsa-devel@alsa-project.org>; Wed,  8 Dec 2021 14:34:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42C02F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 85445F8028D
+ for <alsa-devel@alsa-project.org>; Fri, 10 Dec 2021 20:29:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85445F8028D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com
- header.b="aqZItg83"
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B8Cclne025876;
- Wed, 8 Dec 2021 14:34:50 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=b7J60CZ4uwTeJQ0u5OzpaoMz6M8+x9zjkJxexO30IRk=;
- b=aqZItg83GMtGbnmFwvW3j9qQlBHBWfz89uoHpa3RKpGiGAZxvkJqUgASz+ScwILbEC7f
- ntYoJu0dkoYnO5KHKjgpQsqp0NPg3p2PrhQs+R9zI+rYBZSIiF2KOFTs0M7n9jNgj8+O
- NmqXVZN3sOed36SWRtAnm/aIeclCteG93wkeG7ZAV/YOFqjJDv9LbZJ00firjJ3UNoMP
- +z3RzL7M6+9CwD7gU+INJNrUKNZYgSq5A9l5k9s6oojWTxMeKc5yai/g8dJp9YUcVLP0
- qy+wijSFYVhj544GiCPycClbS1Sjo8xo6TyMOfCUPjGE2LUPgY4AWRW6R/RgYHSEuvJZ 2A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ctrpq9x0n-1
+ dkim=pass (2048-bit key) header.d=zebra.com header.i=@zebra.com
+ header.b="nqB6lYLY"; 
+ dkim=pass (1024-bit key) header.d=zebra.onmicrosoft.com
+ header.i=@zebra.onmicrosoft.com header.b="JbiVuqgk"
+Received: from pps.filterd (m0099302.ppops.net [127.0.0.1])
+ by mx0b-0011f701.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BAIJn9q020460;
+ Fri, 10 Dec 2021 13:29:23 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zebra.com;
+ h=from : to : cc :
+ subject : date : message-id : content-transfer-encoding : content-type :
+ mime-version; s=pps04202018;
+ bh=YC0P5dc22lD94M4kZZY/Xr8HNwEBcS0yXLGTiKEjXuM=;
+ b=nqB6lYLYKLy1CMulSaHm9UeVZze5E4mZ67+Fzz1hMLDxJPN6fJ6badgNxgX32aBMPswp
+ Lj4XAxygtveEhXZltFgKBC0oJ/8LS76rIAm/+hY17GfetwqyQuZjtJQOh0iCDECD1Svu
+ 0XhgnQeDcyfB+e4PWPi77MrzXA/r07/x69Q9tgaN9jwwdCFXXvZWFyrNisztBp0qtx/q
+ /0mVWFooyhnc1Q2mo7rd5HKg1lCaczpTfljNRMeIYv8RE/oFhtVmdD72TRDJC2EIcvM2
+ W/GUNQEQ0r1Rqq1p3ucv6hrfaWU+DphT6X7e5Wkg07OYAviVTqTmrTyqBpUz6IFAHKsS eQ== 
+Received: from nam04-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08lp2168.outbound.protection.outlook.com [104.47.73.168])
+ by mx0b-0011f701.pphosted.com (PPS) with ESMTPS id 3cumpq4ey9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Dec 2021 14:34:50 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E5C4A10002A;
- Wed,  8 Dec 2021 14:34:49 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C2C1B2107EE;
- Wed,  8 Dec 2021 14:34:49 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.47) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 8 Dec
- 2021 14:34:48 +0100
-Subject: Re: [Linux-stm32] [PATCH v2 1/4] ASoC: dt-bindings: stm32: i2s: add
- audio-graph-card port
-To: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>, "Ahmad
- Fatoum" <a.fatoum@pengutronix.de>
-References: <20211125144053.774-1-olivier.moysan@foss.st.com>
- <20211125144053.774-2-olivier.moysan@foss.st.com>
- <1637875562.357461.2858318.nullmailer@robh.at.kernel.org>
- <237f56b3-0597-2526-a182-f1fbdd327338@foss.st.com>
- <Yaf4jiZIp8+ndaXs@robh.at.kernel.org>
- <627777a4-7458-88ed-e7c5-d11e3db847b5@foss.st.com>
- <cf5f994b-aecf-e051-f5c9-4a46e6414207@pengutronix.de>
- <cb7f19c0-3826-fcc8-227c-982838acf599@foss.st.com>
- <YbCgSeA1++U82jtn@google.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <fea38140-42be-ece3-b8ea-875ee63f8618@foss.st.com>
-Date: Wed, 8 Dec 2021 14:34:48 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Fri, 10 Dec 2021 13:29:23 -0600
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O0oQ2fvjEBJQnnq7kmoWLYROPvoueymtnMPIH7Fhqces+ZaSEOu8rLE3JPOg6iDJmzNOqaFBdzUQUPTO0UEqypLH5IICNKaSiH3LEvVQeOfb/qqU6lwzrxadTaYGiJNFjp99xTap+9b2JjFfWnbbE81HTgimdCQFDDJB9vxIf4tNMIXDzVVsetzAIeJUU6TkjekQQ/hQBKFsC6wTcLucwQPKGqUsMk+5X/J/82A/KU+1fbsCvvEgFX9EVk6q+FiNXRZi+kqQ9ayldV66/0A0XrmQ6MuKgFK3/HhS92v017c2IHPlS+UutKEAx3bLfAHYql+Of5VX3aF9F5IM7AoIAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YC0P5dc22lD94M4kZZY/Xr8HNwEBcS0yXLGTiKEjXuM=;
+ b=noujM83kBTZ0WxLfRIYJG+FGZWgQY3dAwkNx/W8LJIotdi6WNWsRWBnorodMlIfFNI32Ui1V2w211yeQ1U9p1OmplDQLj2KBOdgEusghCwsn30C4/zaz1qhs13BWCjixeL6q+CXJZSdQJgirIRrv0IxVwevFFUkbsb32ropL7A51xXqQc2u4ewlp/4lTsxkvcVVILzAxW4fByzUU4AWQuKipYcQMoS3pv1usd4o9VkyP5WCkS7OCLJ/lciMLFQQjH3gpr5Mxhq3tbBneNoZlqQq33shWpwIAyRgkDYbuah78B7SK+x8N1yO5wXa1pZRPkKzzmAFmF9107ycDTC2TKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=zebra.com; dmarc=pass action=none header.from=zebra.com;
+ dkim=pass header.d=zebra.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zebra.onmicrosoft.com; 
+ s=selector2-zebra-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YC0P5dc22lD94M4kZZY/Xr8HNwEBcS0yXLGTiKEjXuM=;
+ b=JbiVuqgkLdboBEfkBec7rgwCYehbHsLfufsmEqjt+ZQHERErshYcRuHZzkYInrja57MLrCGFpTL6fE+MduM5TUlP4tjIOUk+lpwlgSftKzfKIw6sLsLxfKcIdtY2uKVpgfpZHcoBj7EfviSsBYeTh0ivd59IJeQ4nQkJU5SvNq8=
+Received: from DM6PR03MB4668.namprd03.prod.outlook.com (2603:10b6:5:18c::28)
+ by DM6PR03MB3977.namprd03.prod.outlook.com (2603:10b6:5:46::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Fri, 10 Dec
+ 2021 19:29:09 +0000
+Received: from DM6PR03MB4668.namprd03.prod.outlook.com
+ ([fe80::49a0:9cb6:c8aa:bde9]) by DM6PR03MB4668.namprd03.prod.outlook.com
+ ([fe80::49a0:9cb6:c8aa:bde9%5]) with mapi id 15.20.4755.024; Fri, 10 Dec 2021
+ 19:29:08 +0000
+From: Bradley Scott <Bradley.Scott@zebra.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Jeremy Szu <jeremy.szu@canonical.com>,
+ Hui Wang <hui.wang@canonical.com>,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Kailang Yang <kailang@realtek.com>,
+ Cameron Berkenpas <cam@neo-zeon.de>, Sami Loone <sami@loone.fi>,
+ Elia Devito <eliadevito@gmail.com>, alsa-devel@alsa-project.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: Amp init fixup for HP ZBook 15 G6
+Date: Fri, 10 Dec 2021 14:26:12 -0500
+Message-Id: <20211210192614.460529-1-Bradley.Scott@zebra.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-ClientProxiedBy: YTOPR0101CA0005.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:15::18) To DM6PR03MB4668.namprd03.prod.outlook.com
+ (2603:10b6:5:18c::28)
 MIME-Version: 1.0
-In-Reply-To: <YbCgSeA1++U82jtn@google.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
- (10.75.127.5)
+Received: from BradsZBook.confuseacat.org (24.212.215.149) by
+ YTOPR0101CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::18) with
+ Microsoft SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Fri, 10 Dec 2021 19:29:07 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ac7a3db2-ec1d-4912-c738-08d9bc135626
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3977:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR03MB39773F73A8617121B7C2679EEF719@DM6PR03MB3977.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:147;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7HsDolCRU1lS/zXpeS5i8FnnkhA8ygJUyoiGpxAIMMeJJ3ZZhl6I8JM/QUo00bd8FsLMXidO7L62sq+AGzRu1GQ/004+ZpPF5nEAbVcw0+U8A/CJ1hD/FQY48hXe/DRa/ry0uMejRqxYHIj4sUk3Wdt2wj890QAt0w37ZxGeDQvWl7tcVKPIcZeEXDPvUkbgM/D5ebkfAjhOCzrroipijIj2HeCzBHzTFhLIs1COs/CkViYoQB+n0BDFC1hmF90G56nhQKOXbS7cJF/3yadXaQF/vxNxI7kV/Z2Jkw6vxkjvvRrG5o61T0Tg/b/2Uk6W+PtcJiIc+6pTSltSQDhfw66Zqyh/oV8XhxBDHQm4RK4zeFIaRyVN4lUXBRblqdOmNugE06+m8bWrLaJNx52vacSTl5AMGfxVYQRlwzHljVFK9QKcCRduAiMD2XMKYELtUFn9F383zux8mJXG1EoY05DQ7Btelvf6dSxjlinh4dLv1EmScdSKj1tueMc+SYp1UKc9bom1tpSJC1EtNnG0DuKY9hKSduRlfHsZew9jnCDzC3y0B4U/qxYcUTC5Wvj8jGAedV32kq3XYDQRqcOMXJSbdvuHu72tGJ5IyRUgFZPB7YJLcRv9KK97oFcog9UxfKtWv/Odm1EX1uikd6ITZl+m6RbmD9l2ZzjYiEIovZwTdY1IrpVjiXUC+iKrXrLxC5M6lU3StPwgjbtym8q5SaSjaVIOtOnS2yu0YByhR8k=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR03MB4668.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(110136005)(1076003)(4326008)(8936002)(316002)(2906002)(6512007)(508600001)(52116002)(5660300002)(186003)(38100700002)(2616005)(6486002)(921005)(6506007)(107886003)(6666004)(26005)(8676002)(956004)(83380400001)(86362001)(66946007)(36756003)(66476007)(66556008)(38350700002)(7416002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZV5KRmgfLmGzd4oTv9BePBjcBHOW8k3zbQnbiLf9BKp0qutC1xV0XPC9Kjqv?=
+ =?us-ascii?Q?Zfo16WuPJ0Zxg+B0P4sqTkfqPf8//u8LX8HXVtRBOCBO46oiQXowu21cunCw?=
+ =?us-ascii?Q?Jmc9V/k9xHwpIQl7K1VQGCMGje1fvm5ihpISkAPR+bG55j6sLD1Ob6F7Ksvp?=
+ =?us-ascii?Q?3AlaAhDA/UdoKiKker9rP1iwnVUmXpRpTy//JRGKIF41tOeUqcWyPb6DOVqM?=
+ =?us-ascii?Q?aUjBf0aC1cusprj3LnV+76F1+Qf+qmkijauZR69WjhHVdULMZllQ8haDeDQw?=
+ =?us-ascii?Q?TyLa5WEC/U0yoCPmnn1YML2jklp9mT8KNqyrO+zEzL1j57X6FWpd9fGlX/04?=
+ =?us-ascii?Q?yAR+PlTlDuntp6VvSQ6IF7/IAduEcvCvfY3Vafr7lOVK8vXhymhJzHQiWVE8?=
+ =?us-ascii?Q?ePTZk8J26TAsRb45hJZMRmS86HXGIozadgn3/nLHwtNC3hGDd1qt0On650a9?=
+ =?us-ascii?Q?DKUbKKtKZJ5U9Vzf40+phR4SoM/mSoIF42JNeo6Qej79asHwbma4VFp1g09V?=
+ =?us-ascii?Q?4bQJ6m8X/ZtkNt8AyOmESY//9kfYgtS/a8YS06p6jEBLtDLRFGBdOQscmYNq?=
+ =?us-ascii?Q?yztD5Wi1cyAD1YEo8PhpsSAW3g9Y1FMAziqaDQoPx6AgrkYPiyhg5UxcOc9i?=
+ =?us-ascii?Q?9VnEL7/zJBbgwQbu1JYLFyFeXbC13QDtlkzBkdE384Oh0MBWRK//q6IbzR/j?=
+ =?us-ascii?Q?CRtKunfRjmO60642vcTQkWdygbWTpMUtg+dvT/soRomwCEIIXQYnEFnx4KLH?=
+ =?us-ascii?Q?UwNQhbn8Y/k+NaIc4kZlw6R8bx2u9jENfuUHKTSLJsAevA6a/Birn7TGO/Of?=
+ =?us-ascii?Q?Q56qtFwMq7Htbk0fh9Mev4UiJCFBZ08idBa2kPICIeaZONxowIC1HTgPTdU2?=
+ =?us-ascii?Q?D5BK2y8nj7rvT6cczjRJceMk7LezfqoqsN9oxlqTvKREdFSOIiYkssw1jyuG?=
+ =?us-ascii?Q?7fjaWQlMl+nM3//Ejf8aLEVo5AGVK2UAPGgwPXLTusYclz92JVEYPlccWvxg?=
+ =?us-ascii?Q?Yax0cpJRPLpN8C/6dAa94ZuK4o9vA/FwhsNiScjkLIAFObesO4nwsb1dSCZT?=
+ =?us-ascii?Q?TmIGDhVGt/qkk0P2Mm+7YovqysB0ls5wJclPdp7PNN9RkdaTNsWJzA5im0L0?=
+ =?us-ascii?Q?TsEWTQchIE+gIFgi3e0RhLS1IghxWSbBi4MJeMEYwo2yUj8zwLXjHMl6COT3?=
+ =?us-ascii?Q?gI6soUHjBhNq1aU4hrZlSEGKv20CMzJggqHnSR+YoJMvZKVCRXT+5yFRYzyQ?=
+ =?us-ascii?Q?fp2elbITxbJ1mPcp3gCnuM+rgDFM6GbmuyrjRCS9OBLV14z2Munh0PhzKvrx?=
+ =?us-ascii?Q?aAU0XO2H5/yRm2AIwuPOFFexKSrw3uQZ8j4PI1mTYwUyjRysF9xdUKdKwbVE?=
+ =?us-ascii?Q?5fDy6BK9n9lTiMnC/1ULGhjxLX/tGJ1vzq8TkwnXK9B3Mg5jqheUDH+k7FIc?=
+ =?us-ascii?Q?Kyem/4N5fSpqItPiBsCn7l+oeuslFix7+r6ki21AoIkX+oDSAuiN/X2tMEzG?=
+ =?us-ascii?Q?IEtnkXi7bGq5SfkCDyL2CCQZTJpNKXFScjNGG6UfcrpoOEm1S4DKC89qMmvY?=
+ =?us-ascii?Q?dzuCJMmE0pGHUN9wOxEkvwhRhK9+t/3z9M3wBEDsaT+Onr2aDhlaH8arIJ6g?=
+ =?us-ascii?Q?iqASZMoaDfmTzuddkCjAXSc=3D?=
+X-OriginatorOrg: zebra.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac7a3db2-ec1d-4912-c738-08d9bc135626
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB4668.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2021 19:29:08.7449 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4d3d260a-9c40-4306-8dac-0d64717039ec
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Yve5TXHSqMYZ9RHZtFhJ3DzkifdmLAchPKDhQsRWI9gKyQGyxr3Kub7byESzNFd4N5ZRgQ+6AaceiSEs+pctOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3977
+X-Proofpoint-ORIG-GUID: Zk8yBOxy_VIvnPFllO0Td1ztlm30sMpn
+X-Proofpoint-GUID: Zk8yBOxy_VIvnPFllO0Td1ztlm30sMpn
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-08_05,2021-12-08_01,2021-12-02_01
+ definitions=2021-12-10_07,2021-12-10_01,2021-12-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0
+ mlxlogscore=999 spamscore=0 impostorscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 bulkscore=0
+ clxscore=1011 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2110150000 definitions=main-2112100106
 X-Mailman-Approved-At: Sun, 12 Dec 2021 09:23:26 +0100
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Olivier MOYSAN <olivier.moysan@foss.st.com>, alain.volmat@foss.st.com,
- arnaud.pouliquen@foss.st.com, Fabrice GASNIER <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Cc: Bradley Scott <Bradley.Scott@zebra.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,117 +187,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12/8/21 1:08 PM, Lee Jones wrote:
-> On Wed, 08 Dec 2021, Alexandre TORGUE wrote:
-> 
->> Hi Ahmad
->>
->> On 12/7/21 2:59 PM, Ahmad Fatoum wrote:
->>> Hello Alex,
->>>
->>> On 07.12.21 14:52, Alexandre TORGUE wrote:
->>>> Hi Rob
->>>>
->>>> On 12/1/21 11:34 PM, Rob Herring wrote:
->>>>> On Fri, Nov 26, 2021 at 11:25:27AM +0100, Olivier MOYSAN wrote:
->>>>>> Hi Rob,
->>>>>>
->>>>>> On 11/25/21 10:26 PM, Rob Herring wrote:
->>>>>>> On Thu, 25 Nov 2021 15:40:50 +0100, Olivier Moysan wrote:
->>>>>>>> The STM2 I2S DAI can be connected via the audio-graph-card.
->>>>>>>> Add port entry into the bindings.
->>>>>>>>
->>>>>>>> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
->>>>>>>> ---
->>>>>>>>      Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml | 5 +++++
->>>>>>>>      1 file changed, 5 insertions(+)
->>>>>>>>
->>>>>>>
->>>>>>> Running 'make dtbs_check' with the schema in this patch gives the
->>>>>>> following warnings. Consider if they are expected or the schema is
->>>>>>> incorrect. These may not be new warnings.
->>>>>>>
->>>>>>> Note that it is not yet a requirement to have 0 warnings for dtbs_check.
->>>>>>> This will change in the future.
->>>>>>>
->>>>>>> Full log is available here: https://patchwork.ozlabs.org/patch/1559750
->>>>>>>
->>>>>>>
->>>>>>> audio-controller@4000b000: 'port' does not match any of the regexes: '^port@[0-9]', 'pinctrl-[0-9]+'
->>>>>>>       arch/arm/boot/dts/stm32mp157a-dk1.dt.yaml
->>>>>>>       arch/arm/boot/dts/stm32mp157c-dk2.dt.yaml
->>>>>>>
->>>>>>
->>>>>> This warning is not a new one.
->>>>>>
->>>>>> The i2s2 node in stm32mp15xx-dkx.dtsi would require the following binding:
->>>>>> port:
->>>>>>       $ref: audio-graph-port.yaml#
->>>>>>       unevaluatedProperties: false
->>>>>>
->>>>>> However the spi binding requires to introduce a unit address:
->>>>>> patternProperties:
->>>>>>      '^port@[0-9]':
->>>>>>        $ref: audio-graph-port.yaml#
->>>>>>        unevaluatedProperties: false
->>>>>>
->>>>>> The warning can be removed by re-ordering the bindings patches in the serie,
->>>>>> as "additionalProperties: true" makes the check more tolerant on extra
->>>>>> properties.
->>>>>
->>>>> That's never right.
->>>>>
->>>>>> The patch "ASoC: dt-bindings: stm32: i2s: add audio-graph-card port" can
->>>>>> even be merely dropped.
->>>>>> So, I suggest to resend the serie without audio-graph-card patch.
->>>>>
->>>>> Only if you aren't using audio-graph-card.
->>>>>
->>>>>>
->>>>>> Does it sound too permissive to you ?
->>>>>
->>>>> I think perhaps you need to combine the schemas into 1. Or you need to
->>>>> restructure your dtsi files such that you only add spi specific
->>>>> properties when spi mode is enabled and only add i2s specific properties
->>>>> when i2s mode is enabled. Or use the /delete-property/ directive.
->>>>
->>>> Initially the aim of this series was to fix a "make W=1" warnings seen on spi and i2s nodes (duplicate unit-address). Moving both nodes in a common node + using a different compatible depending on SPI or I2S usage sounded good) but it is not enough. In this series the common node is named as following: "spi2s2: spi@4000b000". It is fine for a spi usage but if we want to use this "common node" with I2S compatible and specific bindings, the node name remains spi@... and then specific spi checks are done. For this with this series applied we got this issue reported by spi-controller.yaml:
->>>>
->>>> spi@4000b000: port@0: 'compatible' is a required property
->>>>
->>>> So, if we use two separates nodes we got W=1 warning and if we use a common node we got yaml check issue. One possibility would be to use a common node with a new node name (for example i2spi@...) but I think it is not acceptable.
->>>>
->>>> How to progress ?
->>>
->>> Atmel Flexcom can be configured to be either UART, SPI or i2c. Functions
->>> are child nodes of the flexcom node and the MFD driver matching against it,
->>> just configure the operating mode and then calls of_platform_populate.
->>>
->>> Would something along these lines fit here as well?
->>
->> Yes it could but in my mind it was not a MFD as both feature cannot be used
->> at the same time: it is either SPI or I2S and choice is done "statically" in
->> device tree depending board usage.
->>
->> Lee, what it is your feeling about that ? Will you accept to add a MFD
->> driver for this SPI/I2S peripheral whose prurpose is only to populate child
->> node (either SPI or I2S) ?
-> 
->  From your description, this doesn't sound like a good fit for MFD.
+HP ZBook 15 G6 (SSID 103c:860f) needs the same speaker amplifier
+initialization as used on several other HP laptops using ALC285.
 
-Thanks Lee for your quick answer. So rename the node frop spi@... to 
-i2spi@... (or something else) looks like to be the only solution. 
-Depending the compatible used the well schema will be used (if well 
-referenced in each stm32 spi and i2s yaml files):
+This commit also adds a new "alc285-hp-amp-init" model that can be used
+to apply this same amp init fixup to other devices by passing
+"hda_model=3Dalc285-hp-amp-init" to the snd-sof-intel-hda-common module or
+"model=3Dalc285-hp-amp-init" to the snd-hda-intel module, depending on
+which is being used.
 
---> spi-controller.yaml in case of "st,stm32h7-spi"
+Signed-off-by: Bradley Scott <Bradley.Scott@zebra.com>
+---
+ Documentation/sound/hd-audio/models.rst | 2 ++
+ sound/pci/hda/patch_realtek.c           | 2 ++
+ 2 files changed, 4 insertions(+)
 
--->audio-controller in case of "st,stm32h7-i2s"
+diff --git a/Documentation/sound/hd-audio/models.rst b/Documentation/sound/=
+hd-audio/models.rst
+index 0ea967d34583..d25335993e55 100644
+--- a/Documentation/sound/hd-audio/models.rst
++++ b/Documentation/sound/hd-audio/models.rst
+@@ -326,6 +326,8 @@ usi-headset
+     Headset support on USI machines
+ dual-codecs
+     Lenovo laptops with dual codecs
++alc285-hp-amp-init
++    HP laptops which require speaker amplifier initialization (ALC285)
 
-Rob, do you agree?
+ ALC680
+ =3D=3D=3D=3D=3D=3D
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 3599f4c85ebf..fc41f3e8ddc3 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -8660,6 +8660,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] =
+=3D {
+        SND_PCI_QUIRK(0x103c, 0x84da, "HP OMEN dc0019-ur", ALC295_FIXUP_HP_=
+OMEN),
+        SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUT=
+E_LED_MIC3),
+        SND_PCI_QUIRK(0x103c, 0x8519, "HP Spectre x360 15-df0xxx", ALC285_F=
+IXUP_HP_SPECTRE_X360),
++       SND_PCI_QUIRK(0x103c, 0x860f, "HP ZBook 15 G6", ALC285_FIXUP_HP_GPI=
+O_AMP_INIT),
+        SND_PCI_QUIRK(0x103c, 0x861f, "HP Elite Dragonfly G1", ALC285_FIXUP=
+_HP_GPIO_AMP_INIT),
+        SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
+        SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENV=
+Y_GPIO),
+@@ -9123,6 +9124,7 @@ static const struct hda_model_fixup alc269_fixup_mode=
+ls[] =3D {
+        {.id =3D ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP, .name =3D "alc287-ideap=
+ad-bass-spk-amp"},
+        {.id =3D ALC623_FIXUP_LENOVO_THINKSTATION_P340, .name =3D "alc623-l=
+enovo-thinkstation-p340"},
+        {.id =3D ALC255_FIXUP_ACER_HEADPHONE_AND_MIC, .name =3D "alc255-ace=
+r-headphone-and-mic"},
++       {.id =3D ALC285_FIXUP_HP_GPIO_AMP_INIT, .name =3D "alc285-hp-amp-in=
+it"},
+        {}
+ };
+ #define ALC225_STANDARD_PINS \
+--
+2.25.1
 
-regards
-alex
 
-> 
 
+________________________________
+- CONFIDENTIAL-
+
+This email and any files transmitted with it are confidential, and may also=
+ be legally privileged. If you are not the intended recipient, you may not =
+review, use, copy, or distribute this message. If you receive this email in=
+ error, please notify the sender immediately by reply email and then delete=
+ this email.

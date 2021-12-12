@@ -2,73 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A574471949
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 09:26:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B4A94718FE
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 08:05:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDDDD1AE9;
-	Sun, 12 Dec 2021 09:25:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDDDD1AE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F7361938;
+	Sun, 12 Dec 2021 08:05:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F7361938
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639297606;
-	bh=Nxg/T7LTiN98okU15PL/Wn+gVrLMjOD3yin6g5GdJCM=;
-	h=To:References:Subject:From:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Uto/sAvq0aWaqtrvUFtA2a3oF8vrO+xn5C6fJU2mo7A5tIowe9Y2uSICiz+3xL+TG
-	 FjKuauVggf10QNdjwHdu67L1+k5NBflfPizV00AwYn+neFa5U6DSNp/aBayjLdF5VD
-	 3dFaNd8Fshm9dIFTEPSs3zs0FRunDm3QeHWc44qQ=
+	s=default; t=1639292757;
+	bh=o3eafrWNEYVOzyJngeclrCWED49H1bLWLlJr5zEoikA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hJUg50T8wOTe4HzeTP3QncFmOywtJF1G4huLiTn7mDHGH8HbTI2f6Qejy3ZM/P8/u
+	 XvgMRP0aA9LSpcfKWnaxPXPMuVar/eQoluwoZ7uzDu0GNJPC9ma7xP66prUI7lWMix
+	 ocrN8INKC1OronVP7HFHwV19UeSQaXr55F1qs9/Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95B63F80529;
-	Sun, 12 Dec 2021 09:23:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BE6EF80249;
+	Sun, 12 Dec 2021 08:04:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31B4CF804CC; Sat, 11 Dec 2021 19:34:19 +0100 (CET)
+ id 47A49F800BC; Sun, 12 Dec 2021 08:04:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpbg587.qq.com (smtpbg128.qq.com [106.55.201.39])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B426F804AE
- for <alsa-devel@alsa-project.org>; Sat, 11 Dec 2021 19:34:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B426F804AE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=riseup.net header.i=@riseup.net
- header.b="KrWL5/Ph"
-Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
- client-signature RSA-PSS (2048 bits) client-digest SHA256)
- (Client CN "mail.riseup.net", Issuer "R3" (not verified))
- by mx1.riseup.net (Postfix) with ESMTPS id 4JBGdH1bRNzDyPd
- for <alsa-devel@alsa-project.org>; Sat, 11 Dec 2021 10:34:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1639247651; bh=Nxg/T7LTiN98okU15PL/Wn+gVrLMjOD3yin6g5GdJCM=;
- h=To:References:Subject:From:Date:In-Reply-To:From;
- b=KrWL5/Phb+cITb7/c4C4KLL9DqZFrHkVpAToeS3iOd8gUoMxejH2Fr/G1fcw9fJ5x
- 58bxxsYOhINNNsRTnFnFjq0GYGIOA02Tdvbcf2+ILPizxYBX+cXNeAdmjg8g3Y7t4b
- 1Z4EfqPLbtcw5XvMUiMaXeeae59KGYhukjkX+mxE=
-X-Riseup-User-ID: 0BCD44199FF510A58BFF42977CC0D4DEDB91F43BBE66F634ADA4ED31B285795C
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews2.riseup.net (Postfix) with ESMTPSA id 4JBGdG6fQDz1xmv
- for <alsa-devel@alsa-project.org>; Sat, 11 Dec 2021 10:34:10 -0800 (PST)
-To: alsa-devel@alsa-project.org
-References: <977e3179-89a8-6abf-8a8f-7afe13c44dee@leemhuis.info>
-Subject: Re: Is it a regression? 5.15.5: No sound with speaker-test. 5.12.13:
- it works.
-From: Paxton Evans <paxton@riseup.net>
-Message-ID: <aeedbdcc-14a6-1431-da1b-5de07c305948@riseup.net>
-Date: Sat, 11 Dec 2021 13:34:09 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B9B9F800BC
+ for <alsa-devel@alsa-project.org>; Sun, 12 Dec 2021 08:04:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B9B9F800BC
+X-QQ-mid: bizesmtp51t1639292666tdc0063s
+Received: from localhost.localdomain (unknown [182.132.179.213])
+ by esmtp6.qq.com (ESMTP) with 
+ id ; Sun, 12 Dec 2021 15:04:24 +0800 (CST)
+X-QQ-SSF: 01000000002000D0I000B00A0000000
+X-QQ-FEAT: NXXopmE8dHbdspMIfiXAad1qP2yuR39QVi2oeQSv3rBI97xxw1I0MtBjMjlyf
+ MRiAnfVLGM6nJSVEwt8cBPMifHtaa0vmNkA1uTH2Mu2Kc1NrqN93Y5LMeqf5+lLSRUrHlsz
+ CX/FBs3/s0+oDsZfpq0340fvGQ8HC+0BQXHHoUFEA/Nxb9Zqnj+diTjVYvAs9GHRxnMNh1M
+ Lvm7WOPaIipL62z8eC7CM6Vu3M9lDBMxHa5ZcFODcairpJvgss8Hnc2shzhCQA9HiHS87qK
+ XiAG65hzRWTiIanrdp/R+O+ANsIOczrzvnmvphx7JQh31AU/Vikm2YJDRPm1DswLcqn6uXs
+ 9YFY2a7QlT8qCDENnirsjYjpfOfAYGQKWRTY8kvKgaTzZ+kNGU=
+X-QQ-GoodBg: 0
+From: Jason Wang <wangborong@cdjrlc.com>
+To: tiwai@suse.com
+Subject: [PATCH] ALSA: sparc: no need to initialise statics to 0
+Date: Sun, 12 Dec 2021 15:04:22 +0800
+Message-Id: <20211212070422.281924-1-wangborong@cdjrlc.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <977e3179-89a8-6abf-8a8f-7afe13c44dee@leemhuis.info>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Mailman-Approved-At: Sun, 12 Dec 2021 09:23:26 +0100
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybgspam:qybgspam5
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ wangborong@cdjrlc.com, leon@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,25 +74,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Static variables do not need to be initialised to 0, because compiler
+will initialise all uninitialised statics to 0. Thus, remove the
+unneeded initializations.
 
-I'm sure I'm nowhere near as technical as the other users on this list, 
-but found this thread by searching about the same problem: I had sound 
-with older kernels, but no sound with 5.15.5 (or 5.15.6). I can "see" 
-the audio playing in equalizers like Pavucontrol, but no sound actually 
-plays, and ALSA's speaker-test doesn't play anything either.
+Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
+---
+ sound/sparc/dbri.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-This is on a MacBook 2,1 with the audio device listed as "Intel 
-Corporation NM10/ICH7 Family High Definition Audio Controller (rev 02)" 
-and is driven by snd-hda-intel. I've set no options that I know about.
-
-Since I've never mailed this list before, would someone mind letting me 
-know the proper way to do a helpful test for the ALSA developers? 
-Preferably on a live image or something like that, just so I can have as 
-clean and helpful of an environment as possible. Again, sorry for my 
-ignorance.
-
-Thanks,
-
-Paxton
+diff --git a/sound/sparc/dbri.c b/sound/sparc/dbri.c
+index 6b84f66e4af4..3881e1c1b08a 100644
+--- a/sound/sparc/dbri.c
++++ b/sound/sparc/dbri.c
+@@ -688,7 +688,7 @@ static void dbri_cmdsend(struct snd_dbri *dbri, s32 *cmd, int len)
+ {
+ 	u32 dvma_addr = (u32)dbri->dma_dvma;
+ 	s32 tmp, addr;
+-	static int wait_id = 0;
++	static int wait_id;
+ 
+ 	wait_id++;
+ 	wait_id &= 0xffff;	/* restrict it to a 16 bit counter. */
+@@ -1926,7 +1926,7 @@ static void dbri_process_interrupt_buffer(struct snd_dbri *dbri)
+ static irqreturn_t snd_dbri_interrupt(int irq, void *dev_id)
+ {
+ 	struct snd_dbri *dbri = dev_id;
+-	static int errcnt = 0;
++	static int errcnt;
+ 	int x;
+ 
+ 	if (dbri == NULL)
+@@ -2591,7 +2591,7 @@ static int dbri_probe(struct platform_device *op)
+ 	struct snd_dbri *dbri;
+ 	struct resource *rp;
+ 	struct snd_card *card;
+-	static int dev = 0;
++	static int dev;
+ 	int irq;
+ 	int err;
+ 
+-- 
+2.34.1
 

@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61EB471961
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 10:04:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41AE3471963
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 10:06:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5FEC61B67;
-	Sun, 12 Dec 2021 10:03:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FEC61B67
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8AA71EF5;
+	Sun, 12 Dec 2021 10:06:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8AA71EF5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639299882;
-	bh=S8H4j9AYvWIMPIbuI48PsTQJkxO0V51rFwCejhD9m3E=;
+	s=default; t=1639300014;
+	bh=WfgzJ2bJVkRWe3QX55sE5sxCTrRs6H+uNOIGzANA8h4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RRRjOFxFNIzgtQHwphEYpaSzct1xV5+jQKtYVql5eZLj1EXd3dy9WSoyTL/hnCzh2
-	 FWCdcEtjaqDMcNHM3dOAuSc5FIa+J5Gm9/TNOH9rT6CtybxE5RPiFeZMYCvtGX6AXJ
-	 p2q1GGBbu4BrSkeL0MTBNlf1LEOLT/uboQ8Q1hsg=
+	b=W5iTr/AK9juoy3uxqn01EkfbX24pSjA87s0lOsqlxZhcCBltulA3q3e8ndiWku+Ux
+	 SLuORj2VqGnMx/BRrN/luHotgUtGC6u+hw8wFWKeyvpHvHvAKvUDfO8MwQBNkkKA8T
+	 QZUygawFbyPMBkyMtx4NNkUIt8ahrMX3GGte4CXA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6CDEF80165;
-	Sun, 12 Dec 2021 10:03:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F66BF80249;
+	Sun, 12 Dec 2021 10:05:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66AD5F80246; Sun, 12 Dec 2021 10:03:34 +0100 (CET)
+ id 0F8DCF80246; Sun, 12 Dec 2021 10:05:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33021F80161
- for <alsa-devel@alsa-project.org>; Sun, 12 Dec 2021 10:03:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33021F80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF109F80161
+ for <alsa-devel@alsa-project.org>; Sun, 12 Dec 2021 10:05:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF109F80161
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ukiiHgeX"; 
+ header.b="1/GzDSfi"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="BpxjPy0v"
+ header.b="6WopPvNR"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id F3FF91F3AC;
- Sun, 12 Dec 2021 09:03:31 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 703DB21125;
+ Sun, 12 Dec 2021 09:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639299812; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1639299940; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/JM4141sPMKIluKlVsPRXo1eNryHf70RmFN8ciQJaSA=;
- b=ukiiHgeXx78ZqhajiCteRAKMSh/vR3seK8ofisSon61I3D20mtG4YtxmIkfWj1RmupWg7V
- oNL40GEo4O2LtBgriACAmgoJAACd7L9OX6CZgDeHFbE8Rwc5VLto6hDMhr1117XZHAWR9m
- V4DR5R9Ej+tOO+7Oz51eTYK+XbYegWw=
+ bh=8bKzHl4JtinTzB2fWBz1eTMEvAmYOfgl0uaYdO7b2pM=;
+ b=1/GzDSfiN4wOF2FKeNXn1y1UXOZ8RXpaBXUrMQeomtAHeQltLhdfoQz0jCxgAgUkrHx3US
+ DMxz5AGDgs8HhPY2RZkJyMslhlj1j+jkwQBPghgj/GZx8qG1KesrmOXiquUteJ5Wqs4z1z
+ gMMG6OhMrPMCpded6p9OIPU6ZJMTD/4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639299812;
+ s=susede2_ed25519; t=1639299940;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/JM4141sPMKIluKlVsPRXo1eNryHf70RmFN8ciQJaSA=;
- b=BpxjPy0vTwyqxkevqlZ2DrL4xeyT+BHi+mwJkWigaB84qO22Sv/cxVcOJakCL+LqPxv5K/
- AZxjFNpBqmTDlBBQ==
+ bh=8bKzHl4JtinTzB2fWBz1eTMEvAmYOfgl0uaYdO7b2pM=;
+ b=6WopPvNRL82m2OSoWhV4FiQpemTqlAQyZbwSWEdGMj3Xys+kgutZBkloNLQ394AVbWuwa/
+ 0Bf5InZ5QJcj6nAQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id EC32CA3B81;
- Sun, 12 Dec 2021 09:03:31 +0000 (UTC)
-Date: Sun, 12 Dec 2021 10:03:31 +0100
-Message-ID: <s5h5yrufb4s.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id E8FB6A3B81;
+ Sun, 12 Dec 2021 09:05:39 +0000 (UTC)
+Date: Sun, 12 Dec 2021 10:05:39 +0100
+Message-ID: <s5h4k7efb18.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Bart Kroon <bart@tarmack.eu>
-Subject: Re: Add ALC287 speaker fixup for Lenovo IdeaPad Slim 9i 14ITL5
-In-Reply-To: <8JPS3R.V4DH56Z9XIPS3@tarmack.eu>
-References: <8JPS3R.V4DH56Z9XIPS3@tarmack.eu>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v4 0/3] kselftest: alsa: Add basic mixer selftest
+In-Reply-To: <20211210185410.740009-1-broonie@kernel.org>
+References: <20211210185410.740009-1-broonie@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,39 +93,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 08 Dec 2021 13:04:20 +0100,
-Bart Kroon wrote:
+On Fri, 10 Dec 2021 19:54:07 +0100,
+Mark Brown wrote:
 > 
-> Hello,
+> This series adds a basic selftest for the mixer interface, as discussed
+> in the cover letter for the main patch there's plenty of additional
+> coverage that could be added but this is a good starting point.
 > 
-> The speaker fixup that is used for the Yoga 7 14ITL5 also applies to
-> the IdeaPad Slim 9i 14ITL5. The attached patch applies the quirk.
+> v4:
+>  - More stylistic updates suggested by Shuah.
+>  - Fix build with older alsa-lib.
+> v3:
+>  - Pull in incremental updates adding a fixed library configuration from
+>    Jaroslav and support for volatile controls from Takashi Sakamoto.
+>  - Stylistic updates suggested by Shuah.
+> v2:
+>  - Use pkg-config to get CFLAGS and LDLIBS for alsa-lib.
 > 
-> The attached patch is validated on my laptop.
+> Jaroslav Kysela (1):
+>   kselftest: alsa: Use private alsa-lib configuration in mixer test
 > 
-> Regards,
-> Bart
+> Mark Brown (1):
+>   kselftest: alsa: Add simplistic test for ALSA mixer controls kselftest
+> 
+> Takashi Sakamoto (1):
+>   kselftest: alsa: optimization for SNDRV_CTL_ELEM_ACCESS_VOLATILE
 
-Thanks for the patch.  For applying the change, we need your
-Signed-off-by line.  Could you resubmit with your SOB line, and
-preferably with the patch subject prefix "ALSA: hda:"?
-See Documentation/process/submitting-patches.rst for details.
+Thanks, applied now all three patches to for-next branch.
 
 
 Takashi
-
-> 
-> 
-> 
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index 8a3e2fe42106..de8f4e9c289d 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -8851,6 +8851,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
->  	SND_PCI_QUIRK(0x17aa, 0x3843, "Yoga 9i", ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP),
->  	SND_PCI_QUIRK(0x17aa, 0x3813, "Legion 7i 15IMHG05", ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS),
-> +	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
->  	SND_PCI_QUIRK(0x17aa, 0x3852, "Lenovo Yoga 7 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
->  	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
->  	SND_PCI_QUIRK(0x17aa, 0x3819, "Lenovo 13s Gen2 ITL", ALC287_FIXUP_13S_GEN2_SPEAKERS),

@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4528947195E
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 10:01:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6124A47195F
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 10:02:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4E881EDE;
-	Sun, 12 Dec 2021 10:00:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4E881EDE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02CD41EF1;
+	Sun, 12 Dec 2021 10:01:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02CD41EF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639299707;
-	bh=KXFjuM75w4yWtqMYjxREUHdRX9jfD1Azo4fa9ITT1+o=;
+	s=default; t=1639299741;
+	bh=uBmawlpjUCxyu7s9J91DjR/MwwUxH97R/o5ZWMjAW/0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eHKDhfUtu5UXCHqMteKXprBTB4ZrZy96H3r4q6ccTr03nZAtY3s/t/X+SBpa3qfsJ
-	 dA2py4fECMG/yEiGDV9Qiu6kBwRi/8ThItvNjKQbzelJEve8GvwMxWqiMLweWM0BL/
-	 suNnl1AOybmG4LDdzfsO14iqVwfmN82xmbDo0UG8=
+	b=sdGVxlwFVWK+qTc6PwVVeLed1sHS1I/6/kwNQoDyydS1QK9eVX3h0zSKHNElIxZWO
+	 zPhB6QriQmGJZbbcLVq68uiXcRJGTj9jExuQz5lCjdaktx3K7D/UBAkM66xv8qXzBj
+	 o53KANzG7sSw+LVS0bM83N8dYB9UBJOpFLOvNgSE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58B9AF80161;
-	Sun, 12 Dec 2021 10:00:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04BA4F8025E;
+	Sun, 12 Dec 2021 10:01:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07E29F80246; Sun, 12 Dec 2021 10:00:39 +0100 (CET)
+ id 066CCF8025A; Sun, 12 Dec 2021 10:01:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9CFE1F80161
- for <alsa-devel@alsa-project.org>; Sun, 12 Dec 2021 10:00:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CFE1F80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9E59F80249
+ for <alsa-devel@alsa-project.org>; Sun, 12 Dec 2021 10:01:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9E59F80249
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="yO4T3trL"; 
+ header.b="QET21Flp"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jY0NFM1M"
+ header.b="ahIb/F68"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 159511F3AF;
- Sun, 12 Dec 2021 09:00:34 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id A38B41F3AC;
+ Sun, 12 Dec 2021 09:01:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639299634; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1639299675; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=l6AWHjo6PQ4BPF1NmbEadN6JkpBp7NJYDqAaABlQrJA=;
- b=yO4T3trLR3Y7Qtb5BPXdQ71UqgUWjx/BALtPjZVb7AiAUgPTNiDKOf1EZzLxDlYzyWreGE
- YfCwdyZsActTG5kCj5ZkvCjxyBeAznxpewO8esAwMRvcxJabMJvzX9IBImEuMP0NJvZg9n
- Fx/Q4IGU1MdJ9scAfKPaF7ba8R1TkF4=
+ bh=myvKX6aaWUQyuRcpS6ozcBW4BDxk3fcFLskgKOInBZg=;
+ b=QET21Flprmcx/Yp84qmWMrtWNukLYsHAlNmiF3dSlcgY2pfI0ofAttdFupuLptlKWzBRGj
+ UJJe5aFPU/p6J4a9+SH16dLr1RwRkaLcLiMP4Q+JYvkkr43aCof8fk9SbtG1EoURQZHLsb
+ QJqgt0DIK+f4/yLShQrmq3VcS5/OcQg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639299634;
+ s=susede2_ed25519; t=1639299675;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=l6AWHjo6PQ4BPF1NmbEadN6JkpBp7NJYDqAaABlQrJA=;
- b=jY0NFM1MnKr1TmAVxEHgQN4018OzeYqQnSGampGhlJitezM95HRntOoS1GEupEz6mzhcEm
- veGwFkyGeIBN0zDA==
+ bh=myvKX6aaWUQyuRcpS6ozcBW4BDxk3fcFLskgKOInBZg=;
+ b=ahIb/F68nloyAdb/IrA0b29AiMIW8fZXfvlJFCAKUaeUlZANM/cj+HyMycuGYOvNr2PsI/
+ 0SDloUP+ukZA8SBQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id D267DA3B83;
- Sun, 12 Dec 2021 09:00:33 +0000 (UTC)
-Date: Sun, 12 Dec 2021 10:00:33 +0100
-Message-ID: <s5h8rwqfb9q.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 8B803A3B83;
+ Sun, 12 Dec 2021 09:01:15 +0000 (UTC)
+Date: Sun, 12 Dec 2021 10:01:15 +0100
+Message-ID: <s5h7dcafb8k.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Colin King (gmail)" <colin.i.king@gmail.com>
-Subject: Re: ALSA: drivers: opl3: assignment of a pointer that is not used,
- probable bug
-In-Reply-To: <fbae9be5-c847-0b6b-f755-312a2af1e285@gmail.com>
-References: <fbae9be5-c847-0b6b-f755-312a2af1e285@gmail.com>
+To: Jason Wang <wangborong@cdjrlc.com>
+Subject: Re: [PATCH] ALSA: sparc: no need to initialise statics to 0
+In-Reply-To: <20211212070422.281924-1-wangborong@cdjrlc.com>
+References: <20211212070422.281924-1-wangborong@cdjrlc.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ leon@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,38 +93,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 11 Dec 2021 19:19:30 +0100,
-Colin King (gmail) wrote:
+On Sun, 12 Dec 2021 08:04:22 +0100,
+Jason Wang wrote:
 > 
-> Hi,
+> Static variables do not need to be initialised to 0, because compiler
+> will initialise all uninitialised statics to 0. Thus, remove the
+> unneeded initializations.
 > 
-> static analysis with scan-build has found an assignment to vp2 that is
-> never used in function snd_opl3_note_on(),
-> sound/drivers/opl3/opl3_midi.c as follows:
-> 
->         if (instr_4op) {
->                 vp2 = &opl3->voices[voice + 3];
->                 if (vp->state > 0) {
->                         opl3_reg = reg_side | (OPL3_REG_KEYON_BLOCK +
->                                                voice_offset + 3);
->                         reg_val = vp->keyon_reg & ~OPL3_KEYON_BIT;
->                         opl3->command(opl3, opl3_reg, reg_val);
->                 }
->         }
-> 
-> sound/drivers/opl3/opl3_midi.c:399:3: warning: Value stored to 'vp2'
-> is never read [deadcode.DeadStores]
->                 vp2 = &opl3->voices[voice + 3];
->                 ^     ~~~~~~~~~~~~~~~~~~~~~~~~
-> 
-> I suspect that references to vp in this if block should be to vp2, but
-> I'm unsure if that is for all references or not, hence I'm reporting
-> this issue.
+> Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
 
-Yes, the next vp->state > 0 check must be vp2->state > 0.
-Care to submit a proper fix patch?
+Thanks, applied now.
 
-
-Thanks!
 
 Takashi

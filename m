@@ -2,102 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4B124719E7
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 12:52:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AD01471A49
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 14:05:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 517FD1EE1;
-	Sun, 12 Dec 2021 12:51:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 517FD1EE1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7970C1ACD;
+	Sun, 12 Dec 2021 14:04:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7970C1ACD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639309955;
-	bh=sC7VsgMdvpbJMADn51kt37v6U3U/BBXjmz9LT1TTAa4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1639314317;
+	bh=+8c9qiSOdqrEOlDMfzpOQ7YRL0BrCu0ThKu031Nm7Nk=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CXM6F8jwuIvaScYDpz5VQ8RBm4uDusVavDs56M/pSARBrUB5gGOLE11wx4koVdEJ8
-	 zhhcSL24FXTWg7T6goa7BZ0ydL5ryFuR30J1orAjrI2f4krjKwhydYRduRQK2Pk9du
-	 Bcd29r5R7ITXwzfi94AaDyxh4YTkfrgGNeRahZ/o=
+	b=IKEwFBrh31Dn7M2diJMR9Q7h0mE2xln+JsYwgAUG6f29NhcVyI6ieONxD9GsTn3ZX
+	 1OCnzjU38chY4uMbR61g1O3ZNfRtu8Ale74TpkJ+MWDB/H1lQbY2//GKF818XW7NJG
+	 8Fxi4u7r/d+twjVlEmym3j71UN/8THJbUH8wza/4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD9A3F80161;
-	Sun, 12 Dec 2021 12:51:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7065F80249;
+	Sun, 12 Dec 2021 14:04:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14D88F80246; Sun, 12 Dec 2021 12:51:27 +0100 (CET)
+ id AD800F80246; Sun, 12 Dec 2021 14:04:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mailrelay1.jaist.ac.jp (mailrelay1.jaist.ac.jp
+ [IPv6:2001:df0:2ed:8200::22])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9CABF80161
- for <alsa-devel@alsa-project.org>; Sun, 12 Dec 2021 12:51:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9CABF80161
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="mIJX827A"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="YVl98n/u"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 788725C009F;
- Sun, 12 Dec 2021 06:51:21 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Sun, 12 Dec 2021 06:51:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=EycX5ym0EnPa7yW4BE7A5SkjPPj
- OyXeH61CZajHpRBA=; b=mIJX827AGJY0zCvGGvi6eZM01R4F4DhvrQbyl7idkjK
- mLN9TGhvfebEwVZg5BZgJv7spE6FHba79Tu+ASe9GXA6etXtYIr0lIRIYy/fhKrC
- s/V0YOPxJcoLe1H5LPWv8FjHGps8IZhQMEucYty+a1JhhG9vkjlL2l87eBu66qE+
- lbeYfN6WuFYauEVqr4IetPH1B4Y8FNu1xz7s9YkEftU7J44K9aGkUu9owkK3fXXB
- C6VSGqux3S/LkiQacPvs16r6FdrdFb085w6AbGKDsxVeYcFnc7Rc1t0MiofS0XeI
- fLoMBwoOPjoR9TYaFpd3D4ZgshOBMeLaw7cSfksFtcA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=EycX5y
- m0EnPa7yW4BE7A5SkjPPjOyXeH61CZajHpRBA=; b=YVl98n/u3Cv2e7gbMRn7NE
- pn0J8rskhOtJSmnt8KoT8FMveQhBq9DroqBsvyrozojR+0UVjL/9BvXwDOQVG3Ll
- fGNus+mAfL69aQ7PiaGNyiKAcVAMJBHFlXHM2Wn1XYQKSfPwtJx8+yHhNOCSwIJ8
- vr8kox9a5l5Rsb3L0t0IAekSSW1EJgiGd9j/hoSoEFGd3R9LsdjLSbmA6CfG+IOr
- 8Z+QeSbhyGIHxMCosiw0cR8/Ly4lHsFtw3esu73pzOCOKn+bgR2ZjW8CNL0UZCCE
- IZsjVoB0nmYe1mbmRHvVZo4L3Aw9Mrdf2bEhazdjSQIC9CnVgAzqrSfYYZHavasQ
- ==
-X-ME-Sender: <xms:OeK1YXNLKRDqIosPJkAWQb_WcxpHXhXF7vkP-V8bX_yOodJV8B53oQ>
- <xme:OeK1YR-OWIuQniTLQcJxywObdySxiAzUTorO4kiAFSg_y88BM7c7OZQkjyxaHnJ9E
- w96Yy-Ufama0cw7Aeg>
-X-ME-Received: <xmr:OeK1YWS1WMI7PvgsrpM-lpk5Oqg3SotHKbpGPzirNYmdzZM8oPPp-E0jgrsHT_grVaPNL34FczcboHfKtM6tsJu0bS0RnAJQFA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrkeeigdeffecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgrshhh
- ihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
- eqnecuggftrfgrthhtvghrnhepjeegieefueevueefieeggeejledvgfejgeffjefgvdek
- leehgfdtfeetjeelkeejnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhush
- htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhi
- sehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:OeK1Ybt_0KcK0GfaZOrC0RD0aiLnZp-9GNWmOiasiBLWsqzfo8AgWw>
- <xmx:OeK1YfcoMO0ZsRgtWPQR8wZwAjweAvFJaKlu6V63TF7pNrfB0sjq0w>
- <xmx:OeK1YX336bhY-gkX-eUCpc2jEX29e1BjaHQPfM1N-lbWjzZpEkDU7g>
- <xmx:OeK1Yfma2aGAF0pVn2XZiIs5REcGdUIy-O_Jdwe_dCn7vLAPGhsIFQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 12 Dec 2021 06:51:20 -0500 (EST)
-Date: Sun, 12 Dec 2021 20:51:17 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Marios Sioutis <smarios@jaist.ac.jp>
-Subject: Re: S24LE and S32LE format equivalency
-Message-ID: <YbXiNdYIp99Df47Q@workstation>
-Mail-Followup-To: Marios Sioutis <smarios@jaist.ac.jp>,
- alsa <alsa-devel@alsa-project.org>
-References: <2a4907ee-96d2-9969-de47-80b77b7444d1@jaist.ac.jp>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF4A3F80161
+ for <alsa-devel@alsa-project.org>; Sun, 12 Dec 2021 14:03:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF4A3F80161
+IronPort-SDR: 9W5YYExOZyFeAeiNTFWiatzJ6NJ6FS9ayfxoDdqacjdRzZo/lpur3HVC+3TJdOwuJxWYr4DA4q
+ BA5rWLLtGcYGUVYYiEwm3tCAvSKFOf7WGMGo2XODtluKPknbLkwtRZM0EVxOHB4ci5E0cW4vKZ
+ MVwQN8jp/xATUfkbBj9u8qql5uMnwP+TSfb1LiBV3w/IUWS+ltPDzPVupReKjADZCM6WETPUii
+ oSycpNioQXlnVy/6+yAfYIV9z3CS46voYPInFz0J9ezpsSvemcRapJVXUjcL1W31jnWoBBembN
+ QmI=
+X-IPAS-Result: =?us-ascii?q?A+ElAACh8rVh/4d6BCSPi4OGAIbX/IAAoAtaHAEBAQEBA?=
+ =?us-ascii?q?QcBARIBAQQEAQFAgUUHAQELAYFRAYFSV2uESIgjYIgQA5EMizqBfAIJAQEBR?=
+ =?us-ascii?q?gcBAgQBAQMEhH8CgyMmNAkOAQIEAQEBAQMCAwEBBwEBAQUBAQEBAQEFAwECA?=
+ =?us-ascii?q?oEYhS85g2CBCAEBAQEBAQEBAQEBAQEBAQEBAQEWAg1SZwEFIxVBEAgDDQEKA?=
+ =?us-ascii?q?gImAgJXBgoDBgIBAYJtAYMYDrBYgTEaZ4NOAYQMJU2BJgaBECoBiiiECUOCD?=
+ =?us-ascii?q?YE8DAOCdD6CTBcEhHaCZQSSboExEIEFQBlUHI1lB5MRXosdkkyDSoQChmGUM?=
+ =?us-ascii?q?AYPBS6Db4wBhSKBFgORJZYsixmBZJoBgSyCFTMaCDCDJREBPo5UFohkhVkyM?=
+ =?us-ascii?q?wIBNQIGCwEBAwmFRAgBFQgSAQoBimgBAQ?=
+IronPort-Data: A9a23:gM7wWqALqc1BrxVW/33iw5YqxClBgxIJ4kV8jS/XYbTApD8l0z0Dy
+ TcWDW+AMv3eamb3e94ia4yxp0gEuZHQmNQwTANkpHpgZkwRpJueD7x1DKtQ0wB+jyHnZBg6h
+ ynLQoCYdKjYdpJdz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En5400s5w7dRbrNA2LBVPSvc6
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKkiyZSZdBMUdGX08tmSH
+ I4vxJnhlo/QEoxE5tmNyt4XeWVSKlLe0JTnZtO7lMFOjzAbzhHe3JrXO9I+bnVoigjWo+pv7
+ +91rrKSTjkrA4TTzbF1vxlwS0mSPIV12Yf5fyrl7ZTPnRLPIyS+zawwVBM9ZtVAqLh+D28cp
+ 6VAcDo4BvyBr7jqmO7pFeA82ZYtdZezbohE4ikykzjXA6R0GMibSc0m5vcBtNs0rttLFOzfY
+ NExazNudwiGahYJOE9/5JcWx7fx2iSkL1W0rnrJr/QRwU7+xjcs66i9PPjZQ/PVSdVKyxPwS
+ mXuuj6R7gshHNva1TOG+2msh8fUlCDyXYUZH725sPxy6HWawncaTREbS1a/ifC9kUf7Q8hYK
+ UEf5mwpt6dayaCwZoOhB0Hq/3fU4UwSAoQIQeZhsFnflKPa7VTLXzBcRFatdeAbiSP/fhRyv
+ nfhoj8jLWUHXGG9IZ5FyoqpkA==
+IronPort-HdrOrdr: A9a23:TdGLxaDcUgnbXnrlHemt55DYdb4zR+YMi2TDGXoBKiC9Afb3qy
+ nIpoV96faUskd0ZJhOo7q90cW7MBHhHNtOkOws1NSZMTUO2lHCEGgK1+KL/9SjIU3DH4Vmup
+ uIHZIeNDS9NzRHsfo=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="5.88,200,1635174000"; 
+   d="scan'208";a="3814534"
+Received: from unknown (HELO [IPV6:2404:7a87:f160:c300:6aff::100b])
+ ([IPv6:2404:7a87:f160:c300:6aff::100b])
+ by mailrelay1.jaist.ac.jp with ESMTP; 12 Dec 2021 22:03:32 +0900
+Message-ID: <2b54cb06-0c26-86d5-6249-180700e212c2@jaist.ac.jp>
+Date: Sun, 12 Dec 2021 22:03:32 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2a4907ee-96d2-9969-de47-80b77b7444d1@jaist.ac.jp>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: S24LE and S32LE format equivalency
+Content-Language: en-US
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+References: <2a4907ee-96d2-9969-de47-80b77b7444d1@jaist.ac.jp>
+ <YbXiNdYIp99Df47Q@workstation>
+From: Marios Sioutis <smarios@jaist.ac.jp>
+In-Reply-To: <YbXiNdYIp99Df47Q@workstation>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Cc: alsa <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -114,42 +100,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Takashi,
 
-On Sun, Dec 12, 2021 at 08:16:57PM +0900, Marios Sioutis wrote:
-> Hi all,
-> 
-> Quick question, I was troubleshooting a 24bit USB device and got down the
-> rabbit hole of sample formats. The device advertises itself as S24LE (4byte
-> payload) but it appears as S32LE under alsa, something that bothered me a
-> lot initially. However, If the conversion between the two formats is to just
-> << 8 i.e. put a zero byte as LSB, then the two formats are essentially
-> equivalent.
-> 
-> Is this actually the case? If yes, who performs the conversion? Is it on the
-> alsa side, or the device already adds a zero byte LSB?
-> 
-> Thank you in advance,
-> 
-> Marios
- 
-I think the format of sample is 'left-justified' or 'right-padding' 24
-bit in 32 bit frame. For the case, in ALSA PCM interface, [S|U]32 sample format is
-used with 'msbits' hardware parameter. The snd-ua101 USB driver might be
-an good example for the case.
+Thanks for taking the time to answer.
 
- * https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/usb/misc/ua101.c#n615
+On 12/12/21 20:51, Takashi Sakamoto wrote:
+> Hi,
+>
+> On Sun, Dec 12, 2021 at 08:16:57PM +0900, Marios Sioutis wrote:
+>> Hi all,
+>>
+>> Quick question, I was troubleshooting a 24bit USB device and got down the
+>> rabbit hole of sample formats. The device advertises itself as S24LE (4byte
+>> payload) but it appears as S32LE under alsa, something that bothered me a
+>> lot initially. However, If the conversion between the two formats is to just
+>> << 8 i.e. put a zero byte as LSB, then the two formats are essentially
+>> equivalent.
+>>
+>> Is this actually the case? If yes, who performs the conversion? Is it on the
+>> alsa side, or the device already adds a zero byte LSB?
+>>
+>> Thank you in advance,
+>>
+>> Marios
+>   
+> I think the format of sample is 'left-justified' or 'right-padding' 24
+> bit in 32 bit frame. For the case, in ALSA PCM interface, [S|U]32 sample format is
+> used with 'msbits' hardware parameter. The snd-ua101 USB driver might be
+> an good example for the case.
+>
+>   * https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/usb/misc/ua101.c#n615
+>
+> In detail, please refer to my previous patch:
+>
+>   * https://lore.kernel.org/alsa-devel/20210529033353.21641-1-o-takashi@sakamocchi.jp/
 
-In detail, please refer to my previous patch:
+A left-justified format, with USB being a LSB first protocol would mean 
+that an S24LE device would send a sample as:
 
- * https://lore.kernel.org/alsa-devel/20210529033353.21641-1-o-takashi@sakamocchi.jp/
+(LSB) oooooooo oooooooo oooooooo xxxxxxxx(MSB)
 
-Unfortunately, as long as I know, no userspace application evaluates the
-msbits parameter with sample format, however in theory the conversion
-should be done in userspace in advance of transmission of audio data
-frame.
+x = zeroes, garbage, who knows! (trailing bits)
 
+o = actual payload.
 
-Regards
+I was wondering how these trailing x bits are treated and I looked up 
+the USB specification for the Audio Data Formats. Section 2.2.2. states:
 
-Takashi Sakamoto
+"AudioStreaming endpoints must be constructed in such a way that a valid 
+transfer can take place as long
+as the reported audio subframe size (bSubframeSize) is respected during 
+transmission. If the reported bits
+per sample (bBitResolution) do not correspond with the number of 
+significant bits actually used during
+transfer, the device will either discard trailing significant bits 
+([actual_bits_per_sample] >
+bBitResolution) or interpret trailing zeros as significant bits 
+([actual_bits_per_sample] <
+bBitResolution)."
+
+That is, in our case the trailing x bits should be discarded. I had a 
+problem that could be explained if these trailing x bits *weren't* 
+discarded, but I'm sure alsa is doing the correct thing here, or else 
+pretty much every 24bit device in existence would be broken.
+
+This is good enough for me. Unless there's a serious mistake in anything 
+said above, consider my question answered.
+
+Thank you for your time!
+

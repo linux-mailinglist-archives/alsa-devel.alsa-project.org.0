@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6124A47195F
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 10:02:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D61EB471961
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Dec 2021 10:04:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02CD41EF1;
-	Sun, 12 Dec 2021 10:01:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02CD41EF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FEC61B67;
+	Sun, 12 Dec 2021 10:03:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FEC61B67
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639299741;
-	bh=uBmawlpjUCxyu7s9J91DjR/MwwUxH97R/o5ZWMjAW/0=;
+	s=default; t=1639299882;
+	bh=S8H4j9AYvWIMPIbuI48PsTQJkxO0V51rFwCejhD9m3E=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sdGVxlwFVWK+qTc6PwVVeLed1sHS1I/6/kwNQoDyydS1QK9eVX3h0zSKHNElIxZWO
-	 zPhB6QriQmGJZbbcLVq68uiXcRJGTj9jExuQz5lCjdaktx3K7D/UBAkM66xv8qXzBj
-	 o53KANzG7sSw+LVS0bM83N8dYB9UBJOpFLOvNgSE=
+	b=RRRjOFxFNIzgtQHwphEYpaSzct1xV5+jQKtYVql5eZLj1EXd3dy9WSoyTL/hnCzh2
+	 FWCdcEtjaqDMcNHM3dOAuSc5FIa+J5Gm9/TNOH9rT6CtybxE5RPiFeZMYCvtGX6AXJ
+	 p2q1GGBbu4BrSkeL0MTBNlf1LEOLT/uboQ8Q1hsg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04BA4F8025E;
-	Sun, 12 Dec 2021 10:01:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6CDEF80165;
+	Sun, 12 Dec 2021 10:03:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 066CCF8025A; Sun, 12 Dec 2021 10:01:22 +0100 (CET)
+ id 66AD5F80246; Sun, 12 Dec 2021 10:03:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9E59F80249
- for <alsa-devel@alsa-project.org>; Sun, 12 Dec 2021 10:01:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9E59F80249
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33021F80161
+ for <alsa-devel@alsa-project.org>; Sun, 12 Dec 2021 10:03:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33021F80161
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="QET21Flp"; 
+ header.b="ukiiHgeX"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ahIb/F68"
+ header.b="BpxjPy0v"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id A38B41F3AC;
- Sun, 12 Dec 2021 09:01:15 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id F3FF91F3AC;
+ Sun, 12 Dec 2021 09:03:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639299675; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1639299812; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=myvKX6aaWUQyuRcpS6ozcBW4BDxk3fcFLskgKOInBZg=;
- b=QET21Flprmcx/Yp84qmWMrtWNukLYsHAlNmiF3dSlcgY2pfI0ofAttdFupuLptlKWzBRGj
- UJJe5aFPU/p6J4a9+SH16dLr1RwRkaLcLiMP4Q+JYvkkr43aCof8fk9SbtG1EoURQZHLsb
- QJqgt0DIK+f4/yLShQrmq3VcS5/OcQg=
+ bh=/JM4141sPMKIluKlVsPRXo1eNryHf70RmFN8ciQJaSA=;
+ b=ukiiHgeXx78ZqhajiCteRAKMSh/vR3seK8ofisSon61I3D20mtG4YtxmIkfWj1RmupWg7V
+ oNL40GEo4O2LtBgriACAmgoJAACd7L9OX6CZgDeHFbE8Rwc5VLto6hDMhr1117XZHAWR9m
+ V4DR5R9Ej+tOO+7Oz51eTYK+XbYegWw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639299675;
+ s=susede2_ed25519; t=1639299812;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=myvKX6aaWUQyuRcpS6ozcBW4BDxk3fcFLskgKOInBZg=;
- b=ahIb/F68nloyAdb/IrA0b29AiMIW8fZXfvlJFCAKUaeUlZANM/cj+HyMycuGYOvNr2PsI/
- 0SDloUP+ukZA8SBQ==
+ bh=/JM4141sPMKIluKlVsPRXo1eNryHf70RmFN8ciQJaSA=;
+ b=BpxjPy0vTwyqxkevqlZ2DrL4xeyT+BHi+mwJkWigaB84qO22Sv/cxVcOJakCL+LqPxv5K/
+ AZxjFNpBqmTDlBBQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 8B803A3B83;
- Sun, 12 Dec 2021 09:01:15 +0000 (UTC)
-Date: Sun, 12 Dec 2021 10:01:15 +0100
-Message-ID: <s5h7dcafb8k.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id EC32CA3B81;
+ Sun, 12 Dec 2021 09:03:31 +0000 (UTC)
+Date: Sun, 12 Dec 2021 10:03:31 +0100
+Message-ID: <s5h5yrufb4s.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jason Wang <wangborong@cdjrlc.com>
-Subject: Re: [PATCH] ALSA: sparc: no need to initialise statics to 0
-In-Reply-To: <20211212070422.281924-1-wangborong@cdjrlc.com>
-References: <20211212070422.281924-1-wangborong@cdjrlc.com>
+To: Bart Kroon <bart@tarmack.eu>
+Subject: Re: Add ALC287 speaker fixup for Lenovo IdeaPad Slim 9i 14ITL5
+In-Reply-To: <8JPS3R.V4DH56Z9XIPS3@tarmack.eu>
+References: <8JPS3R.V4DH56Z9XIPS3@tarmack.eu>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- leon@kernel.org
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,16 +91,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 12 Dec 2021 08:04:22 +0100,
-Jason Wang wrote:
+On Wed, 08 Dec 2021 13:04:20 +0100,
+Bart Kroon wrote:
 > 
-> Static variables do not need to be initialised to 0, because compiler
-> will initialise all uninitialised statics to 0. Thus, remove the
-> unneeded initializations.
+> Hello,
 > 
-> Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
+> The speaker fixup that is used for the Yoga 7 14ITL5 also applies to
+> the IdeaPad Slim 9i 14ITL5. The attached patch applies the quirk.
+> 
+> The attached patch is validated on my laptop.
+> 
+> Regards,
+> Bart
 
-Thanks, applied now.
+Thanks for the patch.  For applying the change, we need your
+Signed-off-by line.  Could you resubmit with your SOB line, and
+preferably with the patch subject prefix "ALSA: hda:"?
+See Documentation/process/submitting-patches.rst for details.
 
 
 Takashi
+
+> 
+> 
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 8a3e2fe42106..de8f4e9c289d 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -8851,6 +8851,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
+>  	SND_PCI_QUIRK(0x17aa, 0x3843, "Yoga 9i", ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP),
+>  	SND_PCI_QUIRK(0x17aa, 0x3813, "Legion 7i 15IMHG05", ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS),
+> +	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+>  	SND_PCI_QUIRK(0x17aa, 0x3852, "Lenovo Yoga 7 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+>  	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+>  	SND_PCI_QUIRK(0x17aa, 0x3819, "Lenovo 13s Gen2 ITL", ALC287_FIXUP_13S_GEN2_SPEAKERS),

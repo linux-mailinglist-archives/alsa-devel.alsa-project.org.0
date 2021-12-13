@@ -2,105 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 831DF472211
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 09:04:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 809C047221E
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 09:08:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03D411877;
-	Mon, 13 Dec 2021 09:03:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03D411877
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B4D71883;
+	Mon, 13 Dec 2021 09:07:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B4D71883
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639382654;
-	bh=ZbJY2QOlnkFlS1BA72NPt0LI3PhTtdfKyTfiKhnEeEM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rvMKaPcH8vO0ex3eILH59h8SejbYmiaDnoJs3ipnFtHutoomoD7XYPXI3Oh97lVtf
-	 NqZuD9JVQpvUoKkhVy5U9KSkJLbMU++9AdqA1bUGeH6aKG2Ng0dQL/l4UNTjP1S7cI
-	 U8bjb+1DNtnU5OXV049Ekrh1vDeOxtIm/HVZgN+w=
+	s=default; t=1639382917;
+	bh=onkSok+0NXlydsvTvzc2xVIIBLSEttQHQ2/Yj9Ri1Yo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=BZQd56hmP9wbfOc5krLYiSDpYn9wkRk+unJNYyvj9+OMku5LDH+45gZR35EmFriOS
+	 OUsW4HReVJp52y0+5ZSvgvagChqnZ5GQBy4u1VPGxK9+GVergH9y84eQvt8qYcUJQL
+	 5g9dGKGTgrLtoeyp1UfAY0K+xUXz/7KX6HJS89sw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 747B6F80229;
-	Mon, 13 Dec 2021 09:03:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58032F8025F;
+	Mon, 13 Dec 2021 09:07:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C32F3F8025D; Mon, 13 Dec 2021 09:03:04 +0100 (CET)
+ id 9F1A6F8025D; Mon, 13 Dec 2021 09:07:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HELO_DYNAMIC_IPADDR,PRX_BODY_94,RDNS_DYNAMIC,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from out203-205-251-27.mail.qq.com (out203-205-251-27.mail.qq.com
+ [203.205.251.27])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12319F8013C
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 09:02:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12319F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9801F8013C
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 09:07:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9801F8013C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="n3bjueb6"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="dIpcjc9x"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 4C95D5C0097;
- Mon, 13 Dec 2021 03:02:51 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Mon, 13 Dec 2021 03:02:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=EjOLxFwGF6+ifGf067MKY65VYk4
- c0zD4p7sDrYP38CM=; b=n3bjueb6R04LK2EbpTvGo/Ih7YAw9NFtNVVJHUSRaS5
- ZwdfHIXGmvte1eoyS7y+Cu30evpJG6pXezyP3VOEga2Lcb4v5rqvIlCXq7pl0ffe
- fT9ajNk3lA3rpfYoDbUJfr9Drf0+scGuWCFVon7qEO7CuSzovWHCYF3Qmce8Fgcm
- v0bQgApwDGnsasvIrVLjrVuZ406H8IDSdPwcq/LjnvxjkhlitH9tEt7Ek1YAAb12
- IUVLmoVApV0hpkxuMWKVT6SIGBkcTOkLL7HtvstlUGtVGI4FcmEd0SXiC/Rlsxox
- OrcOfwetzLT0yhNN/BcigTKzPWrH8SwpHYGznKzAh4Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=EjOLxF
- wGF6+ifGf067MKY65VYk4c0zD4p7sDrYP38CM=; b=dIpcjc9xDt3QyGeZiCtoif
- hDCmQt+wvHaw5mALw3XsWjoDt6noLezRbGi06WGzCl5qf1Od0edm/oOtGpaAeHpb
- fY6boemoJSceVXdZteaX1CjKUSv6vdSik/c8VENTefC82xXyOzexayGBNc9bsVr4
- GnjYCub3F4UpRhiyKQ6gLaJskL/05Pk6/laGHfQ7ZRnNBcDxY1xRheRVeJiE2Gy/
- 7D+DbzFwQtPhP1lnJcCXLYG1gAW8Lf6r39w/bsrDMVYy6GIs9uk4qtd+Vg2wD0z5
- kddOXss2+CHeRGdaHl0dvKlRGDTRsgfCNZXUk5JB6w5rAvdHEBaOjlp8IQbExf9A
- ==
-X-ME-Sender: <xms:Kv62YavvRESxXu8qDW7DmD8OFklHMEunIQ4xC5-U2XUYE3ghJ9uUqg>
- <xme:Kv62YffJR4Qp4yNCbhu1sxBAFEqWgRfBvLCAF8GlJGg8LiTtV6bMm-NJPNFsptSPz
- nmBTlCv0NsrGjby_fM>
-X-ME-Received: <xmr:Kv62YVxAGSvGwvPw6riQbBkkdBexPQbWpHdyMrA0JCG9HMNQnpj5uDw7gH8AoCpkOcKtr0oac9vABRHNb2SkD9J03dQOQmnKLA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrkeejgdduudegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
- hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
- hpqeenucggtffrrghtthgvrhhnpeelhfeugedvjefgjefgudekfedutedvtddutdeuieev
- tddtgeetjeekvdefgeefhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
- grihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:Kv62YVN7RmuQPwduG1qUlZ3ZDxELkDzRuAUS2c9-muaQcnYba6OEkQ>
- <xmx:Kv62Ya_YluY_zvjIGfVK3nzRqY4KENB6EsAqHFNE7GHhYt_LgovuXw>
- <xmx:Kv62YdUYIrkkFJUQ7G4LABzmRYfGUYi_fkmoXYNvb1RzPT0hc-_pxw>
- <xmx:K_62YfGM09ZiZW7eYV09e6fcZVIdiEcGUqpEmg25vAIXRrTtxzbtQw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 13 Dec 2021 03:02:49 -0500 (EST)
-Date: Mon, 13 Dec 2021 17:02:46 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: pcm: comment about relation between msbits hw
- parameter and [S|U32] formats
-Message-ID: <Ybb+Jo73x4ZDRNNY@workstation>
-Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-References: <20210529033353.21641-1-o-takashi@sakamocchi.jp>
- <s5heedo3cdu.wl-tiwai@suse.de>
- <30685ab6-3347-43ee-b20d-6e11994242b4@www.fastmail.com>
- <s5h1r2hezsp.wl-tiwai@suse.de>
+ dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com
+ header.b="UGeolYMP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1639382835;
+ bh=dpszwiQZqvjXUNdTHYC3Hj9j2IbSuRh/whKWdQwGCXE=;
+ h=From:To:Cc:Subject:Date;
+ b=UGeolYMPYNWI/1qZo7soz6aTtPmIo0m53HgKPdc3EwOxwSR/+9Qxb99Yn5Kj2Jn+l
+ lA/lU3MqCsKurBKEqjpss77JA99e/LdO+M+KqcLHVPbbWrvLFYSBlAj70/IT1ps1tD
+ HlTmyawJgaRCrPJf2rrUV6EWZMJErAejrSHhMU0A=
+Received: from localhost.localdomain ([218.197.153.188])
+ by newxmesmtplogicsvrsza23.qq.com (NewEsmtp) with SMTP
+ id 1CC880C7; Mon, 13 Dec 2021 16:07:12 +0800
+X-QQ-mid: xmsmtpt1639382832tpsk5pue2
+Message-ID: <tencent_62C8C2B79490FE8D4000985D724D38842809@qq.com>
+X-QQ-XMAILINFO: M+SXJ71vgvoOlbkb9tPfLUTj/yyxefpbY9PXk7f1W1n+rbfnJRjzZ2Bu9MUaE3
+ +O4QaojLa9nG1oue46hB1s4BFJMNFjuamDygSetje132Kj45Gw4sQzn8XqODLiaGIv01Aqkh5Yc+
+ 4QFSmSZmC6J00OvKFLmRmczVU3pi71eHh+HIk/hxMOXNd0Uga2GTJcEhPk7nmsl/Ud4CBgGM3/SP
+ PkFpjokBcVXs903bh7gIdVBMqfdCOcYpE8PI62YgEE+ejzaoT/5nebQtCjgBD4SS2El6noD5s4WJ
+ uUvxFc4YnnlBggYgyIyZtsEn1xzmW/pO5pVlnStmjVwsfE5tcaSwRYcl1Fv8XChG3L2QUVJXMHid
+ pR7IqvO3vPhsMBuTnkFLKhQPEUXO/mOYy5rLJ0bQ2Ji56rXr3mS8QnLxdwYm+mvJnZRLoI00F0xW
+ ygvvn7XsS1lH4VDtsLotfqIoTpkbkDf4uT1R80LOkuLDVH2KRQcNYbsrdo3+r4BqKJi9lc4VnGze
+ jAnOtoLxhv/4goTluoBhc7QH5fVyD59rfSez23yO3aUc1+VjOSqcPv+C0Pgx+ETN+N4HcnVxxgto
+ x3NQV0O7i6UedbimCEryXwFu/zuNtYr+bkaWlWEDEZKKkDIgoZ/Tmn3JXeouE2Cc4w4X6g4NH5j1
+ LbDHZrsHEql7s/uMbwmU/4OKaPqBm6JzbFhw2Va5m8xFmiI6TevbCBblRFDHTkoobIM45OZuNy47
+ vbYSKVAqL2pQf41YLexgF6l2X8IeuElSgzJkkRTOi/t7xp7MfZg7e9fECR4R9Gh3y5DPGdmPXad4
+ 3kfpunOOZCd5ILLwG3r9uwg3Fc0Rwli60+DsShXO709P6ndqu4PS6IjoeK5kYeWZyjYzivU+4ROV
+ nYziPN+N7LLTWP7rnD3uH8BkheYSwnvp1B4ifUgwgNgMrubgdNlqj9g+O+/9I0Jb5cSMvdeVTl
+From: Xiaoke Wang <xkernel.wang@foxmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Subject: Re: [PATCH] ALSA: sound/isa/gus: check the return value of kstrdup()
+Date: Mon, 13 Dec 2021 16:06:47 +0800
+X-OQ-MSGID: <20211213080647.4359-1-xkernel.wang@foxmail.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s5h1r2hezsp.wl-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Xiaoke Wang <xkernel.wang@foxmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,76 +91,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Note: Compare with the last email, this one is using my full name.
+kstrdup() returns NULL when some internal memory errors happen, it is
+better to check the return value of it. Otherwise, we may not to be able
+to catch some memory errors in time.
 
-On Mon, Dec 13, 2021 at 08:20:38AM +0100, Takashi Iwai wrote:
-> On Sun, 12 Dec 2021 12:30:30 +0100,
-> Takashi Sakamoto wrote:
-> > 
-> > Hi,
-> > 
-> > On Sun, May 30, 2021, at 16:32, Takashi Iwai wrote:
-> > > On Sat, 29 May 2021 05:33:53 +0200,
-> > > Takashi Sakamoto wrote:
-> > >> 
-> > >> Regarding to handling [U|S][32|24] PCM formats, many userspace
-> > >> application developers and driver developers have confusion, since they
-> > >> require them to understand justification or padding. It easily
-> > >> loses consistency and soundness to operate with many type of devices. In
-> > >> this commit, I attempt to solve the situation by adding comment about
-> > >> relation between [S|U]32 formats and 'msbits' hardware parameter.
-> > >> 
-> > >> The formats are used for 'left-justified' sample format, and the available
-> > >> bit count in most significant bit is delivered to userspace in msbits
-> > >> hardware parameter (struct snd_pcm_hw_params.msbits), which is decided by
-> > >> msbits constraint added by pcm drivers (snd_pcm_hw_constraint_msbits()).
-> > >> 
-> > >> In driver side, the msbits constraint includes two elements; the physical
-> > >> width of format and the available width of the format in most significant
-> > >> bit. The former is used to match SAMPLE_BITS of format. (For my
-> > >> convenience, I ignore wildcard in the usage of the constraint.)
-> > >> 
-> > >> As a result of interaction between ALSA pcm core and ALSA pcm application,
-> > >> when the format in which SAMPLE_BITS equals to physical width of the
-> > >> msbits constaint, the msbits parameter is set by referring to the
-> > >> available width of the constraint. When the msbits parameter is not
-> > >> changed in the above process, ALSA pcm core set it alternatively with
-> > >> SAMPLE_BIT of chosen format.
-> > >> 
-> > >> In userspace application side, the msbits is only available after calling
-> > >> ioctl(2) with SNDRV_PCM_IOCTL_HW_PARAMS request. Even if the hardware
-> > >> parameter structure includes somewhat value of SAMPLE_BITS interval
-> > >> parameter as width of format, all of the width is not always available
-> > >> since msbits can be less than the width.
-> > >> 
-> > >> I note that [S|U24] formats are used for 'right-justified' 24 bit sample
-> > >> formats within 32 bit frame. The first byte in most significant bit
-> > >> should be invalidated. Although the msbits exposed to userspace should be
-> > >> zero as invalid value, actually it is 32 from physical width of format.
-> > >> 
-> > >> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> > >
-> > > Thanks, applied.
-> > >
-> > >
-> > > Takashi
-> > 
-> > I can not find the patch in your tree. Would I ask you to review again?
-> 
-> Hrm, it seems that the commit was lost by some reason.  Sorry!
-> 
-> > If it should be going to be applied, I'd like you to fix my typo in the subject line;
-> > 
-> >  * "[S|U32]" -> "[S|U]32"
-> 
-> There was another similar typo in the patch description and I
-> corrected both.  Now applied to for-next, commit
-> fb6723daf89083a0d2290f3a0abc777e40766c84.
+Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
+---
+ sound/isa/gus/gus_mem.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Thank you, and I overlooked that the patch still includes C99 style
-comment in the part for UAPI header...  I'm preparing to fix it.
-
-
-Regards
-
-Takashi Sakamoto
+diff --git a/sound/isa/gus/gus_mem.c b/sound/isa/gus/gus_mem.c
+index ff9480f..f8d915f 100644
+--- a/sound/isa/gus/gus_mem.c
++++ b/sound/isa/gus/gus_mem.c
+@@ -199,6 +199,8 @@ struct snd_gf1_mem_block *snd_gf1_mem_alloc(struct snd_gf1_mem * alloc, int owne
+ 		memcpy(&block.share_id, share_id, sizeof(block.share_id));
+ 	block.owner = owner;
+ 	block.name = kstrdup(name, GFP_KERNEL);
++	if (block.name == NULL)
++		return NULL;
+ 	nblock = snd_gf1_mem_xalloc(alloc, &block);
+ 	snd_gf1_mem_lock(alloc, 1);
+ 	return nblock;
+@@ -237,13 +239,13 @@ int snd_gf1_mem_init(struct snd_gus_card * gus)
+ 		block.ptr = 0;
+ 		block.size = 1024;
+ 		block.name = kstrdup("InterWave LFOs", GFP_KERNEL);
+-		if (snd_gf1_mem_xalloc(alloc, &block) == NULL)
++		if (block.name == NULL || snd_gf1_mem_xalloc(alloc, &block) == NULL)
+ 			return -ENOMEM;
+ 	}
+ 	block.ptr = gus->gf1.default_voice_address;
+ 	block.size = 4;
+ 	block.name = kstrdup("Voice default (NULL's)", GFP_KERNEL);
+-	if (snd_gf1_mem_xalloc(alloc, &block) == NULL)
++	if (block.name == NULL || snd_gf1_mem_xalloc(alloc, &block) == NULL)
+ 		return -ENOMEM;
+ #ifdef CONFIG_SND_DEBUG
+ 	snd_card_ro_proc_new(gus->card, "gusmem", gus, snd_gf1_mem_info_read);
+-- 

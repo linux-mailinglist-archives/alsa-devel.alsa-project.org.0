@@ -2,73 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93B624737C6
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 23:44:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30C614737CD
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 23:44:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BF2018B8;
-	Mon, 13 Dec 2021 23:43:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BF2018B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBB0518C0;
+	Mon, 13 Dec 2021 23:43:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBB0518C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639435454;
-	bh=Hsx/h17pYckZy7guc8kdLDa2Eaa4EzAB9kUhCPjzMrQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1639435488;
+	bh=UEBxljg7U0AjxP8YVVrv1TQKitx1bpMVVjCQIvNZxmM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I3kmFt+0148fWmLRxH4C3OnHXKJEiwdLEh+LVUusgye+wyDzrqd+bQTGp1jqIHgxV
-	 QvTn629ue3/CVkgSwyJOCTfx1d5mSaf1mkzWCOxXYCizF4vdGpNRReP9YibzOI/N9T
-	 80on8YPQshWGH25ogx2vksoINmhPgHfNyX9AaG8o=
+	b=HwwVPit5u30wUjlg/V40C4xAsZ3FCjpdbFItMAwKp/zgJiNIZfc8tOC/H7OaqqfJh
+	 9DQ7oIzWVtwy35YDxvM6nzKcrmtaCwgs3LRhsxfR4MYtv6dTPd/0WNTOvYxTvJEN/8
+	 fdI5LVYDxGpuKXmaToUlIIinCmxQlo3QsGBQPKFU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA64EF8016A;
-	Mon, 13 Dec 2021 23:42:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60834F80229;
+	Mon, 13 Dec 2021 23:43:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04478F8025F; Mon, 13 Dec 2021 23:42:40 +0100 (CET)
+ id 68E5BF8025F; Mon, 13 Dec 2021 23:43:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66EFDF8025F
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 23:42:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66EFDF8025F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mGILp2LW"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 78502612A0;
- Mon, 13 Dec 2021 22:42:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CCCC34607;
- Mon, 13 Dec 2021 22:42:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639435352;
- bh=Hsx/h17pYckZy7guc8kdLDa2Eaa4EzAB9kUhCPjzMrQ=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=mGILp2LWRQQJVBn2BQsI+IBRy4krJktvKZrGVHBZl5j74HvYeAmxmu8J+LjGSoWfS
- uHuEzvzeiFdZlju+K8Qjj2dVwu+QpgrXF77ygeXYYV4J6OBvEwlcqwwXw4iOf3IoGi
- Si8EKf+ksobmSYJIsPcMQf4Ss3Gx+Gg4mX2IKZnv/F4cXFYRy6LvBJyyzl0VQQ2FXW
- HxhWw9XsaZB1C6ct+EbHgyvdp6kQnn6HAtac/znZaOzBn71NQL3Wlq2e+rUM5uZyze
- Bt4pwfiSiCEcbDP8kUdAdRsplOjY0BRlCFPVnoEJox2+fOyLLj/dKmnJyHRb9qyuGw
- sI4Ppp8wAkGpw==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20211207193947.71080-1-pierre-louis.bossart@linux.intel.com>
-References: <20211207193947.71080-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/7] ASoC: Intel: SOF: clarifications on hardware support
-Message-Id: <163943535114.1016050.11577883573360025061.b4-ty@kernel.org>
-Date: Mon, 13 Dec 2021 22:42:31 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 177CCF80229
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 23:43:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 177CCF80229
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="gtp42DPr"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: adalessandro) with ESMTPSA id 7E26C1F44304
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=collabora.com; s=mail;
+ t=1639435424; bh=UEBxljg7U0AjxP8YVVrv1TQKitx1bpMVVjCQIvNZxmM=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=gtp42DPr62P1xEgyR9Ua5atRu227T9uo7AU0GOjOCcpdQT76gXktGHcEoHfDVKpSm
+ G9sbIRXCepQNryY6CwJygV68qXn+qbLbDs2F0RIUrvbim3xazRDRoBTx+0fEfk3JfQ
+ 5MMwP3aNhLdNnQTZJymmDEt+r5UKlav1XDpH0FwwQWWwkBPNL5syEkmDr3nNSsFc0l
+ x79S1m3gYVR9BXAiYlzobKsupboLT4i+G51pLLa901grhOEhxA9DflmEb7EiuhZC6/
+ seQl9WwNKCE589LGMiy59wHts1Ulv9mQVyVx0CXwnS5yA8wJUrILquRIEExGCUy92N
+ vh51hArjODXrA==
+Subject: Re: [PATCH 0/4] fsl-asoc-card: Add optional dt property for setting
+ mclk-id
+To: Rob Herring <robh@kernel.org>
+References: <20211203134930.128703-1-ariel.dalessandro@collabora.com>
+ <YbeukcwXQueEquJZ@robh.at.kernel.org>
+From: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Message-ID: <f35f34bc-e850-40a8-7d5e-3b783aeeaac8@collabora.com>
+Date: Mon, 13 Dec 2021 19:43:32 -0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de
+In-Reply-To: <YbeukcwXQueEquJZ@robh.at.kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ michael@amarulasolutions.com, kuninori.morimoto.gx@renesas.com,
+ Xiubo.Lee@gmail.com, tony@atomide.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, nicoleotsuka@gmail.com, broonie@kernel.org,
+ bcousson@baylibre.com, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,53 +89,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 7 Dec 2021 13:39:40 -0600, Pierre-Louis Bossart wrote:
-> This patchset revisits the Intel hardware support in SOF. The HDAudio
-> DMA position information was not following hardware recommended
-> programming sequences (similar changes are already part of the HDaudio
-> legacy driver), and the stream assignment applied a work-around that
-> was only needed on specific versions of hardware. These changes are
-> not tagged as 'Fixes' and don't need to be applied to -stable
-> versions.
+Hi Rob,
+
+Thanks for the review.
+
+On 12/13/21 5:35 PM, Rob Herring wrote:
+> On Fri, Dec 03, 2021 at 10:49:26AM -0300, Ariel D'Alessandro wrote:
+>> This is a follow up of patchset:
+>>
+>>     [RFC patch 0/5] Support BCLK input clock in tlv320aic31xx
 > 
-> [...]
+> Link?
 
-Applied to
+Link to the datasheet?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+http://www.ti.com/lit/ds/symlink/tlv320aic3100.pdf
 
-Thanks!
+> 
+>> Sound cards may allow using different main clock inputs. In the generic
+>> fsl-asoc-card driver, these values are hardcoded for each specific card
+>> configuration.
+>>
+>> Let's make it more flexible, allowing setting mclk-id from the
+>> device-tree node.
+>>
+>> Ariel D'Alessandro (4):
+>>   dt-bindings: sound: Rename tlv320aic31xx-micbias as tlv320aic31xx
+>>   dt-bindings: tlv320aic31xx: Define PLL clock inputs
+>>   ASoC: fsl-asoc-card: Add optional dt property for setting mclk-id
+> 
+> 'mclk-id' is not documented.
+> 
+>>   ASoC: fsl-asoc-card: Remove BCLK default value for tlv320aic31xx card
+>>
+>>  .../devicetree/bindings/sound/fsl-asoc-card.txt    |  1 +
+>>  .../devicetree/bindings/sound/tlv320aic31xx.txt    |  2 +-
+>>  arch/arm/boot/dts/am43x-epos-evm.dts               |  2 +-
+>>  include/dt-bindings/sound/tlv320aic31xx-micbias.h  |  9 ---------
+>>  include/dt-bindings/sound/tlv320aic31xx.h          | 14 ++++++++++++++
+>>  sound/soc/codecs/tlv320aic31xx.c                   |  2 +-
+>>  sound/soc/fsl/fsl-asoc-card.c                      |  7 ++++++-
+>>  7 files changed, 24 insertions(+), 13 deletions(-)
+>>  delete mode 100644 include/dt-bindings/sound/tlv320aic31xx-micbias.h
+>>  create mode 100644 include/dt-bindings/sound/tlv320aic31xx.h
+>>
+>> -- 
+>> 2.30.2
 
-[1/7] ASoC: SOF: Intel: ICL: move ICL-specific ops to icl.c
-      commit: c697ef868f596aba7a5e90be8eb10bf4d4a98990
-[2/7] ASoC: SOF: Intel: hda-stream: limit PROCEN workaround
-      commit: a792bfc1c2bc4b5e2311edc62e0efe5adec5d079
-[3/7] ASoC: SOF: Intel: hda-ctrl: apply symmetry for DPIB
-      commit: 12ce213821b77242b2217d08850ff972e1fb50bb
-[4/7] ASoC: SOF: hda-stream: only enable DPIB if needed
-      commit: ae81d8fd57ff7d2b421c80f0f9426d9e775023b5
-[5/7] ASoC: SOF: Intel: hda: add quirks for HDAudio DMA position information
-      commit: 288fad2f71fa0b989c075d4984879c26d47cfb06
-[6/7] ASoC: SOF: Intel: hda-dai: remove unused fields
-      commit: 924631df4134d62b51a9442d97355eeba7ff613c
-[7/7] ASoC: SOF: Intel: add comment on JasperLake support
-      commit: 290a7c5509b6f14c28e959392f3cbc4d5b2c9318
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Regards,
+Ariel

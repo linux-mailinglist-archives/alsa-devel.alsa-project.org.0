@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53C844737C7
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 23:44:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93B624737C6
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 23:44:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8ADC18ED;
-	Mon, 13 Dec 2021 23:43:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8ADC18ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BF2018B8;
+	Mon, 13 Dec 2021 23:43:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BF2018B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639435459;
-	bh=eGOn9R4/r9WTJ3fguC8+nzmsSiBmWCn5D/O1wRbjkec=;
+	s=default; t=1639435454;
+	bh=Hsx/h17pYckZy7guc8kdLDa2Eaa4EzAB9kUhCPjzMrQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bZ2q2T95T/cp/jNDLxinIiU46Bbt3CFVja/fdsI+tEVR9iuRDOc6u+cspbfBAo1jy
-	 JjB3OAh6foTEb/nXLf/NhqShIZHDCtkTW+ZtVi+OzEC/q8F5A5fUGoI69rgV3iu4rQ
-	 2kX19GrT/Fh6B2wTiJyQTKCstRpi4Sad+i6DVtUs=
+	b=I3kmFt+0148fWmLRxH4C3OnHXKJEiwdLEh+LVUusgye+wyDzrqd+bQTGp1jqIHgxV
+	 QvTn629ue3/CVkgSwyJOCTfx1d5mSaf1mkzWCOxXYCizF4vdGpNRReP9YibzOI/N9T
+	 80on8YPQshWGH25ogx2vksoINmhPgHfNyX9AaG8o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEBD4F8050F;
-	Mon, 13 Dec 2021 23:42:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA64EF8016A;
+	Mon, 13 Dec 2021 23:42:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E410F802E8; Mon, 13 Dec 2021 23:42:41 +0100 (CET)
+ id 04478F8025F; Mon, 13 Dec 2021 23:42:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 289A2F8027C
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 23:42:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 289A2F8027C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66EFDF8025F
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 23:42:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66EFDF8025F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ELty3FkC"
+ header.b="mGILp2LW"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2870AB816CE;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 78502612A0;
  Mon, 13 Dec 2021 22:42:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B517C34600;
- Mon, 13 Dec 2021 22:42:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CCCC34607;
+ Mon, 13 Dec 2021 22:42:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639435351;
- bh=eGOn9R4/r9WTJ3fguC8+nzmsSiBmWCn5D/O1wRbjkec=;
+ s=k20201202; t=1639435352;
+ bh=Hsx/h17pYckZy7guc8kdLDa2Eaa4EzAB9kUhCPjzMrQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ELty3FkCr60mWZyKXZzkFM074a0u2GLBDsaPaxay6zH+YMAKnjCRtZ7TfvOPeFBix
- GTTwtDLrwmtWj5DA/WcThDztMsAbraIw48yxtYolzZlBATX5xVE7nVM1JtDUcylzn+
- TwALQqlGFHlOsCCgec/TuGvocfwi57W9xkxz1V2k1FPRBAyVxQs9sKBTP2LiFj0HLC
- RB7GllpXVT6SFwB+O1RjZSMKarlIhALb3rdLJCLtD8o5OEPmBRgXNZ4QoHYtat039O
- hx6RE7MFR22eHQTKe0dkE9r0ABOBJ3zvbqPH4GcKGwRC/+kHaBM3XJa3c2GoivDxLJ
- 0HYqR8oSQzriA==
+ b=mGILp2LWRQQJVBn2BQsI+IBRy4krJktvKZrGVHBZl5j74HvYeAmxmu8J+LjGSoWfS
+ uHuEzvzeiFdZlju+K8Qjj2dVwu+QpgrXF77ygeXYYV4J6OBvEwlcqwwXw4iOf3IoGi
+ Si8EKf+ksobmSYJIsPcMQf4Ss3Gx+Gg4mX2IKZnv/F4cXFYRy6LvBJyyzl0VQQ2FXW
+ HxhWw9XsaZB1C6ct+EbHgyvdp6kQnn6HAtac/znZaOzBn71NQL3Wlq2e+rUM5uZyze
+ Bt4pwfiSiCEcbDP8kUdAdRsplOjY0BRlCFPVnoEJox2+fOyLLj/dKmnJyHRb9qyuGw
+ sI4Ppp8wAkGpw==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>
-In-Reply-To: <20211206154624.229018-1-thierry.reding@gmail.com>
-References: <20211206154624.229018-1-thierry.reding@gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: tegra: Document interconnects property
-Message-Id: <163943534909.1016050.10549071402255477167.b4-ty@kernel.org>
-Date: Mon, 13 Dec 2021 22:42:29 +0000
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20211207193947.71080-1-pierre-louis.bossart@linux.intel.com>
+References: <20211207193947.71080-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/7] ASoC: Intel: SOF: clarifications on hardware support
+Message-Id: <163943535114.1016050.11577883573360025061.b4-ty@kernel.org>
+Date: Mon, 13 Dec 2021 22:42:31 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Sameer Pujar <spujar@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>,
- Rob Herring <robh+dt@kernel.org>, linux-tegra@vger.kernel.org
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,13 +84,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 6 Dec 2021 16:46:24 +0100, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
-> 
-> Add the interconnects and interconnect-names properties to the bindings
-> for the sound card on various NVIDIA Tegra based boards. These are used
-> to describe the device's memory paths to and from memory.
-> 
+On Tue, 7 Dec 2021 13:39:40 -0600, Pierre-Louis Bossart wrote:
+> This patchset revisits the Intel hardware support in SOF. The HDAudio
+> DMA position information was not following hardware recommended
+> programming sequences (similar changes are already part of the HDaudio
+> legacy driver), and the stream assignment applied a work-around that
+> was only needed on specific versions of hardware. These changes are
+> not tagged as 'Fixes' and don't need to be applied to -stable
+> versions.
 > 
 > [...]
 
@@ -102,8 +101,20 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: tegra: Document interconnects property
-      commit: 5f9155a7d2dc067d72a95b42168f944c7710c0d5
+[1/7] ASoC: SOF: Intel: ICL: move ICL-specific ops to icl.c
+      commit: c697ef868f596aba7a5e90be8eb10bf4d4a98990
+[2/7] ASoC: SOF: Intel: hda-stream: limit PROCEN workaround
+      commit: a792bfc1c2bc4b5e2311edc62e0efe5adec5d079
+[3/7] ASoC: SOF: Intel: hda-ctrl: apply symmetry for DPIB
+      commit: 12ce213821b77242b2217d08850ff972e1fb50bb
+[4/7] ASoC: SOF: hda-stream: only enable DPIB if needed
+      commit: ae81d8fd57ff7d2b421c80f0f9426d9e775023b5
+[5/7] ASoC: SOF: Intel: hda: add quirks for HDAudio DMA position information
+      commit: 288fad2f71fa0b989c075d4984879c26d47cfb06
+[6/7] ASoC: SOF: Intel: hda-dai: remove unused fields
+      commit: 924631df4134d62b51a9442d97355eeba7ff613c
+[7/7] ASoC: SOF: Intel: add comment on JasperLake support
+      commit: 290a7c5509b6f14c28e959392f3cbc4d5b2c9318
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

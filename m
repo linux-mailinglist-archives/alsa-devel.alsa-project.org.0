@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7E024724B1
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 10:37:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E55BF47252E
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 10:41:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56EBB18E4;
-	Mon, 13 Dec 2021 10:37:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56EBB18E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7541F18F5;
+	Mon, 13 Dec 2021 10:40:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7541F18F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639388273;
-	bh=PUYiz/tcHpzD7Oy4mFh9v6JPa0pQ3PzfWW9PGcrPAXE=;
+	s=default; t=1639388507;
+	bh=fQxz5Vl5PCB4CPBoz5fLqFdZAqxhYwP/lnZGGZVXdDU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UWMYukynyKJ4T+1yy3W3O9wJ3nmpatS/mRFNzXVucYgzqrB9isR/FFD7fQBjp1QOu
-	 5N1qsk4+tC3X5S+i5I2pnGWhpLJoUTDoUNLzIIOiwZfNStS7EZtVwKZDH18091etGJ
-	 7oAjiiyg/X5qOVfFGxFJTYhn3M103mVhi+se472M=
+	b=HO6kZ7/quB+oUSuMKElQjaglw8VPfIT0I6JPSy/tU10Hp7yIpTPAHPOMgEvecfQY6
+	 yVncSbr5mV41MQvCF1X2lJ7nGawwSuzwnoI3x8W27XPVZFPYmy6SrkvckvvhjZgg6N
+	 rqOc4FaD/hQZKCUZnIQfaBW4FYiS9dH3Vg1F8Xvo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D575F8016A;
-	Mon, 13 Dec 2021 10:36:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDA8CF80161;
+	Mon, 13 Dec 2021 10:40:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B051F8025D; Mon, 13 Dec 2021 10:36:39 +0100 (CET)
+ id 92DF9F8025D; Mon, 13 Dec 2021 10:40:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_94,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7F7BF80161
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 10:36:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7F7BF80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89A49F80161
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 10:40:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89A49F80161
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="A+zJ5xJx"; 
+ header.b="ZEZch+t2"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="auCY3scA"
+ header.b="djX/CfCb"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 63981210E6;
- Mon, 13 Dec 2021 09:36:34 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id B42A9210DB;
+ Mon, 13 Dec 2021 09:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639388194; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1639388431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pEji7qG1lTG6T1BGFdtW1A7Ap+VS97P266CofDR8fQ8=;
- b=A+zJ5xJxX03S4bo/5eo+q0q17dJxAR8omRSL73uYL66E7GtZr5QegeqmsRIlIwzBO5Vlhe
- YY5R4D3bdEdzPux+yX8TCxV8VyHCXjmL/89+n3QFI1eJumR9fro+yo/h9A+xDfV8SXrGNH
- VDtmd41Z+YwYIFjWKf/Fb0Cymt8VOBo=
+ bh=0H3lGO4UK1VuB0BScueS62+oa3isQQCH9ZYXxtcZvXg=;
+ b=ZEZch+t2tjGb2AWmdCzLXJaOesqM7FcC3HRCm0jhzcm11sgKonBO6YrgM51KOpu57DlHok
+ JCJJDLAmAJHGXdTbS2mj8Xx2MZ/nAborA1SlBFqi9tmiUDHqL4j9G0HykeuSvSdsFiLn0j
+ w4U2VHpwO0OBjJ9OtVB9C2a3elWd2J8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639388194;
+ s=susede2_ed25519; t=1639388431;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pEji7qG1lTG6T1BGFdtW1A7Ap+VS97P266CofDR8fQ8=;
- b=auCY3scAiBCqb0omX8COw2CSytol3N654vmh13IKj5jR9/uAVphBDD/iZC2FOtNafX3qxr
- WjWKZ/3LmTgUfRDg==
+ bh=0H3lGO4UK1VuB0BScueS62+oa3isQQCH9ZYXxtcZvXg=;
+ b=djX/CfCbWaxZYUmZiZ5Fsh//3cSr9IU3kv/LHjkUDtLa4+mbJ5wWfbBhMQj5YdeuSNZCiE
+ kyleWh8WtvLCQgBw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 43A62A3B8B;
- Mon, 13 Dec 2021 09:36:34 +0000 (UTC)
-Date: Mon, 13 Dec 2021 10:36:34 +0100
-Message-ID: <s5hlf0oeti5.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 82BFFA3B83;
+ Mon, 13 Dec 2021 09:40:31 +0000 (UTC)
+Date: Mon, 13 Dec 2021 10:40:31 +0100
+Message-ID: <s5hk0g8etbk.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Colin Ian King <colin.i.king@gmail.com>
-Subject: Re: [PATCH] ALSA: drivers: opl3: Fix incorrect use of vp->state
-In-Reply-To: <20211212172025.470367-1-colin.i.king@gmail.com>
-References: <20211212172025.470367-1-colin.i.king@gmail.com>
+To: Xiaoke Wang <xkernel.wang@foxmail.com>
+Subject: Re: [PATCH] ALSA: jack: Check the return value of kstrdup()
+In-Reply-To: <tencent_094816F3522E0DC704056C789352EBBF0606@qq.com>
+References: <tencent_094816F3522E0DC704056C789352EBBF0606@qq.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>
+Cc: joe@perches.com, linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,20 +93,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 12 Dec 2021 18:20:25 +0100,
-Colin Ian King wrote:
+On Mon, 13 Dec 2021 08:39:31 +0100,
+Xiaoke Wang wrote:
 > 
-> Static analysis with scan-build has found an assignment to vp2 that is
-> never used. It seems that the check on vp->state > 0 should be actually
-> on vp2->state instead. Fix this.
+> kstrdup() can return NULL, it is better to check the return value of it.
+> Fix: free jack and use my full name.
 > 
-> This dates back to 2002, I found the offending commit from the git
-> history git://git.kernel.org/pub/scm/linux/kernel/git/tglx/history.git,
-> commit 91e39521bbf6 ("[PATCH] ALSA patch for 2.5.4")
-> 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
 
 Thanks, applied now with Cc-to-stable.
+
+BTW, when you submit a revised patch, please put 'v2' or such to the
+patch subject prefix, e.g.
+  [PATCH v2] ALSA: jack: ...
+
+Also you can put the note about the changes between revisions as
+
+  v1->v2: Fix something more....
+
+and this could be put after the first '---' line (around the diffstat)
+if it's not necessarily to be included in the final commit log.
 
 
 Takashi

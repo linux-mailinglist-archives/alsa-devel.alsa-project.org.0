@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F9814737C1
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 23:43:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53C844737C7
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 23:44:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3F24183E;
-	Mon, 13 Dec 2021 23:42:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3F24183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8ADC18ED;
+	Mon, 13 Dec 2021 23:43:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8ADC18ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639435423;
-	bh=dDQFAFUmTORVECs8IuRszmLZ6KqUu5Nfojvby5Bc3rM=;
+	s=default; t=1639435459;
+	bh=eGOn9R4/r9WTJ3fguC8+nzmsSiBmWCn5D/O1wRbjkec=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YAzu7V6U2ywbGBQndWoH5ZuMQRGtwDNINZleZwLETWMbYGR2Ma/NEl15nw0BL3H04
-	 ECNyCd+/5ERz8byOD9HYP8NQaOAVeaV6/yufrLEyLffiuipy7kdRneSvwC9h9nfLSX
-	 Hx0wBUoUoy0O4xUNq25QSA2Ud6uOXhkg0ZF0XMTQ=
+	b=bZ2q2T95T/cp/jNDLxinIiU46Bbt3CFVja/fdsI+tEVR9iuRDOc6u+cspbfBAo1jy
+	 JjB3OAh6foTEb/nXLf/NhqShIZHDCtkTW+ZtVi+OzEC/q8F5A5fUGoI69rgV3iu4rQ
+	 2kX19GrT/Fh6B2wTiJyQTKCstRpi4Sad+i6DVtUs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0261CF8013C;
-	Mon, 13 Dec 2021 23:42:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEBD4F8050F;
+	Mon, 13 Dec 2021 23:42:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35252F8025D; Mon, 13 Dec 2021 23:42:33 +0100 (CET)
+ id 6E410F802E8; Mon, 13 Dec 2021 23:42:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C10A4F8016A
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 23:42:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C10A4F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 289A2F8027C
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 23:42:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 289A2F8027C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QUX9zrPh"
+ header.b="ELty3FkC"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D01D4B81670;
- Mon, 13 Dec 2021 22:42:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFFBFC34600;
- Mon, 13 Dec 2021 22:42:23 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2870AB816CE;
+ Mon, 13 Dec 2021 22:42:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B517C34600;
+ Mon, 13 Dec 2021 22:42:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639435345;
- bh=dDQFAFUmTORVECs8IuRszmLZ6KqUu5Nfojvby5Bc3rM=;
+ s=k20201202; t=1639435351;
+ bh=eGOn9R4/r9WTJ3fguC8+nzmsSiBmWCn5D/O1wRbjkec=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=QUX9zrPh31+XK+TMxIuA6+kPF4uIX6QRj1Q+26ETWZrZ6f0tcMg2/H94di7h0yysc
- zaiuMd3+xt5uNVevsiNk2yO7VUq6aL7Be/+Ho8zpUd4RMf09sqR7rSoHjJtJGZK/gc
- lwNs6cwupky48u1WEdk8toOE2bsgG74Yjnt6qZBKfxFwPk4GVcEfDCTgLR8HZe5hWL
- o+Rvh0hcd/oHuATZUnq1soZ/0+vH6ylr+PTcB8zIM0Si7RANNuKBkwMz25ZqTe+PqJ
- +izi4OUBUKxKNnPEflzaA5QjFIeFeA6CqGKWZdkxb4xb/k93Vg8OBNa473nURZldTN
- 6JVzNqwWozF1w==
+ b=ELty3FkCr60mWZyKXZzkFM074a0u2GLBDsaPaxay6zH+YMAKnjCRtZ7TfvOPeFBix
+ GTTwtDLrwmtWj5DA/WcThDztMsAbraIw48yxtYolzZlBATX5xVE7nVM1JtDUcylzn+
+ TwALQqlGFHlOsCCgec/TuGvocfwi57W9xkxz1V2k1FPRBAyVxQs9sKBTP2LiFj0HLC
+ RB7GllpXVT6SFwB+O1RjZSMKarlIhALb3rdLJCLtD8o5OEPmBRgXNZ4QoHYtat039O
+ hx6RE7MFR22eHQTKe0dkE9r0ABOBJ3zvbqPH4GcKGwRC/+kHaBM3XJa3c2GoivDxLJ
+ 0HYqR8oSQzriA==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Dmitry Osipenko <digetx@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Thomas Graichen <thomas.graichen@gmail.com>,
+To: Liam Girdwood <lgirdwood@gmail.com>,
  Thierry Reding <thierry.reding@gmail.com>
-In-Reply-To: <20211211231146.6137-1-digetx@gmail.com>
-References: <20211211231146.6137-1-digetx@gmail.com>
-Subject: Re: [PATCH v1 1/2] ASoC: tegra: Add DAPM switches for headphones and
- mic jack
-Message-Id: <163943534342.1012216.11678969524505932920.b4-ty@kernel.org>
-Date: Mon, 13 Dec 2021 22:42:23 +0000
+In-Reply-To: <20211206154624.229018-1-thierry.reding@gmail.com>
+References: <20211206154624.229018-1-thierry.reding@gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: tegra: Document interconnects property
+Message-Id: <163943534909.1016050.10549071402255477167.b4-ty@kernel.org>
+Date: Mon, 13 Dec 2021 22:42:29 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Sameer Pujar <spujar@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,23 +86,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 12 Dec 2021 02:11:45 +0300, Dmitry Osipenko wrote:
-> UCM of Acer Chromebook (Nyan) uses DAPM switches of headphones and mic
-> jack. These switches were lost by accident during unification of the
-> machine drivers, restore them.
+On Mon, 6 Dec 2021 16:46:24 +0100, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> Add the interconnects and interconnect-names properties to the bindings
+> for the sound card on various NVIDIA Tegra based boards. These are used
+> to describe the device's memory paths to and from memory.
 > 
 > 
+> [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
 Thanks!
 
-[1/2] ASoC: tegra: Add DAPM switches for headphones and mic jack
-      commit: d341b427c3c3fd6a58263ce01e01700d16861c28
-[2/2] ASoC: tegra: Restore headphones jack name on Nyan Big
-      commit: db635ba4fadf3ba676d07537f3b3f58166aa7b0e
+[1/1] ASoC: dt-bindings: tegra: Document interconnects property
+      commit: 5f9155a7d2dc067d72a95b42168f944c7710c0d5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

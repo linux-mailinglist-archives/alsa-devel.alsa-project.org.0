@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E55BF47252E
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 10:41:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4EA5472698
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 10:55:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7541F18F5;
-	Mon, 13 Dec 2021 10:40:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7541F18F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32E6B190C;
+	Mon, 13 Dec 2021 10:54:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32E6B190C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639388507;
-	bh=fQxz5Vl5PCB4CPBoz5fLqFdZAqxhYwP/lnZGGZVXdDU=;
+	s=default; t=1639389320;
+	bh=VEsaF962PprjBfKIAPotFkP9f821PSpOLN//AVL9nPc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HO6kZ7/quB+oUSuMKElQjaglw8VPfIT0I6JPSy/tU10Hp7yIpTPAHPOMgEvecfQY6
-	 yVncSbr5mV41MQvCF1X2lJ7nGawwSuzwnoI3x8W27XPVZFPYmy6SrkvckvvhjZgg6N
-	 rqOc4FaD/hQZKCUZnIQfaBW4FYiS9dH3Vg1F8Xvo=
+	b=rl4tRcXuF7xkuwiPXUkLanPUF4VfCKyvx6EMpSvl+f1TytESs6Bj6RLwv1rOsV6vQ
+	 Z7ZuExKinL9QQFeTYa0sJdZVPMdLrUrVxkpjbEjDBLTWAlFQmBg8gZxXOoNEENgPD8
+	 yVTLAjMbI7U/TyA2bS1Gi8lxa7aRTPGB1Nn6lj/E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDA8CF80161;
-	Mon, 13 Dec 2021 10:40:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8BFB1F8025F;
+	Mon, 13 Dec 2021 10:54:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92DF9F8025D; Mon, 13 Dec 2021 10:40:36 +0100 (CET)
+ id 5A26AF8025D; Mon, 13 Dec 2021 10:54:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,PRX_BODY_94,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89A49F80161
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 10:40:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89A49F80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49079F80161
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 10:54:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49079F80161
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZEZch+t2"; 
+ header.b="AybiJFyG"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="djX/CfCb"
+ header.b="DnAm6qPu"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id B42A9210DB;
- Mon, 13 Dec 2021 09:40:31 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 494DF1F3BA;
+ Mon, 13 Dec 2021 09:54:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639388431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1639389241; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0H3lGO4UK1VuB0BScueS62+oa3isQQCH9ZYXxtcZvXg=;
- b=ZEZch+t2tjGb2AWmdCzLXJaOesqM7FcC3HRCm0jhzcm11sgKonBO6YrgM51KOpu57DlHok
- JCJJDLAmAJHGXdTbS2mj8Xx2MZ/nAborA1SlBFqi9tmiUDHqL4j9G0HykeuSvSdsFiLn0j
- w4U2VHpwO0OBjJ9OtVB9C2a3elWd2J8=
+ bh=v3PmS/V9tabsuQtiNMyOrpMuwlNvddNWtOuGQxaRkN4=;
+ b=AybiJFyGnfothR/B0mxsO/LKLB7tRoRvyFEtaxlvaiops6Kt2GstO1PxRARNx4gAFcrMiI
+ NgLeNFq3pssdSO9p32aa5PDO4jS4TM123iioWqa5YAWVQxqo6tHx4xguTxakwTol2S904G
+ Bu7DXgOWaQAWfqGMoVOAs18HJFz2+xY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639388431;
+ s=susede2_ed25519; t=1639389241;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0H3lGO4UK1VuB0BScueS62+oa3isQQCH9ZYXxtcZvXg=;
- b=djX/CfCbWaxZYUmZiZ5Fsh//3cSr9IU3kv/LHjkUDtLa4+mbJ5wWfbBhMQj5YdeuSNZCiE
- kyleWh8WtvLCQgBw==
+ bh=v3PmS/V9tabsuQtiNMyOrpMuwlNvddNWtOuGQxaRkN4=;
+ b=DnAm6qPuc6eTIhE2+XX+7zPHECYzDyBSlAF5pKUTsgXHPmLJwaGV3br6t/sAhP7iSNRgaN
+ USWfdPjnhbKwQFBQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 82BFFA3B83;
- Mon, 13 Dec 2021 09:40:31 +0000 (UTC)
-Date: Mon, 13 Dec 2021 10:40:31 +0100
-Message-ID: <s5hk0g8etbk.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 389CFA3B8F;
+ Mon, 13 Dec 2021 09:54:00 +0000 (UTC)
+Date: Mon, 13 Dec 2021 10:54:00 +0100
+Message-ID: <s5hilvsesp3.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Xiaoke Wang <xkernel.wang@foxmail.com>
-Subject: Re: [PATCH] ALSA: jack: Check the return value of kstrdup()
-In-Reply-To: <tencent_094816F3522E0DC704056C789352EBBF0606@qq.com>
-References: <tencent_094816F3522E0DC704056C789352EBBF0606@qq.com>
+Subject: Re: [PATCH] ALSA: sound/isa/gus: check the return value of kstrdup()
+In-Reply-To: <tencent_62C8C2B79490FE8D4000985D724D38842809@qq.com>
+References: <tencent_62C8C2B79490FE8D4000985D724D38842809@qq.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: joe@perches.com, linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- tiwai@suse.com
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,26 +92,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 13 Dec 2021 08:39:31 +0100,
+On Mon, 13 Dec 2021 09:06:47 +0100,
 Xiaoke Wang wrote:
 > 
-> kstrdup() can return NULL, it is better to check the return value of it.
-> Fix: free jack and use my full name.
+> Note: Compare with the last email, this one is using my full name.
+> kstrdup() returns NULL when some internal memory errors happen, it is
+> better to check the return value of it. Otherwise, we may not to be able
+> to catch some memory errors in time.
 > 
 > Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
 
-Thanks, applied now with Cc-to-stable.
+The patch again forgot about the proper error handling...
+This will leave the mutex unbalanced.
 
-BTW, when you submit a revised patch, please put 'v2' or such to the
-patch subject prefix, e.g.
-  [PATCH v2] ALSA: jack: ...
+Please be careful when writing this kind of fix at the next time.
+Many code paths require the proper error handling, e.g. freeing the
+rest memory or unlock/lock something.
 
-Also you can put the note about the changes between revisions as
+In this particular case, snd_gf1_mem_lock(alloc, 1) is needed at the
+first chunk.
 
-  v1->v2: Fix something more....
+And, the easiest way to fix would be to have a NULL check in
+snd_gf1_mem_xalloc().  Then that will cover all callers by once.
 
-and this could be put after the first '---' line (around the diffstat)
-if it's not necessarily to be included in the final commit log.
 
+thanks,
 
 Takashi
+
+> ---
+>  sound/isa/gus/gus_mem.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/isa/gus/gus_mem.c b/sound/isa/gus/gus_mem.c
+> index ff9480f..f8d915f 100644
+> --- a/sound/isa/gus/gus_mem.c
+> +++ b/sound/isa/gus/gus_mem.c
+> @@ -199,6 +199,8 @@ struct snd_gf1_mem_block *snd_gf1_mem_alloc(struct snd_gf1_mem * alloc, int owne
+>  		memcpy(&block.share_id, share_id, sizeof(block.share_id));
+>  	block.owner = owner;
+>  	block.name = kstrdup(name, GFP_KERNEL);
+> +	if (block.name == NULL)
+> +		return NULL;
+>  	nblock = snd_gf1_mem_xalloc(alloc, &block);
+>  	snd_gf1_mem_lock(alloc, 1);
+>  	return nblock;
+> @@ -237,13 +239,13 @@ int snd_gf1_mem_init(struct snd_gus_card * gus)
+>  		block.ptr = 0;
+>  		block.size = 1024;
+>  		block.name = kstrdup("InterWave LFOs", GFP_KERNEL);
+> -		if (snd_gf1_mem_xalloc(alloc, &block) == NULL)
+> +		if (block.name == NULL || snd_gf1_mem_xalloc(alloc, &block) == NULL)
+>  			return -ENOMEM;
+>  	}
+>  	block.ptr = gus->gf1.default_voice_address;
+>  	block.size = 4;
+>  	block.name = kstrdup("Voice default (NULL's)", GFP_KERNEL);
+> -	if (snd_gf1_mem_xalloc(alloc, &block) == NULL)
+> +	if (block.name == NULL || snd_gf1_mem_xalloc(alloc, &block) == NULL)
+>  		return -ENOMEM;
+>  #ifdef CONFIG_SND_DEBUG
+>  	snd_card_ro_proc_new(gus->card, "gusmem", gus, snd_gf1_mem_info_read);
+> -- 
+> 

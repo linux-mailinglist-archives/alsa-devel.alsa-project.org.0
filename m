@@ -2,82 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF0AC4735C8
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 21:23:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E30964735CD
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 21:24:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC11618AC;
-	Mon, 13 Dec 2021 21:22:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC11618AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 851FF18B5;
+	Mon, 13 Dec 2021 21:23:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 851FF18B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639426989;
-	bh=RtimEoYKlS7lmkMei7ySAEWgrPHZD0UU9wMoR5vCano=;
+	s=default; t=1639427071;
+	bh=rxPVBhPh5tlNhjWaqPc7a+jGRRfr7wdTzWh+EjkcTjE=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DQLl+/dBPT0cdN4iywLE9OyEmb5zJqg27Mf9Cv1Vgm7FHZOD+3rSNfeYFCYQ/HQu8
-	 S42JG3vomCmctVfevH/y6xr9hMm77yeRTlZ+uAnHsLOd9C50NzRwm+vGPFrDLWp3zj
-	 qaKaogLshNstIDnwa+r6/EMC3RAdcH15HZ+CtNcY=
+	b=ev8+aT8UiJJ2OOaz+CFFvGjqxmnlRyqdQlAKNQ7RriGd5XJJMTmBGJCwlFAw+aSew
+	 26Ri4ZeExZ5kX/ZK2KKXznj5MqQ+/3TTzABFT041QlZVT83kB1NKHdY7+JX2K/4yEQ
+	 FXD8x4yaPloxZ3vICpAeQPg3+sj4n1VzRBlQeyc8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36C53F8027C;
-	Mon, 13 Dec 2021 21:22:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1EB4F8025F;
+	Mon, 13 Dec 2021 21:23:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D063F802E8; Mon, 13 Dec 2021 21:21:58 +0100 (CET)
+ id CBE14F8025D; Mon, 13 Dec 2021 21:23:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
+ [209.85.167.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B628F8025F
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 21:21:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B628F8025F
-Received: by mail-oi1-f172.google.com with SMTP id t19so24740654oij.1
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 12:21:48 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3CBCF80229
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 21:23:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3CBCF80229
+Received: by mail-oi1-f180.google.com with SMTP id t23so24737465oiw.3
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 12:23:15 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=bnuzIOJ2kdxbRDKBRQuo3lx9OKEj/3aSoA9HnE3CprM=;
- b=EIhwMT9xNwvDb3jtrb5AODPnPLL0fINwHgg2xBdZOikFpg/sJV/xPD2qrqYpsuRQ0i
- PN0vf8c3uITjWNMKwGS1r5THCC4e9EGRusTLuxI48XnkZfNzavkdeW2cCdzhlKGHS71+
- rijIBOwOMdAgoNhdQXI4UMPj5edXPZPBseUbJM3gLApLBFmMRuaxF8nRQGUBKkG/oIpG
- v147IowtI9JKv2PR6+7uuxn9ZKesCSu4mMqsT95uwI1BjYee+PQKMu/TWTGn/tpzD1HT
- MPpxCwWdR3gxo7X6EJTyI/LbRnvpk6TYQxENw5dfcCOw+f49XT76ZXxlgCsOA/RmfWdF
- +9qg==
-X-Gm-Message-State: AOAM533LLnDpBGH0ANVfL068c45/ZegpoVXwOsXMRg5WXPt598P1ZYr9
- wDmp/l5M4U1ccfBYe5c7OA==
-X-Google-Smtp-Source: ABdhPJwvOnLZzWJ0KZK5wqvP/kLsevP+mX+pIDEGAdPoaRc02evNqqmQjUTBWNM1Vv6GSmsZYRT4xw==
-X-Received: by 2002:aca:ab86:: with SMTP id u128mr757856oie.41.1639426906747; 
- Mon, 13 Dec 2021 12:21:46 -0800 (PST)
+ bh=KOzRGDuzgHP+LKpjr5HbH419deyjCZOrF7CtcnAeppM=;
+ b=vQlHdo9W5Hvz3shUcNOBC39cDUNgEdXVQcO5TZiRBbkxOfc9Gb9Rp9kMDvcpmByoEv
+ cYJlIhPoPOxYrt7ydlkw+5gehSclP2QnrutIApIgcBf25KH2WftqwYz28rwMsfVZS2L8
+ XdLfALCri4B9/lZxbmdQkNmn7AdDbpDZJOGvGVZh1hH+53SCk0W/iDv+T/yQR/+fX2V5
+ X5lql+RIgheP5GYb3BSKXT0oyBc5eBk/oZkmXXsoLJIKgxmOfOAa2/UpIN75eFPnRI9C
+ TCwNli8mrZTWVVOyrsXl/OF2BnbIPyykA1w8S6Sc0CT5pGfLNvyN1w4cPUK7CBZxlWOe
+ f1Zw==
+X-Gm-Message-State: AOAM531NgyOI3VPl+PgCtILMZISQjL0/7m4sKIM+fWCjGesqUOzCqrOq
+ B12YB03v9BrvgsGZhEoDNw==
+X-Google-Smtp-Source: ABdhPJzUCaYQtXFGkfNZQS0VLaUxGOxkTq0hqkKHtdFQi05ubJ4+LZvxzTMd7+QA9zDhE98yynU/rA==
+X-Received: by 2002:a05:6808:5c1:: with SMTP id
+ d1mr29655537oij.141.1639426994075; 
+ Mon, 13 Dec 2021 12:23:14 -0800 (PST)
 Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
  [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id bk41sm2954433oib.31.2021.12.13.12.21.45
+ by smtp.gmail.com with ESMTPSA id e4sm1421252oiy.12.2021.12.13.12.23.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Dec 2021 12:21:46 -0800 (PST)
-Received: (nullmailer pid 1505869 invoked by uid 1000);
- Mon, 13 Dec 2021 20:21:45 -0000
-Date: Mon, 13 Dec 2021 14:21:45 -0600
+ Mon, 13 Dec 2021 12:23:13 -0800 (PST)
+Received: (nullmailer pid 1508142 invoked by uid 1000);
+ Mon, 13 Dec 2021 20:23:11 -0000
+Date: Mon, 13 Dec 2021 14:23:11 -0600
 From: Rob Herring <robh@kernel.org>
 To: Stephan Gerhold <stephan@gerhold.net>
-Subject: Re: [PATCH 2/5] ASoC: dt-bindings: qcom: sm8250: Document "aux-devs"
-Message-ID: <YberWWoxK3hR8hHu@robh.at.kernel.org>
+Subject: Re: [PATCH 3/5] ASoC: dt-bindings: qcom: apq8016-sbc: Move to
+ qcom,sm8250 DT schema
+Message-ID: <YberrygvFWcGtV7L@robh.at.kernel.org>
 References: <20211202145505.58852-1-stephan@gerhold.net>
- <20211202145505.58852-3-stephan@gerhold.net>
+ <20211202145505.58852-4-stephan@gerhold.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20211202145505.58852-3-stephan@gerhold.net>
+In-Reply-To: <20211202145505.58852-4-stephan@gerhold.net>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Banajit Goswami <bgoswami@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  ~postmarketos/upstreaming@lists.sr.ht
 X-BeenThere: alsa-devel@alsa-project.org
@@ -95,20 +97,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 02 Dec 2021 15:55:02 +0100, Stephan Gerhold wrote:
-> The sm8250 audio driver uses the common Qualcomm device tree parser and
-> therefore already supports the "aux-devs" property that allows adding
-> additional auxiliary devices to the sound card (e.g. analog speaker
-> amplifiers that can be connected using "audio-routing").
+On Thu, 02 Dec 2021 15:55:03 +0100, Stephan Gerhold wrote:
+> All the Qualcomm sound card drivers use the same common device tree
+> parsing code, so the allowed device tree nodes are almost the same
+> for all of them. Convert the qcom,apq8016-sbc-sndcard documentation
+> to a DT schema by adding it to the existing qcom,sm8250 schema.
 > 
-> Document the property in the DT schema for sm8250 as well. The description
-> is taken from simple-card.yaml which has a very similar property.
+> The only speciality of qcom,apq8016-sbc-sndcard is that it has memory
+> resources for setting up an I/O mux. This can be handled using
+> a conditional if statement that only requires it for the apq8016-sbc
+> compatible.
 > 
 > Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 > Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
 > ---
->  Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
+> Note: There will be a dtbs_check warning caused by this, because the
+> recommended naming for nodes is different in this DT schema (-dai-link
+> suffix). I will address this in a separate patch if this series is
+> accepted, simply by changing apq8016-sbc.dts to the example added
+> in this patch. The driver itself accepts any naming for those nodes.
+> ---
+>  .../bindings/sound/qcom,apq8016-sbc.txt       | 96 -------------------
+>  .../bindings/sound/qcom,sm8250.yaml           | 83 +++++++++++++++-
+>  2 files changed, 81 insertions(+), 98 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/qcom,apq8016-sbc.txt
 > 
 
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Rob Herring <robh@kernel.org>

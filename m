@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04FE24731E6
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 17:36:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9B3A47337C
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 19:02:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87ED118A9;
-	Mon, 13 Dec 2021 17:35:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87ED118A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 187241891;
+	Mon, 13 Dec 2021 19:01:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 187241891
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639413373;
-	bh=wnOhd0uugHq1/ztVIeKV8oKWDawezTEWep8Ktuozols=;
+	s=default; t=1639418522;
+	bh=YFqukNs+Og9qk/2yG+rJxGiiz5BS2yPPUMTffwav1QQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gZCfBRNAEqZbIb1K52cuDcZdwf4+HE4Xb7yU7ioUWnCMGhYU3BqppVXaovaS/Nvqf
-	 d2O0cFuJFas6+N09k3YYpmRc1VVjlJa60d+6KP1PFl4hIIxvZHiqe6lZxqBwr0lw+0
-	 mXw8eHnJHaN89ayaEMhqp9qKNKB37uDGmErleVfk=
+	b=rguwmFJmRBXYcN2lLmgen9an21F+T3PRMWJlK05T7XygLUELeqCCC8zPBqckDkJ+g
+	 WmJ0/32tQDast5Py6Xil0O8jEpCvcDcLlHFrmewlSH9e8JnPVQeDZb7cdW42twoQom
+	 Iwj9Y23p12YBF2MGg+z2uIyt18yl43Pq8Oe+RTjw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D352F8013C;
-	Mon, 13 Dec 2021 17:35:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 754B9F8025F;
+	Mon, 13 Dec 2021 19:00:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D12BF8025D; Mon, 13 Dec 2021 17:35:04 +0100 (CET)
+ id 0A8A1F8025D; Mon, 13 Dec 2021 19:00:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,45 +34,48 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82CA2F8013C
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 17:35:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82CA2F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 85CC9F8016A
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 19:00:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85CC9F8016A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iHx90Veb"
+ header.b="WS8oyyYJ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B43F26118C;
- Mon, 13 Dec 2021 16:34:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A8BC34603;
- Mon, 13 Dec 2021 16:34:55 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7E47861188;
+ Mon, 13 Dec 2021 18:00:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 417A8C34605;
+ Mon, 13 Dec 2021 18:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639413297;
- bh=wnOhd0uugHq1/ztVIeKV8oKWDawezTEWep8Ktuozols=;
+ s=k20201202; t=1639418440;
+ bh=YFqukNs+Og9qk/2yG+rJxGiiz5BS2yPPUMTffwav1QQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iHx90Veb6E2b1Q+kSSLbX8VMNXhEa0DEAnEw/GW5LThCYBLRa7Q2V6Vbab1p/pY+M
- nDhiVTWBs71CBj+zDFsHdOzRqez3TI1aT2s/qkV3Nzl/ym19lAN1qA9vg6n0B+w5VB
- S1Ln8hP4imkqRSiKwczKb/Gig80wHnfn/zU+TjExt6kxQmjETIcpEpT6gbv3qykYtM
- CGCSjtsdB450aT+uKty7RjCpr/O526BcnE8YazrC4JG+G8Mw1PzTt9TfNimgdG/nLE
- bGJot3ieeyL0tTN5Nokv36YggiKHbiaaa7IAJgYhrSr428y9K3AFkd/OQEFtt3nbRa
- qxqn/jUK3Eh8w==
-Date: Mon, 13 Dec 2021 16:34:52 +0000
+ b=WS8oyyYJycmr/sHk2TzEhrQCrgB4i8oxjN1gHssg56OEA4uFh0e1Qcb3zeO/9zQzk
+ 9TJ6u045thOyEFuoROv4LUx6AUE/4OLunHZsnL36PLNrvdHJx8RzOozEkVUVP9wXXQ
+ hJK9iWG58HESVEptEBCgqVRP4F0v2nu5biOt13n9WV7wJEpYr5Su4xjNpbzeX9xQmz
+ f5c40IoCYaJ97q7HIY8WTPJAa3Zv976LaBlCs2/pBHfXjs8TZOExMrI2P99raOnnio
+ ZtqlgWfRn3hnFLGsAon6sFtCuBh3gOjdMf7e586/ic/IMJTrIE7Yan3bnbeUbkv4yH
+ hXPnZVJUye5Dg==
+Date: Mon, 13 Dec 2021 18:00:35 +0000
 From: Mark Brown <broonie@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Subject: Re: [PATCH] ASoC: dt-bindings: add missing pins
-Message-ID: <Ybd2LMZ8+UqcUZTS@sirena.org.uk>
-References: <20211211215120.70966-1-david@ixit.cz>
+To: Stephen Boyd <swboyd@chromium.org>
+Subject: Re: [PATCH] SoC: qcom: Distinguish headset codec by codec_dai->name
+Message-ID: <YbeKQ3mLqe1RoUWJ@sirena.org.uk>
+References: <20211210051907.3870109-1-judyhsiao@chromium.org>
+ <CAE-0n52z=wRS3rXM=zQzcy1yryvzwW6iGA75UYBiYSkR_5edTA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vmxQrrQTZR4eGkiO"
+ protocol="application/pgp-signature"; boundary="WyxKWAijYORUCs4s"
 Content-Disposition: inline
-In-Reply-To: <20211211215120.70966-1-david@ixit.cz>
+In-Reply-To: <CAE-0n52z=wRS3rXM=zQzcy1yryvzwW6iGA75UYBiYSkR_5edTA@mail.gmail.com>
 X-Cookie: No solicitors.
-Cc: Oder Chiou <oder_chiou@realtek.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- ~okias/devicetree@lists.sr.ht
+Cc: dianders@chromium.org, judyhsiao@google.com,
+ Banajit Goswami <bgoswami@codeaurora.org>, cychiang@google.com,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Judy Hsiao <judyhsiao@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,63 +92,52 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---vmxQrrQTZR4eGkiO
+--WyxKWAijYORUCs4s
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sat, Dec 11, 2021 at 10:51:19PM +0100, David Heidelberg wrote:
+On Fri, Dec 10, 2021 at 03:15:49PM -0800, Stephen Boyd wrote:
+> Quoting Judy Hsiao (2021-12-09 21:19:07)
 
-> Add pins missing in documentation, but present in the hardware.
+> > Fixes: 425c5fce8a03 ("ASoC: qcom: Add support for ALC5682I-VS codec")
 
-> Fixes: 0e826e867264 ("ASoC: add RT5677 CODEC driver")
+> It fixes something so what is it fixing? Can you add the call stack of
+> the failure and explain how this patch fixes it? We have that patch
+> backported to our chromeos 5.4 kernel tree but I assume this reproduces
+> upstream.
 
-Please don't just add nonsense fixes tags for the sake of it, this just
-creates noise and gets in the way of people trying to use the tags to
-work out if thy need fixes.  The commit you're mentioning doesn't even
-contain any changes to the binding document.
+Please don't encourage people to just paste entire panics into things,
+what you've included here is vastly larger than the entire original
+patch which overwhelms the content in the message.
 
-> @@ -54,9 +54,21 @@ Pins on the device (for linking into audio routes):
->    * DMIC2
->    * DMIC3
->    * DMIC4
-> +  * DMIC L1
-> +  * DMIC L2
-> +  * DMIC L3
-> +  * DMIC L4
-> +  * DMIC R1
-> +  * DMIC R2
-> +  * DMIC R3
-> +  * DMIC R4
+>  Unable to handle kernel paging request at virtual address ffffffbfe7bba9ce
+>  Mem abort info:
+>    ESR = 0x96000005
+>    EC = 0x25: DABT (current EL), IL = 32 bits
+>    SET = 0, FnV = 0
+>    EA = 0, S1PTW = 0
+>  Data abort info:
+>    ISV = 0, ISS = 0x00000005
+>    CM = 0, WnR = 0
 
-These clearly aren't pins you're adding, digital microphones use PDM
-and carry a stereo pair on a single physical pin (which is what should
-be and already is in the bindings).  This is adding an extra set of pins
-to the binding duplicating the existing ones.
+Information like the above or the register contents is not adding any
+value here, it just makes it harder to find the actual content in the
+message.  Sometimes a relevant portion of the stack can be useful but
+that's not what's happening here.
 
->    * LOUT1
->    * LOUT2
->    * LOUT3
-> +  * PDM1L
-> +  * PDM1R
-> +  * PDM2L
-> +  * PDM2R
-
-I'd expect these to be just PDM1 and PDM2, assuming that that's what the
-pins are called in the chip datasheet.
-
---vmxQrrQTZR4eGkiO
+--WyxKWAijYORUCs4s
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmG3disACgkQJNaLcl1U
-h9BZSwf+OOcBl5DrmVF88D9eLae6ah84DXOIEIStolvdAuNRSWnUdkm1RQ4G99zC
-LBwG7K6/O6vcGdcGQ4JO2+r8MvFhGlQxs9cJAZOqBvUUXlZHJhS75Ki7N6Y95T4n
-vOK5yRKGcBUEdTB6455YsppRqEkpNZ9XzCVzN3dLNZHvWUkGpAcRQCggDTfT6wBK
-ApDK+YWsRjUCGboPu5k9COT/l2N36qSbkFoe8BVadhNBCKYMVqD1bhlgcUExqbU7
-E4PkP5TOJZ7PKnIUx73lRSf7LfOrDU9sH06rvB2ER/hcwo2vwDlZxKNuMAyU9Bd0
-5vu9vqUY+iaLxeDdxv66WH0IykLN4A==
-=EMvB
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmG3ikIACgkQJNaLcl1U
+h9DEvgf/SGigxmX4RClSIJHxCB78eNZyY+qRHmxY3ooT5MmdyLd4mqYAHxGvUnfC
+EU8ca4McwbTvDom1GS0+Dwt2ICBJ1zW090xrQuP3QhfIoCG9x+G5uAfWVBBUBi1o
+Rt0nYzMzvUSn0qbcaDt2UMjQBObE45kr+GUdvi8D/JwI/IjSNbe+swI3uMqi9YMx
+71+yCi0ujwvds+EN8243AqAbKlSa84TTrA+EaQItnu/6q5/rZ4wGw0C03Uz4i4Mr
+WjC6UHT3ReggqRqDsrJEzMdopnv5CF5LuByjWz/yBXKbNzpvMta2RyJ1hY7itOBZ
+p73/f3DFGRpsB21CdaJvPV6FevqduA==
+=zoNv
 -----END PGP SIGNATURE-----
 
---vmxQrrQTZR4eGkiO--
+--WyxKWAijYORUCs4s--

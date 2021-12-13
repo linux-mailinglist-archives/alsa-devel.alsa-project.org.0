@@ -2,80 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9B3A47337C
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 19:02:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 168234733E8
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Dec 2021 19:22:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 187241891;
-	Mon, 13 Dec 2021 19:01:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 187241891
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94DEA188F;
+	Mon, 13 Dec 2021 19:21:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94DEA188F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639418522;
-	bh=YFqukNs+Og9qk/2yG+rJxGiiz5BS2yPPUMTffwav1QQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rguwmFJmRBXYcN2lLmgen9an21F+T3PRMWJlK05T7XygLUELeqCCC8zPBqckDkJ+g
-	 WmJ0/32tQDast5Py6Xil0O8jEpCvcDcLlHFrmewlSH9e8JnPVQeDZb7cdW42twoQom
-	 Iwj9Y23p12YBF2MGg+z2uIyt18yl43Pq8Oe+RTjw=
+	s=default; t=1639419730;
+	bh=fMZ2AzEu4rao5UWq6NSt9BUbVs6DDipys/Xkcd3b9Io=;
+	h=Date:From:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=uOYWQ/2xRLmwQlV1syKIaYvNElVhJcWU/GMc2BFvspntnnCEglpIME6VXisbRwozV
+	 cg5rpNU4uk+uORL2BbvUPcJDdbxDlzkepRu7gU6c7kMsAkaaflGPichbtD3dymgPUV
+	 +mjoKgCa4aeE9jCfhHZpB9GlbPrfgk/TTwREmNeE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 754B9F8025F;
-	Mon, 13 Dec 2021 19:00:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB51AF8025F;
+	Mon, 13 Dec 2021 19:21:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A8A1F8025D; Mon, 13 Dec 2021 19:00:50 +0100 (CET)
+ id 0B7BFF8016A; Mon, 13 Dec 2021 19:21:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from vsmx001.mijndomein.xion.oxcs.net
+ (vsmx001.mijndomein.xion.oxcs.net [157.97.78.141])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85CC9F8016A
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 19:00:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85CC9F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id C18EDF8016A
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 19:20:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C18EDF8016A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WS8oyyYJ"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7E47861188;
- Mon, 13 Dec 2021 18:00:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 417A8C34605;
- Mon, 13 Dec 2021 18:00:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639418440;
- bh=YFqukNs+Og9qk/2yG+rJxGiiz5BS2yPPUMTffwav1QQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WS8oyyYJycmr/sHk2TzEhrQCrgB4i8oxjN1gHssg56OEA4uFh0e1Qcb3zeO/9zQzk
- 9TJ6u045thOyEFuoROv4LUx6AUE/4OLunHZsnL36PLNrvdHJx8RzOozEkVUVP9wXXQ
- hJK9iWG58HESVEptEBCgqVRP4F0v2nu5biOt13n9WV7wJEpYr5Su4xjNpbzeX9xQmz
- f5c40IoCYaJ97q7HIY8WTPJAa3Zv976LaBlCs2/pBHfXjs8TZOExMrI2P99raOnnio
- ZtqlgWfRn3hnFLGsAon6sFtCuBh3gOjdMf7e586/ic/IMJTrIE7Yan3bnbeUbkv4yH
- hXPnZVJUye5Dg==
-Date: Mon, 13 Dec 2021 18:00:35 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Stephen Boyd <swboyd@chromium.org>
-Subject: Re: [PATCH] SoC: qcom: Distinguish headset codec by codec_dai->name
-Message-ID: <YbeKQ3mLqe1RoUWJ@sirena.org.uk>
-References: <20211210051907.3870109-1-judyhsiao@chromium.org>
- <CAE-0n52z=wRS3rXM=zQzcy1yryvzwW6iGA75UYBiYSkR_5edTA@mail.gmail.com>
+ dkim=pass (1024-bit key) header.d=tarmack.eu header.i=@tarmack.eu
+ header.b="VRDWiSJN"
+Received: from vsmx001.mijndomein.xion.oxcs.net (unknown [10.93.2.1])
+ by mx-out.mijndomein.xion.oxcs.net (Postfix) with ESMTP id 9773A34D44B3
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 18:20:51 +0000 (UTC)
+Received: from proxy-7.proxy.shared.ns.xion.oxcs.net
+ (proxy-7.proxy.shared.ns.xion.oxcs.net [77.167.248.94])
+ by mx-out.mijndomein.xion.oxcs.net (Postfix) with ESMTPA id 599E2A4038E
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 18:20:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tarmack.eu; s=mail1;
+ t=1639419651; bh=GSSGpsV1qcNvhNvhkSX1mpNX/qCZx1Y2CjPDjdZ//CI=;
+ h=Date:From:Subject:To:From;
+ b=VRDWiSJN+KnIpprul6f2fziri7Ox4l8aioMXX6q8/I3L+HDEmXT6HVSomCUhkmToT
+ 8DwmVP5EIOotD54irMTiMt/qbT5XDAvJJgSm/pGStfHGMNBpnAgcH7/jAZ5kvhQVvf
+ JCzIOia6jD9SFUH1NjFGxzYtCruuAx7gUWUTp3cQ=
+Received: from [192.168.3.35] (unknown [192.168.3.35])
+ by postoffice.localdomain (Postfix) with ESMTP id 10391C02EA
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 18:20:39 +0000 (UTC)
+Date: Mon, 13 Dec 2021 19:20:43 +0100
+From: Bart Kroon <bart@tarmack.eu>
+Subject: [PATCH] ALSA: hda: ALC287: Add Lenovo IdeaPad Slim 9i 14ITL5 speaker
+ quirk
+To: alsa-devel@alsa-project.org
+Message-Id: <JAG24R.7NLJGWBF4G8U@tarmack.eu>
+X-Mailer: geary/40.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="WyxKWAijYORUCs4s"
-Content-Disposition: inline
-In-Reply-To: <CAE-0n52z=wRS3rXM=zQzcy1yryvzwW6iGA75UYBiYSkR_5edTA@mail.gmail.com>
-X-Cookie: No solicitors.
-Cc: dianders@chromium.org, judyhsiao@google.com,
- Banajit Goswami <bgoswami@codeaurora.org>, cychiang@google.com,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Judy Hsiao <judyhsiao@chromium.org>
+Content-Type: multipart/mixed; boundary="=-dyxCLnjHcl8LNpyb+4UH"
+X-VadeSecure-Status: LEGIT
+X-VADE-STATUS: LEGIT
+X-VadeSecure-Status: LEGIT
+X-VADE-STATUS: LEGIT
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,53 +85,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--=-dyxCLnjHcl8LNpyb+4UH
+Content-Type: text/plain; charset=us-ascii; format=flowed
 
---WyxKWAijYORUCs4s
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hello,
 
-On Fri, Dec 10, 2021 at 03:15:49PM -0800, Stephen Boyd wrote:
-> Quoting Judy Hsiao (2021-12-09 21:19:07)
+The speaker fixup that is used for the Yoga 7 14ITL5 also applies to
+the IdeaPad Slim 9i 14ITL5. The attached patch applies the quirk to 
+initialise the amplifier on the IdeaPad Slim 9i as well.
 
-> > Fixes: 425c5fce8a03 ("ASoC: qcom: Add support for ALC5682I-VS codec")
+This is validated to work on my laptop.
 
-> It fixes something so what is it fixing? Can you add the call stack of
-> the failure and explain how this patch fixes it? We have that patch
-> backported to our chromeos 5.4 kernel tree but I assume this reproduces
-> upstream.
+Signed-off-by: Bart Kroon <bart@tarmack.eu>
 
-Please don't encourage people to just paste entire panics into things,
-what you've included here is vastly larger than the entire original
-patch which overwhelms the content in the message.
+Regards,
+Bart
 
->  Unable to handle kernel paging request at virtual address ffffffbfe7bba9ce
->  Mem abort info:
->    ESR = 0x96000005
->    EC = 0x25: DABT (current EL), IL = 32 bits
->    SET = 0, FnV = 0
->    EA = 0, S1PTW = 0
->  Data abort info:
->    ISV = 0, ISS = 0x00000005
->    CM = 0, WnR = 0
 
-Information like the above or the register contents is not adding any
-value here, it just makes it harder to find the actual content in the
-message.  Sometimes a relevant portion of the stack can be useful but
-that's not what's happening here.
+--=-dyxCLnjHcl8LNpyb+4UH
+Content-Type: text/x-patch
+Content-Disposition: attachment; filename=snd-ideapad-slim-9i.patch
+Content-Transfer-Encoding: base64
 
---WyxKWAijYORUCs4s
-Content-Type: application/pgp-signature; name="signature.asc"
+ZGlmZiAtLWdpdCBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jIGIvc291bmQvcGNpL2hk
+YS9wYXRjaF9yZWFsdGVrLmMKaW5kZXggOGEzZTJmZTQyMTA2Li5kZThmNGU5YzI4OWQgMTAwNjQ0
+Ci0tLSBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCisrKyBiL3NvdW5kL3BjaS9oZGEv
+cGF0Y2hfcmVhbHRlay5jCkBAIC04ODUxLDYgKzg4NTEsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
+IHNuZF9wY2lfcXVpcmsgYWxjMjY5X2ZpeHVwX3RibFtdID0gewogCVNORF9QQ0lfUVVJUksoMHgx
+N2FhLCAweDM4MjcsICJJZGVhcGFkIFM3NDAiLCBBTEMyODVfRklYVVBfSURFQVBBRF9TNzQwX0NP
+RUYpLAogCVNORF9QQ0lfUVVJUksoMHgxN2FhLCAweDM4NDMsICJZb2dhIDlpIiwgQUxDMjg3X0ZJ
+WFVQX0lERUFQQURfQkFTU19TUEtfQU1QKSwKIAlTTkRfUENJX1FVSVJLKDB4MTdhYSwgMHgzODEz
+LCAiTGVnaW9uIDdpIDE1SU1IRzA1IiwgQUxDMjg3X0ZJWFVQX0xFR0lPTl8xNUlNSEcwNV9TUEVB
+S0VSUyksCisJU05EX1BDSV9RVUlSSygweDE3YWEsIDB4MzgzNCwgIkxlbm92byBJZGVhUGFkIFNs
+aW0gOWkgMTRJVEw1IiwgQUxDMjg3X0ZJWFVQX1lPR0E3XzE0SVRMX1NQRUFLRVJTKSwKIAlTTkRf
+UENJX1FVSVJLKDB4MTdhYSwgMHgzODUyLCAiTGVub3ZvIFlvZ2EgNyAxNElUTDUiLCBBTEMyODdf
+RklYVVBfWU9HQTdfMTRJVExfU1BFQUtFUlMpLAogCVNORF9QQ0lfUVVJUksoMHgxN2FhLCAweDM4
+NTMsICJMZW5vdm8gWW9nYSA3IDE1SVRMNSIsIEFMQzI4N19GSVhVUF9ZT0dBN18xNElUTF9TUEVB
+S0VSUyksCiAJU05EX1BDSV9RVUlSSygweDE3YWEsIDB4MzgxOSwgIkxlbm92byAxM3MgR2VuMiBJ
+VEwiLCBBTEMyODdfRklYVVBfMTNTX0dFTjJfU1BFQUtFUlMpLAo=
 
------BEGIN PGP SIGNATURE-----
+--=-dyxCLnjHcl8LNpyb+4UH--
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmG3ikIACgkQJNaLcl1U
-h9DEvgf/SGigxmX4RClSIJHxCB78eNZyY+qRHmxY3ooT5MmdyLd4mqYAHxGvUnfC
-EU8ca4McwbTvDom1GS0+Dwt2ICBJ1zW090xrQuP3QhfIoCG9x+G5uAfWVBBUBi1o
-Rt0nYzMzvUSn0qbcaDt2UMjQBObE45kr+GUdvi8D/JwI/IjSNbe+swI3uMqi9YMx
-71+yCi0ujwvds+EN8243AqAbKlSa84TTrA+EaQItnu/6q5/rZ4wGw0C03Uz4i4Mr
-WjC6UHT3ReggqRqDsrJEzMdopnv5CF5LuByjWz/yBXKbNzpvMta2RyJ1hY7itOBZ
-p73/f3DFGRpsB21CdaJvPV6FevqduA==
-=zoNv
------END PGP SIGNATURE-----
-
---WyxKWAijYORUCs4s--

@@ -2,67 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4C254749BD
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 18:38:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F04D64749BE
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 18:38:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 604012042;
-	Tue, 14 Dec 2021 18:37:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 604012042
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CE3A204E;
+	Tue, 14 Dec 2021 18:37:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CE3A204E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639503486;
-	bh=7VnCNorJERXr2Z8aSftdAAm+KNZTX3ZUkGisPrYQc7E=;
+	s=default; t=1639503502;
+	bh=3vdetNSjQ3RY+HvY3EyPrpeJKUBe0iiwi63HgFIC14s=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Hk6I1/qKhG7b6goSiMrFtxF4e3qoqfrN+7LVMudkJV/xWz3RCwEV9u3zhFDgjmodo
-	 u7lwHnNOqZMqjeSmFZG3vyvEQs4zy7LPjqqtBoKvJMInXbigsROlVS+Sm/edGGuTpD
-	 fWgSlSl361k4akTV2niIbQZTHvYdtPQQEAVZ9VZo=
+	b=RjIBZMOh6AG42E/lsxjSHMdmJHdn0Pn8EEsQ7AHipHlcLh/UWuGMS+1Iu2sgTPiLH
+	 VbUpqOZKc74vQCg9yGD+wz+Fk6bAflGMWTDp9yRM7QJ7SE/Rb7W//Y/rzwBiezWu8Y
+	 0ZiDmWu0C+vmqQ9tbujGbu/SlS4LnSmICH0o+kEU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74837F80271;
-	Tue, 14 Dec 2021 18:37:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F7E5F8050F;
+	Tue, 14 Dec 2021 18:37:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12AB8F8025E; Tue, 14 Dec 2021 18:37:07 +0100 (CET)
+ id D8B9AF804F2; Tue, 14 Dec 2021 18:37:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
  (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E4D8F800FE
- for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 18:37:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E4D8F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0BC81F80254
+ for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 18:37:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BC81F80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="UEe8wa6T"
+ header.b="RfueWNTV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1639503425; x=1671039425;
+ t=1639503430; x=1671039430;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=cbw1AVaFHVJWIaZMMUuDfBEPDmbiHVsWgHOaljXesN0=;
- b=UEe8wa6TFPf2e/wvDtZH3ity1pWbq1w0ZMAg2pBG5SgrbGwYXQ6EVDq1
- 1L6dZyxHNsCPIUNrf/eDw58e+kgpXvqRi5wjDN2ptCbkbE7YUSAw2NNJa
- 58FJNhQTbX+zFLs9YyIwZeKzpIwpnPRKsUa09xGhbPYoemt3JKtaGDfEu A=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 14 Dec 2021 09:37:00 -0800
+ bh=55r7vcOOWbj/oXy8k3YYhpmLfRt+lwKbKv2++d6u+g8=;
+ b=RfueWNTVYcK2U9NkKC8qCLRkrs3c3GRp9u/hyDmNOVTnh/R1/99q6otA
+ PqMGzEtI+q3TPKPBUsG/JmkkpMwfMhbunS8HEdpA6aAwJC6nycmVpaIUe
+ DJq/Mdvh2WxEj+/S7kwriBs00XXNVL4saWU32V9nVPl/HzmB+XqvrX8ot s=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 14 Dec 2021 09:37:06 -0800
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2021 09:37:00 -0800
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Dec 2021 09:37:05 -0800
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 14 Dec 2021 09:36:59 -0800
+ 15.2.922.19; Tue, 14 Dec 2021 09:37:05 -0800
 Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 14 Dec 2021 09:36:53 -0800
+ 15.2.922.19; Tue, 14 Dec 2021 09:36:59 -0800
 From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
  <broonie@kernel.org>, <robh+dt@kernel.org>, <plai@codeaurora.org>,
@@ -71,10 +72,10 @@ To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>,
  <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
  <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
  <swboyd@chromium.org>, <judyhsiao@chromium.org>
-Subject: [PATCH v10 01/10] ASoC: qcom: SC7280: Update config for building
- codec dma drivers
-Date: Tue, 14 Dec 2021 23:06:22 +0530
-Message-ID: <1639503391-10715-2-git-send-email-quic_srivasam@quicinc.com>
+Subject: [PATCH v10 02/10] ASoC: qcom: Move lpass_pcm_data structure to lpass
+ header
+Date: Tue, 14 Dec 2021 23:06:23 +0530
+Message-ID: <1639503391-10715-3-git-send-email-quic_srivasam@quicinc.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1639503391-10715-1-git-send-email-quic_srivasam@quicinc.com>
 References: <1639503391-10715-1-git-send-email-quic_srivasam@quicinc.com>
@@ -100,76 +101,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add configuration for building SC7280 audio codec dma drivers.
+Declare lpass_pcm_data structure in lpass header file instead of
+platform source file to make common use of it by other drivers
 
 Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
-This patch set depends on:
-    -- sc7280 machine driver patch
-       (https://patchwork.kernel.org/project/alsa-devel/list/?series=590035&state=%2A&archive=both)
+ sound/soc/qcom/lpass-platform.c | 5 -----
+ sound/soc/qcom/lpass.h          | 5 +++++
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
- sound/soc/qcom/Kconfig  | 11 +++++++++++
- sound/soc/qcom/Makefile |  4 ++++
- 2 files changed, 15 insertions(+)
-
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 932b082..b46a2e7 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -20,6 +20,10 @@ config SND_SOC_LPASS_PLATFORM
- 	tristate
- 	select REGMAP_MMIO
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index a59e9d2..a44162c 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -18,11 +18,6 @@
  
-+config SND_SOC_LPASS_CDC_DMA
-+	tristate
-+	select REGMAP_MMIO
+ #define DRV_NAME "lpass-platform"
+ 
+-struct lpass_pcm_data {
+-	int dma_ch;
+-	int i2s_port;
+-};
+-
+ #define LPASS_PLATFORM_BUFFER_SIZE	(24 *  2 * 1024)
+ #define LPASS_PLATFORM_PERIODS		2
+ 
+diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+index c0f0247..f0d21cd 100644
+--- a/sound/soc/qcom/lpass.h
++++ b/sound/soc/qcom/lpass.h
+@@ -257,6 +257,11 @@ struct lpass_variant {
+ 	int num_clks;
+ };
+ 
++struct lpass_pcm_data {
++	int dma_ch;
++	int i2s_port;
++};
 +
- config SND_SOC_LPASS_IPQ806X
- 	tristate
- 	select SND_SOC_LPASS_CPU
-@@ -36,6 +40,13 @@ config SND_SOC_LPASS_SC7180
- 	select SND_SOC_LPASS_PLATFORM
- 	select SND_SOC_LPASS_HDMI
- 
-+config SND_SOC_LPASS_SC7280
-+	tristate
-+	select SND_SOC_LPASS_CPU
-+	select SND_SOC_LPASS_PLATFORM
-+	select SND_SOC_LPASS_HDMI
-+	select SND_SOC_LPASS_CDC_DMA
-+
- config SND_SOC_STORM
- 	tristate "ASoC I2S support for Storm boards"
- 	select SND_SOC_LPASS_IPQ806X
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 625aec6..8b7b876 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -1,18 +1,22 @@
- # SPDX-License-Identifier: GPL-2.0
- # Platform
- snd-soc-lpass-cpu-objs := lpass-cpu.o
-+snd-soc-lpass-cdc-dma-objs := lpass-cdc-dma.o
- snd-soc-lpass-hdmi-objs := lpass-hdmi.o
- snd-soc-lpass-platform-objs := lpass-platform.o
- snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
- snd-soc-lpass-apq8016-objs := lpass-apq8016.o
- snd-soc-lpass-sc7180-objs := lpass-sc7180.o
-+snd-soc-lpass-sc7280-objs := lpass-sc7280.o
- 
- obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
-+obj-$(CONFIG_SND_SOC_LPASS_CDC_DMA) += snd-soc-lpass-cdc-dma.o
- obj-$(CONFIG_SND_SOC_LPASS_HDMI) += snd-soc-lpass-hdmi.o
- obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
- obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
- obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
- obj-$(CONFIG_SND_SOC_LPASS_SC7180) += snd-soc-lpass-sc7180.o
-+obj-$(CONFIG_SND_SOC_LPASS_SC7280) += snd-soc-lpass-sc7280.o
- 
- # Machine
- snd-soc-storm-objs := storm.o
+ /* register the platform driver from the CPU DAI driver */
+ int asoc_qcom_lpass_platform_register(struct platform_device *);
+ int asoc_qcom_lpass_cpu_platform_remove(struct platform_device *pdev);
 -- 
 2.7.4
 

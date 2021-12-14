@@ -2,88 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BC2A474838
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 17:35:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C19A547486C
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 17:43:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7A6B1F5D;
-	Tue, 14 Dec 2021 17:34:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7A6B1F5D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EA231FD4;
+	Tue, 14 Dec 2021 17:42:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EA231FD4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639499739;
-	bh=3sgntws3pC9JkEmuqed4LB5U+bjDiU0HuBqLgoqj5Gk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Zoi/vOMG0lb57BZu/3rbLdTPN9vZqD/yGX3tOYl4hfiWp5Gunzu/jOF60ho4aCNNU
-	 IehShaVv1vov6g2FxNsPvrHm6jc8pNtxGlaGOuw5vNde4rlHMNy9Tm+4hoDVm+ZmDQ
-	 vj8APAV+peU2AhM2a6b7uRGCwG/xTJ0MznRAROtk=
+	s=default; t=1639500213;
+	bh=+Bi2E0hmneJTfb52MXEAJ9SYW4RlrITGcZWn2eupjBM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EIUIPlvAN3Q84OMf00ssj3tUREXkDf22nd+j6wFVOMUU2sX0baNQHRQc8h29HJNsE
+	 ZtSNoFMCxU44xuPwTSlDOz6jQmnUaWvshgE6z35Z5mUjBtGTzOdYjE14GnzFNt0A0C
+	 lSuTF/r0l1aWs/MQmOSCSxKn6RkUnw6raWdP+L28=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AEC8F80249;
-	Tue, 14 Dec 2021 17:34:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93023F8013C;
+	Tue, 14 Dec 2021 17:42:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78709F80246; Tue, 14 Dec 2021 17:34:29 +0100 (CET)
+ id BDD35F80246; Tue, 14 Dec 2021 17:42:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50F48F8016A
- for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 17:34:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50F48F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BE41F8016A
+ for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 17:42:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BE41F8016A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ltizkbQF"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="a7pfyxVm"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4AB3F1F381;
- Tue, 14 Dec 2021 16:34:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639499660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=77bABPJtSNxFAw/Xtugh+m2CCURtbLu9t56UQYXKviI=;
- b=ltizkbQFfN1v1qDLj8gG/oO7fyxcQbvikRiUO50rlowAcfzxJVPVx8aAcAGjn5fEeYiG7s
- PVHapEjw1sjiMZQPTYIze4vwX+CKzWhhQyWcj+s6uXtudd073XdEzlOZh39GEzAU9usTBo
- vNNLWYGoyYA3lj2hjc0ZbmA1bUO6rVA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639499660;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=77bABPJtSNxFAw/Xtugh+m2CCURtbLu9t56UQYXKviI=;
- b=a7pfyxVm1Jcrr30RkT/TIczCZlsHs9c4RavcxTF49sgmZlxy3T37Zgr0470H3dpi/+oNaO
- M4MAhIlorR9T7XBA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2C6D3A3B85;
- Tue, 14 Dec 2021 16:34:20 +0000 (UTC)
-Date: Tue, 14 Dec 2021 17:34:20 +0100
-Message-ID: <s5hlf0n9mcz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH v4 09/10] ALSA: hda/realtek: Add support for Legion 7
- 16ACHg6 laptop
-In-Reply-To: <20211214135959.1317949-10-tanureal@opensource.cirrus.com>
-References: <20211214135959.1317949-1-tanureal@opensource.cirrus.com>
- <20211214135959.1317949-10-tanureal@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-acpi@vger.kernel.org,
- "Rafael J . Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Mark Brown <broonie@kernel.org>, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org, Len Brown <lenb@kernel.org>
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="WronaXwg"
+Received: from localhost (118-169-14-172.dynamic-ip.hinet.net [118.169.14.172])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 0429C40078; 
+ Tue, 14 Dec 2021 16:42:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1639500134;
+ bh=K+yRgSpvTmfrvAWbE2pwn9hFz5pcnekh9nWPWqcrcso=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=WronaXwgpzzymZRsYX6m7VpaH7cDCkoDLknojE3E78fINOg/0DhR1cThBTHajXiz1
+ h1f6cF+GDW6QV3TkbXf06oZPLPf6XZ9dg9SpGvFruWdQhtcZxBLGq15ZYnJ0tga/m7
+ /pKP3+mWEXOrY7c0rDDr+d4pIu5Qor4364Yc00YtcKyNBhDlWDqMgXiYifA9uMLfnn
+ xn/gkdzH6clcqIzrSGuVa7ebsMTrQs+tmrwybJJNifWdy5wzaNNFXFf4F29XfdsNJm
+ vq7p5FTHqMLDn8ITJ6cVqtbAJs9MK5NPsmxEHJkMVJZ+V4W36Ej30/TsRfKvCKnDOa
+ yUwnZG91wiaAQ==
+From: Jeremy Szu <jeremy.szu@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs for a HP ProBook
+Date: Wed, 15 Dec 2021 00:41:54 +0800
+Message-Id: <20211214164156.49711-1-jeremy.szu@canonical.com>
+X-Mailer: git-send-email 2.33.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ Elia Devito <eliadevito@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Werner Sembach <wse@tuxedocomputers.com>, Hui Wang <hui.wang@canonical.com>,
+ Sami Loone <sami@loone.fi>, Cameron Berkenpas <cam@neo-zeon.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,50 +84,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 14 Dec 2021 14:59:58 +0100,
-Lucas Tanure wrote:
-> 
-> Add Support for CS35L41 using the component binding
-> method
-> 
-> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+There is a HP ProBook which using ALC236 codec and need the
+ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF quirk to make mute LED and
+micmute LED work.
 
-Through a quick glance, the patch looks almost fine, just a few
-nitpicking:
+Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> @@ -6497,6 +6502,105 @@ static void alc287_fixup_legion_15imhg05_speakers(struct hda_codec *codec,
->  	}
->  }
->  
-> +static int comp_match_dev_name(struct device *dev, void *data)
-> +{
-> +	if (strcmp(dev_name(dev), data) == 0)
-> +		return 1;
-> +
-> +	return 0;
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 3599f4c85ebf..e97b3cd1577b 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -8705,6 +8705,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8896, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8898, "HP EliteBook 845 G8 Notebook PC", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x103c, 0x88d0, "HP Pavilion 15-eh1xxx (mainboard 88D0)", ALC287_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x89ca, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
+ 	SND_PCI_QUIRK(0x1043, 0x106d, "Asus K53BE", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+-- 
+2.33.0
 
-This could be a oneliner:
-	return strcmp(dev_name(dev), data) == 0;
-
-
-> +void comp_generic_playback_hook(struct hda_pcm_stream *hinfo, struct hda_codec *codec,
-> +				struct snd_pcm_substream *sub, int action)
-
-Missing static?
-
-> +void alc287_legion_16achg6_playback_hook(struct hda_pcm_stream *hinfo, struct hda_codec *codec,
-> +					 struct snd_pcm_substream *sub, int action)
-
-Ditto.
-
-> +{
-> +	struct alc_spec *spec = codec->spec;
-> +	unsigned int rx_slot;
-> +	int i = 0;
-
-A superfluous variable initialization.
-
-
-thanks,
-
-Takashi

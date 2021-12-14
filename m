@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C63DE474372
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 14:27:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8449A4743D2
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 14:48:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 559191ABD;
-	Tue, 14 Dec 2021 14:26:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 559191ABD
+	by alsa0.perex.cz (Postfix) with ESMTPS id E520F1B15;
+	Tue, 14 Dec 2021 14:47:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E520F1B15
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639488435;
-	bh=+FyMOj1y47J0jKkiU7/fNkq+8RT+GijdYH8HXwKy9UM=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1639489723;
+	bh=JwhJuFAM42vOdloILusvkHUTcWrMLKPvkc4iARM3qMM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OSYgstUw0rGhwX9Cx16QGVlhNewZixVerp8xFSqvHFtiETQsF8/Gooa2eaGCoZnZU
-	 kD25TIZro0Ol/MLrE9G8UQS+77msiSo5mjYPEaOpkuPKbqfBjr0XCBIr0dQcG3Z2SC
-	 h9+/CbMsBB7lpya9RVO5cz7bnKNg4pEU8aKXtUTU=
+	b=P7kyhTmKleL6w2ssrUWHRJU7j+AQpIEEdZxR72baf36fc9eB8X+iiHTGqi7guoEH/
+	 TGTTD4DOKNLQQ46bmrcel+23gl/YPxIYgWvzYezy3x1kR5ift1h8ziJ9cvZiBoYtAn
+	 6Zy0YZFvSt1zqt9Kbr2WoZouiArk6p1b6a1WmptQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5165AF80271;
-	Tue, 14 Dec 2021 14:25:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32CDBF80249;
+	Tue, 14 Dec 2021 14:47:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF344F80475; Tue, 14 Dec 2021 14:25:36 +0100 (CET)
+ id 7F15FF80246; Tue, 14 Dec 2021 14:47:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED989F80246
- for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 14:25:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED989F80246
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59FFEF8016A
+ for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 14:47:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59FFEF8016A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="K3hKjq/U"
+ header.b="apP8Sai+"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 52D3B614F3;
- Tue, 14 Dec 2021 13:25:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35CA2C34605;
- Tue, 14 Dec 2021 13:25:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 636A56142D;
+ Tue, 14 Dec 2021 13:47:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9BEC34601;
+ Tue, 14 Dec 2021 13:47:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639488332;
- bh=+FyMOj1y47J0jKkiU7/fNkq+8RT+GijdYH8HXwKy9UM=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=K3hKjq/Upt25FBJ1BBPN71lKZHUzxMW0Bev6LE+t+EG5KTwVqghwvEGBNBAkFF6fu
- aCMPYWhrpje5mTlIkIAmzVIrF9sf9it3U93yklsiUiPjY0bp4NWTcruukG1QluXtk5
- oE4wJcA5wvcxnKADPHis9WBgJH9B8+tT0e2NqiR0H+o9ycsXDiEsRmfemwtKog49uZ
- u/KQTIhumt8czyKtdsKzBKr/VFXXsS40vepyYSC6CffeziPmW628Sh6BWd5Q26OgYG
- ETeqJATzGFnBJMlV+E2UvFWVEUKCVoQPmTVDMUbEKz/qfTfYK9JLRDX463/DUSVSrF
- r1pAREIfnrQ8w==
+ s=k20201202; t=1639489646;
+ bh=JwhJuFAM42vOdloILusvkHUTcWrMLKPvkc4iARM3qMM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=apP8Sai+uw6orF0J8Pdag1y0oCVskMkaL82ePR5nwcTtpFgTSnat28j7m9XPP6Dl5
+ BAAs1W8v3gC+5rF0JYAm+G0D83jysqezGg1Zhf6PjGYSvbFOgjacmFR2z2pS04isTd
+ duMRkBNiiS5KBAfQCwKasbWyX/zXaCUD9jyFrjKsumPPVqAJ7uqhU/PwGv16NRl0st
+ yWymDcubn4TM3nojw1l/+RlacNQA9fXBMtXPwueUhtZCAndW9gPnp7LajG+DgygF1a
+ eZ0qT5yMltwpPARDaCHPWdfLqV+eTF8W7bdS9CnT0QKIfOgt5JwAuN6dkXwrjnAno5
+ uu/K+FyqlPmzQ==
+Date: Tue, 14 Dec 2021 13:47:20 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>
-In-Reply-To: <20211202145505.58852-1-stephan@gerhold.net>
-References: <20211202145505.58852-1-stephan@gerhold.net>
-Subject: Re: [PATCH 0/5] ASoC: qcom: apq8016_sbc: Allow routing audio through
- QDSP6
-Message-Id: <163948832993.2865729.5795229789612585528.b4-ty@kernel.org>
-Date: Tue, 14 Dec 2021 13:25:29 +0000
+To: Judy Hsiao <judyhsiao@chromium.org>
+Subject: Re: [v3] SoC: qcom: Distinguish headset codec by codec_dai->name
+Message-ID: <YbigaFWiLzi/4Ljv@sirena.org.uk>
+References: <20211214022509.1288245-1-judyhsiao@chromium.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- ~postmarketos/upstreaming@lists.sr.ht
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="PMc1jF/EEbgjBUTX"
+Content-Disposition: inline
+In-Reply-To: <20211214022509.1288245-1-judyhsiao@chromium.org>
+X-Cookie: No solicitors.
+Cc: judyhsiao@google.com, Banajit Goswami <bgoswami@codeaurora.org>,
+ cychiang@google.com, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+ swboyd@chromium.org, dianders@chromium.org, Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, yuhsuan@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,50 +89,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2 Dec 2021 15:55:00 +0100, Stephan Gerhold wrote:
-> This series makes it possible to route audio through the combined
-> audio/modem DSP on MSM8916/APQ8016 devices instead of bypassing it using
-> the LPASS drivers. This is necessary to support certain functionality such
-> as voice call audio. See PATCH 4/5 for details.
-> 
-> Also, qcom,apq8016-sbc.txt is converted to DT schema by adding it to the
-> existing qcom,sm8250.yaml. The bindings are similar enough that it is easier
-> to share a single schema instead of duplicating everything into multiple ones.
-> 
-> [...]
 
-Applied to
+--PMc1jF/EEbgjBUTX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, Dec 14, 2021 at 10:25:09AM +0800, Judy Hsiao wrote:
+> Distinguish which headset codec is on the board by codec_dai->name
+> instead of card->name.
 
-Thanks!
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-[1/5] ASoC: dt-bindings: qcom: sm8250: Drop redundant MultiMedia routes
-      commit: c55676ec292e0ff83261eb61efaf99a91079a3b8
-[2/5] ASoC: dt-bindings: qcom: sm8250: Document "aux-devs"
-      commit: 1875ae76f82c5c9acd7b7f44bd9226fbcbe858b7
-[3/5] ASoC: dt-bindings: qcom: apq8016-sbc: Move to qcom,sm8250 DT schema
-      commit: b7875d88bf70100d2fe0dc08072018f994ccd6c4
-[4/5] ASoC: dt-bindings: qcom: Document qcom,msm8916-qdsp6-sndcard compatible
-      commit: 38192dc36f1fe1615b7a12cc78b9354d6b4ba8b7
-[5/5] ASoC: qcom: apq8016_sbc: Allow routing audio through QDSP6
-      commit: 190357e1e09f271566e91fcd108c161f7e25a253
+--PMc1jF/EEbgjBUTX
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmG4oGgACgkQJNaLcl1U
+h9AkBAf/dut9BUz9jbak9a35YO2OSGoVSscO2+hGoFIOS6RNh6DYvQbq7ldY/A8+
+OBkfvWnBkatZzkcf4yeKwUmCWD/JAMzqiq7JYRF+B+ziNyqCmv28d727fR5uvhAY
+tW+TmcaZnIHZ58vTa5UdrKctv6cbwuZOoT/oFEcFnq2aJ+kKlrJ87cm2QWE4i22V
+yZggCd67+9zFGErXbL1y/9q5Ca3zboCPQhySFUL0QxSWV2tKesT7H+PagX96m33k
+mjN50juAOlpQ990xRNBmUrhahEkJ3sbHauTHUISq7eQhRRF5zszyjdMPB/v+kfWz
+zOc+UmOjPyYI+URxH/5wZZM5IVrVNg==
+=DvSY
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--PMc1jF/EEbgjBUTX--

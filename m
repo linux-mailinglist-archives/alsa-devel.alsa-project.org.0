@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57E3C473FC6
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 10:46:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA221473FC7
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 10:47:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C86E21AE7;
-	Tue, 14 Dec 2021 10:45:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C86E21AE7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47D691ED6;
+	Tue, 14 Dec 2021 10:46:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47D691ED6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639475196;
-	bh=Setup4xXxHjqyikK3tVmQAdACh9lUKhayRhaV0II7yc=;
+	s=default; t=1639475228;
+	bh=UNCcDMQgb5ktKZXxKxkn9pW+g6uTqxrYGia5BurVhj4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UeF2X8z0hjjFs44oT5eMQOjeaXzLF9w0TzNQnPs0ql8H5ocVTkff2853vgct35z9N
-	 vrxx1NxQqvC1PGIJRBYQXTiFpeJdEZOyB01MJT2mcdrbhCU8n6KMwb8G3aBxf9zz/G
-	 kWmSowMnu4tvuvgW334/HBoO86bm7jRptakq9u/w=
+	b=D45BLO8HxWt31Vv6uklrftqt028hP1sEn3i31Mrgk+0vMIUo1VblQ0cd5NhHnCkYF
+	 yeDKRyLEj7olCNIkrBGEgUXAp7l61DzAsmXyjC+c4eYGR1GymXWAia4Mll3ow3UvMn
+	 obdL6oXSiVxvWS86E0H1bvpgXwWZVClP4QmKOIoA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DC09F80254;
-	Tue, 14 Dec 2021 10:45:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DBA8F8025E;
+	Tue, 14 Dec 2021 10:45:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3E03F80246; Tue, 14 Dec 2021 10:45:22 +0100 (CET)
+ id 5C5F8F8016A; Tue, 14 Dec 2021 10:45:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75EA7F8016A
- for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 10:45:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75EA7F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B8ACF8016A
+ for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 10:45:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B8ACF8016A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="jHhFO3MS"; 
+ header.b="A+1J34B1"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="6g8MgNdD"
+ header.b="2Utf2qKh"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 71F3321125;
- Tue, 14 Dec 2021 09:45:10 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 621C21F3C3;
+ Tue, 14 Dec 2021 09:45:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639475110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1639475125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2sFGZ3vIx6scE9TlKuzUSQO07+U3oH6DGvHjvJNGCvQ=;
- b=jHhFO3MSUIX2rHroDLvTVvJd3P/K+DQFiEnTSBZZlCg0y2RbcnpPV/EqHrHXGjmuHAELrC
- dIpsPxyMy4SmgCVCiQeSOOS5BK8xHLOv29EtpPd0cB22yc8eFOIsYUjUcEJQyyN4IC8eUy
- C4TZFYb/eCHWGyp7JL8nmbnTlrsQFFQ=
+ bh=TI5kviD+dqSerEnO5KOevJeO6Mn0wCLNgSEv+VcMT2A=;
+ b=A+1J34B1C20R9UATSnHlvenLIxPWPqPMeQQ3lN40KtS8TF0ggblC5ZV1MxHkpfUOL4D31x
+ AqYJDTOd2E+sTdXiIG8oYlZl8klWY5ki6RFRZKGrKZOsqifZLiz8ZiZUXs2f5UCQqV3I/4
+ AyM7OYQqm6tyiP00oquFp6e5I0tQEOE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639475110;
+ s=susede2_ed25519; t=1639475125;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2sFGZ3vIx6scE9TlKuzUSQO07+U3oH6DGvHjvJNGCvQ=;
- b=6g8MgNdD4+bNc1epbQ/ILAymwHFne7oCYO/NBpN64Uvvfv1Sq3pN86Yz1fCEzFaXBJFINd
- W9Y7AHKvG+2dF4Dw==
+ bh=TI5kviD+dqSerEnO5KOevJeO6Mn0wCLNgSEv+VcMT2A=;
+ b=2Utf2qKhjezkgzxIFdZNpz4dG0fods7SqRr42863850+Nfvi/7MCkAVMmpD6X+KvPdXXgt
+ WcWZwNslQNEPRjDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 8D4F5A3B81;
- Tue, 14 Dec 2021 09:45:09 +0000 (UTC)
-Date: Tue, 14 Dec 2021 10:45:09 +0100
-Message-ID: <s5hee6fbjve.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 52A1CA3B8C;
+ Tue, 14 Dec 2021 09:45:25 +0000 (UTC)
+Date: Tue, 14 Dec 2021 10:45:25 +0100
+Message-ID: <s5hczlzbjuy.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Bradley Scott <Bradley.Scott@zebra.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Amp init fixup for HP ZBook 15 G6
-In-Reply-To: <20211213154938.503201-1-Bradley.Scott@zebra.com>
-References: <20211213154938.503201-1-Bradley.Scott@zebra.com>
+To: Bradley Scott <bscott@teksavvy.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add new alc285-hp-amp-init model
+In-Reply-To: <20211213162246.506838-1-bscott@teksavvy.com>
+References: <20211213162246.506838-1-bscott@teksavvy.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -97,13 +97,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 13 Dec 2021 16:49:39 +0100,
+On Mon, 13 Dec 2021 17:22:47 +0100,
 Bradley Scott wrote:
 > 
-> HP ZBook 15 G6 (SSID 103c:860f) needs the same speaker amplifier
-> initialization as used on several other HP laptops using ALC285.
+> Adds a new "alc285-hp-amp-init" model that can be used to apply the ALC285
+> HP speaker amplifier initialization fixup to devices that are not already
+> known by passing "hda_model=alc285-hp-amp-init" to the
+> snd-sof-intel-hda-common module or "model=alc285-hp-amp-init" to the
+> snd-hda-intel module, depending on which is being used.
 > 
-> Signed-off-by: Bradley Scott <Bradley.Scott@zebra.com>
+> Signed-off-by: Bradley Scott <bscott@teksavvy.com>
 
 Thanks, applied now.
 

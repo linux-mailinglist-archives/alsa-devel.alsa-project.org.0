@@ -2,112 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 019834743FF
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 14:57:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D252474457
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 15:04:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 833051EFE;
-	Tue, 14 Dec 2021 14:56:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 833051EFE
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD1A01FA3;
+	Tue, 14 Dec 2021 15:03:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD1A01FA3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639490254;
-	bh=eY4KUO+BRiYsSOgCC6o6HI0HW4s1ZhxI6a+HgNZzO6Y=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=SugM40z053JVqt1efXClTMBYOj7YH/OozbtotxdNhsY7VvrGqBCdfrv1gvdezP99i
-	 qRDP5pXxXkl7plZwAKguO0Bmz64oHSLiacmexw4aVrxBZx8QA/Nh1dxXtd4Rj8f7es
-	 6U4XEqJHii0BNNhWT++YDePXpUorQau2/8ro3cVA=
+	s=default; t=1639490651;
+	bh=ob5pofodR9+8dUM2gJTv7mP9+aSDcCD5GCZ2itn3njw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dwDhHRmUHXGlDG2TCUlsnh+a7PuNYLRsTuBpWAUT885LGFl67Z0tRlFzgMDc/29PZ
+	 aVfy6VQeI0vfjTQ/jjibjDfUQ9bCi1DQZW3uW3uaOd0KUChaVtEWDWSYQ/WsHrcYXd
+	 fHHhpOPV3YU+8TR+TJHVlKVkU9uQqYanaJhMkM4M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01FD5F80249;
-	Tue, 14 Dec 2021 14:56:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB2FCF80551;
+	Tue, 14 Dec 2021 15:00:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76921F80246; Tue, 14 Dec 2021 14:56:25 +0100 (CET)
+ id 64B85F80515; Tue, 14 Dec 2021 15:00:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5F5DF8013C
- for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 14:56:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5F5DF8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6852CF801EC
+ for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 15:00:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6852CF801EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="PCN+/1TX"
-Received: by mail-lf1-x12a.google.com with SMTP id d10so36961371lfg.6
- for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 05:56:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=Ov1iHx+DbaxD+iHI0Gl52GMo9SpDpJ2lnEERZMJTQc0=;
- b=PCN+/1TXNrEnIWgXa9Ms5J/9ctNNSoMaK3CgAZuUEkyNZ5ljmYFglFOkxA7CRow2PB
- +diaiwIvMw9UeUujxgonngIcbHvXYo0BVP0KWlk0gtfON9lMcEXPXUVMrYFXDi7v21xN
- zer5d5ICKk58mX8MqKAwK4ff0FZCqFTrp/SdMMOYi8tBUzeqg7X72Y05OIf3gfqTswBo
- wILCCniRxptpP9q+n2Oqg0VRg1xUyLOhSV+2Qj7HerA8u+uZO4ptYAjYLQb6vQseLUVd
- iCCoI0sXF32rAhNJDFu7p9FqQxg/9GsXrJ1uuzm4E0NzFSaA887IVXBUoAWvfSRMyTvv
- UQFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=Ov1iHx+DbaxD+iHI0Gl52GMo9SpDpJ2lnEERZMJTQc0=;
- b=qSqFQoH4QlMrJLFPXWQWsi6GMnUe15Y0jqDaGpIjwv2ncpCb6t7UBsGFOeHq9rwT2s
- qEOE8BzkGq3dHrFbeAOJ8/WbW06VIsMiyQf7FPSHgEA80xKXxHYb2hmWJwo/M+2l9IAL
- D52BTOGqkfYiVY/GPAQ1EuFGaewwHzBX+dZ/74Mv4FcJNRxeZlJ0muKtllwnL5c5XB4d
- PdAMtLvJxYH7+mtT40kwus82wpaD0j7YucaocBeiF6O7zf2HewTJ4rGRkt2zRXwDtwn3
- SUAsDZnttFKD6YsKMa4TdaKsmjTcLzL+Q6WHbKXVBYbsX9yru5QcuxBfoTYwnB7/1SnT
- x7NA==
-X-Gm-Message-State: AOAM532IvXQ+NbdTTzonz+20scwv1i38lPwn3V0iaVAyBVZudZwZW35T
- KSCj9Q0IOHV9e54ELTquGk4=
-X-Google-Smtp-Source: ABdhPJzir6qiHtR9sVJHfjCLkS//nrIH5PQaLZq8UcVv5KSRk4JLkxpk1YKgGvYjCBPB6t11uHsAqA==
-X-Received: by 2002:ac2:5615:: with SMTP id v21mr5340562lfd.112.1639490174001; 
- Tue, 14 Dec 2021 05:56:14 -0800 (PST)
-Received: from [192.168.2.145] (94-29-63-156.dynamic.spd-mgts.ru.
- [94.29.63.156])
- by smtp.googlemail.com with ESMTPSA id q24sm1838370lfp.103.2021.12.14.05.56.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Dec 2021 05:56:13 -0800 (PST)
-Subject: Re: [PATCH 1/3] ALSA: hda/tegra: Skip reset on BPMP devices
-To: Sameer Pujar <spujar@nvidia.com>, tiwai@suse.com, broonie@kernel.org,
- lgirdwood@gmail.com, thierry.reding@gmail.com, perex@perex.cz
-References: <1638858770-22594-1-git-send-email-spujar@nvidia.com>
- <1638858770-22594-2-git-send-email-spujar@nvidia.com>
- <7742adae-cdbe-a9ea-2cef-f63363298d73@gmail.com>
- <8fd704d9-43ce-e34a-a3c0-b48381ef0cd8@nvidia.com>
- <56bb43b6-8d72-b1de-4402-a2cb31707bd9@gmail.com>
- <4855e9c4-e4c2-528b-c9ad-2be7209dc62a@nvidia.com>
- <5d441571-c1c2-5433-729f-86d6396c2853@gmail.com>
- <f32cde65-63dc-67f8-ded8-b58ea5e89f4e@nvidia.com>
- <95cc7efa-251c-690b-9afa-53ee9e052c34@gmail.com>
- <148fba18-5d14-d342-0eb9-4ff224cc58ad@nvidia.com>
- <3b0de739-7866-3886-be9c-a853c746f8b7@gmail.com>
- <73d04377-9898-930b-09db-bb6c4b3eb90a@nvidia.com>
- <ad388f5e-6f60-cf78-8510-87aec8524e33@gmail.com>
- <50bf5a83-051e-8c12-6502-aabd8edd0a72@nvidia.com>
- <7230ad0b-2b04-4f1b-b616-b7d98789ded0@gmail.com>
- <48f891bc-d8f6-2634-6dd1-6ea4f14ae6a3@nvidia.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <0761f6f2-27f8-4e1a-fabc-9d319f465a9e@gmail.com>
-Date: Tue, 14 Dec 2021 16:56:12 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="foz8zeSv"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BE4Ko3j006814;
+ Tue, 14 Dec 2021 08:00:02 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=HxfX/SoFE0LgM6209wZqoglTHFuqx9omB1l1OGzjfZw=;
+ b=foz8zeSvrXrqg1fLlMilCuC8xmOKSeFqtHftwn5e/bEckIFKuG2gsj/mxo+63CweucR6
+ 47unlpW7ZSDn4PZpF+iWE6pw6Nf9hBbIm9xlj/7oJ0q0kHbGzGsemyPIgWlLqzar0UwY
+ JR9KabpVHEm1lpQSYYUQCryoZIA8c7qpiIeJ6wOdbFSDEs2xarljSh6kbFifkOMplSSH
+ D8bmQeWzHAz/4JI7Rf2oSp4xdC5yoJ2QdAwycZJ8CcihTh6OqyEbi9Tw8CQ6tvcq4R2w
+ 2ozkgjOlbmfZi8Z2hxglNs2/Ezv86ne3VSxyFzPGl4mKhF2O65J9np4AyHa6ZXoOz7Oz zA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3cxh14grht-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 14 Dec 2021 08:00:02 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Tue, 14 Dec
+ 2021 14:00:00 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Tue, 14 Dec 2021 14:00:00 +0000
+Received: from aryzen.ad.cirrus.com (unknown [198.61.64.39])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 34C4D7C;
+ Tue, 14 Dec 2021 14:00:00 +0000 (UTC)
+From: Lucas Tanure <tanureal@opensource.cirrus.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Gross <markgross@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v4 00/10] Add support for CS35L41 in HDA systems
+Date: Tue, 14 Dec 2021 13:59:49 +0000
+Message-ID: <20211214135959.1317949-1-tanureal@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <48f891bc-d8f6-2634-6dd1-6ea4f14ae6a3@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, jonathanh@nvidia.com,
- robh+dt@kernel.org, linux-tegra@vger.kernel.org,
- Mohan Kumar <mkumard@nvidia.com>
+Content-Type: text/plain
+X-Proofpoint-GUID: kzg2siUfDy0WOJbouaCNJPoYdExKSr7D
+X-Proofpoint-ORIG-GUID: kzg2siUfDy0WOJbouaCNJPoYdExKSr7D
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,54 +99,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-14.12.2021 10:22, Sameer Pujar пишет:
-...
->>> How the reset behavior is different? At this point when HDA driver is
->>> loaded the HW is already reset during display ungate. What matters,
->>> during HDA driver load, is whether the HW is in predictable state or not
->>> and the answer is yes. So I am not sure what problem you are referring
->>> to. Question is, if BPMP already ensures this, then why driver needs to
->>> take care of it.
->> 1. Enable display
->> 2. Play audio over HDMI
-> 
->> 3. HDA hardware now is in dirty state
-> 
-> Why this would be a dirty state? It is rather a functional state. Isn't
-> it? Power-domain is ON while all this happens.
+Add support for laptops that have CS35L41 connected to an HDA
+codec by I2S and direct I2C connection to the CPU.
 
-In general state should be a functional, but we shouldn't assume that.
-There is always a possibility for a subtle bug in a driver that may put
-h/w into a bad state. Full hardware reset is encouraged by users.
+Laptops that use CS35L41 and are SPI will be added in the future,
+after the support for it is resolved at i2c-multi-instantiate driver.
+i2c-multi-instantiate thread: https://lkml.org/lkml/2021/12/10/557
 
-> Another point is, with present logic the reset is not applied for every
-> runtime PM resume of HDA device, which is confusing. It depends on the
-> state of 'chip->running' flag and I don't see this getting cleared
-> anywhere. Would you say subsequent HDA playback happen under a dirty state?
+Hardware:
+ - Some laptops have two CS35L41 amplifiers, connected to Realtek ALC287
+   by an I2S bus and by and direct I2C to the CPU.
+ - The ALC287 codec is connected to the CPU by an HDA bus.
+ - The CS35L41 has a DSP which will require firmware to be loaded.
 
-This is a good point. There should be another potential problem in the
-HDA driver for newer SoCs because apparently we don't re-initialize HDA
-controller properly after runtime PM resume.
+Architecture:
+ - Creation of a library of shared functions for CS35L41 ASoC and HDA
+ - HDA codec driver (RealTek) and CS35L41 HDA driver are combined
+ by using component binding, where it uses device names to find the
+ components and bind to the master
+ - The HDA CS35L41 driver applies pre-defined registers sequences
+ for each action in playback for HDA Sound card
 
-See hda_tegra_first_init() that is invoked only during driver probe, it
-configures FPCI_DBG_CFG_2 register on T194, which isn't done by
-hda_tegra_init(), and thus, this register may be  in reset state after
-resume from RPM suspend. It should be a bug in the HDA driver that needs
-to be fixed.
+Changes from V3:
+ - SPI bus driver starter added
+ - Use separate modules approach instead of liking library
+ - Add CSC3551 ACPI _HID for more I2C laptops
+ - Removed regulators from HDA driver
+ - Add note about Non-conforming _HID
+V3: https://lkml.org/lkml/2021/11/23/723
 
-On older SoCs: HDA resides in the APB power domain which could be
-disabled only across system suspend/resume. HDA is only clock-gated
-during runtime PM suspend.
+Changes from V2:
+ - Not an RFC
+ - Create a new HDA driver for CS35L41 instead of using the ASoC one
+ - Use component binding and device names to find the CS35L41 driver
+ - Create a shared library for ASoC and HDA CS35L41 drivers
+v2: https://lkml.org/lkml/2021/10/8/344
 
-On newer SoCs: HDA power state could be lost after RPM suspend/resume,
-depending on the state of display. I'm wondering whether HDMI playback
-works after DPMS on T194+, I assume this case was never tested properly.
+Lucas Tanure (9):
+  ASoC: cs35l41: Convert tables to shared source code
+  ASoC: cs35l41: Move cs35l41_otp_unpack to shared code
+  ASoC: cs35l41: Move power initializations to reg_sequence
+  ASoC: cs35l41: Create shared function for errata patches
+  ASoC: cs35l41: Create shared function for setting channels
+  ASoC: cs35l41: Create shared function for boost configuration
+  hda: cs35l41: Add support for CS35L41 in HDA systems
+  ACPI / scan: Create platform device for CLSA0100 and CSC3551 ACPI
+    nodes
+  ALSA: hda/realtek: Add support for Legion 7 16ACHg6 laptop
 
-It looks like it should be safe to reset HDA on runtime PM resume
-regardless of the chip->running, and thus, we could remove that check
-and reset HDA unconditionally. Will great if you could check/test and
-improve this in the driver.
+Stefan Binding (1):
+  ALSA: hda/realtek: Add CS35L41 support for Thinkpad laptops
 
-I'm also wondering whether snd_power_change_state() should be moved into
-RPM callbacks and whether this function does anything practically useful
-on Tegra at all.
+ MAINTAINERS                                   |   2 +
+ drivers/acpi/scan.c                           |   3 +
+ drivers/platform/x86/i2c-multi-instantiate.c  |  11 +
+ include/sound/cs35l41.h                       | 739 ++++++++++++++++++
+ sound/pci/hda/Kconfig                         |  27 +
+ sound/pci/hda/Makefile                        |  10 +
+ sound/pci/hda/cs35l41_hda.c                   | 525 +++++++++++++
+ sound/pci/hda/cs35l41_hda.h                   |  68 ++
+ sound/pci/hda/cs35l41_hda_i2c.c               |  66 ++
+ sound/pci/hda/cs35l41_hda_spi.c               |  63 ++
+ sound/pci/hda/hda_component.h                 |  20 +
+ sound/pci/hda/patch_realtek.c                 | 147 ++++
+ sound/soc/codecs/Kconfig                      |   7 +
+ sound/soc/codecs/Makefile                     |   4 +-
+ sound/soc/codecs/cs35l41-i2c.c                |   1 -
+ .../{cs35l41-tables.c => cs35l41-lib.c}       | 353 ++++++++-
+ sound/soc/codecs/cs35l41-spi.c                |   1 -
+ sound/soc/codecs/cs35l41.c                    | 360 +--------
+ sound/soc/codecs/cs35l41.h                    | 734 -----------------
+ 19 files changed, 2049 insertions(+), 1092 deletions(-)
+ create mode 100644 sound/pci/hda/cs35l41_hda.c
+ create mode 100644 sound/pci/hda/cs35l41_hda.h
+ create mode 100644 sound/pci/hda/cs35l41_hda_i2c.c
+ create mode 100644 sound/pci/hda/cs35l41_hda_spi.c
+ create mode 100644 sound/pci/hda/hda_component.h
+ rename sound/soc/codecs/{cs35l41-tables.c => cs35l41-lib.c} (71%)
+
+-- 
+2.34.1
+

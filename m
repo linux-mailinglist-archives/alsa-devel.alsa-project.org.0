@@ -2,115 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FC10474688
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 16:35:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 211F3474803
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 17:28:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04C7E1F90;
-	Tue, 14 Dec 2021 16:34:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04C7E1F90
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C2B51AD8;
+	Tue, 14 Dec 2021 17:27:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C2B51AD8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639496141;
-	bh=Piq9Ela9qegVihiy+c6QFW1OZZti7AAdBR7fHukSC2E=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1639499306;
+	bh=FA0NBErc0wZ9CdWVD3Rss2ULWn2FyxtBfB4pN+r6CJ4=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mo7ElGKKsAANuI6+e7ZS4BC2zhYWd0TNcIMERXsk6fOy/m5o0k0bJO6qsDNE/C+uw
-	 LkUs5mkwNzR7oLDFpjsbmwpyVj0c4DsusTthrHEdk0bhZPWyjmpPeMKZ2upPMOQHta
-	 DIk0yMtrpvpP/rzRRQFJDZ3kysIEgJFxnRs7XFAk=
+	b=cbw7Eyz1psMIwR5N1omcGnqzcgXC4Lh7YrpV6Zw4VV4Wami1lMpDe5sVVe1hExZTS
+	 l9HDfSfQUnxoDxSeHc2otIex7bMDyA02R4BkJpQ4cVJ6aN++iDZOrJ6Wulnucq4V6l
+	 dD7JRGHpRi/zsQuOKRbo0LNtQE3Y/rXRyfRVo8Rw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68149F80249;
-	Tue, 14 Dec 2021 16:34:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED291F80249;
+	Tue, 14 Dec 2021 17:27:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F9EFF80246; Tue, 14 Dec 2021 16:34:32 +0100 (CET)
+ id 35ED5F80246; Tue, 14 Dec 2021 17:27:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 365E3F8013C
- for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 16:34:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 365E3F8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id F36E9F8016A
+ for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 17:27:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F36E9F8016A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="EFQ3vqV+"
-Received: by mail-lf1-x12c.google.com with SMTP id bi37so37567635lfb.5
- for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 07:34:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=m/qW6OJTq+PZMI2TVoFARae55ogXm1E7P0dFW1QTwws=;
- b=EFQ3vqV+R8neb78NOg2W1d/+0znWSMA8y3MxU6ojmqf0dH1fgOK9iO8zQD9UJ4OA0N
- Asz9VV2IMp0dtwlEvwCZezbmiosrhe8h7T2SJnx79NEtnKqGF8QHE6llglwGUz5wYvqz
- Wrxd3OHTMFpD148w8gP4dKSmEFlPP83Ok/fGQBxXecb4+c0u2o0klPZGS0Zds4cMK6rt
- vFaL4CaBZRvFpU04prw4VTWMcm8bBQohFwIaAEklLB/orovPO9Mz/2bUd5c7BwToFiR4
- t59/inKbGK+L+Vx55dQWtRFuO8/NxVgGHoA567QqNGBQzIYzWSx/iNET4fNMLdzY/7LJ
- 6C/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=m/qW6OJTq+PZMI2TVoFARae55ogXm1E7P0dFW1QTwws=;
- b=IHHWg80iXxfDP7urfC8nda+BLAJlIgfqMO3AFGpwPInZkw6TuFwdTpVY2odYe03ozc
- JL7mzsVRI5MnjK9m6ZEDgAw4+gmPf+UVOmfC3uW7E7Wxb29MeIZMqOS6dhUFM4yL8ZAf
- KIfEaxuNPJOw0Tp9CRMWP8/SZAYu+cguSOhdNv+d0BzKM6dQ6H3Ow8FseGEj8cKS84kc
- Fsd5hYDuhOMWn9TTCB+4J/GJKWYedhmBidR6FNuVimgv/xj1Y3u7mHBUjALtM9WhvFFp
- KhVKp5cIqSD0k31nS48F6Xb/L0BJtMxUzp2E5zVB5LwcvIqoQ3kDw5RBYdyRJ0reK9DI
- IQig==
-X-Gm-Message-State: AOAM531dgEr7kZHcaOEa3Lf9cQ1nc4zrWCvwL8eDdT5/Xd+5CN+kv8jZ
- C2CBBUaKa4u0VxG2U02UNnDcP4oREPY=
-X-Google-Smtp-Source: ABdhPJzwtl22wgbOJNUiLRvzjqIzb84KHkq1ypWVWnAF32iWfkeJGaGZLEBcU+zP+CWTwxWsKtRnog==
-X-Received: by 2002:a19:c350:: with SMTP id t77mr5415981lff.152.1639496066375; 
- Tue, 14 Dec 2021 07:34:26 -0800 (PST)
-Received: from [192.168.2.145] (94-29-63-156.dynamic.spd-mgts.ru.
- [94.29.63.156])
- by smtp.googlemail.com with ESMTPSA id g27sm14872lfe.55.2021.12.14.07.34.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Dec 2021 07:34:26 -0800 (PST)
-Subject: Re: [PATCH 1/3] ALSA: hda/tegra: Skip reset on BPMP devices
-To: Takashi Iwai <tiwai@suse.de>
-References: <1638858770-22594-1-git-send-email-spujar@nvidia.com>
- <1638858770-22594-2-git-send-email-spujar@nvidia.com>
- <7742adae-cdbe-a9ea-2cef-f63363298d73@gmail.com>
- <8fd704d9-43ce-e34a-a3c0-b48381ef0cd8@nvidia.com>
- <56bb43b6-8d72-b1de-4402-a2cb31707bd9@gmail.com>
- <4855e9c4-e4c2-528b-c9ad-2be7209dc62a@nvidia.com>
- <5d441571-c1c2-5433-729f-86d6396c2853@gmail.com>
- <f32cde65-63dc-67f8-ded8-b58ea5e89f4e@nvidia.com>
- <95cc7efa-251c-690b-9afa-53ee9e052c34@gmail.com>
- <148fba18-5d14-d342-0eb9-4ff224cc58ad@nvidia.com>
- <3b0de739-7866-3886-be9c-a853c746f8b7@gmail.com>
- <73d04377-9898-930b-09db-bb6c4b3eb90a@nvidia.com>
- <ad388f5e-6f60-cf78-8510-87aec8524e33@gmail.com>
- <50bf5a83-051e-8c12-6502-aabd8edd0a72@nvidia.com>
- <7230ad0b-2b04-4f1b-b616-b7d98789ded0@gmail.com>
- <48f891bc-d8f6-2634-6dd1-6ea4f14ae6a3@nvidia.com>
- <0761f6f2-27f8-4e1a-fabc-9d319f465a9e@gmail.com>
- <s5hv8zr9s5a.wl-tiwai@suse.de>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <b7ad34b4-02be-00ed-05e2-12ea31ababb2@gmail.com>
-Date: Tue, 14 Dec 2021 18:34:25 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="NA69IeRg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=uslCgpNux7UCWvRrQn0jiboSZeFlAwPdMrox4AtO3lY=; b=NA69IeRgKaAKGVIPZOXkudrLma
+ LB4GLgor00uc8BI0/pGiViJ9hCO5G31dOaMt9n5+tGiVIKu1TJRf8W16fGRo5ZYEFdlQHSCN0htZn
+ jsOofBk7FUY03UCo4Z6WxML0kucfTzx6UlJagPU+Z+piEnDtGHmRfqbXubz66BSn8RtyW8mPNHii9
+ gX7ZEdDulliKRtIaGHZP31xYwF2pmYZY6B+TPPwejwrKVCdmCleglG35v8t7k+BuYa3CkmUQ62Dfb
+ sw9nIv4AV2FGjfRkkp1e6k+UzTcFUfkG7tsgM6jvLT4RwVrQ14YvcK012oih2gbxIm+2q7eW/Waox
+ vFUvJ+NQ==;
+Received: from [2601:1c0:6280:3f0::aa0b]
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1mxAdj-00DsaK-Fr; Tue, 14 Dec 2021 16:26:56 +0000
+Message-ID: <8ab0ed95-ce79-cd61-0440-20e0242b8930@infradead.org>
+Date: Tue, 14 Dec 2021 08:26:52 -0800
 MIME-Version: 1.0
-In-Reply-To: <s5hv8zr9s5a.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: linux-next: Tree for Dec 13 (SND_AMD_ACP_CONFIG)
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Sameer Pujar <spujar@nvidia.com>, tiwai@suse.com, stable@vger.kernel.org,
- robh+dt@kernel.org, broonie@kernel.org, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org, jonathanh@nvidia.com,
- Mohan Kumar <mkumard@nvidia.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <20211214030215.3181149-1-broonie@kernel.org>
+ <8ff9d4b2-1905-2efa-cb86-e8f6cef06ef2@infradead.org>
+ <15c3b6fe-b159-6cee-be67-11f2f2dd0d04@linux.intel.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <15c3b6fe-b159-6cee-be67-11f2f2dd0d04@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,15 +88,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-14.12.2021 17:29, Takashi Iwai пишет:
->> I'm also wondering whether snd_power_change_state() should be moved into
->> RPM callbacks and whether this function does anything practically useful
->> on Tegra at all.
-> This call is mostly for ALSA core stuff, and not necessarily
-> reflecting the exact device power state.  The major role is for
-> controlling / blocking the device accesses at the system
-> suspend/resume, so it's correct to set only in the system
-> suspend/resume callbacks, not in runtime PM.
+Hi--
+
+On 12/14/21 05:51, Pierre-Louis Bossart wrote:
+> 
+> 
+>> on i386 or x86_64:
+>>
+>> when # CONFIG_ACPI is not set,
+>> so SND_SOC_ACPI is not set:
+>>
+>> WARNING: unmet direct dependencies detected for SND_AMD_ACP_CONFIG
+>>   Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_ACPI [=n]
+>>   Selected by [y]:
+>>   - SND_SOC_AMD_ACP_COMMON [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && X86 [=y] && PCI [=y]
+>>
+>>
+>> Full randconfig file is attached
+> 
+> It's probably triggered by my recent change to fix another problem.
+> 
+> d9b994cd7641 ASoC: AMD: acp-config: fix missing dependency on SND_SOC_ACPI
+> 
+> I didn't realize SND_AMD_ACP_CONFIG was selected by other configs.
+> Moving to a select seems to fix the issue reported by Randy, not sure if
+> it's the right thing to do though.
 > 
 
-Thank you for the clarification.
+That works. You can add my Ack if you want to push this patch.
+Thanks.
+
+Acked-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
+
+> 
+> diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+> index bcfeb3fc2592..7a9e45094f37 100644
+> --- a/sound/soc/amd/Kconfig
+> +++ b/sound/soc/amd/Kconfig
+> @@ -98,7 +98,7 @@ config SND_SOC_AMD_YC_MACH
+> 
+>  config SND_AMD_ACP_CONFIG
+>         tristate "AMD ACP configuration selection"
+> -       depends on SND_SOC_ACPI
+> +       select SND_SOC_ACPI if ACPI
+>         help
+>          This option adds an auto detection to determine which ACP
+>          driver modules to use
+> 
+> 
+
+-- 
+~Randy

@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 637B1473A95
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 03:11:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B8F2473A9B
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 03:12:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C118192B;
-	Tue, 14 Dec 2021 03:10:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C118192B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05AAB1A9C;
+	Tue, 14 Dec 2021 03:11:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05AAB1A9C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639447878;
-	bh=1Onc+ig3iARyMMpg8u8pvYDRpPS4UnJ6+cRbGXadNnk=;
+	s=default; t=1639447931;
+	bh=8mENnwnLudAgiscCKuUa0a1MsnPocXpzFVl8HaH3Q4c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EgMXPFRvMEEKjJEC2X99HFYOpzUxGDbeyuDA2pttsvgMtOdPLTzXWvYWJpr/H2ERV
-	 9c8tqdXrk491x2gue6hiH5xtvj3qXXpR+A6ucTauSgN2iVF0vaDT6YaP5NjiFlXXlR
-	 Hz274isiPlR91MYzhrjNCk5UgG9nVKojgPfRYAiY=
+	b=Q7EIOHASx/crtunYZMYAKXDOPmWKm77j9OmSi9Oyjc+h6qvLnv/SnQcraUFZx9OmR
+	 nu9CX0fGerDCZTXTuQULDW+AH0g97E/YE3PgdC0hdLljdSU6U1YlnpmLDukXmZqw/K
+	 hqXpk0GteuPX4x5LV3BMSaDx7xTBquASjPR+TeDM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24F47F8025A;
-	Tue, 14 Dec 2021 03:09:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6B77F8051D;
+	Tue, 14 Dec 2021 03:09:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6254EF8050F; Tue, 14 Dec 2021 03:09:39 +0100 (CET)
+ id 1AF4AF8051F; Tue, 14 Dec 2021 03:09:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
+Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
+ [IPv6:2607:f8b0:4864:20::52c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E515EF8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2C6BF80271
  for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 03:09:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E515EF8013C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2C6BF80271
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AiyhwqZh"
-Received: by mail-pf1-x434.google.com with SMTP id i12so16575253pfd.6
+ header.b="LtzqYycG"
+Received: by mail-pg1-x52c.google.com with SMTP id f125so16193145pgc.0
  for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 18:09:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=NA63f95I7CMHHnhVrUkiId9dVNBdG82PEh/NR72qdp0=;
- b=AiyhwqZhDLyspcE2mQvS0LAkWsIyFGqp1E8HQuxyylHrChTb0R2Yc9TPtJ49FLYmWx
- AzTFxvPFL6DkNpMf9yVN8X5Ciicu+9ZE6QyspkQ+MwEXnWbjfNfVjDF5SR8ytEFzwlgC
- 43qSPGiWY5+2t+9g+La82kYS6JZaSacc/dpz+bpzW9GJAPaeTQnmb7liXQEQZeQCS2Xs
- e8OeHG6TTeR3s+g+eQRpSl01kFSoDqnsNaQyB+mC5uGA6MHejjC/cOl1Pr8Rqld6XmWg
- Vwhn28rmvOMWOupDm9rCRYqwM1sKQoJ4dsEOKKRlGoCfSgCSR4oLIJR96Zlm4BNXyjAB
- 20TA==
+ bh=PV7a3dHfH7qP0MxYbLp/fe30OwkAoRYz0SswjQ/RoQ8=;
+ b=LtzqYycGHXVATgijafwLOl61h9TSlzvKp8kLVKakdpMqvAXopBkNtRjpmt6ZF4aERK
+ sR8+ATKSgMkcZMsf1Srb3VrEdlNP9+cJhi8Y0ozilGWzu/sMqcdEtOKdHYZ456IJEp14
+ Zb4Q8neSBFNYK3rZzL8ZZjfFelYzfK55awP3sCXW3Vj2R29UpxFsbidYg4sMEXjZ+aHt
+ vqfSpV1C0LwXYsiG0TFdzUvYFcj2DIdRlMq+terbDIkhsUoo0zfyFfcELQVLuT3KcMh7
+ sb9X8cF5POYPzflbjGo/RAc5CW982rZVji/1C5OrGR6gMgDWPKUaI3El5/W89uwdHtFl
+ 3AUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=NA63f95I7CMHHnhVrUkiId9dVNBdG82PEh/NR72qdp0=;
- b=5VMVmmONqSgh19DfqR7P8n540a9l+A/Q4Cqkit/wurLikFuo5igsw0s7/sPaoBIqT6
- OV+4+cVB06j/Qno5IOujSNglByQsAuF4wyQEKbiSithG3iLkj/vCd6Hpyg5b15u8dqrw
- fj6lccWFLl+xsxHygNpGY1mc4sh3BpmoLkpWy4YWxyLafSGC+V3GjBdOGdiczC89JBRt
- 71arLljihms2IjniJu1FwSPQYzUdXlodrz02zOnwRIPyd/FnSx1Y/Vbt7RrEiGpOo2k1
- SIN9I2SfU9R1VKF44oymDscHSxr7Qgaj+FQjGwhKQMYMtLoV/aeqQho7o4at+Nt3j20q
- 8fRg==
-X-Gm-Message-State: AOAM5328wni6KieuiJIOC/v+WeGS5QSHb5TKawT3iZeVKeIyCTXjwTYJ
- oLxrVrhrDdni3qnT4ZeYJbk=
-X-Google-Smtp-Source: ABdhPJzqhgwVuJvXm9FGTv5AB3oO/6HsdHa8glrhYdpkv1O9U4UUFsMEVosfBz0eiGvBEiPeAidhPg==
-X-Received: by 2002:a05:6a00:8cf:b0:4a8:3ae:1a78 with SMTP id
- s15-20020a056a0008cf00b004a803ae1a78mr1735617pfu.7.1639447765370; 
- Mon, 13 Dec 2021 18:09:25 -0800 (PST)
+ bh=PV7a3dHfH7qP0MxYbLp/fe30OwkAoRYz0SswjQ/RoQ8=;
+ b=TWaAX0OFSAIpCLIgYqWXfPxKg2mMxsTIguE/osFTqEgUBdGP4HEqqi5I5R5DgA07Dh
+ GA7yp9tjxhypWAXST0GJDGwu/WlPam5JKN4X40XqZtINrEyEBsBVSOe4ISpsgXSwVdDS
+ KiyquaNssBGgkFFtvHik+SnmMpnmzAI6opTc8ms3fQ/hn0+qdttRWz/yUng1syCjXbyE
+ 3+v2ysRAEub7x1eo9khdwGY1CifTX4omSHON7vZE+IvB9XP0Xc9JhnHnvg6zUbwlAMIs
+ Hrzz1GxI8wGlCREZvTT6gpIrdkzWD1qTj7mSpP7wJU5QS2ZRpLpHAF1KvzbdueC7uV+j
+ AN+Q==
+X-Gm-Message-State: AOAM531McqB6rQwqulBQGb/jdf6iSIgTeoXv97ipFcdueVQvGZldBpv9
+ yrJOvYH02txt08lpfQCU5FX3FrgrHgo=
+X-Google-Smtp-Source: ABdhPJzselY3fDGD7so0ephdkpiuHmOLe15aw6P9ehm8dSnBgBK+uvBs6BJNh8BWPCgJNu/HBOj7VA==
+X-Received: by 2002:a05:6a00:16c6:b0:4a8:261d:6013 with SMTP id
+ l6-20020a056a0016c600b004a8261d6013mr1740050pfc.82.1639447766777; 
+ Mon, 13 Dec 2021 18:09:26 -0800 (PST)
 Received: from localhost.localdomain ([126.249.140.249])
- by smtp.gmail.com with ESMTPSA id b2sm14622296pfv.198.2021.12.13.18.09.24
+ by smtp.gmail.com with ESMTPSA id b2sm14622296pfv.198.2021.12.13.18.09.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Dec 2021 18:09:25 -0800 (PST)
+ Mon, 13 Dec 2021 18:09:26 -0800 (PST)
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 02/22] ASoC: codecs: es7241: Use dev_err_probe() helper
-Date: Tue, 14 Dec 2021 11:08:23 +0900
-Message-Id: <20211214020843.2225831-3-kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 03/22] ASoC: codecs: max9759: Use dev_err_probe() helper
+Date: Tue, 14 Dec 2021 11:08:24 +0900
+Message-Id: <20211214020843.2225831-4-kuninori.morimoto.gx@renesas.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211214020843.2225831-1-kuninori.morimoto.gx@renesas.com>
 References: <20211214020843.2225831-1-kuninori.morimoto.gx@renesas.com>
@@ -109,59 +109,60 @@ operation.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/es7241.c | 28 +++++++++-------------------
+ sound/soc/codecs/max9759.c | 28 +++++++++-------------------
  1 file changed, 9 insertions(+), 19 deletions(-)
 
-diff --git a/sound/soc/codecs/es7241.c b/sound/soc/codecs/es7241.c
-index 2344a0b03518..9f20bfb855b3 100644
---- a/sound/soc/codecs/es7241.c
-+++ b/sound/soc/codecs/es7241.c
-@@ -255,7 +255,6 @@ static int es7241_probe(struct platform_device *pdev)
+diff --git a/sound/soc/codecs/max9759.c b/sound/soc/codecs/max9759.c
+index 00e9d4fd1651..d75fd61b9032 100644
+--- a/sound/soc/codecs/max9759.c
++++ b/sound/soc/codecs/max9759.c
+@@ -140,7 +140,6 @@ static int max9759_probe(struct platform_device *pdev)
  {
  	struct device *dev = &pdev->dev;
- 	struct es7241_data *priv;
+ 	struct max9759 *priv;
 -	int err;
  
  	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
  	if (!priv)
-@@ -271,28 +270,19 @@ static int es7241_probe(struct platform_device *pdev)
- 	es7241_parse_fmt(dev, priv);
+@@ -149,29 +148,20 @@ static int max9759_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, priv);
  
- 	priv->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
--	if (IS_ERR(priv->reset)) {
--		err = PTR_ERR(priv->reset);
+ 	priv->gpiod_shutdown = devm_gpiod_get(dev, "shutdown", GPIOD_OUT_HIGH);
+-	if (IS_ERR(priv->gpiod_shutdown)) {
+-		err = PTR_ERR(priv->gpiod_shutdown);
 -		if (err != -EPROBE_DEFER)
--			dev_err(dev, "Failed to get 'reset' gpio: %d", err);
+-			dev_err(dev, "Failed to get 'shutdown' gpio: %d", err);
 -		return err;
 -	}
-+	if (IS_ERR(priv->reset))
-+		return dev_err_probe(dev, PTR_ERR(priv->reset),
-+				     "Failed to get 'reset' gpio");
++	if (IS_ERR(priv->gpiod_shutdown))
++		return dev_err_probe(dev, PTR_ERR(priv->gpiod_shutdown),
++				     "Failed to get 'shutdown' gpio");
  
- 	priv->m0 = devm_gpiod_get_optional(dev, "m0", GPIOD_OUT_LOW);
--	if (IS_ERR(priv->m0)) {
--		err = PTR_ERR(priv->m0);
+ 	priv->gpiod_mute = devm_gpiod_get(dev, "mute", GPIOD_OUT_HIGH);
+-	if (IS_ERR(priv->gpiod_mute)) {
+-		err = PTR_ERR(priv->gpiod_mute);
 -		if (err != -EPROBE_DEFER)
--			dev_err(dev, "Failed to get 'm0' gpio: %d", err);
+-			dev_err(dev, "Failed to get 'mute' gpio: %d", err);
 -		return err;
 -	}
-+	if (IS_ERR(priv->m0))
-+		return dev_err_probe(dev, PTR_ERR(priv->m0),
-+				     "Failed to get 'm0' gpio");
++	if (IS_ERR(priv->gpiod_mute))
++		return dev_err_probe(dev, PTR_ERR(priv->gpiod_mute),
++				     "Failed to get 'mute' gpio");
+ 	priv->is_mute = true;
  
- 	priv->m1 = devm_gpiod_get_optional(dev, "m1", GPIOD_OUT_LOW);
--	if (IS_ERR(priv->m1)) {
--		err = PTR_ERR(priv->m1);
+ 	priv->gpiod_gain = devm_gpiod_get_array(dev, "gain", GPIOD_OUT_HIGH);
+-	if (IS_ERR(priv->gpiod_gain)) {
+-		err = PTR_ERR(priv->gpiod_gain);
 -		if (err != -EPROBE_DEFER)
--			dev_err(dev, "Failed to get 'm1' gpio: %d", err);
+-			dev_err(dev, "Failed to get 'gain' gpios: %d", err);
 -		return err;
 -	}
-+	if (IS_ERR(priv->m1))
-+		return dev_err_probe(dev, PTR_ERR(priv->m1),
-+				     "Failed to get 'm1' gpio");
++	if (IS_ERR(priv->gpiod_gain))
++		return dev_err_probe(dev, PTR_ERR(priv->gpiod_gain),
++				     "Failed to get 'gain' gpios");
+ 	priv->gain = 0;
  
- 	return devm_snd_soc_register_component(&pdev->dev,
- 				      &es7241_component_driver,
+ 	if (priv->gpiod_gain->ndescs != 2) {
 -- 
 2.25.1
 

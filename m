@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 910A8473A9D
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 03:12:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90179473A9E
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Dec 2021 03:13:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B8AA1947;
-	Tue, 14 Dec 2021 03:11:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B8AA1947
+	by alsa0.perex.cz (Postfix) with ESMTPS id 076D71AA2;
+	Tue, 14 Dec 2021 03:12:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 076D71AA2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639447964;
-	bh=AQ0dvlvQSlbFJjCocKBgZKhyGkmQXHb/i1P+2SXhkjk=;
+	s=default; t=1639447991;
+	bh=hiLr12UPHj78i6gg0eB+iLRynMyyunmvERJdlqbH44g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vXzoXRmZmhu+PLF7GVW2MAVqwKUquO9d8UorYC+B6yAdFSXLPC7lm9tj71qLF/ba2
-	 Fcjs4UdEFSVi72hA9BXVgLZ0lT9D5kdB6Sw/c4RpE/jsUR0IJBe7lvKaVEbFJFyfwd
-	 j0q/wTvBke0N/L41ez6fFC5+mjErnkMtLnP2KmAY=
+	b=Uh/1Qw2Nxyeg2ffZdCGtcRDjcudquQlVL8DfxuFwAEJNNXabKsD2+3EHzyfdBNLJU
+	 6IKvcBdpfrjZ2SEG9tY9vd5QfWPRnpaOnQZCtk/PHKdlS92MEFOW1TTNtB0JxdKXp4
+	 PvIgvg7DNNjh9CLVCVV88EIJRM2NQnJ2lUgBJ3y0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 168BBF8053A;
-	Tue, 14 Dec 2021 03:09:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1512DF80549;
+	Tue, 14 Dec 2021 03:09:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76AE0F8051F; Tue, 14 Dec 2021 03:09:43 +0100 (CET)
+ id 1B01FF80536; Tue, 14 Dec 2021 03:09:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [IPv6:2607:f8b0:4864:20::534])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1F08F8025E
- for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 03:09:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1F08F8025E
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6B5AF8051D
+ for <alsa-devel@alsa-project.org>; Tue, 14 Dec 2021 03:09:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6B5AF8051D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GhzxIeFK"
-Received: by mail-pl1-x629.google.com with SMTP id y7so12554300plp.0
- for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 18:09:33 -0800 (PST)
+ header.b="mk55fFzb"
+Received: by mail-pg1-x534.google.com with SMTP id y9so2955000pgj.5
+ for <alsa-devel@alsa-project.org>; Mon, 13 Dec 2021 18:09:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=SBpXQEs+oH4Ppm8Ru8mfhKAnVJsRKcfqE3wHGNI1Azo=;
- b=GhzxIeFKXWlOcI90cA7d58ZcRE5YdCUi6tTS9RBVMJK8mj4YnevQGnzBSFlcgkvceF
- yvWrRqSzdj+ltcmS/5oIbwImN/TmkCYwGQgRob34fvQP+4wlTCEyNRwf1ZieCByUAACC
- D3VBJYZrsKlUirT/jvG5BGjJkO6Z2IHSdgoznj6KM9s+unAb0ADx5gzuPRC1v1PIEuob
- sr0XPWcFq1PDRnDnDP6NdJF2nL8kNG6hrSQmvPofu+GEr1+aRlWmvVqMews33arCuWFx
- c2k+nA96F08A3FFJ2trW+EWOdn/3TgKuvrgXDN8CXBTBvWada2+1OxhxsZqdJyeVQ9Mo
- c1gQ==
+ bh=4KYEUeghlc9KEDx6ZlVKM3Lnv7AnN9ZYnSgIj6VNOz8=;
+ b=mk55fFzbWVt9mp+fbqMx8waC8txprqF6q23d3C/frj02AF90B4XvbKVIHOc3ZQzUf0
+ Ius6jxLIAmvNkC0TvKkxbHMdb7SX1L0MzD2FbtskOOYzGokWATi8B28uJOBncCxCAG6j
+ QZhhJo/6CTbNC3hninu4Q1giVcpWVXcDh79VdA5aE0/NIp2xWCJcdJDm43VsqvRP7s0A
+ gKCxRrsXGaQ2o9Ajd3ZMvzP7O2In66BEAVrJctwO3kkQdQq00rsmm5NI2LvlEt4xjeWx
+ nVxUBPfawP45NzgAJHKUCNz2OIMEqaM38IbjtbDeZZr2g1Ffltxg+89m3ZN4QbSeC22q
+ mEEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=SBpXQEs+oH4Ppm8Ru8mfhKAnVJsRKcfqE3wHGNI1Azo=;
- b=JWZMBYIij630NJ7OvVPi4EK/pHxPbAzPPUvzSQnXiWVlh7PvNVqCfOvQUGi2QKMPCj
- 0lY8gXYU/JQkNb6/b6fQENM9+F5si2S+GTzyJrAZWSI+cPlVHuefm8j7OwXaBWuNzfSs
- qvBX44Uu1d31aWhGI65Y/T6iTWyxCyra7PYnaazsoHYC6+gn7NNIodJJpqe0uaINdDmd
- tJ+2hYSTT0ZkvZNpG1Ctdg4R2Nn4twu1+LUuDbCpBdA11cooVkja21tQvC1xVvxSqapE
- WBiGTaOlg1N4HYOEJFWrGsuMYujJCn1vj3TEvQM1o9asxyZPhR2BVgJPGmhcB5/ieZXp
- rO4w==
-X-Gm-Message-State: AOAM533YKn6T2SDVViEsVHRGiW6cSLUJykkZP21AaoSDrvKrT8b4Y+SJ
- 0+OfxEyn/5gld+gnEyIkY0oePyvLWjg=
-X-Google-Smtp-Source: ABdhPJzfXLJHrMRn8QfIGrRsJ0Or4g2nP6vA73AplW8HtwJkfdpZYcTF8xad9BuRJ4AhfjBP3G1DsA==
-X-Received: by 2002:a17:902:e5d1:b0:141:cd4a:f318 with SMTP id
- u17-20020a170902e5d100b00141cd4af318mr2156741plf.47.1639447771145; 
- Mon, 13 Dec 2021 18:09:31 -0800 (PST)
+ bh=4KYEUeghlc9KEDx6ZlVKM3Lnv7AnN9ZYnSgIj6VNOz8=;
+ b=qkZK4quoyVWetO1uemFXtTQC93ru4LriQpid8vMLkzD6thliUtu0LG945hjgMXASty
+ 3ai02fJCL6jdt8NBhEqnuJNrUX0jz+E+nj1eMcR51Io1UagM3XzifeUpgStwhcWJ/QNV
+ 81Ifj9TfQfKxVfvveLQec2VUaN7yEUHrYFKc51ijNeNwX4fzsEX6OxQ1DT0i4REUK8++
+ P3NVwJTEiveOvwk+fsTOLtefwQR04RabztpmmGiER9D/dlwAMZjfIfqum8WDwfMUcGrx
+ fUkjhKQT35UQXAkxcciAqqkp+Mpz4k6gKxO5kCR7MT6XzB2oNgqzh7dTXszbuT6tstUx
+ be3Q==
+X-Gm-Message-State: AOAM532S5FfukWfV20+ihXTW58gkG03XOJ+sjJY7U331oolc58tWpJ6y
+ oEoDmibGKssfDtYBobjj8JU=
+X-Google-Smtp-Source: ABdhPJzrt+ZnYE5YajfbmhAPBkBFh5yC6fKdmjbg8nDgqiL7+j2IshKwABGMCj6TfYEdstHdk+o2fg==
+X-Received: by 2002:a65:6819:: with SMTP id l25mr1739290pgt.506.1639447772501; 
+ Mon, 13 Dec 2021 18:09:32 -0800 (PST)
 Received: from localhost.localdomain ([126.249.140.249])
- by smtp.gmail.com with ESMTPSA id b2sm14622296pfv.198.2021.12.13.18.09.29
+ by smtp.gmail.com with ESMTPSA id b2sm14622296pfv.198.2021.12.13.18.09.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Dec 2021 18:09:30 -0800 (PST)
+ Mon, 13 Dec 2021 18:09:32 -0800 (PST)
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 06/22] ASoC: codecs: sgtl5000: Use dev_err_probe() helper
-Date: Tue, 14 Dec 2021 11:08:27 +0900
-Message-Id: <20211214020843.2225831-7-kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 07/22] ASoC: codecs: simple-amplifier: Use dev_err_probe()
+ helper
+Date: Tue, 14 Dec 2021 11:08:28 +0900
+Message-Id: <20211214020843.2225831-8-kuninori.morimoto.gx@renesas.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211214020843.2225831-1-kuninori.morimoto.gx@renesas.com>
 References: <20211214020843.2225831-1-kuninori.morimoto.gx@renesas.com>
@@ -101,7 +101,6 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Use the dev_err_probe() helper, instead of open-coding the same
@@ -109,25 +108,37 @@ operation.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/codecs/sgtl5000.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/soc/codecs/simple-amplifier.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
-index 97bf1f222805..8eebf27d0ea2 100644
---- a/sound/soc/codecs/sgtl5000.c
-+++ b/sound/soc/codecs/sgtl5000.c
-@@ -1612,9 +1612,8 @@ static int sgtl5000_i2c_probe(struct i2c_client *client,
- 		if (ret == -ENOENT)
- 			ret = -EPROBE_DEFER;
+diff --git a/sound/soc/codecs/simple-amplifier.c b/sound/soc/codecs/simple-amplifier.c
+index b30fc1f894e1..d306c585b52b 100644
+--- a/sound/soc/codecs/simple-amplifier.c
++++ b/sound/soc/codecs/simple-amplifier.c
+@@ -69,7 +69,6 @@ static int simple_amp_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct simple_amp *priv;
+-	int err;
  
--		if (ret != -EPROBE_DEFER)
--			dev_err(&client->dev, "Failed to get mclock: %d\n",
--				ret);
-+		dev_err_probe(&client->dev, ret, "Failed to get mclock\n");
-+
- 		goto disable_regs;
- 	}
+ 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ 	if (priv == NULL)
+@@ -78,12 +77,9 @@ static int simple_amp_probe(struct platform_device *pdev)
  
+ 	priv->gpiod_enable = devm_gpiod_get_optional(dev, "enable",
+ 						     GPIOD_OUT_LOW);
+-	if (IS_ERR(priv->gpiod_enable)) {
+-		err = PTR_ERR(priv->gpiod_enable);
+-		if (err != -EPROBE_DEFER)
+-			dev_err(dev, "Failed to get 'enable' gpio: %d", err);
+-		return err;
+-	}
++	if (IS_ERR(priv->gpiod_enable))
++		return dev_err_probe(dev, PTR_ERR(priv->gpiod_enable),
++				     "Failed to get 'enable' gpio");
+ 
+ 	return devm_snd_soc_register_component(dev,
+ 					       &simple_amp_component_driver,
 -- 
 2.25.1
 

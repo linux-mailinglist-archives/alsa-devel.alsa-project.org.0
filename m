@@ -2,49 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA48A47510D
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 03:44:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA273475148
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 04:17:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CCD8200F;
-	Wed, 15 Dec 2021 03:43:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CCD8200F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EDC51E09;
+	Wed, 15 Dec 2021 04:16:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EDC51E09
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639536287;
-	bh=DyFNFjna194z0lzCSiXTTYeIu7oTjjxfQ2ttFjnpfBo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TsuMxFim2jbIhZq6hA6CNYpBaW/7qKIawxUuEiYB1D35+/byALGCH2YowPyiCeyIm
-	 EXvoK7OvyqWR+O0YSQwsFI7GApKa2eAHi9XFNhd+XIKitmbVuUiOyf3VBZUQoU7vhQ
-	 40ZVMA8D+m3PL4wSoMP1bcsRyFfgw9FIjEBkOykM=
+	s=default; t=1639538252;
+	bh=dOpfQ6BFNNhnqQyopfZ76fGaU7J2HuwlEdMk5p6c9Wg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=H2ddnkXeoE9XoBkoF1CZECq0oqkJUNRNWFjNiZ68WT+QAVUnZra0j7n5v3HL6nZHN
+	 59d6gyKEdQtIUqxfer7epGl3W1xBCntl/VQ05dr1CQ6tZe3nYelewpmTzCE2w2V6RN
+	 iB6O70rYwu4uiT0D+UgGWTxsuTeHX2IS+tZXoCas=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E624F801DB;
-	Wed, 15 Dec 2021 03:43:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C549F800FE;
+	Wed, 15 Dec 2021 04:16:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B23AFF8025D; Wed, 15 Dec 2021 03:43:37 +0100 (CET)
+ id 10746F800E0; Wed, 15 Dec 2021 04:16:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id E7309F801DB
- for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 03:43:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7309F801DB
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by alsa1.perex.cz (Postfix) with ESMTP id 87639F800E0
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 04:16:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87639F800E0
+Received: from localhost.localdomain (unknown [124.16.138.126])
+ by APP-05 (Coremail) with SMTP id zQCowACXcUDxXblhXTEtAw--.46852S2;
+ Wed, 15 Dec 2021 11:16:03 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: oder_chiou@realtek.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com
+Subject: [PATCH] ASoC: rt5663: Handle device_property_read_u32_array error
+ codes
+Date: Wed, 15 Dec 2021 11:15:50 +0800
+Message-Id: <20211215031550.70702-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1639536205801037073-webhooks-bot@alsa-project.org>
-References: <1639536205801037073-webhooks-bot@alsa-project.org>
-Subject: Cant't open mixer and no sound , helem (MIXER,
- 'Front Mic Boots Valume', 0, 1, 0) appears twice or more
-Message-Id: <20211215024337.B23AFF8025D@alsa1.perex.cz>
-Date: Wed, 15 Dec 2021 03:43:37 +0100 (CET)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowACXcUDxXblhXTEtAw--.46852S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF1rXry5ur1xAF43CrykKrg_yoW8Cryxpr
+ s8CFZYya4Yqr45Ca13Jw4DW3WxKw4UJFWxJrW8G3sY9rn8Jr15uFWqkFyayayrKrykuF17
+ XFWIgF4xGF45Gw7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUyG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
+ r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+ xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+ cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+ AvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7Cj
+ xVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbXdbUUUUUU==
+X-Originating-IP: [124.16.138.126]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Cc: alsa-devel@alsa-project.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,168 +81,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #205 was edited from WolsYang:
+The return value of device_property_read_u32_array() is not always 0.
+To catch the exception in case that devm_kzalloc failed and the
+rt5663->imp_table was NULL, which caused the failure of
+device_property_read_u32_array.
 
-**I had  try the way in this issue, but not work for me : (**
+Fixes: 450f0f6a8fb4 ("ASoC: rt5663: Add the manual offset field to compensate the DC offset")
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+---
+ sound/soc/codecs/rt5663.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-**helem (MIXER,'Master Playback Volume',0,1,0) appears twice or more cannot load mixer controls: Invalid argument**#47
-
-**In default I only can play sound with Back port**
-
-**Here is my computer audio port look like.**
-|codec       | ALC888-VD | ALC888-VD |
-|:-------------|:----------------:|:----------------:|
-|position    |      Back       |     Front        |
-|Function   | 0:Line Out, 1:MIC | 0:Line Out, 1:MIC|
-|Port Num  |          2         |          2             |
-|HW:dev|0:0|0:2|
-|/sys/class/cound|hwC0D0|hwC0D1|
-
-**OS:Ubuntu 20.04.2LTS**
-**$ uname -r**
-```
-5.13.0-051300-generic
-```
-
-**$ amixer** 
-```
-ALSA lib simple_none.c:1544:(simple_add1) helem (MIXER,'Front Mic Boots Valume',0,1,0) appears twice or more
-amixer: Mixer default load error: Invalid aggument
-``` 
+diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
+index be9fc58ff681..ee09ccd448dc 100644
+--- a/sound/soc/codecs/rt5663.c
++++ b/sound/soc/codecs/rt5663.c
+@@ -3461,6 +3461,7 @@ static void rt5663_calibrate(struct rt5663_priv *rt5663)
+ static int rt5663_parse_dp(struct rt5663_priv *rt5663, struct device *dev)
+ {
+ 	int table_size;
++	int ret;
  
-**$ aplay -l**
-```
-**** List of PLAYBACK Hardware Devices ****
-card 0: PCH [HDA Intel PCH], device 0: ALC888-VD Analog [ALC888-VD Analog]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 2: ALC888-VD Analog [ALC888-VD Analog]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 3: HDMI 0 [HDMI 0]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 7: HDMI 1 [HDMI 1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 8: HDMI 2 [HDMI 2]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-```
-**$ amixer -c 0 controls**
-```
-numid=18,iface=CARD,name='Front Line Out Front Phantom Jack'
-numid=16,iface=CARD,name='Front Mic Jack'
-numid=76,iface=CARD,name='Front Mic Jack',index=1
-numid=41,iface=CARD,name='HDMI/DP,pcm=3 Jack'
-numid=47,iface=CARD,name='HDMI/DP,pcm=7 Jack'
-numid=53,iface=CARD,name='HDMI/DP,pcm=8 Jack'
-numid=78,iface=CARD,name='Headphone Front Jack'
-numid=79,iface=CARD,name='Headphone Surround Jack'
-numid=19,iface=CARD,name='Line Out Surround Phantom Jack'
-numid=17,iface=CARD,name='Rear Mic Jack'
-numid=77,iface=CARD,name='Rear Mic Jack',index=1
-numid=15,iface=MIXER,name='Master Playback Switch'
-numid=14,iface=MIXER,name='Master Playback Volume'
-numid=64,iface=MIXER,name='Headphone Playback Switch'
-numid=66,iface=MIXER,name='Headphone Playback Switch',index=1
-numid=63,iface=MIXER,name='Headphone Playback Volume'
-numid=65,iface=MIXER,name='Headphone Playback Volume',index=1
-numid=62,iface=MIXER,name='PCM Playback Volume'
-numid=12,iface=MIXER,name='Front Mic Boost Volume'
-numid=7,iface=MIXER,name='Front Mic Playback Switch'
-numid=6,iface=MIXER,name='Front Mic Playback Volume'
-numid=74,iface=MIXER,name='Front Mic Boost Volume',device=1
-numid=69,iface=MIXER,name='Front Mic Playback Switch',device=1
-numid=68,iface=MIXER,name='Front Mic Playback Volume',device=1
-numid=2,iface=MIXER,name='Front Playback Switch'
-numid=1,iface=MIXER,name='Front Playback Volume'
-numid=4,iface=MIXER,name='Surround Playback Switch'
-numid=3,iface=MIXER,name='Surround Playback Volume'
-numid=11,iface=MIXER,name='Capture Switch'
-numid=73,iface=MIXER,name='Capture Switch',device=1
-numid=10,iface=MIXER,name='Capture Volume'
-numid=72,iface=MIXER,name='Capture Volume',device=1
-numid=5,iface=MIXER,name='Loopback Mixing'
-numid=67,iface=MIXER,name='Loopback Mixing',device=1
-numid=42,iface=MIXER,name='IEC958 Playback Con Mask'
-numid=48,iface=MIXER,name='IEC958 Playback Con Mask',index=1
-numid=54,iface=MIXER,name='IEC958 Playback Con Mask',index=2
-numid=43,iface=MIXER,name='IEC958 Playback Pro Mask'
-numid=49,iface=MIXER,name='IEC958 Playback Pro Mask',index=1
-numid=55,iface=MIXER,name='IEC958 Playback Pro Mask',index=2
-numid=44,iface=MIXER,name='IEC958 Playback Default'
-numid=50,iface=MIXER,name='IEC958 Playback Default',index=1
-numid=56,iface=MIXER,name='IEC958 Playback Default',index=2
-numid=45,iface=MIXER,name='IEC958 Playback Switch'
-numid=51,iface=MIXER,name='IEC958 Playback Switch',index=1
-numid=57,iface=MIXER,name='IEC958 Playback Switch',index=2
-numid=13,iface=MIXER,name='Rear Mic Boost Volume'
-numid=9,iface=MIXER,name='Rear Mic Playback Switch'
-numid=8,iface=MIXER,name='Rear Mic Playback Volume'
-numid=75,iface=MIXER,name='Rear Mic Boost Volume',device=1
-numid=71,iface=MIXER,name='Rear Mic Playback Switch',device=1
-numid=70,iface=MIXER,name='Rear Mic Playback Volume',device=1
-numid=21,iface=PCM,name='Capture Channel Map'
-numid=20,iface=PCM,name='Playback Channel Map'
-numid=81,iface=PCM,name='Capture Channel Map',device=2
-numid=80,iface=PCM,name='Playback Channel Map',device=2
-numid=46,iface=PCM,name='ELD',device=3
-numid=59,iface=PCM,name='Playback Channel Map',device=3
-numid=52,iface=PCM,name='ELD',device=7
-numid=60,iface=PCM,name='Playback Channel Map',device=7
-numid=58,iface=PCM,name='ELD',device=8
-numid=61,iface=PCM,name='Playback Channel Map',device=8
+ 	device_property_read_u32(dev, "realtek,dc_offset_l_manual",
+ 		&rt5663->pdata.dc_offset_l_manual);
+@@ -3477,9 +3478,11 @@ static int rt5663_parse_dp(struct rt5663_priv *rt5663, struct device *dev)
+ 		table_size = sizeof(struct impedance_mapping_table) *
+ 			rt5663->pdata.impedance_sensing_num;
+ 		rt5663->imp_table = devm_kzalloc(dev, table_size, GFP_KERNEL);
+-		device_property_read_u32_array(dev,
++		ret = device_property_read_u32_array(dev,
+ 			"realtek,impedance_sensing_table",
+ 			(u32 *)rt5663->imp_table, table_size);
++		if (ret)
++			return ret;
+ 	}
+ 
+ 	return 0;
+@@ -3504,8 +3507,11 @@ static int rt5663_i2c_probe(struct i2c_client *i2c,
+ 
+ 	if (pdata)
+ 		rt5663->pdata = *pdata;
+-	else
+-		rt5663_parse_dp(rt5663, &i2c->dev);
++	else {
++		ret = rt5663_parse_dp(rt5663, &i2c->dev);
++		if (ret)
++			return ret;
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(rt5663->supplies); i++)
+ 		rt5663->supplies[i].supply = rt5663_supply_names[i];
+-- 
+2.25.1
 
-```
-
-
-**$ pactl list modules**
-```
-Card #0
-	Name: alsa_card.pci-0000_00_1b.0
-	Driver: module-alsa-card.c
-	Owner Module: 7
-	Properties:
-		alsa.card = "0"
-		alsa.card_name = "HDA Intel PCH"
-		alsa.long_card_name = "HDA Intel PCH at 0x81410000 irq 132"
-		alsa.driver_name = "snd_hda_intel"
-		device.bus_path = "pci-0000:00:1b.0"
-		sysfs.path = "/devices/pci0000:00/0000:00:1b.0/sound/card0"
-		device.bus = "pci"
-		device.vendor.id = "8086"
-		device.vendor.name = "Intel Corporation"
-		device.product.id = "2284"
-		device.product.name = "Atom/Celeron/Pentium Processor x5-E8000/J3xxx/N3xxx Series High Definition Audio Controller"
-		device.form_factor = "internal"
-		device.string = "0"
-		device.description = "Built-in Audio"
-		module-udev-detect.discovered = "1"
-		device.icon_name = "audio-card-pci"
-	Profiles:
-		input:analog-stereo: Analog Stereo Input (sinks: 0, sources: 1, priority: 65, available: yes)
-		output:analog-stereo: Analog Stereo Output (sinks: 1, sources: 0, priority: 6500, available: yes)
-		output:analog-stereo+input:analog-stereo: Analog Stereo Duplex (sinks: 1, sources: 1, priority: 6565, available: yes)
-		output:analog-surround-40: Analog Surround 4.0 Output (sinks: 1, sources: 0, priority: 1200, available: yes)
-		output:analog-surround-40+input:analog-stereo: Analog Surround 4.0 Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 1265, available: yes)
-		output:hdmi-stereo: Digital Stereo (HDMI) Output (sinks: 1, sources: 0, priority: 5900, available: yes)
-		output:hdmi-stereo+input:analog-stereo: Digital Stereo (HDMI) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 5965, available: yes)
-		output:hdmi-surround: Digital Surround 5.1 (HDMI) Output (sinks: 1, sources: 0, priority: 800, available: yes)
-		output:hdmi-surround+input:analog-stereo: Digital Surround 5.1 (HDMI) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 865, available: yes)
-		output:hdmi-surround71: Digital Surround 7.1 (HDMI) Output (sinks: 1, sources: 0, priority: 800, available: yes)
-		output:hdmi-surround71+input:analog-stereo: Digital Surround 7.1 (HDMI) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 865, available: yes)
-		output:hdmi-stereo-extra1: Digital Stereo (HDMI 2) Output (sinks: 1, sources: 0, priority: 5700, available: yes)
-		output:hdmi-stereo-extra1+input:analog-stereo: Digital Stereo (HDMI 2) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 5765, available: yes)
-		output:hdmi-surround-extra1: Digital Surround 5.1 (HDMI 2) Output (sinks: 1, sources: 0, priority: 600, available: yes)
-		output:hdmi-surround-extra1+input:analog-stereo: Digital Surround 5.1 (HDMI 2) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 665, available: yes)
-		output:hdmi-surround71-extra1: Digital Surround 7.1 (HDMI 2) Output (sinks: 1, sources: 0, priority: 600, available: yes)
-		output:hdmi-surround71-extra1+input:analog-stereo: Digital Surround 7.1 (HDMI 2) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 665, available: yes)
-		output:hdmi-stereo-extra2: Digital Stereo (HDMI 3) Output (sinks: 1, sources: 0, priority: 5700, available: yes)
-		output:hdmi-stereo-extra2+input:analog-stereo: Digital Stereo (HDMI 3) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 5765, available: yes)
-		off: Off (sinks: 0, sources: 0, priority: 0, available: yes)
-	Active Profile: output:analog-stereo
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/205
-Repository URL: https://github.com/alsa-project/alsa-lib

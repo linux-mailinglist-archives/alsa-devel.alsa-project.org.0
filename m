@@ -2,65 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693DA476052
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 19:10:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE647476075
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 19:15:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8AA41AE6;
-	Wed, 15 Dec 2021 19:09:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8AA41AE6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 529AD1B12;
+	Wed, 15 Dec 2021 19:15:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 529AD1B12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639591831;
-	bh=KIFf1KiX7mcT9FgeGScU3+yqjb9/ZW/8YOT/3A3xm8o=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1639592154;
+	bh=Qb6bAw7Yfc9ExsT/6JSWE8AUnkp9FXA4Nxscx9lbVAc=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eKehEisqQHHZHE4QskDl0FNQbdYZzILssgUJ3BDUNSmeI1grsf7kNYyjG5Q/Rtwn6
-	 HK94VkxKLIVgxUh7bPyr+8AS1jcIHDgUjROoJigSg/bWi0k7y5zFRfvqFkWUNwuU+l
-	 gNmhVJag05+5ldtgs5f+aU4T8xDWpxO/088N+mJw=
+	b=D9FBZutpSHqW4FCr92GOAasniCn2e4qEhSbymJ//eYKK95d08PYdVYixw6/0rjWWP
+	 ScfjdV7S86XoteGG8uPz3EjoTxeGKeeoo3WQ54VwXbQZvf2rAWfd1fD/sMoopQWLPM
+	 VUnQuRAKApr0Au59Of6ppb1oKAjIOBSnUoy/Niuo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17B5AF80527;
-	Wed, 15 Dec 2021 19:07:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7799CF80238;
+	Wed, 15 Dec 2021 19:14:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 805D0F8051A; Wed, 15 Dec 2021 19:07:10 +0100 (CET)
+ id 638DAF80238; Wed, 15 Dec 2021 19:14:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE72FF800B0
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 19:14:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE72FF800B0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="b/m6fdRO"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34985F8030F
- for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 19:06:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34985F8030F
-X-IronPort-AV: E=McAfee;i="6200,9189,10199"; a="302671006"
-X-IronPort-AV: E=Sophos;i="5.88,207,1635231600"; d="scan'208";a="302671006"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2021 10:04:14 -0800
-X-IronPort-AV: E=Sophos;i="5.88,207,1635231600"; d="scan'208";a="662015066"
-Received: from manamie-mobl.amr.corp.intel.com (HELO
- rsridh2-mobl1.localdomain) ([10.254.37.3])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2021 10:04:13 -0800
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 8/8] ASoC: SOF: topology: read back control data from DSP
-Date: Wed, 15 Dec 2021 10:04:04 -0800
-Message-Id: <20211215180404.53254-9-ranjani.sridharan@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211215180404.53254-1-ranjani.sridharan@linux.intel.com>
-References: <20211215180404.53254-1-ranjani.sridharan@linux.intel.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3FFA06164E;
+ Wed, 15 Dec 2021 18:14:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4193CC36AE0;
+ Wed, 15 Dec 2021 18:14:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1639592044;
+ bh=Qb6bAw7Yfc9ExsT/6JSWE8AUnkp9FXA4Nxscx9lbVAc=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=b/m6fdROGoRDZ9dZZ5ErnWwO5gN1DTjK4jrqwDidzf+r6gRauKxDaVlmlQrTVQ6x3
+ Fzs5w8j8HS6OabcUKAtpmPQrz0NVGIoQxOY0J1+2INW688ZF9b4DAhcMN8ujCd/iv1
+ FYCUNM6tMXUXn+cdNVYgnhdfVRFqEJPoKy4x4zaNdSyjw3h+ZFEweUVKu8WgpfTEj2
+ NC26IhuT3UmDnEc65mjt9NvdsFZF8fQaRF0BNM39UV4kgx1cmSC3tzrao98a0gjpzl
+ iMoEsBtPvm+J+A5uh2msne5ApRiEtBP2AnEotLQd/ANPtt1d0o3et3eop2y7kK7vjO
+ VCHiyrCBTOCAQ==
+From: Mark Brown <broonie@kernel.org>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ alsa-devel@alsa-project.org, linux-amlogic@lists.infradead.org
+In-Reply-To: <20211206210804.2512999-1-martin.blumenstingl@googlemail.com>
+References: <20211206210804.2512999-1-martin.blumenstingl@googlemail.com>
+Subject: Re: [PATCH v2 0/2] ASoC: meson: aiu: two fixes (for 5.16)
+Message-Id: <163959204298.2212554.815832977637183114.b4-ty@kernel.org>
+Date: Wed, 15 Dec 2021 18:14:02 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: jbrunet@baylibre.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,48 +84,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Read back the control data from the DSP to initialize the control data
-size to match that of the data in the DSP. This is particularly useful
-for volatile read-only kcontrols in static pipelines.
+On Mon, 6 Dec 2021 22:08:02 +0100, Martin Blumenstingl wrote:
+> In this series I am proposing two fixes for the "aiu" driver, used on
+> Amlogic Meson8, Meson8b, Meson8m2, GXBB, GXL and GXM SoCs.
+> 
+> The first patch is the result of me trying to understand the way how
+> we get the DMA buffer and address for the audio data. I'm not an expert
+> in terms of DMA. From what I understand we need to inform DMA core
+> about the limitations of the hardware. In case of AIU it's DMA address
+> registers only take 32 bits, so DMA core should be aware of this.
+> 
+> [...]
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/sof/sof-audio.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Applied to
 
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 735fbc5fe1bd..91e3fa5a7350 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -59,12 +59,26 @@ static int sof_widget_kcontrol_setup(struct snd_sof_dev *sdev, struct snd_sof_wi
- 	/* set up all controls for the widget */
- 	list_for_each_entry(scontrol, &sdev->kcontrol_list, list)
- 		if (scontrol->comp_id == swidget->comp_id) {
-+			/* set kcontrol data in DSP */
- 			ret = sof_kcontrol_setup(sdev, scontrol);
- 			if (ret < 0) {
- 				dev_err(sdev->dev, "error: fail to set up kcontrols for widget %s\n",
- 					swidget->widget->name);
- 				return ret;
- 			}
-+
-+			/*
-+			 * Read back the data from the DSP for static widgets. This is particularly
-+			 * useful for binary kcontrols associated with static pipeline widgets to
-+			 * initialize the data size to match that in the DSP.
-+			 */
-+			if (swidget->dynamic_pipeline_widget)
-+				continue;
-+
-+			ret = snd_sof_ipc_set_get_comp_data(scontrol, false);
-+			if (ret < 0)
-+				dev_warn(sdev->dev, "Failed kcontrol get for control in widget %s\n",
-+					 swidget->widget->name);
- 		}
- 
- 	return 0;
--- 
-2.25.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
 
+Thanks!
+
+[1/2] ASoC: meson: aiu: fifo: Add missing dma_coerce_mask_and_coherent()
+      commit: 1bcd326631dc4faa3322d60b4fc45e8b3747993e
+[2/2] ASoC: meson: aiu: Move AIU_I2S_MISC hold setting to aiu-fifo-i2s
+      commit: ee907afb0c39a41ee74b862882cfe12820c74b98
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

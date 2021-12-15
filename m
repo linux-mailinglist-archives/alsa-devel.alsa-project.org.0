@@ -2,82 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE058476265
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 21:00:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FF7047628A
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 21:02:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77A0A1B28;
-	Wed, 15 Dec 2021 20:59:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77A0A1B28
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E1771B36;
+	Wed, 15 Dec 2021 21:01:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E1771B36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639598415;
-	bh=RvD+ANrcnCD+5NddNQhdEKCc1gzpjozT02JO8YsYNTY=;
+	s=default; t=1639598542;
+	bh=7uIk7xxV3l5vB1ppv1ONzq7K/HXmnyE7EB2qGFKl3ws=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cISAr53E06kHpCuHmuU1/VZYN77zWWjaue2R//T0LJgPh5fZLc9wge3TEtWik7XMP
-	 XZO6m8tNwqzNPMUvB8vBMCtTP3hbwhawAnCMSfMA3dV4YQFObnFcugYGc8VjVLaAkp
-	 pHDk67WwrCA4agIzK/dvId1OOt/P6CBam5Qvra0o=
+	b=UXLaVBkCpBOcx0rnM3koaNfmc9CoHmmOj0EXs9SmkB4M6vAPKJtrcqI5eWDpWRyZR
+	 79FngmLRFFkPpuipNEoqqHQkA3oSE/oOqMAIiXwkR9VkxDYH7RxASEvEwpzfwWpRPH
+	 +BE7OZ/IIouiP6v/cEIBiCZ/mmTlP8ftDZJLaeJM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D843CF801F5;
-	Wed, 15 Dec 2021 20:59:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADCBDF801F5;
+	Wed, 15 Dec 2021 21:01:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E5CEF8019D; Wed, 15 Dec 2021 20:59:05 +0100 (CET)
+ id E5FA9F8019D; Wed, 15 Dec 2021 21:01:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76049F80157
- for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 20:58:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76049F80157
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uTMv8hJM"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 46FEC619C9;
- Wed, 15 Dec 2021 19:58:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2DDC36AE3;
- Wed, 15 Dec 2021 19:58:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639598333;
- bh=RvD+ANrcnCD+5NddNQhdEKCc1gzpjozT02JO8YsYNTY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uTMv8hJMi30/mQAVCHGryR04wkRNruOAqqgQr7mx1i7/ofD9e2/UQCIugWQW4erbW
- hjksfk4C9xAFYPywgfg7J4NxzReKGoQfem8GnLrvyfqO+O/TpqO7Egme1Try97PGdf
- MaNHWmP2/bB7l7H78p7rVc8JqNsZ6O3EKSntadAxV6YZDR5hGyMDd8ETKVCugXurgV
- QQtpSgXCZ5LOSY0RsXcL74Ih5jnwsPCflR7PkpKefJ0jjQlw04J500QcUU8xwUtTep
- ETlv3fhubxEhPeHCbx2e+R+tyXKwv8vScMsrr6WW9VQJll6/fE6BfifIt8X2YSbPAk
- 73vFYJxAbtmNA==
-Date: Wed, 15 Dec 2021 19:58:47 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Dmitry Osipenko <digetx@gmail.com>
-Subject: Re: [PATCH v4 00/22] Support HDMI audio on NVIDIA Tegra20
-Message-ID: <YbpI92wUUiHGrttE@sirena.org.uk>
-References: <20211204143725.31646-1-digetx@gmail.com>
- <Ybo6tsnQM6OacoZs@sirena.org.uk>
- <26af30a6-9606-72d0-9258-cf9627ddfe77@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83165F80157
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 21:01:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83165F80157
+Received: by mail-oi1-f174.google.com with SMTP id bk14so33211525oib.7
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 12:01:06 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=l+xFFfLKiEhkrb+S6WEQGs0sRTxxdeIwUbUb4lHfegA=;
+ b=fLUctX2DPp/uy01d3QeIBzzYmlzrVGbtE0CHVBVPiCGX7XKPZt8o2KFo310L5iiDkd
+ f1rcdEuEkWOb3ODRH2HMKpg9Wo5c4Fs2wNQsbuUnpzm2dflY9NVVQdaGUgl3S1fi+HgC
+ o4yUJJpwM6vzHnTWH0zOsGO2cJZ8zNfyZfBrZEfmx++kzMOt10a94eQ0f8jSzt3UQMjc
+ /GOKHt05EQs7aN7SCU3NSQ5jPZHf6bskjZs+/ofhMtEmDiu+bHxZPk5g/H5yol/ymNWI
+ cJGcHw3Whmn7WkSk69VBtzvWzcb7K1gwBGJd9sMqewbTmbtHwpc4E9MyGC9xz13uQEVA
+ qpVA==
+X-Gm-Message-State: AOAM531Xt5pVZJdU7fyb0FHu+xNGl0iwYelR33n1Gms3T/qAWe5f3LhF
+ jJYXsYseNmmo4u5u007Mpg==
+X-Google-Smtp-Source: ABdhPJxU2SELg23Wszu5aa+Iw/ImO+xlHwegqhlZfMXLPwQKMl+VsUMi/yrDwMV249upMHcpSYQ0hA==
+X-Received: by 2002:aca:2b02:: with SMTP id i2mr1350825oik.140.1639598464509; 
+ Wed, 15 Dec 2021 12:01:04 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id e4sm531117oiy.12.2021.12.15.12.01.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Dec 2021 12:01:03 -0800 (PST)
+Received: (nullmailer pid 1740176 invoked by uid 1000);
+ Wed, 15 Dec 2021 20:01:02 -0000
+Date: Wed, 15 Dec 2021 14:01:02 -0600
+From: Rob Herring <robh@kernel.org>
+To: David Heidelberg <david@ixit.cz>
+Subject: Re: [PATCH v2] dt-bindings: sound: nvidia,tegra-audio: Convert
+ multiple txt bindings to yaml
+Message-ID: <YbpJflKptK3f0EqZ@robh.at.kernel.org>
+References: <20211211224946.79875-1-david@ixit.cz>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="JQ68o39Xf5M+1Fsk"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <26af30a6-9606-72d0-9258-cf9627ddfe77@gmail.com>
-X-Cookie: No solicitors.
+In-Reply-To: <20211211224946.79875-1-david@ixit.cz>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, dri-devel@lists.freedesktop.org,
- Agneli <poczt@protonmail.ch>, linux-tegra@vger.kernel.org,
- Jonathan Hunter <jonathanh@nvidia.com>
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>,
+ Rob Herring <robh+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
+ ~okias/devicetree@lists.sr.ht
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,45 +95,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sat, 11 Dec 2021 23:49:44 +0100, David Heidelberg wrote:
+> Convert Tegra audio complex with the
+>   * ALC5632
+>   * MAX98090
+>   * RT5640
+>   * RT5677
+>   * SGTL5000
+>   * TrimSlice
+>   * WM8753
+>   * WM8903
+>   * WM9712
+> codec to the YAML format.
+> 
+> Additional changes:
+>  - added missing HPOUTL to the WM9712 codec.
+>  - extended rt5677 codec with multiple pins
+> 
+> Reviewed-by: Dmitry Osipenko <digetx@gmail.com>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+> v2:
+>  - converted from one big schema into the common properties and then references to it
+>  - few additional changes mentioned in commit message
+>  .../sound/nvidia,tegra-audio-alc5632.txt      |  48 --------
+>  .../sound/nvidia,tegra-audio-alc5632.yaml     |  74 +++++++++++++
+>  .../sound/nvidia,tegra-audio-common.yaml      |  83 ++++++++++++++
+>  .../sound/nvidia,tegra-audio-max98090.txt     |  53 ---------
+>  .../sound/nvidia,tegra-audio-max98090.yaml    |  97 +++++++++++++++++
+>  .../sound/nvidia,tegra-audio-rt5640.txt       |  52 ---------
+>  .../sound/nvidia,tegra-audio-rt5640.yaml      |  85 +++++++++++++++
+>  .../sound/nvidia,tegra-audio-rt5677.txt       |  67 ------------
+>  .../sound/nvidia,tegra-audio-rt5677.yaml      | 103 ++++++++++++++++++
+>  .../sound/nvidia,tegra-audio-sgtl5000.txt     |  42 -------
+>  .../sound/nvidia,tegra-audio-sgtl5000.yaml    |  67 ++++++++++++
+>  .../sound/nvidia,tegra-audio-trimslice.txt    |  21 ----
+>  .../sound/nvidia,tegra-audio-trimslice.yaml   |  33 ++++++
+>  .../sound/nvidia,tegra-audio-wm8753.txt       |  40 -------
+>  .../sound/nvidia,tegra-audio-wm8753.yaml      |  79 ++++++++++++++
+>  .../sound/nvidia,tegra-audio-wm8903.txt       |  62 -----------
+>  .../sound/nvidia,tegra-audio-wm8903.yaml      |  93 ++++++++++++++++
+>  .../sound/nvidia,tegra-audio-wm9712.txt       |  60 ----------
+>  .../sound/nvidia,tegra-audio-wm9712.yaml      |  76 +++++++++++++
+>  19 files changed, 790 insertions(+), 445 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-alc5632.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-alc5632.yaml
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-common.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max98090.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max98090.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5640.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5640.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5677.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5677.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-sgtl5000.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-sgtl5000.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-trimslice.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-trimslice.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8753.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8753.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm9712.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm9712.yaml
+> 
 
---JQ68o39Xf5M+1Fsk
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Dec 15, 2021 at 10:19:07PM +0300, Dmitry Osipenko wrote:
-> 15.12.2021 21:57, Mark Brown =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
-
-> > Please include human readable descriptions of things like commits and
-> > issues being discussed in e-mail in your mails, this makes them much
-> > easier for humans to read especially when they have no internet access.
-> > I do frequently catch up on my mail on flights or while otherwise
-> > travelling so this is even more pressing for me than just being about
-> > making things a bit easier to read.
-
-> Noted; I see now that it's indeed not clear from the cover letter that I
-> included Arnd's patch into this patchset, sorry about that. I assumed
-> that you will notice this after looking through the patches.
-
-It's a pretty long series and having to open a link to figure out what
-patch is being talked about puts an additional barrier to remembering
-the specific patch at the time dependencies are being considered (which
-might not be at the same time as things are reviewed, especially if
-other reviews are likely).
-
---JQ68o39Xf5M+1Fsk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmG6SPYACgkQJNaLcl1U
-h9Awngf9H/ITmP3FE/wIHN98Qdk//g8Rsop9zp3VG8+XHxSJlnv3frW2qnkUZUn6
-Z3RHXpyEJmnPgG2oVJrO1wM8BXYHbaZTEhLWTMWYM8gSXAmv+p69J3X0EO/7sf6P
-Smg7ezxM5YCx8UJ5Iiu1pBwFLJoQWXn/ByfC4V6ricypDGnjP4XgvIeNifV1Y9fo
-VEarR5kpowUV5pY9HlAiB6Xk8y8okvfsNtvAKL4lO83+PFfrr0USJA9OwS3Ni/ZT
-1FeTFT0gOhfO51entcCkn6f4JeKEHuyknlIxZjNPnWJP4hKYmg6nclb5FiCu9IXN
-2sJLUenCn0T3CGE1yft3DJinQFG66g==
-=OyQ1
------END PGP SIGNATURE-----
-
---JQ68o39Xf5M+1Fsk--
+Reviewed-by: Rob Herring <robh@kernel.org>

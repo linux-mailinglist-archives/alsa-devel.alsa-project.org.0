@@ -2,60 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B29D1476174
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 20:18:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CD6F47618D
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 20:20:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3709717E7;
-	Wed, 15 Dec 2021 20:17:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3709717E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD8D91B1F;
+	Wed, 15 Dec 2021 20:19:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD8D91B1F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639595887;
-	bh=dccCS3ZmW9cPRDIbajVCf4EIHU72W2MF/N6brvSSmwU=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=V/jydOmDEdCKUioeUMHu94EjZxqEhNZgG2a+qwtrFOZB18uIZ2caE7/W4ObPRAwtG
-	 KFbapDi0THCGjeGmrv6voO5+v72zkJxNVNwOynwGS2nWPBbeVfN6h/id7Pkak0Fj87
-	 D0OQazBvb8Mb7rqpHFpPqYNrde5IyezJp4urjlHU=
+	s=default; t=1639596025;
+	bh=b21Kz56BHdA+0AkU2AFqQJFfc8+xRCp/kgzfB9VG9gA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=oWxTIUN/bdnDcgoFXBtFXFZ3V6Z2hUJqvu63AcVIe369uP2nGLk5RhBQNRdrVrfqg
+	 wa7njWX39KPLC2ZvjcKheTOfkRB9RVznvM+G2ocOcYG2axfAao1H2hkmeKG/m3OKf8
+	 mvKSJPjhAxqK8q3auqL01vDEGjo1OGXEmbRQG+Ko=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D336F801F5;
-	Wed, 15 Dec 2021 20:16:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49D37F800B0;
+	Wed, 15 Dec 2021 20:19:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D0D9F8019D; Wed, 15 Dec 2021 20:16:57 +0100 (CET)
+ id DBCEBF8019D; Wed, 15 Dec 2021 20:19:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86B96F80157
- for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 20:16:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86B96F80157
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 8FB56C80092;
- Wed, 15 Dec 2021 20:16:46 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id 8w8K25uWeqvg; Wed, 15 Dec 2021 20:16:46 +0100 (CET)
-Received: from wsembach-tuxedo.fritz.box
- (host-212-18-30-247.customer.m-online.net [212.18.30.247])
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 35413C8007F;
- Wed, 15 Dec 2021 20:16:46 +0100 (CET)
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Fix quirk for Clevo NJ51CU
-Date: Wed, 15 Dec 2021 20:16:46 +0100
-Message-Id: <20211215191646.844644-1-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82A3DF800B0
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 20:19:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82A3DF800B0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="SVHqay68"
+Received: by mail-lj1-x22b.google.com with SMTP id i63so34857399lji.3
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 11:19:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=mcoM9Ax1uVbLecr06Jv1GjfyazYcAb1+Wc5JbxKbgLk=;
+ b=SVHqay68VUOAOHu9uBZo4mdJWTihaz5p+A6gLbEoE3abtu4VilIEkQaAoxGgkqIxCJ
+ ebBrahy80p+gKC5PUp8cy/iok91hF8uU90zVfcYCEQZ3SHyk2iV/M7yBuM5xXx1q+dbU
+ 5HYPfT/e1p1lkh8wzWatch4fvJdJLNPZ+kGX2LpuRhZxZYaKjhQyHOeZu6pgOAkfqBrl
+ j46GWZWa2ldkdxunzLARSSBw53v5jsHy5vDrAHM0XddeaZK+IBjhIpCsmR/2RIeprNMa
+ B0e0JU6YbzcQ+5TIWgVjqtru1nqdqQcnUt+H+vsOBjU6fZXijMwHlxAtIxg66N9nh3O/
+ 8+eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=mcoM9Ax1uVbLecr06Jv1GjfyazYcAb1+Wc5JbxKbgLk=;
+ b=tMP22d3EA0aNaccngm2tXooNXSMngT96gTiYHXLa8uMyW1BfCa4UJaILry+LkFO/kp
+ sLlAlt7RAqmRfbu9YdPigzb4qQZ2VbZ8OFNvxjDXUZFJW4bsnYUFIt+Ak2YOGHY6JeV2
+ xeeojmJY9+JXHLuDo9dEftvSAWTrnNKevLslz+5VX6ozjKzQkUEamCCNCO/eLLb/B/Pq
+ UnDAu+expStTrWk7jeAXHMvNJy5qEs0uGRloQbsRiHWofkB38E70XTzDfFDKqoMpfkqE
+ 59xeU3SJ4+uEWLanlbrfgM7Yyntw/g5HGkUfy2CBOEiWA/5owXfGrFFBI5387yl9U5GB
+ VF7Q==
+X-Gm-Message-State: AOAM532nCwl5pKsW2riL4lEaAVlYtI55QtPybw2efOB78qLdGqGWuoBO
+ iNRk+E4p1BsJepkkQpixigo=
+X-Google-Smtp-Source: ABdhPJwfQiIXPLFnM45Qsq1mKLc+gw5v4w90DdqR/S/COVYdQgiDcGeqkBnZ70V6mO6ZWA17wweAIA==
+X-Received: by 2002:a2e:a7c4:: with SMTP id x4mr11737287ljp.43.1639595949539; 
+ Wed, 15 Dec 2021 11:19:09 -0800 (PST)
+Received: from [192.168.2.145] (94-29-63-156.dynamic.spd-mgts.ru.
+ [94.29.63.156])
+ by smtp.googlemail.com with ESMTPSA id j22sm455282lfu.155.2021.12.15.11.19.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Dec 2021 11:19:08 -0800 (PST)
+Subject: Re: [PATCH v4 00/22] Support HDMI audio on NVIDIA Tegra20
+To: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>
+References: <20211204143725.31646-1-digetx@gmail.com>
+ <Ybo6tsnQM6OacoZs@sirena.org.uk>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <26af30a6-9606-72d0-9258-cf9627ddfe77@gmail.com>
+Date: Wed, 15 Dec 2021 22:19:07 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
+In-Reply-To: <Ybo6tsnQM6OacoZs@sirena.org.uk>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ dri-devel@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
+ Agneli <poczt@protonmail.ch>, linux-tegra@vger.kernel.org,
+ Jonathan Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,80 +111,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Clevo NJ51CU comes either with the ALC293 or the ALC256 codec, but uses
-the 0x8686 subproduct id in both cases. The ALC256 codec needs a different
-quirk for the headset microphone working and and edditional quirk for sound
-working after suspend and resume.
+15.12.2021 21:57, Mark Brown пишет:
+> On Sat, Dec 04, 2021 at 05:37:03PM +0300, Dmitry Osipenko wrote:
+> 
+>> I based S/PDIF patches on Arnd's Bergmann patch from a separate series [1]
+>> that removes obsolete slave_id. This eases merging of the patches by
+>> removing the merge conflict. This is a note for Mark Brown.
+> 
+> That's not in my tree so I'll need either a pull request with the series
+> or a resend after the merge window.
 
-When waking up from s3 suspend the Coef 0x10 is set to 0x0220 instead of
-0x0020 on  the ALC256 codec. Setting the value manually makes the sound
-work again. This patch does this automatically.
+This patch is included as a part of this series, please see the patch #6.
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Fixes: b5acfe152abaa ("ALSA: hda/realtek: Add some Clove SSID in the ALC293(ALC1220)")
-Cc: <stable@vger.kernel.org>
----
- sound/pci/hda/patch_realtek.c | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+I saw that Vinod Koul already merged it into his DMA tree [1] a day ago,
+but there is no stable branch there.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 3599f4c85ebf..3394ef209772 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6546,6 +6546,23 @@ static void alc233_fixup_no_audio_jack(struct hda_codec *codec,
- 	alc_process_coef_fw(codec, alc233_fixup_no_audio_jack_coefs);
- }
- 
-+static void alc256_fixup_mic_no_presence_and_resume(struct hda_codec *codec,
-+						    const struct hda_fixup *fix,
-+						    int action)
-+{
-+	/*
-+	 * The Clevo NJ51CU comes either with the ALC293 or the ALC256 codec,
-+	 * but uses the 0x8686 subproduct id in both cases. The ALC256 codec
-+	 * needs an additional quirk for sound working after suspend and resume.
-+	 */
-+	if (codec->core.vendor_id == 0x10ec0256) {
-+		alc_update_coef_idx(codec, 0x10, 1<<9, 0);
-+		snd_hda_codec_set_pincfg(codec, 0x19, 0x04a11120);
-+	}
-+	else
-+		snd_hda_codec_set_pincfg(codec, 0x1a, 0x04a1113c);
-+}
-+
- enum {
- 	ALC269_FIXUP_GPIO2,
- 	ALC269_FIXUP_SONY_VAIO,
-@@ -6766,6 +6783,7 @@ enum {
- 	ALC256_FIXUP_SET_COEF_DEFAULTS,
- 	ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE,
- 	ALC233_FIXUP_NO_AUDIO_JACK,
-+	ALC256_FIXUP_MIC_NO_PRESENCE_AND_RESUME,
- };
- 
- static const struct hda_fixup alc269_fixups[] = {
-@@ -8490,6 +8508,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc233_fixup_no_audio_jack,
- 	},
-+	[ALC256_FIXUP_MIC_NO_PRESENCE_AND_RESUME] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc256_fixup_mic_no_presence_and_resume,
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -8829,7 +8853,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x8562, "Clevo NH[57][0-9]RZ[Q]", ALC269_FIXUP_DMIC),
- 	SND_PCI_QUIRK(0x1558, 0x8668, "Clevo NP50B[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8680, "Clevo NJ50LU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1558, 0x8686, "Clevo NH50[CZ]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0x8686, "Clevo NH50[CZ]U", ALC256_FIXUP_MIC_NO_PRESENCE_AND_RESUME),
- 	SND_PCI_QUIRK(0x1558, 0x8a20, "Clevo NH55DCQ-Y", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8a51, "Clevo NH70RCQ-Y", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8d50, "Clevo NH55RCQ-M", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--- 
-2.25.1
+[1]
+https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git/log/?h=next
 
+>  It's also not clear what to do
+> about the DRM bits, I guess it's probably easiest to just apply them
+> along with the ASoC patches.
+
+I already asked Thierry Reding to take a look at this patchset. He will
+let to you know how the DRM bits should be handled. Hopefully this
+should happen tomorrow.
+
+We will know how to move forward if Vinod and Thierry will reply ASAP.
+Otherwise this series will have to wait for the next cycle.
+
+> Please include human readable descriptions of things like commits and
+> issues being discussed in e-mail in your mails, this makes them much
+> easier for humans to read especially when they have no internet access.
+> I do frequently catch up on my mail on flights or while otherwise
+> travelling so this is even more pressing for me than just being about
+> making things a bit easier to read.
+> 
+
+Noted; I see now that it's indeed not clear from the cover letter that I
+included Arnd's patch into this patchset, sorry about that. I assumed
+that you will notice this after looking through the patches.

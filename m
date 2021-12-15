@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA9A7476076
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 19:15:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B61E476077
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 19:16:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 131651B26;
-	Wed, 15 Dec 2021 19:15:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 131651B26
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC3811B2D;
+	Wed, 15 Dec 2021 19:15:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC3811B2D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639592156;
-	bh=GST+AMAb3vSU4zGW1JvIWTxOwUtF4/vvjLZNi9gLugI=;
+	s=default; t=1639592184;
+	bh=TP76EnotThLbbhCYm+vAG3sh3TqTKaa+2TLkvRyqmBE=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QcjqU6LHj6+E+aACSU6yh1knpHKwlE7aQSNWbsmiB+fNcHotToVYHYO/raoksfKkH
-	 F1956eERIvP+xo0MOHzRyU0kcO7dYa48ocvu+0cTJ3UEzNb684H6YhdQdkIrxtjjT/
-	 EmbjMAfFJK9aDC5fe3iOUpfrYVr6nE/+jg8d4yYI=
+	b=jwLYMLYWxHkRuzmiWOj/DrOeSHTxkm+OTAWvdhj4FHlZD0ZSfaa4xTIJQtuHje4N8
+	 UCoM4jrELd4iSIFkqZxPay8+dBw2UCC8jll6vICixPs/qHlAJKwQSPPmou97hzC2J0
+	 o8lsO150zvQgmOe+4yMeNyMgoCDUEIugpV5LBrcQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE5BFF802A0;
-	Wed, 15 Dec 2021 19:14:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63256F8032D;
+	Wed, 15 Dec 2021 19:14:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E4A6F802A0; Wed, 15 Dec 2021 19:14:24 +0100 (CET)
+ id DDA33F8027C; Wed, 15 Dec 2021 19:14:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C6A2F80248
- for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 19:14:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C6A2F80248
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62B87F8025D
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 19:14:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62B87F8025D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="up9rXDJ7"
+ header.b="E7p3W7Ho"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 41B9EB82056;
- Wed, 15 Dec 2021 18:14:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E007C36AE3;
- Wed, 15 Dec 2021 18:14:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7B6F96164E;
+ Wed, 15 Dec 2021 18:14:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82FA7C36AE2;
+ Wed, 15 Dec 2021 18:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639592053;
- bh=GST+AMAb3vSU4zGW1JvIWTxOwUtF4/vvjLZNi9gLugI=;
+ s=k20201202; t=1639592054;
+ bh=TP76EnotThLbbhCYm+vAG3sh3TqTKaa+2TLkvRyqmBE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=up9rXDJ74a9oXNw9c7C8zYmVnXnlgabKaBxW/HQ7esMkaXgi+Uls65t7GiVqSLOTi
- O6oJz5fJl877rZEEaLSOf3uK4QgIkSV8T9V8If5vEnYnvJWqT2beMb/H3dcHxbenxP
- ocAVgHOu1MyyrO4gEljsph9JsxZpzWWc82XqfKylzLUiNh6odW3eFWEx22tWF6wkVk
- vhSJBE8czqImfwf80VifpA25VAfHwTVBBzL5Bu3vGvkOOewskKmz2NDnL6Fw/rWbpU
- lXz8G/yJIC1co0eDvsCf+NAFDW8bs4QTnyhmFL0OSWDI9hi+paA2NOq2Tc8nYG6rIH
- W8cPzIxJ65keQ==
+ b=E7p3W7Hot+i4JpIYWGwFGk0/0/GAOHYooihWuRwg8rXP4eOhgi+HrzOfbwkU+7dw2
+ 2InBZ5urhlyWuBVPkjsA9ouBdGB80BVLOfaB/fY/hqaWF1lOMLBgPHgWQ1ZmJPsIZW
+ vWaTUgYgNFGFMTXI4wOB7P9nlEiwmNkuMNaiqpWrcA/Bmw1yasxIMinMjwtqkd/001
+ HS61PnNiwSJUmAxzKqEGK5r/0qq2bHbkc3Xs/TRANvJEpyrjd28SmKHHw5paluuZxV
+ 5bv5b12R8ztqWWquLw+m6TVEgrn4weya8+XavwrnHaVDfROLzg2XibMlbGv7aEJ+DK
+ IZ7C77Fg4B3gw==
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20211215085703.137414-1-daniel.baluta@oss.nxp.com>
-References: <20211215085703.137414-1-daniel.baluta@oss.nxp.com>
-Subject: Re: [PATCH] ASoC: SOF: OF: Avoid reverse module dependency
-Message-Id: <163959205016.2218314.2741357654083575707.b4-ty@kernel.org>
-Date: Wed, 15 Dec 2021 18:14:10 +0000
+To: oder_chiou@realtek.com, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz
+In-Reply-To: <20211215031550.70702-1-jiasheng@iscas.ac.cn>
+References: <20211215031550.70702-1-jiasheng@iscas.ac.cn>
+Subject: Re: [PATCH] ASoC: rt5663: Handle device_property_read_u32_array error
+ codes
+Message-Id: <163959205325.2218314.11285157350197840732.b4-ty@kernel.org>
+Date: Wed, 15 Dec 2021 18:14:13 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, daniel.baluta@gmail.com, kai.vehmanen@linux.intel.com, Péter Ujfalusi <peter.ujfalusi@linux.intel.com>, ranjani.sridharan@linux.intel.com, alsa-devel@alsa-project.org, peter.ujfalusi@intel.com, lgirdwood@gmail.com, linux-mediatek@lists.infradead.org, linux-imx@nxp.com, paul.olaru@oss.nxp.com, pierre-louis.bossart@linux.intel.com, Daniel Baluta <daniel.baluta@nxp.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,17 +85,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 15 Dec 2021 10:57:03 +0200, Daniel Baluta wrote:
-> From: Daniel Baluta <daniel.baluta@nxp.com>
+On Wed, 15 Dec 2021 11:15:50 +0800, Jiasheng Jiang wrote:
+> The return value of device_property_read_u32_array() is not always 0.
+> To catch the exception in case that devm_kzalloc failed and the
+> rt5663->imp_table was NULL, which caused the failure of
+> device_property_read_u32_array.
 > 
-> Similar with commit 8a49cd11e68ed0 ("ASoC: SOF: ACPI: avoid reverse
-> module dependency") we will be having hardware specific drivers that
-> link against a common "helper" framework.
 > 
-> sof-of-dev.c becomes a library with the interface defined in the newly
-> created file sof-of-dev.h.
-> 
-> [...]
 
 Applied to
 
@@ -102,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: OF: Avoid reverse module dependency
-      commit: 28084f4a0e031a87b624ea121bd8fd782b90ff2a
+[1/1] ASoC: rt5663: Handle device_property_read_u32_array error codes
+      commit: 2167c0b205960607fb136b4bb3c556a62be1569a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

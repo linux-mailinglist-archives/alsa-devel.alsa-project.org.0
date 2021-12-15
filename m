@@ -2,77 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEA2F4750B7
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 03:06:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FB30475107
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 03:40:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55BE11FE6;
-	Wed, 15 Dec 2021 03:05:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55BE11FE6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87A721FC4;
+	Wed, 15 Dec 2021 03:39:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87A721FC4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639533981;
-	bh=TOjtb2aoJCE2pXxO6BztrEzxcbnx3/8gLisrRtT+7d8=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1639536003;
+	bh=KoGGgDXuhMCIMBH7OPTMIm4S3789a6/DspS153Yref4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L1VGHHgoQ8YcqbVCTmgrAczE5gIRoDbR8FF2LbtRMth6MvgoNYwrN6geApiQePFl7
-	 GNob5xBZJgmO3Bb2M2FDeSjiAYsD45jP9YSAiPZxHPbwXPumbsLbSu64BiIyRWj3o9
-	 IQBGCpj6rre/rqSLlvRka+0398DDP6SfdX+UHve8=
+	b=MjRkxHDpOiEJthOWVVHc3hdFXnViFp60JDmORF/svC+3J2qvWheYNq/LcyLI9Hl3u
+	 jv5oZ3QPRehc+KNo+SJxIU139vv3ZXGVQQYRnaVJyQFL6r0IY89otnZYMxBRL96hTI
+	 F6sf1Un2fkE0fo4PVFk8CEFuX14fWWoQxIH2eUfU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E270F8051C;
-	Wed, 15 Dec 2021 03:04:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE936F8025F;
+	Wed, 15 Dec 2021 03:38:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8DCF9F8051B; Wed, 15 Dec 2021 03:04:14 +0100 (CET)
+ id B6789F8025D; Wed, 15 Dec 2021 03:38:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F3E8F80516
- for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 03:04:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F3E8F80516
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GkqHt4YA"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C869F61798;
- Wed, 15 Dec 2021 02:04:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C80C34601;
- Wed, 15 Dec 2021 02:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639533847;
- bh=TOjtb2aoJCE2pXxO6BztrEzxcbnx3/8gLisrRtT+7d8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=GkqHt4YAVUbxahzZiuhPY9tPPoQkLsU+EFYlRaMxLDZMRSgD6IG/ZWTXj1Vi8gt0D
- wpj0B3LKcIMAvvFQktHH9bPFNkUjEi8eBsUrFpTb08SSY4bjfsUcSTYVCzVmKsPwHI
- 8X07HiBStSQyVu0QeqbmmczJU/RTuKoZNu0PwYPgxIHlP4wsHMh8zlUHlbaFQ8V/rI
- bN2GY8PyqeS6/hzTxAmIWlv0wuzRn+OUgOVCqCnAQM5/p8Duu6ZEuLOaqNC2EIlrCx
- f9/ogrzOxET5oBXGlBSVI26RhZbCpQTDQIb0U0n2KvJZCZgVg7yissxk1xWrh1gZj/
- ZFtYrxkn0TBew==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20211207173745.15850-1-pierre-louis.bossart@linux.intel.com>
-References: <20211207173745.15850-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/6] ASoC : soc-pcm: fix trigger race conditions with
- shared BE
-Message-Id: <163953384515.1515253.13641477106348913835.b4-ty@kernel.org>
-Date: Wed, 15 Dec 2021 02:04:05 +0000
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id BF8BEF801DB
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 03:38:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF8BEF801DB
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, tiwai@suse.de,
- Sameer Pujar <spujar@nvidia.com>, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1639535930120713949-webhooks-bot@alsa-project.org>
+References: <1639535930120713949-webhooks-bot@alsa-project.org>
+Subject: Cant't open mixer and no sound , helem (MIXER,
+ 'Front Mic Boots Valume', 0, 1, 0) appears twice or more
+Message-Id: <20211215023854.B6789F8025D@alsa1.perex.cz>
+Date: Wed, 15 Dec 2021 03:38:54 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,53 +60,101 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 7 Dec 2021 11:37:39 -0600, Pierre-Louis Bossart wrote:
-> We've been adding a 'deep buffer' PCM device to several SOF topologies
-> in order to reduce power consumption. The typical use-case would be
-> music playback over a headset: this additional PCM device provides
-> more buffering and longer latencies, leaving the rest of the system
-> sleep for longer periods. Notifications and 'regular' low-latency
-> audio playback would still use the 'normal' PCM device and be mixed
-> with the 'deep buffer' before rendering on the headphone endpoint. The
-> tentative direction would be to expose this alternate device to
-> PulseAudio/PipeWire/CRAS via the UCM SectionModifier definitions.
-> 
-> [...]
+alsa-project/alsa-lib issue #205 was opened from WolsYang:
 
-Applied to
+**I had  try the way in this issue, but not work for me : (**
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+**helem (MIXER,'Master Playback Volume',0,1,0) appears twice or more cannot load mixer controls: Invalid argument**#47
 
-Thanks!
+**In default I only can play sound with Back port**
 
-[1/6] ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure
-      commit: d8a9c6e1f6766a16cf02b4e99a629f3c5512c183
-[2/6] ASoC: soc-pcm: align BE 'atomicity' with that of the FE
-      commit: bbf7d3b1c4f40eb02dd1dffb500ba00b0bff0303
-[3/6] ASoC: soc-pcm: Fix and cleanup DPCM locking
-      commit: b7898396f4bbe160f546d0c5e9fa17cca9a7d153
-[4/6] ASoC: soc-pcm: serialize BE triggers
-      commit: b2ae80663008a7662febe7d13f14ea1b2eb0cd51
-[5/6] ASoC: soc-pcm: test refcount before triggering
-      commit: 848aedfdc6ba25ad5652797db9266007773e44dd
-[6/6] ASoC: soc-pcm: fix BE handling of PAUSE_RELEASE
-      commit: 3aa1e96a2b95e2ece198f8dd01e96818971b84df
+**Here is my computer audio port look like.**
+|codec       | ALC888-VD | ALC888-VD |
+|:-------------|:----------------:|:----------------:|
+|position    |      Back       |     Front        |
+|Function   | 0:Line Out, 1:MIC | 0:Line Out, 1:MIC|
+|Port Num  |          2         |          2             |
+|HW:dev|0:0|0:2|
+|/sys/class/cound|hwC0D0|hwC0D1|
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+**OS:Ubuntu 20.04.2LTS**
+**$ uname -r**
+```
+5.13.0-051300-generic
+```
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+**$ amixer** 
+```
+ALSA lib simple_none.c:1544:(simple_add1) helem (MIXER,'Front Mic Boots Valume',0,1,0) appears twice or more
+amixer: Mixer default load error: Invalid aggument
+``` 
+ 
+**$ aplay -l**
+```
+**** List of PLAYBACK Hardware Devices ****
+card 0: PCH [HDA Intel PCH], device 0: ALC888-VD Analog [ALC888-VD Analog]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: PCH [HDA Intel PCH], device 2: ALC888-VD Analog [ALC888-VD Analog]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: PCH [HDA Intel PCH], device 3: HDMI 0 [HDMI 0]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: PCH [HDA Intel PCH], device 7: HDMI 1 [HDMI 1]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: PCH [HDA Intel PCH], device 8: HDMI 2 [HDMI 2]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+```
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+**$ pactl list modules**
+```
+Card #0
+	Name: alsa_card.pci-0000_00_1b.0
+	Driver: module-alsa-card.c
+	Owner Module: 7
+	Properties:
+		alsa.card = "0"
+		alsa.card_name = "HDA Intel PCH"
+		alsa.long_card_name = "HDA Intel PCH at 0x81410000 irq 132"
+		alsa.driver_name = "snd_hda_intel"
+		device.bus_path = "pci-0000:00:1b.0"
+		sysfs.path = "/devices/pci0000:00/0000:00:1b.0/sound/card0"
+		device.bus = "pci"
+		device.vendor.id = "8086"
+		device.vendor.name = "Intel Corporation"
+		device.product.id = "2284"
+		device.product.name = "Atom/Celeron/Pentium Processor x5-E8000/J3xxx/N3xxx Series High Definition Audio Controller"
+		device.form_factor = "internal"
+		device.string = "0"
+		device.description = "Built-in Audio"
+		module-udev-detect.discovered = "1"
+		device.icon_name = "audio-card-pci"
+	Profiles:
+		input:analog-stereo: Analog Stereo Input (sinks: 0, sources: 1, priority: 65, available: yes)
+		output:analog-stereo: Analog Stereo Output (sinks: 1, sources: 0, priority: 6500, available: yes)
+		output:analog-stereo+input:analog-stereo: Analog Stereo Duplex (sinks: 1, sources: 1, priority: 6565, available: yes)
+		output:analog-surround-40: Analog Surround 4.0 Output (sinks: 1, sources: 0, priority: 1200, available: yes)
+		output:analog-surround-40+input:analog-stereo: Analog Surround 4.0 Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 1265, available: yes)
+		output:hdmi-stereo: Digital Stereo (HDMI) Output (sinks: 1, sources: 0, priority: 5900, available: yes)
+		output:hdmi-stereo+input:analog-stereo: Digital Stereo (HDMI) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 5965, available: yes)
+		output:hdmi-surround: Digital Surround 5.1 (HDMI) Output (sinks: 1, sources: 0, priority: 800, available: yes)
+		output:hdmi-surround+input:analog-stereo: Digital Surround 5.1 (HDMI) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 865, available: yes)
+		output:hdmi-surround71: Digital Surround 7.1 (HDMI) Output (sinks: 1, sources: 0, priority: 800, available: yes)
+		output:hdmi-surround71+input:analog-stereo: Digital Surround 7.1 (HDMI) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 865, available: yes)
+		output:hdmi-stereo-extra1: Digital Stereo (HDMI 2) Output (sinks: 1, sources: 0, priority: 5700, available: yes)
+		output:hdmi-stereo-extra1+input:analog-stereo: Digital Stereo (HDMI 2) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 5765, available: yes)
+		output:hdmi-surround-extra1: Digital Surround 5.1 (HDMI 2) Output (sinks: 1, sources: 0, priority: 600, available: yes)
+		output:hdmi-surround-extra1+input:analog-stereo: Digital Surround 5.1 (HDMI 2) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 665, available: yes)
+		output:hdmi-surround71-extra1: Digital Surround 7.1 (HDMI 2) Output (sinks: 1, sources: 0, priority: 600, available: yes)
+		output:hdmi-surround71-extra1+input:analog-stereo: Digital Surround 7.1 (HDMI 2) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 665, available: yes)
+		output:hdmi-stereo-extra2: Digital Stereo (HDMI 3) Output (sinks: 1, sources: 0, priority: 5700, available: yes)
+		output:hdmi-stereo-extra2+input:analog-stereo: Digital Stereo (HDMI 3) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 5765, available: yes)
+		off: Off (sinks: 0, sources: 0, priority: 0, available: yes)
+	Active Profile: output:analog-stereo
+```
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/205
+Repository URL: https://github.com/alsa-project/alsa-lib

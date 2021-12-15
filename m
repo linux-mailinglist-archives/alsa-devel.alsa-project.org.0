@@ -2,62 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30208475DB3
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 17:42:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8589475E03
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 17:57:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A44A018A9;
-	Wed, 15 Dec 2021 17:41:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A44A018A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C1A618DD;
+	Wed, 15 Dec 2021 17:57:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C1A618DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639586542;
-	bh=cu16IWAqWa4Ju00r6HG2T2pgKJbIaob190+85Ir8Mn0=;
+	s=default; t=1639587479;
+	bh=OYwIr4+/ESj1pbOwVvAiXXwKE+ON79R2Bbun8JGFpT8=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=dY9Glub7fw2iNLWEoRSzWyZr9ftaBvgiRD6wIcTYIJ/seFd3GiMOBdGc9iBUeWQrl
-	 hplB1w1YU29E3wVwwwkG9G9FscSBEudl1zN9wmze0pobmX8v1qI5vNv2iwBMVGf8cy
-	 V77ALycvjW+AIirpAvjUuHgRpBHU0Sa0ugB0LFYw=
+	b=SW7s3h6LZgEOnxZkwWcBdsOLG9hpHHt29oXrSRsAUagdSWuw94+sw7/L3rr0bP0Vk
+	 9von0iKFfMFwSeXWcPBiGVdtbkABVXpSkrKL4KCxMZdYY/iEQtNTeOz5pgUaMAUOH/
+	 BkXK8UIiX9s4hxqgi+H/p/JQM9jdCOoNcRbxq5ck=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04B59F80237;
-	Wed, 15 Dec 2021 17:41:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6B1BF80237;
+	Wed, 15 Dec 2021 17:56:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02036F80236; Wed, 15 Dec 2021 17:41:13 +0100 (CET)
+ id BE4DFF80236; Wed, 15 Dec 2021 17:56:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E870F800EE
- for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 17:41:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E870F800EE
-X-IronPort-AV: E=McAfee;i="6200,9189,10199"; a="239490067"
-X-IronPort-AV: E=Sophos;i="5.88,207,1635231600"; d="scan'208";a="239490067"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2021 08:35:24 -0800
-X-IronPort-AV: E=Sophos;i="5.88,207,1635231600"; d="scan'208";a="505873281"
+ by alsa1.perex.cz (Postfix) with ESMTPS id EAAC6F8019D
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 17:56:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAAC6F8019D
+X-IronPort-AV: E=McAfee;i="6200,9189,10199"; a="226556246"
+X-IronPort-AV: E=Sophos;i="5.88,207,1635231600"; d="scan'208";a="226556246"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Dec 2021 08:56:44 -0800
+X-IronPort-AV: E=Sophos;i="5.88,207,1635231600"; d="scan'208";a="755469354"
 Received: from lperezja-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.39.123])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2021 08:35:23 -0800
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Dec 2021 08:56:43 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: AMD: fix depend/select mistake on SND_AMD_ACP_CONFIG
-Date: Wed, 15 Dec 2021 10:35:11 -0600
-Message-Id: <20211215163511.151286-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 0/2] ALSA: hda: intel-sdw-acpi: fix controller detection
+Date: Wed, 15 Dec 2021 10:56:30 -0600
+Message-Id: <20211215165632.152976-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Ranjani Sridharan <ranjani.sridharan@intel.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, tiwai@suse.de,
- Randy Dunlap <rdunlap@infradead.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, Daniel Baluta <daniel.baluta@nxp.com>
+Cc: tiwai@suse.de, vkoul@kernel.org, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,46 +71,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-on i386 or x86_64:
+The SoundWire-related information provided by platform firmware (DSDT)
+hasn't changed since 2016, but with a recent change of device
+hierarchy we need to change how the controller is detected.
 
-when # CONFIG_ACPI is not set,
-so SND_SOC_ACPI is not set:
+These patches were tested on existing devices and don't break
+anything, but are very much needed for newer devices (quirks already
+in Linus' branch for 5.16, see e.g. commit f55af7055cd4 ("ASoC: Intel:
+sof_sdw: Add support for SKU 0B12 product"). Unfortunately the BIOS
+changes happened *after* the initial patches were contributed.
 
-WARNING: unmet direct dependencies detected for SND_AMD_ACP_CONFIG
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] &&
-  SND_SOC_ACPI [=n]
-  Selected by [y]:
-  - SND_SOC_AMD_ACP_COMMON [=y] && SOUND [=y] && !UML && SND [=y] &&
-  SND_SOC [=y] && X86 [=y] && PCI [=y]
+Libin Yang (2):
+  ALSA: hda: intel-sdw-acpi: harden detection of controller
+  ALSA: hda: intel-sdw-acpi: go through HDAS ACPI at max depth of 2
 
-This problem is due to the unconditional selection of
-SND_AMD_ACP_CONFIG in other options. Using 'depends on' solved an
-initial problem but exposed another, let's use select instead.
+ sound/hda/intel-sdw-acpi.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Fixes: d9b994cd7641 ('ASoC: AMD: acp-config: fix missing dependency on SND_SOC_ACPI')
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Acked-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@intel.com>
-Reviewed-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
----
- sound/soc/amd/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
-index bcfeb3fc2592..7a9e45094f37 100644
---- a/sound/soc/amd/Kconfig
-+++ b/sound/soc/amd/Kconfig
-@@ -98,7 +98,7 @@ config SND_SOC_AMD_YC_MACH
- 
- config SND_AMD_ACP_CONFIG
- 	tristate "AMD ACP configuration selection"
--	depends on SND_SOC_ACPI
-+	select SND_SOC_ACPI if ACPI
- 	help
- 	 This option adds an auto detection to determine which ACP
- 	 driver modules to use
 -- 
 2.25.1
 

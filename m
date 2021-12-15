@@ -2,74 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B61E476077
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 19:16:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88A04476143
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Dec 2021 19:59:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC3811B2D;
-	Wed, 15 Dec 2021 19:15:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC3811B2D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B4A9191D;
+	Wed, 15 Dec 2021 19:58:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B4A9191D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639592184;
-	bh=TP76EnotThLbbhCYm+vAG3sh3TqTKaa+2TLkvRyqmBE=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1639594764;
+	bh=76eb7VDWfPRd7pvYjeAKY4dcwiM5H0xLKfZAlmiztxc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jwLYMLYWxHkRuzmiWOj/DrOeSHTxkm+OTAWvdhj4FHlZD0ZSfaa4xTIJQtuHje4N8
-	 UCoM4jrELd4iSIFkqZxPay8+dBw2UCC8jll6vICixPs/qHlAJKwQSPPmou97hzC2J0
-	 o8lsO150zvQgmOe+4yMeNyMgoCDUEIugpV5LBrcQ=
+	b=kIvWhFCuj/Sf7Y7fx16aXbLSUqxefkTXaPIJlSTow7aB5vUS2UEec7gjhI6EyafF9
+	 m4bxpxdNcT7lO3k7fBRBb4MVkUliOv/PFDTfe2XdjRVaHMZPpECVM16J5iUETJk/vW
+	 SqMwAk+DSpBg8U90slJ2cb7Jr9tE4lKShR57Bqbg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63256F8032D;
-	Wed, 15 Dec 2021 19:14:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F039F801F5;
+	Wed, 15 Dec 2021 19:58:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DDA33F8027C; Wed, 15 Dec 2021 19:14:25 +0100 (CET)
+ id 3E529F8019D; Wed, 15 Dec 2021 19:58:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62B87F8025D
- for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 19:14:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62B87F8025D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8ABD6F800B0
+ for <alsa-devel@alsa-project.org>; Wed, 15 Dec 2021 19:58:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8ABD6F800B0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="E7p3W7Ho"
+ header.b="Z0iSKh3v"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7B6F96164E;
- Wed, 15 Dec 2021 18:14:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82FA7C36AE2;
- Wed, 15 Dec 2021 18:14:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 11EA461A56;
+ Wed, 15 Dec 2021 18:58:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ADB1C36AE3;
+ Wed, 15 Dec 2021 18:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639592054;
- bh=TP76EnotThLbbhCYm+vAG3sh3TqTKaa+2TLkvRyqmBE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=E7p3W7Hot+i4JpIYWGwFGk0/0/GAOHYooihWuRwg8rXP4eOhgi+HrzOfbwkU+7dw2
- 2InBZ5urhlyWuBVPkjsA9ouBdGB80BVLOfaB/fY/hqaWF1lOMLBgPHgWQ1ZmJPsIZW
- vWaTUgYgNFGFMTXI4wOB7P9nlEiwmNkuMNaiqpWrcA/Bmw1yasxIMinMjwtqkd/001
- HS61PnNiwSJUmAxzKqEGK5r/0qq2bHbkc3Xs/TRANvJEpyrjd28SmKHHw5paluuZxV
- 5bv5b12R8ztqWWquLw+m6TVEgrn4weya8+XavwrnHaVDfROLzg2XibMlbGv7aEJ+DK
- IZ7C77Fg4B3gw==
+ s=k20201202; t=1639594684;
+ bh=76eb7VDWfPRd7pvYjeAKY4dcwiM5H0xLKfZAlmiztxc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Z0iSKh3vKhdbFk1neCcrSe+Pzz9B7uk/gXVZqa7cqsyP5e3NuDNJ6g3TlIYzqioxP
+ AsT6VSjdWNFxVYu2mzZyIhobGGJ3HWcSKXOmNHTIGdWY1eFuySt7/uVz3zlrPtmzMz
+ KiCDM+GnCReT/Hi62TTcJXfML0VhsVLvJQYRPe93KdkP5Yxb13RLRf1GB1vO+mIxyE
+ 656/TTsEcb+IGbWvQ4YUj8y1RRZfJVcHlxwZ4hEOIo+7Kk7I16v/5gkbL8QyQSjniv
+ S/YgMUg4h1cCmeud1uX5gJECCwHGHVlXCwHrq9aDuc55ANZuTgmJtNC3OyH9pgfMiJ
+ ayYMGgNNP1Eaw==
+Date: Wed, 15 Dec 2021 18:57:58 +0000
 From: Mark Brown <broonie@kernel.org>
-To: oder_chiou@realtek.com, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz
-In-Reply-To: <20211215031550.70702-1-jiasheng@iscas.ac.cn>
-References: <20211215031550.70702-1-jiasheng@iscas.ac.cn>
-Subject: Re: [PATCH] ASoC: rt5663: Handle device_property_read_u32_array error
- codes
-Message-Id: <163959205325.2218314.11285157350197840732.b4-ty@kernel.org>
-Date: Wed, 15 Dec 2021 18:14:13 +0000
+To: Dmitry Osipenko <digetx@gmail.com>
+Subject: Re: [PATCH v4 00/22] Support HDMI audio on NVIDIA Tegra20
+Message-ID: <Ybo6tsnQM6OacoZs@sirena.org.uk>
+References: <20211204143725.31646-1-digetx@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="r8pMqbbDVxb335U5"
+Content-Disposition: inline
+In-Reply-To: <20211204143725.31646-1-digetx@gmail.com>
+X-Cookie: No solicitors.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ dri-devel@lists.freedesktop.org, Agneli <poczt@protonmail.ch>,
+ linux-tegra@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,38 +89,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 15 Dec 2021 11:15:50 +0800, Jiasheng Jiang wrote:
-> The return value of device_property_read_u32_array() is not always 0.
-> To catch the exception in case that devm_kzalloc failed and the
-> rt5663->imp_table was NULL, which caused the failure of
-> device_property_read_u32_array.
-> 
-> 
 
-Applied to
+--r8pMqbbDVxb335U5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Sat, Dec 04, 2021 at 05:37:03PM +0300, Dmitry Osipenko wrote:
 
-Thanks!
+> I based S/PDIF patches on Arnd's Bergmann patch from a separate series [1]
+> that removes obsolete slave_id. This eases merging of the patches by
+> removing the merge conflict. This is a note for Mark Brown.
 
-[1/1] ASoC: rt5663: Handle device_property_read_u32_array error codes
-      commit: 2167c0b205960607fb136b4bb3c556a62be1569a
+That's not in my tree so I'll need either a pull request with the series
+or a resend after the merge window.  It's also not clear what to do
+about the DRM bits, I guess it's probably easiest to just apply them
+along with the ASoC patches.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Please include human readable descriptions of things like commits and
+issues being discussed in e-mail in your mails, this makes them much
+easier for humans to read especially when they have no internet access.
+I do frequently catch up on my mail on flights or while otherwise
+travelling so this is even more pressing for me than just being about
+making things a bit easier to read.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--r8pMqbbDVxb335U5
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-----BEGIN PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmG6OrUACgkQJNaLcl1U
+h9CG4wf/R0NhMevfJzcrxbAImYtw8MIQXIBeRXJNM+viHozogArxj5HSQNArbEYW
+VBlrS/tCW9uXaIoqZgIAAkU5UoH8r01iharsCnm/GLer4aFfvFJqYfc6KPZAVhgu
+zu1AwsHPBiv59YBPE5eMNxwluv5AORqy98wy0i5eiyEBCpEeKgt3lLoFDr/GFIKt
+tXWuheE/2fqKASDvQvTHfbQ75Nb7oiCqdc/0xRkjmUgJX6JDrUPPASiQ38YfHgHw
+0X6L1Y2tWlLlGsQpdoXOceu0pnc0WdWWAxnLvJHjv6o+nMGECYBCZB/AmHYkqzrj
+vAkNiHZXRi+f3RikU7TRzEHgXszS2Q==
+=rihE
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mark
+--r8pMqbbDVxb335U5--

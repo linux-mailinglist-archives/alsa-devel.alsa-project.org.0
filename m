@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28970478067
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 00:19:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4406478066
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 00:18:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B368C20CD;
-	Fri, 17 Dec 2021 00:18:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B368C20CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FEAF202A;
+	Fri, 17 Dec 2021 00:17:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FEAF202A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639696742;
-	bh=z9oX7hCDZKGitbN7AoQQQhItxsmNB3cJJZIzn12JpPk=;
+	s=default; t=1639696714;
+	bh=Bua+u+SfEmFCRRGpff3oU6RSHFYxl0mIqnjxsSMN1vs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tEOrY/PoBD1ceT14yCfi4HP7QZRS0Er+tpM1PJKJ2+v1HxfHMs12f1eqC35r7hed1
-	 AdGek1JzxmQSYFCj1hdzJROh3CPWJr2zRp6yP9Kraa5bQSP6b42yr13qX83M5xj0Vs
-	 lbJe+CuKA3gFKeq9XZ6Q/xK/bu4NxsYssqTqv06A=
+	b=RCVmFkxLdSxLKu/76tFSr/rK4tiKbICsIYWeCGjnrOOOUtmnsPXKL720qessJANni
+	 IuwQgMtY+OXfQMKdS8NDk6LEKJ8gNEHYUzts+M1JxdyTGr39rqSsg5emrRdf+8s3nh
+	 zmN6iAQ13J3RuTZsu/dBSPqP8jXR27twU3BIhHHI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4FBE5F8047C;
-	Fri, 17 Dec 2021 00:17:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFE79F80311;
+	Fri, 17 Dec 2021 00:16:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01B6AF8047B; Fri, 17 Dec 2021 00:16:58 +0100 (CET)
+ id 21285F8030F; Fri, 17 Dec 2021 00:16:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,24 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18637F800B0
- for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 00:16:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18637F800B0
-X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="219641677"
-X-IronPort-AV: E=Sophos;i="5.88,212,1635231600"; d="scan'208";a="219641677"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55CDDF80165
+ for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 00:16:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55CDDF80165
+X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="219641678"
+X-IronPort-AV: E=Sophos;i="5.88,212,1635231600"; d="scan'208";a="219641678"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2021 15:16:38 -0800
-X-IronPort-AV: E=Sophos;i="5.88,212,1635231600"; d="scan'208";a="756279931"
+ 16 Dec 2021 15:16:39 -0800
+X-IronPort-AV: E=Sophos;i="5.88,212,1635231600"; d="scan'208";a="756279937"
 Received: from priyosmi-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.100.174])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Dec 2021 15:16:38 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/3] ASoC: SOF: Intel: hda: remove support for RESUME trigger
-Date: Thu, 16 Dec 2021 17:16:27 -0600
-Message-Id: <20211216231628.344687-3-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 3/3] ASoC: SOF: Intel: hda: remove support for RESUME in
+ platform trigger
+Date: Thu, 16 Dec 2021 17:16:28 -0600
+Message-Id: <20211216231628.344687-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211216231628.344687-1-pierre-louis.bossart@linux.intel.com>
 References: <20211216231628.344687-1-pierre-louis.bossart@linux.intel.com>
@@ -81,7 +82,8 @@ The SOF driver removed the support for INFO_RESUME in the commit
 "ASoC: SOF: pcm: do not add SNDRV_PCM_INFO_RESUME to runtime hw info".
 And resuming is handled by the ALSA core with the .prepare and
 .trigger_start stages. So, remove handling of RESUME trigger in the
-HDA DAI BE trigger op.
+component driver trigger op. So, remove handling the RESUME trigger in
+the platform trigger op for HDA platforms.
 
 Reviewed-by: Kai Vehmanen <kai.vehmanen@intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -89,30 +91,21 @@ Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 10 ----------
- 1 file changed, 10 deletions(-)
+ sound/soc/sof/intel/hda-stream.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 35ffb71116c6..6381f2b227f0 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -342,16 +342,6 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
- 	w = snd_soc_dai_get_widget(dai, substream->stream);
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index e910f68706d9..ba60807fbd8f 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -329,7 +329,6 @@ int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
  
+ 	/* cmd must be for audio stream */
  	switch (cmd) {
 -	case SNDRV_PCM_TRIGGER_RESUME:
--		/* set up hw_params */
--		ret = hda_link_pcm_prepare(substream, dai);
--		if (ret < 0) {
--			dev_err(dai->dev,
--				"error: setting up hw_params during resume\n");
--			return ret;
--		}
--
--		fallthrough;
- 	case SNDRV_PCM_TRIGGER_START:
  	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 		snd_hdac_ext_link_stream_start(link_dev);
+ 	case SNDRV_PCM_TRIGGER_START:
+ 		snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL,
 -- 
 2.25.1
 

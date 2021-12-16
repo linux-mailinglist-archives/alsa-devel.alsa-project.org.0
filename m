@@ -2,91 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B307147745B
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 15:21:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC11047746E
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 15:26:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38AD51FA9;
-	Thu, 16 Dec 2021 15:20:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38AD51FA9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 490201F77;
+	Thu, 16 Dec 2021 15:25:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 490201F77
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639664500;
-	bh=R+l2JoQS023TcGtBLgKHGJ2nmwyJfY24/eS/cm2e6kw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1639664766;
+	bh=mkTC902VJsukGWYp0cd2hXrBg3Mu9ttjfy/WA0MbxBs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iHY9uN94KvM5rn3yAvvIceS66jXtScyolXCmlDjpUhQTARdUkurexBA2hzXokWbDv
-	 YJuobpqEl4aR7ERIr6yD070Cx4fIAO9CNQ7ZwQXq3T1Cxxs5ICtyYUWhtcJ5lTB8Wm
-	 gPxO8XamNqcslim8KUVVjO0Ogl2sH/kpeoSFdGGQ=
+	b=TkrW/yVHzBeQbEFpPVzLdhbTM0vIal5in4rZ0WUBqHNPWkuHyHbGuigXsprjz2V1I
+	 Zh/h7X5Lh0OHemJe+k7eTtf7SYhuh3icV5gQ+Pxqb9FZ8NkKGy1rAUvt2SJkb0Epow
+	 uy7N41+Y6OuviXNDT29GFu4yTrpbQ3S+FM/J+trw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 998B1F8015B;
-	Thu, 16 Dec 2021 15:20:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96181F8015B;
+	Thu, 16 Dec 2021 15:24:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16AEBF80116; Thu, 16 Dec 2021 15:20:31 +0100 (CET)
+ id D0AB9F80116; Thu, 16 Dec 2021 15:24:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D46B6F800B0
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 15:20:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D46B6F800B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66132F800DE
+ for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 15:24:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66132F800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="jEXIJan1"
-Received: by mail-wr1-x42d.google.com with SMTP id j9so12377202wrc.0
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 06:20:28 -0800 (PST)
+ header.b="igVil4d7"
+Received: by mail-lj1-x22c.google.com with SMTP id a37so37682072ljq.13
+ for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 06:24:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=2aMnjU7hIQzPIODNPQxr8yp+39K6YzUUOxZgZZF/gHk=;
- b=jEXIJan1huk1UQpmmCmNfmwqrd4qKANO5zNtO8Iijqax4fsDmJvFxqBEI9x5qrcgfq
- Ye8tnshx4JVdfL4kZBqhxOzJ2xMFLrThaclAwSTQmw/2fs0XZaIGl4xlTA6Vf/ebNqwF
- sO2rK2ZGdWMbB6Fbo08LnCIjOBiU6gTb1Lk1WGlvdpWNfnRStY1ulhBlmov2PZzKUzJK
- ZDdHZUNzPxPjFmX6KnFQysxSD0QIfXb2jSCBjNOFPbIxqLjcmJeNfzGyRNWrqkMJo6xv
- G1joetmCmqGyaqWacTWR5NhiGJ4DfQ3vKCg/5K55qhCws8gH9Vja2Ua4hpztSGsIqdSu
- Nbeg==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=3te9pe7rOJHos3EuPgW4pF2bDr58GHICUC52sb6TTQw=;
+ b=igVil4d7hecRf/ZlSHkjGruHgf+4OOe4/KwyAc3HNyI/F2/EASnbWlmBW1xTb9kyIf
+ LCsjrURmGl04f3eT9XO2PC7S7qc7QHJF7vXVdsW221Oir2aAxMMhWcEDjv3yX9WDczqV
+ ZDS/IvjvPnck+FzEw10c7WJJf3Hs1whJzcS4oMZEwL83kIugA95UTue+8vljF7orSw/F
+ W1pN26OniH5nNBEyrLvvldgEsL7ZcXLfrgZgfW/+EJCzdM179Fnek2baPlSqDFWaJuu5
+ R2hxrJEuFfzP88gWkIzimlDjZBs6i7mip18yIbHvCl3zFmfzJdLvHKsnANZ9IEim+FqC
+ +aZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=2aMnjU7hIQzPIODNPQxr8yp+39K6YzUUOxZgZZF/gHk=;
- b=KKGJAOy1JmgFcTT7cQoYVVahR8dAstr5Ahl94sIoza8Azr9VUBSFtUQZK2P2hdQ80e
- bbynVN0M9l3oTcldkBTFPYkrh/16AzCR8+QmT08akQnNKlDH5LreDAqyRXzglkkoE78R
- 84yPRK4yUFCE/YFc4wQAg/GRh+cLKS8IfjnEcXpwLeBPJIXNIKCf+geclJ6Lkrp1n8OR
- DhNX1VHhTQDHXbxHnovbLzEYOSrk4TUuEZIQ8m+5lv8HQFZlUKnF7B0PKBVx+GD6rxKc
- w5JMTotxT5UUBYFT7YpQ5S/sCXliGTzKf3oSekp+tkZJ1savwttuGf+8YWLeFhOoKSSt
- 0x0w==
-X-Gm-Message-State: AOAM533fDDGDFKDs4Vlm7vYRfgIj+N9EkVtrLlTEEnmksBSHPz/xIlfF
- eqLYqizdI4zkwNhc+PyG7Ww=
-X-Google-Smtp-Source: ABdhPJzyhdKgbIYkyLmJVEDx2jsU2zymKPqxvGpbsD2mBizBJldfL7d0I25gv5R9KPE9gf994HYdeg==
-X-Received: by 2002:adf:f68a:: with SMTP id v10mr8139833wrp.212.1639664426137; 
- Thu, 16 Dec 2021 06:20:26 -0800 (PST)
-Received: from orome ([193.209.96.43])
- by smtp.gmail.com with ESMTPSA id q13sm1460504wrr.64.2021.12.16.06.20.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Dec 2021 06:20:25 -0800 (PST)
-Date: Thu, 16 Dec 2021 15:20:21 +0100
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Dmitry Osipenko <digetx@gmail.com>
-Subject: Re: [PATCH v4 04/22] dt-bindings: host1x: Document optional HDMI
- sound-dai-cells
-Message-ID: <YbtLJeIxXlVyQhd3@orome>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=3te9pe7rOJHos3EuPgW4pF2bDr58GHICUC52sb6TTQw=;
+ b=100oSgGl9I8AJDZ81+JA9r5jKLrrv+UUeExbuZ2dYLw+diyZSSPnPE2Q5Z0K1+w+Rl
+ XeAK7tvcEwBGAR3pD00u+kSUAXxUAzQs4urIReNH+JkSpq5KPubLFgI6R+riVCDc6qWI
+ oyK5aqUqN5V5H+LMTOn/FHjAAnHgiWAQ/GbNV+8SO8wbQiKjxhrnbuCPPCSSATNCGg92
+ oeisZuFUNGuPjlg+Es3uGNljqxJ464zS9SrBtANrwvHbsqtkUDSKa3/OQHdWi1z4MJnK
+ hRTlto+Zu+9dJIAVa388mgAVHFbAMU/vD+bdZZjrh99cX7Bl4wjRjJP/V5GK2jxWZypS
+ 5Ikg==
+X-Gm-Message-State: AOAM533Ke72lzE5n0NPyZMNXFDhTJqrpZIKPovdqDXq+emDw7dOJED/t
+ 1JCNhX0w8kTC/ZItFe56QXo=
+X-Google-Smtp-Source: ABdhPJyZgc6J3PJapwYvBcgEEKZ/Jerd++aLCQoky0Jcr64DLrgfwsKC+jhHtu9KLPZdgvdP4/NUvA==
+X-Received: by 2002:a2e:948:: with SMTP id 69mr15645160ljj.82.1639664692137;
+ Thu, 16 Dec 2021 06:24:52 -0800 (PST)
+Received: from [192.168.2.145] (94-29-63-156.dynamic.spd-mgts.ru.
+ [94.29.63.156])
+ by smtp.googlemail.com with ESMTPSA id a12sm896315lfk.227.2021.12.16.06.24.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Dec 2021 06:24:51 -0800 (PST)
+Subject: Re: [PATCH v4 20/22] ARM: tegra: Add HDMI audio graph to Tegra20
+ device-tree
+To: Thierry Reding <thierry.reding@gmail.com>
 References: <20211204143725.31646-1-digetx@gmail.com>
- <20211204143725.31646-5-digetx@gmail.com>
+ <20211204143725.31646-21-digetx@gmail.com> <YbtDNbdJqCGTaMNs@orome>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <7cc2693f-df2d-b3ca-5336-4815d98a67cb@gmail.com>
+Date: Thu, 16 Dec 2021 17:24:50 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="s6xvmThKn00W/gOE"
-Content-Disposition: inline
-In-Reply-To: <20211204143725.31646-5-digetx@gmail.com>
-User-Agent: Mutt/2.1.3 (987dde4c) (2021-09-10)
+In-Reply-To: <YbtDNbdJqCGTaMNs@orome>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -108,49 +111,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+16.12.2021 16:46, Thierry Reding пишет:
+> On Sat, Dec 04, 2021 at 05:37:23PM +0300, Dmitry Osipenko wrote:
+>> Add HDMI audio graph to Tegra20 device-tree to enable HDMI audio on
+>> Tegra20 devices.
+>>
+>> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+>> ---
+>>  arch/arm/boot/dts/tegra20.dtsi | 22 +++++++++++++++++++++-
+>>  1 file changed, 21 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm/boot/dts/tegra20.dtsi b/arch/arm/boot/dts/tegra20.dtsi
+>> index 72cbe32d0c1d..dde228bcbbff 100644
+>> --- a/arch/arm/boot/dts/tegra20.dtsi
+>> +++ b/arch/arm/boot/dts/tegra20.dtsi
+>> @@ -186,7 +186,7 @@ rgb {
+>>  			};
+>>  		};
+>>  
+>> -		hdmi@54280000 {
+>> +		tegra_hdmi: hdmi@54280000 {
+>>  			compatible = "nvidia,tegra20-hdmi";
+>>  			reg = <0x54280000 0x00040000>;
+>>  			interrupts = <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>;
+>> @@ -1063,4 +1063,24 @@ pmu {
+>>  		interrupt-affinity = <&{/cpus/cpu@0}>,
+>>  				     <&{/cpus/cpu@1}>;
+>>  	};
+>> +
+>> +	sound-hdmi {
+>> +		compatible = "simple-audio-card";
+>> +		simple-audio-card,name = "NVIDIA Tegra20 HDMI";
+>> +
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+>> +
+>> +		simple-audio-card,dai-link@0 {
+>> +			reg = <0>;
+>> +
+>> +			cpu {
+>> +				sound-dai = <&tegra_spdif>;
+>> +			};
+>> +
+>> +			codec {
+>> +				sound-dai = <&tegra_hdmi>;
+>> +			};
+>> +		};
+>> +	};
+> 
+> Should this be status = "disabled" and then only enabled for platforms
+> that actually enable HDMI?
 
---s6xvmThKn00W/gOE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sat, Dec 04, 2021 at 05:37:07PM +0300, Dmitry Osipenko wrote:
-> Document new optional sound-dai-cells property of HDMI node. This node wi=
-ll
-> be used as endpoint of HDMI sound DAI graph.
->=20
-> Acked-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
-> ---
->  .../devicetree/bindings/display/tegra/nvidia,tegra20-host1x.txt  | 1 +
->  1 file changed, 1 insertion(+)
-
-It's probably best for this to go through ASoC along with the other
-audio-related bindings.
-
-Alternatively, I've just sent out a patch that converts the host1x
-bindings to json-schema, so I could work this into that as well.
-
-Thierry
-
---s6xvmThKn00W/gOE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmG7SyUACgkQ3SOs138+
-s6HU9Q/+LJiPotWXIHgjqddwtzU6/HD7NNzSDIDIQzl+FQCjYyWmJCFfhyIgmI1O
-3t27pQ7abUhhsvr1oZr/+vnUpw/ZGekjOTA7cuqXWstDJfVpKtALJXwqqNvn059V
-NDBYXE9IvoNnPWZlKZpF+RvPxBekzBOOG7zQ8Ig/2JwhG/caYnzRYNsH1GF5NOhN
-8zbP5CrTY+jRpaKWF5J2oXrvS+EmV0tYuleNpJsZttYhPwWwbyE6Nk12WNqacnEW
-vGBSNv/DeO2yPvcfxvn15SXPFRo93hc1JdoiuGKUrS38BoKCjQj4yA5DTFgp9MVz
-tLzMZ38YlZS7hwxrlhzGjNPyZmZ6e7o09cj2CgfYzL++fJC0PzTXK9bPkwBpnmB8
-TT9TCAVZE+KUpExyiOroT6TmpJRl8ETH+x/cUOltkPwtpl1eKIS19l1qFuTqp3x0
-Uh5w4Wg96EeqRlf8BDw6l7748TmED1Z4BqiyMZ0SrDAxF8fzalxsoIgfZ9xrn2u7
-xJIoigBHB2gHjVfaDFxOx3eHTioW9xQCdjMC0y6vBbJYPjw1lXz5Sc1n84k3Wyij
-Gd80HQ68NLb2hcERYf6Rbl+jVnibKYrS5HEuA9bGU0gU/HEoTqEJTAicFKHu5PwH
-OjRKjFar0sFhYQtFVQh77Yb7CQzlV4dg9ywdLK718KnY9IlzipA=
-=InZN
------END PGP SIGNATURE-----
-
---s6xvmThKn00W/gOE--
+Assuming that HDMI node is disabled, we assume that the card won't be
+initialized. It won't be a problem to restructure this card in DT later
+on if we will have any other use-cases than we currently have, but this
+is unlikely to happen in practice.

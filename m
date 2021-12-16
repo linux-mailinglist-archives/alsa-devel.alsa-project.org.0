@@ -2,72 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48B60477B44
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 19:05:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBDD8477C2B
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 20:05:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4BB82803;
-	Thu, 16 Dec 2021 19:04:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4BB82803
+	by alsa0.perex.cz (Postfix) with ESMTPS id 256B72075;
+	Thu, 16 Dec 2021 20:04:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 256B72075
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639677932;
-	bh=dL22H0g7NySCli5k58c/KdjxGCpWykDZ/ovmeuBr/8E=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1639681523;
+	bh=kRs9CGc9qdgDGb6qMYZ5T8aLaIllgWuAh89BRRkVjwU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z75AmTtnHJeWt22yDLv5gy66HOy3fC3FE9XifSg/pEWuAWKsjW7sbkFwhRGrG5lvw
-	 BmWTWBSKVqHqfNBQGEVd401A/86kTHP2oSE3YbASm8VXkkhv/3MIJfQmFK/AlsnyOE
-	 GZpBgRwKb1QADVx2nzmo/LOdrFqI/l4F4EJ7PRIY=
+	b=rVlrlFmutSGHvtZavGtiwbpoEh9ave8xu3DT2cZBtrJ0ziNv28gFA78CE87w1YZ7I
+	 GS+/q8twf8J7r+gFp0iuQW34utmkDqsF5c9cNGatUKNmDRCsXvVyiLC2m1XNA1eBLY
+	 A+pLeljraUTqF13dfRfEgLZyvreovp0pbmgooLDk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73203F800DE;
-	Thu, 16 Dec 2021 19:04:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AFB4F800DE;
+	Thu, 16 Dec 2021 20:04:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 429E0F8014C; Thu, 16 Dec 2021 19:04:23 +0100 (CET)
+ id 82C86F8014C; Thu, 16 Dec 2021 20:04:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 583FFF800DE
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 19:04:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 583FFF800DE
-X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="263727181"
-X-IronPort-AV: E=Sophos;i="5.88,211,1635231600"; d="scan'208";a="263727181"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2021 10:04:11 -0800
-X-IronPort-AV: E=Sophos;i="5.88,211,1635231600"; d="scan'208";a="756192424"
-Received: from kloriaal-mobl2.amr.corp.intel.com (HELO [10.213.169.180])
- ([10.213.169.180])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2021 10:04:10 -0800
-Subject: Re: [PATCH 4/5] ASoC: Intel: catpt: Drop SND_SOC_ACPI_INTEL_MATCH
- dependency
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20211216115743.2130622-1-cezary.rojewski@intel.com>
- <20211216115743.2130622-5-cezary.rojewski@intel.com>
- <4a8afa77-217a-9d1a-7704-909ee895c4c7@linux.intel.com>
- <2377ff39-2ee2-c1fe-844b-aa9749f4e026@intel.com>
- <261b8815-6c8e-7e0a-4b34-e7948efb6884@linux.intel.com>
- <9da26018-aad9-76a6-ad93-8941a68c645f@intel.com>
- <124db869-d829-006a-e1dc-0e41d21d5361@linux.intel.com>
- <b4eebba5-a510-a5e5-7939-e8211ee2bc8c@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <687da06e-67e0-c648-7d92-88fc2ed7078f@linux.intel.com>
-Date: Thu, 16 Dec 2021 12:04:09 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF66DF800DE
+ for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 20:04:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF66DF800DE
+Received: by mail-ot1-f50.google.com with SMTP id
+ v15-20020a9d604f000000b0056cdb373b82so48562otj.7
+ for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 11:04:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=5/FblGQaJYZssbV69UJ4GBrUt2uvEHBBh4mxqSnBM3E=;
+ b=SDV34zMDPrIbrQu7gqE/bh/Gnliu0u08oNZXcSq3KC0HpUGpAxdZNk0crp/mTRxleF
+ X2D+cap0eDLjgQ7qzDloAUBMYutw7NX/jtSp/ByVjwLXFFivSQzFS595ltrAEdaaCRhs
+ 3Bc2jOTI8+ZMCS9fSEDhISAM9EvDS7zsbLYLd0GNmB+ye14Ao86fPj4jmu5e9uxqWhn9
+ DAbKlPc4LBGE42Mn/IqgbWW6XSUo9EGqnocUEhkMLPjdokhN/M+l6pdmM2PbWwe4PaVx
+ e6n0fujA2rM7ZYz6N5vKVVlVnVF8PXcC52D3b/VCg2omjP1xc+qMKS8ICvumIu3dDSwG
+ zoaw==
+X-Gm-Message-State: AOAM532O2pU4P9SulsrHXP0Nk6y99tM0tZI61/eOIF8wjNAaAI5d57x1
+ I/nDITvdBWVKcCv34n5Kyw==
+X-Google-Smtp-Source: ABdhPJylzhDYwAG/ANQ9sMz1+y1MrNz8yzIlAoSA+tfilj3ZOjyyjojSNkGMgpWF30qXQkkor7jaQQ==
+X-Received: by 2002:a9d:75d4:: with SMTP id c20mr13665614otl.85.1639681442381; 
+ Thu, 16 Dec 2021 11:04:02 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id s26sm1164360oiw.19.2021.12.16.11.04.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Dec 2021 11:04:01 -0800 (PST)
+Received: (nullmailer pid 575687 invoked by uid 1000);
+ Thu, 16 Dec 2021 19:04:00 -0000
+Date: Thu, 16 Dec 2021 13:04:00 -0600
+From: Rob Herring <robh@kernel.org>
+To: YC Hung <yc.hung@mediatek.com>
+Subject: Re: [PATCH] dt-bindings: dsp: mediatek: add mt8195 dsp document
+Message-ID: <YbuNoG3mw2/syi8+@robh.at.kernel.org>
+References: <20211215031955.28244-1-yc.hung@mediatek.com>
 MIME-Version: 1.0
-In-Reply-To: <b4eebba5-a510-a5e5-7939-e8211ee2bc8c@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: broonie@kernel.org, tiwai@suse.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211215031955.28244-1-yc.hung@mediatek.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ allen-kh.cheng@mediatek.com, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, daniel.baluta@nxp.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,36 +94,161 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
->>>> I don't really see the point about the number of fields, this is a
->>>> generic descriptor used for I2S/SoundWire devices so mechanically there
->>>> are things are are not used in all platforms.
->>>>
->>>> Another example is the quirks field, it's only meant to be used when
->>>> there's actually a quirk.
->>>>
->>>> Note that I am planning to remove the sof_fw_filename field since it's
->>>> redundant with what is part of the PCI descriptor, but the topology
->>>> will
->>>> remain there: it has to match with the machine driver.
->>>
->>> That's why no new struct is declared. Simply the tables are moved
->>> locally, and there is nothing wrong with that. Cohesiveness and
->>> readability outweighs the duplication of ACPI _HID.
->>
->> If I follow your logic, I could move all the tables for glk, cnl, cfl,
->> cml, icl, jsl, tgl, ehl, adl into the SOF driver. That really doesn't
->> seem sensible.
+On Wed, Dec 15, 2021 at 11:19:55AM +0800, YC Hung wrote:
+> From: "yc.hung" <yc.hung@mediatek.com>
 > 
-> Hmm.. doesn't it really? Are the glk/cnl/cfl/cml/icl/jsl/tgl/ehl/adl
-> tables "common" for the Intel audio drivers? There are not used by
-> anything except for SOF. It seems reasonable to have them present
-> locally too. SOF solution becomes more cohesively organized in such
-> case, just like catpt is after this patch.
+> This patch adds mt8195 dsp document.
+> 
+> Signed-off-by: yc.hung <yc.hung@mediatek.com>
+> ---
+>  .../bindings/dsp/mtk,mt8195-dsp.yaml          | 116 ++++++++++++++++++
 
-We could also move the boards/ while we're at it, on the grounds they
-are not all used by all drivers.
+mediatek,mt8195-dsp.yaml
 
-My take is that unless a new feature is added that warrants moving the
-tables around, let's keep the existing code as is.
+>  1 file changed, 116 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml b/Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
+> new file mode 100644
+> index 000000000000..33db11ee2336
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
+> @@ -0,0 +1,116 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/dsp/mtk,mt8195-dsp.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Mediatek mt8195 DSP core
+> +
+> +maintainers:
+> +  - YC Hung <yc.hung@mediatek.com>
+> +
+> +description: |
+> +  Some boards from mt8195 contain a DSP core used for
+> +  advanced pre- and post- audio processing.
+
+blank line
+
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt8195-dsp
+> +
+> +  reg:
+> +    items:
+> +      - description: Address and size of the DSP Cfg registers
+> +      - description: Address and size of the DSP SRAM
+> +
+> +  reg-names:
+> +    items:
+> +      - const: cfg
+> +      - const: sram
+> +
+> +  interrupts:
+> +    items:
+> +      - description: watchdog interrupt
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: wdt
+> +
+> +  clocks:
+> +    items:
+> +      - description: mux for audio dsp clock
+> +      - description: 26M clock
+> +      - description: mux for audio dsp local bus
+> +      - description: default audio dsp local bus clock source
+> +      - description: clock gate for audio dsp clock
+> +      - description: mux for audio dsp access external bus
+> +
+> +  clock-names:
+> +    items:
+> +      - const: adsp_sel
+> +      - const: clk26m_ck
+> +      - const: audio_local_bus
+> +      - const: mainpll_d7_d2
+> +      - const: scp_adsp_audiodsp
+> +      - const: audio_h
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  mboxes:
+> +    items:
+> +      - description: a mailbox is ised for ipc reply between host and audio DSP.
+> +      - description: a mailbox is ised for ipc reuqest between host and audio DSP.
+
+typos
+
+'a mailbox is ised for ' part can be dropped.
+
+
+> +
+> +  mbox-names:
+> +    items:
+> +      - const: mbox0
+> +      - const: mbox1
+> +
+> +  memory-region:      
+> +    items:
+> +      - description: A phandle to a reserved memory region is used for dma buffer between host and DSP.   
+> +      - description: A phandle to a reserved memory region is used for DSP system memory.
+
+'A phandle to a reserved memory region is used for' part can be dropped.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - clocks
+> +  - clock-names
+> +  - memory-region
+> +  - power-domains
+> +  - mbox-names
+> +  - mboxes
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    adsp: dsp@10803000 {
+
+Drop unused labels.
+
+> +       compatible =  "mediatek,mt8195-dsp";
+> +       reg = <0x10803000  0x1000>,
+> +             <0x10840000  0x40000>;
+> +       reg-names = "cfg", "sram";
+> +       interrupts = <GIC_SPI 694 IRQ_TYPE_LEVEL_HIGH 0>;
+> +       interrupt-names = "wdt";
+> +       clocks = <&topckgen 10>, //CLK_TOP_ADSP
+> +                <&clk26m>,
+> +                <&topckgen 107>, //CLK_TOP_AUDIO_LOCAL_BUS
+> +                <&topckgen 136>, //CLK_TOP_MAINPLL_D7_D2
+> +                <&scp_adsp 0>, //CLK_SCP_ADSP_AUDIODSP
+> +                <&topckgen 34>; //CLK_TOP_AUDIO_H
+> +       clock-names = "adsp_sel",
+> +                     "clk26m_ck",
+> +                     "audio_local_bus",
+> +                     "mainpll_d7_d2",
+> +                     "scp_adsp_audiodsp",
+> +                     "audio_h";
+> +       memory-region = <&adsp_dma_mem_reserved>,
+> +                       <&adsp_mem_reserved>;
+> +       power-domains = <&spm 6>; //MT8195_POWER_DOMAIN_ADSP
+> +       mbox-names = "mbox0", "mbox1";
+> +       mboxes = <&adsp_mailbox0>, <&adsp_mailbox1>;
+> +       };
+
+Wrong indentation.
+
+> -- 
+> 2.18.0
+> 
+> 

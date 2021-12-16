@@ -2,89 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3F174775B4
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 16:20:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C0E74775C5
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 16:22:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 672DF20B2;
-	Thu, 16 Dec 2021 16:19:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 672DF20B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC09120CF;
+	Thu, 16 Dec 2021 16:22:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC09120CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639668011;
-	bh=ScIXmYmFFoE8Sn9t1YIkc462Fei0/entw5YkV7HQgG0=;
+	s=default; t=1639668171;
+	bh=ARE4gkE2J/9sLOfruXpTgIpT5L9R6CeYq5uv+fgEy+c=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gEIPp6D56KRLlIzF2nVCsGizObc4yCKhWkUvXm/yjSHJVpcpvc1/E9ojImAISaN61
-	 G2v24m+Hc1bZlFow83lq5zxl3urSDRFj4Vy5Kf4w9W0Ca7EGoSn1JxGOfilmdCle7A
-	 TuanT9Q8eY6mL6V/i54qdOomTD1U1JreGxWFqVbk=
+	b=KKMFSNrBkLQA/S8h9G3afMwX35zSI5WybvMHQXj74tmctGEEDFBAYKVcB+JaGEDtY
+	 IXaXN5RSivfmEaY60lnqASdlzDtpnSy9HS1N7inlxCHpU4shhZxFKVSE6fBjYjeqTP
+	 /kfcysNausXG+8QdeG6MDrblixDnOvYkf8Ov7MR0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E34B5F800DE;
-	Thu, 16 Dec 2021 16:19:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3045DF8015B;
+	Thu, 16 Dec 2021 16:21:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89952F8014C; Thu, 16 Dec 2021 16:19:02 +0100 (CET)
+ id B06D7F800DE; Thu, 16 Dec 2021 16:21:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67A6DF800DE
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 16:18:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67A6DF800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF268F800DE
+ for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 16:21:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF268F800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="kRAuUi3p"
-Received: by mail-wr1-x436.google.com with SMTP id q16so4024405wrg.7
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 07:18:53 -0800 (PST)
+ header.b="VHbrRdbk"
+Received: by mail-wm1-x332.google.com with SMTP id z206so4915581wmc.1
+ for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 07:21:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=0NW4fFRtdMsPlhmkKhcfTmNZmyEs9QhErqbczxjv6B0=;
- b=kRAuUi3pHfp0vlymF4VGBZuEwSgT02dIRWqOT35hkagh6ntcNm8yIFOd8aC3cbEjeV
- oLvppbAZRB8W2b4GctTPRBCxTvug8AbYTh4eU9SKY464yhzZoIZbkU7NStoyhZo028uP
- 30G79hCtFKOTQZ41pob7oCKdpmnUyzF/WOr8HOUrKPj7pgtBjorDAt1r+B0SffNGb2nx
- PWYlXg3FMnVSoyx70RZYYypH0u6HTgYkYxQ9HgAu5RfJiVfJbT+9OBeFuOIHwD+kdpCQ
- wyyVlh6+vxWWobNr7aCMpPy2K3Psu4wUGD2t3a6B0oxiAEEZJtpoBjFYAB3fPwOhvgRJ
- rXHA==
+ bh=EDnhGOt5yt/Q5eHlMXrXDwNEP6fA2fIbiM7ZWpn1ct8=;
+ b=VHbrRdbkAMmFFx50VrmdFx9wt32X9gRxBKtODT+TJlanscSWIdaAF192rfa9sWV/cy
+ tVzlZmLMyzQay1zy8gagBymEOoZBs5xF6SmJD6a08yxZyWVOW4a2dBCDz3J+Zn2wEIja
+ ylRxqj7soRPq0jFA6bIkTqWwz8NLSEsHwfuWjyqbeQwL+O0+nEU0fS2Kkls5J59wF+fr
+ 3pytUFm7qVuXCqBXBNvvu+ArGZNwhtqoA2+uk1vMiWV8wxFZGhxQvMjWWPGe+Fs2tvdU
+ oUMDoANzX03Sg+eHQlL6DeWjKQULxnf6HgQVrWgfqmHQG3dL4qMfC3PWUxWR0vdIRX+i
+ kh3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=0NW4fFRtdMsPlhmkKhcfTmNZmyEs9QhErqbczxjv6B0=;
- b=1naqgqtR1wAgbucPCI4pungx5FMRnd1P0/OAeztchtzyWNIfWpZ0eOvz+nQQxcealS
- g+l59b42Xdd0xvX0e6Ns4xiT3SNl/g3qFd4+bRevnJTBHI088Gchk3WmeEzJcnqbMEfj
- GhMtsHP+Nc8avXVP0QNVhvoDhqkc5Y0UMlgGFVttFUskhMFbFgwlHqSzY9vj3yIauhV9
- 8JWta/Z7Rv6k4uU37k8x/+fbWgElvbhv1n0QlZrJ+tL/S8Qv5qMnubEirTV+cNFvqVyR
- kAxDaYIBCm0wn6GHs+6r4XXhqH0IJVzbYyX8449cj63EIxko/7DKLjaMFcDTEbCBRVu6
- k9Gg==
-X-Gm-Message-State: AOAM530z6j+w9FUXmqXNqiX19qIYoSC8fHcrYEPJQzrvi6hk8nRnvpWt
- Cgf96Qv8aap1COUEOp+Akak=
-X-Google-Smtp-Source: ABdhPJyy3q6RwT0+pTgk+dWoIRgzvgCOOBY61BwzAcTietGzu7v354AVmOOir3fo/hsmJoWX4Pt/IQ==
-X-Received: by 2002:adf:ea50:: with SMTP id j16mr8909726wrn.719.1639667930246; 
- Thu, 16 Dec 2021 07:18:50 -0800 (PST)
+ bh=EDnhGOt5yt/Q5eHlMXrXDwNEP6fA2fIbiM7ZWpn1ct8=;
+ b=ZmG0/z4nGYFwdj4MsUxTrfwca8MiXixjSnBCHfYpVgXVCRpEepPAwKg+xkt4bhGIdy
+ it811MZGPrthglC0jhteQh3cq6YytCSAcU35NQPWUHoPQlnWAsnvZmjRkd075MZ4dw+R
+ AzcARbxLTcyvT+L2duIFZErPmb7ug9DgN0wSDRtAg5xkS8acsfeoyYl2P5fO1/PtauUg
+ 5J68mYR2UL2BybGYxjgO1mZFJQadKdXM1PfKsccaa+q6KfMU024u8YTjC5/Z3kSRMVGN
+ TfpH7Ov7dHd4T+EO1tGLEiyOqjmSycNOOigIs8V/7sFxFu2Z7LPTp0f5Ka9mdp7yVIU7
+ KEdw==
+X-Gm-Message-State: AOAM533d0gnYBupUsVXbT5894B55Id0zXez8HThaYgkYWBuNzMGL/EEg
+ WZBUS1ACe9Mx7sCIzfkR5/o=
+X-Google-Smtp-Source: ABdhPJwilYtfCADToZ6QkaMbt5zJnumtsxOZMAuNZ4D/GKs7xcdpDggrZGVjGtSduqPc33LbKVcHpQ==
+X-Received: by 2002:a1c:740c:: with SMTP id p12mr1586709wmc.140.1639668090773; 
+ Thu, 16 Dec 2021 07:21:30 -0800 (PST)
 Received: from orome ([193.209.96.43])
- by smtp.gmail.com with ESMTPSA id q13sm1597560wrr.64.2021.12.16.07.18.47
+ by smtp.gmail.com with ESMTPSA id j11sm4945091wrt.3.2021.12.16.07.21.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Dec 2021 07:18:48 -0800 (PST)
-Date: Thu, 16 Dec 2021 16:18:45 +0100
+ Thu, 16 Dec 2021 07:21:30 -0800 (PST)
+Date: Thu, 16 Dec 2021 16:21:26 +0100
 From: Thierry Reding <thierry.reding@gmail.com>
 To: Dmitry Osipenko <digetx@gmail.com>
-Subject: Re: [PATCH v4 08/22] ASoC: tegra20: spdif: Improve driver's code
-Message-ID: <YbtY1TfX3rdVbkzG@orome>
+Subject: Re: [PATCH v4 09/22] ASoC: tegra20: spdif: Use more resource-managed
+ helpers
+Message-ID: <YbtZdqCz6qHS2JZL@orome>
 References: <20211204143725.31646-1-digetx@gmail.com>
- <20211204143725.31646-9-digetx@gmail.com>
+ <20211204143725.31646-10-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="TtAaL1I0tfYEZFLw"
+ protocol="application/pgp-signature"; boundary="8bk+QQaNEhaPh30H"
 Content-Disposition: inline
-In-Reply-To: <20211204143725.31646-9-digetx@gmail.com>
+In-Reply-To: <20211204143725.31646-10-digetx@gmail.com>
 User-Agent: Mutt/2.1.3 (987dde4c) (2021-09-10)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
@@ -108,50 +109,43 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---TtAaL1I0tfYEZFLw
+--8bk+QQaNEhaPh30H
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Dec 04, 2021 at 05:37:11PM +0300, Dmitry Osipenko wrote:
-> - Clean up whitespaces, defines and variables.
->=20
-> - Remove obsolete code.
->=20
-> - Adhere to upstream coding style.
->=20
-> - Don't override returned error code.
->=20
-> - Replace pr_err with dev_err.
->=20
-> No functional changes are made by this patch. This is a minor code's
-> refactoring that will ease further maintenance of the driver.
+On Sat, Dec 04, 2021 at 05:37:12PM +0300, Dmitry Osipenko wrote:
+> Use resource-managed helpers to make code cleaner. Driver's remove callba=
+ck
+> isn't needed anymore since driver is completely resource-managed now.
 >=20
 > Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 > ---
->  sound/soc/tegra/tegra20_spdif.c | 49 ++++++++++++---------------------
->  1 file changed, 18 insertions(+), 31 deletions(-)
+>  sound/soc/tegra/tegra20_spdif.c | 33 +++++++++------------------------
+>  sound/soc/tegra/tegra_pcm.c     |  6 ++++++
+>  sound/soc/tegra/tegra_pcm.h     |  1 +
+>  3 files changed, 16 insertions(+), 24 deletions(-)
 
 Acked-by: Thierry Reding <treding@nvidia.com>
 
---TtAaL1I0tfYEZFLw
+--8bk+QQaNEhaPh30H
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmG7WNUACgkQ3SOs138+
-s6GwvxAAvJ61geFKAbm8cP5N+pEbKgtEihkMw5PcFuU3W2atATXHSqSBZfJLV4ze
-A8EQ0s+6vh51dP9aXYxgKU3eiuilqw97kCSNPEwmq9kOiDe/ls7Z/hoEW/Djsir5
-wHOa7uBq4+10I4UNMlJQNs5XX9+bp1ajTmH5ia/KiTcburoqT1P/UllLwjboBgRm
-k9P3LKjBckI8u9wRx9meYGxA712IxAyOmbdlfHa7SlGKwXZw7aO3K2wuls7QAdZw
-NTSkpLHUbgQW9VIAyRIIA2iczZHlwm60Y43Bo6RRTlx8vH1pPlTikqFB+VMZHH4E
-awm7aD0p+VpvM+gBN2+cjmwlWsUXvVp34rQYZ4dR+bY078R4EOTA+nyMS4Z+693G
-kNwjF+02na0InBnxDg3VFKCCd+O72A+r5ydXcWDw88FhNy5D4kUIZl+EFBKBmMb4
-AWl/HxMmM13IVSfu4NpgpCpjqNaOAQokybxCH4YHs9JIUcHAP9XZR2IKTVxZaerC
-NxQqpp9BfrOiIevdNifxpp7XL7DA6yjpck7iYMFzrcZDkc2gmIb9jiS2Cn8Szwjq
-emDETf5gob2Pn4atJkeP5koMR57wmi70y7ulhTqtJtNjGCUlW2ahYykNoTjaueiw
-b/nN6nrnayfCg8YIh81xMas2Q81sANyy8a3JLwTj+0HqHBovOWI=
-=wYWM
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmG7WXYACgkQ3SOs138+
+s6HnzhAAhjmsSsHNiLAo22R/O+NXEzqlLxBG/882IqtVa8bWgdNLWvx5VilbasbL
+lJUVTEs+mVr5JYQlrHEXsMKXfb9Cc+hq/dcWSU/aQaFIp5Vy/xhFZ4iKsbwJkr5J
+JoWpkvNdSqSHUFOSib3Ck5mQqeByyQbm8RVDBUtsZpD1JskZRJyqgvHF14KOsEjF
+PvKp73zUoSEAU/rhbn2NhgIqnmdwXBwdUSbr3JBOtIUKe5E5uxtVu0fsFvNnoSFg
+3U7FLsVMR01x2zcJ1aebebVS/Ii/oQHXABzPra2sGcDPnfAM75db7fGdvyCPxrdC
+Wy3WxVcAgz5jqSYF7m4CBX9JO0uLpFJGkeP6ok2HplasPrjvbrzyVXkaUdX0/NFW
+aDdZXRMgt38QkLUxd5O5FsjlQSIPhI2/nXdB6cocmKzyOC+aBlEWc/K2zsJKkPcx
+sL1y0YUGWJkYZZS/DKlplMR5FIwhuX3v8tJBIwfx/1Mrk2Spp4ggbh5xml8Wi+9m
+uI1mXNZP5MyiO1V4CuRIAfi+vVT72uxrb8HT8WYRkrt7IYPhqujU2TCmw93Yzk5F
+MHNkJOwsFmmY9TvA1dWb5GXi7gXPPiwEWv4uOvtc8T1hX9gGAyajEbQzIvwNO/DK
+eOoAS1lWs84wnYx2OpOJKK+5MkxlvgklCor9YrSdKEDW44AraMI=
+=XTa0
 -----END PGP SIGNATURE-----
 
---TtAaL1I0tfYEZFLw--
+--8bk+QQaNEhaPh30H--

@@ -2,80 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22FBE477DAD
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 21:33:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75FCD47804A
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 00:05:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F9F820B6;
-	Thu, 16 Dec 2021 21:32:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F9F820B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0D331F36;
+	Fri, 17 Dec 2021 00:04:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0D331F36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639686804;
-	bh=ZrgxPGHRfrNSlgVBv3l9EwAnPu8fMQWyIItIPigy/QQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JYM1wTc1ylhjarJwfEc5KqKfcW+xWdNbhFyE/H2ukkh+FfOs+OLS9QX+6vG6QItSp
-	 pm/dQgd0qxYDvqkFmv1lFQakvKGEgmKHewj+cTdlTaQ1ijOk0RAqEZdfXPB5UdYeqj
-	 HWSbmo8cFgHAoZkzCVFEg/FYIXrdFm9OAtYEny80=
+	s=default; t=1639695938;
+	bh=gwXz0dma/s1TQamn1qs+92yYoKDPBxSOaVB8qcWH9ZQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=U2IWrS/243j5SthzuYqx6KmKLqV5rvBeSJcf0IFbSGKHPdxadGBs0enzwaKj4pE7F
+	 BzYQg6zJ6oWmrhKbkV72oHlsxtgfFpD6W0dB1Gs0xggV+ZDXVkq1mPJVmYZRCjmzwv
+	 0wV1euLslrxTJHXoHZLQnYHT9w6rLlH/eL6eyADM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F869F800F4;
-	Thu, 16 Dec 2021 21:32:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A175F8015B;
+	Fri, 17 Dec 2021 00:04:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EBB7F8014C; Thu, 16 Dec 2021 21:32:13 +0100 (CET)
+ id EA6EDF8014C; Fri, 17 Dec 2021 00:04:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 023B0F800F4
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 21:32:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 023B0F800F4
-Received: by mail-oi1-f176.google.com with SMTP id r26so589987oiw.5
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 12:32:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=umUy1uYNyZY1VykdghF7eMiCi+OMbNsH6C13bj0a6Fc=;
- b=7+zXzhLSJp/4cLfBmlHI0JQXHLGLTqZZMkTdQXWYRGE6I+q/HV2R/OfcxSD7mx6S9k
- gtqGavehwUaHwsanis/AUHbLURkOG/138oM0uDdOq9LWUv80fd0U5GhjpNNbUFnTnW2w
- esIAS937CnfrLiWcY6bz2bZBlvaKBRJCKF8flivr1M08PNjIbQttf9r7aNJ306u69sUy
- 12CWQVelMgtd//Iiwh9hQEBVwCvyj7hr8/fzN2W+EaUaeIrw2e+QOuGhZjQsgSPlOffi
- EL6hLozhL6NIdcYobF2WY1HHxr/yPcWoLoa5nk2GoiFw7CBkjSD7guo+EIO9v7FaFE1q
- b8Ug==
-X-Gm-Message-State: AOAM530EwsFoxOUED6N/WCZTn2otgBWpao1C29ZrXlT4k1RXHXkgj85q
- YX8CIm42B4eUOEi6ZeME3pR3Ofkt3Q==
-X-Google-Smtp-Source: ABdhPJxIuAAHF4Tu1T2g8nQ4SAIbKIMuI9BFSu3AAU+8GI3F/9OLT+gd1yGk5ZdTgRQLItyFR0C7sQ==
-X-Received: by 2002:aca:58c4:: with SMTP id m187mr5311388oib.113.1639686724022; 
- Thu, 16 Dec 2021 12:32:04 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id bi20sm1322787oib.29.2021.12.16.12.32.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Dec 2021 12:32:03 -0800 (PST)
-Received: (nullmailer pid 706190 invoked by uid 1000);
- Thu, 16 Dec 2021 20:32:02 -0000
-Date: Thu, 16 Dec 2021 14:32:02 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: audio-graph-port: enable both
- flag/phandle for bitclock/frame-master
-Message-ID: <YbuiQpu/pbEjWDfc@robh.at.kernel.org>
-References: <20211216000018.2641925-1-kuninori.morimoto.gx@renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49F80F800F4
+ for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 00:04:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49F80F800F4
+X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="300400614"
+X-IronPort-AV: E=Sophos;i="5.88,212,1635231600"; d="scan'208";a="300400614"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2021 15:04:14 -0800
+X-IronPort-AV: E=Sophos;i="5.88,212,1635231600"; d="scan'208";a="585344786"
+Received: from priyosmi-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.212.100.174])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2021 15:04:13 -0800
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: SOF: Kconfig: Make the SOF_DEVELOPER_SUPPORT depend on
+ SND_SOC_SOF
+Date: Thu, 16 Dec 2021 17:03:50 -0600
+Message-Id: <20211216230350.343857-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211216000018.2641925-1-kuninori.morimoto.gx@renesas.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, Paul Olaru <paul.olaru@oss.nxp.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,22 +74,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Dec 2021 09:00:18 +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> snd_soc_daifmt_parse_clock_provider_raw() is handling both
-> bitclock/frame-master, and is supporting both flag/phandle.
-> Current DT is assuming it is flag style.
-> This patch allows both case.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
-> v1 -> v2
-> 
-> 	- anyOf -> oneOf
-> 
->  .../devicetree/bindings/sound/audio-graph-port.yaml      | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+SND_SOC_SOF_DEVELOPER_SUPPORT contains options affecting how the built
+SOF driver stack will behave, enables debug options and other features.
+
+These options have no meaning if the SND_SOC_SOF is not even enabled.
+
+If we have SOF client options under developer_support and debug they can
+be selected to be built even without the core, but they do need symbols
+from the core (the sof-client API) which can result build failure.
+
+In Kconfig we can have
+SND_SOC_SOF_TOPLEVEL=y
+SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST=y
+
+for example, which will make the flood client to be built, but the SOF core
+is not as SND_SOC_SOF is not selected.
+
+Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
+index ac34c330cf0c..1a7d6cefd3b7 100644
+--- a/sound/soc/sof/Kconfig
++++ b/sound/soc/sof/Kconfig
+@@ -63,7 +63,7 @@ config SND_SOC_SOF_DEBUG_PROBES
+ 
+ config SND_SOC_SOF_DEVELOPER_SUPPORT
+ 	bool "SOF developer options support"
+-	depends on EXPERT
++	depends on EXPERT && SND_SOC_SOF
+ 	help
+ 	  This option unlocks SOF developer options for debug/performance/
+ 	  code hardening.
+-- 
+2.25.1
+

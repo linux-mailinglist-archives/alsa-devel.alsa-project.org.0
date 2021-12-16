@@ -2,68 +2,152 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7CBA477578
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 16:14:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E0B747758E
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 16:16:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D6182029;
-	Thu, 16 Dec 2021 16:13:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D6182029
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BE5C18F8;
+	Thu, 16 Dec 2021 16:15:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BE5C18F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639667671;
-	bh=GKNI9+uG02nILpBlByaWYcPE3qK/ra1Trg4IPKwdjZQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1639667804;
+	bh=D6ZPlJnBVUr52W7u8lMLRnA2U+OHQI4CzUtH0qMVSbQ=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=No+B1zWiNOpIVsEfcyCaW1fFRuxV/8TxWU21sddIX+aTcIebJni0t528XbsaE3yo0
-	 tJ6nscg2Z4txBLb9dTY0Kg2/Wwo/Fo0QABysZQNtHj0WiOcxXuxcImrLJd6Wqe8J81
-	 LfdXtyiZygk10AjHbK1AEgC4JfCZ2M2RKp1kHk5Y=
+	b=Xr2nGxQVp6RFOuC4iLcHcu9zsYzyfwzzRLiTdvm81iFKuZ9Jb+HFb6+d9JbIeqTYF
+	 E+Q9sg6eU1wkYmMgTD3T/nuNvHUdgTMQHMCwRrkmGVQpe+FIo+rYE0WmCkbPRzbt6I
+	 uhOyrgmrCyWUJAezQELaAbMux6gbMP0/QuBnrnZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79758F800DE;
-	Thu, 16 Dec 2021 16:13:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C414F80165;
+	Thu, 16 Dec 2021 16:15:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1287CF8016E; Thu, 16 Dec 2021 16:13:26 +0100 (CET)
+ id 5B429F8015B; Thu, 16 Dec 2021 16:15:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70051.outbound.protection.outlook.com [40.107.7.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2704EF800DE
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 16:13:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2704EF800DE
-X-IronPort-AV: E=McAfee;i="6200,9189,10199"; a="219530379"
-X-IronPort-AV: E=Sophos;i="5.88,211,1635231600"; d="scan'208";a="219530379"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2021 07:13:18 -0800
-X-IronPort-AV: E=Sophos;i="5.88,211,1635231600"; d="scan'208";a="755969981"
-Received: from kloriaal-mobl2.amr.corp.intel.com (HELO [10.213.169.180])
- ([10.213.169.180])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2021 07:13:18 -0800
-Subject: Re: [PATCH 4/5] ASoC: Intel: catpt: Drop SND_SOC_ACPI_INTEL_MATCH
- dependency
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20211216115743.2130622-1-cezary.rojewski@intel.com>
- <20211216115743.2130622-5-cezary.rojewski@intel.com>
- <4a8afa77-217a-9d1a-7704-909ee895c4c7@linux.intel.com>
- <2377ff39-2ee2-c1fe-844b-aa9749f4e026@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <261b8815-6c8e-7e0a-4b34-e7948efb6884@linux.intel.com>
-Date: Thu, 16 Dec 2021 09:13:17 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <2377ff39-2ee2-c1fe-844b-aa9749f4e026@intel.com>
-Content-Type: text/plain; charset=utf-8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 767B5F800DE
+ for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 16:15:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 767B5F800DE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
+ header.i=@dialogsemiconductor.onmicrosoft.com header.b="w0rnlMZr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WuLDrZyVJ1RUOZLBWfKsvWLnzoFjKY7mpjY2F5KkGW0zizF0XdCkp6UecBsw7pi3dZnCj5gGNbCfWZW9tWgRGdz188Pnntlvwec6P6SEzSRN1/e2DWd6L5qPAaTwVJTBDvA+xE/RmGScGtQuQXhjSAkLRxPpSj0aIkv5fvkEIkgujKxkd5lA8eAnSxLha/d2FzII4LnAwjEIC2WRPWe0+k2+xlWobcd7DI6TaRSvA+Y0twY3HKLcRlRz1UMA3cKsntsQTMhnFVcMT8oajzoHwiUXcrvTwr+NX8dJ4+CCR7199XgNvPA239DzRfzyPBq5KKgI+KioxF+7lVJ5xbn4Gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D6ZPlJnBVUr52W7u8lMLRnA2U+OHQI4CzUtH0qMVSbQ=;
+ b=Nt2/7LP1i8uorV3S+Cuk8WRaBTqsZsHT1q/4UQ3gB3++m2pl2xCfZ7whiWxN3vIkajHrsLWA6FcH8jYV2l0I58vHzXOwlTMFOzHGu4HDVsnYzdHfWOG4N2uvnoMMZbDoJkwyodg+kIT20dQG5Uh9oIXRFfayQM2lMCTdgQdznxJy89DMDf97Mm0FQRBrFMG21KN9uDvkBj0FHRJHWpIc8V3Dt5CJuLkV3Jtydk9rWM0QfbnpZRiCHeUClRUDtKR/LFzA/ofkzwrBIZbufOGDvopi6xnU1zTMMIji4tNQZ+0g5V0KbqW3E07vAjKztgz3vrg1hSO1cSw6OUOmlP22wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
+ dkim=pass header.d=diasemi.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=dialogsemiconductor.onmicrosoft.com;
+ s=selector1-dialogsemiconductor-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D6ZPlJnBVUr52W7u8lMLRnA2U+OHQI4CzUtH0qMVSbQ=;
+ b=w0rnlMZr8aUlhdfTsmKb0mOyXkGKlJAZ0d0UHpVTBsF7wxhGkpkAuoFHAylLTLO8yBHWAcvVKqtkODw7VXK/CB9y5CDXCmVUkaqLqiuETh2e5S1exts/vfVzAEA1TqYt586RwKiA33OPvTZWcxXw+2WRKFZWg5CzenXGTTZpT2Q=
+Received: from DB9PR10MB4652.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:255::23)
+ by DB9PR10MB4683.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:250::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.15; Thu, 16 Dec
+ 2021 15:15:23 +0000
+Received: from DB9PR10MB4652.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::e09a:7d6:49da:fa64]) by DB9PR10MB4652.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::e09a:7d6:49da:fa64%5]) with mapi id 15.20.4801.014; Thu, 16 Dec 2021
+ 15:15:23 +0000
+From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v3 1/1] pinctrl: Propagate firmware node from a parent
+ device
+Thread-Topic: [PATCH v3 1/1] pinctrl: Propagate firmware node from a parent
+ device
+Thread-Index: AQHX8o9gQYaYMAJCiUesJydxXJ2SOqw1OguQ
+Date: Thu, 16 Dec 2021 15:15:23 +0000
+Message-ID: <DB9PR10MB465262B9D0D856CDE85454CC80779@DB9PR10MB4652.EURPRD10.PROD.OUTLOOK.COM>
+References: <20211216151227.58687-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20211216151227.58687-1-andriy.shevchenko@linux.intel.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: broonie@kernel.org, tiwai@suse.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=diasemi.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f698d8fb-a521-476c-9919-08d9c0a6e1ae
+x-ms-traffictypediagnostic: DB9PR10MB4683:
+x-ms-exchange-sharedmailbox-routingagent-processed: True
+x-microsoft-antispam-prvs: <DB9PR10MB468354654996D8102577FDC6A7779@DB9PR10MB4683.EURPRD10.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: v+0HdmVgsBxg5GHPFxIRXutAU3J65+8s5DZq+P6/R3W9beqHdL91XNjXHFV0bn3QH2N9DvqUb0B1Igih656Za4BW6mOnsMTAIrAG7ic408l5lN8hYS1/2FoQvunmMRIuAq52QydVN9HJudgO6oDhIt3oGZbALw2tR5g7iJ8JTRFOUE+aj38dJzoUC2SXwA/lcT5wksU9y/kQ6rWdI0LM5/qUD/pAwwj+px4PD+6d3G44a+jC59FcQUPk39P/LuOOp3npPOTqUPVTMnOT85mGS8GZ8rfO0Zy03FXoeOirFHAZsi48Ol7zQIB+4tjzRhUog4AYzBNkkgnPAKpxmRnLgt9izBSQViadxb8N5QqhiRazW1KwcrMvG6kt1l//+Q+KvWQDqfNtWz67nBX4QK1v6iBZ2w8YgswghiIxsB4cxhdom4x87TWJBLJcW5fxP59ul1U9akdl+ZwGa6d2Pg+mDVVhhIm3FfIL6KTv12b6N84QQzjbm7ALIXTMv7KWQYOWZ0okEMFBCnX6hnU+4cWc+HmbtRFipFmtntQQyGetNpJk28aCqyXJ6R82t6hT0z9IrGTjxzFL6RAqO8jaCwMcjAkHR0F3DxZhhMasTtK9xzA+DiyyzhyHvtFMJIOtDbcfkw2bopglqvEtaJzLyzq1zo0BhU21RBlhzMHFg+k63ylpRI7+Rb9+YiyOm5gbdXM+UCfk+ejC8QkdtsEPhnbSaQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB9PR10MB4652.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(54906003)(4744005)(55016003)(33656002)(38070700005)(53546011)(66446008)(66476007)(55236004)(316002)(2906002)(76116006)(83380400001)(71200400001)(4326008)(52536014)(9686003)(66946007)(64756008)(122000001)(5660300002)(8936002)(107886003)(110136005)(86362001)(186003)(508600001)(38100700002)(26005)(66556008)(7696005)(8676002)(6506007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UwvG5Y+9rgFl7kkkaKvgu8eH+fKbS5ape+co2DgZSFmHAecfGcE++LV3/hvK?=
+ =?us-ascii?Q?86GNiGF4ai01PVTQVt6bQR4ewj5ZLQ5mf7wVmnyuRWCgDmYKfi1plePszTXU?=
+ =?us-ascii?Q?GB8jMV4+mG0F3gLZQncwVaZElXl8nJxGYDXwcVE4/MspGBHRqc/sSgAR0rpQ?=
+ =?us-ascii?Q?jn+nnSGeb8LbNit5ZBkWswSkKTtuHIN2v7ac0jkRIe3SjVXa3ClsPDibc6GC?=
+ =?us-ascii?Q?L7eUw20Hms+ck7miC+CYTGNwKD1H6i9AG//tq5k26sYBJa6r1U8OhQSUkpyp?=
+ =?us-ascii?Q?Dyg3FHCnAhCKCnz9fxOcEU2jLafxTGTsxOcsUicxLkn+j0v+iajodWYaT62+?=
+ =?us-ascii?Q?5NLLeLU+Th0unseoozuyDKe1RW29QoaL9okdkUPZ9qL2IGBpnf3mh6H7oBdI?=
+ =?us-ascii?Q?skqg3WiNlUUl8GXv9gjOAru8iym6Hit5EjoQdn/3fONXIzmpYVxAL84fPFGa?=
+ =?us-ascii?Q?hhqE6ChMTd2WUjDMZtgEcMHahLKKD7z0wmlcdQ/1ryU/KPBktFvsiWOQLC2F?=
+ =?us-ascii?Q?v2WFm0u6/Vib288HYF4WSmcyaIt4x9C/hVyEd8NI+gC3yQweWqZWrvSBBsxz?=
+ =?us-ascii?Q?OIXSFx55L4637eAV0egLKCTzKbuJ+H6KZUo6Vp7LKO9EoHIR872ABP3EF7C/?=
+ =?us-ascii?Q?Szaca96Ow886mDcjNtfjnvryp7cRR13zM0TS/MXgw9XB7uPsczmuSZ2utVA3?=
+ =?us-ascii?Q?EEzBN+gyzTCAKiM7y4oKDEe4HOFiu4clhCySZjakOn/VPIRTtz13VxhaZ7yF?=
+ =?us-ascii?Q?cyjvMoqwuj62BpYzfIsIbSsquntfIMqDfj7SaSLdyw+CGxMvCMjhiOvARjaK?=
+ =?us-ascii?Q?7bp1ZCT4OA43zoeyrRmzaVuCkp5RrrB40cyb7QM4cF84hcyU8hJSpeYB1X68?=
+ =?us-ascii?Q?4VjeOuA6dbm3NqkzQI6rcG4y0Uc9KEvYCLmHgrrEIS5BEa9R/AY7zNT05hFJ?=
+ =?us-ascii?Q?cZ4OIWJGTTZMtZ0PZgGbOk0HVpukS7SebkdPhv6O+Hf3Uyjmm8fipZk8/KiA?=
+ =?us-ascii?Q?9pCGhGnZbLXM6u4IzL1unJ2hv8zvkShonrqAbHUZttlKhs1VGpvy88hTlG+F?=
+ =?us-ascii?Q?VQBhjZqg1+LzL0BOFfWbSO853zrZB2fHtn6G4ou/YZZS95DXxVlUbS3uYVyw?=
+ =?us-ascii?Q?m/0Bc3oX0V9vvvMOshljWHs2/EO80+JOqmvVFMaPVu72TjU+3ybeoVMa7PuR?=
+ =?us-ascii?Q?dVpOrOGydo5CiwebuyRo0VrvFwD91z8v9ktXoUi9rGnggoRlUCRB6Utd6X3o?=
+ =?us-ascii?Q?qfch38bpGoRbihW+ErGwNRT4G6iGZR6a+JI7Zj7iJ9UkWK1pONyjhZNtgLAQ?=
+ =?us-ascii?Q?TfClyiwrOg2uW7LzgL0wxYBGQ2I9gx2gT0h/Dd2MQBUbktMfGEljDeVb5cxt?=
+ =?us-ascii?Q?eTvFH+nw9yXqzuKvFbc85vV0SF/9plq6+45nvcg9jpJX+UTlhDwdB1MFZYpB?=
+ =?us-ascii?Q?jKtmNn7x24+EgEH0klfXNHxj9mYT/AQ+lY8Ko+Rgf2QTkulVhDMsXTq0JPtm?=
+ =?us-ascii?Q?BdVHqgXSPYNL9AdDpLCNOnifnxqoYx3JKrpmENd4DQXE5qiuDSrLG2uesR6g?=
+ =?us-ascii?Q?EuI9Q9tcx2w5qL5NFr1Gpxau4dtovevj5s2CxbjFbMz0qH2lROAwAJ4lzTj1?=
+ =?us-ascii?Q?7lSi0L8jk//d7kRrnyO/8xHDhbSUNsEMlR7FwI/616kPTDclYEro90UEweUx?=
+ =?us-ascii?Q?TbFFqA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: diasemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR10MB4652.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: f698d8fb-a521-476c-9919-08d9c0a6e1ae
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2021 15:15:23.1806 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Ja84yN/rZteJG2ToEpqXuIfHdtPfi4FQ5d0cQBt66FS5Cm7kDVQo08uZjkJr1RF8Yh/hZN8h30y0iFpLnLsUhQ+K6zvBNmZ3Crx0Tpo3bKQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR10MB4683
+Cc: Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Support Opensource <Support.Opensource@diasemi.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,42 +163,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 16 December 2021 15:12, Andy Shevchenko wrote:
 
+> When creating MFD platform devices the firmware node is left unset.
+> This, in particular, prevents GPIO library to use it for different
+> purposes. Propagate firmware node from the parent device and let
+> GPIO library do the right thing.
+>=20
+> While at it, slightly modify the headers to reflect the usage of APIs.
+>=20
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-On 12/16/21 8:37 AM, Cezary Rojewski wrote:
-> On 2021-12-16 3:11 PM, Pierre-Louis Bossart wrote:
->> The intent of soc-acpi files is to establish a match between ACPI _HID
->> and machine driver, this is now duplicated, and it makes limited sense
->> to add machine driver dependencies in a platform driver.
->>
->> Nothing was broken with the existing code.
-> 
-> Hello,
-> 
-> Yes, nothing is broken in the existing code. The intention is different
-> - be cohesive about what is actually used by the driver.
-> 
-> PCI-ids table is duplicated already for the Intel audio drivers. And
-> it's OK to do so - one knows which ids are covered by given driver and
-> how. Here, it's clear that haswell_machines are only used by
-> catpt-driver and so are some fields for broadwell_machines. In time I
-> believe that we will be able to reduce the number of fields for struct
-> snd_soc_acpi_mach i.e. have a single fw_filename and single
-> tplg_filename field without some driver-specific duplicates.
-I don't really see the point about the number of fields, this is a
-generic descriptor used for I2S/SoundWire devices so mechanically there
-are things are are not used in all platforms.
+For DA9062 updates:
 
-Another example is the quirks field, it's only meant to be used when
-there's actually a quirk.
-
-Note that I am planning to remove the sof_fw_filename field since it's
-redundant with what is part of the PCI descriptor, but the topology will
-remain there: it has to match with the machine driver.
-
-> About the last, there could be a case where no topology file is
-> available for certain configuration and given entry should not be taken
-> into account. While catpt-driver does not make use of soc-topology
-> feature, that isn't true for other drivers.
-
-Again if a feature is not needed/not supported, the field can remain empty.
+Reviewed-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>

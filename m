@@ -2,90 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB73D477597
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 16:17:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B0E047759F
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Dec 2021 16:17:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A5F82056;
-	Thu, 16 Dec 2021 16:16:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A5F82056
+	by alsa0.perex.cz (Postfix) with ESMTPS id E04F52078;
+	Thu, 16 Dec 2021 16:16:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E04F52078
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639667837;
-	bh=7Czf00YTtYaiAdQR9r6e/NgMtQEV4sdUKGt6kBwHHZw=;
+	s=default; t=1639667869;
+	bh=y5DGc89gb7N3+SiD0yFVM9Gd8Bm77MOSx0k8IRjcMvo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fwwta9A4HkoV9Ecb6mlzWow4V5hkU6MXYpMfMQHfj3hU/bBhRugKgClpDdlbvnevV
-	 3IHAc65qjWs4/ozTdB3XnwgMp8KZoNCsPu7YRXhwWyZ0TxWSyI+ql606GF11mUqCWa
-	 SJdLQyF+c+rZmPlaNOSVi51FfBdSWifR3bFMbvPo=
+	b=DDFQPhUPmNCeGmRpPtezwSDvUdH0d1BypW/CNe/Dt2H7ESYCvRerl9ckMnyJiB0FC
+	 Ky3Bpb6FWfeFglITbnH0A1y71k5NCHgvV2HQ9+JeGsYlKlzaXEzKgI9JuA5pFIWNXB
+	 c7exljGafFYFXQesrc+ZPoi1BAXknB7VEeIdoyoc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F298F8027C;
-	Thu, 16 Dec 2021 16:15:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC30EF800DE;
+	Thu, 16 Dec 2021 16:16:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20D3BF8025D; Thu, 16 Dec 2021 16:15:50 +0100 (CET)
+ id CB019F8015B; Thu, 16 Dec 2021 16:16:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D0B6F800B0
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 16:15:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D0B6F800B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92EA7F800DE
+ for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 16:16:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92EA7F800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="K02jPVe6"
-Received: by mail-wr1-x433.google.com with SMTP id u17so44835649wrt.3
- for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 07:15:42 -0800 (PST)
+ header.b="GZcyGrES"
+Received: by mail-wr1-x430.google.com with SMTP id a9so44799279wrr.8
+ for <alsa-devel@alsa-project.org>; Thu, 16 Dec 2021 07:16:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=7wfg2/f35dLEMNUi0braWFcvM9LG6JIBQ4wa0N2N+9Q=;
- b=K02jPVe6FfJPLsLfOx6aLSp6p2GvtVyyz7N6wDtzqIwXsRCI4cTDLOe3AKp/5WWZ9g
- sa+qFEoZ3X2OCvjCH4yFnmUGwx5VQOjbev+QAKRnZUMDQcVfYWE2/yLAzske3Jr4Id5A
- SKidD2w+NPbkRjjo7K2D+Bx8A9tJl/jFxUABwzf/HbgUSInjC40geoKXb4UmyeJrkJMT
- 97XSUhRI2rjVTebRnT6+dh5GvtcMvepH3YeRMrGljKYUG9YXfTRfIX0NHDA6F/4XJvEi
- hblnDIJzfcFP9Gssy37L4EB/WzIcSXrDZWLJ3iTgUAUDsEgCKhJfnOh8wHEsuIn3WDkX
- /kHA==
+ bh=YY9FZgJmPcsrvv1dDjxqyVtz1nIgdkKk67xLM0ZtgAc=;
+ b=GZcyGrESDUijhcGlmAgDyEACRWE72v4x7GWiBc6yS2aH74dRCA1Y3+gZd+icRAsgk/
+ jbEcpMe5d5KSkMbBICkq/rqdm7In9kQza4dIWoDlt2lPrFbK3yY4LA8oGN5UKwJqj1Dt
+ YaxYzweyskLjTCLMPGTDmov4lCKWtXsCmBnQys9ei1xj2X9jFCDK3SYckJ5caCREGz2L
+ z7W9HEj7osEIDxJl8Qr9dzT/KRzzkF56K6qj+GTSCbZsWklb/NK/uE5WFRQj5QHUK0CB
+ hrYBrYek82ZOp7Zf8HpnFsJWo3rPyNWJDYBbyQ0wWfUJnyWKH5PEwcujoLmeJqg5pNPt
+ P1Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=7wfg2/f35dLEMNUi0braWFcvM9LG6JIBQ4wa0N2N+9Q=;
- b=XXarHSYdYFa7IEdzv1xZSiglHbkgKZb62lf9yXO+h6KqnZ47soiCL8E7X1nEHP0n03
- kiuqGyE2DSKuXVEHtoZo7wvbo4+PBaJixjlyNAVD8MW2156FzUIHen8r/Ms2srNczD4C
- ytqZ2/ZUK/j3CWDApKSTH5bMzl9X+9j0m3FC5DEnSQia9elm5NMFuo5IEhAHfnCkWP6x
- LEHgO5C+hPwMU4VvNQthvKAc8TowoSE+Pj1nuXBgQ4QMSo4woYJK8WLpQVWhKnyvHw16
- GtwlfaWqyou1LyYfKfpYQVwZlCn+qqUZ4H12HjAbG/cNcnqSQPujRw3OcAN8g6h6MifV
- bIsw==
-X-Gm-Message-State: AOAM531GM1Pko/0tHhp2vdDQA0ZJeTa4PoS8VtaUlG8WzLZqzGuLX7Q2
- U3dYEkO7sKN6llvutEqRn5c=
-X-Google-Smtp-Source: ABdhPJxIjZcHYAgIzHJzFSWBtF2xpwNn98/7KzUbICH6lYJeYtkqC0HoC7Z9nFPbaR5XJD+omsmD6Q==
-X-Received: by 2002:a05:6000:18a8:: with SMTP id
- b8mr9330098wri.166.1639667736757; 
- Thu, 16 Dec 2021 07:15:36 -0800 (PST)
+ bh=YY9FZgJmPcsrvv1dDjxqyVtz1nIgdkKk67xLM0ZtgAc=;
+ b=aYMd8iB8Scm8zvLDAfjks1aggKyLxksfF05qfaXucaNsN9E1awlHbOKaBw9K8vzeCs
+ PdKM+rvGR4mbtBELO5kDo37DJlV6R2Ut2nqwq74mhzmsrASVy69XghxjPRnUD2W6QW82
+ iUQ/os5Ydz7p8JemlHZM4eJZ/aOBwPnfXM2EZkAyiQUh7ikfzucADsbbZPEqlnvYGhGi
+ ooSRj31wVpua1cWh9qpZrgfkYgSFNwej+J24/sAubokMyPdpTmjViqadAZzmc9nhmQrj
+ lKN7jpci54TL8NC2yx6Ru3SNJZmENmaUw/gpL6X9m/iCs2g6KQnCw+XmDYv7i0SLuCaW
+ KKtg==
+X-Gm-Message-State: AOAM532yvUgE+my6R3Z3tWOi81aofxH+c4XWh6htB8MdnH/cdaYtXDHu
+ ot2Rj8oU27tNIss4TUXvm0A=
+X-Google-Smtp-Source: ABdhPJxBH32FXzbEF9kfDCQM7O3XzmCGCPyYvwo7dy80ekk+7njHTBz0zzBJAx5/tRWBcopUFGXr/g==
+X-Received: by 2002:adf:f189:: with SMTP id h9mr9495198wro.463.1639667802831; 
+ Thu, 16 Dec 2021 07:16:42 -0800 (PST)
 Received: from orome ([193.209.96.43])
- by smtp.gmail.com with ESMTPSA id n8sm3760461wri.47.2021.12.16.07.15.32
+ by smtp.gmail.com with ESMTPSA id b132sm4989939wmd.38.2021.12.16.07.16.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Dec 2021 07:15:34 -0800 (PST)
-Date: Thu, 16 Dec 2021 16:15:30 +0100
+ Thu, 16 Dec 2021 07:16:41 -0800 (PST)
+Date: Thu, 16 Dec 2021 16:16:38 +0100
 From: Thierry Reding <thierry.reding@gmail.com>
 To: Dmitry Osipenko <digetx@gmail.com>
-Subject: Re: [PATCH v4 05/22] ASoC: tegra20: spdif: Set FIFO trigger level
-Message-ID: <YbtYEml9OwaiO5IC@orome>
+Subject: Re: [PATCH v4 06/22] ASoC: tegra20-spdif: stop setting slave_id
+Message-ID: <YbtYVss3y8lgK1Z3@orome>
 References: <20211204143725.31646-1-digetx@gmail.com>
- <20211204143725.31646-6-digetx@gmail.com>
+ <20211204143725.31646-7-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="2AOAozvC3BJfdqc4"
+ protocol="application/pgp-signature"; boundary="f5K+xSKWjsvh7cW7"
 Content-Disposition: inline
-In-Reply-To: <20211204143725.31646-6-digetx@gmail.com>
+In-Reply-To: <20211204143725.31646-7-digetx@gmail.com>
 User-Agent: Mutt/2.1.3 (987dde4c) (2021-09-10)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
@@ -109,49 +108,54 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---2AOAozvC3BJfdqc4
+--f5K+xSKWjsvh7cW7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Dec 04, 2021 at 05:37:08PM +0300, Dmitry Osipenko wrote:
-> FIFO trigger level must be not less than the size of DMA burst, otherwise
-
-"must be bigger than or equal to"?
-
-> audio will be played x4 faster that it should be because part of the DMA
-
-"faster than"
-
-> data will be dropped on FIFO input buffer overflow.
+On Sat, Dec 04, 2021 at 05:37:09PM +0300, Dmitry Osipenko wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 >=20
-> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> The DMA resource is never set up anywhere, and passing this as slave_id
+> has not been the proper procedure in a long time.
+>=20
+> As a preparation for removing all slave_id references from the ALSA code,
+> remove this one.
+>=20
+> According to Dmitry Osipenko, this driver has never been used and
+> the mechanism for configuring DMA would not work as it is implemented,
+> so this part will get rewritten when the driver gets put into use
+> again in the future.
+>=20
+> Reviewed-by: Dmitry Osipenko <digetx@gmail.com>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 > ---
->  sound/soc/tegra/tegra20_spdif.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  sound/soc/tegra/tegra20_spdif.c | 1 -
+>  1 file changed, 1 deletion(-)
 
-Makes sense:
+In case you want to pick this up into the ASoC tree and Vinod removes it
+=66rom the DMA tree:
 
 Acked-by: Thierry Reding <treding@nvidia.com>
 
---2AOAozvC3BJfdqc4
+--f5K+xSKWjsvh7cW7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmG7WBAACgkQ3SOs138+
-s6ESDA/8DbIeZESt+My1mOIlSYpY4fVQpZkFchjl7VTpEtVebjXYgEHv4vGjmjY/
-OGd6DleF7MQc8GDZXXpTUgHXu6N3wR07FAPLv+2hwOy+ikYbSkvEcPRouU9bqXPP
-q0YaU7Uk4Rap6tXZt5Hftj4s1bCaDY7IpLx+24RMJT2s8OJtgSnlqe1YOAiXyEBk
-UZxAJztbek7OXcellOsfMj0ZctB68jS7cOt2/hQ/0W+q6hkwksORs2XbD69wDDsR
-ffq4z7CoZhxtZe9dxxphzXb8UaRr+40QmIRmtGFXS986geXAybN37lh7WZvC+Q4E
-FmQFh1xIdUqbGYdJfOCCsUnxdG1Fcp0+vuiJbRfWWgrKPQYvbSz1pyMyOFTgFxXH
-GcBz20DGnj2X86pvObeTVeLJqz3s9joZwbzhTTgL6osmUp3urxyl7A4jhKVK6vYZ
-lvUTBjpp9N7kKQ4HvKy3lc/mj3dt84Gn+Zxna1nw6MLlvwPp/81aUBq82sqISfiv
-iX87GcjYWzna2P61nKCX0GvLDs3NIbvPPQeBJ+TCYYhnVuNphbgFNa7Br1eJH3PD
-I7xZBuSgcMLy4LPatILEZHWk2fYrrX3Oa6kK4XbBiM+Cuux5orZ4VtDtWUtTxEX/
-dT2QwTi4s7PLXBGNYeA55d1mVvcKhIMicExH/ZQam5cdA+zHQYw=
-=Wn5s
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmG7WFYACgkQ3SOs138+
+s6Hi7A//WvSC6HaD4dz2sE4APvQvLcrg7UUf4Q12zWYMoso91uXcLGSE4K7y12yD
+bkRiCDYCsAmW2VCzapWMjLeTvpoUvVQPVDnZyXT/iY53m8GThFqnhNUZV+SUu4hx
+oYuH2I7i+2frmjS9b7HglTBshVz6ALvn+vCmS7sXzYbGVsv4BYc338j2P5s6R0NT
+AcoYb6/pav05eUTHLq086ipVUz9FxstCDhqq4A0x/7SJcY7TvVTzel9aqD6nfEiF
+LGzc7df6QzFkTkhu91FPKi0RiumCbQw4d4Gdm7c3wk3f6s6dLJoZ90HCCmxT9I+Y
+jUPPIjpmZl70RNDoWByu884ySe3b02sSGY1a5oLcOuBYx/M34rMo0mj71zHEKdQi
+IrD1Ayniv0NRnwNwkR7CwGJtMjB2mO15h8uEL5ujqWFHAqkwd3pNOx8m3DPo8pP0
+hpgHdTy0ogufgEy+Zs/V+w17WQVH/++zlxRJHvjfjWaAmJgBIP5jDJKpOtsZFxjd
+YLY35vN7331mQkzZZPfYyCna7q1qHEOm3UwRNzyVp0fuozZHl0GQBRQDB8q7emQB
+RROAE/QWJd7we/mF85Wfs8nKfYinG/iLM22oMZ6ZHIa81CoIiAXV7Ao89pDxCHcX
+A8b8dTnu42raqD/1R1Pb549QpdaPaIRHl6d43FzCPuETRCMIbpk=
+=o3sP
 -----END PGP SIGNATURE-----
 
---2AOAozvC3BJfdqc4--
+--f5K+xSKWjsvh7cW7--

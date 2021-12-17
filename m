@@ -2,148 +2,185 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63838478883
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 11:13:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06FBE478971
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 12:06:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED11B1AA2;
-	Fri, 17 Dec 2021 11:12:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED11B1AA2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79CA01F1B;
+	Fri, 17 Dec 2021 12:05:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79CA01F1B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639735991;
-	bh=TaOyDXnxYUvCwh8oCtrS+VI2migLo9o0w6Z4tQEOID8=;
-	h=Date:Subject:To:From:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1639739192;
+	bh=G25DkFb4HNWk41Ihod4FGrE9OmwvnIQxqHl69zJHwFc=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XnfbaCqhvlccRd/3t9EvNUMp6+u+QpwcGxihKw19JppzlLrrLnSZ+wl/CiHK6nDap
-	 onBgiP83RjSE+xmhgddduZfLyeVEnK82PKv/MtZkPjkfzZWiaUv4nxE7a9v9bKdLgV
-	 95adwueLEBPgFBc6/m0LLiYj1RShO8gHhx3Y0Xl0=
+	b=Ve/MtkvOhv4ziTqb9dTynZh3Nj/fyJBuiv9kTKEjQH3GuCKNiRQuHfn+OPCdsNnQD
+	 e5bmdF332TF/IhuAPNO8zcQfYjjJ/tF7xeivQ9sRGNd/kvd2L/T4Dowi+viYvGIAKV
+	 xFhns8xOgtHT3ohtlOncFiOeOK620J+Wex/0ZXWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF8F6F800F4;
-	Fri, 17 Dec 2021 11:12:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE0F8F800B0;
+	Fri, 17 Dec 2021 12:05:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53D1AF8014D; Fri, 17 Dec 2021 11:12:01 +0100 (CET)
+ id DA96AF8014D; Fri, 17 Dec 2021 12:05:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3DD9F800F4
- for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 11:11:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3DD9F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8FFEF80143
+ for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 12:05:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8FFEF80143
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="Kyp4FqUL"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20211217101154euoutp02a9837d6015461646d5d588b34c7dcc3c~BgyBLG_cX1473614736euoutp022
- for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 10:11:54 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20211217101154euoutp02a9837d6015461646d5d588b34c7dcc3c~BgyBLG_cX1473614736euoutp022
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1639735914;
- bh=0jlDFTzK4qEWW3cjcWyoPQu+PYJZvi/IhsvkmhwkrHk=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=Kyp4FqULYOBsXvHLsVrbPol8PHHgJlwTh5dKaVJ62QvF5R0uR9kh+6YPEY2nPhy4X
- kH9LCQUf5bGj8VBZtM78Xeq9V57aeElm1Qt5vX9ZB0soYDQAPTP7cqRbVbRKDmQK71
- NlbaEoQz2xoF5T2Kk/dOQ9+OeCfjl6Np6Bmmk/tY=
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20211217101153eucas1p111b0e8a876095754428156f2773dcf6b~BgyAkwRsE1882618826eucas1p1o;
- Fri, 17 Dec 2021 10:11:53 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 22.D0.10260.9626CB16; Fri, 17
- Dec 2021 10:11:53 +0000 (GMT)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20211217101152eucas1p14ea09622edde5118ddd832c3ebaebdde~Bgx-8tDru0173201732eucas1p1-;
- Fri, 17 Dec 2021 10:11:52 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20211217101152eusmtrp23280a2402aa8ecacaba04fe4855782a4~Bgx-7o5763209632096eusmtrp2L;
- Fri, 17 Dec 2021 10:11:52 +0000 (GMT)
-X-AuditID: cbfec7f5-bf3ff70000002814-ba-61bc62698b61
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id FD.FE.09522.8626CB16; Fri, 17
- Dec 2021 10:11:52 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20211217101151eusmtip2d8141d23af9e2a227e415252dc18b6ef~Bgx_60ot81620716207eusmtip2S;
- Fri, 17 Dec 2021 10:11:51 +0000 (GMT)
-Message-ID: <660cd57a-d445-63ba-b0bf-6bf6168ffee0@samsung.com>
-Date: Fri, 17 Dec 2021 11:11:52 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0)
- Gecko/20100101 Thunderbird/91.4.0
-Subject: Re: [PATCH 4/6] ASoC: soc-pcm: serialize BE triggers
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="YOntfWcS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639739117; x=1671275117;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=G25DkFb4HNWk41Ihod4FGrE9OmwvnIQxqHl69zJHwFc=;
+ b=YOntfWcSs53sdd4CwdoHyqUopbcHwapo8yPrCoFItSn0bJFzyB3o9KXR
+ YWAhv6YkOiiHfXL0JBcfSlPXr0R4ayo0bKs97fARFU8hfnyJixinKhVyG
+ CCS/9lvJCced9ARvPnPfHEHdvtzLN+/1BK6it7aKPX3MaUPn+gJFQTC9d
+ ttoPOsB2WYhgmR74PZxxvU0bxPOgPC/HYLuyxVRnlMb5FhjdbtiP5wELB
+ z5mykdiquPUQpbNRX4vMdLDMvBWptbBeqgav8yIaSG832QIOrw+FNAu9M
+ sxSn3QzznbbBE2ZIYCYniPO6NQ7YRA0N3lEU/vIUOnYV85vDQxEd7WxpS Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="226591562"
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="226591562"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2021 03:05:11 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="519704204"
+Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
+ by orsmga008.jf.intel.com with ESMTP; 17 Dec 2021 03:05:11 -0800
+Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
+ ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Fri, 17 Dec 2021 03:05:11 -0800
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Fri, 17 Dec 2021 03:05:10 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20 via Frontend Transport; Fri, 17 Dec 2021 03:05:10 -0800
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.176)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Fri, 17 Dec 2021 03:05:10 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=h96FvLsK5lUQ0Z6V8gJRHE9bWM+WwLkIN2Iys1If2ifqShWxBdElyFMcJLgUbDEt7mfomW5hs0UDnQduN8Bjgr9d0eTYaFoodQegTAe+e7W2X+z4VGTP/ldgxzU7iqCmjdPZsvHvGr6EkE/PKQQ7mbZgnQuhvv9YDQr1KHl63Gdvc3gzntY8iK5Z+UkQZYcIVpmpxnksJ7UYOHxmZDQFq1Eye019FQ/tlXo+UXr1tUSNugR5HQ4rXhOMyTmepzYEf9sIrp8EKO8YHn4HKV9JFNGajegB+DboZZPfYF7/STG2AL8O9YX8oW4I8Y7VEGqgfxi2K4NhCBbkHfSYuLufSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/B21F1AoZ/8US3d6BVNOwyuYb9qizbl07UZKfHdVeCU=;
+ b=TBlXcqSV/I2+bZwEgmi84IhZNhMbrndrPo+0ZNl/xME0+gBHeyeXp2BFJobkknqz1iLTXMLZ2Ak6fyzTBYT/KokG0nv3UVX+L5UyuVfY6NyOgyn1t53moPm0bjKLEkSmHNToHdSWIr3J7h3TfifnVdzkeX24gh7DcDp6lKBvwVa0C4/ML1n6CVLnAT1UCNvXIqBJOH86L1Q+MLWi4dAUpe6mZdfUSRM0zzx2UvZ/n145oAEIFgjr0xPB8rsCeEIC/I7zm98+m6DEpDjnjuzQcJCCCuTW2tetF2FvfY9EyHJZ74dYxELhRQO0skxIxXAWrO/ppkBF8Y59kr3zRj8QcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BN6PR11MB4049.namprd11.prod.outlook.com (2603:10b6:405:7f::12)
+ by BN6PR11MB4052.namprd11.prod.outlook.com (2603:10b6:405:7a::37)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Fri, 17 Dec
+ 2021 11:05:09 +0000
+Received: from BN6PR11MB4049.namprd11.prod.outlook.com
+ ([fe80::cce3:53d5:6124:be26]) by BN6PR11MB4049.namprd11.prod.outlook.com
+ ([fe80::cce3:53d5:6124:be26%4]) with mapi id 15.20.4778.018; Fri, 17 Dec 2021
+ 11:05:09 +0000
+Message-ID: <cfb2d2f7-06fc-5930-4d24-b51e8b69c9bd@intel.com>
+Date: Fri, 17 Dec 2021 12:05:03 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.3.0
+Subject: Re: [PATCH v2] dt-bindings: dsp: mediatek: add mt8195 dsp document
 Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20211207173745.15850-5-pierre-louis.bossart@linux.intel.com>
-Content-Transfer-Encoding: 8bit
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrEKsWRmVeSWpSXmKPExsWy7djP87qZSXsSDfb0iVhcuXiIyWLqwyds
- FvO+pFtcufOW3eL8+Q3sFq8O72K0+Halg8ni8q45bBYzzu9jsujc1c9qceS5ksWv/8+YLO6u
- +8ticfhNO6tFxx01iw3f1zJavNz8hsli550TzBZbftU4CHts+NzE5rFz1l12j02rOtk85p0M
- 9Ohtfsfmse/tMjaPb2cmsnj0bVnF6LF+y1UWj82nqz0+b5IL4I7isklJzcksSy3St0vgypg2
- 1argeGjFhHkXWRoYG9y6GDk4JARMJFpbbbsYuTiEBFYwSvw+3MwK4XxhlNh7qYMdwvnMKPFr
- +hy2LkZOsI4Tp/6zQSSWM0pMO7uUEcL5yCjxZ2kfK0gVr4CdxML/B9hBbBYBVYntvWuZIOKC
- EidnPmEBsUUFkiRaO/6AxYUFbCVmb9kI1sssIC5x68l8sLiIQJzE8i/nwc5gFpjNKjHn2kVG
- kASbgKFE19susJM4BbwkDrfvZ4Nolpdo3jqbGaRBQuAWp8SDu9vYIe52kfjavw3qB2GJV8e3
- QMVlJP7vBNkG0tDMKPHw3Fp2CKeHUeJy0wxGiCpriTvnfrGBwoxZQFNi/S59iLCjxIlJe9gh
- QcknceOtIMQRfBKTtk1nhgjzSnS0CUFUq0nMOr4Obu3BC5eYJzAqzUIKl1lI/p+F5J1ZCHsX
- MLKsYhRPLS3OTU8tNs5LLdcrTswtLs1L10vOz93ECEyWp/8d/7qDccWrj3qHGJk4GA8xSnAw
- K4nwKi7fnSjEm5JYWZValB9fVJqTWnyIUZqDRUmcNzlzQ6KQQHpiSWp2ampBahFMlomDU6qB
- KXvhDY1lqvPEOruzXlu9ZV9+naP2W/s0mVI3Sy6LljL+tK0b53pdFg9+wLxT0U0krOP/FvF5
- vG4br2c/E7gXsMyj8N2yhBZvz4szlretZlAI7L/huXftV90l4VYe/lp+1u9VZ8772Pd7xj8j
- qXsl3/5b5cWuubclRdJl1eL3rqVfbXR9OMUL2A/o5Ud/ubOxxDTp50mr1JsZ/HmVO1q2Coh2
- WdyXW8K0J6BR+43uRYX7CaZNOZvWtCcs+ejxobBfuPvOrOXTTRZrf/J2fMmyseAJu9p2waWf
- j3Pf+/l7+xreMtl0bv4dduVXON9tNflcaux4r73RoXPnVvk9Plwf1rpfqptxcof3HTfuSzP3
- KLEUZyQaajEXFScCAIdJQTAFBAAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmplleLIzCtJLcpLzFFi42I5/e/4Pd2MpD2JBjM/K1pcuXiIyWLqwyds
- FvO+pFtcufOW3eL8+Q3sFq8O72K0+Halg8ni8q45bBYzzu9jsujc1c9qceS5ksWv/8+YLO6u
- +8ticfhNO6tFxx01iw3f1zJavNz8hsli550TzBZbftU4CHts+NzE5rFz1l12j02rOtk85p0M
- 9Ohtfsfmse/tMjaPb2cmsnj0bVnF6LF+y1UWj82nqz0+b5IL4I7SsynKLy1JVcjILy6xVYo2
- tDDSM7S00DMysdQzNDaPtTIyVdK3s0lJzcksSy3St0vQy5g21argeGjFhHkXWRoYG9y6GDk5
- JARMJE6c+s/WxcjFISSwlFFix/pHTBAJGYmT0xpYIWxhiT/XuqCK3jNKzLp/B6yIV8BOYuH/
- A+wgNouAqsT23rVQcUGJkzOfsIDYogJJErvXbWUDsYUFbCVmb9kINpRZQFzi1pP5YPUiAnES
- uxceYgFZwCwwl1Wi7+FtZohtnYwST1cdBatiEzCU6HrbBTaJU8BL4nD7fjaISWYSXVu7GCFs
- eYnmrbOZJzAKzUJyyCwkC2chaZmFpGUBI8sqRpHU0uLc9NxiQ73ixNzi0rx0veT83E2MwPSw
- 7djPzTsY5736qHeIkYmD8RCjBAezkgiv4vLdiUK8KYmVValF+fFFpTmpxYcYTYGhMZFZSjQ5
- H5ig8kriDc0MTA1NzCwNTC3NjJXEeT0LOhKFBNITS1KzU1MLUotg+pg4OKUamBzsF2850nK4
- Uv/GV7c+62e1TXz3u2b+vnXqcKbjS+ngP/Ybv9SUBszjYnuwovi1yNIJN18lqZRu+fTv69V3
- f5/fiKy272KfIsC6P+YiW/6nE6fOFF7dd/SduoBGoXh5rFWrfg3nXk/mGY8/q0ct11RbZvzr
- Qcy5uRO7rqmyMuhmhP2pknh60P/Jvhvrb3B3Hmx6H3SBYfejlCRdYye+F3t2Nc5v6JoiUFly
- 9f/BXW+0CqMbcx4VPZpT/yuhJL6Mh/vi7ysCT/aZvpmvsVe1RFVu+Z4VXhl98QfPvpCSCJgX
- OvFDbPxuic9p7nYnGp8WubxTPhXCUeDj/VN3xsxtdYbbXnOdm85Z3fCroSqYp0KJpTgj0VCL
- uag4EQBEIIIUmAMAAA==
-X-CMS-MailID: 20211217101152eucas1p14ea09622edde5118ddd832c3ebaebdde
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20211217101152eucas1p14ea09622edde5118ddd832c3ebaebdde
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20211217101152eucas1p14ea09622edde5118ddd832c3ebaebdde
-References: <20211207173745.15850-1-pierre-louis.bossart@linux.intel.com>
- <20211207173745.15850-5-pierre-louis.bossart@linux.intel.com>
- <CGME20211217101152eucas1p14ea09622edde5118ddd832c3ebaebdde@eucas1p1.samsung.com>
-Cc: 'Linux Samsung SOC' <linux-samsung-soc@vger.kernel.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, tiwai@suse.de,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Sameer Pujar <spujar@nvidia.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
- broonie@kernel.org, Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: YC Hung <yc.hung@mediatek.com>, <broonie@kernel.org>, <tiwai@suse.com>,
+ <robh+dt@kernel.org>, <matthias.bgg@gmail.com>
+References: <20211217070835.31709-1-yc.hung@mediatek.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20211217070835.31709-1-yc.hung@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO2P265CA0125.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:9f::17) To BN6PR11MB4049.namprd11.prod.outlook.com
+ (2603:10b6:405:7f::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8fab9662-d4d6-41c9-dc50-08d9c14d16db
+X-MS-TrafficTypeDiagnostic: BN6PR11MB4052:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR11MB405255F626354DFE5625CB39E3789@BN6PR11MB4052.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Qdke4xeQH4Tpoc+o1AYo+Rbh3y+titP9iU8EpDY7qfcF2RLyiFQ5/C/yAIaI+7OqArTPyY8ZQOYrDQkowAA6hgUTCXFG+wkpovw2mc20wWfiTX+jLbfrujMqdjHiEB7lANx2GU2+yjVOugC+3F4NbHCucCjFO012y7RWkUS6ZgOXGxTx9rmlF6YA7v8z9Qv+EHv5hPVrsSHHhjn1+iLZaDat8uCo3Ko07SeypcyiGuOQqQD/pIq9wkRFAvccop+dvO/pU+BaFCyHrD4lCFtWCp/4zae9yTzmds3iW7S115vaRrXHqMjPjtsTqKdR/ESiE4l43KxNiyjBAAc/vQXnVy/CVUecjGH585cHPnRY1IKNzapYI9bqSiV1eC7zH3Kdbx5rl1+HT/5N8dZUvVnr7euFqAKw7rgdSP4RAkHVqS2Q2HebG1Sc36K/5PdrJIwbZGPAAlOx7J2ADqDGBF3Uu3FipMJ5pebkUCJAyJ2ITYEiRASvlmvygbl9bWwY7wb9oMRVjRLljpKdFJsAKbV8MQC9Vt9U8HyzSBo1xjeG/Z11TB0/5CR551HCzqP+4AMAMFDuVda3tK5SEi4KvVaE36ZGTmd3fOBAlnxE6c5BNlgdej6ERuzPavGLEZpDqhrRomPq/M6cJdrzp96PeVk7HcNdyRympLgMXSziJF9x7RMjCyLUcao4UTNl3ku1x4JI4s2Yy8tIargLu39fd5aegmDKENuvmzwGCdSypF+IAH3O09NVHjB8BxOf+mnBCPM6
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN6PR11MB4049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(8676002)(6512007)(6506007)(44832011)(36756003)(5660300002)(8936002)(31686004)(31696002)(2616005)(2906002)(83380400001)(82960400001)(53546011)(66476007)(86362001)(4001150100001)(6486002)(4326008)(66946007)(508600001)(186003)(6666004)(38100700002)(66556008)(26005)(4744005)(316002)(7416002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTJMclUyNDRtR0h1Vm0ybGM3VGhXOW9aYWh0REl5NzZ4KzZQNjJycEU0THkv?=
+ =?utf-8?B?NlhkUlhjK0xEYmpVRjV0dDZNUDNSdnl1RXlGZ1RoeUJncDh5ODIxME5RV3ZU?=
+ =?utf-8?B?MkhacFpzL2NDbnhUWlE3bUx5aG5pTzlvcXlWczQ1WVRpOThMT1NlYlQybnpF?=
+ =?utf-8?B?OFpUMUc1bDM5a3lqN001ZlVheVI5dytRNDJLSlZFTUVIQmIwTWxLRE1aU1Nw?=
+ =?utf-8?B?bmwwUHkzTWw2Mk1xazRkR0kxengvRng0UklMTkhzajB6dC8yVHVLZlhwcll6?=
+ =?utf-8?B?KzRwUDFzdjRRMVQ1KzhTd0E3ZEEyelBpd1NUTVZXUVd6R2pndVJLSjlYdkd0?=
+ =?utf-8?B?VE5CT1ZnRXpER1dEdmEvUHR2WlZNeHRrRmJmOUhhalhxV05RWVNPalhBTFVY?=
+ =?utf-8?B?YjZnT2h0eDJ6QmplM2U0bldqTElIbSsxZjZLcEpSRTltR2hTZ0VIUzVDQWp4?=
+ =?utf-8?B?TkpBalpQaDBDTFhLM1RhMFBSanpSWkRKU0IvNzlucjRPVTVKNUtyNkNsdlZC?=
+ =?utf-8?B?T3ZaYllYTnRBOFd4cnB1Rk5OVjFlNFgyUExJZVJWNlRnR2dqeUc1UzVBZ1Iw?=
+ =?utf-8?B?MHY3SExkUkJla01mZDg4UnhIYmtzSDF2YzFmb3hGdSt3U2E3ZStVV1hmTlJM?=
+ =?utf-8?B?TUNUUTNPa0xzUFZENGxXWlFYVDFBL1BvdHZMVkZ2UldEeHhnTUhQTzEyQzN5?=
+ =?utf-8?B?OVlnOHFWRU5xalc1WjVuUkVmU0c1dmxEWDVWQkd2dU1nLzVvWExjczh3YXB0?=
+ =?utf-8?B?ZW81dkp0bTU0TlFSVU4rRjBIam0ra1F4SDJzdFZIRGFYWXlXc3hwckpjazFz?=
+ =?utf-8?B?RWxDUFBtQnVNcVhobFFpVUJhWnpXdjBqN1ZscHBMa3c2bVhmK0V3QzBRdFFB?=
+ =?utf-8?B?K0d6aEFMS2xoNnVRcmRoS1JQN2Y0bWwwSDJ1WmhVMkhxM2ZsVFZHS1U0eWZD?=
+ =?utf-8?B?amgrb0YyT21GRkNxc0tEZjlPWWZHTjdSVnQ5bzJ4L25VakVHbk5uK3NQRC9a?=
+ =?utf-8?B?NStNVjREenkvcUY3MEJKalBudjFQTlBneWd0dm9CTkcwZHZPdGJVTTFWRVZS?=
+ =?utf-8?B?NHpyV2g3N0owK016NmhIRFFOcGFUeXphWWVaZUc3TkpXSGdiOHZHWlFBRlBN?=
+ =?utf-8?B?RUJTOWxBNE9MTWkzYks4NmFreTRwN1RPcUZBTzVmdmg2NzlUaFFNck5RalhS?=
+ =?utf-8?B?aGxGRlcxdEdtNGtoeEo2aUcxN29oNVk5ZC9PdS9PNWhkZ2x2RU16MTUvc0kw?=
+ =?utf-8?B?TytCbmRYbDlyWWNNUUtROGNEYU1BT1MwNW45QU5pU2tpK1NBUWh4TnhpUUJY?=
+ =?utf-8?B?bmM3anJubEhGRGdtaHJQSjZyOVMrZC9tNGV5aDVQMFAvNUhCcmY5RUsrSmIz?=
+ =?utf-8?B?c2FwUStMQUl2U2kwdURsaVFIWFl2WkZyWEN0TzNMOFhJMFRUV0wwVUtGMExU?=
+ =?utf-8?B?SFZOYjZJaEpqMFk2bHQ0NTczbGl6Q0hvdTFOZW1oQVEvZVc5alBjWWdpbDI2?=
+ =?utf-8?B?OEFHNWJMbGlkZTZnOVF6b0tTU2VnT3NZS2wxWkYyMmZQbXlmWTIraDg2YVBW?=
+ =?utf-8?B?Y2hDbC9Kdm03QVRmTVFHWFIvOWM4aC9mQ011bnNUR3M5SEo1N3FGOHZpN2hI?=
+ =?utf-8?B?b0lsblFUUzZVOFI4emNEY2VuS1Q3Q3pjS25sZS81bkdUVzBBYWFQa1RmejZl?=
+ =?utf-8?B?OHVVZ2IwT0svM0U4SDYrYWJidXNCWWdxWGlySVhZVGlZQkxEb0xpSnZNTDNP?=
+ =?utf-8?B?U1pHK3B0RDRKOHBxSXE0R1RMdnBXN3Yzb0Y2Y0NGUnM1MzUrVmh4UkRTK2Q2?=
+ =?utf-8?B?Z2FsckFPZks0SjhtM2lGL3R0a1grV3NkSGZMM3lQZG01OEpJZkJJVGphd3Nx?=
+ =?utf-8?B?cGZ4OHZhNjV0WXAxbEhjTGEwK3BwUDJqdUZpOWJYbjQxZEtnQXJidWxJZ0NJ?=
+ =?utf-8?B?ajhaWFRhVDBEWStRL2NEa3JXa2dsMy81TmhCSHJGVE5FTVQ3WVlyWkF2Rjcw?=
+ =?utf-8?B?bkFtaU1FMnloRWZ0a3NCZStBRTZBMGR6MkM0b1BNcDRzMGhIMjQ1VXJqc2hi?=
+ =?utf-8?B?Szg5OVdoUkVCZjNCN2FOOWZRR0JlWS9tZEtSbkpjbEQwak5uOU9HTExYZ1J5?=
+ =?utf-8?B?UWY0QmJGcnZ2Z3JVOWFuSUZoMkpxQ0RiWWR2NmRseldITXVKamdORk1iTloz?=
+ =?utf-8?B?RXljVHdTaTUwWlhHVlNYVHNEQkc3aFNoMGFoMlRucmswQ0h5L2t6K1lMamEr?=
+ =?utf-8?Q?KQGbeFWuvt5NlvfP0m4jK7KFS3V8SEs1b0TigdtvjM=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fab9662-d4d6-41c9-dc50-08d9c14d16db
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB4049.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 11:05:09.1834 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v88vHqgILvcliPAhbD+6csfLRh3gk3jyYMZjpiTtMyPqo7pOvtNTp1dK2maqnHZHRrYCV9msbKduF2dDfoSSnSQzThOkka9Py6sGPYvgCr0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB4052
+X-OriginatorOrg: intel.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ allen-kh.cheng@mediatek.com, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ daniel.baluta@nxp.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -159,304 +196,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dear All,
+On 2021-12-17 8:08 AM, YC Hung wrote:
+> From: "yc.hung" <yc.hung@mediatek.com>
+> 
+> This patch adds mt8195 dsp document.
 
-On 07.12.2021 18:37, Pierre-Louis Bossart wrote:
-> From: Takashi Iwai <tiwai@suse.de>
->
-> When more than one FE is connected to a BE, e.g. in a mixing use case,
-> the BE can be triggered multiple times when the FE are opened/started
-> concurrently. This race condition is problematic in the case of
-> SoundWire BE dailinks, and this is not desirable in a general
-> case.
->
-> This patch relies on the existing BE PCM lock, which takes atomicity into
-> account. The locking model assumes that all interactions start with
-> the FE, so that there is no deadlock between FE and BE locks.
->
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> [test, checkpatch fix and clarification of commit message by plbossart]
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Hello,
 
-This patch recently landed in linux-next (next-20211215) as commit 
-b2ae80663008 ("ASoC: soc-pcm: serialize BE triggers"). I found that it 
-triggers a warning on my test boards. This is the one from 
-Exynos4412-based Odroid U3 board:
+While above statement is correct, the commit message would probably 
+benefit if expanded a bit. Don't get me wrong, I also find describing 
+rather obvious changes problematic.
 
-# speaker-test -l1
+Here, stating what 'mt8195 dsp' is and what's use, even in a single 
+sentence, would probably do the job.
 
-speaker-test 1.1.8
 
-Playback device is default
-Stream parameters are 48000Hz, S16_LE, 1 channels
-Using 16 octaves of pink noise
-Rate set to 48000Hz (requested 48000Hz)
-Buffer size range from 128 to 131072
-Period size range from 64 to 65536
-Using max buffer size 131072
-Periods = 4
-was set period_size = 32768
-was set buffer_size = 131072
-  0 - Front Left
+Regards,
+Czarek
 
-============================================
-WARNING: possible recursive locking detected
-5.16.0-rc1-00270-gb2ae80663008 #11109 Not tainted
---------------------------------------------
-speaker-test/1312 is trying to acquire lock:
-c1d78ca4 (&group->lock){....}-{2:2}, at: dpcm_be_dai_trigger+0x80/0x300
-
-but task is already holding lock:
-c1d788a4 (&group->lock){....}-{2:2}, at: snd_pcm_action_lock_irq+0x68/0x7c
-
-other info that might help us debug this:
-  Possible unsafe locking scenario:
-
-        CPU0
-        ----
-   lock(&group->lock);
-   lock(&group->lock);
-
-  *** DEADLOCK ***
-
-  May be due to missing lock nesting notation
-
-1 lock held by speaker-test/1312:
-  #0: c1d788a4 (&group->lock){....}-{2:2}, at: 
-snd_pcm_action_lock_irq+0x68/0x7c
-
-stack backtrace:
-CPU: 0 PID: 1312 Comm: speaker-test Not tainted 
-5.16.0-rc1-00270-gb2ae80663008 #11109
-Hardware name: Samsung Exynos (Flattened Device Tree)
-[<c0110b30>] (unwind_backtrace) from [<c010c618>] (show_stack+0x10/0x14)
-[<c010c618>] (show_stack) from [<c0b65d24>] (dump_stack_lvl+0x58/0x70)
-[<c0b65d24>] (dump_stack_lvl) from [<c0193740>] 
-(__lock_acquire+0x15ac/0x319c)
-[<c0193740>] (__lock_acquire) from [<c0195dd8>] (lock_acquire+0x14c/0x424)
-[<c0195dd8>] (lock_acquire) from [<c0b745b8>] 
-(_raw_spin_lock_irqsave+0x44/0x60)
-[<c0b745b8>] (_raw_spin_lock_irqsave) from [<c0926b6c>] 
-(dpcm_be_dai_trigger+0x80/0x300)
-[<c0926b6c>] (dpcm_be_dai_trigger) from [<c0927004>] 
-(dpcm_fe_dai_do_trigger+0x124/0x1e4)
-[<c0927004>] (dpcm_fe_dai_do_trigger) from [<c090728c>] 
-(snd_pcm_action+0x74/0xb0)
-[<c090728c>] (snd_pcm_action) from [<c0907eac>] 
-(snd_pcm_action_lock_irq+0x3c/0x7c)
-[<c0907eac>] (snd_pcm_action_lock_irq) from [<c02f13a0>] 
-(sys_ioctl+0x568/0xd44)
-[<c02f13a0>] (sys_ioctl) from [<c0100060>] (ret_fast_syscall+0x0/0x1c)
-Exception stack(0xc4777fa8 to 0xc4777ff0)
-7fa0:                   004f5210 b6e27394 00000004 00004142 004f5398 
-004f5398
-7fc0: 004f5210 b6e27394 00020000 00000036 00000000 00000000 bee588e8 
-00008000
-7fe0: b6e277c4 bee58874 b6d8e888 b6c751dc
-Time per period = 0.253397
-max98090 1-0010: PLL unlocked
-BUG: sleeping function called from invalid context at 
-kernel/locking/rwsem.c:1526
-in_atomic(): 1, irqs_disabled(): 128, non_block: 0, pid: 1312, name: 
-speaker-test
-preempt_count: 1, expected: 0
-RCU nest depth: 0, expected: 0
-INFO: lockdep is turned off.
-irq event stamp: 8158
-hardirqs last  enabled at (8157): [<c0b747d0>] 
-_raw_spin_unlock_irqrestore+0x5c/0x60
-hardirqs last disabled at (8158): [<c0b74570>] _raw_spin_lock_irq+0x58/0x5c
-softirqs last  enabled at (7854): [<c0101578>] __do_softirq+0x348/0x610
-softirqs last disabled at (7849): [<c012e7a4>] __irq_exit_rcu+0x144/0x1ec
-Preemption disabled at:
-[<00000000>] 0x0
-CPU: 0 PID: 1312 Comm: speaker-test Not tainted 
-5.16.0-rc1-00270-gb2ae80663008 #11109
-Hardware name: Samsung Exynos (Flattened Device Tree)
-[<c0110b30>] (unwind_backtrace) from [<c010c618>] (show_stack+0x10/0x14)
-[<c010c618>] (show_stack) from [<c0b65d24>] (dump_stack_lvl+0x58/0x70)
-[<c0b65d24>] (dump_stack_lvl) from [<c0158b04>] 
-(__might_resched+0x1c0/0x288)
-[<c0158b04>] (__might_resched) from [<c0b71898>] (down_write+0x24/0x8c)
-[<c0b71898>] (down_write) from [<c030ed64>] 
-(simple_recursive_removal+0x6c/0x370)
-[<c030ed64>] (simple_recursive_removal) from [<c04d07a4>] 
-(debugfs_remove+0x38/0x4c)
-[<c04d07a4>] (debugfs_remove) from [<c0928784>] 
-(dpcm_be_disconnect+0x160/0x2c4)
-[<c0928784>] (dpcm_be_disconnect) from [<c092895c>] 
-(dpcm_fe_dai_cleanup+0x74/0xb0)
-[<c092895c>] (dpcm_fe_dai_cleanup) from [<c0928d90>] 
-(dpcm_fe_dai_close+0xe8/0x14c)
-[<c0928d90>] (dpcm_fe_dai_close) from [<c090977c>] 
-(snd_pcm_release_substream.part.0+0x3c/0xcc)
-[<c090977c>] (snd_pcm_release_substream.part.0) from [<c0909878>] 
-(snd_pcm_release+0x54/0xa4)
-[<c0909878>] (snd_pcm_release) from [<c02dc400>] (__fput+0x88/0x258)
-[<c02dc400>] (__fput) from [<c014cd44>] (task_work_run+0x8c/0xc8)
-[<c014cd44>] (task_work_run) from [<c010c08c>] (do_work_pending+0x4a4/0x598)
-[<c010c08c>] (do_work_pending) from [<c0100088>] 
-(slow_work_pending+0xc/0x20)
-Exception stack(0xc4777fb0 to 0xc4777ff8)
-7fa0:                                     00000000 004f5260 004eaa9c 
-00000000
-7fc0: 004f5260 004f536c 004f5210 00000006 004fb700 004e6e8c 004d6120 
-bee58cc4
-7fe0: b6e27e64 bee58928 b6d8eda4 b6d09ac0 60000050 00000004
-
-Let me know how I can help debugging this issue.
-
+> Signed-off-by: yc.hung <yc.hung@mediatek.com>
 > ---
->   sound/soc/soc-pcm.c | 46 ++++++++++++++++++++++++++++-----------------
->   1 file changed, 29 insertions(+), 17 deletions(-)
->
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 2e282c42bac2..7043857e30b1 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -46,12 +46,18 @@ static inline void snd_soc_dpcm_stream_lock_irq(struct snd_soc_pcm_runtime *rtd,
->   	snd_pcm_stream_lock_irq(snd_soc_dpcm_get_substream(rtd, stream));
->   }
->   
-> +#define snd_soc_dpcm_stream_lock_irqsave(rtd, stream, flags) \
-> +	snd_pcm_stream_lock_irqsave(snd_soc_dpcm_get_substream(rtd, stream), flags)
-> +
->   static inline void snd_soc_dpcm_stream_unlock_irq(struct snd_soc_pcm_runtime *rtd,
->   						  int stream)
->   {
->   	snd_pcm_stream_unlock_irq(snd_soc_dpcm_get_substream(rtd, stream));
->   }
->   
-> +#define snd_soc_dpcm_stream_unlock_irqrestore(rtd, stream, flags) \
-> +	snd_pcm_stream_unlock_irqrestore(snd_soc_dpcm_get_substream(rtd, stream), flags)
-> +
->   #define DPCM_MAX_BE_USERS	8
->   
->   static inline const char *soc_cpu_dai_name(struct snd_soc_pcm_runtime *rtd)
-> @@ -2079,6 +2085,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
->   {
->   	struct snd_soc_pcm_runtime *be;
->   	struct snd_soc_dpcm *dpcm;
-> +	unsigned long flags;
->   	int ret = 0;
->   
->   	for_each_dpcm_be(fe, stream, dpcm) {
-> @@ -2087,9 +2094,11 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
->   		be = dpcm->be;
->   		be_substream = snd_soc_dpcm_get_substream(be, stream);
->   
-> +		snd_soc_dpcm_stream_lock_irqsave(be, stream, flags);
-> +
->   		/* is this op for this BE ? */
->   		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
-> -			continue;
-> +			goto next;
->   
->   		dev_dbg(be->dev, "ASoC: trigger BE %s cmd %d\n",
->   			be->dai_link->name, cmd);
-> @@ -2099,77 +2108,80 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
->   			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
->   			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
->   			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
-> -				continue;
-> +				goto next;
->   
->   			ret = soc_pcm_trigger(be_substream, cmd);
->   			if (ret)
-> -				goto end;
-> +				goto next;
->   
->   			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
->   			break;
->   		case SNDRV_PCM_TRIGGER_RESUME:
->   			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND))
-> -				continue;
-> +				goto next;
->   
->   			ret = soc_pcm_trigger(be_substream, cmd);
->   			if (ret)
-> -				goto end;
-> +				goto next;
->   
->   			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
->   			break;
->   		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
->   			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
-> -				continue;
-> +				goto next;
->   
->   			ret = soc_pcm_trigger(be_substream, cmd);
->   			if (ret)
-> -				goto end;
-> +				goto next;
->   
->   			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
->   			break;
->   		case SNDRV_PCM_TRIGGER_STOP:
->   			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
->   			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
-> -				continue;
-> +				goto next;
->   
->   			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
-> -				continue;
-> +				goto next;
->   
->   			ret = soc_pcm_trigger(be_substream, cmd);
->   			if (ret)
-> -				goto end;
-> +				goto next;
->   
->   			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
->   			break;
->   		case SNDRV_PCM_TRIGGER_SUSPEND:
->   			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
-> -				continue;
-> +				goto next;
->   
->   			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
-> -				continue;
-> +				goto next;
->   
->   			ret = soc_pcm_trigger(be_substream, cmd);
->   			if (ret)
-> -				goto end;
-> +				goto next;
->   
->   			be->dpcm[stream].state = SND_SOC_DPCM_STATE_SUSPEND;
->   			break;
->   		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
->   			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
-> -				continue;
-> +				goto next;
->   
->   			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
-> -				continue;
-> +				goto next;
->   
->   			ret = soc_pcm_trigger(be_substream, cmd);
->   			if (ret)
-> -				goto end;
-> +				goto next;
->   
->   			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
->   			break;
->   		}
-> +next:
-> +		snd_soc_dpcm_stream_unlock_irqrestore(be, stream, flags);
-> +		if (ret)
-> +			break;
->   	}
-> -end:
->   	if (ret < 0)
->   		dev_err(fe->dev, "ASoC: %s() failed at %s (%d)\n",
->   			__func__, be->dai_link->name, ret);
-
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+> Changes since v1:
+>    Rename yaml file name as mediatek,mt8195-dsp.yaml
+>    Refine descriptions for mailbox, memory-region and drop unused labels
+>    in examples.

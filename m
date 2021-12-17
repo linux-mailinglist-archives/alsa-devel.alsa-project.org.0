@@ -2,103 +2,185 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE50E478AE3
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 13:08:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 116A7478BEE
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 14:00:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80EBB2883;
-	Fri, 17 Dec 2021 13:07:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80EBB2883
+	by alsa0.perex.cz (Postfix) with ESMTPS id 876E51B47;
+	Fri, 17 Dec 2021 13:59:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 876E51B47
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639742889;
-	bh=hSiIGJ1Iw5sBivkQkIX+THJzTq2/FN1X/pYpWZx2LQo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1639746045;
+	bh=An0140vkL1Rq+NCDTJgNUNHF4hcc0jHHxG762/hXo3A=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=avY++ICFJzfdMX+UfnijNSk3BI2fa25UWaZVX9SSxDMZVeYIteNRBDGFyZP7HxIed
-	 /Ydd2hScj9297GBjEcjf/Qll8GwjA7/mCtLv8UmPPuEAoS+jCCFXuRphMLLKM6MNad
-	 KXgP8dJn2+9CWiAKCA8aGl/axyetuNeTGnSks8tY=
+	b=iXchzIu4e0bG/AFNyEVSDMioHPTG6vZ2++yWu3b+V3NqPGtGDGXbVQwgtBzQvD1Ty
+	 x2c+GUum5ZyKWmB7Y//JByzpX0tsI/82s8ZmMaICbBamDctzlNijaJ3Jvg6VCf12ad
+	 oMuBD03qGrT2dh38De+ZlWv5gdbSL68GzYe1PhU8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 341BFF802A0;
-	Fri, 17 Dec 2021 13:06:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9132F800B0;
+	Fri, 17 Dec 2021 13:59:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9822F80143; Fri, 17 Dec 2021 13:06:43 +0100 (CET)
+ id 69D2EF8014D; Fri, 17 Dec 2021 13:59:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5DF2F80143
- for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 13:06:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5DF2F80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F922F80143
+ for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 13:59:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F922F80143
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="TZoCeDKc"
-Received: by mail-lf1-x12e.google.com with SMTP id bi37so4149738lfb.5
- for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 04:06:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=6M3MbQrHoUjpUccStJD6KzaqR/l6BqhCgeKQWrlruZU=;
- b=TZoCeDKclfMpf9fXGrtQCub/8jPtGVwgTkHKJbppoixs0pKtAcjoKpemgHi/i3x8rS
- draQrX0MrzCl9R7MruTD0r1GYRg2S7vYYc4K3KXhhKiWsyCKGWutKYWR+mCWCNFYGJf/
- KbnH7XQPb/zrqU35iwF7arFogANOLfPAR7baPxccUPXXZbmBZLr0b+fpufMqiSqP+3Ny
- UQI0zFAX4RsY8bnVxq8oAOsUrTQEmhuDG0xpx0dnsJx4jyFBDrJG79i+/v5sPhjEmIu1
- oGEqtvRPrNQF/DN7SOMMxX2aY1ca2dSmacvnRY5ZxNZ6aJW9CwAjWWzQkqmWDGEvjmJh
- b8Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=6M3MbQrHoUjpUccStJD6KzaqR/l6BqhCgeKQWrlruZU=;
- b=tmG/GwxPbdp764Z3hMqP+yphFbHrHb1zOT5qa9E39UP+xTnchrQYTQcwn6Z2xDy6vT
- Vxb6OBCwnAWs4OYdEFhz65chhwIwZ/+R51E0RnKM078+X94IaVewwMeV0hk7qRmUSMMc
- KBOD/ioEuS+YgKo3DO25dXuQC5C2n4cHjwuvPdAg5WpPgMBIpLMOxkXA2uBWkaxrJ9pX
- mQL0tXFvlWmx9LnohFRyjtAiA9awVSzH1aEfnSNy9IKbHKmcGDdH3psdCqOI9zxfLKlp
- QRmym+M56/L0jv9qpRsepf77ffEhwATgy5Hm4y0VTXLE0gWTXQKDM8AjvfBahO3d9VuS
- KeRg==
-X-Gm-Message-State: AOAM530IzKa5zt+jCHUibxNBHkMcO2HzfMC+u4olycwwe3eKJl36InHX
- aKG/x99qb2N3sFiqUggUH/U=
-X-Google-Smtp-Source: ABdhPJzKPM2snRZWBtYCKCXoiHebfGyxJ1l/pZ0YDKpe0OrL1gH62lsc4wfcprtQcDHiIm2pjUUsqg==
-X-Received: by 2002:a05:6512:3053:: with SMTP id
- b19mr2655278lfb.276.1639742793705; 
- Fri, 17 Dec 2021 04:06:33 -0800 (PST)
-Received: from [192.168.2.145] (94-29-63-156.dynamic.spd-mgts.ru.
- [94.29.63.156])
- by smtp.googlemail.com with ESMTPSA id h6sm1688183ljb.130.2021.12.17.04.06.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Dec 2021 04:06:33 -0800 (PST)
-Subject: Re: [PATCH v4 00/22] Support HDMI audio on NVIDIA Tegra20
-To: Vinod Koul <vkoul@kernel.org>
-References: <20211204143725.31646-1-digetx@gmail.com>
- <Ybo6tsnQM6OacoZs@sirena.org.uk>
- <26af30a6-9606-72d0-9258-cf9627ddfe77@gmail.com>
- <7179a409-d838-0e9e-4600-785e69c3e3a6@gmail.com> <YbwoWhg6h8ChE5Xs@matsya>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <4be76f91-17dc-520c-fe3b-bdfc13437da4@gmail.com>
-Date: Fri, 17 Dec 2021 15:06:32 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <YbwoWhg6h8ChE5Xs@matsya>
-Content-Type: text/plain; charset=utf-8
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="CcVaVKsK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639745970; x=1671281970;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=An0140vkL1Rq+NCDTJgNUNHF4hcc0jHHxG762/hXo3A=;
+ b=CcVaVKsKsApZJbVPrOfSL6T+2qtg/OqYSjKR8Re98K/VP2jmmZyTS4Gb
+ XOtN09uracRoN+9iW4aY+rFjqECHnY8fDuEyo6Hy978KyNlJ6wNQtBtMa
+ qFv4jfCoOA9p/abrIiODpjwEoB39JLWOkWGSwPuHmOB0EnoN9Fv41hyii
+ JzW+cjgjYOYDRjcK2lN0BMVe+prJ8TPaRdbpFQuP4Fk0QO66BpZklSQii
+ eTdwjfzGdANo/GOQuuNbKwsJjmvHIS842joa33XAt70ISzzofKp1ga6Qy
+ NGCteFiQvIUFZJLnsjwWiwwMY9eJCZ2iKSkF5Q3l+ZsgAtUnkqnznhs6u g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="237287743"
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="237287743"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2021 04:59:24 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="662838481"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmsmga001.fm.intel.com with ESMTP; 17 Dec 2021 04:59:24 -0800
+Received: from orsmsx605.amr.corp.intel.com (10.22.229.18) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Fri, 17 Dec 2021 04:59:24 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20 via Frontend Transport; Fri, 17 Dec 2021 04:59:24 -0800
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.106)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Fri, 17 Dec 2021 04:59:23 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O7Arm/mrC2bvfTKMdwMohCL5ma3RyyoPxXBWrNinKEqlptnpCC8QLiQnHp50yZxyyslfWUBX9xUwsaFlQ53ms4hRwr8pCPlTgfNMT/Tok1hoJuZCD8Hp88wkbnm60yMMhmT7qJOjNHG0vMoSs42cywGBY71lamkFS+IFqcLk+THhtCXFenz7+CMjY+3DeKZH0i7UwA/yerfdDu82LZPS2EFvlTIx0edmEBtZ7CGDm/oJNYhZJL65bxVzzJEwL2n559PJYhdJ5kA5OSSvIUy5I1cVGBsp3A70XrfJuiIjPgQl7Nk4dDJDnEVHSXjwtp32zriTPHY//zxQDxSr84SC6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wbGrOdhZz/+HMXYVAs7U4MziIM+YXPuKdEKt8Y/MjGY=;
+ b=Ev9MIXxRwmO7PIKVg/3QpodzvFBYN++/vjJvFFRQ8JZSc6RQgh0Fml6ThL+Dh4VJ9hDAn7Qu20xWNP5NsUvhCk6V11nucHIahaaLA+BqgQrKhCtzdKwUun3rDFplBVlj3JEmqHXXVxd+sXbc0skWs1732H5staBBGwKg1Y46WisnzrYwb7/w7D9ehLO7HvT1UNuWpn3VA7mFsEMHCwV4vCQQSHjx/nF2cwrYO7PDLBd+p+o0b3nh85Hc3Kc2p/bDN4iUxt8yQmOhgxzfgPsg8VNv/N+YorQXDY+QPWxDlC6bNDdv1Fj0gUER/7EqFmRqz6f5pCN8eYElYYdb3gqSFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BN6PR11MB4049.namprd11.prod.outlook.com (2603:10b6:405:7f::12)
+ by BN6PR11MB1282.namprd11.prod.outlook.com (2603:10b6:404:4a::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.15; Fri, 17 Dec
+ 2021 12:59:22 +0000
+Received: from BN6PR11MB4049.namprd11.prod.outlook.com
+ ([fe80::cce3:53d5:6124:be26]) by BN6PR11MB4049.namprd11.prod.outlook.com
+ ([fe80::cce3:53d5:6124:be26%4]) with mapi id 15.20.4778.018; Fri, 17 Dec 2021
+ 12:59:22 +0000
+Message-ID: <0e9c5253-3126-ffca-deb9-c7fc37ba769a@intel.com>
+Date: Fri, 17 Dec 2021 13:59:16 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.3.0
+Subject: Re: [PATCH v5 02/10] ASoC: cs35l41: Move cs35l41_otp_unpack to shared
+ code
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, dri-devel@lists.freedesktop.org,
- Agneli <poczt@protonmail.ch>, linux-tegra@vger.kernel.org,
- Jonathan Hunter <jonathanh@nvidia.com>
+To: Lucas Tanure <tanureal@opensource.cirrus.com>, "Rafael J . Wysocki"
+ <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Hans de Goede
+ <hdegoede@redhat.com>, Mark Gross <markgross@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Mark Brown
+ <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+References: <20211216114332.153409-1-tanureal@opensource.cirrus.com>
+ <20211216114332.153409-3-tanureal@opensource.cirrus.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20211216114332.153409-3-tanureal@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FRYP281CA0016.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::26)
+ To BN6PR11MB4049.namprd11.prod.outlook.com
+ (2603:10b6:405:7f::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c15c5288-03d0-4867-cc37-08d9c15d0bab
+X-MS-TrafficTypeDiagnostic: BN6PR11MB1282:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR11MB12827277F213665F7F301DE7E3789@BN6PR11MB1282.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YRrgGtOj9n1GC4mwubOSPyDgk8y1+F8MT1zODod3dT6WQnqjcSJ8mQxbb96JJLElwLxuF+pc/DRkqGE+2nY1CZxNJYmkqB0vuRRn67uWcHRN5K3T+9bsieMZmD0QTuJ0AdKnO3LzH0ZKnzytB35VsRveiIkd6DyJj0IjYAJNgu5wSIm9DawYOzFM1nNBtjgEyspb1FDGmzudSI2Vb+IoSs4bD5XI4JPxGpM4rtTmRMRr5gI1BcPMvrf5rO68IP4hpZQwzyofjx5L04hqV29w3qQpRPy5PFHu1pweiel0x2rtbVvRNqeGX7dYr2Y0/MgI2KITY0IchGiZnPYrXL0K6TJjwPr4BLpuxqKQB4+t6qf2vcjzsOqZQKIjE5OQLAnQTpyRuiXqqeCH7aiR3rx6bnJBXOfwiBb2qzCTGI0qv6ZkvmFk6Ht+Fc8ZnIe6NbE2XTnFF8C/6IFWYp/00o1YeJIF0HiTA+f8gVW4kdi/XLYh2yJUVt0S0dnv68QToA/ZItX8xYYPsb/SFinCO1Sn+QO/OAeRq8jLVc/tw1HjjiQRfcwHVxOP+H6AdVrT6cpyScwNIGrcSov4HcHDq55rBwU2ycQv2LlndkesrqehY9SrP9U7pB6KSBS7XOkDhcpwp21RAbG8MC1z34tjAY2vidEkZodePyZjStg8aVqKHZiE0pNsjK44gHWjxwg20Ocq3wrC17vHi+ptu4ekPlI0XcScSlFWiUwQMcHyzlDonKLPxHIuLCSxNbXZH3copWA6
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN6PR11MB4049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(8936002)(186003)(5660300002)(2906002)(7416002)(66476007)(66946007)(2616005)(26005)(6666004)(66556008)(31686004)(36756003)(4326008)(31696002)(6486002)(4001150100001)(6506007)(82960400001)(38100700002)(110136005)(83380400001)(53546011)(316002)(8676002)(86362001)(44832011)(508600001)(6512007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHhLNklRaTN2SUJFNkZoaDlGYWlmcjEwb2ZUOFd0VE50UDRzUVFJMDdLaEZR?=
+ =?utf-8?B?Sno3a1lzdXkvOTMxV2d2d0ZEQ3NPSWN2OE03ZnQ2dVEvQ0UrK3EvVzJEeFVR?=
+ =?utf-8?B?Q09hU1BxYXMwVitpZVpNUzBHQnFSeXJuU2xoclFiek9YTCtkaFFtV1JVZXVa?=
+ =?utf-8?B?bVYyWms2cjBJZm13clFNTzR6QnVGT0ZKaW1tTUtTWkF4aXZCR3dVazBqSVJa?=
+ =?utf-8?B?V0FhNEl4RWlpTng5c1NXa2VTWDR6RGRrdlV5RFpFKzk1QlQ2blRuZGQzZk50?=
+ =?utf-8?B?NDhzalA3eERZVkhHclBHeFZiWWxNVUJ4RFRsRUQrTk5Gdmp2d1hkRXJaZ3pi?=
+ =?utf-8?B?b3ZyMDlkQm54aHNWeHdtNkh2blVQWTFMWGs5QnFqNHk3ekt3dEdYUmg0WE11?=
+ =?utf-8?B?Y0xRSWFrcjdUaHRSaytaYzRxZTdnNEtQUURZYUZsN0ZINExCQWpzbHNXSFNS?=
+ =?utf-8?B?Rmt4Y2VndXYvc3ljZ2M0M2NSMDhyMWJJYjRuZGNtNUwybnI4bTBkZnVvNE16?=
+ =?utf-8?B?TVVPSVBkMDFrR0RmK0xOMHZjSXpRakNya2FrcXdTZkhqTkFsL3FkZXpWODFC?=
+ =?utf-8?B?cmtPNUZXMUdmbUpxYlF5OGdwZ1RHdDQwOVhjamxlVVN6bG9kNWlGTVZGY1BD?=
+ =?utf-8?B?NnBNemZWNVVhbm5XaHpXSEtYb2VIbG9tSGJPUHRTNWlsSVlZNnJZT3Z1RTNC?=
+ =?utf-8?B?Rko4YXhYTFlkNzYvSzJYSnFpaEdpY05GOUhJMk9kQ3phRU1HSjR0RXB4WDNt?=
+ =?utf-8?B?aVcvQi9EKzZVcUhTTzJGNDEyR2JiQWRFbk1jcVNqUjRxemtJeEVrS1l1aW5V?=
+ =?utf-8?B?UjRoRUMzdzF0Q0dXTFk2WVl5a2w4b24ySi9nblhVWGhkVm1JNGNVNE9sVWVm?=
+ =?utf-8?B?M1dsZGg4bElxMGxXR2NjSjJCNXJoa3RzYXdrNHZmbGVuWjdpb0JhK2J5bGFM?=
+ =?utf-8?B?YzJzL202S01PdWxTR1ZxbFRveDcwT3F5b2UyYk83R0xqNTRIUlJ4YW9qc2tx?=
+ =?utf-8?B?Nno3Z2pBOE5vTG5DN1haMXAwTjlIU25tR2s1NzkyVUlkemZ3eDc1OTJnWTZU?=
+ =?utf-8?B?UkMvYjBZQUJUTjdWdGhJUW1XZ2E0N0hXRkpKZzRJenJKQkUvTGl5STZWRWUz?=
+ =?utf-8?B?ejMybHVCbk9qa0E2L3EzWmJyeGFCY1ZsSmpOTWpPdytLSXUvVk4rcy8ycndv?=
+ =?utf-8?B?ZmJXdGdiUTI4dHA4K0VVemNNdlgyVUNNU3dBY0JiR3RLaVh6Yjd4RkZYcW85?=
+ =?utf-8?B?NlFUNkJRWS9hWmZIdWlGM0NtOEM1YlozYmtkRGRYbE1wWGQ3NkhiUjVnM0Q1?=
+ =?utf-8?B?cTY1U1VQdWNjUEphRlRNSytCWnlEUTcvTm14eG1MaktzcG1GQ21IUlBSc3RY?=
+ =?utf-8?B?ZkljSWpoTzlzbW95L2FnVDU2ZitnYUpzQzUrbXFZandaTldpRXFjM2xZcmxh?=
+ =?utf-8?B?MU0xVWg1Vzg0N2hONml2bktENlUraGh2Y1cvODlma3p4bzd3S2RoU2tiUjJS?=
+ =?utf-8?B?WU0yd24vREtBVStpTTJjQm94amYvUktNdXQraEJUdit6WVp3aEN6L1dwdkJG?=
+ =?utf-8?B?Z2hQWHVTbE5Cb2FIS3EvaytEcjVwOWh2Z1hPNHR5emNIZjRzS2RETlM5Zk5H?=
+ =?utf-8?B?ckVCaVpsaUdleXdqaUo2b1JzZi9qUFpjTUErMWVkTW9XczdzRHF4N2d5QklS?=
+ =?utf-8?B?VitpVjdIcDdqL21DU1JLbit0UE8yZDBMZXJUenZUdlBMVm1OM3VUVTgydExS?=
+ =?utf-8?B?U2I2aFJhdlVuamQxM3l1dGZkR2pSeEpKYmxKdlNNUHpWbTlhZm9rK01aekgw?=
+ =?utf-8?B?L0E5NEsxZmJHb1A3TmZhUUgzblp0eU11UW9jZTFJZUpjZnNMQWVmbUw4ZVFV?=
+ =?utf-8?B?M2NHU0VxSXpINGNSQzZUQ0o0cUpUUDhrclc5R3M2d3dmTi95VnE3ajJIVC84?=
+ =?utf-8?B?RzBzZC9jODlETVBXRXlMeGQ4ampNV1lnKzF3eitiUkQxSjZ5cVErTm9ad2VD?=
+ =?utf-8?B?eFdzOWZLMWZldFVMeXgzdFNRTElLSVJ2MUN0NU1RMDZiSTJUcEdXQ1YxNWFh?=
+ =?utf-8?B?NEZGZURucE51ZGNkYmsyNTM0Z2x1ZFpURGxFSEJEWTBKSlRYNjU4MzJUZHp5?=
+ =?utf-8?B?MGlER3FnZWhpeHo4SWNadm1jZFNUQkZZZG5xb0h2TU91c0g5UHFSSTdiUWoy?=
+ =?utf-8?B?OEkyUUxWT0k2TE1POFFPM0xZMm5lUkRVWU5MbmwxV0g1WW40TDE4S0NLVzNv?=
+ =?utf-8?Q?iMrfjXmEXUPuMM3yZ1PerduS5McJq8F2Xij0vf8rec=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: c15c5288-03d0-4867-cc37-08d9c15d0bab
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB4049.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 12:59:22.3942 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sSqBKthuAlGktwMpq8qgDmWZ5+OJr/IqnS6Xpt+PQujNPduXy0I6LXQ3s3E/srkvmVeBTTRG0gsuPfSd9w47hgCZWsMhSpiI+waU01CwopM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB1282
+X-OriginatorOrg: intel.com
+Cc: linux-acpi@vger.kernel.org, alsa-devel@alsa-project.org,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,86 +196,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-17.12.2021 09:04, Vinod Koul пишет:
-> On 16-12-21, 17:29, Dmitry Osipenko wrote:
->> 15.12.2021 22:19, Dmitry Osipenko пишет:
->>> 15.12.2021 21:57, Mark Brown пишет:
->>>> On Sat, Dec 04, 2021 at 05:37:03PM +0300, Dmitry Osipenko wrote:
->>>>
->>>>> I based S/PDIF patches on Arnd's Bergmann patch from a separate series [1]
->>>>> that removes obsolete slave_id. This eases merging of the patches by
->>>>> removing the merge conflict. This is a note for Mark Brown.
->>>> That's not in my tree so I'll need either a pull request with the series
->>>> or a resend after the merge window.
->>> This patch is included as a part of this series, please see the patch #6.
->>>
->>> I saw that Vinod Koul already merged it into his DMA tree [1] a day ago,
->>> but there is no stable branch there.
->>>
->>> [1]
->>> https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git/log/?h=next
->>>
->>
->> Vinod, will you be a able to create immutable branch for us with the
->> "dmaengine: kill off dma_slave_config->slave_id" patches [1]?
->>
->> [1] https://lore.kernel.org/all/20211122222203.4103644-1-arnd@kernel.org/
-> 
-> Here you go:
-> 
-> The following changes since commit fa55b7dcdc43c1aa1ba12bca9d2dd4318c2a0dbf:
-> 
->   Linux 5.16-rc1 (2021-11-14 13:56:52 -0800)
-> 
-> are available in the Git repository at:
-> 
->   git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git tags/dmaengine_topic_slave_id_removal_5.17
-> 
-> for you to fetch changes up to 3c219644075795a99271d345efdfa8b256e55161:
-> 
->   dmaengine: remove slave_id config field (2021-12-17 11:23:56 +0530)
-> 
-> ----------------------------------------------------------------
-> dmaengine_topic_slave_id_removal_5.17
-> 
-> Tag for dmaengine slave_id removal topic branch which should be merged
-> into v5.17
-> 
-> ----------------------------------------------------------------
-> Arnd Bergmann (11):
->       ASoC: tegra20-spdif: stop setting slave_id
->       dmaengine: tegra20-apb: stop checking config->slave_id
->       ASoC: dai_dma: remove slave_id field
->       spi: pic32: stop setting dma_config->slave_id
->       mmc: bcm2835: stop setting chan_config->slave_id
->       dmaengine: shdma: remove legacy slave_id parsing
->       dmaengine: pxa/mmp: stop referencing config->slave_id
->       dmaengine: sprd: stop referencing config->slave_id
->       dmaengine: qcom-adm: stop abusing slave_id config
->       dmaengine: xilinx_dpdma: stop using slave_id field
->       dmaengine: remove slave_id config field
-> 
->  drivers/dma/mmp_pdma.c             |  6 ------
->  drivers/dma/pxa_dma.c              |  7 -------
->  drivers/dma/qcom/qcom_adm.c        | 56 +++++++++++++++++++++++++++++++++++++++++++++++++-------
->  drivers/dma/sh/shdma-base.c        |  8 --------
->  drivers/dma/sprd-dma.c             |  3 ---
->  drivers/dma/tegra20-apb-dma.c      |  6 ------
->  drivers/dma/xilinx/xilinx_dpdma.c  | 17 +++++++++++------
->  drivers/gpu/drm/xlnx/zynqmp_disp.c |  9 +++++++--
->  drivers/mmc/host/bcm2835.c         |  2 --
->  drivers/mtd/nand/raw/qcom_nandc.c  | 14 ++++++++++++--
->  drivers/spi/spi-pic32.c            |  2 --
->  drivers/tty/serial/msm_serial.c    | 15 +++++++++++++--
->  include/linux/dma/qcom_adm.h       | 12 ++++++++++++
->  include/linux/dma/xilinx_dpdma.h   | 11 +++++++++++
->  include/linux/dmaengine.h          |  4 ----
->  include/sound/dmaengine_pcm.h      |  2 --
->  sound/core/pcm_dmaengine.c         |  5 ++---
->  sound/soc/tegra/tegra20_spdif.c    |  1 -
->  18 files changed, 117 insertions(+), 63 deletions(-)
->  create mode 100644 include/linux/dma/qcom_adm.h
->  create mode 100644 include/linux/dma/xilinx_dpdma.h
+On 2021-12-16 12:43 PM, Lucas Tanure wrote:
+> ASoC and HDA will do the same cs35l41_otp_unpack, so move it
+> to shared code
 
-Thank you!
+...
 
+> +static const struct cs35l41_otp_map_element_t *cs35l41_find_otp_map(u32 otp_id)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(cs35l41_otp_map_map); i++) {
+> +		if (cs35l41_otp_map_map[i].id == otp_id)
+> +			return &cs35l41_otp_map_map[i];
+> +	}
+
+The parenthesis could be dropped.
+
+> +	return NULL;
+> +}
+> +int cs35l41_otp_unpack(struct device *dev, struct regmap *regmap)
+> +{
+> +	const struct cs35l41_otp_map_element_t *otp_map_match;
+> +	const struct cs35l41_otp_packed_element_t *otp_map;
+> +	int bit_offset, word_offset, ret, i;
+> +	unsigned int bit_sum = 8;
+> +	u32 otp_val, otp_id_reg;
+> +	u32 *otp_mem;
+> +
+> +	otp_mem = kmalloc_array(CS35L41_OTP_SIZE_WORDS, sizeof(*otp_mem), GFP_KERNEL);
+> +	if (!otp_mem)
+> +		return -ENOMEM;
+> +
+> +	ret = regmap_read(regmap, CS35L41_OTPID, &otp_id_reg);
+> +	if (ret) {
+> +		dev_err(dev, "Read OTP ID failed: %d\n", ret);
+> +		goto err_otp_unpack;
+> +	}
+> +
+> +	otp_map_match = cs35l41_find_otp_map(otp_id_reg);
+> +
+> +	if (!otp_map_match) {
+> +		dev_err(dev, "OTP Map matching ID %d not found\n", otp_id_reg);
+> +		ret = -EINVAL;
+> +		goto err_otp_unpack;
+> +	}
+
+This block could be understood as: assign and check. Surrounding blocks 
+that carry similar value do not have a newline between assignment and 
+check. My suggestion is to drop that newline here so the block looks 
+more cohesive when compared with the rest of the function.
+
+> +
+> +	ret = regmap_bulk_read(regmap, CS35L41_OTP_MEM0, otp_mem, CS35L41_OTP_SIZE_WORDS);
+> +	if (ret) {
+> +		dev_err(dev, "Read OTP Mem failed: %d\n", ret);
+> +		goto err_otp_unpack;
+> +	}
+> +
+> +	otp_map = otp_map_match->map;
+> +
+> +	bit_offset = otp_map_match->bit_offset;
+> +	word_offset = otp_map_match->word_offset;
+> +
+> +	ret = regmap_write(regmap, CS35L41_TEST_KEY_CTL, 0x00000055);
+> +	if (ret) {
+> +		dev_err(dev, "Write Unlock key failed 1/2: %d\n", ret);
+> +		goto err_otp_unpack;
+> +	}
+> +	ret = regmap_write(regmap, CS35L41_TEST_KEY_CTL, 0x000000AA);
+> +	if (ret) {
+> +		dev_err(dev, "Write Unlock key failed 2/2: %d\n", ret);
+> +		goto err_otp_unpack;
+> +	}
+> +
+> +	for (i = 0; i < otp_map_match->num_elements; i++) {
+> +		dev_dbg(dev, "bitoffset= %d, word_offset=%d, bit_sum mod 32=%d\n",
+> +			bit_offset, word_offset, bit_sum % 32);
+> +		if (bit_offset + otp_map[i].size - 1 >= 32) {
+> +			otp_val = (otp_mem[word_offset] &
+> +					GENMASK(31, bit_offset)) >> bit_offset;
+> +			otp_val |= (otp_mem[++word_offset] &
+> +					GENMASK(bit_offset + otp_map[i].size - 33, 0)) <<
+> +					(32 - bit_offset);
+> +			bit_offset += otp_map[i].size - 32;
+> +		} else {
+> +			otp_val = (otp_mem[word_offset] &
+> +				   GENMASK(bit_offset + otp_map[i].size - 1, bit_offset)
+> +				  ) >> bit_offset;
+
+The ')' looks off (the '>>' too), at least it does not match the 
+convention seen in if-statement above. Choosing single convention could 
+improve the readability.
+
+> +			bit_offset += otp_map[i].size;
+> +		}
+> +		bit_sum += otp_map[i].size;
+> +
+> +		if (bit_offset == 32) {
+> +			bit_offset = 0;
+> +			word_offset++;
+> +		}
+> +
+> +		if (otp_map[i].reg != 0) {
+> +			ret = regmap_update_bits(regmap, otp_map[i].reg,
+> +						 GENMASK(otp_map[i].shift + otp_map[i].size - 1,
+> +							 otp_map[i].shift),
+> +						 otp_val << otp_map[i].shift);
+> +			if (ret < 0) {
+> +				dev_err(dev, "Write OTP val failed: %d\n", ret);
+> +				goto err_otp_unpack;
+> +			}
+> +		}
+> +	}
+> +
+> +	ret = regmap_write(regmap, CS35L41_TEST_KEY_CTL, 0x000000CC);
+> +	if (ret) {
+> +		dev_err(dev, "Write Lock key failed 1/2: %d\n", ret);
+> +		goto err_otp_unpack;
+> +	}
+> +	ret = regmap_write(regmap, CS35L41_TEST_KEY_CTL, 0x00000033);
+> +	if (ret) {
+> +		dev_err(dev, "Write Lock key failed 2/2: %d\n", ret);
+> +		goto err_otp_unpack;
+> +	}
+> +	ret = 0;
+
+Hmm.. maybe I'm missing something, but isn't the 'ret' already '0' by 
+the time we get here?
+
+> +err_otp_unpack:
+> +	kfree(otp_mem);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(cs35l41_otp_unpack);
+> +

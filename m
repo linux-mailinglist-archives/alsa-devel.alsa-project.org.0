@@ -2,185 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8D10478F50
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 16:15:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 805CC479206
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 17:55:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 371132832;
-	Fri, 17 Dec 2021 16:14:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 371132832
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF31327FF;
+	Fri, 17 Dec 2021 17:54:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF31327FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639754127;
-	bh=zFMCLYfSFYT1RRews134Beb73o6GoN6IqunWfiJUsh0=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1639760140;
+	bh=pkmpmQNYGRfMi9gtlv5kYK5Zjone7Hv2HiwmgZgCwjM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n+2nEkGTPJP9ZSAIroZpTAVZUfAoCWrJfBk4TS94rsv139GRiRTpk0LarDndcdO59
-	 Lsp53HxciQE0gOz3avj1sM/Kz1LRVBE/uFBhOlOczTO3WKhanCcAyu6ipHDIU3TQtd
-	 gmLyC+ahTOHvPfbWVn8J95aQ/sHR2KQeCnfiASpY=
+	b=YUMz/vbV4b7agqIHD+Pq2KYNsMhdII6eCf1PJXGCF7LeWegKmvoFlDIFX809mvt6M
+	 KTMXD4fMIyhmpE7qbhSt7IC8jLhVhR9gayH2zYdrThk89bUfh9w8EU/3jTjdSfLVIH
+	 4cHvD3lh2woNzG+1ARfSoNy4vkZweFnW2lPHh3Q0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9358DF80161;
-	Fri, 17 Dec 2021 16:14:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CD3EF80161;
+	Fri, 17 Dec 2021 17:54:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4673BF8014D; Fri, 17 Dec 2021 16:14:17 +0100 (CET)
+ id 43AFCF80161; Fri, 17 Dec 2021 17:54:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20547F800B0
- for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 16:14:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20547F800B0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="EsMpMDXC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639754055; x=1671290055;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=zFMCLYfSFYT1RRews134Beb73o6GoN6IqunWfiJUsh0=;
- b=EsMpMDXCV6LXcLCrKgGft9tLD+fUzuZqVdGt8QqGVXEYt6fh16ED4+Cv
- 94tzOzt95Fiwz2dZxUEeAT4EdAZzeArbqG4MkPStnEkV755wwunJqHFiL
- pl6nsd/wUzNUkoJJfwsQrsyNmnQAjb+lEiFfVPNAP92GtSTwIDduYgyOY
- gpuezmRBNjyk+Clj29AJU4OLbxll2/iIjZQr6H6Z0UtTx8plnYT5ym8m+
- myEMn/oeJN2EniLSBo0eL2d14Jsnr0UAWZtqWaMw2mco8zTAcWXHVVtwu
- 5+FgBdYsMvhNFbGWHJRWY71rR91Hi34Gyz5J5WYpWrKd0T1++LDAXMS7G A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="300544319"
-X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="300544319"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2021 07:13:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="662865843"
-Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
- by fmsmga001.fm.intel.com with ESMTP; 17 Dec 2021 07:13:57 -0800
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Fri, 17 Dec 2021 07:13:57 -0800
-Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
- ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Fri, 17 Dec 2021 07:13:57 -0800
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20 via Frontend Transport; Fri, 17 Dec 2021 07:13:57 -0800
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.170)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.20; Fri, 17 Dec 2021 07:13:56 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PYGaOKZ35i2sAcRdpvAfdzXILz3XlH80tWaRoGRj1xHAb2PfcD8nqKvKKL7L8ADuWDNyr/AkKeLUahj+wwiFdf4gdkN2dGjWCAxjONQEjHP9KJhfWlve9dgXtCRSY48Pokzn5DyIt8DUa2ZLtU459AdZ3eEGmI1CuK5O4Iiqdu1kDVcSP/fuotZFQVVJ1/T39Mx5l8GHKE0ENfnoi26Spe164xKLxxqP1Tzrw9DaB+EMKA1nU6zDQw1FDlPFY10PZAI7DMk88c4McQyzICBV+addxxnE8ZcpKZ3kXHoeFmMVb4g3idHnvwvLdZcidEh2oe6Rn9sQQVGq3cJsMxYxjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hkRqtexB13RavuhUF/4pix5mVqsNbQEJ6AnyouiWiW0=;
- b=dl9oqAwa6u+R6QUoP0Bzcsc85NNYG1+CJWt9b459IzPF1YL0HLzUX+7mM9hWNNWRwOkeaWD0z66PY3fkwiAHEIYEWLBfm2lLiLjPb9JCfPh2ojXhjLK22iVqRVmFHchi8VcjHfm/M69zHqsmz42zmjaZJtsLkKcB23hMmfRvNFrXp873Dqp8i+T7kQhwVqqsYK0/BWsF8gNO7MAw/bT3z54p5KsUUTIvWoIxtjDI4L9Zqt8qSbk4SzULNbOcW4dhGott/emuWKF0jWJ5bK8Yfb0he3OiquirSfwv3ScS+a0JTgeCpa7wF4X5S+Lq6KT7vmudx8DpfCxTdGTqS/jeww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BN6PR11MB4049.namprd11.prod.outlook.com (2603:10b6:405:7f::12)
- by BN6PR11MB4036.namprd11.prod.outlook.com (2603:10b6:405:82::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Fri, 17 Dec
- 2021 15:13:54 +0000
-Received: from BN6PR11MB4049.namprd11.prod.outlook.com
- ([fe80::cce3:53d5:6124:be26]) by BN6PR11MB4049.namprd11.prod.outlook.com
- ([fe80::cce3:53d5:6124:be26%4]) with mapi id 15.20.4778.018; Fri, 17 Dec 2021
- 15:13:54 +0000
-Message-ID: <a28f15cf-b8fe-3214-f353-1fe4565adb8b@intel.com>
-Date: Fri, 17 Dec 2021 16:13:48 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.3.0
-Subject: Re: [PATCH] ASoC: qdsp6: fix a use after free bug in open()
-Content-Language: en-US
-To: Dan Carpenter <dan.carpenter@oracle.com>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>, Miaoqian Lin <linmq006@gmail.com>
-References: <20211217150007.GB16611@kili>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20211217150007.GB16611@kili>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0336.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18c::17) To BN6PR11MB4049.namprd11.prod.outlook.com
- (2603:10b6:405:7f::12)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2C74F800F4
+ for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 17:54:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2C74F800F4
+X-IronPort-AV: E=McAfee;i="6200,9189,10201"; a="227074696"
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="227074696"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2021 08:54:18 -0800
+X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="615612291"
+Received: from nbothe-mobl1.amr.corp.intel.com (HELO [10.212.77.162])
+ ([10.212.77.162])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2021 08:54:16 -0800
+Subject: Re: [PATCH 3/6] ASoC: soc-pcm: Fix and cleanup DPCM locking
+To: Marek Szyprowski <m.szyprowski@samsung.com>, alsa-devel@alsa-project.org
+References: <20211207173745.15850-1-pierre-louis.bossart@linux.intel.com>
+ <20211207173745.15850-4-pierre-louis.bossart@linux.intel.com>
+ <CGME20211217141541eucas1p1bdcb8b91e8a772229391b525d6adbf3b@eucas1p1.samsung.com>
+ <9a0abddd-49e9-872d-2f00-a1697340f786@samsung.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <f3057dc8-781c-f32a-d4f4-19ebd16d06ee@linux.intel.com>
+Date: Fri, 17 Dec 2021 10:54:15 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4eaaf7c4-f731-475c-b500-08d9c16fd708
-X-MS-TrafficTypeDiagnostic: BN6PR11MB4036:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR11MB403669AE69930CA105195D9DE3789@BN6PR11MB4036.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:773;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zQspmuQknNGNDh/U+62ScDWO95UScW8VdLza1vt3Ksp3aX/QcMOMaL0nDzG6zxv6YHi2nJhA7U8Z2RxRq0mXFdJi5xgI2APkDhFkuvN+wDrcwINwcacALnZUd4oT+0s0FWZSZh1RMYFSGS5jkAggtnKjapUz7JJKsgiEnLffaUkIZjUKP/+MZo4w3rFqxiMT9ok5Q8xNeXrjK7X1H05T2yMwNBEoMytW1X3rtDjj2mxtwWCA3D02WOZ4kJJ0tm6mT1Cv7nJEHQgh/j1Dj4+rehRjQ55M+iPKvHC101sqgWY8IxergMoslF4gJCLUSFdBz6AehM6jJ2pKvtJXq+etz4bKDP2323L0snxzK/FpHV74R+vmSejO+uk2RiXgaL9rmiNaeRQS4NcGYnldfYFOlR6Khiz20gG5xke7Sk/Sdzt8GQuNWjJtaXTZD/txq55pTAw4NwQbYDLxDfZfHL3YGsySU/dBwOoCipSJQoEJfHPtHQNHDNDQxGvvAMz5ObqfP4oj9IwsZCUjT86z1p0eNfj9Jhoap8rLhkmaKzMwMqpu5qju9FWE9VvvwOBK8NcyHvUrn9BPjDTAiTwXFoGOvekFiDp2cuNv8yGH9uoos8YrN3EWZ4exZyjPYRHeyS1hzzRmbM/fmdQR1LtEQ6bfMLMuKRXgH/3rAJ0uC3D6JMxhupuw+um6M3Sv+o6qOMwwfjp7kg+VbTESQ6g3JwKCNP3mCzIxcPopnUFNngC0xIBK2+RrKiW6QyYP7qp77vNf
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR11MB4049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(44832011)(36756003)(6666004)(4326008)(83380400001)(86362001)(186003)(31686004)(53546011)(5660300002)(31696002)(6506007)(2616005)(26005)(66556008)(8676002)(508600001)(8936002)(4001150100001)(66946007)(66476007)(6486002)(6512007)(38100700002)(110136005)(2906002)(7416002)(82960400001)(316002)(54906003)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0k2ZUFhclEvekY0Q0hiWllIYkVJdyt3aDk3S0huM0oyZTkrRXBkcHFqazlT?=
- =?utf-8?B?cFcvU0JxdTUyUTRFaWZOc2VJdEw0NU42Tkl3K1FHNFZ1ZFJpMHRPVC93QmFF?=
- =?utf-8?B?dk1CaVFpSTBjR24yUndWM2ZmSWV1dk0wQ0ppS2JrdWh5YTh1LzBBd0l5aTRF?=
- =?utf-8?B?VGVlOUY4QjE5WHFmeGtKYnNWaHA0RFlpcGk4VkdPQmVWdWVBM1VZdzkxaG9l?=
- =?utf-8?B?SkRYR3ZaN095OVZuN1FEWXNnbEUvWTRMdnhpaTExa0VXY2N6d2o5UWEyclhY?=
- =?utf-8?B?djY2blRRcjFjRnFRT2xySVlETVA0bVN3eWtzbEFPMEdJYXVvUjdiZWtwMFZR?=
- =?utf-8?B?QU82a3ZRYVhTS3huck83ZHNyOHYvU005UVZPcVVjYURoWjNSSmNvMHlSbDRy?=
- =?utf-8?B?d2pDZFp0TVRJK1dKVTh6TXBhNitncHFHRUdTMWlWK2xvaENiN0dWRTlDRnZY?=
- =?utf-8?B?b1hrLzlhRERET1dPOW9ObnZIQkwxNGY4QXljam9Icm0wRysvWitnaDYyQ1RJ?=
- =?utf-8?B?Um0rUjhrVVN0WVZDYWJpbU5lS0gwZ3FtM0JZbnBoQ29wWnNRdUcyZWJqWkdD?=
- =?utf-8?B?dG9zNWR0ampmUFJ5SzhwYzdEUkFYR0NabkpPZ0NYYm5DQ1RQNm1ocndIVWJl?=
- =?utf-8?B?SnE3TktvTWtuMjV2U0w5OWRTV0NCdmpEN2hDYVF5bEVUM2JpekRYc0lWREJW?=
- =?utf-8?B?eXBJSkkybnBZV3ZUTUJjMzlCekFwamJOWVJmZHFPK0I2UGV2dW1UTnVqTi80?=
- =?utf-8?B?RjhXbkt3aVFva2lvNW1Qa3ZxTmR2RTRlVFdMUk5qbUdpZXMwWWV5ak5KNEUv?=
- =?utf-8?B?N1JXNVFSYlZrdVlVRVZRSjNweURmYU1BcUpjUFJGdmJVU3ZnZy9aRVdGK0xO?=
- =?utf-8?B?aEZFNUJzZmFnKy83UzBsdG5MbWFSTWhtaVpKN3o4NUZ5WlQyamtCdnFKN1pu?=
- =?utf-8?B?Z2J1ZEg3NzU2UUxkQllEWmZMZFJERXdSb1g3a1FXMW1jajZ2SFZvREVrY1Zl?=
- =?utf-8?B?ZmM1ajhEc1dCWUdFd3FHOVg3bUZuMVVINXN1SWhSM21FQTRNOGo4cWVYckJ1?=
- =?utf-8?B?aXptNW9PR2FCV1grK0F0ZmZiTm5zazZyTVF3M3dodWRreXQyUjhoKzNkdDBL?=
- =?utf-8?B?bjVVYXBjeTJ5OWdieExsMmF3ZDZCcWIxRWpmUGlxNVNqNUNjQTZFZHowOUlu?=
- =?utf-8?B?ZllZN093NFRPQ1Z5QS9DOFJ3OW5Kc2NFSGJodkhBL002VFNBbFZ5QUl6Q2Fp?=
- =?utf-8?B?cjJWWEdqakZ5Q1FpN1NudDJRbTFVYTFmNFJudXhGUnIycFFUcXYwQ2FVeWQ4?=
- =?utf-8?B?OHV6c1ZjdEJNME8wQ3UzdDdMdlVHNk1lWlVFTVllc0N2SVpPK05sQWtsYkJa?=
- =?utf-8?B?Nm5kYU5JdzE3aWVBZWgySlJsczFTYTRuV0lZNTkxU3B4a2ZZZmFUT0duUHJV?=
- =?utf-8?B?bGJ6alA4UHd4TURJeS8xUkgybTRrRmpkR0UweFpteTJRVkI0UUVITjh6OStR?=
- =?utf-8?B?SEs0b3JLcEc2c04zZ21Xejd3SWZaWGpSb1A5UDVjUTBsNkh4bUxVV1JRU2U4?=
- =?utf-8?B?NWNRVXFxTVV4UGVYblRyZmg0Zk0zVXJHQVVva3p6dHlpWmNNOUpyUjZlcVVm?=
- =?utf-8?B?aUV4SG1EcVlpNXdQbWZzWHI5MS9lbXg4SXUrUHJrZ05WalRISHBNcUxlVWNt?=
- =?utf-8?B?Qm12NzhvbTd4UEZmOE5rci9tNjBEWGlmYzNYVDRUc1R3YnVUWHd6SFZoVFdK?=
- =?utf-8?B?aGR4MGVxUWNURDFSZGxkYlJvUyszU0d0YnRkZEs4S1U0ZXdNd0tZU3ljS01o?=
- =?utf-8?B?SjBVR3JBZ0d4UXZKcitia0NBMEJhbmUwcFVVbTlENXdhRU4zb3RINUxEWlNU?=
- =?utf-8?B?VndKdEcxUFZXUjVTd2lub3Z6RUlFMmxkWGtsS1hYNVNVZ011WVZqWHJ2SDhw?=
- =?utf-8?B?VkpzYjVsTGxJNjRpK0xsSWdQMnRhWTIwTlRUTDhMV3hWd2d2Z2JJdE1sRXY0?=
- =?utf-8?B?bUpFV3FTU3h2cjRBWnpKZWdrTmRaQlFocVhUenJ6cWZDQjNaVlJwZWs5bEhn?=
- =?utf-8?B?Z3RvOXRxUllhS3JiMWN1MFJJRnpzOWJreGxMNzFkeTVsaDJ5NWJsNUZOQUg4?=
- =?utf-8?B?Rm04OEJVQm0yVE9KdXhTUHJBejduRzBmZHQrdzhKTjRkU29qRWNJN2loYjdx?=
- =?utf-8?B?eHNEZXFGSmQwMUI0NzR3VGFYTFZxR3FpWWF1Qk1QTUE5a0MzQ2NmNnVaN0lU?=
- =?utf-8?Q?VtxRT0pHQjzzOHeFLyhCbeJjNpU770/vIzpubP/wvk=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4eaaf7c4-f731-475c-b500-08d9c16fd708
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB4049.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 15:13:54.4927 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y8jFu2z3w+MEo0Wx2eFvi8EjFF6HpT8FYkkBxQMXabNetJUFrlMwV59z6R0AiBEqppy95o1C3biAHdKvGi59vEiRQFXg7ZfN20m007HEp60=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB4036
-X-OriginatorOrg: intel.com
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+In-Reply-To: <9a0abddd-49e9-872d-2f00-a1697340f786@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: 'Linux Samsung SOC' <linux-samsung-soc@vger.kernel.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, tiwai@suse.de,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Sameer Pujar <spujar@nvidia.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, Gyeongtaek Lee <gt82.lee@samsung.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -196,65 +87,184 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-12-17 4:00 PM, Dan Carpenter wrote:
-> This code frees "graph" and then dereferences to save the error code.
-> Save the error code first and then use gotos to unwind the allocation.
+
+
+On 12/17/21 8:15 AM, Marek Szyprowski wrote:
+> Dear All,
 > 
-> Fixes: 59716aa3f976 ("ASoC: qdsp6: Fix an IS_ERR() vs NULL bug")
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> ---
->   sound/soc/qcom/qdsp6/q6apm.c | 10 ++++++----
->   1 file changed, 6 insertions(+), 4 deletions(-)
+> On 07.12.2021 18:37, Pierre-Louis Bossart wrote:
+>> From: Takashi Iwai <tiwai@suse.de>
+>>
+>> The existing locking for DPCM has several issues
+>> a) a confusing mix of card->mutex and card->pcm_mutex.
+>> b) a dpcm_lock spinlock added inconsistently and on paths that could
+>> be recursively taken. The use of irqsave/irqrestore was also overkill.
+>>
+>> The suggested model is:
+>>
+>> 1) The pcm_mutex is the top-most protection of BE links in the FE. The
+>> pcm_mutex is applied always on either the top PCM callbacks or the
+>> external call from DAPM, not taken in the internal functions.
+>>
+>> 2) the FE stream lock is taken in higher levels before invoking
+>> dpcm_be_dai_trigger()
+>>
+>> 3) when adding and deleting a BE, both the pcm_mutex and FE stream
+>> lock are taken.
+>>
+>> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+>> [clarification of commit message by plbossart]
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+>> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+>> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 > 
-> diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
-> index 3e007d609a9b..f424d7aa389a 100644
-> --- a/sound/soc/qcom/qdsp6/q6apm.c
-> +++ b/sound/soc/qcom/qdsp6/q6apm.c
-> @@ -615,7 +615,7 @@ struct q6apm_graph *q6apm_graph_open(struct device *dev, q6apm_cb cb,
->   	graph = kzalloc(sizeof(*graph), GFP_KERNEL);
->   	if (!graph) {
->   		ret = -ENOMEM;
-> -		goto err;
-> +		goto put_ar_graph;
->   	}
->   
->   	graph->apm = apm;
-> @@ -631,13 +631,15 @@ struct q6apm_graph *q6apm_graph_open(struct device *dev, q6apm_cb cb,
->   
->   	graph->port = gpr_alloc_port(apm->gdev, dev, graph_callback, graph);
->   	if (IS_ERR(graph->port)) {
-> -		kfree(graph);
->   		ret = PTR_ERR(graph->port);
-> -		goto err;
-> +		goto free_graph;
->   	}
->   
->   	return graph;
-> -err:
-> +
-> +free_graph:
-> +	kfree(graph);
-> +put_ar_graph:
-
-Hello Dan,
-
-The patch looks good! My only suggestion is a readability improvement, 
-but I'm unaware of the convention chosen for qcom directory so you may 
-choose to ignore it:
-
-Function q6apm_graph_open() has two separate return paths: a happy path 
-ending in 'return graph' and an error path which eventually ends with 
-'return ERR_PTR(ret)'. Current goto label-naming convention suggests 
-it's a happy path nonetheless.
-
-s/free_graph/err_alloc_port/ and s/put_ar_graph/err_alloc_graph/ tells 
-reader upfront that they are in the error path.
-
-
-Regards,
-Czarek
-
->   	kref_put(&ar_graph->refcount, q6apm_put_audioreach_graph);
->   	return ERR_PTR(ret);
->   }
+> This patch recently landed in linux-next (next-20211215) as commit 
+> b7898396f4bb ("ASoC: soc-pcm: Fix and cleanup DPCM locking"). I found 
+> that after applying it, a warning is triggered on my test boards. This 
+> is the one from Exynos4412-based Odroid U3 board:
 > 
+> # speaker-test -l1
+> 
+> speaker-test 1.1.8
+> 
+> Playback device is default
+> Stream parameters are 48000Hz, S16_LE, 1 channels
+> Using 16 octaves of pink noise
+> Rate set to 48000Hz (requested 48000Hz)
+> Buffer size range from 128 to 131072
+> Period size range from 64 to 65536
+> Using max buffer size 131072
+> Periods = 4
+> was set period_size = 32768
+> was set buffer_size = 131072
+>   0 - Front Left
+> 
+> ============================================
+> WARNING: possible recursive locking detected
+> 5.16.0-rc1-00270-gb2ae80663008 #11109 Not tainted
+> --------------------------------------------
+> speaker-test/1312 is trying to acquire lock:
+> c1d78ca4 (&group->lock){....}-{2:2}, at: dpcm_be_dai_trigger+0x80/0x300
+> 
+> but task is already holding lock:
+> c1d788a4 (&group->lock){....}-{2:2}, at: snd_pcm_action_lock_irq+0x68/0x7c
+> 
+> other info that might help us debug this:
+>   Possible unsafe locking scenario:
+> 
+>         CPU0
+>         ----
+>    lock(&group->lock);
+>    lock(&group->lock);
+> 
+>   *** DEADLOCK ***
+> 
+>   May be due to missing lock nesting notation
+> 
+> 1 lock held by speaker-test/1312:
+>   #0: c1d788a4 (&group->lock){....}-{2:2}, at: 
+> snd_pcm_action_lock_irq+0x68/0x7c
+> 
+> stack backtrace:
+> CPU: 0 PID: 1312 Comm: speaker-test Not tainted 
+> 5.16.0-rc1-00270-gb2ae80663008 #11109
+> Hardware name: Samsung Exynos (Flattened Device Tree)
+> [<c0110b30>] (unwind_backtrace) from [<c010c618>] (show_stack+0x10/0x14)
+> [<c010c618>] (show_stack) from [<c0b65d24>] (dump_stack_lvl+0x58/0x70)
+> [<c0b65d24>] (dump_stack_lvl) from [<c0193740>] 
+> (__lock_acquire+0x15ac/0x319c)
+> [<c0193740>] (__lock_acquire) from [<c0195dd8>] (lock_acquire+0x14c/0x424)
+> [<c0195dd8>] (lock_acquire) from [<c0b745b8>] 
+> (_raw_spin_lock_irqsave+0x44/0x60)
+> [<c0b745b8>] (_raw_spin_lock_irqsave) from [<c0926b6c>] 
+> (dpcm_be_dai_trigger+0x80/0x300)
+> [<c0926b6c>] (dpcm_be_dai_trigger) from [<c0927004>] 
+> (dpcm_fe_dai_do_trigger+0x124/0x1e4)
+> [<c0927004>] (dpcm_fe_dai_do_trigger) from [<c090728c>] 
+> (snd_pcm_action+0x74/0xb0)
+> [<c090728c>] (snd_pcm_action) from [<c0907eac>] 
+> (snd_pcm_action_lock_irq+0x3c/0x7c)
+> [<c0907eac>] (snd_pcm_action_lock_irq) from [<c02f13a0>] 
+> (sys_ioctl+0x568/0xd44)
+> [<c02f13a0>] (sys_ioctl) from [<c0100060>] (ret_fast_syscall+0x0/0x1c)
+> Exception stack(0xc4777fa8 to 0xc4777ff0)
+> 7fa0:                   004f5210 b6e27394 00000004 00004142 004f5398 
+> 004f5398
+> 7fc0: 004f5210 b6e27394 00020000 00000036 00000000 00000000 bee588e8 
+> 00008000
+> 7fe0: b6e277c4 bee58874 b6d8e888 b6c751dc
+> Time per period = 0.253397
+> max98090 1-0010: PLL unlocked
+> BUG: sleeping function called from invalid context at 
+> kernel/locking/rwsem.c:1526
+> in_atomic(): 1, irqs_disabled(): 128, non_block: 0, pid: 1312, name: 
+> speaker-test
+> preempt_count: 1, expected: 0
+> RCU nest depth: 0, expected: 0
+> INFO: lockdep is turned off.
+> irq event stamp: 8158
+> hardirqs last  enabled at (8157): [<c0b747d0>] 
+> _raw_spin_unlock_irqrestore+0x5c/0x60
+> hardirqs last disabled at (8158): [<c0b74570>] _raw_spin_lock_irq+0x58/0x5c
+> softirqs last  enabled at (7854): [<c0101578>] __do_softirq+0x348/0x610
+> softirqs last disabled at (7849): [<c012e7a4>] __irq_exit_rcu+0x144/0x1ec
+> Preemption disabled at:
+> [<00000000>] 0x0
+> CPU: 0 PID: 1312 Comm: speaker-test Not tainted 
+> 5.16.0-rc1-00270-gb2ae80663008 #11109
+> Hardware name: Samsung Exynos (Flattened Device Tree)
+> [<c0110b30>] (unwind_backtrace) from [<c010c618>] (show_stack+0x10/0x14)
+> [<c010c618>] (show_stack) from [<c0b65d24>] (dump_stack_lvl+0x58/0x70)
+> [<c0b65d24>] (dump_stack_lvl) from [<c0158b04>] 
+> (__might_resched+0x1c0/0x288)
+> [<c0158b04>] (__might_resched) from [<c0b71898>] (down_write+0x24/0x8c)
+> [<c0b71898>] (down_write) from [<c030ed64>] 
+> (simple_recursive_removal+0x6c/0x370)
+> [<c030ed64>] (simple_recursive_removal) from [<c04d07a4>] 
+> (debugfs_remove+0x38/0x4c)
+> [<c04d07a4>] (debugfs_remove) from [<c0928784>] 
+> (dpcm_be_disconnect+0x160/0x2c4)
+> [<c0928784>] (dpcm_be_disconnect) from [<c092895c>] 
+> (dpcm_fe_dai_cleanup+0x74/0xb0)
+> [<c092895c>] (dpcm_fe_dai_cleanup) from [<c0928d90>] 
+> (dpcm_fe_dai_close+0xe8/0x14c)
+> [<c0928d90>] (dpcm_fe_dai_close) from [<c090977c>] 
+> (snd_pcm_release_substream.part.0+0x3c/0xcc)
+> [<c090977c>] (snd_pcm_release_substream.part.0) from [<c0909878>] 
+> (snd_pcm_release+0x54/0xa4)
+> [<c0909878>] (snd_pcm_release) from [<c02dc400>] (__fput+0x88/0x258)
+> [<c02dc400>] (__fput) from [<c014cd44>] (task_work_run+0x8c/0xc8)
+> [<c014cd44>] (task_work_run) from [<c010c08c>] 
+> (do_work_pending+0x4a4/0x598)
+> [<c010c08c>] (do_work_pending) from [<c0100088>] 
+> (slow_work_pending+0xc/0x20)
+> Exception stack(0xc4777fb0 to 0xc4777ff8)
+> 7fa0:                                     00000000 004f5260 004eaa9c 
+> 00000000
+> 7fc0: 004f5260 004f536c 004f5210 00000006 004fb700 004e6e8c 004d6120 
+> bee58cc4
+> 7fe0: b6e27e64 bee58928 b6d8eda4 b6d09ac0 60000050 00000004
+> 
+> Let me know how I can help debugging this issue.
+
+Thanks for testing, much appreciated.
+
+I wasn't really able to detect a smoking gun from the stack trace, but
+this seems to point to the use of the FE stream lock
+
+"
+2) the FE stream lock is taken in higher levels before invoking
+dpcm_be_dai_trigger()
+"
+
+I am not sure why we would attempt taking this lock multiple times though.
+
+One possibility (chance of red-herring) is the code in
+dpcm_set_fe_update_state(). The comments do mention the possibility of a
+race condition and convoluted code. Would you be able to instrument this
+code to see if the lock issue happens when this function is invoked?
+
+Takashi may have other ideas to help debug? On our side this has been
+used for several weeks and tested in all kinds of configurations.
+

@@ -2,81 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C9A94784CC
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 07:05:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CA91478571
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 08:11:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDEAF18AE;
-	Fri, 17 Dec 2021 07:04:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDEAF18AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id E297E1FA;
+	Fri, 17 Dec 2021 08:10:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E297E1FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639721136;
-	bh=kwoVfr91sfDbXUKT7OKdnlYuZVy9njagc98xzPanrDU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ph8XtSUoRVEjA0auTeJmOgzgWbvTwc2cAtEVrLTtm68roivtqwn8LDoou4/RRiIIj
-	 phx2Flqa5rqTR615hhVEiuiamPdPrsamIcabCHKB0uu9jO97T/8BhDP7o/N4ikNKmh
-	 SXdoFU6TOxlHKmO8nMw+1oHUr2wAFrCZxvsAIYPc=
+	s=default; t=1639725094;
+	bh=7GacaDjTr1zV7Hh9tHhnvxZ7itoNRjLETOu8/F0+Pas=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=MtxCI/9xtOogvGTi/MPyHrekCnkdMDP0Vfh27v4i9hniQRnN/fWbt0k87Q1b3VdZM
+	 HDcEijxX6hGZ1/yflyYYNW8KKHWCvRR4hPM0HTl445aAXLbuYub63lirAVAZAExHu2
+	 3P4iefr0K1ACIlEN9IYhq3QN2lDafqYb/gIgydy8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3EDB8F800B0;
-	Fri, 17 Dec 2021 07:04:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28F16F80161;
+	Fri, 17 Dec 2021 08:10:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C30B2F80148; Fri, 17 Dec 2021 07:04:22 +0100 (CET)
+ id 8C734F80148; Fri, 17 Dec 2021 08:10:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEDB6F800B0
- for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 07:04:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEDB6F800B0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YTqFvg/h"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1110161F9A;
- Fri, 17 Dec 2021 06:04:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861F2C36AE1;
- Fri, 17 Dec 2021 06:04:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639721054;
- bh=kwoVfr91sfDbXUKT7OKdnlYuZVy9njagc98xzPanrDU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=YTqFvg/hfF0lUestaWcAB80XJkTL/iy6IDSt7jP6+ESZr8GI22Qxo/LvXAVjMA9wq
- aUGU8kGBf/IzSMOTdwqvmn7Zv5xXM35fcywMFOxtbDPDLcLJjuV5k5+1cF9OLZ4XyU
- Fw5WunmhHxTS9QOwc415W6U1sieJ6CgG4x8bFG/EjBo2FJSvAyUEdSYNcpB3rmPfzE
- 24OvE8RF7pDyG0MXG2IDRoWLBYB1QNxwL+Z+R5rYRs4cV62FVd82Bcu6879lwHrzn/
- Tln06klRkA2ylotphb2f4yW7FkDjX1poS4ObMcnA5TXaqXqIhXWWedor/7V3CH6geF
- edUqAttGhYDnw==
-Date: Fri, 17 Dec 2021 11:34:10 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Dmitry Osipenko <digetx@gmail.com>
-Subject: Re: [PATCH v4 00/22] Support HDMI audio on NVIDIA Tegra20
-Message-ID: <YbwoWhg6h8ChE5Xs@matsya>
-References: <20211204143725.31646-1-digetx@gmail.com>
- <Ybo6tsnQM6OacoZs@sirena.org.uk>
- <26af30a6-9606-72d0-9258-cf9627ddfe77@gmail.com>
- <7179a409-d838-0e9e-4600-785e69c3e3a6@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 568B6F800F4
+ for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 08:10:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 568B6F800F4
+X-UUID: 4f987f8f002e4082a72095499efcb516-20211217
+X-UUID: 4f987f8f002e4082a72095499efcb516-20211217
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw02.mediatek.com (envelope-from <yc.hung@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 2043702097; Fri, 17 Dec 2021 15:10:04 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Fri, 17 Dec 2021 15:10:02 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Fri, 17 Dec 2021 15:10:02 +0800
+From: YC Hung <yc.hung@mediatek.com>
+To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+ <matthias.bgg@gmail.com>
+Subject: [PATCH v2] dt-bindings: dsp: mediatek: add mt8195 dsp document
+Date: Fri, 17 Dec 2021 15:08:36 +0800
+Message-ID: <20211217070835.31709-1-yc.hung@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="H5lYUFRYsnZI2oAy"
-Content-Disposition: inline
-In-Reply-To: <7179a409-d838-0e9e-4600-785e69c3e3a6@gmail.com>
+Content-Type: text/plain
+X-MTK: N
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, dri-devel@lists.freedesktop.org,
- Agneli <poczt@protonmail.ch>, linux-tegra@vger.kernel.org,
- Jonathan Hunter <jonathanh@nvidia.com>
+ allen-kh.cheng@mediatek.com, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ yc.hung@mediatek.com, daniel.baluta@nxp.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,120 +77,144 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: "yc.hung" <yc.hung@mediatek.com>
 
---H5lYUFRYsnZI2oAy
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This patch adds mt8195 dsp document.
 
-On 16-12-21, 17:29, Dmitry Osipenko wrote:
-> 15.12.2021 22:19, Dmitry Osipenko =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
-> > 15.12.2021 21:57, Mark Brown =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
-> >> On Sat, Dec 04, 2021 at 05:37:03PM +0300, Dmitry Osipenko wrote:
-> >>
-> >>> I based S/PDIF patches on Arnd's Bergmann patch from a separate serie=
-s [1]
-> >>> that removes obsolete slave_id. This eases merging of the patches by
-> >>> removing the merge conflict. This is a note for Mark Brown.
-> >> That's not in my tree so I'll need either a pull request with the seri=
-es
-> >> or a resend after the merge window.
-> > This patch is included as a part of this series, please see the patch #=
-6.
-> >=20
-> > I saw that Vinod Koul already merged it into his DMA tree [1] a day ago,
-> > but there is no stable branch there.
-> >=20
-> > [1]
-> > https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git/log=
-/?h=3Dnext
-> >=20
->=20
-> Vinod, will you be a able to create immutable branch for us with the
-> "dmaengine: kill off dma_slave_config->slave_id" patches [1]?
->=20
-> [1] https://lore.kernel.org/all/20211122222203.4103644-1-arnd@kernel.org/
+Signed-off-by: yc.hung <yc.hung@mediatek.com>
+---
+Changes since v1:
+  Rename yaml file name as mediatek,mt8195-dsp.yaml
+  Refine descriptions for mailbox, memory-region and drop unused labels
+  in examples.
+---
+ .../bindings/dsp/mediatek,mt8195-dsp.yaml     | 117 ++++++++++++++++++
+ 1 file changed, 117 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
 
-Here you go:
+diff --git a/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
+new file mode 100644
+index 000000000000..bde763191d86
+--- /dev/null
++++ b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
+@@ -0,0 +1,117 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/dsp/mediatek,mt8195-dsp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Mediatek mt8195 DSP core
++
++maintainers:
++  - YC Hung <yc.hung@mediatek.com>
++
++description: |
++  Some boards from mt8195 contain a DSP core used for
++  advanced pre- and post- audio processing.
++
++properties:
++  compatible:
++    const: mediatek,mt8195-dsp
++
++  reg:
++    items:
++      - description: Address and size of the DSP Cfg registers
++      - description: Address and size of the DSP SRAM
++
++  reg-names:
++    items:
++      - const: cfg
++      - const: sram
++
++  interrupts:
++    items:
++      - description: watchdog interrupt
++
++  interrupt-names:
++    items:
++      - const: wdt
++
++  clocks:
++    items:
++      - description: mux for audio dsp clock
++      - description: 26M clock
++      - description: mux for audio dsp local bus
++      - description: default audio dsp local bus clock source
++      - description: clock gate for audio dsp clock
++      - description: mux for audio dsp access external bus
++
++  clock-names:
++    items:
++      - const: adsp_sel
++      - const: clk26m_ck
++      - const: audio_local_bus
++      - const: mainpll_d7_d2
++      - const: scp_adsp_audiodsp
++      - const: audio_h
++
++  power-domains:
++    maxItems: 1
++
++  mboxes:
++    items:
++      - description: ipc reply between host and audio DSP.
++      - description: ipc reuqest between host and audio DSP.
++
++  mbox-names:
++    items:
++      - const: mbox0
++      - const: mbox1
++
++  memory-region:      
++    items:
++      - description: dma buffer between host and DSP.   
++      - description: DSP system memory.
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - interrupt-names
++  - clocks
++  - clock-names
++  - memory-region
++  - power-domains
++  - mbox-names
++  - mboxes
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    dsp@10803000 {
++       compatible =  "mediatek,mt8195-dsp";
++       reg = <0x10803000  0x1000>,
++             <0x10840000  0x40000>;
++       reg-names = "cfg", "sram";
++       interrupts = <GIC_SPI 694 IRQ_TYPE_LEVEL_HIGH 0>;
++       interrupt-names = "wdt";
++       clocks = <&topckgen 10>, //CLK_TOP_ADSP
++                <&clk26m>,
++                <&topckgen 107>, //CLK_TOP_AUDIO_LOCAL_BUS
++                <&topckgen 136>, //CLK_TOP_MAINPLL_D7_D2
++                <&scp_adsp 0>, //CLK_SCP_ADSP_AUDIODSP
++                <&topckgen 34>; //CLK_TOP_AUDIO_H
++       clock-names = "adsp_sel",
++                     "clk26m_ck",
++                     "audio_local_bus",
++                     "mainpll_d7_d2",
++                     "scp_adsp_audiodsp",
++                     "audio_h";
++       memory-region = <&adsp_dma_mem_reserved>,
++                       <&adsp_mem_reserved>;
++       power-domains = <&spm 6>; //MT8195_POWER_DOMAIN_ADSP
++       mbox-names = "mbox0", "mbox1";
++       mboxes = <&adsp_mailbox0>, <&adsp_mailbox1>;
++    };
+-- 
+2.18.0
 
-The following changes since commit fa55b7dcdc43c1aa1ba12bca9d2dd4318c2a0dbf:
-
-  Linux 5.16-rc1 (2021-11-14 13:56:52 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git tags/dm=
-aengine_topic_slave_id_removal_5.17
-
-for you to fetch changes up to 3c219644075795a99271d345efdfa8b256e55161:
-
-  dmaengine: remove slave_id config field (2021-12-17 11:23:56 +0530)
-
-----------------------------------------------------------------
-dmaengine_topic_slave_id_removal_5.17
-
-Tag for dmaengine slave_id removal topic branch which should be merged
-into v5.17
-
-----------------------------------------------------------------
-Arnd Bergmann (11):
-      ASoC: tegra20-spdif: stop setting slave_id
-      dmaengine: tegra20-apb: stop checking config->slave_id
-      ASoC: dai_dma: remove slave_id field
-      spi: pic32: stop setting dma_config->slave_id
-      mmc: bcm2835: stop setting chan_config->slave_id
-      dmaengine: shdma: remove legacy slave_id parsing
-      dmaengine: pxa/mmp: stop referencing config->slave_id
-      dmaengine: sprd: stop referencing config->slave_id
-      dmaengine: qcom-adm: stop abusing slave_id config
-      dmaengine: xilinx_dpdma: stop using slave_id field
-      dmaengine: remove slave_id config field
-
- drivers/dma/mmp_pdma.c             |  6 ------
- drivers/dma/pxa_dma.c              |  7 -------
- drivers/dma/qcom/qcom_adm.c        | 56 ++++++++++++++++++++++++++++++++++=
-+++++++++++++++-------
- drivers/dma/sh/shdma-base.c        |  8 --------
- drivers/dma/sprd-dma.c             |  3 ---
- drivers/dma/tegra20-apb-dma.c      |  6 ------
- drivers/dma/xilinx/xilinx_dpdma.c  | 17 +++++++++++------
- drivers/gpu/drm/xlnx/zynqmp_disp.c |  9 +++++++--
- drivers/mmc/host/bcm2835.c         |  2 --
- drivers/mtd/nand/raw/qcom_nandc.c  | 14 ++++++++++++--
- drivers/spi/spi-pic32.c            |  2 --
- drivers/tty/serial/msm_serial.c    | 15 +++++++++++++--
- include/linux/dma/qcom_adm.h       | 12 ++++++++++++
- include/linux/dma/xilinx_dpdma.h   | 11 +++++++++++
- include/linux/dmaengine.h          |  4 ----
- include/sound/dmaengine_pcm.h      |  2 --
- sound/core/pcm_dmaengine.c         |  5 ++---
- sound/soc/tegra/tegra20_spdif.c    |  1 -
- 18 files changed, 117 insertions(+), 63 deletions(-)
- create mode 100644 include/linux/dma/qcom_adm.h
- create mode 100644 include/linux/dma/xilinx_dpdma.h
-
-Thanks
---=20
-~Vinod
-
---H5lYUFRYsnZI2oAy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE+vs47OPLdNbVcHzyfBQHDyUjg0cFAmG8KFoACgkQfBQHDyUj
-g0cMEA/+LySLtN5xrYUyWQlJYPXEglgbzTuSsOz/GvVvGIvw2UqVR4njIWmVypWh
-aE7r7IgA4bM3ApFbwXEfNgeXmjRKuBiL7YyxaZ6JxLPyG9kis+yl7j3pwTMkLEW7
-W2vcO0jH+QSP2K/nPyQRdyCBfdP0ECtBefVwcpdpDcN7vPhcVKLHADJ9cN4cBTmW
-XRji1kutNFxbWPbL068ZBU2t9hl3WVVg3jqVUrEMOeo4RZUyFQDBB7mH4tE+Gj4u
-eJUh5ZA0Sn2+DiESYzHdpMvdciS6L2Fe7ujbZFyMQBwA52MtR50pyNlHFxrL7z/C
-BHdjuGKWBTP3Jah9AXEQcMpRKZ67NdbNYE4DXwyOscWFkv79Tc3vC7XxHiT4Jztc
-2IPIO+vJLORfAxEupml/ARZYwr+pNdA41v4c5aOp+3ZADRN2TLnZfIVkRdx6Zs6F
-t9Q2B7xKXIHuS5sLEArpGyHNroJ1f0sF7b4OL/vbKCd6fO/XZvumXpQNHj4N91ET
-LjtBtnfLeMRdAei1aqaQzAkLPigBa1E3cYjvdN4uyWDiU7c5NJ91i9U2jE8sR/Oj
-2oVUsPTHHQMOQcmoei16ajYF7UFClyGxV/w71L06uCEnFXqRF+Jvd0l2MAxgOMVP
-AIB/FPoyX4VkOMZNCbN+iRZ+VUwAaqz11fbGv+O1fbV6j397pvw=
-=EFS8
------END PGP SIGNATURE-----
-
---H5lYUFRYsnZI2oAy--

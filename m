@@ -2,180 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CE6B478800
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 10:44:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33E59478809
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 10:47:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F115F1AEE;
-	Fri, 17 Dec 2021 10:43:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F115F1AEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4AD21F1B;
+	Fri, 17 Dec 2021 10:46:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4AD21F1B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639734259;
-	bh=3jszeg3gzYYY9qBXB9hvF/Eplid54rNMHmAN3jRFAwQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1639734446;
+	bh=bPL7SxCJiTq8bFvE1QZR7MTYb5LDoxxxCFXGNe0epFo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZzVvCDsq6FZH02x42k7F/YUQE9w6IzhO/KkJelnk1PKrF91YLeXtx+NJ9zOA/rhik
-	 McvBGEzaSFEYJf8BL6RnmGL/HA7o0qlbSO8AM73rxDX5/7vvJv5jY2PrPzCVB0LaBv
-	 on3GIeb2+efGSsmK4xD/z2hXJP2njdKfabhxBtQk=
+	b=LRcLvh+D8egXjif65teBHmJBBOrVRmNFKzzpSeI0Xe+PAvd5hVRjdpEIrwVtO/aj+
+	 nXiVsVBWFmJpxW7jHrF3xHy/tOEOo3dbPImg/J/Xr9oXOUAl6n/1i2xFpoq8murwo+
+	 BHLIm2lbynanXv7omM21zPg4Mgn7vUnBqX8H2GaI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4FBABF80161;
-	Fri, 17 Dec 2021 10:43:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EE3BF800F4;
+	Fri, 17 Dec 2021 10:46:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 227C1F8014D; Fri, 17 Dec 2021 10:43:08 +0100 (CET)
+ id 00C59F8014D; Fri, 17 Dec 2021 10:46:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7BDC6F80143
- for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 10:42:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BDC6F80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA528F80143
+ for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 10:46:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA528F80143
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ehB4Pkbb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639734182; x=1671270182;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=3jszeg3gzYYY9qBXB9hvF/Eplid54rNMHmAN3jRFAwQ=;
- b=ehB4PkbbxSvgoSSWr2osmpPhoUrW3WIL2FNeRNwj/LagUQoN7RixtYV0
- h2bQCYE+J8Nr/69cofRjNuewFL1wO/g9BZyBENbKwI+b2o6ToliU7q+L8
- SL/EuCMsTFdlaRmsgcbLb9y5PyqpmX3cQlQQfX2WMAgD6hjipC6BWqBzx
- dOiukdptHoS6dUqmN9JW8cAjFIbfaLUTyTGw++GhjcarhUNvPrrmeqagV
- G/Xhd2q+Z96ckktASDpEbfuIlIg57/u9OMgK112c8Tw91+0DiH/mCEF7Z
- iUy2I3Sa12EZGMdgBeFriGhS1MNH10wlnlz15dgIdvNRiPSdJDFDaT9Q3 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10200"; a="300496398"
-X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="300496398"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2021 01:42:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,213,1635231600"; d="scan'208";a="483172313"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by orsmga002.jf.intel.com with ESMTP; 17 Dec 2021 01:42:55 -0800
-Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Fri, 17 Dec 2021 01:42:54 -0800
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20 via Frontend Transport; Fri, 17 Dec 2021 01:42:54 -0800
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.42) by
- edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.20; Fri, 17 Dec 2021 01:42:54 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ESCS1by1X5cX2TIHUR6IY7fSgh1h4KKaX4KtkXPlXpkawA6PZFQCR/V7lDF+EBFFO919LJTDaatVQ7DrSW5NQZFOYwVvzmx1n1Am0Agij3G8LTYJOA7+ivgpco2aZFoD9Q5mIzRhlDDO64OZ2nqThZn3KvF7CqrB6sh8Ps1pogssRp9pGItTR7qIrTv0NTk7rukzevy34KlnKLD15yU+t38CRntNG1VzcQb9+B93QVVIH1NyQ6XAfbhMFLcVUgl6EQ9zuIoNdpaOadQwEHe4UePOaTeMY53y4Eo/b296WwpjbqnOpcavxquB+ZWrDgVTe/Q42brLK7SnJElAZW6Zpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EbnJKK9o36KKpAoInVmErCDAZRHMgyJhkZ8xmAbaLi8=;
- b=M9CmYc91MHi3rkeY/uQA765FqxtZczmNc+TXHrZCaQl/MGzEpdNO8bkK9VmRrsIWsPBXGpT1WahO53U9T0UWVVcryrWIwcBGe5NrMVyZWjL4DhcVmEWvXmkvfkMrPP3HD3zwEVqR1R3bQuWl2iKk7x2cffd8NDRLMmcNeLTe4jbzdqY8LxB4pPdrCUt8+fGLhYPuh8Sge8Nd68xHkjGavK3Y/0b55d1g51vqHjq383nfwDIA/rBY6mmcWYbX8EtzHSAA0B+BOdmMNyq/l1al0SeiTCdtoDh1i3LKNGRQfhNFXrKKaNsjkBeqX+zpOcOZuMsc7EwK2+uV/coyxG8aCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BN6PR11MB4049.namprd11.prod.outlook.com (2603:10b6:405:7f::12)
- by BN6PR11MB4036.namprd11.prod.outlook.com (2603:10b6:405:82::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Fri, 17 Dec
- 2021 09:42:53 +0000
-Received: from BN6PR11MB4049.namprd11.prod.outlook.com
- ([fe80::cce3:53d5:6124:be26]) by BN6PR11MB4049.namprd11.prod.outlook.com
- ([fe80::cce3:53d5:6124:be26%4]) with mapi id 15.20.4778.018; Fri, 17 Dec 2021
- 09:42:53 +0000
-Message-ID: <f2ef853b-7ff3-4fd7-989f-032fec66945d@intel.com>
-Date: Fri, 17 Dec 2021 10:42:46 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.3.0
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="O6PaKYMJ"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BH7VDG4027623;
+ Fri, 17 Dec 2021 03:46:11 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=3k0NdkEM+b3Vmv/jNu9YwAZ5aPOV8hy9c94hsdHkoj4=;
+ b=O6PaKYMJB9vjvl7wcy1pWHj4P0faJMuF0dMqMltSrHWwGAVfYMOmuBbnX+LAkRZz5F6V
+ v8Q9FhsZ3KePzhwjj8/kUnNCZqxk+5tBKmfkgN9V1JLOhup6g2vhlFOz8H84URzxqrg/
+ SSlHtymU1eC56t0RReJdC0N1X8Oh/uxWBtxq3LG3XuIcrutoz5ta5Vszhl8eTIUXVLOo
+ XnjIthvAFp/agnroLt0MsyrmGdnkn4xp4sNN3HiJffg3NfC6GbkVPcA73vVKZbmVh/PW
+ /RyvuYkYTPuNDtlIQgUVHzSKKEyHl2e5aRh2uVSaAKFrYXfqwDjdeR3LclB/oGN/nrgU FQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3cymsc2b1f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 17 Dec 2021 03:46:11 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 17 Dec
+ 2021 09:46:09 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Fri, 17 Dec 2021 09:46:09 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id F2DD8B10;
+ Fri, 17 Dec 2021 09:46:08 +0000 (UTC)
+Date: Fri, 17 Dec 2021 09:46:08 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 Subject: Re: [PATCH] ASoC: wm8962: potential use of error pointer
-Content-Language: en-US
-To: Jiasheng Jiang <jiasheng@iscas.ac.cn>, <lgirdwood@gmail.com>,
- <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <kuninori.morimoto.gx@renesas.com>, <shengjiu.wang@nxp.com>,
- <daniel.baluta@nxp.com>
+Message-ID: <20211217094608.GT18506@ediswmail.ad.cirrus.com>
 References: <20211217031333.493777-1-jiasheng@iscas.ac.cn>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20211217031333.493777-1-jiasheng@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LNXP265CA0052.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:5d::16) To BN6PR11MB4049.namprd11.prod.outlook.com
- (2603:10b6:405:7f::12)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 23194668-78bf-414d-f086-08d9c14198e3
-X-MS-TrafficTypeDiagnostic: BN6PR11MB4036:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR11MB403621ADE523EE835A896DAFE3789@BN6PR11MB4036.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iwrTyF4FlNh0zV4aRYxOsPvXEfet1EF8qMes9P0J0VDDwjNF5nst36HSK3ygnbv71bSW6jXsObUuGJp6tsec5A4LN4FOw+FvuQwtQ0en2g4nJl6u8v48TWlen+GD1SdoV8CfXlXHCDEl9ygG3JZSn/ptgYhWLaCT1xmZQUXH8mY6jcKfaRrAeCPnDkU2S0j32PnltMIJ6fsCKQzrh0GZp2oVicVW7qwU64ZDTT56nUwS+GlJ8kF0abcL4285ARpw/NG7ujFMkxKXRUfDrANva8nihSdCxFwPfzW9kGIbfXMrVmFnItrF/5BK5LYnATDsMMLplZrmeWLNFbaO0ghYdrEobgPgINRDVjhDa7bVH2/IRYMtf5GVuZU5H1ihF2lS2pTgATfWV/SYSiLPUsgv0X6omlyL5m5P6y3VdAbwbEG9V0sD6UXlakjG0gexamplcvwRYroDAGa7iNiv4OBEi2aHTK6vzcdieq1LYcCPHlbw58rUNoF7b8xqu2i/hY4KDxGpbSK9u3Dl4Km4qZ/asU+j43QBrzF5Q/UtH8oZlgHJIq46YPKeyenq9KSfmh+4BSNnlXYL3FfqTkQOniicgLkSdiwtlhQbx6BqPmp7P+DWEfMw+WvIPQG56/djM9p6vIvIiXWUsWMCX5eKVpJ8VuwQbho+iPLzKwidevmB4Wogc32rcURliY69V2M/x4ubNvqWsCewbXkZO+he8YeqVpbp9KiNL1xGQiZks7Szqcc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR11MB4049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(44832011)(36756003)(6666004)(186003)(26005)(31686004)(53546011)(4744005)(4326008)(31696002)(5660300002)(83380400001)(6506007)(2616005)(86362001)(508600001)(8936002)(4001150100001)(66946007)(66476007)(66556008)(6512007)(6486002)(38100700002)(316002)(82960400001)(7416002)(2906002)(8676002)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHNTdnJ3MmlHQTZTQmMyaHhOR3pRZzkwcC84bHpDZVR3dE0zelhSbTNJZ0FJ?=
- =?utf-8?B?ZUhNMkpFZGk5YytuWUd1Y1RLWEdpWDBtSlVCQy9DTWlZbnFhc1ZVRVZtQXpk?=
- =?utf-8?B?ZFZOeEVha3FQeXAxTG5KcUxwUnE3UGxVRkxaRE5kUFF5NldyRUcydnNOZWFp?=
- =?utf-8?B?NzNEb09rWnhBVnJxbWZSQk1jRTh1Zko0aFplU3hNSk45dE9vTGN1a3NkUkRL?=
- =?utf-8?B?NURiUFhLWThBUUlEWXBIQktaWU5XbVNtVEx3YzYxTWllSFJhTTFSSXFFdFBq?=
- =?utf-8?B?UGkzNVBDbG93b0ZPTTF2dmo3MmtVZ2JBRUgxaSsyRDNQNDMxdkF5djR3NFNT?=
- =?utf-8?B?bm54MEdyQ2Z4MVhsazNUcGVqQldMc1haMVRUUHRFVzFYK0k0dmFyaGtiaUli?=
- =?utf-8?B?aTNMWUpJTlptUTJDaFlsTmZXTjByeTE0c3dyQitvVHM4bTVZeUdiZmUzTVJO?=
- =?utf-8?B?UnpRT0QwbU5UeGlBWFE1Zk9iS1oreU8waHZNK05UaE50WVIzQTJvTE9xMXNL?=
- =?utf-8?B?UFhNSmdXMENYT2JadmVob3c2TEllRzBYZFN3SEV5MEpFVXZQeXgvMjBpVTNW?=
- =?utf-8?B?LzJEc0drTHVEVFVEUldTUkNWRDZpOUw2bE5qVGhpL04vVE1DMzBNUGVHWXpS?=
- =?utf-8?B?Z2VUcHFSbWlWSTJSSndKSWVyTVJmallJSDRZeElvVFpuT1FVdGx5emROOVpR?=
- =?utf-8?B?VGt6bGZiYjhDOXlqMkxKdkVJN2RFaTJHZ0FOMk1ZZExPTmo5UUlKZXUySldY?=
- =?utf-8?B?ZHRPRjhOMzBQN3VPOG9DOXJva3JMR3NjbU5reVN4U25PME5jQnp5MXkzOTRp?=
- =?utf-8?B?OUU3RUQ2SzBweS9qN1ZTY09WdzRyL0cvQUl1YW1pcS8rS1hTdEprc1V5cENn?=
- =?utf-8?B?NjlkbzI2cEV4TU84SXlCbTdTN0o3Q2o1ZGUvVHQzSzZIbS9kbGhJQ3ZTVlh3?=
- =?utf-8?B?OC9rbzNMQURXN2JWNmV1V2pIQ254UTl6QnBiTy81dW9xZzA0N3QrVmhxZExm?=
- =?utf-8?B?c3AzbWR3NmhQR0llV0VtUkNnbkIzK2FuRU5kZW96L2R5T0JucE9FRHNyeEJK?=
- =?utf-8?B?Ty93emRzV0pUbFNtb0FRK3l6alQ1TTkremRaNDk0UHB6TnBaSVR3cE9xMXVt?=
- =?utf-8?B?TTZCSVJ6WTVkZ2JyczhkY2VtUWh6RkxqUGtkL3RJM0RRWEZvQ2xZZXRxUGZV?=
- =?utf-8?B?MW5IOExYUEdZSHNLcFloTUZGdlZBNjJqUGNYWVZRRlR2c0IvMzhuTWFZaSty?=
- =?utf-8?B?a2VuUjl3MnRTTXk1bEV2TDhldmJhbTMrenRUYk9GVDVGTm5rQVJ0NW56K3I5?=
- =?utf-8?B?Z2dESXFYMjBqSWFQc2UxNThqbFZkQlRTbFdPN25BYXBHMWY1RmJ1bXRuU0xo?=
- =?utf-8?B?bmtZRXQ1ZjZYWG1HRHZxZ2hWS1VDeGh2TDFQOVdNVnBtMWJ6NzNBUFVEUEtq?=
- =?utf-8?B?Ym1sWk5hY2dpYll2cEtBT3JRY0dpZ2xsejBoVjhrY3ZST2x6Sm4zSGNmeG93?=
- =?utf-8?B?cndFdS9sYnFadmpHSUVvVFhtV0NEVUdOVGhCR2szSkZYYXNDMUN6d2lVS3lx?=
- =?utf-8?B?V2lLYk85RDJIcWl4a0xHcmFtRnFTQjRoOHFMZTlUbnl1RjRwRDlHTS9vOWkw?=
- =?utf-8?B?eGtja05WZXRMS1pFak1YYUVrZGR1NmdRMGM4dzVZLzMyRWxiWWpxUXdOTnJl?=
- =?utf-8?B?cFg3R2dBaGl6VU1SbklubkMxQ204dzNVbTQ4RkNmUnR3eWlCaUVWV2xVOXdo?=
- =?utf-8?B?R2diUmdlK0dEVElMOHVESEVyVFVJQzdsQS9JNmM0NEROZUZVRGU3US95djZm?=
- =?utf-8?B?OWJVY0xtZEdrYndlcmREM3pzUWlqZm1LOXR1WVFvaFB4bldjOTlQRStHUmEr?=
- =?utf-8?B?c0t4dzZNQ09zNDBIMGgyRHFQVjdIakxOeDB1NWM1bGNtQVBDYXE4UjJuYno3?=
- =?utf-8?B?MEE3S1ZtNWkrOHRkOHR2L1lXM0lpRDJiWnpoaDhHdFJnS0RMRE9OakN4MVda?=
- =?utf-8?B?UlNUSS9VVkpLZDJJNXZrTXR1NTF0L2JVYlFnb2F2cEgwTGJLaWNyRmVtNHJ1?=
- =?utf-8?B?MEpBRFhMemxQWjlVZkdJQ3c4ZnQwT3k2NURuMFVwM3RwYVJ2ZkdZaVVNTWxp?=
- =?utf-8?B?K0VQeFFNczA2SnorWXhndU1jUCtoMTlLSzM5Mk5PTlVZNmJ0V1pTSzZiM1do?=
- =?utf-8?B?b2NJMFNablBCbUdFZ1BqcjhPd29HaEpucTcxUmNPOXNzVzNiSjM2Q3p1bStp?=
- =?utf-8?Q?TC3x3d1SySchV7tagAOzjkj3SWseoKxVZ4daCzUmLk=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23194668-78bf-414d-f086-08d9c14198e3
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB4049.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 09:42:53.3365 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IcR+9Oe1+byLlpi2+cQPgxTxdeKw3LatIJTOvfCjDwkRxmbxG2IxZRH46XTOjkX+fIEU0iirTDiKlY4IjywyeCX+nC0zph/7waQZX+MT6Hk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB4036
-X-OriginatorOrg: intel.com
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20211217031333.493777-1-jiasheng@iscas.ac.cn>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: J6QOU-sQ0H4BXgBQ4mDiiuRrtxDn9pJ6
+X-Proofpoint-ORIG-GUID: J6QOU-sQ0H4BXgBQ4mDiiuRrtxDn9pJ6
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ patches@opensource.cirrus.com, shengjiu.wang@nxp.com, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, daniel.baluta@nxp.com,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -192,35 +100,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-12-17 4:13 AM, Jiasheng Jiang wrote:
+On Fri, Dec 17, 2021 at 11:13:33AM +0800, Jiasheng Jiang wrote:
 > The return value of devm_clk_get() needs to be checked.
 > To avoid use of error pointer in case of the failure of alloc.
 > 
 > Fixes: d74e9e7090ae ("ASoC: wm8962: Add device tree binding")
 > Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 > ---
->   sound/soc/codecs/wm8962.c | 2 ++
->   1 file changed, 2 insertions(+)
+>  sound/soc/codecs/wm8962.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 > diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
 > index 34080f497584..66693bf17763 100644
 > --- a/sound/soc/codecs/wm8962.c
 > +++ b/sound/soc/codecs/wm8962.c
 > @@ -3540,6 +3540,8 @@ static int wm8962_set_pdata_from_of(struct i2c_client *i2c,
->   		}
->   
->   	pdata->mclk = devm_clk_get(&i2c->dev, NULL);
+>  		}
+>  
+>  	pdata->mclk = devm_clk_get(&i2c->dev, NULL);
 > +	if (IS_ERR(pdata->mclk))
 > +		return -ENOMEM;
->   
->   	return 0;
->   }
-> 
 
-Correct me if I'm wrong, but -ENOMEM is not the only error code that 
-could get returned by clk_get() (which is internally called by 
-devm_clk_get()). Is there a specific reason for ignoring the return value?
+The value was checked later, so the code was mostly fine and what
+bugs there were have already been fixed:
 
+044c11401443 ("ASoC: wm8962: Convert to devm_clk_get_optional")
 
-Regards,
-Czarek
+Thanks,
+Charles

@@ -2,71 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4205F478395
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 04:15:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C9A94784CC
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Dec 2021 07:05:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B280B1F47;
-	Fri, 17 Dec 2021 04:14:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B280B1F47
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDEAF18AE;
+	Fri, 17 Dec 2021 07:04:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDEAF18AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1639710908;
-	bh=7jSYj782gL0/5CA6LntfRj/5DXgHUUdRK40z9WFMzg8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=t+Dm9hHl3ZhoO57xNUw7ezk5XLdUwzeYouEnFhP5d4cR1K9KCCnMGWbGBHYhnpovI
-	 KRoNWXKYKKq1cpb4HKTSYtaSQqztbEHJi0NNFLJcYI5ie0Ddu2Z5mmIEV74Y/SJpGa
-	 Eud4XDcIvIrU3szRd22gVKmIhcVhS7Q+tUK+uxIo=
+	s=default; t=1639721136;
+	bh=kwoVfr91sfDbXUKT7OKdnlYuZVy9njagc98xzPanrDU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ph8XtSUoRVEjA0auTeJmOgzgWbvTwc2cAtEVrLTtm68roivtqwn8LDoou4/RRiIIj
+	 phx2Flqa5rqTR615hhVEiuiamPdPrsamIcabCHKB0uu9jO97T/8BhDP7o/N4ikNKmh
+	 SXdoFU6TOxlHKmO8nMw+1oHUr2wAFrCZxvsAIYPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 213E5F80143;
-	Fri, 17 Dec 2021 04:14:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EDB8F800B0;
+	Fri, 17 Dec 2021 07:04:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29D03F8014D; Fri, 17 Dec 2021 04:13:54 +0100 (CET)
+ id C30B2F80148; Fri, 17 Dec 2021 07:04:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by alsa1.perex.cz (Postfix) with ESMTP id 17C31F800B0
- for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 04:13:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17C31F800B0
-Received: from localhost.localdomain (unknown [124.16.138.126])
- by APP-01 (Coremail) with SMTP id qwCowAAnvqZeALxhWsO5Aw--.18722S2;
- Fri, 17 Dec 2021 11:13:35 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- kuninori.morimoto.gx@renesas.com, shengjiu.wang@nxp.com,
- daniel.baluta@nxp.com
-Subject: [PATCH] ASoC: wm8962: potential use of error pointer
-Date: Fri, 17 Dec 2021 11:13:33 +0800
-Message-Id: <20211217031333.493777-1-jiasheng@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AEDB6F800B0
+ for <alsa-devel@alsa-project.org>; Fri, 17 Dec 2021 07:04:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEDB6F800B0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="YTqFvg/h"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1110161F9A;
+ Fri, 17 Dec 2021 06:04:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861F2C36AE1;
+ Fri, 17 Dec 2021 06:04:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1639721054;
+ bh=kwoVfr91sfDbXUKT7OKdnlYuZVy9njagc98xzPanrDU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YTqFvg/hfF0lUestaWcAB80XJkTL/iy6IDSt7jP6+ESZr8GI22Qxo/LvXAVjMA9wq
+ aUGU8kGBf/IzSMOTdwqvmn7Zv5xXM35fcywMFOxtbDPDLcLJjuV5k5+1cF9OLZ4XyU
+ Fw5WunmhHxTS9QOwc415W6U1sieJ6CgG4x8bFG/EjBo2FJSvAyUEdSYNcpB3rmPfzE
+ 24OvE8RF7pDyG0MXG2IDRoWLBYB1QNxwL+Z+R5rYRs4cV62FVd82Bcu6879lwHrzn/
+ Tln06klRkA2ylotphb2f4yW7FkDjX1poS4ObMcnA5TXaqXqIhXWWedor/7V3CH6geF
+ edUqAttGhYDnw==
+Date: Fri, 17 Dec 2021 11:34:10 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Dmitry Osipenko <digetx@gmail.com>
+Subject: Re: [PATCH v4 00/22] Support HDMI audio on NVIDIA Tegra20
+Message-ID: <YbwoWhg6h8ChE5Xs@matsya>
+References: <20211204143725.31646-1-digetx@gmail.com>
+ <Ybo6tsnQM6OacoZs@sirena.org.uk>
+ <26af30a6-9606-72d0-9258-cf9627ddfe77@gmail.com>
+ <7179a409-d838-0e9e-4600-785e69c3e3a6@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowAAnvqZeALxhWsO5Aw--.18722S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZr45XrWUCFWfGw1fWrWUCFg_yoWxKrb_Gw
- 48u3yqvr9FgF1Svr9rXr4Y9a1FqF1fC3WUKwnaqFsxJFyUCrs5JwsrGrn3CrsrWw48ZF1U
- GFnF9r47Jr1UGjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbVkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
- Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
- 1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
- cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
- ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
- 0xkIwI1lc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
- x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Wr1j6rW3Jr1lIxAI
- cVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2Kf
- nxnUUI43ZEXa7VUjQBMtUUUUU==
-X-Originating-IP: [124.16.138.126]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="H5lYUFRYsnZI2oAy"
+Content-Disposition: inline
+In-Reply-To: <7179a409-d838-0e9e-4600-785e69c3e3a6@gmail.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>, dri-devel@lists.freedesktop.org,
+ Agneli <poczt@protonmail.ch>, linux-tegra@vger.kernel.org,
+ Jonathan Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,28 +92,120 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The return value of devm_clk_get() needs to be checked.
-To avoid use of error pointer in case of the failure of alloc.
 
-Fixes: d74e9e7090ae ("ASoC: wm8962: Add device tree binding")
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
----
- sound/soc/codecs/wm8962.c | 2 ++
- 1 file changed, 2 insertions(+)
+--H5lYUFRYsnZI2oAy
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index 34080f497584..66693bf17763 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -3540,6 +3540,8 @@ static int wm8962_set_pdata_from_of(struct i2c_client *i2c,
- 		}
- 
- 	pdata->mclk = devm_clk_get(&i2c->dev, NULL);
-+	if (IS_ERR(pdata->mclk))
-+		return -ENOMEM;
- 
- 	return 0;
- }
--- 
-2.25.1
+On 16-12-21, 17:29, Dmitry Osipenko wrote:
+> 15.12.2021 22:19, Dmitry Osipenko =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
+> > 15.12.2021 21:57, Mark Brown =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
+> >> On Sat, Dec 04, 2021 at 05:37:03PM +0300, Dmitry Osipenko wrote:
+> >>
+> >>> I based S/PDIF patches on Arnd's Bergmann patch from a separate serie=
+s [1]
+> >>> that removes obsolete slave_id. This eases merging of the patches by
+> >>> removing the merge conflict. This is a note for Mark Brown.
+> >> That's not in my tree so I'll need either a pull request with the seri=
+es
+> >> or a resend after the merge window.
+> > This patch is included as a part of this series, please see the patch #=
+6.
+> >=20
+> > I saw that Vinod Koul already merged it into his DMA tree [1] a day ago,
+> > but there is no stable branch there.
+> >=20
+> > [1]
+> > https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git/log=
+/?h=3Dnext
+> >=20
+>=20
+> Vinod, will you be a able to create immutable branch for us with the
+> "dmaengine: kill off dma_slave_config->slave_id" patches [1]?
+>=20
+> [1] https://lore.kernel.org/all/20211122222203.4103644-1-arnd@kernel.org/
 
+Here you go:
+
+The following changes since commit fa55b7dcdc43c1aa1ba12bca9d2dd4318c2a0dbf:
+
+  Linux 5.16-rc1 (2021-11-14 13:56:52 -0800)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git tags/dm=
+aengine_topic_slave_id_removal_5.17
+
+for you to fetch changes up to 3c219644075795a99271d345efdfa8b256e55161:
+
+  dmaengine: remove slave_id config field (2021-12-17 11:23:56 +0530)
+
+----------------------------------------------------------------
+dmaengine_topic_slave_id_removal_5.17
+
+Tag for dmaengine slave_id removal topic branch which should be merged
+into v5.17
+
+----------------------------------------------------------------
+Arnd Bergmann (11):
+      ASoC: tegra20-spdif: stop setting slave_id
+      dmaengine: tegra20-apb: stop checking config->slave_id
+      ASoC: dai_dma: remove slave_id field
+      spi: pic32: stop setting dma_config->slave_id
+      mmc: bcm2835: stop setting chan_config->slave_id
+      dmaengine: shdma: remove legacy slave_id parsing
+      dmaengine: pxa/mmp: stop referencing config->slave_id
+      dmaengine: sprd: stop referencing config->slave_id
+      dmaengine: qcom-adm: stop abusing slave_id config
+      dmaengine: xilinx_dpdma: stop using slave_id field
+      dmaengine: remove slave_id config field
+
+ drivers/dma/mmp_pdma.c             |  6 ------
+ drivers/dma/pxa_dma.c              |  7 -------
+ drivers/dma/qcom/qcom_adm.c        | 56 ++++++++++++++++++++++++++++++++++=
++++++++++++++++-------
+ drivers/dma/sh/shdma-base.c        |  8 --------
+ drivers/dma/sprd-dma.c             |  3 ---
+ drivers/dma/tegra20-apb-dma.c      |  6 ------
+ drivers/dma/xilinx/xilinx_dpdma.c  | 17 +++++++++++------
+ drivers/gpu/drm/xlnx/zynqmp_disp.c |  9 +++++++--
+ drivers/mmc/host/bcm2835.c         |  2 --
+ drivers/mtd/nand/raw/qcom_nandc.c  | 14 ++++++++++++--
+ drivers/spi/spi-pic32.c            |  2 --
+ drivers/tty/serial/msm_serial.c    | 15 +++++++++++++--
+ include/linux/dma/qcom_adm.h       | 12 ++++++++++++
+ include/linux/dma/xilinx_dpdma.h   | 11 +++++++++++
+ include/linux/dmaengine.h          |  4 ----
+ include/sound/dmaengine_pcm.h      |  2 --
+ sound/core/pcm_dmaengine.c         |  5 ++---
+ sound/soc/tegra/tegra20_spdif.c    |  1 -
+ 18 files changed, 117 insertions(+), 63 deletions(-)
+ create mode 100644 include/linux/dma/qcom_adm.h
+ create mode 100644 include/linux/dma/xilinx_dpdma.h
+
+Thanks
+--=20
+~Vinod
+
+--H5lYUFRYsnZI2oAy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE+vs47OPLdNbVcHzyfBQHDyUjg0cFAmG8KFoACgkQfBQHDyUj
+g0cMEA/+LySLtN5xrYUyWQlJYPXEglgbzTuSsOz/GvVvGIvw2UqVR4njIWmVypWh
+aE7r7IgA4bM3ApFbwXEfNgeXmjRKuBiL7YyxaZ6JxLPyG9kis+yl7j3pwTMkLEW7
+W2vcO0jH+QSP2K/nPyQRdyCBfdP0ECtBefVwcpdpDcN7vPhcVKLHADJ9cN4cBTmW
+XRji1kutNFxbWPbL068ZBU2t9hl3WVVg3jqVUrEMOeo4RZUyFQDBB7mH4tE+Gj4u
+eJUh5ZA0Sn2+DiESYzHdpMvdciS6L2Fe7ujbZFyMQBwA52MtR50pyNlHFxrL7z/C
+BHdjuGKWBTP3Jah9AXEQcMpRKZ67NdbNYE4DXwyOscWFkv79Tc3vC7XxHiT4Jztc
+2IPIO+vJLORfAxEupml/ARZYwr+pNdA41v4c5aOp+3ZADRN2TLnZfIVkRdx6Zs6F
+t9Q2B7xKXIHuS5sLEArpGyHNroJ1f0sF7b4OL/vbKCd6fO/XZvumXpQNHj4N91ET
+LjtBtnfLeMRdAei1aqaQzAkLPigBa1E3cYjvdN4uyWDiU7c5NJ91i9U2jE8sR/Oj
+2oVUsPTHHQMOQcmoei16ajYF7UFClyGxV/w71L06uCEnFXqRF+Jvd0l2MAxgOMVP
+AIB/FPoyX4VkOMZNCbN+iRZ+VUwAaqz11fbGv+O1fbV6j397pvw=
+=EFS8
+-----END PGP SIGNATURE-----
+
+--H5lYUFRYsnZI2oAy--

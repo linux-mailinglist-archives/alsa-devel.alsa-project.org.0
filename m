@@ -2,79 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E96547B2DE
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Dec 2021 19:31:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F6147B3DB
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Dec 2021 20:40:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9E6A1777;
-	Mon, 20 Dec 2021 19:30:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9E6A1777
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BCA31774;
+	Mon, 20 Dec 2021 20:39:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BCA31774
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640025099;
-	bh=wnRZGhr/r/oJHJL61vyyNk0oYJYUQaMZIvGBf4zvo+M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ame3NShFgr4Fw54Z/hzHcE628g/b4ogP0HmOs/UDMsG9N57AL0e/TTvosqv5hHiWQ
-	 Fb2KxS4ggTD7rSHFFpdzjSxcRn+ekoXCgbszuj+hylI7Y4RCT+DtY1BhfAJQRzBq+H
-	 OkuGxMOTVmXjTA2H25qBv+aFHij0NOzFcmANN/Lo=
+	s=default; t=1640029206;
+	bh=lemlXquTS0nN8VDw9hKqIsDNGAze45CcccMhX4gx0fM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FNU2HMsBell7g2NBR7t5kYIs2fRmJDBUyppl1sC3cyEspMuIMb/i5fANrcpuH2Y9E
+	 2G7H0rtiOOlCwJDdCKy1MWKssYTKKyv6WSNI1mRXvv/8A6wbketvlpbMfUmNuPnRSv
+	 vZaOTPmgL3bSp5p70v4kmYKwVxBkgmgU7DxpCAD8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12B6AF80149;
-	Mon, 20 Dec 2021 19:30:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74033F8028D;
+	Mon, 20 Dec 2021 20:38:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8B83F8012A; Mon, 20 Dec 2021 19:30:27 +0100 (CET)
+ id AC1EFF8025B; Mon, 20 Dec 2021 20:38:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5C0DF800B5
- for <alsa-devel@alsa-project.org>; Mon, 20 Dec 2021 19:30:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5C0DF800B5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WAi0AWA0"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from msg-4.mailo.com (ip-15.mailobj.net [213.182.54.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8DADD60FFB;
- Mon, 20 Dec 2021 18:30:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57046C36AEA;
- Mon, 20 Dec 2021 18:30:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640025019;
- bh=wnRZGhr/r/oJHJL61vyyNk0oYJYUQaMZIvGBf4zvo+M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WAi0AWA0wN8e6lLUJs/sXyx++lDqDbsdiGmll6uai/+xHuSNqt/PMepdHoUbLkber
- h+0mKoeSyXlDaQj4FvT+7UGjwP7llLNwarnzEUrsnQhZVWXPgqOwF09XAn0KqikE/d
- J0IvC6EbEMC1uNn20Hxs1IjTVYuI3K0LXVar0XSmzeZKkCWgeBrF0IDgJzu+4xEGtT
- 0l9mqY8hA5xhOvpGnIB+v7jWSuhs2MscIW+5DxsTbxL4dzad6boFGgzpmV8M/qiySM
- NXLinuzvb4y0s33jfZNgV272C1lmCx+XG4YuOfF6NqlZRY8CpNuyGdB49G/CaPqLxN
- KOOjPAzGgZuIQ==
-Date: Mon, 20 Dec 2021 18:30:12 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 2/2] ASoC: bcm: Use platform_get_irq() to get the interrupt
-Message-ID: <YcDLtMc6QR1kezmE@sirena.org.uk>
-References: <20211219181039.24812-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20211219181039.24812-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7452F80125
+ for <alsa-devel@alsa-project.org>; Mon, 20 Dec 2021 20:38:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7452F80125
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mailoo.org header.i=@mailoo.org
+ header.b="jt81mpAI"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailoo.org; s=mailo;
+ t=1640029070; bh=lemlXquTS0nN8VDw9hKqIsDNGAze45CcccMhX4gx0fM=;
+ h=X-EA-Auth:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+ MIME-Version:Content-Transfer-Encoding;
+ b=jt81mpAIUX+vk9yJcW7r8Lsn6PTMWwbMPWvR+2pSGd+xGgEzFgQ1rytzMuD8s4pCy
+ 3yQ6MOxyfgY1mAamKJi42QnqNroEvFXybF/N9Ix0FO7drye6X5UrCzpzy0g17B2k/6
+ 3d3hsnF0gDZp4+9xvte6wzejzJH/GX6XPQ95wQTo=
+Received: by b-3.in.mailobj.net [192.168.90.13] with ESMTP
+ via proxy.mailoo.org [213.182.55.207]
+ Mon, 20 Dec 2021 20:37:50 +0100 (CET)
+X-EA-Auth: b7Mo3T0KbdTHogRefIKytdYuExPxQulrJ6XWn+/8Bze2SmOx8jmtqxmb7O7UqDw2g42SGmgRi3w+z3Mdzy5T/ZQvpTkTNaTxuhtULkZDfrk=
+From: Vincent Knecht <vincent.knecht@mailoo.org>
+To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+ perex@perex.cz, tiwai@suse.com
+Subject: [PATCH v2 1/2] ASoC: dt-bindings: codecs: Add bindings for ak4375
+Date: Mon, 20 Dec 2021 20:37:24 +0100
+Message-Id: <20211220193725.2650356-1-vincent.knecht@mailoo.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="FbpY6masRNdhN5aX"
-Content-Disposition: inline
-In-Reply-To: <20211219181039.24812-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Cookie: The worst is enemy of the bad.
-Cc: alsa-devel@alsa-project.org, Florian Fainelli <f.fainelli@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Prabhakar <prabhakar.csengg@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
- Michal Simek <michal.simek@xilinx.com>, linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ stephan@gerhold.net, Rob Herring <robh@kernel.org>,
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org, Vincent Knecht <vincent.knecht@mailoo.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,39 +78,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+AK4375 is an audio DAC with headphones amplifier controlled via I2C.
+Add simple device tree bindings that describe how to set it up.
 
---FbpY6masRNdhN5aX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
+---
+Changed in v2:
+- Changed avdd-supply to be required
+- Picked up Rob's Reviewed-by
+  Sorry if it was not appropriate following the avdd change...
+---
+ .../devicetree/bindings/sound/ak4375.yaml     | 57 +++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/ak4375.yaml
 
-On Sun, Dec 19, 2021 at 06:10:39PM +0000, Lad Prabhakar wrote:
-> platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
-> allocation of IRQ resources in DT core code, this causes an issue
-> when using hierarchical interrupt domains using "interrupts" property
-> in the node as this bypasses the hierarchical setup and messes up the
-> irq chaining.
+diff --git a/Documentation/devicetree/bindings/sound/ak4375.yaml b/Documentation/devicetree/bindings/sound/ak4375.yaml
+new file mode 100644
+index 000000000000..f1d5074a024d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/ak4375.yaml
+@@ -0,0 +1,57 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/ak4375.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: AK4375 DAC and headphones amplifier Device Tree Bindings
++
++maintainers:
++  - Vincent Knecht <vincent.knecht@mailoo.org>
++
++properties:
++  compatible:
++    const: asahi-kasei,ak4375
++
++  reg:
++    maxItems: 1
++
++  '#sound-dai-cells':
++    const: 0
++
++  avdd-supply:
++    description: regulator phandle for the AVDD power supply.
++
++  tvdd-supply:
++    description: regulator phandle for the TVDD power supply.
++
++  pdn-gpios:
++    description: optional GPIO to set the PDN pin.
++
++required:
++  - compatible
++  - reg
++  - '#sound-dai-cells'
++  - avdd-supply
++  - tvdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      headphones: audio-codec@10 {
++        compatible = "asahi-kasei,ak4375";
++        reg = <0x10>;
++        avdd-supply = <&reg_headphones_avdd>;
++        tvdd-supply = <&pm8916_l6>;
++        pdn-gpios = <&msmgpio 114 GPIO_ACTIVE_HIGH>;
++        pinctrl-names = "default";
++        pinctrl-0 = <&headphones_pdn_default>;
++        #sound-dai-cells = <0>;
++      };
++    };
+-- 
+2.31.1
 
-This doesn't compile for at least x86_64 allmodconfig:
 
-/mnt/kernel/sound/soc/bcm/bcm63xx-pcm-whistler.c: In function 'bcm63xx_soc_platform_probe':
-/mnt/kernel/sound/soc/bcm/bcm63xx-pcm-whistler.c:395:11: error: implicit declaration of function 'irq_get_trigger_type' [-Werror=implicit-function-declaration]
-  395 |           irq_get_trigger_type(ret), "i2s_dma", (void *)i2s_priv);
-      |           ^~~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
 
---FbpY6masRNdhN5aX
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHAy7QACgkQJNaLcl1U
-h9B8HggAhVFxJhvNQGCBqKTFplNumBkXJngY8gVvGpUD+3Swi9w1W0NUUXgHyWU8
-dNSvmIaE4wMkLpMfFtc798MSbKmSVIa8vA+dZ7kmEVBa4mHuqUzggoIF6+mBqkJg
-KgNXFNlws74EJdUnOcBH1L0e3eAm7XNSKVb2ajZNTj1+tUZT7i8KRBFQVT0K4dLO
-K063q4v8izIXxQpPOtc3sENNr0KIh/keI0TlvuLNmH+0C0lOJezaD6yeiaJaC2v/
-R5n8ggf6406QZMnniXYHjLPd7WfjNfDoxuRIQECJOyvpFznPsWlVm0ckZ/Qki5IT
-u1vUaDc3+LsWEb21yQL7yosZ70Xdvg==
-=/p0n
------END PGP SIGNATURE-----
-
---FbpY6masRNdhN5aX--

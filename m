@@ -2,95 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5002247A8D2
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Dec 2021 12:35:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B010A47AA12
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Dec 2021 14:02:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8B8B176D;
-	Mon, 20 Dec 2021 12:34:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8B8B176D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2582C175C;
+	Mon, 20 Dec 2021 14:01:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2582C175C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640000116;
-	bh=I5Jt0O1zB5qYbbsoWEIySpLhFeEwX+yQwrcVj0d4tHg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1640005359;
+	bh=REUKzYvTnWFtSseRl3TT7ssf0DMkQQjLPLGHo24Iw9o=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UkekxOsXgBo4J4b7cqhlEEuAhBjg87anTkgmT05R41sHVK9PQuF7hRclVrPBzx0c6
-	 WpQrw0Sdkc3ReBW3w25ohSKstY2S5SsNxUTNFdddbzkrQb0u0mGGd0iW+qzPuKBFNO
-	 xSlUngrAFdpOY2Dl94IKv7QYZ3t3lqwmq5QQQ5Hs=
+	b=kqfz1T8Qm8TyZBu9Mui/ydP1Ul3NVS9IY0z7Kj475riv9VQ2/uUri0ZsxVe+d/mv8
+	 cwkXmK2bk6EbK3dznYTcShZxnC9682u1VrxS/Xhrg1nZ/92XYsuxQNAGlpIqBoEsyt
+	 ItB0BypXMACfPbDQ/OTS8PwnFC6o3cnkHdAtFLq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 181E0F80149;
-	Mon, 20 Dec 2021 12:34:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 560FAF80149;
+	Mon, 20 Dec 2021 14:01:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF92BF8012A; Mon, 20 Dec 2021 12:34:07 +0100 (CET)
+ id F3912F8011F; Mon, 20 Dec 2021 14:01:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [IPv6:2607:f8b0:4864:20::f32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86880F8011F
- for <alsa-devel@alsa-project.org>; Mon, 20 Dec 2021 12:34:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86880F8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E6E3F8011F
+ for <alsa-devel@alsa-project.org>; Mon, 20 Dec 2021 14:01:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E6E3F8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fL/aSdMN"
-Received: by mail-qv1-xf32.google.com with SMTP id fq10so500470qvb.10
- for <alsa-devel@alsa-project.org>; Mon, 20 Dec 2021 03:34:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Ib8Kih7Amxg/C5PLNgANyvS2G85OvDYw3t1xVRH3hC0=;
- b=fL/aSdMNkssqWy7s78XDEPpbq5/3gelPx7ScrqzppvAuEuv6t3M1100HL3mSlULtlc
- F0sqn8hZBz+MeV5zbPLtQsnn2/zCaRWlNiWr4jYM+VtQZosYPLkns1sOIjBoxq9U+OIM
- 6TLjvsncy7mC8VlDJrHii60N/Y+8wSt2w9QMqHPTXu8WARntQLRB9tJkpRL9rnUg1Ha/
- M/yWagu/XXLk4qPSRcJq6xvBwLDJ/p5YlJ7W5TjFuhp10d6yN1kgglPkajbLtOdSMGSC
- Td3oLutGk8eFoyfSp19rSW89JF2b+UNJnJ7FXq2vRIRGXXp1cX6vNs+Ew0JfFERfgFnz
- h+IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Ib8Kih7Amxg/C5PLNgANyvS2G85OvDYw3t1xVRH3hC0=;
- b=M/Jn6NhpNIufByzVyVFzQRJJjYXzGY8dcHisJnWzA4cEy/k+o78MxAfB4WddnufLgH
- Nla0CWU5+qzsZmHhFWOK0fGqrqHMeu6Y89w19+/XAZ6mgpjvi0n9gsbUH4t5Zqt2nH+k
- eVCLfrMw9rmkxt5fhoxVaTSW7uLhrj+U5O2F9kfxo+Lnr39mdAu1V0fa4uh4xqGnt4oL
- 6CZUfOnB+NlOUzkSDeT+z7/BbrUwy2LWZNaRQNhAk4J+OKd1Up6cey0BW9ID7ZkabSnI
- ySEM5YYHOiSdugFwIW0UThS0CAC3S2DMlNabdKPPT3meXe2ZpFt31y9llwehq8a1wkZW
- KSUg==
-X-Gm-Message-State: AOAM531K15OXe5qVE7CDXw9dS1Ca9S3edn3S3Ev2DtH16vT2Dq9myNkF
- x2uBl4gk/7wzywXJ0/Y+rhxUO2qb6jMEJvk3IlY=
-X-Google-Smtp-Source: ABdhPJxSwutSaVWp5ud4GYuWiIEhgPAAhF+uWzhLUzOnca4ez90/D72CI2qIraVw90NXzlcabzgkeg1U4D0UIxUBJA8=
-X-Received: by 2002:a05:6214:2622:: with SMTP id
- gv2mr12310705qvb.128.1640000036192; 
- Mon, 20 Dec 2021 03:33:56 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Aasdkjnn"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 15CE5CE1025;
+ Mon, 20 Dec 2021 13:01:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70C11C36AE7;
+ Mon, 20 Dec 2021 13:01:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1640005275;
+ bh=REUKzYvTnWFtSseRl3TT7ssf0DMkQQjLPLGHo24Iw9o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AasdkjnnNJsF6oJgAWJT46rCcWhebElwpln7Xpf1P6NArnvIcFfIbpOGhC7lMsx4W
+ UsDtDACQOU78EolMCL/awrtb+O7ENvyEU7TnKFn3/UT94i7PufoeQCE/b18F3XyAHz
+ Y7eNUT4qNIGc65ebCagifqHyLXBQcCSPmjLpsUIhSsn/4SvvPbbsGDCuHR5zR/nOEL
+ /txjGN7JclFRQkedc7znxNTw9U0nsK3JyyfkNhYrKGvj/lUyuBW+Q7qKAF71bwQm8y
+ 624/nIfXaukjrN8wceJstgK54zySU15CPhXC7B3fKNOzkc9/UmpaSwjUTQFFXJT/5G
+ 5b8xH68R8hG6w==
+Date: Mon, 20 Dec 2021 13:01:09 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH v6 08/10] ACPI / scan: Create platform device for
+ CLSA0100 and CSC3551 ACPI nodes
+Message-ID: <YcB+lUePGlo1S9tX@sirena.org.uk>
+References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
+ <20211217115708.882525-9-tanureal@opensource.cirrus.com>
+ <CAJZ5v0jTELqFeO6q6w_mYNo_yf1R9SX66RrEz0ZSe27w7E6kog@mail.gmail.com>
+ <4b5506b1-20c6-3983-d541-86dc2388b2a7@redhat.com>
 MIME-Version: 1.0
-References: <SL2PR06MB3082D6C1C65786A1E8DD0397BD709@SL2PR06MB3082.apcprd06.prod.outlook.com>
-In-Reply-To: <SL2PR06MB3082D6C1C65786A1E8DD0397BD709@SL2PR06MB3082.apcprd06.prod.outlook.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Mon, 20 Dec 2021 19:33:45 +0800
-Message-ID: <CAA+D8APDEhri4RKfjwSe-pM_xGKV+Oc6JVJUPFBqU8T+VH5K8A@mail.gmail.com>
-Subject: Re: [PATCH] sound: fsl: add missing put_device() call in
- imx_hdmi_probe()
-To: =?UTF-8?B?546L5pOO?= <wangqing@vivo.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="9/Pqt07Ueb9aNBfT"
+Content-Disposition: inline
+In-Reply-To: <4b5506b1-20c6-3983-d541-86dc2388b2a7@redhat.com>
+X-Cookie: Christ was born in 4 B.C.
+Cc: Platform Driver <platform-driver-x86@vger.kernel.org>,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Gross <markgross@kernel.org>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,36 +99,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 9, 2021 at 5:58 PM =E7=8E=8B=E6=93=8E <wangqing@vivo.com> wrote=
-:
->
->
-> >> From: Wang Qing <wangqing@vivo.com>
-> >>
-> >> of_find_device_by_node() takes a reference to the embedded struct devi=
-ce
-> >> which needs to be dropped when error return.
-> >
-> >...
-> >
-> >>        data =3D devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
-> >>        if (!data) {
-> >> +             put_device(&cpu_pdev->dev);
-> >
-> >If it's of_find_device_by_node() you need an of_node_put() since you're
-> >dropping a reference on the OF node.
-> >
->
-> Label fail will drop a reference on the OF node.
-> Also, put_device() is called later except this branch,
-> we just need to add put_device() here.
->
-I agree with you. But could you please add the info in this
-commit that
-the commit:
-f670b274f7f6 ASoC: imx-hdmi: add put_device() after of_find_device_by_node(=
-)
-is partially fixing the original issue, so we still need this fix.
 
-Best regards
-Wang Shengjiu
+--9/Pqt07Ueb9aNBfT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Dec 17, 2021 at 07:26:51PM +0100, Hans de Goede wrote:
+
+> This is fine with me, but I wonder if it would not be better
+> to keep it under drivers/platform/x86 ? Since the new SPI
+> use-cases are also all on x86 laptops AFAICT.
+
+Someone's going to end up using it for one of the Arm devices with ACPI,
+*especially* if it's put in drivers/platform/x86.
+
+--9/Pqt07Ueb9aNBfT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHAfpQACgkQJNaLcl1U
+h9Ac8wf9FmAjh+2RRFMNCcPoRlzeJvaGXlVOENLgOET0tUOx6vtKf/bBmdZ04Jfn
+/EnxgiVJOnHRjALACEva0AvgeooyLzMROopnthAcw6fbR0t4mWTruzNn8uawTUU7
+Jdz52ctPsB3q0kLrYCvCMI3qvmUFUcN+0iyDhMlP5yxSBEJadzdlMYDtywlfoO3e
+URO0st0GO/Vmhlp/EqEiwbEnp48KbSi/YvSbYMGeSemQ+PU6t43NikAV80DWAZgt
+2kbHYXZEOV/HA2qPrtGRalL2CqpriYMbeF4lm1zml+DliGSVBYIVKOryZfz1cX0v
+JP7EXWfEgcaclQFKDq4295OGuW0K/A==
+=QTdH
+-----END PGP SIGNATURE-----
+
+--9/Pqt07Ueb9aNBfT--

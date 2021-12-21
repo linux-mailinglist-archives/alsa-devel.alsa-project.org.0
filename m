@@ -2,98 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EAC947B6CE
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 02:22:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9CC447B891
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 03:51:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A28B51729;
-	Tue, 21 Dec 2021 02:21:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A28B51729
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A264173E;
+	Tue, 21 Dec 2021 03:51:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A264173E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640049765;
-	bh=uEcowjVyde4xsuxzXGFrKtzv9v6ZPzDE0E1cumVi3Tg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1640055111;
+	bh=9FyG3W5ip2zv6ci01ldf1DOdvGhwMGzdqpxjmFLSxxw=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nb1ILQ8MJVpMmSY27cy0eiSWbzpfBayDlUKfswRtdJjHEh63QEIi3fid6q3ecl4n8
-	 Fa3Yzeb2caexWJaDkCDtSB36mLh2o4pUVIdsf5NX9R5fHrG82Wuhrjgv3kI5Jw31lv
-	 y+xr4hOPw3EF+Xw+B+zC36FuaLpD9tPn9CMXfplQ=
+	b=LlPtiCr1HkLJYYZDBiAoSJ2QZsh0083tnVRTtt2ARmHzw4s3lqK/Z9YLLg6eoDPNV
+	 xP2/u3i4TQvsJOzqn+sYUHSxmRWt2nsuNKwAphUBp1+vfSGDRzty9Ds4cDjY/h7rFr
+	 Ibg5FbSIUN/Mh0I7OfowiB4/gRZ+EjIp/Ym8xGwU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05CD0F801D5;
-	Tue, 21 Dec 2021 02:21:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2D05F80125;
+	Tue, 21 Dec 2021 03:50:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 236B9F80149; Tue, 21 Dec 2021 02:21:38 +0100 (CET)
+ id 7085EF800E3; Tue, 21 Dec 2021 03:50:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DC81F80125
- for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 02:21:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DC81F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8D10F800E3
+ for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 03:50:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8D10F800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="eF1G2y2T"
-Received: by mail-lf1-x12e.google.com with SMTP id i31so10409577lfv.10
- for <alsa-devel@alsa-project.org>; Mon, 20 Dec 2021 17:21:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=nkRfs6Jq6Yr/a/t9OO2egmqloXCmD4IcdPxGpgHonb8=;
- b=eF1G2y2TjCAkFUrBHcdwf3AbiSiwCXaA2g7IKISK3lq1/wtP150oj9nLjun2CQ+h1R
- vot0D+gAcqRR647Zq81AI3CvVtcy3qDvnFMgCF4DHHFLLiEhLrLdpLz1gGyWi7JqjsMq
- Q5XPxpn2JAkCLZfvmuz8D1aMmD/Bp5QBWMX+MGVw72KvpunSLbk+ZeKop5LvmtvU2n97
- 5CsfKyuXgPWnKXIlltWovD4O1uQy3ssLCHpROmBnMqq4e6sbAe5zm8UC2DTyXOTkglGX
- EUt8rMwVdQ90IX6gxggPtLDeknNwu3LogfS0J0irajS7bExPTNK/MTUro5ZETcIatvCq
- UFlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=nkRfs6Jq6Yr/a/t9OO2egmqloXCmD4IcdPxGpgHonb8=;
- b=2ChV6D+Eu0E6HIZWpM5d/fr7FnMQAxtAEI5Y1CqACHSZvnSO3qY3CEY+FrzdLqPf+G
- MRsMweIJRFYKZpGfvVektzLwoX9VEW+/BR/htDzWhdzK6Jx99AfTEqNmE0Zu+uP2VEvl
- iKO34ZWyHjy3yPwyPIRz8BR59wgCsKc1P3k8JFJHDre2ffGf1WDuZAzlfADrhnRIUiEh
- LEuRNQdTrSoXol57uco8dWRqoqSeQo8j9FjcNPteHHQQVCx8aY9RXmyp3CzwlU71YSLL
- velIjMqXYvPH6355w+LgexlnuvqmQY7VvBjp+hWzkI/2lcl3bJOG1GCA9RpG2IYb9WL2
- ZNTw==
-X-Gm-Message-State: AOAM532EOUltzQ28ENnth2yuzGRRl0dKQsRlO7Q09xbzA2xARD50ubNg
- 7LsreMUz3IGv6ngBf/uWqYE=
-X-Google-Smtp-Source: ABdhPJziuxKcVGxUkjz2c00kkrTen8rOkYs71ofy6F7odPfZ42R/oI6ztDoz6894QXV2I32c3yKg8w==
-X-Received: by 2002:ac2:51bc:: with SMTP id f28mr842680lfk.222.1640049685857; 
- Mon, 20 Dec 2021 17:21:25 -0800 (PST)
-Received: from [192.168.2.145] (46-138-43-24.dynamic.spd-mgts.ru.
- [46.138.43.24])
- by smtp.googlemail.com with ESMTPSA id h18sm2637460ljh.133.2021.12.20.17.21.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Dec 2021 17:21:25 -0800 (PST)
-Subject: Re: [PATCH v2 1/3] ALSA: hda/tegra: Fix Tegra194 HDA reset failure
-To: Sameer Pujar <spujar@nvidia.com>, tiwai@suse.com, broonie@kernel.org,
- lgirdwood@gmail.com, robh+dt@kernel.org, thierry.reding@gmail.com,
- perex@perex.cz
-References: <1640021408-12824-1-git-send-email-spujar@nvidia.com>
- <1640021408-12824-2-git-send-email-spujar@nvidia.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <f859559c-abf1-ae37-6a0f-80329e6f747f@gmail.com>
-Date: Tue, 21 Dec 2021 04:21:24 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="drh8QKpz"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8945F61365;
+ Tue, 21 Dec 2021 02:50:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F9BC36AE8;
+ Tue, 21 Dec 2021 02:50:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1640055036;
+ bh=9FyG3W5ip2zv6ci01ldf1DOdvGhwMGzdqpxjmFLSxxw=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=drh8QKpzxuAT25mPaCSbOhqZK7c8+1M02Rvw3TLmlMOzg1ARUcZ9T/J8XxiYRiW03
+ IDmixepuqCaZX7Ufo5qYKU7qrr/XjLS27l3+y+h0fUe6IQcPXpdCDIls8Qx7Cr8qr6
+ 5apcwzda1wtxxvt9JthZU3PWxA70TgOGaanGHi0owlBOW3qVydPON77ZbGBO4XZ03Z
+ 3Q4vG3kIdqJEgFSrDIhakR9JDo4mJ/Kyr4TZnvfTGOqvhLt8cDVRZNvFl2KN+nm+Li
+ rDxCLMwnaL/f6B0NUvtKw2W5NV30I8HuwI7FUKTVTqoSQ6LDz7ZeMVVQdRSdQz5bcD
+ j4UtzYi6E/bbw==
+From: Mark Brown <broonie@kernel.org>
+To: matthias.bgg@gmail.com, Trevor Wu <trevor.wu@mediatek.com>, tiwai@suse.com
+In-Reply-To: <20211216022424.28470-1-trevor.wu@mediatek.com>
+References: <20211216022424.28470-1-trevor.wu@mediatek.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8195: correct default value
+Message-Id: <164005503431.2647762.14895672771692403341.b4-ty@kernel.org>
+Date: Tue, 21 Dec 2021 02:50:34 +0000
 MIME-Version: 1.0
-In-Reply-To: <1640021408-12824-2-git-send-email-spujar@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, jonathanh@nvidia.com,
- linux-tegra@vger.kernel.org, mkumard@nvidia.com
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,184 +83,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-20.12.2021 20:30, Sameer Pujar пишет:
-> HDA regression is recently reported on Tegra194 based platforms.
-> This happens because "hda2codec_2x" reset does not really exist
-> in Tegra194 and it causes probe failure. All the HDA based audio
-> tests fail at the moment. This underlying issue is exposed by
-> commit c045ceb5a145 ("reset: tegra-bpmp: Handle errors in BPMP
-> response") which now checks return code of BPMP command response.
-> Fix this issue by skipping unavailable reset on Tegra194.
+On Thu, 16 Dec 2021 10:24:24 +0800, Trevor Wu wrote:
+> mt8195_cg_patch is used to reset the default value of audio cg, so the
+> register value could be consistent with CCF reference count.
+> Nevertheless, AUDIO_TOP_CON1[1:0] is used to control an internal mux,
+> and it's expected to keep the default value 0.
 > 
-> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
-> Cc: stable@vger.kernel.org
-> Depends-on: 87f0e46e7559 ("ALSA: hda/tegra: Reset hardware")
-> ---
->  sound/pci/hda/hda_tegra.c | 96 ++++++++++++++++++++++++++++++++++++++++++-----
->  1 file changed, 86 insertions(+), 10 deletions(-)
+> This patch corrects the default value in case an unexpected behavior
+> happens in the future.
 > 
-> diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
-> index ea700395..be010cd 100644
-> --- a/sound/pci/hda/hda_tegra.c
-> +++ b/sound/pci/hda/hda_tegra.c
-> @@ -68,14 +68,21 @@
->   */
->  #define TEGRA194_NUM_SDO_LINES	  4
->  
-> +struct hda_tegra_soc {
-> +	bool has_hda2codec_2x_reset;
-> +};
-> +
->  struct hda_tegra {
->  	struct azx chip;
->  	struct device *dev;
-> -	struct reset_control *reset;
-> +	struct reset_control *reset_hda;
-> +	struct reset_control *reset_hda2hdmi;
-> +	struct reset_control *reset_hda2codec_2x;
->  	struct clk_bulk_data clocks[3];
->  	unsigned int nclocks;
->  	void __iomem *regs;
->  	struct work_struct probe_work;
-> +	const struct hda_tegra_soc *data;
->  };
->  
->  #ifdef CONFIG_PM
-> @@ -170,9 +177,26 @@ static int __maybe_unused hda_tegra_runtime_resume(struct device *dev)
->  	int rc;
->  
->  	if (!chip->running) {
-> -		rc = reset_control_assert(hda->reset);
-> -		if (rc)
-> +		rc = reset_control_assert(hda->reset_hda);
-> +		if (rc) {
-> +			dev_err(dev, "hda reset assert failed, err: %d\n", rc);
-> +			return rc;
-> +		}
-> +
-> +		rc = reset_control_assert(hda->reset_hda2hdmi);
-> +		if (rc) {
-> +			dev_err(dev, "hda2hdmi reset assert failed, err: %d\n",
-> +				rc);
-> +			return rc;
-> +		}
-> +
-> +		rc = reset_control_assert(hda->reset_hda2codec_2x);
-> +		if (rc) {
-> +			dev_err(dev,
-> +				"hda2codec_2x reset assert failed, err: %d\n",
-> +				rc);
->  			return rc;
-> +		}
->  	}
->  
->  	rc = clk_bulk_prepare_enable(hda->nclocks, hda->clocks);
-> @@ -187,9 +211,27 @@ static int __maybe_unused hda_tegra_runtime_resume(struct device *dev)
->  	} else {
->  		usleep_range(10, 100);
->  
-> -		rc = reset_control_deassert(hda->reset);
-> -		if (rc)
-> +		rc = reset_control_deassert(hda->reset_hda);
-> +		if (rc) {
-> +			dev_err(dev, "hda reset deassert failed, err: %d\n",
-> +				rc);
->  			return rc;
-> +		}
-> +
-> +		rc = reset_control_deassert(hda->reset_hda2hdmi);
-> +		if (rc) {
-> +			dev_err(dev, "hda2hdmi reset deassert failed, err: %d\n",
-> +				rc);
-> +			return rc;
-> +		}
-> +
-> +		rc = reset_control_deassert(hda->reset_hda2codec_2x);
-> +		if (rc) {
-> +			dev_err(dev,
-> +				"hda2codec_2x reset deassert failed, err: %d\n",
-> +				rc);
-> +			return rc;
-> +		}
->  	}
->  
->  	return 0;
-> @@ -427,9 +469,17 @@ static int hda_tegra_create(struct snd_card *card,
->  	return 0;
->  }
->  
-> +static const struct hda_tegra_soc tegra30_data = {
-> +	.has_hda2codec_2x_reset = true,
-> +};
-> +
-> +static const struct hda_tegra_soc tegra194_data = {
-> +	.has_hda2codec_2x_reset = false,
-> +};
-> +
->  static const struct of_device_id hda_tegra_match[] = {
-> -	{ .compatible = "nvidia,tegra30-hda" },
-> -	{ .compatible = "nvidia,tegra194-hda" },
-> +	{ .compatible = "nvidia,tegra30-hda", .data = &tegra30_data },
-> +	{ .compatible = "nvidia,tegra194-hda", .data = &tegra194_data },
->  	{},
->  };
->  MODULE_DEVICE_TABLE(of, hda_tegra_match);
-> @@ -449,6 +499,10 @@ static int hda_tegra_probe(struct platform_device *pdev)
->  	hda->dev = &pdev->dev;
->  	chip = &hda->chip;
->  
-> +	hda->data = of_device_get_match_data(&pdev->dev);
-> +	if (!hda->data)
-> +		return -EINVAL;
-> +
->  	err = snd_card_new(&pdev->dev, SNDRV_DEFAULT_IDX1, SNDRV_DEFAULT_STR1,
->  			   THIS_MODULE, 0, &card);
->  	if (err < 0) {
-> @@ -456,12 +510,34 @@ static int hda_tegra_probe(struct platform_device *pdev)
->  		return err;
->  	}
->  
-> -	hda->reset = devm_reset_control_array_get_exclusive(&pdev->dev);
-> -	if (IS_ERR(hda->reset)) {
-> -		err = PTR_ERR(hda->reset);
-> +	hda->reset_hda = devm_reset_control_get_exclusive(&pdev->dev, "hda");
-> +	if (IS_ERR(hda->reset_hda)) {
-> +		err = PTR_ERR(hda->reset_hda);
->  		goto out_free;
->  	}
->  
-> +	hda->reset_hda2hdmi = devm_reset_control_get_exclusive(&pdev->dev,
-> +							       "hda2hdmi");
-> +	if (IS_ERR(hda->reset_hda2hdmi)) {
-> +		err = PTR_ERR(hda->reset_hda2hdmi);
-> +		goto out_free;
-> +	}
-> +
-> +	/*
-> +	 * "hda2codec_2x" reset is not present on Tegra194. Though DT would
-> +	 * be updated to reflect this, but to have backward compatibility
-> +	 * below is necessary.
-> +	 */
-> +	if (hda->data->has_hda2codec_2x_reset) {
-> +		hda->reset_hda2codec_2x =
-> +			devm_reset_control_get_exclusive(&pdev->dev,
-> +							 "hda2codec_2x");
-> +		if (IS_ERR(hda->reset_hda2codec_2x)) {
-> +			err = PTR_ERR(hda->reset_hda2codec_2x);
-> +			goto out_free;
-> +		}
-> +	}
-> +
->  	hda->clocks[hda->nclocks++].id = "hda";
->  	hda->clocks[hda->nclocks++].id = "hda2hdmi";
->  	hda->clocks[hda->nclocks++].id = "hda2codec_2x";
-> 
+> [...]
 
-All stable kernels affected by this problem that don't support the bulk
-reset API are EOL now. Please use bulk reset API like I suggested in the
-comment to v1, it will allow us to have a cleaner and nicer code.
+Applied to
 
-The bulk reset code will look similar to the bulk clk API already used
-by the HDA driver, you'll only need to skip adding the hda2codec_2x to
-resets[3] and switch to use reset_control_bulk_reset_*() variants of the
-functions.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
+
+Thanks!
+
+[1/1] ASoC: mediatek: mt8195: correct default value
+      commit: 30e693ee82d20361f2caacca3b68c79e1a7cb16c
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

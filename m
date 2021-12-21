@@ -2,77 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D9A47C743
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 20:14:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4D7647C744
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 20:14:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 377001833;
-	Tue, 21 Dec 2021 20:13:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 377001833
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6023B17EB;
+	Tue, 21 Dec 2021 20:14:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6023B17EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640114063;
-	bh=PI9JsaIFDN7yqONnNOEbLQVi3YNrLsUoOS1QyXiQQlY=;
+	s=default; t=1640114090;
+	bh=PAs5jiYeFo0MBioLBW42YrvXg3HDfr/75mvKAgP84o4=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LWIfEKW71nKMU8XBP+5f50WhdzoIWmPl3g3QY5AJqRp+a5rxbUzU9r62RutfiVWeK
-	 P5xvlpdqIoHKSMvszKprvIii+2JLc9EttZQCp5TtbbupObkae8Ou4NrkKtOVcbYZL9
-	 YcMNKY1JSGPYzruPkf13Tnh7FUDKlSRiYWMSX4/Q=
+	b=h836j1jxaaYZ6/V13LPVwvkiVqvcy+SkskdLt6mdiMWjwyoxe6M76Rq8gev5jlf1U
+	 QsFDBEPKiR4k76K0+K0zsioBNlObxPVCdlJ5LI9+XDI2QKrwHFYZMwhNeUbhoavOrl
+	 KjgCSvAgv426zIsrz0f+A/7pHj9vY8LxTrAYWrD0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A748F804EC;
-	Tue, 21 Dec 2021 20:12:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04A04F804FB;
+	Tue, 21 Dec 2021 20:12:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45268F804D9; Tue, 21 Dec 2021 20:12:42 +0100 (CET)
+ id 2AE6AF804FA; Tue, 21 Dec 2021 20:12:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CAED5F80118
- for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 20:12:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAED5F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF20DF804E6
+ for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 20:12:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF20DF804E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GlXJ6WBZ"
+ header.b="mU333hz0"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B808FB81990;
- Tue, 21 Dec 2021 19:12:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832E6C36AEA;
- Tue, 21 Dec 2021 19:12:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 090666178F;
+ Tue, 21 Dec 2021 19:12:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B6EC36AE8;
+ Tue, 21 Dec 2021 19:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640113954;
- bh=PI9JsaIFDN7yqONnNOEbLQVi3YNrLsUoOS1QyXiQQlY=;
+ s=k20201202; t=1640113957;
+ bh=PAs5jiYeFo0MBioLBW42YrvXg3HDfr/75mvKAgP84o4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=GlXJ6WBZ+xlzM9rM70oU6/pG/JzGzIuUSiXpuUqZjUZgYLaOf0jNwPuZ+dgcf/NQw
- WK3SLdCLFXJkQ3umVpYzfhQxuBg7V8L8zrY5BfRKBCwtXVsW5BkHe6qb2b2ih1znPw
- M0d8FtlSdCpeYWcO13d76W+qSYX98u2FRkv6TTUbD3v+S25yJcuHGROlXN5Rfzsbdf
- vNgPzucDa1Y7B30uZ6uKMg7lPfDKbmjuIYEMYRXgadIAsWwwYFxzLfrNCFblOOtBlD
- 6FUeAgAB056Qk5LWvIuI4t9oEbcv+uRGkQ2fh+aTzRIVp9ji5G30ZRaTclm/YgtoHP
- SDnXBOuo1Zq5w==
+ b=mU333hz0r1ky9N5/Cxf891yMrzILchntrHGZPscClx+sfRB1ORC2u1lgzqaabDVbg
+ MzFK5rtV5d0fpUUQMeCKfCXCVsKeUxEBxlMBEbZVGWOfIi9fOrROjFdWx5dy2Kv8xv
+ 7ROsBWlNoLI1YYooIMxAoSdCPfqW8bNz7nw0elqS482K9+BvB+zdQD5NV7OMLUIjht
+ 0f4iA9t8RiETnFfczdqAmNTvNLfd2nWTHgFEFBKa/t5/LDy+DMSwEhqfYrzZDW8Q5s
+ r6pVoYlqnn3PDsjS/mRgtuV0iwFXJriQoUFKKBL12hUJTuXyvWRsG24T8u3qx0hmoP
+ BDfONoq1OfehQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Michal Simek <michal.simek@xilinx.com>, Takashi Iwai <tiwai@suse.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- alsa-devel@alsa-project.org, bcm-kernel-feedback-list@broadcom.com,
- Rob Herring <robh+dt@kernel.org>
-In-Reply-To: <20211221170100.27423-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20211221170100.27423-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v2 0/2] sound/soc: Use platform_get_irq() to fetch IRQ's
-Message-Id: <164011395226.93163.12622480659294102609.b4-ty@kernel.org>
-Date: Tue, 21 Dec 2021 19:12:32 +0000
+To: lgirdwood@gmail.com, tiwai@suse.com, robh+dt@kernel.org, perex@perex.cz,
+ Vincent Knecht <vincent.knecht@mailoo.org>
+In-Reply-To: <20211220193725.2650356-1-vincent.knecht@mailoo.org>
+References: <20211220193725.2650356-1-vincent.knecht@mailoo.org>
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: codecs: Add bindings for ak4375
+Message-Id: <164011395475.93163.15678068758276605566.b4-ty@kernel.org>
+Date: Tue, 21 Dec 2021 19:12:34 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ stephan@gerhold.net, Rob Herring <robh@kernel.org>,
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,15 +87,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 21 Dec 2021 17:00:58 +0000, Lad Prabhakar wrote:
-> This patch series aims to drop using platform_get_resource() for IRQ types
-> in preparation for removal of static setup of IRQ resource from DT core
-> code.
+On Mon, 20 Dec 2021 20:37:24 +0100, Vincent Knecht wrote:
+> AK4375 is an audio DAC with headphones amplifier controlled via I2C.
+> Add simple device tree bindings that describe how to set it up.
 > 
-> Dropping usage of platform_get_resource() was agreed based on
-> the discussion [0].
 > 
-> [...]
 
 Applied to
 
@@ -104,10 +99,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: xlnx: Use platform_get_irq() to get the interrupt
-      commit: c2efaf8f2d53ffa2ecc487e21c62d13bbb8d88c3
-[2/2] ASoC: bcm: Use platform_get_irq() to get the interrupt
-      commit: 5de035c270047e7ae754fbfb69031707aa5b54f7
+[1/2] ASoC: dt-bindings: codecs: Add bindings for ak4375
+      commit: 70ba14cf6dfd7ebd1275562bb9637b8d0ddb8f49
+[2/2] ASoC: Add AK4375 support
+      commit: 53778b8292b5492ec3ecf1efb84163eac2a6e422
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

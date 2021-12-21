@@ -2,78 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97C6C47C5EB
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 19:10:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74AB647C740
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 20:13:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DCCF17E3;
-	Tue, 21 Dec 2021 19:09:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DCCF17E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA5DE17F4;
+	Tue, 21 Dec 2021 20:12:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA5DE17F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640110240;
-	bh=mE1Y2QnGMqwCGUQOY/F5U66oqxEWb7Isr36SaoqyxXU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1640114025;
+	bh=O3S5FDEGvUEzy2gVtEQoUg/vvqyOLdya7T8+6tn8dX4=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IJIAtPczQBQY/FqX25XofN2dlFktkxEVa1+nFTWHXKrBnAwwxLvbUc55aTRlsIbzs
-	 ydmrbt9ThqL4ZgmBN3wrryhm5x6Kk8pBfDmEz9RO4kDnXObsvTFHv5SoTc1GdfMJV6
-	 7S0qFhL3PBl2N7rXE8wZDcANlKyE2mcyVX65jCYA=
+	b=WhuSG516o32QajRSFKwDkPwN9lAeEzG5fAPIW4pjzLOAyYBjKyPeXWHGxX7FzTMZX
+	 Z5dS3KF/S0yUJg9at3rxEHU3bs0J3YREtqnkup4rKpl3OT1aIT91aPT36A4dC0GbNU
+	 b4P/RO5adtGHjYM1NeyzKmW0Vv8ZAKnn41++SmHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91F81F80125;
-	Tue, 21 Dec 2021 19:09:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 252B4F8012E;
+	Tue, 21 Dec 2021 20:12:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C294F80118; Tue, 21 Dec 2021 19:09:32 +0100 (CET)
+ id A2B77F80118; Tue, 21 Dec 2021 20:12:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3DC9EF80084
- for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 19:09:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DC9EF80084
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8136F80084
+ for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 20:12:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8136F80084
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nVDPl0y9"
+ header.b="o8EF2woB"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 13439616E3;
- Tue, 21 Dec 2021 18:09:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4115DC36AEA;
- Tue, 21 Dec 2021 18:09:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F324A61773;
+ Tue, 21 Dec 2021 19:12:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3146DC36AE8;
+ Tue, 21 Dec 2021 19:12:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640110164;
- bh=mE1Y2QnGMqwCGUQOY/F5U66oqxEWb7Isr36SaoqyxXU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nVDPl0y9ItMNxgfSKev+eFhe6gpS6z4pvW6lR9CqOkeW2GIKBzlxsuppW+IYawfd4
- O3/zO8TZAnDQu18GnSXbYlcWvk+bE9pukQ8F5DTCqWHxyVt+V9INqEyAT0GrJ7CtA4
- MSMKLCGhlhR3PwOyVqDMNEugRrQY1+MSL361uX3hBZ0Sv7cYaISxdtreTERAbGT5Bi
- X26Rtat2oU4BZnKu/SkmYl38DRqObVNeo5Qv9S31CE5XX6K2MKKcXV46iDYKdYfoTJ
- a9lfFXxp7e1F4ikRl/1v8qBdPLHaQBKX8Y1cX4nvFCuYFzACh+/a7oAVFry7itt5pJ
- kgMlz58vh0kag==
-Date: Tue, 21 Dec 2021 18:09:19 +0000
+ s=k20201202; t=1640113949;
+ bh=O3S5FDEGvUEzy2gVtEQoUg/vvqyOLdya7T8+6tn8dX4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=o8EF2woBDzix9iVnoMUBlDsEqv1BCjY4u754dRFAHvRPXI5MtHoYiW9+CQi2rD+t/
+ KJAsf94f+LYVatapcCiUHunUP2Mf6FrWejNuXsFSfqMVuVmk2vOih3es1ka8H0BIIF
+ CVnxGptIYRAXJSynlxZtlAQtc6voJLhyuYQai3zGdL4nlsMe79L5LTthRM5GPJBxvR
+ egWjwb+ORUVnZ+0WgysqFfuA3H2PcZHgSJJRcPp8647twl5dG3SVaHyrOakKM8G2e6
+ PVxYBgByJJ4vEmk97mx4StQCCJMkKRfoRmcqZMzr+W4iyJUKeSKiS4wFmf1XkQFFq+
+ Y9tuM1axhm/kw==
 From: Mark Brown <broonie@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 0/7] ASoC/SoundWire: improve suspend flows and use
- set_stream() instead of set_tdm_slots() for HDAudio
-Message-ID: <YcIYT57YLpHR1+9A@sirena.org.uk>
-References: <20211213054634.30088-1-yung-chuan.liao@linux.intel.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Michal Simek <michal.simek@xilinx.com>, Takashi Iwai <tiwai@suse.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ bcm-kernel-feedback-list@broadcom.com, Rob Herring <robh+dt@kernel.org>
+In-Reply-To: <20211219181039.24812-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20211219181039.24812-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 0/2] sound/soc: Use platform_get_irq() to fetch IRQ's
+Message-Id: <164011394691.93163.1449464407728800638.b4-ty@kernel.org>
+Date: Tue, 21 Dec 2021 19:12:26 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="jpNuGnQnWByU2nxH"
-Content-Disposition: inline
-In-Reply-To: <20211213054634.30088-1-yung-chuan.liao@linux.intel.com>
-X-Cookie: knowledge, n.:
-Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, vkoul@kernel.org,
- srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com, bard.liao@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Prabhakar <prabhakar.csengg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,32 +87,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sun, 19 Dec 2021 18:10:37 +0000, Lad Prabhakar wrote:
+> This patch series aims to drop using platform_get_resource() for IRQ types
+> in preparation for removal of static setup of IRQ resource from DT core
+> code.
+> 
+> Dropping usage of platform_get_resource() was agreed based on
+> the discussion [0].
+> 
+> [...]
 
---jpNuGnQnWByU2nxH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Mon, Dec 13, 2021 at 01:46:27PM +0800, Bard Liao wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> The topics are independent but the changes are dependent. So please
-> allow me to send them in one series.
+Thanks!
 
-What's the plan for getting these merged?  Looks like they're mainly
-ASoC changes?
+[1/2] ASoC: xlnx: Use platform_get_irq() to get the interrupt
+      commit: c2efaf8f2d53ffa2ecc487e21c62d13bbb8d88c3
+[2/2] ASoC: bcm: Use platform_get_irq() to get the interrupt
+      commit: 5de035c270047e7ae754fbfb69031707aa5b54f7
 
---jpNuGnQnWByU2nxH
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHCGE4ACgkQJNaLcl1U
-h9BcbAf7BO1nVJqZQ/uFs5ullpcNtIFVdkEaywvlbx547ARaOGph8bkObOP6RD6m
-2ohdCpX1ZoetJeQ+PK37HR7SOMD/cRyd71kGI3DYG48b/FFckzm0JrVFIB6a3QYG
-h8keelfWZsgp+byhIZrk1AQ9hYco3TUw65R1V1JpgpF9u46cl/ylcf5CcXqu/rV8
-2+vuK6ReAbWt91LJiIimvqhd5ti4dOuq6QoMU5nwfCxSrUeTK7DjQ++lxE9N90RS
-Fx6llzEgkQ50NTTd2Vzkj3cgnuO98wKVldPSG6pYeLtbJgxp+V00M6dBw5/q54wH
-Xh4pjVYATviMV0596xPysypI9pbplg==
-=vLY7
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---jpNuGnQnWByU2nxH--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,105 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E249D47BE7D
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 11:56:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C75347BFEC
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 13:45:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65BFB16D3;
-	Tue, 21 Dec 2021 11:55:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65BFB16D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 820971FC;
+	Tue, 21 Dec 2021 13:45:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 820971FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640084163;
-	bh=o93ByXgnQa+gRy5xhqxup1KW/I85JlCPyw1q54v+OIk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1640090751;
+	bh=KN5D64t+ANZpL1fsr9SBeaKr/3ioRCvPPtRDZGOkDA4=;
+	h=References:From:To:Subject:Date:In-reply-to:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F5H8lZwHJV5uTABEnrI91T4ZRtEe1+wE+F8N9PuoWaBEfvkAs/63+Z7jHpwQ6MOfj
-	 sQnydxUj9W16yAl8X5uiUmlhaJ1v492SQCCEfZiFlVDrrAX6xkiirTSfltzDLrWRMK
-	 ogp1HkemFcCskK8GaOFO0xLUlB50b2cegpRt+04E=
+	b=oVLuS4l3yeagEwKxndBjEasbdcwN4eAx7dxZUZ43olWasISnwN2o9hfKafyptE5lm
+	 ZOve7n34ycjlxbKzG2C56sGK/3qIQrcSounVet9gl8GYYY5k6mW5hpQNjtK1ZjjP0W
+	 5sr14fsAp0E5wDTxKjI96S0RahiIrDepB2j9SjHE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96348F800B5;
-	Tue, 21 Dec 2021 11:54:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE171F800B5;
+	Tue, 21 Dec 2021 13:44:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AEB54F80118; Tue, 21 Dec 2021 11:54:55 +0100 (CET)
+ id E8949F80118; Tue, 21 Dec 2021 13:44:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 69FBDF800E3
- for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 11:54:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69FBDF800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF631F800B5
+ for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 13:44:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF631F800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="J+2hudM1"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Ui9Miq0w"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 486135C0305;
- Tue, 21 Dec 2021 05:54:48 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Tue, 21 Dec 2021 05:54:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=10u2seyTtDKFh00Zfz/k03hmkz3
- kOv0x/W4LJ4OGXIc=; b=J+2hudM1lN3q+QxEDzLvWHX/7r7mxc1nXK5x8lGZ0Fc
- VIDOQjMhbIQy0DpvWntNVfwlwgi4kvK5Uvg9iK8GlIhj3HHLqcQm73wIDt6bvrSU
- 3t9xE3E3SkwjEO85VB5CS8lnos2V7/DVQ1yE+5urImo/K3r2quvJ7BCv3JzHdsBH
- 8arcYlOKcx6oGMErfbHOh7rZ5602525Jx0EASKqkNkHV87uUUepW2CxOmnkkFvtn
- ALfuTkii2KqLN2ntfDerAoM2yYRDinxJdBDoavS4U6a400i4rcHmzobxo7ROZf6g
- k9R0QxlUK7d+c/ex8v2iUJZ/SajGRBkkmnwORHcnylg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=10u2se
- yTtDKFh00Zfz/k03hmkz3kOv0x/W4LJ4OGXIc=; b=Ui9Miq0wg67yWnAJnd27B/
- 7LZlRDrb9vHQuZJYbyq84aAwboetzbrhfzUh4EQ0F5ERO1r0eziu9HM5SARgvzEt
- hjRhLqwzPXNRk8FA14Q7Uyje9cpmcazytyc10SyhJLZg2W5nZMQ8MDBPu8kx/a0g
- F0KzEse27fBuhiTd38EsGxHLvBdDlWNYMNVujlUUE1eGXikzwElI+Zt7n10Z0Egn
- vcWYEruoQhJgWweBeDhvv3DX8p+LSjYzZKyTXvs4L8T9YqzrM99l7QMt+Hv3g7NG
- klPcL2E+Au2wfkvbaT8YTqSG5of9ZJZIzNHsFHCYJn+KMd7rQXgtGX4XlXPTFqFA
- ==
-X-ME-Sender: <xms:d7LBYenCx4WpenTpOzYfZqsQyIvZc2PGO1Y26yplXT-2IneSk71hhA>
- <xme:d7LBYV1v7XO8B5QCiQjHe4OYlw02af9L5nL_NsLWrgdOO9cGIcQl7lP5TXh_ZiNE7
- WLwBDjfviYSrigU-RM>
-X-ME-Received: <xmr:d7LBYcpQQvV_cOmY7A3d8pqTE6PLlhlKyBWG927pDy_QQf05NrvfsFgM6eV2hVrpysry5nVU3bg4erK1d7eC8oA-zHhhffIY2g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddruddtgedgvdduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujgesthdtro
- dttddtvdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhephffhvdejve
- ffkeeifffhuedufeekkefgtddvteeggeehgeeljeduhfdvhfejvdeknecuffhomhgrihhn
- pehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
- grihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:d7LBYSlO7ey3mSyanWXGQgdOYXw2WlotdYHPCBAh84bF3_7WsRt6nA>
- <xmx:d7LBYc3hUu3PAo0YiSy77pYk7WPoMjlso4vmKMTVEXcyU7DU6Hr7pg>
- <xmx:d7LBYZvuCvMyL9v40I7_3hwib7cuaTZnyKYrk20jLA1dR2edxUiJpw>
- <xmx:eLLBYZxsqsVLwepd4A-bP51zIbADVIE-tMd4mHZzPAGawVjawn9VKA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 21 Dec 2021 05:54:46 -0500 (EST)
-Date: Tue, 21 Dec 2021 19:54:42 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: stefanr@s5r6.in-berlin.de
-Subject: Re: [PATCH 0/3] firewire: assist unit driver to compute packet
- timestamp
-Message-ID: <YcGycqUrptkWYeOV@workstation>
-Mail-Followup-To: stefanr@s5r6.in-berlin.de, alsa-devel@alsa-project.org,
- linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- marcan@marcan.st
-References: <20211202113457.24011-1-o-takashi@sakamocchi.jp>
+ dkim=pass (2048-bit key) header.d=baylibre-com.20210112.gappssmtp.com
+ header.i=@baylibre-com.20210112.gappssmtp.com header.b="pf15ho+6"
+Received: by mail-wr1-x433.google.com with SMTP id s1so21301056wra.6
+ for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 04:44:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20210112.gappssmtp.com; s=20210112;
+ h=references:user-agent:from:to:cc:subject:date:in-reply-to
+ :message-id:mime-version;
+ bh=LFkudhgE/RfVwuGY1n7h7LKuNRIgZvkWEBMWG1M1X6E=;
+ b=pf15ho+6XPQgQBH195bxwibSYp3O0VCy8NNQgRII/9a4Nm9b8BuZouEnV4DiiKScLq
+ /QiGbT632mF6jEM1flpu3fbwmRRluRrBYvJIbVldwiL7+xjevhYEuTTBBi+MWqNMMNCa
+ anAUYQHwNt9C/z5RCLT/eszNX3pxWzVEMTPJ9CpBc3m212mtBnusMem95uW4cK6CB2Gr
+ OBXXikXoS4pLauMwcMZmaM76mrmBCOYEKla4TbrOxfSmocBuL+l4t2NOs9vh2uOapvu6
+ GVSvVX/0VzlMcUjGmNeSPVyTyiW7ln8CaLvyB37HgfuuEXFNv2P39ozZiQqke9NhLwy/
+ VCTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
+ :in-reply-to:message-id:mime-version;
+ bh=LFkudhgE/RfVwuGY1n7h7LKuNRIgZvkWEBMWG1M1X6E=;
+ b=gf4hTMI72I3oxlKCMbT8jurUWo7DRbVxW3HyXaj0Lr1kGnTaUD2THqXIGG1/AxaUX0
+ UbfQ23gR8G5GbvT0syd4JDT4TmPGPeH2/UlWU3O44lkRs1OkTi/wXSad78Of9hY6Wecs
+ s8oZqSaBNc/ZbIqn1Vm2S55DR1d0WBD2t0W5S+ocTeeC80XoQfRnGJi5dDtCRmX8pR5K
+ /Mf94rrg17DJUc0wj+bUNJN/EWKH/gGV/ftdtgS0hGXDKAbz+Idk8MWPDOOQArc4UQ2a
+ KPZSrbjqI3fVcoJ/zdUfyJsVjc+Wk9icpyg31BWishhNyBX2Opk+xBRPLZGJDpCV/rV0
+ xlSw==
+X-Gm-Message-State: AOAM533ZNAAZu9wjLMGGmHviPjTT5qTXY2E2am4Q+pICJGXy/RCZ0oxo
+ wp2oguv3nd0b26F4BZh0JWOZijGUYDRp4neS
+X-Google-Smtp-Source: ABdhPJy5ufpXEgZoRhzOxuJM0uLIBZI1smTxKJ2/W0UXOvP69/PmKVwEpnZ4JMk3aAEQpmS0N5YbLw==
+X-Received: by 2002:a5d:64aa:: with SMTP id m10mr2631439wrp.500.1640090668069; 
+ Tue, 21 Dec 2021 04:44:28 -0800 (PST)
+Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
+ [90.63.244.31])
+ by smtp.gmail.com with ESMTPSA id v6sm2302654wmh.8.2021.12.21.04.44.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Dec 2021 04:44:27 -0800 (PST)
+References: <20211218143423.18768-1-alexander.stein@mailbox.org>
+User-agent: mu4e 1.6.10; emacs 27.1
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Alexander Stein <alexander.stein@mailbox.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>
+Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: Use name-prefix schema
+Date: Tue, 21 Dec 2021 13:36:03 +0100
+In-reply-to: <20211218143423.18768-1-alexander.stein@mailbox.org>
+Message-ID: <1jzgou6sba.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211202113457.24011-1-o-takashi@sakamocchi.jp>
-Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, marcan@marcan.st
+Content-Type: text/plain
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,71 +102,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Stefan,
 
-Thank you for your long effort to maintain Linux FireWire subsystem. I'd
-like to use the timestamp function for my integration in ALSA firewire
-stack planned at next version of Linux kernel. I'm glad if getting to
-your help for upstreaming.
+On Sat 18 Dec 2021 at 15:34, Alexander Stein <alexander.stein@mailbox.org> wrote:
 
-On Thu, Dec 02, 2021 at 08:34:54PM +0900, Takashi Sakamoto wrote:
-> Hi,
-> 
-> In 1394 OHCI specification, each descriptor of IR/IT/AR/AT DMA context
-> has timeStamp field. The value of timeStamp field express the time in
-> which the controller accept packet. The resolution of value is isochronous
-> cycle count (8,000 Hz) with second up to 7.
-> 
-> I have a plan to use the value of timeStamp field for ALSA firewire stack
-> so that userspace ALSA PCM/Rawmidi applications can get converted timestamp
-> (ktime) for PCM frame/MIDI message. The timestamp can ideally express
-> finer granularity than the time to invoke IRQ handler (and co).
-> 
-> Current implementation of Linux FireWire subsystem delivers the value of
-> timeStamp field to unit driver for IR/IT/AT DMA context, but not for AR
-> DMA context. Additionally, the way to refer to Isochronous Cycle Timer
-> Register in MMIO region of 1394 OHCI controller is transaction to local
-> node. It includes overhead of transaction and it's preferable to add
-> less-overhead way available in any type of IRQ context.
-> 
-> This patchset adds two functions exposed in kernel space:
-> 
->  * fw_card_read_cycle_time()
->     * allow unit driver to access to CYCLE_TIME register in MMIO region
->       without initiate transaction
->  * fw_request_get_timestamp()
->     * allow unit driver to get timestamp of request packet inner request
->       handler
-> 
-> I note that Hector Martin found kernel null pointer dereference during
-> process to remove PCI card and has posted a patch:
-> 
->  * https://lore.kernel.org/lkml/20211027113130.8802-1-marcan@marcan.st/
-> 
-> His patch is included in the series with my comment for relevant commit
-> 20802224298c ("firewire: core: add forgotten dummy driver methods, remove
-> unused ones"). The patch is required since unit driver can refer to dummy
-> driver between removal callback of PCI subsystem and removal callback of
-> FireWire subsystem.
-> 
-> Hector Martin (1):
->   firewire: Add dummy read_csr/write_csr functions
-> 
-> Takashi Sakamoto (2):
->   firewire: add kernel API to access CYCLE_TIME register
->   firewire: add kernel API to access packet structure in request
->     structure for AR context
-> 
->  drivers/firewire/core-card.c        | 39 +++++++++++++++++++++++++++++
->  drivers/firewire/core-cdev.c        |  6 +++--
->  drivers/firewire/core-transaction.c | 18 +++++++++++++
->  include/linux/firewire.h            |  3 +++
->  4 files changed, 64 insertions(+), 2 deletions(-)
-> 
-> -- 
-> 2.32.0
+> name-prefix.txt does not exist anymore, just reference the schema instead.
+>
+> Signed-off-by: Alexander Stein <alexander.stein@mailbox.org>
 
+Thanks for doing this.
 
-Sincerely yours
+To keep things coherent, it would be nice if you could do the
+same for the other amlogic sound components. They all use prefixes,
+except card drivers.
 
-Takashi Sakamoto
+Side note: Any ASoC component could use the sound-name-prefix. Is there
+a way express that somehow ? instead of repeating this type of change in
+every codec/cpu binding doc ?
+
+> ---
+> Changes in v2:
+> * Fix 'pass' -> 'true'
+>
+> .../devicetree/bindings/sound/simple-audio-amplifier.yaml | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/sound/simple-audio-amplifier.yaml b/Documentation/devicetree/bindings/sound/simple-audio-amplifier.yaml
+> index 26379377a7ac..8327846356d3 100644
+> --- a/Documentation/devicetree/bindings/sound/simple-audio-amplifier.yaml
+> +++ b/Documentation/devicetree/bindings/sound/simple-audio-amplifier.yaml
+> @@ -9,6 +9,9 @@ title: Simple Audio Amplifier Device Tree Bindings
+>  maintainers:
+>    - Jerome Brunet <jbrunet@baylibre.com>
+>  
+> +allOf:
+> +  - $ref: name-prefix.yaml#
+> +
+>  properties:
+>    compatible:
+>      enum:
+> @@ -22,10 +25,7 @@ properties:
+>      description: >
+>        power supply for the device
+>  
+> -  sound-name-prefix:
+> -    $ref: /schemas/types.yaml#/definitions/string
+> -    description: >
+> -      See ./name-prefix.txt
+> +  sound-name-prefix: true
+
+I've seen a couple of file with this, according the commit description
+it solves some kind of name clash but I did not really get how ...
+
+>  
+>  required:
+>    - compatible
+

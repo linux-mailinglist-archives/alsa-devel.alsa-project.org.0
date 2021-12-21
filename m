@@ -2,73 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D75C47C745
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 20:15:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8690947C746
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 20:15:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C39A11852;
-	Tue, 21 Dec 2021 20:14:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C39A11852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 208661841;
+	Tue, 21 Dec 2021 20:14:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 208661841
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640114105;
-	bh=x7j1ETCuHiL0HpZR9luQpYuCn0hIxPlFZQZghd10zX0=;
+	s=default; t=1640114127;
+	bh=zgeZRVRuafwQrEQMbJc8CNZl8kFQYTvPQfyRtjn3/VM=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HJuaQ7QUBQE8cC6ROx2+AsHljy2Cj6LLWB8ud318l9FcuEoYE7wqtzBztpek7aJZb
-	 a17WmreIaaiktAQq7thc9UHvSQLaHqvG43SnB9IAiRTpDkPB3Z0zTpQCak1LoniAsh
-	 an1ga+oQtEzzl//WcpPfzjo40zgfcdwfRkfuanyI=
+	b=R8uLMbtnnkUoHqUda+I6SD3DjWprPE6bA020CMOGx4DTSjdMsbnTVNT1Nssy/4c/B
+	 fvA76mqkt7MZGeswEURcmx6GTDS5y7dGfH1f7jZCY17nAho9NQPy3TT+KRDPO9OdVK
+	 4iJv7PUfdppjZMpFj6+a1D1NibU2V2/V2QJxs1D8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87025F804FE;
-	Tue, 21 Dec 2021 20:12:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51415F8051A;
+	Tue, 21 Dec 2021 20:12:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74DF1F804FB; Tue, 21 Dec 2021 20:12:51 +0100 (CET)
+ id BDFB0F80507; Tue, 21 Dec 2021 20:12:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22A4DF80125;
- Tue, 21 Dec 2021 20:12:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22A4DF80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D24EF804F2
+ for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 20:12:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D24EF804F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H5pe08zM"
+ header.b="YxKHvZ4i"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2421661792;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7599B6178B;
+ Tue, 21 Dec 2021 19:12:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D9FC36AEA;
  Tue, 21 Dec 2021 19:12:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9BEFC36AE9;
- Tue, 21 Dec 2021 19:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640113961;
- bh=x7j1ETCuHiL0HpZR9luQpYuCn0hIxPlFZQZghd10zX0=;
+ s=k20201202; t=1640113963;
+ bh=zgeZRVRuafwQrEQMbJc8CNZl8kFQYTvPQfyRtjn3/VM=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=H5pe08zM3gaRa7LoADnQ7I2fBJU/1Phv0wHtKHATwfHdwIjZLylnnt9jsYwnJv+Xr
- QsEnZRcZFPKOak8AS2YB7+dpHTmXkqyCh6x4P56G47QGh0hb0XDePa4umdobF6ks1l
- Pa0mXK20AbUgMbLfDFVPUDmndIs2QsCa63zRmoLz/bPhAvb3W8CJlpT/MNcN1+t5pD
- MUKriVX6glVM7FA8EhTiaIXKJbWGHUmMAjBQqYicHSdYuLlJzoRcL/isS5qh4iPxeD
- 40OsjFbPXUzWqamInQ3iO0g2QkVbLGWOVLtfYDHTm+/73zgE2qvWfhf2OlYtrkqo34
- Ngf66av1qo1Ag==
+ b=YxKHvZ4ib1x6Od9tHuokB1h1qHxqybGhoN7wyIAgjd0TcnUx8xrR180OnZGIqNbEG
+ uK+Eyyhyt58sG8LmjJCUqzSFxRImuHJAm/0mrAvSLMSgiXJbOn20qOmKKU/Txs7LAc
+ 77n+KrSKhsBmM0qegALj+df95fCBoYZTSAh3qj6e3krHmW9V6itRJwfO/pTO++I/4M
+ iogMmDPv71uSgy21Ci89XQtVGMaxWikwskmkUg5Pr4UZuXTftki+arO2kEFaJmXyRN
+ Wifkrc08Ns4AtDn6NTnFtpzaoAlSDo8x48yBl+biBThOlMfa2LvdE0Dvbu3phCXuRG
+ WPcRs34/YYGJA==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-In-Reply-To: <20211221165802.236843-1-AjitKumar.Pandey@amd.com>
-References: <20211221165802.236843-1-AjitKumar.Pandey@amd.com>
-Subject: Re: [PATCH v2 1/3] ASoC: SOF: AMD: simplify return status handling
-Message-Id: <164011395741.93163.9178952950299537578.b4-ty@kernel.org>
-Date: Tue, 21 Dec 2021 19:12:37 +0000
+To: Miaoqian Lin <linmq006@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+In-Reply-To: <20211217150007.GB16611@kili>
+References: <20211217150007.GB16611@kili>
+Subject: Re: [PATCH] ASoC: qdsp6: fix a use after free bug in open()
+Message-Id: <164011396113.93163.3445360337147394616.b4-ty@kernel.org>
+Date: Tue, 21 Dec 2021 19:12:41 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Sunil-kumar.Dommati@amd.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>, open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com, Ranjani Sridharan <ranjani.sridharan@intel.com>, Liam Girdwood <lgirdwood@gmail.com>, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, Vijendar.Mukunda@amd.com, Alexander.Deucher@amd.com, Takashi Iwai <tiwai@suse.com>, Péter Ujfalusi <peter.ujfalusi@linux.intel.com>, Bard Liao <bard.liao@intel.com>, "moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS" <sound-open-firmware@alsa-project.org>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,25 +87,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 21 Dec 2021 22:27:57 +0530, Ajit Kumar Pandey wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On Fri, 17 Dec 2021 18:00:07 +0300, Dan Carpenter wrote:
+> This code frees "graph" and then dereferences to save the error code.
+> Save the error code first and then use gotos to unwind the allocation.
 > 
-> cppcheck warning:
 > 
-> sound/soc/sof/amd/acp.c:222:9: warning: Identical condition and return
-> expression 'ret', return value is always 0
-> [identicalConditionAfterEarlyExit]
->  return ret;
->         ^
-> sound/soc/sof/amd/acp.c:213:6: note: If condition 'ret' is true, the
-> function will return/exit
->  if (ret)
->      ^
-> sound/soc/sof/amd/acp.c:222:9: note: Returning identical expression 'ret'
->  return ret;
->         ^
-> 
-> [...]
 
 Applied to
 
@@ -110,12 +99,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: SOF: AMD: simplify return status handling
-      commit: 2dc643cd756398c3013fcc2d3c2a07c9c4a0a3bd
-[2/3] ASoC: amd: acp-config: Enable SOF audio for Google chrome boards.
-      commit: f487201343312faa697ac40124085a834e0e26d8
-[3/3] ASoC: amd: acp-config: Update sof_tplg_filename for SOF machines
-      commit: 0082e3299a49286a7761f4d237530b07c00676fb
+[1/1] ASoC: qdsp6: fix a use after free bug in open()
+      commit: ac1e6bc146d45e15f0a5c0908338f918f6261388
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

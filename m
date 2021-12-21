@@ -2,75 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0C8647B897
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 03:53:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C24147B899
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Dec 2021 03:53:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9704A1777;
-	Tue, 21 Dec 2021 03:52:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9704A1777
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3DF31759;
+	Tue, 21 Dec 2021 03:52:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3DF31759
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640055191;
-	bh=NflUddK7ZSORKU6UF7tiO2E1Di36GbuGTE02whw17Bw=;
+	s=default; t=1640055205;
+	bh=mvEojcUWmeF/XgClC/l0wa0ZWQbLxSl4Nckgl7WD3B0=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tk8IGuYxd/3Lh7Ho9rGWKkPoHQ8PZdV0Il3uiOZY7agiSIPpTFHuFzjT9xcv/pCUa
-	 NPDZswXwhSc1zLJW5z4rkhPrZBfnaFaF3/mxo8nH3vpwe5LYNf3goaeDuzSTKizTeU
-	 P7h1dIhncFtA5lXI0GgPpGfDo3K3AI5DMAmUpYI0=
+	b=RfPxPdvh4rFIYsz0gThujMhVJJYF0/J6IUgI05QW3CPhVn2Ukv3rMnNNDV2sYEszr
+	 7tupKm/tX8cEevQ3WCIp/trzfITjRuAAuIKS4FYVnnLFoSIwrn6rfuRhwjHuVy4dMA
+	 /a2Xsn1yRdnIoU805bpazzxkXzI80ZBQZP9NPvZ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D101F80510;
-	Tue, 21 Dec 2021 03:50:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6EE7F80516;
+	Tue, 21 Dec 2021 03:51:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B31DF804EC; Tue, 21 Dec 2021 03:50:52 +0100 (CET)
+ id 142EDF8051B; Tue, 21 Dec 2021 03:50:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F207F8012E
- for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 03:50:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F207F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2BEA2F8032B
+ for <alsa-devel@alsa-project.org>; Tue, 21 Dec 2021 03:50:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BEA2F8032B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Wi9KZ7fw"
+ header.b="ea6D9+18"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BAAD561365;
+ by ams.source.kernel.org (Postfix) with ESMTPS id D2CF7B81113;
+ Tue, 21 Dec 2021 02:50:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080BFC36AE5;
  Tue, 21 Dec 2021 02:50:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF910C36AE8;
- Tue, 21 Dec 2021 02:50:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640055042;
- bh=NflUddK7ZSORKU6UF7tiO2E1Di36GbuGTE02whw17Bw=;
+ s=k20201202; t=1640055044;
+ bh=mvEojcUWmeF/XgClC/l0wa0ZWQbLxSl4Nckgl7WD3B0=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Wi9KZ7fwyVIefDHjMdgeiKxq5SSqYzmVHLxRgJBKZnNhc7akAidwD1L4ri8QE6+HY
- EYzi4z6pdprQqJP3fGm+niSWTBNNc1cQT7buIp9+l4v4OUC7W3l9gvAe4cflnO5hBC
- aayyfyW1Oi0ityZ5ecXXqsnL19SWafMZ6GQVDPDX8kmWQ/CKpDjsU2Zyh8symQlHPQ
- sfiUarNdHUtjJUwcdKI3qaKUGEL0Ef6SHQVA7+94Hs2b4Ud413Z/oLISXQy/PX8NHt
- jvjiU0AZ/oX1sWs5rnlyz4Kw/ZYVipGXkwcMLSX5eEt1/7W88EXecpcqCLGFJS4K8K
- 6LRmISst06oMw==
+ b=ea6D9+18w0l+ASV2A+wDCnyRxj0pLvmNXxzKC7VT6xHE8L0P6Km/c6jgbBFhfax8v
+ KelL392IvmDW3V999vWxX0K+ZslNLfpkq1BixA4o/5Z2Ff9AkUYP55vMUDUz+egR+E
+ q0FhCOLCOK+YJjkKQ94SA9OLzPrY1V111Yjpki5UnWSSwAvOgdpSs7fpG3fDG1aOKj
+ Tjomm9WsDH6fPr8Fh71z8g6B+sSpnHb3iNz0Aet5KdfPph1O0PWykP52sD3WFN1z9Z
+ BHiQSbzzQlBzq/YMXwOGuXo9tQD4Gr+D0COUnJcrkvr7sLVt2zEs6KyOxR0h2lcNu8
+ e+yWngGK7quwg==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Rob Herring <robh+dt@kernel.org>
-In-Reply-To: <20211216000018.2641925-1-kuninori.morimoto.gx@renesas.com>
-References: <20211216000018.2641925-1-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: audio-graph-port: enable both
- flag/phandle for bitclock/frame-master
-Message-Id: <164005504144.2647792.1608765502662236125.b4-ty@kernel.org>
-Date: Tue, 21 Dec 2021 02:50:41 +0000
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20211216230350.343857-1-pierre-louis.bossart@linux.intel.com>
+References: <20211216230350.343857-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Kconfig: Make the SOF_DEVELOPER_SUPPORT depend
+ on SND_SOC_SOF
+Message-Id: <164005504275.2647792.11495830390115564090.b4-ty@kernel.org>
+Date: Tue, 21 Dec 2021 02:50:42 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
+Cc: tiwai@suse.de, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Paul Olaru <paul.olaru@oss.nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,13 +88,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Dec 2021 09:00:18 +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+On Thu, 16 Dec 2021 17:03:50 -0600, Pierre-Louis Bossart wrote:
+> From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 > 
-> snd_soc_daifmt_parse_clock_provider_raw() is handling both
-> bitclock/frame-master, and is supporting both flag/phandle.
-> Current DT is assuming it is flag style.
-> This patch allows both case.
+> SND_SOC_SOF_DEVELOPER_SUPPORT contains options affecting how the built
+> SOF driver stack will behave, enables debug options and other features.
+> 
+> These options have no meaning if the SND_SOC_SOF is not even enabled.
 > 
 > [...]
 
@@ -102,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: audio-graph-port: enable both flag/phandle for bitclock/frame-master
-      commit: 9b3c847b5fa0364a00227f13ab8ac0cbaf69be83
+[1/1] ASoC: SOF: Kconfig: Make the SOF_DEVELOPER_SUPPORT depend on SND_SOC_SOF
+      commit: 4941cd7cc845ae0a5317b1462e1b11bab4c023c0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

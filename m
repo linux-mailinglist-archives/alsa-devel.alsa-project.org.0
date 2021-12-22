@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3853647D7A2
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Dec 2021 20:24:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0C247D7DE
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Dec 2021 20:38:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C52F51801;
-	Wed, 22 Dec 2021 20:24:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C52F51801
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4815417E7;
+	Wed, 22 Dec 2021 20:37:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4815417E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640201092;
-	bh=HuIY0JsOfNWO2zyrQYWZ71VcX+MPtG+HCJVH5P/wfTI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1640201917;
+	bh=K8DHbx63a27vXJmwEqyZentYJuufaAtO31QFa60wjOQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rhwqAfDjos+dp7vc+mqRA925VdhlBA/Y2bqk99Sf5CP5xmlXDadCJJ/0GhsP+/meD
-	 AzIZ+Vw82+GQgXPqrtbezxQ0y1HHwc5CY49hnJlHihpGyzhKbi9lYObdziZwHI2/mi
-	 bowuBffJo8nRI3gj7+9VRwPAzbk0aizhL2hKS43k=
+	b=ESzWlZlxA8QFH9gDuvP5+ZkbrrgPRn4GcWzoUcP/KCbw2YZ1g0FMxZwzxJFeNQspA
+	 ZzaNbcohaoPkIPWKqV8p2kXeEBeeQov2fZhg82Ehoog3R5AIIIC7yL5W88YdLSopKM
+	 vCbdYEJiPGp62EnNKAJhCBz79UGi5kbU5toj2GQg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2E67F8020D;
-	Wed, 22 Dec 2021 20:23:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE9EEF80111;
+	Wed, 22 Dec 2021 20:37:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB480F80107; Wed, 22 Dec 2021 20:23:57 +0100 (CET)
+ id 06B1DF80109; Wed, 22 Dec 2021 20:37:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73A39F80084
- for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 20:23:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73A39F80084
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LT+arKM7"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="R3lgp5Px"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4E2911F389;
- Wed, 22 Dec 2021 19:23:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1640201030; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1iO8ykPGiu06YZLD+MSjxAt51YBDqUgpGHymzZtcV+A=;
- b=LT+arKM7lXQL/cDCprHo7Yv9DmZ7ECHne3aF5Lbw5TPexW6txhmeq0PCyZ0/xZfXg+hr1j
- SeJXAkkpuZMVcu2JlEnNDXaedKxt5JoeSmpeorEIHLXaSaiPGGPaLaq+g9hdaVICVoii2s
- ZS1QA2AuoVXK3PCrH8iPHuPx4qEsAf0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1640201030;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1iO8ykPGiu06YZLD+MSjxAt51YBDqUgpGHymzZtcV+A=;
- b=R3lgp5PxPDMM4H/IN/r8ISz27j936iYvS3o1VVyPU7ZnmQNtLsGjQ+Q5lgSyGXJuA2bOIV
- H+SL3wv6ZUgSS8Ag==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 48D52A3B81;
- Wed, 22 Dec 2021 19:23:50 +0000 (UTC)
-Date: Wed, 22 Dec 2021 20:23:50 +0100
-Message-ID: <s5hfsqkqw8p.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.16-rc6
-In-Reply-To: <20211220171803.D09FBC36AE7@smtp.kernel.org>
-References: <20211220171803.D09FBC36AE7@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E97CF80084
+ for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 20:37:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E97CF80084
+Received: by mail-qt1-f173.google.com with SMTP id bp39so2608824qtb.6
+ for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 11:37:16 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Ms1GIPZs1ev5xEZpY6o8FR181sPVC1wSUgdaLlJTuns=;
+ b=6h7p65g/HEUipOaU3Et1oehVW7M0BLR8xw7SMPjGgMKwKgvLv7/OGHtagd6XlOZfe6
+ vDhsKKD329WoPX3oWHc5TojWhPVrE84N5oB82cbbsAnGN84KFb8AY5Obuhce2Pwc8l6O
+ TohbJlpnNBX2bvvpdPN6Pr9Hzm/P8wN4Iue2BPZRiulihhNpdeGXhc+dFFqhLDfaK35t
+ 8rTUTQRaMDq5wfz2eRsQs6gv0ls0Y9QwBG62pyZ2dFJlYAvD4Rb1L4dp/jPbV5wM+DUF
+ F++ek1FwAWF7Su6CD8Y6abScpeTvKAToPR0zGaUUR/kuVqvEtYobtPAMV/fwYPI56nuo
+ vymg==
+X-Gm-Message-State: AOAM532EXg/LAfFmi+2wzJKQSZ8KYrmrtrZWme6ovXDORFCvH6v3Z4WN
+ fSqoYhlriqi4cUvQWrFDPw==
+X-Google-Smtp-Source: ABdhPJwrLYiMPJ95THVOxGleq3xFEWYS0SX9m4H7pLPhWxL+hwnKGMoLI6mBWWxqwPKqeakTQYf+EQ==
+X-Received: by 2002:a05:622a:15ca:: with SMTP id
+ d10mr3365524qty.81.1640201835775; 
+ Wed, 22 Dec 2021 11:37:15 -0800 (PST)
+Received: from robh.at.kernel.org ([24.55.105.145])
+ by smtp.gmail.com with ESMTPSA id az16sm2868691qkb.124.2021.12.22.11.37.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Dec 2021 11:37:15 -0800 (PST)
+Received: (nullmailer pid 2575737 invoked by uid 1000);
+ Wed, 22 Dec 2021 19:37:13 -0000
+Date: Wed, 22 Dec 2021 15:37:13 -0400
+From: Rob Herring <robh@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v3 2/3] dt-bindings: sound: tegra: Update HDA resets
+Message-ID: <YcN+aYRXKK7HRmqz@robh.at.kernel.org>
+References: <1640147751-4777-1-git-send-email-spujar@nvidia.com>
+ <1640147751-4777-3-git-send-email-spujar@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1640147751-4777-3-git-send-email-spujar@nvidia.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ broonie@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org,
+ digetx@gmail.com, jonathanh@nvidia.com, mkumard@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,32 +93,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 20 Dec 2021 18:17:48 +0100,
-Mark Brown wrote:
+On Wed, Dec 22, 2021 at 10:05:50AM +0530, Sameer Pujar wrote:
+> Tegra194 HDA has only two resets unlike the previous generations of
+> Tegra SoCs. Hence update the reset list accordingly.
 > 
-> The following changes since commit 3fc27e9a1f619b50700f020e6cd270c1b74755f0:
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> Acked-by: Thierry Reding <treding@nvidia.com>
+> ---
+>  .../devicetree/bindings/sound/nvidia,tegra30-hda.yaml       | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
 > 
->   ASoC: codecs: wsa881x: fix return values from kcontrol put (2021-12-01 14:13:53 +0000)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.16-rc6
-> 
-> for you to fetch changes up to ee907afb0c39a41ee74b862882cfe12820c74b98:
-> 
->   ASoC: meson: aiu: Move AIU_I2S_MISC hold setting to aiu-fifo-i2s (2021-12-14 17:15:32 +0000)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v5.16
-> 
-> This is a relatively large set of driver specific changes so it may make
-> sense to hold off to v5.17, though picking some over might be good.
-> It's a combination of new device IDs and fixes for various driver
-> specific things which are all small and of the usual "really bad if
-> you're running into them" level, especially the Tegra ones.
+> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-hda.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra30-hda.yaml
+> index b55775e..70dbdff5 100644
+> --- a/Documentation/devicetree/bindings/sound/nvidia,tegra30-hda.yaml
+> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra30-hda.yaml
+> @@ -50,13 +50,18 @@ properties:
+>        - const: hda2codec_2x
+>  
+>    resets:
+> +    minItems: 2
+>      maxItems: 3
+>  
+>    reset-names:
 
-Thanks, pulled now to for-linus branch.
-I'm going to send a pull request to Linus in tomorrow.
+Just add 'minItems: 2' here instead.
 
-
-Takashi
+> -    items:
+> -      - const: hda
+> -      - const: hda2hdmi
+> -      - const: hda2codec_2x
+> +    oneOf:
+> +      - items:
+> +          - const: hda
+> +          - const: hda2hdmi
+> +          - const: hda2codec_2x
+> +      - items:
+> +          - const: hda
+> +          - const: hda2hdmi
+>  
+>    power-domains:
+>      maxItems: 1
+> -- 
+> 2.7.4
+> 
+> 

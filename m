@@ -2,73 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37E8047D361
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Dec 2021 15:06:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E2B247D394
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Dec 2021 15:21:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A67D31704;
-	Wed, 22 Dec 2021 15:05:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A67D31704
+	by alsa0.perex.cz (Postfix) with ESMTPS id E221C1783;
+	Wed, 22 Dec 2021 15:20:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E221C1783
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640181960;
-	bh=GNoSR9vATcN9dhd1CYRFeQx4pH59qmWj2wK1IQ1OdLU=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nZblsqsB+E56GDic3wZ3JGdwpqWEEzH0UlHp8ky7PQONm846QZVgE933xtFF7I1EY
-	 /mGnFHkkFGsnVAoaKSSzagt5DZ36sk7WuLmwv6ui13fzg1md3x/gMBgKHyu9s1rRbX
-	 PNFLuPQ5WlRSrn7JZ7lrHXKNfTsynimxW0pu2r9E=
+	s=default; t=1640182886;
+	bh=DKWn9cfttcYvnpF3WW22bTe4YUUlN+AIwOlHrKwDGo8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KOjLtQjwDxeSTbmQUIkBCYbubgxRl3LwbEvfaxGj2onTKZplnKN/EJOKUjv3A3G9I
+	 y5eICpKQB2FiXZ9l4XxHXFwsAGVXnZZWaFiQ/21f3B7qdeuzEm/Wk9u6+FDGEW32y6
+	 7D3N3yhP1jOwKBQOP+cJpqI+RDgiFCGv8paVlXLA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01386F80111;
-	Wed, 22 Dec 2021 15:04:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCBEBF80105;
+	Wed, 22 Dec 2021 15:19:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29EC8F80109; Wed, 22 Dec 2021 15:04:51 +0100 (CET)
+ id 6D5E6F8020D; Wed, 22 Dec 2021 15:19:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [IPv6:2607:f8b0:4864:20::82f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8531AF80105
- for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 15:04:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8531AF80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31B2BF80107
+ for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 15:19:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31B2BF80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RPLXrACy"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4B6A161A38;
- Wed, 22 Dec 2021 14:04:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7702AC36AEA;
- Wed, 22 Dec 2021 14:04:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640181883;
- bh=GNoSR9vATcN9dhd1CYRFeQx4pH59qmWj2wK1IQ1OdLU=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=RPLXrACyo+zki3TL6/5jE5+DFghyQj9p9XLlNuRVUhjR7NBNVXU4r1L8Ymim1S6+c
- qGmD7qYWE17yzP+RKpFR+innBJHu6WDYe5qvFTPzgeSe2IiyXwLrOykfNIqbd5MOJt
- RUIp9OvmDRiqWK2pdinnJFrP9a/aW4GyB6uypgWVlZkN943cPlyIAyPa9Hahbcg/mQ
- YkAFt/q54b9l0bB+BF8hNkJcC6B8M+MZqGo8tImKj/rIUnjozr7IgaO64hvaWqiO/9
- Sd741ngElI5Cfd7WZgplUMQXFPEw44f2clSsNeIwTMBA7cidiffUpwLU1CYYTaASez
- ex/qIOjLKo2ZQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Alexander Stein <alexander.stein@mailbox.org>
-In-Reply-To: <20211218143423.18768-1-alexander.stein@mailbox.org>
-References: <20211218143423.18768-1-alexander.stein@mailbox.org>
-Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: Use name-prefix schema
-Message-Id: <164018188218.2905927.3191011789641589358.b4-ty@kernel.org>
-Date: Wed, 22 Dec 2021 14:04:42 +0000
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="PptDHFwo"
+Received: by mail-qt1-x82f.google.com with SMTP id 8so2020435qtx.5
+ for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 06:19:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=bWJVoPrU62uuuz7n9/V3GlTG969KN0vv6pvLIa8XuJQ=;
+ b=PptDHFwo3D7/SctsLtS8NYL/a8NwRe9tEkuFt/GslNgvfSWUtDlt+TQIpPcaHUC9fi
+ +8Kbia4J3L5HLKzzZXVDNg5sdy1/u8lox7VZVSWb2+XuaaqstKS2cll375KUJjK6wzCV
+ 42fO6mzgJ9QwWLlYgELLGwskPj0NjkE/8qSp/WfK0iAK8PREtESBRhiOlDhF5EdHgkr+
+ LNKaA5p9fch52CriyHZv4y3vu5H49RVCrZ5K+J+Iwyb7qt85AWy9aOPyXMUzRv6LjeRz
+ rGPuxAFEGPTN+jaGinuhJcZcjNlcfv3Eyf0h86J2joMe6MV1t5TbdaE32h+ThLUEYL71
+ 0qbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=bWJVoPrU62uuuz7n9/V3GlTG969KN0vv6pvLIa8XuJQ=;
+ b=rL/OgZWM4Twup7JmWJc/7Z5dbHppaHtsqI42NPopXnddmfBeNhPWqoBro1WO8+4uRW
+ VsedqBCfJ1XcLdrQhIM9GZKVy+GcfYVu+uPzkGWvaJpKq4l9EA5z9mFP5U/c2tt+QPuj
+ hyvlpCKttKoki1C5EbxWC1GIaiBKtY7oKjW5284YtpM+OwP4dlIyPkjdddh/u18vxMlu
+ khmqzSknT2np1pldpKADWSfk5ClzO52fQaT2LTQDzK0O+DfPCwHXSfJUnmKeAyUaGwfs
+ 2uv3RcE7P5NJW4Et4PrfwcWBuGAZ+AZb1aE/4ZZ0HpIwEz9bTXwJGRyS2bEgRLG6G9/T
+ +uWQ==
+X-Gm-Message-State: AOAM533lCnfKvg76B1JScehxu7RF19OyEa83G3bkzTR994eejV2qye/y
+ tYYXY8KsSBxxSVflJfjeKhU=
+X-Google-Smtp-Source: ABdhPJyteWmlWO5Q7SKOTpJhwTKZbvmEi+avJuqHYJNAfAAOyQTZ6LgaUvCeG0hOAOCpvSdUK+1vkg==
+X-Received: by 2002:ac8:584a:: with SMTP id h10mr2195396qth.615.1640182772049; 
+ Wed, 22 Dec 2021 06:19:32 -0800 (PST)
+Received: from localhost.localdomain ([2804:14c:485:504a:4709:e1da:a7a:6d6e])
+ by smtp.gmail.com with ESMTPSA id
+ b9sm1803990qtb.53.2021.12.22.06.19.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Dec 2021 06:19:31 -0800 (PST)
+From: Fabio Estevam <festevam@gmail.com>
+To: broonie@kernel.org
+Subject: [PATCH RESEND 1/2] ASoC: cs4265: Fix part number ID error message
+Date: Wed, 22 Dec 2021 11:19:19 -0300
+Message-Id: <20211222141920.1482451-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@denx.de>,
+ ckeepax@opensource.cirrus.com, Paul.Handrigan@cirrus.com,
+ james.schulman@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,39 +99,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 18 Dec 2021 15:34:21 +0100, Alexander Stein wrote:
-> name-prefix.txt does not exist anymore, just reference the schema instead.
-> 
-> 
+From: Fabio Estevam <festevam@denx.de>
 
-Applied to
+The Chip ID - Register 01h contains the following description
+as per the CS4265 datasheet:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+"Bits 7 through 4 are the part number ID, which is 1101b (0Dh)"
 
-Thanks!
+The current error message is incorrect as it prints CS4265_CHIP_ID,
+which is the register number, instead of printing the expected
+part number ID value.
 
-[1/3] ASoC: dt-bindings: Use name-prefix schema
-      commit: 0d422a466ef7fdbbe402194ac06144d1bbcdc227
-[2/3] ASoC: meson: t9015: add missing sound-name-prefix property
-      commit: 847cbea6459d5beb3f0f960fde4337f28b663eae
-[3/3] ASoC: meson: g12a: add missing sound-name-prefix property
-      commit: 1f6532073e3e9caee1dbc3f9b4be28359a181ea4
+To make it clearer, also do a shift by 4, so that the error message
+would become:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[    4.218083] cs4265 1-004f: CS4265 Part Number ID: 0x0 Expected: 0xd
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Signed-off-by: Fabio Estevam <festevam@denx.de>
+---
+Sorry, I am resending because I was not subscribed in the alsa-list from
+the other e-mail account.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+ sound/soc/codecs/cs4265.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+diff --git a/sound/soc/codecs/cs4265.c b/sound/soc/codecs/cs4265.c
+index cffd6111afac..b89002189a2b 100644
+--- a/sound/soc/codecs/cs4265.c
++++ b/sound/soc/codecs/cs4265.c
+@@ -611,8 +611,8 @@ static int cs4265_i2c_probe(struct i2c_client *i2c_client,
+ 	if (devid != CS4265_CHIP_ID_VAL) {
+ 		ret = -ENODEV;
+ 		dev_err(&i2c_client->dev,
+-			"CS4265 Device ID (%X). Expected %X\n",
+-			devid, CS4265_CHIP_ID);
++			"CS4265 Part Number ID: 0x%x Expected: 0x%x\n",
++			devid >> 4, CS4265_CHIP_ID_VAL >> 4);
+ 		return ret;
+ 	}
+ 	dev_info(&i2c_client->dev,
+-- 
+2.25.1
 
-Thanks,
-Mark

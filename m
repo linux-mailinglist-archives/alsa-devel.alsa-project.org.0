@@ -2,48 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3825547CE97
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Dec 2021 10:02:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 723B447D0EA
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Dec 2021 12:21:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D03E17D5;
-	Wed, 22 Dec 2021 10:01:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D03E17D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6F7E1770;
+	Wed, 22 Dec 2021 12:20:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6F7E1770
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640163734;
-	bh=GpSdyWPeBbT3qd5HqDDVtpcYa9/jUnur4xlafz6PUKs=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1640172080;
+	bh=6+4R+FyB099Qr49bH3/1NFQGuuybyBlmj9/KUyRv5pE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dyGqXEEfi3CJbh6DsAgLPCt5Dc/XZ9151otUwUMmpK9ibJ2ZHBN8kD5ChUjK4L32Q
-	 mgE2QmnR8fzB+4oYGwk77mIhuiGHZgmRdUIM1ZtKcpDW0Yw7/HKZx+YpAlPMZwT+lg
-	 Ip5kb0WhjYehw2s2lhbZI5TECyOlmwtS2NBfG2mM=
+	b=XNP5Gfk/m0tzWHv2/RGsPMa2ZTD/aOzGA+ePa6cZFAv0712M3h/UciKxNjbjjGrt8
+	 zRtbf0Crv05fqkbclGphYEJ+qa9IraOWGlvvKDPPmyHjLX284L2YqvzWlRlAg0xp19
+	 kyqRaMGcnfZzaRjP5TAO6CASo02IjR9XkjvKsixg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9DD7F80111;
-	Wed, 22 Dec 2021 10:01:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B8F5F80111;
+	Wed, 22 Dec 2021 12:20:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED0C1F80109; Wed, 22 Dec 2021 10:01:05 +0100 (CET)
+ id 5B0DDF80109; Wed, 22 Dec 2021 12:20:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 6D857F80105
- for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 10:01:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D857F80105
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 812DEF80084
+ for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 12:20:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 812DEF80084
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="ALQ87rN5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1640172005; x=1671708005;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=6+4R+FyB099Qr49bH3/1NFQGuuybyBlmj9/KUyRv5pE=;
+ b=ALQ87rN5bF2jnB8BzmK4lzbUS3weEeyT9NziupkZnS+tkZESwgOS0RDH
+ 4os0Oc2Nk6xh8wYsfNLByHsTRYxbdw060JvisNkswNOqjTgr6I4YJlD6t
+ oahDCSGKLiwJsCv0TyjZIklpl/7dtij4esrYEeCfk21klAB2QKZ6HbdsL
+ TLVg18xxVcBK4AGnVDxoRl+fz58DsLoE0Yg9gDV0jHga3YROk645K7ZrB
+ Gg53IobuC2ns6iugE8q9hqSkGPgwOArsepAogTao4Mb3NvjM7Kd+L2ulZ
+ UTUuyM+BS0SRmJyzbQ1U9+6PVAJvRVSO277OlJzKemTKeBZFQPe8Nw74s Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10205"; a="301365033"
+X-IronPort-AV: E=Sophos;i="5.88,226,1635231600"; d="scan'208";a="301365033"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2021 03:20:00 -0800
+X-IronPort-AV: E=Sophos;i="5.88,226,1635231600"; d="scan'208";a="484727047"
+Received: from smile.fi.intel.com ([10.237.72.61])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2021 03:19:55 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1mzzdd-000jnv-Iv; Wed, 22 Dec 2021 13:18:29 +0200
+Date: Wed, 22 Dec 2021 13:18:29 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "David E. Box" <david.e.box@linux.intel.com>
+Subject: Re: [PATCH 2/4] soundwire: intel: Use auxiliary_device driver data
+ helpers
+Message-ID: <YcMJhXQNXabezOya@smile.fi.intel.com>
+References: <20211221235852.323752-1-david.e.box@linux.intel.com>
+ <20211221235852.323752-3-david.e.box@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1640163660026597977-webhooks-bot@alsa-project.org>
-References: <1640163660026597977-webhooks-bot@alsa-project.org>
-Subject: compile error: undefined reference to `snd_ctl_elem_id_compare_set'
-Message-Id: <20211222090105.ED0C1F80109@alsa1.perex.cz>
-Date: Wed, 22 Dec 2021 10:01:05 +0100 (CET)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211221235852.323752-3-david.e.box@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ hdegoede@redhat.com, mustafa.ismail@intel.com, leon@kernel.org, mst@redhat.com,
+ linux-rdma@vger.kernel.org, gregkh@linuxfoundation.org, jasowang@redhat.com,
+ vkoul@kernel.org, davem@davemloft.net, jgg@ziepe.ca, dledford@redhat.com,
+ yung-chuan.liao@linux.intel.com, netdev@vger.kernel.org, kuba@kernel.org,
+ virtualization@lists.linux-foundation.org, shiraz.saleem@intel.com,
+ saeedm@nvidia.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,27 +98,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils issue #130 was opened from steeley:
+On Tue, Dec 21, 2021 at 03:58:50PM -0800, David E. Box wrote:
+> Use auxiliary_get_drvdata and auxiliary_set_drvdata helpers.
 
-Building on raspberry pi  buster (Linux 5.10.76-v7l. 32 bit) using theses commands:
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-`cd alsa-utils/
-git checkout v1.2.6
-autoreconf -i
-./configure --prefix=/usr/local
-make -j4`
+> Signed-off-by: David E. Box <david.e.box@linux.intel.com>
+> ---
+>  drivers/soundwire/intel.c      | 8 ++++----
+>  drivers/soundwire/intel_init.c | 2 +-
+>  2 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+> index 78037ffdb09b..d082d18e41a9 100644
+> --- a/drivers/soundwire/intel.c
+> +++ b/drivers/soundwire/intel.c
+> @@ -1293,7 +1293,7 @@ static int intel_link_probe(struct auxiliary_device *auxdev,
+>  	bus->ops = &sdw_intel_ops;
+>  
+>  	/* set driver data, accessed by snd_soc_dai_get_drvdata() */
+> -	dev_set_drvdata(dev, cdns);
+> +	auxiliary_set_drvdata(auxdev, cdns);
+>  
+>  	/* use generic bandwidth allocation algorithm */
+>  	sdw->cdns.bus.compute_params = sdw_compute_params;
+> @@ -1321,7 +1321,7 @@ int intel_link_startup(struct auxiliary_device *auxdev)
+>  {
+>  	struct sdw_cdns_stream_config config;
+>  	struct device *dev = &auxdev->dev;
+> -	struct sdw_cdns *cdns = dev_get_drvdata(dev);
+> +	struct sdw_cdns *cdns = auxiliary_get_drvdata(auxdev);
+>  	struct sdw_intel *sdw = cdns_to_intel(cdns);
+>  	struct sdw_bus *bus = &cdns->bus;
+>  	int link_flags;
+> @@ -1463,7 +1463,7 @@ int intel_link_startup(struct auxiliary_device *auxdev)
+>  static void intel_link_remove(struct auxiliary_device *auxdev)
+>  {
+>  	struct device *dev = &auxdev->dev;
+> -	struct sdw_cdns *cdns = dev_get_drvdata(dev);
+> +	struct sdw_cdns *cdns = auxiliary_get_drvdata(auxdev);
+>  	struct sdw_intel *sdw = cdns_to_intel(cdns);
+>  	struct sdw_bus *bus = &cdns->bus;
+>  
+> @@ -1488,7 +1488,7 @@ int intel_link_process_wakeen_event(struct auxiliary_device *auxdev)
+>  	void __iomem *shim;
+>  	u16 wake_sts;
+>  
+> -	sdw = dev_get_drvdata(dev);
+> +	sdw = auxiliary_get_drvdata(auxdev);
+>  	bus = &sdw->cdns.bus;
+>  
+>  	if (bus->prop.hw_disabled || !sdw->startup_done) {
+> diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
+> index e329022e1669..d99807765dfe 100644
+> --- a/drivers/soundwire/intel_init.c
+> +++ b/drivers/soundwire/intel_init.c
+> @@ -244,7 +244,7 @@ static struct sdw_intel_ctx
+>  			goto err;
+>  
+>  		link = &ldev->link_res;
+> -		link->cdns = dev_get_drvdata(&ldev->auxdev.dev);
+> +		link->cdns = auxiliary_get_drvdata(&ldev->auxdev);
+>  
+>  		if (!link->cdns) {
+>  			dev_err(&adev->dev, "failed to get link->cdns\n");
+> -- 
+> 2.25.1
+> 
 
-I get this error:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-`gcc -D_GNU_SOURCE -D__USE_GNU -DSYS_ASOUNDRC=\"/var/lib/alsa/asound.state\" -DSYS_LOCKFILE=\"/var/lock/asound.state.lock\" -DSYS_PIDFILE=\"/var/run/alsactl.pid\" -g -O2   -o alsactl alsactl-alsactl.o alsactl-state.o alsactl-lock.o alsactl-utils.o alsactl-init_parse.o alsactl-init_ucm.o alsactl-daemon.o alsactl-monitor.o alsactl-clean.o  -lasound -lm -ldl -lpthread
-/usr/bin/ld: alsactl-clean.o: in function `clean_one_control':
-/home/pi/alsa-utils/alsactl/clean.c:55: undefined reference to `snd_ctl_elem_id_compare_set'
-collect2: error: ld returned 1 exit status
-make[2]: *** [Makefile:528: alsactl] Error 1
-make[2]: Leaving directory '/home/pi/alsa-utils/alsactl'
-make[1]: *** [Makefile:827: all-recursive] Error 1
-make[1]: Leaving directory '/home/pi/alsa-utils/alsactl'
-make: *** [Makefile:429: all-recursive] Error 1`
 
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/130
-Repository URL: https://github.com/alsa-project/alsa-utils

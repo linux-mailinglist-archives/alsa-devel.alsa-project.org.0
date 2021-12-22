@@ -2,82 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97E9047D799
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Dec 2021 20:22:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B57247D79A
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Dec 2021 20:22:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4492E17C6;
-	Wed, 22 Dec 2021 20:22:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4492E17C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA62B17E8;
+	Wed, 22 Dec 2021 20:22:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA62B17E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640200972;
-	bh=0NrDEEzI/yJeWZtbcfS0pWYryLWLU8yAw7v/8l2iq6w=;
+	s=default; t=1640200973;
+	bh=75INwDgBu+MNQRQ6hwQIz05qC8xYoD+E8d3DAq0ag74=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=paP+Np6yFRGBPaBuEtvDvXYqA1A61sbWgibKslxDwjJhwVeBUe4pPzOpbKJ2dFCLF
-	 5Vm2pWSXvFnjiTKG+7zAD3ICRdJSPCCoeSPxNXPwMMSGjTMCIBTFtg8I1t5EGMub2b
-	 oApVW9ZdurAk8GA5EjQK/Cnp7llEFKJTiueqiNr0=
+	b=UUW6nAtKeAYUmS+8WuNmgXnQx7k6e3jaKppf5DBXttP8q1Cd7pxgMMwHWjb4DXnO5
+	 6BFHwF+Uukp7hQcjpMZDUlugrEUfYx6FDsLxAXy1Js/bnMCtiB/d5qZmrbE71OaAfw
+	 srtKSXl77pO56vBq9MoFBAr0S7XSD3Dx/zfuqJBI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26A75F8020D;
-	Wed, 22 Dec 2021 20:21:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3559F80107;
+	Wed, 22 Dec 2021 20:21:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A9B3F80124; Wed, 22 Dec 2021 20:21:31 +0100 (CET)
+ id 2307CF804E4; Wed, 22 Dec 2021 20:21:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47E80F80107
- for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 20:21:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47E80F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id C98E5F80124
+ for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 20:21:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C98E5F80124
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="gCtUAjEJ"; 
+ header.b="fJ8d825X"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="GpxR5WqX"
+ header.b="16jZff+c"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 083B31F38A;
- Wed, 22 Dec 2021 19:21:25 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id DD8F221118;
+ Wed, 22 Dec 2021 19:21:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1640200885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1640200908; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=z3wUzqD0FEBz3snGbS9wiinZh3bBFD00v662bGiCxHU=;
- b=gCtUAjEJL5qoBERJTo49azCm3hUugonz/rsLRG+ucqqYlmY8NOVU3/EBH84o1fLbKcO1hM
- dylM8Ty5SvPaJkEF/sEHWhskPuKWe/KzpHSaMlZRhOb+Zydvsm96K1aIZk9jHEg/8ZC7Od
- BUq7xF5ywye7f1GBXfqFefWrDkRmivs=
+ bh=huE2dFXum4sI66P8qX7L/b+HGNamJDuIj0tTs/ZuL6Y=;
+ b=fJ8d825XAeduSOJtACS27qzIj0EPqACu4T2YIPAnxuysxonDUyYLjFgQgZUzuNZPFtsflj
+ zuYIPLrZwcD64GEUBfRI5yveAozfZyiwiTuv2e+hoFbv7shPGcoxyA1PalyoS3QMcbERsn
+ q/jK8wqFp+Fm1yIydUsubiGc97Jy03M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1640200885;
+ s=susede2_ed25519; t=1640200908;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=z3wUzqD0FEBz3snGbS9wiinZh3bBFD00v662bGiCxHU=;
- b=GpxR5WqXKdZbH9x/QjoXmgHk1hNSvwvZjdwMhB8x5b8IZT76LTvcnXdKg/u8C8Icdt76cS
- 01107m15sqMWs+CQ==
+ bh=huE2dFXum4sI66P8qX7L/b+HGNamJDuIj0tTs/ZuL6Y=;
+ b=16jZff+cMrOXyEksOM2z01NzSWBU4OrOn444qVBczaAnZQf6XeD8E2hnE6f+f0UVfLB5GG
+ VzY5Abs57QkjJEAg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E6C85A3B88;
- Wed, 22 Dec 2021 19:21:24 +0000 (UTC)
-Date: Wed, 22 Dec 2021 20:21:24 +0100
-Message-ID: <s5hk0fwqwcr.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id C19E5A3B84;
+ Wed, 22 Dec 2021 19:21:48 +0000 (UTC)
+Date: Wed, 22 Dec 2021 20:21:48 +0100
+Message-ID: <s5hilvgqwc3.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: rawmidi - fix the uninitalized user_pversion
-In-Reply-To: <20211218123925.2583847-1-perex@perex.cz>
-References: <20211218123925.2583847-1-perex@perex.cz>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 0/2] ALSA: hda: intel-sdw-acpi: go through HDAS ACPI at
+ max depth of 2
+In-Reply-To: <20211221010817.23636-1-yung-chuan.liao@linux.intel.com>
+References: <20211221010817.23636-1-yung-chuan.liao@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA development <alsa-devel@alsa-project.org>, broonie@kernel.org,
- syzbot+88412ee8811832b00dbe@syzkaller.appspotmail.com, stable@kernel.org
+Cc: libin.yang@intel.com, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, vkoul@kernel.org, broonie@kernel.org,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,24 +94,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 18 Dec 2021 13:39:25 +0100,
-Jaroslav Kysela wrote:
+On Tue, 21 Dec 2021 02:08:15 +0100,
+Bard Liao wrote:
 > 
-> The user_pversion was unitialized for the user space file structure
-> in the open function, because the file private structure use
-> kmalloc for the allocation.
+> In the HDAS ACPI scope, the SoundWire may not be the direct child of HDAS.
+> It needs to go through the ACPI table at max depth of 2 to find the
+> SoundWire device from HDAS.
 > 
-> The kernel ALSA sequencer code clears the file structure, so no additional
-> fixes are required.
-> 
-> Cc: stable@kernel.org
-> Cc: broonie@kernel.org
-> BugLink: https://github.com/alsa-project/alsa-lib/issues/178
-> Fixes: 09d23174402d ("ALSA: rawmidi: introduce SNDRV_RAWMIDI_IOCTL_USER_PVERSION")
-> Reported-by: syzbot+88412ee8811832b00dbe@syzkaller.appspotmail.com
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> Libin Yang (2):
+>   ALSA: hda: intel-sdw-acpi: harden detection of controller
+>   ALSA: hda: intel-sdw-acpi: go through HDAS ACPI at max depth of 2
 
-Thanks, applied now with a minor typo fix.
+Thanks, applied now both patches.
 
 
 Takashi

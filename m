@@ -2,86 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25BC447F2B2
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Dec 2021 09:57:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4178A47F5C7
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Dec 2021 09:20:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 955381797;
-	Sat, 25 Dec 2021 09:56:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 955381797
+	by alsa0.perex.cz (Postfix) with ESMTPS id 810CC17A4;
+	Sun, 26 Dec 2021 09:19:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 810CC17A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640422634;
-	bh=uuonLf7OQDG6Y70cohJWCg9LWXFTFbpAYdh4tajnr7U=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IROzKxOxR3OMfk0ndiOT4q06cRV1VGV+j7uzzUaHV+6mcO26O3ICGjRvXmk8dXsZH
-	 H1FhE6LmHd11wQCnLsV+VuZGcvBHGQZVOn4+sRmlKTFnHKYGcjEPIkf3AhOx6M67Qt
-	 xV92pTDI38HtIG73dg9bP67GkILj7NYrMadrBB4M=
+	s=default; t=1640506814;
+	bh=KfJQQMdDxr26ojHcr4AuYBjfMuA67Kd209WPPCVC5dk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OEMcDM/p3T40u+NR7JMmvN5ruDss7ZZhIsb1c5tHpqhv67JGu3DH1+bu4D3jEuzgF
+	 ZTcJYybZiMwK9p2e1SjEPNHb2YL6V7Cxposq/Pk+Uy9b4tLtp00BKmRmXrvUkRopap
+	 w5wbEBK62MmI8nWWBtAshw9PHs4S0CpBRv9wNXhM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44B9CF80084;
-	Sat, 25 Dec 2021 09:56:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E46A5F80227;
+	Sun, 26 Dec 2021 09:19:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD9ECF8014E; Sat, 25 Dec 2021 09:56:16 +0100 (CET)
+ id 2B354F80111; Wed, 22 Dec 2021 15:17:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from phobos.denx.de (phobos.denx.de
+ [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD77FF800F3
- for <alsa-devel@alsa-project.org>; Sat, 25 Dec 2021 09:56:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD77FF800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A669F800B5
+ for <alsa-devel@alsa-project.org>; Wed, 22 Dec 2021 15:17:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A669F800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="RDHmbFIO"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="YAzAh2X5"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 45B6221122;
- Sat, 25 Dec 2021 08:56:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1640422569; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=i0wVixnq34RSXq841zKZ7UCSGBnUUOxseHyZXtHHxq8=;
- b=RDHmbFIOsniL1LKYCQYPSetvUZKjPHrV+I6AS8aB6fyU3H+d6QHOwzvOegO5IBVG1Hy0i5
- 0Nl9+cw3C2Hmt3YOYGRBFOEk6z/Z/PcxCXGq3W4cV9DJLoX6swRTsHiyBsB2tRiJ7YkF3u
- jrx0pTtInvffktW3Jmr3pJaEobI0EVg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1640422569;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=i0wVixnq34RSXq841zKZ7UCSGBnUUOxseHyZXtHHxq8=;
- b=YAzAh2X5lHBYNX9iEbSx7LBAAKZ4JAvatOxZNLJXX1IwkYy1MoJcgOhdAKK7HIpQilCyJC
- mGLLypHAm/zOJHAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2DDA4A3B81;
- Sat, 25 Dec 2021 08:56:09 +0000 (UTC)
-Date: Sat, 25 Dec 2021 09:56:09 +0100
-Message-ID: <s5hy249oyfq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Use ALC285_FIXUP_HP_GPIO_LED on
- another HP laptop
-In-Reply-To: <20211224035015.310068-1-kai.heng.feng@canonical.com>
-References: <20211224035015.310068-1-kai.heng.feng@canonical.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
- Elia Devito <eliadevito@gmail.com>, tiwai@suse.com,
- Werner Sembach <wse@tuxedocomputers.com>, Hui Wang <hui.wang@canonical.com>,
- Sami Loone <sami@loone.fi>, Cameron Berkenpas <cam@neo-zeon.de>
+ dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
+ header.b="qhF9RKJX"
+Received: from localhost.localdomain (unknown
+ [IPv6:2804:14c:485:504a:4709:e1da:a7a:6d6e])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: festevam@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 8F3D880F90;
+ Wed, 22 Dec 2021 15:17:00 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1640182622;
+ bh=XBKLSD9OEW4fASgxr249dHYUGNl4nXR2HQ3gTPE4hKM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=qhF9RKJX/DTKLo0WdX19cvRHZrbeNQ/MsfXVFACa6mNVJH1KO2yKglCsfRE81hdsx
+ w1583Lue9ovIEHUWNBFcUNVnzQQR9sZ9MIdO7m30k9cXplFQL5Isvqn12n93L52Hfn
+ raaxKKBQ4FUWgzD6kM7rz+XCZpueag3GMqiTKUOEk2qId28WV1sKqkVtmWZyYr8N0B
+ SQ/JLvhSxXAXkDDJLzqHjwCfv3ifNhUEg55slf0vUYLvC25C1dpcj4n60MePeBMjMy
+ Lv8/fZ4Sju8qYe/QyoXG+vn2sXtG4un/akpRda2Yn/5wPJ/5mVBvNHIUeDjMJk+y9V
+ DJ8Hmx0ugyJrg==
+From: Fabio Estevam <festevam@denx.de>
+To: broonie@kernel.org
+Subject: [PATCH 1/2] ASoC: cs4265: Fix part number ID error message
+Date: Wed, 22 Dec 2021 11:16:44 -0300
+Message-Id: <20211222141645.1482267-1-festevam@denx.de>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
+X-Virus-Status: Clean
+X-Mailman-Approved-At: Sun, 26 Dec 2021 09:19:06 +0100
+Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@denx.de>,
+ ckeepax@opensource.cirrus.com, Paul.Handrigan@cirrus.com,
+ james.schulman@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,15 +86,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Dec 2021 04:50:13 +0100,
-Kai-Heng Feng wrote:
-> 
-> The audio mute and mic mute LEDs don't work, so use the quirk to make
-> them work.
-> 
-> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+The Chip ID - Register 01h contains the following description
+as per the CS4265 datasheet:
 
-Applied now.  Thanks.
+"Bits 7 through 4 are the part number ID, which is 1101b (0Dh)"
 
+The current error message is incorrect as it prints CS4265_CHIP_ID,
+which is the register number, instead of printing the expected
+part number ID value.
 
-Takashi
+To make it clearer, also do a shift by 4, so that the error message
+would become:
+
+[    4.218083] cs4265 1-004f: CS4265 Part Number ID: 0x0 Expected: 0xd
+
+Signed-off-by: Fabio Estevam <festevam@denx.de>
+---
+ sound/soc/codecs/cs4265.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/cs4265.c b/sound/soc/codecs/cs4265.c
+index cffd6111afac..b89002189a2b 100644
+--- a/sound/soc/codecs/cs4265.c
++++ b/sound/soc/codecs/cs4265.c
+@@ -611,8 +611,8 @@ static int cs4265_i2c_probe(struct i2c_client *i2c_client,
+ 	if (devid != CS4265_CHIP_ID_VAL) {
+ 		ret = -ENODEV;
+ 		dev_err(&i2c_client->dev,
+-			"CS4265 Device ID (%X). Expected %X\n",
+-			devid, CS4265_CHIP_ID);
++			"CS4265 Part Number ID: 0x%x Expected: 0x%x\n",
++			devid >> 4, CS4265_CHIP_ID_VAL >> 4);
+ 		return ret;
+ 	}
+ 	dev_info(&i2c_client->dev,
+-- 
+2.25.1
+

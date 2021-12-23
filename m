@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7474247E27C
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:42:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C7A047E27A
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:41:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12057189F;
-	Thu, 23 Dec 2021 12:41:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12057189F
+	by alsa0.perex.cz (Postfix) with ESMTPS id F407F1890;
+	Thu, 23 Dec 2021 12:40:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F407F1890
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640259723;
-	bh=F5BUmY1Q9kTtOuT+Dd5JDrs2iAcUGGecuB94UQmE+C0=;
+	s=default; t=1640259700;
+	bh=RtJEtsIDGMDL0/87WHTDh4mXKrJiHRJkpD8NOjv8+oQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Feaukj1BQK9Y95VD/qPoCoaOMWKMLMntDcvh01Op7B1HWc5GseT147hfwOqjf18/4
-	 ldvd/bfKApTqBSEPuosmDtbhB+lZ8lMJe1dxeCKNKClYMOg2K/tjQ0s6+/KRLH1f0Q
-	 7tuO+zQkycKcCLQHsrbYC/nlPydxYAKwXAbOmFVM=
+	b=U+xxHFTNuTtVVg/9ZsDunjcdiDysEONVMOUW9Punl2J8j5TZ+GKQ2WqsfZIRsF2Kn
+	 3RHc5HTtqojIhVVMDW7vW2ifg6U3Gac3Lf/DOY7VuSHYhbS5ZsfaAnpsQuutsMt88G
+	 8oRz+jGh7UdsBUo7JLuuEePU158sWw+ZtlHQB0lk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F5DAF80568;
-	Thu, 23 Dec 2021 12:37:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FCCEF80564;
+	Thu, 23 Dec 2021 12:37:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B42EFF80567; Thu, 23 Dec 2021 12:37:02 +0100 (CET)
+ id 9A5A8F80568; Thu, 23 Dec 2021 12:37:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,41 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BDDFF80552
- for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:36:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BDDFF80552
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5870CF80553
+ for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:36:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5870CF80553
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Zp/ichvD"
+ header.b="PzW6uTE3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1640259412; x=1671795412;
+ t=1640259413; x=1671795413;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=F5BUmY1Q9kTtOuT+Dd5JDrs2iAcUGGecuB94UQmE+C0=;
- b=Zp/ichvDUI1bveVA0yNZc0tGLUCeg5bzMJHmzFVGzjSt8NhrufO4bLlS
- oUaX4V8os/IzvmRBO4DNucH++wvKHgiynq/LxVNkOHtDkjR+7fiN07aDB
- HYCSJcoXkVzTQ9nvlBnu0v/u5djba/QSw3OPUrJMDxUTTmfcB6TfoqB7O
- 3Tc7dm9QDzHlJkl7jRusdyZ8u+zxPdYS0jA4K7MAjQNz75HSFGKQQen7s
- aCuCGXb7fX058WC4k3ui6/0NkSdEhB872IfM7PiS83DzZwtsZLUqHmkCa
- 9r9bkGZTddklMsix+n9YCiFKwBnLhs/K1gIl9OWCVrOEnOcTVyRQdY+DH Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="304180850"
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="304180850"
+ bh=RtJEtsIDGMDL0/87WHTDh4mXKrJiHRJkpD8NOjv8+oQ=;
+ b=PzW6uTE31WS4IDbyb21CwE1uVhujjRvJHJ/KotqBHWTgzNU+C1l1i0e8
+ qvu2w8EeuVYrkyWsPD/YZwNOJKd89nRypnWws4y7J+30MS1VvIwfLuSTw
+ LLZmL+H9pDkc5F3BNItIBqr5eHJe8+7iXgLdOXcTR4i8ErErrpNE4HY0d
+ O0pc6IvoDFuNst5Wv/OmAu30sjCpvC1L1Qn5lxhTOjEjoAV0qQ4f6i7T8
+ c7U774TxpFcgD7HNdy9hzHIYFABd/b/uN/xp6M5MDmi3LYjKsB2Kt3u7x
+ zlsoVuguaQseLpIsyFB8TdI3FY2zrrQTsY3Aaub2WbdqTU3Zt4fB5jvbu Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="304180855"
+X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="304180855"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2021 03:36:46 -0800
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="522065223"
+ 23 Dec 2021 03:36:48 -0800
+X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="522065243"
 Received: from gcatala-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.214.126])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2021 03:36:43 -0800
+ 23 Dec 2021 03:36:46 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 15/20] ASoC: SOF: ops: Always print DSP Panic message but use
- different message
-Date: Thu, 23 Dec 2021 13:36:23 +0200
-Message-Id: <20211223113628.18582-16-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 16/20] ASoC: SOF: dsp_arch_ops: add kernel log level parameter
+ for oops and stack
+Date: Thu, 23 Dec 2021 13:36:24 +0200
+Message-Id: <20211223113628.18582-17-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20211223113628.18582-1-peter.ujfalusi@linux.intel.com>
 References: <20211223113628.18582-1-peter.ujfalusi@linux.intel.com>
@@ -91,56 +91,158 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Never suppress the DSP panic dump as it is always originates from an
-assert() or panic() call within the firmware.
+To allow custom log level to be used for the DSP oops and stack print, add
+a kernel log level parameter to the two ops.
 
-Use different message for DSP panics when there will be recovery attempt
-going to be done compared to a definitive DSP panic.
+Modify the xtensa oops and stack functions tom use this new log level
+parameter.
 
-Suggested-by: Chao Song <chao.song@linux.intel.com>
+Pass KER_ERR from snd_sof_get_status() to make sure that there is no
+functional change with this new parameter.
+
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Chao Song <chao.song@intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/ops.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ sound/soc/sof/core.c        |  4 ++--
+ sound/soc/sof/sof-priv.h    | 15 +++++++------
+ sound/soc/sof/xtensa/core.c | 44 +++++++++++++++++++++----------------
+ 3 files changed, 35 insertions(+), 28 deletions(-)
 
-diff --git a/sound/soc/sof/ops.c b/sound/soc/sof/ops.c
-index ed46f33ce72b..235e2ef72178 100644
---- a/sound/soc/sof/ops.c
-+++ b/sound/soc/sof/ops.c
-@@ -167,18 +167,21 @@ void snd_sof_dsp_panic(struct snd_sof_dev *sdev, u32 offset, bool non_recoverabl
- 			 __func__, sdev->dsp_oops_offset, offset);
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index bc3d7192bdda..c3630ecc7d89 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -106,8 +106,8 @@ void snd_sof_get_status(struct snd_sof_dev *sdev, u32 panic_code,
+ out:
+ 	dev_err(sdev->dev, "panic at %s:%d\n", panic_info->filename,
+ 		panic_info->linenum);
+-	sof_oops(sdev, oops);
+-	sof_stack(sdev, oops, stack, stack_words);
++	sof_oops(sdev, KERN_ERR, oops);
++	sof_stack(sdev, KERN_ERR, oops, stack, stack_words);
+ }
+ EXPORT_SYMBOL(snd_sof_get_status);
+ 
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 44ae8d8d1333..598f858f0e1b 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -309,8 +309,8 @@ struct snd_sof_dsp_ops {
+ 
+ /* DSP architecture specific callbacks for oops and stack dumps */
+ struct dsp_arch_ops {
+-	void (*dsp_oops)(struct snd_sof_dev *sdev, void *oops);
+-	void (*dsp_stack)(struct snd_sof_dev *sdev, void *oops,
++	void (*dsp_oops)(struct snd_sof_dev *sdev, const char *level, void *oops);
++	void (*dsp_stack)(struct snd_sof_dev *sdev, const char *level, void *oops,
+ 			  u32 *stack, u32 stack_words);
+ };
+ 
+@@ -573,16 +573,17 @@ int snd_sof_debugfs_add_region_item_iomem(struct snd_sof_dev *sdev,
+ /*
+  * DSP Architectures.
+  */
+-static inline void sof_stack(struct snd_sof_dev *sdev, void *oops, u32 *stack,
+-			     u32 stack_words)
++static inline void sof_stack(struct snd_sof_dev *sdev, const char *level,
++			     void *oops, u32 *stack, u32 stack_words)
+ {
+-		sof_dsp_arch_ops(sdev)->dsp_stack(sdev, oops, stack, stack_words);
++		sof_dsp_arch_ops(sdev)->dsp_stack(sdev, level,  oops, stack,
++						  stack_words);
+ }
+ 
+-static inline void sof_oops(struct snd_sof_dev *sdev, void *oops)
++static inline void sof_oops(struct snd_sof_dev *sdev, const char *level, void *oops)
+ {
+ 	if (sof_dsp_arch_ops(sdev)->dsp_oops)
+-		sof_dsp_arch_ops(sdev)->dsp_oops(sdev, oops);
++		sof_dsp_arch_ops(sdev)->dsp_oops(sdev, level, oops);
+ }
+ 
+ extern const struct dsp_arch_ops sof_xtensa_arch_ops;
+diff --git a/sound/soc/sof/xtensa/core.c b/sound/soc/sof/xtensa/core.c
+index bd09c3825caf..bebbe3a2865c 100644
+--- a/sound/soc/sof/xtensa/core.c
++++ b/sound/soc/sof/xtensa/core.c
+@@ -81,33 +81,39 @@ static const struct xtensa_exception_cause xtensa_exception_causes[] = {
+ };
+ 
+ /* only need xtensa atm */
+-static void xtensa_dsp_oops(struct snd_sof_dev *sdev, void *oops)
++static void xtensa_dsp_oops(struct snd_sof_dev *sdev, const char *level, void *oops)
+ {
+ 	struct sof_ipc_dsp_oops_xtensa *xoops = oops;
+ 	int i;
+ 
+-	dev_err(sdev->dev, "error: DSP Firmware Oops\n");
++	dev_printk(level, sdev->dev, "error: DSP Firmware Oops\n");
+ 	for (i = 0; i < ARRAY_SIZE(xtensa_exception_causes); i++) {
+ 		if (xtensa_exception_causes[i].id == xoops->exccause) {
+-			dev_err(sdev->dev, "error: Exception Cause: %s, %s\n",
+-				xtensa_exception_causes[i].msg,
+-				xtensa_exception_causes[i].description);
++			dev_printk(level, sdev->dev,
++				   "error: Exception Cause: %s, %s\n",
++				   xtensa_exception_causes[i].msg,
++				   xtensa_exception_causes[i].description);
+ 		}
+ 	}
+-	dev_err(sdev->dev, "EXCCAUSE 0x%8.8x EXCVADDR 0x%8.8x PS       0x%8.8x SAR     0x%8.8x\n",
+-		xoops->exccause, xoops->excvaddr, xoops->ps, xoops->sar);
+-	dev_err(sdev->dev, "EPC1     0x%8.8x EPC2     0x%8.8x EPC3     0x%8.8x EPC4    0x%8.8x",
+-		xoops->epc1, xoops->epc2, xoops->epc3, xoops->epc4);
+-	dev_err(sdev->dev, "EPC5     0x%8.8x EPC6     0x%8.8x EPC7     0x%8.8x DEPC    0x%8.8x",
+-		xoops->epc5, xoops->epc6, xoops->epc7, xoops->depc);
+-	dev_err(sdev->dev, "EPS2     0x%8.8x EPS3     0x%8.8x EPS4     0x%8.8x EPS5    0x%8.8x",
+-		xoops->eps2, xoops->eps3, xoops->eps4, xoops->eps5);
+-	dev_err(sdev->dev, "EPS6     0x%8.8x EPS7     0x%8.8x INTENABL 0x%8.8x INTERRU 0x%8.8x",
+-		xoops->eps6, xoops->eps7, xoops->intenable, xoops->interrupt);
++	dev_printk(level, sdev->dev,
++		   "EXCCAUSE 0x%8.8x EXCVADDR 0x%8.8x PS       0x%8.8x SAR     0x%8.8x\n",
++		   xoops->exccause, xoops->excvaddr, xoops->ps, xoops->sar);
++	dev_printk(level, sdev->dev,
++		   "EPC1     0x%8.8x EPC2     0x%8.8x EPC3     0x%8.8x EPC4    0x%8.8x",
++		   xoops->epc1, xoops->epc2, xoops->epc3, xoops->epc4);
++	dev_printk(level, sdev->dev,
++		   "EPC5     0x%8.8x EPC6     0x%8.8x EPC7     0x%8.8x DEPC    0x%8.8x",
++		   xoops->epc5, xoops->epc6, xoops->epc7, xoops->depc);
++	dev_printk(level, sdev->dev,
++		   "EPS2     0x%8.8x EPS3     0x%8.8x EPS4     0x%8.8x EPS5    0x%8.8x",
++		   xoops->eps2, xoops->eps3, xoops->eps4, xoops->eps5);
++	dev_printk(level, sdev->dev,
++		   "EPS6     0x%8.8x EPS7     0x%8.8x INTENABL 0x%8.8x INTERRU 0x%8.8x",
++		   xoops->eps6, xoops->eps7, xoops->intenable, xoops->interrupt);
+ }
+ 
+-static void xtensa_stack(struct snd_sof_dev *sdev, void *oops, u32 *stack,
+-			 u32 stack_words)
++static void xtensa_stack(struct snd_sof_dev *sdev, const char *level, void *oops,
++			 u32 *stack, u32 stack_words)
+ {
+ 	struct sof_ipc_dsp_oops_xtensa *xoops = oops;
+ 	u32 stack_ptr = xoops->plat_hdr.stackptr;
+@@ -115,7 +121,7 @@ static void xtensa_stack(struct snd_sof_dev *sdev, void *oops, u32 *stack,
+ 	unsigned char buf[4 * 8 + 3 + 1];
+ 	int i;
+ 
+-	dev_err(sdev->dev, "stack dump from 0x%8.8x\n", stack_ptr);
++	dev_printk(level, sdev->dev, "stack dump from 0x%8.8x\n", stack_ptr);
  
  	/*
--	 * Only print the panic information if we have non recoverable panic or
--	 * if all dumps should be printed
-+	 * Set the fw_state to crashed only in case of non recoverable DSP panic
-+	 * event.
-+	 * Use different message within the snd_sof_dsp_dbg_dump() depending on
-+	 * the non_recoverable flag.
- 	 */
--	if (non_recoverable || sof_debug_check_flag(SOF_DBG_PRINT_ALL_DUMPS)) {
--		/* We want to see the DSP panic! */
--		sdev->dbg_dump_printed = false;
--
-+	sdev->dbg_dump_printed = false;
-+	if (non_recoverable) {
- 		snd_sof_dsp_dbg_dump(sdev, "DSP panic!",
- 				     SOF_DBG_DUMP_REGS | SOF_DBG_DUMP_MBOX);
--		if (non_recoverable)
--			sof_set_fw_state(sdev, SOF_FW_CRASHED);
-+		sof_set_fw_state(sdev, SOF_FW_CRASHED);
- 		snd_sof_trace_notify_for_error(sdev);
-+	} else {
-+		snd_sof_dsp_dbg_dump(sdev,
-+				     "DSP panic (recovery will be attempted)",
-+				     SOF_DBG_DUMP_REGS | SOF_DBG_DUMP_MBOX);
+ 	 * example output:
+@@ -124,7 +130,7 @@ static void xtensa_stack(struct snd_sof_dev *sdev, void *oops, u32 *stack,
+ 	for (i = 0; i < stack_words; i += 4) {
+ 		hex_dump_to_buffer(stack + i, 16, 16, 4,
+ 				   buf, sizeof(buf), false);
+-		dev_err(sdev->dev, "0x%08x: %s\n", stack_ptr + i * 4, buf);
++		dev_printk(level, sdev->dev, "0x%08x: %s\n", stack_ptr + i * 4, buf);
  	}
  }
- EXPORT_SYMBOL(snd_sof_dsp_panic);
+ 
 -- 
 2.34.1
 

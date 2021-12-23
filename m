@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2968947E26F
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:39:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E806447E271
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:40:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC60E1836;
-	Thu, 23 Dec 2021 12:39:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC60E1836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89A76184C;
+	Thu, 23 Dec 2021 12:39:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89A76184C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640259597;
-	bh=qug7/Bs642W5WMlBVZV2yEIawy7bwW0RHu3h5f+1DcE=;
+	s=default; t=1640259618;
+	bh=gTVIVUvLyvio4gONRnxrZAIcE1pseKxzeHjvTphmkp4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mX68zKf/RmSs8h8F1UJXxraPWau5j23T+oeLZvU/S6X1xtSBBkSb9VBQBoHvf2WLU
-	 lv1XVNER4XOhwqs2Kla+0lcTqi3tjzllvso+CeDDn4bhXC931jnaS+hPyDLKRSmjKL
-	 saAS3in7wkupqHGpMvHLSA5yVtHEjhIxjtYcaNSQ=
+	b=ESEPAJNeLvxSfrcUCftiCR/tb3bkOZTfQe7mfL9LpOM88f45Tpd4OKvyz9D3yOa4B
+	 Nr6OgkYpO3VPSkaSmluEFFLVKSjegvEe26MemCAl2oeM+BYlK4A30kKzyCPv2L8WkU
+	 4jNc22rFSQ3/GTXjOaSDu4hYAzOVWzuwcIjZhqv4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84EA4F80533;
-	Thu, 23 Dec 2021 12:36:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B633F8053B;
+	Thu, 23 Dec 2021 12:36:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78301F8051C; Thu, 23 Dec 2021 12:36:37 +0100 (CET)
+ id 9E735F80528; Thu, 23 Dec 2021 12:36:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,41 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 874EEF804FB
- for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:36:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 874EEF804FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10158F80104
+ for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:36:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10158F80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="F0ZhRTzV"
+ header.b="XFvhhQ+X"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1640259390; x=1671795390;
+ t=1640259393; x=1671795393;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qug7/Bs642W5WMlBVZV2yEIawy7bwW0RHu3h5f+1DcE=;
- b=F0ZhRTzVKf09h/iV4qCmMZnTAmEkygU33z6jythVwV3gCdi4RBEic1bH
- P6zhNSav7MbFiwxrSHNo9b1Dgn+CO00CBp1AREmchN6uIwv9DxKQ1kxm6
- hrzolTqdTZ3+pgSS0Cv1v2jaxT/s27YolJJL/GedBemBRXwtAo+KZkqsg
- 1JjdMkMPB7x6xxwtOGpGg98+AIH3O97IH7DdKMtHoqXjWOTkO4NuzLaEw
- u8yd7XSOQRlFI7RUEBGTVjmjC6MTgJBYtA/qas1lnYZpFqVWlsbGin83G
- XXC0ZsVpnrVO0io2iCe1KlZTcPpePg4C4syPQ9inmS+ukL6dG+Q01rb4T A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="304180824"
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="304180824"
+ bh=gTVIVUvLyvio4gONRnxrZAIcE1pseKxzeHjvTphmkp4=;
+ b=XFvhhQ+Xn0+591F6dcMWQNBY8MVf8aQx14EcKAcdlDlBq4K8Jeay+LeQ
+ li02hZNX1FQpp6zSZfVq7LEvFaEKAfrEJmgZ9ZkPSAmE6lDBaM97GGkuZ
+ ovAa7TAGfPw5KyxbyNHeemGtxQXTIn2Y+2dc4VChKYtmILWSRIwPowLWx
+ L5qnEa+v9hRV1y0iqlEYxvOYZmsfyMIRxxY5QKWSA6g6eESWujkzoqA/6
+ 32mr5+Zc3zrTsN2DOf71yvIxeLTC/+Qaz7M4D8su3GYtwCkqSNkqBab1C
+ RCGiYuvArem3D6aGdUmrK4FNb55c/ojHwHTG2AayE4qANsskiEkFffsUd w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="304180829"
+X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="304180829"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2021 03:36:29 -0800
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="522065123"
+ 23 Dec 2021 03:36:31 -0800
+X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="522065138"
 Received: from gcatala-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.214.126])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2021 03:36:26 -0800
+ 23 Dec 2021 03:36:29 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 08/20] ASoC: SOF: Introduce new firmware state:
- SOF_FW_BOOT_READY_OK
-Date: Thu, 23 Dec 2021 13:36:16 +0200
-Message-Id: <20211223113628.18582-9-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 09/20] ASoC: SOF: Move the definition of enum snd_sof_fw_state
+ to global header
+Date: Thu, 23 Dec 2021 13:36:17 +0200
+Message-Id: <20211223113628.18582-10-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20211223113628.18582-1-peter.ujfalusi@linux.intel.com>
 References: <20211223113628.18582-1-peter.ujfalusi@linux.intel.com>
@@ -91,11 +91,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The SOF_FW_BOOT_READY_OK fw_state indicates that the boot ready message has
-been received and there were no errors found.
-
-The SOF_FW_BOOT_COMPLETE state will be reached after the
-snd_sof_dsp_post_fw_run() completes without error.
+Move the enum snd_sof_fw_state to include/sound/sof.h to be accessible
+outside of the core SOF stack.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -103,74 +100,65 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
 ---
- sound/soc/sof/debug.c    | 1 +
- sound/soc/sof/ipc.c      | 2 +-
- sound/soc/sof/loader.c   | 7 ++++---
- sound/soc/sof/sof-priv.h | 1 +
- 4 files changed, 7 insertions(+), 4 deletions(-)
+ include/sound/sof.h      | 22 ++++++++++++++++++++++
+ sound/soc/sof/sof-priv.h | 11 -----------
+ 2 files changed, 22 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
-index 5941316751dd..75aaf0da87a0 100644
---- a/sound/soc/sof/debug.c
-+++ b/sound/soc/sof/debug.c
-@@ -938,6 +938,7 @@ static const struct soc_fw_state_info {
- 	{SOF_FW_BOOT_IN_PROGRESS, "SOF_FW_BOOT_IN_PROGRESS"},
- 	{SOF_FW_BOOT_FAILED, "SOF_FW_BOOT_FAILED"},
- 	{SOF_FW_BOOT_READY_FAILED, "SOF_FW_BOOT_READY_FAILED"},
-+	{SOF_FW_BOOT_READY_OK, "SOF_FW_BOOT_READY_OK"},
- 	{SOF_FW_BOOT_COMPLETE, "SOF_FW_BOOT_COMPLETE"},
- 	{SOF_FW_CRASHED, "SOF_FW_CRASHED"},
- };
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index 898f261e8603..bbd539071ac5 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -536,7 +536,7 @@ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
- 			if (err < 0)
- 				sof_set_fw_state(sdev, SOF_FW_BOOT_READY_FAILED);
- 			else
--				sof_set_fw_state(sdev, SOF_FW_BOOT_COMPLETE);
-+				sof_set_fw_state(sdev, SOF_FW_BOOT_READY_OK);
+diff --git a/include/sound/sof.h b/include/sound/sof.h
+index 23b374311d16..b9131c01eefd 100644
+--- a/include/sound/sof.h
++++ b/include/sound/sof.h
+@@ -17,6 +17,28 @@
  
- 			/* wake up firmware loader */
- 			wake_up(&sdev->boot_wait);
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index 8977a65b5704..f81f24732799 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -842,9 +842,7 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
- 		return -EIO;
- 	}
+ struct snd_sof_dsp_ops;
  
--	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
--		dev_dbg(sdev->dev, "firmware boot complete\n");
--	else
-+	if (sdev->fw_state == SOF_FW_BOOT_READY_FAILED)
- 		return -EIO; /* FW boots but fw_ready op failed */
- 
- 	/* perform post fw run operations */
-@@ -854,6 +852,9 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
- 		return ret;
- 	}
- 
-+	dev_dbg(sdev->dev, "firmware boot complete\n");
-+	sof_set_fw_state(sdev, SOF_FW_BOOT_COMPLETE);
++/**
++ * enum snd_sof_fw_state - DSP firmware state definitions
++ * @SOF_FW_BOOT_NOT_STARTED:	firmware boot is not yet started
++ * @SOF_FW_BOOT_PREPARE:	preparing for boot (firmware loading for exaqmple)
++ * @SOF_FW_BOOT_IN_PROGRESS:	firmware boot is in progress
++ * @SOF_FW_BOOT_FAILED:		firmware boot failed
++ * @SOF_FW_BOOT_READY_FAILED:	firmware booted but fw_ready op failed
++ * @SOF_FW_BOOT_READY_OK:	firmware booted and fw_ready op passed
++ * @SOF_FW_BOOT_COMPLETE:	firmware is booted up and functional
++ * @SOF_FW_CRASHED:		firmware crashed after successful boot
++ */
++enum snd_sof_fw_state {
++	SOF_FW_BOOT_NOT_STARTED = 0,
++	SOF_FW_BOOT_PREPARE,
++	SOF_FW_BOOT_IN_PROGRESS,
++	SOF_FW_BOOT_FAILED,
++	SOF_FW_BOOT_READY_FAILED,
++	SOF_FW_BOOT_READY_OK,
++	SOF_FW_BOOT_COMPLETE,
++	SOF_FW_CRASHED,
++};
 +
- 	return 0;
- }
- EXPORT_SYMBOL(snd_sof_run_firmware);
+ /*
+  * SOF Platform data.
+  */
 diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 9bb30b2a516f..c92103a028ff 100644
+index c92103a028ff..a1ebc89b216a 100644
 --- a/sound/soc/sof/sof-priv.h
 +++ b/sound/soc/sof/sof-priv.h
-@@ -381,6 +381,7 @@ enum snd_sof_fw_state {
- 	SOF_FW_BOOT_IN_PROGRESS,
- 	SOF_FW_BOOT_FAILED,
- 	SOF_FW_BOOT_READY_FAILED, /* firmware booted but fw_ready op failed */
-+	SOF_FW_BOOT_READY_OK,
- 	SOF_FW_BOOT_COMPLETE,
- 	SOF_FW_CRASHED,
+@@ -375,17 +375,6 @@ struct snd_sof_ipc_msg {
+ 	bool ipc_complete;
  };
+ 
+-enum snd_sof_fw_state {
+-	SOF_FW_BOOT_NOT_STARTED = 0,
+-	SOF_FW_BOOT_PREPARE,
+-	SOF_FW_BOOT_IN_PROGRESS,
+-	SOF_FW_BOOT_FAILED,
+-	SOF_FW_BOOT_READY_FAILED, /* firmware booted but fw_ready op failed */
+-	SOF_FW_BOOT_READY_OK,
+-	SOF_FW_BOOT_COMPLETE,
+-	SOF_FW_CRASHED,
+-};
+-
+ /*
+  * SOF Device Level.
+  */
 -- 
 2.34.1
 

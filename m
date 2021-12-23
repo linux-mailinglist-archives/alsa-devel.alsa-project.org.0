@@ -2,84 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8092C47E1F6
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:06:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 747F247E23C
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:25:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0537816E9;
-	Thu, 23 Dec 2021 12:05:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0537816E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DEDB16EC;
+	Thu, 23 Dec 2021 12:24:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DEDB16EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640257591;
-	bh=moFrdfi1gAB4sIuYqhTiGf31cZmF2Nzr0u8tZE00HpY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1640258743;
+	bh=blf4Dh7FrJABDmllnHxwgTxy1vfGwj5I/5VdnWwodwY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z514lKOutIUI7uqSqfb959MA82oyNCdUmGNh8gYMHwpbT0VoznoXluUXU3LpS8y1r
-	 UAAzU5cRYlRj4f8Ls9v8DPCxFuxQ+/u07NT+S1sWd2HI6nQqYU0RrwQ2wyaD09DQcH
-	 nr9UmhCagQYhZlg3ICD6g9Rqdm/KvLD2iQ6MmYTQ=
+	b=PEZM19c3CYrWUnGQ+ZmafdbFoedaPraGObRGBFNbPccGou6ZOWr+dn74KOUKcz78U
+	 QBNjtGSwFX75joSpyHY/4D4M+B/V5ySzdD+NXx0p64vuakyGT3P32GCnH2D3RfywJN
+	 J0cFrEFCI4RqcvqvHKXrSkfWdWev9Cv84tA9B4N0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 716BCF80115;
-	Thu, 23 Dec 2021 12:05:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D591F80084;
+	Thu, 23 Dec 2021 12:24:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FD0BF80105; Thu, 23 Dec 2021 12:05:23 +0100 (CET)
+ id 0AE7DF80084; Thu, 23 Dec 2021 12:24:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82B22F800AF
- for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:05:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82B22F800AF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Vcfa2NrQ"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6EEA361E23;
- Thu, 23 Dec 2021 11:05:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B629C36AE5;
- Thu, 23 Dec 2021 11:05:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640257509;
- bh=moFrdfi1gAB4sIuYqhTiGf31cZmF2Nzr0u8tZE00HpY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Vcfa2NrQT72MXrlXEZETDr9rJOcPeY8Li2U7nyjGsbcZ4054sCbG4y0ED24KXype3
- Jz7OakUaHBn0DaZOsem8PhPaSw5xHFmPi3kueUcD2GYaYtPaGPVwTZYEdZvkBuYrAY
- bxiH6J3nZnPg+ao2QP2TduF60aF2FLdxypN0jl6ipmI6OLO79QuOXqHDlM+Dfr/dXP
- mBVTOap75+ByDcT8uKIb+vrYlf1x7oE6v1K0L6Fq/pwoBjiKVLh7QVTBCp21FwQ4lq
- AirF7forLhGJFLVbVPjKBOw1AxK1RtcMF1vTqE+BBrtnftDeYjOlyffjw9G2V+qurs
- fqIL1qYzH7+iQ==
-Date: Thu, 23 Dec 2021 16:35:05 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: "Liao, Bard" <bard.liao@intel.com>
-Subject: Re: [PATCH 7/7] soundwire: intel: remove PDM support
-Message-ID: <YcRX4ehgXZIWx3jf@matsya>
-References: <20211213054634.30088-1-yung-chuan.liao@linux.intel.com>
- <20211213054634.30088-8-yung-chuan.liao@linux.intel.com>
- <YcQeRJ060/u4n6fR@matsya>
- <DM6PR11MB4074FEE19010B83F0CDDE8A9FF7E9@DM6PR11MB4074.namprd11.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38E48F80084
+ for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:24:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38E48F80084
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="qdTjC0a4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eGPOyAlRnge9mQGGswywC2LNiaxWuP8pJmoBz2qCcNv0HuXPrD7yrJ0UTjuFgHY71WalBf5zgW8R+sZNzvbS+eXyKuURPFR7syTxKt3jxJJyNDEXzqtlOulz1Ry5TovDzLbe+cYJB+NKBzcsEgOvCp8TFGDzs5NAZN0Utl6Zv+5BMaQ6cRWZSPe1Ub+wu+F8GIQ1aIJWgMHp1JOmSp8/KMwsfcSvN1+PNkjziCVja1avuOPc68AMZ/z6w+hn1ibSn/qO1jtqRJ14+yGXINnusb+f8QPTRuiMpU9pXf7fTg7JzBrttHHqaQVjsivTGadToDdLf9NXJ0Fr/SP6/CMgIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZuPP2lQzmkMtFMprzOY3iNaSCPBBKwxr6ge8jHJl3SQ=;
+ b=cguOcLDyyXwOIlBZguhqzrSUaeM1gL8xeI3OEaakwaUosYkB/hyVwr5+B6gYC4Q8M6K77BgBASFL7YmZO5CZrjIifnrzpXbjrJkZkbIVci/kPMB/tZNMCsNixwuGciML8KY75ZJD9kOCMzEfqQhTAYanaCQ2QIlFb28HD391b3prdLLaaeSh5NQ0ocvbViRRNXjOWK5WPaR2307+B1m7GYuanYWgOo0T9twduFiGhWyNshgi9P1qwY9b7SlGmamWtDY1MTfW8RiKHl/6Ea3tzCIJ6k16WEfiubXLhwy+RiDH990lUAwbDzvjMKBk0gJjxqaijsU1u2py7uSc7pMlyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZuPP2lQzmkMtFMprzOY3iNaSCPBBKwxr6ge8jHJl3SQ=;
+ b=qdTjC0a4odhsVzvQOwZzDK9ELa/ACjdBM4O/Vgz/mLG8O/ukiHCTQ7+itkpcSmcYcpRrF9qc1/ZBYjaHrP/3A6xKqoj+XqX4SjKSOeicPlLfjn8BtRxvpwWFZj48ilMffBubNbF5zXt5KYoo1uWDB8J2+pUtxVANR7CfyW/VpqKE/l62hzmrWOGrwwheV97vp75JoEz8Dd0/wg1Axju50WenjOIFlPAVgLe0cQUpFRoBCiZpxiDQhibgrGdTqCu+J7t3NgTG5cuzm73AIzfQt2qSBqixPAFdqzE/38sZVf6q76Xg3udJjcIOOVu3NdXoh/52XYxUaphpJIXXTbzKGw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY4PR12MB1576.namprd12.prod.outlook.com (2603:10b6:910:10::9)
+ by CY4PR12MB1751.namprd12.prod.outlook.com (2603:10b6:903:121::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.14; Thu, 23 Dec
+ 2021 11:24:23 +0000
+Received: from CY4PR12MB1576.namprd12.prod.outlook.com
+ ([fe80::24b0:46e7:d3c0:a77b]) by CY4PR12MB1576.namprd12.prod.outlook.com
+ ([fe80::24b0:46e7:d3c0:a77b%7]) with mapi id 15.20.4801.024; Thu, 23 Dec 2021
+ 11:24:23 +0000
+Subject: Re: [PATCH v3 1/3] ALSA: hda/tegra: Fix Tegra194 HDA reset failure
+To: Greg KH <gregkh@linuxfoundation.org>
+References: <1640147751-4777-1-git-send-email-spujar@nvidia.com>
+ <1640147751-4777-2-git-send-email-spujar@nvidia.com>
+ <fb8cf33f-41fb-79c0-3134-524c290e4fc1@gmail.com>
+ <f734e48f-dd60-ddb8-510a-3c4f37d8fb52@nvidia.com>
+ <YcQiP+MxrlLi+R94@kroah.com>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <84e3ab9d-b351-b4b6-aa34-174725166913@nvidia.com>
+Date: Thu, 23 Dec 2021 16:54:09 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+In-Reply-To: <YcQiP+MxrlLi+R94@kroah.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <DM6PR11MB4074FEE19010B83F0CDDE8A9FF7E9@DM6PR11MB4074.namprd11.prod.outlook.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>, "Kale,
- Sanyog R" <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Language: en-GB
+X-ClientProxiedBy: MAXPR0101CA0016.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:c::26) To CY4PR12MB1576.namprd12.prod.outlook.com
+ (2603:10b6:910:10::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2576212c-9b60-4a2a-5d34-08d9c606c517
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1751:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1751D5E5FA9652666599FBF6A77E9@CY4PR12MB1751.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YPeaQXeHCBvFNvVct0yq/jorJy7WJ5xoTnluW/WBkCr0b15BZqDB7cqaWAlfC/KU1kpe81aIddmob+Gf7+ibm+BZGbAU8/T9fiEUYrlMSkLgZgQUtkN9CmtoffbcKeqh+Bs5qpTg3oEgOiftaHBsFwV8Zkha3Owtyee83AxLYKaFE6S6v11T/8k0QfGJSALeIjZGxO3sPfbqH5Z2B/6T6fMchgwWAKIA1+XXYCBkL9ZQerizLdmsueLUVldc8FtQ2uDYd6kqCA4U0ruF6ZPIGn2e1eBtHmq1Bt98VRd5HJjELm7W3p+8mVEIIbMAdCOYFBVLNdbVfvLD3zABX3OcOfki+li72ifcl27QgIw8Gb/gVrtV5XfqJ87T7BNShFczEA6rEHWOKGpGMc+vneipIiEyf788A5Kx+hCS2HlC/dWnDXHVxVS8LRb65oxLqsrUDOe3uHAZKpxxUVsBDCBP8en3BmBlXtsoJB36/8TY5cFI2dxOfquci+/MqS1FZEWURYNmzdvcNQQZ4TqrBquSV8bRrFiiN+PhuO5/05LGgQPHjOr7YNR87rGU7LcXmX6bpNlMY/M6vhC12N87eCGuC7U+ChD/67W+zlimhd+ux+J+YA+IIEEOUKoNa7swug++8PDqpwQ79dk9BhfCZS8bHAWS7XzMozhmedameHlApKCH7u/+Kk/kBhbjLY/Vu0hXQ4ow0U4aDzOhyjM39aVQk2HQcETGhBFrQHa4ZajRQMNTTiYTBIWA0wPHG0C4u3YPxjEdcjGI0MLUMPQmadAM0qV4BV2DbuVPI8OmwddxCrxKkjh/ZOsKQ1yzVSqc5bOF
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1576.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(2616005)(36756003)(2906002)(6506007)(66556008)(31696002)(31686004)(8936002)(66476007)(8676002)(4326008)(6486002)(26005)(66946007)(316002)(6916009)(83380400001)(186003)(5660300002)(38100700002)(86362001)(7416002)(6512007)(966005)(53546011)(508600001)(6666004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SldwM0UyZExwOVo2WVgxdW5JQnRrV1JQK3ZtRzhTOGl6QVNobk9xZFhkZm9E?=
+ =?utf-8?B?RlBkcTVVd2gwbW5lSkhocGlBVzdEQ2FxRjU4dTYzRTlOOGJ2UDlUekdGMzd2?=
+ =?utf-8?B?NDRMSzRuUStveTd6a00vcEhLbkNOLzdBcnpWdnVEQzdJQnZUNkkzclVJQkMx?=
+ =?utf-8?B?MERSMkhiNmIwZk9od3N4bGZjWEw5cUJlUnBTQWUveHZtUCtNcGwxem5oelUx?=
+ =?utf-8?B?YnVDZUYzby9tbzhTbXI1OFBmK1ZBSm1CMVQ3UXMvMTVMRlQ2ZTZvRTVqcHVH?=
+ =?utf-8?B?aVgxM29LM3EzSnQ4Y3FGd1VBQUppTE9SbzYyUElpRHU0LzZrQWtkSVJPOTZO?=
+ =?utf-8?B?cjl0QVFnc3JhQTNIQlV0V3FicGZEZGQ4TWZuajREelRQaEFUSWZiWnZMM0sy?=
+ =?utf-8?B?eGdqaGUyM0t2QVpmOWJRRm1HZko0enZQWTFSQS9MRk1ETnc4dVh0cnROUklX?=
+ =?utf-8?B?czlXVlZydHE4SmZhZ0w0ZkhuYXJXNHJwSU5RcFZ1VC8xUDNaZUJscnMxanJo?=
+ =?utf-8?B?Q05FeGM1OUdRMjRUazZ0cHk0QlFBa3lxZlhYbnF4VDZVbHpEV2Z1akd2VzZk?=
+ =?utf-8?B?MEdxM01TaExoMFoyRWNFbk1lSnd4SlB4N2ZFQ0lqa25EYjBoelhyZVJrV2Zj?=
+ =?utf-8?B?NnU5R2hOdGVFZi9qeW42UmR3MzFCcFJwaVFCZGFhTjJlM1JWdVpSRVorejE2?=
+ =?utf-8?B?SGtSNTFkdWRJYnVXNTBaRmJoWjRYQ01zNEJUdXlwNjJuanZyMlpKQ2hZd1pH?=
+ =?utf-8?B?aGJ5aWxNN0J5TW0vVjRXVzBwVm8vUG83ckhjRTVFMld1SHM2bXQ5THdXUHdn?=
+ =?utf-8?B?ZGJJK2trSWl6U3NVWTFydjFhdGNva1I3L1pIdkJPU2V1bWRSSlA4d0gvdmt5?=
+ =?utf-8?B?dndyQndKTTZsY085dDdpaEVKVkZIVlNTeWhXMlVqYVpMMlJreWxISGJ3R1hy?=
+ =?utf-8?B?VVNpanJPVjBLTTF3a2RScWJWWG9qdkFJSEJYTTRSSVBJUEZWaFNmeTMvOXlv?=
+ =?utf-8?B?dEc5dXg3TTJUcDRuK1hSeUhONTRNVkxzNG1YNVBvZDJUMUdXVTdjRWE1WllL?=
+ =?utf-8?B?TkR2eTQwdDZhTGlYa3Izb1dYNElvYW5KQmh4K2JxcVNNN2FzdmE3TGpWSGNG?=
+ =?utf-8?B?Y25UamY2YWdRaUlTMGpGampEUVUrczVndnNuNzBKenZ2NlhKZ0NoWVJxbU5o?=
+ =?utf-8?B?QlMzTHoxMHNiQVM5S2s2ODliMVhZalNjNHJlaDFadm5aQll6cXdya1l6dkFU?=
+ =?utf-8?B?dU5pZ2dBS2ZyOGJsYUFIdzlIRWhEN1Ewa2trT3JsL2Zwblo5TjRkSVVYWEtB?=
+ =?utf-8?B?RXVSU21YaFRqQ25rOTJFZk13ZnF6bHVVRE42ZUovNk5tSGZtb0tOYm9JT3NX?=
+ =?utf-8?B?dmtZemlGMTgwanc1ZVJESHRvdDhURGtkQkZ3NnVtS29pRjZqaFlUcFJzWXJ6?=
+ =?utf-8?B?K2c0Ky9EL1YxTitCNFl4TlZWTUhaNkc3L0N2ZUNnVlpzZWVJWENTejgzQThh?=
+ =?utf-8?B?OG0zd3h4QU1RbDlTUHo4d1k3bGk1ZkhVTk1DRjE3VFR4TmdWeVFSU3dlRUtp?=
+ =?utf-8?B?OXFMVTAydzhWZXJjUUtBTm1DYzAvdnM2VUg2eEo5b2xVMnFLUmY2VDRWMU93?=
+ =?utf-8?B?dFJXY2x0SkYrSFE0VlA3VklXZmVzcTZzWlVGNVZDVTcvOFRObWJneXB4dGFQ?=
+ =?utf-8?B?SlNGV0svaGc3byt4cUt0dll4dzQ3M01vQ0JtK0QrOTJ3Z2d6NUI2NFE1ZGFD?=
+ =?utf-8?B?NUpjMEVwYm1Eelh5SkVaLy9uTDU5QTd0cUVoRm1NTVlnRkVwU0Nlbm5nbTdW?=
+ =?utf-8?B?RUxJN3MxbW9QaGRaRnFXZDRlZkNEMU5zeEJjVDRjVEtLNFc5K1M0QmtXSU9i?=
+ =?utf-8?B?bXkwUGJEVVBCclJGeWJGcjI0NUJGdGgzaWVHYUpSYVFZdytHL1NXSGdmUTM3?=
+ =?utf-8?B?eEV1dGppeGdja1A4WTNnMExFbVZTb3dqRzBscmVvUmEzS2ZqbzZ0R0ZKaFFr?=
+ =?utf-8?B?TVJUclVCQ0FnZnFyUWZObHFQVkZLZURRMGNzMnJybVVlcHRxSkVtR1BieUlJ?=
+ =?utf-8?B?UlhEaFZ6c0ZoMFNsMksyeDZ2QXMyNHpoTjNqYlBxY01Ma1F5VEs5YVlZUkt6?=
+ =?utf-8?B?bVFqQjNzaDAyOVhDOW8xUEJsUFUrbjFESzBZQmpFbUVaQmdBTzVyQUZ4cU5I?=
+ =?utf-8?Q?RyiLDmVIes0TaD3t2AcyJ4s=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2576212c-9b60-4a2a-5d34-08d9c606c517
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1576.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2021 11:24:23.0351 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wIHHtsJAozExGr4qvJFX+h5JYQGhl8YCFtBcFAmldBIPcHNIHw24vCYyoEY0aarvgo8GnWSw1+KbD6xXLm8EZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1751
+Cc: jonathanh@nvidia.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+ thierry.reding@gmail.com, stable@vger.kernel.org, linux-tegra@vger.kernel.org,
+ Dmitry Osipenko <digetx@gmail.com>, mkumard@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,463 +168,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 23-12-21, 07:46, Liao, Bard wrote:
-> > -----Original Message-----
-> > From: Vinod Koul <vkoul@kernel.org>
-> > Sent: Thursday, December 23, 2021 2:59 PM
-> > To: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > Cc: alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org;
-> > tiwai@suse.de; broonie@kernel.org; gregkh@linuxfoundation.org;
-> > srinivas.kandagatla@linaro.org; pierre-louis.bossart@linux.intel.com; Kale,
-> > Sanyog R <sanyog.r.kale@intel.com>; Liao, Bard <bard.liao@intel.com>
-> > Subject: Re: [PATCH 7/7] soundwire: intel: remove PDM support
-> > 
-> > On 13-12-21, 13:46, Bard Liao wrote:
-> > > From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > >
-> > > While the hardware supports PDM streams, this capability has never
-> > > been tested or enabled on any product, so this is dead-code. Let's
-> > > remove all this.
-> > 
-> > So no plans to test and enable this? Do the DMICs not use PDM?
-> 
-> The point is that this code is unused/untested. We can re-add it after
-> it was tested.
 
-That does not answer my question. Do the DMICs not use PDM?
 
-> 
-> > 
-> > Again this should not be in this series...
-> 
-> Agree, but since this patche depends on the previous patches, I sent them
-> together to avoid conflict.
+On 12/23/2021 12:46 PM, Greg KH wrote:
+> On Thu, Dec 23, 2021 at 10:04:19AM +0530, Sameer Pujar wrote:
+>>
+>> On 12/23/2021 12:10 AM, Dmitry Osipenko wrote:
+>>> 22.12.2021 07:35, Sameer Pujar пишет:
+>>>> HDA regression is recently reported on Tegra194 based platforms.
+>>>> This happens because "hda2codec_2x" reset does not really exist
+>>>> in Tegra194 and it causes probe failure. All the HDA based audio
+>>>> tests fail at the moment. This underlying issue is exposed by
+>>>> commit c045ceb5a145 ("reset: tegra-bpmp: Handle errors in BPMP
+>>>> response") which now checks return code of BPMP command response.
+>>>> Fix this issue by skipping unavailable reset on Tegra194.
+>>>>
+>>>> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+>>>> Cc: stable@vger.kernel.org
+>>>> Depends-on: 87f0e46e7559 ("ALSA: hda/tegra: Reset hardware")
+>>> Is "Depends-on" a valid tag? I can't find it in Documentation/.
+>> I do find the usage of the tag in many commits though there is no reference
+>> of this in doc. I always thought it would act as a reference when commits
+>> get pulled to other branches. If this is not true and it does not mean
+>> anything, I will drop this.
+> It is not true at all, please read:
+>      https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+> for how to do this properly.
 
-There are ways to handle that...
-
-> 
-> > 
-> > >
-> > > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > Reviewed-by: P�ter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> > > Reviewed-by: Rander Wang <rander.wang@intel.com>
-> > > Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > > ---
-> > >  drivers/soundwire/cadence_master.c |  36 +--------
-> > >  drivers/soundwire/cadence_master.h |  12 +--
-> > >  drivers/soundwire/intel.c          | 123 +++++++----------------------
-> > >  3 files changed, 31 insertions(+), 140 deletions(-)
-> > >
-> > > diff --git a/drivers/soundwire/cadence_master.c
-> > b/drivers/soundwire/cadence_master.c
-> > > index 4fcc3ba93004..558390af44b6 100644
-> > > --- a/drivers/soundwire/cadence_master.c
-> > > +++ b/drivers/soundwire/cadence_master.c
-> > > @@ -1178,9 +1178,6 @@ int sdw_cdns_pdi_init(struct sdw_cdns *cdns,
-> > >  	cdns->pcm.num_bd = config.pcm_bd;
-> > >  	cdns->pcm.num_in = config.pcm_in;
-> > >  	cdns->pcm.num_out = config.pcm_out;
-> > > -	cdns->pdm.num_bd = config.pdm_bd;
-> > > -	cdns->pdm.num_in = config.pdm_in;
-> > > -	cdns->pdm.num_out = config.pdm_out;
-> > >
-> > >  	/* Allocate PDIs for PCMs */
-> > >  	stream = &cdns->pcm;
-> > > @@ -1211,32 +1208,6 @@ int sdw_cdns_pdi_init(struct sdw_cdns *cdns,
-> > >  	stream->num_pdi = stream->num_bd + stream->num_in + stream-
-> > >num_out;
-> > >  	cdns->num_ports = stream->num_pdi;
-> > >
-> > > -	/* Allocate PDIs for PDMs */
-> > > -	stream = &cdns->pdm;
-> > > -	ret = cdns_allocate_pdi(cdns, &stream->bd,
-> > > -				stream->num_bd, offset);
-> > > -	if (ret)
-> > > -		return ret;
-> > > -
-> > > -	offset += stream->num_bd;
-> > > -
-> > > -	ret = cdns_allocate_pdi(cdns, &stream->in,
-> > > -				stream->num_in, offset);
-> > > -	if (ret)
-> > > -		return ret;
-> > > -
-> > > -	offset += stream->num_in;
-> > > -
-> > > -	ret = cdns_allocate_pdi(cdns, &stream->out,
-> > > -				stream->num_out, offset);
-> > > -
-> > > -	if (ret)
-> > > -		return ret;
-> > > -
-> > > -	/* Update total number of PDM PDIs */
-> > > -	stream->num_pdi = stream->num_bd + stream->num_in + stream-
-> > >num_out;
-> > > -	cdns->num_ports += stream->num_pdi;
-> > > -
-> > >  	return 0;
-> > >  }
-> > >  EXPORT_SYMBOL(sdw_cdns_pdi_init);
-> > > @@ -1681,7 +1652,7 @@ int sdw_cdns_probe(struct sdw_cdns *cdns)
-> > >  EXPORT_SYMBOL(sdw_cdns_probe);
-> > >
-> > >  int cdns_set_sdw_stream(struct snd_soc_dai *dai,
-> > > -			void *stream, bool pcm, int direction)
-> > > +			void *stream, int direction)
-> > >  {
-> > >  	struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
-> > >  	struct sdw_cdns_dma_data *dma;
-> > > @@ -1705,10 +1676,7 @@ int cdns_set_sdw_stream(struct snd_soc_dai
-> > *dai,
-> > >  		if (!dma)
-> > >  			return -ENOMEM;
-> > >
-> > > -		if (pcm)
-> > > -			dma->stream_type = SDW_STREAM_PCM;
-> > > -		else
-> > > -			dma->stream_type = SDW_STREAM_PDM;
-> > > +		dma->stream_type = SDW_STREAM_PCM;
-> > >
-> > >  		dma->bus = &cdns->bus;
-> > >  		dma->link_id = cdns->instance;
-> > > diff --git a/drivers/soundwire/cadence_master.h
-> > b/drivers/soundwire/cadence_master.h
-> > > index aa4b9b0eb2a8..595d72c15d97 100644
-> > > --- a/drivers/soundwire/cadence_master.h
-> > > +++ b/drivers/soundwire/cadence_master.h
-> > > @@ -17,7 +17,7 @@
-> > >   * @h_ch_num: high channel for PDI
-> > >   * @ch_count: total channel count for PDI
-> > >   * @dir: data direction
-> > > - * @type: stream type, PDM or PCM
-> > > + * @type: stream type, (only PCM supported)
-> > >   */
-> > >  struct sdw_cdns_pdi {
-> > >  	int num;
-> > > @@ -62,17 +62,11 @@ struct sdw_cdns_streams {
-> > >   * @pcm_bd: number of bidirectional PCM streams supported
-> > >   * @pcm_in: number of input PCM streams supported
-> > >   * @pcm_out: number of output PCM streams supported
-> > > - * @pdm_bd: number of bidirectional PDM streams supported
-> > > - * @pdm_in: number of input PDM streams supported
-> > > - * @pdm_out: number of output PDM streams supported
-> > >   */
-> > >  struct sdw_cdns_stream_config {
-> > >  	unsigned int pcm_bd;
-> > >  	unsigned int pcm_in;
-> > >  	unsigned int pcm_out;
-> > > -	unsigned int pdm_bd;
-> > > -	unsigned int pdm_in;
-> > > -	unsigned int pdm_out;
-> > >  };
-> > >
-> > >  /**
-> > > @@ -111,7 +105,6 @@ struct sdw_cdns_dma_data {
-> > >   * @ports: Data ports
-> > >   * @num_ports: Total number of data ports
-> > >   * @pcm: PCM streams
-> > > - * @pdm: PDM streams
-> > >   * @registers: Cadence registers
-> > >   * @link_up: Link status
-> > >   * @msg_count: Messages sent on bus
-> > > @@ -129,7 +122,6 @@ struct sdw_cdns {
-> > >  	int num_ports;
-> > >
-> > >  	struct sdw_cdns_streams pcm;
-> > > -	struct sdw_cdns_streams pdm;
-> > >
-> > >  	int pdi_loopback_source;
-> > >  	int pdi_loopback_target;
-> > > @@ -188,7 +180,7 @@ cdns_xfer_msg_defer(struct sdw_bus *bus,
-> > >  int cdns_bus_conf(struct sdw_bus *bus, struct sdw_bus_params
-> > *params);
-> > >
-> > >  int cdns_set_sdw_stream(struct snd_soc_dai *dai,
-> > > -			void *stream, bool pcm, int direction);
-> > > +			void *stream, int direction);
-> > >
-> > >  void sdw_cdns_check_self_clearing_bits(struct sdw_cdns *cdns, const
-> > char *string,
-> > >  				       bool initial_delay, int reset_iterations);
-> > > diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-> > > index 45ea55a7d0c8..79ba0e3f6dac 100644
-> > > --- a/drivers/soundwire/intel.c
-> > > +++ b/drivers/soundwire/intel.c
-> > > @@ -564,7 +564,7 @@ static void intel_pdi_init(struct sdw_intel *sdw,
-> > >  {
-> > >  	void __iomem *shim = sdw->link_res->shim;
-> > >  	unsigned int link_id = sdw->instance;
-> > > -	int pcm_cap, pdm_cap;
-> > > +	int pcm_cap;
-> > >
-> > >  	/* PCM Stream Capability */
-> > >  	pcm_cap = intel_readw(shim, SDW_SHIM_PCMSCAP(link_id));
-> > > @@ -575,41 +575,25 @@ static void intel_pdi_init(struct sdw_intel *sdw,
-> > >
-> > >  	dev_dbg(sdw->cdns.dev, "PCM cap bd:%d in:%d out:%d\n",
-> > >  		config->pcm_bd, config->pcm_in, config->pcm_out);
-> > > -
-> > > -	/* PDM Stream Capability */
-> > > -	pdm_cap = intel_readw(shim, SDW_SHIM_PDMSCAP(link_id));
-> > > -
-> > > -	config->pdm_bd = FIELD_GET(SDW_SHIM_PDMSCAP_BSS,
-> > pdm_cap);
-> > > -	config->pdm_in = FIELD_GET(SDW_SHIM_PDMSCAP_ISS, pdm_cap);
-> > > -	config->pdm_out = FIELD_GET(SDW_SHIM_PDMSCAP_OSS,
-> > pdm_cap);
-> > > -
-> > > -	dev_dbg(sdw->cdns.dev, "PDM cap bd:%d in:%d out:%d\n",
-> > > -		config->pdm_bd, config->pdm_in, config->pdm_out);
-> > >  }
-> > >
-> > >  static int
-> > > -intel_pdi_get_ch_cap(struct sdw_intel *sdw, unsigned int pdi_num, bool
-> > pcm)
-> > > +intel_pdi_get_ch_cap(struct sdw_intel *sdw, unsigned int pdi_num)
-> > >  {
-> > >  	void __iomem *shim = sdw->link_res->shim;
-> > >  	unsigned int link_id = sdw->instance;
-> > >  	int count;
-> > >
-> > > -	if (pcm) {
-> > > -		count = intel_readw(shim, SDW_SHIM_PCMSYCHC(link_id,
-> > pdi_num));
-> > > +	count = intel_readw(shim, SDW_SHIM_PCMSYCHC(link_id,
-> > pdi_num));
-> > >
-> > > -		/*
-> > > -		 * WORKAROUND: on all existing Intel controllers, pdi
-> > > -		 * number 2 reports channel count as 1 even though it
-> > > -		 * supports 8 channels. Performing hardcoding for pdi
-> > > -		 * number 2.
-> > > -		 */
-> > > -		if (pdi_num == 2)
-> > > -			count = 7;
-> > > -
-> > > -	} else {
-> > > -		count = intel_readw(shim, SDW_SHIM_PDMSCAP(link_id));
-> > > -		count = FIELD_GET(SDW_SHIM_PDMSCAP_CPSS, count);
-> > > -	}
-> > > +	/*
-> > > +	 * WORKAROUND: on all existing Intel controllers, pdi
-> > > +	 * number 2 reports channel count as 1 even though it
-> > > +	 * supports 8 channels. Performing hardcoding for pdi
-> > > +	 * number 2.
-> > > +	 */
-> > > +	if (pdi_num == 2)
-> > > +		count = 7;
-> > >
-> > >  	/* zero based values for channel count in register */
-> > >  	count++;
-> > > @@ -620,12 +604,12 @@ intel_pdi_get_ch_cap(struct sdw_intel *sdw,
-> > unsigned int pdi_num, bool pcm)
-> > >  static int intel_pdi_get_ch_update(struct sdw_intel *sdw,
-> > >  				   struct sdw_cdns_pdi *pdi,
-> > >  				   unsigned int num_pdi,
-> > > -				   unsigned int *num_ch, bool pcm)
-> > > +				   unsigned int *num_ch)
-> > >  {
-> > >  	int i, ch_count = 0;
-> > >
-> > >  	for (i = 0; i < num_pdi; i++) {
-> > > -		pdi->ch_count = intel_pdi_get_ch_cap(sdw, pdi->num, pcm);
-> > > +		pdi->ch_count = intel_pdi_get_ch_cap(sdw, pdi->num);
-> > >  		ch_count += pdi->ch_count;
-> > >  		pdi++;
-> > >  	}
-> > > @@ -635,25 +619,23 @@ static int intel_pdi_get_ch_update(struct
-> > sdw_intel *sdw,
-> > >  }
-> > >
-> > >  static int intel_pdi_stream_ch_update(struct sdw_intel *sdw,
-> > > -				      struct sdw_cdns_streams *stream, bool
-> > pcm)
-> > > +				      struct sdw_cdns_streams *stream)
-> > >  {
-> > >  	intel_pdi_get_ch_update(sdw, stream->bd, stream->num_bd,
-> > > -				&stream->num_ch_bd, pcm);
-> > > +				&stream->num_ch_bd);
-> > >
-> > >  	intel_pdi_get_ch_update(sdw, stream->in, stream->num_in,
-> > > -				&stream->num_ch_in, pcm);
-> > > +				&stream->num_ch_in);
-> > >
-> > >  	intel_pdi_get_ch_update(sdw, stream->out, stream->num_out,
-> > > -				&stream->num_ch_out, pcm);
-> > > +				&stream->num_ch_out);
-> > >
-> > >  	return 0;
-> > >  }
-> > >
-> > >  static int intel_pdi_ch_update(struct sdw_intel *sdw)
-> > >  {
-> > > -	/* First update PCM streams followed by PDM streams */
-> > > -	intel_pdi_stream_ch_update(sdw, &sdw->cdns.pcm, true);
-> > > -	intel_pdi_stream_ch_update(sdw, &sdw->cdns.pdm, false);
-> > > +	intel_pdi_stream_ch_update(sdw, &sdw->cdns.pcm);
-> > >
-> > >  	return 0;
-> > >  }
-> > > @@ -840,7 +822,6 @@ static int intel_hw_params(struct
-> > snd_pcm_substream *substream,
-> > >  	struct sdw_port_config *pconfig;
-> > >  	int ch, dir;
-> > >  	int ret;
-> > > -	bool pcm = true;
-> > >
-> > >  	dma = snd_soc_dai_get_dma_data(dai, substream);
-> > >  	if (!dma)
-> > > @@ -852,13 +833,7 @@ static int intel_hw_params(struct
-> > snd_pcm_substream *substream,
-> > >  	else
-> > >  		dir = SDW_DATA_DIR_TX;
-> > >
-> > > -	if (dma->stream_type == SDW_STREAM_PDM)
-> > > -		pcm = false;
-> > > -
-> > > -	if (pcm)
-> > > -		pdi = sdw_cdns_alloc_pdi(cdns, &cdns->pcm, ch, dir, dai->id);
-> > > -	else
-> > > -		pdi = sdw_cdns_alloc_pdi(cdns, &cdns->pdm, ch, dir, dai->id);
-> > > +	pdi = sdw_cdns_alloc_pdi(cdns, &cdns->pcm, ch, dir, dai->id);
-> > >
-> > >  	if (!pdi) {
-> > >  		ret = -EINVAL;
-> > > @@ -888,12 +863,7 @@ static int intel_hw_params(struct
-> > snd_pcm_substream *substream,
-> > >  	sconfig.frame_rate = params_rate(params);
-> > >  	sconfig.type = dma->stream_type;
-> > >
-> > > -	if (dma->stream_type == SDW_STREAM_PDM) {
-> > > -		sconfig.frame_rate *= 50;
-> > > -		sconfig.bps = 1;
-> > > -	} else {
-> > > -		sconfig.bps =
-> > snd_pcm_format_width(params_format(params));
-> > > -	}
-> > > +	sconfig.bps = snd_pcm_format_width(params_format(params));
-> > >
-> > >  	/* Port configuration */
-> > >  	pconfig = kzalloc(sizeof(*pconfig), GFP_KERNEL);
-> > > @@ -1012,13 +982,7 @@ static void intel_shutdown(struct
-> > snd_pcm_substream *substream,
-> > >  static int intel_pcm_set_sdw_stream(struct snd_soc_dai *dai,
-> > >  				    void *stream, int direction)
-> > >  {
-> > > -	return cdns_set_sdw_stream(dai, stream, true, direction);
-> > > -}
-> > > -
-> > > -static int intel_pdm_set_sdw_stream(struct snd_soc_dai *dai,
-> > > -				    void *stream, int direction)
-> > > -{
-> > > -	return cdns_set_sdw_stream(dai, stream, false, direction);
-> > > +	return cdns_set_sdw_stream(dai, stream, direction);
-> > >  }
-> > >
-> > >  static void *intel_get_sdw_stream(struct snd_soc_dai *dai,
-> > > @@ -1133,16 +1097,6 @@ static const struct snd_soc_dai_ops
-> > intel_pcm_dai_ops = {
-> > >  	.get_stream = intel_get_sdw_stream,
-> > >  };
-> > >
-> > > -static const struct snd_soc_dai_ops intel_pdm_dai_ops = {
-> > > -	.startup = intel_startup,
-> > > -	.hw_params = intel_hw_params,
-> > > -	.prepare = intel_prepare,
-> > > -	.hw_free = intel_hw_free,
-> > > -	.shutdown = intel_shutdown,
-> > > -	.set_sdw_stream = intel_pdm_set_sdw_stream,
-> > > -	.get_sdw_stream = intel_get_sdw_stream,
-> > > -};
-> > > -
-> > >  static const struct snd_soc_component_driver dai_component = {
-> > >  	.name           = "soundwire",
-> > >  	.suspend	= intel_component_dais_suspend
-> > > @@ -1151,7 +1105,7 @@ static const struct snd_soc_component_driver
-> > dai_component = {
-> > >  static int intel_create_dai(struct sdw_cdns *cdns,
-> > >  			    struct snd_soc_dai_driver *dais,
-> > >  			    enum intel_pdi_type type,
-> > > -			    u32 num, u32 off, u32 max_ch, bool pcm)
-> > > +			    u32 num, u32 off, u32 max_ch)
-> > >  {
-> > >  	int i;
-> > >
-> > > @@ -1180,10 +1134,7 @@ static int intel_create_dai(struct sdw_cdns *cdns,
-> > >  			dais[i].capture.formats =
-> > SNDRV_PCM_FMTBIT_S16_LE;
-> > >  		}
-> > >
-> > > -		if (pcm)
-> > > -			dais[i].ops = &intel_pcm_dai_ops;
-> > > -		else
-> > > -			dais[i].ops = &intel_pdm_dai_ops;
-> > > +		dais[i].ops = &intel_pcm_dai_ops;
-> > >  	}
-> > >
-> > >  	return 0;
-> > > @@ -1197,7 +1148,7 @@ static int intel_register_dai(struct sdw_intel *sdw)
-> > >  	int num_dai, ret, off = 0;
-> > >
-> > >  	/* DAIs are created based on total number of PDIs supported */
-> > > -	num_dai = cdns->pcm.num_pdi + cdns->pdm.num_pdi;
-> > > +	num_dai = cdns->pcm.num_pdi;
-> > >
-> > >  	dais = devm_kcalloc(cdns->dev, num_dai, sizeof(*dais),
-> > GFP_KERNEL);
-> > >  	if (!dais)
-> > > @@ -1207,39 +1158,19 @@ static int intel_register_dai(struct sdw_intel
-> > *sdw)
-> > >  	stream = &cdns->pcm;
-> > >
-> > >  	ret = intel_create_dai(cdns, dais, INTEL_PDI_IN, cdns->pcm.num_in,
-> > > -			       off, stream->num_ch_in, true);
-> > > +			       off, stream->num_ch_in);
-> > >  	if (ret)
-> > >  		return ret;
-> > >
-> > >  	off += cdns->pcm.num_in;
-> > >  	ret = intel_create_dai(cdns, dais, INTEL_PDI_OUT, cdns-
-> > >pcm.num_out,
-> > > -			       off, stream->num_ch_out, true);
-> > > +			       off, stream->num_ch_out);
-> > >  	if (ret)
-> > >  		return ret;
-> > >
-> > >  	off += cdns->pcm.num_out;
-> > >  	ret = intel_create_dai(cdns, dais, INTEL_PDI_BD, cdns->pcm.num_bd,
-> > > -			       off, stream->num_ch_bd, true);
-> > > -	if (ret)
-> > > -		return ret;
-> > > -
-> > > -	/* Create PDM DAIs */
-> > > -	stream = &cdns->pdm;
-> > > -	off += cdns->pcm.num_bd;
-> > > -	ret = intel_create_dai(cdns, dais, INTEL_PDI_IN, cdns->pdm.num_in,
-> > > -			       off, stream->num_ch_in, false);
-> > > -	if (ret)
-> > > -		return ret;
-> > > -
-> > > -	off += cdns->pdm.num_in;
-> > > -	ret = intel_create_dai(cdns, dais, INTEL_PDI_OUT, cdns-
-> > >pdm.num_out,
-> > > -			       off, stream->num_ch_out, false);
-> > > -	if (ret)
-> > > -		return ret;
-> > > -
-> > > -	off += cdns->pdm.num_out;
-> > > -	ret = intel_create_dai(cdns, dais, INTEL_PDI_BD, cdns-
-> > >pdm.num_bd,
-> > > -			       off, stream->num_ch_bd, false);
-> > > +			       off, stream->num_ch_bd);
-> > >  	if (ret)
-> > >  		return ret;
-> > >
-> > > --
-> > > 2.17.1
-> > 
-> > --
-> > ~Vinod
-
--- 
-~Vinod
+Thanks Greg for the pointer. I will drop above tag in v4.

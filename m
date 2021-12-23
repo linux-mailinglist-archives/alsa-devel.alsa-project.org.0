@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDB4047E285
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:43:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2D5447E28A
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:46:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44C4F18C4;
-	Thu, 23 Dec 2021 12:42:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44C4F18C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82D8F1726;
+	Thu, 23 Dec 2021 12:45:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82D8F1726
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640259803;
-	bh=7MiG0NjfYBU+ohUp456UJYb23lsZ1RDDBzqf8y+Kprc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1640259997;
+	bh=DGLkQSnQa6hNT1VLaNoirSJoO1SizD2TmD/9S1mdHPY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mCxFDigRURvyul5QJzPPPp3pvbXcj3orHP5Sa5YonHBGlZp5Ta179lYMQ2IYAxnKM
-	 uZB5mWYLWNBTZyPl/EMjVb4ZY11LvlBUk1uT+7P9AWiUc5OM7bK2OWHAEykC6zuRkO
-	 Ai+wxaT6n4x3In9Qvvljv6TVYrinS/twCb9ORWmY=
+	b=tlKElSPLqzZI90r3tFnyjAM2IlXOKMlXZVoZHfRcxgk+WvNSUXsbF953UBwcfUa30
+	 QYalkzkuvnMKiuI6YJ6aOdp8xTYVGGNu0HzMEc0U+aavaAtkanzYMYrB9CApnPT7BY
+	 jPYhFQbCxD0VpJ+Y5WXahF5Hb6w3VQNz+W0iFEWw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59EE2F805B0;
-	Thu, 23 Dec 2021 12:37:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBFF9F8011C;
+	Thu, 23 Dec 2021 12:45:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCA86F80568; Thu, 23 Dec 2021 12:37:05 +0100 (CET)
+ id 0B914F80115; Thu, 23 Dec 2021 12:45:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F36C7F80084
+ for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:45:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F36C7F80084
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="nRPdhyVc"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3905BF8055B
- for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:36:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3905BF8055B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Ta5JS92c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1640259420; x=1671795420;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=7MiG0NjfYBU+ohUp456UJYb23lsZ1RDDBzqf8y+Kprc=;
- b=Ta5JS92cTEAukkSgIjHjwtpvgUJbvF2i5C08p1C6xC3t7WTXV0Ilwj2x
- dFpvBxlrVQD8OVfsJjifo5uAKduiaMGAQuEfpPkGNPyu3RiFSBt3CkmWn
- xhNZk02xZRa3x9DfSRUoMVfX2bG5pnYhxOch8dsnl+VJ6iORavVgldPZI
- /eBndd0Nn4fY46BXt72FT8HN9rs6xIdnjOXLkfSbKWybayz1Tt1xxmPDM
- S0wBvDxkB2XRSsqIU+6U6lR3earE4lOE6k/E+AchSBDo1zAEsloUs1q96
- HpXblK/8xDRSbBgTvOIK58eQDBDJi1Z9Pp2LqopjwIZ3u7SI9rDsYbZoA g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="304180880"
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="304180880"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2021 03:36:58 -0800
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="522065287"
-Received: from gcatala-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.251.214.126])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2021 03:36:56 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH 20/20] ASoC: SOF: Intel: hda: Use DEBUG log level for optional
- prints
-Date: Thu, 23 Dec 2021 13:36:28 +0200
-Message-Id: <20211223113628.18582-21-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20211223113628.18582-1-peter.ujfalusi@linux.intel.com>
-References: <20211223113628.18582-1-peter.ujfalusi@linux.intel.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id E2583B81F7B;
+ Thu, 23 Dec 2021 11:45:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030E2C36AEB;
+ Thu, 23 Dec 2021 11:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1640259920;
+ bh=DGLkQSnQa6hNT1VLaNoirSJoO1SizD2TmD/9S1mdHPY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=nRPdhyVc86yJv1tqkkQ4SyektyoJTKnk4f9DKkPq6Kn6XcXHJqOvg2do+5JdBWBQi
+ t2NHFFqzU4ohttSDFxX4UHKgV94uxEpvl+EFfLePbukzNYyEWgomcZYs9vCa0KRbyU
+ tRgBNDVkcTTFp1HXeyolDngZpKeofxmQo8QeDP/4OK+aHiyhfWultY8zmxedzUIswc
+ lnGfhtvXXgS/zZFqv4zcMwxcdkbSqURjfSpisoqC3pv9SKg/M+VK54RI8Zy1KJqxdI
+ eFfDci+WihILu/BFOvZMIWc+5kF53nMTK6KOKUBvu+DcBAFthrhyEKlw6zb+Ibm47j
+ UpB214KvHbOCg==
+Date: Thu, 23 Dec 2021 12:45:15 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 3/5] ASoC: Intel: add machine driver for SOF+ES8336
+Message-ID: <20211223124515.31096a6a@coco.lan>
+In-Reply-To: <137f321b-0be3-eeb2-b6f3-a88d687f7848@linux.intel.com>
+References: <20211004213512.220836-1-pierre-louis.bossart@linux.intel.com>
+ <20211004213512.220836-4-pierre-louis.bossart@linux.intel.com>
+ <20211121190035.2a5e3ad7@sal.lan>
+ <137f321b-0be3-eeb2-b6f3-a88d687f7848@linux.intel.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- chao.song@intel.com, daniel.baluta@nxp.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ tiwai@suse.de, Huajun Li <huajun.li@intel.com>, broonie@kernel.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,88 +90,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the user requested to see all dumps (even the optional ones) then use
-KERN_DEBUG level for the optional dumps as they are only for debugging
-purposes.
+Hi Pierre-Louis,
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Chao Song <chao.song@intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/intel/hda.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+Em Mon, 22 Nov 2021 10:45:35 -0600
+Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> escreveu:
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 97027530ecef..18abbd13d593 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -474,7 +474,7 @@ static const struct hda_dsp_msg_code hda_dsp_rom_msg[] = {
- 	{HDA_DSP_ROM_NULL_FW_ENTRY,	"error: null FW entry point"},
- };
- 
--static void hda_dsp_get_status(struct snd_sof_dev *sdev)
-+static void hda_dsp_get_status(struct snd_sof_dev *sdev, const char *level)
- {
- 	u32 status;
- 	int i;
-@@ -484,8 +484,8 @@ static void hda_dsp_get_status(struct snd_sof_dev *sdev)
- 
- 	for (i = 0; i < ARRAY_SIZE(hda_dsp_rom_msg); i++) {
- 		if (status == hda_dsp_rom_msg[i].code) {
--			dev_err(sdev->dev, "%s - code %8.8x\n",
--				hda_dsp_rom_msg[i].msg, status);
-+			dev_printk(level, sdev->dev, "%s - code %8.8x\n",
-+				   hda_dsp_rom_msg[i].msg, status);
- 			return;
- 		}
- 	}
-@@ -523,7 +523,8 @@ static void hda_dsp_get_registers(struct snd_sof_dev *sdev,
- }
- 
- /* dump the first 8 dwords representing the extended ROM status */
--static void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, u32 flags)
-+static void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, const char *level,
-+					u32 flags)
- {
- 	char msg[128];
- 	int len = 0;
-@@ -535,18 +536,19 @@ static void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, u32 flags)
- 		len += snprintf(msg + len, sizeof(msg) - len, " 0x%x", value);
- 	}
- 
--	dev_err(sdev->dev, "extended rom status: %s", msg);
-+	dev_printk(level, sdev->dev, "extended rom status: %s", msg);
- 
- }
- 
- void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
- {
-+	char *level = flags & SOF_DBG_DUMP_OPTIONAL ? KERN_DEBUG : KERN_ERR;
- 	struct sof_ipc_dsp_oops_xtensa xoops;
- 	struct sof_ipc_panic_info panic_info;
- 	u32 stack[HDA_DSP_STACK_DUMP_SIZE];
- 
- 	/* print ROM/FW status */
--	hda_dsp_get_status(sdev);
-+	hda_dsp_get_status(sdev, level);
- 
- 	if (flags & SOF_DBG_DUMP_REGS) {
- 		u32 status = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_FW_STATUS);
-@@ -554,10 +556,10 @@ void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
- 
- 		hda_dsp_get_registers(sdev, &xoops, &panic_info, stack,
- 				      HDA_DSP_STACK_DUMP_SIZE);
--		sof_print_oops_and_stack(sdev, KERN_ERR, status, panic, &xoops,
-+		sof_print_oops_and_stack(sdev, level, status, panic, &xoops,
- 					 &panic_info, stack, HDA_DSP_STACK_DUMP_SIZE);
- 	} else {
--		hda_dsp_dump_ext_rom_status(sdev, flags);
-+		hda_dsp_dump_ext_rom_status(sdev, level, flags);
- 	}
- }
- 
--- 
-2.34.1
+> Hi Mauro,
+> 
+> >> Add machine driver to support APL/GLK/TGL platforms.
+> >> The TGL platform supports DMIC, APL and GLK do not.  
+> > 
+> > I just bought a Comet Lake notebook with ES8336, but I'm having a hard
+> > time to make audio work on it.  
+> 
+> Yes, we're aware of this design and we've tried to help. There's a
+> series of devices based on this I2C/I2S device, which is the exception
+> to the rule that all Windows-based designs are based on HDaudio or
+> SoundWire. Intel wasn't informed of this device so we we've added quirks
+> device after device, as bug reports came in.
+> 
+> The CometLake enablement is tracked at
+> https://github.com/thesofproject/linux/issues/3248
+> 
+> I will upstream the two quirks for CometLake later today.
+> 
+> The latest hacky recipe to get the driver to probe is at
+> https://github.com/thesofproject/linux/pull/3107
+> 
+> There is still work to do for the 'topology' part. The comment
+> https://github.com/thesofproject/linux/issues/3248#issuecomment-959573378 has
+> a tar file with 3 possible options for the I2S/SSP connection.
+> 
+> The remaining part will be the codec driver, which is problematic for
+> now, we're still waiting for updates from the vendor and it's unclear
+> if/when they will be submitted.
 
+Sorry for taking a long time to answer. I lost access to the notebook,
+due to a travel.
+
+I applied all "es8336" branches from your tree altogether:
+
+	8af10fc5d7f4 (HEAD) Merge remote-tracking branch 'plbossart/fix/es8336-codec' into HEAD
+	f47dc3daf1da Merge remote-tracking branch 'plbossart/fix/es8336-cml' into HEAD
+	b8df4ae02c0a Merge remote-tracking branch 'plbossart/fix/es8336-acpi-hid' into HEAD
+	5e149dc4d6e9 (plbossart/fix/sof-es8336-quirk) fixup! ALSA: intel-nhlt: add helper to detect SSP link mask
+
+Unfortunately, it is failing to modprobe the SOF driver:
+
+[    3.479810] snd_hda_intel 0000:00:1f.3: DSP detected with PCI class/subclass/prog-if info 0x040100
+[    3.479828] snd_hda_intel 0000:00:1f.3: Digital mics found on Skylake+ platform, using SOF driver
+[    3.479830] [681] snd_hda_intel 0000:00:1f.3: HDAudio driver not selected, aborting probe
+[    3.655569] snd_soc_skl 0000:00:1f.3: DSP detected with PCI class/subclass/prog-if info 0x040100
+[    3.655587] snd_soc_skl 0000:00:1f.3: Digital mics found on Skylake+ platform, using SOF driver
+[    3.706810] RPC: Registered named UNIX socket transport module.
+[    3.730708] sof-audio-pci-intel-cnl 0000:00:1f.3: DSP detected with PCI class/subclass/prog-if info 0x040100
+[    3.730728] sof-audio-pci-intel-cnl 0000:00:1f.3: Digital mics found on Skylake+ platform, using SOF driver
+[    3.730952] sof-audio-pci-intel-cnl 0000:00:1f.3: enabling device (0000 -> 0002)
+[    3.731103] sof-audio-pci-intel-cnl 0000:00:1f.3: DSP detected with PCI class/subclass/prog-if 0x040100
+[    3.731204] sof-audio-pci-intel-cnl 0000:00:1f.3: bound 0000:00:02.0 (ops i915_audio_component_bind_ops [i915])
+[    3.741143] sof-audio-pci-intel-cnl 0000:00:1f.3: use msi interrupt mode
+[    3.791894] [80] sof-audio-pci-intel-cnl 0000:00:1f.3: intel_nhlt_get_dmic_geo: found 2 format definitions
+[    3.791898] [80] sof-audio-pci-intel-cnl 0000:00:1f.3: intel_nhlt_get_dmic_geo: max channels found 2
+[    3.791900] [80] sof-audio-pci-intel-cnl 0000:00:1f.3: intel_nhlt_get_dmic_geo: Array with 2 dmics
+[    3.791902] [80] sof-audio-pci-intel-cnl 0000:00:1f.3: intel_nhlt_get_dmic_geo: dmic number 2 max_ch 2
+[    3.791904] sof-audio-pci-intel-cnl 0000:00:1f.3: hda codecs found, mask 4
+[    3.793102] sof-audio-pci-intel-cnl 0000:00:1f.3: Firmware info: version 1:9:2-e096c
+[    3.793108] sof-audio-pci-intel-cnl 0000:00:1f.3: Firmware: ABI 3:20:0 Kernel ABI 3:18:0
+[    3.793110] sof-audio-pci-intel-cnl 0000:00:1f.3: warn: FW ABI is more recent than kernel
+[    3.793114] sof-audio-pci-intel-cnl 0000:00:1f.3: unknown sof_ext_man header type 3 size 0x30
+[    3.852602] Bluetooth: BNEP socket layer initialized
+[    3.891581] sof-audio-pci-intel-cnl 0000:00:1f.3: Firmware info: version 1:9:2-e096c
+[    3.891585] sof-audio-pci-intel-cnl 0000:00:1f.3: Firmware: ABI 3:20:0 Kernel ABI 3:18:0
+[    3.891588] sof-audio-pci-intel-cnl 0000:00:1f.3: warn: FW ABI is more recent than kernel
+[    3.901310] sof-essx8336 sof-essx8336: quirk SSP2
+[    3.903162] sof-audio-pci-intel-cnl 0000:00:1f.3: Topology: ABI 3:20:0 Kernel ABI 3:18:0
+[    3.903167] sof-audio-pci-intel-cnl 0000:00:1f.3: warn: topology ABI is more recent than kernel
+[    3.903180] sof-audio-pci-intel-cnl 0000:00:1f.3: error: can't connect DAI SSP0.OUT stream SSP0-Codec
+[    3.903182] sof-audio-pci-intel-cnl 0000:00:1f.3: error: failed to add widget id 0 type 27 name : SSP0.OUT stream SSP0-Codec
+[    3.903184] sof-essx8336 sof-essx8336: ASoC: failed to load widget SSP0.OUT
+[    3.903185] sof-essx8336 sof-essx8336: ASoC: topology: could not load header: -22
+[    3.903187] sof-audio-pci-intel-cnl 0000:00:1f.3: error: tplg component load failed -22
+[    3.903191] sof-audio-pci-intel-cnl 0000:00:1f.3: error: failed to load DSP topology -22
+[    3.903193] sof-audio-pci-intel-cnl 0000:00:1f.3: ASoC: error at snd_soc_component_probe on 0000:00:1f.3: -22
+[    3.903201] sof-essx8336 sof-essx8336: ASoC: failed to instantiate card -22
+[    3.903302] sof-essx8336 sof-essx8336: snd_soc_register_card failed: -22
+[    3.903304] sof-essx8336: probe of sof-essx8336 failed with error -22
+
+Any hints about how to fix the topology issues on it?
+
+Thanks,
+Mauro

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E47CD47E272
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:40:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 131E147E273
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 12:40:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86BA6189D;
-	Thu, 23 Dec 2021 12:39:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86BA6189D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91C3218B2;
+	Thu, 23 Dec 2021 12:40:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91C3218B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640259636;
-	bh=L7WQJyUd2G2LhxirZFDSTbrJVLabugGgZyySimp4/ko=;
+	s=default; t=1640259650;
+	bh=7Gf4sc38cn6yV4jXfZsPGUGU3zEcr477GBwH24Slao8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BrEfpkj/0OTo+bQPpiIFw7Cd1fst73qAroZOdnWBOZ/Xrrxq+M+k2TfvL7h96v3b8
-	 2kP5UaGU95PFjYuMKUrn6TganuLOoThoTmOm2ACURCUsVvNMGTXmnFALf5TlUJqdqa
-	 qoTDktS23uDWETzz/XXu5tmB4paU7d2bMSePDAxU=
+	b=qCTbzGJu1h4PVm2J7vsyCSmBaGlD37qNcgr4EzWHxGozM6tiK6fPZRbvgwZFbDUeZ
+	 GijhDTkS61Vvus7KU+hPi1+6i4y9dAd7O0m/4HtA49wo50ONZR5U8Ca0sJgnGjsw8D
+	 Nc0dNYZavxJSmCGFXTOETgMVQ7OM4Nymn/HQ/KMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FFA0F8053C;
-	Thu, 23 Dec 2021 12:36:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4BEFF80542;
+	Thu, 23 Dec 2021 12:36:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1F73F80534; Thu, 23 Dec 2021 12:36:40 +0100 (CET)
+ id A5C81F80544; Thu, 23 Dec 2021 12:36:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,41 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66EB8F8051A
- for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:36:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66EB8F8051A
+ by alsa1.perex.cz (Postfix) with ESMTPS id C804BF8051C
+ for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 12:36:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C804BF8051C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="IHW+KlUx"
+ header.b="dgH3Xqqa"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1640259395; x=1671795395;
+ t=1640259398; x=1671795398;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=L7WQJyUd2G2LhxirZFDSTbrJVLabugGgZyySimp4/ko=;
- b=IHW+KlUx5vY7oiedGJFXE4AUdMeXBf3JVm1ixXGzICG1JsIj37THsvJk
- aboc9xmdqVTld83DFuz5qTkPV5LIr7lpP7pkff4u4+A8dLkV58yqgJyt4
- Jkg/UYzn0HAqYIX8p+JQ5MUrv4fftJq7GE/rDk3iINq4zx9TeheHaBiT6
- q+qphKbSiRoyypUlILwn4cCB5ZW7cCrHlErgWuX1tJoWkJ9Ww7gE6qlBm
- vlfukEIYE+yfrFcuClZ4KL+uWOc2lRFhnxbvDlJU3/6EjT0IHmRRUVob8
- ffq3kw91P7o/mTkfJf8bMiXoJnmqksatDXSJVVf0aO1YhlTK3HzTPV6Gf w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="304180832"
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="304180832"
+ bh=7Gf4sc38cn6yV4jXfZsPGUGU3zEcr477GBwH24Slao8=;
+ b=dgH3XqqaOHFrAq9IlPOAlCH6jfhinuy50Z6tnIu3qJqSfuUfzsBgz1fl
+ /TFK2G+e784FSo7lnAv89n67L2tapY8yQ9+z+otKhAvk6WWVOQWtOpzW6
+ 7NW1PITn1VqqNrXlxV2eLEoHvIV37bSYjGByH5ouWjGaCnJnThssN3I29
+ BGu/I/uwFdgHdJc8yISFMGc+HnlBIazWIS2CUmiYJuoeqBW4+WOFPQyKM
+ C0Ww9cRzq19cBdHkg48yzYRrA1R0Wtpgat0FQfUSvN8KdLBY+JykhCE6x
+ gNE+UsH4tCe/uAk47dFg8zcfZDlPQvSqECDf+hqno52JwJRk/SNZHmbJR g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="304180835"
+X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="304180835"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2021 03:36:34 -0800
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="522065147"
+ 23 Dec 2021 03:36:36 -0800
+X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="522065158"
 Received: from gcatala-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.214.126])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2021 03:36:31 -0800
+ 23 Dec 2021 03:36:34 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 10/20] ASoC: SOF: Rename 'enum snd_sof_fw_state' to 'enum
- sof_fw_state'
-Date: Thu, 23 Dec 2021 13:36:18 +0200
-Message-Id: <20211223113628.18582-11-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 11/20] ASoC: SOF: ipc: Only allow sending of an IPC in
+ SOF_FW_BOOT_COMPLETE state
+Date: Thu, 23 Dec 2021 13:36:19 +0200
+Message-Id: <20211223113628.18582-12-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20211223113628.18582-1-peter.ujfalusi@linux.intel.com>
 References: <20211223113628.18582-1-peter.ujfalusi@linux.intel.com>
@@ -91,77 +91,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since there is nothing SND about the firmware state, rename the enum
-from `snd_sof_fw_state` to simply `sof_fw_state`
+If the state of the firmware is not BOOT_COMPLETE, it means that the
+firmware is not functioning, thus it is not capable of handling IPC
+messages.
+Do not try to send IPC if the state is not BOOT_COMPLETE
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
 ---
- include/sound/sof.h      | 4 ++--
- sound/soc/sof/debug.c    | 2 +-
- sound/soc/sof/sof-priv.h | 4 ++--
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/sof/ipc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/sound/sof.h b/include/sound/sof.h
-index b9131c01eefd..813680ab9aad 100644
---- a/include/sound/sof.h
-+++ b/include/sound/sof.h
-@@ -18,7 +18,7 @@
- struct snd_sof_dsp_ops;
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index bbd539071ac5..5bcf906d90af 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -302,7 +302,7 @@ static int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc, u32 header,
+ 	struct snd_sof_ipc_msg *msg;
+ 	int ret;
  
- /**
-- * enum snd_sof_fw_state - DSP firmware state definitions
-+ * enum sof_fw_state - DSP firmware state definitions
-  * @SOF_FW_BOOT_NOT_STARTED:	firmware boot is not yet started
-  * @SOF_FW_BOOT_PREPARE:	preparing for boot (firmware loading for exaqmple)
-  * @SOF_FW_BOOT_IN_PROGRESS:	firmware boot is in progress
-@@ -28,7 +28,7 @@ struct snd_sof_dsp_ops;
-  * @SOF_FW_BOOT_COMPLETE:	firmware is booted up and functional
-  * @SOF_FW_CRASHED:		firmware crashed after successful boot
-  */
--enum snd_sof_fw_state {
-+enum sof_fw_state {
- 	SOF_FW_BOOT_NOT_STARTED = 0,
- 	SOF_FW_BOOT_PREPARE,
- 	SOF_FW_BOOT_IN_PROGRESS,
-diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
-index 75aaf0da87a0..d3640ff33134 100644
---- a/sound/soc/sof/debug.c
-+++ b/sound/soc/sof/debug.c
-@@ -930,7 +930,7 @@ void snd_sof_free_debug(struct snd_sof_dev *sdev)
- EXPORT_SYMBOL_GPL(snd_sof_free_debug);
+-	if (ipc->disable_ipc_tx || sdev->fw_state == SOF_FW_CRASHED)
++	if (ipc->disable_ipc_tx || sdev->fw_state != SOF_FW_BOOT_COMPLETE)
+ 		return -ENODEV;
  
- static const struct soc_fw_state_info {
--	enum snd_sof_fw_state state;
-+	enum sof_fw_state state;
- 	const char *name;
- } fw_state_dbg[] = {
- 	{SOF_FW_BOOT_NOT_STARTED, "SOF_FW_BOOT_NOT_STARTED"},
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index a1ebc89b216a..44ae8d8d1333 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -399,7 +399,7 @@ struct snd_sof_dev {
- 
- 	/* DSP firmware boot */
- 	wait_queue_head_t boot_wait;
--	enum snd_sof_fw_state fw_state;
-+	enum sof_fw_state fw_state;
- 	bool first_boot;
- 
- 	/* work queue in case the probe is implemented in two steps */
-@@ -591,7 +591,7 @@ extern const struct dsp_arch_ops sof_xtensa_arch_ops;
-  * Firmware state tracking
-  */
- static inline void sof_set_fw_state(struct snd_sof_dev *sdev,
--				    enum snd_sof_fw_state new_state)
-+				    enum sof_fw_state new_state)
- {
- 	if (sdev->fw_state == new_state)
- 		return;
+ 	/*
 -- 
 2.34.1
 

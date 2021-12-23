@@ -2,78 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C53C47DF72
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 08:17:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BE0B47DFB3
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Dec 2021 08:43:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D82F16A2;
-	Thu, 23 Dec 2021 08:16:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D82F16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E32D217B6;
+	Thu, 23 Dec 2021 08:42:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E32D217B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640243861;
-	bh=0+7xI3fjq8N0+4pFxhckK9Vss9x+h659RdiSazrM9Cw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QD1Qe3IO3bnu1vCLMJo9mpfnOGxEXxObywMqOobVKvfzjvQvJF2WpUb3ilhJqvxjZ
-	 pkt5mmLo3g9/jQVPHki6tKV03gJIOMTizmGdMjzWd+7Vwrx/EZ4TR7zwIJDNNwQXtn
-	 OEGxXEKPU9+ZXbHZi0h+YL/oxh6v1UJt7/v7dFFo=
+	s=default; t=1640245426;
+	bh=a80VhwaD2kFp3n0IV1p+x4qKwYmGt5Y4zsDnZrL970A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=l97D4y69s19kpNOYJJiGeY/+kie9HALG+XVfi5ZER859q1gU2lAnwV4Fbfa1OsvP8
+	 RZYLjh537bQ8a1OD95ydY1B+nuaXEyfOKaNf/rLxlcJ8R5ggxUYO3bOQDWZ7eJykm0
+	 MbiR8OR7htLjqmCHIfdnRd+ttAt25/2PMe9uyQXA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F72DF80115;
-	Thu, 23 Dec 2021 08:16:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F4BCF8011C;
+	Thu, 23 Dec 2021 08:42:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 772BFF80105; Thu, 23 Dec 2021 08:16:33 +0100 (CET)
+ id 0CF5EF80115; Thu, 23 Dec 2021 08:42:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6C74F80084
- for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 08:16:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6C74F80084
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="CFv9zbga"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8F2EEB81EA5;
- Thu, 23 Dec 2021 07:16:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D52C36AE9;
- Thu, 23 Dec 2021 07:16:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1640243779;
- bh=0+7xI3fjq8N0+4pFxhckK9Vss9x+h659RdiSazrM9Cw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CFv9zbgao2K5GAKT7OFAHykZ5BaXh/U3cCM9kaTec23oWilYG3rk8qwvZ1gDX2RVK
- NxvucRUmM5nKlGE1eN69rssu7n69ZxFveS/3iQuF/vo3gGpH7Yd0jxrr3XKPEBKrdk
- DlX1mSeskjq5SYNGIky3xBn7ZgGfvc3CFtOhiq4E=
-Date: Thu, 23 Dec 2021 08:16:15 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH v3 1/3] ALSA: hda/tegra: Fix Tegra194 HDA reset failure
-Message-ID: <YcQiP+MxrlLi+R94@kroah.com>
-References: <1640147751-4777-1-git-send-email-spujar@nvidia.com>
- <1640147751-4777-2-git-send-email-spujar@nvidia.com>
- <fb8cf33f-41fb-79c0-3134-524c290e4fc1@gmail.com>
- <f734e48f-dd60-ddb8-510a-3c4f37d8fb52@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D34AF800FF
+ for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 08:42:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D34AF800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="k1fWCZk+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1640245351; x=1671781351;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=a80VhwaD2kFp3n0IV1p+x4qKwYmGt5Y4zsDnZrL970A=;
+ b=k1fWCZk+WZsaj3QHlKoasO0nRHyM4VdeHnErEfMwimB8yB5xuvk/xkqV
+ MVoj/nVbHPXj3pv1Lgnjqz7n9pxRXdsgYynZT/7Yacbih8pGH3E2avyH7
+ 94pEt70UTSfs4Gvn1lewOzKqcSbxrPf/QwJRUie0y6mQTWg2sJjFIVI/f
+ k5mv8upYVkQPpm9SgrfjvBRAaEKPWLwMNuoC/Jz/Hno7hM9mvbSZ4Bac+
+ +3T936A6u3uWNFnkDQjnD291Aj62JVJPjcWJDIc1s5MEoHyDM0PXJyeck
+ BILL1OjJ5/0n6z6UaUg7FVtdbJSwWRS8z58/uV5mlQvdS0ecBMrK2Bd/7 w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="241002231"
+X-IronPort-AV: E=Sophos;i="5.88,228,1635231600"; d="scan'208";a="241002231"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2021 23:42:20 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,228,1635231600"; d="scan'208";a="685294038"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga005.jf.intel.com with ESMTP; 22 Dec 2021 23:42:19 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Subject: [PATCH 1/2] ALSA: hda: Add AlderLake-N PCI ID
+Date: Thu, 23 Dec 2021 09:34:23 +0200
+Message-Id: <20211223073424.1738125-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f734e48f-dd60-ddb8-510a-3c4f37d8fb52@nvidia.com>
-Cc: jonathanh@nvidia.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- robh+dt@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
- thierry.reding@gmail.com, stable@vger.kernel.org, linux-tegra@vger.kernel.org,
- Dmitry Osipenko <digetx@gmail.com>, mkumard@nvidia.com
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,29 +85,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 23, 2021 at 10:04:19AM +0530, Sameer Pujar wrote:
-> 
-> 
-> On 12/23/2021 12:10 AM, Dmitry Osipenko wrote:
-> > 22.12.2021 07:35, Sameer Pujar пишет:
-> > > HDA regression is recently reported on Tegra194 based platforms.
-> > > This happens because "hda2codec_2x" reset does not really exist
-> > > in Tegra194 and it causes probe failure. All the HDA based audio
-> > > tests fail at the moment. This underlying issue is exposed by
-> > > commit c045ceb5a145 ("reset: tegra-bpmp: Handle errors in BPMP
-> > > response") which now checks return code of BPMP command response.
-> > > Fix this issue by skipping unavailable reset on Tegra194.
-> > > 
-> > > Signed-off-by: Sameer Pujar <spujar@nvidia.com>
-> > > Cc: stable@vger.kernel.org
-> > > Depends-on: 87f0e46e7559 ("ALSA: hda/tegra: Reset hardware")
-> > Is "Depends-on" a valid tag? I can't find it in Documentation/.
-> 
-> I do find the usage of the tag in many commits though there is no reference
-> of this in doc. I always thought it would act as a reference when commits
-> get pulled to other branches. If this is not true and it does not mean
-> anything, I will drop this.
+Add HD Audio PCI ID for Intel AlderLake-N. Add rules to
+snd_intel_dsp_find_config() to choose DSP-based SOF driver for ADL-N
+systems with PCH-DMIC or Soundwire codecs, and plain HDA driver for the
+rest (DSP not used).
 
-It is not true at all, please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/hda/intel-dsp-config.c | 4 ++++
+ sound/pci/hda/hda_intel.c    | 3 +++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
+index b5bfa94bcb89..e035cecb37f7 100644
+--- a/sound/hda/intel-dsp-config.c
++++ b/sound/hda/intel-dsp-config.c
+@@ -374,6 +374,10 @@ static const struct config_entry config_table[] = {
+ 		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE,
+ 		.device = 0x51cc,
+ 	},
++	{
++		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE,
++		.device = 0x54c8,
++	},
+ #endif
+ 
+ };
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index b98d7975adea..cdd4a58244d7 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2496,6 +2496,9 @@ static const struct pci_device_id azx_ids[] = {
+ 	/* Alderlake-M */
+ 	{ PCI_DEVICE(0x8086, 0x51cc),
+ 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
++	/* Alderlake-N */
++	{ PCI_DEVICE(0x8086, 0x54c8),
++	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
+ 	/* Elkhart Lake */
+ 	{ PCI_DEVICE(0x8086, 0x4b55),
+ 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
+
+base-commit: 74a50bd2899fdc9b6b2f2eb9624551e4aa795ad8
+-- 
+2.34.1
+

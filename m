@@ -2,85 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D1747EC03
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 07:23:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C336B47EC3C
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 07:48:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8188E1856;
-	Fri, 24 Dec 2021 07:22:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8188E1856
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BF4E185F;
+	Fri, 24 Dec 2021 07:48:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BF4E185F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640326984;
-	bh=3E+D840h1QgViHB8iK4/k5kBUnpXJ37RoDLa8dcrjM4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NVdVBG8yqm0RgrErub+kxOQ6hEn4mvGLKZhqb8QMWS2qVF1jSZQPsn2VRp7ri+c1x
-	 0/H9pDLHXrKhBhD5fhhTGawIoyX7GnLQgLYrRbRIbhKl7pIrpxT3RCFskDQeov+Plc
-	 yXc92eTH0iMRrUP2Z1wyTuA77iSXU2Q8NTxZ88jU=
+	s=default; t=1640328534;
+	bh=GuwpEwY+5tV/dj8co8oP7AOdWttZ7e4IvE9gggneAwY=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ct+6ljGut3Jez4LY0OOGo1RG2iuBnbP+B0deolWXK96gevsjzwSF0UHA8cf64F+/j
+	 FI0nntoJmF9ptCKCYsaYYIw6ip/0dy4s4S8l9KM4Jf4PZak0EjmL7MMEXyYqECF3J1
+	 9M8O8z3ASwbqaewLMKuuIDePM81/lPeHrzHEQ7dk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A06EEF800FD;
-	Fri, 24 Dec 2021 07:21:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0489F8013F;
+	Fri, 24 Dec 2021 07:47:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21964F800FF; Fri, 24 Dec 2021 07:21:55 +0100 (CET)
+ id 2A358F800FF; Fri, 24 Dec 2021 07:47:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
+ [IPv6:2607:f8b0:4864:20::b49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DDFE9F800F3
- for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 07:21:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDFE9F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 810DBF80084
+ for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 07:47:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 810DBF80084
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="GmUZAkmI"
-Received: by mail-pl1-x62f.google.com with SMTP id c7so6014475plg.5
- for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 22:21:47 -0800 (PST)
+ header.b="Ztl7moX4"
+Received: by mail-yb1-xb49.google.com with SMTP id
+ e131-20020a25d389000000b005fb5e6eb757so13912180ybf.22
+ for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 22:47:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sNpxwzLQQ6ADONuABqcXLxGvwIlj1QGrF7+dtH+1LOU=;
- b=GmUZAkmIZOcRLa10vWcuvWP4LRA1og/BAQ++pEm399YMHDpglcUCZu7u7yvDKKtHSb
- 3PnYSflcfw/+sKzQnWkRpmn3m4BnSO6E+ve2TMqquar18IvYQtVQQBgMUEeB7yqkf0QO
- BHllzHB8rFICQTTkZmnnwTqVcr4L176uKW2xkT0o+w+kD1KkzRlWgffPFtgsFEf0ep1A
- 2PqQZuaSzUnrasEGhUcCZ0/dC+M2aytflXq7CaMWWIHvioJAunPvqf8RRUFsZwK03b9U
- z+yf8IspNjlUljuHVX5FspZ8e5eJYTjbM6y6E9HsAsr/QBbn9B4CJyL+3V3aA3aGVBXh
- FSsQ==
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=DVf6MLkdcSq4iqu1SV/P4EE991u5x/GQu5gFRqufygY=;
+ b=Ztl7moX4N+359VfOeMJsgNn2mMXf2P6klg4TvGEt0BVKl2SIQrggsFE5cqou0oWis8
+ LwtNOk5XSKZRo18Yt3mm3v7sIgYXn5hgZCuj3WxEt2VB0X7m9a+oWdK0B9vYrofy4xmP
+ mcNQ21EMPD3wF493v+Qm6Bu7SM4PLajRPAWfi3joNrdLhYbp/+PuBwgTQxDzUGdPo5Vy
+ akYYbHie6ixQl+qjLQWt1B4qdnEatn6nvFccVGJ6btQoO6jLmbVkx84wRveuJFBhHjhi
+ 9AeiKyYRQIAK6ELwpaZfz20sTv9YJhi4zacIgQJx4x/B9blSKD6AGyJuzD0uxZ3ouvAa
+ TnFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sNpxwzLQQ6ADONuABqcXLxGvwIlj1QGrF7+dtH+1LOU=;
- b=BkDk0J0U/3L4TVp4DGmpSokTsOYVLraLsdKuIiQmtRWqahThEOcOaHkW5P4TJ0z6nG
- Wd8t7Q8D2stCslMaTWZvhEXhaEOhvdCclOV2eEuncTUAIlvhOWc+1qXlBzi9Gj6Gpv0v
- 01BNnhxnZn1AH6BzGssyRkH0P1PWnI/3Vr7vqh0LPxnEpH533lQrpTC+JScTDdYuIvZa
- qQSgiBCPMCHf70S7THlMRFAu+57RIA/GKitejN0LLRn+vfcbDunnEw+je+sz27aLLuPy
- tvHburv7M48QJELwdtUyI5U33qi4N3Ob0vhwLBZpn0mLiRG+jBAj+bNjLxQtUb37mCo+
- naLQ==
-X-Gm-Message-State: AOAM533T50n0WtvNPXnolGxVNZgl31UGft+GeI1tijWk3zUujC5+abTa
- xDc8id7/kyGw7zj+KghewnPixWhgfp8evH7y5npFLw==
-X-Google-Smtp-Source: ABdhPJyhDvNGhoociXAck/G2JM4Se0qdVi2Xqx6nfDisVkKSnKsJu5HmedXIB1DJhmn1AP+qqh+OmfwaiDIXyRdEh+Q=
-X-Received: by 2002:a17:90a:fa12:: with SMTP id
- cm18mr6332101pjb.141.1640326904644; 
- Thu, 23 Dec 2021 22:21:44 -0800 (PST)
-MIME-Version: 1.0
-References: <20211214040028.2992627-1-tzungbi@google.com>
-In-Reply-To: <20211214040028.2992627-1-tzungbi@google.com>
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=DVf6MLkdcSq4iqu1SV/P4EE991u5x/GQu5gFRqufygY=;
+ b=5kuv2FqJnTKztXoEW/3iuEGBQ3NaL1ndFKENLU9a36b8o3hPE528BYCkDMM8oMd9A6
+ s8GQv/LebckMloLDzKg+tu7vxuCF8zU8wmWO0Ldho5Kn8L0R3ORVhe/nq1PAV+eaNZ//
+ 0+p1/dm3DODmBCKDemkRzsS4gGsgifQ6RN2LOcXSsDa7k5xgsLFEjepr5zfgh6ZyXF6w
+ 8bcS4/zVGktwwXMeZzAaDjHqPnlLrM2AGyD9Rrng+KW/I6D8AjBXPu9YWeIS96YuD+vs
+ G2vPUUFZs0XQyGfvPs6ni9tasbX08JUN3JOlEYBITTEpux+jlEQ8MZExQasmFHflBnfg
+ azjw==
+X-Gm-Message-State: AOAM531b6pjQCgkGcGcgIc2oPkyvpflbrkL7C1T0ZFpqMrsiMdnlvvqE
+ b/40c6+Tfov1JPtwqc2N5qRT6d9pruHA
+X-Google-Smtp-Source: ABdhPJzYzeopiTKSuDeC8N2BXguIb54XSFGQtAry7KNcl/oW5SnxVnEMnP9jpaSsGT+nx7TkLdpOHtJzhGb1
+X-Received: from tzungbi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:af4e:fb49:1227:527b])
+ (user=tzungbi job=sendgmr) by 2002:a25:7189:: with SMTP id
+ m131mr8062235ybc.284.1640328456843; Thu, 23 Dec 2021 22:47:36 -0800 (PST)
+Date: Fri, 24 Dec 2021 14:47:15 +0800
+Message-Id: <20211224064719.2031210-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.34.1.448.ga2b2bfdf31-goog
+Subject: [PATCH 0/4] ASoC: mediatek: fix device_node leak
 From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 24 Dec 2021 14:21:33 +0800
-Message-ID: <CA+Px+wV5HydJdxmoEF7HkkBcAE_jbmtyBeAE62yuKMUJM=jGLA@mail.gmail.com>
-Subject: Re: [RFC PATCH] ASoC: mediatek: mt8192-mt6359: fix device_node leak
-To: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
+To: broonie@kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- =?UTF-8?B?SmlheGluIFl1ICjkv57lrrbpkasp?= <Jiaxin.Yu@mediatek.com>,
- linux-arm-kernel@lists.infradead.org
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org, trevor.wu@mediatek.com,
+ jiaxin.yu@mediatek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,27 +94,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Dec 14, 2021 at 12:00 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
-> Option 1. Machine driver makes sure the object is valid until registered
->
-> This patch adopts the option.  It needs snd_soc_register_card() to call
-> of_node_get() somewhere to hold the reference count of of_node.  However,
-> I failed to find similar logic in soc-core.c.
->
-> Option 2. Machine driver borrows the reference count
->
-> This is what [1] adopts.  Decreasing the reference count in device's
-> remove() to make sure the object is valid for whole sound card's lifecycle.
->
-> [1]: https://elixir.bootlin.com/linux/v5.16-rc5/source/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c#L1065
+The series is a follow up series.
 
-I guess I have found the answer to my original questions.  The of_node
-in snd_soc_dai_link_component in snd_soc_dai_link is mainly for
-matching the component[4].  snd_soc_component itself should hold the
-reference count.
+The 1st and 2nd patch follow [1] to fix the device_node leak.
 
-[4]: https://elixir.bootlin.com/linux/v5.16-rc6/source/sound/soc/soc-core.c#L749
+The 3rd patch follows [2] to reduce the log verbosity.
 
-In summary:
-- ASoC doesn't need to hold the device_node reference counts.
-- Device nodes can be released after components have bound.
+The 4th patch cleans the device_node related code on MT8195.
+In order to align to previous platforms.
+
+[1]: https://patchwork.kernel.org/project/alsa-devel/patch/20211214040028.2992627-1-tzungbi@google.com/
+[2]: https://patchwork.kernel.org/project/alsa-devel/patch/20211220093408.207206-1-tzungbi@google.com/
+
+Tzung-Bi Shih (4):
+  ASoC: mediatek: mt8173: fix device_node leak
+  ASoC: mediatek: mt8183: fix device_node leak
+  ASoC: mediatek: mt8173: reduce log verbosity in probe()
+  ASoC: mediatek: mt8195: release device_node after
+    snd_soc_register_card
+
+ sound/soc/mediatek/mt8173/mt8173-max98090.c   |  6 +-
+ .../mediatek/mt8173/mt8173-rt5650-rt5514.c    |  5 +-
+ .../mediatek/mt8173/mt8173-rt5650-rt5676.c    |  5 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c     |  5 +-
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  |  6 +-
+ .../mt8183/mt8183-mt6358-ts3a227-max98357.c   |  7 +-
+ .../mt8195/mt8195-mt6359-rt1011-rt5682.c      | 53 +++++----------
+ .../mt8195/mt8195-mt6359-rt1019-rt5682.c      | 64 ++++++-------------
+ 8 files changed, 56 insertions(+), 95 deletions(-)
+
+-- 
+2.34.1.448.ga2b2bfdf31-goog
+

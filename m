@@ -2,72 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F05E47F016
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 17:19:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BB9A47F017
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 17:20:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D234B1817;
-	Fri, 24 Dec 2021 17:18:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D234B1817
+	by alsa0.perex.cz (Postfix) with ESMTPS id 240F917DB;
+	Fri, 24 Dec 2021 17:19:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 240F917DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640362784;
-	bh=2uH7mH8oGbK+ACkY2KT3Qtp9cnR6xVZp/PRiSZfd42k=;
+	s=default; t=1640362803;
+	bh=uSaKRhe6AicqI5f3I9EbmjggqJ18n5c3iIi82wvBO2w=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WjYshNFABk6djWd57a0qOtTo3kEXRnMOE3qIRC+exV6kqR3G5fcF/slrF7RnZLu3+
-	 KmfPYMgQpDGAx8JNeuJf/3PL5G1JG72PtbCrGgYpoe+LjZP0nd/MX3MV9Hd5idBbLg
-	 Bj0KCD9vXucVjb8INgfdF2KBn25H9IEsrz4SjoFA=
+	b=bS/yR2FW/kSQ+kVFsWUcmaFwKhNMNgzOILCOXnnDAHn4PrQ5RszYXMy15z17JBbj0
+	 0722OdjwxAqUkioTmBXSSuZyL1hrK6kN35NesF87FrxRe/kkcHgA0zKwp0/7ZkmSYz
+	 z4Q8tuB0P+XzskvUm6B3hFFxcKgx0OsG+K0nfhqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 307D4F804E4;
+	by alsa1.perex.cz (Postfix) with ESMTP id C83B5F80518;
 	Fri, 24 Dec 2021 17:17:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31FD2F80511; Fri, 24 Dec 2021 17:17:42 +0100 (CET)
+ id CCE11F80510; Fri, 24 Dec 2021 17:17:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F08EF804E6
- for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 17:17:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F08EF804E6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83882F804E4
+ for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 17:17:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83882F804E4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X7ci/SSW"
+ header.b="n5NMZ84Y"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 00B7DB82331;
- Fri, 24 Dec 2021 16:17:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8546C36AE8;
- Fri, 24 Dec 2021 16:17:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0F179620CA;
+ Fri, 24 Dec 2021 16:17:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363AFC36AE5;
+ Fri, 24 Dec 2021 16:17:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640362653;
- bh=2uH7mH8oGbK+ACkY2KT3Qtp9cnR6xVZp/PRiSZfd42k=;
+ s=k20201202; t=1640362656;
+ bh=uSaKRhe6AicqI5f3I9EbmjggqJ18n5c3iIi82wvBO2w=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=X7ci/SSWlbVKTlAqNRx3U1GxuuvcCpO69n22EEqaT7GAXWEzxoYC/ovDHmKZcnHBX
- QVZrZn82+Ae1Y7MLY18VuD9XJFx6VtnVWYsge3lijTpoWl8+JTOLlQvvR/sMRFts5F
- qLrellKiB5TKT6bbhX2VPukK20iA7X3pT5QC612Xdl2WFwAEe68ZTsIyrs8xhk7SZX
- ROIX+EODVm+CErDyA77e+cV5wfRos4z9jiqTDdB0vuFWAwKuIZYDdDoC0RJ4VGLp8y
- k/q6tEv8ameWH3M7z2mn7VdvhyUSV871V1hEMCvSCUzWmfMKHku9icjQJ31cft7m8y
- cBl4Z1r43fO8g==
+ b=n5NMZ84Y8mQq5ERhlN0Lwd5RPUxwnBxaKbDdy7orOEdZSDsP0LvmJ2g2Qm0XWFJge
+ vd/N7r+980JU0K78fjaRpvw2IOsbVsYBeDxhunUhjwwwK7Uvc2/tErlj7mq99EHRfv
+ Effy1N95l8rg7Rlh+H17DwfkmIc6xm3r2TTkI0c/cGobVsm27ljeL24yHOFYej7DIK
+ YymeqEnKArztgvMk0Ou6Ppb6ys9Az3EIK3vZTP9MKBV68jAvewGla+Xbdb2ov/cQb3
+ 0+H5AKYK9JRemSFyB05/W12WAB3mCGQLdF1+eqavG5aVG8NqUjgq2g2je61vzk1upf
+ CpOfAb7XwrC8g==
 From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20211224064719.2031210-1-tzungbi@google.com>
-References: <20211224064719.2031210-1-tzungbi@google.com>
-Subject: Re: [PATCH 0/4] ASoC: mediatek: fix device_node leak
-Message-Id: <164036265260.3720027.15119723749705753132.b4-ty@kernel.org>
-Date: Fri, 24 Dec 2021 16:17:32 +0000
+To: Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
+ vkoul@kernel.org
+In-Reply-To: <20211224021034.26635-1-yung-chuan.liao@linux.intel.com>
+References: <20211224021034.26635-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH v2 0/7] ASoC/SoundWire: improve suspend flows and use
+ set_stream() instead of set_tdm_slots() for HDAudio
+Message-Id: <164036265394.3720027.13130210179491813810.b4-ty@kernel.org>
+Date: Fri, 24 Dec 2021 16:17:33 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, trevor.wu@mediatek.com, jiaxin.yu@mediatek.com
+Cc: vinod.koul@linaro.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,15 +86,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Dec 2021 14:47:15 +0800, Tzung-Bi Shih wrote:
-> The series is a follow up series.
+On Fri, 24 Dec 2021 10:10:27 +0800, Bard Liao wrote:
+> This series contains three topics.
+> 1. SoundWire: Intel: remove pdm support
+> 2. ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
+> 3. ASoC/SOF/SoundWire: fix suspend-resume on pause with dynamic pipelines
 > 
-> The 1st and 2nd patch follow [1] to fix the device_node leak.
-> 
-> The 3rd patch follows [2] to reduce the log verbosity.
-> 
-> The 4th patch cleans the device_node related code on MT8195.
-> In order to align to previous platforms.
+> The topics are independent but the changes are dependent. So please
+> allow me to send them in one series.
 > 
 > [...]
 
@@ -101,14 +103,20 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: mediatek: mt8173: fix device_node leak
-      commit: 493433785df0075afc0c106ab65f10a605d0b35d
-[2/4] ASoC: mediatek: mt8183: fix device_node leak
-      commit: cb006006fe6221f092fadaffd3f219288304c9ad
-[3/4] ASoC: mediatek: mt8173: reduce log verbosity in probe()
-      commit: db3f5abe68ea5ea39d84e6af4f0f2ce5d5e2daf4
-[4/4] ASoC: mediatek: mt8195: release device_node after snd_soc_register_card
-      commit: 082482a5022780d42180a394fe6843e71fe963d8
+[1/7] ASOC: SOF: Intel: use snd_soc_dai_get_widget()
+      commit: da893a93eaf8eb2bce03862e00b9998463eeaecf
+[2/7] ASoC/soundwire: intel: simplify callbacks for params/hw_free
+      commit: b86947b52f0d0e5b6e6f0510933ca13aad266e47
+[3/7] soundwire: intel: improve suspend flows
+      commit: 8ddeafb957a9a6dd33b2c80309d726d3141df08f
+[4/7] ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
+      commit: e8444560b4d9302a511f0996f4cfdf85b628f4ca
+[5/7] ASoC: Intel/SOF: use set_stream() instead of set_tdm_slots() for HDAudio
+      commit: 636110411ca726f19ef8e87b0be51bb9a4cdef06
+[6/7] soundwire: intel: remove unnecessary init
+      commit: 9283b6f923f3bdd92bdeaf259c6b7a5e9dac6900
+[7/7] soundwire: intel: remove PDM support
+      commit: 63a6aa963dd01b66019b7834cc84d032e145bb00
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

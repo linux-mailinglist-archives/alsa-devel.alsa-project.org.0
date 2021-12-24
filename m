@@ -2,60 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C01647F008
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 17:15:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91C2547F013
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 17:18:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 784B817A3;
-	Fri, 24 Dec 2021 17:14:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 784B817A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34D20179F;
+	Fri, 24 Dec 2021 17:17:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34D20179F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640362508;
-	bh=Xnx6KAixaiC9KBuHg2Bgmw2PyKuf7NuiaRyd0URqaXE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1640362723;
+	bh=mJLIP+3iPkvpArcj3EuZodobAtm/gAMmCj0NsAAWPRk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ah4aJgERZrS/oYf8pWosDI90AwrI4dvnKTajr5R3K7b9VI/HkRvLvN4DF2AZfj2ba
-	 SaCvIk6UpmgxdCg4NFSacwI1Y/TsjIAObPL+EDApCIPEY7OzMrZkLc+XLwmBR19DYd
-	 /Cp0cXe+vp2hxVrXfT11Yt6+xqFvITDCPJ/uiEYE=
+	b=QZMNaJIItxPmGgpGtdRua35doHeWdFOSNlJaXdRSAwcUNobPo/sSmoOodBnbX2m7p
+	 fakavYE47DGXJ4N3aevFaEuCeUh20yDAMsmX7grHzwXBf5pYRu7vIKIJv7KjRWZjCC
+	 QEy1N0VmTOH03dPrFm66nIuWlMJweLvSfS1IYE0c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A68FF8013F;
-	Fri, 24 Dec 2021 17:14:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B721FF800FD;
+	Fri, 24 Dec 2021 17:17:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39E5CF800FF; Fri, 24 Dec 2021 17:13:59 +0100 (CET)
+ id 93A25F80084; Fri, 24 Dec 2021 17:17:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E00CAF800F2
- for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 17:13:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E00CAF800F2
-X-IronPort-AV: E=Sophos;i="5.88,232,1635174000"; d="scan'208";a="105113748"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 25 Dec 2021 01:13:43 +0900
-Received: from localhost.localdomain (unknown [10.226.36.204])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 91FB64018934;
- Sat, 25 Dec 2021 01:13:41 +0900 (JST)
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: linux-kernel@vger.kernel.org, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [PATCH] slimbus: qcom-ngd-ctrl: Use platform_get_irq() to get the
- interrupt
-Date: Fri, 24 Dec 2021 16:13:33 +0000
-Message-Id: <20211224161334.31123-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211224161334.31123-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20211224161334.31123-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Cc: linux-arm-msm@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- alsa-devel@alsa-project.org
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 344E3F80084
+ for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 17:17:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 344E3F80084
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="s8jrUB+H"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E35C7B82127;
+ Fri, 24 Dec 2021 16:17:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6197AC36AE5;
+ Fri, 24 Dec 2021 16:17:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1640362645;
+ bh=mJLIP+3iPkvpArcj3EuZodobAtm/gAMmCj0NsAAWPRk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=s8jrUB+HKocAO50S6nP0C/EMzuFNoji/WPsn8iPAAiwD6Gwc6BsHQ6L0M19Iq0k5D
+ 59azYjMEkbajAF99j7ftN3MfepCZ41RFrbbb2zDe+M/wqKawY3DB6eB+gfGZsAHMbC
+ oJuxzzhGQKDzo+NRSvNT6Tbykrur79YP7mJOVre5iZ0vhXJMamrDzXZzB6RZhMJCKP
+ IWQUrtCgGoRkdTcMuNIfEm24IhO850RmCLDU6hqO8No/sofM3ruZShX5ZLlFHoID4m
+ LCGvylBJvLNQ4KyxrL4f5zehlQ68/w4Sap6IWOTF10QWYFRmIWws2Ch0+gN60uXseh
+ IkSI/cDX4oUig==
+From: Mark Brown <broonie@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
+ vkoul@kernel.org
+In-Reply-To: <20211213054634.30088-1-yung-chuan.liao@linux.intel.com>
+References: <20211213054634.30088-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 0/7] ASoC/SoundWire: improve suspend flows and use
+ set_stream() instead of set_tdm_slots() for HDAudio
+Message-Id: <164036264309.3720027.15998614082881107063.b4-ty@kernel.org>
+Date: Fri, 24 Dec 2021 16:17:23 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: vinod.koul@linaro.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,53 +86,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
-allocation of IRQ resources in DT core code, this causes an issue
-when using hierarchical interrupt domains using "interrupts" property
-in the node as this bypasses the hierarchical setup and messes up the
-irq chaining.
+On Mon, 13 Dec 2021 13:46:27 +0800, Bard Liao wrote:
+> This series contains three topics.
+> 1. SoundWire: Intel: remove pdm support
+> 2. ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
+> 3. ASoC/SOF/SoundWire: fix suspend-resume on pause with dynamic pipelines
+> 
+> The topics are independent but the changes are dependent. So please
+> allow me to send them in one series.
+> 
+> [...]
 
-In preparation for removal of static setup of IRQ resource from DT core
-code use platform_get_irq().
+Applied to
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
-Hi,
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Dropping usage of platform_get_resource() was agreed based on
-the discussion [0].
+Thanks!
 
-[0] https://patchwork.kernel.org/project/linux-renesas-soc/
-patch/20211209001056.29774-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+[1/7] ASOC: SOF: Intel: use snd_soc_dai_get_widget()
+      commit: da893a93eaf8eb2bce03862e00b9998463eeaecf
+[2/7] ASoC/soundwire: intel: simplify callbacks for params/hw_free
+      commit: b86947b52f0d0e5b6e6f0510933ca13aad266e47
+[3/7] soundwire: intel: improve suspend flows
+      commit: 8ddeafb957a9a6dd33b2c80309d726d3141df08f
+[4/7] ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
+      commit: e8444560b4d9302a511f0996f4cfdf85b628f4ca
+[5/7] ASoC: Intel/SOF: use set_stream() instead of set_tdm_slots() for HDAudio
+      commit: 636110411ca726f19ef8e87b0be51bb9a4cdef06
+[6/7] soundwire: intel: remove unnecessary init
+      commit: 9283b6f923f3bdd92bdeaf259c6b7a5e9dac6900
+[7/7] soundwire: intel: remove PDM support
+      commit: 63a6aa963dd01b66019b7834cc84d032e145bb00
 
-Cheers,
-Prabhakar
----
- drivers/slimbus/qcom-ngd-ctrl.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index 7040293c2ee8..0f29a08b4c09 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1526,13 +1526,11 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
- 	if (IS_ERR(ctrl->base))
- 		return PTR_ERR(ctrl->base);
- 
--	res = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
--	if (!res) {
--		dev_err(&pdev->dev, "no slimbus IRQ resource\n");
--		return -ENODEV;
--	}
-+	ret = platform_get_irq(pdev, 0);
-+	if (ret < 0)
-+		return ret;
- 
--	ret = devm_request_irq(dev, res->start, qcom_slim_ngd_interrupt,
-+	ret = devm_request_irq(dev, ret, qcom_slim_ngd_interrupt,
- 			       IRQF_TRIGGER_HIGH, "slim-ngd", ctrl);
- 	if (ret) {
- 		dev_err(&pdev->dev, "request IRQ failed\n");
--- 
-2.17.1
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

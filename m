@@ -2,75 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91C2547F013
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 17:18:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B962347F015
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 17:19:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34D20179F;
-	Fri, 24 Dec 2021 17:17:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34D20179F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C804A180F;
+	Fri, 24 Dec 2021 17:18:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C804A180F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640362723;
-	bh=mJLIP+3iPkvpArcj3EuZodobAtm/gAMmCj0NsAAWPRk=;
+	s=default; t=1640362758;
+	bh=c770Vl0s4K8ne0JvN1d9u+B9NXqvmS0SNJ/Vr5lpXpE=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QZMNaJIItxPmGgpGtdRua35doHeWdFOSNlJaXdRSAwcUNobPo/sSmoOodBnbX2m7p
-	 fakavYE47DGXJ4N3aevFaEuCeUh20yDAMsmX7grHzwXBf5pYRu7vIKIJv7KjRWZjCC
-	 QEy1N0VmTOH03dPrFm66nIuWlMJweLvSfS1IYE0c=
+	b=VL9RLPGAcRv2XSQO1kx/qloP5KLIUgGW5KyUwwfmkpHUlfe4W4LEjqXle/7EY46Fd
+	 nfSNcSV3YDPKJTtA4arlKjsBkPUAYB6o/Fi+Wf37pw2YEcFWn7EVz8hbaQ0jCKhMtY
+	 BQulCRp6jA7Q2OiP99Khzq3z2VKLZTfG0BpDpPGc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B721FF800FD;
-	Fri, 24 Dec 2021 17:17:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CAA6F804FB;
+	Fri, 24 Dec 2021 17:17:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93A25F80084; Fri, 24 Dec 2021 17:17:35 +0100 (CET)
+ id F369BF8014B; Fri, 24 Dec 2021 17:17:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 344E3F80084
- for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 17:17:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 344E3F80084
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE6EFF800F2
+ for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 17:17:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE6EFF800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="s8jrUB+H"
+ header.b="ZEHguiC6"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E35C7B82127;
- Fri, 24 Dec 2021 16:17:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6197AC36AE5;
- Fri, 24 Dec 2021 16:17:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EA16A61E1D;
+ Fri, 24 Dec 2021 16:17:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F5FC36AE8;
+ Fri, 24 Dec 2021 16:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640362645;
- bh=mJLIP+3iPkvpArcj3EuZodobAtm/gAMmCj0NsAAWPRk=;
+ s=k20201202; t=1640362649;
+ bh=c770Vl0s4K8ne0JvN1d9u+B9NXqvmS0SNJ/Vr5lpXpE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=s8jrUB+HKocAO50S6nP0C/EMzuFNoji/WPsn8iPAAiwD6Gwc6BsHQ6L0M19Iq0k5D
- 59azYjMEkbajAF99j7ftN3MfepCZ41RFrbbb2zDe+M/wqKawY3DB6eB+gfGZsAHMbC
- oJuxzzhGQKDzo+NRSvNT6Tbykrur79YP7mJOVre5iZ0vhXJMamrDzXZzB6RZhMJCKP
- IWQUrtCgGoRkdTcMuNIfEm24IhO850RmCLDU6hqO8No/sofM3ruZShX5ZLlFHoID4m
- LCGvylBJvLNQ4KyxrL4f5zehlQ68/w4Sap6IWOTF10QWYFRmIWws2Ch0+gN60uXseh
- IkSI/cDX4oUig==
+ b=ZEHguiC6Sx7jrCAhJzIdc2b9ali2tP+4TU7f9jBubYM0wRTV+5z2WM1d+UdVO+SSM
+ 4pW7maR7w6UnpSEr5pGdlEcI7kV19acXkdaZ6ur5GPnzaCnsBwQegp5vLvQHOtsezx
+ 50d8BGJHorLbpnq3Y7QfTbaJBh6een0e4Lf7RQSTZpsb1uBYsf9bJTCGeQ9dqLsVra
+ 1w+6qTu+nP1SNiNTASOCEP4dyg6JnKwZngEGpDLtacCxpviuFrOk2Ko0k3GpuC8Vxk
+ 0RkZrccFISvkZh6J+83wizRMFkcpGi0UV4X+FbWDVzSBpeuGIXmQn3BjLB8alJbv6q
+ 6wjAsYfRYVHhg==
 From: Mark Brown <broonie@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
- vkoul@kernel.org
-In-Reply-To: <20211213054634.30088-1-yung-chuan.liao@linux.intel.com>
-References: <20211213054634.30088-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 0/7] ASoC/SoundWire: improve suspend flows and use
- set_stream() instead of set_tdm_slots() for HDAudio
-Message-Id: <164036264309.3720027.15998614082881107063.b4-ty@kernel.org>
-Date: Fri, 24 Dec 2021 16:17:23 +0000
+To: cgel.zte@gmail.com, lgirdwood@gmail.com
+In-Reply-To: <20211209015707.409870-1-chi.minghao@zte.com.cn>
+References: <20211209015707.409870-1-chi.minghao@zte.com.cn>
+Subject: Re: [PATCH] sound:soc:remove unneeded variable
+Message-Id: <164036264573.3720027.488082222157598597.b4-ty@kernel.org>
+Date: Fri, 24 Dec 2021 16:17:25 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: vinod.koul@linaro.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- srinivas.kandagatla@linaro.org, sanyog.r.kale@intel.com, bard.liao@intel.com
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ srivasam@codeaurora.org, lkp@intel.com, kuninori.morimoto.gx@renesas.com,
+ Zeal Robot <zealci@zte.com.cm>, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ chi.minghao@zte.com.cn, srinivas.kandagatla@linaro.org, pulehui@huawei.com,
+ matthias.bgg@gmail.com, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,16 +89,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 13 Dec 2021 13:46:27 +0800, Bard Liao wrote:
-> This series contains three topics.
-> 1. SoundWire: Intel: remove pdm support
-> 2. ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
-> 3. ASoC/SOF/SoundWire: fix suspend-resume on pause with dynamic pipelines
+On Thu, 9 Dec 2021 01:57:07 +0000, cgel.zte@gmail.com wrote:
+> From: chiminghao <chi.minghao@zte.com.cn>
 > 
-> The topics are independent but the changes are dependent. So please
-> allow me to send them in one series.
+> return value form directly instead of
+> taking this in another redundant variable.
 > 
-> [...]
+> 
 
 Applied to
 
@@ -103,20 +103,8 @@ Applied to
 
 Thanks!
 
-[1/7] ASOC: SOF: Intel: use snd_soc_dai_get_widget()
-      commit: da893a93eaf8eb2bce03862e00b9998463eeaecf
-[2/7] ASoC/soundwire: intel: simplify callbacks for params/hw_free
-      commit: b86947b52f0d0e5b6e6f0510933ca13aad266e47
-[3/7] soundwire: intel: improve suspend flows
-      commit: 8ddeafb957a9a6dd33b2c80309d726d3141df08f
-[4/7] ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
-      commit: e8444560b4d9302a511f0996f4cfdf85b628f4ca
-[5/7] ASoC: Intel/SOF: use set_stream() instead of set_tdm_slots() for HDAudio
-      commit: 636110411ca726f19ef8e87b0be51bb9a4cdef06
-[6/7] soundwire: intel: remove unnecessary init
-      commit: 9283b6f923f3bdd92bdeaf259c6b7a5e9dac6900
-[7/7] soundwire: intel: remove PDM support
-      commit: 63a6aa963dd01b66019b7834cc84d032e145bb00
+[1/1] sound:soc:remove unneeded variable
+      commit: b2fde4deff854ca7d49ec735a8252d944418b64d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

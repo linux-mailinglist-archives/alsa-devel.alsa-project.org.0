@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E594947EC41
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 07:49:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20C4B47EC42
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Dec 2021 07:49:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78F2A186E;
-	Fri, 24 Dec 2021 07:48:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78F2A186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1575118BB;
+	Fri, 24 Dec 2021 07:48:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1575118BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640328570;
-	bh=LOADherWWa6FuUqHDL12Th0Qd9laRT03IyiBRCdT7rg=;
+	s=default; t=1640328572;
+	bh=CX/kN1X2EeI+U9SJQY52OkxmlJkFSb3hqPAHEVVu76U=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iowsgiTD2UsGKIs2nw0mssTT504DaS4PXF9TlFBC2o4dPe73XcTMaCQpGhkRqYWdi
-	 Zjpv+cG9aIWFpioBIWJ/rF71uL2jm5TZLI6gQIlZ0oHbS/u/da9cqHzN/wiqUTQp2L
-	 YWzK0uuENLz/eKaqSv5o0K0fTOG0WZaGWcxHz4bo=
+	b=F7ndFy9NFHV274sb23HhaGr1CnKcDYXzv6stjaWCjCYnI7H/Rjjd2wf1ssCQ5V2b/
+	 Wm55T803Hzva5MsONc22x4rWUnOrosCpD0Zazu5iNqwjQbs997AyiEKYfSGYzoomjC
+	 cDa0iHRHjpXLwUpbV5Vm56oh7u32GyilCslOYW9E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6A30F80162;
-	Fri, 24 Dec 2021 07:47:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95B1BF804EB;
+	Fri, 24 Dec 2021 07:47:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A759FF8014B; Fri, 24 Dec 2021 07:47:51 +0100 (CET)
+ id 816F2F804E4; Fri, 24 Dec 2021 07:47:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,49 +35,49 @@ Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
  [IPv6:2607:f8b0:4864:20::b49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52438F800FD
- for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 07:47:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52438F800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1F84F80084
+ for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 07:47:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1F84F80084
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="W6EkA2Y7"
+ header.b="Q4Wm0THv"
 Received: by mail-yb1-xb49.google.com with SMTP id
- l28-20020a25b31c000000b005c27dd4987bso14071423ybj.18
- for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 22:47:45 -0800 (PST)
+ e131-20020a25d389000000b005fb5e6eb757so13912747ybf.22
+ for <alsa-devel@alsa-project.org>; Thu, 23 Dec 2021 22:47:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=DuyyQrdRujaQuOc09Kz85J5yTDB7+92eu48NIv/9FJY=;
- b=W6EkA2Y7jc6l/3YLTZe22Y9Bl+izH6HcuPxl0YdyxvQqwcncPMRyJ6hqNSjnsps2VL
- CdCF+sP3jpvTsqcnhCK2aj05x2ruXpeNgE2/u86tH4aQN3GsqocmYiRmtS2Us9D9oKCq
- C1ZD0+9A7LuqGJhSDGH4HLY4sqRi+X+ByOi6Zcv4oG+AKMA4Gf8YKvmSUEe/VxbbiMeh
- RM6bgwdnHWyL4tb3lnt82LVQ7tLPoGJVpVIaFtUkDI6SwuhuTT/JOU0fzitkqikD/66P
- G+uq5ycJWcUR2rLYUJt2uE9vJTOECpgR72NGEnwbUEIogs0KZWGXyifbpXJS0EhaiLWc
- oqaw==
+ :cc; bh=bHVXJypXN3aOoXE4Ah+y2EklftG79QfVrX/zH0Pv2ck=;
+ b=Q4Wm0THvk0DiCn6qErDlkC3kMwS9Bh1qSSJG/PYqVJqzWZW65pyd+9m+zssfripzpZ
+ JGd8N9+eESOMdZIQU2irrkLgBIANba1Kj6cVqau7TsvM4xAtzxamqBeu3KW15o+wHLI4
+ vLxI5Nq1BvGmJ5G/nGSfKIJowBbH/bKvMekWJ0qBRi7skwhmqCi+SuzwcCtjMU5Osv8z
+ YynwzIyxk/N9VvDIYZYIrXcRisX5eyMhAxs/vPZvIz4Fk+DL5wOJOkxvgRlViNHTZQmY
+ PotXTAhZMvxXqf8R1Hx5gYi7goz4NpozbEsLOw0GfUQnPhir5Z5F3MiNg5oljh8cLFWA
+ MPkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=DuyyQrdRujaQuOc09Kz85J5yTDB7+92eu48NIv/9FJY=;
- b=tcPH+86DNKYn+VkYQuy/bXg5O6dyDux2tBwtf8Be7gGONX4xLBVGW39IRE8pOxQYEZ
- 4vu328usIO4WDQS7e8g89LlYbuZSB21UA9k4su+RR3DycrBNKX30/Je91xYddaSUIPtP
- bzEafV9eMSknCIjAURjAJ6TjTLD2/b7+w0ZeJAGPUKlE5Nd1ii/OVWL2uOv5vECQ8hue
- vzAJDqkh5SZvHLjX1fC9ZcP3agFLgCVpkwlkOhOLzqXBl0DRHttbd1ztPb3niq+GH2Mi
- 7lbufEJv/UuKBoKK4vmRFujuotEdVVVnNkz2sSbwXRh7mm5R5xgSA46ztD2w/yst8mGc
- /TmQ==
-X-Gm-Message-State: AOAM530eLD0MAQOsQZ0whZ5uvU0xW2lknLR5edWahrP53UafU++XWi/x
- K1EtkWRAUEh/odz4tuLfFagl0t57SQqq
-X-Google-Smtp-Source: ABdhPJyxyOnobBFotEC9H3Y7XfYxbJppr7R71ZgBQtEMh1CduuG//5rKz4ocBoBYUBy4Vd1zee30pqaBUFtI
+ bh=bHVXJypXN3aOoXE4Ah+y2EklftG79QfVrX/zH0Pv2ck=;
+ b=3ZZmmvfFgirjUmztk+Uo/J3mSFxap+PjyVSsqP9UUEhbcI/puiq3wdKz+dxSv/A6U7
+ +GDE+LNoezVnsBjG/OYkt6p/vlo5h5i59aBI/ltgD0LTJwT26ogFOH7PCLsOsT9xfnGi
+ lo7d5N5ZFlV+XKAL4+F8JTKMHUSYYCJRHhi2cQQI3nPfwlnKHnZtXqz6+uGAmGojGyqc
+ b03FPGr/McM1e7EDxuD7lwhhg3DqOt+Wzsk/IuSoFhr1RnsJ2gd48vD5gFJ889r75tAx
+ RMu4LwGHqTs+mZq6FXrwvfBsVtJaEqYeqw2fgF8U+VwEVvefgqpM+JLwMvizKqJ2mlXQ
+ glqg==
+X-Gm-Message-State: AOAM533Hu+KHzfY80uwrrNlBTPiZbjXfNngtXvlaY588uliE4E3lHbbM
+ zdZyEJ3eLJxcHxkoVY82OLaU6xHgsBm5
+X-Google-Smtp-Source: ABdhPJyMT0R1eoun15Pt2V4z3nOy1KUmjv9Iz+9jrK99rHPW+hMKomTjOgedPCOMHI5/2bbTmKg1Nz8RCqdC
 X-Received: from tzungbi-z840.tpe.corp.google.com
  ([2401:fa00:1:10:af4e:fb49:1227:527b])
- (user=tzungbi job=sendgmr) by 2002:a25:d756:: with SMTP id
- o83mr7325462ybg.394.1640328462794; Thu, 23 Dec 2021 22:47:42 -0800 (PST)
-Date: Fri, 24 Dec 2021 14:47:16 +0800
+ (user=tzungbi job=sendgmr) by 2002:a25:bf86:: with SMTP id
+ l6mr7371605ybk.92.1640328468177; Thu, 23 Dec 2021 22:47:48 -0800 (PST)
+Date: Fri, 24 Dec 2021 14:47:17 +0800
 In-Reply-To: <20211224064719.2031210-1-tzungbi@google.com>
-Message-Id: <20211224064719.2031210-2-tzungbi@google.com>
+Message-Id: <20211224064719.2031210-3-tzungbi@google.com>
 Mime-Version: 1.0
 References: <20211224064719.2031210-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.34.1.448.ga2b2bfdf31-goog
-Subject: [PATCH 1/4] ASoC: mediatek: mt8173: fix device_node leak
+Subject: [PATCH 2/4] ASoC: mediatek: mt8183: fix device_node leak
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -102,65 +102,45 @@ Fixes the device_node leak.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- sound/soc/mediatek/mt8173/mt8173-max98090.c      | 3 +++
- sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c | 2 ++
- sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c | 2 ++
- sound/soc/mediatek/mt8173/mt8173-rt5650.c        | 2 ++
- 4 files changed, 9 insertions(+)
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c         | 6 +++++-
+ sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c | 7 ++++++-
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8173/mt8173-max98090.c b/sound/soc/mediatek/mt8173/mt8173-max98090.c
-index 2408c9d3d9b3..65941dd2295d 100644
---- a/sound/soc/mediatek/mt8173/mt8173-max98090.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-max98090.c
-@@ -180,6 +180,9 @@ static int mt8173_max98090_dev_probe(struct platform_device *pdev)
- 	if (ret)
- 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
- 			__func__, ret);
-+
-+	of_node_put(codec_node);
-+	of_node_put(platform_node);
- 	return ret;
- }
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index f8a72a5102ad..ca893feab7eb 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -781,7 +781,11 @@ static int mt8183_da7219_max98357_dev_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
  
-diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
-index e6e824f3d24a..227b0b72c66e 100644
---- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
-@@ -218,6 +218,8 @@ static int mt8173_rt5650_rt5514_dev_probe(struct platform_device *pdev)
- 	if (ret)
- 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
- 			__func__, ret);
+-	return devm_snd_soc_register_card(&pdev->dev, card);
++	ret = devm_snd_soc_register_card(&pdev->dev, card);
 +
 +	of_node_put(platform_node);
- 	return ret;
++	of_node_put(hdmi_codec);
++	return ret;
  }
  
-diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
-index ba6fe3d90bfc..8df2ff2f2aab 100644
---- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
-@@ -285,6 +285,8 @@ static int mt8173_rt5650_rt5676_dev_probe(struct platform_device *pdev)
- 	if (ret)
- 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
- 			__func__, ret);
+ #ifdef CONFIG_OF
+diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+index d5fc86132b49..19f8aead775d 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+@@ -780,7 +780,12 @@ mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
+ 				 __func__, ret);
+ 	}
+ 
+-	return devm_snd_soc_register_card(&pdev->dev, card);
++	ret = devm_snd_soc_register_card(&pdev->dev, card);
 +
 +	of_node_put(platform_node);
- 	return ret;
++	of_node_put(ec_codec);
++	of_node_put(hdmi_codec);
++	return ret;
  }
  
-diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-index 9b933cce0b20..16ddf9f8bbcb 100644
---- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-@@ -323,6 +323,8 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
- 	if (ret)
- 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
- 			__func__, ret);
-+
-+	of_node_put(platform_node);
- 	return ret;
- }
- 
+ #ifdef CONFIG_OF
 -- 
 2.34.1.448.ga2b2bfdf31-goog
 

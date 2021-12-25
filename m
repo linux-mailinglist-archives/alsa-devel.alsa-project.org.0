@@ -2,132 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6134947F5CA
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Dec 2021 09:21:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD08247F5CB
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Dec 2021 09:21:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 024E117E0;
-	Sun, 26 Dec 2021 09:20:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 024E117E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EA1117ED;
+	Sun, 26 Dec 2021 09:20:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EA1117ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640506879;
-	bh=NBeTRUTrHXuNmfxEnvZY4FR+xdoXZvS7n3RL5W3Tl04=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fY4NYdBCzNkOkMlElXUTShKeHwksXbz1IgNENQany9F+IgMrNaiQEF6cJAXP4ddX3
-	 dAHQ3tieVdgKIYmOqjNaGP/eGgd/Teq9MBoec9ISi9mFqf6FYG/FSmQvJxGuhmRODI
-	 OsgfdWx3kphZtZaO4lqJlvhyR1tZ+wocNqzr2Ez8=
+	s=default; t=1640506894;
+	bh=dYAxQUneRMmTOibZrSQgH9ypFiMr9LjVCgkFeqwZdHk=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=uB/favImhNPBcD+ZBtC9IErvyjYGJjY9yRDI+INTzp4TbI2a57szdoTso5wYBOXI6
+	 UVhyik4elfGAw09j13OO8qPTOMGCBUKwtZimNMX5ee9OzrPj7h6McdjEv4EloZ0Wur
+	 Lta701l5VW4S1YG9KlszAF94KYXe+MLoXCjKspCo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89944F804FA;
-	Sun, 26 Dec 2021 09:19:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A08BF80511;
+	Sun, 26 Dec 2021 09:19:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0195F8013F; Fri, 24 Dec 2021 07:49:25 +0100 (CET)
+ id 0AB79F800F0; Sat, 25 Dec 2021 18:40:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2071.outbound.protection.outlook.com [40.107.95.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [IPv6:2607:f8b0:4864:20::c2e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9FA5BF800F2
- for <alsa-devel@alsa-project.org>; Fri, 24 Dec 2021 07:49:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FA5BF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id D15CBF80084
+ for <alsa-devel@alsa-project.org>; Sat, 25 Dec 2021 18:40:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D15CBF80084
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="mXZUAYEC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nyf6hIRaalgrkm3bhkYrmmoEt0wxpunUWOxpE0u7HgqUbKoae1R9mpat5ZEiFyEjb5lTAKZOtVrQaB77e8TtdheUfekheVQPpV/aCmhcLMC/u7ac824Mx0u/yK3NOCrFTwyiWB5yaLdkOWmPT95c1xjpEcA+CgqW2vGwEc7vZvgW9cRGdrOHW8YvKG1ee1bcmyrzpVxlvga2lxGvZPLiuwF9eenuWpmZl7H1aPOOCeW3uCLnnH9NCaiEIhLS7/2dE9aRjI6bO1o5SMBAWkpDl5oOR7WyDRVdghAs66yOuv5bOhWtJJwX2pEBZslU7+50t1YrPtxopI+0POYkKqFysA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g6LMz7Yoi27L63wZ/I3ay6P8cXRud0Rk7r6R3yJ+jsU=;
- b=cqJYty5G4YBcKgJdc9bCIlSXqhtEvEdmGysqoyYUlGhUtjtBJh6h2EN5BTLiivViWdSjuAmHTKJHNUZf8QPT2LEmGq5y5DTlCQhKS9TbHlQe8ERVBYqB5WGLvXa0QezXBMTSChTRpGt5fU4q4bZv8iZYzvDJWz0WyZPJA0MSAdWNCzIh12VWYSMCgNn3NALUQ4vmgret9CxvYUEoqg+lKlJZXCEvpw7XcsKRwnwUtY6iWlN6PgOgILZ+R3PE8dSzcg2l1nghVX8Fhsw/e8lZ+10/F4Yk3KWpbtGEb8l8exSV6RYShlH3AP34EA/hVai/tiDAnF9oS1HCTR3toYX+pw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g6LMz7Yoi27L63wZ/I3ay6P8cXRud0Rk7r6R3yJ+jsU=;
- b=mXZUAYECeYjG86XSXAGAcfpmVQpTC3Lm/pqIB/6bC5OaUbPmy4AzSh/YG2yB8jWgfNjR78QAJdMMiHZIqWWbsGuTMwZkSEAJXXm7YCp9WD4UBt8f7n9zacQ0FawyVDdVuMexNZifIZpW5i51Ntplqj/4L7U24Zvf+Dde0rNY1XA=
-Received: from DM5PR15CA0050.namprd15.prod.outlook.com (2603:10b6:3:ae::12) by
- BN9PR12MB5082.namprd12.prod.outlook.com (2603:10b6:408:133::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.18; Fri, 24 Dec
- 2021 06:49:15 +0000
-Received: from DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ae:cafe::37) by DM5PR15CA0050.outlook.office365.com
- (2603:10b6:3:ae::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.14 via Frontend
- Transport; Fri, 24 Dec 2021 06:49:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT052.mail.protection.outlook.com (10.13.172.111) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4823.18 via Frontend Transport; Fri, 24 Dec 2021 06:49:14 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 24 Dec
- 2021 00:49:14 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 23 Dec
- 2021 22:49:13 -0800
-Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17
- via Frontend Transport; Fri, 24 Dec 2021 00:49:05 -0600
-From: V sujith kumar Reddy <vsujithkumar.reddy@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: amd: acp: Power on/off the speaker enable gpio pin
- based on DAPM callback.
-Date: Fri, 24 Dec 2021 20:30:43 +0530
-Message-ID: <20211224150058.2444776-1-vsujithkumar.reddy@amd.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=kali.org header.i=@kali.org
+ header.b="eaAoE4zt"
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ e17-20020a4a8291000000b002c5ee0645e7so3762143oog.2
+ for <alsa-devel@alsa-project.org>; Sat, 25 Dec 2021 09:40:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=WfzhWj1jtwCdxEak/D97aNhkHTpQCqGgLyMJk8IXEwI=;
+ b=eaAoE4ztF41KiZpnzSfaK9/FXh47Z15i/58PZS//afGbMpjYyS2woT9xWMHQvEJeZ4
+ bK8MppOg/i4qnbJie6j7sWtJ7DGauG30E0V7rDy8BmdJfBeXDMbumgI1fm5bCHxI5XYO
+ tfIwqEzLG9RVVBP1WWMq9TPuMm/Jt/K8xlFZWn+NsPSk1g/FSE1p1+6V1IqOEvPLuKOI
+ wA+qcKwIBZm3rCsf3L/ZPj7+DYd5gRbXWH5uWOaJxZjOipCEBBLqJZCfP7Q50xm9mBTN
+ 2RAfJHyd4eH4p5j189+F/LnRv4qAFKuBdN/Wk9PN/nUF0W6qBU4wZW0u/m5Fy5qDyOX7
+ F5Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=WfzhWj1jtwCdxEak/D97aNhkHTpQCqGgLyMJk8IXEwI=;
+ b=8GA8wdQhCwZGlxohMInsYd3hG7h2wLXnK6/0HU1FlzQJSJcF1JYYn2OI3N2wJVV2Ju
+ rHZQ7UuSNFd+Hubfa5i8wDJTECrwxEDuj4omBOQ450bPrEWi+P6NjaHIhf6OsUJ8mmH3
+ 2rO1Wxwhe5HKVM+6WCwfz8RHR11Ok3XFrN+EYroOso0mfrlJ3vOAvH0fjVQhCbcU87O9
+ sMBee4TL1vYgnIjqLfNMsuYLJSQ3DC6ZBSmh1ztoNs9hwmFqHnR+5xnRd1FsxgxZI+sa
+ FKBFlGMREfcHt2wM9v7HXdH9Xf/aWwiPYU2WfK8OEpF485oSNVoq2kD0aRDUqKST0dcn
+ Vc/g==
+X-Gm-Message-State: AOAM531lOCqXyUSLOVW0mUfj2qqkgC4fxpy5rjLXHLc01qvZJU7ug3yp
+ hB0jQnSNJhFwMv6NweniLhcBgA==
+X-Google-Smtp-Source: ABdhPJwTd64h6NmnuJkKrnhyJ8AydZv/uOcsiocQB/wkmdKbXj9YXiW8i6BntXb/sn4Bbg1VBBPEpA==
+X-Received: by 2002:a4a:9612:: with SMTP id q18mr7025002ooi.36.1640454006594; 
+ Sat, 25 Dec 2021 09:40:06 -0800 (PST)
+Received: from [192.168.11.48] (cpe-173-173-107-246.satx.res.rr.com.
+ [173.173.107.246])
+ by smtp.gmail.com with ESMTPSA id v20sm2018193otj.27.2021.12.25.09.40.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 25 Dec 2021 09:40:06 -0800 (PST)
+Message-ID: <85cc3f89-6e87-6fc7-311e-d410833d75da@kali.org>
+Date: Sat, 25 Dec 2021 11:40:01 -0600
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ab977388-1be9-430a-0ae1-08d9c6a98000
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5082:EE_
-X-Microsoft-Antispam-PRVS: <BN9PR12MB508231B6E50F4E4C0D0B5F22927F9@BN9PR12MB5082.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:538;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: g9Yl8VtTskCjfV9dmkKPz9so+TEPwXXZlI7hCtZPz/yTiX021Eg3igmIs1wMfbQucEOOeHgKU2n6GYfGRnwnkJzID9fALui5WM3JsGcS3YdJQhCti7jA8SDU/rn7vrq7K3kgj7L/C6uU+IqiuU+owUW48+odS62NUrviiEqcavdfsDEHgbVY+Dwhcd6FCrmqVE42W89KLcFjWX+y9goWCLetgYv+mJYi1F4wjnNWzm0GX++OCuaEYkSqJdyodAJOk7waeuFKVedlK5M1uBxbn6A7lrE8tzdPPC2aWkb1IJT/A5dDtGzoMYXJxDxH2C2rFvRcQL9ieSlizcIwuCchITNeobBYNZFqwfSioMNGBTSxA6xkWhdhLuzTOhSQ1daNrSPYAnyNDbhctypJVdE7nBp3sgZcJV+nzue64PIo+CtCUP/5rgfYtUMSbDymK4readOjdb4PBBFAu3L4RXal/1ACnwe9EuPccvZ4vgP4j6ryAdbl+GlnUMrNZemaB1M4ueadljhLyY7sijkOQz+Te6PwdzleEARisr/l3bZ+RyzRAs+26ZUoi1W182TJ07ixcWUP0YoqiZnQgibNCgZjZL+WnkHiTBgYcwjaodD8zsbfse3HiLhoty6JrmDn4SYk6Uz4bCwXVSSkDLxpf49zSV1rd+E4YvidRTW8CTi0bLLL1EX6ZjwDhcR5Y9qGel6+b/H5Ck1+unt84ZJ8piZcJdvduef1wHh/K/BLzojkXCjr6tYBegk7MWMRmFW0JQiMLix8K+7xMPglZrdEF97nqHhQraaKfjxOoJqZCdDnkghhnolfFuVzNvOlJO+vx7bq
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(36840700001)(46966006)(336012)(83380400001)(70206006)(2616005)(40460700001)(508600001)(82310400004)(5660300002)(70586007)(426003)(8936002)(4326008)(8676002)(7696005)(1076003)(6666004)(81166007)(36756003)(110136005)(36860700001)(54906003)(86362001)(26005)(2906002)(186003)(356005)(47076005)(316002)(461764006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Dec 2021 06:49:14.7957 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab977388-1be9-430a-0ae1-08d9c6a98000
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5082
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.1
+Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: Use platform_get_irq() to get the
+ interrupt
+Content-Language: en-US
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-kernel@vger.kernel.org, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+References: <20211224161334.31123-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20211224161334.31123-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Steev Klimaszewski <steev@kali.org>
+In-Reply-To: <20211224161334.31123-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sun, 26 Dec 2021 09:19:06 +0100
-Cc: Sunil-kumar.Dommati@amd.com, Geert Uytterhoeven <geert+renesas@glider.be>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- V sujith kumar Reddy <vsujithkumar.reddy@amd.com>,
- Arnd Bergmann <arnd@arndb.de>, Vijendar.Mukunda@amd.com,
- Alexander.Deucher@amd.com
+Cc: linux-arm-msm@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,237 +112,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Configure the speaker gpio pin based on power sequence of the DAPM
-speaker events.
-Enable speaker after widget power up and Disable before widget  powerdown.
 
-Signed-off-by: V sujith kumar Reddy <vsujithkumar.reddy@amd.com>
----
- sound/soc/amd/acp/Kconfig           |  6 +++---
- sound/soc/amd/acp/acp-legacy-mach.c | 19 ++++++++++++++++---
- sound/soc/amd/acp/acp-mach-common.c | 25 +++++++++++++++++++++++++
- sound/soc/amd/acp/acp-mach.h        | 10 +++++++++-
- sound/soc/amd/acp/acp-sof-mach.c    | 21 ++++++++++++++++++---
- 5 files changed, 71 insertions(+), 10 deletions(-)
+On 12/24/21 10:13 AM, Lad Prabhakar wrote:
+> platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
+> allocation of IRQ resources in DT core code, this causes an issue
+> when using hierarchical interrupt domains using "interrupts" property
+> in the node as this bypasses the hierarchical setup and messes up the
+> irq chaining.
+>
+> In preparation for removal of static setup of IRQ resource from DT core
+> code use platform_get_irq().
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> Hi,
+>
+> Dropping usage of platform_get_resource() was agreed based on
+> the discussion [0].
+>
+> [0] https://patchwork.kernel.org/project/linux-renesas-soc/
+> patch/20211209001056.29774-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+>
+> Cheers,
+> Prabhakar
+> ---
+>   drivers/slimbus/qcom-ngd-ctrl.c | 10 ++++------
+>   1 file changed, 4 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+> index 7040293c2ee8..0f29a08b4c09 100644
+> --- a/drivers/slimbus/qcom-ngd-ctrl.c
+> +++ b/drivers/slimbus/qcom-ngd-ctrl.c
+> @@ -1526,13 +1526,11 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+>   	if (IS_ERR(ctrl->base))
+>   		return PTR_ERR(ctrl->base);
+>   
+> -	res = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
+> -	if (!res) {
+> -		dev_err(&pdev->dev, "no slimbus IRQ resource\n");
+> -		return -ENODEV;
+> -	}
+> +	ret = platform_get_irq(pdev, 0);
+> +	if (ret < 0)
+> +		return ret;
+>   
+> -	ret = devm_request_irq(dev, res->start, qcom_slim_ngd_interrupt,
+> +	ret = devm_request_irq(dev, ret, qcom_slim_ngd_interrupt,
+>   			       IRQF_TRIGGER_HIGH, "slim-ngd", ctrl);
+>   	if (ret) {
+>   		dev_err(&pdev->dev, "request IRQ failed\n");
 
-diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
-index 154be5e70821..d5838df3064b 100644
---- a/sound/soc/amd/acp/Kconfig
-+++ b/sound/soc/amd/acp/Kconfig
-@@ -32,7 +32,7 @@ config SND_AMD_ASOC_RENOIR
- 
- config SND_SOC_AMD_MACH_COMMON
- 	tristate
--	depends on X86 && PCI && I2C
-+	depends on X86 && PCI && I2C && GPIOLIB
- 	select CLK_FIXED_FCH
- 	select SND_SOC_RT5682_I2C
- 	select SND_SOC_DMIC
-@@ -44,14 +44,14 @@ config SND_SOC_AMD_MACH_COMMON
- 
- config SND_SOC_AMD_LEGACY_MACH
- 	tristate "AMD Legacy Machine Driver Support"
--	depends on X86 && PCI && I2C
-+	depends on X86 && PCI && I2C && GPIOLIB
- 	select SND_SOC_AMD_MACH_COMMON
- 	help
- 	  This option enables legacy sound card support for ACP audio.
- 
- config SND_SOC_AMD_SOF_MACH
- 	tristate "AMD SOF Machine Driver Support"
--	depends on X86 && PCI && I2C
-+	depends on X86 && PCI && I2C && GPIOLIB
- 	select SND_SOC_AMD_MACH_COMMON
- 	help
- 	  This option enables SOF sound card support for ACP audio.
-diff --git a/sound/soc/amd/acp/acp-legacy-mach.c b/sound/soc/amd/acp/acp-legacy-mach.c
-index de0f8024e2fb..0ad1cf41b308 100644
---- a/sound/soc/amd/acp/acp-legacy-mach.c
-+++ b/sound/soc/amd/acp/acp-legacy-mach.c
-@@ -27,6 +27,7 @@ static struct acp_card_drvdata rt5682_rt1019_data = {
- 	.hs_codec_id = RT5682,
- 	.amp_codec_id = RT1019,
- 	.dmic_codec_id = NONE,
-+	.gpio_spkr_en = EN_SPKR_GPIO_GB,
- };
- 
- static const struct snd_kcontrol_new acp_controls[] = {
-@@ -41,15 +42,16 @@ static const struct snd_kcontrol_new acp_controls[] = {
- static const struct snd_soc_dapm_widget acp_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_SPK("Spk", NULL),
--	SND_SOC_DAPM_SPK("Left Spk", NULL),
--	SND_SOC_DAPM_SPK("Right Spk", NULL),
-+	SND_SOC_DAPM_SPK("Spk", event_spkr_handler),
-+	SND_SOC_DAPM_SPK("Left Spk", event_spkr_handler),
-+	SND_SOC_DAPM_SPK("Right Spk", event_spkr_handler),
- };
- 
- static int acp_asoc_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = NULL;
- 	struct device *dev = &pdev->dev;
-+	unsigned int spkr_gpio;
- 	int ret;
- 
- 	if (!pdev->id_entry)
-@@ -67,9 +69,20 @@ static int acp_asoc_probe(struct platform_device *pdev)
- 	card->controls = acp_controls;
- 	card->num_controls = ARRAY_SIZE(acp_controls);
- 	card->drvdata = (struct acp_card_drvdata *)pdev->id_entry->driver_data;
-+	spkr_gpio = ((struct acp_card_drvdata *)(card->drvdata))->gpio_spkr_en;
- 
- 	acp_legacy_dai_links_create(card);
- 
-+	if (gpio_is_valid(spkr_gpio)) {
-+		ret = devm_gpio_request(dev, spkr_gpio, "spkren");
-+		if (ret) {
-+			dev_err(dev, "(%s) gpio request failed: %d\n",
-+				__func__, ret);
-+			return ret;
-+		}
-+		gpio_direction_output(spkr_gpio, 0);
-+	}
-+
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret) {
- 		dev_err(&pdev->dev,
-diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
-index 7785f12aa006..03d8d1af14b3 100644
---- a/sound/soc/amd/acp/acp-mach-common.c
-+++ b/sound/soc/amd/acp/acp-mach-common.c
-@@ -71,6 +71,31 @@ static const struct snd_soc_dapm_route rt5682_map[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
-+int event_spkr_handler(struct snd_soc_dapm_widget *w,
-+			struct snd_kcontrol *k, int event)
-+{
-+	struct snd_soc_dapm_context *dapm = w->dapm;
-+	struct snd_soc_card *card = dapm->card;
-+	struct acp_card_drvdata *drvdata = snd_soc_card_get_drvdata(card);
-+
-+	if (!gpio_is_valid(drvdata->gpio_spkr_en))
-+		return 0;
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		gpio_set_value(drvdata->gpio_spkr_en, 1);
-+		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		gpio_set_value(drvdata->gpio_spkr_en, 0);
-+		break;
-+	default:
-+		dev_warn(card->dev, "%s invalid setting\n", __func__);
-+		break;
-+	}
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS_GPL(event_spkr_handler, SND_SOC_AMD_MACH);
-+
- /* Define card ops for RT5682 CODEC */
- static int acp_card_rt5682_init(struct snd_soc_pcm_runtime *rtd)
- {
-diff --git a/sound/soc/amd/acp/acp-mach.h b/sound/soc/amd/acp/acp-mach.h
-index 5dc47cfbff10..fd6299844ebe 100644
---- a/sound/soc/amd/acp/acp-mach.h
-+++ b/sound/soc/amd/acp/acp-mach.h
-@@ -17,6 +17,12 @@
- #include <linux/input.h>
- #include <linux/module.h>
- #include <sound/soc.h>
-+#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
-+
-+#define EN_SPKR_GPIO_GB                0x11F
-+#define EN_SPKR_GPIO_NK                0x146
-+#define EN_SPKR_GPIO_NONE      -EINVAL
- 
- enum be_id {
- 	HEADSET_BE_ID = 0,
-@@ -49,9 +55,11 @@ struct acp_card_drvdata {
- 	unsigned int dai_fmt;
- 	struct clk *wclk;
- 	struct clk *bclk;
-+	unsigned int gpio_spkr_en;
- };
- 
- int acp_sofdsp_dai_links_create(struct snd_soc_card *card);
- int acp_legacy_dai_links_create(struct snd_soc_card *card);
--
-+int event_spkr_handler(struct snd_soc_dapm_widget *w,
-+			struct snd_kcontrol *k, int event);
- #endif
-diff --git a/sound/soc/amd/acp/acp-sof-mach.c b/sound/soc/amd/acp/acp-sof-mach.c
-index 854eb7214cea..07de46142655 100644
---- a/sound/soc/amd/acp/acp-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sof-mach.c
-@@ -27,6 +27,7 @@ static struct acp_card_drvdata sof_rt5682_rt1019_data = {
- 	.hs_codec_id = RT5682,
- 	.amp_codec_id = RT1019,
- 	.dmic_codec_id = DMIC,
-+	.gpio_spkr_en = EN_SPKR_GPIO_GB,
- };
- 
- static struct acp_card_drvdata sof_rt5682_max_data = {
-@@ -36,6 +37,7 @@ static struct acp_card_drvdata sof_rt5682_max_data = {
- 	.hs_codec_id = RT5682,
- 	.amp_codec_id = MAX98360A,
- 	.dmic_codec_id = DMIC,
-+	.gpio_spkr_en = EN_SPKR_GPIO_NK,
- };
- 
- static struct acp_card_drvdata sof_rt5682s_max_data = {
-@@ -45,6 +47,7 @@ static struct acp_card_drvdata sof_rt5682s_max_data = {
- 	.hs_codec_id = RT5682S,
- 	.amp_codec_id = MAX98360A,
- 	.dmic_codec_id = DMIC,
-+	.gpio_spkr_en = EN_SPKR_GPIO_NK,
- };
- 
- static const struct snd_kcontrol_new acp_controls[] = {
-@@ -58,15 +61,16 @@ static const struct snd_kcontrol_new acp_controls[] = {
- static const struct snd_soc_dapm_widget acp_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_SPK("Spk", NULL),
--	SND_SOC_DAPM_SPK("Left Spk", NULL),
--	SND_SOC_DAPM_SPK("Right Spk", NULL),
-+	SND_SOC_DAPM_SPK("Spk", event_spkr_handler),
-+	SND_SOC_DAPM_SPK("Left Spk", event_spkr_handler),
-+	SND_SOC_DAPM_SPK("Right Spk", event_spkr_handler),
- };
- 
- static int acp_sof_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = NULL;
- 	struct device *dev = &pdev->dev;
-+	unsigned int spkr_gpio;
- 	int ret;
- 
- 	if (!pdev->id_entry)
-@@ -84,9 +88,20 @@ static int acp_sof_probe(struct platform_device *pdev)
- 	card->controls = acp_controls;
- 	card->num_controls = ARRAY_SIZE(acp_controls);
- 	card->drvdata = (struct acp_card_drvdata *)pdev->id_entry->driver_data;
-+	spkr_gpio = ((struct acp_card_drvdata *)(card->drvdata))->gpio_spkr_en;
- 
- 	acp_sofdsp_dai_links_create(card);
- 
-+	if (gpio_is_valid(spkr_gpio)) {
-+		ret = devm_gpio_request(dev, spkr_gpio, "spkren");
-+		if (ret) {
-+			dev_err(dev, "(%s) gpio request failed: %d\n",
-+				__func__, ret);
-+			return ret;
-+		}
-+		gpio_direction_output(spkr_gpio, 0);
-+	}
-+
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret) {
- 		dev_err(&pdev->dev,
--- 
-2.25.1
+Tested on Lenovo Yoga C630
+
+Tested-By: Steev Klimaszewski <steev@kali.org>
 

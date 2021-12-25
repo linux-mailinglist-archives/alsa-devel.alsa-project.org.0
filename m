@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E2947F29C
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Dec 2021 09:16:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2197347F2A1
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Dec 2021 09:18:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A56F7177D;
-	Sat, 25 Dec 2021 09:15:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A56F7177D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EAD71767;
+	Sat, 25 Dec 2021 09:17:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EAD71767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640420162;
-	bh=+2Al4sqUd3Lv83H10XJ1ze9Ke4nnchLbqinPNYiWi1o=;
+	s=default; t=1640420324;
+	bh=J3qh1FzH5CX6hw4yb46UwxgUovLyCWIhZzIYe56SWqM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DyjzBt0lkAvyy44M8DaQXONvfAF49UHFZI5H8w27ClTI9TRxzsRautZQMahfLm5Hl
-	 G+GsBIAHQssZMhbN/yLHRuiLumVUNewIpY6d4T+GTKn0cY2Td0Ukjz9+Joy0k4+N1k
-	 x3xaiRy11ksu04f9w7TFhDxw4NbOxQoe6WgCFjnI=
+	b=uyyD77RO5cwPiEBV89ca5YCBnEUO1vjZBh8tMpaa9WiFOKRWTMUJUxngZYktZjbCC
+	 J4VRxWMpZ4X75a3skLTRrSK4S9uHdsYzWqCs2ZEU2ex9NI9J9/PbBqZKAvsB+dy7TH
+	 ULyE+IjvKzAk3w5khfFHJMl0c7n9ZkuP9zJG+rKQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E01FF8013C;
-	Sat, 25 Dec 2021 09:15:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07096F800F3;
+	Sat, 25 Dec 2021 09:17:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4DBFF800F3; Sat, 25 Dec 2021 09:15:10 +0100 (CET)
+ id 32861F800F0; Sat, 25 Dec 2021 09:17:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06263F800F0
- for <alsa-devel@alsa-project.org>; Sat, 25 Dec 2021 09:15:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06263F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58C8BF800E9
+ for <alsa-devel@alsa-project.org>; Sat, 25 Dec 2021 09:17:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58C8BF800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Ks7oPjc+"; 
+ header.b="J6O8NDHo"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZFFbTbff"
+ header.b="spfcL9KY"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id BDB291F37B;
- Sat, 25 Dec 2021 08:15:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id A0CDC21112;
+ Sat, 25 Dec 2021 08:17:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1640420101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1640420242; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HwssHzidtCaja6GtIVeanrgqiHw6qjbbLErML1dCbF4=;
- b=Ks7oPjc+fs068iOc3qzh5QGDxknCORYodKO80la7fLRgDDyS1H0hRCAvjbdasSORxqX3VH
- 8UUc4G6z1bSqnav0Q+bfSX+pOA6sbqiknp8RAYw4qrj28yXfbqKlxqyzQ5413IWXj81Ds3
- Rwev9N9n8e5CtyGbFT4Pmi00fUVFKvo=
+ bh=mk1k6I/mmu4QDll5+IoAgJPUuI3289xMY1Nshnjw8pE=;
+ b=J6O8NDHoJMjvQMgr2U+6ooUNHzm8r3F/QwT2y//zGdaggQb8PO3OWe2yYKUozQbhpPJoP8
+ a3xtSfs+jlCpIhtbGsgvTf45+tYweonALAUzlvL+sAKnK6XKLX7lL5cWAItZctfOt5WR6D
+ d8apn/uUtzeLafqvOjxzH6QZeuYlppU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1640420101;
+ s=susede2_ed25519; t=1640420242;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HwssHzidtCaja6GtIVeanrgqiHw6qjbbLErML1dCbF4=;
- b=ZFFbTbffp9N52oh3R6IgROuW4FO595QaTCOL95tluitxPahw6NEVVgFJKewDIiS4Ctkkxw
- j6COWQnpz9MdhbBg==
+ bh=mk1k6I/mmu4QDll5+IoAgJPUuI3289xMY1Nshnjw8pE=;
+ b=spfcL9KYwqMXYqxOrAxrMrbMHbP3JDOuu+O0sVpFBuir6F1KWz7jHhrxtOqvgAc9f6wTU0
+ lix4F1U76jN/F4CQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 73381A3B81;
- Sat, 25 Dec 2021 08:15:00 +0000 (UTC)
-Date: Sat, 25 Dec 2021 09:15:00 +0100
-Message-ID: <s5h4k6xqewr.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 8DF56A3B81;
+ Sat, 25 Dec 2021 08:17:22 +0000 (UTC)
+Date: Sat, 25 Dec 2021 09:17:22 +0100
+Message-ID: <s5h35mhqest.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: davidcomponentone@gmail.com
-Subject: Re: [PATCH] ALSA: hda: use swap() to make code cleaner
-In-Reply-To: <ebc9db44b802dfc88e1538629b517e000acb27b3.1639790796.git.yang.guang5@zte.com.cn>
-References: <ebc9db44b802dfc88e1538629b517e000acb27b3.1639790796.git.yang.guang5@zte.com.cn>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: Disable silent stream on GLK
+In-Reply-To: <20211222145350.24342-1-ville.syrjala@linux.intel.com>
+References: <20211222145350.24342-1-ville.syrjala@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Yang Guang <yang.guang5@zte.com.cn>, alsa-devel@alsa-project.org,
- Zeal Robot <zealci@zte.com.cn>, linux-kernel@vger.kernel.org, tiwai@suse.com,
- broonie@kernel.org, joe@perches.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Harsha Priya <harshapriya.n@intel.com>, intel-gfx@lists.freedesktop.org,
+ stable@vger.kernel.org, Emmanuel Jillela <emmanuel.jillela@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,19 +97,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 18 Dec 2021 02:54:16 +0100,
-davidcomponentone@gmail.com wrote:
+On Wed, 22 Dec 2021 15:53:50 +0100,
+Ville Syrjala wrote:
 > 
-> From: Yang Guang <yang.guang5@zte.com.cn>
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> Use the macro 'swap()' defined in 'include/linux/minmax.h' to avoid
-> opencoding it.
+> The silent stream stuff recurses back into i915 audio
+> component .get_power() from the .pin_eld_notify() hook.
+> On GLK this will deadlock as i915 may already be holding
+> the relevant modeset locks during .pin_eld_notify() and
+> the GLK audio vs. CDCLK workaround will try to grab the
+> same locks from .get_power().
 > 
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: David Yang <davidcomponentone@gmail.com>
-> Signed-off-by: Yang Guang <yang.guang5@zte.com.cn>
+> Until someone comes up with a better fix just disable the
+> silent stream support on GLK.
+> 
+> Cc: stable@vger.kernel.org
+> Cc: Harsha Priya <harshapriya.n@intel.com>
+> Cc: Emmanuel Jillela <emmanuel.jillela@intel.com>
+> Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Cc: Takashi Iwai <tiwai@suse.de>
+> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2623
+> Fixes: 951894cf30f4 ("ALSA: hda/hdmi: Add Intel silent stream support")
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Applied now.  Thanks.
+Thanks, applied now.
 
 
 Takashi

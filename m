@@ -2,70 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC7D747F863
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Dec 2021 18:31:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1658B47FA6E
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Dec 2021 06:56:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 203C71651;
-	Sun, 26 Dec 2021 18:30:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 203C71651
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F58316DE;
+	Mon, 27 Dec 2021 06:55:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F58316DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640539896;
-	bh=U9rcJ3Kpo75RSFKRBbChBsejkN1ghjOOXJQFHCEFhEQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Kfbe8TfUWOrleY/ipk/mNOPOumTDfvyIwC+Q8WQv6koYvhYsUylP4/09L4jzCCZ77
-	 84nG6NsFFfNry6uqnU4vSyhxibPMAYSRuiiOqc3oXEe5IUC2AB8LyaVQO1JqzUI2mE
-	 ER/6DdQ3PSGU9QnRjx51R+v1i9bGd1X6cgMuFomc=
+	s=default; t=1640584583;
+	bh=Uu72MmkoL0UCCY8XpGKw/asOqp/K9BrMw70qztHEQKs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Knzi7YEgX1Finqr5mBgQHlQgxe5bk113clX1SB5t76GWfAtiVpD6UE5lE6aP/wq9B
+	 lkIC8cN/47TQWL90rxE+QQVSOe0N2+1to+qG2fhyDG9OoFW68HDwfEkf/oFnMtM/p9
+	 m/0CPasL3WN9wTRjxbtu7pjDjdO2EREFBbctsJdU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CE58F80227;
-	Sun, 26 Dec 2021 18:30:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D47CBF80161;
+	Mon, 27 Dec 2021 06:55:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 565E5F8020C; Sun, 26 Dec 2021 18:30:27 +0100 (CET)
+ id A09F7F800D3; Mon, 27 Dec 2021 06:55:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEF37F800E9
- for <alsa-devel@alsa-project.org>; Sun, 26 Dec 2021 18:30:21 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 325D4A003F;
- Sun, 26 Dec 2021 18:30:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 325D4A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1640539820; bh=Mz3IOdR6anrqXBSOsewJ/Xsu3u9G4cJ3hC+Mdtyearg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=nuqJDESxYM7SLQt7GVNf9T++B8/ZQ6cuPRUJsYFwLT2zbkgJnar32yNweJGll2l/8
- 5mf+hq7MuvXErWwEnoiqtVwsaPFXBjIOzPzh6dzW6WGM3acKFjPFZrrgTUg4hT7RWa
- W7dKytj+5/zj9xOTH8gscYqeL31GRkpxnfb5GVUI=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sun, 26 Dec 2021 18:30:15 +0100 (CET)
-Message-ID: <3cd96113-3272-1efe-aa81-39de952d1e68@perex.cz>
-Date: Sun, 26 Dec 2021 18:30:14 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FE44F800D3
+ for <alsa-devel@alsa-project.org>; Mon, 27 Dec 2021 06:55:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FE44F800D3
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 1BR5spftF020437,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36504.realtek.com.tw[172.21.6.27])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 1BR5spftF020437
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 27 Dec 2021 13:54:51 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36504.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Mon, 27 Dec 2021 13:54:51 +0800
+Received: from localhost.localdomain (172.22.233.31) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.15; Mon, 27 Dec 2021 13:54:51 +0800
+From: <derek.fang@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt5682: Register wclk with its parent_hws instead of
+ parent_data
+Date: Mon, 27 Dec 2021 13:54:46 +0800
+Message-ID: <20211227055446.27563-1-derek.fang@realtek.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [RESEND] Amlogic DPCM audio card(s) speaker placement issue
-Content-Language: en-US
-To: Christian Hewitt <christianshewitt@gmail.com>, alsa-devel@alsa-project.org
-References: <ECC56215-1E02-4735-82F3-B68E73F56CB4@gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <ECC56215-1E02-4735-82F3-B68E73F56CB4@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: Matthias Reichl <hias@horus.com>, Jerome Brunet <jbrunet@baylibre.com>,
- linux-amlogic@lists.infradead.org
+Content-Type: text/plain
+X-Originating-IP: [172.22.233.31]
+X-ClientProxiedBy: RTEXH36504.realtek.com.tw (172.21.6.27) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: trusted connection
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Deterministic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 12/27/2021 05:43:00
+X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
+ rules found
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzEyLzI3IKRXpMggMDE6NTU6MDA=?=
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-ServerInfo: RTEXH36504.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, albertchen@realtek.com, Derek Fang <derek.fang@realtek.com>,
+ shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,29 +95,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 26. 12. 21 12:43, Christian Hewitt wrote:
+From: Derek Fang <derek.fang@realtek.com>
 
-> **** List of PLAYBACK Hardware Devices ****
-> card 0: LIBRETECHCC [LIBRETECH-CC], device 0: fe.dai-link-0 (*) []
->   Subdevices: 1/1
->   Subdevice #0: subdevice #0
+The mclk might not be registered as a fixed clk name "mclk" on some
+platforms.
+In those platforms, if the mclk needed to be controlled by codec driver
+and acquired by a fixed name, it would be a problem.
 
-> numid=12,iface=PCM,name='ELD',device=2
-> numid=11,iface=PCM,name='IEC958 Playback Default',device=2
-> numid=10,iface=PCM,name='IEC958 Playback Mask',device=2
-> numid=9,iface=PCM,name='Playback Channel Map',device=2
-> 
-> https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/amlogic/meson-gxl-s905x-libretech-cc.dts#L136-L188
+This patch to fix the issue that wclk becomes an orphan due to the fixed
+mclk's name.
 
-Have you tried to reorder the dai-link-# sections in DT? It appears to me that sound/soc/codecs/hdmi-codec.c / hdmi_codec_pcm_new() gets the internal PCM
-device rather than the exported PCM device for the user space.
+Signed-off-by: Derek Fang <derek.fang@realtek.com>
+---
+ sound/soc/codecs/rt5682.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-If the DAI routing cannot be changed, then the hdmi-codec.c should be modified to export the correct device number for the user space:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/hdmi-codec.c?h=v5.16-rc6#n805
-
-						Jaroslav
-
+diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+index 5224123d0d3b..4709c0628804 100644
+--- a/sound/soc/codecs/rt5682.c
++++ b/sound/soc/codecs/rt5682.c
+@@ -2858,7 +2858,6 @@ int rt5682_register_dai_clks(struct rt5682_priv *rt5682)
+ 
+ 	for (i = 0; i < RT5682_DAI_NUM_CLKS; ++i) {
+ 		struct clk_init_data init = { };
+-		struct clk_parent_data parent_data;
+ 		const struct clk_hw *parent;
+ 
+ 		dai_clk_hw = &rt5682->dai_clks_hw[i];
+@@ -2867,10 +2866,8 @@ int rt5682_register_dai_clks(struct rt5682_priv *rt5682)
+ 		case RT5682_DAI_WCLK_IDX:
+ 			/* Make MCLK the parent of WCLK */
+ 			if (rt5682->mclk) {
+-				parent_data = (struct clk_parent_data){
+-					.fw_name = "mclk",
+-				};
+-				init.parent_data = &parent_data;
++				parent = __clk_get_hw(rt5682->mclk);
++				init.parent_hws = &parent;
+ 				init.num_parents = 1;
+ 			}
+ 			break;
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.17.1
+

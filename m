@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5884547FB3B
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Dec 2021 10:13:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6517647FB3C
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Dec 2021 10:14:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1EC31706;
-	Mon, 27 Dec 2021 10:12:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1EC31706
+	by alsa0.perex.cz (Postfix) with ESMTPS id D82C01718;
+	Mon, 27 Dec 2021 10:13:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D82C01718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640596425;
-	bh=RnE3MMBfb27MbfnkiYLrfna+UGvMSaEZZqTAp0XgABI=;
+	s=default; t=1640596460;
+	bh=P62tcJoApzaogjgw293GsPEATIvkOX9oXfyJ+9aiffU=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c9QNAvWYvXqrR4eECz5cvnYoXCyXZxLsT4FNgSHCFiihjcX/YdbQvIKJjDvdhZFUz
-	 BRdh8lh9pSbLJOu5stlSq7v0ijvpBWBjqhE0gVuExvNylMBe9qrTok0ulurOnaf4zv
-	 0cTJHnrQ3Uud1KSM0MmPcjCchB7kqQOcLJC+RGjk=
+	b=AntIkVLHSnrw/cD+w1z4R6CgaQ/0oM691sEMLoIrQvJubBCtSI/sSQCqAC3Uj4JFj
+	 vGKurMaGNfS7xsYWkCRn5XdWSB9BOvEa3Fi9FKrsxq4qupwDj2OFkIjlMvm0MsAl1D
+	 iX/GZJLcj13DjN4ruWXeBoaIUWpPB8vuM4wLxyjI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3ABC5F800AB;
-	Mon, 27 Dec 2021 10:12:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5EBEF8016D;
+	Mon, 27 Dec 2021 10:13:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 880DAF800F5; Mon, 27 Dec 2021 10:12:39 +0100 (CET)
+ id EF86CF80163; Mon, 27 Dec 2021 10:13:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 3BB61F800D3
- for <alsa-devel@alsa-project.org>; Mon, 27 Dec 2021 10:12:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BB61F800D3
+ by alsa1.perex.cz (Postfix) with ESMTP id 9BD2BF800D3
+ for <alsa-devel@alsa-project.org>; Mon, 27 Dec 2021 10:13:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BD2BF800D3
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1640596351613255978-webhooks-bot@alsa-project.org>
-References: <1640596351613255978-webhooks-bot@alsa-project.org>
+In-Reply-To: <1640596382395229101-webhooks-bot@alsa-project.org>
+References: <1640596382395229101-webhooks-bot@alsa-project.org>
 Subject: After Update: No more sound. Downgrading solved it.
-Message-Id: <20211227091239.880DAF800F5@alsa1.perex.cz>
-Date: Mon, 27 Dec 2021 10:12:39 +0100 (CET)
+Message-Id: <20211227091309.EF86CF80163@alsa1.perex.cz>
+Date: Mon, 27 Dec 2021 10:13:09 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,8 +115,8 @@ Sound managed with:
 > Linked with libpipewire 0.3.40
 > 
 
-I am posting this in order to document what happened in case someone has the same issue, and searches google for hints.
-Also to inform the developper, maybe something can be done to avoid this.
+I am posting this in order to document what happened in case someone has a similar issue, and searches google for hints.
+Also to inform the developer, maybe something can be done to avoid this.
 
 Thank you.
 

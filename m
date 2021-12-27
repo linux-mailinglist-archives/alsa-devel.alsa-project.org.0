@@ -2,74 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A63247FF1F
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Dec 2021 16:35:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ED1E47FF0C
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Dec 2021 16:35:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB711170B;
-	Mon, 27 Dec 2021 16:34:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB711170B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE26B1706;
+	Mon, 27 Dec 2021 16:34:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE26B1706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640619344;
-	bh=FVol1AHgMw9lHXv6ilFu4XH6kUtX2fOU+QJ6kQmv+nw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HDn9rbo9q18iuwMVtoZUfMqe4nFev30UTgiq3t7KLQqxnUShufdT2fP4RoesutJiZ
-	 ul4fq6r/UGR7RGmzm3V9LOsoh6EJ+oISxbMny5JMjDNhPjaMBUPol9caKqeqDJxHgF
-	 PfzS+Jxdia1JoFBqe1Qm9n/DJkwsh5MUiuog+gbQ=
+	s=default; t=1640619309;
+	bh=dNUUaddExfI2X6Q19G/CLq85e6bJnMT6/EnpB+VyqVI=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hWGYyhkSzF97+wwyEi/6vS14S/ofobGgmPqR5BCx70HBM0qFwN5+Ki6bOwl+iyx+I
+	 nYqh3+jY0mh5Isflr8SlwT1w9DPHyBcUuJfXm17Kxf07fMRqIxSUpbOgVqfjuHAwIM
+	 qef4lNuIvTWnBZRTB2nuTaXnjex30FQ3N2Hvla6E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEFFBF804E6;
-	Mon, 27 Dec 2021 16:34:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14899F8016D;
+	Mon, 27 Dec 2021 16:34:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2189F80161; Mon, 27 Dec 2021 16:34:02 +0100 (CET)
+ id 06BCFF80161; Mon, 27 Dec 2021 16:34:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC156F800F5
- for <alsa-devel@alsa-project.org>; Mon, 27 Dec 2021 16:33:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC156F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18749F800AB
+ for <alsa-devel@alsa-project.org>; Mon, 27 Dec 2021 16:33:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18749F800AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="Fr4ZIi5U"
+ header.b="KjaJjtm8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1640619233;
+ s=mimecast20190719; t=1640619234;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=zf2MKpJ7o+k34g0SG+yAy5Q+8Rd0wH724pyLvEHrRlg=;
- b=Fr4ZIi5UZ5TwXFRRWt91kiOz6qQhBZtSXFu53allejibXTl3JB7QgUrWURZrDmj43UJEja
- P6HhPVu4225K7z7uNmNVR6dT+E0JfncyTq7LB4UCrPanQSt3rYbf4y51F1VDEp65PrXz/q
- TtuMuDpwTesWI6R78DIY5RT8G4Nmtzw=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KePByJKOMlu1Z+siLMZ57rtt8c2Ki/1yQ8/Tj/xyNoI=;
+ b=KjaJjtm8Xz6p1514+60OW7okHOGHzFlcMd0Tcer0GtCYybtiKpRn93Cz5yGA8O/mx72I9d
+ ZKKojnqXddIWYRBfu9m6+ccjx4UFStN0S/nv5j5a9MBoguwd2K+CfMu+cqMpFKVYxScVPA
+ zJOIjqb83LtA1l5xpDL8Hr91U1VcbMk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-79-RVJb830PMQmGgJtH8vC2UA-1; Mon, 27 Dec 2021 10:33:49 -0500
-X-MC-Unique: RVJb830PMQmGgJtH8vC2UA-1
+ us-mta-596-fJeYzCQdNIGppyeILzOUQA-1; Mon, 27 Dec 2021 10:33:50 -0500
+X-MC-Unique: fJeYzCQdNIGppyeILzOUQA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
  [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 938421898290;
- Mon, 27 Dec 2021 15:33:47 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7806B654;
+ Mon, 27 Dec 2021 15:33:49 +0000 (UTC)
 Received: from shalem.redhat.com (unknown [10.39.192.60])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 569807574C;
- Mon, 27 Dec 2021 15:33:45 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DBDCC7574D;
+ Mon, 27 Dec 2021 15:33:47 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [PATCH 1/5] ASoC: rt5640: Change jack_work to a delayed_work
-Date: Mon, 27 Dec 2021 16:33:40 +0100
-Message-Id: <20211227153344.155803-1-hdegoede@redhat.com>
+Subject: [PATCH 2/5] ASoC: rt5640: Allow snd_soc_component_set_jack() to
+ override the codec IRQ
+Date: Mon, 27 Dec 2021 16:33:41 +0100
+Message-Id: <20211227153344.155803-2-hdegoede@redhat.com>
+In-Reply-To: <20211227153344.155803-1-hdegoede@redhat.com>
+References: <20211227153344.155803-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
@@ -95,87 +100,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change jack_work from a struct work_struct to a struct delayed_work, this
-is a preparation patch for adding support for boards where an external
-GPIO is used for jack-detect, rather then one of the JD pins of the codec.
+On some boards where the firmware/fwnode information is in essence
+read-only (x86 + ACPI boards) the i2c_client for the codec may contain
+the wrong IRQ or no IRQ at all.
+
+Since we only request the IRQ once snd_soc_component_set_jack() gets
+called, allow machine drivers to override the IRQ with the proper one
+through the data parameter to snd_soc_component_set_jack().
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- sound/soc/codecs/rt5640.c | 12 ++++++------
- sound/soc/codecs/rt5640.h |  2 +-
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ sound/soc/codecs/rt5640.c | 8 ++++++--
+ sound/soc/codecs/rt5640.h | 4 ++++
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index d01fe73ab9c8..36c00ad17182 100644
+index 36c00ad17182..5244b6f7de84 100644
 --- a/sound/soc/codecs/rt5640.c
 +++ b/sound/soc/codecs/rt5640.c
-@@ -2297,7 +2297,7 @@ EXPORT_SYMBOL_GPL(rt5640_detect_headset);
- static void rt5640_jack_work(struct work_struct *work)
+@@ -2419,7 +2419,8 @@ static void rt5640_disable_jack_detect(struct snd_soc_component *component)
+ }
+ 
+ static void rt5640_enable_jack_detect(struct snd_soc_component *component,
+-				      struct snd_soc_jack *jack)
++				      struct snd_soc_jack *jack,
++				      struct rt5640_set_jack_data *jack_data)
  {
- 	struct rt5640_priv *rt5640 =
--		container_of(work, struct rt5640_priv, jack_work);
-+		container_of(work, struct rt5640_priv, jack_work.work);
- 	struct snd_soc_component *component = rt5640->component;
- 	int status;
- 
-@@ -2348,7 +2348,7 @@ static void rt5640_jack_work(struct work_struct *work)
- 		 * disabled the OVCD IRQ, the IRQ pin will stay high and as
- 		 * we react to edges, we miss the unplug event -> recheck.
- 		 */
--		queue_work(system_long_wq, &rt5640->jack_work);
-+		queue_delayed_work(system_long_wq, &rt5640->jack_work, 0);
- 	}
- }
- 
-@@ -2357,7 +2357,7 @@ static irqreturn_t rt5640_irq(int irq, void *data)
- 	struct rt5640_priv *rt5640 = data;
- 
- 	if (rt5640->jack)
--		queue_work(system_long_wq, &rt5640->jack_work);
-+		queue_delayed_work(system_long_wq, &rt5640->jack_work, 0);
- 
- 	return IRQ_HANDLED;
- }
-@@ -2366,7 +2366,7 @@ static void rt5640_cancel_work(void *data)
- {
- 	struct rt5640_priv *rt5640 = data;
- 
--	cancel_work_sync(&rt5640->jack_work);
-+	cancel_delayed_work_sync(&rt5640->jack_work);
- 	cancel_delayed_work_sync(&rt5640->bp_work);
- }
- 
-@@ -2475,7 +2475,7 @@ static void rt5640_enable_jack_detect(struct snd_soc_component *component,
+ 	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
+ 	int ret;
+@@ -2463,6 +2464,9 @@ static void rt5640_enable_jack_detect(struct snd_soc_component *component,
+ 		rt5640_enable_micbias1_ovcd_irq(component);
  	}
  
- 	/* sync initial jack state */
--	queue_work(system_long_wq, &rt5640->jack_work);
-+	queue_delayed_work(system_long_wq, &rt5640->jack_work, 0);
- }
++	if (jack_data && jack_data->codec_irq_override)
++		rt5640->irq = jack_data->codec_irq_override;
++
+ 	ret = request_irq(rt5640->irq, rt5640_irq,
+ 			  IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 			  "rt5640", rt5640);
+@@ -2482,7 +2486,7 @@ static int rt5640_set_jack(struct snd_soc_component *component,
+ 			   struct snd_soc_jack *jack, void *data)
+ {
+ 	if (jack)
+-		rt5640_enable_jack_detect(component, jack);
++		rt5640_enable_jack_detect(component, jack, data);
+ 	else
+ 		rt5640_disable_jack_detect(component);
  
- static int rt5640_set_jack(struct snd_soc_component *component,
-@@ -2856,7 +2856,7 @@ static int rt5640_i2c_probe(struct i2c_client *i2c,
- 	rt5640->hp_mute = true;
- 	rt5640->irq = i2c->irq;
- 	INIT_DELAYED_WORK(&rt5640->bp_work, rt5640_button_press_work);
--	INIT_WORK(&rt5640->jack_work, rt5640_jack_work);
-+	INIT_DELAYED_WORK(&rt5640->jack_work, rt5640_jack_work);
- 
- 	/* Make sure work is stopped on probe-error / remove */
- 	ret = devm_add_action_or_reset(&i2c->dev, rt5640_cancel_work, rt5640);
 diff --git a/sound/soc/codecs/rt5640.h b/sound/soc/codecs/rt5640.h
-index 2c28f83e338a..7ab930def8dd 100644
+index 7ab930def8dd..2f4da5a8ecb2 100644
 --- a/sound/soc/codecs/rt5640.h
 +++ b/sound/soc/codecs/rt5640.h
-@@ -2145,7 +2145,7 @@ struct rt5640_priv {
- 	int release_count;
- 	int poll_count;
- 	struct delayed_work bp_work;
--	struct work_struct jack_work;
-+	struct delayed_work jack_work;
- 	struct snd_soc_jack *jack;
- 	unsigned int jd_src;
- 	bool jd_inverted;
+@@ -2153,6 +2153,10 @@ struct rt5640_priv {
+ 	unsigned int ovcd_sf;
+ };
+ 
++struct rt5640_set_jack_data {
++	int codec_irq_override;
++};
++
+ int rt5640_dmic_enable(struct snd_soc_component *component,
+ 		       bool dmic1_data_pin, bool dmic2_data_pin);
+ int rt5640_sel_asrc_clk_src(struct snd_soc_component *component,
 -- 
 2.33.1
 

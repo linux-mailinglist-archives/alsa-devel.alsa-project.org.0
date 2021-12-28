@@ -2,82 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92E2B48040F
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Dec 2021 20:07:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E0494805E8
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Dec 2021 04:41:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A939176D;
-	Mon, 27 Dec 2021 20:06:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A939176D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1514D16A4;
+	Tue, 28 Dec 2021 04:41:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1514D16A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640632051;
-	bh=pO/rl7HrNa5vSRkMi1ckvEdlUf5LuUoBlse3bhh2jXg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=s7Zb0LV77vK8QDXs8H9wGEP0Zi+JKV1O+Dq+056o/bh3GJlGrO4fivePlGXywAEEo
-	 4+Re9wTqvZ9ENP7A34RwBuAAMFBf6EUTMxSOVeF/LmttWM6Dn9u+TKW3OZWMRWJfS0
-	 QNvsDqRvWB3jHM3tvVoOSl9o1qkpehgFqZJj6P6s=
+	s=default; t=1640662914;
+	bh=F42rSerTZl5YmIecjrfG6zyTgWQqhBwSAj35OkoHiH0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Gv8AqFZ0s1qrG8GTaITavX/vRvP0jG+8diIvM7O08Rb9MUQKSE8TWo7yCrvs+ZVTJ
+	 Xi7CS+BcN2ulqNhO1HQnsCGcB8hbAYv3EDI5HBNfVzpP6StUY3W5pxAVg5O6B4HD6/
+	 7yomGUC+lm2zV/VUnrnQ4VN1fb4FOVsDU/nbm6eQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED4E7F80524;
-	Mon, 27 Dec 2021 20:05:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89669F80246;
+	Tue, 28 Dec 2021 04:40:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88BA8F80520; Mon, 27 Dec 2021 20:05:31 +0100 (CET)
+ id 0AC19F80224; Tue, 28 Dec 2021 04:40:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61E12F804F2
- for <alsa-devel@alsa-project.org>; Mon, 27 Dec 2021 20:05:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61E12F804F2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Mc0azZpa"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4EC1C61129;
- Mon, 27 Dec 2021 19:05:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74142C36AEA;
- Mon, 27 Dec 2021 19:05:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640631923;
- bh=pO/rl7HrNa5vSRkMi1ckvEdlUf5LuUoBlse3bhh2jXg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Mc0azZpaQEyB9NZw4WwwoWoPZ7vCpszftmwX3asYxqAEBP30FOb87uAE9/XwzXuAg
- +uHmiGrtxNkr6LZ5IUd5nEkLkND3KBQPO8Hl7WxMOZ3ThzSZpwchGHKfXzdD93C3ze
- fUDB9nyxneZRM8P48w41hgPTsoq1upk7W67JmFYczFDXaFI+EA8hBowaD6ZXkr6CLC
- L8U4/eY4o484wkYsaCZVRpPlWBeyhLBN9QlGm4kbplFSu8O7hMg/5bcXIu4p8iNLwV
- zRJwQq2+BSCAHZ7CC59hQEFYxb0jQOZRkbLNjysuWIqhQJ0K55FuO70vzpfclXXUen
- xb4f+hwV6h+qw==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 07/14] ASoC: tas2770: Fix setting of high sample
- rates
-Date: Mon, 27 Dec 2021 14:04:45 -0500
-Message-Id: <20211227190452.1042714-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20211227190452.1042714-1-sashal@kernel.org>
-References: <20211227190452.1042714-1-sashal@kernel.org>
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
+ by alsa1.perex.cz (Postfix) with ESMTP id AB263F800D1
+ for <alsa-devel@alsa-project.org>; Tue, 28 Dec 2021 04:40:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB263F800D1
+Received: from localhost.localdomain (unknown [124.16.138.126])
+ by APP-03 (Coremail) with SMTP id rQCowAAXHlorh8phNPjPBA--.38932S2;
+ Tue, 28 Dec 2021 11:40:27 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: krzysztof.kozlowski@canonical.com, s.nawrocki@samsung.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+Subject: [PATCH] ASoC: samsung: idma: Check of ioremap return value
+Date: Tue, 28 Dec 2021 11:40:26 +0800
+Message-Id: <20211228034026.1659385-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik@protonmail.com>,
- alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com, tiwai@suse.com,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
- pierre-louis.bossart@linux.intel.com, yebin10@huawei.com
+X-CM-TRANSID: rQCowAAXHlorh8phNPjPBA--.38932S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKw1xZw45XrWrtFW8tFykAFb_yoWfGrb_Ka
+ 93uw1rWryDtF1Skr1DZrWUCr47X34UCF4xKr1Sqrn8JrWrJayfAw4fArZ3Cw1UXr4xCFZ8
+ WF1UZrW7Cry3tjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbckFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
+ W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY02Avz4vE14v_Gr4l
+ 42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+ WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+ I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r
+ 4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF
+ 0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU-miiUUUUU=
+X-Originating-IP: [124.16.138.126]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Cc: alsa-devel@alsa-project.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,39 +80,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Martin Povišer <povik@protonmail.com>
+Because of the potential failure of the ioremap(), the buf->area could
+be NULL.
+Therefore, we need to check it and return -ENOMEM in order to transfer
+the error.
 
-[ Upstream commit 80d5be1a057e05f01d66e986cfd34d71845e5190 ]
-
-Although the codec advertises support for 176.4 and 192 ksps, without
-this fix setting those sample rates fails with EINVAL at hw_params time.
-
-Signed-off-by: Martin Povišer <povik@protonmail.com>
-Link: https://lore.kernel.org/r/20211206224529.74656-1-povik@protonmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: f09aecd50f39 ("ASoC: SAMSUNG: Add I2S0 internal dma driver")
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 ---
- sound/soc/codecs/tas2770.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/samsung/idma.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index a91a0a31e74d1..61c3238bc2656 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -291,11 +291,11 @@ static int tas2770_set_samplerate(struct tas2770_priv *tas2770, int samplerate)
- 		ramp_rate_val = TAS2770_TDM_CFG_REG0_SMP_44_1KHZ |
- 				TAS2770_TDM_CFG_REG0_31_88_2_96KHZ;
- 		break;
--	case 19200:
-+	case 192000:
- 		ramp_rate_val = TAS2770_TDM_CFG_REG0_SMP_48KHZ |
- 				TAS2770_TDM_CFG_REG0_31_176_4_192KHZ;
- 		break;
--	case 17640:
-+	case 176400:
- 		ramp_rate_val = TAS2770_TDM_CFG_REG0_SMP_44_1KHZ |
- 				TAS2770_TDM_CFG_REG0_31_176_4_192KHZ;
- 		break;
+diff --git a/sound/soc/samsung/idma.c b/sound/soc/samsung/idma.c
+index 66bcc2f97544..c3f1b054e238 100644
+--- a/sound/soc/samsung/idma.c
++++ b/sound/soc/samsung/idma.c
+@@ -360,6 +360,8 @@ static int preallocate_idma_buffer(struct snd_pcm *pcm, int stream)
+ 	buf->addr = idma.lp_tx_addr;
+ 	buf->bytes = idma_hardware.buffer_bytes_max;
+ 	buf->area = (unsigned char * __force)ioremap(buf->addr, buf->bytes);
++	if (!buf->area)
++		return -ENOMEM;
+ 
+ 	return 0;
+ }
 -- 
-2.34.1
+2.25.1
 

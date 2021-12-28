@@ -2,141 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93E23481404
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 15:22:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ABAB481405
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 15:22:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6DD117B8;
-	Wed, 29 Dec 2021 15:21:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6DD117B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2751B17BE;
+	Wed, 29 Dec 2021 15:22:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2751B17BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640787746;
-	bh=t1Q2soBd5qTNLEns0XqkUzMuWS/BmHcrlv7JNvXquLI=;
-	h=To:References:From:Subject:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1640787774;
+	bh=SWYw07zmaaDNu+bU6UjWMUGttSEKl48ssAwYr917Irk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=arRzIMOwL0haro+8HIJxJ+p6V/oSI1oLLVpeQG4dxGrYsdRsRKw0ZzmPIOLsJC6Au
-	 4UVKBBhlCDwUSa4pj/kl/qdAQ3TVJ/i+Z/Pv/PKmXC4d3g5VO+KPFCcc5aU8jVopdp
-	 whwoFmWDGDQzJCtAW10Z4BnXShp6aIHc7VZJxC5M=
+	b=SElkW18hTphy5+z12gU/XfCgBXjMZ7A/DQ6I+E/e2HhgrCHrGqEW+NuIhUktz16cW
+	 rcZs7Z+mj+35Yjujp1WqPsK0KtZqCYNCPkADfpMOUcidp0/SdvPENa5lqZ1VMzSxe2
+	 IDtTVKtGNDCkmpRKrDc+WM/L7jAajcwM3sTMOSsg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 948B5F804F2;
-	Wed, 29 Dec 2021 15:20:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EB30F804FE;
+	Wed, 29 Dec 2021 15:20:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5BD4F80158; Mon, 27 Dec 2021 18:49:10 +0100 (CET)
+ id 572AFF80158; Tue, 28 Dec 2021 03:10:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
- HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A9CCF800E9
- for <alsa-devel@alsa-project.org>; Mon, 27 Dec 2021 18:49:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A9CCF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id A677CF800D3
+ for <alsa-devel@alsa-project.org>; Tue, 28 Dec 2021 03:10:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A677CF800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ehv/beOO"
-Received: by mail-oi1-x236.google.com with SMTP id j124so26359809oih.12
- for <alsa-devel@alsa-project.org>; Mon, 27 Dec 2021 09:49:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:to:cc:references:from:subject:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=pEDTSevr8Wui7/9Ib0ms0N7Elw3SuXo4ylecnWyhlSo=;
- b=ehv/beOOjVHY0/sgKdcpY8YzavbZDivcQVdBoIeoRKI4qC8EayE8VBARAwiSsJBeMg
- Zz3lXu+y9k2nNSuIlCNv/KXJeQUZt+jBe9GlImPC6RkELaI4OwGtotJ8lJT4/RYUvXeg
- 5Yx++5EIDR1wB7QuoetS4tNem0svdSDSCecLUq4Nl5eBOUOKs2Gs+UisJK8zu7iYw2pq
- PcDsXaJJl8yT+sBrdf2ZMSprNPKxdo/1kTE/fvwlcME88l50Ds0vKqwzoH4bPkfvnAPw
- BW+JRWfrn/ItjQte78Dwgt8Dko2eYYW3nLA+EyqURprwTeFBH4+RkctBrk7LJGBiMFCC
- vwig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:to:cc:references:from:subject:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=pEDTSevr8Wui7/9Ib0ms0N7Elw3SuXo4ylecnWyhlSo=;
- b=P8aEU0W1XMgZATOPSeshGrExJ7fHl1gCla0kF01HjE+RCnZbl3NzGhm84scM7eYf5E
- 1yh8EoTolbvNSZhuC9T02mw+vCzod3NTpKx0INrt8hBjyt+/QnmMeydIYN3aXJrV6I8V
- sEp0Zb/N5xeFYGwvQOTUVfA+bgfYPtsD0xvZO/xmEKjHYXBNuoO0drXIPSv3QWArg1rU
- ubu20JxLC6UGBGSuIgCOlFJkTx9eKxzcaPVK0D+/15V3jKd3p1nGB0kRh6twantYB4M9
- g5y8HopBNO5Gdba9ymxbsjGYW7cCx4BdD9IkEeBK9z68yXoecLBJwfv/M2n58hXAm61/
- pzEg==
-X-Gm-Message-State: AOAM5315Y4HXI0hC+HbDI1IfUFYhqYvFJHsMbLi8uIxueCvjHKs2E8J6
- qWEGPFJxPrTV5gRaAGL+v7b5z/xZhAI=
-X-Google-Smtp-Source: ABdhPJxb6+7biAtxOQefdtgXxvyx2b2YNDyhmSemqV7yYJxoDKcbxu7R4xufBgYDTWnPfrrEWMwb0g==
-X-Received: by 2002:a05:6808:20a6:: with SMTP id
- s38mr14781112oiw.152.1640627337723; 
- Mon, 27 Dec 2021 09:48:57 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- 23sm2931424oty.6.2021.12.27.09.48.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Dec 2021 09:48:57 -0800 (PST)
-To: Niklas Schnelle <schnelle@linux.ibm.com>, Arnd Bergmann
- <arnd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- John Garry <john.garry@huawei.com>, Nick Hu <nickhu@andestech.com>,
- Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Guo Ren <guoren@kernel.org>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
- <brgl@bgdev.pl>, Jean Delvare <jdelvare@suse.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Karsten Keil <isdn@linux-pingi.de>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sathya Prakash <sathya.prakash@broadcom.com>,
- Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
- Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
- Michael Grzeschik <m.grzeschik@pengutronix.de>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>, Kalle Valo <kvalo@kernel.org>,
- Jouni Malinen <j@w1.fi>, "James E.J. Bottomley" <jejb@linux.ibm.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Hannes Reinecke <hare@suse.com>, Kashyap Desai <kashyap.desai@broadcom.com>,
- Sumit Saxena <sumit.saxena@broadcom.com>,
- Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
- Nilesh Javali <njavali@marvell.com>, GR-QLogic-Storage-Upstream@marvell.com,
- Mark Brown <broonie@kernel.org>, Sudip Mukherjee
- <sudipm.mukherjee@gmail.com>, Teddy Wang <teddy.wang@siliconmotion.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Forest Bond <forest@alittletooquiet.net>, Jiri Slaby <jirislaby@kernel.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="AP7PTZtl"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5464961152;
+ Tue, 28 Dec 2021 02:10:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19A8C36AEA;
+ Tue, 28 Dec 2021 02:09:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1640657404;
+ bh=SWYw07zmaaDNu+bU6UjWMUGttSEKl48ssAwYr917Irk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=AP7PTZtlYcp1DDFFD9oOox44rlGILxnZhjrWGoppO9nx889cG994Anev93Fi8avnE
+ QKDjPgXQd+0j5ryyJUZRF2fBwkLwO80XrnSF/7Fx+x50yneeRCMv+6NTewDTm+M3mY
+ UmjlUI3lKpBa+eY+azArRNs2im3Ff4KiJ7Zi2yf5dhhdWeFi5sankCfKs3hH/NkcWY
+ C3nDae4xyYfSY866Hl7iueZkbXg7sQjQFFHeioueEr+2zR+wkgXwGDiPuaIoio9xml
+ rwSFGRLZ2Ry45efsPcHYEzY5Wj/FdpgdsOlVeG8/L54LBpew0o0F/pJgWb5CCAbMPX
+ 5d9alQgd1Ngqw==
+Date: Tue, 28 Dec 2021 03:09:46 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Niklas Schnelle <schnelle@linux.ibm.com>
+Subject: Re: [RFC 01/32] Kconfig: introduce and depend on LEGACY_PCI
+Message-ID: <20211228030946.65932d2e@coco.lan>
+In-Reply-To: <20211227164317.4146918-2-schnelle@linux.ibm.com>
 References: <20211227164317.4146918-1-schnelle@linux.ibm.com>
  <20211227164317.4146918-2-schnelle@linux.ibm.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [RFC 01/32] Kconfig: introduce and depend on LEGACY_PCI
-Message-ID: <281298ec-3898-9b02-1d92-66bf6df41170@roeck-us.net>
-Date: Mon, 27 Dec 2021 09:48:50 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20211227164317.4146918-2-schnelle@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 29 Dec 2021 15:20:41 +0100
-Cc: linux-fbdev@vger.kernel.org, linux-pci@vger.kernel.org,
+Cc: linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
  alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
- linux-ide@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-csky@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org,
- megaraidlinux.pdl@broadcom.com, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
+ linux-ide@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+ Guo Ren <guoren@kernel.org>, linux-i2c@vger.kernel.org,
+ linux-riscv@lists.infradead.org, Vincent Chen <deanbo422@gmail.com>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, Hannes Reinecke <hare@suse.com>,
+ Michael Grzeschik <m.grzeschik@pengutronix.de>, linux-scsi@vger.kernel.org,
+ Sumit Saxena <sumit.saxena@broadcom.com>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ Sathya Prakash <sathya.prakash@broadcom.com>,
+ Jesse Brandeburg <jesse.brandeburg@intel.com>, linux-csky@vger.kernel.org,
+ Kashyap Desai <kashyap.desai@broadcom.com>,
+ Nilesh Javali <njavali@marvell.com>, intel-wired-lan@lists.osuosl.org,
+ linux-serial@vger.kernel.org, GR-QLogic-Storage-Upstream@marvell.com,
+ Jakub Kicinski <kuba@kernel.org>, MPT-FusionLinux.pdl@broadcom.com,
+ "James E.J.
+ Bottomley" <jejb@linux.ibm.com>, Guenter Roeck <linux@roeck-us.net>,
+ linux-media@vger.kernel.org, linux-input@vger.kernel.org,
+ Albert Ou <aou@eecs.berkeley.edu>, linux-watchdog@vger.kernel.org,
+ Jouni Malinen <j@w1.fi>,
+ Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+ Kalle Valo <kvalo@kernel.org>, John Garry <john.garry@huawei.com>,
+ linux-spi@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, Mark Brown <broonie@kernel.org>,
+ Greentime Hu <green.hu@gmail.com>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ megaraidlinux.pdl@broadcom.com, Teddy Wang <teddy.wang@siliconmotion.com>,
+ linux-hwmon@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>,
+ Karsten Keil <isdn@linux-pingi.de>,
+ Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Nick Hu <nickhu@andestech.com>, Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+ Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-wireless@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, "David S. Miller" <davem@davemloft.net>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Forest Bond <forest@alittletooquiet.net>,
+ netdev@vger.kernel.org, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>, Bartosz Golaszewski <brgl@bgdev.pl>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -152,7 +127,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12/27/21 8:42 AM, Niklas Schnelle wrote:
+Em Mon, 27 Dec 2021 17:42:46 +0100
+Niklas Schnelle <schnelle@linux.ibm.com> escreveu:
+
 > Introduce a new LEGACY_PCI Kconfig option which gates support for legacy
 > PCI devices including those attached to a PCI-to-PCI Express bridge and
 > PCI Express devices using legacy I/O spaces. Note that this is different
@@ -162,14 +139,51 @@ On 12/27/21 8:42 AM, Niklas Schnelle wrote:
 > legacy PCI devices and ifdef legacy PCI specific functions in ata
 > handling.
 > 
+> Co-developed-by: Arnd Bergmann <arnd@kernel.org>
+> Signed-off-by: Arnd Bergmann <arnd@kernel.org>
+> Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
+> ---
+>  drivers/ata/Kconfig                          | 34 ++++++++--------
+>  drivers/ata/ata_generic.c                    |  3 +-
+>  drivers/ata/libata-sff.c                     |  2 +
+>  drivers/comedi/Kconfig                       | 42 +++++++++++++++++++
+>  drivers/gpio/Kconfig                         |  2 +-
+>  drivers/hwmon/Kconfig                        |  6 +--
+>  drivers/i2c/busses/Kconfig                   | 24 +++++------
+>  drivers/input/gameport/Kconfig               |  4 +-
+>  drivers/isdn/hardware/mISDN/Kconfig          | 14 +++----
 
-This effectively disables all default configurations which now depend
-on CONFIG_LEGACY_PCI. Yet, I don't see CONFIG_LEGACY_PCI added to
-configuration files which explicitly enable any of the affected
-configurations. Is that on purpose ? If so, I think it should at least
-be mentioned in the commit description. However, I think it would be
-more appropriate to either delete all affected configuration flags from
-the affected configuration files, or to add CONFIG_LEGACY_PCI=y to those
-files.
+>  drivers/media/cec/platform/Kconfig           |  2 +-
+>  drivers/media/pci/dm1105/Kconfig             |  2 +-
+>  drivers/media/radio/Kconfig                  |  2 +-
 
-Guenter
+Not sure what you meant by "legacy I/O spaces" on this patch. 
+I mean, I would expect non-PCIe devices - like bttv and other
+devices developed at the past millennium or so to be "legacy",
+but at least on media, it is touching some drivers that aren't
+that old, while keeping the really old ones untouched. Instead,
+it is touching a driver developed in 2017 plus two other ones
+that are a way newer than other drivers.
+
+The support for the Bt8xx chipset, in particular, is really 
+weird, as a sound driver for such chipset:
+
+> @@ -172,6 +177,7 @@ config SND_AZT3328
+>  
+>  config SND_BT87X
+>  	tristate "Bt87x Audio Capture"
+> +	depends on LEGACY_PCI
+>  	select SND_PCM
+>  	help
+>  	  If you want to record audio from TV cards based on
+
+was marked as dependent of LEGACY_PCI, while the DVB and V4L2 ones 
+weren't.
+
+Sounds confusing to me, as the PCI bridge used by a Bt87x device 
+should be the same for all three subdevices.
+
+I'm confused...
+
+Regards,
+Mauro

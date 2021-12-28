@@ -2,122 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AFFC481410
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 15:24:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C400481411
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 15:25:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A2DC17A5;
-	Wed, 29 Dec 2021 15:23:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A2DC17A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 182D117BF;
+	Wed, 29 Dec 2021 15:24:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 182D117BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640787888;
-	bh=T3HUEllg1Pw7vYBFjSPgjWTc0i5UwlDCIB5VYMi9zQk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=I0UZehJmGoNL2DyMTrSZ771DP66WLXL7Bm5QTo20UXMk4rMpZGLigCSy5J3T2Av7L
-	 CPWiz+uPhihx4qVHR8ps/9AwBYE/T/5ClMT9T4+MrHN5QOGBokwm5yDW04olYME2od
-	 bDpO9fh3L3kAeAu2xJd2/+q1T9cF9EgSDAb0WqqM=
+	s=default; t=1640787904;
+	bh=mJZbUJwRHeDPtocpi2IbwMtnDzzMO+WSDhY8NDfn1kc=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VU2XdJ3Txtv/tpGqUNJgyUliTvavrbx40W+MLXnti9N2dfgjbpdgsuJ3Kg//XG7v6
+	 P0Z3tXMRcIMcCQxPVKp1uGKeLBfD1sb7rAVsDQqlxl/orjRzyfUJoC7cPhrObMUcxV
+	 1gXu7XeGEZsp9z/e7I7CI3KXVVKma7dVoiBxrCeQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9033F80535;
-	Wed, 29 Dec 2021 15:20:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47DB8F80539;
+	Wed, 29 Dec 2021 15:20:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0C47F80224; Tue, 28 Dec 2021 18:13:26 +0100 (CET)
+ id EF591F80224; Tue, 28 Dec 2021 19:10:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65962F800E9
- for <alsa-devel@alsa-project.org>; Tue, 28 Dec 2021 18:13:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65962F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aC2AgnEY"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from sender11-of-o51.zoho.eu (sender11-of-o51.zoho.eu
+ [31.186.226.237])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 05949B81689;
- Tue, 28 Dec 2021 17:13:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC36C36AF0;
- Tue, 28 Dec 2021 17:13:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640711595;
- bh=T3HUEllg1Pw7vYBFjSPgjWTc0i5UwlDCIB5VYMi9zQk=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=aC2AgnEYsVn8ajMr8WXjrdgvYdxaICxzBEIqsQvRNJDdSNTmgYKxxE13ldY57jvt6
- wtSnEDHwfFeP7WPa1v2BXHsL164j0gjjc1waprQ7FxnadoJwpFcS8YPlJ1fRUUEgNG
- 1n8B6ybs2qiYbmmANluzHzAR+HA2JhBdfnB5r0OInhaGxnhy9LnnhUQ0kSAmYqyjvt
- U8WA12Q8XWC6B4+2O+Uw+3c+bVIkQEInrB+E4lsE9bM/HIbStWglKd4TfiZn9oNjTC
- 71qzDaDkiqAQz8JEolGNowQ5U8m10M955+gDpfmp1KuoHVnN/ysNieqn8T0FB5YrhX
- IQJmZwEC33MlQ==
-Date: Tue, 28 Dec 2021 18:12:58 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Niklas Schnelle <schnelle@linux.ibm.com>, Hans Verkuil
- <hverkuil-cisco@xs4all.nl>, Ettore Chimenti <ek5.chimenti@gmail.com>
-Subject: Re: [RFC 01/32] Kconfig: introduce and depend on LEGACY_PCI
-Message-ID: <20211228181107.2d476028@coco.lan>
-In-Reply-To: <4b630b7b87bd983291f628c42a1394fc0d2d86bd.camel@linux.ibm.com>
-References: <20211227164317.4146918-1-schnelle@linux.ibm.com>
- <20211227164317.4146918-2-schnelle@linux.ibm.com>
- <YcrJAwsKIxxX18pW@kroah.com> <20211228101435.3a55b983@coco.lan>
- <b1475f6aecb752a858941f44a957b2183cd68405.camel@linux.ibm.com>
- <20211228135425.0a69168c@coco.lan>
- <4b630b7b87bd983291f628c42a1394fc0d2d86bd.camel@linux.ibm.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 347ECF800D1
+ for <alsa-devel@alsa-project.org>; Tue, 28 Dec 2021 19:09:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 347ECF800D1
+ARC-Seal: i=1; a=rsa-sha256; t=1640714974; cv=none; d=zohomail.eu; s=zohoarc; 
+ b=b+2at6/dS3v78Y4eHWBZ+2wS9KgpDxcfg90OGlhKXFSnZpa1Iy7LrzS41PAghefXVdxUWhrLSlgAajpDxXVhVk3gkwA8uVLGCfG6PjhGbFJD/EBYmvyrbMIduCYJuvbsbWov3l6VjuRUPcDNSFUjT5QGFvY82Ej5fimGi4sHVY8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
+ s=zohoarc; t=1640714974;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To;
+ bh=oynB9R8k0PLl1IH46elp4NZHwnEBnjiXaZcMGJZ+cRY=; 
+ b=EJoBw4b5ePgr40U5SjGlpKS2nEGxPrKIrV9RZRwOx6vYwkXJBvzGcTfOnR/ql9qzKm03QSDuUyDX+q4gBupGbpVEhS+Nr78rE/z+Yi4Lez7GOxkjl7S3jJDLB5eEZ7+1gUJ0IuPgnLcTBqsIzHZONcEkCu4dYY18zcH22VY+f30=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+ spf=pass  smtp.mailfrom=philipp@uvos.xyz;
+ dmarc=pass header.from=<philipp@uvos.xyz>
+Received: from UVOSLinux (aftr-37-201-192-113.unity-media.net
+ [37.201.192.113]) by mx.zoho.eu
+ with SMTPS id 1640714972300267.32556141033467;
+ Tue, 28 Dec 2021 19:09:32 +0100 (CET)
+Date: Tue, 28 Dec 2021 19:09:31 +0100
+From: Carl Philipp Klemm <philipp@uvos.xyz>
+To: alsa-devel@alsa-project.org
+Subject: [RFC PATCH 1/3] ASoC: simple-card-utils: add support for componants
+ provideing jack events via set_jack
+Message-Id: <20211228190931.df5d518220080a734532ebfd@uvos.xyz>
+X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-unknown-linux-gnu)
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-Mailman-Approved-At: Wed, 29 Dec 2021 15:20:41 +0100
-Cc: linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
- linux-ide@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
- Guo Ren <guoren@kernel.org>, linux-i2c@vger.kernel.org,
- linux-riscv@lists.infradead.org, Vincent Chen <deanbo422@gmail.com>,
- Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
- linux-arch@vger.kernel.org, Hannes Reinecke <hare@suse.com>,
- Michael Grzeschik <m.grzeschik@pengutronix.de>,
- intel-wired-lan@lists.osuosl.org, linux-scsi@vger.kernel.org,
- Sumit Saxena <sumit.saxena@broadcom.com>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- Sathya Prakash <sathya.prakash@broadcom.com>,
- Jesse Brandeburg <jesse.brandeburg@intel.com>, linux-csky@vger.kernel.org,
- Kashyap Desai <kashyap.desai@broadcom.com>,
- Nilesh Javali <njavali@marvell.com>, Bjorn Helgaas <helgaas@kernel.org>,
- linux-serial@vger.kernel.org, GR-QLogic-Storage-Upstream@marvell.com,
- Jakub Kicinski <kuba@kernel.org>, MPT-FusionLinux.pdl@broadcom.com,
- "James E.J.
- Bottomley" <jejb@linux.ibm.com>, Guenter Roeck <linux@roeck-us.net>,
- linux-media@vger.kernel.org, linux-input@vger.kernel.org,
- Albert Ou <aou@eecs.berkeley.edu>, linux-watchdog@vger.kernel.org,
- Jouni Malinen <j@w1.fi>,
- Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
- Kalle Valo <kvalo@kernel.org>, John Garry <john.garry@huawei.com>,
- linux-spi@vger.kernel.org, linux-gpio@vger.kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, Mark Brown <broonie@kernel.org>,
- Greentime Hu <green.hu@gmail.com>, Paul Walmsley <paul.walmsley@sifive.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Wim Van Sebroeck <wim@linux-watchdog.org>,
- megaraidlinux.pdl@broadcom.com, Teddy Wang <teddy.wang@siliconmotion.com>,
- linux-hwmon@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>,
- Karsten Keil <isdn@linux-pingi.de>,
- Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Nick Hu <nickhu@andestech.com>, Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
- Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-wireless@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, "David S. Miller" <davem@davemloft.net>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Forest Bond <forest@alittletooquiet.net>,
- netdev@vger.kernel.org, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: tony@atomide.com, merlijn@wizzup.org, linux-omap@vger.kernel.org,
+ sre@kernel.org, kuninori.morimoto.gx@renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,127 +79,130 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Tue, 28 Dec 2021 16:06:44 +0100
-Niklas Schnelle <schnelle@linux.ibm.com> escreveu:
+This allows componants that want a jack to report state on to do so by calling
+set_jack on components implementing this function.
 
-(on a side note: the c/c list of this patch is too long. I would try to
-avoid using a too long list, as otherwise this e-mail may end being rejected
-by mail servers)
+Im not entirely sure this is the right way to do this so RFC
 
-> On Tue, 2021-12-28 at 13:54 +0100, Mauro Carvalho Chehab wrote:
-> >  
-> ---8<---
-> >     
-> > > > > All you really care about is the "legacy" I/O spaces here, this isn't
-> > > > > tied to PCI specifically at all, right?
-> > > > > 
-> > > > > So why not just have a OLD_STYLE_IO config option or something like
-> > > > > that, to show that it's the i/o functions we care about here, not PCI at
-> > > > > all?
-> > > > > 
-> > > > > And maybe not call it "old" or "legacy" as time constantly goes forward,
-> > > > > just describe it as it is, "DIRECT_IO"?    
-> > > > 
-> > > > Agreed. HAVE_PCI_DIRECT_IO (or something similar) seems a more appropriate
-> > > > name for it.
-> > > > 
-> > > > Thanks,
-> > > > Mauro    
-> > > 
-> > > Hmm, I might be missing something here but that sounds a lot like the
-> > > HAS_IOPORT option added in patch 02.
-> > > 
-> > > We add both LEGACY_PCI and HAS_IOPORT to differentiate between two
-> > > cases. HAS_IOPORT is for PC-style devices that are not on a PCI card
-> > > while LEGACY_PCI is for PCI drivers that require port I/O.   
-> > 
-> > I didn't look at the other patches on this series, but why it is needed
-> > to deal with them on a separate way? Won't "PCI" and "HAS_IOPORT" be enough? 
-> > 
-> > I mean, are there any architecture where HAVE_PCI=y and HAS_IOPORT=y
-> > where LEGACY_PCI shall be "n"?  
-> 
-> In the current patch set LEGACY_PCI is not currently selected by
-> architectures, though of course it could be if we know that an
-> architecture requires it. We should probably also set it in any
-> defconfig that has devices depending on it so as not to break these.
-> 
-> Other than that it would be set during kernel configuration if one
-> wants/needs support for legacy PCI devices. For testing I ran with
-> HAVE_PCI=y, HAS_IOPORT=y and LEGACY_PCI=n on both my local Ryzen 3990X
-> based workstation and Raspberry Pi 4 (DT). I guess at the moment it
-> would make most sense for special configs such as those tailored for
-> vitualization guets but in the end that would be something for
-> distributions to decide.
+Signed-off-by: Carl Philipp Klemm <philipp@uvos.xyz>
+---
+ include/sound/simple_card_utils.h     |  6 ++--
+ sound/soc/generic/simple-card-utils.c | 47 +++++++++++++++++++--------
+ 2 files changed, 36 insertions(+), 17 deletions(-)
 
-IMO, it makes sense to have a "default y" there, as on systems that
-support I/O space, disabling it will just randomly disable some drivers
-that could be required by some hardware. I won't doubt that some of 
-those could be ported from using inb/outb to use, instead, readb/writeb.
-
-> 
-> Arnd described the options here:
-> https://lore.kernel.org/lkml/CAK8P3a3HHeP+Gw_k2P7Qtig0OmErf0HN30G22+qHic_uZTh11Q@mail.gmail.com/
-
-Based on Arnd's description, LEGACY_PCI should depend on HAS_IOPORT.
-This is missing on patch 1. You should probably reorder your patch
-series to first create HAS_IOPORT and then add LEGACY_PCI with
-depends on, as otherwise it may cause randconfig build issues
-at robots and/or git bisect.
-
-I would also suggest to first introduce such change and then send
-a per-subsystem LEGACY_PCI patch, as it would be a lot easier for
-maintainers to review.
-
-> 
-> >   
-> > > This
-> > > includes pre-PCIe devices as well as PCIe devices which require
-> > > features like I/O spaces. The "legacy" naming is comes from the PCIe
-> > > spec which in section 2.1.1.2 says "PCI Express supports I/O Space for
-> > > compatibility with legacy devices which require their use. Future
-> > > revisions of this specification may deprecate the use of I/O Space."  
-> > 
-> > I would still avoid calling it LEGACY_PCI, as this sounds too generic.
-> > 
-> > I didn't read the PCI/PCIe specs, but I suspect that are a lot more
-> > features that were/will be deprecated on PCI specs as time goes by.
-> > 
-> > So, I would, instead, use something like PCI_LEGACY_IO_SPACE or 
-> > HAVE_PCI_LEGACY_IO_SPACE, in order to let it clear what "legacy"
-> > means.  
-> 
-> Hmm, I'd like to hear Bjorn's opinion on this. Personally I feel like
-> LEGACY_PCI is pretty clear since most devices are either pre-PCIe
-> devices or a compatibility feature allowing drivers for a pre-PCIe
-> device to work with a PCIe device.
-
-That's the main point: it is *not* disabling pre-PCIe devices or
-even legacy PCI drivers. It just disables a random set of drivers just
-because they use inb/outb instead of readb/writeb. It keeps several pure 
-PCI drivers selected, and disables some PCIe for no real reason.
-
-Just to give one example, this symbol:
-
-> diff --git a/drivers/media/cec/platform/Kconfig b/drivers/media/cec/platform/Kconfig
-> index b672d3142eb7..5e92ece5b104 100644
-> --- a/drivers/media/cec/platform/Kconfig
-> +++ b/drivers/media/cec/platform/Kconfig
-> @@ -100,7 +100,7 @@ config CEC_TEGRA
->  config CEC_SECO
->  	tristate "SECO Boards HDMI CEC driver"
->  	depends on (X86 || IA64) || COMPILE_TEST
-> -	depends on PCI && DMI
-> +	depends on LEGACY_PCI && DMI
->  	select CEC_CORE
->  	select CEC_NOTIFIER
->  	help
-
-Disables HDMI CEC support on some Intel motherboards.
-Any distro meant to run on generic hardware should keep it selected.
-
-I can see some value of a "PCI_LEGACY" option to disable all
-non-PCIe drivers, but this is not the case here.
-
-Thanks,
-Mauro
+diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
+index 51b3b485a92e..547ad537613d 100644
+--- a/include/sound/simple_card_utils.h
++++ b/include/sound/simple_card_utils.h
+@@ -57,8 +57,8 @@ struct asoc_simple_priv {
+ 		struct prop_nums num;
+ 		unsigned int mclk_fs;
+ 	} *dai_props;
+-	struct asoc_simple_jack hp_jack;
+-	struct asoc_simple_jack mic_jack;
++	struct asoc_simple_jack *hp_jack;
++	struct asoc_simple_jack *mic_jack;
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct asoc_simple_dai *dais;
+ 	struct snd_soc_dai_link_component *dlcs;
+@@ -173,7 +173,7 @@ int asoc_simple_parse_pin_switches(struct snd_soc_card *card,
+ 				   char *prefix);
+ 
+ int asoc_simple_init_jack(struct snd_soc_card *card,
+-			       struct asoc_simple_jack *sjack,
++			       struct asoc_simple_jack **sjack,
+ 			       int is_hp, char *prefix, char *pin);
+ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+ 			       struct link_info *li);
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index 10c63b73900c..1899feba16cc 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -395,6 +395,7 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
+ 	struct simple_dai_props *props = simple_priv_to_props(priv, rtd->num);
+ 	struct asoc_simple_dai *dai;
++	struct snd_soc_component *component;
+ 	int i, ret;
+ 
+ 	for_each_prop_dai_codec(props, i, dai) {
+@@ -412,6 +413,21 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	for_each_rtd_components(rtd, i, component) {
++		if (component->driver->set_jack) {
++			if (!priv->hp_jack) {
++				priv->hp_jack = devm_kzalloc(priv->snd_card.dev,
++					sizeof(*priv->hp_jack), GFP_KERNEL);
++				snd_soc_card_jack_new(&priv->snd_card,
++					"Headphones",
++					SND_JACK_HEADPHONE,
++					&priv->hp_jack->jack,
++					NULL, 0);
++			}
++			snd_soc_component_set_jack(component, &priv->hp_jack->jack, NULL);
++		}
++	}
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_dai_init);
+@@ -554,7 +570,7 @@ int asoc_simple_parse_pin_switches(struct snd_soc_card *card,
+ EXPORT_SYMBOL_GPL(asoc_simple_parse_pin_switches);
+ 
+ int asoc_simple_init_jack(struct snd_soc_card *card,
+-			  struct asoc_simple_jack *sjack,
++			  struct asoc_simple_jack **sjack,
+ 			  int is_hp, char *prefix,
+ 			  char *pin)
+ {
+@@ -569,8 +585,6 @@ int asoc_simple_init_jack(struct snd_soc_card *card,
+ 	if (!prefix)
+ 		prefix = "";
+ 
+-	sjack->gpio.gpio = -ENOENT;
+-
+ 	if (is_hp) {
+ 		snprintf(prop, sizeof(prop), "%shp-det-gpio", prefix);
+ 		pin_name	= pin ? pin : "Headphones";
+@@ -588,21 +602,26 @@ int asoc_simple_init_jack(struct snd_soc_card *card,
+ 		return -EPROBE_DEFER;
+ 
+ 	if (gpio_is_valid(det)) {
+-		sjack->pin.pin		= pin_name;
+-		sjack->pin.mask		= mask;
++		struct asoc_simple_jack *sjack_d;
++
++		sjack = devm_kzalloc(dev, sizeof(*(*sjack)), GFP_KERNEL);
++		sjack_d = *sjack;
++
++		sjack_d->pin.pin		= pin_name;
++		sjack_d->pin.mask		= mask;
+ 
+-		sjack->gpio.name	= gpio_name;
+-		sjack->gpio.report	= mask;
+-		sjack->gpio.gpio	= det;
+-		sjack->gpio.invert	= !!(flags & OF_GPIO_ACTIVE_LOW);
+-		sjack->gpio.debounce_time = 150;
++		sjack_d->gpio.name	= gpio_name;
++		sjack_d->gpio.report	= mask;
++		sjack_d->gpio.gpio	= det;
++		sjack_d->gpio.invert	= !!(flags & OF_GPIO_ACTIVE_LOW);
++		sjack_d->gpio.debounce_time = 150;
+ 
+ 		snd_soc_card_jack_new(card, pin_name, mask,
+-				      &sjack->jack,
+-				      &sjack->pin, 1);
++				      &sjack_d->jack,
++				      &sjack_d->pin, 1);
+ 
+-		snd_soc_jack_add_gpios(&sjack->jack, 1,
+-				       &sjack->gpio);
++		snd_soc_jack_add_gpios(&sjack_d->jack, 1,
++				       &sjack_d->gpio);
+ 	}
+ 
+ 	return 0;
+-- 
+2.34.1

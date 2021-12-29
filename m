@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4276480E8C
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 02:33:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1E25480EB5
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 02:50:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5275716C0;
-	Wed, 29 Dec 2021 02:32:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5275716C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59A15170D;
+	Wed, 29 Dec 2021 02:49:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59A15170D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640741614;
-	bh=7ES95mWfx1mUrmrJAWxwnmJTFKvr4KnUGLncC9rSghg=;
+	s=default; t=1640742609;
+	bh=2Yjt0IGTRe1i+fTb9jqiANTOxesAzMW8AbHR0kCH564=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HzqPykNOjHtXGIRvKGAgpVvROje2t1dm2D5XPTXHhzwrcEEWbTVt7AzEgNyK+7tJ6
-	 0BSvA8StAWPUzeejqDUH0iTnXVuyaK7fwpsTylEUDlFW4r4iqgdoGvaTExQGmelJ0I
-	 0pNBrwfPYPb3AZtRjEBW0C+yFuhCBwk+Vj84H4x4=
+	b=J6A5mnEBLcV0ro/9jnajjPrQ7nfy3+4+SiLhv3AJPQcgcb26EF390+QaqEOdgRCVe
+	 tRc67nKxiKE1EjxzUurrPJFZG1DSmnoGJ8vbEozC0sww44pZdrtX+ZA4lk/UzH4r4W
+	 mEz4wGBFOK9TflXZFKh550BdAvg5mVDgM7l98r94=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEB89F80246;
-	Wed, 29 Dec 2021 02:32:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC2E1F80246;
+	Wed, 29 Dec 2021 02:49:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E5B5F80224; Wed, 29 Dec 2021 02:32:27 +0100 (CET)
+ id 32AC0F80224; Wed, 29 Dec 2021 02:49:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 7C270F800E9
- for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 02:32:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C270F800E9
+ by alsa1.perex.cz (Postfix) with ESMTP id 26326F800D3
+ for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 02:48:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26326F800D3
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1640741543083658934-webhooks-bot@alsa-project.org>
-References: <1640741543083658934-webhooks-bot@alsa-project.org>
+In-Reply-To: <1640742531472625971-webhooks-bot@alsa-project.org>
+References: <1640742531472625971-webhooks-bot@alsa-project.org>
 Subject: [patch] /usr/share/alsa/speaker-test/sample_map.csv is not accurate, 
  which does not affect operation of speaker-test
-Message-Id: <20211229013227.3E5B5F80224@alsa1.perex.cz>
-Date: Wed, 29 Dec 2021 02:32:27 +0100 (CET)
+Message-Id: <20211229014901.32AC0F80224@alsa1.perex.cz>
+Date: Wed, 29 Dec 2021 02:49:01 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,6 +74,7 @@ With alsa-utils 1.2.6:
 ```
 The directory ``/usr/share/alsa/samples/`` does not exist. It sounds as if ``speaker-test -t wav`` plays the files mentioned in the diff. This inaccuracy does not affect the operation of ``speaker-test``. Do the paths to the wav files are hard coded within ``speaker-test``? Does only their ``basename`` counts?  Still, I find it a minor bug.
 Why is ``/usr/share/alsa/speaker-test/sample_map.csv`` distributed anyway? Am I misunderstanding [Install sound samples to correct places](https://github.com/alsa-project/alsa-utils/commit/fb2f99f1f99c430d1ca263be84d919aa808601c3)? Is it for informational purposes? Was it used in the past, and no longer serves its purpose? Is it planed to be used in the future? Is it something else?
+[speaker-test.c](https://github.com/alsa-project/alsa-utils/blob/00be486131129a6d209de62202d2a4974638127f/speaker-test/speaker-test.c):742 has the ``basename``s hardcoded. And there is also the default value for ``--wavdir`` of ``/usr/share/sounds/alsa``.
 
 Issue URL     : https://github.com/alsa-project/alsa-utils/issues/133
 Repository URL: https://github.com/alsa-project/alsa-utils

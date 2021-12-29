@@ -2,78 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F96B4812CB
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 13:44:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44ABE4812CE
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 13:46:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A91551716;
-	Wed, 29 Dec 2021 13:43:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A91551716
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDBE81775;
+	Wed, 29 Dec 2021 13:45:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDBE81775
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640781873;
-	bh=UfYolpn+RgMIdjPgRGBmiG9V4Rtqln7egsudZE+1jNk=;
+	s=default; t=1640782006;
+	bh=LkEewqSCwwrev2AusiOOu35hCs+738LXbqsq/SHqUzU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PWH3F3cmfyEhmEmi4P9l+jBbDUCw603yTe/IrL1keCrGTZA5Yh09k6PKh3ypsltJ/
-	 Zh5DtWj45rPQjtPg3cdHWPiAdZoGL4MneudTpTRufWHTNWzxYFuwnjFzF0GFvePdb4
-	 bVR28FJx2VYXDlG1EKLzOCkXHyfUDjOkflT7TZtY=
+	b=FKmcy8muRXdFR1t3dr4WGpk9wfyzsDsh84ieJsE+dT4JguxdfXQEOb/iZK8OydVfS
+	 e+Did+3hPSpS27282JowTxYXwGT+YYI8JWxZS9zIKZpW5/8JyEwJb40wXLBEDYY63b
+	 yIsVW2mAtKhpi0hWjf0nQ1YJWf2dHxIae435C58g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1427BF800D1;
-	Wed, 29 Dec 2021 13:43:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F12BF800D3;
+	Wed, 29 Dec 2021 13:45:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8EE30F801EC; Wed, 29 Dec 2021 13:43:25 +0100 (CET)
+ id 4C0BFF801EC; Wed, 29 Dec 2021 13:45:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 16086F800D1
- for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 13:43:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16086F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A9F0F800D3
+ for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 13:45:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A9F0F800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Gn67DqSS"
+ header.b="U6NiT/FK"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A4DD361451;
- Wed, 29 Dec 2021 12:43:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C827C36AE7;
- Wed, 29 Dec 2021 12:43:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 49D31614A9;
+ Wed, 29 Dec 2021 12:45:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C0CC36AE9;
+ Wed, 29 Dec 2021 12:45:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640781797;
- bh=UfYolpn+RgMIdjPgRGBmiG9V4Rtqln7egsudZE+1jNk=;
+ s=k20201202; t=1640781932;
+ bh=LkEewqSCwwrev2AusiOOu35hCs+738LXbqsq/SHqUzU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Gn67DqSSXTIJeQ7+jS/FZvDzFs628uGtUXw5rSHPy18dmXbQVX+RmYjpLyxVKxGSM
- M5bNPMHnx0VKSLLy/ancXNJV/BeToG9d+0tqlPcu+5BJN3/G982dvkFjcGBY41DFQy
- qoD5BBBfrGR4+OVpLBLjEZpG7/Z1cTC57B8r0TmaYWooJA+XwgRd0h7eLRNzgjU6Ee
- L9U/QiBNuMv2F6E//T+Wc//CVUxk3EDwJdSXQ7ecxg1Kxm22psHZD4nEHTpMkAC/rX
- 706Sv8xufJUII7/ZrJ2ZXeW7vjgDNc2tVRz6OLF8vYLGAq5HeBzEGOEvU7wnx0eqAf
- 8b08fAGqEH9Xg==
-Date: Wed, 29 Dec 2021 12:43:09 +0000
+ b=U6NiT/FKhGxxPt0mDd/pdVg0y6WonKk8EgHEqSr1h/cZlJLcoMCIxagan8VfLIoG2
+ 2BZRBH0ARPh76LZBV2RF4bGmrXQVpfDfUw+8prXjeZ1vBxWy3EUVc1Sxh1ckUaD+ou
+ 0unT2kEthlYKyLoe5BWKUNaUMw82z06GGa7MM4c+D6W2oEemYvPLayEX0G4yKKAiKM
+ my/zMHQd4aW+tWYA8BZuwUAIq4k9bavIbirfa/e6JV6N1TzFvS80o0VnazJlXigwVR
+ sEmBal1H1DJ6FiTkMXSxoE15MxIbS2mHFieeMvkqO7PdDg83MgZWo3cGg2MOcloyqW
+ zMNmzKX8LEk7w==
+Date: Wed, 29 Dec 2021 12:45:26 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-Subject: Re: [PATCH v2 2/3] ASoC: cs4265: Fix the reset_gpio polarity
-Message-ID: <YcxX3XFWO9jQWlLJ@sirena.org.uk>
-References: <20211229114457.4101989-1-festevam@gmail.com>
- <20211229114457.4101989-2-festevam@gmail.com>
- <20211229115352.GA18506@ediswmail.ad.cirrus.com>
- <CAOMZO5DcXUR2Z6-cokwizDbAKnEs877AjbX9FEow2RFHfebnuw@mail.gmail.com>
+To: Seven Lee <wtli@nuvoton.com>
+Subject: Re: [PATCH] ASoC: nau8821: Add DMIC selections.
+Message-ID: <YcxYZqZ6aVh1zfY3@sirena.org.uk>
+References: <20211228035101.2973294-1-wtli@nuvoton.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hq8rfqdTxyCff+UD"
+ protocol="application/pgp-signature"; boundary="CjW8vPa9drBrBAgB"
 Content-Disposition: inline
-In-Reply-To: <CAOMZO5DcXUR2Z6-cokwizDbAKnEs877AjbX9FEow2RFHfebnuw@mail.gmail.com>
+In-Reply-To: <20211228035101.2973294-1-wtli@nuvoton.com>
 X-Cookie: New customers only.
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Fabio Estevam <festevam@denx.de>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, "Handrigan,
- Paul" <Paul.Handrigan@cirrus.com>, james.schulman@cirrus.com
+Cc: alsa-devel@alsa-project.org, scott6986@gmail.com, KCHSU0@nuvoton.com,
+ lgirdwood@gmail.com, YHCHuang@nuvoton.com, CTLIN0@nuvoton.com,
+ dardar923@gmail.com, supercraig0719@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,33 +88,34 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---hq8rfqdTxyCff+UD
+--CjW8vPa9drBrBAgB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 29, 2021 at 09:04:19AM -0300, Fabio Estevam wrote:
+On Tue, Dec 28, 2021 at 11:51:01AM +0800, Seven Lee wrote:
+> Add the following two control options:
+> 1. DMIC pin slew rate selection.
+> 2. DMIC clock speed selection.
 
-> I could not find a single user of the cs4265 in linux-next.
+The clock speed seems sensible enough to control from userspace since
+it's going to be a power/performance tradeoff but why also expose the
+slew rate to userspace - that seems more like something that would come
+=66rom the board design?
 
-> The board I have does not connect a GPIO to the CS4264 reset line, so
-> I am not affected by it.
-
-There might be more out of tree users of course - there's no requirement
-for people to upstream their DTs.  Probably better to play it safe.
-
---hq8rfqdTxyCff+UD
+--CjW8vPa9drBrBAgB
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHMV90ACgkQJNaLcl1U
-h9AJggf9GbljdqSsbY6X+0ddWTAS49MhMlCfon7+rcYQddO3qezo1q8xNUhGEmgl
-hS21G3G9iomk5zxWfp/XXLdGJ8ddz+7cZigN5WKnEX+J/FKuGzpAtdp+NL4VJcnm
-52RgWKUmfV07syV4+wxNbaqNJrswihDaaeAzdQzwBbZj9wvkqmS0jwFhngMR3elo
-zK695RBVbp3Df6/baRUAQVqUv+otbx+zk1VjOALqcO9VXKMQuvJ2i4g5IFF7MB4X
-eAN27/Pi7cI82K7/ag0NBRZ/szx5tzq6ylvuXrm4VnkP1raQm0X3AO3NHL4t9e7g
-VK77HVcMVVLDiKca+oqXUit4D7mVtQ==
-=9lb3
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHMWGUACgkQJNaLcl1U
+h9DKUgf/e9rULFmpjPs1/pgqn/OuM1nKeGG02a07UlTLidiBNw41IpguW72jRWrC
+8R0RFx2FvMauq536Ek4uadcIdK1T5phB7VAzuEd3+UDxTFLroM935weVKj6u+wcx
+oPHr+ZpZNQVnJexg4qoUqAjFxFMjJgJMzIviF017h3k6B2a9LVY8mvldVhSQia+V
+giFxMPBH7K026fQTSpqi+LWgT6otfmYjPUJjewmHU2cl8VG9OUZ5T687cZDH/uyZ
+W5o+0FviSwxlQdf1P/EdCBXCzFvlGG2TRjIrMNSvs27IB7iM03zYiHA9bWdETboy
+F7uCjLG9K4B9Kvx154LKmSbkya/Cqw==
+=G8uI
 -----END PGP SIGNATURE-----
 
---hq8rfqdTxyCff+UD--
+--CjW8vPa9drBrBAgB--

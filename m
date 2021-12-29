@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17D73481388
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 14:31:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3152F481385
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 14:30:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6DC9179B;
-	Wed, 29 Dec 2021 14:30:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6DC9179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 930EB1787;
+	Wed, 29 Dec 2021 14:29:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 930EB1787
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640784687;
-	bh=w6y+9dzjomrSxzPcW24vCF6O/7bcBimAL2ZN9jS8ljg=;
+	s=default; t=1640784649;
+	bh=iI0QNMr+d99BTsr1DwhYBYpa3YGFzsYY+Ie/3TQ+VvQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sEQi296fA3eIyxpYwMK79hFE69F2KMuDwcALaWwYBkTTgxbIY3EkVOKIAOLUdYFge
-	 32DEMKsTl0H6T2WH2D4XREkWqInnXlvsrA2thoPFIk7A8H/erUQFuDFIDevDwCWM5F
-	 Z5zARshXcM/kOeLgNmg956x7qPqJfPlhvGwjiNZ8=
+	b=X+I17h59nivdEIUQ35kd80WlgZS567kDPise81WgEH7qDKOaWAuGxkJ25XVmEGpWi
+	 OfrmIG7KMLJh+jY48RnTg/cR0Onu1GXsDNCaDKg9mZHQ8sDAHL3g1sCnzQR2PmjB/8
+	 yoHh8za1ezXK/0OmJLPGlZcPAdQCkJE5yR8sr8ts=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 372CAF80279;
-	Wed, 29 Dec 2021 14:29:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBFC7F80238;
+	Wed, 29 Dec 2021 14:29:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EEEEEF80246; Wed, 29 Dec 2021 14:29:44 +0100 (CET)
+ id 984A5F80237; Wed, 29 Dec 2021 14:29:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,43 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC80AF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A470F800CE
  for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 14:29:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC80AF800F8
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A470F800CE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="elI2EpHj"
+ header.b="cnJyOPGy"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A664F614B2;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D53C1614CB;
+ Wed, 29 Dec 2021 13:29:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86405C36AED;
  Wed, 29 Dec 2021 13:29:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7887C36AEC;
- Wed, 29 Dec 2021 13:29:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640784571;
- bh=w6y+9dzjomrSxzPcW24vCF6O/7bcBimAL2ZN9jS8ljg=;
+ s=k20201202; t=1640784573;
+ bh=iI0QNMr+d99BTsr1DwhYBYpa3YGFzsYY+Ie/3TQ+VvQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=elI2EpHjUB9aJk3DJnPn/IzH6GdXQV9wWItA82EsK3fLcr12rBkc0RPTT0+yo23st
- PrUe2rTvxJV3J1eKJA7edVTwpiLBmrpI0QLoHHphhDFz4HH7xZhmpVOgb5TY8iW10q
- eWo71swh3BHJepACiPL6I+8Jd55ZhE3/6WS692WBnxZ49Po53BjpnlPa9/LGi6XOpY
- hlC24u8N3GAIO3jGxI8woskJU+9PrlBmwjYjHMlNfLZWDa3Sbihgw+1LGZxxc/oF+9
- xgsQktkjNmUE5yaD/50YW+aGyRIBsA4NOx1Yf/p6H0uBbDW40W8qW2zJXrlXnOEZ9x
- z/SRta6yd6org==
+ b=cnJyOPGyCKbtR5SsrWMDtjRlef8zvXakHhSWowHLaXpthWWA3vGYhsM6+csXt0l27
+ qZ6o2+YzQHyUV2z47ziTP06aaVL2CaiCYHHZd59Xnxlxw0Yt85qnjyyJalFiid3jGt
+ B5rGwEKy0IXocpGSpwRGguXuMr6gUdJn/hrbXEHoajOjXw89vM8q+9MuF++Mxw/Rx5
+ TG9AL6ZtDKTlvK3bIle64CaMdwOCq2xx5++u61AMmhnHHWWNCF+2g7rX4nZqHnmyEd
+ /ciINCOJg3IU1Lte0unOky1FEPmwP2W0ab1jPPG9c9Vcep5GZsbhYm3Ulxyql59hE0
+ SiszNz+7b/YVw==
 From: Mark Brown <broonie@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-In-Reply-To: <20211222141920.1482451-1-festevam@gmail.com>
-References: <20211222141920.1482451-1-festevam@gmail.com>
-Subject: Re: (subset) [PATCH RESEND 1/2] ASoC: cs4265: Fix part number ID
- error message
-Message-Id: <164078456960.1246652.4845859047265094767.b4-ty@kernel.org>
-Date: Wed, 29 Dec 2021 13:29:29 +0000
+To: derek.fang@realtek.com, lgirdwood@gmail.com
+In-Reply-To: <20211227055446.27563-1-derek.fang@realtek.com>
+References: <20211227055446.27563-1-derek.fang@realtek.com>
+Subject: Re: [PATCH] ASoC: rt5682: Register wclk with its parent_hws instead
+ of parent_data
+Message-Id: <164078457127.1246652.17415341942643132462.b4-ty@kernel.org>
+Date: Wed, 29 Dec 2021 13:29:31 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@denx.de>,
- ckeepax@opensource.cirrus.com, Paul.Handrigan@cirrus.com,
- james.schulman@cirrus.com
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, albertchen@realtek.com, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,13 +87,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 22 Dec 2021 11:19:19 -0300, Fabio Estevam wrote:
-> From: Fabio Estevam <festevam@denx.de>
+On Mon, 27 Dec 2021 13:54:46 +0800, derek.fang@realtek.com wrote:
+> From: Derek Fang <derek.fang@realtek.com>
 > 
-> The Chip ID - Register 01h contains the following description
-> as per the CS4265 datasheet:
-> 
-> "Bits 7 through 4 are the part number ID, which is 1101b (0Dh)"
+> The mclk might not be registered as a fixed clk name "mclk" on some
+> platforms.
+> In those platforms, if the mclk needed to be controlled by codec driver
+> and acquired by a fixed name, it would be a problem.
 > 
 > [...]
 
@@ -103,8 +103,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: cs4265: Fix part number ID error message
-      commit: 8f85317292f1d99e8a70a400a46ee697d64e3326
+[1/1] ASoC: rt5682: Register wclk with its parent_hws instead of parent_data
+      commit: cc5c9788106fb1b9e03c8c57d8d7166073a54416
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

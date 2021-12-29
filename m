@@ -2,92 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D1D6481233
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 12:47:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20740481257
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 12:55:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 892461767;
-	Wed, 29 Dec 2021 12:46:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 892461767
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF9A41758;
+	Wed, 29 Dec 2021 12:54:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF9A41758
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640778446;
-	bh=D+VOmzJw+4IVUx2BVHJKl/iLlia+5SOU7L7MbTspZ9Y=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1640778910;
+	bh=I9eox5J4qO+63iiFqIySoQ/xtlEdKbiNBRxjvggKSuk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jIDOOiMXuVciREymFiOALYSTteKfa+3ITaWpI+4HMTD2dXq6b3NoMCDzpuuv1DHps
-	 yF/eX0szoIPBOxEcTIH21Dd3Frwd9hAri2CzYLkRDFKtOmfB21nWnOSG9WUL/M9GMC
-	 nstnZ/LGZ9ZbEE38JTMfddnw3zI87nLNOUS3fhEM=
+	b=Cx00/S6+26ygRopRUHzgx3WgRLUeJN9b433wsPWS8LaEu9AIC8eTRzuYYrn6nC5PL
+	 fIL8zids4kTS5dHHzMEFgduPN11zai5Q9Zhw+lEAI66fKbVnyDvtMvyi+TFBoOfOds
+	 p84+rI7Jx5gvUiRYs99rHRt4/neJS0NUwyD1oEcs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D70DCF80279;
-	Wed, 29 Dec 2021 12:45:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D967F800F8;
+	Wed, 29 Dec 2021 12:54:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E22EF80248; Wed, 29 Dec 2021 12:45:44 +0100 (CET)
+ id 954EEF801EC; Wed, 29 Dec 2021 12:54:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [IPv6:2607:f8b0:4864:20::f32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4263FF801EC
- for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 12:45:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4263FF801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01B0AF800D3
+ for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 12:53:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01B0AF800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="gChk0OqJ"
-Received: by mail-qv1-xf32.google.com with SMTP id kc16so19005499qvb.3
- for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 03:45:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=AJA9uCUXVXnOgOewB0X1cMRPQwNxuz9DMojdOZD+C78=;
- b=gChk0OqJwq3L9/j24PqGARaC67qJebktVLVMRBr2cRMQybPJKmsJFvyV1XlylrPZCm
- xaPPZdOYultZkAqpuaIBGQe44K4uesrpxACYkOVxh4k42393XenSV4vlYemLReC4VeUm
- vWM6kCPOLh7Q59Tgc0iM+Thro+LWAQnQxVyWk+ts5YlEEGuOollm3EH7X0rPIFgYLn8l
- gtW+HAkDco9P6xoK/kOYckSjJRU4nmO07G5cWxaGlzyzIiyoWSs+f8eEzAkjw+CwchYi
- XxECi81i7fcnTZ9T6WJTsQE2G4rla1oBmS6a0nWvOAg+4jPDPuNNYkMwHnWBuVtyxykB
- WHqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=AJA9uCUXVXnOgOewB0X1cMRPQwNxuz9DMojdOZD+C78=;
- b=6tGQVXHpRdeFhlLwuRV95tI4vFkNRmMw83cl1oLu0Cj35wm0cP2qEv7RdtgzB8yGvW
- 1wH91gi9yBh0NLwrhapS9F3KHC3pp0V1U4z6RCde8wzLERn0cb7OvDGbdXWmXqWQC6R5
- cQqrW9lInr4anpSTZ0QT7iISTy73e1fHbhIaeeRa7bNx187JW8wOv02CyskvuvEn11QA
- yHbtr2IXrNk6wpYNKa/Hs/MVW9Llt9Ln+MW16p7p5KnmGRYfAmu5cKGm54gUvBkW3woG
- OQgAe8/mtd7lE9hTvcpHQgur2d+4Bdf2gfaKAD40qyp1gkZ56S6H6Ec3sJFdAQ5Zs0oF
- fC8Q==
-X-Gm-Message-State: AOAM532v4WM5nramfeM8fKiofegHdZGJt4C/7REHdJpJ2ChXK7I8dzQ1
- P7qxgRITLLmwPxsdxN5gFkQ=
-X-Google-Smtp-Source: ABdhPJwraN8OZtkPAMF0oXH3c22r01052ORrXFqcdRZtkvwUfmP+WGCsP9FGUGxMTtyUfPWLGS2I9A==
-X-Received: by 2002:a05:6214:76a:: with SMTP id
- f10mr23178921qvz.8.1640778332253; 
- Wed, 29 Dec 2021 03:45:32 -0800 (PST)
-Received: from localhost.localdomain ([2804:14c:485:504a:4bbe:5997:2c6c:1a08])
- by smtp.gmail.com with ESMTPSA id
- g14sm18085936qko.55.2021.12.29.03.45.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Dec 2021 03:45:31 -0800 (PST)
-From: Fabio Estevam <festevam@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH v2 3/3] ASoC: cs4265: Add a remove() function
-Date: Wed, 29 Dec 2021 08:44:57 -0300
-Message-Id: <20211229114457.4101989-3-festevam@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211229114457.4101989-1-festevam@gmail.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="KMxN5GVt"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BTBRlhj001503;
+ Wed, 29 Dec 2021 05:53:54 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=7Qa8V9K8D+0Yt6kcaD6qmRxQyyObzIT8CK7c5EoWk0Y=;
+ b=KMxN5GVtwf3vp5DP6YMzRnuzhGICsG3UZuqHShPgLVHFa9Qse4ZsTMvS1Xc4vuF05SXt
+ TTDMMSfpvjUpxnKc+ac3u4k/SxYm0YU83wCNo2z8OFVIx1v7PdqMUpPYhwLPkJORfPbe
+ cvHSL7XRBjOHakP8YwGqgAY1Z2CGKTUp9iWunYGr1mBel5eU9g9k/cv2ipGTFa2lN2PJ
+ uWBczYhVtYSEAnbugvRJfegrqkG3sut90nQp8bb2hMf2XupVTwbt73BrXFDtyJhzzRf+
+ rYfRf8kLj0vOjmLfwzqyFeTCKDK0TEDTjPB1ctX/1CgCTPBBfwuW/d8tv79VtxrIXrZ0 VQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3d7c57207n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 29 Dec 2021 05:53:54 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 29 Dec
+ 2021 11:53:53 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Wed, 29 Dec 2021 11:53:53 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 04D5E11C7;
+ Wed, 29 Dec 2021 11:53:53 +0000 (UTC)
+Date: Wed, 29 Dec 2021 11:53:52 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v2 2/3] ASoC: cs4265: Fix the reset_gpio polarity
+Message-ID: <20211229115352.GA18506@ediswmail.ad.cirrus.com>
 References: <20211229114457.4101989-1-festevam@gmail.com>
+ <20211229114457.4101989-2-festevam@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@denx.de>,
- ckeepax@opensource.cirrus.com, Paul.Handrigan@cirrus.com,
- james.schulman@cirrus.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20211229114457.4101989-2-festevam@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: LtaPpNIO7WFlZIDI-C2tNQITJFrm-vE7
+X-Proofpoint-GUID: LtaPpNIO7WFlZIDI-C2tNQITJFrm-vE7
+X-Proofpoint-Spam-Reason: safe
+Cc: Fabio Estevam <festevam@denx.de>, alsa-devel@alsa-project.org,
+ broonie@kernel.org, Paul.Handrigan@cirrus.com, james.schulman@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,51 +99,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Fabio Estevam <festevam@denx.de>
+On Wed, Dec 29, 2021 at 08:44:56AM -0300, Fabio Estevam wrote:
+> From: Fabio Estevam <festevam@denx.de>
+> 
+> Currently, the reset_gpio polarity handling is done backwards.
+> 
+> The gpiod API takes the logic value of the GPIO, not the physical one.
+> 
+> As per the CS4265 datasheet:
+> 
+> "When RESET is low, the CS4265 enters a low-power mode and all
+> internal states are reset"
+> 
+> If a devicetree describes reset_gpio as active-low, the correct behaviour
+> would be to retrieve the GPIO and put in its active state (GPIOD_OUT_HIGH)
+> and then move it to its inactive state so that it can be operational
+> (logic level 0).
+> 
+> Fix it accordingly.
+> 
+> Fixes: fb6f806967f6 ("ASoC: Add support for the CS4265 CODEC")
+> Signed-off-by: Fabio Estevam <festevam@denx.de>
+> ---
+> Changes since v1:
+> - Newly introduced patch.
+> 
+>  sound/soc/codecs/cs4265.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/cs4265.c b/sound/soc/codecs/cs4265.c
+> index b89002189a2b..294fa7ac16cb 100644
+> --- a/sound/soc/codecs/cs4265.c
+> +++ b/sound/soc/codecs/cs4265.c
+> @@ -590,13 +590,13 @@ static int cs4265_i2c_probe(struct i2c_client *i2c_client,
+>  	}
+>  
+>  	cs4265->reset_gpio = devm_gpiod_get_optional(&i2c_client->dev,
+> -		"reset", GPIOD_OUT_LOW);
+> +		"reset", GPIOD_OUT_HIGH);
+>  	if (IS_ERR(cs4265->reset_gpio))
+>  		return PTR_ERR(cs4265->reset_gpio);
+>  
+>  	if (cs4265->reset_gpio) {
+>  		mdelay(1);
+> -		gpiod_set_value_cansleep(cs4265->reset_gpio, 1);
+> +		gpiod_set_value_cansleep(cs4265->reset_gpio, 0);
 
-When the reset_gpio GPIO is used, it is better to put the codec
-back into reset state when the driver unbinds.
+Hmm... I might defer to Mark on this one. I totally agree your
+new code is more correct, however, I would have a slight worry
+about existing device trees not correctly specifying the GPIO. As
+in if existing systems had been specifying the GPIO correctly
+they are presumably currently broken. But I am not sure what the
+obvious solution would be, and I don't really have a good feel
+for how widely used this part is.
 
-Add a remove() function to accomplish that.
-
-Suggested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Signed-off-by: Fabio Estevam <festevam@denx.de>
----
-Changes since v1:
-- Newly introduced patch.
-
- sound/soc/codecs/cs4265.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/sound/soc/codecs/cs4265.c b/sound/soc/codecs/cs4265.c
-index 294fa7ac16cb..8fa166e4b2a9 100644
---- a/sound/soc/codecs/cs4265.c
-+++ b/sound/soc/codecs/cs4265.c
-@@ -626,6 +626,16 @@ static int cs4265_i2c_probe(struct i2c_client *i2c_client,
- 			ARRAY_SIZE(cs4265_dai));
- }
- 
-+static int cs4265_i2c_remove(struct i2c_client *i2c)
-+{
-+	struct cs4265_private *cs4265 = i2c_get_clientdata(i2c);
-+
-+	if (cs4265->reset_gpio)
-+		gpiod_set_value_cansleep(cs4265->reset_gpio, 1);
-+
-+	return 0;
-+}
-+
- static const struct of_device_id cs4265_of_match[] = {
- 	{ .compatible = "cirrus,cs4265", },
- 	{ }
-@@ -645,6 +655,7 @@ static struct i2c_driver cs4265_i2c_driver = {
- 	},
- 	.id_table = cs4265_id,
- 	.probe =    cs4265_i2c_probe,
-+	.remove =   cs4265_i2c_remove,
- };
- 
- module_i2c_driver(cs4265_i2c_driver);
--- 
-2.25.1
-
+Thanks,
+Charles

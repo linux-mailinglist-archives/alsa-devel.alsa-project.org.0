@@ -2,71 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D070481414
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 15:25:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 223C6481314
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 14:13:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B15D182B;
-	Wed, 29 Dec 2021 15:24:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B15D182B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BEA5177C;
+	Wed, 29 Dec 2021 14:12:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BEA5177C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640787935;
-	bh=mfWJY8agmyxXqGSoLe/CpbM9pXFi+yQJdZOhFyoynzY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1640783611;
+	bh=Li6Y2pjEiWtIaCCKT0RKZ8AhJkZt0uYTefmhlTdOqWU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uwUhR+lMh8etxEcq4JO7bhIA+/Wk2QwOISfYL77/rO7yE7mt+KPvq3NlXv295/wf/
-	 1Vmqm5qf4jGCrCHSvJSONu/0bLZXNfC6x2Hp0M1BS1PCjedadBAXNkcqFxUQh8UvfS
-	 HrpqMhDs9cWx4aNFOd3PGuwgXBASFs6tSJMBQIzM=
+	b=ueCRKFrdHvHxohIOoxwi5pQ3KnbbKOMmJ9emIlsP5c6QrvJaSSj+S0qMSY/XJOc7P
+	 vL2SCiPfoBqqfr1e6GMoj+ETr3kOIfeWvQjq5Shi2WZpKaY5BAvr+t14IM/04V0XKa
+	 AxtknYV78IWvRqcAPXOfDabd3Cvj+cJXYcq/TF3w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E4C8F80544;
-	Wed, 29 Dec 2021 15:20:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4445F80224;
+	Wed, 29 Dec 2021 14:12:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FED5F80224; Tue, 28 Dec 2021 19:15:43 +0100 (CET)
+ id 3998DF801EC; Wed, 29 Dec 2021 14:12:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from sender11-of-o51.zoho.eu (sender11-of-o51.zoho.eu
- [31.186.226.237])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E60C9F800D3
- for <alsa-devel@alsa-project.org>; Tue, 28 Dec 2021 19:15:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E60C9F800D3
-ARC-Seal: i=1; a=rsa-sha256; t=1640715322; cv=none; d=zohomail.eu; s=zohoarc; 
- b=Ddru0NXj+J2ndHGcfGeZRminW6D0zON1QVpQGwNnigMB9DSW+CBz7a+c2Jhl3CBW8NePFzWng4BzCrJnokwqPxkTjWkYoyBK3YX92Y1ekOuTji9Qe/0nmp8Oi21VpBNcq3uidoDnOLbf08d0Hk96OySDo06Ckz6pT9ueG8b+dGM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
- s=zohoarc; t=1640715322;
- h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
- bh=Bbx/C9sptTUAAKFS7EmRKe2vRI5sURdnxAWXT3CLNhI=; 
- b=BT4fND3yfgxgK9FQng/wBKgGrEep5usQSye19zD2xbPGGNaekriWeZuXbkb/FSJn4LCCp9Ptl9ATGMpXBlFsVja5yoX4eSCNrFo9Z5QLp+zrc30brt6T1BK2HqhH4ZJhLSvymZdsedlboe1YDpRuRewf77OGriYt8czvCPeEWcw=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
- spf=pass  smtp.mailfrom=philipp@uvos.xyz;
- dmarc=pass header.from=<philipp@uvos.xyz>
-Received: from UVOSLinux (aftr-37-201-192-113.unity-media.net
- [37.201.192.113]) by mx.zoho.eu
- with SMTPS id 1640715320133654.0409791956471;
- Tue, 28 Dec 2021 19:15:20 +0100 (CET)
-Date: Tue, 28 Dec 2021 19:15:18 +0100
-From: Carl Philipp Klemm <philipp@uvos.xyz>
-To: alsa-devel@alsa-project.org
-Subject: [RFC PATCH 3/3] ASoC: cpcap: add headphone jack plug detection support
-Message-Id: <20211228191518.bb4fafff9439d42cf542375a@uvos.xyz>
-In-Reply-To: <20211228191104.631d126f13ac0bb09e91ca13@uvos.xyz>
-References: <20211228190931.df5d518220080a734532ebfd@uvos.xyz>
- <20211228191104.631d126f13ac0bb09e91ca13@uvos.xyz>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-unknown-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Wed, 29 Dec 2021 15:20:41 +0100
-Cc: tony@atomide.com, merlijn@wizzup.org, linux-omap@vger.kernel.org,
- sre@kernel.org, kuninori.morimoto.gx@renesas.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2164F800D3
+ for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 14:12:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2164F800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="gn9xH95N"
+Received: by mail-ed1-x52f.google.com with SMTP id q14so78412770edi.3
+ for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 05:12:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=q9D0TUu04h97ds6FxSx7MgmJz+wEu67upxcwcKSNcxU=;
+ b=gn9xH95NrntqFTGuw7wKbYwOZEwMizGJHYCdp8M3kMhsJXQE1zmEXxLLfY/WXL5aYu
+ XJ1lcL1Pw9q2eog2yH5AAPSkNDSkVbYgXhivkHOBOZ9UFDUzn9Xxex1BdcWYwzt4CheD
+ EywzEnaMzDUr53NCsBeLwIZ7rtAZUnu6O4F4omQfHeUT8DAP+yfphrMmYpNJZVnl6+ab
+ d6USM9iKUKv9I/EczqqlUIKIevFq+jJHuE0dm0ReWeJ/OgkkEvjPlsBQREc0ewbNKgcV
+ /b+PbSnrJwdVY0INH2cJ6LiYnmUvObwgSVI4+IgzO2t3V1HMJWbWDuaGjSEgpRXf4wM0
+ 90sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=q9D0TUu04h97ds6FxSx7MgmJz+wEu67upxcwcKSNcxU=;
+ b=6xT1s6MpaeGeLOOHNSaPPGfJhJbRiBuHmaHDvAGqS+jXgqbtUMyre1UijW7gSPIy9X
+ a75EZ79lL8mOVyrzHT6O+uP1OfMcCJWLkS7Sph9mTZ7FgbzZeCy3Qd26ILxFxLMazq6p
+ sOkiZWgpCtj5FmuLgB6nSoQKf0bAgfzE9EqBO490AOoAwWqz62MKman0ZkjdLYWpv45l
+ 25ohWWO47Sm0vSUCixuPRO7KLQXqTnejUMOWwFdwUjdbzAmTsjh1Cz3lq+OVChEbG0nV
+ W0MKgf8ACgTOMkFMvwOtT4iREsxUv5RojQqjoQad39nRDFvEiAAzfjyXtbMjgSRR2jCH
+ l6sA==
+X-Gm-Message-State: AOAM5333imLDHGd1heSfC5VRyvdOByNBRRaaZNWzKGAXqzGOR7qxBVga
+ mqTw8b7edvY7t4guLCqEOZ0+mnpc+pboMtrlwDDg3t93
+X-Google-Smtp-Source: ABdhPJwYS8pDY10zm5mmLWAcCnXb9owByzjq4mj6ZXaO2xlWeGKHEV4Rl4xWFOvewKhTZhltIp/rQVv6N4XqUKQBSTI=
+X-Received: by 2002:a17:907:765a:: with SMTP id
+ kj26mr20547986ejc.652.1640783528979; 
+ Wed, 29 Dec 2021 05:12:08 -0800 (PST)
+MIME-Version: 1.0
+References: <20211229114457.4101989-1-festevam@gmail.com>
+ <20211229114457.4101989-2-festevam@gmail.com>
+ <20211229115352.GA18506@ediswmail.ad.cirrus.com>
+ <CAOMZO5DcXUR2Z6-cokwizDbAKnEs877AjbX9FEow2RFHfebnuw@mail.gmail.com>
+ <YcxX3XFWO9jQWlLJ@sirena.org.uk>
+In-Reply-To: <YcxX3XFWO9jQWlLJ@sirena.org.uk>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Wed, 29 Dec 2021 10:11:57 -0300
+Message-ID: <CAOMZO5ANC34SoxB9YeiLQo8FsjYana9uXiogtktJZ_ghx9JiQw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] ASoC: cs4265: Fix the reset_gpio polarity
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Fabio Estevam <festevam@denx.de>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, "Handrigan,
+ Paul" <Paul.Handrigan@cirrus.com>, james.schulman@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,202 +100,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Implements an interrupt handler that fires when a headphone
-is inserted. A jack must be provided to the codec via
-snd_soc_component_driver .set_jack
+Hi Mark,
 
-This patch currently also reports on "Headphones" pin. this correctly
-causes a warning as this pin dose not exist, however reporting on any
-other pin causes userspace (pulse audio) to not react to the change, im
-not sure how pulseaudio is supposed to be configured to avoid this
-deliemma "Headphones" apears to be hard-coded, please do lmk if someone
-knows how to resolve this.
+On Wed, Dec 29, 2021 at 9:43 AM Mark Brown <broonie@kernel.org> wrote:
 
----
- sound/soc/codecs/cpcap.c | 104 +++++++++++++++++++++++++++++++++++----
- 1 file changed, 94 insertions(+), 10 deletions(-)
+> There might be more out of tree users of course - there's no requirement
+> for people to upstream their DTs.  Probably better to play it safe.
 
-diff --git a/sound/soc/codecs/cpcap.c b/sound/soc/codecs/cpcap.c
-index 3c2bc98031b5..ed418ac75eca 100644
---- a/sound/soc/codecs/cpcap.c
-+++ b/sound/soc/codecs/cpcap.c
-@@ -15,6 +15,7 @@
- #include <sound/core.h>
- #include <sound/soc.h>
- #include <sound/tlv.h>
-+#include <sound/jack.h>
- 
- /* Register 512 CPCAP_REG_VAUDIOC --- Audio Regulator and Bias Voltage
-*/ #define CPCAP_BIT_AUDIO_LOW_PWR           6
-@@ -252,8 +253,14 @@ enum cpcap_dai {
- };
- 
- struct cpcap_audio {
-+	struct device *dev;
- 	struct snd_soc_component *component;
- 	struct regmap *regmap;
-+	struct snd_soc_jack *hp_jack;
-+
-+	struct delayed_work jack_detect_work;
-+
-+	int hp_irq;
- 
- 	u16 vendor;
- 
-@@ -603,6 +610,21 @@ static int cpcap_input_left_mux_put_enum(struct
-snd_kcontrol *kcontrol, return 0;
- }
- 
-+static struct snd_soc_jack_pin headset_jack_pins[] = {
-+	{
-+		.pin = "Headset Right Playback Route",
-+		.mask = SND_JACK_HEADPHONE,
-+	},
-+	{
-+		.pin = "Headset Left Playback Route",
-+		.mask = SND_JACK_HEADPHONE,
-+	},
-+	{
-+		.pin = "Headphones",
-+		.mask = SND_JACK_HEADPHONE,
-+	}
-+};
-+
- static const struct snd_kcontrol_new cpcap_input_left_mux =
- 	SOC_DAPM_ENUM_EXT("Input Left", cpcap_input_left_mux_enum,
- 			  cpcap_input_left_mux_get_enum,
-@@ -1561,8 +1583,6 @@ static int cpcap_dai_mux(struct cpcap_audio
-*cpcap, bool swap_dai_configuration) u16 voice_mask =
-BIT(CPCAP_BIT_DIG_AUD_IN); int err;
- 
--
--
- 	if (!swap_dai_configuration) {
- 		/* Codec on DAI0, HiFi on DAI1 */
- 		voice_val = 0;
-@@ -1586,6 +1606,44 @@ static int cpcap_dai_mux(struct cpcap_audio
-*cpcap, bool swap_dai_configuration) return 0;
- }
- 
-+static irqreturn_t cpcap_hp_irq_thread(int irq, void *arg)
-+{
-+	struct cpcap_audio *cpcap = arg;
-+	int val = -1;
-+	bool plugged;
-+
-+	regmap_read(cpcap->regmap, CPCAP_REG_INTS1, &val);
-+	plugged = val & (1<<9);
-+
-+	if (!cpcap->component) {
-+		dev_warn(cpcap->dev, "%s called before component is
-ready.", __func__);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (!cpcap->hp_jack) {
-+		dev_warn(cpcap->dev, "%s called before jack is
-ready.", __func__);
-+		return IRQ_HANDLED;
-+	}
-+
-+	snd_soc_jack_report(cpcap->hp_jack, plugged ? 0 :
-SND_JACK_HEADPHONE, SND_JACK_HEADPHONE); +
-+	return IRQ_HANDLED;
-+}
-+
-+static int cpcap_set_jack_detect(struct snd_soc_component *component,
-+	struct snd_soc_jack *hp_jack, void *data)
-+{
-+	struct cpcap_audio *cpcap =
-snd_soc_component_get_drvdata(component); +
-+	if (!cpcap->hp_jack) {
-+		dev_info(cpcap->dev, "registering jack");
-+		cpcap->hp_jack = hp_jack;
-+		snd_soc_jack_add_pins(hp_jack,
-ARRAY_SIZE(headset_jack_pins), headset_jack_pins);
-+	}
-+
-+	return 0;
-+}
-+
- static int cpcap_audio_reset(struct snd_soc_component *component,
- 			     bool swap_dai_configuration)
- {
-@@ -1628,13 +1686,9 @@ static int cpcap_audio_reset(struct
-snd_soc_component *component, 
- static int cpcap_soc_probe(struct snd_soc_component *component)
- {
--	struct cpcap_audio *cpcap;
-+	struct cpcap_audio *cpcap =
-snd_soc_component_get_drvdata(component); int err;
- 
--	cpcap = devm_kzalloc(component->dev, sizeof(*cpcap),
-GFP_KERNEL);
--	if (!cpcap)
--		return -ENOMEM;
--	snd_soc_component_set_drvdata(component, cpcap);
- 	cpcap->component = component;
- 
- 	cpcap->regmap = dev_get_regmap(component->dev->parent, NULL);
-@@ -1657,6 +1711,7 @@ static struct snd_soc_component_driver
-soc_codec_dev_cpcap = { .num_dapm_widgets	=
-ARRAY_SIZE(cpcap_dapm_widgets), .dapm_routes		= intercon,
- 	.num_dapm_routes	= ARRAY_SIZE(intercon),
-+	.set_jack = cpcap_set_jack_detect,
- 	.idle_bias_on		= 1,
- 	.use_pmdown_time	= 1,
- 	.endianness		= 1,
-@@ -1665,13 +1720,42 @@ static struct snd_soc_component_driver
-soc_codec_dev_cpcap = { 
- static int cpcap_codec_probe(struct platform_device *pdev)
- {
--	struct device_node *codec_node =
--		of_get_child_by_name(pdev->dev.parent->of_node,
-"audio-codec");
-+	struct cpcap_audio *cpcap;
-+	struct device_node *codec_node;
-+	int ret;
- 
-+	codec_node = of_get_child_by_name(pdev->dev.parent->of_node,
-"audio-codec"); pdev->dev.of_node = codec_node;
- 
--	return devm_snd_soc_register_component(&pdev->dev,
-&soc_codec_dev_cpcap,
-+	cpcap = devm_kzalloc(&pdev->dev, sizeof(*cpcap), GFP_KERNEL);
-+	if (!cpcap)
-+		return -ENOMEM;
-+	dev_set_drvdata(&pdev->dev, cpcap);
-+
-+	ret = devm_snd_soc_register_component(&pdev->dev,
-&soc_codec_dev_cpcap, cpcap_dai, ARRAY_SIZE(cpcap_dai));
-+	if (ret < 0)
-+		return ret;
-+
-+	cpcap->hp_irq = platform_get_irq_byname(pdev, "hpplugged");
-+	if (cpcap->hp_irq < 0)
-+		return -ENODEV;
-+
-+	cpcap->dev = &pdev->dev;
-+
-+	ret = devm_request_threaded_irq(&pdev->dev, cpcap->hp_irq,
-NULL,
-+					  cpcap_hp_irq_thread,
-+					  IRQF_TRIGGER_RISING |
-+					  IRQF_TRIGGER_FALLING |
-+					  IRQF_ONESHOT,
-+					  "cpcap-codec-headphone",
-cpcap);
-+	if (ret) {
-+		dev_err(&pdev->dev, "could not get irq: %i\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	return 0;
- }
- 
- static struct platform_driver cpcap_codec_driver = {
--- 
-2.34.1
+If someone correctly describes the gpio_reset as active-low, then the
+driver will not work.
 
+If there is any out-of-tree user of the gpio_reset property, they are
+passing the incorrect polarity in the device tree
+and things are working by pure luck. (wrong polarity in dts + wrong
+polarity handling in the driver = working state)
 
+Ok, if this can't be fixed, then let's drop patches 2 and 3, which is
+unfortunate.

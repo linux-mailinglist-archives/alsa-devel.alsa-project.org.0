@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D643480EC9
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 03:12:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15F58480ECA
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Dec 2021 03:13:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE7A71756;
-	Wed, 29 Dec 2021 03:11:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE7A71756
+	by alsa0.perex.cz (Postfix) with ESMTPS id C52431763;
+	Wed, 29 Dec 2021 03:12:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C52431763
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640743970;
+	s=default; t=1640744009;
 	bh=69mQw8AzHK62KMWz6FvLggkb57AmTHGwOitHnaCsahQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Alm3M/obUHfKVm+tX52BcMu9TK+Ss1uL69d2OSf1HUorsP+6k8iNDgHn8QBOZyFAA
-	 4qkXhZOnR9l2FZzBXq1jmCjQsAuRMzcsuX2Giy0B/YCUQpzOgAYxQxPn1opoohtQel
-	 iBNijeBaWfA7DOjxaP3Nj7bHlDRM8H3kKQfEkIko=
+	b=GcTNUIkCxbHBD7DVX3bQfM1dlOD0+7/1PeWBqAJN6EuLTiXGS4Wos1GN3rkDT6pXH
+	 IpFlTMN5nyhqXt0MNb9UdKvxPj9rqlavtuBaNdt1DamIVxJkY2vML8qB6x0//m0v/X
+	 3BmRCDoH6up6y2lJsJFadA5r5eAkUEUHIIAAO7H4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBFC4F80238;
-	Wed, 29 Dec 2021 03:11:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68C66F80237;
+	Wed, 29 Dec 2021 03:12:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CACCF80237; Wed, 29 Dec 2021 03:11:21 +0100 (CET)
+ id 6C9F3F80236; Wed, 29 Dec 2021 03:12:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 4AE7DF800CE
- for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 03:11:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AE7DF800CE
+ by alsa1.perex.cz (Postfix) with ESMTP id 19849F800D3
+ for <alsa-devel@alsa-project.org>; Wed, 29 Dec 2021 03:12:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19849F800D3
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1640743879108748913-webhooks-bot@alsa-project.org>
-References: <1640743879108748913-webhooks-bot@alsa-project.org>
-Subject: [patch]
- [00main:1](https://github.com/alsa-project/alsa-utils/blob/90f59671784a7e47b40485095cd66892d4840ed7/alsactl/init/00main#L1),
+In-Reply-To: <1640743954332365990-webhooks-bot@alsa-project.org>
+References: <1640743954332365990-webhooks-bot@alsa-project.org>
+Subject: [patch]  alsa-utils/alsactl/init/00main:1,
  which is a comment and contains a typo
-Message-Id: <20211229021121.8CACCF80237@alsa1.perex.cz>
-Date: Wed, 29 Dec 2021 03:11:21 +0100 (CET)
+Message-Id: <20211229021237.6C9F3F80236@alsa1.perex.cz>
+Date: Wed, 29 Dec 2021 03:12:37 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list

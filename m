@@ -2,77 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E77CD482464
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Dec 2021 15:41:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10B29482463
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Dec 2021 15:41:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5839C16C9;
-	Fri, 31 Dec 2021 15:41:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5839C16C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 742CD169A;
+	Fri, 31 Dec 2021 15:40:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 742CD169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640961710;
-	bh=2W2cwR7BA+V3M91KMdo9uv7m6sBpz3dbJ6TOw8ZwOsA=;
+	s=default; t=1640961676;
+	bh=lAxyCxUkQlETTh2egsQpr5ZWqt6MG6luXxuJleTC4Pk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UfaWVghMZbDY4pWQ0JJqL+unzs0zhqriOY9SrC487WohNwPsR9iMhRXqTbq1aQfcY
-	 5woKeXg61cuJxRzURGNp50Pk5E87lxEpXrFIuAWHyQGSZLGuRtjwL8c83W1+sW6vs0
-	 e+ifgBMrbVuqKAWbQxOrPNJFqqr4yykfsPyYcc1Y=
+	b=KBY0XuhOiOFyZmQoVRjhC1poxL3SPCbmMZ8bMPFVI8QfDdUHCIet3N99+E/fUhZoh
+	 Ark5vyxXUNLbxJhTSMiBFc5cuAcXMVHo1vEITKv+kFa+JM1TvQZUXR/rcEg2joXCnV
+	 C0RzarSLHoxlHE+jJVgy9C0GmbkoVy/EFcMhs7mk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 543D4F800C1;
-	Fri, 31 Dec 2021 15:40:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB60AF802BE;
+	Fri, 31 Dec 2021 15:40:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1182F800C9; Fri, 31 Dec 2021 15:40:12 +0100 (CET)
+ id 993E9F8012E; Fri, 31 Dec 2021 15:40:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55452F8010B
- for <alsa-devel@alsa-project.org>; Fri, 31 Dec 2021 15:39:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55452F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 476C9F800C1
+ for <alsa-devel@alsa-project.org>; Fri, 31 Dec 2021 15:40:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 476C9F800C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LpTeI5wQ"
+ header.b="r/FWhMvq"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C3ABB61795;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 277A0B81D85;
+ Fri, 31 Dec 2021 14:40:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F8EFC36AF0;
  Fri, 31 Dec 2021 14:39:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6DB0C36AEC;
- Fri, 31 Dec 2021 14:39:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640961597;
- bh=2W2cwR7BA+V3M91KMdo9uv7m6sBpz3dbJ6TOw8ZwOsA=;
+ s=k20201202; t=1640961599;
+ bh=lAxyCxUkQlETTh2egsQpr5ZWqt6MG6luXxuJleTC4Pk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=LpTeI5wQiK+t9XWW6ufpzlYWGvsTw4AUlwbgInViIurwwMafKLp23FAprisyCSv9U
- eoMY08kYN4K7IEkdcRQldz/YyC5xWYUc/4utxzIInEFn7U985MFiMbtJH7vyxsg3WY
- Fb/Imbs69sQydoYq2vveay+TxlBx62f7IQA5oCtw+jNV4pQqw3d5O60WO0DXrA6+w/
- WbVTdrRFloRlZkL40jIw4orqWi6z3ddIO/JENu3Nwvl4EkWtTnMo8A5qDaMeozrQhq
- fhrdsIAs3OQ+Q2R6sVV1uOu9jF1FQt0eUxjzXkwqcO/1Luk1Bf28K8d2iXaSR4/7Bo
- W/YpqxRWr82Yw==
+ b=r/FWhMvqFHATTAndSxG3zmrOdPr6YgnaMsrO/ijlgdOg6yKa/ejJvd9NU4f972sDn
+ aWQleQrjD7dcnLtwnF4KQqR1zbhm4+m/rMDjfpBshkMa+wrTdHIziNj6BvkwWpOkjl
+ OMs/QAkR0z+mOUsuiiLHZC1w/0lJrw2K8siV7Rdx4vek9JApq74KfVkLjR+zO7xWNQ
+ LdgpuzBTqb/EcKVF+Z5zUtXxSjqV/Xbh3lO8zjVwSI8M8vHsJV/IrCISovfnuPdKhk
+ 89M0a2toxISI5ZH6Atb1GsKpPl+6lkQfORkyADEaF9IOdMC/TP4QBqW0aIU4zNtBWV
+ GwkZp8rIlhbvw==
 From: Mark Brown <broonie@kernel.org>
-To: Len Brown <lenb@kernel.org>, Mark Gross <markgross@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Lucas Tanure <tanureal@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
-References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
-Subject: Re: (subset) [PATCH v6 00/10] Add support for CS35L41 in HDA systems
-Message-Id: <164096159451.2355590.17653987935012339046.b4-ty@kernel.org>
-Date: Fri, 31 Dec 2021 14:39:54 +0000
+To: Trevor Wu <trevor.wu@mediatek.com>, matthias.bgg@gmail.com, tiwai@suse.com
+In-Reply-To: <20211230084731.31372-1-trevor.wu@mediatek.com>
+References: <20211230084731.31372-1-trevor.wu@mediatek.com>
+Subject: Re: [PATCH 0/2] ASoC: mediatek: mt8195: repair pcmif BE dai
+Message-Id: <164096159738.2355590.6915184863464134873.b4-ty@kernel.org>
+Date: Fri, 31 Dec 2021 14:39:57 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,13 +83,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 17 Dec 2021 11:56:58 +0000, Lucas Tanure wrote:
-> Add support for laptops that have CS35L41 connected to an HDA
-> codec by I2S and direct I2C connection to the CPU.
+On Thu, 30 Dec 2021 16:47:29 +0800, Trevor Wu wrote:
+> This series of patches repairs some problems for pcmif BE dai.
+> The unexpected control flow is corrected, and the missing playback
+> support of DPCM is added.
 > 
-> Laptops that use CS35L41 and are SPI will be added in the future,
-> after the support for it is resolved at i2c-multi-instantiate driver.
-> i2c-multi-instantiate thread: https://lkml.org/lkml/2021/12/10/557
+> Patches are based on broonie tree "for-next" branch.
+> 
+> Trevor Wu (2):
+>   ASoC: mediatek: mt8195: correct pcmif BE dai control flow
+>   ASoC: mediatek: mt8195: add playback support to PCM1_BE dai_link
 > 
 > [...]
 
@@ -104,18 +102,10 @@ Applied to
 
 Thanks!
 
-[01/10] ASoC: cs35l41: Convert tables to shared source code
-        commit: a87d42227cf5614fe0040ddd1fe642c54298b42c
-[02/10] ASoC: cs35l41: Move cs35l41_otp_unpack to shared code
-        commit: fe120d4cb6f6cd03007239e7c578b8703fe6d336
-[03/10] ASoC: cs35l41: Move power initializations to reg_sequence
-        commit: 062ce0593315e22aac527389dd6dd4328c49f0fb
-[04/10] ASoC: cs35l41: Create shared function for errata patches
-        commit: 8b2278604b6de27329ec7ed82ca696c4751111b6
-[05/10] ASoC: cs35l41: Create shared function for setting channels
-        commit: 3bc3e3da657f17c14df8ae8fab58183407bd7521
-[06/10] ASoC: cs35l41: Create shared function for boost configuration
-        commit: e8e4fcc047c6e0c5411faeb8cc29aed2e5036a00
+[1/2] ASoC: mediatek: mt8195: correct pcmif BE dai control flow
+      commit: 2355028c0c54c03afb66c589347f1dc9f6fe2e38
+[2/2] ASoC: mediatek: mt8195: add playback support to PCM1_BE dai_link
+      commit: db5e1c209b92a67ab7c1d7771a48294c9c093f7c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

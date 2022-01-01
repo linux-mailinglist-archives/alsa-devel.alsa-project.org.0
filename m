@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5E03482551
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Dec 2021 18:15:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837204827DC
+	for <lists+alsa-devel@lfdr.de>; Sat,  1 Jan 2022 16:49:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4897016C9;
-	Fri, 31 Dec 2021 18:14:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4897016C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0207B18C3;
+	Sat,  1 Jan 2022 16:48:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0207B18C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1640970940;
-	bh=xJoQgGs6jpe/nEBkuVJJEWLNMwSa/zmuXqmXFrnGEiQ=;
+	s=default; t=1641052163;
+	bh=M+O1H+u6Pdlb1P7xyqBtP4UiTnt2xRcP0/P9bqUq/lQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ammOathdZw63ZFOX1ZVSm9jvajteNl5dVJ5tX8M0O7srRjnom57fHlLkmlJx2SUaS
-	 35Giz95sqTp/S05tZeaVCKAy/EVxtDILPn3FsX8I8AVJOF9w+AYgKJ3bXgRHY5nZNi
-	 i12/wXv2qpuGntN7ER8xEHbKCHaOjBJEmkqQNfuM=
+	b=c5Ho9L0BekNKS27krcx+0G+snuE8psBWFW3DAe5ItjpwYAboLNki9Utdve0uHs8Wm
+	 NR36wcEzfRH8fR9g5zKo2gE0jjnDMb5bBS616ykhUUpqe5Cj6nyuMaf9SjMDfg3YgU
+	 3MJJIVYuFCBDEUqACgjm19/dKXytFYSOPaSqy+gk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A9A4F800EB;
-	Fri, 31 Dec 2021 18:14:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B38CF800E3;
+	Sat,  1 Jan 2022 16:48:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17AAEF80118; Fri, 31 Dec 2021 18:14:32 +0100 (CET)
+ id D0768F80111; Sat,  1 Jan 2022 16:48:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,52 +33,53 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A685BF800EB
- for <alsa-devel@alsa-project.org>; Fri, 31 Dec 2021 18:14:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A685BF800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC437F800E3
+ for <alsa-devel@alsa-project.org>; Sat,  1 Jan 2022 16:48:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC437F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="qD4TiDg7"; 
+ header.b="Gm4YMxIR"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="92X9530X"
+ header.b="I1w19BW9"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id D84681F387;
- Fri, 31 Dec 2021 17:14:26 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id EB0331F387;
+ Sat,  1 Jan 2022 15:48:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1640970866; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1641052087; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lAlIbCwt8/dbQUNJUXK2rYMZ7mOjbl+Y5KB9vD1z6ZQ=;
- b=qD4TiDg7jcWE93GIP2EQvEziujvCF+a2Dge/unGYRLbovy/B15qziTKtgtckZ5TnauAbhq
- 5nX5XY0cTfvu3IFamI294jFxF5Mt9gsgFko8J+SjB+hxcsGFagS2k5ckWoaKNBtU6ZkCu0
- TXCu2jB3NpnVMsSDg37tqktnjqB2+ww=
+ bh=chbhCQj6hAZogsch5Y5wPKP/+t88RAVuQw/XW7sQuSc=;
+ b=Gm4YMxIRurIJHvqgIdaH4wq0fLMTqwhixOYrjyUR/xD2HEgBoBME1hdbNGmPMvfkvB52f5
+ cko9TqD1PoaZpO67afUw9vhuTHwu1oZz6X80lEILDiVA3SvXZrvCzwVaUduxWIsbIt0I11
+ ErtwQnKlk5kkXhUA9NJjmxcwXkb0EHA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1640970866;
+ s=susede2_ed25519; t=1641052087;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lAlIbCwt8/dbQUNJUXK2rYMZ7mOjbl+Y5KB9vD1z6ZQ=;
- b=92X9530XMMDZaCn8Sbhb6i2QpXt3wDERsrPpLuKh8Xfe9B1FfOrdZQxZhv3W89NYiVrU1S
- sFQL1K6iLvbmf3BQ==
+ bh=chbhCQj6hAZogsch5Y5wPKP/+t88RAVuQw/XW7sQuSc=;
+ b=I1w19BW9LhWgIbjFBUzlS1Uryk5ZZamS7br+ZGdLWL+whCKUEpZZa5jca4QHpe/UGDNzHP
+ LUxMV10+fkrdywAw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 93AFCA3B81;
- Fri, 31 Dec 2021 17:14:26 +0000 (UTC)
-Date: Fri, 31 Dec 2021 18:14:26 +0100
-Message-ID: <s5hk0fkofwt.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 655C4A3B81;
+ Sat,  1 Jan 2022 15:48:07 +0000 (UTC)
+Date: Sat, 01 Jan 2022 16:48:07 +0100
+Message-ID: <s5h7dbjo3t4.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Christian Lachner <gladiac@gmail.com>
-Subject: Re: [PATCH 1/1] ALSA: hda/realtek - Fix silent output on Gigabyte
- X570 Aorus Master after reboot from Windows
-In-Reply-To: <20211231102138.3226-2-gladiac@gmail.com>
-References: <20211231102138.3226-1-gladiac@gmail.com>
- <20211231102138.3226-2-gladiac@gmail.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v4 0/3] Fix Tegra194 HDA regression
+In-Reply-To: <1640260431-11613-1-git-send-email-spujar@nvidia.com>
+References: <1640260431-11613-1-git-send-email-spujar@nvidia.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- kailang@realtek.com, tiwai@suse.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, broonie@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org, digetx@gmail.com, jonathanh@nvidia.com,
+ mkumard@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,31 +95,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 31 Dec 2021 11:21:38 +0100,
-Christian Lachner wrote:
+On Thu, 23 Dec 2021 12:53:48 +0100,
+Sameer Pujar wrote:
 > 
-> +static void alc1220_fixup_gb_x570(struct hda_codec *codec,
-> +				     const struct hda_fixup *fix,
-> +				     int action)
-> +{
-> +	static const hda_nid_t conn1[] = { 0x0c };
-> +
-> +	if (action != HDA_FIXUP_ACT_PRE_PROBE)
-> +		return;
-> +
-> +	alc_write_coef_idx(codec, 0x1a, 0x01c1);
-> +	alc_write_coef_idx(codec, 0x1b, 0x0202);
-> +	alc_write_coef_idx(codec, 0x43, 0x3005);
-> +	alc_write_coef_idx(codec, 0x58, 0x8fd6);
-> +	alc_write_coef_idx(codec, 0x5f, 0xa3c5);
-> +	alc_write_coef_idx(codec, 0x6a, 0x0232);
+> HDA probe failure is observed on Tegra194 based platforms and this
+> happens due to reset failure. This series fixes the problem by
+> skipping the failing reset and DT bindings are updated accordingly.
+> 
+> 
+> Changelog
+> =========
+>  v3 -> v4:
+>  ---------
+>    * Rename SoC data variable in HDA driver patch.
+>    * Remove NULL check for compatible match data in HDA driver patch.
+>    * Drop "Depends-on" tag from commit message and add "Reviewed-by"
+>      tag from Dmitry.
+>    * Update binding doc patch as per comment from Rob.
+> 
+>  
+>  v2 -> v3:
+>  ---------
+>    * Use reset bulk APIs in HDA driver as suggested by Dmitry.
+> 
+> 
+>  v1 -> v2:
+>  ---------
+>    * Updated HDA driver patch to skip the failing reset instead of
+>      skipping resets in general for BPMP devices as per comment from
+>      Dmitry.
+>    * Used a better strucure name for SoC data as per comment from
+>      Thierry.
+>    * Dropped 'Fixes' tag in binding doc patch as per comment from
+>      Dmitry.
+> 
+> Sameer Pujar (3):
+>   ALSA: hda/tegra: Fix Tegra194 HDA reset failure
+>   dt-bindings: sound: tegra: Add minItems for resets
+>   arm64: tegra: Remove non existent Tegra194 reset
 
-Those could be better with struct coef_fw table to be processed via
-alc_process_coef_fw().
-
-Also the coef update needs to be performed not only at PRE_INIT but
-also at each resume, so this should be better done for action ==
-HDA_FIXUP_ACT_INIT, I suppose.
+As there seems no objection for this revision, I applied all three
+patches now to for-next branch of sound.git tree.
 
 
 thanks,

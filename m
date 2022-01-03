@@ -2,93 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D21C4831E9
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jan 2022 15:24:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB8734831A6
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jan 2022 15:00:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB5E9180F;
-	Mon,  3 Jan 2022 15:23:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB5E9180F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37182176B;
+	Mon,  3 Jan 2022 14:59:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37182176B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641219851;
-	bh=2Y2peMbnr/naOehScFiGUHl0kbK+AL3Oihg6rWnQTcg=;
-	h=References:From:To:Subject:Date:In-reply-to:Cc:List-Id:
+	s=default; t=1641218420;
+	bh=n5/ffVGdKhgUcaJT9Gz5BXgZMycTUwLG711xFUvNOsQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OXV3tW/8ua5a1/0f0wZTBtzIYwVwDJOsqcp1UPNCCKvlEKxitUHm0YZSjNccGwvCW
-	 wB9TZxNPPIHeBl2OB1pCCZUJ5RXfsJCo//3TxK3Y6oF7JGpLDpqYjiSKyjwUn5y+df
-	 J8T2sQfP24Yd5J5k0/5e5fgC75BDIaluwb27EuuY=
+	b=EaI4IWEyp8mnhFSxee/MX6pn56+T6Emi4pTi/bej5bFcwqpvjmSM/gQPSgNfO9UfK
+	 nSjD85x91V/jhKMQOfOfLzLPPSl8+SpjvgsKYRgE2BmBcfg4NbsOabQ6ehs5iJZAEV
+	 FuJU9xrA9eYXxlqk2xEceCF2IEaG3chq38DzKfO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCCD0F804FE;
-	Mon,  3 Jan 2022 15:22:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 984B4F8013F;
+	Mon,  3 Jan 2022 14:59:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47866F8007E; Mon,  3 Jan 2022 11:11:26 +0100 (CET)
+ id 06C0BF800C8; Mon,  3 Jan 2022 14:59:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B226F8007E
- for <alsa-devel@alsa-project.org>; Mon,  3 Jan 2022 11:11:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B226F8007E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20210112.gappssmtp.com
- header.i=@baylibre-com.20210112.gappssmtp.com header.b="N73pqWLK"
-Received: by mail-wr1-x42c.google.com with SMTP id v6so7209877wra.8
- for <alsa-devel@alsa-project.org>; Mon, 03 Jan 2022 02:11:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20210112.gappssmtp.com; s=20210112;
- h=references:user-agent:from:to:cc:subject:date:in-reply-to
- :message-id:mime-version;
- bh=d4U06QtxKLvpS3QwhJk/To0yMhx1a1d3B47g5ui1Y04=;
- b=N73pqWLKMdYBN+pI9KTb20m5dxZSEgGZZvVAFMAHmWsQ8Hfda9VmQtsEBnWSLEgu+c
- P+m1o7k3pOJu5kxb+Pm2cFWtu+fCS93F1P7jrTqbW2ewfTHsG1IcSABPAR9yfhy1gw6J
- ObWUOIHaV5sLU5O8PwurnR65PPUe4qJcCxpDPjiJQdGHBawifdlTV3k0HkMqx0Z91TEW
- 0E5PTxU9/sdSQ5n4dRVgiMqs0ssbGlwIizRCT47tEiDzF41JX/X6jqbSBIdIci8j0qIq
- MjHDq3c9S/Qw9VJqBahq5+75DGbc/7v6mHV0qLrANZiAjhnLlqsbOohfjm4UMdwdhXHl
- y4fQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25F39F800C8
+ for <alsa-devel@alsa-project.org>; Mon,  3 Jan 2022 14:59:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25F39F800C8
+Received: by mail-oi1-f171.google.com with SMTP id t23so55017888oiw.3
+ for <alsa-devel@alsa-project.org>; Mon, 03 Jan 2022 05:59:02 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
- :in-reply-to:message-id:mime-version;
- bh=d4U06QtxKLvpS3QwhJk/To0yMhx1a1d3B47g5ui1Y04=;
- b=z1PyGg6YBg0dYNiHHkSi69onyJNjRqwIV6eH2ELi8iVxBJwWJbRID7DP68dnppVUmF
- LFEn1RjwDVfwrL1bu6eHkSXAClh+CxhHGgWgScFUZD6K3zRrGGOuipijT5ieb9c9fwav
- 4e0QR5BPZXRfrpKoeohj9oB77uDiKwy9wGOz+7aLVvU2G9+p3zpqZ6YCqQkOJk/BPN/0
- UOsmor7atGEEqGICvFM/Yefgd9cW3Wzx9HVpjoMcSJZvcyxRfMJfDXJMbvHQH+15G5UX
- rvUQEkaqGM9vrEiaCIUzmfTFQQ3EdbSE3to5luhZyAbssEOVJcSE0ap6Ysb4VgHQWnwY
- Bwwg==
-X-Gm-Message-State: AOAM531ZpcEUrHN4nuCeIQfYIY4i93OUhK2uhPwxByLDu23R9dALZpC4
- jd3+azPGZ7qCXI+gBh6SPVxjew==
-X-Google-Smtp-Source: ABdhPJwBsSg18zloX8QHWVynGr6SCd20lAOIcyUGf8cgq+SDNIimM752PDm8+HOIssQHmVIn8nb6jw==
-X-Received: by 2002:a5d:6dd1:: with SMTP id d17mr22919440wrz.520.1641204678700; 
- Mon, 03 Jan 2022 02:11:18 -0800 (PST)
-Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
- [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id m21sm32816239wrb.2.2022.01.03.02.11.17
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=wzDM9gjQL9KJfKSfYGCQK2zI/KnBbFjyptgpSxeAvX8=;
+ b=lKSyo3QDMvPJgf1AqPJjHG3bTy7OLG1N8+z8H/1nS+lpPqJiJ5Wyw/lMXkajcTApQv
+ rvUQLsSnQprYq6FHS4Tqrwi1TVU63neHJwUTPVGBtDSU45evNf1R1ZcU8z/Y6UbVBSYq
+ QIeaDs21eyaRGizhwm1uLLWmhJaU1C/JVg/CzcwfG8GLhrT/rDKsYRkZIBjOWn/AcBUS
+ 8r8hjQNba6Sve72NvIWneUqqzW2Nuhhxojfq4FL/WyET9PlZIlR3FJ9x5PF123Pd1JIV
+ KrkNRdkhvCgKd26maKO1Hyl4mKsPZNkKtpFd+d95F3VcPigRzTbRvIyLoI1LsYq1Cf5t
+ +skA==
+X-Gm-Message-State: AOAM531PoIFOPxohVnRYYwHi6u+fL3hI7tsomLDByKaKbWH3xjaOI278
+ t2q+usnQf5Hih/WdsKGQAg==
+X-Google-Smtp-Source: ABdhPJw7S2QyvbSVgsDRCOh58ieaDF4BWKOnY006IkcKhBMkOI0VpUV+B5SwjktePQEdZqXq20LIlQ==
+X-Received: by 2002:a05:6808:2309:: with SMTP id
+ bn9mr34944786oib.42.1641218341421; 
+ Mon, 03 Jan 2022 05:59:01 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id t66sm8264920oie.39.2022.01.03.05.59.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Jan 2022 02:11:18 -0800 (PST)
-References: <ECC56215-1E02-4735-82F3-B68E73F56CB4@gmail.com>
- <3cd96113-3272-1efe-aa81-39de952d1e68@perex.cz>
-User-agent: mu4e 1.6.10; emacs 27.1
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jaroslav Kysela <perex@perex.cz>, Christian Hewitt
- <christianshewitt@gmail.com>, alsa-devel@alsa-project.org
-Subject: Re: [RESEND] Amlogic DPCM audio card(s) speaker placement issue
-Date: Mon, 03 Jan 2022 10:57:00 +0100
-In-reply-to: <3cd96113-3272-1efe-aa81-39de952d1e68@perex.cz>
-Message-ID: <1jk0fh86yj.fsf@starbuckisacylon.baylibre.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Mailman-Approved-At: Mon, 03 Jan 2022 15:22:25 +0100
-Cc: Matthias Reichl <hias@horus.com>, linux-amlogic@lists.infradead.org
+ Mon, 03 Jan 2022 05:59:00 -0800 (PST)
+Received: (nullmailer pid 2378537 invoked by uid 1000);
+ Mon, 03 Jan 2022 13:58:59 -0000
+From: Rob Herring <robh@kernel.org>
+To: Jayesh Choudhary <j-choudhary@ti.com>
+In-Reply-To: <20220103074427.4233-1-j-choudhary@ti.com>
+References: <20220103074427.4233-1-j-choudhary@ti.com>
+Subject: Re: [PATCH v5] ASoC: dt-bindings: davinci-mcasp: convert McASP
+ bindings to yaml schema
+Date: Mon, 03 Jan 2022 07:58:59 -0600
+Message-Id: <1641218339.997415.2378536.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
+ broonie@kernel.org, peter.ujfalusi@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,50 +90,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 03 Jan 2022 13:14:27 +0530, Jayesh Choudhary wrote:
+> Convert the bindings for McASP controllers for TI SOCs from txt
+> to YAML schema.
+> 
+> Adds additional properties 'clocks', 'clock-names', 'power-domains',
+> '#sound-dai-cells' and 'port' which were missing from the txt file.
+> Removes properties 'sram-size-playback' and 'sram-size-capture'
+> since they are not used.
+> Adds 'dmas' and 'dma-names' in the example which were missing from
+> the txt file.
+> Changes 'interrupts' and 'interrupt-names' from optional to
+> required properties.
+> Changes 'op-modes', 'serial-dir' to optional properties as they are
+> not needed if the McASP is used only as GPIO.
+> Changes 'tdm-slots' to required property only for I2S operation mode.
+> 
+> Adds the yaml file in the 'MAINTAINERS' under the heading 'TEXAS
+> INSTRUMENTS ASoC DRIVERS'
+> 
+> Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
+> ---
+> Changelog:
+> v5:
+> - changes the commit message
+> - changes description for 'reg', 'op-mode', 'tx-num-evt',
+>   'rx-num-evt' and 'interrupts'
+> - adds minimum and maximum for 'tdm-slots'
+> - removes default from 'serial-dir'
+> - removes maxItems from 'tdm-slots', 'tx-num-evt', 'rx-num-evt' and
+>   'auxclk-fs-ratio' as they are of type uint32
+> - adds 'tdm-slots' as conditionally required property for I2S mode
+>   of operation
+> 
+> v4:
+> - changes the commit message
+> - adds type and description to relevant properties
+> - changes maxItems for 'serial-dir'
+> - removes properties 'sram-size-playback' and 'sram-size-capture'
+>   as they are not used
+> - removes 'function-gpios'
+> - removes 'num-serializer'
+> - marks 'tdm-slots', 'op-mode' and 'serial-dir' as optional properties
+> - adds the yaml file in MAINTAINERS
+> 
+> v3:
+> - remove maxItems from 'clock-names'
+> 
+> v2:
+> - changes the commit message
+> - modifies the properties 'clocks', 'clock-names', 'dma-names',
+>   'dmas', 'interrupts' and 'interrupt-names' according to the
+>   arm SOCs
+> - adds 'ports' and 'num-serializer' as node properties
+> 
+>  .../bindings/sound/davinci-mcasp-audio.txt    |  86 --------
+>  .../bindings/sound/davinci-mcasp-audio.yaml   | 201 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  3 files changed, 202 insertions(+), 86 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+> 
 
-On Sun 26 Dec 2021 at 18:30, Jaroslav Kysela <perex@perex.cz> wrote:
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
 
-> On 26. 12. 21 12:43, Christian Hewitt wrote:
->
->> **** List of PLAYBACK Hardware Devices ****
->> card 0: LIBRETECHCC [LIBRETECH-CC], device 0: fe.dai-link-0 (*) []
->>   Subdevices: 1/1
->>   Subdevice #0: subdevice #0
->
->> numid=12,iface=PCM,name='ELD',device=2
->> numid=11,iface=PCM,name='IEC958 Playback Default',device=2
->> numid=10,iface=PCM,name='IEC958 Playback Mask',device=2
->> numid=9,iface=PCM,name='Playback Channel Map',device=2
->> https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/amlogic/meson-gxl-s905x-libretech-cc.dts#L136-L188
->
-> Have you tried to reorder the dai-link-# sections in DT? It appears to me that sound/soc/codecs/hdmi-codec.c / hdmi_codec_pcm_new() gets the internal PCM
-> device rather than the exported PCM device for the user space.
->
-> If the DAI routing cannot be changed, then the hdmi-codec.c should be modified to export the correct device number for the user space:
->
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
 
-The DAI routing is dynamic, especially on the AXG series.
-There is actually two routing stages:
+Full log is available here: https://patchwork.ozlabs.org/patch/1574696
 
-1) Between the user interfaces (DMA) and the i2s/TDM encoders/decoders:
-   -> This is using DPCM
 
-2) Between the i2s/TDM encoders and the HDMI controller:
-   -> This is using Codec-to-Codec links
+mcasp@0: 'num-serializer' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/am335x-cm-t335.dt.yaml
+	arch/arm/boot/dts/am335x-sbc-t335.dt.yaml
 
-The problem exposed here is
- - How to get the get the "Playback Channel Map" related to the pcm
- device of a given playback ?
+mcasp@0: 'rt-num-evt' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/am335x-wega-rdk.dt.yaml
 
-I don't really know how to answer this.
-As you noted above, given the routing is dynamic, I don't think the
-problem can be solved with a specific link ordering
+mcasp@2b00000: 'tdm-slots' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
 
-However, on these platforms, there will only be one such control
-AFAIK. The one you get is the one you are looking for. It's not ideal
-but it's a start.
+mcasp@2b10000: 'tdm-slots' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/hdmi-codec.c?h=v5.16-rc6#n805
->
-> 						Jaroslav
+mcasp@2b20000: 'tdm-slots' is a required property
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6528-iot2050-basic-pg2.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced.dt.yaml
+	arch/arm64/boot/dts/ti/k3-am6548-iot2050-advanced-pg2.dt.yaml
 

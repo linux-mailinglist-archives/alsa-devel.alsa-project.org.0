@@ -2,84 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 567014831E8
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jan 2022 15:24:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D21C4831E9
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jan 2022 15:24:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E9A117E6;
-	Mon,  3 Jan 2022 15:23:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E9A117E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB5E9180F;
+	Mon,  3 Jan 2022 15:23:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB5E9180F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641219848;
-	bh=rv8LQoIg+fr0DaLCwJIvHkvMmmFMf6ofMbMNMFroOaQ=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SFoVZFgWCNk6VWT7AQ79a7zkjpkCYZSdtRwkTUsFtq0ITlI4DMoxZd4IypnTk8tDQ
-	 eZLfR9COhqwAJqPqYk6hrucQ08QKEN+EnZSYBKxzcQ29Fz+Std0QgZTpDO2SQ59G54
-	 vEyj1QBct5/8l3RId+al2EyCYYsKjtpE5xZ31ePo=
+	s=default; t=1641219851;
+	bh=2Y2peMbnr/naOehScFiGUHl0kbK+AL3Oihg6rWnQTcg=;
+	h=References:From:To:Subject:Date:In-reply-to:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OXV3tW/8ua5a1/0f0wZTBtzIYwVwDJOsqcp1UPNCCKvlEKxitUHm0YZSjNccGwvCW
+	 wB9TZxNPPIHeBl2OB1pCCZUJ5RXfsJCo//3TxK3Y6oF7JGpLDpqYjiSKyjwUn5y+df
+	 J8T2sQfP24Yd5J5k0/5e5fgC75BDIaluwb27EuuY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4ACE1F80162;
-	Mon,  3 Jan 2022 15:22:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCCD0F804FE;
+	Mon,  3 Jan 2022 15:22:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6BEBF80272; Sun,  2 Jan 2022 11:18:47 +0100 (CET)
+ id 47866F8007E; Mon,  3 Jan 2022 11:11:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,MIME_HTML_ONLY,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90C5AF8019B
- for <alsa-devel@alsa-project.org>; Sun,  2 Jan 2022 11:18:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90C5AF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B226F8007E
+ for <alsa-devel@alsa-project.org>; Mon,  3 Jan 2022 11:11:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B226F8007E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
- header.b="jXM3/Bz3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1641118719;
- bh=RX5mjkPTlTNvnM+D+SmL7zKQpbgpq2CjFkiMgv228dE=;
- h=X-UI-Sender-Class:From:To:Subject:Date;
- b=jXM3/Bz3TVe/w7rIYGq+ebyM9toPEqH4B/IKG94wJQQT+IR/zBs92ot61r9kGl9py
- tpyEzwnYY03BRX6r8lXmgjRwmJfOuOhA+S4bjYqTiONk5RUmr0bgF4pxsTMBUKRQCE
- Q9FxjcLcIvpi0fWZksrjAVjXxydod2MdE1V6mcL8=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [95.91.248.70] ([95.91.248.70]) by web-mail.gmx.net
- (3c-app-gmx-bap12.server.lan [172.19.172.82]) (via HTTP); Sun, 2 Jan 2022
- 11:18:39 +0100
-Message-ID: <trinity-3a9517be-3e4a-40ba-aa68-c690f14cac64-1641118719217@3c-app-gmx-bap12>
-From: Stefan Sauer <st_kost@gmx.net>
-To: alsa-devel@alsa-project.org
-Subject: slow snd_rawmidi_drain() for VirMidi devcies
-Date: Sun, 2 Jan 2022 11:18:39 +0100
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:PHd/3n5lnarOs6xakkhAbrY18deyVm72rJmiezF3/ohLurcdiS3UAD1rtXNQ1+bdrx72p
- 2ndarSNeqZlt1JEm/BmNZNWIfyL+nVk5MHArAeMMVfzBBBwHV8HVXbjjEdK2nvw0RLz+aQBicCrP
- Cn8wzaK55E99gOmx4YkVx3WuP1/ZB2hG3AwvpSnuXhS0tOWJ97ViVMH7g4eY/RazGbNl49WPxFnc
- bQ51roIRcDV9N9sjkCTsqR3d1znVIfHI41IF+OynhMoaoSGibDucJN/VM4gpQjSbUH2UQoJ9vWjs
- cA=
-X-UI-Out-Filterresults: notjunk:1;V03:K0:GJxR7lgtSNE=:TkQV/dVibPgz+M+41+pZ5U
- r/RsB5hr6HyKB+5R2OfareNAQDZZEZSiaDhT9hcrDszDvNfRBeb6lE2/hsKmLwv9UJsX5UpTx
- na+s5fmMxfNckcgXJu0fMRXxZ7l7E0AjKUOZHdz/Ze7xCTIs2ISWP0qoaSL940l1v5XJ4Fs4y
- x/ukJco1Gr6oHGCbPOHAMbNZ5zQwFZlVtMxCemJtOOu5aDnxfQV7s2FFT9pcrK5zOnqEAviEs
- GDD3IiMqiLMNlaFUfaK16W3oii8198i2bqx2C2694Oc8njslaxOlDVfdfH52lDutSQmidMETZ
- fWAs/xguMSvkaDcV+MhQkEOjWmTa7pjd57wvUMDrdW0tumJb9g+VIyN4hSpgOFKhmH8VACjmg
- bgqZ97eRrkEG1vQPlpAezM7m50L4jyHKFm+C9i4RZnj7sMFHIaV5zpKq66Yxo2H3fFY2DuT0+
- oL78IBBynwf4BRmxu3yEJcx9x9pQwJ2pUX9Hhm1H5GbrxBI7CbJaBHVzZdHc+A2zd2XgVL99c
- IhbPKd8CaYLWSlvRYCu3Z3oftV8TMnNQu2FuImhlhA8OcaORqxWSjFZKY91O+3MrZ9OrMI5aS
- djIhzD0yDPwy7jmdrN9uxH1Q96fZg7PGoIwbAkUmFI3WRe6TYU8ZuTaLz1J8SAh/4ovpnpCU8
- JEfhvnWJd8NUofk3G1QELsBq/6sr1DHF5nD7MBKx8x5XE9gSbfVoqOtpq+jGxv1uNCsx8MdAr
- PNsAsBbi4/+sIwPGcZn25gFhehf+e4t5nnuq15StrR6cAXam8jOwXDt61PkBxqTIoWUXG4D9E
- yj6sjRa
-X-Mailman-Approved-At: Mon, 03 Jan 2022 15:22:25 +0100
+ dkim=pass (2048-bit key) header.d=baylibre-com.20210112.gappssmtp.com
+ header.i=@baylibre-com.20210112.gappssmtp.com header.b="N73pqWLK"
+Received: by mail-wr1-x42c.google.com with SMTP id v6so7209877wra.8
+ for <alsa-devel@alsa-project.org>; Mon, 03 Jan 2022 02:11:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20210112.gappssmtp.com; s=20210112;
+ h=references:user-agent:from:to:cc:subject:date:in-reply-to
+ :message-id:mime-version;
+ bh=d4U06QtxKLvpS3QwhJk/To0yMhx1a1d3B47g5ui1Y04=;
+ b=N73pqWLKMdYBN+pI9KTb20m5dxZSEgGZZvVAFMAHmWsQ8Hfda9VmQtsEBnWSLEgu+c
+ P+m1o7k3pOJu5kxb+Pm2cFWtu+fCS93F1P7jrTqbW2ewfTHsG1IcSABPAR9yfhy1gw6J
+ ObWUOIHaV5sLU5O8PwurnR65PPUe4qJcCxpDPjiJQdGHBawifdlTV3k0HkMqx0Z91TEW
+ 0E5PTxU9/sdSQ5n4dRVgiMqs0ssbGlwIizRCT47tEiDzF41JX/X6jqbSBIdIci8j0qIq
+ MjHDq3c9S/Qw9VJqBahq5+75DGbc/7v6mHV0qLrANZiAjhnLlqsbOohfjm4UMdwdhXHl
+ y4fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
+ :in-reply-to:message-id:mime-version;
+ bh=d4U06QtxKLvpS3QwhJk/To0yMhx1a1d3B47g5ui1Y04=;
+ b=z1PyGg6YBg0dYNiHHkSi69onyJNjRqwIV6eH2ELi8iVxBJwWJbRID7DP68dnppVUmF
+ LFEn1RjwDVfwrL1bu6eHkSXAClh+CxhHGgWgScFUZD6K3zRrGGOuipijT5ieb9c9fwav
+ 4e0QR5BPZXRfrpKoeohj9oB77uDiKwy9wGOz+7aLVvU2G9+p3zpqZ6YCqQkOJk/BPN/0
+ UOsmor7atGEEqGICvFM/Yefgd9cW3Wzx9HVpjoMcSJZvcyxRfMJfDXJMbvHQH+15G5UX
+ rvUQEkaqGM9vrEiaCIUzmfTFQQ3EdbSE3to5luhZyAbssEOVJcSE0ap6Ysb4VgHQWnwY
+ Bwwg==
+X-Gm-Message-State: AOAM531ZpcEUrHN4nuCeIQfYIY4i93OUhK2uhPwxByLDu23R9dALZpC4
+ jd3+azPGZ7qCXI+gBh6SPVxjew==
+X-Google-Smtp-Source: ABdhPJwBsSg18zloX8QHWVynGr6SCd20lAOIcyUGf8cgq+SDNIimM752PDm8+HOIssQHmVIn8nb6jw==
+X-Received: by 2002:a5d:6dd1:: with SMTP id d17mr22919440wrz.520.1641204678700; 
+ Mon, 03 Jan 2022 02:11:18 -0800 (PST)
+Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
+ [90.63.244.31])
+ by smtp.gmail.com with ESMTPSA id m21sm32816239wrb.2.2022.01.03.02.11.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Jan 2022 02:11:18 -0800 (PST)
+References: <ECC56215-1E02-4735-82F3-B68E73F56CB4@gmail.com>
+ <3cd96113-3272-1efe-aa81-39de952d1e68@perex.cz>
+User-agent: mu4e 1.6.10; emacs 27.1
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jaroslav Kysela <perex@perex.cz>, Christian Hewitt
+ <christianshewitt@gmail.com>, alsa-devel@alsa-project.org
+Subject: Re: [RESEND] Amlogic DPCM audio card(s) speaker placement issue
+Date: Mon, 03 Jan 2022 10:57:00 +0100
+In-reply-to: <3cd96113-3272-1efe-aa81-39de952d1e68@perex.cz>
+Message-ID: <1jk0fh86yj.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Content-Type: text/plain
+X-Mailman-Approved-At: Mon, 03 Jan 2022 15:22:25 +0100
+Cc: Matthias Reichl <hias@horus.com>, linux-amlogic@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,80 +104,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-   hi,
 
-   happy new year every one. During the free days I've tried to link
-   BitwigStudio to the webapp [1]cables.gl over virmidi. Unfortunately
-   Bitwig Studio only supports rawmidi. What I discovered is that there is
-   a strange slowness when sending data to virmidi caused
-   by snd_rawmidi_drain().
+On Sun 26 Dec 2021 at 18:30, Jaroslav Kysela <perex@perex.cz> wrote:
 
-   I've posted two tiny, self-contained c apps
-   to: [2]https://gist.github.com/ensonic/c7588b87fa6c1fa94a8f753b1e0aa394
-   See some examples below. 2 observations:
-   * snd_rawmidi_type() is *not* reporting virmidi as VIRTUAL
-   * snd_rawmidi_drain() takes about 60ms! on virtual vs. less that 0.1 ms
-   on usb midi (I checked all my hw midi and the worst was avg=1ms on
-   physical midi image unitor8)
+> On 26. 12. 21 12:43, Christian Hewitt wrote:
+>
+>> **** List of PLAYBACK Hardware Devices ****
+>> card 0: LIBRETECHCC [LIBRETECH-CC], device 0: fe.dai-link-0 (*) []
+>>   Subdevices: 1/1
+>>   Subdevice #0: subdevice #0
+>
+>> numid=12,iface=PCM,name='ELD',device=2
+>> numid=11,iface=PCM,name='IEC958 Playback Default',device=2
+>> numid=10,iface=PCM,name='IEC958 Playback Mask',device=2
+>> numid=9,iface=PCM,name='Playback Channel Map',device=2
+>> https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/amlogic/meson-gxl-s905x-libretech-cc.dts#L136-L188
+>
+> Have you tried to reorder the dai-link-# sections in DT? It appears to me that sound/soc/codecs/hdmi-codec.c / hdmi_codec_pcm_new() gets the internal PCM
+> device rather than the exported PCM device for the user space.
+>
+> If the DAI routing cannot be changed, then the hdmi-codec.c should be modified to export the correct device number for the user space:
+>
 
-   When comparing the implementations:
-   [3]https://github.com/alsa-project/alsa-lib/blob/master/
-   src/rawmidi/rawmidi_virt.c#L173
-   [4]https://github.com/alsa-project/alsa-lib/blob/master/
-   src/rawmidi/rawmidi_hw.c#L164
-   I see that the hw one results in an IOCTL (SNDRV_RAWMIDI_IOCTL_DRAIN)
-   which I can see when strac'ing app and I wonder if this is the root
-   cause? Why is rawmidi_virt.c not used for virmidi?
-   From poking at snd_rawmidi_open_conf() I have not yet figured where
-   this is decided ....
+The DAI routing is dynamic, especially on the AXG series.
+There is actually two routing stages:
 
-   If the IOCTl is the right code path, any idea why it is slow? Is the
-   virmidi driver not reporting buffer fill status or something like that?
+1) Between the user interfaces (DMA) and the i2s/TDM encoders/decoders:
+   -> This is using DPCM
 
-   Stefan
+2) Between the i2s/TDM encoders and the HDMI controller:
+   -> This is using Codec-to-Codec links
 
-   > amidi -l
-   Dir Device    Name
-   IO  hw:0,0,0  Scarlett 18i20 USB MIDI 1
-   IO  hw:3,0,0  nanoKEY2 nanoKEY2 _ KEYBOARD
-   IO  hw:5,0,0  nanoKONTROL nanoKONTROL _ SLIDE
-   IO  hw:10,0    Virtual Raw MIDI (16 subdevices)
-   IO  hw:11,0    Virtual Raw MIDI (16 subdevices)
+The problem exposed here is
+ - How to get the get the "Playback Channel Map" related to the pcm
+ device of a given playback ?
 
-   # using direct i/o to virmidi - all good
-   > ./rawmidi_oss /dev/midi11 0
-   Using device '/dev/midi11' without draining
-   write took min=  0.0015 ms, avg=  0.0016 ms, max=  0.0110 ms
-   > ./rawmidi_oss /dev/midi11 1
-   Using device '/dev/midi11' with draining
-   write took min=  0.0015 ms, avg=  0.0017 ms, max=  0.0101 ms
-   drain took min=  0.0001 ms, avg=  0.0001 ms, max=  0.0008 ms
+I don't really know how to answer this.
+As you noted above, given the routing is dynamic, I don't think the
+problem can be solved with a specific link ordering
 
-   # using snd_rawmidi to virmidi - slow drain operations
-   > ./rawmidi_alsa hw:11,0 0
-   Using device 'hw:11,0' without draining
-   SND_RAWMIDI_TYPE_HW
-   write took min=  0.0010 ms, avg=  0.0011 ms, max=  0.0056 ms
-   > ./rawmidi_alsa hw:11,0 1
-   Using device 'hw:11,0' with draining
-   SND_RAWMIDI_TYPE_HW
-   write took min=  0.0016 ms, avg=  0.0040 ms, max=  0.0077 ms
-   drain took min= 55.9951 ms, avg= 60.4330 ms, max= 64.0653 ms
+However, on these platforms, there will only be one such control
+AFAIK. The one you get is the one you are looking for. It's not ideal
+but it's a start.
 
-   # using snd_rawmidi to usb hw - all good
-   > ./rawmidi_alsa hw:3,0 0
-   Using device 'hw:3,0' without draining
-   SND_RAWMIDI_TYPE_HW
-   write took min=  0.0012 ms, avg=  0.0015 ms, max=  0.0121 ms
-   > ./rawmidi_alsa hw:3,0 1
-   Using device 'hw:3,0' with draining
-   SND_RAWMIDI_TYPE_HW
-   write took min=  0.0024 ms, avg=  0.0032 ms, max=  0.0110 ms
-   drain took min=  0.0293 ms, avg=  0.0636 ms, max=  0.2277 ms
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/hdmi-codec.c?h=v5.16-rc6#n805
+>
+> 						Jaroslav
 
-References
-
-   1. http://cables.gl/
-   2. https://gist.github.com/ensonic/c7588b87fa6c1fa94a8f753b1e0aa394
-   3. https://github.com/alsa-project/alsa-lib/blob/master/src/rawmidi/rawmidi_virt.c#L173
-   4. https://github.com/alsa-project/alsa-lib/blob/master/src/rawmidi/rawmidi_hw.c#L164

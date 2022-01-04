@@ -2,63 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A9248408F
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 12:12:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 257E648421F
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 14:09:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3467E1753;
-	Tue,  4 Jan 2022 12:11:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3467E1753
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E8D316DD;
+	Tue,  4 Jan 2022 14:08:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E8D316DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641294764;
-	bh=B+vbm1jv8/ATgxxFPhnEG/8y7cUbx/Ubh8U2UB7ODbA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1641301748;
+	bh=vpRi/lmEdqhk6uBCw2+F5XnU/4eGINrhsmoYK3KuMg4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZwfuiuTAImVITT4GHcezvtpEbfReqkNrTE780HjCbLoP2IOKYZglENHBNTAOWLBUG
-	 mfA9Dsrfq8IIzvPOcRbZ2jWGKKmhM+I9qjeTmFBuu9n0vP1B3dLZEq7tiRLhikHPD4
-	 6BwhRvg1+h1VtWK7fhYc58+J+VMJnEQ9BoSb5nwI=
+	b=vPtqGKAc8W9q1smLfA6GzPoP9wxcRqNXjj1d15EnvY+rLvQuCe3Cn7D2rSaINvEH9
+	 8uOh+JpnQ4XcXiKzibAJ0maqknBSvm1gwhp5ArQGdl9oFYf8qH03W4vN1prQ2i4pFh
+	 PGmoLhiKykuLLM2zVw634tIrfcXHQT/6sJ6LDs7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C249DF80511;
-	Tue,  4 Jan 2022 12:10:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04CA7F8032B;
+	Tue,  4 Jan 2022 14:08:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B657F804FE; Tue,  4 Jan 2022 12:10:34 +0100 (CET)
+ id 04BA9F80310; Tue,  4 Jan 2022 14:08:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98911F8027C
- for <alsa-devel@alsa-project.org>; Tue,  4 Jan 2022 12:10:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98911F8027C
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id EEF85200CC7;
- Tue,  4 Jan 2022 12:10:22 +0100 (CET)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id B7C1D200C96;
- Tue,  4 Jan 2022 12:10:22 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 51B77183AD05;
- Tue,  4 Jan 2022 19:10:21 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ASoC: imx-card: improve the sound quality for low rate
-Date: Tue,  4 Jan 2022 18:40:35 +0800
-Message-Id: <1641292835-19085-4-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1641292835-19085-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1641292835-19085-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0F5CF80089
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jan 2022 14:07:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0F5CF80089
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="t7B0BcFi"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="zmqNWuIr"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id C9A2E1F386;
+ Tue,  4 Jan 2022 13:07:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1641301671; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tfjSgIg7XepgSJUbid2VyHDg323VjNL4qJ6wgeEpvuQ=;
+ b=t7B0BcFicuUynr5x7AL1eNGg49zlmxTbJGJWyp+rHuWH4GiimczcFtLkcPCqyO2UNi45fj
+ fREFdToDToGMwEG44vhKqQ7+dN/Oy0i3GLz+3u2g+gWs4MAjKuo9IeXQvzNBn4YAHOOcvl
+ A1Wj9z/0N2U5/HTx4xzbBZD4KZL01Ws=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1641301671;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tfjSgIg7XepgSJUbid2VyHDg323VjNL4qJ6wgeEpvuQ=;
+ b=zmqNWuIrK+SlApL8VKqldEqu7JoA4V2VkwBHfKAJv5Thu/nsFs6+lWBfnIjhzof9dHSD7b
+ nqRpRFosyVxpHrBQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id A89A0A3B83;
+ Tue,  4 Jan 2022 13:07:51 +0000 (UTC)
+Date: Tue, 04 Jan 2022 14:07:51 +0100
+Message-ID: <s5h35m3lkd4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: (subset) [PATCH v6 00/10] Add support for CS35L41 in HDA systems
+In-Reply-To: <164096159451.2355590.17653987935012339046.b4-ty@kernel.org>
+References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
+ <164096159451.2355590.17653987935012339046.b4-ty@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: platform-driver-x86@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-acpi@vger.kernel.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ linux-kernel@vger.kernel.org, Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,53 +98,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-According to RM, on auto mode:
-For codec AK4458 and AK4497, the lowest ratio of MLCK/FS is 256
-if sample rate is 8kHz-48kHz,
-For codec AK5558, the lowest ratio of MLCK/FS is 512 if sample
-rate is 8kHz-48kHz.
+On Fri, 31 Dec 2021 15:39:54 +0100,
+Mark Brown wrote:
+> 
+> On Fri, 17 Dec 2021 11:56:58 +0000, Lucas Tanure wrote:
+> > Add support for laptops that have CS35L41 connected to an HDA
+> > codec by I2S and direct I2C connection to the CPU.
+> > 
+> > Laptops that use CS35L41 and are SPI will be added in the future,
+> > after the support for it is resolved at i2c-multi-instantiate driver.
+> > i2c-multi-instantiate thread: https://lkml.org/lkml/2021/12/10/557
+> > 
+> > [...]
+> 
+> Applied to
+> 
+>    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> 
+> Thanks!
+> 
+> [01/10] ASoC: cs35l41: Convert tables to shared source code
+>         commit: a87d42227cf5614fe0040ddd1fe642c54298b42c
+> [02/10] ASoC: cs35l41: Move cs35l41_otp_unpack to shared code
+>         commit: fe120d4cb6f6cd03007239e7c578b8703fe6d336
+> [03/10] ASoC: cs35l41: Move power initializations to reg_sequence
+>         commit: 062ce0593315e22aac527389dd6dd4328c49f0fb
+> [04/10] ASoC: cs35l41: Create shared function for errata patches
+>         commit: 8b2278604b6de27329ec7ed82ca696c4751111b6
+> [05/10] ASoC: cs35l41: Create shared function for setting channels
+>         commit: 3bc3e3da657f17c14df8ae8fab58183407bd7521
+> [06/10] ASoC: cs35l41: Create shared function for boost configuration
+>         commit: e8e4fcc047c6e0c5411faeb8cc29aed2e5036a00
 
-With these setting the sound quality for 8kHz-48kHz can be improved.
+Mark, could you send a PR including those for 5.17?
+The rest HD-audio part of the patch set depends on this new ASoC codec
+stuff (at least Kconfig), so I can't apply the patches before merging
+those.  The ACPI patch might be still not applicable through my tree,
+but it can be taken independently.
 
-Fixes: aa736700f42f ("ASoC: imx-card: Add imx-card machine driver")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/imx-card.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/fsl/imx-card.c b/sound/soc/fsl/imx-card.c
-index f9196fb7e833..6f8efd838fcc 100644
---- a/sound/soc/fsl/imx-card.c
-+++ b/sound/soc/fsl/imx-card.c
-@@ -120,7 +120,7 @@ struct imx_card_data {
- 
- static struct imx_akcodec_fs_mul ak4458_fs_mul[] = {
- 	/* Normal, < 32kHz */
--	{ .rmin = 8000,   .rmax = 24000,  .wmin = 1024, .wmax = 1024, },
-+	{ .rmin = 8000,   .rmax = 24000,  .wmin = 256,  .wmax = 1024, },
- 	/* Normal, 32kHz */
- 	{ .rmin = 32000,  .rmax = 32000,  .wmin = 256,  .wmax = 1024, },
- 	/* Normal */
-@@ -151,8 +151,8 @@ static struct imx_akcodec_fs_mul ak4497_fs_mul[] = {
- 	 * Table 7      - mapping multiplier and speed mode
- 	 * Tables 8 & 9 - mapping speed mode and LRCK fs
- 	 */
--	{ .rmin = 8000,   .rmax = 32000,  .wmin = 1024, .wmax = 1024, }, /* Normal, <= 32kHz */
--	{ .rmin = 44100,  .rmax = 48000,  .wmin = 512,  .wmax = 512, }, /* Normal */
-+	{ .rmin = 8000,   .rmax = 32000,  .wmin = 256,  .wmax = 1024, }, /* Normal, <= 32kHz */
-+	{ .rmin = 44100,  .rmax = 48000,  .wmin = 256,  .wmax = 512, }, /* Normal */
- 	{ .rmin = 88200,  .rmax = 96000,  .wmin = 256,  .wmax = 256, }, /* Double */
- 	{ .rmin = 176400, .rmax = 192000, .wmin = 128,  .wmax = 128, }, /* Quad */
- 	{ .rmin = 352800, .rmax = 384000, .wmin = 128,  .wmax = 128, }, /* Oct */
-@@ -164,7 +164,7 @@ static struct imx_akcodec_fs_mul ak4497_fs_mul[] = {
-  * (Table 4 from datasheet)
-  */
- static struct imx_akcodec_fs_mul ak5558_fs_mul[] = {
--	{ .rmin = 8000,   .rmax = 32000,  .wmin = 1024, .wmax = 1024, },
-+	{ .rmin = 8000,   .rmax = 32000,  .wmin = 512,  .wmax = 1024, },
- 	{ .rmin = 44100,  .rmax = 48000,  .wmin = 512,  .wmax = 512, },
- 	{ .rmin = 88200,  .rmax = 96000,  .wmin = 256,  .wmax = 256, },
- 	{ .rmin = 176400, .rmax = 192000, .wmin = 128,  .wmax = 128, },
--- 
-2.17.1
+thanks,
 
+Takashi

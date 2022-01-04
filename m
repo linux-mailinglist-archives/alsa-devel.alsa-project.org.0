@@ -2,87 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 257E648421F
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 14:09:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E56614842DB
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 14:54:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E8D316DD;
-	Tue,  4 Jan 2022 14:08:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E8D316DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64E08173B;
+	Tue,  4 Jan 2022 14:53:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64E08173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641301748;
-	bh=vpRi/lmEdqhk6uBCw2+F5XnU/4eGINrhsmoYK3KuMg4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1641304483;
+	bh=q5tuM3LB4Vub0v6EDrB6ClDTrQQzZ2ubwOG4NlUHP7E=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vPtqGKAc8W9q1smLfA6GzPoP9wxcRqNXjj1d15EnvY+rLvQuCe3Cn7D2rSaINvEH9
-	 8uOh+JpnQ4XcXiKzibAJ0maqknBSvm1gwhp5ArQGdl9oFYf8qH03W4vN1prQ2i4pFh
-	 PGmoLhiKykuLLM2zVw634tIrfcXHQT/6sJ6LDs7E=
+	b=cDLgWZ331PBdtiYEfblnvMQCm4WCfad1jpwVYDw334Dn38vYwkXR/MU84jo2sB7AM
+	 59tXB0T2x8hLTC88XlPZYK065TAW7LE/wKg2w0j1y+/3x0VoQ0hXtmBPQ/j9AWbQR2
+	 dCjxrvBWkxpuuz8qAsXE9r5aBsdbGTd6f9yCBDOA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04CA7F8032B;
-	Tue,  4 Jan 2022 14:08:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0D2DF8032B;
+	Tue,  4 Jan 2022 14:53:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04BA9F80310; Tue,  4 Jan 2022 14:08:00 +0100 (CET)
+ id 4DCDBF80310; Tue,  4 Jan 2022 14:53:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0F5CF80089
- for <alsa-devel@alsa-project.org>; Tue,  4 Jan 2022 14:07:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0F5CF80089
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="t7B0BcFi"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="zmqNWuIr"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id C9A2E1F386;
- Tue,  4 Jan 2022 13:07:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1641301671; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tfjSgIg7XepgSJUbid2VyHDg323VjNL4qJ6wgeEpvuQ=;
- b=t7B0BcFicuUynr5x7AL1eNGg49zlmxTbJGJWyp+rHuWH4GiimczcFtLkcPCqyO2UNi45fj
- fREFdToDToGMwEG44vhKqQ7+dN/Oy0i3GLz+3u2g+gWs4MAjKuo9IeXQvzNBn4YAHOOcvl
- A1Wj9z/0N2U5/HTx4xzbBZD4KZL01Ws=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1641301671;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tfjSgIg7XepgSJUbid2VyHDg323VjNL4qJ6wgeEpvuQ=;
- b=zmqNWuIrK+SlApL8VKqldEqu7JoA4V2VkwBHfKAJv5Thu/nsFs6+lWBfnIjhzof9dHSD7b
- nqRpRFosyVxpHrBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id A89A0A3B83;
- Tue,  4 Jan 2022 13:07:51 +0000 (UTC)
-Date: Tue, 04 Jan 2022 14:07:51 +0100
-Message-ID: <s5h35m3lkd4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: (subset) [PATCH v6 00/10] Add support for CS35L41 in HDA systems
-In-Reply-To: <164096159451.2355590.17653987935012339046.b4-ty@kernel.org>
-References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
- <164096159451.2355590.17653987935012339046.b4-ty@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: platform-driver-x86@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-acpi@vger.kernel.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- linux-kernel@vger.kernel.org, Len Brown <lenb@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE42CF800FF;
+ Tue,  4 Jan 2022 14:53:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE42CF800FF
+X-UUID: 085676ee86f0432c9ea374a25b778bdb-20220104
+X-UUID: 085676ee86f0432c9ea374a25b778bdb-20220104
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw01.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 699211688; Tue, 04 Jan 2022 21:53:18 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Tue, 4 Jan 2022 21:53:17 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 4 Jan 2022 21:53:17 +0800
+Message-ID: <2652267e57e4095e9d0bc265b93cf31f545b7683.camel@mediatek.com>
+Subject: Re: [RESEND PATCH v10 0/3] This patches provide ADSP IPC support
+ for MT8195
+From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jassi Brar
+ <jassisinghbrar@gmail.com>
+Date: Tue, 4 Jan 2022 21:53:17 +0800
+In-Reply-To: <20211210104153.24181-1-allen-kh.cheng@mediatek.com>
+References: <20211210104153.24181-1-allen-kh.cheng@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, cujomalainey@google.com,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,45 +88,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 31 Dec 2021 15:39:54 +0100,
-Mark Brown wrote:
+On Fri, 2021-12-10 at 18:41 +0800, allen-kh.cheng wrote:
+> From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 > 
-> On Fri, 17 Dec 2021 11:56:58 +0000, Lucas Tanure wrote:
-> > Add support for laptops that have CS35L41 connected to an HDA
-> > codec by I2S and direct I2C connection to the CPU.
-> > 
-> > Laptops that use CS35L41 and are SPI will be added in the future,
-> > after the support for it is resolved at i2c-multi-instantiate driver.
-> > i2c-multi-instantiate thread: https://lkml.org/lkml/2021/12/10/557
-> > 
-> > [...]
+> Mediatek ADSP IPC is used to send notification or short message
+> between
+> processors with dsp.·
 > 
-> Applied to
+> It will place the message to the share buffer and will access the
+> ADSP mailbox
+> registers to kick dsp.
 > 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> Two mailboxes used to send notification or short message between
+> processors with
+> dsp
 > 
-> Thanks!
-> 
-> [01/10] ASoC: cs35l41: Convert tables to shared source code
->         commit: a87d42227cf5614fe0040ddd1fe642c54298b42c
-> [02/10] ASoC: cs35l41: Move cs35l41_otp_unpack to shared code
->         commit: fe120d4cb6f6cd03007239e7c578b8703fe6d336
-> [03/10] ASoC: cs35l41: Move power initializations to reg_sequence
->         commit: 062ce0593315e22aac527389dd6dd4328c49f0fb
-> [04/10] ASoC: cs35l41: Create shared function for errata patches
->         commit: 8b2278604b6de27329ec7ed82ca696c4751111b6
-> [05/10] ASoC: cs35l41: Create shared function for setting channels
->         commit: 3bc3e3da657f17c14df8ae8fab58183407bd7521
-> [06/10] ASoC: cs35l41: Create shared function for boost configuration
->         commit: e8e4fcc047c6e0c5411faeb8cc29aed2e5036a00
 
-Mark, could you send a PR including those for 5.17?
-The rest HD-audio part of the patch set depends on this new ASoC codec
-stuff (at least Kconfig), so I can't apply the patches before merging
-those.  The ACPI patch might be still not applicable through my tree,
-but it can be taken independently.
+Dear Matthias,
 
+Do you have any comment about this patch series?
 
-thanks,
+Thanks.
 
-Takashi
+> changes since v9:
+> - rename adsp_mbox_chan_ops to mtk_adsp_mbox_chan_ops
+> 
+> changes since v8:
+> - remove struct adsp_mbox_ch_info
+> - add get_mtk_adsp_mbox_priv
+> - use mtk_adsp_mbox_priv va_mboxreg address in adsp mbox driver
+> - add struct mtk_adsp_mbox_cfg for DSP mbox register offset
+> - remove adsp mbox register offset hard code define
+> - remove mtk-adsp-ipc.h reference in adsp mbox driver
+> 
+> changes since v7:
+> - add mtk prefix for adsp ipc functions
+> - rename adsp_mbox_ch_info to mtk_adsp_mbox_ch_info
+> - remove incorrect reviewers in commit message
+> 
+> changes since v6:
+> - dt-bindings: change example dtsi node.
+> - rename config MTK_ADSP_IPC_MBOX to MTK_ADSP_MBOX
+> - remove unused variable
+> - add reviewers
+> 
+> changes since v5:
+> - remove some redundant code
+> 
+> changes since v4:
+> - use switch ... case in adsp_ipc_recv
+> - add error handling path for chan_name pointer
+> - refine some code to be concise
+> 
+> changes since v3:
+> - reorder MTK_ADSP_IPC_MBOX config
+> - remove some redundant code
+> - remove lock in mtk-adsp-mailbox
+> 
+> changes since v2:
+> - separate adsp_mailbox into two instances
+> 
+> changes since v1:
+> - fix dt_binding_check error
+> 
+> 
+> Allen-KH Cheng (3):
+>   dt-bindings: mediatek: add adsp-mbox document
+>   firmware: mediatek: add adsp ipc protocol interface
+>   mailbox: mediatek: add support for adsp mailbox controller
+> 
+>  .../bindings/mailbox/mtk,adsp-mbox.yaml       |  52 ++++++
+>  drivers/firmware/Kconfig                      |   1 +
+>  drivers/firmware/Makefile                     |   1 +
+>  drivers/firmware/mediatek/Kconfig             |   9 +
+>  drivers/firmware/mediatek/Makefile            |   2 +
+>  drivers/firmware/mediatek/mtk-adsp-ipc.c      | 135 ++++++++++++++
+>  drivers/mailbox/Kconfig                       |   7 +
+>  drivers/mailbox/Makefile                      |   2 +
+>  drivers/mailbox/mtk-adsp-mailbox.c            | 176
+> ++++++++++++++++++
+>  .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 +++++++
+>  10 files changed, 450 insertions(+)
+>  create mode 100644
+> Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
+>  create mode 100644 drivers/firmware/mediatek/Kconfig
+>  create mode 100644 drivers/firmware/mediatek/Makefile
+>  create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
+>  create mode 100644 drivers/mailbox/mtk-adsp-mailbox.c
+>  create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
+> 
+

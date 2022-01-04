@@ -2,67 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB04E483B04
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 04:37:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 487A9483E7F
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 09:53:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66BA71689;
-	Tue,  4 Jan 2022 04:36:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66BA71689
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7F07170B;
+	Tue,  4 Jan 2022 09:52:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7F07170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641267422;
-	bh=B5r5bKWv+AN1AcrwGgolaeGf2bckAxoWiPn+7bud1g8=;
-	h=Date:To:From:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Reply-To:From;
-	b=IirXMxqY+RQcw9PJym3KTb88MvXeje1QYmzoaYeZ28MoZTMPWnB8Mcyq/tu8D6qf9
-	 WvQ3h1RBPmfcV0l1xlqZd6VQUwv5/ihWJpEd6lqAWub5pXXQUXbyqloYS2DdytVQv2
-	 aoPNIbXvKG3dpZQffCyv2qVa5sP5UJDtC+fd4bsQ=
+	s=default; t=1641286386;
+	bh=qBWalmtKSmagHda2t4OLj3e+LegwcyqsE7AA17/oBUE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=O+noafjQmDqEiE41F+B9aTEb+BuDqgGjFHXAwCHQdXI1ShtHPFOIH4PXv2lcVrKhk
+	 PAOMHgP20gTkT2mAe+mlnevs0/SIw17tj5g/FCWKqAxP82rmEgoUvtO138q3gJWVll
+	 tgYnfTNSqI0+8Z6r02HnKUQ8DjOc/DgDf3dLKDJk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B74B8F8007E;
-	Tue,  4 Jan 2022 04:35:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 194BCF8032B;
+	Tue,  4 Jan 2022 09:52:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8DB51F80310; Tue,  4 Jan 2022 04:35:53 +0100 (CET)
+ id 7250AF80310; Tue,  4 Jan 2022 09:51:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-40135.protonmail.ch (mail-40135.protonmail.ch
- [185.70.40.135])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from magratgarlick.emantor.de (magratgarlick.emantor.de
+ [78.46.208.201])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDB35F80089
- for <alsa-devel@alsa-project.org>; Tue,  4 Jan 2022 04:35:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDB35F80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id F41E1F80089
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jan 2022 09:51:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F41E1F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com
- header.b="e8erSZ46"
-Date: Tue, 04 Jan 2022 03:35:36 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail2; t=1641267343;
- bh=CtQiq4lflRfXZBK4qlNWgLY+8xhc4BjhH8iVZ3/Y3hs=;
- h=Date:To:From:Cc:Reply-To:Subject:Message-ID:From:To:Cc;
- b=e8erSZ46x1E4Wc474MWY29MhGWwH4AXLAtxL7/jy08a0b5zfwSUsQV5eZkvudLf91
- KQwACSRHzKs0u9bi/UEH2C7fizGnhQDejKlVQUUxNTavpLUzNNP5Ji8JvJAJeXb7J/
- hc0h8y53A7BvjMYx5HrEGapInv2k2aU6ooYkk+YKw7WfNb1mveQ+28mm2Q1CidkCMV
- k+RzZ+BRQZOrP8WLHrWGx1b4p5vPA7koXTHWDTS9XKy/MxkUOeOQsjgRnwAxewSd+z
- MisQ57h6FtQytUMsnHuaKgmaRmcc+XzLPDpqPwEk5dHS13iLrodpQNjewNIrgo/aU+
- ISDGVCZc9ELkg==
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
-From: Yassine Oudjana <y.oudjana@protonmail.com>
-Subject: [PATCH] ASoC: wcd9335: Keep a RX port value for each SLIM RX mux
-Message-ID: <20220104033356.343685-1-y.oudjana@protonmail.com>
+ dkim=pass (1024-bit key) header.d=czerwinskis.de header.i=@czerwinskis.de
+ header.b="HqpbkZ5R"; 
+ dkim=pass (1024-bit key) header.d=czerwinskis.de header.i=@czerwinskis.de
+ header.b="qrS2vg4R"
+Received: by magratgarlick.emantor.de (Postfix, from userid 114)
+ id 4DF4491608; Tue,  4 Jan 2022 09:51:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=czerwinskis.de;
+ s=mail; t=1641286313;
+ bh=qBWalmtKSmagHda2t4OLj3e+LegwcyqsE7AA17/oBUE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=HqpbkZ5R2rXGOhRQzetJxWpJT2+kYJ7NbKhHJFzgTWqWsoO/Qp8bLG5Hs2whASAQw
+ PWnOfLs+/Kmd00fD9Nxe/IF5xitzZmDghWt5deMJp7ncBYlnn2EMO3qFN/hcu3nZch
+ HRNEKDmyCGxsm+sqFYKpWjSScnGcMA+OU0C+XOYk=
+Received: from webmail.emantor.de (magratgarlick.emantor.de
+ [IPv6:2a01:4f8:c17:c88::2])
+ by magratgarlick.emantor.de (Postfix) with ESMTPA id B8BCA915FB;
+ Tue,  4 Jan 2022 09:51:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=czerwinskis.de;
+ s=mail; t=1641286310;
+ bh=qBWalmtKSmagHda2t4OLj3e+LegwcyqsE7AA17/oBUE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=qrS2vg4Rgw3Ez9BAx2YYKumQcsmZTn6CHmhxthAPEZIsH5zO4ie7E3TBeCdR32e9l
+ XHr8aBLvxjvEZgcCzwRKYo7MSTWeSyakUF959sCev3OoNMBHnUiOmgPixY1w/ix90V
+ vQbI0+iWtFIS5V0xtwlDuP3REAtaetfS9MN0dOzk=
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Cc: linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Yassine Oudjana <y.oudjana@protonmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>
+Date: Tue, 04 Jan 2022 09:51:50 +0100
+From: rouven@czerwinskis.de
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: IOMMU Page Fault with Creative Soundblaster Zx after suspend
+In-Reply-To: <s5hwnjmo7ae.wl-tiwai@suse.de>
+References: <87mtkjqvgj.fsf@czerwinskis.de> <s5hwnjmo7ae.wl-tiwai@suse.de>
+Message-ID: <f039f58c6aa161a15ed38737c51cc233@czerwinskis.de>
+X-Sender: rouven@czerwinskis.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Colin Ian King <colin.king@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Simeon Simeonoff <sim.simeonoff@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,79 +90,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: Yassine Oudjana <y.oudjana@protonmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently, rx_port_value is a single unsigned int that gets overwritten
-when slim_rx_mux_put() is called for any RX mux, then the same value is
-read when slim_rx_mux_get() is called for any of them. This results in
-slim_rx_mux_get() reporting the last value set by slim_rx_mux_put()
-regardless of which SLIM RX mux is in question.
+Hi,
 
-Turn rx_port_value into an array and store a separate value for each
-SLIM RX mux.
+Am 2021-12-30 08:56, schrieb Takashi Iwai:
+> On Wed, 29 Dec 2021 16:24:13 +0100,
+> Rouven Czerwinski wrote:
+>> 
+>> Hi,
+>> 
+>> With current 5.15.11, my soundblaster Zx is not correctly coming back
+>> from suspend. Dmesg prints:
+>> 
+>> [Mi Dez 29 16:12:14 2021] [drm] UVD and UVD ENC initialized 
+>> successfully.
+>> [Mi Dez 29 16:12:14 2021] snd_hda_codec_ca0132 hdaudioC0D1: ca0132 DSP 
+>> downloaded and running
+>> [Mi Dez 29 16:12:15 2021] [drm] VCE initialized successfully.
+>> [Mi Dez 29 16:12:15 2021] usb 1-5: reset full-speed USB device number 
+>> 2 using xhci_hcd
+>> [Mi Dez 29 16:12:16 2021] ata1.00: Enabling discard_zeroes_data
+>> [Mi Dez 29 16:12:16 2021] OOM killer enabled.
+>> [Mi Dez 29 16:12:16 2021] Restarting tasks ... done.
+>> [Mi Dez 29 16:12:16 2021] PM: suspend exit
+>> [Mi Dez 29 16:12:16 2021] snd_hda_intel 0000:06:00.0: AMD-Vi: Event 
+>> logged [IO_PAGE_FAULT domain=0x000f address=0xdf880000 flags=0x0000]
+>> [Mi Dez 29 16:12:17 2021] igb 0000:08:00.0 enp8s0: igb: enp8s0 NIC 
+>> Link is Up 1000 Mbps Full Duplex, Flow Control: RX/TX
+>> 
+>> Where the IOMMU Page Fault looks suspicious. Unbinding and rebinding 
+>> the
+>> driver using sysfs fixes it, thats the current workaround I have
+>> been using.
+> 
+> Is it a regression from the earlier releases?  If yes, please try to
+> narrow down the regression range, at least, which version started
+> showing the problem.  It'd be great if you can perform git bisection,
+> of course.
 
-Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
----
- sound/soc/codecs/wcd9335.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+I thought it was but it isn't, I recently switched the profile from 
+"Analog Stereo Duplex"
+to "Analog Surround 5.1" within pavucontrol (underlying sound daemon is 
+pipewire).
+This seems to lead to the IOMMU error on resume, using 2.0 works fine 
+over a suspend resume
+cycle.
+Time to find out what the surround handling does differently from plain 
+stereo for the
+soundblaster Z cards.
 
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index bc5d68c53e5a..1e60db4056ad 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -341,7 +341,7 @@ struct wcd9335_codec {
- =09int reset_gpio;
- =09struct regulator_bulk_data supplies[WCD9335_MAX_SUPPLY];
-=20
--=09unsigned int rx_port_value;
-+=09unsigned int rx_port_value[WCD9335_RX_MAX];
- =09unsigned int tx_port_value;
- =09int hph_l_gain;
- =09int hph_r_gain;
-@@ -1269,10 +1269,11 @@ static const struct snd_kcontrol_new sb_tx8_mux =3D
- static int slim_rx_mux_get(struct snd_kcontrol *kc,
- =09=09=09   struct snd_ctl_elem_value *ucontrol)
- {
--=09struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_dapm(kc);
--=09struct wcd9335_codec *wcd =3D dev_get_drvdata(dapm->dev);
-+=09struct snd_soc_dapm_widget *w =3D snd_soc_dapm_kcontrol_widget(kc);
-+=09struct wcd9335_codec *wcd =3D dev_get_drvdata(w->dapm->dev);
-+=09u32 port_id =3D w->shift;
-=20
--=09ucontrol->value.enumerated.item[0] =3D wcd->rx_port_value;
-+=09ucontrol->value.enumerated.item[0] =3D wcd->rx_port_value[port_id];
-=20
- =09return 0;
- }
-@@ -1286,9 +1287,9 @@ static int slim_rx_mux_put(struct snd_kcontrol *kc,
- =09struct snd_soc_dapm_update *update =3D NULL;
- =09u32 port_id =3D w->shift;
-=20
--=09wcd->rx_port_value =3D ucontrol->value.enumerated.item[0];
-+=09wcd->rx_port_value[port_id] =3D ucontrol->value.enumerated.item[0];
-=20
--=09switch (wcd->rx_port_value) {
-+=09switch (wcd->rx_port_value[port_id]) {
- =09case 0:
- =09=09list_del_init(&wcd->rx_chs[port_id].list);
- =09=09break;
-@@ -1309,11 +1310,11 @@ static int slim_rx_mux_put(struct snd_kcontrol *kc,
- =09=09=09      &wcd->dai[AIF4_PB].slim_ch_list);
- =09=09break;
- =09default:
--=09=09dev_err(wcd->dev, "Unknown AIF %d\n", wcd->rx_port_value);
-+=09=09dev_err(wcd->dev, "Unknown AIF %d\n", wcd->rx_port_value[port_id]);
- =09=09goto err;
- =09}
-=20
--=09snd_soc_dapm_mux_update_power(w->dapm, kc, wcd->rx_port_value,
-+=09snd_soc_dapm_mux_update_power(w->dapm, kc, wcd->rx_port_value[port_id],
- =09=09=09=09      e, update);
-=20
- =09return 0;
---=20
-2.34.1
-
-
+Kind regards,
+Rouven

@@ -2,87 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F540484776
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 19:07:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6A9B484778
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 19:08:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 130C717EB;
-	Tue,  4 Jan 2022 19:06:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 130C717EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D02817F7;
+	Tue,  4 Jan 2022 19:07:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D02817F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641319660;
-	bh=s2gluDklecgeDNZwH1I48Vq4fyy+eaENvF1abMr+ac0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bJ6oToOui3pSubj1DJzzcvo8cLdQS/37cZ3su7XMoNHUbPTNYER74RXwl7/m3CBGu
-	 Kx+VC6+KSSV0EEv/xWqnUccKt7+5mL//qyVyT+hHfxbr1X2a4u5ahEMKDFxXUGn5DZ
-	 xGqgU7apH0M42hKcT3h8uvCfNwtGeg1kqPNVOJi8=
+	s=default; t=1641319694;
+	bh=txfvS+Gitakuv4kkZ9OkxwiKDa6QdbuL+sIHK0c2OxI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FSKEFjyjvenmfRTvLFO2zFN47j3g0+po0kLgLXRKeV5En433Q9hWQ1cYaJk86GXUM
+	 nfj1+WjA9DdvHFmgtpvgqbhC8XFvGp8pUyuLVqlTtGenBacq+vwID5iM6dGMxjiWBA
+	 0im5iMPgaaFHKeXnV7xUZd2X/HIWBVxRCeID2NA8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C6A8F8032B;
-	Tue,  4 Jan 2022 19:06:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C23EF8049C;
+	Tue,  4 Jan 2022 19:07:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B552AF80310; Tue,  4 Jan 2022 19:06:30 +0100 (CET)
+ id 6AE3FF80424; Tue,  4 Jan 2022 19:07:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ua1-x92a.google.com (mail-ua1-x92a.google.com
- [IPv6:2607:f8b0:4864:20::92a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ABB0AF800FF
- for <alsa-devel@alsa-project.org>; Tue,  4 Jan 2022 19:06:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABB0AF800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73989F8027C
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jan 2022 19:07:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73989F8027C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WBrBbU46"
-Received: by mail-ua1-x92a.google.com with SMTP id az37so43737834uab.12
- for <alsa-devel@alsa-project.org>; Tue, 04 Jan 2022 10:06:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=bcUNR4StbkbR9El5Yx0jG1mh/r4XOjc7rnmdFz7pPmw=;
- b=WBrBbU46Z6hii0QrZXbscwE0mvZ61vk6kbsuaZXihL2RBKVdd6JiYnLL0zkujdhErt
- dS9MrlHsH6zphHiWkgx2mbALuW4VbsI9j/ElEW+DJMekjXOc+tQ8adzcCiLHaY+zUFYz
- EeiL2TCgchZfUN8uSMCHkuA23M2vmyB2JdQQzwZFBWYpkT1wpm7FXESqElwAU03wah9k
- AZT5joNSeMS9zC5iJSvHNammONavu9QnjJWpQID292WTjFizD1x8Z8BSfATBLIHwYk1B
- cTKtu2Bcf/WNvfV7ja3A1kKieZUmNux1rTyvyudZtFpTOp0SVuD/7HGbUkryjfUbSkjg
- 5BQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=bcUNR4StbkbR9El5Yx0jG1mh/r4XOjc7rnmdFz7pPmw=;
- b=nIzWFldF/9st15Eo9I9RLU0jLYX3/IxOAPUn/EeTuRsVEk0W6An4p/pDPW3XbSmZ7n
- Ib/sH1Z5Y9+hWGGSABjlJ2oIE6D/WGk1Hmxfm/oGQJMQu2r87lAyWXPzU5awkURrEZnQ
- 52e/0neMVJfDkW7t6e96UqimuyRJk2rTB3FaEc5guNCHIkCFlo+ianLTMatJh4prD0e3
- 44Sahi9gre8UIz+Kfff5flUJU6eVTWOOYxQTs8T/HPlLcjhd9X6iG5T/oF+qHz4gDCkx
- EPBD+RLt0+9KrJpndTwaFVwXTdIth8dIFuTCTDzbSgY/bFn1u6eLF9zjP1DKYGvCLZhs
- XANQ==
-X-Gm-Message-State: AOAM533y5JiL7MNeXGfDD4f2DM7EhmqBanbqVtoDbE8a8BPG0YpvHiXI
- PjUScc5JhvvfrDbpirv/J2Q=
-X-Google-Smtp-Source: ABdhPJweQQ+HWt6U8W38cVLk8GZmWh/0TkfIi7SMYln+dHFgmfPcOjtT6wgkWQtM2PaHXvqRDuQQoA==
-X-Received: by 2002:ab0:24d1:: with SMTP id k17mr14860861uan.32.1641319581536; 
- Tue, 04 Jan 2022 10:06:21 -0800 (PST)
-Received: from localhost.localdomain ([2804:14c:485:504a:ffc6:8cd3:a2dd:67a9])
- by smtp.gmail.com with ESMTPSA id
- w138sm4949043vkd.46.2022.01.04.10.06.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Jan 2022 10:06:20 -0800 (PST)
-From: Fabio Estevam <festevam@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH v3] ASoC: cs4265: Add a remove() function
-Date: Tue,  4 Jan 2022 15:06:13 -0300
-Message-Id: <20220104180613.639317-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="TODSu9Pk"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 28C55B817A2;
+ Tue,  4 Jan 2022 18:07:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34CDC36AED;
+ Tue,  4 Jan 2022 18:06:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1641319620;
+ bh=txfvS+Gitakuv4kkZ9OkxwiKDa6QdbuL+sIHK0c2OxI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TODSu9PkSjLNlNUJyBzC+8Cdt+Ux36ZiJX6gytEt0Sg56BXO3Eo1sgHAjb6ZJ53U6
+ 03ekSEye8DfpM2W7iS7LpZ//U+8LjI7GaY1fi09XDA+FbBnRWVEkBOPCaA+bCKqJ2B
+ UcAmuTuICA5nzHRaPCUcIjm41628b+o0qXaQopyYLY9i5PO4mMSGS5/60uLRMvchqz
+ 6SlVOosnsr5UNzLgSvKMyCUOYZ8mbpw7fKA4uh/1AStk5NpgZK7aGSmAWu9DNWTW9i
+ swxQBKY3tXMy4CqNMly8wyByj2/HWX9TQDMEJ2AGBFWaFlSxz9Ck2BETWKTUDHkDnV
+ xpKmO8fLsT+MQ==
+Date: Tue, 4 Jan 2022 18:06:54 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH 1/3] ASoC: imx-card: Need special setting for ak4497 on
+ i.MX8MQ
+Message-ID: <YdSMvtXHsYWl7E0U@sirena.org.uk>
+References: <1641292835-19085-1-git-send-email-shengjiu.wang@nxp.com>
+ <1641292835-19085-2-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@denx.de>,
- ckeepax@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wM9Rnn4bmiJ3jtwv"
+Content-Disposition: inline
+In-Reply-To: <1641292835-19085-2-git-send-email-shengjiu.wang@nxp.com>
+X-Cookie: The horror... the horror!
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, nicoleotsuka@gmail.com,
+ festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,51 +89,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Fabio Estevam <festevam@denx.de>
 
-When the reset_gpio GPIO is used, it is better to put the codec
-back into reset state when the driver unbinds.
+--wM9Rnn4bmiJ3jtwv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Add a remove() function to accomplish that.
+On Tue, Jan 04, 2022 at 06:40:33PM +0800, Shengjiu Wang wrote:
 
-Suggested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Signed-off-by: Fabio Estevam <festevam@denx.de>
----
-Changes since v2:
-- Keep using the current polarity logic.
+>  			/* sai may support mclk/bclk = 1 */
+> -			if (of_find_property(np, "fsl,mclk-equal-bclk", NULL))
+> +			if (of_find_property(np, "fsl,mclk-equal-bclk", NULL)) {
+>  				link_data->one2one_ratio = true;
+> +			} else {
+> +				int i;
+> +
+> +				/*
+> +				 * i.MX8MQ don't support one2one ratio, then
+> +				 * with ak4497 only 16bit case is supported.
+> +				 */
+> +				for (i = 0; i < ARRAY_SIZE(ak4497_fs_mul); i++) {
 
- sound/soc/codecs/cs4265.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Shouldn't this be keyed off checking that we are actually running with
+an ak4497?
 
-diff --git a/sound/soc/codecs/cs4265.c b/sound/soc/codecs/cs4265.c
-index 294fa7ac16cb..8fa166e4b2a9 100644
---- a/sound/soc/codecs/cs4265.c
-+++ b/sound/soc/codecs/cs4265.c
-@@ -626,6 +626,16 @@ static int cs4265_i2c_probe(struct i2c_client *i2c_client,
- 			ARRAY_SIZE(cs4265_dai));
- }
- 
-+static int cs4265_i2c_remove(struct i2c_client *i2c)
-+{
-+	struct cs4265_private *cs4265 = i2c_get_clientdata(i2c);
-+
-+	if (cs4265->reset_gpio)
-+		gpiod_set_value_cansleep(cs4265->reset_gpio, 0);
-+
-+	return 0;
-+}
-+
- static const struct of_device_id cs4265_of_match[] = {
- 	{ .compatible = "cirrus,cs4265", },
- 	{ }
-@@ -645,6 +655,7 @@ static struct i2c_driver cs4265_i2c_driver = {
- 	},
- 	.id_table = cs4265_id,
- 	.probe =    cs4265_i2c_probe,
-+	.remove =   cs4265_i2c_remove,
- };
- 
- module_i2c_driver(cs4265_i2c_driver);
--- 
-2.25.1
+--wM9Rnn4bmiJ3jtwv
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHUjL0ACgkQJNaLcl1U
+h9DLtQf+NYjFfOunR2kagpHatM3uw3vj6y2ywBhn8AKl0Ar0TPugAPIBV7cClQVk
+1sHU5pGUol0aOrSl9c/y+uccKTxxK+dZs3jnI2RX3u8n9UdW/tsiQepu/rkVgMYy
+SZdNhfcCp0VkJGYq8099YjMoo0zH4WUC5b5Ph0Jb0c80dixXJ2LCFtcKoKaxMkHZ
+oYCJrpeu1LWU4b9hqgjkuRpFpU2ihQWuHQQwMIXzqk2+zdRYbyGabWRdxnyN2F+8
+3LHLlPlUXGdyomQfUFWu//LqMI1Yi/xqHDeyk1Oi7WFduA4WvFuSrwtaHDqSpX9E
+ds+WpmNO0leJRKzk7+c+U8iIqlXt3g==
+=8shi
+-----END PGP SIGNATURE-----
+
+--wM9Rnn4bmiJ3jtwv--

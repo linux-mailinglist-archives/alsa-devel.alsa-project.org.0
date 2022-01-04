@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 603B54844B6
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 16:34:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C4BF4844B9
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jan 2022 16:35:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C96E516D5;
-	Tue,  4 Jan 2022 16:33:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C96E516D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A9D41778;
+	Tue,  4 Jan 2022 16:34:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A9D41778
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641310472;
-	bh=yAlvaf6ifHZeYHHbjSkIMaP1ZHfk0FufTt1QzZzPB7w=;
+	s=default; t=1641310506;
+	bh=iZIunS6oRib70ewEDbORh41NZ4vMKrPwA3irhxpZmG4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F6YKxZeLOe+0VYr1kvEU3/jBw4TRCkvttbakRDgqMT5Va4LLl+cNdMVzDuAkgmRU7
-	 +TfG+Jn5oHstc/zFUbhkXxNmIe37MqaeamULImWsv2gbd9IXWNFL1vrlg1nJqROPms
-	 NF2ta6WDATI14hN41HGUp+XbXWOxI56FEMZAD344=
+	b=KTESRmKY5TdzBkQ5YwRYMD28GaSCb7kgYljsBR3sDq2YukCpiEHitZbFDkVK4hrii
+	 xN1PZ2Tbibfc/vFVy7N78kX+nYkwvOEJFiXp9LH03don8TegWbNDk16mdxFqP9RWvV
+	 dm4chlPaRZKs2sx/oP1IWNiFbzFYg+c5qsStcYrw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E19D3F800FF;
-	Tue,  4 Jan 2022 16:33:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9988DF80089;
+	Tue,  4 Jan 2022 16:33:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3804F80310; Tue,  4 Jan 2022 16:33:21 +0100 (CET)
+ id D8C9DF80424; Tue,  4 Jan 2022 16:33:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90FD2F80089
- for <alsa-devel@alsa-project.org>; Tue,  4 Jan 2022 16:33:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90FD2F80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id 130F4F80089
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jan 2022 16:33:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 130F4F80089
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="bvXJqmEq"; 
+ header.b="d3Gk9zHi"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="mUmhi+9F"
+ header.b="V3zRJOlv"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 3CF3E210E7;
- Tue,  4 Jan 2022 15:33:13 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 784EF1F37B;
+ Tue,  4 Jan 2022 15:33:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1641310393; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1641310413; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9SCPSpj9hbG7rnnfKiBSNlp2wmz7qAvWj0UuKAmVikw=;
- b=bvXJqmEqBXb0rd48JIrlIIQ3ik5nNxMXZjEXPT8ciuPcnW2QvY6wpbkcKILh81gCaGMVke
- sMjuK2cw2e6GWqqVeOX/f/vQoumKxmZ3GLGwSsy/Y0AAMUWuXN7+feYrsIk97z+SMvZqh1
- 6zeA3o3gMJ5ssAAejPCNq/oR8LIvxqY=
+ bh=60BYL3IyCCHgn10kblzQUeOpevFWFC51SeO5PeeNMHk=;
+ b=d3Gk9zHisNrEH8Qt9IQoeJ3Pt7KqRdOf2SwNqtX3WbqFYSx2IFDYJmgBkLF06nOgRdyaeh
+ SqhlYmVIj5HS+wSNg6ySSgLM0ayjKaPsRUx0DyDbty+bE5UixP57FOli926s6dPMs2K3sf
+ YvB3H4Iw4HYPNUZZanVcpg5iJ3codZg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1641310393;
+ s=susede2_ed25519; t=1641310413;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9SCPSpj9hbG7rnnfKiBSNlp2wmz7qAvWj0UuKAmVikw=;
- b=mUmhi+9FS0pKcxouznWU/Gx3oiIlHDa4krIDFRJu+VRasHzwe3aRx39GMEuWrwLN3/Yv7H
- NszKk/o0QjTWflCg==
+ bh=60BYL3IyCCHgn10kblzQUeOpevFWFC51SeO5PeeNMHk=;
+ b=V3zRJOlvGwsmVWXOpNiLDS5Tw0V0nhPyVs5aijreMx8cP7T9qFZtpfTpxib3B1WVw0kRUt
+ 4F6tdoofjKrvVkBg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2452AA3B83;
- Tue,  4 Jan 2022 15:33:13 +0000 (UTC)
-Date: Tue, 04 Jan 2022 16:33:13 +0100
-Message-ID: <s5hmtkbjz2e.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 6BD49A3B83;
+ Tue,  4 Jan 2022 15:33:33 +0000 (UTC)
+Date: Tue, 04 Jan 2022 16:33:33 +0100
+Message-ID: <s5hlezvjz1u.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Christian A. Ehrhardt" <lk@c--e.de>
-Subject: Re: hda/cs8409: Fix internal speaker detection
-In-Reply-To: <20211231131221.itwotyfk5qomn7n6@cae.in-ulm.de>
-References: <20211231131221.itwotyfk5qomn7n6@cae.in-ulm.de>
+To: "Christian A. Ehrhardt" <cae@familie-ehrhardt.de>
+Subject: Re: hda/cs8904: Fix jack detection after resume
+In-Reply-To: <20211231134432.atwmuzeceqiklcoa@cae.in-ulm.de>
+References: <20211231134432.atwmuzeceqiklcoa@cae.in-ulm.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -94,44 +94,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 31 Dec 2021 14:12:21 +0100,
+On Fri, 31 Dec 2021 14:44:32 +0100,
 Christian A. Ehrhardt wrote:
 > 
 > 
 > Hi,
 > 
-> I have a DELL Inspirion 3501 laptop with a cirrus cs8904 HDA codec.
-> With more recent kernels the internal speakers stopped working.
-> I bisected the issue and tracked it down to this commit 
+> while debugging something different, I found the following
+> jack detection related bug in the cs8904 driver on my DELL
+> Inspirion 3501:
+> - Plug in a headset, play some sound to make sure that
+>   the headset is detected.
+> - Stop the sound, wait for the codec to go into suspend (30s
+>   should be plenty enough time)
+> - Unplug the headset while the codec is in suspend.
+> - Try to play sound on the internal speakers. Notice that
+>   the the driver still thinks the headset is connected. As a result
+>   there is no sound on the internal speakers.
 > 
-> | commit c8b4f0865e82c14924c69c07d985af3ee9133316
+> AFAICS the bug was introduced by the following commit:
+> | commit 424e531b47f83da87490464c5bf633dfb624fe6a
 > | Author: Stefan Binding <sbinding@opensource.cirrus.com>
-> | Date:   Wed Aug 11 19:56:52 2021 +0100
-> |
-> |     ALSA: hda/cs8409: Remove unnecessary delays
->         
-> After a bit of experimenting with the timeouts I came
-> up with the patch below that fixes the issue for me.
+> | Date:   Fri Aug 27 12:02:51 2021 +0100
+> | 
+> |     ALSA: hda/cs8409: Ensure Type Detection is only run on startup when
+> |     necessary
 > 
-> However, I don't have the specs for the chip, i.e. I don't
-> know what a theoretically correct value would be.
+> The bug is with the hp_jack_in and mic_jack_in flags that are used
+> to determine if jack detection should be run etc. These flags
+> are cleared in the suspend path. This prevents a status change from
+> being detected after resume as hp_jack_in is cleared by suspend and
+> there is no jack due to the unplug of the headset.
 > 
-> Suggested patch below, please consider inclusion.
+> This status change was never reported to the HDA core, though.
+> On suspend this is not done, only hd_jack_in is cleared and on
+> resume the driver thinks that there is no change the needs reporting.
+> 
+> Proposed fix below, please consider inclusion.
 > 
 >      regards   Christian
 > 
-> >From 9c796d221171c6d12fd84ae4f5c8315030c8c4ca Mon Sep 17 00:00:00 2001
+> >From 1dcf34c1d1c6c4852a86ec3ae189afa5d90ea09c Mon Sep 17 00:00:00 2001
 > From: "Christian A. Ehrhardt" <lk@c--e.de>
-> Date: Fri, 31 Dec 2021 10:33:19 +0100
-> Subject: [PATCH 1/2] ALSA: hda/cs8409: Increase delay during jack detection
+> Date: Fri, 31 Dec 2021 12:13:48 +0100
+> Subject: [PATCH 2/2] ALSA: hda/cs8409: Fix Jack detection after resume
 > 
-> Commit c8b4f0865e82 reduced delays related to cs42l42 jack
-> detection. However, the change was too aggressive. As a result
-> internal speakers on DELL Inspirion 3501 ac8b4f0865e82re not detected.
+> The suspend code unconditionally sets ->hp_jack_in and ->mic_jack_in
+> to zero but without reporting this status change to the HDA core.
+> To compensate for this, always assume a status change on the
+> first unsol event after boot or resume.
 > 
-> Increase the delay in cs42l42_run_jack_detect() a bit.
-> 
-> Fixes: c8b4f0865e82 ("ALSA: hda/cs8409: Remove unnecessary delays")
+> Fixes:	424e531b47f8 ("ALSA: hda/cs8409: Ensure Type Detection is only run on startup when necessary")
 > Signed-off-by: Christian A. Ehrhardt <lk@c--e.de>
 
 Thanks, applied now.

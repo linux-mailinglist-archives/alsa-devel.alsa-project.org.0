@@ -2,93 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 058BF485084
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 10:59:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14130485183
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 11:57:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7B721759;
-	Wed,  5 Jan 2022 10:59:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7B721759
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C81317BE;
+	Wed,  5 Jan 2022 11:56:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C81317BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641376792;
-	bh=QD/ShsKMMwqAMuRjkzxBlhWZEVjwwvOk67EVgctybq8=;
+	s=default; t=1641380232;
+	bh=uLT/4ZmZ4gCruF3sfsgP2zbntUDWjS4C+YlQN7+XDZk=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tOMGMi4RKjYlz/fUSuojwaYFwOXGf0hd4WIJ0jz896FbUxRX/WCqYU8eOZC6nd4TA
-	 z2hz9sOKbUfmsXBNQEPgOiZJTmFCMr6ZEqWkdK+73RnL4OM/JBZzCQQd4gQjWwMi6O
-	 4JxmaK33rnp3gPz3jAOZx8i4ClXenIpTSe/ZY79E=
+	b=ZNNV1ginCkMRqoYe/+p66yVkcpyEmmilpTDEzgmgdBzMASdLRK1QrPcVE7S8abJbx
+	 qkJBBQaW4oujHq+hQrvi7aCWOQwsJonyX56TNP7MVafkB4cgEHHs97vaNjQxaF+Zsw
+	 h5QKF0ne0CyP4nCE9EXU0gfB0Pps+LEguVvB1Asw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E7F3F8020C;
-	Wed,  5 Jan 2022 10:58:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC2B3F8020C;
+	Wed,  5 Jan 2022 11:56:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5DE9F801D8; Wed,  5 Jan 2022 10:58:44 +0100 (CET)
+ id EC3F8F801D8; Wed,  5 Jan 2022 11:55:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71BBEF800BB
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 11:55:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71BBEF800BB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="RVveCEns"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8C99F80089
- for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 10:58:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8C99F80089
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="hqSwsX9B"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2058aLLs003317;
- Wed, 5 Jan 2022 03:58:36 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=MO2PSHj23wq8N+iVx3WZD17yLglCV3U38GihkcUa5JM=;
- b=hqSwsX9BwItRgwBU2nN+Ky5xxicAB+9sdIKfnsVe6wSEgUbaQEZaINAQZo+AlyRzKLxm
- Hdx8hRyS9uBv3NuiFssQ9vxMfgztWxRI/ZqlFbMNst7xUeb5JVBiE1m+Gj6mYTLGsufT
- zAlfysFSYqcY/JqHxLQAoGg8Rny2sRmqbChHW9r1te1+acwutJVtk4BGmfGg6m6sCGa2
- xukKQTS4C+7lWz1wPwWFbNfpVnui64B3pap/bpzlUoa30LVaQiXswxQSFJORFNpx0ZsI
- 4AoGxsIdPTIxnbDdg3nw5Zob7tB1hFSg2EsgbeuKOqPbPCglYynK/7sfYsKMRFgglDBf Dg== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dd7y3g262-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 05 Jan 2022 03:58:35 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 5 Jan
- 2022 09:58:34 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
- Frontend Transport; Wed, 5 Jan 2022 09:58:34 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 33897B0E;
- Wed,  5 Jan 2022 09:58:34 +0000 (UTC)
-Date: Wed, 5 Jan 2022 09:58:34 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH v6 07/10] hda: cs35l41: Add support for CS35L41 in HDA
- systems
-Message-ID: <20220105095834.GD18506@ediswmail.ad.cirrus.com>
-References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
- <20211217115708.882525-8-tanureal@opensource.cirrus.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 64F16616A3;
+ Wed,  5 Jan 2022 10:55:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44491C36AE9;
+ Wed,  5 Jan 2022 10:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1641380146;
+ bh=uLT/4ZmZ4gCruF3sfsgP2zbntUDWjS4C+YlQN7+XDZk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RVveCEnsIo/WopjVWPTZVf98pVF4/mTZDkQ8XXdRbSr1qtmxQe+pbTD/nsLJuLFqn
+ ttUwVFG7SusGF7/0u4/we2M+8Xb50pWoXzSCY85HX2154gvSDZTfLoTgjmGtHt52pV
+ RS76wcNUoWSIoykRb0kxqfpdZPeHoJNkTChrdDLw=
+Date: Wed, 5 Jan 2022 11:55:44 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Legion Y9000X 2020
+Message-ID: <YdV5MNWOwgrtH2UC@kroah.com>
+References: <20220105034103.12484-1-fbl718@163.com>
+ <s5ha6gak2qf.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20211217115708.882525-8-tanureal@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: mQd4XZ9zG4wN_6-fzPf2Ov9s2DYnPmTR
-X-Proofpoint-ORIG-GUID: mQd4XZ9zG4wN_6-fzPf2Ov9s2DYnPmTR
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, linux-acpi@vger.kernel.org,
- "Rafael J . Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Mark Brown <broonie@kernel.org>, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org, Len Brown <lenb@kernel.org>
+In-Reply-To: <s5ha6gak2qf.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
+ Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
+ Baole Fang <fbl718@163.com>, Takashi Iwai <tiwai@suse.com>,
+ Werner Sembach <wse@tuxedocomputers.com>, Hui Wang <hui.wang@canonical.com>,
+ Sami Loone <sami@loone.fi>, Cameron Berkenpas <cam@neo-zeon.de>,
+ Elia Devito <eliadevito@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,49 +86,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Dec 17, 2021 at 11:57:05AM +0000, Lucas Tanure wrote:
-> Add support for CS35L41 using a new separated driver
-> that can be used in all upcoming designs
+On Wed, Jan 05, 2022 at 09:26:16AM +0100, Takashi Iwai wrote:
+> On Wed, 05 Jan 2022 04:41:01 +0100,
+> Baole Fang wrote:
+> > 
+> > commit 25960cafa06e6fcd830e6c792e6a7de68c1e25ed upstream.
 > 
-> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-> ---
-> +	mtl_revid = reg_revid & CS35L41_MTLREVID_MASK;
-> +
-> +	chipid = (mtl_revid % 2) ? CS35L41R_CHIP_ID : CS35L41_CHIP_ID;
-> +	if (regid != chipid) {
-> +		dev_err(cs35l41->dev, "CS35L41 Device ID (%X). Expected ID %X\n", regid, chipid);
-> +		ret = -ENODEV;
-> +		goto err;
-> +	}
-> +
-> +	ret = cs35l41_register_errata_patch(cs35l41->dev, cs35l41->regmap, reg_revid);
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret = cs35l41_otp_unpack(cs35l41->dev, cs35l41->regmap);
-> +	if (ret) {
-> +		dev_err(cs35l41->dev, "OTP Unpack failed: %d\n", ret);
-> +		goto err;
-> +	}
-> +
-> +	ret = cs35l41_hda_apply_properties(cs35l41, acpi_hw_cfg);
-> +	if (ret)
-> +		goto err;
-> +	kfree(acpi_hw_cfg);
-> +
-> +	if (cs35l41->reg_seq->probe) {
-> +		ret = regmap_register_patch(cs35l41->regmap, cs35l41->reg_seq->probe,
-> +					    cs35l41->reg_seq->num_probe);
-> +		if (ret) {
-> +			dev_err(cs35l41->dev, "Fail to apply probe reg patch: %d\n", ret);
-> +			goto err;
-> +		}
-> +	}
+> I couldn't find this commit.  Is this a bogus information?
+> 
+> > Legion Y9000X 2020 has a speaker, but the speaker doesn't work.
+> > This can be fixed by applying alc285_fixup_ideapad_s740_coef
+> >  to fix the speaker's coefficients.
+> > Besides, to support the transition between the speaker and the headphone,
+> > alc287_fixup_legion_15imhg05_speakers needs to be run.
+> > 
+> > Signed-off-by: Baole Fang <fbl718@163.com>
+> 
+> The code change itself looks fine, so I'd apply it if the line above
+> can be omitted.
 
-Probably shouldn't use regmap_register_patch here,
-cs35l41_register_errata_patch has already registered a patch to
-the regmap, and this will then overwrite that patch. Probably
-better to do this stuff as a multi-write.
+That commit id comes from 5.15.12, and it is the commit id of the
+release commit:
+	25960cafa06e ("Linux 5.15.12")
+which makes no sense at all.
 
-Thanks,
-Charles
+Baole, why did you add this line?
+
+confused,
+
+greg k-h

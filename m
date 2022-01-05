@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9E2448569C
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 17:25:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBF474856B4
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 17:33:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A1E21A6A;
-	Wed,  5 Jan 2022 17:24:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A1E21A6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 763CB1A6A;
+	Wed,  5 Jan 2022 17:33:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 763CB1A6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641399925;
-	bh=CcdX2N69ne+eSqyA3M2iwxLCypKP3s4ANTuCjFBJkqs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SUTOvIJAGGL4yV76TyWQaYKemP/PX4rKOtcE7MJpElv3IYpEQY8/eb9xSonODCZWc
-	 sqP/kec9JTAocw9O2wNxInySJraTPz3zicwbrbtkxL0yavYhBTNaNySlLbzVtBgWUP
-	 juZ+OkZp2XdPUyLvw7XntKT+SB9YbH1s6da01SbY=
+	s=default; t=1641400432;
+	bh=zbC348I9/vtv/IiUg5XvglF0Yqr/+aBL3cBWo2J/qsI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VzH5qdW2iG2RV+hPoOSBN83+w1Lyi2lb2o5oT8Hqidf7Ys5WNvvEN9Nf5YQ+vLEja
+	 3J1N3biZmCHE1Np7tObNZSPZAyninGngoo4NYthPgwZotrAef7JJIn0X0StPRvyFXI
+	 FAy+f1xihKJdCCitnYAekYDrGahfbVb9HNDGVP6k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A01C8F8007E;
-	Wed,  5 Jan 2022 17:24:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0238F8020C;
+	Wed,  5 Jan 2022 17:32:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 286D2F8007E; Wed,  5 Jan 2022 17:24:17 +0100 (CET)
+ id 84087F801D8; Wed,  5 Jan 2022 17:32:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,46 +33,56 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B66FF8007E
- for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 17:24:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B66FF8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4145F80089
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 17:32:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4145F80089
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="11AEZb5a"; 
+ header.b="1mwgH6B5"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="4vDdxEXw"
+ header.b="I6/ExtKh"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id F30F21F37B;
- Wed,  5 Jan 2022 16:24:09 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id F2AE21F37F;
+ Wed,  5 Jan 2022 16:32:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1641399850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1641400357; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=ZoTAqvn3cSScz678Px3ymY3f7sM9aK8Jj+9p7LS7kX8=;
- b=11AEZb5awCdqT699PD70Yj2xBypzyi7ethzrkyvvTdDb4JSgYpKLQ6jgCREND4WtDDyj2N
- 5DxIpXeWoozyZ06sZwWm8y6bLVckwoFKSgDetVaFpkM103WdtzViTJvimumEt2wWr1XARj
- ORYhOd7ykovzxb+tACXMDwlmdrGM5+s=
+ in-reply-to:in-reply-to:references:references;
+ bh=13XVbwWKMxc4zrZoBn7bnud/V8lnA2Mx9huBGxorA+U=;
+ b=1mwgH6B5GRx6oG8T5GGra2JmjVMvnbNBaLaRBDfPOtb4y4Xh0GWeV13MCBzMN0KTpYfUf2
+ azQz7/DJXRbYIsGYtZaR+M4LVm18oHUnRRpzDKDGjoYqgMaVaCkmWVGihr259F0wlX4Wbq
+ plEh57FHjE1uGZfqm1bQS/2jeGiUy/U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1641399850;
+ s=susede2_ed25519; t=1641400357;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=ZoTAqvn3cSScz678Px3ymY3f7sM9aK8Jj+9p7LS7kX8=;
- b=4vDdxEXw6meFYTLwPcUputVDpvJc5XPT508RsaLKMko/8R8C2hu7jdFrlEeow3ifuY6Fxl
- aYAewiHZqOwOY5Bw==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id D7D6BA3B81;
- Wed,  5 Jan 2022 16:24:09 +0000 (UTC)
+ in-reply-to:in-reply-to:references:references;
+ bh=13XVbwWKMxc4zrZoBn7bnud/V8lnA2Mx9huBGxorA+U=;
+ b=I6/ExtKhBsjHTy/LkhjZZ3Wxuw7m5Fb+DTCI6Z4f9kQT38cwZnKK5Q5Wve2CA58SqpM+XZ
+ QeMCqFDLhbXKqgDA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id D4402A3B89;
+ Wed,  5 Jan 2022 16:32:36 +0000 (UTC)
+Date: Wed, 05 Jan 2022 17:32:36 +0100
+Message-ID: <s5hczl6i1nf.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: ak4375: Fix unused function error
-Date: Wed,  5 Jan 2022 17:24:09 +0100
-Message-Id: <20220105162409.20635-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Vincent Knecht <vincent.knecht@mailoo.org>
+To: Lucas Tanure <tanureal@opensource.cirrus.com>
+Subject: Re: (subset) [PATCH v6 00/10] Add support for CS35L41 in HDA systems
+In-Reply-To: <s5h35m3lkd4.wl-tiwai@suse.de>
+References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
+ <164096159451.2355590.17653987935012339046.b4-ty@kernel.org>
+ <s5h35m3lkd4.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: platform-driver-x86@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-acpi@vger.kernel.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ patches@opensource.cirrus.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Gross <markgross@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org, Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,42 +98,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A randconfig caught a compile warning that is now treated as a fatal
-error:
-  sound/soc/codecs/ak4375.c:415:13: error: ‘ak4375_power_off’ defined but not used [-Werror=unused-function]
+On Tue, 04 Jan 2022 14:07:51 +0100,
+Takashi Iwai wrote:
+> 
+> On Fri, 31 Dec 2021 15:39:54 +0100,
+> Mark Brown wrote:
+> > 
+> > On Fri, 17 Dec 2021 11:56:58 +0000, Lucas Tanure wrote:
+> > > Add support for laptops that have CS35L41 connected to an HDA
+> > > codec by I2S and direct I2C connection to the CPU.
+> > > 
+> > > Laptops that use CS35L41 and are SPI will be added in the future,
+> > > after the support for it is resolved at i2c-multi-instantiate driver.
+> > > i2c-multi-instantiate thread: https://lkml.org/lkml/2021/12/10/557
+> > > 
+> > > [...]
+> > 
+> > Applied to
+> > 
+> >    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> > 
+> > Thanks!
+> > 
+> > [01/10] ASoC: cs35l41: Convert tables to shared source code
+> >         commit: a87d42227cf5614fe0040ddd1fe642c54298b42c
+> > [02/10] ASoC: cs35l41: Move cs35l41_otp_unpack to shared code
+> >         commit: fe120d4cb6f6cd03007239e7c578b8703fe6d336
+> > [03/10] ASoC: cs35l41: Move power initializations to reg_sequence
+> >         commit: 062ce0593315e22aac527389dd6dd4328c49f0fb
+> > [04/10] ASoC: cs35l41: Create shared function for errata patches
+> >         commit: 8b2278604b6de27329ec7ed82ca696c4751111b6
+> > [05/10] ASoC: cs35l41: Create shared function for setting channels
+> >         commit: 3bc3e3da657f17c14df8ae8fab58183407bd7521
+> > [06/10] ASoC: cs35l41: Create shared function for boost configuration
+> >         commit: e8e4fcc047c6e0c5411faeb8cc29aed2e5036a00
+> 
+> Mark, could you send a PR including those for 5.17?
+> The rest HD-audio part of the patch set depends on this new ASoC codec
+> stuff (at least Kconfig), so I can't apply the patches before merging
+> those.  The ACPI patch might be still not applicable through my tree,
+> but it can be taken independently.
 
-where ak4375_power_off() is used only from the PM handler.
+Now I merged Mark's asoc tree, and applied the patches 7, 9 and 10.
+  ALSA: hda: cs35l41: Add support for CS35L41 in HDA systems
+  ALSA: hda/realtek: Add support for Legion 7 16ACHg6 laptop
+  ALSA: hda/realtek: Add CS35L41 support for Thinkpad laptops
 
-As both suspend and resumes are already marked with __maybe_unused,
-let's rip off the superfluous ifdef CONFIG_PM, so that the error above
-can be avoided.
+The patches 9 and 10 have been slightly modified to adjust the quirk
+entry positions.
 
-Fixes: 53778b8292b5 ("ASoC: Add AK4375 support")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/soc/codecs/ak4375.c | 2 --
- 1 file changed, 2 deletions(-)
+The only missing patch is the ACPI patch.  I'm open in which way to
+take; it's fine to be applied via other trees.
 
-diff --git a/sound/soc/codecs/ak4375.c b/sound/soc/codecs/ak4375.c
-index 22cda0699341..9a7b662016b9 100644
---- a/sound/soc/codecs/ak4375.c
-+++ b/sound/soc/codecs/ak4375.c
-@@ -438,7 +438,6 @@ static int ak4375_power_on(struct ak4375_priv *ak4375)
- 	return 0;
- }
- 
--#ifdef CONFIG_PM
- static int __maybe_unused ak4375_runtime_suspend(struct device *dev)
- {
- 	struct ak4375_priv *ak4375 = dev_get_drvdata(dev);
-@@ -463,7 +462,6 @@ static int __maybe_unused ak4375_runtime_resume(struct device *dev)
- 
- 	return regcache_sync(ak4375->regmap);
- }
--#endif /* CONFIG_PM */
- 
- static const struct snd_soc_component_driver soc_codec_dev_ak4375 = {
- 	.controls		= ak4375_snd_controls,
--- 
-2.31.1
+Let me know your favorite.
 
+
+thanks,
+
+Takashi

@@ -2,80 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA73F485622
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 16:44:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CC8D485625
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 16:45:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D9331932;
-	Wed,  5 Jan 2022 16:44:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D9331932
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44083193D;
+	Wed,  5 Jan 2022 16:44:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44083193D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641397499;
-	bh=de5g0FWpu0e/vDtytVIPcjC69oX7X3/MDuLqujkVEeg=;
+	s=default; t=1641397533;
+	bh=7wB0qJAoQZi3VSpRDHDfAHRGHUbzCWo41xKeVJ8Q+ec=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BWv8npQqbNMAcKp2AzZ1CJzQ+KG6WWLh0Up97v0lSutEUrc0A2djB+On3AVDcN85s
-	 aBTEx5GVE+BtcLat2lzRNAqjQqp/dxgLRFJuID/iapqV4dpGJBjID9d9Wm4zK7nKda
-	 NtU68cxZPD4oyS2SSnexz3BwKlUcnH8ixDJPWNj8=
+	b=pngBQ3Cd6riHRDL/sUMhMZ4WMlpfp2NTnq8qk68muv/QgOOa8uSqngvFDWffxsTSn
+	 KmYZ3FwHATYZ+XSeyGWyhX3e+v5V5IOOZRJH6FwGPuc2lz6zpQymDzOJ5VCClamBE6
+	 4CpnzDkvsAoVgbvdB1TVZ4kxC0tFFxxTXgQkB0A8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9131CF8020C;
-	Wed,  5 Jan 2022 16:43:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AB56F802D2;
+	Wed,  5 Jan 2022 16:44:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34041F801D8; Wed,  5 Jan 2022 16:43:48 +0100 (CET)
+ id EF161F800BB; Wed,  5 Jan 2022 16:44:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0907BF800BB
- for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 16:43:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0907BF800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6CA4F800BB
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 16:43:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6CA4F800BB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="OqGyMWpa"; 
+ header.b="QRCcNp+s"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Hi4GY93y"
+ header.b="NwT1y8Rn"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 322561F397;
- Wed,  5 Jan 2022 15:43:39 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 6C739210FA;
+ Wed,  5 Jan 2022 15:43:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1641397419; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1641397437; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UsB8Tl8IxpSClgxyZCdrEIoWg+7UXXmTO/v3nSrLZXI=;
- b=OqGyMWpa6n01YkXfHYYrerGLrTzbU2Oq68MiNi/Ae1aFb7ojyn9ZoJEO+8r6zU+TbrPPtU
- ntRp8eaQXebQ652PIDXbOI0my2n2SLF1b5oeIMzWiIQcwNccIc0d0dyvcjW/wja6vLudPB
- 48UJtfPKI08tIcbczQegnv/tdJkcewE=
+ bh=xGNAZV+Ukm4Q9gMTGGXq+K89WkwSjReMseOBBO3/woc=;
+ b=QRCcNp+s4MmmV+MiE1NZJUur7eJEisnuJtfHtp0CzZzVsvApNIwxIfjgLUpt+6oNC2KXzm
+ IIni/j13uRYQPlPxyOlvsvwZ2eG/61LHr7ls73HHHADO9SII0DT4joploc1Fl1GZROfSiT
+ pVSFlVSDTQYoiXnq6XHnu8L4EqivU4M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1641397419;
+ s=susede2_ed25519; t=1641397437;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UsB8Tl8IxpSClgxyZCdrEIoWg+7UXXmTO/v3nSrLZXI=;
- b=Hi4GY93yE+UmqBY+JjB7g9W5vwV4gFOsfSTiOJVHJ0UM1NWkK1YnVsd2FVbBg/W7R53K7P
- oki0YYH538cbfQDg==
+ bh=xGNAZV+Ukm4Q9gMTGGXq+K89WkwSjReMseOBBO3/woc=;
+ b=NwT1y8RnmrVf4Je0IQTiCvOtqAgL7/fi2CgDznQL8WSE+75yQurQ5nYWy64RdnGDamEwhI
+ h6/nzDA9TaJP4yAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 54685A3B81;
- Wed,  5 Jan 2022 15:43:38 +0000 (UTC)
-Date: Wed, 05 Jan 2022 16:43:38 +0100
-Message-ID: <s5hiluyi3x1.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id E89BDA3B84;
+ Wed,  5 Jan 2022 15:43:56 +0000 (UTC)
+Date: Wed, 05 Jan 2022 16:43:56 +0100
+Message-ID: <s5hh7aii3wj.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC updates for v5.17
-In-Reply-To: <20220105141037.5241DC36AE0@smtp.kernel.org>
-References: <20220105141037.5241DC36AE0@smtp.kernel.org>
+To: Baole Fang <fbl718@163.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Legion Y9000X 2020
+In-Reply-To: <20220105140856.4855-1-fbl718@163.com>
+References: <20220105140856.4855-1-fbl718@163.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ open list <linux-kernel@vger.kernel.org>, Elia Devito <eliadevito@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Werner Sembach <wse@tuxedocomputers.com>,
+ Hui Wang <hui.wang@canonical.com>, Sami Loone <sami@loone.fi>,
+ gregkh@linuxfoundation.org, Cameron Berkenpas <cam@neo-zeon.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,37 +96,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 05 Jan 2022 15:10:18 +0100,
-Mark Brown wrote:
+On Wed, 05 Jan 2022 15:08:54 +0100,
+Baole Fang wrote:
 > 
-> The following changes since commit ee907afb0c39a41ee74b862882cfe12820c74b98:
+> Legion Y9000X 2020 has a speaker, but the speaker doesn't work.
+> This can be fixed by applying alc285_fixup_ideapad_s740_coef
+> to fix the speaker's coefficients.
+> Besides, to support the transition between the speaker and the headphone,
+> alc287_fixup_legion_15imhg05_speakers needs to be run.
 > 
->   ASoC: meson: aiu: Move AIU_I2S_MISC hold setting to aiu-fifo-i2s (2021-12-14 17:15:32 +0000)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v5.17
-> 
-> for you to fetch changes up to 9f3d45318dd9e739ed62e4218839a7a824d3cced:
-> 
->   ASoC: fsl_mqs: fix MODULE_ALIAS (2022-01-04 14:59:37 +0000)
-> 
-> ----------------------------------------------------------------
-> ASoC: Updates for v5.17
-> 
-> Not much going on framework release this time, but a big update for
-> drivers especially the Intel and SOF ones.
-> 
->  - Refinements and cleanups around the delay() APIs.
->  - Wider use of dev_err_probe().
->  - Continuing cleanups and improvements to the SOF code.
->  - Support for pin switches in simple-card derived cards.
->  - Support for AMD Renoir ACP, Asahi Kasei Microdevices AKM4375, Intel
->    systems using NAU8825 and MAX98390, Mediatek MT8915, nVidia Tegra20
->    S/PDIF, Qualcomm systems using ALC5682I-VS and Texas Instruments
->    TLV320ADC3xxx.
+> Signed-off-by: Baole Fang <fbl718@163.com>
 
-Thanks, pulled now.
+Thanks, applied now (with Cc to stable).
 
 
 Takashi

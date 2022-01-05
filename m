@@ -2,86 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CEB7485429
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 15:15:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93431485457
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 15:25:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF8751917;
-	Wed,  5 Jan 2022 15:14:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF8751917
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D4251916;
+	Wed,  5 Jan 2022 15:24:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D4251916
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641392102;
-	bh=CccutYUHBbdgq2XTy76jLP+WE0Q7inQcrnF7f3LVFdI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1641392715;
+	bh=HvZi9pgDUTmjPGJerFQCo2yKQZlPseOSa9rySxzT8So=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FRBTGi+juaYKdSVlIoAIFq0RMQH3IN+LsDv5BtCPG9H+DauQyMWzfOxu8aM65bubl
-	 ssAROr0CLMEmkAUnke2iMF7obfnZQZlNzjHMoaQ9LbKiCmrBn6myY6/nfS8uCLNmD3
-	 wTpUCmIhEbeh6nZx5/I3i8WeM4lp13FADz835V/0=
+	b=tWM8VfPwcc6Sbe81fMB17h1VwxXp9bW72KKaPNj0g+/3UwYCOXP1wEBDLeJZr7VKM
+	 zhA0mOgu/aGIDNbyLDJlzdViocmNa2ZGFRllRZTG6E+GVFN/ATN0ShpRN0VjPMW2qD
+	 iDo2xH48BaAYWDQ7dr0/4nDK4SvIClRtkDszHNTo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5133AF80227;
-	Wed,  5 Jan 2022 15:13:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79E37F8007E;
+	Wed,  5 Jan 2022 15:24:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5779F8007E; Wed,  5 Jan 2022 15:13:53 +0100 (CET)
+ id 11023F8007E; Wed,  5 Jan 2022 15:24:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 024EAF8007E
- for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 15:13:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 024EAF8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B353F80089
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 15:23:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B353F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SIF5Boag"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="1DmjC+ez"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 38DF8210F8;
- Wed,  5 Jan 2022 14:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1641392027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ox5tYzMQtKTOGwhlzmzLIoDhdG9OZXr9oK4OGLN9kG8=;
- b=SIF5BoagLyD+tatgKxJdjmc5Xc7s8i0+9yTvl7vmRj7u57iNCVyqCQi7hyPTqXVXehOeCy
- z3db/JTDXMiAqvTokQ+yismwkhOqrufuaJEcFJ2P8pUuiOHTSaTUjB9sqKUSbWFsJGWA4r
- KIKR5QuCFS/ERhyuscfLeMKaCgdXJ5U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1641392027;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ox5tYzMQtKTOGwhlzmzLIoDhdG9OZXr9oK4OGLN9kG8=;
- b=1DmjC+ez33P8C1LuCqIWUjOe+z7u+jZPoHJWzHEql9PMTJIkiCdXT5oRrtyboQumpgrD7i
- eI5sRVJThE3Gz7Dg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 332B3A3B98;
- Wed,  5 Jan 2022 14:13:47 +0000 (UTC)
-Date: Wed, 05 Jan 2022 15:13:47 +0100
-Message-ID: <s5hlezui82s.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Sauer <st.kost@gmail.com>
-Subject: Re: slow snd_rawmidi_drain() for VirMidi devcies
-In-Reply-To: <CAJ4JBRMKsrJ54ee0gPwRTeScghA4SB8m2iOWybQA=6584ejG-g@mail.gmail.com>
-References: <CAJ4JBRO7qE63TAC-=4y=QMaiAEfkyjRmgiZEF_57Hm+ztc8+Qg@mail.gmail.com>
- <s5hiluzjy3d.wl-tiwai@suse.de>
- <CAJ4JBRMKsrJ54ee0gPwRTeScghA4SB8m2iOWybQA=6584ejG-g@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="MWdV4j0M"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 205DNZkN010264;
+ Wed, 5 Jan 2022 08:23:56 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=N75yOjWVihdzIT2EYl87894NuEPuIzPJIbyXRHwpt/Q=;
+ b=MWdV4j0MLtapXFwZplZHCACyjPKek1Rp2aZBW+h9htAFuVWnX6ILieCLP+Jjkjekm2YF
+ 0p+ML464VAV2TkaxwUHw4bK6ns1IG+mqhObi68YG5BvtwBT2m4eLMZXlxEwGE5Dyp6tC
+ QnL6yUheHgIQAgX2SYAd8zIdw9B3/8FPZPC+U07FvJW7HuQz49nO/T+EaZdgVA9iSh/i
+ G/16vjah9/9/yf2xOAxHU67D4KM6fdXGKhNH40viggo9LWKsVCIx8gIlzRcJKzbkOF0q
+ irBJDI7N4WN0BoY/jRK3lz126KipjgNJyg7Q0D10O9YOAIci/oPtBY5/oaDH7GnlSIDy 2Q== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dd7y3g94y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 05 Jan 2022 08:23:56 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Wed, 5 Jan
+ 2022 14:23:54 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Wed, 5 Jan 2022 14:23:54 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A55B9B0E;
+ Wed,  5 Jan 2022 14:23:54 +0000 (UTC)
+Date: Wed, 5 Jan 2022 14:23:54 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 0/8] Add low power hibernation support to cs35l41
+Message-ID: <20220105142354.GF18506@ediswmail.ad.cirrus.com>
+References: <20220105113026.18955-1-ckeepax@opensource.cirrus.com>
+ <s5hr19mie3i.wl-tiwai@suse.de>
+ <20220105130512.GE18506@ediswmail.ad.cirrus.com>
+ <s5hmtkai8d4.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <s5hmtkai8d4.wl-tiwai@suse.de>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: 5QvTvVNjzb2el6tP82F9fYe6MfFL1SCf
+X-Proofpoint-ORIG-GUID: 5QvTvVNjzb2el6tP82F9fYe6MfFL1SCf
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com, tiwai@suse.com,
+ lgirdwood@gmail.com, david.rhodes@cirrus.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,132 +101,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 05 Jan 2022 14:39:05 +0100,
-Stefan Sauer wrote:
+On Wed, Jan 05, 2022 at 03:07:35PM +0100, Takashi Iwai wrote:
+> On Wed, 05 Jan 2022 14:05:12 +0100,
+> Charles Keepax wrote:
+> > 
+> > On Wed, Jan 05, 2022 at 01:03:45PM +0100, Takashi Iwai wrote:
+> > > On Wed, 05 Jan 2022 12:30:18 +0100,
+> > > Charles Keepax wrote:
+> > > > Patches 7,8 specifically will cause some very minor conflicts with
+> > > > Lucas's currently outstanding work on the HDA version of cs35l41.
+> > > > Whilst things will still build, this patch adds a test key function
+> > > > his code will now have to call. If his patches are getting merged
+> > > > first I will respin this series to update his code, he is currently on
+> > > > holiday until the 12th of Jan, so if we want to wait for another spin
+> > > > of those patches I can work with him to update them at that time. Or
+> > > > alternatively we could just merge them all and I will do a quick fixup
+> > > > patch at the end, since there is no build breakage.
+> > > 
+> > > FWIW, the ASoC part of Lucas's patch set has been already merged in
+> > > Mark's asoc tree.  (HD-audio part isn't merged yet though).
+> > > 
+> > 
+> > Yeah its the HDA part that would require a small change after
+> > those last two patches to call the additional function. The
+> > series is already based on top of the merged ASoC changes.
 > 
-> -   28,78%     0,00%  rawmidi_alsa  [snd_rawmidi]         [k]
-> snd_rawmidi_drain_output
->    - snd_rawmidi_drain_output
->       - 26,59% msleep
->            schedule_timeout
->            schedule
->          + __schedule
->       + 2,13% schedule_timeout
+> Ah, OK, that's what you commented in Lukas's v6 patchset, right?
+> We can fix it up later after the merge, too.
 > 
-> Seems to be because of:
-> https://github.com/torvalds/linux/blob/master/sound/core/rawmidi.c#L244
-> if (substream->ops->drain)
->   substream->ops->drain(substream);
-> else
->   msleep(50);
-> 
-> It see what fileops have no drain impl:
-> https://github.com/torvalds/linux/blob/master/sound/core/rawmidi.c#L1708
-> and I see
-> https://github.com/torvalds/linux/blob/master/sound/core/seq/seq_virmidi.c#L329
-> that define no drain op. Not which ones are actually used here :/
-> 
-> The docs confirm teh 50 ms wait though:
-> https://github.com/torvalds/linux/blob/master/Documentation/sound/kernel-api/writing-an-alsa-driver.rst#drain-callback
-> 
-> would it make sense to have a dummy drain function for the seq_virmidi output
-> ops?
+> Right now I'm waiting for the PR from Mark, then will merge v6 patches
+> (modulo the ACPI one).
 
-Yes, a proper drain implementation is definitely better.
-I guess just calling flush_work(&vmidi->output_work) there would
-suffice.
+Yeah I suspect me just doing a small fix up patch at the end
+might be the simplest solution.
 
-
-thanks,
-
-Takashi
-
-> 
-> Stefan
-> 
-> Am Di., 4. Jan. 2022 um 16:54 Uhr schrieb Takashi Iwai <tiwai@suse.de>:
-> 
->     On Sat, 01 Jan 2022 12:49:13 +0100,
->     Stefan Sauer wrote:
->     >
->     > hi,
->     >
->     > I've tried to link BitwigStudio to the webapp cables.gl over virmidi.
->     > Unfortunately Bitwig Studio only supports rawmidi. What I discovered is
->     > that there is a strange slowness when sending data to virmidi caused
->     > by snd_rawmidi_drain().
->     >
->     > I've posted two tiny, self-contained c apps to:
->     > https://gist.github.com/ensonic/c7588b87fa6c1fa94a8f753b1e0aa394
->     > See some examples below. 2 observations:
->     > * snd_rawmidi_type() is *not* reporting virmidi as VIRTUAL
->     > * snd_rawmidi_drain() takes about 60ms! on virtual vs. less that 0.1 ms
->     on
->     > usb midi (I checked all my hw midi and the worst was avg=1ms on physical
->     > midi image unitor8)
->     >
->     > When comparing the implementations:
->     > 
->     https://github.com/alsa-project/alsa-lib/blob/master/src/rawmidi/rawmidi_virt.c#L173
->     > 
->     https://github.com/alsa-project/alsa-lib/blob/master/src/rawmidi/rawmidi_hw.c#L164
->     > I see that the hw one results in an IOCTL which I can see when striking
->     the
->     > code and I wonder if this is the root cause? Why is rawmidi_virt.c not
->     used
->     > for virmidi?
->     > >From poking at snd_rawmidi_open_conf() I have not yet figured where
->     this is
->     > decided ....
->     >
->     > Stefan
->     >
->     > > amidi -l
->     > Dir Device    Name
->     > IO  hw:0,0,0  Scarlett 18i20 USB MIDI 1
->     > IO  hw:3,0,0  nanoKEY2 nanoKEY2 _ KEYBOARD
->     > IO  hw:5,0,0  nanoKONTROL nanoKONTROL _ SLIDE
->     > IO  hw:10,0    Virtual Raw MIDI (16 subdevices)
->     > IO  hw:11,0    Virtual Raw MIDI (16 subdevices)
->     >
->     > # using direct i/o to virmidi - all good
->     > > ./rawmidi_oss /dev/midi11 0
->     > Using device '/dev/midi11' without draining
->     > write took min=  0.0015 ms, avg=  0.0016 ms, max=  0.0110 ms
->     > > ./rawmidi_oss /dev/midi11 1
->     > Using device '/dev/midi11' with draining
->     > write took min=  0.0015 ms, avg=  0.0017 ms, max=  0.0101 ms
->     > drain took min=  0.0001 ms, avg=  0.0001 ms, max=  0.0008 ms
->     >
->     > # using snd_rawmidi to virmidi - slow drain operations
->     > > ./rawmidi_alsa hw:11,0 0
->     > Using device 'hw:11,0' without draining
->     > SND_RAWMIDI_TYPE_HW
->     > write took min=  0.0010 ms, avg=  0.0011 ms, max=  0.0056 ms
->     > > ./rawmidi_alsa hw:11,0 1
->     > Using device 'hw:11,0' with draining
->     > SND_RAWMIDI_TYPE_HW
->     > write took min=  0.0016 ms, avg=  0.0040 ms, max=  0.0077 ms
->     > drain took min= 55.9951 ms, avg= 60.4330 ms, max= 64.0653 ms
->     >
->     > # using snd_rawmidi to usb hw - all good
->     > > ./rawmidi_alsa hw:3,0 0
->     > Using device 'hw:3,0' without draining
->     > SND_RAWMIDI_TYPE_HW
->     > write took min=  0.0012 ms, avg=  0.0015 ms, max=  0.0121 ms
->     > > ./rawmidi_alsa hw:3,0 1
->     > Using device 'hw:3,0' with draining
->     > SND_RAWMIDI_TYPE_HW
->     > write took min=  0.0024 ms, avg=  0.0032 ms, max=  0.0110 ms
->     > drain took min=  0.0293 ms, avg=  0.0636 ms, max=  0.2277 ms
->    
->     This kind of thing needs profiling.  You can try perf or whatever
->     available, and identify which call takes long.  My wild guess is
->     something about snd_seq_sync_output_queue(), maybe poll syscall takes
->     unexpected long.
-> 
->     thanks,
->    
->     Takashi
-> 
-> 
+Thanks,
+Charles

@@ -2,74 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E5E5484F7A
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 09:43:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95E1F484F7B
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 09:44:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8A18175C;
-	Wed,  5 Jan 2022 09:43:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8A18175C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 437E41743;
+	Wed,  5 Jan 2022 09:43:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 437E41743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641372237;
-	bh=OmbBoKdbPQYNMIqTLr7hmb740a1cV1ssJKHtsp/+8bU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UAyvR58fqhaEYvhBbTrYwmNe6kWGfTxJurPyVIL7iU+mjWU2OjucOVAJT7QHtQ021
-	 1Lz2AVaNw6AcnL50Flt7Arz2dhYyWQAgEsWEilsi4KgHyIVnw8v1fbLcXWc6jGTzEK
-	 /G/5oofVYoVKwOX1DSCzLbn/QmmxwbXb5+7BenCc=
+	s=default; t=1641372246;
+	bh=T4eg1sA/wakejbQOiRTT6j4i2E47Q9/yUoUz5SigmQc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=DGCXdpG+Y95cZ0z+DreT+XjEGnOg7dIBilA6NNu/9KEcQDaS7r+rTYM1baJm5MsOo
+	 onbzgop3h4BZ5bSDdrbSqBK+S7LKvGI2jHy9wVbON4cKQMqO9XSYuLyMJ7wy3QRJVm
+	 /aLApi+KEHujWKl3dcuvniX2p4ABbhVMapdSp3Bo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE3DFF802DF;
-	Wed,  5 Jan 2022 09:42:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A8C6F804FA;
+	Wed,  5 Jan 2022 09:42:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05687F801D8; Wed,  5 Jan 2022 04:41:25 +0100 (CET)
+ id 391C5F801D8; Wed,  5 Jan 2022 06:36:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from m12-14.163.com (m12-14.163.com [220.181.12.14])
- by alsa1.perex.cz (Postfix) with ESMTP id 3FBAAF800BB
- for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 04:41:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FBAAF800BB
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F532F80089
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 06:36:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F532F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=163.com header.i=@163.com
- header.b="O2sacQg7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=6aSfX
- k2y0bbGcy2PXv7xbUnmwxl/WAcJwLMFrxzKbxM=; b=O2sacQg7/Dlxut+KCyh5s
- v42QNzgaLBK0tuz+brTw2H8pDQDt0Esc8utWOxtr2yTx7MMq4CCL6Nze9XcNSjIP
- eBGlssekq7s6K5F2mvBg3W3QSZC32ca2kJIjD2wDvXlM2FL79/+wlLwY+tcfjzvD
- WCZEhQ/o1ZYXmW06RSy8UU=
-Received: from localhost.localdomain (unknown [183.194.153.98])
- by smtp10 (Coremail) with SMTP id DsCowAAHQfRWE9VhLd_RGA--.64628S2;
- Wed, 05 Jan 2022 11:41:14 +0800 (CST)
-From: Baole Fang <fbl718@163.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Jeremy Szu <jeremy.szu@canonical.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Werner Sembach <wse@tuxedocomputers.com>,
- Hui Wang <hui.wang@canonical.com>, Cameron Berkenpas <cam@neo-zeon.de>,
- Kailang Yang <kailang@realtek.com>, Sami Loone <sami@loone.fi>,
- Elia Devito <eliadevito@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Legion Y9000X 2020
-Date: Wed,  5 Jan 2022 11:41:01 +0800
-Message-Id: <20220105034103.12484-1-fbl718@163.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: DsCowAAHQfRWE9VhLd_RGA--.64628S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ur4xGw4DKw17Kry3ZFy8Grg_yoW5JrW3pF
- 4rAwn5WF4kXFnayr43Ar4jgry8Gan3Cr48CFy5Aw17Zan3uFsrGrWFg3yavryDGrWkGrZ8
- Xr1kZas8Wr45Xw7anT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UzE__UUUUU=
-X-Originating-IP: [183.194.153.98]
-X-CM-SenderInfo: 5ieoliqy6rljoofrz/1tbiHhp-6VSIy9z6mAAAs7
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="m7cIBW0o"
+Received: by mail-pf1-x434.google.com with SMTP id m1so34214571pfk.8
+ for <alsa-devel@alsa-project.org>; Tue, 04 Jan 2022 21:36:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:message-id:from:to:cc:subject:in-reply-to:references
+ :user-agent:mime-version;
+ bh=TVi5CpksORLcfI1fN+SmnI5coKP1w9QYwiZzMlp/wXM=;
+ b=m7cIBW0oUCsCJcIhy0K70SnFBvUyPeOka8Sf4E2OqxfbTsXA0mQ5JIdnVTvHnp5+gp
+ 0PC1RwgHjYRLzEgdWjziovrFB8WuIcFv1GYd7AQ7XVdnNCdjB3hWVsYtiITPfRSnjc3V
+ 85LSq+em5vmwo66Y5WJtXlsY8sf9Fq9NsaSZYEHJ1pp2j0IbqZcaDrwJVFjEXXnlZcxt
+ jyWVOvvx7ttbBevVpEOduataTpCztss0ppBN52Reb9LFNFfYmw1loYLTZSDJcgBm0KsD
+ 8A6etMk76RMOCBMIKNiaNwc1pZP3D2BhAng79YeFmAXeuWif893it+8A+b8ELIEiriqa
+ uk+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:message-id:from:to:cc:subject:in-reply-to
+ :references:user-agent:mime-version;
+ bh=TVi5CpksORLcfI1fN+SmnI5coKP1w9QYwiZzMlp/wXM=;
+ b=2OO2Oc87Rj4T6HunCKafFdhSuhjT/Qq0OC5XOZHEI2yUTNOYLj3U3xoGtyodbEI4Lj
+ AnKGWXsRBEQCyiC4uD5wYT8FrT8jHbl9GjmKyX6EJyMvZq5E1dCVykX8tXOxAQ6Df9S+
+ HKwZBMO4wZ8q//11KLWdpmmoDt29f0AYQWzQl3UMW9FfMRS/KUq5TNSUlRG/j5TLnuID
+ C1P4D0wT9yDJPbxXTrgPU2dSmFmpUpiboHB8mRy5qFFFAMMUMOUvHuhLEnN1miGKIwdO
+ RTj9ZlEbuG7N4usSS75S1MgaS0DRpRTrMYDvV29C54uvot+wRpiC60tgFiuM1itYsNf5
+ 69gA==
+X-Gm-Message-State: AOAM532niZsfT8+jSHjvnf/VcKe0RBJpu7zblPqlW/qx4WERn/nfZtXW
+ qoSw2t4Xtvhi/uEnuko4sX4=
+X-Google-Smtp-Source: ABdhPJxS4nJvxIzDMug+tzIw6awXdeHfXLMbKClZga9KXE2Tsam3bsyShb6tEYWh1NlymAgXCU9vHQ==
+X-Received: by 2002:a63:711a:: with SMTP id m26mr29336420pgc.49.1641360993389; 
+ Tue, 04 Jan 2022 21:36:33 -0800 (PST)
+Received: from venus.gmail.com ([126.249.140.249])
+ by smtp.gmail.com with ESMTPSA id c17sm44886141pfc.163.2022.01.04.21.36.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Jan 2022 21:36:33 -0800 (PST)
+Date: Tue, 04 Jan 2022 21:36:33 -0800 (PST)
+Message-ID: <87a6gawxpe.wl-kuninori.morimoto.gx@gmail.com>
+From: kuninori.morimoto.gx@gmail.com
+To: Carl Philipp Klemm <philipp@uvos.xyz>
+Subject: Re: [RFC PATCH 1/3] ASoC: simple-card-utils: add support for
+ componants provideing jack events via set_jack
+In-Reply-To: <20211228190931.df5d518220080a734532ebfd@uvos.xyz>
+References: <20211228190931.df5d518220080a734532ebfd@uvos.xyz>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Wed, 05 Jan 2022 09:42:15 +0100
-Cc: Baole Fang <fbl718@163.com>
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ tony@atomide.com, merlijn@wizzup.org, sre@kernel.org,
+ linux-omap@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,59 +103,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-commit 25960cafa06e6fcd830e6c792e6a7de68c1e25ed upstream.
 
-Legion Y9000X 2020 has a speaker, but the speaker doesn't work.
-This can be fixed by applying alc285_fixup_ideapad_s740_coef
- to fix the speaker's coefficients.
-Besides, to support the transition between the speaker and the headphone,
-alc287_fixup_legion_15imhg05_speakers needs to be run.
+Hi Carl
 
-Signed-off-by: Baole Fang <fbl718@163.com>
+Thank you for your patch.
+
+> This allows componants that want a jack to report state on to do so by calling
+> set_jack on components implementing this function.
+>
+> Im not entirely sure this is the right way to do this so RFC
+(snip)
+> +	for_each_rtd_components(rtd, i, component) {
+> +		if (component->driver->set_jack) {
+> +			if (!priv->hp_jack) {
+> +				priv->hp_jack = devm_kzalloc(priv->snd_card.dev,
+> +					sizeof(*priv->hp_jack), GFP_KERNEL);
+> +				snd_soc_card_jack_new(&priv->snd_card,
+> +					"Headphones",
+> +					SND_JACK_HEADPHONE,
+> +					&priv->hp_jack->jack,
+> +					NULL, 0);
+> +			}
+> +			snd_soc_component_set_jack(component, &priv->hp_jack->jack, NULL);
+> +		}
+> +	}
+
+I'm sorry but I don't understand what you want to do by this patch.
+Is main code of this patch asoc_simple_dai_init() update
+(= call set_jack() for all component) ?
+
+>  int asoc_simple_init_jack(struct snd_soc_card *card,
+> -			       struct asoc_simple_jack *sjack,
+> +			       struct asoc_simple_jack **sjack,
+>  			       int is_hp, char *prefix, char *pin);
+
+${LINUX}/sound/soc/fsl/fsl-asoc-card.c is using this function, too.
+We will have compile error without update it.
+
+>  int asoc_simple_init_jack(struct snd_soc_card *card,
+> -			  struct asoc_simple_jack *sjack,
+> +			  struct asoc_simple_jack **sjack,
+>  			  int is_hp, char *prefix,
+>  			  char *pin)
+(snip)
+>  	if (gpio_is_valid(det)) {
+> -		sjack->pin.pin		= pin_name;
+> -		sjack->pin.mask		= mask;
+> +		struct asoc_simple_jack *sjack_d;
+> +
+> +		sjack = devm_kzalloc(dev, sizeof(*(*sjack)), GFP_KERNEL);
+> +		sjack_d = *sjack;
+
+Am I misunderstanding ?
+I think you need to do here is this ?
+
+	-	sjack = devm_kzalloc(dev, sizeof(*(*sjack)), GFP_KERNEL);	
+	+	*sjack = devm_kzalloc(dev, sizeof(*(*sjack)), GFP_KERNEL);
+
+Thank you for your help !!
+
+Best regards
 ---
- sound/pci/hda/patch_realtek.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 28255e752c4a..c7232f9be690 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6784,6 +6784,8 @@ enum {
- 	ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE,
- 	ALC233_FIXUP_NO_AUDIO_JACK,
- 	ALC256_FIXUP_MIC_NO_PRESENCE_AND_RESUME,
-+	ALC285_FIXUP_LEGION_Y9000X_SPEAKERS,
-+	ALC285_FIXUP_LEGION_Y9000X_AUTOMUTE,
- };
- 
- static const struct hda_fixup alc269_fixups[] = {
-@@ -8380,6 +8382,18 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF,
- 	},
-+	[ALC285_FIXUP_LEGION_Y9000X_SPEAKERS] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc285_fixup_ideapad_s740_coef,
-+		.chained = true,
-+		.chain_id = ALC285_FIXUP_LEGION_Y9000X_AUTOMUTE,
-+	},
-+	[ALC285_FIXUP_LEGION_Y9000X_AUTOMUTE] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc287_fixup_legion_15imhg05_speakers,
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_THINKPAD_ACPI,
-+	},
- 	[ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS] = {
- 		.type = HDA_FIXUP_VERBS,
- 		//.v.verbs = legion_15imhg05_coefs,
-@@ -8923,6 +8937,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x31af, "ThinkCentre Station", ALC623_FIXUP_LENOVO_THINKSTATION_P340),
- 	SND_PCI_QUIRK(0x17aa, 0x3818, "Lenovo C940", ALC298_FIXUP_LENOVO_SPK_VOLUME),
- 	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
-+	SND_PCI_QUIRK(0x17aa, 0x3824, "Legion Y9000X 2020", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x3843, "Yoga 9i", ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP),
- 	SND_PCI_QUIRK(0x17aa, 0x3813, "Legion 7i 15IMHG05", ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x3852, "Lenovo Yoga 7 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
--- 
-2.25.1
-
+Kuninori Morimoto

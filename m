@@ -2,73 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D66348568B
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 17:14:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9E2448569C
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jan 2022 17:25:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB5641A23;
-	Wed,  5 Jan 2022 17:13:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB5641A23
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A1E21A6A;
+	Wed,  5 Jan 2022 17:24:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A1E21A6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641399246;
-	bh=OLmJ52CHuqXo//NMSkzVPxjjQ+LZ6ErApBM18DGlsaY=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BPdENZzLJsDFWRrBbHlApi8wy5dQwKqluoghpfTn0XWMY78za9HsUXTf9tqW3xmRt
-	 8VbwWumB3zfutS1oLTmTTw72Sug+DRrxAc8ubYyJKExfJHwSSVTAsatnYzDZfrr/cJ
-	 qTxjMVqYrSerVZGxcFxXIPvmVHkCFhrNon/ny73I=
+	s=default; t=1641399925;
+	bh=CcdX2N69ne+eSqyA3M2iwxLCypKP3s4ANTuCjFBJkqs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SUTOvIJAGGL4yV76TyWQaYKemP/PX4rKOtcE7MJpElv3IYpEQY8/eb9xSonODCZWc
+	 sqP/kec9JTAocw9O2wNxInySJraTPz3zicwbrbtkxL0yavYhBTNaNySlLbzVtBgWUP
+	 juZ+OkZp2XdPUyLvw7XntKT+SB9YbH1s6da01SbY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EB0BF80167;
-	Wed,  5 Jan 2022 17:12:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A01C8F8007E;
+	Wed,  5 Jan 2022 17:24:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF46DF801D8; Wed,  5 Jan 2022 17:12:57 +0100 (CET)
+ id 286D2F8007E; Wed,  5 Jan 2022 17:24:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5ADCFF8007E
- for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 17:12:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ADCFF8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B66FF8007E
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jan 2022 17:24:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B66FF8007E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lNHwHhXX"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0CEF8B8196F;
- Wed,  5 Jan 2022 16:12:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 961A0C36AE9;
- Wed,  5 Jan 2022 16:12:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641399167;
- bh=OLmJ52CHuqXo//NMSkzVPxjjQ+LZ6ErApBM18DGlsaY=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=lNHwHhXXRq58QzbkbxrqfaHb2EOh2jkyqOjQVKL5EX//u+UePKpkkDqvfbAwINM+H
- 9W6yWgarzBTw+rWIGQSE/gu+V1/pap8ysQ/mYFNUp+ITTXsfkq/hHR/PKe2bOf+9vW
- LQmQb8hwGlj+DZUKy3hlndvss5NOK1R08Rd+S/ynqLWjzpvCm1/L80O+e37aWMAdzG
- Lw2khzgVdpxTHjbZ8gTp3Sz1W9XMGobxm8ueCXwmEkhZuTx8RYvhw4r3MJaq7pQ990
- EgW4kB52B35eGPl/SXnFS+mZTHonRKFUryg1TuSsZCcMih/f4zpmHOcWMj0YG62YSN
- PmgqLI/1jeMjg==
-From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-In-Reply-To: <20220105113026.18955-1-ckeepax@opensource.cirrus.com>
-References: <20220105113026.18955-1-ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH 0/8] Add low power hibernation support to cs35l41
-Message-Id: <164139916633.3066423.305146285867242412.b4-ty@kernel.org>
-Date: Wed, 05 Jan 2022 16:12:46 +0000
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="11AEZb5a"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="4vDdxEXw"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id F30F21F37B;
+ Wed,  5 Jan 2022 16:24:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1641399850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ZoTAqvn3cSScz678Px3ymY3f7sM9aK8Jj+9p7LS7kX8=;
+ b=11AEZb5awCdqT699PD70Yj2xBypzyi7ethzrkyvvTdDb4JSgYpKLQ6jgCREND4WtDDyj2N
+ 5DxIpXeWoozyZ06sZwWm8y6bLVckwoFKSgDetVaFpkM103WdtzViTJvimumEt2wWr1XARj
+ ORYhOd7ykovzxb+tACXMDwlmdrGM5+s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1641399850;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ZoTAqvn3cSScz678Px3ymY3f7sM9aK8Jj+9p7LS7kX8=;
+ b=4vDdxEXw6meFYTLwPcUputVDpvJc5XPT508RsaLKMko/8R8C2hu7jdFrlEeow3ifuY6Fxl
+ aYAewiHZqOwOY5Bw==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id D7D6BA3B81;
+ Wed,  5 Jan 2022 16:24:09 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: ak4375: Fix unused function error
+Date: Wed,  5 Jan 2022 17:24:09 +0100
+Message-Id: <20220105162409.20635-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, tiwai@suse.com, david.rhodes@cirrus.com
+Cc: alsa-devel@alsa-project.org, Vincent Knecht <vincent.knecht@mailoo.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,55 +87,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 5 Jan 2022 11:30:18 +0000, Charles Keepax wrote:
-> This patch series adds support for the low power hibernation feature
-> on cs35l41. This allows the DSP memory to be retained whilst the
-> device enters a very low power state.
-> 
-> Patches 1-6 can happily be applied straight away and are mostly bug
-> fixes to set things up for the series specifically around getting the
-> cache handling corrected in the driver.
-> 
-> [...]
+A randconfig caught a compile warning that is now treated as a fatal
+error:
+  sound/soc/codecs/ak4375.c:415:13: error: ‘ak4375_power_off’ defined but not used [-Werror=unused-function]
 
-Applied to
+where ak4375_power_off() is used only from the PM handler.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+As both suspend and resumes are already marked with __maybe_unused,
+let's rip off the superfluous ifdef CONFIG_PM, so that the error above
+can be avoided.
 
-Thanks!
+Fixes: 53778b8292b5 ("ASoC: Add AK4375 support")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/soc/codecs/ak4375.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-[1/8] ASoC: cs35l41: Add cs35l51/53 IDs
-      commit: dcf821319474edde7e85b95608a4539703a2b67d
-[2/8] ASoC: cs35l41: Remove incorrect comment
-      commit: 4e7c3cd87db8d9350062a25a8476f90fd1cbc4c9
-[3/8] ASoC: cs35l41: Correct DSP power down
-      commit: 56852cf4b2179fb90068a49538501f31c2de18ea
-[4/8] ASoC: cs35l41: Correct handling of some registers in the cache
-      commit: 5f2f539901b0d9bda722637521a11b7f7cf753f1
-[5/8] firmware: cs_dsp: Clear core reset for cache
-      commit: 7aa1cc1091e0a424e9e7711ca381ebe98b6865bc
-[6/8] ASoC: wm_adsp: Add support for "toggle" preloaders
-      commit: ba235634b138cd9d012dbe983e7920481211e132
-[7/8] ASoC: cs35l41: Update handling of test key registers
-      (no commit info)
-[8/8] ASoC: cs35l41: Add support for hibernate memory retention mode
-      (no commit info)
+diff --git a/sound/soc/codecs/ak4375.c b/sound/soc/codecs/ak4375.c
+index 22cda0699341..9a7b662016b9 100644
+--- a/sound/soc/codecs/ak4375.c
++++ b/sound/soc/codecs/ak4375.c
+@@ -438,7 +438,6 @@ static int ak4375_power_on(struct ak4375_priv *ak4375)
+ 	return 0;
+ }
+ 
+-#ifdef CONFIG_PM
+ static int __maybe_unused ak4375_runtime_suspend(struct device *dev)
+ {
+ 	struct ak4375_priv *ak4375 = dev_get_drvdata(dev);
+@@ -463,7 +462,6 @@ static int __maybe_unused ak4375_runtime_resume(struct device *dev)
+ 
+ 	return regcache_sync(ak4375->regmap);
+ }
+-#endif /* CONFIG_PM */
+ 
+ static const struct snd_soc_component_driver soc_codec_dev_ak4375 = {
+ 	.controls		= ak4375_snd_controls,
+-- 
+2.31.1
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

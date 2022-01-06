@@ -2,73 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D74D04860E5
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 08:11:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC76486137
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 09:01:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CFC117F4;
-	Thu,  6 Jan 2022 08:10:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CFC117F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3F4417CB;
+	Thu,  6 Jan 2022 09:00:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3F4417CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641453093;
-	bh=+kJurRtjTcskO4sR940mg6toDzXUQXxt8ikh245W5M8=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=o5WYD/1iivUz46r75TweXZPgIuXU/xow0DyhydqhMFk7rSeNiuGQYLqvyBGYPMuA3
-	 ESUMKcEkSTBxgpWIckHsMsIssKKff9cb6e8K7AFZMqcdQXd34ym33Ox8ksq6POPhsE
-	 333FUdSfxUrgCLZU8atwFr+lO/SGQv/8TdMhcb2s=
+	s=default; t=1641456090;
+	bh=W8BtMfmR8K8AVMml6JeKOdyP6QgeqZP03dPn2lCguS0=;
+	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vm35nuH3SKmX1AomDXYsBiN4Kh7417h4rr/xiBdxCtDbOUwmN0g7t1OMG4dKWbu/k
+	 szq4j6mNJARO/TEZ5bwsmfMp4edwJazSTAAB+IaT8cILL/ogUrNHsWPD3h/rOVTi7W
+	 jVkiAIp1UaLlIDs2RUJr+lKVJt2Ta4NFNQCuWPfo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9870F80158;
-	Thu,  6 Jan 2022 08:10:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72CFCF80158;
+	Thu,  6 Jan 2022 09:00:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B172CF8007E; Thu,  6 Jan 2022 08:10:24 +0100 (CET)
+ id 5C7DFF80155; Thu,  6 Jan 2022 09:00:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71D95F8007E
- for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 08:10:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71D95F8007E
-X-UUID: 8ea96f7b9d844bf38ad79796b36d1f34-20220106
-X-UUID: 8ea96f7b9d844bf38ad79796b36d1f34-20220106
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <yc.hung@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1291158459; Thu, 06 Jan 2022 15:10:09 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Thu, 6 Jan 2022 15:10:08 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Thu, 6 Jan 2022 15:10:08 +0800
-Message-ID: <3e00db1d4fe71938b0274331cd49b96bdddccea4.camel@mediatek.com>
-Subject: Re: [PATCH v3] dt-bindings: dsp: mediatek: add mt8195 dsp document
-From: YC Hung <yc.hung@mediatek.com>
-To: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Thu, 6 Jan 2022 15:10:08 +0800
-In-Reply-To: <CAEnQRZBH4uwMmyBLY2bCtY9QZooBiK5PqF3T+4K8WAtQV1QN-Q@mail.gmail.com>
-References: <20220103043202.6524-1-yc.hung@mediatek.com>
- <CAEnQRZBH4uwMmyBLY2bCtY9QZooBiK5PqF3T+4K8WAtQV1QN-Q@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B3DAF800BB
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 09:00:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B3DAF800BB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="eopkbSHa"; 
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="dleROlKJ"
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id 8F2D1A1A3D406
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 09:00:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1641456007; bh=W8BtMfmR8K8AVMml6JeKOdyP6QgeqZP03dPn2lCguS0=;
+ h=To:From:Subject:Date:From;
+ b=eopkbSHan0wrTmMiP4LJcAOfNjcbhyMgxIfnJLmW2fLK8cp/n3P6d7Ofu4D25dH0O
+ ZNNHgsc2GgKAZgc33HFsTfg6G3xR+kTbZDa5EhDh7fUAYAPXvAq5bDTn0rmxNWpNtE
+ ByD8VzsVBOj8mY/vNzq4QVZwI+g9HezLyygYgAMc=
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id N4hu3Ohvsr0s for <alsa-devel@alsa-project.org>;
+ Thu,  6 Jan 2022 09:00:01 +0100 (CET)
+Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id 8DDCCA1A3D405
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 09:00:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1641456001; bh=W8BtMfmR8K8AVMml6JeKOdyP6QgeqZP03dPn2lCguS0=;
+ h=To:From:Subject:Date:From;
+ b=dleROlKJ/o6YC1wtlNViDLGpKJr4n2ZlwkeMyAz0afBgxKT0CMtC/bKhOPwFsnQlH
+ cmGMxX0U+C8qintS0glxToNlSJwyH0KQKm5HrkMz+QNs6FcHcsdfcJlVw6pdXHhkAo
+ eprBck4vFaqWD3QvAzHKcb7rob0faV+LvE+ZI1gA=
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+Subject: UAC2: are UAC2 latency controls included in snd_pcm_status_get_delay?
+Message-ID: <3b99eba1-ec94-c9c0-5776-c4b501750023@ivitera.com>
+Date: Thu, 6 Jan 2022 08:59:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-2; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: Devicetree List <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>, allen-kh.cheng@mediatek.com,
- Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Linux Kernel
- Mailing List <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,92 +90,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Daniel,
+Hi,
 
-My mistake. Thanks for review and comments. I have updated v4 to fix
-it. Thanks
-On Wed, 2022-01-05 at 17:53 +0200, Daniel Baluta wrote:
-> On Mon, Jan 3, 2022 at 1:00 PM YC Hung <yc.hung@mediatek.com> wrote:
-> > 
-> > From: "YC Hung" <yc.hung@mediatek.com>
-> > 
-> > This patch adds mt8195 dsp document. The dsp is used for Sound Open
-> > Firmware driver node. It includes registers,  clocks, memory
-> > regions,
-> > and mailbox for dsp.
-> > 
-> > Signed-off-by: yc.hung <yc.hung@mediatek.com>
-> 
-> The code patch should be created against original source code from
-> Rob's tree. Here it seems the patch is against v2.
-> 
-> This isn't going to work! Because when Rob will try to apply the
-> patch
-> it will fail since he doesn't have (and doesnt need to have)
-> your previous versions.
-> 
-> So, please keep the changes history (that's a good thing!) but always
-> rebase your patch on maintainer's tree.
-> 
-> 
-> > ---
-> > Changes since v2:
-> >   Remove useless watchdog interrupt.
-> >   Add commit message more detail description.
-> > 
-> > Changes since v1:
-> >   Rename yaml file name as mediatek,mt8195-dsp.yaml
-> >   Refine descriptions for mailbox, memory-region and drop unused
-> > labels
-> >   in examples.
-> > ---
-> > ---
-> >  .../devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml | 12 --------
-> > ----
-> >  1 file changed, 12 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/dsp/mediatek,mt8195-
-> > dsp.yaml b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-
-> > dsp.yaml
-> > index bde763191d86..779daa786739 100644
-> > --- a/Documentation/devicetree/bindings/dsp/mediatek,mt8195-
-> > dsp.yaml
-> > +++ b/Documentation/devicetree/bindings/dsp/mediatek,mt8195-
-> > dsp.yaml
-> > @@ -27,14 +27,6 @@ properties:
-> >        - const: cfg
-> >        - const: sram
-> > 
-> > -  interrupts:
-> > -    items:
-> > -      - description: watchdog interrupt
-> > -
-> > -  interrupt-names:
-> > -    items:
-> > -      - const: wdt
-> > -
-> >    clocks:
-> >      items:
-> >        - description: mux for audio dsp clock
-> > @@ -75,8 +67,6 @@ required:
-> >    - compatible
-> >    - reg
-> >    - reg-names
-> > -  - interrupts
-> > -  - interrupt-names
-> >    - clocks
-> >    - clock-names
-> >    - memory-region
-> > @@ -95,8 +85,6 @@ examples:
-> >         reg = <0x10803000  0x1000>,
-> >               <0x10840000  0x40000>;
-> >         reg-names = "cfg", "sram";
-> > -       interrupts = <GIC_SPI 694 IRQ_TYPE_LEVEL_HIGH 0>;
-> > -       interrupt-names = "wdt";
-> >         clocks = <&topckgen 10>, //CLK_TOP_ADSP
-> >                  <&clk26m>,
-> >                  <&topckgen 107>, //CLK_TOP_AUDIO_LOCAL_BUS
-> > --
-> > 2.18.0
-> > 
+The UAC2 ch. "5.2.4.8 Latency Control" specifies latencies optionally 
+reported by the device for individual entities. Especially the overall 
+terminal latency TE_LATENCY_CONTROL is interesting.
 
+Some video players include the delay reported by 
+snd_pcm_status_get_delay into their AV sync calculation.
+
+A linux USB audio gadget can perform some advanced DSP, which including 
+the output device latency can result in a non-negligible overall 
+latency. The gadget userspace software could configure the actual value 
+to be reported by the gadget to the host in the selector UAC2_TE_LATENCY 
+(audio_v2.h). The UAC2-specced max value of over 4 secs is more than 
+sufficient for standard use cases.
+
+But I could not find any read of the UAC2_TE_LATENCY control selector in 
+the snd-usb-audio driver ( 
+https://elixir.bootlin.com/linux/latest/C/ident/UAC2_TE_LATENCY ). 
+Please does the driver include this value into the overall delay 
+reported through alsa-lib? If not, would it make sense to add such support?
+
+Thanks a lot,
+
+Pavel.

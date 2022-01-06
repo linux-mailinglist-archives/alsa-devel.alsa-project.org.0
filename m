@@ -2,84 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37999486485
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 13:43:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26C91486488
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 13:43:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC35C1902;
-	Thu,  6 Jan 2022 13:42:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC35C1902
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD2901913;
+	Thu,  6 Jan 2022 13:42:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD2901913
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641472984;
-	bh=LotRBLbKIaT2cq1py77HT4aylym5EGz4bxaDCKTQlds=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=B1ewNTR4O6Dz5T/pOXbILkpX4SarcEsUKVaPUDIkAPnqOWAbU05BfXvhSYPG3MScD
-	 WQXpe/Aj5peqvSj2S+uT6I3mfr7leKZRZPHAgICT7aoZ89gGOyVMg6seF2GsDAPkDg
-	 PSERnYeV+jGnHOckkCcbeURbIi0UE9IzBTXRX+d0=
+	s=default; t=1641473018;
+	bh=wT/ZPqBkBaMheLCzIx+SiOVsTngrky5n/j5QT5DX82c=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mQbsk7h78+y/npzxA2C+ewe0aNllDnkdwaTauIzkkzoy2HKYm4uGH77tal/HC6A3x
+	 dFHaEBhX3DNQXWdFPT7C+Em+WGopzrLQvrA/lLw0A/CD4HRbBQLCLDeMp7vqYGDBij
+	 GBIIFBcvcK4CtH+O+L/FFgndeKDbfux//A5jzAzs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 259C6F80158;
-	Thu,  6 Jan 2022 13:41:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0E26F8016D;
+	Thu,  6 Jan 2022 13:42:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E40A5F800BB; Thu,  6 Jan 2022 13:41:55 +0100 (CET)
+ id 09848F80163; Thu,  6 Jan 2022 13:42:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82F7FF80161
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 13:42:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82F7FF80161
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="caimkpIu"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C03AFF800BB
- for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 13:41:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C03AFF800BB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
- header.b="jv+Y278R"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1641472909;
- bh=LotRBLbKIaT2cq1py77HT4aylym5EGz4bxaDCKTQlds=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=jv+Y278RWATQYL5kDB3z7tMDBQL8BAlLVGfokGYFW2Y4eChJRCOSbaBs4WUZajZSm
- bmUpySiNMF5lrljoiSMAf5Xok1mRL65AU2BFtoPqOZVYUifWDhzewITI9WEzBCLWgS
- UNKj2qW0idGgG4COAyOmmVlGowbp/ZMttKsg9iJM=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from wave.lan ([95.91.248.70]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1M4JmN-1n5j4O0o0v-000Jj5; Thu, 06
- Jan 2022 13:41:49 +0100
-From: Stefan Sauer <st_kost@gmx.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/2] ALSA: seq: virmidi: Add a drain operation
-Date: Thu,  6 Jan 2022 13:41:45 +0100
-Message-Id: <20220106124145.17254-1-st_kost@gmx.de>
-X-Mailer: git-send-email 2.34.1
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0B250B82104;
+ Thu,  6 Jan 2022 12:42:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FBF0C36AE3;
+ Thu,  6 Jan 2022 12:42:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1641472934;
+ bh=wT/ZPqBkBaMheLCzIx+SiOVsTngrky5n/j5QT5DX82c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=caimkpIutlOCoOP0CBzGK2XgIeJfzboEd4LqeVnp7jNJcEXCDMB/KR/eALG7IT/Jr
+ 7iQushwNOrobePTMmrh70Rr/UxU8+KYSOxZTAf7qJakQbJ6dd4eB0zwq38kJDk6aqs
+ Txtu336IEPAFyGtQXppZQ0kfv3Izy7l/xFQ+Tl+JRr9z3GkTQGLMoAF/r01GOlnrpM
+ MOyFxS4xGAZ7mcBtikjzPUOclZitvxPZ7RMmtmURpuUbsaLK85a/VuwKt4k2HirPwO
+ hhLd63V4wBRr0At++gIkpmsVLvxGyQCmfiSLPt9gaB1N1tnezf6zi8Gt0JjdW+N0IG
+ 1qfg6ziAN6oXg==
+Date: Thu, 6 Jan 2022 12:42:09 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Robert Hancock <robert.hancock@calian.com>
+Subject: Re: [PATCH 3/5] ASoC: xilinx: xlnx_i2s.c: Handle sysclk setting
+Message-ID: <YdbjoQGKGedGLl/d@sirena.org.uk>
+References: <20220105225146.3517039-1-robert.hancock@calian.com>
+ <20220105225146.3517039-4-robert.hancock@calian.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:hTw/pX0BEWdyjKPQcAaPTRylFtVBYkEwLQQaO9j2F++egiI/HX2
- tvuj4R+MqebYI9vknkjN4j3lX6juPWXP6pVo69YTrIYgQVU2ytfqnEqFAfhjvWNgCHElsZN
- jvesCZYi+WB4m3s/Toj0GjIDVcbrRAGgq4e1AYbuBDAs1CJaGdm2up/2uOZRbjFyIBckqQI
- +y98YPIJn0MrHbjLcOmiA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:+g8pMnpKPos=:crazdNO6UIMF9p+4hzVMcy
- Yer0h0+k5bS4yvN5DJpd+6E1hbP3KHmXwo6zSICbJqFC2jXNJFGtwDoAnsIhTNWo9L5WRHCXj
- ILGua4QsLnAmc2IUUkWan2BW4ku93rNVBASWBTGRONkvID0GmUkq80pjJ8d1g1VucqwpjI3Nv
- 5AzumqvO13AUDw4sCD3YO1D6NbLoCBwXJtNo+4mbLhNLrCr+R8GuXJzkOJskDloG0VozjVBwm
- 66rWtElnD8ZLplBqsy/dlT1FF0uiaIF0jglawmMX/QbWoR0GepbP5jtw9iHCemGB2oBsHxsrM
- S8HWi61IqGx3g0iOoEihtmz2ksv7SsW3n+V2f/KrHuwuLh+rmJSFIJ3bQYmUsu/lGumwBJPhf
- Q2UOpaVKXzPX4/YxzG8d2XqW7aY0r/IzHq/XV09oBseU/XjlHz3yZp7H3/SRJcN38y+F7+L2S
- g9+Xr9c2liQjyf8GDVcXHUMJxNvKC0c7QC10QP7fMirNj/aSIJj/iMfLC3N8Q6bhDrAM4p2P0
- ggfYUQPuSjJEd02yj/KbtNaQhCxE39h7OCPjNQX/k6y8YiVz9cio7WcaI9G0RD7fs7c5E9b5G
- QXI5hh52Ii81BD+mgfW3haCCJktcQTArGeYS6nEoN/vGFSMjfa/AWIuPU0igsg330HWTbs0ld
- wgFSOVPRbLhp3Cxtmqhya73f2sNe/QeywNKvhYVb3En7fSRG6Kz7GK1L9JBL/9h/immyIT6sc
- d03BTzxZwVw9lgfCdxAv3kkbY1cVkMzD/02bcSTTWoFF48Y1p4gk/cERWja+tPLuXWsP8o5OV
- OO5DDJalFp2Hnu4rWEA0FoN989M/E6D0RauyJhBVZ7vGSjrCR5kBotyjQ+av2ZpdkCrADsyv5
- 1QZGmnUgcrfMesrcKIEPvRhZ7NA3qCJ+GbDPjto6XYoDMLWe4c3IAW54LnbZo4eKGsXApLjK7
- 5/vUPKSXhjIrz4GEFoLyWAIetZD7ZY1YLj0yJqGcROGK4BZC368MWq/AOVdy7qMc/OWK2BhCP
- UUwyWwufQ8lORVTjBUNSf1ha/hv9hKgW2D92o8h7YBnFYF/9RB0spp6WNZc/3vWLtmVi+2t5k
- xsewfR4SvLNq90=
-Cc: Stefan Sauer <st_kost@gmx.de>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pehtLVQtJEeR8N3c"
+Content-Disposition: inline
+In-Reply-To: <20220105225146.3517039-4-robert.hancock@calian.com>
+X-Cookie: I think we're in trouble.
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ michal.simek@xilinx.com, maruthi.srinivas.bayyavarapu@xilinx.com,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,50 +88,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If a driver does not supply a drain operation for outputs, a default code
-path will execute msleep(50). Especially for a virtual midi device
-this severely limmits the throughput.
 
-This implementation for the virtual midi driver simply flushes the output
-workqueue.
+--pehtLVQtJEeR8N3c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Stefan Sauer <st_kost@gmx.de>
-=2D--
- sound/core/seq/seq_virmidi.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+On Wed, Jan 05, 2022 at 04:51:44PM -0600, Robert Hancock wrote:
 
-diff --git a/sound/core/seq/seq_virmidi.c b/sound/core/seq/seq_virmidi.c
-index 4abc38c70cae..f5cae49500c8 100644
-=2D-- a/sound/core/seq/seq_virmidi.c
-+++ b/sound/core/seq/seq_virmidi.c
-@@ -262,6 +262,16 @@ static int snd_virmidi_output_close(struct snd_rawmid=
-i_substream *substream)
- 	return 0;
- }
+> +	unsigned int last_sysclk;
 
-+/*
-+ * drain output work queue
-+ */
-+static void snd_virmidi_output_drain(struct snd_rawmidi_substream *substr=
-eam)
-+{
-+	struct snd_virmidi *vmidi =3D substream->runtime->private_data;
-+
-+	flush_work(&vmidi->output_work);
-+}
-+
- /*
-  * subscribe callback - allow output to rawmidi device
-  */
-@@ -336,6 +346,7 @@ static const struct snd_rawmidi_ops snd_virmidi_output=
-_ops =3D {
- 	.open =3D snd_virmidi_output_open,
- 	.close =3D snd_virmidi_output_close,
- 	.trigger =3D snd_virmidi_output_trigger,
-+	.drain =3D snd_virmidi_output_drain,
- };
+Same naming issue.
 
- /*
-=2D-
-2.34.1
+> +	if (drv_data->last_sysclk) {
+> +		unsigned int bits_per_sample =3D drv_data->is_32bit_lrclk ?
+> +					       32 : drv_data->data_width;
 
+Please write normal conditional statements, it improves legibility.
+
+> +		unsigned int sclk =3D params_rate(params) * bits_per_sample *
+> +				    params_channels(params);
+
+snd_soc_params_to_bclk().
+
+> +		unsigned int sclk_div =3D DIV_ROUND_CLOSEST(drv_data->last_sysclk, scl=
+k) / 2;
+
+Same issue with _ROUND_CLOSEST()
+
+> +
+> +		if (!sclk_div || (sclk_div & ~I2S_I2STIM_VALID_MASK)) {
+> +			dev_warn(i2s_dai->dev, "invalid SCLK divisor for sysclk %u and sclk %=
+u\n",
+> +				 drv_data->last_sysclk, sclk);
+> +			return -EINVAL;
+> +		}
+
+This indicates that we should be setting some constraints on sample rate
+based on sysclk.
+
+> +		writel(sclk_div, drv_data->base + I2S_I2STIM_OFFSET);
+> +	}
+
+Does the device actually support operation without knowing the sysclk?
+
+> @@ -56,18 +90,18 @@ static int xlnx_i2s_hw_params(struct snd_pcm_substrea=
+m *substream,
+>  static int xlnx_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
+>  			    struct snd_soc_dai *i2s_dai)
+>  {
+> -	void __iomem *base =3D snd_soc_dai_get_drvdata(i2s_dai);
+> +	struct xlnx_i2s_drv_data *drv_data =3D snd_soc_dai_get_drvdata(i2s_dai);
+> =20
+>  	switch (cmd) {
+>  	case SNDRV_PCM_TRIGGER_START:
+>  	case SNDRV_PCM_TRIGGER_RESUME:
+>  	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> -		writel(1, base + I2S_CORE_CTRL_OFFSET);
+> +		writel(I2S_CORE_CTRL_ENABLE, drv_data->base + I2S_CORE_CTRL_OFFSET);
+>  		break;
+>  	case SNDRV_PCM_TRIGGER_STOP:
+>  	case SNDRV_PCM_TRIGGER_SUSPEND:
+>  	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> -		writel(0, base + I2S_CORE_CTRL_OFFSET);
+> +		writel(0, drv_data->base + I2S_CORE_CTRL_OFFSET);
+>  		break;
+
+Please split the change to have a struct for driver data out into a
+separate change, it's a large reformatting and is big enough to justify
+it - more of the diff is that than the change described in the changelog
+which doesn't mention this at all.
+
+--pehtLVQtJEeR8N3c
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHW46AACgkQJNaLcl1U
+h9AKyAf+LqvHZw9x6iS4JqwAQS2C1VkjpCr80QreCvyk1FPpJJbXxqZECJQGFCEE
+ewMJzdW3/wJrwqQBV1WUjf4cKfpJv4znf+etaDrUqD42vEgplv/AeLX8wn+dhC79
+GmAJXjSqlPMhsz/I8oJLlC0VQ4PVUAh4je6IZPYFdaDjQeiBw7OSeFYFFEosgLND
+Ng8XhTmlBEvoIqCosp0ml4+LtQMbM1CYz5CkfKj/39Za7n3zTg3aOnQ2z1rXZc7g
+kBwbP5EVrYmqPC6wFAx5DQSoB2Zt057CkR5Jn9yJvEYlpaSSVR9vyG7x/BGCHltV
+ejwVbEixJoOfBsrc3TP6/+Y1YJxy8g==
+=7CG0
+-----END PGP SIGNATURE-----
+
+--pehtLVQtJEeR8N3c--

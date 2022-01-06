@@ -2,48 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09DFA48614F
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 09:13:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E0BE486158
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 09:19:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9ABA917C3;
-	Thu,  6 Jan 2022 09:12:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ABA917C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B4F31820;
+	Thu,  6 Jan 2022 09:18:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B4F31820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641456814;
-	bh=gAg+/MsLsCtqwG6Uq5Pm/dMsOChriRnv1ekSLaO1/vI=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1641457158;
+	bh=mbo9E9XKjES9ksWzz2ehrxVKreXkV+p+Wleou0bl+pk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S0evwQBYUHB9y1Wx35tTSMI9N31PdrQDHFOIj1Uh76uFPZjZ7tzWsJMx+WFxj/wHE
-	 31wtPVc01VsRPv13zMrC88NfIw4uzNeuDJ5G1ZhP18DZLLiylZ90EVJ/fMXzj8WzqS
-	 WGqDe3jEb+/Ajp0HlaA62cS7S1RjK7ogk949V+OU=
+	b=mUeZngnHkoqcz96RTFd+8BowU0lB9YB4xvMGL30HpvEO/RtuRVA1QRSPli0OU6YOL
+	 O/GhSbDkIeamTi0h9H+eeQJf6HlEJf/IWFPMyKUOEwd9pCPSUwtDFq8clUVrzl/wVO
+	 DfJNhflTpTG40hC6gOOk5ktQZrXydWvvbdSyTiT8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B821F80158;
-	Thu,  6 Jan 2022 09:12:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08312F80158;
+	Thu,  6 Jan 2022 09:18:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28FC4F80155; Thu,  6 Jan 2022 09:12:27 +0100 (CET)
+ id 7206EF80155; Thu,  6 Jan 2022 09:18:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id D12F7F800AE
- for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 09:12:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D12F7F800AE
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1641456742193588018-webhooks-bot@alsa-project.org>
-References: <1641456742193588018-webhooks-bot@alsa-project.org>
-Subject: hda-analyzer porting to GTK3
-Message-Id: <20220106081227.28FC4F80155@alsa1.perex.cz>
-Date: Thu,  6 Jan 2022 09:12:27 +0100 (CET)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D71EEF800AE
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 09:18:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D71EEF800AE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="y84mLYTg"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="RDk8Z31n"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id BB4B9210E0;
+ Thu,  6 Jan 2022 08:18:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1641457081; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=urSvGdydF+jD4IDgGKHj3ETah6j1cUHdotWqXNMWEkk=;
+ b=y84mLYTgPgjSNWxI0EjVMrkm/rMG/p7SEUo6x1wO2mg+lmvzM93NgVVl+TBnNespFA9thr
+ cn6QiK2WDUuKBHM1/e6Cj1Zo/4wLpViaOH6UmLDNSE8vlOaipOT5BLHjyRrN8vV9pmJcfr
+ ITSb/d0bVGdXhfemenDWwevP4ity3y4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1641457081;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=urSvGdydF+jD4IDgGKHj3ETah6j1cUHdotWqXNMWEkk=;
+ b=RDk8Z31nt34GNSLOqfc51aCIGxZRKxkI6+k1C3gsDvEnOfEBUWUGWWATl4G+oCd7rtpoi6
+ 64wwkVpaSnxx3sBQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 82552A3B81;
+ Thu,  6 Jan 2022 08:18:01 +0000 (UTC)
+Date: Thu, 06 Jan 2022 09:18:01 +0100
+Message-ID: <s5hv8yxgtvq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Subject: Re: [PATCH] ALSA: intel_hdmi: Check for error num after setting mask
+In-Reply-To: <20220106012428.2504003-1-jiasheng@iscas.ac.cn>
+References: <20220106012428.2504003-1-jiasheng@iscas.ac.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, leon@kernel.org, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, broonie@kernel.org, joe@perches.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,13 +93,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils issue #134 was opened from kosiu:
+On Thu, 06 Jan 2022 02:24:28 +0100,
+Jiasheng Jiang wrote:
+> 
+> As the dma_supported() may fail, the dma_set_mask_and_coherent() may
+> fail too.
+> Therefore, it should be better to check it and return error if fails.
+> 
+> Fixes: da8648097497 ("ALSA: x86: Flatten two abstraction layers")
+> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 
-I know that hda-analyzer is not a part of alsa-utils.
-I'm trying to port it into GTK3 at first but I encounter
-problems with scrolling of the graph.
-Source is here:
-https://github.com/kosiu/alsa/tree/gtk3
+Well, 32bit DMA mask practically never fails on x86 (and other
+architectures, IIRC).  It's fine to add a sanity check, but it's
+better to be mentioned that it never fails.
 
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/134
-Repository URL: https://github.com/alsa-project/alsa-utils
+
+thanks,
+
+Takashi
+
+> ---
+>  sound/x86/intel_hdmi_audio.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/x86/intel_hdmi_audio.c b/sound/x86/intel_hdmi_audio.c
+> index 33b12aa67cf5..6caea517f07f 100644
+> --- a/sound/x86/intel_hdmi_audio.c
+> +++ b/sound/x86/intel_hdmi_audio.c
+> @@ -1770,7 +1770,9 @@ static int hdmi_lpe_audio_probe(struct platform_device *pdev)
+>  	card_ctx->irq = irq;
+>  
+>  	/* only 32bit addressable */
+> -	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> +	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> +	if (ret)
+> +		goto err;
+>  
+>  	init_channel_allocations();
+>  
+> -- 
+> 2.25.1
+> 

@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D58A9486B31
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 21:30:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7A4A486B34
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 21:31:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E33051AC2;
-	Thu,  6 Jan 2022 21:30:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E33051AC2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 664A01A8F;
+	Thu,  6 Jan 2022 21:30:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 664A01A8F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641501052;
-	bh=21uqmI0sF0iqFXzWvfwSr8yWzQwcFoXEvQOSpJlA73Q=;
+	s=default; t=1641501068;
+	bh=WJ2sfcxn6GVvDjVhkMuBqAzdc3GwgvrPGmKcfFu60ec=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CAEp22S8t52IQ2k4y4irIvUZS286ndeqeYBU9ApJyJP+wDPM3nmUW/BTWVquqxznP
-	 qlyFtSaunIudutRLN6zy4n1Prp5jxWvmv8kRXbtmrJmAMVzWFfIrCUeLD6hqBX5/Us
-	 fTkU3BXwvrYjoHKrKeznREO06MHmdAbIm1ZjN81w=
+	b=njtohacXn1G6L0a2/iM3X6lWqdYWQTzS1lTrwX8RwUeDu/gwAIGtE0QByyadp82CC
+	 jJMwwvW43m3HfKEgtlhTiDZCE7CkPCaEQ2+j0zZ2JIN3942rsVyR7tjD6iJbHxbp0P
+	 N47rqjmzWV127F5ePK9tZ4xb+z9CoIJD44RPvZZk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E7BEF8007E;
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A188F8051C;
 	Thu,  6 Jan 2022 21:28:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7D92F80518; Thu,  6 Jan 2022 21:28:27 +0100 (CET)
+ id 4E1FEF80517; Thu,  6 Jan 2022 21:28:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61CF7F80155
- for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 21:28:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61CF7F80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DB76F8050F
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 21:28:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DB76F8050F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="F+qwbyGH"
+ header.b="K0B2TiIi"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7D836B823F8;
- Thu,  6 Jan 2022 20:28:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B656C36AE3;
- Thu,  6 Jan 2022 20:28:15 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C30A461E15;
+ Thu,  6 Jan 2022 20:28:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19B8C36AE5;
+ Thu,  6 Jan 2022 20:28:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641500897;
- bh=21uqmI0sF0iqFXzWvfwSr8yWzQwcFoXEvQOSpJlA73Q=;
+ s=k20201202; t=1641500899;
+ bh=WJ2sfcxn6GVvDjVhkMuBqAzdc3GwgvrPGmKcfFu60ec=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=F+qwbyGHuzSd59HvZAdcWL05m/1dwoHw0g/OWlN9NjtsNLYA9CjiZ2ElVAOi8ifoU
- nwjK6pBaLzl9SFkc64aiFm9xXA/60dEPD5gfqwFNH9Ja1YK+GMSCdk5QV54Gm3K5Lq
- x9wN2hC7VsVxD8mKZpexdSqzLaCZoixn7AOiYc1YrO1/PSpONTvYJtNOCNe76RdbWL
- 00LAaDGFeYt1WoPPpAmE0J8p5+xuLVnLB7jyIwYoJydwywAweOIBdZ5DmzezjNWGTV
- 6/WHdrxYrWqndNnjrbAlWzgPj4yMz7CWcbQyHCiYvRGKunDcR+7p3bQmPPBO9u/ZM2
- SBTXbdFyaBxBg==
+ b=K0B2TiIiP/OB5JpWTBCGOLDpev+HYLQW3HR3vjJ/2pGG53/TaYk6exXM6T+eC4waY
+ LFxUtOajGRr09bpzsDMVd5Qc96WRBKtIwqEFN3FbmYLs/3PPd+dgOclOkSrrP94uck
+ VgDPzDToBHma7GfPRq9f70p+oneyV0plwFq/U6KEeeF4xw3HAVt47VAJ9jM1s/4uLG
+ nL5rhGF4jICnLDgHqoJbX+5wvo+bV9uU+Xpp5UHJiqS2r6PU+EJtIXFSpIH5owaJov
+ 7KRjcn9+EoZFPcLgTT67d3zIQ9KljRzNCveEel6n/l4SnfQrCD2GLRNNhX6FQgAK/l
+ 51DNYDa/ZVEzg==
 From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, tiwai@suse.com, Xiubo.Lee@gmail.com,
- alsa-devel@alsa-project.org, festevam@gmail.com, nicoleotsuka@gmail.com,
- timur@kernel.org, Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1641292835-19085-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1641292835-19085-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH 0/3] ASoC: imx-card: several improvement and fixes
-Message-Id: <164150089509.2243486.810361187856950551.b4-ty@kernel.org>
-Date: Thu, 06 Jan 2022 20:28:15 +0000
+To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20220106150525.396170-1-AjitKumar.Pandey@amd.com>
+References: <20220106150525.396170-1-AjitKumar.Pandey@amd.com>
+Subject: Re: [PATCH] ASoC: amd: acp: acp-mach: Change default RT1019 amp dev id
+Message-Id: <164150089750.2243486.8547152917333843393.b4-ty@kernel.org>
+Date: Thu, 06 Jan 2022 20:28:17 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ V sujith kumar Reddy <vsujithkumar.reddy@amd.com>, Vijendar.Mukunda@amd.com,
+ Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,13 +87,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 4 Jan 2022 18:40:32 +0800, Shengjiu Wang wrote:
-> Several improvement and fixes for AK codecs supported on i.MX platfroms
+On Thu, 6 Jan 2022 20:35:21 +0530, Ajit Kumar Pandey wrote:
+> RT1019 components was initially registered with i2c1 and i2c2 but
+> now changed to i2c0 and i2c1 in most of our AMD platforms. Change
+> default rt1019 components to 10EC1019:00 and 10EC1019:01 which is
+> aligned with most of AMD machines.
 > 
-> Shengjiu Wang (3):
->   ASoC: imx-card: Need special setting for ak4497 on i.MX8MQ
->   ASoC: imx-card: Fix mclk calculation issue for akcodec
->   ASoC: imx-card: improve the sound quality for low rate
+> Any exception to rt1019 device ids in near future board design can
+> be handled using dmi based quirk for that machine.
 > 
 > [...]
 
@@ -102,12 +104,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: imx-card: Need special setting for ak4497 on i.MX8MQ
-      commit: 3349b3d0c63b8b6fcca58156d72407f0b2e101ac
-[2/3] ASoC: imx-card: Fix mclk calculation issue for akcodec
-      commit: f331ae5fa59fbfb748317b290648fc3f1a50d932
-[3/3] ASoC: imx-card: improve the sound quality for low rate
-      commit: 3969341813eb56d2dfc39bb64229359a6ae3c195
+[1/1] ASoC: amd: acp: acp-mach: Change default RT1019 amp dev id
+      commit: 7112550890d7e415188a3351ec0a140be60f6deb
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

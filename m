@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78C534868FF
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 18:44:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3854A486B2C
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jan 2022 21:30:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16B5A1A43;
-	Thu,  6 Jan 2022 18:43:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16B5A1A43
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDE471A8F;
+	Thu,  6 Jan 2022 21:29:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDE471A8F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641491079;
-	bh=VMZb/vl9Es0TxM394a0l98g/QQb1mxSlcH5oLXhRNLw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1641501004;
+	bh=IpQIPHBYHIt4fJoB3X66Z00uw10D59V66SBT4tBVrS4=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K2ovEfTrFDxteyImSVmguSd0AvyYudAFO2QStI+yRRrnGZs5zDgJJyUGL74DxaRdr
-	 dXweoMU8uVjn4IOUtd78KTSFBCwjhejlo73hFJQhhwpYLAwjfLwKfQd/xT7pWMnmX+
-	 LAe0NdhOPr9Lx5pRte2sWD5vsH/4zi2I9o5hXH2k=
+	b=UUpktpxf89pdVTb7zeiNtknDv1kG+prUyZUD6HF0PBBR0jdgXgqxzBSVmRwUSFtuc
+	 8cbiWu7I6iZJ7IcYnrm43MyGlRygWD4KHbh/ZHp8oy9lzBIPwXxhFuD1qUOlbuhYUB
+	 52KNjmTMXAgipMT7qh5RKv2BSpdty3H3soh9Qmjk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 730B3F80158;
-	Thu,  6 Jan 2022 18:43:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFE67F804FA;
+	Thu,  6 Jan 2022 21:28:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6C27F80155; Thu,  6 Jan 2022 18:43:30 +0100 (CET)
+ id 03989F80158; Thu,  6 Jan 2022 21:28:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,51 +34,44 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62DE5F800BB
- for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 18:43:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62DE5F800BB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B619F800AE
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jan 2022 21:28:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B619F800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RPKsT6cG"
+ header.b="XhQUWGVA"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4756861D3E;
- Thu,  6 Jan 2022 17:43:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D88FC36AE3;
- Thu,  6 Jan 2022 17:43:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2B64061E0E;
+ Thu,  6 Jan 2022 20:28:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28038C36AE3;
+ Thu,  6 Jan 2022 20:28:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641491002;
- bh=VMZb/vl9Es0TxM394a0l98g/QQb1mxSlcH5oLXhRNLw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RPKsT6cGI9W2ce0Z7mxUh/JY5Af1GXQee/tzWme7EQSK4XVlA4XCyya+7abozcR6c
- NGVoQzNqvUYRePbLNJM2fwE78G6zrOeR9PjR8svVGjlnklq1rM+wM71ciJM6Ywr7Ih
- FZda90T39dPVm21+Th9JhYBSt9hSIFV28nv4MddWFWTDwNPNa9GUUX+/gwv23Aokin
- zuHIyOxaYmbdsOrql8pYPKJcCeJflRm+Q/gydCIa5Ugk4tkDXZ9sxr/agcIp+mgZA4
- WJ5FAKdx14lRZZ3Oj8Irvpjj8G+djFVz4Pg3oNOwICxr9OmZlnKhAKlwtTFP4938IX
- bo2F5V419wbAg==
-Date: Thu, 6 Jan 2022 17:43:17 +0000
+ s=k20201202; t=1641500888;
+ bh=IpQIPHBYHIt4fJoB3X66Z00uw10D59V66SBT4tBVrS4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=XhQUWGVAOrv571HrMyYqnTPpni/6IiNvLtxIuflbXFsFz950mrQOXSCET3Qus2ht7
+ Xb9Jh5sqvvWx5gI7QKczMrdhlN2JJcoNcP856WT/9kZYe0yCPuA3vq82ikmt5I7fvO
+ dqx7pXtAZqufAtM/jHQY19PwdOJOwKZKV6lP7KmHPHlv1s1DixH7YOtSiKjDJ++pAT
+ s0/y2iBy7r+OOHf07yEUyQm9NDZCgBSrbTaNmFj8bXDug06eo9pi8TbzGAY/JVC0yx
+ 5DQKmVaG/Ywv/RPREOms9BzGYgro6N2nlWYelDMPlymBQ/TUXXLG4zKkkEk6OFo2zd
+ BfN+uABGr0L4A==
 From: Mark Brown <broonie@kernel.org>
-To: Robert Hancock <robert.hancock@calian.com>
-Subject: Re: [PATCH 2/5] ASoC: xilinx: xlnx_formatter_pcm: Handle sysclk
- setting
-Message-ID: <YdcqNS3GXCCaiDbE@sirena.org.uk>
-References: <20220105225146.3517039-1-robert.hancock@calian.com>
- <20220105225146.3517039-3-robert.hancock@calian.com>
- <Ydbf4ga5jTluJ3HQ@sirena.org.uk>
- <9317ec383e5330e244f2598af8c1ca4c606a98ce.camel@calian.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>
+In-Reply-To: <20211227153344.155803-1-hdegoede@redhat.com>
+References: <20211227153344.155803-1-hdegoede@redhat.com>
+Subject: Re: [PATCH 1/5] ASoC: rt5640: Change jack_work to a delayed_work
+Message-Id: <164150088687.2243486.4835861828323933435.b4-ty@kernel.org>
+Date: Thu, 06 Jan 2022 20:28:06 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="S3A01/j/BFR1icU4"
-Content-Disposition: inline
-In-Reply-To: <9317ec383e5330e244f2598af8c1ca4c606a98ce.camel@calian.com>
-X-Cookie: I think we're in trouble.
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "maruthi.srinivas.bayyavarapu@xilinx.com"
- <maruthi.srinivas.bayyavarapu@xilinx.com>,
- "michal.simek@xilinx.com" <michal.simek@xilinx.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,45 +87,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 27 Dec 2021 16:33:40 +0100, Hans de Goede wrote:
+> Change jack_work from a struct work_struct to a struct delayed_work, this
+> is a preparation patch for adding support for boards where an external
+> GPIO is used for jack-detect, rather then one of the JD pins of the codec.
+> 
+> 
 
---S3A01/j/BFR1icU4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, Jan 06, 2022 at 05:38:42PM +0000, Robert Hancock wrote:
-> On Thu, 2022-01-06 at 12:26 +0000, Mark Brown wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > Does the IP actually cope properly with inexact ratios, especially if
-> > the actual clock rate is lower than mclk_fs would suggest?  It's more
-> > common to be able to tolerate a higher clock than specified.
+Thanks!
 
-> Unknown at this point - the test setup I have has a fixed sample rate so I
-> can't really test it. The documentation is unclear on exactly why this register
-> exists and what it's used for, it just indicates it should be set for the
-> sample rate to MCLK multiplier. All I really know for sure is that with it left
-> set to the default of 384 when the actual multiplier is 256, it doesn't work
-> properly.
+[1/5] ASoC: rt5640: Change jack_work to a delayed_work
+      commit: a3b1aaf7aef9fa945810de3fd7c15b2e93ecdbfd
+[2/5] ASoC: rt5640: Allow snd_soc_component_set_jack() to override the codec IRQ
+      commit: b35a9ab4904973a68b4473c2985b8ac0b6d57089
+[3/5] ASoC: rt5640: Add support for boards with an external jack-detect GPIO
+      commit: 701d636a224a77a4371f57ca2d4322ab0401a866
+[4/5] ASoC: Intel: bytcr_rt5640: Support retrieving the codec IRQ from the AMCR0F28 ACPI dev
+      commit: 45ed0166c39f878162872babc88830d91426beb5
+[5/5] ASoC: Intel: bytcr_rt5640: Add support for external GPIO jack-detect
+      commit: 44125fd5315154c6b8326b5c27646af3b33ba25c
 
-Generally the IP will have to do more work than can be done in a single
-clock cycle for each bit and needs everything to be done with
-synchronous clocks to avoid data corruption.  Based on your report there
-it seems like it definitely doesn't tolerate being underclocked well so
-DIV_ROUND_CLOSEST is not what's wanted.  Requiring an exact match would
-be safest.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---S3A01/j/BFR1icU4
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHXKjUACgkQJNaLcl1U
-h9A94wf+NlGA+58MCkFtKqS5DeiL/egZuBS9hju1IymA9ESamYYE6ZJ72Ckzz98u
-fgvmPbYm4rmJ60kvJuyLKGNAf6Vh0ISnAEJW1zttSIsKWiRTWKzJugADikeMIdk2
-T+MGFvGOVqjiFsJF4qhtG3oVNmn+wsbTVMRUlTcGXNekhTg5Na8GzTMzNDkC2gH3
-yvlJaYxVw0HK5+obGXj5XzGc6Qxclivd732zZTRiSO2TlUDvtJGCU4F/WTZewgOh
-feaAPbvghMiK9ObjbTfxvkdE2bPMtrxZ28gNbVXoA6/6HKcb5g4EUMA9P44cu5Kp
-nc6As/jAHCT6+keAVMwksjLlFHr8CA==
-=6VgT
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---S3A01/j/BFR1icU4--
+Thanks,
+Mark

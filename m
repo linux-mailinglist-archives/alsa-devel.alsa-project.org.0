@@ -2,74 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C9874874A6
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 10:28:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 231A94874BD
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 10:33:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4C2A181A;
-	Fri,  7 Jan 2022 10:27:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4C2A181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C49BB185A;
+	Fri,  7 Jan 2022 10:32:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C49BB185A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641547687;
-	bh=93DEcowAI0MRvSO0T1CI6BT+mV/OyQ80+HUGexWiSQY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=mfAI50bnm8zNgZCtzp7CpwVrTaj6wVBymm4OEoGhjiLL2KdOrTpzJkNlFXdNI8UpC
-	 zhhrsHHw1TnUush8p+xIuI4rAcO6Y4kEZhu6xNclLCCYk3Ouyvt8H0WN2XwSYdoaKi
-	 FrUzkdK0104kMUv/jQY2p2DY/qVV2EvVhTzpg7AE=
+	s=default; t=1641547981;
+	bh=ryGmdSfXgJcmgf4rWblOOypNUttoVfqxwdEHYJcUROU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UEamU+Mg4MV8OpVbQ+YwI15bgnFICFe8qrZUpdFS9bpNNNXVkGWLrgCJom6WgQvM0
+	 e1EVEebu9xaCSd5gBw9zPB9/KrZ1my7oO8aRpwMuWY7Iq8FcM9Bki98U5OfsIAlFQI
+	 1s+RxfTUcaZb/LOKB0jXLOIdD5WZfqp3IkmE6DCI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2367BF80254;
-	Fri,  7 Jan 2022 10:27:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31847F80254;
+	Fri,  7 Jan 2022 10:31:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 520B4F80249; Fri,  7 Jan 2022 10:26:59 +0100 (CET)
+ id DC24BF80249; Fri,  7 Jan 2022 10:31:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 283BCF80082
- for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 10:26:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 283BCF80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79CEDF800AE
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 10:31:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79CEDF800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="DXATyJUV"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="BQo92Dvi"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id CD039210E3;
- Fri,  7 Jan 2022 09:26:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1641547609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=/KB6VCwrU9LakCD/AREo0p/TSjss7dA1WrSnNfI8teg=;
- b=DXATyJUVx6qVGfhsGY6M5zK78UnPzx9w3nuDWvWTphwsUIlQ/s2VXyjoP75ycMvFLfD65t
- +YeOcnnZUOHasyYfjNYCkAG+wg0A7pTrfAg81iNKCKQd/Pqcgb2e8pFHuskkcefX9b8p3E
- 7TNgUA8wJo7y3JoOVyK8Oqh5apebRt0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1641547609;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=/KB6VCwrU9LakCD/AREo0p/TSjss7dA1WrSnNfI8teg=;
- b=BQo92DviqdWi7FHrBYZETxX0YYEiIzLxnjzUv6Scn+nWb6i5v5JC2C3ci8+fKs0R0Xt1LJ
- 64EbQalOA6aLBdBA==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B82A4A3B87;
- Fri,  7 Jan 2022 09:26:49 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda: Fix dependency on ASoC cs35l41 codec
-Date: Fri,  7 Jan 2022 10:26:47 +0100
-Message-Id: <20220107092647.20258-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
+ dkim=pass (2048-bit key) header.d=bgdev-pl.20210112.gappssmtp.com
+ header.i=@bgdev-pl.20210112.gappssmtp.com header.b="w2V+iJUe"
+Received: by mail-ed1-x52b.google.com with SMTP id k15so19681061edk.13
+ for <alsa-devel@alsa-project.org>; Fri, 07 Jan 2022 01:31:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TezwQvy/GrVo/VcXl6Kmghnct9UHJH58seMMxyEI02A=;
+ b=w2V+iJUefGp3KlCNcBsEDN8BorejU5hp+6CahknIVFUn1oU3ZtxwjYoPDxNPziGlUz
+ a0NH22cY2sthTfr8gRtlzr68GQu94z9Vv96M1sr/BVNCzMP7KwH1oLc7Y7uPIprMBJGp
+ jTor+uLGWD9ND97HWJEqboKIKTNtxd8Zvqy6BGjuUSvq1G+ejn9P6ls5DRx/e8AnqPY1
+ oaAsTxnPIOOhhcMRfiaCuwrI7HEMhNpBw6z8s5N4t1kc9kc1BvoA7/mW0OOcWAqSy0qI
+ cnNGy3ahX/tVMOrHF3dRzQQbbFBVtWLE/ojZIbe0r6fp77jLr7sD41Ov5rETXekX5g/5
+ kEfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TezwQvy/GrVo/VcXl6Kmghnct9UHJH58seMMxyEI02A=;
+ b=mXD3+wfIy8I1l0pfNDmobmfE0jMjsLC+T9YOCjjdzF7oCZdU4WJFWKYSSU+54VBVAc
+ yLqNIi9KgvbtC7xLSJzCFnUogQSIWPOQo53G7Cyk4gZMSrHZR7lGamD16o1XLm9kXYb4
+ omtFIRYI0aLgrxr2eSQa0z3QZ2sAVyX4gBdZd5fpV3hTw67nKtqO1q/1jeariPPosE8t
+ Z0mN7lLoTqK6iqjTeMGLhryamnKQWek9vP0cDwmMI8tPKqZ8TJSf0MqftmWbG3xj9gCA
+ YIUOTiaZ5tblXE5B6B3KFu3ru2adRQpAZD7v900wjKRmSH8Z2dq0aE/BCK/CCsML7iFW
+ qM6g==
+X-Gm-Message-State: AOAM532IqI4pOSos3lTopXiQ4WRECEKtyxxLYfGJ//VERL6OgFwZum3O
+ GmFlQEFNFYb2dOG6s6VqLMYNge2T0qqw6seb7ruB3A==
+X-Google-Smtp-Source: ABdhPJy6Pd5StasJd8Vr9TrAn4EyS2U33Mwnkud6vbrw4HpmRdCGAwwGrmolTePbriBG/I8s4Z7aITOOhf8mDSkaceA=
+X-Received: by 2002:a17:907:386:: with SMTP id
+ ss6mr6976366ejb.101.1641547901133; 
+ Fri, 07 Jan 2022 01:31:41 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>
+References: <20220107031905.2406176-1-robh@kernel.org>
+In-Reply-To: <20220107031905.2406176-1-robh@kernel.org>
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Fri, 7 Jan 2022 10:31:30 +0100
+Message-ID: <CAMRc=MdmOMfyyiguowrU52BvoxMr8u3sLQfzCiY_Rqs=qUsX-Q@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Drop required 'interrupt-parent'
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, linux-pci@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Suman Anna <s-anna@ti.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-riscv@lists.infradead.org, Jassi Brar <jassisinghbrar@gmail.com>,
+ Michal Simek <michal.simek@xilinx.com>, Jakub Kicinski <kuba@kernel.org>,
+ Greentime Hu <greentime.hu@sifive.com>,
+ devicetree <devicetree@vger.kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Kumar Gogada <bharat.kumar.gogada@xilinx.com>,
+ Hauke Mehrtens <hauke@hauke-m.de>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, John Crispin <john@phrozen.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ - <patches@opensource.cirrus.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, netdev <netdev@vger.kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,36 +113,119 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recently added support for CS35L41 codec unconditionally selects
-CONFIG_SND_SOC_CS35L41_LIB, but this can't work unless the top-level
-CONFIG_SND_SOC is enabled.  This patch adds the proper dependency.
+On Fri, Jan 7, 2022 at 4:19 AM Rob Herring <robh@kernel.org> wrote:
+>
+> 'interrupt-parent' is never required as it can be in a parent node or a
+> parent node itself can be an interrupt provider. Where exactly it lives is
+> outside the scope of a binding schema.
+>
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+>  .../devicetree/bindings/gpio/toshiba,gpio-visconti.yaml  | 1 -
+>  .../devicetree/bindings/mailbox/ti,omap-mailbox.yaml     | 9 ---------
+>  Documentation/devicetree/bindings/mfd/cirrus,madera.yaml | 1 -
+>  .../devicetree/bindings/net/lantiq,etop-xway.yaml        | 1 -
+>  .../devicetree/bindings/net/lantiq,xrx200-net.yaml       | 1 -
+>  .../devicetree/bindings/pci/sifive,fu740-pcie.yaml       | 1 -
+>  .../devicetree/bindings/pci/xilinx-versal-cpm.yaml       | 1 -
+>  7 files changed, 15 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml b/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml
+> index 9ad470e01953..b085450b527f 100644
+> --- a/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml
+> @@ -43,7 +43,6 @@ required:
+>    - gpio-controller
+>    - interrupt-controller
+>    - "#interrupt-cells"
+> -  - interrupt-parent
+>
+>  additionalProperties: false
+>
+> diff --git a/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml b/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
+> index e864d798168d..d433e496ec6e 100644
+> --- a/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
+> +++ b/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
+> @@ -175,15 +175,6 @@ required:
+>    - ti,mbox-num-fifos
+>
+>  allOf:
+> -  - if:
+> -      properties:
+> -        compatible:
+> -          enum:
+> -            - ti,am654-mailbox
+> -    then:
+> -      required:
+> -        - interrupt-parent
+> -
+>    - if:
+>        properties:
+>          compatible:
+> diff --git a/Documentation/devicetree/bindings/mfd/cirrus,madera.yaml b/Documentation/devicetree/bindings/mfd/cirrus,madera.yaml
+> index 499c62c04daa..5dce62a7eff2 100644
+> --- a/Documentation/devicetree/bindings/mfd/cirrus,madera.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/cirrus,madera.yaml
+> @@ -221,7 +221,6 @@ required:
+>    - '#gpio-cells'
+>    - interrupt-controller
+>    - '#interrupt-cells'
+> -  - interrupt-parent
+>    - interrupts
+>    - AVDD-supply
+>    - DBVDD1-supply
+> diff --git a/Documentation/devicetree/bindings/net/lantiq,etop-xway.yaml b/Documentation/devicetree/bindings/net/lantiq,etop-xway.yaml
+> index 437502c5ca96..3ce9f9a16baf 100644
+> --- a/Documentation/devicetree/bindings/net/lantiq,etop-xway.yaml
+> +++ b/Documentation/devicetree/bindings/net/lantiq,etop-xway.yaml
+> @@ -46,7 +46,6 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> -  - interrupt-parent
+>    - interrupts
+>    - interrupt-names
+>    - lantiq,tx-burst-length
+> diff --git a/Documentation/devicetree/bindings/net/lantiq,xrx200-net.yaml b/Documentation/devicetree/bindings/net/lantiq,xrx200-net.yaml
+> index 7bc074a42369..5bc1a21ca579 100644
+> --- a/Documentation/devicetree/bindings/net/lantiq,xrx200-net.yaml
+> +++ b/Documentation/devicetree/bindings/net/lantiq,xrx200-net.yaml
+> @@ -38,7 +38,6 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> -  - interrupt-parent
+>    - interrupts
+>    - interrupt-names
+>    - "#address-cells"
+> diff --git a/Documentation/devicetree/bindings/pci/sifive,fu740-pcie.yaml b/Documentation/devicetree/bindings/pci/sifive,fu740-pcie.yaml
+> index 2b9d1d6fc661..72c78f4ec269 100644
+> --- a/Documentation/devicetree/bindings/pci/sifive,fu740-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/sifive,fu740-pcie.yaml
+> @@ -61,7 +61,6 @@ required:
+>    - num-lanes
+>    - interrupts
+>    - interrupt-names
+> -  - interrupt-parent
+>    - interrupt-map-mask
+>    - interrupt-map
+>    - clock-names
+> diff --git a/Documentation/devicetree/bindings/pci/xilinx-versal-cpm.yaml b/Documentation/devicetree/bindings/pci/xilinx-versal-cpm.yaml
+> index a2bbc0eb7220..32f4641085bc 100644
+> --- a/Documentation/devicetree/bindings/pci/xilinx-versal-cpm.yaml
+> +++ b/Documentation/devicetree/bindings/pci/xilinx-versal-cpm.yaml
+> @@ -55,7 +55,6 @@ required:
+>    - reg-names
+>    - "#interrupt-cells"
+>    - interrupts
+> -  - interrupt-parent
+>    - interrupt-map
+>    - interrupt-map-mask
+>    - bus-range
+> --
+> 2.32.0
+>
 
-Fixes: 7b2f3eb492da ("ALSA: hda: cs35l41: Add support for CS35L41 in HDA systems")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/Kconfig | 2 ++
- 1 file changed, 2 insertions(+)
+For GPIO:
 
-diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
-index 84cefc006f29..68effb74866c 100644
---- a/sound/pci/hda/Kconfig
-+++ b/sound/pci/hda/Kconfig
-@@ -97,6 +97,7 @@ config SND_HDA_SCODEC_CS35L41
- config SND_HDA_SCODEC_CS35L41_I2C
- 	tristate "Build CS35L41 HD-audio side codec support for I2C Bus"
- 	depends on ACPI
-+	depends on SND_SOC
- 	select SND_HDA_GENERIC
- 	select SND_SOC_CS35L41_LIB
- 	select SND_HDA_SCODEC_CS35L41
-@@ -110,6 +111,7 @@ comment "Set to Y if you want auto-loading the side codec driver"
- config SND_HDA_SCODEC_CS35L41_SPI
- 	tristate "Build CS35L41 HD-audio codec support for SPI Bus"
- 	depends on ACPI
-+	depends on SND_SOC
- 	select SND_HDA_GENERIC
- 	select SND_SOC_CS35L41_LIB
- 	select SND_HDA_SCODEC_CS35L41
--- 
-2.31.1
-
+Acked-by: Bartosz Golaszewski <brgl@bgdev.pl>

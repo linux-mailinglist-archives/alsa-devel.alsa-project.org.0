@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8248B487A1F
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 17:07:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A139C487A21
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 17:08:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E037F17DA;
-	Fri,  7 Jan 2022 17:07:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E037F17DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3699318A0;
+	Fri,  7 Jan 2022 17:07:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3699318A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641571677;
-	bh=qcgxyM/M86pC78VSKykOD8PQbKHPVYipdfRDP09tDqs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZVfL6Qu5uLX9k8zg2nq5sECTLzYOuDHLOzJtEVLhZ7kjv0KXYgb0f+rIMZ6kXHoOF
-	 ScYmaxW25e55SB7wB5wOcsQB3pxjiw0CM4grIDg2ahiDdHRv4BCy5ZOY5jasjlre20
-	 ZWRWtb06S7S15PNcg1i1JkkWTX1WCRYfOVTb+GJs=
+	s=default; t=1641571717;
+	bh=CRWV+1dFP31wnUUAJ2oZVOve/6O/0i6sftpNr10znjc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hXST39Bby0y20tsyl7ssG4glrQj164MOOnMaTneAGzaqtcbfm52Ir5h8lTv4+oqFq
+	 XX9IvEFS+KFUPiC1jKgHPf1q8xO2R2Gb0/3u+LvQmdbmSgmlZERRKRDe8L9QHBrU93
+	 6ng6Hp+QuSsgmAhjeC22yMrruKN3RlGrMbYI+unU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E8CCF80082;
-	Fri,  7 Jan 2022 17:06:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64F9CF804FE;
+	Fri,  7 Jan 2022 17:06:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85FF5F8025D; Fri,  7 Jan 2022 17:06:47 +0100 (CET)
+ id 4169DF8014B; Fri,  7 Jan 2022 17:06:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,26 +34,27 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D635F800AE
- for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 17:06:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D635F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 023A5F80249
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 17:06:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 023A5F80249
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="olG8vwsE"
+ header.b="pXDZzVaJ"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 207Fo5en008257;
- Fri, 7 Jan 2022 10:06:39 -0600
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 207Fo5eo008257;
+ Fri, 7 Jan 2022 10:06:40 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-type;
- s=PODMain02222019; bh=AZHvETci1n4kMyjiI/bOuQF4OLFyYHQKnRu4S0irYFs=;
- b=olG8vwsEcPNMSK3tSB1JJXTYjUE+NrjP0EwdqJEZDnjWODmsxIi46VYZNj9eRXvTS5to
- tR66+UazjYHQSrPvhYa9WXpthmQjYNwsGbXTphra8wmnfqwJf36/XMWlvjvkFPs1TZ73
- 07mGXNvF3EdaWOr6iSdbN5PZIDto6vI4n0R5HsPnaP3zprHtMGC4Ig0YR4egKvCNfhQ2
- I3lksVUGghi8GNtZkjGeDNEAsaMd1QlP/dRSvpN4bxjq0T2izQlYXEwnJQ9+TkjLJJ/A
- Pz8sLHrM0kjL4DvJecragpyqT7rUqG6v9HKNpi/i0gBkHLJb+bSBoxPm9pt2kwqGth67 bA== 
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-type; s=PODMain02222019;
+ bh=kTV3zg6j8rGQu729I9Oh6oFpaMyA+Bi9ITFzceFmli8=;
+ b=pXDZzVaJeKI8B7ubYnksmqc0pili3NADUDXNNO1aKS80AyPWt5xd5+TsJRdErRmQgYx4
+ s9t4p+nO5sy2SPhK/qUnyNl4lAuig6QC1oTYReIGFc3rWMwl3OhR/akggmI36piUw49O
+ S/h3Qqn+v9YO5d84A00rqqvfqmYDPGegyopQ9EfMQZIZDMmznLJFT/LI1r1JaWiRjkFf
+ uaOtxWCnNbf/nkeXx+HkBwiKLbJsTzFh5GDC8KSYFlY3YX4sSzuj4Wh6XsBq301nDQfW
+ gQfMy7lb4c6VF8TsqLtKlt7pYX4rPIAnQ86eWlE96Sx4yhJGrXxGt9hOWI1PXAEvpXw2 7g== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dergng0n6-1
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dergng0n6-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Fri, 07 Jan 2022 10:06:39 -0600
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
@@ -63,18 +65,20 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
  Frontend Transport; Fri, 7 Jan 2022 16:06:37 +0000
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E605B2A9;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0158C459;
  Fri,  7 Jan 2022 16:06:36 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH 0/2] Add low power hibernation support to cs35l41
-Date: Fri, 7 Jan 2022 16:06:34 +0000
-Message-ID: <20220107160636.6555-1-ckeepax@opensource.cirrus.com>
+Subject: [PATCH v2 1/2] ASoC: cs35l41: Update handling of test key registers
+Date: Fri, 7 Jan 2022 16:06:35 +0000
+Message-ID: <20220107160636.6555-2-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20220107160636.6555-1-ckeepax@opensource.cirrus.com>
+References: <20220107160636.6555-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain
-X-Proofpoint-GUID: 7xccvbLp4fFnrv5ejlmM7n3yv1ycpRtz
-X-Proofpoint-ORIG-GUID: 7xccvbLp4fFnrv5ejlmM7n3yv1ycpRtz
+X-Proofpoint-GUID: cADnJHmJFiCQJ_MDNAaMMeCj0_n3DaDZ
+X-Proofpoint-ORIG-GUID: cADnJHmJFiCQJ_MDNAaMMeCj0_n3DaDZ
 X-Proofpoint-Spam-Reason: safe
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  david.rhodes@cirrus.com, lgirdwood@gmail.com, tiwai@suse.com
@@ -93,35 +97,240 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch series adds support for the low power hibernation feature
-on cs35l41. This allows the DSP memory to be retained whilst the
-device enters a very low power state.
+In preparation for the addition of PM runtime support move the test
+key out of the register patches themselves. This is necessary to
+allow the test key to be held during cache synchronisation, which is
+required by the OTP settings which were unpacked from the device and
+written by the driver.
 
-These patches will cause some very minor conflicts with Lucas's
-currently outstanding work on the HDA version of cs35l41.  Whilst
-things will still build (well now I fixed my silly mistake), this
-patch adds a test key function his code will now have to call.
+Also whilst at it, the driver uses a mixture of accessing the test key
+register by name and by address, consistently use the name.
 
-It looks like Lucas's patch might get a respin based on the comments
-from Andy, in which case I guess we can pull the small change into the
-next version of it. But either way these patches are not urgent so I
-am happy if they sit around until Lucas's stuff is merged too.
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
 
-Thanks,
-Charles
+Changes since v1:
+ - Add missing export symbol for new test_key functions
 
-Charles Keepax (2):
-  ASoC: cs35l41: Update handling of test key registers
-  ASoC: cs35l41: Add support for hibernate memory retention mode
+ include/sound/cs35l41.h        |  2 ++
+ sound/soc/codecs/cs35l41-lib.c | 67 +++++++++++++++++++++---------------------
+ sound/soc/codecs/cs35l41.c     | 32 +++++++++++---------
+ 3 files changed, 54 insertions(+), 47 deletions(-)
 
- include/sound/cs35l41.h        |   7 ++
- sound/soc/codecs/cs35l41-i2c.c |   1 +
- sound/soc/codecs/cs35l41-lib.c |  73 +++++++------
- sound/soc/codecs/cs35l41-spi.c |   1 +
- sound/soc/codecs/cs35l41.c     | 233 +++++++++++++++++++++++++++++++++++++----
- sound/soc/codecs/cs35l41.h     |   4 +
- 6 files changed, 268 insertions(+), 51 deletions(-)
-
+diff --git a/include/sound/cs35l41.h b/include/sound/cs35l41.h
+index 29a527457b486..56289b67b9a0e 100644
+--- a/include/sound/cs35l41.h
++++ b/include/sound/cs35l41.h
+@@ -762,6 +762,8 @@ struct cs35l41_otp_map_element_t {
+ extern struct regmap_config cs35l41_regmap_i2c;
+ extern struct regmap_config cs35l41_regmap_spi;
+ 
++int cs35l41_test_key_unlock(struct device *dev, struct regmap *regmap);
++int cs35l41_test_key_lock(struct device *dev, struct regmap *regmap);
+ int cs35l41_otp_unpack(struct device *dev, struct regmap *regmap);
+ int cs35l41_register_errata_patch(struct device *dev, struct regmap *reg, unsigned int reg_revid);
+ int cs35l41_set_channels(struct device *dev, struct regmap *reg,
+diff --git a/sound/soc/codecs/cs35l41-lib.c b/sound/soc/codecs/cs35l41-lib.c
+index 639dcd25b17e9..ecaf67fd76531 100644
+--- a/sound/soc/codecs/cs35l41-lib.c
++++ b/sound/soc/codecs/cs35l41-lib.c
+@@ -623,8 +623,6 @@ static const struct cs35l41_otp_packed_element_t otp_map_2[CS35L41_NUM_OTP_ELEM]
+ };
+ 
+ static const struct reg_sequence cs35l41_reva0_errata_patch[] = {
+-	{ 0x00000040,			 0x00005555 },
+-	{ 0x00000040,			 0x0000AAAA },
+ 	{ 0x00003854,			 0x05180240 },
+ 	{ CS35L41_VIMON_SPKMON_RESYNC,	 0x00000000 },
+ 	{ 0x00004310,			 0x00000000 },
+@@ -637,38 +635,28 @@ static const struct reg_sequence cs35l41_reva0_errata_patch[] = {
+ 	{ CS35L41_IRQ2_DB3,		 0x00000000 },
+ 	{ CS35L41_DSP1_YM_ACCEL_PL0_PRI, 0x00000000 },
+ 	{ CS35L41_DSP1_XM_ACCEL_PL0_PRI, 0x00000000 },
+-	{ 0x00000040,			 0x0000CCCC },
+-	{ 0x00000040,			 0x00003333 },
+ 	{ CS35L41_PWR_CTRL2,		 0x00000000 },
+ 	{ CS35L41_AMP_GAIN_CTRL,	 0x00000000 },
+ };
+ 
+ static const struct reg_sequence cs35l41_revb0_errata_patch[] = {
+-	{ 0x00000040,			 0x00005555 },
+-	{ 0x00000040,			 0x0000AAAA },
+ 	{ CS35L41_VIMON_SPKMON_RESYNC,	 0x00000000 },
+ 	{ 0x00004310,			 0x00000000 },
+ 	{ CS35L41_VPVBST_FS_SEL,	 0x00000000 },
+ 	{ CS35L41_BSTCVRT_DCM_CTRL,	 0x00000051 },
+ 	{ CS35L41_DSP1_YM_ACCEL_PL0_PRI, 0x00000000 },
+ 	{ CS35L41_DSP1_XM_ACCEL_PL0_PRI, 0x00000000 },
+-	{ 0x00000040,			 0x0000CCCC },
+-	{ 0x00000040,			 0x00003333 },
+ 	{ CS35L41_PWR_CTRL2,		 0x00000000 },
+ 	{ CS35L41_AMP_GAIN_CTRL,	 0x00000000 },
+ };
+ 
+ static const struct reg_sequence cs35l41_revb2_errata_patch[] = {
+-	{ 0x00000040,			 0x00005555 },
+-	{ 0x00000040,			 0x0000AAAA },
+ 	{ CS35L41_VIMON_SPKMON_RESYNC,	 0x00000000 },
+ 	{ 0x00004310,			 0x00000000 },
+ 	{ CS35L41_VPVBST_FS_SEL,	 0x00000000 },
+ 	{ CS35L41_BSTCVRT_DCM_CTRL,	 0x00000051 },
+ 	{ CS35L41_DSP1_YM_ACCEL_PL0_PRI, 0x00000000 },
+ 	{ CS35L41_DSP1_XM_ACCEL_PL0_PRI, 0x00000000 },
+-	{ 0x00000040,			 0x0000CCCC },
+-	{ 0x00000040,			 0x00003333 },
+ 	{ CS35L41_PWR_CTRL2,		 0x00000000 },
+ 	{ CS35L41_AMP_GAIN_CTRL,	 0x00000000 },
+ };
+@@ -756,6 +744,39 @@ static const struct cs35l41_otp_map_element_t *cs35l41_find_otp_map(u32 otp_id)
+ 	return NULL;
+ }
+ 
++int cs35l41_test_key_unlock(struct device *dev, struct regmap *regmap)
++{
++	static const struct reg_sequence unlock[] = {
++		{ CS35L41_TEST_KEY_CTL, 0x00000055 },
++		{ CS35L41_TEST_KEY_CTL, 0x000000AA },
++	};
++	int ret;
++
++	ret = regmap_multi_reg_write(regmap, unlock, ARRAY_SIZE(unlock));
++	if (ret)
++		dev_err(dev, "Failed to unlock test key: %d\n", ret);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(cs35l41_test_key_unlock);
++
++int cs35l41_test_key_lock(struct device *dev, struct regmap *regmap)
++{
++	static const struct reg_sequence unlock[] = {
++		{ CS35L41_TEST_KEY_CTL, 0x000000CC },
++		{ CS35L41_TEST_KEY_CTL, 0x00000033 },
++	};
++	int ret;
++
++	ret = regmap_multi_reg_write(regmap, unlock, ARRAY_SIZE(unlock));
++	if (ret)
++		dev_err(dev, "Failed to lock test key: %d\n", ret);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(cs35l41_test_key_lock);
++
++/* Must be called with the TEST_KEY unlocked */
+ int cs35l41_otp_unpack(struct device *dev, struct regmap *regmap)
+ {
+ 	const struct cs35l41_otp_map_element_t *otp_map_match;
+@@ -794,17 +815,6 @@ int cs35l41_otp_unpack(struct device *dev, struct regmap *regmap)
+ 	bit_offset = otp_map_match->bit_offset;
+ 	word_offset = otp_map_match->word_offset;
+ 
+-	ret = regmap_write(regmap, CS35L41_TEST_KEY_CTL, 0x00000055);
+-	if (ret) {
+-		dev_err(dev, "Write Unlock key failed 1/2: %d\n", ret);
+-		goto err_otp_unpack;
+-	}
+-	ret = regmap_write(regmap, CS35L41_TEST_KEY_CTL, 0x000000AA);
+-	if (ret) {
+-		dev_err(dev, "Write Unlock key failed 2/2: %d\n", ret);
+-		goto err_otp_unpack;
+-	}
+-
+ 	for (i = 0; i < otp_map_match->num_elements; i++) {
+ 		dev_dbg(dev, "bitoffset= %d, word_offset=%d, bit_sum mod 32=%d\n",
+ 			bit_offset, word_offset, bit_sum % 32);
+@@ -840,16 +850,6 @@ int cs35l41_otp_unpack(struct device *dev, struct regmap *regmap)
+ 		}
+ 	}
+ 
+-	ret = regmap_write(regmap, CS35L41_TEST_KEY_CTL, 0x000000CC);
+-	if (ret) {
+-		dev_err(dev, "Write Lock key failed 1/2: %d\n", ret);
+-		goto err_otp_unpack;
+-	}
+-	ret = regmap_write(regmap, CS35L41_TEST_KEY_CTL, 0x00000033);
+-	if (ret) {
+-		dev_err(dev, "Write Lock key failed 2/2: %d\n", ret);
+-		goto err_otp_unpack;
+-	}
+ 	ret = 0;
+ 
+ err_otp_unpack:
+@@ -859,6 +859,7 @@ int cs35l41_otp_unpack(struct device *dev, struct regmap *regmap)
+ }
+ EXPORT_SYMBOL_GPL(cs35l41_otp_unpack);
+ 
++/* Must be called with the TEST_KEY unlocked */
+ int cs35l41_register_errata_patch(struct device *dev, struct regmap *reg, unsigned int reg_revid)
+ {
+ 	char *rev;
+diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
+index 05839fabf97bc..e1b9fd8ee9966 100644
+--- a/sound/soc/codecs/cs35l41.c
++++ b/sound/soc/codecs/cs35l41.c
+@@ -534,19 +534,19 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
+ }
+ 
+ static const struct reg_sequence cs35l41_pup_patch[] = {
+-	{ 0x00000040, 0x00000055 },
+-	{ 0x00000040, 0x000000AA },
++	{ CS35L41_TEST_KEY_CTL, 0x00000055 },
++	{ CS35L41_TEST_KEY_CTL, 0x000000AA },
+ 	{ 0x00002084, 0x002F1AA0 },
+-	{ 0x00000040, 0x000000CC },
+-	{ 0x00000040, 0x00000033 },
++	{ CS35L41_TEST_KEY_CTL, 0x000000CC },
++	{ CS35L41_TEST_KEY_CTL, 0x00000033 },
+ };
+ 
+ static const struct reg_sequence cs35l41_pdn_patch[] = {
+-	{ 0x00000040, 0x00000055 },
+-	{ 0x00000040, 0x000000AA },
++	{ CS35L41_TEST_KEY_CTL, 0x00000055 },
++	{ CS35L41_TEST_KEY_CTL, 0x000000AA },
+ 	{ 0x00002084, 0x002F1AA3 },
+-	{ 0x00000040, 0x000000CC },
+-	{ 0x00000040, 0x00000033 },
++	{ CS35L41_TEST_KEY_CTL, 0x000000CC },
++	{ CS35L41_TEST_KEY_CTL, 0x00000033 },
+ };
+ 
+ static int cs35l41_main_amp_event(struct snd_soc_dapm_widget *w,
+@@ -1329,10 +1329,20 @@ int cs35l41_probe(struct cs35l41_private *cs35l41,
+ 		goto err;
+ 	}
+ 
++	cs35l41_test_key_unlock(cs35l41->dev, cs35l41->regmap);
++
+ 	ret = cs35l41_register_errata_patch(cs35l41->dev, cs35l41->regmap, reg_revid);
+ 	if (ret)
+ 		goto err;
+ 
++	ret = cs35l41_otp_unpack(cs35l41->dev, cs35l41->regmap);
++	if (ret < 0) {
++		dev_err(cs35l41->dev, "OTP Unpack failed: %d\n", ret);
++		goto err;
++	}
++
++	cs35l41_test_key_lock(cs35l41->dev, cs35l41->regmap);
++
+ 	irq_pol = cs35l41_irq_gpio_config(cs35l41);
+ 
+ 	/* Set interrupt masks for critical errors */
+@@ -1347,12 +1357,6 @@ int cs35l41_probe(struct cs35l41_private *cs35l41,
+ 		goto err;
+ 	}
+ 
+-	ret = cs35l41_otp_unpack(cs35l41->dev, cs35l41->regmap);
+-	if (ret < 0) {
+-		dev_err(cs35l41->dev, "OTP Unpack failed: %d\n", ret);
+-		goto err;
+-	}
+-
+ 	ret = cs35l41_set_pdata(cs35l41);
+ 	if (ret < 0) {
+ 		dev_err(cs35l41->dev, "Set pdata failed: %d\n", ret);
 -- 
 2.11.0
 

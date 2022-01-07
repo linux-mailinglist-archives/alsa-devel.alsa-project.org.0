@@ -2,81 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63A7548783E
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 14:32:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6867F4878F0
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 15:28:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA6DD17BB;
-	Fri,  7 Jan 2022 14:31:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA6DD17BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C30A217CD;
+	Fri,  7 Jan 2022 15:27:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C30A217CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641562348;
-	bh=0uYEMZjLJVS5sam12tTkOe+hzpZiYLXEHLaLNwCfGCc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1641565681;
+	bh=qgWwNYIH9hxVs7zGlUHtjavRhJfqehuNp8S2jlyivEw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RMuZ/X+prUfXmpqtAloxEj/+FVi0gY0qBZTIs3quYjYNCwBhPFowxaJfV0RC2G/IX
-	 BffBchJlmxNZQMf74rqyaAWv2G7jGFoF8F5M6VdjOhLmTvOPY5NSyI4HYrtQpgn1TV
-	 9Z5g+D/P6KkX+LWCB16sg7MaKZyWgm2+j5rhkg6E=
+	b=i4QFbxYPDAD+WyJhvFHXxldhx4EQWItWNb6K8y3I91c9Z9631xeOe57Zgj/o8xMzK
+	 TBBshCxUQvlXFU4cJ6V6WU53gDovb+vHuWSiydKpU6XvLM2nI5FnBCPSgZjb9DN7bf
+	 VOFsbznir+NnZ39v4qjWyv1BTWg+EhX8457NF+HM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E572F80254;
-	Fri,  7 Jan 2022 14:31:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25657F80254;
+	Fri,  7 Jan 2022 15:26:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C408CF80249; Fri,  7 Jan 2022 14:31:19 +0100 (CET)
+ id 4089FF80082; Fri,  7 Jan 2022 15:26:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0F10F800AE
- for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 14:31:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0F10F800AE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Zg1DSE+p"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DDE9C60ED0;
- Fri,  7 Jan 2022 13:31:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C125CC36AE0;
- Fri,  7 Jan 2022 13:31:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641562271;
- bh=0uYEMZjLJVS5sam12tTkOe+hzpZiYLXEHLaLNwCfGCc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Zg1DSE+pSqjbL/xEXs1k2mAZZkoHQ7MUIP0jvVadWavLKG56JOJzkXb2PZEf+D0dL
- LFt+lDXSFg6/eErJoPMQd9s/882BTjGOCkMngFWQdbPk4jGjjKVa9j32auHAdgmGBL
- wTtYYAmeUWuYjq4z75FSEk0ktlIVe0EuXx1Othv+3mukBj/Z7II1jPBI/uIJpm6GBJ
- 8ePNBLT2Yt/BaDsHaZ1W0UOmwECrwC9j1PxXEJ+xQzYfK+WdwlgETRb+F1e28kv3L0
- li8Uq2MvjG70/jxIjpZkQJDb8Ebl4h1RcNI6ExrguOjHU4tPcoRDUt8oGblcOE/2Qw
- QjkBTEYHKp4dQ==
-Date: Fri, 7 Jan 2022 13:31:06 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Robert Hancock <robert.hancock@calian.com>
-Subject: Re: [PATCH 3/5] ASoC: xilinx: xlnx_i2s.c: Handle sysclk setting
-Message-ID: <YdhAmoqgikJBjgyt@sirena.org.uk>
-References: <20220105225146.3517039-1-robert.hancock@calian.com>
- <20220105225146.3517039-4-robert.hancock@calian.com>
- <YdbjoQGKGedGLl/d@sirena.org.uk>
- <1265a3bbd578a3bd2350bc44b9e77de4f46c3f84.camel@calian.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DC16F80082
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 15:26:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DC16F80082
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="OBKsSOCX"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 207EQahw093477;
+ Fri, 7 Jan 2022 08:26:36 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1641565596;
+ bh=bbpnL2bqMN5H6aNKxgvIvY9vGPdi1O8RpGftvud1Gx8=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=OBKsSOCXPMflYsrV1dtvfOQBQCM+dt8F3FowNuexaOIHWQXksqzPVDy0tCsNmKU2B
+ Cyo5sTcLNQCSGiL5++OUNoVs8GVUsnWwKJ7+dasTTs1eDbEXRaAXQ9VRVkgekvWx+v
+ LsAhce0fL/LqhXDcbeLszNQkVccx71MkVTOsZPw8=
+Received: from DFLE112.ent.ti.com (dfle112.ent.ti.com [10.64.6.33])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 207EQZXO115620
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 7 Jan 2022 08:26:35 -0600
+Received: from DFLE102.ent.ti.com (10.64.6.23) by DFLE112.ent.ti.com
+ (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Fri, 7
+ Jan 2022 08:26:35 -0600
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE102.ent.ti.com
+ (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14 via
+ Frontend Transport; Fri, 7 Jan 2022 08:26:35 -0600
+Received: from [10.249.36.164] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 207EQZKj097440;
+ Fri, 7 Jan 2022 08:26:35 -0600
+Subject: Re: [PATCH] dt-bindings: Drop required 'interrupt-parent'
+To: Rob Herring <robh@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Nobuhiro Iwamatsu
+ <nobuhiro1.iwamatsu@toshiba.co.jp>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, Richard Fitzgerald
+ <rf@opensource.cirrus.com>, Lee Jones <lee.jones@linaro.org>, "David S.
+ Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paul
+ Walmsley <paul.walmsley@sifive.com>,
+ Greentime Hu <greentime.hu@sifive.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Michal Simek <michal.simek@xilinx.com>,
+ - <patches@opensource.cirrus.com>, John Crispin <john@phrozen.org>,
+ Hauke Mehrtens <hauke@hauke-m.de>, Kumar
+ Gogada <bharat.kumar.gogada@xilinx.com>
+References: <20220107031905.2406176-1-robh@kernel.org>
+From: Suman Anna <s-anna@ti.com>
+Message-ID: <cf75f1ee-8424-b6b2-f873-beea4676a29f@ti.com>
+Date: Fri, 7 Jan 2022 08:26:34 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gMxMTRRkxDaN22vs"
-Content-Disposition: inline
-In-Reply-To: <1265a3bbd578a3bd2350bc44b9e77de4f46c3f84.camel@calian.com>
-X-Cookie: teamwork, n.:
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "maruthi.srinivas.bayyavarapu@xilinx.com"
- <maruthi.srinivas.bayyavarapu@xilinx.com>,
- "michal.simek@xilinx.com" <michal.simek@xilinx.com>
+In-Reply-To: <20220107031905.2406176-1-robh@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ "Nagalla, Hari" <hnagalla@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,69 +110,127 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Rob,
 
---gMxMTRRkxDaN22vs
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 1/6/22 9:19 PM, Rob Herring wrote:
+> 'interrupt-parent' is never required as it can be in a parent node or a
+> parent node itself can be an interrupt provider. Where exactly it lives is
+> outside the scope of a binding schema.
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+>  .../devicetree/bindings/gpio/toshiba,gpio-visconti.yaml  | 1 -
+>  .../devicetree/bindings/mailbox/ti,omap-mailbox.yaml     | 9 ---------
+>  Documentation/devicetree/bindings/mfd/cirrus,madera.yaml | 1 -
+>  .../devicetree/bindings/net/lantiq,etop-xway.yaml        | 1 -
+>  .../devicetree/bindings/net/lantiq,xrx200-net.yaml       | 1 -
+>  .../devicetree/bindings/pci/sifive,fu740-pcie.yaml       | 1 -
+>  .../devicetree/bindings/pci/xilinx-versal-cpm.yaml       | 1 -
+>  7 files changed, 15 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml b/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml
+> index 9ad470e01953..b085450b527f 100644
+> --- a/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml
+> @@ -43,7 +43,6 @@ required:
+>    - gpio-controller
+>    - interrupt-controller
+>    - "#interrupt-cells"
+> -  - interrupt-parent
+>  
+>  additionalProperties: false
+>  
+> diff --git a/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml b/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
+> index e864d798168d..d433e496ec6e 100644
+> --- a/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
+> +++ b/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
+> @@ -175,15 +175,6 @@ required:
+>    - ti,mbox-num-fifos
+>  
+>  allOf:
+> -  - if:
+> -      properties:
+> -        compatible:
+> -          enum:
+> -            - ti,am654-mailbox
+> -    then:
+> -      required:
+> -        - interrupt-parent
+> -
 
-On Thu, Jan 06, 2022 at 11:25:28PM +0000, Robert Hancock wrote:
-> On Thu, 2022-01-06 at 12:42 +0000, Mark Brown wrote:
-> > On Wed, Jan 05, 2022 at 04:51:44PM -0600, Robert Hancock wrote:
+There are multiple interrupt controllers on TI K3 devices, and we need this
+property to be defined _specifically_ to point to the relevant interrupt router
+parent node.
 
-> > snd_soc_params_to_bclk().
+While what you state in general is true, I cannot have a node not define this on
+K3 devices, and end up using the wrong interrupt parent (GIC
+interrupt-controller). That's why the conditional compatible check.
 
-> I don't think that works here since that depends on the result of
-> snd_soc_params_to_frame_size, which doesn't account for the bits per sample
-> being forced to 32 when the 32bit_lrclk mode is active?
+regards
+Suman
 
-OK.
+>    - if:
+>        properties:
+>          compatible:
+> diff --git a/Documentation/devicetree/bindings/mfd/cirrus,madera.yaml b/Documentation/devicetree/bindings/mfd/cirrus,madera.yaml
+> index 499c62c04daa..5dce62a7eff2 100644
+> --- a/Documentation/devicetree/bindings/mfd/cirrus,madera.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/cirrus,madera.yaml
+> @@ -221,7 +221,6 @@ required:
+>    - '#gpio-cells'
+>    - interrupt-controller
+>    - '#interrupt-cells'
+> -  - interrupt-parent
+>    - interrupts
+>    - AVDD-supply
+>    - DBVDD1-supply
+> diff --git a/Documentation/devicetree/bindings/net/lantiq,etop-xway.yaml b/Documentation/devicetree/bindings/net/lantiq,etop-xway.yaml
+> index 437502c5ca96..3ce9f9a16baf 100644
+> --- a/Documentation/devicetree/bindings/net/lantiq,etop-xway.yaml
+> +++ b/Documentation/devicetree/bindings/net/lantiq,etop-xway.yaml
+> @@ -46,7 +46,6 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> -  - interrupt-parent
+>    - interrupts
+>    - interrupt-names
+>    - lantiq,tx-burst-length
+> diff --git a/Documentation/devicetree/bindings/net/lantiq,xrx200-net.yaml b/Documentation/devicetree/bindings/net/lantiq,xrx200-net.yaml
+> index 7bc074a42369..5bc1a21ca579 100644
+> --- a/Documentation/devicetree/bindings/net/lantiq,xrx200-net.yaml
+> +++ b/Documentation/devicetree/bindings/net/lantiq,xrx200-net.yaml
+> @@ -38,7 +38,6 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> -  - interrupt-parent
+>    - interrupts
+>    - interrupt-names
+>    - "#address-cells"
+> diff --git a/Documentation/devicetree/bindings/pci/sifive,fu740-pcie.yaml b/Documentation/devicetree/bindings/pci/sifive,fu740-pcie.yaml
+> index 2b9d1d6fc661..72c78f4ec269 100644
+> --- a/Documentation/devicetree/bindings/pci/sifive,fu740-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/sifive,fu740-pcie.yaml
+> @@ -61,7 +61,6 @@ required:
+>    - num-lanes
+>    - interrupts
+>    - interrupt-names
+> -  - interrupt-parent
+>    - interrupt-map-mask
+>    - interrupt-map
+>    - clock-names
+> diff --git a/Documentation/devicetree/bindings/pci/xilinx-versal-cpm.yaml b/Documentation/devicetree/bindings/pci/xilinx-versal-cpm.yaml
+> index a2bbc0eb7220..32f4641085bc 100644
+> --- a/Documentation/devicetree/bindings/pci/xilinx-versal-cpm.yaml
+> +++ b/Documentation/devicetree/bindings/pci/xilinx-versal-cpm.yaml
+> @@ -55,7 +55,6 @@ required:
+>    - reg-names
+>    - "#interrupt-cells"
+>    - interrupts
+> -  - interrupt-parent
+>    - interrupt-map
+>    - interrupt-map-mask
+>    - bus-range
+> 
 
-> > > +		if (!sclk_div || (sclk_div & ~I2S_I2STIM_VALID_MASK)) {
-> > > +			dev_warn(i2s_dai->dev, "invalid SCLK divisor for sysclk
-> > > %u and sclk %u\n",
-> > > +				 drv_data->last_sysclk, sclk);
-> > > +			return -EINVAL;
-> > > +		}
-
-> > This indicates that we should be setting some constraints on sample rate
-> > based on sysclk.
-
-> Is there a way to do this at this level given that it can only be enforced
-> after set_sysclk is called? Most of the other drivers that enforce rate
-> constraints seem to be more of a fixed list..
-
-	if (drvdata->sysclk) {
-		/* set constraints */
-	}
-
-
-like a bunch of other drivers do (eg, wm8731).
-
-> > > +		writel(sclk_div, drv_data->base + I2S_I2STIM_OFFSET);
-> > > +	}
-
-> > Does the device actually support operation without knowing the sysclk?
-
-> It could work if set_clkdiv is called to directly set the divider, rather than
-> set_sysclk. simple-card doesn't do that, but possibly some other setup which
-> uses this does?
-
-We should be migrating away from set_clkdiv() anyway, it'll be fine to
-require that such drivers be updated.
-
---gMxMTRRkxDaN22vs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHYQJkACgkQJNaLcl1U
-h9BVIgf/Q2MK18+tHc0UJi5ta6QuXqHachFJoBPjnmXzulh9FpO4FLMyxBszhU3j
-Qq6oQEbX2XhTP46uR7mMgQb7VhGtz/yGPyJzfgaeqKIOvYzltUSCQC7trWmbOPb3
-8Oq00svkuNtsNlUlSD2wtrdxqq3w1aW2uhWVl+gKOJt9anqhC3JWi7t+4/wsC5d8
-o9tL5uc0t5JZLlcIhd2LOlV1rY8MW0ceoZxM9qCspGcyaNVxa5DMjUoEW7IuFpo2
-DbdTQ1b63L9i69VPngVUdNwcE7WdqLvfuLyAAImkmfMiYIOXUAfKIWKFRs6g49OL
-WqcnGHZ0v97KYrvrIoqt5u6+Eh74Rw==
-=ptGF
------END PGP SIGNATURE-----
-
---gMxMTRRkxDaN22vs--

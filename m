@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8459B487E74
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 22:49:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 050EA487E75
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 22:49:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16F071943;
-	Fri,  7 Jan 2022 22:48:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16F071943
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C43F18F9;
+	Fri,  7 Jan 2022 22:48:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C43F18F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641592164;
-	bh=O8ImQVY3Xk1HCGaCObsTZCa18wOZ30bgjhrYG1jBYAg=;
+	s=default; t=1641592170;
+	bh=C2EsZVdUkFcCt2Uu/kPlRRiL/Rb8CRMIMSH2iosmfio=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mAB5vQnJuoUh7XeIrqv8E1+/DCyizo2MRLPV7wMFCli8X91OK87do0z0TthUK6uRz
-	 AzRMIfFfSxiHsCgIo7piwTKjP/AiuNkOXKmc1n7H7z7xe5quz9bvFIxgqmNq/XAfk6
-	 2VQhtpLZ4FfT0jIwe0sEV6YLfAyqnjOMSqFnOorc=
+	b=Huyf9SUu6JE2h9QiF/YtWpwU8luvCTdkI5IMEZzR2lbFweh3QicE8y9IfHMp1iV3d
+	 ByL5K1uZtO/rORwdwo7hZMh5iiHaQ0gsso/WA6ow2ATKwbXe+Oi+LdiQmZxQ7/HVN2
+	 QqG0xRAmneA7aw78Wq6EuaQDe8d/uzn08aamlRX8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D20BF8047B;
+	by alsa1.perex.cz (Postfix) with ESMTP id B572CF80510;
 	Fri,  7 Jan 2022 22:47:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBAEAF804FB; Fri,  7 Jan 2022 22:47:46 +0100 (CET)
+ id ED79EF8014B; Fri,  7 Jan 2022 22:47:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,50 +34,49 @@ Received: from mx0d-0054df01.pphosted.com (mx0d-0054df01.pphosted.com
  [67.231.150.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE6B7F8014B
- for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 22:47:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE6B7F8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id EAFCFF800AE
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 22:47:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAFCFF800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=calian.com header.i=@calian.com
- header.b="OlBHeHZY"
+ header.b="4ICCHkV9"
 Received: from pps.filterd (m0209000.ppops.net [127.0.0.1])
- by mx0c-0054df01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 207LEDcX023805;
- Fri, 7 Jan 2022 16:47:38 -0500
+ by mx0c-0054df01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 207LPGa1026852;
+ Fri, 7 Jan 2022 16:47:39 -0500
 Received: from can01-qb1-obe.outbound.protection.outlook.com
- (mail-qb1can01lp2052.outbound.protection.outlook.com [104.47.60.52])
- by mx0c-0054df01.pphosted.com (PPS) with ESMTPS id 3de4vqgpy7-1
+ (mail-qb1can01lp2058.outbound.protection.outlook.com [104.47.60.58])
+ by mx0c-0054df01.pphosted.com (PPS) with ESMTPS id 3de4vqgpya-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 07 Jan 2022 16:47:37 -0500
+ Fri, 07 Jan 2022 16:47:39 -0500
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W+3kAOl0M0c5MH9CfxDq2UZCKbhdp5wZoPjTaUlPRA8LCV3S7oDo/vf+hI9OP2sFqbPCzjvERtGI8kA7ENNI3MPHkQwpH7h1T3EqH/glgJ+EceAnB1inOLUhk7OJrYz+Tj1TEUAmexfav8LuWOh0PNDCP/0QQ/5F0usKXUl8u+NMYo0pcuPmZAPXQY226vML4gQg2I8x4uC+wAjSZ3QnzeVeIPXdWOLyQ6A9ily82rZ0YhYEivCZuxbZ5sdY3UAiEauA2gIW8GbIzMyYTJafT/sZJK0v4ro6fSbZTQ7Watz6WiHXFXLTzoykxm5bcqudtlbZs89GvGuAcTM4HqZY+w==
+ b=fCxxBIjAjecUyRDuRdzY+CKduGeZiyWKK8AudRavvx4qd+wMRc7HfS4Nap+Ik3192eK3nl4nQTIVQKlG1ObxeMjZeaCfvChnJiy4yp8v05uvmeu68eQNTuH7gajrFbAWEJWfG5TrIoFhqkvJvav0CqXm80l9zFQ/bkHRXW904egoZd8lqt8oxzGWZGe5kn3EvZqGHZ3RBe9SsCsafxTMibNnl+pjyPZOEyncSEFop4Qr3rvkhFxqOynxt1mIKKZdHba2BSKnMReX1CboYPpA+03MlQBqQJ4YrdBNkpAfp7N3mL+F3jvU3/nWSaihuPuvZyn/fxe1pBXIUnIKyiqgQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TBxvggnCIz/ACiO/4SrI4xA7d41IurXHWK6Mhd97KFU=;
- b=kTq0va1Z9ioyYHmptDjjs59jxNyvkwyCdYrtZwtHB7GjxoE3FeVFdz/n9kQNFsBrK/lFdmHR82laTAu6qfjMUqTG8WeIBQHF5uivsesVzArXEjK90M8wjMX/XcEi0q+9ixqowjQALesW85Z15qD9P+DPVoTVskHHtNyfWJwGvYLxOMVSJt2bBoKbsmhmVGFmLateCA/tot1JaPufYdxk14M+1YyphtOB8Mshd9UI+jDKGhrJy0Q3iPxTSTK5dcoGLJ3eq9LkS0fzyLuEKUOGgbkU8Vu8d+pwLkYjuij0HJXR9MEdTtq9vsaHBAn9IJ+VvXUvcopBIeZq2HxFo4u1kg==
+ bh=2pbZDy1KNUdmzwraonTIO5NGbpVvq3kZtFpIJn255pQ=;
+ b=Tfm2EIBG7h5zQ78JaixziWa2scJzfOg8+cqyKqV7AGFiEkyV2+j7ZbwlFP7tk9n+JhcdYdq1aFuDHbR/qeEyooPSAwCnF2u4dP+JmaT+VEM5tzvDexVsI5UyZrzZu3w+bF1331isUbBpnq9VKl91rOhdWzSRpcw5/etOrp5+OwZ9SagqixsBYrEB0HC0A0sPatcVMvj8sTYtK6FAmVlkbGDCLOwkPpu/yofa6tjpZF7Jkww+JclPUIOIgGBoaa27Sw0aB2ILmWmJ7Q8NTUnLpmRnwTOaAT/ZcyL6JDS1n+O0ez5arX24C/7v83yHN4NE2uHEfxO+YLPxx05LFkrlvQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=calian.com; dmarc=pass action=none header.from=calian.com;
  dkim=pass header.d=calian.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=calian.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TBxvggnCIz/ACiO/4SrI4xA7d41IurXHWK6Mhd97KFU=;
- b=OlBHeHZYZ2v6u9q11bY3p9eiHK1YYzRw06QsvL/y8fV56LKVoP8XOfL3IVVQO7fauXZ0fFhIPYYpEGfU3XF/Mac1NO+Slth0BzjO4iNf7OyIXAfcjs95v9ldXGNUM9VhlMbrBlCbSaIAmsQqn8ysatqOGozqQdJNzXRPJ2M/q2A=
+ bh=2pbZDy1KNUdmzwraonTIO5NGbpVvq3kZtFpIJn255pQ=;
+ b=4ICCHkV9tVEMr8ehHtqd4ymMAOQJEwj9MbepvSYC40vsf61KOii11bm97dnAKJk3Cx8X2qASzUKuEpda1EgdyhiQuExgY5YFFTcMw8DtE87O4aVepNOnSmQSTPNfZ9u6yTx4YXOrN5vg5B1Deo1JL7bGLr/C79AcKSJcK0lbhZk=
 Received: from YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:6a::19)
  by YT3PR01MB6275.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:6a::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4844.15; Fri, 7 Jan
- 2022 21:47:36 +0000
+ 2022 21:47:38 +0000
 Received: from YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
  ([fe80::d1f6:d9e4:7cc7:af76]) by YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
  ([fe80::d1f6:d9e4:7cc7:af76%5]) with mapi id 15.20.4844.016; Fri, 7 Jan 2022
- 21:47:36 +0000
+ 21:47:38 +0000
 From: Robert Hancock <robert.hancock@calian.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 1/6] ASoC: xilinx: xlnx_formatter_pcm: Make buffer bytes
- multiple of period bytes
-Date: Fri,  7 Jan 2022 15:47:06 -0600
-Message-Id: <20220107214711.1100162-2-robert.hancock@calian.com>
+Subject: [PATCH v2 2/6] ASoC: xilinx: xlnx_formatter_pcm: Handle sysclk setting
+Date: Fri,  7 Jan 2022 15:47:07 -0600
+Message-Id: <20220107214711.1100162-3-robert.hancock@calian.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20220107214711.1100162-1-robert.hancock@calian.com>
 References: <20220107214711.1100162-1-robert.hancock@calian.com>
@@ -88,71 +87,70 @@ X-ClientProxiedBy: CO2PR04CA0136.namprd04.prod.outlook.com (2603:10b6:104::14)
  (2603:10b6:b01:6a::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 074b0300-47ac-4312-8214-08d9d22751d0
+X-MS-Office365-Filtering-Correlation-Id: a85c037f-f934-438e-9389-08d9d227527e
 X-MS-TrafficTypeDiagnostic: YT3PR01MB6275:EE_
-X-Microsoft-Antispam-PRVS: <YT3PR01MB6275FE21A03411A576D7561BEC4D9@YT3PR01MB6275.CANPRD01.PROD.OUTLOOK.COM>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <YT3PR01MB6275C5E4A40BCE1D05343638EC4D9@YT3PR01MB6275.CANPRD01.PROD.OUTLOOK.COM>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6G4ipNY6s15gSEQPfVFqmgQlgp+dfYHk8WwprfLNFrbuBAeol5KeGUoOfhuXRzT1Lv2Ij1CjNXsyLDFW4IqzqKbBi1uU2rEdyCSxv+q32PkIy/C5GV70xj/ua67yRWq3FTiyh1vAk9MntZp+94t3vZdMTBVOPWyq+Rx89mOgJMldzwEiTOry1kOBX/W2Ji7vyEbgx9nen3HuUY8yI3ILBczc1xKUEgWTPuZXEUeUbN+mTSSLenpbQimKcK1gzxma5/XFBURwyXfBnOexsPpDeJ/JVr0CkJGH5tNojjE8lkJo5CtM+N2BHogNNFOew76RhiKaGBvd3k7ENMtBg/ae0eyNIWLigXf0t6jMjKwRsqAk8+Zc4FQpOp1fTO8YONGcZNhBDAT++OUBBYP6luFQP+jv9AUIdYDmNOswfdm2NbzGwE5iBKr7RtARVdTjwmJlfZlbQlDQigPyb5CGijJKXAlwjgF3h69Yo1oB58L0tHH62HGAPvo7GVL8i8kGazpLtUdDmxjQ8issloMBXcpP5c82ucv8lNfIePQLa3SxxxW3vDiwDz3i6hWWIRrGHnaTS5HxGUYjy1KQlkRmagCKyZWumpjECtj9GvGHYn7JmNzKgFebUI7Y5saOlHYz5rV+Z1oeVjKjpkYGt87VQlqS9UKnTbQMFbkNEt3hyPy9/vvwE+MrjtJq7wJ+qHEbH+1Gypwztl2QZ9Dj/bzWZWuVhg==
+X-Microsoft-Antispam-Message-Info: CtkCulxT9KvlCuF6ARgfuOSxsk/jN5HU129zxjthhr9vmuOiyl/3Np/DzoBeBtWlY07KV6+ROwGk7GlzQyCcvc+sv2dGEhQyM1V+48uvInTfLKQ/WbaBznTVLGwwoBnesSlNOHye1BOMKSV97T1whLBSjX+O8CM49PrKgPqQ8XtleHqXA9wL8X6nbSlEcIkGvg9f3/3sjeRsvaLPc4+nu1Mpt2nn8YH0DPratPILqkZhrhDCk3tMWlmPj+DW1v+ilR4BrhcshFGiByQuvJKt49VeHwdE2zAvqmuQzkvsEgSk0em4lPQaHeig1qB1ThoXWv5bEtdNapwN2GJ86pCH6dGRS4v9DaU1psmwD6VqCmyt9tisl6yyamf0M0Uhz2AWMtCyDNKk85nLowTuwMhn6HeIJ/yV0jJ//jQEkADfTzsPxysYMrbjCJiIBGyZmFYN7fFCpaF73/lyGOwzvRIah1BHIA119mk7w9g/K3XDVIfJmoqDRXerryu2mZX6XsOfz/YQmwer0PCgdkqjzFrGHebbBcV7ZJWyg6l9aGhRtGiYwCfEuhYewj1SfZ6U2/vFCGeHX0/L310u0KoA7DLxEbkWsQm/uS1c8FQXslChrSZMdSeGX/Quxg5DdHANeZ1yyfJs4aq1jdLY8kqL0/rIIh3eogy2669WSkVeiUOsh66V08UF8VEtVYRnBR+sjrRtImQiuS6P6A0i9+eIq0zXFw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(38100700002)(38350700002)(83380400001)(86362001)(26005)(6666004)(316002)(8676002)(4326008)(508600001)(52116002)(8936002)(186003)(36756003)(54906003)(44832011)(6916009)(2616005)(6486002)(6512007)(2906002)(6506007)(66476007)(66556008)(5660300002)(66946007)(1076003);
+ SFS:(4636009)(366004)(38100700002)(38350700002)(83380400001)(86362001)(26005)(6666004)(316002)(8676002)(4326008)(508600001)(52116002)(8936002)(186003)(36756003)(44832011)(6916009)(2616005)(6486002)(6512007)(2906002)(107886003)(6506007)(66476007)(66556008)(5660300002)(66946007)(1076003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BneuYrT/34aUYgET04Uk8oIaVcjFOQnPOqpfbWnK5cWmTRapaZF/XaHvmQu9?=
- =?us-ascii?Q?uJXyBh/XiSe4Qjx7WnXhv/DOKlJsFpR3QeAO6TEth/Ltc3BKwaIS9NE37CmD?=
- =?us-ascii?Q?AX0iZ0hOnwwh6ZKGj/w/BmAtLJFmZRCr6UUf3WHVdppjN09+Cft1gjbr4PCa?=
- =?us-ascii?Q?drgyr1sOpOrVTMmhB1bZAKagxFeQHqRvPRN2OWks7+TG+qCzaAzsJvRqjEYr?=
- =?us-ascii?Q?STImzjdA5Pxm8w1yzQszUJi3Zc1gUrTX43W3PQU2tlhYrONcy8Zjv93S8y/X?=
- =?us-ascii?Q?TXIGsYm2SA9U9wJfS4WM7lt9jLo+ZnSl7yvLKvdSwBgdmXPl33bnodszloxH?=
- =?us-ascii?Q?DMQZnflHJhRjr1yBjtmaqXVMRGcRg0Z+zBqlcMHy660y/SZF0pFAUfpSlW+M?=
- =?us-ascii?Q?ohE88l2F9uVET/rxJEKZgUTFCzF4K2rieSiDIj9I5o7wzDN+E/Ki5CvIII64?=
- =?us-ascii?Q?IxAfF6kouJWsOh1mIO0qejhUCG2abL33ilsRGFtc1lZmrl0H5s/2l4X/fMDT?=
- =?us-ascii?Q?kpDnoNRsAHPEcJG7Oq3gyyCMTCM8w00DNm/oiCLu0OQw2huYvOkJ26WfWF7Y?=
- =?us-ascii?Q?Hn3VKPKZp2NdIbkkMtoAlQ/0ShUB/Qqw8kg3un50ojJusVivBU8xVnxXFkwc?=
- =?us-ascii?Q?Zo6uxQfCCDj/VuZw4C2FWXveJuSs4NnqjmDcDByYYV7Pc462KEk7FYcpNTNp?=
- =?us-ascii?Q?b1nUUYKpliHHD0GlBeUxg6D7CaFRopKd8jViLU07WZzKdpbFE8QciFmHk1nq?=
- =?us-ascii?Q?1iHDQwYu/CRozOkAEpHtL+lu8m0hHvPUxCkfM8kO56HdmwpBrw9u8oHzWQ0o?=
- =?us-ascii?Q?axYzqJ6kFAtqWswSe49a8miaiqrzdA3DodgGyYEDRXYqI3FTfY6Onuqz4QDK?=
- =?us-ascii?Q?DfVA0cu3gYf+Mxk8KpruULc63Sw6hFfRE8gqc+I+GzBCe+z8YPPNyENORqg5?=
- =?us-ascii?Q?WGhfE6CYatuKzOEBSkosFNRGRNk0KvuEFwdr+Rdu7TI9oCMtmnZ7Vgnrxv7m?=
- =?us-ascii?Q?QJFJFgT3ueBDTQnx+PS23HXhygyNkQh3gJ6UAruZ5zr2sUSUkWwBUTiwq4uL?=
- =?us-ascii?Q?vlQYQCHCp1pJiQBbCOXnS/kMPWZW0HAGm0AXrJqJw+SpCBPsD4fc5HhMnOfZ?=
- =?us-ascii?Q?iUMxsfaZhyzoLSnptTdOIwojZktjXEbXzf+tnKuOXxupoE67BncXXmqk0EU4?=
- =?us-ascii?Q?3NTz0D/R00msR9qm3M2BGHYjXkl+kZYpgBoRGRr4L1YZrgeKwUVsMC86hGUb?=
- =?us-ascii?Q?PBhRttY7oTfsojGxkypmvTE+TmVKwe7w/UUN0CrGTTAhzgpzZcPFfhbDx9Tp?=
- =?us-ascii?Q?PVJ2446YCxIS+a4/G72sW1Rmi73HWeZzfAhn9il5/yqdrD87UZDhO84wzubw?=
- =?us-ascii?Q?BU1YtKncorOamBle39tbOoRh4B6rb1Ow5h0XDhs5VI8lN0+jUhqfzvAOpLjE?=
- =?us-ascii?Q?jDESUMdFVjxMZcL7HVIVSWHX8YAkprP2glEhP+qhpsAq5zpcV+vooTeZBkEO?=
- =?us-ascii?Q?HCE+0vpz1SLEtTvFAYHGGc/M1ZqE5WOdsXIcZ60w4WlQJEmAsxkVmNQYVMwF?=
- =?us-ascii?Q?taF6xL1kNYKIakj1fkYP7eBvCC3LQjkejRrGspeE1e4bAgFVM/OXIkMmHgOi?=
- =?us-ascii?Q?5opMlq6L/S2iMDkWOyF99Y7kzffi93nvu0N2t//qUi3UtDkJEqE/M7IfhXwI?=
- =?us-ascii?Q?IsM0UQ=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vzFJh38N2Ff3NbfgmbNN79WjOxJmLXrYMGozLVa1MfyNLDsEJr81iDFsxrCA?=
+ =?us-ascii?Q?2hpQY16YrmmnQ9S+A/snQnZVRmHfrkLe59tcqemhC5JiQCMjt+pb4pEtef0h?=
+ =?us-ascii?Q?9W84Ufyg1NTmKy2d1SgY9wbgO02QOhDjwG9bT+6grxjXr0yk7QdYHXIAcP5U?=
+ =?us-ascii?Q?wADBq8cKvqSrRg2RbWJCecBJ43+7uNYVXaErcjZ1Si2Oz1bstxARUBBIZnXu?=
+ =?us-ascii?Q?b8p52rfUn75QMS1i4Kqj7LCnSVW3vOroSuoYfDIpUdMk3FN+Ttu8I58VV5G2?=
+ =?us-ascii?Q?GZio2iLTE/gfDZWKA5mOF09GcEq5UI1JNtOCrGQS/vw6a031ZgJ5muJOWxwu?=
+ =?us-ascii?Q?XgmvbNJvQb61oYsR9+aqsZTPYBD8/Z5WeG2kGCtqQsisQrEBm3xhgp0ZqB67?=
+ =?us-ascii?Q?aTfC9/NDp/ZcMmr6Q5BDyzg/lRhk1lcI70DvGALUB+8S99KAwRGBc1fC3z7P?=
+ =?us-ascii?Q?YfiDf9ptFgTLE9NRj/CKNukeXxY3iNNp8cDUavWS4CaS+gMhsvs9MqWPQKeY?=
+ =?us-ascii?Q?lcmnAFIRpalbzqIkgCa9jqhOLdT1hXBUNycyki4J/sR3mtCV0B6ZXmYfUuhN?=
+ =?us-ascii?Q?R9y8y0JCKgXfylTWYb5j5Sd2L8oMOTfCatvBg+YzZoRFbnPSOj6+kKQKNK5l?=
+ =?us-ascii?Q?CCCgcaLBRoarMGmVJMru2zPrL/nFFfHyK7/lXIHmnyKEHhtbg8rg1Qyh4dZ4?=
+ =?us-ascii?Q?oNQzrsHAPvcZw4HSJRw0vPCTf6xHYSNOv0+2csg6COH+qulpAmJ/JB0JSJJQ?=
+ =?us-ascii?Q?Qsr3JkIiUSTu47MCe5iNxon01hHwH+LCzkMs2HqvXRiDO1xFrdEHQLeBZQTp?=
+ =?us-ascii?Q?KASpD65QKpauCrd1ZBqWPKXu6m3UhZ/jpgTVCMOi0slFYaa3q9NFleMJrDZv?=
+ =?us-ascii?Q?sOyIVjUidRtyG/Ed6RoauihkXdZXcwBZb6nsxdsFsI2aEJnXfylhxxptLuDO?=
+ =?us-ascii?Q?lEd77zZFMA405BfQbbB29GIuFXL0q65QekyRkESAN5gu6QjjuTDH9QCpfxyT?=
+ =?us-ascii?Q?93/8PXA2tK3toQMw5f98EHNEEpbcIfG6uCCDhjXYZ3LhLjaD604/8fR48/6w?=
+ =?us-ascii?Q?ULt39iFX4aY9I0zY3Dh0S4mFQ5hUGpAHdeJ74tLtYSEKKBgyb6ArLA9RhRhu?=
+ =?us-ascii?Q?sftEN1u3PiHq+9jJUhd0GZAtwAZFNOP3/0pkyCzsyD+XjqKZq3MBSBAI/GXf?=
+ =?us-ascii?Q?QeXVflbwrqaanvyLZ8uoD+rt4LuPL7wHelP3+PvZZB73xGUx64MxF4bzRf1T?=
+ =?us-ascii?Q?blcgb9GZaHcvp9SGjIKVUH/f2BjYuiIu+Gbq6dcvfrltyh8nK8y02AtGohsG?=
+ =?us-ascii?Q?BJLvQzGXuLlJsD2GPzPXarlKc+YQBixHXar2eeIEbnM4fxxFTV+leVbbtiba?=
+ =?us-ascii?Q?kjrZTTeRjN0++n0NLDM+TrZjuLunAfMg/InSwNffIG2fSuzkOXqziRCsG8xY?=
+ =?us-ascii?Q?qoxG9o/InG/oCpOFCKbd6Q+WZmmA1kniqdFPIbCyJ29oobIaJDmpzncnRpya?=
+ =?us-ascii?Q?3fslSBsJOoCo7neZC4t9LCAiDz8WRuew2hk7eCF/H0YDLu2lmz2jG/gZm+fH?=
+ =?us-ascii?Q?yHfsj8CQAG2H8Nu2Afx4GwzGvB9fTE+6wQjOyis793z1Gwo+btCxMmLUixhS?=
+ =?us-ascii?Q?FV+mKPhVT5a4AKTJ6IBThbtqB8qhQP9K18crxNNnWSQJV2znYnNKui1mIBS8?=
+ =?us-ascii?Q?VtKemyOUP+oZF9eVt7npfnh54wQ=3D?=
 X-OriginatorOrg: calian.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 074b0300-47ac-4312-8214-08d9d22751d0
+X-MS-Exchange-CrossTenant-Network-Message-Id: a85c037f-f934-438e-9389-08d9d227527e
 X-MS-Exchange-CrossTenant-AuthSource: YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2022 21:47:36.8896 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2022 21:47:38.0157 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 23b57807-562f-49ad-92c4-3bb0f07a1fdf
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BTcB+i13wpaEyscIi0tlkamDa+WL4LaMcZhW6IK80Y6zUFQOrHYGzi9DwVTVXEsSaEhdw5+JvyUCYtHSXtLAOUO9i+fFlzixDTQhQ6+dUUU=
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1fRm8icz7Wxsw2KLF0Pjl1cI0u5ga6+JzxatPAWpLuXXaFz8rQcYPoHjLzropIqtotUTJYEgFjefodRohdeShuLiXkEQEKxrh25hoLauwSQ=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT3PR01MB6275
-X-Proofpoint-GUID: sh_v1fvbCuH-ZrSIyM3q42VU_j7akuuq
-X-Proofpoint-ORIG-GUID: sh_v1fvbCuH-ZrSIyM3q42VU_j7akuuq
+X-Proofpoint-GUID: falYwarlNsu9kJfWMILrU8SnJ2FigDON
+X-Proofpoint-ORIG-GUID: falYwarlNsu9kJfWMILrU8SnJ2FigDON
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2022-01-07_10,2022-01-07_01,2021-12-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  impostorscore=0
- mlxlogscore=999 spamscore=0 mlxscore=0 lowpriorityscore=0 suspectscore=0
+ mlxlogscore=469 spamscore=0 mlxscore=0 lowpriorityscore=0 suspectscore=0
  phishscore=0 priorityscore=1501 clxscore=1015 adultscore=0 bulkscore=0
  malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2110150000 definitions=main-2201070129
-Cc: kuninori.morimoto.gx@renesas.com,
- Devarsh Thakkar <devarsh.thakkar@xilinx.com>, michal.simek@xilinx.com,
+Cc: kuninori.morimoto.gx@renesas.com, michal.simek@xilinx.com,
  maruthi.srinivas.bayyavarapu@xilinx.com, tiwai@suse.com,
  Robert Hancock <robert.hancock@calian.com>, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -170,86 +168,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch is based on one in the Xilinx kernel tree, "ASoc: xlnx: Make
-buffer bytes multiple of period bytes" by Devarsh Thakkar. The same
-issue exists in the mainline version of the driver. The original
-patch description is as follows:
+This driver did not set the MM2S Fs Multiplier Register to the proper
+value for playback streams. This needs to be set to the sample rate to
+MCLK multiplier, or random stream underflows can occur on the downstream
+I2S transmitter.
 
-"The Xilinx Audio Formatter IP has a constraint on period
-bytes to be multiple of 64. This leads to driver changing
-the period size to suitable frames such that period bytes
-are multiple of 64.
-
-Now since period bytes and period size are updated but not
-the buffer bytes, this may make the buffer bytes unaligned
-and not multiple of period bytes.
-
-When this happens we hear popping noise as while DMA is being
-done the buffer bytes are not enough to complete DMA access
-for last period of frame within the application buffer boundary.
-
-To avoid this, align buffer bytes too as multiple of 64, and
-set another constraint to always enforce number of periods as
-integer. Now since, there is already a rule in alsa core
-to enforce Buffer size = Number of Periods * Period Size
-this automatically aligns buffer bytes as multiple of period
-bytes."
+Store the sysclk value provided via the set_sysclk callback and use that
+in conjunction with the sample rate in the hw_params callback to calculate
+the proper value to set for this register.
 
 Fixes: 6f6c3c36f091 ("ASoC: xlnx: add pcm formatter platform driver")
-Cc: Devarsh Thakkar <devarsh.thakkar@xilinx.com>
 Signed-off-by: Robert Hancock <robert.hancock@calian.com>
 ---
- sound/soc/xilinx/xlnx_formatter_pcm.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ sound/soc/xilinx/xlnx_formatter_pcm.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
 diff --git a/sound/soc/xilinx/xlnx_formatter_pcm.c b/sound/soc/xilinx/xlnx_formatter_pcm.c
-index 91afea9d5de6..ce19a6058b27 100644
+index ce19a6058b27..5c4158069a5a 100644
 --- a/sound/soc/xilinx/xlnx_formatter_pcm.c
 +++ b/sound/soc/xilinx/xlnx_formatter_pcm.c
-@@ -37,6 +37,7 @@
- #define XLNX_AUD_XFER_COUNT	0x28
- #define XLNX_AUD_CH_STS_START	0x2C
- #define XLNX_BYTES_PER_CH	0x44
-+#define XLNX_AUD_ALIGN_BYTES	64
+@@ -84,6 +84,7 @@ struct xlnx_pcm_drv_data {
+ 	struct snd_pcm_substream *play_stream;
+ 	struct snd_pcm_substream *capture_stream;
+ 	struct clk *axi_clk;
++	unsigned int sysclk;
+ };
  
- #define AUD_STS_IOC_IRQ_MASK	BIT(31)
- #define AUD_STS_CH_STS_MASK	BIT(29)
-@@ -368,12 +369,32 @@ static int xlnx_formatter_pcm_open(struct snd_soc_component *component,
- 	snd_soc_set_runtime_hwparams(substream, &xlnx_pcm_hardware);
- 	runtime->private_data = stream_data;
+ /*
+@@ -314,6 +315,15 @@ static irqreturn_t xlnx_s2mm_irq_handler(int irq, void *arg)
+ 	return IRQ_NONE;
+ }
  
--	/* Resize the period size divisible by 64 */
-+	/* Resize the period bytes as divisible by 64 */
- 	err = snd_pcm_hw_constraint_step(runtime, 0,
--					 SNDRV_PCM_HW_PARAM_PERIOD_BYTES, 64);
-+					 SNDRV_PCM_HW_PARAM_PERIOD_BYTES,
-+					 XLNX_AUD_ALIGN_BYTES);
- 	if (err) {
- 		dev_err(component->dev,
--			"unable to set constraint on period bytes\n");
-+			"Unable to set constraint on period bytes\n");
-+		return err;
++static int xlnx_formatter_set_sysclk(struct snd_soc_component *component,
++				     int clk_id, int source, unsigned int freq, int dir)
++{
++	struct xlnx_pcm_drv_data *adata = dev_get_drvdata(component->dev);
++
++	adata->sysclk = freq;
++	return 0;
++}
++
+ static int xlnx_formatter_pcm_open(struct snd_soc_component *component,
+ 				   struct snd_pcm_substream *substream)
+ {
+@@ -450,11 +460,25 @@ static int xlnx_formatter_pcm_hw_params(struct snd_soc_component *component,
+ 	u64 size;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct xlnx_pcm_stream_param *stream_data = runtime->private_data;
++	struct xlnx_pcm_drv_data *adata = dev_get_drvdata(component->dev);
+ 
+ 	active_ch = params_channels(params);
+ 	if (active_ch > stream_data->ch_limit)
+ 		return -EINVAL;
+ 
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
++	    adata->sysclk) {
++		unsigned int mclk_fs = adata->sysclk / params_rate(params);
++
++		if (adata->sysclk % params_rate(params) != 0) {
++			dev_warn(component->dev, "sysclk %u not divisible by rate %u\n",
++				 adata->sysclk, params_rate(params));
++			return -EINVAL;
++		}
++
++		writel(mclk_fs, stream_data->mmio + XLNX_AUD_FS_MULTIPLIER);
 +	}
 +
-+	/* Resize the buffer bytes as divisible by 64 */
-+	err = snd_pcm_hw_constraint_step(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
-+					 XLNX_AUD_ALIGN_BYTES);
-+	if (err) {
-+		dev_err(component->dev,
-+			"Unable to set constraint on buffer bytes\n");
-+		return err;
-+	}
-+
-+	/* Set periods as integer multiple */
-+	err = snd_pcm_hw_constraint_integer(runtime,
-+					    SNDRV_PCM_HW_PARAM_PERIODS);
-+	if (err < 0) {
-+		dev_err(component->dev,
-+			"Unable to set constraint on periods to be integer\n");
- 		return err;
- 	}
+ 	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE &&
+ 	    stream_data->xfer_mode == AES_TO_PCM) {
+ 		val = readl(stream_data->mmio + XLNX_AUD_STS);
+@@ -552,6 +576,7 @@ static int xlnx_formatter_pcm_new(struct snd_soc_component *component,
  
+ static const struct snd_soc_component_driver xlnx_asoc_component = {
+ 	.name		= DRV_NAME,
++	.set_sysclk	= xlnx_formatter_set_sysclk,
+ 	.open		= xlnx_formatter_pcm_open,
+ 	.close		= xlnx_formatter_pcm_close,
+ 	.hw_params	= xlnx_formatter_pcm_hw_params,
 -- 
 2.31.1
 

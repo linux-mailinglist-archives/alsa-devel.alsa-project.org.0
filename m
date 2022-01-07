@@ -2,100 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BE864879A5
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 16:21:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8248B487A1F
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 17:07:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 786B916C7;
-	Fri,  7 Jan 2022 16:20:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 786B916C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id E037F17DA;
+	Fri,  7 Jan 2022 17:07:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E037F17DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641568897;
-	bh=JZSDTXn831jsHLaeMlhV91a2NBUCYRKTYU4k2JJ3SEY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=L1BMS0hvVKp78aJWBp6BHG45LOwvUvV0bngdLtQXP6oBsVig+B0mv1ddEG+6Wrz6o
-	 HGF/e3EWG3Jz5N7Elaz7Gf5D3RQIvR1HxmDOJ70wa4Zq4fzqJ/kezWcWpZNCb9tG8p
-	 jegHCz5sslitVwuexWku79LdKr2BB0PN1kepdGW4=
+	s=default; t=1641571677;
+	bh=qcgxyM/M86pC78VSKykOD8PQbKHPVYipdfRDP09tDqs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZVfL6Qu5uLX9k8zg2nq5sECTLzYOuDHLOzJtEVLhZ7kjv0KXYgb0f+rIMZ6kXHoOF
+	 ScYmaxW25e55SB7wB5wOcsQB3pxjiw0CM4grIDg2ahiDdHRv4BCy5ZOY5jasjlre20
+	 ZWRWtb06S7S15PNcg1i1JkkWTX1WCRYfOVTb+GJs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C38EDF80082;
-	Fri,  7 Jan 2022 16:20:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E8CCF80082;
+	Fri,  7 Jan 2022 17:06:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 027C8F80249; Fri,  7 Jan 2022 16:20:28 +0100 (CET)
+ id 85FF5F8025D; Fri,  7 Jan 2022 17:06:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2678F80082
- for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 16:20:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2678F80082
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aiW2Oo9r"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 13E9D61F47
- for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 15:20:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646CCC36AF3
- for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 15:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641568819;
- bh=JZSDTXn831jsHLaeMlhV91a2NBUCYRKTYU4k2JJ3SEY=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=aiW2Oo9rqnSvZMty9UZIT7Su6WRlpFZC4qB33eV+4HwGl+1IEQ29rltyVDfSbQmYo
- 4e+xjseIQ4gjpJnncgYW0+GQl2lY/7Pc42gGUb0HiGc/0qpispy2oluvsAY69ZD+o/
- 408clmpmDydeZ97b3Dy1O1mPHnlKDiJt28KxuXWVqXU8bN1D7Dnjh7+Li9+ax4mQwn
- gccb1AzgDKTqPVeTjGMCgkxl1J6N7g4Dn8aJG38k94S3wa9itzjU4IrMFrp6JrHwhB
- p5qTIQsCbQ19nz6d2GayyCfJucnwGsufy68qYS1iPodeLHrJ/P5hRUyh1a7woIqFWF
- MsuEB755uJd1w==
-Received: by mail-ed1-f41.google.com with SMTP id k15so23180387edk.13
- for <alsa-devel@alsa-project.org>; Fri, 07 Jan 2022 07:20:19 -0800 (PST)
-X-Gm-Message-State: AOAM533ra8BbszpuRvPpd3erZ1Geo5YJJ/sV3WvMLrPaCYQ471dPl8/b
- 8tXATIwcOHXsvh8qXGnn9DQASrkv5cWaUGvSKA==
-X-Google-Smtp-Source: ABdhPJz1jllAhtHnE/GCaPMpieaWkmlnAW2CajB4Bv3UzewhAkigmenmu4JVTDvGexXd518wf1HJZMvSArTFrZXD/Rw=
-X-Received: by 2002:a05:6402:1e88:: with SMTP id
- f8mr57554194edf.2.1641568817622; 
- Fri, 07 Jan 2022 07:20:17 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D635F800AE
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 17:06:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D635F800AE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="olG8vwsE"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 207Fo5en008257;
+ Fri, 7 Jan 2022 10:06:39 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type;
+ s=PODMain02222019; bh=AZHvETci1n4kMyjiI/bOuQF4OLFyYHQKnRu4S0irYFs=;
+ b=olG8vwsEcPNMSK3tSB1JJXTYjUE+NrjP0EwdqJEZDnjWODmsxIi46VYZNj9eRXvTS5to
+ tR66+UazjYHQSrPvhYa9WXpthmQjYNwsGbXTphra8wmnfqwJf36/XMWlvjvkFPs1TZ73
+ 07mGXNvF3EdaWOr6iSdbN5PZIDto6vI4n0R5HsPnaP3zprHtMGC4Ig0YR4egKvCNfhQ2
+ I3lksVUGghi8GNtZkjGeDNEAsaMd1QlP/dRSvpN4bxjq0T2izQlYXEwnJQ9+TkjLJJ/A
+ Pz8sLHrM0kjL4DvJecragpyqT7rUqG6v9HKNpi/i0gBkHLJb+bSBoxPm9pt2kwqGth67 bA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dergng0n6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 07 Jan 2022 10:06:39 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 7 Jan
+ 2022 16:06:37 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Fri, 7 Jan 2022 16:06:37 +0000
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E605B2A9;
+ Fri,  7 Jan 2022 16:06:36 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH 0/2] Add low power hibernation support to cs35l41
+Date: Fri, 7 Jan 2022 16:06:34 +0000
+Message-ID: <20220107160636.6555-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <20220107031905.2406176-1-robh@kernel.org>
- <cf75f1ee-8424-b6b2-f873-beea4676a29f@ti.com>
-In-Reply-To: <cf75f1ee-8424-b6b2-f873-beea4676a29f@ti.com>
-From: Rob Herring <robh@kernel.org>
-Date: Fri, 7 Jan 2022 09:20:05 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqL3PGqmzA0wW37G7TXhbRVgByznk==Q8GhA0_OFBKAycQ@mail.gmail.com>
-Message-ID: <CAL_JsqL3PGqmzA0wW37G7TXhbRVgByznk==Q8GhA0_OFBKAycQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Drop required 'interrupt-parent'
-To: Suman Anna <s-anna@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, PCI <linux-pci@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Lee Jones <lee.jones@linaro.org>,
- linux-riscv <linux-riscv@lists.infradead.org>, "Nagalla,
- Hari" <hnagalla@ti.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Jassi Brar <jassisinghbrar@gmail.com>, Michal Simek <michal.simek@xilinx.com>,
- Jakub Kicinski <kuba@kernel.org>, Greentime Hu <greentime.hu@sifive.com>,
- devicetree@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Kumar Gogada <bharat.kumar.gogada@xilinx.com>,
- Hauke Mehrtens <hauke@hauke-m.de>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, John Crispin <john@phrozen.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- - <patches@opensource.cirrus.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, netdev <netdev@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>
+Content-Type: text/plain
+X-Proofpoint-GUID: 7xccvbLp4fFnrv5ejlmM7n3yv1ycpRtz
+X-Proofpoint-ORIG-GUID: 7xccvbLp4fFnrv5ejlmM7n3yv1ycpRtz
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ david.rhodes@cirrus.com, lgirdwood@gmail.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,78 +93,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 7, 2022 at 8:27 AM Suman Anna <s-anna@ti.com> wrote:
->
-> Hi Rob,
->
-> On 1/6/22 9:19 PM, Rob Herring wrote:
-> > 'interrupt-parent' is never required as it can be in a parent node or a
-> > parent node itself can be an interrupt provider. Where exactly it lives is
-> > outside the scope of a binding schema.
-> >
-> > Signed-off-by: Rob Herring <robh@kernel.org>
-> > ---
-> >  .../devicetree/bindings/gpio/toshiba,gpio-visconti.yaml  | 1 -
-> >  .../devicetree/bindings/mailbox/ti,omap-mailbox.yaml     | 9 ---------
-> >  Documentation/devicetree/bindings/mfd/cirrus,madera.yaml | 1 -
-> >  .../devicetree/bindings/net/lantiq,etop-xway.yaml        | 1 -
-> >  .../devicetree/bindings/net/lantiq,xrx200-net.yaml       | 1 -
-> >  .../devicetree/bindings/pci/sifive,fu740-pcie.yaml       | 1 -
-> >  .../devicetree/bindings/pci/xilinx-versal-cpm.yaml       | 1 -
-> >  7 files changed, 15 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml b/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml
-> > index 9ad470e01953..b085450b527f 100644
-> > --- a/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml
-> > +++ b/Documentation/devicetree/bindings/gpio/toshiba,gpio-visconti.yaml
-> > @@ -43,7 +43,6 @@ required:
-> >    - gpio-controller
-> >    - interrupt-controller
-> >    - "#interrupt-cells"
-> > -  - interrupt-parent
-> >
-> >  additionalProperties: false
-> >
-> > diff --git a/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml b/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
-> > index e864d798168d..d433e496ec6e 100644
-> > --- a/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
-> > +++ b/Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
-> > @@ -175,15 +175,6 @@ required:
-> >    - ti,mbox-num-fifos
-> >
-> >  allOf:
-> > -  - if:
-> > -      properties:
-> > -        compatible:
-> > -          enum:
-> > -            - ti,am654-mailbox
-> > -    then:
-> > -      required:
-> > -        - interrupt-parent
-> > -
->
-> There are multiple interrupt controllers on TI K3 devices, and we need this
-> property to be defined _specifically_ to point to the relevant interrupt router
-> parent node.
->
-> While what you state in general is true, I cannot have a node not define this on
-> K3 devices, and end up using the wrong interrupt parent (GIC
-> interrupt-controller). That's why the conditional compatible check.
+This patch series adds support for the low power hibernation feature
+on cs35l41. This allows the DSP memory to be retained whilst the
+device enters a very low power state.
 
-But you could.
+These patches will cause some very minor conflicts with Lucas's
+currently outstanding work on the HDA version of cs35l41.  Whilst
+things will still build (well now I fixed my silly mistake), this
+patch adds a test key function his code will now have to call.
 
-The parent node can have a default interrupt-parent and child nodes
-can override that. It doesn't matter which one is the default though
-typically you would want the one used the most to be the default.
-Looking at your dts files, it looks like you all did the opposite. The
-only way that wouldn't work is if the parent node is if the parent
-node has its own 'interrupts' or you are just abusing
-'interrupt-parent' where the standard parsing doesn't work.
+It looks like Lucas's patch might get a respin based on the comments
+from Andy, in which case I guess we can pull the small change into the
+next version of it. But either way these patches are not urgent so I
+am happy if they sit around until Lucas's stuff is merged too.
 
-You are also free to use 'interrupts-extended' anywhere 'interrupts'
-is used and then interrupt-parent being present is an error. How you
-structure all this is outside the scope of binding schemas which only
-need to define how many interrupts and what are they. Ensuring parents
-and cell sizes are correct is mostly done by dtc.
+Thanks,
+Charles
 
-Rob
+Charles Keepax (2):
+  ASoC: cs35l41: Update handling of test key registers
+  ASoC: cs35l41: Add support for hibernate memory retention mode
+
+ include/sound/cs35l41.h        |   7 ++
+ sound/soc/codecs/cs35l41-i2c.c |   1 +
+ sound/soc/codecs/cs35l41-lib.c |  73 +++++++------
+ sound/soc/codecs/cs35l41-spi.c |   1 +
+ sound/soc/codecs/cs35l41.c     | 233 +++++++++++++++++++++++++++++++++++++----
+ sound/soc/codecs/cs35l41.h     |   4 +
+ 6 files changed, 268 insertions(+), 51 deletions(-)
+
+-- 
+2.11.0
+

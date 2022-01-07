@@ -2,74 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0705487A26
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 17:12:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B203B487A33
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jan 2022 17:17:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B0D618BB;
-	Fri,  7 Jan 2022 17:11:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B0D618BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E53318BF;
+	Fri,  7 Jan 2022 17:16:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E53318BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641571932;
-	bh=+bRBiiu+vY6g6r/bhBId2ouHPBKv6FeRjaexg3pIxe0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1641572224;
+	bh=ZiLHeOtjpLgnJlJzXVFULUHaMyEyugv4psW0L1JBuDg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WDfAjp94S4GlmIw6Vx2tkZ8aQNpXvzsp4Qj6KRp8lBONK14bna0oXpbscBQ0vX88h
-	 +f4bTZpM2AyMKQNfu0cmVgx082yHb6DT4U71O9EBveMoQZyGM/IZkh9C3J+DbnYtXt
-	 5vmEAGBvMKlx4TGeo0W+qV4z4bFhhDsmFQbJLj6Y=
+	b=cz7nVu3FjJpEjt9SJcTA5q7zOFftuQnPhxcdloIdHG64ZN0K8T+p4WgcgUDHDPTAQ
+	 FIhxZe5GtjRpZXQ/h6cs4swt9jj3Cay7ToQkh7MvMUJTPDcVlVn/FyB0zZ2q6Z9f2t
+	 tMr0bC/9c0szziwN/j4L66ZXa3he/o3FCdTpG5Vc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACFE0F80254;
-	Fri,  7 Jan 2022 17:11:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97FDFF80254;
+	Fri,  7 Jan 2022 17:15:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97457F80249; Fri,  7 Jan 2022 17:11:03 +0100 (CET)
+ id 3E9EEF800AE; Fri,  7 Jan 2022 17:15:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27D16F80082
- for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 17:10:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27D16F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 444CBF800AE
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jan 2022 17:15:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 444CBF800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="K2oSle9a"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8226260AAF;
- Fri,  7 Jan 2022 16:10:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83465C36AEB;
- Fri,  7 Jan 2022 16:10:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641571849;
- bh=+bRBiiu+vY6g6r/bhBId2ouHPBKv6FeRjaexg3pIxe0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=K2oSle9aCItIMB91HZjg763/7OsqOboUjBwjusqHzEJg7zGqLcI0LajnUm6XxvbVe
- 9cvY451dS+t2FQ2Fi+rQQZfMLSTdCzxg1oqpgLCBdNRFsSyqkPNPiIq2aR+XCQ4YuJ
- 579Zca0S0rpWZwew2D4Od7E8LaQg3rtYPFlLuCZ8b+v83dbSxP4jsLZdrX6OanexSm
- wIAdz70e8s0CrxzR1glvxUjjZvHHtvF/nbWvUAXYEbJh0RYvUi3oWTmt4xuH3LPbIF
- /PCqct+1CLDhpMcKwwns9tH4qpZFkKqBybo6/fpc9IIkfgZ3hKNpHmZUr1UtKXFQpC
- fOUhRHs8B3vUA==
-Date: Fri, 7 Jan 2022 16:10:45 +0000
-From: Mark Brown <broonie@kernel.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="L5HRjTeN"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="AZygdVul"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 57AB71F39C;
+ Fri,  7 Jan 2022 16:15:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1641572152; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YBu6Tkhz51uboqgwwywYVaB5SZo0XFZO58kJ3xQ6Teg=;
+ b=L5HRjTeNd1Ede58U25Bd+hWj5k18x5GlXFdI0ItvD16sqiUOMnsJdIKZlPodfBT7oMU7q4
+ rMs2Ac0/3zRtF9drtn0zW0dW1WbX4ihDFiH559QB+beM19JCpSFjEVHXIbbWl8ENOk3TMd
+ hxFHmzBHZmv1zcSRgSfimq6p8jJ/iVA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1641572152;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YBu6Tkhz51uboqgwwywYVaB5SZo0XFZO58kJ3xQ6Teg=;
+ b=AZygdVulXYIFviBx6j0Kd2aK0T8/dYhW8A/zNnEb9e0EXh36A74fm8b8ggXPDOq+hR3Y27
+ x/U+5am6AHcRZOCw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id B0A22A3B81;
+ Fri,  7 Jan 2022 16:15:46 +0000 (UTC)
+Date: Fri, 07 Jan 2022 17:15:52 +0100
+Message-ID: <s5hy23rfrnr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
 To: Charles Keepax <ckeepax@opensource.cirrus.com>
 Subject: Re: [PATCH 0/2] Add low power hibernation support to cs35l41
-Message-ID: <YdhmBS4A+qzAHm/q@sirena.org.uk>
-References: <20220107160636.6555-1-ckeepax@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="UGhceDVfkx2yM+yp"
-Content-Disposition: inline
 In-Reply-To: <20220107160636.6555-1-ckeepax@opensource.cirrus.com>
-X-Cookie: teamwork, n.:
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- david.rhodes@cirrus.com, lgirdwood@gmail.com, tiwai@suse.com
+References: <20220107160636.6555-1-ckeepax@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com, tiwai@suse.com,
+ lgirdwood@gmail.com, david.rhodes@cirrus.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,34 +93,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---UGhceDVfkx2yM+yp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Fri, Jan 07, 2022 at 04:06:34PM +0000, Charles Keepax wrote:
-
+On Fri, 07 Jan 2022 17:06:34 +0100,
+Charles Keepax wrote:
+> 
+> This patch series adds support for the low power hibernation feature
+> on cs35l41. This allows the DSP memory to be retained whilst the
+> device enters a very low power state.
+> 
 > These patches will cause some very minor conflicts with Lucas's
 > currently outstanding work on the HDA version of cs35l41.  Whilst
 > things will still build (well now I fixed my silly mistake), this
 > patch adds a test key function his code will now have to call.
+> 
+> It looks like Lucas's patch might get a respin based on the comments
+> from Andy, in which case I guess we can pull the small change into the
+> next version of it. But either way these patches are not urgent so I
+> am happy if they sit around until Lucas's stuff is merged too.
 
-Which patches are these?  It looks like everything I was aware of is
-merged.
+Well, I've already merged HD-audio part, so any changes will be
+incremental over it.
 
---UGhceDVfkx2yM+yp
-Content-Type: application/pgp-signature; name="signature.asc"
+CS35L41 HD-audio stuff still won't work as of now with my tree alone
+because of the lack of the ACPI patch.  So it's fine to merge those
+changes to Mark's tree and break the stuff now, supposing it'll be
+synced again before 5.17-rc1 pull request.  After it's merged to my
+tree, you can submit the HD-audio fix, to be merged before rc1. 
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHYZgQACgkQJNaLcl1U
-h9DvZgf/ZF064tZhdCwMwWh+5obBJcQ6ubJssdqZWt5GZPmIyLVsL9sVsBLYbhZq
-WRLeKH6UO9r5i6+jAGChYq/Bcco1xfob2xFEqjyCHYn7EQcdK9PeCcfryzXzeJmI
-ix4Zsc/5ny+9yG1OHKn6oVSoyJ8qrCh9BZ2Swtjzn0pvvm1wajnwlNYlC56uTHRV
-yTHEWVmKwpGqaOfsPbQiMT+8L5WtRMl5N/HX2Zeh8igNXeb8YPjvY8gj/4H0Y4Ek
-Pi9wooOLbZk2NTcf8d3AiBbsOcNg6qZa2ky1cdZob9dzjP0vBLL+NSeRG0rgLZCC
-aTNAu33ocYep9pD9VjUBFVL2yuCOqQ==
-=nkoz
------END PGP SIGNATURE-----
+thanks,
 
---UGhceDVfkx2yM+yp--
+Takashi

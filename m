@@ -2,101 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 771C54883EB
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jan 2022 15:09:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4B4648884E
+	for <lists+alsa-devel@lfdr.de>; Sun,  9 Jan 2022 08:29:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1529D1778;
-	Sat,  8 Jan 2022 15:08:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1529D1778
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5836B1713;
+	Sun,  9 Jan 2022 08:28:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5836B1713
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641650960;
-	bh=faP/wcTOPX1IaUK22XBUsZxPPCA2W8kym4L+jJW9va8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XEVXbRrIvySVClRnR+TOZZbr8BceJnhpipHfsacE6z/cz2J0ODBGrLk0xGFkG4vz4
-	 HIFntOHMNloIJ1MbLP+5vJmO24PJ9WvT6fFb+RmHkoUwtEP3abwYEp54YjQm71jWRk
-	 UM2b9EvQru4Z3b5dN+P+F5jqpkX4vb7asSLLKxMo=
+	s=default; t=1641713372;
+	bh=eukhwxoiBazlaKwCWfIp/AHMdnz04fBbFJlPsB0l8e0=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=N23mzgcnAQZzs8qZCbo5/kht24rh6tNyYWdIHHrYfJDxm7+gyflvI/S1/fddwk719
+	 DW9nx5AGAmH+g7co9PNDdRWyMtWahww8lvnuvPWf5a0tzVAHdNZLanD1pKkc1QEsxB
+	 B0WOZH2nx2AARC8MXuQA+M6bTcIe5NRjZlKz4FSs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44B95F801F5;
-	Sat,  8 Jan 2022 15:08:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4D11F80245;
+	Sun,  9 Jan 2022 08:28:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB768F801EC; Sat,  8 Jan 2022 15:08:11 +0100 (CET)
+ id B5896F80212; Sun,  9 Jan 2022 08:28:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D71E4F80083
- for <alsa-devel@alsa-project.org>; Sat,  8 Jan 2022 15:08:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D71E4F80083
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="LNCA0KDb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1641650883;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=PocnGmnCbMvgl/mM4UqClsCjrZwW9G0adKzchgFrwe0=;
- b=LNCA0KDbpkdr03Wse0eE8VVY0zl/D8qtrXjQqV/vXlSGmDSxkS4vxjjMi0oouBOqIasBg1
- 0AjKke83OnvYiWIwtR2aDNGlRWA05vNohF4TtYSHCRhS7nlVHj+DscoI46+/PDlrZhYqES
- ttGOD8P42il65/NExG0ttdw603Aus2Y=
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
- [209.85.161.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-644-7dCwAlkrNbaJR9dZcSQy3Q-1; Sat, 08 Jan 2022 09:08:02 -0500
-X-MC-Unique: 7dCwAlkrNbaJR9dZcSQy3Q-1
-Received: by mail-oo1-f70.google.com with SMTP id
- b26-20020a4ac29a000000b002dac1c5b232so5958835ooq.2
- for <alsa-devel@alsa-project.org>; Sat, 08 Jan 2022 06:08:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PocnGmnCbMvgl/mM4UqClsCjrZwW9G0adKzchgFrwe0=;
- b=U4illvGvKGMCoi56BKmIIKWWn1vCamyp930V/X7v4Q6/VL375WrU8wjMDss1rdiJ5c
- 2g8kXztmHqKoDtpe8CuVBGMkTBO7JYB42J8uN7dgEQ0+ckkk3t3vfrPkZG9VFGdSM5n1
- iaxRc47ECPX6oRR9EIIvHoygwm/typNLpA6t4n0N1c8FpddjQS1oV/vwLPu/J2dBispw
- by/6DrmtOoUPMi23RsyVLZuW1kw12fEPLgwn2+ur/K/y8f2uZIZFnm9q5B4qu5EBft5E
- D6jPNZRUrq2WGH0SiFbMnvlUhb3jHQ4W7syVYXQQGjDkQFtoSGi+OFsc53WxIVmR6cqW
- KJJQ==
-X-Gm-Message-State: AOAM530roJSYOetuM6/oUKvx4yh4llqD5TyOiKWdzw0B10SgiEvE/4yE
- PdMtkCe9nEFf3R1BZbcEEQnaWx8agg/jJGb9zmmkSEaNBB+IqyVTiHm9zvtgrtlRJWA9DrEeTu7
- 45JMtxhcRDh/hWIrpHUfwSaA=
-X-Received: by 2002:a4a:da59:: with SMTP id f25mr43483459oou.46.1641650882095; 
- Sat, 08 Jan 2022 06:08:02 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxLFcO/UPfE7QdAafOO6wi0ODe4Q/vmKo+QUX+NZH/NVBUk5VTc2tOqw3QSi/spK+bC/u82nA==
-X-Received: by 2002:a4a:da59:: with SMTP id f25mr43483434oou.46.1641650881740; 
- Sat, 08 Jan 2022 06:08:01 -0800 (PST)
-Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
- [24.205.208.113])
- by smtp.gmail.com with ESMTPSA id i27sm348535ots.49.2022.01.08.06.08.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Jan 2022 06:08:01 -0800 (PST)
-From: trix@redhat.com
-To: james.schulman@cirrus.com, david.rhodes@cirrus.com,
- tanureal@opensource.cirrus.com, perex@perex.cz, tiwai@suse.com,
- nathan@kernel.org, ndesaulniers@google.com
-Subject: [PATCH] ALSA: hda: cs35l41: fix double free in cs35l41_hda_probe()
-Date: Sat,  8 Jan 2022 06:07:56 -0800
-Message-Id: <20220108140756.3985487-1-trix@redhat.com>
-X-Mailer: git-send-email 2.26.3
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 62580F80054
+ for <alsa-devel@alsa-project.org>; Sun,  9 Jan 2022 08:28:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62580F80054
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org, Tom Rix <trix@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1641713294752273083-webhooks-bot@alsa-project.org>
+References: <1641713294752273083-webhooks-bot@alsa-project.org>
+Subject: Errors when running alsamixer "cannot open mixer: No such file or
+ directory."
+Message-Id: <20220109072820.B5896F80212@alsa1.perex.cz>
+Date: Sun,  9 Jan 2022 08:28:20 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,57 +60,427 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Tom Rix <trix@redhat.com>
+alsa-project/alsa-utils issue #136 was opened from tavishm:
 
-Clang static analysis reports this problem
-cs35l41_hda.c:501:2: warning: Attempt to free released memory
-        kfree(acpi_hw_cfg);
-        ^~~~~~~~~~~~~~~~~~
+Running `alsamixer` gives me this - 
 
-This second free happens in the function's error handler which
-is normally ok but acpi_hw_cfg is freed in the non error case
-when it is still possible to have an error.
+    cannot open mixer: No such file or directory
 
-Consolidate the frees.
+`modinfo soundcore` - 
 
-Fixes: 7b2f3eb492da ("ALSA: hda: cs35l41: Add support for CS35L41 in HDA systems")
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- sound/pci/hda/cs35l41_hda.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+    filename:       /lib/modules/5.11.0-44-generic/kernel/sound/soundcore.ko
+    alias:          char-major-14-*
+    license:        GPL
+    author:         Alan Cox
+    description:    Core sound module
+    srcversion:     16262E0FC229CA1AC4DC130
+    depends:        
+    retpoline:      Y
+    intree:         Y
+    name:           soundcore
+    vermagic:       5.11.0-44-generic SMP mod_unload modversions 
+    sig_id:         PKCS#7
+    signer:         Build time autogenerated kernel key
+    sig_key:        74:80:66:6F:7E:BD:C1:AA:16:67:E3:1E:84:67:92:79:81:D6:56:9F
+    sig_hashalgo:   sha512
+    signature:      0B:74:68:86:67:66:FA:CB:75:1C:F4:B8:13:F8:3E:C5:17:77:2A:8A:
+    		C8:55:3D:4E:CB:A5:65:CC:65:3B:EC:8F:B0:22:B1:F2:76:C2:72:9C:
+    		DF:8F:FC:6B:02:37:78:B9:B3:68:82:AD:57:96:D2:63:3C:BC:FD:36:
+    		03:A3:35:A2:04:49:F8:C9:7B:5B:D2:FC:0B:94:23:2D:C8:67:AC:04:
+    		7C:02:7F:91:40:22:DD:79:29:BF:AB:9D:FF:2C:7B:3E:37:69:DB:1B:
+    		A7:CC:AB:FD:35:98:F9:23:29:84:C0:72:4D:C1:CE:B2:7F:EA:9F:57:
+    		27:75:D7:C8:D5:B2:0A:62:99:6F:F0:3B:BD:EE:4D:0B:AA:24:45:E9:
+    		9D:FF:84:34:E1:40:3A:E2:98:5E:EF:C2:4E:89:E4:35:99:AD:CF:A1:
+    		BD:E6:48:48:42:63:E3:97:EA:70:43:2F:DE:B1:47:E3:94:8E:68:9F:
+    		D0:41:51:4C:A2:33:FF:04:FF:30:32:8D:6B:48:B0:33:A8:68:3E:11:
+    		24:BC:03:E7:CB:88:77:7C:A9:61:2B:26:0A:6C:37:9C:4B:74:14:A6:
+    		1F:6A:A2:96:32:22:9A:A2:51:23:FF:8C:83:71:15:14:6F:6E:B8:C4:
+    		34:70:98:3B:54:E8:2A:3A:56:CF:27:1B:41:34:52:19:4D:27:E4:46:
+    		DF:86:A4:3B:B1:7B:E8:0E:9F:49:09:2D:48:48:FC:08:C0:C9:96:96:
+    		AC:04:65:CF:01:B7:C6:EA:23:96:73:10:77:AC:AB:DF:5C:2E:E1:5C:
+    		F8:B0:D6:56:2A:39:24:91:54:67:66:BE:A2:7D:11:F9:09:90:B4:5B:
+    		B4:94:1B:D3:F2:DE:81:B1:AA:45:0D:F1:FE:30:E2:3F:0F:B6:9C:97:
+    		03:12:9B:BB:BE:D9:89:2D:DE:28:0D:5E:18:52:70:23:0A:AC:BF:05:
+    		4A:FE:FD:D9:F3:42:F6:5C:26:CD:4A:3B:57:1C:1A:AF:0C:DA:6A:AB:
+    		6F:92:FC:92:F9:C5:48:19:53:CD:67:83:EF:98:DA:8B:E4:57:74:79:
+    		03:AF:15:CE:27:52:29:FE:6A:7B:21:BC:ED:2D:84:43:3E:22:01:A5:
+    		0C:D0:83:51:0F:B7:C0:6B:9F:A7:5A:73:46:26:21:B8:60:9F:13:86:
+    		38:B7:05:BF:F9:E9:93:5E:11:43:CF:1E:95:28:AB:89:52:76:2B:BB:
+    		48:7D:88:23:00:C7:E0:3B:BB:BC:CD:E3:B1:83:3C:25:CA:82:50:69:
+    		10:B6:29:16:C0:4A:45:E0:3F:23:82:F3:01:12:6F:1C:56:A0:9B:38:
+    		2E:FE:A9:8B:26:F2:D7:6F:16:63:05:A8
+    parm:           preclaim_oss:int
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index aa5bb6977792c..265ace98965f5 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -476,7 +476,6 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- 	ret = cs35l41_hda_apply_properties(cs35l41, acpi_hw_cfg);
- 	if (ret)
- 		goto err;
--	kfree(acpi_hw_cfg);
- 
- 	if (cs35l41->reg_seq->probe) {
- 		ret = regmap_register_patch(cs35l41->regmap, cs35l41->reg_seq->probe,
-@@ -495,13 +494,14 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- 
- 	dev_info(cs35l41->dev, "Cirrus Logic CS35L41 (%x), Revision: %02X\n", regid, reg_revid);
- 
--	return 0;
--
- err:
- 	kfree(acpi_hw_cfg);
--	if (!cs35l41->vspk_always_on)
--		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
--	gpiod_put(cs35l41->reset_gpio);
-+
-+	if (unlikely(ret)) {
-+		if (!cs35l41->vspk_always_on)
-+			gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
-+		gpiod_put(cs35l41->reset_gpio);
-+	}
- 
- 	return ret;
- }
--- 
-2.26.3
+`lspci -v` : 
 
+    00:00.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Root Complex
+    	Subsystem: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Root Complex
+    	Flags: fast devsel, NUMA node 0
+    
+    00:01.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 0
+    
+    00:01.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) PCIe GPP Bridge (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 28, NUMA node 0
+    	Bus: primary=00, secondary=01, subordinate=09, sec-latency=0
+    	I/O behind bridge: 00007000-00007fff [size=4K]
+    	Memory behind bridge: ef500000-ef7fffff [size=3M]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    00:02.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	DeviceName:  Onboard IGD
+    	Flags: fast devsel, NUMA node 0
+    
+    00:03.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 0
+    
+    00:03.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) PCIe GPP Bridge (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 29, NUMA node 0
+    	Bus: primary=00, secondary=0a, subordinate=0a, sec-latency=0
+    	I/O behind bridge: 00006000-00006fff [size=4K]
+    	Memory behind bridge: ee000000-ef0fffff [size=17M]
+    	Prefetchable memory behind bridge: 00000000d0000000-00000000e1ffffff [size=288M]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    00:04.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 0
+    
+    00:07.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 0
+    
+    00:07.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Internal PCIe GPP Bridge 0 to Bus B (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 30, NUMA node 0
+    	Bus: primary=00, secondary=0b, subordinate=0b, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: ef200000-ef4fffff [size=3M]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    00:08.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 0
+    
+    00:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Internal PCIe GPP Bridge 0 to Bus B (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 32, NUMA node 0
+    	Bus: primary=00, secondary=0c, subordinate=0c, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: ef800000-ef8fffff [size=1M]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    00:14.0 SMBus: Advanced Micro Devices, Inc. [AMD] FCH SMBus Controller (rev 59)
+    	Subsystem: Micro-Star International Co., Ltd. [MSI] FCH SMBus Controller
+    	Flags: 66MHz, medium devsel, NUMA node 0
+    	Kernel driver in use: piix4_smbus
+    	Kernel modules: i2c_piix4, sp5100_tco
+    
+    00:14.3 ISA bridge: Advanced Micro Devices, Inc. [AMD] FCH LPC Bridge (rev 51)
+    	Subsystem: Micro-Star International Co., Ltd. [MSI] FCH LPC Bridge
+    	Flags: bus master, 66MHz, medium devsel, latency 0, NUMA node 0
+    
+    00:18.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 0
+    	Flags: fast devsel, NUMA node 0
+    
+    00:18.1 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 1
+    	Flags: fast devsel, NUMA node 0
+    
+    00:18.2 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 2
+    	Flags: fast devsel, NUMA node 0
+    
+    00:18.3 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 3
+    	Flags: fast devsel, NUMA node 0
+    	Kernel driver in use: k10temp
+    	Kernel modules: k10temp
+    
+    00:18.4 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 4
+    	Flags: fast devsel, NUMA node 0
+    
+    00:18.5 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 5
+    	Flags: fast devsel, NUMA node 0
+    
+    00:18.6 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 6
+    	Flags: fast devsel, NUMA node 0
+    
+    00:18.7 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 7
+    	Flags: fast devsel, NUMA node 0
+    
+    00:19.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 0
+    	DeviceName:  Onboard LAN
+    	Flags: fast devsel, NUMA node 0
+    
+    00:19.1 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 1
+    	Flags: fast devsel, NUMA node 0
+    
+    00:19.2 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 2
+    	Flags: fast devsel, NUMA node 0
+    
+    00:19.3 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 3
+    	Flags: fast devsel, NUMA node 0
+    	Kernel driver in use: k10temp
+    	Kernel modules: k10temp
+    
+    00:19.4 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 4
+    	Flags: fast devsel, NUMA node 0
+    
+    00:19.5 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 5
+    	Flags: fast devsel, NUMA node 0
+    
+    00:19.6 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 6
+    	Flags: fast devsel, NUMA node 0
+    
+    00:19.7 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Data Fabric: Device 18h; Function 7
+    	Flags: fast devsel, NUMA node 0
+    
+    01:00.0 USB controller: Advanced Micro Devices, Inc. [AMD] X399 Series Chipset USB 3.1 xHCI Controller (rev 02) (prog-if 30 [XHCI])
+    	Subsystem: ASMedia Technology Inc. X399 Series Chipset USB 3.1 xHCI Controller
+    	Flags: bus master, fast devsel, latency 0, IRQ 46, NUMA node 0
+    	Memory at ef7a0000 (64-bit, non-prefetchable) [size=32K]
+    	Capabilities: <access denied>
+    	Kernel driver in use: xhci_hcd
+    	Kernel modules: xhci_pci
+    
+    01:00.1 SATA controller: Advanced Micro Devices, Inc. [AMD] X399 Series Chipset SATA Controller (rev 02) (prog-if 01 [AHCI 1.0])
+    	Subsystem: ASMedia Technology Inc. X399 Series Chipset SATA Controller
+    	Flags: bus master, fast devsel, latency 0, IRQ 47, NUMA node 0
+    	Memory at ef780000 (32-bit, non-prefetchable) [size=128K]
+    	Expansion ROM at ef700000 [disabled] [size=512K]
+    	Capabilities: <access denied>
+    	Kernel driver in use: ahci
+    	Kernel modules: ahci
+    
+    01:00.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] X399 Series Chipset PCIe Bridge (rev 02) (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 33, NUMA node 0
+    	Bus: primary=01, secondary=02, subordinate=09, sec-latency=0
+    	I/O behind bridge: 00007000-00007fff [size=4K]
+    	Memory behind bridge: ef500000-ef6fffff [size=2M]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    02:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] 300 Series Chipset PCIe Port (rev 02) (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 34, NUMA node 0
+    	Bus: primary=02, secondary=03, subordinate=03, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: ef600000-ef6fffff [size=1M]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    02:02.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] 300 Series Chipset PCIe Port (rev 02) (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 35, NUMA node 0
+    	Bus: primary=02, secondary=04, subordinate=04, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: [disabled]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    02:03.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] 300 Series Chipset PCIe Port (rev 02) (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 37, NUMA node 0
+    	Bus: primary=02, secondary=05, subordinate=05, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: [disabled]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    02:04.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] 300 Series Chipset PCIe Port (rev 02) (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 38, NUMA node 0
+    	Bus: primary=02, secondary=06, subordinate=06, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: [disabled]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    02:05.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] 300 Series Chipset PCIe Port (rev 02) (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 40, NUMA node 0
+    	Bus: primary=02, secondary=07, subordinate=07, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: [disabled]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    02:06.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] 300 Series Chipset PCIe Port (rev 02) (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 41, NUMA node 0
+    	Bus: primary=02, secondary=08, subordinate=08, sec-latency=0
+    	I/O behind bridge: 00007000-00007fff [size=4K]
+    	Memory behind bridge: ef500000-ef5fffff [size=1M]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    02:07.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] 300 Series Chipset PCIe Port (rev 02) (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 42, NUMA node 0
+    	Bus: primary=02, secondary=09, subordinate=09, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: [disabled]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    03:00.0 USB controller: ASMedia Technology Inc. ASM2142 USB 3.1 Host Controller (prog-if 30 [XHCI])
+    	Subsystem: Micro-Star International Co., Ltd. [MSI] ASM2142 USB 3.1 Host Controller
+    	Flags: bus master, fast devsel, latency 0, IRQ 25, NUMA node 0
+    	Memory at ef600000 (64-bit, non-prefetchable) [size=32K]
+    	Capabilities: <access denied>
+    	Kernel driver in use: xhci_hcd
+    	Kernel modules: xhci_pci
+    
+    08:00.0 Ethernet controller: Intel Corporation I211 Gigabit Network Connection (rev 03)
+    	Subsystem: Micro-Star International Co., Ltd. [MSI] I211 Gigabit Network Connection
+    	Flags: bus master, fast devsel, latency 0, IRQ 24, NUMA node 0
+    	Memory at ef500000 (32-bit, non-prefetchable) [size=128K]
+    	I/O ports at 7000 [size=32]
+    	Memory at ef520000 (32-bit, non-prefetchable) [size=16K]
+    	Capabilities: <access denied>
+    	Kernel driver in use: igb
+    	Kernel modules: igb
+    
+    0a:00.0 VGA compatible controller: NVIDIA Corporation GP102 [GeForce GTX 1080 Ti] (rev a1) (prog-if 00 [VGA controller])
+    	Subsystem: NVIDIA Corporation GP102 [GeForce GTX 1080 Ti]
+    	Flags: bus master, fast devsel, latency 0, IRQ 76, NUMA node 0
+    	Memory at ee000000 (32-bit, non-prefetchable) [size=16M]
+    	Memory at d0000000 (64-bit, prefetchable) [size=256M]
+    	Memory at e0000000 (64-bit, prefetchable) [size=32M]
+    	I/O ports at 6000 [size=128]
+    	Expansion ROM at 000c0000 [virtual] [disabled] [size=128K]
+    	Capabilities: <access denied>
+    	Kernel driver in use: nvidia
+    	Kernel modules: nvidiafb, nouveau, nvidia_drm, nvidia
+    
+    0a:00.1 Audio device: NVIDIA Corporation GP102 HDMI Audio Controller (rev a1)
+    	Subsystem: NVIDIA Corporation GP102 HDMI Audio Controller
+    	Flags: bus master, fast devsel, latency 0, IRQ 10, NUMA node 0
+    	Memory at ef080000 (32-bit, non-prefetchable) [size=16K]
+    	Capabilities: <access denied>
+    	Kernel modules: snd_hda_intel
+    
+    0b:00.0 Non-Essential Instrumentation [1300]: Advanced Micro Devices, Inc. [AMD] Zeppelin/Raven/Raven2 PCIe Dummy Function
+    	Subsystem: Advanced Micro Devices, Inc. [AMD] Zeppelin/Raven/Raven2 PCIe Dummy Function
+    	Flags: bus master, fast devsel, latency 0, NUMA node 0
+    	Capabilities: <access denied>
+    
+    0b:00.2 Encryption controller: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Platform Security Processor
+    	Subsystem: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Platform Security Processor
+    	Flags: bus master, fast devsel, latency 0, IRQ 69, NUMA node 0
+    	Memory at ef300000 (32-bit, non-prefetchable) [size=1M]
+    	Memory at ef400000 (32-bit, non-prefetchable) [size=8K]
+    	Capabilities: <access denied>
+    	Kernel driver in use: ccp
+    	Kernel modules: ccp
+    
+    0b:00.3 USB controller: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) USB 3.0 Host Controller (prog-if 30 [XHCI])
+    	Subsystem: Micro-Star International Co., Ltd. [MSI] Family 17h (Models 00h-0fh) USB 3.0 Host Controller
+    	Flags: bus master, fast devsel, latency 0, IRQ 66, NUMA node 0
+    	Memory at ef200000 (64-bit, non-prefetchable) [size=1M]
+    	Capabilities: <access denied>
+    	Kernel driver in use: xhci_hcd
+    	Kernel modules: xhci_pci
+    
+    0c:00.0 Non-Essential Instrumentation [1300]: Advanced Micro Devices, Inc. [AMD] Zeppelin/Renoir PCIe Dummy Function
+    	Subsystem: Advanced Micro Devices, Inc. [AMD] Zeppelin/Renoir PCIe Dummy Function
+    	Flags: bus master, fast devsel, latency 0, NUMA node 0
+    	Capabilities: <access denied>
+    
+    0c:00.2 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Controller [AHCI mode] (rev 51) (prog-if 01 [AHCI 1.0])
+    	Subsystem: Micro-Star International Co., Ltd. [MSI] FCH SATA Controller [AHCI mode]
+    	Flags: bus master, fast devsel, latency 0, IRQ 54, NUMA node 0
+    	Memory at ef808000 (32-bit, non-prefetchable) [size=4K]
+    	Capabilities: <access denied>
+    	Kernel driver in use: ahci
+    	Kernel modules: ahci
+    
+    0c:00.3 Audio device: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) HD Audio Controller
+    	Subsystem: Micro-Star International Co., Ltd. [MSI] Family 17h (Models 00h-0fh) HD Audio Controller
+    	Flags: bus master, fast devsel, latency 0, IRQ 10, NUMA node 0
+    	Memory at ef800000 (32-bit, non-prefetchable) [size=32K]
+    	Capabilities: <access denied>
+    	Kernel modules: snd_hda_intel
+    
+    40:00.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Root Complex
+    	Subsystem: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Root Complex
+    	Flags: fast devsel, NUMA node 1
+    
+    40:01.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 1
+    
+    40:02.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 1
+    
+    40:03.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 1
+    
+    40:04.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 1
+    
+    40:07.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 1
+    
+    40:07.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Internal PCIe GPP Bridge 0 to Bus B (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 43, NUMA node 1
+    	Bus: primary=40, secondary=41, subordinate=41, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: cdc00000-cdefffff [size=3M]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    40:08.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
+    	Flags: fast devsel, NUMA node 1
+    
+    40:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Internal PCIe GPP Bridge 0 to Bus B (prog-if 00 [Normal decode])
+    	Flags: bus master, fast devsel, latency 0, IRQ 45, NUMA node 1
+    	Bus: primary=40, secondary=42, subordinate=42, sec-latency=0
+    	I/O behind bridge: [disabled]
+    	Memory behind bridge: cdf00000-cdffffff [size=1M]
+    	Prefetchable memory behind bridge: [disabled]
+    	Capabilities: <access denied>
+    	Kernel driver in use: pcieport
+    
+    41:00.0 Non-Essential Instrumentation [1300]: Advanced Micro Devices, Inc. [AMD] Zeppelin/Raven/Raven2 PCIe Dummy Function
+    	Subsystem: Advanced Micro Devices, Inc. [AMD] Zeppelin/Raven/Raven2 PCIe Dummy Function
+    	Flags: bus master, fast devsel, latency 0, NUMA node 1
+    	Capabilities: <access denied>
+    
+    41:00.2 Encryption controller: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Platform Security Processor
+    	Subsystem: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Platform Security Processor
+    	Flags: bus master, fast devsel, latency 0, IRQ 72, NUMA node 1
+    	Memory at cdd00000 (32-bit, non-prefetchable) [size=1M]
+    	Memory at cde00000 (32-bit, non-prefetchable) [size=8K]
+    	Capabilities: <access denied>
+    	Kernel driver in use: ccp
+    	Kernel modules: ccp
+    
+    41:00.3 USB controller: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) USB 3.0 Host Controller (prog-if 30 [XHCI])
+    	Subsystem: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) USB 3.0 Host Controller
+    	Flags: bus master, fast devsel, latency 0, IRQ 68, NUMA node 1
+    	Memory at cdc00000 (64-bit, non-prefetchable) [size=1M]
+    	Capabilities: <access denied>
+    	Kernel driver in use: xhci_hcd
+    	Kernel modules: xhci_pci
+    
+    42:00.0 Non-Essential Instrumentation [1300]: Advanced Micro Devices, Inc. [AMD] Zeppelin/Renoir PCIe Dummy Function
+    	Subsystem: Advanced Micro Devices, Inc. [AMD] Zeppelin/Renoir PCIe Dummy Function
+    	Flags: bus master, fast devsel, latency 0, NUMA node 1
+    	Capabilities: <access denied>
+    
+    42:00.2 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Controller [AHCI mode] (rev 51) (prog-if 01 [AHCI 1.0])
+    	Subsystem: Micro-Star International Co., Ltd. [MSI] FCH SATA Controller [AHCI mode]
+    	Flags: bus master, fast devsel, latency 0, IRQ 56, NUMA node 1
+    	Memory at cdf00000 (32-bit, non-prefetchable) [size=4K]
+    	Capabilities: <access denied>
+    	Kernel driver in use: ahci
+    	Kernel modules: ahci
+
+`aplay -l` : 
+
+    aplay: device_list:276: no soundcards found...
+
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/136
+Repository URL: https://github.com/alsa-project/alsa-utils

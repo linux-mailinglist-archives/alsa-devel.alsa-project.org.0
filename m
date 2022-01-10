@@ -2,93 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D273748963D
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 11:22:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6511C489647
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 11:24:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6359617E9;
-	Mon, 10 Jan 2022 11:21:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6359617E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0618F180D;
+	Mon, 10 Jan 2022 11:23:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0618F180D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641810129;
-	bh=YQJB+bZxhpYiDrZXnTI25eWDaDTeiiwg/nMC5NTc4mg=;
+	s=default; t=1641810257;
+	bh=bBmul8kGqlETn2EomdH9OXK3+/Ll5s9Tm50vV3Ybeco=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Hn/DF7cJ3vySBYYx8kVmaVLqpb7K94QQAMZoD9jZu8zXQZMnKHi6s2XcSB7MlNfoz
-	 6HAhPKRyEYni4PpkUn/RB1/mmRHlE5HqIx9x/wmqP4uoRaQfpW/6pttNKCDTTwrjHs
-	 hV3Ho0jLeHRtlr4VMmNOd/WwfgFE11VW2yOkqKYE=
+	b=lKbhfFusNnuufSNsD2L8rnTBERuUm5rPXf8DmlxSulBQbz77KYEcGwzg07u+UCpcQ
+	 vaY66BlHtlcdoTg0o87XMHh1Eky5iIdWwHX4wH7NGWfRSEB9JZOfcAPflGIwMFJJJy
+	 WVQNeGq+SbYUbS7J4733tC8tVbcqyxptrm8ajw7c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C280FF80134;
-	Mon, 10 Jan 2022 11:21:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84934F80134;
+	Mon, 10 Jan 2022 11:23:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95DDBF80054; Mon, 10 Jan 2022 11:21:00 +0100 (CET)
+ id C1CC8F8012E; Mon, 10 Jan 2022 11:23:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60FB7F80054
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 11:20:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60FB7F80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64BE4F80054
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 11:23:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64BE4F80054
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AlJDVh3r"
-Received: by mail-ed1-x535.google.com with SMTP id w16so51459432edc.11
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 02:20:53 -0800 (PST)
+ header.b="bZfdedTa"
+Received: by mail-ed1-x531.google.com with SMTP id u25so51591474edf.1
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 02:23:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QE3wNAAZmZZrbNYMJoq5mRFlN/FY5fD4pZCH2TCcc+Q=;
- b=AlJDVh3rEhWs3MImnFar1WdLoQBtqStDT+d46rXoEt94irR+YM+BNbQwcvtjMFZ0Ws
- 5/nPkyqCqRzvlAKY0B5S+gAiHEb42309No35dAP202+DNSgWzhJN+063meBXghBBKHvI
- n0heOXsw1+v7GtUjBqgH8FvpNTDbg60V/P920q7gxHvAqbEDRDQH97SyRrcxFwDIO0KN
- 6aq5Z2JCfT+gwV/cDMPpkLbh2RlHrz2UCv7hkWhOtjLlSunDLeZ/2osuRT9qOGKElCFs
- LxSzLLKrtecBdtdSi77tEuGKQweKuUAq86PKR6LteZ962GwRhdtzN+OgMVMppc0PM+iY
- y/Eg==
+ :cc; bh=M0nrXkjvT8Y2JTsBxE15ySAcNK2QPiRrQi7yxt+5z/k=;
+ b=bZfdedTaBlISxsnA+HjOnZ2STTnliWILpWqzvyQ6qQWMHBDbqJEEzOrRd7Z209N+wV
+ Pt7u7gf1aCvV8qAsRsq66SlB7ZDSM81mOI0eXQscqDfQv76/Retg+8ieV2cdXTVCUNjb
+ g4vH1O+eIUoj+skY/jI67sxujc+a9xhj6NpSqTtbfLNAVq+qdFEeEDKW3F6/f4alCMU8
+ 8L29OhGE3C74CBXs0JFnCg3y8HxUbE/DzEziHguagP7ZjFEC8l2IaEP/MmuLunKjutas
+ 4ep7CN06F9nNM9u7F+wgRgi2rt+tZT+31rYGvYIdT1lKg5Mp1aohyE5cQW58dtnP3Qos
+ qAUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=QE3wNAAZmZZrbNYMJoq5mRFlN/FY5fD4pZCH2TCcc+Q=;
- b=4tZ83d58M60G0l4lDelY1LSfgERkzF3JCZqszBRq9UgL/1z/zIBRxfSkVsZF3L7FDa
- fuVOBiWoMBSbvOc90eb4O27xe3mI+syl9CMR4zZOm7WkIv9r5Q61GSgeumsn5grsGnwj
- zSyITyOXGVEpsepI0z1EfSaHBvZqT/Y6Z0YCanutxAxL0skJKgrYJJe0eTd19Qe0/K4S
- qiH0xuz5M94QssWs1SGyhi7AA9bmG2wVCH6L4LVAU4aWa+a2PcR7mIce9X5F1v1H9prI
- nzmExY9tdHlC6zV4dBScJ3RJ/GyetJjgIabSijUCv/dx+gkRR7AEiABD0RL2hco3mvzQ
- +TWg==
-X-Gm-Message-State: AOAM5329o+91HO+3Ew4Gxe7C4njo9vvi5ONtMPnFriy64MPbZ7CsUTtR
- yw+++iwX2ZDwUvl/K4tzQibZ08I0bybaHnql2ms=
-X-Google-Smtp-Source: ABdhPJz+H3no7fH6Irb6vX6PzH9Eq2q8FITpfqasfag826DGHPuNjP+K+4GFjGXItnIutvGZ815lu6tVQabYvHK1SWA=
-X-Received: by 2002:aa7:d9c9:: with SMTP id v9mr16103831eds.270.1641810052985; 
- Mon, 10 Jan 2022 02:20:52 -0800 (PST)
+ bh=M0nrXkjvT8Y2JTsBxE15ySAcNK2QPiRrQi7yxt+5z/k=;
+ b=fjgU/wwboEUOILFFPRshNQdEs6pwZ2cCCuOl03tr+iUpbCZZtj0hcY7uTgyp3grKCo
+ Ucmp4JbOmW7oD6rXUOTeITNF1YVclwl97oizvNOu6hXm4iuaDxz3tSEGvMOlaX0ZgO9r
+ 2qUPyQPTjDcngK4MmOrg3gnWnXBWhksdsA/r+vw3qVgwbaNUYZ1S9VTVb4gwQRCx2caT
+ ecxkd9zmxAeNwKRWym8q9vIx8y1YRJHAfo/BbX2tmvy+JGaWmnRCi5bharkwA+s7hkyH
+ 8V8ozWAc3w/dRTRpFo14fVum0JXj9P3P+0JkzsM8CAso2g63CiBN0FGtAuReKDRBTt8M
+ IVjQ==
+X-Gm-Message-State: AOAM531V+JHMeFNBqeZR193JmlPZDXXDbYsmUjxaVhrozIHWsbDy6E2F
+ 2yoRn6+X6SUePTO4QNNstlhhtCfYzf2aHWqHsVk=
+X-Google-Smtp-Source: ABdhPJwECqRHbXYE3+1gJLeWik7SnLbktBiu0AZzxvMVObvaegtHQCjFwf0DmV1UNgLl9J6yU9U5sFqr0U6pNjyMLGM=
+X-Received: by 2002:a17:907:97cd:: with SMTP id
+ js13mr57649438ejc.497.1641810179272; 
+ Mon, 10 Jan 2022 02:22:59 -0800 (PST)
 MIME-Version: 1.0
-References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
- <20211217115708.882525-8-tanureal@opensource.cirrus.com>
- <CAHp75VdQGBixkUStPiq3VuoL+9TJo946ObfRA-L-D72DaFHnrw@mail.gmail.com>
-In-Reply-To: <CAHp75VdQGBixkUStPiq3VuoL+9TJo946ObfRA-L-D72DaFHnrw@mail.gmail.com>
+References: <20220108140756.3985487-1-trix@redhat.com>
+ <CAHp75VfbSmgeyi=8q1_he7mpGrNxYAOewKYWD=h8BSuxz2XWOw@mail.gmail.com>
+ <0c0926d9-9b72-1519-7e22-e90ffc229940@redhat.com>
+In-Reply-To: <0c0926d9-9b72-1519-7e22-e90ffc229940@redhat.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 10 Jan 2022 12:19:05 +0200
-Message-ID: <CAHp75VdDC-7CzrA8Eb6EfmC49=Hj=ND33gLv6thtcstCAxhq7Q@mail.gmail.com>
-Subject: Re: [PATCH v6 07/10] hda: cs35l41: Add support for CS35L41 in HDA
- systems
-To: Lucas Tanure <tanureal@opensource.cirrus.com>, Tom Rix <trix@redhat.com>
+Date: Mon, 10 Jan 2022 12:21:11 +0200
+Message-ID: <CAHp75VdJOzYR0HsZ2LWn-iAMwcM3s0NNDKQdXZZudcEB9RwE9A@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: hda: cs35l41: fix double free in cs35l41_hda_probe()
+To: Tom Rix <trix@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Mark Brown <broonie@kernel.org>,
- Platform Driver <platform-driver-x86@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Len Brown <lenb@kernel.org>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tanureal@opensource.cirrus.com" <tanureal@opensource.cirrus.com>,
+ "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
+ "llvm@lists.linux.dev" <llvm@lists.linux.dev>,
+ "ndesaulniers@google.com" <ndesaulniers@google.com>,
+ "tiwai@suse.com" <tiwai@suse.com>, "nathan@kernel.org" <nathan@kernel.org>,
+ "james.schulman@cirrus.com" <james.schulman@cirrus.com>,
+ "david.rhodes@cirrus.com" <david.rhodes@cirrus.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,370 +104,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Tom,below my review where you may find a lot to be improved in the
-code, including the place where you should fix it instead of your
-approach.
+On Mon, Jan 10, 2022 at 2:37 AM Tom Rix <trix@redhat.com> wrote:
+> On 1/9/22 2:33 PM, Andy Shevchenko wrote:
+> On Saturday, January 8, 2022, <trix@redhat.com> wrote:
 
-On Thu, Jan 6, 2022 at 2:29 PM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
->
-> On Fri, Dec 17, 2021 at 5:45 PM Lucas Tanure
-> <tanureal@opensource.cirrus.com> wrote:
-> >
-> > Add support for CS35L41 using a new separated driver
-> > that can be used in all upcoming designs
->
->
->
-> > +config SND_HDA_SCODEC_CS35L41_I2C
-> > +       tristate "Build CS35L41 HD-audio side codec support for I2C Bus"
-> > +       depends on ACPI
-> > +       select SND_HDA_GENERIC
-> > +       select SND_SOC_CS35L41_LIB
-> > +       select SND_HDA_SCODEC_CS35L41
-> > +       help
-> > +         Say Y or M here to include CS35L41 I2C HD-audio side codec support
-> > +         in snd-hda-intel driver, such as ALC287.
-> > +
-> > +comment "Set to Y if you want auto-loading the side codec driver"
-> > +       depends on SND_HDA=y && SND_HDA_SCODEC_CS35L41_I2C=m
-> > +
-> > +config SND_HDA_SCODEC_CS35L41_SPI
-> > +       tristate "Build CS35L41 HD-audio codec support for SPI Bus"
-> > +       depends on ACPI
-> > +       select SND_HDA_GENERIC
-> > +       select SND_SOC_CS35L41_LIB
-> > +       select SND_HDA_SCODEC_CS35L41
-> > +       help
-> > +         Say Y or M here to include CS35L41 SPI HD-audio side codec support
-> > +         in snd-hda-intel driver, such as ALC287.
->
-> ...
->
-> > +// cs35l41.c -- CS35l41 ALSA HDA audio driver
->
-> It's an additional burden in case the file will be renamed. i..o.w.
-> drop the names of the files from the files.
->
->
-> > +#include <linux/acpi.h>
-> > +#include <linux/module.h>
-> > +#include <sound/hda_codec.h>
-> > +#include "hda_local.h"
-> > +#include "hda_auto_parser.h"
-> > +#include "hda_jack.h"
-> > +#include "hda_generic.h"
-> > +#include "hda_component.h"
-> > +#include "cs35l41_hda.h"
->
-> ...
->
-> > +       { CS35L41_PWR_CTRL1,            0x00000001, 2000 }, //GLOBAL_EN = 1
->
-> Here and everywhere else, missed space after //
->
-> ...
->
-> > +static void cs35l41_hda_playback_hook(struct device *dev, int action)
-> > +{
-> > +       struct cs35l41_hda *cs35l41 = dev_get_drvdata(dev);
-> > +       const struct cs35l41_hda_reg_sequence *reg_seq = cs35l41->reg_seq;
-> > +       struct regmap *reg = cs35l41->regmap;
-> > +       int ret = 0;
-> > +
-> > +       switch (action) {
-> > +       case HDA_GEN_PCM_ACT_OPEN:
-> > +               if (reg_seq->open)
-> > +                       ret = regmap_multi_reg_write(reg, reg_seq->open, reg_seq->num_open);
-> > +               break;
-> > +       case HDA_GEN_PCM_ACT_PREPARE:
-> > +               if (reg_seq->prepare)
-> > +                       ret = regmap_multi_reg_write(reg, reg_seq->prepare, reg_seq->num_prepare);
-> > +               break;
-> > +       case HDA_GEN_PCM_ACT_CLEANUP:
-> > +               if (reg_seq->cleanup)
-> > +                       ret = regmap_multi_reg_write(reg, reg_seq->cleanup, reg_seq->num_cleanup);
-> > +               break;
-> > +       case HDA_GEN_PCM_ACT_CLOSE:
-> > +               if (reg_seq->close)
-> > +                       ret = regmap_multi_reg_write(reg, reg_seq->close, reg_seq->num_close);
-> > +               break;
->
-> default case?
->
-> > +       }
-> > +
-> > +       if (ret)
-> > +               dev_warn(cs35l41->dev, "Failed to apply multi reg write: %d\n", ret);
->
-> > +
->
-> Redundant blank line.
->
-> > +}
->
->
-> ...
->
-> > +       if (comps && cs35l41->index >= 0 && cs35l41->index < HDA_MAX_COMPONENTS)
-> > +               comps = &comps[cs35l41->index];
-> > +       else
-> > +               return -EINVAL;
->
-> Can you check first? In such a case you won't need the 'else' branch at all.
->
-> ...
->
-> > +       if (!comps->dev) {
->
-> Why not a positive check and standard pattern as per above?
->
->
-> > +               comps->dev = dev;
-> > +               strscpy(comps->name, dev_name(dev), sizeof(comps->name));
-> > +               comps->playback_hook = cs35l41_hda_playback_hook;
-> > +               comps->set_channel_map = cs35l41_hda_channel_map;
-> > +               return 0;
-> > +       }
-> > +
-> > +       return -EBUSY;
-> > +}
->
-> ...
->
-> > +       switch (hw_cfg->gpio1_func) {
-> > +       case CS35l41_VSPK_SWITCH:
-> > +               regmap_update_bits(cs35l41->regmap, CS35L41_GPIO_PAD_CONTROL,
-> > +                                  CS35L41_GPIO1_CTRL_MASK, 1 << CS35L41_GPIO1_CTRL_SHIFT);
-> > +               break;
-> > +       case CS35l41_SYNC:
-> > +               regmap_update_bits(cs35l41->regmap, CS35L41_GPIO_PAD_CONTROL,
-> > +                                  CS35L41_GPIO1_CTRL_MASK, 2 << CS35L41_GPIO1_CTRL_SHIFT);
-> > +               break;
->
-> default case?
->
-> Same for all switch-cases in your code.
->
-> > +       }
->
-> ...
->
-> > +       ret = cs35l41_hda_channel_map(cs35l41->dev, 0, NULL, 1, (unsigned int *)&hw_cfg->spk_pos);
-> > +       if (ret)
-> > +               return ret;
-> > +
-> > +       return 0;
->
-> return cs35l41_hda_...(...);
->
-> ...
->
-> > +       property = "cirrus,dev-index";
-> > +       ret = device_property_count_u32(acpi_dev, property);
->
-> Please, name adev the pointer to ACPI device. Ah, what a mess, you
-> have named acpi_dev the pointer to the struct device. Please, find a
-> better name, like dev, or physdev or so.
->
-> > +       if (ret <= 0)
->
-> Shouldn't you override the error code for the 0 case?
->
-> > +               goto no_acpi_dsd;
->
-> ...
->
-> > +       if (ret > ARRAY_SIZE(values)) {
-> > +               ret = -EINVAL;
-> > +               goto err;
-> > +       }
->
-> Is it really the issue? I would expect the issue when you have less
-> than expected, and not otherwise.
->
-> ...
->
-> > +       /* No devm_ version as CLSA0100, in no_acpi_dsd case, can't use devm version */
->
-> Can you elaborate why devm can't be used?
->
-> > +       cs35l41->reset_gpio = fwnode_gpiod_get_index(&adev->fwnode, "reset", cs35l41->index,
->
-> Please, do not dereference fwnode pointers.
-> Also, why can't you use the device instead of fwnode?
->
-> > +                                                    GPIOD_OUT_LOW, "cs35l41-reset");
->
-> ...
->
-> > +       hw_cfg = kzalloc(sizeof(*hw_cfg), GFP_KERNEL);
->
-> Why not devm?
->
-> > +       if (!hw_cfg) {
-> > +               ret = -ENOMEM;
-> > +               goto err;
-> > +       }
->
-> ...
->
-> > +       property = "cirrus,speaker-position";
-> > +       ret = device_property_read_u32_array(acpi_dev, property, values, nval);
-> > +       if (ret)
-> > +               goto err_free;
-> > +       hw_cfg->spk_pos = values[cs35l41->index];
->
-> This and further is weird. Why do you need to retrieve all values for
-> just one? Use indexed APIs for that. If there are none, create them.
->
-> ...
->
-> > +no_acpi_dsd:
-> > +       /*
-> > +        * Device CLSA0100 doesn't have _DSD so a gpiod_get by the label reset won't work.
->
-> So, you need to add mapping tables and switch to regular APIs, tell
-> me, why it won't work.
->
-> > +        * And devices created by i2c-multi-instantiate don't have their device struct pointing to
-> > +        * the correct fwnode, so acpi_dev must be used here
-> > +        * And devm functions expect that the device requesting the resource has the correct
-> > +        * fwnode
->
-> You missed grammar periods and what else? Please, update your comments
-> to use proper English grammar.
->
-> > +        */
-> > +       if (strncmp(hid, "CLSA0100", 8) != 0)
-> > +               return ERR_PTR(-EINVAL);
-> > +
-> > +       /* check I2C address to assign the index */
-> > +       cs35l41->index = id == 0x40 ? 0 : 1;
-> > +       cs35l41->reset_gpio = gpiod_get_index(acpi_dev, NULL, 0, GPIOD_OUT_HIGH);
-> > +       cs35l41->vspk_always_on = true;
-> > +       put_device(acpi_dev);
-> > +
-> > +       return NULL;
-> > +}
->
-> ...
->
-> > +int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int irq,
-> > +                     struct regmap *regmap)
->
-> > +       if (IS_ERR(regmap))
-> > +               return PTR_ERR(regmap);
->
-> Why?
->
-> ...
->
-> > +       if (IS_ERR(cs35l41->reset_gpio)) {
->
-> You should use _optinal variants instead,
->
-> > +               ret = PTR_ERR(cs35l41->reset_gpio);
-> > +               cs35l41->reset_gpio = NULL;
-> > +               if (ret == -EBUSY) {
-> > +                       dev_info(cs35l41->dev, "Reset line busy, assuming shared reset\n");
-> > +               } else {
-> > +                       if (ret != -EPROBE_DEFER)
-> > +                               dev_err(cs35l41->dev, "Failed to get reset GPIO: %d\n", ret);
-> > +                       goto err;
->
-> We have dev_err_probe() for a few releases already.
->
-> > +               }
-> > +       }
->
-> ...
->
-> > +       ret = regmap_read(cs35l41->regmap, CS35L41_IRQ1_STATUS3, &int_sts);
-> > +       if (ret || (int_sts & CS35L41_OTP_BOOT_ERR)) {
-> > +               dev_err(cs35l41->dev, "OTP Boot error\n");
-> > +               ret = -EIO;
->
-> Why shadowing error code?
-> Why not use dev_err_probe()?
->
-> > +               goto err;
-> > +       }
->
-> ...
->
-> > +EXPORT_SYMBOL_GPL(cs35l41_hda_probe);
->
-> Please, use the namespace variant and avoid polluting the global
-> namespace with  your symbols.
->
-> ...
->
-> > + * cs35l41_hda.h -- CS35L41 ALSA HDA audio driver
->
-> No file names in the files.
->
-> ...
->
-> > +#include <linux/regulator/consumer.h>
-> > +#include <linux/gpio/consumer.h>
-> > +#include <linux/device.h>
-> > +#include <sound/cs35l41.h>
->
-> Please revisit this. You need to add here only the headers that you
-> are a direct user of (or in some cases their top level ones, like
-> types.h for compiler_attributes.h).
->
-> ...
->
-> > +#ifdef CONFIG_ACPI
->
-> Drop this ugliness.
->
-> > +static const struct acpi_device_id cs35l41_acpi_hda_match[] = {
-> > +       {"CLSA0100", 0 },
-> > +       {"CSC3551", 0 },
->
-> I believe these IDs are officially allocated by the Cirrus Logic, right?
->
-> > +       { },
->
-> No comma for terminator line here and everywhere else where it's the case.
->
-> > +};
-> > +MODULE_DEVICE_TABLE(acpi, cs35l41_acpi_hda_match);
-> > +#endif
-> > +
-> > +static struct i2c_driver cs35l41_i2c_driver = {
-> > +       .driver = {
-> > +               .name           = "cs35l41-hda",
-> > +               .acpi_match_table = ACPI_PTR(cs35l41_acpi_hda_match),
->
-> ACPI_PTR() as well.
->
-> > +       },
-> > +       .id_table       = cs35l41_hda_i2c_id,
-> > +       .probe          = cs35l41_hda_i2c_probe,
-> > +       .remove         = cs35l41_hda_i2c_remove,
-> > +};
->
-> > +
->
-> No need to have a blank line here.
->
-> > +module_i2c_driver(cs35l41_i2c_driver);
->
-> I stopped here, so this code needs more work and can't be applied like this.
->
-> I believe that current Cirrus Logic drivers are written in the same
-> (semi-) bad style and have to be fixed in the future. Put this to your
-> TODO list, please.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
+...
 
+>> +       if (unlikely(ret)) {
+>
+> This is double weird. First of all, wtf unlikely is here? Second, I commented on the patch that does something with this driver and pointed out to the return 0 in some cases. This one seems a band aid.
+>
+> Unlikely to have an error.
 
+We don't use likely() and unlikely() here and there, you need to
+provide a very good justification of its use.
+
+For the record, I forwarded you my review against the code where you
+can find much more issues with it that are subject to fix / amend.
 
 -- 
 With Best Regards,

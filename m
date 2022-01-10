@@ -2,116 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0456A488D80
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 01:38:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2261488E11
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 02:30:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 863E4174C;
-	Mon, 10 Jan 2022 01:37:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 863E4174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79F591759;
+	Mon, 10 Jan 2022 02:29:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79F591759
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641775108;
-	bh=rPkUylNVUezuIYM+c0Vfu+IRS0vBOc1aCL++9jJ/GCk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=a3cre3glAuj+YFba0U3zgElGwlEB7Msa+QSIwJoBzSTCNUGKPKiNsnmK4rHCpZ8+j
-	 01J8dHpGidaPQMOEGs76yplPrR/ebMLb+2xJPoQfFVpcKtz7WQYdAfLv8gi6SZNxr/
-	 WT1HB5/HFM2ZHwVsoUEjHDs55e+8PCIn8lhl4tig=
+	s=default; t=1641778214;
+	bh=2OUZfUp/LlSCYUIdQhP/nbmg94mdaAktVPtYxKMv9lA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Qi2B9YNepohgsHIRNKnHSDetHEcEtwzdpPT1jzMOOOq0b/nxdVFRYv0bEiSu2KjXB
+	 0G2U3v51IglVwjMwT3fc2czJ2zQqKhYMvteWxS7H3lBiVUPM+C4mhHgvjzZFCGrmbj
+	 +mer3pAhoU8p+MXZjvMlB9lR4HDU/iIKM3StizSQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBA87F800DA;
-	Mon, 10 Jan 2022 01:37:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCF0DF80245;
+	Mon, 10 Jan 2022 02:29:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A30EF800DA; Mon, 10 Jan 2022 01:37:19 +0100 (CET)
+ id 4C6D7F80212; Mon, 10 Jan 2022 02:29:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA417F800DA
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 01:37:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA417F800DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89D53F80054
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 02:28:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89D53F80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="IXg7or6h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1641775033;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Zxl/i6xPComcT6YmUIEakng6IutlfifeQcb42TWWbfY=;
- b=IXg7or6h53d4eFXp8+PtA7a6OUe+bGgvwaC380SxCyHztAlQcRt+mC/G903pnQb0XuPBq7
- dWrwW/NBST+71AApgVCyaL2cJsUM0h0uIioYaD+BeCLLwLwWOPYkL1UScZ2DEHKGKXi35h
- b/g/qtYMwVxxquqnVN0zkpoj7ljN5no=
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-279-pMQuLBOkMjOtZwkz2hZ2mg-1; Sun, 09 Jan 2022 19:37:09 -0500
-X-MC-Unique: pMQuLBOkMjOtZwkz2hZ2mg-1
-Received: by mail-ot1-f72.google.com with SMTP id
- y35-20020a9d22a6000000b0058f1cced940so2410772ota.1
- for <alsa-devel@alsa-project.org>; Sun, 09 Jan 2022 16:37:09 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Ms/epKE1"
+Received: by mail-pj1-x1031.google.com with SMTP id
+ n30-20020a17090a5aa100b001b2b6509685so14284349pji.3
+ for <alsa-devel@alsa-project.org>; Sun, 09 Jan 2022 17:28:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gySM4oMWv1mF5kjtupUmF7Knt8DYj0ZsBjDse8zVMBU=;
+ b=Ms/epKE1aC4bp0DujoXARd7xc9wPjod9KA0kIz5FoZZ5Y/h60eIeep+7B9hFx1gXR8
+ feArapBDeyDpaCN1Dl510OHIrzVRLBPgc5h2e3bEsBHoSN7pc260IfHdE7RvAzihl3DD
+ TknSN1xZUvb4D0pa16/tVMmznSy25nRSkUrU/kZvO6MsaikX3m4JWE/oCeeM+LyRcTpx
+ bE5Z7HVuuL+7gZ0RKnXK8f21kgzH3NHbQbcyKYlukxhnYGcTKb66XxQvFg9jeXNPYgAp
+ meNfUWhd6iiBRyeeGtBjVXkPs18jea06/32iM6fxowwYjfBM6S5CbCZuXgBZeS5/v55H
+ Aofg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=Zxl/i6xPComcT6YmUIEakng6IutlfifeQcb42TWWbfY=;
- b=nA8kcvVgScdY05IS0ly35zHVCHqcfvROPxcKsYCNNm0nGIZNHTJ+NBEYqPSwOBpEGZ
- KwhUiwVPszkRQ19jTjyZyLstuLhzpSLWXjtkP9BYfY6y8VMBxWAJfsGiZWcXi8PtCWfD
- zYVoVgYuaYu+JRNagpKgF7Om37U3EKFBvQgJe4D6genFEj9iVXd2gCtIrNb/henAXOEf
- n8G7gbWLwzUvZJOuf/DKTDbq33vCvgTf7ysBUp5LkRilK+y5pjK4mRq2W+ekxsteDNJa
- 4Shep9VRIdO7nd6CsJ8nWLqvo2UUtW4KHQ4hSZYJOwiq6r8atJDxcNsIb1UsrPbwp+o4
- r/cw==
-X-Gm-Message-State: AOAM531XTOiaiW84a6xBSeAfh76zRrpaJCS0lbW+19CTNUTyyUNdyKVj
- uvF/HbQrdt6JWwx2DcD9OyLUdgtuLfrOZBubw+EZY9YdZ7KYD7sqoIfqW7BxjhMzVTcuLeLE2m6
- yl2EnCEO0Ul823dynRsVPTNQ=
-X-Received: by 2002:aca:c1c2:: with SMTP id
- r185mr17201225oif.168.1641775028822; 
- Sun, 09 Jan 2022 16:37:08 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJx1WDAjJnMR/rvsDoyXzabUpWZLutH7yJAHjAx+6w1tefW0dHxl8BF/M0ttmI/P81FUuhFQVg==
-X-Received: by 2002:aca:c1c2:: with SMTP id
- r185mr17201200oif.168.1641775028481; 
- Sun, 09 Jan 2022 16:37:08 -0800 (PST)
-Received: from localhost.localdomain (024-205-208-113.res.spectrum.com.
- [24.205.208.113])
- by smtp.gmail.com with ESMTPSA id be30sm935402oib.50.2022.01.09.16.37.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 09 Jan 2022 16:37:08 -0800 (PST)
-Subject: Re: [PATCH] ALSA: hda: cs35l41: fix double free in cs35l41_hda_probe()
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-References: <20220108140756.3985487-1-trix@redhat.com>
- <CAHp75VfbSmgeyi=8q1_he7mpGrNxYAOewKYWD=h8BSuxz2XWOw@mail.gmail.com>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <0c0926d9-9b72-1519-7e22-e90ffc229940@redhat.com>
-Date: Sun, 9 Jan 2022 16:37:05 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gySM4oMWv1mF5kjtupUmF7Knt8DYj0ZsBjDse8zVMBU=;
+ b=UqxhHT+5WG1u9PdrAhfAdvV9QpgFu3RwFJCcsipKZLPtZScrIrhsKKl6ghc1TenWMN
+ Fn7k4NxWGYu/HebQWPRJBLno5BjcQK+SwUBnn0dB0EPHWCQJKWN5fpxBgpbM8wo/l3ha
+ kaONsjaPj68v0p4XoNTiCRJVIgk9JBosUkj/yXs/RUswQko839Ff3dYy8wzhvI59Ex12
+ grJsEy95uwT6glMvbujbLTN5iwTW7QfwQ8y2nM/RR6U9guBSfpSHUUX/Z36N367RygTS
+ D/cEra4eUUmtETDxaNoizGLP1RYQ0LqYd4edcnkRQ4tVmhcUu98KChPnTjMAlZqd8ejb
+ FceQ==
+X-Gm-Message-State: AOAM532Hu8JH58rfrs/blAPyPGgoJ+IWnujm4LvD2CdcngRsWauStz+6
+ jIo4fnE+c6V65cufUxPGqcw=
+X-Google-Smtp-Source: ABdhPJzyxOkzsdbUmvLhY5W7m63RcqZT0C9E4jperqC7emOYj24F/JIz2O5eh1C+eq41NAtMAwWbnQ==
+X-Received: by 2002:a17:90a:4482:: with SMTP id
+ t2mr27418103pjg.133.1641778130873; 
+ Sun, 09 Jan 2022 17:28:50 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id s14sm1513805pfw.33.2022.01.09.17.28.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Jan 2022 17:28:50 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: chi.minghao@zte.com.cn
+To: broonie@kernel.org
+Subject: [PATCH] sound/soc/codecs: remove redundant ret variable
+Date: Mon, 10 Jan 2022 01:28:33 +0000
+Message-Id: <20220110012833.643994-1-chi.minghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <CAHp75VfbSmgeyi=8q1_he7mpGrNxYAOewKYWD=h8BSuxz2XWOw@mail.gmail.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "tanureal@opensource.cirrus.com" <tanureal@opensource.cirrus.com>,
- "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
- "llvm@lists.linux.dev" <llvm@lists.linux.dev>,
- "ndesaulniers@google.com" <ndesaulniers@google.com>,
- "tiwai@suse.com" <tiwai@suse.com>, "nathan@kernel.org" <nathan@kernel.org>,
- "james.schulman@cirrus.com" <james.schulman@cirrus.com>,
- "david.rhodes@cirrus.com" <david.rhodes@cirrus.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com, chi.minghao@zte.com.cn,
+ lgirdwood@gmail.com, CGEL ZTE <cgel.zte@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,86 +102,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Minghao Chi <chi.minghao@zte.com.cn>
 
-On 1/9/22 2:33 PM, Andy Shevchenko wrote:
->
->
-> On Saturday, January 8, 2022, <trix@redhat.com 
-> <mailto:trix@redhat.com>> wrote:
->
->     From: Tom Rix <trix@redhat.com <mailto:trix@redhat.com>>
->
->     Clang static analysis reports this problem
->     cs35l41_hda.c:501:2: warning: Attempt to free released memory
->             kfree(acpi_hw_cfg);
->             ^~~~~~~~~~~~~~~~~~
->
->     This second free happens in the function's error handler which
->     is normally ok but acpi_hw_cfg is freed in the non error case
->     when it is still possible to have an error.
->
->     Consolidate the frees.
->
->     Fixes: 7b2f3eb492da ("ALSA: hda: cs35l41: Add support for CS35L41
->     in HDA systems")
->     Signed-off-by: Tom Rix <trix@redhat.com <mailto:trix@redhat.com>>
->     ---
->      sound/pci/hda/cs35l41_hda.c | 12 ++++++------
->      1 file changed, 6 insertions(+), 6 deletions(-)
->
->     diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
->     index aa5bb6977792c..265ace98965f5 100644
->     --- a/sound/pci/hda/cs35l41_hda.c
->     +++ b/sound/pci/hda/cs35l41_hda.c
->     @@ -476,7 +476,6 @@ int cs35l41_hda_probe(struct device *dev,
->     const char *device_name, int id, int i
->             ret = cs35l41_hda_apply_properties(cs35l41, acpi_hw_cfg);
->             if (ret)
->                     goto err;
->     -       kfree(acpi_hw_cfg);
->
->             if (cs35l41->reg_seq->probe) {
->                     ret = regmap_register_patch(cs35l41->regmap,
->     cs35l41->reg_seq->probe,
->     @@ -495,13 +494,14 @@ int cs35l41_hda_probe(struct device *dev,
->     const char *device_name, int id, int i
->
->             dev_info(cs35l41->dev, "Cirrus Logic CS35L41 (%x),
->     Revision: %02X\n", regid, reg_revid);
->
->     -       return 0;
->     -
->      err:
->             kfree(acpi_hw_cfg);
->     -       if (!cs35l41->vspk_always_on)
->     -               gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
->     -       gpiod_put(cs35l41->reset_gpio);
->     +
->     +       if (unlikely(ret)) {
->
->
-> This is double weird. First of all, wtf unlikely is here? Second, I 
-> commented on the patch that does something with this driver and 
-> pointed out to the return 0 in some cases. This one seems a band aid.
+Return value from devm_snd_soc_register_component() directly instead
+of taking this in another redundant variable.
 
-Unlikely to have an error.
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+Signed-off-by: CGEL ZTE <cgel.zte@gmail.com>
+---
+ sound/soc/codecs/wm8971.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
+diff --git a/sound/soc/codecs/wm8971.c b/sound/soc/codecs/wm8971.c
+index 21ae55c32a6d..ddf0e2f5e66a 100644
+--- a/sound/soc/codecs/wm8971.c
++++ b/sound/soc/codecs/wm8971.c
+@@ -676,7 +676,6 @@ static int wm8971_i2c_probe(struct i2c_client *i2c,
+ 			    const struct i2c_device_id *id)
+ {
+ 	struct wm8971_priv *wm8971;
+-	int ret;
+ 
+ 	wm8971 = devm_kzalloc(&i2c->dev, sizeof(struct wm8971_priv),
+ 			      GFP_KERNEL);
+@@ -689,10 +688,8 @@ static int wm8971_i2c_probe(struct i2c_client *i2c,
+ 
+ 	i2c_set_clientdata(i2c, wm8971);
+ 
+-	ret = devm_snd_soc_register_component(&i2c->dev,
++	return devm_snd_soc_register_component(&i2c->dev,
+ 			&soc_component_dev_wm8971, &wm8971_dai, 1);
+-
+-	return ret;
+ }
+ 
+ static const struct i2c_device_id wm8971_i2c_id[] = {
+-- 
+2.25.1
 
->     +               if (!cs35l41->vspk_always_on)
->     +                     
->      gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
->     +               gpiod_put(cs35l41->reset_gpio);
->     +       }
->
->             return ret;
->      }
->     -- 
->     2.26.3
->
->
->
-> -- 
-> With Best Regards,
-> Andy Shevchenko
->
->

@@ -2,179 +2,185 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7FD489D7E
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 17:26:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A24A8489DA2
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 17:33:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1EE1C839;
-	Mon, 10 Jan 2022 17:25:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EE1C839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 438FD184D;
+	Mon, 10 Jan 2022 17:32:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 438FD184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641832003;
-	bh=0PV54isHppwDXhcO35zTnWPc6yREwW0gEcWYdTr5f5Q=;
+	s=default; t=1641832393;
+	bh=umNhPAY37/nrSSrNo3nJT6Xq6DTjzH7sf3MpY6mrpVY=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IeB42X4YIwFoQ/MflL/e/DB4P6fzZl73JUhO/o3w/vqA9LQRvGA2Ft2Dr+zOsecQ6
-	 cEnvZDv3yu8b/hbS4lN7c5h33D1nsNF+I8/Ypc70Joln6ifoSRQrqKjes49yweBOkC
-	 LEQKHd2LHq04haybfIQP0sxTfQWUvZzpRnvDw8yM=
+	b=s45BmW0Tf1ZOI3KcL9338LHhTm6EvyidSeD4e34zY6Cbbf5wbHr3gGMatoXkCtMQv
+	 CA2/GBSxmr5KdH8aCB0/fn+3cf4IgGj3dpdtOM8VnUCPnkHRsGaMK//8+CAGLuPNHJ
+	 QOsjAhb2PIuWQn+0cyhqj/cZiyl0rUQHkca1xBME=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A17CF800B6;
-	Mon, 10 Jan 2022 17:25:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C29C1F80125;
+	Mon, 10 Jan 2022 17:32:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADCF2F8012E; Mon, 10 Jan 2022 17:25:33 +0100 (CET)
+ id 7CDFFF800B6; Mon, 10 Jan 2022 17:32:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20DF2F800B6
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 17:25:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20DF2F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 726D6F800B6
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 17:31:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 726D6F800B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Y4JKYA8y"
+ header.b="arNdwf4k"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641831931; x=1673367931;
+ t=1641832317; x=1673368317;
  h=message-id:date:subject:to:cc:references:from:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=0PV54isHppwDXhcO35zTnWPc6yREwW0gEcWYdTr5f5Q=;
- b=Y4JKYA8ylqTtQX9Zsa6bsmTkv9o/0f2zPGpx9aBEwIfvm9uA3EvdRiWg
- wUSHEzTqzS4hYaylAaUMR5/Ocrmhqz5T8WWpb4kzqgoufJoUuICj95z/h
- 5bRgneJNaYgvE/SzvolNyLlN9hQkEbDkr+ukCH5eW+30h+9VTLSg7ARV/
- 1ly+drtNf/z+S7b9JRcPYITRQgtVwxiWkPzHvoxzCd8SP77ZCzUYS4q/i
- 2/dvyQXI7nYpsh/jcHajymNMFi4KAgeivPM7e+vSyRpWHrD67xGEbzo1r
- 24bO7mDCSO62RrpQPry+/ES96f2IayC80fli3OitNQLp32BuwaU018/SA A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10222"; a="243212715"
-X-IronPort-AV: E=Sophos;i="5.88,277,1635231600"; d="scan'208";a="243212715"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2022 08:25:22 -0800
+ bh=umNhPAY37/nrSSrNo3nJT6Xq6DTjzH7sf3MpY6mrpVY=;
+ b=arNdwf4kHC4BjFdIpMsgt9+1SraBmfPpPfnd2/1keypiCPNt1dq0aOSY
+ ONk3BpNo4hlHbsvzOYa0lrH5pSqvbRIWd11WYLo0NtLMoVXu97jXEki84
+ H00FTPx7ot4hNAZTvocZVmZAi0npgDiZBrQYCB+ORuhL+UByBR3SrDpEn
+ j6u7aJ8TyWD/WOEfEF/o5cscdZ8JYse1n41vhSNo1ky3mV+XbzpCBdR59
+ 6TETyYKeQoYIDqi6nB+hUwLc8dY467209151QQmku0R62g0SiN+nOAqcW
+ 54y1g2HoUoqjZLVr20g1Yvt5gISCf4i/j7IVqRc9f7yblRFHvbDdWHJVR A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10222"; a="304001379"
+X-IronPort-AV: E=Sophos;i="5.88,277,1635231600"; d="scan'208";a="304001379"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2022 08:31:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,277,1635231600"; d="scan'208";a="612896723"
-Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
- by FMSMGA003.fm.intel.com with ESMTP; 10 Jan 2022 08:25:22 -0800
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.88,277,1635231600"; d="scan'208";a="474181870"
+Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
+ by orsmga006.jf.intel.com with ESMTP; 10 Jan 2022 08:31:51 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Mon, 10 Jan 2022 08:25:21 -0800
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ 15.1.2308.20; Mon, 10 Jan 2022 08:31:51 -0800
+Received: from orsmsx604.amr.corp.intel.com (10.22.229.17) by
+ ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20 via Frontend Transport; Mon, 10 Jan 2022 08:25:21 -0800
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.43) by
- edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ 15.1.2308.20; Mon, 10 Jan 2022 08:31:51 -0800
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20 via Frontend Transport; Mon, 10 Jan 2022 08:31:51 -0800
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.168)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.20; Mon, 10 Jan 2022 08:25:21 -0800
+ 15.1.2308.20; Mon, 10 Jan 2022 08:31:50 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JqRkjTA73pgybsHd2T1ec01f1MMj0vIiYeVonY/tghOHaqAYXBhDtB0u0CQriqHvJG4JbQenUI+mymOT3+5W1aGYdjDaCmR8h5dmmhPIhgLwVKDfqw1emDXbXw2iZvoi2IENr28aaVFTV8JpKQwbLoXRmM0qPA4+tUEpU/d6dhHWpYbS6tZL40W6EgX/ymxCW02bcgPFSKV9/zVirLm1Bmrl2roS1phNNEfNneBdzpsqUZirNlNdAP0fHUOXxbhklMvjMcM9lPcTfPIefRRVX6j17/VHdYquXOaSZ8/v2QsEqrbqThv3DPyBC9nddc4/8e7L3/xP7i4oBcCLx9hO3A==
+ b=PkNYh7pMfh/ToeFp4OmqF/Gww0YWgu7L5aKZMaQAPhwzWV9kWgyLIBVPoD28UwiiWhr0roBZGe0qYFu/EZ1u/F/SKL57xUoiLccU6zt2H6eS536chHybn3iZ0e1Jx2VMhTYoYNFAGvHBrIWcAs+xCepc/rL9R4zq3xWahiNjiv0SpdZ5k7ftVp9uJJvdKkfk70tRGhtleQd2lyEUwW9mBC/7LQag45uyZQxI0PhG2tJvMlUqHkyjaW6rno17rKa/ETc1WTL8w8M6VoZnzw92KvrNdYacGEKOzJvHGTS21+undoHKtoZhUNpefHjh8q1OI/qCrSSVgl2ASfLHUD9UKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3O7/Y6yZgQPaVJqfCNFqtyJ+7ft8r3xEE8svXnHgOdc=;
- b=oC9wLdmvgRz+9tgcWRhCPOoSunQ9tmJAwlkcin834+f034A8x693EbiLN3aeyAdN/WRndykpGsVLy25EJyvyNIBdU4AM1nOAMC3EG2c5HO/QMVzkmKi6BFL0JxwupLY2lANjpX7lrmIgDbNI0sKBYTLsKcZWvHXZ49Qmcp1J2C1CBvSYmA+roPf28+hfBxDc0K4+WjbSFORleBMls7vR4gP+n9RYLs0J9eOHRgDiky3wJCy5Vm6Ki6y6E1rPnMrppF6ckQXYYGXGTR0ueNxvupBEVokg7OCXJI5z2+AJTpP6aafnbCe8I4434+r6lE5o3YvlpzaRAG7GObS4iOw1xQ==
+ bh=Hxz387c2/5bhINBZ6dpC8+rHf6Mt1OkhDIa3+ria5tk=;
+ b=cvrZ2SVXyvU9zG8a55vFYTzUi3EbIBjSTAfhEzWvMnve+VfmoM5SyKq6WGJMUzd27NX0oOLiKx1Rkg01fT40QoJldFQXG/CYP1q8elSfP+sNIOk6TiB95X4hLcX1OdypCejaP1xBoXdyb/TQXflJlWndVY7AtKyh9XkdZn/3DmHqAQYDSQyXG+PTjfmRm3pO40uzGW1IOCOJ6NXS59QSXb13p3a5JG1J4p9XIQoVixsIRp0kOmap1cSlt8ZwQe3XOx/Bo4f1obbIjrlcFGbt5qXwoimQ1FQ6i1qBv03dvgBpRmw4MH8W3T3VeW/A1pdMWuXxJgC7ti84LVu9xze6Vg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from BN6PR11MB4049.namprd11.prod.outlook.com (2603:10b6:405:7f::12)
- by BN6PR1101MB2241.namprd11.prod.outlook.com (2603:10b6:405:51::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7; Mon, 10 Jan
- 2022 16:25:20 +0000
+ by BN6PR11MB1475.namprd11.prod.outlook.com (2603:10b6:405:9::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Mon, 10 Jan
+ 2022 16:31:44 +0000
 Received: from BN6PR11MB4049.namprd11.prod.outlook.com
  ([fe80::cce3:53d5:6124:be26]) by BN6PR11MB4049.namprd11.prod.outlook.com
  ([fe80::cce3:53d5:6124:be26%4]) with mapi id 15.20.4867.012; Mon, 10 Jan 2022
- 16:25:20 +0000
-Message-ID: <8f62aa37-c2a6-1a74-6e6f-5208b10b96ec@intel.com>
-Date: Mon, 10 Jan 2022 17:25:14 +0100
+ 16:31:44 +0000
+Message-ID: <25f49c99-3feb-dfdc-1077-2f3552ce2ef1@intel.com>
+Date: Mon, 10 Jan 2022 17:31:37 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.3.0
-Subject: Re: [PATCH v3] ASoC: adds component driver for TAS575xM digital
- amplifiers
+Subject: Re: [PATCH] drivers/soundwire: remove redundant val variable
 Content-Language: en-US
-To: Joerg Schambacher <joerg@hifiberry.com>, <alsa-devel@alsa-project.org>
-References: <20211029095414.29131-1-joerg@hifiberry.com>
- <20220110084554.2228-1-joerg@hifiberry.com>
+To: <cgel.zte@gmail.com>, <agross@kernel.org>
+References: <20220110104749.646995-1-chi.minghao@zte.com.cn>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20220110084554.2228-1-joerg@hifiberry.com>
+In-Reply-To: <20220110104749.646995-1-chi.minghao@zte.com.cn>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM5PR0502CA0005.eurprd05.prod.outlook.com
- (2603:10a6:203:91::15) To BN6PR11MB4049.namprd11.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0057.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::8) To BN6PR11MB4049.namprd11.prod.outlook.com
  (2603:10b6:405:7f::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cc32b284-3de9-4d61-a78f-08d9d455cb77
-X-MS-TrafficTypeDiagnostic: BN6PR1101MB2241:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR1101MB2241BCE27239C89E8E269657E3509@BN6PR1101MB2241.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: 75dbf3e2-2733-4c6e-1050-08d9d456b084
+X-MS-TrafficTypeDiagnostic: BN6PR11MB1475:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR11MB1475F01B0A3A4250EEB1DD1EE3509@BN6PR11MB1475.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:397;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IG4gKqyyeDmNID6OiN5FHzxAVdDnpUQC92NYjKkHU5ySnd/oCqEyLC0HBNEQbXOBvGSHnKyXtgwAdPinsrd/wFj+wtNfCUtPknz4IdrV4oqlAPAXRBfGzDZWv5h3shQmDhyKROtDvjwqp8WgAGdGVyZbA2LTZ5DBSpCl52cc3Fc+8u+lahM8gBLWyKyc+qz9ILljoO3sqMVsFSWVUx2BSyUfSO6v0+LoZtjN/4BlwMXk3DL9sqjMCBXldbhcB/AQHwLLghY6n1QWgnj3rDePb3PQSuyAdZdnKcIUe5PmzAsxH6OAgXDVz5OEm2BdyeWYiajA0RsxqyqBdI/SPSSKt5na9Pp4bGlcrwGPVdbbpcxERFbG6e4oE3A5BpjmczfZ91Wr/kiAH7tipYR+XLHBz49lpbiO40hSIkVqpED1LM9alkf5ABP/sK8Q/Kb93Aqb06xCNMfC4T3eXklRD1kdDBVxz8bPYb7G6+exdt7ojbF/+zNvu/+/Y4d7NNW9RajH2C2S0ptF0vBhzK8VkxtzrCZ26iLNOOmSk7YVrnX3BqoAzHiwNh/fNkNpldkiLvgKDNu8qtN+EoxI6Hj2dwJ2kbC1oTSL+NloLTK7sLrheHwsslEYQOPb9AyclN92Nhfo8QlicyYZXgrqIqDzb5Ae2shWYGdeug1geksaVB00m1AxOFvAo7VGoznDoMtvSXVNNgEz8Zy6fYZArbSYw0fFODmxs39oDdHXjwnhWCQ3AbWTKKm/yCYiC7NqfNY6FvvuPwHzkfRHOICCziUsmavwcg==
+X-Microsoft-Antispam-Message-Info: S/XX9nwInn+mmujBXaZIa251r+Yfd0gY/Vv4jTgBchxHFyHdmC+vEDnlH/QJsSi2npCRAxGJIxZ/cqtFMBlua6pziRAkDq8wCSAAsx9gNGhN2BNIaewSU3FvTxLuFFFgAaqsPKrR5YjLtBBsTPuNMceALaDEd5pvyJ7qkvHivYxEhRxY+roYj5RqMzB57uBXTe71Cy+K1+Egq3pIEYyPwlcSru8uzGlwvnH9WtfTsq9badeCy07cz/1He76GEJCtVtVdJez5GIPzr8eLKKle3qA52BPz5rHr8KEaYCGk/K5qyHNqpzmyq32GWAOtGzsYolrUotIohePmSaU96ddxsreDbDQUmyqGvASJCEiwunKdrpoxjGK0Fh2zutEKYRvZ+Rw0K+2ha6M8XzP7t5wT302pYq/QdGk8dYGeqU0w7amUsxeAHKyjU9vfPmzSr5LRneIWGApIdX3vtTAwlxdGpyvlgO5ATK1iPQSfVCrxw0AJBE6YOoJI/0jDLuYKlO5Q05SmCD/VdWrtNmOPEG6YRl3DdYoqJUzjEk1dlRnUTzRnMMj79i4HYZoSfOwl4DYOU0UjyI/wKxWDzGmGU1OTHZTkZEpk9M83XFDyiQkX/2qp9qJGP29LXHk+2K6fEymTLrb0HMJTLD58ASV1aOe6HWwP/08w1c38wcw2qkvwaXCN/K5YqXva7R1Vys3jUczHn8irQHBxgLUcnOUmItb0mQjs+g1Dpp0I9dGMSUh8InI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN6PR11MB4049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(38100700002)(83380400001)(6666004)(508600001)(36756003)(316002)(86362001)(8936002)(8676002)(6512007)(82960400001)(2906002)(26005)(66946007)(5660300002)(66476007)(66556008)(186003)(2616005)(31696002)(6506007)(31686004)(6486002)(53546011)(4326008)(44832011)(21314003)(43740500002)(45980500001);
+ SFS:(366004)(66556008)(82960400001)(66476007)(54906003)(2616005)(508600001)(31696002)(38100700002)(8936002)(7416002)(4326008)(83380400001)(36756003)(66946007)(86362001)(6666004)(44832011)(6512007)(31686004)(53546011)(5660300002)(316002)(6486002)(6506007)(8676002)(186003)(26005)(2906002)(43740500002)(45980500001);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MzZaM2lLWEdQczBNR2JtSWVja25KMTUxcHJZNS80UllRbFg5SUhtOWgzVkRE?=
- =?utf-8?B?SG9XcVlIbEorZnB3QU5KTVJCV3V3QmhOZCtLTE1CQmdXazRGMjRTNHRnaEky?=
- =?utf-8?B?SWRncS84dGJlQ2VheDVRUmQwcXA1OFYrSVpIUi9ZK1MzWGY0TjRXcXU3YVJ5?=
- =?utf-8?B?T2c5eGpqYlA3MW44alB3WlRtZGcrcEVVOW1sVUEvdzR5YmsvRFB2aVF5SWRz?=
- =?utf-8?B?cGVFeVpsbVVVSjJJWGZKSFFlcGlnVFk1OWx3OG0veHVpZERGM1VONGN0RjNN?=
- =?utf-8?B?V2hiakZHRGZScEErTzhpL3hOT3A5a1djWVBDcDBFUnFrVTgwTWhBVzU5a1FF?=
- =?utf-8?B?aERNbk1qT2JvWDFGdmpHbXBtZDlqd0R6TElDQXc0N3h5SlcyMjNpUnYxNjRR?=
- =?utf-8?B?Q1QrejkxeXNwRnNSbzNuZzhmK0k2TkYxOElnM09CMjNIRTllTmJieURveGZz?=
- =?utf-8?B?MGdqSHZlbTE5Uzh0VmxLSEk5cEhXTlppa2FvSjNJV1pCSy9VUXlWb2tVMmQ3?=
- =?utf-8?B?Mk1MWml4ZG8xN2NnclovclpWSmlGY3ZPVHM2ZlRxazJSeUsrVFN3eFcrOEVs?=
- =?utf-8?B?M050L3RvT05pZDJnTzZpQ21peWdqR1VSYUwzK1BGL0FrSU1PTzVMeno5NmVE?=
- =?utf-8?B?Mnphak81NVB6TDh3YXVXT0NYejNCVjFYZVZtUE8yaUVGLzBpWjF1WWRIMk1w?=
- =?utf-8?B?UVdxTzVDdktZNDdqb3lUUld4aU92WlJIenFhWlk1N0IwSTlkVHg1T2RaU0R6?=
- =?utf-8?B?NzFiRm5na28rZk9vMUQzQzN1L2RCczRKdzRRY2grL2I2M3JpbWhQa3BFVHpW?=
- =?utf-8?B?YkYvaWozQ3Y5NVlsb3NQaFdWWmdMeXc1ZXhUY0JvT0V2TndUelB4RkdOeGVR?=
- =?utf-8?B?SDd1dC9IYjlOVzdmOG00ZHo1bzdWQ2diN1NVazRHbjRUckdQMmczc3Q3WVNr?=
- =?utf-8?B?OTAxN243WDdwUmdDMFVKbFZQNi92QitvNUVaeDRKOFJLMXR2b25LVHdYcXNG?=
- =?utf-8?B?RXFuSXJTOTdLN3NYV2kzellZeVVKRTQ2RTV0ZE5ibTVNbGY2RnY1b2MyWFEz?=
- =?utf-8?B?ZHVxOUtDdWxhc3Rid2pHdUtqY2ZZdXNJRHp0NW1zaVQvUU1QZ1N3VFcyRDlZ?=
- =?utf-8?B?bnZWOG1KUG5nbUJkTmVUcHJkemRPM3RyTjJJaCtHMHNQMWZpNTFpeUlnOUNl?=
- =?utf-8?B?NENjQ0JZQ3dzWTNFSFdRbXFOb2RTa3FBUTlCWWQvcFlrVHkzWHlEb3ZEbWJn?=
- =?utf-8?B?dGVPYnlHcG5DMTdjL3U1Zys0eENwTUNuYUkzaG90Zlk2Z3JyZ1VoQ3U4NXlM?=
- =?utf-8?B?dS81SVQ4T09pUklyUGFHUEM5WTNGVzZzSWdpUnlORE5LQjd4UmVDb1BIZDhS?=
- =?utf-8?B?d2FTTE01UGwwdlJpWkdkOTZDTEplOUdaSDZuQU82SjZkWnFLZnZybUFoN1J5?=
- =?utf-8?B?cCt0aTdCMm95Rm1lRnpTRWVIaHBnRFpIOXdLa013VkpHczkyYUFNT3dnNUVl?=
- =?utf-8?B?WnpyTmNpd1NwaiszZTNkaGNxamJzaUI5N09kK0VlbU1HeWpIcXJNN2JTeUw0?=
- =?utf-8?B?VVh4L2p5a1JxaS82dTJJNXZ1YlVFQSthaGo0Q0plY05WQmxFaENNWDdVUEFJ?=
- =?utf-8?B?L2dtQlhES0MyeDhWOENjZ2xLUnJsRWhxTTFLZmlyc201eVZrOWxYUU1IMXUv?=
- =?utf-8?B?OFpVU1dZajArdjFobnFrSklXWDZoUGNkMmlBZnZwSms4RWpQUWRqM2NlL3RM?=
- =?utf-8?B?cDRWLzRRVkRJTFNqd1lsQmlERnEzTlVkUGVVMzVIOTFhYmY2RE5ieWlWSkww?=
- =?utf-8?B?K1luVDlPNWxEa1dGY0tXRzF1R3EwZ1IrWHJ3RFRPOHNVVEhKVXR2bGtFVUs0?=
- =?utf-8?B?UytvNzB3YmpEV1pGNkdldkdVZFdScWZ0eFBwc1gxZDNYVkhjYTdsVnYrTStP?=
- =?utf-8?B?dDh6UzdjdjRkeDhhdHZQemQ4M3ZTWEQvbGt4K2kycDVMT2ZLc211eFFGRHA5?=
- =?utf-8?B?NEltdHY2MmlCWklWdEZaZS9DcEhhaXZ5VGVGNTdwcHZkUHNCL0tFdXJJSzB2?=
- =?utf-8?B?L3dKOW5zL2hrKzhWRytjM3U3TVU2Q1hQMmYwcElSQzNOcnM3M2ZXN1J0Z1ZL?=
- =?utf-8?B?Yy9kUjJTMzVlSHRtM3FENlRsem5ueUQrN1VLWUFhZ3l0a2tZL0dEb29hdCtD?=
- =?utf-8?B?VWYvVmpQZnRMZTkySS9pVk44Mzh2eFZCcklFZ2hLWXJPSnFWdjM1aUc3b1hP?=
- =?utf-8?B?eXZ2Y29rcFhtRUp1aW44cXBNOTlRPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc32b284-3de9-4d61-a78f-08d9d455cb77
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LytRZDJDVnYwaFFHYzJNM0s4TTFhcThESE9rRzloU0tzWE41YkNvTDZGWFZU?=
+ =?utf-8?B?QWVabGtRY2lEankwcDh3NlRKaVFtTlE5QlpTN25nbVpadjBacGJ5SHlzNTVw?=
+ =?utf-8?B?Unk5dDRzOGtiMFhwNW5ua1ByMFVuUTF1S0Y5V3lEOVJWMzhxMzVxWkloZVRi?=
+ =?utf-8?B?SEFUNG9HR2t6YXlPb1B3UjhNbi9SeitlbE9ybStNVXJRUm5FWlBuRVdjNGRm?=
+ =?utf-8?B?QWwyZDlwbjF5OWVoR0kvejVkdGQrWFQweUxHdXQ3RTJVM1prNThlYWFNcVdR?=
+ =?utf-8?B?MzcyckdoRlppa0lyQ1ZDZnhNbG5xY3VqTkpnejJkWndlVHZsTTJzWVdXb0VX?=
+ =?utf-8?B?MWhRRG16ODdiM0dSRldRY0t2WXhhT3h3VTlyTnVMc0FpdHJBS2ZvZjZ1L1Rq?=
+ =?utf-8?B?aUgxZ0N1MlpxWnlEdndvMDNQR3FXK2xJZ1BiTE01aXlHQlV5b1l6eW1iQkcw?=
+ =?utf-8?B?SVN4Vi9WQUJaazFRdHZZeFE1K0NWcXNudGdPZjF2aGd0ZVhsOHhNQ3JOazJD?=
+ =?utf-8?B?RzJVdStRU3Y2Z2tiY2NjbVBsZWw5K0VxQjdSYWcrcnJtSysyYjQzbkMrTzhT?=
+ =?utf-8?B?NzFHYkFHUzlDQ29SMHhrU201S0pibk43WDA3ZnFjNm5wQ1BNdVdCbUFXQ3Bv?=
+ =?utf-8?B?Qm9LYXI3YXprc2thcUNZSHFkUFRPR2IyNENxQmdsWmVrUSs4Z01TcEVoZ0Vm?=
+ =?utf-8?B?RzlDeUxHOWV3LzhuRFo4NkhyNm1ERUU3YVB0L0RTRFFxUTNCVy9lZnlhQjJT?=
+ =?utf-8?B?bVZxU05sZjhjSEdzSU4wZk95YzBqdUtFNVJjaW1NckxHdS9SV0hYUVY2YjhB?=
+ =?utf-8?B?bFNEVUpiMW5LNG93TVIzSnlBNTRIUEZhVVh5ZTR4enh1Vm53Y0tBUGExdExn?=
+ =?utf-8?B?ajlQRGdkejRuTm41QWxxQXo1TnhObDRuU1Z5K1c3OVVZOHZuQlBBVmc5N29x?=
+ =?utf-8?B?N0k2Y05wWG82dEdhR3lGWnUzeGZMU3pxL2I3TDZSUU1NN3gzT1FFZEc1dExr?=
+ =?utf-8?B?N0VpK0ZoNjJ4cVVVbnlOYzlSa3JSWnVUUmxIS2JsYXhkK1VzY1pnUHczVGJG?=
+ =?utf-8?B?RTByL2kxd2dPVFVFeFpYNGtuK0pQQlVLZ1lMMThjK0RWOVo2cng4VGx3NTJl?=
+ =?utf-8?B?VG0rbkVqN1pmVlpZcm5QMDRJMElISjRldHF5d2N6ZHZwTnVaMklnQzMrR3hm?=
+ =?utf-8?B?bmtLVzFnbk1ERS9lLzBncGE5Qy9JTlNlU2c1cUpWcTV4SFA4NDNSeEg1UW4r?=
+ =?utf-8?B?S0FSZVNFYlVLd3huazdqQ2YrZFpVWXhTeTBpN1hObWIvTzFBU2JQbjBpTjEr?=
+ =?utf-8?B?ZTNTTFJDRmZ1eGRUanlmNmVydmovbTBickMxaHM2T0tGY3dXbkppYTNFdHp1?=
+ =?utf-8?B?VnJHYlhJNkljQnVsSG54ZnorYWtIOTNwNnFIeUZtbVQ2YkNUMXZTdjZ0ZkQ3?=
+ =?utf-8?B?ZzgxcE5JRVdtUHhWVVNzczVsTis1OUpDQVhKbzBzUURPV1RBU09vMkpVaW9n?=
+ =?utf-8?B?WXROVmMySURrS1VhazNkb2hLQ1hQTC9vMjhuY1BqblVMcVB5MGhmcnpISE9S?=
+ =?utf-8?B?RlNNMm9LZ3pmK2s0OUg2RXN3V0FxcGJXcXBlbTFyZndGeGFUV0tlaHJJNHRM?=
+ =?utf-8?B?bEc4dU9ZT1F0eFBidVMrNjVJZHJRbjFSRXZqU29ENnRKTFJIQTcxdUViV09u?=
+ =?utf-8?B?QjQyczRCcnJlc1k1dTAwcEFvSC9XTlBWTEpHbWZPSkwvcjdVV2JveUVkOXQ3?=
+ =?utf-8?B?Zm1renhiak9BVTdWdE02R1FpUnJHRUdTWG1kNjhjeHFVTmNqdmg0SkVBSXN6?=
+ =?utf-8?B?UU5ZVW1OdlR1cW9uUTdyMFRjZWxQQUF5S1lyWGEzV09lMWhjR20xbVZjRm0v?=
+ =?utf-8?B?WDZRNjBQcTV5S2N4SU5GVmcvSmpINkdEakFZUFhTMllFSjlQcFJlUmZQaHYv?=
+ =?utf-8?B?MXNRUHZwNkRTNDNYRG9IZldDWlp3VTRpVDZ5dm43WjBSSkZ2SC9sU2lqOElk?=
+ =?utf-8?B?d2JNTzFvbTNJQVRKMUh6aHdzWDdqYVMzREhqVFRhYjA2L3NxdXoxNHVIVkxx?=
+ =?utf-8?B?VGx3U0wwT2tGYitJbng2aU90cUYwcDRRWjl2bHJ0c2plaXhZdWs3anMzeTMr?=
+ =?utf-8?B?b3ZMVlZ0U3VPdDBBa3BqMURvc1puVEdqVnhRNVVRYXB3dGNDRTNoNEhFaWdK?=
+ =?utf-8?B?KzI5enpQT1p0d3p5QlU3ODh1RDdiV0MraE81K296VlhkaEhLRCtMSGJ5Z1dK?=
+ =?utf-8?B?akFuUGo5TWZLSjNkbjlqRk5qeUVRPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75dbf3e2-2733-4c6e-1050-08d9d456b084
 X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB4049.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2022 16:25:20.4268 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2022 16:31:44.5315 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P8tm92qPpZWLr7iVizlVM/ZhWpfuUA61cl9CF8zX5K/ex+yvcwRn2blz43mNfp/h/Rj645YwwYTI68MiCg3jkSYcAcS8RAgXO+rhnzNrHwk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1101MB2241
+X-MS-Exchange-CrossTenant-UserPrincipalName: qzXxIQwm3a4wH4nNLZ8c4A4Hbkls5zwUl2c96LD4TmCyBZUT/ZwTUYiwoslmvM0sayitYFSDoLEUU1U+w3/Eht5x62KV29wphs3YLR3Izbs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB1475
 X-OriginatorOrg: intel.com
-Cc: broonie@kernel.org, kbuild-all@lists.01.org
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ Zeal Robot <zealci@zte.com.cn>, pierre-louis.bossart@linux.intel.com,
+ Minghao Chi <chi.minghao@zte.com.cn>, bjorn.andersson@linaro.org,
+ vkoul@kernel.org, sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -190,242 +196,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-01-10 9:45 AM, Joerg Schambacher wrote:
-> Adds a minimum component driver to run the amplifier in I2S master
-> mode only from standard audio clocks. Therefore, it only allows
-> 44.1, 88.2, 176.4, 48, 96 and 192ksps with 16, 20, 24 and 32 bits
-> sample size. Digital volume control and the -6dB and +0.8dB switches
-> are supported.
+On 2022-01-10 11:47 AM, cgel.zte@gmail.com wrote:
+> From: Minghao Chi <chi.minghao@zte.com.cn>
+> 
+> Return value from SWRM_REG_VAL_PACK() directly instead
+> of taking this in another redundant variable.
+> 
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+> Signed-off-by: CGEL ZTE <cgel.zte@gmail.com>
+> ---
+>   drivers/soundwire/qcom.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 54813417ef8e..77f9c90370be 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -235,7 +235,6 @@ static int qcom_swrm_cpu_reg_write(struct qcom_swrm_ctrl *ctrl, int reg,
+>   static u32 swrm_get_packed_reg_val(u8 *cmd_id, u8 cmd_data,
+>   				   u8 dev_addr, u16 reg_addr)
+>   {
+> -	u32 val;
+>   	u8 id = *cmd_id;
+>   
+>   	if (id != SWR_BROADCAST_CMD_ID) {
+> @@ -245,9 +244,8 @@ static u32 swrm_get_packed_reg_val(u8 *cmd_id, u8 cmd_data,
+>   			id = 0;
+>   		*cmd_id = id;
+>   	}
+> -	val = SWRM_REG_VAL_PACK(cmd_data, dev_addr, id, reg_addr);
+>   
+> -	return val;
+> +	return SWRM_REG_VAL_PACK(cmd_data, dev_addr, id, reg_addr);
+>   }
+>   
+>   static int swrm_wait_for_rd_fifo_avail(struct qcom_swrm_ctrl *swrm)
+> 
 
-Couple nitpicks and suggestions below.
+Hello,
 
-(...)
-
-> +static int tas5754m_set_bias_level(struct snd_soc_component *component,
-> +					enum snd_soc_bias_level level)
-> +{
-> +	struct tas5754m_priv *tas5754m =
-> +				snd_soc_component_get_drvdata(component);
-> +	int ret;
-> +
-> +	switch (level) {
-> +	case SND_SOC_BIAS_ON:
-> +	case SND_SOC_BIAS_PREPARE:
-> +		break;
-> +
-> +	case SND_SOC_BIAS_STANDBY:
-> +		ret = regmap_update_bits(tas5754m->regmap,
-> +				TAS5754M_POWER, TAS5754M_RQST, 0);
-> +		if (ret != 0) {
-
-I believe we are dealing here with standard API function i.e. 0 on 
-success and negative value on error. And thus, 'if (ret)' suffices.
-
-> +			dev_err(component->dev,
-> +				"Failed to remove standby: %d\n", ret);
-> +			return ret;
-> +		}
-> +		break;
-> +
-> +	case SND_SOC_BIAS_OFF:
-> +		ret = regmap_update_bits(tas5754m->regmap,
-> +				TAS5754M_POWER, TAS5754M_RQST, TAS5754M_RQST);
-> +		if (ret != 0) {
-
-Ditto. This also goes for every single usage of regmap_xxx() in this file.
-
-> +			dev_err(component->dev,
-> +				"Failed to request standby: %d\n", ret);
-> +			return ret;
-> +		}
-> +		break;
-> +	}
-> +
-> +	return 0;
-
-You could also drop the 'return ret' from the if-statements above - 
-granting you also ability to drop the brackets - and instead return 
-'ret' instead of '0' here. Of course that means 'ret' needs to be 
-initialized appropriately at the top of the function.
-
-> +}
-> +
-> +int tas5754m_set_clock_tree_master(struct snd_soc_dai *dai,
-> +					struct snd_pcm_hw_params *params)
-
-Indentation seems off.
-
-> +{
-> +	struct snd_soc_component *component = dai->component;
-> +	struct tas5754m_priv *tas5754m =
-> +			snd_soc_component_get_drvdata(component);
-> +	static const struct reg_sequence pll_settings[] = {
-> +		{ TAS5754M_PLL_COEFF_P,		0x01 },	// P=2
-> +		{ TAS5754M_PLL_COEFF_J,		0x08 },	// J=8
-> +		{ TAS5754M_PLL_COEFF_DL,	0x00 },	// D12-8 = 0
-> +		{ TAS5754M_PLL_COEFF_DH,	0x00 },	// D7-0 = 0
-> +		{ TAS5754M_PLL_COEFF_R,		0x00 },	// R=1
-> +	};
-> +	int ret;
-> +
-> +	/* disable PLL before any clock tree change */
-> +	ret = regmap_update_bits(tas5754m->regmap, TAS5754M_PLL_EN,
-> +				 TAS5754M_PLLE, 0);
-> +	if (ret != 0) {
-> +		dev_err(component->dev, "Failed to disable PLL: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* set DAC clock source to MCLK */
-> +	ret = regmap_write(tas5754m->regmap, TAS5754M_DAC_REF, 0x30);
-> +	if (ret != 0) {
-> +		dev_err(component->dev, "Failed to set DAC ref\n");
-> +		return ret;
-> +	}
-> +
-> +	/* run PLL at fixed ratio to MCLK */
-> +	ret = regmap_multi_reg_write(tas5754m->regmap, pll_settings,
-> +					ARRAY_SIZE(pll_settings));
-> +	if (ret != 0) {
-> +		dev_err(component->dev, "Failed to set PLL ratio\n");
-> +		return ret;
-> +	}
-> +
-> +	/* set DSP divider to 2 => reg 0x01 */
-> +	ret = regmap_write(tas5754m->regmap, TAS5754M_DSP_CLKDIV, 1);
-> +	if (ret != 0) {
-> +		dev_err(component->dev, "Failed to set DSP divider\n");
-> +		return ret;
-> +	}
-> +	/* set DAC divider to 4 => reg 0x03*/
-> +	ret = regmap_write(tas5754m->regmap, TAS5754M_DAC_CLKDIV, 3);
-> +	if (ret != 0) {
-> +		dev_err(component->dev, "Failed to set OSDACR divider\n");
-> +		return ret;
-> +	}
-> +	/* set OSR divider to 1 */
-> +	ret = regmap_write(tas5754m->regmap, TAS5754M_OSR_CLKDIV, 0);
-> +	if (ret != 0) {
-> +		dev_err(component->dev, "Failed to set OSR divider\n");
-> +		return ret;
-> +	}
-> +	/* set CP divider to 4 => reg 0x03*/
-> +	ret = regmap_write(tas5754m->regmap, TAS5754M_NCP_CLKDIV, 3);
-> +	if (ret != 0) {
-> +		dev_err(component->dev, "Failed to set CP divider\n");
-> +		return ret;
-> +	}
-> +	/* finally enable PLL */
-> +	ret = regmap_update_bits(tas5754m->regmap, TAS5754M_PLL_EN,
-> +				 TAS5754M_PLLE, 1);
-> +	if (ret != 0) {
-> +		dev_err(component->dev, "Failed to enable PLL: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-I'd suggest to keep the logical block organization cohesive. Especially 
-if there are several of them all located within a single function. Some 
-of the do/check/error-out blocks above are separated by a newline from 
-the following ones, and some are not.
-
-Another point is the cohesiveness of the error-message format. Some of 
-the above print value of 'ret' i.e. carry additional value whereas other 
-skip that part. Is this intentional?
-
-> +
-> +int tas5754m_set_dai_mode(struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *component = dai->component;
-> +	struct tas5754m_priv *tas5754m =
-> +			snd_soc_component_get_drvdata(component);
-> +	int fmt = tas5754m->fmt;
-> +
-> +	/* only I2S MASTER mode implemented */
-> +	if (((fmt & SND_SOC_DAIFMT_FORMAT_MASK) != SND_SOC_DAIFMT_I2S)) {
-
-Maybe I'm missing something but the most outter pair of brackets is 
-redundant.
-
-> +		dev_err(component->dev,
-> +			"DAI format not supported (I2S master only)\n");
-> +		return -EINVAL;
-> +	}
-> +	/* TAS5754/6m do not support inverted clocks in MASTER mode */
-
-A newline before the comment would make this more readabile - that's a 
-new logical block afterall.
-
-> +	if (((fmt & SND_SOC_DAIFMT_CLOCK_MASK) != SND_SOC_DAIFMT_NB_NF)) {
-
-Again, I may be missing something, but this looks like outter brackets 
-are redundant.
-
-> +		dev_err(component->dev,	"Inverted clocks not supported\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> +	case SND_SOC_DAIFMT_CBM_CFM:
-> +		regmap_update_bits(tas5754m->regmap,
-> +				TAS5754M_BCLK_LRCLK_CFG,
-> +				TAS5754M_LRKO | TAS5754M_BCKO,
-> +				TAS5754M_LRKO | TAS5754M_BCKO);
-> +		/* reset CLK dividers */
-> +		regmap_update_bits(tas5754m->regmap,
-> +				TAS5754M_MASTER_MODE,
-> +				0x00,
-> +				TAS5754M_RLRK | TAS5754M_RBCK);
-> +		/* ignore all clock error detection but MCLK */
-> +		regmap_update_bits(tas5754m->regmap,
-> +				TAS5754M_ERROR_DETECT,
-> +				TAS5754M_IPLK | TAS5754M_DCAS |
-> +				TAS5754M_IDCM | TAS5754M_IDSK |
-> +				TAS5754M_IDBK | TAS5754M_IDFS,
-> +				TAS5754M_IPLK | TAS5754M_DCAS |
-> +				TAS5754M_IDCM | TAS5754M_IDSK |
-> +				TAS5754M_IDBK | TAS5754M_IDFS);
-> +		break;
-> +	case SND_SOC_DAIFMT_CBS_CFS:
-> +	case SND_SOC_DAIFMT_CBM_CFS:
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +int tas5754m_set_dividers_master(struct snd_soc_dai *dai,
-> +				struct snd_pcm_hw_params *params)
-> +{
-> +	struct snd_soc_component *component = dai->component;
-> +	struct tas5754m_priv *tas5754m =
-> +			snd_soc_component_get_drvdata(component);
-> +	unsigned long bclk;
-> +	unsigned long mclk;
-> +	int bclk_div;
-> +	int lrclk_div;
-> +	int osr;
-> +	int ret;
-> +
-> +	mclk = clk_get_rate(tas5754m->sclk);
-> +	bclk = tas5754m->sample_len * 2 * params_rate(params);
-> +	bclk_div = mclk / bclk;
-> +	lrclk_div = tas5754m->sample_len * 2;
-> +	osr = mclk / 4 / params_rate(params) / 16;
-
-Is there a specific reason as to why these magic numbers aren't 
-defines/constants?
-
-> +
-> +	// stop LR / SCLK clocks
-
-Formatting of this comment looks odd. Please align with the recommended one.
-
-
-(...)
+While the change looks good, the subject (commit title) seems off. 
+Please take a look at commit titles found in drivers/soundwire, you'll 
+find several good candidates there.
 
 
 Regards,

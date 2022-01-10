@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2055489B7E
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 15:43:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4356489B8D
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 15:47:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 816FA17A3;
-	Mon, 10 Jan 2022 15:42:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 816FA17A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 674C91848;
+	Mon, 10 Jan 2022 15:46:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 674C91848
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641825797;
-	bh=IRWKfarB7UT3aTZ8iGKekBjvvhb6auMLdXTsZCJAKhE=;
+	s=default; t=1641826048;
+	bh=+hVAJi2FtkLwfyiWMg9/GQBadxPmf5WJ15HaZKpJA4Y=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XtM37DvTKf2bb+GVj6ASlVtLDyVHVPMAD6zccGsD5E3/E1wrfEWiJReG0ccWlWSWC
-	 uaUf6rI0GgZbDzwgxjbMDTz269rOyIpeiQ4B732zetBA/ziZinReruUjn53IIHwDDF
-	 ZQwKc+CrKP+r+KqYO5/s6vBbGyYgcEnIOOdid3i8=
+	b=S2650n/cGjoYG04/0jw2tkSvYMbfjOs0huyKpIHb7q8jTsP0uAkwN3REola+WhgfG
+	 jEn5q3Qlk3bwMrzU0KpqVAfPufNlfG6hcBN93XP56k4YtxNBCuHjTwMxJyO0blwzVU
+	 dhFcafd1DAEjrjF0K3GAyDRTxzDWJsl/pUYuskq0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2CBFF80134;
-	Mon, 10 Jan 2022 15:42:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCA24F80134;
+	Mon, 10 Jan 2022 15:46:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4019AF8012E; Mon, 10 Jan 2022 15:42:07 +0100 (CET)
+ id 3CEB7F8012E; Mon, 10 Jan 2022 15:46:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E85DF80054
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 15:41:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E85DF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2DDAF80054
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 15:46:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2DDAF80054
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="atyYrExP"
+ header.b="KOgH/Ss/"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4AE57B8165E;
- Mon, 10 Jan 2022 14:41:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A54CC36AE3;
- Mon, 10 Jan 2022 14:41:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5F1B860E33;
+ Mon, 10 Jan 2022 14:46:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9DBC36AE3;
+ Mon, 10 Jan 2022 14:46:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641825715;
- bh=IRWKfarB7UT3aTZ8iGKekBjvvhb6auMLdXTsZCJAKhE=;
+ s=k20201202; t=1641825968;
+ bh=+hVAJi2FtkLwfyiWMg9/GQBadxPmf5WJ15HaZKpJA4Y=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=atyYrExP1quHK/+eNzi+g41s0OBEtNuzulk6ZJTphsXFDPrNO8m8RH6z9LlRZ8EdA
- 4lM/zxXN9UbiTTLTDuUpgEay+76ER0g39E07GcY0FFwny3LEc6Ygis1RhyRn8sDr/t
- FRyM3hwIjJ/M9L+NlsnZHOA9rXmgNUZsetlJi6Td4pXKc6FlXfABgGgyp1HglFEy4r
- E1c/IHOhyYbLt4A7T0ZKRAuZSE/kO7H9T5cm7Ouht/k3PyaGvmzAhFjfZ5rSLVPr8T
- IqqY3oa8e6TnFxzzubB8lSFaycBFbCL7NNQuv3YEyf8KA9HSLK4Kdg81DxESX/Zl3I
- lbPTl0rfedN3A==
-Date: Mon, 10 Jan 2022 14:41:49 +0000
+ b=KOgH/Ss/+yVhXV7fgVYFDNh999mk9P9sm6UPZwgCVIR/Ln/ZQpP21i8GjwgbXPnUn
+ PNwFSHE0lzM06jLph/476Ch05eJHCredfRzvpZqCVQO1eTPTwzCWDID0Qv694Wq8Yx
+ sPDraRq1w4eyvd3SJl+hXWmTDh2sngimk6AAhKQg9iwHiCE4Fp1zd3Pm2gOGjXlOWQ
+ 9zH85KB64vpVV/nHyZ4CL4do+xG6tc/k7VgCR0EK8VN0nYWbq+j0thSRdcyBI7Cm75
+ NDRfokCzaP7vmFnuVSQJVLLxdNq+/rx+GmQpieJOQlgm2+p78zlXDfzqf1t5L0D/ZE
+ kIO4B77jytjFQ==
+Date: Mon, 10 Jan 2022 14:46:04 +0000
 From: Mark Brown <broonie@kernel.org>
-To: cgel.zte@gmail.com
-Subject: Re: [PATCH] sound/soc/codecs: remove redundant ret variable
-Message-ID: <YdxFrb3r/u/ZAAQi@sirena.org.uk>
-References: <20220110012833.643994-1-chi.minghao@zte.com.cn>
+To: Robert Hancock <robert.hancock@calian.com>
+Subject: Re: [PATCH v2 2/6] ASoC: xilinx: xlnx_formatter_pcm: Handle sysclk
+ setting
+Message-ID: <YdxGrApvHyPW1aii@sirena.org.uk>
+References: <20220107214711.1100162-1-robert.hancock@calian.com>
+ <20220107214711.1100162-3-robert.hancock@calian.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ApzzE4PXBCVGL0Eu"
+ protocol="application/pgp-signature"; boundary="GMJNi5j0UOBeicfG"
 Content-Disposition: inline
-In-Reply-To: <20220110012833.643994-1-chi.minghao@zte.com.cn>
+In-Reply-To: <20220107214711.1100162-3-robert.hancock@calian.com>
 X-Cookie: Do you have lysdexia?
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com, chi.minghao@zte.com.cn,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ michal.simek@xilinx.com, maruthi.srinivas.bayyavarapu@xilinx.com,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,43 +89,38 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---ApzzE4PXBCVGL0Eu
+--GMJNi5j0UOBeicfG
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jan 10, 2022 at 01:28:33AM +0000, cgel.zte@gmail.com wrote:
-> From: Minghao Chi <chi.minghao@zte.com.cn>
+On Fri, Jan 07, 2022 at 03:47:07PM -0600, Robert Hancock wrote:
+> This driver did not set the MM2S Fs Multiplier Register to the proper
+> value for playback streams. This needs to be set to the sample rate to
+> MCLK multiplier, or random stream underflows can occur on the downstream
+> I2S transmitter.
 >=20
-> Return value from devm_snd_soc_register_component() directly instead
-> of taking this in another redundant variable.
+> Store the sysclk value provided via the set_sysclk callback and use that
+> in conjunction with the sample rate in the hw_params callback to calculate
+> the proper value to set for this register.
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+The driver should be setting a constraint for this if the sysclk is
+configured, we shouldn't end up in a situation where userspace is trying
+to start a playback that will fail.
 
-Please don't ignore review comments, people are generally making them
-for a reason and are likely to have the same concerns if issues remain
-unaddressed.  Having to repeat the same comments can get repetitive and
-make people question the value of time spent reviewing.  If you disagree
-with the review comments that's fine but you need to reply and discuss
-your concerns so that the reviewer can understand your decisions.
-
---ApzzE4PXBCVGL0Eu
+--GMJNi5j0UOBeicfG
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHcRawACgkQJNaLcl1U
-h9BkZQf+OAhTmjfoI/kZdafc7EFfjT30BWUXU4ml6hWzhuflKB6oA3mrXlJlWHGs
-u7r8Fn3Pb/oHQvYITKx+5kvbtNcya/d4dmCZ5cliRsVEy2SkcO9ndU3VtAVjiUt7
-WAh92fwhmQVbAuSyN3iZ3uU5fWUshXPNQrCWIWyqrnINiadaNwVUDY9XqgY0hUiV
-XGd3kMUHGRedOyPtstAla01QESWbWsDPGxCtatztmChooqf0MOzjsg1/kRIbJi24
-CkutHEBlTI04yp0Op3cwUtLneaf7DE4U0VonHwPPC27Ii1qVEg3HpnAT9oT6MLC1
-MpLp/D4ApBv9vr2/UD5dEWI9f1d91Q==
-=l4Mb
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHcRqsACgkQJNaLcl1U
+h9BmSQf/bNcFSFR+ofLKd4dowKOP9vmtuKIDkrmA8NKdHT+lF8li8WXhqpwdsJEL
+SwYq4SjDLd0KmoPoLxadnVN/I6Z/a+/Y+RqcuXLD+WeZGfn8uf79HjYWkfRbeqrG
+zom5yzD174zPxhx+bQhKK9IHRzTGzTwbyNidoPxQenx8zLiu4pegFjOE1Hc9Bry3
+Ui+blBJjtk7mTuCa9UYJ+ha1QZaenZ9osOtr/PX0VjSo7SCRJCFc3LMrGuyimY6r
+jb9rRby9yPx9se4FHXJAW1ZTQwkDgeb00skwO/9LV9XYJAMBNta/GAvW0Q/cb9l/
+S14S7ysCV0ceGAI8RVzg8VBmJIMQ8g==
+=aIuB
 -----END PGP SIGNATURE-----
 
---ApzzE4PXBCVGL0Eu--
+--GMJNi5j0UOBeicfG--

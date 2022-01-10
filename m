@@ -2,91 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D9754896B5
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 11:49:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FDC7489747
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 12:22:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AABB31817;
-	Mon, 10 Jan 2022 11:48:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AABB31817
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9458B186C;
+	Mon, 10 Jan 2022 12:21:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9458B186C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641811753;
-	bh=/gudDsab93jbAQSh/4KXXYWFWKyW7+Jo9udoL2OHXYg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=gruX5Q0GvELfSyaJDQcOz4LR1n4rWzMEbJ+FLuCcn0bQJcHCoQOS/0g12yfeUA0F8
-	 b1+QgRDdDLGHL8YXRIgwwkRH9aQ8a6WaAcbvdj6zxI6mdkHfxs2rvYeMDmV/MlYnYt
-	 ZuLy2QuMeygxxwxRhcIccqqzgfqjmljhxZDV0P70=
+	s=default; t=1641813723;
+	bh=JnnhCqEeDxzuWb6vHw1D59BJ8rbqB9fQkp3us601/dk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=uuHuPlu7XsAd8vJt7aQmgEC/qqQ3lV/JlspUV8/mPAbjDA99KaMrCCAXfqVa0j4Vm
+	 kWmemzP7k+ma7qBCQKWjKXejbbHh/AgYMEvODoCZaQyEdoaJxeM3speNhaQN08Zsoy
+	 WVRoQeHgZ+I+3WmqewPBoZM79e3Mxdch4um1uGf4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1900AF80134;
-	Mon, 10 Jan 2022 11:48:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02922F80134;
+	Mon, 10 Jan 2022 12:20:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19EC7F8012E; Mon, 10 Jan 2022 11:48:04 +0100 (CET)
+ id 79139F8012E; Mon, 10 Jan 2022 12:20:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DBCEF80054
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 11:47:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DBCEF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60D18F800B6
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 12:20:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60D18F800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fjmbYiE4"
-Received: by mail-pj1-x102e.google.com with SMTP id hv15so5701160pjb.5
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 02:47:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QoPQbPDSwmhcCclXn3wTkRYXJo86fSVvmFTmCUeMKdo=;
- b=fjmbYiE4EINPTC/2l3ddI5ufeI2VGM2uRQC/awt/KKVrHw48JrS1CryzAMa81x7M1Q
- bp0aScuAqPfZ4J48pityNe35L5ScCqkG+/gNGlTuBG70faN2mMDrU5VWRlOhZ15hSzaJ
- 5/MpGAbwqlA4BWayyJhdh8Ef3uRLVOpsC/QFyKuBxNdy7yJU5LduxEM+BPfyt7F7hrmP
- 2HcYkUrDumSud+F4/cRa7yH4mOfQv9dE8UDwPzYr6ZsDF1qb4xHkz8iXrkwcyiOQ8PJG
- VyC1JiA11+6RNhiFYERPSZG15252PGD6RW/QuM02buY9bMGC1sazjiKMfRbp0ctvj1wP
- 9ndA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QoPQbPDSwmhcCclXn3wTkRYXJo86fSVvmFTmCUeMKdo=;
- b=sqFXKVI6ScQLDlPxY3b1LS/XgLTAQol0LddmDqAfh5XeXgo04AzBr/1Ch3gdDWDbl2
- o5AoZVtAZxTyMhGZq46e3rlA9/MYhvMN9DGQPeO3tZbrDgcQRhzAcG3t2UcMSurBIMeX
- LxhUkLEYF19dQeiujGTtqrZzwyobmdKhnorWZSfzmIJsOd0VRujkPnx+BiPMLOrSi8ve
- O812DJ6m0szRpMRuo59hXgb9PmenuLFg6IHzwusLNDJcw5PbyyFanbs9nrgJGadwJD7b
- uqgRcb1gjNAyAM7uOLWmW0AsX340svg5RiGb1r+FGjtlb12PYJNSnTqCnlYraLSe3VBU
- JuGw==
-X-Gm-Message-State: AOAM531/cxizVSx+gnE17l/CvoIppfmAhxUfr16ER6mtGljDwG4MgGYb
- EKD7D54VZ9ftFXwUV1sEC0E=
-X-Google-Smtp-Source: ABdhPJw+g4r1x0H35i02mrlXLUcvFmFtV6s2lhQJGIluU3rhzIKyBu7BhAvb7M/NXzDsrqks8doznQ==
-X-Received: by 2002:a17:90a:9f95:: with SMTP id
- o21mr15744318pjp.44.1641811673860; 
- Mon, 10 Jan 2022 02:47:53 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id h17sm6376122pfv.217.2022.01.10.02.47.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Jan 2022 02:47:53 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: agross@kernel.org
-Subject: [PATCH] drivers/soundwire: remove redundant val variable
-Date: Mon, 10 Jan 2022 10:47:49 +0000
-Message-Id: <20220110104749.646995-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="MFlwyO9A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1641813644; x=1673349644;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=JnnhCqEeDxzuWb6vHw1D59BJ8rbqB9fQkp3us601/dk=;
+ b=MFlwyO9AZj4kbPw6aTWtPdyOCX33rHVWuGkRw6RV/KTLaC/8gtwgGQut
+ NdPQ2bcjRWmTuyXIb+VOStQxh3mQ+bBMBaiWpb28b92ai68ModDqR35Bp
+ Tifdn2cmahUahErbQJTsA7PvGojf82cG0PD58laK31S9xAmyjZ7E4nCW+
+ tRrOZv3Ng+R99yKCy/BxmR1GlCvnWUk2kRlfWyTTE5Wkk88Tr3s04BvzZ
+ CEjYMcxfLZMocazx8gtlEnhg3HZmK/Et0QegUdOLNwmu7qJ/BJuYxIcLI
+ Ioq+sjZ424FXH7oOT3Cs26Bv+ZaIQljTqbUvayUsk5ISRwkK8YWHytsQ9 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10222"; a="303945379"
+X-IronPort-AV: E=Sophos;i="5.88,276,1635231600"; d="scan'208";a="303945379"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2022 03:20:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,276,1635231600"; d="scan'208";a="575786575"
+Received: from lkp-server01.sh.intel.com (HELO 276f1b88eecb) ([10.239.97.150])
+ by fmsmga008.fm.intel.com with ESMTP; 10 Jan 2022 03:20:36 -0800
+Received: from kbuild by 276f1b88eecb with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1n6sj6-00033E-4g; Mon, 10 Jan 2022 11:20:36 +0000
+Date: Mon, 10 Jan 2022 19:20:26 +0800
+From: kernel test robot <lkp@intel.com>
+To: Joerg Schambacher <joerg@hifiberry.com>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH v3] ASoC: adds component driver for TAS575xM digital
+ amplifiers
+Message-ID: <202201101949.6FmvBdvY-lkp@intel.com>
+References: <20220110084554.2228-1-joerg@hifiberry.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- Zeal Robot <zealci@zte.com.cn>, pierre-louis.bossart@linux.intel.com,
- Minghao Chi <chi.minghao@zte.com.cn>, bjorn.andersson@linaro.org,
- vkoul@kernel.org, CGEL ZTE <cgel.zte@gmail.com>, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220110084554.2228-1-joerg@hifiberry.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: broonie@kernel.org, joerg@hifiberry.com, kbuild-all@lists.01.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,41 +92,238 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
+Hi Joerg,
 
-Return value from SWRM_REG_VAL_PACK() directly instead
-of taking this in another redundant variable.
+Thank you for the patch! Perhaps something to improve:
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
-Signed-off-by: CGEL ZTE <cgel.zte@gmail.com>
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on v5.16 next-20220110]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/0day-ci/linux/commits/Joerg-Schambacher/ASoC-adds-component-driver-for-TAS575xM-digital-amplifiers/20220110-164852
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: powerpc-allyesconfig (https://download.01.org/0day-ci/archive/20220110/202201101949.6FmvBdvY-lkp@intel.com/config)
+compiler: powerpc-linux-gcc (GCC) 11.2.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/194435492a87ace959d74aae1cecb27f16ad8966
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Joerg-Schambacher/ASoC-adds-component-driver-for-TAS575xM-digital-amplifiers/20220110-164852
+        git checkout 194435492a87ace959d74aae1cecb27f16ad8966
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=powerpc SHELL=/bin/bash sound/soc/codecs/
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> sound/soc/codecs/tas5754m.c:273:5: warning: no previous prototype for 'tas5754m_set_clock_tree_master' [-Wmissing-prototypes]
+     273 | int tas5754m_set_clock_tree_master(struct snd_soc_dai *dai,
+         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> sound/soc/codecs/tas5754m.c:346:5: warning: no previous prototype for 'tas5754m_set_dai_mode' [-Wmissing-prototypes]
+     346 | int tas5754m_set_dai_mode(struct snd_soc_dai *dai)
+         |     ^~~~~~~~~~~~~~~~~~~~~
+>> sound/soc/codecs/tas5754m.c:395:5: warning: no previous prototype for 'tas5754m_set_dividers_master' [-Wmissing-prototypes]
+     395 | int tas5754m_set_dividers_master(struct snd_soc_dai *dai,
+         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/tas5754m_set_clock_tree_master +273 sound/soc/codecs/tas5754m.c
+
+   272	
+ > 273	int tas5754m_set_clock_tree_master(struct snd_soc_dai *dai,
+   274						struct snd_pcm_hw_params *params)
+   275	{
+   276		struct snd_soc_component *component = dai->component;
+   277		struct tas5754m_priv *tas5754m =
+   278				snd_soc_component_get_drvdata(component);
+   279		static const struct reg_sequence pll_settings[] = {
+   280			{ TAS5754M_PLL_COEFF_P,		0x01 },	// P=2
+   281			{ TAS5754M_PLL_COEFF_J,		0x08 },	// J=8
+   282			{ TAS5754M_PLL_COEFF_DL,	0x00 },	// D12-8 = 0
+   283			{ TAS5754M_PLL_COEFF_DH,	0x00 },	// D7-0 = 0
+   284			{ TAS5754M_PLL_COEFF_R,		0x00 },	// R=1
+   285		};
+   286		int ret;
+   287	
+   288		/* disable PLL before any clock tree change */
+   289		ret = regmap_update_bits(tas5754m->regmap, TAS5754M_PLL_EN,
+   290					 TAS5754M_PLLE, 0);
+   291		if (ret != 0) {
+   292			dev_err(component->dev, "Failed to disable PLL: %d\n", ret);
+   293			return ret;
+   294		}
+   295	
+   296		/* set DAC clock source to MCLK */
+   297		ret = regmap_write(tas5754m->regmap, TAS5754M_DAC_REF, 0x30);
+   298		if (ret != 0) {
+   299			dev_err(component->dev, "Failed to set DAC ref\n");
+   300			return ret;
+   301		}
+   302	
+   303		/* run PLL at fixed ratio to MCLK */
+   304		ret = regmap_multi_reg_write(tas5754m->regmap, pll_settings,
+   305						ARRAY_SIZE(pll_settings));
+   306		if (ret != 0) {
+   307			dev_err(component->dev, "Failed to set PLL ratio\n");
+   308			return ret;
+   309		}
+   310	
+   311		/* set DSP divider to 2 => reg 0x01 */
+   312		ret = regmap_write(tas5754m->regmap, TAS5754M_DSP_CLKDIV, 1);
+   313		if (ret != 0) {
+   314			dev_err(component->dev, "Failed to set DSP divider\n");
+   315			return ret;
+   316		}
+   317		/* set DAC divider to 4 => reg 0x03*/
+   318		ret = regmap_write(tas5754m->regmap, TAS5754M_DAC_CLKDIV, 3);
+   319		if (ret != 0) {
+   320			dev_err(component->dev, "Failed to set OSDACR divider\n");
+   321			return ret;
+   322		}
+   323		/* set OSR divider to 1 */
+   324		ret = regmap_write(tas5754m->regmap, TAS5754M_OSR_CLKDIV, 0);
+   325		if (ret != 0) {
+   326			dev_err(component->dev, "Failed to set OSR divider\n");
+   327			return ret;
+   328		}
+   329		/* set CP divider to 4 => reg 0x03*/
+   330		ret = regmap_write(tas5754m->regmap, TAS5754M_NCP_CLKDIV, 3);
+   331		if (ret != 0) {
+   332			dev_err(component->dev, "Failed to set CP divider\n");
+   333			return ret;
+   334		}
+   335		/* finally enable PLL */
+   336		ret = regmap_update_bits(tas5754m->regmap, TAS5754M_PLL_EN,
+   337					 TAS5754M_PLLE, 1);
+   338		if (ret != 0) {
+   339			dev_err(component->dev, "Failed to enable PLL: %d\n", ret);
+   340			return ret;
+   341		}
+   342	
+   343		return 0;
+   344	}
+   345	
+ > 346	int tas5754m_set_dai_mode(struct snd_soc_dai *dai)
+   347	{
+   348		struct snd_soc_component *component = dai->component;
+   349		struct tas5754m_priv *tas5754m =
+   350				snd_soc_component_get_drvdata(component);
+   351		int fmt = tas5754m->fmt;
+   352	
+   353		/* only I2S MASTER mode implemented */
+   354		if (((fmt & SND_SOC_DAIFMT_FORMAT_MASK) != SND_SOC_DAIFMT_I2S)) {
+   355			dev_err(component->dev,
+   356				"DAI format not supported (I2S master only)\n");
+   357			return -EINVAL;
+   358		}
+   359		/* TAS5754/6m do not support inverted clocks in MASTER mode */
+   360		if (((fmt & SND_SOC_DAIFMT_CLOCK_MASK) != SND_SOC_DAIFMT_NB_NF)) {
+   361			dev_err(component->dev,	"Inverted clocks not supported\n");
+   362			return -EINVAL;
+   363		}
+   364	
+   365		switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+   366		case SND_SOC_DAIFMT_CBM_CFM:
+   367			regmap_update_bits(tas5754m->regmap,
+   368					TAS5754M_BCLK_LRCLK_CFG,
+   369					TAS5754M_LRKO | TAS5754M_BCKO,
+   370					TAS5754M_LRKO | TAS5754M_BCKO);
+   371			/* reset CLK dividers */
+   372			regmap_update_bits(tas5754m->regmap,
+   373					TAS5754M_MASTER_MODE,
+   374					0x00,
+   375					TAS5754M_RLRK | TAS5754M_RBCK);
+   376			/* ignore all clock error detection but MCLK */
+   377			regmap_update_bits(tas5754m->regmap,
+   378					TAS5754M_ERROR_DETECT,
+   379					TAS5754M_IPLK | TAS5754M_DCAS |
+   380					TAS5754M_IDCM | TAS5754M_IDSK |
+   381					TAS5754M_IDBK | TAS5754M_IDFS,
+   382					TAS5754M_IPLK | TAS5754M_DCAS |
+   383					TAS5754M_IDCM | TAS5754M_IDSK |
+   384					TAS5754M_IDBK | TAS5754M_IDFS);
+   385			break;
+   386		case SND_SOC_DAIFMT_CBS_CFS:
+   387		case SND_SOC_DAIFMT_CBM_CFS:
+   388		default:
+   389			return -EINVAL;
+   390		}
+   391	
+   392		return 0;
+   393	}
+   394	
+ > 395	int tas5754m_set_dividers_master(struct snd_soc_dai *dai,
+   396					struct snd_pcm_hw_params *params)
+   397	{
+   398		struct snd_soc_component *component = dai->component;
+   399		struct tas5754m_priv *tas5754m =
+   400				snd_soc_component_get_drvdata(component);
+   401		unsigned long bclk;
+   402		unsigned long mclk;
+   403		int bclk_div;
+   404		int lrclk_div;
+   405		int osr;
+   406		int ret;
+   407	
+   408		mclk = clk_get_rate(tas5754m->sclk);
+   409		bclk = tas5754m->sample_len * 2 * params_rate(params);
+   410		bclk_div = mclk / bclk;
+   411		lrclk_div = tas5754m->sample_len * 2;
+   412		osr = mclk / 4 / params_rate(params) / 16;
+   413	
+   414		// stop LR / SCLK clocks
+   415		ret = regmap_update_bits(tas5754m->regmap,
+   416					TAS5754M_MASTER_MODE,
+   417					!TAS5754M_RLRK | !TAS5754M_RBCK,
+   418					TAS5754M_RLRK | TAS5754M_RBCK);
+   419		if (ret != 0) {
+   420			dev_err(component->dev, "Failed to stop PLL\n");
+   421			return ret;
+   422		}
+   423	
+   424		// set SCLK divider
+   425		ret = regmap_write(tas5754m->regmap, TAS5754M_MASTER_SCLKDIV,
+   426									bclk_div - 1);
+   427		if (ret != 0) {
+   428			dev_err(component->dev, "Failed to set SCLK divider\n");
+   429			return ret;
+   430		}
+   431	
+   432		// set LRCLK divider
+   433		ret = regmap_write(tas5754m->regmap, TAS5754M_MASTER_LRCLKDIV,
+   434									lrclk_div - 1);
+   435		if (ret != 0) {
+   436			dev_err(component->dev, "Failed to set LRCLK divider\n");
+   437			return ret;
+   438		}
+   439	
+   440		ret = regmap_write(tas5754m->regmap,
+   441			TAS5754M_OSR_CLKDIV, osr - 1);
+   442		if (ret != 0) {
+   443			dev_err(component->dev, "Failed to set OSR divider\n");
+   444			return ret;
+   445		}
+   446	
+   447		// restart LR / SCLK clocks
+   448		ret = regmap_update_bits(tas5754m->regmap,
+   449					TAS5754M_MASTER_MODE,
+   450					TAS5754M_RLRK | TAS5754M_RBCK,
+   451					TAS5754M_RLRK | TAS5754M_RBCK);
+   452		if (ret != 0) {
+   453			dev_err(component->dev, "Failed to restart PLL\n");
+   454			return ret;
+   455		}
+   456	
+   457		return 0;
+   458	}
+   459	
+
 ---
- drivers/soundwire/qcom.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 54813417ef8e..77f9c90370be 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -235,7 +235,6 @@ static int qcom_swrm_cpu_reg_write(struct qcom_swrm_ctrl *ctrl, int reg,
- static u32 swrm_get_packed_reg_val(u8 *cmd_id, u8 cmd_data,
- 				   u8 dev_addr, u16 reg_addr)
- {
--	u32 val;
- 	u8 id = *cmd_id;
- 
- 	if (id != SWR_BROADCAST_CMD_ID) {
-@@ -245,9 +244,8 @@ static u32 swrm_get_packed_reg_val(u8 *cmd_id, u8 cmd_data,
- 			id = 0;
- 		*cmd_id = id;
- 	}
--	val = SWRM_REG_VAL_PACK(cmd_data, dev_addr, id, reg_addr);
- 
--	return val;
-+	return SWRM_REG_VAL_PACK(cmd_data, dev_addr, id, reg_addr);
- }
- 
- static int swrm_wait_for_rd_fifo_avail(struct qcom_swrm_ctrl *swrm)
--- 
-2.25.1
-
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org

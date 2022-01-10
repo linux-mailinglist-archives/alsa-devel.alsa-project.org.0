@@ -2,94 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6967148A0CF
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 21:17:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D96D48A0F9
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 21:32:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD8B218E6;
-	Mon, 10 Jan 2022 21:17:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD8B218E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEFDE1900;
+	Mon, 10 Jan 2022 21:31:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEFDE1900
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641845876;
-	bh=T0xQEeMfYAZWWLfQ25O7XnIoPfBpVaJVmwR4FfAbgLk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1641846759;
+	bh=Y5+ckeFP2c9dGNWovaebLCVF9NhCx9Vtt2jcF1go6ko=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hjr1pQRPMw5lWAJ9Zsvhh1/mqnr4wbY/lul1Lz+GJR+wI8dzayhg5k+xoDcYTiAdV
-	 elKZWyUKykslCFngo/bGKA2QEGM+j62MvQUS6Cys1nGQ88ZfkRZmmbm/Ca6aYAheAj
-	 rM6hdubqs8IpGHLOA49JmkB4/hwtTe/4O9fDKwtE=
+	b=T6Qashy/bKiqqxdiA1aUm1yKq7oOLuAqiXAi4+6y049KQfmIM1UGbfoUS46zGjUPP
+	 UR7CuTaVEPiW98Te7NV5dXYRv5UMq7wQjgIJnkSjjaA1RhS3fTqfAd+TJJYjU5psep
+	 ro/wo9PNM7NF7RUxNDE2A7/+kmLIqiM7XSFofBvs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C5CFF80134;
-	Mon, 10 Jan 2022 21:16:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C093F80134;
+	Mon, 10 Jan 2022 21:31:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D59AF8012E; Mon, 10 Jan 2022 21:16:45 +0100 (CET)
+ id 93383F8012E; Mon, 10 Jan 2022 21:31:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [IPv6:2607:f8b0:4864:20::b2c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BBA5EF80118
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 21:16:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBA5EF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AABFF80054
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 21:31:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AABFF80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="PTLk8Dmk"
-Received: by mail-yb1-xb2c.google.com with SMTP id h14so23840856ybe.12
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 12:16:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T0xQEeMfYAZWWLfQ25O7XnIoPfBpVaJVmwR4FfAbgLk=;
- b=PTLk8Dmkr/y6prAl62pFcK4STJOH3jrgkxpECkEj2HXVob0FHdLQ5JOBkL12TSk1oM
- tH2L5pIY+yhSGwwUg7WkgvlEgoTJkrs6ZFG+RVyeXoWNVPk1sufy+eMrhX/T3EPbBMqW
- 4VZ0xujB/NY+2glfLjzV7W7iigh3P62QaL0Zzll06XqCfMZYAp8Iq4xgHT8tg0SzbG69
- MN4AIO5+tmaTqLz44tCrGYskywsLteutyI572lVGnPPZ+qZb5nzjmdBcLwAVj3w+P+GK
- bs1hpoXXpR9vA+A5j9GEOYUM0P9+Mx/W3A+I8FpgAmx0ZEFeblf6jP0Y4nTDBRvXfQRD
- EzxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=T0xQEeMfYAZWWLfQ25O7XnIoPfBpVaJVmwR4FfAbgLk=;
- b=UqK/LdhrXK2xm5XcBz02+jO3U3uQiGtcgYyKPbl6nauvCCqzi088NWWlX+2iYdf/Ta
- navpSAJmyrTgDcI2kf/Che/w1pTRtFTGREmtBU3dmVvw6NckD1teLPFGXSsaqLL4HuF0
- qAZUt/vx9ULVcd2k+WhPTWGzrfH707x7mbEkR7dkqsa1tzIOqfJuxWq4e4A+UeZJdZCT
- LOEBh9wCfP3H463KmK6pJ7bHnVjV13v1Fwg+qCiSYXG7oUbcjm5MV0iwWA2EHC590joY
- bdr1X6DpjR6lZXa7lJgeeBIZ8vBwChmuggh38HJq981FtAmCMEqMhTkZLPwTdCvFZGNA
- C7Jw==
-X-Gm-Message-State: AOAM530YTuxlnV5JiZa+U5fWUNbnDz4+aMzvYjETHsm3ficyauQ3Pc6I
- k30c5gh4QXBbBrG2Mk2VtXeTyPQptqNx67GXIc8=
-X-Google-Smtp-Source: ABdhPJy5SZlMpv1Hol2xQ3klc0XaWlDB9uAoLFo2kw5RT28K2/HIw3OnQtl5+wJXnX8uTL6DGxNY2Mlh7fJ+wMLnC1g=
-X-Received: by 2002:a05:6902:4e9:: with SMTP id
- w9mr784708ybs.186.1641845794594; 
- Mon, 10 Jan 2022 12:16:34 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="AZbja+hN"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7FD0BB81785;
+ Mon, 10 Jan 2022 20:31:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B624C36AE9;
+ Mon, 10 Jan 2022 20:31:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1641846682;
+ bh=Y5+ckeFP2c9dGNWovaebLCVF9NhCx9Vtt2jcF1go6ko=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AZbja+hNl0YFjGKzVbtfbIHUZFezx9Sg8zJNhEWrn/dDsdf+DrDyKPQmuaXJ/YGvZ
+ Ta1Et2ZTyprKr5uExBcC8RmklJz849nKUzGgk3U/tVHzKdOQIIT9QgUIicjP1yLTY8
+ JVUJ0Z9JsF3Nz4ht6gYabZxjo6764PdRthyb08J5Qi+PNa1/IjvEw2uPluU2hUBuks
+ mhAxNISUXK7P4hZ36sGPTYLMI2JARh4OwqlnXz4RTKzqo/2AdKf3YqzspEKscV5W9Q
+ L5/nfb1ekcOSmQJ4FGLSSJ0/cBti2pxB11+iuYffssVyrkTohkdmFfvj53bjzpWT8J
+ kbC5PSmLybDiQ==
+Date: Mon, 10 Jan 2022 20:31:17 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Robert Hancock <robert.hancock@calian.com>
+Subject: Re: [PATCH v2 2/6] ASoC: xilinx: xlnx_formatter_pcm: Handle sysclk
+ setting
+Message-ID: <YdyXlalTSxPksLXH@sirena.org.uk>
+References: <20220107214711.1100162-1-robert.hancock@calian.com>
+ <20220107214711.1100162-3-robert.hancock@calian.com>
+ <YdxGrApvHyPW1aii@sirena.org.uk>
+ <b45aa6b8f3aa443da90b561e579370a0255e7017.camel@calian.com>
 MIME-Version: 1.0
-References: <20220110094711.8574-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20220110094711.8574-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <2f338a37-f2ca-33e4-284e-5d263f7b93da@intel.com>
- <CA+V-a8vz25B=cw_C4YMBRdDxeq7mi8Zc+noqpdHqfMP8eNHYFg@mail.gmail.com>
- <f69a0650-174f-1b0d-ba29-7fe04c7cf211@intel.com>
-In-Reply-To: <f69a0650-174f-1b0d-ba29-7fe04c7cf211@intel.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 10 Jan 2022 20:16:08 +0000
-Message-ID: <CA+V-a8vJzSPxpy0Te1XUiT_zkt4wd=NvFJGvwGkgwcNnibjbhQ@mail.gmail.com>
-Subject: Re: [PATCH 1/5] ASoC: sh: rz-ssi: Drop calling rz_ssi_pio_recv()
- recursively
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Pavel Machek <pavel@denx.de>,
- Takashi Iwai <tiwai@suse.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
- LKML <linux-kernel@vger.kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="FEHHpdbMt/SZii13"
+Content-Disposition: inline
+In-Reply-To: <b45aa6b8f3aa443da90b561e579370a0255e7017.camel@calian.com>
+X-Cookie: Do you have lysdexia?
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ "maruthi.srinivas.bayyavarapu@xilinx.com"
+ <maruthi.srinivas.bayyavarapu@xilinx.com>,
+ "michal.simek@xilinx.com" <michal.simek@xilinx.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,32 +93,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jan 10, 2022 at 5:48 PM Cezary Rojewski
-<cezary.rojewski@intel.com> wrote:
->
-> On 2022-01-10 5:03 PM, Lad, Prabhakar wrote:
-> > Hi Cezary,
-> >
-> > Thank you for the review.
-> >
->
-> ...
->
-> >> Recursion and loops are means for doing something repeatedly. Could you
-> >> specify _why_ such change was made i.e. the conversion from one method
-> >> into the other? I bet the code is not being changed for the sake of
-> >> changing it, the reason is simply missing in the commit message.
-> >>
-> > I had feedback from Pavel "recursion is unwelcome in kernel due to
-> > limited stack use." which I did agree with as a result I have come up
-> > with this patch. Also to add this driver will later be used on Renesas
-> > RZ/A2 SoC's which runs with limited memory.
->
-> Adding that reasoning to the commits message will prevent questions
-> (such as mine) in the future. Thank you for a quick reply and a
-> transparent answer.
->
-My bad! I'll update the commit message.
 
-CHeers,
-Prabhakar
+--FEHHpdbMt/SZii13
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Mon, Jan 10, 2022 at 06:28:36PM +0000, Robert Hancock wrote:
+
+> -On initialization for simple-card, if a clock frequency is specified in device
+> tree, set_sysclk is called on the DAI by asoc_simple_init_dai (called by
+> asoc_simple_dai_init). However, it doesn't appear that it is called on the
+> platform (xlnx_formatter_pcm in this case) at this point.
+
+> -startup gets called on the DAI from pcm_open, so xlnx_i2s should be able to
+> add its rate constraints properly at that point. However, xlnx_formatter_pcm
+> has no sysclk set at this point, so it couldn't currently enforce any
+> constraint based on that.
+
+I thought the later patches in your series were intended to fix things
+so that the set_sysclk() does get called?
+
+> -when the top-level hw_params call is made with simple-card, set_sysclk gets
+> called on everything by asoc_simple_hw_params prior to hw_params calls on all
+> of the components. The sysclk there is based on the device tree mclk-fs and the
+> sample rate which might wipe out the original clock frequency if the
+> constraints don't prevent setting an invalid rate.
+
+If the device is using mclk-fs then either there's a fixed sample rate
+(in which case simple-card probably ought to force it without the driver
+worrying) or the sysclk will vary in which case simple-card should be
+setting the sysclk to 0 when the card goes idle to clear any
+constraints (which as you say later it does).
+
+> -In the case of xlnx_formatter_pcm and simple-card, since sysclk is determined
+> by sample rate times mclk-fs, there's no way for userspace to violate the
+> constraint that the sample rate divides evenly into sysclk.
+
+Only on a system where the sysclk can vary - this is a generic card so
+someone could set a fixed sysclk, and of course the driver could be used
+with other cards.
+
+> -in order to add any constraints on sample rate based on sysclk in the
+> formatter driver, it would need to get set_sysclk called during initialization
+> which doesn't currently happen. But with simple-card, there's no way those
+> constraints could be violated other than a kernel bug.
+
+You shouldn't be making assumptions about the machine driver in the DMA
+driver, especially for something like this used in a FPGA product which
+has even more flexibility than most things.
+
+> -xlnx_i2s needs some way to avoid its stored sysclk being wiped out during PCM
+> close so that the constraints are handled properly during subsequent opens.
+
+Depending on how flexible the system is clearing the sysclk stored in
+the I2S driver may be desirable - if the sysclk rate can be changed then
+you usually don't want to force constraints based on what it was during
+the last stream, you want to relax such constraints so that a new sysclk
+can be chosen where appropriate.
+
+If that's not possible in this system then it sounds like it should be
+setting system-clock-frequency and simple-card should then not be
+clearing any setting in the components when the stream closes down, it
+should be setting the clock up once at init.  Broadly speaking the
+machine driver is responsible for ensuring that the overall system
+configuration is sensible and coherent (that's what it's there for).
+
+--FEHHpdbMt/SZii13
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHcl5QACgkQJNaLcl1U
+h9DJLgf+JlsRQVfXravyumlh7XNIbuO2fRcm2KBwmQ07qMyvdGDtvifiKVHlOdJd
+rqO7Rvm+YyOJGD/j1qQ9blAbfgetcabRfkCUzRMOll0loi4O8WQ7rAApsKjdVSRH
+C2lKWSEZODw1mNntGv9uJoDkYmLByjY6aAoYHxzBUkWWunEjZrKm6tQex4jhVEpy
+tduX1vjMXVk/li6vYmuWpKEotPOMawYbIHjtW/sMS1yrQjElJkC5TZtATw2EeFYB
+jOf0QYtjXikaWfCu5rdhNhGnW55PUldQCT279UvLGzG1jlOfdMh28pESYa3Xt80b
+VAm3ZQYO1BpiScCaknjR65vBB2ZEzw==
+=irDM
+-----END PGP SIGNATURE-----
+
+--FEHHpdbMt/SZii13--

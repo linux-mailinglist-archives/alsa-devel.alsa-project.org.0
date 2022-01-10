@@ -2,62 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8274E4895AC
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 10:50:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E852B4895A9
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jan 2022 10:50:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30EB417A3;
-	Mon, 10 Jan 2022 10:50:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30EB417A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8960617DB;
+	Mon, 10 Jan 2022 10:49:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8960617DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641808255;
-	bh=dn8pmcGSz/09RA9zuzSxTWyhiebMQ9U2OjT8AtUfbdU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1641808237;
+	bh=5DJIP5zfYHWSHFXGWCwOpK7LN3a2WZFuEcN7NUl5o/M=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EikyE24rbJY8nncStBXIQYL/27l44kBw1UKejKNEWti0GdzlWknwrXlLrtbIRzdvq
-	 1tevgPeyh5x8pisB7v7gVZAc+p3F56YwKHtliCEsvPAfdYVPiPFBg93DEmPrhTvg42
-	 xdQhX0wW66XySHaxtL4efNmzIAvOH4dYqPvfoRzY=
+	b=PEtZUnWTJJeYNYSWTCIwmPNvESs77W6+zC2UM00FnJmN5nVbwYjtCCMBqhXtUzRSW
+	 448V2CWPO5P4hhEGCTbm8kS7Zz4SQryx0HBAaj0E5EyTfozUvP8b3lgqClbFebXv+N
+	 svEut+g/V9G213GVQMMZ1BIXDE2p/t/tED7y8lPo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 233ECF80519;
-	Mon, 10 Jan 2022 10:48:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A11F2F80518;
+	Mon, 10 Jan 2022 10:48:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 396B9F8012E; Mon, 10 Jan 2022 10:48:47 +0100 (CET)
+ id 3E4AFF80248; Mon, 10 Jan 2022 10:48:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id B44C5F80248
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 10:48:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B44C5F80248
-X-IronPort-AV: E=Sophos;i="5.88,276,1635174000"; d="scan'208";a="106545264"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 10 Jan 2022 18:48:03 +0900
-Received: from localhost.localdomain (unknown [10.226.36.204])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1D68C4238CA4;
- Mon, 10 Jan 2022 18:48:00 +0900 (JST)
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 5/5] ASoC: sh: rz-ssi: Add functions to get/set substream
- pointer
-Date: Mon, 10 Jan 2022 09:47:11 +0000
-Message-Id: <20220110094711.8574-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220110094711.8574-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20220110094711.8574-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B77BF8012E
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 10:47:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B77BF8012E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="O1BkUNvM"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20A6juY7030824;
+ Mon, 10 Jan 2022 03:47:56 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=eRYDLyz+LPBq9MDS7nPUbIBLRnqZnHufAJrzcP4C2OU=;
+ b=O1BkUNvMs9zYY86WUIZ4Dq8MKORm0FP2eZBDm+1K1T2YrTwINHgUUIkRk4ReNX4z+YfW
+ ro6wgB6hgEiHbr9g11h3mwSBec+Jg/AJ9PD1UjHJswuX/MHUjtKrkvtjYT70Jm2mCu8n
+ qOPlXfBjSd4sXm4PwRZW4pnMvz1yuoJP7QvG/2iyfa6grpmX4MY+VarpHI6Lextu4srF
+ MI3j3yDMaxW3pjnJsGufo2xMYOQyhBUUYT8AMWEnKSI2V5Hp0b5Ks99fb7UvjHha+Izr
+ ykwKkfydaTsb12fxGqQxcaPvayUzS65o1IB46yF/xj5E9UjO08cZ/ykxdvplkUc5lXkf xQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dgfear4w4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 10 Jan 2022 03:47:56 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Mon, 10 Jan
+ 2022 09:47:55 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.17 via
+ Frontend Transport; Mon, 10 Jan 2022 09:47:54 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DC54646D;
+ Mon, 10 Jan 2022 09:47:54 +0000 (UTC)
+Date: Mon, 10 Jan 2022 09:47:54 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <cgel.zte@gmail.com>
+Subject: Re: [PATCH] sound/soc/codecs: remove redundant ret variable
+Message-ID: <20220110094754.GI18506@ediswmail.ad.cirrus.com>
+References: <20220110012833.643994-1-chi.minghao@zte.com.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Pavel Machek <pavel@denx.de>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Prabhakar <prabhakar.csengg@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220110012833.643994-1-chi.minghao@zte.com.cn>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: sVZkMFJizHY_rDKXA1PCi7Yin1kOoQdp
+X-Proofpoint-GUID: sVZkMFJizHY_rDKXA1PCi7Yin1kOoQdp
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com, chi.minghao@zte.com.cn,
+ lgirdwood@gmail.com, broonie@kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,157 +99,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A copy of substream pointer is stored in priv structure during
-rz_ssi_dai_trigger() callback ie in SNDRV_PCM_TRIGGER_START case
-and the pointer is assigned to NULL in case of SNDRV_PCM_TRIGGER_STOP.
+On Mon, Jan 10, 2022 at 01:28:33AM +0000, cgel.zte@gmail.com wrote:
+> From: Minghao Chi <chi.minghao@zte.com.cn>
+> 
+> Return value from devm_snd_soc_register_component() directly instead
+> of taking this in another redundant variable.
+> 
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+> Signed-off-by: CGEL ZTE <cgel.zte@gmail.com>
+> ---
 
-The driver used the locks only in rz_ssi_stream_is_valid() and assigned
-the local substream pointer to NULL in rz_ssi_dai_trigger() callback and
-in rest of the driver no locking was used while assigning substream
-pointer.
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-This patch adds functions to get/set substream pointer with locks acquired
-and replaces the instances of access to substream pointer with the
-get/set functions.
-
-Reported-by: Pavel Machek <pavel@denx.de>
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
----
- sound/soc/sh/rz-ssi.c | 55 ++++++++++++++++++++++++++++++++-----------
- 1 file changed, 41 insertions(+), 14 deletions(-)
-
-diff --git a/sound/soc/sh/rz-ssi.c b/sound/soc/sh/rz-ssi.c
-index aabd15e9d515..057aedacedec 100644
---- a/sound/soc/sh/rz-ssi.c
-+++ b/sound/soc/sh/rz-ssi.c
-@@ -201,12 +201,36 @@ static bool rz_ssi_stream_is_valid(struct rz_ssi_priv *ssi,
- 	return ret;
- }
- 
-+static struct snd_pcm_substream *rz_ssi_get_substream(struct rz_ssi_stream *strm)
-+{
-+	struct rz_ssi_priv *ssi = strm->priv;
-+	struct snd_pcm_substream *substream;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&ssi->lock, flags);
-+	substream = strm->substream;
-+	spin_unlock_irqrestore(&ssi->lock, flags);
-+
-+	return substream;
-+}
-+
-+static void rz_ssi_set_substream(struct rz_ssi_stream *strm,
-+				 struct snd_pcm_substream *substream)
-+{
-+	struct rz_ssi_priv *ssi = strm->priv;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&ssi->lock, flags);
-+	strm->substream = substream;
-+	spin_unlock_irqrestore(&ssi->lock, flags);
-+}
-+
- static void rz_ssi_stream_init(struct rz_ssi_stream *strm,
- 			       struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 
--	strm->substream = substream;
-+	rz_ssi_set_substream(strm, substream);
- 	strm->sample_width = samples_to_bytes(runtime, 1);
- 	strm->dma_buffer_pos = 0;
- 	strm->period_counter = 0;
-@@ -223,12 +247,13 @@ static void rz_ssi_stream_init(struct rz_ssi_stream *strm,
- static void rz_ssi_stream_quit(struct rz_ssi_priv *ssi,
- 			       struct rz_ssi_stream *strm)
- {
--	struct snd_soc_dai *dai = rz_ssi_get_dai(strm->substream);
--	unsigned long flags;
-+	struct snd_pcm_substream *substream;
-+	struct snd_soc_dai *dai;
- 
--	spin_lock_irqsave(&ssi->lock, flags);
--	strm->substream = NULL;
--	spin_unlock_irqrestore(&ssi->lock, flags);
-+	substream = rz_ssi_get_substream(strm);
-+	rz_ssi_set_substream(strm, NULL);
-+
-+	dai = rz_ssi_get_dai(substream);
- 
- 	if (strm->oerr_num > 0)
- 		dev_info(dai->dev, "overrun = %d\n", strm->oerr_num);
-@@ -301,7 +326,8 @@ static int rz_ssi_clk_setup(struct rz_ssi_priv *ssi, unsigned int rate,
- 
- static int rz_ssi_start(struct rz_ssi_priv *ssi, struct rz_ssi_stream *strm)
- {
--	bool is_play = rz_ssi_stream_is_play(ssi, strm->substream);
-+	struct snd_pcm_substream *substream = rz_ssi_get_substream(strm);
-+	bool is_play = rz_ssi_stream_is_play(ssi, substream);
- 	u32 ssicr, ssifcr;
- 
- 	ssicr = rz_ssi_reg_readl(ssi, SSICR);
-@@ -382,7 +408,7 @@ static int rz_ssi_stop(struct rz_ssi_priv *ssi, struct rz_ssi_stream *strm)
- 
- static void rz_ssi_pointer_update(struct rz_ssi_stream *strm, int frames)
- {
--	struct snd_pcm_substream *substream = strm->substream;
-+	struct snd_pcm_substream *substream = rz_ssi_get_substream(strm);
- 	struct snd_pcm_runtime *runtime;
- 	int current_period;
- 
-@@ -399,14 +425,14 @@ static void rz_ssi_pointer_update(struct rz_ssi_stream *strm, int frames)
- 
- 	current_period = strm->buffer_pos / runtime->period_size;
- 	if (strm->period_counter != current_period) {
--		snd_pcm_period_elapsed(strm->substream);
-+		snd_pcm_period_elapsed(substream);
- 		strm->period_counter = current_period;
- 	}
- }
- 
- static int rz_ssi_pio_recv(struct rz_ssi_priv *ssi, struct rz_ssi_stream *strm)
- {
--	struct snd_pcm_substream *substream = strm->substream;
-+	struct snd_pcm_substream *substream = rz_ssi_get_substream(strm);
- 	struct snd_pcm_runtime *runtime;
- 	bool done = false;
- 	u16 *buf;
-@@ -464,7 +490,7 @@ static int rz_ssi_pio_recv(struct rz_ssi_priv *ssi, struct rz_ssi_stream *strm)
- 
- static int rz_ssi_pio_send(struct rz_ssi_priv *ssi, struct rz_ssi_stream *strm)
- {
--	struct snd_pcm_substream *substream = strm->substream;
-+	struct snd_pcm_substream *substream = rz_ssi_get_substream(strm);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	int sample_space;
- 	int samples = 0;
-@@ -588,7 +614,7 @@ static int rz_ssi_dma_slave_config(struct rz_ssi_priv *ssi,
- static int rz_ssi_dma_transfer(struct rz_ssi_priv *ssi,
- 			       struct rz_ssi_stream *strm)
- {
--	struct snd_pcm_substream *substream = strm->substream;
-+	struct snd_pcm_substream *substream = rz_ssi_get_substream(strm);
- 	struct dma_async_tx_descriptor *desc;
- 	struct snd_pcm_runtime *runtime;
- 	enum dma_transfer_direction dir;
-@@ -646,12 +672,13 @@ static int rz_ssi_dma_transfer(struct rz_ssi_priv *ssi,
- static void rz_ssi_dma_complete(void *data)
- {
- 	struct rz_ssi_stream *strm = (struct rz_ssi_stream *)data;
-+	struct snd_pcm_substream *substream = rz_ssi_get_substream(strm);
- 
--	if (!strm->running || !strm->substream || !strm->substream->runtime)
-+	if (!strm->running || !substream || !substream->runtime)
- 		return;
- 
- 	/* Note that next DMA transaction has probably already started */
--	rz_ssi_pointer_update(strm, strm->substream->runtime->period_size);
-+	rz_ssi_pointer_update(strm, substream->runtime->period_size);
- 
- 	/* Queue up another DMA transaction */
- 	rz_ssi_dma_transfer(strm->priv, strm);
--- 
-2.17.1
-
+Thanks,
+Charles

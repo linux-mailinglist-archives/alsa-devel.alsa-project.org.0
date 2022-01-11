@@ -2,84 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F9A048AE3B
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jan 2022 14:14:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9768448AF6F
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jan 2022 15:23:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB6C818A8;
-	Tue, 11 Jan 2022 14:13:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB6C818A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B43818ED;
+	Tue, 11 Jan 2022 15:22:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B43818ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641906865;
-	bh=9HR4Davs4tO5CA9fLLeW2zQmybg4H+n2JnHPQNKShR0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1641910981;
+	bh=jiUkjZIvRhFm8pHwwppwGyhpeNFAO7JfTTZCkHmN35s=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bpuzzaymss1eSpaCnSvpveYGuYDBpBENXFAtjBddRv0MsCdnVJpE9+9gqR1N/kx/b
-	 WXWKIYHlzpKR3d08He+TBTykKEp4dUfXk92HCa4MQ/AVAysVDD4x3zxqW0Cit9VFY2
-	 L84hwLDuHHtEQXvO86hx5q81BEXLUqHXmBM+cDqQ=
+	b=UiUCAee4T0H1f81vUSuFGc+w5eW/GvxoOffN+yx9SQkX5v/g1iQ/6Yvb8Kl2TxOXI
+	 abLfLKOcAmKAATgXWmSzWspPbA2LvlU0lwI55jU1qTj9ZWGWxl5jBJHvtSTxWXDsIk
+	 Z5thNOGavHdR0J855u+wE+qS3MGcGgGsNK3KWG+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 248D4F80054;
-	Tue, 11 Jan 2022 14:13:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8123DF80430;
+	Tue, 11 Jan 2022 15:21:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E8F6F80302; Tue, 11 Jan 2022 14:13:15 +0100 (CET)
+ id 47F9BF80118; Tue, 11 Jan 2022 15:21:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 706A6F800A7
- for <alsa-devel@alsa-project.org>; Tue, 11 Jan 2022 14:13:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 706A6F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEF93F80118
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jan 2022 15:21:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEF93F80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZifKXTd4"
+ header.b="OPgbHrJF"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 92CA0B81AAA;
- Tue, 11 Jan 2022 13:13:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9762C36AEB;
- Tue, 11 Jan 2022 13:13:05 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 99E0BB818B8;
+ Tue, 11 Jan 2022 14:21:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C1D4C36AE3;
+ Tue, 11 Jan 2022 14:21:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641906787;
- bh=9HR4Davs4tO5CA9fLLeW2zQmybg4H+n2JnHPQNKShR0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZifKXTd4tSk5xoiiUZUi6kLN1eIT4PFKwcRZtnH5kvFG5DLFiq88l+1ffBhQV880F
- CLgW4bF0CAJHaVZ5T1+a0/8dO/uzOUHst6S06UHO3CrWAql0ZqDTYZc2MK/DlE5iP9
- /j6r8VLlIFJxo9duID6OX2LuNPWSXZbTJ42CGYMZOjX6Uw+9GQuj36w/XTM0ZbDHdH
- j35RMFFOltvBbBfCdC5xqWzZWNcgmx2YEnFwVdwF7nThk95/GPZvprZzsZHidvwyxo
- K5XTuU8xLjCgZE0hfx28EzMeflMTibtPa5rWpRsXNwALQRPtnz/mq376TEvmbIvrGU
- ps6PvzI2vExgQ==
-Date: Tue, 11 Jan 2022 13:13:02 +0000
+ s=k20201202; t=1641910906;
+ bh=jiUkjZIvRhFm8pHwwppwGyhpeNFAO7JfTTZCkHmN35s=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=OPgbHrJF2sak7gjjMco9H0buFs8udcgvr/u0HQKvPAMviknHSyVRiyGFl+LrIhPT/
+ N2XREIKv7nXFiuPjJ0n4PbDB68dVVeu1ItYh9q8kDA3LWAshjX7eenTywCi1xJxRyL
+ 80EsF0DuacCkZyjoNsY4vz78f2JocWsE9tJkt0UHbZMPjEKiHBs7qiazK0X0PmXsNV
+ YRkIqMNxUxDp2mI9MowA2AiPBChU0g3u2J1h6UEG0vLYSCb98gwZ2Msi2x5/xE+HHP
+ G+UNhCiU8TqHiwbaExaAogc41IwTNOT6M26nN4JzHtTJkyuyaHAqB8T2S35VIZO9Xv
+ iesukpc4dvMyA==
 From: Mark Brown <broonie@kernel.org>
-To: Robert Hancock <robert.hancock@calian.com>
-Subject: Re: [PATCH v2 2/6] ASoC: xilinx: xlnx_formatter_pcm: Handle sysclk
- setting
-Message-ID: <Yd2CXvSH3jo9tmUL@sirena.org.uk>
+To: Robert Hancock <robert.hancock@calian.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20220107214711.1100162-1-robert.hancock@calian.com>
 References: <20220107214711.1100162-1-robert.hancock@calian.com>
- <20220107214711.1100162-3-robert.hancock@calian.com>
- <YdxGrApvHyPW1aii@sirena.org.uk>
- <b45aa6b8f3aa443da90b561e579370a0255e7017.camel@calian.com>
- <YdyXlalTSxPksLXH@sirena.org.uk>
- <20a640e08f80b2cbc28c5fdd27282b398bc844a6.camel@calian.com>
+Subject: Re: (subset) [PATCH v2 0/6] ASoC: Xilinx fixes
+Message-Id: <164191090481.1752423.10373421525300855428.b4-ty@kernel.org>
+Date: Tue, 11 Jan 2022 14:21:44 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="daeKLc4q6nBKR6di"
-Content-Disposition: inline
-In-Reply-To: <20a640e08f80b2cbc28c5fdd27282b398bc844a6.camel@calian.com>
-X-Cookie: Many a family tree needs trimming.
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "maruthi.srinivas.bayyavarapu@xilinx.com"
- <maruthi.srinivas.bayyavarapu@xilinx.com>,
- "michal.simek@xilinx.com" <michal.simek@xilinx.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: kuninori.morimoto.gx@renesas.com, michal.simek@xilinx.com,
+ maruthi.srinivas.bayyavarapu@xilinx.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,51 +84,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 7 Jan 2022 15:47:05 -0600, Robert Hancock wrote:
+> There are drivers in mainline for the Xilinx Audio Formatter and Xilinx
+> I2S IP cores. However, because of a few issues, these were only really
+> usable with Xilinx's xlnx_pl_snd_card top-level driver, which is not in
+> mainline (and not suitable for mainline).
+> 
+> The fixes in this patchset, for the simple-card layer as well as the
+> Xilinx drivers, now allow these drivers to be properly used with
+> simple-card without any out-of-tree support code.
+> 
+> [...]
 
---daeKLc4q6nBKR6di
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Mon, Jan 10, 2022 at 09:24:38PM +0000, Robert Hancock wrote:
-> On Mon, 2022-01-10 at 20:31 +0000, Mark Brown wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
 
-> > If the device is using mclk-fs then either there's a fixed sample rate
-> > (in which case simple-card probably ought to force it without the driver
-> > worrying) or the sysclk will vary in which case simple-card should be
-> > setting the sysclk to 0 when the card goes idle to clear any
-> > constraints (which as you say later it does).
+Thanks!
 
-> It sounds like to fix that, simple-card needs to keep track of whether the DAI
-> has a fixed clock rate or not. If it does, then it shouldn't be zeroing out the
-> sysclk when closing the device as that's wiping out information that needs to
-> be persistent. I guess if the frequency was read from a system-clock-frequency
-> property then we know it is fixed. There are other cases where it could be a
-> fixed rate, such as if the clock is connected to a fixed-clock. Maybe we need
-> an explicit DT flag "system-clock-fixed" or something for those cases?
+[1/6] ASoC: xilinx: xlnx_formatter_pcm: Make buffer bytes multiple of period bytes
+      commit: e958b5884725dac86d36c1e7afe5a55f31feb0b2
+[5/6] ASoC: simple-card: fix probe failure on platform component
+      commit: a64067f4cecaaa4deed8e33d3266bc0bcc189142
 
-If the clock is fixed in the clock API we should arrange to be able to
-enumerate that from the clock API - we shouldn't be requiring redundant
-properties for something like that.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> Then at least in the case where mclk-fs is set and one or more of the DAIs have
-> a fixed rate, simple-card can add a constraint to restrict the sample rate to
-> the fixed clock divided by mclk-fs?
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Yes, however we figure out that sysclk is fixed.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---daeKLc4q6nBKR6di
-Content-Type: application/pgp-signature; name="signature.asc"
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHdgl0ACgkQJNaLcl1U
-h9BDQgf+IzDKotghJePsPMOVEbKklpdd3e8XIuQzUz+qsnE+CknRqsX8r11Ypcqj
-gtTT4Lq6nioaapytSrU6wGUB239zkoOfA9AOfw2ipJFUFWtYJbOEj6Ju0J5npTWc
-esgQ0Pyun8wuDeOtl/S7+rEJdnJubEaa4p00Il9hmC1QxQjzSB6dgmmRZIj83/y5
-LiNn3YvnMTmBgQvCo4LgMWWBu36fLYWjDIJ9OMU5gOdMXHuAgCpsca4/IoMeX+GP
-ocvh4CudID4wIs649333L7SkNEqALt+OdF4+ubb6vWnzcQqrrPCDSf5d5hjQBNVH
-8KAUa+naAbfRMT9GgiKjijBOG8FF6w==
-=vKPq
------END PGP SIGNATURE-----
-
---daeKLc4q6nBKR6di--
+Thanks,
+Mark

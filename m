@@ -2,84 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FA0C48B274
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jan 2022 17:41:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA47748B0A0
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jan 2022 16:16:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 847121A48;
-	Tue, 11 Jan 2022 17:40:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 847121A48
+	by alsa0.perex.cz (Postfix) with ESMTPS id E984618FC;
+	Tue, 11 Jan 2022 16:15:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E984618FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641919309;
-	bh=zieRBNrdR4/fiCOULdSGctGfiwGGlOZ8prDYPPmKbpw=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SWM7JreGg2N2D/lRV5cf03PyuUS5HBsJ7qunUeBUw7MDHWhYqrVgQSwpR0NHMYXvB
-	 jc7ZVI+LcuXsWjUnpYiTeLClbLNdGF9DRhDs0Iy6sgSUnVvg0tTjVYXk4QxIrzvdoG
-	 68tF9BxWQrF8qj9Vxxz/TksWO8LBldyZq3s1V7hQ=
+	s=default; t=1641914174;
+	bh=ADB5GI847zCArJtKNOIf0lo0xSGpKkRGx9zYGaD7gZI=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kan0c4QPTv6sqdCAJTbzfAD2IswuFrY/iZjdZLL3DugNN/7k/fbnn3Cmrl6rtRFUl
+	 WMEZHk7Bt0tWJn4eG4+r1vNuxlf3qgrEOu9GfxoPIMWIZjQxNKLboh7ZkEKik1lixi
+	 HCLosL62JymnUQS0Smb5Yk+9uukJDqu7w+knLU0o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5EAF6F8051E;
-	Tue, 11 Jan 2022 17:38:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28E62F80054;
+	Tue, 11 Jan 2022 16:15:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED49FF80118; Tue, 11 Jan 2022 01:16:28 +0100 (CET)
+ id 98D6EF8025E; Tue, 11 Jan 2022 16:15:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E760F80118
- for <alsa-devel@alsa-project.org>; Tue, 11 Jan 2022 01:16:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E760F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=igorinstitute-com.20210112.gappssmtp.com
- header.i=@igorinstitute-com.20210112.gappssmtp.com header.b="lZilM5t9"
-Received: by mail-pl1-x629.google.com with SMTP id e19so7894538plc.10
- for <alsa-devel@alsa-project.org>; Mon, 10 Jan 2022 16:16:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=igorinstitute-com.20210112.gappssmtp.com; s=20210112;
- h=message-id:from:date:subject:to:cc;
- bh=RXbgYQuhy+HAtohgMpCvhNrYOo86LBqxSJ6LSA+CYko=;
- b=lZilM5t9I6BxxLEVSWWIXV4BOAjVn1VsP7QkuuQNgIwGB1jZP2x7cdg+PjkwAvV0iR
- Qh5fhHgRamyVvNODTnjNhRWCrup8ZbPiYVotBxX717wpOUVH8HkbplJyfMHWkLn9NW3L
- B16H6WC+Vc5R+5CcND1hwq3A7ybQCf+sdgxwiNADBh/NDY44NCvlnQgrFQtXv7AZPLNP
- 5DruaqQir2RB+ib+qvSIA2Ny/iSgJnVPvk90Kko+wus9g6lR40aL8igeelGoRYJVg479
- uEHicHEKCb5oEh641FGggFZQ2I4N0sA4Av7BzKK9Uf3XlKqZuYH8n7dTEdjK3agejVjk
- G3tw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7304F80054
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jan 2022 16:14:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7304F80054
+Received: by mail-ot1-f50.google.com with SMTP id
+ w19-20020a056830061300b0058f1dd48932so18853614oti.11
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jan 2022 07:14:54 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:from:date:subject:to:cc;
- bh=RXbgYQuhy+HAtohgMpCvhNrYOo86LBqxSJ6LSA+CYko=;
- b=zIauV5CABoZWy0vHczURqw5nWKsPIWjZAaDHngYN33jvHY2MgyKcPVzl/OxEvxTp+Z
- IM/1QjgTdBMyt3Dw70nja+ytHQ+5+7+wg5ojw1a/QV9oxwR89f9L8KBMppJjANRxCMxz
- 1NbTv9zl5FOuXfsxIb7/dgjKmoBi93IJ7w/8GYDjwa1U/1OeZ0b5xffogolXJ4MBCfAU
- ywbFPDW5OaxLQra2X8j8bTxrdg3a1cAriTLv7gQdqGy6qRuFymXhEHQypgS4ZRC9DK2v
- /hnDFivLVTlIjR5Hjs9zhyAPfbzCMiXLwcacBFRDDsdRLnf8SuIB3wiROIue7URUdayF
- jq2A==
-X-Gm-Message-State: AOAM533hPS49acWc+sOhXdPEeoSbovS+BeKVWa3NiMasGtxt/nZuMzGy
- SjAuv/TbjhPftN3ix5pUjkFnWzj9oPpaFAtQ
-X-Google-Smtp-Source: ABdhPJyx9U1ERclB311uUhn7B8cDyDV4IsIkutwp13YRPkqVKOBbirk/QdGbzFxVh74rek+hIz8M2w==
-X-Received: by 2002:a17:902:be15:b0:149:a608:7098 with SMTP id
- r21-20020a170902be1500b00149a6087098mr1959506pls.63.1641860181723; 
- Mon, 10 Jan 2022 16:16:21 -0800 (PST)
-Received: from localhost ([121.99.145.49])
- by smtp.gmail.com with ESMTPSA id n15sm168063pjj.12.2022.01.10.16.16.20
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=H5aXFc3cTbqVbXAscJ8U7IrcuiVGZ2Ji9H3Um66jTps=;
+ b=TEZ05vt3EDzJqVT70qEbU3oIL2j1mdJDLsLmjMqiCcDPZ2DaAWvsPl9KXNd46kizac
+ U9YnOcjnJvkRzCA42rkLrMONfe9P0gvhxOLo/xmzT3L+LTXQcXVvmYpZ1zdaoyVTeN9B
+ IRELQxYYJc7GahU9tBjF34NYP7842CC71vzEeb+eAvAM6nZj0rzU6ZsmGzB+hFEKavuE
+ atSOvUv2eH3xIjDt5TF8cugrrxw9uO2o2NfXFNLIpAN3EdaNY+Xrik8k20INEU3lPi0o
+ gt+HcMge0ynA0AfsGBcVnvaZheD0oZQuTHVKtfOO+gMjPZFRiWLPjv7TST8aoF0bj/ds
+ kpag==
+X-Gm-Message-State: AOAM531gcksADY90lRYfs2UNMKViJ4cfSfQjUGct7OZymjiDGAi21Dqj
+ hWGbWHkLeRv4kCjxMgJ1Xg==
+X-Google-Smtp-Source: ABdhPJxOa21BbGALyE4de7BK9kyi2XavjSItN8TUDfHHHGzgfxNo02m5/Yq7yGoooGkxiPWUljlFsg==
+X-Received: by 2002:a05:6830:1e10:: with SMTP id
+ s16mr3550212otr.259.1641914092570; 
+ Tue, 11 Jan 2022 07:14:52 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id x14sm205238oiv.39.2022.01.11.07.14.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Jan 2022 16:16:21 -0800 (PST)
-Message-ID: <61dccc55.1c69fb81.77e64.0d94@mx.google.com>
-From: Daniel Beer <daniel.beer@igorinstitute.com>
-Date: Tue, 11 Jan 2022 13:11:34 +1300
-Subject: [PATCH 0/2] ASoC: add support for TAS5805M digital amplifier
-To: alsa-devel@alsa-project.org, devicetree@vger.kernel.org
-X-Mailman-Approved-At: Tue, 11 Jan 2022 17:38:43 +0100
-Cc: Daniel Beer <daniel.beer@igorinstitute.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Andy Liu <andy-liu@ti.com>, Mark Brown <broonie@kernel.org>,
+ Tue, 11 Jan 2022 07:14:51 -0800 (PST)
+Received: (nullmailer pid 2944756 invoked by uid 1000);
+ Tue, 11 Jan 2022 15:14:49 -0000
+From: Rob Herring <robh@kernel.org>
+To: Daniel Beer <daniel.beer@igorinstitute.com>
+In-Reply-To: <61dccc5c.1c69fb81.9af91.0df6@mx.google.com>
+References: <61dccc5c.1c69fb81.9af91.0df6@mx.google.com>
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: add bindings for TI TAS5805M.
+Date: Tue, 11 Jan 2022 09:14:49 -0600
+Message-Id: <1641914089.172148.2944755.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Andy Liu <andy-liu@ti.com>,
+ Mark Brown <broonie@kernel.org>,
  Derek Simkowiak <derek.simkowiak@igorinstitute.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -96,24 +92,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This pair of patches implements support for the TAS5805M class D audio
-amplifier. This driver, and the example configuration in the device-tree
-file, were originally based on a 4.19 series kernel and have been
-modified very slightly from the tested version (digital_mute has been
-replaced with mute_stream, and the new IS_ENABLED macro is used).
+On Tue, 11 Jan 2022 13:00:09 +1300, Daniel Beer wrote:
+> The TAS5805M is a class D speaker amplifier with integrated DSP. The
+> example here includes a tested flat configuration for mono (PBTL)
+> output.
+> 
+> Signed-off-by: Daniel Beer <daniel.beer@igorinstitute.com>
+> ---
+>  .../devicetree/bindings/sound/tas5805m.yaml   | 201 ++++++++++++++++++
+>  1 file changed, 201 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/tas5805m.yaml
+> 
 
-Daniel Beer (2):
-  ASoC: add support for TAS5805M digital amplifier
-  ASoC: dt-bindings: add bindings for TI TAS5805M.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
- .../devicetree/bindings/sound/tas5805m.yaml   | 201 +++++++
- sound/soc/codecs/Kconfig                      |   9 +
- sound/soc/codecs/Makefile                     |   2 +
- sound/soc/codecs/tas5805m.c                   | 534 ++++++++++++++++++
- 4 files changed, 746 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/tas5805m.yaml
- create mode 100644 sound/soc/codecs/tas5805m.c
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/sound/tas5805m.yaml:44:1: [error] syntax error: found character '\t' that cannot start any token (syntax)
 
--- 
-2.30.2
+dtschema/dtc warnings/errors:
+./Documentation/devicetree/bindings/sound/tas5805m.yaml:  while scanning a block scalar
+  in "<unicode string>", line 41, column 5
+found a tab character where an indentation space is expected
+  in "<unicode string>", line 44, column 1
+make[1]: *** Deleting file 'Documentation/devicetree/bindings/sound/tas5805m.example.dts'
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-extract-example", line 46, in <module>
+    binding = yaml.load(open(args.yamlfile, encoding='utf-8').read())
+  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/main.py", line 434, in load
+    return constructor.get_single_data()
+  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 119, in get_single_data
+    node = self.composer.get_single_node()
+  File "_ruamel_yaml.pyx", line 706, in _ruamel_yaml.CParser.get_single_node
+  File "_ruamel_yaml.pyx", line 724, in _ruamel_yaml.CParser._compose_document
+  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
+  File "_ruamel_yaml.pyx", line 889, in _ruamel_yaml.CParser._compose_mapping_node
+  File "_ruamel_yaml.pyx", line 773, in _ruamel_yaml.CParser._compose_node
+  File "_ruamel_yaml.pyx", line 848, in _ruamel_yaml.CParser._compose_sequence_node
+  File "_ruamel_yaml.pyx", line 904, in _ruamel_yaml.CParser._parse_next_event
+ruamel.yaml.scanner.ScannerError: while scanning a block scalar
+  in "<unicode string>", line 41, column 5
+found a tab character where an indentation space is expected
+  in "<unicode string>", line 44, column 1
+make[1]: *** [Documentation/devicetree/bindings/Makefile:25: Documentation/devicetree/bindings/sound/tas5805m.example.dts] Error 1
+make[1]: *** Waiting for unfinished jobs....
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/tas5805m.yaml: ignoring, error parsing file
+make: *** [Makefile:1413: dt_binding_check] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1578223
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 

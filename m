@@ -2,72 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCF2848C8C1
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 17:48:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D5F048C8C2
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 17:48:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 735091B38;
-	Wed, 12 Jan 2022 17:47:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 735091B38
+	by alsa0.perex.cz (Postfix) with ESMTPS id F15F31DE4;
+	Wed, 12 Jan 2022 17:47:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F15F31DE4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642006103;
-	bh=7u2c/+u/7900R51hbSn1pNSHHzU5y3Q///2YVkNposY=;
+	s=default; t=1642006123;
+	bh=LPfSAoUOtclsJGz3LzXEx6N6WlMYwykwtcwq/XxIZ/M=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q5itkk4hmWllWlyuX5dAr/OQ/jAyr+pXKseSlRMlPg9QVgpRqulrQGPE8rfxoqu5v
-	 H9Vy4Zn6mlC79f8Nlh2RHDWjPA5X4nE76CmfYWvLY87zD3SN8r4SEfnG4gQyAtAmMB
-	 z2F9t//F66dJNUZJBbvaZ71TOeL03b2i2xn4/LyI=
+	b=gXLhKFfkbzUM+JMEgarsAFpCerLc1F0MX7P0dTJhpMjsOW0H9tmQIRuZDdgEbeyGM
+	 7wYggMA2RoCKuVtrg5cTMJZ3JA7BMh6d+ST8WV1OlJvNQhdYf6UFlCuXpMlcfi+L4L
+	 I2Mw3JULUVv2zQDCkPxTIW9HPdQTo6UHZFVFZFUo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A48BFF80528;
-	Wed, 12 Jan 2022 17:45:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BE02F8052F;
+	Wed, 12 Jan 2022 17:45:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E728F8026A; Wed, 12 Jan 2022 13:29:45 +0100 (CET)
+ id E2EE4F8026A; Wed, 12 Jan 2022 14:39:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14FC9F80236
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 13:29:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14FC9F80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2700AF80054
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 14:38:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2700AF80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="EqQPvgGm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641990579; x=1673526579;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=7u2c/+u/7900R51hbSn1pNSHHzU5y3Q///2YVkNposY=;
- b=EqQPvgGmP9NyFP0CQSx/zoygbF+vWi5c7Ap0XWc6qhTJfhs/yz7sSwsA
- ZZtENjUQ8qBroHQtZsBlVs2BdPl7VaNpiubJq/Z7FNv5sfsoEE546QF64
- ySaUqZeSTOIHf8hzcq+aeu+q5K0SwyXQYCybflJCGfY69rvXWFs5saDvh
- z2JSP6Q4KwAvKJ6wdjqmdhiwo1Ur+6cZ/kBSb7eJEZQp8PieWfOojiccY
- To+pQ8/ka/Gdy+IYo5LeTHK1QMGDAM118YtII8MRl2ovC+3iJj3rubVN6
- Hz860dfmwVwiA6hGEjgYLqFv+15MH1OmAuvXxqzKHeAoCuGxtWsd3didI Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10224"; a="330069223"
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="330069223"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2022 04:29:32 -0800
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="691367097"
-Received: from smile.fi.intel.com ([10.237.72.61])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2022 04:29:15 -0800
-Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1n7cjO-009gDi-VM; Wed, 12 Jan 2022 14:27:58 +0200
-Date: Wed, 12 Jan 2022 14:27:58 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch
+ header.b="REJii9uM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=S/pA7bUX6e4VB1GHe3hlypsDdeFRt4oGL0831NNCTJM=; b=REJii9uMw/mNDMEDkaB6nMl41t
+ HVia+zgOKIfzuMj09o6jQ+IaM7PowDfcCzSXN02NEw/KiBFCm/WUr1uWHbYcv6vi03Q5vZQPWTCZw
+ kZaHOnCDnZ4glu9pEOOBCeugcwmvyPmDFDeJp1Ck0ttEnrICihUcMQo96DS7dmh4ziSA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1n7dpl-001CDK-PQ; Wed, 12 Jan 2022 14:38:37 +0100
+Date: Wed, 12 Jan 2022 14:38:37 +0100
+From: Andrew Lunn <andrew@lunn.ch>
 To: Geert Uytterhoeven <geert@linux-m68k.org>
 Subject: Re: [PATCH 1/2] platform: make platform_get_irq_optional() optional
-Message-ID: <Yd7JTvfblG0Ge4AN@smile.fi.intel.com>
+Message-ID: <Yd7Z3Qwevb/lEwQZ@lunn.ch>
 References: <20220110195449.12448-1-s.shtylyov@omp.ru>
  <20220110195449.12448-2-s.shtylyov@omp.ru>
  <20220110201014.mtajyrfcfznfhyqm@pengutronix.de>
@@ -76,17 +63,16 @@ References: <20220110195449.12448-1-s.shtylyov@omp.ru>
  <20220112085009.dbasceh3obfok5dc@pengutronix.de>
  <CAMuHMdWsMGPiQaPS0-PJ_+Mc5VQ37YdLfbHr_aS40kB+SfW-aw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 In-Reply-To: <CAMuHMdWsMGPiQaPS0-PJ_+Mc5VQ37YdLfbHr_aS40kB+SfW-aw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Wed, 12 Jan 2022 17:45:04 +0100
-Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Vignesh Raghavendra <vigneshr@ti.com>, KVM list <kvm@vger.kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Vignesh Raghavendra <vigneshr@ti.com>,
+ KVM list <kvm@vger.kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ linux-iio@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ Amit Kucheria <amitk@kernel.org>,
  ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Joakim Zhang <qiangqing.zhang@nxp.com>, Guenter Roeck <groeck@chromium.org>,
  Thierry Reding <thierry.reding@gmail.com>,
  MTD Maling List <linux-mtd@lists.infradead.org>,
@@ -149,56 +135,6 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 12, 2022 at 11:27:02AM +0100, Geert Uytterhoeven wrote:
-> On Wed, Jan 12, 2022 at 9:51 AM Uwe Kleine-König
-> <u.kleine-koenig@pengutronix.de> wrote:
-> > On Wed, Jan 12, 2022 at 09:33:48AM +0100, Geert Uytterhoeven wrote:
-> > > On Mon, Jan 10, 2022 at 10:20 PM Andrew Lunn <andrew@lunn.ch> wrote:
-> > > > On Mon, Jan 10, 2022 at 09:10:14PM +0100, Uwe Kleine-König wrote:
-> > > > > On Mon, Jan 10, 2022 at 10:54:48PM +0300, Sergey Shtylyov wrote:
-> > > > > > This patch is based on the former Andy Shevchenko's patch:
-> > > > > >
-> > > > > > https://lore.kernel.org/lkml/20210331144526.19439-1-andriy.shevchenko@linux.intel.com/
-> > > > > >
-> > > > > > Currently platform_get_irq_optional() returns an error code even if IRQ
-> > > > > > resource simply has not been found. It prevents the callers from being
-> > > > > > error code agnostic in their error handling:
-> > > > > >
-> > > > > >     ret = platform_get_irq_optional(...);
-> > > > > >     if (ret < 0 && ret != -ENXIO)
-> > > > > >             return ret; // respect deferred probe
-> > > > > >     if (ret > 0)
-> > > > > >             ...we get an IRQ...
-> > > > > >
-> > > > > > All other *_optional() APIs seem to return 0 or NULL in case an optional
-> > > > > > resource is not available. Let's follow this good example, so that the
-> > > > > > callers would look like:
-> > > > > >
-> > > > > >     ret = platform_get_irq_optional(...);
-> > > > > >     if (ret < 0)
-> > > > > >             return ret;
-> > > > > >     if (ret > 0)
-> > > > > >             ...we get an IRQ...
-> > > > >
-> > > > > The difference to gpiod_get_optional (and most other *_optional) is that
-> > > > > you can use the NULL value as if it were a valid GPIO.
-> > > > >
-> > > > > As this isn't given with for irqs, I don't think changing the return
-> > > > > value has much sense.
-> > > >
-> > > > We actually want platform_get_irq_optional() to look different to all
-> > > > the other _optional() methods because it is not equivalent. If it
-> > > > looks the same, developers will assume it is the same, and get
-> > > > themselves into trouble.
-> > >
-> > > Developers already assume it is the same, and thus forget they have
-> > > to check against -ENXIO instead of zero.
-> >
-> > Is this an ack for renaming platform_get_irq_optional() to
-> > platform_get_irq_silent()?
-> 
-> No it isn't ;-)
-> 
 > If an optional IRQ is not present, drivers either just ignore it (e.g.
 > for devices that can have multiple interrupts or a single muxed IRQ),
 > or they have to resort to polling. For the latter, fall-back handling
@@ -211,10 +147,36 @@ On Wed, Jan 12, 2022 at 11:27:02AM +0100, Geert Uytterhoeven wrote:
 > to care about the actual error code was the main reason behind the
 > introduction of the *_optional() APIs.
 
-For the record, I'm on the same page with Geert.
+The *_optional() functions return an error code if there has been a
+real error which should be reported up the call stack. This excludes
+whatever error code indicates the requested resource does not exist,
+which can be -ENODEV etc. If the device does not exist, a magic cookie
+is returned which appears to be a valid resources but in fact is
+not. So the users of these functions just need to check for an error
+code, and fail the probe if present.
 
--- 
-With Best Regards,
-Andy Shevchenko
+You seems to be suggesting in binary return value: non-zero
+(available) or zero (not available)
 
+This discards the error code when something goes wrong. That is useful
+information to have, so we should not be discarding it.
 
+IRQ don't currently have a magic cookie value. One option would be to
+add such a magic cookie to the subsystem. Otherwise, since 0 is
+invalid, return 0 to indicate the IRQ does not exist.
+
+The request for a script checking this then makes sense. However, i
+don't know how well coccinelle/sparse can track values across function
+calls. They probably can check for:
+
+   ret = irq_get_optional()
+   if (ret < 0)
+      return ret;
+
+A missing if < 0 statement somewhere later is very likely to be an
+error. A comparison of <= 0 is also likely to be an error. A check for
+> 0 before calling any other IRQ functions would be good. I'm
+surprised such a check does not already existing in the IRQ API, but
+there are probably historical reasons for that.
+
+      Andrew

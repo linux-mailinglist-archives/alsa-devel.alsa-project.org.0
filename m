@@ -2,84 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13FD048C09E
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 10:02:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392BE48C327
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 12:31:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A98671AA2;
-	Wed, 12 Jan 2022 10:02:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A98671AA2
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD7A2192C;
+	Wed, 12 Jan 2022 12:30:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD7A2192C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641978175;
-	bh=OOctC/WJvrvUusIpbqZbeVs1ealVVe3KRmSoy/SYgoc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KQ4zpN1lama+h2I5U9BRev6pFbKPGNlVryAAwE86PyFrP2YLuU72qSCX+qEsAJRzH
-	 j4CBt7qD2uQUDrnEhE+tcFWCnf0bNguX2ehZ+zTS+dGf/MDj1g3bYy8Ux9zK3iVAUX
-	 aSdHj3z917oYa3cpNZfW68DQWXRyjTC934l4Csjg=
+	s=default; t=1641987083;
+	bh=QYjO+kuky/764OzIxCOdNHyPRazRAWg1jaFcMhDrZ5U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gbQdyA8CAu59Kqc6qzQf26fEcNQoAF9CjxV1PkHmD0si4y2ME/7u69/9lVH2Jb8j8
+	 XRR/8VocqOxSiJYndIJ1+JKD+/ywHPKU/mx4avCgYj2hT6ikf5gR+PjEK1XTHnQR7e
+	 FLE06Dvzxdy58ONO4TbxNkyD7P/jd27xUDVyDPUo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 591BAF80515;
-	Wed, 12 Jan 2022 10:00:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C58FF800B9;
+	Wed, 12 Jan 2022 12:30:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B8D1F80511; Wed, 12 Jan 2022 10:00:53 +0100 (CET)
+ id 5F6E2F8026A; Wed, 12 Jan 2022 12:30:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED,DKIM_VALID,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B67CCF8025E
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 10:00:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B67CCF8025E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="guQGL2ct"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641978047; x=1673514047;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=OOctC/WJvrvUusIpbqZbeVs1ealVVe3KRmSoy/SYgoc=;
- b=guQGL2ctHfvZhueaT/Fv8hYybJgq3MXOEhzKO8T6CzlDsb3KW/3PEn0j
- fi+4L85eA/WWTrxdG3TG9FvZ8iGATb3lLEc1ZLr5CSGVQncn8tiy72Oto
- d9Wz57xrQ/OrJneEI3LqqaAmc3wqKf4Li+iZ6CEV3L2Ntb56tzHQ3GaUT
- a8kwHZWbT0mhWveVxip/RaYfweRNCjmbmg5/aSji8EgpR1JZBrmSVqdWp
- 7johnaFbgSNhrrWwQtDUZKQZG3hMpIkTeU5laDEhqZyTjSC3JPCaCMSDk
- ffreMZ9XPHywhh7mVSCLbhRWJ1I0fBAlryiD5SGBs7s8oGR6xs06jTaqL g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10224"; a="223674394"
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="223674394"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2022 01:00:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="691318397"
-Received: from dev2.igk.intel.com ([10.237.148.94])
- by orsmga005.jf.intel.com with ESMTP; 12 Jan 2022 01:00:41 -0800
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 3/3] ASoC: topology: Optimize
- soc_tplg_dapm_graph_elems_load behavior
-Date: Wed, 12 Jan 2022 18:00:30 +0100
-Message-Id: <20220112170030.569712-4-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220112170030.569712-1-amadeuszx.slawinski@linux.intel.com>
-References: <20220112170030.569712-1-amadeuszx.slawinski@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2787BF80054;
+ Wed, 12 Jan 2022 12:30:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2787BF80054
+X-UUID: 12afd77937bb49e889e709ad5af89944-20220112
+X-UUID: 12afd77937bb49e889e709ad5af89944-20220112
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw02.mediatek.com
+ (envelope-from <allen-kh.cheng@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 528360484; Wed, 12 Jan 2022 19:29:57 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 12 Jan 2022 19:29:56 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Wed, 12 Jan 2022 19:29:56 +0800
+From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH] firmware: mediatek: add adsp ipc protocol interface
+Date: Wed, 12 Jan 2022 19:29:54 +0800
+Message-ID: <20220112112954.27128-1-allen-kh.cheng@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
+Content-Type: text/plain
+X-MTK: N
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
+ Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,121 +84,295 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Before commit "ASoC: topology: Change allocations to resource managed"
-soc_tplg_dapm_graph_elems_load() used to free routes on error. During
-migration to managed allocations the routes table was left as is, but
-looking at it again it is unnecessary, so remove routes table and just
-keep pointer to DAPM route currently being set up. Also remove outdated
-comments which keep describing old behavior of remove_route() freeing
-memory. While it still does some cleanup, it leaves freeing memory to
-framework.
+From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 
-Fixes: ff9226224437 ("ASoC: topology: Change allocations to resource managed")
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Some of mediatek processors contain
+the Tensilica HiFix DSP for audio processing.
+
+The communication between Host CPU and DSP firmware is
+taking place using a shared memory area for message passing.
+
+ADSP IPC protocol offers (send/recv) interfaces using
+mediatek-mailbox APIs.
+
+We use two mbox channels to implement a request-reply protocol.
+
+Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+Signed-off-by: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 ---
- sound/soc/soc-topology.c | 56 ++++++++++------------------------------
- 1 file changed, 14 insertions(+), 42 deletions(-)
+ drivers/firmware/Kconfig                      |   1 +
+ drivers/firmware/Makefile                     |   1 +
+ drivers/firmware/mediatek/Kconfig             |   9 ++
+ drivers/firmware/mediatek/Makefile            |   2 +
+ drivers/firmware/mediatek/mtk-adsp-ipc.c      | 137 ++++++++++++++++++
+ .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 +++++++++
+ 6 files changed, 215 insertions(+)
+ create mode 100644 drivers/firmware/mediatek/Kconfig
+ create mode 100644 drivers/firmware/mediatek/Makefile
+ create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
+ create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
 
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 9d24184f85f9..6c7dc571c006 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -1094,7 +1094,7 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
- {
- 	struct snd_soc_dapm_context *dapm = &tplg->comp->dapm;
- 	struct snd_soc_tplg_dapm_graph_elem *elem;
--	struct snd_soc_dapm_route **routes;
-+	struct snd_soc_dapm_route *route;
- 	int count, i;
- 	int ret = 0;
- 
-@@ -1108,24 +1108,10 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
- 	dev_dbg(tplg->dev, "ASoC: adding %d DAPM routes for index %d\n", count,
- 		hdr->index);
- 
--	/* allocate memory for pointer to array of dapm routes */
--	routes = kcalloc(count, sizeof(struct snd_soc_dapm_route *),
--			 GFP_KERNEL);
--	if (!routes)
--		return -ENOMEM;
--
--	/*
--	 * allocate memory for each dapm route in the array.
--	 * This needs to be done individually so that
--	 * each route can be freed when it is removed in remove_route().
--	 */
- 	for (i = 0; i < count; i++) {
--		routes[i] = devm_kzalloc(tplg->dev, sizeof(*routes[i]), GFP_KERNEL);
--		if (!routes[i])
-+		route = devm_kzalloc(tplg->dev, sizeof(*route), GFP_KERNEL);
-+		if (!route)
- 			return -ENOMEM;
--	}
--
--	for (i = 0; i < count; i++) {
- 		elem = (struct snd_soc_tplg_dapm_graph_elem *)tplg->pos;
- 		tplg->pos += sizeof(struct snd_soc_tplg_dapm_graph_elem);
- 
-@@ -1146,46 +1132,32 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
- 			break;
- 		}
- 
--		routes[i]->source = elem->source;
--		routes[i]->sink = elem->sink;
-+		route->source = elem->source;
-+		route->sink = elem->sink;
- 
- 		/* set to NULL atm for tplg users */
--		routes[i]->connected = NULL;
-+		route->connected = NULL;
- 		if (strnlen(elem->control, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) == 0)
--			routes[i]->control = NULL;
-+			route->control = NULL;
- 		else
--			routes[i]->control = elem->control;
-+			route->control = elem->control;
- 
- 		/* add route dobj to dobj_list */
--		routes[i]->dobj.type = SND_SOC_DOBJ_GRAPH;
--		routes[i]->dobj.ops = tplg->ops;
--		routes[i]->dobj.index = tplg->index;
--		list_add(&routes[i]->dobj.list, &tplg->comp->dobj_list);
-+		route->dobj.type = SND_SOC_DOBJ_GRAPH;
-+		route->dobj.ops = tplg->ops;
-+		route->dobj.index = tplg->index;
-+		list_add(&route->dobj.list, &tplg->comp->dobj_list);
- 
--		ret = soc_tplg_add_route(tplg, routes[i]);
-+		ret = soc_tplg_add_route(tplg, route);
- 		if (ret < 0) {
- 			dev_err(tplg->dev, "ASoC: topology: add_route failed: %d\n", ret);
--			/*
--			 * this route was added to the list, it will
--			 * be freed in remove_route() so increment the
--			 * counter to skip it in the error handling
--			 * below.
--			 */
--			i++;
- 			break;
- 		}
- 
- 		/* add route, but keep going if some fail */
--		snd_soc_dapm_add_routes(dapm, routes[i], 1);
-+		snd_soc_dapm_add_routes(dapm, route, 1);
- 	}
- 
--	/*
--	 * free pointer to array of dapm routes as this is no longer needed.
--	 * The memory allocated for each dapm route will be freed
--	 * when it is removed in remove_route().
--	 */
--	kfree(routes);
--
- 	return ret;
- }
- 
+diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+index 75cb91055c17..f3578c60cff0 100644
+--- a/drivers/firmware/Kconfig
++++ b/drivers/firmware/Kconfig
+@@ -299,6 +299,7 @@ source "drivers/firmware/cirrus/Kconfig"
+ source "drivers/firmware/google/Kconfig"
+ source "drivers/firmware/efi/Kconfig"
+ source "drivers/firmware/imx/Kconfig"
++source "drivers/firmware/mediatek/Kconfig"
+ source "drivers/firmware/meson/Kconfig"
+ source "drivers/firmware/psci/Kconfig"
+ source "drivers/firmware/smccc/Kconfig"
+diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+index 4e58cb474a68..88fbdc110100 100644
+--- a/drivers/firmware/Makefile
++++ b/drivers/firmware/Makefile
+@@ -34,6 +34,7 @@ obj-$(CONFIG_GOOGLE_FIRMWARE)	+= google/
+ obj-$(CONFIG_EFI)		+= efi/
+ obj-$(CONFIG_UEFI_CPER)		+= efi/
+ obj-y				+= imx/
++obj-y				+= mediatek/
+ obj-y				+= psci/
+ obj-y				+= smccc/
+ obj-y				+= tegra/
+diff --git a/drivers/firmware/mediatek/Kconfig b/drivers/firmware/mediatek/Kconfig
+new file mode 100644
+index 000000000000..6d1e580b967b
+--- /dev/null
++++ b/drivers/firmware/mediatek/Kconfig
+@@ -0,0 +1,9 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config MTK_ADSP_IPC
++	tristate "MTK ADSP IPC Protocol driver"
++	depends on MTK_ADSP_MBOX
++	help
++	  Say yes here to add support for the MediaTek ADSP IPC
++	  between host AP (Linux) and the firmware running on ADSP.
++	  ADSP exists on some mtk processors.
++	  Client might use shared memory to exchange information with ADSP side.
+diff --git a/drivers/firmware/mediatek/Makefile b/drivers/firmware/mediatek/Makefile
+new file mode 100644
+index 000000000000..4e840b65650d
+--- /dev/null
++++ b/drivers/firmware/mediatek/Makefile
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: GPL-2.0
++obj-$(CONFIG_MTK_ADSP_IPC)		+= mtk-adsp-ipc.o
+diff --git a/drivers/firmware/mediatek/mtk-adsp-ipc.c b/drivers/firmware/mediatek/mtk-adsp-ipc.c
+new file mode 100644
+index 000000000000..b45f16cec063
+--- /dev/null
++++ b/drivers/firmware/mediatek/mtk-adsp-ipc.c
+@@ -0,0 +1,137 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2022 MediaTek Corporation. All rights reserved.
++ * Author: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
++ */
++
++#include <linux/firmware/mediatek/mtk-adsp-ipc.h>
++#include <linux/kernel.h>
++#include <linux/mailbox_client.h>
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/slab.h>
++
++int mtk_adsp_ipc_send(struct mtk_adsp_ipc *ipc, unsigned int idx, uint32_t msg)
++{
++	struct mtk_adsp_chan *dsp_chan;
++	int ret;
++
++	if (idx >= MTK_ADSP_MBOX_NUM)
++		return -EINVAL;
++
++	dsp_chan = &ipc->chans[idx];
++	ret = mbox_send_message(dsp_chan->ch, &msg);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++EXPORT_SYMBOL(mtk_adsp_ipc_send);
++
++static void mtk_adsp_ipc_recv(struct mbox_client *c, void *msg)
++{
++	struct mtk_adsp_chan *chan = container_of(c, struct mtk_adsp_chan, cl);
++	struct device *dev = c->dev;
++
++	switch (chan->idx) {
++	case MTK_ADSP_MBOX_REPLY:
++		chan->ipc->ops->handle_reply(chan->ipc);
++		break;
++	case MTK_ADSP_MBOX_REQUEST:
++		chan->ipc->ops->handle_request(chan->ipc);
++		break;
++	default:
++		dev_err(dev, "Wrong mbox chan %d \n", chan->idx);
++		break;
++	}
++}
++
++static int mtk_adsp_ipc_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct mtk_adsp_ipc *dsp_ipc;
++	struct mtk_adsp_chan *dsp_chan;
++	struct mbox_client *cl;
++	char *chan_name;
++	int ret;
++	int i, j;
++
++	device_set_of_node_from_dev(&pdev->dev, pdev->dev.parent);
++
++	dsp_ipc = devm_kzalloc(dev, sizeof(*dsp_ipc), GFP_KERNEL);
++	if (!dsp_ipc)
++		return -ENOMEM;
++
++	for (i = 0; i < MTK_ADSP_MBOX_NUM; i++) {
++		chan_name = kasprintf(GFP_KERNEL, "mbox%d", i);
++		if (!chan_name) {
++			ret = -ENOMEM;
++			goto out;
++		}
++
++		dsp_chan = &dsp_ipc->chans[i];
++		cl = &dsp_chan->cl;
++		cl->dev = dev->parent;
++		cl->tx_block = false;
++		cl->knows_txdone = false;
++		cl->tx_prepare = NULL;
++		cl->rx_callback = mtk_adsp_ipc_recv;
++
++		dsp_chan->ipc = dsp_ipc;
++		dsp_chan->idx = i;
++		dsp_chan->ch = mbox_request_channel_byname(cl, chan_name);
++		if (IS_ERR(dsp_chan->ch)) {
++			ret = PTR_ERR(dsp_chan->ch);
++			if (ret != -EPROBE_DEFER)
++				dev_err(dev, "Failed to request mbox chan %d ret %d\n",
++					i, ret);
++			goto out;
++		}
++
++		dev_dbg(dev, "request mbox chan %s\n", chan_name);
++		kfree(chan_name);
++	}
++
++	dsp_ipc->dev = dev;
++	dev_set_drvdata(dev, dsp_ipc);
++	dev_dbg(dev, "MTK ADSP IPC initialized\n");
++
++	return 0;
++
++out:
++	kfree(chan_name);
++	for (j = 0; j < i; j++) {
++		dsp_chan = &dsp_ipc->chans[j];
++		mbox_free_channel(dsp_chan->ch);
++	}
++
++	return ret;
++}
++
++static int mtk_adsp_ipc_remove(struct platform_device *pdev)
++{
++	struct mtk_adsp_ipc *dsp_ipc = dev_get_drvdata(&pdev->dev);
++	struct mtk_adsp_chan *dsp_chan;
++	int i;
++
++	for (i = 0; i < MTK_ADSP_MBOX_NUM; i++) {
++		dsp_chan = &dsp_ipc->chans[i];
++		mbox_free_channel(dsp_chan->ch);
++	}
++
++	return 0;
++}
++
++static struct platform_driver mtk_adsp_ipc_driver = {
++	.driver = {
++		.name = "mtk-adsp-ipc",
++	},
++	.probe = mtk_adsp_ipc_probe,
++	.remove = mtk_adsp_ipc_remove,
++};
++builtin_platform_driver(mtk_adsp_ipc_driver);
++
++MODULE_AUTHOR("Allen-KH Cheng <allen-kh.cheng@mediatek.com>");
++MODULE_DESCRIPTION("MTK ADSP IPC Driver");
++MODULE_LICENSE("GPL v2");
+diff --git a/include/linux/firmware/mediatek/mtk-adsp-ipc.h b/include/linux/firmware/mediatek/mtk-adsp-ipc.h
+new file mode 100644
+index 000000000000..08e3c7d3b405
+--- /dev/null
++++ b/include/linux/firmware/mediatek/mtk-adsp-ipc.h
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (c) 2021 MediaTek Inc.
++ */
++
++#ifndef MTK_ADSP_IPC_H
++#define MTK_ADSP_IPC_H
++
++#include <linux/device.h>
++#include <linux/types.h>
++#include <linux/mailbox_controller.h>
++#include <linux/mailbox_client.h>
++
++#define MTK_ADSP_IPC_REQ 0
++#define MTK_ADSP_IPC_RSP 1
++#define MTK_ADSP_IPC_OP_REQ 0x1
++#define MTK_ADSP_IPC_OP_RSP 0x2
++
++enum {
++	MTK_ADSP_MBOX_REPLY,
++	MTK_ADSP_MBOX_REQUEST,
++	MTK_ADSP_MBOX_NUM,
++};
++
++struct mtk_adsp_ipc;
++
++struct mtk_adsp_ipc_ops {
++	void (*handle_reply)(struct mtk_adsp_ipc *ipc);
++	void (*handle_request)(struct mtk_adsp_ipc *ipc);
++};
++
++struct mtk_adsp_chan {
++	struct mtk_adsp_ipc *ipc;
++	struct mbox_client cl;
++	struct mbox_chan *ch;
++	char *name;
++	int idx;
++};
++
++struct mtk_adsp_ipc {
++	struct mtk_adsp_chan chans[MTK_ADSP_MBOX_NUM];
++	struct device *dev;
++	struct mtk_adsp_ipc_ops *ops;
++	void *private_data;
++};
++
++static inline void mtk_adsp_ipc_set_data(struct mtk_adsp_ipc *ipc, void *data)
++{
++	if (!ipc)
++		return;
++
++	ipc->private_data = data;
++}
++
++static inline void *mtk_adsp_ipc_get_data(struct mtk_adsp_ipc *ipc)
++{
++	if (!ipc)
++		return NULL;
++
++	return ipc->private_data;
++}
++
++int mtk_adsp_ipc_send(struct mtk_adsp_ipc *ipc, unsigned int idx, uint32_t op);
++
++#endif /* MTK_ADSP_IPC_H */
 -- 
-2.25.1
+2.18.0
 

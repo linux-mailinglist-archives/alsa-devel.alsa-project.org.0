@@ -2,96 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C61B48B771
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jan 2022 20:39:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B2F48BC91
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 02:44:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDB641AE3;
-	Tue, 11 Jan 2022 20:38:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDB641AE3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28CFB1A99;
+	Wed, 12 Jan 2022 02:43:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28CFB1A99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641929974;
-	bh=m6AqsmsQNqx88hG0YVxhJJpIop4zq6ScDp94oAWOE2A=;
-	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1641951882;
+	bh=CqgruQDLR3NutRrWUR5hEAG2435lQZK1XT8whRKfab0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cTxZ+5krKMgE3EfC+hANgmdIXgUFHoKj2jZmskCl7FRhlhtq0asbpJh2e00AdfeAa
-	 EEXzmtBE+8lez8uYd4Ol3fq5GQfpkrNcKRGRJmLeqzPpzYXU9qBZ+wV9WoQgWNvbuZ
-	 6PSSem8Vl2Y2ry3PjgvkxydxUxojgpk07heKn/7k=
+	b=ux3wWjxZzEx6RMdtKSeOc8Wb2xjMB5qt55kgUC7E89S1Q9L+AIV7rBpa6egLlj5CC
+	 YWLbD7iJtOkrc7nnzKJeFrdQwwm+U+J2ONuxbt3p58J772ArnI1N2I6lUnnbwGUnOJ
+	 0UrCXlrVa8jnIhgko5J7/ZQY7KRaqtRwAYq65ryg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBC53F80430;
-	Tue, 11 Jan 2022 20:38:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90E1DF80054;
+	Wed, 12 Jan 2022 02:43:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FEDEF80302; Tue, 11 Jan 2022 20:38:24 +0100 (CET)
+ id C3E02F80302; Wed, 12 Jan 2022 02:43:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B03DF800A7
- for <alsa-devel@alsa-project.org>; Tue, 11 Jan 2022 20:38:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B03DF800A7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="FZMSntPk"
-Received: by mail-lf1-x12c.google.com with SMTP id j11so374278lfg.3
- for <alsa-devel@alsa-project.org>; Tue, 11 Jan 2022 11:38:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language
- :from:to:cc:references:in-reply-to:content-transfer-encoding;
- bh=gCA03Y8txjZiDgmmkgC6vSFKPvusDQ96DqTHZL4jtHk=;
- b=FZMSntPkSIzKrqITY9rAON0lmZYT/THkwcu2kSIZzsmU84vXUvnzLa2SFJA72IfETY
- MTgCbXLIbwaNrhSG2AKYlDzxlQ1n4zobcbJ/M1Ju05R5ScvkiQnOhkxcd4boBc1JHypt
- cgRIOJse4I07nEnsaZxBonFSnjCj6D3oe2E31JXK2a7X9oKvhUuqMkvqIrf+xqY1MbgD
- Ie9x520HIONwTpEKJUAzBvsd+HOu2KaGJ4FQHcaSnEA0/t2pIi/Ds4UMu6Mu9+wZ1X6w
- jNixV38ZnCM0PTyhuh5TFuZurIdJI4RJIsgzvL0qBkbQY+rtTS05a8UTgZ5cqe/GBLzv
- liwQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACB1CF800A7
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 02:43:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACB1CF800A7
+Received: by mail-oi1-f173.google.com with SMTP id g205so1513440oif.5
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jan 2022 17:43:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:from:to:cc:references:in-reply-to
- :content-transfer-encoding;
- bh=gCA03Y8txjZiDgmmkgC6vSFKPvusDQ96DqTHZL4jtHk=;
- b=NH9ljonrXrea+ay97ROU8M4eulE5v10hdd6H8SlLwmbdNb1iLUTL1azpBBBQP0Sx4r
- +b1sdrXFUwoBONjSxJJe2KwuUc6cR0nOyV80etzivSRR8046CmaNI7M56dr9h1vR3YCS
- 0hsRK6iGdTy1PsBqzj6BPF4aEZ9pw38OZDMdKVYHS8GXwj3mjY5F3KiHbh0miwq+ISg1
- 3MLlJTPCW8IouU2IF7HegoTBFt6UZgnjDlpYQkfiNiZpIqyY61+yvGehwJuOXxtHcUlf
- sCICMhfNifckt4sJ1Yrn58XkiuFNtOKKCRxm/QV9g58d12FrYNTMIjsqPDiTsWpiuDus
- usZg==
-X-Gm-Message-State: AOAM533CIl44R9ebQ4+RCtvvc9cmodL1thRc/Tn1OHsOTfz81wU/0kes
- zCNXRyYEiJkFlfQ9jhvRNrQ=
-X-Google-Smtp-Source: ABdhPJxuTBO7wEiTLvI+W/Xa1On/i+omE0wFswDUMxG8C6QIYgu8MpzMsLxU+w7zBoxbOx2/u4wQSA==
-X-Received: by 2002:a2e:9ec7:: with SMTP id h7mr292524ljk.394.1641929899202;
- Tue, 11 Jan 2022 11:38:19 -0800 (PST)
-Received: from [10.0.0.42] (91-153-170-164.elisa-laajakaista.fi.
- [91.153.170.164])
- by smtp.gmail.com with ESMTPSA id i16sm1427429lfe.273.2022.01.11.11.38.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Jan 2022 11:38:18 -0800 (PST)
-Message-ID: <83c51ee4-ac10-0e44-d1cc-f69cebcbf0b8@gmail.com>
-Date: Tue, 11 Jan 2022 21:43:20 +0200
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=e/Tnb+6NC4NDoEen3QeGtmshX2VZpftcd33BR336ijw=;
+ b=QzJ1yfAEjHr5a0DTd/vGfU/OeHTjBsIC7DX8CVJhHcZ16GQJFSBINcB4bPFfYivG9E
+ uOo5Z46TbZ6g3WMYctL+4ynxboA3D3FXq2A2wJK3Hk6BEsvzQfioVycz0RvtbAs6dEUR
+ wKCPORe5jHL8+pu8pyxIClRumeEH+NRBhDsgXfUU9Lm+OOw9tSeHNgrn1w5ThWduUgvM
+ lexJ3ZcDl8GG+jJmJGlfvNSsqbUWzItElb1Tad8K4TxOlN3462LFsjVHlIpLL11ycjY4
+ zijNXo1I5d46goNa5TnuchC2xeadlOinXbiNBWo78PVhKMmZOPjxMj/8BXuunFEmH4qC
+ 06/Q==
+X-Gm-Message-State: AOAM532SvLSCGnzeo5wxuA+hOMIrpgrKPz+a/4HMCizPq3gcWXDqbHDa
+ IqC7IcpSs0ir/HBeWCvU8A==
+X-Google-Smtp-Source: ABdhPJzJTSFUtdEQLZAtLeh5H43ctftwk1Z0EICg9ZlaMpQR1Vk4Ah73GP2ShCBaFZnQGsqfer37hQ==
+X-Received: by 2002:a05:6808:2113:: with SMTP id
+ r19mr3759580oiw.118.1641951800511; 
+ Tue, 11 Jan 2022 17:43:20 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id r30sm91841otv.48.2022.01.11.17.43.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Jan 2022 17:43:19 -0800 (PST)
+Received: (nullmailer pid 3887562 invoked by uid 1000);
+ Wed, 12 Jan 2022 01:43:18 -0000
+Date: Tue, 11 Jan 2022 19:43:18 -0600
+From: Rob Herring <robh@kernel.org>
+To: YC Hung <yc.hung@mediatek.com>
+Subject: Re: [PATCH v4] dt-bindings: dsp: mediatek: add mt8195 dsp document
+Message-ID: <Yd4yNkeGlzdULNlv@robh.at.kernel.org>
+References: <20220106064847.15588-1-yc.hung@mediatek.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [PATCH v5] ASoC: dt-bindings: davinci-mcasp: convert McASP
- bindings to yaml schema
-Content-Language: en-US
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
-To: Jayesh Choudhary <j-choudhary@ti.com>, robh+dt@kernel.org
-References: <20220103074427.4233-1-j-choudhary@ti.com>
- <2cf3c89c-169f-3421-25d4-c80a6c9737ae@gmail.com>
-In-Reply-To: <2cf3c89c-169f-3421-25d4-c80a6c9737ae@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, broonie@kernel.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220106064847.15588-1-yc.hung@mediatek.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ allen-kh.cheng@mediatek.com, cezary.rojewski@intel.com, tiwai@suse.com,
+ robh+dt@kernel.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, daniel.baluta@nxp.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,52 +95,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 1/11/22 21:21, Péter Ujfalusi wrote:
-> Hi Javesh,
+On Thu, 06 Jan 2022 14:48:48 +0800, YC Hung wrote:
+> From: "YC Hung" <yc.hung@mediatek.com>
 > 
-> On 03/01/2022 09:44, Jayesh Choudhary wrote:
->> Convert the bindings for McASP controllers for TI SOCs from txt
->> to YAML schema.
->>
->> Adds additional properties 'clocks', 'clock-names', 'power-domains',
->> '#sound-dai-cells' and 'port' which were missing from the txt file.
->> Removes properties 'sram-size-playback' and 'sram-size-capture'
->> since they are not used.
->> Adds 'dmas' and 'dma-names' in the example which were missing from
->> the txt file.
->> Changes 'interrupts' and 'interrupt-names' from optional to
->> required properties.
->> Changes 'op-modes', 'serial-dir' to optional properties as they are
->> not needed if the McASP is used only as GPIO.
->> Changes 'tdm-slots' to required property only for I2S operation mode.
->>
->> Adds the yaml file in the 'MAINTAINERS' under the heading 'TEXAS
->> INSTRUMENTS ASoC DRIVERS'
+> This patch adds mt8195 dsp document. The dsp is used for Sound Open
+> Firmware driver node. It includes registers,  clocks, memory regions,
+> and mailbox for dsp.
 > 
-> I would have added description for the GPIO support as it is not obvious
-> that 2 is going to be for AXR2 or 29 is for ACLKR pin.
-> But I don't think this functionality is going to be used apart from the
-> one dra7 evm.
+> Signed-off-by: yc.hung <yc.hung@mediatek.com>
+> ---
+> Changes since v3:
+>   Fix patch v3 error : v3 only provide difference between v3 and v2.
 > 
-> Thank you for the updates and the nice work!
+> Changes since v2:
+>   Remove useless watchdog interrupt.
+>   Add commit message more detail description.
 > 
-> Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+> Changes since v1:
+>   Rename yaml file name as mediatek,mt8195-dsp.yaml
+>   Refine descriptions for mailbox, memory-region and drop unused labels
+>   in examples.
+> ---
+>  .../bindings/dsp/mediatek,mt8195-dsp.yaml     | 105 ++++++++++++++++++
+>  1 file changed, 105 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/dsp/mediatek,mt8195-dsp.yaml
 > 
-...
 
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - ti,dm646x-mcasp-audio
->> +      - ti,da830-mcasp-audio
->> +      - ti,am33xx-mcasp-audio
->> +      - ti,dra7-mcasp-audio
->> +      - ti,omap4-mcasp-audio
-
-This is the only thing which bugs me: the pointless '-audio' postfix for
-the compatible string...
-
--- 
-Péter
+Reviewed-by: Rob Herring <robh@kernel.org>

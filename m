@@ -2,87 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD00D48C20E
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 11:14:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F50248C099
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 10:02:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5ADB11A99;
-	Wed, 12 Jan 2022 11:14:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ADB11A99
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E9D51947;
+	Wed, 12 Jan 2022 10:01:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E9D51947
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641982498;
-	bh=k5ofVPaXI+WYuqgi2UgjWrPHsuusyiezHiE7ipT/A6I=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1641978145;
+	bh=fNDyuJNFxqbDCtXCa0hZ3Ve+knlSigICfUw72BmANY8=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n8aQA9txb/lXd3wSfYKcxP5/s7eA9J97lFSnhn2V5m53Lzbp2li709rAvNGnyawe4
-	 JtCkzWw3ln6xokQXqEdrawGKmc3OmzfOtAnmYVK6kVqNCQcHuod0M+KFOI+leMMtiG
-	 ao96r3GREfn5EpO6HcjCUGmQyrhaXX+r0XeqtoJ0=
+	b=RvRSHFkCT050LcJCn7FkiIikbgdHrgfmTtZk+5iVo6PriZfAMKsPT8bMsjca0qu+I
+	 zIlJrjTHwMLEQBz8F+uUpEzvI5XkupLK29F+LPrG/SG3h800V7PWRtYXAWlKydd7jR
+	 9CvPD1C9xQ6LXZIzYACJIWOE3PlHspn51xCQ90NA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A83A2F8026D;
-	Wed, 12 Jan 2022 11:13:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09F5DF80054;
+	Wed, 12 Jan 2022 10:00:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01F95F80236; Wed, 12 Jan 2022 11:13:47 +0100 (CET)
+ id 8A78BF802BE; Wed, 12 Jan 2022 10:00:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0841F80236
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 11:13:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0841F80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C04EF8025E
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 10:00:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C04EF8025E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="XbR0K9Nh"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="JQH7OOvp"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9EE2B212CC;
- Wed, 12 Jan 2022 10:13:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1641982424; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WAuqoJikNaKlAZZLVtTf/B6Ec8TCbF3YJ/K9z4Q4nGk=;
- b=XbR0K9NhA6MzKVwWKrJO+4FaVIZs3RdMrC2xEEYk/I4YAcB90d8eWDd7VQNV7Q6BjPUnwC
- W/GgGJRESiV5ymiU+mW4+AZn/aK/c5HfSwsNoBt3WkkZkbQ71x+JBj7A21hBByeZV5RGUp
- jfC+wmgT+BHaWhlXXsb5sQrTeQOsvDI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1641982424;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WAuqoJikNaKlAZZLVtTf/B6Ec8TCbF3YJ/K9z4Q4nGk=;
- b=JQH7OOvploefYR5ShciVwymR3bdB5HhWRsB0TeFzVD5+gEbCuhIxEeXCHZiGClg5VK+kmX
- CYoV4Jr5mmaA0SBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9160AA3B8F;
- Wed, 12 Jan 2022 10:13:44 +0000 (UTC)
-Date: Wed, 12 Jan 2022 11:13:44 +0100
-Message-ID: <s5hilup9s87.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Sergeyev <sergeev917@gmail.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-In-Reply-To: <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
-References: <20210519170357.58410-1-jeremy.szu@canonical.com>
- <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
- <s5ho84h9tit.wl-tiwai@suse.de>
- <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="gvcML/ZB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1641978042; x=1673514042;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=fNDyuJNFxqbDCtXCa0hZ3Ve+knlSigICfUw72BmANY8=;
+ b=gvcML/ZB/a7IffamSaeq4v9Vx4xg2KVZCDVWyHxBvfbj3GYvCSmFXg/I
+ imvBFMMP6Vetsfef3Eon/oKMFD6J6ed8ufHck5S+/gKjU2yg6iP6IH/sG
+ fxgnZt9RqvZVcLziBeslgA9bnuc319sX2vfThRinrMZYaKzf08vFDoR/K
+ 6zEjOobEUujtnJMdaBA81cNvcf/x4SO+XveWCt2uVKRag2NG2LFJUwDvd
+ jRYGE4ifKYsZTNV4FFNZLLwLtu+BkbIVFTEzfHhOpjH7NCnodkrehFOmz
+ qOrVfuEdMr4BZ2jFVyrRsjtV8XcoOSpONPQC2NvBCmOqGTMkTOWdmMT5R w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10224"; a="223674373"
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="223674373"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 01:00:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="691318361"
+Received: from dev2.igk.intel.com ([10.237.148.94])
+ by orsmga005.jf.intel.com with ESMTP; 12 Jan 2022 01:00:36 -0800
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2 1/3] ASoC: topology: Remove superfluous error prints
+Date: Wed, 12 Jan 2022 18:00:28 +0100
+Message-Id: <20220112170030.569712-2-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220112170030.569712-1-amadeuszx.slawinski@linux.intel.com>
+References: <20220112170030.569712-1-amadeuszx.slawinski@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,41 +94,116 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 12 Jan 2022 11:12:49 +0100,
-Alexander Sergeyev wrote:
-> 
-> On Wed, Jan 12, 2022 at 10:45:46AM +0100, Takashi Iwai wrote:
-> > The problem is about the built-in drivers, or do you see the very
-> > same problem even with modules?
-> 
-> The problem is definitely there for the built-in drivers which I've
-> tested quite a lot. It's the primary usecase for me, as I tend to
-> build minimal device-specific and self-contained kernels in Gentoo.
-> 
-> For builds with modules things are not very consistent. Live Ubuntu
-> with an older (and probably vendor-patched) kernel works just fine,
-> but when I pull Ubuntu kernel sources and build it with the mostly
-> same config (including modules) it boots with no sound in
-> Gentoo. Mostly same -- because I need nvme drivers to be built-in as I
-> don't use initrd.
+soc_tplg_check_elem_count(), already prints an error when applicable, so
+there is no need to print another one.
 
-Sounds like some timing issue, then.  It's pretty hard to debug,
-unfortunately.
+Also clean up alignment of arguments in if, so there is no confusion
+about what is checked and what is executed if condition is true.
 
-You may try to get the codec proc dump with COEF by passing
-snd_hda_codec.dump_coef=1 module option for both working and
-non-working cases.  Check the difference of the COEF and apply the
-difference with hda-verb manually.
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/soc-topology.c | 44 ++++++++++------------------------------
+ 1 file changed, 11 insertions(+), 33 deletions(-)
 
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index 078e1dc19ca6..e0f72ddd72c1 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -685,12 +685,9 @@ static int soc_tplg_dbytes_create(struct soc_tplg *tplg, unsigned int count,
+ 	int err = 0;
+ 
+ 	if (soc_tplg_check_elem_count(tplg,
+-		sizeof(struct snd_soc_tplg_bytes_control), count,
+-			size, "mixer bytes")) {
+-		dev_err(tplg->dev, "ASoC: Invalid count %d for byte control\n",
+-			count);
++				      sizeof(struct snd_soc_tplg_bytes_control),
++				      count, size, "mixer bytes"))
+ 		return -EINVAL;
+-	}
+ 
+ 	for (i = 0; i < count; i++) {
+ 		be = (struct snd_soc_tplg_bytes_control *)tplg->pos;
+@@ -763,13 +760,9 @@ static int soc_tplg_dmixer_create(struct soc_tplg *tplg, unsigned int count,
+ 	int err = 0;
+ 
+ 	if (soc_tplg_check_elem_count(tplg,
+-		sizeof(struct snd_soc_tplg_mixer_control),
+-		count, size, "mixers")) {
+-
+-		dev_err(tplg->dev, "ASoC: invalid count %d for controls\n",
+-			count);
++				      sizeof(struct snd_soc_tplg_mixer_control),
++				      count, size, "mixers"))
+ 		return -EINVAL;
+-	}
+ 
+ 	for (i = 0; i < count; i++) {
+ 		mc = (struct snd_soc_tplg_mixer_control *)tplg->pos;
+@@ -927,13 +920,9 @@ static int soc_tplg_denum_create(struct soc_tplg *tplg, unsigned int count,
+ 	int err = 0;
+ 
+ 	if (soc_tplg_check_elem_count(tplg,
+-		sizeof(struct snd_soc_tplg_enum_control),
+-		count, size, "enums")) {
+-
+-		dev_err(tplg->dev, "ASoC: invalid count %d for enum controls\n",
+-			count);
++				      sizeof(struct snd_soc_tplg_enum_control),
++				      count, size, "enums"))
+ 		return -EINVAL;
+-	}
+ 
+ 	for (i = 0; i < count; i++) {
+ 		ec = (struct snd_soc_tplg_enum_control *)tplg->pos;
+@@ -1111,13 +1100,9 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
+ 	count = le32_to_cpu(hdr->count);
+ 
+ 	if (soc_tplg_check_elem_count(tplg,
+-		sizeof(struct snd_soc_tplg_dapm_graph_elem),
+-		count, le32_to_cpu(hdr->payload_size), "graph")) {
+-
+-		dev_err(tplg->dev, "ASoC: invalid count %d for DAPM routes\n",
+-			count);
++				      sizeof(struct snd_soc_tplg_dapm_graph_elem),
++				      count, le32_to_cpu(hdr->payload_size), "graph"))
+ 		return -EINVAL;
+-	}
+ 
+ 	dev_dbg(tplg->dev, "ASoC: adding %d DAPM routes for index %d\n", count,
+ 		hdr->index);
+@@ -1965,11 +1950,8 @@ static int soc_tplg_pcm_elems_load(struct soc_tplg *tplg,
+ 	if (soc_tplg_check_elem_count(tplg,
+ 				      size, count,
+ 				      le32_to_cpu(hdr->payload_size),
+-				      "PCM DAI")) {
+-		dev_err(tplg->dev, "ASoC: invalid count %d for PCM DAI elems\n",
+-			count);
++				      "PCM DAI"))
+ 		return -EINVAL;
+-	}
+ 
+ 	for (i = 0; i < count; i++) {
+ 		pcm = (struct snd_soc_tplg_pcm *)tplg->pos;
+@@ -2243,14 +2225,10 @@ static int soc_tplg_link_elems_load(struct soc_tplg *tplg,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (soc_tplg_check_elem_count(tplg,
+-				      size, count,
++	if (soc_tplg_check_elem_count(tplg, size, count,
+ 				      le32_to_cpu(hdr->payload_size),
+-				      "physical link config")) {
+-		dev_err(tplg->dev, "ASoC: invalid count %d for physical link elems\n",
+-			count);
++				      "physical link config"))
+ 		return -EINVAL;
+-	}
+ 
+ 	/* config physical DAI links */
+ 	for (i = 0; i < count; i++) {
+-- 
+2.25.1
 
-> > AFAIK, quite a few AMD platforms tend to have some issues with
-> > various devices showing initialization problems at the early
-> > boot. Just reloading / rebinding the device later often helps.
-> 
-> Is it possible to do with the built-in drivers?
-
-You can unbind and re-bind the PCI (HD-audio controller) device via
-sysfs.
-
-
-Takashi

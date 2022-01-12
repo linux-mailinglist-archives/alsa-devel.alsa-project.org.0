@@ -2,79 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65C4C48C352
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 12:39:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EF2748C460
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 14:06:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 086B01B18;
-	Wed, 12 Jan 2022 12:38:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 086B01B18
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACD211B1E;
+	Wed, 12 Jan 2022 14:05:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACD211B1E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641987566;
-	bh=mw8Cu4GQH6COV9/owWk80D6U/6JD4BnPa1qhtWGmnTQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1641992792;
+	bh=2MH7UM27geGzynYUnQwvuGnXtGE6rlKIkSswmv6Fno0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kSWCzT/v584lg8ArzncGlVRBXcXOZ3br4lAKmjWN9VZjtt5b3I2Qx9/7x/BFLqUT6
-	 7RcbD31x8BeemLO4B4Oe/ydCU5CCvUIzksY8upAGRF5zDDAlS9h8KBDm9r8UY82EoA
-	 Eqe7EOWe0/FykEx9V4WQJIaByU3D3vtKGireF0sI=
+	b=WyLNFqjGssdJjPUeJ42Gnuw2GWwojj8DP/KzCiITovgvj8nLUGtdGsAD6UArjSjbT
+	 SgFtHiV9QYwHBF4rRp11IW+w/zEVxnhIJVJLL2dRl+W+KyQ8gCALy5WDko2bwtsweY
+	 0SJEOXebFMYu50C2yd75pOFVKYT6gXzm61hwII4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6B65F80517;
-	Wed, 12 Jan 2022 12:37:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2498BF80054;
+	Wed, 12 Jan 2022 14:05:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 538D2F80516; Wed, 12 Jan 2022 12:37:45 +0100 (CET)
+ id 350F6F800B9; Wed, 12 Jan 2022 14:05:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6380DF8026A;
- Wed, 12 Jan 2022 12:37:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6380DF8026A
-X-UUID: f106f8e7990042a6bad654df76cbc34e-20220112
-X-UUID: f106f8e7990042a6bad654df76cbc34e-20220112
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw01.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 733150049; Wed, 12 Jan 2022 19:37:26 +0800
-Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Wed, 12 Jan 2022 19:37:26 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb02.mediatek.inc
- (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 12 Jan 2022 19:37:25 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Wed, 12 Jan 2022 19:37:25 +0800
-From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
-To: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>
-Subject: [PATCH v12 2/2] mailbox: mediatek: add support for adsp mailbox
- controller
-Date: Wed, 12 Jan 2022 19:37:23 +0800
-Message-ID: <20220112113723.32041-3-allen-kh.cheng@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20220112113723.32041-1-allen-kh.cheng@mediatek.com>
-References: <20220112113723.32041-1-allen-kh.cheng@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54116F800B9
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 14:05:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54116F800B9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="RTcH2yqL"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20C3aG3Y027128;
+ Wed, 12 Jan 2022 07:05:11 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=6qEp7FIsfc2aS94Jjc56bNCIgPLbqWS3T1SvLIBjUzE=;
+ b=RTcH2yqLWjxmklKE8NQMJ03l4vdJ07C+B4M6+eItgrJlND5bx7kfEJXNeANW09ELlMQ3
+ JBam2b0z6Md05j+RIxYAX99ZFN7cNjnrd4k6+EZx29CLzFTAlrT1FJGUYM/FYWjm2JB0
+ QP/6fSppab5gblhCXq5pHNklrUAL0RTTXSLpaVOXMOmQCv/Tj4I5ekc6x81ebpwrwrqj
+ Nsj44n9P6GAe/ed17yTm19U8gYjsi45Gcah2LDNrdeGVSW2RXcknQ5zE4C2e5XXx7H5U
+ EefrdFEGdY/eQ8MBDoSAdpZF0exoRGWnbn9d4NPWck+LZFsLVGFwzm55OP8gt2CdG5JN fw== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dhmc30ja9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 12 Jan 2022 07:05:11 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 12 Jan
+ 2022 13:05:09 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Wed, 12 Jan 2022 13:05:09 +0000
+Received: from [198.61.65.50] (unknown [198.61.65.50])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id EB8BCB10;
+ Wed, 12 Jan 2022 13:05:02 +0000 (UTC)
+Message-ID: <e2d39d52-c139-a94a-94cc-88841d3638e3@opensource.cirrus.com>
+Date: Wed, 12 Jan 2022 13:05:02 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, cujomalainey@google.com,
- Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com, Mark
- Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v6 08/10] ACPI / scan: Create platform device for CLSA0100
+ and CSC3551 ACPI nodes
+Content-Language: en-US
+To: Stefan Binding <sbinding@opensource.cirrus.com>, 'Hans de Goede'
+ <hdegoede@redhat.com>, "'Rafael J. Wysocki'" <rafael@kernel.org>
+References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
+ <20211217115708.882525-9-tanureal@opensource.cirrus.com>
+ <CAJZ5v0jTELqFeO6q6w_mYNo_yf1R9SX66RrEz0ZSe27w7E6kog@mail.gmail.com>
+ <4b5506b1-20c6-3983-d541-86dc2388b2a7@redhat.com>
+ <004001d7f5c6$7329d4d0$597d7e70$@opensource.cirrus.com>
+From: Lucas tanure <tanureal@opensource.cirrus.com>
+In-Reply-To: <004001d7f5c6$7329d4d0$597d7e70$@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: ajAjh2HRcUl_MYpVwTUQ65XDdiVlIFiQ
+X-Proofpoint-GUID: ajAjh2HRcUl_MYpVwTUQ65XDdiVlIFiQ
+X-Proofpoint-Spam-Reason: safe
+Cc: "'moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM...'"
+ <alsa-devel@alsa-project.org>, 'Liam Girdwood' <lgirdwood@gmail.com>,
+ patches@opensource.cirrus.com, 'Takashi Iwai' <tiwai@suse.com>,
+ 'Mark Gross' <markgross@kernel.org>,
+ 'ACPI Devel Maling List' <linux-acpi@vger.kernel.org>,
+ 'Mark Brown' <broonie@kernel.org>,
+ 'Platform Driver' <platform-driver-x86@vger.kernel.org>,
+ 'Linux Kernel Mailing List' <linux-kernel@vger.kernel.org>,
+ 'Len Brown' <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,232 +114,155 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
+On 12/20/21 17:24, Stefan Binding wrote:
+> Hi,
+> 
+>> -----Original Message-----
+>> From: Hans de Goede <hdegoede@redhat.com>
+>> Sent: 17 December 2021 18:27
+>> To: Rafael J. Wysocki <rafael@kernel.org>; Lucas Tanure
+>> <tanureal@opensource.cirrus.com>; Stefan Binding
+>> <sbinding@opensource.cirrus.com>
+>> Cc: Len Brown <lenb@kernel.org>; Mark Gross <markgross@kernel.org>;
+>> Liam Girdwood <lgirdwood@gmail.com>; Jaroslav Kysela <perex@perex.cz>;
+>> Mark Brown <broonie@kernel.org>; Takashi Iwai <tiwai@suse.com>;
+>> moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM...
+>> <alsa-devel@alsa-project.org>; ACPI Devel Maling List <linux-
+>> acpi@vger.kernel.org>; patches@opensource.cirrus.com; Platform Driver
+>> <platform-driver-x86@vger.kernel.org>; Linux Kernel Mailing List <linux-
+>> kernel@vger.kernel.org>
+>> Subject: Re: [PATCH v6 08/10] ACPI / scan: Create platform device for
+>> CLSA0100 and CSC3551 ACPI nodes
+>>
+>> Hi,
+>>
+>> On 12/17/21 18:19, Rafael J. Wysocki wrote:
+>>> On Fri, Dec 17, 2021 at 12:57 PM Lucas Tanure
+>>> <tanureal@opensource.cirrus.com> wrote:
+>>>>
+>>>> The ACPI device with CLSA0100 or CSC3551 is a sound card
+>>>> with multiple instances of CS35L41 connectec by I2C to
+>>>
+>>> "connected" I suppose?
+>>>
+>>>> the main CPU.
+>>>>
+>>>> We add an ID to the i2c_multi_instantiate_ids list to enumerate
+>>>> all I2C slaves correctly.
+>>>>
+>>>> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+>>>
+>>> This requires an ACK from Hans.
+>>>
+>>> If you receive one, please feel free to add my ACK to it too.
+>>
+>> One problem which I see here is that this change conflicts with
+>> this series:
+>>
+>> https://lore.kernel.org/all/20211210154050.3713-1-
+>> sbinding@opensource.cirrus.com/
+>>
+>> I have reviewing that series on my todo list.
+>>
+>> One interesting question for you (Rafael) about that series is
+>> that i2c-multi-instantiate.c, which after the series also handles
+>> spi devices,is being moved to drivers/acpi .
+>>
+>> This is fine with me, but I wonder if it would not be better
+>> to keep it under drivers/platform/x86 ? Since the new SPI
+>> use-cases are also all on x86 laptops AFAICT.
+>>
+>> But back to this series, as said the 2 series conflict, since
+>> both are being submitted by @opensource.cirrus.com people,
+>> it would be good if the Cirrus folks can decide in which
+>> order these series should be merged.
+>>
+>> It might be best to just move this one patch to the other series?
+>> Thus removing the conflict between the 2 series.
+>>
+>> Regards,
+>>
+>> Hans
+>>
+> 
+> We don’t really have a preference which order these two chains
+> should be merged in. We would rebase the other chain if one
+> got merged first.
+> If pushed for an answer, maybe:
+> https://lore.kernel.org/all/20211210154050.3713-1-sbinding@opensource.cirrus.com/
+> should be merged first?
+> 
+> Thanks,
+> Stefan
+> 
+>>
+>>
+>>>> ---
+>>>>   drivers/acpi/scan.c                          |  3 +++
+>>>>   drivers/platform/x86/i2c-multi-instantiate.c | 11 +++++++++++
+>>>>   2 files changed, 14 insertions(+)
+>>>>
+>>>> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+>>>> index b7a6b982226e..8740cfa11f59 100644
+>>>> --- a/drivers/acpi/scan.c
+>>>> +++ b/drivers/acpi/scan.c
+>>>> @@ -1712,8 +1712,11 @@ static bool
+>> acpi_device_enumeration_by_parent(struct acpi_device *device)
+>>>>          static const struct acpi_device_id i2c_multi_instantiate_ids[] = {
+>>>>                  {"BSG1160", },
+>>>>                  {"BSG2150", },
+>>>> +               {"CSC3551", },
+>>>>                  {"INT33FE", },
+>>>>                  {"INT3515", },
+>>>> +               /* Non-conforming _HID for Cirrus Logic already released */
+>>>> +               {"CLSA0100", },
+>>>>                  {}
+>>>>          };
+>>>>
+>>>> diff --git a/drivers/platform/x86/i2c-multi-instantiate.c
+>> b/drivers/platform/x86/i2c-multi-instantiate.c
+>>>> index 4956a1df5b90..a889789b966c 100644
+>>>> --- a/drivers/platform/x86/i2c-multi-instantiate.c
+>>>> +++ b/drivers/platform/x86/i2c-multi-instantiate.c
+>>>> @@ -147,6 +147,14 @@ static const struct i2c_inst_data int3515_data[]  =
+>> {
+>>>>          {}
+>>>>   };
+>>>>
+>>>> +static const struct i2c_inst_data cs35l41_hda[] = {
+>>>> +       { "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
+>>>> +       { "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
+>>>> +       { "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
+>>>> +       { "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
+>>>> +       {}
+>>>> +};
+>>>> +
+>>>>   /*
+>>>>    * Note new device-ids must also be added to i2c_multi_instantiate_ids in
+>>>>    * drivers/acpi/scan.c: acpi_device_enumeration_by_parent().
+>>>> @@ -154,7 +162,10 @@ static const struct i2c_inst_data int3515_data[]  =
+>> {
+>>>>   static const struct acpi_device_id i2c_multi_inst_acpi_ids[] = {
+>>>>          { "BSG1160", (unsigned long)bsg1160_data },
+>>>>          { "BSG2150", (unsigned long)bsg2150_data },
+>>>> +       { "CSC3551", (unsigned long)cs35l41_hda },
+>>>>          { "INT3515", (unsigned long)int3515_data },
+>>>> +       /* Non-conforming _HID for Cirrus Logic already released */
+>>>> +       { "CLSA0100", (unsigned long)cs35l41_hda },
+>>>>          { }
+>>>>   };
+>>>>   MODULE_DEVICE_TABLE(acpi, i2c_multi_inst_acpi_ids);
+>>>> --
+>>>> 2.34.1
+>>>>
+>>>
+> 
+> 
+As the ic2-multi-instantiate patch chain is still being worked out, we 
+would like to submit a new chain for CLSA0100 id and a few fixes for the 
+HDA cs35l41 driver.
+And to avoid conflicts the ic2-multi-instantiate patch chain will wait 
+for this new patch chain to be merged.
 
-This patch is to for MediaTek ADSP IPC mailbox controller driver
-It is used to send short messages between processors with adsp
-
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
-Signed-off-by: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
----
- drivers/mailbox/Kconfig            |   7 ++
- drivers/mailbox/Makefile           |   2 +
- drivers/mailbox/mtk-adsp-mailbox.c | 175 +++++++++++++++++++++++++++++
- 3 files changed, 184 insertions(+)
- create mode 100644 drivers/mailbox/mtk-adsp-mailbox.c
-
-diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
-index d9cd3606040e..3e5bb745437d 100644
---- a/drivers/mailbox/Kconfig
-+++ b/drivers/mailbox/Kconfig
-@@ -238,6 +238,13 @@ config STM32_IPCC
- 	  with hardware for Inter-Processor Communication Controller (IPCC)
- 	  between processors. Say Y here if you want to have this support.
- 
-+config MTK_ADSP_MBOX
-+	tristate "MediaTek ADSP Mailbox Controller"
-+	depends on ARCH_MEDIATEK || COMPILE_TEST
-+	help
-+	  Say yes here to add support for MediaTek ADSP mailbox controller
-+	  driver. It is used to send short messages between processors with dsp.
-+
- config MTK_CMDQ_MBOX
- 	tristate "MediaTek CMDQ Mailbox Support"
- 	depends on ARCH_MEDIATEK || COMPILE_TEST
-diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
-index 338cc05e5431..fc9376117111 100644
---- a/drivers/mailbox/Makefile
-+++ b/drivers/mailbox/Makefile
-@@ -49,6 +49,8 @@ obj-$(CONFIG_TEGRA_HSP_MBOX)	+= tegra-hsp.o
- 
- obj-$(CONFIG_STM32_IPCC) 	+= stm32-ipcc.o
- 
-+obj-$(CONFIG_MTK_ADSP_MBOX)	+= mtk-adsp-mailbox.o
-+
- obj-$(CONFIG_MTK_CMDQ_MBOX)	+= mtk-cmdq-mailbox.o
- 
- obj-$(CONFIG_ZYNQMP_IPI_MBOX)	+= zynqmp-ipi-mailbox.o
-diff --git a/drivers/mailbox/mtk-adsp-mailbox.c b/drivers/mailbox/mtk-adsp-mailbox.c
-new file mode 100644
-index 000000000000..064817be6a74
---- /dev/null
-+++ b/drivers/mailbox/mtk-adsp-mailbox.c
-@@ -0,0 +1,175 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2022 MediaTek Corporation. All rights reserved.
-+ * Author: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
-+ */
-+
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/kernel.h>
-+#include <linux/mailbox_controller.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/slab.h>
-+
-+struct mtk_adsp_mbox_priv {
-+	struct device *dev;
-+	struct mbox_controller mbox;
-+	void __iomem *va_mboxreg;
-+	const struct mtk_adsp_mbox_cfg *cfg;
-+};
-+
-+struct mtk_adsp_mbox_cfg {
-+	u32 set_in;
-+	u32 set_out;
-+	u32 clr_in;
-+	u32 clr_out;
-+};
-+
-+static struct mtk_adsp_mbox_priv *get_mtk_adsp_mbox_priv(struct mbox_controller *mbox)
-+{
-+	return container_of(mbox, struct mtk_adsp_mbox_priv, mbox);
-+}
-+
-+static irqreturn_t mtk_adsp_mbox_irq(int irq, void *data)
-+{
-+	struct mbox_chan *chan = data;
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+	u32 op = readl(priv->va_mboxreg + priv->cfg->set_out);
-+
-+	writel(op, priv->va_mboxreg + priv->cfg->clr_out);
-+
-+	return IRQ_WAKE_THREAD;
-+}
-+
-+static irqreturn_t mtk_adsp_mbox_isr(int irq, void *data)
-+{
-+	struct mbox_chan *chan = data;
-+
-+	mbox_chan_received_data(chan, NULL);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static struct mbox_chan *mtk_adsp_mbox_xlate(struct mbox_controller *mbox,
-+					     const struct of_phandle_args *sp)
-+{
-+	return mbox->chans;
-+}
-+
-+static int mtk_adsp_mbox_startup(struct mbox_chan *chan)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+
-+	/* Clear ADSP mbox command */
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_in);
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_out);
-+
-+	return 0;
-+}
-+
-+static void mtk_adsp_mbox_shutdown(struct mbox_chan *chan)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+
-+	/* Clear ADSP mbox command */
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_in);
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_out);
-+}
-+
-+static int mtk_adsp_mbox_send_data(struct mbox_chan *chan, void *data)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+	u32 *msg = data;
-+
-+	writel(*msg, priv->va_mboxreg + priv->cfg->set_in);
-+
-+	return 0;
-+}
-+
-+static bool mtk_adsp_mbox_last_tx_done(struct mbox_chan *chan)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+
-+	return readl(priv->va_mboxreg + priv->cfg->set_in) == 0;
-+}
-+
-+static const struct mbox_chan_ops mtk_adsp_mbox_chan_ops = {
-+	.send_data	= mtk_adsp_mbox_send_data,
-+	.startup	= mtk_adsp_mbox_startup,
-+	.shutdown	= mtk_adsp_mbox_shutdown,
-+	.last_tx_done	= mtk_adsp_mbox_last_tx_done,
-+};
-+
-+static int mtk_adsp_mbox_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct mtk_adsp_mbox_priv *priv;
-+	const struct mtk_adsp_mbox_cfg *cfg;
-+	struct mbox_controller *mbox;
-+	int ret, irq;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	mbox = &priv->mbox;
-+	mbox->dev = dev;
-+	mbox->ops = &mtk_adsp_mbox_chan_ops;
-+	mbox->txdone_irq = false;
-+	mbox->txdone_poll = true;
-+	mbox->of_xlate = mtk_adsp_mbox_xlate;
-+	mbox->num_chans = 1;
-+	mbox->chans = devm_kzalloc(dev, sizeof(*mbox->chans), GFP_KERNEL);
-+	if (!mbox->chans)
-+		return -ENOMEM;
-+
-+	priv->va_mboxreg = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->va_mboxreg))
-+		return PTR_ERR(priv->va_mboxreg);
-+
-+	cfg = of_device_get_match_data(dev);
-+	if (!cfg)
-+		return -EINVAL;
-+	priv->cfg = cfg;
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_threaded_irq(dev, irq, mtk_adsp_mbox_irq,
-+					mtk_adsp_mbox_isr, IRQF_TRIGGER_NONE,
-+					dev_name(dev), mbox->chans);
-+	if (ret < 0)
-+		return ret;
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	return devm_mbox_controller_register(dev, &priv->mbox);
-+}
-+
-+static const struct mtk_adsp_mbox_cfg mt8195_adsp_mbox_cfg = {
-+	.set_in		= 0x00,
-+	.set_out	= 0x1c,
-+	.clr_in		= 0x04,
-+	.clr_out	= 0x20,
-+};
-+
-+static const struct of_device_id mtk_adsp_mbox_of_match[] = {
-+	{ .compatible = "mediatek,mt8195-adsp-mbox", .data = &mt8195_adsp_mbox_cfg },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, mtk_adsp_mbox_of_match);
-+
-+static struct platform_driver mtk_adsp_mbox_driver = {
-+	.probe		= mtk_adsp_mbox_probe,
-+	.driver = {
-+		.name	= "mtk_adsp_mbox",
-+		.of_match_table = mtk_adsp_mbox_of_match,
-+	},
-+};
-+module_platform_driver(mtk_adsp_mbox_driver);
-+
-+MODULE_AUTHOR("Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>");
-+MODULE_DESCRIPTION("MTK ADSP Mailbox Controller");
--- 
-2.18.0
-
+Thanks,
+Lucas Tanure

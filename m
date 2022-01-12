@@ -2,64 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D393948BF37
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 08:48:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 473D048C084
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 09:57:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B95F1932;
-	Wed, 12 Jan 2022 08:47:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B95F1932
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD2E41918;
+	Wed, 12 Jan 2022 09:56:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD2E41918
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641973709;
-	bh=aU+3XSAFQK31OBoiBs9bCDLewsLCxJGw6yIc3glOGwU=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1641977841;
+	bh=NCfBUwdRkZAw6vaOmgb+f9rqJiopfU1LVulH+Zq8MEQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Igboi0gYnm2yxmFm0RruR9pZFRyOSEIJcaEQdaRC8kPBf8UhxATjA30JsVuuAB2d+
-	 DB4uOwpWioLKhx0lipy1OBHcKgQWIdrIGr2+FMeX149vyI13nmU165IPwh4WieejDJ
-	 IqHxfcK/HpYFegSGFp4wrGYghPv8tTxi1h3aRCEI=
+	b=gxduysV1lApC7HC7C/upG4Xh548y40N+gJsZmbYuetFoMGLOwC7+c02wJdJ+ASNr4
+	 eu1tfG6UyXCbIGocU4fu3ci3Ais3aANk/ODRg2EGbk++1p4ioFfMsKjYTKyk5q7SzZ
+	 M3lx5AC4uQtpK0xeMiVcTm1t+jVApSnmMxOBfyW8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C65E2F80236;
-	Wed, 12 Jan 2022 08:47:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3972EF8026D;
+	Wed, 12 Jan 2022 09:56:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F833F80236; Wed, 12 Jan 2022 08:47:18 +0100 (CET)
+ id E26F3F8026A; Wed, 12 Jan 2022 09:56:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.marcansoft.com (marcansoft.com [IPv6:2a01:298:fe:f::2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89F30F80236
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 08:47:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89F30F80236
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: marcan@marcan.st)
- by mail.marcansoft.com (Postfix) with ESMTPSA id 1916744B5E;
- Wed, 12 Jan 2022 07:47:07 +0000 (UTC)
-Message-ID: <0beed477-adc4-5362-f116-669832c862b1@marcan.st>
-Date: Wed, 12 Jan 2022 16:47:05 +0900
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76383F80054
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 09:56:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76383F80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="hiyOW9yR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1641977765; x=1673513765;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=NCfBUwdRkZAw6vaOmgb+f9rqJiopfU1LVulH+Zq8MEQ=;
+ b=hiyOW9yRZ8NiT+cxScBP9LHP0NIRlb47RixJbpinILXSgcJydXrHVFKa
+ HaMD5/k2oH/PG1t1Y7/oaWlLLB6FgBg/ngSUVtWcpQ1xAXH0hl9ODjk24
+ k0cKZaM+JukgmtuT/UtGlF8aEki5Z7T3fCym2W1U3XiAR1Ko912yjmTx1
+ OSR8xNxPaCh3Uo6aK24xD80ZOVa9q+L/XHyPGY5s9cwmN+CvGDoOK0uZp
+ lwH4aJmT1daMPvvYrQYkgN2hddiTTzKt4+rgjinIxdsNG1HS8gjWhqPoL
+ 1GBM76qYOVfIaewAHMle9jUTAXelM6FS3Sn2btMw9r74VaFa5QdUF1pNb Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10224"; a="307043091"
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="307043091"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 00:55:59 -0800
+X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="529091183"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.237.12.73])
+ ([10.237.12.73])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 00:55:57 -0800
+Message-ID: <17365845-c21b-bca7-bec6-b6ddeee41472@linux.intel.com>
+Date: Wed, 12 Jan 2022 09:55:55 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.4.1
-Subject: Re: [PATCH 0/3] firewire: assist unit driver to compute packet
- timestamp
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Subject: Re: [PATCH 2/3] ASoC: topology: Allow TLV control to be either read
+ or write
 Content-Language: en-US
-To: stefanr@s5r6.in-berlin.de, alsa-devel@alsa-project.org,
- linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-References: <20211202113457.24011-1-o-takashi@sakamocchi.jp>
- <YcGycqUrptkWYeOV@workstation> <YdgdfrcvhJrUXwYF@workstation>
- <Yd5QNs/YnvzGOy0g@workstation>
-From: Hector Martin <marcan@marcan.st>
-In-Reply-To: <Yd5QNs/YnvzGOy0g@workstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20220111190528.445248-1-amadeuszx.slawinski@linux.intel.com>
+ <20220111190528.445248-3-amadeuszx.slawinski@linux.intel.com>
+ <b4e04b4d-147a-5dd1-d54e-429a61f7f84d@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <b4e04b4d-147a-5dd1-d54e-429a61f7f84d@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,34 +97,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022/01/12 12:51, Takashi Sakamoto wrote:
-> Hi Stefan,
+On 1/11/2022 5:48 PM, Pierre-Louis Bossart wrote:
 > 
-> I'm sorry to post messages several times for the patchset if you are
-> still busy. But I'm still waiting for any reaction.
 > 
-> I note that Linus have announced merge window for v5.17 kernel.
->  * https://lore.kernel.org/lkml/CAHk-=wgUkBrUVhjixy4wvrUhPbW-DTgtQubJWVOoLW=O0wRKMA@mail.gmail.com/T/#u
+> On 1/11/22 1:05 PM, Amadeusz Sławiński wrote:
+>> There is no reason to force readwrite access on TLV controls. It can be
+>> either read, write or both. This is further evidenced in code where it
+>> performs following checks:
+>>                  if ((k->access & SNDRV_CTL_ELEM_ACCESS_TLV_READ) && !sbe->get)
+>>                          return -EINVAL;
+>>                  if ((k->access & SNDRV_CTL_ELEM_ACCESS_TLV_WRITE) && !sbe->put)
+>>                          return -EINVAL;
+>>
+>> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+>> Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 > 
-> I'm glad if seeing your action for pull request as a response to the
-> window.
+> Should there be a Fixes tag
+> 
+> Fixes: 1a3232d2f61d ("ASoC: topology: Add support for TLV bytes controls")
+> 
+> ?
 
-Hi Tahashi,
-
-Just FYI, I think a lot of maintainers have been off or doing less work
-over December/the holidays; I also have some things that didn't make it
-into subsystem trees for 5.17. So I'm guessing this patchset will have
-to wait for 5.18. AIUI most maintainers don't merge things into
-subsystem trees after the upstream merge window opens.
-
-I've also been meaning to test your Firewire improvements again (and
-also with Pipewire), but I've been pretty busy lately... hopefully I'll
-get a chance soon. When I tried the first round of improvements that got
-merged (the sequence replay stuff) I noticed it fixed the glitchy audio
-problem, but the minimum stable period size with JACK+ALSA was still
-higher than with JACK+FFADO, and Pipewire also had even higher
-latencies. So I'm back using FFADO but I hope I can switch to ALSA soon :)
-
--- 
-Hector Martin (marcan@marcan.st)
-Public Key: https://mrcn.st/pub
+I guess it won't hurt, will add and send v2, thanks!

@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0358748CC7F
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 20:53:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AF3048CCDB
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 21:08:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D6311ED8;
-	Wed, 12 Jan 2022 20:53:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D6311ED8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C499A1EE6;
+	Wed, 12 Jan 2022 21:07:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C499A1EE6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642017231;
-	bh=TxuvZi6RfXHBb4/PyWqWdHPlRlcCKt+lsNuJ1bXWUH8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=O4sYSpH6M8JQTlIGYSARJolTC6olwKPFzlH+h2+CZQQ+tyGIj8tahl7e2GszN2pZR
-	 7HNp8ZwgslpR+zU9RxpRka3k3h5XPxmj9yR5ngPpHRygVyBnjecFiv+bXl5WtTCkaB
-	 sVgfSuwNDuQMnsRBhdCmyTD6N8vwfJ+tybeEw+ys=
+	s=default; t=1642018091;
+	bh=ya/N5iS2hsQc3ayxGBVvBfqwiqsgzhMByeKRiFjm1ig=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=d9CTF1ONKR8rPO5VEJLl1Avl3Ro2pGoewKX/kBrzN4KXTIfwR4Lw6xc7lMLnjKAMb
+	 Hsr3P4XvaZrHLK/PYXxa+65bebNJ99nLchkpBQZyOhIgj5+cLlspZXflkDHYfE3NZA
+	 u9H7hsttoFHHWGu7As72aJCWFCXNGgEYedIQz4dA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4C26F8026D;
-	Wed, 12 Jan 2022 20:52:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37E0AF800B9;
+	Wed, 12 Jan 2022 21:07:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83ED4F8026A; Wed, 12 Jan 2022 20:52:39 +0100 (CET)
+ id 36F9DF8026A; Wed, 12 Jan 2022 21:07:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from neo-zeon.de (neo-zeon.de [70.229.12.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED186F80236
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 20:52:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED186F80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12E22F80236
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 21:06:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12E22F80236
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="NCgDByj6"
-Received: by mail-lf1-x135.google.com with SMTP id p27so260427lfa.1
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 11:52:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=He7BjM6dCMMuZ+d1PaptWEfTiiaWHjufRifL/qaqDNQ=;
- b=NCgDByj6hejwY7MuOGvvvTVFdE0SIutf2M2dNIqTnLWvTYZrGZcHThTDRYKIyu0+1a
- v9LpidK7TVBhU34aEpmdnnkJ0neebUciWxItaGoons6aj1nBdDkqm59faz57DZlHdAWi
- LPIyKtOTp3ok2nd2Jmr9r68FSIQcIybhJZBVkeoeiwoVX52xpNi8jiWudtU4Rn0v5Vy4
- 8DFPJi+9FV/6Y9fmLfT/OaaS+p9/y3rZQ9nG8x/au6mEU9hDtKvNeSt4FVZD88FDnGGC
- lKUrV7JjzA4vV7c4xyOMrkgZtcCrKwwSFUyDXpWRqtpDfS1CU0A0cS5aJZY/mLd5/imR
- 1kYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=He7BjM6dCMMuZ+d1PaptWEfTiiaWHjufRifL/qaqDNQ=;
- b=wvtkHXQ3NUjfkCqwtzEXdYLLI8KMXAkTPQw3PLv1XTHWtVBiFbKHWIfkwve84sbXUD
- DsfAFS4T/UGiWknWDKp9eeU7NEZTyJMnf2LjamhsFj7PdO38rZKe90/AtzbnCJTRjW+j
- L2gKVJVVaaHd1PpjfxlSxUpFL2UJZCjBcfFQKqsX3681BidaGf0g6lW3yI11g4zQ71xi
- Ww1EeW9w2SOZi1Fsp2lCS1iWZli3h7fjZ6TGGOdaEyxBe2aTdhsIL9D087A2x+V2FMax
- 3Xm8zDv9zsGQ/ijkLx8/5668WCRf0mTZjA4Nudo3gcvR0HR18PEEno91cqBiH57ii7jz
- xg8Q==
-X-Gm-Message-State: AOAM531lYEj/aCm73DfL2qd7AEVf8JPKVyVlw3TYMU5TKPx56DpNXLM6
- LoSwWWB4EiSTiwAoKqVy9Mr+HhLqvqg=
-X-Google-Smtp-Source: ABdhPJzk+NRGmXVUet+lyHm2CN5FnEA2iJ4erteSkUXSDA2UFv+FYnd+7IGa8JwGGNOUHUesuS051w==
-X-Received: by 2002:ac2:4c56:: with SMTP id o22mr945861lfk.558.1642017153504; 
- Wed, 12 Jan 2022 11:52:33 -0800 (PST)
-Received: from localhost.localdomain (94-29-62-108.dynamic.spd-mgts.ru.
- [94.29.62.108])
- by smtp.gmail.com with ESMTPSA id k7sm75860lfu.141.2022.01.12.11.52.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Jan 2022 11:52:33 -0800 (PST)
-From: Dmitry Osipenko <digetx@gmail.com>
-To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH v1] ASoC: hdmi-codec: Fix OOB memory accesses
-Date: Wed, 12 Jan 2022 22:50:39 +0300
-Message-Id: <20220112195039.1329-1-digetx@gmail.com>
-X-Mailer: git-send-email 2.33.1
+ dkim=pass (1024-bit key) header.d=neo-zeon.de header.i=@neo-zeon.de
+ header.b="wsOGnqtY"
+Received: from neo-zeon.de (localhost [127.0.0.1])
+ by neo-zeon.de (OpenSMTPD) with ESMTP id 9f1b631d;
+ Wed, 12 Jan 2022 12:00:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=neo-zeon.de; h=message-id
+ :date:mime-version:subject:to:cc:references:from:in-reply-to
+ :content-type:content-transfer-encoding; s=1; bh=LsQgZUAtXz/CTWd
+ vR+KQLZhrZLQ=; b=wsOGnqtYjqstNcf7G/2jAkEC5VZEL5+9SHA5IVcodgyQTje
+ X676QXMnB6oKzRNX6sOBC//iyw3Le/JUTIZ2cMtnaCBm7gvWBQ8/Z4cGOpvShGxf
+ p/1OYtuujlRWI93qlm8afXMHk6gt5kgsIM9ARZEjWKXQ+m3IagHUILEZ80Rc=
+Received: by neo-zeon.de (OpenSMTPD) with ESMTPSA id 04d3b972
+ (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO); 
+ Wed, 12 Jan 2022 12:00:07 -0800 (PST)
+Message-ID: <3f042293-05de-d472-dd6e-ce5ca3a8331b@neo-zeon.de>
+Date: Wed, 12 Jan 2022 12:00:06 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH v6 08/10] ACPI / scan: Create platform device for CLSA0100
+ and CSC3551 ACPI nodes
+Content-Language: en-US
+To: Lucas tanure <tanureal@opensource.cirrus.com>,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ 'Hans de Goede' <hdegoede@redhat.com>,
+ "'Rafael J. Wysocki'" <rafael@kernel.org>
+References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
+ <20211217115708.882525-9-tanureal@opensource.cirrus.com>
+ <CAJZ5v0jTELqFeO6q6w_mYNo_yf1R9SX66RrEz0ZSe27w7E6kog@mail.gmail.com>
+ <4b5506b1-20c6-3983-d541-86dc2388b2a7@redhat.com>
+ <004001d7f5c6$7329d4d0$597d7e70$@opensource.cirrus.com>
+ <e2d39d52-c139-a94a-94cc-88841d3638e3@opensource.cirrus.com>
+From: Cameron Berkenpas <cam@neo-zeon.de>
+In-Reply-To: <e2d39d52-c139-a94a-94cc-88841d3638e3@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: "'moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM...'"
+ <alsa-devel@alsa-project.org>, patches@opensource.cirrus.com,
+ 'Liam Girdwood' <lgirdwood@gmail.com>, 'Takashi Iwai' <tiwai@suse.com>,
+ 'Mark Gross' <markgross@kernel.org>,
+ 'ACPI Devel Maling List' <linux-acpi@vger.kernel.org>,
+ 'Mark Brown' <broonie@kernel.org>,
+ 'Platform Driver' <platform-driver-x86@vger.kernel.org>,
+ 'Linux Kernel Mailing List' <linux-kernel@vger.kernel.org>,
+ 'Len Brown' <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,47 +98,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Correct size of iec_status array by changing it to the size of status
-array of the struct snd_aes_iec958. This fixes out-of-bounds slab
-read accesses made by memcpy() of the hdmi-codec driver. This problem
-is reported by KASAN.
+Hello,
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
----
- include/uapi/sound/asound.h   | 4 +++-
- sound/soc/codecs/hdmi-codec.c | 2 +-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+Will this also include adding support for ID's matching CLSA0101?
 
-diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-index ef0cafe295b2..2d3e5df39a59 100644
---- a/include/uapi/sound/asound.h
-+++ b/include/uapi/sound/asound.h
-@@ -56,8 +56,10 @@
-  *                                                                          *
-  ****************************************************************************/
- 
-+#define AES_IEC958_STATUS_SIZE		24
-+
- struct snd_aes_iec958 {
--	unsigned char status[24];	/* AES/IEC958 channel status bits */
-+	unsigned char status[AES_IEC958_STATUS_SIZE]; /* AES/IEC958 channel status bits */
- 	unsigned char subcode[147];	/* AES/IEC958 subcode bits */
- 	unsigned char pad;		/* nothing */
- 	unsigned char dig_subframe[4];	/* AES/IEC958 subframe bits */
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index b61f980cabdc..b07607a9ecea 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -277,7 +277,7 @@ struct hdmi_codec_priv {
- 	bool busy;
- 	struct snd_soc_jack *jack;
- 	unsigned int jack_status;
--	u8 iec_status[5];
-+	u8 iec_status[AES_IEC958_STATUS_SIZE];
- };
- 
- static const struct snd_soc_dapm_widget hdmi_widgets[] = {
--- 
-2.33.1
+Thanks,
+
+-Cameron
+
+On 1/12/22 05:05, Lucas tanure wrote:
+> As the ic2-multi-instantiate patch chain is still being worked out, we 
+> would like to submit a new chain for CLSA0100 id and a few fixes for 
+> the HDA cs35l41 driver.
+> And to avoid conflicts the ic2-multi-instantiate patch chain will wait 
+> for this new patch chain to be merged.
+>
+> Thanks,
+> Lucas Tanure 
 

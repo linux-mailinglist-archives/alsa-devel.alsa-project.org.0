@@ -2,80 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CE148C096
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 10:01:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B45648C140
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 10:47:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EA5E1938;
-	Wed, 12 Jan 2022 10:01:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EA5E1938
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD54119FD;
+	Wed, 12 Jan 2022 10:46:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD54119FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1641978113;
-	bh=qui2EOI7BTx4Qk6aHTNZshsKh1WcvPMH0R3UnUK75bc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XnVTbdLdVltlozLeEacJ0EhWQum1opjlolts8pRYs7e6Jz91OC0ucvi3yMTxBWCsX
-	 UbnHab5Ric4t8Y55x5gJI5GFL9JcjVt9Zp0Xk7SFpozXMHALux03D+D0j6kd77oZbP
-	 h/u/fhMUx9VmyyDhbXMhpDyVON0q9x3pCcb0eMpQ=
+	s=default; t=1641980826;
+	bh=X/aetbjtwG6Eo/UooYm1liGKpYGTApqNFp9IwYJme3M=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=J4ObVTHmj1yldeV8f4NsKjXKaSXg76AYiv9QgyfKxy9vvdhL64mhMawnGRNXaj0ad
+	 2y5AUsI8fyt91zTG+8KXR/p+fuuDepsonajFqFrgdT7Y/LjiKLOAxqmdZH3yle7g+o
+	 4cGf3zs+y1CTrd87UNV3kvKOXVoqCsW2/zHEJS8s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C16CF80279;
-	Wed, 12 Jan 2022 10:00:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CD97F8026D;
+	Wed, 12 Jan 2022 10:45:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B72A1F80236; Wed, 12 Jan 2022 10:00:42 +0100 (CET)
+ id 468DEF8026A; Wed, 12 Jan 2022 10:45:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED, DKIM_VALID, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4A18F80236
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 10:00:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4A18F80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id 902BCF800B9
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 10:45:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 902BCF800B9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="iMi4KrWU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641978040; x=1673514040;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=qui2EOI7BTx4Qk6aHTNZshsKh1WcvPMH0R3UnUK75bc=;
- b=iMi4KrWUxTomh0k0ACPAlnEYiVl13A5SiiC9NqXskTgSAJhWE+qXZs5/
- YuUPJZqb5BjuP/FpvGOyyKkZfiww9Fdltl6D/jp4tsEOVjxlWPuEO8F6U
- zSSS2fbddrYeorlMe4S9cowiXbsjjqoUtUi1ke9MYhWfzP83Y42FVW0w0
- CAOjIlxDVZMXAobNoDsTeBUFwVTXoX1RxS5gJcisB4+LL+6ToC+JsG03g
- x3oX6yGP0DDQh+82vZ8IdZDWXARnHZUTRcSlZJN6vuxZyjQjMKHpXvHH1
- pTTwSjRU8dUMxim7QHSHwzVybsM7XbPYBkmOAB0BDhBFdNMx+nhcAJ2JS Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10224"; a="223674366"
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="223674366"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2022 01:00:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,282,1635231600"; d="scan'208";a="691318348"
-Received: from dev2.igk.intel.com ([10.237.148.94])
- by orsmga005.jf.intel.com with ESMTP; 12 Jan 2022 01:00:34 -0800
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 0/3] ASoC: topology: Fixes
-Date: Wed, 12 Jan 2022 18:00:27 +0100
-Message-Id: <20220112170030.569712-1-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="qBs3n8dK"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="3mQqo6I4"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id B5B681F37F;
+ Wed, 12 Jan 2022 09:45:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1641980746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=S0hfHUEfEqIPRrTdwX5rGhyplG9JrqVKgLku5Gt6wPY=;
+ b=qBs3n8dKfvZ6MccYUMHCxLTMgd48VTY7jZqxkZWh2ZIL3kw6/MwoPUeRdc5kKO1sO/VlOr
+ rROU7NuNz8OG8wRWK/AtGWE7mmKU2hhULaht2DMYNxLFNGTMLA2SVfQiXK8toGGN5hYXbf
+ zXZTdgBjmAHTNPApYI8Km+/+5vKNR24=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1641980746;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=S0hfHUEfEqIPRrTdwX5rGhyplG9JrqVKgLku5Gt6wPY=;
+ b=3mQqo6I44Z09ToqUhgHMdcRa1BhiT9XAaOSZreEzidOBBIAmHNHxbc5l6YRYr9+cPnFtsi
+ AxacVEExEg9R8pAw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 61703A3B84;
+ Wed, 12 Jan 2022 09:45:46 +0000 (UTC)
+Date: Wed, 12 Jan 2022 10:45:46 +0100
+Message-ID: <s5ho84h9tit.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alexander Sergeyev <sergeev917@gmail.com>
+Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
+In-Reply-To: <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
+References: <20210519170357.58410-1-jeremy.szu@canonical.com>
+ <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
+ PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,25 +96,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Following series performs few cleanups in topology code.
+On Tue, 11 Jan 2022 20:52:29 +0100,
+Alexander Sergeyev wrote:
+> 
+> Hello,
+> 
+> On Thu, May 20, 2021 at 01:03:53AM +0800, Jeremy Szu wrote:
+> >The HP EliteBook 855 G8 Notebook PC is using ALC285 codec which needs
+> >ALC285_FIXUP_HP_MUTE_LED fixup to make it works. After applying the
+> >fixup, the mute/micmute LEDs work good.
+> 
+> I've recently got HP EliteBook 855 G8 and it happens that neither
+> micmute LED nor speakers work (except rare cases, more on that later)
+> in 5.16.0. The corresponding ALC285_FIXUP_HP_MUTE_LED fixup is
+> definitely applied (verified by adding a printk into
+> alc285_fixup_hp_mute_led).
+> 
+> What is the most interesting, both micmute LED and speakers do work on
+> rare boots. I've written some scripts to pick up sound from speakers
+> using a known-good USB microphone. Out of 709 boots today only 16
+> ended up with working micmute LED and speakers.
+> 
+> Is there anything I can do to help with debugging of this problem?
+> 
+> Initially reported at https://bugzilla.kernel.org/show_bug.cgi?id=215466
 
-First patch reduces number of prints we get from failure.
-Second allos TLV controls to be either read or write which should be
-possible as evidenced by further code in function.
-Last one cleanups after refactoring of memory handling.
+The problem is about the built-in drivers, or do you see the very same
+problem even with modules?  AFAIK, quite a few AMD platforms tend to
+have some issues with various devices showing initialization problems
+at the early boot.  Just reloading / rebinding the device later often
+helps.
 
-v2:
- - Add missing Fixes tag on second patch
- - Add Reviewed-by tag from Pierre
 
-Amadeusz Sławiński (3):
-  ASoC: topology: Remove superfluous error prints
-  ASoC: topology: Allow TLV control to be either read or write
-  ASoC: topology: Optimize soc_tplg_dapm_graph_elems_load behavior
-
- sound/soc/soc-topology.c | 103 ++++++++++-----------------------------
- 1 file changed, 27 insertions(+), 76 deletions(-)
-
--- 
-2.25.1
-
+Takashi

@@ -2,62 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFD4D48C8CA
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 17:49:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5912648C8CC
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 17:49:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 743201E82;
-	Wed, 12 Jan 2022 17:48:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 743201E82
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0299B1ED8;
+	Wed, 12 Jan 2022 17:48:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0299B1ED8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642006173;
-	bh=2GV3zJz1psuM/vKE3IF5BmjodajSLvv2obhtY3vrUE4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1642006188;
+	bh=t9BwC0GRDhFiyUu9k99vx6dtZKsAUWca+erohC2gink=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vBk4eyNsWcSaZgloFVUZE1DoRizD2srFTO7PpKJzreZl80NNc4zcZZbTYN+AoxIWr
-	 YiOxxo+r0RwH0K0zcxFWJegiQBaWn0LzPACOHT4tR0SqybZUBsNlvuPeSxZtUIz1EB
-	 HC5pCTY8ngN9tZlk9YEtmEV6sr2UODfc4FlAr1Uw=
+	b=cc1Tv5iXvVDwDghbJEOIjcbSgRJ8ozDBuUwaw7urJkdPI3uQHfJ2/mGQmFK9gCvH3
+	 vLJY7V8odIeq28S95EivX+3TLHWysr1sOWNPkzbZwlUT0pfzCIzt0yaSbOPadOvzxI
+	 OhbzQEjNlO8FpBsEx7piMHxvhP8e7U8FD29UGVLk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD9DEF8053B;
-	Wed, 12 Jan 2022 17:45:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 590B1F80548;
+	Wed, 12 Jan 2022 17:45:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5587EF80054; Wed, 12 Jan 2022 15:41:57 +0100 (CET)
+ id 2D387F8025E; Wed, 12 Jan 2022 16:05:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mxout03.lancloud.ru (mxout03.lancloud.ru [45.84.86.113])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95AB3F80054
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 15:41:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95AB3F80054
-Received: by mail-qt1-f172.google.com with SMTP id c10so3238168qte.2
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 06:41:51 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=eqySNHIMSrRvIgAiOM0qBvook97PLGK990KJv8uK3eo=;
- b=gApa6A9I/1CraF3a6J11eg345QnwGSobaBcqQR26Su4LT+tejdfeELfZxt1YjqiGxh
- 7PMcCuQaDRJImSLsI7RFNrubGXHkCQ6SXNDQT1LwttkKDa4QwKYLzPzvJJglO+kwl+n9
- a37vbx6aRCWRXe80AnAgrWFLKmN79s0bMHK3vjbsh2++bTYG/cFzlityaFssCcXPOegm
- CQqhJri5oGbRhSSJIZLNQLmLiBLehboj+evZ0lJduk1Gc3PlseKj+4hksZwy0A9JqxHp
- Gi979KQfyXF078iptEFVr+303JqixKuXFuKKluOOdzbUV1xcz6dkk+DgrGPdhPHQJaYE
- WBlA==
-X-Gm-Message-State: AOAM530JSsFeEbxalrWrJJDEgUpMaaGMEZ8Y/Mc407YYVRweWjxPctI+
- /Hv/5A4Hny4UUB+9W3xnc3b+3A2hZSP1ICrg8Bg=
-X-Google-Smtp-Source: ABdhPJwkrdKkjqm85M1oqBy+x6EYsmedgIEeAb8RfpkJ1ISYwM2cxFKOOAchYagZSo08mCWlmbsTnHWauUmSmFEGXlM=
-X-Received: by 2002:a05:622a:178e:: with SMTP id
- s14mr7678497qtk.302.1641998509704; 
- Wed, 12 Jan 2022 06:41:49 -0800 (PST)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D4D4F8025E
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 16:05:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D4D4F8025E
+Received: from LanCloud
+DKIM-Filter: OpenDKIM Filter v2.11.0 mxout03.lancloud.ru ECD1A20EE6DC
+Received: from LanCloud
+Received: from LanCloud
+Received: from LanCloud
+Subject: Re: [PATCH 1/2] platform: make platform_get_irq_optional() optional
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>
 References: <20220110195449.12448-1-s.shtylyov@omp.ru>
  <20220110195449.12448-2-s.shtylyov@omp.ru>
  <20220110201014.mtajyrfcfznfhyqm@pengutronix.de> <YdyilpjC6rtz6toJ@lunn.ch>
@@ -66,23 +52,31 @@ References: <20220110195449.12448-1-s.shtylyov@omp.ru>
  <CAMuHMdWsMGPiQaPS0-PJ_+Mc5VQ37YdLfbHr_aS40kB+SfW-aw@mail.gmail.com>
  <Yd7Z3Qwevb/lEwQZ@lunn.ch>
  <CAMuHMdV2cGvqMppwt9xhpze=pcnHfTozDZMjwT1DkivLD+_nbQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdV2cGvqMppwt9xhpze=pcnHfTozDZMjwT1DkivLD+_nbQ@mail.gmail.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Wed, 12 Jan 2022 15:41:38 +0100
-Message-ID: <CAJZ5v0iyAHtDe1kFObQorXOX0Xraxac0j29Dh+8sq7zxzbsmcQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] platform: make platform_get_irq_optional() optional
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CAJZ5v0iyAHtDe1kFObQorXOX0Xraxac0j29Dh+8sq7zxzbsmcQ@mail.gmail.com>
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+Organization: Open Mobile Platform
+Message-ID: <78a17bae-435b-e35e-b2dc-1166777725a0@omp.ru>
+Date: Wed, 12 Jan 2022 18:05:24 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
+MIME-Version: 1.0
+In-Reply-To: <CAJZ5v0iyAHtDe1kFObQorXOX0Xraxac0j29Dh+8sq7zxzbsmcQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [192.168.11.198]
+X-ClientProxiedBy: LFEXT01.lancloud.ru (fd00:f066::141) To
+ LFEX1907.lancloud.ru (fd00:f066::207)
 X-Mailman-Approved-At: Wed, 12 Jan 2022 17:45:04 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Vignesh Raghavendra <vigneshr@ti.com>, KVM list <kvm@vger.kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ linux-iio@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>, Amit
+ Kucheria <amitk@kernel.org>,
  ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Joakim Zhang <qiangqing.zhang@nxp.com>, Guenter Roeck <groeck@chromium.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- MTD Maling List <linux-mtd@lists.infradead.org>,
+ Joakim Zhang <qiangqing.zhang@nxp.com>, Guenter
+ Roeck <groeck@chromium.org>, Thierry Reding <thierry.reding@gmail.com>, MTD
+ Maling List <linux-mtd@lists.infradead.org>,
  Linux I2C <linux-i2c@vger.kernel.org>,
  Miquel Raynal <miquel.raynal@bootlin.com>, linux-phy@lists.infradead.org,
  netdev <netdev@vger.kernel.org>, linux-spi <linux-spi@vger.kernel.org>,
@@ -90,20 +84,19 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Khuong Dinh <khuong@os.amperecomputing.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
  Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Kamal Dasu <kdasu.kdev@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Lee Jones <lee.jones@linaro.org>, Bartosz
+ Golaszewski <brgl@bgdev.pl>, Daniel Lezcano <daniel.lezcano@linaro.org>,
  Kishon Vijay Abraham I <kishon@ti.com>,
- bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>, "open
+ list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
  Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
  Linux PWM List <linux-pwm@vger.kernel.org>,
  Hans de Goede <hdegoede@redhat.com>, Robert Richter <rric@kernel.org>,
  Saravanan Sekar <sravanhome@gmail.com>, Corey Minyard <minyard@acm.org>,
  Linux PM list <linux-pm@vger.kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, John Garry <john.garry@huawei.com>,
- Peter Korsgaard <peter@korsgaard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, John
+ Garry <john.garry@huawei.com>, Peter Korsgaard <peter@korsgaard.com>,
  William Breathitt Gray <vilhelm.gray@gmail.com>,
  Mark Gross <markgross@kernel.org>,
  "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
@@ -114,22 +107,22 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Benson Leung <bleung@chromium.org>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>,
  "open list:EDAC-CORE" <linux-edac@vger.kernel.org>,
- Tony Luck <tony.luck@intel.com>, Mun Yew Tham <mun.yew.tham@intel.com>,
- Eric Auger <eric.auger@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Tony Luck <tony.luck@intel.com>, Mun Yew
+ Tham <mun.yew.tham@intel.com>, Eric Auger <eric.auger@redhat.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,
  Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Cornelia Huck <cohuck@redhat.com>, Linux MMC List <linux-mmc@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
+ Cornelia Huck <cohuck@redhat.com>, Linux
+ MMC List <linux-mmc@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Sergey Shtylyov <s.shtylyov@omp.ru>, Vinod Koul <vkoul@kernel.org>,
- James Morse <james.morse@arm.com>, Zha Qipeng <qipeng.zha@intel.com>,
+ Vinod Koul <vkoul@kernel.org>, James Morse <james.morse@arm.com>,
+ Zha Qipeng <qipeng.zha@intel.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Richard Weinberger <richard@nod.at>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- "moderated list:ARM/Mediatek SoC..." <linux-mediatek@lists.infradead.org>,
- Brian Norris <computersforpeace@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
+ =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund@ragnatech.se>, "moderated
+ list:ARM/Mediatek SoC..." <linux-mediatek@lists.infradead.org>,
+ Brian Norris <computersforpeace@gmail.com>, "David S.
+ Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,80 +138,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 12, 2022 at 2:55 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->
-> Hi Andrew,
->
-> On Wed, Jan 12, 2022 at 2:38 PM Andrew Lunn <andrew@lunn.ch> wrote:
-> > > If an optional IRQ is not present, drivers either just ignore it (e.g.
-> > > for devices that can have multiple interrupts or a single muxed IRQ),
-> > > or they have to resort to polling. For the latter, fall-back handling
-> > > is needed elsewhere in the driver.
-> > > To me it sounds much more logical for the driver to check if an
-> > > optional irq is non-zero (available) or zero (not available), than to
-> > > sprinkle around checks for -ENXIO. In addition, you have to remember
-> > > that this one returns -ENXIO, while other APIs use -ENOENT or -ENOSYS
-> > > (or some other error code) to indicate absence. I thought not having
-> > > to care about the actual error code was the main reason behind the
-> > > introduction of the *_optional() APIs.
-> >
-> > The *_optional() functions return an error code if there has been a
-> > real error which should be reported up the call stack. This excludes
-> > whatever error code indicates the requested resource does not exist,
-> > which can be -ENODEV etc. If the device does not exist, a magic cookie
-> > is returned which appears to be a valid resources but in fact is
-> > not. So the users of these functions just need to check for an error
-> > code, and fail the probe if present.
->
-> Agreed.
->
-> Note that in most (all?) other cases, the return type is a pointer
-> (e.g. to struct clk), and NULL is the magic cookie.
->
-> > You seems to be suggesting in binary return value: non-zero
-> > (available) or zero (not available)
->
-> Only in case of success. In case of a real failure, an error code
-> must be returned.
->
-> > This discards the error code when something goes wrong. That is useful
-> > information to have, so we should not be discarding it.
->
-> No, the error code must be retained in case of failure.
->
-> > IRQ don't currently have a magic cookie value. One option would be to
-> > add such a magic cookie to the subsystem. Otherwise, since 0 is
-> > invalid, return 0 to indicate the IRQ does not exist.
->
-> Exactly. And using 0 means the similar code can be used as for other
-> subsystems, where NULL would be returned.
->
-> The only remaining difference is the "dummy cookie can be passed
-> to other functions" behavior.  Which is IMHO a valid difference,
-> as unlike with e.g. clk_prepare_enable(), you do pass extra data to
-> request_irq(), and sometimes you do need to handle the absence of
-> the interrupt using e.g. polling.
->
-> > The request for a script checking this then makes sense. However, i
-> > don't know how well coccinelle/sparse can track values across function
-> > calls. They probably can check for:
-> >
-> >    ret = irq_get_optional()
-> >    if (ret < 0)
-> >       return ret;
-> >
-> > A missing if < 0 statement somewhere later is very likely to be an
-> > error. A comparison of <= 0 is also likely to be an error. A check for
-> > > 0 before calling any other IRQ functions would be good. I'm
-> > surprised such a check does not already existing in the IRQ API, but
-> > there are probably historical reasons for that.
->
-> There are still a few platforms where IRQ 0 does exist.
+On 1/12/22 5:41 PM, Rafael J. Wysocki wrote:
 
-Not just a few even.  This happens on a reasonably recent x86 PC:
+[...]
+>>>> If an optional IRQ is not present, drivers either just ignore it (e.g.
+>>>> for devices that can have multiple interrupts or a single muxed IRQ),
+>>>> or they have to resort to polling. For the latter, fall-back handling
+>>>> is needed elsewhere in the driver.
+>>>> To me it sounds much more logical for the driver to check if an
+>>>> optional irq is non-zero (available) or zero (not available), than to
+>>>> sprinkle around checks for -ENXIO. In addition, you have to remember
+>>>> that this one returns -ENXIO, while other APIs use -ENOENT or -ENOSYS
+>>>> (or some other error code) to indicate absence. I thought not having
+>>>> to care about the actual error code was the main reason behind the
+>>>> introduction of the *_optional() APIs.
+>>>
+>>> The *_optional() functions return an error code if there has been a
+>>> real error which should be reported up the call stack. This excludes
+>>> whatever error code indicates the requested resource does not exist,
+>>> which can be -ENODEV etc. If the device does not exist, a magic cookie
+>>> is returned which appears to be a valid resources but in fact is
+>>> not. So the users of these functions just need to check for an error
+>>> code, and fail the probe if present.
+>>
+>> Agreed.
+>>
+>> Note that in most (all?) other cases, the return type is a pointer
+>> (e.g. to struct clk), and NULL is the magic cookie.
+>>
+>>> You seems to be suggesting in binary return value: non-zero
+>>> (available) or zero (not available)
+>>
+>> Only in case of success. In case of a real failure, an error code
+>> must be returned.
+>>
+>>> This discards the error code when something goes wrong. That is useful
+>>> information to have, so we should not be discarding it.
+>>
+>> No, the error code must be retained in case of failure.
+>>
+>>> IRQ don't currently have a magic cookie value. One option would be to
+>>> add such a magic cookie to the subsystem. Otherwise, since 0 is
+>>> invalid, return 0 to indicate the IRQ does not exist.
+>>
+>> Exactly. And using 0 means the similar code can be used as for other
+>> subsystems, where NULL would be returned.
+>>
+>> The only remaining difference is the "dummy cookie can be passed
+>> to other functions" behavior.  Which is IMHO a valid difference,
+>> as unlike with e.g. clk_prepare_enable(), you do pass extra data to
+>> request_irq(), and sometimes you do need to handle the absence of
+>> the interrupt using e.g. polling.
+>>
+>>> The request for a script checking this then makes sense. However, i
+>>> don't know how well coccinelle/sparse can track values across function
+>>> calls. They probably can check for:
+>>>
+>>>    ret = irq_get_optional()
+>>>    if (ret < 0)
+>>>       return ret;
+>>>
+>>> A missing if < 0 statement somewhere later is very likely to be an
+>>> error. A comparison of <= 0 is also likely to be an error. A check for
+>>>> 0 before calling any other IRQ functions would be good. I'm
+>>> surprised such a check does not already existing in the IRQ API, but
+>>> there are probably historical reasons for that.
+>>
+>> There are still a few platforms where IRQ 0 does exist.
+> 
+> Not just a few even.  This happens on a reasonably recent x86 PC:
+> 
+> rafael@gratch:~/work/linux-pm> head -2 /proc/interrupts
+>            CPU0       CPU1       CPU2       CPU3       CPU4       CPU5
+>   0:         10          0          0          0          0          0
+>  IR-IO-APIC    2-edge
+> timer
 
-rafael@gratch:~/work/linux-pm> head -2 /proc/interrupts
-           CPU0       CPU1       CPU2       CPU3       CPU4       CPU5
-  0:         10          0          0          0          0          0
- IR-IO-APIC    2-edge
-timer
+   IIRC Linus has proclaimed that IRQ0 was valid for the i8253 driver (living in
+arch/x86/); IRQ0 only was frowned upon when returned by platform_get_irq() and its
+ilk.
+
+MBR, Sergey

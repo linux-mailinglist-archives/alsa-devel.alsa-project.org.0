@@ -2,85 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1DC48D786
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 13:23:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 865C548D84C
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 13:57:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BB3B1F36;
-	Thu, 13 Jan 2022 13:23:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BB3B1F36
+	by alsa0.perex.cz (Postfix) with ESMTPS id 297181F44;
+	Thu, 13 Jan 2022 13:56:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 297181F44
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642076631;
-	bh=2XPNG4Bs+LP+y97K7/5nrAm+nxwyMPcfkvBVSx/aQsk=;
+	s=default; t=1642078659;
+	bh=cSoapiwNmmGvtpYiQ6MBswpW1O5tUlQcwrwPV2c47jM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OC77Ydg+ya55HF+eiFoS1EoqhFPed6zH+q9rGDDYLs6zA1hGw2EhgGm+K/XEcLdOc
-	 fY0URNKkbtlLV2k16AIV+wwgyAHSQJbKiufIrYOnUcKHViEc/9yFz6jnBQpLK8xw2m
-	 x6CpCaWDYoVB4alRk3ZbWaK6GU4izdEjJSdsdQgI=
+	b=ot+HmJc2yWT6rdQpKK8uNO0ivhmo4BPx+zJQZ6d2/DLwFx1plgR0Lf3gPozz47UHz
+	 /DnymnUZMLOQXyZZ5ZRjibspcxQyMxcORfJIO9RKpDPqtj+ylf7RgoOZR5MyTBGo2T
+	 ioFPYc/+Iy+is2hexPFOuX02w5bCYumC33z39A8s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0F4FF80141;
-	Thu, 13 Jan 2022 13:22:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B807CF80141;
+	Thu, 13 Jan 2022 13:56:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CFE13F8013F; Thu, 13 Jan 2022 13:22:37 +0100 (CET)
+ id 0AD6EF8013F; Thu, 13 Jan 2022 13:56:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 725A5F80088
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 13:22:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 725A5F80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB2D8F80088
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 13:56:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB2D8F80088
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="TRYpGfbJ"; 
+ header.b="1LX7aPli"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="UfnKYSp2"
+ header.b="/TK53vKA"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id CF89F1F3A5;
- Thu, 13 Jan 2022 12:22:32 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 3606A210E9;
+ Thu, 13 Jan 2022 12:56:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642076552; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1642078581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=McoQzpHilMr1guZn4JddvZ8D72UbQzwl6cNGNkkga/A=;
- b=TRYpGfbJ4fheRvK3Y5RWfrKJYPASRXaiFoF3nRbXk7O3aKg+wtHWce5RafawSM3ecOFJe+
- 6DAcdciWJkjoLcqWSUowE1yELFbA9LYEioloyfAIxEm/J+Wws3Hu1vh8E/7nInOEXQ9b8B
- vHWcMUYUb/uanAGjadsAIOBmoM+IqwA=
+ bh=1FxNqDUXo4tVjr9tfdnsUfbLj4/R1d4woO9yBeBhUN8=;
+ b=1LX7aPlibosbl5U6cHj5DxfvAugFGVT9wsTpYblg7xaAgqRt6jqSG3EtXCmU5ITvJMzKFa
+ 56pbSglNlh4o/6mqrJxXGnxuRP9z66QgnLqkK5u+FBhlviKENoSNcFskW9NMvCRe3UnERU
+ l3FjURDeen52/9qCc3F4/HoUmzew2A4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642076552;
+ s=susede2_ed25519; t=1642078581;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=McoQzpHilMr1guZn4JddvZ8D72UbQzwl6cNGNkkga/A=;
- b=UfnKYSp2Pfm1/K1yftUCT23jZpn7+uWzU+tRjJvO70IXRYMRVFURDD42hN2NWb62BMjW4K
- nk6wi2UAGjXMM6Dw==
+ bh=1FxNqDUXo4tVjr9tfdnsUfbLj4/R1d4woO9yBeBhUN8=;
+ b=/TK53vKAim8L9ndEDnOcRTiZNFPVqTP+qqk3LC2+OyYHVO3TDBEovrku3nHtc2KPCI96Mb
+ bBr0ZveI/L9s1kBg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id AAF6DA3B85;
- Thu, 13 Jan 2022 12:22:32 +0000 (UTC)
-Date: Thu, 13 Jan 2022 13:22:32 +0100
-Message-ID: <s5hsftr7rlj.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 29B44A3B85;
+ Thu, 13 Jan 2022 12:56:21 +0000 (UTC)
+Date: Thu, 13 Jan 2022 13:56:21 +0100
+Message-ID: <s5hmtjz7q16.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Brent Lu <brent.lu@intel.com>
-Subject: Re: [PATCH v2 0/2] ALSA: hda: intel-dsp-config: add JasperLake support
-In-Reply-To: <20220113105220.1114694-1-brent.lu@intel.com>
-References: <20220113105220.1114694-1-brent.lu@intel.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: pcm: accept the OPEN state for snd_pcm_stop()
+In-Reply-To: <20220113113130.1961332-1-perex@perex.cz>
+References: <20220113113130.1961332-1-perex@perex.cz>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Hans de Goede <hdegoede@redhat.com>,
- Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
- Bard Liao <bard.liao@intel.com>
+Cc: Pavel Hofman <pavel.hofman@ivitera.com>,
+ ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,22 +93,131 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 13 Jan 2022 11:52:18 +0100,
-Brent Lu wrote:
+On Thu, 13 Jan 2022 12:31:30 +0100,
+Jaroslav Kysela wrote:
 > 
-> Support JasperLake Chromebooks and fix a order issue in config table.
+> It may be useful to completely invalidate streaming under some
+> circumstances like the USB gadget detach. This case is a bit different
+> than the complete disconnection. The applications should be notified
+> that the PCM streaming is no longer available, but the recovery may be
+> expected.
 > 
-> v2:
->   - rebase to Takashi's tree
->   - add a fix for config table
+> This patch adds support for SNDRV_PCM_STATE_OPEN passed
+> to snd_pcm_stop() function. Only the hw_free ioctl is allowed to free
+> the buffers in this state for a full recovery operation or the PCM file
+> handle must be closed.
 > 
-> *** BLURB HERE ***
+> In the OPEN state, ioctls return EBADFD error (with the added hw_free
+> exception above). The applications which are not aware about this new
+> state transition (and recovery) will fail with an error. This operation
+> is expected.
 > 
-> Brent Lu (2):
->   ALSA: hda: intel-dsp-config: add JasperLake support
->   ALSA: hda: intel-dsp-config: reorder the config table
+> Link: https://lore.kernel.org/alsa-devel/4e17c99b-1d8a-8ebe-972c-9b1299952ff8@ivitera.com/
+> Cc: Pavel Hofman <pavel.hofman@ivitera.com>
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-Applied both patches now.  Thanks.
+I find the idea neat, but I'm afraid that it's a bit confusing from
+the user POV as is.  Namely, the state is in OPEN, but you'd have to
+perform hw_free manually at first for moving forward; how can user
+know it?  Maybe PCM core should do hw_free by itself when hw_params is
+called with hw_free_queued.
 
+Also, do_hw_free() will skip the actual free because it's in OPEN
+state, no?
+
+In anyway, this doesn't look like a 5.17 material, so we still have
+some time to stew more.
+
+
+thanks,
 
 Takashi
+
+> ---
+>  include/sound/pcm.h     |  1 +
+>  sound/core/pcm.c        |  1 +
+>  sound/core/pcm_native.c | 12 +++++++++++-
+>  3 files changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+> index 33451f8ff755..4de1c2c91109 100644
+> --- a/include/sound/pcm.h
+> +++ b/include/sound/pcm.h
+> @@ -467,6 +467,7 @@ struct snd_pcm_substream {
+>  	/* -- assigned files -- */
+>  	int ref_count;
+>  	atomic_t mmap_count;
+> +	atomic_t queued_hw_free;
+>  	unsigned int f_flags;
+>  	void (*pcm_release)(struct snd_pcm_substream *);
+>  	struct pid *pid;
+> diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+> index 6fd3677685d7..8dc7e99b2113 100644
+> --- a/sound/core/pcm.c
+> +++ b/sound/core/pcm.c
+> @@ -694,6 +694,7 @@ int snd_pcm_new_stream(struct snd_pcm *pcm, int stream, int substream_count)
+>  		snd_pcm_group_init(&substream->self_group);
+>  		list_add_tail(&substream->link_list, &substream->self_group.substreams);
+>  		atomic_set(&substream->mmap_count, 0);
+> +		atomic_set(&substream->queued_hw_free, 0);
+>  		prev = substream;
+>  	}
+>  	return 0;
+> diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+> index 621883e71194..118ad3f26f4a 100644
+> --- a/sound/core/pcm_native.c
+> +++ b/sound/core/pcm_native.c
+> @@ -686,10 +686,13 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
+>  	snd_pcm_stream_lock_irq(substream);
+>  	switch (runtime->status->state) {
+>  	case SNDRV_PCM_STATE_OPEN:
+> +		if (atomic_read(&substream->queued_hw_free))
+> +			goto __badfd;
+>  	case SNDRV_PCM_STATE_SETUP:
+>  	case SNDRV_PCM_STATE_PREPARED:
+>  		break;
+>  	default:
+> +__badfd:
+>  		snd_pcm_stream_unlock_irq(substream);
+>  		return -EBADFD;
+>  	}
+> @@ -829,6 +832,7 @@ static int do_hw_free(struct snd_pcm_substream *substream)
+>  		result = substream->ops->hw_free(substream);
+>  	if (substream->managed_buffer_alloc)
+>  		snd_pcm_lib_free_pages(substream);
+> +	atomic_set(&substream->queued_hw_free, 0);
+>  	return result;
+>  }
+>  
+> @@ -1454,6 +1458,8 @@ static void snd_pcm_post_stop(struct snd_pcm_substream *substream,
+>  	}
+>  	wake_up(&runtime->sleep);
+>  	wake_up(&runtime->tsleep);
+> +	if (state == SNDRV_PCM_STATE_OPEN)
+> +		atomic_set(&substream->queued_hw_free, 1);
+>  }
+>  
+>  static const struct action_ops snd_pcm_action_stop = {
+> @@ -1469,6 +1475,9 @@ static const struct action_ops snd_pcm_action_stop = {
+>   *
+>   * The state of each stream is then changed to the given state unconditionally.
+>   *
+> + * If the requested state is OPEN, the stream is invalidated and
+> + * the application must call hw_free to recover the operation.
+> + *
+>   * Return: Zero if successful, or a negative error code.
+>   */
+>  int snd_pcm_stop(struct snd_pcm_substream *substream, snd_pcm_state_t state)
+> @@ -2637,7 +2646,8 @@ void snd_pcm_release_substream(struct snd_pcm_substream *substream)
+>  
+>  	snd_pcm_drop(substream);
+>  	if (substream->hw_opened) {
+> -		if (substream->runtime->status->state != SNDRV_PCM_STATE_OPEN)
+> +		if (substream->runtime->status->state != SNDRV_PCM_STATE_OPEN ||
+> +		    atomic_read(&substream->queued_hw_free))
+>  			do_hw_free(substream);
+>  		substream->ops->close(substream);
+>  		substream->hw_opened = 0;
+> -- 
+> 2.33.1
+> 

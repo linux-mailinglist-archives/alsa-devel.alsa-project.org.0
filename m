@@ -2,102 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17A8D48DDA3
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 19:27:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C8C48DDCA
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 19:40:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9AB12022;
-	Thu, 13 Jan 2022 19:26:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9AB12022
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D6C02041;
+	Thu, 13 Jan 2022 19:39:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D6C02041
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642098435;
-	bh=98xEEjCqGJyHSfqTvOs9dOQGJ9ztK5DDelM6gnDKSfQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1642099235;
+	bh=iL2fgWOOuJEzuniZ3WuPssSOffY8aRg6eYScK3p39JQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pNIUipNE8DCSqpQ/3UPCgU/cdUh5K4i0oV7mJLzxxPAF31EZdCuXuTWUoErxrkE0o
-	 vPiAaMFXx9qIeL8hntQ1BeR/5XfUmGdlU+6+9zZDC6a3UcMTY++FpiwiIYkj1AhD+5
-	 g0MfimNs7oL5rxindMftX5YaNgyLTG20aAKsu6+4=
+	b=NLC6tDR0K6afg48/lHTmdgYzpGAzI6h4Cnl/wSTFLilMHm+yo/28Z/i5mnjctTaH0
+	 mMnV38lCNNWsR+eLuNOyZ06Ryk9XLexLvuDmlvd5uAn6UW+7l6Amj0LDIcdKgM0Q49
+	 35gAf2i/fzFG1Bs8HIHK/hOut19D1hr2uwzjWAMo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12CCFF80054;
-	Thu, 13 Jan 2022 19:26:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92308F804B1;
+	Thu, 13 Jan 2022 19:38:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D22F8F8013F; Thu, 13 Jan 2022 19:26:05 +0100 (CET)
+ id 376B5F804B1; Thu, 13 Jan 2022 19:38:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4504AF80054
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 19:26:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4504AF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24AF2F80054
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 19:38:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24AF2F80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="UzRFXjsL"
-Received: by mail-lf1-x12c.google.com with SMTP id x7so22581368lfu.8
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 10:26:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:user-agent:references
- :mime-version:content-disposition:in-reply-to;
- bh=B5TgjevVKySYpGG9iiTbPrO6S1lbtFaG1P8WhSMYH4c=;
- b=UzRFXjsLQqyBBJrZpn6riJa0F6IToDXEXWwsDdd0iKURLbdOw7f8L0+GWNZCQTn26A
- ZbI1FRb/JGmh0sMLsheiYLNVjajxsUWngD6tJ2l+yWy6Q58sVO6mGxu2KnBos7yRFkbB
- oJarzLK8mWpTPs6HqXiqYwPFjXnzGQQA+k6C1A1CQ6RGYCsZRFSaIPShe7btB/EJLqp8
- jjn4hvuYePMXnS4J2T5S2A4lu0QvwZZs/jsOUEK+Qz5MQ1rl69Hg3yDEY9T2N6ZeQjBL
- nDV/Dhv+w8HQ3D35QzDQEqZ3EcxReThKkqGXl/SvozsOb/hL6/GS3oCQ+67iPZc7O80g
- 6Ueg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:user-agent
- :references:mime-version:content-disposition:in-reply-to;
- bh=B5TgjevVKySYpGG9iiTbPrO6S1lbtFaG1P8WhSMYH4c=;
- b=TtzY/GjIJwX1q2Rv6vkik7t38XanhbwBy3TqDltwidlkSt4jXGeub1uuc41Gql5Y1g
- GCTJPcLE6Yc9U6GDliA3Q7UNSKXRXOVjdKfJmlP2Zc8p+vZKXzUqFYcCncRB77Fep5th
- QHwbXqjg93B7qtvUixb8vv3fJaaXIdfWWbFFePxfz4Zx2W6yt+emxX1kuLuoPmLRjACX
- bYaUIZhsvnFYKbzENJTxlgCOExdglytebjY+rNwyuw6pm+VWWharfwVl1tLtLgVzsr3Z
- FIWPt/Cl5FFbv0VDUnsf363WoO1T79nybYhA6ZPPT+OYchH+z9UPfJIbE9veYVVfydfx
- sU4Q==
-X-Gm-Message-State: AOAM5313vdlptwVtWbmHtP1KtEACBE7DnghWPRJ8Ty186ofxI2f6v6S2
- 0Mwc/R42gTqdIVynULZVOZc=
-X-Google-Smtp-Source: ABdhPJy27IUTBd+Z8Rh7lbHoBqnHWejZI2QSJ3yGabDrmkSjP71QVVenPekZHZMOk95hjmya4tSwTg==
-X-Received: by 2002:a05:6512:1512:: with SMTP id
- bq18mr1275324lfb.13.1642098361725; 
- Thu, 13 Jan 2022 10:26:01 -0800 (PST)
-Received: from localhost.localdomain (broadband-95-84-228-163.ip.moscow.rt.ru.
- [95.84.228.163])
- by smtp.gmail.com with ESMTPSA id p9sm358906lfu.83.2022.01.13.10.26.00
- (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
- Thu, 13 Jan 2022 10:26:01 -0800 (PST)
-Date: Thu, 13 Jan 2022 21:31:41 +0300
-From: Alexander Sergeyev <sergeev917@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-Message-ID: <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
-User-Agent: mtt
-References: <20210519170357.58410-1-jeremy.szu@canonical.com>
- <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
- <s5ho84h9tit.wl-tiwai@suse.de>
- <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
- <s5hilup9s87.wl-tiwai@suse.de>
- <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
- <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
- <s5h8rvk85uy.wl-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="TTkCYr8G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642099131; x=1673635131;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=iL2fgWOOuJEzuniZ3WuPssSOffY8aRg6eYScK3p39JQ=;
+ b=TTkCYr8G+b5L1L3+UCpmrY2KI5rUlx8+lpHDIOLehKLrbmYxlT2Gp3iq
+ QtVtnJQoSyOvz/BPFHi7C9sq5TZid14or1ll7qNRWcbgPtbnbAWfuw2MZ
+ nbrzqTruYajv89YhtfTFAQZBZM6Am3j0dUJzQ9IUgqlwluK6h1rgWH4/e
+ LC/plQWwwES8Fb24W0xiJpYywVBrXCDPQ8gaw2C72GZHIyuc/yXnICol1
+ xZwtqyXETtxC938/6zJmvKK3J6NeaGfcslzCkIaymAwSY5r35UopYbMoU
+ G2KC53wkOnA01GQgS3b2G5biKMDZsPJdGxZzKArg5+22V3cWps07+Wuwq w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="307431357"
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="307431357"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 10:38:45 -0800
+X-IronPort-AV: E=Sophos;i="5.88,286,1635231600"; d="scan'208";a="620699902"
+Received: from ypchen-mobl.amr.corp.intel.com (HELO [10.212.66.70])
+ ([10.212.66.70])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 10:38:44 -0800
+Subject: Re: [PATCH v2 1/6] ASoC: amd: acp: Add generic support for PDM
+ controller on ACP
+To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+References: <20220113163348.434108-1-AjitKumar.Pandey@amd.com>
+ <20220113163348.434108-2-AjitKumar.Pandey@amd.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7d79a8a7-b9b5-8a0c-a140-810bc647927c@linux.intel.com>
+Date: Thu, 13 Jan 2022 12:34:19 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <s5h8rvk85uy.wl-tiwai@suse.de>
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+In-Reply-To: <20220113163348.434108-2-AjitKumar.Pandey@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Sunil-kumar.Dommati@amd.com, Arnd Bergmann <arnd@arndb.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Alexander.Deucher@amd.com,
+ Vijendar.Mukunda@amd.com, V sujith kumar Reddy <vsujithkumar.reddy@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,47 +98,174 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 13, 2022 at 08:14:29AM +0100, Takashi Iwai wrote:
->> First, about unbind and bind via sysfs -- attempts to unbind the
->> HD-audio controller immediately trigger BUGs:
->> Is it normal/expected?
->
->A sort of. The sysfs unbind is little tested and may be still buggy
->if done during the stream operation.
->
->To be sure, could you check with my latest sound.git tree for-linus
->branch?  There are a few fixes that harden the dynamic unbind.
+couple of nit-picks:
 
-I assume that the referred repository is the one at [1]. I've tried 
-081c73701ef0 "ALSA: hda: intel-dsp-config: reorder the config table". It 
-crashed with nearly identical logs.
 
->> 1) Coeff 0x0b is flapping between 0x8003 and 0x7770 and does not seem
->> to have any effect in both non-working and working versions. Not sure
->> about this, maybe microphone is not operational since I haven't
->> checked it yet.
+> diff --git a/sound/soc/amd/acp/acp-pdm.c b/sound/soc/amd/acp/acp-pdm.c
+> new file mode 100644
+> index 000000000000..cb9bbd795eee
+> --- /dev/null
+> +++ b/sound/soc/amd/acp/acp-pdm.c
+> @@ -0,0 +1,181 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+> +//
+> +// This file is provided under a dual BSD/GPLv2 license. When using or
+> +// redistributing this file, you may do so under either license.
+> +//
+> +// Copyright(c) 2021 Advanced Micro Devices, Inc.
 
-I got some time to poke the internal microphone. It works, but oddities are 
-there as well. Initially I get "Mic Boost", "Capture" and "Internal Mic Boost" 
-controls in alsamixer. When I run arecord, "Digital" control appears, but it 
-cannot be changed until arecord is stopped. Subsequent arecord calls do not 
-lock "Digital" control. This control affects sensitivity of the microphone and 
-seems useful.
+2022?
 
-/proc/asound/card1/codec#0:
-  Node 0x08 [Audio Input] wcaps 0x10051b: Stereo Amp-In
-    Control: name="Capture Volume", index=0, device=0
-      ControlAmp: chs=3, dir=In, idx=0, ofs=0
-    Control: name="Capture Switch", index=0, device=0
-      ControlAmp: chs=3, dir=In, idx=0, ofs=0
-    Device: name="ALC285 Analog", type="Audio", device=0
-    Amp-In caps: ofs=0x17, nsteps=0x3f, stepsize=0x02, mute=1
-    Amp-In vals:  [0x27 0x27]
--  Converter: stream=0, channel=0
-+  Converter: stream=1, channel=0
+> +//
+> +// Authors: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+> +//	    Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> +//
+> +
+> +/*
+> + * Generic Hardware interface for ACP Audio PDM controller
+> + */
+> +
+> +#include <linux/platform_device.h>
+> +#include <linux/module.h>
+> +#include <linux/err.h>
+> +#include <linux/io.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/soc.h>
+> +#include <sound/soc-dai.h>
+> +#include <linux/dma-mapping.h>
 
-This is the only change in /proc/asound after the first arecord run. Overall, 
-seems like a small annoyance, but I'm curious -- is it how it's supposed to 
-work?
+alphabetical order?
 
-[1]https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/?h=for-linus
+> +
+> +#include "amd.h"
+> +
+> +#define DRV_NAME "acp-pdm"
+> +
+> +#define PDM_DMA_STAT		0x10
+> +#define PDM_DMA_INTR_MASK	0x10000
+> +#define PDM_DEC_64		0x2
+> +#define PDM_CLK_FREQ_MASK	0x07
+> +#define PDM_MISC_CTRL_MASK	0x10
+> +#define PDM_ENABLE		0x01
+> +#define PDM_DISABLE		0x00
+> +#define DMA_EN_MASK		0x02
+> +#define DELAY_US		5
+> +#define PDM_TIMEOUT		1000
+> +
+> +static int acp_dmic_dai_trigger(struct snd_pcm_substream *substream,
+> +			       int cmd, struct snd_soc_dai *dai)
+> +{
+> +	struct acp_stream *stream = substream->runtime->private_data;
+> +	struct device *dev = dai->component->dev;
+> +	struct acp_dev_data *adata = dev_get_drvdata(dev);
+> +	u32 physical_addr, size_dmic, period_bytes;
+> +	unsigned int dma_enable;
+> +	int ret = 0;
+> +
+> +	period_bytes = frames_to_bytes(substream->runtime,
+> +			substream->runtime->period_size);
+> +	size_dmic = frames_to_bytes(substream->runtime,
+> +			substream->runtime->buffer_size);
+> +
+> +	physical_addr = stream->reg_offset + MEM_WINDOW_START;
+> +
+> +	/* Init DMIC Ring buffer */
+> +	writel(physical_addr, adata->acp_base + ACP_WOV_RX_RINGBUFADDR);
+> +	writel(size_dmic, adata->acp_base + ACP_WOV_RX_RINGBUFSIZE);
+> +	writel(period_bytes, adata->acp_base + ACP_WOV_RX_INTR_WATERMARK_SIZE);
+> +	writel(0x01, adata->acp_base + ACPAXI2AXI_ATU_CTRL);
+
+could this be done in a .prepare step?
+
+> +
+> +	switch (cmd) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +	case SNDRV_PCM_TRIGGER_RESUME:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +		dma_enable = readl(adata->acp_base + ACP_WOV_PDM_DMA_ENABLE);
+> +		if (!(dma_enable & DMA_EN_MASK)) {
+> +			writel(PDM_ENABLE, adata->acp_base + ACP_WOV_PDM_ENABLE);
+> +			writel(PDM_ENABLE, adata->acp_base + ACP_WOV_PDM_DMA_ENABLE);
+> +		}
+> +
+> +		ret = readl_poll_timeout_atomic(adata->acp_base + ACP_WOV_PDM_DMA_ENABLE,
+> +						dma_enable, (dma_enable & DMA_EN_MASK),
+> +						DELAY_US, PDM_TIMEOUT);
+> +		break;
+> +	case SNDRV_PCM_TRIGGER_STOP:
+> +	case SNDRV_PCM_TRIGGER_SUSPEND:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> +		dma_enable = readl(adata->acp_base + ACP_WOV_PDM_DMA_ENABLE);
+> +		if ((dma_enable & DMA_EN_MASK)) {
+> +			writel(PDM_DISABLE, adata->acp_base + ACP_WOV_PDM_ENABLE);
+> +			writel(PDM_DISABLE, adata->acp_base + ACP_WOV_PDM_DMA_ENABLE);
+> +
+> +		}
+> +
+> +		ret = readl_poll_timeout_atomic(adata->acp_base + ACP_WOV_PDM_DMA_ENABLE,
+> +						dma_enable, !(dma_enable & DMA_EN_MASK),
+> +						DELAY_US, PDM_TIMEOUT);
+
+is the _atomic needed?
+
+> +		break;
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static int acp_dmic_hwparams(struct snd_pcm_substream *substream,
+> +	struct snd_pcm_hw_params *hwparams, struct snd_soc_dai *dai)
+> +{
+> +	struct device *dev = dai->component->dev;
+> +	struct acp_dev_data *adata = dev_get_drvdata(dev);
+> +	unsigned int dmic_ctrl, channels, ch_mask;
+> +
+> +	/* Enable default DMIC clk */
+> +	writel(PDM_CLK_FREQ_MASK, adata->acp_base + ACP_WOV_CLK_CTRL);
+> +	dmic_ctrl = readl(adata->acp_base + ACP_WOV_MISC_CTRL);
+> +	dmic_ctrl |= PDM_MISC_CTRL_MASK;
+> +	writel(dmic_ctrl, adata->acp_base + ACP_WOV_MISC_CTRL);
+
+.hw_params can be called multiple times, should this clock handling be
+done in a .prepare step?
+
+Or alternatively in .startup - this doesn't seem to depend on hardware
+parameters?
+
+> +
+> +	channels = params_channels(hwparams);
+> +	switch (channels) {
+> +	case 2:
+> +		ch_mask = 0;
+> +		break;
+> +	case 4:
+> +		ch_mask = 1;
+> +		break;
+> +	case 6:
+> +		ch_mask = 2;
+> +		break;
+> +	default:
+> +		dev_err(dev, "Invalid channels %d\n", channels);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (params_format(hwparams) != SNDRV_PCM_FORMAT_S32_LE) {
+> +		dev_err(dai->dev, "Invalid format:%d\n", params_format(hwparams));
+> +		return -EINVAL;
+> +	}
+> +
+> +	writel(ch_mask, adata->acp_base + ACP_WOV_PDM_NO_OF_CHANNELS);
+> +	writel(PDM_DEC_64, adata->acp_base + ACP_WOV_PDM_DECIMATION_FACTOR);
+> +
+> +	return 0;
+> +}
+
+> +MODULE_LICENSE("GPL v2");
+
+"GPL" is enough
+
+

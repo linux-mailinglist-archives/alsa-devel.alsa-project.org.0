@@ -2,126 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDAE348D455
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 10:30:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6499048D456
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 10:31:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 741771EEB;
-	Thu, 13 Jan 2022 10:30:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 741771EEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 065691F01;
+	Thu, 13 Jan 2022 10:30:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 065691F01
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642066250;
-	bh=qlf8r79WKDhUROk3fqlX21TLhPXjKRD0WIQMwcKTqZQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=n8VtcP5HmK0Gkh7HGLINzBZDCpnvIekz3uG+UD7z3egg3bVvlIKTddZ16BPNnqR+l
-	 v8TUjvFnwgqc2r+Li2ZeqSJVD2bXfeCrNq+rU6IayvuCvSBWPh340fc9kEsCmG2C0d
-	 ohJ9zTjXnN9mrAbui0fhXQl3FI/N7rGuIsUTs+XE=
+	s=default; t=1642066278;
+	bh=u+JD4TmrDhqGZRdfcw6d4b+A+pt6SXP67Jkf2l92Q08=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=N0WhSDP8bfbNI+NW0BoxtxQR2NvlkXpTCbbmTeF9XjEUVPtFww3j8HUR6g1JMPI8x
+	 F9ddnhK9Hz0XvRqAhr0xJEVDiaPagC4QrWdnpICDxoGcgnkLNN50AS1w9KHu/rMs4v
+	 Rt/Kj65i0F/U/AO0qPJp9ttIFkZ1jB8mruPFvu0A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEEAAF80141;
-	Thu, 13 Jan 2022 10:29:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1CDBF8050F;
+	Thu, 13 Jan 2022 10:30:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54C23F8013F; Thu, 13 Jan 2022 10:29:38 +0100 (CET)
+ id 72D2CF80507; Thu, 13 Jan 2022 10:30:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2057.outbound.protection.outlook.com [40.107.100.57])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BBEDF80088
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 10:29:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BBEDF80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53EA0F8028D
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 10:29:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53EA0F8028D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="lv3hQgu7"
+ header.b="MJKHtYmI"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UnO5HjXvyIE5RzkXOk/LbIHmNffkgEzrMvpTO147Jg5xY38ueUyQMt60L5QH7dejbHklN7Kz3VZaIiwOBOQ9eZeRHhp2plygNUO8SaoA+0gLzn3LvvdmtlrQtVwUse6GZk53cfoUtIUGgVLsBQwZ0VsLZ9yPX3grNGiuzeAuYRgcoIhNxrfbaVKA8KbDTRMwG6urS50vDFiRz9dzDOug2I0HDjnBCRvYgUbYmNn1S41m+I2m1MpQFnKLA8Rxlw6khL3kRW+dBSUGcH77K2pW+Mkc0kcGZan++oVep4xzDW7Q6mW0RRZ1dWf1P6/KXSUxgOLRCXgES25+NBmv2ZZdVw==
+ b=OhB3GrNojaX6dM8hHXlyxt9zhMueHXHmOGSc1ljtOFpgVRz7V3jzYaXXJC5VV0EiApEOq7EAX6gJmj0as+YmetDLidloxmeLoLF52Qs1ZtS+MZYhNchtpWX2RtdxXt3okMoxo3DzKtsHPkkN0GmOwKFLjzRSxo3HzA6hPaWrmFLpl6B7EEK1jXxg1DI0SImgeVD1h2qr0P7+6kD3D2b+p2DJOVTmeT65eAvLT1uXNwBEmZr3wk3vybRLKRS8kO1po1xPH4KPk9EG73GRD7vj7FfyNIMepr1ajE3JXtnBmuoE2aO4/iZMJ1wCOMR7FoSQ+kHYuhwSxh23oCsMiWsu+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WhvOGxyzLo9ES0j2W36kM97bc0vIZF4YyJWKiy3oaaU=;
- b=FMdba3aRmwmpA2ut+uy9KdoQTqe+K9T2v9mf7ATNJ/dkGWtyRY2SmeWDblFye7j4upvP4frhcsBnsrMUBjQSjsQxiGTHnmnVZZkueh97sfMmIkSu6QxHTlWS+1JaNNOj59metc4C1y9+clPXR36Eu19F+v1r5IoZVwcke4jwKD1EVZPkoDtnvBTBxTFWhQqqIxRE1fK2/FJymOnBCrL66JEW5H2Ih5Ah2wptmlww2CsdEh4rOX9onIKeG4qBLoGsuJHgUmZu9lJZj4ir6FJEfsfxjExv9NgCcgBp93kBWVB1E8UzMu3Mbc17IK8P9Ai/CvlF8yK7iau1SMWNhQG9XA==
+ bh=wLiAmrUjqXbine4/4G+vGheCp7mbn2rY0hch9rU2BXk=;
+ b=ivXg/AKeV/CRG/i78tb1SG6k8QlE30YOVXwq8NxHcHbHgodWroatD9N6WZzVMdhXMHub3RqxSW4PZG5Dn5DIkFKdZAr8kp9nHe690OVNf+AhLrv1IplWAcEq9HvJgkqccDEqNX/LDRzYjUsTFwVtkSVmZHfspdCfVJ3NhFpv5iCN+XDFip0cSduFHGz7yvQanDYC/09UmDODpz0Tpu4norZiz68VdP/xnd4fRW371GT9waBfffAq73MA2x4ijZYb0atdaE61H+Gx8qqrqL8T59DdEAdZuBrbWkWW9upWIQg0005XG1DfInjwbXTAztidK122WgbPl8PBo5n7Edbdog==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WhvOGxyzLo9ES0j2W36kM97bc0vIZF4YyJWKiy3oaaU=;
- b=lv3hQgu7u1qaJLIDDodrvdkBnwf0+txPaibzz17FO3EgCOj+Szf8sb4ta9oDIs0SOvs4wDURZEoXCfjWHO6y9JObiQ1RfvWpRk57IERfVpWOvy4y+5JQfq7rSi1YoAXZo8tkF22AY8DZc4mjSlw6Iuz4j3pNEVCvW8KqQeUpExg=
-Received: from BN9PR03CA0293.namprd03.prod.outlook.com (2603:10b6:408:f5::28)
- by MWHPR1201MB0270.namprd12.prod.outlook.com (2603:10b6:301:4f::12)
+ bh=wLiAmrUjqXbine4/4G+vGheCp7mbn2rY0hch9rU2BXk=;
+ b=MJKHtYmIzp0Vd+Gt4cAYg4Q/jpPBcYSCfc4QllFlAwGcmR2KsFnhqT154K69PWXKktt7cVSiBg9wiEPQuIfLnuuLhtOUh/ls7O1pxBFSXtAUyCtrkQXzqFNRNMkJyJ3UKA100pWN74b83GLjeiS0NWNS623K7k31HJ9c5l8NNgY=
+Received: from MW2PR2101CA0009.namprd21.prod.outlook.com (2603:10b6:302:1::22)
+ by MN2PR12MB4408.namprd12.prod.outlook.com (2603:10b6:208:26c::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Thu, 13 Jan
- 2022 09:29:25 +0000
-Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f5:cafe::95) by BN9PR03CA0293.outlook.office365.com
- (2603:10b6:408:f5::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10 via Frontend
- Transport; Thu, 13 Jan 2022 09:29:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10; Thu, 13 Jan
+ 2022 09:29:52 +0000
+Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:302:1:cafe::e) by MW2PR2101CA0009.outlook.office365.com
+ (2603:10b6:302:1::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.3 via Frontend
+ Transport; Thu, 13 Jan 2022 09:29:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4888.9 via Frontend Transport; Thu, 13 Jan 2022 09:29:24 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4888.9 via Frontend Transport; Thu, 13 Jan 2022 09:29:52 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 13 Jan
- 2022 03:29:23 -0600
+ 2022 03:29:48 -0600
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 13 Jan
- 2022 03:29:23 -0600
+ 2022 03:29:48 -0600
 Received: from chrome.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.17 via Frontend
- Transport; Thu, 13 Jan 2022 03:29:21 -0600
+ Transport; Thu, 13 Jan 2022 03:29:44 -0600
 From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 0/6] ASOC: amd: acp: Add generic PDM and PCI driver support
- for ACP 
-Date: Thu, 13 Jan 2022 14:58:36 +0530
-Message-ID: <20220113092842.432101-1-AjitKumar.Pandey@amd.com>
+Subject: [PATCH 1/6] ASoC: amd: acp: Add generic support for PDM controller on
+ ACP
+Date: Thu, 13 Jan 2022 14:58:37 +0530
+Message-ID: <20220113092842.432101-2-AjitKumar.Pandey@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220113092842.432101-1-AjitKumar.Pandey@amd.com>
+References: <20220113092842.432101-1-AjitKumar.Pandey@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d1bd8996-facc-4cf6-437a-08d9d6773018
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0270:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB02709C84E4B1F6E1909C893D82539@MWHPR1201MB0270.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Office365-Filtering-Correlation-Id: a50b816f-9558-449e-875c-08d9d677408b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4408:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB440868B3278964D089185F1D82539@MN2PR12MB4408.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uwwEzUycu/E7Zbt+xGYPMVtv04D+deESAwrYpz6/Z/tNfBp3FC3EriXLDXqiUeCOHX/PBruu+78kdNBI8PVPIag/7Z09Lut2dTgQPFQMy7l8opBVFGfhK21espa2tpFDBjnNhKQxpqxpQGc3DGiT6uHf8er2b22f553HhOa2/QTSHL2RVKoQpDar1TyEF7GuE+SPqfmemCnAHHsb5JHG1QqtACKgJPdQZ02Y/bDwo6BHJHVYI6GCOMvFP3la4GpvtFqyt/y8cuTViepuMytSNNzFovvB8PrNrtDfSxTdZhgwcFi7eMnFmv4QIyWptG8JA6KfvH8HKtrg/yJ/7ssyofbHmtbKvuPKsqKWpkCRm2gTjf25smmzsCvC60SEtzrdd2qr/F4JtdeyzOELiNlQnkheDIqS6BH8eYhHDHCF/HEnQ3WTq4dI/Vs9LXGEu5l9rtaHaMXjh/EyMURZ/ZSByXPRo+r74p03QIUk2Qtxg5HXRRvE1eslyqirkOlGijoBMAyagXYP3wMSaXrj1tWEj2ur1EBoU9kKqdlpmLlVjtFR9+aHzyp7GB8kRET3U5Rrk+0KxA1j9iJ9xSeV9g4ghEK87uI9N58U1wtcBBrEFJfCflY2rxIt164dtELr1oifQMHQykgkDCy2nJZnmBvLYN2gi9/3nKmCfIr6iEZagguczF1hywDe/3MtOVKlgqODBkZeWX4Hk0dQhQrSkI9XVMUtEjDzIHjvcrvVEfpd4C8Ltxt9auqBum7jaCL5peeFiiMlmiDI5ss7D0HA/RF+N1IcB37p597ujTDNr/L82/vTVnE2UKj5FgAZ/M7qJUgi2CwYE5H/DKtdN3DCJwRYqw==
+X-Microsoft-Antispam-Message-Info: LyFyWaX9aaLAP/YrqcCgwFVPdK8O3/+6An8/C2rit7AqqNC0+pdLnHA6FiGNRDWXspnceoYZOO1Dgvqwgl3v3P+QIIf+jZ21VPmX7acFrmC1JjzPWTKisEbyJUOGkkLcsY/edeBhFaZf7jgT0S6/3f5HmLPqZoKYolSdQJY2srLEAMu04g9cmT6GaeUR6WsvEE2QHtWgFYgsuJ1WXmx/4lsHB2WtGTamQvfkV1Vd45HkKELrYdBAIeCIVgAupPLwJ5lz94jYNQbYLTIdhtKMzb0B0fqUnO9itkIdfD7ir+zkr/FwMsteyEUtNFlrpPOpdOypAmEZV+ACUu7zorZWlrSlABT+IW+XQ5PLKxxOM0qW8EQXL36sNK568fAOImUfFYJD7QWCFugEG3RnUpfEIMAnaL+VFQnAauqzK8qcAdqBIdm2EMhOOIqSm1oWdmTJG7e5FuXyv0t8ZFulcrycpilrf8il6qrAHbn+uDQ1IdSskDuwp6sfH1vrkIMqZFwf7EncTs0k1wUdPQWv7h2PycKadMBwL61HH9qU5D9ihFr0bY5dJ5yXkGIVuUMBKQcT0GtMgfNfUWVnhVjdn+jSS36uXkARctkqxSavx5UPr5K3CqspsAMW9OP7c4+E5Pi0Q0WWGLKFcctGTpc3R7g93npBf6QBpwJDRtx0nUgJmWW/cCPdR3Xll36AR1xIAPP493XBtP8uLzBh6HSBm21isud0gl1QFCIgRUgKZ3EoxndadiO8PA2N+fS6n0W52gY3ecBGAOtHOXj6m7u5kgnR7na2ruTi2Taa0lmuc7cJRDn80C8CXEPM8SQ1gdCC10uT
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(46966006)(36840700001)(316002)(2616005)(70206006)(7696005)(336012)(86362001)(8936002)(4326008)(54906003)(356005)(110136005)(4743002)(36860700001)(6666004)(508600001)(81166007)(47076005)(5660300002)(1076003)(8676002)(426003)(36756003)(2906002)(40460700001)(186003)(70586007)(82310400004)(83380400001)(26005)(41533002)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(40470700002)(36840700001)(8936002)(1076003)(508600001)(70206006)(6666004)(4326008)(186003)(36860700001)(86362001)(2906002)(26005)(70586007)(8676002)(336012)(2616005)(7696005)(81166007)(356005)(47076005)(54906003)(5660300002)(40460700001)(110136005)(316002)(82310400004)(426003)(83380400001)(36756003)(41533002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2022 09:29:24.5047 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1bd8996-facc-4cf6-437a-08d9d6773018
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2022 09:29:52.0411 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a50b816f-9558-449e-875c-08d9d677408b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0270
-Cc: Alexander.Deucher@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Ajit Kumar
- Pandey <AjitKumar.Pandey@amd.com>, Vijendar.Mukunda@amd.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4408
+Cc: Sunil-kumar.Dommati@amd.com, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Ajit Kumar
+ Pandey <AjitKumar.Pandey@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, V
+ sujith kumar Reddy <vsujithkumar.reddy@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+ Vijendar.Mukunda@amd.com, Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,36 +145,313 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch series add a generic PDM controller driver module and
-PCI driver module for non dsp based audio support on ACP devices.
-Initial support is added for acp3x devices or Renoir platform but
-we will use such driver module to support upcoming platform and
-other acp architectures in near future.
+Add driver module for PDM controller on ACP IP block. Expose dai
+ops to configure ACP_WOV_PDM_BLOCK registers on ACP. Such dai ops
+will be used by platform specific driver module to register dmic
+related dai with ASoC.
 
-Ajit Kumar Pandey (6):
-  ASoC: amd: acp: Add generic support for PDM controller on ACP
-  ASoC: amd: acp: Add PDM controller based dmic dai for Renoir
-  ASoC: amd: acp: Add generic PCI driver module for ACP device
-  ASoC: amd: acp: Add ACP init()/deinit() callback for Renoir.
-  ASoC: amd: acp: acp-legacy: Add DMIC dai link support for Renoir
-  ASoC: amd: renoir: Add check for acp configuration flags.
-
- sound/soc/amd/acp/Kconfig            |  10 ++
- sound/soc/amd/acp/Makefile           |   4 +
- sound/soc/amd/acp/acp-legacy-mach.c  |   4 +-
- sound/soc/amd/acp/acp-mach-common.c  |  15 +++
- sound/soc/amd/acp/acp-pci.c          | 158 +++++++++++++++++++++++
- sound/soc/amd/acp/acp-pdm.c          | 181 ++++++++++++++++++++++++++
- sound/soc/amd/acp/acp-renoir.c       | 183 +++++++++++++++++++++++++++
- sound/soc/amd/acp/amd.h              |  23 +++-
- sound/soc/amd/acp/chip_offset_byte.h |  26 ++++
- sound/soc/amd/mach-config.h          |   1 +
- sound/soc/amd/renoir/rn-pci-acp3x.c  |   7 +-
- sound/soc/amd/renoir/rn_acp3x.h      |   3 +
- 12 files changed, 611 insertions(+), 4 deletions(-)
- create mode 100644 sound/soc/amd/acp/acp-pci.c
+Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+---
+ sound/soc/amd/acp/Kconfig            |   3 +
+ sound/soc/amd/acp/Makefile           |   2 +
+ sound/soc/amd/acp/acp-pdm.c          | 181 +++++++++++++++++++++++++++
+ sound/soc/amd/acp/amd.h              |   9 +-
+ sound/soc/amd/acp/chip_offset_byte.h |  20 +++
+ 5 files changed, 214 insertions(+), 1 deletion(-)
  create mode 100644 sound/soc/amd/acp/acp-pdm.c
 
+diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
+index d5838df3064b..2e6d0259f2e9 100644
+--- a/sound/soc/amd/acp/Kconfig
++++ b/sound/soc/amd/acp/Kconfig
+@@ -15,6 +15,9 @@ config SND_SOC_AMD_ACP_COMMON
+ 
+ if SND_SOC_AMD_ACP_COMMON
+ 
++config SND_SOC_AMD_ACP_PDM
++	tristate
++
+ config SND_SOC_AMD_ACP_I2S
+ 	tristate
+ 
+diff --git a/sound/soc/amd/acp/Makefile b/sound/soc/amd/acp/Makefile
+index 16c144c2965c..66cac95432f6 100644
+--- a/sound/soc/amd/acp/Makefile
++++ b/sound/soc/amd/acp/Makefile
+@@ -7,6 +7,7 @@
+ #common acp driver
+ snd-acp-pcm-objs     := acp-platform.o
+ snd-acp-i2s-objs     := acp-i2s.o
++snd-acp-pdm-objs     := acp-pdm.o
+ 
+ #platform specific driver
+ snd-acp-renoir-objs     := acp-renoir.o
+@@ -18,6 +19,7 @@ snd-acp-sof-mach-objs     := acp-sof-mach.o
+ 
+ obj-$(CONFIG_SND_SOC_AMD_ACP_PCM) += snd-acp-pcm.o
+ obj-$(CONFIG_SND_SOC_AMD_ACP_I2S) += snd-acp-i2s.o
++obj-$(CONFIG_SND_SOC_AMD_ACP_PDM) += snd-acp-pdm.o
+ 
+ obj-$(CONFIG_SND_AMD_ASOC_RENOIR) += snd-acp-renoir.o
+ 
+diff --git a/sound/soc/amd/acp/acp-pdm.c b/sound/soc/amd/acp/acp-pdm.c
+new file mode 100644
+index 000000000000..cb9bbd795eee
+--- /dev/null
++++ b/sound/soc/amd/acp/acp-pdm.c
+@@ -0,0 +1,181 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++//
++// This file is provided under a dual BSD/GPLv2 license. When using or
++// redistributing this file, you may do so under either license.
++//
++// Copyright(c) 2021 Advanced Micro Devices, Inc.
++//
++// Authors: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
++//	    Vijendar Mukunda <Vijendar.Mukunda@amd.com>
++//
++
++/*
++ * Generic Hardware interface for ACP Audio PDM controller
++ */
++
++#include <linux/platform_device.h>
++#include <linux/module.h>
++#include <linux/err.h>
++#include <linux/io.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-dai.h>
++#include <linux/dma-mapping.h>
++
++#include "amd.h"
++
++#define DRV_NAME "acp-pdm"
++
++#define PDM_DMA_STAT		0x10
++#define PDM_DMA_INTR_MASK	0x10000
++#define PDM_DEC_64		0x2
++#define PDM_CLK_FREQ_MASK	0x07
++#define PDM_MISC_CTRL_MASK	0x10
++#define PDM_ENABLE		0x01
++#define PDM_DISABLE		0x00
++#define DMA_EN_MASK		0x02
++#define DELAY_US		5
++#define PDM_TIMEOUT		1000
++
++static int acp_dmic_dai_trigger(struct snd_pcm_substream *substream,
++			       int cmd, struct snd_soc_dai *dai)
++{
++	struct acp_stream *stream = substream->runtime->private_data;
++	struct device *dev = dai->component->dev;
++	struct acp_dev_data *adata = dev_get_drvdata(dev);
++	u32 physical_addr, size_dmic, period_bytes;
++	unsigned int dma_enable;
++	int ret = 0;
++
++	period_bytes = frames_to_bytes(substream->runtime,
++			substream->runtime->period_size);
++	size_dmic = frames_to_bytes(substream->runtime,
++			substream->runtime->buffer_size);
++
++	physical_addr = stream->reg_offset + MEM_WINDOW_START;
++
++	/* Init DMIC Ring buffer */
++	writel(physical_addr, adata->acp_base + ACP_WOV_RX_RINGBUFADDR);
++	writel(size_dmic, adata->acp_base + ACP_WOV_RX_RINGBUFSIZE);
++	writel(period_bytes, adata->acp_base + ACP_WOV_RX_INTR_WATERMARK_SIZE);
++	writel(0x01, adata->acp_base + ACPAXI2AXI_ATU_CTRL);
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		dma_enable = readl(adata->acp_base + ACP_WOV_PDM_DMA_ENABLE);
++		if (!(dma_enable & DMA_EN_MASK)) {
++			writel(PDM_ENABLE, adata->acp_base + ACP_WOV_PDM_ENABLE);
++			writel(PDM_ENABLE, adata->acp_base + ACP_WOV_PDM_DMA_ENABLE);
++		}
++
++		ret = readl_poll_timeout_atomic(adata->acp_base + ACP_WOV_PDM_DMA_ENABLE,
++						dma_enable, (dma_enable & DMA_EN_MASK),
++						DELAY_US, PDM_TIMEOUT);
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		dma_enable = readl(adata->acp_base + ACP_WOV_PDM_DMA_ENABLE);
++		if ((dma_enable & DMA_EN_MASK)) {
++			writel(PDM_DISABLE, adata->acp_base + ACP_WOV_PDM_ENABLE);
++			writel(PDM_DISABLE, adata->acp_base + ACP_WOV_PDM_DMA_ENABLE);
++
++		}
++
++		ret = readl_poll_timeout_atomic(adata->acp_base + ACP_WOV_PDM_DMA_ENABLE,
++						dma_enable, !(dma_enable & DMA_EN_MASK),
++						DELAY_US, PDM_TIMEOUT);
++		break;
++	default:
++		ret = -EINVAL;
++		break;
++	}
++
++	return ret;
++}
++
++static int acp_dmic_hwparams(struct snd_pcm_substream *substream,
++	struct snd_pcm_hw_params *hwparams, struct snd_soc_dai *dai)
++{
++	struct device *dev = dai->component->dev;
++	struct acp_dev_data *adata = dev_get_drvdata(dev);
++	unsigned int dmic_ctrl, channels, ch_mask;
++
++	/* Enable default DMIC clk */
++	writel(PDM_CLK_FREQ_MASK, adata->acp_base + ACP_WOV_CLK_CTRL);
++	dmic_ctrl = readl(adata->acp_base + ACP_WOV_MISC_CTRL);
++	dmic_ctrl |= PDM_MISC_CTRL_MASK;
++	writel(dmic_ctrl, adata->acp_base + ACP_WOV_MISC_CTRL);
++
++	channels = params_channels(hwparams);
++	switch (channels) {
++	case 2:
++		ch_mask = 0;
++		break;
++	case 4:
++		ch_mask = 1;
++		break;
++	case 6:
++		ch_mask = 2;
++		break;
++	default:
++		dev_err(dev, "Invalid channels %d\n", channels);
++		return -EINVAL;
++	}
++
++	if (params_format(hwparams) != SNDRV_PCM_FORMAT_S32_LE) {
++		dev_err(dai->dev, "Invalid format:%d\n", params_format(hwparams));
++		return -EINVAL;
++	}
++
++	writel(ch_mask, adata->acp_base + ACP_WOV_PDM_NO_OF_CHANNELS);
++	writel(PDM_DEC_64, adata->acp_base + ACP_WOV_PDM_DECIMATION_FACTOR);
++
++	return 0;
++}
++
++static int acp_dmic_dai_startup(struct snd_pcm_substream *substream,
++		struct snd_soc_dai *dai)
++{
++	struct acp_stream *stream = substream->runtime->private_data;
++	struct device *dev = dai->component->dev;
++	struct acp_dev_data *adata = dev_get_drvdata(dev);
++	u32 ext_int_ctrl;
++
++	stream->dai_id = DMIC_INSTANCE;
++	stream->irq_bit = BIT(PDM_DMA_STAT);
++	stream->pte_offset = ACP_SRAM_PDM_PTE_OFFSET;
++
++	/* Enable DMIC Interrupts */
++	ext_int_ctrl = readl(adata->acp_base + ACP_EXTERNAL_INTR_CNTL);
++	ext_int_ctrl |= PDM_DMA_INTR_MASK;
++	writel(ext_int_ctrl, adata->acp_base + ACP_EXTERNAL_INTR_CNTL);
++
++	return 0;
++}
++
++static void acp_dmic_dai_shutdown(struct snd_pcm_substream *substream,
++		struct snd_soc_dai *dai)
++{
++	struct device *dev = dai->component->dev;
++	struct acp_dev_data *adata = dev_get_drvdata(dev);
++	u32 ext_int_ctrl;
++
++	/* Disable DMIC interrrupts */
++	ext_int_ctrl = readl(adata->acp_base + ACP_EXTERNAL_INTR_CNTL);
++	ext_int_ctrl |= ~PDM_DMA_INTR_MASK;
++	writel(ext_int_ctrl, adata->acp_base + ACP_EXTERNAL_INTR_CNTL);
++}
++
++const struct snd_soc_dai_ops acp_dmic_dai_ops = {
++	.hw_params = acp_dmic_hwparams,
++	.trigger   = acp_dmic_dai_trigger,
++	.startup = acp_dmic_dai_startup,
++	.shutdown = acp_dmic_dai_shutdown,
++};
++EXPORT_SYMBOL_NS_GPL(acp_dmic_dai_ops, SND_SOC_ACP_COMMON);
++
++MODULE_LICENSE("GPL v2");
++MODULE_ALIAS("platform:"DRV_NAME);
+diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
+index 8eee3d34774b..567355209a5c 100644
+--- a/sound/soc/amd/acp/amd.h
++++ b/sound/soc/amd/acp/amd.h
+@@ -17,8 +17,9 @@
+ 
+ #define I2S_SP_INSTANCE			0x00
+ #define I2S_BT_INSTANCE			0x01
++#define DMIC_INSTANCE			0x02
+ 
+-#define MEM_WINDOW_START		0x4000000
++#define MEM_WINDOW_START		0x4080000
+ 
+ #define ACP_I2S_REG_START		0x1242400
+ #define ACP_I2S_REG_END			0x1242810
+@@ -38,6 +39,7 @@
+ #define ACP_SRAM_SP_CP_PTE_OFFSET	0x100
+ #define ACP_SRAM_BT_PB_PTE_OFFSET	0x200
+ #define ACP_SRAM_BT_CP_PTE_OFFSET	0x300
++#define ACP_SRAM_PDM_PTE_OFFSET		0x400
+ #define PAGE_SIZE_4K_ENABLE		0x2
+ 
+ #define I2S_SP_TX_MEM_WINDOW_START	0x4000000
+@@ -96,6 +98,7 @@ struct acp_dev_data {
+ };
+ 
+ extern const struct snd_soc_dai_ops asoc_acp_cpu_dai_ops;
++extern const struct snd_soc_dai_ops acp_dmic_dai_ops;
+ 
+ int asoc_acp_i2s_probe(struct snd_soc_dai *dai);
+ int acp_platform_register(struct device *dev);
+@@ -131,6 +134,10 @@ static inline u64 acp_get_byte_count(struct acp_dev_data *adata, int dai_id, int
+ 			high = readl(adata->acp_base + ACP_I2S_RX_LINEARPOSITIONCNTR_HIGH);
+ 			low = readl(adata->acp_base + ACP_I2S_RX_LINEARPOSITIONCNTR_LOW);
+ 			break;
++		case DMIC_INSTANCE:
++			high = readl(adata->acp_base + ACP_WOV_RX_LINEARPOSITIONCNTR_HIGH);
++			low = readl(adata->acp_base + ACP_WOV_RX_LINEARPOSITIONCNTR_LOW);
++			break;
+ 		default:
+ 			dev_err(adata->dev, "Invalid dai id %x\n", dai_id);
+ 			return -EINVAL;
+diff --git a/sound/soc/amd/acp/chip_offset_byte.h b/sound/soc/amd/acp/chip_offset_byte.h
+index c7f77e975dc7..e38589a142e9 100644
+--- a/sound/soc/amd/acp/chip_offset_byte.h
++++ b/sound/soc/amd/acp/chip_offset_byte.h
+@@ -73,4 +73,24 @@
+ #define ACP_BTTDM_ITER                                0x280C
+ #define ACP_BTTDM_TXFRMT                              0x2810
+ 
++/* Registers from ACP_WOV_PDM block */
++
++#define ACP_WOV_PDM_ENABLE                            0x2C04
++#define ACP_WOV_PDM_DMA_ENABLE                        0x2C08
++#define ACP_WOV_RX_RINGBUFADDR                        0x2C0C
++#define ACP_WOV_RX_RINGBUFSIZE                        0x2C10
++#define ACP_WOV_RX_LINKPOSITIONCNTR                   0x2C14
++#define ACP_WOV_RX_LINEARPOSITIONCNTR_HIGH            0x2C18
++#define ACP_WOV_RX_LINEARPOSITIONCNTR_LOW             0x2C1C
++#define ACP_WOV_RX_INTR_WATERMARK_SIZE                0x2C20
++#define ACP_WOV_PDM_FIFO_FLUSH                        0x2C24
++#define ACP_WOV_PDM_NO_OF_CHANNELS                    0x2C28
++#define ACP_WOV_PDM_DECIMATION_FACTOR                 0x2C2C
++#define ACP_WOV_PDM_VAD_CTRL                          0x2C30
++#define ACP_WOV_BUFFER_STATUS                         0x2C58
++#define ACP_WOV_MISC_CTRL                             0x2C5C
++#define ACP_WOV_CLK_CTRL                              0x2C60
++#define ACP_PDM_VAD_DYNAMIC_CLK_GATING_EN             0x2C64
++#define ACP_WOV_ERROR_STATUS_REGISTER                 0x2C68
++
+ #endif
 -- 
 2.25.1
 

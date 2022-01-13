@@ -2,69 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CEFB48D90E
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 14:33:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB3B648D946
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 14:46:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 237BE1F5B;
-	Thu, 13 Jan 2022 14:32:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 237BE1F5B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 524541F66;
+	Thu, 13 Jan 2022 14:45:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 524541F66
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642080820;
-	bh=g5wY99T4KfkzljRwUqFOYdlhFEBd4CPuM5/BzYEO4Bo=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1642081593;
+	bh=8iEUku0WYW9fpW7ruMKGRSin5h1ONqAUo03t32+9YCY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MermsVhO67/Hq+eNVBUIu6BVFXywpl9h833qapT5GSVSSr37gcvV47URWBCS3zfez
-	 BNXCbSojl9fQO33tS1sc5pRfyTMUdkwJ+mM0Y+NSuXz+oZ5Bk/RSdaIkAhAbdbXI4+
-	 h46gyoCChQ5td42BbgkN1MptBmYVFPaVfqdAuyzU=
+	b=VLNNk53o2dOgA3nwih+usxKlAntrVyILBkQigbNB5R/uk4bvwqzysAuMx3uQWz07b
+	 zFGOC+nbLPDEkbWZ7Hew5Va4Iq3vOI3rXvAXRURetL4+zQGGsOZMlu0A4sKv/izIne
+	 qXIu1iMDN4U3wkkbpGztBJGxqahoF3PSBQ03172M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EDECF80141;
-	Thu, 13 Jan 2022 14:32:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B37EEF80054;
+	Thu, 13 Jan 2022 14:45:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26A63F8013F; Thu, 13 Jan 2022 14:32:30 +0100 (CET)
+ id 4F555F8013F; Thu, 13 Jan 2022 14:45:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51BA1F800B9
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 14:32:25 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9C36AA0047;
- Thu, 13 Jan 2022 14:32:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9C36AA0047
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1642080744; bh=EP9L7qMdhh8Wu5bJ8Lvwpb50iWBvWlC/gxIJDaoqDlU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=u4jgkH9FO4pNyDYeLu2BKOfsvgTbC7KoCy1GZWXfGlYATM6+XR6M3LZaKA2zW/LmV
- KbmZG6Jxt1jaOSWmpES4FjNQlzg8SFOxQEytN2ljNfhQf8XdwSIiGZgtc/NOW6gYcA
- EcuLQnjgPoDQsOMAQY+2AOyn1tdf2kTLhsknvYk0=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 13 Jan 2022 14:32:21 +0100 (CET)
-Message-ID: <40388d17-0c5e-5d10-2f8a-ba75e2b7b9c7@perex.cz>
-Date: Thu, 13 Jan 2022 14:32:21 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A78CF80054
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 14:45:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A78CF80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="xq6y4HWR"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="K0XQDrnS"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id EF9651F3A8;
+ Thu, 13 Jan 2022 13:45:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1642081513; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+FGl7/4XB2Odszl/6hHzcWVompbiJIeoa9i64XwmjkU=;
+ b=xq6y4HWRjlvUNjmsuUPPBCsBuve8wGT1u1wV7A+MPUqrcy6M80MrIxIoC+S0tV8uJl+Ox1
+ 8XQuAMp9YVwWypEmnrO/S2RZHEhFvSn8qzu58qvAFRH0Bqdr9evAvP0GA1uU56gCyVR4+X
+ OYTJXbEYFJTKlNN2bp1DAE68749M9s0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1642081513;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+FGl7/4XB2Odszl/6hHzcWVompbiJIeoa9i64XwmjkU=;
+ b=K0XQDrnSUr4gCjKZVaFytDGQVKMeu3oodYOpzxYV2DmVKb9t17iOYafG1TJHj5QZiMUgeA
+ Uallr0jnFlK2YPDg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id EA46AA3B81;
+ Thu, 13 Jan 2022 13:45:13 +0000 (UTC)
+Date: Thu, 13 Jan 2022 14:45:13 +0100
+Message-ID: <s5hk0f37nrq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
 Subject: Re: [PATCH] ALSA: pcm: accept the OPEN state for snd_pcm_stop()
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <40388d17-0c5e-5d10-2f8a-ba75e2b7b9c7@perex.cz>
 References: <20220113113130.1961332-1-perex@perex.cz>
  <s5hmtjz7q16.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <s5hmtjz7q16.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <40388d17-0c5e-5d10-2f8a-ba75e2b7b9c7@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: Pavel Hofman <pavel.hofman@ivitera.com>,
  ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -82,72 +95,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 13. 01. 22 13:56, Takashi Iwai wrote:
-> On Thu, 13 Jan 2022 12:31:30 +0100,
-> Jaroslav Kysela wrote:
->>
->> It may be useful to completely invalidate streaming under some
->> circumstances like the USB gadget detach. This case is a bit different
->> than the complete disconnection. The applications should be notified
->> that the PCM streaming is no longer available, but the recovery may be
->> expected.
->>
->> This patch adds support for SNDRV_PCM_STATE_OPEN passed
->> to snd_pcm_stop() function. Only the hw_free ioctl is allowed to free
->> the buffers in this state for a full recovery operation or the PCM file
->> handle must be closed.
->>
->> In the OPEN state, ioctls return EBADFD error (with the added hw_free
->> exception above). The applications which are not aware about this new
->> state transition (and recovery) will fail with an error. This operation
->> is expected.
->>
->> Link: https://lore.kernel.org/alsa-devel/4e17c99b-1d8a-8ebe-972c-9b1299952ff8@ivitera.com/
->> Cc: Pavel Hofman <pavel.hofman@ivitera.com>
->> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+On Thu, 13 Jan 2022 14:32:21 +0100,
+Jaroslav Kysela wrote:
 > 
-> I find the idea neat, but I'm afraid that it's a bit confusing from
-> the user POV as is.  Namely, the state is in OPEN, but you'd have to
-> perform hw_free manually at first for moving forward; how can user
-> know it?
+> On 13. 01. 22 13:56, Takashi Iwai wrote:
+> > On Thu, 13 Jan 2022 12:31:30 +0100,
+> > Jaroslav Kysela wrote:
+> >>
+> >> It may be useful to completely invalidate streaming under some
+> >> circumstances like the USB gadget detach. This case is a bit different
+> >> than the complete disconnection. The applications should be notified
+> >> that the PCM streaming is no longer available, but the recovery may be
+> >> expected.
+> >>
+> >> This patch adds support for SNDRV_PCM_STATE_OPEN passed
+> >> to snd_pcm_stop() function. Only the hw_free ioctl is allowed to free
+> >> the buffers in this state for a full recovery operation or the PCM file
+> >> handle must be closed.
+> >>
+> >> In the OPEN state, ioctls return EBADFD error (with the added hw_free
+> >> exception above). The applications which are not aware about this new
+> >> state transition (and recovery) will fail with an error. This operation
+> >> is expected.
+> >>
+> >> Link: https://lore.kernel.org/alsa-devel/4e17c99b-1d8a-8ebe-972c-9b1299952ff8@ivitera.com/
+> >> Cc: Pavel Hofman <pavel.hofman@ivitera.com>
+> >> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> >
+> > I find the idea neat, but I'm afraid that it's a bit confusing from
+> > the user POV as is.  Namely, the state is in OPEN, but you'd have to
+> > perform hw_free manually at first for moving forward; how can user
+> > know it?
+> 
+> Thanks for the feedback.
+> 
+> The state ioctls are also not blocked, so the PCM state can be checked
+> when EBADFD is returned for the updated applications. But as noted in
+> the comment, it's expected that current applications will fail (like
+> for the disconnect).
 
-Thanks for the feedback.
+OK.  So this must be for a specific new use case...
 
-The state ioctls are also not blocked, so the PCM state can be checked when 
-EBADFD is returned for the updated applications. But as noted in the comment, 
-it's expected that current applications will fail (like for the disconnect).
+> The OPEN state can be set only when hw_params fails in the current
+> code. So the applications can distinguish the hw_params error /
+> invalidate stream cases. We may also add this info (flag) to the PCM
+> status structure.
+> 
+> This extension can be also implemented using a new PCM state, but in
+> the regard of our discussion a few months ago, it's probably not a
+> way.
 
-The OPEN state can be set only when hw_params fails in the current code. So 
-the applications can distinguish the hw_params error / invalidate stream 
-cases. We may also add this info (flag) to the PCM status structure.
+Right, that'll become a compatibility headache.
 
-This extension can be also implemented using a new PCM state, but in the 
-regard of our discussion a few months ago, it's probably not a way.
+> > Maybe PCM core should do hw_free by itself when hw_params is
+> > called with hw_free_queued.
+> 
+> Yes, it's a possible optimization, too. I had same idea when I post
+> the patch. But the mmap is an issue here - applications must do unmap
+> before hw_params, so I'm not convinced to add this auto-free to
+> hw_params, because hw_free has the straight semantics (munmap
+> before). It would be probably clever to keep those steps separated.
 
-> Maybe PCM core should do hw_free by itself when hw_params is
-> called with hw_free_queued.
+Hm, right, mmap is messy.
 
-Yes, it's a possible optimization, too. I had same idea when I post the patch. 
-But the mmap is an issue here - applications must do unmap before hw_params, 
-so I'm not convinced to add this auto-free to hw_params, because hw_free has 
-the straight semantics (munmap before). It would be probably clever to keep 
-those steps separated.
+> Also ideally, there may be a check in hw_params, if parameters
+> (buffers) are changed, but the implementation is not so easy. Maybe we
+> can allow OPEN -> 
+> PREPARE transition for this case, so the applications may just restart
+> the streaming in the most light way.
 
-Also ideally, there may be a check in hw_params, if parameters (buffers) are 
-changed, but the implementation is not so easy. Maybe we can allow OPEN -> 
-PREPARE transition for this case, so the applications may just restart the 
-streaming in the most light way.
+Hmm.  Reading more about those restrictions and requirements, I feel
+that this might be better implemented in the gadget driver side
+locally at first.  Basically we can handle similarly: add a new local
+flag, set it at the stream stop, and return an error at prepare until
+hw_params gets reconfigured.  This might be even smaller changes?
 
-This extension can be also implemented using a new PCM state, but in the 
-regard of our discussion a few months ago, it's probably not a way.
 
-> Also, do_hw_free() will skip the actual free because it's in OPEN
-> state, no?
+thanks,
 
-Yes, I forgot to add it. I'll sent v2 when we settle those little details.
-
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Takashi

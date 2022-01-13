@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A3DB48DDF5
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 20:01:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47FD048DF60
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 22:05:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DD83208F;
-	Thu, 13 Jan 2022 20:00:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DD83208F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B94441FCC;
+	Thu, 13 Jan 2022 22:04:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B94441FCC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642100493;
-	bh=9lFN5NmWtJLTkbSJUQWn+YCo6BV77fMjZBZLaztrA6Q=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fUcGWGWGEFr9ZgzncI8zzcVKvkf+0UDOafAOJtVKLckB61t0fBrcFQHW/zEs8crkR
-	 HxAXr+FfMcZSkIvFWlpoZSi2Y3pwPEFhG6I2PhTwuPV4ZNaKfUn3CKpPFKhF34WV1F
-	 NnN4APBVzcvp6XhE9n8OjYe6NejLTgnkw3QX8gQs=
+	s=default; t=1642107904;
+	bh=cp2+xoS75bsg6QmSMBAIW2gy6+6xwAkMJDKCe5Gp7N0=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RT9PwE8RuxevfbOdNfN5E+IYpQQIb67FXnIu/k9Xe4UmYhwwIsySwWDIWSs9vlpKf
+	 lFQBPabvHCV4BpQZll1mWR7a+UpunTvhU5u0+r2SLRi447uEoGEtkM3HLqgXZ7atGR
+	 gUXU3p6LscL1cXcI49grjucsh4X/pVdyxP1uprUs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CA8CF80141;
-	Thu, 13 Jan 2022 20:00:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2AB60F80141;
+	Thu, 13 Jan 2022 22:03:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2A11F80054; Thu, 13 Jan 2022 20:00:22 +0100 (CET)
+ id 58BC8F8013F; Thu, 13 Jan 2022 22:03:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EAF8CF80054
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 20:00:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAF8CF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01C45F80088
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 22:03:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01C45F80088
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="EbDF5PAu"
-Received: by mail-ot1-x333.google.com with SMTP id
- s8-20020a0568301e0800b00590a1c8cc08so7368617otr.9
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 11:00:16 -0800 (PST)
+ header.b="BiCDKASX"
+Received: by mail-lf1-x12b.google.com with SMTP id br17so23908571lfb.6
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 13:03:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=6KTv+BNcxq5vSd0al31YnmvbO83eGSvLZ5muf/jBs60=;
- b=EbDF5PAusptVhAnl2J96pzkOdm/+HOy4u1yUpwGMuxEF6+ItS7A0iZiOxcMo4wcn+0
- H+0wjEK66Kmy4GjDzdn2nwmT7uPA+Tj5Av4yNrT5mf9u5o+JVq4fcvmsnDBZMiyhCDGs
- sYa1QkINz97eJc9aY40ndiGca5u8ufSWED5d8s31GWKmUotxzfRG36c6lfUDVWBDHhZn
- JpYPzW8WTs2UJ1oXMXSFW5JyWLzn3BEAaiFmug5C14Mm6C7hQnRgPhEzMHoeGDARXCyu
- Ri1UViEaUvwCHdm9pfXNK7L4bNyWdZj5Q5JyqDzF130yFRQxw1bzQ7Ypr8b+EuIdKwZn
- 8iyg==
+ h=date:from:to:cc:subject:message-id:user-agent:mime-version
+ :content-disposition;
+ bh=tGX52jpKcvhFH/6brEyGmgi4fo82MK8VJ055FYumYks=;
+ b=BiCDKASXPZBtC1iofv0BUMoC2DJJnKaHN1XpKxglNscDIjTE/BT/THocVVnQ7kbqBi
+ Mzkwhz+rPXygx7lku8MPXYm11m25daNyn6Je6Ag0/gr2X6+z5PUXksxCyjVNsQsQ6tKO
+ ciSLwSJr34dh9jWc1vUo0DI1DpgMI5uLwkJPVNlrcxhRWWxLqMaghjnlBW1Kz/TQWcC0
+ aIAtwO47Wj/Tk3zXgbYkA2nuP4T8epqw8sCIaqksM1wRO9DyA8L4v3HdDVsYjzpS2qd3
+ HFHhkiGjr+OHHqqkVJzqE4cTg0oo3STwuAOLfMc26tUXw/Pea1qUFQ5JCfVAykKc+oxB
+ cR6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=6KTv+BNcxq5vSd0al31YnmvbO83eGSvLZ5muf/jBs60=;
- b=5QwsV1AQZxCNAi8tnYx8twzQN8hmzk/ltmwX7XwkQqepCspAwtvgSi9Sl1YL82atrM
- qq0rrqEGvpwQ0NFruVs2FRNf1czLYzY2LwQPt+7XL6awAS6kOUJGystAHPp9o1zPEXre
- Nhq8gRvOblspBE8fgrYz6Z0DfD79TiTfq6Kb9KoTywki3wr0f8IrfcCjQLfn9ZJNEqsY
- C+n3Fr8nPEfWw9GBNCDMlyye3Q49AcD0xE3kLMGMJmQMYKBDB1CIlFqsFzrE9U1Ejh7F
- BBsKI9NMa4E695WREXZ/ZyJNiSIVFh2TnMcjzfJuRrzdBNSxiRIcsUAOFdqjaMIF5wJa
- xQtw==
-X-Gm-Message-State: AOAM531H+R8bwr9zdS7n1v/+xgj5dpHJ2ZPuATejYRzUFecs2kW1FSdR
- 7a1LftIY2fjedX6JroBGDD0=
-X-Google-Smtp-Source: ABdhPJxC7d/iAAyRyXhC2QKIxNJ2f3mPIC1I2JIISJniHL7OpVqH26EFzb1e95WaJVuHiP1yNj8AfQ==
-X-Received: by 2002:a05:6830:4115:: with SMTP id
- w21mr4144423ott.256.1642100414197; 
- Thu, 13 Jan 2022 11:00:14 -0800 (PST)
-Received: from geday ([2804:7f2:8002:f237:d475:1acd:9c67:d4cd])
- by smtp.gmail.com with ESMTPSA id ay40sm838199oib.1.2022.01.13.11.00.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jan 2022 11:00:13 -0800 (PST)
-Date: Thu, 13 Jan 2022 16:00:28 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Nandakumar Edamana <nandakumar@nandakumar.co.in>
-Subject: Re: Behringer UMC202HD issues and a partial solution
-Message-ID: <YeB2zEnPlwVEKbTI@geday>
-References: <d61a41eb-a820-b1ca-dcf6-f447f80494a8@nandakumar.co.in>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:user-agent
+ :mime-version:content-disposition;
+ bh=tGX52jpKcvhFH/6brEyGmgi4fo82MK8VJ055FYumYks=;
+ b=gsy18lnbr3Id+B2S13x+FZC9Li21xGhm2PYC81f8L12/IWjki+FChGdUiPfwp8Uk22
+ 7O4KVcz0hTgaoJehp8/f1yyU3tvk3pn8aGeQIJy2w5UMPGcT8Q7ZW7eQWD9dWIpgbBAW
+ ZCmXoCuGsYyaP/1pl1NC6f49tygbMIFiWshQMn7RwT7Ake5CKkSWUqX4S4QZoJhYK8ly
+ Mw5nkoZS3QXNd6t6/C0qEWZYXXNYei32dmOovZlQAboSk78+97tYTsXnCEiWW5ZpVrz+
+ Swei/FyVEyuuxkxNfdBpSTJv5c4Ni/S21EzYqvsHpVPHzVcIRTk/4d08Ttied0WkfhP0
+ texQ==
+X-Gm-Message-State: AOAM5307KMfWnslmnwOjarwaqR54nFYga3zxRQkaxyCJj9LZ5jGw3kbM
+ pE8mYgMlnGQaRg9ctdyoDuQ=
+X-Google-Smtp-Source: ABdhPJwkWM114QNfLjFQzUCqwBMbRjR32QYRDP2Wdz4P+zKOumDAKoKrj6k1plTk8R9kbaBHpkSWBQ==
+X-Received: by 2002:a2e:9209:: with SMTP id k9mr3796207ljg.165.1642107830507; 
+ Thu, 13 Jan 2022 13:03:50 -0800 (PST)
+Received: from localhost.localdomain (ntd06459.static.corbina.ru.
+ [95.31.14.149])
+ by smtp.gmail.com with ESMTPSA id u10sm377489ljh.119.2022.01.13.13.03.49
+ (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
+ Thu, 13 Jan 2022 13:03:49 -0800 (PST)
+Date: Fri, 14 Jan 2022 00:09:30 +0300
+From: Alexander Sergeyev <sergeev917@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Jeremy Szu <jeremy.szu@canonical.com>,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Hui Wang <hui.wang@canonical.com>, Cameron Berkenpas <cam@neo-zeon.de>,
+ Kailang Yang <kailang@realtek.com>, Sami Loone <sami@loone.fi>,
+ Elia Devito <eliadevito@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: fix speakers and micmute on HP 855 G8
+Message-ID: <20220113210930.dtryx4ifjsmb33lz@localhost.localdomain>
+User-Agent: mtt
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d61a41eb-a820-b1ca-dcf6-f447f80494a8@nandakumar.co.in>
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,109 +103,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 13, 2022 at 08:07:49PM +0530, Nandakumar Edamana wrote:
-> Trying to make my Behringer UMC202HD audio interface work with GNU/Linux.
-> While doing so, I managed to make a warning disappear by editing a file in
-> the kernel source. The main issue I'm having with the interface isn't 
-> gone, and
-> I am not sure whether to bother you people with that now. However I'd 
-> like to
-> read your comments on the edit I made regarding the warning.
-> 
-> Details:
-> 
-> - Product: 1397:0507 BEHRINGER International GmbH UMC202HD 192k
-> - dmesg warning: clock source 41 is not valid, cannot use
-> - kernel: linux-5.15.13
-> - Edit that made the warning disappear:
-> 
-> $ diff -u sound/usb/clock.c.orig sound/usb/clock.c
-> --- sound/usb/clock.c.orig    2022-01-13 08:14:49.555281286 +0530
-> +++ sound/usb/clock.c    2022-01-13 08:18:38.004618792 +0530
-> @@ -180,7 +180,11 @@
->        * Sample rate changes takes more than 2 seconds for this device. 
-> Clock
->        * validity request returns false during that period.
->        */
-> -    if (chip->usb_id == USB_ID(0x07fd, 0x0004)) {
-> +    if (chip->usb_id == USB_ID(0x07fd, 0x0004) ||
-> +        /* Trying the same for BEHRINGER International GmbH UMC202HD 
-> 192k */
-> +        chip->usb_id == USB_ID(0x1397, 0x0507)
-> +        )
-> +    {
->           count = 0;
-> 
->           while ((!ret) && (count < 50)) {
-> 
-> 
-> 
-> Yes, I was just adding the ID of UMC202HD to an existing workaround. I'm not
-> sure if the device's clock should actually be accepted (but I think so 
-> because
-> the retry works, right?), or if two seconds is the right delay for UMC202HD.
-> 
-> The real issue I'm having with this device is related to the periodic
-> stuttering/pops while playback (recording is okay).
+There are several PCI ids associated with HP EliteBook 855 G8 Notebook
+PC. Commit 0e68c4b11f1e6 ("ALSA: hda/realtek: fix mute/micmute LEDs for
+HP 855 G8") covers 0x103c:0x8896, while this commit covers 0x103c:0x8895
+which needs some additional work on top of the quirk from 0e68c4b11f1e6.
 
-Hi Nandakumar,
+Note that the device can boot up with working speakers and micmute LED
+without this patch, but the success rate would be quite low (order of
+16 working boots across 709 boots) at least for the built-in drivers
+scenario. This also means that there are some timing issues during early
+boot and this patch is a workaround.
 
-You made the dmesg warning go away, but that didn't necessarily solve
-the underlying issue. May I ask that you post the "lsusb -v -d
-1397:0507" ?
+Changes are tested on v5.16. Speakers and headphones are consistenly
+working, as well as mute/micmute LEDs and the internal microphone.
 
-I may ask you to activate dyndbg for the snd-usb-audio module next.
+Signed-off-by: Alexander Sergeyev <sergeev917@gmail.com>
+---
+ sound/pci/hda/patch_realtek.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-> I remember having read that
-> UMC20x is well-supported in Linux. Maybe now they're using a different
-> firmware version or something?
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 28255e752c4a..b809de2b9759 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6784,6 +6784,7 @@ enum {
+ 	ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE,
+ 	ALC233_FIXUP_NO_AUDIO_JACK,
+ 	ALC256_FIXUP_MIC_NO_PRESENCE_AND_RESUME,
++	ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED,
+ };
+ 
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -8514,6 +8515,16 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
+ 	},
++	[ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED] = {
++		.type = HDA_FIXUP_VERBS,
++		.v.verbs = (const struct hda_verb[]) {
++			 { 0x20, AC_VERB_SET_COEF_INDEX, 0x19 },
++			 { 0x20, AC_VERB_SET_PROC_COEF, 0x8e11 },
++			 { }
++		},
++		.chained = true,
++		.chain_id = ALC285_FIXUP_HP_MUTE_LED,
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -8727,6 +8738,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8870, "HP ZBook Fury 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x8873, "HP ZBook Studio 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x888d, "HP ZBook Power 15.6 inch G8 Mobile Workstation PC", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8895, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8896, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8898, "HP EliteBook 845 G8 Notebook PC", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x103c, 0x88d0, "HP Pavilion 15-eh1xxx (mainboard 88D0)", ALC287_FIXUP_HP_GPIO_LED),
+-- 
+2.34.1
 
-Seems to be a different revision indeed, but don't worry, most of the
-time these bugs are fixable.
-
-> If you are interested, here is a list of 
-> things
-> I've already tried:
-> 
-> - Different ports, including USB 2.0, and disabling xHCI using `setpci`
-> - Disconnecting other USB devices
-> - Disabling wireless
-> - Making sure speech-dispatcher isn't running
-> - Old and new GNU/Linux distros on different computers
-> - Switching sound servers (PulseAudio and JACK) and direct ALSA
-> - Different sampling rates, buffer sizes, etc.
-> - Lower volume levels
-> - Making sure there are no xruns
-> - tsched=0 and 1 for module-udev-detect (pulse)
-> - realtime-scheduling, high-priority, and nice-level (pulse)
-> - Choosing Performance mode for CPU Governer and disabling Intel Boost
->    (as recommended by Ubuntu Studio dashboard)
-> - lowlatency kernel
-> - A recent kernel (v5.15.13) built from source with oldconfig
-> - Clock source workaround in sound/usb/clock.c
-> - Quirk entries in sound/usb/implicit.c (I won't claim I did it right)
-> 
-> Again, I'd like to hear your comments on the clock detection workaround 
-> first,
-> since that's the only thing I seem to have solved with all these hours spent
-> (except for learning a lot, of course). But if you have time, please 
-> consider
-> the second (main) issue also. Maybe I'm posting this in the wrong place; 
-> if so,
-> please let me know where to repost it (official forum or a kernel 
-> mailing list).
-
-alsa-devel is the place where finished contributions land, but it's also
-a place to ask for lower-level help in ALSA development. Don't worry,
-you are in the right place.
-
-> 
-> Thank you,
-> 
-> -- 
-> Nandakumar Edamana
-> https://nandakumar.org
-> 
-> GPG Key: https://nandakumar.org/contact/gpgkey.asc
-> GPG Key Fingerprint: BA6B 8FDE 644F F861 B638  3E2F 45D6 05FC 646A F75D
-> 

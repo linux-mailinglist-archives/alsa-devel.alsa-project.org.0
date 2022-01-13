@@ -2,78 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 903E348CD16
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jan 2022 21:27:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5EA648D04B
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 02:57:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D5FA1EF8;
-	Wed, 12 Jan 2022 21:26:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D5FA1EF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F0741B1C;
+	Thu, 13 Jan 2022 02:56:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F0741B1C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642019268;
-	bh=cmhLy2J1afnp6gpFyGDqLtbbQq3RXm2M4Drjehcc+as=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bOdzZ0KcemP1Em/E53vM6vGmyUt96qDS+hcS/Q8TSt8b3cGkmWlkE/8aukB4+CRHX
-	 m2UKSf4Xg3Cu6xq02tl0acl1m8jilBtvtYM3TDoFp41hSipZ0nWmqZtG//JCnoZBm8
-	 NXbOsSwmejbpeCAbxEPJF67rYaWWdyespdOyK29s=
+	s=default; t=1642039055;
+	bh=pc5mjXXq2Wbie5CcpLERffYqZp3Uv2D2NGLR2ia5rZo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=X/8ZtPWAJERByEASYat3Kaqz3ms1BX5hlam5XrzNTgmgl4T6uuslBKS1sGtGgLAdQ
+	 p/gDaz8UpeU6OFeRl29cXpVInIXZcLUdVSuMY2/MDEkPFfPnyZrMhOR/dzI6cojzOc
+	 pjf5FDLb1EfywizBgV89bb4CNs8KLfGsmPSytfa0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93CFDF8026D;
-	Wed, 12 Jan 2022 21:26:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A273F8026D;
+	Thu, 13 Jan 2022 02:56:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2E48F80236; Wed, 12 Jan 2022 21:26:37 +0100 (CET)
+ id 9681BF8026A; Thu, 13 Jan 2022 02:56:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C7A1F80236
- for <alsa-devel@alsa-project.org>; Wed, 12 Jan 2022 21:26:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C7A1F80236
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cNSrvhel"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CF97961982;
- Wed, 12 Jan 2022 20:26:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75F33C36AE9;
- Wed, 12 Jan 2022 20:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642019188;
- bh=cmhLy2J1afnp6gpFyGDqLtbbQq3RXm2M4Drjehcc+as=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cNSrvhelUyjndS3PPZTl/RDy22wCDC7kDValteAjswg90E0eyZVvA3cDUOwePKlEj
- Vn+ZlFwx1m8Z/mNi0LMJoMwkUUL4+pPc16RVOAE89+xv4Z0pg4tndnCLTYGcPg5Ub0
- pzkgeOHo80+zVQIRetMINaTl/YkoTHaeB1CQnwZrNVcPTfMjr8wGh+JLpB57SWww6X
- YJrKdr/x4oudEb3Kty/gKtJdcbgfz6hXEOZxQosiqsOn4W2PXblFDXqoWYXUeMbQix
- 8Gcb9HwRjzua8wnsHGQoxxsAAe3bsQZFB/CLC1saAgI9jNT6Nb1d5aI8oWfY07Dzu9
- jzdc8gdkfFEPg==
-Date: Wed, 12 Jan 2022 20:26:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Daniel Beer <daniel.beer@igorinstitute.com>
-Subject: Re: [PATCH 1/2] ASoC: add support for TAS5805M digital amplifier
-Message-ID: <Yd85bjKEX9JnoOlI@sirena.org.uk>
-References: <61dccc59.1c69fb81.e1d98.02e3@mx.google.com>
- <Yd26p8rF3arufd2R@sirena.org.uk>
- <20220111192806.GA10345@nyquist.nev>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=FORGED_SPF_HELO,
+ KHOP_HELO_FCRDNS,SPF_HELO_PASS autolearn=disabled version=3.4.0
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by alsa1.perex.cz (Postfix) with ESMTP id D88D3F80236
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 02:56:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D88D3F80236
+Received: from localhost.localdomain (unknown [124.16.138.126])
+ by APP-05 (Coremail) with SMTP id zQCowAD3_ye4ht9hf0sdBg--.22540S2;
+ Thu, 13 Jan 2022 09:56:08 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: broonie@kernel.org
+Subject: Re: Re: [PATCH] ASoC: codecs: Check for error pointer after calling
+ devm_regmap_init_mmio
+Date: Thu, 13 Jan 2022 09:56:07 +0800
+Message-Id: <20220113015607.1124916-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="UGyhJCW8stP9TZVM"
-Content-Disposition: inline
-In-Reply-To: <20220111192806.GA10345@nyquist.nev>
-X-Cookie: Bridge ahead.  Pay troll.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Andy Liu <andy-liu@ti.com>, Rob Herring <robh+dt@kernel.org>,
- Derek Simkowiak <derek.simkowiak@igorinstitute.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAD3_ye4ht9hf0sdBg--.22540S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xry8GF15uF1UtF17WFWfZrb_yoWfXrg_Ww
+ 4FyF17Cw4UW3ZrJF1DtrnxZr98KF40qrZFyrn8GanxW3s3CFyrAr93u3WfZ34kCrZa9342
+ gr4jvF4Iqr13tjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb3xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+ 6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+ 4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+ Yx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbV
+ WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+ xVA2Y2ka0xkIwI1lc2xSY4AK67AK6w4l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+ v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+ 1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+ AIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0D
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvf
+ C2KfnxnUUI43ZEXa7VUbLiSPUUUUU==
+X-Originating-IP: [124.16.138.126]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Cc: cezary.rojewski@intel.com, bgoswami@codeaurora.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>, tiwai@suse.com, lgirdwood@gmail.com,
+ srinivas.kandagatla@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,38 +83,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Jan 12, 2022 at 10:20:34PM +0800, Mark Brown wrote:
+>> The devm_regmap_init_mmio() may return error pointer under certain
+>> circumstances, for example the possible failure of the kzalloc() in
+>> regmap_mmio_gen_context(), which is called by devm_regmap_init_mmio().
+>
+> This doesn't apply against current code, please check and resend.
 
---UGyhJCW8stP9TZVM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I checked linux-5.16, and don't think what I said is not against the
+latest code.
+The devm_regmap_init_mmio() is defined as devm_regmap_init_mmio_clk()
+in `include/linux/regmap.h`.
+And in the same file, the devm_regmap_init_mmio_clk() is defined as
+__devm_regmap_init_mmio_clk().
+Then, __devm_regmap_init_mmio_clk() -> regmap_mmio_gen_context() ->
+kzalloc().
+So I have no idea what's wrong.
+Maybe I didn't write the commit message clear.
+Please give me more detail.
 
-On Wed, Jan 12, 2022 at 08:28:06AM +1300, Daniel Beer wrote:
+Sincerely thanks,
+Jiang
 
-> The blob of register writes we get given from PPC3 contains a whole lot
-> of explicit page and book changes, and there's not an easy way to tell
-> regmap about this, as far as I know. Do you think it's acceptable to
-> stick with explicit paging for this reason, or is there a way to make
-> this work with regmap's paging?
-
-That's probably fine.  It's *really* hard to get enthusiastic about this
-system design TBH, just injecting a stream of unverified register writes=20
-is going to make the driver very fragile against changes but I'm not
-sure you're going to much better there.
-
---UGyhJCW8stP9TZVM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHfOW4ACgkQJNaLcl1U
-h9C27Af/ZA51Bc25kI6lte8YUiUwu/1vUA916HbEzpc+2TziDfzVZ2mmt3NxQTfK
-HdHHYFi7zHa/bpWKG8tVM5r388IyqQ+YZzBeX4PD//wdAquv1U5JQ8/zhsuatH8n
-8uFa4haY7Ww5CePjpPHWo3d7tla/3eXV6RaBz4ML+4ZkZrSYSTVPKqSsH8kiHtnA
-nhNzgM6PPCaUYZlstuq66ram2KTY2kLsga0nZqTr9ZYRp0FPunBFxJ3IXN5/wvRh
-JIUOPMEENVzWFC2L4ew98mSDn3Xo7s6cx41YRRQDt+w/O4bpMYDFrnk5MhWa7Ay8
-KI5VE72wzmr/miI2yPhTU0CHMDtXNw==
-=cyWj
------END PGP SIGNATURE-----
-
---UGyhJCW8stP9TZVM--

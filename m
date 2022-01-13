@@ -2,91 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B958B48D2AE
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 08:15:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04EC948D37F
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 09:23:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34B841A47;
-	Thu, 13 Jan 2022 08:14:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34B841A47
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26FCA1ACA;
+	Thu, 13 Jan 2022 09:22:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26FCA1ACA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642058147;
-	bh=Ew+nVGUYKhnxky8VOJG/+V2FzsIOG5hCpUMe/n/lNWs=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HX8yYnOKRYl8YhPR+dtX+L3meDYx80N3TYVzT+q0E57NhnoxOa69hzDsWx2InWN4u
-	 41rpUpKGaVMTuaCZgp0xDauoKPr0VtwSt+oDWzBlcCSRKiNb0D7gULW4T1z9Jv6bsa
-	 cDNUJAGFhyLpNBNkCeVCyt+pzYwQAV5rhXW1X7zM=
+	s=default; t=1642062187;
+	bh=YNfZIxVd+iwuXtL50tCfmOtsl8lTFA/LOos54M8zVt4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YSOe+pd22SU0wBlaEN1QbKrgmmINW4ft0Q27jEcmUArmN5C4bLBbwTt2I/LjE8Eld
+	 NgL0JTlzNYmFJ5YZuKs7mRJrQtk3xrrVIgL+nJzJfTS2Ah3Xm179dqDIaRAAtbz1ds
+	 9noDzVGYrFjNHGlHBBBEQLMzZZ1I/E3eT3q84Kvk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96D22F80141;
-	Thu, 13 Jan 2022 08:14:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05DD7F804FE;
+	Thu, 13 Jan 2022 09:21:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA35EF8013F; Thu, 13 Jan 2022 08:14:36 +0100 (CET)
+ id 17666F80054; Thu, 13 Jan 2022 09:21:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40441F80054
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 08:14:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40441F80054
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SCPGJPa5"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="0N6bdpLi"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 62779212B9;
- Thu, 13 Jan 2022 07:14:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642058069; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=68BPiA9q74CYVpmbvqf14shCqahIvJ0BJK1IwaLqeeQ=;
- b=SCPGJPa5Tq7C++7BQwJ193k7gp3DVEm2jBQNWEGliSztiScMm9VY30+I5Etev0yyWgsffd
- rqQ0MhGCuTTsom0+h2SNv//ohxhb6rr62BBAPtdaMxKJzFy5XpAUjU45K/OVLh5CmtQA+u
- tEjMwUYi5vdzcaqwNLovKyWHck27iG4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642058069;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=68BPiA9q74CYVpmbvqf14shCqahIvJ0BJK1IwaLqeeQ=;
- b=0N6bdpLiJjUWUzXNHa1SnPNHkoQh96eub9mYWeMAbFrMCZj9gRDZ5hXAD4qZt9e1t1AT8S
- 617rNmvoMSS0H1CA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1AEA5A3B83;
- Thu, 13 Jan 2022 07:14:29 +0000 (UTC)
-Date: Thu, 13 Jan 2022 08:14:29 +0100
-Message-ID: <s5h8rvk85uy.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Sergeyev <sergeev917@gmail.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-In-Reply-To: <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
-References: <20210519170357.58410-1-jeremy.szu@canonical.com>
- <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
- <s5ho84h9tit.wl-tiwai@suse.de>
- <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
- <s5hilup9s87.wl-tiwai@suse.de>
- <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
- <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14709F80054;
+ Thu, 13 Jan 2022 09:21:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14709F80054
+X-UUID: 7888ba9aa3eb45ef88344f8c7d586293-20220113
+X-UUID: 7888ba9aa3eb45ef88344f8c7d586293-20220113
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw02.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 2069244929; Thu, 13 Jan 2022 16:21:06 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Thu, 13 Jan 2022 16:21:04 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Thu, 13 Jan 2022 16:21:04 +0800
+From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
+To: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Subject: [PATCH v13 0/2] Mediatek ADSP mailbox controller support for MT8195
+Date: Thu, 13 Jan 2022 16:21:01 +0800
+Message-ID: <20220113082103.27911-1-allen-kh.cheng@mediatek.com>
+X-Mailer: git-send-email 2.18.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, cujomalainey@google.com,
+ Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com, Mark
+ Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,117 +85,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 12 Jan 2022 21:18:24 +0100,
-Alexander Sergeyev wrote:
-> 
-> On Wed, Jan 12, 2022 at 01:48:28PM +0300, Alexander Sergeyev wrote:
-> >On Wed, Jan 12, 2022 at 11:13:44AM +0100, Takashi Iwai wrote:
-> >> You may try to get the codec proc dump with COEF by passing
-> >> snd_hda_codec.dump_coef=1 module option for both working and
-> >> non-working cases.
-> >>You can unbind and re-bind the PCI (HD-audio controller) device via sysfs.
-> >
-> >I'll try both options later today when able, thank you!
-> 
-> First, about unbind and bind via sysfs -- attempts to unbind the
-> HD-audio controller immediately trigger BUGs:
-> 
-> 05:00.6 Audio device [0403]: Advanced Micro Devices, Inc. [AMD] Family
-> 17h (Models 10h-1fh) HD Audio Controller [1022:15e3]
-> 
-> echo -n '0000:05:00.6' > /sys/bus/pci/drivers/snd_hda_intel/unbind
-> 
-> BUG: unable to handle page fault for address 000000000000173c
-> #PF: supervisor read access in kernel mode
-> #PF: error_code(0x0000) - not-present page
-> PGD 0 P4D 0
-> Oops: 0000 [#1] SMP NOPTI
-> CPU: 2 PID: 167 Comm: kworker/2:3 Tainted: G  T 5.16.0-dirty #3
-> Workqueue: events set_brightness_delayed
-> RIP: 0010:coef_micmute_led_set+0xf/0x60
-> ...
-> Call Trace:
->   <TASK>
->   set_brightness_delayed+0x6f/0xb0
->   process_one_work+0x1e1/0x380
->   worker_thread+0x4b/0x3b0
->   ? rescuer_thread+0x370/0x370
->   kthread+0x142/0x160
->   ? set_kthread_struct+0x50/0x50
->   ret_from_work+0x22/0x30
->   </TASK>
-> 
-> Is it normal/expected?
+From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 
-A sort of.  The sysfs unbind is little tested and may be still buggy
-if done during the stream operation.
+Mediatek ADSP IPC is used to send notification or short message between processors with dsp.·
 
-To be sure, could you check with my latest sound.git tree for-linus
-branch?  There are a few fixes that harden the dynamic unbind.
+It will place the message to the share buffer and will access the ADSP mailbox registers to kick dsp.
 
-Though, the code path is from the leds class, and it might not be
-covered yet.  It's managed via devm, so it should have been cleared,
-but there may be still some ordering problem...
+Two mailboxes used to send notification or short message between processors with dsp
 
-> Second, about dump_coef. I've collected a bunch of samples from
-> /proc/asound/Generic_1/codec#0. Overall, there are 6 different
-> versions across 196 samples, two versions are with working sound (and
-> micmute LED).
-> 
-> 
-> Differences between _non-working_ versions:
-> 
-> Node 0x02 [Audio Output] wcaps 0x41d: Stereo Amp-Out
-> Amp-Out vals:  [0x3c 0x3c] // (!) OR [0x53 0x53]
-> Converter: stream=5, channel=0 // (!) OR stream=0, channel=0
-> 
-> Node 0x03 [Audio Output] wcaps 0x41d: Stereo Amp-Out
-> Amp-Out vals:  [0x3c 0x3c] // (!) OR [0x53 0x53]
-> Converter: stream=5, channel=0 // (!) OR stream=0, channel=0
-> 
-> Node 0x20 [Vendor Defined Widget] wcaps 0xf00040: Mono
-> Processing caps: benign=0, ncoeff=142
-> Coeff 0x0b: 0x8003 // (!) OR 0x7770
-> Coeff 0x19: 0x01e3 // (!) OR 0x21e3
-> 
-> Node 0x08 [Audio Input] wcaps 0x10051b: Stereo Amp-In
-> Amp-In vals:  [0x27 0x27] // (!) OR [0xa7 0xa7]
-> 
-> 
-> Differences between _working_ versions:
-> 
-> Node 0x20 [Vendor Defined Widget] wcaps 0xf00040: Mono
-> Processing caps: benign=0, ncoeff=142
-> Coeff 0x0b: 0x8003 // (!) OR 0x7770
-> 
-> 
-> Differences between _non_working_ and _working_ versions:
-> 
-> Node 0x20 [Vendor Defined Widget] wcaps 0xf00040: Mono
-> Processing caps: benign=0, ncoeff=142
-> Coeff 0x19: 0x01e3 OR 0x21e3 // (!) 0x8e11 for working versions
-> 
-> 
-> In short:
-> 1) Coeff 0x0b is flapping between 0x8003 and 0x7770 and does not seem
-> to have any effect in both non-working and working versions. Not sure
-> about this, maybe microphone is not operational since I haven't
-> checked it yet.
-> 2) Coeff 0x19 with 0x8e11 value makes speakers work. Non-working
-> values are 0x01e3 and 0x21e3.
-> 
-> Running the following commands makes speakers and micmute LED work
-> (0x20 is the node id, which is mentioned in the snippets above):
-> 
-> hda-verb /dev/snd/hwC1D0 0x20 SET_COEF_INDEX 0x19
-> hda-verb /dev/snd/hwC1D0 0x20 SET_PROC_COEF 0x8e11
-> 
-> Is it possible to somehow trace this particular coefficient to hunt
-> the timing issue? It would be great to have a proper fix.
+changes since v12:
+- remove of_device_get_match_data ptr check:
+  of_device_get_match_data(dev) will never going to return NULL.
+  driver probe with compatible mediatek,mt8195-adsp-mbox.
 
-Those might be some codec init values, which aren't set up properly by
-whatever reason, e.g. it might need a bit more wait time for init,
-etc.  You can fix it rather by issuing those explicitly at the fixup.
+changes since v11:
+- remove unuseful MODULE_LICENSE
+
+changes since v10:
+- split up v9 into two separate submissions
+  https://patchwork.kernel.org/project/linux-mediatek/patch/20220111071011.5964-1-allen-kh.cheng@mediatek.com/
+
+changes since v9:
+- rename adsp_mbox_chan_ops to mtk_adsp_mbox_chan_ops
+
+changes since v8:
+- remove struct adsp_mbox_ch_info
+- add get_mtk_adsp_mbox_priv
+- use mtk_adsp_mbox_priv va_mboxreg address in adsp mbox driver
+- add struct mtk_adsp_mbox_cfg for DSP mbox register offset
+- remove adsp mbox register offset hard code define
+- remove mtk-adsp-ipc.h reference in adsp mbox driver
+
+changes since v7:
+- add mtk prefix for adsp ipc functions
+- rename adsp_mbox_ch_info to mtk_adsp_mbox_ch_info
+- remove incorrect reviewers in commit message
+
+changes since v6:
+- dt-bindings: change example dtsi node.
+- rename config MTK_ADSP_IPC_MBOX to MTK_ADSP_MBOX
+- remove unused variable
+- add reviewers
+
+changes since v5:
+- remove some redundant code
+
+changes since v4:
+- use switch ... case in adsp_ipc_recv
+- add error handling path for chan_name pointer
+- refine some code to be concise
+
+changes since v3:
+- reorder MTK_ADSP_IPC_MBOX config
+- remove some redundant code
+- remove lock in mtk-adsp-mailbox
+
+changes since v2:
+- separate adsp_mailbox into two instances
+
+changes since v1:
+- fix dt_binding_check error
 
 
-Takashi
+Allen-KH Cheng (2):
+  dt-bindings: mediatek: add adsp-mbox document
+  mailbox: mediatek: add support for adsp mailbox controller
+
+ .../bindings/mailbox/mtk,adsp-mbox.yaml       |  52 ++++++
+ drivers/mailbox/Kconfig                       |   7 +
+ drivers/mailbox/Makefile                      |   2 +
+ drivers/mailbox/mtk-adsp-mailbox.c            | 172 ++++++++++++++++++
+ 4 files changed, 233 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
+ create mode 100644 drivers/mailbox/mtk-adsp-mailbox.c
+
+-- 
+2.18.0
+

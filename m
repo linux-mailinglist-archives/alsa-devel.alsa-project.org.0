@@ -2,64 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 453E048D9CA
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 15:39:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A0248DA27
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 15:51:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FC7A1F46;
-	Thu, 13 Jan 2022 15:38:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FC7A1F46
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6FAA1F99;
+	Thu, 13 Jan 2022 15:51:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6FAA1F99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642084753;
-	bh=TaHEMGIE9WQRzc+bmG5CHF19D/vuhGk7CLGXh0CLdqI=;
-	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Lb8I/9ArIgW44f5WT8tffW3yiDTdcAl4jAlv/OZJkdzBGsjQnX+YMyhmlVojmBVbj
-	 6zRjGOwLfSOpJqLL9AAluz3Ws872Ea3dkXIu3/98z+XVb7mFHPwedh395W1YmGU5H1
-	 whfUz9RdJJiT7Nwa886dDSwPZCTysN5k60wnqHMk=
+	s=default; t=1642085517;
+	bh=qGUpScSrM6PHOQ9896+ovOSrylwTkuQlIpt7KlyEp5s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=igdVOWKGrMd9Il3iykQpw97TaSB/8PU00BjR3Vbt1NtintMvJqTaPieN/0UhG4oCE
+	 +/VXBpYVPdXait2sRyVy+tv1CTuI2fYN4gPnejGE4Wq7ONa3Pdg5YSTowYdXSL0/EI
+	 g3Gao1IW9EDj4SnMV3j7xcXKevZ6IbYLI/YXcY9k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08087F80088;
-	Thu, 13 Jan 2022 15:38:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12653F80515;
+	Thu, 13 Jan 2022 15:49:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E531F8013F; Thu, 13 Jan 2022 15:38:03 +0100 (CET)
+ id 95308F8013F; Thu, 13 Jan 2022 15:45:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from server1.nandakumar.co.in (nandakumar.co.in [198.100.152.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9FBBF80054
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 15:37:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9FBBF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39F35F80088
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 15:45:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39F35F80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nandakumar.co.in header.i=@nandakumar.co.in
- header.b="jAG6QTeb"
-Received: from [192.168.100.185] (unknown [117.208.29.60])
- by server1.nandakumar.co.in (Postfix) with ESMTPSA id F289AC815B
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 14:37:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nandakumar.co.in;
- s=mail; t=1642084673;
- bh=TaHEMGIE9WQRzc+bmG5CHF19D/vuhGk7CLGXh0CLdqI=;
- h=Date:To:From:Subject:From;
- b=jAG6QTeba5+EcftoXD5AFCU0pFxtkVH7VmAMFr0nw+MFnO4kGAk3S/MXakZQFF1Le
- pcyTPKawnvibAZHIErErrB9dgO0WYuBPozyIlUYAqXGqLoNzuXhI9HoPChl7Tq5e1o
- 0PzayxeLw3nnZOKkGW4QYIQz4aQIhgobUrlSZa5o=
-Message-ID: <d61a41eb-a820-b1ca-dcf6-f447f80494a8@nandakumar.co.in>
-Date: Thu, 13 Jan 2022 20:07:49 +0530
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="rIF3lS/t"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E19ACB822A0;
+ Thu, 13 Jan 2022 14:45:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AA3CC36AEB;
+ Thu, 13 Jan 2022 14:45:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1642085148;
+ bh=qGUpScSrM6PHOQ9896+ovOSrylwTkuQlIpt7KlyEp5s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rIF3lS/tm9sqFT+BginWJM2+mt1t0i+1rbRTwFGO/b5RO54FFqysidEmT2WSnXujo
+ cGDZLPUBbnFnBovZVRCzJE12OIxe0UaqPbmDiXkUfgTiIFTn2YGRAzH3LqjFaP+tZD
+ stowk5nOSDH2HzMR+0nMTCmGiZrfOpEXlbtFzEEyyHKSnxaKn6wp5i+0CBOwWaYud8
+ h6IHjIqf66cMB/zCEPF7AQwqZAp9MkoApoumfwu6VFfqqNiQcfv/H1IDJvKTA9xbou
+ r4uQpom3hKk5szByYDLACU4vgN5e9UWDsM5Igx38QRWaZyToUoz1pHBLnnGGGgQZOi
+ t54X3kfj11igw==
+Date: Thu, 13 Jan 2022 14:45:30 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH 1/2] platform: make platform_get_irq_optional() optional
+Message-ID: <YeA7CjOyJFkpuhz/@sirena.org.uk>
+References: <20220110195449.12448-1-s.shtylyov@omp.ru>
+ <20220110195449.12448-2-s.shtylyov@omp.ru>
+ <20220110201014.mtajyrfcfznfhyqm@pengutronix.de>
+ <YdyilpjC6rtz6toJ@lunn.ch>
+ <CAMuHMdWK3RKVXRzMASN4HaYfLckdS7rBvSopafq+iPADtGEUzA@mail.gmail.com>
+ <20220112085009.dbasceh3obfok5dc@pengutronix.de>
+ <CAMuHMdWsMGPiQaPS0-PJ_+Mc5VQ37YdLfbHr_aS40kB+SfW-aw@mail.gmail.com>
+ <20220112213121.5ruae5mxwj6t3qiy@pengutronix.de>
+ <Yd9L9SZ+g13iyKab@sirena.org.uk>
+ <20220113110831.wvwbm75hbfysbn2d@pengutronix.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-To: alsa-devel@alsa-project.org
-Content-Language: en-GB
-From: Nandakumar Edamana <nandakumar@nandakumar.co.in>
-Subject: Behringer UMC202HD issues and a partial solution
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="W6TsDGUCC61npB/4"
+Content-Disposition: inline
+In-Reply-To: <20220113110831.wvwbm75hbfysbn2d@pengutronix.de>
+X-Cookie: Slow day.  Practice crawling.
+X-Mailman-Approved-At: Thu, 13 Jan 2022 15:49:43 +0100
+Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Vignesh Raghavendra <vigneshr@ti.com>, KVM list <kvm@vger.kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Guenter Roeck <groeck@chromium.org>, Thierry Reding <thierry.reding@gmail.com>,
+ MTD Maling List <linux-mtd@lists.infradead.org>,
+ Linux I2C <linux-i2c@vger.kernel.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-phy@lists.infradead.org,
+ Jiri Slaby <jirislaby@kernel.org>, openipmi-developer@lists.sourceforge.net,
+ "David S. Miller" <davem@davemloft.net>,
+ Khuong Dinh <khuong@os.amperecomputing.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ Joakim Zhang <qiangqing.zhang@nxp.com>, Kamal Dasu <kdasu.kdev@gmail.com>,
+ Lee Jones <lee.jones@linaro.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ Zhang Rui <rui.zhang@intel.com>, Linux PWM List <linux-pwm@vger.kernel.org>,
+ Robert Richter <rric@kernel.org>, Saravanan Sekar <sravanhome@gmail.com>,
+ Corey Minyard <minyard@acm.org>, Linux PM list <linux-pm@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, John Garry <john.garry@huawei.com>,
+ Peter Korsgaard <peter@korsgaard.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Tony Luck <tony.luck@intel.com>,
+ Borislav Petkov <bp@alien8.de>, Sebastian Reichel <sre@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, platform-driver-x86@vger.kernel.org,
+ Benson Leung <bleung@chromium.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
+ Sergey Shtylyov <s.shtylyov@omp.ru>, Mun Yew Tham <mun.yew.tham@intel.com>,
+ Eric Auger <eric.auger@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Cornelia Huck <cohuck@redhat.com>, Linux MMC List <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-spi <linux-spi@vger.kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, James Morse <james.morse@arm.com>,
+ Zha Qipeng <qipeng.zha@intel.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Richard Weinberger <richard@nod.at>,
+ Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
+ linux-mediatek@lists.infradead.org, Brian Norris <computersforpeace@gmail.com>,
+ netdev@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,89 +145,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Trying to make my Behringer UMC202HD audio interface work with GNU/Linux.
-While doing so, I managed to make a warning disappear by editing a file in
-the kernel source. The main issue I'm having with the interface isn't 
-gone, and
-I am not sure whether to bother you people with that now. However I'd 
-like to
-read your comments on the edit I made regarding the warning.
 
-Details:
+--W6TsDGUCC61npB/4
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-- Product: 1397:0507 BEHRINGER International GmbH UMC202HD 192k
-- dmesg warning: clock source 41 is not valid, cannot use
-- kernel: linux-5.15.13
-- Edit that made the warning disappear:
+On Thu, Jan 13, 2022 at 12:08:31PM +0100, Uwe Kleine-K=F6nig wrote:
 
-$ diff -u sound/usb/clock.c.orig sound/usb/clock.c
---- sound/usb/clock.c.orig    2022-01-13 08:14:49.555281286 +0530
-+++ sound/usb/clock.c    2022-01-13 08:18:38.004618792 +0530
-@@ -180,7 +180,11 @@
-       * Sample rate changes takes more than 2 seconds for this device. 
-Clock
-       * validity request returns false during that period.
-       */
--    if (chip->usb_id == USB_ID(0x07fd, 0x0004)) {
-+    if (chip->usb_id == USB_ID(0x07fd, 0x0004) ||
-+        /* Trying the same for BEHRINGER International GmbH UMC202HD 
-192k */
-+        chip->usb_id == USB_ID(0x1397, 0x0507)
-+        )
-+    {
-          count = 0;
+> This is all very unfortunate. In my eyes b) is the most sensible
+> sense, but the past showed that we don't agree here. (The most annoying
+> part of regulator_get is the warning that is emitted that regularily
+> makes customers ask what happens here and if this is fixable.)
 
-          while ((!ret) && (count < 50)) {
+Fortunately it can be fixed, and it's safer to clearly specify things.
+The prints are there because when the description is wrong enough to
+cause things to blow up we can fail to boot or run messily and
+forgetting to describe some supplies (or typoing so they haven't done
+that) and people were having a hard time figuring out what might've
+happened.
 
+> I think at least c) is easy to resolve because
+> platform_get_irq_optional() isn't that old yet and mechanically
+> replacing it by platform_get_irq_silent() should be easy and safe.
+> And this is orthogonal to the discussion if -ENOXIO is a sensible return
+> value and if it's as easy as it could be to work with errors on irq
+> lookups.
 
+It'd certainly be good to name anything that doesn't correspond to one
+of the existing semantics for the API (!) something different rather
+than adding yet another potentially overloaded meaning.
 
-Yes, I was just adding the ID of UMC202HD to an existing workaround. I'm not
-sure if the device's clock should actually be accepted (but I think so 
-because
-the retry works, right?), or if two seconds is the right delay for UMC202HD.
+--W6TsDGUCC61npB/4
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The real issue I'm having with this device is related to the periodic
-stuttering/pops while playback (recording is okay). I remember having 
-read that
-UMC20x is well-supported in Linux. Maybe now they're using a different
-firmware version or something? If you are interested, here is a list of 
-things
-I've already tried:
+-----BEGIN PGP SIGNATURE-----
 
-- Different ports, including USB 2.0, and disabling xHCI using `setpci`
-- Disconnecting other USB devices
-- Disabling wireless
-- Making sure speech-dispatcher isn't running
-- Old and new GNU/Linux distros on different computers
-- Switching sound servers (PulseAudio and JACK) and direct ALSA
-- Different sampling rates, buffer sizes, etc.
-- Lower volume levels
-- Making sure there are no xruns
-- tsched=0 and 1 for module-udev-detect (pulse)
-- realtime-scheduling, high-priority, and nice-level (pulse)
-- Choosing Performance mode for CPU Governer and disabling Intel Boost
-   (as recommended by Ubuntu Studio dashboard)
-- lowlatency kernel
-- A recent kernel (v5.15.13) built from source with oldconfig
-- Clock source workaround in sound/usb/clock.c
-- Quirk entries in sound/usb/implicit.c (I won't claim I did it right)
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHgOwoACgkQJNaLcl1U
+h9DB2wf+MsmuWAbFkx7w6dSqBFg+5BMfRX917lHiCsn2CYARHwyaPL5M5EVrbehK
+70/euCaJWItviAfkx+6AAOYCmbHs8mt+zpvgLriDTnZOumRiZfiGXMZHt85uxFOg
++CON0NcPugM2d7SZyRdxLTQBcBJt3wzMoV71nZv43fG+BMfssZy/ADYB75p648wU
+r7n86P+i3Kh+8hkINY1UdrfNXf7GkWehj0fZhkQ6PO+sH6jH8JFft+mMsKvTkCfp
+th2g66aUCkHb8ML7wNc5DEOQZlW9A7QyBKZpFWcduJs7uD92dqsoRJ7ch05zM3z/
+HtLt6l6YJ3XD702pvFQA2C4cb/OGkA==
+=d1L9
+-----END PGP SIGNATURE-----
 
-Again, I'd like to hear your comments on the clock detection workaround 
-first,
-since that's the only thing I seem to have solved with all these hours spent
-(except for learning a lot, of course). But if you have time, please 
-consider
-the second (main) issue also. Maybe I'm posting this in the wrong place; 
-if so,
-please let me know where to repost it (official forum or a kernel 
-mailing list).
-
-Thank you,
-
--- 
-Nandakumar Edamana
-https://nandakumar.org
-
-GPG Key: https://nandakumar.org/contact/gpgkey.asc
-GPG Key Fingerprint: BA6B 8FDE 644F F861 B638  3E2F 45D6 05FC 646A F75D
-
+--W6TsDGUCC61npB/4--

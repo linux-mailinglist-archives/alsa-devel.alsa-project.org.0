@@ -2,105 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECFAA48DB20
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 16:54:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FC1048DB6D
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jan 2022 17:13:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 882441FB6;
-	Thu, 13 Jan 2022 16:53:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 882441FB6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91D191FB4;
+	Thu, 13 Jan 2022 17:12:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91D191FB4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642089244;
-	bh=P52WAOzIEOYbb9jr6942W/v98vIc3pyEjtYLPP1TiSk=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1642090411;
+	bh=rAbS0ibmRI7QIfh1yKc8CRsA1HULjEF9GcCLKv+bDp4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FE1+QZ9r6tbHeC9KsNz50SBlnZ6VxilpdVNGtqQZyKYPvWgeoj7CjMD9g5/zO3u0Q
-	 WjouDxq38PDGSAXKOc9J1KifnjzP/mhmr1yjznMIw0ChNDo4rradMKv6ifV9zYMYiE
-	 CLSUlCSEJWafiLSZWX0PtjgBrxl+XNBBQArxHhQw=
+	b=ImYAUgxCHS1ZsMAH8Fz8X4Z0ER7Afz7jx6I6YQR/wcGKA44b26Q5O3UynegumQioq
+	 /oemXIxN7C57E7Q2KYqQKKI8UHAdcy+4eNooyEv0+QrQjwiT+QraZpPaniVmKPCnhc
+	 uKd3mw4dalKjbusRnyaWnGRH9KioR8tUJW/t7Eno=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC1B0F80141;
-	Thu, 13 Jan 2022 16:52:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD01FF80141;
+	Thu, 13 Jan 2022 17:12:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79A07F8013F; Thu, 13 Jan 2022 16:52:53 +0100 (CET)
+ id 93FA0F8013F; Thu, 13 Jan 2022 17:12:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D220F800B9
- for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 16:52:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D220F800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83A9FF80088
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 17:12:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83A9FF80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="AAI8iCsX"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20D7TDuT015302;
- Thu, 13 Jan 2022 09:52:45 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : from : to : subject : references : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=3eTAYHBuhkXwQz8GvoKIzHu0Qzy8xDbMNp5+VdUW3zk=;
- b=AAI8iCsXQITSaMOXUqVVhEiEw/fqjtjbbPiPdS+szivZVOlqq41wNxroy4/J+hveNKJy
- FQ96juaehR22MAGPU1yB1zb0uJ61VFU7uU9fQ6lCsZKUphhe8SqU+ff8rRR5Sifvb4B5
- dxGeJglcIXmTfPdkzIEytQVhGM+WxaxBCl1yxhcJ3wpj4yO0MoDEUdh1RKjB7Ky93dLV
- L13WwAvd+Iy41e2YAB0wReBGHI8z5n0DW8DwX6I9FQ5wwOFwNLQlwXKGIp0p/vpNJKA9
- mk4Q/g9QQvLCfMCZBZiZDVC3w+CxrjF5lZo5TM4L5HZKbybm3yhPUTgTGlo2wU7A79vo CA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dhejy26sq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 13 Jan 2022 09:52:45 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 13 Jan
- 2022 15:52:43 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Thu, 13 Jan 2022 15:52:43 +0000
-Received: from [198.61.65.50] (unknown [198.61.65.50])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DE79CB0E;
- Thu, 13 Jan 2022 15:52:36 +0000 (UTC)
-Message-ID: <bfe7b97b-4ec9-13a0-aed4-e15d18b03df3@opensource.cirrus.com>
-Date: Thu, 13 Jan 2022 15:52:36 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-From: <tanureal@opensource.cirrus.com>
-To: Cameron Berkenpas <cam@neo-zeon.de>, Stefan Binding
- <sbinding@opensource.cirrus.com>, 'Hans de Goede' <hdegoede@redhat.com>,
- "'Rafael J. Wysocki'" <rafael@kernel.org>, 'moderated list: "SOUND - SOC
- LAYER / DYNAMIC AUDIO POWER MANAGEM...'" <alsa-devel@alsa-project.org>,
- 'Liam Girdwood' <lgirdwood@gmail.com>,
- <patches@opensource.cirrus.com>, 'Takashi Iwai' <tiwai@suse.com>,
- 'Mark Gross' <markgross@kernel.org>, 'ACPI Devel
- Maling List' <linux-acpi@vger.kernel.org>,
- 'Mark Brown' <broonie@kernel.org>,
- 'Platform Driver' <platform-driver-x86@vger.kernel.org>, 'Linux Kernel
- Mailing List' <linux-kernel@vger.kernel.org>,
- 'Len Brown' <lenb@kernel.org>;
-Subject: Re: [PATCH v6 08/10] ACPI / scan: Create platform device for CLSA0100
- and CSC3551 ACPI nodes
-References: <20211217115708.882525-1-tanureal@opensource.cirrus.com>
- <20211217115708.882525-9-tanureal@opensource.cirrus.com>
- <CAJZ5v0jTELqFeO6q6w_mYNo_yf1R9SX66RrEz0ZSe27w7E6kog@mail.gmail.com>
- <4b5506b1-20c6-3983-d541-86dc2388b2a7@redhat.com>
- <004001d7f5c6$7329d4d0$597d7e70$@opensource.cirrus.com>
- <e2d39d52-c139-a94a-94cc-88841d3638e3@opensource.cirrus.com>
- <3f042293-05de-d472-dd6e-ce5ca3a8331b@neo-zeon.de>
-In-Reply-To: <3f042293-05de-d472-dd6e-ce5ca3a8331b@neo-zeon.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: hoxzO8VJxXFJMNQMRsDgldZyIoHMplz3
-X-Proofpoint-ORIG-GUID: hoxzO8VJxXFJMNQMRsDgldZyIoHMplz3
-X-Proofpoint-Spam-Reason: safe
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="f/P4HyFr"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="mQaBkR2l"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E51CD1F3BA;
+ Thu, 13 Jan 2022 16:12:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1642090332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=yAdFeGuSrg6CdcZrhVcPF9lmz3MLRx4AGnEN8Y0bTCc=;
+ b=f/P4HyFrpqHqb07LXIGWRtApvbQf+jJNf7HouPCVulWMILxW4P8tgkPZcpg/Zgp6kqC5NT
+ tqRGLFsHx5/hiWSmFvHFI4KUwhcQeCGkdxUDdTyZEvtEGbbJM1Pi/+8qshuw9zp7WJYspi
+ NU/sxgl4Mz942yVhnTeQIyI9S1lSp2w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1642090332;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=yAdFeGuSrg6CdcZrhVcPF9lmz3MLRx4AGnEN8Y0bTCc=;
+ b=mQaBkR2lsxvjYYPz2MFkE5mlMluCW8kTkLPanCnlJXYr7SWNQkPb7LCPD3ZrR5txzd1/wN
+ tqxkM9VxHX8GFwCA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C744AA3B88;
+ Thu, 13 Jan 2022 16:12:12 +0000 (UTC)
+Date: Thu, 13 Jan 2022 17:12:12 +0100
+Message-ID: <s5hv8yn62eb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [PATCH] ASoC: soc-pcm: Fix DPCM lockdep warning due to nested
+ stream locks
+In-Reply-To: <91d7a1df-9e90-7c07-f15c-7ca1dad0b4ef@samsung.com>
+References: <CGME20220113141905eucas1p1efcaf3ad1d07e784635586bb5d38c4d6@eucas1p1.samsung.com>
+ <20220113141858.10904-1-tiwai@suse.de>
+ <91d7a1df-9e90-7c07-f15c-7ca1dad0b4ef@samsung.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,27 +100,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/12/22 8:00 PM, Cameron Berkenpas <cam@neo-zeon.de> wrote:
-> Hello,
+On Thu, 13 Jan 2022 15:59:31 +0100,
+Marek Szyprowski wrote:
 > 
-> Will this also include adding support for ID's matching CLSA0101?
-> 
-> Thanks,
-> 
-> -Cameron
-> 
-> On 1/12/22 05:05, Lucas tanure wrote:
-> > As the ic2-multi-instantiate patch chain is still being worked out, we 
-> > would like to submit a new chain for CLSA0100 id and a few fixes for 
-> > the HDA cs35l41 driver.
-> > And to avoid conflicts the ic2-multi-instantiate patch chain will wait 
-> > for this new patch chain to be merged.
+> On 13.01.2022 15:18, Takashi Iwai wrote:
+> > The recent change for DPCM locking caused spurious lockdep warnings.
+> > Actually the warnings are false-positive, as those are triggered due
+> > to the nested stream locks for FE and BE.  Since both locks belong to
+> > the same lock class, lockdep sees it as if a deadlock.
 > >
-> > Thanks,
-> > Lucas Tanure 
+> > For fixing this, we need take PCM stream locks for BE with the nested
+> > lock primitives.  Since currently snd_pcm_stream_lock*() helper
+> > assumes only the top-level single locking, a new helper function
+> > snd_pcm_stream_lock_irqsave_nested() is defined for a single-depth
+> > nested lock, which is now used in the BE DAI trigger that is always
+> > performed inside a FE stream lock.
+> >
+> > Fixes: b7898396f4bb ("ASoC: soc-pcm: Fix and cleanup DPCM locking")
+> > Reported-and-tested-by: Hans de Goede <hdegoede@redhat.com>
+> > Reported-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> > Link: https://lore.kernel.org/r/73018f3c-9769-72ea-0325-b3f8e2381e30@redhat.com
+> > Link: https://lore.kernel.org/alsa-devel/9a0abddd-49e9-872d-2f00-a1697340f786@samsung.com
+> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
 > 
-> 
-Hi, 
-We have the plan to support CLSA0101 in the near future, but not for this current patch series.
-Lucas
+> Thanks for the fix! It helps a bit, but I still get a warning (a 
+> different one now):
 
+Thanks for the quick testing.  Actually we do have multiple issues.
+
+> root@target:~# speaker-test -l1
+> 
+> speaker-test 1.1.8
+> 
+> Playback device is default
+> Stream parameters are 48000Hz, S16_LE, 1 channels
+> Using 16 octaves of pink noise
+> Rate set to 48000Hz (requested 48000Hz)
+> Buffer size range from 128 to 131072
+> Period size range from 64 to 65536
+> Using max buffer size 131072
+> Periods = 4
+> was set period_size = 32768
+> was set buffer_size = 131072
+>   0 - Front Left
+> Time per period = 0.022199
+> max98090 1-0010: PLL unlocked
+> 
+> =====================================================
+> WARNING: SOFTIRQ-safe -> SOFTIRQ-unsafe lock order detected
+> 5.16.0-next-20220113-00001-g3967460dbcf4 #11212 Not tainted
+> -----------------------------------------------------
+> speaker-test/1319 [HC0[0]:SC0[0]:HE0:SE1] is trying to acquire:
+> c1296410 (pin_fs_lock){+.+.}-{2:2}, at: simple_pin_fs+0x1c/0xac
+> 
+> and this task is already holding:
+> c2fe6ea4 (&group->lock){..-.}-{2:2}, at: dpcm_be_disconnect+0x3c/0x348
+> which would create a new lock dependency:
+>   (&group->lock){..-.}-{2:2} -> (pin_fs_lock){+.+.}-{2:2}
+
+So that's the problem: we call debugfs_remove_recursive() in the
+spinlocked context.
+
+Could you try the patch below?  It's a bit hackish, but let's check
+whether that's the real cause or not.
+
+
+Takashi
+
+---
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1268,6 +1268,7 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
+ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
+ {
+ 	struct snd_soc_dpcm *dpcm, *d;
++	LIST_HEAD(deleted_dpcms);
+ 
+ 	snd_soc_dpcm_mutex_assert_held(fe);
+ 
+@@ -1287,13 +1288,18 @@ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
+ 		/* BEs still alive need new FE */
+ 		dpcm_be_reparent(fe, dpcm->be, stream);
+ 
+-		dpcm_remove_debugfs_state(dpcm);
+-
+ 		list_del(&dpcm->list_be);
++		list_move(&dpcm->list_fe, &deleted_dpcms);
++	}
++	snd_soc_dpcm_stream_unlock_irq(fe, stream);
++
++	while (!list_empty(&deleted_dpcms)) {
++		dpcm = list_first_entry(&deleted_dpcms, struct snd_soc_dpcm,
++					list_fe);
+ 		list_del(&dpcm->list_fe);
++		dpcm_remove_debugfs_state(dpcm);
+ 		kfree(dpcm);
+ 	}
+-	snd_soc_dpcm_stream_unlock_irq(fe, stream);
+ }
+ 
+ /* get BE for DAI widget and stream */

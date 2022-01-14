@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56EE848EE54
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 17:38:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AF4C48EE9C
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 17:44:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEA391F72;
-	Fri, 14 Jan 2022 17:38:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEA391F72
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D0791FB4;
+	Fri, 14 Jan 2022 17:43:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D0791FB4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642178339;
-	bh=SM111OD0y1D8Zn9+oNsxsrayK//LCF6qn3lo8C3aQ+g=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=PWz2z2296kZX1mOJJu+m3h+kRh8BN2pA3QXsiGofX214bpu23DZlHFvkkVFQlfiow
-	 gmOFgElc+cWsYtdDsahGM7hMj5aZj3aqbvEw/TullVliRKEM17546btiO3PcyLr0zy
-	 3JmWr0W5jr2ZejCjZC2YUVmLyULYGvwbalfw7/wU=
+	s=default; t=1642178682;
+	bh=E/8x0gIxqAp0QcrywRx6gCenHu1+sN10A5iUGDY81kE=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lAWD6fNJmOEuuW9MvXlfbcBBgfjxnlsXxjDqFery+SUmDTn37Ewmm6wHN7K55uwlo
+	 wjojFsofJbFUjx/FX7KH3Siw7DEO3CYsrS6kiNUAxSIrS8A6AiZqOBDUqe+8kdbQ8Q
+	 hfVSw0myi/l7nIgyrRyiNE5s57Cvt3lKSc06TwE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 677EBF80310;
-	Fri, 14 Jan 2022 17:37:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C543F800CE;
+	Fri, 14 Jan 2022 17:43:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98EE0F8030F; Fri, 14 Jan 2022 17:37:49 +0100 (CET)
+ id 7EFA6F8030F; Fri, 14 Jan 2022 17:43:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3854AF800CE
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 17:37:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3854AF800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19193F80054
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 17:43:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19193F80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="CD+sUNNS"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="QOJpi+G3"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 68474219B1;
- Fri, 14 Jan 2022 16:37:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642178262; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zmtoZZdmqikoLleBgA5rE7Gqlol+bSO79e6psKPWRU4=;
- b=CD+sUNNSN9tVqehrxHGx5KfPnOXDoPY10gAO9uei6jI1iwiux2whwt7V4Q/lz9BnJcPP5t
- uSyNz+NVN0nCRHgS9qc3T4+B2wgHTuCBTMUgKDo5rtIfUW64r76QwDa6Spek0j4QNspe03
- rrw5hU4Tx/e5QCW0xez+rdQToj1skiQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642178262;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zmtoZZdmqikoLleBgA5rE7Gqlol+bSO79e6psKPWRU4=;
- b=QOJpi+G392iy1rUzQiH2qUm8F399GzzE5BgmRPjy0z85FDm8LnbfJMpZWySH32MJgoxSUi
- UrhHPEp7Oc9qPcDQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 53C3FA3B84;
- Fri, 14 Jan 2022 16:37:42 +0000 (UTC)
-Date: Fri, 14 Jan 2022 17:37:42 +0100
-Message-ID: <s5ha6fy46jt.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Sergeyev <sergeev917@gmail.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-In-Reply-To: <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
-References: <20210519170357.58410-1-jeremy.szu@canonical.com>
- <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
- <s5ho84h9tit.wl-tiwai@suse.de>
- <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
- <s5hilup9s87.wl-tiwai@suse.de>
- <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
- <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
- <s5h8rvk85uy.wl-tiwai@suse.de>
- <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="a3CJyZ/j"
+Received: by mail-lf1-x130.google.com with SMTP id s30so32064272lfo.7
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 08:43:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:user-agent:mime-version
+ :content-disposition;
+ bh=u50us0AD3nwGYBzCMwJX7WF8TLsdut+YHsrfo8CJPWQ=;
+ b=a3CJyZ/jLU+cLlc4mE7a17qTVo6dS8r1yJT4nLU2EjLDne0kM8tuyzg8e9wWe8Y1rZ
+ 3AXxcWkjz0JMQQcUCCR6PJbQDnZAeBNIWcKqImx3Pa5L56hGimc/3ORnnApaoP894PdK
+ 4rXCMZQJHWmJmNJkolRra+cze7ZgjxSnGA4gjjLJa5m8XCSFDCFE86xBWE8AWmespNMk
+ yJyXCtmfidb3+QLyY1CnUdJ3TSngGut+5JFcvtOEeIIE2WFYOVlUAoA6ALWgnZScIXqL
+ lsHTm2r9wNTqPUXDkb//zbLZf8sWShuNhg/HxM4Tp7utxuJilgkPmAImhNDMpv635j5G
+ PL3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:user-agent
+ :mime-version:content-disposition;
+ bh=u50us0AD3nwGYBzCMwJX7WF8TLsdut+YHsrfo8CJPWQ=;
+ b=YIokPrK0etcqvC9MNLfOn5dkj6rmJqFC9fVRVeUYmnGrtl7Hb02qorfb9Z8v4gvWyL
+ zvbXhdRM6Cdt958TcpayujqKqe1SNHFRgM3Wm+SwhfJbQiHSEkIoCrVdE7DpicOWFozY
+ HLLDt0XMoN0d5DXHHhJgP7BDYTnZfhvYhTtwJfx1Ef/Os61xiaepMokStuITCf/taiSw
+ kn3WAhtz8x/pVkZcNh6FXLvy92K++kJxayAUibWhm+lh4fGwQHo43a1l0hGDiqGkrWtM
+ ACS/MNS+0+zXZV17lm50hpOSemxmgmITS+DqUbnqnTiTSTaYZTzvGfaPMV29RJ63qZM9
+ sofg==
+X-Gm-Message-State: AOAM5303guVHz2kDHDVgsVM+wVSXkQoAo3Z9e+81hZI362DOoc7ohNY9
+ uL1a8WacqLnlzZ1/V+5iOWc=
+X-Google-Smtp-Source: ABdhPJy8oRBd9adSSDaJ1p5ffaklWXFU0PbvMzO4ZwJ2by8ZODfckkMB6FgQBA1GYupkLKeHr6Vacg==
+X-Received: by 2002:a2e:b4b8:: with SMTP id q24mr2950046ljm.482.1642178604185; 
+ Fri, 14 Jan 2022 08:43:24 -0800 (PST)
+Received: from localhost.localdomain (ntd06459.static.corbina.ru.
+ [95.31.14.149])
+ by smtp.gmail.com with ESMTPSA id cf42sm627703lfb.251.2022.01.14.08.43.23
+ (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
+ Fri, 14 Jan 2022 08:43:23 -0800 (PST)
+Date: Fri, 14 Jan 2022 19:49:05 +0300
+From: Alexander Sergeyev <sergeev917@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Jeremy Szu <jeremy.szu@canonical.com>,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Hui Wang <hui.wang@canonical.com>, Cameron Berkenpas <cam@neo-zeon.de>,
+ Kailang Yang <kailang@realtek.com>, Sami Loone <sami@loone.fi>,
+ Elia Devito <eliadevito@gmail.com>
+Subject: [PATCH v2 0/1] ALSA: hda/realtek: fix speakers and micmute on HP 855
+Message-ID: <20220114164904.lgj7yimbei6fmloe@localhost.localdomain>
+User-Agent: mtt
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,118 +103,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 13 Jan 2022 19:31:41 +0100,
-Alexander Sergeyev wrote:
-> 
-> On Thu, Jan 13, 2022 at 08:14:29AM +0100, Takashi Iwai wrote:
-> >> First, about unbind and bind via sysfs -- attempts to unbind the
-> >> HD-audio controller immediately trigger BUGs:
-> >> Is it normal/expected?
-> >
-> >A sort of. The sysfs unbind is little tested and may be still buggy
-> >if done during the stream operation.
-> >
-> >To be sure, could you check with my latest sound.git tree for-linus
-> >branch?  There are a few fixes that harden the dynamic unbind.
-> 
-> I assume that the referred repository is the one at [1]. I've tried
-> 081c73701ef0 "ALSA: hda: intel-dsp-config: reorder the config
-> table". It crashed with nearly identical logs.
+Rebased and re-tested on the latest sound.git tree.
 
-OK, then it's still something to do with the led cdev
-unregisteration.
+Alexander Sergeyev (1):
+  ALSA: hda/realtek: fix speakers and micmute on HP 855 G8
 
-Could you try the patch below?
+ sound/pci/hda/patch_realtek.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-> >> 1) Coeff 0x0b is flapping between 0x8003 and 0x7770 and does not seem
-> >> to have any effect in both non-working and working versions. Not sure
-> >> about this, maybe microphone is not operational since I haven't
-> >> checked it yet.
-> 
-> I got some time to poke the internal microphone. It works, but
-> oddities are there as well. Initially I get "Mic Boost", "Capture" and
-> "Internal Mic Boost" controls in alsamixer. When I run arecord,
-> "Digital" control appears, but it cannot be changed until arecord is
-> stopped. Subsequent arecord calls do not lock "Digital" control. This
-> control affects sensitivity of the microphone and seems useful.
+-- 
+2.34.1
 
-That's presumably an alsa-lib softvol stuff.  It's created
-dynamically.  So not really a kernel problem.
-
-
-Takashi
-
----
-diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
-index 3bf5e3410703..503cd979c908 100644
---- a/sound/pci/hda/hda_generic.c
-+++ b/sound/pci/hda/hda_generic.c
-@@ -84,13 +84,21 @@ static void free_kctls(struct hda_gen_spec *spec)
- 	snd_array_free(&spec->kctls);
- }
- 
--static void snd_hda_gen_spec_free(struct hda_gen_spec *spec)
-+static void snd_hda_gen_spec_free(struct hda_codec *codec)
- {
-+	struct hda_gen_spec *spec = codec->spec;
-+
- 	if (!spec)
- 		return;
- 	free_kctls(spec);
- 	snd_array_free(&spec->paths);
- 	snd_array_free(&spec->loopback_list);
-+#ifdef CONFIG_SND_HDA_GENERIC_LEDS
-+	if (spec->led_cdevs[LED_AUDIO_MUTE])
-+		led_classdev_unregister(spec->led_cdevs[LED_AUDIO_MUTE]);
-+	if (spec->led_cdevs[LED_AUDIO_MICMUTE])
-+		led_classdev_unregister(spec->led_cdevs[LED_AUDIO_MICMUTE]);
-+#endif
- }
- 
- /*
-@@ -3922,7 +3930,9 @@ static int create_mute_led_cdev(struct hda_codec *codec,
- 						enum led_brightness),
- 				bool micmute)
- {
-+	struct hda_gen_spec *spec = codec->spec;
- 	struct led_classdev *cdev;
-+	int err;
- 
- 	cdev = devm_kzalloc(&codec->core.dev, sizeof(*cdev), GFP_KERNEL);
- 	if (!cdev)
-@@ -3935,7 +3945,11 @@ static int create_mute_led_cdev(struct hda_codec *codec,
- 	cdev->brightness = ledtrig_audio_get(micmute ? LED_AUDIO_MICMUTE : LED_AUDIO_MUTE);
- 	cdev->flags = LED_CORE_SUSPENDRESUME;
- 
--	return devm_led_classdev_register(&codec->core.dev, cdev);
-+	err = led_classdev_register(&codec->core.dev, cdev);
-+	if (err < 0)
-+		return err;
-+	spec->led_cdevs[micmute ? LED_AUDIO_MICMUTE : LED_AUDIO_MUTE] = cdev;
-+	return 0;
- }
- 
- /**
-@@ -5998,7 +6012,7 @@ EXPORT_SYMBOL_GPL(snd_hda_gen_init);
- void snd_hda_gen_free(struct hda_codec *codec)
- {
- 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_FREE);
--	snd_hda_gen_spec_free(codec->spec);
-+	snd_hda_gen_spec_free(codec);
- 	kfree(codec->spec);
- 	codec->spec = NULL;
- }
-diff --git a/sound/pci/hda/hda_generic.h b/sound/pci/hda/hda_generic.h
-index 8e1bc8ea74fc..34eba40cc6e6 100644
---- a/sound/pci/hda/hda_generic.h
-+++ b/sound/pci/hda/hda_generic.h
-@@ -294,6 +294,9 @@ struct hda_gen_spec {
- 				   struct hda_jack_callback *cb);
- 	void (*mic_autoswitch_hook)(struct hda_codec *codec,
- 				    struct hda_jack_callback *cb);
-+
-+	/* leds */
-+	struct led_classdev *led_cdevs[NUM_AUDIO_LEDS];
- };
- 
- /* values for add_stereo_mix_input flag */

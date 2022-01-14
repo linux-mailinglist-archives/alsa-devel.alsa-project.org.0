@@ -2,50 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED71648F5E5
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 09:07:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72DC048F5E6
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 09:07:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93EB32073;
-	Sat, 15 Jan 2022 09:06:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93EB32073
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15FE316A8;
+	Sat, 15 Jan 2022 09:06:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15FE316A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642234047;
-	bh=MrMhhSMImZClh1YTXhqcq4RzuqaMgm9ZEC5hJuuVo6o=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1642234065;
+	bh=Eo7EfpdrH3wA8s8pzPgaa2QUgdkyHS+qVWfq0/cogWQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qDw9y9oHw5t9lBGJwS9nerzG48wtvZhFpkLiLebrje06vsvkjy+qAGg8go0b7g2rz
-	 jRwE6W0cSmSCYQV5QAGzpO8lfgRHaYJQ1XMVuS3c3RH0/budDssbP3mIms3LqRfBXp
-	 rmbGUotv04o3FkBt7qjKExTRWPZZ82wX66ztZ8hQ=
+	b=KsqAuf5BhAMNtllSaCKDX5LIiEtvqcRnwlWQRnakLoH4H78OKhpu51tXUtZ27Udfe
+	 G4oI0fqV8JCYHMMRCT2lPtoRVVpc1kIQ/AP1H3e+yKnR6UlIJ8E1oNbOSJgpTMF+Ft
+	 1T42p+L9vuBRe5vcg5VZnPq3ugAy6nG0/MXv9Ht4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1B89F80548;
-	Sat, 15 Jan 2022 09:02:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72BD2F80552;
+	Sat, 15 Jan 2022 09:02:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27118F8030F; Fri, 14 Jan 2022 12:34:30 +0100 (CET)
+ id 9CDEBF8032B; Fri, 14 Jan 2022 14:06:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
- SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from mxout04.lancloud.ru (mxout04.lancloud.ru [45.84.86.114])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A893BF80141
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 12:34:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A893BF80141
-Received: from LanCloud
-DKIM-Filter: OpenDKIM Filter v2.11.0 mxout04.lancloud.ru F263B20CE313
-Received: from LanCloud
-Received: from LanCloud
-Received: from LanCloud
-Subject: Re: [PATCH] driver core: platform: Rename platform_get_irq_optional()
- to platform_get_irq_silent()
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-To: Mark Brown <broonie@kernel.org>, =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?=
- <u.kleine-koenig@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95DBFF8027C
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 14:06:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95DBFF8027C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="eApjBOPl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642165574; x=1673701574;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Eo7EfpdrH3wA8s8pzPgaa2QUgdkyHS+qVWfq0/cogWQ=;
+ b=eApjBOPlxbCEqX1nUkv30X3v6DYHvPMcG1/4D5RTtLSTMG041LiR3cF0
+ 0X54FQeS4Jphgf3mPFjPVYXM1gH92nWdnVytURK1GeWVPSmhIKnB8x8aa
+ qcKsDb1SIIdKJZ49EeTuEFTCB04qCFiXrAtI+T9EX6kcnYGlv6bn+V1jr
+ LsJcLwimoG8xn2lSHwWIVQUiEnRi+I/aAtvVvUG5azSrGFCjPEVMCAzSH
+ lFFj1AdkmhQnEtGdJ7udMxIXyWBBdB1ODZxNc2PoTPWZ4ECGItgmkfBGP
+ Zdq1K3rV3kcvU12RAhKyN77TDbnXb2KVR1s6qsGrfRmqkRwX/mW1NwpTS Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="231589066"
+X-IronPort-AV: E=Sophos;i="5.88,288,1635231600"; d="scan'208";a="231589066"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2022 05:06:09 -0800
+X-IronPort-AV: E=Sophos;i="5.88,288,1635231600"; d="scan'208";a="530231083"
+Received: from smile.fi.intel.com ([10.237.72.61])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2022 05:05:53 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1n8MFy-00AcJJ-9G; Fri, 14 Jan 2022 15:04:38 +0200
+Date: Fri, 14 Jan 2022 15:04:38 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH] driver core: platform: Rename
+ platform_get_irq_optional() to platform_get_irq_silent()
+Message-ID: <YeF05vBOzkN+xYCq@smile.fi.intel.com>
 References: <20220110201014.mtajyrfcfznfhyqm@pengutronix.de>
  <YdyilpjC6rtz6toJ@lunn.ch>
  <CAMuHMdWK3RKVXRzMASN4HaYfLckdS7rBvSopafq+iPADtGEUzA@mail.gmail.com>
@@ -56,27 +80,18 @@ References: <20220110201014.mtajyrfcfznfhyqm@pengutronix.de>
  <20220113110831.wvwbm75hbfysbn2d@pengutronix.de>
  <YeA7CjOyJFkpuhz/@sirena.org.uk>
  <20220113194358.xnnbhsoyetihterb@pengutronix.de>
- <YeCI47ltlWzjzjYy@sirena.org.uk>
- <1df04d74-8aa2-11f1-54e9-34d0e8f4e58b@omp.ru>
-Organization: Open Mobile Platform
-Message-ID: <fba81d0d-c7e3-394d-5929-1706ac9ef5b7@omp.ru>
-Date: Fri, 14 Jan 2022 14:34:16 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <1df04d74-8aa2-11f1-54e9-34d0e8f4e58b@omp.ru>
-Content-Type: text/plain; charset="windows-1252"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [192.168.11.198]
-X-ClientProxiedBy: LFEXT01.lancloud.ru (fd00:f066::141) To
- LFEX1907.lancloud.ru (fd00:f066::207)
-X-Mailman-Approved-At: Sat, 15 Jan 2022 09:02:46 +0100
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220113194358.xnnbhsoyetihterb@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-Mailman-Approved-At: Sat, 15 Jan 2022 09:02:47 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Vignesh Raghavendra <vigneshr@ti.com>, KVM list <kvm@vger.kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org, Linus
- Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>, ALSA
- Development Mailing List <alsa-devel@alsa-project.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  Guenter Roeck <groeck@chromium.org>, Thierry Reding <thierry.reding@gmail.com>,
  MTD Maling List <linux-mtd@lists.infradead.org>,
  Linux I2C <linux-i2c@vger.kernel.org>,
@@ -86,8 +101,9 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Jiri Slaby <jirislaby@kernel.org>, Khuong Dinh <khuong@os.amperecomputing.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
  Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Kamal Dasu <kdasu.kdev@gmail.com>, Lee Jones <lee.jones@linaro.org>, Bartosz
- Golaszewski <brgl@bgdev.pl>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
  Kishon Vijay Abraham I <kishon@ti.com>,
  Geert Uytterhoeven <geert@linux-m68k.org>,
  "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
@@ -96,32 +112,31 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Linux PWM List <linux-pwm@vger.kernel.org>, Robert Richter <rric@kernel.org>,
  Saravanan Sekar <sravanhome@gmail.com>, Corey Minyard <minyard@acm.org>,
  Linux PM list <linux-pm@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, John Garry <john.garry@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, Peter Korsgaard <peter@korsgaard.com>, William
- Breathitt Gray <vilhelm.gray@gmail.com>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>, Borislav
- Petkov <bp@alien8.de>, Jakub Kicinski <kuba@kernel.org>,
+ John Garry <john.garry@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ Peter Korsgaard <peter@korsgaard.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Jakub Kicinski <kuba@kernel.org>,
  Matthias Brugger <matthias.bgg@gmail.com>,
  openipmi-developer@lists.sourceforge.net,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Benson Leung <bleung@chromium.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
  Tony Luck <tony.luck@intel.com>, Richard Weinberger <richard@nod.at>,
- Mun Yew Tham <mun.yew.tham@intel.com>, Eric
- Auger <eric.auger@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mun Yew Tham <mun.yew.tham@intel.com>, Eric Auger <eric.auger@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Cornelia Huck <cohuck@redhat.com>, Linux MMC
- List <linux-mmc@vger.kernel.org>, Joakim Zhang <qiangqing.zhang@nxp.com>,
+ Cornelia Huck <cohuck@redhat.com>, Linux MMC List <linux-mmc@vger.kernel.org>,
+ Joakim Zhang <qiangqing.zhang@nxp.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, James Morse <james.morse@arm.com>,
- Zha Qipeng <qipeng.zha@intel.com>, Sebastian Reichel <sre@kernel.org>,
- =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund@ragnatech.se>,
- linux-mediatek@lists.infradead.org, Brian
- Norris <computersforpeace@gmail.com>, "David S.
- Miller" <davem@davemloft.net>
+ Sergey Shtylyov <s.shtylyov@omp.ru>, Vinod Koul <vkoul@kernel.org>,
+ James Morse <james.morse@arm.com>, Zha Qipeng <qipeng.zha@intel.com>,
+ Sebastian Reichel <sre@kernel.org>,
+ Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
+ linux-mediatek@lists.infradead.org, Brian Norris <computersforpeace@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,27 +152,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/13/22 11:57 PM, Sergey Shtylyov wrote:
-
->>> The subsystems regulator, clk and gpio have the concept of a dummy
->>> resource. For regulator, clk and gpio there is a semantic difference
->>> between the regular _get() function and the _get_optional() variant.
->>> (One might return the dummy resource, the other won't. Unfortunately
->>> which one implements which isn't the same for these three.) The
->>> difference between platform_get_irq() and platform_get_irq_optional() is
->>> only that the former might emit an error message and the later won't.
+On Thu, Jan 13, 2022 at 08:43:58PM +0100, Uwe Kleine-König wrote:
+> The subsystems regulator, clk and gpio have the concept of a dummy
+> resource. For regulator, clk and gpio there is a semantic difference
+> between the regular _get() function and the _get_optional() variant.
+> (One might return the dummy resource, the other won't. Unfortunately
+> which one implements which isn't the same for these three.) The
+> difference between platform_get_irq() and platform_get_irq_optional() is
+> only that the former might emit an error message and the later won't.
 > 
->    This is only a current difference but I'm still going to return 0 ISO
-> -ENXIO from latform_get_irq_optional(), no way I'd leave that -ENXIO there
-
-   platform.
-
-> alone... :-)
+> To prevent people's expectations that there is a semantic difference
+> between these too, rename platform_get_irq_optional() to
+> platform_get_irq_silent() to make the actual difference more obvious.
 > 
->> Reviewed-by: Mark Brown <broonie@kernel.org>
+> The #define for the old name can and should be removed once all patches
+> currently in flux still relying on platform_get_irq_optional() are
+> fixed.
 > 
->    Hm... I'm seeing a tag bit not seeing the patch itself...
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+> ---
+> Hello,
+> 
+> On Thu, Jan 13, 2022 at 02:45:30PM +0000, Mark Brown wrote:
+> > On Thu, Jan 13, 2022 at 12:08:31PM +0100, Uwe Kleine-König wrote:
+> > 
+> > > This is all very unfortunate. In my eyes b) is the most sensible
+> > > sense, but the past showed that we don't agree here. (The most annoying
+> > > part of regulator_get is the warning that is emitted that regularily
+> > > makes customers ask what happens here and if this is fixable.)
+> > 
+> > Fortunately it can be fixed, and it's safer to clearly specify things.
+> > The prints are there because when the description is wrong enough to
+> > cause things to blow up we can fail to boot or run messily and
+> > forgetting to describe some supplies (or typoing so they haven't done
+> > that) and people were having a hard time figuring out what might've
+> > happened.
+> 
+> Yes, that's right. I sent a patch for such a warning in 2019 and pinged
+> occationally. Still waiting for it to be merged :-\
+> (https://lore.kernel.org/r/20190625100412.11815-1-u.kleine-koenig@pengutronix.de)
+> 
+> > > I think at least c) is easy to resolve because
+> > > platform_get_irq_optional() isn't that old yet and mechanically
+> > > replacing it by platform_get_irq_silent() should be easy and safe.
+> > > And this is orthogonal to the discussion if -ENOXIO is a sensible return
+> > > value and if it's as easy as it could be to work with errors on irq
+> > > lookups.
+> > 
+> > It'd certainly be good to name anything that doesn't correspond to one
+> > of the existing semantics for the API (!) something different rather
+> > than adding yet another potentially overloaded meaning.
+> 
+> It seems we're (at least) three who agree about this. Here is a patch
+> fixing the name.
 
-   Grr, my mail server tossed it into the spam folder... :-(
 
-MBR, Sergey
+And similar number of people are on the other side.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+

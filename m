@@ -2,81 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD8D848F2C5
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 00:03:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C90C248F2C6
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 00:04:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5ADE41F5A;
-	Sat, 15 Jan 2022 00:02:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ADE41F5A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BD591F43;
+	Sat, 15 Jan 2022 00:03:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BD591F43
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642201419;
-	bh=pmCJdziAEPBdQY4V0iAR4auB8lbMXcP3bPpKBBHtHO0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=GOYcNqYyzSK7acmXfQzw1ePDzm24w1Ewsc1yUjDPMKhxXITYjdtA3oITbM1L1EFoX
-	 vAa57j4ZsDd0r4MRLv/YYbV8pOQvSVdEtuBmikH96ZcvS9fG0luexM7XkEKhVOK9qe
-	 gC+QVbb3bdxUTD5T0nd/6LgeArvI27D2iGedJbYI=
+	s=default; t=1642201453;
+	bh=GSNeyUG+jM/HNmHUnyncCmVdqlOiWYdCdc+2pEjZv2o=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=o1TNFm52W9Yk2x/tlYXCvnGLN/J7uIeThn44p2ObgIZ+vnETkNr5adcpjlZ+WPIHT
+	 AcoP20QXXMLUvwW+L5yrdN2vRPPIxcaYc5UN0/nY2D9Er/yCILCcpCneD9d+eB48aW
+	 KeFHgjR7a7BsLUVnfxpQ5AGGF5Jdekm21EMUhduQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE7CCF80310;
-	Sat, 15 Jan 2022 00:02:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A97FF8032B;
+	Sat, 15 Jan 2022 00:02:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B6CFF8030F; Sat, 15 Jan 2022 00:02:31 +0100 (CET)
+ id 1BD40F8049C; Sat, 15 Jan 2022 00:02:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5D67F80054
- for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 00:02:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5D67F80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6877EF8030F
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 00:02:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6877EF8030F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="RlhP0wuS"
-Received: by mail-pg1-x535.google.com with SMTP id f8so3915114pgf.8
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 15:02:28 -0800 (PST)
+ header.b="htS6cflF"
+Received: by mail-pg1-x52e.google.com with SMTP id x83so3911972pgx.4
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 15:02:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BVKiFbTgrN+4dfFsvMUyjh+c0889xN5w0pTkQdz39q4=;
- b=RlhP0wuSMGhXyZ0phG35Nuw+vFNDE+c2d0FJlvmi0+5DgQ5O5JmdPQeR7DqGCdMJCC
- /VlrAAmzilfFOfy2kC38ITfTjtJpZv4kTsfB7s/L1ganW6OWvpHUVXoHEafET0oHBu4M
- Ppj9Vq7LGVUguy0vkS7dCTqHlj8W7ppW3F7jo=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=o2h9cZxYJ3emYpUIj++uO1rilt4TStZ87q6578VwqZA=;
+ b=htS6cflFJn1ZL5Y0EPBeN6hbyK7QvRLQG6rL5+hf+Wyp/p/OwvwAl+Evj2ZQ1THw8U
+ UC6WEz/EhH69UAKuS4Z7gffz1k2LATR0EJgozsv2LnARXXrqxKBBQ4ABYZcLLxPDoo6k
+ 9jAJ1rcvLoaJTprwBOkTnDB9oHf7Sk8iuKDJE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BVKiFbTgrN+4dfFsvMUyjh+c0889xN5w0pTkQdz39q4=;
- b=1HrKV8MHsCQtLq+Z3Kl2nTqUPaPnR4j6kDhlLFco8nMuGT27p2wQp8gk0+BzEvgEqA
- OgMtofrie6x8MBWOMyX/9VMrNTDg/F7aPiisFUxSYK31DmU3kAV1OJW4z/FtV2AvxIMi
- pZAE4enr+gacBCmJqQi/icuDXpUgHCKVuCoVJiU7AI2cZ7Ug/Dw1z1UJmADsRNLeJkGm
- Wkmjv3A1iebAKBpPaypWU4Ts1qmIdn5nPMtregcTzz99S3za6IJXZYsJ6ycVHlXF2BAu
- Fljfsjb/m14XrHpQRqpRYq9fM2INBc0eAk3uVIumJWrKVpUKWbnUNTUsNGbhzgI1LEY4
- 1xUg==
-X-Gm-Message-State: AOAM530vXl/KYGHUbZGCjDcWAR5dcouaR7XCdXvwThJ0BsAQBuyBIQ8p
- Y2y7vvAlNBmhtowTGjPNZx8KtA==
-X-Google-Smtp-Source: ABdhPJygQAhOjz++7gMBKAe+FDohBuatX363kR5ClyepF85gLiZS7G/unLnFqdy+/LSmnjDXX93GWQ==
-X-Received: by 2002:a05:6a00:890:b0:4bd:347d:8aaf with SMTP id
- q16-20020a056a00089000b004bd347d8aafmr11000008pfj.61.1642201345551; 
- Fri, 14 Jan 2022 15:02:25 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=o2h9cZxYJ3emYpUIj++uO1rilt4TStZ87q6578VwqZA=;
+ b=qfwudvM16X50sJKk89/84djs1Nz1WyjcBGaT6XgAuf1PrsTL2CTmqnDGpHshFHuR9G
+ RgOvgbedGVku4/io9ti9EduTNarQ/Kijr7UBkJQPCKXLQy8PLyW3xG6y9XGF8YRWc/PT
+ MJzVm/421rGjZnJ9DRmPszP6tUwsFdQD5G4NSYrxvioHtwG2iCSagNZau3rsuZyJJgGy
+ 198cicBc5q66eSHqUUqSEwzgSpUAwSUW7gyLaTzmfTAfurpEWpnBkk20KJEYSe3/aiiT
+ DhBod7MxkRvxKejH0oOjGHMkFXTPod2YN3eXpvdLRTL2JZrZsiqDjg6lHs0vTHHF3A4c
+ mCPw==
+X-Gm-Message-State: AOAM533T9apEqhArg04DAwQ/0uFh3io7RJ2mRykAUXGFEBRpvIjD9njS
+ FwfdF6XH2eha4sUOlYsBa7BQmA==
+X-Google-Smtp-Source: ABdhPJyUUCEgb915ys8+J2HAqJSVrMJLFjTcoRKHgsU+KV+w14oykK1ZzYgHLlzxpYzPiETOK+okYA==
+X-Received: by 2002:a05:6a00:2408:b0:4c1:e1a1:770 with SMTP id
+ z8-20020a056a00240800b004c1e1a10770mr10548879pfh.70.1642201348060; 
+ Fri, 14 Jan 2022 15:02:28 -0800 (PST)
 Received: from localhost ([2620:15c:202:201:76ab:ede1:503d:1c39])
- by smtp.gmail.com with UTF8SMTPSA id c10sm6750264pfl.200.2022.01.14.15.02.23
+ by smtp.gmail.com with UTF8SMTPSA id h11sm6161656pjs.10.2022.01.14.15.02.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Jan 2022 15:02:24 -0800 (PST)
+ Fri, 14 Jan 2022 15:02:27 -0800 (PST)
 From: Brian Norris <briannorris@chromium.org>
 To: Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH v2 0/3] (Re)enable DP/HDMI audio for RK3399 Gru
-Date: Fri, 14 Jan 2022 15:02:06 -0800
-Message-Id: <20220114230209.4091727-1-briannorris@chromium.org>
+Subject: [PATCH v2 1/3] arm64: dts: rockchip: Switch RK3399-Gru DP to SPDIF
+ output
+Date: Fri, 14 Jan 2022 15:02:07 -0800
+Message-Id: <20220114150129.v2.1.I46f64b00508d9dff34abe1c3e8d2defdab4ea1e5@changeid>
 X-Mailer: git-send-email 2.34.1.703.g22d0c6ccf7-goog
+In-Reply-To: <20220114230209.4091727-1-briannorris@chromium.org>
+References: <20220114230209.4091727-1-briannorris@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -99,33 +104,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series fixes DP/HDMI audio for RK3399 Gru systems.
+Commit b18c6c3c7768 ("ASoC: rockchip: cdn-dp sound output use spdif")
+switched the platform to SPDIF, but we didn't fix up the device tree.
 
-First, there was a regression with the switch to SPDIF. Patch 1 can be
-taken separately as a regression fix if desired. But it's not quite so
-useful (at least on Chrome OS systems) without the second part.
+Drop the pinctrl settings, because the 'spdif_bus' pins are either:
+ * unused (on kevin, bob), so the settings is ~harmless
+ * used by a different function (on scarlet), which causes probe
+   failures (!!)
 
-Second, jack detection was never upstreamed, because the hdmi-codec
-dependencies were still being worked out when this platform was first
-supported.
-
-Patches cover a few subsystems. Perhaps this is something for arm-soc?
+Fixes: b18c6c3c7768 ("ASoC: rockchip: cdn-dp sound output use spdif")
+Signed-off-by: Brian Norris <briannorris@chromium.org>
+---
 
 Changes in v2:
  - (Un)set pinctrl, because the default assumes we're routing out to
    external pins
 
-Brian Norris (3):
-  arm64: dts: rockchip: Switch RK3399-Gru DP to SPDIF output
-  drm/rockchip: cdn-dp: Support HDMI codec plug-change callback
-  ASoC: rk3399_gru_sound: Wire up DP jack detection
+ arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
- arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi | 17 ++++++++----
- drivers/gpu/drm/rockchip/cdn-dp-core.c       | 28 ++++++++++++++++++++
- drivers/gpu/drm/rockchip/cdn-dp-core.h       |  4 +++
- sound/soc/rockchip/rk3399_gru_sound.c        | 20 ++++++++++++++
- 4 files changed, 64 insertions(+), 5 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi
+index 45a5ae5d2027..162f08bca0d4 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi
+@@ -286,7 +286,7 @@ max98357a: max98357a {
+ 
+ 	sound: sound {
+ 		compatible = "rockchip,rk3399-gru-sound";
+-		rockchip,cpu = <&i2s0 &i2s2>;
++		rockchip,cpu = <&i2s0 &spdif>;
+ 	};
+ };
+ 
+@@ -437,10 +437,6 @@ &i2s0 {
+ 	status = "okay";
+ };
+ 
+-&i2s2 {
+-	status = "okay";
+-};
+-
+ &io_domains {
+ 	status = "okay";
+ 
+@@ -537,6 +533,17 @@ &sdmmc {
+ 	vqmmc-supply = <&ppvar_sd_card_io>;
+ };
+ 
++&spdif {
++	status = "okay";
++
++	/*
++	 * SPDIF is routed internally to DP; we either don't use these pins, or
++	 * mux them to something else.
++	 */
++	/delete-property/ pinctrl-0;
++	/delete-property/ pinctrl-names;
++};
++
+ &spi1 {
+ 	status = "okay";
+ 
 -- 
 2.34.1.703.g22d0c6ccf7-goog
 

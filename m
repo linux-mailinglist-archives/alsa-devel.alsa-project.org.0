@@ -2,78 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CE4648E2EB
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 04:17:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C14D148E304
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 04:42:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA9B21FC4;
-	Fri, 14 Jan 2022 04:16:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA9B21FC4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E3D01FCB;
+	Fri, 14 Jan 2022 04:41:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E3D01FCB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642130265;
-	bh=pxiTwDB0j8aAmnBn/0lPe3/AsV6WScBgghVGFgNW8lk=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642131760;
+	bh=vWr9BA0ImIREzKlRnss3glkwXVJXZDkWpPs4w/sklEw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m/MHkr5eebq9dKdPuiuMaXJfkug9M2eVUol+9OHS8jN/Nl1VO/gGsNZDpsQdc5FM1
-	 3Qo/zGSvC51zJ5dawrZ9WkJbxbKZsaf+zsNEw0F87ccq0WjW8t9KZtk2lG55rrnxy2
-	 0x1Q14i4NUhZe4ZXJWkb+XVcakNReGPjtM7EjU5E=
+	b=txiYbno18IMXf8Es4QvgPuzR1gdIEy/Ec8B2itDrPpTvHs4TnlnmYqdmwak8tAZmm
+	 gAJia0Vzpr+swWo2If4FEG1kCmkWvCENE8u7t9lz0ogDsQrxvYsHguyPunfKzvQq76
+	 7iIoaxp2EIQk9NRXtOzPv5uf7836eFVe7y0YxuGY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4DF9F8032B;
-	Fri, 14 Jan 2022 04:16:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC491F80310;
+	Fri, 14 Jan 2022 04:41:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0348F8030F; Fri, 14 Jan 2022 04:16:36 +0100 (CET)
+ id BA7AFF8030F; Fri, 14 Jan 2022 04:41:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B81FF800CE;
- Fri, 14 Jan 2022 04:16:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B81FF800CE
-X-UUID: b7b619940c684c45b1d1379930c436c8-20220114
-X-UUID: b7b619940c684c45b1d1379930c436c8-20220114
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw01.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1255384183; Fri, 14 Jan 2022 11:16:23 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 14 Jan 2022 11:16:21 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 14 Jan 2022 11:16:21 +0800
-Message-ID: <bc5f284872c44c6fa9f5eb6bb7a49db5ff6e0794.camel@mediatek.com>
-Subject: Re: [PATCH v13 2/2] mailbox: mediatek: add support for adsp mailbox
- controller
-From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Jassi Brar
- <jassisinghbrar@gmail.com>, Rob Herring <robh+dt@kernel.org>, "Matthias
- Brugger" <matthias.bgg@gmail.com>
-Date: Fri, 14 Jan 2022 11:16:21 +0800
-In-Reply-To: <c876eda8-1fde-6c40-117a-12dde042780d@linux.intel.com>
-References: <20220113082103.27911-1-allen-kh.cheng@mediatek.com>
- <20220113082103.27911-3-allen-kh.cheng@mediatek.com>
- <c876eda8-1fde-6c40-117a-12dde042780d@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 804BDF80054
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 04:41:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 804BDF80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="GqnD7fVw"
+Received: by mail-oi1-x229.google.com with SMTP id i9so10665633oih.4
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 19:41:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=3vuHmubA7NBDeSjuXqC7P1p+i2CcuSRvh/FPtVKp0pY=;
+ b=GqnD7fVw9W41GxxUp3bF++kIKya9l5a7Fpbf57Pc8XwClyzYQCTttqF0280Xi4OzhM
+ 9Ecn075NqTNl9hgrfW9mAPubg0nBTgZwkjbbmr4o76XnfTqsMVw/GxO86no3GLrMZ5MM
+ hDUfBERoy7Fa5q9z4nUWUnSovOIJHlue8tdf1Ex5HQYHZL7jh2ANB/PGwbD/L3dbU03Y
+ 6LkDrfhBoqANlSdU8ezFmnP6QnGWqFGq/ddRYz9FIqxkvaxzS+RN5ODEPmg/jw2tqLnp
+ WgHJh+UjKTo/aheI6hLeyrNQbADAV3+q+DeG+i6i+Pbxg1H39s7X91vc0CzV+jFoIG0C
+ jKlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=3vuHmubA7NBDeSjuXqC7P1p+i2CcuSRvh/FPtVKp0pY=;
+ b=6h/OOptK4ZySqfbg2sjUxzQ0h1iH7Yqbe6MxQWY1bjr86oZUqGaom0TUd+jbL9Mpcr
+ uf+PXJ/1pK03/7KfWO1TkKtwASGXovWGUsvbpte2Ey/u3MVlB2zPX35HWdjEmGwCvZ13
+ PHc0tZXyvBw68PlTo/phiFwGfxp7G2NNhilt6gORFUy2gA9x3a6sj95ZbNgZIqFY9zEm
+ Rma7qfEElfDZ2xAhykC8aOQCQdgJ+Higk1tD8xNqt3kUPVuTDr2KhqcRDvo3Es1qh/rv
+ zlE9mPrDuM7ppOQRsboMY70xQQhUNAl4PgpVPVpVdsa7MYPS4e2RQKkZRbOYZBp5cKBA
+ KtVQ==
+X-Gm-Message-State: AOAM533mlCv60BuQrMsYCYB8Y1xAL5IkP1P25xD7szgeAoh8nZ5Knke2
+ AmpRoYZojaCZv2toQy5mAOk=
+X-Google-Smtp-Source: ABdhPJxTlLkJdl9K7Pkuosn/X5g4m0DOXhzwkeSHpitLYWIZBNMgTs/ahKTbvmRl7AS7RMTVvSgnxA==
+X-Received: by 2002:a54:481a:: with SMTP id j26mr5749807oij.143.1642131684146; 
+ Thu, 13 Jan 2022 19:41:24 -0800 (PST)
+Received: from geday ([2804:7f2:8002:f237:d475:1acd:9c67:d4cd])
+ by smtp.gmail.com with ESMTPSA id b24sm1196233oti.68.2022.01.13.19.41.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Jan 2022 19:41:23 -0800 (PST)
+Date: Fri, 14 Jan 2022 00:41:39 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Nandakumar Edamana <nandakumar@nandakumar.co.in>
+Subject: Re: Behringer UMC202HD issues and a partial solution
+Message-ID: <YeDw89KZOh4yG7c8@geday>
+References: <d61a41eb-a820-b1ca-dcf6-f447f80494a8@nandakumar.co.in>
+ <YeB2zEnPlwVEKbTI@geday>
+ <e1a7d67d-9862-3085-4e01-091ca443d2df@nandakumar.co.in>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
- Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Ranjani
- Sridharan <ranjani.sridharan@linux.intel.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e1a7d67d-9862-3085-4e01-091ca443d2df@nandakumar.co.in>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,68 +101,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2022-01-13 at 12:47 -0600, Pierre-Louis Bossart wrote:
-> > +static int mtk_adsp_mbox_probe(struct platform_device *pdev)
-> > +{
-> > +	struct device *dev = &pdev->dev;
-> > +	struct mtk_adsp_mbox_priv *priv;
-> > +	const struct mtk_adsp_mbox_cfg *cfg;
-> > +	struct mbox_controller *mbox;
-> > +	int ret, irq;
-> > +
-> > +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> > +	if (!priv)
-> > +		return -ENOMEM;
-> > +
-> > +	mbox = &priv->mbox;
-> > +	mbox->dev = dev;
-> > +	mbox->ops = &mtk_adsp_mbox_chan_ops;
-> > +	mbox->txdone_irq = false;
-> > +	mbox->txdone_poll = true;
-> > +	mbox->of_xlate = mtk_adsp_mbox_xlate;
-> > +	mbox->num_chans = 1;
-> > +	mbox->chans = devm_kzalloc(dev, sizeof(*mbox->chans),
-> > GFP_KERNEL);
-> > +	if (!mbox->chans)
-> > +		return -ENOMEM;
-> > +
-> > +	priv->va_mboxreg = devm_platform_ioremap_resource(pdev, 0);
-> > +	if (IS_ERR(priv->va_mboxreg))
-> > +		return PTR_ERR(priv->va_mboxreg);
-> > +
-> > +	priv->cfg = of_device_get_match_data(dev);
+On Fri, Jan 14, 2022 at 08:04:08AM +0530, Nandakumar Edamana wrote:
+> Thank you very much for the kind reply.
 > 
-> question: is any error handling needed here? some drivers do, others
-> don't, but that function can return NULL.
+> > You made the dmesg warning go away, but that didn't necessarily solve
+> > the underlying issue. May I ask that you post the "lsusb -v -d
+> > 1397:0507" ?
 > 
+> Here it is, connected to a USB 2.0 port (xHCI still enabled).
+>
 
-Hi Pierre,
+Thanks, Nandakumar!
 
-Thanks for your question.
+Have you tried unloading the snd-usb-audio module and the reloading it
+with implicit_fb=1 as in "modprobe -r snd-usb-audio" and "modprobe
+snd-usb-audio implicit_fb=1" ?
 
-I prefer my previous version which check NULL from
-of_device_get_match_data.
+If not, try it. If it works and your playback issues are gone then
+your device may just need a quirk. If it doesn't work we still
+have dyndbg to go through.
 
-I will revert this part in the next version.
+Last but not least, please use a vanilla kernel for these tests.
 
-Thanks.
-
-> > +
-> > +	irq = platform_get_irq(pdev, 0);
-> > +	if (irq < 0)
-> > +		return irq;
-> > +
-> > +	ret = devm_request_threaded_irq(dev, irq, mtk_adsp_mbox_irq,
-> > +					mtk_adsp_mbox_isr,
-> > IRQF_TRIGGER_NONE,
-> > +					dev_name(dev), mbox->chans);
-> > +	if (ret < 0)
-> > +		return ret;
-> > +
-> > +	platform_set_drvdata(pdev, priv);
-> > +
-> > +	return devm_mbox_controller_register(dev, &priv->mbox);
-> > +}
-> 
-> 
-
+Thank you,
+Geraldo Nascimento

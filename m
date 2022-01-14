@@ -2,104 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89A9E48EFFB
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 19:33:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B2C548F039
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 19:57:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B3621FC7;
-	Fri, 14 Jan 2022 19:32:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B3621FC7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA6541EE4;
+	Fri, 14 Jan 2022 19:56:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA6541EE4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642185180;
-	bh=4fp4ygN4Pi2RI7EWusLhh6+uX/IYBJgwb2CA3PZ0aO8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1642186646;
+	bh=tVxcndZpucXY/fxonjNTC9QP5PFOxTC9VPwEcDHNBLY=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HBI56Ia+XdkgrPRU/Q3u7rYVqq09YuVRw79by8qx5RRtAiuEIuJk8CRLB0KcCdrBw
-	 rSHiMSatieuXvBHw6Jr2pCyp/OO5ADf3gDxKE3FZGA4QhM6JgWuG1LKG4dWfyshO1l
-	 bkjZEMgC6qikG8QNNkJ1m5RBWbqKegKGO7ZiPwBw=
+	b=QfMScG6p81dAbNucXBT3PoAiLnF1Jvoz6SYLB4KLqZPhbstv/C1XV3kg7URZ1R8y9
+	 ozeAupFMXel4zFmAKtLsP6T3xy9UMF92pCyOIgH4bswR8AiefcNNQbhI7qSNY/4r+a
+	 vLIPB5MmNPxBHmcOdQ6OxRraLrA0BohNKMbDA9NM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89FC3F80310;
-	Fri, 14 Jan 2022 19:31:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40309F80310;
+	Fri, 14 Jan 2022 19:56:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85A79F8030F; Fri, 14 Jan 2022 19:31:50 +0100 (CET)
+ id 03CD0F8030F; Fri, 14 Jan 2022 19:56:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 000BCF800CE
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 19:31:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 000BCF800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00596F800CE
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 19:56:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00596F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="RTsqqX8P"
-Received: by mail-lf1-x136.google.com with SMTP id b14so14523525lff.3
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 10:31:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:user-agent:references
- :mime-version:content-disposition:in-reply-to;
- bh=0QoMS9tW+FujbuAvwpX64y12Q6x1wpjN/ARJKsGQ958=;
- b=RTsqqX8PvMOztDxaNDcdDU1pO8eta9X4w+YyBwKqTLjYQGdTfwiazHVEjJNBF6BZPO
- sfujMT8JKv78tLu3B1uEuHkJSCOVYkPp8hAcn0+kiSsfe+B7ZLmP/e4/sLHZzvbkBNlP
- YDJaXSHOeRTNKr94l5gk+XCz3gwiL7Qw3TeebK+FyXaFrhNV/ynCQ9A6EVYUGF3J02sk
- zAZjEWfFL9YPImddE3po5Maa8Z2TKh9r6vtzLkbl8iZMS7/rSLtzybqSDWg0aageQQmz
- H2qwVasI8sr0WUOHw7TBkhBvv1pDMQEdmyNGRoqp9ig/+uvpsZirKPFdUX7cbjNiWUXi
- Us1A==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="TXwiIDFv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1642186568;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=51ImlDEadEsctg6nVH5bEBazgwQXCgp/FsQbc0BxjHM=;
+ b=TXwiIDFvsUZmxqS8YtaR4O58vY1s2m195rtKKzGxQlhx24rOPJfzJ1YNR9HaXniRkUVhf9
+ I2Ltlc/h5N7heS/dJckyfTbHGpw1R+6ytyHStToqyhTGp0Y3cVAzN07fo7YYl50DwBh95D
+ wAzYixajvbSl84CMYs67o5cMsGm9XCA=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-629-wN2IIqbqMICLhh3YrLKCiQ-1; Fri, 14 Jan 2022 13:56:07 -0500
+X-MC-Unique: wN2IIqbqMICLhh3YrLKCiQ-1
+Received: by mail-ed1-f69.google.com with SMTP id
+ y18-20020a056402271200b003fa16a5debcso8895842edd.14
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 10:56:07 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:user-agent
- :references:mime-version:content-disposition:in-reply-to;
- bh=0QoMS9tW+FujbuAvwpX64y12Q6x1wpjN/ARJKsGQ958=;
- b=ciWjcg+z2TA51B+zedR8UP6wY0u9dupPSjlkD+XB2dW78hsWDfvt0PFTPLOtzRloYX
- UgC/6+mmDKVPLZDZDueN/Lw7VIvtnKssI7DQKrFu3jJb93Q3wY9YXk/OIpBe2uF/u3D2
- mu4XRpOFjvO1dtTIaTRxGQ3DODubR512dAC+VUDVdPRTarnMQ0jTmvW8D92ei+VqoTlI
- tNexPEFIPVGRLBzvEJsdZHFp6NTn+MuiDQspX7kd5ihSiQJWv1whxCXvDQ1sEnTOZZkd
- GIT+7K+MUXZgWPEo0yqELFBrSEhY/OJ7FjrD+lyaDR1frFEQ/UNSF2UIKfhRswPgCan9
- tZ5w==
-X-Gm-Message-State: AOAM532mdMIkIAXXwRnmBgPYtF3VduthGrJw2A8MExA3+/2A2V2Hzf+m
- RIfiGCto957jHRZ+btaRsEI=
-X-Google-Smtp-Source: ABdhPJyEKAfJfJEbAwR6p75nS+3fcsqesPn/gPeHmm5NpF9OkZ2jlOTSBmqydTpPa/OVQEatvwt11A==
-X-Received: by 2002:a05:651c:11d0:: with SMTP id
- z16mr161948ljo.13.1642185100240; 
- Fri, 14 Jan 2022 10:31:40 -0800 (PST)
-Received: from localhost.localdomain (ntd06459.static.corbina.ru.
- [95.31.14.149])
- by smtp.gmail.com with ESMTPSA id c9sm652951lfv.180.2022.01.14.10.31.39
- (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
- Fri, 14 Jan 2022 10:31:39 -0800 (PST)
-Date: Fri, 14 Jan 2022 21:37:20 +0300
-From: Alexander Sergeyev <sergeev917@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-Message-ID: <20220114183720.n46wealclg6spxkp@localhost.localdomain>
-User-Agent: mtt
-References: <20210519170357.58410-1-jeremy.szu@canonical.com>
- <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
- <s5ho84h9tit.wl-tiwai@suse.de>
- <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
- <s5hilup9s87.wl-tiwai@suse.de>
- <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
- <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
- <s5h8rvk85uy.wl-tiwai@suse.de>
- <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
- <s5ha6fy46jt.wl-tiwai@suse.de>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=51ImlDEadEsctg6nVH5bEBazgwQXCgp/FsQbc0BxjHM=;
+ b=a+gRUCF4MxDCPDVd1Do1ULkDh49yQkVqZbA7+XL3emmgINYzcsiWoSuHsN2tu5ypF1
+ 07ACpB2YYs2+gyb82HoSiWYRCHURRB4zDbwE6MFgQi5yRK/EoA5Ld7R8Ke3Ww6uufycK
+ CLBZlrUFkF1V/3sG404Xl0AvRSww8P+kneEoKbImLsN46+zwtGnpkAa3mEUHmSKAyS/v
+ +9/xa5LunBOvUS0emey9QqboQxX1FjXJHvOg7pjXDxb+NrDwI5MGeeI7LLYDv+OyAIXF
+ cJyWcMbljm5A05NTu+xZGWUFT3i9ICf1qJaujYcMvKz7y3RvuW9FAd3dJHBhUFa0loFE
+ ++og==
+X-Gm-Message-State: AOAM532bohD2BtAQy6XUNHtwl7EK2H4DGCzbK2jFxdefFpNMv4pOPP0z
+ GwZoeDXfYD4Lq0g7gR3brJAHmL4LtNBH3cbF6+9/90vCw4N6ATmlS5P25/VNvil7Yw2Oviw+I1Y
+ NurtTpn5QLB/bp0oO1hp0vcc=
+X-Received: by 2002:a05:6402:217:: with SMTP id
+ t23mr7399931edv.283.1642186566035; 
+ Fri, 14 Jan 2022 10:56:06 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyAnjfubbtpBrUe4OTbYQbUw+9LhVVYNB3cYNRwnppOgGUs9iR9DDM+srSbwA1kCbdnuGSAoA==
+X-Received: by 2002:a05:6402:217:: with SMTP id
+ t23mr7399910edv.283.1642186565843; 
+ Fri, 14 Jan 2022 10:56:05 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1?
+ (2001-1c00-0c1e-bf00-1db8-22d3-1bc9-8ca1.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1])
+ by smtp.gmail.com with ESMTPSA id hd16sm2000023ejc.62.2022.01.14.10.56.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Jan 2022 10:56:05 -0800 (PST)
+Message-ID: <55cb8127-65e2-4d56-5127-2722c5bfe11f@redhat.com>
+Date: Fri, 14 Jan 2022 19:56:04 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s5ha6fy46jt.wl-tiwai@suse.de>
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH 5/5] ACPI / scan: Create platform device for CLSA0100
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Takashi Iwai <tiwai@suse.de>
+References: <20220113170728.1953559-1-tanureal@opensource.cirrus.com>
+ <20220113170728.1953559-5-tanureal@opensource.cirrus.com>
+ <s5hee5a47et.wl-tiwai@suse.de>
+ <CAJZ5v0ijGWNd9s-4mrFgK-QbPDhnj2K3DF+Z45t7ckV6ET0hpQ@mail.gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <CAJZ5v0ijGWNd9s-4mrFgK-QbPDhnj2K3DF+Z45t7ckV6ET0hpQ@mail.gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ Mark Gross <markgross@kernel.org>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Platform Driver <platform-driver-x86@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,56 +130,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 14, 2022 at 05:37:42PM +0100, Takashi Iwai wrote:
-> > I assume that the referred repository is the one at [1]. I've tried
-> > 081c73701ef0 "ALSA: hda: intel-dsp-config: reorder the config
-> > table". It crashed with nearly identical logs.
->
-> OK, then it's still something to do with the led cdev
-> unregisteration.
->
-> Could you try the patch below?
+Hi,
 
-This patch solved the BUG problem. But after unbind/bind micmute LED stopped 
-working. Speakers and mute LED are fine though.
+On 1/14/22 18:51, Rafael J. Wysocki wrote:
+> On Fri, Jan 14, 2022 at 5:19 PM Takashi Iwai <tiwai@suse.de> wrote:
+>>
+>> On Thu, 13 Jan 2022 18:07:28 +0100,
+>> Lucas Tanure wrote:
+>>>
+>>> The ACPI device with CLSA0100 is a sound card with
+>>> multiple instances of CS35L41 connected by I2C to
+>>> the main CPU.
+>>>
+>>> We add an ID to the i2c_multi_instantiate_idsi list
+>>> to enumerate all I2C slaves correctly.
+>>>
+>>> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+>>
+>> I think it's better to merge this from sound git tree together with
+>> others in the patch set, presumably for rc1.
+>>
+>> It'd be great if ACPI people can take a review and give an ack/nack.
+> 
+> Hans, what do you think?
 
-Dmesg:
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff820 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff820 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff820 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff820 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff840 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff840 flags=0x0020]
-...
-snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:90170118
-snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:411111f0
-snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:270300
-...
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffb80 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffb80 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffba0 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffba0 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffba0 flags=0x0020]
-snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:80000000
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffba0 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffbc0 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffbc0 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffbc0 flags=0x0020]
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffbc0 flags=0x0020]
-snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:20010b
+This patch (5/5) applies on top of:
 
-> > I got some time to poke the internal microphone. It works, but
-> > oddities are there as well. Initially I get "Mic Boost", "Capture" and
-> > "Internal Mic Boost" controls in alsamixer. When I run arecord,
-> > "Digital" control appears, but it cannot be changed until arecord is
-> > stopped. Subsequent arecord calls do not lock "Digital" control. This
-> > control affects sensitivity of the microphone and seems useful.
->
-> That's presumably an alsa-lib softvol stuff.  It's created
-> dynamically.  So not really a kernel problem.
+https://lore.kernel.org/linux-acpi/20211210154050.3713-1-sbinding@opensource.cirrus.com/
 
-Okay, that's good to know.
+Which still needs some work and which really should be merged
+through the ACPI tree. IMHO it would be best to simply drop
+this (5/5) from this series and move it to the v3 of the
+series which I've linked to above.
+
+1-4 can be merged through the alsa tree independently of 5/5 AFAIK.
+
+Regards,
+
+Hans
+
+
+
+
+> 
+>>> ---
+>>>  drivers/acpi/scan.c                          | 2 ++
+>>>  drivers/platform/x86/i2c-multi-instantiate.c | 8 ++++++++
+>>>  2 files changed, 10 insertions(+)
+>>>
+>>> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+>>> index c215bc8723d0..2a68031d953e 100644
+>>> --- a/drivers/acpi/scan.c
+>>> +++ b/drivers/acpi/scan.c
+>>> @@ -1753,6 +1753,8 @@ static bool acpi_device_enumeration_by_parent(struct acpi_device *device)
+>>>        */
+>>>               {"BCM4752", },
+>>>               {"LNV4752", },
+>>> +     /* Non-conforming _HID for Cirrus Logic already released */
+>>> +             {"CLSA0100", },
+>>>               {}
+>>>       };
+>>>
+>>> diff --git a/drivers/platform/x86/i2c-multi-instantiate.c b/drivers/platform/x86/i2c-multi-instantiate.c
+>>> index 4956a1df5b90..a51a74933fa9 100644
+>>> --- a/drivers/platform/x86/i2c-multi-instantiate.c
+>>> +++ b/drivers/platform/x86/i2c-multi-instantiate.c
+>>> @@ -147,6 +147,12 @@ static const struct i2c_inst_data int3515_data[]  = {
+>>>       {}
+>>>  };
+>>>
+>>> +static const struct i2c_inst_data cs35l41_hda[] = {
+>>> +     { "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
+>>> +     { "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
+>>> +     {}
+>>> +};
+>>> +
+>>>  /*
+>>>   * Note new device-ids must also be added to i2c_multi_instantiate_ids in
+>>>   * drivers/acpi/scan.c: acpi_device_enumeration_by_parent().
+>>> @@ -155,6 +161,8 @@ static const struct acpi_device_id i2c_multi_inst_acpi_ids[] = {
+>>>       { "BSG1160", (unsigned long)bsg1160_data },
+>>>       { "BSG2150", (unsigned long)bsg2150_data },
+>>>       { "INT3515", (unsigned long)int3515_data },
+>>> +     /* Non-conforming _HID for Cirrus Logic already released */
+>>> +     { "CLSA0100", (unsigned long)cs35l41_hda },
+>>>       { }
+>>>  };
+>>>  MODULE_DEVICE_TABLE(acpi, i2c_multi_inst_acpi_ids);
+>>> --
+>>> 2.34.1
+>>>
+> 
+

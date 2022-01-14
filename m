@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 155D348EDCF
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 17:16:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4679948EDF7
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 17:20:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D70BD1F1C;
-	Fri, 14 Jan 2022 17:15:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D70BD1F1C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D775E1F1D;
+	Fri, 14 Jan 2022 17:19:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D775E1F1D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642176990;
-	bh=a5NVx+V3g3lbSRZKR9ysctVLCFbHDV9EkJgQ7Ase6Es=;
+	s=default; t=1642177223;
+	bh=snDSDBzvuRbASWIpOBPvR31xQ3dF/ATVHL1g7T5KYqc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K9DWzbRD4UlCE3EV8wEVCgdlAXcryqk0xOGgTsjUTYB/DkXRxFi38TEf2XSHtcWZF
-	 Ee9kzGmWPPo+38Mh2J8dxyP9lNrl+RbZKv0HAPs6ufOPh7qxkTyn0ezZdEipN1Luy3
-	 YWuoMPyaIXaSkM2XrS4eUtuMOPTrsa8dVxbqb2m4=
+	b=XIeOOGG/GdAGm40pZceVdrqQnFKCbiw1eNaBh3kknLHgcE/3PM81gLmr2e+pOC5Yb
+	 qWdjzwiHITO+MdiY6+lwwiJ8Q6AulhVx8fsA+E9Vz2hyRgqGr8RfRUMVxjHLGm18LN
+	 fqVa/GeHH8ldCDDpWXpNrnfXJdnSchnOU3yCh4ew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59A01F8032B;
-	Fri, 14 Jan 2022 17:15:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40DAAF800CE;
+	Fri, 14 Jan 2022 17:19:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D65CFF80310; Fri, 14 Jan 2022 17:15:38 +0100 (CET)
+ id 9A6BBF8030F; Fri, 14 Jan 2022 17:19:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 961C8F80141
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 17:15:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 961C8F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 853DAF80141
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 17:19:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 853DAF80141
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="rc9oJsiZ"; 
+ header.b="Iz++ekoL"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="0XG4sNPZ"
+ header.b="AebJHght"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 8B1571F45F;
- Fri, 14 Jan 2022 16:15:31 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 6CAD41F3CE;
+ Fri, 14 Jan 2022 16:19:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642176931; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1642177146; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=R1DfE0qZS3U7n7IbaGCVpvPLTKsF+WfRR2YH34S4yhI=;
- b=rc9oJsiZrlzZzou7u13kVvTPHtBWIqfPefVi+l7JerRw0NBUGcqS5OcEsSF1a0Re8W1bfe
- TwPbIOr5QHeY7peBxKt+bTdkre88kFGBaXXYd5LFnzNj3g+MluGFnRaNLfNhPxmBk8vAGq
- IBKrTA+EbnGUwNijT+zzaMTXxkw5MZI=
+ bh=Spkw61CbNChV5xZqQLKYPzypFfNleWy1BM/D9zEVuhA=;
+ b=Iz++ekoL0FTxQxvkFvp9uvjhmdZBAXfcnp6RJmdkXIRsdRDGaUoBNCT30iSlt4KTeF/ADU
+ v9qN17GBZvN7YmJehZI5Q+6xpSWKyaXdB3LD7CI4HaeHo6q9KgR8gMsLDd6vUo/0PyCxVr
+ Qe7MVB+xXq5Lj7NxxzkrgGfMUZqYbIA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642176931;
+ s=susede2_ed25519; t=1642177146;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=R1DfE0qZS3U7n7IbaGCVpvPLTKsF+WfRR2YH34S4yhI=;
- b=0XG4sNPZn2Hx45cPbMHI2BGvPyp+Zgn6QS8/280F9pmWynAMcZjyK0gFz3AU3XpJ30bX5e
- 0cshHh+ZjDLG/TAQ==
+ bh=Spkw61CbNChV5xZqQLKYPzypFfNleWy1BM/D9zEVuhA=;
+ b=AebJHghtAS1P8nayA20bWwUXSE3u+l3ztg0QK+Q+jRBIIOck1+VPuTUhKRCF95E3d8dtTt
+ Cl9KrJ/VACqaRYAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 772D2A3B87;
- Fri, 14 Jan 2022 16:15:31 +0000 (UTC)
-Date: Fri, 14 Jan 2022 17:15:31 +0100
-Message-ID: <s5hfspq47ks.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 5CE1AA3B84;
+ Fri, 14 Jan 2022 16:19:06 +0000 (UTC)
+Date: Fri, 14 Jan 2022 17:19:06 +0100
+Message-ID: <s5hee5a47et.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH 4/5] ALSA: hda: cs35l41: Tidyup code and add default cases
-In-Reply-To: <20220113170728.1953559-4-tanureal@opensource.cirrus.com>
+Subject: Re: [PATCH 5/5] ACPI / scan: Create platform device for CLSA0100
+In-Reply-To: <20220113170728.1953559-5-tanureal@opensource.cirrus.com>
 References: <20220113170728.1953559-1-tanureal@opensource.cirrus.com>
- <20220113170728.1953559-4-tanureal@opensource.cirrus.com>
+ <20220113170728.1953559-5-tanureal@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -96,20 +97,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 13 Jan 2022 18:07:27 +0100,
+On Thu, 13 Jan 2022 18:07:28 +0100,
 Lucas Tanure wrote:
 > 
-> Clean up the code, plus adding default cases for switch
-> and dev_err_probe use.
+> The ACPI device with CLSA0100 is a sound card with
+> multiple instances of CS35L41 connected by I2C to
+> the main CPU.
+> 
+> We add an ID to the i2c_multi_instantiate_idsi list
+> to enumerate all I2C slaves correctly.
+> 
+> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
 
-Please split to patches.  There are too much mixed up of changes for
-different goals.  There is difference between a white-space cleanup or
-such (that is, no significant change of the resultant binary), a
-cleanup with a better API usage, and a code refactoring.  And, the
-addition of the missing default case is rather the fix, not a clean
-up...
+I think it's better to merge this from sound git tree together with
+others in the patch set, presumably for rc1.
+
+It'd be great if ACPI people can take a review and give an ack/nack.
 
 
-thanks,
+Thanks!
 
 Takashi
+
+> ---
+>  drivers/acpi/scan.c                          | 2 ++
+>  drivers/platform/x86/i2c-multi-instantiate.c | 8 ++++++++
+>  2 files changed, 10 insertions(+)
+> 
+> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+> index c215bc8723d0..2a68031d953e 100644
+> --- a/drivers/acpi/scan.c
+> +++ b/drivers/acpi/scan.c
+> @@ -1753,6 +1753,8 @@ static bool acpi_device_enumeration_by_parent(struct acpi_device *device)
+>  	 */
+>  		{"BCM4752", },
+>  		{"LNV4752", },
+> +	/* Non-conforming _HID for Cirrus Logic already released */
+> +		{"CLSA0100", },
+>  		{}
+>  	};
+>  
+> diff --git a/drivers/platform/x86/i2c-multi-instantiate.c b/drivers/platform/x86/i2c-multi-instantiate.c
+> index 4956a1df5b90..a51a74933fa9 100644
+> --- a/drivers/platform/x86/i2c-multi-instantiate.c
+> +++ b/drivers/platform/x86/i2c-multi-instantiate.c
+> @@ -147,6 +147,12 @@ static const struct i2c_inst_data int3515_data[]  = {
+>  	{}
+>  };
+>  
+> +static const struct i2c_inst_data cs35l41_hda[] = {
+> +	{ "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
+> +	{ "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
+> +	{}
+> +};
+> +
+>  /*
+>   * Note new device-ids must also be added to i2c_multi_instantiate_ids in
+>   * drivers/acpi/scan.c: acpi_device_enumeration_by_parent().
+> @@ -155,6 +161,8 @@ static const struct acpi_device_id i2c_multi_inst_acpi_ids[] = {
+>  	{ "BSG1160", (unsigned long)bsg1160_data },
+>  	{ "BSG2150", (unsigned long)bsg2150_data },
+>  	{ "INT3515", (unsigned long)int3515_data },
+> +	/* Non-conforming _HID for Cirrus Logic already released */
+> +	{ "CLSA0100", (unsigned long)cs35l41_hda },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(acpi, i2c_multi_inst_acpi_ids);
+> -- 
+> 2.34.1
+> 

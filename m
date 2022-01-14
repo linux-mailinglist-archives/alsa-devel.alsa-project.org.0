@@ -2,180 +2,182 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD56B48ED6A
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 16:51:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F2E048EDB1
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 17:09:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D6231AEF;
-	Fri, 14 Jan 2022 16:51:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D6231AEF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1681F1B29;
+	Fri, 14 Jan 2022 17:08:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1681F1B29
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642175519;
-	bh=iBZ4VuGQ3jFQuLVHtxp1zZilvnZ+cWhXxIV1NgGx+hg=;
+	s=default; t=1642176576;
+	bh=UJwOaZVYTNNeDdo80F3NS4Ei/8SHoPzXmB8++zQz1PY=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FO2PUyQ0eTDWKMNKo0tfqKWEvdchrMtqB0Wh5juEmnEzwQJ9wf8ObX3A0tKc04DWO
-	 qKN+kkp4Q1JUtfTftpdzAQwIAeNfYSfamAF702DSpvzCbSm0fYAo+wv0ouHcnDJ03P
-	 b9nuqAbFgRCyD7K9pKxCUbFzWutA2kcdUYVuTg0g=
+	b=uA0J7pktE9BEvrRIWHFB3U661r2cXF2cNK9vE6L8fL5zse77nOZp5BMN4S2z6uICW
+	 Vq2KKxgWXXn+yWrlQVgJHl2XxcSb66yNsnaB5VVbZb7M0ti4334/vZZTykoanNUAPb
+	 q9KjWUu6AZEVVPyJf9fNqxvqa5bEmkEWz9m1rthU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80A7AF80310;
-	Fri, 14 Jan 2022 16:50:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71876F80310;
+	Fri, 14 Jan 2022 17:08:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 305B0F8030F; Fri, 14 Jan 2022 16:50:47 +0100 (CET)
+ id 9C006F80141; Fri, 14 Jan 2022 17:08:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6229DF800CE
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 16:50:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6229DF800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27116F80141
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 17:08:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27116F80141
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="XiN7Gk8/"
+ header.b="ByLHzWm2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642175442; x=1673711442;
+ t=1642176501; x=1673712501;
  h=message-id:date:subject:to:cc:references:from:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=iBZ4VuGQ3jFQuLVHtxp1zZilvnZ+cWhXxIV1NgGx+hg=;
- b=XiN7Gk8/qpuI2OCZPTtOBAARwxbxo8jMBE7jl49SU1Y1PHhcr1B6tA/A
- RcH8WiANFShZ9TAkbbwfro4HyRPMjFp22e2pjuitaGhZYiSptaccb3nNu
- Bh6vmKcIDb+B0mRboW8OoneMghMa191axcnAxGbzj5LvDx5QX3YyHcFZd
- Vi+rnbtcJbYoc+Yuh1AdUT8hiDoBOetDz+C6CFp7Alhpr3W+ocvOm/nif
- S4mXZ661pQMXR8RjcRYVlP0lVQIlPUSTFjG0l58qKzpMnCW9Sxsky5jgb
- hHtePLU9zeUkpC7Uy9Pli268PKiuL3twbQcl/qor5aFhCIpG6jdaVc3OK Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="241830344"
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="241830344"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 07:50:37 -0800
+ bh=UJwOaZVYTNNeDdo80F3NS4Ei/8SHoPzXmB8++zQz1PY=;
+ b=ByLHzWm2vn8Iv+I0PK0rKqx2M4Sqy+0vxwwXiH8oi+xkx/2vb2XCBBUC
+ inMt4sozHy/ddFaRTT4s8+714+kXzL/VGLm4iIGfxAiO3B+TvCiXeJeUN
+ wqfd+TgrFO0Mcpe2TVFSWshAwToAdkOczCfSH5noAwxUL5rnxpbqDFizl
+ 8g29u5ZEfQRiy/PVeNvyWpvElA/rfjOcwNOnmaOPXe0zUhVmBOAtQr4VR
+ 589bfyfi1iGabpw2zP2HF1n/IZDrM3baULFwMxH0v+Ppk7JqWycSQPvGD
+ XHoVP3BNgJZs7Op46tZoXP340nvL/9IdLyDRfohVmQUxopzT0Dmq3EuLj A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10226"; a="244067270"
+X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="244067270"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2022 08:08:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="491561984"
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by orsmga002.jf.intel.com with ESMTP; 14 Jan 2022 07:50:37 -0800
-Received: from fmsmsx602.amr.corp.intel.com (10.18.126.82) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="692256632"
+Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
+ by orsmga005.jf.intel.com with ESMTP; 14 Jan 2022 08:07:08 -0800
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Fri, 14 Jan 2022 07:50:36 -0800
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ 15.1.2308.20; Fri, 14 Jan 2022 08:07:07 -0800
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20 via Frontend Transport; Fri, 14 Jan 2022 07:50:36 -0800
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.44) by
- edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ 15.1.2308.20 via Frontend Transport; Fri, 14 Jan 2022 08:07:07 -0800
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.169)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.20; Fri, 14 Jan 2022 07:50:00 -0800
+ 15.1.2308.20; Fri, 14 Jan 2022 08:07:06 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e7V90bNexDBGncYFkEVMxf/vtUypr7J/VgreEj/t4O+39u9copDNMMxJWFdfkUuagXfsbqDTuB1OekRDeS4keMwG/YQzqYHpVucDUoycYLerBjTQma34iSfQRcwocftz2DcwE3uHETcI7C+5w3e8r1LrrGSEFcFgsWpNO9JX61H1SqtPAnjEOmqc9hz1lwTuMI6aTgkuQ3yuDVxR5PHSypepP7WWkfdBIS/ApwcTsCOkC9SwfsZxopMVcDPSu7QTYHqfd+be95x0Utpl4PoGG8HzeNKlnG18T4vfCWO6rTrD9hhPV7avFAjBrVKh8NIqzjTUIsn0yZuXN9N7XyVxAA==
+ b=i4/bBqRbBHILkt59F1nI2JptqL49ztrujmr2+z2iSXMbA6z68TRV9DjVjdy2n2J3yhRr/zKe0ZvMUj2mY7No1Yqg9amtOkk8/F4OJq9tou8oGzgxWJDK6iIOw2Rf+5c7vUITBbO+4syhecT+DhJGbxo9MbQlwiKfFFpbsV9g4HqRROYpUXQ/FWPF0to4+/ap4KyKgyVapdOhEBe06hWbiRwRDWV0E4/oUZ2X7+BA8RNsb9z+2/Wam4hpLSekKW/EHtme56vgcJHVkSFPfKSIM+xg/YH8IcdmtmBtlnzfGPnDmpLpcTvs0u/i+ApgeydLd7fCovZlWnYdHM1ORMfoGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w/vqYVZedfio8kjm0obhyNszx5rMWDZ9Iv7HEqsZtUA=;
- b=LOevNTK2srdlG84NKjwvdoo2wCaeCGDZObkFWwvndbmFdiNBexJubtJbFMtbpwWvRK9ZlbQamx7aA/9GZjcYN6NGPTNxiNyYG3JafD9FahwLh7cnhWaaHKwV3fyIr5/8VYId3R1irHi82Z0l04T9dW74A4X6FiqkdpTqnczlEt79FUbdexzb4UaABcwpsRyHXDLYV/lc1vw2hHz83uRpwF4tO6qwFBeTiGfvdFkKUlHrFV2Xe2GcpmWUnPYUxwQXdac2WaVJZ9GpFoj9wZ71OBHnQ9jR6+sMf/QQfKO3OnjMfAZWPWwH6XgZ045zcyKiZvRftrG+04TF3zZmhDhGww==
+ bh=+gzTKay7CfpeBCFQ94+G/2S66w7n4C1bDmN9bAjCNsI=;
+ b=Z4Z4HJ/7H4KgWZEaJSxBc0uV8uNtiqv2yg720ltCc5i+vxhHqAtmivHWtb84w2XW+jFW0wtY04eoaN2g8+P63kNenhcGAnmo/VV9a+TWuOtU44vGuW+bp+t9blSXq+/5I049LkK91XkMiPOm2M0x2V8SaXBZBUyNagyGf/SU+meymM8Ktg6L4yDLkO7l/9lOfy0GDQtXwmyWKskWxISI6H5aaV6Z8nK8cH13vvb0duuo+dfznT3lt7PlAhTex6iPpH7nEvWLrMZ+sibVniR3JPzsQSVlcqszEewM6g5WB7LA7/yH7zAl/y+q0l8KrafWkKUY2J2CiBE/n6GmZTTXhQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from BN6PR11MB4049.namprd11.prod.outlook.com (2603:10b6:405:7f::12)
- by SN6PR11MB3134.namprd11.prod.outlook.com (2603:10b6:805:d9::12)
+ by BN6PR11MB4068.namprd11.prod.outlook.com (2603:10b6:405:7c::31)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Fri, 14 Jan
- 2022 15:49:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Fri, 14 Jan
+ 2022 16:07:05 +0000
 Received: from BN6PR11MB4049.namprd11.prod.outlook.com
  ([fe80::cce3:53d5:6124:be26]) by BN6PR11MB4049.namprd11.prod.outlook.com
  ([fe80::cce3:53d5:6124:be26%4]) with mapi id 15.20.4888.012; Fri, 14 Jan 2022
- 15:49:59 +0000
-Message-ID: <d7e63f52-a98e-0c99-906b-6c03b25da572@intel.com>
-Date: Fri, 14 Jan 2022 16:49:51 +0100
+ 16:07:05 +0000
+Message-ID: <41dca7c3-2d82-ab8c-9025-547c30f67db8@intel.com>
+Date: Fri, 14 Jan 2022 17:06:58 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.3.0
-Subject: Re: [PATCH] ASoC: SOF: compr: Add compress ops implementation
+Subject: Re: [PATCH 1/5] ALSA: hda: cs35l41: Avoid overwriting register patch
 Content-Language: en-US
-To: Daniel Baluta <daniel.baluta@oss.nxp.com>, <broonie@kernel.org>,
- <alsa-devel@alsa-project.org>
-References: <20220113161341.371345-1-daniel.baluta@oss.nxp.com>
+To: Lucas Tanure <tanureal@opensource.cirrus.com>, "Rafael J . Wysocki"
+ <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Hans de Goede
+ <hdegoede@redhat.com>, Mark Gross <markgross@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20220113170728.1953559-1-tanureal@opensource.cirrus.com>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20220113161341.371345-1-daniel.baluta@oss.nxp.com>
+In-Reply-To: <20220113170728.1953559-1-tanureal@opensource.cirrus.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR08CA0031.eurprd08.prod.outlook.com
- (2603:10a6:20b:c0::19) To BN6PR11MB4049.namprd11.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0077.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::16) To BN6PR11MB4049.namprd11.prod.outlook.com
  (2603:10b6:405:7f::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f2753591-bc99-4aa2-685e-08d9d77584fb
-X-MS-TrafficTypeDiagnostic: SN6PR11MB3134:EE_
-X-Microsoft-Antispam-PRVS: <SN6PR11MB31347753CFDCF03D22E5E437E3549@SN6PR11MB3134.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: f5676451-6dab-4a7c-5cd9-08d9d777e849
+X-MS-TrafficTypeDiagnostic: BN6PR11MB4068:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR11MB4068FC42D13A304EFE1A540EE3549@BN6PR11MB4068.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:274;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tDdIeDvXPWpOS+X+coVlyabyNR8r7HTaRIkey5lrxp6hVOFmJCEe+O74rVybISFg5trGQDmT53R+gj8AOIMkHnGa6XesaTcaP49ztIXGR/6O9aJpwiO3mAfSQFEMwJo6N1NGBXZYBDrdASZxTLQq23uJBFNdC6Vi6WApz7zIM/C6ksurH6Q47ngAdIrgQ2MHs6nZOwwm+WvL8nB3XOaRgSOe4shK2/3tBCj4+KfHOAh/KH5Viwh3d1cawJxcdyqVwx10RhDYsyi18eJv1yKNqRmCHOOxSj3OZiNU6KErB7XUogFMXUAKHiXnuLgKhNFBw22F8s7Gslofa3eO8o+shbRLmA4FCBXWzpE+tFT46F49WwEX+ORs0g103tlDGBBOShV63X7R5zqf0V2psg8ko+Goki6PbFoA+oT/dHA4+p4Zr4udD8dWeHCgPMgSMQLlh6uQHJKYPEEujtbRIoHWcxCSQ0j7SLQIIrTwHGb3VO8dD/yw22NwuGbUY/9QU2JaS3p/qgOpSneJYNbx2OgpVDc1NyQI0obCqI1wqqvQOuTN8QyyS7doQDXW4DBgoKHPFMeVD5d1bvtF9Hzt5urI3nD32hj8Szis5xhjBvVz0bpOkne6CnwjI3CLUdQVMGSS1ljF/981QaOn04+1yb5CBfBT+EgFeiz6xyiJIL3SSr/UJTcifcFhPk6ZkEA/45HYsWzt476OLfwOVEDGNwzbPmBAv4ggeL6u9sJM2f7srx/pSmN3U77fmEaLnqEl/Uax
+X-Microsoft-Antispam-Message-Info: qnBA5i94qsZ/VpJ9nsYxCQMP5+fSV0hexsAAn5DJsVh/TzxUlqitznyumxgbSpF68ql2P/K1/PDxwLpAh6TQ+Qs3bc9aymSpqMb69ws5bXuOj6CYVFnL4+4CsIZvfgfOoDqC6oERh513cuz19NS2iu45hKNZNVhDc6QgL+4S/8PNVqMqiuSV5YdRlOhuozgLigkYzg9ICB4vG0I2+sdCzY8+8yfiGdnQ1llSBwKV0VC9FcJ7wFsxjYCHcSFhBm84NkHmSgXJwno27Y3WhOgq5QNvdv5ny4gsEjz3TdNEeOh/iQBEUW7IyxmhRcrYT0l0AC/d+EPUbV8Z1W5Kv/qtwO6Vevc8IC3n5Zaq6jIpQbWSX55NAaEP1p4AynWzpUTp6MSWweLgkxOx1U8rz40jw0RCCTEJkIokSXM61CU3NeGXb6UXTWGvzNDdTjeOQB2D9hzHDLvCiHuGEZlS2so/ZTDSIe6p3gRtta2/Ceae+8YmzfkW5UBtX0spZmatIhw96l+zRDF67RZzunwgbPLbshwxOleVy43XTWaBPB6o5TOXw/s+fVKZ+2GDE3d93iELW++LcxRyqGNFGA+pWaRUbF2o3n2VhR4MpnVCUwPPei+GN8zyIfVgqvGHLBzwgMDSV4BmOyTDAP+IUEfwzL25PtPooGbAOkpkv/4k901RMSH4EyCbCiDBEb/gTzdCJGufZpOFmbvtkxtaFGQm6ivctKOj6mSIqMJ+SA0WSaZ4DaQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN6PR11MB4049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(4326008)(31696002)(6666004)(83380400001)(86362001)(26005)(8676002)(7416002)(36756003)(53546011)(31686004)(5660300002)(8936002)(66946007)(186003)(6512007)(508600001)(316002)(66556008)(66476007)(44832011)(2616005)(2906002)(6506007)(82960400001)(38100700002)(6486002)(21314003)(45980500001)(43740500002);
+ SFS:(366004)(53546011)(82960400001)(6666004)(186003)(36756003)(2616005)(38100700002)(26005)(6486002)(6512007)(7416002)(6506007)(31686004)(316002)(110136005)(8676002)(5660300002)(66556008)(66946007)(8936002)(44832011)(508600001)(31696002)(86362001)(83380400001)(66476007)(2906002)(4326008)(43740500002)(45980500001);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjdaOXZiY2swR01kR3hQKzRHek5zb0ZlSHh1K08zVjkvRHRVdURvODYzWmRB?=
- =?utf-8?B?Y3R1RmdnYVZ3aDlESE1hbHpIR0hxeFRqSC9hRnBETFVxQjVYVFA1QVR2dWRv?=
- =?utf-8?B?MVY0dVJQdzBvN1Bkam41eXMwMHFvMDlGSm80dTRYUXl5amU4d3lsZVpZVFlZ?=
- =?utf-8?B?enJubloxNmJMOW1NU3Y0VllPbSswamVxYVBxZ1FERWFhYnNNM0dsaCtNY0lN?=
- =?utf-8?B?UzEvUzFTby9aZ2xwTWFSSDYzTEJJR2dQR0pwSzE3ai9wcG9zNzhNT2l6OXkx?=
- =?utf-8?B?YjJEalFnT21CL3J1NjNoZy8rRHp2TlBOZ2hlYWhSM1ZGNForMlhwRHQ0ZE0w?=
- =?utf-8?B?ZzloQ09vS0FxR1JKQjAwUnk3UHVhc0lzWHFtWm1rR09UMFpDcXN3NU1tQ2JO?=
- =?utf-8?B?alhSRk81SW5XS2JHYXg1V0VDSWt2NzhNZSt2R1lCTngxQXdaL0lScUhVTXJV?=
- =?utf-8?B?OW1DRE5UWU13SElkbDJ2VDM3NUtWbjdsbGhzdE94dDZ2M0pwMTl0VWRsUzJx?=
- =?utf-8?B?Uk5NNWNMN1BrUmZGUG01dFBHVlRIYkZCcUR2Y3RleXVBL0NKNFBYd01LYWZy?=
- =?utf-8?B?VUNFbkNQRXZ4RW9lSzVmeCtQZ2lldkFwTCtMaDA2WDBuZEFrQTc0YS9mK3Bh?=
- =?utf-8?B?RnlyREtGaG53alRSWFFRNHB1akw3cklpSmxQKzg2V2NlZHhFRXRORFNhZTdK?=
- =?utf-8?B?MjRtY2dwSnlod0k5WXdXZzdRSmtGL3JnV3pWa0hEcHFVQ2pQY0t2a2IveDNE?=
- =?utf-8?B?ZnpGdFZ3R0xMa1ViWUltTklvYlY4VHVITUU1ZExRb2F5K25XbnlWSi8xbUp2?=
- =?utf-8?B?NFhyc1haVjczQndzSFUvRThZa0ZOeWxjTFFwTmdJYWVvQjY2Sko2bFR0eGta?=
- =?utf-8?B?WDB5VnlLQkhTQ3ZOT0dOclBPdkZrZjBmZkd0R0x0NjVRbDdkTUdGT1ZWSldv?=
- =?utf-8?B?c1RXUDYxeUhmM25HakV1Z0h1dHFFQis2Nyt0bEJqTW1pS09pRGo1MmhURi9D?=
- =?utf-8?B?Q2N1NWNSb010RUttNnZ4YVovK2EyNEVSNjZVelBZT2NVWXRxbDFHdGljYW9N?=
- =?utf-8?B?WTNHTmkwYzNnejNPWE9GUDRpOVRNVDNZditJLzZwWWgwbmNyUmx2YnJhMVpi?=
- =?utf-8?B?RkZJMnZjWkpaUVR2cURzbGwxREI1bGVLZ1AxaDZUbkVEbitXcDNKYnh0ZEYx?=
- =?utf-8?B?K29mV0ZxQ2NxSE1XSFd1Wnptd01aL29tQUVIOG9QQlk0MU1qMVBFT212L3lK?=
- =?utf-8?B?SXl2bnQwclY1M1hyWXVONlZxTis4NVNuVVBIdk44OW9ocHBsMGFDK3JSdEZt?=
- =?utf-8?B?ek1KajhFcUlTM0NUb3lNUHoyZDhQL0orSjdpQ3k2VFJZaXkwWVdYMHJGQ0Z5?=
- =?utf-8?B?T3ViVjY2d1cwSElxZ29aVjMvNXpPaEJRZGxIem9OT0Y4MWZrZ1E2U1U0VE9t?=
- =?utf-8?B?Ky90ZVVlaVUrRzhtQXE2Z2pLbHlUNDdvYWg4K2lxSVUxZk5jWUdOSk14SUVy?=
- =?utf-8?B?cHcwbUtPMXR5OTR0cHp6RnhMUVlxQkVGbzYvU0daZHpMTlI5aWk5bTN0OVhJ?=
- =?utf-8?B?alE5RVp6OW1RRFV3YlpkNnNVUmpOTFZoa1JXaFFWVm82VjFpWVNaaGVvMzNm?=
- =?utf-8?B?RFVHNm9wWC9HS2RCOVpQa2NQZy81cmV2SE9lRkVLa3hFMUJucHc5TkI4RDlJ?=
- =?utf-8?B?NzNzTHk3SUNRaE45Mkk2L210K0t1b2hlU2ZxR1dIOGRLN0p3bFBGd2w3a3U0?=
- =?utf-8?B?ZEdQZHpGNXFNc2ZKeTZLVmsvaDdMR3NCa3FiczhBeEhOVFRkVHlsc0tKNC9v?=
- =?utf-8?B?WGhZejY1eWNDMFlwVlh4eVBrOUlWS21SYU9FTGtYM2V6NWI0elF2NE5kNXE4?=
- =?utf-8?B?NEJFTVNnUm5PMjFZaFRlS1ZrVkl0OWRpbUJ5b2JiQmVQWXhqVnZTNzU5QmNJ?=
- =?utf-8?B?UzlvdEJHcXZnTkxQU3BiWnJ6RUp1QnM5YXVrQ211dlRjUHpPRFpBd2dHdlE4?=
- =?utf-8?B?RXhSNTZxcGh3a0dZZERRTFJBSlFxNlVtNFd6aU83TnpUMHlLWWMvUVovTmtY?=
- =?utf-8?B?YXRwaFVUaWRWUiswMmh2V01oM1hzSVBHellqdWpOckovZkdmNTZCaDBMUmxs?=
- =?utf-8?B?MXBjZm9YdDZqQ3NjTENHREdWNWlyZEh6TVl3ZlhuRDNWZWFscWlvVHRKd0c2?=
- =?utf-8?B?WnUvcFRwZnp4amUxQjRXcUx6RWF2eXJmZGJPUmxERTZWb3NCTWVYN0JhMHAw?=
- =?utf-8?B?QkJaaVQrWVBNY3B2YXFTSFBsbDZBPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2753591-bc99-4aa2-685e-08d9d77584fb
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RTFNZ2I4WGlRV3ppaVRlOEJ1K2g5V3psK2k3QlVzUWJrMVZKbjdwdTc5YWJC?=
+ =?utf-8?B?ZkpSVmxuQ2kyQnJpWWJDUlhhY1dpWHBOdkFWSkFtRS9xSzlOZG9XTkp3U2dw?=
+ =?utf-8?B?SUkwSFFFQWMyWE1GS2hqZVBpajl3R1lmcUh2eER2WVR5SEVLSzE1N3ZqWnps?=
+ =?utf-8?B?empEeTdkbVBsT080RStSV2RONDFPdWNvc05neWRGMlI3b1U2a1RTcFFid0tX?=
+ =?utf-8?B?ZlVKWVpYdi8yR2gzalFndXQ0WEVtSXJQdk9LZnRkZmw5dmlpd01NQnRvVVVO?=
+ =?utf-8?B?c2Rzb1U2OURkejRvSDFlaTVNa3BsUWE4WWlBN29yYSs4SFRrenAvUDZUZU9D?=
+ =?utf-8?B?S2VWM0NnRE1GUlkrWm9rTG4wQnBWSTZTbXJXR2o3SnNsaEYyVGt2R1NoNm9D?=
+ =?utf-8?B?dnZSUCtmT1orRTd6bDRGNUVZa1QyV2laN2JQa0VvK2EyRlFMQnNKaXBMaW9a?=
+ =?utf-8?B?Z3NNNTVyaldickhmb0huUFBnSGwwcHJGYmhNZ0MwTWFucmdiQjJMWXhKTWE4?=
+ =?utf-8?B?aUU3bzEzY3VGdHFzUE0wZWZGVG9URlJ6cEFkTTRQaXlvN3ZldjI0eWJaTzY2?=
+ =?utf-8?B?Y2s1RFFzR3VaTmlYMEJHaXJIZzMzd3FMUG13UmViMmpuSW40dXptbTN6ZW5O?=
+ =?utf-8?B?SVErVHd0VVJxcEtMbEZtQkdYcXN3NDh5SDl5UERpOHdKL0NJSFdrSVpQOTUz?=
+ =?utf-8?B?UTFPcHpOUjUrb2VkcGdnQ2tSVFRGYmpUOS9JMU9mWXV4QUFzU3BMd2FvbUFv?=
+ =?utf-8?B?SUdmMEcyTzNLTUM4eDNudnJ3c2Z2ZG5mTTlXNHV2TnZvNGhJSmhTc0pPcjc0?=
+ =?utf-8?B?Nk5RNjUyUFVaWnpyYXR0N3dkR0pMbTcyaUhLOFZMajJ1WVc2NU5ob1g0dWNY?=
+ =?utf-8?B?STRId0pDMGtwbHRzQ0Q3azR0NTN5U3QrQUZiVHRNSVBXamFQQVlkaDVFbU8r?=
+ =?utf-8?B?N1VEUDd0T1gwTHM3aXNGMWtwdmR5SG9maE9JSWloc01LdHBFK0t0MmpIWVBY?=
+ =?utf-8?B?azdFdi9TNmMxZnE5OWQrZHU1Y2pWc0RhQnUxZ2ZYNHdma0V2Wkp0UE82emE3?=
+ =?utf-8?B?VnVEZkhDTHJlVlhZNzZBbXZZZkQ4ck1FN291NXlIRlJKOVdqVDY4cmNsencw?=
+ =?utf-8?B?RENwMENoWjNZdktFUlJCNytYUnZLT01GcDNtbUswbUFZbkhiV0psOG5xWXN2?=
+ =?utf-8?B?OTlkSG1ja2ZUbzVxT1VwOVdHWitKWU0xWUxWNXFCcWV5MHVzUHJRSENud284?=
+ =?utf-8?B?MTNDUlhvTmJqSlBYNUFHdFJYTzR2amtWQmZ4eGthbEJ4Q1AyWGFxZjRUSjJT?=
+ =?utf-8?B?V2dwdUdmb1ZPalVZV21EVVdaNzNBWWk1dVJNSHl4RnNDOGhIRFBIOEdKNGRi?=
+ =?utf-8?B?K3BzcGU1UDk5WUczQjdBNnRwZU9SNnZ4czlUVi9jdDMzRlNrMlVjaVpkK0Jn?=
+ =?utf-8?B?blZXQnpvVVN0NEhHNW0vZm9RM28rOWlnUEpMMW1yQ1ZpUFlINC9rVk4xN2Ju?=
+ =?utf-8?B?QkVGOVlOakFGeUpwNFlHdE1lTE5QcWgzS3lmU0c0bTlQNHlvb3JINms3dmRz?=
+ =?utf-8?B?YjE0OGxkcU9ieWU0cGxWNzBpUEpzL0d4WGg5dGV2S1VyNmQ4QW5IRzV2R2R0?=
+ =?utf-8?B?WndWNk9sNjNNeDlaM29vamFVUkQ0TGVmS1huZnBOL3oyZmpMY0p4aStsQ3ZD?=
+ =?utf-8?B?bHVwenZneVJIZ0ZraDlzSjhZYmplVnlCbXd6eU1qWnl6TTRDK3hKcnJzUkFV?=
+ =?utf-8?B?QytvTlk2c2FOV2Y4dGl4NjJqNjk0RUtrbEhZMWkxNFpIdXhrRTYybENDK2NX?=
+ =?utf-8?B?VEVNYllEZm5SV0QwUHVXVHRkekdqRU1scnU2UGkvU3Z1ZERNYzBPK0dqQUFG?=
+ =?utf-8?B?QWlGTHhLSXdBb2lkZmpmMko2dVVPT2R4NVZKMlJnY1c3dG9XclpBRWR0Q3dj?=
+ =?utf-8?B?bFFScW1XMmZ3bEZucS9qa1hZbjVoYjNYWWo1dnNkN0c1RXhZVUdycDhITndz?=
+ =?utf-8?B?OXBEek5jSEJRWERtMnpkeEhiUUFmYWZwT3NVK2FSVEZlYmVmRlJjbEFKQmp6?=
+ =?utf-8?B?eVp5bzdLV2JyVEh3QlBKN2haVVpNYWU1RXJyeFE1aHhKaHl3QkNjWkVGT3JU?=
+ =?utf-8?B?WGxkQnp4NkNSenhiK1lxQ2dSdVhHaDVTckJIMzhIdjUvOE95dmp6YVlUOGNa?=
+ =?utf-8?B?SFdqQjhQM0phSlJsMVFSaWtLMUVFY0NVV0NwaElSbjRyeXB2S2JPVlV0SllT?=
+ =?utf-8?B?MVRQY2U5a3VZRzh3bHNPMEpLQStnPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5676451-6dab-4a7c-5cd9-08d9d777e849
 X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB4049.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2022 15:49:59.4608 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2022 16:07:05.0176 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /xbY0DN1VmeUyWtOkUyGK9LSKQdsVd733jLf46fc6lxTr0Iepf4FsBCbARmlIt3COu7r7Fa4/H3iPkgdWD0VXNUGEeeqvaByrFatG+sQLGE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB3134
+X-MS-Exchange-CrossTenant-UserPrincipalName: Zf/zyg3+9hIlseaMzQZZuc2CjtWPOtkuTt9uGp7os7Hyk9bSoTGCnsQzizqsVxUQoafkzMKzb+KI7N9PKBV/vGbDev9Ab4Xx6tyvoJJg8NY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB4068
 X-OriginatorOrg: intel.com
-Cc: pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -191,215 +193,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-01-13 5:13 PM, Daniel Baluta wrote:
-> From: Daniel Baluta <daniel.baluta@nxp.com>
+On 2022-01-13 6:07 PM, Lucas Tanure wrote:
+> From: Charles Keepax <ckeepax@opensource.cirrus.com>
 > 
-> Implement snd_compress_ops. There are a lot of similarities with
-> PCM implementation.
+> regmap_register_patch can't be used to apply the probe sequence as a
+> patch is already registers with the regmap by
+> cs35l41_register_errata_patch and only a single patch can be attached to
+> a single regmap. The driver doesn't currently rely on a cache sync to
+> re-apply this probe sequence so simply switch it to a multi write.
 > 
-> For now we use sof_ipc_pcm_params to transfer compress parameters to SOF
-> firmware.
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+
+Please correct me if I'm wrong, but this change looks like a fix for the 
+previously added commit:
+ALSA: hda: cs35l41: Add support for CS35L41 in HDA systems
+
+and so it would be good to append appropriate 'Fixes' tag here.
+
+> ---
+>   sound/pci/hda/cs35l41_hda.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> This will be changed in the future once we either add new compress
-> parameters to SOF or enhance existing sof_ipc_pcm_params structure
-> to support all native compress params.
-> 
-> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-
-...
-
-> +static int create_page_table(struct snd_soc_component *component,
-> +			     struct snd_compr_stream *cstream,
-> +			     unsigned char *dma_area, size_t size)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-> +	struct snd_dma_buffer *dmab = cstream->runtime->dma_buffer_p;
-> +	int dir = cstream->direction;
-> +	struct snd_sof_pcm *spcm;
-
-The layout of this declaration block is weird - it's neither a 
-reversed-christmas-tree nor higher->lower complexity (e.g. structs -> 
-primitives). Could you explain why it is shaped as is?
-
-> +
-> +	spcm = snd_sof_find_spcm_dai(component, rtd);
-> +	if (!spcm)
-> +		return -EINVAL;
-> +
-> +	return snd_sof_create_page_table(component->dev, dmab,
-> +					 spcm->stream[dir].page_table.area, size);
-> +}
-> +
-> +int sof_compr_open(struct snd_soc_component *component,
-> +		   struct snd_compr_stream *cstream)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-> +	struct snd_compr_runtime *runtime = cstream->runtime;
-
-Making use of 'rtd' and 'runtime' simultaneously within a function make 
-it less readable.
-
-> +	struct sof_compr_stream *sstream;
-> +	struct snd_sof_pcm *spcm;
-> +	int dir;
-> +
-> +	sstream = kzalloc(sizeof(*sstream), GFP_KERNEL);
-> +	if (!sstream)
-> +		return -ENOMEM;
-> +
-> +	spcm = snd_sof_find_spcm_dai(component, rtd);
-> +	if (!spcm) {
-> +		kfree(sstream);
-> +		return -EINVAL;
-> +	}
-> +
-> +	dir = cstream->direction;
-> +
-> +	if (spcm->stream[dir].cstream) {
-> +		kfree(sstream);
-> +		return -EBUSY;
-> +	}
-
-Could you explain why this check is needed? i.e. Is is possible for 
-compress stream to be opened "twice"?
-
-> +
-> +	spcm->stream[dir].cstream = cstream;
-> +	spcm->stream[dir].posn.host_posn = 0;
-> +	spcm->stream[dir].posn.dai_posn = 0;
-> +	spcm->prepared[dir] = false;
-> +
-> +	runtime->private_data = sstream;
-> +
-> +	return 0;
-> +}
-> +
-> +int sof_compr_free(struct snd_soc_component *component,
-> +		   struct snd_compr_stream *cstream)
-> +{
-> +	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-> +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-> +	struct snd_compr_runtime *runtime = cstream->runtime;
-
-Ditto.
-
-> +	struct sof_compr_stream *sstream = runtime->private_data;
-> +	struct sof_ipc_stream stream;
-> +	struct sof_ipc_reply reply;
-> +	struct snd_sof_pcm *spcm;
-> +	int ret = 0;
-> +
-> +	spcm = snd_sof_find_spcm_dai(component, rtd);
-> +	if (!spcm)
-> +		return -EINVAL;
-> +
-> +	stream.hdr.size = sizeof(stream);
-> +	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
-> +	stream.comp_id = spcm->stream[cstream->direction].comp_id;
-> +
-> +	if (spcm->prepared[cstream->direction]) {
-> +		ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd,
-> +					 &stream, sizeof(stream),
-> +					 &reply, sizeof(reply));
-> +		if (!ret)
-> +			spcm->prepared[cstream->direction] = false;
-
-Why is the assignment conditional? If IPC fails, is the ->prepared flag 
-respected and addressed later on? It does not seem to happen here.
-
-> +	}
-> +
-> +	cancel_work_sync(&spcm->stream[cstream->direction].period_elapsed_work);
-> +	spcm->stream[cstream->direction].cstream = NULL;
-> +	kfree(sstream);
-> +
-> +	return ret;
-> +}
-> +
-> +int sof_compr_set_params(struct snd_soc_component *component,
-> +			 struct snd_compr_stream *cstream, struct snd_compr_params *params)
-> +{
-> +	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-> +	struct snd_soc_pcm_runtime *rtd_pcm = cstream->private_data;
-> +	struct snd_compr_runtime *rtd = cstream->runtime;
-> +	struct sof_compr_stream *sstream = rtd->private_data;
-> +	struct sof_ipc_pcm_params_reply ipc_params_reply;
-> +	struct sof_ipc_pcm_params pcm;
-> +	struct snd_sof_pcm *spcm;
-> +	int ret;
-> +
-> +	spcm = snd_sof_find_spcm_dai(component, rtd_pcm);
-> +	if (!spcm)
-> +		return -EINVAL;
-> +
-> +	cstream->dma_buffer.dev.type = SNDRV_DMA_TYPE_DEV_SG;
-> +	cstream->dma_buffer.dev.dev = sdev->dev;
-> +	ret = snd_compr_malloc_pages(cstream, rtd->buffer_size);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	create_page_table(component, cstream, rtd->dma_area, rtd->dma_bytes);
-
-Shouldn't the result of create_page_table() be tested before moving on?
-
-
-...
-
-> +int sof_compr_trigger(struct snd_soc_component *component,
-> +		      struct snd_compr_stream *cstream, int cmd)
-> +{
-> +	struct sof_ipc_stream stream;
-> +	struct sof_ipc_reply reply;
-> +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-> +	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-> +	struct snd_sof_pcm *spcm;
-
-Similarly to create_page_table() case, layout of this declaration block 
-is weird. Perhaps I'm just unaware of the convention used within this 
-directory.
-
-
-...
-
-> +static int sof_compr_pointer(struct snd_soc_component *component,
-> +			     struct snd_compr_stream *cstream,
-> +			     struct snd_compr_tstamp *tstamp)
-> +{
-> +	struct snd_compr_runtime *runtime = cstream->runtime;
-> +	struct sof_compr_stream *sstream = runtime->private_data;
-
-I'd suggest declaring single local variable instead. The 'runtime' one 
-is unused except for the initial 'sstream' assignemnt.
-
-> +
-> +	tstamp->sampling_rate = sstream->sample_rate;
-> +	tstamp->copied_total = sstream->copied_total;
-> +
-> +	return 0;
-> +}
-
-...
-
-> diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-> index 087935192ce8..d001a762a866 100644
-> --- a/sound/soc/sof/sof-priv.h
-> +++ b/sound/soc/sof/sof-priv.h
-> @@ -108,6 +108,12 @@ enum sof_debugfs_access_type {
->   	SOF_DEBUGFS_ACCESS_D0_ONLY,
->   };
+> diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
+> index 30b40d865863..c47c5f0b4e59 100644
+> --- a/sound/pci/hda/cs35l41_hda.c
+> +++ b/sound/pci/hda/cs35l41_hda.c
+> @@ -480,7 +480,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+>   	acpi_hw_cfg = NULL;
 >   
-> +struct sof_compr_stream {
-> +	unsigned int copied_total;
-> +	unsigned int sample_rate;
-> +	size_t posn_offset;
-> +};
-
-Some streaming-related PCM structs follow snd_sof_xxx naming pattern 
-instead, e.g.: snd_sof_pcm. Is the naming convention for compress 
-streams seen here intentional?
-
-> +
->   struct snd_sof_dev;
->   struct snd_sof_ipc_msg;
->   struct snd_sof_ipc;
+>   	if (cs35l41->reg_seq->probe) {
+> -		ret = regmap_register_patch(cs35l41->regmap, cs35l41->reg_seq->probe,
+> +		ret = regmap_multi_reg_write(cs35l41->regmap, cs35l41->reg_seq->probe,
+>   					    cs35l41->reg_seq->num_probe);
+>   		if (ret) {
+>   			dev_err(cs35l41->dev, "Fail to apply probe reg patch: %d\n", ret);
 > 

@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FFE148EF62
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 18:52:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C213948EF8E
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 18:56:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC0432030;
-	Fri, 14 Jan 2022 18:52:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC0432030
+	by alsa0.perex.cz (Postfix) with ESMTPS id 652A41B4F;
+	Fri, 14 Jan 2022 18:56:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 652A41B4F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642182778;
-	bh=zYT/Aidss70NzFIzGnrEzoFSwm/180PBALMMsgjTe0U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1642183011;
+	bh=doUB/pKBDJqy6j6WmEvX+v/9LR0IPAN2M5yEKEe05ak=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Bfwk2LWyF/PynPwfoT7bT7oeUWRPzhnYa6SjhOX1HQKkZ2ikvNFNO/+Etg1bVW+ib
-	 /WYOlVKwwCr/EW7cgXTZYZhiUAHhJ4WXRcfRgTfxiBlvssCVmKfIdjN1IhSUmU09J5
-	 /EYamUK/+2CQJ53W9DusSfMmGNyPkWmkHDjq2kBE=
+	b=ndPLJX7YPkulqGjEuFNvDBVdrdXLcDnntYADRPqifwVE7NrnQgUHfviIqSbD9+X1h
+	 5SYtzDgBZ8Mz4ROoB2yMWPWDaEozHQ9YVL26+8c3UUgQtM2GMtAyLKPB1RnvsfPm9i
+	 e4AoO0cnIGWMBL6ncEW/fl9RbsoiDRKgA9orXcR0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 233F6F80310;
-	Fri, 14 Jan 2022 18:51:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4F71F80310;
+	Fri, 14 Jan 2022 18:55:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45169F8030F; Fri, 14 Jan 2022 18:51:47 +0100 (CET)
+ id 6DFDCF8030F; Fri, 14 Jan 2022 18:55:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 153B6F800CE
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 18:51:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 153B6F800CE
-Received: by mail-qt1-f181.google.com with SMTP id f17so11451166qtf.8
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 09:51:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fVQGLqQvJbwoy9xCNJlVEudmBlmdf+BHE1MexcrTM00=;
- b=JR+G15ZVi10XYvKJBO1no1kTSbNTVG3CK0flpkqWtq+XO4K6UIf8LlLgOzvpOHeHDr
- vMByfx13jDmYuZHwls3tpp89faNQqrnXLxDp5jDfA3GeSh5KOv60cTtGb2gGjiOsm28W
- rF0WtjUsfSvoh7Fd8LCnT7j8Yr7CrrkzrqWoMC4wBQSLJhKkS+v7RvZWDmKB7DkSoLSB
- TsJO0g84aUQ7Z/daRD2hhThg9Bz7CD8n9zZKfOm8n6v3fw+glJLKhnsqsSvqn9r5mLYh
- YbuM1aFxaxJAdFiKHcrhEDKC60kexfcVdd3H38x8Xu27dPMJ/zo9f4G5jgVRlSCZ91pz
- ICaQ==
-X-Gm-Message-State: AOAM532IdOOyd7rQWI4takEEJ0WQUeT3uGLX4Oi/hGmEMo/95N8SO01m
- Ij6m1IjUn3d9rcfGaDB9zD/OCwu38vKfRmP7QMY=
-X-Google-Smtp-Source: ABdhPJy9pR7Mnowkd0KohKvx8Ey6a0toGyrWLkMNTm/UVqZjGJWU/mmT1XO06fDtnN1gbd87tjrbSRkXkpmeJcWR8Ho=
-X-Received: by 2002:a05:622a:44e:: with SMTP id
- o14mr8740079qtx.369.1642182699155; 
- Fri, 14 Jan 2022 09:51:39 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6A5DDF80141
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 18:55:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A5DDF80141
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="JTd1qPAl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642182940; x=1673718940;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=doUB/pKBDJqy6j6WmEvX+v/9LR0IPAN2M5yEKEe05ak=;
+ b=JTd1qPAlyWrKXpxDwsDA8Ass5Jcfsm/DcOPZf1StQYqP2QNbscnpfkUK
+ C6aJkdNU3cKikIZCFTgpE3BGVeD69VIHgv1lKHwe/WXekmismkRAMu70U
+ jMZp4HPs7eMGiMjp1PJ4PGQW+pYEu3Zde28qUYerj2DOLoRkEqcDNpN4j
+ qiUvLnoFLza2aj5VdIvQlxALr1UxwZ1Dd7ATnBoSi4Yu3rNnETIImf/6L
+ lphJuzXFL1b1YV8A0sIaL2FWRow6uU1CVKFMGqzPVX9hR7NrAz0A38fU4
+ JSqlePobW3MHcl7BYeeyFHJaJl0q8tUC9Mfp+WMFk0DWy6eY/+agguxay Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10227"; a="305026675"
+X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="305026675"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2022 09:55:33 -0800
+X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="624426987"
+Received: from dsubasic-mobl.amr.corp.intel.com (HELO [10.212.67.37])
+ ([10.212.67.37])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2022 09:55:32 -0800
+Subject: Re: [PATCH] ASoC: SOF: compr: Add compress ops implementation
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+References: <20220113161341.371345-1-daniel.baluta@oss.nxp.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <9b3d28f3-aa2b-ade9-4160-752b349bdeab@linux.intel.com>
+Date: Fri, 14 Jan 2022 11:55:31 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-References: <20220113170728.1953559-1-tanureal@opensource.cirrus.com>
- <20220113170728.1953559-5-tanureal@opensource.cirrus.com>
- <s5hee5a47et.wl-tiwai@suse.de>
-In-Reply-To: <s5hee5a47et.wl-tiwai@suse.de>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Fri, 14 Jan 2022 18:51:28 +0100
-Message-ID: <CAJZ5v0ijGWNd9s-4mrFgK-QbPDhnj2K3DF+Z45t7ckV6ET0hpQ@mail.gmail.com>
-Subject: Re: [PATCH 5/5] ACPI / scan: Create platform device for CLSA0100
-To: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Lucas Tanure <tanureal@opensource.cirrus.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Mark Gross <markgross@kernel.org>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Platform Driver <platform-driver-x86@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Len Brown <lenb@kernel.org>
+In-Reply-To: <20220113161341.371345-1-daniel.baluta@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,71 +93,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 14, 2022 at 5:19 PM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Thu, 13 Jan 2022 18:07:28 +0100,
-> Lucas Tanure wrote:
-> >
-> > The ACPI device with CLSA0100 is a sound card with
-> > multiple instances of CS35L41 connected by I2C to
-> > the main CPU.
-> >
-> > We add an ID to the i2c_multi_instantiate_idsi list
-> > to enumerate all I2C slaves correctly.
-> >
-> > Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
->
-> I think it's better to merge this from sound git tree together with
-> others in the patch set, presumably for rc1.
->
-> It'd be great if ACPI people can take a review and give an ack/nack.
 
-Hans, what do you think?
+Thanks for starting this work Daniel.
 
-> > ---
-> >  drivers/acpi/scan.c                          | 2 ++
-> >  drivers/platform/x86/i2c-multi-instantiate.c | 8 ++++++++
-> >  2 files changed, 10 insertions(+)
-> >
-> > diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-> > index c215bc8723d0..2a68031d953e 100644
-> > --- a/drivers/acpi/scan.c
-> > +++ b/drivers/acpi/scan.c
-> > @@ -1753,6 +1753,8 @@ static bool acpi_device_enumeration_by_parent(struct acpi_device *device)
-> >        */
-> >               {"BCM4752", },
-> >               {"LNV4752", },
-> > +     /* Non-conforming _HID for Cirrus Logic already released */
-> > +             {"CLSA0100", },
-> >               {}
-> >       };
-> >
-> > diff --git a/drivers/platform/x86/i2c-multi-instantiate.c b/drivers/platform/x86/i2c-multi-instantiate.c
-> > index 4956a1df5b90..a51a74933fa9 100644
-> > --- a/drivers/platform/x86/i2c-multi-instantiate.c
-> > +++ b/drivers/platform/x86/i2c-multi-instantiate.c
-> > @@ -147,6 +147,12 @@ static const struct i2c_inst_data int3515_data[]  = {
-> >       {}
-> >  };
-> >
-> > +static const struct i2c_inst_data cs35l41_hda[] = {
-> > +     { "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
-> > +     { "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
-> > +     {}
-> > +};
-> > +
-> >  /*
-> >   * Note new device-ids must also be added to i2c_multi_instantiate_ids in
-> >   * drivers/acpi/scan.c: acpi_device_enumeration_by_parent().
-> > @@ -155,6 +161,8 @@ static const struct acpi_device_id i2c_multi_inst_acpi_ids[] = {
-> >       { "BSG1160", (unsigned long)bsg1160_data },
-> >       { "BSG2150", (unsigned long)bsg2150_data },
-> >       { "INT3515", (unsigned long)int3515_data },
-> > +     /* Non-conforming _HID for Cirrus Logic already released */
-> > +     { "CLSA0100", (unsigned long)cs35l41_hda },
-> >       { }
-> >  };
-> >  MODULE_DEVICE_TABLE(acpi, i2c_multi_inst_acpi_ids);
-> > --
-> > 2.34.1
-> >
+> +int sof_compr_get_params(struct snd_soc_component *component,
+> +			 struct snd_compr_stream *cstream, struct snd_codec *params)
+> +{
+> +	return 0;
+> +}
+
+You should probably add a statement along the lines of:
+
+/* TODO: we don't query the supported codecs for now, if the application
+asks for an unsupported codec the set_params() will fail
+*/
+
+.get_codec_caps is also missing, it should be documented as something we
+want to add.
+
+> +static int sof_compr_pointer(struct snd_soc_component *component,
+> +			     struct snd_compr_stream *cstream,
+> +			     struct snd_compr_tstamp *tstamp)
+> +{
+> +	struct snd_compr_runtime *runtime = cstream->runtime;
+> +	struct sof_compr_stream *sstream = runtime->private_data;
+> +
+> +	tstamp->sampling_rate = sstream->sample_rate;
+> +	tstamp->copied_total = sstream->copied_total;
+
+Humm, this doesn't return any information on how many PCM samples were
+generated (pcm_frames) or rendered (pcm_io_frames).
+
+I don't think the existing SOF firmware has this level of detail for
+now, you should at least document it as to be added in the future.
+
+In addition, the .pointer callback can be used at different times, and
+for added precision the information should be queried from the firmware
+via IPC or by looking up counters in the SRAM windows.
+
+I don't think it's good enough to update the information on a fragment
+elapsed event. It will work for sure in terms of reporting compressed
+data transfers, but it's not good enough for an application to report
+time elapsed.
+
+> +struct sof_compr_stream {
+> +	unsigned int copied_total;
+> +	unsigned int sample_rate;
+> +	size_t posn_offset;
+> +};
+
+do you need an SOF-specific definition? This looks awfully similar to
+snd_compr_tstamp:
+
+struct snd_compr_tstamp {
+	__u32 byte_offset;
+	__u32 copied_total;
+	__u32 pcm_frames;
+	__u32 pcm_io_frames;
+	__u32 sampling_rate;
+}

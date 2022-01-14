@@ -2,82 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C213948EF8E
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 18:56:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89A9E48EFFB
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 19:33:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 652A41B4F;
-	Fri, 14 Jan 2022 18:56:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 652A41B4F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B3621FC7;
+	Fri, 14 Jan 2022 19:32:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B3621FC7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642183011;
-	bh=doUB/pKBDJqy6j6WmEvX+v/9LR0IPAN2M5yEKEe05ak=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1642185180;
+	bh=4fp4ygN4Pi2RI7EWusLhh6+uX/IYBJgwb2CA3PZ0aO8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ndPLJX7YPkulqGjEuFNvDBVdrdXLcDnntYADRPqifwVE7NrnQgUHfviIqSbD9+X1h
-	 5SYtzDgBZ8Mz4ROoB2yMWPWDaEozHQ9YVL26+8c3UUgQtM2GMtAyLKPB1RnvsfPm9i
-	 e4AoO0cnIGWMBL6ncEW/fl9RbsoiDRKgA9orXcR0=
+	b=HBI56Ia+XdkgrPRU/Q3u7rYVqq09YuVRw79by8qx5RRtAiuEIuJk8CRLB0KcCdrBw
+	 rSHiMSatieuXvBHw6Jr2pCyp/OO5ADf3gDxKE3FZGA4QhM6JgWuG1LKG4dWfyshO1l
+	 bkjZEMgC6qikG8QNNkJ1m5RBWbqKegKGO7ZiPwBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4F71F80310;
-	Fri, 14 Jan 2022 18:55:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89FC3F80310;
+	Fri, 14 Jan 2022 19:31:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6DFDCF8030F; Fri, 14 Jan 2022 18:55:42 +0100 (CET)
+ id 85A79F8030F; Fri, 14 Jan 2022 19:31:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A5DDF80141
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 18:55:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A5DDF80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 000BCF800CE
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 19:31:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 000BCF800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="JTd1qPAl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642182940; x=1673718940;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=doUB/pKBDJqy6j6WmEvX+v/9LR0IPAN2M5yEKEe05ak=;
- b=JTd1qPAlyWrKXpxDwsDA8Ass5Jcfsm/DcOPZf1StQYqP2QNbscnpfkUK
- C6aJkdNU3cKikIZCFTgpE3BGVeD69VIHgv1lKHwe/WXekmismkRAMu70U
- jMZp4HPs7eMGiMjp1PJ4PGQW+pYEu3Zde28qUYerj2DOLoRkEqcDNpN4j
- qiUvLnoFLza2aj5VdIvQlxALr1UxwZ1Dd7ATnBoSi4Yu3rNnETIImf/6L
- lphJuzXFL1b1YV8A0sIaL2FWRow6uU1CVKFMGqzPVX9hR7NrAz0A38fU4
- JSqlePobW3MHcl7BYeeyFHJaJl0q8tUC9Mfp+WMFk0DWy6eY/+agguxay Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10227"; a="305026675"
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="305026675"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 09:55:33 -0800
-X-IronPort-AV: E=Sophos;i="5.88,289,1635231600"; d="scan'208";a="624426987"
-Received: from dsubasic-mobl.amr.corp.intel.com (HELO [10.212.67.37])
- ([10.212.67.37])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 09:55:32 -0800
-Subject: Re: [PATCH] ASoC: SOF: compr: Add compress ops implementation
-To: Daniel Baluta <daniel.baluta@oss.nxp.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-References: <20220113161341.371345-1-daniel.baluta@oss.nxp.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9b3d28f3-aa2b-ade9-4160-752b349bdeab@linux.intel.com>
-Date: Fri, 14 Jan 2022 11:55:31 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="RTsqqX8P"
+Received: by mail-lf1-x136.google.com with SMTP id b14so14523525lff.3
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 10:31:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:user-agent:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=0QoMS9tW+FujbuAvwpX64y12Q6x1wpjN/ARJKsGQ958=;
+ b=RTsqqX8PvMOztDxaNDcdDU1pO8eta9X4w+YyBwKqTLjYQGdTfwiazHVEjJNBF6BZPO
+ sfujMT8JKv78tLu3B1uEuHkJSCOVYkPp8hAcn0+kiSsfe+B7ZLmP/e4/sLHZzvbkBNlP
+ YDJaXSHOeRTNKr94l5gk+XCz3gwiL7Qw3TeebK+FyXaFrhNV/ynCQ9A6EVYUGF3J02sk
+ zAZjEWfFL9YPImddE3po5Maa8Z2TKh9r6vtzLkbl8iZMS7/rSLtzybqSDWg0aageQQmz
+ H2qwVasI8sr0WUOHw7TBkhBvv1pDMQEdmyNGRoqp9ig/+uvpsZirKPFdUX7cbjNiWUXi
+ Us1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:user-agent
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=0QoMS9tW+FujbuAvwpX64y12Q6x1wpjN/ARJKsGQ958=;
+ b=ciWjcg+z2TA51B+zedR8UP6wY0u9dupPSjlkD+XB2dW78hsWDfvt0PFTPLOtzRloYX
+ UgC/6+mmDKVPLZDZDueN/Lw7VIvtnKssI7DQKrFu3jJb93Q3wY9YXk/OIpBe2uF/u3D2
+ mu4XRpOFjvO1dtTIaTRxGQ3DODubR512dAC+VUDVdPRTarnMQ0jTmvW8D92ei+VqoTlI
+ tNexPEFIPVGRLBzvEJsdZHFp6NTn+MuiDQspX7kd5ihSiQJWv1whxCXvDQ1sEnTOZZkd
+ GIT+7K+MUXZgWPEo0yqELFBrSEhY/OJ7FjrD+lyaDR1frFEQ/UNSF2UIKfhRswPgCan9
+ tZ5w==
+X-Gm-Message-State: AOAM532mdMIkIAXXwRnmBgPYtF3VduthGrJw2A8MExA3+/2A2V2Hzf+m
+ RIfiGCto957jHRZ+btaRsEI=
+X-Google-Smtp-Source: ABdhPJyEKAfJfJEbAwR6p75nS+3fcsqesPn/gPeHmm5NpF9OkZ2jlOTSBmqydTpPa/OVQEatvwt11A==
+X-Received: by 2002:a05:651c:11d0:: with SMTP id
+ z16mr161948ljo.13.1642185100240; 
+ Fri, 14 Jan 2022 10:31:40 -0800 (PST)
+Received: from localhost.localdomain (ntd06459.static.corbina.ru.
+ [95.31.14.149])
+ by smtp.gmail.com with ESMTPSA id c9sm652951lfv.180.2022.01.14.10.31.39
+ (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
+ Fri, 14 Jan 2022 10:31:39 -0800 (PST)
+Date: Fri, 14 Jan 2022 21:37:20 +0300
+From: Alexander Sergeyev <sergeev917@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
+Message-ID: <20220114183720.n46wealclg6spxkp@localhost.localdomain>
+User-Agent: mtt
+References: <20210519170357.58410-1-jeremy.szu@canonical.com>
+ <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
+ <s5ho84h9tit.wl-tiwai@suse.de>
+ <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
+ <s5hilup9s87.wl-tiwai@suse.de>
+ <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
+ <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
+ <s5h8rvk85uy.wl-tiwai@suse.de>
+ <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
+ <s5ha6fy46jt.wl-tiwai@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <20220113161341.371345-1-daniel.baluta@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com,
- ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5ha6fy46jt.wl-tiwai@suse.de>
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
+ PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,62 +115,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jan 14, 2022 at 05:37:42PM +0100, Takashi Iwai wrote:
+> > I assume that the referred repository is the one at [1]. I've tried
+> > 081c73701ef0 "ALSA: hda: intel-dsp-config: reorder the config
+> > table". It crashed with nearly identical logs.
+>
+> OK, then it's still something to do with the led cdev
+> unregisteration.
+>
+> Could you try the patch below?
 
-Thanks for starting this work Daniel.
+This patch solved the BUG problem. But after unbind/bind micmute LED stopped 
+working. Speakers and mute LED are fine though.
 
-> +int sof_compr_get_params(struct snd_soc_component *component,
-> +			 struct snd_compr_stream *cstream, struct snd_codec *params)
-> +{
-> +	return 0;
-> +}
+Dmesg:
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff820 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff820 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff820 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff820 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff840 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff840 flags=0x0020]
+...
+snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:90170118
+snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:411111f0
+snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:270300
+...
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffb80 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffb80 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffba0 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffba0 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffba0 flags=0x0020]
+snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:80000000
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffba0 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffbc0 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffbc0 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffbc0 flags=0x0020]
+snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffffbc0 flags=0x0020]
+snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:20010b
 
-You should probably add a statement along the lines of:
+> > I got some time to poke the internal microphone. It works, but
+> > oddities are there as well. Initially I get "Mic Boost", "Capture" and
+> > "Internal Mic Boost" controls in alsamixer. When I run arecord,
+> > "Digital" control appears, but it cannot be changed until arecord is
+> > stopped. Subsequent arecord calls do not lock "Digital" control. This
+> > control affects sensitivity of the microphone and seems useful.
+>
+> That's presumably an alsa-lib softvol stuff.  It's created
+> dynamically.  So not really a kernel problem.
 
-/* TODO: we don't query the supported codecs for now, if the application
-asks for an unsupported codec the set_params() will fail
-*/
-
-.get_codec_caps is also missing, it should be documented as something we
-want to add.
-
-> +static int sof_compr_pointer(struct snd_soc_component *component,
-> +			     struct snd_compr_stream *cstream,
-> +			     struct snd_compr_tstamp *tstamp)
-> +{
-> +	struct snd_compr_runtime *runtime = cstream->runtime;
-> +	struct sof_compr_stream *sstream = runtime->private_data;
-> +
-> +	tstamp->sampling_rate = sstream->sample_rate;
-> +	tstamp->copied_total = sstream->copied_total;
-
-Humm, this doesn't return any information on how many PCM samples were
-generated (pcm_frames) or rendered (pcm_io_frames).
-
-I don't think the existing SOF firmware has this level of detail for
-now, you should at least document it as to be added in the future.
-
-In addition, the .pointer callback can be used at different times, and
-for added precision the information should be queried from the firmware
-via IPC or by looking up counters in the SRAM windows.
-
-I don't think it's good enough to update the information on a fragment
-elapsed event. It will work for sure in terms of reporting compressed
-data transfers, but it's not good enough for an application to report
-time elapsed.
-
-> +struct sof_compr_stream {
-> +	unsigned int copied_total;
-> +	unsigned int sample_rate;
-> +	size_t posn_offset;
-> +};
-
-do you need an SOF-specific definition? This looks awfully similar to
-snd_compr_tstamp:
-
-struct snd_compr_tstamp {
-	__u32 byte_offset;
-	__u32 copied_total;
-	__u32 pcm_frames;
-	__u32 pcm_io_frames;
-	__u32 sampling_rate;
-}
+Okay, that's good to know.

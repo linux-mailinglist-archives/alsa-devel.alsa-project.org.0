@@ -2,86 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DA1348EEC8
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 17:56:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A6148EED2
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 17:59:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1ADA61FE8;
-	Fri, 14 Jan 2022 17:55:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1ADA61FE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABCA22009;
+	Fri, 14 Jan 2022 17:58:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABCA22009
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642179363;
-	bh=VMnWIIiKL8fcduGwV0TfjMOQYL5UHyFNugk6yFP8ZEI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642179563;
+	bh=+1pGGMgJD1gWSUhSADnc/vSXAOdsM7lkf2JLgAS3+k4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IEWWydiidiyrq3VUFi8SCBDsRgcoeSebLGMzRwNLGzSbt4oN+3D0P4em1fbxr1Ifu
-	 iEInk38jrj0G2qjXNoxHE3yXEpCbk1TzM+Blt+iHvYAyzKQFo4gKUpKi8TpJdKSG79
-	 jQ7aLcQiv8dNprWtsudqseTLoN3UceitI0L6CtZw=
+	b=CUOd9Il1x1LHQU5f2KMeZaSMnqL9smylA4v9J2GF2w0PZXo7FCmymiFzZsRrL9Y53
+	 m6LjvoKP43oHmRwT7QjAvUvAhM2JjvbBgYTIzyiIO+f3Y3GeeVLjOLxNBAGrq0tDoW
+	 01s/hywj1icQK3JNImRaA0crtMKPoP7lRtNapMyU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50543F80310;
-	Fri, 14 Jan 2022 17:54:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A63CF8049C;
+	Fri, 14 Jan 2022 17:58:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEB64F8030F; Fri, 14 Jan 2022 17:54:53 +0100 (CET)
+ id 8B2C7F8027C; Fri, 14 Jan 2022 17:58:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCD09F800CE
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 17:54:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCD09F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id D68E8F8027C
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 17:58:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D68E8F8027C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="NYDnUl3q"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="gP0OwgmP"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 6388D1F388;
- Fri, 14 Jan 2022 16:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642179288; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gTJO2axjK/hf4a0W3MCG3BHo2U3Vy7XpoOpTIN5PLPo=;
- b=NYDnUl3qjIifQj6N4gDZH9eEZqAm6wlT9J+YHabNjKm7qMr7XCITwsVKzxTQ5dl9mmnGLy
- LjRQCwrgD6bmqLGusdQmcQbwL7DYrbJd2LTMQRqgLSI0/1wbl2om+Sox8XlQsn9+VqRjjZ
- RIkCatAKKqBjjgLBaXl6boVoSrvpERA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642179288;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gTJO2axjK/hf4a0W3MCG3BHo2U3Vy7XpoOpTIN5PLPo=;
- b=gP0OwgmP6qJcsebmb5/uA5zSuxVyoBekWmQx6/bRd4p7CXy5lhZ76aa/03ZxctkyULdQhh
- ev/5N8W8UquzdtDQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 49887A3B85;
- Fri, 14 Jan 2022 16:54:48 +0000 (UTC)
-Date: Fri, 14 Jan 2022 17:54:48 +0100
-Message-ID: <s5h5yqm45rb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Sergeyev <sergeev917@gmail.com>
-Subject: Re: [PATCH v2 1/1] ALSA: hda/realtek: fix speakers and micmute on HP
- 855 G8
-In-Reply-To: <20220114165050.ouw2nknuspclynro@localhost.localdomain>
-References: <20220114164904.lgj7yimbei6fmloe@localhost.localdomain>
- <20220114165050.ouw2nknuspclynro@localhost.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
- Elia Devito <eliadevito@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Werner Sembach <wse@tuxedocomputers.com>, Hui Wang <hui.wang@canonical.com>,
- Sami Loone <sami@loone.fi>, Cameron Berkenpas <cam@neo-zeon.de>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="iVbeHVWM"
+Received: by mail-qt1-x82e.google.com with SMTP id f17so11286338qtf.8
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 08:58:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3/LknUee5tShvPQdGCDJMgZycBj7j7tFq0oVBnp2e2k=;
+ b=iVbeHVWMHHQPD1rqqEEZ8DrfcGbToE5o1zbVM35kRg/Odick5qpphoDqLNEV9QsqWM
+ MdJuBLZpxmVZUGKZ/U+RT1Dz9gF35kE9KGSv9DtH01kx/MVKsj0th6OCGg44bRFur3do
+ owooPCV25uNhuTReUXOtvctS+yL0qqIjAuYoQWs4Z/fXicEeTIVphCSjEonP+DaPuugh
+ iRERJ3q7mKRJ4tiaWnKlZ7vUZPO83bjO7ijrkCdhr1Td21bxGEASeVEyhxiK2/fZmGpC
+ HdiecBrry7MYtklo3Uo9OBTlnElF/8Q4Pd8a6vxoN6d9aP8OLwdBZQ6B3ug4ThoM3j8K
+ v2ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3/LknUee5tShvPQdGCDJMgZycBj7j7tFq0oVBnp2e2k=;
+ b=gTNtauqKtoherg5yP1zfga33vwjXD1lCSo/55A3SBCv5z6jFo+gmWCW2G6CtX51WEq
+ TuvIaIMwcBrnleCm4UDdq0Edd7xOOPFVcsdBT1qbTIlLWvldyde5oUk81iCwo88QGfel
+ Ga6k7CL3pus2stMmtn2eD3ZiwF3aOACNZB4StMz4fbJLYCETxzF6thIkHgZ9zR3TKtpU
+ FNvqaLZxkkN5kOx6Njrd00mR0MxbJuNWXrTap1mX0JjU/x7wPw6LD9zD315jNS5EZXd0
+ O7Zs1drEIJlVeePzCTI8PK7zR+jkTQJDnSQxZPiqJxy21n6yy3mccbhooNaaQ6c22TSq
+ dIYg==
+X-Gm-Message-State: AOAM531H5CsH+T2kkxN1jzM0jKoB0+3P3V2qYRsgTylWKomgCe+geE9K
+ +8y2MeBwAZW/8n+BqmLAAlKdBDFYnQHGIqLQlCHcHg==
+X-Google-Smtp-Source: ABdhPJxLfPwEEBa+Ap9zKOritX0zyA/zOHrcclb56wSl9nFh7Fse60RiU41+kwlDQ+/tbTFIav2jJw6+dJm7B0eVyJU=
+X-Received: by 2002:ac8:5c8e:: with SMTP id r14mr8329561qta.42.1642179488381; 
+ Fri, 14 Jan 2022 08:58:08 -0800 (PST)
+MIME-Version: 1.0
+References: <20220114114633.742-1-allen-kh.cheng@mediatek.com>
+ <20220114114633.742-3-allen-kh.cheng@mediatek.com>
+In-Reply-To: <20220114114633.742-3-allen-kh.cheng@mediatek.com>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Fri, 14 Jan 2022 08:57:58 -0800
+Message-ID: <CAOReqxiSAhrSjXVW=D+ndXko95qLuHGkkNs5Wf-yVEcv1YompQ@mail.gmail.com>
+Subject: Re: [PATCH v14 2/2] mailbox: mediatek: add support for adsp mailbox
+ controller
+To: "allen-kh.cheng" <allen-kh.cheng@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kevin Hilman <khilman@baylibre.com>, Mark Brown <broonie@kernel.org>,
+ Jassi Brar <jassisinghbrar@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ Tzung-Bi Shih <tzungbi@google.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Chen-Yu Tsai <wenst@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,26 +109,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 14 Jan 2022 17:50:50 +0100,
-Alexander Sergeyev wrote:
-> 
-> There are several PCI ids associated with HP EliteBook 855 G8 Notebook
-> PC. Commit 0e68c4b11f1e6 ("ALSA: hda/realtek: fix mute/micmute LEDs for
-> HP 855 G8") covers 0x103c:0x8896, while this commit covers 0x103c:0x8895
-> which needs some additional work on top of the quirk from 0e68c4b11f1e6.
-> 
-> Note that the device can boot up with working speakers and micmute LED
-> without this patch, but the success rate would be quite low (order of
-> 16 working boots across 709 boots) at least for the built-in drivers
-> scenario. This also means that there are some timing issues during early
-> boot and this patch is a workaround.
-> 
-> With this patch applied speakers and headphones are consistenly working,
-> as well as mute/micmute LEDs and the internal microphone.
-> 
-> Signed-off-by: Alexander Sergeyev <sergeev917@gmail.com>
+> +
+> +static struct mtk_adsp_mbox_priv *get_mtk_adsp_mbox_priv(struct mbox_controller *mbox)
+> +{
+> +       return container_of(mbox, struct mtk_adsp_mbox_priv, mbox);
+> +}
 
-Thanks, applied now.
+this could probably be inline
 
 
-Takashi
+> +
+> +static struct mbox_chan *mtk_adsp_mbox_xlate(struct mbox_controller *mbox,
+> +                                            const struct of_phandle_args *sp)
+> +{
+> +       return mbox->chans;
+> +}
+
+also could probably benefit from inline

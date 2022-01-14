@@ -2,71 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68F6948E354
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 05:37:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B4FE48E42D
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jan 2022 07:20:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6B561FA8;
-	Fri, 14 Jan 2022 05:36:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6B561FA8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9846A1F69;
+	Fri, 14 Jan 2022 07:19:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9846A1F69
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642135046;
-	bh=I7EX1sgM295J7pPU5dDB3cslpOl7o8Z+Xe5IyDMJoLs=;
-	h=Date:To:References:From:Subject:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vGalFt0ykpQOOjo4fxzaq38/oX2jTVvMa/SoIvHWAJdS3Hf1gv4UQ99aPf9AWcuQm
-	 r0dBYdHBiIgyLBQthLZWwIzWNjYVzXZacFXu9SMEXy64YYLWalq+3yyngOU2BRD68H
-	 sdz1h+4MwXt6UegF69ZmqIzdeRAp4+xukuYC3UzE=
+	s=default; t=1642141205;
+	bh=CzWyo1Dh47S+V09J3E4+UIzjXpEmUCI5OKBoMB1p8vI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Q31rCwkNA7bP/fOL/kauI0UEmoTQrfVIwKfXnAEKJKRiMpDWbgTtHy31xoXPGWnnb
+	 7PXgXmS7bHRWFx4uNgn4ElmVlEaDyW0t9rZIWfe3hw5i5+GN17Zcvw0UvnxJ9xPGw5
+	 yGL0BjGb/qf2N0uY9Yc7cvVb2MW5OjR34ej5d41w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5DB6AF80310;
-	Fri, 14 Jan 2022 05:36:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6025F800CE;
+	Fri, 14 Jan 2022 07:18:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D6A5F80141; Fri, 14 Jan 2022 05:36:16 +0100 (CET)
+ id 325ECF8030F; Fri, 14 Jan 2022 07:18:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from server1.nandakumar.co.in (nandakumar.co.in [198.100.152.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0DDC4F80141
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 05:36:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DDC4F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 550A4F80141
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 07:18:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 550A4F80141
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nandakumar.co.in header.i=@nandakumar.co.in
- header.b="ZvGsHi0+"
-Received: from [192.168.100.185] (unknown [61.3.112.72])
- by server1.nandakumar.co.in (Postfix) with ESMTPSA id A4B2BC816B;
- Fri, 14 Jan 2022 04:36:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nandakumar.co.in;
- s=mail; t=1642134966;
- bh=I7EX1sgM295J7pPU5dDB3cslpOl7o8Z+Xe5IyDMJoLs=;
- h=Date:To:References:Cc:From:Subject:In-Reply-To:From;
- b=ZvGsHi0+iMzwoGnRT5ki4ctlnpRdWPLut6/PRrQPOAOJzOWp7Hob+Q3nV51Icnbpu
- kgWMxAK3Rs9yuG9F39e46PtEcWtQTTzfgTvXmH3k0nkNV6cA/rs0P1V/ja1q0yByB6
- g7mVVFjsUilxkyKgUrhZe/bwov5rEWzM83nTokuY=
-Message-ID: <e30962b0-931c-83b4-12fb-aa5e377b4f4d@nandakumar.co.in>
-Date: Fri, 14 Jan 2022 10:06:01 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Content-Language: en-GB
-To: Geraldo Nascimento <geraldogabriel@gmail.com>
-References: <d61a41eb-a820-b1ca-dcf6-f447f80494a8@nandakumar.co.in>
- <YeB2zEnPlwVEKbTI@geday>
- <e1a7d67d-9862-3085-4e01-091ca443d2df@nandakumar.co.in>
- <YeDw89KZOh4yG7c8@geday>
-From: Nandakumar Edamana <nandakumar@nandakumar.co.in>
-Subject: Re: Behringer UMC202HD issues and a partial solution
-In-Reply-To: <YeDw89KZOh4yG7c8@geday>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="qe9as3lG"
+Received: by mail-pf1-x433.google.com with SMTP id s15so1913790pfw.1
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jan 2022 22:18:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=P7I6VaE87nRYEstDp+uq11bjIAOgfEzIQh4DoOK5I2k=;
+ b=qe9as3lG4cg4d11XtFLXqvRFNvZMNnNnIdE+gPaK3SFr4zp6zwuxYyFC5i0tv5TtTz
+ zjAIcTezNFAI1yJWMHmkN1gY+NfhHuwweyxUCtK5fno4YDIU3Kuz1cHXFkym6XCxBAWI
+ iqlPFhlAEN4dSWh61WkITrZRSp0TDfjnNOTc6shj9xNYue1dTBZXx6HSFx4V++8sU+55
+ 2xRcARCv7ky1ZRin/ot+OaQb6GEOsnk3Ym0u0GWKxLHsmFeCIKe+mfwEHpZtNfVQoLO0
+ rqTYQk/DGCw1e3mQENDa3EFAvRjo+ZzBNdtdTSHyz6x6GHWL7ArD4fXIVa7svdTCm2Re
+ yCLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=P7I6VaE87nRYEstDp+uq11bjIAOgfEzIQh4DoOK5I2k=;
+ b=g6fcopHQ6Mwd47LB7GishuFcqV1mk7J141Hk8ndBy8pIHTUXkE0NfopV9rBh/U2kMx
+ fIBw8J5avxnNgi00Ih6GwQ8MPgOx1G6A2cNTbp9O7DfmayIpVZqL4BgaYymBQxEeQumC
+ ZHYknPUlWshfE5cwGXX9D3j/62eDbgFlM3UIySl6HE9e8nJDS6p7D4RZ8IxsBVZPdkc5
+ WPTpwghJDmO/ILYa+k7wautvvb3eI1DfGvDhDxUq5D9KdDcB/v6miP8TOnicwgH0sQkg
+ aOz6X3Yh8IYx3QzTvXLXOZWNpDnFXCQo4n7h4hrExMRE0t1oo/J2sF/bN/A0yEqT3E1U
+ Ejbw==
+X-Gm-Message-State: AOAM533lOuTZFVmQIEigqC1uOezYf5H4NYx7fxHH5bebyrwDksjwDVK3
+ 4fv+JJfwHsDeWiWm9DnU/1A=
+X-Google-Smtp-Source: ABdhPJxDVsI0xYs0EXSiOjEYrv7EF3fAnGjGjUzRXG0ePAETn2CzuaiK1U+JTS0VUpNjF5BAA5/L5Q==
+X-Received: by 2002:a63:6bc3:: with SMTP id g186mr6897880pgc.192.1642141122952; 
+ Thu, 13 Jan 2022 22:18:42 -0800 (PST)
+Received: from localhost.localdomain ([159.226.95.43])
+ by smtp.googlemail.com with ESMTPSA id pi7sm1871131pjb.23.2022.01.13.22.18.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Jan 2022 22:18:42 -0800 (PST)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sagar Dharia <sdharia@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] slimbus: qcom:  Fix IRQ check in qcom_slim_probe
+Date: Fri, 14 Jan 2022 06:18:29 +0000
+Message-Id: <20220114061830.13456-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: linmq006@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,79 +97,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Geraldo,
-> Have you tried unloading the snd-usb-audio module and the reloading it
-> with implicit_fb=1 as in "modprobe -r snd-usb-audio" and "modprobe
-> snd-usb-audio implicit_fb=1" ?
->
-> If not, try it. If it works and your playback issues are gone then
-> your device may just need a quirk. If it doesn't work we still
-> have dyndbg to go through.
-It works! Had to switch the devices and options back and forth in 
-pavucontrol
-(sometimes needed even for the choppy playback), but it works.
+platform_get_irq() returns negative error number instead 0 on failure.
+And the doc of platform_get_irq() provides a usage example:
 
-So why did my quirks didn't work? Maybe I gave the wrong numbers? Or the 
-code
-was unreachable (I didn't put printk()s, sorry). I guessed the combos from
-`lsusb -v` output, and even tried the combos that didn't make any sense
-(because I didn't know what I was doing).
+    int irq = platform_get_irq(pdev, 0);
+    if (irq < 0)
+        return irq;
 
-Here's what I tried, one after another (added to 
-playback_implicit_fb_quirks in
-/sound/usb/implicit.c):
+Fix the check of return value to catch errors correctly.
 
-IMPLICIT_FB_GENERIC_DEV(0x1397, 0x0507),
+Fixes: ad7fcbc308b0 ("slimbus: qcom: Add Qualcomm Slimbus controller driver")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+ drivers/slimbus/qcom-ctrl.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-/* Didn't work */
-IMPLICIT_FB_FIXED_DEV(0x1397, 0x0507, 0x84, 1),
-
-/* Interface 2 is actually Capture as per `cat /proc/asound/card1/stream0`,
-  * but "Implicit feedback Data" is found under that
-  * (Interface 1 has explicit Feedback), and a Scarlett quirk seemed to use
-  * a capture interface in playback_implicit_fb_quirks
-  * (I know that it's a capture interface from `lsusb` output posted by 
-someone
-  * online)
-  */
-/* Didn't work */
-IMPLICIT_FB_FIXED_DEV(0x1397, 0x0507, 0x88, 2),
-
-/* Didn't work */
-/* What am I doing with 0x08 ? */
-IMPLICIT_FB_FIXED_DEV(0x1397, 0x0507, 0x08, 1),
-
-/* Didn't work */
-/* Why BOTH? But what's FIXED at first? Didn't find any doc. */
-IMPLICIT_FB_BOTH_DEV(0x1397, 0x0507, 0x84, 1),
-
-/* Didn't work */
-IMPLICIT_FB_SKIP_DEV(0x1397, 0x0507),
-> Last but not least, please use a vanilla kernel for these tests.
-I built it using the source from kernel.org, not apt. But I've used 
-oldconfig,
-and I think patches are being applied while installing the kernel 
-(currently I'm
-using my daily driver installation for this). If it has to be more pure, 
-I 'll
-try. BTW, do you have any distro to recommend that has a near-vanilla 
-kernel for
-experiments like this?
-
-Another question: assuming a quirk gets added for this device, is there any
-chance that the quirk would break the experience for those who are already
-using the device (possibly a different revision, but the same ID [1]) 
-without
-any issues?
-
-[1] https://h-node.org/soundcards/view/en/2228/Behringer-UMC202HD
-
-Thank you,
-
+diff --git a/drivers/slimbus/qcom-ctrl.c b/drivers/slimbus/qcom-ctrl.c
+index f04b961b96cd..ec58091fc948 100644
+--- a/drivers/slimbus/qcom-ctrl.c
++++ b/drivers/slimbus/qcom-ctrl.c
+@@ -510,9 +510,9 @@ static int qcom_slim_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	ctrl->irq = platform_get_irq(pdev, 0);
+-	if (!ctrl->irq) {
++	if (ctrl->irq < 0) {
+ 		dev_err(&pdev->dev, "no slimbus IRQ\n");
+-		return -ENODEV;
++		return ctrl->irq;
+ 	}
+ 
+ 	sctrl = &ctrl->ctrl;
 -- 
-Nandakumar Edamana
-https://nandakumar.org
-
-GPG Key: https://nandakumar.org/contact/gpgkey.asc
-GPG Key Fingerprint: BA6B 8FDE 644F F861 B638  3E2F 45D6 05FC 646A F75D
+2.17.1
 

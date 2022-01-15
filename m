@@ -2,91 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C5448FBD1
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jan 2022 09:52:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4828B48FBD4
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jan 2022 09:53:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40F821816;
-	Sun, 16 Jan 2022 09:51:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40F821816
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD54A17D1;
+	Sun, 16 Jan 2022 09:52:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD54A17D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642323154;
-	bh=nQYn1GRV6KPCrTtR24/ry9XaROEpVWcrS9MYyIBGf9g=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=OzQQAKDQHp5i1tWzMtQlD/E805OtleIDM38TZyyDA3kUswJMHE7mKFLyl+A1DCwxn
-	 +lnQhxgjaRHkQLYlv3ei5iDbPnQ015ePrqcxZWVZLojZjqZEFKPg66LhEcmmNeFK97
-	 3s4+698sLFbVa3bVBZM/j9ey++r8YMWFSaW3F2SM=
+	s=default; t=1642323182;
+	bh=GuP/w9aniOXZrUp7PWIZduCpUgcH6DXPZ4J+1hlJ7kw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hMIzWrJGndImFAREeFf5dC/DkqrGvcfUQGGgBbx/5kzlKzK/YQR0aKIcpvQFTNtNt
+	 ToutdmyLgHtMRFEruvF4TLSVPFDIkr/QjJbC5exgutZ4nyu+1EiNbDVP87GY5KMAtI
+	 4v/UQ8caJmPKD5TVcnKcN0Yo/IkHWMXwJbBlqNOM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C52A8F8050F;
-	Sun, 16 Jan 2022 09:50:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48708F80516;
+	Sun, 16 Jan 2022 09:50:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBE0CF801D8; Sat, 15 Jan 2022 15:03:57 +0100 (CET)
+ id 44AE6F801D8; Sat, 15 Jan 2022 16:21:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8D04F800B0
- for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 15:03:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8D04F800B0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="eNlULm9K"
-Received: by mail-wm1-x331.google.com with SMTP id
- n19-20020a7bc5d3000000b003466ef16375so13188534wmk.1
- for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 06:03:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BgqdAQ+WwQ2orxsAM2n1S2UekO1K+V1jDnafdr+cUBA=;
- b=eNlULm9KFr7sVfv7XXX8WvBvJ3EfnXgUDJB50ROFdt/F+8ya6/aT3s+UQrnnIPVR9a
- 46btCi0k7UxcG9C16YryKFwdNsh3kpvNfwx5BcbuRatdkkZgwrp/ojsyvrylHuxYufIq
- EhA4Wf2KVbxkJ1VPLZ6iWslGLpPkqdDXHC2cDUIO1sj8b7DP4Qo6bDkA6cFzpfx0fdQ8
- Tb3cwWyN/t//79o4oszMDCL6TPrc+kmBrjlQs0RkEXQj3N0r5ZZq//cipYXG+jAsJuUB
- 4OANPlKVCQZ0wjnvXtBXaDb7t6wEW/Qy1dH1cmn/BUFoIOZF+hdrczNY5din6QbN8SWD
- iShA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BgqdAQ+WwQ2orxsAM2n1S2UekO1K+V1jDnafdr+cUBA=;
- b=GdXUwDRaP69J492Wlg2ZWZzn7U7qhaJkQYrz6fpfFvd3ABA30NvwINYvYuw7uDK7Yj
- MDCZwqAD5/bPYqdkBzmsS1LqTfH0RPonAQM4IFvcjdxjCsEAcNJez50YUhYDGnLeFjyE
- hwUNpOLIlZ2fWoADRxvYj1GN/kYJEKvQOFen9VFFrsEgjCzEuLSDhHpeiKqevAzjgDiA
- IvjVvUfnTzRNA5MmN/gbl3DDPJVKZ58vEYKUZ9TeIQZK1eMUpiGA+v5BnVbUJUBXTpbU
- LRAAQM8CmerJ+RatOqZn51lm+QNFUjO/SNEAlHmqqJcT5sh6OMMOL2Yhmzx8Ct4JyL7S
- 4dOw==
-X-Gm-Message-State: AOAM533MpKTe0FeMXQvABr1q3mYu22DAkldqzFvinS0vnBJTFtKzqFKE
- loKQhicHdBxe1C8bXHLMFTL7OVyIwEcl/gHZ/Wo=
-X-Google-Smtp-Source: ABdhPJxpkSz+rTg4zCg4BU+pdDS31h57yxHNbH9tGWP4j2dQMy8tIubmv1xnIBgPdZ60V/gmyOln5w==
-X-Received: by 2002:a05:6000:18ab:: with SMTP id
- b11mr12329440wri.385.1642255432721; 
- Sat, 15 Jan 2022 06:03:52 -0800 (PST)
-Received: from kyrandia.fritz.box ([2001:a61:5e8:7801:dabb:c1ff:fe6f:aedd])
- by smtp.googlemail.com with ESMTPSA id p2sm11148434wmg.44.2022.01.15.06.03.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 15 Jan 2022 06:03:51 -0800 (PST)
-From: Johannes Schickel <lordhoto@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: add mapping for MSI MPG X570S Carbon Max
- Wifi.
-Date: Sat, 15 Jan 2022 15:02:57 +0100
-Message-Id: <20220115140257.8751-1-lordhoto@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A928F800CE
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 16:21:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A928F800CE
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1n8krk-00024Z-CN; Sat, 15 Jan 2022 16:21:16 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1n8kra-00ASwx-3H; Sat, 15 Jan 2022 16:21:05 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1n8krY-0003aa-TV; Sat, 15 Jan 2022 16:21:04 +0100
+Date: Sat, 15 Jan 2022 16:21:02 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH] driver core: platform: Rename
+ platform_get_irq_optional() to platform_get_irq_silent()
+Message-ID: <20220115152102.m47snsdrw2elagak@pengutronix.de>
+References: <CAMuHMdWsMGPiQaPS0-PJ_+Mc5VQ37YdLfbHr_aS40kB+SfW-aw@mail.gmail.com>
+ <20220112213121.5ruae5mxwj6t3qiy@pengutronix.de>
+ <Yd9L9SZ+g13iyKab@sirena.org.uk>
+ <20220113110831.wvwbm75hbfysbn2d@pengutronix.de>
+ <YeA7CjOyJFkpuhz/@sirena.org.uk>
+ <20220113194358.xnnbhsoyetihterb@pengutronix.de>
+ <YeCI47ltlWzjzjYy@sirena.org.uk>
+ <1df04d74-8aa2-11f1-54e9-34d0e8f4e58b@omp.ru>
+ <20220113224319.akljsjtu7ps75vun@pengutronix.de>
+ <CAMuHMdWjo36UGde3g5ysdXpLJn=mrPp31SDODuQNPUqoc-ARrQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ocudook43fjcrvv4"
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdWjo36UGde3g5ysdXpLJn=mrPp31SDODuQNPUqoc-ARrQ@mail.gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
 X-Mailman-Approved-At: Sun, 16 Jan 2022 09:50:50 +0100
-Cc: Andrea Fagiani <andfagiani@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Johannes Schickel <lordhoto@gmail.com>,
- Timo Gurr <timo.gurr@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Vignesh Raghavendra <vigneshr@ti.com>, KVM list <kvm@vger.kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Guenter Roeck <groeck@chromium.org>, Thierry Reding <thierry.reding@gmail.com>,
+ MTD Maling List <linux-mtd@lists.infradead.org>,
+ Linux I2C <linux-i2c@vger.kernel.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-phy@lists.infradead.org,
+ linux-spi <linux-spi@vger.kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Khuong Dinh <khuong@os.amperecomputing.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ platform-driver-x86@vger.kernel.org,
+ Linux PWM List <linux-pwm@vger.kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Robert Richter <rric@kernel.org>,
+ Saravanan Sekar <sravanhome@gmail.com>, Corey Minyard <minyard@acm.org>,
+ Linux PM list <linux-pm@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, John Garry <john.garry@huawei.com>,
+ Peter Korsgaard <peter@korsgaard.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Mark Gross <markgross@kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Takashi Iwai <tiwai@suse.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ openipmi-developer@lists.sourceforge.net,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Benson Leung <bleung@chromium.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
+ Tony Luck <tony.luck@intel.com>, Richard Weinberger <richard@nod.at>,
+ Mun Yew Tham <mun.yew.tham@intel.com>, Eric Auger <eric.auger@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Cornelia Huck <cohuck@redhat.com>, Linux MMC List <linux-mmc@vger.kernel.org>,
+ Joakim Zhang <qiangqing.zhang@nxp.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Sergey Shtylyov <s.shtylyov@omp.ru>, Vinod Koul <vkoul@kernel.org>,
+ James Morse <james.morse@arm.com>, Zha Qipeng <qipeng.zha@intel.com>,
+ Sebastian Reichel <sre@kernel.org>,
+ Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ linux-mediatek@lists.infradead.org, Brian Norris <computersforpeace@gmail.com>,
+ netdev <netdev@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,53 +145,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The USB audio device 0db0:419c based on the Realtek ALC4080 chip exposes
-all playback volume controls as "PCM". This is makes distinguishing the
-individual functions hard.
 
-The added mapping distinguishes all playback volume controls as their
-respective function:
- - Speaker              - for back panel output
- - Frontpanel Headphone - for front panel output
- - IEC958               - for digital output on the back panel
+--ocudook43fjcrvv4
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This clarifies the individual volume control functions for users.
+On Fri, Jan 14, 2022 at 10:58:51AM +0100, Geert Uytterhoeven wrote:
+> Hi Uwe,
+>=20
+> On Thu, Jan 13, 2022 at 11:43 PM Uwe Kleine-K=F6nig
+> <u.kleine-koenig@pengutronix.de> wrote:
+> > On Thu, Jan 13, 2022 at 11:57:43PM +0300, Sergey Shtylyov wrote:
+> > > On 1/13/22 11:17 PM, Mark Brown wrote:
+> > > >> The subsystems regulator, clk and gpio have the concept of a dummy
+> > > >> resource. For regulator, clk and gpio there is a semantic differen=
+ce
+> > > >> between the regular _get() function and the _get_optional() varian=
+t.
+> > > >> (One might return the dummy resource, the other won't. Unfortunate=
+ly
+> > > >> which one implements which isn't the same for these three.) The
+> > > >> difference between platform_get_irq() and platform_get_irq_optiona=
+l() is
+> > > >> only that the former might emit an error message and the later won=
+'t.
+> > >
+> > >    This is only a current difference but I'm still going to return 0 =
+ISO
+> > > -ENXIO from latform_get_irq_optional(), no way I'd leave that -ENXIO =
+there
+> > > alone... :-)
+> >
+> > This would address a bit of the critic in my commit log. But as 0 isn't
+> > a dummy value like the dummy values that exist for clk, gpiod and
+> > regulator I still think that the naming is a bad idea because it's not
+> > in the spirit of the other *_get_optional functions.
+> >
+> > Seeing you say that -ENXIO is a bad return value for
+> > platform_get_irq_optional() and 0 should be used instead, I wonder why
+> > not changing platform_get_irq() to return 0 instead of -ENXIO, too.
+> > This question is for now only about a sensible semantic. That actually
+> > changing platform_get_irq() is probably harder than changing
+> > platform_get_irq_optional() is a different story.
+> >
+> > If only platform_get_irq_optional() is changed and given that the
+> > callers have to do something like:
+> >
+> >         if (this_irq_exists()):
+> >                 ... (e.g. request_irq)
+> >         else:
+> >                 ... (e.g. setup polling)
+> >
+> > I really think it's a bad idea that this_irq_exists() has to be
+> > different for platform_get_irq() vs. platform_get_irq_optional().
+>=20
+> For platform_get_irq(), the IRQ being absent is an error condition,
+> hence it should return an error code.
+> For platform_get_irq_optional(), the IRQ being absent is not an error
+> condition, hence it should not return an error code, and 0 is OK.
 
-Signed-off-by: Johannes Schickel <lordhoto@gmail.com>
----
- sound/usb/mixer_maps.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Please show a few examples how this simplifies the code. If it's only
+that a driver has to check for =3D=3D 0 instead of =3D=3D -ENXIO, than that=
+'s
+not a good enough motivation to make platform_get_irq_optional()
+different to platform_get_irq().
 
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 5d391f62351b..96991ddf5055 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -431,6 +431,14 @@ static const struct usbmix_name_map aorus_master_alc1220vb_map[] = {
- 	{}
- };
- 
-+/* MSI MPG X570S Carbon Max Wifi with ALC4080  */
-+static const struct usbmix_name_map msi_mpg_x570s_carbon_max_wifi_alc4080_map[] = {
-+	{ 29, "Speaker Playback" },
-+	{ 30, "Front Headphone Playback" },
-+	{ 32, "IEC958 Playback" },
-+	{}
-+};
-+
- /*
-  * Control map entries
-  */
-@@ -577,6 +585,10 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
- 		.map = trx40_mobo_map,
- 		.connector_map = trx40_mobo_connector_map,
- 	},
-+	{	/* MSI MPG X570S Carbon Max Wifi */
-+		.id = USB_ID(0x0db0, 0x419c),
-+		.map = msi_mpg_x570s_carbon_max_wifi_alc4080_map,
-+	},
- 	{	/* MSI TRX40 */
- 		.id = USB_ID(0x0db0, 0x543d),
- 		.map = trx40_mobo_map,
--- 
-2.34.1
+Best regards
+Uwe
 
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--ocudook43fjcrvv4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmHi5kAACgkQwfwUeK3K
+7AmxjQf+LjEMbZ2BLPsszWOOyw2Xtjn8mpuOmCBImErsT+AnE5G2nUp9a//M8hxr
+OxUaITVBvGpeAOf8afjOnacEHqcvNJGUdWblNwEGdc7auyl6qSe7agtR2LDjM5ir
+x233Ner1R+O8K0t4zRM2+g/LeLLNwL9Y+9y6swNJvQcsqzy0z86I7/R1ebWk9NMa
+w1paYTwYlIyghKS5pAN7yXeIAJFP9DFBDy0KGZG8uA+MZn1WWTk/vwK4/NR5XcrY
+WXb6zM/0lZtQWhYlKW/dcj4b3LlOo8dgfuGuu8WIqoKxY0230JDSg1E+5ZNLyKq3
+7VzijyuxAzaTNhwSnAvUB2ToosLs1g==
+=EUgY
+-----END PGP SIGNATURE-----
+
+--ocudook43fjcrvv4--

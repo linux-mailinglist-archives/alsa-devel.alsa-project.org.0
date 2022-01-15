@@ -2,94 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15F7F48F5CE
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 08:56:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F145348F60F
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 10:10:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8584F1915;
-	Sat, 15 Jan 2022 08:55:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8584F1915
+	by alsa0.perex.cz (Postfix) with ESMTPS id 360EB1B1D;
+	Sat, 15 Jan 2022 10:10:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 360EB1B1D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642233401;
-	bh=C5K5ZEju6fuQYIDdUUr6co2jLU+K2vBEmvJtHtMesnc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AuV0gG7SvBmJvK2HxVLODxXs9dF3Gyp0zELUyThfX59/gfgDYTodjTLv0/wS9hpIM
-	 frRwaAADrTxVzSowPYohqMDDBwJuHKXm70+AUrovRB+t6nwSwJDVNIxjaKDyXyb1MS
-	 oQF4rzVgOQPM4J/9xzR3Y2p3k6Vcx1+U6wAkdMxc=
+	s=default; t=1642237853;
+	bh=L02NMzlUbzAJyQaGEV7joe5ZEv1gImod2NMH6d6pK0s=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FmH2oPH03pmJJRj2WRI5/RQvzvR2uxJ4lZmE/bBvbVB0F5JCxMr0GP/G+stlnWkr1
+	 Qv5ioPtwrDNjDzKhCm+799kgxs2GHsEBWU0u8/GaKp4/mFf0CxToO+HPJrGmuCfLKm
+	 fPQC1V4+j5jMY7xTPGIWMnh0j1q0sq/Iz9pzmlno=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D82DF800B0;
-	Sat, 15 Jan 2022 08:55:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93FCCF8020C;
+	Sat, 15 Jan 2022 10:09:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3167CF801D8; Sat, 15 Jan 2022 08:55:32 +0100 (CET)
+ id BC755F801D8; Sat, 15 Jan 2022 10:09:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E35EEF80141
- for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 08:55:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E35EEF80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 413D9F800B0
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 10:09:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 413D9F800B0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ROou3wcQ"; 
+ header.b="mta5Voty"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="AOzgvSaH"
+ header.b="/2cViz8Q"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 60E7D1F3A7;
- Sat, 15 Jan 2022 07:55:28 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 497F221999
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 09:09:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642233328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vbSkh4UntaygzRJkDFV/8mX3nAqS8NhGLcZl6dVcAzY=;
- b=ROou3wcQitCIjHYh3ohJaecX2Bqbm5A6jZ1hLdxIexi6naaSlkrqzMJLb8bGC8BpuPyzt6
- z5aKi60VMasjoyUimEXE7uj+Bo7c7vkZFaYuRYTB9NrMwRIJaFyrlg+r73WubRYgU3J60r
- zXQ4QFiIc9UUgzlhru0H3pxG79iWpHg=
+ t=1642237772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=k0OnU/X79ipQplicstJsyQd+r3OEDjRGDbD4p3h7bd0=;
+ b=mta5VotyYzDi+BL5PA9nmSUKwZvunrCGnUxRcKWGbDU29FYyxmP01Mew0lbVTP7zK0WPBK
+ 0E4EJIgYUWXVD99/W4FZxAaxpK2ZmNyft8KKgFp6uYx/TlG/OyZp8XC0G4kxM8Q7Bvyq2h
+ 29rBW+HTjq84NInYpyUTFHd5pdQfOF0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642233328;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vbSkh4UntaygzRJkDFV/8mX3nAqS8NhGLcZl6dVcAzY=;
- b=AOzgvSaHSSj22/Z67r4IWoPtIQ/63wDzYwufUq6G0XneSSqKuCPoc6vpQj8VofncYD/gYb
- U8Mv8aSglT972ZBg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1221BA3B81;
- Sat, 15 Jan 2022 07:55:28 +0000 (UTC)
-Date: Sat, 15 Jan 2022 08:55:28 +0100
-Message-ID: <s5hsftp3027.wl-tiwai@suse.de>
+ s=susede2_ed25519; t=1642237772;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=k0OnU/X79ipQplicstJsyQd+r3OEDjRGDbD4p3h7bd0=;
+ b=/2cViz8QF7pUmmgY2KNY16M7rAQEvmClNdzzP8qq4YBvfO+e342grsU4XstZAK2oIwQBVF
+ o0Jjmgxjdw8TbFBw==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 399CEA3B81;
+ Sat, 15 Jan 2022 09:09:32 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Sergeyev <sergeev917@gmail.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-In-Reply-To: <20220114183720.n46wealclg6spxkp@localhost.localdomain>
-References: <20210519170357.58410-1-jeremy.szu@canonical.com>
- <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
- <s5ho84h9tit.wl-tiwai@suse.de>
- <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
- <s5hilup9s87.wl-tiwai@suse.de>
- <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
- <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
- <s5h8rvk85uy.wl-tiwai@suse.de>
- <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
- <s5ha6fy46jt.wl-tiwai@suse.de>
- <20220114183720.n46wealclg6spxkp@localhost.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: core: Fix SSID quirk lookup for subvendor=0
+Date: Sat, 15 Jan 2022 10:09:29 +0100
+Message-Id: <20220115090929.4119-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.31.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,40 +84,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 14 Jan 2022 19:37:20 +0100,
-Alexander Sergeyev wrote:
-> 
-> On Fri, Jan 14, 2022 at 05:37:42PM +0100, Takashi Iwai wrote:
-> > > I assume that the referred repository is the one at [1]. I've tried
-> > > 081c73701ef0 "ALSA: hda: intel-dsp-config: reorder the config
-> > > table". It crashed with nearly identical logs.
-> >
-> > OK, then it's still something to do with the led cdev
-> > unregisteration.
-> >
-> > Could you try the patch below?
-> 
-> This patch solved the BUG problem. But after unbind/bind micmute LED stopped 
-> working. Speakers and mute LED are fine though.
+Some weird devices set the codec SSID vendor ID 0, and
+snd_pci_quirk_lookup_id() loop aborts at the point although it should
+still try matching with the SSID device ID.  This resulted in a
+missing quirk for some old Macs.
 
-Does the corresponding sysfs entry exist in /sys/class/leds/*?
-And can you control LED over there?
+Fix the loop termination condition to check both subvendor and
+subdevice.
 
+Fixes: 73355ddd8775 ("ALSA: hda: Code refactoring snd_hda_pick_fixup()")
+Cc: <stable@vger.kernel.org>
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=215495
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/misc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Dmesg:
-> snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
+diff --git a/sound/core/misc.c b/sound/core/misc.c
+index 3579dd7a161f..a512c849a9e5 100644
+--- a/sound/core/misc.c
++++ b/sound/core/misc.c
+@@ -112,7 +112,7 @@ snd_pci_quirk_lookup_id(u16 vendor, u16 device,
+ {
+ 	const struct snd_pci_quirk *q;
+ 
+-	for (q = list; q->subvendor; q++) {
++	for (q = list; q->subvendor && q->subdevice; q++) {
+ 		if (q->subvendor != vendor)
+ 			continue;
+ 		if (!q->subdevice ||
+-- 
+2.31.1
 
-Hmm, that looks bad.  Something must be accessing out of bound.
-
-> snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:90170118
-> snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:411111f0
-> snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:270300
-
-This seems to be a bogus COEF.  But I have no idea from where this
-comes.  The values look completely wrong.
-
-I guess you'd need to put some debug prints to trace down how those
-are triggered...
-
-
-Takashi

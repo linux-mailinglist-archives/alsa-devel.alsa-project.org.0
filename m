@@ -2,131 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3142C48F5EC
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 09:09:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15F7F48F5CE
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 08:56:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBAB321A0;
-	Sat, 15 Jan 2022 09:08:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBAB321A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8584F1915;
+	Sat, 15 Jan 2022 08:55:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8584F1915
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642234164;
-	bh=CUmoDmXK152sQYY8e6FKwEEjOuNA35yUaqqh784L+uQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1642233401;
+	bh=C5K5ZEju6fuQYIDdUUr6co2jLU+K2vBEmvJtHtMesnc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h1GvVfh3laoW/tjA2bqYOBV7E/UJ1r1ZE+qdhCkTHnwHmFB+rvjdud5NyWPGGWxwt
-	 x26aSTBjNox0lebjxOw5hlYX+AObSL4pXHoNB9/j0FVuANGZzw6ymCFnqSQdiuM4/4
-	 4/uq+YzeH44F+8gCMBNalHxom5Q2GKceHoG9rbfE=
+	b=AuV0gG7SvBmJvK2HxVLODxXs9dF3Gyp0zELUyThfX59/gfgDYTodjTLv0/wS9hpIM
+	 frRwaAADrTxVzSowPYohqMDDBwJuHKXm70+AUrovRB+t6nwSwJDVNIxjaKDyXyb1MS
+	 oQF4rzVgOQPM4J/9xzR3Y2p3k6Vcx1+U6wAkdMxc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7C2DF8057D;
-	Sat, 15 Jan 2022 09:03:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D82DF800B0;
+	Sat, 15 Jan 2022 08:55:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8349AF8030F; Fri, 14 Jan 2022 21:30:01 +0100 (CET)
+ id 3167CF801D8; Sat, 15 Jan 2022 08:55:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 19B3EF80141
- for <alsa-devel@alsa-project.org>; Fri, 14 Jan 2022 21:29:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19B3EF80141
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1n8TCl-0001fN-N3; Fri, 14 Jan 2022 21:29:47 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1n8TCi-00AJbq-3s; Fri, 14 Jan 2022 21:29:43 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1n8TCg-0002hC-MP; Fri, 14 Jan 2022 21:29:42 +0100
-Date: Fri, 14 Jan 2022 21:29:39 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Sergey Shtylyov <s.shtylyov@omp.ru>
-Subject: Re: [PATCH] driver core: platform: Rename
- platform_get_irq_optional() to platform_get_irq_silent()
-Message-ID: <20220114202939.5kq5ud5opfosjlyc@pengutronix.de>
-References: <YdyilpjC6rtz6toJ@lunn.ch>
- <CAMuHMdWK3RKVXRzMASN4HaYfLckdS7rBvSopafq+iPADtGEUzA@mail.gmail.com>
- <20220112085009.dbasceh3obfok5dc@pengutronix.de>
- <CAMuHMdWsMGPiQaPS0-PJ_+Mc5VQ37YdLfbHr_aS40kB+SfW-aw@mail.gmail.com>
- <20220112213121.5ruae5mxwj6t3qiy@pengutronix.de>
- <Yd9L9SZ+g13iyKab@sirena.org.uk>
- <20220113110831.wvwbm75hbfysbn2d@pengutronix.de>
- <YeA7CjOyJFkpuhz/@sirena.org.uk>
- <20220113194358.xnnbhsoyetihterb@pengutronix.de>
- <386a7f56-38c8-229c-4fec-4b38a77c4121@omp.ru>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gs4ynp4fq77e5cup"
-Content-Disposition: inline
-In-Reply-To: <386a7f56-38c8-229c-4fec-4b38a77c4121@omp.ru>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-X-Mailman-Approved-At: Sat, 15 Jan 2022 09:02:47 +0100
-Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Vignesh Raghavendra <vigneshr@ti.com>, KVM list <kvm@vger.kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Guenter Roeck <groeck@chromium.org>, Thierry Reding <thierry.reding@gmail.com>,
- MTD Maling List <linux-mtd@lists.infradead.org>,
- Linux I2C <linux-i2c@vger.kernel.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-phy@lists.infradead.org,
- Jiri Slaby <jirislaby@kernel.org>, openipmi-developer@lists.sourceforge.net,
- Khuong Dinh <khuong@os.amperecomputing.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Joakim Zhang <qiangqing.zhang@nxp.com>, Kamal Dasu <kdasu.kdev@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Lee Jones <lee.jones@linaro.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- Zhang Rui <rui.zhang@intel.com>, Linux PWM List <linux-pwm@vger.kernel.org>,
- Robert Richter <rric@kernel.org>, Saravanan Sekar <sravanhome@gmail.com>,
- Corey Minyard <minyard@acm.org>, Linux PM list <linux-pm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, John Garry <john.garry@huawei.com>,
- Peter Korsgaard <peter@korsgaard.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Mark Gross <markgross@kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Sebastian Reichel <sre@kernel.org>,
- Eric Auger <eric.auger@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- platform-driver-x86@vger.kernel.org, Benson Leung <bleung@chromium.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
- Tony Luck <tony.luck@intel.com>, Mun Yew Tham <mun.yew.tham@intel.com>,
- Hans de Goede <hdegoede@redhat.com>, netdev@vger.kernel.org,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Cornelia Huck <cohuck@redhat.com>, Linux MMC List <linux-mmc@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-spi <linux-spi@vger.kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, James Morse <james.morse@arm.com>,
- Zha Qipeng <qipeng.zha@intel.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Richard Weinberger <richard@nod.at>,
- Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- linux-mediatek@lists.infradead.org, Brian Norris <computersforpeace@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E35EEF80141
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 08:55:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E35EEF80141
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ROou3wcQ"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="AOzgvSaH"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 60E7D1F3A7;
+ Sat, 15 Jan 2022 07:55:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1642233328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vbSkh4UntaygzRJkDFV/8mX3nAqS8NhGLcZl6dVcAzY=;
+ b=ROou3wcQitCIjHYh3ohJaecX2Bqbm5A6jZ1hLdxIexi6naaSlkrqzMJLb8bGC8BpuPyzt6
+ z5aKi60VMasjoyUimEXE7uj+Bo7c7vkZFaYuRYTB9NrMwRIJaFyrlg+r73WubRYgU3J60r
+ zXQ4QFiIc9UUgzlhru0H3pxG79iWpHg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1642233328;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vbSkh4UntaygzRJkDFV/8mX3nAqS8NhGLcZl6dVcAzY=;
+ b=AOzgvSaHSSj22/Z67r4IWoPtIQ/63wDzYwufUq6G0XneSSqKuCPoc6vpQj8VofncYD/gYb
+ U8Mv8aSglT972ZBg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 1221BA3B81;
+ Sat, 15 Jan 2022 07:55:28 +0000 (UTC)
+Date: Sat, 15 Jan 2022 08:55:28 +0100
+Message-ID: <s5hsftp3027.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alexander Sergeyev <sergeev917@gmail.com>
+Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
+In-Reply-To: <20220114183720.n46wealclg6spxkp@localhost.localdomain>
+References: <20210519170357.58410-1-jeremy.szu@canonical.com>
+ <20220111195229.a77wrpjclqwrx4bx@localhost.localdomain>
+ <s5ho84h9tit.wl-tiwai@suse.de>
+ <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
+ <s5hilup9s87.wl-tiwai@suse.de>
+ <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
+ <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
+ <s5h8rvk85uy.wl-tiwai@suse.de>
+ <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
+ <s5ha6fy46jt.wl-tiwai@suse.de>
+ <20220114183720.n46wealclg6spxkp@localhost.localdomain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
+ PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,137 +105,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 14 Jan 2022 19:37:20 +0100,
+Alexander Sergeyev wrote:
+> 
+> On Fri, Jan 14, 2022 at 05:37:42PM +0100, Takashi Iwai wrote:
+> > > I assume that the referred repository is the one at [1]. I've tried
+> > > 081c73701ef0 "ALSA: hda: intel-dsp-config: reorder the config
+> > > table". It crashed with nearly identical logs.
+> >
+> > OK, then it's still something to do with the led cdev
+> > unregisteration.
+> >
+> > Could you try the patch below?
+> 
+> This patch solved the BUG problem. But after unbind/bind micmute LED stopped 
+> working. Speakers and mute LED are fine though.
 
---gs4ynp4fq77e5cup
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Does the corresponding sysfs entry exist in /sys/class/leds/*?
+And can you control LED over there?
 
-On Fri, Jan 14, 2022 at 10:45:38PM +0300, Sergey Shtylyov wrote:
-> On 1/13/22 10:43 PM, Uwe Kleine-K=F6nig wrote:
->=20
-> > The subsystems regulator, clk and gpio have the concept of a dummy
-> > resource. For regulator, clk and gpio there is a semantic difference
-> > between the regular _get() function and the _get_optional() variant.
-> > (One might return the dummy resource, the other won't. Unfortunately
-> > which one implements which isn't the same for these three.) The
-> > difference between platform_get_irq() and platform_get_irq_optional() is
-> > only that the former might emit an error message and the later won't.
-> >=20
-> > To prevent people's expectations that there is a semantic difference
-> > between these too, rename platform_get_irq_optional() to
-> > platform_get_irq_silent() to make the actual difference more obvious.
-> >=20
-> > The #define for the old name can and should be removed once all patches
-> > currently in flux still relying on platform_get_irq_optional() are
-> > fixed.
->=20
->    Hm... I'm afraid that with this #define they would never get fixed... =
-:-)
 
-I will care for it.
+> Dmesg:
+> snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
 
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-> > ---
-> > Hello,
-> >=20
-> > On Thu, Jan 13, 2022 at 02:45:30PM +0000, Mark Brown wrote:
-> >> On Thu, Jan 13, 2022 at 12:08:31PM +0100, Uwe Kleine-K=F6nig wrote:
-> >>
-> >>> This is all very unfortunate. In my eyes b) is the most sensible
-> >>> sense, but the past showed that we don't agree here. (The most annoyi=
-ng
-> >>> part of regulator_get is the warning that is emitted that regularily
-> >>> makes customers ask what happens here and if this is fixable.)
-> >>
-> >> Fortunately it can be fixed, and it's safer to clearly specify things.
-> >> The prints are there because when the description is wrong enough to
-> >> cause things to blow up we can fail to boot or run messily and
-> >> forgetting to describe some supplies (or typoing so they haven't done
-> >> that) and people were having a hard time figuring out what might've
-> >> happened.
-> >=20
-> > Yes, that's right. I sent a patch for such a warning in 2019 and pinged
-> > occationally. Still waiting for it to be merged :-\
-> > (https://lore.kernel.org/r/20190625100412.11815-1-u.kleine-koenig@pengu=
-tronix.de)
-> >=20
-> >>> I think at least c) is easy to resolve because
-> >>> platform_get_irq_optional() isn't that old yet and mechanically
-> >>> replacing it by platform_get_irq_silent() should be easy and safe.
-> >>> And this is orthogonal to the discussion if -ENOXIO is a sensible ret=
-urn
-> >>> value and if it's as easy as it could be to work with errors on irq
-> >>> lookups.
-> >>
-> >> It'd certainly be good to name anything that doesn't correspond to one
-> >> of the existing semantics for the API (!) something different rather
-> >> than adding yet another potentially overloaded meaning.
-> >=20
-> > It seems we're (at least) three who agree about this. Here is a patch
-> > fixing the name.
->=20
->    I can't say I genrally agree with this patch...
+Hmm, that looks bad.  Something must be accessing out of bound.
 
-Yes, I didn't count you to the three people signaling agreement.
+> snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:90170118
+> snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:411111f0
+> snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:270300
 
-> [...]
-> > diff --git a/include/linux/platform_device.h b/include/linux/platform_d=
-evice.h
-> > index 7c96f169d274..6d495f15f717 100644
-> > --- a/include/linux/platform_device.h
-> > +++ b/include/linux/platform_device.h
-> > @@ -69,7 +69,14 @@ extern void __iomem *
-> >  devm_platform_ioremap_resource_byname(struct platform_device *pdev,
-> >  				      const char *name);
-> >  extern int platform_get_irq(struct platform_device *, unsigned int);
-> > -extern int platform_get_irq_optional(struct platform_device *, unsigne=
-d int);
-> > +extern int platform_get_irq_silent(struct platform_device *, unsigned =
-int);
-> > +
-> > +/*
-> > + * platform_get_irq_optional was recently renamed to platform_get_irq_=
-silent.
-> > + * Fixup users to not break patches that were created before the renam=
-e.
-> > + */
-> > +#define platform_get_irq_optional(pdev, index) platform_get_irq_silent=
-(pdev, index)
-> > +
->=20
->    Yeah, why bother fixing if it compiles anyway?
+This seems to be a bogus COEF.  But I have no idea from where this
+comes.  The values look completely wrong.
 
-The plan is to remove the define in one or two kernel releases. The idea
-is only to not break patches that are currently in next.
+I guess you'd need to put some debug prints to trace down how those
+are triggered...
 
->    I think an inline wrapper with an indication to gcc that the function =
-is deprecated
-> (I just forgot how it should look) would be better instead...
 
-The deprecated function annotation is generally frowned upon. See
-771c035372a0.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---gs4ynp4fq77e5cup
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmHh3S8ACgkQwfwUeK3K
-7AkDXQf/U5FAV2AAfHdpPoYhXkPobJeAf5Dqsq9HthaQ/4EsbgoDzhwXUQuRqgGp
-s3l08rbKnPAXvuz91TT4s4P4EfflDVbvLMELaacliZW9A2Zubif0kRa5i7noZtww
-bMiLnHbf6jZNoGKWayBhA0I+mD3ItG2bJkiZMPC9EauwofQRd5TZEOFEnf0MOQYR
-WDceoBK0StFIaNP+azd2h5Mkfo+sy70ZLX3i1E5+f2X9Iac4pOldU5N65ldsgg9N
-AVzKdnYk6h5IpXqZaytMAGpMn9j4OQHJGDLA8zo0jjwjnK+1JHnoGFwlJO43H0af
-61XlzqllsW1diNuTEAhAtFOrNwsDYQ==
-=Iw62
------END PGP SIGNATURE-----
-
---gs4ynp4fq77e5cup--
+Takashi

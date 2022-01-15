@@ -2,63 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3F5C48F421
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 02:25:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F226548F589
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 08:01:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 860362061;
-	Sat, 15 Jan 2022 02:25:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 860362061
+	by alsa0.perex.cz (Postfix) with ESMTPS id 092C71E09;
+	Sat, 15 Jan 2022 08:00:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 092C71E09
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642209952;
-	bh=WC1H1I1T9U2owRoxa9c4TueFytMdUJy5Fwdu3+crg9k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642230063;
+	bh=9QBcIgDaZwAHlE/HI0o32QBONEynNFncRr4zFnpVfQc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N0wOyRao5Oi875aJXfRjk0qvt/O5G2b213YJBQH3x/DXId1RP7gBZh/omSAGdG2iZ
-	 RNCmFxghyoUOtJapCLB6sFxKiq9ev4V4Q6fLfhXHFjrbmJfkvsJFp860VvNoreuCG+
-	 TQH2ChYI31QWBHUU434p//bSZIJ0aUPeh+NdBAmc=
+	b=Td6xcE3+VcnRfVQ8SNwcesPLqDbnd9zPo+WmSKI+7mtTtc+F2l1pFNJcGlasArDO4
+	 gyw/EgO1J3SnaN+gweQ8niQ+6CE3KZU3/hffzVQINouBawdlHSczYuL3sX9cjUAaAm
+	 M//XBnsfj2idtB7YFipqtAMjPNJGXtVnFYxEa77k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 054F8F8051E;
-	Sat, 15 Jan 2022 02:23:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EED1FF802DF;
+	Sat, 15 Jan 2022 08:00:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27976F80519; Sat, 15 Jan 2022 02:23:35 +0100 (CET)
+ id 7BF3EF8020C; Sat, 15 Jan 2022 08:00:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 34D4AF8050F
- for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 02:23:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34D4AF8050F
-X-IronPort-AV: E=Sophos;i="5.88,290,1635174000"; d="scan'208";a="107116855"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2022 10:23:30 +0900
-Received: from localhost.localdomain (unknown [10.226.36.204])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6473D417EAC4;
- Sat, 15 Jan 2022 10:23:28 +0900 (JST)
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 5/5] ASoC: sh: rz-ssi: Add rz_ssi_set_substream() helper
- function
-Date: Sat, 15 Jan 2022 01:23:03 +0000
-Message-Id: <20220115012303.29651-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220115012303.29651-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20220115012303.29651-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Pavel Machek <pavel@denx.de>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Prabhakar <prabhakar.csengg@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22EE6F800CE
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 07:59:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22EE6F800CE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="eIj4SZcQ"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="+OfH3tSQ"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 410171F394;
+ Sat, 15 Jan 2022 06:59:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1642229997; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hPpaLHDUo6nY/syh5TXQg7yaeRb8DjB9j4D5fpeu5QU=;
+ b=eIj4SZcQH/CYWjy15Su5W9fEiK6JctiCUhESZ71D31v4u3xY5Qu2QpM5PZ8dnwk6nquOsS
+ Kr+MOJYpjTlyhe1ai5O7VrgI70i5Uv3Fb/+F6cAdrUwqUm4hrvVWVmT3f+GRKAG4P5Tldo
+ j+Px+tp6RgvCNs160IurFCeWSYn3Edg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1642229997;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hPpaLHDUo6nY/syh5TXQg7yaeRb8DjB9j4D5fpeu5QU=;
+ b=+OfH3tSQvQJoCBCbbXCvvzgXhxSoR7XtPyWoqh7uYN+gOtDgu2UlPMoMAa+DBhz/lET7em
+ on82127RVloDarAQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 1C240A3B81;
+ Sat, 15 Jan 2022 06:59:57 +0000 (UTC)
+Date: Sat, 15 Jan 2022 07:59:57 +0100
+Message-ID: <s5hy23h32mq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH 5/5] ACPI / scan: Create platform device for CLSA0100
+In-Reply-To: <55cb8127-65e2-4d56-5127-2722c5bfe11f@redhat.com>
+References: <20220113170728.1953559-1-tanureal@opensource.cirrus.com>
+ <20220113170728.1953559-5-tanureal@opensource.cirrus.com>
+ <s5hee5a47et.wl-tiwai@suse.de>
+ <CAJZ5v0ijGWNd9s-4mrFgK-QbPDhnj2K3DF+Z45t7ckV6ET0hpQ@mail.gmail.com>
+ <55cb8127-65e2-4d56-5127-2722c5bfe11f@redhat.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, Mark Gross <markgross@kernel.org>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Platform Driver <platform-driver-x86@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,73 +103,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A copy of substream pointer is stored in priv structure during
-rz_ssi_dai_trigger() callback ie in SNDRV_PCM_TRIGGER_START case
-and the pointer is assigned to NULL in case of SNDRV_PCM_TRIGGER_STOP.
+On Fri, 14 Jan 2022 19:56:04 +0100,
+Hans de Goede wrote:
+> 
+> Hi,
+> 
+> On 1/14/22 18:51, Rafael J. Wysocki wrote:
+> > On Fri, Jan 14, 2022 at 5:19 PM Takashi Iwai <tiwai@suse.de> wrote:
+> >>
+> >> On Thu, 13 Jan 2022 18:07:28 +0100,
+> >> Lucas Tanure wrote:
+> >>>
+> >>> The ACPI device with CLSA0100 is a sound card with
+> >>> multiple instances of CS35L41 connected by I2C to
+> >>> the main CPU.
+> >>>
+> >>> We add an ID to the i2c_multi_instantiate_idsi list
+> >>> to enumerate all I2C slaves correctly.
+> >>>
+> >>> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+> >>
+> >> I think it's better to merge this from sound git tree together with
+> >> others in the patch set, presumably for rc1.
+> >>
+> >> It'd be great if ACPI people can take a review and give an ack/nack.
+> > 
+> > Hans, what do you think?
+> 
+> This patch (5/5) applies on top of:
+> 
+> https://lore.kernel.org/linux-acpi/20211210154050.3713-1-sbinding@opensource.cirrus.com/
+> 
+> Which still needs some work and which really should be merged
+> through the ACPI tree. IMHO it would be best to simply drop
+> this (5/5) from this series and move it to the v3 of the
+> series which I've linked to above.
+> 
+> 1-4 can be merged through the alsa tree independently of 5/5 AFAIK.
 
-The driver used the locks only in rz_ssi_stream_is_valid() and assigned
-the local substream pointer to NULL in rz_ssi_dai_trigger() callback but
-never locked it while making a local copy.
+OK, that's fine.
 
-This patch adds the rz_ssi_set_substream() helper function to set the
-substream pointer with locks acquired and replaces the instances of
-setting the local substream pointer with the rz_ssi_set_substream()
-function.
+Lucas, could you submit v3 patches in the suggested way?
 
-Reported-by: Pavel Machek <pavel@denx.de>
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v1->v2
-* Dropped rz_ssi_get_substream() helper.
----
- sound/soc/sh/rz-ssi.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/sh/rz-ssi.c b/sound/soc/sh/rz-ssi.c
-index 2da43eecfb3e..07fdbcfa5b63 100644
---- a/sound/soc/sh/rz-ssi.c
-+++ b/sound/soc/sh/rz-ssi.c
-@@ -188,6 +188,17 @@ static inline bool rz_ssi_is_dma_enabled(struct rz_ssi_priv *ssi)
- 	return (ssi->playback.dma_ch && (ssi->dma_rt || ssi->capture.dma_ch));
- }
- 
-+static void rz_ssi_set_substream(struct rz_ssi_stream *strm,
-+				 struct snd_pcm_substream *substream)
-+{
-+	struct rz_ssi_priv *ssi = strm->priv;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&ssi->lock, flags);
-+	strm->substream = substream;
-+	spin_unlock_irqrestore(&ssi->lock, flags);
-+}
-+
- static bool rz_ssi_stream_is_valid(struct rz_ssi_priv *ssi,
- 				   struct rz_ssi_stream *strm)
- {
-@@ -206,7 +217,7 @@ static void rz_ssi_stream_init(struct rz_ssi_stream *strm,
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 
--	strm->substream = substream;
-+	rz_ssi_set_substream(strm, substream);
- 	strm->sample_width = samples_to_bytes(runtime, 1);
- 	strm->dma_buffer_pos = 0;
- 	strm->period_counter = 0;
-@@ -224,11 +235,8 @@ static void rz_ssi_stream_quit(struct rz_ssi_priv *ssi,
- 			       struct rz_ssi_stream *strm)
- {
- 	struct snd_soc_dai *dai = rz_ssi_get_dai(strm->substream);
--	unsigned long flags;
- 
--	spin_lock_irqsave(&ssi->lock, flags);
--	strm->substream = NULL;
--	spin_unlock_irqrestore(&ssi->lock, flags);
-+	rz_ssi_set_substream(strm, NULL);
- 
- 	if (strm->oerr_num > 0)
- 		dev_info(dai->dev, "overrun = %d\n", strm->oerr_num);
--- 
-2.17.1
+thanks,
 
+Takashi

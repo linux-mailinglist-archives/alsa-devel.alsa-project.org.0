@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A3C848F41E
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 02:25:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 801D848F41D
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jan 2022 02:25:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEA881F73;
-	Sat, 15 Jan 2022 02:24:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEA881F73
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D5941FDA;
+	Sat, 15 Jan 2022 02:24:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D5941FDA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642209911;
-	bh=KE+1xRVMuiZlLZfJVaybpgvVtxSCq2cVwrqPntT13vE=;
+	s=default; t=1642209905;
+	bh=/5Ua/xSkATE0MmgluOqNKOkwms8PD+hVxfOiPEfK1JQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MQ9O97vAcMXtwE+QBLqx31bhSixb5yw1J8O+3uu6N3nkKkL0XcW/wxpNv0Mi6RSkg
-	 C8AFeYCjm+Jj4xAlM7RpVkhp3OyW9nLU79OA27nYo/2cgScW0td9AGgOFItw9tBRi9
-	 0Fs0sISmaPpn+1m7YKD3MSULs/1M4R76UDV6GHNg=
+	b=EHQGynjm1OdZHbJxRsFsqPhOb9eu4wRo+eT6t3IkhNHvfw7PpAL82XgTXD0RPOhd2
+	 CIZs9ocQ8QO+zFhP9anSawyGvKxlRNRVauLoqCXFVAANPcifmitYnJ6gNihyoV7qaI
+	 vrYsm+oLAmfmuq6XmqJG80dJavPBYXgdtzj6XBfQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3998F80511;
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A17CF80510;
 	Sat, 15 Jan 2022 02:23:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77BB2F8027C; Sat, 15 Jan 2022 02:23:31 +0100 (CET)
+ id 731E5F800CE; Sat, 15 Jan 2022 02:23:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 02D73F8027C
- for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 02:23:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02D73F8027C
-X-IronPort-AV: E=Sophos;i="5.88,290,1635174000"; d="scan'208";a="107116841"
+ by alsa1.perex.cz (Postfix) with ESMTP id 54B27F80141
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 02:23:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54B27F80141
+X-IronPort-AV: E=Sophos;i="5.88,290,1635174000"; d="scan'208";a="107116846"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2022 10:23:20 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 15 Jan 2022 10:23:24 +0900
 Received: from localhost.localdomain (unknown [10.226.36.204])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 37065417EAC6;
- Sat, 15 Jan 2022 10:23:18 +0900 (JST)
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 9B5B5417EAC4;
+ Sat, 15 Jan 2022 10:23:21 +0900 (JST)
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 2/5] ASoC: sh: rz-ssi: Make the data structures available
- before registering the handlers
-Date: Sat, 15 Jan 2022 01:23:00 +0000
-Message-Id: <20220115012303.29651-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 3/5] ASoC: sh: rz-ssi: Drop ssi parameter from
+ rz_ssi_stream_init()
+Date: Sat, 15 Jan 2022 01:23:01 +0000
+Message-Id: <20220115012303.29651-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220115012303.29651-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20220115012303.29651-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -71,42 +71,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Initialize the spinlock and make the data structures available before
-registering the interrupt handlers.
+ssi parameter is unused in rz_ssi_stream_init() so just drop it.
 
-Reported-by: Pavel Machek <pavel@denx.de>
+While at it, change the return type of rz_ssi_stream_init() to void
+instead of int.
+
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v1->v2
 * No change
 ---
- sound/soc/sh/rz-ssi.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ sound/soc/sh/rz-ssi.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
 diff --git a/sound/soc/sh/rz-ssi.c b/sound/soc/sh/rz-ssi.c
-index 637802117c6c..89428945d48b 100644
+index 89428945d48b..50699e94772b 100644
 --- a/sound/soc/sh/rz-ssi.c
 +++ b/sound/soc/sh/rz-ssi.c
-@@ -972,6 +972,9 @@ static int rz_ssi_probe(struct platform_device *pdev)
- 	ssi->playback.priv = ssi;
- 	ssi->capture.priv = ssi;
+@@ -201,9 +201,8 @@ static int rz_ssi_stream_is_valid(struct rz_ssi_priv *ssi,
+ 	return ret;
+ }
  
-+	spin_lock_init(&ssi->lock);
-+	dev_set_drvdata(&pdev->dev, ssi);
-+
- 	/* Error Interrupt */
- 	ssi->irq_int = platform_get_irq_byname(pdev, "int_req");
- 	if (ssi->irq_int < 0)
-@@ -1019,8 +1022,6 @@ static int rz_ssi_probe(struct platform_device *pdev)
- 	pm_runtime_enable(&pdev->dev);
- 	pm_runtime_resume_and_get(&pdev->dev);
+-static int rz_ssi_stream_init(struct rz_ssi_priv *ssi,
+-			      struct rz_ssi_stream *strm,
+-			      struct snd_pcm_substream *substream)
++static void rz_ssi_stream_init(struct rz_ssi_stream *strm,
++			       struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
  
--	spin_lock_init(&ssi->lock);
--	dev_set_drvdata(&pdev->dev, ssi);
- 	ret = devm_snd_soc_register_component(&pdev->dev, &rz_ssi_soc_component,
- 					      rz_ssi_soc_dai,
- 					      ARRAY_SIZE(rz_ssi_soc_dai));
+@@ -219,8 +218,6 @@ static int rz_ssi_stream_init(struct rz_ssi_priv *ssi,
+ 
+ 	/* fifo init */
+ 	strm->fifo_sample_size = SSI_FIFO_DEPTH;
+-
+-	return 0;
+ }
+ 
+ static void rz_ssi_stream_quit(struct rz_ssi_priv *ssi,
+@@ -723,9 +720,7 @@ static int rz_ssi_dai_trigger(struct snd_pcm_substream *substream, int cmd,
+ 		rz_ssi_reg_mask_setl(ssi, SSIFCR, SSIFCR_SSIRST, 0);
+ 		udelay(5);
+ 
+-		ret = rz_ssi_stream_init(ssi, strm, substream);
+-		if (ret)
+-			goto done;
++		rz_ssi_stream_init(strm, substream);
+ 
+ 		if (ssi->dma_rt) {
+ 			bool is_playback;
 -- 
 2.17.1
 

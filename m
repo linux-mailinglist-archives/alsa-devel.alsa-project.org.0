@@ -2,73 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0163D48FBA6
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jan 2022 09:30:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2015B48FBA7
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jan 2022 09:30:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9367717C3;
-	Sun, 16 Jan 2022 09:29:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9367717C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE72717CF;
+	Sun, 16 Jan 2022 09:29:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE72717CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642321799;
-	bh=NxNCXO1cpO9S+w4Xu5aojSxkBAnFy89JVw8Cz31gHAM=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=mRZpON6+rYxq1srXqmbw/X159IahiI8lPiCWnrjYP4K/zS/wHjB4gf91FkJhbXwfH
-	 IsTvugFluelxORpfd4nWdwsK81GGB/KrRf01oj1LO+t3XKcufSewUp374XGmFT78GE
-	 iwBpz6JhZb0cTE9Tk7ouMyrf3e7Mu4J90useGpnE=
+	s=default; t=1642321832;
+	bh=at2DmMytFyC1fWcKAqcqC9j9iSJXjNNLFdgtE9JuHpU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KBfeuKJYf7g1578k7UyGaNCSLqoLEWUfJx+kZR0icG9Fuc2TLQ+vOaIS0rGKxy7w4
+	 LaMaoImmxBNb9nal4HMIGG/Q0PeuKrVIVV2LPgOGsiJ1kRiqmqTSJ+dSa3CjeuJZo2
+	 zCDv/rwMFqElQi5m5ny8ZGhK3lpnz9ao2S0CsDKM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E325F800BF;
-	Sun, 16 Jan 2022 09:28:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1756F804FF;
+	Sun, 16 Jan 2022 09:29:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9934F804CC; Sun, 16 Jan 2022 09:28:47 +0100 (CET)
+ id 3AC9BF804FE; Sun, 16 Jan 2022 09:29:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 871C0F800BF
- for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 09:28:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 871C0F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id B207EF80117
+ for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 09:29:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B207EF80117
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="TQGvAmut"; 
+ header.b="PWK1Ehsx"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5s3oYyDY"
+ header.b="WR+HQ98c"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 62A4A1F3AF
- for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 08:28:39 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 07CED219B1;
+ Sun, 16 Jan 2022 08:29:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642321719; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=ohDCGoda+5Xylm+IVSC85lgLETenqt+xFUbfJxOI9JA=;
- b=TQGvAmutVlMxFk3skUOzXa8qVr3HljN1rdMDaVO7c70uwubb8g69tX2rt51dyERW2xmxUQ
- dZGJKztxOrzQTZilADFqWR+9U5N0TAlIMKR0aWf+P6FalCAtKyGVj7SiLMVSgfotHPtPE+
- +R8jrPk7WMLmZhximcrMPe/z5xuW7Hc=
+ t=1642321766; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/wsNBMfshyu22L+3yRenJRs8wqL0Wx45Dac2TZ7C4QQ=;
+ b=PWK1Ehsx0sHFZNIC6+7j1WYolhSuZge5KLyMvuNuYy7EgzyTQ2+ybyHHVVxFNaNVkQHXbO
+ 3OGsc5xdZFKuucRO3Z5TwKzdzOBKC+c8z3nfS5P9/mIjjnDCSZGnT5Eosxs9pw7kHmxj/a
+ glsdeQSQ27Ze0n7iYOp7xarAvAMJbNo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642321719;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=ohDCGoda+5Xylm+IVSC85lgLETenqt+xFUbfJxOI9JA=;
- b=5s3oYyDYJobxEoAsM55LyzzCE7ZM6xhiWdfTV7q0a5hCctN83aivBJnKBZf/lJ+jr1f1pf
- JcOC6aumqCwwLiCg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 521A0A3B81;
- Sun, 16 Jan 2022 08:28:39 +0000 (UTC)
+ s=susede2_ed25519; t=1642321766;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/wsNBMfshyu22L+3yRenJRs8wqL0Wx45Dac2TZ7C4QQ=;
+ b=WR+HQ98ce9B52AdxC5dec8+oG5Qm+3s9MoCbcERcahofkNfgHAyfrwZ5/V6SHpmcEWuoP9
+ uSCwfJfXFr86SpAQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id F134AA3B89;
+ Sun, 16 Jan 2022 08:29:25 +0000 (UTC)
+Date: Sun, 16 Jan 2022 09:29:25 +0100
+Message-ID: <s5hczks2ie2.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ALSA: core: Fix SSID quirk lookup for subvendor=0
-Date: Sun, 16 Jan 2022 09:28:38 +0100
-Message-Id: <20220116082838.19382-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: Johannes Schickel <lordhoto@gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: add mapping for MSI MPG X570S Carbon Max
+ Wifi.
+In-Reply-To: <20220115140257.8751-1-lordhoto@gmail.com>
+References: <20220115140257.8751-1-lordhoto@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Andrea Fagiani <andfagiani@gmail.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Timo Gurr <timo.gurr@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,37 +94,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some weird devices set the codec SSID vendor ID 0, and
-snd_pci_quirk_lookup_id() loop aborts at the point although it should
-still try matching with the SSID device ID.  This resulted in a
-missing quirk for some old Macs.
+On Sat, 15 Jan 2022 15:02:57 +0100,
+Johannes Schickel wrote:
+> 
+> The USB audio device 0db0:419c based on the Realtek ALC4080 chip exposes
+> all playback volume controls as "PCM". This is makes distinguishing the
+> individual functions hard.
+> 
+> The added mapping distinguishes all playback volume controls as their
+> respective function:
+>  - Speaker              - for back panel output
+>  - Frontpanel Headphone - for front panel output
+>  - IEC958               - for digital output on the back panel
+> 
+> This clarifies the individual volume control functions for users.
+> 
+> Signed-off-by: Johannes Schickel <lordhoto@gmail.com>
 
-Fix the loop termination condition to check both subvendor and
-subdevice.
+Thanks, applied.
 
-Fixes: 73355ddd8775 ("ALSA: hda: Code refactoring snd_hda_pick_fixup()")
-Cc: <stable@vger.kernel.org>
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=215495
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
-v1->v2: Fix a typo of logical OR in the condition
 
- sound/core/misc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/core/misc.c b/sound/core/misc.c
-index 3579dd7a161f..50e4aaa6270d 100644
---- a/sound/core/misc.c
-+++ b/sound/core/misc.c
-@@ -112,7 +112,7 @@ snd_pci_quirk_lookup_id(u16 vendor, u16 device,
- {
- 	const struct snd_pci_quirk *q;
- 
--	for (q = list; q->subvendor; q++) {
-+	for (q = list; q->subvendor || q->subdevice; q++) {
- 		if (q->subvendor != vendor)
- 			continue;
- 		if (!q->subdevice ||
--- 
-2.31.1
-
+Takashi

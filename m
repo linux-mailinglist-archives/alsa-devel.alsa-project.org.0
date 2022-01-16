@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1117648FA3B
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jan 2022 03:05:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A1E348FA3C
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jan 2022 03:05:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F23C17EF;
-	Sun, 16 Jan 2022 03:04:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F23C17EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id B21B9180F;
+	Sun, 16 Jan 2022 03:04:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B21B9180F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642298718;
-	bh=MJOnCYMJTYTGgmxyse/QaiTuCFxLb3U8BVTaBtSXX60=;
+	s=default; t=1642298724;
+	bh=LVtSDqhTlMd0ZeB3E3M0q97IgjB8OzIC/ElHh/a3NIo=;
 	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fnIG8i2yDxa1MCvUxF8tSptKVwmrZAE7G+NBK3qvvLYATfAx82qF4rQPbeKHX2/eV
-	 Y9BX8KarW8oL+2i7+dua33DuqfSLGhGOzynaBA0bxpGM5F8vyGbmFiTofyXmwJalQc
-	 oaj+bYsXNJd/qOBVHb6N24nZ6Wk8pQ9zlEVHFf9k=
+	b=TTxFVBFHhN8cwXiOhSZ3H+KqimnhXPCea9xmSMceuara2BMP+6lWqsMk187xbfGSA
+	 BpkDj9v0QTIELWDJcUzF7AMkcODkAow+R79FqpOYnbzgKYGUHzkXvO+ap6X9hgh5bI
+	 7UW0KaZCn3JpRum2cw2trE6X+IvoPH7Y2V8N0j6I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63743F804FE;
-	Sun, 16 Jan 2022 03:03:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3E9DF80516;
+	Sun, 16 Jan 2022 03:03:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64C2EF800CE; Sun, 16 Jan 2022 03:03:46 +0100 (CET)
+ id 3D813F80515; Sun, 16 Jan 2022 03:03:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D295F800CE
- for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 03:03:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D295F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07931F800B0
+ for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 03:03:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07931F800B0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=igorinstitute-com.20210112.gappssmtp.com
- header.i=@igorinstitute-com.20210112.gappssmtp.com header.b="ytL1nqRb"
-Received: by mail-pg1-x52b.google.com with SMTP id g2so6334870pgo.9
- for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 18:03:39 -0800 (PST)
+ header.i=@igorinstitute-com.20210112.gappssmtp.com header.b="ChDGSDgE"
+Received: by mail-pl1-x633.google.com with SMTP id a7so13878481plh.1
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jan 2022 18:03:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=igorinstitute-com.20210112.gappssmtp.com; s=20210112;
  h=message-id:in-reply-to:references:from:date:subject:to:cc;
- bh=MbnhDnD9ltDz0eDWpoIRdkhCHdb0drwyyn8KjKyQbSY=;
- b=ytL1nqRbgKKx0iybCrZ8JS5Y6fK+aSbetgonWJwgIY8vLMqzQ81GGtZddzcr0wXK2n
- EtTP3ST8zAho8y5NX6ASJBElkuWzJ+zlAtNCz8klgRJuCw0/VWqWG9ho2nWc4iW+a8iP
- eQq1ljTUMcE3kvJaYh4G3CjOq/86mMJfqynhQtHZoB8SBf0Aicp/z8jooiuU5GqPdypk
- JmtE9LVSoNxxd9dXPXoUaMdfzDT1vusv5SU8AlACgH62bra+wQXZ1U9doitxgD916nGB
- l8UAs9PLPkr+bQ2Ks5lA2k3yVnXGWbWk6f4nESvQe2q0L1Cj7dFqvKqMfNFwYDuu/qPY
- fwRQ==
+ bh=ff4sAy6O0hQSoqvnQZ8q3cMuMe1q1w8oq5fvcMe7gHk=;
+ b=ChDGSDgE0vp41yRuvawLLum8LS9T59WSDYXqaBpAQu3fsgcmtQKdjnnuQx7CtY1/AQ
+ BP9a4WfSRt2u8JJ33ysVu5VR5Yxuo+1dlXQjhxk7bidcnSB5QsY4vHxhlxmfMICWi46b
+ Tykhn4D6yP7CBpC0Wo2LlQd3sylpxjlvIxppQ9Eg0kVBr+fHOB0odXUzFyXIoqpgyvIL
+ MkiNEQ9PCU+FswnK4DBaIwdXVrIxpDvfJ0DY2Hq3PUmqYAFkQP9Ekhwy+y8p00Grdwwt
+ urajfZjzEJB61H+jbwfCDQuqW6oTbpd76aeFSQ3Si4RkTDPa9JYqh+Ol7fSwsKX6oRST
+ /pOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:in-reply-to:references:from:date
  :subject:to:cc;
- bh=MbnhDnD9ltDz0eDWpoIRdkhCHdb0drwyyn8KjKyQbSY=;
- b=7QRqhHLltmslSmPJJUbTzY7RKMrmzNn2msOHO6GJwTdxSd70s+HxCO1+Hnkz80Swr6
- eWMXYrnQWdub+CHr/gTQNk/gVPyFpZfR5yTaPfk/5XIsidpR/Wg86BYg5WV5FwV6FGw9
- aNOhxJT767sRg7T5gx7K5SevhPRW+miph1MVhLx8H98+2Ki5Jh+fs4l+ssh1M4/EcDQh
- WWWZir0W/sjPEvWFdBEcKcjoOdr8fVb2UUUbgmr/sBWAWVMsMjU05rX+9P+IYVZe47FR
- NvDN87RbfAbmdKpxvs9CwouRASpFvv3fwP18uYhoj/3glA9zPE/wj5PuB5ICOVVmd2pb
- YLLQ==
-X-Gm-Message-State: AOAM531nz5MWe2OenC1IFCiDiMx7OA/hAqcBoFKXaFvPyIcz4qAVlIAo
- x9+28SC2+UuodUJSU88rhurKXqFg8mIB/+JH
-X-Google-Smtp-Source: ABdhPJzBVsEkpwrlfJP9nfMMHqThq9V+UEnfHyIqUOd9rJWhDcfEOo/nkTZttlDs01tQPNTWmhBCMw==
-X-Received: by 2002:a63:ce4c:: with SMTP id r12mr13809144pgi.21.1642298616603; 
- Sat, 15 Jan 2022 18:03:36 -0800 (PST)
+ bh=ff4sAy6O0hQSoqvnQZ8q3cMuMe1q1w8oq5fvcMe7gHk=;
+ b=bUZKLceC36xgMXvl2Ay1s6+jVin1eiPiAkQeWpyeTM0LEWO8zjXOAvdm3NyaLxTEF3
+ sVFP+maCJo/atNyBMyshzKKwzyNb5UxHY6+8hIMaPmd9+ZMzr7HLn0tq6sRzyJtkY2Nk
+ fsuZF7RULrEdxoP5vrqP0O+o4CmYZoCdaRqDYGnK58URUug2aZp0ztRYt4tdxVSegHx7
+ O3nbZ7XKWb7Ia8IkvuF+07BVssYu+td5b6ZI2/1XckiTc0pn/aV6y15txWnXV43j8q6i
+ Ecgbu5+4cUsL5P7lSROjYQ0pZ0OljACKjxkRhrrid9xdppa7Om0ttfbF77eUxOypZx2m
+ BUKg==
+X-Gm-Message-State: AOAM531I4x+rgBd4tCdx7TXlNAij5csFKX0eNP/xNM2JaOlSCvNATONS
+ KeZ08pJ5ieehMuZRfTzsF+sOv1qP/eEdHsml
+X-Google-Smtp-Source: ABdhPJzJakvgX8A54M9pAxRgPqmDQvVbSfYjsv0RiB6ep12cXjXHZvw+0XXkdoxHtYXPjvAXfeXA5w==
+X-Received: by 2002:a17:90a:d184:: with SMTP id
+ fu4mr27984577pjb.26.1642298620091; 
+ Sat, 15 Jan 2022 18:03:40 -0800 (PST)
 Received: from localhost ([121.99.145.49])
- by smtp.gmail.com with ESMTPSA id d12sm829659pfh.98.2022.01.15.18.03.35
+ by smtp.gmail.com with ESMTPSA id h1sm9404858pfi.109.2022.01.15.18.03.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 15 Jan 2022 18:03:36 -0800 (PST)
-Message-Id: <b82fac1d21a33a5f57a5819eaf37c31f5c86eb65.1642298336.git.daniel.beer@igorinstitute.com>
+ Sat, 15 Jan 2022 18:03:39 -0800 (PST)
+Message-Id: <e271d381dcf1c6036a2a22bab6ab72654455aa58.1642298336.git.daniel.beer@igorinstitute.com>
 In-Reply-To: <cover.1642298336.git.daniel.beer@igorinstitute.com>
 References: <cover.1642298336.git.daniel.beer@igorinstitute.com>
 From: Daniel Beer <daniel.beer@igorinstitute.com>
-Date: Sun, 16 Jan 2022 14:55:49 +1300
-Subject: [PATCH v3 1/2] ASoC: add support for TAS5805M digital amplifier
+Date: Sun, 16 Jan 2022 14:56:27 +1300
+Subject: [PATCH v3 2/2] ASoC: dt-bindings: add bindings for TI TAS5805M.
 To: alsa-devel@alsa-project.org, devicetree@vger.kernel.org
 Cc: Daniel Beer <daniel.beer@igorinstitute.com>, linux-kernel@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -99,634 +99,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Texas Instruments TAS5805M is a class D audio amplifier with an
-integrated DSP. DSP configuration is supplied in a firmware image
-specified through a device-tree attribute.
-
-These register writes set up application-specific DSP settings and are
-expected to be generated using TI's PPC3 tool.
+The TAS5805M is a class D speaker amplifier with integrated DSP.
+Configuration must be generated by TI's PPC3 tool and supplied as a
+firmware image.
 
 Signed-off-by: Daniel Beer <daniel.beer@igorinstitute.com>
 ---
- sound/soc/codecs/Kconfig    |   9 +
- sound/soc/codecs/Makefile   |   2 +
- sound/soc/codecs/tas5805m.c | 567 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 578 insertions(+)
- create mode 100644 sound/soc/codecs/tas5805m.c
+ .../devicetree/bindings/sound/tas5805m.yaml   | 56 +++++++++++++++++++
+ 1 file changed, 56 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/tas5805m.yaml
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index d3e5ae8310ef..d6b8f5cb6ef8 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1485,6 +1485,15 @@ config SND_SOC_TAS5720
- 	  Enable support for Texas Instruments TAS5720L/M high-efficiency mono
- 	  Class-D audio power amplifiers.
- 
-+config SND_SOC_TAS5805M
-+	tristate "Texas Instruments TAS5805M speaker amplifier"
-+	depends on I2C
-+	help
-+	  Enable support for Texas Instruments TAS5805M Class-D
-+	  amplifiers. This is a speaker amplifier with an integrated
-+	  DSP. DSP configuration for each instance needs to be supplied
-+	  via a device-tree attribute.
-+
- config SND_SOC_TAS6424
- 	tristate "Texas Instruments TAS6424 Quad-Channel Audio amplifier"
- 	depends on I2C
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index ac7f20972470..b4e11c3e4a08 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -236,6 +236,7 @@ snd-soc-sti-sas-objs := sti-sas.o
- snd-soc-tas5086-objs := tas5086.o
- snd-soc-tas571x-objs := tas571x.o
- snd-soc-tas5720-objs := tas5720.o
-+snd-soc-tas5805m-objs := tas5805m.o
- snd-soc-tas6424-objs := tas6424.o
- snd-soc-tda7419-objs := tda7419.o
- snd-soc-tas2770-objs := tas2770.o
-@@ -574,6 +575,7 @@ obj-$(CONFIG_SND_SOC_TAS2764)	+= snd-soc-tas2764.o
- obj-$(CONFIG_SND_SOC_TAS5086)	+= snd-soc-tas5086.o
- obj-$(CONFIG_SND_SOC_TAS571X)	+= snd-soc-tas571x.o
- obj-$(CONFIG_SND_SOC_TAS5720)	+= snd-soc-tas5720.o
-+obj-$(CONFIG_SND_SOC_TAS5805M)	+= snd-soc-tas5805m.o
- obj-$(CONFIG_SND_SOC_TAS6424)	+= snd-soc-tas6424.o
- obj-$(CONFIG_SND_SOC_TDA7419)	+= snd-soc-tda7419.o
- obj-$(CONFIG_SND_SOC_TAS2770) += snd-soc-tas2770.o
-diff --git a/sound/soc/codecs/tas5805m.c b/sound/soc/codecs/tas5805m.c
+diff --git a/Documentation/devicetree/bindings/sound/tas5805m.yaml b/Documentation/devicetree/bindings/sound/tas5805m.yaml
 new file mode 100644
-index 000000000000..fa0e81ec875a
+index 000000000000..3aade02d8a96
 --- /dev/null
-+++ b/sound/soc/codecs/tas5805m.c
-@@ -0,0 +1,567 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// Driver for the TAS5805M Audio Amplifier
-+//
-+// Author: Andy Liu <andy-liu@ti.com>
-+// Author: Daniel Beer <daniel.beer@igorinstitute.com>
-+//
-+// This is based on a driver originally written by Andy Liu at TI and
-+// posted here:
-+//
-+//    https://e2e.ti.com/support/audio-group/audio/f/audio-forum/722027/linux-tas5825m-linux-drivers
-+//
-+// It has been simplified a little and reworked for the 5.x ALSA SoC API.
-+
-+#include <linux/module.h>
-+#include <linux/moduleparam.h>
-+#include <linux/kernel.h>
-+#include <linux/firmware.h>
-+#include <linux/slab.h>
-+#include <linux/of.h>
-+#include <linux/init.h>
-+#include <linux/i2c.h>
-+#include <linux/regmap.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/atomic.h>
-+#include <linux/workqueue.h>
-+
-+#include <sound/soc.h>
-+#include <sound/pcm.h>
-+#include <sound/initval.h>
-+
-+/* Datasheet-defined registers on page 0, book 0 */
-+#define REG_PAGE		0x00
-+#define REG_DEVICE_CTRL_1	0x02
-+#define REG_DEVICE_CTRL_2	0x03
-+#define REG_SIG_CH_CTRL		0x28
-+#define REG_SAP_CTRL_1		0x33
-+#define REG_FS_MON		0x37
-+#define REG_BCK_MON		0x38
-+#define REG_CLKDET_STATUS	0x39
-+#define REG_VOL_CTL		0x4c
-+#define REG_AGAIN		0x54
-+#define REG_ADR_PIN_CTRL	0x60
-+#define REG_ADR_PIN_CONFIG	0x61
-+#define REG_CHAN_FAULT		0x70
-+#define REG_GLOBAL_FAULT1	0x71
-+#define REG_GLOBAL_FAULT2	0x72
-+#define REG_FAULT		0x78
-+#define REG_BOOK		0x7f
-+
-+/* DEVICE_CTRL_2 register values */
-+#define DCTRL2_MODE_DEEP_SLEEP	0x00
-+#define DCTRL2_MODE_SLEEP	0x01
-+#define DCTRL2_MODE_HIZ		0x02
-+#define DCTRL2_MODE_PLAY	0x03
-+
-+#define DCTRL2_MUTE		0x08
-+#define DCTRL2_DIS_DSP		0x10
-+
-+/* This sequence of register writes must always be sent, prior to the
-+ * 5ms delay while we wait for the DSP to boot.
-+ */
-+static const uint8_t dsp_cfg_preboot[] = {
-+	0x00, 0x00, 0x7f, 0x00, 0x03, 0x02, 0x01, 0x11,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x7f, 0x00, 0x03, 0x02,
-+};
-+
-+static const uint32_t tas5805m_volume[] = {
-+	0x0000001B, /*   0, -110dB */ 0x0000001E, /*   1, -109dB */
-+	0x00000021, /*   2, -108dB */ 0x00000025, /*   3, -107dB */
-+	0x0000002A, /*   4, -106dB */ 0x0000002F, /*   5, -105dB */
-+	0x00000035, /*   6, -104dB */ 0x0000003B, /*   7, -103dB */
-+	0x00000043, /*   8, -102dB */ 0x0000004B, /*   9, -101dB */
-+	0x00000054, /*  10, -100dB */ 0x0000005E, /*  11,  -99dB */
-+	0x0000006A, /*  12,  -98dB */ 0x00000076, /*  13,  -97dB */
-+	0x00000085, /*  14,  -96dB */ 0x00000095, /*  15,  -95dB */
-+	0x000000A7, /*  16,  -94dB */ 0x000000BC, /*  17,  -93dB */
-+	0x000000D3, /*  18,  -92dB */ 0x000000EC, /*  19,  -91dB */
-+	0x00000109, /*  20,  -90dB */ 0x0000012A, /*  21,  -89dB */
-+	0x0000014E, /*  22,  -88dB */ 0x00000177, /*  23,  -87dB */
-+	0x000001A4, /*  24,  -86dB */ 0x000001D8, /*  25,  -85dB */
-+	0x00000211, /*  26,  -84dB */ 0x00000252, /*  27,  -83dB */
-+	0x0000029A, /*  28,  -82dB */ 0x000002EC, /*  29,  -81dB */
-+	0x00000347, /*  30,  -80dB */ 0x000003AD, /*  31,  -79dB */
-+	0x00000420, /*  32,  -78dB */ 0x000004A1, /*  33,  -77dB */
-+	0x00000532, /*  34,  -76dB */ 0x000005D4, /*  35,  -75dB */
-+	0x0000068A, /*  36,  -74dB */ 0x00000756, /*  37,  -73dB */
-+	0x0000083B, /*  38,  -72dB */ 0x0000093C, /*  39,  -71dB */
-+	0x00000A5D, /*  40,  -70dB */ 0x00000BA0, /*  41,  -69dB */
-+	0x00000D0C, /*  42,  -68dB */ 0x00000EA3, /*  43,  -67dB */
-+	0x0000106C, /*  44,  -66dB */ 0x0000126D, /*  45,  -65dB */
-+	0x000014AD, /*  46,  -64dB */ 0x00001733, /*  47,  -63dB */
-+	0x00001A07, /*  48,  -62dB */ 0x00001D34, /*  49,  -61dB */
-+	0x000020C5, /*  50,  -60dB */ 0x000024C4, /*  51,  -59dB */
-+	0x00002941, /*  52,  -58dB */ 0x00002E49, /*  53,  -57dB */
-+	0x000033EF, /*  54,  -56dB */ 0x00003A45, /*  55,  -55dB */
-+	0x00004161, /*  56,  -54dB */ 0x0000495C, /*  57,  -53dB */
-+	0x0000524F, /*  58,  -52dB */ 0x00005C5A, /*  59,  -51dB */
-+	0x0000679F, /*  60,  -50dB */ 0x00007444, /*  61,  -49dB */
-+	0x00008274, /*  62,  -48dB */ 0x0000925F, /*  63,  -47dB */
-+	0x0000A43B, /*  64,  -46dB */ 0x0000B845, /*  65,  -45dB */
-+	0x0000CEC1, /*  66,  -44dB */ 0x0000E7FB, /*  67,  -43dB */
-+	0x00010449, /*  68,  -42dB */ 0x0001240C, /*  69,  -41dB */
-+	0x000147AE, /*  70,  -40dB */ 0x00016FAA, /*  71,  -39dB */
-+	0x00019C86, /*  72,  -38dB */ 0x0001CEDC, /*  73,  -37dB */
-+	0x00020756, /*  74,  -36dB */ 0x000246B5, /*  75,  -35dB */
-+	0x00028DCF, /*  76,  -34dB */ 0x0002DD96, /*  77,  -33dB */
-+	0x00033718, /*  78,  -32dB */ 0x00039B87, /*  79,  -31dB */
-+	0x00040C37, /*  80,  -30dB */ 0x00048AA7, /*  81,  -29dB */
-+	0x00051884, /*  82,  -28dB */ 0x0005B7B1, /*  83,  -27dB */
-+	0x00066A4A, /*  84,  -26dB */ 0x000732AE, /*  85,  -25dB */
-+	0x00081385, /*  86,  -24dB */ 0x00090FCC, /*  87,  -23dB */
-+	0x000A2ADB, /*  88,  -22dB */ 0x000B6873, /*  89,  -21dB */
-+	0x000CCCCD, /*  90,  -20dB */ 0x000E5CA1, /*  91,  -19dB */
-+	0x00101D3F, /*  92,  -18dB */ 0x0012149A, /*  93,  -17dB */
-+	0x00144961, /*  94,  -16dB */ 0x0016C311, /*  95,  -15dB */
-+	0x00198A13, /*  96,  -14dB */ 0x001CA7D7, /*  97,  -13dB */
-+	0x002026F3, /*  98,  -12dB */ 0x00241347, /*  99,  -11dB */
-+	0x00287A27, /* 100,  -10dB */ 0x002D6A86, /* 101,  -9dB */
-+	0x0032F52D, /* 102,   -8dB */ 0x00392CEE, /* 103,   -7dB */
-+	0x004026E7, /* 104,   -6dB */ 0x0047FACD, /* 105,   -5dB */
-+	0x0050C336, /* 106,   -4dB */ 0x005A9DF8, /* 107,   -3dB */
-+	0x0065AC8C, /* 108,   -2dB */ 0x00721483, /* 109,   -1dB */
-+	0x00800000, /* 110,    0dB */ 0x008F9E4D, /* 111,    1dB */
-+	0x00A12478, /* 112,    2dB */ 0x00B4CE08, /* 113,    3dB */
-+	0x00CADDC8, /* 114,    4dB */ 0x00E39EA9, /* 115,    5dB */
-+	0x00FF64C1, /* 116,    6dB */ 0x011E8E6A, /* 117,    7dB */
-+	0x0141857F, /* 118,    8dB */ 0x0168C0C6, /* 119,    9dB */
-+	0x0194C584, /* 120,   10dB */ 0x01C62940, /* 121,   11dB */
-+	0x01FD93C2, /* 122,   12dB */ 0x023BC148, /* 123,   13dB */
-+	0x02818508, /* 124,   14dB */ 0x02CFCC01, /* 125,   15dB */
-+	0x0327A01A, /* 126,   16dB */ 0x038A2BAD, /* 127,   17dB */
-+	0x03F8BD7A, /* 128,   18dB */ 0x0474CD1B, /* 129,   19dB */
-+	0x05000000, /* 130,   20dB */ 0x059C2F02, /* 131,   21dB */
-+	0x064B6CAE, /* 132,   22dB */ 0x07100C4D, /* 133,   23dB */
-+	0x07ECA9CD, /* 134,   24dB */ 0x08E43299, /* 135,   25dB */
-+	0x09F9EF8E, /* 136,   26dB */ 0x0B319025, /* 137,   27dB */
-+	0x0C8F36F2, /* 138,   28dB */ 0x0E1787B8, /* 139,   29dB */
-+	0x0FCFB725, /* 140,   30dB */ 0x11BD9C84, /* 141,   31dB */
-+	0x13E7C594, /* 142,   32dB */ 0x16558CCB, /* 143,   33dB */
-+	0x190F3254, /* 144,   34dB */ 0x1C1DF80E, /* 145,   35dB */
-+	0x1F8C4107, /* 146,   36dB */ 0x2365B4BF, /* 147,   37dB */
-+	0x27B766C2, /* 148,   38dB */ 0x2C900313, /* 149,   39dB */
-+	0x32000000, /* 150,   40dB */ 0x3819D612, /* 151,   41dB */
-+	0x3EF23ECA, /* 152,   42dB */ 0x46A07B07, /* 153,   43dB */
-+	0x4F3EA203, /* 154,   44dB */ 0x58E9F9F9, /* 155,   45dB */
-+	0x63C35B8E, /* 156,   46dB */ 0x6FEFA16D, /* 157,   47dB */
-+	0x7D982575, /* 158,   48dB */
-+};
-+
-+#define TAS5805M_VOLUME_MAX	((int)ARRAY_SIZE(tas5805m_volume) - 1)
-+#define TAS5805M_VOLUME_MIN	0
-+
-+struct tas5805m_priv {
-+	struct regulator		*pvdd;
-+	struct gpio_desc		*gpio_pdn_n;
-+
-+	uint8_t				*dsp_cfg_data;
-+	int				dsp_cfg_len;
-+
-+	struct regmap			*regmap;
-+
-+	int				vol[2];
-+	bool				is_powered;
-+	bool				is_muted;
-+};
-+
-+static void set_dsp_scale(struct regmap *rm, int offset, int vol)
-+{
-+	uint8_t v[4];
-+	uint32_t x = tas5805m_volume[vol];
-+	int i;
-+
-+	for (i = 0; i < 4; i++) {
-+		v[3 - i] = x;
-+		x >>= 8;
-+	}
-+
-+	regmap_bulk_write(rm, offset, v, ARRAY_SIZE(v));
-+}
-+
-+static void tas5805m_refresh(struct snd_soc_component *component)
-+{
-+	struct tas5805m_priv *tas5805m =
-+		snd_soc_component_get_drvdata(component);
-+	struct regmap *rm = tas5805m->regmap;
-+
-+	dev_dbg(component->dev, "refresh: is_muted=%d, vol=%d/%d\n",
-+		tas5805m->is_muted, tas5805m->vol[0], tas5805m->vol[1]);
-+
-+	regmap_write(rm, REG_PAGE, 0x00);
-+	regmap_write(rm, REG_BOOK, 0x8c);
-+	regmap_write(rm, REG_PAGE, 0x2a);
-+
-+	/* Refresh volume. The actual volume control documented in the
-+	 * datasheet doesn't seem to work correctly. This is a pair of
-+	 * DSP registers which are *not* documented in the datasheet.
-+	 */
-+	set_dsp_scale(rm, 0x24, tas5805m->vol[0]);
-+	set_dsp_scale(rm, 0x28, tas5805m->vol[1]);
-+
-+	/* Set/clear digital soft-mute */
-+	regmap_write(rm, REG_DEVICE_CTRL_2,
-+		(tas5805m->is_muted ? DCTRL2_MUTE : 0) |
-+		DCTRL2_MODE_PLAY);
-+}
-+
-+static int tas5805m_vol_info(struct snd_kcontrol *kcontrol,
-+			     struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 2;
-+
-+	uinfo->value.integer.min = TAS5805M_VOLUME_MIN;
-+	uinfo->value.integer.max = TAS5805M_VOLUME_MAX;
-+	return 0;
-+}
-+
-+static int tas5805m_vol_get(struct snd_kcontrol *kcontrol,
-+			    struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_kcontrol_component(kcontrol);
-+	struct tas5805m_priv *tas5805m =
-+		snd_soc_component_get_drvdata(component);
-+
-+	ucontrol->value.integer.value[0] = tas5805m->vol[0];
-+	ucontrol->value.integer.value[1] = tas5805m->vol[1];
-+	return 0;
-+}
-+
-+static inline int volume_is_valid(int v)
-+{
-+	return (v >= TAS5805M_VOLUME_MIN) && (v <= TAS5805M_VOLUME_MAX);
-+}
-+
-+static int tas5805m_vol_put(struct snd_kcontrol *kcontrol,
-+			    struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_kcontrol_component(kcontrol);
-+	struct tas5805m_priv *tas5805m =
-+		snd_soc_component_get_drvdata(component);
-+
-+	if (!(volume_is_valid(ucontrol->value.integer.value[0]) &&
-+	      volume_is_valid(ucontrol->value.integer.value[1])))
-+		return -EINVAL;
-+
-+	if (tas5805m->vol[0] != ucontrol->value.integer.value[0] ||
-+	    tas5805m->vol[1] != ucontrol->value.integer.value[1]) {
-+		tas5805m->vol[0] = ucontrol->value.integer.value[0];
-+		tas5805m->vol[1] = ucontrol->value.integer.value[1];
-+		dev_dbg(component->dev, "set vol=%d/%d (is_powered=%d)\n",
-+			tas5805m->vol[0], tas5805m->vol[1],
-+			tas5805m->is_powered);
-+		if (tas5805m->is_powered)
-+			tas5805m_refresh(component);
-+		return 1;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_kcontrol_new tas5805m_snd_controls[] = {
-+	{
-+		.iface	= SNDRV_CTL_ELEM_IFACE_MIXER,
-+		.name	= "Master Playback Volume",
-+		.access	= SNDRV_CTL_ELEM_ACCESS_TLV_READ |
-+			  SNDRV_CTL_ELEM_ACCESS_READWRITE,
-+		.info	= tas5805m_vol_info,
-+		.get	= tas5805m_vol_get,
-+		.put	= tas5805m_vol_put,
-+	},
-+};
-+
-+static void send_cfg(struct regmap *rm,
-+		     const uint8_t *s, unsigned int len)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i + 1 < len; i += 2)
-+		regmap_write(rm, s[i], s[i + 1]);
-+}
-+
-+/* The TAS5805M DSP can't be configured until the I2S clock has been
-+ * present and stable for 5ms, or else it won't boot and we get no
-+ * sound.
-+ */
-+static int tas5805m_trigger(struct snd_pcm_substream *substream, int cmd,
-+			    struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas5805m_priv *tas5805m =
-+		snd_soc_component_get_drvdata(component);
-+	struct regmap *rm = tas5805m->regmap;
-+	unsigned int chan, global1, global2;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		dev_dbg(component->dev, "DSP startup\n");
-+
-+		/* We mustn't issue any I2C transactions until the I2S
-+		 * clock is stable. Furthermore, we must allow a 5ms
-+		 * delay after the first set of register writes to
-+		 * allow the DSP to boot before configuring it.
-+		 */
-+		usleep_range(5000, 10000);
-+		send_cfg(rm, dsp_cfg_preboot,
-+			ARRAY_SIZE(dsp_cfg_preboot));
-+		usleep_range(5000, 15000);
-+		send_cfg(rm, tas5805m->dsp_cfg_data,
-+			tas5805m->dsp_cfg_len);
-+
-+		tas5805m->is_powered = true;
-+		tas5805m_refresh(component);
-+		break;
-+
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		dev_dbg(component->dev, "DSP shutdown\n");
-+
-+		tas5805m->is_powered = false;
-+
-+		regmap_write(rm, REG_PAGE, 0x00);
-+		regmap_write(rm, REG_BOOK, 0x00);
-+
-+		regmap_read(rm, REG_CHAN_FAULT, &chan);
-+		regmap_read(rm, REG_GLOBAL_FAULT1, &global1);
-+		regmap_read(rm, REG_GLOBAL_FAULT2, &global2);
-+
-+		dev_dbg(component->dev,
-+			"fault regs: CHAN=%02x, GLOBAL1=%02x, GLOBAL2=%02x\n",
-+			chan, global1, global2);
-+
-+		regmap_write(rm, REG_DEVICE_CTRL_2, DCTRL2_MODE_HIZ);
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_dapm_route tas5805m_audio_map[] = {
-+	{ "DAC", NULL, "DAC IN" },
-+	{ "OUT", NULL, "DAC" },
-+};
-+
-+static const struct snd_soc_dapm_widget tas5805m_dapm_widgets[] = {
-+	SND_SOC_DAPM_AIF_IN("DAC IN", "Playback", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_DAC("DAC", NULL, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_OUTPUT("OUT")
-+};
-+
-+static const struct snd_soc_component_driver soc_codec_dev_tas5805m = {
-+	.controls		= tas5805m_snd_controls,
-+	.num_controls		= ARRAY_SIZE(tas5805m_snd_controls),
-+	.dapm_widgets		= tas5805m_dapm_widgets,
-+	.num_dapm_widgets	= ARRAY_SIZE(tas5805m_dapm_widgets),
-+	.dapm_routes		= tas5805m_audio_map,
-+	.num_dapm_routes	= ARRAY_SIZE(tas5805m_audio_map),
-+	.use_pmdown_time	= 1,
-+	.endianness		= 1,
-+	.non_legacy_dai_naming	= 1,
-+};
-+
-+static int tas5805m_mute(struct snd_soc_dai *dai, int mute, int direction)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas5805m_priv *tas5805m =
-+		snd_soc_component_get_drvdata(component);
-+
-+	dev_dbg(component->dev, "set mute=%d (is_powered=%d)\n",
-+		mute, tas5805m->is_powered);
-+	tas5805m->is_muted = mute;
-+	if (tas5805m->is_powered)
-+		tas5805m_refresh(component);
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_dai_ops tas5805m_dai_ops = {
-+	.trigger		= tas5805m_trigger,
-+	.mute_stream		= tas5805m_mute,
-+	.no_capture_mute	= 1,
-+};
-+
-+static struct snd_soc_dai_driver tas5805m_dai = {
-+	.name		= "tas5805m-amplifier",
-+	.playback	= {
-+		.stream_name	= "Playback",
-+		.channels_min	= 2,
-+		.channels_max	= 2,
-+		.rates		= SNDRV_PCM_RATE_48000,
-+		.formats	= SNDRV_PCM_FMTBIT_S32_LE,
-+	},
-+	.ops		= &tas5805m_dai_ops,
-+};
-+
-+static const struct regmap_config tas5805m_regmap = {
-+	.reg_bits	= 8,
-+	.val_bits	= 8,
-+
-+	/* We have quite a lot of multi-level bank switching and a
-+	 * relatively small number of register writes between bank
-+	 * switches.
-+	 */
-+	.cache_type	= REGCACHE_NONE,
-+};
-+
-+static int tas5805m_i2c_probe(struct i2c_client *i2c)
-+{
-+	struct device *dev = &i2c->dev;
-+	struct regmap *regmap;
-+	struct tas5805m_priv *tas5805m;
-+	char filename[128];
-+	const char *config_name;
-+	const struct firmware *fw;
-+	int ret;
-+
-+	regmap = devm_regmap_init_i2c(i2c, &tas5805m_regmap);
-+	if (IS_ERR(regmap)) {
-+		ret = PTR_ERR(regmap);
-+		dev_err(dev, "unable to allocate register map: %d\n", ret);
-+		return ret;
-+	}
-+
-+	tas5805m = devm_kzalloc(dev, sizeof(struct tas5805m_priv), GFP_KERNEL);
-+	if (!tas5805m)
-+		return -ENOMEM;
-+
-+	tas5805m->pvdd = devm_regulator_get(dev, "pvdd");
-+	if (IS_ERR(tas5805m->pvdd)) {
-+		dev_err(dev, "failed to get pvdd supply: %ld\n",
-+			PTR_ERR(tas5805m->pvdd));
-+		return PTR_ERR(tas5805m->pvdd);
-+	}
-+
-+	dev_set_drvdata(dev, tas5805m);
-+	tas5805m->regmap = regmap;
-+	tas5805m->gpio_pdn_n = devm_gpiod_get(dev, "pdn", GPIOD_OUT_LOW);
-+	if (IS_ERR(tas5805m->gpio_pdn_n)) {
-+		dev_err(dev, "error requesting PDN gpio: %ld\n",
-+			PTR_ERR(tas5805m->gpio_pdn_n));
-+		return PTR_ERR(tas5805m->gpio_pdn_n);
-+	}
-+
-+	/* This configuration must be generated by PPC3. The file loaded
-+	 * consists of a sequence of register writes, where bytes at
-+	 * even indices are register addresses and those at odd indices
-+	 * are register values.
-+	 *
-+	 * The fixed portion of PPC3's output prior to the 5ms delay
-+	 * should be omitted.
-+	 */
-+	if (device_property_read_string(dev, "ti,dsp-config-name",
-+					&config_name))
-+		config_name = "default";
-+
-+	snprintf(filename, sizeof(filename), "tas5805m_dsp_%s.bin",
-+		 config_name);
-+	ret = request_firmware(&fw, filename, dev);
-+	if (ret)
-+		return ret;
-+
-+	if ((fw->size < 2) || (fw->size & 1)) {
-+		dev_err(dev, "firmware is invalid\n");
-+		release_firmware(fw);
-+		return -EINVAL;
-+	}
-+
-+	tas5805m->dsp_cfg_len = fw->size;
-+	tas5805m->dsp_cfg_data = devm_kmalloc(dev, fw->size, GFP_KERNEL);
-+	if (!tas5805m->dsp_cfg_data) {
-+		release_firmware(fw);
-+		return -ENOMEM;
-+	}
-+	memcpy(tas5805m->dsp_cfg_data, fw->data, fw->size);
-+
-+	release_firmware(fw);
-+
-+	/* Do the first part of the power-on here, while we can expect
-+	 * the I2S interface to be quiet. We must raise PDN# and then
-+	 * wait 5ms before any I2S clock is sent, or else the internal
-+	 * regulator apparently won't come on.
-+	 *
-+	 * Also, we must keep the device in power down for 100ms or so
-+	 * after PVDD is applied, or else the ADR pin is sampled
-+	 * incorrectly and the device comes up with an unpredictable I2C
-+	 * address.
-+	 */
-+	tas5805m->vol[0] = TAS5805M_VOLUME_MIN;
-+	tas5805m->vol[1] = TAS5805M_VOLUME_MIN;
-+
-+	ret = regulator_enable(tas5805m->pvdd);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to enable pvdd: %d\n", ret);
-+		return ret;
-+	}
-+
-+	usleep_range(100000, 150000);
-+	gpiod_set_value(tas5805m->gpio_pdn_n, 1);
-+	usleep_range(10000, 15000);
-+
-+	/* Don't register through devm. We need to be able to unregister
-+	 * the component prior to deasserting PDN#
-+	 */
-+	ret = snd_soc_register_component(dev, &soc_codec_dev_tas5805m,
-+					 &tas5805m_dai, 1);
-+	if (ret < 0) {
-+		dev_err(dev, "unable to register codec: %d\n", ret);
-+		gpiod_set_value(tas5805m->gpio_pdn_n, 0);
-+		regulator_disable(tas5805m->pvdd);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int tas5805m_i2c_remove(struct i2c_client *i2c)
-+{
-+	struct device *dev = &i2c->dev;
-+	struct tas5805m_priv *tas5805m = dev_get_drvdata(dev);
-+
-+	snd_soc_unregister_component(dev);
-+	gpiod_set_value(tas5805m->gpio_pdn_n, 0);
-+	usleep_range(10000, 15000);
-+	regulator_disable(tas5805m->pvdd);
-+	return 0;
-+}
-+
-+static const struct i2c_device_id tas5805m_i2c_id[] = {
-+	{ "tas5805m", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, tas5805m_i2c_id);
-+
-+#if IS_ENABLED(CONFIG_OF)
-+static const struct of_device_id tas5805m_of_match[] = {
-+	{ .compatible = "ti,tas5805m", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, tas5805m_of_match);
-+#endif
-+
-+static struct i2c_driver tas5805m_i2c_driver = {
-+	.probe_new	= tas5805m_i2c_probe,
-+	.remove		= tas5805m_i2c_remove,
-+	.id_table	= tas5805m_i2c_id,
-+	.driver		= {
-+		.name		= "tas5805m",
-+		.of_match_table = of_match_ptr(tas5805m_of_match),
-+	},
-+};
-+
-+module_i2c_driver(tas5805m_i2c_driver);
-+
-+MODULE_AUTHOR("Andy Liu <andy-liu@ti.com>");
-+MODULE_AUTHOR("Daniel Beer <daniel.beer@igorinstitute.com>");
-+MODULE_DESCRIPTION("TAS5805M Audio Amplifier Driver");
-+MODULE_LICENSE("GPL v2");
++++ b/Documentation/devicetree/bindings/sound/tas5805m.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/tas5805m.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TAS5805M audio amplifier
++
++maintainers:
++  - Daniel Beer <daniel.beer@igorinstitute.com>
++
++description: |
++  The TAS5805M is a class D audio amplifier with a built-in DSP.
++
++properties:
++  compatible:
++    enum:
++      - ti,tas5805m
++
++  reg:
++    maxItems: 1
++    description: |
++      I2C address of the amplifier. See the datasheet for possible values.
++
++  pvdd-supply:
++    description: |
++      Regulator for audio power supply (PVDD in the datasheet).
++
++  pdn-gpios:
++    description: |
++      Power-down control GPIO (PDN pin in the datasheet).
++
++  ti,dsp-config-name:
++    description: |
++      The name of the DSP configuration that should be loaded for this
++      instance. Configuration blobs are sequences of register writes
++      generated from TI's PPC3 tool.
++    $ref: /schemas/types.yaml#/definitions/string
++
++examples:
++  - |
++    i2c0 {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        tas5805m: tas5805m@2c {
++                reg = <0x2c>;
++                compatible = "ti,tas5805m";
++
++                pvdd-supply = <&audiopwr>;
++                pdn-gpios = <&tlmm 160 0>;
++
++                ti,dsp-config-name = "mono_pbtl_48khz";
++        };
++    };
++
++additionalProperties: true
 -- 
 2.30.2
 

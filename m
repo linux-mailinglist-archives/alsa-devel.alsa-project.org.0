@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5073A490313
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 08:46:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EAAF490317
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 08:46:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA3B0177F;
-	Mon, 17 Jan 2022 08:45:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA3B0177F
+	by alsa0.perex.cz (Postfix) with ESMTPS id F26FC1787;
+	Mon, 17 Jan 2022 08:45:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F26FC1787
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642405565;
-	bh=JxYgoPbkndzvmKJRNxA42LNvG043BEkPzvQ8KZ9Km0A=;
+	s=default; t=1642405601;
+	bh=nVojK749fmbikJ8Ylv61w+rfH9eMOuHdf6x9SWu9cSY=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AMyrReayBHovGRv+1a1Vt30bFXpotwPPhuwisV8Vw05n20vq/nB+vvlTiGDSMjkO3
-	 PWKe4q3w1IjBnQdUu+GyM4x7yP7ZFuHMONI+W93R4pi2oq69XlJwauW/TmuokOPCCq
-	 Oz6O/uYV5hCsW5HKAoAXivpWbMCFH5IUjJjM+21o=
+	b=Ycd4399khZgsW0Tna4XcCxeA52XTv82s1GKgIf7vyaBmnw5DLcu2a8qT7hVQlFRKZ
+	 hPDM/WcGs2JIJQt862t0DKlqoiqdglvNRNirvG63xFGNwJy1RBFKl6n8XcvNv2eS7S
+	 QZVEhofMTMX5/PCANz2jzvjoQ+1OPFwTYRaTJwno=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D256F80254;
-	Mon, 17 Jan 2022 08:45:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6F66F8047B;
+	Mon, 17 Jan 2022 08:45:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F8CFF80249; Mon, 17 Jan 2022 08:44:57 +0100 (CET)
+ id 9CAB2F80425; Mon, 17 Jan 2022 08:45:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99329F80100
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 08:44:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99329F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82F01F80249
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 08:45:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82F01F80249
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="KOLLcV/F"
-Received: by mail-lf1-x136.google.com with SMTP id br17so54307958lfb.6
- for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 23:44:50 -0800 (PST)
+ header.b="SUwsxZsx"
+Received: by mail-lf1-x134.google.com with SMTP id p27so42602079lfa.1
+ for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 23:45:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6QF777/sKyHmB6kHdk8pAKes+SVv1gG+ocuwj9sgpRQ=;
- b=KOLLcV/F7XHmTeu4hItqu7+3uEtWlS6N+dsCP614S1MOSzmMSxoYjGpur5i1Y0f5of
- 6R0ZuL1Gz5Mg1jiAkXKtDUZCFLosWZiLjo9xhfp6ovoAfvs4Cl/WPuvWvhJW5K/UOhW4
- ++Fvm3jtJK8eWY40Gfmu6WzYuye6hLY8yTocY=
+ :cc; bh=nVojK749fmbikJ8Ylv61w+rfH9eMOuHdf6x9SWu9cSY=;
+ b=SUwsxZsxjvlQaEwoE7XT7C+KHZ9jGQQayZYDeXg5DlUCjdR5AwuUOSqu5Vnxhj5hfU
+ cZct8MLYPqEIXtyX72Hymgmw/UKBQ1+Skmdl8fCeXQDsuDDeIpc+chJKRuX7BUddxkgp
+ I/CiGnBzl6R++Z3e4nfaDlKGmOZMTWnoQWeYY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=6QF777/sKyHmB6kHdk8pAKes+SVv1gG+ocuwj9sgpRQ=;
- b=4q/5umVgWvYPN2BHs3CPwFN0Rumb7bshgvdLMe+5weaMP6fTmMZQ8wnu2AxN/QhMzL
- S1xnx73FXg7I2dA2d17X3DRihrUW2oGGDj5SLSVdaIlDQw7/64zh+ZJzNYhEP+PQLEPT
- WGJOABtnqMM8HTEbPBj3aL22r7jpcHPDeiAsNDrYH1Q5DEHpgFQYS8C1wEu6hyL5HNKX
- szS3qOh+pnAtusH3tWTqbUqLgclxTMtFp5y6jPVEwUVh3NqM1tfWNlmTDLRDQNWTv2VA
- rVe/9+raX6FquXOZgK4bvVmfl1w50hm2WPlA2ZpW34DrLQN2lIefO3L3mBFGotL1tBNi
- utNw==
-X-Gm-Message-State: AOAM531haV6PL19vIeImKEQQ4OaZIB5mby1ICaXIPgcjErS+RykV3vq3
- OwlF9ht+UPaGpjztGu3CSX0k75cxfGRsVnGGEuWKaA==
-X-Google-Smtp-Source: ABdhPJy2y5w2Mgw1aXOAzh5xS6yKz737iKCVZw+kmTNKVPku08/RsSvDn73bBL7Kehh87ZNxsL8F9iFaH25KR8AyLpk=
-X-Received: by 2002:a2e:b8d5:: with SMTP id s21mr3530683ljp.201.1642405488740; 
- Sun, 16 Jan 2022 23:44:48 -0800 (PST)
+ bh=nVojK749fmbikJ8Ylv61w+rfH9eMOuHdf6x9SWu9cSY=;
+ b=UNhuJUcOebYWP0Ay4VXKCsFOh6/NXH9RX+sLP6ErplIg4a5lhBjZjjul2Avl69kyuW
+ RKLpXqnxZdNe0If+Ci5BgqnDrrN+x8oa5Tgq+NVimEpPowPRrFdXGxXnHumdKPUA2s0T
+ lreqSjaxRZd/3YhbKiS6ct1jLEnw5zo4YMjABJD2cf7wq9wdvgOQr3FYgpFqmvwRSAyy
+ ZAKRXlqU7X8VUzvhBbYqWkZJdJutRIePm5hJKWuuKwPTOxuQ0AFHvRiZ38fqX6Q4+HUZ
+ yztR2BwA+uELIJf8ga861tZrMyEA43LaRNmvPyw1mTzrz/3c4/5/tXgWMVW0ggUrptdu
+ QL+g==
+X-Gm-Message-State: AOAM532MaETzp8ov8E/+Do/fLI5C2+N9HkUllHKF8Bn61ShKsQemQBgf
+ 0lIhMVyog7ZR1hLBgEUlBqXOUJFaA0nDZhyAAal0RkRcjRDG9w==
+X-Google-Smtp-Source: ABdhPJwG9NvWR9p35lcYW0jwX/k5v4481qRKalDO5NxJSEYxWGLzootcvrIELTsY/GzSoLCDQfiA7L3OWsPgQKfrGNM=
+X-Received: by 2002:a2e:2285:: with SMTP id i127mr4064849lji.414.1642405520722; 
+ Sun, 16 Jan 2022 23:45:20 -0800 (PST)
 MIME-Version: 1.0
 References: <20220114230209.4091727-1-briannorris@chromium.org>
- <20220114150129.v2.1.I46f64b00508d9dff34abe1c3e8d2defdab4ea1e5@changeid>
-In-Reply-To: <20220114150129.v2.1.I46f64b00508d9dff34abe1c3e8d2defdab4ea1e5@changeid>
+ <20220114150129.v2.2.I20d754a1228aa5c51a18c8eb15a2c60dec25b639@changeid>
+In-Reply-To: <20220114150129.v2.2.I20d754a1228aa5c51a18c8eb15a2c60dec25b639@changeid>
 From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Mon, 17 Jan 2022 15:44:37 +0800
-Message-ID: <CAGXv+5H0-dM28YQj_orS1_14NLcJve8VtO6oLcBiRpJFjaf5KA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] arm64: dts: rockchip: Switch RK3399-Gru DP to
- SPDIF output
-To: Brian Norris <briannorris@chromium.org>, Heiko Stuebner <heiko@sntech.de>
+Date: Mon, 17 Jan 2022 15:45:09 +0800
+Message-ID: <CAGXv+5Gm4ru8m5bZV_zm10U+FQRBSw7qq1eiL+hh+Z=5pZ7pYQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] drm/rockchip: cdn-dp: Support HDMI codec
+ plug-change callback
+To: Brian Norris <briannorris@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Lin Huang <hl@rock-chips.com>, David Airlie <airlied@linux.ie>,
+ Heiko Stuebner <heiko@sntech.de>, David Airlie <airlied@linux.ie>,
  linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
  dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
  Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org
+ linux-arm-kernel@lists.infradead.org, Lin Huang <hl@rock-chips.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,18 +100,9 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Sat, Jan 15, 2022 at 7:03 AM Brian Norris <briannorris@chromium.org> wrote:
 >
-> Commit b18c6c3c7768 ("ASoC: rockchip: cdn-dp sound output use spdif")
-> switched the platform to SPDIF, but we didn't fix up the device tree.
+> Some audio servers like to monitor a jack device (perhaps combined with
+> EDID, for audio-presence info) to determine DP/HDMI audio presence.
 >
-> Drop the pinctrl settings, because the 'spdif_bus' pins are either:
->  * unused (on kevin, bob), so the settings is ~harmless
->  * used by a different function (on scarlet), which causes probe
->    failures (!!)
-
-I suppose that means the default pinctrl should be dropped? Or maybe this
-use case is the outlier. Up to Heiko?
-
-> Fixes: b18c6c3c7768 ("ASoC: rockchip: cdn-dp sound output use spdif")
 > Signed-off-by: Brian Norris <briannorris@chromium.org>
 
 Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>

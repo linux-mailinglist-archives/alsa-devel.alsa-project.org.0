@@ -2,87 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4589490463
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 09:50:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAD4649048B
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 10:03:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 392411799;
-	Mon, 17 Jan 2022 09:50:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 392411799
+	by alsa0.perex.cz (Postfix) with ESMTPS id 315C417A1;
+	Mon, 17 Jan 2022 10:02:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 315C417A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642409458;
-	bh=pg77KKDLhcHrqbHIFPT+A9/Ba2ObGFxR+SxALb1akZ4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642410200;
+	bh=keRU/skMdp6pIErMRq7oexaEZoCct7m+jTvZH+4VMJY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uHD1Irj8nWKa3oSQJy8IaYduVj4GYVaCKlTgZsqk7qAuiEb8gimbsQNqCGuUAAmgA
-	 id5KIbuOIKmiUPQOvuO+JNuoDLEZ235sfs5I9uE2/3b68vjOgAupbtSCw7ld0gGKSR
-	 LkD5dQwxQmcNIMlhS4/q2JamtaUJOLO6TaNacQ7M=
+	b=i8BT35Sncu39YaiG21vHJtSbwAxgPSAcpJKVvxGbVm2FMELk2F+vg8dNYGhVwoBU2
+	 j7nbtnvS7Pz4Vh2+ogljBhhW5V/NU3NMZ0q5Qf5PGfX+Blcvjij0JNXN7GbHOEn6C1
+	 /JYkejKpwe48i3q4Jk1h2sH2NcI9W/ViGoKdm5cQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94730F80254;
-	Mon, 17 Jan 2022 09:49:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99AEDF800EB;
+	Mon, 17 Jan 2022 10:02:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 195C1F80249; Mon, 17 Jan 2022 09:49:51 +0100 (CET)
+ id BBC37F80249; Mon, 17 Jan 2022 10:02:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50104F80100
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 09:49:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50104F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CFB2F800EB
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 10:02:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CFB2F800EB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ouMAaen2"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="odQbqVyM"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 3E0C4212C5;
- Mon, 17 Jan 2022 08:49:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642409386; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=x7NbE1cz3mCHoBV0xZwgaqW3n2cPIO8g7sgh5GC3ssM=;
- b=ouMAaen2BzJFYNRkdGsg20x77SJqWQO0U0vl6xOc4mIdOQ81bNIPfqR3aCabNaRetD2NqD
- SHVXvOI54Zphd/Su4DkKvxHw6eqNTBogmV8LORMfBo3OO5CMOmvRQ9R72w63e+2FxVBxWr
- 8Rb+pyNfcL4v9iPudqbVCwMg9PmRRRU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642409386;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=x7NbE1cz3mCHoBV0xZwgaqW3n2cPIO8g7sgh5GC3ssM=;
- b=odQbqVyMj8V20P/7VblLBVpT/8tyJ0/34fY6CrQVFpgZoh5UDh+ewIUv/2HUHSVljyr0ne
- TUqHV75XGuBVG1CA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 278BEA3B81;
- Mon, 17 Jan 2022 08:49:46 +0000 (UTC)
-Date: Mon, 17 Jan 2022 09:49:46 +0100
-Message-ID: <s5hwniy21cl.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] ASoC: soc-pcm: use GFP_ATOMIC in
- dpcm_create_debugfs_state()
-In-Reply-To: <ed322b8821fa787907c1a4cce879564d1281b69d.1642331884.git.christophe.jaillet@wanadoo.fr>
-References: <ed322b8821fa787907c1a4cce879564d1281b69d.1642331884.git.christophe.jaillet@wanadoo.fr>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="F04iKpf5"
+Received: by mail-lf1-x12f.google.com with SMTP id e3so52198412lfc.9
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 01:02:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5eWNHkxEDcvDnOVa58vimxj0RFzSnZVX78Y15KWp4XE=;
+ b=F04iKpf55HWHZUfNd0MND3kcC57yHpdTxP2HADRAYHB8O1xd4GhvxL5ge//KS4A7TS
+ gpejjKDT3cDnZAclFrysE8oNstHYfFzAc9Xxt1Z6B96UtuI7T3RYhU56mMNBQZGcPJ1S
+ 9NeSRFgzrZiCJ3BaQjQFBzJfWoY4POEB95y48=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5eWNHkxEDcvDnOVa58vimxj0RFzSnZVX78Y15KWp4XE=;
+ b=PShXZ2wZHGbvKZaJkVenG9XGBooWl+PUzNxjiqMEW+coJJujM2MHeIuqshzc3O+Fe9
+ zTE0LpRuyQc//FDdTWo/mptdVjvtRNSNnlSsBicjeVtt0cWhyJtu2yM3BMaKqM4MhS3I
+ 3+1TnNnSxpWFPoyoyo2lD4nMGs9w1QgVFbMjkNe+w7x01958KzPFibBnnrDoneWy3Hgx
+ TUSdVEuSjJOJTo5mDS15nWCNVHqEXd+dYYVu0af3iQ05DBuP0xQNhL2kfxYMjql4HeOb
+ 2zMKOBpwGkTl9YPp4iUqkTWWw/1+nWUUuoWQPTsk9pILRTiKnEkigPGRIUvVw+VJrENW
+ URiA==
+X-Gm-Message-State: AOAM531dSsWoKj8IEhS0gaFAHvUXMhXpl3YSpAAYzw0MBZ0o5RXfSb69
+ nMHrtQ2ub/Ea6AyGdGmPvaHn+RLKtCDdN7sBaHfpJA==
+X-Google-Smtp-Source: ABdhPJwK4naYaBZ+8GM/Ab9/Ixhagfb6WfeIhngfxmIkwTvUXsUhPQGr5I/x32U0ZdswDbRkgjWjQoAnUK/H9/TpoSc=
+X-Received: by 2002:a2e:b602:: with SMTP id r2mr3683300ljn.392.1642410123234; 
+ Mon, 17 Jan 2022 01:02:03 -0800 (PST)
+MIME-Version: 1.0
+References: <20220114230209.4091727-1-briannorris@chromium.org>
+ <20220114150129.v2.3.I3c79b1466c14b02980071221e5b99283cd26ec77@changeid>
+In-Reply-To: <20220114150129.v2.3.I3c79b1466c14b02980071221e5b99283cd26ec77@changeid>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Mon, 17 Jan 2022 17:01:52 +0800
+Message-ID: <CAGXv+5HC00YU6ARtGDahxWLqivvUCowh7wDq5H5OzoGO9htB+g@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] ASoC: rk3399_gru_sound: Wire up DP jack detection
+To: Brian Norris <briannorris@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Heiko Stuebner <heiko@sntech.de>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
+ linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Lin Huang <hl@rock-chips.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,50 +97,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 16 Jan 2022 12:18:17 +0100,
-Christophe JAILLET wrote:
-> 
-> The commit below states that dpcm_be_connect() may be called from atomic
-> context. It changes a GFP_KERNEL into a GFP_ATOMIC to deal with it.
-> 
-> Another memory allocation is done in dpcm_create_debugfs_state() which is
-> called by dpcm_be_connect(). Also use GFP_ATOMIC there to be consistent
-> and be compliant with atomic context.
-> 
-> Fixes: d8a9c6e1f676 ("ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure")
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Hi,
+
+On Sat, Jan 15, 2022 at 7:03 AM Brian Norris <briannorris@chromium.org> wrote:
+>
+> Now that the cdn-dp driver supports plug-change callbacks, let's wire it
+> up.
+>
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
 > ---
-> Not clear to me how dpcm_be_connect() can be called from an atomic context,
-> though. But better safe than sorry.
+>
+> (no changes since v1)
+>
+>  sound/soc/rockchip/rk3399_gru_sound.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>
+> diff --git a/sound/soc/rockchip/rk3399_gru_sound.c b/sound/soc/rockchip/rk3399_gru_sound.c
+> index e2d52d8d0ff9..eeef3ed70037 100644
+> --- a/sound/soc/rockchip/rk3399_gru_sound.c
+> +++ b/sound/soc/rockchip/rk3399_gru_sound.c
+> @@ -164,6 +164,25 @@ static int rockchip_sound_da7219_hw_params(struct snd_pcm_substream *substream,
+>         return 0;
+>  }
+>
+> +static struct snd_soc_jack cdn_dp_card_jack;
+> +
+> +static int rockchip_sound_cdndp_init(struct snd_soc_pcm_runtime *rtd)
+> +{
+> +       struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
 
-I don't think this no longer valid for the very latest code.
-The commit b7898396f4bb dropped the spurious dpcm_lock spinlock, so
-the code path you touched must be always sleepable.
+Using snd_soc_card_get_codec_dai() might be a better choice throughout this
+driver. While it will work for the cdn_dp case, because it is the first DAI
+in |rockchip_dais[]|, all the invocations for the other codecs are likely
+returning the wrong DAI.
 
-Similarly, the commit d8a9c6e1f676 can be reverted now.
+For this particular patch it works either way, so
+
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
 
 
-thanks,
-
-Takashi
-
-> ---
->  sound/soc/soc-pcm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 7abfc48b26ca..1a536a2b9dc3 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -212,7 +212,7 @@ static void dpcm_create_debugfs_state(struct snd_soc_dpcm *dpcm, int stream)
+> +       struct snd_soc_card *card = rtd->card;
+> +       int ret;
+> +
+> +       /* Enable jack detection. */
+> +       ret = snd_soc_card_jack_new(card, "DP Jack", SND_JACK_LINEOUT,
+> +                                   &cdn_dp_card_jack, NULL, 0);
+> +       if (ret) {
+> +               dev_err(card->dev, "Can't create DP Jack %d\n", ret);
+> +               return ret;
+> +       }
+> +
+> +       return snd_soc_component_set_jack(component, &cdn_dp_card_jack, NULL);
+> +}
+> +
+>  static int rockchip_sound_da7219_init(struct snd_soc_pcm_runtime *rtd)
 >  {
->  	char *name;
->  
-> -	name = kasprintf(GFP_KERNEL, "%s:%s", dpcm->be->dai_link->name,
-> +	name = kasprintf(GFP_ATOMIC, "%s:%s", dpcm->be->dai_link->name,
->  			 stream ? "capture" : "playback");
->  	if (name) {
->  		dpcm->debugfs_state = debugfs_create_dir(
-> -- 
-> 2.32.0
-> 
+>         struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
+> @@ -315,6 +334,7 @@ static const struct snd_soc_dai_link rockchip_dais[] = {
+>         [DAILINK_CDNDP] = {
+>                 .name = "DP",
+>                 .stream_name = "DP PCM",
+> +               .init = rockchip_sound_cdndp_init,
+>                 .dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+>                         SND_SOC_DAIFMT_CBS_CFS,
+>                 SND_SOC_DAILINK_REG(cdndp),
+> --
+> 2.34.1.703.g22d0c6ccf7-goog
+>
+>
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip

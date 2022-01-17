@@ -2,99 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09A2849063C
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 11:48:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38B7249065F
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 12:05:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8665417AE;
-	Mon, 17 Jan 2022 11:48:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8665417AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CF9C1738;
+	Mon, 17 Jan 2022 12:04:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CF9C1738
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642416533;
-	bh=w672rcrCbbEHMelr5rBkdV+uVpmtz+KSC+RdUqvW5JU=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ehl5My3mKxosN5/o8YlSUhasxfJttRdPi/3meJGVLw8XqRayfk7ZSJfRRtgEuUWfF
-	 02m3WOPjN9KRIcc3S4/fiAd47/mQ8xeGs65TaQKxB9uYbhHEJSIVN5SKKTic7Btn4Q
-	 1JiQiE0HJPeCC84P8t4dtyP0xpVPjOB1UcA8FWgE=
+	s=default; t=1642417526;
+	bh=gGaHPIiiXzkhPUNYhPAUeTnzFbjomMtE0nTpfntxqOY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EgDtHJHK+d/mqisDS1qCOwu85AjZ7F34un0X7e1TlEzTAo3khUYXT4jVkJMQ7bGQJ
+	 IBOvw2byJ3L+RDm9wShNzQPDTHd7UEtQtxyiyRPnm5G8T5NdE5PdWDs6T4d9KFeU6p
+	 V356hnywOc/jryGhJQDCtNiLBODlaBZ7i/bWI15k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFE11F80254;
-	Mon, 17 Jan 2022 11:47:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D511F800EB;
+	Mon, 17 Jan 2022 12:04:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A965F80249; Mon, 17 Jan 2022 11:47:45 +0100 (CET)
+ id C5F2DF800EB; Mon, 17 Jan 2022 12:04:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [IPv6:2607:f8b0:4864:20::733])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E621F800CE
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 11:47:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E621F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16C92F800CE
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 12:04:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16C92F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="m0n8apO1"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20H7WQjK008705;
- Mon, 17 Jan 2022 04:47:35 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : from : to : subject : references : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=NWU+5VvMON2Rs3VaV3OVIvcyV57zKDXnVQdpixkc4ME=;
- b=m0n8apO1JSgS/k1JNJDxtkZdWhVTpOkLbPl0S4mHw9PLQRYMNYViovBSyze51UXDlVAV
- Qdmw0YZX+AfhoTMQLe/YFauKADYEsu0uHwHqhOBVDke+H2l536mSYtT9OIZWznJr0+bf
- hz4mdYABM7LSSXOBP8HYhWpuwRgn6gca8F6nLoF8PxWPGCis+S8pzu32BjSvAnOK+bMl
- 4Q/TjcUs27JGv4S56LFoIKliTIvyZ99kbV7T2ME8vGFRSqTKC+K/GLR6M1oWj4cJ8iyh
- S18yKp2QNmj8W+YMauaNTYg/C6miAwCamSZycYB4K0TJjTpi/wz9n8BaryQZKvcRdkRM RA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dkvj5a1rc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 17 Jan 2022 04:47:35 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 17 Jan
- 2022 10:47:33 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Mon, 17 Jan 2022 10:47:33 +0000
-Received: from [198.61.64.122] (unknown [198.61.64.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B6133459;
- Mon, 17 Jan 2022 10:47:32 +0000 (UTC)
-Message-ID: <605c6a69-0542-458c-2ea0-1ed26f6e28f5@opensource.cirrus.com>
-Date: Mon, 17 Jan 2022 10:47:32 +0000
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="W/81fg0H"
+Received: by mail-qk1-x733.google.com with SMTP id t1so2448644qkt.11
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 03:04:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=dVVFFLPkAhrjO1v7t1aDsmduyj0ieOuL7PziCjm6/tg=;
+ b=W/81fg0Hk0sIXPbIeJrLwn4SfVlAT+y3A5lZ5OhghM9yR6857m0qZvilEcG4GRNMo4
+ EivmcO1ftmIggwQWWMfy4xd0lQ50oEeHCuhyk2b8I+5J8HkWiKMA75V8BvI6ij6LYcbd
+ +fMOayUylLTB3E/E/FeCSwm1Y+548SOr36hRT5npIbu+rtSsUgVX0/KARLfhBxsgdLS9
+ aO7c0AuwPk5R5STzHDRQe+Lty80mQ6dC31Z+IvT3+lHIbDS5JSn9D/Tkvs3D3cAwKs2s
+ Ez0G/nit80T9J9DlqthpEHh0raJKH+C/bZzKCQCh/vSPY8UdMDRejTVBhgLGOFJcQirK
+ N6vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=dVVFFLPkAhrjO1v7t1aDsmduyj0ieOuL7PziCjm6/tg=;
+ b=n3Tu8KRONF+/KiYzs9AOoqhWtveRxbPUl6PczC7u+dSUk6OJucwCvQWOF02Re+U/M+
+ rWUPdTlwGu0aJXluQ3NE9+CqB55xHek//eokTe0vJ4NVW/89KfBPz/Qe42KhsSidOlut
+ eUL/IDbrE4tKv44VDtilrAnyrzNpZU+C9DQ0T3k/aRelWvXOPQPUaSJZxo6BC6DmJ6t9
+ VN9Aa582sv75+M4+GATLzUVJfcf/cSxdCfxpLiFtMvhugwkR+OJNPpqWEMuOtJ+zXS/g
+ Zhl2ON7XK1tDqOTyAG+x96WZ+WLatetb21luewKCleNYOOnwQDOUsgNaUAzR2X4CkkWH
+ KyBQ==
+X-Gm-Message-State: AOAM5303iQgZoT+6MRfj8ad93iGNeqQjcph1cZFaW4ZGCFaLjp9f19fI
+ b0JQpWVgrbUPFS1dJ9pAvM4=
+X-Google-Smtp-Source: ABdhPJz/pAE65j0ZQrMN/H6l9uLJ86U3AgN3jVqlcUFlNN1OGK6FGXX48zniSP4M+enymXdqkWSPcw==
+X-Received: by 2002:a05:620a:4707:: with SMTP id
+ bs7mr6890633qkb.69.1642417445471; 
+ Mon, 17 Jan 2022 03:04:05 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id l16sm8198120qkl.114.2022.01.17.03.04.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Jan 2022 03:04:05 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: chi.minghao@zte.com.cn
+To: krzysztof.kozlowski@canonical.com
+Subject: [PATCH] sound/soc/samsung: remove unneeded ret variable
+Date: Mon, 17 Jan 2022 11:03:57 +0000
+Message-Id: <20220117110357.863990-1-chi.minghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-From: <tanureal@opensource.cirrus.com>
-To: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>, "Rafael
- J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Mark Gross
- <markgross@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>, moderated list: "SOUND - SOC LAYER / DYNAMIC AUDIO POWER
- MANAGEM..." <alsa-devel@alsa-project.org>, ACPI Devel Maling List
- <linux-acpi@vger.kernel.org>, <patches@opensource.cirrus.com>, Platform
- Driver <platform-driver-x86@vger.kernel.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>;
-Subject: Re: [PATCH 5/5] ACPI / scan: Create platform device for CLSA0100
-References: <20220113170728.1953559-1-tanureal@opensource.cirrus.com>
- <20220113170728.1953559-5-tanureal@opensource.cirrus.com>
- <s5hee5a47et.wl-tiwai@suse.de>
- <CAJZ5v0ijGWNd9s-4mrFgK-QbPDhnj2K3DF+Z45t7ckV6ET0hpQ@mail.gmail.com>
- <55cb8127-65e2-4d56-5127-2722c5bfe11f@redhat.com>
- <s5hy23h32mq.wl-tiwai@suse.de>
-In-Reply-To: <s5hy23h32mq.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: oMlFO-dp5RMipIYl8hGjZOMBWtcZMljS
-X-Proofpoint-GUID: oMlFO-dp5RMipIYl8hGjZOMBWtcZMljS
-X-Proofpoint-Spam-Reason: safe
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com,
+ Minghao Chi <chi.minghao@zte.com.cn>, lgirdwood@gmail.com, broonie@kernel.org,
+ CGEL ZTE <cgel.zte@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,53 +101,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/15/22 6:59 AM, Takashi Iwai <tiwai@suse.de> wrote:
-> On Fri, 14 Jan 2022 19:56:04 +0100,
-> Hans de Goede wrote:
-> >
-> > Hi,
-> >
-> > On 1/14/22 18:51, Rafael J. Wysocki wrote:
-> >> On Fri, Jan 14, 2022 at 5:19 PM Takashi Iwai <tiwai@suse.de> wrote:
-> >>>
-> >>> On Thu, 13 Jan 2022 18:07:28 +0100,
-> >>> Lucas Tanure wrote:
-> >>>>
-> >>>> The ACPI device with CLSA0100 is a sound card with
-> >>>> multiple instances of CS35L41 connected by I2C to
-> >>>> the main CPU.
-> >>>>
-> >>>> We add an ID to the i2c_multi_instantiate_idsi list
-> >>>> to enumerate all I2C slaves correctly.
-> >>>>
-> >>>> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-> >>>
-> >>> I think it's better to merge this from sound git tree together with
-> >>> others in the patch set, presumably for rc1.
-> >>>
-> >>> It'd be great if ACPI people can take a review and give an ack/nack.
-> >>
-> >> Hans, what do you think?
-> >
-> > This patch (5/5) applies on top of:
-> >
-> > https://lore.kernel.org/linux-acpi/20211210154050.3713-1-sbinding@opensource.cirrus.com/
-> >
-> > Which still needs some work and which really should be merged
-> > through the ACPI tree. IMHO it would be best to simply drop
-> > this (5/5) from this series and move it to the v3 of the
-> > series which I've linked to above.
-> >
-> > 1-4 can be merged through the alsa tree independently of 5/5 AFAIK.
-> 
-> OK, that's fine.
-> 
-> Lucas, could you submit v3 patches in the suggested way?
-Yes, we will do that.
-Thanks
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
+From: Minghao Chi <chi.minghao@zte.com.cn>
+
+Return value from io_remap_pfn_range() directly instead
+of taking this in another redundant variable.
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+Signed-off-by: CGEL ZTE <cgel.zte@gmail.com>
+---
+ sound/soc/samsung/idma.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/sound/soc/samsung/idma.c b/sound/soc/samsung/idma.c
+index c3f1b054e238..402ccadad46c 100644
+--- a/sound/soc/samsung/idma.c
++++ b/sound/soc/samsung/idma.c
+@@ -244,17 +244,14 @@ static int idma_mmap(struct snd_soc_component *component,
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	unsigned long size, offset;
+-	int ret;
+ 
+ 	/* From snd_pcm_lib_mmap_iomem */
+ 	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+ 	size = vma->vm_end - vma->vm_start;
+ 	offset = vma->vm_pgoff << PAGE_SHIFT;
+-	ret = io_remap_pfn_range(vma, vma->vm_start,
++	return io_remap_pfn_range(vma, vma->vm_start,
+ 			(runtime->dma_addr + offset) >> PAGE_SHIFT,
+ 			size, vma->vm_page_prot);
+-
+-	return ret;
+ }
+ 
+ static irqreturn_t iis_irq(int irqno, void *dev_id)
+-- 
+2.25.1
+

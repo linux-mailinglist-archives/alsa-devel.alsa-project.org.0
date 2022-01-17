@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98084490D4B
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 18:02:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F52490D51
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 18:02:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25D68189B;
-	Mon, 17 Jan 2022 18:01:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25D68189B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DAAB83B;
+	Mon, 17 Jan 2022 18:01:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DAAB83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642438935;
-	bh=vqm+l+et8fHmf+ZDrFYxAyjLbW9sX4AdX0B4LSjo1aY=;
+	s=default; t=1642438953;
+	bh=05g762syOAZvMLDp/pEL5fFOuow6W/nYQmSGkutZrFY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eCAgMQNCV551YYVnKhvX20z6DflFOXhwG/swEJJglkTRZByAmjH9a2vvo2vUJ+qPT
-	 fKesaOCSPi4RjSqnpODVqobrPVfuxNr2uD1kbE4conaj28mahnMG08ElNUogBDlBgq
-	 gb9d9cEFoPV0aAVTmJYQu+iNPLnpoWpZiYUwOq+k=
+	b=b6/m2UuSVpTXEXq0jY9cKSfjm9tz/F69WNCcKXNIEPW4WTanWSJhtf+zreGJ9X8xE
+	 DHld4OVAMirSAKrfPigpzCeCEldH6v/OpNn3vFMtQsq/wNh+cWICWpyyUQVDYTlDWO
+	 qCL+ToIrDj1IARyozzoUjoe+NWt5A3VDFt8gTd+8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB2BEF8047B;
-	Mon, 17 Jan 2022 18:00:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0B62F80526;
+	Mon, 17 Jan 2022 18:01:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EE16F80516; Mon, 17 Jan 2022 18:00:55 +0100 (CET)
+ id 9364BF80510; Mon, 17 Jan 2022 18:01:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,36 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4184CF800CE
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 18:00:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4184CF800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id A63BEF80510
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 18:01:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A63BEF80510
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="p1E3b/3a"
+ header.b="nAH4yGpc"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 06429B81142;
- Mon, 17 Jan 2022 17:00:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0D1C36AE3;
- Mon, 17 Jan 2022 17:00:47 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 866F0B81131;
+ Mon, 17 Jan 2022 17:00:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5994C36AE7;
+ Mon, 17 Jan 2022 17:00:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642438848;
- bh=vqm+l+et8fHmf+ZDrFYxAyjLbW9sX4AdX0B4LSjo1aY=;
+ s=k20201202; t=1642438858;
+ bh=05g762syOAZvMLDp/pEL5fFOuow6W/nYQmSGkutZrFY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=p1E3b/3atEdyXJfPNyWoAjkL1drHzsh96miZe0YqvLW1Doe2SfoCrWh3h+YsxVFkC
- 3MryI3OHEV4634h0UmyzJDUpLPbMauAUmLsQMPGiejpVlxOma1/B7G66zhHEozNhHq
- 8wMjcKxiig4Kdb5VW1Z/cM8zv/glXXLeu4G3WN4aCRh09myy7XFqU2apV4ksCP4kny
- 01OUGsZBBnqB8Qqg4nneAuzcVEiTkGd683Z647N1qM0MhDb+qQcvZhj2nMXzlovVDR
- RAjcBqhakjBuujX7J+KAjzrQAEOiUUsagHqxkbIqZoO8Fhc9XkgLCBneyaHeNK2/Nv
- H8YdDjS3FoWgw==
+ b=nAH4yGpczfb3BpzE/8awaInHD1KUeUOpNjWmSiovNEd7yGqrJaoi2uxC3S2dkEXSi
+ RRINFNO/kedWerBmb6h4mSQEHTLUd3gBLA0giJ65XTudVQFqH/aHd9kd26BSERFgOa
+ 1mp7j5/rmLz1J3E31/zaWnhcffz3W8QY6wa1lXRR4VqADRqkuY4dKl9Nu2+bYMBw5C
+ I68t6eFl2MMSizrOMzgkJmkRNYr40YHDcCHSH5J/zMjo+sjht4cVarkYgKcmtrZdmz
+ 6b5pqQxEDD5hUbwYzUZL7NVMsNHVj87x94BwtKYnvsgHf/j0PjrKhxUnhzzFkXdjWD
+ Iv5B4XNiFResg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.16 43/52] ASoC: mediatek: mt8192-mt6359: fix
- device_node leak
-Date: Mon, 17 Jan 2022 11:58:44 -0500
-Message-Id: <20220117165853.1470420-43-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.16 45/52] ASoC: mediatek: mt8173: fix device_node
+ leak
+Date: Mon, 17 Jan 2022 11:58:46 -0500
+Message-Id: <20220117165853.1470420-45-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220117165853.1470420-1-sashal@kernel.org>
 References: <20220117165853.1470420-1-sashal@kernel.org>
@@ -75,7 +75,7 @@ Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
  tiwai@suse.com, jiaxin.yu@mediatek.com, lgirdwood@gmail.com,
  Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
  linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,38 +93,74 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Tzung-Bi Shih <tzungbi@google.com>
 
-[ Upstream commit 4e28491a7a198c668437f2be8a91a76aa52f20eb ]
+[ Upstream commit 493433785df0075afc0c106ab65f10a605d0b35d ]
 
-The of_parse_phandle() document:
-    >>> Use of_node_put() on it when done.
-
-The driver didn't call of_node_put().  Fixes the leak.
+Fixes the device_node leak.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-Link: https://lore.kernel.org/r/20211214040028.2992627-1-tzungbi@google.com
+Link: https://lore.kernel.org/r/20211224064719.2031210-2-tzungbi@google.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/soc/mediatek/mt8173/mt8173-max98090.c      | 3 +++
+ sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c | 2 ++
+ sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c | 2 ++
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c        | 2 ++
+ 4 files changed, 9 insertions(+)
 
-diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-index a606133951b70..24a5d0adec1ba 100644
---- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-@@ -1172,7 +1172,11 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	return devm_snd_soc_register_card(&pdev->dev, card);
-+	ret = devm_snd_soc_register_card(&pdev->dev, card);
+diff --git a/sound/soc/mediatek/mt8173/mt8173-max98090.c b/sound/soc/mediatek/mt8173/mt8173-max98090.c
+index fc94314bfc02f..3bdd4931316cd 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-max98090.c
++++ b/sound/soc/mediatek/mt8173/mt8173-max98090.c
+@@ -180,6 +180,9 @@ static int mt8173_max98090_dev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
+ 			__func__, ret);
 +
++	of_node_put(codec_node);
 +	of_node_put(platform_node);
-+	of_node_put(hdmi_codec);
-+	return ret;
+ 	return ret;
  }
  
- #ifdef CONFIG_OF
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
+index 0f28dc2217c09..390da5bf727eb 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c
+@@ -218,6 +218,8 @@ static int mt8173_rt5650_rt5514_dev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
+ 			__func__, ret);
++
++	of_node_put(platform_node);
+ 	return ret;
+ }
+ 
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
+index 077c6ee067806..c8e4e85e10575 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c
+@@ -285,6 +285,8 @@ static int mt8173_rt5650_rt5676_dev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
+ 			__func__, ret);
++
++	of_node_put(platform_node);
+ 	return ret;
+ }
+ 
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+index 2cbf679f5c74b..d8cf0802813a0 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+@@ -323,6 +323,8 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
+ 			__func__, ret);
++
++	of_node_put(platform_node);
+ 	return ret;
+ }
+ 
 -- 
 2.34.1
 

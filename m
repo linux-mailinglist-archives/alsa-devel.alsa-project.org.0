@@ -2,90 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9F244900F6
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 06:04:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44C0E490106
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 06:11:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AF15173B;
-	Mon, 17 Jan 2022 06:03:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AF15173B
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD81D1747;
+	Mon, 17 Jan 2022 06:10:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD81D1747
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642395880;
-	bh=nqh2rSVAHCoQ0rYPXu5YduRRam2f0xsNIiOJKiP4ezU=;
+	s=default; t=1642396281;
+	bh=+RFQ5HaRhMFNji5eT3Sf6rqaQH5nM8ABDkQ+E7ruZQo=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=JBQyEAKAflBAwQV7dLDSmkhAIyNJ87cKKesBcVN8mJAKZwAjGlmi20HzRNL5mGWJm
-	 fwuiFCJwUwxK/02EcLZGC7ujZsRUlIz7IPuRMnSxWcMs7q53lKVNJH0uSk/vLL0+sq
-	 7BuprN4sPZ35Rj9qLSYWZsp+mUT820ild9CVJvgs=
+	b=Py+nHBpxgYvzF4subNAh7jL48rxmkZ6xJJ2XNEyPV/SB6KGlMJoQvY9nzI2PA3Yhk
+	 x5zQlPDfe/Q1Vcj6OQyedIFID0SfLzrO9metG4yFiuLpBFSczIvlX2cwMkdvEAI8lw
+	 ytW91EccnGAtfrpQ7TRJFMBjBCpCCrGuc4N8QpBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A36E2F80254;
-	Mon, 17 Jan 2022 06:03:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F6C9F8025D;
+	Mon, 17 Jan 2022 06:10:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70BCBF80249; Mon, 17 Jan 2022 06:03:31 +0100 (CET)
+ id BAA84F80254; Mon, 17 Jan 2022 06:10:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-ua1-x929.google.com (mail-ua1-x929.google.com
- [IPv6:2607:f8b0:4864:20::929])
+Received: from mail-vk1-xa2d.google.com (mail-vk1-xa2d.google.com
+ [IPv6:2607:f8b0:4864:20::a2d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA727F800CE
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 06:03:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA727F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41513F800EB
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 06:10:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41513F800EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Pe8h9X12"
-Received: by mail-ua1-x929.google.com with SMTP id w21so18899058uan.7
- for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 21:03:28 -0800 (PST)
+ header.b="Wp3wRPz+"
+Received: by mail-vk1-xa2d.google.com with SMTP id v192so6650201vkv.4
+ for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 21:10:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=sender:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=FiX6saUHa8tVXRR2pHw4nDfUBFLj+hL82kG5LF2eBdE=;
- b=Pe8h9X12WGtdQqLsjvkYCgh9YwVwNQuiyWCD+D2ElDyMJEpxjbgr+/kWvuhVCNuBSd
- lCwAseOQfu1D7csJyUCRDAFi3oWkZ+40OCZTXmHZ0zlm/8LRQJ5Azerhk43bixsiq+ND
- eRDh0lAxFiQvOT1siqzq+AP472Sr+UMTMpAVWUlczMTRqZk9JOxp6Ad9R6HLJeE8i2IK
- ON4rwGJc3vUyue1cZwO2b6nYWD1xrObw2ydur/Zcn/e9UzlSPOs8c4oS4fKbJSP8ut4J
- b5j4Jn43pvSZ/Y55Qj6o4ujfNItonT+WjEKYL5qrTmiywCLAW1C8+oylFsQAx9l6P0E2
- Bn8A==
+ bh=VVMSvibBEDQWmTS4Y5AZX2LAQUp1loCiB0WTviYsyCk=;
+ b=Wp3wRPz+YyRwJiNCgcQ1UGidIy+Nwa2YffuUNaXCKfkVGDhJCJ5WIu4mHaoh3UXrF9
+ 41NqRlnXBQfBvfZ7YC8spNt4xR4glQMU1VbvTkl3ovutQZkIIdPh0Dgpti5yo0RlGVFA
+ pSGBKuW8baLlQRLOSJSx6mPdj1f90VLiFJWq8UzHGvQVyu/MPmhYt9afH7Ri0S6XrHi7
+ DfmNkcZqTJJRyqpXRhsQ+h66uW20gdwqd30U9ZgsmQemyzExhkJcx4ODI+ezcMPyidiF
+ SrizIKUgtFFiSWUh2HUn8jBmLZpEiIe1Q522+9PwaCA+txKXMwvnjur8LZAePLhS5egS
+ l42Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :mime-version:content-transfer-encoding;
- bh=FiX6saUHa8tVXRR2pHw4nDfUBFLj+hL82kG5LF2eBdE=;
- b=CQo5MbD9uh6AhZla1uj40lnJzSl3UVfnbHTwDdzNLaAgJX70xP6ipsfakABP87gkOw
- j7cIaDXNeFM0ZYlLawudEVDhwR3adi7HoGzKxLpFgdS/kMPCihmNCxpGEHjr0izgBmGT
- SnPB7E0g8wdNVyBv7s6rBwQnoK3gASHz+t+r80QFJN1AqtMXHhTh2c6A3Lwj1T7xCJRi
- cPK6Hc7flX+JTafb2EQon+K4gvjcHGK6ZZ3jFx8wt7CMbr63KJ8VKNrYIAMaOfV+Kwtr
- DznX3MKWJxpvU/gyXxB/BvqqfMK27HOOitgQr+FKEf3tG1ns5SF9QM84HX9vzaC7bi++
- N9/A==
-X-Gm-Message-State: AOAM532YW7vslTT1KQXcNmrnnAK0878HqDLVsxu3KbGMj1kB6kBwxHSa
- BnH/NXSES50bGGhn2RkhuDI=
-X-Google-Smtp-Source: ABdhPJz76tG0q0wKXnD43AKOEaEGErm27DJnaqkJ7NI14WMk3UwR/gAtlSgheL3vdfuM0t+KzW6FhA==
-X-Received: by 2002:a9f:25b6:: with SMTP id 51mr7935322uaf.111.1642395806522; 
- Sun, 16 Jan 2022 21:03:26 -0800 (PST)
+ bh=VVMSvibBEDQWmTS4Y5AZX2LAQUp1loCiB0WTviYsyCk=;
+ b=KnKi+tbXp22BNGbuSBPCvqjPBmclP9O6/Rg6RMT4bk9HuSzu/iywTYinkhX7clb45r
+ ZtyJ9Sp1u4rQ2CCCe6AFhJVboRQXVwNy8hjpm+5LXo/R5qLE7il9+OE7xFmKN7Ej4JhH
+ 0EiUl8LQ0AsvWd6uGKSzqSnUEJ2xGqF7IYyxjdNFZI0Jgga2BUjTPYHoFPd5trpiCfVJ
+ Mg80TiFtYX509Q0Ppui8P6CS0PvPNW7uLvLGhKsTt9EEZgMp/g9HnpLkSMGZ6R9I5+BH
+ WFzFR2kLRW8k7obVU05qVsfRz5RzFOmlkRfFsDvWsp/48Y6v9D2/SCsgKI3Bi4vKP1i5
+ Dp6Q==
+X-Gm-Message-State: AOAM5331i/dJIMcKspCoU5aSfExlsVKVtre8TOEzsEzQ+F1iKTUHXlh7
+ TcePFYvhfiLQVU9PrgZ6Q40=
+X-Google-Smtp-Source: ABdhPJxsGuOnDKIZ3OkIIR5d038ZKXPOcXRRRKUP/O6Gfk8vqlxZaG0VpNTjIN7SEL/jiT7/HewuUQ==
+X-Received: by 2002:a1f:fcc9:: with SMTP id a192mr7446632vki.1.1642396204346; 
+ Sun, 16 Jan 2022 21:10:04 -0800 (PST)
 Received: from kubuntu-desktop.. ([67.8.38.84])
- by smtp.gmail.com with ESMTPSA id k77sm1012686vka.20.2022.01.16.21.03.25
+ by smtp.gmail.com with ESMTPSA id d124sm3543878vkb.9.2022.01.16.21.10.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Jan 2022 21:03:26 -0800 (PST)
+ Sun, 16 Jan 2022 21:10:03 -0800 (PST)
 From: Julian Braha <julianbraha@gmail.com>
-To: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- matthias.bgg@gmail.com, trevor.wu@mediatek.com, tzungbi@google.com,
- geert+renesas@glider.be
-Subject: [PATCH] ASoC: mediatek: fix unmet dependency on GPIOLIB for
- SND_SOC_DMIC
-Date: Mon, 17 Jan 2022 00:03:24 -0500
-Message-Id: <20220117050324.68371-1-julianbraha@gmail.com>
+To: broonie@kernel.org, olivier.moysan@foss.st.com,
+ arnaud.pouliquen@foss.st.com, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+Subject: [PATCH] ASoC: stm32: fix unmet dependency on GPIOLIB for SND_SOC_DMIC
+Date: Mon, 17 Jan 2022 00:10:02 -0500
+Message-Id: <20220117051002.70270-1-julianbraha@gmail.com>
 X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: fazilyildiran@gmail.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,18 +99,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When SND_SOC_MT8195_MT6359_RT1011_RT5682 is selected,
+When SND_SOC_STM32_DFSDM is selected,
 and GPIOLIB is not selected,
 Kbuild gives the following warning:
 
 WARNING: unmet direct dependencies detected for SND_SOC_DMIC
   Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
   Selected by [y]:
-  - SND_SOC_MT8195_MT6359_RT1011_RT5682 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y] && SND_SOC_MT8195 [=y] && MTK_PMIC_WRAP [=y]
+  - SND_SOC_STM32_DFSDM [=y] && SOUND [=y] && !UML && SND [=y] && (ARCH_STM32 || COMPILE_TEST [=y]) && SND_SOC [=y] && STM32_DFSDM_ADC [=y]
 
-This is because SND_SOC_MT8195_MT6359_RT1011_RT5682
-selects SND_SOC_DMIC without selecting or depending on
-GPIOLIB, depsite SND_SOC_DMIC depending on GPIOLIB.
+This is because SND_SOC_STM32_DFSDM selects
+SND_SOC_DMIC without selecting or depending on
+GPIOLIB, despite SND_SOC_DMIC depending on GPIOLIB.
 
 This unmet dependency bug was detected by Kismet,
 a static analysis tool for Kconfig. Please advise
@@ -120,22 +118,21 @@ if this is not the appropriate solution.
 
 Signed-off-by: Julian Braha <julianbraha@gmail.com>
 ---
- sound/soc/mediatek/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/stm/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-index 9306b7ca2644..0d154350f180 100644
---- a/sound/soc/mediatek/Kconfig
-+++ b/sound/soc/mediatek/Kconfig
-@@ -216,7 +216,7 @@ config SND_SOC_MT8195_MT6359_RT1019_RT5682
- 
- config SND_SOC_MT8195_MT6359_RT1011_RT5682
- 	tristate "ASoC Audio driver for MT8195 with MT6359 RT1011 RT5682 codec"
--	depends on I2C
-+	depends on I2C && GPIOLIB
- 	depends on SND_SOC_MT8195 && MTK_PMIC_WRAP
- 	select SND_SOC_MT6359
- 	select SND_SOC_RT1011
+diff --git a/sound/soc/stm/Kconfig b/sound/soc/stm/Kconfig
+index da1f7a16605b..bfc11b606bbd 100644
+--- a/sound/soc/stm/Kconfig
++++ b/sound/soc/stm/Kconfig
+@@ -37,6 +37,7 @@ config SND_SOC_STM32_DFSDM
+ 	depends on ARCH_STM32 || COMPILE_TEST
+ 	depends on SND_SOC
+ 	depends on STM32_DFSDM_ADC
++	depends on GPIOLIB
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM
+ 	select SND_SOC_DMIC
+ 	select IIO_BUFFER_CB
 -- 
 2.32.0
 

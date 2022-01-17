@@ -2,79 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C09DA490E56
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 18:09:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 732EE49100B
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 19:08:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57BDE192E;
-	Mon, 17 Jan 2022 18:08:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57BDE192E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2F011925;
+	Mon, 17 Jan 2022 19:07:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2F011925
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642439364;
-	bh=1j7mayRmOuGQ+nRLdXsL59wVA+c5vHDalgnqM39ocY4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642442891;
+	bh=XXFdFLVJY5KBBZp6WHS4dhJVYZEvhL9b7ul4U2y0o8U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SYiUOeQtZ/cmTNhJi7VcR7qwNlkUf1wBz3D76FLZD/zedFsWmgAEq/F1u/CcV0hnl
-	 h/xXYu3BHZ2LN54QN+Rl5PCkNAHEHjjS8p0yYgvB+ZtbYJ9iu9QUNtQPw/rf3JAuR4
-	 h4vQkYo19e+gVJgYWXqPqRqgbwTyYc7a3AjTbKBY=
+	b=AC1PaLbzl9Ww1c3EEYFHIAME+a6oUESuTlM3WmGrapXn41QG+zoKGF1oFdnwHLQI2
+	 nJy75d451RSO3r1W5IpCle4tuZXCaJlZQ4mg7+hBv/s+yly0NhOggR206eSKAFd4nN
+	 ZAxsTXQ02T387bTHfZatLZ/kNE8zWurDHtcnYTZs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1EDDF8025D;
-	Mon, 17 Jan 2022 18:08:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40349F80254;
+	Mon, 17 Jan 2022 19:07:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12E69F80254; Mon, 17 Jan 2022 18:08:32 +0100 (CET)
+ id 1F01BF80249; Mon, 17 Jan 2022 19:07:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7B49F80254
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 18:08:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7B49F80254
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Si8sFMV3"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 94BD4611F0;
- Mon, 17 Jan 2022 17:08:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135E2C36AE3;
- Mon, 17 Jan 2022 17:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642439298;
- bh=1j7mayRmOuGQ+nRLdXsL59wVA+c5vHDalgnqM39ocY4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Si8sFMV3nG3l2aHYSD7vfEhM/AXiLbNYQfrLSyLfcbdWJZw5T74GRip0yljRjPtlQ
- +Ir4X95TUu9T3zc6PaeqPetjW2pdCF48cBgFIgbdjkY7RqOQ7a4UQ3J1QRlZ49ux9j
- +EPcERxTslUYqPsMtlFhM16L8OELfm3+KKs1J9VgW3PD8SvVr749MHMMhLrSvIpDI1
- RgMehNsUocX30jDemisIk0pd7VmTRy+O7LkU7dRFUQudRRALkoO3rd7fhHXnP8gpQH
- 042FQI5eKkp6PIEaJQ95X8VH8Hp+1CwnAlwqy3M507OvZ1Jf4VQV9O0nlGJOlq5geY
- fhkmE9mKTFbbg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 09/12] ALSA: seq: Set upper limit of processed
- events
-Date: Mon, 17 Jan 2022 12:07:53 -0500
-Message-Id: <20220117170757.1473318-9-sashal@kernel.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220117170757.1473318-1-sashal@kernel.org>
-References: <20220117170757.1473318-1-sashal@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD5F9F80100
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 19:06:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD5F9F80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="iMGT3A9J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642442821; x=1673978821;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=XXFdFLVJY5KBBZp6WHS4dhJVYZEvhL9b7ul4U2y0o8U=;
+ b=iMGT3A9JajKCxYkIOhfPA3sA2Zl/L7J+tFpjtAscVzX2SkWjqoLwXxAv
+ uDJILUTFOWS0AOBd/g/KmPjtMJEBSJccZG3FgNfRJzN+4Xc7JU9zV5yxb
+ zlXjU8WBKoBOWG8iot9VNzM8+nZw6S44SMqgY6h/PcbJXvO99E3lZsvE5
+ OGRB53sbV1FmQ2f2o+5FkFsqXp203N3IhapbBHLui3iRBMO6pvnEreZbz
+ Rr6WBIQejIKGLmAxpB8v1UMSIvYmNZ8X2YL99P/Yxr/o0B6G5ayySXfan
+ Jm9rPqgyiQB1J6Qilvgb7aiLAggXQj0qmeZtMTKFMNVLFFcpkjiZ0Jf7e w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10229"; a="232030221"
+X-IronPort-AV: E=Sophos;i="5.88,296,1635231600"; d="scan'208";a="232030221"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jan 2022 10:06:55 -0800
+X-IronPort-AV: E=Sophos;i="5.88,296,1635231600"; d="scan'208";a="625260176"
+Received: from pthompso-mobl1.amr.corp.intel.com (HELO [10.213.168.97])
+ ([10.213.168.97])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jan 2022 10:06:54 -0800
+Subject: Re: [PATCH] ASoC: soc-pcm: use GFP_ATOMIC in
+ dpcm_create_debugfs_state()
+To: Takashi Iwai <tiwai@suse.de>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+References: <ed322b8821fa787907c1a4cce879564d1281b69d.1642331884.git.christophe.jaillet@wanadoo.fr>
+ <s5hwniy21cl.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <bbe18490-fba4-9307-fe5f-b02c00433d07@linux.intel.com>
+Date: Mon, 17 Jan 2022 11:11:42 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
- Zqiang <qiang.zhang1211@gmail.com>,
- syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
+In-Reply-To: <s5hwniy21cl.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ kernel-janitors@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,85 +98,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 6fadb494a638d8b8a55864ecc6ac58194f03f327 ]
 
-Currently ALSA sequencer core tries to process the queued events as
-much as possible when they become dispatchable.  If applications try
-to queue too massive events to be processed at the very same timing,
-the sequencer core would still try to process such all events, either
-in the interrupt context or via some notifier; in either away, it
-might be a cause of RCU stall or such problems.
+On 1/17/22 2:49 AM, Takashi Iwai wrote:
+> On Sun, 16 Jan 2022 12:18:17 +0100,
+> Christophe JAILLET wrote:
+>>
+>> The commit below states that dpcm_be_connect() may be called from atomic
+>> context. It changes a GFP_KERNEL into a GFP_ATOMIC to deal with it.
+>>
+>> Another memory allocation is done in dpcm_create_debugfs_state() which is
+>> called by dpcm_be_connect(). Also use GFP_ATOMIC there to be consistent
+>> and be compliant with atomic context.
+>>
+>> Fixes: d8a9c6e1f676 ("ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure")
+>> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+>> ---
+>> Not clear to me how dpcm_be_connect() can be called from an atomic context,
+>> though. But better safe than sorry.
+> 
+> I don't think this no longer valid for the very latest code.
+> The commit b7898396f4bb dropped the spurious dpcm_lock spinlock, so
+> the code path you touched must be always sleepable.
+> 
+> Similarly, the commit d8a9c6e1f676 can be reverted now.
 
-As a potential workaround for those problems, this patch adds the
-upper limit of the amount of events to be processed.  The remaining
-events are processed in the next batch, so they won't be lost.
+Can we really revert d8a9c6e1f676?
 
-For the time being, it's limited up to 1000 events per queue, which
-should be high enough for any normal usages.
+We did propagate the non-atomic FE property to the BE, but if both FE
+and BE are both atomic that constraint would be required, no?
 
-Reported-by: Zqiang <qiang.zhang1211@gmail.com>
-Reported-by: syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
-Link: https://lore.kernel.org/r/20211102033222.3849-1-qiang.zhang1211@gmail.com
-Link: https://lore.kernel.org/r/20211207165146.2888-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/core/seq/seq_queue.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
-index ea1aa07962761..b923059a22276 100644
---- a/sound/core/seq/seq_queue.c
-+++ b/sound/core/seq/seq_queue.c
-@@ -257,12 +257,15 @@ struct snd_seq_queue *snd_seq_queue_find_name(char *name)
- 
- /* -------------------------------------------------------- */
- 
-+#define MAX_CELL_PROCESSES_IN_QUEUE	1000
-+
- void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
- {
- 	unsigned long flags;
- 	struct snd_seq_event_cell *cell;
- 	snd_seq_tick_time_t cur_tick;
- 	snd_seq_real_time_t cur_time;
-+	int processed = 0;
- 
- 	if (q == NULL)
- 		return;
-@@ -285,6 +288,8 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
- 		if (!cell)
- 			break;
- 		snd_seq_dispatch_event(cell, atomic, hop);
-+		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
-+			goto out; /* the rest processed at the next batch */
- 	}
- 
- 	/* Process time queue... */
-@@ -294,14 +299,19 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
- 		if (!cell)
- 			break;
- 		snd_seq_dispatch_event(cell, atomic, hop);
-+		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
-+			goto out; /* the rest processed at the next batch */
- 	}
- 
-+ out:
- 	/* free lock */
- 	spin_lock_irqsave(&q->check_lock, flags);
- 	if (q->check_again) {
- 		q->check_again = 0;
--		spin_unlock_irqrestore(&q->check_lock, flags);
--		goto __again;
-+		if (processed < MAX_CELL_PROCESSES_IN_QUEUE) {
-+			spin_unlock_irqrestore(&q->check_lock, flags);
-+			goto __again;
-+		}
- 	}
- 	q->check_blocked = 0;
- 	spin_unlock_irqrestore(&q->check_lock, flags);
--- 
-2.34.1
-
+> 
+> thanks,
+> 
+> Takashi
+> 
+>> ---
+>>  sound/soc/soc-pcm.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+>> index 7abfc48b26ca..1a536a2b9dc3 100644
+>> --- a/sound/soc/soc-pcm.c
+>> +++ b/sound/soc/soc-pcm.c
+>> @@ -212,7 +212,7 @@ static void dpcm_create_debugfs_state(struct snd_soc_dpcm *dpcm, int stream)
+>>  {
+>>  	char *name;
+>>  
+>> -	name = kasprintf(GFP_KERNEL, "%s:%s", dpcm->be->dai_link->name,
+>> +	name = kasprintf(GFP_ATOMIC, "%s:%s", dpcm->be->dai_link->name,
+>>  			 stream ? "capture" : "playback");
+>>  	if (name) {
+>>  		dpcm->debugfs_state = debugfs_create_dir(
+>> -- 
+>> 2.32.0
+>>

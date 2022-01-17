@@ -2,78 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7569F4901E4
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 07:23:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5073A490313
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 08:46:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E89F21776;
-	Mon, 17 Jan 2022 07:22:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E89F21776
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA3B0177F;
+	Mon, 17 Jan 2022 08:45:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA3B0177F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642400594;
-	bh=ealXWG8Kiv+XO364Ns/iDHKZPrz6xMF2qXNs83pM9qo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642405565;
+	bh=JxYgoPbkndzvmKJRNxA42LNvG043BEkPzvQ8KZ9Km0A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Piiyh1kYWzeYQIvQxCC1E5NqA+kxcGWq4OTI7Pak0F5zjTMDJ3aHHPIEkYl/I6ov4
-	 A1r38+Ea8Pmjt7Xa/RST8QH2PGpZMa6zM115e06s2leqNLeV5ccFkWeJlxl62qIxrz
-	 geccD91/zP4GSTVw0QJabyPuZJd8D2AuJffHs++U=
+	b=AMyrReayBHovGRv+1a1Vt30bFXpotwPPhuwisV8Vw05n20vq/nB+vvlTiGDSMjkO3
+	 PWKe4q3w1IjBnQdUu+GyM4x7yP7ZFuHMONI+W93R4pi2oq69XlJwauW/TmuokOPCCq
+	 Oz6O/uYV5hCsW5HKAoAXivpWbMCFH5IUjJjM+21o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5EB04F8025D;
-	Mon, 17 Jan 2022 07:22:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D256F80254;
+	Mon, 17 Jan 2022 08:45:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F21BF800EB; Mon, 17 Jan 2022 07:22:05 +0100 (CET)
+ id 4F8CFF80249; Mon, 17 Jan 2022 08:44:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F33A5F800EB;
- Mon, 17 Jan 2022 07:21:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F33A5F800EB
-X-UUID: 024a0d18f5b744f78d0936f2c7aebfb2-20220117
-X-UUID: 024a0d18f5b744f78d0936f2c7aebfb2-20220117
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw02.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1178090746; Mon, 17 Jan 2022 14:21:50 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Mon, 17 Jan 2022 14:21:48 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Mon, 17 Jan 2022 14:21:48 +0800
-From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
-To: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>
-Subject: [PATCH v15 2/2] mailbox: mediatek: add support for adsp mailbox
- controller
-Date: Mon, 17 Jan 2022 14:21:45 +0800
-Message-ID: <20220117062145.9929-3-allen-kh.cheng@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20220117062145.9929-1-allen-kh.cheng@mediatek.com>
-References: <20220117062145.9929-1-allen-kh.cheng@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99329F80100
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 08:44:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99329F80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="KOLLcV/F"
+Received: by mail-lf1-x136.google.com with SMTP id br17so54307958lfb.6
+ for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 23:44:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6QF777/sKyHmB6kHdk8pAKes+SVv1gG+ocuwj9sgpRQ=;
+ b=KOLLcV/F7XHmTeu4hItqu7+3uEtWlS6N+dsCP614S1MOSzmMSxoYjGpur5i1Y0f5of
+ 6R0ZuL1Gz5Mg1jiAkXKtDUZCFLosWZiLjo9xhfp6ovoAfvs4Cl/WPuvWvhJW5K/UOhW4
+ ++Fvm3jtJK8eWY40Gfmu6WzYuye6hLY8yTocY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6QF777/sKyHmB6kHdk8pAKes+SVv1gG+ocuwj9sgpRQ=;
+ b=4q/5umVgWvYPN2BHs3CPwFN0Rumb7bshgvdLMe+5weaMP6fTmMZQ8wnu2AxN/QhMzL
+ S1xnx73FXg7I2dA2d17X3DRihrUW2oGGDj5SLSVdaIlDQw7/64zh+ZJzNYhEP+PQLEPT
+ WGJOABtnqMM8HTEbPBj3aL22r7jpcHPDeiAsNDrYH1Q5DEHpgFQYS8C1wEu6hyL5HNKX
+ szS3qOh+pnAtusH3tWTqbUqLgclxTMtFp5y6jPVEwUVh3NqM1tfWNlmTDLRDQNWTv2VA
+ rVe/9+raX6FquXOZgK4bvVmfl1w50hm2WPlA2ZpW34DrLQN2lIefO3L3mBFGotL1tBNi
+ utNw==
+X-Gm-Message-State: AOAM531haV6PL19vIeImKEQQ4OaZIB5mby1ICaXIPgcjErS+RykV3vq3
+ OwlF9ht+UPaGpjztGu3CSX0k75cxfGRsVnGGEuWKaA==
+X-Google-Smtp-Source: ABdhPJy2y5w2Mgw1aXOAzh5xS6yKz737iKCVZw+kmTNKVPku08/RsSvDn73bBL7Kehh87ZNxsL8F9iFaH25KR8AyLpk=
+X-Received: by 2002:a2e:b8d5:: with SMTP id s21mr3530683ljp.201.1642405488740; 
+ Sun, 16 Jan 2022 23:44:48 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, cujomalainey@google.com,
- Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com, Mark
- Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Chen-Yu Tsai <wenst@chromium.org>,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
+References: <20220114230209.4091727-1-briannorris@chromium.org>
+ <20220114150129.v2.1.I46f64b00508d9dff34abe1c3e8d2defdab4ea1e5@changeid>
+In-Reply-To: <20220114150129.v2.1.I46f64b00508d9dff34abe1c3e8d2defdab4ea1e5@changeid>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Mon, 17 Jan 2022 15:44:37 +0800
+Message-ID: <CAGXv+5H0-dM28YQj_orS1_14NLcJve8VtO6oLcBiRpJFjaf5KA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] arm64: dts: rockchip: Switch RK3399-Gru DP to
+ SPDIF output
+To: Brian Norris <briannorris@chromium.org>, Heiko Stuebner <heiko@sntech.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Lin Huang <hl@rock-chips.com>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
+ linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,233 +98,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
+On Sat, Jan 15, 2022 at 7:03 AM Brian Norris <briannorris@chromium.org> wrote:
+>
+> Commit b18c6c3c7768 ("ASoC: rockchip: cdn-dp sound output use spdif")
+> switched the platform to SPDIF, but we didn't fix up the device tree.
+>
+> Drop the pinctrl settings, because the 'spdif_bus' pins are either:
+>  * unused (on kevin, bob), so the settings is ~harmless
+>  * used by a different function (on scarlet), which causes probe
+>    failures (!!)
 
-This patch is to for MediaTek ADSP IPC mailbox controller driver
-It is used to send short messages between processors with adsp
+I suppose that means the default pinctrl should be dropped? Or maybe this
+use case is the outlier. Up to Heiko?
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
-Reviewed-by: YC Hung <yc.hung@mediatek.com>
-Signed-off-by: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
----
- drivers/mailbox/Kconfig            |   7 ++
- drivers/mailbox/Makefile           |   2 +
- drivers/mailbox/mtk-adsp-mailbox.c | 175 +++++++++++++++++++++++++++++
- 3 files changed, 184 insertions(+)
- create mode 100644 drivers/mailbox/mtk-adsp-mailbox.c
+> Fixes: b18c6c3c7768 ("ASoC: rockchip: cdn-dp sound output use spdif")
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
 
-diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
-index d9cd3606040e..3e5bb745437d 100644
---- a/drivers/mailbox/Kconfig
-+++ b/drivers/mailbox/Kconfig
-@@ -238,6 +238,13 @@ config STM32_IPCC
- 	  with hardware for Inter-Processor Communication Controller (IPCC)
- 	  between processors. Say Y here if you want to have this support.
- 
-+config MTK_ADSP_MBOX
-+	tristate "MediaTek ADSP Mailbox Controller"
-+	depends on ARCH_MEDIATEK || COMPILE_TEST
-+	help
-+	  Say yes here to add support for MediaTek ADSP mailbox controller
-+	  driver. It is used to send short messages between processors with dsp.
-+
- config MTK_CMDQ_MBOX
- 	tristate "MediaTek CMDQ Mailbox Support"
- 	depends on ARCH_MEDIATEK || COMPILE_TEST
-diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
-index 338cc05e5431..fc9376117111 100644
---- a/drivers/mailbox/Makefile
-+++ b/drivers/mailbox/Makefile
-@@ -49,6 +49,8 @@ obj-$(CONFIG_TEGRA_HSP_MBOX)	+= tegra-hsp.o
- 
- obj-$(CONFIG_STM32_IPCC) 	+= stm32-ipcc.o
- 
-+obj-$(CONFIG_MTK_ADSP_MBOX)	+= mtk-adsp-mailbox.o
-+
- obj-$(CONFIG_MTK_CMDQ_MBOX)	+= mtk-cmdq-mailbox.o
- 
- obj-$(CONFIG_ZYNQMP_IPI_MBOX)	+= zynqmp-ipi-mailbox.o
-diff --git a/drivers/mailbox/mtk-adsp-mailbox.c b/drivers/mailbox/mtk-adsp-mailbox.c
-new file mode 100644
-index 000000000000..60bf10c38348
---- /dev/null
-+++ b/drivers/mailbox/mtk-adsp-mailbox.c
-@@ -0,0 +1,175 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2022 MediaTek Corporation. All rights reserved.
-+ * Author: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
-+ */
-+
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/kernel.h>
-+#include <linux/mailbox_controller.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/slab.h>
-+
-+struct mtk_adsp_mbox_priv {
-+	struct device *dev;
-+	struct mbox_controller mbox;
-+	void __iomem *va_mboxreg;
-+	const struct mtk_adsp_mbox_cfg *cfg;
-+};
-+
-+struct mtk_adsp_mbox_cfg {
-+	u32 set_in;
-+	u32 set_out;
-+	u32 clr_in;
-+	u32 clr_out;
-+};
-+
-+static inline struct mtk_adsp_mbox_priv *get_mtk_adsp_mbox_priv(struct mbox_controller *mbox)
-+{
-+	return container_of(mbox, struct mtk_adsp_mbox_priv, mbox);
-+}
-+
-+static irqreturn_t mtk_adsp_mbox_irq(int irq, void *data)
-+{
-+	struct mbox_chan *chan = data;
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+	u32 op = readl(priv->va_mboxreg + priv->cfg->set_out);
-+
-+	writel(op, priv->va_mboxreg + priv->cfg->clr_out);
-+
-+	return IRQ_WAKE_THREAD;
-+}
-+
-+static irqreturn_t mtk_adsp_mbox_isr(int irq, void *data)
-+{
-+	struct mbox_chan *chan = data;
-+
-+	mbox_chan_received_data(chan, NULL);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static struct mbox_chan *mtk_adsp_mbox_xlate(struct mbox_controller *mbox,
-+					     const struct of_phandle_args *sp)
-+{
-+	return mbox->chans;
-+}
-+
-+static int mtk_adsp_mbox_startup(struct mbox_chan *chan)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+
-+	/* Clear ADSP mbox command */
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_in);
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_out);
-+
-+	return 0;
-+}
-+
-+static void mtk_adsp_mbox_shutdown(struct mbox_chan *chan)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+
-+	/* Clear ADSP mbox command */
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_in);
-+	writel(0xFFFFFFFF, priv->va_mboxreg + priv->cfg->clr_out);
-+}
-+
-+static int mtk_adsp_mbox_send_data(struct mbox_chan *chan, void *data)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+	u32 *msg = data;
-+
-+	writel(*msg, priv->va_mboxreg + priv->cfg->set_in);
-+
-+	return 0;
-+}
-+
-+static bool mtk_adsp_mbox_last_tx_done(struct mbox_chan *chan)
-+{
-+	struct mtk_adsp_mbox_priv *priv = get_mtk_adsp_mbox_priv(chan->mbox);
-+
-+	return readl(priv->va_mboxreg + priv->cfg->set_in) == 0;
-+}
-+
-+static const struct mbox_chan_ops mtk_adsp_mbox_chan_ops = {
-+	.send_data	= mtk_adsp_mbox_send_data,
-+	.startup	= mtk_adsp_mbox_startup,
-+	.shutdown	= mtk_adsp_mbox_shutdown,
-+	.last_tx_done	= mtk_adsp_mbox_last_tx_done,
-+};
-+
-+static int mtk_adsp_mbox_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct mtk_adsp_mbox_priv *priv;
-+	const struct mtk_adsp_mbox_cfg *cfg;
-+	struct mbox_controller *mbox;
-+	int ret, irq;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	mbox = &priv->mbox;
-+	mbox->dev = dev;
-+	mbox->ops = &mtk_adsp_mbox_chan_ops;
-+	mbox->txdone_irq = false;
-+	mbox->txdone_poll = true;
-+	mbox->of_xlate = mtk_adsp_mbox_xlate;
-+	mbox->num_chans = 1;
-+	mbox->chans = devm_kzalloc(dev, sizeof(*mbox->chans), GFP_KERNEL);
-+	if (!mbox->chans)
-+		return -ENOMEM;
-+
-+	priv->va_mboxreg = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->va_mboxreg))
-+		return PTR_ERR(priv->va_mboxreg);
-+
-+	cfg = of_device_get_match_data(dev);
-+	if (!cfg)
-+		return -EINVAL;
-+	priv->cfg = cfg;
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_threaded_irq(dev, irq, mtk_adsp_mbox_irq,
-+					mtk_adsp_mbox_isr, IRQF_TRIGGER_NONE,
-+					dev_name(dev), mbox->chans);
-+	if (ret < 0)
-+		return ret;
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	return devm_mbox_controller_register(dev, &priv->mbox);
-+}
-+
-+static const struct mtk_adsp_mbox_cfg mt8195_adsp_mbox_cfg = {
-+	.set_in		= 0x00,
-+	.set_out	= 0x1c,
-+	.clr_in		= 0x04,
-+	.clr_out	= 0x20,
-+};
-+
-+static const struct of_device_id mtk_adsp_mbox_of_match[] = {
-+	{ .compatible = "mediatek,mt8195-adsp-mbox", .data = &mt8195_adsp_mbox_cfg },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, mtk_adsp_mbox_of_match);
-+
-+static struct platform_driver mtk_adsp_mbox_driver = {
-+	.probe		= mtk_adsp_mbox_probe,
-+	.driver = {
-+		.name	= "mtk_adsp_mbox",
-+		.of_match_table = mtk_adsp_mbox_of_match,
-+	},
-+};
-+module_platform_driver(mtk_adsp_mbox_driver);
-+
-+MODULE_AUTHOR("Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>");
-+MODULE_DESCRIPTION("MTK ADSP Mailbox Controller");
--- 
-2.18.0
-
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>

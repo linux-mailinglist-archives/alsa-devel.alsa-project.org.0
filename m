@@ -2,75 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D453B490DAA
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 18:04:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4186490DB9
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 18:05:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E44E18DC;
-	Mon, 17 Jan 2022 18:04:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E44E18DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7ABE318E4;
+	Mon, 17 Jan 2022 18:04:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ABE318E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642439092;
-	bh=S5nPjdjCzKt885qz1sQlYghV0MtZBTbsg2HgpYi5+bs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Ywyb/ZbEkviMsgVm9aUVu8mvZSa+Twq0ZwWzLiH0Sp5nWRv7cKLIcjX4JeZallHib
-	 vWWUAMN47Lv9gU0rUICgUG5hLqAYkwmpLwgqTy+AyXXijh2RAsYaqLDiEM8fdzppJM
-	 0/HpzzeJ0ZjHZ0BQnDegRNZIf73p9IPdFxBFiMpM=
+	s=default; t=1642439110;
+	bh=khj1TPKAGtqZ8SRnFW3L1kpEHrsWYchWuXRxLdSbLMw=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hw6CPGtiXsqTaXSRCey8ykv0aVjRadspPyrnsDIykzJMyPCYCfByJVwZWUQWOWn7i
+	 U1FBzyUwsAt5aW8+Oxbms2qRG0qF28PHBqXD3jb3y9Yvh+wJlUWbJAq6XxVXHChDyb
+	 wnsuYnwuSK2OBHCxmY9yz+fygXTBMG2zHPDUKan0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3341F80510;
-	Mon, 17 Jan 2022 18:03:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53E2BF8047B;
+	Mon, 17 Jan 2022 18:04:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B7DFF80249; Mon, 17 Jan 2022 18:03:33 +0100 (CET)
+ id 791B1F80254; Mon, 17 Jan 2022 18:04:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56540F80249
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 18:03:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56540F80249
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63B79F8014B
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 18:04:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63B79F8014B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fHRxkSzU"
+ header.b="ZkPYUoKZ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 574E4B81148;
- Mon, 17 Jan 2022 17:03:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1592DC36AEF;
- Mon, 17 Jan 2022 17:03:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C690161213;
+ Mon, 17 Jan 2022 17:04:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63DDC36AE3;
+ Mon, 17 Jan 2022 17:04:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642439009;
- bh=S5nPjdjCzKt885qz1sQlYghV0MtZBTbsg2HgpYi5+bs=;
- h=From:To:Cc:Subject:Date:From;
- b=fHRxkSzU3k/lBqgGb0gQvFohe60WegQYvjqURXxjusqqcTkx5D7jeRA0HvVjNSAfa
- 7HjdvgRryOxoAaIGus3jhf6pyhsQJavJx7V4Ofstn9/HS7LEsFyIuXy0DpCD9MsFqE
- G5FJVY1yzth+WyLTSAi1odJDs4nB4wU3SDh95LcyLCORPDqUQnoAQVAWEbUOwjwEvd
- 1fXmZXx2A/LC2v/LHtCTI0fztNSolMAWU1KRIMx+yr/M1g+5xjbxQnTRoXTpgkdmwh
- Z9BrcQouBXs+G86NlhgCmb6xZ2mmjJtHPTWvTZeayq2XvzNF4D2SU5NJSWXKS7F4Gh
- 1OoaGAFmkG8AA==
+ s=k20201202; t=1642439048;
+ bh=khj1TPKAGtqZ8SRnFW3L1kpEHrsWYchWuXRxLdSbLMw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ZkPYUoKZVfN91deZdoAPKKPCHyincwaW93MGltjSZfAh2PeJHVvDjeJ7co0eqHlCJ
+ H/75UUe8GyGeZlIwk0dZKKJFLqpcrEVrr7fVGJJTAwVkE8w1tbPn3NqGFyEY2q2BsG
+ 4PdVcQ/nob3eJeTyS/qp3Vl1dzM0khov5Pd8MzhRIKK2tA7N0kWanF9ESV2mW8rIbx
+ ZO7xtw2P/jZMHsF+UHoYBtaVfpPrZWUWCfFvob3dlLmD+C10v+ht7JBJ6GHslqYAQ+
+ +6DGI1zS+lqUzFRVRWp4k1Lka+DDqEEu5FMoqypjeIk1GTLrM4AROlU6xPEtQ3upoA
+ yIUzz6QLZxz/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 01/34] ALSA: usb-audio: Fix dB level of Bose
- Revolve+ SoundLink
-Date: Mon, 17 Jan 2022 12:02:51 -0500
-Message-Id: <20220117170326.1471712-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 19/34] ALSA: seq: Set upper limit of processed
+ events
+Date: Mon, 17 Jan 2022 12:03:09 -0500
+Message-Id: <20220117170326.1471712-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220117170326.1471712-1-sashal@kernel.org>
+References: <20220117170326.1471712-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, andfagiani@gmail.com,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
- timo.gurr@gmail.com
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.de>, tiwai@suse.com,
+ Zqiang <qiang.zhang1211@gmail.com>,
+ syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,53 +93,83 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 02eb1d098e26f34c8f047b0b1cee6f4433a34bd1 ]
+[ Upstream commit 6fadb494a638d8b8a55864ecc6ac58194f03f327 ]
 
-Bose Revolve+ SoundLink (0a57:40fa) advertises invalid dB level for
-the speaker volume.  This patch provides the correction in the mixer
-map quirk table entry.
+Currently ALSA sequencer core tries to process the queued events as
+much as possible when they become dispatchable.  If applications try
+to queue too massive events to be processed at the very same timing,
+the sequencer core would still try to process such all events, either
+in the interrupt context or via some notifier; in either away, it
+might be a cause of RCU stall or such problems.
 
-Note that this requires the prerequisite change to add min_mute flag
-to the dB map table.
+As a potential workaround for those problems, this patch adds the
+upper limit of the amount of events to be processed.  The remaining
+events are processed in the next batch, so they won't be lost.
 
-BugLink: https://bugzilla.suse.com/show_bug.cgi?id=1192375
-Link: https://lore.kernel.org/r/20211116065415.11159-4-tiwai@suse.de
+For the time being, it's limited up to 1000 events per queue, which
+should be high enough for any normal usages.
+
+Reported-by: Zqiang <qiang.zhang1211@gmail.com>
+Reported-by: syzbot+bb950e68b400ab4f65f8@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/r/20211102033222.3849-1-qiang.zhang1211@gmail.com
+Link: https://lore.kernel.org/r/20211207165146.2888-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/mixer_maps.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ sound/core/seq/seq_queue.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 8f6823df944ff..01a30968e7e1f 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -337,6 +337,13 @@ static const struct usbmix_name_map bose_companion5_map[] = {
- 	{ 0 }	/* terminator */
- };
+diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
+index 71a6ea62c3be7..4ff0b927230c2 100644
+--- a/sound/core/seq/seq_queue.c
++++ b/sound/core/seq/seq_queue.c
+@@ -234,12 +234,15 @@ struct snd_seq_queue *snd_seq_queue_find_name(char *name)
  
-+/* Bose Revolve+ SoundLink, correction of dB maps */
-+static const struct usbmix_dB_map bose_soundlink_dB = {-8283, -0, true};
-+static const struct usbmix_name_map bose_soundlink_map[] = {
-+	{ 2, NULL, .dB = &bose_soundlink_dB },
-+	{ 0 }	/* terminator */
-+};
+ /* -------------------------------------------------------- */
+ 
++#define MAX_CELL_PROCESSES_IN_QUEUE	1000
 +
- /* Sennheiser Communications Headset [PC 8], the dB value is reported as -6 negative maximum  */
- static const struct usbmix_dB_map sennheiser_pc8_dB = {-9500, 0};
- static const struct usbmix_name_map sennheiser_pc8_map[] = {
-@@ -551,6 +558,11 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
- 		.id = USB_ID(0x05a7, 0x1020),
- 		.map = bose_companion5_map,
- 	},
-+	{
-+		/* Bose Revolve+ SoundLink */
-+		.id = USB_ID(0x05a7, 0x40fa),
-+		.map = bose_soundlink_map,
-+	},
- 	{
- 		/* Corsair Virtuoso SE (wired mode) */
- 		.id = USB_ID(0x1b1c, 0x0a3d),
+ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+ {
+ 	unsigned long flags;
+ 	struct snd_seq_event_cell *cell;
+ 	snd_seq_tick_time_t cur_tick;
+ 	snd_seq_real_time_t cur_time;
++	int processed = 0;
+ 
+ 	if (q == NULL)
+ 		return;
+@@ -262,6 +265,8 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+ 		if (!cell)
+ 			break;
+ 		snd_seq_dispatch_event(cell, atomic, hop);
++		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
++			goto out; /* the rest processed at the next batch */
+ 	}
+ 
+ 	/* Process time queue... */
+@@ -271,14 +276,19 @@ void snd_seq_check_queue(struct snd_seq_queue *q, int atomic, int hop)
+ 		if (!cell)
+ 			break;
+ 		snd_seq_dispatch_event(cell, atomic, hop);
++		if (++processed >= MAX_CELL_PROCESSES_IN_QUEUE)
++			goto out; /* the rest processed at the next batch */
+ 	}
+ 
++ out:
+ 	/* free lock */
+ 	spin_lock_irqsave(&q->check_lock, flags);
+ 	if (q->check_again) {
+ 		q->check_again = 0;
+-		spin_unlock_irqrestore(&q->check_lock, flags);
+-		goto __again;
++		if (processed < MAX_CELL_PROCESSES_IN_QUEUE) {
++			spin_unlock_irqrestore(&q->check_lock, flags);
++			goto __again;
++		}
+ 	}
+ 	q->check_blocked = 0;
+ 	spin_unlock_irqrestore(&q->check_lock, flags);
 -- 
 2.34.1
 

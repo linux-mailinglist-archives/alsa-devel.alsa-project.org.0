@@ -2,47 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E25594947C4
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:05:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D8BD4947C5
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:05:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 881562EF7;
-	Thu, 20 Jan 2022 08:04:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 881562EF7
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1E5B2F2D;
+	Thu, 20 Jan 2022 08:04:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1E5B2F2D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642662318;
-	bh=KOfD2/rc1Joyw2hfoJyF7skn+T6QJ4W+Nae6nKf+F/M=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1642662320;
+	bh=gAYzLLu/RAOrw2Wad+OWsZpPyZTaoepY/G9ZAGASItk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iCFHECtUOZUPekzQDM0X0cZgmjiHpjyGEHw0kC+h06YbfMHQKuTK5gsB++1QiCX41
-	 knYLrRS+6f/oS42un1kx0A1tuXuDg/MW+PYZ5+7FAJa6FuHPKhYddPZam6ztOar46n
-	 FV5W1l+UYEK1GaugLIEeq+5IfK/bO+wKtIZFvYZs=
+	b=VAZ6sxhIM0dQHzfjJu+IkFp8zIRH/9HDiEHzjv3mSbZKdJUNlrh9QCzQSJAt0NxSK
+	 +GTKbpsNAB+TAZRUfwHq8snJ8Z6TA2p8nyrc1pjI1rkp10f+eTkW+dM0tyexqLPhQ2
+	 r2JyCOuY8/oCiNp0Wk7bYoQzhkBJpf2labTthlFc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 961F6F804BB;
-	Thu, 20 Jan 2022 08:03:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AE98F80508;
+	Thu, 20 Jan 2022 08:03:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A00CEF804CC; Sun, 16 Jan 2022 19:15:30 +0100 (CET)
+ id 86CF4F80425; Mon, 17 Jan 2022 09:42:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from mxout02.lancloud.ru (mxout02.lancloud.ru [45.84.86.82])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com
+ [209.85.222.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04A98F800CE
- for <alsa-devel@alsa-project.org>; Sun, 16 Jan 2022 19:15:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04A98F800CE
-Received: from LanCloud
-DKIM-Filter: OpenDKIM Filter v2.11.0 mxout02.lancloud.ru 20CE0205BB5A
-Received: from LanCloud
-Received: from LanCloud
-Received: from LanCloud
-Subject: Re: [PATCH 1/2] platform: make platform_get_irq_optional() optional
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 588ABF8014B
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 09:41:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 588ABF8014B
+Received: by mail-ua1-f53.google.com with SMTP id 2so4348259uax.10
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 00:41:58 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=HSt6CNnm0GlM6Pd+PH2cbsXZ5sf+8uWh7XWO1e+2zQ0=;
+ b=cGVo1dOzsiQKHNTzvu/BT68xvYios+gBL4NSxdrGtZeRxYRj2qqmzNxBVq/mujN6FF
+ J/SjF/hnZy3mJPVlwb8sxXTcHmnPUTpxKb4sSYtNhJ0a9TgtPHI2voR8eOLSXxfaBA6g
+ Anxsr3996UDDgsoa1/auSY1a+XqVRvYwiNs7QszcuBwCd2NFkW8mA79kRYS7wamrau6f
+ McFZRJbZ5k4nrDIwcdn+vzYHF1rlR0jxGsVIyy7rkgB6GuQPUeycOOPKghQS0SkW9ejT
+ K8NHw0eZj6opGu/94NdMDr80ywfFZoK+7PFgGsMfJPUSpJO4a+N2htq8nzlukIUpzYvw
+ XJNQ==
+X-Gm-Message-State: AOAM532sMV7qhTlEBdLE6zvhWxvHPGi+as+pCRxSnF5/TLR+YNrqT3Ux
+ EQAY2ap8l3WBKDHgvyh8KbS9rQSbmpP6JzNK
+X-Google-Smtp-Source: ABdhPJzejznp3+L4JIbdrjUxxVzWlEvdkN+RQpDn0/FYFz9qYQwuBlJz/JVD5Goi+9eeqUVLldf/0w==
+X-Received: by 2002:ab0:3d84:: with SMTP id l4mr2146721uac.143.1642408916786; 
+ Mon, 17 Jan 2022 00:41:56 -0800 (PST)
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com.
+ [209.85.222.50])
+ by smtp.gmail.com with ESMTPSA id e30sm3534171vsl.26.2022.01.17.00.41.54
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Jan 2022 00:41:54 -0800 (PST)
+Received: by mail-ua1-f50.google.com with SMTP id m15so29060492uap.6
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 00:41:54 -0800 (PST)
+X-Received: by 2002:ab0:4d42:: with SMTP id k2mr5629977uag.78.1642408914153;
+ Mon, 17 Jan 2022 00:41:54 -0800 (PST)
+MIME-Version: 1.0
 References: <20220110201014.mtajyrfcfznfhyqm@pengutronix.de>
  <YdyilpjC6rtz6toJ@lunn.ch>
  <CAMuHMdWK3RKVXRzMASN4HaYfLckdS7rBvSopafq+iPADtGEUzA@mail.gmail.com>
@@ -54,26 +78,22 @@ References: <20220110201014.mtajyrfcfznfhyqm@pengutronix.de>
  <20220114092557.jrkfx7ihg26ekzci@pengutronix.de>
  <61b80939-357d-14f5-df99-b8d102a4e1a1@omp.ru>
  <20220114202226.ugzklxv4wzr6egwj@pengutronix.de>
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-Message-ID: <57af1851-9341-985e-7b28-d2ba86770ecb@omp.ru>
-Date: Sun, 16 Jan 2022 21:15:20 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
-MIME-Version: 1.0
-In-Reply-To: <20220114202226.ugzklxv4wzr6egwj@pengutronix.de>
-Content-Type: text/plain; charset="windows-1252"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [192.168.11.198]
-X-ClientProxiedBy: LFEXT01.lancloud.ru (fd00:f066::141) To
- LFEX1907.lancloud.ru (fd00:f066::207)
-X-Mailman-Approved-At: Thu, 20 Jan 2022 08:03:35 +0100
+ <c9026f17-2b3f-ee94-0ea3-5630f981fbc1@omp.ru>
+In-Reply-To: <c9026f17-2b3f-ee94-0ea3-5630f981fbc1@omp.ru>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 17 Jan 2022 09:41:42 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXVbRudGs69f9ZzaP1PXhteDNZiXA658eMFAwP4nr9r3w@mail.gmail.com>
+Message-ID: <CAMuHMdXVbRudGs69f9ZzaP1PXhteDNZiXA658eMFAwP4nr9r3w@mail.gmail.com>
+Subject: Re: [PATCH 1/2] platform: make platform_get_irq_optional() optional
+To: Sergey Shtylyov <s.shtylyov@omp.ru>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 20 Jan 2022 08:03:34 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Vignesh Raghavendra <vigneshr@ti.com>, KVM list <kvm@vger.kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org, Linus
- Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>, ALSA
- Development Mailing List <alsa-devel@alsa-project.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  Guenter Roeck <groeck@chromium.org>, Thierry Reding <thierry.reding@gmail.com>,
  MTD Maling List <linux-mtd@lists.infradead.org>,
  Linux I2C <linux-i2c@vger.kernel.org>,
@@ -83,22 +103,24 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Jiri Slaby <jirislaby@kernel.org>, Khuong Dinh <khuong@os.amperecomputing.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
  Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Kamal Dasu <kdasu.kdev@gmail.com>, Lee Jones <lee.jones@linaro.org>, Bartosz
- Golaszewski <brgl@bgdev.pl>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
  Kishon Vijay Abraham I <kishon@ti.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
  bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- Zhang Rui <rui.zhang@intel.com>, platform-driver-x86@vger.kernel.org,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ platform-driver-x86@vger.kernel.org,
  Linux PWM List <linux-pwm@vger.kernel.org>, Robert Richter <rric@kernel.org>,
  Saravanan Sekar <sravanhome@gmail.com>, Corey Minyard <minyard@acm.org>,
  Linux PM list <linux-pm@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, John Garry <john.garry@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, Peter Korsgaard <peter@korsgaard.com>, William
- Breathitt Gray <vilhelm.gray@gmail.com>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>,
+ Peter Korsgaard <peter@korsgaard.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
  Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Jakub Kicinski <kuba@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Takashi Iwai <tiwai@suse.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
  openipmi-developer@lists.sourceforge.net,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -109,16 +131,15 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Mun Yew Tham <mun.yew.tham@intel.com>, Eric Auger <eric.auger@redhat.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Cornelia Huck <cohuck@redhat.com>, Linux MMC
- List <linux-mmc@vger.kernel.org>, Joakim Zhang <qiangqing.zhang@nxp.com>,
+ Cornelia Huck <cohuck@redhat.com>, Linux MMC List <linux-mmc@vger.kernel.org>,
+ Joakim Zhang <qiangqing.zhang@nxp.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
  Vinod Koul <vkoul@kernel.org>, James Morse <james.morse@arm.com>,
  Zha Qipeng <qipeng.zha@intel.com>, Sebastian Reichel <sre@kernel.org>,
- =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund@ragnatech.se>,
- linux-mediatek@lists.infradead.org, Brian
- Norris <computersforpeace@gmail.com>, "David S.
- Miller" <davem@davemloft.net>
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ linux-mediatek@lists.infradead.org, Brian Norris <computersforpeace@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,69 +155,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello!
+On Sat, Jan 15, 2022 at 9:22 PM Sergey Shtylyov <s.shtylyov@omp.ru> wrote:
+> On 1/14/22 11:22 PM, Uwe Kleine-K=C3=B6nig wrote:
+> > You have to understand that for clk (and regulator and gpiod) NULL is a
+> > valid descriptor that can actually be used, it just has no effect. So
+> > this is a convenience value for the case "If the clk/regulator/gpiod in
+> > question isn't available, there is nothing to do". This is what makes
+> > clk_get_optional() and the others really useful and justifies their
+> > existence. This doesn't apply to platform_get_irq_optional().
+>
+>    I do understand that. However, IRQs are a different beast with their
+> own justifications...
 
-On 1/14/22 11:22 PM, Uwe Kleine-König wrote:
+> > clk_get_optional() is sane and sensible for cases where the clk might b=
+e
+> > absent and it helps you because you don't have to differentiate between
+> > "not found" and "there is an actual resource".
+> >
+> > The reason for platform_get_irq_optional()'s existence is just that
+> > platform_get_irq() emits an error message which is wrong or suboptimal
+>
+>    I think you are very wrong here. The real reason is to simplify the
+> callers.
 
->>>>>>> To me it sounds much more logical for the driver to check if an
->>>>>>> optional irq is non-zero (available) or zero (not available), than to
->>>>>>> sprinkle around checks for -ENXIO. In addition, you have to remember
->>>>>>> that this one returns -ENXIO, while other APIs use -ENOENT or -ENOSYS
->>>>>>> (or some other error code) to indicate absence. I thought not having
->>>>>>> to care about the actual error code was the main reason behind the
->>>>>>> introduction of the *_optional() APIs.
->>>>>
->>>>>> No, the main benefit of gpiod_get_optional() (and clk_get_optional()) is
->>>>>> that you can handle an absent GPIO (or clk) as if it were available.
->>>>
->>>>    Hm, I've just looked at these and must note that they match 1:1 with
->>>> platform_get_irq_optional(). Unfortunately, we can't however behave the
->>>> same way in request_irq() -- because it has to support IRQ0 for the sake
->>>> of i8253 drivers in arch/...
->>>
->>> Let me reformulate your statement to the IMHO equivalent:
->>>
->>> 	If you set aside the differences between
->>> 	platform_get_irq_optional() and gpiod_get_optional(),
->>
->>    Sorry, I should make it clear this is actually the diff between a would-be
->> platform_get_irq_optional() after my patch, not the current code...
-> 
-> The similarity is that with your patch both gpiod_get_optional() and
-> platform_get_irq_optional() return NULL and 0 on not-found. The relevant
-> difference however is that for a gpiod NULL is a dummy value, while for
-> irqs it's not. So the similarity is only syntactically, but not
-> semantically.
+Indeed.
 
-   I have noting to say here, rather than optional IRQ could well have a different
-meaning than for clk/gpio/etc.
+Even for clocks, you cannot assume that you can always blindly use
+the returned dummy (actually a NULL pointer) to call into the clk
+API.  While this works fine for simple use cases, where you just
+want to enable/disable an optional clock (clk_prepare_enable() and
+clk_disable_unprepare()), it does not work for more complex use cases.
 
-[...]
->>> However for an interupt this cannot work. You will always have to check
->>> if the irq is actually there or not because if it's not you cannot just
->>> ignore that. So there is no benefit of an optional irq.
->>>
->>> Leaving error message reporting aside, the introduction of
->>> platform_get_irq_optional() allows to change
->>>
->>> 	irq = platform_get_irq(...);
->>> 	if (irq < 0 && irq != -ENXIO) {
->>> 		return irq;
->>> 	} else if (irq >= 0) {
->>
->>    Rather (irq > 0) actually, IRQ0 is considered invalid (but still returned).
-> 
-> This is a topic I don't feel strong for, so I'm sloppy here. If changing
-> this is all that is needed to convince you of my point ...
+Consider a device with multiple clock inputs, some of them optional,
+where the device driver has to find, select and configure a suitable
+clock to operate at a certain clock frequency. The driver can call
+clk_get_rate(NULL) fine, but will always receive a zero rate, so it
+has to check for this (regardless of this being a dummy clock or not,
+because this could be an unpopulated clock crystal, which would be
+described in DT as a (present) fixed-rate clock with clock-frequency
+=3D <0>).
+For configuring the clock rate, the driver does need to check
+explicitly for the presence of a dummy clock, as clk_set_rate(NULL,
+rate) returns 0 ("success"), while obviously it didn't do anything,
+and thus configuring the device to use that clock would cause breakage.
 
-   Note that we should absolutely (and first of all) stop returning 0 from platform_get_irq()
-on a "real" IRQ0. Handling that "still good" zero absolutely doesn't scale e.g. for the subsystems
-(like libata) which take 0 as an indication that the polling mode should be used... We can't afford
-to be sloppy here. ;-)
+You can check if the clock is a real clock or a dummy using
+"if (clk) ...".
+And you'd use the same pattern with platform_irq_get_optional() if it
+would return 0 if the IRQ was not found: "if (irq) ...".
 
-[...]
+Gr{oetje,eeting}s,
 
-> Best regards
-> Uwe
+                        Geert
 
-MBR, Sergey
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds

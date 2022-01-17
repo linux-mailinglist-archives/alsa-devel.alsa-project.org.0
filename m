@@ -2,89 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3469D4910D0
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 20:57:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65CB49119E
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 23:10:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A85DF1917;
-	Mon, 17 Jan 2022 20:56:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A85DF1917
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E79B18BA;
+	Mon, 17 Jan 2022 23:09:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E79B18BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642449467;
-	bh=6dJs5Td9H1OGFxn++y9iuILJz9WYYb5T5EY5km1jwA0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=K+7aB9eNYqbdShGO4xvdclzOuxVW7Qi9r8vx0vAA4n++WJwkXhfRn7AwWXHI6I79F
-	 20/n8M5Yoy1n+t8MAVCyC4m7sC7OQJLFH5PXfcK2SbcBJ4IhN/7JqRTYN+kVYO7kBd
-	 eCLeLrOIgs8ttn+GBdX/hHsn8OAy0/fcfC8qesQY=
+	s=default; t=1642457420;
+	bh=tOGpxueevZIK3fo8Y0MnhBS1efoj2Na5yalUvbRyw5w=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LevXN8KXh+O5lXmMtPnW2A0TfDdI3+mK0DtWnsWMEs6vwrN9kjpIYsmD4Pb65UBFZ
+	 5clWjQ5817RvjWIumCUCzaaJTwA27sCXyUkopKigyR7TMsQrKZ2cpPp5xAUIygA3Ne
+	 APdo1j2XONklfp6Yqq2m/ad4PM2o5RsrOeV3KCrI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11081F80254;
-	Mon, 17 Jan 2022 20:56:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B75B8F800CE;
+	Mon, 17 Jan 2022 23:09:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3369F80249; Mon, 17 Jan 2022 20:56:34 +0100 (CET)
+ id 6BDA2F80249; Mon, 17 Jan 2022 23:09:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 765B4F800EB
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 20:56:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 765B4F800EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="kbzExjsp"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="IoKUbUfl"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 86BC6212BB;
- Mon, 17 Jan 2022 19:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642449391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VMmfVtWZfJayBoRg9IT/rKNycU3qQzjET9EY7uXPW80=;
- b=kbzExjsp4JpeHHwIZRJCubyF/IB1E/jmZSzeeILWAnQH75/TrSKIkX74WmASeiVmpn5j0b
- hYDbjjAU6EWNB287GSpgmzFMmPDLrQfUA6QaUP12xZqZCMi3vm+3npNuDXdwWjslx5Z16T
- b9JchkTF2qrH3GZiAWqLpKUcBYBjFiQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642449391;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VMmfVtWZfJayBoRg9IT/rKNycU3qQzjET9EY7uXPW80=;
- b=IoKUbUflFJ6ZUB0IbLwWutrHc8uD1YJs4aDa5zqZ0YgZQ83wjCIxiIon5vDtG3qOTxXi8o
- 3fbo1HrBdYEh5zBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 70B04A3B84;
- Mon, 17 Jan 2022 19:56:31 +0000 (UTC)
-Date: Mon, 17 Jan 2022 20:56:31 +0100
-Message-ID: <s5hlezeyw40.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: soc-pcm: use GFP_ATOMIC in
- dpcm_create_debugfs_state()
-In-Reply-To: <bbe18490-fba4-9307-fe5f-b02c00433d07@linux.intel.com>
-References: <ed322b8821fa787907c1a4cce879564d1281b69d.1642331884.git.christophe.jaillet@wanadoo.fr>
- <s5hwniy21cl.wl-tiwai@suse.de>
- <bbe18490-fba4-9307-fe5f-b02c00433d07@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C56EF800CE
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 23:09:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C56EF800CE
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1n9aBO-0003hF-SZ; Mon, 17 Jan 2022 23:08:58 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1n9aBC-00Atjv-3H; Mon, 17 Jan 2022 23:08:45 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1n9aBB-0001oV-0v; Mon, 17 Jan 2022 23:08:45 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>
+Subject: [PATCH] ALSA: hda: cs35l41: Make cs35l41_hda_remove() return void
+Date: Mon, 17 Jan 2022 23:00:55 +0100
+Message-Id: <20220117220055.120955-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2847; h=from:subject;
+ bh=tOGpxueevZIK3fo8Y0MnhBS1efoj2Na5yalUvbRyw5w=;
+ b=owGbwMvMwMV48I9IxdpTbzgZT6slMSQ+fc53Kez7Irkdpxd2RSrZPI2sLO37cCow40We37Fgd72e
+ eJXOTkZjFgZGLgZZMUWWuiItsQkSa/7blSzhhhnEygQyhYGLUwAm4pzFwdAmXtP09Vfc/Ms//1R/kA
+ yLfLSh3k92+l5GhQYvQRtFY7bGoj1vD/RE/I0vT/rZt3mr6q3n67obEv6ab9542vmIgWpy0aqZPw14
+ Ytv3Vj78ULpUwOLCyv5qo5jpdQ7r13stOfcr5V/kyq754RtVlbO3VXg0aHg4mE5QC+ufZGHM+WGZyY
+ 9PWaEFW6RCk3JCNkbKH/qWrRyqbvw5/bV00YufiVv7fh8+83Phs/SCWLY3DywqYxUNkndYKMtmWwpM
+ +zTd2WbPlJSS6Gz/s5+LOmwkfcL7BQQ+mvmpKPh+i70TrGm+NFT8dIZv3zbpf2EWzH+cH8b3P8zf5r
+ zUQujsNLV5jy/frLl8O6ttMdtHAA==
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,77 +93,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 17 Jan 2022 18:11:42 +0100,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> 
-> On 1/17/22 2:49 AM, Takashi Iwai wrote:
-> > On Sun, 16 Jan 2022 12:18:17 +0100,
-> > Christophe JAILLET wrote:
-> >>
-> >> The commit below states that dpcm_be_connect() may be called from atomic
-> >> context. It changes a GFP_KERNEL into a GFP_ATOMIC to deal with it.
-> >>
-> >> Another memory allocation is done in dpcm_create_debugfs_state() which is
-> >> called by dpcm_be_connect(). Also use GFP_ATOMIC there to be consistent
-> >> and be compliant with atomic context.
-> >>
-> >> Fixes: d8a9c6e1f676 ("ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure")
-> >> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> >> ---
-> >> Not clear to me how dpcm_be_connect() can be called from an atomic context,
-> >> though. But better safe than sorry.
-> > 
-> > I don't think this no longer valid for the very latest code.
-> > The commit b7898396f4bb dropped the spurious dpcm_lock spinlock, so
-> > the code path you touched must be always sleepable.
-> > 
-> > Similarly, the commit d8a9c6e1f676 can be reverted now.
-> 
-> Can we really revert d8a9c6e1f676?
-> 
-> We did propagate the non-atomic FE property to the BE, but if both FE
-> and BE are both atomic that constraint would be required, no?
+Up to now cs35l41_hda_remove() returns zero unconditionally. Make it
+return void instead which makes it easier to see in the callers that
+there is no error to handle.
 
-At the kzalloc() call in dpcm_be_connect, there is no spin lock
-involved.  It's merely protected by card->pcm_mutex, instead.  The
-spinlock is applied at the later call with
-snd_soc_pcm_stream_lock_irq() only for the list manipulations.  (See
-it's *_irq(), not *_irqsave(); that means the context being sleepable
-at that point.)  So, we can use GFP_KERNEL safely there.
+Also the return value of i2c and spi remove callbacks is ignored anyway.
 
-GFP_ATOMIC was needed in the past where dpcm_be_connect() itself is
-called in dpcm_lock spinlock.  It was removed recently.
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ sound/pci/hda/cs35l41_hda.c     | 4 +---
+ sound/pci/hda/cs35l41_hda.h     | 2 +-
+ sound/pci/hda/cs35l41_hda_i2c.c | 4 +++-
+ sound/pci/hda/cs35l41_hda_spi.c | 4 +++-
+ 4 files changed, 8 insertions(+), 6 deletions(-)
 
+diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
+index 30b40d865863..ce3782826830 100644
+--- a/sound/pci/hda/cs35l41_hda.c
++++ b/sound/pci/hda/cs35l41_hda.c
+@@ -508,7 +508,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ }
+ EXPORT_SYMBOL_GPL(cs35l41_hda_probe);
+ 
+-int cs35l41_hda_remove(struct device *dev)
++void cs35l41_hda_remove(struct device *dev)
+ {
+ 	struct cs35l41_hda *cs35l41 = dev_get_drvdata(dev);
+ 
+@@ -517,8 +517,6 @@ int cs35l41_hda_remove(struct device *dev)
+ 	if (!cs35l41->vspk_always_on)
+ 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
+ 	gpiod_put(cs35l41->reset_gpio);
+-
+-	return 0;
+ }
+ EXPORT_SYMBOL_GPL(cs35l41_hda_remove);
+ 
+diff --git a/sound/pci/hda/cs35l41_hda.h b/sound/pci/hda/cs35l41_hda.h
+index 76c69a8a22f6..8ecaddf5f132 100644
+--- a/sound/pci/hda/cs35l41_hda.h
++++ b/sound/pci/hda/cs35l41_hda.h
+@@ -64,6 +64,6 @@ struct cs35l41_hda {
+ 
+ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int irq,
+ 		      struct regmap *regmap);
+-int cs35l41_hda_remove(struct device *dev);
++void cs35l41_hda_remove(struct device *dev);
+ 
+ #endif /*__CS35L41_HDA_H__*/
+diff --git a/sound/pci/hda/cs35l41_hda_i2c.c b/sound/pci/hda/cs35l41_hda_i2c.c
+index 4a9462fb5c14..d4240b8ded10 100644
+--- a/sound/pci/hda/cs35l41_hda_i2c.c
++++ b/sound/pci/hda/cs35l41_hda_i2c.c
+@@ -32,7 +32,9 @@ static int cs35l41_hda_i2c_probe(struct i2c_client *clt, const struct i2c_device
+ 
+ static int cs35l41_hda_i2c_remove(struct i2c_client *clt)
+ {
+-	return cs35l41_hda_remove(&clt->dev);
++	cs35l41_hda_remove(&clt->dev);
++
++	return 0;
+ }
+ 
+ static const struct i2c_device_id cs35l41_hda_i2c_id[] = {
+diff --git a/sound/pci/hda/cs35l41_hda_spi.c b/sound/pci/hda/cs35l41_hda_spi.c
+index 77426e96c58f..d63c487bc3a9 100644
+--- a/sound/pci/hda/cs35l41_hda_spi.c
++++ b/sound/pci/hda/cs35l41_hda_spi.c
+@@ -30,7 +30,9 @@ static int cs35l41_hda_spi_probe(struct spi_device *spi)
+ 
+ static int cs35l41_hda_spi_remove(struct spi_device *spi)
+ {
+-	return cs35l41_hda_remove(&spi->dev);
++	cs35l41_hda_remove(&spi->dev);
++
++	return 0;
+ }
+ 
+ static const struct spi_device_id cs35l41_hda_spi_id[] = {
 
-Takashi
+base-commit: 0c947b893d69231a9add855939da7c66237ab44f
+-- 
+2.34.1
 
-> 
-> 
-> > 
-> > thanks,
-> > 
-> > Takashi
-> > 
-> >> ---
-> >>  sound/soc/soc-pcm.c | 2 +-
-> >>  1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> >> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> >> index 7abfc48b26ca..1a536a2b9dc3 100644
-> >> --- a/sound/soc/soc-pcm.c
-> >> +++ b/sound/soc/soc-pcm.c
-> >> @@ -212,7 +212,7 @@ static void dpcm_create_debugfs_state(struct snd_soc_dpcm *dpcm, int stream)
-> >>  {
-> >>  	char *name;
-> >>  
-> >> -	name = kasprintf(GFP_KERNEL, "%s:%s", dpcm->be->dai_link->name,
-> >> +	name = kasprintf(GFP_ATOMIC, "%s:%s", dpcm->be->dai_link->name,
-> >>  			 stream ? "capture" : "playback");
-> >>  	if (name) {
-> >>  		dpcm->debugfs_state = debugfs_create_dir(
-> >> -- 
-> >> 2.32.0
-> >>
-> 

@@ -2,65 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5EB249041A
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 09:42:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4589490463
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 09:50:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E326173C;
-	Mon, 17 Jan 2022 09:41:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E326173C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 392411799;
+	Mon, 17 Jan 2022 09:50:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 392411799
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642408947;
-	bh=KEtz6kFsKMKYyb1SwMtrFy+rBZOHcM+2Fn7uK+T+Yh0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642409458;
+	bh=pg77KKDLhcHrqbHIFPT+A9/Ba2ObGFxR+SxALb1akZ4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KFaHwpq/8i/XEEydGd82SDarjhBtI+Ud+pHSDvbCES430+eFj6tyzg/lyzB6ahcP4
-	 kn41ncVlshqXQA+WDYujpInOdfSB9cvoPEOC9NP6//aNt2myYls/WrrPZuaDlLmafX
-	 jygBVKS7Vfa6CF9Zu45BK2o6aGqmTbNIXqmTSpOc=
+	b=uHD1Irj8nWKa3oSQJy8IaYduVj4GYVaCKlTgZsqk7qAuiEb8gimbsQNqCGuUAAmgA
+	 id5KIbuOIKmiUPQOvuO+JNuoDLEZ235sfs5I9uE2/3b68vjOgAupbtSCw7ld0gGKSR
+	 LkD5dQwxQmcNIMlhS4/q2JamtaUJOLO6TaNacQ7M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70CD7F80254;
-	Mon, 17 Jan 2022 09:41:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94730F80254;
+	Mon, 17 Jan 2022 09:49:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 409C9F80249; Mon, 17 Jan 2022 09:41:17 +0100 (CET)
+ id 195C1F80249; Mon, 17 Jan 2022 09:49:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9CA4F80100
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 09:41:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9CA4F80100
-Received: from ip5b412258.dynamic.kabel-deutschland.de ([91.65.34.88]
- helo=diego.localnet)
- by gloria.sntech.de with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <heiko@sntech.de>)
- id 1n9NZP-0006T4-TT; Mon, 17 Jan 2022 09:40:55 +0100
-From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-To: Brian Norris <briannorris@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>
-Subject: Re: [PATCH v2 1/3] arm64: dts: rockchip: Switch RK3399-Gru DP to
- SPDIF output
-Date: Mon, 17 Jan 2022 09:40:54 +0100
-Message-ID: <3970568.xje1Q9F24u@diego>
-In-Reply-To: <CAGXv+5H0-dM28YQj_orS1_14NLcJve8VtO6oLcBiRpJFjaf5KA@mail.gmail.com>
-References: <20220114230209.4091727-1-briannorris@chromium.org>
- <20220114150129.v2.1.I46f64b00508d9dff34abe1c3e8d2defdab4ea1e5@changeid>
- <CAGXv+5H0-dM28YQj_orS1_14NLcJve8VtO6oLcBiRpJFjaf5KA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Lin Huang <hl@rock-chips.com>, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50104F80100
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 09:49:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50104F80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ouMAaen2"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="odQbqVyM"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 3E0C4212C5;
+ Mon, 17 Jan 2022 08:49:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1642409386; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=x7NbE1cz3mCHoBV0xZwgaqW3n2cPIO8g7sgh5GC3ssM=;
+ b=ouMAaen2BzJFYNRkdGsg20x77SJqWQO0U0vl6xOc4mIdOQ81bNIPfqR3aCabNaRetD2NqD
+ SHVXvOI54Zphd/Su4DkKvxHw6eqNTBogmV8LORMfBo3OO5CMOmvRQ9R72w63e+2FxVBxWr
+ 8Rb+pyNfcL4v9iPudqbVCwMg9PmRRRU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1642409386;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=x7NbE1cz3mCHoBV0xZwgaqW3n2cPIO8g7sgh5GC3ssM=;
+ b=odQbqVyMj8V20P/7VblLBVpT/8tyJ0/34fY6CrQVFpgZoh5UDh+ewIUv/2HUHSVljyr0ne
+ TUqHV75XGuBVG1CA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 278BEA3B81;
+ Mon, 17 Jan 2022 08:49:46 +0000 (UTC)
+Date: Mon, 17 Jan 2022 09:49:46 +0100
+Message-ID: <s5hwniy21cl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ASoC: soc-pcm: use GFP_ATOMIC in
+ dpcm_create_debugfs_state()
+In-Reply-To: <ed322b8821fa787907c1a4cce879564d1281b69d.1642331884.git.christophe.jaillet@wanadoo.fr>
+References: <ed322b8821fa787907c1a4cce879564d1281b69d.1642331884.git.christophe.jaillet@wanadoo.fr>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,32 +98,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Am Montag, 17. Januar 2022, 08:44:37 CET schrieb Chen-Yu Tsai:
-> On Sat, Jan 15, 2022 at 7:03 AM Brian Norris <briannorris@chromium.org> wrote:
-> >
-> > Commit b18c6c3c7768 ("ASoC: rockchip: cdn-dp sound output use spdif")
-> > switched the platform to SPDIF, but we didn't fix up the device tree.
-> >
-> > Drop the pinctrl settings, because the 'spdif_bus' pins are either:
-> >  * unused (on kevin, bob), so the settings is ~harmless
-> >  * used by a different function (on scarlet), which causes probe
-> >    failures (!!)
+On Sun, 16 Jan 2022 12:18:17 +0100,
+Christophe JAILLET wrote:
 > 
-> I suppose that means the default pinctrl should be dropped? Or maybe this
-> use case is the outlier. Up to Heiko?
-
-Interesting question. Right now it looks like Gru is the only one using spdif
-in that way, so I'd think dropping the pinctrl here is the "saner" option
-at this time ;-)
-
-I guess we can reevaluate if this becomes more widespread
-
-> > Fixes: b18c6c3c7768 ("ASoC: rockchip: cdn-dp sound output use spdif")
-> > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> The commit below states that dpcm_be_connect() may be called from atomic
+> context. It changes a GFP_KERNEL into a GFP_ATOMIC to deal with it.
 > 
-> Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
+> Another memory allocation is done in dpcm_create_debugfs_state() which is
+> called by dpcm_be_connect(). Also use GFP_ATOMIC there to be consistent
+> and be compliant with atomic context.
 > 
+> Fixes: d8a9c6e1f676 ("ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure")
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> ---
+> Not clear to me how dpcm_be_connect() can be called from an atomic context,
+> though. But better safe than sorry.
+
+I don't think this no longer valid for the very latest code.
+The commit b7898396f4bb dropped the spurious dpcm_lock spinlock, so
+the code path you touched must be always sleepable.
+
+Similarly, the commit d8a9c6e1f676 can be reverted now.
 
 
+thanks,
 
+Takashi
 
+> ---
+>  sound/soc/soc-pcm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 7abfc48b26ca..1a536a2b9dc3 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -212,7 +212,7 @@ static void dpcm_create_debugfs_state(struct snd_soc_dpcm *dpcm, int stream)
+>  {
+>  	char *name;
+>  
+> -	name = kasprintf(GFP_KERNEL, "%s:%s", dpcm->be->dai_link->name,
+> +	name = kasprintf(GFP_ATOMIC, "%s:%s", dpcm->be->dai_link->name,
+>  			 stream ? "capture" : "playback");
+>  	if (name) {
+>  		dpcm->debugfs_state = debugfs_create_dir(
+> -- 
+> 2.32.0
+> 

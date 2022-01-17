@@ -2,100 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F739491007
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 19:06:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3469D4910D0
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jan 2022 20:57:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04FE21911;
-	Mon, 17 Jan 2022 19:05:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04FE21911
+	by alsa0.perex.cz (Postfix) with ESMTPS id A85DF1917;
+	Mon, 17 Jan 2022 20:56:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A85DF1917
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642442807;
-	bh=sr3C5cQceJjxjERCqWF3bWzmLe/ZuRmb0b5q/2wgs+o=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1642449467;
+	bh=6dJs5Td9H1OGFxn++y9iuILJz9WYYb5T5EY5km1jwA0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sXpOkqK/WbSpB7yF2KXKpgQxneVxY1+k9Q5tbBr1t/bp0aAclUKjE2sJ+Z7UiUtRF
-	 f4uVqQCTMhhcV7inhXScM0q5rB/CPPYCpblswU7G236hUsULFVBiDEReC/NAo3nvSb
-	 sZ5b/xDTPtB4IBJxzGWo/c+xMEmpwMe6FovJLUB8=
+	b=K+7aB9eNYqbdShGO4xvdclzOuxVW7Qi9r8vx0vAA4n++WJwkXhfRn7AwWXHI6I79F
+	 20/n8M5Yoy1n+t8MAVCyC4m7sC7OQJLFH5PXfcK2SbcBJ4IhN/7JqRTYN+kVYO7kBd
+	 eCLeLrOIgs8ttn+GBdX/hHsn8OAy0/fcfC8qesQY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70C61F8014B;
-	Mon, 17 Jan 2022 19:05:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11081F80254;
+	Mon, 17 Jan 2022 20:56:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D435DF80249; Mon, 17 Jan 2022 19:05:38 +0100 (CET)
+ id D3369F80249; Mon, 17 Jan 2022 20:56:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3187CF800EB
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 19:05:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3187CF800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 765B4F800EB
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 20:56:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 765B4F800EB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="CF1ojwh8"
-Received: by mail-lf1-x12d.google.com with SMTP id s30so60715734lfo.7
- for <alsa-devel@alsa-project.org>; Mon, 17 Jan 2022 10:05:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:user-agent:references
- :mime-version:content-disposition:in-reply-to;
- bh=tdmQHxjn7EyX8OWtdiBRgoVEAM5RY1oLHJ9+0zFtQPM=;
- b=CF1ojwh86pK3M82SUEWHol8uvjleEFASvHZtUVzoKx3L9dYcvrjd8M9j3ZNd5f/yOq
- QBV1qv5abr8wkixYbt/Gopehe0ulXSbEPA5EFRDC2EOAs7wZiR5kQI2V1QDp5dFoRnkd
- KioKmotveQHYVhyLPoFT6BkkpFA9epL9CIio/f3dgSRugwn6e5u3WYpwuKH0nxajHjU2
- cGdtSI6CzivT7DLiKTrh2xy83QmOOyYFFw6SwOIvzTxd57HWAx99P6BD1+g+OVbtS83+
- 5uEeKAyfoRV7qgLWRTAJSl7S4/CvY2gQsMq5IGNYp09hAvMTinacmLoUYxh1RPVxomsR
- y1Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:user-agent
- :references:mime-version:content-disposition:in-reply-to;
- bh=tdmQHxjn7EyX8OWtdiBRgoVEAM5RY1oLHJ9+0zFtQPM=;
- b=xYBoQ9xFJ27p+SgDRLFrTBejncwsMrVAVBuXhiUrlnEyUouBitaEOfo9qCLGq8DcYL
- Y/6F505IuTWnVLyoZ4G7UCiBfVV2QTwjZiYILnS1UnmLWnOqckvz7YEVtwicQKzka/kT
- Stt1kdo2oBdqfzp+XG1FLTICXGKgMbPzdidIwHoI7PljYhGvXoRJQvTBpMa9/LDV5uRK
- mOrftZ+ST6IsBLDkHdrhsX0zVMXNqxkN2HVty4eZuJEX1VM9sh2hcloANnwKYbJIEcfU
- fdmAhBIEydjF5r4EH0Z80RkZpCRWc+M3D7aLkyAM97FLdcJcEja8q8eVNeQm6KfcaQ3V
- iB8Q==
-X-Gm-Message-State: AOAM532orbEgKoFoNsUcxRz2nKU226rmIR4cG49v0CpEEdXThwoibxoZ
- HUcrdRtbVX5uOtNiYpA9rDm8ezHr6kDb6w==
-X-Google-Smtp-Source: ABdhPJzBduXLtqcJVcc9jMhwGadAFDTIf+f7CQ2dkKbhLRLre8sT+112gzGJCky/2UC6QMrjr/5BkA==
-X-Received: by 2002:a05:651c:1549:: with SMTP id
- y9mr14480440ljp.94.1642442730095; 
- Mon, 17 Jan 2022 10:05:30 -0800 (PST)
-Received: from localhost.localdomain (ntd06459.static.corbina.ru.
- [95.31.14.149])
- by smtp.gmail.com with ESMTPSA id s18sm1041196lfs.23.2022.01.17.10.05.29
- (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
- Mon, 17 Jan 2022 10:05:29 -0800 (PST)
-Date: Mon, 17 Jan 2022 21:11:12 +0300
-From: Alexander Sergeyev <sergeev917@gmail.com>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [PATCH v2 1/1] ALSA: hda/realtek: fix speakers and micmute on HP
- 855 G8
-Message-ID: <20220117181112.bmbjcofdjjpsfgzo@localhost.localdomain>
-User-Agent: mtt
-References: <20220114164904.lgj7yimbei6fmloe@localhost.localdomain>
- <20220114165050.ouw2nknuspclynro@localhost.localdomain>
- <CAAd53p6KXD2mEHgkU_TpTrsU-vQ9Vxdip+6sPfDaVoSOkmaz-g@mail.gmail.com>
- <20220115163208.xmvum6ehqcadonj7@localhost.localdomain>
- <CAAd53p64w38NCo7c0cnKCyjaswa0_Rns-CjWBwOnph3V5J2taQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAAd53p64w38NCo7c0cnKCyjaswa0_Rns-CjWBwOnph3V5J2taQ@mail.gmail.com>
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
- Elia Devito <eliadevito@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Werner Sembach <wse@tuxedocomputers.com>, Hui Wang <hui.wang@canonical.com>,
- Sami Loone <sami@loone.fi>, Cameron Berkenpas <cam@neo-zeon.de>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="kbzExjsp"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="IoKUbUfl"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 86BC6212BB;
+ Mon, 17 Jan 2022 19:56:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1642449391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VMmfVtWZfJayBoRg9IT/rKNycU3qQzjET9EY7uXPW80=;
+ b=kbzExjsp4JpeHHwIZRJCubyF/IB1E/jmZSzeeILWAnQH75/TrSKIkX74WmASeiVmpn5j0b
+ hYDbjjAU6EWNB287GSpgmzFMmPDLrQfUA6QaUP12xZqZCMi3vm+3npNuDXdwWjslx5Z16T
+ b9JchkTF2qrH3GZiAWqLpKUcBYBjFiQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1642449391;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VMmfVtWZfJayBoRg9IT/rKNycU3qQzjET9EY7uXPW80=;
+ b=IoKUbUflFJ6ZUB0IbLwWutrHc8uD1YJs4aDa5zqZ0YgZQ83wjCIxiIon5vDtG3qOTxXi8o
+ 3fbo1HrBdYEh5zBQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 70B04A3B84;
+ Mon, 17 Jan 2022 19:56:31 +0000 (UTC)
+Date: Mon, 17 Jan 2022 20:56:31 +0100
+Message-ID: <s5hlezeyw40.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: soc-pcm: use GFP_ATOMIC in
+ dpcm_create_debugfs_state()
+In-Reply-To: <bbe18490-fba4-9307-fe5f-b02c00433d07@linux.intel.com>
+References: <ed322b8821fa787907c1a4cce879564d1281b69d.1642331884.git.christophe.jaillet@wanadoo.fr>
+ <s5hwniy21cl.wl-tiwai@suse.de>
+ <bbe18490-fba4-9307-fe5f-b02c00433d07@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,27 +100,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jan 17, 2022 at 08:12:08AM +0800, Kai-Heng Feng wrote:
-> If this issue also happens to cold boot it seems to be a BIOS issue.
+On Mon, 17 Jan 2022 18:11:42 +0100,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> 
+> On 1/17/22 2:49 AM, Takashi Iwai wrote:
+> > On Sun, 16 Jan 2022 12:18:17 +0100,
+> > Christophe JAILLET wrote:
+> >>
+> >> The commit below states that dpcm_be_connect() may be called from atomic
+> >> context. It changes a GFP_KERNEL into a GFP_ATOMIC to deal with it.
+> >>
+> >> Another memory allocation is done in dpcm_create_debugfs_state() which is
+> >> called by dpcm_be_connect(). Also use GFP_ATOMIC there to be consistent
+> >> and be compliant with atomic context.
+> >>
+> >> Fixes: d8a9c6e1f676 ("ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure")
+> >> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> >> ---
+> >> Not clear to me how dpcm_be_connect() can be called from an atomic context,
+> >> though. But better safe than sorry.
+> > 
+> > I don't think this no longer valid for the very latest code.
+> > The commit b7898396f4bb dropped the spurious dpcm_lock spinlock, so
+> > the code path you touched must be always sleepable.
+> > 
+> > Similarly, the commit d8a9c6e1f676 can be reverted now.
+> 
+> Can we really revert d8a9c6e1f676?
+> 
+> We did propagate the non-atomic FE property to the BE, but if both FE
+> and BE are both atomic that constraint would be required, no?
 
-I've discussed the problem in more detail [1] before sending the patch. 
-In short, speakers seems to reliably work in live Ubuntu which differs in 
-using initrd with modules vs UEFI stub with built-in drivers in my case 
-(I've tried Ubuntu kernel sources). I've tried using modules as well 
-(modprobe'ing the list of modules which are load by Ubuntu) with no 
-success.
+At the kzalloc() call in dpcm_be_connect, there is no spin lock
+involved.  It's merely protected by card->pcm_mutex, instead.  The
+spinlock is applied at the later call with
+snd_soc_pcm_stream_lock_irq() only for the list manipulations.  (See
+it's *_irq(), not *_irqsave(); that means the context being sleepable
+at that point.)  So, we can use GFP_KERNEL safely there.
 
-It was suggested that there is a timing issue somewhere. I'm opened for 
-ideas to try to debug the problem origins further (to avoid the need in 
-the fixup).
+GFP_ATOMIC was needed in the past where dpcm_be_connect() itself is
+called in dpcm_lock spinlock.  It was removed recently.
 
-> > > If the issue only happen to warm boot, please try reverting commit
-> > > 9d3fcb28f9b9 "Revert "PM: ACPI: reboot: Use S5 for reboot"".
-> > > Many HP systems requires it to have a functional reboot.
->
-> If possible, please still give that commit a try.
 
-Well, the first cold boot (with this commit reverted) didn't have any 
-sound, the same goes for the subsequent reboot.
+Takashi
 
-[1] https://lkml.org/lkml/2022/1/12/221
+> 
+> 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> > 
+> >> ---
+> >>  sound/soc/soc-pcm.c | 2 +-
+> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> >> index 7abfc48b26ca..1a536a2b9dc3 100644
+> >> --- a/sound/soc/soc-pcm.c
+> >> +++ b/sound/soc/soc-pcm.c
+> >> @@ -212,7 +212,7 @@ static void dpcm_create_debugfs_state(struct snd_soc_dpcm *dpcm, int stream)
+> >>  {
+> >>  	char *name;
+> >>  
+> >> -	name = kasprintf(GFP_KERNEL, "%s:%s", dpcm->be->dai_link->name,
+> >> +	name = kasprintf(GFP_ATOMIC, "%s:%s", dpcm->be->dai_link->name,
+> >>  			 stream ? "capture" : "playback");
+> >>  	if (name) {
+> >>  		dpcm->debugfs_state = debugfs_create_dir(
+> >> -- 
+> >> 2.32.0
+> >>
+> 

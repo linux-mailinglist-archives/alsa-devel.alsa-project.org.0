@@ -2,84 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1450849267B
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jan 2022 14:10:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D47D49267D
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jan 2022 14:10:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4B1F186B;
-	Tue, 18 Jan 2022 14:09:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4B1F186B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D81818AF;
+	Tue, 18 Jan 2022 14:10:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D81818AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642511423;
-	bh=UFcL7eT4pvvRixnbE07xQzxfnOJVzQ4grnNc0EulKX4=;
+	s=default; t=1642511451;
+	bh=rCZG1bliEVyohKc1BzCVqMYAnu0fpx5SNg0AUsoLYao=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dOUGa3vQA6bl8F5t8ZEsVnNd3aCsqkFmCON+rq6mlVdUPNz29oHGHhrzjEU1xiHt8
-	 nExIb5uennoE+1+ySfDVb5OgYICU5f2PAhdneTfVT2ZS17SNSwof++XRoMHsrpRd4b
-	 adR2whS0vifrY7aECvRvNXPYlI5j3QYwJ7wbCHW8=
+	b=t9hjfJQMfp144pWtt0OYYlpR5bSaZJCnujyswnrkpYgpXr8LnUDRkxxHqdf1lh8Gx
+	 o3fmI2eK0n6OfNUhHu9wn4Njtfkzb8oNc7iHUwvWXd6YNrFnYGRf5kYzJujgCOxDYC
+	 AnnFGMqkNLIwJj/RUwyK4Tk752yC+goM9k3S8ig4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C3BCF8023B;
-	Tue, 18 Jan 2022 14:09:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F95DF80510;
+	Tue, 18 Jan 2022 14:09:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57833F8023B; Tue, 18 Jan 2022 14:09:16 +0100 (CET)
+ id E4CB0F8050F; Tue, 18 Jan 2022 14:09:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AB8CF800D8
- for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 14:09:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AB8CF800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0859F80100
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 14:09:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0859F80100
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="QCcfXNvi"; 
+ header.b="hOjtlSCf"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="1+XNefK6"
+ header.b="7az3nInm"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 89ED81F3A1;
- Tue, 18 Jan 2022 13:09:09 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 71B482177B;
+ Tue, 18 Jan 2022 13:09:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642511349; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1642511361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IP8dPYQfV66+U/60Z6uwGGTorfNTOANCinaLXZXX9Kk=;
- b=QCcfXNviLSwdRjbmLGGnxrjYIigMTu5dgZf5y7EpXz9DgCmgijDf/b4Ezp8SPPllxCp/E6
- SEUYQPBadmzYZX+WSea9DEFq8911WQBFI17c2M+Jv/XXjbaWpRYv+58QF7m7wdqybk3o2C
- PbhiHQFIevGzhQd4uDahjJyHhpfw5yc=
+ bh=2Z7VHvRne7+AYqh088YVUXY+Oq8RQpw6bzo9mzQftiM=;
+ b=hOjtlSCfWG/o1C+JrRI1HRi6BTVhWlECM7KSyp4JPSxN47UncH2siAmgdTsxaI9qU6zYN6
+ 02QEdRf/aI5TZqeQX49TCbNxekQyJdTfeqyaJQvJKC0pJxv0LmQmWS0kweJzwoY//gObLb
+ nYSBKpFV9jq7Sk7DvOeX9c6tFNt+rBI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642511349;
+ s=susede2_ed25519; t=1642511361;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IP8dPYQfV66+U/60Z6uwGGTorfNTOANCinaLXZXX9Kk=;
- b=1+XNefK6zD0VVUXKqxRdiXzPNtG937taHwTSUVAJg4x4yklMdmbjsBxIDAzKrkX+dN1jrW
- ALLfp9rAkE5Pi4CA==
+ bh=2Z7VHvRne7+AYqh088YVUXY+Oq8RQpw6bzo9mzQftiM=;
+ b=7az3nInmMLfSjRYzQt0U6y51oQiPpxrzGqODr2ZH6wkYTO64NHa3vRLZxfDIv86qw1GND2
+ JFKhQIdcWCgy3GAQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7047FA3B83;
- Tue, 18 Jan 2022 13:09:09 +0000 (UTC)
-Date: Tue, 18 Jan 2022 14:09:09 +0100
-Message-ID: <s5h4k61yyve.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 58E2FA3B8A;
+ Tue, 18 Jan 2022 13:09:21 +0000 (UTC)
+Date: Tue, 18 Jan 2022 14:09:21 +0100
+Message-ID: <s5h35llyyv2.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [PATCH v2 1/6] ALSA: hda: cs35l41: Avoid overwriting register
- patch
-In-Reply-To: <20220117160830.709403-1-tanureal@opensource.cirrus.com>
-References: <20220117160830.709403-1-tanureal@opensource.cirrus.com>
+To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH] ALSA: hda: cs35l41: Make cs35l41_hda_remove() return void
+In-Reply-To: <20220117220055.120955-1-u.kleine-koenig@pengutronix.de>
+References: <20220117220055.120955-1-u.kleine-koenig@pengutronix.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
  patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+ kernel@pengutronix.de, James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,30 +98,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 17 Jan 2022 17:08:25 +0100,
-Lucas Tanure wrote:
+On Mon, 17 Jan 2022 23:00:55 +0100,
+Uwe Kleine-König wrote:
 > 
-> From: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Up to now cs35l41_hda_remove() returns zero unconditionally. Make it
+> return void instead which makes it easier to see in the callers that
+> there is no error to handle.
 > 
-> regmap_register_patch can't be used to apply the probe sequence as a
-> patch is already registers with the regmap by
-> cs35l41_register_errata_patch and only a single patch can be attached to
-> a single regmap. The driver doesn't currently rely on a cache sync to
-> re-apply this probe sequence so simply switch it to a multi write.
+> Also the return value of i2c and spi remove callbacks is ignored anyway.
 > 
-> Fixes: 7b2f3eb492da ("ALSA: hda: cs35l41: Add support for CS35L41 in HDA systems")
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-> ---
-> 
-> V2: Add Fixes tag
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-Applied all 6 patches now.
+Applied now.  Thanks.
 
-At the next time when submitting a patch set, though, please prepare a
-cover letter.
-
-
-thanks,
 
 Takashi

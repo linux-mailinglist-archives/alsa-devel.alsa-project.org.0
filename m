@@ -2,78 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBEEE492C41
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jan 2022 18:25:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE757492C84
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jan 2022 18:36:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DE692C02;
-	Tue, 18 Jan 2022 18:25:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DE692C02
+	by alsa0.perex.cz (Postfix) with ESMTPS id 436382C86;
+	Tue, 18 Jan 2022 18:35:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 436382C86
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642526755;
-	bh=0i0HALl5CElF6itWK4Xy0OfN+GttciYs6AltWZomMco=;
+	s=default; t=1642527400;
+	bh=qMzBU33o1h25dpmtWo89Wxg5l+7hKomR8KeOL5BKubw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u8qMMMxsCRwQoyrWNVMGw0NPgOyoYgYSVsqoQMPmA2DmEZ3Vlwsr/x3SqVhggOC/+
-	 g4wK2Ubl/+rGsAXSEVrPZKXYqAKIlux2ZrDH+dj7b8tjTUdlEQAj/lS+FYUBk8w+fy
-	 0jpDJXmbBTsencURsltNP1HIBwJ7Sd61eYihi1MU=
+	b=m3gbgO03KrazyL5Vqxt3OLHfkJkflxN3+QQOP5PbSwSAYqY4x9Of19o4jhW16JTUT
+	 xWGjeYZ00TWZpXGetQkvqI8So9fCjdhgSioSeaqC4yJbgrE5AsPSOmJi8hx+y8/MeA
+	 IchH1e//74Hi2dulAs2z6eu0nIl77rwGfJsxas8M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF06CF80240;
-	Tue, 18 Jan 2022 18:24:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7E7BF80246;
+	Tue, 18 Jan 2022 18:35:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99436F80100; Tue, 18 Jan 2022 18:24:48 +0100 (CET)
+ id 1EE6CF8023B; Tue, 18 Jan 2022 18:35:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96FB6F80100
- for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 18:24:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96FB6F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3DA5F800D8
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 18:35:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3DA5F800D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rsGEjOwZ"
+ header.b="ptaUXx4y"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AB3F06148F;
- Tue, 18 Jan 2022 17:24:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F2AC340E0;
- Tue, 18 Jan 2022 17:24:35 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 379E16123D;
+ Tue, 18 Jan 2022 17:35:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15DC9C340E0;
+ Tue, 18 Jan 2022 17:35:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642526678;
- bh=0i0HALl5CElF6itWK4Xy0OfN+GttciYs6AltWZomMco=;
+ s=k20201202; t=1642527337;
+ bh=qMzBU33o1h25dpmtWo89Wxg5l+7hKomR8KeOL5BKubw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rsGEjOwZOk5i1sLuSbsh1LxofF510yXoBH/XuBlF892ZaeApOziGnm6+axqdDvfqy
- quLZPPQTCl7hYNaxvNQzn9ORzzbBPmXeRnGIONwl50YNVHEofWgHo754dja+AJRy7b
- EoQ7dVBEwxSmvIj227CcVycHrVwF0Z4X5tP8mcaVN3k6Gip1BZvzMWNPzYo428Cb9o
- saVux0NmrM87yJ6L9vUB+aB+o+Vw8lSbBQ8lW7VaV32fhgmDu5TUds8V2Sv5uLMOTQ
- MLGk3HsK+vN2I9EJh9LN2gKemtBr4MuO5AK6osEbL7GtnaiY2rEjbnzkVZuIeUodk9
- Xfe0dUs0tcruA==
-Date: Tue, 18 Jan 2022 17:24:32 +0000
+ b=ptaUXx4yuwtxtmAf2YCCFHlmgKVe5rLE3JdBPRpYiFe1tK995MGhuRvcSJs3b3tAT
+ IFLklJ15uxxD2KYX03VAkD1RfTIwYuRfV8sTJkQ9e6f9x96Kxcx0uBSeMuKYp4ulxL
+ NGN74ojNX7IYCk3A5ibHMbDm3TVSadNhRUEF9EOjgejsOrysdVcEibKxCpeA/A2+S8
+ hL1ee4vPUzWlCX465p2Ik5yLwjgzq8NKPGHGy34sgusZheKQodnHenInFeso4XEy8q
+ BkXWmC2ASJlfIJ/KIpSD+I7iaM7CrTgYhgYia8z7bt2loFm6xgcTDAirx/r3MQ7oR6
+ /zwU/xoJNTilw==
+Date: Tue, 18 Jan 2022 17:35:31 +0000
 From: Mark Brown <broonie@kernel.org>
-To: cgel.zte@gmail.com
-Subject: Re: [PATCH] sound/soc/samsung: remove unneeded ret variable
-Message-ID: <Yeb30O1vtFp3f+32@sirena.org.uk>
-References: <20220117110357.863990-1-chi.minghao@zte.com.cn>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: amd: fix unmet dependency on GPIOLIB for
+ SND_SOC_DMIC
+Message-ID: <Yeb6YzIugFSmidQY@sirena.org.uk>
+References: <20220117041528.59958-1-julianbraha@gmail.com>
+ <Yeb0n9AVXeVzBHrT@sirena.org.uk>
+ <26ec72a7-effa-7553-fc0f-4e016b651c09@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="n97Ndc2+f45Gv264"
+ protocol="application/pgp-signature"; boundary="bBU/pd3VrGlA9S/Q"
 Content-Disposition: inline
-In-Reply-To: <20220117110357.863990-1-chi.minghao@zte.com.cn>
+In-Reply-To: <26ec72a7-effa-7553-fc0f-4e016b651c09@linux.intel.com>
 X-Cookie: Do YOU have redeeming social value?
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>,
- krzysztof.kozlowski@canonical.com, tiwai@suse.com,
- Minghao Chi <chi.minghao@zte.com.cn>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ AjitKumar.Pandey@amd.com, linux-kernel@vger.kernel.org,
+ fazilyildiran@gmail.com, tiwai@suse.com, lgirdwood@gmail.com,
+ Vijendar.Mukunda@amd.com, Julian Braha <julianbraha@gmail.com>,
+ tanureal@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,36 +93,41 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---n97Ndc2+f45Gv264
+--bBU/pd3VrGlA9S/Q
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jan 17, 2022 at 11:03:57AM +0000, cgel.zte@gmail.com wrote:
-> From: Minghao Chi <chi.minghao@zte.com.cn>
->=20
-> Return value from io_remap_pfn_range() directly instead
-> of taking this in another redundant variable.
+On Tue, Jan 18, 2022 at 11:21:50AM -0600, Pierre-Louis Bossart wrote:
+> On 1/18/22 11:10 AM, Mark Brown wrote:
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+> > Why is this a good fix and not removing the dependency on gpiolib from
+> > DMIC?  While a DMIC *can* use a GPIO it's not something that's an
+> > intrinsic requirement and it's entirely optional in the code.
 
---n97Ndc2+f45Gv264
+> We also have similar 'depends on GPIOLIB' for Intel boards that are not
+> really useful. see e.g. 4262ddc2ad63 ('ASoC: Intel: boards: add explicit
+> dependency on GPIOLIB when DMIC is used'). IIRC we had this discussion
+> before about doing a larger cleanup.
+
+At first glance it's just that the gpiolib dependency on the DMIC driver
+is spurious and should be deleted, the code looks fine and I'd not
+expect any need for an actual dependency (but I'm out of office this
+week so probably not going to actually poke at things properly right
+now).
+
+--bBU/pd3VrGlA9S/Q
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHm99AACgkQJNaLcl1U
-h9CdiQf/cnwAHPfUpdi2ZcXMAIQm5U0l8eYevcDqjxNLufpObRVWCnvxnC8ifOq9
-5f9LNKmNG5ZHg1NL6s78jKmIECpU1eltowb+52BCOkTX11QPrAx29q6PllczRWqX
-PSmDJTkAqNLC6RFX8Z6xD06xiNfRwapsZT3Ywmo/AQcAySKceNi4gEz7POTHWfZl
-Hl06im/X/knMu3j9gg0gJ9LWgScmXyWKCN1fShKFOWI0C0eGYtV8/KmE/ITjJ0q5
-KsUBQR4ZKNz+7xou/azWgCTj+NVB7WzB7OfZnd7VrAVsG5mThW+ALsFd2dm3ACkO
-P95hTOdPbff+pteD40441nxhPgbKXQ==
-=Y7G+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHm+mMACgkQJNaLcl1U
+h9CyEgf7B4or95KreNOOC9KGSpHw3O2RfRdk8iBHMJYbjN4fPEMZ7C1kyER7j3F4
+DvTXfw5BTamOl04W1YNmP6xms/S2OZ6Jxc+p/wTyQEKS64GRl9t8SWX090V3kUUo
+ggwCXzb1TYG4Pb4DqpeQrCI34UbhSDa1twH73P9YBg9VtEIw0Hw9drxa8dZE22As
+HFiidQGiTd89jhY/omGjudeFdCTutSaE+ROL4FZHK3Y4X+3eubptlbL6M2f9jbhw
+3TCz/o0ZP4rUvu09r7CDutmHNyavRNLhfv3fz9UouO8aVMgyPJGOerehK8bhjOTc
+3Rey2MR3FItXaOIt0R1UrbVxkMq+ww==
+=3kwX
 -----END PGP SIGNATURE-----
 
---n97Ndc2+f45Gv264--
+--bBU/pd3VrGlA9S/Q--

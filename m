@@ -2,99 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25C5B492E5B
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jan 2022 20:21:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D085492EA7
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jan 2022 20:46:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7F372DC3;
-	Tue, 18 Jan 2022 20:20:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7F372DC3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F4422D6B;
+	Tue, 18 Jan 2022 20:45:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F4422D6B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642533673;
-	bh=jOpojd0mgAkjmzJrEO+NDBmnd0ILTUqZvJZakLfD5Io=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ypk6YgJDba/OEU7x4FJvqneiVEgmQUN+SI5mDariO5QbR7V0TV9djGXB+YrqB4Rkw
-	 D8tTu78IRkDZ5dcg861ZYjDZVw4TGWS9bBLAotadygN7uOi2dmqIVQxRNU3RDTS6Cu
-	 /POtELK6TSWMdRSvN2nvKW/4uZpWfw8Kls5WQxpQ=
+	s=default; t=1642535170;
+	bh=a+8nXEscwk5U+EQ/yHPI1AVDjSoeebuYi1TNm/r3MGM=;
+	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ja1K05+acGrglr3HkZGrd17dQ4cerpaPeSeEAetvqclQCF4SRedwsBaZme1Oy4+BA
+	 4Jd2HhWcC5YnXh6GncXAq3XyTJFh9WbdaAjJ+IiUipq2qFsPZqT5KIsZmxeVtXYtmt
+	 RUbZqsm+VP3BKBBhuUetOnriOmUJdZIEWDfRAArQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BEF3F80240;
-	Tue, 18 Jan 2022 20:20:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B21E5F80240;
+	Tue, 18 Jan 2022 20:45:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8085F8023B; Tue, 18 Jan 2022 20:20:06 +0100 (CET)
+ id 3C185F8023B; Tue, 18 Jan 2022 20:45:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=KHOP_HELO_FCRDNS, PRX_BODY_60, 
+ SPF_HELO_NONE, SPF_NONE, UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relay.hostedemail.com (relay027.a.hostedemail.com
+ [64.99.140.27])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C3BFF800D8
- for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 20:20:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C3BFF800D8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Mu2zb2nQ"
-Received: by mail-ot1-x32e.google.com with SMTP id
- g1-20020a9d6481000000b00592d01f2b6eso21594729otl.5
- for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 11:20:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=BvmlvJqHTAtiyO3Rnq+Cdde2R9GjFRIjLYRFc4d/bEM=;
- b=Mu2zb2nQPs587kAoUz0spMWFm6XIQ7h/BboyryQcn3BZr6yCKKYTCykpcssxif7InB
- aQJGQwjlqzNxXWaJy9VYYWmzOUAbHfxrVGtinSSgNc73NNjypVL8NYSMqZYzj/evnaQl
- ZhF5FLGcaZDahdmbUgBA7CJQcGyW83OQ8d3kv8nEbOAeWifMufjMXKKjYyrfXyquBMFN
- ICVJ7giElonL4dnKtr/s7L+b0rbzj1ejVfhu8Q8DQ0G9ITtWX9hpkhkB4dBAPHeWjZfI
- 0L6X6N9h5cPy4aMj/Rxr7NlreU1u/80M/0o+NjccR7ZX8LM1Q0aD6rP0l5T4TMukRjPY
- 9WcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=BvmlvJqHTAtiyO3Rnq+Cdde2R9GjFRIjLYRFc4d/bEM=;
- b=zaFR+Dj9lShCImfAzx8pgxzxLHd5eZY3KIVNlwEvl83h+wZzGCzMTKQSsBGw1L34PN
- FdjUbtAryx8Ndb1g+ede9/j5wZ5XagT1Lj/I/aapgBIM2n5omf5EO/xfSUHMgPWPWW5E
- sAgxMxg0mCIaCHRkZIJBl98dQKM0SRjfioPa/q4YCW1K5WAmXoqumsibNEUKVR/KS9do
- aucDLmyEyF4jlX6TFcTXP+YIWGkUxFy5WpsPCARs7mEHzrCaCZVR6MARF+z6H9UJ2TU8
- ei+h687rbd/FaHYTz1DyMW5uH6zX4TmzHd6NOl181jleWrMAfGszXvQFUQsUolv+u3CN
- 1kWQ==
-X-Gm-Message-State: AOAM530xdnIhl2WYj+2SU5tJZadXl6uJjrpzVJA3agtv1rEt75Rky8/7
- s5Sy/mIxSPg3vWBRremKSro=
-X-Google-Smtp-Source: ABdhPJwJk7CsbWV6X10gQBoTtCrlC4eHsLjeXKJWvuYHB8eoXq0oJ+s3iPJMZO0N+IdCwZ6zpQYZPQ==
-X-Received: by 2002:a05:6830:110d:: with SMTP id
- w13mr20991875otq.353.1642533598666; 
- Tue, 18 Jan 2022 11:19:58 -0800 (PST)
-Received: from geday ([2804:7f2:8006:2ed4:dd1b:ebb9:4bfc:fcb3])
- by smtp.gmail.com with ESMTPSA id y5sm443773oix.30.2022.01.18.11.19.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Jan 2022 11:19:58 -0800 (PST)
-Date: Tue, 18 Jan 2022 16:20:07 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Nandakumar Edamana <nandakumar@nandakumar.co.in>
-Subject: Re: Behringer UMC202HD issues and a partial solution
-Message-ID: <YecS5xgtI4Kzbmav@geday>
-References: <YeB2zEnPlwVEKbTI@geday>
- <e1a7d67d-9862-3085-4e01-091ca443d2df@nandakumar.co.in>
- <YeDw89KZOh4yG7c8@geday>
- <e30962b0-931c-83b4-12fb-aa5e377b4f4d@nandakumar.co.in>
- <YeEp5xUjf1DAeGTY@geday>
- <2137c7e3-805b-7371-6042-1c2d5f61e302@nandakumar.co.in>
- <YeH5FlQzM9PNm6s0@geday>
- <5fba3e63-6fd2-de1c-1564-ac6b8870e730@nandakumar.co.in>
- <YeNuSip2RcH4DlV+@geday>
- <7a505959-3111-ffaa-7e03-3d9edcf03a4d@nandakumar.co.in>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F578F80100
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 20:44:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F578F80100
+Received: from omf03.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay07.hostedemail.com (Postfix) with ESMTP id 6D3FC20942
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 19:44:48 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: dag@bakke.com) by
+ omf03.hostedemail.com (Postfix) with ESMTPA id B0E7B60011
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 19:44:32 +0000 (UTC)
+Message-ID: <c226039f-b756-8d45-6049-510f73230b66@bakke.com>
+Date: Tue, 18 Jan 2022 20:44:45 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7a505959-3111-ffaa-7e03-3d9edcf03a4d@nandakumar.co.in>
-Cc: alsa-devel@alsa-project.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+To: ALSA development <alsa-devel@alsa-project.org>
+Content-Language: en-US
+From: Dag B <dag@bakke.com>
+Subject: [PATCH, RFC] Enable S/PDIF output on Intel Hades Canyon NUC
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: j7qfyimqy6s1o4d4qoyayctjo7hb9h3m
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: B0E7B60011
+X-Session-Marker: 6461674062616B6B652E636F6D
+X-Session-ID: U2FsdGVkX18PdrjnQpoX9JnXUPzDlScfJXYQA+wotxM=
+X-HE-Tag: 1642535072-392628
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,73 +75,128 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jan 18, 2022 at 04:50:12PM +0530, Nandakumar Edamana wrote:
-> I feel like I'm doing something wrong with the build and install 
-> process. Maybe it's been the case for the last couple of days, in which 
-> case I'm terribly sorry for the incorrect test results.
-> 
-> The problem is, I don't get any printk() outputs at all. I'd given `echo 
-> "7" > /proc/sys/kernel/printk`, and I even added a usb_audio_dbg() line, 
-> which didn't get printed either.
-> 
-> Then I saw this:
-> 
-> $ find /lib/modules/ -name 'snd-usb-audio.ko'|xargs ls
-> ...
-> /lib/modules/5.15.13/extra/usb/snd-usb-audio.ko
-> /lib/modules/5.15.13/kernel/sound/usb/snd-usb-audio.ko
-> ...
-> 
-> modprobe is using the kernel/ version while my commands were installing 
-> the extra/ version.
-> 
-> Then I used the following, which also installed the extra/ version:
-> sudo make -C /lib/modules/5.15.13/build M=sound modules_install
-> 
-> Are these two versions supposed to exist? What is the solution? Telling 
-> the kernel build system to choose the correct location or configuring 
-> modprobe or depmod or something? I tried to look it up, but didn't find 
-> any official recommendation.
+Hi.
 
-Yes, it will install on extra/ if you are building with the M=sound/usb
-option. I guess the 'official' solution is to use the INSTALL_MOD_PATH
-environment variable.
 
-But what I do instead is I overwrite
-/lib/modules/<kernel_version>/kernel/sound/usb/snd-usb-audio.ko with the newly
-built one, and then I run depmod.
 
-> 
-> Anyway, I ran this:
-> 
-> # Because I have space constraints
-> # find /lib/modules/5.15.13/ -name '*.ko' -exec strip --strip-unneeded {} +
-> # update-initramfs -u -k 5.15.13
-> 
-> That updated the extra/ version of snd-usb-audio. But even after a 
-> reboot, this is what I get:
-> 
-> # modprobe -r -v snd-usb-audio
-> rmmod snd_usb_audio
-> rmmod snd_usbmidi_lib
-> # modprobe -v snd_usb_audio dyndbg==p
-> insmod /lib/modules/5.15.13/kernel/sound/usb/snd-usbmidi-lib.ko
-> insmod /lib/modules/5.15.13/kernel/sound/usb/snd-usb-audio.ko index=-2
-> index=-2 index=-2 dyndbg==p
-> # dmesg |grep 'implicit:'
-> 
-> Another thing is, even though I'd commented out my clock workaround, I'm 
-> not getting any clock-related warning at all (I'm sure those went away 
-> after I edited clock.c, and then performed a build+install).
+The current snd-hda-intel/snd_hda_codec_realtek combo in the Linux kernel
+does not appear to enable the S/PDIF (toslink, iec958) port on Intel's Hades
+Canyon NUC. None of the current models/quirks changes this. To my knowledge.
+(The physical port in question is a minijack/mini toslink combo port.)
 
-I noticed that on your dmesg logs, that the warning was nowhere to be
-found.
+I have found a number of people having  the same issue with S/PDIF under
+Linux, on this particular hardware. None of these people reporting being
+able to find a solution, apart from a warm reboot into Linux from Windows.
+Until ...
+https://www.insanelymac.com/?app=core&module=system&controller=content&do=find&content_class=forums_Topic&content_id=339291&content_commentid=2688953
 
-Thank you,
-Geraldo Nascimento
 
-> 
-> -- 
-> Nandakumar Edamana
-> https://nandakumar.org
-> 
+So. cyber4o claims the BIOS is wrong, and came up with the patch=
+solution first, then a modification to   sound/pci/hda/patch_realtek.c
+to avoid having to boot to windows first. (IIUIC). I have been able to
+employ this solution and get the optical output enabled.
+
+
+I have (until now) used  model=dell-headset-multi  to enable my headphones
+with (on-wire) microphone in the front jack. (Kudos to arch-linux docs)
+The suggested fix for the missing optical out didn't cover headset config,
+so some modifications were needed. I'll freely admit to have very limited
+knowledge of what I am doing. Monkey see, monkey do.
+
+Anyways: I took cyber4o's solution and chained in the dell-headset-multi
+fixup. I now have optical output, my headset and on-wire microphone works.
+My current patch is below, and is purely intended as an illustration of
+how to make this work.
+
+I would be very happy if someone with an actual clue took the
+patch below and beat it into shape acceptable for inclusion in the kernel.
+Reading the forum post above may be wise, in case I have missed something.
+
+
+Some things which still make me scratch my head:
+- There is a slider named 'Digital' in the 'Capture' tab of alsamixer.
+   Not sure what it does.
+
+- 'Headset Mic Boost', 'Headphone Mic Boost', 'Internal Mic Boost',
+   'Internal Mic Boost 1' all appear in *both* the 'Playback' *and*
+   'Capture' tabs of alsamixer. Is this on purpose? Bug in alsamixer?
+
+- There is no 'Headset' output slider in the 'Playback' tab. I do have
+   'Headphone' and 'Line out', though. And Mic boost for both headset and
+   headphone. Not a problem, just ... 'asymmetrical'?
+
+- Marketing materials name the jack in the rear as
+   'Stereo headphones/TOSLINK combo rear jack'. Can we pretend it doesn't
+   support a microphone (no idea...), and just name it (the copper
+   bits) Line-Out? Less confusion? Again, really no clue about where these
+   strings come from or what the 'correct' action is.
+
+- Inserting the jack in the front does not automatically mute the (optical)
+   output in the back. Independent of the Auto-Mute state. Unsure if this
+   is a corner case not covered by current code or not. Auto-mute only
+   offers Enabled/Disabled here. (And not  'Disabled', 'Speaker Only' and
+   'Line-Out+Speaker'. I propose to mute S/PDIF together with Line Out.)
+
+
+/lib/firmware/nuc.patch:   (loaded by patch= parameter to snd-hda-intel)
+
+[codec]
+0x10ec0700 0x80862073 0
+  
+[pincfg]
+0x1e 0x03441060
+
+
+--- patch_realtek.c.orig    2021-12-10 21:07:29.324951606 -0000
++++ patch_realtek.c    2021-12-14 10:23:18.452173524 -0000
+@@ -4669,6 +4669,12 @@
+      }
+  }
+  
++static void alc700_fixup_nuc_spdif(struct hda_codec *codec,
++                         const struct hda_fixup *fix, int action)
++{
++       snd_hda_override_wcaps(codec, 0x6, 0x611);
++}
++
+  /* Line2 = mic mute hotkey
+   * GPIO2 = mic mute LED
+   */
+@@ -6667,6 +6673,7 @@
+      ALC225_FIXUP_DELL_WYSE_MIC_NO_PRESENCE,
+      ALC225_FIXUP_S3_POP_NOISE,
+      ALC700_FIXUP_INTEL_REFERENCE,
++    ALC700_FIXUP_NUC_SPDIF,
+      ALC274_FIXUP_DELL_BIND_DACS,
+      ALC274_FIXUP_DELL_AIO_LINEOUT_VERB,
+      ALC298_FIXUP_TPT470_DOCK_FIX,
+@@ -6975,6 +6982,12 @@
+          .chained = true,
+          .chain_id = ALC269_FIXUP_THINKPAD_ACPI,
+      },
++        [ALC700_FIXUP_NUC_SPDIF] = {
++                .type = HDA_FIXUP_FUNC,
++                .v.func = alc700_fixup_nuc_spdif,
++        .chained = true,
++        .chain_id = ALC269_FIXUP_DELL1_MIC_NO_PRESENCE,
++        },
+      [ALC269_FIXUP_DELL1_MIC_NO_PRESENCE] = {
+          .type = HDA_FIXUP_PINS,
+          .v.pins = (const struct hda_pintbl[]) {
+@@ -8761,6 +8774,7 @@
+      SND_PCI_QUIRK(0x10cf, 0x1757, "Lifebook E752", ALC269_FIXUP_LIFEBOOK_HP_PIN),
+      SND_PCI_QUIRK(0x10cf, 0x1845, "Lifebook U904", ALC269_FIXUP_LIFEBOOK_EXTMIC),
+      SND_PCI_QUIRK(0x10ec, 0x10f2, "Intel Reference board", ALC700_FIXUP_INTEL_REFERENCE),
++    SND_PCI_QUIRK(0x10ec, 0x2073, "Intel NUC8 Hades Canyon", ALC700_FIXUP_NUC_SPDIF),
+      SND_PCI_QUIRK(0x10ec, 0x118c, "Medion EE4254 MD62100", ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE),
+      SND_PCI_QUIRK(0x10ec, 0x1230, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
+      SND_PCI_QUIRK(0x10ec, 0x1252, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
+@@ -9024,6 +9038,7 @@
+      {.id = ALC298_FIXUP_TPT470_DOCK, .name = "tpt470-dock"},
+      {.id = ALC233_FIXUP_LENOVO_MULTI_CODECS, .name = "dual-codecs"},
+      {.id = ALC700_FIXUP_INTEL_REFERENCE, .name = "alc700-ref"},
++    {.id = ALC700_FIXUP_NUC_SPDIF, .name = "nuc-hc"},
+      {.id = ALC269_FIXUP_SONY_VAIO, .name = "vaio"},
+      {.id = ALC269_FIXUP_DELL_M101Z, .name = "dell-m101z"},
+      {.id = ALC269_FIXUP_ASUS_G73JW, .name = "asus-g73jw"},
+

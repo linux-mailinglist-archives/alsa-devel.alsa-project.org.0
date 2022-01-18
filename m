@@ -2,92 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2BC64928FE
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jan 2022 15:57:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB8F0492990
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jan 2022 16:21:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 951CB18FC;
-	Tue, 18 Jan 2022 15:56:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 951CB18FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77DF01A16;
+	Tue, 18 Jan 2022 16:20:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77DF01A16
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642517833;
-	bh=XdEmsyrkQ6TYYClvWfs91eyvLy3IgK9UvUTj1n6RDdM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642519264;
+	bh=QUuNFrE7g4eNQv74eurDTHIoeO53a7VroakpVdBCYJA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E+Vj9VGiRIOweZza7rRmU/0MxKiB3+luGtIlWqqp+m3UR15xgE/Q8ZktQzeg4IVc9
-	 eQtQ1tS/JGWW4AM4oXkIzAdhN6L53AeTw/EVPouhi5kHBjTErpbpAIvejfhHdo81A3
-	 h75z7LO5PyZWNgTU8xgn9ccKrggJFTV3DqrPUe/o=
+	b=JqQVQiTtDYUHJs28KQjERfpgA0iif2aUkITrg1+Oqu3dW/Ry7KX4SiCJHFADjdxVX
+	 f54C9IQQ+7yxD3i58pIjoOpGcltR2t/UFaSie/o/rDqAv0p2TvfmTWAAv7uaVoWctE
+	 59JhXLXvb4th5IXKdArENfN8ACi31e3jJEextgmY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1214F8053C;
-	Tue, 18 Jan 2022 15:54:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07FA3F80246;
+	Tue, 18 Jan 2022 16:19:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A017F80534; Tue, 18 Jan 2022 15:53:57 +0100 (CET)
+ id 1B591F8023B; Tue, 18 Jan 2022 16:19:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ACCF1F80524
- for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 15:53:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACCF1F80524
+ by alsa1.perex.cz (Postfix) with ESMTPS id 869F9F800CE
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 16:19:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 869F9F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="awgKG5Yw"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20I6SNEE013849;
- Tue, 18 Jan 2022 08:53:50 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=6+/rANZdRrEfJUZ4alDuEZX8fBBnd5Scc+NJ3tIuJJc=;
- b=awgKG5YwMnl+EnZ4Kcqo0ouhel6wo81CXmHGXha1esHm2ZY6DMzL8YRvblG4HXFkA/JL
- hCN0JgJ7+HFU/QWFSVaNKlkG2+xirMLYY4R5+yFGJ8Nnd4Q3JGIndUW5yavt20Luzr1D
- Kd7mK0qLwDuCMZUfd5laJgdQya4ZNIrdzd4ZUIW7AcTuVamHNimN6kqGLflapBOckO6e
- a4yWc3kyJWIyQOVbIUam+JhfVCGI8udgpEn86h65ynwLO7sfePOM6QmEV1PB16TqrKoB
- aPN0VHw71tQ8iE0iPh/qYmtOntfWR/KWV8WB6MTpq1VwLUzWDqpKng53Or6L5pnroXHi 6g== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dnaxhs9nn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 18 Jan 2022 08:53:50 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 18 Jan
- 2022 14:53:48 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Tue, 18 Jan 2022 14:53:48 +0000
-Received: from LONN2DGDQ73.ad.cirrus.com (unknown [198.90.238.138])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D4E50B13;
- Tue, 18 Jan 2022 14:53:46 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Mark Brown <broonie@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
- Len Brown <lenb@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Mark Gross <markgross@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v3 10/10] ACPI / scan: Create platform device for CS35L41
-Date: Tue, 18 Jan 2022 14:52:51 +0000
-Message-ID: <20220118145251.1548-11-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220118145251.1548-1-sbinding@opensource.cirrus.com>
-References: <20220118145251.1548-1-sbinding@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="nr40nfCM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642519191; x=1674055191;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=QUuNFrE7g4eNQv74eurDTHIoeO53a7VroakpVdBCYJA=;
+ b=nr40nfCMKiDi4cqK8rxdQfgtwoOfIIX1blgsPGyCVzFm7dfija72poXT
+ GNc4uWYJpqHXG9NQub9+Hm+1pB43nwhbS6DZ+9qcDyV/1D4vAwbHcYl3E
+ 36p/S0qTqjMMquUHDYLsBud3hy+yHhvHDAcMOj+ngA1+pYb766UFkwAIy
+ Ujg7N6VbJ4fHEdMtuPJ6zV38JnIJyQua+3VrM1slNmcuCE5RKl0t2CqNm
+ fzpAh9cv+Pw4KUGc34eY87goYaG+LSep4B0Atmp4fid2eaKodZ+wz6Zf+
+ v4Dk0n1fOWGLOuaUAWtGVIK462a9+dNOvs0Ipyi5p0+Dh3TCRGQCXxdEm Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10230"; a="244633446"
+X-IronPort-AV: E=Sophos;i="5.88,297,1635231600"; d="scan'208";a="244633446"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2022 07:19:35 -0800
+X-IronPort-AV: E=Sophos;i="5.88,297,1635231600"; d="scan'208";a="622170107"
+Received: from mdzurick-mobl.amr.corp.intel.com (HELO [10.209.145.208])
+ ([10.209.145.208])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2022 07:19:33 -0800
+Subject: Re: [PATCH] ASoC: Intel: sof_rt5682: add 512FS MCLK clock
+ configuration
+To: Mac Chiang <mac.chiang@intel.com>, alsa-devel@alsa-project.org
+References: <20220118084952.9555-1-mac.chiang@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <6aba2a91-695c-c69b-db0a-59a6b27fb425@linux.intel.com>
+Date: Tue, 18 Jan 2022 09:19:33 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: kwBsGPyxvH_suD7jNMUkws3PVo4gMDXu
-X-Proofpoint-ORIG-GUID: kwBsGPyxvH_suD7jNMUkws3PVo4gMDXu
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- Stefan Binding <sbinding@opensource.cirrus.com>, linux-spi@vger.kernel.org
+In-Reply-To: <20220118084952.9555-1-mac.chiang@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: guennadi.liakhovetski@linux.intel.com, kai.vehmanen@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, broonie@kernel.org, shumingf@realtek.com,
+ brent.lu@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,70 +94,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Lucas Tanure <tanureal@opensource.cirrus.com>
 
-The ACPI device with CSC3551 or CLSA0100 are sound cards
-with multiple instances of CS35L41 connectec by I2C or SPI
-to the main CPU.
 
-We add an ID to the ignore_serial_bus_ids list to enumerate
-all I2C or SPI devices correctly.
+On 1/18/22 2:49 AM, Mac Chiang wrote:
+> codec system clock source support 512FS MCLK synchronous directly, so
+> no need to set PLL configuration when MCLK 24.576MHz.
+> 
+> Suggested-by: Shuming Fan <shumingf@realtek.com>
+> Signed-off-by: Mac Chiang <mac.chiang@intel.com>
+> ---
+>  sound/soc/intel/boards/sof_rt5682.c | 17 +++++++++++------
+>  1 file changed, 11 insertions(+), 6 deletions(-)
+> 
+> diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+> index bd6d2e7dea53..a6efffc14cad 100644
+> --- a/sound/soc/intel/boards/sof_rt5682.c
+> +++ b/sound/soc/intel/boards/sof_rt5682.c
+> @@ -61,7 +61,6 @@
+>  #define SOF_MAX98390_SPEAKER_AMP_PRESENT	BIT(24)
+>  #define SOF_MAX98390_TWEETER_SPEAKER_PRESENT	BIT(25)
+>  
+> -
+>  /* Default: MCLK on, MCLK 19.2M, SSP0  */
+>  static unsigned long sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
+>  					SOF_RT5682_SSP_CODEC(0);
+> @@ -362,6 +361,9 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
+>  	if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT) {
+>  		pll_id = RT5682S_PLL2;
+>  		clk_id = RT5682S_SCLK_S_PLL2;
+> +
+> +		if (pll_in == 24576000)
+> +			clk_id = RT5682S_SCLK_S_MCLK;
 
-Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
----
- drivers/acpi/bus-multi-instantiate.c | 14 ++++++++++++++
- drivers/acpi/scan.c                  |  3 +++
- 2 files changed, 17 insertions(+)
+this case only affects the RT5682s case.
 
-diff --git a/drivers/acpi/bus-multi-instantiate.c b/drivers/acpi/bus-multi-instantiate.c
-index 05bc941a38fd..7a394b671f5a 100644
---- a/drivers/acpi/bus-multi-instantiate.c
-+++ b/drivers/acpi/bus-multi-instantiate.c
-@@ -328,6 +328,17 @@ static const struct bmi_node int3515_data = {
- 	.bus_type = BMI_I2C,
- };
- 
-+static const struct bmi_node cs35l41_hda = {
-+	.instances = {
-+		{ "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
-+		{ "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
-+		{ "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
-+		{ "cs35l41-hda", IRQ_RESOURCE_GPIO, 0 },
-+		{}
-+	},
-+	.bus_type = BMI_AUTO_DETECT,
-+};
-+
- /*
-  * Note new device-ids must also be added to bus_multi_instantiate_ids in
-  * drivers/acpi/scan.c: acpi_device_enumeration_by_parent().
-@@ -336,6 +347,9 @@ static const struct acpi_device_id bmi_acpi_ids[] = {
- 	{ "BSG1160", (unsigned long)&bsg1160_data },
- 	{ "BSG2150", (unsigned long)&bsg2150_data },
- 	{ "INT3515", (unsigned long)&int3515_data },
-+	{ "CSC3551", (unsigned long)&cs35l41_hda },
-+	/* Non-conforming _HID for Cirrus Logic already released */
-+	{ "CLSA0100", (unsigned long)&cs35l41_hda },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, bmi_acpi_ids);
-diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-index 3a92b7bdb91d..6cab6465558d 100644
---- a/drivers/acpi/scan.c
-+++ b/drivers/acpi/scan.c
-@@ -1744,8 +1744,11 @@ static bool acpi_device_enumeration_by_parent(struct acpi_device *device)
- 	 */
- 		{"BSG1160", },
- 		{"BSG2150", },
-+		{"CSC3551", },
- 		{"INT33FE", },
- 		{"INT3515", },
-+	/* Non-conforming _HID for Cirrus Logic already released */
-+		{"CLSA0100", },
- 	/*
- 	 * HIDs of device with an UartSerialBusV2 resource for which userspace
- 	 * expects a regular tty cdev to be created (instead of the in kernel
--- 
-2.25.1
+>  	} else {
+>  		pll_id = RT5682_PLL1;
+>  		clk_id = RT5682_SCLK_S_PLL1;
 
+for the RT5682 we keep using the PLL. Is this intentional?
+
+I also wonder if we can avoid the hard-coding. Can we use e.g.
+
+if (pll_in == params_rate(params) * 512)
+
+?
+
+
+> @@ -369,11 +371,14 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
+>  
+>  	pll_out = params_rate(params) * 512;
+>  
+> -	/* Configure pll for codec */
+> -	ret = snd_soc_dai_set_pll(codec_dai, pll_id, pll_source, pll_in,
+> -				  pll_out);
+> -	if (ret < 0)
+> -		dev_err(rtd->dev, "snd_soc_dai_set_pll err = %d\n", ret);
+> +	/* when MCLK is 512FS, no need to set PLL configuration additionally. */
+> +	if (pll_in != 24576000) {
+
+can we use if (pll_in == pll_out) ?
+
+> +		/* Configure pll for codec */
+> +		ret = snd_soc_dai_set_pll(codec_dai, pll_id, pll_source, pll_in,
+> +					  pll_out);
+> +		if (ret < 0)
+> +			dev_err(rtd->dev, "snd_soc_dai_set_pll err = %d\n", ret);
+> +	}
+>  
+>  	/* Configure sysclk for codec */
+>  	ret = snd_soc_dai_set_sysclk(codec_dai, clk_id,
+> 

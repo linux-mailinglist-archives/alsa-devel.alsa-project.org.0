@@ -2,90 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA9EA4947CE
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:06:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 758094947ED
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:11:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DFB92EF5;
-	Thu, 20 Jan 2022 08:05:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DFB92EF5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 272E93043;
+	Thu, 20 Jan 2022 08:10:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 272E93043
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642662381;
-	bh=T4I+NiZDPfYGwwYatxi7EqmpRFkBFdVZcQEMHPOSpCk=;
+	s=default; t=1642662692;
+	bh=+aAjJqYgCB6wYsQ+TkHIz5BRkQQLBlav51rmak29+GE=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fTYiIa9N+hlzuDjXGQzcRMQfcuk0IYj5lpKWsp00Q6dDkb/KE7pyZKKzBx6EZU1vf
-	 v5KIC4aNLiBVfZNCbJKpBFNO99/WczI9r+xEIZf8+yuRDELjd3Q0sJMLaJg6UKR4GJ
-	 kPzISEB+WB3KXjAyuEkC8XoDaSbHFrtVEZ30oaM8=
+	b=eEDw2WYL1t8Q5Z8itHWNRqrqH1tEcK6dC//WBtk+Oht04rIJDGi3LeGhDAZGUbJCT
+	 a+GXT5+YfWVUuU4AdzVC5JlUVeBiB4glRD/x7fIz8ilt6ITzRdepaw9y9L8JgjHE6L
+	 pKgAop1HNZ4WC21D8O+gLH6UQDVVLjl64i8QcGPA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 254E1F8051E;
-	Thu, 20 Jan 2022 08:03:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7E2BF805BF;
+	Thu, 20 Jan 2022 08:03:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E00D0F801F7; Wed, 19 Jan 2022 08:44:11 +0100 (CET)
+ id A8F4CF801F7; Wed, 19 Jan 2022 09:24:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F757F80128
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 08:44:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F757F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E30FF800F8
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 09:24:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E30FF800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="p+cHoZyZ"
-Received: by mail-pf1-x434.google.com with SMTP id m21so1812344pfd.3
- for <alsa-devel@alsa-project.org>; Tue, 18 Jan 2022 23:44:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=wgsNFzNpSSdccSgxfw+zCKaHdZrvmLN4TxH4pmEqHFM=;
- b=p+cHoZyZ/KxchMwriiVowMDalr/duztSsP8wupwGCXnhLANZc8nlOxi8DRiXRCJMIe
- ThXD3VtztapjDQndPVMlgQCNBGdaB/6GtGter/A53dpnPy0/ro9sY23pR2hrOCNdpJ6x
- A4o4u75fhuW3Mo06+JGLmcZyvqLXji4TLjjrijhdVwv1S53EEBqkn8vl1ndTRxbd3dZz
- uybHANAtOcV/NY4/riEthmOAO/ZD0wmVB13Z8eWzwiHuCL/kM8zjRhZyQ+O10QzOw4WU
- 8T8YqXxpWNqIHjpyLGArRjsnP8Y9EWKTmKSTB1lK98Rd0uAtb5HaP0a2q3DyQSfNmTwM
- RKFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=wgsNFzNpSSdccSgxfw+zCKaHdZrvmLN4TxH4pmEqHFM=;
- b=xWdyDpUWQWDYIGn95x9WpawtzwJ6TYY8/r7rWXpSof9JD9Tl8TRjUZuGO5QR3F5Ipk
- U2vL5uqCas4xt+Yav/te2J4s8Kkh2HP4OZWb1RKOXMN/gUM20QFyFrDxAu1+0d2Z02US
- fDzWUlhqdelxraBlT6DUqKMd2YWe5FFml96eIFrUaJ08r0VePhh3xVhFUxIJZSp2xMeR
- pBcJ6WQuZhqt4VeP+CBom7CZWf3WRptjsD2XM8/hDoAgf4cDKjte5A6k9otffNW/XBXs
- O2TCv9kqVUyLh88b3oTLvkM2/yipRvfMC+H9dpbc4cpLsfwHYHd102ZbRoXWGviKYxaJ
- LmQg==
-X-Gm-Message-State: AOAM5308JjwxWFBblQaPq7cipP7VLFIeliUKGawFcu4qDkaYFXpGuHWX
- srm5lon9RoS2iUaC848bgx+09A==
-X-Google-Smtp-Source: ABdhPJyNKcbiEGUcgkz9zXpAgkBgubu/10nRg7X8eh23rlI2iY9kKxwwNMydTTsODjGuMFGY0jhtqA==
-X-Received: by 2002:a05:6a00:88f:b0:4bc:3b4e:255a with SMTP id
- q15-20020a056a00088f00b004bc3b4e255amr29453525pfj.79.1642578242462; 
- Tue, 18 Jan 2022 23:44:02 -0800 (PST)
-Received: from localhost ([223.184.90.234])
- by smtp.gmail.com with ESMTPSA id g14sm16984301pgp.76.2022.01.18.23.44.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Jan 2022 23:44:01 -0800 (PST)
-Date: Wed, 19 Jan 2022 13:14:00 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="cHtItM4m"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5A4F9B8190B;
+ Wed, 19 Jan 2022 08:24:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35DAC004E1;
+ Wed, 19 Jan 2022 08:24:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1642580689;
+ bh=+aAjJqYgCB6wYsQ+TkHIz5BRkQQLBlav51rmak29+GE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cHtItM4mbfYOPuPhhPbkJhoJxiHZDumIyowKutBRkwdRAonHQ67rICg6LsPDCfHbA
+ QZbjt+9O/l+cvixjJDghPIFQOSzFWgJIJvP8UJlpTRsxxWB39t3m3AvKMSAFq8CBPt
+ bRA3U40sQfvuaUThRuNLKopLBDpeH18K4EpKopH4=
+Date: Wed, 19 Jan 2022 09:24:45 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Rob Herring <robh@kernel.org>
 Subject: Re: [PATCH] dt-bindings: Improve phandle-array schemas
-Message-ID: <20220119074400.rqldtq6wqo73lqqg@vireshk-i7>
+Message-ID: <YefKzYIDUFC3NW7e@kroah.com>
 References: <20220119015038.2433585-1-robh@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20220119015038.2433585-1-robh@kernel.org>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Mailman-Approved-At: Thu, 20 Jan 2022 08:03:34 +0100
+X-Mailman-Approved-At: Thu, 20 Jan 2022 08:03:35 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -112,7 +92,6 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
  Kalle Valo <kvalo@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
  linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Mark Brown <broonie@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
  Thomas Gleixner <tglx@linutronix.de>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -140,7 +119,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 18-01-22, 19:50, Rob Herring wrote:
+On Tue, Jan 18, 2022 at 07:50:38PM -0600, Rob Herring wrote:
 > The 'phandle-array' type is a bit ambiguous. It can be either just an
 > array of phandles or an array of phandles plus args. Many schemas for
 > phandle-array properties aren't clear in the schema which case applies
@@ -162,11 +141,66 @@ On 18-01-22, 19:50, Rob Herring wrote:
 > With this change, some examples need updating so that the bracketing of
 > property values matches the schema.
 > 
+> Cc: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+> Cc: Herbert Xu <herbert@gondor.apana.org.au>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+> Cc: Philipp Zabel <p.zabel@pengutronix.de>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: Georgi Djakov <djakov@kernel.org>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Joerg Roedel <joro@8bytes.org>
+> Cc: Lee Jones <lee.jones@linaro.org>
+> Cc: Daniel Thompson <daniel.thompson@linaro.org>
+> Cc: Jingoo Han <jingoohan1@gmail.com>
+> Cc: Pavel Machek <pavel@ucw.cz>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Wolfgang Grandegger <wg@grandegger.com>
+> Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+> Cc: Andrew Lunn <andrew@lunn.ch>
+> Cc: Vivien Didelot <vivien.didelot@gmail.com>
+> Cc: Florian Fainelli <f.fainelli@gmail.com>
+> Cc: Vladimir Oltean <olteanv@gmail.com>
+> Cc: Kalle Valo <kvalo@kernel.org>
+> Cc: Viresh Kumar <vireshk@kernel.org>
+> Cc: Stephen Boyd <sboyd@kernel.org>
+> Cc: Kishon Vijay Abraham I <kishon@ti.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> Cc: Kevin Hilman <khilman@kernel.org>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: Sebastian Reichel <sre@kernel.org>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
+> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
+> Cc: Zhang Rui <rui.zhang@intel.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Jonathan Hunter <jonathanh@nvidia.com>
+> Cc: Sudeep Holla <sudeep.holla@arm.com>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: linux-ide@vger.kernel.org
+> Cc: linux-crypto@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: dmaengine@vger.kernel.org
+> Cc: linux-pm@vger.kernel.org
+> Cc: iommu@lists.linux-foundation.org
+> Cc: linux-leds@vger.kernel.org
+> Cc: linux-media@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Cc: linux-can@vger.kernel.org
+> Cc: linux-wireless@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: linux-gpio@vger.kernel.org
+> Cc: linux-riscv@lists.infradead.org
+> Cc: linux-remoteproc@vger.kernel.org
+> Cc: alsa-devel@alsa-project.org
+> Cc: linux-usb@vger.kernel.org
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
->  .../devicetree/bindings/opp/opp-v2-base.yaml  |  2 +
->  .../bindings/power/power-domain.yaml          |  4 +
-
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-
--- 
-viresh
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>

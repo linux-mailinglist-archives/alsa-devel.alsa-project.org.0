@@ -2,83 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BBB5493DBC
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 16:54:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68CBD493E55
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 17:31:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4859131C0;
-	Wed, 19 Jan 2022 16:53:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4859131C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08587825;
+	Wed, 19 Jan 2022 17:31:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08587825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642607684;
-	bh=kZZWPR0MKRoCAZHZcyy7NGEq+BuXCfhKLUHknjpRBek=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642609913;
+	bh=NPkrUgRYzcxwa3lnZh2dJ3qyPo1V5StcWneeKtWaOTI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TCotqWZiPhV7JX9wxjmdQC7EhOAINCEXzaqXhr8GEKk7duEFexvKUrdV9q2Ao4DyI
-	 OmnBoo0kYvY0gdBjJ5XGCYz1CGqgV0lGBSEw+HWUGk0hzkklW61gRDpApNNUbzHzHK
-	 Lh5yfFoWAFEA5jRJJ+252ZMxaJvSrLvY25WmRPeI=
+	b=Hj0+GNy4EMiIF/i7Pg71uX9r/MoPQNgaWykLjPNyi0TAuzZU3UCaQzXymFTPW8J7j
+	 MmDpeNOk0KIZKq4XAUyPdHEgYILCg5cdfcOM7rCfTIYvxcOHGISa55rHuCLVUwq/OR
+	 AvbpOWgb5/2dr1PJE4uYw3Al+xCUVrSP9i3flRpE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5643F80517;
-	Wed, 19 Jan 2022 16:53:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71738F80212;
+	Wed, 19 Jan 2022 17:30:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 421C8F8050F; Wed, 19 Jan 2022 16:53:09 +0100 (CET)
+ id AA251F801F7; Wed, 19 Jan 2022 17:30:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A5A2F80100
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 16:53:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A5A2F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id C33A3F800F8
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 17:30:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C33A3F800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="rRzoeejj"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="BgjWbsWA"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 2F2571F38E;
- Wed, 19 Jan 2022 15:53:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642607581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0w/YGeMw2rfUHyjWbkEW3G9jlT+1QxCIpQPum+ksxiU=;
- b=rRzoeejjDJykhS7+MOPtrFJeQSZeSHw/e910Ef51ZBsxMU485hMBn4tEbcnGsYiMfaqR7/
- HXSuW/wbF02Vt7ZrOv0QZ5tjt46Od7+ZLCsLupVfQzcRXz2rTuVPOUdNtH/xIqifdeNQ1a
- lXdkZkHW1VmVpcjxHSEyKr4dL1eKPow=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642607581;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0w/YGeMw2rfUHyjWbkEW3G9jlT+1QxCIpQPum+ksxiU=;
- b=BgjWbsWArQ0PEjQZyhroC8M9mxPfJF0OvM/yi6ReNVzZUsDQoyV9wbhczUla3vh1hJpPSQ
- N2pdLKVghsm8RPAQ==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1C5E0A3B83;
- Wed, 19 Jan 2022 15:53:01 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2 2/2] ASoC: soc-pcm: Move debugfs removal out of spinlock
-Date: Wed, 19 Jan 2022 16:52:49 +0100
-Message-Id: <20220119155249.26754-3-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20220119155249.26754-1-tiwai@suse.de>
-References: <20220119155249.26754-1-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="GMhWu7C3"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6E46661581;
+ Wed, 19 Jan 2022 16:30:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955B2C004E1;
+ Wed, 19 Jan 2022 16:30:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1642609836;
+ bh=NPkrUgRYzcxwa3lnZh2dJ3qyPo1V5StcWneeKtWaOTI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GMhWu7C3B60BdL8/99pPFWzH0CB7LU7Dz7GFXyQtbGWeKeKQJEE+V2fEbRhv/QrJW
+ yYagtUm7pysfgqkJMyR27/xktDwbdWcoif82n5bf4F716uAgvyW4CrM7nnlUKhGZf0
+ FU8zZ8ZvZl+QEyzj+ByrVczubpcuk9CdfXWCIEjg23SntmAfLaHiquJ5KbvTGWQWfn
+ Hr8GUX32FKay/k82RyllkJOyRWhWEFPpRz5SEs7TiLsMcVgix5+RDcoF6No3Mm8HeE
+ dgP9NlrSSG2qLfoDBPumyLb9lbK1A0ADtU3DkLXQ9hZS91Urze/uzDqpkaas6/c5dZ
+ OCMIIrEVF0X5A==
+Date: Wed, 19 Jan 2022 16:30:29 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Drop unnecessary pinctrl properties
+Message-ID: <Yeg8pWYUwWKqOjhe@sirena.org.uk>
+References: <20220119015325.2438277-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pa3KE12yHs9Xnd2D"
+Content-Disposition: inline
+In-Reply-To: <20220119015325.2438277-1-robh@kernel.org>
+X-Cookie: This bag is recyclable.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ David Airlie <airlied@linux.ie>, - <patches@opensource.cirrus.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Sandy Huang <hjc@rock-chips.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-rockchip@lists.infradead.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-gpio@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-input@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,57 +96,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent fix for DPCM locking also covered the loop in
-dpcm_be_disconnect() with the FE stream lock.  This caused an
-unexpected side effect, thought: calling debugfs_remove_recursive() in
-the spinlock may lead to lockdep splats as the code there assumes the
-SOFTIRQ-safe context.
 
-For avoiding the problem, this patch changes the disconnection
-procedure to two phases: at first, the matching entries are removed
-from the linked list, then the resources are freed outside the lock.
+--pa3KE12yHs9Xnd2D
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Fixes: b7898396f4bb ("ASoC: soc-pcm: Fix and cleanup DPCM locking")
-Reported-and-tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/soc/soc-pcm.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+On Tue, Jan 18, 2022 at 07:53:25PM -0600, Rob Herring wrote:
+> For a single pinctrl mode, it is not necessary to define pinctrl
+> properties as the tools always allow pinctrl properties.
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index e8876e65c649..9a954680d492 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1268,6 +1268,7 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
- void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
- {
- 	struct snd_soc_dpcm *dpcm, *d;
-+	LIST_HEAD(deleted_dpcms);
- 
- 	snd_soc_dpcm_mutex_assert_held(fe);
- 
-@@ -1287,13 +1288,18 @@ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
- 		/* BEs still alive need new FE */
- 		dpcm_be_reparent(fe, dpcm->be, stream);
- 
--		dpcm_remove_debugfs_state(dpcm);
--
- 		list_del(&dpcm->list_be);
-+		list_move(&dpcm->list_fe, &deleted_dpcms);
-+	}
-+	snd_soc_dpcm_stream_unlock_irq(fe, stream);
-+
-+	while (!list_empty(&deleted_dpcms)) {
-+		dpcm = list_first_entry(&deleted_dpcms, struct snd_soc_dpcm,
-+					list_fe);
- 		list_del(&dpcm->list_fe);
-+		dpcm_remove_debugfs_state(dpcm);
- 		kfree(dpcm);
- 	}
--	snd_soc_dpcm_stream_unlock_irq(fe, stream);
- }
- 
- /* get BE for DAI widget and stream */
--- 
-2.31.1
+Acked-by: Mark Brown <broonie@kernel.org>
 
+--pa3KE12yHs9Xnd2D
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHoPKQACgkQJNaLcl1U
+h9CK5ggAgSoOi6gEd+9fFCP6FCxOQatzUUojOHSGhmWyvIDZNwu17IQjUqhzZ5Lk
+8Z9Or7iFzVcEVfaKQ0w1HRWHQIrPLjnGtm1pnD26p3iqmdDC/1hDvKb/kd7EjOmF
+NEx6LRQoJL0LQX9I/c8rkwoW5mXpxaBck270IlQAaOI5/iOQFHp2oDn02Csbli0e
+XtJH3S6dPtjKQN/+SC9ruVF3usw6u4Vxi5FNXA1ABQYeKP+4/lyft2SWzGZEShhy
+Kmn6JJCH6fa4Aqbz85d4dpvuG9t9ukvdK8zrRCpsH2xw8AlHDeJtcDG6/LXw5hPG
+u+NgtzFSWl0tPBvoyeSNpNi3YEkbyg==
+=vG1Q
+-----END PGP SIGNATURE-----
+
+--pa3KE12yHs9Xnd2D--

@@ -2,131 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69EB4947FA
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:14:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92DB74947FD
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:14:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AE3430AB;
-	Thu, 20 Jan 2022 08:13:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AE3430AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C142F30B9;
+	Thu, 20 Jan 2022 08:13:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C142F30B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642662855;
-	bh=OLrV/mw6WcIgeLQa2HMwTaMX8b3pt7TE+xb2FHEMCV8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1642662871;
+	bh=GF08vpkm190xhd2MZglKMs0kegjf3G3h7etcD1DGMzA=;
+	h=From:Subject:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tZuY6ODDSOrsXc35nxDS9Ex1DjS+y78JfAb1jiMOYAD3BO5G6b4Sb1augn3Bd2Fdx
-	 BGjnYuB0jOdFWDrMloRtmQLWlKMglAm+45p+m+tIzX5qCe0IGdV0jbfG5JDYRCt6Eo
-	 lAQ1turOioNbzVtlf1YTKZHl/g6tMQDFhdnQ90jI=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21285F805F4;
+	b=bhIqu+Cyld09q8cTLUZr5n9wJ9OdHKlJxk/QBaF/tQHgZB2FcU2KEE8g/ZYnZjjP8
+	 7fIKQENyrQ2fSx+3Z27YhkCRpAZqCAQf2i9mTHE94hOTApyZaRWJ+EGgdnLqD+Y7DR
+	 +rZsNWY0aLRfjq5G7dGRmhj0m6vs6QzFdZ6Qti9U=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F5E7F805F8;
 	Thu, 20 Jan 2022 08:04:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C38FDF801F7; Wed, 19 Jan 2022 16:30:59 +0100 (CET)
+ id 74E62F801F7; Wed, 19 Jan 2022 16:35:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-0.6 required=5.0 tests=NICE_REPLY_A, PRX_BODYSUB_18, 
+ SPF_HELO_NONE, SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mxout02.lancloud.ru (mxout02.lancloud.ru [45.84.86.82])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57D53F800F8
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 16:30:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57D53F800F8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fi2HOJiy"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CB8F1614DE
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 15:30:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B43CC340E5
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 15:30:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642606253;
- bh=OLrV/mw6WcIgeLQa2HMwTaMX8b3pt7TE+xb2FHEMCV8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=fi2HOJiy1XxLSpr2UFKLHavSvFJduA07l7M+QXFmg9r2NyMy5Bd8X8JAaf2ULb8ZE
- 5NqJuKubh53QGHL1fxAGcNIE5Op5HHOSs016xV/PwG6EmuoHEfDr5CTyijop6LqYps
- HOeb/8xFrcuh+QB8jXwenWRqxBBOmI2giBGKpv/r+KcpV3p4oeNxsf1grcJHtvbOli
- QZ1e+6UqZkH60gtfkr+TWcP0oTteQbhdJZJZ1LkrGxZSGSqLo7nmqafirAc/TKj76Y
- vmivmxpWGOHnxDrsj+n++cuGcor6dh5HYkcVsg/PmU8lPYXj8VtPJKUZrdaENoVnMz
- fGNcoBjqp2oZw==
-Received: by mail-ed1-f53.google.com with SMTP id z22so13653446edd.12
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 07:30:53 -0800 (PST)
-X-Gm-Message-State: AOAM531ZCDXtlthahBUum/bbaxcpU2lDnspG5RIP784/E/PatHeD3lKx
- i+wOod7x3M8mrnBllYUYYmWoFG2bEN48EK6ijA==
-X-Google-Smtp-Source: ABdhPJyPYQrXxNSnCkTl5v8yMxjogVTk6EpzYA73WuLgFBNs1oJt1pAj6k4kUcCi7ejRXOlSTI1mdHZMJ5Kr9aWFF9o=
-X-Received: by 2002:aa7:c587:: with SMTP id g7mr27455803edq.109.1642606240687; 
- Wed, 19 Jan 2022 07:30:40 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05652F80100
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 16:34:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05652F80100
+Received: from LanCloud
+DKIM-Filter: OpenDKIM Filter v2.11.0 mxout02.lancloud.ru 759CF2358133
+Received: from LanCloud
+Received: from LanCloud
+Received: from LanCloud
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+Subject: Re: [PATCH 1/2] platform: make platform_get_irq_optional() optional
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
+References: <CAMuHMdWsMGPiQaPS0-PJ_+Mc5VQ37YdLfbHr_aS40kB+SfW-aw@mail.gmail.com>
+ <20220112213121.5ruae5mxwj6t3qiy@pengutronix.de>
+ <Yd9L9SZ+g13iyKab@sirena.org.uk>
+ <29f0c65d-77f2-e5b2-f6cc-422add8a707d@omp.ru>
+ <20220114092557.jrkfx7ihg26ekzci@pengutronix.de>
+ <61b80939-357d-14f5-df99-b8d102a4e1a1@omp.ru>
+ <20220114202226.ugzklxv4wzr6egwj@pengutronix.de>
+ <57af1851-9341-985e-7b28-d2ba86770ecb@omp.ru>
+ <20220117084732.cdy2sash5hxp4lwo@pengutronix.de>
+ <68d3bb7a-7572-7495-d295-e1d512ef509e@omp.ru>
+ <20220118222606.3iwuzbenl7g6oeiq@pengutronix.de>
+Organization: Open Mobile Platform
+Message-ID: <b6b059bd-1491-26e2-9ba4-d34705a7106d@omp.ru>
+Date: Wed, 19 Jan 2022 18:34:53 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-References: <20220119015038.2433585-1-robh@kernel.org>
- <de35edd9-b85d-0ed7-98b6-7a41134c3ece@foss.st.com>
-In-Reply-To: <de35edd9-b85d-0ed7-98b6-7a41134c3ece@foss.st.com>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 19 Jan 2022 09:30:28 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqLzuYxpsNDNPXF1C=kG6HJea650iRzg1YxvNPDToeBC-A@mail.gmail.com>
-Message-ID: <CAL_JsqLzuYxpsNDNPXF1C=kG6HJea650iRzg1YxvNPDToeBC-A@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Improve phandle-array schemas
-To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 20 Jan 2022 08:03:34 +0100
+In-Reply-To: <20220118222606.3iwuzbenl7g6oeiq@pengutronix.de>
+Content-Type: text/plain; charset="windows-1252"
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [192.168.11.198]
+X-ClientProxiedBy: LFEXT02.lancloud.ru (fd00:f066::142) To
+ LFEX1907.lancloud.ru (fd00:f066::207)
+X-Mailman-Approved-At: Thu, 20 Jan 2022 08:03:35 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
- <linux-remoteproc@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Sebastian Reichel <sre@kernel.org>,
- "open list:LIBATA SUBSYSTEM \(Serial and Parallel ATA drivers\)"
- <linux-ide@vger.kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Pavel Machek <pavel@ucw.cz>,
- "open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>,
- netdev <netdev@vger.kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Lee Jones <lee.jones@linaro.org>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- Linux LED Subsystem <linux-leds@vger.kernel.org>,
- Daniel Thompson <daniel.thompson@linaro.org>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Marc Zyngier <maz@kernel.org>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Linux IOMMU <iommu@lists.linux-foundation.org>,
- Kishon Vijay Abraham I <kishon@ti.com>, Jakub Kicinski <kuba@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Linux USB List <linux-usb@vger.kernel.org>,
- Vivien Didelot <vivien.didelot@gmail.com>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- devicetree@vger.kernel.org, "open list:THERMAL" <linux-pm@vger.kernel.org>,
- Kalle Valo <kvalo@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
- linux-can@vger.kernel.org,
+ Vignesh Raghavendra <vigneshr@ti.com>, KVM list <kvm@vger.kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org, Linus
+ Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>, ALSA
+ Development Mailing List <alsa-devel@alsa-project.org>,
+ Guenter Roeck <groeck@chromium.org>, Thierry Reding <thierry.reding@gmail.com>,
+ MTD Maling List <linux-mtd@lists.infradead.org>,
+ Linux I2C <linux-i2c@vger.kernel.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-phy@lists.infradead.org,
+ linux-spi <linux-spi@vger.kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Khuong
+ Dinh <khuong@os.amperecomputing.com>, Florian Fainelli <f.fainelli@gmail.com>,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Lee Jones <lee.jones@linaro.org>, Bartosz
+ Golaszewski <brgl@bgdev.pl>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ Zhang Rui <rui.zhang@intel.com>, platform-driver-x86@vger.kernel.org,
+ Linux PWM List <linux-pwm@vger.kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Robert Richter <rric@kernel.org>,
+ Saravanan Sekar <sravanhome@gmail.com>, Corey Minyard <minyard@acm.org>,
+ Linux PM list <linux-pm@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, John Garry <john.garry@huawei.com>,
+ Takashi Iwai <tiwai@suse.com>, Peter Korsgaard <peter@korsgaard.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Mark Gross <markgross@kernel.org>,
  "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Jakub Kicinski <kuba@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ openipmi-developer@lists.sourceforge.net,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Benson Leung <bleung@chromium.org>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
+ Tony Luck <tony.luck@intel.com>, Richard Weinberger <richard@nod.at>,
+ Mun Yew Tham <mun.yew.tham@intel.com>, Eric Auger <eric.auger@redhat.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Kevin Hilman <khilman@kernel.org>,
- linux-wireless <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
- <linux-crypto@vger.kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Viresh Kumar <vireshk@kernel.org>,
- "open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM" <dmaengine@vger.kernel.org>,
- Georgi Djakov <djakov@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Joerg Roedel <joro@8bytes.org>
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Cornelia Huck <cohuck@redhat.com>, Linux
+ MMC List <linux-mmc@vger.kernel.org>, Joakim Zhang <qiangqing.zhang@nxp.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, James
+ Morse <james.morse@arm.com>, Zha Qipeng <qipeng.zha@intel.com>, Sebastian
+ Reichel <sre@kernel.org>,
+ =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund@ragnatech.se>,
+ linux-mediatek@lists.infradead.org, Brian Norris <computersforpeace@gmail.com>,
+ netdev@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,185 +136,233 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 19, 2022 at 9:22 AM Arnaud POULIQUEN
-<arnaud.pouliquen@foss.st.com> wrote:
->
-> Hello Rob,
->
-> On 1/19/22 2:50 AM, Rob Herring wrote:
-> > The 'phandle-array' type is a bit ambiguous. It can be either just an
-> > array of phandles or an array of phandles plus args. Many schemas for
-> > phandle-array properties aren't clear in the schema which case applies
-> > though the description usually describes it.
-> >
-> > The array of phandles case boils down to needing:
-> >
-> > items:
-> >   maxItems: 1
-> >
-> > The phandle plus args cases should typically take this form:
-> >
-> > items:
-> >   - items:
-> >       - description: A phandle
-> >       - description: 1st arg cell
-> >       - description: 2nd arg cell
-> >
-> > With this change, some examples need updating so that the bracketing of
-> > property values matches the schema.
-> >
-> > Cc: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-> > Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> > Cc: "David S. Miller" <davem@davemloft.net>
-> > Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-> > Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> > Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> > Cc: Vinod Koul <vkoul@kernel.org>
-> > Cc: Georgi Djakov <djakov@kernel.org>
-> > Cc: Thomas Gleixner <tglx@linutronix.de>
-> > Cc: Marc Zyngier <maz@kernel.org>
-> > Cc: Joerg Roedel <joro@8bytes.org>
-> > Cc: Lee Jones <lee.jones@linaro.org>
-> > Cc: Daniel Thompson <daniel.thompson@linaro.org>
-> > Cc: Jingoo Han <jingoohan1@gmail.com>
-> > Cc: Pavel Machek <pavel@ucw.cz>
-> > Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> > Cc: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-> > Cc: Jakub Kicinski <kuba@kernel.org>
-> > Cc: Wolfgang Grandegger <wg@grandegger.com>
-> > Cc: Marc Kleine-Budde <mkl@pengutronix.de>
-> > Cc: Andrew Lunn <andrew@lunn.ch>
-> > Cc: Vivien Didelot <vivien.didelot@gmail.com>
-> > Cc: Florian Fainelli <f.fainelli@gmail.com>
-> > Cc: Vladimir Oltean <olteanv@gmail.com>
-> > Cc: Kalle Valo <kvalo@kernel.org>
-> > Cc: Viresh Kumar <vireshk@kernel.org>
-> > Cc: Stephen Boyd <sboyd@kernel.org>
-> > Cc: Kishon Vijay Abraham I <kishon@ti.com>
-> > Cc: Linus Walleij <linus.walleij@linaro.org>
-> > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> > Cc: Kevin Hilman <khilman@kernel.org>
-> > Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> > Cc: Sebastian Reichel <sre@kernel.org>
-> > Cc: Mark Brown <broonie@kernel.org>
-> > Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
-> > Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
-> > Cc: Zhang Rui <rui.zhang@intel.com>
-> > Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > Cc: Thierry Reding <thierry.reding@gmail.com>
-> > Cc: Jonathan Hunter <jonathanh@nvidia.com>
-> > Cc: Sudeep Holla <sudeep.holla@arm.com>
-> > Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> > Cc: linux-ide@vger.kernel.org
-> > Cc: linux-crypto@vger.kernel.org
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: dmaengine@vger.kernel.org
-> > Cc: linux-pm@vger.kernel.org
-> > Cc: iommu@lists.linux-foundation.org
-> > Cc: linux-leds@vger.kernel.org
-> > Cc: linux-media@vger.kernel.org
-> > Cc: netdev@vger.kernel.org
-> > Cc: linux-can@vger.kernel.org
-> > Cc: linux-wireless@vger.kernel.org
-> > Cc: linux-phy@lists.infradead.org
-> > Cc: linux-gpio@vger.kernel.org
-> > Cc: linux-riscv@lists.infradead.org
-> > Cc: linux-remoteproc@vger.kernel.org
-> > Cc: alsa-devel@alsa-project.org
-> > Cc: linux-usb@vger.kernel.org
-> > Signed-off-by: Rob Herring <robh@kernel.org>
-> > ---
->
-> [...]
->
-> >  .../bindings/remoteproc/st,stm32-rproc.yaml   | 33 ++++++--
->
-> [...]
->
-> > diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-> > index b587c97c282b..be3d9b0e876b 100644
-> > --- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-> > +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-> > @@ -29,17 +29,22 @@ properties:
-> >
-> >    st,syscfg-holdboot:
-> >      description: remote processor reset hold boot
-> > -      - Phandle of syscon block.
-> > -      - The offset of the hold boot setting register.
-> > -      - The field mask of the hold boot.
-> >      $ref: "/schemas/types.yaml#/definitions/phandle-array"
-> > -    maxItems: 1
-> > +    items:
-> > +      - items:
-> > +          - description: Phandle of syscon block
-> > +          - description: The offset of the hold boot setting register
-> > +          - description: The field mask of the hold boot
-> >
-> >    st,syscfg-tz:
-> >      description:
-> >        Reference to the system configuration which holds the RCC trust zone mode
-> >      $ref: "/schemas/types.yaml#/definitions/phandle-array"
-> > -    maxItems: 1
-> > +    items:
-> > +      - items:
-> > +          - description: Phandle of syscon block
-> > +          - description: FIXME
-> > +          - description: FIXME
->
->          - description: The offset of the trust zone setting register
->          - description: The field mask of the trust zone state
->
-> >
-> >    interrupts:
-> >      description: Should contain the WWDG1 watchdog reset interrupt
-> > @@ -93,20 +98,32 @@ properties:
-> >      $ref: "/schemas/types.yaml#/definitions/phandle-array"
-> >      description: |
-> >        Reference to the system configuration which holds the remote
-> > -    maxItems: 1
-> > +    items:
-> > +      - items:
-> > +          - description: Phandle of syscon block
-> > +          - description: FIXME
-> > +          - description: FIXME
->
->          - description: The offset of the power setting register
->          - description: The field mask of the PDDS selection
->
-> >
-> >    st,syscfg-m4-state:
-> >      $ref: "/schemas/types.yaml#/definitions/phandle-array"
-> >      description: |
-> >        Reference to the tamp register which exposes the Cortex-M4 state.
-> > -    maxItems: 1
-> > +    items:
-> > +      - items:
-> > +          - description: Phandle of syscon block with the tamp register
-> > +          - description: FIXME
-> > +          - description: FIXME
->
->          - description: The offset of the tamp register
->          - description: The field mask of the Cortex-M4 state
->
-> >
-> >    st,syscfg-rsc-tbl:
-> >      $ref: "/schemas/types.yaml#/definitions/phandle-array"
-> >      description: |
-> >        Reference to the tamp register which references the Cortex-M4
-> >        resource table address.
-> > -    maxItems: 1
-> > +    items:
-> > +      - items:
-> > +          - description: Phandle of syscon block with the tamp register
-> > +          - description: FIXME
-> > +          - description: FIXME
->
->          - description: The offset of the tamp register
->          - description: The field mask of the Cortex-M4 resource table address
->
-> Please tell me if you prefer that I fix this in a dedicated patch.
+Hello!
 
-Thanks! I'll fold this into this patch.
+On 1/19/22 1:26 AM, Uwe Kleine-König wrote:
 
-Rob
+[...]
+>>>>>>> However for an interupt this cannot work. You will always have to check
+>>>>>>> if the irq is actually there or not because if it's not you cannot just
+>>>>>>> ignore that. So there is no benefit of an optional irq.
+>>>>>>>
+>>>>>>> Leaving error message reporting aside, the introduction of
+>>>>>>> platform_get_irq_optional() allows to change
+>>>>>>>
+>>>>>>> 	irq = platform_get_irq(...);
+>>>>>>> 	if (irq < 0 && irq != -ENXIO) {
+>>>>>>> 		return irq;
+>>>>>>> 	} else if (irq >= 0) {
+>>>>>>
+>>>>>>    Rather (irq > 0) actually, IRQ0 is considered invalid (but still returned).
+>>>>>
+>>>>> This is a topic I don't feel strong for, so I'm sloppy here. If changing
+>>>>> this is all that is needed to convince you of my point ...
+>>>>
+>>>>    Note that we should absolutely (and first of all) stop returning 0 from platform_get_irq()
+>>>> on a "real" IRQ0. Handling that "still good" zero absolutely doesn't scale e.g. for the subsystems
+>>>> (like libata) which take 0 as an indication that the polling mode should be used... We can't afford
+>>>> to be sloppy here. ;-)
+>>>
+>>> Then maybe do that really first?
+>>
+>>    I'm doing it first already:
+>>
+>> https://lore.kernel.org/all/5e001ec1-d3f1-bcb8-7f30-a6301fd9930c@omp.ru/
+>>
+>>    This series is atop of the above patch...
+> 
+> Ah, I missed that (probably because I didn't get the cover letter).
+> 
+>>> I didn't recheck, but is this what the
+>>> driver changes in your patch is about?
+>>
+>>    Partly, yes. We can afford to play with the meaning of 0 after the above patch.
+> 
+> But the changes that are in patch 1 are all needed?
+
+   Yes, they follow from the platform_get_irq_optional() changing the sense of its result...
+ 
+[...]
+>>> For my part I'd say this doesn't justify the change, but at least I
+>>> could better life with the reasoning. If you start at:
+>>>
+>>> 	irq = platform_get_irq_optional(...)
+>>> 	if (irq < 0 && irq != -ENXIO)
+>>> 		return irq
+>>> 	else if (irq > 0)
+>>> 		setup_irq(irq);
+>>> 	else
+>>> 		setup_polling()
+>>>
+>>> I'd change that to
+>>>
+>>> 	irq = platform_get_irq_optional(...)
+>>> 	if (irq > 0) /* or >= 0 ? */
+>>
+>>    Not >= 0, no...
+>>
+>>> 		setup_irq(irq)
+>>> 	else if (irq == -ENXIO)
+>>> 		setup_polling()
+>>> 	else
+>>> 		return irq
+>>>
+>>> This still has to mention -ENXIO, but this is ok and checking for 0 just
+>>> hardcodes a different return value.
+>>
+>>    I think comparing with 0 is simpler (and shorter) than with -ENXIO, if you
+>> consider the RISC CPUs, like e.g. MIPS...
+> 
+> Hmm, I don't know MIPS good enough to judge. So I created a small C
+
+   MIPS has read-only register 0 (containing 0 :-)) which should simplify things. But
+I'd have to check the actual object code... yeah, MIPS has a branching instruction that
+compares 2 registers and branches on the result'; with -ENXIO you'd have to load an
+immediate value into a register first... 
+
+> file:
+> 
+> 	$ cat test.c
+> 	#include <errno.h>
+> 
+> 	int platform_get_irq_optional(void);
+> 	void a(void);
+> 
+> 	int func_0()
+> 	{
+> 		int irq = platform_get_irq_optional();
+> 
+> 		if (irq == 0)
+> 			a();
+> 	}
+> 
+> 	int func_enxio()
+> 	{
+> 		int irq = platform_get_irq_optional();
+> 
+> 		if (irq == -ENXIO)
+> 			a();
+> 	}
+> 
+> With some cross compilers as provided by Debian doing
+> 
+> 	$CC -c -O3 test.c
+
+   Mhm, do we really use -O3 to build the kernel?
+
+> 	nm --size-sort test.o
+> 
+> I get:
+> 
+>   compiler			|  size of func_0  | size of func_enxio
+> ================================+==================|====================
+> aarch64-linux-gnu-gcc		| 0000000000000024 | 0000000000000028
+> arm-linux-gnueabi-gcc		|         00000018 |         00000018
+> arm-linux-gnueabihf-gcc		|         00000010 |         00000012
+
+   Hm, 2 bytes only -- perhaps Thumb mode?
+
+> i686-linux-gnu-gcc		|         0000002a |         0000002a
+
+   Expected.
+
+> mips64el-linux-gnuabi64-gcc	| 0000000000000054 | 000000000000005c
+
+   That's even more than expected -- 64-bit mode used?
+
+> powerpc-linux-gnu-gcc		|         00000058 |         00000058
+
+   Well, they say
+
+> s390x-linux-gnu-gcc		| 000000000000002e | 0000000000000030
+> x86_64-linux-gnu-gcc		| 0000000000000022 | 0000000000000022
+
+   Again, as expected...
+
+> So you save some bytes indeed.
+
+   I see you have a lot of spare time (unlike me!). :-)
+
+>>> Anyhow, I think if you still want to change platform_get_irq_optional
+>>> you should add a few patches converting some drivers which demonstrates
+>>> the improvement for the callers.
+>>
+>>    Mhm, I did include all the drivers where the IRQ checks have to be modified,
+>> not sure what else you want me to touch...
+> 
+> I somehow expected that the changes that are now necessary (or possible)
+> to callers makes them prettier somehow. Looking at your patch again:
+
+   I think they do...
+
+> 
+>  - drivers/counter/interrupt-cnt.c
+>    This one is strange in my eyes because it tests the return value of
+>    gpiod_get_optional against NULL :-(
+
+   Mhm, how is this connected with my patch? :-/
+
+>  - drivers/edac/xgene_edac.c
+>    This one just wants a silent irq lookup and then throws away the
+>    error code returned by platform_get_irq_optional() to return -EINVAL.
+>    Not so nice, is it?
+
+   I have dropped this file from my (to be posted yet) v2... sorry that it
+took so long...
+
+>  - drivers/gpio/gpio-altera.c
+>    This one just wants a silent irq lookup. And maybe it should only
+>    goto skip_irq if the irq was not found, but on an other error code
+>    abort the probe?!
+
+  That's debatable... but anyway it's a matter of a separate (follow up)
+patch...
+
+> 
+>  - drivers/gpio/gpio-mvebu.c
+>    Similar to gpio-altera.c: Wants a silent irq and improved error
+>    handling.
+
+   Same as above...
+
+>  - drivers/i2c/busses/i2c-brcmstb.c
+>    A bit ugly that we now have dev->irq == 0 if the irq isn't available,
+>    but if requesting the irq failed irq = -1 is used?
+
+   This doesn't matter much really but can change to 0, if you want... :-)
+
+> 
+>  - drivers/mmc/host/sh_mmcif.c
+>    Broken error handling. This one wants to abort on irq[1] < 0 (with
+>    your changed semantic).
+
+   Again, matter of a separate patch (I don't have the guily hardware anymore
+but I guess Geert could help with that).
+
+> I stopped here.
+
+   Note that most of your complaints are about the existing driver logic --
+which my patch just couldn't deal with... I currently don't have the bandwidth
+for addressing all your complaints; some (more obvious) I'm goiing to address
+as the time permits, the draft patches have been done already...
+
+> It seems quite common that drivers assume a value < 0 returned by
+> platform_get_irq means not-found
+
+   Of course, before this patch -ENXIO meant IRQ-not-found, many drivers
+don't bother to filter it out separately (for simplicity?).
+
+> and don't care for -EPROBE_DEFER (what else can happen?).
+
+   Hm, I haven't really seen a lot the probe dererral mishandling in the code
+touched by at least my patch #1...
+
+> Changing a relevant function in that mess seems unfortunate here :-\
+
+   You seem to have some spare time and I'm getting distracted contrariwise...
+want to help? :-)
+
+> Best regards
+> Uwe
+
+MBR, Sergey

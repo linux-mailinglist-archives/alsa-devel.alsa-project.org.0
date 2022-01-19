@@ -2,183 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2C6B493B2C
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 14:37:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCC14493D7A
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 16:45:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E7E429F9;
-	Wed, 19 Jan 2022 14:36:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E7E429F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52E1D309D;
+	Wed, 19 Jan 2022 16:44:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52E1D309D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642599423;
-	bh=UMM48yPwZ2IWoKqOw7vrxHHsnXMC/DM0mmCXInuPU/k=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1642607105;
+	bh=VABSYHOugG6ZrX6y0/iJBjyoeU7s9eZoroIgbgC60u8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=afO6pptJJohWeRf06JOpfY4501Juv1W8DgdPA+f58ZjXzUsdaBMfiuhPoBD6lrwxu
-	 wFlsQS1ve4OQ4B9Oho1ykU3QmpwgUW1cRUwiaEx8jUjPR6JHaMFanLTrGSc0wFceYa
-	 qygJNtF43TDo3qKTEJ8Tm6uP9xEJB7cWd1EKKoTg=
+	b=XMnHLIgPvUpFlIZV8gfH9Q51Kep2OLF2suBCtdujH9Q0V6nP63bz8V3JK7ni9WKQ+
+	 mafsk37n9TqneI8wyXeGNIYqPA1UgPXQff0TY3XIlYBLKh1aSg4Pk4RpXhX9ZElROa
+	 1lhzoqgd1ymEX9NycKc2vlOtKwWgyRASqFdW7+Ag=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1483F80212;
-	Wed, 19 Jan 2022 14:35:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4D02F80212;
+	Wed, 19 Jan 2022 16:43:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4923F801F7; Wed, 19 Jan 2022 14:35:54 +0100 (CET)
+ id 64219F801F7; Wed, 19 Jan 2022 16:43:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on061a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0e::61a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A6BAF800F8
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 14:35:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A6BAF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id E05D7F800F8;
+ Wed, 19 Jan 2022 16:43:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E05D7F800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="jUu4AAQL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642599349; x=1674135349;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=UMM48yPwZ2IWoKqOw7vrxHHsnXMC/DM0mmCXInuPU/k=;
- b=jUu4AAQLSeKgwk1KsE+uy9PqtbFWmWmcDeaJNBdrOPtXU5kVZ08FLPgR
- FYtS+fqHBVO4kiC4MDc9rNj3Ztw3G7R6eyCGziepz13rPtR99lSyK1pnj
- JRL6aN8iY9jQuJbUaNI92mtsvIK6CmOmxs6HmmY+/2ohXN28TmhzoqWwz
- Biy+Tv3rtz5mcNKyQYh6UTROdb1aGSGLkBFoa9G/+EvDboQZC/q+lyWq9
- IY4PGJnbJ5Ef9LLHJ9Eeg3o1G+AnA4818Llj3Bbc+meNtMT/qw6Nx+XqK
- 0grMGp/BMZmJN/M5Mtsvd96kRk5S2waNxFCjfs4KK7hCpjkmCOnd8xTas A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="269456888"
-X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="269456888"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2022 05:35:33 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="764945719"
-Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
- by fmsmga006.fm.intel.com with ESMTP; 19 Jan 2022 05:35:32 -0800
-Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
- ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Wed, 19 Jan 2022 05:35:32 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20 via Frontend Transport; Wed, 19 Jan 2022 05:35:32 -0800
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.102)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.20; Wed, 19 Jan 2022 05:35:32 -0800
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="X8Wxsr+J"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wm+Rwvn7q19ebPDFlCL1UyCOnoMMo9nA2ivYCl01k0gkbkaVqEk5yEzcsv6wNxm5BUQNOdorNUHx9cKUX0sbq/2W+ciZWjnilHsdKShQkxUchWRObHkWeEksoSrfdgfGfKqck02CqaDqi6Kc9XmdPf7ZFrbfdliJtQbsgrg9A4eN40N/EaKnGw/yvNtiYLD+LPJqq4+xMJLsunsLae6EQHYUlgf2PbUTMzuSuIhs3fIPjtZFhbs/oBGN2v9r29Zvb8rsCsX5krd1m7W1bwlzZ4yapdcZDy742n/KTysOQgdHlfEO0TUWuH3uUoS0xPkT7D0fR3Gn9XHHvEnKdj8FOQ==
+ b=TVeh9cYH9yq5yAIcqdfdo8qwU+qCU3TifzdXpNdk3czJsKXWqTiNE8av2SJOCgqMfNdAl4ycFPaQdtYtON4n8tZkeLyvDUL8EqrMH6jTAe3KmomQSv1SqeU4y+MdQKz7a8HkLiBKZ7jyB7hEIKIg/3lBUBg6llH5GkFF0kZaaztf5lldSuY7q96bP0/cjhPWVxGOngLWLej3ddq5ChGma4UCSmOzz6Ge5SS/+ZgqUBx8J6HdFK6A7FrxsAsJPV8WDh9nPp9zdbb8Jl9orrGBWbWimLPiVxrk0j/w3nForaTzBbCn1/3nCvdZWvAwMvf4jAVv3zoG1lRa2GqyLIP8Tw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xQqtOn1hbeKVV9p1Yohec0AX8X61fbpuB+T12mGiu1A=;
- b=Eb+UVhtj3IUh1vHGgeYAJ4i1hNLe4+yP92FF1PXVnGvCVlUZArwGmbuDUqGvQhbxqRBGYBwSZVFP5Ffdp2lXsKmHV/ygpeMO9+9Dx4WS4VCW2H4FD7tUUNJbslYuV4eE2/x32C290i4kwatbnfo/r/0uY7JclkrwDSbmOFedKQCsmccBsvzhnaZqPKDYxrrLkNLNsRUM2T3OE3fvdCqMuKTRJG/rXipVJIPtPzzGND5/XFJO4LW4c4MzixjPNry5hoobjpXHTebJIkJeqbT4hs+Vkz7NXjwOh5k9qR4wInWRYPdgZd4UxFTxg6xXrU62RHbmAwAFB+WNVBw5QbBgqA==
+ bh=dLsUN3jbSlB0nH0FpgXOcCYtONEwewxVUnjmp+NMdT8=;
+ b=k9OUMb/JipvImS5OBJ0sNLrvqOmgRU+Gs3eGqXsPfnkAQp9BjIlvYpmZbxWWVBd/RQQh1wwCDwskUQ22o7x6EiFsJRKFZHNMRRZ63itnrEdn4StTNL4xKwCVuwJxbbRPAzrBT/qBRdhKBFNlMKKSu5hJ3q2lyyPe5IZuN7mpzJcaYpC+scOSGdK0ScyDhNAOU/arWuNouSB1j9F2/iXuM5m5gU5+CFaOv2fQ/TIVLQXjIZTbuB/uJVW9QsZNm5QghorRfm4UsI3PDaQ3IKC2J5oA/dYAfg6K+XzvZjQw2wv50sFotnVp6ClKwwUUP8VohBuZGltUx6yZ3R7DwHOSTw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dLsUN3jbSlB0nH0FpgXOcCYtONEwewxVUnjmp+NMdT8=;
+ b=X8Wxsr+JwHhNOdhU0cdd/7qs07peVWmCQSoOtQNJ20zTV49d/6gU91CE4kkSkDkVpK99e4rdLtoHdVVwtlD8cTxo2TrbLKrQdtQSvBkkng2YpwSkoYusVVIx5fsjQzmItFcPx/MWnNjy3iRRPdfalY2G8tKEylft9LKvivRiSkY=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BN6PR11MB4049.namprd11.prod.outlook.com (2603:10b6:405:7f::12)
- by SN6PR11MB3470.namprd11.prod.outlook.com (2603:10b6:805:b7::27)
- with Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
+ by HE1PR04MB3114.eurprd04.prod.outlook.com (2603:10a6:7:20::32) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.12; Wed, 19 Jan
- 2022 13:35:30 +0000
-Received: from BN6PR11MB4049.namprd11.prod.outlook.com
- ([fe80::cce3:53d5:6124:be26]) by BN6PR11MB4049.namprd11.prod.outlook.com
- ([fe80::cce3:53d5:6124:be26%4]) with mapi id 15.20.4888.014; Wed, 19 Jan 2022
- 13:35:31 +0000
-Message-ID: <c4d68409-ffa3-5999-6971-dfb0e8d15095@intel.com>
-Date: Wed, 19 Jan 2022 14:35:24 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.4.1
-Subject: Re: [PATCH v2 1/5] ASoC: sh: rz-ssi: Drop calling rz_ssi_pio_recv()
- recursively
+ 2022 15:43:45 +0000
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::3de6:806c:e71:2a2f]) by VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::3de6:806c:e71:2a2f%5]) with mapi id 15.20.4888.014; Wed, 19 Jan 2022
+ 15:43:44 +0000
+Subject: Re: [PATCH v2 2/2] ASoC: SOF: compress: Implement get_caps and
+ get_codec_caps
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@oss.nxp.com>, lgirdwood@gmail.com,
+ broonie@kernel.org
+References: <20220118212732.281657-1-daniel.baluta@oss.nxp.com>
+ <20220118212732.281657-3-daniel.baluta@oss.nxp.com>
+ <41ae6093-8e27-01d4-e532-8a28fb1d9cf1@linux.intel.com>
+From: Daniel Baluta <daniel.baluta@nxp.com>
+Message-ID: <8786f0c4-e60c-92ac-ba07-8244c785f75a@nxp.com>
+Date: Wed, 19 Jan 2022 17:43:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <41ae6093-8e27-01d4-e532-8a28fb1d9cf1@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Biju Das
- <biju.das.jz@bp.renesas.com>
-References: <20220115012303.29651-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20220115012303.29651-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20220115012303.29651-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0146.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:188::7) To BN6PR11MB4049.namprd11.prod.outlook.com
- (2603:10b6:405:7f::12)
+X-ClientProxiedBy: VI1P195CA0077.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:802:59::30) To VI1PR04MB5151.eurprd04.prod.outlook.com
+ (2603:10a6:803:61::28)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 74e24a70-7dba-449f-6071-08d9db508fe4
-X-MS-TrafficTypeDiagnostic: SN6PR11MB3470:EE_
-X-Microsoft-Antispam-PRVS: <SN6PR11MB3470438B36212FE5E79F46A3E3599@SN6PR11MB3470.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Office365-Filtering-Correlation-Id: 6712de5d-ca6d-4be5-ef79-08d9db627998
+X-MS-TrafficTypeDiagnostic: HE1PR04MB3114:EE_
+X-Microsoft-Antispam-PRVS: <HE1PR04MB31143852F6DB2E2F835444D1F9599@HE1PR04MB3114.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qZKa012VDW4FquPyox/w57L/UlMV99UIIam+zvmNcNd5LW3i7e10jRpTXcKyYZSJ3mvzptTem+r+mSxSW6WdT96TEBpke0BitmjI5NTqW6tKUDufZugycvajPxM9BW/nJgbubOoRrcsgccCqTts+GvlWhFoiG73nc6GwBzOGZGResVY2mzDTnrEDwfIJBb6WcK3m4zaVgasZKCVDkiBxlt36pHuZXUZlKBq75z45grnTtQFf5A8pw4ckD374cUlPbl70sx9vurSIY9B0nlviNq0RVQ9Tj53H+3d7sBl+5WEsyMq1VWilhykjMKXgUPJS0UFZSrU5ynIxXBn4CIsZMxonEoCGDHFZ7Szt40zxNB3EX7vKqXhaVsuLgh6xHx0g6pmq3qLwPOpb4ZcxY4AuyQSoVX/dDhxmveGzWmpZ/Biz6hfDdm4MwKWkKnlDt4uSBV5A+ipTECSgruwIR0l31v7rmvCGLRN5XUpdblkHABiR860ADjz4DnPcOMJetPMHVBiYRg+mmJGqKMnN9l1DJUV2UKZ6aPnubfecB1KasYyUxYNn7SfTpsUbDLCdR8pe2qthC6JknNzuDPkOQo/Na/UnL1kHTWfTdehfvfizPXUWAxh2Yp/YDZHPboEZfvCPrFB1296pmMNLsTsQ/6aK4RucgETrP+C33N6uuLEhtEDgvp/pSGED1z/pI5awBXMXtOSyJ5C8kacRQiFGmYTvbuhZvUPGiTGRZTstCheR8v8=
+X-Microsoft-Antispam-Message-Info: KC2WDehVrC+5KOz40mg4WsLw4nhGfW/qiaXaJQi+EhDEFdtD2tcZ/GSjKiiNe1U5z2PORXoEgF9ZAYcUIVArNHwVHjffBN8IbjofbiPAk7Y/orjbEPohIC3w6A5m5S0RxYao7fRpKJnQWKfdLiGVGQxICin9RiDBaMQxc0PuZRsjU8g9dGnu9iNT2GJipsTXJtb3X8quDeTmJTRHEy7Q40HRwmojfV7ils5H/oCn56kzDBUDIpW/f1jPeeWHOM9ClWALesvBelGpWMCsQDB0EhRnS6PQpKTWn+Ht0gqa7zh9ajNoEfn59AXvogv+7fOIMXZ8Mxtjj4/+Jjjx+0XN5ByDBjmXgUvCbuCQxFHxojvAZAO2pt2FsNJ83ty6urKsoBT7RJeCaVhJd39Iuml5Dnmgd4aTCsE2u26yq8uvXbqMWOfTeYnf5uxN9kFf2tJNf1mk0u9q1FCvlUEP7Fsyn30BMU4i8/LCHoMQR9ObyYD0tXWtSkrEh3sQp1jQxKsRvHCd5mm+INNM4LvCq8hZLceaGDZJNBe4TRNyI+s3aLEwrAIhM3QBs3M8Glw84L8sCD5uws36YPH4lSfJxo7hPMaCDUhJxcaE35+0mYnDYi2kVR2afLr1YKCPAixyQ1EiurNm6NJoj7Bq4Jccbd53f+ABO8hANGHCCJl9gNZdiki0U+Pt7YB6wShzoQfCXjAAxYU4FIyU5AfpF71MmDeMvMLZ2qyN9jwohYlpPC5TQMo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR11MB4049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(4326008)(66556008)(6512007)(66946007)(8936002)(44832011)(6486002)(6506007)(36756003)(31686004)(66476007)(38100700002)(82960400001)(83380400001)(86362001)(2616005)(26005)(4744005)(8676002)(31696002)(110136005)(508600001)(54906003)(7416002)(186003)(5660300002)(6666004)(2906002)(316002)(53546011)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(6486002)(31696002)(316002)(31686004)(44832011)(8936002)(6512007)(5660300002)(186003)(6666004)(36756003)(66476007)(6506007)(38100700002)(8676002)(86362001)(2906002)(66946007)(2616005)(52116002)(4326008)(508600001)(110136005)(53546011)(66556008)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2Z2VlFXa0tnMEhPVjBTZTRjVEtPeXcreWlUMUVXM1JFNHZUclY4eS85NkVM?=
- =?utf-8?B?UzdhaGphSy9oZXU3MjJvSU51cjJQYWJ3QU1nVWpPWTZHQ0pHL2dyTWszd1Fz?=
- =?utf-8?B?ckp2dlZrdUpMNW04UXhuWlJzMUkvQ2xaeHdOaTAwVTdCNGwyRUYvLzB1Tisy?=
- =?utf-8?B?UDlIRXE3eW5WOFNYUHpRdFdXSWNuVnRKM1hMbGNzV0hDNmc4c2VoRUdoTTVq?=
- =?utf-8?B?eUJ2eDJRaXNBVGt2ZmJZOVZWZDErWkJkbnloc2NTaTFnZGpYOEZkOTFtS2Rz?=
- =?utf-8?B?RW1JR0FMZHcvNGd1eW8rOXZrbmNXQ3l1RDI2KzhiUGNMdmhyL2l2eVIyZG5Q?=
- =?utf-8?B?MGZHU01tWW05cGZGcFJoWG8xOVJPWW9WSFRIakxYQUdVVWFXRG9ka3RtSldM?=
- =?utf-8?B?ZlhHdGRURCtKOE5RRzdJVEtjbXVDSUFsUm16YktzOEJmYkpIMnRhMWFhUUFK?=
- =?utf-8?B?NXhNdVRjYTZpQllYUFVVRGNGdnFkUmc2OWNaSCt1b2hyVy9oTkNzd1VQZVU4?=
- =?utf-8?B?U3o1UEo0TmVmL3QzZHRRbkpGYUV5NlFFdDkyZC84WmVuL0dFMjhKNzJHRWhQ?=
- =?utf-8?B?ODhxUXorRzA3T05DM2k1OVNoV09zOWZyK05JT3lJZTlOY1JVVVFtcTAza2tr?=
- =?utf-8?B?bnlRajJTalh2YUljUTMzekxIdGZvcDQxQnVaNjh0c2ZlR2RSakZyK2toZzB1?=
- =?utf-8?B?Y3V1Z1QzQ2djSkFYNWc0MzVJQnBzUGptaVQ1RU42NzFwb1pzeUJQcDdvWFR6?=
- =?utf-8?B?VHRFU1VrOWpvOUgxcndlK1h6bmNSTTJzL0dBNWJMN3dMbVdGM2VGRzRqOXpJ?=
- =?utf-8?B?UkExNDFid1JrNTkzTllPcGt6NnJJMUw0cW9xWXRFVlBpNGozTUtLbzdGV2JP?=
- =?utf-8?B?cThVVE0zSFNLeVoyb1dZbjlvamI0dVZSRXMvUmZSNWJVaFgyQkZlY25MaGlO?=
- =?utf-8?B?WS8vYkJua09LZENGY1dQQVNZN3V2b3U5U3ZiWjJtUVp5VEMxQjNmb0dpVncz?=
- =?utf-8?B?M2NFYm05OTE3dzdvSzdWYWx2TTl0b3RPN2lKTWNmbnhSeURnUGVuZENMQVlD?=
- =?utf-8?B?NGhjQVpNcUFRU21sWVB2bG52bHVoU0laalVSY1o0dFFCbVl3Wno1UVpBSGhw?=
- =?utf-8?B?THBNSVBUazNacVFoR2VpZ3I0VXpLSGdzSXFHUHRRSm5zOUc5MERsR3gvRHNZ?=
- =?utf-8?B?elp4VTAzbCtrL0NNMnRFN3AzOXNWSndOS1VXSGd1aXZkTDRHNmNZZ28rMzFD?=
- =?utf-8?B?cVFKN3B6L3dJYmxzelFZd29iVDhhYUQ4QmV3eEdVaHFTUHlJdjRHdDM5Rkto?=
- =?utf-8?B?TFUwclJzOEIreFhGTDN1NEd4bFlici9ZSjNJOWQ2aTBQaHkrWko4bnFIZ0Qx?=
- =?utf-8?B?K2FvaURFL2tVekkyajV1NkMzdHdwU1dremVqQUY1Um5nVG8ybVN5cGdvUTA4?=
- =?utf-8?B?WGxZK2FMZjFQVVVRcXBIZnh3MHpsYW1CZW1GNWExRzZjaS9FakZRakVVbC9Q?=
- =?utf-8?B?UWVPaE52YjJidUxWNmZ5WEp3RnlJKzdGbXFoaWdqMFh0TmR0REUrRDVkdzFm?=
- =?utf-8?B?dkN1ZzRQeDZOQnNlcHJ6ZG5uMHRhN3EyTFVRbVB4R2xXUlFtempmd1pwc2s0?=
- =?utf-8?B?ZTZxR1JPaVI0TktSNGRNckFkc3hkbkNTWGwxQ2hKTmdOSzFwOWY0REdrNlhL?=
- =?utf-8?B?UVo5ZHAyL2w5SEUzQ0owREJWTFI0Y1NLc0JuNEU2OGtnMFNvckhGOUdLMitJ?=
- =?utf-8?B?TUhzYVU0eFpBVllydnA3allCc09Id2FOU05ISExrb0ROSlRYVEtEVjkwL3Nl?=
- =?utf-8?B?V3lobGpzazlqSVlldEpFV0g1TGdPcG9UZmc4SDFVTmZRTXByNnFORzdpaWFm?=
- =?utf-8?B?c01YRkprM09Cb3FyeWJNMWVWQzQ0ZDR3TFB6Nm1uQkxDdkdHeWhic3kvaWxT?=
- =?utf-8?B?NDk4MXF6cjBoL3Q1NVNxTXBnZGphb1p5SjBYT2htcVhydVJUMGpUNEliZnFW?=
- =?utf-8?B?WFBuT3hYTXA3UThwUmlRRGw4WERpbzM0Mll1c29od0M5c0Q3aldoMUZvUWRp?=
- =?utf-8?B?bWp0elRTK1FSN0dBcDY1MlZvcXJNbFRWS2RoM09POEF0Z2xOK0VuRHNFZHVB?=
- =?utf-8?B?ekc1dmtzZk1vMFJ4bTROVUdZeG9MOW9GVHZsYk9iSUV1KzlYUHA2YVRrdWx1?=
- =?utf-8?B?VG8zMmhRcm9JbGRoNmxmK2lvaXlDaG5RUzJWNWZudU95SU41Zmk1N3NCQ1Y2?=
- =?utf-8?B?T2Z5cHBlcWY4N1pLY1pkUjk1MjNBPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74e24a70-7dba-449f-6071-08d9db508fe4
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB4049.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXFqcGcyUVJLYkJIYmVuOW1vYVMrZGNSemZtVEpESmc2NUVRMG1GVFk4Tk1j?=
+ =?utf-8?B?dVloVzROb2xIWmkrVnZtNGtKMGE1YmhNUHUyVFQ5bFk2eUVxQTc0U2JjZG5a?=
+ =?utf-8?B?Zk5xNC8zSHoydU9Zd2JxTWI4MGxKeEROWUhhM1MwLzgrQlY2dStla1VpMXRN?=
+ =?utf-8?B?QXBlWGEzV29JWElObExXYkJEK1h0NEhjSGdwNlo5U2lWUFV0OVRDd001ZERN?=
+ =?utf-8?B?RUN6NG5MZ2lreWRGRmcwUmJMeTVIYmhXbTNDVjgvc0FXcmI3aUxHT1Ribi9U?=
+ =?utf-8?B?aW5GT2V0akNiejA1SVJmaGhsWXdYYWZhV2liMmRpYUZCejhHT1ZwVUVvV2JH?=
+ =?utf-8?B?OXlwNWpDYWpQcmJlZlVCc0JrbEpCeFBFMlQrdUNadDJzbVBrZ1dsanBLRTJ1?=
+ =?utf-8?B?dGdBNTZJSlhKTmhlQzdvNmVFMndCNTlOM3h0cDVWeC9Pb0ljU3p1V0o5eEd0?=
+ =?utf-8?B?ajYwUk03c0pZOFVZdHQ2QStURENiOW9UTVhlVDdvTFFpR2JaTlNqUWJlTW9u?=
+ =?utf-8?B?SHVZemlrRTNDQXR6VFhxSFM2OFRKaE9pMzcrSXI3ZDNmRllFYTFZWUhmTWoy?=
+ =?utf-8?B?eld1Z0h2dDV2MWJtb0V5TnJPUVNDSnVMYzF3VlZnM0hsVnJkdExJNmtqZ2pp?=
+ =?utf-8?B?TE9hK2doV2NHdXNnaVlVdnV4TnlzbE5BdUFnVmpOSHExRU5iUUtuVktyeWZD?=
+ =?utf-8?B?UHRwNERBWmlDd1VkUnAyaDliUWp5YVovQmQ2TWc3YmJYa1B4dnA4RS92dW5U?=
+ =?utf-8?B?cld1QUZ4OXdRL2hlZTJsM2pENVpUUlFkTkYxMlN4eDNqaE9JK3pEMFh0RkpU?=
+ =?utf-8?B?b05YVWhtRmhVQ0Y2VXFrZit4emppL3lMKy92WGhnSzdyZjBESmJwU2x1NkRm?=
+ =?utf-8?B?Q0pKb1BUSnhNNE1XNDRDYmVRWDFXd2Jtc0ptMnBkK1drRFZpRTRwTTFZdGkz?=
+ =?utf-8?B?MFB2a1hMcC9WTDVlU2NXcXlaMUlTZGFnaGxNNHNsRkpRRC9jd2ZZTWFyS0dL?=
+ =?utf-8?B?dFRnV1ZBZHpEK1UxRUg3bkdtN0xlVFdVNkRlS2pVcDlkRFlSNXBHRVVqYlZv?=
+ =?utf-8?B?aUxRTDZQZVp5UnA3QmJNS2tCZWpIanpqdkdueGc0YW1lcmV0MEs3cDZVM256?=
+ =?utf-8?B?ejFuWVF0eWpYVm5xK3dOcUpKMDM1WFExV2dCbnRYZnV1R3dzYTBOVnE1R0h6?=
+ =?utf-8?B?T1oxWHU0TEg5WkY5MWFxVTZaWE9oTSsyOFRZWE0xdFk2VHRMVEZrSWNndDdu?=
+ =?utf-8?B?bktOdldTdEtsby9QUXNnMnRQdkJnc3g0c0Z3YndQK2RWcDVWUUZITENzdnNn?=
+ =?utf-8?B?NFRzSExSR2tZOWZybkl2eE1hYUlJRUs2T3UrcUt2WkNjZ0ZIZGtFSW56Szhl?=
+ =?utf-8?B?UDhIcnE5Ymx5QjI1aW5BUTRYMXhHSVJ3NUJVdXFDbUJZdVJIUWQ2a2tlSEpx?=
+ =?utf-8?B?SUE0WTl5SHpaSnJMN2o1TW5hK1J6WEdDeTNYOW5wcVUwWHJWQkZKcVhsU1pN?=
+ =?utf-8?B?Y0tPYUVsckFySzhMOHJOLzZ6dGM2bWNnYjlmYUIrN0tYMVQ1bVZOQTZmQWZE?=
+ =?utf-8?B?S0ROQjN6NzQ2alVuMDRYbXdYRDQ4cGZNbE9kaC9ycjd3RXJmUXVIaGoxa3Bi?=
+ =?utf-8?B?RGRnbDNwclp6eEV0bytHQ012NFNrS3p2aUNHOFU0MmNqUnMwakxPeXlEUVpv?=
+ =?utf-8?B?clNaNkdLMUEvNUZGUGZKbEFGbldhbFhYaGZkbUR0Q1VmcmZSZEUwOEpzN3dH?=
+ =?utf-8?B?MEMzYU5rd2w2Y0h1WHFFZXFkWnd2SWVySSs1YmIyWk9qUUZGVkZTL1hYOEh2?=
+ =?utf-8?B?aC9KWEE3NFFCMnI4cmRWL0F2WCswcThHVStEclY5TGZRNloyc0hVNVB2UHc0?=
+ =?utf-8?B?NkhDQlF5ajFSL2dQK21GTUF4K0JJa3d0Wmg0RE5QSkczanBkcktaWmhTNUM1?=
+ =?utf-8?B?WkF6b1hOT25OcDJFYkVDZWdjMDg4MmFSUVo3SWRHczUvUGpvZHFtcWQ3eElt?=
+ =?utf-8?B?RUVjcEREMGxiM0h6WGtXWXdzQTJhWlowK1ZoQjd4c01NSGJjL04vWHY1Z2wv?=
+ =?utf-8?B?OVZEYzM0bHMzanZTcE5MY0trRjE0cWlkL3pmZ0t4RUJ4WGk3eVZhM3dwTVRs?=
+ =?utf-8?B?dThrVklpRzVzSmZLWXZsaTFVR2Jvc25IZTI4aWpYc3NVcnRzNGp2M0Z4dWN5?=
+ =?utf-8?B?VVdHekNSSnFDWUlrbzZTamg1UzQ5OWIxME9CNHZEM1BkakMreVlLUVk2S2NV?=
+ =?utf-8?Q?8WIrMe7zVaul0PaeIAVd7L+/kltqY2LlsChWFtZm2U=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6712de5d-ca6d-4be5-ef79-08d9db627998
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2022 13:35:31.0109 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2022 15:43:44.5488 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g9ayc2V2CBq7AB5jBijkaynJP4QwhKrYhSXnfoSACbXrrK/HDKoXo6uwgxOT1ndWv+qkXxErER6oqj6HwTmSSSGxOC6psRfv3NeVy/w5JT4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB3470
-X-OriginatorOrg: intel.com
-Cc: linux-renesas-soc@vger.kernel.org, Pavel Machek <pavel@denx.de>,
- Prabhakar <prabhakar.csengg@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q72OWJGAwfeqfFbeSYyYPU5maIfHEH5qK8Y9S43HSFKxVUx+DZ9Zzu5O9oVgDMjuEMcRm7WxE7UvYzY6NRGL4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR04MB3114
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ cezary.rojewski@intel.com, ranjani.sridharan@linux.intel.com,
+ linux-kernel@vger.kernel.org, paul.olaru@nxp.com,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -194,31 +168,152 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-01-15 2:22 AM, Lad Prabhakar wrote:
-> Instead of recursively calling rz_ssi_pio_recv() use a loop instead
-> to read the samples from RX fifo.
+
+
+On 1/19/22 3:00 AM, Pierre-Louis Bossart wrote:
 > 
-> Inspiration for this patch is to avoid recursion, as recursion is
-> unwelcome in kernel due to limited stack use. Also to add this driver
-> will later be used on RZ/A2 SoC's which runs with limited memory.
 > 
-> This also fixes an issue where the return value of rz_ssi_pio_recv()
-> was ignored when called recursively.
+> On 1/18/22 3:27 PM, Daniel Baluta wrote:
+>> From: Paul Olaru <paul.olaru@nxp.com>
+>>
+>> These functions are used by the userspace to determine what the firmware
+>> supports and tools like cplay should use in terms of sample rate, bit
+>> rate, buffer size and channel count.
+>>
+>> The current implementation uses i.MX8 tested scenarios!
+>>
+>> Signed-off-by: Paul Olaru <paul.olaru@nxp.com>
+>> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+>> ---
+>>   sound/soc/sof/compress.c | 74 ++++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 74 insertions(+)
+>>
+>> diff --git a/sound/soc/sof/compress.c b/sound/soc/sof/compress.c
+>> index 91a9c95929cd..e3f3f309f312 100644
+>> --- a/sound/soc/sof/compress.c
+>> +++ b/sound/soc/sof/compress.c
+>> @@ -308,6 +308,78 @@ static int sof_compr_pointer(struct snd_soc_component *component,
+>>   	return 0;
+>>   }
+>>   
+>> +static int sof_compr_get_caps(struct snd_soc_component *component,
+>> +			      struct snd_compr_stream *cstream,
+>> +			      struct snd_compr_caps *caps)
+>> +{
+>> +	caps->num_codecs = 3;
+>> +	caps->min_fragment_size = 3840;
+>> +	caps->max_fragment_size = 3840;
+>> +	caps->min_fragments = 2;
+>> +	caps->max_fragments = 2;
+>> +	caps->codecs[0] = SND_AUDIOCODEC_MP3;
+>> +	caps->codecs[1] = SND_AUDIOCODEC_AAC;
+>> +	caps->codecs[2] = SND_AUDIOCODEC_PCM;
 > 
-> Fixes: 03e786bd4341 ("ASoC: sh: Add RZ/G2L SSIF-2 driver")
-> Reported-by: Pavel Machek <pavel@denx.de>
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
-> ---
-> v1->v2
-> * Used a do while loop
-> * Fixed comments pointed by Cezary.
+> I don't think you can add this unconditionally for all
+> devices/platforms, clearly this wouldn't be true for Intel for now.
+> 
+> If the information is not part of a firmware manifest or topology, then
+> it's likely we have to use an abstraction layer to add this for specific
+> platforms.
+> 
+> it's really a bit odd to hard-code all of this at the kernel level, this
+> was not really what I had in mind when we come up with the concept of
+> querying capabilities. I understand though that for testing this is
+> convenient, so maybe this can become a set of fall-back properties in
+> case the firmware doesn't advertise anything.
 
-Apart from my previous suggestions which have already been addressed, I 
-don't see any issues with the patch, so:
+I see your point. I think for the moment I will remove this patch
+until I will come with a better solution.
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+One important thing is: where do we advertise the supported parameters:
+
+1) topology.
+2) codec component instance (codec adapter) inside FW.
+3) Linux kernel side based on some info about the current running platform.
+
+Unfortunately, most of the existing users of this interface really do 
+hardcode supported params:
+
+e.g
+
+intel/atom/sst/sst_drv_interface.c
+qcom/qdsp6/q6asm-dai.c
+uniphier/aio-compress.c
+
+But that's because I think they only support one single platform family 
+which has same capabilities.
 
 
-Regards,
-Czarek
+> 
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static struct snd_compr_codec_caps caps_pcm = {
+>> +	.num_descriptors = 1,
+>> +	.descriptor[0].max_ch = 2,
+>> +	.descriptor[0].sample_rates[0] = 48000,
+>> +	.descriptor[0].num_sample_rates = 1,
+>> +	.descriptor[0].bit_rate = {1536, 3072},
+>> +	.descriptor[0].num_bitrates = 2,
+>> +	.descriptor[0].profiles = SND_AUDIOPROFILE_PCM,
+>> +	.descriptor[0].modes = 0,
+>> +	.descriptor[0].formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE,
+>> +};
+>> +
+>> +static struct snd_compr_codec_caps caps_mp3 = {
+>> +	.num_descriptors = 1,
+>> +	.descriptor[0].max_ch = 2,
+>> +	.descriptor[0].sample_rates[0] = 48000,
+>> +	.descriptor[0].num_sample_rates = 1,
+>> +	.descriptor[0].bit_rate = {32, 40, 48, 56, 64, 80, 96, 112, 224, 256, 320},
+>> +	.descriptor[0].num_bitrates = 11,
+>> +	.descriptor[0].profiles = 0,
+>> +	.descriptor[0].modes = SND_AUDIOCHANMODE_MP3_STEREO,
+>> +	.descriptor[0].formats = 0,
+>> +};
+>> +
+>> +static struct snd_compr_codec_caps caps_aac = {
+>> +	.num_descriptors = 1,
+>> +	.descriptor[0].max_ch = 2,
+>> +	.descriptor[0].sample_rates[0] = 48000,
+>> +	.descriptor[0].num_sample_rates = 1,
+>> +	.descriptor[0].bit_rate = {128, 192},
+>> +	.descriptor[0].num_bitrates = 2,
+>> +	.descriptor[0].profiles = 0,
+>> +	.descriptor[0].modes = 0,
+>> +	.descriptor[0].formats = SND_AUDIOSTREAMFORMAT_MP4ADTS | SND_AUDIOSTREAMFORMAT_MP2ADTS,
+>> +};
+>> +
+>> +static int sof_compr_get_codec_caps(struct snd_soc_component *component,
+>> +				    struct snd_compr_stream *cstream,
+>> +				    struct snd_compr_codec_caps *codec)
+>> +{
+>> +	switch (codec->codec) {
+>> +	case SND_AUDIOCODEC_MP3:
+>> +		*codec = caps_mp3;
+>> +		break;
+>> +	case SND_AUDIOCODEC_AAC:
+>> +		*codec = caps_aac;
+>> +		break;
+>> +	case SND_AUDIOCODEC_PCM:
+>> +		*codec = caps_pcm;
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +	return 0;
+>> +}
+>> +
+>>   struct snd_compress_ops sof_compressed_ops = {
+>>   	.open		= sof_compr_open,
+>>   	.free		= sof_compr_free,
+>> @@ -316,5 +388,7 @@ struct snd_compress_ops sof_compressed_ops = {
+>>   	.trigger	= sof_compr_trigger,
+>>   	.pointer	= sof_compr_pointer,
+>>   	.copy		= sof_compr_copy,
+>> +	.get_caps	= sof_compr_get_caps,
+>> +	.get_codec_caps	= sof_compr_get_codec_caps,
+>>   };
+>>   EXPORT_SYMBOL(sof_compressed_ops);
+>>

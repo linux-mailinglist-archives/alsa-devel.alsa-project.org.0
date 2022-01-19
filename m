@@ -2,94 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7496A4936F6
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 10:13:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38F2849371D
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 10:20:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B9463180;
-	Wed, 19 Jan 2022 10:13:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B9463180
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB1E7319E;
+	Wed, 19 Jan 2022 10:20:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB1E7319E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642583634;
-	bh=vA8wUOM07DE76RbCA29aB59ktfy2DFJgixwcsnXgU1M=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1642584054;
+	bh=TPtnHj/P3BtQ3St7R+JcxInvA0hrLwoknRLB80UYop8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PZ1q+m74kAu5j6yQ4yZqlkFUqfDQ9Frtj369XP5DeoYGlBOGZDDO8wamGEzBmsrzF
-	 qU5hIyQlw8E8juwfinbY+wNhInFonl4Q2xhRCKLVIaZSMf7gBHqF5tiSNw70+Q4QNz
-	 Z/E7fS7mY1WsX0ezJKUNqK9vUbNiLttHclyperls=
+	b=vQpl/6dHOM0bYSBr8HoAQpUSP+C76Aew+ttV0Q6FXF3iqlUH1JCbj0XXZmSKe2o0A
+	 iDCDNhTrfNjlE3+GeGMOUPHoUK4CsH7BRoARCQm3C435XmsNcq5r2hQc5HHIPM0fc1
+	 NvotASFESH73tMOXWjBemYP6MPNr9rNSxgcSZOmI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B19DF80162;
-	Wed, 19 Jan 2022 10:12:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EC3BF80212;
+	Wed, 19 Jan 2022 10:19:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45D40F801F7; Wed, 19 Jan 2022 10:12:47 +0100 (CET)
+ id F1CD0F800F8; Wed, 19 Jan 2022 10:19:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BD20F800F8
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 10:12:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BD20F800F8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="mvDsnSUy"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="I2ZBpcB2"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id BCEB81F384;
- Wed, 19 Jan 2022 09:12:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642583563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vH8JJCBqQX/r+cXLJWue2nQbClIaooGKm6drd2hHgHQ=;
- b=mvDsnSUy62bkFv+nJbEaV+oWfLYPEh2C8nNj0OST9zAbO7Jtg4uHYeIq7AAQhqVjseR4Ye
- /3Mc9Sys+cQNL9qTWnqXd8CL50/IWaT/WKfiM3qGXMwp4jKOliUgSOHSWR87RXHHW4kmmS
- d4uRfpsVMf+f7kRhiB1mcE8TmpY46uA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642583563;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vH8JJCBqQX/r+cXLJWue2nQbClIaooGKm6drd2hHgHQ=;
- b=I2ZBpcB25T/tBsxPHjvnifs+8m/s307lPqmsM+XK6iGyrmdltXtYaqLi4VQSTjfNHYBFKD
- X/2hXnzCQrRHX5Dw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7F4C9A3B81;
- Wed, 19 Jan 2022 09:12:43 +0000 (UTC)
-Date: Wed, 19 Jan 2022 10:12:43 +0100
-Message-ID: <s5hilugw0l0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Sergeyev <sergeev917@gmail.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-In-Reply-To: <20220115152215.kprws5nja2i43qax@localhost.localdomain>
-References: <s5ho84h9tit.wl-tiwai@suse.de>
- <20220112101249.ya73jvpmqmeh4ggg@localhost.localdomain>
- <s5hilup9s87.wl-tiwai@suse.de>
- <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
- <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
- <s5h8rvk85uy.wl-tiwai@suse.de>
- <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
- <s5ha6fy46jt.wl-tiwai@suse.de>
- <20220114183720.n46wealclg6spxkp@localhost.localdomain>
- <s5hsftp3027.wl-tiwai@suse.de>
- <20220115152215.kprws5nja2i43qax@localhost.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8807FF800F8
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 10:19:42 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 83055A0046;
+ Wed, 19 Jan 2022 10:19:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 83055A0046
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1642583979; bh=HFHEMbI3FJBXoZSh7kY+uFOQtESBi9Y/PqSpzp/h/VA=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=eS0Iv8ilOjeVZi+ttuLxFWzp8O3b8xabD7jQqOJXyiiA85o0Q1B+Y7IVes4o/lEgB
+ kIai8eCXVexKlkf40ODXSYQqoQdzzdZeubOd3uXZ8S0H7V/cOLXinxMGDCA0ksW7a4
+ pYoo4OfTsed+gZwF6c/FZujMH20I0kBEdIXuCNC8=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed, 19 Jan 2022 10:19:37 +0100 (CET)
+Message-ID: <fa03088c-7f98-736b-a9f3-0235119b5c60@perex.cz>
+Date: Wed, 19 Jan 2022 10:19:36 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Subject: Re: [PATCH] ALSA: core: Simplify snd_power_ref_and_wait() with the
+ standard macro
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20220119091050.30125-1-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20220119091050.30125-1-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,28 +80,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 15 Jan 2022 16:22:15 +0100,
-Alexander Sergeyev wrote:
+On 19. 01. 22 10:10, Takashi Iwai wrote:
+> Use wait_event_cmd() macro and simplify snd_power_ref_wait()
+> implementation.  This may also cover possible races in the current
+> open code, too.
 > 
-> On Sat, Jan 15, 2022 at 08:55:28AM +0100, Takashi Iwai wrote:
-> > > This patch solved the BUG problem. But after unbind/bind micmute LED
-> > > stopped working. Speakers and mute LED are fine though.
-> > Does the corresponding sysfs entry exist in /sys/class/leds/*?
-> 
-> Yes.
-> 
-> > And can you control LED over there?
-> 
-> After "out of range cmd" messages the sysfs entry remains present, but writing 
-> ones to the brightness file stops to produce any effect.
-> 
-> Actually, the timing issues are present here as well. Sometimes unbind & bind 
-> works fine. But fails on the second round.
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-Here "fails" means the kernel Oops / crash?  If yes, the back trace
-would be helpful.
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
+Thanks.
 
-thanks,
-
-Takashi
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

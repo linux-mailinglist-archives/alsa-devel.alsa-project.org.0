@@ -2,113 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1968F4947F5
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:12:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9643D4947F6
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:13:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3D66307E;
-	Thu, 20 Jan 2022 08:12:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3D66307E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2DE9308B;
+	Thu, 20 Jan 2022 08:12:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2DE9308B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642662773;
-	bh=KGLVQi6QQGNSvXeEuE3AZqdmrA7eAbBtnVk/70VhHcM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1642662790;
+	bh=jTL1kOllWwNpAyRghJtzBJcKTv5b3vqCwXM1meqTpw0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f8mXRj3L+bVty89JAKfugLLXarNtnrUMNJTCxSc8aKGm+rhCrpQwY2DFMPBY58YG1
-	 as+/LB4vBkCOb3UpwwFbGsw790boVNnhL7QBqHIwon8wvWLVDnadOQo2ZYRtl0fEuQ
-	 6GNlMFWm/sWEG9GeFM7z2j+IzN5N+H0QB6+0kmBE=
+	b=BFa9Yzz/ZcDiOUkU97hNmPvEmgCgvSOd8oBa24mvRq9FKxggBxr72iKpQCSL7bjtU
+	 2xUhqDRQvB7fjT3FOd8T8fBIbbUlRn1yzbOWZvX5Valrmv8PCSJ/vYAZdlkdvuRuUp
+	 X3VbxumBRdjniLS1ioS7hGgFEPS9ev5SzQC3OU9c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7395FF805E0;
-	Thu, 20 Jan 2022 08:03:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04733F805E1;
+	Thu, 20 Jan 2022 08:03:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC745F801F7; Wed, 19 Jan 2022 12:42:19 +0100 (CET)
+ id AE519F801F7; Wed, 19 Jan 2022 13:09:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from mxout04.lancloud.ru (mxout04.lancloud.ru [45.84.86.114])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09863F80100
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 12:42:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09863F80100
-Received: from LanCloud
-DKIM-Filter: OpenDKIM Filter v2.11.0 mxout04.lancloud.ru 385F120D1C64
-Received: from LanCloud
-Received: from LanCloud
-Received: from LanCloud
-Subject: Re: [PATCH 1/2] platform: make platform_get_irq_optional() optional
- (summary)
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-References: <20220110195449.12448-1-s.shtylyov@omp.ru>
- <20220110195449.12448-2-s.shtylyov@omp.ru>
- <20220115183643.6zxalxqxrhkfgdfq@pengutronix.de> <YeQpWu2sUVOSaT9I@kroah.com>
- <20220118091819.zzxpffrxbckoxiys@pengutronix.de>
- <b6038ec2-da4a-de92-b845-cac2be0efcd1@omp.ru>
- <20220119113314.tpqfdgi6nurmzfun@pengutronix.de>
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-Message-ID: <a42e1c8b-2c3d-e3f2-e48c-ad145322ad3d@omp.ru>
-Date: Wed, 19 Jan 2022 14:42:09 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 364EAF80128
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 13:09:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 364EAF80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="EAM3BRW+"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 45B406151A;
+ Wed, 19 Jan 2022 12:09:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C899C004E1;
+ Wed, 19 Jan 2022 12:09:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1642594158;
+ bh=jTL1kOllWwNpAyRghJtzBJcKTv5b3vqCwXM1meqTpw0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=EAM3BRW+CbiGfMCjMaveMIE0YyZKBv4YGXrhRLSxa7sz3YBI0QQEuz2LrLupXBm6Y
+ R889FqqDBLJRbmysGVMQsKr1+BPa+yDJxTjvvCiMdGOmw3WRnNeHLu+nDQzZ0VrcIg
+ 537D4y6llCDYE69wujlX8OZOzzDzuUv4TZj1s79d9eFb+RXQG9+f7bhJe+cQ9hqXOs
+ UzplFSvX38xneJW3n6U2ZW+ZGtGaC4rD9CUZ5eJbXp53b/2qOgmJO8dTGx52wnNROz
+ mMWxGEVBV5Zu24UiKq2KQXFZoJvf1AB0QizfrxdUr/IZ5hnV98uHFEwvu8cGlN1QiB
+ De5JfwgYpTzOg==
+Message-ID: <07adcd47-79c9-ae37-80c6-d1204c6cfea4@kernel.org>
+Date: Wed, 19 Jan 2022 14:09:01 +0200
 MIME-Version: 1.0
-In-Reply-To: <20220119113314.tpqfdgi6nurmzfun@pengutronix.de>
-Content-Type: text/plain; charset="windows-1252"
+Subject: Re: [PATCH] dt-bindings: Improve phandle-array schemas
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [192.168.11.198]
-X-ClientProxiedBy: LFEXT02.lancloud.ru (fd00:f066::142) To
- LFEX1907.lancloud.ru (fd00:f066::207)
+To: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org
+References: <20220119015038.2433585-1-robh@kernel.org>
+From: Georgi Djakov <djakov@kernel.org>
+In-Reply-To: <20220119015038.2433585-1-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 20 Jan 2022 08:03:35 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Vignesh Raghavendra <vigneshr@ti.com>, kvm@vger.kernel.org,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- alsa-devel@alsa-project.org, Guenter Roeck <groeck@chromium.org>,
- Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-phy@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
- linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, Khuong
- Dinh <khuong@os.amperecomputing.com>, Florian Fainelli <f.fainelli@gmail.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Kamal Dasu <kdasu.kdev@gmail.com>, Jiri
- Slaby <jirislaby@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>, Daniel
- Lezcano <daniel.lezcano@linaro.org>, Kishon Vijay Abraham I <kishon@ti.com>,
- bcm-kernel-feedback-list@broadcom.com, linux-serial@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- platform-driver-x86@vger.kernel.org, linux-pwm@vger.kernel.org,
- Robert Richter <rric@kernel.org>, Saravanan Sekar <sravanhome@gmail.com>,
- Corey Minyard <minyard@acm.org>, linux-pm@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, John
- Garry <john.garry@huawei.com>, Peter Korsgaard <peter@korsgaard.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Eric Auger <eric.auger@redhat.com>,
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- openipmi-developer@lists.sourceforge.net,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Benson Leung <bleung@chromium.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
- Tony Luck <tony.luck@intel.com>, Richard Weinberger <richard@nod.at>,
- Mun Yew Tham <mun.yew.tham@intel.com>, linux-gpio@vger.kernel.org,
+ linux-usb@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-remoteproc@vger.kernel.org,
+ alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
+ Sebastian Reichel <sre@kernel.org>, linux-ide@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Pavel Machek <pavel@ucw.cz>, linux-phy@lists.infradead.org,
+ netdev@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>,
+ Lee Jones <lee.jones@linaro.org>, linux-riscv@lists.infradead.org,
+ linux-leds@vger.kernel.org, Daniel Thompson <daniel.thompson@linaro.org>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Marc Zyngier <maz@kernel.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, iommu@lists.linux-foundation.org,
+ Kishon Vijay Abraham I <kishon@ti.com>, Jakub Kicinski <kuba@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Vivien Didelot <vivien.didelot@gmail.com>,
+ Wolfgang Grandegger <wg@grandegger.com>, linux-media@vger.kernel.org,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, linux-pm@vger.kernel.org,
+ Kalle Valo <kvalo@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
+ linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Cornelia Huck <cohuck@redhat.com>, linux-mmc@vger.kernel.org,
- Joakim Zhang <qiangqing.zhang@nxp.com>, linux-spi@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Vinod
- Koul <vkoul@kernel.org>, James Morse <james.morse@arm.com>,
- Zha Qipeng <qipeng.zha@intel.com>, Sebastian Reichel <sre@kernel.org>,
- =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund@ragnatech.se>,
- linux-mediatek@lists.infradead.org, Brian
- Norris <computersforpeace@gmail.com>, netdev@vger.kernel.org
+ Mark Brown <broonie@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Kevin Hilman <khilman@kernel.org>,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ linux-crypto@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Viresh Kumar <vireshk@kernel.org>, dmaengine@vger.kernel.org,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Joerg Roedel <joro@8bytes.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,40 +120,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/19/22 2:33 PM, Uwe Kleine-König wrote:
 
-[...]
->>>>> A possible compromise: We can have both. We rename
->>>>> platform_get_irq_optional() to platform_get_irq_silent() (or
->>>>> platform_get_irq_silently() if this is preferred) and once all users are
->>>>> are changed (which can be done mechanically), we reintroduce a
->>>>> platform_get_irq_optional() with Sergey's suggested semantic (i.e.
->>>>> return 0 on not-found, no error message printking).
->>>>
->>>> Please do not do that as anyone trying to forward-port an old driver
->>>> will miss the abi change of functionality and get confused.  Make
->>>> build-breaking changes, if the way a function currently works is
->>>> changed in order to give people a chance.
->>>
->>> Fine for me. I assume this is a Nack for Sergey's patch?
->>
->>    Which patch do you mean? I'm starting to get really muddled... :-(
+On 19.01.22 3:50, Rob Herring wrote:
+> The 'phandle-array' type is a bit ambiguous. It can be either just an
+> array of phandles or an array of phandles plus args. Many schemas for
+> phandle-array properties aren't clear in the schema which case applies
+> though the description usually describes it.
 > 
-> I'm talking about "[PATCH 1/2] platform: make
-> platform_get_irq_optional() optional"
+> The array of phandles case boils down to needing:
+> 
+> items:
+>    maxItems: 1
+> 
+> The phandle plus args cases should typically take this form:
+> 
+> items:
+>    - items:
+>        - description: A phandle
+>        - description: 1st arg cell
+>        - description: 2nd arg cell
+> 
+> With this change, some examples need updating so that the bracketing of
+> property values matches the schema.
+> 
+[..]
+>   .../bindings/interconnect/qcom,rpmh.yaml      |  2 +
 
-   I thought GregKH was talking about your renaming patch... :-/
-
-> because "trying to forward-port an
-> old driver will miss the abi" applies to it.
-
-   Mhm... why not tell me right from the start? Jr even tell that to Andy
-instead of merging his patch, so I wouldn't get sucked into this work? 
-I wouldn't bother with v2 and it would have saved a lot of time spent on
-email... :-(
-   Do we also remember that "the stable API is a nonsense" thing? :-)
-
-> Best regards
-> Uwe
-
-MBR, Sergey
+Acked-by: Georgi Djakov <djakov@kernel.org>

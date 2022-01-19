@@ -2,92 +2,183 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9237493AD7
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 14:07:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2C6B493B2C
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 14:37:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 652722CC7;
-	Wed, 19 Jan 2022 14:06:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 652722CC7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E7E429F9;
+	Wed, 19 Jan 2022 14:36:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E7E429F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642597625;
-	bh=Ry0dpqewIweZCuLZMxp1PB4CVhCGlNpeBlgvI276yds=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1642599423;
+	bh=UMM48yPwZ2IWoKqOw7vrxHHsnXMC/DM0mmCXInuPU/k=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jjqK/rglIVkq2JGd+cspKUlKSgMRIGQeh1T1gmdoKkSsnkoife/gOnE7s7VapSZ1W
-	 n6uMQ6ZFn8D0qAhuPPyxCdrVhbHp1OgCsI2nyZ/qJGEsXJPouqBM03J6i4KKFrrLtz
-	 8WoFPk913lmMMrKS3lAb7a6Z3YOQ3zDjatmLhxIw=
+	b=afO6pptJJohWeRf06JOpfY4501Juv1W8DgdPA+f58ZjXzUsdaBMfiuhPoBD6lrwxu
+	 wFlsQS1ve4OQ4B9Oho1ykU3QmpwgUW1cRUwiaEx8jUjPR6JHaMFanLTrGSc0wFceYa
+	 qygJNtF43TDo3qKTEJ8Tm6uP9xEJB7cWd1EKKoTg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEC92F80212;
-	Wed, 19 Jan 2022 14:05:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1483F80212;
+	Wed, 19 Jan 2022 14:35:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BD8DF801F7; Wed, 19 Jan 2022 14:05:58 +0100 (CET)
+ id C4923F801F7; Wed, 19 Jan 2022 14:35:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 037F0F80100
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 14:05:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 037F0F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A6BAF800F8
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 14:35:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A6BAF800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=hifiberry-com.20210112.gappssmtp.com
- header.i=@hifiberry-com.20210112.gappssmtp.com header.b="Tc4B9bZj"
-Received: by mail-ed1-x533.google.com with SMTP id c24so8524430edy.4
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 05:05:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=hifiberry-com.20210112.gappssmtp.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=BQZ4E8a4HAhSeMxSv0ESD+f/G1GPsUEbYE76r90MaCk=;
- b=Tc4B9bZjirTDWHYZqFdZMI7p6G4hEW2+ofLP/UXWggdgB2gHn5xMqr2T+TolsPgtAB
- e+LaH7oj3Xeh2C3KY4lNEcGt3LtDlGyH8i4OASPvWaiItwc9dKyzILPY0GkEmK0mv54b
- 6J05rMijKugqWK1NRohHI78xljxfIv0CFx0n1+D5WdqTsiaeXSdZq6dGSjZbWMHO0d7P
- fZ/w6V5gEP+CjB80yUSNg6xOxM9yddKQpOsZMtsjrEURLXSKjEK2xzVzkuug3xioqYf/
- Y7qEiyOLEIY525QpRf69WnuW2u5oL6w41K3ibF++oMEVAOJpBitBvxr1N+yCLqCSNK/2
- wurQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=BQZ4E8a4HAhSeMxSv0ESD+f/G1GPsUEbYE76r90MaCk=;
- b=dZdCNAmYnfZXfjZkvd8wjNJ6UBQqFUlfq+QrLcKRNCuO6EFn9HviHQq9FBK/nntKmM
- czWugMekVfxBpoVKyKpeddGmaAyjf8b1vIhPxje0Q1T9E0A/8ivF7+J8pvVmh2p0h6LC
- HQnPuMSjVPNz10l3Ut4ZFv/YE9OnKcKO9sdOT70NALf0BA7et9Uhb2K1s4Ad9rbSDZZq
- 891YEBlv7nXvsO1JI4KiWz5t5ivnKieKZ8R8SUoxgkk+KeYssgJ67u9wgbK/a0/d2YXP
- 2yhD39xVEYvIQNylJXpLscaL9j2epSaGHHaQLwy/iznS7aCJjoJr9HWBWloVhj0uw1D9
- UPaA==
-X-Gm-Message-State: AOAM532QG1IIEjRtJbTIkbWUIkcO0V2Y9I7IMLIMoyAcP0eXELUfs7bz
- tRajoEsJpGCGPy305D8U42kE8Q==
-X-Google-Smtp-Source: ABdhPJwn/YKb+HGgtSjYOB5C7FdudQvwNOND6u9GE0Fnmaim3rItPf2nQ2rzD8buC3MX4IznP4XNgA==
-X-Received: by 2002:a5d:6e83:: with SMTP id k3mr2297641wrz.506.1642597548917; 
- Wed, 19 Jan 2022 05:05:48 -0800 (PST)
-Received: from ubuntu ([2a02:810d:1640:10d8:5d27:648f:a5b9:b18a])
- by smtp.gmail.com with ESMTPSA id a8sm19026313wrx.57.2022.01.19.05.05.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Jan 2022 05:05:48 -0800 (PST)
-Date: Wed, 19 Jan 2022 14:05:46 +0100
-From: Joerg Schambacher <joerg@hifiberry.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4] ASoC: adds component driver for TAS575xM digital
- amplifiers
-Message-ID: <20220119130546.GB2144@ubuntu>
-References: <20211029095414.29131-1-joerg@hifiberry.com>
- <20220110084554.2228-1-joerg@hifiberry.com>
- <8f62aa37-c2a6-1a74-6e6f-5208b10b96ec@intel.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="jUu4AAQL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642599349; x=1674135349;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=UMM48yPwZ2IWoKqOw7vrxHHsnXMC/DM0mmCXInuPU/k=;
+ b=jUu4AAQLSeKgwk1KsE+uy9PqtbFWmWmcDeaJNBdrOPtXU5kVZ08FLPgR
+ FYtS+fqHBVO4kiC4MDc9rNj3Ztw3G7R6eyCGziepz13rPtR99lSyK1pnj
+ JRL6aN8iY9jQuJbUaNI92mtsvIK6CmOmxs6HmmY+/2ohXN28TmhzoqWwz
+ Biy+Tv3rtz5mcNKyQYh6UTROdb1aGSGLkBFoa9G/+EvDboQZC/q+lyWq9
+ IY4PGJnbJ5Ef9LLHJ9Eeg3o1G+AnA4818Llj3Bbc+meNtMT/qw6Nx+XqK
+ 0grMGp/BMZmJN/M5Mtsvd96kRk5S2waNxFCjfs4KK7hCpjkmCOnd8xTas A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="269456888"
+X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="269456888"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 05:35:33 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="764945719"
+Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
+ by fmsmga006.fm.intel.com with ESMTP; 19 Jan 2022 05:35:32 -0800
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Wed, 19 Jan 2022 05:35:32 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20 via Frontend Transport; Wed, 19 Jan 2022 05:35:32 -0800
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.102)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Wed, 19 Jan 2022 05:35:32 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Wm+Rwvn7q19ebPDFlCL1UyCOnoMMo9nA2ivYCl01k0gkbkaVqEk5yEzcsv6wNxm5BUQNOdorNUHx9cKUX0sbq/2W+ciZWjnilHsdKShQkxUchWRObHkWeEksoSrfdgfGfKqck02CqaDqi6Kc9XmdPf7ZFrbfdliJtQbsgrg9A4eN40N/EaKnGw/yvNtiYLD+LPJqq4+xMJLsunsLae6EQHYUlgf2PbUTMzuSuIhs3fIPjtZFhbs/oBGN2v9r29Zvb8rsCsX5krd1m7W1bwlzZ4yapdcZDy742n/KTysOQgdHlfEO0TUWuH3uUoS0xPkT7D0fR3Gn9XHHvEnKdj8FOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xQqtOn1hbeKVV9p1Yohec0AX8X61fbpuB+T12mGiu1A=;
+ b=Eb+UVhtj3IUh1vHGgeYAJ4i1hNLe4+yP92FF1PXVnGvCVlUZArwGmbuDUqGvQhbxqRBGYBwSZVFP5Ffdp2lXsKmHV/ygpeMO9+9Dx4WS4VCW2H4FD7tUUNJbslYuV4eE2/x32C290i4kwatbnfo/r/0uY7JclkrwDSbmOFedKQCsmccBsvzhnaZqPKDYxrrLkNLNsRUM2T3OE3fvdCqMuKTRJG/rXipVJIPtPzzGND5/XFJO4LW4c4MzixjPNry5hoobjpXHTebJIkJeqbT4hs+Vkz7NXjwOh5k9qR4wInWRYPdgZd4UxFTxg6xXrU62RHbmAwAFB+WNVBw5QbBgqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BN6PR11MB4049.namprd11.prod.outlook.com (2603:10b6:405:7f::12)
+ by SN6PR11MB3470.namprd11.prod.outlook.com (2603:10b6:805:b7::27)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.12; Wed, 19 Jan
+ 2022 13:35:30 +0000
+Received: from BN6PR11MB4049.namprd11.prod.outlook.com
+ ([fe80::cce3:53d5:6124:be26]) by BN6PR11MB4049.namprd11.prod.outlook.com
+ ([fe80::cce3:53d5:6124:be26%4]) with mapi id 15.20.4888.014; Wed, 19 Jan 2022
+ 13:35:31 +0000
+Message-ID: <c4d68409-ffa3-5999-6971-dfb0e8d15095@intel.com>
+Date: Wed, 19 Jan 2022 14:35:24 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.4.1
+Subject: Re: [PATCH v2 1/5] ASoC: sh: rz-ssi: Drop calling rz_ssi_pio_recv()
+ recursively
+Content-Language: en-US
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Biju Das
+ <biju.das.jz@bp.renesas.com>
+References: <20220115012303.29651-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20220115012303.29651-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20220115012303.29651-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0146.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:188::7) To BN6PR11MB4049.namprd11.prod.outlook.com
+ (2603:10b6:405:7f::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8f62aa37-c2a6-1a74-6e6f-5208b10b96ec@intel.com>
-Cc: joerg@hifiberry.com, kbuild-all@lists.01.org
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 74e24a70-7dba-449f-6071-08d9db508fe4
+X-MS-TrafficTypeDiagnostic: SN6PR11MB3470:EE_
+X-Microsoft-Antispam-PRVS: <SN6PR11MB3470438B36212FE5E79F46A3E3599@SN6PR11MB3470.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qZKa012VDW4FquPyox/w57L/UlMV99UIIam+zvmNcNd5LW3i7e10jRpTXcKyYZSJ3mvzptTem+r+mSxSW6WdT96TEBpke0BitmjI5NTqW6tKUDufZugycvajPxM9BW/nJgbubOoRrcsgccCqTts+GvlWhFoiG73nc6GwBzOGZGResVY2mzDTnrEDwfIJBb6WcK3m4zaVgasZKCVDkiBxlt36pHuZXUZlKBq75z45grnTtQFf5A8pw4ckD374cUlPbl70sx9vurSIY9B0nlviNq0RVQ9Tj53H+3d7sBl+5WEsyMq1VWilhykjMKXgUPJS0UFZSrU5ynIxXBn4CIsZMxonEoCGDHFZ7Szt40zxNB3EX7vKqXhaVsuLgh6xHx0g6pmq3qLwPOpb4ZcxY4AuyQSoVX/dDhxmveGzWmpZ/Biz6hfDdm4MwKWkKnlDt4uSBV5A+ipTECSgruwIR0l31v7rmvCGLRN5XUpdblkHABiR860ADjz4DnPcOMJetPMHVBiYRg+mmJGqKMnN9l1DJUV2UKZ6aPnubfecB1KasYyUxYNn7SfTpsUbDLCdR8pe2qthC6JknNzuDPkOQo/Na/UnL1kHTWfTdehfvfizPXUWAxh2Yp/YDZHPboEZfvCPrFB1296pmMNLsTsQ/6aK4RucgETrP+C33N6uuLEhtEDgvp/pSGED1z/pI5awBXMXtOSyJ5C8kacRQiFGmYTvbuhZvUPGiTGRZTstCheR8v8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN6PR11MB4049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(4326008)(66556008)(6512007)(66946007)(8936002)(44832011)(6486002)(6506007)(36756003)(31686004)(66476007)(38100700002)(82960400001)(83380400001)(86362001)(2616005)(26005)(4744005)(8676002)(31696002)(110136005)(508600001)(54906003)(7416002)(186003)(5660300002)(6666004)(2906002)(316002)(53546011)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2Z2VlFXa0tnMEhPVjBTZTRjVEtPeXcreWlUMUVXM1JFNHZUclY4eS85NkVM?=
+ =?utf-8?B?UzdhaGphSy9oZXU3MjJvSU51cjJQYWJ3QU1nVWpPWTZHQ0pHL2dyTWszd1Fz?=
+ =?utf-8?B?ckp2dlZrdUpMNW04UXhuWlJzMUkvQ2xaeHdOaTAwVTdCNGwyRUYvLzB1Tisy?=
+ =?utf-8?B?UDlIRXE3eW5WOFNYUHpRdFdXSWNuVnRKM1hMbGNzV0hDNmc4c2VoRUdoTTVq?=
+ =?utf-8?B?eUJ2eDJRaXNBVGt2ZmJZOVZWZDErWkJkbnloc2NTaTFnZGpYOEZkOTFtS2Rz?=
+ =?utf-8?B?RW1JR0FMZHcvNGd1eW8rOXZrbmNXQ3l1RDI2KzhiUGNMdmhyL2l2eVIyZG5Q?=
+ =?utf-8?B?MGZHU01tWW05cGZGcFJoWG8xOVJPWW9WSFRIakxYQUdVVWFXRG9ka3RtSldM?=
+ =?utf-8?B?ZlhHdGRURCtKOE5RRzdJVEtjbXVDSUFsUm16YktzOEJmYkpIMnRhMWFhUUFK?=
+ =?utf-8?B?NXhNdVRjYTZpQllYUFVVRGNGdnFkUmc2OWNaSCt1b2hyVy9oTkNzd1VQZVU4?=
+ =?utf-8?B?U3o1UEo0TmVmL3QzZHRRbkpGYUV5NlFFdDkyZC84WmVuL0dFMjhKNzJHRWhQ?=
+ =?utf-8?B?ODhxUXorRzA3T05DM2k1OVNoV09zOWZyK05JT3lJZTlOY1JVVVFtcTAza2tr?=
+ =?utf-8?B?bnlRajJTalh2YUljUTMzekxIdGZvcDQxQnVaNjh0c2ZlR2RSakZyK2toZzB1?=
+ =?utf-8?B?Y3V1Z1QzQ2djSkFYNWc0MzVJQnBzUGptaVQ1RU42NzFwb1pzeUJQcDdvWFR6?=
+ =?utf-8?B?VHRFU1VrOWpvOUgxcndlK1h6bmNSTTJzL0dBNWJMN3dMbVdGM2VGRzRqOXpJ?=
+ =?utf-8?B?UkExNDFid1JrNTkzTllPcGt6NnJJMUw0cW9xWXRFVlBpNGozTUtLbzdGV2JP?=
+ =?utf-8?B?cThVVE0zSFNLeVoyb1dZbjlvamI0dVZSRXMvUmZSNWJVaFgyQkZlY25MaGlO?=
+ =?utf-8?B?WS8vYkJua09LZENGY1dQQVNZN3V2b3U5U3ZiWjJtUVp5VEMxQjNmb0dpVncz?=
+ =?utf-8?B?M2NFYm05OTE3dzdvSzdWYWx2TTl0b3RPN2lKTWNmbnhSeURnUGVuZENMQVlD?=
+ =?utf-8?B?NGhjQVpNcUFRU21sWVB2bG52bHVoU0laalVSY1o0dFFCbVl3Wno1UVpBSGhw?=
+ =?utf-8?B?THBNSVBUazNacVFoR2VpZ3I0VXpLSGdzSXFHUHRRSm5zOUc5MERsR3gvRHNZ?=
+ =?utf-8?B?elp4VTAzbCtrL0NNMnRFN3AzOXNWSndOS1VXSGd1aXZkTDRHNmNZZ28rMzFD?=
+ =?utf-8?B?cVFKN3B6L3dJYmxzelFZd29iVDhhYUQ4QmV3eEdVaHFTUHlJdjRHdDM5Rkto?=
+ =?utf-8?B?TFUwclJzOEIreFhGTDN1NEd4bFlici9ZSjNJOWQ2aTBQaHkrWko4bnFIZ0Qx?=
+ =?utf-8?B?K2FvaURFL2tVekkyajV1NkMzdHdwU1dremVqQUY1Um5nVG8ybVN5cGdvUTA4?=
+ =?utf-8?B?WGxZK2FMZjFQVVVRcXBIZnh3MHpsYW1CZW1GNWExRzZjaS9FakZRakVVbC9Q?=
+ =?utf-8?B?UWVPaE52YjJidUxWNmZ5WEp3RnlJKzdGbXFoaWdqMFh0TmR0REUrRDVkdzFm?=
+ =?utf-8?B?dkN1ZzRQeDZOQnNlcHJ6ZG5uMHRhN3EyTFVRbVB4R2xXUlFtempmd1pwc2s0?=
+ =?utf-8?B?ZTZxR1JPaVI0TktSNGRNckFkc3hkbkNTWGwxQ2hKTmdOSzFwOWY0REdrNlhL?=
+ =?utf-8?B?UVo5ZHAyL2w5SEUzQ0owREJWTFI0Y1NLc0JuNEU2OGtnMFNvckhGOUdLMitJ?=
+ =?utf-8?B?TUhzYVU0eFpBVllydnA3allCc09Id2FOU05ISExrb0ROSlRYVEtEVjkwL3Nl?=
+ =?utf-8?B?V3lobGpzazlqSVlldEpFV0g1TGdPcG9UZmc4SDFVTmZRTXByNnFORzdpaWFm?=
+ =?utf-8?B?c01YRkprM09Cb3FyeWJNMWVWQzQ0ZDR3TFB6Nm1uQkxDdkdHeWhic3kvaWxT?=
+ =?utf-8?B?NDk4MXF6cjBoL3Q1NVNxTXBnZGphb1p5SjBYT2htcVhydVJUMGpUNEliZnFW?=
+ =?utf-8?B?WFBuT3hYTXA3UThwUmlRRGw4WERpbzM0Mll1c29od0M5c0Q3aldoMUZvUWRp?=
+ =?utf-8?B?bWp0elRTK1FSN0dBcDY1MlZvcXJNbFRWS2RoM09POEF0Z2xOK0VuRHNFZHVB?=
+ =?utf-8?B?ekc1dmtzZk1vMFJ4bTROVUdZeG9MOW9GVHZsYk9iSUV1KzlYUHA2YVRrdWx1?=
+ =?utf-8?B?VG8zMmhRcm9JbGRoNmxmK2lvaXlDaG5RUzJWNWZudU95SU41Zmk1N3NCQ1Y2?=
+ =?utf-8?B?T2Z5cHBlcWY4N1pLY1pkUjk1MjNBPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74e24a70-7dba-449f-6071-08d9db508fe4
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB4049.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2022 13:35:31.0109 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g9ayc2V2CBq7AB5jBijkaynJP4QwhKrYhSXnfoSACbXrrK/HDKoXo6uwgxOT1ndWv+qkXxErER6oqj6HwTmSSSGxOC6psRfv3NeVy/w5JT4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB3470
+X-OriginatorOrg: intel.com
+Cc: linux-renesas-soc@vger.kernel.org, Pavel Machek <pavel@denx.de>,
+ Prabhakar <prabhakar.csengg@gmail.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,1296 +194,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Cezary,
+On 2022-01-15 2:22 AM, Lad Prabhakar wrote:
+> Instead of recursively calling rz_ssi_pio_recv() use a loop instead
+> to read the samples from RX fifo.
+> 
+> Inspiration for this patch is to avoid recursion, as recursion is
+> unwelcome in kernel due to limited stack use. Also to add this driver
+> will later be used on RZ/A2 SoC's which runs with limited memory.
+> 
+> This also fixes an issue where the return value of rz_ssi_pio_recv()
+> was ignored when called recursively.
+> 
+> Fixes: 03e786bd4341 ("ASoC: sh: Add RZ/G2L SSIF-2 driver")
+> Reported-by: Pavel Machek <pavel@denx.de>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v1->v2
+> * Used a do while loop
+> * Fixed comments pointed by Cezary.
 
-Thanks for your review and the feedback. I hope I've fixed all issues.
+Apart from my previous suggestions which have already been addressed, I 
+don't see any issues with the patch, so:
 
-Joerg
-
-On Mon, Jan 10, 2022 at 05:25:14PM +0100, Cezary Rojewski wrote:
-> On 2022-01-10 9:45 AM, Joerg Schambacher wrote:
-> > Adds a minimum component driver to run the amplifier in I2S master
-> > mode only from standard audio clocks. Therefore, it only allows
-> > 44.1, 88.2, 176.4, 48, 96 and 192ksps with 16, 20, 24 and 32 bits
-> > sample size. Digital volume control and the -6dB and +0.8dB switches
-> > are supported.
-> 
-> Couple nitpicks and suggestions below.
-> 
-> (...)
-> 
-> > +static int tas5754m_set_bias_level(struct snd_soc_component *component,
-> > +					enum snd_soc_bias_level level)
-> > +{
-> > +	struct tas5754m_priv *tas5754m =
-> > +				snd_soc_component_get_drvdata(component);
-> > +	int ret;
-> > +
-> > +	switch (level) {
-> > +	case SND_SOC_BIAS_ON:
-> > +	case SND_SOC_BIAS_PREPARE:
-> > +		break;
-> > +
-> > +	case SND_SOC_BIAS_STANDBY:
-> > +		ret = regmap_update_bits(tas5754m->regmap,
-> > +				TAS5754M_POWER, TAS5754M_RQST, 0);
-> > +		if (ret != 0) {
-> 
-> I believe we are dealing here with standard API function i.e. 0 on success
-> and negative value on error. And thus, 'if (ret)' suffices.
-> 
-yes, fixed
-
-> > +			dev_err(component->dev,
-> > +				"Failed to remove standby: %d\n", ret);
-> > +			return ret;
-> > +		}
-> > +		break;
-> > +
-> > +	case SND_SOC_BIAS_OFF:
-> > +		ret = regmap_update_bits(tas5754m->regmap,
-> > +				TAS5754M_POWER, TAS5754M_RQST, TAS5754M_RQST);
-> > +		if (ret != 0) {
-> 
-> Ditto. This also goes for every single usage of regmap_xxx() in this file.
-> 
-> > +			dev_err(component->dev,
-> > +				"Failed to request standby: %d\n", ret);
-> > +			return ret;
-> > +		}
-> > +		break;
-> > +	}
-> > +
-> > +	return 0;
-> 
-> You could also drop the 'return ret' from the if-statements above - granting
-> you also ability to drop the brackets - and instead return 'ret' instead of
-> '0' here. Of course that means 'ret' needs to be initialized appropriately
-> at the top of the function.
-yes, fixed as recommended
-> 
-> > +}
-> > +
-> > +int tas5754m_set_clock_tree_master(struct snd_soc_dai *dai,
-> > +					struct snd_pcm_hw_params *params)
-> 
-> Indentation seems off.
-aligned all functions/parameters
-
-> 
-> > +{
-> > +	struct snd_soc_component *component = dai->component;
-> > +	struct tas5754m_priv *tas5754m =
-> > +			snd_soc_component_get_drvdata(component);
-> > +	static const struct reg_sequence pll_settings[] = {
-> > +		{ TAS5754M_PLL_COEFF_P,		0x01 },	// P=2
-> > +		{ TAS5754M_PLL_COEFF_J,		0x08 },	// J=8
-> > +		{ TAS5754M_PLL_COEFF_DL,	0x00 },	// D12-8 = 0
-> > +		{ TAS5754M_PLL_COEFF_DH,	0x00 },	// D7-0 = 0
-> > +		{ TAS5754M_PLL_COEFF_R,		0x00 },	// R=1
-> > +	};
-> > +	int ret;
-> > +
-> > +	/* disable PLL before any clock tree change */
-> > +	ret = regmap_update_bits(tas5754m->regmap, TAS5754M_PLL_EN,
-> > +				 TAS5754M_PLLE, 0);
-> > +	if (ret != 0) {
-> > +		dev_err(component->dev, "Failed to disable PLL: %d\n", ret);
-> > +		return ret;
-> > +	}
-> > +
-> > +	/* set DAC clock source to MCLK */
-> > +	ret = regmap_write(tas5754m->regmap, TAS5754M_DAC_REF, 0x30);
-> > +	if (ret != 0) {
-> > +		dev_err(component->dev, "Failed to set DAC ref\n");
-> > +		return ret;
-> > +	}
-> > +
-> > +	/* run PLL at fixed ratio to MCLK */
-> > +	ret = regmap_multi_reg_write(tas5754m->regmap, pll_settings,
-> > +					ARRAY_SIZE(pll_settings));
-> > +	if (ret != 0) {
-> > +		dev_err(component->dev, "Failed to set PLL ratio\n");
-> > +		return ret;
-> > +	}
-> > +
-> > +	/* set DSP divider to 2 => reg 0x01 */
-> > +	ret = regmap_write(tas5754m->regmap, TAS5754M_DSP_CLKDIV, 1);
-> > +	if (ret != 0) {
-> > +		dev_err(component->dev, "Failed to set DSP divider\n");
-> > +		return ret;
-> > +	}
-> > +	/* set DAC divider to 4 => reg 0x03*/
-> > +	ret = regmap_write(tas5754m->regmap, TAS5754M_DAC_CLKDIV, 3);
-> > +	if (ret != 0) {
-> > +		dev_err(component->dev, "Failed to set OSDACR divider\n");
-> > +		return ret;
-> > +	}
-> > +	/* set OSR divider to 1 */
-> > +	ret = regmap_write(tas5754m->regmap, TAS5754M_OSR_CLKDIV, 0);
-> > +	if (ret != 0) {
-> > +		dev_err(component->dev, "Failed to set OSR divider\n");
-> > +		return ret;
-> > +	}
-> > +	/* set CP divider to 4 => reg 0x03*/
-> > +	ret = regmap_write(tas5754m->regmap, TAS5754M_NCP_CLKDIV, 3);
-> > +	if (ret != 0) {
-> > +		dev_err(component->dev, "Failed to set CP divider\n");
-> > +		return ret;
-> > +	}
-> > +	/* finally enable PLL */
-> > +	ret = regmap_update_bits(tas5754m->regmap, TAS5754M_PLL_EN,
-> > +				 TAS5754M_PLLE, 1);
-> > +	if (ret != 0) {
-> > +		dev_err(component->dev, "Failed to enable PLL: %d\n", ret);
-> > +		return ret;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> 
-> I'd suggest to keep the logical block organization cohesive. Especially if
-> there are several of them all located within a single function. Some of the
-> do/check/error-out blocks above are separated by a newline from the
-> following ones, and some are not.
-> 
-> Another point is the cohesiveness of the error-message format. Some of the
-> above print value of 'ret' i.e. carry additional value whereas other skip
-> that part. Is this intentional?
-
-done following your suggestions
-> 
-> > +
-> > +int tas5754m_set_dai_mode(struct snd_soc_dai *dai)
-> > +{
-> > +	struct snd_soc_component *component = dai->component;
-> > +	struct tas5754m_priv *tas5754m =
-> > +			snd_soc_component_get_drvdata(component);
-> > +	int fmt = tas5754m->fmt;
-> > +
-> > +	/* only I2S MASTER mode implemented */
-> > +	if (((fmt & SND_SOC_DAIFMT_FORMAT_MASK) != SND_SOC_DAIFMT_I2S)) {
-> 
-> Maybe I'm missing something but the most outter pair of brackets is
-> redundant.
-Removed the brackets - I once had a warning like 'brackets around boolean expression' - but it works correct now.
-
-> 
-> > +		dev_err(component->dev,
-> > +			"DAI format not supported (I2S master only)\n");
-> > +		return -EINVAL;
-> > +	}
-> > +	/* TAS5754/6m do not support inverted clocks in MASTER mode */
-> 
-> A newline before the comment would make this more readabile - that's a new
-> logical block afterall.
-fixed
-> 
-> > +	if (((fmt & SND_SOC_DAIFMT_CLOCK_MASK) != SND_SOC_DAIFMT_NB_NF)) {
-> 
-> Again, I may be missing something, but this looks like outter brackets are
-> redundant.
-> 
-> > +		dev_err(component->dev,	"Inverted clocks not supported\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> > +	case SND_SOC_DAIFMT_CBM_CFM:
-> > +		regmap_update_bits(tas5754m->regmap,
-> > +				TAS5754M_BCLK_LRCLK_CFG,
-> > +				TAS5754M_LRKO | TAS5754M_BCKO,
-> > +				TAS5754M_LRKO | TAS5754M_BCKO);
-> > +		/* reset CLK dividers */
-> > +		regmap_update_bits(tas5754m->regmap,
-> > +				TAS5754M_MASTER_MODE,
-> > +				0x00,
-> > +				TAS5754M_RLRK | TAS5754M_RBCK);
-> > +		/* ignore all clock error detection but MCLK */
-> > +		regmap_update_bits(tas5754m->regmap,
-> > +				TAS5754M_ERROR_DETECT,
-> > +				TAS5754M_IPLK | TAS5754M_DCAS |
-> > +				TAS5754M_IDCM | TAS5754M_IDSK |
-> > +				TAS5754M_IDBK | TAS5754M_IDFS,
-> > +				TAS5754M_IPLK | TAS5754M_DCAS |
-> > +				TAS5754M_IDCM | TAS5754M_IDSK |
-> > +				TAS5754M_IDBK | TAS5754M_IDFS);
-> > +		break;
-> > +	case SND_SOC_DAIFMT_CBS_CFS:
-> > +	case SND_SOC_DAIFMT_CBM_CFS:
-> > +	default:
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +int tas5754m_set_dividers_master(struct snd_soc_dai *dai,
-> > +				struct snd_pcm_hw_params *params)
-> > +{
-> > +	struct snd_soc_component *component = dai->component;
-> > +	struct tas5754m_priv *tas5754m =
-> > +			snd_soc_component_get_drvdata(component);
-> > +	unsigned long bclk;
-> > +	unsigned long mclk;
-> > +	int bclk_div;
-> > +	int lrclk_div;
-> > +	int osr;
-> > +	int ret;
-> > +
-> > +	mclk = clk_get_rate(tas5754m->sclk);
-> > +	bclk = tas5754m->sample_len * 2 * params_rate(params);
-> > +	bclk_div = mclk / bclk;
-> > +	lrclk_div = tas5754m->sample_len * 2;
-> > +	osr = mclk / 4 / params_rate(params) / 16;
-> 
-> Is there a specific reason as to why these magic numbers aren't
-> defines/constants?
-mclk and sample_len vary: can be 22.5792/24.576MHz and 16/32 bits
-
-> 
-> > +
-> > +	// stop LR / SCLK clocks
-> 
-> Formatting of this comment looks odd. Please align with the recommended one.
-> 
-> 
-> (...)
-> 
-> 
-> Regards,
-> Czarek
-From 06172ee3aff67edb09c934d96740ced85a70e8f6 Mon Sep 17 00:00:00 2001
-From: Joerg Schambacher <joerg@hifiberry.com>
-Date: Tue, 5 Oct 2021 14:38:21 +0200
-Subject: [PATCH] ASoC: adds component driver for TAS575xM digital amplifiers
-
-Adds a minimum component driver to run the amplifier in I2S master
-mode only from standard audio clocks. Therefore, it only allows
-44.1, 88.2, 176.4, 48, 96 and 192ksps with 16, 20, 24 and 32 bits
-sample size. Digital volume control and the -6dB and +0.8dB switches
-are supported.
-
-Signed-off-by: Joerg Schambacher <joerg@hifiberry.com>
----
- sound/soc/codecs/Kconfig    |   8 +
- sound/soc/codecs/Makefile   |   2 +
- sound/soc/codecs/tas5754m.c | 691 ++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/tas5754m.h | 260 ++++++++++++++
- 4 files changed, 961 insertions(+)
- create mode 100644 sound/soc/codecs/tas5754m.c
- create mode 100644 sound/soc/codecs/tas5754m.h
-
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 82ee233a269d..cf0584948fcf 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -210,6 +210,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_TAS5086
- 	imply SND_SOC_TAS571X
- 	imply SND_SOC_TAS5720
-+	imply SND_SOC_TAS5754M
- 	imply SND_SOC_TAS6424
- 	imply SND_SOC_TDA7419
- 	imply SND_SOC_TFA9879
-@@ -1419,6 +1420,13 @@ config SND_SOC_TAS5720
- 	  Enable support for Texas Instruments TAS5720L/M high-efficiency mono
- 	  Class-D audio power amplifiers.
- 
-+config SND_SOC_TAS5754M
-+	tristate "Texas Instruments TAS5754M Digital Input Audio amplifier"
-+	depends on I2C
-+	help
-+	  Enable support for Texas Instruments TAS5754M digital input
-+	  Class-D audio power amplifiers.
-+
- config SND_SOC_TAS6424
- 	tristate "Texas Instruments TAS6424 Quad-Channel Audio amplifier"
- 	depends on I2C
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 8dcea2c4604a..39984900258a 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -227,6 +227,7 @@ snd-soc-sti-sas-objs := sti-sas.o
- snd-soc-tas5086-objs := tas5086.o
- snd-soc-tas571x-objs := tas571x.o
- snd-soc-tas5720-objs := tas5720.o
-+snd-soc-tas5754m-objs := tas5754m.o
- snd-soc-tas6424-objs := tas6424.o
- snd-soc-tda7419-objs := tda7419.o
- snd-soc-tas2770-objs := tas2770.o
-@@ -555,6 +556,7 @@ obj-$(CONFIG_SND_SOC_TAS2764)	+= snd-soc-tas2764.o
- obj-$(CONFIG_SND_SOC_TAS5086)	+= snd-soc-tas5086.o
- obj-$(CONFIG_SND_SOC_TAS571X)	+= snd-soc-tas571x.o
- obj-$(CONFIG_SND_SOC_TAS5720)	+= snd-soc-tas5720.o
-+obj-$(CONFIG_SND_SOC_TAS5754M)	+= snd-soc-tas5754m.o
- obj-$(CONFIG_SND_SOC_TAS6424)	+= snd-soc-tas6424.o
- obj-$(CONFIG_SND_SOC_TDA7419)	+= snd-soc-tda7419.o
- obj-$(CONFIG_SND_SOC_TAS2770) += snd-soc-tas2770.o
-diff --git a/sound/soc/codecs/tas5754m.c b/sound/soc/codecs/tas5754m.c
-new file mode 100644
-index 000000000000..5aec0c1c6aeb
---- /dev/null
-+++ b/sound/soc/codecs/tas5754m.c
-@@ -0,0 +1,691 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Driver for the TAS5754M Audio Amplifier
-+ *
-+ * Author: Joerg Schambacher <joerg@hifiberry.com>
-+ *         with fragments from Andy Liu <andy-liu@ti.com>
-+ *
-+ * The driver supports I2S master mode only with standard audio
-+ * frequencies 44.1 to 192 ksps from a 24.576/22.2592MHz master
-+ * clock input
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License
-+ * version 2 as published by the Free Software Foundation.
-+ *
-+ * This program is distributed in the hope that it will be useful, but
-+ * WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * General Public License for more details.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/moduleparam.h>
-+#include <linux/clk.h>
-+#include <linux/slab.h>
-+#include <linux/of.h>
-+#include <linux/init.h>
-+#include <linux/i2c.h>
-+#include <linux/regmap.h>
-+#include <linux/delay.h>
-+
-+#include <sound/tlv.h>
-+#include <sound/soc.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/initval.h>
-+
-+#include "tas5754m.h"
-+
-+#define TAS5754M_RATES		(SNDRV_PCM_RATE_48000  | \
-+				 SNDRV_PCM_RATE_96000  | \
-+				 SNDRV_PCM_RATE_192000 | \
-+				 SNDRV_PCM_RATE_44100  | \
-+				 SNDRV_PCM_RATE_88200  | \
-+				 SNDRV_PCM_RATE_176400)
-+#define TAS5754M_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE  | \
-+				 SNDRV_PCM_FMTBIT_S20_LE  | \
-+				 SNDRV_PCM_FMTBIT_S24_LE  | \
-+				 SNDRV_PCM_FMTBIT_S32_LE)
-+
-+
-+static const struct reg_default tas5754m_reg_defaults[] = {
-+	{ TAS5754M_RESET,             0x00 },
-+	{ TAS5754M_POWER,             0x00 },
-+	{ TAS5754M_MUTE,              0x00 },
-+	{ TAS5754M_DSP,               0x00 },
-+	{ TAS5754M_PLL_REF,           0x00 },
-+	{ TAS5754M_DAC_REF,           0x00 },
-+	{ TAS5754M_DAC_ROUTING,       0x11 },
-+	{ TAS5754M_DSP_PROGRAM,       0x01 },
-+	{ TAS5754M_CLKDET,            0x00 },
-+	{ TAS5754M_AUTO_MUTE,         0x00 },
-+	{ TAS5754M_ERROR_DETECT,      0x00 },
-+	{ TAS5754M_DIGITAL_VOLUME_1,  0x00 },
-+	{ TAS5754M_DIGITAL_VOLUME_2,  0x30 },
-+	{ TAS5754M_DIGITAL_VOLUME_3,  0x30 },
-+	{ TAS5754M_DIGITAL_MUTE_1,    0x22 },
-+	{ TAS5754M_DIGITAL_MUTE_2,    0x00 },
-+	{ TAS5754M_DIGITAL_MUTE_3,    0x07 },
-+	{ TAS5754M_OUTPUT_AMPLITUDE,  0x00 },
-+	{ TAS5754M_ANALOG_GAIN_CTRL,  0x00 },
-+	{ TAS5754M_UNDERVOLTAGE_PROT, 0x00 },
-+	{ TAS5754M_ANALOG_MUTE_CTRL,  0x00 },
-+	{ TAS5754M_ANALOG_GAIN_BOOST, 0x00 },
-+	{ TAS5754M_VCOM_CTRL_1,       0x00 },
-+	{ TAS5754M_VCOM_CTRL_2,       0x01 },
-+	{ TAS5754M_BCLK_LRCLK_CFG,    0x00 },
-+	{ TAS5754M_MASTER_MODE,       0x7c },
-+	{ TAS5754M_GPIO_PLLIN,        0x00 },
-+	{ TAS5754M_SYNCHRONIZE,       0x10 },
-+	{ TAS5754M_PLL_COEFF_P,       0x00 },
-+	{ TAS5754M_PLL_COEFF_J,       0x00 },
-+	{ TAS5754M_PLL_COEFF_DH,      0x00 },
-+	{ TAS5754M_PLL_COEFF_DL,      0x00 },
-+	{ TAS5754M_PLL_COEFF_R,       0x00 },
-+	{ TAS5754M_DSP_CLKDIV,        0x00 },
-+	{ TAS5754M_DAC_CLKDIV,        0x00 },
-+	{ TAS5754M_NCP_CLKDIV,        0x00 },
-+	{ TAS5754M_OSR_CLKDIV,        0x00 },
-+	{ TAS5754M_MASTER_SCLKDIV,    0x00 },
-+	{ TAS5754M_MASTER_LRCLKDIV,   0x00 },
-+	{ TAS5754M_FS_SPEED_MODE,     0x00 },
-+	{ TAS5754M_IDAC_1,            0x01 },
-+	{ TAS5754M_IDAC_2,            0x00 },
-+};
-+
-+static bool tas5754m_readable(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case TAS5754M_RESET:
-+	case TAS5754M_POWER:
-+	case TAS5754M_MUTE:
-+	case TAS5754M_PLL_EN:
-+	case TAS5754M_DSP:
-+	case TAS5754M_GPIO_EN:
-+	case TAS5754M_BCLK_LRCLK_CFG:
-+	case TAS5754M_DSP_GPIO_INPUT:
-+	case TAS5754M_MASTER_MODE:
-+	case TAS5754M_PLL_REF:
-+	case TAS5754M_DAC_REF:
-+	case TAS5754M_GPIO_PLLIN:
-+	case TAS5754M_SYNCHRONIZE:
-+	case TAS5754M_PLL_COEFF_P:
-+	case TAS5754M_PLL_COEFF_J:
-+	case TAS5754M_PLL_COEFF_DH:
-+	case TAS5754M_PLL_COEFF_DL:
-+	case TAS5754M_PLL_COEFF_R:
-+	case TAS5754M_DSP_CLKDIV:
-+	case TAS5754M_DAC_CLKDIV:
-+	case TAS5754M_NCP_CLKDIV:
-+	case TAS5754M_OSR_CLKDIV:
-+	case TAS5754M_MASTER_SCLKDIV:
-+	case TAS5754M_MASTER_LRCLKDIV:
-+	case TAS5754M_FS_SPEED_MODE:
-+	case TAS5754M_IDAC_1:
-+	case TAS5754M_IDAC_2:
-+	case TAS5754M_ERROR_DETECT:
-+	case TAS5754M_I2S_1:
-+	case TAS5754M_I2S_2:
-+	case TAS5754M_DAC_ROUTING:
-+	case TAS5754M_DSP_PROGRAM:
-+	case TAS5754M_CLKDET:
-+	case TAS5754M_AUTO_MUTE:
-+	case TAS5754M_DIGITAL_VOLUME_1:
-+	case TAS5754M_DIGITAL_VOLUME_2:
-+	case TAS5754M_DIGITAL_VOLUME_3:
-+	case TAS5754M_DIGITAL_MUTE_1:
-+	case TAS5754M_DIGITAL_MUTE_2:
-+	case TAS5754M_DIGITAL_MUTE_3:
-+	case TAS5754M_GPIO_OUTPUT_0:
-+	case TAS5754M_GPIO_OUTPUT_1:
-+	case TAS5754M_GPIO_OUTPUT_2:
-+	case TAS5754M_GPIO_CONTROL_1:
-+	case TAS5754M_GPIO_CONTROL_2:
-+	case TAS5754M_OVERFLOW:
-+	case TAS5754M_RATE_DET_1:
-+	case TAS5754M_RATE_DET_2:
-+	case TAS5754M_RATE_DET_3:
-+	case TAS5754M_RATE_DET_4:
-+	case TAS5754M_CLOCK_STATUS:
-+	case TAS5754M_ANALOG_MUTE_DET:
-+	case TAS5754M_GPIN:
-+	case TAS5754M_DIGITAL_MUTE_DET:
-+	case TAS5754M_OUTPUT_AMPLITUDE:
-+	case TAS5754M_ANALOG_GAIN_CTRL:
-+	case TAS5754M_UNDERVOLTAGE_PROT:
-+	case TAS5754M_ANALOG_MUTE_CTRL:
-+	case TAS5754M_ANALOG_GAIN_BOOST:
-+	case TAS5754M_VCOM_CTRL_1:
-+	case TAS5754M_VCOM_CTRL_2:
-+	case TAS5754M_CRAM_CTRL:
-+	case TAS5754M_FLEX_A:
-+	case TAS5754M_FLEX_B:
-+		return true;
-+	default:
-+		return reg < 0x7f;
-+	}
-+}
-+
-+static bool tas5754m_volatile(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case TAS5754M_PLL_EN:
-+	case TAS5754M_OVERFLOW:
-+	case TAS5754M_RATE_DET_1:
-+	case TAS5754M_RATE_DET_2:
-+	case TAS5754M_RATE_DET_3:
-+	case TAS5754M_RATE_DET_4:
-+	case TAS5754M_CLOCK_STATUS:
-+	case TAS5754M_ANALOG_MUTE_DET:
-+	case TAS5754M_GPIN:
-+	case TAS5754M_DIGITAL_MUTE_DET:
-+	case TAS5754M_CRAM_CTRL:
-+		return true;
-+	default:
-+		return reg < 0x7f;
-+	}
-+}
-+
-+struct tas5754m_priv {
-+	struct regmap *regmap;
-+	struct clk *sclk;
-+	int sample_len;
-+	int fmt;
-+	int mode;
-+};
-+
-+static const struct regmap_range_cfg tas5754m_range = {
-+	.name = "Pages",
-+	.range_min = TAS5754M_VIRT_BASE,
-+	.range_max = TAS5754M_MAX_REGISTER,
-+	.selector_reg = TAS5754M_PAGE,
-+	.selector_mask = 0x7f,
-+	.window_start = 0,
-+	.window_len = 128,
-+};
-+
-+const struct regmap_config tas5754m_regmap = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+
-+	.ranges = &tas5754m_range,
-+	.num_ranges = 1,
-+	.max_register = TAS5754M_MAX_REGISTER,
-+
-+	.reg_defaults = tas5754m_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(tas5754m_reg_defaults),
-+	.readable_reg = tas5754m_readable,
-+	.volatile_reg = tas5754m_volatile,
-+
-+	.cache_type = REGCACHE_RBTREE,
-+};
-+
-+static const DECLARE_TLV_DB_SCALE(digital_tlv, -10350, 50, 1);
-+static const DECLARE_TLV_DB_SCALE(analog_tlv, -600, 600, 0);
-+static const DECLARE_TLV_DB_SCALE(boost_tlv, 0, 80, 0);
-+
-+static const struct snd_kcontrol_new tas5754m_controls[] = {
-+SOC_DOUBLE_R_TLV("Digital Playback Volume", TAS5754M_DIGITAL_VOLUME_2,
-+		 TAS5754M_DIGITAL_VOLUME_3, 0, 255, 1, digital_tlv),
-+SOC_DOUBLE_TLV("Analog Playback Volume", TAS5754M_ANALOG_GAIN_CTRL,
-+	     TAS5754M_LAGN_SHIFT, TAS5754M_RAGN_SHIFT, 1, 1, analog_tlv),
-+SOC_DOUBLE_TLV("Analogue Playback Boost Volume", TAS5754M_ANALOG_GAIN_BOOST,
-+	       TAS5754M_AGBL_SHIFT, TAS5754M_AGBR_SHIFT, 1, 0, boost_tlv),
-+};
-+
-+static int tas5754m_set_bias_level(struct snd_soc_component *component,
-+				   enum snd_soc_bias_level level)
-+{
-+	struct tas5754m_priv *tas5754m =
-+				snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	switch (level) {
-+	default:
-+	case SND_SOC_BIAS_ON:
-+	case SND_SOC_BIAS_PREPARE:
-+		break;
-+
-+	case SND_SOC_BIAS_STANDBY:
-+		ret = regmap_update_bits(tas5754m->regmap,
-+				TAS5754M_POWER, TAS5754M_RQST, 0);
-+		if (ret)
-+			dev_err(component->dev,
-+				"Failed to remove standby: %d\n", ret);
-+		break;
-+
-+	case SND_SOC_BIAS_OFF:
-+		ret = regmap_update_bits(tas5754m->regmap,
-+				TAS5754M_POWER, TAS5754M_RQST, TAS5754M_RQST);
-+		if (ret)
-+			dev_err(component->dev,
-+				"Failed to request standby: %d\n", ret);
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int tas5754m_set_clock_tree_master(struct snd_soc_dai *dai,
-+					  struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas5754m_priv *tas5754m =
-+			snd_soc_component_get_drvdata(component);
-+	static const struct reg_sequence pll_settings[] = {
-+		{ TAS5754M_PLL_COEFF_P,		0x01 },	// P=2
-+		{ TAS5754M_PLL_COEFF_J,		0x08 },	// J=8
-+		{ TAS5754M_PLL_COEFF_DL,	0x00 },	// D12-8 = 0
-+		{ TAS5754M_PLL_COEFF_DH,	0x00 },	// D7-0 = 0
-+		{ TAS5754M_PLL_COEFF_R,		0x00 },	// R=1
-+	};
-+	int ret;
-+
-+	/* disable PLL before any clock tree change */
-+	ret = regmap_update_bits(tas5754m->regmap, TAS5754M_PLL_EN,
-+				 TAS5754M_PLLE, 0);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to disable PLL\n");
-+		return ret;
-+	}
-+	/* set DAC clock source to MCLK */
-+	ret = regmap_write(tas5754m->regmap, TAS5754M_DAC_REF, 0x30);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to set DAC ref\n");
-+		return ret;
-+	}
-+	/* run PLL at fixed ratio to MCLK */
-+	ret = regmap_multi_reg_write(tas5754m->regmap, pll_settings,
-+					ARRAY_SIZE(pll_settings));
-+	if (ret) {
-+		dev_err(component->dev, "Failed to set PLL ratio\n");
-+		return ret;
-+	}
-+	/* set DSP divider to 2 => reg 0x01 */
-+	ret = regmap_write(tas5754m->regmap, TAS5754M_DSP_CLKDIV, 1);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to set DSP divider\n");
-+		return ret;
-+	}
-+	/* set DAC divider to 4 => reg 0x03*/
-+	ret = regmap_write(tas5754m->regmap, TAS5754M_DAC_CLKDIV, 3);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to set OSDACR divider\n");
-+		return ret;
-+	}
-+	/* set OSR divider to 1 */
-+	ret = regmap_write(tas5754m->regmap, TAS5754M_OSR_CLKDIV, 0);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to set OSR divider\n");
-+		return ret;
-+	}
-+	/* set CP divider to 4 => reg 0x03*/
-+	ret = regmap_write(tas5754m->regmap, TAS5754M_NCP_CLKDIV, 3);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to set CP divider\n");
-+		return ret;
-+	}
-+	/* finally enable PLL */
-+	ret = regmap_update_bits(tas5754m->regmap, TAS5754M_PLL_EN,
-+				 TAS5754M_PLLE, 1);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to enable PLL\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int tas5754m_set_dai_mode(struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas5754m_priv *tas5754m =
-+			snd_soc_component_get_drvdata(component);
-+	int fmt = tas5754m->fmt;
-+
-+	/* only I2S MASTER mode implemented */
-+	if ((fmt & SND_SOC_DAIFMT_FORMAT_MASK) != SND_SOC_DAIFMT_I2S) {
-+		dev_err(component->dev,
-+			"DAI format not supported (I2S master only)\n");
-+		return -EINVAL;
-+	}
-+
-+	/* TAS5754/6m do not support inverted clocks in MASTER mode */
-+	if ((fmt & SND_SOC_DAIFMT_CLOCK_MASK) != SND_SOC_DAIFMT_NB_NF) {
-+		dev_err(component->dev,	"Inverted clocks not supported\n");
-+		return -EINVAL;
-+	}
-+
-+	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-+	case SND_SOC_DAIFMT_CBM_CFM:
-+		regmap_update_bits(tas5754m->regmap,
-+				TAS5754M_BCLK_LRCLK_CFG,
-+				TAS5754M_LRKO | TAS5754M_BCKO,
-+				TAS5754M_LRKO | TAS5754M_BCKO);
-+		/* reset CLK dividers */
-+		regmap_update_bits(tas5754m->regmap,
-+				TAS5754M_MASTER_MODE,
-+				0x00,
-+				TAS5754M_RLRK | TAS5754M_RBCK);
-+		/* ignore all clock error detection but MCLK */
-+		regmap_update_bits(tas5754m->regmap,
-+				TAS5754M_ERROR_DETECT,
-+				TAS5754M_IPLK | TAS5754M_DCAS |
-+				TAS5754M_IDCM | TAS5754M_IDSK |
-+				TAS5754M_IDBK | TAS5754M_IDFS,
-+				TAS5754M_IPLK | TAS5754M_DCAS |
-+				TAS5754M_IDCM | TAS5754M_IDSK |
-+				TAS5754M_IDBK | TAS5754M_IDFS);
-+		break;
-+	case SND_SOC_DAIFMT_CBS_CFS:
-+	case SND_SOC_DAIFMT_CBM_CFS:
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int tas5754m_set_dividers_master(struct snd_soc_dai *dai,
-+					struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas5754m_priv *tas5754m =
-+			snd_soc_component_get_drvdata(component);
-+	unsigned long bclk;
-+	unsigned long mclk;
-+	int bclk_div;
-+	int lrclk_div;
-+	int osr;
-+	int ret;
-+
-+	/* calculate divider settings based on mclk and sample_len */
-+	mclk = clk_get_rate(tas5754m->sclk);
-+	bclk = tas5754m->sample_len * 2 * params_rate(params);
-+	bclk_div = mclk / bclk;
-+	lrclk_div = tas5754m->sample_len * 2;
-+	osr = mclk / 4 / params_rate(params) / 16;
-+
-+	/* stop LR / SCLK clocks */
-+	ret = regmap_update_bits(tas5754m->regmap,
-+				TAS5754M_MASTER_MODE, 0,
-+				TAS5754M_RLRK | TAS5754M_RBCK);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to stop PLL\n");
-+		return ret;
-+	}
-+	/* set SCLK divider */
-+	ret = regmap_write(tas5754m->regmap, TAS5754M_MASTER_SCLKDIV,
-+								bclk_div - 1);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to set SCLK divider\n");
-+		return ret;
-+	}
-+	/* set LRCLK divider */
-+	ret = regmap_write(tas5754m->regmap, TAS5754M_MASTER_LRCLKDIV,
-+								lrclk_div - 1);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to set LRCLK divider\n");
-+		return ret;
-+	}
-+	ret = regmap_write(tas5754m->regmap,
-+		TAS5754M_OSR_CLKDIV, osr - 1);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to set OSR divider\n");
-+		return ret;
-+	}
-+	/* restart LR / SCLK clocks */
-+	ret = regmap_update_bits(tas5754m->regmap,
-+				TAS5754M_MASTER_MODE,
-+				TAS5754M_RLRK | TAS5754M_RBCK,
-+				TAS5754M_RLRK | TAS5754M_RBCK);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to restart PLL\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int tas5754m_hw_params(struct snd_pcm_substream *substream,
-+			      struct snd_pcm_hw_params *params,
-+			      struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas5754m_priv *tas5754m =
-+			snd_soc_component_get_drvdata(component);
-+	int alen;
-+	int ret;
-+
-+	switch (params_width(params)) {
-+	case 16:
-+		tas5754m->sample_len = 16;
-+		alen = TAS5754M_ALEN_16;
-+		break;
-+	case 20:
-+		tas5754m->sample_len = 32;
-+		alen = TAS5754M_ALEN_20;
-+		break;
-+	case 24:
-+		tas5754m->sample_len = 32;
-+		alen = TAS5754M_ALEN_24;
-+		break;
-+	case 32:
-+		tas5754m->sample_len = 32;
-+		alen = TAS5754M_ALEN_32;
-+		break;
-+	default:
-+		dev_err(component->dev, "Unsupported sample size: %d\n",
-+			params_width(params));
-+		return -EINVAL;
-+	}
-+	ret = regmap_update_bits(tas5754m->regmap, TAS5754M_I2S_1, alen, alen);
-+	if (ret) {
-+		dev_err(component->dev,
-+			"Cannot set sample size: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = tas5754m_set_dai_mode(dai);
-+	if (ret) {
-+		dev_err(component->dev,
-+			"DAI mode not supported: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = tas5754m_set_clock_tree_master(dai, params);
-+	if (ret)
-+		return ret;
-+
-+	switch (params_rate(params)) {
-+	case 44100:
-+	case 48000:
-+		ret = regmap_write(tas5754m->regmap,
-+			TAS5754M_FS_SPEED_MODE, TAS5754M_FSSP_48KHZ);
-+		break;
-+	case 88200:
-+	case 96000:
-+		ret = regmap_write(tas5754m->regmap,
-+			TAS5754M_FS_SPEED_MODE, TAS5754M_FSSP_96KHZ);
-+		break;
-+	case 176400:
-+	case 192000:
-+		ret = regmap_write(tas5754m->regmap,
-+			TAS5754M_FS_SPEED_MODE, TAS5754M_FSSP_192KHZ);
-+		break;
-+	default:
-+		dev_err(component->dev, "Sample rate not supported: %d\n",
-+			params_rate(params));
-+		return -EINVAL;
-+	}
-+	if (ret) {
-+		dev_err(component->dev, "Failed to config PLL\n");
-+		return ret;
-+	}
-+
-+	ret = tas5754m_set_dividers_master(dai, params);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int tas5754m_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas5754m_priv *tas5754m =
-+			snd_soc_component_get_drvdata(component);
-+
-+	tas5754m->fmt = fmt;
-+
-+	return 0;
-+}
-+
-+
-+static const struct snd_soc_component_driver tas5754m_soc_component = {
-+	.set_bias_level = tas5754m_set_bias_level,
-+	.idle_bias_on = true,
-+	.controls = tas5754m_controls,
-+	.num_controls = ARRAY_SIZE(tas5754m_controls),
-+};
-+
-+static int tas5754m_mute(struct snd_soc_dai *dai, int mute, int stream)
-+{
-+	struct snd_soc_component *component = dai->component;
-+
-+	if (mute) {
-+		snd_soc_component_write(component, TAS5754M_MUTE, 0x11);
-+	} else {
-+		/* wait for stable operation before unmute */
-+		usleep_range(1000, 2000);
-+		snd_soc_component_write(component, TAS5754M_MUTE, 0x00);
-+	}
-+	return 0;
-+}
-+
-+static const struct snd_soc_dai_ops tas5754m_dai_ops = {
-+	.mute_stream = tas5754m_mute,
-+	.hw_params = tas5754m_hw_params,
-+	.set_fmt = tas5754m_set_fmt,
-+};
-+
-+static struct snd_soc_dai_driver tas5754m_dai = {
-+	.name		= "tas5754m-amplifier",
-+	.playback	= {
-+		.stream_name	= "Playback",
-+		.channels_min	= 2,
-+		.channels_max	= 2,
-+		.rates		= TAS5754M_RATES,
-+		.formats	= TAS5754M_FORMATS,
-+	},
-+	.ops = &tas5754m_dai_ops,
-+};
-+
-+static int tas5754m_probe(struct device *dev, struct regmap *regmap)
-+{
-+	struct tas5754m_priv *tas5754m;
-+	int ret;
-+
-+	tas5754m = devm_kzalloc(dev, sizeof(struct tas5754m_priv), GFP_KERNEL);
-+	if (!tas5754m)
-+		return -ENOMEM;
-+
-+	dev_set_drvdata(dev, tas5754m);
-+	tas5754m->regmap = regmap;
-+
-+	ret = regmap_write(regmap, TAS5754M_RESET,
-+			TAS5754M_RSTR | TAS5754M_RSTM);
-+	if (ret) {
-+		dev_err(dev, "Failed to initialize TAS5754M: %d\n", ret);
-+		goto err;
-+	}
-+
-+	tas5754m->sclk = devm_clk_get(dev, NULL);
-+	if (PTR_ERR(tas5754m->sclk) == -EPROBE_DEFER) {
-+		ret = -EPROBE_DEFER;
-+		goto err;
-+	}
-+	if (!IS_ERR(tas5754m->sclk)) {
-+		ret = clk_prepare_enable(tas5754m->sclk);
-+		if (ret) {
-+			dev_err(dev, "Failed to enable SCLK: %d\n", ret);
-+			goto err;
-+		}
-+	}
-+
-+	ret = devm_snd_soc_register_component(dev,
-+			&tas5754m_soc_component, &tas5754m_dai, 1);
-+	if (ret) {
-+		dev_err(dev, "Failed to register CODEC: %d\n", ret);
-+		goto err;
-+	}
-+
-+	return 0;
-+
-+err:
-+	return ret;
-+
-+}
-+
-+static int tas5754m_i2c_probe(struct i2c_client *i2c, const struct i2c_device_id *id)
-+{
-+	struct regmap *regmap;
-+	struct regmap_config config = tas5754m_regmap;
-+
-+	/* enable auto-increment mode */
-+	config.read_flag_mask = 0x80;
-+	config.write_flag_mask = 0x80;
-+
-+	regmap = devm_regmap_init_i2c(i2c, &config);
-+	if (IS_ERR(regmap))
-+		return PTR_ERR(regmap);
-+
-+	return tas5754m_probe(&i2c->dev, regmap);
-+}
-+
-+static int tas5754m_remove(struct device *dev)
-+{
-+	snd_soc_unregister_component(dev);
-+
-+	return 0;
-+}
-+
-+static int tas5754m_i2c_remove(struct i2c_client *i2c)
-+{
-+	tas5754m_remove(&i2c->dev);
-+
-+	return 0;
-+}
-+
-+static const struct i2c_device_id tas5754m_i2c_id[] = {
-+	{ "tas5754m", },
-+	{ "tas5756m", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, tas5754m_i2c_id);
-+
-+#ifdef CONFIG_OF
-+static const struct of_device_id tas5754m_of_match[] = {
-+	{ .compatible = "ti,tas5754m", },
-+	{ .compatible = "ti,tas5756m", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, tas5754m_of_match);
-+#endif
-+
-+static struct i2c_driver tas5754m_i2c_driver = {
-+	.probe		= tas5754m_i2c_probe,
-+	.remove		= tas5754m_i2c_remove,
-+	.id_table	= tas5754m_i2c_id,
-+	.driver		= {
-+		.name	= "tas5754m",
-+		.of_match_table = of_match_ptr(tas5754m_of_match),
-+	},
-+};
-+
-+module_i2c_driver(tas5754m_i2c_driver);
-+
-+MODULE_AUTHOR("Joerg Schambacher <joerg@hifiberry.com>");
-+MODULE_DESCRIPTION("TAS5754M Audio Amplifier Driver - Master mode only");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/tas5754m.h b/sound/soc/codecs/tas5754m.h
-new file mode 100644
-index 000000000000..c6e26dba169f
---- /dev/null
-+++ b/sound/soc/codecs/tas5754m.h
-@@ -0,0 +1,260 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Driver for the TAS575xM DAC+amplifier combo devices
-+ *
-+ * Author:	(copied from pcm512x.h)
-+ *		Mark Brown <broonie@kernel.org>
-+ *		Copyright 2014 Linaro Ltd
-+ *
-+ *		Register names adapted and non available
-+ *		register definitions removed according
-+ +		to TAS5754M specification
-+ *		Joerg Schambacher <joerg@hifiberry.com>
-+ */
-+
-+#ifndef _SND_SOC_TAS5754M
-+#define _SND_SOC_TAS5754M
-+
-+#include <linux/pm.h>
-+#include <linux/regmap.h>
-+
-+#define TAS5754M_VIRT_BASE 0x000
-+#define TAS5754M_PAGE_LEN  0x80
-+#define TAS5754M_PAGE_BASE(n)  (TAS5754M_VIRT_BASE + (TAS5754M_PAGE_LEN * n))
-+
-+#define TAS5754M_PAGE              0
-+
-+#define TAS5754M_RESET             (TAS5754M_PAGE_BASE(0) +   1)
-+#define TAS5754M_POWER             (TAS5754M_PAGE_BASE(0) +   2)
-+#define TAS5754M_MUTE              (TAS5754M_PAGE_BASE(0) +   3)
-+#define TAS5754M_PLL_EN            (TAS5754M_PAGE_BASE(0) +   4)
-+#define TAS5754M_DSP               (TAS5754M_PAGE_BASE(0) +   7)
-+#define TAS5754M_GPIO_EN           (TAS5754M_PAGE_BASE(0) +   8)
-+#define TAS5754M_BCLK_LRCLK_CFG    (TAS5754M_PAGE_BASE(0) +   9)
-+#define TAS5754M_DSP_GPIO_INPUT    (TAS5754M_PAGE_BASE(0) +  10)
-+#define TAS5754M_MASTER_MODE       (TAS5754M_PAGE_BASE(0) +  12)
-+#define TAS5754M_PLL_REF           (TAS5754M_PAGE_BASE(0) +  13)
-+#define TAS5754M_DAC_REF           (TAS5754M_PAGE_BASE(0) +  14)
-+#define TAS5754M_GPIO_PLLIN        (TAS5754M_PAGE_BASE(0) +  18)
-+#define TAS5754M_SYNCHRONIZE       (TAS5754M_PAGE_BASE(0) +  19)
-+#define TAS5754M_PLL_COEFF_P       (TAS5754M_PAGE_BASE(0) +  20)
-+#define TAS5754M_PLL_COEFF_J       (TAS5754M_PAGE_BASE(0) +  21)
-+#define TAS5754M_PLL_COEFF_DH      (TAS5754M_PAGE_BASE(0) +  22)
-+#define TAS5754M_PLL_COEFF_DL      (TAS5754M_PAGE_BASE(0) +  23)
-+#define TAS5754M_PLL_COEFF_R       (TAS5754M_PAGE_BASE(0) +  24)
-+#define TAS5754M_DSP_CLKDIV        (TAS5754M_PAGE_BASE(0) +  27)
-+#define TAS5754M_DAC_CLKDIV        (TAS5754M_PAGE_BASE(0) +  28)
-+#define TAS5754M_NCP_CLKDIV        (TAS5754M_PAGE_BASE(0) +  29)
-+#define TAS5754M_OSR_CLKDIV        (TAS5754M_PAGE_BASE(0) +  30)
-+#define TAS5754M_MASTER_SCLKDIV    (TAS5754M_PAGE_BASE(0) +  32)
-+#define TAS5754M_MASTER_LRCLKDIV   (TAS5754M_PAGE_BASE(0) +  33)
-+#define TAS5754M_FS_SPEED_MODE     (TAS5754M_PAGE_BASE(0) +  34)
-+#define TAS5754M_IDAC_1            (TAS5754M_PAGE_BASE(0) +  35)
-+#define TAS5754M_IDAC_2            (TAS5754M_PAGE_BASE(0) +  36)
-+#define TAS5754M_ERROR_DETECT      (TAS5754M_PAGE_BASE(0) +  37)
-+#define TAS5754M_I2S_1             (TAS5754M_PAGE_BASE(0) +  40)
-+#define TAS5754M_I2S_2             (TAS5754M_PAGE_BASE(0) +  41)
-+#define TAS5754M_DAC_ROUTING       (TAS5754M_PAGE_BASE(0) +  42)
-+#define TAS5754M_DSP_PROGRAM       (TAS5754M_PAGE_BASE(0) +  43)
-+#define TAS5754M_CLKDET            (TAS5754M_PAGE_BASE(0) +  44)
-+#define TAS5754M_AUTO_MUTE         (TAS5754M_PAGE_BASE(0) +  59)
-+#define TAS5754M_DIGITAL_VOLUME_1  (TAS5754M_PAGE_BASE(0) +  60)
-+#define TAS5754M_DIGITAL_VOLUME_2  (TAS5754M_PAGE_BASE(0) +  61)
-+#define TAS5754M_DIGITAL_VOLUME_3  (TAS5754M_PAGE_BASE(0) +  62)
-+#define TAS5754M_DIGITAL_MUTE_1    (TAS5754M_PAGE_BASE(0) +  63)
-+#define TAS5754M_DIGITAL_MUTE_2    (TAS5754M_PAGE_BASE(0) +  64)
-+#define TAS5754M_DIGITAL_MUTE_3    (TAS5754M_PAGE_BASE(0) +  65)
-+#define TAS5754M_GPIO_OUTPUT_1     (TAS5754M_PAGE_BASE(0) +  82)
-+#define TAS5754M_GPIO_OUTPUT_0     (TAS5754M_PAGE_BASE(0) +  83)
-+#define TAS5754M_GPIO_OUTPUT_2     (TAS5754M_PAGE_BASE(0) +  85)
-+#define TAS5754M_GPIO_CONTROL_1    (TAS5754M_PAGE_BASE(0) +  86)
-+#define TAS5754M_GPIO_CONTROL_2    (TAS5754M_PAGE_BASE(0) +  87)
-+#define TAS5754M_OVERFLOW          (TAS5754M_PAGE_BASE(0) +  90)
-+#define TAS5754M_RATE_DET_1        (TAS5754M_PAGE_BASE(0) +  91)
-+#define TAS5754M_RATE_DET_2        (TAS5754M_PAGE_BASE(0) +  92)
-+#define TAS5754M_RATE_DET_3        (TAS5754M_PAGE_BASE(0) +  93)
-+#define TAS5754M_RATE_DET_4        (TAS5754M_PAGE_BASE(0) +  94)
-+#define TAS5754M_CLOCK_STATUS      (TAS5754M_PAGE_BASE(0) +  95)
-+#define TAS5754M_ANALOG_MUTE_DET   (TAS5754M_PAGE_BASE(0) + 108)
-+#define TAS5754M_FS_MODE_MON       (TAS5754M_PAGE_BASE(0) + 115)
-+#define TAS5754M_GPIN              (TAS5754M_PAGE_BASE(0) + 119)
-+#define TAS5754M_DIGITAL_MUTE_DET  (TAS5754M_PAGE_BASE(0) + 120)
-+
-+#define TAS5754M_OUTPUT_AMPLITUDE  (TAS5754M_PAGE_BASE(1) +   1)
-+#define TAS5754M_ANALOG_GAIN_CTRL  (TAS5754M_PAGE_BASE(1) +   2)
-+#define TAS5754M_UNDERVOLTAGE_PROT (TAS5754M_PAGE_BASE(1) +   5)
-+#define TAS5754M_ANALOG_MUTE_CTRL  (TAS5754M_PAGE_BASE(1) +   6)
-+#define TAS5754M_ANALOG_GAIN_BOOST (TAS5754M_PAGE_BASE(1) +   7)
-+#define TAS5754M_VCOM_CTRL_1       (TAS5754M_PAGE_BASE(1) +   8)
-+#define TAS5754M_VCOM_CTRL_2       (TAS5754M_PAGE_BASE(1) +   9)
-+
-+#define TAS5754M_CRAM_CTRL         (TAS5754M_PAGE_BASE(44) +  1)
-+
-+#define TAS5754M_FLEX_A            (TAS5754M_PAGE_BASE(253) + 63)
-+#define TAS5754M_FLEX_B            (TAS5754M_PAGE_BASE(253) + 64)
-+
-+#define TAS5754M_MAX_REGISTER      (TAS5754M_PAGE_BASE(253) + 64)
-+
-+/* Page 0, Register 1 - reset */
-+#define TAS5754M_RSTR (1 << 0)
-+#define TAS5754M_RSTM (1 << 4)
-+
-+/* Page 0, Register 2 - power */
-+#define TAS5754M_RQPD       (1 << 0)
-+#define TAS5754M_RQPD_SHIFT 0
-+#define TAS5754M_RQST       (1 << 4)
-+#define TAS5754M_RQST_SHIFT 4
-+
-+/* Page 0, Register 3 - mute */
-+#define TAS5754M_RQMR (1 << 0)
-+#define TAS5754M_RQMR_SHIFT 0
-+#define TAS5754M_RQML (1 << 4)
-+#define TAS5754M_RQML_SHIFT 4
-+
-+/* Page 0, Register 4 - PLL */
-+#define TAS5754M_PLLE       (1 << 0)
-+#define TAS5754M_PLLE_SHIFT 0
-+#define TAS5754M_PLCK       (1 << 4)
-+#define TAS5754M_PLCK_SHIFT 4
-+
-+/* Page 0, Register 7 - DSP */
-+#define TAS5754M_SDSL       (1 << 0)
-+#define TAS5754M_SDSL_SHIFT 0
-+#define TAS5754M_DEMP       (1 << 4)
-+#define TAS5754M_DEMP_SHIFT 4
-+
-+/* Page 0, Register 8 - GPIO output enable */
-+#define TAS5754M_G1OE       (1 << 0)
-+#define TAS5754M_G2OE       (1 << 1)
-+#define TAS5754M_G3OE       (1 << 2)
-+#define TAS5754M_G4OE       (1 << 3)
-+#define TAS5754M_G5OE       (1 << 4)
-+#define TAS5754M_G6OE       (1 << 5)
-+
-+/* Page 0, Register 9 - BCK, LRCLK configuration */
-+#define TAS5754M_LRKO       (1 << 0)
-+#define TAS5754M_LRKO_SHIFT 0
-+#define TAS5754M_BCKO       (1 << 4)
-+#define TAS5754M_BCKO_SHIFT 4
-+#define TAS5754M_BCKP       (1 << 5)
-+#define TAS5754M_BCKP_SHIFT 5
-+
-+/* Page 0, Register 12 - Master mode BCK, LRCLK reset */
-+#define TAS5754M_RLRK       (1 << 0)
-+#define TAS5754M_RLRK_SHIFT 0
-+#define TAS5754M_RBCK       (1 << 1)
-+#define TAS5754M_RBCK_SHIFT 1
-+
-+/* Page 0, Register 13 - PLL reference */
-+#define TAS5754M_SREF        (7 << 4)
-+#define TAS5754M_SREF_SHIFT  4
-+#define TAS5754M_SREF_SCK    (0 << 4)
-+#define TAS5754M_SREF_BCK    (1 << 4)
-+#define TAS5754M_SREF_GPIO   (3 << 4)
-+
-+/* Page 0, Register 14 - DAC reference */
-+#define TAS5754M_SDAC        (7 << 4)
-+#define TAS5754M_SDAC_SHIFT  4
-+#define TAS5754M_SDAC_MCK    (0 << 4)
-+#define TAS5754M_SDAC_PLL    (1 << 4)
-+#define TAS5754M_SDAC_SCK    (3 << 4)
-+#define TAS5754M_SDAC_BCK    (4 << 4)
-+#define TAS5754M_SDAC_GPIO   (5 << 4)
-+
-+/* Page 0, Register 16, 18 - GPIO source for DAC, PLL */
-+#define TAS5754M_GREF        (7 << 0)
-+#define TAS5754M_GREF_SHIFT  0
-+#define TAS5754M_GREF_GPIO1  (0 << 0)
-+#define TAS5754M_GREF_GPIO2  (1 << 0)
-+#define TAS5754M_GREF_GPIO3  (2 << 0)
-+#define TAS5754M_GREF_GPIO4  (3 << 0)
-+#define TAS5754M_GREF_GPIO5  (4 << 0)
-+#define TAS5754M_GREF_GPIO6  (5 << 0)
-+
-+/* Page 0, Register 19 - synchronize */
-+#define TAS5754M_RQSY        (1 << 0)
-+#define TAS5754M_RQSY_RESUME (0 << 0)
-+#define TAS5754M_RQSY_HALT   (1 << 0)
-+
-+/* Page 0, Register 34 - fs speed mode */
-+#define TAS5754M_FSSP        (3 << 0)
-+#define TAS5754M_FSSP_SHIFT  0
-+#define TAS5754M_FSSP_48KHZ  (0 << 0)
-+#define TAS5754M_FSSP_96KHZ  (1 << 0)
-+#define TAS5754M_FSSP_192KHZ (2 << 0)
-+#define TAS5754M_FSSP_384KHZ (3 << 0)
-+
-+/* Page 0, Register 37 - Error detection */
-+#define TAS5754M_IPLK (1 << 0)
-+#define TAS5754M_DCAS (1 << 1)
-+#define TAS5754M_IDCM (1 << 2)
-+#define TAS5754M_IDCH (1 << 3)
-+#define TAS5754M_IDSK (1 << 4)
-+#define TAS5754M_IDBK (1 << 5)
-+#define TAS5754M_IDFS (1 << 6)
-+
-+/* Page 0, Register 40 - I2S configuration */
-+#define TAS5754M_ALEN       (3 << 0)
-+#define TAS5754M_ALEN_SHIFT 0
-+#define TAS5754M_ALEN_16    (0 << 0)
-+#define TAS5754M_ALEN_20    (1 << 0)
-+#define TAS5754M_ALEN_24    (2 << 0)
-+#define TAS5754M_ALEN_32    (3 << 0)
-+#define TAS5754M_AFMT       (3 << 4)
-+#define TAS5754M_AFMT_SHIFT 4
-+#define TAS5754M_AFMT_I2S   (0 << 4)
-+#define TAS5754M_AFMT_DSP   (1 << 4)
-+#define TAS5754M_AFMT_RTJ   (2 << 4)
-+#define TAS5754M_AFMT_LTJ   (3 << 4)
-+
-+/* Page 0, Register 42 - DAC routing */
-+#define TAS5754M_AUPR_SHIFT 0
-+#define TAS5754M_AUPL_SHIFT 4
-+
-+/* Page 0, Register 59 - auto mute */
-+#define TAS5754M_ATMR_SHIFT 0
-+#define TAS5754M_ATML_SHIFT 4
-+
-+/* Page 0, Register 63 - ramp rates */
-+#define TAS5754M_VNDF_SHIFT 6
-+#define TAS5754M_VNDS_SHIFT 4
-+#define TAS5754M_VNUF_SHIFT 2
-+#define TAS5754M_VNUS_SHIFT 0
-+
-+/* Page 0, Register 64 - emergency ramp rates */
-+#define TAS5754M_VEDF_SHIFT 6
-+#define TAS5754M_VEDS_SHIFT 4
-+
-+/* Page 0, Register 65 - Digital mute enables */
-+#define TAS5754M_ACTL_SHIFT 2
-+#define TAS5754M_AMLE_SHIFT 1
-+#define TAS5754M_AMRE_SHIFT 0
-+
-+/* Page 0, Register 80-85, GPIO output selection */
-+#define TAS5754M_GxSL       (31 << 0)
-+#define TAS5754M_GxSL_SHIFT 0
-+#define TAS5754M_GxSL_OFF   (0 << 0)
-+#define TAS5754M_GxSL_DSP   (1 << 0)
-+#define TAS5754M_GxSL_REG   (2 << 0)
-+#define TAS5754M_GxSL_AMUTB (3 << 0)
-+#define TAS5754M_GxSL_AMUTL (4 << 0)
-+#define TAS5754M_GxSL_AMUTR (5 << 0)
-+#define TAS5754M_GxSL_CLKI  (6 << 0)
-+#define TAS5754M_GxSL_SDOUT (7 << 0)
-+#define TAS5754M_GxSL_ANMUL (8 << 0)
-+#define TAS5754M_GxSL_ANMUR (9 << 0)
-+#define TAS5754M_GxSL_PLLLK (10 << 0)
-+#define TAS5754M_GxSL_CPCLK (11 << 0)
-+#define TAS5754M_GxSL_UV0_7 (14 << 0)
-+#define TAS5754M_GxSL_UV0_3 (15 << 0)
-+#define TAS5754M_GxSL_PLLCK (16 << 0)
-+
-+/* Page 1, Register 2 - analog volume control */
-+#define TAS5754M_RAGN_SHIFT 0
-+#define TAS5754M_LAGN_SHIFT 4
-+
-+/* Page 1, Register 7 - analog boost control */
-+#define TAS5754M_AGBR_SHIFT 0
-+#define TAS5754M_AGBL_SHIFT 4
-+
-+#endif
--- 
-2.25.1
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
 
+Regards,
+Czarek

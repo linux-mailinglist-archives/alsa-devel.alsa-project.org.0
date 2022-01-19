@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C010E493DBB
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 16:54:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BBB5493DBC
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jan 2022 16:54:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61272319B;
-	Wed, 19 Jan 2022 16:53:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61272319B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4859131C0;
+	Wed, 19 Jan 2022 16:53:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4859131C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642607678;
-	bh=NG4ivTv34mhn46K/t3DcFAfdYTZXYHNUmSSvJXfV7xo=;
+	s=default; t=1642607684;
+	bh=kZZWPR0MKRoCAZHZcyy7NGEq+BuXCfhKLUHknjpRBek=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KMdbqp/ziqZJZlAFK+x2LbDamG3UQJUbBzcDKAlG9kTQSrcl4YB8B8gx2Pao7PnpG
-	 1FuzJwEDjOn2r/iLmSjI5YwU9QqtYsLb7jaHubepxUehNaEUi8HCq4HmBANFtw7RB9
-	 dma7omYymn5VxJnwK0Cvdhi//ILVu3Y556QmzrgI=
+	b=TCotqWZiPhV7JX9wxjmdQC7EhOAINCEXzaqXhr8GEKk7duEFexvKUrdV9q2Ao4DyI
+	 OmnBoo0kYvY0gdBjJ5XGCYz1CGqgV0lGBSEw+HWUGk0hzkklW61gRDpApNNUbzHzHK
+	 Lh5yfFoWAFEA5jRJJ+252ZMxaJvSrLvY25WmRPeI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B51AF80510;
+	by alsa1.perex.cz (Postfix) with ESMTP id E5643F80517;
 	Wed, 19 Jan 2022 16:53:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04857F80510; Wed, 19 Jan 2022 16:53:08 +0100 (CET)
+ id 421C8F8050F; Wed, 19 Jan 2022 16:53:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3F80F8023A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A5A2F80100
  for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 16:53:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3F80F8023A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A5A2F80100
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LoiObt8c"; 
+ header.b="rRzoeejj"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="deybW4dg"
+ header.b="BgjWbsWA"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 25DC4212C2;
- Wed, 19 Jan 2022 15:53:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 2F2571F38E;
+ Wed, 19 Jan 2022 15:53:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642607580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1642607581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lT3rtOKkXD7/Nisahd8FJ3jR2IqMltC1RxdZe6iB1K0=;
- b=LoiObt8cBgPlO6Ztx3RmX9AJM+PwtGCqwJZFktEcjcAoIjOM4JkX1JHbiYX1YesYoP0r+7
- djFBPz5ymoobwmmD4jU6w/sFRNuougvGirUJ6cCVNLQdSBs5phXwvY0dnTLt1SFs8OKBR6
- TJ/Fwydp8cDftqujJyCRkTdEhX3gGm4=
+ bh=0w/YGeMw2rfUHyjWbkEW3G9jlT+1QxCIpQPum+ksxiU=;
+ b=rRzoeejjDJykhS7+MOPtrFJeQSZeSHw/e910Ef51ZBsxMU485hMBn4tEbcnGsYiMfaqR7/
+ HXSuW/wbF02Vt7ZrOv0QZ5tjt46Od7+ZLCsLupVfQzcRXz2rTuVPOUdNtH/xIqifdeNQ1a
+ lXdkZkHW1VmVpcjxHSEyKr4dL1eKPow=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642607580;
+ s=susede2_ed25519; t=1642607581;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lT3rtOKkXD7/Nisahd8FJ3jR2IqMltC1RxdZe6iB1K0=;
- b=deybW4dgtOPmquVKs6hCoMr7FtgfCGBhY/j3i7aKdB8EZLSWNzudz0fr3M66kmGNgKtMyD
- limYwwXUJEO/ArCA==
+ bh=0w/YGeMw2rfUHyjWbkEW3G9jlT+1QxCIpQPum+ksxiU=;
+ b=BgjWbsWArQ0PEjQZyhroC8M9mxPfJF0OvM/yi6ReNVzZUsDQoyV9wbhczUla3vh1hJpPSQ
+ N2pdLKVghsm8RPAQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 12B5AA3B83;
- Wed, 19 Jan 2022 15:53:00 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 1C5E0A3B83;
+ Wed, 19 Jan 2022 15:53:01 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2 1/2] ASoC: soc-pcm: Fix DPCM lockdep warning due to nested
- stream locks
-Date: Wed, 19 Jan 2022 16:52:48 +0100
-Message-Id: <20220119155249.26754-2-tiwai@suse.de>
+Subject: [PATCH v2 2/2] ASoC: soc-pcm: Move debugfs removal out of spinlock
+Date: Wed, 19 Jan 2022 16:52:49 +0100
+Message-Id: <20220119155249.26754-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20220119155249.26754-1-tiwai@suse.de>
 References: <20220119155249.26754-1-tiwai@suse.de>
@@ -95,114 +94,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent change for DPCM locking caused spurious lockdep warnings.
-Actually the warnings are false-positive, as those are triggered due
-to the nested stream locks for FE and BE.  Since both locks belong to
-the same lock class, lockdep sees it as if a deadlock.
+The recent fix for DPCM locking also covered the loop in
+dpcm_be_disconnect() with the FE stream lock.  This caused an
+unexpected side effect, thought: calling debugfs_remove_recursive() in
+the spinlock may lead to lockdep splats as the code there assumes the
+SOFTIRQ-safe context.
 
-For fixing this, we need to take PCM stream locks for BE with the
-nested lock primitives.  Since currently snd_pcm_stream_lock*() helper
-assumes only the top-level single locking, a new helper function
-snd_pcm_stream_lock_irqsave_nested() is defined for a single-depth
-nested lock, which is now used in the BE DAI trigger that is always
-performed inside a FE stream lock.
+For avoiding the problem, this patch changes the disconnection
+procedure to two phases: at first, the matching entries are removed
+from the linked list, then the resources are freed outside the lock.
 
-Fixes: b2ae80663008 ("ASoC: soc-pcm: serialize BE triggers")
-Reported-and-tested-by: Hans de Goede <hdegoede@redhat.com>
+Fixes: b7898396f4bb ("ASoC: soc-pcm: Fix and cleanup DPCM locking")
 Reported-and-tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Link: https://lore.kernel.org/r/73018f3c-9769-72ea-0325-b3f8e2381e30@redhat.com
-Link: https://lore.kernel.org/alsa-devel/9a0abddd-49e9-872d-2f00-a1697340f786@samsung.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
+ sound/soc/soc-pcm.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-v1->v2: Correct Fixes tag, a typo fix
-
- include/sound/pcm.h     | 15 +++++++++++++++
- sound/core/pcm_native.c | 13 +++++++++++++
- sound/soc/soc-pcm.c     |  6 +++---
- 3 files changed, 31 insertions(+), 3 deletions(-)
-
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 9b187d86e1bd..36da42cd0774 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -617,6 +617,7 @@ void snd_pcm_stream_unlock(struct snd_pcm_substream *substream);
- void snd_pcm_stream_lock_irq(struct snd_pcm_substream *substream);
- void snd_pcm_stream_unlock_irq(struct snd_pcm_substream *substream);
- unsigned long _snd_pcm_stream_lock_irqsave(struct snd_pcm_substream *substream);
-+unsigned long _snd_pcm_stream_lock_irqsave_nested(struct snd_pcm_substream *substream);
- 
- /**
-  * snd_pcm_stream_lock_irqsave - Lock the PCM stream
-@@ -635,6 +636,20 @@ unsigned long _snd_pcm_stream_lock_irqsave(struct snd_pcm_substream *substream);
- void snd_pcm_stream_unlock_irqrestore(struct snd_pcm_substream *substream,
- 				      unsigned long flags);
- 
-+/**
-+ * snd_pcm_stream_lock_irqsave_nested - Single-nested PCM stream locking
-+ * @substream: PCM substream
-+ * @flags: irq flags
-+ *
-+ * This locks the PCM stream like snd_pcm_stream_lock_irqsave() but with
-+ * the single-depth lockdep subclass.
-+ */
-+#define snd_pcm_stream_lock_irqsave_nested(substream, flags)		\
-+	do {								\
-+		typecheck(unsigned long, flags);			\
-+		flags = _snd_pcm_stream_lock_irqsave_nested(substream); \
-+	} while (0)
-+
- /**
-  * snd_pcm_group_for_each_entry - iterate over the linked substreams
-  * @s: the iterator
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 621883e71194..a056b3ef3c84 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -172,6 +172,19 @@ unsigned long _snd_pcm_stream_lock_irqsave(struct snd_pcm_substream *substream)
- }
- EXPORT_SYMBOL_GPL(_snd_pcm_stream_lock_irqsave);
- 
-+unsigned long _snd_pcm_stream_lock_irqsave_nested(struct snd_pcm_substream *substream)
-+{
-+	unsigned long flags = 0;
-+	if (substream->pcm->nonatomic)
-+		mutex_lock_nested(&substream->self_group.mutex,
-+				  SINGLE_DEPTH_NESTING);
-+	else
-+		spin_lock_irqsave_nested(&substream->self_group.lock, flags,
-+					 SINGLE_DEPTH_NESTING);
-+	return flags;
-+}
-+EXPORT_SYMBOL_GPL(_snd_pcm_stream_lock_irqsave_nested);
-+
- /**
-  * snd_pcm_stream_unlock_irqrestore - Unlock the PCM stream
-  * @substream: PCM substream
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 7abfc48b26ca..e8876e65c649 100644
+index e8876e65c649..9a954680d492 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -46,8 +46,8 @@ static inline void snd_soc_dpcm_stream_lock_irq(struct snd_soc_pcm_runtime *rtd,
- 	snd_pcm_stream_lock_irq(snd_soc_dpcm_get_substream(rtd, stream));
+@@ -1268,6 +1268,7 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
+ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
+ {
+ 	struct snd_soc_dpcm *dpcm, *d;
++	LIST_HEAD(deleted_dpcms);
+ 
+ 	snd_soc_dpcm_mutex_assert_held(fe);
+ 
+@@ -1287,13 +1288,18 @@ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
+ 		/* BEs still alive need new FE */
+ 		dpcm_be_reparent(fe, dpcm->be, stream);
+ 
+-		dpcm_remove_debugfs_state(dpcm);
+-
+ 		list_del(&dpcm->list_be);
++		list_move(&dpcm->list_fe, &deleted_dpcms);
++	}
++	snd_soc_dpcm_stream_unlock_irq(fe, stream);
++
++	while (!list_empty(&deleted_dpcms)) {
++		dpcm = list_first_entry(&deleted_dpcms, struct snd_soc_dpcm,
++					list_fe);
+ 		list_del(&dpcm->list_fe);
++		dpcm_remove_debugfs_state(dpcm);
+ 		kfree(dpcm);
+ 	}
+-	snd_soc_dpcm_stream_unlock_irq(fe, stream);
  }
  
--#define snd_soc_dpcm_stream_lock_irqsave(rtd, stream, flags) \
--	snd_pcm_stream_lock_irqsave(snd_soc_dpcm_get_substream(rtd, stream), flags)
-+#define snd_soc_dpcm_stream_lock_irqsave_nested(rtd, stream, flags) \
-+	snd_pcm_stream_lock_irqsave_nested(snd_soc_dpcm_get_substream(rtd, stream), flags)
- 
- static inline void snd_soc_dpcm_stream_unlock_irq(struct snd_soc_pcm_runtime *rtd,
- 						  int stream)
-@@ -2094,7 +2094,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 		be = dpcm->be;
- 		be_substream = snd_soc_dpcm_get_substream(be, stream);
- 
--		snd_soc_dpcm_stream_lock_irqsave(be, stream, flags);
-+		snd_soc_dpcm_stream_lock_irqsave_nested(be, stream, flags);
- 
- 		/* is this op for this BE ? */
- 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
+ /* get BE for DAI widget and stream */
 -- 
 2.31.1
 

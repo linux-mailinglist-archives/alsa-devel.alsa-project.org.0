@@ -2,45 +2,46 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51276494800
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:15:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E6AE494801
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 08:15:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B34330DB;
-	Thu, 20 Jan 2022 08:14:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B34330DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E7B830E7;
+	Thu, 20 Jan 2022 08:14:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E7B830E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642662921;
-	bh=dB5DeqNVQ1STA5as73QAOyrF3IXQTM3rusvOJUwUnlQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1642662938;
+	bh=vbMurASikDY3phqQ65vdTrryTNZkheamyZUOfEX+W70=;
+	h=From:Subject:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fHhzH0eV9l1wAAP16bxeE7t9nr7+QltxkriqCjRPLKCOsX1ABala+cvSjozpwDWfp
-	 iN7g+sTaVXrLeGjjAWm+ZDV2xR8m62eouJYV0pSCJDWKzD4SkXFBKBfyTsUl48eLfC
-	 B1tOnztbfc/6myCJ5eltw/TNtH+6a7MM4ESk4Xno=
+	b=modMwKFKgUEVSoRegXW7BX1TpWgf3rD1CeHBr1FHVo/FyNQhp/aTKXCtgJ7n1itaT
+	 plTNpZwazACZyEuOPofhgR06NNWsHxDIgslRGO5Mo3nnBaBID/Pni1c3MG4F67NSEd
+	 oLIYCv11ZDyk4CUwY4D9Gd2DXApKo8WQwYECqvaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40535F80601;
+	by alsa1.perex.cz (Postfix) with ESMTP id E4CA9F80608;
 	Thu, 20 Jan 2022 08:04:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3422BF80128; Wed, 19 Jan 2022 17:12:35 +0100 (CET)
+ id B3305F801F7; Wed, 19 Jan 2022 19:29:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
- SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from mxout03.lancloud.ru (mxout03.lancloud.ru [45.84.86.113])
+X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mxout01.lancloud.ru (mxout01.lancloud.ru [45.84.86.81])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D631F800F8
- for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 17:12:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D631F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CD09F800F8
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jan 2022 19:29:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CD09F800F8
 Received: from LanCloud
-DKIM-Filter: OpenDKIM Filter v2.11.0 mxout03.lancloud.ru AAAEC20F6A78
+DKIM-Filter: OpenDKIM Filter v2.11.0 mxout01.lancloud.ru EF8112090480
 Received: from LanCloud
 Received: from LanCloud
 Received: from LanCloud
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
 Subject: Re: [PATCH 1/2] platform: make platform_get_irq_optional() optional
 To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>, "Geert
  Uytterhoeven" <geert@linux-m68k.org>
@@ -55,19 +56,19 @@ References: <20220117092444.opoedfcf5k5u6otq@pengutronix.de>
  <20220118120806.pbjsat4ulg3vnhsh@pengutronix.de>
  <CAMuHMdWkwV9XE_R5FZ=jPtDwLpDbEngG6+X2JmiDJCZJZvUjYA@mail.gmail.com>
  <20220118142945.6y3rmvzt44pjpr4z@pengutronix.de>
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
+ <6370798a-7a7e-243d-99f9-09bf772ddbac@omp.ru>
 Organization: Open Mobile Platform
-Message-ID: <6370798a-7a7e-243d-99f9-09bf772ddbac@omp.ru>
-Date: Wed, 19 Jan 2022 19:12:23 +0300
+Message-ID: <96ff907a-4ad2-5b2e-9bcc-09592d65a6df@omp.ru>
+Date: Wed, 19 Jan 2022 21:29:28 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <20220118142945.6y3rmvzt44pjpr4z@pengutronix.de>
+In-Reply-To: <6370798a-7a7e-243d-99f9-09bf772ddbac@omp.ru>
 Content-Type: text/plain; charset="windows-1252"
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [192.168.11.198]
-X-ClientProxiedBy: LFEXT01.lancloud.ru (fd00:f066::141) To
+X-ClientProxiedBy: LFEXT02.lancloud.ru (fd00:f066::142) To
  LFEX1907.lancloud.ru (fd00:f066::207)
 X-Mailman-Approved-At: Thu, 20 Jan 2022 08:03:35 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
@@ -138,128 +139,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/18/22 5:29 PM, Uwe Kleine-König wrote:
+On 1/19/22 7:12 PM, Sergey Shtylyov wrote:
 
->> nst the magic not-found value (so no implementation detail magic
->>>>> leaks into the caller code) and just pass it to the next API function=
->> .
->>>>> (And my expectation would be that if you chose to represent not-found=
->>  by
->>>>> (void *)66 instead of NULL, you won't have to adapt any user, just th=
->> e
->>>>> framework internal checks. This is a good thing!)
->>>>
->>>> Ah, there is the wrong assumption: drivers sometimes do need to know
->>>> if the resource was found, and thus do need to know about (void *)66,
->>>> -ENODEV, or -ENXIO.  I already gave examples for IRQ and clk before.
->>>> I can imagine these exist for gpiod and regulator, too, as soon as
->>>> you go beyond the trivial "enable" and "disable" use-cases.
->>>
->>> My premise is that every user who has to check for "not found"
->>> explicitly should not use (clk|gpiod)_get_optional() but
->>> (clk|gpiod)_get() and do proper (and explicit) error handling for
->>> -ENODEV. (clk|gpiod)_get_optional() is only for these trivial use-cases.
->>>
->>>> And 0/NULL vs. > 0 is the natural check here: missing, but not
->>>> an error.
->>>
->>> For me it it 100% irrelevant if "not found" is an error for the query
->>> function or not. I just have to be able to check for "not found" and
->>> react accordingly.
->>>
->>> And adding a function
->>>
->>>         def platform_get_irq_opional():
->>>                 ret =3D platform_get_irq()
->>>                 if ret =3D=3D -ENXIO:
->>>                         return 0
->>>                 return ret
->>>
->>> it's not a useful addition to the API if I cannot use 0 as a dummy
->>> because it doesn't simplify the caller enough to justify the additional
->>> function.
->>>
->>> The only thing I need to be able is to distinguish the cases "there is
->>> an irq", "there is no irq" and anything else is "there is a problem I
->>> cannot handle and so forward it to my caller". The semantic of
->>> platform_get_irq() is able to satisfy this requirement[1], so why introdu=
->> ce
->>> platform_get_irq_opional() for the small advantage that I can check for
->>> not-found using
->>>
->>>         if (!irq)
->>>
->>> instead of
->>>
->>>         if (irq !=3D -ENXIO)
->>>
->>> ? The semantic of platform_get_irq() is easier ("Either a usable
->>> non-negative irq number or a negative error number") compared to
->>> platform_get_irq_optional() ("Either a usable positive irq number or a
->>> negative error number or 0 meaning not found"). Usage of
->>> platform_get_irq() isn't harder or more expensive (neither for a human
->>> reader nor for a maching running the resulting compiled code).
->>> For a human reader
->>>
->>>         if (irq !=3D -ENXIO)
->>>
->>> is even easier to understand because for
->>>
->>>         if (!irq)
->>>
->>> they have to check where the value comes from, see it's
->>> platform_get_irq_optional() and understand that 0 means not-found.
+[...]
+>>> So there's still a need for two functions.
 >>
->> "vIRQ zero does not exist."
-> 
-> With that statement in mind I would expect that a function that gives me
-> an (v)irq number never returns 0.
-> 
->>> This function just adds overhead because as a irq framework user I have
->>> to understand another function. For me the added benefit is too small to
->>> justify the additional function. And you break out-of-tree drivers.
->>> These are all no major counter arguments, but as the advantage isn't
->>> major either, they still matter.
->>>
->>> Best regards
->>> Uwe
->>>
->>> [1] the only annoying thing is the error message.
+>> Or a single function not emitting an error message together with the
+>> callers being responsible for calling dev_err().
 >>
->> So there's still a need for two functions.
+>> So the options in my preference order (first is best) are:
+>>
+>>  - Remove the printk from platform_get_irq() and remove
+>>    platform_get_irq_optional();
 > 
-> Or a single function not emitting an error message together with the
-> callers being responsible for calling dev_err().
+>    Strong NAK here:
+> - dev_err() in our function saves a lot of (repeatable!) comments;
+
+   s/comments/code/.
+   Actually, I think I can accept the removal of dev_err_probe() in platform_get_irq()
+as this is not a common practice anyway (yet? :-))...
+
+> - we've already discussed that it's more optimal to check againt 0 than
+
+   Against. :-)
+
+>   against -ENXIO in the callers.
+
+   And we also aim to be the error code agnostic in the callers...
+
+>>  - Rename platform_get_irq_optional() to platform_get_irq_silently()
 > 
-> So the options in my preference order (first is best) are:
+>    NAK as well. We'd better off complaining about irq < 0 in this function.
+
+>>  - Keep platform_get_irq_optional() as is
 > 
->  - Remove the printk from platform_get_irq() and remove
->    platform_get_irq_optional();
+>    NAK, it's suboptimal in the call sites.
 
-   Strong NAK here:
-- dev_err() in our function saves a lot of (repeatable!) comments;
-- we've already discussed that it's more optimal to check againt 0 than
-  against -ENXIO in the callers.
+   s/in/on/.
 
->  - Rename platform_get_irq_optional() to platform_get_irq_silently()
+[...]
 
-   NAK as well. We'd better off complaining about irq < 0 in this function.
-
->  - Keep platform_get_irq_optional() as is
-
-   NAK, it's suboptimal in the call sites.
-
->  - Collect underpants
-> 
->  - ?
-
-   You're on your own here. :-)
-
->  - Change semantic of platform_get_irq_optional()
-
-   Yes, we should change the semantics if it serves our goals better. 
-
-> Best regards
-> Uwe
+>> Best regards
+>> Uwe
 
 MBR, Sergey

@@ -2,59 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9693494600
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 04:15:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F8E1494627
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 04:30:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BFFB2EDD;
-	Thu, 20 Jan 2022 04:14:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BFFB2EDD
+	by alsa0.perex.cz (Postfix) with ESMTPS id D56172F78;
+	Thu, 20 Jan 2022 04:29:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D56172F78
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642648541;
-	bh=OtkEo254PcNpLXrgAxSqCij00Dt0bnvC1/BCA2WbKno=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=K+TIRvV28MMZcboOa1NxwvTrQZKb9kIrEN5Zyg5Al4UIz8qT9VskYgx//8oua75s2
-	 zPbWEEAFQkG5AzryNfK6owFqbD3mYFWTN+omoNVfinoVbBgXqsP+Ycr902CJiAXBNr
-	 Ti/J2hp6BxAae4z/5yFImQP+dGn1oJ+73m0Ec2d4=
+	s=default; t=1642649410;
+	bh=B5/FzjUBtbwFrNLYg6TNbg4+9zrFPepNxQzS9vWuG7I=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HsfBm+4dPZ6/j3qhkpWT3mHkaAELE5pThAFkR36Wl3OUL+2IxpyB1jMLGdz2lDIQk
+	 DlqkCu51emktXGepfqv9IUl7vI1AyUz7SgmxW9fb+jQ9I9iPABN934WN/HVc0g33mZ
+	 vyKqnVck5+Eb+hd8S1KE9VvUoH4pFo4xdgIsG19o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC92EF80134;
-	Thu, 20 Jan 2022 04:14:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65991F8007E;
+	Thu, 20 Jan 2022 04:29:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 361BBF8012E; Thu, 20 Jan 2022 04:14:34 +0100 (CET)
+ id B1443F8012E; Thu, 20 Jan 2022 04:29:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5FB59F8007E
- for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 04:14:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FB59F8007E
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id DC3FA201004;
- Thu, 20 Jan 2022 04:14:26 +0100 (CET)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A3DAE201001;
- Thu, 20 Jan 2022 04:14:26 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 5A412183ACDD;
- Thu, 20 Jan 2022 11:14:24 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lars@metafoo.de, lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz,
- tiwai@suse.com, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: soc-generic-dmaengine-pcm: separate max_buffer_size
- assignment
-Date: Thu, 20 Jan 2022 10:44:02 +0800
-Message-Id: <1642646642-15908-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0C20F800F8
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 04:28:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0C20F800F8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="LCFwWNoe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642649335; x=1674185335;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=B5/FzjUBtbwFrNLYg6TNbg4+9zrFPepNxQzS9vWuG7I=;
+ b=LCFwWNoeYycZUir2oPZ/WaL9nE9gCDV+n8ASIBzbyemJI7R9qgyZT2/E
+ Pa5tAUbstvQkEbMz9KkBb8JV+ys1ttUqVMCom346H9gmN7s1d3iIK6KvI
+ xJC9hFKxcaMCFGI9SeIfwejpSLA8IbFxWgfKTCl/4i2IyqeVYRHm2KOV+
+ p8m5NLHHQfkcMESYHYI1+2ERQQKLG7nWTxqgHUbeNN0LLqBh6x5Ndyqdf
+ /VNtzQKhXv2vfAWhEeA/nRXOAWwth3BRXjTbG90j69s9QcFvSZdxzS3Q4
+ N3YreawUwOy3J0ozbZ/cC2Jn8KDvraapLpdTmnImfsWx8wkyMiaKdugJF A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10232"; a="331612323"
+X-IronPort-AV: E=Sophos;i="5.88,301,1635231600"; d="scan'208";a="331612323"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 19:28:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,301,1635231600"; d="scan'208";a="532594612"
+Received: from lkp-server01.sh.intel.com (HELO 276f1b88eecb) ([10.239.97.150])
+ by orsmga008.jf.intel.com with ESMTP; 19 Jan 2022 19:28:48 -0800
+Received: from kbuild by 276f1b88eecb with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nAO7z-000Dxl-Ib; Thu, 20 Jan 2022 03:28:47 +0000
+Date: Thu, 20 Jan 2022 11:28:00 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ "Geoffrey D. Bennett" <g@b4.vu>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH][next] ALSA: usb-audio: scarlett2: Use struct_size()
+ helper in scarlett2_usb()
+Message-ID: <202201201043.0reWtM98-lkp@intel.com>
+References: <20220120001423.GA69878@embeddedor>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220120001423.GA69878@embeddedor>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-hardening@vger.kernel.org, alsa-devel@alsa-project.org,
+ kbuild-all@lists.01.org, linux-kernel@vger.kernel.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,39 +96,159 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The config->pcm_hardware may be NULL when config->prealloc_buffer_size
-is not zero, so it is better to move max_buffer_size assignment under
-a separate condition.
+Hi "Gustavo,
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Thank you for the patch! Perhaps something to improve:
+
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on v5.16 next-20220118]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/0day-ci/linux/commits/Gustavo-A-R-Silva/ALSA-usb-audio-scarlett2-Use-struct_size-helper-in-scarlett2_usb/20220120-080908
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+config: m68k-allmodconfig (https://download.01.org/0day-ci/archive/20220120/202201201043.0reWtM98-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 11.2.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/1696152f12c0a7d23ccd5e228f9d08f7bd2da83a
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Gustavo-A-R-Silva/ALSA-usb-audio-scarlett2-Use-struct_size-helper-in-scarlett2_usb/20220120-080908
+        git checkout 1696152f12c0a7d23ccd5e228f9d08f7bd2da83a
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=m68k SHELL=/bin/bash sound/usb/
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+   In file included from include/linux/device.h:15,
+                    from include/linux/usb/ch9.h:36,
+                    from include/linux/usb.h:6,
+                    from sound/usb/mixer_scarlett_gen2.c:126:
+   sound/usb/mixer_scarlett_gen2.c: In function 'scarlett2_usb':
+>> sound/usb/mixer_scarlett_gen2.c:1113:25: warning: format '%lu' expects argument of type 'long unsigned int', but argument 5 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
+    1113 |                         "Scarlett Gen 2/3 USB response result cmd %x was %d "
+         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ^~~
+   include/linux/dev_printk.h:144:56: note: in expansion of macro 'dev_fmt'
+     144 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                        ^~~~~~~
+   sound/usb/usbaudio.h:67:9: note: in expansion of macro 'dev_err'
+      67 |         dev_err(&(chip)->dev->dev, fmt, ##args)
+         |         ^~~~~~~
+   sound/usb/mixer_scarlett_gen2.c:1111:17: note: in expansion of macro 'usb_audio_err'
+    1111 |                 usb_audio_err(
+         |                 ^~~~~~~~~~~~~
+
+
+vim +1113 sound/usb/mixer_scarlett_gen2.c
+
+1f7fa6e5afbf20 Geoffrey D. Bennett 2021-06-22  1056  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1057  /* Send a proprietary format request to the Scarlett interface */
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1058  static int scarlett2_usb(
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1059  	struct usb_mixer_interface *mixer, u32 cmd,
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1060  	void *req_data, u16 req_size, void *resp_data, u16 resp_size)
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1061  {
+e46f2195c86b00 Geoffrey D. Bennett 2021-06-21  1062  	struct scarlett2_data *private = mixer->private_data;
+1f7fa6e5afbf20 Geoffrey D. Bennett 2021-06-22  1063  	struct usb_device *dev = mixer->chip->dev;
+b677b6c6d82248 Geoffrey D. Bennett 2021-06-21  1064  	struct scarlett2_usb_packet *req, *resp = NULL;
+1696152f12c0a7 Gustavo A. R. Silva 2022-01-19  1065  	size_t req_buf_size = struct_size(req, data, req_size);
+1696152f12c0a7 Gustavo A. R. Silva 2022-01-19  1066  	size_t resp_buf_size = struct_size(resp, data, resp_size);
+b677b6c6d82248 Geoffrey D. Bennett 2021-06-21  1067  	int err;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1068  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1069  	req = kmalloc(req_buf_size, GFP_KERNEL);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1070  	if (!req) {
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1071  		err = -ENOMEM;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1072  		goto error;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1073  	}
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1074  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1075  	resp = kmalloc(resp_buf_size, GFP_KERNEL);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1076  	if (!resp) {
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1077  		err = -ENOMEM;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1078  		goto error;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1079  	}
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1080  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1081  	mutex_lock(&private->usb_mutex);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1082  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1083  	/* build request message and send it */
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1084  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1085  	scarlett2_fill_request_header(private, req, cmd, req_size);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1086  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1087  	if (req_size)
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1088  		memcpy(req->data, req_data, req_size);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1089  
+1f7fa6e5afbf20 Geoffrey D. Bennett 2021-06-22  1090  	err = scarlett2_usb_tx(dev, private->bInterfaceNumber,
+1f7fa6e5afbf20 Geoffrey D. Bennett 2021-06-22  1091  			       req, req_buf_size);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1092  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1093  	if (err != req_buf_size) {
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1094  		usb_audio_err(
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1095  			mixer->chip,
+4be47798d76e6e Geoffrey D. Bennett 2021-06-23  1096  			"Scarlett Gen 2/3 USB request result cmd %x was %d\n",
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1097  			cmd, err);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1098  		err = -EINVAL;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1099  		goto unlock;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1100  	}
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1101  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1102  	/* send a second message to get the response */
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1103  
+1f7fa6e5afbf20 Geoffrey D. Bennett 2021-06-22  1104  	err = scarlett2_usb_rx(dev, private->bInterfaceNumber,
+1f7fa6e5afbf20 Geoffrey D. Bennett 2021-06-22  1105  			       SCARLETT2_USB_CMD_RESP,
+1f7fa6e5afbf20 Geoffrey D. Bennett 2021-06-22  1106  			       resp, resp_buf_size);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1107  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1108  	/* validate the response */
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1109  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1110  	if (err != resp_buf_size) {
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1111  		usb_audio_err(
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1112  			mixer->chip,
+4be47798d76e6e Geoffrey D. Bennett 2021-06-23 @1113  			"Scarlett Gen 2/3 USB response result cmd %x was %d "
+1696152f12c0a7 Gustavo A. R. Silva 2022-01-19  1114  			"expected %lu\n",
+acf91b8122c7f6 Geoffrey D. Bennett 2021-06-22  1115  			cmd, err, resp_buf_size);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1116  		err = -EINVAL;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1117  		goto unlock;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1118  	}
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1119  
+acf91b8122c7f6 Geoffrey D. Bennett 2021-06-22  1120  	/* cmd/seq/size should match except when initialising
+acf91b8122c7f6 Geoffrey D. Bennett 2021-06-22  1121  	 * seq sent = 1, response = 0
+acf91b8122c7f6 Geoffrey D. Bennett 2021-06-22  1122  	 */
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1123  	if (resp->cmd != req->cmd ||
+acf91b8122c7f6 Geoffrey D. Bennett 2021-06-22  1124  	    (resp->seq != req->seq &&
+acf91b8122c7f6 Geoffrey D. Bennett 2021-06-22  1125  		(le16_to_cpu(req->seq) != 1 || resp->seq != 0)) ||
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1126  	    resp_size != le16_to_cpu(resp->size) ||
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1127  	    resp->error ||
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1128  	    resp->pad) {
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1129  		usb_audio_err(
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1130  			mixer->chip,
+4be47798d76e6e Geoffrey D. Bennett 2021-06-23  1131  			"Scarlett Gen 2/3 USB invalid response; "
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1132  			   "cmd tx/rx %d/%d seq %d/%d size %d/%d "
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1133  			   "error %d pad %d\n",
+d8f489355cff55 Takashi Iwai        2020-02-01  1134  			le32_to_cpu(req->cmd), le32_to_cpu(resp->cmd),
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1135  			le16_to_cpu(req->seq), le16_to_cpu(resp->seq),
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1136  			resp_size, le16_to_cpu(resp->size),
+d8f489355cff55 Takashi Iwai        2020-02-01  1137  			le32_to_cpu(resp->error),
+d8f489355cff55 Takashi Iwai        2020-02-01  1138  			le32_to_cpu(resp->pad));
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1139  		err = -EINVAL;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1140  		goto unlock;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1141  	}
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1142  
+acf91b8122c7f6 Geoffrey D. Bennett 2021-06-22  1143  	if (resp_data && resp_size > 0)
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1144  		memcpy(resp_data, resp->data, resp_size);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1145  
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1146  unlock:
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1147  	mutex_unlock(&private->usb_mutex);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1148  error:
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1149  	kfree(req);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1150  	kfree(resp);
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1151  	return err;
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1152  }
+9e4d5c1be21f0c Geoffrey D. Bennett 2019-07-29  1153  
+
 ---
- sound/soc/soc-generic-dmaengine-pcm.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index c54c8ca8d715..8659cb1794f1 100644
---- a/sound/soc/soc-generic-dmaengine-pcm.c
-+++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -237,13 +237,15 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
- 	size_t max_buffer_size;
- 	unsigned int i;
- 
--	if (config && config->prealloc_buffer_size) {
-+	if (config && config->prealloc_buffer_size)
- 		prealloc_buffer_size = config->prealloc_buffer_size;
--		max_buffer_size = config->pcm_hardware->buffer_bytes_max;
--	} else {
-+	else
- 		prealloc_buffer_size = prealloc_buffer_size_kbytes * 1024;
-+
-+	if (config && config->pcm_hardware && config->pcm_hardware->buffer_bytes_max)
-+		max_buffer_size = config->pcm_hardware->buffer_bytes_max;
-+	else
- 		max_buffer_size = SIZE_MAX;
--	}
- 
- 	for_each_pcm_streams(i) {
- 		struct snd_pcm_substream *substream = rtd->pcm->streams[i].substream;
--- 
-2.17.1
-
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org

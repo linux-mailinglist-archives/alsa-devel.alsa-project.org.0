@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 881BC495526
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 21:00:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 459AA49552A
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 21:01:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D95672D73;
-	Thu, 20 Jan 2022 20:59:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D95672D73
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFCE52D5C;
+	Thu, 20 Jan 2022 21:00:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFCE52D5C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642708842;
-	bh=iXayETYBe34wswKWR+HFAsICqVIbjBG9AoNkdbyM0t0=;
+	s=default; t=1642708906;
+	bh=DeXUnOG3se7RanTt7yDPQOVEbGLNMk6z6yThekqymrc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TtUL0Ze45WUSXSexa8CIBJ1hUJXzpp664KT5dH5gQ6EQ1SZGsEM7U038nO7umHBaA
-	 EIR1k/H1i4zL6tC0YjnjTb2/VoRwDKSl2Niu8iPbPYMq6KIhmZOH+2VSO/u9MRc8KS
-	 R9yMczIdsIuHSIfE0xBfSEmG/3HLLbU2VWmB3Fa8=
+	b=QeLZhUZwj/LKPMobyWW+T+jGrtFYd2uE2QIwiY9AopMbtalWI0T55Z2IPWoGrxhdc
+	 tdKPflM0wL1ZuXvIv/j9RkOcXpKAh2YLj7wCGZFbAGpjuUI2NiPhUvIBfO+lsrpeLG
+	 VkXy0nduMKw963WfGApLjVvF3YeD9uZzzhM+eK20=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90F7AF80507;
-	Thu, 20 Jan 2022 20:59:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEDF1F80527;
+	Thu, 20 Jan 2022 20:59:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB5D5F80507; Thu, 20 Jan 2022 20:59:05 +0100 (CET)
+ id 031FCF8051A; Thu, 20 Jan 2022 20:59:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0d-0054df01.pphosted.com (mx0d-0054df01.pphosted.com
- [67.231.150.19])
+Received: from mx0c-0054df01.pphosted.com (mx0c-0054df01.pphosted.com
+ [67.231.159.91])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCC26F800F2
- for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 20:58:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCC26F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88337F80423
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 20:59:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88337F80423
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=calian.com header.i=@calian.com
- header.b="I3Wch0gl"
-Received: from pps.filterd (m0209000.ppops.net [127.0.0.1])
- by mx0c-0054df01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20KBlB4V009477;
- Thu, 20 Jan 2022 14:58:57 -0500
-Received: from can01-to1-obe.outbound.protection.outlook.com
- (mail-to1can01lp2054.outbound.protection.outlook.com [104.47.61.54])
- by mx0c-0054df01.pphosted.com (PPS) with ESMTPS id 3dpmt68sbc-1
+ header.b="1divPMbi"
+Received: from pps.filterd (m0208999.ppops.net [127.0.0.1])
+ by mx0c-0054df01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20KCf0Ls006546;
+ Thu, 20 Jan 2022 14:59:01 -0500
+Received: from can01-qb1-obe.outbound.protection.outlook.com
+ (mail-qb1can01lp2050.outbound.protection.outlook.com [104.47.60.50])
+ by mx0c-0054df01.pphosted.com (PPS) with ESMTPS id 3dprrpgswg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Jan 2022 14:58:57 -0500
+ Thu, 20 Jan 2022 14:59:00 -0500
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=esNFxsqSjT9RqAHsmZz8EyhZnT2TqiT88YJxg37BzjoAbMIpyJhH30O7Yjwa+SmXs87IeMiPMyBMUzrqhogJmJD7HRrpwUppwRf7WvoGXGztx7lIy/UPWpVsimqfE8gy0ieuCYcMHGznGD+j6JRWQ29GD0RKTsi7VSaOniighSIkpuItx/oeACPgF+80/kVmj19izGnhQaM2FRz3xJlBNYtGZB+wGY15173RIVVPiRSmjOECJ6WiD0j3TV9hmgbiqD9pML+Vdp99N5nG6dcv0UxMffUm/laNtGa1t2v1/fJz6qnd3bJZM/FCgYy0qTOH9xux/OkiGLbRVYk3BMTA+Q==
+ b=Ym8iAURX5hKGrreYK0T1LRks9GtE3Lq3QjMGnpLLMomsS39TgjxOh4lZiwQk909177SozkTfNFoNYZFOdCGrmPUM4kuv0EPy0Svi0I4GtMWBasBlkWah5yoOopg37QAeHdjGC6RoWXAUM4Q2tAdFr25s1iG8nR4XrYrZhcSr+TCYSmP9uSvEAeTZ/N312Mbg+R1qa80Beg0sdDNLrAK6ePLKyxIF63ZdrD5d7A7dNiCb0hm2z6Pa7AaxntWvEABFVM4n3zz8iAn9BLcPPj7HDeU9BwZKIpsP9nSe1OxBObaRYlnygmzOjDjePdl1fBuzGRSp8TD1DNS/cIuuRKecZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WBuGkiztIfrv7X50LeaVLlCCS1E9XCeo2SZegZqpvxM=;
- b=BOtA54sFGHyNlxtfWOqVHlx6jK5nBmsNlyk4D8W700ZV0RaPLknrb91pKfyiY1XzDlxM65N+5cbHIaZXSwYCWBRzd+r+I+zd/XNaaBoTi8/pp30jxy3dGFmcCbzV/f+uSviBvzc+Eot1yrvC11eCBn2P6YZk1uoqKxGq6WJiiNBkDH2QtSvfY0xqhGQk+OBxoWYt7dSQ1D3BFw22IDCbwDxhiDPEou9CwAQhtsBpRI2yfiwKAUepcE+swuLu5m5DcQMAFjfD5+AcODrd6COIgJGTCN+Mk8xGMbM53NcKWTREqTaEXfbpoS7O4NLMCmsJn+P0diJKCFid1vWENrCE3Q==
+ bh=Y+VYeQgNfAkaq5cWPQq7rK1TRYIGbNZAzXN4PRP/q2I=;
+ b=apwzorxkP/EexWZ5hw9x0/Xk21p2QlE6rUpwot3A/SYFOpcdw+daI6eim/fiHwBSzDTQtLEykfHB6ocbPWJc1eH3rV1wGQeH/Cn2lUCPuX0Gru+Kn18gQenQmiJ46jb8Film7YHIiZly3gOYeg2w1a9ZjaMzNa8If8UUFDhEwaJdGdBah7EW6DjgvCVFAQnsrcTIZTYFDKek1mNhJ+DKIpMGCNk5ic+5b6zBnW+SMoJZ2NywKtWhZLF5Yw8xoctIhu0cCr9N7Hsbyn/yWvtjYdOhc9IA4af0WmZzvjSITJ+WM+9TxsxakyEyvnnxHeVgfbFf/LmBrK45C/sHx6ZqTQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=calian.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WBuGkiztIfrv7X50LeaVLlCCS1E9XCeo2SZegZqpvxM=;
- b=I3Wch0glVXVGtWPxiZEWtHDa03jFicahUutfgWaMi/RjZLi4f7XrPvVjai9WjrBES5MkHqCDmT7P82wed3vseFZUVmg7/fm+zBfZ/Fm24jiwbD76RqDsZM60Ag79+cEVplzn1MV4NJoRa7m4Z/FBu6l7sbYPVLjxDTzWHGIm8pM=
+ bh=Y+VYeQgNfAkaq5cWPQq7rK1TRYIGbNZAzXN4PRP/q2I=;
+ b=1divPMbiGqZ3NyGpA9ZcquRxrZe+9eU5pYNWjuBh9APgi8scjg5Tu0XXd1AOaBcMK6JtzSm8lqr8IFfvCmjfAEJuWH8RFV9czlZUKNSvWvIuPXU/iUpfEA3wcGgcyGFRajf7hXGpKWOh/vuzLXmeMIafKDjYaSw6+isfAnyPg50=
 Received: from YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:6a::19)
- by YTXPR0101MB1053.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:2::16)
+ by QB1PR01MB2563.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00:32::31)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.11; Thu, 20 Jan
- 2022 19:58:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Thu, 20 Jan
+ 2022 19:58:59 +0000
 Received: from YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
  ([fe80::6929:c39f:d893:b6c8]) by YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
  ([fe80::6929:c39f:d893:b6c8%2]) with mapi id 15.20.4888.014; Thu, 20 Jan 2022
- 19:58:55 +0000
+ 19:58:57 +0000
 From: Robert Hancock <robert.hancock@calian.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 2/6] ASoC: xilinx: xlnx_i2s: create drvdata structure
-Date: Thu, 20 Jan 2022 13:58:28 -0600
-Message-Id: <20220120195832.1742271-3-robert.hancock@calian.com>
+Subject: [PATCH v3 3/6] ASoC: xilinx: xlnx_i2s: Handle sysclk setting
+Date: Thu, 20 Jan 2022 13:58:29 -0600
+Message-Id: <20220120195832.1742271-4-robert.hancock@calian.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20220120195832.1742271-1-robert.hancock@calian.com>
 References: <20220120195832.1742271-1-robert.hancock@calian.com>
@@ -87,69 +87,69 @@ X-ClientProxiedBy: CH0PR04CA0024.namprd04.prod.outlook.com
  (2603:10b6:b01:6a::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 75a4f976-cacc-4097-802b-08d9dc4f49cf
-X-MS-TrafficTypeDiagnostic: YTXPR0101MB1053:EE_
-X-Microsoft-Antispam-PRVS: <YTXPR0101MB105309C7FF1473DFD64ABEF2EC5A9@YTXPR0101MB1053.CANPRD01.PROD.OUTLOOK.COM>
-X-MS-Oob-TLC-OOBClassifiers: OLM:47;
+X-MS-Office365-Filtering-Correlation-Id: 4027f644-cf0a-4fe5-bd7a-08d9dc4f4a9c
+X-MS-TrafficTypeDiagnostic: QB1PR01MB2563:EE_
+X-Microsoft-Antispam-PRVS: <QB1PR01MB25632A13997B0D994C71346CEC5A9@QB1PR01MB2563.CANPRD01.PROD.OUTLOOK.COM>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8qd+Z7gtJh3sCcbfZ88KI3L5hFhg73oU6Qm9UDTDIcA7bwOXw/ooEoYH8BqHzmeqaSE3UNPTsNcAHAHuIhjgyh0z7B2mLhnVQ+dEbr59xnAKu+RRCvL2AE69jVMT6kncpmCD0pBwhuCzGL/y9i+kEhcD4J6Ob1tI2c3GGcxyb5uret8RKrB4GNAiC5nZAiA6JzGJAbvXguZiL6mWQ8vfmO72iogMMCPpoMwk9FhWCSkNbG4Xd4yxzaxxbfUR7jUocGdLjqA2WG154l/PxWNLbvBnTcL1wENNvjlYdeukulMabx7D76nhP2I9NXOZnVChckQd590KX19t3qsc0cYLwfyXgfpeLXmvswj/+SWxJF/2EhzZBHVITX0bbiCwFlJwJuwwceZaTVKW7m2UurtrQ52yDBmgNU/3GdwAsa6fSejx1VANlUVYPB+BokYtgQ/BZkg3j7FICP0FGU9ZC1Si59KPi9W0E8aB6wOHUe36Yg6HAvfx2yrhC1iUwwXlchkpbHqjF/zxskC3YfiXhjaXppVcWOn1SPo8dJHQvNkey1R5yUXq8J7k4zGgaHh34oI8TWcrba3SxVzhXyMrw0LG9X9HgZEcAWyM4SHFlWRmYiyfNnR0Zi3iSYKdjy5rRD/XcF5T/edNYA7MoYuJNeAEmB0A4pnhVdNjjEPcw+c8PYFR34rcPt2r8YR9ajFvOsTOxy/fssOvQG/G/LisGPPZFw==
+X-Microsoft-Antispam-Message-Info: AJ2L+bJ5ZNrqjm3mH06ur9rYjL6GsQ9Szg1I3UaMyf9htjMmCKl/USuMlFFH2l/dMl9ZwhObrDxDfWCHxLrxcxd8Qyi7x8Qd8SwqHQ4TJfuhkNvkLtoReN01Ga3j/ASy/zu6w1U8g90hb9281Gykeax/mOeUOqXIzM2WnvEoz4Rf1h8w+BfHpDcrT8L1BLbWGfdcMRfaX0gSozKJ1R95DCdcVvB0wxfY+VSmWo7X7T8fJf5fCxLIDIp+up/iXh9fVoQ4ApBh5YJI5IUYKvvCDSJdxozPmbwTZJ4Ww5JxE0V05d6tnK0WDcb8ejNKuIfXMLx46CE9a9EqObzS3+7cMLvdhl8en6Dfz6300EkKR0sKu5uXKK08XnFpuDz0CNd703jO9yRQVPMHR39cwWaNB/PuaK6vsWoqfhQLv3UGwoG12qyrCeA1vX4wTAnSPcppPxyYsdvhn6LfXze9jmc2TKnMkooZ6W96WXZ7B+64pId28X/tOo0ElROwkxyU6tc+4hAHDMEWZTPxjEzGrQIJF639kYJJBueXNCbGfoYgNiz8LtlH8hPhZNPY/50kEE0TShG33c5pKjTkMyxtCxN/a7WZVFhL0T5PQIxPrJIXgRYQTXPkajVfnJYSsKvVVXJFIxrM/RZNXfVH/nFih+vgrWtWObVGP5kGEkjDIF4otSqkephNcwGLsSoQjyI8g2AYKX9aGqPdFpCV0dNGJTKAxA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(508600001)(26005)(83380400001)(2616005)(6512007)(107886003)(1076003)(2906002)(38100700002)(186003)(52116002)(66556008)(38350700002)(316002)(6666004)(4326008)(7416002)(66946007)(66476007)(6506007)(8936002)(6916009)(6486002)(36756003)(44832011)(8676002)(86362001);
+ SFS:(4636009)(366004)(4326008)(86362001)(8936002)(6486002)(1076003)(83380400001)(8676002)(6512007)(2616005)(107886003)(5660300002)(6916009)(66556008)(66946007)(66476007)(2906002)(508600001)(38350700002)(38100700002)(44832011)(26005)(7416002)(52116002)(186003)(6506007)(316002)(36756003)(6666004);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zlJW/+jcfRCWBjJ1u4CVGtNznZt8BbzbY6WgrO7Hv2TyqTQd8rkn6xNNbMBA?=
- =?us-ascii?Q?QjEzG9FSquNZbXpqAVBAXY2V0VeE/rX6vFpXYUAaQrf71rYT8OVPLFjDFbBe?=
- =?us-ascii?Q?Uq3iVGSbQzxcQp+HY7dixgMtwMSYHe5SyBPF9GWHUW4q8TuGR1neMu7u5AlV?=
- =?us-ascii?Q?HPYLCnUNXoORHWTRggaDaasZ+VKFtS4yN/wrSPptopPyVDCMa0PCfjH5+bJU?=
- =?us-ascii?Q?1ILokEdzxIudHVjotaENMNsapldwvXH4Ba7fDQ4oQ4Rii9MHJgbrgUG41PW9?=
- =?us-ascii?Q?XThdt0A8fGrBkgGxDbCcPluR4G3VyhlVaeGwXCdAPyQKtH+Jlpph77cd9Dq9?=
- =?us-ascii?Q?y0GFKI3+Yo7fcmGYhhKHl9jyEY6fgudnxu/W2GslXue2GvPGPVF+Cz/FKdNj?=
- =?us-ascii?Q?wm0REv6FwykO261KUFjoaWgPkblAEfTYRw5iGm/XR8qDnfCTfXN9tU1NKDbk?=
- =?us-ascii?Q?uqlkO+QjDW7YiToD16/w+aCuR/mQDkbh9Ds6daEAexXuoZoNLQyecltyR/He?=
- =?us-ascii?Q?mObzfbJPGSAGP+qqVE8owP1gEoJqP4AL2VkvI6PudkvlI5Q35E6D19cbOolq?=
- =?us-ascii?Q?JuaQwu9SJnZwp86laQ3s1QK3yjj3uhdlEau/3l/aogyrRvg87rDWzmQaMOAM?=
- =?us-ascii?Q?CXLE2Nmz9YwQ6VdEtPWy+xlEhIev/vJmsxtaCMYVpsrg8IwCaEgha6TSUbLJ?=
- =?us-ascii?Q?898DLZ5IICHTYWcZZGMAtULBi69Wfa8h/GInyVhN2Fc63ljCv1SMkw3+nkcy?=
- =?us-ascii?Q?FU12VU1zzwr5mdN1jC1X05zO9BSL61CYBAeQ8StAq7EHSAdjeWcEsFvJORxc?=
- =?us-ascii?Q?YZOq7yjhSHeDI6UtVEwy6+pp5UdeXl/NjEAt+fjlHqJMK/Bsejie8ZSfAr/A?=
- =?us-ascii?Q?M6x2slh7aypTRc7DC3EUZsiavmFPlJd5FW/84k6j0UHeemGoG95zZRIppdqx?=
- =?us-ascii?Q?u51NtQ4n2JPUecLW62ChTCZPZ4kyDcd5Po7OEwWq9Axg6lzxjqwxQ8ZPxh+M?=
- =?us-ascii?Q?KniHb5TuCxgL7EKy7Z2IlN4fcsZg94lMs8e1Oj5NWPvmStvYfseNeSVrgK5/?=
- =?us-ascii?Q?AtSApc/FYhPjFMA79/9wa3poYytm5u4Z5M8oafFa5MjINwDHbPqtCn+axW54?=
- =?us-ascii?Q?F2iuqx6KYdB2vFGdfM8z1JTRzs0DgbfHvGnKudkRl0WTMavx5RVmCmouNLvg?=
- =?us-ascii?Q?fxqCgCrntWSzRCPkIy0Fbb5zKKclh8OuoB0MzCJ2vx3iXm9airX+bngrIJHK?=
- =?us-ascii?Q?EjIKKovH9+2Sb+0ECl359qbERqNTFb6HO+KdJBvD330II35S1oMERs0oIQg2?=
- =?us-ascii?Q?sysT1uwUWnywNSRG6WVSb3dOqR4UJIxJLF+5v9ROOgGW8mdGXewRg+aLvXoS?=
- =?us-ascii?Q?ZjmtCsq1MQLNdfo0yfhof9B/173WnqXM8SKH4VFhmyhW71457vjoTHYAuj0Q?=
- =?us-ascii?Q?w0iHKl8th3u6DmYM27McZ2WeI2yYqz7PonsdxzVHW2bUAriIok7E4FGv3oxs?=
- =?us-ascii?Q?o/LAMEce4ocviFL9qs+oXNCkrEX8HzwXy7amUUzw8/ZpBff5ydW0XLxfJA4S?=
- =?us-ascii?Q?iUIO03YCT35cvKr7Vq23f+hBsBpDcoRfRs1kS2ew/il/75L4uISoBo6+fwds?=
- =?us-ascii?Q?/lSCN3hKC4CmI7h6rkkxjNdVzPHva5Vf55vst4wLY6xA3zyP+2P3Bj08OIfO?=
- =?us-ascii?Q?TAw/m6z5degF5ulA8G2LUyB+pq0=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9LP6tL+l0D9hB/u60aiKqaiSQQBlL/4LcMU+TwuwGa4GR0BIuNdF1Kusho0b?=
+ =?us-ascii?Q?HIvJBm44HNVww9kYrnmZIq505s1XDTNNE5BB+TOGtz+ohG0rFLGOjDGJ/99e?=
+ =?us-ascii?Q?eDAL5cV0m7YUANmAUQcCJ6tMD2NDov9jCEIUyiV99S9FDW6eGIWJDjD5sH3m?=
+ =?us-ascii?Q?31si8FTcPSG34vwEtzX5dWUKd3njMo5TqBpIrjD9ZGuRSzIViV8m5DLLN/fm?=
+ =?us-ascii?Q?EJftdd5eBvReUgL970iKldfHjB+SaP24M/z+gMfPwdWVxA1QsU+Wir2uMnNA?=
+ =?us-ascii?Q?H2BytiqOWTYXVvZ+jI2EEoEPCid8T3j23k2t1/cs9o6kyFoDMSwSXwssBzNS?=
+ =?us-ascii?Q?MYEgArmdDlRxJK08GZehU3N/lgMNonbjwBC5bThiTs6QMAwc9es/MNkVFDiD?=
+ =?us-ascii?Q?PT3RmQ3ysqKM1kuZwlCIjr6Y+7opiqIXXjmt429HqLc/k6ZcFSo7YydqNCCO?=
+ =?us-ascii?Q?ZKvJsPrw5i2HQl10cRgR8+LJiXzupkw67wteC4ZdMG9OIKPyGvkceQAsIRud?=
+ =?us-ascii?Q?Hj93OgHAFQVb3AcDHXsy0zX2Hy4wChiHFBLtYWYQzF1DRJGrtBkTXDuHfo5y?=
+ =?us-ascii?Q?OiQIs7aSccga0/yJLcHl+vEoMSNo3XqrEuXaQkNjSEfA3lTieDcKXYY/sdkS?=
+ =?us-ascii?Q?a9cd7NUZfnRnatjjxe1aNuDyhtQ97g2VlCRRcUah+ORgTPLs75lihaAR5rsb?=
+ =?us-ascii?Q?gEgmv38dljh96tBbORkHkNlH8pfiAJTQgfR0XH1kLuKrfD5K0fOkFM0SyKx6?=
+ =?us-ascii?Q?RUE63N8GJSgPmUhMCu+wQX6EWiGwPTqQdv350cW/PAyp0YNMnNN2uAsDxW5/?=
+ =?us-ascii?Q?BAgIj3lWw0x2AWvygoALwX9L/xUm1k0YPQiMYSnj3eAjfL6bmHCYZxYfukyZ?=
+ =?us-ascii?Q?W682mhjrJbAwb7YJWs8Pc2rDKaypak5KLdgR7MzMGj90fjZby78GE4fqx6zJ?=
+ =?us-ascii?Q?A64EkDBCPn4X8/lIC8g+zG1bssx55TcZd2KqlHLOielOJoJOBDx83F61CHf9?=
+ =?us-ascii?Q?ShmMgaNV+O8IdAbRZV3Ju1GcspnaU7wN70DmID7TscqF+G8+v02aLO1sVuVv?=
+ =?us-ascii?Q?vMXX6nju8D0x3NOnbfdafiq8ALkR3JY56W4U7/Z3x7s+uFdvgu0w7hwH91Py?=
+ =?us-ascii?Q?uMBf2hQbLAXhuIED9anUJHraUxqgWtxmkCX073Dkr5407B8CLHtN99/uUohF?=
+ =?us-ascii?Q?JE+V22CmobeXoikSXY56gCqgZkREOWdilft2SBcqJJHusbw2y5cwfNohR+Wz?=
+ =?us-ascii?Q?C3loPueYlx/5YmV25Hg2lRNZ0d5yBltXELRlKmUY3qfz5Edh6x7txAFofM5e?=
+ =?us-ascii?Q?9i85NFNGhCVCRYy3MIlxTc9c1RoJj3DLXHorGISmHJC/006puA8cyozMgwVB?=
+ =?us-ascii?Q?12y8JLBRl7pWoDSEMBKJwYStSKpq4ecLg0f9ZlIPTy5VxoewarTOK3ZWNOdi?=
+ =?us-ascii?Q?uv8Q9xbY+mKcJus/b19g3QGxdMS5DOdOMygaGlCjYFN25aRechXMVw7kiGJV?=
+ =?us-ascii?Q?TitQCabwdaLZRfvjFRgEmtDDb1HlhZtAjpqGYkronYqFWCZvJhFcPIw0HfgT?=
+ =?us-ascii?Q?wUvFowv6MPTxJEZrH6N8HE+1K3asDlBs1t7b6Po+ICnRpx7yMwDE+HPJUXHx?=
+ =?us-ascii?Q?Q18hvSF76/OOnmxVpTdg5jUWZA3YEaWVqEZehU4mjOnaKpOwzAk4RyJ9m6wI?=
+ =?us-ascii?Q?P+tavQMMj6MJr4uDLy31EFjwcLk=3D?=
 X-OriginatorOrg: calian.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75a4f976-cacc-4097-802b-08d9dc4f49cf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4027f644-cf0a-4fe5-bd7a-08d9dc4f4a9c
 X-MS-Exchange-CrossTenant-AuthSource: YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 19:58:54.9748 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 19:58:56.3980 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 23b57807-562f-49ad-92c4-3bb0f07a1fdf
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VPcluHKCTgFKmn0kJvcj3MiX0+v5bGMjldaZuiXbweN38MhKQSZRkFk5YU0ePt53DWIqgh106SejKtIM3Z8IiE+vE0g/B0DUbz2K8mOCmsI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YTXPR0101MB1053
-X-Proofpoint-GUID: TkibR7qVJVm_sxqH19N4SawOoHUEf8Nj
-X-Proofpoint-ORIG-GUID: TkibR7qVJVm_sxqH19N4SawOoHUEf8Nj
+X-MS-Exchange-CrossTenant-UserPrincipalName: XViaf50huznmEPcCtRAsi4ru75fPJ+AZMddE0M88JeJTVC4+Wcl7CEoQ9qC7H4NBJZYdlu/gqqMK8+bvYi8yEd2jWXXW6Hnk8fc0eKHuj0Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: QB1PR01MB2563
+X-Proofpoint-ORIG-GUID: q1voieaYanJoeKkmZ9gQ1yuKlHIGcFP4
+X-Proofpoint-GUID: q1voieaYanJoeKkmZ9gQ1yuKlHIGcFP4
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2022-01-20_08,2022-01-20_01,2021-12-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 mlxscore=0
- impostorscore=0 adultscore=0 spamscore=0 mlxlogscore=610 suspectscore=0
- priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2201200100
+ clxscore=1015 bulkscore=0
+ adultscore=0 lowpriorityscore=0 mlxlogscore=704 phishscore=0 mlxscore=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 spamscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2110150000 definitions=main-2201200100
 Cc: devicetree@vger.kernel.org, kuninori.morimoto.gx@renesas.com,
  lgirdwood@gmail.com, tiwai@suse.com, robh+dt@kernel.org,
  michal.simek@xilinx.com, Robert Hancock <robert.hancock@calian.com>,
@@ -169,160 +169,206 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-An upcoming change will require storing additional driver data other
-than the memory base address. Create a drvdata structure and use that
-rather than storing the raw base address pointer.
+This driver previously only handled the set_clkdiv divider callback when
+setting the SCLK Out Divider field in the I2S Timing Control register.
+However, when using the simple-audio-card driver, the set_sysclk function
+is called but not set_clkdiv. This caused the divider not to be set,
+leaving it at an invalid value of 0 and resulting in a very low SCLK
+output rate.
+
+Handle set_clkdiv and store the sysclk (MCLK) value for later use in
+hw_params to set the SCLK Out Divider such that:
+MCLK/SCLK = divider * 2
 
 Signed-off-by: Robert Hancock <robert.hancock@calian.com>
 ---
- sound/soc/xilinx/xlnx_i2s.c | 66 ++++++++++++++++++++-----------------
- 1 file changed, 35 insertions(+), 31 deletions(-)
+ sound/soc/xilinx/xlnx_i2s.c | 91 +++++++++++++++++++++++++++++++++----
+ 1 file changed, 81 insertions(+), 10 deletions(-)
 
 diff --git a/sound/soc/xilinx/xlnx_i2s.c b/sound/soc/xilinx/xlnx_i2s.c
-index cc641e582c82..3bafa34b789a 100644
+index 3bafa34b789a..4cc6ee7c81a3 100644
 --- a/sound/soc/xilinx/xlnx_i2s.c
 +++ b/sound/soc/xilinx/xlnx_i2s.c
-@@ -22,15 +22,20 @@
+@@ -18,6 +18,8 @@
+ #define DRV_NAME "xlnx_i2s"
+ 
+ #define I2S_CORE_CTRL_OFFSET		0x08
++#define I2S_CORE_CTRL_32BIT_LRCLK	BIT(3)
++#define I2S_CORE_CTRL_ENABLE		BIT(0)
+ #define I2S_I2STIM_OFFSET		0x20
  #define I2S_CH0_OFFSET			0x30
  #define I2S_I2STIM_VALID_MASK		GENMASK(7, 0)
+@@ -25,6 +27,12 @@
+ struct xlnx_i2s_drv_data {
+ 	struct snd_soc_dai_driver dai_drv;
+ 	void __iomem *base;
++	unsigned int sysclk;
++	u32 data_width;
++	u32 channels;
++	bool is_32bit_lrclk;
++	struct snd_ratnum ratnum;
++	struct snd_pcm_hw_constraint_ratnums rate_constraints;
+ };
  
-+struct xlnx_i2s_drv_data {
-+	struct snd_soc_dai_driver dai_drv;
-+	void __iomem *base;
-+};
-+
  static int xlnx_i2s_set_sclkout_div(struct snd_soc_dai *cpu_dai,
- 				    int div_id, int div)
- {
--	void __iomem *base = snd_soc_dai_get_drvdata(cpu_dai);
-+	struct xlnx_i2s_drv_data *drv_data = snd_soc_dai_get_drvdata(cpu_dai);
- 
+@@ -35,11 +43,50 @@ static int xlnx_i2s_set_sclkout_div(struct snd_soc_dai *cpu_dai,
  	if (!div || (div & ~I2S_I2STIM_VALID_MASK))
  		return -EINVAL;
  
--	writel(div, base + I2S_I2STIM_OFFSET);
-+	writel(div, drv_data->base + I2S_I2STIM_OFFSET);
++	drv_data->sysclk = 0;
++
+ 	writel(div, drv_data->base + I2S_I2STIM_OFFSET);
  
  	return 0;
  }
-@@ -40,13 +45,13 @@ static int xlnx_i2s_hw_params(struct snd_pcm_substream *substream,
- 			      struct snd_soc_dai *i2s_dai)
- {
- 	u32 reg_off, chan_id;
--	void __iomem *base = snd_soc_dai_get_drvdata(i2s_dai);
-+	struct xlnx_i2s_drv_data *drv_data = snd_soc_dai_get_drvdata(i2s_dai);
  
++static int xlnx_i2s_set_sysclk(struct snd_soc_dai *dai,
++			       int clk_id, unsigned int freq, int dir)
++{
++	struct xlnx_i2s_drv_data *drv_data = snd_soc_dai_get_drvdata(dai);
++
++	drv_data->sysclk = freq;
++	if (freq) {
++		unsigned int bits_per_sample;
++
++		if (drv_data->is_32bit_lrclk)
++			bits_per_sample = 32;
++		else
++			bits_per_sample = drv_data->data_width;
++
++		drv_data->ratnum.num = freq / (bits_per_sample * drv_data->channels) / 2;
++		drv_data->ratnum.den_step = 1;
++		drv_data->ratnum.den_min = 1;
++		drv_data->ratnum.den_max = 255;
++		drv_data->rate_constraints.rats = &drv_data->ratnum;
++		drv_data->rate_constraints.nrats = 1;
++	}
++	return 0;
++}
++
++static int xlnx_i2s_startup(struct snd_pcm_substream *substream,
++			    struct snd_soc_dai *dai)
++{
++	struct xlnx_i2s_drv_data *drv_data = snd_soc_dai_get_drvdata(dai);
++
++	if (drv_data->sysclk)
++		return snd_pcm_hw_constraint_ratnums(substream->runtime, 0,
++						     SNDRV_PCM_HW_PARAM_RATE,
++						     &drv_data->rate_constraints);
++
++	return 0;
++}
++
+ static int xlnx_i2s_hw_params(struct snd_pcm_substream *substream,
+ 			      struct snd_pcm_hw_params *params,
+ 			      struct snd_soc_dai *i2s_dai)
+@@ -47,6 +94,26 @@ static int xlnx_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	u32 reg_off, chan_id;
+ 	struct xlnx_i2s_drv_data *drv_data = snd_soc_dai_get_drvdata(i2s_dai);
+ 
++	if (drv_data->sysclk) {
++		unsigned int bits_per_sample, sclk, sclk_div;
++
++		if (drv_data->is_32bit_lrclk)
++			bits_per_sample = 32;
++		else
++			bits_per_sample = drv_data->data_width;
++
++		sclk = params_rate(params) * bits_per_sample * params_channels(params);
++		sclk_div = drv_data->sysclk / sclk / 2;
++
++		if ((drv_data->sysclk % sclk != 0) ||
++		    !sclk_div || (sclk_div & ~I2S_I2STIM_VALID_MASK)) {
++			dev_warn(i2s_dai->dev, "invalid SCLK divisor for sysclk %u and sclk %u\n",
++				 drv_data->sysclk, sclk);
++			return -EINVAL;
++		}
++		writel(sclk_div, drv_data->base + I2S_I2STIM_OFFSET);
++	}
++
  	chan_id = params_channels(params) / 2;
  
  	while (chan_id > 0) {
- 		reg_off = I2S_CH0_OFFSET + ((chan_id - 1) * 4);
--		writel(chan_id, base + reg_off);
-+		writel(chan_id, drv_data->base + reg_off);
- 		chan_id--;
- 	}
- 
-@@ -56,18 +61,18 @@ static int xlnx_i2s_hw_params(struct snd_pcm_substream *substream,
- static int xlnx_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
- 			    struct snd_soc_dai *i2s_dai)
- {
--	void __iomem *base = snd_soc_dai_get_drvdata(i2s_dai);
-+	struct xlnx_i2s_drv_data *drv_data = snd_soc_dai_get_drvdata(i2s_dai);
- 
- 	switch (cmd) {
+@@ -67,7 +134,7 @@ static int xlnx_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
  	case SNDRV_PCM_TRIGGER_START:
  	case SNDRV_PCM_TRIGGER_RESUME:
  	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		writel(1, base + I2S_CORE_CTRL_OFFSET);
-+		writel(1, drv_data->base + I2S_CORE_CTRL_OFFSET);
+-		writel(1, drv_data->base + I2S_CORE_CTRL_OFFSET);
++		writel(I2S_CORE_CTRL_ENABLE, drv_data->base + I2S_CORE_CTRL_OFFSET);
  		break;
  	case SNDRV_PCM_TRIGGER_STOP:
  	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		writel(0, base + I2S_CORE_CTRL_OFFSET);
-+		writel(0, drv_data->base + I2S_CORE_CTRL_OFFSET);
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -95,20 +100,19 @@ MODULE_DEVICE_TABLE(of, xlnx_i2s_of_match);
+@@ -83,7 +150,9 @@ static int xlnx_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
  
- static int xlnx_i2s_probe(struct platform_device *pdev)
+ static const struct snd_soc_dai_ops xlnx_i2s_dai_ops = {
+ 	.trigger = xlnx_i2s_trigger,
++	.set_sysclk = xlnx_i2s_set_sysclk,
+ 	.set_clkdiv = xlnx_i2s_set_sclkout_div,
++	.startup = xlnx_i2s_startup,
+ 	.hw_params = xlnx_i2s_hw_params
+ };
+ 
+@@ -102,7 +171,7 @@ static int xlnx_i2s_probe(struct platform_device *pdev)
  {
--	void __iomem *base;
--	struct snd_soc_dai_driver *dai_drv;
-+	struct xlnx_i2s_drv_data *drv_data;
+ 	struct xlnx_i2s_drv_data *drv_data;
  	int ret;
- 	u32 ch, format, data_width;
+-	u32 ch, format, data_width;
++	u32 format;
  	struct device *dev = &pdev->dev;
  	struct device_node *node = dev->of_node;
  
--	dai_drv = devm_kzalloc(&pdev->dev, sizeof(*dai_drv), GFP_KERNEL);
--	if (!dai_drv)
-+	drv_data = devm_kzalloc(&pdev->dev, sizeof(*drv_data), GFP_KERNEL);
-+	if (!drv_data)
- 		return -ENOMEM;
+@@ -114,19 +183,19 @@ static int xlnx_i2s_probe(struct platform_device *pdev)
+ 	if (IS_ERR(drv_data->base))
+ 		return PTR_ERR(drv_data->base);
  
--	base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(base))
--		return PTR_ERR(base);
-+	drv_data->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(drv_data->base))
-+		return PTR_ERR(drv_data->base);
- 
- 	ret = of_property_read_u32(node, "xlnx,num-channels", &ch);
+-	ret = of_property_read_u32(node, "xlnx,num-channels", &ch);
++	ret = of_property_read_u32(node, "xlnx,num-channels", &drv_data->channels);
  	if (ret < 0) {
-@@ -134,35 +138,35 @@ static int xlnx_i2s_probe(struct platform_device *pdev)
+ 		dev_err(dev, "cannot get supported channels\n");
+ 		return ret;
  	}
+-	ch = ch * 2;
++	drv_data->channels *= 2;
  
- 	if (of_device_is_compatible(node, "xlnx,i2s-transmitter-1.0")) {
--		dai_drv->name = "xlnx_i2s_playback";
--		dai_drv->playback.stream_name = "Playback";
--		dai_drv->playback.formats = format;
--		dai_drv->playback.channels_min = ch;
--		dai_drv->playback.channels_max = ch;
--		dai_drv->playback.rates	= SNDRV_PCM_RATE_8000_192000;
--		dai_drv->ops = &xlnx_i2s_dai_ops;
-+		drv_data->dai_drv.name = "xlnx_i2s_playback";
-+		drv_data->dai_drv.playback.stream_name = "Playback";
-+		drv_data->dai_drv.playback.formats = format;
-+		drv_data->dai_drv.playback.channels_min = ch;
-+		drv_data->dai_drv.playback.channels_max = ch;
-+		drv_data->dai_drv.playback.rates	= SNDRV_PCM_RATE_8000_192000;
-+		drv_data->dai_drv.ops = &xlnx_i2s_dai_ops;
+-	ret = of_property_read_u32(node, "xlnx,dwidth", &data_width);
++	ret = of_property_read_u32(node, "xlnx,dwidth", &drv_data->data_width);
+ 	if (ret < 0) {
+ 		dev_err(dev, "cannot get data width\n");
+ 		return ret;
+ 	}
+-	switch (data_width) {
++	switch (drv_data->data_width) {
+ 	case 16:
+ 		format = SNDRV_PCM_FMTBIT_S16_LE;
+ 		break;
+@@ -141,21 +210,23 @@ static int xlnx_i2s_probe(struct platform_device *pdev)
+ 		drv_data->dai_drv.name = "xlnx_i2s_playback";
+ 		drv_data->dai_drv.playback.stream_name = "Playback";
+ 		drv_data->dai_drv.playback.formats = format;
+-		drv_data->dai_drv.playback.channels_min = ch;
+-		drv_data->dai_drv.playback.channels_max = ch;
++		drv_data->dai_drv.playback.channels_min = drv_data->channels;
++		drv_data->dai_drv.playback.channels_max = drv_data->channels;
+ 		drv_data->dai_drv.playback.rates	= SNDRV_PCM_RATE_8000_192000;
+ 		drv_data->dai_drv.ops = &xlnx_i2s_dai_ops;
  	} else if (of_device_is_compatible(node, "xlnx,i2s-receiver-1.0")) {
--		dai_drv->name = "xlnx_i2s_capture";
--		dai_drv->capture.stream_name = "Capture";
--		dai_drv->capture.formats = format;
--		dai_drv->capture.channels_min = ch;
--		dai_drv->capture.channels_max = ch;
--		dai_drv->capture.rates = SNDRV_PCM_RATE_8000_192000;
--		dai_drv->ops = &xlnx_i2s_dai_ops;
-+		drv_data->dai_drv.name = "xlnx_i2s_capture";
-+		drv_data->dai_drv.capture.stream_name = "Capture";
-+		drv_data->dai_drv.capture.formats = format;
-+		drv_data->dai_drv.capture.channels_min = ch;
-+		drv_data->dai_drv.capture.channels_max = ch;
-+		drv_data->dai_drv.capture.rates = SNDRV_PCM_RATE_8000_192000;
-+		drv_data->dai_drv.ops = &xlnx_i2s_dai_ops;
+ 		drv_data->dai_drv.name = "xlnx_i2s_capture";
+ 		drv_data->dai_drv.capture.stream_name = "Capture";
+ 		drv_data->dai_drv.capture.formats = format;
+-		drv_data->dai_drv.capture.channels_min = ch;
+-		drv_data->dai_drv.capture.channels_max = ch;
++		drv_data->dai_drv.capture.channels_min = drv_data->channels;
++		drv_data->dai_drv.capture.channels_max = drv_data->channels;
+ 		drv_data->dai_drv.capture.rates = SNDRV_PCM_RATE_8000_192000;
+ 		drv_data->dai_drv.ops = &xlnx_i2s_dai_ops;
  	} else {
  		return -ENODEV;
  	}
++	drv_data->is_32bit_lrclk = readl(drv_data->base + I2S_CORE_CTRL_OFFSET) &
++				   I2S_CORE_CTRL_32BIT_LRCLK;
  
--	dev_set_drvdata(&pdev->dev, base);
-+	dev_set_drvdata(&pdev->dev, drv_data);
+ 	dev_set_drvdata(&pdev->dev, drv_data);
  
- 	ret = devm_snd_soc_register_component(&pdev->dev, &xlnx_i2s_component,
--					      dai_drv, 1);
-+					      &drv_data->dai_drv, 1);
- 	if (ret) {
- 		dev_err(&pdev->dev, "i2s component registration failed\n");
- 		return ret;
- 	}
- 
--	dev_info(&pdev->dev, "%s DAI registered\n", dai_drv->name);
-+	dev_info(&pdev->dev, "%s DAI registered\n", drv_data->dai_drv.name);
- 
- 	return ret;
- }
 -- 
 2.31.1
 

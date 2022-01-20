@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DCF0495528
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 21:01:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3D6B49552E
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 21:02:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D45CF2E67;
-	Thu, 20 Jan 2022 21:00:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D45CF2E67
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45BBD2A10;
+	Thu, 20 Jan 2022 21:01:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45BBD2A10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642708874;
-	bh=T262GO2fo+VOcTwX7twErsaQPenhl/UJ+YDwyFGNVcs=;
+	s=default; t=1642708925;
+	bh=UjzxF8lSvgMEC3w/bLrGLKeKGPwhFNJ/I7LIFV3Qaqg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OokwXvyz9lGB1URlY+N9oBcgzcCODaS10/l8Jg4aG3qpthRRd0KlTRxpkzBUqOSMw
-	 KBhUym1maLRAFQpQB9iql89ZYOGcZgDc32KkjPAV3LhPyVxDT8n1L/Vs4ZYje6d7AI
-	 s/gpQYw2Z4Ru8kDllCWkjn7nvTKdUYZ9jQv7M2X0=
+	b=mn+wEmYEtbgTBAYvucmvS0sfEXCiCZb505fcGs4j3u0fza6u13lMZ/o3s/Lr2VHLT
+	 7xDj/SmogYmzhQp+CoZZlx8Gpwe4BNhwK76mJmsKFhrdSEwPlj9PjiYLWa+D23mIQX
+	 +ZvQpHFRCxYHBSRVPhGLq2J+BziITF+em1bh5OcY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5E2DF8051C;
-	Thu, 20 Jan 2022 20:59:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFB1DF80248;
+	Thu, 20 Jan 2022 20:59:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6ADF2F8051A; Thu, 20 Jan 2022 20:59:10 +0100 (CET)
+ id 9AF08F80534; Thu, 20 Jan 2022 20:59:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,38 +35,38 @@ Received: from mx0d-0054df01.pphosted.com (mx0d-0054df01.pphosted.com
  [67.231.150.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3455F804AA
- for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 20:59:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3455F804AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E9A3F80248
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 20:59:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E9A3F80248
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=calian.com header.i=@calian.com
- header.b="SYkVYK1Y"
+ header.b="Pm95KuRb"
 Received: from pps.filterd (m0209000.ppops.net [127.0.0.1])
- by mx0c-0054df01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20KBlB4W009477;
+ by mx0c-0054df01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20KBU4fp019111;
  Thu, 20 Jan 2022 14:59:03 -0500
-Received: from can01-qb1-obe.outbound.protection.outlook.com
- (mail-qb1can01lp2057.outbound.protection.outlook.com [104.47.60.57])
- by mx0c-0054df01.pphosted.com (PPS) with ESMTPS id 3dpmt68sbh-1
+Received: from can01-to1-obe.outbound.protection.outlook.com
+ (mail-to1can01lp2054.outbound.protection.outlook.com [104.47.61.54])
+ by mx0c-0054df01.pphosted.com (PPS) with ESMTPS id 3dpmt68sbj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Thu, 20 Jan 2022 14:59:02 -0500
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cFFID0xniu+6EAjZGa1vp12g6eGpJvV5tZkAEeYf/ApXrIKC0iAwHuCeUUx0HN/qFVvh/ec7G+JUbwgv+4hqdNugWwIyHuZazdPMkEWBzI7ZTeupWNw1vI3iKBjbMfrvQBEI6K286ZIqPOSnv0L8yMMZcGE0ugvv3pje9F/0YM+UK9F57/V97SgcRkCaKx8FtKgdK+q+JSpE3Ihcy7o8aKmWyx2wkQTotYAn6loNh3kA155jtvehfSgTMgh0T8GEG/L53di1ltI/dujE+0fpJ3Fj6596hv/rW+rO3LCeftycykQzY1DrgoC6IrItbZB4PFL9MaX2UqtsfqmWDfaVbA==
+ b=eJedHcep6vc2WjPEq0AUP+GIRflWYp8vgYsgqfTjtPNdaN6r9DcEFdAmMSjqFP2O/K56eRArHUv+eHATRC2K/IfFZG4QPqMpMiIQ7sb3sQqRyNsqJf4Ax8qpJyCUhkekP8zUQS07/eWpXzC/+ZrKvNvj5H8RhIc3Zw0/cgpMQh+u653TY2xaq36ObXUDLY35fE+JGr+GSB0ieWQplwnK+XfDhSu9HejM2zR5ZaoaSjw51xxpj1QS6AQ4x/ohJEyVzZYkElhz+ReO4e+C6NiIahLw6f/5RMF1k6bCPrW3yJZ01saVqWUx7RJIwn7JspvU01uG67SqtBlZsEAjpcH9Pw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jSl/POU3KzFauayXA4pKCo4khldV4nGRDbvejzPM0Pc=;
- b=c0WbrEtXN/cJXyAIJZeo7n0tIR/RIvyFXifd5rrJfflmTaZmpzuOvvARkda2HRuhF8CvsdbS35QDZsIhX4nuKY7GBXrN6A86F6c4r1jZgV0YkXcgjaKwY1GDOJpZHOn0rL09YDgNuLGf0KuWNT5PUVMhqx3qwwwu0NvuxZWnziso8LSiZ5tma/13S/NjcjOig8vF9j7rkW8ID4L8B2tLzVrDMkL7Ejew8LVBZEnTS/3z299ki54SoEE7MAQqHUc82bKidnoD9W1WuTlPALjV/4T/4CKcON9XBF2kKdKgHiKn+Jfp05jbCjVGYXQogIx/ZYPAxk4t+nN7gKSj2C789w==
+ bh=gMgsfwpumy/jE8Gq3Tpjiu55FEOAd72bTZuTjwVjA24=;
+ b=mXGoeslt9k6gvIQ0hggy35pPwsy/Ky2cjSfr0E62RqnsopRbMF80Q9OMmcCVMz+7tk4JhUqpMPQSMkcIEeTqr/ZXUfdOwOaSZ9Lsl+JoBeuFNQTXdFlvGpqegIvN/5pawEeXDFZ2hLhkL/+d1hyG3DbcShFoCqrWWhcIEGnplPRSPLmbBtzYOg6dJBPBbp5W5XHuwP8BxxARc7Bw8uJjDEENJr/Kr1apRUG15PiGFDRh/iH28tB9dGKJ/w/r2z/rCRe4ZQEV8PtPQev6QCwuQr0CP5i72ZVy0YMgGXlsLpTQMkgc8BeoejBqg0X9hQ5BrnNlHDlDh5cIn8jjG5NyYQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=calian.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jSl/POU3KzFauayXA4pKCo4khldV4nGRDbvejzPM0Pc=;
- b=SYkVYK1Y+6QKE1O5VFyTqpgtWnSPpbYsURQ5LACQ/qqzCczVCpUoEpc1/iuOI1y7jSTQa4neFw5EthhR+gRpHz0+yNWD91eEq6ufUo/3N3PP+gka502VSvVmzv1jTjq0g8RUD0WUoVJjho8VCL8EbGcna5+grBDw452seDt5ZtQ=
+ bh=gMgsfwpumy/jE8Gq3Tpjiu55FEOAd72bTZuTjwVjA24=;
+ b=Pm95KuRbHls4ftSs7NxGnPpd4GUn+4JNHJP9wkpzG8WTIPllpnkVSmZuvQIXrZupHtwgTL+r9csHy8cU2JvXbAeG4jW7/plhTS99I7QbawcE788uOIi3YqH8gyTUSUZ5tEd90RZegt5o7Rago/a96KA+sWdtZfIoRMLi6Ti80Jk=
 Received: from YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:6a::19)
- by YQXPR01MB5019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:27::24)
+ by YQXPR01MB2710.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00:48::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Thu, 20 Jan
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Thu, 20 Jan
  2022 19:59:00 +0000
 Received: from YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
  ([fe80::6929:c39f:d893:b6c8]) by YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
@@ -74,10 +74,10 @@ Received: from YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
  19:59:00 +0000
 From: Robert Hancock <robert.hancock@calian.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 5/6] ASoC: dt-bindings: simple-card: document new
- system-clock-fixed flag
-Date: Thu, 20 Jan 2022 13:58:31 -0600
-Message-Id: <20220120195832.1742271-6-robert.hancock@calian.com>
+Subject: [PATCH v3 6/6] ASoC: simple-card-utils: Add new system-clock-fixed
+ flag
+Date: Thu, 20 Jan 2022 13:58:32 -0600
+Message-Id: <20220120195832.1742271-7-robert.hancock@calian.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20220120195832.1742271-1-robert.hancock@calian.com>
 References: <20220120195832.1742271-1-robert.hancock@calian.com>
@@ -88,66 +88,66 @@ X-ClientProxiedBy: CH0PR04CA0024.namprd04.prod.outlook.com
  (2603:10b6:b01:6a::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 458bb950-4588-42f1-0f30-08d9dc4f4c32
-X-MS-TrafficTypeDiagnostic: YQXPR01MB5019:EE_
-X-Microsoft-Antispam-PRVS: <YQXPR01MB5019811D04D8216BE74041CDEC5A9@YQXPR01MB5019.CANPRD01.PROD.OUTLOOK.COM>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: 667fbdcb-4a50-44b7-a185-08d9dc4f4d20
+X-MS-TrafficTypeDiagnostic: YQXPR01MB2710:EE_
+X-Microsoft-Antispam-PRVS: <YQXPR01MB27100B906EA86594D7C4C3A0EC5A9@YQXPR01MB2710.CANPRD01.PROD.OUTLOOK.COM>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4cmdW7nazTAIzt65SV9c2qnnQ54/V5ZJwlBk/QNKi4iqmOc3+EXYBQCzuNfnhJZZcedLKk2SZ58ZRPkzbWQrv1l2aw++hKqfHj6EIVco33mXIak/QUXnw0rBa+mGrWiWCWSfqO+8tXBxpkx5h5f48Ayt0W2wvaW0j+j7mgYq5B9qAWPFY4/i4dxcnRu0Dkvml5kOvmNWTfptbGoROUdUO0zGWVj7MbI8kmSdGp4oPGB/dPe8seyk3JzzmnjZX16MllNihZ9HBGO4NGDvJRWTQCzK0zCIylZSzJbiNBdnENMDP6bfvopZnzX099TMPWU+3yA3bqJMHwShGFPBXvyHL+jXjVAhW23AE/VD/mRn6FuqmSStKTruOgpQp7dgN1d0/MqNSGXEQjd4CeB0BhV42mHXJiStfWKBRY+f8qGt+ijawGUHNOGcdX6+IcRiS8JzwLahgGLSHNPmpPPuCA6Fc+5HBLHZBhHsBoJVu6kUO6XEfrTuKXNJlDebbzAcOLc3lBTk5YREO03NEPIpjeheTJ7uO3XKDeTtOp+b18e2UMWPzbz3q2Jd6bqbEXgrTypnJ19fR9vdRBFAUIGcgE01//te4PMdWPorqfTSewyVyCrr+uW8MjlmscLs+VKbRFc3OJFQJMZAFMxQORs2oanRzjyL+UB6aUPyrOWdZGT499ZdU//cOOdbPnko0/wSepu2rmDOF4OmIZeNWD5ZytxI5w==
+X-Microsoft-Antispam-Message-Info: 5fdxjapaczwiEDcb4blO3fBjZxOrBJB2pNPA6Xm6yp0W4OXbSM90PmS5CkfcTAvTKBDTORComXEpyeM7DjM0Yf7f4n6nAu92HjdbywX9eQvhyhaXGjqpVy7533R6P+ksLwl6qDuvG58joRQvbh+UL8HdZWr83YPhVJw/L3IW606iJFSBIg5+R8+5ntTanSmDEYivsUDNhDDpFD+vdlZjPBo2X9xEMC6hr8vsbjq7tTD8YPMLi2DCDb31WV084scLGS6V9Lq0YNDr6weryNs+XYxz4dsl4UzHQ8slsMB8t3lLkiFgkUEpYdeGYySXb+/p80RjmaA9UvRVQL6Nkl0hg9BmFVf+B+0PsoVx8CfwLQBmlI/MAVbmfUmKkwNphdze/Z0k2VYLcum6cXSfC/rrdM+VsKNjJC/mVimJxH7n9vHWSLYx0EpBan6BPRfpaJh4sBktHVKj74Bc8MzTfTfiMGJoxeWoBBUQ7I/0wn+/YamtBBgmTR3/p+p8ebxCATLLAKpPZzSI4FkpFYZRjGAftzV7FElRtIDUgf+ySsLNn+IblIXWN3IT1EBKzGetwwFGzn2aEjKKesKVdPMTp7P5zvKfKvk7cQgM/2qvCv9YMOT4ZDse5LcYIcb8uSba3aHXXQw0r11ByEnMF3ZT6Gex1KJlsJxLhsgzJZc+HmIxx+SWfDXTuszWVu2LZgsRWnJZnV5BOvVy4Czh8GMAi9TlwQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(26005)(38350700002)(6916009)(186003)(38100700002)(1076003)(36756003)(6506007)(8936002)(86362001)(4326008)(2906002)(6666004)(107886003)(52116002)(83380400001)(7416002)(508600001)(316002)(2616005)(5660300002)(44832011)(66556008)(6486002)(66476007)(66946007)(8676002)(6512007);
+ SFS:(4636009)(366004)(6916009)(36756003)(6666004)(26005)(2616005)(6512007)(66946007)(38100700002)(38350700002)(508600001)(8676002)(5660300002)(186003)(1076003)(7416002)(2906002)(6486002)(4326008)(107886003)(83380400001)(52116002)(86362001)(66476007)(66556008)(316002)(6506007)(8936002)(44832011);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Q9i78p6XXxnDm94dE6Vm+ZlKpDI8iIhU4Q4T1RKtKFeutbURTRlBAkHUEVMn?=
- =?us-ascii?Q?8kAZM9q1lAIJXX5BscO7VImIzM9deUsPezsVmEVfHMeQWCOKvacLppfJVMum?=
- =?us-ascii?Q?66pDKX3/nyz8Xq/pnFENNgPCh6FaKA8IVwWxeQ3jc9PnDTL5p9sAFfvrtZnS?=
- =?us-ascii?Q?zgcMzbqawT7zPHnGG0qsO1rMwU51m6w4NENdVyYXzfMqcZDxluih7k7QBUf2?=
- =?us-ascii?Q?e169VuI296zJNk/eCEqZLuiL58TsFWsbdn4TvPev1Qz8eyPwNnR1/MQzoJbk?=
- =?us-ascii?Q?PbZ9IT8l6PpxaEUXmrYu6qFQ4u1R37L/AMN8L7mPgDNc2+HG72Bhu20TXYkP?=
- =?us-ascii?Q?6kzPbkGa5EzByu0Y7xsBP/m/YRevAZbStXvBlN+vKUrQZoC9QE7u438jlhbx?=
- =?us-ascii?Q?lY5ObtEft55oZfh+WQQEVUn46gYjib+zFTG8ntdT1wLY/rOqgBMI5c21EUtu?=
- =?us-ascii?Q?2StOcXemueg3yaG7w62TAF6IIwt4e+JXxzGE3yxu+ZrwtCpc5HQCj50D6EuH?=
- =?us-ascii?Q?36pIe4xRAW59KMrUitnEZp3zxCnQpAc2dhIa7tlYIexYNBpmXtYIBGCG8EmW?=
- =?us-ascii?Q?+IjyPcZ2p2OPLCSVFoSYO/yGBNdbsbDzs842w3iAJh9GEkHNbZCMjcbN9cqU?=
- =?us-ascii?Q?V+C3XGF+fJcZeRTRxZlerdyIwEcTZDbE7CQGKDoDJm/0lPepxjTXvUFw+Xe0?=
- =?us-ascii?Q?9vVsEualcWMB7BHUWZyH9UHyZ4eQOYTUjaz9WFzTSAJua+oLbOPYvIIexiEd?=
- =?us-ascii?Q?DFfvT4D+iS99siI+vUe9Q0W2vuRJQrxTszGXCfhVftN/82FRclmqzWIUJ74x?=
- =?us-ascii?Q?YZD2gnbVV7TV5w5ccR6TDcdSwX6IlWMzFUN3eHcT4YvYhw05cVBWLNtZlXnp?=
- =?us-ascii?Q?5oy6+BjEOHtwVk2sbPt6g/rqHTeNt6cRKW52m/0tSIpq2osZqqoLLrZljeSq?=
- =?us-ascii?Q?oN1TOXE7u2pZl1W/mMT4B7FKlMZoO4CcPujKk4zVkwemhXoZtdZgbgBTmUy5?=
- =?us-ascii?Q?CbJNxBlcKJO/8tKnYsrfwoLhlj0J1y/xiCzsuNObp3CJD+tRV9KbkIT1Q5QY?=
- =?us-ascii?Q?UZNg1qtmokK0jSeSGXXTJdjmI4Tbyjs3paLBDM0E8K9Pvd3/kMJK/vyYK54b?=
- =?us-ascii?Q?mqwnpV8EN3KK8GPB16pRNYDwX6S3AkWWd9B7x8ujA9SZwbNerI9hAwqwmnkW?=
- =?us-ascii?Q?AG+/NwQ3r3CQDnv7asJPnbJ9CCG1irP+giHAHb9dPNnByLam2OfoPMuxPgjZ?=
- =?us-ascii?Q?u5q4H+JKpnVm1HLnlq7gu18RiYZONgRvmtqcLagWkp7te6gCALkVA7mHpB7m?=
- =?us-ascii?Q?UJN9bzTeWG/j5USXpaEN9L82EXqRKrnvBrjtWb6DcCzilkhIaXzRrwhR82s0?=
- =?us-ascii?Q?N5woF1/blAWibmD+6W+kPy+zSFWa3HItiuMqsdi8E6bWmXNQxKZLQUycaoU3?=
- =?us-ascii?Q?6ZdGo9cedJbuaC/CmNquGczhSpqb8BRnHP/5HRoZgNaVyHADFITreN3EhAzt?=
- =?us-ascii?Q?9NU4IpGsw9i87gf9YMwCw+Vv4bQgKWoYggKyL+72K0zpS4aHHuWR99GAflgd?=
- =?us-ascii?Q?yMFOf+dt8peUYXUW6kpfQqwZ2mBzrEW9h1R5KcxS30CwtiDIkGW2iBpM9u5R?=
- =?us-ascii?Q?zOsktq1BqiFXyM2YiWLAGuuXz6cQsNohfgTTGVamtovziuHnNvhlRgRq5iDK?=
- =?us-ascii?Q?G/9GEJX5AxfzbP7V127PWyeXk0U=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?SnLm3EIExwGONin1DZ0kP+jwXEJ5TfE5iFFVmtygdtxjhphc0K0GxurTGax4?=
+ =?us-ascii?Q?KbiqTyfeYZsEOxCSExR/eo66H58QtxUzQkCvTqZMJaO/kAmgVJxeapTfVcly?=
+ =?us-ascii?Q?vbBBs5xGXEPLL+Z2wQBQ1mxfKnHcCsfPK6jit/HN/2gSc+bVa8TmSQq1U0pq?=
+ =?us-ascii?Q?+CySHhrYgqBJrDHnPXwFV4SRlWSPMseXploCRE5FtsPbfimBi33Q6uFxBZ7u?=
+ =?us-ascii?Q?3URpCqjEVwSldNk41pE0WQIvTrEE/5BPf2cCyixTSu9ikaFXHelL4zIl2BMZ?=
+ =?us-ascii?Q?jn21ht7mUpRzxNlCOdJ7Ic+z359Fcmo0Lb4FPQxmmNoEYCyn65zX1sg1Eu93?=
+ =?us-ascii?Q?dU2ssR9FYXkFYU3H5cHdLJiK/jPMEUiJCr/ZaRZL1U+XnF0/fg1DyYvlAYoX?=
+ =?us-ascii?Q?Liu25vW0huNDJ0Ho96DkcVMG06AGHgGN4pwVWWdftIYunL31JckrUyL+YPph?=
+ =?us-ascii?Q?J3aEKny5/IA+vILpfXY/E0Dv1UkV5KNMMa+wRBuoCUfZY9/WfBJWJIcryPtp?=
+ =?us-ascii?Q?shEhnDQShe61uYqQkj+YfA35lsIlEN2NHLZGEC3ObSdWqHzfK5Lfg9juM6lg?=
+ =?us-ascii?Q?suf4UYw2y+KcV5hr6JX3f0tAmwd6KPKEGcGyfZarx1F4vUbrk5Ap0VmJLIsx?=
+ =?us-ascii?Q?hX3pP9rZR3srxBhSwC+7wrhLEySP5KA2umc3GjDrPSu4mNfugI5LqF/xoEWJ?=
+ =?us-ascii?Q?L9rJ0Ey/EEqKzwIabGbgxBGkeycgJg+o5E4vJXOMjSPfYso18J+KY6NZKLhA?=
+ =?us-ascii?Q?pFtQ1SpcaLgZLJdHX7NQqKcdCZ5BA7i1CFu4y74+Q/GTy6V5m7A/mY92F+Wy?=
+ =?us-ascii?Q?GinDnBHCtZfG3UYQVCs88QxCQ6aWRuh54Fh1BiO7jcaP0SBR0/SbuioHZNEh?=
+ =?us-ascii?Q?msF0Cwj811rzJHgdsfTAS2h9mtIKAe2/VbTSardI2H+APH/8YUSvBDSKaesP?=
+ =?us-ascii?Q?LFL5eW4zcZsWEpSksUlKvsjt7p2vpNqg87O6Z/xmHQd+94macnmVBlyaEJMC?=
+ =?us-ascii?Q?sdmbkq6IEJ/7gMLByBwByaOaeOEXyLKEKTOrKHhs3EBgzLhVLQthpvLV2vFK?=
+ =?us-ascii?Q?MJIMDd565KCC8pR6kHauI+2dN1RzJI0ljr7ZHqfE07rQ0HiyrT+faeZoODir?=
+ =?us-ascii?Q?LXPJzDkvKIE6ZiXv6QCaT6G5dzkMHP9/0ktgnGEq4ud3rxWfLLvTg1MZbJ/8?=
+ =?us-ascii?Q?h0iD8LCtywTeMXFvedxMge+HYo3Hn5rOfWvAJ8FFNtbFvD4MuhZZxDAwq3Ou?=
+ =?us-ascii?Q?ghT2nnOaQTqeNWWLzq9bO/m2uLFrEicHcZY3RATH8G7gwx8VGOZ1W/mbn4+K?=
+ =?us-ascii?Q?gW/GbFBv+KcqDHjoVMYh22zpjs2vOTryb6AmrtHNBw92chz6WNUUcnYIjGAU?=
+ =?us-ascii?Q?SWMvvKpQzPg4Y6QUiDf/grkRGX9k1+JtqYd+kQlHZ5O9OzwU7V6waRDungiN?=
+ =?us-ascii?Q?ymc/WvTwAVAQxV98Xp3QrQ4NnkokSwSROqwsh/ESBo6Fd3uM6R4Oj6Dta108?=
+ =?us-ascii?Q?8bok9D8ZJA8Lgov0QqsCm3RTf3LBDxQtARFdoyAnskRf+U2Ewlao6FwdyLq2?=
+ =?us-ascii?Q?eFQu8E5dVgJ6R4jRny1D6j82Ul5d90zwvMSq2lGsmv/v6trvioU/f9ce2VJV?=
+ =?us-ascii?Q?5+LK7rA2rYA0dgVQqVtnSojz0pF0KOfBdzSjAFY1gLZ4j+JSgsOfmt53dTNa?=
+ =?us-ascii?Q?Ep19GrOgUFCRuxbFo1oyHodfkiY=3D?=
 X-OriginatorOrg: calian.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 458bb950-4588-42f1-0f30-08d9dc4f4c32
+X-MS-Exchange-CrossTenant-Network-Message-Id: 667fbdcb-4a50-44b7-a185-08d9dc4f4d20
 X-MS-Exchange-CrossTenant-AuthSource: YT3PR01MB6274.CANPRD01.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 19:58:58.9918 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 19:59:00.5553 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 23b57807-562f-49ad-92c4-3bb0f07a1fdf
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GvHTEHhn6kMkmBm/4qDVmmXppnIVvgz+NVlJbHmSGBs4GOJ8B9bNVVQpV+fzou9Yi1FcdP5YsIx89ThqDokAA+qvek3Zu97ITgMjJBXOSPk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQXPR01MB5019
-X-Proofpoint-GUID: 0NKANkMP3z_8fDW69PV31J1PA_GNfocm
-X-Proofpoint-ORIG-GUID: 0NKANkMP3z_8fDW69PV31J1PA_GNfocm
+X-MS-Exchange-CrossTenant-UserPrincipalName: iem8qUkhS3umLSx61Tan5OCcZhiGd8n/QVgJwUi+9E1tfnlyB5vZrjtv81HRKeQjOlVtg22GlzQvhbd0ConddIccunJA0beiY2ZGG5deXOM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQXPR01MB2710
+X-Proofpoint-GUID: BXCxIuEB3ECbKYhvCn9VJ8tRNdm0jZYr
+X-Proofpoint-ORIG-GUID: BXCxIuEB3ECbKYhvCn9VJ8tRNdm0jZYr
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2022-01-20_08,2022-01-20_01,2021-12-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  lowpriorityscore=0 mlxscore=0
- impostorscore=0 adultscore=0 spamscore=0 mlxlogscore=543 suspectscore=0
+ impostorscore=0 adultscore=0 spamscore=0 mlxlogscore=970 suspectscore=0
  priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0 bulkscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
  definitions=main-2201200100
@@ -170,44 +170,182 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Document the new system-clock-fixed flag, which can be used to specify
-that the driver cannot or should not allow the clock frequency of the
-mapped clock to be modified.
+Add a new system-clock-fixed flag, which can be used to specify that the
+driver cannot or should not allow the clock frequency of the mapped clock
+to be modified. This behavior is also implied if the system-clock-frequency
+parameter is set explicitly - the flag is meant for cases where a clock is
+mapped to the DAI but which is, or should be treated as, fixed.
+
+When mclk-fs is also specified, this causes a PCM constraint to be added
+which enforces that only the corresponding valid sample rate can be used.
 
 Signed-off-by: Robert Hancock <robert.hancock@calian.com>
 ---
- .../devicetree/bindings/sound/simple-card.yaml        | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ include/sound/simple_card_utils.h     |  1 +
+ sound/soc/generic/simple-card-utils.c | 71 ++++++++++++++++++++++-----
+ 2 files changed, 61 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
-index 45fd9fd9eb54..00597dc4f396 100644
---- a/Documentation/devicetree/bindings/sound/simple-card.yaml
-+++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
-@@ -48,6 +48,15 @@ definitions:
-       It is useful for some aCPUs with fixed clocks.
-     $ref: /schemas/types.yaml#/definitions/flag
+diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
+index df430f1c2a10..5ee269c59aac 100644
+--- a/include/sound/simple_card_utils.h
++++ b/include/sound/simple_card_utils.h
+@@ -25,6 +25,7 @@ struct asoc_simple_dai {
+ 	unsigned int tx_slot_mask;
+ 	unsigned int rx_slot_mask;
+ 	struct clk *clk;
++	bool clk_fixed;
+ };
  
-+  system-clock-fixed:
-+    description: |
-+      Specifies that the clock frequency should not be modified.
-+      Implied when system-clock-frequency is specified, but can be used when
-+      a clock is mapped to the device whose frequency cannot or should not be
-+      changed. When mclk-fs is also specified, this restricts the device to a
-+      single fixed sampling rate.
-+    $ref: /schemas/types.yaml#/definitions/flag
+ struct asoc_simple_data {
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index 9736102e6808..a4babfb63175 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -165,12 +165,15 @@ int asoc_simple_parse_clk(struct device *dev,
+ 	 *  or device's module clock.
+ 	 */
+ 	clk = devm_get_clk_from_child(dev, node, NULL);
++	simple_dai->clk_fixed = of_property_read_bool(
++		node, "system-clock-fixed");
+ 	if (!IS_ERR(clk)) {
+ 		simple_dai->sysclk = clk_get_rate(clk);
+ 
+ 		simple_dai->clk = clk;
+ 	} else if (!of_property_read_u32(node, "system-clock-frequency", &val)) {
+ 		simple_dai->sysclk = val;
++		simple_dai->clk_fixed = true;
+ 	} else {
+ 		clk = devm_get_clk_from_child(dev, dlc->of_node, NULL);
+ 		if (!IS_ERR(clk))
+@@ -184,12 +187,29 @@ int asoc_simple_parse_clk(struct device *dev,
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_parse_clk);
+ 
++static int asoc_simple_check_fixed_sysclk(struct device *dev,
++					  struct asoc_simple_dai *dai,
++					  unsigned int *fixed_sysclk)
++{
++	if (dai->clk_fixed) {
++		if (*fixed_sysclk && *fixed_sysclk != dai->sysclk) {
++			dev_err(dev, "inconsistent fixed sysclk rates (%u vs %u)\n",
++				*fixed_sysclk, dai->sysclk);
++			return -EINVAL;
++		}
++		*fixed_sysclk = dai->sysclk;
++	}
 +
-   mclk-fs:
-     description: |
-       Multiplication factor between stream rate and codec mclk.
-@@ -134,6 +143,8 @@ definitions:
-         $ref: "#/definitions/system-clock-frequency"
-       system-clock-direction-out:
-         $ref: "#/definitions/system-clock-direction-out"
-+      system-clock-fixed:
-+        $ref: "#/definitions/system-clock-fixed"
-     required:
-       - sound-dai
++	return 0;
++}
++
+ int asoc_simple_startup(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
+ 	struct simple_dai_props *props = simple_priv_to_props(priv, rtd->num);
+ 	struct asoc_simple_dai *dai;
++	unsigned int fixed_sysclk = 0;
+ 	int i1, i2, i;
+ 	int ret;
  
+@@ -197,12 +217,32 @@ int asoc_simple_startup(struct snd_pcm_substream *substream)
+ 		ret = asoc_simple_clk_enable(dai);
+ 		if (ret)
+ 			goto cpu_err;
++		ret = asoc_simple_check_fixed_sysclk(rtd->dev, dai, &fixed_sysclk);
++		if (ret)
++			goto cpu_err;
+ 	}
+ 
+ 	for_each_prop_dai_codec(props, i2, dai) {
+ 		ret = asoc_simple_clk_enable(dai);
+ 		if (ret)
+ 			goto codec_err;
++		ret = asoc_simple_check_fixed_sysclk(rtd->dev, dai, &fixed_sysclk);
++		if (ret)
++			goto codec_err;
++	}
++
++	if (fixed_sysclk && props->mclk_fs) {
++		unsigned int fixed_rate = fixed_sysclk / props->mclk_fs;
++
++		if (fixed_sysclk % props->mclk_fs) {
++			dev_err(rtd->dev, "fixed sysclk %u not divisible by mclk_fs %u\n",
++				fixed_sysclk, props->mclk_fs);
++			return -EINVAL;
++		}
++		ret = snd_pcm_hw_constraint_minmax(substream->runtime, SNDRV_PCM_HW_PARAM_RATE,
++			fixed_rate, fixed_rate);
++		if (ret)
++			goto codec_err;
+ 	}
+ 
+ 	return 0;
+@@ -226,31 +266,40 @@ EXPORT_SYMBOL_GPL(asoc_simple_startup);
+ void asoc_simple_shutdown(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+-	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
+ 	struct simple_dai_props *props = simple_priv_to_props(priv, rtd->num);
+ 	struct asoc_simple_dai *dai;
+ 	int i;
+ 
+-	if (props->mclk_fs) {
+-		snd_soc_dai_set_sysclk(codec_dai, 0, 0, SND_SOC_CLOCK_IN);
+-		snd_soc_dai_set_sysclk(cpu_dai, 0, 0, SND_SOC_CLOCK_OUT);
+-	}
++	for_each_prop_dai_cpu(props, i, dai) {
++		if (props->mclk_fs && !dai->clk_fixed)
++			snd_soc_dai_set_sysclk(asoc_rtd_to_cpu(rtd, i),
++					       0, 0, SND_SOC_CLOCK_IN);
+ 
+-	for_each_prop_dai_cpu(props, i, dai)
+ 		asoc_simple_clk_disable(dai);
+-	for_each_prop_dai_codec(props, i, dai)
++	}
++	for_each_prop_dai_codec(props, i, dai) {
++		if (props->mclk_fs && !dai->clk_fixed)
++			snd_soc_dai_set_sysclk(asoc_rtd_to_codec(rtd, i),
++					       0, 0, SND_SOC_CLOCK_IN);
++
+ 		asoc_simple_clk_disable(dai);
++	}
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_shutdown);
+ 
+-static int asoc_simple_set_clk_rate(struct asoc_simple_dai *simple_dai,
++static int asoc_simple_set_clk_rate(struct device *dev,
++				    struct asoc_simple_dai *simple_dai,
+ 				    unsigned long rate)
+ {
+ 	if (!simple_dai)
+ 		return 0;
+ 
++	if (simple_dai->clk_fixed && rate != simple_dai->sysclk) {
++		dev_err(dev, "dai %s invalid clock rate %lu\n", simple_dai->name, rate);
++		return -EINVAL;
++	}
++
+ 	if (!simple_dai->clk)
+ 		return 0;
+ 
+@@ -279,13 +328,13 @@ int asoc_simple_hw_params(struct snd_pcm_substream *substream,
+ 		mclk = params_rate(params) * mclk_fs;
+ 
+ 		for_each_prop_dai_codec(props, i, pdai) {
+-			ret = asoc_simple_set_clk_rate(pdai, mclk);
++			ret = asoc_simple_set_clk_rate(rtd->dev, pdai, mclk);
+ 			if (ret < 0)
+ 				return ret;
+ 		}
+ 
+ 		for_each_prop_dai_cpu(props, i, pdai) {
+-			ret = asoc_simple_set_clk_rate(pdai, mclk);
++			ret = asoc_simple_set_clk_rate(rtd->dev, pdai, mclk);
+ 			if (ret < 0)
+ 				return ret;
+ 		}
 -- 
 2.31.1
 

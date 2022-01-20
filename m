@@ -2,129 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A117B494F22
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 14:38:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D4AE494F50
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 14:45:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 440F02E1C;
-	Thu, 20 Jan 2022 14:37:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 440F02E1C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A80392EF4;
+	Thu, 20 Jan 2022 14:44:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A80392EF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642685895;
-	bh=ZMaVKartv8stM4zh5mRTkLbJj44vRKvooc2oaujcYdI=;
+	s=default; t=1642686328;
+	bh=nWsvxoa8MD8gyQ3hFz77FuTwryQd5E/j1Mx+AdG4490=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=KJpuXed63AzqeOM0qeOX4xKBT3/TaO9CsB8NnoO8BRDXd1gP9/0TFoekFoCjpJQaY
-	 j0jKaV5tDrSziXVKVgWirfOiC2R/I5re0k/E/W/msbyzBAGXUXKq0vcjHycmNX92Au
-	 Xcheu+fkLbQM2y6r3Bp0yxCt3msC0kqa8dSGGr2A=
+	b=vLFBZD+Qxgrml0O0d5EbFp/nlLvZkePyE3YV3toiNX2axY1rpY37ZDfdbfx4b0eQU
+	 KMSQRbq8G+YyEms+3xOUczAIHRdVt5KeWNt+7vc3LunJDHBT8VNH5jRH/Hm1LFmht7
+	 HhTybRovDbxgRO6RPBGTQTmS3rDObGZSKvKs+pOc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9709F80134;
-	Thu, 20 Jan 2022 14:37:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6CF8F80128;
+	Thu, 20 Jan 2022 14:43:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D157F8012E; Thu, 20 Jan 2022 14:37:08 +0100 (CET)
+ id 9E7E6F800F2; Thu, 20 Jan 2022 14:43:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2063.outbound.protection.outlook.com [40.107.94.63])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1EE8EF800F2
- for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 14:37:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EE8EF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1BA1F800F2
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 14:43:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1BA1F800F2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="CLwZDb0B"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f1o313R9dj7q0lWDaqMZN5dyXf8inUdcWS7MwU1W3ksyKNqaBevyM4hByKvGE8zrgii9HVksn4u4LnXbg+8EgnSou6/K+694oneuKOeYBGfeUSdid0+On6KivOPZc2di12DsyZcQ+2sE0VA4tbt8nqQ8DJrJgNoudhmohkNV3hNqEo0dFnGtNiA4JXdt8SZHznOY2u75D8JaJ7UB8sungWbyI7MWrTWW/FGC+c/E1EFVlZfCPNRxXiimaMBZAmlUcRPJRyjTdUIsd6H5pVlHaT/9J7Xp6KbEqlfKStHXhBf9FJgyjTGEZSuQdoDPVQD7w5WlMiX10PhfXnijfkb4Cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7GNSX2NERFkOpYps+DwsZXSNT2odsxvBNAwpgDOMK90=;
- b=B15QnBrLx6mp+beWWCeZ3Mpp+D9IhL65XzPu9BBBybdeDJ8/ecFsT7o6eztxMaglhEN71f2t9ZExMlTYec5Qpw04eANjJW3NvQZb1YBNfofI7SbCt7opPk7ZU2hejma8bHm/etpbE3/VqwxiEzGG9KHk0GGuF+ZlFnEz0FDPjhZMp0UVjxtaRPaA6lWzt0DgP2eMsu2G+IyVbFst/XE1e+a9DawsaH3oybyNLWdQSY4w107zx0XHUV7kuetJ2BW7wm/+OTnwZ3yGAG88ymx5QXGay5Az6sdGgP20CjJsKgqqlfBucZQ0eYKxcaIXWKI4jBSRYWphSTjtyxV7Vqx66g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7GNSX2NERFkOpYps+DwsZXSNT2odsxvBNAwpgDOMK90=;
- b=CLwZDb0BkT1lN6T1b1m1Irr3mHzmP+5lSDzBuuF5lqhZaTd2VB6cFrH7KJxmn/KGTG9mOWuB6azK25zcULBrdytaj6k7+P84ob7CgZyEbzenzW8GoGkasXLTZ2+WdVXrhsZlSgbhf6XbxYQfge84vHyCiX8fBvlE+ptQgirRUhE=
-Received: from MWHPR11CA0005.namprd11.prod.outlook.com (2603:10b6:301:1::15)
- by DM6PR12MB4779.namprd12.prod.outlook.com (2603:10b6:5:172::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Thu, 20 Jan
- 2022 13:36:56 +0000
-Received: from CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:1:cafe::36) by MWHPR11CA0005.outlook.office365.com
- (2603:10b6:301:1::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8 via Frontend
- Transport; Thu, 20 Jan 2022 13:36:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT047.mail.protection.outlook.com (10.13.174.132) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.7 via Frontend Transport; Thu, 20 Jan 2022 13:36:55 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="PeG5I/+V"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20K4mpgj024668;
+ Thu, 20 Jan 2022 07:43:41 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=DzR07ZdJHZPEr4WdjQIs/Aa6Ap341lhnel2ikN6KcYQ=;
+ b=PeG5I/+V3g+zlBmOJ0W83BCDaWNbXXtPEiiMk6bY4ne1y6SEHKxnVpaztVD72WjcbWNI
+ q32g3B/M522unWRjePKIUew2/H1jn/hdKmfhVfbBhqH0OU81/iIvy5DJ9DplWzGuuPCN
+ PRGLXz2m6YBNcspCIywcDrYLLKRJPdd1yT081ibi4t/0cp9+PGbLtTPg7wveglpkzszE
+ jto/yj5NDAq/kXbI16Z54cvg9XO1JZepHOgTLoVwPkIUmP+5/F71yzZHSZAh085RGxcm
+ H9VgEYl9zp164Z9iYQ3juPDQEXbvbpYzk6EKt1QXyDtHrN+sNTVtNLS4y4KOhUS45pEs RQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dpk9mh838-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 20 Jan 2022 07:43:41 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 20 Jan
- 2022 07:36:54 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 20 Jan
- 2022 07:36:54 -0600
-Received: from chrome.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.18 via Frontend
- Transport; Thu, 20 Jan 2022 07:36:51 -0600
-From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: amd: acp-mach: Fix Left and Right rt1019 amp devices
-Date: Thu, 20 Jan 2022 19:06:01 +0530
-Message-ID: <20220120133605.476138-1-AjitKumar.Pandey@amd.com>
+ 2022 13:43:40 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Thu, 20 Jan 2022 13:43:40 +0000
+Received: from LONN2DGDQ73.ad.cirrus.com (unknown [198.90.238.138])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CEB9CB13;
+ Thu, 20 Jan 2022 13:43:39 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Len Brown <lenb@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ Mark Gross <markgross@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v4 0/9] Support Spi in i2c-multi-instantiate driver
+Date: Thu, 20 Jan 2022 13:43:17 +0000
+Message-ID: <20220120134326.5295-1-sbinding@opensource.cirrus.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 566297d7-dbbf-40bc-cec4-08d9dc19ecf3
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4779:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4779143429016DBB6926683D825A9@DM6PR12MB4779.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2vTUhJkDQwuKsQS52fI83DFz8LHUOdI8jDamqAenmH21iZKYRX4D4RYUIBnylFF+KQ2AcZzM5cgZD9h5YCeYT4d47zM3v5qffLpzusM7SFMAvo8eR977dQgwH+1GxhcJaAag4zXLJh2MrNweSAF1ntpmWjdGDi9RZW8xdIrE5InGsGi9v3zSieWmhNNjIEJ6e2h3MLciRKC1E/szvYDJrPCwHEobcDnCZZVsfHa6lWGGJRY/rY5mm3SZtO+/oWaWNIdmkLdRd4hTOnysGF4O/mvHs7aQE5KMSbaN+j7uIo1E9YYP4k9fWdbweYD19Rv1bmpyRsR3wrfaaxCgitvNcDXFJpf7p5Ep6YlRKuU2NWbLRJiawG+Q2Fd6s4iWW6N8WRXD5fFLg45a77xajWFmhc2Lpd6bUDxpRPwLYsyGIZmlLk4wCEcpVcad7RNcNcuofZRSuJQtcpxzxaGmZFxiq9eZrnYhB0fKt/99KaJnHtjyKXm3LV+geOal0xzKMWqf8Qst6/6yxJ6KFG5gto9AXGDgKOWhzA+QN+1AU862SNefQEnQUMzuC8wVzBJlNgNmPnrBcACS42wL0x9xPaHWIVglnDIShGM4ZUP9b4pG8dGjO3VlDQ97dNYmrz4vXQGrtPU+nW3/QzlTwEHEg2hGZGfIkd8g7+elzFyhx43EA9zoB5Hs3U/cQOxtNuVtpfyL8Mtzf1QsrJOAEwNlmaAGSCtMi060e9hE7Rcp/i+kqNqj9WTPb7Ls9bmeoBbRz6OvyQJk14uP0BECS73hrqktMz5sl90rmFRziUifS9t66zI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(40470700002)(36840700001)(2616005)(7696005)(81166007)(8936002)(36860700001)(5660300002)(508600001)(1076003)(6666004)(40460700001)(86362001)(83380400001)(8676002)(426003)(2906002)(54906003)(70206006)(82310400004)(36756003)(186003)(26005)(110136005)(70586007)(47076005)(356005)(336012)(4326008)(316002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 13:36:55.5767 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 566297d7-dbbf-40bc-cec4-08d9dc19ecf3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4779
-Cc: Sunil-kumar.Dommati@amd.com, Ajit Kumar
- Pandey <AjitKumar.Pandey@amd.com>, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, V sujith
- kumar Reddy <vsujithkumar.reddy@amd.com>, Vijendar.Mukunda@amd.com,
- Alexander.Deucher@amd.com
+X-Proofpoint-ORIG-GUID: 12Kqa8o7-oMcgl1qB3jB62GN_b8lxr3R
+X-Proofpoint-GUID: 12Kqa8o7-oMcgl1qB3jB62GN_b8lxr3R
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-acpi@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>,
+ linux-spi@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,35 +100,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We're setting wrong card codec conf for rt1019 amp devices in our
-machine driver. Due to this left and right amp channels data are
-reversed in our machines as wrong device prefix results in wrong
-value for "Mono LR Select" rt1019 mixer control. Reverse dev ids
-in codec conf with Left and Right name_prefix to fix such issue.
+Add support for SPI bus in the i2c-multi-instantiate driver as
+upcoming laptops will need to multi instantiate SPI devices from
+a single device node, which has multiple SpiSerialBus entries at
+the ACPI table.
 
-Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
----
- sound/soc/amd/acp/acp-mach-common.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+With the new SPI support, i2c-multi-instantiate becomes
+bus-multi-instantiate and is moved to the ACPI folder.
 
-diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
-index c9caade5cb74..cd05ee2802c9 100644
---- a/sound/soc/amd/acp/acp-mach-common.c
-+++ b/sound/soc/amd/acp/acp-mach-common.c
-@@ -303,11 +303,11 @@ static const struct snd_soc_dapm_route rt1019_map_lr[] = {
- 
- static struct snd_soc_codec_conf rt1019_conf[] = {
- 	{
--		 .dlc = COMP_CODEC_CONF("i2c-10EC1019:00"),
-+		 .dlc = COMP_CODEC_CONF("i2c-10EC1019:01"),
- 		 .name_prefix = "Left",
- 	},
- 	{
--		 .dlc = COMP_CODEC_CONF("i2c-10EC1019:01"),
-+		 .dlc = COMP_CODEC_CONF("i2c-10EC1019:00"),
- 		 .name_prefix = "Right",
- 	},
- };
+The intention is to support the SPI bus by re-using the current
+I2C multi instantiate, instead of creating a new SPI multi
+instantiate, to make it possible for peripherals that can be
+controlled by I2C or SPI to have the same HID at the ACPI table.
+
+The new driver (Bus multi instantiate, bmi) checks for the
+hard-coded bus type and returns -ENODEV in case of zero devices
+found for that bus. In the case of automatic bus detection, 
+the driver will give preference to I2C.
+
+The expectation is for a device node in the ACPI table to have
+multiple I2cSerialBus only or multiple SpiSerialBus only, not
+a mix of both; and for the case where there are both entries in
+one device node, only the I2C ones would be probed.
+
+This new bus multi instantiate will be used in CS35L41 HDA new
+driver.
+
+Changes since V2:
+ - Moved bus-multi-instantiate back into platform/x86
+
+Lucas Tanure (4):
+  platform/x86: i2c-multi-instantiate: Rename it for a generic bus
+    driver name
+  platform/x86: bus-multi-instantiate: Reorganize I2C functions
+  ALSA: hda/realtek: Add support for HP Laptops
+  ACPI / scan: Create platform device for CS35L41
+
+Stefan Binding (5):
+  spi: Make spi_alloc_device and spi_add_device public again
+  spi: Create helper API to lookup ACPI info for spi device
+  spi: Support selection of the index of the ACPI Spi Resource before
+    alloc
+  spi: Add API to count spi acpi resources
+  platform/x86: bus-multi-instantiate: Add SPI support
+
+ MAINTAINERS                                  |   4 +-
+ drivers/acpi/scan.c                          |  16 +-
+ drivers/platform/x86/Kconfig                 |  14 +-
+ drivers/platform/x86/Makefile                |   2 +-
+ drivers/platform/x86/bus-multi-instantiate.c | 369 +++++++++++++++++++
+ drivers/platform/x86/i2c-multi-instantiate.c | 174 ---------
+ drivers/spi/spi.c                            | 142 ++++++-
+ include/linux/spi/spi.h                      |  32 ++
+ sound/pci/hda/patch_realtek.c                |  43 ++-
+ 9 files changed, 588 insertions(+), 208 deletions(-)
+ create mode 100644 drivers/platform/x86/bus-multi-instantiate.c
+ delete mode 100644 drivers/platform/x86/i2c-multi-instantiate.c
+
 -- 
 2.25.1
 

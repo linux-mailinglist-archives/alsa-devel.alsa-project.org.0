@@ -2,60 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D4AE494F50
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 14:45:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18DDD494F4F
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 14:44:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A80392EF4;
-	Thu, 20 Jan 2022 14:44:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A80392EF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A83B12DA2;
+	Thu, 20 Jan 2022 14:44:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A83B12DA2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642686328;
-	bh=nWsvxoa8MD8gyQ3hFz77FuTwryQd5E/j1Mx+AdG4490=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vLFBZD+Qxgrml0O0d5EbFp/nlLvZkePyE3YV3toiNX2axY1rpY37ZDfdbfx4b0eQU
-	 KMSQRbq8G+YyEms+3xOUczAIHRdVt5KeWNt+7vc3LunJDHBT8VNH5jRH/Hm1LFmht7
-	 HhTybRovDbxgRO6RPBGTQTmS3rDObGZSKvKs+pOc=
+	s=default; t=1642686293;
+	bh=80zbMjjnXAvz3FyrKf0cnQriHuUWwJ+3hqtIucoR7lE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=pET120UFh3LBJb7b97mTnG82y/4v5JU+5lRGNNx8YPnMqE4L9KhoPGMMwngU6zzI9
+	 TOgtDuZDgSHxfZngKqYBxkCSK4ye+7hGdBheCzsh5fffPfXavbVoqtSl4eVJD5h72d
+	 CIbO/rlipld45hHzozgxE+aRZZ1hl+PNUrpcK3jA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6CF8F80128;
-	Thu, 20 Jan 2022 14:43:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CAF1F804AA;
+	Thu, 20 Jan 2022 14:43:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E7E6F800F2; Thu, 20 Jan 2022 14:43:48 +0100 (CET)
+ id 0AEAEF80423; Thu, 20 Jan 2022 14:43:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1BA1F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F17EF80128
  for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 14:43:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1BA1F800F2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F17EF80128
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="PeG5I/+V"
+ header.b="QAtvbQlM"
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20K4mpgj024668;
- Thu, 20 Jan 2022 07:43:41 -0600
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20K4mpgk024668;
+ Thu, 20 Jan 2022 07:43:42 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=DzR07ZdJHZPEr4WdjQIs/Aa6Ap341lhnel2ikN6KcYQ=;
- b=PeG5I/+V3g+zlBmOJ0W83BCDaWNbXXtPEiiMk6bY4ne1y6SEHKxnVpaztVD72WjcbWNI
- q32g3B/M522unWRjePKIUew2/H1jn/hdKmfhVfbBhqH0OU81/iIvy5DJ9DplWzGuuPCN
- PRGLXz2m6YBNcspCIywcDrYLLKRJPdd1yT081ibi4t/0cp9+PGbLtTPg7wveglpkzszE
- jto/yj5NDAq/kXbI16Z54cvg9XO1JZepHOgTLoVwPkIUmP+5/F71yzZHSZAh085RGxcm
- H9VgEYl9zp164Z9iYQ3juPDQEXbvbpYzk6EKt1QXyDtHrN+sNTVtNLS4y4KOhUS45pEs RQ== 
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=PODMain02222019;
+ bh=LqwQlGSPZbY4FUWN/PCbYAVSFcGSRCshh6dVtPJgmMk=;
+ b=QAtvbQlMSnt+r2bsw52Tmy8q0EIqjUx2i7GKrrMha7ZpIqlXNMuSLNj15pM647FQxha+
+ 8mbwYiPcbk3EEE8BRXiXGb1GfOoChRSL6xRIpOhfacw+rPrjR2R+8msdkXgdvmxBKgtr
+ yfLOFnuGwmhnjgN4ksbOJ5zETB9ByLFvtZfKcaWuCTVzB8j+FHpFmp6/g6ujxO0MIqui
+ EM469wmgaeVH6chttrDxPXunbRapTbmHSASM/iBUFqAZBT7rfIl0IIzh4d3NkO4l1Yhl
+ f0MwJE66+aFu/WWjUNXF0NzTu0p6sQa7zBCabL+9P61TOQga/HW5piBsxHsISNcbEZpv OA== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dpk9mh838-1
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dpk9mh838-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 20 Jan 2022 07:43:41 -0600
+ Thu, 20 Jan 2022 07:43:42 -0600
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 20 Jan
@@ -64,22 +65,25 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
  Frontend Transport; Thu, 20 Jan 2022 13:43:40 +0000
 Received: from LONN2DGDQ73.ad.cirrus.com (unknown [198.90.238.138])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CEB9CB13;
- Thu, 20 Jan 2022 13:43:39 +0000 (UTC)
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2FF5446D;
+ Thu, 20 Jan 2022 13:43:40 +0000 (UTC)
 From: Stefan Binding <sbinding@opensource.cirrus.com>
 To: Mark Brown <broonie@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
  Len Brown <lenb@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
  Mark Gross <markgross@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v4 0/9] Support Spi in i2c-multi-instantiate driver
-Date: Thu, 20 Jan 2022 13:43:17 +0000
-Message-ID: <20220120134326.5295-1-sbinding@opensource.cirrus.com>
+Subject: [PATCH v4 1/9] spi: Make spi_alloc_device and spi_add_device public
+ again
+Date: Thu, 20 Jan 2022 13:43:18 +0000
+Message-ID: <20220120134326.5295-2-sbinding@opensource.cirrus.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220120134326.5295-1-sbinding@opensource.cirrus.com>
+References: <20220120134326.5295-1-sbinding@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 12Kqa8o7-oMcgl1qB3jB62GN_b8lxr3R
-X-Proofpoint-GUID: 12Kqa8o7-oMcgl1qB3jB62GN_b8lxr3R
+X-Proofpoint-ORIG-GUID: ZxX4mGlUFgapqRSefMN9M18XOKK_1bFo
+X-Proofpoint-GUID: ZxX4mGlUFgapqRSefMN9M18XOKK_1bFo
 X-Proofpoint-Spam-Reason: safe
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
@@ -100,63 +104,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for SPI bus in the i2c-multi-instantiate driver as
-upcoming laptops will need to multi instantiate SPI devices from
-a single device node, which has multiple SpiSerialBus entries at
-the ACPI table.
+This functions were previously made private since they
+were not used. However, these functions will be needed
+again.
 
-With the new SPI support, i2c-multi-instantiate becomes
-bus-multi-instantiate and is moved to the ACPI folder.
+Partial revert of commit da21fde0fdb3
+("spi: Make several public functions private to spi.c")
 
-The intention is to support the SPI bus by re-using the current
-I2C multi instantiate, instead of creating a new SPI multi
-instantiate, to make it possible for peripherals that can be
-controlled by I2C or SPI to have the same HID at the ACPI table.
+Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+---
+ drivers/spi/spi.c       |  6 ++++--
+ include/linux/spi/spi.h | 12 ++++++++++++
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-The new driver (Bus multi instantiate, bmi) checks for the
-hard-coded bus type and returns -ENODEV in case of zero devices
-found for that bus. In the case of automatic bus detection, 
-the driver will give preference to I2C.
-
-The expectation is for a device node in the ACPI table to have
-multiple I2cSerialBus only or multiple SpiSerialBus only, not
-a mix of both; and for the case where there are both entries in
-one device node, only the I2C ones would be probed.
-
-This new bus multi instantiate will be used in CS35L41 HDA new
-driver.
-
-Changes since V2:
- - Moved bus-multi-instantiate back into platform/x86
-
-Lucas Tanure (4):
-  platform/x86: i2c-multi-instantiate: Rename it for a generic bus
-    driver name
-  platform/x86: bus-multi-instantiate: Reorganize I2C functions
-  ALSA: hda/realtek: Add support for HP Laptops
-  ACPI / scan: Create platform device for CS35L41
-
-Stefan Binding (5):
-  spi: Make spi_alloc_device and spi_add_device public again
-  spi: Create helper API to lookup ACPI info for spi device
-  spi: Support selection of the index of the ACPI Spi Resource before
-    alloc
-  spi: Add API to count spi acpi resources
-  platform/x86: bus-multi-instantiate: Add SPI support
-
- MAINTAINERS                                  |   4 +-
- drivers/acpi/scan.c                          |  16 +-
- drivers/platform/x86/Kconfig                 |  14 +-
- drivers/platform/x86/Makefile                |   2 +-
- drivers/platform/x86/bus-multi-instantiate.c | 369 +++++++++++++++++++
- drivers/platform/x86/i2c-multi-instantiate.c | 174 ---------
- drivers/spi/spi.c                            | 142 ++++++-
- include/linux/spi/spi.h                      |  32 ++
- sound/pci/hda/patch_realtek.c                |  43 ++-
- 9 files changed, 588 insertions(+), 208 deletions(-)
- create mode 100644 drivers/platform/x86/bus-multi-instantiate.c
- delete mode 100644 drivers/platform/x86/i2c-multi-instantiate.c
-
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 4599b121d744..1eb84101c4ad 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -532,7 +532,7 @@ static DEFINE_MUTEX(board_lock);
+  *
+  * Return: a pointer to the new device, or NULL.
+  */
+-static struct spi_device *spi_alloc_device(struct spi_controller *ctlr)
++struct spi_device *spi_alloc_device(struct spi_controller *ctlr)
+ {
+ 	struct spi_device	*spi;
+ 
+@@ -557,6 +557,7 @@ static struct spi_device *spi_alloc_device(struct spi_controller *ctlr)
+ 	device_initialize(&spi->dev);
+ 	return spi;
+ }
++EXPORT_SYMBOL_GPL(spi_alloc_device);
+ 
+ static void spi_dev_set_name(struct spi_device *spi)
+ {
+@@ -652,7 +653,7 @@ static int __spi_add_device(struct spi_device *spi)
+  *
+  * Return: 0 on success; negative errno on failure
+  */
+-static int spi_add_device(struct spi_device *spi)
++int spi_add_device(struct spi_device *spi)
+ {
+ 	struct spi_controller *ctlr = spi->controller;
+ 	struct device *dev = ctlr->dev.parent;
+@@ -673,6 +674,7 @@ static int spi_add_device(struct spi_device *spi)
+ 	mutex_unlock(&ctlr->add_lock);
+ 	return status;
+ }
++EXPORT_SYMBOL_GPL(spi_add_device);
+ 
+ static int spi_add_device_locked(struct spi_device *spi)
+ {
+diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
+index 7ab3fed7b804..0346a3ff27fd 100644
+--- a/include/linux/spi/spi.h
++++ b/include/linux/spi/spi.h
+@@ -1452,7 +1452,19 @@ spi_register_board_info(struct spi_board_info const *info, unsigned n)
+  * use spi_new_device() to describe each device.  You can also call
+  * spi_unregister_device() to start making that device vanish, but
+  * normally that would be handled by spi_unregister_controller().
++ *
++ * You can also use spi_alloc_device() and spi_add_device() to use a two
++ * stage registration sequence for each spi_device. This gives the caller
++ * some more control over the spi_device structure before it is registered,
++ * but requires that caller to initialize fields that would otherwise
++ * be defined using the board info.
+  */
++extern struct spi_device *
++spi_alloc_device(struct spi_controller *ctlr);
++
++extern int
++spi_add_device(struct spi_device *spi);
++
+ extern struct spi_device *
+ spi_new_device(struct spi_controller *, struct spi_board_info *);
+ 
 -- 
 2.25.1
 

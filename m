@@ -2,106 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160B749506E
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 15:40:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 891D949506F
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 15:40:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3B002F02;
-	Thu, 20 Jan 2022 15:39:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3B002F02
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAD352ED7;
+	Thu, 20 Jan 2022 15:39:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAD352ED7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642689630;
-	bh=KUa4LKIm6A8Ap3D4WDIsLeitxqdABvqRUzjAS72PTg8=;
+	s=default; t=1642689648;
+	bh=gKoSr3gg0f43DOdJprKUnEmkNmcijIrTMowd6Gxi36Y=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ND/xtkEBrO3y1uJkK9RL6TlMOAVL3GB8gMZ74hoIksSBt0CSz6cMfu2W/sJ8x3SMT
-	 Txz+NBaZ1pvpAQCWAloHT4yTC1D8VML+Sdhe6qIzPOQjqoc+zr0JYFYKsP7B5GOB3p
-	 Ikp7aI53LqcX+b2nvmSZjybXMhQwGWGotFobUxO8=
+	b=QXYa5eDVcvgydaEogGHUIYlxZgYwPvI7VifuduQ9dbucDEJAFL80bNtTdL6cmdzIr
+	 F97uTFy8x+v4hUhsVR5XJRdo6pPfqARDTeXwj2zf0cAL3QkHSU5Lw8Ca2uHPp6Nple
+	 fCvrKgpR+NgeX/XV8bT1BBHvD1ArUSI88ZHp5piQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DD24F800F2;
-	Thu, 20 Jan 2022 15:39:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09D94F80248;
+	Thu, 20 Jan 2022 15:39:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D136F8012E; Thu, 20 Jan 2022 15:39:38 +0100 (CET)
+ id D304DF80423; Thu, 20 Jan 2022 15:39:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B873F800F2
- for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 15:39:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B873F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0879EF80134
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 15:39:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0879EF80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="DDRp3YXk"
+ header.b="RddBG8ik"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1642689572;
+ s=mimecast20190719; t=1642689589;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZO9CxpXnVO0unS4PfDkiiWErEf+1QW6VcHAAffKfBTg=;
- b=DDRp3YXkeBVrS0bAMMXNYfbjW6s2w8iLh0FjRf/eOXSdmOR+bv5+n1SCy84B1vGscnHdHF
- WCnvSrRQLadiZ+J4fZjPDfQXIeNWc+pnyAPlv2i3Q7GDeJpbo4jjaTPhccEgXSLHMSwgoT
- QsEWTnU+sGpZOc+UP457PRCJdXYyTpw=
+ bh=U6QJQxwpqs/8UeUwXAKCD+lQ9KYdKmTM83V8hAlwFAc=;
+ b=RddBG8ikzET2EIIrc6Zbzmwo0FpgMq+mYWGjz2QIy3jjT4Mdud6YG24xr3GZi5Hx96SUwl
+ ktf5LPJGHnRCoNtNH253BDEhdHYUahPOSeC/bfGeeIzy1ZxrhkiK47XMAK27Aos1uXAkCT
+ C38S7nFeiCLcleKn5lz2ekewm5joiqg=
 Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
  [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-584-cv2eY8HlNcqwsKB0x2nE7w-1; Thu, 20 Jan 2022 09:39:31 -0500
-X-MC-Unique: cv2eY8HlNcqwsKB0x2nE7w-1
+ us-mta-447-UctQY7ieMFijyfqQQz6M8Q-1; Thu, 20 Jan 2022 09:39:42 -0500
+X-MC-Unique: UctQY7ieMFijyfqQQz6M8Q-1
 Received: by mail-ed1-f71.google.com with SMTP id
- j1-20020aa7c341000000b0040417b84efeso5983019edr.21
- for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 06:39:31 -0800 (PST)
+ p17-20020aa7c891000000b004052d1936a5so1728018eds.7
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 06:39:42 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=ZO9CxpXnVO0unS4PfDkiiWErEf+1QW6VcHAAffKfBTg=;
- b=ouJvT4RaMi8aBRIiRpCnp9O++TCP7pe43EyE0mdL29A3N+b4cEaSUC+a2Fcx6jDXsw
- ZWDl9cLPimZL2CPqABQDlzxTp2T+i6pZdO8Zzrb+yWln3T/wWPfc/X3W304kINfPHKgh
- CW8JNPH+x4XzGGbBb0N3xN93dyqeYMNpY+pxI+bMnE1gvrrdDVkjEwVg1Sq9qd/yeAB8
- 5aVWmQCjBT86RQjXXKPs27KW/+ta9fnnIMWe3J362lqNIsCC/eZVvqXvM8oKiwZxL5VI
- vksXJle/91uYDQkaKG7QJCtiKYhWAHu+f6KOnMYLq2SHmklLKcyf6a8qU3qGKVLTbc4m
- j/Xg==
-X-Gm-Message-State: AOAM5338Ull8Fh9bYX0BHXjS/Zop/joCDE8mRDCnQmLzfVfXggsaVo28
- 2tG2T/HC6NNGGLyDTUoga9tbCjlF+qX0W4FWwd+NHbEMOb76PNQ/RW993AKumez2EUQ34JiGio/
- oxaZ03iqt5QGAuVbxujjrr2M=
-X-Received: by 2002:a17:906:d553:: with SMTP id
- cr19mr16848583ejc.2.1642689570134; 
- Thu, 20 Jan 2022 06:39:30 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxC8EiUO8zmKN0IM1R4oP/7CsqAviHdzhjNraDig7Z05SORbdwzW3MgHf7pVUwqUy+23nb9fQ==
-X-Received: by 2002:a17:906:d553:: with SMTP id
- cr19mr16848563ejc.2.1642689569933; 
- Thu, 20 Jan 2022 06:39:29 -0800 (PST)
+ bh=U6QJQxwpqs/8UeUwXAKCD+lQ9KYdKmTM83V8hAlwFAc=;
+ b=O1d7mQB05KXp5qTojm+I3tNslR+HaMLjREHBcVjsLh1ANRKVW7E7ek5uQGtwEV2OLl
+ Oc6Bzy4lu22G05+BZLSEjNEAlEQ3KVHlvxlk4Luhj9Uo+8ch+Y+OMW6opYjAYapAanbz
+ t8gQJXWGMCnn/jRSPZF01BlAogu0puQLVLDDzBJZgUHo8t63jEBPWD9JeTbteqkw8GAE
+ gpnsvDpy0qEzKQVoLdgdJy9IfaCiudMPx2+IOGUxCTzGk/d7Gr0vJlghDvAqPjPRM8qM
+ YiK4Q/1YCvdEQfhBgkNQS5Pzr2UAv//Mvko1Je5WFKNw1c538dFMfOUBlZuZTIzcP7Lq
+ NlBQ==
+X-Gm-Message-State: AOAM531S7BPWjCvJni4jBJ+xOliFycbI1KjyUAirUkgJkBOcFjydzBLE
+ BlLL6ceHyVtom1L91GnYylBIERP9DO8WnC3iPhK+Exo5EQP9DX1U3oAgB+v0kDhHYbLGfrQonYp
+ RLfxaVQ/ehKYcL/motPFSBTM=
+X-Received: by 2002:a05:6402:2d4:: with SMTP id
+ b20mr8449563edx.98.1642689581196; 
+ Thu, 20 Jan 2022 06:39:41 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJx7QsHN5sY6fK7Vbj+K5/OavxogCBIliNExc9shQzj9qCMxf2il3s8jvjaw8aZ+7DIdD8rq1w==
+X-Received: by 2002:a05:6402:2d4:: with SMTP id
+ b20mr8449533edx.98.1642689581020; 
+ Thu, 20 Jan 2022 06:39:41 -0800 (PST)
 Received: from ?IPV6:2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1?
  (2001-1c00-0c1e-bf00-1db8-22d3-1bc9-8ca1.cable.dynamic.v6.ziggo.nl.
  [2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1])
- by smtp.gmail.com with ESMTPSA id gr7sm1108869ejb.2.2022.01.20.06.39.29
+ by smtp.gmail.com with ESMTPSA id cr8sm1386979edb.47.2022.01.20.06.39.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Jan 2022 06:39:29 -0800 (PST)
-Message-ID: <d77c27ac-6721-1d3e-2d79-4e4dfae7cabe@redhat.com>
-Date: Thu, 20 Jan 2022 15:39:28 +0100
+ Thu, 20 Jan 2022 06:39:40 -0800 (PST)
+Message-ID: <1ff8954c-9894-b0cd-a261-afc30ff02e6b@redhat.com>
+Date: Thu, 20 Jan 2022 15:39:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: [PATCH v4 1/9] spi: Make spi_alloc_device and spi_add_device
- public again
+Subject: Re: [PATCH v4 4/9] spi: Add API to count spi acpi resources
 To: Stefan Binding <sbinding@opensource.cirrus.com>,
  Mark Brown <broonie@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
  Len Brown <lenb@kernel.org>, Mark Gross <markgross@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 References: <20220120134326.5295-1-sbinding@opensource.cirrus.com>
- <20220120134326.5295-2-sbinding@opensource.cirrus.com>
+ <20220120134326.5295-5-sbinding@opensource.cirrus.com>
 From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20220120134326.5295-2-sbinding@opensource.cirrus.com>
+In-Reply-To: <20220120134326.5295-5-sbinding@opensource.cirrus.com>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -130,12 +129,9 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 Hi,
 
 On 1/20/22 14:43, Stefan Binding wrote:
-> This functions were previously made private since they
-> were not used. However, these functions will be needed
-> again.
-> 
-> Partial revert of commit da21fde0fdb3
-> ("spi: Make several public functions private to spi.c")
+> Some ACPI nodes may have more than one Spi Resource.
+> To be able to handle these case, its necessary to have
+> a way of counting these resources.
 > 
 > Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
 
@@ -149,71 +145,84 @@ Hans
 
 
 > ---
->  drivers/spi/spi.c       |  6 ++++--
->  include/linux/spi/spi.h | 12 ++++++++++++
->  2 files changed, 16 insertions(+), 2 deletions(-)
+>  drivers/spi/spi.c       | 40 ++++++++++++++++++++++++++++++++++++++++
+>  include/linux/spi/spi.h |  6 ++++++
+>  2 files changed, 46 insertions(+)
 > 
 > diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-> index 4599b121d744..1eb84101c4ad 100644
+> index 898cc9931490..8c0c2e26609a 100644
 > --- a/drivers/spi/spi.c
 > +++ b/drivers/spi/spi.c
-> @@ -532,7 +532,7 @@ static DEFINE_MUTEX(board_lock);
->   *
->   * Return: a pointer to the new device, or NULL.
->   */
-> -static struct spi_device *spi_alloc_device(struct spi_controller *ctlr)
-> +struct spi_device *spi_alloc_device(struct spi_controller *ctlr)
->  {
->  	struct spi_device	*spi;
+> @@ -2325,6 +2325,46 @@ struct acpi_spi_lookup {
+>  	int			irq_index;
+>  };
 >  
-> @@ -557,6 +557,7 @@ static struct spi_device *spi_alloc_device(struct spi_controller *ctlr)
->  	device_initialize(&spi->dev);
->  	return spi;
->  }
-> +EXPORT_SYMBOL_GPL(spi_alloc_device);
->  
->  static void spi_dev_set_name(struct spi_device *spi)
->  {
-> @@ -652,7 +653,7 @@ static int __spi_add_device(struct spi_device *spi)
->   *
->   * Return: 0 on success; negative errno on failure
->   */
-> -static int spi_add_device(struct spi_device *spi)
-> +int spi_add_device(struct spi_device *spi)
->  {
->  	struct spi_controller *ctlr = spi->controller;
->  	struct device *dev = ctlr->dev.parent;
-> @@ -673,6 +674,7 @@ static int spi_add_device(struct spi_device *spi)
->  	mutex_unlock(&ctlr->add_lock);
->  	return status;
->  }
-> +EXPORT_SYMBOL_GPL(spi_add_device);
->  
->  static int spi_add_device_locked(struct spi_device *spi)
+> +static int acpi_spi_count(struct acpi_resource *ares, void *data)
+> +{
+> +	struct acpi_resource_spi_serialbus *sb;
+> +	int *count = data;
+> +
+> +	if (ares->type != ACPI_RESOURCE_TYPE_SERIAL_BUS)
+> +		return 1;
+> +
+> +	sb = &ares->data.spi_serial_bus;
+> +	if (sb->type != ACPI_RESOURCE_SERIAL_TYPE_SPI)
+> +		return 1;
+> +
+> +	*count = *count + 1;
+> +
+> +	return 1;
+> +}
+> +
+> +/**
+> + * acpi_spi_count_resources - Count the number of SpiSerialBus resources
+> + * @adev:	ACPI device
+> + *
+> + * Returns the number of SpiSerialBus resources in the ACPI-device's
+> + * resource-list; or a negative error code.
+> + */
+> +int acpi_spi_count_resources(struct acpi_device *adev)
+> +{
+> +	LIST_HEAD(r);
+> +	int count = 0;
+> +	int ret;
+> +
+> +	ret = acpi_dev_get_resources(adev, &r, acpi_spi_count, &count);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	acpi_dev_free_resource_list(&r);
+> +
+> +	return count;
+> +}
+> +EXPORT_SYMBOL_GPL(acpi_spi_count_resources);
+> +
+>  static void acpi_spi_parse_apple_properties(struct acpi_device *dev,
+>  					    struct acpi_spi_lookup *lookup)
 >  {
 > diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-> index 7ab3fed7b804..0346a3ff27fd 100644
+> index 1a34fd0f6ca2..25a82729f8da 100644
 > --- a/include/linux/spi/spi.h
 > +++ b/include/linux/spi/spi.h
-> @@ -1452,7 +1452,19 @@ spi_register_board_info(struct spi_board_info const *info, unsigned n)
->   * use spi_new_device() to describe each device.  You can also call
->   * spi_unregister_device() to start making that device vanish, but
->   * normally that would be handled by spi_unregister_controller().
-> + *
-> + * You can also use spi_alloc_device() and spi_add_device() to use a two
-> + * stage registration sequence for each spi_device. This gives the caller
-> + * some more control over the spi_device structure before it is registered,
-> + * but requires that caller to initialize fields that would otherwise
-> + * be defined using the board info.
->   */
-> +extern struct spi_device *
-> +spi_alloc_device(struct spi_controller *ctlr);
+> @@ -764,6 +764,7 @@ extern void spi_unregister_controller(struct spi_controller *ctlr);
+>  extern struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
+>  						struct acpi_device *adev,
+>  						int index, int irq_index);
+> +int acpi_spi_count_resources(struct acpi_device *adev);
+>  #else
+>  static inline struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
+>  						       struct acpi_device *adev,
+> @@ -771,6 +772,11 @@ static inline struct spi_device *acpi_spi_device_alloc(struct spi_controller *ct
+>  {
+>  	return ERR_PTR(-EOPNOTSUPP);
+>  }
 > +
-> +extern int
-> +spi_add_device(struct spi_device *spi);
-> +
->  extern struct spi_device *
->  spi_new_device(struct spi_controller *, struct spi_board_info *);
+> +int acpi_spi_count_resources(struct acpi_device *adev)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+>  #endif
 >  
+>  /*
 > 
 

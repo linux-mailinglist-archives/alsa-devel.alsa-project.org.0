@@ -2,70 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B5524945AB
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 02:58:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9693494600
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 04:15:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2F1C2F2E;
-	Thu, 20 Jan 2022 02:57:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2F1C2F2E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BFFB2EDD;
+	Thu, 20 Jan 2022 04:14:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BFFB2EDD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642643898;
-	bh=fXMhBKaGQfjanJ7Rz0k/wIqdxBRVsZLUM/vyPmU7JL8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1642648541;
+	bh=OtkEo254PcNpLXrgAxSqCij00Dt0bnvC1/BCA2WbKno=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=RUXynBI+9A/WlCYFrCl6rLpJeZH+fwY0eKO7brkC2GYitPf0g4IloEjsgbLB0X4ny
-	 bRgW61UNrpmz0jntxRj19+wl0MlSTZniBdnBfP7jKMRaG/XRjKNYHS0tgbnt1l/J7S
-	 6kjKS2UQ3IiPIeG3FPhvoUl35iWSxVxfIt5FVGkU=
+	b=K+TIRvV28MMZcboOa1NxwvTrQZKb9kIrEN5Zyg5Al4UIz8qT9VskYgx//8oua75s2
+	 zPbWEEAFQkG5AzryNfK6owFqbD3mYFWTN+omoNVfinoVbBgXqsP+Ycr902CJiAXBNr
+	 Ti/J2hp6BxAae4z/5yFImQP+dGn1oJ+73m0Ec2d4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B8D7F80212;
-	Thu, 20 Jan 2022 02:57:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC92EF80134;
+	Thu, 20 Jan 2022 04:14:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C255FF801F7; Thu, 20 Jan 2022 02:57:05 +0100 (CET)
+ id 361BBF8012E; Thu, 20 Jan 2022 04:14:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by alsa1.perex.cz (Postfix) with ESMTP id 56A8DF80100
- for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 02:56:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56A8DF80100
-Received: from localhost.localdomain (unknown [124.16.138.126])
- by APP-01 (Coremail) with SMTP id qwCowABXXp5kwehh+WqkBg--.26567S2;
- Thu, 20 Jan 2022 09:56:52 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: broonie@kernel.org
-Subject: Re: Re: [PATCH v2] ASoC: codecs: Check for error pointer after
- calling devm_regmap_init_mmio
-Date: Thu, 20 Jan 2022 09:56:50 +0800
-Message-Id: <20220120015650.1851703-1-jiasheng@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowABXXp5kwehh+WqkBg--.26567S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
- VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY67AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
- 6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
- kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8I
- cVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87
- Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE
- 6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72
- CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7
- M4IIrI8v6xkF7I0E8cxan2IY04v7MxkIecxEwVAFwVWkMxAIw28IcxkI7VAKI48JMxC20s
- 026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
- JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
- v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
- j40_Wr1j6rW3Jr1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
- W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbLiSPUUUUU==
-X-Originating-IP: [124.16.138.126]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
-Cc: cezary.rojewski@intel.com, bgoswami@codeaurora.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>, tiwai@suse.com, lgirdwood@gmail.com,
- srinivas.kandagatla@linaro.org
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5FB59F8007E
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 04:14:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FB59F8007E
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id DC3FA201004;
+ Thu, 20 Jan 2022 04:14:26 +0100 (CET)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A3DAE201001;
+ Thu, 20 Jan 2022 04:14:26 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 5A412183ACDD;
+ Thu, 20 Jan 2022 11:14:24 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lars@metafoo.de, lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz,
+ tiwai@suse.com, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: soc-generic-dmaengine-pcm: separate max_buffer_size
+ assignment
+Date: Thu, 20 Jan 2022 10:44:02 +0800
+Message-Id: <1642646642-15908-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,19 +70,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 20, 2022 at 00:46:45AM +0800, Mark Brown wrote:
->> Since the possible failure of the devm_regmap_init_mmio(), it will
->> return error pointer and be assigned to the regmap.
->> Then the error pointer will be dereferenced.
->> For example rx->regmap will be used in rx_macro_mclk_enable().
->> Therefore, it should be better to check it.
->
-> This doesn't apply against current code, please check and resend.
+The config->pcm_hardware may be NULL when config->prealloc_buffer_size
+is not zero, so it is better to move max_buffer_size assignment under
+a separate condition.
 
-I am really sorry.
-I have already try my best to find the latest code but fails.
-Please give me the url or the git repository.
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/soc-generic-dmaengine-pcm.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Sincerely thanks,
-Jiang
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index c54c8ca8d715..8659cb1794f1 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -237,13 +237,15 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+ 	size_t max_buffer_size;
+ 	unsigned int i;
+ 
+-	if (config && config->prealloc_buffer_size) {
++	if (config && config->prealloc_buffer_size)
+ 		prealloc_buffer_size = config->prealloc_buffer_size;
+-		max_buffer_size = config->pcm_hardware->buffer_bytes_max;
+-	} else {
++	else
+ 		prealloc_buffer_size = prealloc_buffer_size_kbytes * 1024;
++
++	if (config && config->pcm_hardware && config->pcm_hardware->buffer_bytes_max)
++		max_buffer_size = config->pcm_hardware->buffer_bytes_max;
++	else
+ 		max_buffer_size = SIZE_MAX;
+-	}
+ 
+ 	for_each_pcm_streams(i) {
+ 		struct snd_pcm_substream *substream = rtd->pcm->streams[i].substream;
+-- 
+2.17.1
 

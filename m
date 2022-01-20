@@ -2,87 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EE3B4953A9
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 18:57:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 267BE4953AC
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jan 2022 18:58:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98ED22E81;
-	Thu, 20 Jan 2022 18:57:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98ED22E81
+	by alsa0.perex.cz (Postfix) with ESMTPS id 917592DD1;
+	Thu, 20 Jan 2022 18:57:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 917592DD1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642701471;
-	bh=o1w3m8udOKoJ3CiYVJRSuvIA6fio505Gb8fULpRe2lI=;
+	s=default; t=1642701498;
+	bh=l16xQ0sIct+LEbZWSXlZKJ4o5jVW20QDnuF3tdomIG4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d9ExsRyWPqjOpvs1BIE/dORZUk2+gFeZO1O1nivS32YgjJYH0u3xE6cnf41ZxKfNb
-	 glN0s/Ai79vegLFGI2O7V+JxIw7izlLsxJdVywYup/eq1bQNvSYz/hzKNeSTW33yqJ
-	 uq12jVmmGkIe5h2r9n1QY9leHWEv42m1qqk5q0RY=
+	b=cihor415XV9RA7dNMFhYcvFEXAuIYwSCdgmbEEMfTosE157w2rJZNrYHaAv8O8Lje
+	 bqoJYB0mHhPsdZ41wIVt49AYzcx0zBxuBZ1gAmotbN4AveBBAgaV8QLJSpdGg8TP7D
+	 1jX4naa/8dNimnW57pkG06nhkYFmN0TJARmoSHrU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E789F80517;
-	Thu, 20 Jan 2022 18:56:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E560EF80518;
+	Thu, 20 Jan 2022 18:56:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F34ACF80508; Thu, 20 Jan 2022 18:56:07 +0100 (CET)
+ id 5E332F80519; Thu, 20 Jan 2022 18:56:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 617DCF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04B34F80134
  for <alsa-devel@alsa-project.org>; Thu, 20 Jan 2022 18:56:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 617DCF800F8
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04B34F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="LaO+BOC8"
+ header.b="oIYqgyNR"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20K5IpA1022340;
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20K5IpA2022340;
  Thu, 20 Jan 2022 11:55:59 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=/5EEVxedqyc4lS3w9/oKz7sNBu3Ep8/TONL9EDmsebU=;
- b=LaO+BOC8DgmKHsw0DabB9ReCkuJ1l9E+aL43q8qnIDry7TxQ2aN46EMBu8AEYfoZOROf
- pwEUCC4W9STP68Hk4jaPuDEwyW89q/Eqga/D3wTdUh4yBaZ74Fiog0oorxfNC/mjLJDP
- w6faTs/w/MIT53USD9eILlK421aeYUOUMK1PthNPsu05Q4GOVOcfZ77iLlliSmM751jn
- 571Of9i3mga253ab3VUV3Lm8BK4c15/TqG4xKKn/RGXOq9gwbY5IRJdLdf9iToBVjvoG
- FmBzsB+hu7/eYOs/TV2+RdOk/DBW9gjSTpYDX9gOYEyfg7HmSLfy8nWO5+S1cIkkGWhk ZA== 
+ bh=qpxI/iRkVYhxItmhbuo5ZUu8r1IM5OGMC1OqPFE0SUg=;
+ b=oIYqgyNR2pSLbtOG1InBf8rnDntxQspE5Vs0mklFi9F4/JNuJ2in72mogsdbfFeapqPI
+ /w3PMmNfFIhzxrXdcZgusgT4gCmG5w853Qi0aIWI3sFI3VZNThh/SGgtK17oK+fnTgWI
+ S/xH3HkpjEt5VetJ5ww0czMNElAJvzJpicQjpOzZ2LOTHqmeUq8xvNgiw9mcOXTandJH
+ lVjGq0fN2F6qnDE9b8YQha2sKBNztVJgd8NDDb+PIihqfR724gbPYCbLm2ZEd6UtSzrS
+ GhPStYIo4auzQtyfi9AgOxXVhY5MieCxh1venND3XqHDb1gbnas5PbQWCxXESjESfR16 5g== 
 Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dpms0hh17-2
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dpms0hh17-3
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 20 Jan 2022 11:55:58 -0600
+ Thu, 20 Jan 2022 11:55:59 -0600
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 20 Jan
- 2022 17:55:53 +0000
+ 2022 17:55:54 +0000
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Thu, 20 Jan 2022 17:55:53 +0000
+ Frontend Transport; Thu, 20 Jan 2022 17:55:54 +0000
 Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
  [198.61.65.33])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 83FD946D;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D954DB13;
  Thu, 20 Jan 2022 17:55:53 +0000 (UTC)
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH 1/3] ASoC: cs42l42: Report full jack status when plug is
- detected
-Date: Thu, 20 Jan 2022 17:55:47 +0000
-Message-ID: <20220120175549.671831-2-rf@opensource.cirrus.com>
+Subject: [PATCH 2/3] ASoC: cs42l42: Change jack_detect_mutex to a lock of all
+ IRQ handling
+Date: Thu, 20 Jan 2022 17:55:48 +0000
+Message-ID: <20220120175549.671831-3-rf@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220120175549.671831-1-rf@opensource.cirrus.com>
 References: <20220120175549.671831-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: AxmdCqB-YQ3vszAcLXuXqLZGPDmSFNFW
-X-Proofpoint-GUID: AxmdCqB-YQ3vszAcLXuXqLZGPDmSFNFW
+X-Proofpoint-ORIG-GUID: Tb1h8vlk67feNATXvhenmQCl6xSRGZpJ
+X-Proofpoint-GUID: Tb1h8vlk67feNATXvhenmQCl6xSRGZpJ
 X-Proofpoint-Spam-Reason: safe
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
@@ -101,58 +100,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When a plug event is detect report the full state of all status
-bits, don't assume that there will have been a previous unplug
-event to clear all the bits. Report the state of both HEADPHONE
-and MICROPHONE bits according to detected type, and clear all the
-button status bits. The current button status is already checked
-and reported at the end of the function.
+Rename jack_detect_mutex to irq_lock and make it lock the entire IRQ
+handling.
 
-During a system suspend the jack could be unplugged and plugged,
-possibly changing the jack type. On resume the interrupt status will
-indicate a plug event - there will not be an unplug event to clear
-the bits.
+The jack_detect_mutex was introduced to synchronize registering an
+ALSA jack handler, via cs42l42_set_jack(), with the jack state
+processing in the IRQ handler, and was taken only around the
+relevant part of the IRQ handling code.
+
+System suspend will need to synchronize with the IRQ handler thread
+so will need a similar mutex that surrounds all of the IRQ handling.
+Repurposing the existing jack_detect_mutex is the simplest option.
+It does no harm for a call to cs42l42_set_jack() to additionally
+block the first few lines of IRQ handling, and the only interrupts
+used by the driver are all for jack handling.
 
 Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/soc/codecs/cs42l42.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ sound/soc/codecs/cs42l42.c | 11 +++++------
+ sound/soc/codecs/cs42l42.h |  2 +-
+ 2 files changed, 6 insertions(+), 7 deletions(-)
 
 diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 43d98bdb5b5b..2c294868008e 100644
+index 2c294868008e..f1b95d45af4a 100644
 --- a/sound/soc/codecs/cs42l42.c
 +++ b/sound/soc/codecs/cs42l42.c
-@@ -1637,7 +1637,11 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+@@ -550,7 +550,7 @@ static int cs42l42_set_jack(struct snd_soc_component *component, struct snd_soc_
+ 	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
  
- 	mutex_lock(&cs42l42->jack_detect_mutex);
+ 	/* Prevent race with interrupt handler */
+-	mutex_lock(&cs42l42->jack_detect_mutex);
++	mutex_lock(&cs42l42->irq_lock);
+ 	cs42l42->jack = jk;
  
--	/* Check auto-detect status */
-+	/*
-+	 * Check auto-detect status. Don't assume a previous unplug event has
-+	 * cleared the flags. If the jack is unplugged and plugged during
-+	 * system suspend there won't have been an unplug event.
-+	 */
- 	if ((~masks[5]) & irq_params_table[5].mask) {
- 		if (stickies[5] & CS42L42_HSDET_AUTO_DONE_MASK) {
- 			cs42l42_process_hs_type_detect(cs42l42);
-@@ -1645,11 +1649,15 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
- 			case CS42L42_PLUG_CTIA:
- 			case CS42L42_PLUG_OMTP:
- 				snd_soc_jack_report(cs42l42->jack, SND_JACK_HEADSET,
--						    SND_JACK_HEADSET);
-+						    SND_JACK_HEADSET |
-+						    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+						    SND_JACK_BTN_2 | SND_JACK_BTN_3);
- 				break;
- 			case CS42L42_PLUG_HEADPHONE:
- 				snd_soc_jack_report(cs42l42->jack, SND_JACK_HEADPHONE,
--						    SND_JACK_HEADPHONE);
-+						    SND_JACK_HEADSET |
-+						    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+						    SND_JACK_BTN_2 | SND_JACK_BTN_3);
- 				break;
- 			default:
- 				break;
+ 	if (jk) {
+@@ -566,7 +566,7 @@ static int cs42l42_set_jack(struct snd_soc_component *component, struct snd_soc_
+ 			break;
+ 		}
+ 	}
+-	mutex_unlock(&cs42l42->jack_detect_mutex);
++	mutex_unlock(&cs42l42->irq_lock);
+ 
+ 	return 0;
+ }
+@@ -1613,6 +1613,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 	unsigned int i;
+ 	int report = 0;
+ 
++	mutex_lock(&cs42l42->irq_lock);
+ 
+ 	/* Read sticky registers to clear interurpt */
+ 	for (i = 0; i < ARRAY_SIZE(stickies); i++) {
+@@ -1635,8 +1636,6 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 		CS42L42_M_DETECT_FT_MASK |
+ 		CS42L42_M_HSBIAS_HIZ_MASK);
+ 
+-	mutex_lock(&cs42l42->jack_detect_mutex);
+-
+ 	/*
+ 	 * Check auto-detect status. Don't assume a previous unplug event has
+ 	 * cleared the flags. If the jack is unplugged and plugged during
+@@ -1713,7 +1712,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 		}
+ 	}
+ 
+-	mutex_unlock(&cs42l42->jack_detect_mutex);
++	mutex_unlock(&cs42l42->irq_lock);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -2062,7 +2061,7 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client,
+ 
+ 	cs42l42->dev = &i2c_client->dev;
+ 	i2c_set_clientdata(i2c_client, cs42l42);
+-	mutex_init(&cs42l42->jack_detect_mutex);
++	mutex_init(&cs42l42->irq_lock);
+ 
+ 	cs42l42->regmap = devm_regmap_init_i2c(i2c_client, &cs42l42_regmap);
+ 	if (IS_ERR(cs42l42->regmap)) {
+diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
+index 9fff183dce8e..53d96287abba 100644
+--- a/sound/soc/codecs/cs42l42.h
++++ b/sound/soc/codecs/cs42l42.h
+@@ -842,7 +842,7 @@ struct  cs42l42_private {
+ 	struct gpio_desc *reset_gpio;
+ 	struct completion pdn_done;
+ 	struct snd_soc_jack *jack;
+-	struct mutex jack_detect_mutex;
++	struct mutex irq_lock;
+ 	int pll_config;
+ 	int bclk;
+ 	u32 sclk;
 -- 
 2.11.0
 

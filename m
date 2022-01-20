@@ -2,74 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EDA64956EC
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jan 2022 00:23:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8071A4956F1
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jan 2022 00:23:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B674D2C31;
-	Fri, 21 Jan 2022 00:22:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B674D2C31
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1315E2DF7;
+	Fri, 21 Jan 2022 00:23:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1315E2DF7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642720999;
-	bh=uT5t9LlKoKGtxpr16eMI7llzjNG5foUYCtnCUr5mTg0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WIo8nHW3K4GwELjUw1iU8HOAxboX5zDi9EHU/QmRlKmbUnI7nMHsMwi+DHX1sskbs
-	 3sMlR7W/0mwmverBqGCdSzs7R6vDPrB5KQemm4EshB1xHO/Dnvo/fKo3DBdhHFPAvv
-	 UhXA/2ql1XpYf7SfRnnHw6DGCNiaE7BumWAI4gzE=
+	s=default; t=1642721035;
+	bh=xvB+7rqhEVX0DmbenZ2BGHsDCkqgzkoHzfUlr/KRcWc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kChgPi3SB20PMjQK0YePK0Zxazz7wtvpX+4HNms2eVuH0txZaD1zqDmGmP2ERdPBX
+	 502MjIAF9N8GUt86EO+O8JWMo1J0r7kXCORo5tKXJjila6ojYytWXofBui5qXN03fi
+	 HzKDmZyHpS70ddooJ+/KapTB/uo0bMo4JJpUo2GA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C3BEF80134;
-	Fri, 21 Jan 2022 00:22:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31055F804BB;
+	Fri, 21 Jan 2022 00:22:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DA1DF8012E; Fri, 21 Jan 2022 00:22:12 +0100 (CET)
+ id 209B9F800F2; Fri, 21 Jan 2022 00:22:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4187DF800F2
- for <alsa-devel@alsa-project.org>; Fri, 21 Jan 2022 00:22:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4187DF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C1EDF800F2
+ for <alsa-devel@alsa-project.org>; Fri, 21 Jan 2022 00:22:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C1EDF800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="RyzemOWD"
+ header.b="M4JniDK9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642720930; x=1674256930;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=uT5t9LlKoKGtxpr16eMI7llzjNG5foUYCtnCUr5mTg0=;
- b=RyzemOWDlwS3/PA/FG1wTPPWp1aWpJLqwNERmgNuVhC8ui7Q7GaXSjHe
- aYcRi/TzErT6eIvoLYo+bRhu6hznZqXiMvmiOkmfhXOra9jv3a8UkKQ4G
- NC3mr7E+zaT7lpfAPqDhDSsO4LdBYtLRMA++zPhM4+42qYv7s6tDRL37U
- 2uX27AtDfYEMGSmFOHCA7pZMp58lx5Hu8kJKoJLawHCQMic7LQaM9tw1W
- gL8FN7Z+qQljF9o4H58j6RvdIxN+koY0gmgWoMUTF8iKV/3gWCWhk6yYf
- jvqVSsJYc3xzPiwEAcv+wfnMvgjoXDuPeWmuRO6iXR1HhXvZtemw9ceLx Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="269926945"
-X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="269926945"
+ t=1642720932; x=1674256932;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=xvB+7rqhEVX0DmbenZ2BGHsDCkqgzkoHzfUlr/KRcWc=;
+ b=M4JniDK9f3Boflj8pEqA8eDb1jCW0B2O7XJKG/GQbkIfzjCPn5EXyqNR
+ V5wWDc+FQrR3aNIP4oO4k3MgQKYyd6PTaYDHcONsNmPCQsbjfiHv4R/PZ
+ j6Fo302K6FTSMpW1XOV4ZbsGPaHDB0zAVmOItdJ7hS+lO88Fz7Zx9rZic
+ 8f0gg5sEM8IVsmN1DonnqzES++1BG/hT2WMS2nroONn25Z9n2uIrVGwuK
+ iY/JCZ/DstnGxacSKcW6WILwAPwJZ73xQ/nieludVBcN4DEuZskIhdUOC
+ NCj0POblVS+Rmy95ABjaCw0YEZGwDoTvP1M+geAAvvVMrW9LISOZ3o180 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="269926951"
+X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="269926951"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 15:22:06 -0800
-X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="493637702"
+ 20 Jan 2022 15:22:07 -0800
+X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="493637718"
 Received: from sthambit-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.64.44])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 15:22:05 -0800
+ 20 Jan 2022 15:22:06 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/2] ASoC: SOF: Intel: improve SoundWire _ADR handling
-Date: Thu, 20 Jan 2022 17:21:55 -0600
-Message-Id: <20220120232157.199919-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 1/2] ASoC: SOF: Intel: match sdw version on link_slaves_found
+Date: Thu, 20 Jan 2022 17:21:56 -0600
+Message-Id: <20220120232157.199919-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220120232157.199919-1-pierre-louis.bossart@linux.intel.com>
+References: <20220120232157.199919-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, vkoul@kernel.org, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>, vkoul@kernel.org, broonie@kernel.org,
+ Reddy Muralidhar <muralidhar.reddy@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,17 +91,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make sure the device version is taken into account when selecting a
-machine driver, in addition to device manufacturer and part_id, and
-simplify code with a macro.
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-Bard Liao (2):
-  ASoC: SOF: Intel: match sdw version on link_slaves_found
-  ASoC: SOF: Intel: Compare sdw adr directly
+Codecs with the same part id, manufacturer id and part id, but different
+sdw version should be treated as different codecs. For example, rt711 and
+rt711-sdca are different. So, we should match sdw version as well.
 
- sound/soc/sof/intel/hda.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+Reported-by: Reddy Muralidhar <muralidhar.reddy@intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/intel/hda.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index c8fb082209ce..67936be54ef7 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -1187,7 +1187,7 @@ static bool link_slaves_found(struct snd_sof_dev *sdev,
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ 	struct sdw_intel_slave_id *ids = sdw->ids;
+ 	int num_slaves = sdw->num_slaves;
+-	unsigned int part_id, link_id, unique_id, mfg_id;
++	unsigned int part_id, link_id, unique_id, mfg_id, version;
+ 	int i, j, k;
+ 
+ 	for (i = 0; i < link->num_adr; i++) {
+@@ -1197,12 +1197,14 @@ static bool link_slaves_found(struct snd_sof_dev *sdev,
+ 		mfg_id = SDW_MFG_ID(adr);
+ 		part_id = SDW_PART_ID(adr);
+ 		link_id = SDW_DISCO_LINK_ID(adr);
++		version = SDW_VERSION(adr);
+ 
+ 		for (j = 0; j < num_slaves; j++) {
+ 			/* find out how many identical parts were reported on that link */
+ 			if (ids[j].link_id == link_id &&
+ 			    ids[j].id.part_id == part_id &&
+-			    ids[j].id.mfg_id == mfg_id)
++			    ids[j].id.mfg_id == mfg_id &&
++			    ids[j].id.sdw_version == version)
+ 				reported_part_count++;
+ 		}
+ 
+@@ -1211,21 +1213,24 @@ static bool link_slaves_found(struct snd_sof_dev *sdev,
+ 
+ 			if (ids[j].link_id != link_id ||
+ 			    ids[j].id.part_id != part_id ||
+-			    ids[j].id.mfg_id != mfg_id)
++			    ids[j].id.mfg_id != mfg_id ||
++			    ids[j].id.sdw_version != version)
+ 				continue;
+ 
+ 			/* find out how many identical parts are expected */
+ 			for (k = 0; k < link->num_adr; k++) {
+ 				u64 adr2 = link->adr_d[k].adr;
+-				unsigned int part_id2, link_id2, mfg_id2;
++				unsigned int part_id2, link_id2, mfg_id2, version2;
+ 
+ 				mfg_id2 = SDW_MFG_ID(adr2);
+ 				part_id2 = SDW_PART_ID(adr2);
+ 				link_id2 = SDW_DISCO_LINK_ID(adr2);
++				version2 = SDW_VERSION(adr2);
+ 
+ 				if (link_id2 == link_id &&
+ 				    part_id2 == part_id &&
+-				    mfg_id2 == mfg_id)
++				    mfg_id2 == mfg_id &&
++				    version2 == version)
+ 					expected_part_count++;
+ 			}
+ 
 -- 
 2.25.1
 

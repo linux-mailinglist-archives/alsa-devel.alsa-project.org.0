@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 152644956A5
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jan 2022 00:18:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21D554956A7
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jan 2022 00:18:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95A572DDB;
-	Fri, 21 Jan 2022 00:17:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95A572DDB
+	by alsa0.perex.cz (Postfix) with ESMTPS id B64EF2DC6;
+	Fri, 21 Jan 2022 00:17:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B64EF2DC6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642720682;
-	bh=4PTUF6/qmJ0PMpiYWsr1Co7Ecg5LxiC0TpA+G7NfGN4=;
+	s=default; t=1642720714;
+	bh=jNTI7yW/IOUJdfB/x5+ZHcVKS8ZlYU/O+Ad0ItpeWYk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eVYm57M2wZRtawUG6LFIXuUMc89gWHK6z99AU+dg2TL7D2t8Tk6YduRsQvRcB89zw
-	 Gq1ujPP7V/GzVa6FCDGn9n37SkJDFghP0kn/SCit7xBhi0JEtmSgUC7/1DiY64PyHa
-	 pOn/Zi9Bii5WyBju7UpqzluvKfAMETYTmzvmWKQQ=
+	b=PuvXHFximIca+hPt4S1cO5MuW6rkh7k1ibHxjbK59t/D5bCv4Axbv7Nb2vmqt6p69
+	 NXBWqqQyi7t0rzMtInw53AafpWG3JHqyLSHRVcyl1ADaMkHU13Kuj8/FXh1SAJs7aB
+	 GwN3WFy5r6gjZAi+GqIfINIMu2ceFvh946IPE6g8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92896F80516;
-	Fri, 21 Jan 2022 00:16:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA128F8051E;
+	Fri, 21 Jan 2022 00:16:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FD75F80518; Fri, 21 Jan 2022 00:16:00 +0100 (CET)
+ id 0B0BFF80248; Fri, 21 Jan 2022 00:16:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,39 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43B90F80128
- for <alsa-devel@alsa-project.org>; Fri, 21 Jan 2022 00:15:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43B90F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97EA4F804BB
+ for <alsa-devel@alsa-project.org>; Fri, 21 Jan 2022 00:15:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97EA4F804BB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="RTPoa/vv"
+ header.b="TvLsaQlr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1642720553; x=1674256553;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4PTUF6/qmJ0PMpiYWsr1Co7Ecg5LxiC0TpA+G7NfGN4=;
- b=RTPoa/vvQkO1o90Gof/BWqjkijaNSPVuAjd9KLJ5EiDY65gIWDcVUKib
- qRzjRr5kqtxAceeUsc8+D8SXu5BWeNfJz7oclSQqHpLYjM7dWJxH6qH2l
- p3HZj83V06w62piCD0qL2viCMVkT5IhC6V25prNk4C+tEuNuModHjW7u6
- O/GJX9wLAWyNPSfmy+RQ/icxNd/Wfj+Wa8pSVNGPgQbTsLsrtdrCqAO7D
- eCNVV7WS3ZMVlHjmJSsUQXfT5z+bOU3ZmB0NCDgS+JxyDEQnqEPfhYJFE
- xMfy7z6wd9NpPE8wp61bbv3CwfHozxUvOOqKJCrU7zfvvqWkGp2XTSQs3 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="245721378"
-X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="245721378"
+ bh=jNTI7yW/IOUJdfB/x5+ZHcVKS8ZlYU/O+Ad0ItpeWYk=;
+ b=TvLsaQlrWw6vO2eBpXEuudDkTJPgT3ShBWdIJgoh3KjDmktok0ytV0wR
+ XWbqI3ZrLvTiuGkN1UwQLEnFcA1jnxBpa7ydLHdLEQDtoGsB1qMJ88vPR
+ DHSv5G5+P8B/5MY91++IGCE9QY6jpUZbhSnZ11eHhehYbjWaNnBlUaEd8
+ M89mb7gDA9NX1V2UNv5T61aJfgjAefvkS23ZT8zSfPl3yTMAEyY5mgmrj
+ 2W12L+x9DdmulB0dIRMhygmUcj/92//DzIQYHDM6BE8UsuW0dyZYhDcbX
+ FXINUHDhVbFTR1p2XrPX8hnoVq2ToE1+TGlyZK+Z6YG+f//UB2GtMp4p+ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="245721379"
+X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="245721379"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jan 2022 15:15:44 -0800
-X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="672741396"
+X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="672741402"
 Received: from sthambit-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.64.44])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 15:15:42 -0800
+ 20 Jan 2022 15:15:43 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/5] ASoC: SOF: Intel: hda-loader: add IMR restore support
-Date: Thu, 20 Jan 2022 17:15:31 -0600
-Message-Id: <20220120231532.196926-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 5/5] ASoC: SOF: add flag to disable IMR restore to sof_debug
+Date: Thu, 20 Jan 2022 17:15:32 -0600
+Message-Id: <20220120231532.196926-6-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220120231532.196926-1-pierre-louis.bossart@linux.intel.com>
 References: <20220120231532.196926-1-pierre-louis.bossart@linux.intel.com>
@@ -94,78 +94,58 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Keyon Jie <yang.jie@linux.intel.com>
 
-If the firmware declares the IMR restore feature, we only need to do a
-simple powering up to resume from D3, no firmware re-downloading
-needed - the context is saved/restored to/from IMR without needing
-driver support.
+Add flag _IGNORE_D3_PERSISTENT to disable IMR restore feature to
+the sof_debug module parameter.
 
-Add a hda_dsp_boot_imr() helper for this simple DSP reboot, and use it
-when it is available.
+The IMR restore feature will be enabled for all Intel cAVS platforms by
+default, but setting the flag _IGNORE_D3_PERSISTENT can help to disable
+the feature for debug purpose, to rule out any possible regression
+introduced by the change of not re-downloading firmware to the DSP at
+resuming from suspended state.
 
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-loader.c | 38 ++++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ sound/soc/sof/intel/hda-loader.c | 2 ++
+ sound/soc/sof/sof-priv.h         | 3 +++
+ 2 files changed, 5 insertions(+)
 
 diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index 7f1b1d0f2422..baf2ff146f50 100644
+index baf2ff146f50..6af3325b7e40 100644
 --- a/sound/soc/sof/intel/hda-loader.c
 +++ b/sound/soc/sof/intel/hda-loader.c
-@@ -353,6 +353,38 @@ int hda_dsp_cl_boot_firmware_iccmax(struct snd_sof_dev *sdev)
- 	return ret;
- }
+@@ -21,6 +21,7 @@
+ #include <sound/sof.h>
+ #include "ext_manifest.h"
+ #include "../ops.h"
++#include "../sof-priv.h"
+ #include "hda.h"
  
-+static int hda_dsp_boot_imr(struct snd_sof_dev *sdev)
-+{
-+	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
-+	const struct sof_intel_dsp_desc *chip = hda->desc;
-+	unsigned long mask;
-+	u32 j;
-+	int ret;
-+
-+	/* power up & unstall/run the cores to run the firmware */
-+	ret = hda_dsp_enable_core(sdev, chip->init_core_mask);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "dsp core start failed %d\n", ret);
-+		return -EIO;
-+	}
-+
-+	/* set enabled cores mask and increment ref count for cores in init_core_mask */
-+	sdev->enabled_cores_mask |= chip->init_core_mask;
-+	mask = sdev->enabled_cores_mask;
-+	for_each_set_bit(j, &mask, SOF_MAX_DSP_NUM_CORES)
-+		sdev->dsp_core_ref_count[j]++;
-+
-+	hda_ssp_set_cbp_cfp(sdev);
-+
-+	/* enable IPC interrupts */
-+	hda_dsp_ipc_int_enable(sdev);
-+
-+	/* process wakes */
-+	hda_sdw_process_wakeen(sdev);
-+
-+	return ret;
-+}
-+
- int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- {
- 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
-@@ -363,6 +395,12 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 	struct firmware stripped_firmware;
+ #define HDA_CL_STREAM_FORMAT 0x40
+@@ -396,6 +397,7 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
  	int ret, ret1, i;
  
-+	if ((sdev->fw_ready.flags & SOF_IPC_INFO_D3_PERSISTENT) &&
-+	    !sdev->first_boot) {
-+		dev_dbg(sdev->dev, "IMR restore supported, booting from IMR directly\n");
-+		return hda_dsp_boot_imr(sdev);
-+	}
-+
- 	chip_info = desc->chip_info;
+ 	if ((sdev->fw_ready.flags & SOF_IPC_INFO_D3_PERSISTENT) &&
++	    !(sof_debug_check_flag(SOF_DBG_IGNORE_D3_PERSISTENT)) &&
+ 	    !sdev->first_boot) {
+ 		dev_dbg(sdev->dev, "IMR restore supported, booting from IMR directly\n");
+ 		return hda_dsp_boot_imr(sdev);
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 087935192ce8..29bb56b7267a 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -34,6 +34,9 @@
+ 							* on primary core
+ 							*/
+ #define SOF_DBG_PRINT_ALL_DUMPS		BIT(6) /* Print all ipc and dsp dumps */
++#define SOF_DBG_IGNORE_D3_PERSISTENT		BIT(7) /* ignore the DSP D3 persistent capability
++							* and always download firmware upon D3 exit
++							*/
  
- 	if (plat_data->fw->size <= plat_data->fw_offset) {
+ /* Flag definitions used for controlling the DSP dump behavior */
+ #define SOF_DBG_DUMP_REGS		BIT(0)
 -- 
 2.25.1
 

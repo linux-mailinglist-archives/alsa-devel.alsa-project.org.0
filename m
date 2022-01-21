@@ -2,99 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3664496339
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jan 2022 17:56:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4AD2496393
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jan 2022 18:11:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 551FD2A79;
-	Fri, 21 Jan 2022 17:55:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 551FD2A79
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52AB02B00;
+	Fri, 21 Jan 2022 18:11:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52AB02B00
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642784188;
-	bh=nA7YzVS4r6cfhPvGGCIVfXAdXfmgViKp4+OFnZSh8BM=;
-	h=From:To:References:In-Reply-To:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=W139KvYtmLpHWU8cEIaEYzo1GZg+IYAVVu6U2udTxEIJP9TTx5TLS16aBQ7wBoeuY
-	 8rNcjBaMFVYImR4L3ZAfKsSzpbHe4cv2B1NYmVBCMUKDKZBGFjqx598ymtR/g2TGue
-	 UH4ZKhHiBwNhlzn2L+zNsyKV0O0FA0J62MW0ftvA=
+	s=default; t=1642785114;
+	bh=R0he2XtqqwJUu5tzwrkGDY+3pAUI0JZx0ljQF1w9+uw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=F7ZM8nmyvDZEO3UqJCvHVvZt2vwGJ0S6873EmvwySBNMT4Pdli51HCelSBH+2sroO
+	 L15iFkEFSSWWUglQTwCT2E6+vOk7tgjjfcdKr6yqcBj7yeCljLw6sH6W/30FohZ2Jv
+	 jUidXe4hxyjq8NimrzmKgp2E6h7pw9WHxC40+/0s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3D17F80302;
-	Fri, 21 Jan 2022 17:55:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1565F80302;
+	Fri, 21 Jan 2022 18:10:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 788E7F800F5; Fri, 21 Jan 2022 17:55:21 +0100 (CET)
+ id 6682BF8028B; Fri, 21 Jan 2022 18:10:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2AE5AF800F5
- for <alsa-devel@alsa-project.org>; Fri, 21 Jan 2022 17:55:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AE5AF800F5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="ACsTlvSN"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20L5kA6Y005173;
- Fri, 21 Jan 2022 10:55:12 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- references : in-reply-to : subject : date : message-id : mime-version :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=ylGyq7sLup9Rxfkgq+dfRN9ellYolkMaBQNzruHzou0=;
- b=ACsTlvSNjKR90Kk1SQZHW/kmzdoABEADjJu5bnXEc7B1k+9ms3TufB1J2GMYZIpe3j5x
- JvKVEpjZROpRbk3LOJV7xwJaqP36Kvw+9lwaW/yQSh2yVtjisyMagGF8PUujSrZVVFTY
- TYoqg3t4hR/LfCxP4m3kUJRaJMFlwm2BVLCXTkfz3KvTgvYye/7X2GmOYFBDXMfAJV0G
- vs0TyI2+zOWZaHxcBx7cdEtSvy4KYAbqc77O9Dqkip3BcOltlaKEZEvTmqk216LsGix/
- VvI2U2ONS/DQpiSJpmJHXTWuuCdBZ9aUlCd9tjW2JDIq+i1ORM7zFqHPy1Ox4Zd8jWVI 8A== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dqhynrv2v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 21 Jan 2022 10:55:11 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 21 Jan
- 2022 16:55:10 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Fri, 21 Jan 2022 16:55:10 +0000
-Received: from LONN2DGDQ73 (unknown [198.90.238.138])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DF69045D;
- Fri, 21 Jan 2022 16:55:09 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: "'Rafael J. Wysocki'" <rafael@kernel.org>
-References: <20220121143254.6432-1-sbinding@opensource.cirrus.com>
- <20220121143254.6432-8-sbinding@opensource.cirrus.com>
- <CAJZ5v0gK=-SXUDekg_2DtOuMsn6Ls4gS+nymei2Qa9ZEFvqGcA@mail.gmail.com>
-In-Reply-To: <CAJZ5v0gK=-SXUDekg_2DtOuMsn6Ls4gS+nymei2Qa9ZEFvqGcA@mail.gmail.com>
-Subject: RE: [PATCH v5 7/9] platform/x86: serial-multi-instantiate: Add SPI
- support
-Date: Fri, 21 Jan 2022 16:55:10 +0000
-Message-ID: <019901d80ee7$a6bf2a90$f43d7fb0$@opensource.cirrus.com>
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by alsa1.perex.cz (Postfix) with ESMTP id 718F1F800F8
+ for <alsa-devel@alsa-project.org>; Fri, 21 Jan 2022 18:10:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 718F1F800F8
+Received: from localhost.localdomain (unknown [124.16.138.126])
+ by APP-01 (Coremail) with SMTP id qwCowAB3fZ0I6ephkjS6Bg--.24303S2;
+ Sat, 22 Jan 2022 01:10:32 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: broonie@kernel.org
+Subject: [PATCH v3] ASoC: codecs: Check for error pointer after calling
+ devm_regmap_init_mmio
+Date: Sat, 22 Jan 2022 01:10:31 +0800
+Message-Id: <20220121171031.2826198-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQIyNEEjz2y1WYLj0c4G0/lJ4TX/RgKST2RJAeKXLR6rlb3VEA==
-Content-Language: en-gb
-X-Proofpoint-ORIG-GUID: qRemX4_MgGf_MJQAQwN1TSlciwQ0ymrl
-X-Proofpoint-GUID: qRemX4_MgGf_MJQAQwN1TSlciwQ0ymrl
-X-Proofpoint-Spam-Reason: safe
-Cc: 'Platform Driver' <platform-driver-x86@vger.kernel.org>, "'moderated
- list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM...'"
- <alsa-devel@alsa-project.org>,
- 'ACPI Devel Maling List' <linux-acpi@vger.kernel.org>,
- 'Linux Kernel Mailing List' <linux-kernel@vger.kernel.org>,
- 'Takashi Iwai' <tiwai@suse.com>, 'Mark Gross' <markgross@kernel.org>,
- 'Hans de Goede' <hdegoede@redhat.com>, 'Mark Brown' <broonie@kernel.org>,
- patches@opensource.cirrus.com, 'linux-spi' <linux-spi@vger.kernel.org>,
- 'Len Brown' <lenb@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowAB3fZ0I6ephkjS6Bg--.24303S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr43GFW5KFy8urWDJF15twb_yoW8Kw13pF
+ sYgFWkGasxG3y3Cryftw18JF1xta4293WrXw48G3s09r1DXF1UuFy5CF4UXFWkKrWv9FZx
+ GrWSy3y8u345ZFUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+ 4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+ Yx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbV
+ WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+ xVA2Y2ka0xkIwI1lc2xSY4AK67AK6r4l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+ v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+ 1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+ AIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0D
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvf
+ C2KfnxnUUI43ZEXa7VUjo7K7UUUUU==
+X-Originating-IP: [124.16.138.126]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Cc: cezary.rojewski@intel.com, bgoswami@codeaurora.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>, tiwai@suse.com, lgirdwood@gmail.com,
+ srinivas.kandagatla@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,89 +83,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Since the potential failure of the devm_regmap_init_mmio(), it will
+return error pointer and be assigned to the regmap.
+Then the error pointer will be dereferenced.
+For example rx->regmap will be used in rx_macro_mclk_enable().
+Therefore, it should be better to check it.
 
-> -----Original Message-----
-> From: Rafael J. Wysocki <rafael@kernel.org>
-> Sent: 21 January 2022 15:31
-> To: Stefan Binding <sbinding@opensource.cirrus.com>
-> Cc: Mark Brown <broonie@kernel.org>; Rafael J . Wysocki
-> <rafael@kernel.org>; Len Brown <lenb@kernel.org>; Hans de Goede
-> <hdegoede@redhat.com>; Mark Gross <markgross@kernel.org>; Jaroslav
-> Kysela <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; moderated
-> list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM... <alsa-
-> devel@alsa-project.org>; Linux Kernel Mailing List <linux-
-> kernel@vger.kernel.org>; linux-spi <linux-spi@vger.kernel.org>; ACPI =
-Devel
-> Maling List <linux-acpi@vger.kernel.org>; Platform Driver =
-<platform-driver-
-> x86@vger.kernel.org>; patches@opensource.cirrus.com
-> Subject: Re: [PATCH v5 7/9] platform/x86: serial-multi-instantiate: =
-Add SPI
-> support
->=20
+Fixes: af3d54b99764 ("ASoC: codecs: lpass-rx-macro: add support for lpass rx macro")
+Fixes: c39667ddcfc5 ("ASoC: codecs: lpass-tx-macro: add support for lpass tx macro")
+Fixes: 809bcbcecebf ("ASoC: codecs: lpass-wsa-macro: Add support to WSA Macro")
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+---
+Changelog
 
+v1 -> v2
 
-> > diff --git a/drivers/platform/x86/Kconfig =
-b/drivers/platform/x86/Kconfig
-> > index 5b65d687f046..28f5bbf0f27a 100644
-> > --- a/drivers/platform/x86/Kconfig
-> > +++ b/drivers/platform/x86/Kconfig
-> > @@ -991,12 +991,12 @@ config TOPSTAR_LAPTOP
-> >           If you have a Topstar laptop, say Y or M here.
-> >
-> >  config SERIAL_MULTI_INSTANTIATE
-> > -       tristate "I2C multi instantiate pseudo device driver"
-> > -       depends on I2C && ACPI
-> > +       tristate "I2C and SPI multi instantiate pseudo device =
-driver"
-> > +       depends on I2C && SPI && ACPI
->=20
-> Should this be (I2C || SPI) && ACPI ?
+* Change 1. Refine the commit message.
 
-We made it dependent on both I2C and SPI because of how interconnected =
-the
-serial-multi-instantiate driver is with both SPI and I2C. We felt =
-attempting to make
-the driver compatible with one without the other would end up very =
-complicated.
+v2 -> v3
 
-> > @@ -146,7 +247,21 @@ static int smi_probe(struct platform_device =
-*pdev)
-> >
-> >         platform_set_drvdata(pdev, smi);
-> >
-> > -       return smi_i2c_probe(pdev, adev, smi, inst_array);
-> > +       switch (node->bus_type) {
-> > +       case SMI_I2C:
-> > +               return smi_i2c_probe(pdev, adev, smi, =
-node->instances);
-> > +       case SMI_SPI:
-> > +               return smi_spi_probe(pdev, adev, smi, =
-node->instances);
-> > +       case SMI_AUTO_DETECT:
-> > +               if (i2c_acpi_client_count(adev) > 0)
-> > +                       return smi_i2c_probe(pdev, adev, smi, =
-node->instances);
-> > +               else
-> > +                       return smi_spi_probe(pdev, adev, smi, =
-node->instances);
-> > +       default:
-> > +               break;
->=20
-> Why is this needed?
+* Change 1. Make the patch against the latest code.
+---
+ sound/soc/codecs/lpass-rx-macro.c  | 2 ++
+ sound/soc/codecs/lpass-tx-macro.c  | 2 ++
+ sound/soc/codecs/lpass-wsa-macro.c | 2 ++
+ 3 files changed, 6 insertions(+)
 
-This return code is attempting to ensure that we don=E2=80=99t try to =
-guess whether we
-expect devices to be I2C or SPI - especially with regards to existing =
-devices.
-We wanted to maintain compatibility with existing devices, which would =
-all be
-I2C.
-For the device for which we are adding, the same HID is used by both the =
-same
-chip for both I2C and SPI, so we also needed a way to support both.
-
-Thanks,
-Stefan
+diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+index aec5127260fd..29d214f784d1 100644
+--- a/sound/soc/codecs/lpass-rx-macro.c
++++ b/sound/soc/codecs/lpass-rx-macro.c
+@@ -3542,6 +3542,8 @@ static int rx_macro_probe(struct platform_device *pdev)
+ 		return PTR_ERR(base);
+ 
+ 	rx->regmap = devm_regmap_init_mmio(dev, base, &rx_regmap_config);
++	if (IS_ERR(rx->regmap))
++		return PTR_ERR(rx->regmap);
+ 
+ 	dev_set_drvdata(dev, rx);
+ 
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index a4c0a155af56..9c96ab1bf84f 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -1821,6 +1821,8 @@ static int tx_macro_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	tx->regmap = devm_regmap_init_mmio(dev, base, &tx_regmap_config);
++	if (IS_ERR(tx->regmap))
++		return PTR_ERR(tx->regmap);
+ 
+ 	dev_set_drvdata(dev, tx);
+ 
+diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
+index 75baf8eb7029..69d2915f40d8 100644
+--- a/sound/soc/codecs/lpass-wsa-macro.c
++++ b/sound/soc/codecs/lpass-wsa-macro.c
+@@ -2405,6 +2405,8 @@ static int wsa_macro_probe(struct platform_device *pdev)
+ 		return PTR_ERR(base);
+ 
+ 	wsa->regmap = devm_regmap_init_mmio(dev, base, &wsa_regmap_config);
++	if (IS_ERR(wsa->regmap))
++		return PTR_ERR(wsa->regmap);
+ 
+ 	dev_set_drvdata(dev, wsa);
+ 
+-- 
+2.25.1
 

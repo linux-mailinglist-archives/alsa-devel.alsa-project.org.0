@@ -2,90 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57C5B495DB6
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jan 2022 11:24:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C97B495ED4
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jan 2022 13:05:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEFD92BD9;
-	Fri, 21 Jan 2022 11:23:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEFD92BD9
+	by alsa0.perex.cz (Postfix) with ESMTPS id C70632AD0;
+	Fri, 21 Jan 2022 13:04:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C70632AD0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642760653;
-	bh=eFaLVELg5rQdIEHsvU6kItrYqCGqQUVY9BqbGEJpsbc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fE3OaxkPtm2xisVF5DS5OwYsux66bUHaLwHC3yYrpwEeAcVPB5rACv0C7nlrkTYMr
-	 /IQVk/yJ1ZFRXLiyjq4TeyZyjsTzKLUjcg09kF9QPvxTOEjzkvbtMTJbWR3L3eRLN7
-	 giy+M1+6Z91RwkkAzYOX7IpxUefdXLeuFXig7qVc=
+	s=default; t=1642766730;
+	bh=GATGW9nBtPybeEJAEnCnhR6pm2D0a/JJR8I2jpkiVdA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=L38VGulc/m7u3Zfp6aNT+5QAJ53nzpv23GdOLWZkiJOqXoboqd6/CHubrcKa5Dm0P
+	 UXm+7/jxg0MQzD3nPl2gDJTc/rowIlxJm1BwKVDOvrZ/8BclnAGi9ezP1C9ZitM2eA
+	 hdKXBZ2KZQFRLksL6Hr4MojPyZJ+z2Ze7mA953oU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30B26F800F5;
-	Fri, 21 Jan 2022 11:23:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D078F8047C;
+	Fri, 21 Jan 2022 13:04:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11CFCF8028B; Fri, 21 Jan 2022 11:23:07 +0100 (CET)
+ id 24BF3F80430; Fri, 21 Jan 2022 13:04:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3DFBBF800F8
- for <alsa-devel@alsa-project.org>; Fri, 21 Jan 2022 11:22:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DFBBF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73216F800F5
+ for <alsa-devel@alsa-project.org>; Fri, 21 Jan 2022 13:04:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73216F800F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="izZgzTUH"
+ header.b="VYWlH8kn"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20L5THpx009597;
- Fri, 21 Jan 2022 04:22:57 -0600
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20L6W2RJ017662;
+ Fri, 21 Jan 2022 06:04:17 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=1Pj0a8nkcMdoeHViL8o4xa3w7vEvMA0LvSinV0C8EYA=;
- b=izZgzTUHwVdvj389FVYq/1NC+klr/q1vuO84Tni0ADG9NiZZAoYDleCtoZFqe8l8XmmC
- tMpiP8Zw9r8CwCV9x9RrZxWEic0304hScWl6mFqBTTp4CLn/th/ZcJbL5KTcHxWq2rz1
- SMf2dzrnJze1FPQZEcda4duRxFjndWG3hUwrdwjtWNfYdwE7+wAhr+75eebinswACUaF
- oNwMFHVjtI3SaB5gbNF+CEb6Gw9f94ks35tf0r7thSOCY9NN0/kgsnnchwOoJN5QbM4u
- 6Y9TLed9xg2jZQ05+TDoGYyAMM62siviFJqOgGT/sDNZuOxCUrR31stByQh43/CQcfMl zA== 
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=cHTdgJoGxUCkn9pYkep3lJ1ELWZc56siT+B8A9L5DDI=;
+ b=VYWlH8knO4M5yTnUWpfzlSMMoztDVpXae2Hu2bop0EEiQqNaANS2OH01eDOjrX5JWkiI
+ q+VfA85XWZrqTjRaqeaHaMiM0CyTjTFAE7T7Y8uX0lIXTKgJ3Oh21lftarGirN16o1oi
+ q4zfIIY6GGCmjQmTZ7MdnpA0H9ngVr8U6fEI+SSTk0oRrCuTAHJ5xj1gxgzmBNo98zN7
+ ODso9YE+FKVNxkhfOsGk83p3EPoNmTzSIoOmnl0EE55jbjOfmWPuaVRJnIJekn2eJrn2
+ gqROS2mOqtvJb0HjiYCKeFF/FnNSFjmdB3ArHivUQGdpXFN+D5X0k/kBez5tn77IwNyo XQ== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dqhyq0j64-1
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dqhyq0nwc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 21 Jan 2022 04:22:57 -0600
+ Fri, 21 Jan 2022 06:04:17 -0600
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 21 Jan
- 2022 10:22:54 +0000
+ 2022 12:04:14 +0000
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Fri, 21 Jan 2022 10:22:54 +0000
-Received: from [10.0.2.15] (AUSNPC0LSNW1.ad.cirrus.com [198.61.65.33])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B2ECE45D;
- Fri, 21 Jan 2022 10:22:54 +0000 (UTC)
-Subject: Re: [PATCH 3/3] ASoC: cs42l42: Handle system suspend
-To: <broonie@kernel.org>
-References: <20220120175549.671831-1-rf@opensource.cirrus.com>
- <20220120175549.671831-4-rf@opensource.cirrus.com>
+ Frontend Transport; Fri, 21 Jan 2022 12:04:14 +0000
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.65.33])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2373E45D;
+ Fri, 21 Jan 2022 12:04:14 +0000 (UTC)
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
-Message-ID: <49c925e8-b6e9-0dcb-b8ed-7e03d9e2b188@opensource.cirrus.com>
-Date: Fri, 21 Jan 2022 10:22:54 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+To: <broonie@kernel.org>
+Subject: [PATCH v2 0/3] ASOC: cs42l42: Add support for system suspend
+Date: Fri, 21 Jan 2022 12:04:09 +0000
+Message-ID: <20220121120412.672284-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <20220120175549.671831-4-rf@opensource.cirrus.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: pSfwcL6fTdyCuR0StuSbKo4FNNpWhNMI
-X-Proofpoint-ORIG-GUID: pSfwcL6fTdyCuR0StuSbKo4FNNpWhNMI
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: XsTNiSO2CEcw8JrWHXlNdw-zBOZzSyQx
+X-Proofpoint-ORIG-GUID: XsTNiSO2CEcw8JrWHXlNdw-zBOZzSyQx
 X-Proofpoint-Spam-Reason: safe
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,42 +96,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20/01/2022 17:55, Richard Fitzgerald wrote:
+Add system suspend and resume handlers so that the cs42l42 is cleanly
+put into power-off state during system suspend and the registers are
+restored in resume.
 
-> +static int __maybe_unused cs42l42_resume(struct device *dev)
-> +{
-> +	struct cs42l42_private *cs42l42 = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	/*
-> +	 * If jack was unplugged and re-plugged during suspend it could
-> +	 * have changed type but the tip-sense state hasn't changed.
-> +	 * Force a plugged state to be re-evaluated.
-> +	 */
-> +	if (cs42l42->plug_state != CS42L42_TS_UNPLUG)
-> +		cs42l42->plug_state = CS42L42_TS_TRANS;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(cs42l42->supplies), cs42l42->supplies);
-> +	if (ret != 0) {
-> +		dev_err(dev, "Failed to enable supplies: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	gpiod_set_value_cansleep(cs42l42->reset_gpio, 1);
-> +	usleep_range(CS42L42_BOOT_TIME_US, CS42L42_BOOT_TIME_US * 2);
-> +
-> +	regcache_cache_only(cs42l42->regmap, false);
-> +	regcache_mark_dirty(cs42l42->regmap);
-> +
-> +	/* Sync LATCH_TO_VP first so the VP domain registers sync correctly */
-> +	regcache_sync_region(cs42l42->regmap, CS42L42_MIC_DET_CTL1, CS42L42_MIC_DET_CTL1);
-> +	regcache_sync(cs42l42->regmap);
-> +
-> +	cs42l42->suspended = false;
+The first two patches separate out two small changes that can stand
+alone and are needed to enable the system suspend implementation:
 
-This should be taking the irq_mutex around the regcache_sync() so that
-we don't get unhandled interrupts after the interrupts are unmasked
-but before cs42l42->suspended is cleared.
+1) Don't rely on there being a jack unplug IRQ before a plug IRQ.
+There won't be if the unplug and plug happened while in system suspend.
 
-Will push a V2 with this fix.
+2) Put a mutex around the entire IRQ handling so that the suspend can
+ensure the last run of the IRQ handler has completed before it powers
+down.
+
+Changes since V1:
+- Hold irq_lock mutex while restoring registers
+
+Richard Fitzgerald (3):
+  ASoC: cs42l42: Report full jack status when plug is detected
+  ASoC: cs42l42: Change jack_detect_mutex to a lock of all IRQ handling
+  ASoC: cs42l42: Handle system suspend
+
+ sound/soc/codecs/cs42l42.c | 166 ++++++++++++++++++++++++++++++++++++++++++---
+ sound/soc/codecs/cs42l42.h |   7 +-
+ 2 files changed, 163 insertions(+), 10 deletions(-)
+
+-- 
+2.11.0
 

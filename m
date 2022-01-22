@@ -2,87 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10BF0496D7D
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Jan 2022 20:00:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECD25496E07
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Jan 2022 21:52:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 974143C86;
-	Sat, 22 Jan 2022 19:59:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 974143C86
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7089E19E7;
+	Sat, 22 Jan 2022 21:51:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7089E19E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1642878049;
-	bh=zr792UaYvA8Vilw3xKK2ejWgUgsAbAm0MOr7CuaK8qo=;
+	s=default; t=1642884724;
+	bh=N3f1MDv7lI/8mGn8vWYIvGXOxmVFuzotVaxprpMLzW4=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vtReWH2YmQiUlZv1qtir7jT2KZd4EmoPZ/zpsaYQJteLUifessu/UCgx+0BeH7G6Y
-	 oLEoeMWnQZXBoy1u5dT1IBfnUkZiUgYUPDRgJIg44VYw2S5S+SD5xqM+b/iPDFS06m
-	 ipKqBrWZQxb0gtMJL7yyDhxwvzVZd7ICbgPrhODo=
+	b=TuxD1ip2gIh+T6KBkUN2c7HvIl4ZHna+6NFnckw0MTCES39QEdYycgQh/DEOUuhed
+	 B1y43AeMBSlpLZwWpCtpsGfxdvd7piC/Rmfx2K3S3duBhop2pcl5r5wDc/0GvcsZOu
+	 4MvNaQ0W6LDWnH/kHuZCGZVvi9yougY9DsxFcZpc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18A76F8026A;
-	Sat, 22 Jan 2022 19:59:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5AE5F8026A;
+	Sat, 22 Jan 2022 21:50:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8AD6F80107; Sat, 22 Jan 2022 19:59:41 +0100 (CET)
+ id 727C1F8025E; Sat, 22 Jan 2022 21:50:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60E75F80107
- for <alsa-devel@alsa-project.org>; Sat, 22 Jan 2022 19:59:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60E75F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1223AF80107
+ for <alsa-devel@alsa-project.org>; Sat, 22 Jan 2022 21:50:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1223AF80107
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="BrN0iYT7"
-Received: by mail-lf1-x136.google.com with SMTP id u6so9200950lfm.10
- for <alsa-devel@alsa-project.org>; Sat, 22 Jan 2022 10:59:38 -0800 (PST)
+ header.b="eN78gVKx"
+Received: by mail-lj1-x230.google.com with SMTP id v22so5455523ljg.10
+ for <alsa-devel@alsa-project.org>; Sat, 22 Jan 2022 12:50:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=date:from:to:cc:subject:message-id:user-agent:references
  :mime-version:content-disposition:in-reply-to;
- bh=YOgNAV2OE08/vjc+opwUwRLryzOXwD8P47Bv9at/big=;
- b=BrN0iYT7O7Y+6aoWx8nS5WV2HjFhqiY2ZbNcEdgBT6kpshWclEUbVo1GFMvY2WDc3G
- 92KLGpYSmYIz1gWhfOskZa32QAoQKsSm5i+PE20YTzeLkkxWpFsWIRd3vsFnDp9xbKve
- KIz9QY/PIY8YxReA49bW3e4P6vKk3IXFhtDEaGDHZcAoPs0cATbLLp4gubpYZ42xMGGv
- tjNScbvoTRUJxGLD0qsl2m6f/iEQYkW01RHaPDfhAMblA+9809xADzfrSaFPczFx5/ob
- s0jCaF3Np+FHRKqsqaxAWH26VzAGa51haiSLPGQjCW36b2SnV0+3fgOA/eEwZJTUA2J1
- lRgg==
+ bh=TqozJPV1D6gDaO3RkMhPdjT+XwjdXWS8FI4A8iAaD+U=;
+ b=eN78gVKxQ1AD2cAufVLznvI3NH8zMy5lI1KlX3SpB76vOPwj/a8Kg4HwxhKvOPmQNe
+ CWxGQrd+5vhqBDns+rVAeRvP3CdhGLttwj+AYURXoGd+0KxfCq6ALs5Bg1Nv/rFG16I3
+ 5VU6VxYiigGU2GNXRFtyg1iy3JBRH1Po4ZbIDhYuy3QjL16Rs70Zva76m8sgs80HNLLB
+ QLUcrUudXwokKN1Vf6xwhkk2viWp06N6hYtPrQYW82dEgkaMNta/Gbw+wje+KUYa+T5/
+ B6Nc9zHE93DqTZg3fGHdDQ2IR+CdWu2kialefTs/c7t/Y0kh3z1cdR/ln4xyaBmj1TT1
+ Vr3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:user-agent
  :references:mime-version:content-disposition:in-reply-to;
- bh=YOgNAV2OE08/vjc+opwUwRLryzOXwD8P47Bv9at/big=;
- b=nukVgnqHKwAoeNNgRazX7OvrQaucTRBXCL9KgdBLvr5OfV0oEoLScXEV8AiUjHVKBs
- +WRPsB584YKOX+ubQmjcPhju51dHRWZS6I/LcY18Kga9BqEqGt/dlsabzpUmVV3MCAS2
- 73aq3vCzMtwlEfu4WHNyAnTTloL7/vqUALF6OvdLiCUvh9dupISAdSbOiZvpdAbwayxP
- zGeHROjvel5f7lTylTtBQBEOJi9dxrd8ZeGUB4snkjR+XaJ3Win3xLwLwEQm2/E+/PJ1
- bE2fg1vbaRQajbV4WvbbdbsUtmyM67uS1JlabPK3fahNu1xC8J7EPdj1Uh43q2xYpTmZ
- JAeQ==
-X-Gm-Message-State: AOAM532Ev9ClJm4W9wnc+IroCpdQAwawwGtBfl0+ConZbroCcLr+8SR7
- lKKBZW8pBeQc3a4kalUFLpU=
-X-Google-Smtp-Source: ABdhPJxVyiknMrU9F6cc2k0ezCqmOGxAvLdkfUtPO00Wv2a+9zS5aHuwTbjNAwcGhynvmwYfaHFHJw==
-X-Received: by 2002:a05:6512:3fb:: with SMTP id
- n27mr907967lfq.287.1642877977527; 
- Sat, 22 Jan 2022 10:59:37 -0800 (PST)
+ bh=TqozJPV1D6gDaO3RkMhPdjT+XwjdXWS8FI4A8iAaD+U=;
+ b=T+5LhVaB6fG+NhYD3GVnCZFAuLjm2j3b1iDIpAFIfv+ypD79Zgt/zXRbBpjp7DOtnh
+ 67w54OT2fpgbtjRuYWkNMPpVoSnpd30tGimCJt/54ZTalmuMphZALAkiEefe1IoqTGx0
+ ivDyA/X3DQ/VIn/O05EAPGL5IzeByOl8EZygnmIDUp3x9MybVepAa6b8G92Q+qdNIIJh
+ r7PKS4970/gtcGMgLTPs+/TGQZgV5u2AazlEUFXHihoeXBRsF9XoGw+wZEap6M5RI7+m
+ zRpP5gmLnKjaOTMg4EDhU6i0kwo1aAKe2YrzQYdGrVw1Qwcr57z8kcDblXJJf6SlsGfx
+ aiNQ==
+X-Gm-Message-State: AOAM533grrINFJvybuZJtll0oQOiiqD3DSX+RcNbrqOhEktCVdrdzJaG
+ vlIN8hLH3dOhZXJarn+6Nr8=
+X-Google-Smtp-Source: ABdhPJymFVebkr7sX/AHQbDCGqAw97NF1kcWQ/NhCsiXfiCg9pY1AvWa6h0Kol9M+OzRgz05o1PLzw==
+X-Received: by 2002:a05:651c:198e:: with SMTP id
+ bx14mr223136ljb.46.1642884651614; 
+ Sat, 22 Jan 2022 12:50:51 -0800 (PST)
 Received: from localhost.localdomain (ntd06459.static.corbina.ru.
  [95.31.14.149])
- by smtp.gmail.com with ESMTPSA id p16sm497979ljo.89.2022.01.22.10.59.36
+ by smtp.gmail.com with ESMTPSA id cf10sm661509lfb.72.2022.01.22.12.50.50
  (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
- Sat, 22 Jan 2022 10:59:36 -0800 (PST)
-Date: Sat, 22 Jan 2022 22:05:22 +0300
+ Sat, 22 Jan 2022 12:50:51 -0800 (PST)
+Date: Sat, 22 Jan 2022 23:56:37 +0300
 From: Alexander Sergeyev <sergeev917@gmail.com>
 To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-Message-ID: <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
+Message-ID: <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
 User-Agent: mtt
-References: <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
- <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
+References: <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
  <s5h8rvk85uy.wl-tiwai@suse.de>
  <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
  <s5ha6fy46jt.wl-tiwai@suse.de>
@@ -91,10 +90,11 @@ References: <20220112104827.4aymoth7ua65nwge@localhost.localdomain>
  <20220115152215.kprws5nja2i43qax@localhost.localdomain>
  <s5hilugw0l0.wl-tiwai@suse.de>
  <20220119093249.eaxem33bjqjxcher@localhost.localdomain>
+ <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220119093249.eaxem33bjqjxcher@localhost.localdomain>
+In-Reply-To: <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
 Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
  Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
  Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
@@ -115,49 +115,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 19, 2022 at 12:32:51PM +0300, Alexander Sergeyev wrote:
-> No, I mean "IO_PAGE_FAULT" and "out of range cmd" don't appear on every 
-> unbind & bind. Sometimes it works cleanly.
+On Sat, Jan 22, 2022 at 10:05:24PM +0300, Alexander Sergeyev wrote:
+> I'm not sure about kernel log buffering or maybe the device support for 
+> pipelining, but is it okay that alc_update_coefex_idx() seem to overlap?
 
-Unbind & bind generally works without error messages on the first attempt. The 
-second unbind & bind tends to generate io page faults like "AMD-Vi: Event 
-logged [IO_PAGE_FAULT ...]", but might work fine as well.
+Given that the CPU number is the same in alc_update_coefex_idx(), it seems 
+these calls execution is interrupted and interleaved on the same core.
 
-In some cases "snd_hda_codec_realtek: out of range cmd" errors are triggered in 
-addition to io page faults.
+And, actually, there are two LEDs to set (mute and micmute). Am I onto 
+something here?
 
-> This seems to be a bogus COEF. But I have no idea from where this
-> comes. The values look completely wrong.
-
-In such cases unexpected COEF values are coming from COEF reads during 
-read/write pairs that implement update operations.
-
-For example (these traces are from added printk statements):
-
-alc_update_coef_led(codec, led {.idx=0x19, .mask=0x2000, .on=0x2000, .off=0x0}, polarity=0, on=1)
-alc_update_coefex_idx(codec, nid, coef_idx=0x19, mask=0x2000, bits_set=0x2000)
-alc_update_coef_led(codec, led {.idx=0xb, .mask=0x8, .on=0x8, .off=0x0}, polarity=0, on=1)
-alc_update_coefex_idx(codec, nid, coef_idx=0xb, mask=0x8, bits_set=0x8)
-snd_hdac_codec_write(hdac, nid, flags=0, verb=0x500, parm=0x19) = 0x0
-snd_hdac_codec_write(hdac, nid, flags=0, verb=0x500, parm=0xb) = 0x0
-snd_hdac_codec_read(hdac, nid, flags=0, verb=0xc00, parm=0x0) = 0x90170110
-alc_update_coefex_idx: alc_read_coefex_idx(codec, nid, coef_idx=0xb) returned 0x90170110
-alc_update_coefex_idx: calling alc_write_coefex_idx(codec, nid, coef_idx=0xb, coef_val=0x90170118)
-snd_hdac_codec_read(hdac, nid, flags=0, verb=0xc00, parm=0x0) = 0x0
-alc_update_coefex_idx: alc_read_coefex_idx(codec, nid, coef_idx=0x19) returned 0x0
-alc_update_coefex_idx: calling alc_write_coefex_idx(codec, nid, coef_idx=0x19, coef_val=0x2000)
-snd_hdac_codec_write(hdac, nid, flags=0, verb=0x500, parm=0xb) = 0x0
-snd_hda_codec_realtek hdaudioC1D0: out of range cmd 0:20:400:90170118
-snd_hdac_codec_write(hdac, nid, flags=0, verb=0x400, parm=0x90170118) = 0xffffffff
-
-Then I've specifically added printk on alc_update_coefex_idx entry and exit:
-
-[4.036211] alc_update_coefex_idx(codec, nid, coef_idx=0x10, mask=0x200, bits_set=0x0): entering
-[4.036503] alc_update_coefex_idx(codec, nid, coef_idx=0x10, mask=0x200, bits_set=0x0): exiting
-[4.036543] alc_update_coefex_idx(codec, nid, coef_idx=0xb, mask=0x8, bits_set=0x0): entering
-[4.036546] alc_update_coefex_idx(codec, nid, coef_idx=0x19, mask=0x2000, bits_set=0x0): entering
-[4.037139] alc_update_coefex_idx(codec, nid, coef_idx=0xb, mask=0x8, bits_set=0x0): exiting
-[4.037609] alc_update_coefex_idx(codec, nid, coef_idx=0x19, mask=0x2000, bits_set=0x0): exiting
-
-I'm not sure about kernel log buffering or maybe the device support for 
-pipelining, but is it okay that alc_update_coefex_idx() seem to overlap?
+[4.043235] alc_update_coefex_idx(codec, nid, coef_idx=0xb, mask=0x8, bits_set=0x0): entering
+[4.043237] CPU: 0 PID: 18 Comm: kworker/0:1 Tainted: G                T 5.16.0-rc1-00001-g5c38c8c84e47-dirty #18
+[4.043910] Hardware name: HP HP EliteBook 855 G8 Notebook PC/8895, BIOS T82 Ver. 01.06.03 09/17/2021
+[4.044559] Workqueue: events set_brightness_delayed
+[4.044559] Call Trace:
+[4.044559]  <TASK>
+[4.046289]  dump_stack_lvl+0x34/0x4c
+[4.046289]  alc_update_coefex_idx+0x34/0x7a
+[4.046289]  coef_mute_led_set+0x48/0x56
+[4.046289]  set_brightness_delayed+0x6f/0xb0
+[4.046289]  process_one_work+0x1e1/0x380
+[4.046289]  worker_thread+0x4e/0x3b0
+[4.046289]  ? rescuer_thread+0x370/0x370
+[4.046289]  kthread+0x145/0x170
+[4.046289]  ? set_kthread_struct+0x50/0x50
+[4.046289]  ret_from_fork+0x22/0x30
+[4.046289]  </TASK>
+[4.052793] alc_update_coefex_idx(codec, nid, coef_idx=0x19, mask=0x2000, bits_set=0x0): entering
+[4.052794] CPU: 0 PID: 171 Comm: kworker/0:2 Tainted: G                T 5.16.0-rc1-00001-g5c38c8c84e47-dirty #18
+[4.053363] Hardware name: HP HP EliteBook 855 G8 Notebook PC/8895, BIOS T82 Ver. 01.06.03 09/17/2021
+[4.053364] Workqueue: events set_brightness_delayed
+[4.053366] Call Trace:
+[4.053366]  <TASK>
+[4.053367]  dump_stack_lvl+0x34/0x4c
+[4.053790]  alc_update_coefex_idx+0x34/0x7a
+[4.053790]  coef_micmute_led_set+0x48/0x56
+[4.053790]  set_brightness_delayed+0x6f/0xb0
+[4.053790]  process_one_work+0x1e1/0x380
+[4.053790]  worker_thread+0x4e/0x3b0
+[4.053790]  ? rescuer_thread+0x370/0x370
+[4.053790]  kthread+0x145/0x170
+[4.053790]  ? set_kthread_struct+0x50/0x50
+[4.053790]  ret_from_fork+0x22/0x30
+[4.053790]  </TASK>

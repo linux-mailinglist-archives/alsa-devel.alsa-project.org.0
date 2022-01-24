@@ -2,82 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4278D49835E
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 16:15:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17B0A4983A0
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 16:35:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B53F72875;
-	Mon, 24 Jan 2022 16:14:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B53F72875
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEC4C28B9;
+	Mon, 24 Jan 2022 16:34:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEC4C28B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643037339;
-	bh=gSh+ppXT8OgdNzTtGtJNoVLqbm1WPjb1DsXzaMFqlZw=;
+	s=default; t=1643038505;
+	bh=B78GEVXEZCdf9SrbgpzHbe0Ya2IRFMpiKwTAyuYNcUc=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=KPp1BNVsfA2lSWUjs4ukn4yRjU3cgcyvM/8fUXnMBNrn5YDpnAWeP2/uEA0iwNoCy
-	 feLhiDtygxXCHEFewNhAGrnePwP01b5qroVX4CEo10y7JDZJ+gMlV+wQb8QBUXANZ7
-	 kwOg7GNeSXd78GiiT+cMT/F54/KYiHXmUojx6pgY=
+	b=Y3advwjp2yojjOguaP8JpzHhUzabkF3d4F5LhwAoffD92+uKEoOl2Jt0pKiUzTFuw
+	 oE7Uxe3h6RRfpU6jl2JkWSONq6/il0g7oBmi6Wppb5F6qdfG2BXew89RXrwFquIIXu
+	 wzd7OUH9eSQj/xl6SRlG/XF1vUPhTBSgyVwevDp0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 215E1F802BE;
-	Mon, 24 Jan 2022 16:14:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2ADCEF802BE;
+	Mon, 24 Jan 2022 16:34:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7725F8027C; Mon, 24 Jan 2022 16:14:32 +0100 (CET)
+ id C12F6F8027C; Mon, 24 Jan 2022 16:33:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9777F80083
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 16:14:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9777F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D66EF80161
+ for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 16:33:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D66EF80161
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="inWT6lgA"
+ header.b="NvwRRXhZ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4F9A661464;
- Mon, 24 Jan 2022 15:14:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8EDC340E5;
- Mon, 24 Jan 2022 15:14:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 561EE6148B;
+ Mon, 24 Jan 2022 15:33:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1EFAC340E1;
+ Mon, 24 Jan 2022 15:33:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643037264;
- bh=gSh+ppXT8OgdNzTtGtJNoVLqbm1WPjb1DsXzaMFqlZw=;
+ s=k20201202; t=1643038431;
+ bh=B78GEVXEZCdf9SrbgpzHbe0Ya2IRFMpiKwTAyuYNcUc=;
  h=From:To:Cc:Subject:Date:From;
- b=inWT6lgAZyJS9lALzbl+/q/bvDVOnE2xiSkLTTl9+3jr3gqPbpxAcYwG/fyBdFnjK
- oO9Z6HJHgsRPuSUUdLw74uD+SKcN7PvxHC9qpt35Dt1POwaqljLZjEo97heRDd27Zq
- uCVnRAyWQn9dYViqqnO6crC4lFw4dtzGEUs7a6TF1lpSAnmwN3EOWpt9xfn+fRhcTL
- s+xtXqu78dKJ7lj6YmFLzUm1EOltnbeD8N3FIvj+X0xX2FaI8bkDFd+EgA0B1orDpI
- ng45K6dwuaGhMCfZBvkQIC0aa6Ret0G6ckpnP1PWqyyK6Pd/32WzRZYO8BnLJ72Vy/
- 6HE9AXYTXVnBA==
+ b=NvwRRXhZtOcfs7M5Z6n4Lnc6hn+WAAodjldZ2d7x1KEdSJCtkkbt2kUHd75NfG/r3
+ dupcNc4B97QbC+4fZCoPIbtcS5/wo8CkglZh5ML33qCGI52BOwXXo5lqbrrDza+L/t
+ 35IW49vBNCZ5Rk8eSDwxhEAmS6z2T/6xq/7pVPj5MYJrvVHbiek74q8KjCs4qpigzN
+ poPrSkNdFuwzXTA+T8HcUk5yTDfaUjvSc4f/INl4i/XrgPAbH7fdSn6P3otFxDvnlo
+ uo8INOyuBI5fMZA54YoMWex/3MYZJ2+4Au4RXaUBErM/Eg/iXZ3QCa+L06GP0Ctdbw
+ VCsp0ZkjxbFTg==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Subject: [PATCH] kselftest: alsa: Add test case for writing invalid values
-Date: Mon, 24 Jan 2022 15:14:10 +0000
-Message-Id: <20220124151410.2715572-1-broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH v1 0/3] ASoC: Add bounds checking for written values
+Date: Mon, 24 Jan 2022 15:32:50 +0000
+Message-Id: <20220124153253.3548853-1-broonie@kernel.org>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7477; h=from:subject;
- bh=gSh+ppXT8OgdNzTtGtJNoVLqbm1WPjb1DsXzaMFqlZw=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBh7sFpEatmip+S1fQ8LqsKlXS2EQvqhJsFjQWEOWUX
- lQtYjaKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYe7BaQAKCRAk1otyXVSH0JqVB/
- wNK2h30z3VFIOmb+niZMJQNoMkRrufjNmFilOaunfc3iOkLEfG3M2F/F5F2iVznwHzZ4L/C5etMoPK
- VgjxIMPPgSHCaTgL+UbO71cNS7FL6qBc71ELZI74lDX/3gxsMaUXBvT/1pDb5ws2hycRc8OybS0OmB
- fpGngFuhKosV1WGSO828U+KpZrHiM/ui5kXonpxTtLGEwTHSj8zRgRXPeRtQ/6jStmsxSLzx28L/ni
- v59+xmCOOZ86l9K9FZsctpwisFt8mgvqJzVCPerYxVEN2I2gnMALe6IZJgYzgFUhAR777yMaBLWoWB
- D64WOGDfTAwqNJqONPlNjWlBi74fHT
+X-Developer-Signature: v=1; a=openpgp-sha256; l=531; h=from:subject;
+ bh=B78GEVXEZCdf9SrbgpzHbe0Ya2IRFMpiKwTAyuYNcUc=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBh7saiBnHAmjStxv/bGpjyE4viHY4/6J86BYjlmv5b
+ 2UlSGRyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYe7GogAKCRAk1otyXVSH0CFfB/
+ 99Qk8+DjGuq8a1BDLdokzpLEURSxnwtJxNSvHMTyCM316rWBMT7sDvtQ67aPMqgep2wfZoOOXTV+4i
+ YNbQh8XOOi961EKo4zS+YR/k7b/sA4RjJvGMdNsXOthUcisl8CLb82jqx0p8OZknfHs4v61/VnZhMo
+ NxfhJWPI3H3VnSbg/k7gImZRRZBxc24I/Nr2y0V/6RS4ykphP1GwxNw/95sltsiA+c2l4saU5+ZQov
+ v4SgC+6n9n2oGH+JszVfZWQU2ZkntK0WCPcIAWrTufxrqsre/sAsLo0YZgVQKdjq7Ea60pjF7smpNv
+ /8L2AMq5LznI2teaOjWm7dq6e6YUBS
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-kselftest@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,273 +90,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Attempt to write various invalid values for control types we know about and
-check that something sensible happens. The ABI isn't quite as clearly
-defined as one might like, rather than generating an error when an invalid
-value is written many devices will silently rewrite the value into one that
-is valid for the control. The exact value chosen is not predictable so in
-the case the write succeeds we just check that the value we read back is
-one that is valid for the control.
+This series adds verification that values written to registers are in
+bounds for controls since the core doesn't validate for us.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- tools/testing/selftests/alsa/mixer-test.c | 222 +++++++++++++++++++++-
- 1 file changed, 221 insertions(+), 1 deletion(-)
+Mark Brown (3):
+  ASoC: ops: Reject out of bounds values in snd_soc_put_volsw()
+  ASoC: ops: Reject out of bounds values in snd_soc_put_volsw_sx()
+  ASoC: ops: Reject out of bounds values in snd_soc_put_xr_sx()
 
-diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
-index 17f158d7a767..15e05b241468 100644
---- a/tools/testing/selftests/alsa/mixer-test.c
-+++ b/tools/testing/selftests/alsa/mixer-test.c
-@@ -13,6 +13,7 @@
- #include <stdio.h>
- #include <stdlib.h>
- #include <stdbool.h>
-+#include <limits.h>
- #include <string.h>
- #include <getopt.h>
- #include <stdarg.h>
-@@ -26,7 +27,7 @@
- 
- #include "../kselftest.h"
- 
--#define TESTS_PER_CONTROL 3
-+#define TESTS_PER_CONTROL 4
- 
- struct card_data {
- 	snd_ctl_t *handle;
-@@ -679,6 +680,224 @@ void test_ctl_write_valid(struct ctl_data *ctl)
- 			 ctl->card->card, ctl->elem);
- }
- 
-+bool test_ctl_write_invalid_value(struct ctl_data *ctl,
-+				  snd_ctl_elem_value_t *val)
-+{
-+	int err;
-+	long val_read;
-+
-+	/* Ideally this will fail... */
-+	err = snd_ctl_elem_write(ctl->card->handle, val);
-+	if (err < 0)
-+		return false;
-+
-+	/* ...but some devices will clamp to an in range value */
-+	err = snd_ctl_elem_read(ctl->card->handle, val);
-+	if (err < 0) {
-+		ksft_print_msg("%s failed to read: %s\n",
-+			       ctl->name, snd_strerror(err));
-+		return true;
-+	}
-+
-+	return !ctl_value_valid(ctl, val);
-+}
-+
-+bool test_ctl_write_invalid_boolean(struct ctl_data *ctl)
-+{
-+	int err, i;
-+	long val_read;
-+	bool fail = false;
-+	snd_ctl_elem_value_t *val;
-+	snd_ctl_elem_value_alloca(&val);
-+
-+	for (i = 0; i < snd_ctl_elem_info_get_count(ctl->info); i++) {
-+		snd_ctl_elem_value_copy(val, ctl->def_val);
-+		snd_ctl_elem_value_set_boolean(val, i, 2);
-+
-+		if (test_ctl_write_invalid_value(ctl, val))
-+			fail = true;
-+	}
-+
-+	return !fail;
-+}
-+
-+bool test_ctl_write_invalid_integer(struct ctl_data *ctl)
-+{
-+	int i;
-+	bool fail = false;
-+	snd_ctl_elem_value_t *val;
-+	snd_ctl_elem_value_alloca(&val);
-+
-+	for (i = 0; i < snd_ctl_elem_info_get_count(ctl->info); i++) {
-+		if (snd_ctl_elem_info_get_min(ctl->info) != LONG_MIN) {
-+			/* Just under range */
-+			snd_ctl_elem_value_copy(val, ctl->def_val);
-+			snd_ctl_elem_value_set_integer(val, i,
-+			       snd_ctl_elem_info_get_min(ctl->info) - 1);
-+
-+			if (test_ctl_write_invalid_value(ctl, val))
-+				fail = true;
-+
-+			/* Minimum representable value */
-+			snd_ctl_elem_value_copy(val, ctl->def_val);
-+			snd_ctl_elem_value_set_integer(val, i, LONG_MIN);
-+
-+			if (test_ctl_write_invalid_value(ctl, val))
-+				fail = true;
-+		}
-+
-+		if (snd_ctl_elem_info_get_max(ctl->info) != LONG_MAX) {
-+			/* Just over range */
-+			snd_ctl_elem_value_copy(val, ctl->def_val);
-+			snd_ctl_elem_value_set_integer(val, i,
-+			       snd_ctl_elem_info_get_max(ctl->info) + 1);
-+
-+			if (test_ctl_write_invalid_value(ctl, val))
-+				fail = true;
-+
-+			/* Maximum representable value */
-+			snd_ctl_elem_value_copy(val, ctl->def_val);
-+			snd_ctl_elem_value_set_integer(val, i, LONG_MAX);
-+
-+			if (test_ctl_write_invalid_value(ctl, val))
-+				fail = true;
-+		}
-+	}
-+
-+	return !fail;
-+}
-+
-+bool test_ctl_write_invalid_integer64(struct ctl_data *ctl)
-+{
-+	int i;
-+	bool fail = false;
-+	snd_ctl_elem_value_t *val;
-+	snd_ctl_elem_value_alloca(&val);
-+
-+	for (i = 0; i < snd_ctl_elem_info_get_count(ctl->info); i++) {
-+		if (snd_ctl_elem_info_get_min64(ctl->info) != LLONG_MIN) {
-+			/* Just under range */
-+			snd_ctl_elem_value_copy(val, ctl->def_val);
-+			snd_ctl_elem_value_set_integer64(val, i,
-+				snd_ctl_elem_info_get_min64(ctl->info) - 1);
-+
-+			if (test_ctl_write_invalid_value(ctl, val))
-+				fail = true;
-+
-+			/* Minimum representable value */
-+			snd_ctl_elem_value_copy(val, ctl->def_val);
-+			snd_ctl_elem_value_set_integer(val, i, LLONG_MIN);
-+
-+			if (test_ctl_write_invalid_value(ctl, val))
-+				fail = true;
-+		}
-+
-+		if (snd_ctl_elem_info_get_max64(ctl->info) != LLONG_MAX) {
-+			/* Just over range */
-+			snd_ctl_elem_value_copy(val, ctl->def_val);
-+			snd_ctl_elem_value_set_integer64(val, i,
-+				snd_ctl_elem_info_get_max64(ctl->info) + 1);
-+
-+			if (test_ctl_write_invalid_value(ctl, val))
-+				fail = true;
-+
-+			/* Maximum representable value */
-+			snd_ctl_elem_value_copy(val, ctl->def_val);
-+			snd_ctl_elem_value_set_integer(val, i, LLONG_MAX);
-+
-+			if (test_ctl_write_invalid_value(ctl, val))
-+				fail = true;
-+		}
-+	}
-+
-+	return !fail;
-+}
-+
-+bool test_ctl_write_invalid_enumerated(struct ctl_data *ctl)
-+{
-+	int err, i;
-+	unsigned int val_read;
-+	bool fail = false;
-+	snd_ctl_elem_value_t *val;
-+	snd_ctl_elem_value_alloca(&val);
-+
-+	snd_ctl_elem_value_set_id(val, ctl->id);
-+
-+	for (i = 0; i < snd_ctl_elem_info_get_count(ctl->info); i++) {
-+		/* One beyond maximum */
-+		snd_ctl_elem_value_copy(val, ctl->def_val);
-+		snd_ctl_elem_value_set_enumerated(val, i,
-+				  snd_ctl_elem_info_get_items(ctl->info));
-+
-+		if (test_ctl_write_invalid_value(ctl, val))
-+			fail = true;
-+
-+		/* Maximum representable value */
-+		snd_ctl_elem_value_copy(val, ctl->def_val);
-+		snd_ctl_elem_value_set_enumerated(val, i, UINT_MAX);
-+
-+		if (test_ctl_write_invalid_value(ctl, val))
-+			fail = true;
-+
-+	}
-+
-+	return !fail;
-+}
-+
-+
-+void test_ctl_write_invalid(struct ctl_data *ctl)
-+{
-+	bool pass;
-+	int err;
-+
-+	/* If the control is turned off let's be polite */
-+	if (snd_ctl_elem_info_is_inactive(ctl->info)) {
-+		ksft_print_msg("%s is inactive\n", ctl->name);
-+		ksft_test_result_skip("write_invalid.%d.%d\n",
-+				      ctl->card->card, ctl->elem);
-+		return;
-+	}
-+
-+	if (!snd_ctl_elem_info_is_writable(ctl->info)) {
-+		ksft_print_msg("%s is not writeable\n", ctl->name);
-+		ksft_test_result_skip("write_invalid.%d.%d\n",
-+				      ctl->card->card, ctl->elem);
-+		return;
-+	}
-+
-+	switch (snd_ctl_elem_info_get_type(ctl->info)) {
-+	case SND_CTL_ELEM_TYPE_BOOLEAN:
-+		pass = test_ctl_write_invalid_boolean(ctl);
-+		break;
-+
-+	case SND_CTL_ELEM_TYPE_INTEGER:
-+		pass = test_ctl_write_invalid_integer(ctl);
-+		break;
-+
-+	case SND_CTL_ELEM_TYPE_INTEGER64:
-+		pass = test_ctl_write_invalid_integer64(ctl);
-+		break;
-+
-+	case SND_CTL_ELEM_TYPE_ENUMERATED:
-+		pass = test_ctl_write_invalid_enumerated(ctl);
-+		break;
-+
-+	default:
-+		/* No tests for this yet */
-+		ksft_test_result_skip("write_invalid.%d.%d\n",
-+				      ctl->card->card, ctl->elem);
-+		return;
-+	}
-+
-+	/* Restore the default value to minimise disruption */
-+	err = write_and_verify(ctl, ctl->def_val, NULL);
-+	if (err < 0)
-+		pass = false;
-+
-+	ksft_test_result(pass, "write_invalid.%d.%d\n",
-+			 ctl->card->card, ctl->elem);
-+}
-+
- int main(void)
- {
- 	struct ctl_data *ctl;
-@@ -697,6 +916,7 @@ int main(void)
- 		test_ctl_get_value(ctl);
- 		test_ctl_write_default(ctl);
- 		test_ctl_write_valid(ctl);
-+		test_ctl_write_invalid(ctl);
- 	}
- 
- 	ksft_exit_pass();
+ sound/soc/soc-ops.c | 29 ++++++++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 3 deletions(-)
+
+
+base-commit: e783362eb54cd99b2cac8b3a9aeac942e6f6ac07
 -- 
 2.30.2
 

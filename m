@@ -2,81 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F09549931C
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 21:33:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65514994B1
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 21:53:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A26AD23BC;
-	Mon, 24 Jan 2022 21:32:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A26AD23BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 562E7284F;
+	Mon, 24 Jan 2022 21:52:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 562E7284F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643056409;
-	bh=EcSc5NGWQWYVTuB7MnoRf3rQ2LAOnZ2MYQlWCYRDxV0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1643057599;
+	bh=+DNGFlxJpec0prr/HhvnV79CA38jd9Qx/NRP3w8irSk=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lDUKn1686nt/5FnCCY/qJh8ngFJdAh3WU5lA/IgJejte2K9+tzbyK/T2a6pLydPY5
-	 ntolX0hToIGR5SO25zlfbyYEyJBgRH2tsmQHWhjqdTG9yhj7B9BXOzP9QoFA6KCnJA
-	 6NJhc1YzNU6OSnAt15qAIx1v59IrkhzuNXcTtZh8=
+	b=U3Bp/jA2z3U090kDhq/xe7jVZ19lqQyEqK6pSmcFGoBA9Mhj2HXh5zNFINq6y44D7
+	 ksQ117z2ICbpU3IhOo+IE/+n8ohyrt8nXwrfGFDEGuF3nbkyMvQADLwuIQ0kxOr2Bq
+	 v88ryqsH2xKoflG66PI+pEc4aj98Uis18bmu6qFo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BD15F802BE;
-	Mon, 24 Jan 2022 21:32:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D134DF802BE;
+	Mon, 24 Jan 2022 21:52:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A923DF8027C; Mon, 24 Jan 2022 21:32:21 +0100 (CET)
+ id 13CE7F8027C; Mon, 24 Jan 2022 21:52:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0385EF80161
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 21:32:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0385EF80161
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Mi6gIXyr"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CAEBC61595
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 20:32:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D080C340EB
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 20:32:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643056329;
- bh=EcSc5NGWQWYVTuB7MnoRf3rQ2LAOnZ2MYQlWCYRDxV0=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=Mi6gIXyr/tKOn8rTTMqwC2IFZMFu3q7Jf2dhA+dYuOZmtpv9SY4EsrPVBiimrJ2ml
- QtUY6gVvWqrsPU6CyiX27p9eK7YhbmPtlFJyCxYOIsN5cobstj32OJhBjeA42lmTX4
- EeW5FqUXvc/sK1GWdiJiD/hgwxto2EPNLyhXUD1kMJRvCrOeXSK2m9IDxlQ/IIJFtK
- XqmnpliOD3ZCsoHNywC2pEqyY2TioUwNlG4w0zlFTu0LrT5Jr6A8f/LyQ1AMGQSba9
- /AdrRN1RrsWfDEVGITTMcJiFH6Kk0cSBzyg/2u8Pbvlofo6kt+B5qph/vNx/cQ3yv7
- WVuYV9qk85D+A==
-Received: by mail-qt1-f174.google.com with SMTP id o3so1537923qtm.12
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 12:32:09 -0800 (PST)
-X-Gm-Message-State: AOAM533B0FGNsoZ68NZgK4fdpjDg7BxZYOkHH5Vl53Ox1ARzW4FM0EmQ
- BOcs9nSyKuoEzPq6dh6/vZ2evEgKps4JsemMaA==
-X-Google-Smtp-Source: ABdhPJxhfE3hNbKeQnW9wjko8Ek4KGnAVOUwl4hpmRLOwvce8D+R+2d0iKBHLgo1PXB3c+kB2arYv9PAoJ1m15VdEl8=
-X-Received: by 2002:ac8:580b:: with SMTP id g11mr14053696qtg.478.1643056328171; 
- Mon, 24 Jan 2022 12:32:08 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFE65F80161
+ for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 21:52:02 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5466DA0040;
+ Mon, 24 Jan 2022 21:52:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5466DA0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1643057521; bh=Bdb2/K1KILOJF111ixqo07LXtR51VlXcC6nOaMq5wTI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Ro/R2pILaiqtQ6YqNXIY3YuNix7LqqFrSvJ0UdDl9P3VcGZ9Uw1zxMCl6x8jPqWbB
+ PaK+f9kpIF5h6Lk5cStkb/9APASNIp0f+aXdZ+XFORdwWWUWT8aogdtypOJV/QptGW
+ hK/7hmVaatFAlLI5lKaY3V1FdoZeWkUKDjXf7fd8=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 24 Jan 2022 21:51:57 +0100 (CET)
+Message-ID: <b2261da9-e2ab-eede-9a08-d084f7ee7e4f@perex.cz>
+Date: Mon, 24 Jan 2022 21:51:56 +0100
 MIME-Version: 1.0
-References: <20220119015038.2433585-1-robh@kernel.org>
- <CA+Eumj4HjM8SPoOUo7_eLBOHFYXTPPPgmx_YDYdEXDyaT67Rrg@mail.gmail.com>
-In-Reply-To: <CA+Eumj4HjM8SPoOUo7_eLBOHFYXTPPPgmx_YDYdEXDyaT67Rrg@mail.gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 24 Jan 2022 14:31:56 -0600
-X-Gmail-Original-Message-ID: <CAL_Jsq+jg=2svsVsNY_kd8vQ+b9mM77t8ua8omCRT5rHRFcrUw@mail.gmail.com>
-Message-ID: <CAL_Jsq+jg=2svsVsNY_kd8vQ+b9mM77t8ua8omCRT5rHRFcrUw@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Improve phandle-array schemas
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Subject: Re: [PATCH v1 0/3] ASoC: Add bounds checking for written values
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+References: <20220124153253.3548853-1-broonie@kernel.org>
+ <9eecf478-b705-7273-7553-24bafaec5404@perex.cz>
+ <Ye7ZXvIK3sVkvzQJ@sirena.org.uk> <s5hzgnloycd.wl-tiwai@suse.de>
+ <b4f715f5-7a52-f433-e11d-53b23ed3f3ad@perex.cz>
+ <Ye8JCQdN0hfgr/Z8@sirena.org.uk>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <Ye8JCQdN0hfgr/Z8@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,52 +85,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jan 24, 2022 at 10:55 AM Krzysztof Kozlowski
-<krzysztof.kozlowski@canonical.com> wrote:
->
-> On Wed, 19 Jan 2022 at 02:50, Rob Herring <robh@kernel.org> wrote:
-> >
-> > The 'phandle-array' type is a bit ambiguous. It can be either just an
-> > array of phandles or an array of phandles plus args. Many schemas for
-> > phandle-array properties aren't clear in the schema which case applies
-> > though the description usually describes it.
-> >
->
-> Hi Rob,
->
-> I have few questions below.
->
-> (...)
->
-> > diff --git a/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
-> > index 095775c598fa..3a4df2ce1728 100644
-> > --- a/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
-> > +++ b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
-> > @@ -21,8 +21,7 @@ properties:
-> >      type: object
-> >      properties:
-> >        sound-dai:
-> > -        $ref: /schemas/types.yaml#/definitions/phandle-array
-> > -        maxItems: 1
-> > +        $ref: /schemas/types.yaml#/definitions/phandle
-> >          description: phandle to the I2S controller
-> >      required:
-> >        - sound-dai
->
-> This passes the example only because the example was simplified to
-> hide dtschema errors.
->
-> The cpu dai node is like:
-> cpu {
->     sound-dai = <&i2s0 0>;
-> };
->
-> and this fails with errors missing phandle tag in 0.
->
-> I am converting rest of Samsung audio bindings to dtschema and have
-> trouble expressing this. How schema should express such cpu node?
+On 24. 01. 22 21:16, Mark Brown wrote:
+> On Mon, Jan 24, 2022 at 08:20:25PM +0100, Jaroslav Kysela wrote:
+>> On 24. 01. 22 18:08, Takashi Iwai wrote:
+> 
+>>> Jaroslav, is you concern only about the compatibility of user-space?
+>>> Or anything else?  The compatibility is always certainly a slight
+>>> issue; if this breaks really something useful and actually working
+>>> stuff, we need to consider the workaround...
+> 
+>> My concern is only based on the fact that this code is normally not
+>> reachable. It only costs some CPU ticks and adds extra code to the drivers
+>> without any other benefit. The applications should not use out of range
+>> values and if they do, the behavior is not defined (the drivers should only
+>> avoid crashes).
+> 
+>> The code seems to be added only to make things consistent for the test
+>> applications. I don't think that it's worth to care only for this reason.
+>> What is the goal for this code? The result with the proposed code will be -
+>> the SoC core has the extra validation conditions.
+> 
+> We need these checks all the time for the generic ASoC controls since
+> the values for the controls are stored in the underlying device's
+> register map so the out of range values will be written to the hardware,
+> pushing it out of specified use.  That's not a great idea in general and
+> in extreme cases could result in physical damage to the system.  The
+> biggest risk I see here is around speaker drivers since they deal with
+> high powers, even ignoring silicon requirements we also don't currently
+> enforce platform maximums that the machine drivers specify - that
+> feature was added after an inexperienced user burnt out the speakers in
+> their Chromebook since the speakers in the system were rated for much
+> lower powers than the CODEC was able to deliver.
 
-The above hunk should be reverted. I'll drop that hunk.
+It may be good to add this to the comment for two related patches. It's not 
+obvious from the first glance. So one condition is a must.
 
+>> Basically, I think that those checks should be marked as debug and they
+>> should be optional like we do for CONFIG_SND_CTL_VALIDATION and enable only
+>> the fast path by default.
+> 
+> Note also that for everything using these helpers the underlying
+> register map will be regmap based and with the possible exception of
+> MMIO based regmaps the cost of writing out the new register value will
+> be overwhelmingly greater than that of the bounds checks.  It is
+> extremely hard to envision a scenario in which even a pathological
+> application would be able to observe a meaningful performance impact.
 
-Rob
+It's true that your patches are touching the universal code.
+
+I stop complain for now. I just don't like to add chunks of the extra code 
+just to resolve something which is not eventually a problem.
+
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

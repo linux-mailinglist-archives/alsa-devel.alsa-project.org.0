@@ -2,77 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2901B498551
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 17:54:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66397498581
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 17:56:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3C1F28BF;
-	Mon, 24 Jan 2022 17:53:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3C1F28BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD4FD20B9;
+	Mon, 24 Jan 2022 17:55:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD4FD20B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643043280;
-	bh=Ry98Z/eudJ1uhdc+mVU8gPfVclHa8GqXw2nsi+tVPmk=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=m/TAFPNE5ih/5iUpoiBHAs5lOi7dnWuOs4YHSqxRYhHx7365C8C1+19klMDSEus5C
-	 dT73BAnk40E58klfIIXGawbnRUwRBcDPxudneqI1f1YxN+OpmKPdqVV8WS3XzS1voU
-	 8HdygADPnCFXmhglHB+3iuZDxRbhw5TCU7U14NRU=
+	s=default; t=1643043394;
+	bh=JrHGNB7FILF2R1RpVqkOil2R1IhY5hULcEOBgZQugtI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=T3KljcEFSMAUOMcT4CGu81EVHwOWfXxNeQPsuZnlZpwKlzEy5woQn5wZHr76HhO+u
+	 CEg/XEEXfLIVM0B7LdXjmprN4SES8URQrWQ6YW+vvbJVM/pIxiyVumrT+74Io4ZOUR
+	 rfleDgMN06pvYJyuUYmUxqhczby+5l/cjK8jSPwg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AEE8F8032B;
-	Mon, 24 Jan 2022 17:53:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A802F802BE;
+	Mon, 24 Jan 2022 17:55:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5713F80310; Mon, 24 Jan 2022 17:53:02 +0100 (CET)
+ id 53BB6F8027C; Mon, 24 Jan 2022 17:55:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-vk1-xa2c.google.com (mail-vk1-xa2c.google.com
- [IPv6:2607:f8b0:4864:20::a2c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36511F8027C
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 17:52:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36511F8027C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B0F1F80083
+ for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 17:55:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B0F1F80083
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LpGgp5k7"
-Received: by mail-vk1-xa2c.google.com with SMTP id w206so10572185vkd.10
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 08:52:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to;
- bh=PXwksbm6On2bKZujxHp1uizlEiefM1/I/7i1KQgmjy8=;
- b=LpGgp5k7T+XJOEgU0QyZLCazil75SZfWnFTgPswY9s0Ko/kU+qdlpWOGo5q0+kEqTs
- MptzlyUzyxafla/KTAgUUdQovo8h9oEPdioL4sxcB1ZrvBAO8leneN7K5PdnsgsGGyX2
- VTefJAR5aHgudldPFJ9/DTyZ4DmfEAG48iLg8llMHtaVcb7XFjDacYmfgRejk1ZMrgXP
- NukLuZwK6J6uyduMfoB9cVZq4w/78M/xt+r6XnekOUGx6ZUqrvW1KznaqyieUx6DiYLv
- Q/NkEjGetMsruscZvuE1XDMCP4LrgkfPZIXpKdBbhe/Gy/w4Z0vZyK+H6zWvThYjHkGA
- 1GQA==
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="Zp914u3J"
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id CA4A13F1C2
+ for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 16:55:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1643043318;
+ bh=9EEQLll5JWPzYvRo5e7XU5syPg3MM9rervJCQ5j61PE=;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=Zp914u3J397Qo0bMnjW6Vb28iFCOkvPinzNOAVPhvEVjfPQKvp6I/mDx0k+T4BjCn
+ BMcBkc4l8IXio05eqnqQzZMwEiI1BzPSZJf5IrWDGqLACmhdGlMV8d9EU+v36dGiQe
+ a8WhxBTiQ0MxkQwAY9Yvmq8Izf/bccI9Z63FqVL8Mq0BngOc6OTry8i744HZ1mWnUj
+ 5FaHnHfx5Lt2omYuWwPUuJWeU++PdmtEWFMHjk3thK7rlsZx/UcPXWGw/iUJvAY/KZ
+ vGC7i7j/38cTNtVZ1TgX1uvKlC63SiQgc0+vlP9gATZ/ttdGpkihdoIfl5ZjXneMpV
+ tMXhs29HykTrw==
+Received: by mail-ed1-f70.google.com with SMTP id
+ p17-20020aa7c891000000b004052d1936a5so9096783eds.7
+ for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 08:55:18 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=PXwksbm6On2bKZujxHp1uizlEiefM1/I/7i1KQgmjy8=;
- b=jf7FCCpat2brb5H0XHWHJzPAaHgu3n5htf3xaSdeushM0EUcncE9NHuTRnj8TKWFe4
- 9ghTySA7aAx4NlSpgAPEezdFHsny4GukDiDTw6w3j7H+v8Kwj8gzMwMGtHioSJXfk3HU
- pcxxnpuDUV7XOkjX0nM49pTRKMRnRgH3NktU5bjvYaF93uwVshKmgvxXAS8bbtnEaNkj
- RZFGoYeVF59nmRTAX85vpdDbA619Mj5ygidhQ+Fpl8kim78ifV3Ed5ADjxkOKsmofJbG
- U+y069bUl+HQzaRR1Wmk3IRzztgyUfyB5l6FqrTB65cqu4a0a/ayu8RMTy8Mj7ffXsx9
- Sn7A==
-X-Gm-Message-State: AOAM53276NEeAnbipp9xnzh8Sra8ELpmtL00njHjEUfgXpWV2Z2eJmJ5
- P+rMz1+3FX7jzwYE+eEkqIBG6Y/EDZyN6Duci4+9QvFtcbQ=
-X-Google-Smtp-Source: ABdhPJzacw15J00rnJJqLOCtghaG6fCYUKbKWS3da4KPbNBL3LcFC9U6xV2V+YNMbOW9vf0qy82fXNpxEdXprYz+rZA=
-X-Received: by 2002:ac5:c643:: with SMTP id j3mr3363818vkl.14.1643043177736;
- Mon, 24 Jan 2022 08:52:57 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9EEQLll5JWPzYvRo5e7XU5syPg3MM9rervJCQ5j61PE=;
+ b=tYX6dI4qMTJk2bt7Kt3OWr+DZeDwBe2LXfLp1iA6OqzjgUhWO/Qa9t4qhA7DEanv5h
+ TNrBciX4Ra9SvrV5v57ei7eoEHvM3oNbz5J+DM4dpiEd66TnuwhvZhGpFIADreqU+HJi
+ Ss4IbP0aOYVvkiYGsNTLaLMxnpA1AV0Ysl7QHVZbUVXxvaPoRvi4/UrDIj9RfDACRZu4
+ s0lss/LQLuJ+TOY85LxxJ5DIPaslb9wruVIPA5XWrI5zUVTIlzRLQ27t9A9pTLfVID5X
+ 2niOU4mCj4D0IcZa7e99CZ7l8r05ehrZPEwlDybE5KBAIyPlgljQXu6089kLpeUp0B6U
+ 00JA==
+X-Gm-Message-State: AOAM532tG87CHCbMNDYFFw8uf7/t5r+UiwX2fc0+xooNYTtJbbs28gGB
+ w023WM8mwxwkfxoCxoHgvYBwcRghx9D7TIrOrVIrg8dZuUwUZsRjEJ2Cp5fJwNxmdz9Hutk8T17
+ I7pmCSzbEM64LLdCMMiqaXZEzLe1LKDU0NA/a7a000tjOFinWistJ2+3i
+X-Received: by 2002:a50:9549:: with SMTP id v9mr16834035eda.335.1643043318212; 
+ Mon, 24 Jan 2022 08:55:18 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyCcCQ2xn7I2rwOCmf8P8fmxvKeYvey/cJWwAqZ0tDzbf4isWUQwXV1mSERsEcSSLZDF6CZzpYhZ/4G59YeUgI=
+X-Received: by 2002:a50:9549:: with SMTP id v9mr16834016eda.335.1643043317988; 
+ Mon, 24 Jan 2022 08:55:17 -0800 (PST)
 MIME-Version: 1.0
-From: anthony tonitch <d.tonitch@gmail.com>
-Date: Mon, 24 Jan 2022 16:52:47 +0000
-Message-ID: <CAAEBy7fQ6x95H5XkaKmXWsB1KCDbYAFtA5zUZ03ToJSegHb05w@mail.gmail.com>
-Subject: No sound on gpd pocket 3
-To: alsa-devel@alsa-project.org
+References: <20220119015038.2433585-1-robh@kernel.org>
+In-Reply-To: <20220119015038.2433585-1-robh@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Date: Mon, 24 Jan 2022 17:55:06 +0100
+Message-ID: <CA+Eumj4HjM8SPoOUo7_eLBOHFYXTPPPgmx_YDYdEXDyaT67Rrg@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Improve phandle-array schemas
+To: Rob Herring <robh@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,52 +106,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+On Wed, 19 Jan 2022 at 02:50, Rob Herring <robh@kernel.org> wrote:
+>
+> The 'phandle-array' type is a bit ambiguous. It can be either just an
+> array of phandles or an array of phandles plus args. Many schemas for
+> phandle-array properties aren't clear in the schema which case applies
+> though the description usually describes it.
+>
 
-I have a problem I guess related to sof... I already asked on the irc
-#alsa@libera.chat and gnarface advised me to come and ask on this
-mailing list!
+Hi Rob,
 
-I am struggling to make the sound of my gpd pocket 3 to work on linux
-(archlinux to be precise)! In fact, the sound is not supposed to work
-out of the box as other users tested it before me! but they all had
-the solution to set the dsp_driver and this didn't worked for me!
-I checked several times to see if the module was loaded properly and
-yes it is (as you can also check in the alsa-info at the end of the mail)!
+I have few questions below.
 
-If I do aplay -l I get a bunch of hdmi connection that is not working
-at all! I'm really lost here and I don't even know what to look for
-anymore
+(...)
 
-The sound works great on windows so This doens't seems to be hardware problem ?!
-and I tried to plug an usb headset which give me sound so I doesn't
-seems to be config related either ?! (tho the jack doesn't work)
+> diff --git a/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
+> index 095775c598fa..3a4df2ce1728 100644
+> --- a/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
+> +++ b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
+> @@ -21,8 +21,7 @@ properties:
+>      type: object
+>      properties:
+>        sound-dai:
+> -        $ref: /schemas/types.yaml#/definitions/phandle-array
+> -        maxItems: 1
+> +        $ref: /schemas/types.yaml#/definitions/phandle
+>          description: phandle to the I2S controller
+>      required:
+>        - sound-dai
 
-I asked on several places already. I post the different links here in
-case you want to check but I don't have any response to any post
-unfortunately!
+This passes the example only because the example was simplified to
+hide dtschema errors.
 
-- Post on Archlinux BBS: https://bbs.archlinux.org/viewtopic.php?id=273044
-- Post on subreddit GPDPocket:
-https://www.reddit.com/r/GPDPocket/comments/s31qi8/gpd_p3_no_sound_linux/
+The cpu dai node is like:
+cpu {
+    sound-dai = <&i2s0 0>;
+};
 
-- Screenshot and bios picture of maybe relevant informations:
-    - https://imgur.com/a/DouSB3m
-    - https://imgur.com/a/K232PLJ
+and this fails with errors missing phandle tag in 0.
 
-I hope there is enough informations to help me debug this but if you
-need anything I can provide it! this is a small pc and I'm usualy
-quarrying it around!
-I know this is better to send mail but if you need me to chat for any
-reason (it would be easier for instance) I'm usually hanging on the
-libera.chat irc as tonitch you can pm or tag me on #alsa
+I am converting rest of Samsung audio bindings to dtschema and have
+trouble expressing this. How schema should express such cpu node?
 
-Here is the alsa-info.sh :
-http://alsa-project.org/db/?f=6ddb669a19086cebdb121c97c25bbdccb98e856d
-
-Thanks a lot for your help!
-
-PS: Ubuntu mate have released their official pocket 3 distribution and
-I tried it but the sound didn't worked either, here is the alsa-info
-In case this help ?! :
-http://alsa-project.org/db/?f=df4c183fd00cec224006ec8caa228705399ad873
+Best regards,
+Krzysztof

@@ -2,85 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E12C04983A9
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 16:36:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC454984A5
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 17:24:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C05A28CC;
-	Mon, 24 Jan 2022 16:35:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C05A28CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B637285B;
+	Mon, 24 Jan 2022 17:24:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B637285B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643038570;
-	bh=jkhjis8H6JqAp1zJ1gh7YAG/4kx66gcS8datCwYFgUU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1643041495;
+	bh=zkVnxmZoUn2PXNTt6Cj60EJHO4p9UXlPBZUS9Jg10dI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j8QCqFWNeGEIfrBZgwfySZoKmssbfETlJLt/U4MViyIqpicToS2hAAcnAvdjIlNoQ
-	 J63E3DeUweuscSk7Yu/Ya0EwwQ9cvHQRxTj+gG5KBMt5jcMzRsVM9/dN6JQqiIkDbl
-	 kFTJNLMvUhHw5iQCUPxo6DjRXarDRrZYwi8FD0uI=
+	b=R1VbgjD+c91Vkpnx2d//IdDNMBKEhVtEo21OvyuNmSwLPED/pQ+Llc0R+T43Wy86Z
+	 FjaDxZ8OYDxBvTfNeKQRuntuzldpDN/l+Ros8At/Sg9Q0CFwlc+Yfa8B/0v3cmT7I3
+	 5Deiv+TkTKBdRWTvzzQTWptY/RKVm+bixY88P7Fc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 729BFF80516;
-	Mon, 24 Jan 2022 16:34:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9538DF802BE;
+	Mon, 24 Jan 2022 17:23:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75120F80508; Mon, 24 Jan 2022 16:34:04 +0100 (CET)
+ id 18707F8027C; Mon, 24 Jan 2022 17:23:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2A0AF80424
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 16:33:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2A0AF80424
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NF9JisuH"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 81362B810E0;
- Mon, 24 Jan 2022 15:33:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31603C340E7;
- Mon, 24 Jan 2022 15:33:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643038436;
- bh=jkhjis8H6JqAp1zJ1gh7YAG/4kx66gcS8datCwYFgUU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NF9JisuHo2ZCNe3U38f3R4mDx/1hyTFPO8bRzd9LPn2FvdP6QP3qolR8dHHB22c3A
- C0JeglThuxvyUSa0iTaT7YMFlZOCCSPDGsZ1Ilq7Y3nnNPVfqiYtE/uEkkI0u+AsKo
- D5mdcY79vZ1OZA6TBgDhcPXjiQnzxvYSx09FkBSLOYuSrwxSinSdeO8lgEg+S10iuU
- AgWLoyNkznRU1/G23BVk6iUtUdkBuZG9CUMY8DgsZ67cSMjlNhmfjUnAG6BER9vkO/
- cTj51zb4srg0d8XFK8odwhPtE7Q9/IFWzojYOErYe3bKn258o5EWTH/Ah9/SB0mKZk
- zB5BXU1egV82A==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH v1 3/3] ASoC: ops: Reject out of bounds values in
- snd_soc_put_xr_sx()
-Date: Mon, 24 Jan 2022 15:32:53 +0000
-Message-Id: <20220124153253.3548853-4-broonie@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220124153253.3548853-1-broonie@kernel.org>
-References: <20220124153253.3548853-1-broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E446F800E9
+ for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 17:23:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E446F800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="PqQTUS4U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1643041421; x=1674577421;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=zkVnxmZoUn2PXNTt6Cj60EJHO4p9UXlPBZUS9Jg10dI=;
+ b=PqQTUS4U+tyJjADPyBA3sg6vglzCH5m+DtGeCETz3URqelO8rATxIpYx
+ q7cxxUPESC/kIMD8MrBMc4YHX/5t0NaLd/geeMWH23poo184bP/Svv8rp
+ zKntNA9zFXCEZJluCqy7Ia+Bg5Oam9siyEz45wKYTnMPzd01EHOinp97B
+ NeL49MYfRkiyjyjA45XBnQ3S1YmfYA9WRd/nbd1fN1aRZ+ojMpkiuSDt0
+ 0AOrW3E+LTm3ef6OQ6pEm9bWAR/CfQjiwtibMiYAyeOAKAdR2rP9y9DX3
+ EZ7MXH8YsGxD8/XIcJAUX2W7Aq/HKvlYepWn+D/9yHyEKg08UxAfKzXTT w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="332437776"
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="332437776"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2022 08:23:36 -0800
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="479135670"
+Received: from smile.fi.intel.com ([10.237.72.61])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2022 08:23:34 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1nC26t-00Dwzw-NZ; Mon, 24 Jan 2022 18:22:27 +0200
+Date: Mon, 24 Jan 2022 18:22:27 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH v1 1/1] ASoC: madera: Replace kernel.h with the necessary
+ inclusions
+Message-ID: <Ye7SQ7Na4Q5KyvOk@smile.fi.intel.com>
+References: <20211222164534.67636-1-andriy.shevchenko@linux.intel.com>
+ <20211229095345.GX18506@ediswmail.ad.cirrus.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=739; h=from:subject;
- bh=jkhjis8H6JqAp1zJ1gh7YAG/4kx66gcS8datCwYFgUU=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBh7sakWbsihUi6ivlHyc+XDsV04Zi7JuDjensfPO4K
- IJ8b9UeJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYe7GpAAKCRAk1otyXVSH0DJIB/
- 96C0pXVD2VI++KwpJCPmOEZH7OklDsEyIV++4ozRLs6NggCnOdvVfFSP2FFPntTDvO27bLrkNk+gH8
- FPmc8QUTKpJjEO9r/G2i0XrZM618h8rsIzrqAvzapM8/Z9vi2OJczP2BisdQ9w4pu1Ok9+kXiWbBWt
- ubXmxDDVrQ3ZQsv+qNZQqB1mDE4+gZJVQGIhK2ezPpxgQWWLFb1LkltvX9WSdcjuxoT7vhjTBpqJkf
- DcxrVQuoTDP8PoLqSH/I2ZYutH3TOXAJCTi3vMcGl8u+1XZJ95NOldqMcAaFU1DN5I3g/vVJqbnB/p
- wEpqaYNJymuor3+GM1Ub9Iye1wCHZE
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- stable@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211229095345.GX18506@ediswmail.ad.cirrus.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,29 +94,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We don't currently validate that the values being set are within the range
-we advertised to userspace as being valid, do so and reject any values
-that are out of range.
+On Wed, Dec 29, 2021 at 09:53:45AM +0000, Charles Keepax wrote:
+> On Wed, Dec 22, 2021 at 06:45:34PM +0200, Andy Shevchenko wrote:
+> > When kernel.h is used in the headers it adds a lot into dependency hell,
+> > especially when there are circular dependencies are involved.
+> > 
+> > Replace kernel.h inclusion with the list of what is really being used.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Cc: stable@vger.kernel.org
----
- sound/soc/soc-ops.c | 2 ++
- 1 file changed, 2 insertions(+)
+> Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
-index c31e63b27193..dc0e7c8d31f3 100644
---- a/sound/soc/soc-ops.c
-+++ b/sound/soc/soc-ops.c
-@@ -879,6 +879,8 @@ int snd_soc_put_xr_sx(struct snd_kcontrol *kcontrol,
- 	long val = ucontrol->value.integer.value[0];
- 	unsigned int i;
- 
-+	if (val < mc->min || val > mc->max)
-+		return -EINVAL;
- 	if (invert)
- 		val = max - val;
- 	val &= mask;
+Thanks!
+
+Takashi, should I resend this?
+
 -- 
-2.30.2
+With Best Regards,
+Andy Shevchenko
+
 

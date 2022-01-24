@@ -2,106 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40A20497C4D
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 10:44:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4278D49835E
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jan 2022 16:15:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7D852968;
-	Mon, 24 Jan 2022 10:43:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7D852968
+	by alsa0.perex.cz (Postfix) with ESMTPS id B53F72875;
+	Mon, 24 Jan 2022 16:14:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B53F72875
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643017447;
-	bh=iA1MVhSEhdtJD4n7MML5nFp+2YfpM7Qj78TGM0kP5Do=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=shQ6fJ8nmFSHx+DgpENDg90cGqcr/lNgNsrGlGhbH0uYeQMMf4c868wB9iCOBkGTc
-	 jVwc1Rr211eLJBxsQtCVzNVD/r4k2EnOeLZeg16pFlfXK2n3FjmFaG/tdELb5IUE/Y
-	 SE3BnpZhXkuZFFhZPHqXlzBHjN8ouCJeCdpcHvxg=
+	s=default; t=1643037339;
+	bh=gSh+ppXT8OgdNzTtGtJNoVLqbm1WPjb1DsXzaMFqlZw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KPp1BNVsfA2lSWUjs4ukn4yRjU3cgcyvM/8fUXnMBNrn5YDpnAWeP2/uEA0iwNoCy
+	 feLhiDtygxXCHEFewNhAGrnePwP01b5qroVX4CEo10y7JDZJ+gMlV+wQb8QBUXANZ7
+	 kwOg7GNeSXd78GiiT+cMT/F54/KYiHXmUojx6pgY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3691CF802BE;
-	Mon, 24 Jan 2022 10:43:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 215E1F802BE;
+	Mon, 24 Jan 2022 16:14:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A934F8027C; Mon, 24 Jan 2022 10:43:00 +0100 (CET)
+ id D7725F8027C; Mon, 24 Jan 2022 16:14:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3CA41F80083
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 10:42:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CA41F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9777F80083
+ for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 16:14:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9777F80083
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com
- header.b="ecJJLXJ/"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="CQdazKNE"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 87BD758011C;
- Mon, 24 Jan 2022 04:42:48 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Mon, 24 Jan 2022 04:42:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; bh=P8UmLlHN9BGZ+esvPmRpvSz5It+8CW0B+z+h7m
- qv6Lk=; b=ecJJLXJ/Kp+Nil5/vc883vHJk0/KIyb7hhP6iSXTTwzya3ojRgChVc
- DBSgFpaUJvhlR19igIj7rP/8a6b9U7Zfao78fE3uAiC7OPTs9WBOg3OXKEgTq6As
- yHWL6V27q4Pc5wakooL62EM9Ay571LdJnWIN+vB5Sz2OWOGhF0qQlZ016kF6Ypjk
- e44rbAzwp20w7Swk6267ZY64ny1/KyVT1Zfiqzo1mi2GaFRRJzOnFANlrqVPz2oc
- 9NWd9GmZ6lOCEgVWj9+7EC2r3UOVkR48J9ZfUiVNMaVXOAAlOveCtbaMbLQsLxjE
- KOTQihe1Gdg5irRZGN5ygmaXnn80t1EQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=P8UmLlHN9BGZ+esvP
- mRpvSz5It+8CW0B+z+h7mqv6Lk=; b=CQdazKNEiq2FcHTlFL0uPMb5vLW/qC86C
- o7moITxwIk/AdB90Xz1k1g9FpRlBS60WhckuoXzIh6ee7yQZOfcp1fvi7Lhv180Z
- RRDN2wsC5LP0twXOE842WI4MMRtGDwajK5p1LWPjO34veG/oH+NJ25WfhQ3fK+rd
- P4vWqFj6dPQlkm74sxZqhpdjoYNL/eD4woYay8uEELNkVbwPSYpqT3npzcElZIos
- tbcSHbcyqMIGuJYagh05xZ6tz+QgNe9ZwhSrBGAq4E2u5MmafmcEauaTBtaZxtXT
- 9jKZbqWnRTA8zuiUmr2nCwSE4ZnTJdrX04g6Ug+/JdEiNsj+r5qUQ==
-X-ME-Sender: <xms:l3TuYZs4WYtzYXKGvUmlQZ6qTEAL0VXvL83nP6AfxPNEYavh0ZIqUA>
- <xme:l3TuYSd4sl5uGKM2T9fKLT8vT4LXROUpCdQNG8XXrlczU6aewlHw3STG3ZPtbab43
- XikM_8TVBRYeQ>
-X-ME-Received: <xmr:l3TuYcyKRDeVDHiosVw6unhQ6Vw3IaTpC6SmyCbW2zDAXJo3CLbqDNcF6cWeUfKkhs93civ1pSfqVBhj9xtUPX875W7G2DN2>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrvdeigddtjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghgucfm
- jfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepveeuheejgf
- ffgfeivddukedvkedtleelleeghfeljeeiueeggeevueduudekvdetnecuvehluhhsthgv
- rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrd
- gtohhm
-X-ME-Proxy: <xmx:l3TuYQPN1T0BEGzqQVp5X59NbIZEWA_RehUCZ7K4JsdrYy9FlZur4g>
- <xmx:l3TuYZ_AQD8MtjTxP_2h-y5A68SyWBzDsHAN5SeMho1BCLjw78wTCg>
- <xmx:l3TuYQV6GxHEv58_OUO5trHPu3PteZtoWQDNmeDSWRPb86Z5vwBQyA>
- <xmx:mHTuYfPCJPPU7ZpKL8-FeKWHVMnp3DfwfihodT2qB4adsocIWEcQlg>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 24 Jan 2022 04:42:47 -0500 (EST)
-Date: Mon, 24 Jan 2022 10:42:45 +0100
-From: Greg KH <greg@kroah.com>
-To: Will McVicker <willmcvicker@google.com>
-Subject: Re: [PATCH v1 1/1] ASoC: dpcm: prevent snd_soc_dpcm use after free
-Message-ID: <Ye50ldr/4/TW7S/3@kroah.com>
-References: <20220121231644.1732744-1-willmcvicker@google.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="inWT6lgA"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4F9A661464;
+ Mon, 24 Jan 2022 15:14:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8EDC340E5;
+ Mon, 24 Jan 2022 15:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643037264;
+ bh=gSh+ppXT8OgdNzTtGtJNoVLqbm1WPjb1DsXzaMFqlZw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=inWT6lgAZyJS9lALzbl+/q/bvDVOnE2xiSkLTTl9+3jr3gqPbpxAcYwG/fyBdFnjK
+ oO9Z6HJHgsRPuSUUdLw74uD+SKcN7PvxHC9qpt35Dt1POwaqljLZjEo97heRDd27Zq
+ uCVnRAyWQn9dYViqqnO6crC4lFw4dtzGEUs7a6TF1lpSAnmwN3EOWpt9xfn+fRhcTL
+ s+xtXqu78dKJ7lj6YmFLzUm1EOltnbeD8N3FIvj+X0xX2FaI8bkDFd+EgA0B1orDpI
+ ng45K6dwuaGhMCfZBvkQIC0aa6Ret0G6ckpnP1PWqyyK6Pd/32WzRZYO8BnLJ72Vy/
+ 6HE9AXYTXVnBA==
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Subject: [PATCH] kselftest: alsa: Add test case for writing invalid values
+Date: Mon, 24 Jan 2022 15:14:10 +0000
+Message-Id: <20220124151410.2715572-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220121231644.1732744-1-willmcvicker@google.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, stable@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- kernel-team@android.com, linux-arm-kernel@lists.infradead.org,
- KaiChieh Chuang <kaichieh.chuang@mediatek.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7477; h=from:subject;
+ bh=gSh+ppXT8OgdNzTtGtJNoVLqbm1WPjb1DsXzaMFqlZw=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBh7sFpEatmip+S1fQ8LqsKlXS2EQvqhJsFjQWEOWUX
+ lQtYjaKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYe7BaQAKCRAk1otyXVSH0JqVB/
+ wNK2h30z3VFIOmb+niZMJQNoMkRrufjNmFilOaunfc3iOkLEfG3M2F/F5F2iVznwHzZ4L/C5etMoPK
+ VgjxIMPPgSHCaTgL+UbO71cNS7FL6qBc71ELZI74lDX/3gxsMaUXBvT/1pDb5ws2hycRc8OybS0OmB
+ fpGngFuhKosV1WGSO828U+KpZrHiM/ui5kXonpxTtLGEwTHSj8zRgRXPeRtQ/6jStmsxSLzx28L/ni
+ v59+xmCOOZ86l9K9FZsctpwisFt8mgvqJzVCPerYxVEN2I2gnMALe6IZJgYzgFUhAR777yMaBLWoWB
+ D64WOGDfTAwqNJqONPlNjWlBi74fHT
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,92 +93,273 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 21, 2022 at 11:16:44PM +0000, Will McVicker wrote:
-> From: KaiChieh Chuang <kaichieh.chuang@mediatek.com>
-> 
-> [ Upstream commit a9764869779081e8bf24da07ac040e8f3efcf13a ]
-> 
-> The dpcm get from fe_clients/be_clients
-> may be free before use
-> 
-> Add a spin lock at snd_soc_card level,
-> to protect the dpcm instance.
-> The lock may be used in atomic context, so use spin lock.
-> 
-> Use irq spin lock version,
-> since the lock may be used in interrupts.
-> 
-> possible race condition between
-> void dpcm_be_disconnect(
-> 	...
-> 	list_del(&dpcm->list_be);
-> 	list_del(&dpcm->list_fe);
-> 	kfree(dpcm);
-> 	...
-> 
-> and
-> 	for_each_dpcm_fe()
-> 	for_each_dpcm_be*()
-> 
-> race condition example
-> Thread 1:
->     snd_soc_dapm_mixer_update_power()
->         -> soc_dpcm_runtime_update()
->             -> dpcm_be_disconnect()
->                 -> kfree(dpcm);
-> Thread 2:
->     dpcm_fe_dai_trigger()
->         -> dpcm_be_dai_trigger()
->             -> snd_soc_dpcm_can_be_free_stop()
->                 -> if (dpcm->fe == fe)
-> 
-> Excpetion Scenario:
-> 	two FE link to same BE
-> 	FE1 -> BE
-> 	FE2 ->
-> 
-> 	Thread 1: switch of mixer between FE2 -> BE
-> 	Thread 2: pcm_stop FE1
-> 
-> Exception:
-> 
-> Unable to handle kernel paging request at virtual address dead0000000000e0
-> 
-> pc=<> [<ffffff8960e2cd10>] dpcm_be_dai_trigger+0x29c/0x47c
-> 	sound/soc/soc-pcm.c:3226
-> 		if (dpcm->fe == fe)
-> lr=<> [<ffffff8960e2f694>] dpcm_fe_dai_do_trigger+0x94/0x26c
-> 
-> Backtrace:
-> [<ffffff89602dba80>] notify_die+0x68/0xb8
-> [<ffffff896028c7dc>] die+0x118/0x2a8
-> [<ffffff89602a2f84>] __do_kernel_fault+0x13c/0x14c
-> [<ffffff89602a27f4>] do_translation_fault+0x64/0xa0
-> [<ffffff8960280cf8>] do_mem_abort+0x4c/0xd0
-> [<ffffff8960282ad0>] el1_da+0x24/0x40
-> [<ffffff8960e2cd10>] dpcm_be_dai_trigger+0x29c/0x47c
-> [<ffffff8960e2f694>] dpcm_fe_dai_do_trigger+0x94/0x26c
-> [<ffffff8960e2edec>] dpcm_fe_dai_trigger+0x3c/0x44
-> [<ffffff8960de5588>] snd_pcm_do_stop+0x50/0x5c
-> [<ffffff8960dded24>] snd_pcm_action+0xb4/0x13c
-> [<ffffff8960ddfdb4>] snd_pcm_drop+0xa0/0x128
-> [<ffffff8960de69bc>] snd_pcm_common_ioctl+0x9d8/0x30f0
-> [<ffffff8960de1cac>] snd_pcm_ioctl_compat+0x29c/0x2f14
-> [<ffffff89604c9d60>] compat_SyS_ioctl+0x128/0x244
-> [<ffffff8960283740>] el0_svc_naked+0x34/0x38
-> [<ffffffffffffffff>] 0xffffffffffffffff
-> 
-> Signed-off-by: KaiChieh Chuang <kaichieh.chuang@mediatek.com>
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> [willmcvicker: move spinlock to bottom of struct snd_soc_card]
-> Signed-off-by: Will McVicker <willmcvicker@google.com>
-> Cc: stable@vger.kernel.org # 4.19+
-> ---
->  include/sound/soc.h  |  2 ++
->  sound/soc/soc-core.c |  1 +
->  sound/soc/soc-pcm.c  | 40 +++++++++++++++++++++++++++++++++-------
->  3 files changed, 36 insertions(+), 7 deletions(-)
+Attempt to write various invalid values for control types we know about and
+check that something sensible happens. The ABI isn't quite as clearly
+defined as one might like, rather than generating an error when an invalid
+value is written many devices will silently rewrite the value into one that
+is valid for the control. The exact value chosen is not predictable so in
+the case the write succeeds we just check that the value we read back is
+one that is valid for the control.
 
-Now queued up, thanks.
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ tools/testing/selftests/alsa/mixer-test.c | 222 +++++++++++++++++++++-
+ 1 file changed, 221 insertions(+), 1 deletion(-)
 
-greg k-h
+diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
+index 17f158d7a767..15e05b241468 100644
+--- a/tools/testing/selftests/alsa/mixer-test.c
++++ b/tools/testing/selftests/alsa/mixer-test.c
+@@ -13,6 +13,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <stdbool.h>
++#include <limits.h>
+ #include <string.h>
+ #include <getopt.h>
+ #include <stdarg.h>
+@@ -26,7 +27,7 @@
+ 
+ #include "../kselftest.h"
+ 
+-#define TESTS_PER_CONTROL 3
++#define TESTS_PER_CONTROL 4
+ 
+ struct card_data {
+ 	snd_ctl_t *handle;
+@@ -679,6 +680,224 @@ void test_ctl_write_valid(struct ctl_data *ctl)
+ 			 ctl->card->card, ctl->elem);
+ }
+ 
++bool test_ctl_write_invalid_value(struct ctl_data *ctl,
++				  snd_ctl_elem_value_t *val)
++{
++	int err;
++	long val_read;
++
++	/* Ideally this will fail... */
++	err = snd_ctl_elem_write(ctl->card->handle, val);
++	if (err < 0)
++		return false;
++
++	/* ...but some devices will clamp to an in range value */
++	err = snd_ctl_elem_read(ctl->card->handle, val);
++	if (err < 0) {
++		ksft_print_msg("%s failed to read: %s\n",
++			       ctl->name, snd_strerror(err));
++		return true;
++	}
++
++	return !ctl_value_valid(ctl, val);
++}
++
++bool test_ctl_write_invalid_boolean(struct ctl_data *ctl)
++{
++	int err, i;
++	long val_read;
++	bool fail = false;
++	snd_ctl_elem_value_t *val;
++	snd_ctl_elem_value_alloca(&val);
++
++	for (i = 0; i < snd_ctl_elem_info_get_count(ctl->info); i++) {
++		snd_ctl_elem_value_copy(val, ctl->def_val);
++		snd_ctl_elem_value_set_boolean(val, i, 2);
++
++		if (test_ctl_write_invalid_value(ctl, val))
++			fail = true;
++	}
++
++	return !fail;
++}
++
++bool test_ctl_write_invalid_integer(struct ctl_data *ctl)
++{
++	int i;
++	bool fail = false;
++	snd_ctl_elem_value_t *val;
++	snd_ctl_elem_value_alloca(&val);
++
++	for (i = 0; i < snd_ctl_elem_info_get_count(ctl->info); i++) {
++		if (snd_ctl_elem_info_get_min(ctl->info) != LONG_MIN) {
++			/* Just under range */
++			snd_ctl_elem_value_copy(val, ctl->def_val);
++			snd_ctl_elem_value_set_integer(val, i,
++			       snd_ctl_elem_info_get_min(ctl->info) - 1);
++
++			if (test_ctl_write_invalid_value(ctl, val))
++				fail = true;
++
++			/* Minimum representable value */
++			snd_ctl_elem_value_copy(val, ctl->def_val);
++			snd_ctl_elem_value_set_integer(val, i, LONG_MIN);
++
++			if (test_ctl_write_invalid_value(ctl, val))
++				fail = true;
++		}
++
++		if (snd_ctl_elem_info_get_max(ctl->info) != LONG_MAX) {
++			/* Just over range */
++			snd_ctl_elem_value_copy(val, ctl->def_val);
++			snd_ctl_elem_value_set_integer(val, i,
++			       snd_ctl_elem_info_get_max(ctl->info) + 1);
++
++			if (test_ctl_write_invalid_value(ctl, val))
++				fail = true;
++
++			/* Maximum representable value */
++			snd_ctl_elem_value_copy(val, ctl->def_val);
++			snd_ctl_elem_value_set_integer(val, i, LONG_MAX);
++
++			if (test_ctl_write_invalid_value(ctl, val))
++				fail = true;
++		}
++	}
++
++	return !fail;
++}
++
++bool test_ctl_write_invalid_integer64(struct ctl_data *ctl)
++{
++	int i;
++	bool fail = false;
++	snd_ctl_elem_value_t *val;
++	snd_ctl_elem_value_alloca(&val);
++
++	for (i = 0; i < snd_ctl_elem_info_get_count(ctl->info); i++) {
++		if (snd_ctl_elem_info_get_min64(ctl->info) != LLONG_MIN) {
++			/* Just under range */
++			snd_ctl_elem_value_copy(val, ctl->def_val);
++			snd_ctl_elem_value_set_integer64(val, i,
++				snd_ctl_elem_info_get_min64(ctl->info) - 1);
++
++			if (test_ctl_write_invalid_value(ctl, val))
++				fail = true;
++
++			/* Minimum representable value */
++			snd_ctl_elem_value_copy(val, ctl->def_val);
++			snd_ctl_elem_value_set_integer(val, i, LLONG_MIN);
++
++			if (test_ctl_write_invalid_value(ctl, val))
++				fail = true;
++		}
++
++		if (snd_ctl_elem_info_get_max64(ctl->info) != LLONG_MAX) {
++			/* Just over range */
++			snd_ctl_elem_value_copy(val, ctl->def_val);
++			snd_ctl_elem_value_set_integer64(val, i,
++				snd_ctl_elem_info_get_max64(ctl->info) + 1);
++
++			if (test_ctl_write_invalid_value(ctl, val))
++				fail = true;
++
++			/* Maximum representable value */
++			snd_ctl_elem_value_copy(val, ctl->def_val);
++			snd_ctl_elem_value_set_integer(val, i, LLONG_MAX);
++
++			if (test_ctl_write_invalid_value(ctl, val))
++				fail = true;
++		}
++	}
++
++	return !fail;
++}
++
++bool test_ctl_write_invalid_enumerated(struct ctl_data *ctl)
++{
++	int err, i;
++	unsigned int val_read;
++	bool fail = false;
++	snd_ctl_elem_value_t *val;
++	snd_ctl_elem_value_alloca(&val);
++
++	snd_ctl_elem_value_set_id(val, ctl->id);
++
++	for (i = 0; i < snd_ctl_elem_info_get_count(ctl->info); i++) {
++		/* One beyond maximum */
++		snd_ctl_elem_value_copy(val, ctl->def_val);
++		snd_ctl_elem_value_set_enumerated(val, i,
++				  snd_ctl_elem_info_get_items(ctl->info));
++
++		if (test_ctl_write_invalid_value(ctl, val))
++			fail = true;
++
++		/* Maximum representable value */
++		snd_ctl_elem_value_copy(val, ctl->def_val);
++		snd_ctl_elem_value_set_enumerated(val, i, UINT_MAX);
++
++		if (test_ctl_write_invalid_value(ctl, val))
++			fail = true;
++
++	}
++
++	return !fail;
++}
++
++
++void test_ctl_write_invalid(struct ctl_data *ctl)
++{
++	bool pass;
++	int err;
++
++	/* If the control is turned off let's be polite */
++	if (snd_ctl_elem_info_is_inactive(ctl->info)) {
++		ksft_print_msg("%s is inactive\n", ctl->name);
++		ksft_test_result_skip("write_invalid.%d.%d\n",
++				      ctl->card->card, ctl->elem);
++		return;
++	}
++
++	if (!snd_ctl_elem_info_is_writable(ctl->info)) {
++		ksft_print_msg("%s is not writeable\n", ctl->name);
++		ksft_test_result_skip("write_invalid.%d.%d\n",
++				      ctl->card->card, ctl->elem);
++		return;
++	}
++
++	switch (snd_ctl_elem_info_get_type(ctl->info)) {
++	case SND_CTL_ELEM_TYPE_BOOLEAN:
++		pass = test_ctl_write_invalid_boolean(ctl);
++		break;
++
++	case SND_CTL_ELEM_TYPE_INTEGER:
++		pass = test_ctl_write_invalid_integer(ctl);
++		break;
++
++	case SND_CTL_ELEM_TYPE_INTEGER64:
++		pass = test_ctl_write_invalid_integer64(ctl);
++		break;
++
++	case SND_CTL_ELEM_TYPE_ENUMERATED:
++		pass = test_ctl_write_invalid_enumerated(ctl);
++		break;
++
++	default:
++		/* No tests for this yet */
++		ksft_test_result_skip("write_invalid.%d.%d\n",
++				      ctl->card->card, ctl->elem);
++		return;
++	}
++
++	/* Restore the default value to minimise disruption */
++	err = write_and_verify(ctl, ctl->def_val, NULL);
++	if (err < 0)
++		pass = false;
++
++	ksft_test_result(pass, "write_invalid.%d.%d\n",
++			 ctl->card->card, ctl->elem);
++}
++
+ int main(void)
+ {
+ 	struct ctl_data *ctl;
+@@ -697,6 +916,7 @@ int main(void)
+ 		test_ctl_get_value(ctl);
+ 		test_ctl_write_default(ctl);
+ 		test_ctl_write_valid(ctl);
++		test_ctl_write_invalid(ctl);
+ 	}
+ 
+ 	ksft_exit_pass();
+-- 
+2.30.2
+

@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23A7649B133
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 11:21:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F50049B136
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 11:22:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AB942083;
-	Tue, 25 Jan 2022 11:20:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AB942083
+	by alsa0.perex.cz (Postfix) with ESMTPS id 160EA17C3;
+	Tue, 25 Jan 2022 11:21:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 160EA17C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643106079;
-	bh=nJhy+qOwVi2cuvhFT1z4Bk/6ubjHdACKLf5hmIX9cbQ=;
+	s=default; t=1643106133;
+	bh=KCr0hL6o11BQkhCkzi4kW14K7GAZ8bdJwciwDLwogb4=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jBi9P+kBh7Yg87dC5JukjgsmxC2gA1QjEhKl4aZIw6Hkia/q7b3JB9ciNf89G52S5
-	 BmpfqmklFBvYCdkF4IxOJgI9iF/SpqyYpwL/19P6mAGVNq279D1CnRjPbjFmoaD3HK
-	 FSrSFMQGdB7DrzFxazQwVB95OZkf4tBqsmrF8+G0=
+	b=PPeoCDVxsmwFUELiGm+dxv/JIlCuOq5SeTW1sFuK6nLt4fK+o42jQ2mrj6jeZVLpr
+	 GIaFXcRuCUiwbkYe3TR1wLsIhIYERSDAbfXhlPfIZigubwtBpYRQUYcoB4SFCXcaE3
+	 jKEFLLixI1e87ARRL1OfGKH96zux5oOJUp8yxE08=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 013FCF804D1;
-	Tue, 25 Jan 2022 11:20:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76C7CF80518;
+	Tue, 25 Jan 2022 11:20:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 580E1F804CF; Tue, 25 Jan 2022 11:20:10 +0100 (CET)
+ id 12749F804D2; Tue, 25 Jan 2022 11:20:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1E92F80169
- for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 11:20:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1E92F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7E3EF804CF
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 11:20:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7E3EF804CF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TuVNIz4b"
+ header.b="bvxHPRtB"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 33F7D61614;
- Tue, 25 Jan 2022 10:20:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79750C340E0;
- Tue, 25 Jan 2022 10:20:01 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id EB6C3B81626;
+ Tue, 25 Jan 2022 10:20:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9C5C340E5;
+ Tue, 25 Jan 2022 10:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643106003;
- bh=nJhy+qOwVi2cuvhFT1z4Bk/6ubjHdACKLf5hmIX9cbQ=;
+ s=k20201202; t=1643106011;
+ bh=KCr0hL6o11BQkhCkzi4kW14K7GAZ8bdJwciwDLwogb4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=TuVNIz4bXFcXHLeO+/nQGAidSWhSr4Ah9Q6oLeO9/O1+4oFj+Yl5MpKfS9ADcfx6J
- UQEjYTge2711+ePf1TZWq5vRuvx0e9rxgo/WSrj+nhKcDQ+AuhrtAjElomrXRCkT5z
- 21iiuM9RjCjnx+PEL6JGPJkhSID8NQa3NgdOI8gQ4SdcUtXyeBMRcRvvAUjA1wiV32
- Wv/9wG7sEBkQmyubyxAnhUVHulwX8gOh19pjT09OyDXd84wk7axmHyv+MiODI4QxuR
- 0r6P3lVM5W+T481TZNcia9u+h+EPtB1+NOGJKTu8mawd4ygwVl/5qZMBwIoV8NL7+1
- tEjukBPY/ajXg==
+ b=bvxHPRtBAFNrfh9M+B/7esFKzaXJND94MVRoXn8pj1jIxugHrXnEHxwfPrJL7MGjF
+ RYudPY+/sMx/78Vs/XkivOPSz/mtN1p2Z/tP2I63FXoCqhAyECbIBBMKbwoGh+CBul
+ FeSyuO8g+m6hy1cnuwc/l1n6A1sKhKgE0HqhRdET3t8VJ0aX2cr3We86Cr8dFQDWhL
+ nnT/icmNIJiswW54AJsD5uTnd7Zpr33m4Y450fS1UVshhaQ7ZDgDgoG9KV0ri35seF
+ G3P8Bla+p0QoJv5Qqi5jrCMOASZ2RUqN3D9bOOA52S9tnJQbyTuSoJSkJbcq5wtGIt
+ 6fC05s9aU9QWQ==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-In-Reply-To: <20220120133605.476138-1-AjitKumar.Pandey@amd.com>
-References: <20220120133605.476138-1-AjitKumar.Pandey@amd.com>
-Subject: Re: [PATCH] ASoC: amd: acp-mach: Fix Left and Right rt1019 amp devices
-Message-Id: <164310600119.74817.7303379317708830215.b4-ty@kernel.org>
-Date: Tue, 25 Jan 2022 10:20:01 +0000
+To: cgel.zte@gmail.com
+In-Reply-To: <20220110012833.643994-1-chi.minghao@zte.com.cn>
+References: <20220110012833.643994-1-chi.minghao@zte.com.cn>
+Subject: Re: [PATCH] sound/soc/codecs: remove redundant ret variable
+Message-Id: <164310600828.74844.1045403214437339843.b4-ty@kernel.org>
+Date: Tue, 25 Jan 2022 10:20:08 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- V sujith kumar Reddy <vsujithkumar.reddy@amd.com>, Vijendar.Mukunda@amd.com,
- Alexander.Deucher@amd.com
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ patches@opensource.cirrus.com, Zeal Robot <zealci@zte.com.cn>, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, chi.minghao@zte.com.cn
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,24 +84,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 20 Jan 2022 19:06:01 +0530, Ajit Kumar Pandey wrote:
-> We're setting wrong card codec conf for rt1019 amp devices in our
-> machine driver. Due to this left and right amp channels data are
-> reversed in our machines as wrong device prefix results in wrong
-> value for "Mono LR Select" rt1019 mixer control. Reverse dev ids
-> in codec conf with Left and Right name_prefix to fix such issue.
+On Mon, 10 Jan 2022 01:28:33 +0000, cgel.zte@gmail.com wrote:
+> From: Minghao Chi <chi.minghao@zte.com.cn>
+> 
+> Return value from devm_snd_soc_register_component() directly instead
+> of taking this in another redundant variable.
 > 
 > 
-> [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
 Thanks!
 
-[1/1] ASoC: amd: acp-mach: Fix Left and Right rt1019 amp devices
-      commit: 248be352bbae1a0f14d0d3511a5b0bb9665097f5
+[1/1] sound/soc/codecs: remove redundant ret variable
+      commit: 4ec19deec7ffae843c3445ac7d2cfcc78c56c145
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

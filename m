@@ -2,82 +2,160 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1E8249A1CF
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 01:26:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41CEF49A20B
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 02:25:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60B8F2838;
-	Tue, 25 Jan 2022 01:25:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60B8F2838
+	by alsa0.perex.cz (Postfix) with ESMTPS id B94952805;
+	Tue, 25 Jan 2022 02:24:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B94952805
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643070368;
-	bh=/llhb3MadjMXQlQrGtqBgDz99ZgxYlm1hYqabdKqxrw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1643073919;
+	bh=/3niGyj7pj7we3PfAv8F7NzAXIhR7Llabcx6sFplWj4=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uB1tSU9zLuJyLFCX/O2Nrh4semyKvy4s3MBx+tPV6nLavoasnfxbeiI6HnP5Tz8dI
-	 mP0887e8NhOC1meHAN7+kyg1nyMCdaj4uLgoLf79nT6dq3UElBdnJA5lCjivi9EmPZ
-	 pf/fz1uHThN6AKNmt7aZBmMsDzHfORHwirX6Isgo=
+	b=iC6gadkywmZDRghAVT2DAwEyvo+nEa3FMoq6OBxmKO7aVubUVx5V9QoFO48R8QOr5
+	 2vY5w4u8jZDfnZ2/VYW9aNHcFmQ7iTeAkUiJVXPxfqdi19t3Qm1cHxBOdCwdWTTh8w
+	 kJsMTzo/pc/Rk2c50bJiNqtwLbJc6G4aIpJ4EkT8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7746F800E9;
-	Tue, 25 Jan 2022 01:25:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19A3EF802BE;
+	Tue, 25 Jan 2022 02:24:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B37C4F8027C; Tue, 25 Jan 2022 01:24:59 +0100 (CET)
+ id 4BFEEF80163; Tue, 25 Jan 2022 02:24:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2086.outbound.protection.outlook.com [40.107.95.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9650F800E9
- for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 01:24:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9650F800E9
-Received: by mail-ot1-f44.google.com with SMTP id
- g15-20020a9d6b0f000000b005a062b0dc12so3182710otp.4
- for <alsa-devel@alsa-project.org>; Mon, 24 Jan 2022 16:24:53 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=hKgu9rmUk95J97wO8FZCJYIlIG/PvU+dGhgzBVkVwN8=;
- b=4LTovXP2D1GwClMpqzWscOoWr+b4uaFUuaha7jtIX7E2dbQaGitzO0m1zjyFbXODiM
- 3WRLUleG2H5/Kz9rS6zrQhb2/KvKXIMS44R18/X7AeCCA6xHQbzuMUfUb5c+W3pRGJm8
- k7/nVKEQYJaEtyD2fjl4wGU6fIVjc2zNZgI/it5vDQ3qXgdsDjpXPlB8xkwwu0BM1a5F
- 5M1louYYTyP+2egLsVYfBfJetkg1AtFssa0fh1ogIcH8Q8/2TF1CZOzl8o94ArK6Eb/5
- nLLsA4aDUwHbo9zFg61D8pNaaQA3jdy0wVsY8vXf2UxRIqXc5w9JUHTk+Ub81uvP2ql1
- oupg==
-X-Gm-Message-State: AOAM531v0kcjCqKeQbGb+R/NwO+ahuuwq5XDCYO3D2YYbvp9EX3bP+2D
- PAHYg+tl8iGLebzquoBxBg==
-X-Google-Smtp-Source: ABdhPJwBQlZsDWkm3dE9/hvTrL4jN/68Lxk+HhTDBRoQqFgYwJwB6VNNcUYx1ZcvnXNEAfY0RZ18Zg==
-X-Received: by 2002:a9d:5c86:: with SMTP id a6mr7103969oti.163.1643070291812; 
- Mon, 24 Jan 2022 16:24:51 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id a19sm2751280otf.27.2022.01.24.16.24.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jan 2022 16:24:51 -0800 (PST)
-Received: (nullmailer pid 809305 invoked by uid 1000);
- Tue, 25 Jan 2022 00:24:50 -0000
-Date: Mon, 24 Jan 2022 18:24:50 -0600
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Subject: Re: [RFC 5/6] ASoC: dt-bindings: samsung,snow: convert to dtschema
-Message-ID: <Ye9DUjVGWDmhvPtu@robh.at.kernel.org>
-References: <20220124170336.164320-1-krzysztof.kozlowski@canonical.com>
- <20220124170336.164320-5-krzysztof.kozlowski@canonical.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6E1EF800E9
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 02:24:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6E1EF800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="IHslbCUC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DIJnNdKBGfr+4FAtQ9cwueU20mEOhY8E/w60um9U4OFUX9Q9NOEjhR1i3g6n9wbi6U/LGhblARtoQzDFaO4IQriyzJRr6av/9733VnnWm0awjDwiaVNb6p1jPaQ/rlzfqOzBYtrDDkMyyuoSRh4jrbKBjWcUrZvYP5Ch7D0tVouw0O/2Q+AIIlFw7KpcRrwBBVedLkAuYMRhbCpzjEhM6OSp0uS9gyGtCLuI5orilUBnsPOymyibx2tczYQLTjoAPdXXG+Ja5pJjryNvmKVoDfW/6QErxVQ5NTvh8A6Ae6OecEHqZcF3/BBSUdUU0GxbHujIf7luKAm2qjLpNxKNig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zSVbl9JsHgzoHnrW2ZChU783JGQNs8GpyOXTPWS3InU=;
+ b=GzQQMqOTW916Ad25Ypju1uhCsA8tgDxY5thgtmU2UX9b/bK39TkqNXHAupoIIxLCMDv6UpaVJ6008r2P2Rwjuvs33RwAngiAS6I3C1t2i1dN1OHynGf5pZweLZADVmX+BRfsUYrllQfBsek8Qo1W1FGTMOmh+i9nbH3ekAfzxmSw7/9Xc6OzFchZLlnLiLCILXyknPG5nARUPUSjvE7z7gyBMAXhevNO3+0u+iMz0icywPJVI8DP4lno4d9SCiM1MCtyzDO1puHgNmEencU36AgEkSlVSDeo1m5OCZWQXX7W+BjKXItmilC9Zs0WM3je+f+7f2mKA/zKzm/Sc0ewTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zSVbl9JsHgzoHnrW2ZChU783JGQNs8GpyOXTPWS3InU=;
+ b=IHslbCUCcaH1we5lm5PKjAfRKZBpRZSPoZVWcRAlm6yV/Wel8ZSDEQEQMHO3EGOU9p775neFw89ffDPZr9XudshQPj9OlARpR0S6dPX5/7uyTW3tSLtFsVI0Sx1kGxGLAPOdtYONv8qZUTRnZDgWQHEw+c8AnHH0VB4I+5DUw54=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN8PR12MB3058.namprd12.prod.outlook.com (2603:10b6:408:66::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Tue, 25 Jan
+ 2022 01:23:58 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4909.017; Tue, 25 Jan 2022
+ 01:23:58 +0000
+Message-ID: <500a3aa0-f51e-92ac-82d6-7ffc7f603e2c@amd.com>
+Date: Mon, 24 Jan 2022 20:23:56 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: Build regressions/improvements in v5.17-rc1
+Content-Language: en-US
+To: Randy Dunlap <rdunlap@infradead.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20220123125737.2658758-1-geert@linux-m68k.org>
+ <alpine.DEB.2.22.394.2201240851560.2674757@ramsan.of.borg>
+ <CADnq5_MUq0fX7wMLJyUUxxa+2xoRinonL-TzD8tUhXALRfY8-A@mail.gmail.com>
+ <CAMuHMdWUWqHYbbavtMT-XAD_sarDPC5xnc3c0pX1ZAh3Wuzuzg@mail.gmail.com>
+ <aca104cf-5f5f-b696-754a-35e62dbe64c3@infradead.org>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <aca104cf-5f5f-b696-754a-35e62dbe64c3@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YTXPR0101CA0003.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::16) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220124170336.164320-5-krzysztof.kozlowski@canonical.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Jonathan Bakker <xc-racer2@live.ca>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 04bcbaa5-ef8b-47a2-ea6d-08d9dfa15c79
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3058:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB30587CA5EE5B4A40821148CB925F9@BN8PR12MB3058.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sS1wRn8mUsx8ThWydY3jSQuCEBzwhuyTPl+Ax2bx14pFnwXlaaSKqyDAOQT7HDkbxKxOTIdGQm7ZVLVJWnP8mYfoIgQmv5xWeUzVo5IcRIzqUHAFVP7fPNL6Os4MQDlX6S/cdOTWdwYeienvC441qYw2JVYdsmKqFgD9lxt9CCkdz6uwBzJ9+fZFNfC7oahG7f1v2mIFj52NlAeNkYhPLe9Be/KF8p8OXcm//Rr3Y0o0FeDm5w6IkiXhsqUe0enMVOs6Igv4H2i0aVvb1UsUdQ0H8hs3a326Io27IbL0kS0epv3hyanZCwSoSTy25vwhh+kO53eMrTSYpuJhY8K+IZWKIt6Rk2qn/G88Gxwkzoeb9SHLu9T4Msft7Hdxt8iCx3l6QLwnVpVjSoyh82sa0gFqlVGWIXTTn8N48I+DX/mJwo3yy/hti6anTjGA+aSrtSQ9Xii1r7QTny2qtyHIqq7UFckoMQMDAsaLKslbvQpuAuLsCdPtNSkNfEUQ5Aeyj7nooJPiUTS6Go2g8TYkNLPEDuO79eslRbUC/SIE1hTBofs35svsDNXT8392B0RL5lb5kxqlVT/2cp+vVEDNmCPZEtS7iZlamq3hSa9nz0gH+isrtzMV7DYlDU/SDJVxULb7q/E3Vk533dEcj77eGaV/vDob7OYRU9E++goKLkeUREq5RUq2d1vPP3+Y2n7SCkM7MqCYq+4dLjHH05fOJtaOFKSbpoFQK7Zt7scbaUn1FXfX+EB5C+yQva/IvvAXQ3Pr5Zytqty3SXiZP1XTawQNXhVflKWUb0rNZUBW6ckig/Ymlh2rJR1Be9b8y86rV+C9Fr8nPA3PkazQubU5lQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(186003)(53546011)(31696002)(26005)(6486002)(8936002)(66476007)(86362001)(66556008)(66946007)(508600001)(31686004)(6506007)(5660300002)(110136005)(2616005)(316002)(84970400001)(83380400001)(2906002)(8676002)(44832011)(7416002)(38100700002)(54906003)(6512007)(4326008)(36756003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dWJjaXgrYjNSZWxOZVEwVGsyMlZHRG5PUHVnOEUrUmIyYk1OVlNPdjkwZHFu?=
+ =?utf-8?B?b2VXSkFybE5XWnpQZ0p6bnJNazFmeWVuTExpQkI4eHY2M3JiSFM5NkZIeHk0?=
+ =?utf-8?B?Mkd3N0U3TThaYUxTdFJKT09OOGJBQTIvcUcrd0ZrRUdkeEgvemx6OWVaQnV5?=
+ =?utf-8?B?UVcxeTRYRVE3UkNFT1dEMERmQnBkVjhUbEhpbGMrdGZJWGVvVmcrOW5WTDFP?=
+ =?utf-8?B?eEQ5dXdKYlRZbWVCMzNaVVNQZlBQNHZGVzNlUWF3N0Y3NHhuTFc2L2dVajVM?=
+ =?utf-8?B?a1NETXlsWk9IZE9LZDFUVXMyMTJUYlRXRlNIZmxPOHU2cmtYMVJJdk44ZDRS?=
+ =?utf-8?B?MElhRTBLc3NSWFYyWWFGNmxEcExwZnV1dXRaWW1oRXFpMVMwdGVXeDVscERm?=
+ =?utf-8?B?cjd6Z3BqZ0dkRWFzRTFCd1Ntd2FId21SZXFXME5TVWZjNGduZWhxNWQ5NjND?=
+ =?utf-8?B?K1ZkVzhFS1prZWplb2hrN1Q3YTBFNFRtYUR1ZGZzUmxJNjR1dU5yMXRHMXVN?=
+ =?utf-8?B?VmdNczFqR3dEU2Q4VHJId1Q5Z3UxZFFFOUdBMXNFenlqcVNiUG1hUEsrOEp5?=
+ =?utf-8?B?ZU51NUpXVkpsTHF2VHZJYjFXNi9MbVhnVkt5R255V0NKSjZieHZBQ1RIeVdw?=
+ =?utf-8?B?d1lIN1BtTDB3Z1hBVG9Ca1g5RjVYUjZzUzlyZlBabWpDV1llUGFTc0laOVlO?=
+ =?utf-8?B?VU9RbUZtSit6T0dEUmM3RnB3L3NycUNiMEduL052M1ZiMUxCeWV1ZG85cm1o?=
+ =?utf-8?B?dHRaUmthWWR5ME5vK0dObmRRRzlyOGp4OVk0ejhueE1nRDk1c2UxZU5ZZ3NQ?=
+ =?utf-8?B?WGdCZ25xN2JJVkhRRWo2dm1LcjQvNnV4Qm1vQ3hnSWxPWVZ6M0J5RXV6MXRI?=
+ =?utf-8?B?MlA5K051OEQvSjNya3o0dEc3Y0RnRzhuZCtUWjhlVWhaSnFWbTRvcE1FN0NU?=
+ =?utf-8?B?QWYzeUkwUTgzNXZHV1lzRGgxbkdEdCtWYmdod3Ezd1piWUMrMnV1U1pIS2Zs?=
+ =?utf-8?B?ZkhuRTgyei9qSWVCL3g0bGlmbURocHJIK00rZWt3YTZBcTNHVWo1WVRXNVhn?=
+ =?utf-8?B?cC9URnRLQWZwRnQybkwwOEd0M3BwTmFYNDRPRnhuVlppdmNoZzBDWlVNaFBx?=
+ =?utf-8?B?eTljSmFJS1c0UEQ4ZXdFbnpzTWV1aW9XWTZTcUk1Q1p4R1FaTUZjdjZzaEJw?=
+ =?utf-8?B?a2JoZGhzTUhESkJoSHpLQ1MyYnNaUVdLb0JSOXVQVTQ2dDR2MFY0eEExKzBW?=
+ =?utf-8?B?NHhvUUg0SmZndFBCQlZTeGk2L1FZRElOU25PVVg1OTlvOXo0QmxpUTVvN1d3?=
+ =?utf-8?B?SGsrT2lQWS9WY2tnWjE3czZDcDNvZjJUNnlnWVVkRWtvc0l6Rm5PdWdUeExi?=
+ =?utf-8?B?c0lEQ1RDanRyT09mNldIbVkyWVd4Y2pMbmR2dkdmcWFndU16WEtOK1prZlJ6?=
+ =?utf-8?B?aGhncWhFa3o4TkwvUVBIcnhwYkVYb1lQZ3FqMkFBZkN4NTEvMGZ0UnJOUk4y?=
+ =?utf-8?B?bzdaTXh5NFkzZWRxaEZpSTZNMXdPMDBvRUdmYWc5NjJVL2hJOGdkalZjZ3pj?=
+ =?utf-8?B?bkNmTVFjNnZvc3Y3S2tFdXZTNlI2ckFmOW9teHo4ZGNNc1d5Q1lrUkRYZkZo?=
+ =?utf-8?B?R1VXMXBWN2tnMlJ2bEJDV2o5TytxRyt1WkUwZFhmdjBnT0E5UWlVMjhMa0t6?=
+ =?utf-8?B?YTFkeXRXOW4zaHh3U2lKMVU5Q2ZpZlhYNFRvTTRVT243MHNUTXZObmZ1WFZF?=
+ =?utf-8?B?RUtQWDRMZXhSKzBEVlFkVFp4TkM4eVNtMWZncVozRm8ybUtKVGUvNVkzbFZP?=
+ =?utf-8?B?K0tvVU95UW9RMVlZQlpjMEg4TUNtZUN6OTlQUnB3ZkFsVk81RU1BbkZUcjFw?=
+ =?utf-8?B?Tlh3UUI2aHVWa2RzbVVKSkgrbUZ0YjRhRWhCT2g2YW5WMVNGUUVxQTRpYWpJ?=
+ =?utf-8?B?UmMxU3lWVURpdGNvcjNWMGdzbXhOVDZoTUYzRXhkVC8rYVBPdFYreWpjZW52?=
+ =?utf-8?B?d0gxdkhpZ3ZFS0JkWGJ4UTJRcXY2cDFFUWF1NUlVa0d5bVJqbUM3UjFmNC9o?=
+ =?utf-8?B?Q3dCNGdHYWFyUmFXSmFHOWdRYkpoVjFxT3JjN2lQbWEzbStZbVVZbithSWVm?=
+ =?utf-8?B?bW1aeEJ2ck4vN2JxZEk0VUNQK0pUck1HMjVrbDBGd2g1ZngzMmYvU1ZVd0dJ?=
+ =?utf-8?Q?kVWpGXnS3s1eVDHYBqqnZMs=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04bcbaa5-ef8b-47a2-ea6d-08d9dfa15c79
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 01:23:58.6202 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oXcSYPMslqvMz5gstb1SKEZF8muKJXbaWuLyg9snLBV1Gqx1CAjfZeeSS9TloKM+BTAPWtrVs3ELVz7U4t41mw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3058
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ KVM list <kvm@vger.kernel.org>, Network Development <netdev@vger.kernel.org>,
+ linux-um <linux-um@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ Lakshmi Sowjanya D <lakshmi.sowjanya.d@intel.com>,
+ sparclinux <sparclinux@vger.kernel.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, "Tobin C. Harding" <me@tobin.cc>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,59 +171,136 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jan 24, 2022 at 06:03:35PM +0100, Krzysztof Kozlowski wrote:
-> Convert the audio complex on Google Snow boards with Samsung Exynos SoC
-> to DT schema format.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-> 
-> ---
-> 
-> TODO: The DTS do not pass cleanly. cpu/sound-dai should be fixed.
-> ---
->  .../bindings/sound/samsung,snow.yaml          | 78 +++++++++++++++++++
->  .../devicetree/bindings/sound/snow.txt        | 31 --------
->  2 files changed, 78 insertions(+), 31 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/samsung,snow.yaml
->  delete mode 100644 Documentation/devicetree/bindings/sound/snow.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/samsung,snow.yaml b/Documentation/devicetree/bindings/sound/samsung,snow.yaml
-> new file mode 100644
-> index 000000000000..df969b384839
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/samsung,snow.yaml
-> @@ -0,0 +1,78 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/samsung,snow.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Google Snow audio complex with MAX9809x codec
-> +
-> +maintainers:
-> +  - Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-> +  - Sylwester Nawrocki <s.nawrocki@samsung.com>
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - google,snow-audio-max98090
-> +      - google,snow-audio-max98091
-> +      - google,snow-audio-max98095
-> +
-> +  codec:
-> +    type: object
-> +    properties:
-> +      sound-dai:
-> +        description: List of phandles to the CODEC and HDMI IP nodes.
-> +        $ref: /schemas/types.yaml#/definitions/phandle-array
-> +        items:
-> +          - description: Phandle to the MAX98090, MAX98091 or MAX98095 CODEC.
-> +          - description: Phandle to the HDMI IP block node.
 
-Thinking about this and the issue you raised some more, we should make 
-sure there's a common definition for sound-dai. And then here, it should 
-just be the number of entries ('maxItems: 1').
+Am 2022-01-24 um 14:11 schrieb Randy Dunlap:
+> On 1/24/22 10:55, Geert Uytterhoeven wrote:
+>> Hi Alex,
+>>
+>> On Mon, Jan 24, 2022 at 7:52 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>> On Mon, Jan 24, 2022 at 5:25 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+>>>> On Sun, 23 Jan 2022, Geert Uytterhoeven wrote:
+>>>>>   + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: error: control reaches end of non-void function [-Werror=return-type]:  => 1560:1
+>>> I don't really see what's going on here:
+>>>
+>>> #ifdef CONFIG_X86_64
+>>> return cpu_data(first_cpu_of_numa_node).apicid;
+>>> #else
+>>> return first_cpu_of_numa_node;
+>>> #endif
+>> Ah, the actual failure causing this was not included:
+>>
+>> In file included from /kisskb/src/arch/x86/um/asm/processor.h:41:0,
+>>                   from /kisskb/src/include/linux/mutex.h:19,
+>>                   from /kisskb/src/include/linux/kernfs.h:11,
+>>                   from /kisskb/src/include/linux/sysfs.h:16,
+>>                   from /kisskb/src/include/linux/kobject.h:20,
+>>                   from /kisskb/src/include/linux/pci.h:35,
+>>                   from
+>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:25:
+>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: In
+>> function 'kfd_cpumask_to_apic_id':
+>> /kisskb/src/arch/um/include/asm/processor-generic.h:103:18: error:
+>> called object is not a function or function pointer
+>>   #define cpu_data (&boot_cpu_data)
+>>                    ^
+>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9:
+>> note: in expansion of macro 'cpu_data'
+>>    return cpu_data(first_cpu_of_numa_node).apicid;
+>>           ^
+>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1:
+>> error: control reaches end of non-void function [-Werror=return-type]
+>>   }
+>>   ^
+> ah yes, UML.
+> I have a bunch of UML fixes that I have been hesitant to post.
+>
+> This is one of them.
+> What do people think about this?
 
-Rob
+Does it make sense to configure a UML kernel with a real device driver 
+in the first place? Or should we just prevent enabling amdgpu for UML 
+with a Kconfig dependency?
+
+Regards,
+   Felix
+
+
+>
+> thanks.
+>
+> ---
+> From: Randy Dunlap <rdunlap@infradead.org>
+>
+>
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9: note: in expansion of macro ‘cpu_data’
+>    return cpu_data(first_cpu_of_numa_node).apicid;
+>           ^~~~~~~~
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1: error: control reaches end of non-void function [-Werror=return-type]
+>
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_fill_iolink_info_for_cpu’:
+> ../arch/um/include/asm/processor-generic.h:103:19: error: called object is not a function or function pointer
+>   #define cpu_data (&boot_cpu_data)
+>                    ~^~~~~~~~~~~~~~~
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1688:27: note: in expansion of macro ‘cpu_data’
+>    struct cpuinfo_x86 *c = &cpu_data(0);
+>                             ^~~~~~~~
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:7: error: dereferencing pointer to incomplete type ‘struct cpuinfo_x86’
+>    if (c->x86_vendor == X86_VENDOR_AMD)
+>         ^~
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:23: error: ‘X86_VENDOR_AMD’ undeclared (first use in this function); did you mean ‘X86_VENDOR_ANY’?
+>    if (c->x86_vendor == X86_VENDOR_AMD)
+>                         ^~~~~~~~~~~~~~
+>                         X86_VENDOR_ANY
+>
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_create_vcrat_image_cpu’:
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1742:11: warning: unused variable ‘entries’ [-Wunused-variable]
+>    uint32_t entries = 0;
+>
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     |    6 +++---
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |    2 +-
+>   2 files changed, 4 insertions(+), 4 deletions(-)
+>
+> --- linux-next-20220107.orig/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ linux-next-20220107/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -1552,7 +1552,7 @@ static int kfd_cpumask_to_apic_id(const
+>   	first_cpu_of_numa_node = cpumask_first(cpumask);
+>   	if (first_cpu_of_numa_node >= nr_cpu_ids)
+>   		return -1;
+> -#ifdef CONFIG_X86_64
+> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>   	return cpu_data(first_cpu_of_numa_node).apicid;
+>   #else
+>   	return first_cpu_of_numa_node;
+> --- linux-next-20220107.orig/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ linux-next-20220107/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -1679,7 +1679,7 @@ static int kfd_fill_mem_info_for_cpu(int
+>   	return 0;
+>   }
+>   
+> -#ifdef CONFIG_X86_64
+> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>   static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+>   				uint32_t *num_entries,
+>   				struct crat_subtype_iolink *sub_type_hdr)
+> @@ -1738,7 +1738,7 @@ static int kfd_create_vcrat_image_cpu(vo
+>   	struct crat_subtype_generic *sub_type_hdr;
+>   	int avail_size = *size;
+>   	int numa_node_id;
+> -#ifdef CONFIG_X86_64
+> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>   	uint32_t entries = 0;
+>   #endif
+>   	int ret = 0;
+> @@ -1803,7 +1803,7 @@ static int kfd_create_vcrat_image_cpu(vo
+>   			sub_type_hdr->length);
+>   
+>   		/* Fill in Subtype: IO Link */
+> -#ifdef CONFIG_X86_64
+> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>   		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
+>   				&entries,
+>   				(struct crat_subtype_iolink *)sub_type_hdr);
+>
+>

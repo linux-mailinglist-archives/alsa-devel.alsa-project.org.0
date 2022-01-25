@@ -2,148 +2,191 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A546549F644
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 10:26:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 666F949F645
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 10:27:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4965216B2;
-	Fri, 28 Jan 2022 10:26:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4965216B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1452B1630;
+	Fri, 28 Jan 2022 10:26:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1452B1630
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643362013;
-	bh=w17wqNo1lVdovhhPNZMo5HwsZm4SSuRC9WoO02SF49c=;
+	s=default; t=1643362028;
+	bh=7LCaeAFdk7EXv4o1Gb//VOHTS5tdrCMMkg1h/O28VHk=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PAx7VzIpE2ItigeE/q902CkbyUzTmEG1s5CDLAdWNgOfd/C5/cTmNO8haTpppDtdR
-	 LEdQDDv2QT0kq0PyFiJZcDz9xIVkU10ptGJ0P87pdc7NpL1aostOP5EFNq0HIX/+u5
-	 VbeES7Itg/YT27Ivq7gPXP8m2UyjLbgupmUfg2A8=
+	b=lYrGlSSHlj+qWoEGjbMvowX2P2pzTT2j+XQL1angge0Fw/a1sgT+p8DOJa5dxvGGH
+	 MVQ7GRNEr/v+/ug4Z8Oeu6IFDy0XkpVutt/8ubSv6pKD9C2xQQTdgWV0EeK1vkBSwB
+	 59iY70O7atluNY0jgenIOTUioEYadBHTW1r87rG0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E416AF80510;
-	Fri, 28 Jan 2022 10:24:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46EB9F8051A;
+	Fri, 28 Jan 2022 10:24:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECA7EF804C3; Tue, 25 Jan 2022 09:25:49 +0100 (CET)
+ id 6D0E8F804C3; Tue, 25 Jan 2022 10:31:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com
- [209.85.221.180])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-ua1-x933.google.com (mail-ua1-x933.google.com
+ [IPv6:2607:f8b0:4864:20::933])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC8BDF800D1
- for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 09:25:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC8BDF800D1
-Received: by mail-vk1-f180.google.com with SMTP id d189so11925598vkg.3
- for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 00:25:39 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D12AF800D1
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 10:30:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D12AF800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="kCmCEgQ+"
+Received: by mail-ua1-x933.google.com with SMTP id m90so36322490uam.2
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 01:30:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=1mm7+Qmz3LImo4aFwbhXIFkzVEgm/HAOzd6fbdAVMrg=;
+ b=kCmCEgQ+xOVJqgvY6mIiDwGpng9RE64Ri/x5bVEJVgfKmrbder8yB0SJa9j3j/iO6u
+ VSlwxJi1GtMfRaX9rz0Fi8V70QZmpTm/yg+yqKEhFTP/kvAigM6NlkG016BHxBuEGBud
+ aKKG3vXyGKhkWECz7g02ij5pN8RBjRbfSAGJhF2s+s/E8Wzq61/RmUZzmkHINs6y38kj
+ 8W/C1tUsfkR71I5xYVxyEgRhxjIz/FmTGO/CwLqL3papla/+aWUpb3kyrOT/GpbDGqeC
+ c1kCPdzAMoEjl9Ka3L/ozlubTR502/GpTZoRLS5kuqKqPkl9NQ2lJSPzTzJVIDppuhpp
+ EfLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0nj3tQtaS2Jftix8pFrL2+Rvw9SRm0Q+IWJ3wAkzl0s=;
- b=QpoGHmxHr4PWXSBqeDHqQ3ML6gqqgE/7ksv9U1Q3Egb6SIfA2bIZFMr+8ue5OVH5NH
- vWX8OMF+2P8AsiHKpQjn4ZacJekDgcG37TM4jRQhPpINRb8prsu+/7Kn4k9xQIRZDhlQ
- IWZT75bv0EZ56xXcznmIqlYPXjDDgtnqxxN4ZxheI9JZhh5wK6fMWe8/h1Ic9SBGbmYP
- 0DQHfKzXxmQeWcgS0jueZiaO1oUrFVn8nDg6S+xmLgxkMIvKjfrw6PaUFgPsjB2fvsHO
- 4BydbR14JEwdXNzK8rhiDCqZR+bXWlJ9IkWsAG6E3HqDkFdmhl9VWW6cQjMH5PVXdfZT
- 7FQQ==
-X-Gm-Message-State: AOAM5326HtdKz92/aYtWayYdfIiWJMCD9SSYkzLDb/VJZaEVnFH9JDD5
- tKR6sIgXeJ14OMEsU5E/gyCGxRXwiX1cQH2J
-X-Google-Smtp-Source: ABdhPJwyuvUiHNldA5mOmQ/1QkqhdxsRpPARfW4liosC0Se2BjUu+5CIQqeXWAfVkX24KDc6j0sBNw==
-X-Received: by 2002:a05:6122:2225:: with SMTP id
- bb37mr7202190vkb.27.1643099137852; 
- Tue, 25 Jan 2022 00:25:37 -0800 (PST)
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com.
- [209.85.222.46])
- by smtp.gmail.com with ESMTPSA id c124sm3263880vkb.51.2022.01.25.00.25.37
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jan 2022 00:25:37 -0800 (PST)
-Received: by mail-ua1-f46.google.com with SMTP id p1so35822925uap.9
- for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 00:25:37 -0800 (PST)
-X-Received: by 2002:a05:6102:a04:: with SMTP id
- t4mr1874173vsa.77.1643099137125; 
- Tue, 25 Jan 2022 00:25:37 -0800 (PST)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=1mm7+Qmz3LImo4aFwbhXIFkzVEgm/HAOzd6fbdAVMrg=;
+ b=neFqqpBxAlQb9Afxa8Ke87QmuPlBVUpfAJA9EKQWY0VeZzALvhv9aKd6Pe0gOgx5a4
+ xtvwH8g+HqGOlANiBfDx0613Vm9DOFeYm1I2q+BmSkKwTYFpGXoQ5rtCm+K75pYWn/R1
+ keGZ7zREdf85/F33KoIkt9uaEU1fbjyQfSXoVrnXYNI31FJGJ+i/D3Jva7fEXD7NdH9G
+ DeFkW/lv+wUE9BeVWMz9K2DgkUysXUA/UlAXrrucP7k6zIlN9+h1r0BRGqwzoh93JpUL
+ QG8geWHLZ8SWcRf9b7/6IEPliHpuErmSSmxPfwPb/NV9bKF3sFBrXDqdCvDmO7mUooPj
+ WyQw==
+X-Gm-Message-State: AOAM532RiSY6EGo8kqh/BCNPvJ3bTRzp+fxVL5sar7XexCnqO/6gaN6I
+ PRwyU+ghQh7Y3hgYDzUjvvKt2t3YiHWoMGrd23uV3A==
+X-Google-Smtp-Source: ABdhPJwHGGkAwOnsd7qe0zHQAqHAUzi5PBqvJQ90yr1sdZ5zdG5wkLeKm2Z8HhNpFMDsTHL1nOGUCrWQS9pCXlyV9Y0=
+X-Received: by 2002:a67:8c2:: with SMTP id 185mr712613vsi.19.1643103053912;
+ Tue, 25 Jan 2022 01:30:53 -0800 (PST)
 MIME-Version: 1.0
-References: <CAMuHMdWsMGPiQaPS0-PJ_+Mc5VQ37YdLfbHr_aS40kB+SfW-aw@mail.gmail.com>
- <20220112213121.5ruae5mxwj6t3qiy@pengutronix.de>
- <Yd9L9SZ+g13iyKab@sirena.org.uk>
- <20220113110831.wvwbm75hbfysbn2d@pengutronix.de>
- <YeA7CjOyJFkpuhz/@sirena.org.uk>
- <20220113194358.xnnbhsoyetihterb@pengutronix.de>
- <YeF05vBOzkN+xYCq@smile.fi.intel.com>
- <20220115154539.j3tsz5ioqexq2yuu@pengutronix.de>
- <YehdsUPiOTwgZywq@smile.fi.intel.com>
- <20220120075718.5qtrpc543kkykaow@pengutronix.de>
- <Ye6/NgfxsZnpXE09@smile.fi.intel.com>
- <15796e57-f7d4-9c66-3b53-0b026eaf31d8@omp.ru>
-In-Reply-To: <15796e57-f7d4-9c66-3b53-0b026eaf31d8@omp.ru>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 25 Jan 2022 09:25:25 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXouECKa43OwUgQ6dA+gNeOqEZHZgOmQzqknzYiA924YA@mail.gmail.com>
-Message-ID: <CAMuHMdXouECKa43OwUgQ6dA+gNeOqEZHZgOmQzqknzYiA924YA@mail.gmail.com>
-Subject: Re: [PATCH] driver core: platform: Rename platform_get_irq_optional()
- to platform_get_irq_silent()
-To: Sergey Shtylyov <s.shtylyov@omp.ru>
+References: <20220123175201.34839-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20220123175201.34839-1-u.kleine-koenig@pengutronix.de>
+From: Lee Jones <lee.jones@linaro.org>
+Date: Tue, 25 Jan 2022 09:30:43 +0000
+Message-ID: <CAF2Aj3g0uxj7=m+USWz9QvmQ511DN83e9WsVDW-484aEdix4hg@mail.gmail.com>
+Subject: Re: [PATCH 0/5] spi: make remove callback a void function
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 28 Jan 2022 10:24:41 +0100
-Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Vignesh Raghavendra <vigneshr@ti.com>, KVM list <kvm@vger.kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Guenter Roeck <groeck@chromium.org>, Thierry Reding <thierry.reding@gmail.com>,
- MTD Maling List <linux-mtd@lists.infradead.org>,
- Linux I2C <linux-i2c@vger.kernel.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-phy@lists.infradead.org,
- linux-spi <linux-spi@vger.kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Khuong Dinh <khuong@os.amperecomputing.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Kamal Dasu <kdasu.kdev@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- platform-driver-x86@vger.kernel.org,
- Linux PWM List <linux-pwm@vger.kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Robert Richter <rric@kernel.org>,
- Saravanan Sekar <sravanhome@gmail.com>, Corey Minyard <minyard@acm.org>,
- Linux PM list <linux-pm@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, John Garry <john.garry@huawei.com>,
- Peter Korsgaard <peter@korsgaard.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Mark Gross <markgross@kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Takashi Iwai <tiwai@suse.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- openipmi-developer@lists.sourceforge.net,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Benson Leung <bleung@chromium.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
- Tony Luck <tony.luck@intel.com>, Richard Weinberger <richard@nod.at>,
- Mun Yew Tham <mun.yew.tham@intel.com>, Eric Auger <eric.auger@redhat.com>,
+Cc: Andrew Lunn <andrew@lunn.ch>, Gwendal Grignou <gwendal@chromium.org>,
+ Yasunari Takiguchi <Yasunari.Takiguchi@sony.com>, Claudius Heine <ch@denx.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Nanyong Sun <sunnanyong@huawei.com>, Linus Walleij <linus.walleij@linaro.org>,
+ dri-devel@lists.freedesktop.org,
+ Frieder Schrempf <frieder.schrempf@kontron.de>, Pavel Machek <pavel@ucw.cz>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Christian Lamparter <chunkeey@googlemail.com>,
+ Ajay Singh <ajay.kathat@microchip.com>, linux-clk@vger.kernel.org,
+ Stefan Schmidt <stefan@datenfreihafen.org>, Sidong Yang <realwakka@gmail.com>,
+ libertas-dev@lists.infradead.org, linux-omap@vger.kernel.org,
+ Antti Palosaari <crope@iki.fi>, Guenter Roeck <linux@roeck-us.net>,
+ Jean Delvare <jdelvare@suse.com>, linux-serial@vger.kernel.org,
+ =?UTF-8?Q?=C5=81ukasz_Stelmach?= <l.stelmach@samsung.com>,
+ Mark Tomlinson <mark.tomlinson@alliedtelesis.co.nz>,
+ James Schulman <james.schulman@cirrus.com>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Cornelia Huck <cohuck@redhat.com>, Linux MMC List <linux-mmc@vger.kernel.org>,
- Joakim Zhang <qiangqing.zhang@nxp.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, James Morse <james.morse@arm.com>,
- Zha Qipeng <qipeng.zha@intel.com>, Sebastian Reichel <sre@kernel.org>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- linux-mediatek@lists.infradead.org, Brian Norris <computersforpeace@gmail.com>,
- netdev@vger.kernel.org
+ Zhang Qilong <zhangqilong3@huawei.com>, Randy Dunlap <rdunlap@infradead.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Michael Walle <michael@walle.cc>,
+ =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Jingoo Han <jingoohan1@gmail.com>, linux-mtd@lists.infradead.org,
+ Andrew Morton <akpm@linux-foundation.org>, Vladimir Oltean <olteanv@gmail.com>,
+ linux-wpan@vger.kernel.org, Claudiu Beznea <Claudiu.Beznea@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Dan Robertson <dan@dlrobertson.com>, Markuss Broks <markuss.broks@gmail.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>, David Airlie <airlied@linux.ie>,
+ linux-wireless@vger.kernel.org, Marco Felsch <m.felsch@pengutronix.de>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Solomon Peachy <pizza@shaftnet.org>,
+ =?UTF-8?B?TWFyZWsgQmVow7pu?= <kabel@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>,
+ Jiri Slaby <jirislaby@kernel.org>, Helge Deller <deller@gmx.de>,
+ Tudor Ambarus <Tudor.Ambarus@microchip.com>,
+ Minghao Chi <chi.minghao@zte.com.cn>, Jon Hunter <jonathanh@nvidia.com>,
+ dingsenjie <dingsenjie@yulong.com>, Heiko Schocher <hs@denx.de>,
+ Wolfgang Grandegger <wg@grandegger.com>, Matt Kline <matt@bitbashing.io>,
+ Woojung Huh <woojung.huh@microchip.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Mike Looijmans <mike.looijmans@topic.nl>,
+ =?UTF-8?Q?Ronald_Tschal=C3=A4r?= <ronald@innovation.ch>,
+ Daniel Thompson <daniel.thompson@linaro.org>,
+ Maxime Ripard <mripard@kernel.org>, linux-can@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Hans de Goede <hdegoede@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
+ Davidlohr Bueso <dbueso@suse.de>, UNGLinuxDriver@microchip.com,
+ Jarkko Sakkinen <jarkko@kernel.org>, linux-usb@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-integrity@vger.kernel.org,
+ Jonathan Cameron <jic23@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, linux-staging@lists.linux.dev,
+ linux-iio@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ alsa-devel@alsa-project.org, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
+ netdev@vger.kernel.org, Wei Yongjun <weiyongjun1@huawei.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ =?UTF-8?B?SsOpcsO0bWUgUG91aWxsZXI=?= <jerome.pouiller@silabs.com>,
+ linux-rtc@vger.kernel.org, Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, Guenter Roeck <groeck@google.com>,
+ Aditya Srivastava <yashsri421@gmail.com>,
+ Varka Bhadram <varkabhadram@gmail.com>, wengjianfeng <wengjianfeng@yulong.com>,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Mark Greer <mgreer@animalcreek.com>, Mark Gross <markgross@kernel.org>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
+ linux-fbdev@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Benson Leung <bleung@chromium.org>,
+ =?UTF-8?Q?Stefan_M=C3=A4tje?= <stefan.maetje@esd.eu>,
+ linux-hwmon@vger.kernel.org, Felipe Balbi <balbi@kernel.org>,
+ Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Julia Lawall <julia.lawall@inria.fr>,
+ Yang Li <yang.lee@linux.alibaba.com>, Dan Carpenter <dan.carpenter@oracle.com>,
+ patches@opensource.cirrus.com,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Kent Gustavsson <kent@minoris.se>, "David S. Miller" <davem@davemloft.net>,
+ Charles-Antoine Couret <charles-antoine.couret@nexvision.fr>,
+ Alexander Aring <alex.aring@gmail.com>, Jiri Prchal <jiri.prchal@aksignal.cz>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Emma Anholt <emma@anholt.net>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alexandru Ardelean <ardeleanalex@gmail.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Peter Huewe <peterhuewe@gmx.de>,
+ Torin Cooper-Bennun <torin@maxiluxsystems.com>, linux-leds@vger.kernel.org,
+ Eric Piel <eric.piel@tremplin-utc.net>, Stephan Gerhold <stephan@gerhold.net>,
+ Noralf Tronnes <notro@tronnes.org>, Richard Weinberger <richard@nod.at>,
+ Russell King <linux@armlinux.org.uk>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Thomas Kopp <thomas.kopp@microchip.com>, Jakub Kicinski <kuba@kernel.org>,
+ Vivien Didelot <vivien.didelot@gmail.com>, platform-driver-x86@vger.kernel.org,
+ Stefan Wahren <stefan.wahren@i2se.com>, Xue Liu <liuxuenetmail@gmail.com>,
+ David Lechner <david@lechnology.com>, Will Deacon <will@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Kalle Valo <kvalo@kernel.org>,
+ Rui Miguel Silva <rmfrfs@gmail.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Harry Morris <h.morris@cascoda.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>,
+ Alessandro Zummo <a.zummo@towertech.it>, Yang Shen <shenyang39@huawei.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Takashi Iwai <tiwai@suse.com>,
+ Cai Huoqing <caihuoqing@baidu.com>, Daniel Mack <daniel@zonque.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Colin Ian King <colin.king@intel.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Alan Ott <alan@signal11.us>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -159,80 +202,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Sergey,
+My usual mailer won't let me reply to this many people, so I'm using Gmail.
 
-On Mon, Jan 24, 2022 at 10:02 PM Sergey Shtylyov <s.shtylyov@omp.ru> wrote:
-> On 1/24/22 6:01 PM, Andy Shevchenko wrote:
-> >>>>>>> It'd certainly be good to name anything that doesn't correspond to one
-> >>>>>>> of the existing semantics for the API (!) something different rather
-> >>>>>>> than adding yet another potentially overloaded meaning.
-> >>>>>>
-> >>>>>> It seems we're (at least) three who agree about this. Here is a patch
-> >>>>>> fixing the name.
-> >>>>>
-> >>>>> And similar number of people are on the other side.
-> >>>>
-> >>>> If someone already opposed to the renaming (and not only the name) I
-> >>>> must have missed that.
-> >>>>
-> >>>> So you think it's a good idea to keep the name
-> >>>> platform_get_irq_optional() despite the "not found" value returned by it
-> >>>> isn't usable as if it were a normal irq number?
-> >>>
-> >>> I meant that on the other side people who are in favour of Sergey's patch.
-> >>> Since that I commented already that I opposed the renaming being a standalone
-> >>> change.
-> >>>
-> >>> Do you agree that we have several issues with platform_get_irq*() APIs?
-> [...]
-> >>> 2. The vIRQ0 handling: a) WARN() followed by b) returned value 0
-> >>
-> >> I'm happy with the vIRQ0 handling. Today platform_get_irq() and it's
-> >> silent variant returns either a valid and usuable irq number or a
-> >> negative error value. That's totally fine.
-> >
-> > It might return 0.
-> > Actually it seems that the WARN() can only be issued in two cases:
-> > - SPARC with vIRQ0 in one of the array member
-> > - fallback to ACPI for GPIO IRQ resource with index 0
+No idea what chaos this will cause, but here goes ...
+
+> The value returned by an spi driver's remove function is mostly ignored.
+> (Only an error message is printed if the value is non-zero that the
+> error is ignored.)
 >
->    You have probably missed the recent discovery that arch/sh/boards/board-aps4*.c
-> causes IRQ0 to be passed as a direct IRQ resource?
-
-So far no one reported seeing the big fat warning ;-)
-
-> > The bottom line here is the SPARC case. Anybody familiar with the platform
-> > can shed a light on this. If there is no such case, we may remove warning
-> > along with ret = 0 case from platfrom_get_irq().
+> So change the prototype of the remove function to return no value. This
+> way driver authors are not tempted to assume that passing an error to
+> the upper layer is a good idea. All drivers are adapted accordingly.
+> There is no intended change of behaviour, all callbacks were prepared to
+> return 0 before.
 >
->    I'm afraid you're too fast here... :-)
->    We'll have a really hard time if we continue to allow IRQ0 to be returned by
-> platform_get_irq() -- we'll have oto fileter it out in the callers then...
+> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
+> ---
 
-So far no one reported seeing the big fat warning?
+[...]
 
-> >>> 3. The specific cookie for "IRQ not found, while no error happened" case
-> >>
-> >> Not sure what you mean here. I have no problem that a situation I can
-> >> cope with is called an error for the query function. I just do error
-> >> handling and continue happily. So the part "while no error happened" is
-> >> irrelevant to me.
-> >
-> > I meant that instead of using special error code, 0 is very much good for
-> > the cases when IRQ is not found. It allows to distinguish -ENXIO from the
-> > low layer from -ENXIO with this magic meaning.
->
->    I don't see how -ENXIO can trickle from the lower layers, frankly...
+>  drivers/mfd/arizona-spi.c                             |  4 +---
+>  drivers/mfd/da9052-spi.c                             |  3 +--
+>  drivers/mfd/ezx-pcap.c                                |  4 +---
+>  drivers/mfd/madera-spi.c                             |  4 +---
+>  drivers/mfd/mc13xxx-spi.c                           |  3 +--
+>  drivers/mfd/rsmu_spi.c                                |  4 +---
+>  drivers/mfd/stmpe-spi.c                               |  4 +---
+>  drivers/mfd/tps65912-spi.c                          |  4 +---
 
-It might one day, leading to very hard to track bugs.
+>  drivers/video/backlight/ams369fg06.c         |  3 +--
+>  drivers/video/backlight/corgi_lcd.c               |  3 +--
+>  drivers/video/backlight/ili922x.c                    |  3 +--
+>  drivers/video/backlight/l4f00242t03.c           |  3 +--
+>  drivers/video/backlight/lms501kf03.c            |  3 +--
+>  drivers/video/backlight/ltv350qv.c                 |  3 +--
+>  drivers/video/backlight/tdo24m.c                  |  3 +--
+>  drivers/video/backlight/tosa_lcd.c                |  4 +---
+>  drivers/video/backlight/vgg2432a4.c            |  4 +---
 
-Gr{oetje,eeting}s,
+If it's okay with Mark, it's okay with me.
 
-                        Geert
+Acked-by: Lee Jones <lee.jones@linaro.org>
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--=20
+Lee Jones [=E6=9D=8E=E7=90=BC=E6=96=AF]
+Linaro Services Principle Technical Lead
+Linaro.org =E2=94=82 Open source software for ARM SoCs
+Follow Linaro: Facebook | Twitter | Blog

@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3754349B142
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 11:24:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F030049B145
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 11:25:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B995C2806;
-	Tue, 25 Jan 2022 11:23:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B995C2806
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89942215E;
+	Tue, 25 Jan 2022 11:24:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89942215E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643106288;
-	bh=SH8rpPh/GTWTQTppQ8E7sArsoZR8sqjVG1tMTQdvgfg=;
+	s=default; t=1643106323;
+	bh=PPeOvJVjKQk1sgWBgXTRE3M3X/ghG6GwBr17kd9EHAs=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PJMk12Ua/eB4d8TZb5swRn0qh206bg1vHRQ5DmBGdqYkG0EpEUK+ZVK9mthtZ1kL+
-	 jgdaQPyVqSBHhmuXQr8I0hUvcm/MhnUr38eze51kU1zIZOvHjmZ/eN618yW9KmMFmI
-	 uxgzIbk11kFiN/Mjm49+StFNIB+ETHEcEQ3p8gbU=
+	b=NuC/AXHA/LJyDfkJs6Rl8DuOmiY1MQk7+B9icHtKrJgYD66CM/dEFviqf8AnZUtcK
+	 zFC2miu8R70urffbcYz3DbvAy4gh012LNIthZJvok6SRdlWsjO3RWEdW5sqLPyvokx
+	 Rp3mtGMWilEj8dazMR9RUc1BtIaiRr29PNMOIhZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB8FEF8055A;
-	Tue, 25 Jan 2022 11:20:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E072F80568;
+	Tue, 25 Jan 2022 11:20:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4BC3F80539; Tue, 25 Jan 2022 11:20:43 +0100 (CET)
+ id DE200F8053D; Tue, 25 Jan 2022 11:20:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25D62F80525
- for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 11:20:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25D62F80525
+ by alsa1.perex.cz (Postfix) with ESMTPS id D60B7F80525
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 11:20:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D60B7F80525
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jB3EuWTZ"
+ header.b="dx/CfScU"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D00AD6163C;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2545DB8174B;
+ Tue, 25 Jan 2022 10:20:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B62BC340E8;
  Tue, 25 Jan 2022 10:20:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B21BC340E5;
- Tue, 25 Jan 2022 10:20:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643106038;
- bh=SH8rpPh/GTWTQTppQ8E7sArsoZR8sqjVG1tMTQdvgfg=;
+ s=k20201202; t=1643106040;
+ bh=PPeOvJVjKQk1sgWBgXTRE3M3X/ghG6GwBr17kd9EHAs=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=jB3EuWTZW3KghGHFuT1LA/jruIOg0bdC5uZsG1iFwL5dHji3RASYh1z0ejJAhfO/f
- +tkUQJfz2sCdwxgJe2RgqDXsy0DGnm9rHlce03WiUeMJu0NjaPRZzYZ0oJQZWL0b3q
- FcWu4QBHKHDBjAJYgdpZ6gnuCwwIIipr2FT3kSzFpoiF8Nyz9kKuZE7FlV6x0ZSYCm
- zrGyOFI6gH5zqaD7qcWaVWi6K6B3B9No0LffdJ9hkNQhlNYklqpqaxzcRErFEHYpxx
- x9yIqKtdrH5EuGgOyoUxjbvTh27DJW+8+wxtaefq7qWCJ48v79ko5/0cRwfF4P+SAI
- XUh+PeY8OX/kQ==
+ b=dx/CfScUZ2xfA9Ast+sVlMjDabJlKwxJVNGShS4Hgc0IGSpT5qNBm6ZqUhnQpAZJi
+ NH2erSXALoBz7bbfLbkg+qEWYIUHQX9RRCES3p8LkA6B4aMDTvm0nz4SVY2dDKI6jq
+ iTCNsb+6BbxmzEoLzFfzv/9Ad9ggJGLzIkpya2QNTT48/9508YL9LrppFc/Sc8iMOT
+ f6OewycNyKOE50sDAcMHATWyLYlC3UT1UuAiFDdY6CLMtLtasVBlSWEK0K/6cbLmnT
+ 2VUGbhU9IG32KLJ/mreOtm/s55njGS16GBCwKEUcsj1A9N+aJCGnuwOEtj1mruyQ+x
+ BNS4Z69RrKCUw==
 From: Mark Brown <broonie@kernel.org>
-To: Mac Chiang <mac.chiang@intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20220120054012.15849-1-mac.chiang@intel.com>
-References: <20220120054012.15849-1-mac.chiang@intel.com>
-Subject: Re: [PATCH v2] ASoC: Intel: sof_rt5682: add 512FS MCLK clock
- configuration
-Message-Id: <164310603690.74844.10064495356224555997.b4-ty@kernel.org>
-Date: Tue, 25 Jan 2022 10:20:36 +0000
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+In-Reply-To: <20220121171031.2826198-1-jiasheng@iscas.ac.cn>
+References: <20220121171031.2826198-1-jiasheng@iscas.ac.cn>
+Subject: Re: [PATCH v3] ASoC: codecs: Check for error pointer after calling
+ devm_regmap_init_mmio
+Message-Id: <164310603890.74844.13333058824598578375.b4-ty@kernel.org>
+Date: Tue, 25 Jan 2022 10:20:38 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, kai.vehmanen@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
- shumingf@realtek.com, brent.lu@intel.com
+Cc: cezary.rojewski@intel.com, bgoswami@codeaurora.org,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,11 +86,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 20 Jan 2022 00:40:12 -0500, Mac Chiang wrote:
-> codec system clock source support 512FS MCLK synchronous directly, so
-> no need to set PLL configuration when MCLK 24.576MHz.
+On Sat, 22 Jan 2022 01:10:31 +0800, Jiasheng Jiang wrote:
+> Since the potential failure of the devm_regmap_init_mmio(), it will
+> return error pointer and be assigned to the regmap.
+> Then the error pointer will be dereferenced.
+> For example rx->regmap will be used in rx_macro_mclk_enable().
+> Therefore, it should be better to check it.
 > 
 > 
+> [...]
 
 Applied to
 
@@ -97,8 +102,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: sof_rt5682: add 512FS MCLK clock configuration
-      commit: dbf2f8e3fecd5b2197f406f26fed26042664044e
+[1/1] ASoC: codecs: Check for error pointer after calling devm_regmap_init_mmio
+      commit: aa505ecccf2ae7546e0e262d574e18a9241f3005
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

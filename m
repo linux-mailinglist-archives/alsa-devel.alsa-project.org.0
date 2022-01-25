@@ -2,88 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 565B949AEF6
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 10:08:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23A7649B133
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 11:21:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC3162090;
-	Tue, 25 Jan 2022 10:08:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC3162090
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AB942083;
+	Tue, 25 Jan 2022 11:20:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AB942083
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643101731;
-	bh=/rhSozADVB8zRcH5kbE08A7876Ztn5FHXC8yv1hqHMs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1643106079;
+	bh=nJhy+qOwVi2cuvhFT1z4Bk/6ubjHdACKLf5hmIX9cbQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ct1nQw7rvgRaQrqCGQcWZcusA9WS/ROSZQU+EPWKY5pVlQOm/1GV76x9obw/OFeKI
-	 U3NWVlOxQN5xO0NJM8e3LvSA6Cys6Gqgx3CSe1lA3bKL7yIpn7Il7Gdl5ZKD0wP1j0
-	 ZhjaxRgDjh3j/SHaZx7hkkFPGzGBZqryl8/C0bIc=
+	b=jBi9P+kBh7Yg87dC5JukjgsmxC2gA1QjEhKl4aZIw6Hkia/q7b3JB9ciNf89G52S5
+	 BmpfqmklFBvYCdkF4IxOJgI9iF/SpqyYpwL/19P6mAGVNq279D1CnRjPbjFmoaD3HK
+	 FSrSFMQGdB7DrzFxazQwVB95OZkf4tBqsmrF8+G0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03C91F804CF;
-	Tue, 25 Jan 2022 10:07:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 013FCF804D1;
+	Tue, 25 Jan 2022 11:20:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40874F804C3; Tue, 25 Jan 2022 10:07:44 +0100 (CET)
+ id 580E1F804CF; Tue, 25 Jan 2022 11:20:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-ua1-x935.google.com (mail-ua1-x935.google.com
- [IPv6:2607:f8b0:4864:20::935])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB93BF800D1
- for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 10:07:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB93BF800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1E92F80169
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 11:20:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1E92F80169
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="p1zXtreT"
-Received: by mail-ua1-x935.google.com with SMTP id n15so34609922uaq.5
- for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 01:07:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=3fB9tNFuc+unz/Bpd9ZLUPJk71K3Y9AUpv2QR/wkNJ4=;
- b=p1zXtreTX/WNYL49aAVOU+RrabRAhB/ezTuJzSY2T+cBjT/nnMiryBfHbLyhqCOf4B
- /Khn0cIOTUDq4gOoqrx9xnbSqUHxTH6sfbwxvFc/nnOxwdwDWDk7Nur7ne+M6iFqw6CO
- M5qYwPmZz6vZVuN9P7Y1jKSb452Aj/xZOvkmO144eb31dJs8wZ6yAPTMA8sF36hzPvSM
- lr1BEESy+DTJZq8xVkRFVYG+lihMvXiTgD9F5Va/Th2pSCMUOJO3VUdWKbhIpC02WehC
- vnjILSnT73iPrJz8+QfaElKvIdzS5ESfPh7Sz70HCyQs1Gu8xX2/iI+R5j6mNmnGcKUb
- IZ7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=3fB9tNFuc+unz/Bpd9ZLUPJk71K3Y9AUpv2QR/wkNJ4=;
- b=kE1Nnt3bJsNwwy+TvISF0ZDOTQ1/4OowPzPU0uvKC8Hbdl3AWMOAc2OUPX1rC0LjgV
- ja6oGUrKbloFHdkiVyo3AePujIe3rhea0FWIskQSarOt5sMUIEF6Hs/UXRn1IIdgp07o
- jfEVwaSqlxzmqUl3vnamSC9eJazTmjkkT6iafadtICUbEwECKY8oW10VcK1KlJg0YjQN
- J9TB2S55RxUzVeRFmFvkcaAHtcpbZK3xztl8DnqO3gvWwU3FxVKdvVO821xPz0y3nfJN
- 4/itmeppVtVJBJKlidtn8b4jHrltCX3t7x1pwm+qGV17hqGYOOuq6/1PEzyT3jtelhrt
- ltRQ==
-X-Gm-Message-State: AOAM533g5+PBkF0mYMWyW2LwPgS/D05SxmOZPhrspsfT8+SkzLRATACb
- 1hVPbOQG+Utexm9QExe0w4QhGJ7ROyeTdQpEu6A=
-X-Google-Smtp-Source: ABdhPJwAz0GdLxHyfAf0fGDi/sYzQUlgkyM9MEK4NfQ7yFdbaoiY6CclJJ6LGSKuJQfVNZHQM+BGpYmX8mibYlj87xo=
-X-Received: by 2002:a67:6f42:: with SMTP id k63mr7326284vsc.46.1643101659225; 
- Tue, 25 Jan 2022 01:07:39 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="TuVNIz4b"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 33F7D61614;
+ Tue, 25 Jan 2022 10:20:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79750C340E0;
+ Tue, 25 Jan 2022 10:20:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643106003;
+ bh=nJhy+qOwVi2cuvhFT1z4Bk/6ubjHdACKLf5hmIX9cbQ=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=TuVNIz4bXFcXHLeO+/nQGAidSWhSr4Ah9Q6oLeO9/O1+4oFj+Yl5MpKfS9ADcfx6J
+ UQEjYTge2711+ePf1TZWq5vRuvx0e9rxgo/WSrj+nhKcDQ+AuhrtAjElomrXRCkT5z
+ 21iiuM9RjCjnx+PEL6JGPJkhSID8NQa3NgdOI8gQ4SdcUtXyeBMRcRvvAUjA1wiV32
+ Wv/9wG7sEBkQmyubyxAnhUVHulwX8gOh19pjT09OyDXd84wk7axmHyv+MiODI4QxuR
+ 0r6P3lVM5W+T481TZNcia9u+h+EPtB1+NOGJKTu8mawd4ygwVl/5qZMBwIoV8NL7+1
+ tEjukBPY/ajXg==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+In-Reply-To: <20220120133605.476138-1-AjitKumar.Pandey@amd.com>
+References: <20220120133605.476138-1-AjitKumar.Pandey@amd.com>
+Subject: Re: [PATCH] ASoC: amd: acp-mach: Fix Left and Right rt1019 amp devices
+Message-Id: <164310600119.74817.7303379317708830215.b4-ty@kernel.org>
+Date: Tue, 25 Jan 2022 10:20:01 +0000
 MIME-Version: 1.0
-References: <CAAEBy7fQ6x95H5XkaKmXWsB1KCDbYAFtA5zUZ03ToJSegHb05w@mail.gmail.com>
- <d08bfba6-3aa8-e0d6-6d21-8734eed55978@linux.intel.com>
- <CAAEBy7exurcqZ+7Js27O7bWHsJQ9tQ_2yWXDeA3_smr5BDc5RA@mail.gmail.com>
- <1164c015-46b3-1efc-b5ce-044cc3492b78@linux.intel.com>
-In-Reply-To: <1164c015-46b3-1efc-b5ce-044cc3492b78@linux.intel.com>
-From: anthony tonitch <d.tonitch@gmail.com>
-Date: Tue, 25 Jan 2022 10:07:27 +0100
-Message-ID: <CAAEBy7f8z1LRr_EjRZtsFhj7c9hkfEkm+kGAw-yhCA-j0TvYOA@mail.gmail.com>
-Subject: Re: No sound on gpd pocket 3
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ V sujith kumar Reddy <vsujithkumar.reddy@amd.com>, Vijendar.Mukunda@amd.com,
+ Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,53 +86,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Le lun. 24 janv. 2022 =C3=A0 20:02, Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> a =C3=A9crit :
-> ah, now it's starting to make sense.
->
-> I am afraid you have the ES8316 codec, or one of its variants.
-> /sys/bus/acpi/devices/ESSX8326:00/status         15
->
-> so no you don't want to use options snd-intel-dspcfg dsp_driver=3D1 but
->
-> options snd-intel-dspcfg dsp_driver=3D3
->
-> The auto-detection don't work because we use a different codec HID for
-> the driver selection
->
->
->         {
->                 .flags =3D FLAG_SOF,
->                 .device =3D 0x5a98,
->                 .codec_hid =3D "ESSX8336",
->         },
->
-> as well as the machine driver selection
->
->         {
->                 .id =3D "ESSX8336",
->                 .drv_name =3D "sof-essx8336",
->                 .sof_tplg_filename =3D "sof-glk-es8336.tplg",
->         },
->
-> This is really a problematic set of devices, where absolutely all
-> possible I2S links have been used, along with GPIO settings and DMICs.
->
-> Please file a bug on https://github.com/thesofproject/linux/issues so
-> that we can keep track of this and suggest solution.
->
-> Thanks!
+On Thu, 20 Jan 2022 19:06:01 +0530, Ajit Kumar Pandey wrote:
+> We're setting wrong card codec conf for rt1019 amp devices in our
+> machine driver. Due to this left and right amp channels data are
+> reversed in our machines as wrong device prefix results in wrong
+> value for "Mono LR Select" rt1019 mixer control. Reverse dev ids
+> in codec conf with Left and Right name_prefix to fix such issue.
+> 
+> 
+> [...]
 
-I will file the bug issue later in the day but I have two question here,
+Applied to
 
-1. does the dsp_driver=3D3 is supposed to work then because it doesn't
-seems to ^^ maybe I did it wrong but here is the alsa info again if
-you see anything
-http://alsa-project.org/db/?f=3D847cdba9058170337515f57b460ed7bcae964af7
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
 
-2. Because it works for everyone else and not for me, does this mean
-the chip is different and then that I have a "faulty one"? I will
-obviously still try to make the sound work if I can but at least I can
-contact gpd hk for an explaination
+Thanks!
 
-Thanks a lot for your quick response!
+[1/1] ASoC: amd: acp-mach: Fix Left and Right rt1019 amp devices
+      commit: 248be352bbae1a0f14d0d3511a5b0bb9665097f5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,74 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B11C149B135
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 11:21:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C307C49B137
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jan 2022 11:22:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5C0320D6;
-	Tue, 25 Jan 2022 11:21:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5C0320D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CC8C2103;
+	Tue, 25 Jan 2022 11:21:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CC8C2103
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643106117;
-	bh=I/xlRThbfWWPaEeufqnk/aq7zAS5z4+CLNRXPyJ25ss=;
+	s=default; t=1643106154;
+	bh=ExbJRYNtfVD1s5WkJJibRPzKPc9HJ2TEz1/Xye0GnXE=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F3xB2WLChyKroHo76m4Hi040l7zUdLHkyNtRGEETLAd1cHXoTgujkW3ubGp9zqSTo
-	 tUMbeiC34EHJQhKZXwNHPnWmP6Ecizi1anGzGTJ+evB9RavWVOHt7nCRME0GMAu1Ed
-	 44DxN55u5ZKLit5TwV7RQXZnHiUKbipJY9FiRS/o=
+	b=H7BQ/0az9WExr2LQD1WwjpTD20XSIqJ1//OoROVksgRRZBbAjBcDAM1yJTrqWGovE
+	 ozVDscsomU2RoHNwAPDJWKb5ZmwBuS0QWTbziVGN+OCOyNHCE6Tza7AqW8jo82XOGn
+	 3AwPyWq+n560WaLSFitfqP8/7wH6y7jrn0F0/FbI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BBF6F804D6;
-	Tue, 25 Jan 2022 11:20:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FBA5F8051D;
+	Tue, 25 Jan 2022 11:20:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CCA4F804D6; Tue, 25 Jan 2022 11:20:23 +0100 (CET)
+ id 1D868F80508; Tue, 25 Jan 2022 11:20:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A309F804D6
- for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 11:20:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A309F804D6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C0BFF8050F
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jan 2022 11:20:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C0BFF8050F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XKEI6k4S"
+ header.b="XbBlcFol"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 40942B81751;
- Tue, 25 Jan 2022 10:20:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFDD5C340E5;
- Tue, 25 Jan 2022 10:20:15 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6F830B81752;
+ Tue, 25 Jan 2022 10:20:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A70AC340E0;
+ Tue, 25 Jan 2022 10:20:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643106017;
- bh=I/xlRThbfWWPaEeufqnk/aq7zAS5z4+CLNRXPyJ25ss=;
+ s=k20201202; t=1643106019;
+ bh=ExbJRYNtfVD1s5WkJJibRPzKPc9HJ2TEz1/Xye0GnXE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=XKEI6k4SrDlpucA8y9EplNQViAy+4+rC384X/WcAaoM6IW67f+JPrjtGYJYg8zYpj
- HfHQu132WfIUoAs2JRwjRWPfFiOuAaxlIPAW3B/eTVE48f6jkwhdAszylFop4OdWA/
- Iav9v3ilGM/TUx0CAAPOoh0kpn2csOHDbvO41tOAiuGdzNaiG+l8JwLNRWEU/qYFrU
- ZqszEpARDpRnaD/XwLBTCN1LkVbzOTPR8QtliluMNKGc6HoPDWIEMKkFQu+yZg2yUC
- MjOa1+c5aBOt06VA+mg6zkBx6lq6jhoFKcvYEvDEW1715FYy+0aKr7lmGOs3gpampd
- 1fljAnv3lokGQ==
+ b=XbBlcFolcJ6CjYh6lffKWnbPXVNuKPmolwII2mPN6HFOtV+DbYrhaOxuxUHzCwQBK
+ QVsKwUNhkAVuBSHAJsACTa5GGTBWURu+7HHedxIe4nYy2KyD4ThndS1Ssd+DzfGT18
+ oHN3VHIyY9u5+HnKdh8ngPTPDHky+2SsurRy3YRAQaw18DNQ6qp05ikAx9qWHxYslS
+ x9SFRb/9fpYATYGMxkvIEOMoJYQZ5tGpYKJXY7wcSDnb5dG9WK7JuncBzMCY133C9r
+ ES23EZdRWJ4MXm3YZQfCKvUJJiZIPR87gD1mvsXOAhK6wLybyck9eTzPVPpbxcS39Q
+ PHK9zlqoS1fcA==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>, Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20220112170030.569712-1-amadeuszx.slawinski@linux.intel.com>
-References: <20220112170030.569712-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH v2 0/3] ASoC: topology: Fixes
-Message-Id: <164310601551.74844.7832696445905579331.b4-ty@kernel.org>
-Date: Tue, 25 Jan 2022 10:20:15 +0000
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+In-Reply-To: <20220114065713.1246619-1-jiasheng@iscas.ac.cn>
+References: <20220114065713.1246619-1-jiasheng@iscas.ac.cn>
+Subject: Re: [PATCH v2] ASoC: codecs: Check for error pointer after calling
+ devm_regmap_init_mmio
+Message-Id: <164310601716.74844.9223636725378282440.b4-ty@kernel.org>
+Date: Tue, 25 Jan 2022 10:20:17 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
+Cc: cezary.rojewski@intel.com, bgoswami@codeaurora.org,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,13 +85,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 12 Jan 2022 18:00:27 +0100, Amadeusz Sławiński wrote:
-> Following series performs few cleanups in topology code.
+On Fri, 14 Jan 2022 14:57:13 +0800, Jiasheng Jiang wrote:
+> Since the possible failure of the devm_regmap_init_mmio(), it will
+> return error pointer and be assigned to the regmap.
+> Then the error pointer will be dereferenced.
+> For example rx->regmap will be used in rx_macro_mclk_enable().
+> Therefore, it should be better to check it.
 > 
-> First patch reduces number of prints we get from failure.
-> Second allos TLV controls to be either read or write which should be
-> possible as evidenced by further code in function.
-> Last one cleanups after refactoring of memory handling.
 > 
 > [...]
 
@@ -101,12 +101,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: topology: Remove superfluous error prints
-      commit: 3ce57f22cb23eefdf485589bbf675a30e72aeb45
-[2/3] ASoC: topology: Allow TLV control to be either read or write
-      commit: feb00b736af64875560f371fe7f58b0b7f239046
-[3/3] ASoC: topology: Optimize soc_tplg_dapm_graph_elems_load behavior
-      commit: cc44c7492bad811dcb89f3f33f5aaacb564e1dfc
+[1/1] ASoC: codecs: Check for error pointer after calling devm_regmap_init_mmio
+      commit: aa505ecccf2ae7546e0e262d574e18a9241f3005
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

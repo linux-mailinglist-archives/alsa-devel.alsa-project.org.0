@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B17449C8C8
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jan 2022 12:37:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 430E249C8D1
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jan 2022 12:38:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2A321F2D;
-	Wed, 26 Jan 2022 12:36:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2A321F2D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C32621EFF;
+	Wed, 26 Jan 2022 12:37:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C32621EFF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643197066;
-	bh=hPeFZYJ+dBsprUlM4Ze8PJGPlAV9jIJG8JovELbE2sI=;
+	s=default; t=1643197110;
+	bh=EQkaQaUkc+wyREHktGItkocSaoVeoMfuOb+QxQENXl0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Dyh/DRE/a3Bc6Lc+QfobRDGnhQkr3sq6M9meoYjy685jeuop4dLm6uv6KHMhwxSA3
-	 BNHGw5EjvydUg6eZORPHNyocXQYqHi8oomPj1iXNqBYXzdUiJJstCZpGQSDaHo2WA2
-	 rWw7hPfRAd1ZeK786uCRtAdEow1TaYxPZc2Lz9UM=
+	b=HkpGOKQY5cFdlST5WbeJCCQBT/9w8eURGHbIXjuKEdtAWxj9ZagDrEXYUm4WqIlrO
+	 QcyRHWdMXGgvZ6/aPgQj7ATPe6n9eJkEGkLXVMBZqBxRIPBriyQW+s+OUc7J/msevU
+	 9NCGIZtbA5UJu9eSyPlFzkqjGsy7ovKmL2G/gPm0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EECA7F80506;
-	Wed, 26 Jan 2022 12:36:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFD70F8051A;
+	Wed, 26 Jan 2022 12:36:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5173EF800C8; Wed, 26 Jan 2022 12:36:07 +0100 (CET)
+ id 7B49DF80511; Wed, 26 Jan 2022 12:36:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C480F800C8
- for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 12:36:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C480F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2DA8F804C1
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 12:36:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2DA8F804C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="OVAIp1Nv"
-Received: by mail-wm1-x333.google.com with SMTP id c192so2145092wma.4
- for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 03:36:00 -0800 (PST)
+ header.b="bOPFKWeS"
+Received: by mail-wr1-x436.google.com with SMTP id w11so13062876wra.4
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 03:36:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=aniun3FP07/lm5WG5tDXe1tN8Nb0Xcv5gX8sytXFnHQ=;
- b=OVAIp1Nvla6MOTka4KhoRHptBE1bSiVkdUmm34BZZCZs9pCMjk7WFqRd2PcNoYz5i2
- qz++CHRUqs0Hc1Jjy2ZwyZdyvBL/5M7hK8K96SRgIBRA0mDOOX2R/eFf/Nd17+rmoIaL
- ZOUU7k9Z1bboObbL8LMgK7mFs+G2m2O3hf/7sddakD/OS0etWyU/MMRWgJH2AuJNqIYy
- KpNSTxkq1cluZHgj9g2ig05xAVNj+ooydvh2bXGk3mcJP/GjjRc9dsjlqVIy2QWjRlLp
- akowBvkd7Rfvnq56SwnmJvGZpPTIeWQClm0hHPSGKzjSp0fVunF7P0Fq8Ra/8R+xj96s
- InTA==
+ bh=bXVjE+WHy8056yU6PQ186TKgk9YFsJSf/z9MoSICAgo=;
+ b=bOPFKWeSDz/5+SWrCSqxTxArgqoAVTVn9JPw/LwQVWw/KF8qXvJXOqSe+p0LykVAMl
+ FVHAvDWl4uq+Twi3eh6lCLiaMXN2PjAqVCezLLxc2VTlKJL4V9FMusPREkrzc18XNK60
+ P2GhDxWYXChfe2PmIXOrCdKEjLmpQi7RantbrgMCzXL7uphq0emDusi5DtgizxaxvnBn
+ q8nIoIuTRT21j9n3EZpMW9+5fyqF+9pxctLuV2LVwTZVkByAvGfM639trJdAOOvWMbpo
+ E/bS5WOiEOIE0kXb/hi4CE/hRZcYL78/7AvmLPJk91Rr2hxlGTm7pG93zIoUcJpbLfhJ
+ 7Ugw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=aniun3FP07/lm5WG5tDXe1tN8Nb0Xcv5gX8sytXFnHQ=;
- b=spkgfPWSaCVL8B+2Z1C8c3IQrYQD/MUCR1pVTUtY7hRT+ukIHwHZ0+5iJz82t98ZfR
- 7/ZPxOjfKreb3uCrkDHAxZ1Awlxjk5uYDYZfZIIwcRJ8RKV2ge40GcMehDRpPu6nj0Yf
- lXrqKejQn2T0SoBPgfDq4CiotFTZgDeK9DbLIU/6AhxEpJIaA2aEX0M3l6xDguBQuUzp
- TEO+z7yMcFpXqebOkFuyhCba6ZtJJ84Qo9FZzG0dZ1u+h2jwNbltL1SWCkyBRmC7cKc0
- xsCLdOidPgisEuBDHyiFd2DpIdQplqgm6LBLig/rj1GAqevD5Y54S7kk1uGvIUDK0FHB
- yS8w==
-X-Gm-Message-State: AOAM533+LIMyDLb1eDN9RHNFZqr2uAgAuue9KGBUDcH5upx8GG0YtDQQ
- /QsWlpEpQtI85ORPz2hj++H9Gg==
-X-Google-Smtp-Source: ABdhPJxVyM8l27hJP0QIDKsw9OQz0F2CEok4J4VqFVcvD191PyElZ8pHn1FtNv1K7u/ZM7SeuzaRng==
-X-Received: by 2002:a05:600c:19c8:: with SMTP id
- u8mr6955120wmq.92.1643196959897; 
- Wed, 26 Jan 2022 03:35:59 -0800 (PST)
+ bh=bXVjE+WHy8056yU6PQ186TKgk9YFsJSf/z9MoSICAgo=;
+ b=U8ooaywNbkhWOox9GzDscb3JAQi9Vas2i9wY3aq4JFFAbGQknydxwi1WXwEypoOVP3
+ qmDNTkW7ZJNvFjNZ4cY8xwjSs8T+gGrHdrnD8d/OJ5doxYWf15Vj3Ulpp4XEwVaM2aLX
+ /PERh8Z6ispXuF7ecf0DyvZtlI6+PPssDY2fbVdWVM3Z96R32wp+7G0f8oLVOWdR7Zf1
+ D1y2G6LStD2/IJhrtQqcWtaOsItrylEGhzzVh6tgpiuCOQq2o73be3hXtS1wPLI7NLRj
+ 406B04yGG5edJEs0Vk7mnsv4XfNERc4auGqrZ6b48YGjzAdWqgdjqvtLjuS3ANTVPHiQ
+ qpXA==
+X-Gm-Message-State: AOAM532mR4g9m9pBRPpNLMHBHo54c3lHQ98J13FHIaN9BMIIfJIbs6R3
+ pigFUyOdYxpI+6HK/VRoOLUjkhGpLLzmCA==
+X-Google-Smtp-Source: ABdhPJzXvbDq09qiBfc5o13vwHQzmqhkxGwNvWS1trLsF9xfkIUo9E3GK79OPSvS6pT/ByTWosOOxA==
+X-Received: by 2002:adf:e48c:: with SMTP id i12mr21498933wrm.43.1643196960863; 
+ Wed, 26 Jan 2022 03:36:00 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id n14sm11999188wri.75.2022.01.26.03.35.58
+ by smtp.gmail.com with ESMTPSA id n14sm11999188wri.75.2022.01.26.03.35.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jan 2022 03:35:59 -0800 (PST)
+ Wed, 26 Jan 2022 03:36:00 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH 1/4] ASoC: codecs: wcd938x: fix incorrect used of portid
-Date: Wed, 26 Jan 2022 11:35:46 +0000
-Message-Id: <20220126113549.8853-2-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 2/4] ASoC: codecs: lpass-rx-macro: fix sidetone register
+ offsets
+Date: Wed, 26 Jan 2022 11:35:47 +0000
+Message-Id: <20220126113549.8853-3-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20220126113549.8853-1-srinivas.kandagatla@linaro.org>
 References: <20220126113549.8853-1-srinivas.kandagatla@linaro.org>
@@ -104,99 +104,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mixer controls have the channel id in mixer->reg, which is not same
-as port id. port id should be derived from chan_info array.
-So fix this. Without this, its possible that we could corrupt
-struct wcd938x_sdw_priv by accessing port_map array out of range
-with channel id instead of port id.
+For some reason we ended up with incorrect register offfset calcuations
+for sidetone. regmap clearly throw errors when accessing these incorrect
+registers as these do not belong to any read/write ranges.
+so fix them to point to correct register offsets.
 
-Fixes: e8ba1e05bdc0 ("ASoC: codecs: wcd938x: add basic controls")
+Fixes: f3ce6f3c9a99 ("ASoC: codecs: lpass-rx-macro: add iir widgets")
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/codecs/wcd938x.c | 25 ++++++++++++++-----------
- 1 file changed, 14 insertions(+), 11 deletions(-)
+ sound/soc/codecs/lpass-rx-macro.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
-index eff200a07d9f..5994644c8702 100644
---- a/sound/soc/codecs/wcd938x.c
-+++ b/sound/soc/codecs/wcd938x.c
-@@ -1432,14 +1432,10 @@ static int wcd938x_sdw_connect_port(struct wcd938x_sdw_ch_info *ch_info,
- 	return 0;
- }
+diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+index aec5127260fd..6ffe88345de5 100644
+--- a/sound/soc/codecs/lpass-rx-macro.c
++++ b/sound/soc/codecs/lpass-rx-macro.c
+@@ -2688,8 +2688,8 @@ static uint32_t get_iir_band_coeff(struct snd_soc_component *component,
+ 	int reg, b2_reg;
  
--static int wcd938x_connect_port(struct wcd938x_sdw_priv *wcd, u8 ch_id, u8 enable)
-+static int wcd938x_connect_port(struct wcd938x_sdw_priv *wcd, u8 port_num, u8 ch_id, u8 enable)
+ 	/* Address does not automatically update if reading */
+-	reg = CDC_RX_SIDETONE_IIR0_IIR_COEF_B1_CTL + 16 * iir_idx;
+-	b2_reg = CDC_RX_SIDETONE_IIR0_IIR_COEF_B2_CTL + 16 * iir_idx;
++	reg = CDC_RX_SIDETONE_IIR0_IIR_COEF_B1_CTL + 0x80 * iir_idx;
++	b2_reg = CDC_RX_SIDETONE_IIR0_IIR_COEF_B2_CTL + 0x80 * iir_idx;
+ 
+ 	snd_soc_component_write(component, reg,
+ 				((band_idx * BAND_MAX + coeff_idx) *
+@@ -2718,7 +2718,7 @@ static uint32_t get_iir_band_coeff(struct snd_soc_component *component,
+ static void set_iir_band_coeff(struct snd_soc_component *component,
+ 			       int iir_idx, int band_idx, uint32_t value)
  {
--	u8 port_num;
--
--	port_num = wcd->ch_info[ch_id].port_num;
--
- 	return wcd938x_sdw_connect_port(&wcd->ch_info[ch_id],
--					&wcd->port_config[port_num],
-+					&wcd->port_config[port_num - 1],
- 					enable);
- }
+-	int reg = CDC_RX_SIDETONE_IIR0_IIR_COEF_B2_CTL + 16 * iir_idx;
++	int reg = CDC_RX_SIDETONE_IIR0_IIR_COEF_B2_CTL + 0x80 * iir_idx;
  
-@@ -2593,6 +2589,7 @@ static int wcd938x_set_compander(struct snd_kcontrol *kcontrol,
- 	struct wcd938x_priv *wcd938x = snd_soc_component_get_drvdata(component);
- 	struct wcd938x_sdw_priv *wcd;
- 	int value = ucontrol->value.integer.value[0];
-+	int portidx;
- 	struct soc_mixer_control *mc;
- 	bool hphr;
+ 	snd_soc_component_write(component, reg, (value & 0xFF));
+ 	snd_soc_component_write(component, reg, (value >> 8) & 0xFF);
+@@ -2739,7 +2739,7 @@ static int rx_macro_put_iir_band_audio_mixer(
+ 	int iir_idx = ctl->iir_idx;
+ 	int band_idx = ctl->band_idx;
+ 	u32 coeff[BAND_MAX];
+-	int reg = CDC_RX_SIDETONE_IIR0_IIR_COEF_B1_CTL + 16 * iir_idx;
++	int reg = CDC_RX_SIDETONE_IIR0_IIR_COEF_B1_CTL + 0x80 * iir_idx;
  
-@@ -2606,10 +2603,12 @@ static int wcd938x_set_compander(struct snd_kcontrol *kcontrol,
- 	else
- 		wcd938x->comp1_enable = value;
- 
-+	portidx = wcd->ch_info[mc->reg].port_num;
-+
- 	if (value)
--		wcd938x_connect_port(wcd, mc->reg, true);
-+		wcd938x_connect_port(wcd, portidx, mc->reg, true);
- 	else
--		wcd938x_connect_port(wcd, mc->reg, false);
-+		wcd938x_connect_port(wcd, portidx, mc->reg, false);
- 
- 	return 0;
- }
-@@ -2882,9 +2881,11 @@ static int wcd938x_get_swr_port(struct snd_kcontrol *kcontrol,
- 	struct wcd938x_sdw_priv *wcd;
- 	struct soc_mixer_control *mixer = (struct soc_mixer_control *)kcontrol->private_value;
- 	int dai_id = mixer->shift;
--	int portidx = mixer->reg;
-+	int portidx, ch_idx = mixer->reg;
-+
- 
- 	wcd = wcd938x->sdw_priv[dai_id];
-+	portidx = wcd->ch_info[ch_idx].port_num;
- 
- 	ucontrol->value.integer.value[0] = wcd->port_enable[portidx];
- 
-@@ -2899,12 +2900,14 @@ static int wcd938x_set_swr_port(struct snd_kcontrol *kcontrol,
- 	struct wcd938x_sdw_priv *wcd;
- 	struct soc_mixer_control *mixer =
- 		(struct soc_mixer_control *)kcontrol->private_value;
--	int portidx = mixer->reg;
-+	int ch_idx = mixer->reg;
-+	int portidx;
- 	int dai_id = mixer->shift;
- 	bool enable;
- 
- 	wcd = wcd938x->sdw_priv[dai_id];
- 
-+	portidx = wcd->ch_info[ch_idx].port_num;
- 	if (ucontrol->value.integer.value[0])
- 		enable = true;
- 	else
-@@ -2912,7 +2915,7 @@ static int wcd938x_set_swr_port(struct snd_kcontrol *kcontrol,
- 
- 	wcd->port_enable[portidx] = enable;
- 
--	wcd938x_connect_port(wcd, portidx, enable);
-+	wcd938x_connect_port(wcd, portidx, ch_idx, enable);
- 
- 	return 0;
+ 	memcpy(&coeff[0], ucontrol->value.bytes.data, params->max);
  
 -- 
 2.21.0

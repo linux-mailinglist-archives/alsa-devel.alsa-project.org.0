@@ -2,95 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E436249CE22
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jan 2022 16:25:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B93149CFEE
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jan 2022 17:45:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 591471B4D;
-	Wed, 26 Jan 2022 16:25:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 591471B4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF2AA1EF5;
+	Wed, 26 Jan 2022 17:44:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF2AA1EF5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643210750;
-	bh=hZrDXnAPEqekc+aCczkWOeVJ3QOSLSD9EN0EMfKoOmw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1643215543;
+	bh=usfOM9nUwC1SkrwY7bR2+GQN0nN9zOejd7nMDfiUXR8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ztnsk8ctb1/S5hNRdVWL5J4erDhcBYT3giKhTRZEBHOsWuSgc8r7HoaXEYasecRIQ
-	 albgPsendsRiPYpEaerNJZhxNFF65cA1QvfbI2VnWY4hkRs562BOpfLZGEUfRHRw7m
-	 V8GB5G+7bxZNcSUZvBqq+SyB/7fnjOnY/M9D+AXY=
+	b=oQ8+toi1CiyvgC/om/8zOh9gjxabeVbYQa9IgEX9TJ3g12T2vdDoeDKMlEu3nAMRC
+	 yPO07nGKHXgzAyiAnZKbWM75DOZ8ai+V97vPmT6uUeAXbDqGCE9ScbWRID6lHxtwIV
+	 JTzjSxiy0MJZE2hlOafLW4uun4CInJAuUWL/gaQc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4E5BF800C8;
-	Wed, 26 Jan 2022 16:24:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20382F804BC;
+	Wed, 26 Jan 2022 17:44:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7B4AF8049C; Wed, 26 Jan 2022 16:24:42 +0100 (CET)
+ id 03372F8049C; Wed, 26 Jan 2022 17:44:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF155F800C8
- for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 16:24:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF155F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BD66F80118
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 17:44:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BD66F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="j9C4LuPO"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Zcv47eTl"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 343C01F3B0;
- Wed, 26 Jan 2022 15:24:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1643210676; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9CXY7MFbJ1saOKK9+Yf3pb9u+zx6DrRm92wfkukypJU=;
- b=j9C4LuPOb5XoFVk6uxHIO8WC5JbJfuf9jmV9L6Kx2lRSXZEqcFPNULeh0IL+8Klm088Mhv
- VVABBZSIxItC72DaJhTo4TIEe8RAPpl51T+Jup4gOlFOoA78p9Rg2std/7tu5wRVElYPkj
- 5rM1DiS2T2ol6/t79eDHWxsAlWOJRfA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1643210676;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9CXY7MFbJ1saOKK9+Yf3pb9u+zx6DrRm92wfkukypJU=;
- b=Zcv47eTlQd7aDCA72boLRhzkKoNf/ZcDAsLb7bnW2iDfHVLc2QbqnzOKDYdAl7axDb5SQH
- b6sfpqO/K/rKaIBA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1D799A3B81;
- Wed, 26 Jan 2022 15:24:36 +0000 (UTC)
-Date: Wed, 26 Jan 2022 16:24:36 +0100
-Message-ID: <s5ho83yldu3.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Sergeyev <sergeev917@gmail.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-In-Reply-To: <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
-References: <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
- <s5h8rvk85uy.wl-tiwai@suse.de>
- <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
- <s5ha6fy46jt.wl-tiwai@suse.de>
- <20220114183720.n46wealclg6spxkp@localhost.localdomain>
- <s5hsftp3027.wl-tiwai@suse.de>
- <20220115152215.kprws5nja2i43qax@localhost.localdomain>
- <s5hilugw0l0.wl-tiwai@suse.de>
- <20220119093249.eaxem33bjqjxcher@localhost.localdomain>
- <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
- <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="JJolxd/C"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8E66261A8D;
+ Wed, 26 Jan 2022 16:44:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 836E0C340F1;
+ Wed, 26 Jan 2022 16:44:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643215468;
+ bh=usfOM9nUwC1SkrwY7bR2+GQN0nN9zOejd7nMDfiUXR8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JJolxd/CAAxZiSYsSdmWMsgzTduJqHiplWqhNDUxeGiP+xj/EGlzsZK812aCdJQwT
+ t335egLfixUjnCPUa/oLWSLRfblu4JNGvZG+GUcE7vHhH9p+HmH6XqCzGxD1K2Fm6T
+ FNWoYXJ93ulpwqw+rM6xmRH2JNJl45OoBllq7iV2bX3v/ViCutuqb8Ja//JwONfc3v
+ rePtNfJX9IXMS8DcHHOH86tfpTBgcMi4oD9gbqANVSwQdpD3XhejKPsHe2pMHnOzPy
+ 9triPkiu5AqsHgQ8Ap/bXu1s7myz/SXccaO6PesPlsmDsYIcL7u7IILZatWnaFa8nr
+ PUfGCuVcQWA/A==
+Date: Wed, 26 Jan 2022 16:44:24 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Joerg Schambacher <joerg@hifiberry.com>
+Subject: Re: [PATCH v2] sound/soc: adds TAS5754M digital input amplifier
+ component driver
+Message-ID: <YfF6aGOSo10jOIj8@sirena.org.uk>
+References: <20211029095414.29131-1-joerg@hifiberry.com>
+ <20220119125033.GA2144@ubuntu>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wUouFNF7pV0nCdcq"
+Content-Disposition: inline
+In-Reply-To: <20220119125033.GA2144@ubuntu>
+X-Cookie: Use only in a well-ventilated area.
+Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,171 +87,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 22 Jan 2022 21:56:37 +0100,
-Alexander Sergeyev wrote:
-> 
-> On Sat, Jan 22, 2022 at 10:05:24PM +0300, Alexander Sergeyev wrote:
-> > I'm not sure about kernel log buffering or maybe the device support for 
-> > pipelining, but is it okay that alc_update_coefex_idx() seem to overlap?
-> 
-> Given that the CPU number is the same in alc_update_coefex_idx(), it seems 
-> these calls execution is interrupted and interleaved on the same core.
-> 
-> And, actually, there are two LEDs to set (mute and micmute). Am I onto 
-> something here?
 
-That's an interesting finding, and yes, such a race is quite
-possible.  Below is a quick fix as an attempt to cover it.
-Could you give it a try?
+--wUouFNF7pV0nCdcq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-BTW, the fix for the unbind problem was submitted.  It's a slightly
-more simplified version than what I posted here beforehand.
+On Wed, Jan 19, 2022 at 01:50:33PM +0100, Joerg Schambacher wrote:
 
+> Thanks for your useful feedback. I guess my comments on my first reply got lost somewhere on the way ....
 
-thanks,
+Please don't top post, reply in line with needed context.  This allows
+readers to readily follow the flow of conversation and understand what
+you are talking about and also helps ensure that everything in the
+discussion is being addressed.
 
-Takashi
+Please fix your mail client to word wrap within paragraphs at something
+substantially less than 80 columns.  Doing this makes your messages much
+easier to read and reply to.
 
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: hda: realtek: Fix race at concurrent COEF updates
+> On Wed, Nov 17, 2021 at 03:13:47PM +0000, Mark Brown wrote:
+> > On Fri, Oct 29, 2021 at 11:57:30AM +0200, Joerg Schambacher wrote:
 
-The COEF access is done with two steps: setting the index then read or
-write the data.  When multiple COEF accesses are performed
-concurrently, the index and data might be paired unexpectedly.
-In most cases, this isn't a big problem as the COEF setup is done at
-the initialization, but some dynamic changes like the mute LED may hit
-such a race.
+> > > +	mclk = clk_get_rate(tas5754m->sclk);
+> > > +	bclk = sample_len * 2 * params_rate(params);
 
-For avoiding the racy COEF accesses, this patch introduces a new
-mutex coef_mutex to alc_spec, and wrap the COEF accessing functions
-with it.
+> > snd_soc_params_to_bclk().
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_realtek.c | 61 ++++++++++++++++++++++++++++-------
- 1 file changed, 50 insertions(+), 11 deletions(-)
+> snd_soc_params_to_bclk() does not always gives the necessary value
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 668274e52674..a5677be0a405 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -98,6 +98,7 @@ struct alc_spec {
- 	unsigned int gpio_mic_led_mask;
- 	struct alc_coef_led mute_led_coef;
- 	struct alc_coef_led mic_led_coef;
-+	struct mutex coef_mutex;
- 
- 	hda_nid_t headset_mic_pin;
- 	hda_nid_t headphone_mic_pin;
-@@ -137,8 +138,8 @@ struct alc_spec {
-  * COEF access helper functions
-  */
- 
--static int alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
--			       unsigned int coef_idx)
-+static int __alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
-+				 unsigned int coef_idx)
- {
- 	unsigned int val;
- 
-@@ -147,28 +148,61 @@ static int alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
- 	return val;
- }
- 
-+static int alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
-+			       unsigned int coef_idx)
-+{
-+	struct alc_spec *spec = codec->spec;
-+	unsigned int val;
-+
-+	mutex_lock(&spec->coef_mutex);
-+	val = __alc_read_coefex_idx(codec, nid, coef_idx);
-+	mutex_unlock(&spec->coef_mutex);
-+	return val;
-+}
-+
- #define alc_read_coef_idx(codec, coef_idx) \
- 	alc_read_coefex_idx(codec, 0x20, coef_idx)
- 
--static void alc_write_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
--				 unsigned int coef_idx, unsigned int coef_val)
-+static void __alc_write_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
-+				   unsigned int coef_idx, unsigned int coef_val)
- {
- 	snd_hda_codec_write(codec, nid, 0, AC_VERB_SET_COEF_INDEX, coef_idx);
- 	snd_hda_codec_write(codec, nid, 0, AC_VERB_SET_PROC_COEF, coef_val);
- }
- 
-+static void alc_write_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
-+				 unsigned int coef_idx, unsigned int coef_val)
-+{
-+	struct alc_spec *spec = codec->spec;
-+
-+	mutex_lock(&spec->coef_mutex);
-+	__alc_write_coefex_idx(codec, nid, coef_idx, coef_val);
-+	mutex_unlock(&spec->coef_mutex);
-+}
-+
- #define alc_write_coef_idx(codec, coef_idx, coef_val) \
- 	alc_write_coefex_idx(codec, 0x20, coef_idx, coef_val)
- 
-+static void __alc_update_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
-+				    unsigned int coef_idx, unsigned int mask,
-+				    unsigned int bits_set)
-+{
-+	unsigned int val = __alc_read_coefex_idx(codec, nid, coef_idx);
-+
-+	if (val != -1)
-+		__alc_write_coefex_idx(codec, nid, coef_idx,
-+				       (val & ~mask) | bits_set);
-+}
-+
- static void alc_update_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
- 				  unsigned int coef_idx, unsigned int mask,
- 				  unsigned int bits_set)
- {
--	unsigned int val = alc_read_coefex_idx(codec, nid, coef_idx);
-+	struct alc_spec *spec = codec->spec;
- 
--	if (val != -1)
--		alc_write_coefex_idx(codec, nid, coef_idx,
--				     (val & ~mask) | bits_set);
-+	mutex_lock(&spec->coef_mutex);
-+	__alc_update_coefex_idx(codec, nid, coef_idx, mask, bits_set);
-+	mutex_unlock(&spec->coef_mutex);
- }
- 
- #define alc_update_coef_idx(codec, coef_idx, mask, bits_set)	\
-@@ -201,13 +235,17 @@ struct coef_fw {
- static void alc_process_coef_fw(struct hda_codec *codec,
- 				const struct coef_fw *fw)
- {
-+	struct alc_spec *spec = codec->spec;
-+
-+	mutex_lock(&spec->coef_mutex);
- 	for (; fw->nid; fw++) {
- 		if (fw->mask == (unsigned short)-1)
--			alc_write_coefex_idx(codec, fw->nid, fw->idx, fw->val);
-+			__alc_write_coefex_idx(codec, fw->nid, fw->idx, fw->val);
- 		else
--			alc_update_coefex_idx(codec, fw->nid, fw->idx,
--					      fw->mask, fw->val);
-+			__alc_update_coefex_idx(codec, fw->nid, fw->idx,
-+						fw->mask, fw->val);
- 	}
-+	mutex_unlock(&spec->coef_mutex);
- }
- 
- /*
-@@ -1153,6 +1191,7 @@ static int alc_alloc_spec(struct hda_codec *codec, hda_nid_t mixer_nid)
- 	codec->spdif_status_reset = 1;
- 	codec->forced_resume = 1;
- 	codec->patch_ops = alc_patch_ops;
-+	mutex_init(&spec->coef_mutex);
- 
- 	err = alc_codec_rename_from_preset(codec);
- 	if (err < 0) {
--- 
-2.31.1
+In what way does it not give the needed value, and is that perhaps a
+symptom of the constraints not being accurate?
 
+> > > +	if (mute) {
+> > > +		snd_soc_component_write(component, TAS5754M_MUTE, 0x11);
+> > > +	} else {
+> > > +		usleep_range(1000, 2000);
+> > > +		snd_soc_component_write(component, TAS5754M_MUTE, 0x00);
+
+> > Why the sleep here?
+
+> Wait for settling of the clocks before unmute
+
+Why would you need to wait for the clocks (which clocks?) to settle
+before the unmute, this sounds like something that needs to be addressed
+in whatever is providing the clocks.
+
+> > If the register map can be copied can't the two drivers be combined?
+
+> The TI apps team recommended to write a separate driver as there are some differences. I have also aligned some names to the TAS575xM spec in the next patch
+
+What concrete differences are there here?  "The TI apps team said so"
+isn't really upstream discussion or review...
+
+> > > +#define TAS5754M_VIRT_BASE 0x000
+> > > +#define TAS5754M_PAGE_LEN  0x80
+> > > +#define TAS5754M_PAGE_BASE(n)  (TAS5754M_VIRT_BASE + (TAS5754M_PAGE_LEN * n))
+
+> > > +#define TAS5754M_PAGE              0
+
+> > There's no mention of paging in the regmap description for the driver
+> > which feels like it's asking for problems.
+
+> I think, it's defined in the correct way. Where/when exactly do you see a problem?
+
+If there is paging going on and the regmap code doesn't know about it
+then that makes it seem likely that the regmap code is going to get
+confused about what's going on with the device.  What makes you say that
+"it's defined in the correct way" if there's no mention of paging in the
+regmap config?
+
+--wUouFNF7pV0nCdcq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHxemcACgkQJNaLcl1U
+h9C3kAf8C4UbuUwdIrGqsWbJ9L5qnOAVICkHiH0z5yVwKUO4tUNNYSvF8/t4dBoE
+ZDooivEeza5q9yimlSC/GAm5wBnBsy5V59DIKvIu7F7FW4D2T30x7xzq2pKq0k1E
+VfxpeeK2ZoM1yjoYNmB2PNRfZq4a17Qed690/KUqHPwcSgYSQjzaCqnMXZg/4ZNw
+RpGzcOtJMualZ2Sb7QSXdIPg0Wumj65N3+On5dno8CB/Tb7KoqrLyRMqDimKJbni
+sC5744LN+waZ2NVq3KnzCIVnANYSwVP8B+5ka6w1sATLsha/TCiZkyPv8RiQhpDR
+DB+vixm8yGZ6SCf9Ogn+LgWHkACcqQ==
+=Je6j
+-----END PGP SIGNATURE-----
+
+--wUouFNF7pV0nCdcq--

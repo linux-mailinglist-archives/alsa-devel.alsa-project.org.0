@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 123EB49D2B1
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jan 2022 20:50:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 955CE49D2CA
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jan 2022 20:51:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 908F71A96;
-	Wed, 26 Jan 2022 20:49:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 908F71A96
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3644D1EE0;
+	Wed, 26 Jan 2022 20:51:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3644D1EE0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643226607;
-	bh=60zn+ONV7QWtY+Fq0JquqM1ewr06H5tN1D+qvJ3hg0E=;
+	s=default; t=1643226715;
+	bh=/kh6dmnJIV0q+pVQ1os5y7QJUSmBMaUULsKnhR4zezQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=f6mftZGFvjXNhaEM0fVjyYA/JM3C0FvzkZtB+4fEUPxhSV0yUSxmcLOuMPBODAcMY
-	 cycWDXX7gN2+EE433KM3CL+O79cOdRYejcM6erH2ZNEo2v1eyTM1QWf/9ECcmw34cj
-	 rqjwuZAh6/NA4jiSggGRgmYvQbWlzdGlKrad4sdw=
+	b=AJZFDnawV9TSGDDdunLK6beeSLaxaj1YIQXd/B834w6NyLyY14XBs+bozNk9axOqM
+	 6wDA7PnbJQm3r+4ciJxXH8IP8e3xrpRdukTPoAtv8vd7MFc/zcWnK1/hmb0e+xp8Sk
+	 58MOnPxnHuxEQ7309iw8qievVQI4JH2JY9QgtdnQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01624F804BC;
-	Wed, 26 Jan 2022 20:49:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C270AF8049C;
+	Wed, 26 Jan 2022 20:50:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83E7EF8049C; Wed, 26 Jan 2022 20:48:59 +0100 (CET)
+ id 30797F804BC; Wed, 26 Jan 2022 20:50:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,36 +33,37 @@ Received: from cloudserver094114.home.pl (cloudserver094114.home.pl
  [79.96.170.134])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1CDCF80118
- for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 20:48:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1CDCF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 129AFF800C8
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 20:50:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 129AFF800C8
 Received: from localhost (127.0.0.1) (HELO v370.home.net.pl)
  by /usr/run/smtp (/usr/run/postfix/private/idea_relay_lmtp) via UNIX with SMTP
  (IdeaSmtpServer 4.0.0)
- id 83b28c23bf1a1938; Wed, 26 Jan 2022 20:48:51 +0100
+ id 2c39f910849b86ef; Wed, 26 Jan 2022 20:50:41 +0100
 Received: from kreacher.localnet (unknown [213.134.162.63])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by v370.home.net.pl (Postfix) with ESMTPSA id 9AD6666B306;
- Wed, 26 Jan 2022 20:48:50 +0100 (CET)
+ by v370.home.net.pl (Postfix) with ESMTPSA id 2CB2B66B306;
+ Wed, 26 Jan 2022 20:50:40 +0100 (CET)
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] sound: Replace acpi_bus_get_device()
-Date: Wed, 26 Jan 2022 20:48:49 +0100
-Message-ID: <2828205.e9J7NaK4W3@kreacher>
+To: Vinod Koul <vkoul@kernel.org>
+Subject: [PATCH] soundwire: Replace acpi_bus_get_device()
+Date: Wed, 26 Jan 2022 20:50:39 +0100
+Message-ID: <3173256.44csPzL39Z@kreacher>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="UTF-8"
 X-CLIENT-IP: 213.134.162.63
 X-CLIENT-HOSTNAME: 213.134.162.63
 X-VADE-SPAMSTATE: clean
-X-VADE-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvvddrfedugdduvdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecujffqoffgrffnpdggtffipffknecuuegrihhlohhuthemucduhedtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvffufffkggfgtgesthfuredttddtjeenucfhrhhomhepfdftrghfrggvlhculfdrucghhihsohgtkhhifdcuoehrjhifsehrjhifhihsohgtkhhirdhnvghtqeenucggtffrrghtthgvrhhnpefhgedtffejheekgeeljeevvedtuefgffeiieejuddutdekgfejvdehueejjeetvdenucfkphepvddufedrudefgedrudeivddrieefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvddufedrudefgedrudeivddrieefpdhhvghlohepkhhrvggrtghhvghrrdhlohgtrghlnhgvthdpmhgrihhlfhhrohhmpedftfgrfhgrvghlucflrdcuhgihshhotghkihdfuceorhhjfiesrhhjfiihshhotghkihdrnhgvtheqpdhnsggprhgtphhtthhopeehpdhrtghpthhtohepthhifigrihesshhushgvrdgtohhmpdhrtghpthhtoheprghlshgrqdguvghvvghlsegrlhhsrgdqphhrohhjvggtthdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdgrtghpihesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehpihgvrhhr
- vgdqlhhouhhishdrsghoshhsrghrtheslhhinhhugidrihhnthgvlhdrtghomh
-X-DCC--Metrics: v370.home.net.pl 1024; Body=5 Fuz1=5 Fuz2=5
+X-VADE-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvvddrfedugdduvdelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecujffqoffgrffnpdggtffipffknecuuegrihhlohhuthemucduhedtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvffufffkggfgtgesthfuredttddtjeenucfhrhhomhepfdftrghfrggvlhculfdrucghhihsohgtkhhifdcuoehrjhifsehrjhifhihsohgtkhhirdhnvghtqeenucggtffrrghtthgvrhhnpefhgedtffejheekgeeljeevvedtuefgffeiieejuddutdekgfejvdehueejjeetvdenucfkphepvddufedrudefgedrudeivddrieefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvddufedrudefgedrudeivddrieefpdhhvghlohepkhhrvggrtghhvghrrdhlohgtrghlnhgvthdpmhgrihhlfhhrohhmpedftfgrfhgrvghlucflrdcuhgihshhotghkihdfuceorhhjfiesrhhjfiihshhotghkihdrnhgvtheqpdhnsggprhgtphhtthhopeeipdhrtghpthhtohepvhhkohhulheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohephihunhhgqdgthhhurghnrdhlihgroheslhhinhhugidrihhnthgvlhdrtghomhdprhgtphhtthhopehpihgvrhhrvgdqlhhouhhishdrsghoshhsrghrtheslhhinhhugidrihhnthgvlhdrtghomhdprhgtphhtthhopegrlhhsrgdquggvvhgvlhesrghlshgrqdhprhhojhgvtghtrdho
+ rhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqrggtphhisehvghgvrhdrkhgvrhhnvghlrdhorhhg
+X-DCC--Metrics: v370.home.net.pl 1024; Body=6 Fuz1=6 Fuz2=6
 Cc: Linux ACPI <linux-acpi@vger.kernel.org>, alsa-devel@alsa-project.org,
- LKML <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,68 +88,39 @@ No intentional functional impact.
 
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- sound/hda/intel-sdw-acpi.c |    7 +++----
- sound/soc/soc-acpi.c       |    7 ++-----
- 2 files changed, 5 insertions(+), 9 deletions(-)
+ drivers/soundwire/intel_init.c |    7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Index: linux-pm/sound/hda/intel-sdw-acpi.c
+Index: linux-pm/drivers/soundwire/intel_init.c
 ===================================================================
---- linux-pm.orig/sound/hda/intel-sdw-acpi.c
-+++ linux-pm/sound/hda/intel-sdw-acpi.c
-@@ -50,11 +50,11 @@ static bool is_link_enabled(struct fwnod
+--- linux-pm.orig/drivers/soundwire/intel_init.c
++++ linux-pm/drivers/soundwire/intel_init.c
+@@ -180,7 +180,8 @@ static struct sdw_intel_ctx
+ 	if (!res)
+ 		return NULL;
+ 
+-	if (acpi_bus_get_device(res->handle, &adev))
++	adev = acpi_fetch_acpi_dev(res->handle);
++	if (!adev)
+ 		return NULL;
+ 
+ 	if (!res->count)
+@@ -294,13 +295,13 @@ err:
  static int
- sdw_intel_scan_controller(struct sdw_intel_acpi_info *info)
+ sdw_intel_startup_controller(struct sdw_intel_ctx *ctx)
  {
 -	struct acpi_device *adev;
-+	struct acpi_device *adev = acpi_fetch_acpi_dev(info->handle);
- 	int ret, i;
- 	u8 count;
++	struct acpi_device *adev = acpi_fetch_acpi_dev(ctx->handle);
+ 	struct sdw_intel_link_dev *ldev;
+ 	u32 caps;
+ 	u32 link_mask;
+ 	int i;
  
--	if (acpi_bus_get_device(info->handle, &adev))
+-	if (acpi_bus_get_device(ctx->handle, &adev))
 +	if (!adev)
  		return -EINVAL;
  
- 	/* Found controller, find links supported */
-@@ -119,7 +119,6 @@ static acpi_status sdw_intel_acpi_cb(acp
- 				     void *cdata, void **return_value)
- {
- 	struct sdw_intel_acpi_info *info = cdata;
--	struct acpi_device *adev;
- 	acpi_status status;
- 	u64 adr;
- 
-@@ -127,7 +126,7 @@ static acpi_status sdw_intel_acpi_cb(acp
- 	if (ACPI_FAILURE(status))
- 		return AE_OK; /* keep going */
- 
--	if (acpi_bus_get_device(handle, &adev)) {
-+	if (!acpi_fetch_acpi_dev(handle)) {
- 		pr_err("%s: Couldn't find ACPI handle\n", __func__);
- 		return AE_NOT_FOUND;
- 	}
-Index: linux-pm/sound/soc/soc-acpi.c
-===================================================================
---- linux-pm.orig/sound/soc/soc-acpi.c
-+++ linux-pm/sound/soc/soc-acpi.c
-@@ -55,16 +55,13 @@ EXPORT_SYMBOL_GPL(snd_soc_acpi_find_mach
- static acpi_status snd_soc_acpi_find_package(acpi_handle handle, u32 level,
- 					     void *context, void **ret)
- {
--	struct acpi_device *adev;
-+	struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
- 	acpi_status status;
- 	struct snd_soc_acpi_package_context *pkg_ctx = context;
- 
- 	pkg_ctx->data_valid = false;
- 
--	if (acpi_bus_get_device(handle, &adev))
--		return AE_OK;
--
--	if (adev->status.present && adev->status.functional) {
-+	if (adev && adev->status.present && adev->status.functional) {
- 		struct acpi_buffer buffer = {ACPI_ALLOCATE_BUFFER, NULL};
- 		union acpi_object  *myobj = NULL;
- 
+ 	/* Check SNDWLCAP.LCOUNT */
 
 
 

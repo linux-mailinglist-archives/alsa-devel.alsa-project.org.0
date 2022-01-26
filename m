@@ -2,102 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E81449CDDB
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jan 2022 16:20:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E436249CE22
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jan 2022 16:25:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E25291B3A;
-	Wed, 26 Jan 2022 16:19:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E25291B3A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 591471B4D;
+	Wed, 26 Jan 2022 16:25:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 591471B4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643210424;
-	bh=NQsGPVUyW8Gmh1UoKx8aEE0V9KiJ6RTnLZFIhWUG8aM=;
-	h=From:To:References:In-Reply-To:Subject:Date:Cc:List-Id:
+	s=default; t=1643210750;
+	bh=hZrDXnAPEqekc+aCczkWOeVJ3QOSLSD9EN0EMfKoOmw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I+KVC+x/e9sBjncgi0FpSqyZqsjKScyFhz4n5ugz8cHE7LOSzX5jrP/bCjOjuWykM
-	 S28HkgwU+ZuGAtn19fo6dNN+d6xrZBfU4upNcmmqAW/tvT0dKYdNKTZQI8pI4fOuE7
-	 7t9Yy+YQKRXOLj4xeS86byMPhHOSxCRQuvv9yZVk=
+	b=Ztnsk8ctb1/S5hNRdVWL5J4erDhcBYT3giKhTRZEBHOsWuSgc8r7HoaXEYasecRIQ
+	 albgPsendsRiPYpEaerNJZhxNFF65cA1QvfbI2VnWY4hkRs562BOpfLZGEUfRHRw7m
+	 V8GB5G+7bxZNcSUZvBqq+SyB/7fnjOnY/M9D+AXY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 642B7F804BC;
-	Wed, 26 Jan 2022 16:19:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4E5BF800C8;
+	Wed, 26 Jan 2022 16:24:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 562C9F8049C; Wed, 26 Jan 2022 16:19:16 +0100 (CET)
+ id E7B4AF8049C; Wed, 26 Jan 2022 16:24:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15B20F800C8
- for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 16:19:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15B20F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF155F800C8
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jan 2022 16:24:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF155F800C8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="YMDBMbTS"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20Q7NhRO002476;
- Wed, 26 Jan 2022 09:19:07 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- references : in-reply-to : subject : date : message-id : mime-version :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=9rognJyf05ydfSbJSD21cO4tiWOBbR70eO7/kwhr5Vo=;
- b=YMDBMbTSXa+yrvhseAweeMayD4DFgalHbiFRnhvG1PvBufcU2VNkqvF+w4Qg5louxr74
- GBy+DbxCgFZk5Osl2gnbMXrjuZwicRdAzFm6yXmdf1IZEoP2RL3YirsLSCaZCJddhUTM
- RzmuhXOI1/OcoxlpooLpPeBJuyZy3n7cQ0aSJibGbZq5OUhl/HuF5HyXTM9cps2zokxf
- ANJ6Nrydp66aPCtnBfbQUE5apBr7RWM2SqVhJzWTOA8wRdHigEtERaEjC7Yz+diUQD1t
- RDOpk8FvlqJcSrW4gPcx/67u0UYPNGcY1mvL8Jw1nKl1LZggvpeZVgS9OQOufYHzJktD Rg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3du0dygfeg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 26 Jan 2022 09:19:06 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 26 Jan
- 2022 15:19:05 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Wed, 26 Jan 2022 15:19:05 +0000
-Received: from LONN2DGDQ73 (unknown [198.90.238.118])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E888B7C;
- Wed, 26 Jan 2022 15:19:04 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: "'Rafael J. Wysocki'" <rafael@kernel.org>
-References: <20220121143254.6432-1-sbinding@opensource.cirrus.com>
- <20220121143254.6432-8-sbinding@opensource.cirrus.com>
- <CAJZ5v0gK=-SXUDekg_2DtOuMsn6Ls4gS+nymei2Qa9ZEFvqGcA@mail.gmail.com>
- <019901d80ee7$a6bf2a90$f43d7fb0$@opensource.cirrus.com>
- <CAJZ5v0j+DkX+-P1XxZ=HAnUzPjdkNFkXRTjJzhSH27KfDFAGDQ@mail.gmail.com>
-In-Reply-To: <CAJZ5v0j+DkX+-P1XxZ=HAnUzPjdkNFkXRTjJzhSH27KfDFAGDQ@mail.gmail.com>
-Subject: RE: [PATCH v5 7/9] platform/x86: serial-multi-instantiate: Add SPI
- support
-Date: Wed, 26 Jan 2022 15:19:05 +0000
-Message-ID: <005d01d812c8$0ea9ae30$2bfd0a90$@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQIyNEEjz2y1WYLj0c4G0/lJ4TX/RgKST2RJAeKXLR4ByJ9isAInyNRCq338ZGA=
-Content-Language: en-gb
-X-Proofpoint-ORIG-GUID: e_E2liIVgvLHZqGtSUoNRsjQ3vdAE3CF
-X-Proofpoint-GUID: e_E2liIVgvLHZqGtSUoNRsjQ3vdAE3CF
-X-Proofpoint-Spam-Reason: safe
-Cc: "'moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM...'"
- <alsa-devel@alsa-project.org>, 'Hans de Goede' <hdegoede@redhat.com>,
- patches@opensource.cirrus.com, 'linux-spi' <linux-spi@vger.kernel.org>,
- 'Takashi Iwai' <tiwai@suse.com>,
- 'Linux Kernel Mailing List' <linux-kernel@vger.kernel.org>,
- 'Mark Gross' <markgross@kernel.org>,
- 'ACPI Devel Maling List' <linux-acpi@vger.kernel.org>,
- 'Mark Brown' <broonie@kernel.org>,
- 'Platform Driver' <platform-driver-x86@vger.kernel.org>,
- 'Len Brown' <lenb@kernel.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="j9C4LuPO"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Zcv47eTl"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 343C01F3B0;
+ Wed, 26 Jan 2022 15:24:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1643210676; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9CXY7MFbJ1saOKK9+Yf3pb9u+zx6DrRm92wfkukypJU=;
+ b=j9C4LuPOb5XoFVk6uxHIO8WC5JbJfuf9jmV9L6Kx2lRSXZEqcFPNULeh0IL+8Klm088Mhv
+ VVABBZSIxItC72DaJhTo4TIEe8RAPpl51T+Jup4gOlFOoA78p9Rg2std/7tu5wRVElYPkj
+ 5rM1DiS2T2ol6/t79eDHWxsAlWOJRfA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1643210676;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9CXY7MFbJ1saOKK9+Yf3pb9u+zx6DrRm92wfkukypJU=;
+ b=Zcv47eTlQd7aDCA72boLRhzkKoNf/ZcDAsLb7bnW2iDfHVLc2QbqnzOKDYdAl7axDb5SQH
+ b6sfpqO/K/rKaIBA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 1D799A3B81;
+ Wed, 26 Jan 2022 15:24:36 +0000 (UTC)
+Date: Wed, 26 Jan 2022 16:24:36 +0100
+Message-ID: <s5ho83yldu3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alexander Sergeyev <sergeev917@gmail.com>
+Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
+In-Reply-To: <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
+References: <20220112201824.qmphnz2hx4frda6e@localhost.localdomain>
+ <s5h8rvk85uy.wl-tiwai@suse.de>
+ <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
+ <s5ha6fy46jt.wl-tiwai@suse.de>
+ <20220114183720.n46wealclg6spxkp@localhost.localdomain>
+ <s5hsftp3027.wl-tiwai@suse.de>
+ <20220115152215.kprws5nja2i43qax@localhost.localdomain>
+ <s5hilugw0l0.wl-tiwai@suse.de>
+ <20220119093249.eaxem33bjqjxcher@localhost.localdomain>
+ <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
+ <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
+ PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,76 +106,171 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sat, 22 Jan 2022 21:56:37 +0100,
+Alexander Sergeyev wrote:
+> 
+> On Sat, Jan 22, 2022 at 10:05:24PM +0300, Alexander Sergeyev wrote:
+> > I'm not sure about kernel log buffering or maybe the device support for 
+> > pipelining, but is it okay that alc_update_coefex_idx() seem to overlap?
+> 
+> Given that the CPU number is the same in alc_update_coefex_idx(), it seems 
+> these calls execution is interrupted and interleaved on the same core.
+> 
+> And, actually, there are two LEDs to set (mute and micmute). Am I onto 
+> something here?
+
+That's an interesting finding, and yes, such a race is quite
+possible.  Below is a quick fix as an attempt to cover it.
+Could you give it a try?
+
+BTW, the fix for the unbind problem was submitted.  It's a slightly
+more simplified version than what I posted here beforehand.
 
 
-> -----Original Message-----
-> From: Alsa-devel <alsa-devel-bounces@alsa-project.org> On Behalf Of
-> Rafael J. Wysocki
-> Sent: 21 January 2022 17:15
-> To: Stefan Binding <sbinding@opensource.cirrus.com>
-> Cc: Platform Driver <platform-driver-x86@vger.kernel.org>; moderated
-> list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM... <alsa-
-> devel@alsa-project.org>; ACPI Devel Maling List <linux-
-> acpi@vger.kernel.org>; Rafael J. Wysocki <rafael@kernel.org>; Linux =
-Kernel
-> Mailing List <linux-kernel@vger.kernel.org>; Takashi Iwai =
-<tiwai@suse.com>;
-> Mark Gross <markgross@kernel.org>; Hans de Goede
-> <hdegoede@redhat.com>; Mark Brown <broonie@kernel.org>;
-> patches@opensource.cirrus.com; linux-spi <linux-spi@vger.kernel.org>; =
-Len
-> Brown <lenb@kernel.org>
-> Subject: Re: [PATCH v5 7/9] platform/x86: serial-multi-instantiate: =
-Add SPI
-> support
+thanks,
 
+Takashi
 
->=20
-> > > > @@ -146,7 +247,21 @@ static int smi_probe(struct platform_device
-> *pdev)
-> > > >
-> > > >         platform_set_drvdata(pdev, smi);
-> > > >
-> > > > -       return smi_i2c_probe(pdev, adev, smi, inst_array);
-> > > > +       switch (node->bus_type) {
-> > > > +       case SMI_I2C:
-> > > > +               return smi_i2c_probe(pdev, adev, smi, =
-node->instances);
-> > > > +       case SMI_SPI:
-> > > > +               return smi_spi_probe(pdev, adev, smi, =
-node->instances);
-> > > > +       case SMI_AUTO_DETECT:
-> > > > +               if (i2c_acpi_client_count(adev) > 0)
-> > > > +                       return smi_i2c_probe(pdev, adev, smi, =
-node->instances);
-> > > > +               else
-> > > > +                       return smi_spi_probe(pdev, adev, smi, =
-node->instances);
-> > > > +       default:
-> > > > +               break;
-> > >
-> > > Why is this needed?
-> >
-> > This return code is attempting to ensure that we don=E2=80=99t try =
-to guess
-> whether we
-> > expect devices to be I2C or SPI - especially with regards to =
-existing devices.
-> > We wanted to maintain compatibility with existing devices, which =
-would all
-> be
-> > I2C.
-> > For the device for which we are adding, the same HID is used by both =
-the
-> same
-> > chip for both I2C and SPI, so we also needed a way to support both.
->=20
-> I meant why was the "default" case needed.  Sorry for the confusion.
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: hda: realtek: Fix race at concurrent COEF updates
 
-I added a default case here purely for static analysis reasons. I =
-don=E2=80=99t think it necessarily required, and I can remove it if =
-necessary.
+The COEF access is done with two steps: setting the index then read or
+write the data.  When multiple COEF accesses are performed
+concurrently, the index and data might be paired unexpectedly.
+In most cases, this isn't a big problem as the COEF setup is done at
+the initialization, but some dynamic changes like the mute LED may hit
+such a race.
 
-Thanks,
-Stefan
+For avoiding the racy COEF accesses, this patch introduces a new
+mutex coef_mutex to alc_spec, and wrap the COEF accessing functions
+with it.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/patch_realtek.c | 61 ++++++++++++++++++++++++++++-------
+ 1 file changed, 50 insertions(+), 11 deletions(-)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 668274e52674..a5677be0a405 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -98,6 +98,7 @@ struct alc_spec {
+ 	unsigned int gpio_mic_led_mask;
+ 	struct alc_coef_led mute_led_coef;
+ 	struct alc_coef_led mic_led_coef;
++	struct mutex coef_mutex;
+ 
+ 	hda_nid_t headset_mic_pin;
+ 	hda_nid_t headphone_mic_pin;
+@@ -137,8 +138,8 @@ struct alc_spec {
+  * COEF access helper functions
+  */
+ 
+-static int alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+-			       unsigned int coef_idx)
++static int __alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
++				 unsigned int coef_idx)
+ {
+ 	unsigned int val;
+ 
+@@ -147,28 +148,61 @@ static int alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+ 	return val;
+ }
+ 
++static int alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
++			       unsigned int coef_idx)
++{
++	struct alc_spec *spec = codec->spec;
++	unsigned int val;
++
++	mutex_lock(&spec->coef_mutex);
++	val = __alc_read_coefex_idx(codec, nid, coef_idx);
++	mutex_unlock(&spec->coef_mutex);
++	return val;
++}
++
+ #define alc_read_coef_idx(codec, coef_idx) \
+ 	alc_read_coefex_idx(codec, 0x20, coef_idx)
+ 
+-static void alc_write_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+-				 unsigned int coef_idx, unsigned int coef_val)
++static void __alc_write_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
++				   unsigned int coef_idx, unsigned int coef_val)
+ {
+ 	snd_hda_codec_write(codec, nid, 0, AC_VERB_SET_COEF_INDEX, coef_idx);
+ 	snd_hda_codec_write(codec, nid, 0, AC_VERB_SET_PROC_COEF, coef_val);
+ }
+ 
++static void alc_write_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
++				 unsigned int coef_idx, unsigned int coef_val)
++{
++	struct alc_spec *spec = codec->spec;
++
++	mutex_lock(&spec->coef_mutex);
++	__alc_write_coefex_idx(codec, nid, coef_idx, coef_val);
++	mutex_unlock(&spec->coef_mutex);
++}
++
+ #define alc_write_coef_idx(codec, coef_idx, coef_val) \
+ 	alc_write_coefex_idx(codec, 0x20, coef_idx, coef_val)
+ 
++static void __alc_update_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
++				    unsigned int coef_idx, unsigned int mask,
++				    unsigned int bits_set)
++{
++	unsigned int val = __alc_read_coefex_idx(codec, nid, coef_idx);
++
++	if (val != -1)
++		__alc_write_coefex_idx(codec, nid, coef_idx,
++				       (val & ~mask) | bits_set);
++}
++
+ static void alc_update_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+ 				  unsigned int coef_idx, unsigned int mask,
+ 				  unsigned int bits_set)
+ {
+-	unsigned int val = alc_read_coefex_idx(codec, nid, coef_idx);
++	struct alc_spec *spec = codec->spec;
+ 
+-	if (val != -1)
+-		alc_write_coefex_idx(codec, nid, coef_idx,
+-				     (val & ~mask) | bits_set);
++	mutex_lock(&spec->coef_mutex);
++	__alc_update_coefex_idx(codec, nid, coef_idx, mask, bits_set);
++	mutex_unlock(&spec->coef_mutex);
+ }
+ 
+ #define alc_update_coef_idx(codec, coef_idx, mask, bits_set)	\
+@@ -201,13 +235,17 @@ struct coef_fw {
+ static void alc_process_coef_fw(struct hda_codec *codec,
+ 				const struct coef_fw *fw)
+ {
++	struct alc_spec *spec = codec->spec;
++
++	mutex_lock(&spec->coef_mutex);
+ 	for (; fw->nid; fw++) {
+ 		if (fw->mask == (unsigned short)-1)
+-			alc_write_coefex_idx(codec, fw->nid, fw->idx, fw->val);
++			__alc_write_coefex_idx(codec, fw->nid, fw->idx, fw->val);
+ 		else
+-			alc_update_coefex_idx(codec, fw->nid, fw->idx,
+-					      fw->mask, fw->val);
++			__alc_update_coefex_idx(codec, fw->nid, fw->idx,
++						fw->mask, fw->val);
+ 	}
++	mutex_unlock(&spec->coef_mutex);
+ }
+ 
+ /*
+@@ -1153,6 +1191,7 @@ static int alc_alloc_spec(struct hda_codec *codec, hda_nid_t mixer_nid)
+ 	codec->spdif_status_reset = 1;
+ 	codec->forced_resume = 1;
+ 	codec->patch_ops = alc_patch_ops;
++	mutex_init(&spec->coef_mutex);
+ 
+ 	err = alc_codec_rename_from_preset(codec);
+ 	if (err < 0) {
+-- 
+2.31.1
 

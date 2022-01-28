@@ -2,85 +2,175 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CABF149FA58
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 14:07:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E405A49FABC
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 14:33:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C87EC1706;
-	Fri, 28 Jan 2022 14:06:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C87EC1706
+	by alsa0.perex.cz (Postfix) with ESMTPS id 712A51774;
+	Fri, 28 Jan 2022 14:32:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 712A51774
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643375258;
-	bh=Is4olLhsk3j3j8qTWxE/Zeo3FckilHNlsQ9Vsr92LR4=;
+	s=default; t=1643376807;
+	bh=xdhQ+SujLp3S0LyRmWbRWR1tMkWz9bp2a4X2b7UD570=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uzxPUqFxm//aTzONm1KqZPiUnZ/MJd9CUvjij14iZy/evJQ2u6omdVcgu6fXK74JB
-	 VlPa1Acv4OogmBKv7R5XHTbFRGNH6Fh9h9HnIWBc36gYNS09N95TYm+mh8d+LAeBa5
-	 F63HWVTMDoS1H1nnlc0Q9X8DQ2ZoV3cj8VwfH8Oc=
+	b=eoyCl/Mk3BuvG5JV5I/RYJR73qIgwo+lY5nKaHDMFS5lOr/s+vsfWaxNYD6D35IMM
+	 8y8Mm0b2a8iyTgcO3V+Crxtz40FjUfEic7AsQ9tU7IDXONaKeI33GQJqmRphkM2URy
+	 MYbclaHTmnPA0wTvOLHNun2M2wV4GSGFy0/yyziQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D7BBF80246;
-	Fri, 28 Jan 2022 14:06:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDA4AF80118;
+	Fri, 28 Jan 2022 14:32:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC45FF80240; Fri, 28 Jan 2022 14:06:31 +0100 (CET)
+ id 9DDBAF80240; Fri, 28 Jan 2022 14:32:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6989AF800C0
- for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 14:06:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6989AF800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kxHVqdph"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D9427B825A8;
- Fri, 28 Jan 2022 13:06:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38F72C340E0;
- Fri, 28 Jan 2022 13:06:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643375186;
- bh=Is4olLhsk3j3j8qTWxE/Zeo3FckilHNlsQ9Vsr92LR4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kxHVqdphzE5X65rhBYzku+ROQZ7aH2C2kVbgzXgCFeRoMOCeiHDTKzyYC5JXPCx8O
- qLJIElrOFLMEc6J7VO8RKxlV06WAYysknXqJ/90758o/XCcmaZwOUEkZYhg+xnHe8P
- 8KIa4AQMDgUwzwjeJvYg8IfmtPPcDN2Xopvt1l3bUCe599gs10SVIB3J1bO5OYifU0
- rtkA+fCVMLIjBMkb0pYl7JvLOeqDVmVun9zBrVvQF1MQRXPF7xeLmYDXkMZPx4uN6H
- KVZy/JdC6uSH2CyrpJCCu9yJh/ASWXV+aQj4LcD8oIsWXHJ+ig92ZcxWx+sdeutxQk
- ClKOKWSVWEsnw==
-Date: Fri, 28 Jan 2022 13:06:19 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: Centralize the 'sound-dai' definition
-Message-ID: <YfPqS8v7ZtT6HDyS@sirena.org.uk>
-References: <20220126231427.1638089-1-robh@kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="YNdayVbVmdPYqrJn"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83B7BF80118
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 14:32:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83B7BF80118
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="rSJu2k94"; 
+ dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
+ header.i=@oracle.onmicrosoft.com header.b="w0X1yGrc"
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20SCwqwh031154; 
+ Fri, 28 Jan 2022 13:32:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=corp-2021-07-09;
+ bh=QNJlUGENsUD/zTje2tPVvMgKyA6VZYufFT+nTjgFKhQ=;
+ b=rSJu2k94Rc+a7eG/rzMTZY+LDzhMkkOaowYvvoeEdLQU8dsacThZBj47qYbZsXJFeEfz
+ W0IHXytLeO0jZw58g3ac+Ay8678aJ8d1v4tgWrrKCCZEPce2UYwpooMtzlQA4zzdDKEj
+ njz0+MZzGHWub131PttH4ZHRMFm0OyU+Q4QdDDO1ONdI4fKXyofvH3UUDBvtoxO8yGl6
+ MilDgB0UMpMAgYdWFcPlQjvBqgbJfu2mBZ8MbY/NacUbFatVY1eiBST7HtV8FPT16QrB
+ dmy9NzLWZXZgeBfqZvGiVzlj/tFzFxljVzrDv107q4sc3aIk9Rv5w+Muuc3pM4L4T4+g vw== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3duvsj36ma-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 28 Jan 2022 13:32:12 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 20SDFSEQ190053;
+ Fri, 28 Jan 2022 13:32:12 GMT
+Received: from nam04-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08lp2171.outbound.protection.outlook.com [104.47.73.171])
+ by aserp3030.oracle.com with ESMTP id 3dr7yns6nt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 28 Jan 2022 13:32:11 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mMys3MNMkuD/OrUWPtqy4EIrVIUCOwyGqIShhX6E4GROkiY8EZ2EJWUBjp1uThQ0TtGmCpQBpMjROVu4gy1egLyrXOo7eXYVlWXNi1xcVOkIF4cc1DodpAS+Dna/EAV2ZCswBaEpHZQi2lv19ZKckq8ClB/tDgXm09+j1CUy6fZ2hP99q8/gB1P4r/KFJvwWBXUJCElkdNJod3bFCU7Ztf33/Zi5Nu8ZobuLEbdDh5DBcTrXvd3XqcRkZYtAVVo94cUEA0bVjWlBFAZAafipneeSViSO0vgjWOtRDBjubFE6DFWNamnwBwlxjNZec7GMnWhh8xcr3fkNT73cDrGOvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QNJlUGENsUD/zTje2tPVvMgKyA6VZYufFT+nTjgFKhQ=;
+ b=k3rSF2hjGWT8LRfWCHWuIByG9vq2d9AuZjNtZc5GNFs9xdyvjJQI9kM/6D9/bB0w/SoZhi8jVRIzGmTkvVKb4e0D5BDPksEeHf06JVfg9YjLVXFSsAKo6rwIHmPk64bHbINFGDQ7SCUYsQoAcB3uU+S7ZWRGnuwGNCXjMyp6mXscSwmwRMk8l2jX/3R+Oy2kRphO0gLE7gLnqGjVXB6V66rpCKdiK4oXuuEOLecDtGBFFcrN46vHqcfbgxG7rzUbQfupSLRKy2h9fwLIymg4Ben55Uyc7vO/bN1ZEET/wE4N7LLytJafRXZMLetvbieQmQNLqfoPOEaSXfu7IXgGMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QNJlUGENsUD/zTje2tPVvMgKyA6VZYufFT+nTjgFKhQ=;
+ b=w0X1yGrc+0G6iVwCxeBfrTifd+oAmZkK+kqiruNVPKPpQeNw3nUkhVukLdQnPYp7eHsGzOXn6RmVRoZQZwa9RUOA7zGHWLbTDiqZ2rXXzWlvnKX0Wd3GYxha64WQ0gIw3Cz+pFyWW+ZHXpFEdK9ILsk5L4RraBwmtOrgcEDyEN8=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by DS7PR10MB4925.namprd10.prod.outlook.com
+ (2603:10b6:5:297::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.18; Fri, 28 Jan
+ 2022 13:32:09 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::e5a5:8f49:7ec4:b7b8]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::e5a5:8f49:7ec4:b7b8%5]) with mapi id 15.20.4930.019; Fri, 28 Jan 2022
+ 13:32:09 +0000
+Date: Fri, 28 Jan 2022 16:31:47 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/2] ASoC: ops: fix signedness bug in snd_soc_put_volsw()
+Message-ID: <20220128133147.GL1978@kadam>
+References: <20220128112007.GA24806@kili>
+ <YfPknO6si9CpotgS@sirena.org.uk>
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220126231427.1638089-1-robh@kernel.org>
-X-Cookie: The Moral Majority is neither.
-Cc: alsa-devel@alsa-project.org, Jonathan Bakker <xc-racer2@live.ca>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rohit kumar <rohitkr@codeaurora.org>, Fabio Estevam <festevam@gmail.com>,
- Cheng-Yi Chiang <cychiang@chromium.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>, Jerome Brunet <jbrunet@baylibre.com>,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Shawn Guo <shawnguo@kernel.org>
+In-Reply-To: <YfPknO6si9CpotgS@sirena.org.uk>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: JNAP275CA0035.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:4d::19)
+ To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 60a9ff27-86f7-4ddb-c283-08d9e262956e
+X-MS-TrafficTypeDiagnostic: DS7PR10MB4925:EE_
+X-Microsoft-Antispam-PRVS: <DS7PR10MB4925168686416F0562EDEEA18E229@DS7PR10MB4925.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OkT4TGWbWQCun+eKdaMYFMGrLP4NdjbUcNAXgvaaZ56LG1obvp7aJ8GTHNlYuIV2fN/+buT6JSaINdH4TL0u9RuHI2had2GJWQaYZS36R90TZ+74R9Z+nRkZcH/50ELe/z7JU/15U1ikMkrtSek40EB89nQ7zXfpRACHhXbHce2iisOTLxGwqNLXeYv8NFwewSkBpktncW4HRO3YicFeS0lMXqIOtTrnmx0URsb4YI3J4oVs2jiE4m3pup3Fe1zwTwej174yqsaqJOQvVa9hcWQHPePjRU3mj+TUye4fREoA1CGz7MVJcU9d7bt9oxE0D96OKrNqBOooD191rReSzzgqND5Ca6dBH7ikcPyIErjA1gb2XmaUQP1wWVRcI5eIcQLKQUN6wVblhQ9R3+fNt3Yalyjs468kyUTMPRT+xOedSGS2ympHaZwy1goceCLeeC66awbiPHt/zjpGgl1gUWTmpjKL4oZicj3m65Xt7ce9lTuIW5+vp4Dns7buuIhPSAclbq0f0Vx/1bpO5Y3lITlDKWw7Udn4ru/AJvkOoJCwBOhCYVngGI2v2Mv8lcZ3DSliG+guUfnr6oCsK72dNctisSacNppz/kOW9vq2JtHv7wwwbjsR8vaGK4BaLGukeFXFmyBOeMTTSHy4Y3Ie7Wj7oRP/tU7LhYakJjrethzKCm+i34qLcS+NaqJn5rmfrAQCvnCBo91IvqM9AKWRNg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(366004)(26005)(33716001)(4326008)(83380400001)(86362001)(2906002)(4744005)(1076003)(186003)(8936002)(8676002)(44832011)(66556008)(66946007)(66476007)(508600001)(6486002)(54906003)(6666004)(5660300002)(38350700002)(52116002)(6506007)(316002)(38100700002)(33656002)(9686003)(6916009)(6512007)(20210929001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?5GpUI+wmEdRkUUunnllOMKURZQNUq0YTKVmAEo6Jpm7Hb7gcSJWhmPVsJYg2?=
+ =?us-ascii?Q?dtuI/g3xgjnP4yeFjgHOj/UokdUixj/8dEt4msW3oYQYnegqU7yZYiNZwVXX?=
+ =?us-ascii?Q?RIg/g7ES1QRzfofh+bpwoIoh0Bi33FPxeE0zAwgRW71ykZNSAtBxgSbVGfSg?=
+ =?us-ascii?Q?i/n13k9VQUolRDZ/T87cupKARFwibiouxc0igLCyo+4u0o4ZzqHW0ICJp70R?=
+ =?us-ascii?Q?fyifZyV6OPvGOxsJlKSFtObacxZhq4CiqpguMf0jWLvljn2txjme/EbXBoH8?=
+ =?us-ascii?Q?tFj+JC0FPktVMsF5jsHEgfvSVRtGRcvtP3meD7I6lzRmTmB0lqns1mT2Nhmt?=
+ =?us-ascii?Q?unYyacENVPG7Qx6enBLEKZqmQqdlNJFjw7xyimk3HkgV1RtLAeRZvVTvASBY?=
+ =?us-ascii?Q?0AJ5e8f+IBGt+j+huNrX5yJJFI7uvVpYtje1dBBvfZb7e2/COVqn7qX24hLB?=
+ =?us-ascii?Q?16RDq63w3PhqY2TAQYNOnkJDQZD7vrttuaIlWVxkh73Mll/PwdLICiTZ1l8u?=
+ =?us-ascii?Q?pWO6Cq1KeHkz0np89Guaku1A8N0sPF36dVdL52As2n08Jj9NwzMxxbBIs/dW?=
+ =?us-ascii?Q?7BcC0Q7ulrxfAIV0thAb0MR688nG/gKOJJic4SCjnB/psT8k79vADf7mP75v?=
+ =?us-ascii?Q?EYfJFbisgWe549qzABeT9/ea+L+l73aMtgaOv5Vh7m0hdksg42Up2ArWgZDK?=
+ =?us-ascii?Q?Cu3cL6X2JW4oHh5YjGgSTd4C2UwlUBklr2ikywSkbOFuYsBbbwSQbXlUubDm?=
+ =?us-ascii?Q?I7sLzNmylyEBrQybSdrVNWIO3Is49Sf8oX113TadjskBikFr0YFAgv+7vEIL?=
+ =?us-ascii?Q?H/+shfu+TmxCHy2uq1BtOwUEgbHEkE/fThcKIrO7fHKVzKOjCz643ae2K4nc?=
+ =?us-ascii?Q?z5DFQk2C8dTyXRHlvMPh9a17u5s8XbL+MjgoRvc4a4UySzZU6eO+FqY04gqr?=
+ =?us-ascii?Q?zKrrUhwMTHp9HeuUNbe4sTZ9S6jNv6gBYbdHNKjywLDoKYff6cmtVmq2dLhW?=
+ =?us-ascii?Q?SgOf7SzTQ5dtGhLVni1i14IdqKvVHvXZ59bviccuXzgLxFhyH+Myr6mIFdR5?=
+ =?us-ascii?Q?2gr/RYsM1Gzd7QI89xl9+MS5cQc0m9wAF3ExeYpx4M4UhFcw9qriJ2MPbfiH?=
+ =?us-ascii?Q?q4Hgg68Mf+l+k/CBFpXrPRZNExy+OyjXCEQD70x1eG3IXSHNSALRBV4kxEio?=
+ =?us-ascii?Q?gdglihuh73yDC1oDPA3WnWbohMDZJVygssJhByFitXNJaaK7G9aAiCL4NMun?=
+ =?us-ascii?Q?gMN9XpF60bo1oD+JILCLC5QTwcBM+ZtTemxn1cGax930PZCG+LzCpAfPe81Y?=
+ =?us-ascii?Q?EsDLT+ZBqQ6WieSdjePo2OmEalYz+6fFzNZKvxeIBSmGk4ttxNEAmzqNoTYi?=
+ =?us-ascii?Q?VQMeAeTEyRo67aoYvVN1jnPkajsY5/iN0hHeJDLrPPttS8L8lfhoV5a7Jusz?=
+ =?us-ascii?Q?vtCBPl8Hlt+bIWtxdHQ5hxaOklRMrdkD3OerPQJas4l/jWgEHGjRcLddLiCT?=
+ =?us-ascii?Q?LTZbf8RsXeLe/2Zah/U6Ux/xAqLhvDuElx8+3WxpH+0KhK1e15NuAdUkApQL?=
+ =?us-ascii?Q?dV/uijh2h0zoJHZjcxUwMDrRK45DJWzioTYOxmTOlLcGVghMicgjT3Id2uZC?=
+ =?us-ascii?Q?pldNksunjmHK1lfu8U8tiXVDtv9game3wH1fweqCAP4pgPOL/rn4XYldBDZI?=
+ =?us-ascii?Q?mgGNweETFfPYNcYnvYsOZjUvW0Q=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60a9ff27-86f7-4ddb-c283-08d9e262956e
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 13:32:09.7777 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NVNzULFa4ranOAeu0G5rQZl1jLm+YdOgGEePYecmmO4rvewcY+Q5HfE19DcJIIgq9WJ0YQiD0JtsErmFoxvCD+pp/yrP1s01y5FqrUeUKh0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB4925
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10240
+ signatures=669575
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ phishscore=0 bulkscore=0
+ suspectscore=0 malwarescore=0 adultscore=0 mlxlogscore=999 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
+ definitions=main-2201280085
+X-Proofpoint-ORIG-GUID: TxC1l1Yl-oCxpfRZemAC14o5gJhOK0t_
+X-Proofpoint-GUID: TxC1l1Yl-oCxpfRZemAC14o5gJhOK0t_
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,32 +186,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jan 28, 2022 at 12:42:04PM +0000, Mark Brown wrote:
+> On Fri, Jan 28, 2022 at 02:20:07PM +0300, Dan Carpenter wrote:
+> > The "val" and "val2" variables need to signed for the checking to work
+> > as intended.
+> 
+> This means that the helpers won't support controls that use the top bit
+> of a 32 bit register.
 
---YNdayVbVmdPYqrJn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fine, I can delete the checks for negative instead (I'm surprised you
+haven't already received a dozen bot emails about this).
 
-On Wed, Jan 26, 2022 at 05:14:27PM -0600, Rob Herring wrote:
-> 'sound-dai' is a common property, but has duplicate type definitions.
-> Create a new common definition to define the type and then update all
-> the other occurrences to just define how many entries there are just
-> like other phandle+arg properties.
+I haven't been able to figure out where mc->min/max are set.  In
+snd_soc_get_xr_sx() it checks whether "mc->min" is negative.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+	if (min < 0 && val > max)
+		val |= ~mask;
 
---YNdayVbVmdPYqrJn
-Content-Type: application/pgp-signature; name="signature.asc"
+Is that a bug?  If mc->min is negative the math gets tricky.
 
------BEGIN PGP SIGNATURE-----
+regards,
+dan carpenter
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHz6koACgkQJNaLcl1U
-h9B49Qf+Jhz1zqYprzEs4mjpHmY22CKnG6zMmgy5bCBIfVwqA0nwKfsC9ul8fXXL
-NcltbAqGcCxr7u0lJoXY3h/Oob0gwpuqzMMyS+bUHzXQPnK994clJApOdV/J7UXC
-YJpbL78jiNhLsi9SZP9cTucY/LJTMEpN595HZ2+LPO6xeY6tq9RP4EWQj/0zvSn/
-dO3Z1egfcbsjKVGilRNKIjeK9WfKUdpRAwv3AS+0wSglY+fsSrpNe7Fij2CUN5zs
-nNlnVrsIvRZ45CK8pgK3YOkcvaWp/9GgS4+4+DJXwtVH8V8shpAsK/dxY+ddPhdK
-5xeCdZoQNFc+Ixkd9EQwLZLSUgKTOw==
-=AKJ7
------END PGP SIGNATURE-----
-
---YNdayVbVmdPYqrJn--

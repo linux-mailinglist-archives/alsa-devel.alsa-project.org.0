@@ -2,79 +2,170 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69F0549F81D
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 12:20:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D61049F82F
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 12:21:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D00A171B;
-	Fri, 28 Jan 2022 12:19:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D00A171B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B654E1736;
+	Fri, 28 Jan 2022 12:20:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B654E1736
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643368800;
-	bh=c3C3nHSruvWIrK1L3m3fbcCX33O/n0BPcUZb+UKd6iY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ovGw7O5XLotoZT+8CT64thmLHz1Mq9jn1AAS/3WwKVzT+3AcvclnFsP0gJeMbk4ms
-	 8sksmwodtuDipBtA+Zmu4hzfYHBmFjziT3RoMuQybqVEGL5wIjAnxFI9PXHebwmuAs
-	 nt5/m+sljXOjfVKm7Shv53/D/kbQfNBc6wmCA598=
+	s=default; t=1643368884;
+	bh=Phwu77UuVsNxqTOju3mjxkLP5Suk0dZ+bKR5rYFJRvA=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LLiOQCqOdWFZiDF0ZaO3zp+kr0LrlmNsjEcWwiX3ExvSHROfhnnXxeG7ZcSaBN81R
+	 1z+8EVKpDv3jf+uQgq3HbwK05WFTqB5TaZOx0UftYaFlhGWOIS6LJ1AjIDtEsJGpT2
+	 Mzd8BA3uOyqCoJl3uUVdOjhHtTCmSRBpCYaccWfU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69E1DF800C0;
-	Fri, 28 Jan 2022 12:18:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63824F8023B;
+	Fri, 28 Jan 2022 12:20:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C56CF80118; Fri, 28 Jan 2022 12:18:53 +0100 (CET)
+ id 5FC93F8023B; Fri, 28 Jan 2022 12:20:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15DB0F80118;
- Fri, 28 Jan 2022 12:18:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15DB0F80118
-X-UUID: 7456f15c0c64430a9e68d4f25472155c-20220128
-X-UUID: 7456f15c0c64430a9e68d4f25472155c-20220128
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw02.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 875432230; Fri, 28 Jan 2022 19:18:39 +0800
-Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Fri, 28 Jan 2022 19:18:38 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb01.mediatek.inc
- (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Fri, 28 Jan 2022 19:18:38 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Fri, 28 Jan 2022 19:18:38 +0800
-From: allen-kh.cheng <allen-kh.cheng@mediatek.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH v6 1/1] firmware: mediatek: add adsp ipc protocol interface
-Date: Fri, 28 Jan 2022 19:18:32 +0800
-Message-ID: <20220128111832.22989-2-allen-kh.cheng@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20220128111832.22989-1-allen-kh.cheng@mediatek.com>
-References: <20220128111832.22989-1-allen-kh.cheng@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF86CF80118
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 12:20:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF86CF80118
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="qPpn/CN8"; 
+ dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
+ header.i=@oracle.onmicrosoft.com header.b="LXxDsGjS"
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20SAmY8o015087; 
+ Fri, 28 Jan 2022 11:20:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=/KVq8F7H2YHWnnebdvpkhaAac+zupkwZpGAJOQ7+xo0=;
+ b=qPpn/CN86q83kqLPs9Tuqe9pDYkQ8jdXGHC8fe2T4RfUv8xnny6LGPvjnPRtbxl5RrtJ
+ xmJN24iD57CO5w7Frn98tY6cgcgSY6LsjqxpkScoO44ejXR4fSz6FGTHayAAe3kFeNDE
+ JYQYwuFkgHObDLosP5fJ73uvEAZLuy0ZalNF21k36lNAbWce+p+1py75KWepnqoDT4+I
+ OsxBGn1sgkPkbT9BsjYHrGEG2yWCYUqXuI51YMmdnYRhhbfM4tCIvw4hV8MrhYuTSIXL
+ nBcbHmjlE7KMva5K3bnTyWT/nCp646V9eMQSLSyGN0OcpNO+qwxVfKQANMK8Fm39Mkp0 tg== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3duvsj2xwy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 28 Jan 2022 11:20:24 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 20SBHBbZ013265;
+ Fri, 28 Jan 2022 11:20:23 GMT
+Received: from nam04-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08lp2168.outbound.protection.outlook.com [104.47.73.168])
+ by userp3030.oracle.com with ESMTP id 3dr725dakx-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 28 Jan 2022 11:20:22 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bvNaxUeLZITv3+vALurWDcbqZC0TY7S077HLcPvyG34fYi6qFFuYma2Z4Mo6tHTMO/ZuJgTEA/lQMfTd6J27hMDwkZer5cwJvOO+uboN96vAmZZp6zVTfhXfBXO+jhp9+/tcMuk79+w5c1uIOEj8QB6VPReBX6njFDsHq8roH0G9ylEXG6wi8nxiBdRPGbIf+6tNZmV4falr3ICEekpKo6VqS6BcCYP4l0plbQzHtlLLqJxO04ApOPsu1S3HedcetvDU4uXeYQoFqqZ9FR+qJEuL7fACZCYnhg2X1gsnPxuMFSkV708xvXpiQFqysA8hcCP09DejOr+tsqlU9bjmhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/KVq8F7H2YHWnnebdvpkhaAac+zupkwZpGAJOQ7+xo0=;
+ b=PRtZE/tvsXLKGwrm10KWIRomFZSnFnG27f4Xc1GTgv7FQ405TtfIdOO+t3jK+5VKyqYXN0dT7eOFMcsaz0Db2+PnfVWlV32vZuXZrK6GGTtaUsiG1RqAldD9cHTEe8CCYVkscVYPWkvhlgRw+opbdpNIKaNUWzTlZgKqnjw9H3pni0HXU5S22m5vPmWesFijDeqZ33zcAONLaz+mEu6Z12pQ02qEaOBH5bEJ+8IA5Z47QjI3379cRyFIy/qFFfI+Ea59I4GRRZxqit7ZbPZO0dZ+Cywiabs5yq1tYi+hADLJgDBorFBPjhwTNHTDXytPfkTut2wk6HRcfRiP2FR5rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/KVq8F7H2YHWnnebdvpkhaAac+zupkwZpGAJOQ7+xo0=;
+ b=LXxDsGjSUzeEsIWejmhI/0wCK+6+6NpXzVXatScDwWIXH/Os8Bm1obttapUdjWwISDK9jTvJKLEg0ihCLHEraJsNxwlRXtjvFv42Ai7/KI5s+T3y8MX1QPeaQBJp9/1a/L14MiyH1PS34l6bO+OGV0t7gfFtsaw36Q80ai6paqI=
+Received: from CY4PR1001MB2358.namprd10.prod.outlook.com
+ (2603:10b6:910:4a::32) by BN6PR1001MB2097.namprd10.prod.outlook.com
+ (2603:10b6:405:30::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Fri, 28 Jan
+ 2022 11:20:19 +0000
+Received: from CY4PR1001MB2358.namprd10.prod.outlook.com
+ ([fe80::cdcc:584:3514:f052]) by CY4PR1001MB2358.namprd10.prod.outlook.com
+ ([fe80::cdcc:584:3514:f052%5]) with mapi id 15.20.4909.017; Fri, 28 Jan 2022
+ 11:20:19 +0000
+Date: Fri, 28 Jan 2022 14:20:07 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH 1/2] ASoC: ops: fix signedness bug in snd_soc_put_volsw()
+Message-ID: <20220128112007.GA24806@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: ZR0P278CA0021.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:1c::8) To CY4PR1001MB2358.namprd10.prod.outlook.com
+ (2603:10b6:910:4a::32)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
- Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Chen-Yu Tsai <wenst@chromium.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c738eeb5-8601-45b2-c6e7-08d9e2502a86
+X-MS-TrafficTypeDiagnostic: BN6PR1001MB2097:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR1001MB20975A4EB2C2E003877BABD98E229@BN6PR1001MB2097.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: AZYJXfn6FH4IygNQXRQiENYqwLUtGSPGk3Oke2N2iZyoLvxyWCwN1WZhyea7zTJmaRPje6+DveUNy4/B20QIXiCdiqXPYnMirM2122UIwQP4uZZ3BS07pYpDauB3eHJXb5YRynTTPEgbWruq5n6T4aYfi8VfMEmXwx7Sxxl8Kjsd/gS7xE6NNi5634gLzvLQnJepc4DHl+wA+xLIUtzoRJ2BUS115cuKJV+X3n3lFGAURL7DbsiuMY0ER1fCfrazasMzpCFRYvj8mv6/eYdhjQlQZ8KJiAU4FcE1fbKfuH34MmPG7Kz//O1V1Kntm/3jx4MfNueQhoAXwr8IBXGjs4BzbqvlSryK9Hf9RfIP9xXjEN4UDZPHSUvqszujD4fxEgg0UvMx7foFe3V++oQaecEcHnEsAMl1ThV+68blv2dkhLlvJ8gEgjhNfa4pb1Be/ry/SqVtrodnQI6TLN82ciyNzwlGc+NqGihqIuPfiD4Lb6OyK6a31q9jyopCGcLI44E1nf5H1g11LbqUONmOeA3U3lIYoUKRZQUfTuf5L0hhXpXpR6iJNfJwh7eNHWg0hdW82EvaQM6yqaq7w+r1boV35xTLbSpO373jOkGgM1U+f0j2AWoP6OL5ia1SqpBf1S/hsFsYjqKetQXWf83jE1YHnTZLiTQD3/QfiobG69Ow8lTbsHzy3MlFDFvCV8ThMW2W6PWgReTQeHHqmB6swQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR1001MB2358.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(366004)(6486002)(6666004)(4326008)(8676002)(508600001)(8936002)(316002)(6916009)(33656002)(54906003)(66946007)(66476007)(66556008)(1076003)(86362001)(83380400001)(44832011)(38100700002)(4744005)(26005)(5660300002)(38350700002)(2906002)(186003)(9686003)(6512007)(52116002)(6506007)(33716001)(20210929001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6PnzJE2wwQCSlMwfqaYY3XI0pk5I5rIWG/2Qk6PwPOzdRALM5QE9YvGw91Bj?=
+ =?us-ascii?Q?oxWn8fHi041nsHaOJ8gRb1iGD4X+O52o+BJ2b99Wi1pEaA00gwUraDx9sI5I?=
+ =?us-ascii?Q?hBOucJMsTJMVwPbAQ4DPtSpeus4DIWavfkZS21bODfpjtwFrdWUegitjoC28?=
+ =?us-ascii?Q?glOtg3+3Q04WDF7HLcXvzB9pEVvq22eYlP1uOItrx4zOBxhmKu9dpLD3uPi3?=
+ =?us-ascii?Q?yP2zy/SyloMOO99HBeTUxyta2npppY54gtFShfouDae00Q3nnKlD5G697mUs?=
+ =?us-ascii?Q?O+0DCS43hReoBmhTwkL5kKIyNYWpXcrwLDmbN3aa7g4Lo64dulKP9F6szWwL?=
+ =?us-ascii?Q?xWJFm+ubMjNb0yRlxM/Gnv3nuskaV9Lueoa4bWPReZeniNQPYSIBlETZJi1W?=
+ =?us-ascii?Q?hlm0R5TyK1NP/DEOUiI9+N7c4N8ptnrTwsceRq2pg3CHAHZXIfB1YYqf1S9Z?=
+ =?us-ascii?Q?ZlweS9tD3mlIDeLyuPhMSFpXbcExq5443Bx2QMlpol6JusbSEMay98sOSIIO?=
+ =?us-ascii?Q?dm+kn0VeoLsqWtLAdz+DFyAA25h2R19W9gh2JGOiOaJvaYC6kCb48QQzSqao?=
+ =?us-ascii?Q?sxmoiVreeQtbeEUwGC4kZybJviJbbDLRfuzS3qxRHFpM3Ksoka9fzU0gRSmg?=
+ =?us-ascii?Q?tQ9JfiLLeknMeDIjdi9uAWaLqSrowbN/A9yZtbhqUny0+f/j2M9mm/q12wym?=
+ =?us-ascii?Q?KAS2aCQdDjjYMKnAB4M5AY8KT4emfnmmezDWI9ZqZ+osOmnTsC70OJ0VFHIL?=
+ =?us-ascii?Q?CZ3dqMvYjVKHAbIh2D1sPb9dbkR1ZT1NBLkED7XqPuHMBBl8f4rueCQmRrWH?=
+ =?us-ascii?Q?EwVPb+OVlA0dogEUOIhL6vZV228kVLsBTpnRDErc1AHBweObMBzaSHFI73+X?=
+ =?us-ascii?Q?v/1EVYQ3tHYIcxGhcSYdVPOLnHy0Enu/8orWrnObLdqGy2e3xNJoGBWUYRp8?=
+ =?us-ascii?Q?DVKxwp3RioQ2Vyh9bu9S1k01wsZzcXVV+viY5DlxJ8H0dOI8SP4CDhocgzoj?=
+ =?us-ascii?Q?50HTXliGBM3EyCnfSTy1Fh7S/+dyugwPWkNWfaDFpcrR8Hyg7bPH8qwxWh5P?=
+ =?us-ascii?Q?SlnP4/D+2CC2078eca02lgwnzokKgVpL+uvBiRD+tw1j8UkU2iyY7f2PMU0T?=
+ =?us-ascii?Q?do1JXkRqXAT4DI+Xw0YCnAQ7wMlZK3bqSxkuT40Txwgb2MP2ZSnwQCv0QHRA?=
+ =?us-ascii?Q?xYYDo5vgvU4wzP98KzE40rqQ8Yo3kCQ/rN3DULTPqP54t9KbHx+7kzoISwNr?=
+ =?us-ascii?Q?bNUMeg9qbWnV1ggFqtDvhTy349J+BXnRgqG4Q/8J/i65Wpkt8DfpyLfnN69r?=
+ =?us-ascii?Q?amUFZfhEmcEMkUFv6kkJAQemZe6Lu7wJEK0ZplwAFAwPZkxmB25q7j4ZZCYs?=
+ =?us-ascii?Q?q+X8AvgKWCjd5vr1Z7YwdKgqt/MvQGmosaqVZ57OrgOf5eirI96x0/5g7pps?=
+ =?us-ascii?Q?rKk1Wpl2SZF1u8mVR5ibvSxSQoPRPz66GnyS9g8FUroAEsvWkUA+v+yqkpR5?=
+ =?us-ascii?Q?+jgzH5PGSXzvL7AfMh0Usw4pl9DLF2cD4kEbNbe6OQAgI4uwZgToLgbyIG/A?=
+ =?us-ascii?Q?XBozsXk8vFTbQEgSHCfQZTf+cbMhH7a4uMQr/5F8RUKOa1IDp9F82tvK5sFI?=
+ =?us-ascii?Q?/jT1GYnIhlqVZonfTlvVWJCLG5HEz304rVBXbJx45seuyumPmS1gY9y34CW4?=
+ =?us-ascii?Q?SuFJthTPfFNWEBf5LkO3TuLU458=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c738eeb5-8601-45b2-c6e7-08d9e2502a86
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR1001MB2358.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 11:20:18.9935 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ae9rLlyqiQJqwcx/YOL8Qpkfqkg7acYdrIIO+kcV6WcfOmLcdM+QIoaPeiNLc1eSlzaFtYRVC5zcCOgw56BjlwpA5I7TCMDa4G2qj5B6Jaw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1001MB2097
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10240
+ signatures=669575
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxlogscore=999
+ adultscore=0 spamscore=0 bulkscore=0 mlxscore=0 phishscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2201110000 definitions=main-2201280071
+X-Proofpoint-ORIG-GUID: 4mxksvCo6O9nVJp_HBUcSLFpZpy0yV9S
+X-Proofpoint-GUID: 4mxksvCo6O9nVJp_HBUcSLFpZpy0yV9S
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,322 +181,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
+The "val" and "val2" variables need to signed for the checking to work
+as intended.
 
-Some of mediatek processors contain
-the Tensilica HiFix DSP for audio processing.
-
-The communication between Host CPU and DSP firmware is
-taking place using a shared memory area for message passing.
-
-ADSP IPC protocol offers (send/recv) interfaces using
-mediatek-mailbox APIs.
-
-We use two mbox channels to implement a request-reply protocol.
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
-Reviewed-by: YC Hung <yc.hung@mediatek.com>
-Signed-off-by: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
+Fixes: 817f7c9335ec ("ASoC: ops: Reject out of bounds values in snd_soc_put_volsw()")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- drivers/firmware/Kconfig                      |   1 +
- drivers/firmware/Makefile                     |   1 +
- drivers/firmware/mediatek/Kconfig             |   9 +
- drivers/firmware/mediatek/Makefile            |   2 +
- drivers/firmware/mediatek/mtk-adsp-ipc.c      | 161 ++++++++++++++++++
- .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 +++++++
- 6 files changed, 239 insertions(+)
- create mode 100644 drivers/firmware/mediatek/Kconfig
- create mode 100644 drivers/firmware/mediatek/Makefile
- create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
- create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
+ sound/soc/soc-ops.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-index 75cb91055c17..f3578c60cff0 100644
---- a/drivers/firmware/Kconfig
-+++ b/drivers/firmware/Kconfig
-@@ -299,6 +299,7 @@ source "drivers/firmware/cirrus/Kconfig"
- source "drivers/firmware/google/Kconfig"
- source "drivers/firmware/efi/Kconfig"
- source "drivers/firmware/imx/Kconfig"
-+source "drivers/firmware/mediatek/Kconfig"
- source "drivers/firmware/meson/Kconfig"
- source "drivers/firmware/psci/Kconfig"
- source "drivers/firmware/smccc/Kconfig"
-diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
-index 4e58cb474a68..88fbdc110100 100644
---- a/drivers/firmware/Makefile
-+++ b/drivers/firmware/Makefile
-@@ -34,6 +34,7 @@ obj-$(CONFIG_GOOGLE_FIRMWARE)	+= google/
- obj-$(CONFIG_EFI)		+= efi/
- obj-$(CONFIG_UEFI_CPER)		+= efi/
- obj-y				+= imx/
-+obj-y				+= mediatek/
- obj-y				+= psci/
- obj-y				+= smccc/
- obj-y				+= tegra/
-diff --git a/drivers/firmware/mediatek/Kconfig b/drivers/firmware/mediatek/Kconfig
-new file mode 100644
-index 000000000000..6d1e580b967b
---- /dev/null
-+++ b/drivers/firmware/mediatek/Kconfig
-@@ -0,0 +1,9 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+config MTK_ADSP_IPC
-+	tristate "MTK ADSP IPC Protocol driver"
-+	depends on MTK_ADSP_MBOX
-+	help
-+	  Say yes here to add support for the MediaTek ADSP IPC
-+	  between host AP (Linux) and the firmware running on ADSP.
-+	  ADSP exists on some mtk processors.
-+	  Client might use shared memory to exchange information with ADSP side.
-diff --git a/drivers/firmware/mediatek/Makefile b/drivers/firmware/mediatek/Makefile
-new file mode 100644
-index 000000000000..4e840b65650d
---- /dev/null
-+++ b/drivers/firmware/mediatek/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+obj-$(CONFIG_MTK_ADSP_IPC)		+= mtk-adsp-ipc.o
-diff --git a/drivers/firmware/mediatek/mtk-adsp-ipc.c b/drivers/firmware/mediatek/mtk-adsp-ipc.c
-new file mode 100644
-index 000000000000..9c535d2688d9
---- /dev/null
-+++ b/drivers/firmware/mediatek/mtk-adsp-ipc.c
-@@ -0,0 +1,161 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2022 MediaTek Corporation. All rights reserved.
-+ * Author: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
-+ */
-+
-+#include <linux/firmware/mediatek/mtk-adsp-ipc.h>
-+#include <linux/kernel.h>
-+#include <linux/mailbox_client.h>
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+#include <linux/slab.h>
-+
-+/*
-+ * mtk_adsp_ipc_send - send ipc cmd to MTK ADSP
-+ *
-+ * @ipc: ADSP IPC handle
-+ * @idx: index of the mailbox channel
-+ * @msg: IPC cmd (reply or request)
-+ *
-+ * Returns zero for success from mbox_send_message
-+ * negative value for error
-+ */
-+int mtk_adsp_ipc_send(struct mtk_adsp_ipc *ipc, unsigned int idx, uint32_t msg)
-+{
-+	struct mtk_adsp_chan *adsp_chan;
-+	int ret;
-+
-+	if (idx >= MTK_ADSP_MBOX_NUM)
-+		return -EINVAL;
-+
-+	adsp_chan = &ipc->chans[idx];
-+	ret = mbox_send_message(adsp_chan->ch, &msg);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * mbox_send_message returns non-negative value on success,
-+	 * return zero for success
-+	 */
-+	return 0;
-+}
-+EXPORT_SYMBOL(mtk_adsp_ipc_send);
-+
-+/*
-+ * mtk_adsp_ipc_recv - recv callback used by MTK ADSP mailbox
-+ *
-+ * @c: mbox client
-+ * @msg: message received
-+ *
-+ * Users of ADSP IPC will need to privde handle_reply and handle_request
-+ * callbacks.
-+ */
-+static void mtk_adsp_ipc_recv(struct mbox_client *c, void *msg)
-+{
-+	struct mtk_adsp_chan *chan = container_of(c, struct mtk_adsp_chan, cl);
-+	struct device *dev = c->dev;
-+
-+	switch (chan->idx) {
-+	case MTK_ADSP_MBOX_REPLY:
-+		chan->ipc->ops->handle_reply(chan->ipc);
-+		break;
-+	case MTK_ADSP_MBOX_REQUEST:
-+		chan->ipc->ops->handle_request(chan->ipc);
-+		break;
-+	default:
-+		dev_err(dev, "wrong mbox chan %d\n", chan->idx);
-+		break;
-+	}
-+}
-+
-+static int mtk_adsp_ipc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct mtk_adsp_ipc *adsp_ipc;
-+	struct mtk_adsp_chan *adsp_chan;
-+	struct mbox_client *cl;
-+	char *chan_name;
-+	int ret;
-+	int i, j;
-+
-+	device_set_of_node_from_dev(&pdev->dev, pdev->dev.parent);
-+
-+	adsp_ipc = devm_kzalloc(dev, sizeof(*adsp_ipc), GFP_KERNEL);
-+	if (!adsp_ipc)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < MTK_ADSP_MBOX_NUM; i++) {
-+		chan_name = kasprintf(GFP_KERNEL, "mbox%d", i);
-+		if (!chan_name) {
-+			ret = -ENOMEM;
-+			goto out;
-+		}
-+
-+		adsp_chan = &adsp_ipc->chans[i];
-+		cl = &adsp_chan->cl;
-+		cl->dev = dev->parent;
-+		cl->tx_block = false;
-+		cl->knows_txdone = false;
-+		cl->tx_prepare = NULL;
-+		cl->rx_callback = mtk_adsp_ipc_recv;
-+
-+		adsp_chan->ipc = adsp_ipc;
-+		adsp_chan->idx = i;
-+		adsp_chan->ch = mbox_request_channel_byname(cl, chan_name);
-+		if (IS_ERR(adsp_chan->ch)) {
-+			ret = PTR_ERR(adsp_chan->ch);
-+			if (ret != -EPROBE_DEFER)
-+				dev_err(dev, "Failed to request mbox chan %d ret %d\n",
-+					i, ret);
-+			goto out_free;
-+		}
-+
-+		dev_dbg(dev, "request mbox chan %s\n", chan_name);
-+		kfree(chan_name);
-+	}
-+
-+	adsp_ipc->dev = dev;
-+	dev_set_drvdata(dev, adsp_ipc);
-+	dev_dbg(dev, "MTK ADSP IPC initialized\n");
-+
-+	return 0;
-+
-+out_free:
-+	kfree(chan_name);
-+out:
-+	for (j = 0; j < i; j++) {
-+		adsp_chan = &adsp_ipc->chans[j];
-+		mbox_free_channel(adsp_chan->ch);
-+	}
-+
-+	return ret;
-+}
-+
-+static int mtk_adsp_ipc_remove(struct platform_device *pdev)
-+{
-+	struct mtk_adsp_ipc *adsp_ipc = dev_get_drvdata(&pdev->dev);
-+	struct mtk_adsp_chan *adsp_chan;
-+	int i;
-+
-+	for (i = 0; i < MTK_ADSP_MBOX_NUM; i++) {
-+		adsp_chan = &adsp_ipc->chans[i];
-+		mbox_free_channel(adsp_chan->ch);
-+	}
-+
-+	return 0;
-+}
-+
-+static struct platform_driver mtk_adsp_ipc_driver = {
-+	.driver = {
-+		.name = "mtk-adsp-ipc",
-+	},
-+	.probe = mtk_adsp_ipc_probe,
-+	.remove = mtk_adsp_ipc_remove,
-+};
-+builtin_platform_driver(mtk_adsp_ipc_driver);
-+
-+MODULE_AUTHOR("Allen-KH Cheng <allen-kh.cheng@mediatek.com>");
-+MODULE_DESCRIPTION("MTK ADSP IPC Driver");
-+MODULE_LICENSE("GPL v2");
-diff --git a/include/linux/firmware/mediatek/mtk-adsp-ipc.h b/include/linux/firmware/mediatek/mtk-adsp-ipc.h
-new file mode 100644
-index 000000000000..28fd313340b8
---- /dev/null
-+++ b/include/linux/firmware/mediatek/mtk-adsp-ipc.h
-@@ -0,0 +1,65 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2022 MediaTek Inc.
-+ */
-+
-+#ifndef MTK_ADSP_IPC_H
-+#define MTK_ADSP_IPC_H
-+
-+#include <linux/device.h>
-+#include <linux/types.h>
-+#include <linux/mailbox_controller.h>
-+#include <linux/mailbox_client.h>
-+
-+#define MTK_ADSP_IPC_REQ 0
-+#define MTK_ADSP_IPC_RSP 1
-+#define MTK_ADSP_IPC_OP_REQ 0x1
-+#define MTK_ADSP_IPC_OP_RSP 0x2
-+
-+enum {
-+	MTK_ADSP_MBOX_REPLY,
-+	MTK_ADSP_MBOX_REQUEST,
-+	MTK_ADSP_MBOX_NUM,
-+};
-+
-+struct mtk_adsp_ipc;
-+
-+struct mtk_adsp_ipc_ops {
-+	void (*handle_reply)(struct mtk_adsp_ipc *ipc);
-+	void (*handle_request)(struct mtk_adsp_ipc *ipc);
-+};
-+
-+struct mtk_adsp_chan {
-+	struct mtk_adsp_ipc *ipc;
-+	struct mbox_client cl;
-+	struct mbox_chan *ch;
-+	char *name;
-+	int idx;
-+};
-+
-+struct mtk_adsp_ipc {
-+	struct mtk_adsp_chan chans[MTK_ADSP_MBOX_NUM];
-+	struct device *dev;
-+	struct mtk_adsp_ipc_ops *ops;
-+	void *private_data;
-+};
-+
-+static inline void mtk_adsp_ipc_set_data(struct mtk_adsp_ipc *ipc, void *data)
-+{
-+	if (!ipc)
-+		return;
-+
-+	ipc->private_data = data;
-+}
-+
-+static inline void *mtk_adsp_ipc_get_data(struct mtk_adsp_ipc *ipc)
-+{
-+	if (!ipc)
-+		return NULL;
-+
-+	return ipc->private_data;
-+}
-+
-+int mtk_adsp_ipc_send(struct mtk_adsp_ipc *ipc, unsigned int idx, uint32_t op);
-+
-+#endif /* MTK_ADSP_IPC_H */
+diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
+index dc0e7c8d31f3..0091fa96eb48 100644
+--- a/sound/soc/soc-ops.c
++++ b/sound/soc/soc-ops.c
+@@ -310,8 +310,9 @@ int snd_soc_put_volsw(struct snd_kcontrol *kcontrol,
+ 	unsigned int invert = mc->invert;
+ 	int err;
+ 	bool type_2r = false;
+-	unsigned int val2 = 0;
+-	unsigned int val, val_mask;
++	unsigned int val_mask;
++	int val2 = 0;
++	int val;
+ 
+ 	if (sign_bit)
+ 		mask = BIT(sign_bit + 1) - 1;
 -- 
-2.18.0
+2.20.1
 

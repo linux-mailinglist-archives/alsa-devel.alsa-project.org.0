@@ -2,175 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46E8249FB51
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 15:07:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ABE449FD6A
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 16:59:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEA521798;
-	Fri, 28 Jan 2022 15:06:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEA521798
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E1191707;
+	Fri, 28 Jan 2022 16:59:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E1191707
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643378824;
-	bh=IwOROn87sl3wxqsFX4SsrMwTgjrGE5Aklzpkp9DVlrs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1643385591;
+	bh=I6A4BBJmtFNGYfY78duMBHkLQCr0djtkeEScL1vltss=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e5odJukwLtcZnSbb77gWGBqc46KxgWgl0FhII7Hg/hci3Nf/hNj0bG5kFKImz2RDh
-	 STAS2uS3Jh3NuIEq6f0rPSlFEZHCFcGt0h9uExV446MIAPbEdgmvN6/eHyF0gmKtVy
-	 hZ+GXk03ZXaPa7dqxYESGKm5teopLUoo+Vc8JuBc=
+	b=o2uSB+yo+3GnpgxGpeyRHnbiHRdoZ61KbiRGY1EHcKi4pN6bmyaXssEUsSFBWRNe0
+	 5PthsOGm2Qoz0HXrdWuuEHRvHcT3nLjwebmUvVrRiBaMlbEoWxRozm/CwM3QsWNz8Y
+	 VZaSdca46cRYqMlKD3qL/dq0y01PLs4dimJcI0JQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3668DF80246;
-	Fri, 28 Jan 2022 15:06:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EEE8F80240;
+	Fri, 28 Jan 2022 16:58:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08C4AF80240; Fri, 28 Jan 2022 15:05:58 +0100 (CET)
+ id 3B213F8023B; Fri, 28 Jan 2022 16:58:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5953F80118
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 16:58:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5953F80118
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="uxFmIBry"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D6ABF8014B
- for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 15:05:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D6ABF8014B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="bfipxae4"; 
- dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
- header.i=@oracle.onmicrosoft.com header.b="WJusDyow"
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20SCx9FI015926; 
- Fri, 28 Jan 2022 14:05:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : content-type : in-reply-to :
- mime-version; s=corp-2021-07-09;
- bh=YtXlfZUTOj071foNGQcbYHZRVOyZdcZ20OxobC8ehDw=;
- b=bfipxae4PIhncZWtUe7CI/bQjlBIFilai3igq2NAAsVAhytNOIn1KpxeETx3G4Hq1oKW
- flGcqUnnIx5kJeI/OM7PPL/WLVCesG11Y302xINEYyro6tLH8JGxPiPczqREXfNpEZba
- y72kKFZu4tNPd657OCZPL+0ZVqOUbtqaj3Csxbv3u7bQM9095JYE6FXpxSmDzjkiNp7R
- Is+6RLNREsYfbT7EHJTpE9k8hgsvmFHFjMMJ+7TQP1q3ePyke410pROHLefmuQrpsU9r
- NZTOzZDDTXTw+p2Cq30AasoL4oKC5Zyi4rrrQg4ijBOjZgD4L77fmtc2REoS0L+6Fnc9 Hg== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by mx0b-00069f02.pphosted.com with ESMTP id 3duxnp2w1e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 28 Jan 2022 14:05:50 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 20SE5Arj168632;
- Fri, 28 Jan 2022 14:05:49 GMT
-Received: from nam10-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam10lp2100.outbound.protection.outlook.com [104.47.58.100])
- by userp3030.oracle.com with ESMTP id 3dr725qvma-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 28 Jan 2022 14:05:48 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mKp4YOUz3YpBjESrGh1NyDfdE6PZdZSXoK0vL91HuH1YLD3tZ3H/AUBC7S9EhSwttdRoCclaKax4/EmgFoItYRBdbc5dYPMHvGGrjtJW06FGD1MFh6e16uiyLkjRvJRceFoe7xcZh1Zmw2BIRrM3lNmtiSTDT3syciG3xcbYAaOjL41E7Uy3r0C2WVYvpvgYqyDYBeb8I3P9YLNsgJS9XCBNeyb8i/4V7TU8QalTW7bjycqUWur7+/V7A5gQKBwhGulNhFjpajggrI8c8IYuDE9lq7RPdv2MLBGkb8appwqxqwUdJDzbRhMwSQaHWfmrp1Z6v2vACyoCAji/M0M6hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YtXlfZUTOj071foNGQcbYHZRVOyZdcZ20OxobC8ehDw=;
- b=VIoXZ6/LWtychX/+owV1u0aOi7gn29V943VY3i6A7aQiXZj/tRhVE90Rm7ZkOeXN13wv/35ZOrnV3Z0NbiyJRDhtcLv6KABssWOWH8oeVllPW5nBpnxK7TFxiUY6yLW9PcH5X9ZJoK2DheiKiMP1cFmVomoIkZyO+oLxeI77adkxWyKIlGhxRN83v/DuEGngt/6acApb8tN0nWwzTe9Zqh94hfDSiFPclDbwdYTp7RTKvoaEvwEv7gv7m/81Jf+jILJ0mhUAXlDBIorCNgati81V81heDXUjQNuVamU8loEGPawQ2zKR+p6PTKkSSpKmPAjgM1d7cIsAPJdBorBK7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YtXlfZUTOj071foNGQcbYHZRVOyZdcZ20OxobC8ehDw=;
- b=WJusDyowVlbZyucBp/Q6uSy3fwuJN44jURctVX903tswK6ivpMaD9hmL8a0QsBZq8wI2AWuE9FWLDvzAnS5mkLHkNDmGU+xydlpBlmX4XrWBOGBoFtSJx6mOyUUPmVg2nlz7XWqK77iA6ZSW0nUPF36Of7bwnNoKo73n25eBRSw=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by CH0PR10MB4939.namprd10.prod.outlook.com
- (2603:10b6:610:c0::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Fri, 28 Jan
- 2022 14:05:46 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::e5a5:8f49:7ec4:b7b8]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::e5a5:8f49:7ec4:b7b8%5]) with mapi id 15.20.4930.019; Fri, 28 Jan 2022
- 14:05:46 +0000
-Date: Fri, 28 Jan 2022 17:05:27 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 1/2] ASoC: ops: fix signedness bug in snd_soc_put_volsw()
-Message-ID: <20220128140527.GM1978@kadam>
-References: <20220128112007.GA24806@kili> <YfPknO6si9CpotgS@sirena.org.uk>
- <20220128133147.GL1978@kadam> <YfP0PGbyFVDOevIH@sirena.org.uk>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YfP0PGbyFVDOevIH@sirena.org.uk>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: JNXP275CA0040.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:18::28)
- To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2CF7B61EB0;
+ Fri, 28 Jan 2022 15:58:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0D4C340E7;
+ Fri, 28 Jan 2022 15:58:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643385517;
+ bh=I6A4BBJmtFNGYfY78duMBHkLQCr0djtkeEScL1vltss=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=uxFmIBryjr1ZV/KyebvQMJQU+bWY32fswAF28YtL/G/IHgGGWI/hlsqjnfWZ6+8gO
+ E2z+rs3/R1ES+fCALYc2CsCDNuhzXJlyqQLUDe7rX5cvzpGJIx21TFd3B3EEmYyKyY
+ AtodREZQ21a1bDt4Jy+/0TvrrTUtDEeT+BUZNLB6zXjsRwSd+RJhGghhUYRGZRn4b8
+ wRMH5oBmqIyqFCYECp4BNmtI+XR9wsMPPOEr1ULJFELfmbAXtockQw2/lnZmeTjITn
+ ryoE50AVvLXJJBKveUrnPg8sOMc8ReGYBB8ocurmVlIX7GH8R0ucXmJk3KXHCZqosy
+ Wftc6pCTjL2+w==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20220126113549.8853-1-srinivas.kandagatla@linaro.org>
+References: <20220126113549.8853-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 0/4] ASoC: qcom: fixes for Qualcomm codecs and q6apm
+Message-Id: <164338551575.1711238.8376590607688196814.b4-ty@kernel.org>
+Date: Fri, 28 Jan 2022 15:58:35 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ab4d378c-b1f7-4846-d676-08d9e26747f8
-X-MS-TrafficTypeDiagnostic: CH0PR10MB4939:EE_
-X-Microsoft-Antispam-PRVS: <CH0PR10MB4939DBE1CB5B2F8792B66E8C8E229@CH0PR10MB4939.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AOcIhlzWh3z0lytIX5mCEF7JFnkTlJ/GnpW0QQCGMYRFhxLZPWyuZWSH2Yf1AyJ/U/noctLfzu01Kfmf9rHNk6mtCl4Mzft+0gTtwP8uiG5gyJei5+U8iwremImWMHm63Hn3zh6yYtYvx9/sha86KvPLWH83Y/+prxvmTofKffH52wExpjmjoYgTBZhp+h6mxqkev9pq9o9vA9NKPc5qaCAx6ByEPBbmmb9GWCQSsYRwl4vPRwNdwurFmaDK+bC0rTetpJKnvtX2H4IBM7X2tt1uv/LVTFq4oc73Ao5NQ0d+F7cjeQx2W6RFAPtX6wSWPwz3RXxOg/rTc8OGZqkXgt7kzbckWebhCRLQJi/+/m47XQHM/a+/IDnxs03Y1VL5OBeWqg8MKzAJUscOlOEyS8uYYCnPg82owajB81rvL3fsVIkVsjjK6aJZUbQEfqT4em/MmHPYwfkiKjHfoIRPIU4iIqvFSIeqzYu5KmJt/1bqFX8EQ65/5i7X6fsKkBoHxwOJz8ZOcpRp7f9oF9y+KUscw7CUTBNg8HY4PiCehV5m7a3MatAwbjZb+Anb8oMSAnewFgtl1iXeaymHqtagTc5TzURjbFTPHYVixEZN8IwP2mLcaJ4EiE+nL68DJ8xWwKjrWeim8rQRpTkwaQ2san/M1RWZDsMngPXVBXwglT2RMTTEBVyDT7Un3PHWb52UHjulKaBBiHV9czREDDTDHg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(7916004)(366004)(6666004)(6916009)(33656002)(8936002)(54906003)(4326008)(86362001)(38350700002)(38100700002)(66946007)(8676002)(66556008)(66476007)(508600001)(1076003)(6486002)(316002)(186003)(9686003)(6512007)(4744005)(33716001)(5660300002)(44832011)(6506007)(83380400001)(26005)(2906002)(52116002)(20210929001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?eC/Hwc5wvCwDcTmNdFULIffLX93ASHh/atWRUFvkCWWw1PoZ8HkqSNDVZ+tt?=
- =?us-ascii?Q?7SmS3U2cVxuT5FKAfOv98OI2TfKIuear1nm8DFJfg2vikpuUZxZGuK1ZY5C2?=
- =?us-ascii?Q?XArah1Vr8H4IFJePddwnqkJSLNCGe/2WIbC6YVMstdExk6/NSo4amKZCH62x?=
- =?us-ascii?Q?gqOPeJlW/BIiMyAz+rOyr6PEZ6MAn5rXSCZ1nuUplY8g8FmgSIABwKNmXyIL?=
- =?us-ascii?Q?OHEKL9++A+V1Or1ZFwwTo2IeX03KBVdX8UyhjZuux5co72DtQRIX8Lvhm+K7?=
- =?us-ascii?Q?dlcGIqIbhNE6wANvF4s5LCYdtdx5FCs+59Xah0ATPgii0czZext0xv5qS8SQ?=
- =?us-ascii?Q?1fDJZBNBoeP5vKJhpmJooKSxnGZiaR3d7zwbnfLbJGdMaB7/0TfyQ6rUo15j?=
- =?us-ascii?Q?TReQbL2W9DSuPAhsvd8te42i1TV1hgKFoh3hKpbn5lXkaExZNMUJ99kL6a+b?=
- =?us-ascii?Q?WM5v1/2F84gOumqhcTmqBdEALI5sSS4cJm+e+WhYXyDH05okUdLpVm96l9oA?=
- =?us-ascii?Q?sCyf7seYHS2PdsPU6SNSuht/J5KvN1hEnmcqXhrscw1HJNLKATB8cALAtS8+?=
- =?us-ascii?Q?biwFdi5hEVSLxLZ+DpVFUhUS5cBlHTF13paL3rhRz2hH8ZuHIAGgV38Bdk2v?=
- =?us-ascii?Q?uK6bJM3FkpKIu7mFN1SZvUyxnKcDlADZ1uywIeUoJinSfZdckNxrZDhKam0V?=
- =?us-ascii?Q?uOiT8kz+wvHEMiuvaevzPdCSNcTyHxIT9myY+KCxNjIJNlktRALyIH1sdF2f?=
- =?us-ascii?Q?NPZKnJfVtfI9l0O6zJbaGDLgNh22Wad3fcrj3Im2HyDcEWpt3GQO8hGN//64?=
- =?us-ascii?Q?Rl9XhXsooNf5VjM51z3Pmw8i4z/h60pVAQmrqUbj63TDB0Jkbgpni0fzRY8f?=
- =?us-ascii?Q?cLVfZwGQgeVEPicHBv4oPFCh0nEtt4KKOaHW0wThNfZjF+ig0CF3ldOKyaLb?=
- =?us-ascii?Q?FP9rWboSs/wAXRju7oZ5kAEtfYez93tCWwgMmyDe2YewO4KH37Z3SDi5dCOK?=
- =?us-ascii?Q?JBjMIXp/AOtaGOib02YJJoCPgoAo8KrO53eIy9JTO7l6loh1qNL7E3in6zfi?=
- =?us-ascii?Q?tzQjHLS6+UZtngik+M6OC2NjtzlcoLJAAur5a2aPjt39Tej0u0k4dToAYLvC?=
- =?us-ascii?Q?cec9l6+XkdOTl+hxSaCModVW6DZaNNvNoKa2wZVbL3b1yXoyFvTXFUGljzRt?=
- =?us-ascii?Q?ZphrlN2tkNhbRSiH7HCuwQKfXmllzSQp7g5piZ7ZmehXfTENJMouW9CFA0Zp?=
- =?us-ascii?Q?kODT5J7Ucogd1dv3c5IOIzyEotRA+r/fV/OL6DsxOM+ijkZjOk8IeGQjiEcp?=
- =?us-ascii?Q?+NNu4Ctc3zBHrqTyVl8D/K6ZuphshKV0Q9UQKINe72ejXLtlEH5TF/1eCT6D?=
- =?us-ascii?Q?Ryavt7Ey74/FOH/KjBjJew0CajorHx7QEl+2IAvt91ZpktoOp3A/VQdBT5XZ?=
- =?us-ascii?Q?7v584u/Vb9HSpv8MwCgxvsD2aMghE1nKKtF6TF+pV+u42WCwKdU5v4JnhnHR?=
- =?us-ascii?Q?s0YcwaoO0whPVgbnHAzwMkJxbSivQk1zSqHCLU4hF8R4Z7LhbRoyHcSkuUuO?=
- =?us-ascii?Q?h/PRhS9lLVdQJGQUnRe7O5iQFCqtIXWxAxeGmfNA0qHhAJDGplQPePsX1Uo6?=
- =?us-ascii?Q?8Pdq5g8XsPVNY7qLQI354LLZH2cy03de7UdneXmLoJTIcBUDh8CYdhYgAk9D?=
- =?us-ascii?Q?O5jEM0Q6lbugKHCVFQvfnkgaQx0=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab4d378c-b1f7-4846-d676-08d9e26747f8
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 14:05:46.7884 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2e9/h6/ZKZORuOhmKurqg1YT93taca6qS+34w0GDwtA4wOwzc45Z0ory04UYIY7mREwjJb57Bh8iPv5VIMiWjJvSxRtNuWvOCwcnCN+7gZU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB4939
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10240
- signatures=669575
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- mlxlogscore=999
- adultscore=0 spamscore=0 bulkscore=0 mlxscore=0 phishscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2201110000 definitions=main-2201280090
-X-Proofpoint-GUID: 7CZFm7prRQ_j1sBFkthEmeJpGpdk9DyJ
-X-Proofpoint-ORIG-GUID: 7CZFm7prRQ_j1sBFkthEmeJpGpdk9DyJ
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ quic_srivasam@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -186,27 +84,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 28, 2022 at 01:48:44PM +0000, Mark Brown wrote:
-> On Fri, Jan 28, 2022 at 04:31:47PM +0300, Dan Carpenter wrote:
-> > On Fri, Jan 28, 2022 at 12:42:04PM +0000, Mark Brown wrote:
+On Wed, 26 Jan 2022 11:35:45 +0000, Srinivas Kandagatla wrote:
+> Some recent testing found few issues with wcd938x and lpass-tx codec drivers.
+> WCD938x was accessing array out of boundaries resulting in corruption and
+> system crashes along with not handling kcontrol put return values correctly
+> and rx-macro had incorrect sidetone registers offsets. One final fix in q6apm
+> to add a check if graph started before stopping it.
 > 
-> > > This means that the helpers won't support controls that use the top bit
-> > > of a 32 bit register.
 > 
-> > Fine, I can delete the checks for negative instead (I'm surprised you
-> > haven't already received a dozen bot emails about this).
-> 
-> No, we need the checks for negatives since userspace supplies a signed
-> value.  The check needs to be done on the value in the input structure
-> before we pull it out for mangling.  I probably got bot emails but
-> frankly these days almost all of them are some combination of barely
-> legible and misdirected and there's plenty of people who like to fix
-> these things if they're real.
-> 
+> [...]
 
-That's a bit trickier than I initially imagined so I'm going to leave
-this for smarter people than me...
+Applied to
 
-regards,
-dan carpenter
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
 
+Thanks!
+
+[1/4] ASoC: codecs: wcd938x: fix incorrect used of portid
+      commit: c5c1546a654f613e291a7c5d6f3660fc1eb6d0c7
+[2/4] ASoC: codecs: lpass-rx-macro: fix sidetone register offsets
+      commit: fca041a3ab70a099a6d5519ecb689b6279bd04f3
+[3/4] ASoC: codecs: wcd938x: fix return value of mixer put function
+      commit: bd2347fd67d8da0fa76296507cc556da0a233bcb
+[4/4] ASoC: qdsp6: q6apm-dai: only stop graphs that are started
+      commit: 8f2e5c65ec7534cce6d315fccf2c3aef023f68f0
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

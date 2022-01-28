@@ -2,74 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78D384A0491
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Jan 2022 00:50:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE5CD4A048A
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Jan 2022 00:49:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29EE9172A;
-	Sat, 29 Jan 2022 00:49:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29EE9172A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 292AA173D;
+	Sat, 29 Jan 2022 00:48:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 292AA173D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643413800;
-	bh=V2hlaQUwVYAhX5sapkiCadueN/CP7V6HFi+LjLl/M4Q=;
+	s=default; t=1643413785;
+	bh=YbZLwG+eJY1ZimQ3PDJ414ftXS0oYjH5t+IwvoH0++s=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VGSjvGGJb6tiCQWrc1qQOm90Uc6yMTrLi9abB6Ic0iiZLBqlK9JISU71YOf9TyKXU
-	 iiu3R2WwAzMT54/OgbiuFuBkR74fTO2993I4l+vPQ2oDtCm3fBsBIEsD43sJ5j/KJ1
-	 WDln0nC2sXdjtyoJ/y8O4B+kwOKS9AzW3NcogSFw=
+	b=sY00DlnLX5I3QL6KCoaw9dhW7hALQzkT09FEcKb7+GinXsYjm5294jv+qCxIt0O9/
+	 GhtdippUfHK0cBHhWiAEoI9ISp1cedE7Dsk70+mbuXbLnQLVqQI2Dv577PKmawxzdF
+	 gTGkCW3Gm1jBCbvhslvr/2RujXLRJwAfzAHr/3Fo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0D71F8052D;
+	by alsa1.perex.cz (Postfix) with ESMTP id 36198F80526;
 	Sat, 29 Jan 2022 00:47:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94988F80518; Sat, 29 Jan 2022 00:47:07 +0100 (CET)
+ id 1BB2DF8050F; Sat, 29 Jan 2022 00:47:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67A16F80482
- for <alsa-devel@alsa-project.org>; Sat, 29 Jan 2022 00:47:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67A16F80482
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28A8BF80246
+ for <alsa-devel@alsa-project.org>; Sat, 29 Jan 2022 00:47:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28A8BF80246
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ankvu6tw"
+ header.b="H6N+qa02"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 516EDCE2803;
- Fri, 28 Jan 2022 23:46:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64791C340E7;
- Fri, 28 Jan 2022 23:46:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4DFE361F3E;
+ Fri, 28 Jan 2022 23:47:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1611DC340E8;
+ Fri, 28 Jan 2022 23:46:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643413617;
- bh=V2hlaQUwVYAhX5sapkiCadueN/CP7V6HFi+LjLl/M4Q=;
+ s=k20201202; t=1643413620;
+ bh=YbZLwG+eJY1ZimQ3PDJ414ftXS0oYjH5t+IwvoH0++s=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ankvu6twiuvg8eygebbnv0pC7E/TI/i8GZKF+HN6mTXa3yMpVLEJ7D1taiIgS/RHn
- 2xu1/h1GAPY1wa2aRSQwfvBByI7YvK/+lsALaw803wUp3Krgbm2s2ooQkr4x6sKhG+
- 9lhQtUevvCaM4K8Ox6YNpfIIriz11fyAtzNvCHDZva7knG8zyf2OkRF2iT5IS8JxYq
- TzCiAea4mj17JIkGmV2ysRLPhJ0FY+00EWsXrQYyymJKWLWI7GrYjq0M/PdsbpD53g
- ugzjWw85jzlbYnmiDaJVJfH0Vt2E8Yjg4W9faWYWWcS8r9qMzxxMrd1GXTAGwciu2+
- r7xkqJXMnb9iA==
+ b=H6N+qa02zvveNZcva5WhrGiGfFlJ66Cb6+yfRLYilkduh+hulF7T0OeTu/hburMzI
+ yri78rLL6daKW9gr8X08EibZESI18/IBpN1Pbc1hUchVwsl9f1LfyCo1WFwktqwb8/
+ WhMvDqfjoXFeMWDKTJAFvPq07d9H9J95VdV4XpgahRGHn8cMJcF4WTXB1tus4t4Uh1
+ 5GnvTRmAL9qKEWspIPzel0cYJTWOmOhQW3fmKwYGPfuBHC5T3VxISuz3I97zsJVC+N
+ KJ0PrtCoVJ9qsR9tTbUB13DANVzaUtP5ujdmoAOK3ZTdma0dMi9TkcPU5eWB2rSYik
+ XmBrYqh7uuWpQ==
 From: Mark Brown <broonie@kernel.org>
-To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20220117115854.455995-1-AjitKumar.Pandey@amd.com>
-References: <20220117115854.455995-1-AjitKumar.Pandey@amd.com>
-Subject: Re: [PATCH v3 0/6] ASOC: amd: acp: Add generic PDM and PCI driver
- support for ACP
-Message-Id: <164341361612.694709.10584729229948593969.b4-ty@kernel.org>
-Date: Fri, 28 Jan 2022 23:46:56 +0000
+To: Liam Girdwood <lgirdwood@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Brian Norris <briannorris@chromium.org>, Heiko Stuebner <heiko@sntech.de>,
+ David Airlie <airlied@linux.ie>
+In-Reply-To: <20220114230209.4091727-1-briannorris@chromium.org>
+References: <20220114230209.4091727-1-briannorris@chromium.org>
+Subject: Re: (subset) [PATCH v2 0/3] (Re)enable DP/HDMI audio for RK3399 Gru
+Message-Id: <164341361780.694709.13259283241590347085.b4-ty@kernel.org>
+Date: Fri, 28 Jan 2022 23:46:57 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Alexander.Deucher@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Vijendar.Mukunda@amd.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Lin Huang <hl@rock-chips.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
+ linux-rockchip@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,13 +89,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 17 Jan 2022 17:28:48 +0530, Ajit Kumar Pandey wrote:
-> changes since v2:
+On Fri, 14 Jan 2022 15:02:06 -0800, Brian Norris wrote:
+> This series fixes DP/HDMI audio for RK3399 Gru systems.
 > 
-> - add dmic prepare callback and adopted few nitpicks comments
-> - use read_poll_timeout in place of while loop
-> - added check for unused variable as pointed out
-> - few cleanups
+> First, there was a regression with the switch to SPDIF. Patch 1 can be
+> taken separately as a regression fix if desired. But it's not quite so
+> useful (at least on Chrome OS systems) without the second part.
+> 
+> Second, jack detection was never upstreamed, because the hdmi-codec
+> dependencies were still being worked out when this platform was first
+> supported.
 > 
 > [...]
 
@@ -101,18 +108,10 @@ Applied to
 
 Thanks!
 
-[1/6] ASoC: amd: acp: Add generic support for PDM controller on ACP
-      commit: c32bd332ce5c9eda087dedae2cf5f98bb008e841
-[2/6] ASoC: amd: acp: Add PDM controller based dmic dai for Renoir
-      commit: def6dc25070342be2eb220cb1650a286ee29734d
-[3/6] ASoC: amd: acp: Add generic PCI driver module for ACP device
-      commit: 5a9f07a41522e1d16f2a43b1843e266434df0866
-[4/6] ASoC: amd: acp: Add ACP init()/deinit() callback for Renoir.
-      commit: 6a75585a3d4bc86e7f5f95b131c4e34125c871ba
-[5/6] ASoC: amd: acp: acp-legacy: Add DMIC dai link support for Renoir
-      commit: 611ba05e8bc55b35690e90bcc6710f422dd72587
-[6/6] ASoC: amd: renoir: Add check for acp configuration flags
-      commit: 2d7d9f36b567ec44c9a758e1ee6e599b4db3cad8
+[2/3] drm/rockchip: cdn-dp: Support HDMI codec plug-change callback
+      commit: 9da1467b49ad6c02840e8f331c5da69f6a5bdb2e
+[3/3] ASoC: rk3399_gru_sound: Wire up DP jack detection
+      commit: 6a8bc4b68ca0c6ef73518b692c00b7e1e010d056
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

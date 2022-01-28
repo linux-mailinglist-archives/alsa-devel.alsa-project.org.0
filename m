@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9604049FAE3
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 14:37:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B5F49FAE4
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 14:37:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 168A21792;
-	Fri, 28 Jan 2022 14:36:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 168A21792
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2143E179B;
+	Fri, 28 Jan 2022 14:36:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2143E179B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643377051;
-	bh=0YzJJYy9DlJ1gVtMXK1hSqwlqLo2WyJjF2puxviO9e0=;
+	s=default; t=1643377058;
+	bh=eyx6H1VvatgSmNQzlVZl1UaQ4gXSBeyarXx3ZnDNeu0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cxY/auawa8c79e0qKa/OZhOFTkahgUvjdZKo3J3BZoyyO7gH25LCtiaLZ5ylpLIFD
-	 jizSBYx2YkItc+6IZ4wuqFlQBFF9XeJ01A91QNXJJ1pysJpj3weI5AJ5rRjjAQVz24
-	 Qm5TzD5JA/fXwKuZS8iBDGEjO1i69Rc4b4wMmFSQ=
+	b=ANUvksxtxOWNrF0tUbK01Znv9mSoqydJv1BLTmLSquj/R6h0VXuga0x7Q9HzKcKBk
+	 wSbcjnRUTd+596J6r381tPsFplxBZ3tWSkkVH/ANizROpCmCzL9UYjRtefvBXykALw
+	 pEMZ7CA07Wvpm9x0q61ZbL5QMKzpnlT5nTBWKjTo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CADB3F80511;
-	Fri, 28 Jan 2022 14:36:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 615D7F80515;
+	Fri, 28 Jan 2022 14:36:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1BF73F8050F; Fri, 28 Jan 2022 14:36:01 +0100 (CET)
+ id EF331F80516; Fri, 28 Jan 2022 14:36:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6EDCCF80118
- for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 14:35:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EDCCF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3CFFEF8023B
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 14:35:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CFFEF8023B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="bv8cfVPO"
+ header.b="Js/FU7aA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643376955; x=1674912955;
+ t=1643376958; x=1674912958;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0YzJJYy9DlJ1gVtMXK1hSqwlqLo2WyJjF2puxviO9e0=;
- b=bv8cfVPOznBROGFcYGMfPwOA+eWMlqTFCqneVDXNrDx2/UAR3rXjejqe
- w+tBZCxW2tbzTrJQFkfuj8wCWQWywLvdN9HMTCCghqOXuMWaMR9i6SqfM
- Z+hc6us1BLUDNEFDLYJ0Vr/AIcpXee94C7bTyc9hu0SduWtuaIfHwJZSc
- hW3kz3LlBSk4PQhDwiJziDouJm8KgCRXieMH/DT7I4vqojnbT46jWqrlw
- S/0duxs6czEnpaKSxRZNShdhiJ0Usdv/YE3ZivdKW02N9CB3RyO89J/s7
- PCUIzQ2wbIa5ub8GODF4VMcZduw2xpZBvYInQa646zl9MQFGbW9D9cIhf w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="227790493"
-X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; d="scan'208";a="227790493"
+ bh=eyx6H1VvatgSmNQzlVZl1UaQ4gXSBeyarXx3ZnDNeu0=;
+ b=Js/FU7aAGY8f460ep3/qD9KbxvQMLsJQ6iSIuqDGFgOZeJNeGGx47hZv
+ +sEq91O0x8P6JilpydxPErWpQ3YVAUMPqyfIKpy60/MFDarsDHNmrgPHH
+ W0oKvuYu6U/fOoDK0fjFSnxvuAqzrM9/eOQ91CBrYlrKXN7WpRtz/0Ayv
+ U00OmXS6mdm3yQtxTEGi2y5Z5aPzi6QsRL3G5ImI/WpHVuHa5u14fc/jx
+ GXrNNdzVYRte/5cF8JLlBn8L++0JBAE0ExtG++9W9iWxzEktZvjMPBSmV
+ q1EecvW2MALZkmBZ939vnBzfsB53cAxmGP7fVfUixPzfVOEFTlW5M/wff g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="227790500"
+X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; d="scan'208";a="227790500"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 05:35:51 -0800
-X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; d="scan'208";a="536132825"
+ 28 Jan 2022 05:35:54 -0800
+X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; d="scan'208";a="536132833"
 Received: from dlita-mobl2.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.249.43.152])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 05:35:48 -0800
+ 28 Jan 2022 05:35:51 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 1/3] ASoC: SOF: Intel: cnl: Use pm_gate->hdr.cmd in
- cnl_compact_ipc_compress()
-Date: Fri, 28 Jan 2022 15:36:18 +0200
-Message-Id: <20220128133620.9411-2-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 2/3] ASoC: SOF: ipc: Drop header parameter from
+ sof_ipc_tx_message_unlocked()
+Date: Fri, 28 Jan 2022 15:36:19 +0200
+Message-Id: <20220128133620.9411-3-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.35.0
 In-Reply-To: <20220128133620.9411-1-peter.ujfalusi@linux.intel.com>
 References: <20220128133620.9411-1-peter.ujfalusi@linux.intel.com>
@@ -92,8 +92,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Instead of first checking the msg->header (which is the hdr.cmd), use
-directly the cmd from the message itself.
+The snd_sof_ipc_msg.header is not used by platform code, there is no need
+to update it and the 'header' parameter for sof_ipc_tx_message_unlocked()
+can be dropped at the same time.
+
+Instead of using the header parameter passed by the caller (which does by
+setting it to the hdr->cmd) use the hdr->cmd directly when logging.
+
+At the same time make sure that there is a message passed to the tx_message
+function.
+All instances of the tx_message passes an IPC message, this check is placed
+to make sure the future users can not introduce bugs.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
@@ -103,27 +112,80 @@ Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/cnl.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ sound/soc/sof/ipc.c | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index e615125d575e..1911e104f113 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -161,11 +161,9 @@ static void cnl_ipc_dsp_done(struct snd_sof_dev *sdev)
- static bool cnl_compact_ipc_compress(struct snd_sof_ipc_msg *msg,
- 				     u32 *dr, u32 *dd)
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index 5bcf906d90af..ec51daed8b31 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -294,14 +294,20 @@ static int tx_wait_done(struct snd_sof_ipc *ipc, struct snd_sof_ipc_msg *msg,
+ }
+ 
+ /* send IPC message from host to DSP */
+-static int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc, u32 header,
++static int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc,
+ 				       void *msg_data, size_t msg_bytes,
+ 				       void *reply_data, size_t reply_bytes)
  {
--	struct sof_ipc_pm_gate *pm_gate;
++	struct sof_ipc_cmd_hdr *hdr = msg_data;
+ 	struct snd_sof_dev *sdev = ipc->sdev;
+ 	struct snd_sof_ipc_msg *msg;
+ 	int ret;
+ 
++	if (!msg_data || msg_bytes < sizeof(*hdr)) {
++		dev_err_ratelimited(sdev->dev, "No IPC message to send\n");
++		return -EINVAL;
++	}
++
+ 	if (ipc->disable_ipc_tx || sdev->fw_state != SOF_FW_BOOT_COMPLETE)
+ 		return -ENODEV;
+ 
+@@ -314,15 +320,13 @@ static int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc, u32 header,
+ 	/* initialise the message */
+ 	msg = &ipc->msg;
+ 
+-	msg->header = header;
++	/* attach message data */
++	memcpy(msg->msg_data, msg_data, msg_bytes);
+ 	msg->msg_size = msg_bytes;
++
+ 	msg->reply_size = reply_bytes;
+ 	msg->reply_error = 0;
+ 
+-	/* attach any data */
+-	if (msg_bytes)
+-		memcpy(msg->msg_data, msg_data, msg_bytes);
 -
--	if (msg->header == (SOF_IPC_GLB_PM_MSG | SOF_IPC_PM_GATE)) {
--		pm_gate = msg->msg_data;
-+	struct sof_ipc_pm_gate *pm_gate = msg->msg_data;
+ 	sdev->msg = msg;
  
-+	if (pm_gate->hdr.cmd == (SOF_IPC_GLB_PM_MSG | SOF_IPC_PM_GATE)) {
- 		/* send the compact message via the primary register */
- 		*dr = HDA_IPC_MSG_COMPACT | HDA_IPC_PM_GATE;
+ 	ret = snd_sof_dsp_send_msg(sdev, msg);
+@@ -339,7 +343,7 @@ static int sof_ipc_tx_message_unlocked(struct snd_sof_ipc *ipc, u32 header,
+ 		return ret;
+ 	}
  
+-	ipc_log_header(sdev->dev, "ipc tx", msg->header);
++	ipc_log_header(sdev->dev, "ipc tx", hdr->cmd);
+ 
+ 	/* now wait for completion */
+ 	return tx_wait_done(ipc, msg, reply_data);
+@@ -385,7 +389,7 @@ int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, u32 header,
+ 	/* Serialise IPC TX */
+ 	mutex_lock(&ipc->tx_mutex);
+ 
+-	ret = sof_ipc_tx_message_unlocked(ipc, header, msg_data, msg_bytes,
++	ret = sof_ipc_tx_message_unlocked(ipc, msg_data, msg_bytes,
+ 					  reply_data, reply_bytes);
+ 
+ 	mutex_unlock(&ipc->tx_mutex);
+@@ -789,7 +793,6 @@ static int sof_set_get_large_ctrl_data(struct snd_sof_dev *sdev,
+ 			memcpy(sparams->dst, sparams->src + offset, send_bytes);
+ 
+ 		err = sof_ipc_tx_message_unlocked(sdev->ipc,
+-						  partdata->rhdr.hdr.cmd,
+ 						  partdata,
+ 						  partdata->rhdr.hdr.size,
+ 						  partdata,
 -- 
 2.35.0
 

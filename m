@@ -2,75 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 364C449FA40
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 14:01:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CABF149FA58
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jan 2022 14:07:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2E321771;
-	Fri, 28 Jan 2022 14:00:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2E321771
+	by alsa0.perex.cz (Postfix) with ESMTPS id C87EC1706;
+	Fri, 28 Jan 2022 14:06:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C87EC1706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643374859;
-	bh=E7LaCogL6sNxrIL2f2xOOZHN4GvFkbyq4t6V3oSAAPs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SbiQIVl8JU4GY8T0UtGhY18uCpVR+ilRGSkRrb4eQ/jF+611zcPFr8h6Z22aY1CoF
-	 fE7nUVxkixMm1/jAvAzdlnhB99cXqX+W7R2icjSsYxZL5xNEjzSvG5pAlYj6S6LfoF
-	 YPmSDa6ydwTMcChHQqPGW4RJAQSifD9K8sZXToL0=
+	s=default; t=1643375258;
+	bh=Is4olLhsk3j3j8qTWxE/Zeo3FckilHNlsQ9Vsr92LR4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=uzxPUqFxm//aTzONm1KqZPiUnZ/MJd9CUvjij14iZy/evJQ2u6omdVcgu6fXK74JB
+	 VlPa1Acv4OogmBKv7R5XHTbFRGNH6Fh9h9HnIWBc36gYNS09N95TYm+mh8d+LAeBa5
+	 F63HWVTMDoS1H1nnlc0Q9X8DQ2ZoV3cj8VwfH8Oc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DBCFF80246;
-	Fri, 28 Jan 2022 13:59:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D7BBF80246;
+	Fri, 28 Jan 2022 14:06:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95F96F80118; Fri, 28 Jan 2022 13:59:53 +0100 (CET)
+ id CC45FF80240; Fri, 28 Jan 2022 14:06:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6989AF800C0
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 14:06:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6989AF800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="kxHVqdph"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C520F80118
- for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 13:59:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C520F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Eail/v8/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643374788; x=1674910788;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=E7LaCogL6sNxrIL2f2xOOZHN4GvFkbyq4t6V3oSAAPs=;
- b=Eail/v8/tRQ8KxuWfYVLPRoNVIua4Y1zEQ1GGNC6W67nQnVNYeXM8xtp
- 8WfDSrcjfG8/dK06Zawbxvw/eaIvFzxROntgcqzVK7w1OsEdMnqvvN1Uk
- T5cfs9K2nCEP2UaXFymyo4UPhTTKRgJjRw7/TQ5E/S7LbeZNieeVOOkk0
- B2B6ahsAfnXbeHtaG42g33uqb+RWY9HE+a1wwLeVqyllpA/oCbgX7u5J9
- utmZwpD/HujddBAkSzyzIAzSP1/YnfIQJzXvAU/EZGSvY2sbx4TIdkYeE
- O+dTMuZ+Vqg2spnQJF+QBw7P8P2+ET9ri5cZuyFKvgwoWF+DrIzxbPKrk g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="247062696"
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="247062696"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 04:59:44 -0800
-X-IronPort-AV: E=Sophos;i="5.88,323,1635231600"; d="scan'208";a="480733212"
-Received: from dlita-mobl2.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.249.43.152])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2022 04:59:42 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: Intel: hda: Remove link assignment limitation
-Date: Fri, 28 Jan 2022 15:00:17 +0200
-Message-Id: <20220128130017.28508-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.35.0
+ by ams.source.kernel.org (Postfix) with ESMTPS id D9427B825A8;
+ Fri, 28 Jan 2022 13:06:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38F72C340E0;
+ Fri, 28 Jan 2022 13:06:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643375186;
+ bh=Is4olLhsk3j3j8qTWxE/Zeo3FckilHNlsQ9Vsr92LR4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kxHVqdphzE5X65rhBYzku+ROQZ7aH2C2kVbgzXgCFeRoMOCeiHDTKzyYC5JXPCx8O
+ qLJIElrOFLMEc6J7VO8RKxlV06WAYysknXqJ/90758o/XCcmaZwOUEkZYhg+xnHe8P
+ 8KIa4AQMDgUwzwjeJvYg8IfmtPPcDN2Xopvt1l3bUCe599gs10SVIB3J1bO5OYifU0
+ rtkA+fCVMLIjBMkb0pYl7JvLOeqDVmVun9zBrVvQF1MQRXPF7xeLmYDXkMZPx4uN6H
+ KVZy/JdC6uSH2CyrpJCCu9yJh/ASWXV+aQj4LcD8oIsWXHJ+ig92ZcxWx+sdeutxQk
+ ClKOKWSVWEsnw==
+Date: Fri, 28 Jan 2022 13:06:19 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: Centralize the 'sound-dai' definition
+Message-ID: <YfPqS8v7ZtT6HDyS@sirena.org.uk>
+References: <20220126231427.1638089-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="YNdayVbVmdPYqrJn"
+Content-Disposition: inline
+In-Reply-To: <20220126231427.1638089-1-robh@kernel.org>
+X-Cookie: The Moral Majority is neither.
+Cc: alsa-devel@alsa-project.org, Jonathan Bakker <xc-racer2@live.ca>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rohit kumar <rohitkr@codeaurora.org>, Fabio Estevam <festevam@gmail.com>,
+ Cheng-Yi Chiang <cychiang@chromium.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Andy Gross <agross@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Shawn Guo <shawnguo@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,58 +96,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-The limitation to assign a link DMA channel for a BE iff the
-corresponding host DMA channel is assigned to a connected FE is only
-applicable if the PROCEN_FMT_QUIRK is set. So, remove it for platforms
-that do not enable the quirk.
+--YNdayVbVmdPYqrJn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Complements: a792bfc1c2bc ("ASoC: SOF: Intel: hda-stream: limit PROCEN workaround")
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/sof/intel/hda-dai.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+On Wed, Jan 26, 2022 at 05:14:27PM -0600, Rob Herring wrote:
+> 'sound-dai' is a common property, but has duplicate type definitions.
+> Create a new common definition to define the type and then update all
+> the other occurrences to just define how many entries there are just
+> like other phandle+arg properties.
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index cd12589355ef..28a54145c150 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -59,6 +59,8 @@ static struct hdac_ext_stream *
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sof_intel_hda_stream *hda_stream;
-+	const struct sof_intel_dsp_desc *chip;
-+	struct snd_sof_dev *sdev;
- 	struct hdac_ext_stream *res = NULL;
- 	struct hdac_stream *stream = NULL;
- 
-@@ -77,9 +79,20 @@ static struct hdac_ext_stream *
- 			continue;
- 
- 		hda_stream = hstream_to_sof_hda_stream(hstream);
-+		sdev = hda_stream->sdev;
-+		chip = get_chip_info(sdev->pdata);
- 
- 		/* check if link is available */
- 		if (!hstream->link_locked) {
-+			/*
-+			 * choose the first available link for platforms that do not have the
-+			 * PROCEN_FMT_QUIRK set.
-+			 */
-+			if (!(chip->quirks & SOF_INTEL_PROCEN_FMT_QUIRK)) {
-+				res = hstream;
-+				break;
-+			}
-+
- 			if (stream->opened) {
- 				/*
- 				 * check if the stream tag matches the stream
--- 
-2.35.0
+Acked-by: Mark Brown <broonie@kernel.org>
 
+--YNdayVbVmdPYqrJn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmHz6koACgkQJNaLcl1U
+h9B49Qf+Jhz1zqYprzEs4mjpHmY22CKnG6zMmgy5bCBIfVwqA0nwKfsC9ul8fXXL
+NcltbAqGcCxr7u0lJoXY3h/Oob0gwpuqzMMyS+bUHzXQPnK994clJApOdV/J7UXC
+YJpbL78jiNhLsi9SZP9cTucY/LJTMEpN595HZ2+LPO6xeY6tq9RP4EWQj/0zvSn/
+dO3Z1egfcbsjKVGilRNKIjeK9WfKUdpRAwv3AS+0wSglY+fsSrpNe7Fij2CUN5zs
+nNlnVrsIvRZ45CK8pgK3YOkcvaWp/9GgS4+4+DJXwtVH8V8shpAsK/dxY+ddPhdK
+5xeCdZoQNFc+Ixkd9EQwLZLSUgKTOw==
+=AKJ7
+-----END PGP SIGNATURE-----
+
+--YNdayVbVmdPYqrJn--

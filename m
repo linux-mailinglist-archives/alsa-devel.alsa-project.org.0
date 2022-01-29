@@ -2,73 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E261C4A0492
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Jan 2022 00:50:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 471064A2B72
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Jan 2022 04:34:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 780931765;
-	Sat, 29 Jan 2022 00:49:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 780931765
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3DE61712;
+	Sat, 29 Jan 2022 04:33:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3DE61712
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643413818;
-	bh=F27xKt1k5Qx/rPYDcTSyI5MrOc5jMprMLk+/SCPUYns=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nXG+kiq3pBxcWKz0sT0yVj+t/4TeoTO70Cd/ZXNkrsuLyysRDLO9ElZUd1+UOk0qU
-	 ZaxlK61GK15MxU6W4H2lBjHS4hXfS/n7SN7owr3k++396SKYu6ICg5lTjAVkjWz+eK
-	 aSshsvt2rJViD0XqAY/4nf6sTdpBnnST79p9Ktn8=
+	s=default; t=1643427282;
+	bh=AqS+T53oSMfTsklME5wFD2BNwcePUKud1G6jeZ5/fBc=;
+	h=From:Subject:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pD/pI944WIZmYlkIl165XqHPbwcQB6ZwfEg91gjBp28N8lUQjY1hE0gZx6tGRhdj7
+	 qp8jXhHFV0yMzZMr2Xh0j4R9A0ojKO2L/4Xq1ypcZgMaGzNKCmkPm0m2UV2gacQ8AE
+	 +cef5GDa/+P5+RD1J5U2GN/S6QwMvHAkHJV0n3gY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 595E3F80534;
-	Sat, 29 Jan 2022 00:47:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32D91F80212;
+	Sat, 29 Jan 2022 04:33:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2E39F80527; Sat, 29 Jan 2022 00:47:13 +0100 (CET)
+ id E7377F801F7; Sat, 29 Jan 2022 04:33:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 682AAF8052F
- for <alsa-devel@alsa-project.org>; Sat, 29 Jan 2022 00:47:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 682AAF8052F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A127F800CE
+ for <alsa-devel@alsa-project.org>; Sat, 29 Jan 2022 04:33:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A127F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iZtApCPC"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 4F189CE2803;
- Fri, 28 Jan 2022 23:47:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C6DC340E7;
- Fri, 28 Jan 2022 23:47:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643413624;
- bh=F27xKt1k5Qx/rPYDcTSyI5MrOc5jMprMLk+/SCPUYns=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=iZtApCPCEgrx6ylEShx5LCCmDTNsKIo8o9fcjZZR9U5XfKhwOesohL6RQGTVKT7ly
- sRO6FhMj4LZLos75cTi9j0sl/1D0zKWK0UsIOGxz5IhQVRVeKeCY5tcbbs15DNg/Ai
- eoscUHxVYCsebvNCm16j7ZFTF7rdvKZnbEn12DfPRlu6+SBVtOVwHQ6BTjcQa45njq
- tSsUzs4C8QTdHB5OWvsbC42MnVNgZommKnUc55NybJoWaYlYzx2H6A9yjSafkd8a2j
- kGNIR1cNEiu16OnhbdN5Z97gsq0LfInqoH/PnqQZ+z7GzYkLCSbde4VId3OhyEwK6O
- roNhppw26G6Og==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, James Schulman <james.schulman@cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20220110071832.306185-1-u.kleine-koenig@pengutronix.de>
-References: <20220110071832.306185-1-u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH v2] ASoC: cs42l51: Improve error handling in
- cs42l51_remove()
-Message-Id: <164341362314.694709.18206268969781285326.b4-ty@kernel.org>
-Date: Fri, 28 Jan 2022 23:47:03 +0000
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ft1K6ec+"
+Received: by mail-wr1-x434.google.com with SMTP id v13so14372288wrv.10
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jan 2022 19:33:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:subject:to:cc:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=MEEV8WH7gcIBaywuZqpSloW8+fQPmSsXYorwBGkwcEQ=;
+ b=ft1K6ec+bpsSUrO6sHzilNhZI5D7ygOV6cUs23pfaPUJ86HDBgX0unZVVHu1tlpSzV
+ S3HLok9V9mqEFkQpws5xw3ogn4wQonCdzOjENUWOUKy8jo4+t3fYvLRvRDxuVO+D/A8n
+ uVVH1VpoDrgOPq8e6nNviJBhGUMnUUFf351smOMUpH42GpfGrQUlo0HiNEt2nPCdDija
+ Nq1cTeDQUAxClEhhGfdNvCub+wDMVFSBMW86P6wTCiyT0VBQQyrZ/86VMrYpRGJ/eYAN
+ FSNbmr2PQVAZT2m7sVIM3lcR8LHGZiXTF1Eg54+4IXZ+i/y0eIvKSj1+PNMrNzT/eDp0
+ Bv9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
+ :mime-version:content-transfer-encoding:content-language;
+ bh=MEEV8WH7gcIBaywuZqpSloW8+fQPmSsXYorwBGkwcEQ=;
+ b=5E6FqvZaHyiWz1rwrPo0WKTR77lJGUsB2xgs/EuORpEtKeuyqUtDNm0bFfOJy92tr4
+ vS1bV/KA4dY+uwKhG8aSJlrb1WggV1THWBQjII+WmnCFpPwNOIHAgoQWdSZt1o56O6ll
+ RVGQlQ3FCrpXodcAmoODaSrM6q9wngKIoKS+3EH+ZyispsLPZRLgfCpKz+C2K7e9Qelg
+ HwpkWsxzkq3IBkoQvJgK6kyrJwZH1IzXbO1xBkhkK42PAs9NTibIEWvidgRg3NISNSTe
+ 3nxXdEJjjAWVVE3UdfH7fHIKhSVtNE+lf0QiAc3kKrc5/EgCYeDn5+7LIo+4oqX0CS2h
+ skWQ==
+X-Gm-Message-State: AOAM532dOQKFDo07mfNkxLHVnd8WxvAyA4fU7Xn4+LlrxRWM2c5lIVEB
+ b1j1Hy/yJs4q1b0geyLNglI=
+X-Google-Smtp-Source: ABdhPJyiMDc7MH6tbWAjV3Be75ZoFQZE5hbcKQdm0LjQKmgM7IzYGTiitEr0vIiW8lRjpb0lPUKvKQ==
+X-Received: by 2002:a5d:494b:: with SMTP id r11mr9289806wrs.626.1643427210591; 
+ Fri, 28 Jan 2022 19:33:30 -0800 (PST)
+Received: from [10.96.0.6] ([85.203.46.187])
+ by smtp.gmail.com with ESMTPSA id j19sm3551042wmq.17.2022.01.28.19.33.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Jan 2022 19:33:30 -0800 (PST)
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+Subject: [BUG] ALSA: core: possible deadlock involving waiting and locking
+ operations
+To: perex@perex.cz, tiwai@suse.com, broonie@kernel.org, o-takashi@sakamocchi.jp
+Message-ID: <56766037-972e-9e5b-74c1-88633a72a77f@gmail.com>
+Date: Sat, 29 Jan 2022 11:33:26 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel@pengutronix.de
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,41 +100,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 10 Jan 2022 08:18:32 +0100, Uwe Kleine-König wrote:
-> When disabling a regulator fails while the device goes away, there is
-> little we can do and the machine is probably in enough trouble that any
-> action we'd want to take fails anyhow.
-> 
-> The return value used to be passed on in cs42l51_i2c_remove() (i.e. the
-> i2c device remove callback). But the i2c core ignores the error code
-> (apart from emitting a generic warning) and removes the device anyhow.
-> 
-> [...]
+Hello,
 
-Applied to
+My static analysis tool reports a possible deadlock in the sound driver 
+in Linux 5.10:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+snd_card_disconnect_sync()
+   spin_lock_irq(&card->files_lock); --> Line 461 (Lock A)
+   wait_event_lock_irq(card->remove_sleep, ...); --> Line 462 (Wait X)
+   spin_unlock_irq(&card->files_lock); --> Line 465 (Unlock A)
 
-Thanks!
+snd_hwdep_release()
+   mutex_lock(&hw->open_mutex); --> Line 152 (Lock B)
+   mutex_unlock(&hw->open_mutex); --> Line 157 (Unlock B)
+   snd_card_file_remove()
+     wake_up_all(&card->remove_sleep); --> Line 976 (Wake X)
 
-[1/1] ASoC: cs42l51: Improve error handling in cs42l51_remove()
-      commit: 73d4c3135b2aa2308fe058f58ddbf658436aa385
+snd_hwdep_open()
+   mutex_lock(&hw->open_mutex); --> Line 95 (Lock B)
+   snd_card_file_add()
+     spin_lock(&card->files_lock); --> Line 932 (Lock A)
+     spin_unlock(&card->files_lock); --> Line 940 (Unlock A)
+   mutex_unlock(&hw->open_mutex); --> Line 139 (Unlock B)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+When snd_card_disconnect_sync() is executed, "Wait X" is performed by 
+holding "Lock A". If snd_hwdep_open() is executed at this time, it holds 
+"Lock B" and then waits for acquiring "Lock A". If snd_hwdep_release() 
+is executed at this time, it waits for acquiring "Lock B", and thus 
+"Wake X" cannot be performed to wake up "Wait X" in 
+snd_card_disconnect_sync(), causing a possible deadlock.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+I am not quite sure whether this possible problem is real and how to fix 
+it if it is real.
+Any feedback would be appreciated, thanks :)
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best wishes,
+Jia-Ju Bai

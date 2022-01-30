@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 111AF4A3011
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Jan 2022 15:42:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC204A35D9
+	for <lists+alsa-devel@lfdr.de>; Sun, 30 Jan 2022 12:05:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 613D3F3;
-	Sat, 29 Jan 2022 15:41:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 613D3F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7A2216A5;
+	Sun, 30 Jan 2022 12:04:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7A2216A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643467349;
-	bh=kiu210DVYHgGWFpK9T8NwPM8tUudJQO6yXEbWrh4j0k=;
+	s=default; t=1643540742;
+	bh=JBPdeJ4PaQ6OYELVdpAGX57frLYhSXkpAHtkPXNDVk8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g49uH3Cme+zTY8MKn1GoJ4jLXTpJrmePgqv70rWsjOwbLBh6SIvF5hkta9EMi0CSL
-	 Fn4TYNc+wJ2GNvsJUr95AowxoH6v7aaL5ZfeQ9+k+OfvIoeiHnozN79bY3IR/OzwbH
-	 ndnPwsw0Ro3MyuQj84SrYw8PPptQ5P2fduRDbxx0=
+	b=SreZc3e0mz5TvNb9I6rEmFmy2WRx2LdNdwV0qbCo39IOQ0FbVH5jp5SrHnMzFjkgR
+	 3k1UPkgxIh5RQdKvVOfJ4yiAUqiDFbV0sdw8vADVni5g0pA+Yc8a364QAHDLMUmF3A
+	 c6pTkAFExixHP7iluLoPy77AFTg7L19Nq86cFyMM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5C76F80212;
-	Sat, 29 Jan 2022 15:41:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67D1AF8016C;
+	Sun, 30 Jan 2022 12:04:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2EFF8F801F7; Sat, 29 Jan 2022 15:41:20 +0100 (CET)
+ id C29CDF8014B; Sun, 30 Jan 2022 12:04:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A308F8014B
- for <alsa-devel@alsa-project.org>; Sat, 29 Jan 2022 15:41:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A308F8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD841F8014B
+ for <alsa-devel@alsa-project.org>; Sun, 30 Jan 2022 12:04:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD841F8014B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ftqe9oZG"
-Received: by mail-lf1-x12f.google.com with SMTP id x11so17569820lfa.2
- for <alsa-devel@alsa-project.org>; Sat, 29 Jan 2022 06:41:17 -0800 (PST)
+ header.b="Rb+lSRxH"
+Received: by mail-lf1-x135.google.com with SMTP id x7so20945125lfu.8
+ for <alsa-devel@alsa-project.org>; Sun, 30 Jan 2022 03:04:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=date:from:to:cc:subject:message-id:user-agent:references
  :mime-version:content-disposition:in-reply-to;
- bh=TsD8UeueTttBbcCHC8xUyUOJgggM70vG6Ymhib31NHo=;
- b=ftqe9oZG5U1OUJ0e9KhaRfFuHuU9Eu6WA3j07WrvrgMoj/UzMxautnN6JROsf9jQ/7
- v/YoXeu8xtCEwcNPhQk4fJQweFUbwfHl+IpRP2E45LO7y80FDxNWksAmau35j1ZQRk+D
- apG9ZP8jOUWupOqdeZKux9FhmrbQNyoHUt04Y/X8VoB7rP8nyWIcoEAldmWps8wCWHns
- q1FWA6SgQNsorJOHWWPhONjV2JpR/8mUkIw/lEYbdHS67g8JPdZZshURaeET2W0o/Q0g
- HllmJzIf7HPFe75WVQlVLRfaRndBCe5zJdV9QOiSNVbUVihYveDLeDgMxj1GVKP0DAL+
- 7ZWg==
+ bh=bxlyxF/EC8bTAR3d0TLEeaeVlQi35TqmVD7n3vCbavI=;
+ b=Rb+lSRxHbxob/Ic74S73x7dboMK/vjsrOhLRmlHXTY0UcvDe+A01djucQTLJ5aF0ee
+ xaJgTd18lCL2S8NbZijvYwTjO8qchTw30veISMMMDYNrugj94BEtCr15/4cPBQWS+4gU
+ tcauokmFlOU8h724lMEBMYYiRfvei97Sdk61ECGSY1+BmRvyJban3pz4329P7NNUTUF4
+ sVVzfmUYpidWtqVlrS8fKR8LvLk2TqINYr1FU6qvbgRJs3Igr1BcVMcVBtPHlVrMhsLW
+ f3eoZ8ev9id5iL7KT4BWNbCoj5uS+FZO0JUXc8Jd0l0osPFfN7A9UsH5kVWogfQHxXeF
+ 8S4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:user-agent
  :references:mime-version:content-disposition:in-reply-to;
- bh=TsD8UeueTttBbcCHC8xUyUOJgggM70vG6Ymhib31NHo=;
- b=mA2Y+m7T5maxByyJlugsP3Hv9OXZOjU41D0KMq/ZViob7zChIpIT8WIUUPxbPVi55R
- iCh6JFUXXY0iSGXNA1iMo6aLkaqJ+4RoHkCwuqJbp/oRJj6DilK42Bp8M5O2HKDRHiUp
- HX586KENPnMnQIuY6ULsGDoRn6hV53mKsNrdY2/aWr3zvfD2YyfLTgDKEpH9YXOOtXiv
- RgBQYIQqbYPqQrw64pEi5RfYa5jR3kXMezkOQuwOh/e9CNunQQihtT2OMLTUfpRabi/x
- OZdW5tbadszLYhytVyboY4J4slhW0LyVJdUwsDywi6UVhqg8Uvziq5AvZVFa7f5UaG8x
- X6jw==
-X-Gm-Message-State: AOAM532HUPm1wO0OAQOUKYlPuYAX/m7yBWVk5Gy7voSHeINuFXZ3ZPmN
- /kyz6Zs74HNhGyL3zt4FkpmgKadjzlM=
-X-Google-Smtp-Source: ABdhPJzpBphGrUIiWnPY3CxLFskI7SIHm2vjLCVJp+05tqtgRZmpG77Qs6l33CRF6B63CpQC63D5eQ==
-X-Received: by 2002:ac2:50d8:: with SMTP id h24mr9681599lfm.33.1643467274226; 
- Sat, 29 Jan 2022 06:41:14 -0800 (PST)
+ bh=bxlyxF/EC8bTAR3d0TLEeaeVlQi35TqmVD7n3vCbavI=;
+ b=0dXLH9R5vFwTyKrzhBjLIxPeZqxzOKZgjODsapWftDGSOnqVqoDZ3K/wY23eS52tye
+ IDlE+nBvx4Axi7v+tTzPL/V7dIbPbgOaIdToPEd3h+HwKdXBfMCSjoLaBrkfPR6Oc/lM
+ eDhbwi4QQK7kc3OccA1FBd9qOIjDeZoGQvfMKmkqFaRIuH7Ah8cZdUa0C7JpshhfAqDj
+ FzrIGMz3cKIR016x35jW9KY9QwHrrL/Fi9EIN4crJ0qLLArpZpD1orMheY29rY3dYtWW
+ RL+r/1BYX7UdxJwhVadEKM+bKi0EC8cGomLqRAg+lfQ7dCuGlWst9xcux0xLGRhpvlKk
+ xmkQ==
+X-Gm-Message-State: AOAM5322dWq6TTRe6B1Meo0b3/wIXE+/37zLepMGsIi7o0lidtr1HGh8
+ niTSDAez1Z6WhbUXtQBKuEE3YNEjCfc=
+X-Google-Smtp-Source: ABdhPJwjyY27OzuJcBoolWvFSnRfBiH5kr2z5VBWsTElJy1GUg5fFtub5fpPbFklnrBgvEpgTiJrfw==
+X-Received: by 2002:a05:6512:3223:: with SMTP id
+ f3mr11654547lfe.203.1643540668159; 
+ Sun, 30 Jan 2022 03:04:28 -0800 (PST)
 Received: from localhost.localdomain (broadband-95-84-228-163.ip.moscow.rt.ru.
  [95.84.228.163])
- by smtp.gmail.com with ESMTPSA id j2sm2215811lfp.256.2022.01.29.06.41.12
+ by smtp.gmail.com with ESMTPSA id z3sm3247459lfu.8.2022.01.30.03.04.26
  (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
- Sat, 29 Jan 2022 06:41:13 -0800 (PST)
-Date: Sat, 29 Jan 2022 17:47:04 +0300
+ Sun, 30 Jan 2022 03:04:27 -0800 (PST)
+Date: Sun, 30 Jan 2022 14:10:20 +0300
 From: Alexander Sergeyev <sergeev917@gmail.com>
 To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-Message-ID: <20220129144704.xlmeylllvy3b3fum@localhost.localdomain>
+Message-ID: <20220130111020.44gzrm5ckrakjta2@localhost.localdomain>
 User-Agent: mtt
-References: <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
- <s5ha6fy46jt.wl-tiwai@suse.de>
+References: <s5ha6fy46jt.wl-tiwai@suse.de>
  <20220114183720.n46wealclg6spxkp@localhost.localdomain>
  <s5hsftp3027.wl-tiwai@suse.de>
  <20220115152215.kprws5nja2i43qax@localhost.localdomain>
@@ -90,10 +90,11 @@ References: <20220113183141.kla37mbqmo4x6wxp@localhost.localdomain>
  <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
  <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
  <s5ho83yldu3.wl-tiwai@suse.de>
+ <20220129144704.xlmeylllvy3b3fum@localhost.localdomain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <s5ho83yldu3.wl-tiwai@suse.de>
+In-Reply-To: <20220129144704.xlmeylllvy3b3fum@localhost.localdomain>
 Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
  Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
  Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
@@ -114,24 +115,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 26, 2022 at 04:24:36PM +0100, Takashi Iwai wrote:
-> > Given that the CPU number is the same in alc_update_coefex_idx(), it seems 
-> > these calls execution is interrupted and interleaved on the same core.
-> > And, actually, there are two LEDs to set (mute and micmute). Am I onto 
-> > something here?
-> That's an interesting finding, and yes, such a race is quite
-> possible. Below is a quick fix as an attempt to cover it.
-> Could you give it a try?
+On Sat, Jan 29, 2022 at 05:47:07PM +0300, Alexander Sergeyev wrote:
+> But unbind-bind problems with IO_PAGE_FAULT and "out of range cmd" are not 
+> eliminated. IO_PAGE_FAULT are often logged without accompanying "out of range 
+> cmd". And after adding debugging printk() I haven't managed to trigger "out 
+> of range cmd" yet. But IO_PAGE_FAULT are more easily triggered.
 
-Well, results are somewhat mixed.
+IO_PAGE_FAULTs go away with CONFIG_IOMMU_DEFAULT_PASSTHROUGH enabled. As I 
+understand, this leads to reduced DMA device isolation which is generally not 
+desirable. I was initially thinking about races between some delayed code and 
+io-memory pages unmapping, but first IO_PAGE_FAULTs (running non-passthrough 
+iommu) happen during bind operations as well.
 
-With the supplied patch (with a mutex), the original fixup 91502a9a0b0d ("ALSA: 
-hda/realtek: fix speakers and micmute on HP 855 G8") is no longer needed for 
-speakers to work. So, the original timing issue is identified now.
+What is also interesting, unbind & bind consistently fails on 31th bind:
 
-But unbind-bind problems with IO_PAGE_FAULT and "out of range cmd" are not 
-eliminated. IO_PAGE_FAULT are often logged without accompanying "out of range 
-cmd". And after adding debugging printk() I haven't managed to trigger "out of 
-range cmd" yet. But IO_PAGE_FAULT are more easily triggered.
+echo -n '0000:05:00.6' > /sys/bus/pci/drivers/snd_hda_intel/bind
+-bash: echo: write error: No such device
 
-Are there ways to trace origins of IO_PAGE_FAULT itself?
+And does not recover from there until a reboot.

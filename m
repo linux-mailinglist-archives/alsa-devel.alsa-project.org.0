@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3A084A3E6A
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jan 2022 09:02:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FDAA4A3EC9
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jan 2022 09:43:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B6E41630;
-	Mon, 31 Jan 2022 09:02:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B6E41630
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F65F169B;
+	Mon, 31 Jan 2022 09:42:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F65F169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643616176;
-	bh=bOVhHpgTe6F9VDhTWlfXY1CBOP70U/92puNz1k48HeY=;
+	s=default; t=1643618629;
+	bh=xRTiyO14pjLztSjyKmQ6SllYNwvn4hznEJLxKpEpeMY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JZRt95OeAx5De4ICHXYT9lqGrA5+YVzcqmF9KCi9Cv8wMLeNtRbdbKOBlPWp7jqL+
-	 n2DQ5bNHmPnlZUNsiyRE5zMbfcr6zNzactYHu9JNAltYx0NtBAxta8T+RRxBaqKCJn
-	 oLey0uKGgPgFlE5QZDS3/34Scv5WVq9PwxW4Se6A=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9426CF80302;
-	Mon, 31 Jan 2022 09:01:50 +0100 (CET)
+	b=mxJVD9DHjhtfwPXJvynr839+LGwlaFaTYo+5sC6PZAssujptyD+pTTUMUR1CeEKDZ
+	 HmJ8NKF16x8Oo6M9UEiBe6iOlDk2QkuqvIELyH64y+mQKTWwOUBikcSJcXEgiNV+bB
+	 S0uygfAM6d9Ywm87z4Zl0dBi+H4KGecTm/q2ipbg=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BF22F80095;
+	Mon, 31 Jan 2022 09:42:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 677DFF8028B; Mon, 31 Jan 2022 09:01:46 +0100 (CET)
+ id F28E8F80095; Mon, 31 Jan 2022 09:42:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,51 +33,52 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44D1EF800FF
- for <alsa-devel@alsa-project.org>; Mon, 31 Jan 2022 09:01:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44D1EF800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F6D7F80095
+ for <alsa-devel@alsa-project.org>; Mon, 31 Jan 2022 09:42:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F6D7F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="MqVKf5WI"; 
+ header.b="HCJstUYM"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="M17A7kT/"
+ header.b="s4dhaHyU"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 08B68212B9;
- Mon, 31 Jan 2022 08:01:42 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id ED699210F8;
+ Mon, 31 Jan 2022 08:42:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1643616102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1643618550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=1R2CJbf4STcIpglpHWTg0UDrY/NoqY3dp6Q0qeuNT38=;
- b=MqVKf5WI804ulYnM/hRMR1bgFd/bvXZw/DHgHjXzDf/W4BseHFTXIbAOyAjIRTO7lQJzQJ
- gJA4gAxp2Vcbg81TkqRUxDpStphL3n1XSsySYpVAqhqh/KPcAIA8L9hPSachlkihM4AGNp
- eOiMXwCUxNEusYHnSSATaGFJe9uc1cc=
+ bh=ksQQ10BMN9VF/EqllX38BuYlW62gk+lDRL9m08oUkFI=;
+ b=HCJstUYMls6V1WuZs+oaq9TGbFP2IDyENyBWIfp7Hz1emFEYnw3J6nzIJUQOZOD9eRCh47
+ /BPDrBqoDoHFLj7idad2m3zy83hjAnU94zI+aWj/XDIlrT1UWe9Ea8cgmnXKOloaceHcGk
+ FH32ZNumO319RUVuIosvN95p7VtVsQA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1643616102;
+ s=susede2_ed25519; t=1643618550;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=1R2CJbf4STcIpglpHWTg0UDrY/NoqY3dp6Q0qeuNT38=;
- b=M17A7kT/DaCnmDdAlmmKwsn5IuRPyLrGxhQrIEM6j+sDA3Suje0RSYVTYWE0Pjg8k+fv9s
- leExCjqYJsW9xtAQ==
+ bh=ksQQ10BMN9VF/EqllX38BuYlW62gk+lDRL9m08oUkFI=;
+ b=s4dhaHyU+kwuaq1xY69k7TEw2UqjBYowu+3zpJkmzNuD9pBrn3pAY5h7a8ziAHBFbJL8AN
+ NZu6n5m8X/jBZfDw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B1329A3B81;
- Mon, 31 Jan 2022 08:01:41 +0000 (UTC)
-Date: Mon, 31 Jan 2022 09:01:41 +0100
-Message-ID: <s5hy22wcp0a.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id E7CAEA3B83;
+ Mon, 31 Jan 2022 08:42:30 +0000 (UTC)
+Date: Mon, 31 Jan 2022 09:42:30 +0100
+Message-ID: <s5ho83scn49.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Christian Lachner <gladiac@gmail.com>
-Subject: Re: [PATCH 0/3] hda/realtek: Add/Improve several Gigabyte X570(S)
- audio quirks
-In-Reply-To: <20220129113243.93068-1-gladiac@gmail.com>
-References: <20220129113243.93068-1-gladiac@gmail.com>
+To: Albert Geanta <albertgeanta@gmail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASUS GU603
+In-Reply-To: <20220131010523.546386-1-albertgeanta@gmail.com>
+References: <20220131010523.546386-1-albertgeanta@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- kailang@realtek.com, tiwai@suse.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,20 +94,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 29 Jan 2022 12:32:40 +0100,
-Christian Lachner wrote:
+On Mon, 31 Jan 2022 02:05:23 +0100,
+Albert Geanta wrote:
 > 
-> This patch series cleans up and improves my previous work for the Gigabyte
-> X570 audio quirks and adds more mainboards to make use of it.
+> The ASUS GU603 (Zephyrus M16 - SSID 1043:16b2) requires a quirk similar to
+> other ASUS devices for correctly routing the 4 integrated speakers. This
+> fixes it by adding a corresponding quirk entry, which connects the bass
+> speakers to the proper DAC.
 > 
-> Christian Lachner (3):
->   hda/realtek: Add missing fixup-model for Gigabyte X570 ALC1220 quirks
->   hda/realtek: Fix silent output on Gigabyte X570S Aorus Master (newer
->     chipset)
->   hda/realtek: Fix silent output on Gigabyte X570 Aorus Xtreme after
->     reboot from Windows
+> Signed-off-by: Albert Geantă <albertgeanta@gmail.com>
 
-Applied all three patches now.  Thanks.
+Thanks, I applied the patch now with the manual addition of
+Cc-to-stable tag.
 
+At the next time, however, please don't forget to put Cc-to-stable in
+the patch itself, as Greg already complained.
+
+Also, try to align both From and Signed-off-by name/address strings.
+In this patch, only Signed-off was with an accent, too.
+
+Last but not least, please put the maintainers to Cc at the next
+submission.
+
+
+thanks,
 
 Takashi

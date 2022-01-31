@@ -2,129 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A02B4A46D0
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jan 2022 13:21:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF8F14A49BE
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jan 2022 15:58:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99F67166B;
-	Mon, 31 Jan 2022 13:20:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99F67166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3890F163E;
+	Mon, 31 Jan 2022 15:57:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3890F163E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643631673;
-	bh=tVtd+Mvho3tn3+97c2t3uLh/axpT161IoJI/7erCeNk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vX/EDjNDkCw1676wDpKoyJTGQTGuQL2F0pU9SWl/yh5UA42BogMh4GPNfx5yXC9ik
-	 eGmwxLGBkrmSxqVPaSGXaOigyCRliM9g8PsDTJhxmhgYwreeiC3P5BEQKsG5FiX+P2
-	 aBuHQBttlrCLq1kma0PAE7sX9yuQkUW3EANpbcLw=
+	s=default; t=1643641101;
+	bh=Ay5Mz4UpyVWGep4iCGOhA6D5zPPQi9+Ekgx1QGom00o=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iH1pA1pAkB3F0j6IcEjDCkrBO4iatP4jKiB8XAhA06fjn3CGfDQfvo4newpqNv7BL
+	 2Hegj48FyN+SukpEnbiZeqmv7BUaCRyl/R34E/IS47kRwx2tNGW/G3MjaFKpoXIDaf
+	 +zl0GkEJd2rpcHSaH82Je5WJEddB9XK/XuN54P/w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 036B4F80302;
-	Mon, 31 Jan 2022 13:20:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E075F80302;
+	Mon, 31 Jan 2022 15:57:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14D54F800CE; Mon, 31 Jan 2022 13:20:05 +0100 (CET)
+ id 05FC2F8028B; Mon, 31 Jan 2022 15:57:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2061.outbound.protection.outlook.com [40.107.101.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2E24F800CE
- for <alsa-devel@alsa-project.org>; Mon, 31 Jan 2022 13:19:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2E24F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08902F800CE
+ for <alsa-devel@alsa-project.org>; Mon, 31 Jan 2022 15:57:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08902F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="hE/0Sur9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Sfcpvgehq73A6pSo8dezdUKvfISRY4BB0lBoqo/L0A6MO/KNyDQBzmgVcxnNicSgIgtaueSvBeb0CrycdpEOLKp7na2EVGDkAWMhZom5ObWyOux/MdilIKduGgWUTyJumbmSlSONmJ36BvObaCLZZkOg+jlsGdVgpuxT9sS2HI717cauXudbJbEfoHtnuch/mJ3W48Ta8oanBExeHUzKXC8LPSfg1obxuuIkNH5cCEvN/cs8X2SLLpJ6k168J3//P0/WdNYpAfA+AHgPtQOA1POQO4pYk3Za1QdBLl9f1IME2dPJVSrALf1lfkLgrcgMLO68vKltz+y7EpS/5SSsxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b6VA/y3wMaekNgG6yqVkXH9mVHuZLOl8OH8xr6DOUZQ=;
- b=ie+6fYcMHTgJ9M8U26SBVbjEssXcWKy7kqU3LKFXKfTEeCNMrOcQw5OjXpYt3+faj7nZNpYdbAJYsDYT3YgW94SGdOeNmLFw+Zgl7MThVlDFimJW+ZGEx3FrlDt7Ull1tUL2iXPA4qbEiQ6UdY35azL60eKKGxOeAWaF9wD4MD7zSRnEcJRw3y3LVYJGjZ4jfepf4866y5JP66S6y1pBPr4IxFx9eahJZGwMK40fNMiLPw1O3NbNsuhn6FibzDNMrJ7hhC0XFPacPrYbSxvd5OQ5TetbPGP9cp/7+/CcRLx7GFDg/FQ4pGAHtcUj/W0QwoIJjPjguB8kd1Md79IUww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b6VA/y3wMaekNgG6yqVkXH9mVHuZLOl8OH8xr6DOUZQ=;
- b=hE/0Sur9fquJ/46QDWJPyV8154oP2cKllGuGyUjW6b0fKB0tx2PKsfRu5Ic1OqQAFJLDftKyL01gOuWplBfmz8g9zo0rVLIcFpoFr5PCbAuF0HAMuRXUryeFKj3ZlS7gI7jsq0LSChnhujJuH5deeZ9afOYJRj5JtZZE1TGCtZ8=
-Received: from DM6PR06CA0055.namprd06.prod.outlook.com (2603:10b6:5:54::32) by
- SN1PR12MB2590.namprd12.prod.outlook.com (2603:10b6:802:2e::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4930.15; Mon, 31 Jan 2022 12:19:53 +0000
-Received: from DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:54:cafe::af) by DM6PR06CA0055.outlook.office365.com
- (2603:10b6:5:54::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17 via Frontend
- Transport; Mon, 31 Jan 2022 12:19:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT058.mail.protection.outlook.com (10.13.172.216) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4930.15 via Frontend Transport; Mon, 31 Jan 2022 12:19:52 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 31 Jan
- 2022 06:19:52 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 31 Jan
- 2022 06:19:51 -0600
-Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.18
- via Frontend Transport; Mon, 31 Jan 2022 06:19:43 -0600
-From: V sujith kumar Reddy <vsujithkumar.reddy@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: amd: acp: Set gpio_spkr_en to None for max speaker
- amplifer in machine driver
-Date: Tue, 1 Feb 2022 02:02:15 +0530
-Message-ID: <20220131203225.1418648-1-vsujithkumar.reddy@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: decce333-3c7e-488d-e323-08d9e4b3fc17
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2590:EE_
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2590A3A8BCB3D1C6BD3DBACB92259@SN1PR12MB2590.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2089;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yTLSwsmPOWTVaio4bh8jfTHqbkJISTzbqDz9jhrDnJpEbdOmMk5i1nOo+ZkHABjuwdprONJMwayZQLkVoFWmJcukTtsE5Wkkym0dHNuxg0Fz6w74n4NNO549QxNECkIrg7nDs05/i/CY1B4Vngywm9DS6hJm5g8/jZPHi5SYtZFH8xEuS5PUkRDH7qTFGHW711kt5H8wuqJRe0zYQKnnMMjMgyRm4lC2RxvNVIppYx0QAInvB2+3l5WyCSLnw9WyYcgvQPadQtS8eKsWmwRdJzbL7m5z3YSahi2hgN1gowfVrD/2PLex1r1ICi38jDtOeH8O3gyJJlgQnQo5E/HhC5bHMUWtPluVL+XrQIXrZ/RMUNxcgCs1euUWjbawF7xQ12InXWKpGllX6nIg1rWgmiM6NPpZ7TuuMNicAYqjlahYQnEJZCoIN0hWQ2CMXhW/q6UyDhcQagmlFzKhWPHTCaf6YRxLr1JdHzBVvTZNKSssaX6MBRJVKgWFPXHdeMBad4ms6ROhN1Ehmrhvnt9saXw7PXezZ+dwy78Y9DpRhm/M4uZflwsOzqmz/FRf7tYaGYmPVTvYxAkrbi1ESQcJqUCi53hOImtCFuxJcNNUtgV56GdXoov0x+0BWyQo1//F5sPR6M3CghrkScpU5gJAqQHpeBx7LOtEdkun+7O57bUnbhn8Cr+0cZfnckuZoqth+PAr2HdgcMhI6KnALmrOnVOjRGDuFTts9Kz4sihy/4+OYw0gPrUhwi5uJhorUJPO
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(6666004)(7696005)(54906003)(70206006)(70586007)(5660300002)(508600001)(40460700003)(26005)(1076003)(316002)(2616005)(186003)(426003)(336012)(110136005)(36756003)(8936002)(81166007)(82310400004)(86362001)(4326008)(2906002)(8676002)(83380400001)(47076005)(356005)(36860700001)(461764006)(36900700001)(20210929001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2022 12:19:52.8244 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: decce333-3c7e-488d-e323-08d9e4b3fc17
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2590
-Cc: Sunil-kumar.Dommati@amd.com, Ajit Kumar
- Pandey <AjitKumar.Pandey@amd.com>, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Vijendar.Mukunda@amd.com, V sujith kumar
- Reddy <vsujithkumar.reddy@amd.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="w3IaXZzw"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="oRH6TwzD"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 1C4D61F380;
+ Mon, 31 Jan 2022 14:57:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1643641025; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=oGbrB4jkSsv8ztmFHI1kkrhQ9Pcbl+Xj8CjWST+LroU=;
+ b=w3IaXZzw3qmQ6aAR88iBgj2WH4L/+KEMADWdgR3bpKxJYAFPRVM9yt9py1+D86rOu9yTwU
+ HYpxsU06OMbC7SRvQBB362VTOIntkwKsXHHnkdVrbA8J1yjDj9mTcooW587Ampb8pyxW8g
+ B+5wNNxtHEmGnwSzCoPDEoV8fWCuan8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1643641025;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=oGbrB4jkSsv8ztmFHI1kkrhQ9Pcbl+Xj8CjWST+LroU=;
+ b=oRH6TwzDWmKnwD2uRG2sWCAH1Pilwr+RYro8ldfbAmW0tgMV//zyxFISND88ptcTOlFQrq
+ FQqs6UmPWeUVkGAQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id CB527A3B8C;
+ Mon, 31 Jan 2022 14:57:04 +0000 (UTC)
+Date: Mon, 31 Jan 2022 15:57:04 +0100
+Message-ID: <s5htudk9cn3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alexander Sergeyev <sergeev917@gmail.com>
+Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
+In-Reply-To: <20220130111020.44gzrm5ckrakjta2@localhost.localdomain>
+References: <s5ha6fy46jt.wl-tiwai@suse.de>
+ <20220114183720.n46wealclg6spxkp@localhost.localdomain>
+ <s5hsftp3027.wl-tiwai@suse.de>
+ <20220115152215.kprws5nja2i43qax@localhost.localdomain>
+ <s5hilugw0l0.wl-tiwai@suse.de>
+ <20220119093249.eaxem33bjqjxcher@localhost.localdomain>
+ <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
+ <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
+ <s5ho83yldu3.wl-tiwai@suse.de>
+ <20220129144704.xlmeylllvy3b3fum@localhost.localdomain>
+ <20220130111020.44gzrm5ckrakjta2@localhost.localdomain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
+ PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,49 +106,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Maxim codec driver already enabling/disabling spk_en_gpio in form of sd_mode gpio
-hence remove such gpio access control from machine driver to avoid conflict
+On Sun, 30 Jan 2022 12:10:20 +0100,
+Alexander Sergeyev wrote:
+> 
+> On Sat, Jan 29, 2022 at 05:47:07PM +0300, Alexander Sergeyev wrote:
+> > But unbind-bind problems with IO_PAGE_FAULT and "out of range cmd" are not 
+> > eliminated. IO_PAGE_FAULT are often logged without accompanying "out of range 
+> > cmd". And after adding debugging printk() I haven't managed to trigger "out 
+> > of range cmd" yet. But IO_PAGE_FAULT are more easily triggered.
+> 
+> IO_PAGE_FAULTs go away with CONFIG_IOMMU_DEFAULT_PASSTHROUGH enabled. As I 
+> understand, this leads to reduced DMA device isolation which is generally not 
+> desirable. I was initially thinking about races between some delayed code and 
+> io-memory pages unmapping, but first IO_PAGE_FAULTs (running non-passthrough 
+> iommu) happen during bind operations as well.
 
-Signed-off-by: V sujith kumar Reddy <vsujithkumar.reddy@amd.com>
----
- sound/soc/amd/acp/acp-mach.h     | 1 -
- sound/soc/amd/acp/acp-sof-mach.c | 4 ++--
- 2 files changed, 2 insertions(+), 3 deletions(-)
+That's logical, as IOMMU is bypassed for DMA with that option.
 
-diff --git a/sound/soc/amd/acp/acp-mach.h b/sound/soc/amd/acp/acp-mach.h
-index fd6299844ebe..c855f50d6b34 100644
---- a/sound/soc/amd/acp/acp-mach.h
-+++ b/sound/soc/amd/acp/acp-mach.h
-@@ -21,7 +21,6 @@
- #include <linux/gpio/consumer.h>
- 
- #define EN_SPKR_GPIO_GB                0x11F
--#define EN_SPKR_GPIO_NK                0x146
- #define EN_SPKR_GPIO_NONE      -EINVAL
- 
- enum be_id {
-diff --git a/sound/soc/amd/acp/acp-sof-mach.c b/sound/soc/amd/acp/acp-sof-mach.c
-index c1d9650fc222..3346677949e3 100644
---- a/sound/soc/amd/acp/acp-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sof-mach.c
-@@ -37,7 +37,7 @@ static struct acp_card_drvdata sof_rt5682_max_data = {
- 	.hs_codec_id = RT5682,
- 	.amp_codec_id = MAX98360A,
- 	.dmic_codec_id = DMIC,
--	.gpio_spkr_en = EN_SPKR_GPIO_NK,
-+	.gpio_spkr_en = EN_SPKR_GPIO_NONE,
- };
- 
- static struct acp_card_drvdata sof_rt5682s_rt1019_data = {
-@@ -56,7 +56,7 @@ static struct acp_card_drvdata sof_rt5682s_max_data = {
- 	.hs_codec_id = RT5682S,
- 	.amp_codec_id = MAX98360A,
- 	.dmic_codec_id = DMIC,
--	.gpio_spkr_en = EN_SPKR_GPIO_NK,
-+	.gpio_spkr_en = EN_SPKR_GPIO_NONE,
- };
- 
- static const struct snd_kcontrol_new acp_controls[] = {
--- 
-2.25.1
+I still don't get what really triggers it.  This won't happen when you
+build modules and load/unload the driver instead of dynamic binding?
 
+And the out-of-range access is puzzling, too.  I guess this comes from
+the update of a COEF, i.e. it reads a strange value and tries to
+update the value based on it.  The problem is that it's no -1 but some
+random value.  This might be tied with the IOMMU error, and it might
+reading unexpected address, which would be really bad.
+
+In anyway, we need to track down exactly which access triggers those
+errors...
+
+> What is also interesting, unbind & bind consistently fails on 31th bind:
+> 
+> echo -n '0000:05:00.6' > /sys/bus/pci/drivers/snd_hda_intel/bind
+> -bash: echo: write error: No such device
+> 
+> And does not recover from there until a reboot.
+
+This is intended behavior.  The driver has a static device index that
+is incremented at each probe, so that the driver may probe multiple
+instances.  It'll be tricky to reset this for dynamic binding,
+though.  This problem is not only for HD-audio but for most of other
+drivers.  But I leave this as is for now, since the dynamic binding is
+rarely used for PCI and other buses, so far.
+
+
+Takashi

@@ -2,73 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DB5F4A4E8D
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jan 2022 19:37:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF5CB4A4E9C
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jan 2022 19:40:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B543C1620;
-	Mon, 31 Jan 2022 19:36:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B543C1620
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68D0316B1;
+	Mon, 31 Jan 2022 19:39:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68D0316B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643654240;
-	bh=DnXhFAGWRC1c19WVXbcduyTvpHjO7t6osxp9bE7zzBM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZYdTEC0p6OPxyeOSXUQIgUDaTKmCl6YmmY/94FnY2uRcd9+5IKZY/oJL0cvzOGT1C
-	 07P2JCDltFwSd01E9+JgVpDxMAEDFZYpnJd3Wql0lhHFpUhGP5JNWdJfY0VTCwDzeh
-	 iXVTWXvEal/ZeH0IUYhXTDQK6cG/klLueO3ZXzH0=
+	s=default; t=1643654425;
+	bh=w7AiGUluPxc0UiTDIqENVKqTDlOyS4uHsgpuwHwLOeg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rwalsTUHZ1XPL4tTR5PcrMI2KANwxy1iZLNDN0ZZG0xX1Go+wSZnnAew+71LXqdNK
+	 6lF5sYXDQIhUfqcMP6hQo9BAu9JBMy7qWvUk58b7cWRwkIiGPuVg14/3Tgbb+LUgqy
+	 VcXDwp0VY5LqZPquNtJ+iA0yn8PcAjCVFzIINU50=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D314FF80302;
-	Mon, 31 Jan 2022 19:36:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA1C1F800CE;
+	Mon, 31 Jan 2022 19:39:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C8F3F8028B; Mon, 31 Jan 2022 19:36:11 +0100 (CET)
+ id F380CF800CE; Mon, 31 Jan 2022 19:39:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.hahnjo.de (backus.hahnjo.de [193.30.122.186])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AE30F800CE
- for <alsa-devel@alsa-project.org>; Mon, 31 Jan 2022 19:36:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AE30F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86D55F800CE
+ for <alsa-devel@alsa-project.org>; Mon, 31 Jan 2022 19:39:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86D55F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=hahnjo.de header.i=@hahnjo.de
- header.b="pAchqnRz"
-Received: from Jonas-Dell.home (unknown
- [IPv6:2a01:cb15:40c:c100:cf0a:528a:fee7:c993])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.hahnjo.de (Postfix) with ESMTPSA id E391D5870138;
- Mon, 31 Jan 2022 19:36:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hahnjo.de; s=default;
- t=1643654164; bh=DnXhFAGWRC1c19WVXbcduyTvpHjO7t6osxp9bE7zzBM=;
- h=From:To:Cc:Subject:Date;
- b=pAchqnRzQbyD6A+ShzZNlceg6D8ZM/iB8q64fAIK31HXUD/l40ut7gDmY7lfgxAj3
- oY4fw3oJa6pz98QgdyrxvUAaB2PBjtlaAZp4iIttE3Lv4QMGUa2/0GtDV65679hVef
- iSGyoUFjlO385DSynUwrUhXJ/3ioDKPL662iH4CQSsLDgCBJ1YhY1GUOhmkzGs57M7
- GLXUGWxFu+dX9FXBFydVuygrSIXq991ZhpS2XWUjaj+zWXpCV4y+ffWF8YdLCDsPcx
- /UvLQxdLDyxnAUFJc9iV007eL++4NBBdHuBjb1k04I49XopB+f/ovXHE32cY0sMZT7
- cjUA/jMnUwYyA==
-From: Jonas Hahnfeld <hahnjo@hahnjo.de>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ALSA: usb-audio: Correct quirk for VF0770
-Date: Mon, 31 Jan 2022 19:35:16 +0100
-Message-Id: <20220131183516.61191-1-hahnjo@hahnjo.de>
-X-Mailer: git-send-email 2.35.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="qesb75kc"
+Received: by mail-wr1-x431.google.com with SMTP id e8so27280629wrc.0
+ for <alsa-devel@alsa-project.org>; Mon, 31 Jan 2022 10:39:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=w7AiGUluPxc0UiTDIqENVKqTDlOyS4uHsgpuwHwLOeg=;
+ b=qesb75kcRx+bDIaLCM24KVqxxOLbJ9n9n2UGEJHBZT9ib/x4I5+h7gXGj3i71uRZ6z
+ aCL92nTYDzuilalvWL63SaXLu04Dy6r7dftFe96usZpjVwxmyyNcnLmGVU2rnFbXoHfO
+ 6gXlcmJY330p+t9Wa9Q3BV+3wi+LKaJEYrmzV5LMLDIrFtwoj4uMxIiy7lu00Yi+Cuex
+ aknT5IeAOuK3FNFYLmUNWCFOjzzXDCST23mVgIqypACTQ3OmCEvUvnpjqHmDQz2FAijo
+ b496zk60iFns+G72MZtWGbeplYK3Trfynqto3U6IP3/zgyMOBjHjoYt0Ywlzlu+TF5ej
+ YwNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=w7AiGUluPxc0UiTDIqENVKqTDlOyS4uHsgpuwHwLOeg=;
+ b=L9De3XJ101OX4RfAtLV6G+PdnGCy0cYs/2ZRBRcijcD70s6GR3L7D7x6JCNP0OXlFC
+ gvOl8b4PIaNCBngk1nDI3XjVhO7kdmOCo8O3aSm5U5lFq+EbjOGCO/Bg/qUGkKFB1n6e
+ IiLBm7n132vYpdTKwCKAvDG/43rvburstStZuB4E9klR3hGh5o4/n4hjaoBSg94n+lYU
+ NkCrZegcUqJgN5rP7kuZVBTbz/SKKejxp98gqxd1Y+2nwegep5G4SbJgeNy4w11+TzoF
+ gxFyL8VlvhLhxaQs0q4cSrAxktAxIXI47kj9sGn7QjB4R79uwEqcVNbWGA15KM0ZhmUe
+ myLg==
+X-Gm-Message-State: AOAM530qzsdsGYjEGYaYyx77NeXY+GYcDSojmCdym/6ZGS+Zb+fj/AhN
+ wKpvPC5t6rV8G8yIkg/k2jIDC5IKnTguJhyojFU=
+X-Google-Smtp-Source: ABdhPJxls4LiARlzwvKBacPiPXYA243f991NP7fBtWDu66SvwODeqEa2vmOpr70ho733SPXtbttVHv7+1KJV3gRHPmI=
+X-Received: by 2002:a05:6000:1568:: with SMTP id
+ 8mr17533319wrz.583.1643654352357; 
+ Mon, 31 Jan 2022 10:39:12 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Jukka Heikintalo <heikintalo.jukka@gmail.com>,
- =?UTF-8?q?Pawe=C5=82=20Susicki?= <pawel.susicki@gmail.com>,
- Jonas Hahnfeld <hahnjo@hahnjo.de>
+References: <20220129000837.6207-1-cujomalainey@chromium.org>
+ <a8ffb740-9f03-340f-a7ba-5e0f1a074b22@amd.com>
+In-Reply-To: <a8ffb740-9f03-340f-a7ba-5e0f1a074b22@amd.com>
+From: Curtis Malainey <cujomalainey@gmail.com>
+Date: Mon, 31 Jan 2022 10:39:00 -0800
+Message-ID: <CAGXAbSq4+YY3qNt2c8J-P278QtUMTkJAo7x3=6UvJof4bH2C2Q@mail.gmail.com>
+Subject: Re: [PATCH] Revert "ASoC: amd: acp: Power on/off the speaker enable
+ gpio pin based on DAPM callback."
+To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ V sujith kumar Reddy <vsujithkumar.reddy@amd.com>,
+ Curtis Malainey <cujomalainey@chromium.org>, Eric Peers <epeers@google.com>,
+ Rob Barnes <robbarnes@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,37 +101,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This device provides both audio and video. The original quirk added in
-commit 48827e1d6af5 ("ALSA: usb-audio: Add quirk for VF0770") used
-USB_DEVICE to match the vendor and product ID. Depending on module order,
-if snd-usb-audio was asked first, it would match the entire device and
-uvcvideo wouldn't get to see it. Change the matching to USB_AUDIO_DEVICE
-to restore uvcvideo matching in all cases.
+> > --
+> > 2.32.0
+> >
+> I feel instead of reverting this complete patch we can quickly submit a
+> new patch set with "gpio_spk_en = NONE" for maxim codec case. As codec
+> driver is anyhow controlling that gpio we don't need to do it from
+> machine driver. We've already done that here
+> https://patchwork.kernel.org/project/alsa-devel/patch/20220131203225.1418648-1-vsujithkumar.reddy@amd.com/
 
-Fixes: 48827e1d6af5 ("ALSA: usb-audio: Add quirk for VF0770")
-Reported-by: Jukka Heikintalo <heikintalo.jukka@gmail.com>
-Tested-by: Jukka Heikintalo <heikintalo.jukka@gmail.com>
-Reported-by: Paweł Susicki <pawel.susicki@gmail.com>
-Tested-by: Paweł Susicki <pawel.susicki@gmail.com>
-Cc: <stable@vger.kernel.org> # 5.4, 5.10, 5.14, 5.15
-Signed-off-by: Jonas Hahnfeld <hahnjo@hahnjo.de>
----
- sound/usb/quirks-table.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index b1522e43173e..0ea39565e623 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -84,7 +84,7 @@
-  * combination.
-  */
- {
--	USB_DEVICE(0x041e, 0x4095),
-+	USB_AUDIO_DEVICE(0x041e, 0x4095),
- 	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
- 		.ifnum = QUIRK_ANY_INTERFACE,
- 		.type = QUIRK_COMPOSITE,
--- 
-2.35.1
-
+I'm pretty sure the proper solution is to shove this logic into the
+alc1019 driver like it is in the max98357 driver. The header is
+already there for gpio which makes me think it was planned but
+forgotten. Otherwise everyone else who uses this codec and associated
+pin will have to duplicate this logic in their machine driver.

@@ -2,74 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 084364A4A69
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jan 2022 16:20:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D8B74A4B80
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jan 2022 17:12:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 739931689;
-	Mon, 31 Jan 2022 16:20:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 739931689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CA853E;
+	Mon, 31 Jan 2022 17:11:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CA853E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643642455;
-	bh=U81rLjtR8IWf25YlfkzFt9hF10+zIQLW61njAr/UKkQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1643645532;
+	bh=CffkeDPQIGKCT7zt9bvQS9kahLagWK5zgsg2gxOqyoE=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HmwodXLwH5F6W1I/QMO0pbuJKoCwsu3y5gc9mHJmhDPE1PdN/+Y+6SDA3ZPqDk/Jf
-	 b176miNIvOyyMyXooodkbJ1cX+T4Z8lPyBxAlA2kai19P6Nr8dmb59i8MdEP1voXVr
-	 ZT+VNG1fcREhVThOyjov4ZQkiF4BoSLaBUlZ5k24=
+	b=gMEtMB3SJIFU9seYoDdDvStjiobNatmHL3MijxPRxWzaQtszgThy2IJU3L3LV9jPw
+	 FkTGHB44afHhZ232llch+vHNj4VNZj+zBYKc+fKLwTTVrWqeP6AhQk3m3NwPWOwQsf
+	 qEqrnZaGnC7vtshhrf8/M8I5HUf/ceFbAYEStYJQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D92AEF80302;
-	Mon, 31 Jan 2022 16:19:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D049CF80302;
+	Mon, 31 Jan 2022 17:11:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 631AFF8028B; Mon, 31 Jan 2022 16:19:48 +0100 (CET)
+ id 2CF8DF80095; Mon, 31 Jan 2022 17:11:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3BF9F80095
- for <alsa-devel@alsa-project.org>; Mon, 31 Jan 2022 16:19:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3BF9F80095
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28205F80095;
+ Mon, 31 Jan 2022 17:10:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28205F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LcMKN1a7"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7537A61423;
- Mon, 31 Jan 2022 15:19:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99572C340E8;
- Mon, 31 Jan 2022 15:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643642380;
- bh=U81rLjtR8IWf25YlfkzFt9hF10+zIQLW61njAr/UKkQ=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=LcMKN1a7e9Uw3CSgeFnrAQbtA21WcvH0Nn8y0UfSFiYYR0GBigo5Y+dlss2oK4IIq
- UU9gg2u0WFpYZibW9LuMHXsVWCet5yd1j7EaP9tC8FKwcq9C/l8kcrnQzsRLaDaIJv
- FgYzxi7MfY72iNyor0lhbgHzB3LCaiPPU7ApzW2JSWF/07OHL/Ixtz8dDfnC4pAjXu
- RVqGrhTeu8LZ8MO/rAMeertOSRMvfZpGAKL4VpkeUesX2W91Iv1mt+bLI0licqIL6D
- hJFwAPFvseu/SsZJgNtHTPaoBpBM8Zxj72y9N9y8QjPg93jACT7WBhdTp5edMdyOVl
- CLZ3S25dkawUg==
-From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20220129080259.19964-1-rdunlap@infradead.org>
-References: <20220129080259.19964-1-rdunlap@infradead.org>
-Subject: Re: [PATCH] ASoC: max98927: add missing header file
-Message-Id: <164364237834.3159101.12950435355735915006.b4-ty@kernel.org>
-Date: Mon, 31 Jan 2022 15:19:38 +0000
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="iMA15jgI"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id 6C90F1F42963
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1643645456;
+ bh=CffkeDPQIGKCT7zt9bvQS9kahLagWK5zgsg2gxOqyoE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=iMA15jgISWEGuW3lv7B7QDjXEtx4X4aZPCOlkNNkIl43zLQtSHnpfPwt+xq+yDeZ5
+ +TDbK5oNPhKQgGDuX8eZvPihSaw7EIgP3oWAi27KcXY7abCoG2QQZUpWaq/xoTxM7Q
+ X+f27m4EVb3oaW6R5Wcuqn05IMPaQZODbG9z3JpFQQ/BQgkuno3c1NdBk9pRE/fAxN
+ fgG5J5qbqr2nrA7sVRKIWDG5fmRc8keGyJxa+jiw0lO1e2wgb0cuos06/CEnL8SeTS
+ EFAWq+1B9ms3kfw+st1YPmCG4EefAONHtgXtcLyuLij5O4l7IPsPbef3ryxpR1pjYn
+ wu3wUYQbZoicw==
+Message-ID: <797cebd4-c367-e220-8ed3-6c1a69df4eb4@collabora.com>
+Date: Mon, 31 Jan 2022 17:10:53 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel test robot <lkp@intel.com>, alsa-devel@alsa-project.org,
- Alejandro Tafalla <atafalla@dnyon.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Subject: Re: [PATCH v6 1/1] firmware: mediatek: add adsp ipc protocol interface
+Content-Language: en-US
+To: "allen-kh.cheng" <allen-kh.cheng@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Mark Brown <broonie@kernel.org>
+References: <20220128111832.22989-1-allen-kh.cheng@mediatek.com>
+ <20220128111832.22989-2-allen-kh.cheng@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20220128111832.22989-2-allen-kh.cheng@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
+ Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Chen-Yu Tsai <wenst@chromium.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,47 +93,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 29 Jan 2022 00:02:59 -0800, Randy Dunlap wrote:
-> Add a header file that provides the missing function prototypes
-> and macro to fix these build errors (seen on arch/alpha/):
+Il 28/01/22 12:18, allen-kh.cheng ha scritto:
+> From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 > 
-> ../sound/soc/codecs/max98927.c: In function 'max98927_i2c_probe':
-> ../sound/soc/codecs/max98927.c:902:19: error: implicit declaration of function 'devm_gpiod_get_optional'; did you mean 'devm_regulator_get_optional'? [-Werror=implicit-function-declaration]
->   902 |                 = devm_gpiod_get_optional(&i2c->dev, "reset", GPIOD_OUT_HIGH);
->       |                   ^~~~~~~~~~~~~~~~~~~~~~~
-> ../sound/soc/codecs/max98927.c:902:63: error: 'GPIOD_OUT_HIGH' undeclared (first use in this function); did you mean 'GPIOF_INIT_HIGH'?
->   902 |                 = devm_gpiod_get_optional(&i2c->dev, "reset", GPIOD_OUT_HIGH);
->       |                                                               ^~~~~~~~~~~~~~
-> ../sound/soc/codecs/max98927.c:909:17: error: implicit declaration of function 'gpiod_set_value_cansleep'; did you mean 'gpio_set_value_cansleep'? [-Werror=implicit-function-declaration]
->   909 |                 gpiod_set_value_cansleep(max98927->reset_gpio, 0);
->       |                 ^~~~~~~~~~~~~~~~~~~~~~~~
+> Some of mediatek processors contain
+> the Tensilica HiFix DSP for audio processing.
 > 
-> [...]
+> The communication between Host CPU and DSP firmware is
+> taking place using a shared memory area for message passing.
+> 
+> ADSP IPC protocol offers (send/recv) interfaces using
+> mediatek-mailbox APIs.
+> 
+> We use two mbox channels to implement a request-reply protocol.
+> 
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
+> Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+> Reviewed-by: YC Hung <yc.hung@mediatek.com>
+> Signed-off-by: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: max98927: add missing header file
-      commit: bb45f689fa62110c263c86070bfcb9ecbb6e1e23
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>

@@ -2,93 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FEB14A6436
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Feb 2022 19:50:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A6D4A6450
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Feb 2022 19:57:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9B8E17EF;
-	Tue,  1 Feb 2022 19:49:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9B8E17EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A96617D4;
+	Tue,  1 Feb 2022 19:56:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A96617D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643741434;
-	bh=7yQhQZs5VQ7iOCiqGdcioTwZJYGMTm0+9hLuvtnCb+k=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1643741866;
+	bh=c/IJGNmj/Ex6/82Ta/ipeCiMP2mjbmkO9Yx3XqM+Ro8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FrfN9YMeaxaDLu5eyagtgn+cNSpuZo58r70SyQin6PIgk3WJhC864OTi4wb2yITE/
-	 6MrJ14ZH4pqKpmm3igW3KnhI4ru+ELZ0mxjXHsBdzfFm/YOkRrJG+LyxdP2DCaqvDD
-	 +DRfcSV2dfMJoHjZe63PE4dxubW/GC4qSWL2yi5E=
+	b=U3UrxipjolviQxqvam1UXG3z1kOWjG6hV9GLNfnVtsqzOTykj0MAHfXBbxsUrMm+d
+	 i3PTNTM79oUvkIKTlGcJOzmZfwW22T3u2C/USMsTyLRVGTTxF5GhxWwa3Z/TfdcL7R
+	 glGfDAZghtfieOD+umgJpLuzWoXmwRbDIsXjuTmo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35F43F80089;
-	Tue,  1 Feb 2022 19:49:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62FC3F800F8;
+	Tue,  1 Feb 2022 19:56:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18A54F80130; Tue,  1 Feb 2022 19:49:26 +0100 (CET)
+ id 54FB7F80130; Tue,  1 Feb 2022 19:56:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
- [IPv6:2607:f8b0:4864:20::12b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C23C8F800F8
- for <alsa-devel@alsa-project.org>; Tue,  1 Feb 2022 19:49:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C23C8F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id B17CBF800F8
+ for <alsa-devel@alsa-project.org>; Tue,  1 Feb 2022 19:56:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B17CBF800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="crZKCeXm"
-Received: by mail-il1-x12b.google.com with SMTP id x6so2555192ilg.9
- for <alsa-devel@alsa-project.org>; Tue, 01 Feb 2022 10:49:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=YBWpcqo7r9PmZE44Y/rtRRY/rFDY3Yz81vSI7lMsgBk=;
- b=crZKCeXmjdeNhtotolL21onTwntleBAgT/ItIhhzYnnQTNgRvOITvJKOdmFK5q7uEj
- lP/gZn4y8tVfBMCq0QQIsMahVNqGmYmzzeCTyz6P1tnDi7HQjlh6HcvMSo8YLNbrkn3d
- jksclscYjOCa9QVbKwxxBDW0ExnKY4385oUCo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=YBWpcqo7r9PmZE44Y/rtRRY/rFDY3Yz81vSI7lMsgBk=;
- b=xYhcPypBSb/uO1Ez7CsYKgd7qnF8Rn8obvxYGb7I7zP0BkgrmKMT0GpghkVnMdu0pW
- TOZWmtmH0lt8klh2E+Q30VzVMvv8YkQuVYs8oF5ADsuYuM/MMRlxJvBueDL0N4vkKNGq
- 3m5zy4FljfE2yigITLay3JkFsXajNPlOdLTYmWp3IbTJijoGx2xZykFxfWYPayDRzNjt
- zjc08QcTD5qayrToZMPVhpgu5RPxGu1IsS9ip2pPod25MHvWWHEh5NUdxAhegfGhCxYm
- Yk+zOknSCrLwUtn6EPB0r/brUlAPdE1Fy82MqY4P8cq2ZKY7LvZ2CPylrP7/Fr7SHMgB
- 5ZVg==
-X-Gm-Message-State: AOAM531yh4SJBHQDkpFyIhngU/xt3wA1qwskq/u8v8aSdqTvMMuBjnJs
- lDsUmeqr6xVqOmvFP9Nj5WEAoQ==
-X-Google-Smtp-Source: ABdhPJzrMNz8kG6pYoBfSNtpQG/SHDFYR5k7N9SwSYjtb9EG5VRQTM6Azj18d7UT5qM1jxuDzdB3Vg==
-X-Received: by 2002:a05:6e02:1caa:: with SMTP id
- x10mr15637859ill.249.1643741356967; 
- Tue, 01 Feb 2022 10:49:16 -0800 (PST)
-Received: from [192.168.1.128] ([71.205.29.0])
- by smtp.gmail.com with ESMTPSA id t7sm18534614ilu.37.2022.02.01.10.49.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Feb 2022 10:49:16 -0800 (PST)
-Subject: Re: [PATCH] kselftest: alsa: Declare most functions static
-To: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Shuah Khan <shuah@kernel.org>
-References: <20220201181530.2405077-1-broonie@kernel.org>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <d511cfff-5a0b-38e5-d1f3-b1f47ee8e596@linuxfoundation.org>
-Date: Tue, 1 Feb 2022 11:49:13 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="sqWc/UnE"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 37DFD614B5;
+ Tue,  1 Feb 2022 18:56:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BA79C340EB;
+ Tue,  1 Feb 2022 18:56:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643741791;
+ bh=c/IJGNmj/Ex6/82Ta/ipeCiMP2mjbmkO9Yx3XqM+Ro8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sqWc/UnElgcA1V/zabH0Upd2dRIuZ7XfcXx1LltnpaEQjmwXG1244xqct7HfsPGfz
+ EAzqU/AuH8RaTAZKaeGXrPsnZslxkl0Ly1rAyiNIu9Lhe5VyS6iE9GhDWgdWocVqnz
+ SZ1mHEG90cIQbPEzGGQo0kowIy8rr/uCZKaS8eAt43OPv3QA0mmwlJUbrDngbhFIVu
+ nF+aGAlE9lhtGeZBBwhDKigfv5PaECp2wT3ehSwNeGmBTcYXU1GzTZaxHXj4BUwH+Q
+ aOrxAdh61l+tn8SGCG1rpmrRmfmfajV+Xjydx95MHC/B8QnpG19Y9HLkDJNy9HQ0jg
+ 6fbMtSjLMiC6Q==
+Date: Tue, 1 Feb 2022 18:56:26 +0000
+From: Mark Brown <broonie@kernel.org>
+To: V sujith kumar Reddy <vsujithkumar.reddy@amd.com>
+Subject: Re: [PATCH] ASoC: amd: acp: Set gpio_spkr_en to None for max speaker
+ amplifer in machine driver
+Message-ID: <YfmCWuD88sT8YxfG@sirena.org.uk>
+References: <20220131203225.1418648-1-vsujithkumar.reddy@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <20220201181530.2405077-1-broonie@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kselftest@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="lIess6m8PaiZ+06b"
+Content-Disposition: inline
+In-Reply-To: <20220131203225.1418648-1-vsujithkumar.reddy@amd.com>
+X-Cookie: All's well that ends.
+Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ ajitkumar.pandey@amd.com, Curtis Malainey <cujomalainey@google.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Vijendar.Mukunda@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,23 +89,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/1/22 11:15 AM, Mark Brown wrote:
-> This program has only one file so most functions can be static.
-> 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
-> This depends on my previously posted patch adding coverage of events:
-> 
->    https://lore.kernel.org/all/20220201151551.21497-1-broonie@kernel.org/
-> 
->   tools/testing/selftests/alsa/mixer-test.c | 58 ++++++++++++-----------
->   1 file changed, 30 insertions(+), 28 deletions(-)
-> 
 
-Thank you Mark. That was quick.
+--lIess6m8PaiZ+06b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
+On Tue, Feb 01, 2022 at 02:02:15AM +0530, V sujith kumar Reddy wrote:
 
-thanks,
--- Shuah
+> Maxim codec driver already enabling/disabling spk_en_gpio in form of sd_m=
+ode gpio
+> hence remove such gpio access control from machine driver to avoid confli=
+ct
 
+
+> -	.gpio_spkr_en =3D EN_SPKR_GPIO_NK,
+> +	.gpio_spkr_en =3D EN_SPKR_GPIO_NONE,
+>  };
+> =20
+>  static struct acp_card_drvdata sof_rt5682s_rt1019_data =3D {
+> @@ -56,7 +56,7 @@ static struct acp_card_drvdata sof_rt5682s_max_data =3D=
+ {
+>  	.hs_codec_id =3D RT5682S,
+>  	.amp_codec_id =3D MAX98360A,
+>  	.dmic_codec_id =3D DMIC,
+> -	.gpio_spkr_en =3D EN_SPKR_GPIO_NK,
+> +	.gpio_spkr_en =3D EN_SPKR_GPIO_NONE,
+>  };
+
+This looks like a good fix for the immediate issue which fixes the
+MAX9360A systems without breaking the RT1019 ones, however as I said in
+the thread about Curtis' revert it's not clear what the ideal thing is
+here.  There's no documentation about the RT1019 that I can find so it's
+not clear to me what exactly the GPIO is controlling, if it's part of
+the RT1019 or something else.  That influences where the most tasteful
+place to control this GPIO is.  Curtis noted that the RT1019 driver
+includes gpiolib headers but that could just as easily be cut'n'paste as
+intentional.  What's the story here?
+
+I do also note that the current code just turns the GPIO on and leaves
+it on which presumably isn't great from a power management point of
+view.
+
+--lIess6m8PaiZ+06b
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmH5glkACgkQJNaLcl1U
+h9AWMwf9H+pMGHYSfKLyGrqqxX98un/or66MjUsxkpLtvaChtZ4NO/N29ZVH1IyH
+Yq7+PCSINajjV8pmxYKpPHgrjDjWCdSRk9cLHivHG7SmazMwjBGrKPYg7TLxr0r4
+WkupsCucq91p+BPGZ8oUsFoEMILPHI+w0tka+AflnUfXlhYtG/qqZBa+QbJ1wEd3
+ZvOwac6lbfzu2sf9vQgTJig1h9lUyRT1l+y4aFkFfQRZKQZc6YGGLzoHRawWQqxY
+8m5IabZxP/3KcpMcZ6GZDMNa47nDWKu7PLQZo0OUEAUlgfffY7mO/4HBRaeJlIMc
+KuFmmP9uNYoYHd+VSDPeMoD4UVBwMA==
+=DVHf
+-----END PGP SIGNATURE-----
+
+--lIess6m8PaiZ+06b--

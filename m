@@ -2,83 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B18CF4A62A5
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Feb 2022 18:38:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 594204A62C1
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Feb 2022 18:42:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 392C117D4;
-	Tue,  1 Feb 2022 18:37:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 392C117D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDD9C187A;
+	Tue,  1 Feb 2022 18:41:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDD9C187A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643737109;
-	bh=5+e2/1ovVlkoJZG7HnhqfG3Xn95vLy9k+cqRL0uJ2do=;
+	s=default; t=1643737363;
+	bh=xqurn0aMLg9LPORst7+QOsFe67TLB0BWbKrD5lJaEUg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WNTS3qAtwcRiNk2vx7J5Fnu4q5RA4lwtNnbXbfcF9OFyeGEjFzlbnpOp/IUVL/D3R
-	 0dFY7iPH45RZMcprRSOAzpqmsBlV+IEBaeYa7woWGHCuLRMs7/xo1M0qUMU6D91LU0
-	 fVXrt5Vlkt4hk+VJIbstPLHZ9NN1WgUqOFs7INik=
+	b=ZuJ5cgRozp2hL7zzHfOz67BtJxfwOo1qSM+i5KCmbKs7iGkZn/kFj4EjTQpStNG4R
+	 /iEJXufsRZShkOeZgy0uYzBO4smWvUFEaWByMiPoeAxl+nUuWfap+pXgjGTKMQAs6e
+	 tg8cGvmBKuEj89Yx0qZbTBqCVKVp9aO3lorFIN4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84CD8F80139;
-	Tue,  1 Feb 2022 18:37:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 645C7F80089;
+	Tue,  1 Feb 2022 18:41:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7F84F80089; Tue,  1 Feb 2022 18:37:20 +0100 (CET)
+ id AA749F80130; Tue,  1 Feb 2022 18:41:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61695F800F8
- for <alsa-devel@alsa-project.org>; Tue,  1 Feb 2022 18:37:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61695F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1697CF80089
+ for <alsa-devel@alsa-project.org>; Tue,  1 Feb 2022 18:41:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1697CF80089
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sxW1qIGE"
+ header.b="XhHJogGx"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 93470B82F26;
- Tue,  1 Feb 2022 17:37:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC84BC340EB;
- Tue,  1 Feb 2022 17:37:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 44E8A612D8;
+ Tue,  1 Feb 2022 17:41:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF857C340EB;
+ Tue,  1 Feb 2022 17:41:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643737034;
- bh=5+e2/1ovVlkoJZG7HnhqfG3Xn95vLy9k+cqRL0uJ2do=;
+ s=k20201202; t=1643737287;
+ bh=xqurn0aMLg9LPORst7+QOsFe67TLB0BWbKrD5lJaEUg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sxW1qIGED3bDGK2mg5prOpEGSfiWe7+fT3a7V37OfTRi8YAXEE6+hyhVVbNrLuA32
- mznzf9FkC9qKTCzrAUGCn4of/W1v78w5mW1Vl9gJGJz5Xlvq6Y1bSCXTlXVH0IH7rP
- 5yLlePfUTRbmaGnMsFHH3yUcK3EQq1nfxEOdr7zwk8+5+/dNtynakmCuofnjDoXTWW
- Yy8Lvzhk0TTU+hKzLjKb1/btwnyYv0ICzYMniyYyT/wvq/RjgUkmTHnG4e/dD6IbWP
- FP3pgRbqa9hJxOzvX2vwfNJpj8BAMyY/TkaGnp7t7wJP6uE2I+p4plxj1Jlzaw82We
- hzxMb/hloQWPw==
-Date: Tue, 1 Feb 2022 17:37:08 +0000
+ b=XhHJogGxV9fLNWcbgdHNbs4+6IXOssN8O5a+LqiuEY6P07FpWmF/V00NmNuNAgUqO
+ kKdSLwkI8CmW+4H9dbwuJc+ABJUEQvo2E2N/uoDRkYkT3ZPJuyFbZu43Q3gd+OnsQw
+ fYB5RWS7G5erqCaqn5LNsGO0YnZun6GjONge/RFt/ej5tHy1NHmWd1yfxfTooCHPMQ
+ OxurKPbSFYwaXOqklMaETsz+0+Y70jMdTuHpjFJfqSEenTNQhmwiodDdNrv1FlQKH+
+ p+tQhFU0RQ6NVojA19GGX4+lq6bNYZvNCDlQ1qGcjiwQmqywzurGJ5DlSKTLTiV7w0
+ tKZYDzdCKiHyw==
+Date: Tue, 1 Feb 2022 17:41:21 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Stefan Binding <sbinding@opensource.cirrus.com>
-Subject: Re: [PATCH v6 2/9] spi: Create helper API to lookup ACPI info for
- spi device
-Message-ID: <YflvxPmiwL0TbjPM@sirena.org.uk>
+Subject: Re: [PATCH v6 0/9] Support Spi in i2c-multi-instantiate driver
+Message-ID: <YflwwWD85CmSzlgT@sirena.org.uk>
 References: <20220121172431.6876-1-sbinding@opensource.cirrus.com>
- <20220121172431.6876-3-sbinding@opensource.cirrus.com>
- <36df02cc-d164-eb6a-4ce7-54d2ee916650@redhat.com>
- <001101d81791$23f56090$6be021b0$@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="NYU0R5j8dZiNHmNm"
+ protocol="application/pgp-signature"; boundary="f9iEEYctSRFMQhBo"
 Content-Disposition: inline
-In-Reply-To: <001101d81791$23f56090$6be021b0$@opensource.cirrus.com>
+In-Reply-To: <20220121172431.6876-1-sbinding@opensource.cirrus.com>
 X-Cookie: All's well that ends.
 Cc: platform-driver-x86@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-acpi@vger.kernel.org, "'Rafael J . Wysocki'" <rafael@kernel.org>,
- linux-kernel@vger.kernel.org, 'Takashi Iwai' <tiwai@suse.com>,
- 'Mark Gross' <markgross@kernel.org>, 'Hans de Goede' <hdegoede@redhat.com>,
+ linux-acpi@vger.kernel.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
  patches@opensource.cirrus.com, linux-spi@vger.kernel.org,
- 'Len Brown' <lenb@kernel.org>
+ Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,43 +90,58 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---NYU0R5j8dZiNHmNm
+--f9iEEYctSRFMQhBo
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Feb 01, 2022 at 05:28:34PM +0000, Stefan Binding wrote:
+On Fri, Jan 21, 2022 at 05:24:22PM +0000, Stefan Binding wrote:
+> Add support for SPI bus in the i2c-multi-instantiate driver as
+> upcoming laptops will need to multi instantiate SPI devices from
+> a single device node, which has multiple SpiSerialBus entries at
+> the ACPI table.
 
-> I was just fixing this, however, I just noticed that a subset of this chain - including
-> this patch - just got applied. Do you want me to fix this in a separate patch?
+The following changes since commit e783362eb54cd99b2cac8b3a9aeac942e6f6ac07:
 
-Quoting from the mail you got saying that the series was applied:
+  Linux 5.17-rc1 (2022-01-23 10:12:53 +0200)
 
-| If any updates are required or you are submitting further changes they
-| should be sent as incremental updates against current git, existing
-| patches will not be replaced.
+are available in the Git repository at:
 
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git tags/spi-acpi-helpers
 
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
+for you to fetch changes up to e612af7acef2459f1afd885f4107748995a05963:
 
---NYU0R5j8dZiNHmNm
+  spi: Add API to count spi acpi resources (2022-02-01 17:38:48 +0000)
+
+----------------------------------------------------------------
+spi: ACPI helpers
+
+This patch series enhances the ACPI helpers to cope with multiple
+resources being available and exports them for use.
+
+----------------------------------------------------------------
+Stefan Binding (4):
+      spi: Make spi_alloc_device and spi_add_device public again
+      spi: Create helper API to lookup ACPI info for spi device
+      spi: Support selection of the index of the ACPI Spi Resource before alloc
+      spi: Add API to count spi acpi resources
+
+ drivers/spi/spi.c       | 137 ++++++++++++++++++++++++++++++++++++++++++------
+ include/linux/spi/spi.h |  20 +++++++
+ 2 files changed, 141 insertions(+), 16 deletions(-)
+
+--f9iEEYctSRFMQhBo
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmH5b8MACgkQJNaLcl1U
-h9Dzzgf/Qaojnc1Tj+koHQ+yotSwO0JMyuM6KElApYmMkU67dQwQgn79wFstjmqU
-I0QX8F3k8rDQaYuS7MjeWCee4raTsSQ3eQb3k0ORuUGE96RWPcsrK4MgpwIR+K/D
-uR7Bvva58ALZI0Y9u2nLwQGfcOeXt3TmUIIsmIgdBu0e3KAOfKcFD+98x/AOWGON
-/TiklP8RFuqYiMDAij6vS7RflZ3zlN1yR/aGqYgfgiH9UXBIpgJd8mZ42Nb3sCQg
-IbILq+R6RyR6bVUODSdegfsizQLkTRFK0EWQlgVtDNkmn8feOxPC0erAhCbI1kaK
-ukivFigIPevnB5Phdi5brz3lda3nGw==
-=z7h3
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmH5cMEACgkQJNaLcl1U
+h9Ck2gf9GYw5kRyywJi8CHAE4s6w7WHL0sKrCSwxkn0svqktdSthmB1eYeKBXKma
+PaNBJ6aN6PwmUTN7O3qaw03HbPbXX6m7/6B3nYLCm7DV2GcCK/eGhvVeOQfPeAvj
+Ydh1Xv7G6BYCPpAy4gYTQb8qZ4okCpe/bAhvqjFE44I04psrXSaByp502BJ32o7G
+DfAZa6Tp2OwOmdtveUBFyu7KciNDLre9taSfKd6yaCnWrAJIuwWxdmgFlSXUqAg2
+J4x2i0/tCvxCyDBa4XlGpAJ+56QCMIQLakeJruDF7lSA5qOe36MLDwJ8ONRMClNw
+5NmIEME3mIGVUtw43zzwdmAoBezAjQ==
+=zFNW
 -----END PGP SIGNATURE-----
 
---NYU0R5j8dZiNHmNm--
+--f9iEEYctSRFMQhBo--

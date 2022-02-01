@@ -2,80 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BA3C4A6179
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Feb 2022 17:39:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A564A6238
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Feb 2022 18:19:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F029186C;
-	Tue,  1 Feb 2022 17:38:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F029186C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A66C1843;
+	Tue,  1 Feb 2022 18:18:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A66C1843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643733561;
-	bh=GC1Mjr1ODUmVQZIheMoPE/nEFDSvrLrlQWcU2D76mhw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1643735985;
+	bh=QCTlWYmS9EOoe3FSAuKyF+iS/GsMDs+Q+vbUb7YCgig=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ITCX/Z7oQSxlIROqxaZUYaba4/ROd+DuYE2XtKWQentbYhXsZe0sQKL3sB9d5XyhU
-	 UHR9/SfWk7YafKaUc8Fiwnomd6dfcOPnPEkHDbEStSh7p52fSNmf6OXTVDMOtoIJfo
-	 ZZoXvZqcTzyfZG7Yq+lgakXBahv1KsjIFWSd15XI=
+	b=s/TS6cY9G+WSZ5Iec6hjWQBGxvC0VExAJYpTek+RNhHSaRtv7nYL0vMM46RTTbYLS
+	 BjpWnouzNpTygGrE8K5CbIPeiHxlZB+TMAzqjaAvs2rK3EpqIr01/vloFSPvel4jct
+	 gaPYhLYuROoU1vKokUbRUz5mUrWQuAKeSv1vaG3E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC50AF80139;
-	Tue,  1 Feb 2022 17:38:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF29FF80139;
+	Tue,  1 Feb 2022 18:18:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B3FAF80130; Tue,  1 Feb 2022 17:38:13 +0100 (CET)
+ id 49E5AF80130; Tue,  1 Feb 2022 18:18:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9CCB1F800F8
- for <alsa-devel@alsa-project.org>; Tue,  1 Feb 2022 17:38:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CCB1F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF82FF800F8
+ for <alsa-devel@alsa-project.org>; Tue,  1 Feb 2022 18:18:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF82FF800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="KPr0CnQq"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="TzJIxeDy"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D5CE121118;
- Tue,  1 Feb 2022 16:38:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1643733489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FN6O8kVbLZ/2uDWqAyZjzUiNnrvTtK5IlRYYmimQMNA=;
- b=KPr0CnQqLnMMtOvmm7B42xzvOFQc+aGFgvgD8iwlDq1f+J2zgXj+lDiavKfjK+srWfwjC1
- /zA+uJyiL1utIVeFQi6CzRl5EBtzGD/Fuqg3RhFyJPkELNAvbG5JWRQBFgKL2S3AYQ40jS
- 4v3IPEg16lzW/tQozMPj8/3+ectI4V8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1643733489;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FN6O8kVbLZ/2uDWqAyZjzUiNnrvTtK5IlRYYmimQMNA=;
- b=TzJIxeDyWZcD+AhXheh9NHtJI1sKaYu+maEXRycflIjzXUHCAh0rUSmgsN5ptedzKnAw9H
- gJqzTc/CXdI6IxBA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CC540A3B83;
- Tue,  1 Feb 2022 16:38:09 +0000 (UTC)
-Date: Tue, 01 Feb 2022 17:38:09 +0100
-Message-ID: <s5hczk61r0u.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.17-rc2
-In-Reply-To: <20220201155150.EE80EC340EB@smtp.kernel.org>
-References: <20220201155150.EE80EC340EB@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Fkf5IMU3"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 76ED5B82F21;
+ Tue,  1 Feb 2022 17:18:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96DBEC340F1;
+ Tue,  1 Feb 2022 17:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643735911;
+ bh=QCTlWYmS9EOoe3FSAuKyF+iS/GsMDs+Q+vbUb7YCgig=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Fkf5IMU3dvwqyIUm7rtcGVWFj/F+gC931f/JlE40yXNSsMPv3+LhaL5vY8eidcHL7
+ 7/XgoH1Romk6+3DUD0mlIH8CFvhOU4RLbuZDAqD/bqR9hMH3RLdY5OqDvn1jj6EkxJ
+ DTY96Kse3fsyqNzM04kQAVKa6xXH7pBIoWuQhnunhWN8Kcz8V9OpxvuUAv/WYo/yEZ
+ YoRLIvIMmIOaibIUmu2tPYiXBry9J3NAh9vA5XUzjQ9UIyfAmcZ+7A3y2LwPYuxfMi
+ EkJvp+DjdbIKPrxkUCF+IwC9mrPBBO6bPV989n9OPLc4iqBGlvg1Q57oWcFzehXRk4
+ bDv8OkhC+yI0w==
+From: Mark Brown <broonie@kernel.org>
+To: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Mark Gross <markgross@kernel.org>,
+ Stefan Binding <sbinding@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>, Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20220121172431.6876-1-sbinding@opensource.cirrus.com>
+References: <20220121172431.6876-1-sbinding@opensource.cirrus.com>
+Subject: Re: (subset) [PATCH v6 0/9] Support Spi in i2c-multi-instantiate
+ driver
+Message-Id: <164373590827.2398858.14272664575079463567.b4-ty@kernel.org>
+Date: Tue, 01 Feb 2022 17:18:28 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-spi@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,31 +88,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 01 Feb 2022 16:51:38 +0100,
-Mark Brown wrote:
+On Fri, 21 Jan 2022 17:24:22 +0000, Stefan Binding wrote:
+> Add support for SPI bus in the i2c-multi-instantiate driver as
+> upcoming laptops will need to multi instantiate SPI devices from
+> a single device node, which has multiple SpiSerialBus entries at
+> the ACPI table.
 > 
-> The following changes since commit f517ba4924ad026f2583553db02f3c8bc69de88b:
+> With the new SPI support, i2c-multi-instantiate becomes
+> bus-multi-instantiate and is moved to the ACPI folder.
 > 
->   ASoC: cs35l41: Add support for hibernate memory retention mode (2022-01-07 17:14:27 +0000)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.17-rc2
-> 
-> for you to fetch changes up to a4f399a1416f645ac701064a55b0cb5203707ac9:
-> 
->   Input: wm97xx: Simplify resource management (2022-01-31 13:17:24 +0000)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v5.17
-> 
-> Quite a few fixes here, including an unusually large set in the core
-> spurred on by various testing efforts as well as the usual small driver
-> fixes.  There are quite a few fixes for out of bounds writes in both the
-> core and the various Qualcomm drivers, plus a couple of fixes for
-> locking in the DPCM code.
+> [...]
 
-Thanks, pulled now.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
-Takashi
+Thanks!
+
+[1/9] spi: Make spi_alloc_device and spi_add_device public again
+      commit: 941bffd7d7f5d6030a54184c5d81b0eb9116ca9a
+[2/9] spi: Create helper API to lookup ACPI info for spi device
+      commit: 70dd264bc07aee4f89e65138db11e908701388dd
+[3/9] spi: Support selection of the index of the ACPI Spi Resource before alloc
+      commit: 92640f98a78c6a3ea1ca32143144241eceb129bd
+[4/9] spi: Add API to count spi acpi resources
+      commit: 113962301d2d9a5c11381d9c25ddea7af71be2ff
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

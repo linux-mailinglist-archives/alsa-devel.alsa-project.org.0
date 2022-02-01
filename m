@@ -2,69 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6154B4A5269
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jan 2022 23:31:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B66AF4A5788
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Feb 2022 08:12:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5649163F;
-	Mon, 31 Jan 2022 23:30:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5649163F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B67917DC;
+	Tue,  1 Feb 2022 08:11:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B67917DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643668301;
-	bh=Jzqhd0mrCTwJXhLqgFYZuTVuQ9pLYFyipZDkQnbM97Q=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=seb1zVfpIM48YwaUzg3u8STe34B3hPmOzdxRZPv/jSKovAkgHIOojMC9xHQT0i0kQ
-	 cPlxkrmsiti+oeq9CZTpGSrGHDotMSjBM5wIV5oVaPHwKhuSm/vZSTCxfBz01sEFMe
-	 a/lFIbyZPKX3Wf8q8fq44CrwqBXTOgPwEduabE9c=
+	s=default; t=1643699561;
+	bh=vfM11J4RjMG/8sCcQbJtl1tRUP3+3dWnj5GsKJ32lL8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZeI9XJRtMe7RgCY+sueNPtrCdzeqSgIq2UWR6gZ0Jf/u1QmqRE1PzcSjCKCsgzKg7
+	 CL3hv5ecsrahbn3wyGx6OE2h85aBDbv4nTu2AQ+kto/AvJ/r9J76djPdExMaqOEKqV
+	 GJsoi5m5NpYd1zPdg+TAkGClmnECB/d53Pi3wMeg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3ED24F80302;
-	Mon, 31 Jan 2022 23:30:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6916EF80139;
+	Tue,  1 Feb 2022 08:11:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7516BF8028B; Mon, 31 Jan 2022 23:30:34 +0100 (CET)
+ id 901E4F80130; Tue,  1 Feb 2022 08:11:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mout-y-111.mailbox.org (mout-y-111.mailbox.org [91.198.250.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB9DFF80095
- for <alsa-devel@alsa-project.org>; Mon, 31 Jan 2022 23:30:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB9DFF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5501EF80095
+ for <alsa-devel@alsa-project.org>; Tue,  1 Feb 2022 08:11:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5501EF80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org
- header.b="xo8H44BG"
-Received: from smtp202.mailbox.org (unknown [91.198.250.118])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-y-111.mailbox.org (Postfix) with ESMTPS id 4JnjSG6XzZz9sRJ;
- Mon, 31 Jan 2022 23:30:22 +0100 (CET)
-X-Virus-Scanned: amavisd-new at heinlein-support.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1643668222;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=FSgwgUdLocijzgTLpqFeo9oLYF96EeX1MIVS0VYYoRw=;
- b=xo8H44BGjAcav34XfpSKoaAjkNULdguOxgvIdSrFyVPtQT+fkUREQ5VH7AtyRBAWP2g/u8
- P/SZhTiq+yV9ytE99IldOZNUWTKPCG1XtsHpQxjCqqGjrUu/hiNjNU9hRHIFJuEGJuWM/1
- FZ4j+Q4FfMTeyzAf6dAQQnq2rCXeyTWB59GeZXyF+4nrq2+FeRbU/yhSH/s5bexFYsF1OT
- 4TwVspmk2IOM7TBQ5ElocOxZuXSj1cny0Fgo/zkJQ31li2eTtn+2G8a8F7R6SqBQCHwtLy
- utPZyCB5IiggCMNzbEtVDejoiiryRGEP3IrD1KSBYPYhJbxsUsY8WgBIXbbQmQ==
-From: Sebastian Berger <sebastian.berger@mailbox.org>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] conf: fix memory leaks in parse_def()
-Date: Mon, 31 Jan 2022 23:29:07 +0100
-Message-Id: <20220131222906.82279-1-sebastian.berger@mailbox.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Sebastian Berger <sebastian.berger@mailbox.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="L4tqzH/0"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="yxjZR4zk"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id E732921101;
+ Tue,  1 Feb 2022 07:11:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1643699484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UQEYJ6FNj/22aeWfdUN39j4pVPrOKKMvEUtIZ9fV/yM=;
+ b=L4tqzH/0Thft58FFZVEi9/28etlOp9nAx0vIzL7GFLK/eV++KXuSIn3DwcPJeboZmt18ZU
+ K29Q7S13OfmVYeBX1c8LmY/EQUf3faHReu2FvTXrmeV+mS0GNP/r2LHlG2Ibblvs/k7aHx
+ tNgf6POduAqsrxV4c89wqTpgZUox3jA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1643699484;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UQEYJ6FNj/22aeWfdUN39j4pVPrOKKMvEUtIZ9fV/yM=;
+ b=yxjZR4zkyq5Dysj3QRI9ru+MGE9Pf1d/i1glzRzysh7iLTQeUQtp9a7Vi5iUzyOhhrcxO6
+ U04sHwUWv/MKSZCA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id D9A75A3B81;
+ Tue,  1 Feb 2022 07:11:24 +0000 (UTC)
+Date: Tue, 01 Feb 2022 08:11:24 +0100
+Message-ID: <s5hzgnb83j7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Subject: Re: [PATCH] sound: Replace acpi_bus_get_device()
+In-Reply-To: <2828205.e9J7NaK4W3@kreacher>
+References: <2828205.e9J7NaK4W3@kreacher>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Linux ACPI <linux-acpi@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,52 +95,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For all execution paths in parse_def(), free the id string before returning.
+On Wed, 26 Jan 2022 20:48:49 +0100,
+Rafael J. Wysocki wrote:
+> 
+> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> 
+> Replace acpi_bus_get_device() that is going to be dropped with
+> acpi_fetch_acpi_dev().
+> 
+> No intentional functional impact.
+> 
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Previous implementations fail to do this if the configuration:
+Thanks, applied now to for-linus branch.
 
-    (1) tries to reference the child of a non-compound node, or
-    (2) does not provide a valid argument after an assignment ('=') operator.
+Mark, JFYI, this touches an ASoC code slightly, too.
 
-For example, the invocations:
 
-    (1) snd_config_load_string(&conf, "foo 0 foo.a 1", 0)
-    (2) snd_config_load_string(&conf, "bar =", 0)
+Takashi
 
-would leak the strings "foo" or "bar", respectively.
-
-Signed-off-by: Sebastian Berger <sebastian.berger@mailbox.org>
----
- src/conf.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/src/conf.c b/src/conf.c
-index 70f0e773..8a09505b 100644
---- a/src/conf.c
-+++ b/src/conf.c
-@@ -1403,7 +1403,8 @@ static int parse_def(snd_config_t *parent, input_t *input, int skip, int overrid
- 			if (mode != OVERRIDE) {
- 				if (n->type != SND_CONFIG_TYPE_COMPOUND) {
- 					SNDERR("%s is not a compound", id);
--					return -EINVAL;
-+					err = -EINVAL;
-+					goto __end;
- 				}
- 				n->u.compound.join = true;
- 				parent = n;
-@@ -1425,8 +1426,10 @@ static int parse_def(snd_config_t *parent, input_t *input, int skip, int overrid
- 	}
- 	if (c == '=') {
- 		c = get_nonwhite(input);
--		if (c < 0)
--			return c;
-+		if (c < 0) {
-+			err = c;
-+			goto __end;
-+		}
- 	}
- 	if (!skip) {
- 		if (_snd_config_search(parent, id, -1, &n) == 0) {
--- 
-2.35.1
-
+> ---
+>  sound/hda/intel-sdw-acpi.c |    7 +++----
+>  sound/soc/soc-acpi.c       |    7 ++-----
+>  2 files changed, 5 insertions(+), 9 deletions(-)
+> 
+> Index: linux-pm/sound/hda/intel-sdw-acpi.c
+> ===================================================================
+> --- linux-pm.orig/sound/hda/intel-sdw-acpi.c
+> +++ linux-pm/sound/hda/intel-sdw-acpi.c
+> @@ -50,11 +50,11 @@ static bool is_link_enabled(struct fwnod
+>  static int
+>  sdw_intel_scan_controller(struct sdw_intel_acpi_info *info)
+>  {
+> -	struct acpi_device *adev;
+> +	struct acpi_device *adev = acpi_fetch_acpi_dev(info->handle);
+>  	int ret, i;
+>  	u8 count;
+>  
+> -	if (acpi_bus_get_device(info->handle, &adev))
+> +	if (!adev)
+>  		return -EINVAL;
+>  
+>  	/* Found controller, find links supported */
+> @@ -119,7 +119,6 @@ static acpi_status sdw_intel_acpi_cb(acp
+>  				     void *cdata, void **return_value)
+>  {
+>  	struct sdw_intel_acpi_info *info = cdata;
+> -	struct acpi_device *adev;
+>  	acpi_status status;
+>  	u64 adr;
+>  
+> @@ -127,7 +126,7 @@ static acpi_status sdw_intel_acpi_cb(acp
+>  	if (ACPI_FAILURE(status))
+>  		return AE_OK; /* keep going */
+>  
+> -	if (acpi_bus_get_device(handle, &adev)) {
+> +	if (!acpi_fetch_acpi_dev(handle)) {
+>  		pr_err("%s: Couldn't find ACPI handle\n", __func__);
+>  		return AE_NOT_FOUND;
+>  	}
+> Index: linux-pm/sound/soc/soc-acpi.c
+> ===================================================================
+> --- linux-pm.orig/sound/soc/soc-acpi.c
+> +++ linux-pm/sound/soc/soc-acpi.c
+> @@ -55,16 +55,13 @@ EXPORT_SYMBOL_GPL(snd_soc_acpi_find_mach
+>  static acpi_status snd_soc_acpi_find_package(acpi_handle handle, u32 level,
+>  					     void *context, void **ret)
+>  {
+> -	struct acpi_device *adev;
+> +	struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
+>  	acpi_status status;
+>  	struct snd_soc_acpi_package_context *pkg_ctx = context;
+>  
+>  	pkg_ctx->data_valid = false;
+>  
+> -	if (acpi_bus_get_device(handle, &adev))
+> -		return AE_OK;
+> -
+> -	if (adev->status.present && adev->status.functional) {
+> +	if (adev && adev->status.present && adev->status.functional) {
+>  		struct acpi_buffer buffer = {ACPI_ALLOCATE_BUFFER, NULL};
+>  		union acpi_object  *myobj = NULL;
+>  
+> 
+> 
+> 

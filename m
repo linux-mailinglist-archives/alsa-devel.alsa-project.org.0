@@ -2,84 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B66AF4A5788
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Feb 2022 08:12:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 601784A578B
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Feb 2022 08:13:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B67917DC;
-	Tue,  1 Feb 2022 08:11:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B67917DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0CB2B17EA;
+	Tue,  1 Feb 2022 08:12:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CB2B17EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643699561;
-	bh=vfM11J4RjMG/8sCcQbJtl1tRUP3+3dWnj5GsKJ32lL8=;
+	s=default; t=1643699596;
+	bh=8nVhaKbj3+qotPdDsGRH+c2TSXdG/c6O6ITrEhZDRng=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZeI9XJRtMe7RgCY+sueNPtrCdzeqSgIq2UWR6gZ0Jf/u1QmqRE1PzcSjCKCsgzKg7
-	 CL3hv5ecsrahbn3wyGx6OE2h85aBDbv4nTu2AQ+kto/AvJ/r9J76djPdExMaqOEKqV
-	 GJsoi5m5NpYd1zPdg+TAkGClmnECB/d53Pi3wMeg=
+	b=F0VpJvrXfsR5k3F/2L7sTx5FXQScf2xtM+69pLMLNYsAJmKuok9I9Nf4FN4ScApn8
+	 3jsl8tiYdB2pObrSQ0cdc+TJfuLawF//u+hg1ueKrXgAVV79khkYqIvn0PqdP363CO
+	 kG4vIN5XLi/wDHWpkZj0MZSISNvDYZAymrUZDmRM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6916EF80139;
-	Tue,  1 Feb 2022 08:11:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A1FBF8047C;
+	Tue,  1 Feb 2022 08:12:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 901E4F80130; Tue,  1 Feb 2022 08:11:33 +0100 (CET)
+ id B9EA4F80311; Tue,  1 Feb 2022 08:12:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5501EF80095
- for <alsa-devel@alsa-project.org>; Tue,  1 Feb 2022 08:11:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5501EF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0849F80089
+ for <alsa-devel@alsa-project.org>; Tue,  1 Feb 2022 08:12:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0849F80089
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="L4tqzH/0"; 
+ header.b="LJZAXPRK"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yxjZR4zk"
+ header.b="pRjGTbt2"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id E732921101;
- Tue,  1 Feb 2022 07:11:24 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 98B4C21123;
+ Tue,  1 Feb 2022 07:12:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1643699484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1643699528; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=UQEYJ6FNj/22aeWfdUN39j4pVPrOKKMvEUtIZ9fV/yM=;
- b=L4tqzH/0Thft58FFZVEi9/28etlOp9nAx0vIzL7GFLK/eV++KXuSIn3DwcPJeboZmt18ZU
- K29Q7S13OfmVYeBX1c8LmY/EQUf3faHReu2FvTXrmeV+mS0GNP/r2LHlG2Ibblvs/k7aHx
- tNgf6POduAqsrxV4c89wqTpgZUox3jA=
+ bh=e5pD/uyOwT+fedUBHy30mmqQQ/tiB8vLKqaMblLPE4c=;
+ b=LJZAXPRKUz7u/m1675ly31YhkgZUyGmM++COT5l+I3BYdijN0y9CFdzvW81HaQibiKAKNs
+ tzvMthLe/OJRxWwmsr8QOg4aNgd4lJAu8PPwkHYG54Fo7jHaUkzwxOjDH0pFqk8APO4W7z
+ hiiXZq6WITtRCrcZ2U32etwl2SxlYpE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1643699484;
+ s=susede2_ed25519; t=1643699528;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=UQEYJ6FNj/22aeWfdUN39j4pVPrOKKMvEUtIZ9fV/yM=;
- b=yxjZR4zkyq5Dysj3QRI9ru+MGE9Pf1d/i1glzRzysh7iLTQeUQtp9a7Vi5iUzyOhhrcxO6
- U04sHwUWv/MKSZCA==
+ bh=e5pD/uyOwT+fedUBHy30mmqQQ/tiB8vLKqaMblLPE4c=;
+ b=pRjGTbt27b62yWSDQPxoQJlHNAHrM7cbpA+qM2kJYNix6Kmi3QYHSRjtfBlqUu6LuS5yEi
+ Bom8ceSSw/AA6rDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id D9A75A3B81;
- Tue,  1 Feb 2022 07:11:24 +0000 (UTC)
-Date: Tue, 01 Feb 2022 08:11:24 +0100
-Message-ID: <s5hzgnb83j7.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 8BD9FA3B84;
+ Tue,  1 Feb 2022 07:12:08 +0000 (UTC)
+Date: Tue, 01 Feb 2022 08:12:08 +0100
+Message-ID: <s5hy22v83hz.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Subject: Re: [PATCH] sound: Replace acpi_bus_get_device()
-In-Reply-To: <2828205.e9J7NaK4W3@kreacher>
-References: <2828205.e9J7NaK4W3@kreacher>
+To: Jonas Hahnfeld <hahnjo@hahnjo.de>
+Subject: Re: [PATCH] ALSA: usb-audio: Correct quirk for VF0770
+In-Reply-To: <20220131183516.61191-1-hahnjo@hahnjo.de>
+References: <20220131183516.61191-1-hahnjo@hahnjo.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Linux ACPI <linux-acpi@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?B?UGF3ZcWC?= Susicki <pawel.susicki@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Jukka Heikintalo <heikintalo.jukka@gmail.com>,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,88 +98,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 26 Jan 2022 20:48:49 +0100,
-Rafael J. Wysocki wrote:
+On Mon, 31 Jan 2022 19:35:16 +0100,
+Jonas Hahnfeld wrote:
 > 
-> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> This device provides both audio and video. The original quirk added in
+> commit 48827e1d6af5 ("ALSA: usb-audio: Add quirk for VF0770") used
+> USB_DEVICE to match the vendor and product ID. Depending on module order,
+> if snd-usb-audio was asked first, it would match the entire device and
+> uvcvideo wouldn't get to see it. Change the matching to USB_AUDIO_DEVICE
+> to restore uvcvideo matching in all cases.
 > 
-> Replace acpi_bus_get_device() that is going to be dropped with
-> acpi_fetch_acpi_dev().
-> 
-> No intentional functional impact.
-> 
-> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> Fixes: 48827e1d6af5 ("ALSA: usb-audio: Add quirk for VF0770")
+> Reported-by: Jukka Heikintalo <heikintalo.jukka@gmail.com>
+> Tested-by: Jukka Heikintalo <heikintalo.jukka@gmail.com>
+> Reported-by: Paweł Susicki <pawel.susicki@gmail.com>
+> Tested-by: Paweł Susicki <pawel.susicki@gmail.com>
+> Cc: <stable@vger.kernel.org> # 5.4, 5.10, 5.14, 5.15
+> Signed-off-by: Jonas Hahnfeld <hahnjo@hahnjo.de>
 
-Thanks, applied now to for-linus branch.
-
-Mark, JFYI, this touches an ASoC code slightly, too.
+Thanks, applied now.
 
 
 Takashi
-
-> ---
->  sound/hda/intel-sdw-acpi.c |    7 +++----
->  sound/soc/soc-acpi.c       |    7 ++-----
->  2 files changed, 5 insertions(+), 9 deletions(-)
-> 
-> Index: linux-pm/sound/hda/intel-sdw-acpi.c
-> ===================================================================
-> --- linux-pm.orig/sound/hda/intel-sdw-acpi.c
-> +++ linux-pm/sound/hda/intel-sdw-acpi.c
-> @@ -50,11 +50,11 @@ static bool is_link_enabled(struct fwnod
->  static int
->  sdw_intel_scan_controller(struct sdw_intel_acpi_info *info)
->  {
-> -	struct acpi_device *adev;
-> +	struct acpi_device *adev = acpi_fetch_acpi_dev(info->handle);
->  	int ret, i;
->  	u8 count;
->  
-> -	if (acpi_bus_get_device(info->handle, &adev))
-> +	if (!adev)
->  		return -EINVAL;
->  
->  	/* Found controller, find links supported */
-> @@ -119,7 +119,6 @@ static acpi_status sdw_intel_acpi_cb(acp
->  				     void *cdata, void **return_value)
->  {
->  	struct sdw_intel_acpi_info *info = cdata;
-> -	struct acpi_device *adev;
->  	acpi_status status;
->  	u64 adr;
->  
-> @@ -127,7 +126,7 @@ static acpi_status sdw_intel_acpi_cb(acp
->  	if (ACPI_FAILURE(status))
->  		return AE_OK; /* keep going */
->  
-> -	if (acpi_bus_get_device(handle, &adev)) {
-> +	if (!acpi_fetch_acpi_dev(handle)) {
->  		pr_err("%s: Couldn't find ACPI handle\n", __func__);
->  		return AE_NOT_FOUND;
->  	}
-> Index: linux-pm/sound/soc/soc-acpi.c
-> ===================================================================
-> --- linux-pm.orig/sound/soc/soc-acpi.c
-> +++ linux-pm/sound/soc/soc-acpi.c
-> @@ -55,16 +55,13 @@ EXPORT_SYMBOL_GPL(snd_soc_acpi_find_mach
->  static acpi_status snd_soc_acpi_find_package(acpi_handle handle, u32 level,
->  					     void *context, void **ret)
->  {
-> -	struct acpi_device *adev;
-> +	struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
->  	acpi_status status;
->  	struct snd_soc_acpi_package_context *pkg_ctx = context;
->  
->  	pkg_ctx->data_valid = false;
->  
-> -	if (acpi_bus_get_device(handle, &adev))
-> -		return AE_OK;
-> -
-> -	if (adev->status.present && adev->status.functional) {
-> +	if (adev && adev->status.present && adev->status.functional) {
->  		struct acpi_buffer buffer = {ACPI_ALLOCATE_BUFFER, NULL};
->  		union acpi_object  *myobj = NULL;
->  
-> 
-> 
-> 

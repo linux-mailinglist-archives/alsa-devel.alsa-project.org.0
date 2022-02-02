@@ -2,89 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2C1A4A7186
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 14:27:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0490F4A71AD
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 14:36:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43FAC1732;
-	Wed,  2 Feb 2022 14:26:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43FAC1732
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92673172D;
+	Wed,  2 Feb 2022 14:35:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92673172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643808442;
-	bh=8BGlJgsRd7hGqMtcw7P34/wNlgoKZlN1KDArgo69rzU=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1643808988;
+	bh=hmlZ41HJw9J3JHWdUsBjIgztv+biztPQs1grfLIHYE4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tQMU+N81zSJwXWh3fuWCqZ8FwZDxPvKKJsjwgOSLYvt++HfLxkjnPVj/Cd5yWIdwX
-	 IgfuCZqBhCyLP0XHlyqobSKpQYMlGEMVjCEYNCUC8LmY83H/oUHULKN1A6RTBE/5Ly
-	 zsSNeM4vw6bCat6UgUsvyq4OtHcBDx4kIqji3yGs=
+	b=l4tDYiFNHwpQiRKAYTXwDUa7wPB9kZ1pQ9twyuImVh+8w6pfmx0WBxC0Pk3jfHkOQ
+	 BUJMXZ5GAyWIKsBkiKF2+IKCRCBhxynXxe5aIYdbJw0k5tcfkdFyYSM3wCoYAfAn0V
+	 LHiy0IEwJsDLDzlkpwbFakjluPRDIwYo0b2g3lA8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0F21F802E3;
-	Wed,  2 Feb 2022 14:26:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02BA6F804B1;
+	Wed,  2 Feb 2022 14:35:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEAFEF804B1; Wed,  2 Feb 2022 14:26:13 +0100 (CET)
+ id E7495F804B0; Wed,  2 Feb 2022 14:35:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7478BF802E3
- for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 14:26:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7478BF802E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 060DAF80171
+ for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 14:35:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 060DAF80171
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="WnBfC3/u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643808371; x=1675344371;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=8BGlJgsRd7hGqMtcw7P34/wNlgoKZlN1KDArgo69rzU=;
- b=WnBfC3/uRA+lvqBPvLA60KVMvlLu1S90JmcnrCgQfWqjIBT0w9EzZpUl
- BL+tjee/J7bMxoKliC5Vwiv81SBYTGIZeT1Wg2GylsmJcjPvEgMfYF3ud
- KhhBDAu0n2Irp4Xz/jST8g4LwfxnfQyOioGFs3eA5AH9uuRiFTKu27cbf
- CgPqr+Aa8rLuAOEXV/edf2tUOoMHDtHKrhdgZo9Ou1/VIrUbqjwOxT34J
- bn+19VAT8LtpMMOuudtW4X0LqDivY+VNwnOZUoK9MYaRtQHP+4Q6yT9mH
- wC5I4RRUw+PM6PhMF8W28itHGADDTlv65YXWzIN4a+2OzzNJtnVt7ElTf w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10245"; a="246743036"
-X-IronPort-AV: E=Sophos;i="5.88,336,1635231600"; d="scan'208";a="246743036"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2022 05:26:07 -0800
-X-IronPort-AV: E=Sophos;i="5.88,336,1635231600"; d="scan'208";a="538247568"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.237.180.89])
- ([10.237.180.89])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2022 05:26:03 -0800
-Message-ID: <7695fc34-143d-7715-85cb-7790386bbacc@linux.intel.com>
-Date: Wed, 2 Feb 2022 14:26:01 +0100
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="O9N+QiAX"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 212Cttd3016922;
+ Wed, 2 Feb 2022 07:35:14 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=zil3erRqQ6REDNww3hB6SYg8k003yQMvo4dOPkUSjxM=;
+ b=O9N+QiAXRJltqW1/AI1xHSiXgR42pnrXfOK3zM/n8i/nYSXKzy8vS2MGrt+6X7XQVQ/x
+ 1B0DJF2+bhW43NfSsmyQuN97uztITN8DenV7+7C4TPjNCmY8g//Vv5DxUJorCnKlNJN+
+ 08YaiPOC+W5HjikeQt19ZeScBjCB105ImYtXsnSlcYHT8PM5QbyqBPZS/gL6a98qqDZ8
+ ZFiOTRizPSlvZZksVuEPVMOlFDdFxbMtLOI3ZORdq3f3f198zMzhdPNgwnOV4w/JDVkD
+ 2czddpoOnyD2gCdfBnB5ZkYKIBdCN6E81px4fHSxDuxzwNZcJ7BRCEUZ9Uj0XG82ien5 Dg== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dxksx2wk0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 02 Feb 2022 07:35:13 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 2 Feb
+ 2022 13:35:11 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Wed, 2 Feb 2022 13:35:11 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CD6DD46C;
+ Wed,  2 Feb 2022 13:35:11 +0000 (UTC)
+Date: Wed, 2 Feb 2022 13:35:11 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Martin Kepplinger <martin.kepplinger@puri.sm>
+Subject: Re: [PATCH] wm8962: add a simple DMIC enable control
+Message-ID: <20220202133511.GB18506@ediswmail.ad.cirrus.com>
+References: <20220201150113.880330-1-martin.kepplinger@puri.sm>
+ <20220202095301.GZ18506@ediswmail.ad.cirrus.com>
+ <3542af028b622ec1513810b014c35a94b82a94c0.camel@puri.sm>
+ <20220202104657.GA18506@ediswmail.ad.cirrus.com>
+ <99b847d17e8ac399dba10842ec20091df926aa06.camel@puri.sm>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Subject: Re: [RFC 00/37] ASoC: Intel: AVS - Audio DSP for cAVS
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Mark Brown <broonie@kernel.org>
-References: <20211208111301.1817725-1-cezary.rojewski@intel.com>
- <YcXFwTmP6k1Zfbw9@sirena.org.uk>
- <fecf5a0a-c2b6-f4a0-b4b1-d8243ea324a0@intel.com>
- <YfQhIoXTkzO9AEQc@sirena.org.uk>
- <ccb2f9f0-e9fa-3215-f623-bac58b4c9633@intel.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <ccb2f9f0-e9fa-3215-f623-bac58b4c9633@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, upstream@semihalf.com, harshapriya.n@intel.com,
- peter.ujfalusi@linux.intel.com, rad@semihalf.com,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- ranjani.sridharan@linux.intel.com, cujomalainey@chromium.org,
- yung-chuan.liao@linux.intel.com, lma@semihalf.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <99b847d17e8ac399dba10842ec20091df926aa06.camel@puri.sm>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: iI9cdgR_6GcuaMQ8og95Bek4P1CUJXtj
+X-Proofpoint-GUID: iI9cdgR_6GcuaMQ8og95Bek4P1CUJXtj
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, kernel@puri.sm, patches@opensource.cirrus.com,
+ tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org, geert@glider.be,
+ daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,123 +103,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/30/2022 8:15 PM, Cezary Rojewski wrote:
+On Wed, Feb 02, 2022 at 12:55:04PM +0100, Martin Kepplinger wrote:
+> Am Mittwoch, dem 02.02.2022 um 10:46 +0000 schrieb Charles Keepax:
+> > On Wed, Feb 02, 2022 at 11:17:34AM +0100, Martin Kepplinger wrote:
+> > > Am Mittwoch, dem 02.02.2022 um 09:53 +0000 schrieb Charles Keepax:
+> > > > On Tue, Feb 01, 2022 at 04:01:13PM +0100, Martin Kepplinger
+> > > > wrote:
+> > > Do you have a code example from a different codec that has roughly
+> > > what
+> > > is missing here? (the sound subsystem is new to me)
+> > 
+> > Full disclosure this is complete untested, but it should be
+> > pretty close. Let me know if it does the trick and I will send a
+> > proper patch to the list. I do have a Librem 5 in a draw
+> > somewhere so can pull that out if we get really stuck, but that
+> > might have to wait until the weekend :-).
+> > 
+> > I don't know if you guys are using the analogue bypass paths
+> > around the digital core on the chip. I think those will still
+> > work with the mics set to digital, so I have left the routes as
+> > is, but that might require some checking at some point.
 > 
-> path-API found in path.h is limited and maps nicely to DAI operations:
+> ok that's great and seems to work! that's luxury.
 > 
-> avs_path_create()
-> avs_path_bind(struct avs_path *path)
->      used during DAI's ->hw_params()
+
+Excellent glad that is working for you, I will prep up a proper
+patch and send it to the list. Should get that done tomorrow
+morning, if I don't manage it this afternoon.
+
+> Volume / sensitivity of Analog input is too low, I saw that before.
+> What would you try to change that?
 > 
-> avs_path_free(struct avs_path *path)
-> avs_path_unbind(struct avs_path *path)
->      used during DAI's ->hw_free()
+
+Hmm... you say you saw this before? I assume the input volume
+is always low, not just low sometimes? I would probably start by
+checking the voltage you have on the micbias, make sure that is
+as expected. Does the signal coming into the IN3R pin look low on
+a scope or is it just the level after it has been through the ADC
+on the chip that seems low?
+
+The input routing on this chip is pretty byzantine, the output of
+just "amixer" showing all the controls in the relevant use-case
+would probably be helpful to look over. I suspect there is a
+reasonable chance something around the input PGA is not
+configured to match the hardware, although I am not the most
+familiar with this part so hard to guess at exactly what off the
+top of my head.
+
+Finally, do you know how much the amplitude is off by?
+
+> you can do all of our tasks if you want to :)
 > 
-> avs_path_reset(struct avs_path *path)
-> avs_path_pause(struct avs_path *path)
-> avs_path_run(struct avs_path *path, int trigger)
->      state setters, used during DAI's ->prepare() and ->trigger()
-> 
-> given this picture, one could say that there are framework elements that 
-> allow driver writer to implement whatever is needed for DSP-capable driver.
 
-Although Cezary wrote that avs_path_reset/_pause/_run maps nicely to 
-trigger operation it's not direct mapping. AVS FW has requirements on 
-order of operations on pipelines (which are grouped in paths on kernel 
-side). For example on TRIGGER_STOP we need to first pause all pipelines 
-before issuing reset to any of them. This is required by FW, so that if 
-there are two pipelines it doesn't pause and reset one of them, while 
-the other one is still in running state, as this causes xruns on FW side.
+Ha! Not sure about that, but happy to help out where I can.
 
-Relevant fragment from "[RFC 27/37] ASoC: Intel: avs: non-HDA PCM BE 
-operations"
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		ret = avs_path_pause(data->path);
-+		if (ret < 0)
-+			dev_err(dai->dev, "pause BE path failed: %d\n", ret);
-+
-+		if (cmd == SNDRV_PCM_TRIGGER_STOP) {
-+			ret = avs_path_reset(data->path);
-+			if (ret < 0)
-+				dev_err(dai->dev, "reset FE path failed: %d\n", ret);
-+		}
-+		break;
-+
-
-I would say that such behavior doesn't translate nicely to generic API.
-
-
-I tried looking once again at how one would split the path concept to 
-make it more generic, but it is hard. On one hand paths are tied to AVS 
-driver topology design, on the other hand we have (mentioned above) FW 
-requirements.
-
-To describe it in more detail, in AVS we need topology as it describes 
-bindings between paths. Simple topologies have route map similar to this 
-one:
-
-SectionGraph."ssp0_Tx_spt-audio-playback" {
-     index "0"
-
-     lines [
-         "ssp0 Tx, , ssp0p_be"
-         "ssp0p_be, , ssp0p_fe"
-         "ssp0p_fe, , spt-audio-playback"
-     ]
-}
-
-where ssp0p_be and ssp0p_fe are widgets describing BE and FE configuration.
-
-Taking for example FE widget we have:
-
-SectionWidget."ssp0p_fe" {
-     index "0"
-     type "scheduler"
-     no_pm "true"
-     ignore_suspend "false"
-
-     data [
-         "path_tmpl2_data"
-     ]
-}
-
-where we can see that apart from its own configuration it has additional 
-data describing path inside it:
-
-SectionData."path_tmpl2_data" {
-     tuples [
-         "path_tmpl2_tuples"
-         "path_tmpl2_path0_tuples"
-         "path_tmpl2_path0_ppl0_tuples"
-         "path_tmpl2_path0_ppl0_mod0_tuples"
-         "path_tmpl2_path0_ppl0_bindid0_tuples"
-     ]
-}
-
-now for the concept of paths the most interesting field is 
-"path_tmpl2_path0_ppl0_bindid0_tuples" as it describes to which path we 
-want to bind. It is done this way as FW modules internally have pins, 
-and while in most cases one wants to just bind on pin 0, sometimes there 
-is a need to describe more complicated connections. And so we circled 
-back to FW requirements.
-
-
-Overall I would say that path design in AVS is tied too much to FW 
-requirements to be made generic. And even if some general API was 
-provided we would still need most of current code on AVS path to handle 
-the requirements, while we would have additional constrains coming from 
-API above.
-
-
-> And now back to the _full picture_ that I'm clearly not seeing yet. How 
-> do you envision interfaces that should be added to the ASoC framework? 
-> Are we talking about soc-path.c level of a change? It would be helpful 
-> to have even a single operation (from the list above) drawn as an 
-> example of what is expected.
-
-
-Similarly to the above I'm open to suggestions on how such API may look 
-like.
-
-Best Regards,
-Amadeusz
+Thanks,
+Charles

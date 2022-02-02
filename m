@@ -2,85 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C00C4A72B1
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 15:09:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB9204A72B6
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 15:11:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6826172D;
-	Wed,  2 Feb 2022 15:08:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6826172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 484121734;
+	Wed,  2 Feb 2022 15:10:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 484121734
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643810948;
-	bh=gHPQaa5lUIMo31tXiem0BbrRpbJt2lqVLdonVgjwhDc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=tiNMNN+W2XR35EzWDq2YvIg0k+pN34xeTTq8iGHAskkLPouS84rRhlHuDo5wxFWMt
-	 OIaG98LOQHYTRtNu+ZlyQ2taBc7jRUFIMfIh81F/d0/cDdkcLYBXAapbmR/fBIw4i/
-	 2VHiBra6tufrWGA8v6flJuQ0K844TqZeSwB3ARE4=
+	s=default; t=1643811095;
+	bh=CIhNbzAYIdtiQgDhDMW5zJ+2HCAbYDs3socLWaHaV7A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Xw+0YSnopGAfFyRXsM7NvhdMp0nhB8fvYwku8skbD+nrRcsjmXmg5kEdEyh5zxgaS
+	 9ZkZEoYyUOMv+bGZupc8i2bA8wH6/9HIrik+MFxdxbRJVlh29284dv6ZzmIQgjnEcR
+	 oHQ6hSMjKBnIONEaWkpecKe4a0HhzYHnSYYRtL60=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C59DF804B1;
-	Wed,  2 Feb 2022 15:08:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C18FEF804B4;
+	Wed,  2 Feb 2022 15:10:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C1EBF804B0; Wed,  2 Feb 2022 15:08:00 +0100 (CET)
+ id 52675F80095; Wed,  2 Feb 2022 15:10:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E13FDF80171
- for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 15:07:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E13FDF80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0BC1AF80095
+ for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 15:10:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BC1AF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cK+exRF9"
+ header.b="ANsM53l6"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A312161879;
- Wed,  2 Feb 2022 14:07:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC32C004E1;
- Wed,  2 Feb 2022 14:07:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 75AF561880;
+ Wed,  2 Feb 2022 14:10:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24018C004E1;
+ Wed,  2 Feb 2022 14:10:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643810871;
- bh=gHPQaa5lUIMo31tXiem0BbrRpbJt2lqVLdonVgjwhDc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cK+exRF9NIw8faQt8Zp5rfeL8ffi/TOEstvEaea+PHYkFFY97JJQbTb5G0ex2k3LW
- 69d/+pqH/v+tcmhnwA0B+jEEB55UVNJNebBtRn8hkT74Rqbhxh0UH4rNP39sVVB9t3
- 23Zt8YdjXD3dBoJA/BXSXlcHRsDmqYCwmaLEZGRFwDbBEtiHHKRf3l4qDwHJJCOFBI
- IOeyYRotKcTEfNDATpX/GKJJ8H+tfsv+rFuuWhKB0KWsjY8eWEdv2xim1WtLY4ZUcE
- CNNYt52js0le0XvUbfeqNU4CKUlEEMfJCxo0M9i7fMtJK9hrYx/wnura3cg1YW4F7Y
- RR6RvKV4ADnxg==
-Date: Wed, 2 Feb 2022 14:07:45 +0000
+ s=k20201202; t=1643811016;
+ bh=CIhNbzAYIdtiQgDhDMW5zJ+2HCAbYDs3socLWaHaV7A=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ANsM53l6AELpiXnW6LfjeS9tO4cCvGLueNq+qybycT/WrTKPZOpsKcKZJlXtH+Qfd
+ DgWRBT7GghWpAZJohEInVin2d7uXPksjjRvuYvV5kIMpkU4IYi6IDQiUkzcQ1D69QB
+ m9vRgaFzQ5QYzEc8JZae7aVM7SLRj7gRN4wlI2y/oKtSIVJnPonx+rCUWKklPg/Dzd
+ 7T0tgYY/QzeZcSGF5YfncbLvpSGtrey+HCtnFKcFfHMdXzmI4MRKyqrFgb6XgL9lvd
+ O50yoO6GGni2i3RqS75/FndyQ6Q8Yk7umCSrrBc+ECDikFRcbAZkle2YW9RLcVL6LX
+ +9jwdgYsIwSvg==
 From: Mark Brown <broonie@kernel.org>
-To: Curtis Malainey <cujomalainey@google.com>
-Subject: Re: [PATCH] Revert "ASoC: amd: acp: Power on/off the speaker enable
- gpio pin based on DAPM callback."
-Message-ID: <YfqQMTMeAabi8m1Z@sirena.org.uk>
-References: <20220129000837.6207-1-cujomalainey@chromium.org>
- <a8ffb740-9f03-340f-a7ba-5e0f1a074b22@amd.com>
- <CAGXAbSq4+YY3qNt2c8J-P278QtUMTkJAo7x3=6UvJof4bH2C2Q@mail.gmail.com>
- <Yfl+rZEucvLEmFjD@sirena.org.uk>
- <CAOReqxgK54Gzz=L78Xh1U2bY+rPacJ86h+Ssy6=x11skDevSXw@mail.gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Subject: [PATCH v2 1/2] kselftest: alsa: Check for event generation when we
+ write to controls
+Date: Wed,  2 Feb 2022 14:10:10 +0000
+Message-Id: <20220202141011.14924-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="qAS1ftfJQ+vX6+zr"
-Content-Disposition: inline
-In-Reply-To: <CAOReqxgK54Gzz=L78Xh1U2bY+rPacJ86h+Ssy6=x11skDevSXw@mail.gmail.com>
-X-Cookie: Quack!
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- Curtis Malainey <cujomalainey@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- V sujith kumar Reddy <vsujithkumar.reddy@amd.com>,
- Curtis Malainey <cujomalainey@chromium.org>, Eric Peers <epeers@google.com>,
- Rob Barnes <robbarnes@google.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8238; h=from:subject;
+ bh=CIhNbzAYIdtiQgDhDMW5zJ+2HCAbYDs3socLWaHaV7A=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBh+o9+NRBF06QjWNxu4Wm1bx92rmTayMsgE3JyUBzw
+ EqbsSIyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYfqPfgAKCRAk1otyXVSH0C6mB/
+ 0d85HuqsYAhx2ZioDn/+7fk+f4YVnTx6SQ7J+Yx9PwALoGQoQyWrDNkP9syndMOodeN17r0AddPWhE
+ bPNOcvD6qQfWkVPBTD21ibxrv60lP4KJFuKnNaWfrJd4qC42wJLLOhjPBYcRSHk46bFHh9MOldPFNz
+ GFA+G5d98bZbM9n+Pdfa8qqo8/D3AmqIsReoH8itBH3cILtw6gd92ZRk4DiNmPjmIzdFZZMAGlbYr+
+ EQ0iMm2BBEiuxj1eic6uXvk/ZBL7BQbrb+Bo6B0mipbDzOfLHIP+QjreKIPCtfrMWX/9RW8A6v1v5M
+ OK2XyYYsdYhznlje64/7oVzs2wJyit
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,61 +94,268 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add some coverage of event generation to mixer-test. Rather than doing a
+separate set of writes designed to trigger events we add a step to the
+existing write_and_verify() which checks to see if the value we read back
+from non-volatile controls matches the value before writing and that an
+event is or isn't generated as appropriate. The "tests" for events then
+simply check that no spurious or missing events were detected. This avoids
+needing further logic to generate appropriate values for each control type
+and maximises coverage.
 
---qAS1ftfJQ+vX6+zr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+When checking for events we use a timeout of 0. This relies on the kernel
+generating any event prior to returning to userspace when setting a control.
+That is currently the case and it is difficult to see it changing, if it
+does the test will need to be updated. Using a delay of 0 means that we
+don't slow things down unduly when checking for no event or when events
+fail to be generated.
 
-On Tue, Feb 01, 2022 at 11:07:45AM -0800, Curtis Malainey wrote:
-> On Tue, Feb 1, 2022 at 10:40 AM Mark Brown <broonie@kernel.org> wrote:
+We don't check behaviour for volatile controls since we can't tell what
+the behaviour is supposed to be for any given control.
 
-> > In general if there's something like a speaker amplifier that's just
-> > controlled via GPIO I'd expect that to be something that's set up by the
-> > machine driver.  If the CODEC is a GPIO provider then the pattern should
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
+---
 
-> Just to confirm, by provider, you mean it has on codec gpio it is
-> exposing to the kernel correct? Interestingly, this appears to be
-> counter to the max98357a.c driver. It has the SDMODE pin which can put
-> it into a low power state. The codec driver appears to consume this
-> pin from FW lookup and toggle it on trigger. I am just curious why we
-> would not want the codec to handle its own pins? That way the control
-> logic for the pin is collected into a non-chipset dependent location
-> that is close to the internal state of the driver.
+v2:
+ - Get the numid from the API rather than using the control index.
 
-Bear in mind that I'm just reading some e-mail about a machine driver
-here, the most common case for a GPIO for an amplifier is something
-where there's a very simple analogue amplifier with just a GPIO to
-mute it that's been attached to a CODEC or if it's something that goes
-into a device that's otherwise visible to software.  I don't have
-immediate visibility of the full set of machines and CODECs here.  Like
-I say the state of ACPI firmware description really doesn't help here.
+ tools/testing/selftests/alsa/mixer-test.c | 148 +++++++++++++++++++++-
+ 1 file changed, 145 insertions(+), 3 deletions(-)
 
-> The board this patch fixes is not shipping, the board it breaks is
-> planned to ship from my understanding. Eric, feel free to correct me.
-> We could do a partial revert and remove the _NP fields and both boards
-> would work (Sujith already sent a patch for this "ASoC: amd: acp: Set
-> gpio_spkr_en to None for max speaker amplifer in machine driver") but
-> I think we should still consider a patch to stop hard coding the GPIO
-> as it should be available via a lookup.
+diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
+index 0e88f4f3d802..79ffbca429ee 100644
+--- a/tools/testing/selftests/alsa/mixer-test.c
++++ b/tools/testing/selftests/alsa/mixer-test.c
+@@ -3,7 +3,7 @@
+ // kselftest for the ALSA mixer API
+ //
+ // Original author: Mark Brown <broonie@kernel.org>
+-// Copyright (c) 2021 Arm Limited
++// Copyright (c) 2021-2 Arm Limited
+ 
+ // This test will iterate over all cards detected in the system, exercising
+ // every mixer control it can find.  This may conflict with other system
+@@ -27,11 +27,12 @@
+ 
+ #include "../kselftest.h"
+ 
+-#define TESTS_PER_CONTROL 4
++#define TESTS_PER_CONTROL 6
+ 
+ struct card_data {
+ 	snd_ctl_t *handle;
+ 	int card;
++	struct pollfd pollfd;
+ 	int num_ctls;
+ 	snd_ctl_elem_list_t *ctls;
+ 	struct card_data *next;
+@@ -43,6 +44,8 @@ struct ctl_data {
+ 	snd_ctl_elem_info_t *info;
+ 	snd_ctl_elem_value_t *def_val;
+ 	int elem;
++	int event_missing;
++	int event_spurious;
+ 	struct card_data *card;
+ 	struct ctl_data *next;
+ };
+@@ -149,6 +152,7 @@ void find_controls(void)
+ 			if (!ctl_data)
+ 				ksft_exit_fail_msg("Out of memory\n");
+ 
++			memset(ctl_data, 0, sizeof(*ctl_data));
+ 			ctl_data->card = card_data;
+ 			ctl_data->elem = ctl;
+ 			ctl_data->name = snd_ctl_elem_list_get_name(card_data->ctls,
+@@ -184,6 +188,26 @@ void find_controls(void)
+ 			ctl_list = ctl_data;
+ 		}
+ 
++		/* Set up for events */
++		err = snd_ctl_subscribe_events(card_data->handle, true);
++		if (err < 0) {
++			ksft_exit_fail_msg("snd_ctl_subscribe_events() failed for card %d: %d\n",
++					   card, err);
++		}
++
++		err = snd_ctl_poll_descriptors_count(card_data->handle);
++		if (err != 1) {
++			ksft_exit_fail_msg("Unexpected desciptor count %d for card %d\n",
++					   err, card);
++		}
++
++		err = snd_ctl_poll_descriptors(card_data->handle,
++					       &card_data->pollfd, 1);
++		if (err != 1) {
++			ksft_exit_fail_msg("snd_ctl_poll_descriptors() failed for %d\n",
++				       card, err);
++		}
++
+ 	next_card:
+ 		if (snd_card_next(&card) < 0) {
+ 			ksft_print_msg("snd_card_next");
+@@ -194,6 +218,73 @@ void find_controls(void)
+ 	snd_config_delete(config);
+ }
+ 
++/*
++ * Block for up to timeout ms for an event, returns a negative value
++ * on error, 0 for no event and 1 for an event.
++ */
++int wait_for_event(struct ctl_data *ctl, int timeout)
++{
++	unsigned short revents;
++	snd_ctl_event_t *event;
++	int count, err;
++	unsigned int mask = 0;
++	unsigned int ev_id;
++
++	snd_ctl_event_alloca(&event);
++
++	do {
++		err = poll(&(ctl->card->pollfd), 1, timeout);
++		if (err < 0) {
++			ksft_print_msg("poll() failed for %s: %s (%d)\n",
++				       ctl->name, strerror(errno), errno);
++			return -1;
++		}
++		/* Timeout */
++		if (err == 0)
++			return 0;
++
++		err = snd_ctl_poll_descriptors_revents(ctl->card->handle,
++						       &(ctl->card->pollfd),
++						       1, &revents);
++		if (err < 0) {
++			ksft_print_msg("snd_ctl_poll_desciptors_revents() failed for %s: %d\n",
++				       ctl->name, err);
++			return err;
++		}
++		if (revents & POLLERR) {
++			ksft_print_msg("snd_ctl_poll_desciptors_revents() reported POLLERR for %s\n",
++				       ctl->name);
++			return -1;
++		}
++		/* No read events */
++		if (!(revents & POLLIN)) {
++			ksft_print_msg("No POLLIN\n");
++			continue;
++		}
++
++		err = snd_ctl_read(ctl->card->handle, event);
++		if (err < 0) {
++			ksft_print_msg("snd_ctl_read() failed for %s: %d\n",
++			       ctl->name, err);
++			return err;
++		}
++
++		if (snd_ctl_event_get_type(event) != SND_CTL_EVENT_ELEM)
++			continue;
++
++		/* The ID returned from the event is 1 less than numid */
++		mask = snd_ctl_event_elem_get_mask(event);
++		ev_id = snd_ctl_event_elem_get_numid(event);
++		if (ev_id != snd_ctl_elem_info_get_numid(ctl->info)) {
++			ksft_print_msg("Event for unexpected ctl %s\n",
++				       snd_ctl_event_elem_get_name(event));
++			continue;
++		}
++	} while ((mask & SND_CTL_EVENT_MASK_VALUE) != SND_CTL_EVENT_MASK_VALUE);
++
++	return 1;
++}
++
+ bool ctl_value_index_valid(struct ctl_data *ctl, snd_ctl_elem_value_t *val,
+ 			   int index)
+ {
+@@ -428,7 +519,8 @@ int write_and_verify(struct ctl_data *ctl,
+ {
+ 	int err, i;
+ 	bool error_expected, mismatch_shown;
+-	snd_ctl_elem_value_t *read_val, *w_val;
++	snd_ctl_elem_value_t *initial_val, *read_val, *w_val;
++	snd_ctl_elem_value_alloca(&initial_val);
+ 	snd_ctl_elem_value_alloca(&read_val);
+ 	snd_ctl_elem_value_alloca(&w_val);
+ 
+@@ -446,6 +538,18 @@ int write_and_verify(struct ctl_data *ctl,
+ 		snd_ctl_elem_value_copy(expected_val, write_val);
+ 	}
+ 
++	/* Store the value before we write */
++	if (snd_ctl_elem_info_is_readable(ctl->info)) {
++		snd_ctl_elem_value_set_id(initial_val, ctl->id);
++
++		err = snd_ctl_elem_read(ctl->card->handle, initial_val);
++		if (err < 0) {
++			ksft_print_msg("snd_ctl_elem_read() failed: %s\n",
++				       snd_strerror(err));
++			return err;
++		}
++	}
++
+ 	/*
+ 	 * Do the write, if we have an expected value ignore the error
+ 	 * and carry on to validate the expected value.
+@@ -470,6 +574,30 @@ int write_and_verify(struct ctl_data *ctl,
+ 		return err;
+ 	}
+ 
++	/*
++	 * Check for an event if the value changed, or confirm that
++	 * there was none if it didn't.  We rely on the kernel
++	 * generating the notification before it returns from the
++	 * write, this is currently true, should that ever change this
++	 * will most likely break and need updating.
++	 */
++	if (!snd_ctl_elem_info_is_volatile(ctl->info)) {
++		err = wait_for_event(ctl, 0);
++		if (snd_ctl_elem_value_compare(initial_val, read_val)) {
++			if (err < 1) {
++				ksft_print_msg("No event generated for %s\n",
++					       ctl->name);
++				ctl->event_missing++;
++			}
++		} else {
++			if (err != 0) {
++				ksft_print_msg("Spurious event generated for %s\n",
++					       ctl->name);
++				ctl->event_spurious++;
++			}
++		}
++	}
++
+ 	/*
+ 	 * Use the libray to compare values, if there's a mismatch
+ 	 * carry on and try to provide a more useful diagnostic than
+@@ -898,6 +1026,18 @@ void test_ctl_write_invalid(struct ctl_data *ctl)
+ 			 ctl->card->card, ctl->elem);
+ }
+ 
++void test_ctl_event_missing(struct ctl_data *ctl)
++{
++	ksft_test_result(!ctl->event_missing, "event_missing.%d.%d\n",
++			 ctl->card->card, ctl->elem);
++}
++
++void test_ctl_event_spurious(struct ctl_data *ctl)
++{
++	ksft_test_result(!ctl->event_spurious, "event_spurious.%d.%d\n",
++			 ctl->card->card, ctl->elem);
++}
++
+ int main(void)
+ {
+ 	struct ctl_data *ctl;
+@@ -917,6 +1057,8 @@ int main(void)
+ 		test_ctl_write_default(ctl);
+ 		test_ctl_write_valid(ctl);
+ 		test_ctl_write_invalid(ctl);
++		test_ctl_event_missing(ctl);
++		test_ctl_event_spurious(ctl);
+ 	}
+ 
+ 	ksft_exit_pass();
+-- 
+2.30.2
 
-Are there other systems that aren't Chromebooks being covered here, and
-if so what state are they in?  In any case what I'd expect to see here
-is a series transitioning the existing code to use lookups from the
-firmware.
-
---qAS1ftfJQ+vX6+zr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmH6kDAACgkQJNaLcl1U
-h9BkzQf+Ocd6qwUzu/0Dt1tLiUSj+tcyBajGeKH1FcgPZ1qR+0ZJmZbbuCOlxEna
-wUXbW7poqYb46OCwxNDSzlgntzCjm8mbVNXAGopitLzLUCIcTOppmrrweMqXZkqD
-KwsQy52yxBB/WCkAafPGcUHs/SRm6RJ92fOxU9wCUol3S/LrRt95jcmUQZ4ORmCN
-vcB5FS70Oz0YnMCBPD8mVh+bckNLBXXBHxIZnURBGbnIgLhoUnRLWhmtmcm2LMEy
-v7M5ou2YPi0q1Gmpzh5JojTRECBPVrTU5lI11lI32VifH79SEx+XcpDmVBuXgeXf
-SYPK9wNFi4BX+ROIWzyea32HWvPSSg==
-=UNxo
------END PGP SIGNATURE-----
-
---qAS1ftfJQ+vX6+zr--

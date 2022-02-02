@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7F8A4A7178
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 14:23:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7132D4A717D
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 14:25:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D3E1204;
-	Wed,  2 Feb 2022 14:22:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D3E1204
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED1FE1720;
+	Wed,  2 Feb 2022 14:24:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED1FE1720
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643808216;
-	bh=EIsy59d1uU8qIkHRTPbxWJ+X7di+dVj1ejfu0IGcmgI=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1643808326;
+	bh=o6TpSr4Ebs/+aowtxCYwb/J3cAptbddaw6esQMuHyjM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gaPttVHlM63OzXY/I54a0dqwYZUIltCBfryJ5eVAff8S/yxQFzKNfibN65noNhLyy
-	 g4HIM7fz+3hVV44CdfwQY36DZKL8SB7aIFwDYoc1OUWYL20E8XEM8vQtU/SpY2X+c9
-	 A94qJCHmgQ9SLVuHGyolAzYUNO9B4bj3k1ND9p74=
+	b=Tbne5gVZ+MalRjXR9/ct+ny/DHBowz5fNRlwIjkjhawUrXCvcCYg9ddgs0S/5OVEe
+	 BvH7a3vGmW8USVrVWPNabwJyeVIdF51mmwf5q/AinL21Vi76lND/HBn/ZXiOi8oOWq
+	 jCoMHCjgqGZCTofq8ON1uj9YW7ARYXvgMILz4Gfc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC7A5F804B1;
-	Wed,  2 Feb 2022 14:22:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62FF6F804B1;
+	Wed,  2 Feb 2022 14:24:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC5EBF804B0; Wed,  2 Feb 2022 14:22:26 +0100 (CET)
+ id ECCDDF804B0; Wed,  2 Feb 2022 14:24:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5758EF80095
- for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 14:22:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5758EF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF674F80171
+ for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 14:24:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF674F80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XDGq5Tr5"
+ header.b="Vowr6Kxs"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 09D0C61781;
- Wed,  2 Feb 2022 13:22:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CDB0C004E1;
- Wed,  2 Feb 2022 13:22:19 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 949E1B82A30;
+ Wed,  2 Feb 2022 13:24:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF1D3C004E1;
+ Wed,  2 Feb 2022 13:24:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643808140;
- bh=EIsy59d1uU8qIkHRTPbxWJ+X7di+dVj1ejfu0IGcmgI=;
- h=Date:From:To:Subject:References:In-Reply-To:From;
- b=XDGq5Tr5MAq0a0JKJvcH5Zn8sH8Xqw2qOa92N0tggelBYIw/M8SPycusVy5/Mk/sL
- wviU45rkpSyTSeRiGryd4ZnUxsAeJmLmtpQ3r7X5B9WAnuUQDwNYghS4XMWBjbMvnM
- CCBaNy7Vf6Nd8CgKpqMlc+Dnc1GlZdNflivxi2T1VD86btEjglnxffLX+bjcFVHwwf
- ZtUaap+jr7CiMnzintfCj577vX754KnmUiNjT40LjBjUZhzTTq4zmOOGIj7YGdl9YH
- cIJnqSKX4rYGQb15nbwnOV6b7OA3VaJcvYT0odZIt7L6m2noqyCsVAyRw7b6alE7mH
- sLAzJn2lI+ceg==
-Date: Wed, 2 Feb 2022 13:22:16 +0000
+ s=k20201202; t=1643808249;
+ bh=o6TpSr4Ebs/+aowtxCYwb/J3cAptbddaw6esQMuHyjM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Vowr6KxsTAFZ/Qbfyh3ZFG4lXeNL8GcrZobttR9UEm5bZ8uQZ83SzEAn+dNLbWncm
+ hrDQYW4JLHTeC3hVZmWpdDpuWoIZuoKdnVSBZJCJMIwCLM9Ck3yJUpTNtRNFc9bQex
+ p4CZaRPcczfds1+r1+0JfRAOHmeNKVNTSihX1Bv9SO7TRImvfynQ6qlcQVj8/hyUSg
+ bP/ekIefc9EpzlQpqtRq8fvbg+zRwEmdgWRakpvYr7YsZn+QGOBcs584lodGu0MFTS
+ WqFoEbRTYO+FHFpA2UOssRwGLcZAgJ6jH30bqZij/s9icsa2KNTrXhW4jzZgCUBMR8
+ nWofKzcMsRhKg==
+Date: Wed, 2 Feb 2022 13:24:04 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shuah Khan <shuah@kernel.org>, alsa-devel@alsa-project.org,
- linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH] kselftest: alsa: Check for event generation when we
- write to controls
-Message-ID: <YfqFiIHaPnvY1+W7@sirena.org.uk>
-References: <20220201151551.21497-1-broonie@kernel.org>
- <YfnksdOR5HR0mZi0@workstation>
+To: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@protonmail.com>
+Subject: Re: [PATCH] ASoC: tas2770: Insert post reset delay
+Message-ID: <YfqF9Da6uVHUEA7G@sirena.org.uk>
+References: <20220201234612.74401-1-povik+lin@protonmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="HgO9RPne0YIh77zU"
+ protocol="application/pgp-signature"; boundary="XCXfCLWUe2PIQvtF"
 Content-Disposition: inline
-In-Reply-To: <YfnksdOR5HR0mZi0@workstation>
+In-Reply-To: <20220201234612.74401-1-povik+lin@protonmail.com>
 X-Cookie: Quack!
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Frank Shi <shifu0704@thundersoft.com>,
+ Ye Bin <yebin10@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,51 +89,29 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---HgO9RPne0YIh77zU
-Content-Type: text/plain; charset=us-ascii
+--XCXfCLWUe2PIQvtF
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Feb 02, 2022 at 10:56:01AM +0900, Takashi Sakamoto wrote:
-> On Tue, Feb 01, 2022 at 03:15:51PM +0000, Mark Brown wrote:
+On Tue, Feb 01, 2022 at 11:47:18PM +0000, Martin Povi=C5=A1er wrote:
 
-> > +		/* The ID returned from the event is 1 less than numid */
-> > +		mask = snd_ctl_event_elem_get_mask(event);
-> > +		ev_id = snd_ctl_event_elem_get_numid(event);
-> > +		if (ev_id != ctl->elem + 1) {
+You've sent an encrypted mail to a public list, perhaps someone can read
+what you've written but I can't.
 
-> As long as I know, the design of ALSA control core just exposes the
-> numeric identification of a control element issued for notification in
-> 'snd_ctl_event' structure. On the other hand, the above evaluation
-> expects decremented value against position of queried list structure
-> has come.
-
-> I note that current design of ALSA control core is:
->  * 1 is selected for numeric identification of the first element in the
->    first element set added to sound card.
->  * at removal of element set, the series of assigned numeric identification
->    becomes blank (coded as hole).
->  * Userspace application can always add/remove element set to the card.
->  * the position of element in queried list structure does not
->    necessarily corresponds to numeric identification even if decremented
->    by 1 due to the hole.
-
-Oh, I see - we have multiple IDs here which is what's confusing things.
-This looked wrong when I was writing it and I was hoping someone would
-confirm what was going on on review so thanks.
-
---HgO9RPne0YIh77zU
+--XCXfCLWUe2PIQvtF
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmH6hYcACgkQJNaLcl1U
-h9Aq9QgAg3UsfWD5fQB5Vf3Si8tYogGNaaVLUNospDpGtveAPqrO+DNnoaS+w/QF
-yvoWYUXMzUeaK8TrRgawE3euuxl3BCIDJgnU6PkIVuYYNgrBTo94KAGYku+p5D6X
-1/fHCC9wrc5Wpvkh8y23KdKbYecs8QglpZBjsJlTvglsAkpdz/Ss5eVLdYbcvzau
-Yb+UcmTg1ajTII6UvVCMM05iSfYCNLdWvCGBrW+rnPumoqs0xblAqfp4txBRjTdv
-//viPLYzcxT3rv2pGp8NaUHFRf844UsKuLJ55dj1m6S4oAKiLjz0obTBRbgDlXU+
-7WYgz1XxhejKbH8JP12MYMb/7so1FQ==
-=3AVw
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmH6hfMACgkQJNaLcl1U
+h9CFLwf9E1zLiYCHBrbPXnsb4rsXtr1d9L4C2s44AaRo6tRmH+4UfOg9ZsG8NXgq
+0oM9GXK5Al/+Z8qPD8oKpqS57GjDUWviB7e/JE+41RQ/vg91PSmq++/JhAICeN7n
+PBX78DFBdQg7+yNT//TZ/L5/qZUJlPku0KEuNHHUN7TrsyHsPwaf5iEvFc8cHnd3
+2ih85rDTS8sUUldB9+5vjwAZyJiVaxlzzFZ0/Fz/eKud2FsuQ4R1pMI7mEwLZQMr
+rOBoyZNTwwKxt+VjTfwzFJ8EKXvqulzfCmCulzcPk11a+Px3P7fNmdvXxcpRrbun
+SYkRsV72/p3UIM7gslaZ5g6hAwhjeg==
+=9Mrz
 -----END PGP SIGNATURE-----
 
---HgO9RPne0YIh77zU--
+--XCXfCLWUe2PIQvtF--

@@ -2,82 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6A684A7366
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 15:42:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA2C04A7377
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 15:44:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5259B16D7;
-	Wed,  2 Feb 2022 15:41:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5259B16D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4994D1740;
+	Wed,  2 Feb 2022 15:43:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4994D1740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643812959;
-	bh=V+7FtyxQORUL16raB2ZOJzrcEcDaRVfLi210qqcPKeQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1643813045;
+	bh=nlrTMqSDQr6yzWfUvCUWL+GBSBHFcLaCvlFZJZf/ag8=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KU47sB6ZdWsfd678xweRMWf9IrDjG/v2thH40uj85JFMUxbiVEcJba/Yoyc5Qf2Pi
-	 tOjPT1isUZJe/+FwhefEhbMIoheCrF2Pyfit91ZZwMhoQ7xZ1yCwMP2q0mZT1pgCki
-	 WtTUPyGxs6LO59BG38obS+JVFgwH/Rq0RtGitkkU=
+	b=Ki3/wtrfG9Hm7aHiVzK6QXxYNDqWwTXAbzcVVQwyuLn3ca2a9qqpE8WHuYh6itO5F
+	 deEmyOPOno1Xrh4jL2bBHKUfBUbKpfHUGSUjvA20FWYFU1kBbD+0oWXkOAcaoDsE3I
+	 XUiP3iu4YbLbv9I7o0fyWrgz0GhctOXF6ZQ7tvHY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEEE9F804B1;
-	Wed,  2 Feb 2022 15:41:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C96E0F804B1;
+	Wed,  2 Feb 2022 15:42:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F7D6F804B0; Wed,  2 Feb 2022 15:41:29 +0100 (CET)
+ id 8B6F3F804B1; Wed,  2 Feb 2022 15:42:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_155,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1F27F80130
- for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 15:41:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1F27F80130
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jQLQwsyR"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B0517B830B5;
- Wed,  2 Feb 2022 14:41:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71206C340EB;
- Wed,  2 Feb 2022 14:41:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643812884;
- bh=V+7FtyxQORUL16raB2ZOJzrcEcDaRVfLi210qqcPKeQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jQLQwsyRyUhq6lIQSqbCXFfkSTorAcPL/3i3NkldaTBm7SnGKHhcFKYVQW5er0WwU
- dIh9GwcreU9pB6Jwe/oja4+oBRiI0m4Kp0LfuCM7CIhfV0hI1b66Gp+PFBp7usgTb2
- hbj+vNcp9fCoqqao8hIBHFkCF2jSxFICxUxUhzA2lStqInlGTTo4xPTi2Czo2QklQA
- lUbi1CLbUyDVHEJPREPZChvk+5SvROsjmI5BsZO4P1YWJUzsTd9Bhlt8bKn5GLBW4P
- hKTcUhgVRbsWa1d4VuTQzfiYvajF9W5XjeW6rBl1ZEyJZTchP/IDvJSZwaDjAuFRqJ
- /1TdHIgKjkJtA==
-Date: Wed, 2 Feb 2022 14:41:18 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [RFC 00/37] ASoC: Intel: AVS - Audio DSP for cAVS
-Message-ID: <YfqYDkXQsyLOzfdp@sirena.org.uk>
-References: <20211208111301.1817725-1-cezary.rojewski@intel.com>
- <YcXFwTmP6k1Zfbw9@sirena.org.uk>
- <fecf5a0a-c2b6-f4a0-b4b1-d8243ea324a0@intel.com>
- <YfQhIoXTkzO9AEQc@sirena.org.uk>
- <ccb2f9f0-e9fa-3215-f623-bac58b4c9633@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61C2CF80130
+ for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 15:42:51 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 8ED1AA0046;
+ Wed,  2 Feb 2022 15:42:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 8ED1AA0046
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1643812970; bh=iQb9T/tWOPeYEpN4C4pwSOdLCsO5xelpAVEo95Njk7M=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Yuk1poWXc6cYQuLYibtUU31Bh9MbNbR8jf7moEFZUX4hRu7ZVqqF5RSKiKSFBYrTg
+ kghSXmGck6gEnHMmKKWe33rYI52DTkb/NUGTNYsRy+TE1IrouY+Uih03FyGeegRZfw
+ XQNrJseOyKlN73EGnd7m8bxqhz50vyEudi4B0GBE=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed,  2 Feb 2022 15:42:43 +0100 (CET)
+Message-ID: <af7680e0-2c76-c625-a761-02d6e1d08c9d@perex.cz>
+Date: Wed, 2 Feb 2022 15:42:43 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="OfUjiIDbzR2HSU5S"
-Content-Disposition: inline
-In-Reply-To: <ccb2f9f0-e9fa-3215-f623-bac58b4c9633@intel.com>
-X-Cookie: I will never lie to you.
-Cc: alsa-devel@alsa-project.org, upstream@semihalf.com, harshapriya.n@intel.com,
- yung-chuan.liao@linux.intel.com, rad@semihalf.com,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
- ranjani.sridharan@linux.intel.com, amadeuszx.slawinski@linux.intel.com,
- cujomalainey@chromium.org, peter.ujfalusi@linux.intel.com, lma@semihalf.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Subject: Re: [PATCH v2 1/2] kselftest: alsa: Check for event generation when
+ we write to controls
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+References: <20220202141011.14924-1-broonie@kernel.org>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20220202141011.14924-1-broonie@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-kselftest@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,98 +83,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 02. 02. 22 15:10, Mark Brown wrote:
+> Add some coverage of event generation to mixer-test. Rather than doing a
+> separate set of writes designed to trigger events we add a step to the
+> existing write_and_verify() which checks to see if the value we read back
+> from non-volatile controls matches the value before writing and that an
+> event is or isn't generated as appropriate. The "tests" for events then
+> simply check that no spurious or missing events were detected. This avoids
+> needing further logic to generate appropriate values for each control type
+> and maximises coverage.
+> 
+> When checking for events we use a timeout of 0. This relies on the kernel
+> generating any event prior to returning to userspace when setting a control.
+> That is currently the case and it is difficult to see it changing, if it
+> does the test will need to be updated. Using a delay of 0 means that we
+> don't slow things down unduly when checking for no event or when events
+> fail to be generated.
+> 
+> We don't check behaviour for volatile controls since we can't tell what
+> the behaviour is supposed to be for any given control.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
 
---OfUjiIDbzR2HSU5S
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+...
 
-On Sun, Jan 30, 2022 at 08:15:26PM +0100, Cezary Rojewski wrote:
-> On 2022-01-28 6:00 PM, Mark Brown wrote:
+> +		/* The ID returned from the event is 1 less than numid */
+> +		mask = snd_ctl_event_elem_get_mask(event);
+> +		ev_id = snd_ctl_event_elem_get_numid(event);
+> +		if (ev_id != snd_ctl_elem_info_get_numid(ctl->info)) {
+> +			ksft_print_msg("Event for unexpected ctl %s\n",
+> +				       snd_ctl_event_elem_get_name(event));
+> +			continue;
+> +		}
+> +	} while ((mask & SND_CTL_EVENT_MASK_VALUE) != SND_CTL_EVENT_MASK_VALUE);
 
-> > AIUI the firmware itself has a bunch of DSP modules that can be
-> > dynamically instantiated and what the path stuff is doing is providing
-> > fixed sets of instantiations that can be switched between.  It seems
-> > like it should be possible to pull out the bit where we have sets of
-> > modules we can instantiate from the mechanics of knowing what modules
-> > are there and actually setting them up and tearing them down, other DSP
-> > implementations would probably be able to benefit from that (at least
-> > the larger ones) and I imagine more advanced users would find it useful
-> > to be able to reconfigure the DSP pipelines separately from getting
-> > firmware releases.
+A special check for SND_CTL_EVENT_MASK_REMOVE (~0U) is missing here.
 
-> There is also a notion of 'pipeline'. In cAVS ADSP case, almost all modules
-> require parent pipeline in order to be instantiated. Mentioning this as
-> modules alone are insufficient to create an audio stream.
+For the rest:
 
-> 'avs_path' is a runtime representative.
-> 'avs_path_template' is a recipe for avs_path. All templates are created
-> during topology load procedure.
-> No modules or pipelines exist on DSP side until driver begins the
-> (CREATE_PIPELINE + INIT_INSTANCE) IPC sequence. That happens during
-> ->hw_params() callback of a DAI.
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
-That doesn't sound like a particularly unsurprising requirement for
-firmware to have TBH - I'd expect we'd need generic handling for
-partially constructed paths, including only actually instantiating them
-when they're complete (in a similar manner to only powering on analogue
-paths when everything is joined up).
+					Thanks,
+						Jaroslav
 
-> So, avs_path_template provides a fixed set of recipes to create concrete
-> avs_path what effectively creates modules and pipelines on DSP side.
-
-Sure, I get that that's what it's doing.
-
-> path-API found in path.h is limited and maps nicely to DAI operations:
-
-> avs_path_create()
-> avs_path_bind(struct avs_path *path)
-> 	used during DAI's ->hw_params()
-
-> avs_path_free(struct avs_path *path)
-> avs_path_unbind(struct avs_path *path)
-> 	used during DAI's ->hw_free()
-
-> avs_path_reset(struct avs_path *path)
-> avs_path_pause(struct avs_path *path)
-> avs_path_run(struct avs_path *path, int trigger)
-> 	state setters, used during DAI's ->prepare() and ->trigger()
-
-> given this picture, one could say that there are framework elements that
-> allow driver writer to implement whatever is needed for DSP-capable driver.
-
-Right, which points towards pulling bits of it that can be made generic
-out of the driver and shared with other DSP implementations.
-
-> And now back to the _full picture_ that I'm clearly not seeing yet. How do
-> you envision interfaces that should be added to the ASoC framework? Are we
-> talking about soc-path.c level of a change? It would be helpful to have even
-> a single operation (from the list above) drawn as an example of what is
-> expected.
-
-I don't have an off the shelf answer for you here, like I said half the
-thing here is to split this out from the rest of the series so it can be
-considered separately.  The digital domain stuff is obviously key here,
-the main extra bit for any sort of dynamic DSP routing seems to be
-working out a way for userspace to set up and remove new paths - that's
-probably new userspace ABI.  Perhaps that's a runtime thing with initial
-setup in UCM.  Or perhaps it's better to have something closer to what
-you have done but split out like topology is so that the bulk of the
-code is reusable with other firmwares and there's a thinner layer with
-the firmware specific bits in it.
-
---OfUjiIDbzR2HSU5S
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmH6mA0ACgkQJNaLcl1U
-h9Aiywf/dz4Gjqo7zbgkJrhm+MpDjvXoQALeBbq0fsnJqqe9Vx0PHOItynhDpVBX
-4Eh/q9mWRd9A+hCaEgukm4zp4fqfz1kYnaal+dfhU8vwexHBfzXwaWXXKIBCW/me
-TsjgTWlGbG3kS1zOqydOI1VQ/2S8Vn/3KIyuebTE+lVdrMny+75vaZq6LqeetAWE
-FvgnYsB3qojlSxbIxWuRr6vFRpqGhgaUjAesyvo2rA7w5fb6mceF2BV3ninmd74m
-2vztR5ERv9pgocQQeFjtPeoNu4sS/Cw6EAc3Cpb6VUi1X0hiour4sLskkkyJ7kCj
-pzkhpAq2Ia0tcIiaMYQpw+C+aXxPTQ==
-=qEqN
------END PGP SIGNATURE-----
-
---OfUjiIDbzR2HSU5S--
+--
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

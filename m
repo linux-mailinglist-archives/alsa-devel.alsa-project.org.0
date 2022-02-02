@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29AE84A6D80
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 10:06:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD31A4A6E2E
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 10:54:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCF901755;
-	Wed,  2 Feb 2022 10:05:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCF901755
+	by alsa0.perex.cz (Postfix) with ESMTPS id 366E1847;
+	Wed,  2 Feb 2022 10:53:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 366E1847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643792794;
-	bh=kKkxko3MSC8gZHCOAXiTThtJEVRYa6uzD3myphbXtzc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1643795667;
+	bh=qotgH7PICJZt8koBL3hX7aG3oKI06jRcFkkY3bFdLqM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rsxqHVhXPeMOd7h2/RjqMuBgR1i12dNP8yqtx+MhikafroEb7ing8ya8MgGIU6WYs
-	 5EPHkR3YeHWwM3OCsFEGn/RFuaTUy/hCH1r5bxKVQVKeBmS6R17e6du3a1DmiSpL07
-	 6ZsXkv09Jb8tiEFZRlz4Ynw59pxWnpf7jC7VL3vw=
+	b=qsZWMIeQhNb6x3vmHZVBuXa2Oxh+bbXqKLwJBysoXz/KOzplCuFzrZRypGP2UO+3p
+	 ZFuZO0UXZIvHaCL4oaFHoyIy9J8JVsG2LN6GpYzw9PzuQzVfDx4toqvHRwipzHd4cE
+	 J+qEJhopRv9NFb4a+lE+7TGXFozbj2VStO1l5LkA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BDC0F804B1;
-	Wed,  2 Feb 2022 10:05:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96AEEF804B1;
+	Wed,  2 Feb 2022 10:53:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF5CFF80095; Wed,  2 Feb 2022 10:05:24 +0100 (CET)
+ id 5D9EDF804B0; Wed,  2 Feb 2022 10:53:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7970BF80171
- for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 10:05:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7970BF80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BCAAF80171
+ for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 10:53:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BCAAF80171
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LqraWF/o"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ctBv3Iq4"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B37C21F3A5;
- Wed,  2 Feb 2022 09:05:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1643792716; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IS/7DTtoqCDhUsj7yQsFZxZ5pBNPykQmtwEQ6/9LgUw=;
- b=LqraWF/oAoE7F/eJssgV9dvDXTwvSWyyKR+sKuIK/KAP+HYN4uC5mWk7QXjo/YoaAjeCh4
- 8N1izT6e7SRmm8wqaV4krxgQ5MfbpddF4x2of+d0RA2ywgTes1SRTOZyd2rHv8XNLMcHqF
- cjPOmqIVd0zL5WDmz9LTfVioLSi+5Uk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1643792716;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IS/7DTtoqCDhUsj7yQsFZxZ5pBNPykQmtwEQ6/9LgUw=;
- b=ctBv3Iq4/kWgopH6Z6xBOpffyq25svkSClnPIImtD0TLEzF+lB5CIVYZ6e/Qt7kEh3V+CO
- jj/4nUHLv5rjPZBg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 98919A3B83;
- Wed,  2 Feb 2022 09:05:16 +0000 (UTC)
-Date: Wed, 02 Feb 2022 10:05:16 +0100
-Message-ID: <s5hv8xxzlir.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Subject: Re: [PATCH v6 8/9] ALSA: hda/realtek: Add support for HP Laptops
-In-Reply-To: <20220121172431.6876-9-sbinding@opensource.cirrus.com>
-References: <20220121172431.6876-1-sbinding@opensource.cirrus.com>
- <20220121172431.6876-9-sbinding@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: platform-driver-x86@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-acpi@vger.kernel.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- patches@opensource.cirrus.com, linux-spi@vger.kernel.org,
- Len Brown <lenb@kernel.org>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="gPTi0zjt"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2127g84s006428;
+ Wed, 2 Feb 2022 03:53:03 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=osO9KjR3bNrSyyc47IFvkhgY1OPmSrYcZ1TDlZ7ETus=;
+ b=gPTi0zjtPWsyB6bTqhLGz2zhHja4sCnuJn+m3rvJ9dwCz3YXFr7HOwhXGYG2NAyqyfcx
+ YpavuU1TcWyvQz/QoSniawml788WZq4NnFKiv/hwFAM4vUOEmd5KSzeKnml6yQMAEsUz
+ 83LCb4AVdYf+wz3z03Z+vk1bkpLyv25wuPPfcadRYK3p7ZujNwrgZnnVKMldpEDx4lhj
+ UnXyLc6NezDss7XzZzLm8Yx99chYTUgDLkMhOFW6jlAEiLB1/byvVbsI0w8M43Y4gTVp
+ 9phiAO6+WjUyBinyaVZ/zUNi3Po+P6D5ezrr8H9btxedJwZ1s+GNMKv+Mbhk8H5CF2d0 NQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dxksx2pq0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 02 Feb 2022 03:53:03 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 2 Feb
+ 2022 09:53:01 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Wed, 2 Feb 2022 09:53:01 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8BBD9B0E;
+ Wed,  2 Feb 2022 09:53:01 +0000 (UTC)
+Date: Wed, 2 Feb 2022 09:53:01 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Martin Kepplinger <martin.kepplinger@puri.sm>
+Subject: Re: [PATCH] wm8962: add a simple DMIC enable control
+Message-ID: <20220202095301.GZ18506@ediswmail.ad.cirrus.com>
+References: <20220201150113.880330-1-martin.kepplinger@puri.sm>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220201150113.880330-1-martin.kepplinger@puri.sm>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: kmkrBuGaHY3iEJN73PF59qxOdXEKyDS0
+X-Proofpoint-GUID: kmkrBuGaHY3iEJN73PF59qxOdXEKyDS0
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, kernel@puri.sm, patches@opensource.cirrus.com,
+ tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org, geert@glider.be,
+ daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,23 +99,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 21 Jan 2022 18:24:30 +0100,
-Stefan Binding wrote:
+On Tue, Feb 01, 2022 at 04:01:13PM +0100, Martin Kepplinger wrote:
+> In order to use the external mic we need to switch DMIC_ENA off.
+
+When you say external mic do you mean an analogue mic connected
+to the INxy pins on the chip?
+
+> I know when DMIC is not used at all, the codec driver does
+> snd_soc_dapm_nc_pin(dapm, "DMICDAT"); but I'm not sure how I'd create
+> a control based on that.
+
+snd_soc_dapm_nc_pin should be called on DMICDAT if the GPIOs are
+not configured for use of a DMIC. And if called DMIC_ENA should
+never be set by the driver, since it can't be used as the pins
+are not configured to operate as DMICs.
+
+> I'm not yet looking into detection - only making it work when selected
+> manually, via ucm. Although I need detection too later.
 > 
-> From: Lucas Tanure <tanureal@opensource.cirrus.com>
+> While this works when I set the control in ucm, AFAIK the way I do it
+> here is not correct though due to dapm.
 > 
-> Add support for two and four CS35L41 using the component
-> binding method
+> I guess this conflicts with the widget:
+> SND_SOC_DAPM_AIF_IN("DMIC_ENA", NULL, 0, WM8962_PWR_MGMT_1, 10, 0),
 > 
-> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> Do you have any advice for me on how to do what I want?
+> 
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Yes the DMIC enable should be controlled through DAPM when the
+relevant audio path is enabled.
 
-Hans, feel free to include this one into your tree.
-Or if you prefer this going through my tree, let me know.
+Just to check I understand the problem correctly. You have a system
+that has both analogue and digital mics connected, and the
+problem is that DMIC_ENA is then permanently enabled, meaning you
+can't access the audio from the analogue mics?
 
+Assuming I am correct above, looking through the DAPM graph it does
+look like the DMIC is oddly wired. It does appear to be hard wired
+into ADCL, which would indeed cause it to be permanently enabled
+if the pins are configured for DMIC. Assuming there isn't some
+reason the chip can't switch between digital and analogue modes
+(I can't see an obvious one in the datasheet), I think really there
+is a DAPM mux missing here. There should be a mux connecting both
+MIXINL and DMIC_ENA to ADCL/ADCR, rather than them both being
+directly connected that would let the user switch between
+analogue and digital inputs.
 
-thanks,
-
-Takashi
+Thanks,
+Charles

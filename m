@@ -2,84 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC56C4A7628
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 17:47:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EAAC4A765B
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 17:59:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A438166B;
-	Wed,  2 Feb 2022 17:46:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A438166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6A581755;
+	Wed,  2 Feb 2022 17:58:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6A581755
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643820427;
-	bh=1OLSLTBGS8vmp72x0nbsVxN4hYeSQmPp5cntNhuFq1c=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=R2an/PVK/DFrToe9gJjLgXXIcOwkfM5C2h3fJgGAKg4hpJDUT1FW0kcMKuXdQwACF
-	 vFqOLyDY4eJa9fP12I164wXew1xuVg0NkJJcvbnxfLcBIljNoExa7bjynux25Q4xGB
-	 xohkoHKXiOaQR1OaOBzdrdClN6QQcPplIYsan2J8=
+	s=default; t=1643821180;
+	bh=9yp4CwxwUHGLcr+d+86gN0k0ZlNozZ+zbH0v4eLxN30=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=a/9cr1wrIOww5YLY/o+EYie0lTPWLes8CJiOdb5y8IVA3h2qDVFi6s6pMvrwVJH7H
+	 0XnZ5lOBtQ1kKOgxBCLYpPfVUqFQk+rBjXKZ+ax4oLqUzBSY6UwgvJbu8N9LDSDIf8
+	 9+j2GX1wRJ7L9kfbqIML/hF6p/7qvnibSQLbiqqo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9670DF80095;
-	Wed,  2 Feb 2022 17:46:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5203CF804B1;
+	Wed,  2 Feb 2022 17:58:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A07FF804B0; Wed,  2 Feb 2022 17:45:56 +0100 (CET)
+ id EDAE1F804B0; Wed,  2 Feb 2022 17:58:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C215F80095
- for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 17:45:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C215F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25B5CF80171
+ for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 17:58:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25B5CF80171
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="YOVfJ0zd"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 212GAUu0005105;
- Wed, 2 Feb 2022 10:45:47 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type;
- s=PODMain02222019; bh=Nlx3Zm9MfzgvM5SG4Ylhe+koqwOdfIQcc1dECMZk/KU=;
- b=YOVfJ0zdsE8ZpgcIBzsKRaCTMVK4q5O8RwHuLSZ/4ivsQvdjzVGaQhIfZMxMqJ01aAZ3
- RdPHKXhHJNCH2lnczjljPkv4yflXCbQzvUOfy0p3p8yTxPmxPh+LeYpna8UcloQFvkvX
- lvg+6yNcHy3Kz132SM8XRR2omk5zylXSArE7xc6oeFVyhdaD47hE4gS/86DDJObnjlB5
- VjCpMCamPVKsjlnmF4cO24AizE2vFRFRpeyrPkzTYq0MH5nKEfby2CYHtujZ0BcL5MaG
- MfGME6bjDC/6TEAKtjfLCT2Trh2zv+kAHiQi/M3wRKKq1byBt/tufXXO652mYjYTkiCE oA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dyw8cg165-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 02 Feb 2022 10:45:47 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 2 Feb
- 2022 16:45:45 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Wed, 2 Feb 2022 16:45:45 +0000
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DF34D11D7;
- Wed,  2 Feb 2022 16:45:45 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: wm8962: Allow switching between analog and digital
- inputs
-Date: Wed, 2 Feb 2022 16:45:45 +0000
-Message-ID: <20220202164545.30457-1-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.11.0
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="bvisUxUw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1643821104;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=33RJ6ETpJBMEuUVYARi3js6UE/fWbj5Vv0s0IDaoWvM=;
+ b=bvisUxUw9QIxWRIHFsiQxxKaJaol8fTYV/PGA5AUMZUxfb5Y2xInErvvpelhGN5uOjBcN3
+ 1ldHNNwOmMPDOyFbDdD8Y+9/JvqSK+C2ilz9mbxcliSlrViAkWh8IRaF8Bj+Wj/44AGzSC
+ ZTiocNRmc4t38ymXnrN9p34inS9HCP0=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-269-c2m-nA7_N8qGBn36aSzfTQ-1; Wed, 02 Feb 2022 11:58:22 -0500
+X-MC-Unique: c2m-nA7_N8qGBn36aSzfTQ-1
+Received: by mail-ej1-f69.google.com with SMTP id
+ p8-20020a1709060e8800b006b39ade8c12so8423076ejf.10
+ for <alsa-devel@alsa-project.org>; Wed, 02 Feb 2022 08:58:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=33RJ6ETpJBMEuUVYARi3js6UE/fWbj5Vv0s0IDaoWvM=;
+ b=p265mEJnLaFIOOi89zNN4NoN6E6HjnVzumRUDa7u21YY4eBsKhMvJPVUa71Si0dLXg
+ VzXHPFbmk8B985OA4Oi0sWyhmDkA/NyFftB2gu/6XuOdZy2TlY+2Bjbh5Ia7BX7qgOSz
+ t86bHuyB5TxNXeHRoNe870gltufWNT85qPnuM7lVUb0pAedKWy//24GWkhmxbQvqHUT6
+ 7Hl0wihnlUBeSB+krMprvZu0trFSbWvwwxnaa7RLO/ph39vfZonY/A6rdXH6BulDJtEo
+ HWHtc7lE1UAMdNKHvH7f9ZLj+uxR0pI6EceMHbFnQ0eYkVx0AKUpwoGimcrBBH8Pipwj
+ j9Sw==
+X-Gm-Message-State: AOAM533oljOAWksjwFcwx95XW4Wx5dQkPP/Q9R1A7FrUNjjD6BtJrQid
+ qub8B6bM9ASnQHttILsX1FB1IS/AH0pKRwYUVzNmMTbnSeXjHYTTjgtWzpzGamJruzQOmSA7XWp
+ x1lP8UX+9tDoGSIzioUh6L3M=
+X-Received: by 2002:a17:907:9494:: with SMTP id
+ dm20mr25174303ejc.148.1643821101414; 
+ Wed, 02 Feb 2022 08:58:21 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxSa5+s4V0ZC2uHEnTb8hqOakr0xNNcuxHT6eTOZntN/dBUa1zn7lL5I0NToJaWGLpDqviY1w==
+X-Received: by 2002:a17:907:9494:: with SMTP id
+ dm20mr25174287ejc.148.1643821101266; 
+ Wed, 02 Feb 2022 08:58:21 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1?
+ (2001-1c00-0c1e-bf00-1db8-22d3-1bc9-8ca1.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1])
+ by smtp.gmail.com with ESMTPSA id e15sm21345845edy.46.2022.02.02.08.58.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Feb 2022 08:58:20 -0800 (PST)
+Message-ID: <ba39ac5f-a6b5-8b73-2e51-882cbd96a726@redhat.com>
+Date: Wed, 2 Feb 2022 17:58:20 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-GUID: UVfUpr8w-bxAbuHgCW24JGA7ehOzxRwc
-X-Proofpoint-ORIG-GUID: UVfUpr8w-bxAbuHgCW24JGA7ehOzxRwc
-X-Proofpoint-Spam-Reason: safe
-Cc: martin.kepplinger@puri.sm, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, shengjiu.wang@nxp.com, lgirdwood@gmail.com,
- daniel.baluta@nxp.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH v6 8/9] ALSA: hda/realtek: Add support for HP Laptops
+To: Takashi Iwai <tiwai@suse.de>,
+ Stefan Binding <sbinding@opensource.cirrus.com>
+References: <20220121172431.6876-1-sbinding@opensource.cirrus.com>
+ <20220121172431.6876-9-sbinding@opensource.cirrus.com>
+ <s5hv8xxzlir.wl-tiwai@suse.de>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <s5hv8xxzlir.wl-tiwai@suse.de>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: platform-driver-x86@vger.kernel.org, alsa-devel@alsa-project.org,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Mark Gross <markgross@kernel.org>,
+ linux-acpi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ patches@opensource.cirrus.com, linux-spi@vger.kernel.org,
+ Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,73 +129,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When the DMIC_ENA bit is set the analogue inputs are disconnected from
-the digital core of the chip, in favour of the digital microphones.
-Currently the driver will always enable DMIC_ENA whilst the GPIOs are
-configured for the DMIC function, this means the user can't currently
-use both the analog inputs and the digital inputs in one system.
+Hi,
 
-Add an additional DAPM mutex that allows switching between analog and
-digital inputs into the digital core.
+On 2/2/22 10:05, Takashi Iwai wrote:
+> On Fri, 21 Jan 2022 18:24:30 +0100,
+> Stefan Binding wrote:
+>>
+>> From: Lucas Tanure <tanureal@opensource.cirrus.com>
+>>
+>> Add support for two and four CS35L41 using the component
+>> binding method
+>>
+>> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+>> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> 
+> Reviewed-by: Takashi Iwai <tiwai@suse.de>
+> 
+> Hans, feel free to include this one into your tree.
 
-Reported-by: Martin Kepplinger <martin.kepplinger@puri.sm>
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
- sound/soc/codecs/wm8962.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+Ok, I'm working on merging the entire series (on top of Mark's
+spi-acpi-helpers tag) now. I'll send you a pull-req for
+a signed tag when I'm done, in case you want to merge 
+this to avoid conflicts.
 
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index a5584ba962dcf..2c41d31956aa8 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -2049,6 +2049,13 @@ static SOC_ENUM_SINGLE_DECL(hpoutl_enum,
- static const struct snd_kcontrol_new hpoutl_mux =
- 	SOC_DAPM_ENUM("HPOUTL Mux", hpoutl_enum);
- 
-+static const char * const input_mode_text[] = { "Analog", "Digital" };
-+
-+static SOC_ENUM_SINGLE_VIRT_DECL(input_mode_enum, input_mode_text);
-+
-+static const struct snd_kcontrol_new input_mode_mux =
-+	SOC_DAPM_ENUM("Input Mode", input_mode_enum);
-+
- static const struct snd_kcontrol_new inpgal[] = {
- SOC_DAPM_SINGLE("IN1L Switch", WM8962_LEFT_INPUT_PGA_CONTROL, 3, 1, 0),
- SOC_DAPM_SINGLE("IN2L Switch", WM8962_LEFT_INPUT_PGA_CONTROL, 2, 1, 0),
-@@ -2147,6 +2154,9 @@ SND_SOC_DAPM_MIXER("MIXINR", WM8962_PWR_MGMT_1, 4, 0,
- 
- SND_SOC_DAPM_AIF_IN("DMIC_ENA", NULL, 0, WM8962_PWR_MGMT_1, 10, 0),
- 
-+SND_SOC_DAPM_MUX("Input Mode L", SND_SOC_NOPM, 0, 0, &input_mode_mux),
-+SND_SOC_DAPM_MUX("Input Mode R", SND_SOC_NOPM, 0, 0, &input_mode_mux),
-+
- SND_SOC_DAPM_ADC("ADCL", "Capture", WM8962_PWR_MGMT_1, 3, 0),
- SND_SOC_DAPM_ADC("ADCR", "Capture", WM8962_PWR_MGMT_1, 2, 0),
- 
-@@ -2226,16 +2236,19 @@ static const struct snd_soc_dapm_route wm8962_intercon[] = {
- 
- 	{ "DMIC_ENA", NULL, "DMICDAT" },
- 
-+	{ "Input Mode L", "Analog", "MIXINL" },
-+	{ "Input Mode L", "Digital", "DMIC_ENA" },
-+	{ "Input Mode R", "Analog", "MIXINR" },
-+	{ "Input Mode R", "Digital", "DMIC_ENA" },
-+
- 	{ "ADCL", NULL, "SYSCLK" },
- 	{ "ADCL", NULL, "TOCLK" },
--	{ "ADCL", NULL, "MIXINL" },
--	{ "ADCL", NULL, "DMIC_ENA" },
-+	{ "ADCL", NULL, "Input Mode L" },
- 	{ "ADCL", NULL, "DSP2" },
- 
- 	{ "ADCR", NULL, "SYSCLK" },
- 	{ "ADCR", NULL, "TOCLK" },
--	{ "ADCR", NULL, "MIXINR" },
--	{ "ADCR", NULL, "DMIC_ENA" },
-+	{ "ADCR", NULL, "Input Mode R" },
- 	{ "ADCR", NULL, "DSP2" },
- 
- 	{ "STL", "Left", "ADCL" },
--- 
-2.11.0
+Regards,
+
+Hans
 

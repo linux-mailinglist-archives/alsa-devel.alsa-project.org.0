@@ -2,108 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47A284A69BC
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 02:57:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C09C4A6D5A
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 09:57:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C75A71768;
-	Wed,  2 Feb 2022 02:56:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C75A71768
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89D7C173C;
+	Wed,  2 Feb 2022 09:56:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89D7C173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643767046;
-	bh=JNto6+8mI18yy7Gp2i8iRzfYRcym2BZWS97hZ0umqfo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1643792221;
+	bh=QPkIMtu3fAVMIUpVsQvqUIWKb8ugG+RWkFXAVPuf3Uo=;
+	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tZhF9h1YDfNeUb2AtnhDqBJ/nd/tm8yj4T7FTnLBZshclzvze5T8qrvkp9XSlk19s
-	 gDMvJNqK4XTooCTR6FCvUgmwVXOvkhcjk4ueknwSYi8H7dIlgmF4Ve5Pa+9kDlW0HP
-	 qqFDhd5FI5I2/LI+uKKc0/ET/lPafZrWmocn3cMM=
+	b=n8o98/qB4YTlI7po7XZXJ5nUBFLNwK+qVfnyNUf6dIwRGh8nJj2MBEb+hvQT5nplt
+	 kM/dAsT1Ca1R8J0V3mjKGF4e4smQ3Wnxq6xiJY5wLX0mivkqtJ1WAFRvDm0nmvN6nq
+	 CTWp4gpDQOouzjDu7Qogt7VBmRoaB3cFlowXWeUY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44D50F80089;
-	Wed,  2 Feb 2022 02:56:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0923F804B1;
+	Wed,  2 Feb 2022 09:55:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E52D5F80089; Wed,  2 Feb 2022 02:56:17 +0100 (CET)
+ id 4D568F804B0; Wed,  2 Feb 2022 09:55:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_NONE autolearn=disabled version=3.4.0
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FFEDF800F8
- for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 02:56:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FFEDF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2BCB7F80095
+ for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 09:55:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BCB7F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="HecS86XN"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="l8QRbBDf"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id CF4625C00A7;
- Tue,  1 Feb 2022 20:56:06 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 01 Feb 2022 20:56:06 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm3; bh=DsQtLq2EQRqTEvy0xI2Efzh+JUoKhM
- R5/1vRFeowxOs=; b=HecS86XNNNnzZW/3DvyGi+JxWGJpbokV/A+GSxwhIvkECy
- AAyurHjUxj108Ud8+qlMOtXCSxbwslkmS/pZYcmr+9EAF4pBxd8NIowzADzb4UTv
- LMPL8Tatt+z1M24zXnx5drNMvPeZAIzxCN28UTsv9Cr5j86oUmTj2/H7cCNXerJ4
- EsahmID8VXkLUQWbSjWrZ2l+osgnWk37TYhy7mE3ii2y5apjlP2SftQ2li3x4A0L
- n9kDxJh157TzLrWNgE129nTnNT+boh2V0r4WbdLwgDuVnsnltSwtBliK8EKseKFs
- i4Jq4Bf9qxNGZCKU6nUqF9rdd5ssZrQLufT2zAug==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=DsQtLq2EQRqTEvy0x
- I2Efzh+JUoKhMR5/1vRFeowxOs=; b=l8QRbBDfm/Th82lUPTxAZsDQXgyYLR1H7
- qhdBvS5biGYSrKHCH+DMD5Zczd6WQncr3YhuiA/4s1Pz+PSl9EGEyI1PsDeGQVKE
- 2r4hrSaxg+59h/A7SrdTKU3pJlazFbALCb9je9E3LSPrBIvUm/Xs8u2x46lb10uD
- N+vDok1yOHmFJZwZs8vAY4qUFibq3dLsEtPE/UG3TkuYj8uH2FDeHJlTFbMLrnhy
- OE2/R+J7mvEXOLJORU5LGNY6uLqiagSPl2LQlV9Z+GE0GuLlt3m/f+k1hk67+/XY
- lpyPUTNztHuitryfZ4kqrFUDfm2F2RHqbZY2qORj7SEnHs1JTic+A==
-X-ME-Sender: <xms:teT5YUPVgDdw6oSCnnJr_TaIZBUgI2inbvTVPiVkTmDheQNhv55ZuA>
- <xme:teT5Ya8bL13i2e8tQNPRdW1ITkCCwqLChBWigWyiynQ8_qlzr9PZMDM6GBIaiUAfE
- gjlwELSrB5A583xk1I>
-X-ME-Received: <xmr:teT5YbRboj46cFh16QSrnxZ3DfCT2wReRavLVFeiFBGtAS28VZeuajzs1vzLmDZ2dAXPKU906DlU5QRZV74-4aXo8yDL_gdZgQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrgeeggdefiecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgrshhh
- ihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
- eqnecuggftrfgrthhtvghrnhephffhgeetveeiudffgfegvedtheeuudevtdevvddtjeeh
- leevvdfhtefhveekteehnecuffhomhgrihhnpegvlhgvmhdrihgunecuvehluhhsthgvrh
- fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgr
- khgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:tuT5YcsvWHBQ-1zcjCCt52cAVgKUta0szkuIupeR-zFzgQXc1cJEeg>
- <xmx:tuT5Ycd_5GWWpkfRaceMPuf0JOLL4UdqhWGXQIXl7V2EPsGOOk98Zg>
- <xmx:tuT5YQ3OcYuNjubTsQH-Hhy7b4mmQMAOKjEuLI7jqNMXJ4Y1pR4m4A>
- <xmx:tuT5Yb48-C7vrs7iVdcJsVRLT7Tticfoct1y5CLQWj_6FjafOF2k9w>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Feb 2022 20:56:03 -0500 (EST)
-Date: Wed, 2 Feb 2022 10:56:01 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] kselftest: alsa: Check for event generation when we
- write to controls
-Message-ID: <YfnksdOR5HR0mZi0@workstation>
-Mail-Followup-To: Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shuah Khan <shuah@kernel.org>, alsa-devel@alsa-project.org,
- linux-kselftest@vger.kernel.org
-References: <20220201151551.21497-1-broonie@kernel.org>
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="TkaQTiZI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1643792142;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UxVOp4pfJ2R7CFPEyNr8mWIUb/7nbK9OowBfxcOEPUA=;
+ b=TkaQTiZI6Fpl9DlFt3ab9HpEBLr8j67uRRvIHCvu8nK1IOlFR8Vwex1YQS53iNYzGjCW+4
+ PH8yjKgt1f/guF33FbJFacpPNGwexkRp6E2aXfoS3nWF/rx5lEyLLRdPAc/IkQ4a3GibJX
+ ocfKGSjmVAijiX8XUY/icNE9ALUL7A0=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-458-EwuzPpOxMbOn2beVC3OGlA-1; Wed, 02 Feb 2022 03:55:39 -0500
+X-MC-Unique: EwuzPpOxMbOn2beVC3OGlA-1
+Received: by mail-ej1-f72.google.com with SMTP id
+ x16-20020a170906135000b006b5b4787023so7829643ejb.12
+ for <alsa-devel@alsa-project.org>; Wed, 02 Feb 2022 00:55:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:from:to:cc:references:in-reply-to
+ :content-transfer-encoding;
+ bh=UxVOp4pfJ2R7CFPEyNr8mWIUb/7nbK9OowBfxcOEPUA=;
+ b=RVl5WUD4nykJyaLINBKNwg0XMWyRYcHa2Ljz+eGFfukWcX29AIvEFHQkDMamlvgIC4
+ CLx4vrC1mH1qWhgFAL9bOleTZkT+RYWna1AesdB6qwoLcDbQcRI11ZLZo61fbrmRbQxF
+ PTs2WChHBxMQPPUbNfgWypZUPp1PwBzaTiROOPfSxsaS+yad1QPMU67ipCgGiDZYhrHI
+ DC6OjQyGVM5zwLUU6ve9QKNNhNTLFqxnQEvcqYahIwrhC9tl1NBvdYc0xwKgTC66J7qM
+ bK35yUBaGxsNCzwkrUQa3VPtWzvuW6A85t2jQBf7GORB+gvgdYPvAjuZVhsYc5BwlOkn
+ sLKQ==
+X-Gm-Message-State: AOAM532vfzN8hUTpLWO3+RtlVKfyKOBbJ7KWBp8DQkk4J1a5JU1hQ3FE
+ 2c3EZnVP2DsA4QENdr6pLD7bVEquJc+TSmDwsapdJCSt+YYuGl40bR7qoiMT7f6f7TvNOpi9VVX
+ oYlUHoVYrQ3KY/lUt+odHD7s=
+X-Received: by 2002:a17:907:d28:: with SMTP id
+ gn40mr20049274ejc.750.1643792137824; 
+ Wed, 02 Feb 2022 00:55:37 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxHHG2A0Or1/rMZOdJ4kTgDaryve301uI4y81oWj63cJozR+2WCxsq9M9xn7w4S059RNQR2Tw==
+X-Received: by 2002:a17:907:d28:: with SMTP id
+ gn40mr20049251ejc.750.1643792137547; 
+ Wed, 02 Feb 2022 00:55:37 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1?
+ (2001-1c00-0c1e-bf00-1db8-22d3-1bc9-8ca1.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1])
+ by smtp.gmail.com with ESMTPSA id i6sm20683713edf.20.2022.02.02.00.55.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Feb 2022 00:55:37 -0800 (PST)
+Message-ID: <c18727e3-7c07-7b7a-23df-1327d1a0aa0b@redhat.com>
+Date: Wed, 2 Feb 2022 09:55:36 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220201151551.21497-1-broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org, Shuah Khan <shuah@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH v6 7/9] platform/x86: serial-multi-instantiate: Add SPI
+ support
+From: Hans de Goede <hdegoede@redhat.com>
+To: Stefan Binding <sbinding@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Len Brown <lenb@kernel.org>, Mark Gross <markgross@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20220121172431.6876-1-sbinding@opensource.cirrus.com>
+ <20220121172431.6876-8-sbinding@opensource.cirrus.com>
+ <71094091-56ca-0f75-a9c7-fa1cabf2af22@redhat.com>
+In-Reply-To: <71094091-56ca-0f75-a9c7-fa1cabf2af22@redhat.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-spi@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,85 +128,323 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+Hi,
 
-On Tue, Feb 01, 2022 at 03:15:51PM +0000, Mark Brown wrote:
-> Add some coverage of event generation to mixer-test. Rather than doing a
-> separate set of writes designed to trigger events we add a step to the
-> existing write_and_verify() which checks to see if the value we read back
-> from non-volatile controls matches the value before writing and that an
-> event is or isn't generated as appropriate. The "tests" for events then
-> simply check that no spurious or missing events were detected. This avoids
-> needing further logic to generate appropriate values for each control type
-> and maximises coverage.
+On 2/1/22 16:02, Hans de Goede wrote:
+> Hi,
 > 
-> When checking for events we use a timeout of 0. This relies on the kernel
-> generating any event prior to returning to userspace when setting a control.
-> That is currently the case and it is difficult to see it changing, if it
-> does the test will need to be updated. Using a delay of 0 means that we
-> don't slow things down unduly when checking for no event or when events
-> fail to be generated.
+> On 1/21/22 18:24, Stefan Binding wrote:
+>> Add support for spi bus in serial-multi-instantiate driver
+>>
+>> Some peripherals can have either a I2C or a SPI connection
+>> to the host (but not both) but use the same HID for both
+>> types. So it is not possible to use the HID to determine
+>> whether it is I2C or SPI. The driver must check the node
+>> to see if it contains I2cSerialBus or SpiSerialBus entries.
+>>
+>> For backwards-compatibility with the existing nodes I2C is
+>> checked first and if such entries are found ONLY I2C devices
+>> are created. Since some existing nodes that were already
+>> handled by this driver could also contain unrelated
+>> SpiSerialBus nodes that were previously ignored, and this
+>> preserves that behavior. If there is ever a need to handle
+>> a node where both I2C and SPI devices must be instantiated
+>> this can be added in future.
+>>
+>> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+>> ---
+>>  drivers/platform/x86/Kconfig                  |   2 +-
+>>  .../platform/x86/serial-multi-instantiate.c   | 174 +++++++++++++++---
+>>  2 files changed, 151 insertions(+), 25 deletions(-)
+>>
+>> diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+>> index 2e656909a866..8d1eec208854 100644
+>> --- a/drivers/platform/x86/Kconfig
+>> +++ b/drivers/platform/x86/Kconfig
+>> @@ -992,7 +992,7 @@ config TOPSTAR_LAPTOP
+>>  
+>>  config SERIAL_MULTI_INSTANTIATE
+>>  	tristate "Serial bus multi instantiate pseudo device driver"
+>> -	depends on I2C && ACPI
+>> +	depends on I2C && SPI && ACPI
+>>  	help
+>>  	  Some ACPI-based systems list multiple devices in a single ACPI
+>>  	  firmware-node. This driver will instantiate separate clients
+>> diff --git a/drivers/platform/x86/serial-multi-instantiate.c b/drivers/platform/x86/serial-multi-instantiate.c
+>> index 4cd6d72a0741..3f05385ca2cf 100644
+>> --- a/drivers/platform/x86/serial-multi-instantiate.c
+>> +++ b/drivers/platform/x86/serial-multi-instantiate.c
+>> @@ -14,6 +14,7 @@
+>>  #include <linux/module.h>
+>>  #include <linux/platform_device.h>
+>>  #include <linux/property.h>
+>> +#include <linux/spi/spi.h>
+>>  #include <linux/types.h>
+>>  
+>>  #define IRQ_RESOURCE_TYPE	GENMASK(1, 0)
+>> @@ -21,15 +22,28 @@
+>>  #define IRQ_RESOURCE_GPIO	1
+>>  #define IRQ_RESOURCE_APIC	2
+>>  
+>> +enum smi_bus_type {
+>> +	SMI_I2C,
+>> +	SMI_SPI,
+>> +	SMI_AUTO_DETECT,
+>> +};
+>> +
+>>  struct smi_instance {
+>>  	const char *type;
+>>  	unsigned int flags;
+>>  	int irq_idx;
+>>  };
+>>  
+>> +struct smi_node {
+>> +	enum smi_bus_type bus_type;
+>> +	struct smi_instance instances[];
+>> +};
+>> +
+>>  struct smi {
+>>  	int i2c_num;
+>> +	int spi_num;
+>>  	struct i2c_client **i2c_devs;
+>> +	struct spi_device **spi_devs;
+>>  };
+>>  
+>>  static int smi_get_irq(struct platform_device *pdev, struct acpi_device *adev,
+>> @@ -59,6 +73,95 @@ static void smi_devs_unregister(struct smi *smi)
+>>  {
+>>  	while (smi->i2c_num > 0)
+>>  		i2c_unregister_device(smi->i2c_devs[--smi->i2c_num]);
+>> +
+>> +	while (smi->spi_num > 0)
+>> +		spi_unregister_device(smi->spi_devs[--smi->spi_num]);
+>> +}
+>> +
+>> +/**
+>> + * smi_spi_probe - Instantiate multiple SPI devices from inst array
+>> + * @pdev:	Platform device
+>> + * @adev:	ACPI device
+>> + * @smi:	Internal struct for Serial multi instantiate driver
+>> + * @inst_array:	Array of instances to probe
+>> + *
+>> + * Returns the number of SPI devices instantiate, Zero if none is found or a negative error code.
+>> + */
+>> +static int smi_spi_probe(struct platform_device *pdev, struct acpi_device *adev, struct smi *smi,
+>> +			 const struct smi_instance *inst_array)
+>> +{
+>> +	struct device *dev = &pdev->dev;
+>> +	struct spi_controller *ctlr;
+>> +	struct spi_device *spi_dev;
+>> +	char name[50];
+>> +	int i, ret, count;
+>> +
+>> +	ret = acpi_spi_count_resources(adev);
+>> +	if (ret < 0)
+>> +		return ret;
+>> +	else if (!ret)
+>> +		return -ENODEV;
+>> +
+>> +	count = ret;
+>> +
+>> +	smi->spi_devs = devm_kcalloc(dev, count, sizeof(*smi->spi_devs), GFP_KERNEL);
+>> +	if (!smi->spi_devs)
+>> +		return -ENOMEM;
+>> +
+>> +	for (i = 0; i < count && inst_array[i].type; i++) {
+>> +
+>> +		spi_dev = acpi_spi_device_alloc(NULL, adev, i);
+>> +		if (IS_ERR(spi_dev)) {
+>> +			ret = PTR_ERR(spi_dev);
+>> +			dev_err_probe(dev, ret, "failed to allocate SPI device %s from ACPI: %d\n",
+>> +				      dev_name(&adev->dev), ret);
+>> +			goto error;
+>> +		}
+>> +
+>> +		ctlr = spi_dev->controller;
+>> +
+>> +		strscpy(spi_dev->modalias, inst_array[i].type, sizeof(spi_dev->modalias));
+>> +
+>> +		ret = smi_get_irq(pdev, adev, &inst_array[i]);
+>> +		if (ret < 0) {
+>> +			spi_dev_put(spi_dev);
+>> +			goto error;
+>> +		}
+>> +		spi_dev->irq = ret;
+>> +
+>> +		snprintf(name, sizeof(name), "%s-%s-%s.%d", dev_name(&ctlr->dev), dev_name(dev),
+>> +			 inst_array[i].type, i);
+>> +		spi_dev->dev.init_name = name;
+>> +
+>> +		ret = spi_add_device(spi_dev);
+>> +		if (ret) {
+>> +			dev_err_probe(&ctlr->dev, ret,
+>> +				      "failed to add SPI device %s from ACPI: %d\n",
+>> +				      dev_name(&adev->dev), ret);
+>> +			spi_dev_put(spi_dev);
+>> +			goto error;
+>> +		}
+>> +
+>> +		dev_dbg(dev, "SPI device %s using chip select %u", name, spi_dev->chip_select);
+>> +
+>> +		smi->spi_devs[i] = spi_dev;
+>> +		smi->spi_num++;
+>> +	}
+>> +
+>> +	if (smi->spi_num < count) {
+>> +		dev_dbg(dev, "Error finding driver, idx %d\n", i);
+>> +		ret = -ENODEV;
+>> +		goto error;
+>> +	}
+>> +
+>> +	dev_info(dev, "Instantiated %d SPI devices.\n", smi->spi_num);
+>> +
+>> +	return 0;
+>> +error:
+>> +	smi_devs_unregister(smi);
+>> +
+>> +	return ret;
+>> +
+>>  }
+>>  
+>>  /**
+>> @@ -126,8 +229,8 @@ static int smi_i2c_probe(struct platform_device *pdev, struct acpi_device *adev,
+>>  
+>>  static int smi_probe(struct platform_device *pdev)
+>>  {
+>> -	const struct smi_instance *inst_array;
+>>  	struct device *dev = &pdev->dev;
+>> +	const struct smi_node *node;
+>>  	struct acpi_device *adev;
+>>  	struct smi *smi;
+>>  
+>> @@ -135,8 +238,8 @@ static int smi_probe(struct platform_device *pdev)
+>>  	if (!adev)
+>>  		return -ENODEV;
+>>  
+>> -	inst_array = device_get_match_data(dev);
+>> -	if (!inst_array) {
+>> +	node = device_get_match_data(dev);
+>> +	if (!node) {
+>>  		dev_dbg(dev, "Error ACPI match data is missing\n");
+>>  		return -ENODEV;
+>>  	}
+>> @@ -147,7 +250,21 @@ static int smi_probe(struct platform_device *pdev)
+>>  
+>>  	platform_set_drvdata(pdev, smi);
+>>  
+>> -	return smi_i2c_probe(pdev, adev, smi, inst_array);
+>> +	switch (node->bus_type) {
+>> +	case SMI_I2C:
+>> +		return smi_i2c_probe(pdev, adev, smi, node->instances);
+>> +	case SMI_SPI:
+>> +		return smi_spi_probe(pdev, adev, smi, node->instances);
+>> +	case SMI_AUTO_DETECT:
+>> +		if (i2c_acpi_client_count(adev) > 0)
+>> +			return smi_i2c_probe(pdev, adev, smi, node->instances);
+>> +		else
+>> +			return smi_spi_probe(pdev, adev, smi, node->instances);
+>> +	default:
+>> +		break;
 > 
-> We don't check behaviour for volatile controls since we can't tell what
-> the behaviour is supposed to be for any given control.
+> Please replace this break with : "return -EINVAL" (since we really
+> should never hit this default case).
 > 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
->  tools/testing/selftests/alsa/mixer-test.c | 148 +++++++++++++++++++++-
->  1 file changed, 145 insertions(+), 3 deletions(-)
- 
-I'm still under reviewing your patch, while I have a slight concern
-about the evaluation of 'struct snd_ctl_event.data.elem.id.numid'.
+> With that fixed, please add my R-b to the next version:
 
-> diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
-> index 0e88f4f3d802..42cf3b724586 100644
-> --- a/tools/testing/selftests/alsa/mixer-test.c
-> +++ b/tools/testing/selftests/alsa/mixer-test.c
-> ...
-> +/*
-> + * Block for up to timeout ms for an event, returns a negative value
-> + * on error, 0 for no event and 1 for an event.
-> + */
-> +int wait_for_event(struct ctl_data *ctl, int timeout)
-> +{
-> ...
-> +		/* The ID returned from the event is 1 less than numid */
-> +		mask = snd_ctl_event_elem_get_mask(event);
-> +		ev_id = snd_ctl_event_elem_get_numid(event);
-> +		if (ev_id != ctl->elem + 1) {
-> +			ksft_print_msg("Event for unexpected ctl %s\n",
-> +				       snd_ctl_event_elem_get_name(event));
-> +			continue;
-> +		}
-> +	} while ((mask & SND_CTL_EVENT_MASK_VALUE) != SND_CTL_EVENT_MASK_VALUE);
-> +
-> +	return 1;
-> +}
+Note since Mark has merged 1-4 and provided a tag + pull-req for those
+changes (thank you Mark). I plan to merge the rest of this series
+into pdx86/for-next later today (except for 8/9).
 
-As long as I know, the design of ALSA control core just exposes the
-numeric identification of a control element issued for notification in
-'snd_ctl_event' structure. On the other hand, the above evaluation
-expects decremented value against position of queried list structure
-has come.
+I'll add the "return -EINVAL" myself when merging, so there is no
+need to send out a new version.
 
-I note that current design of ALSA control core is:
- * 1 is selected for numeric identification of the first element in the
-   first element set added to sound card.
- * at removal of element set, the series of assigned numeric identification
-   becomes blank (coded as hole).
- * Userspace application can always add/remove element set to the card.
- * the position of element in queried list structure does not
-   necessarily corresponds to numeric identification even if decremented
-   by 1 due to the hole.
+Regards,
 
-Of cource, I can see the decremented-by-1 comparison covers the most cases
-in which developer requires the test (excluding the case of user-defined
-control element set), while we can use numid value got from 'id' field of
-'ctl_data' structure for the comparison. I think the alternative way has
-fewer problems than the decremented-by-1 comparison based on the rough
-assumption against the design.
+Hans
 
 
-Regards
 
-Takashi Sakamoto
+
+> 
+> Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+> 
+> Regards,
+> 
+> Hans
+> 
+> 
+>> +	}
+>> +
+>> +	return 0; /* never reached */
+>>  }
+>>  
+>>  static int smi_remove(struct platform_device *pdev)
+>> @@ -159,27 +276,36 @@ static int smi_remove(struct platform_device *pdev)
+>>  	return 0;
+>>  }
+>>  
+>> -static const struct smi_instance bsg1160_data[]  = {
+>> -	{ "bmc150_accel", IRQ_RESOURCE_GPIO, 0 },
+>> -	{ "bmc150_magn" },
+>> -	{ "bmg160" },
+>> -	{}
+>> +static const struct smi_node bsg1160_data = {
+>> +	.instances = {
+>> +		{ "bmc150_accel", IRQ_RESOURCE_GPIO, 0 },
+>> +		{ "bmc150_magn" },
+>> +		{ "bmg160" },
+>> +		{}
+>> +	},
+>> +	.bus_type = SMI_I2C,
+>>  };
+>>  
+>> -static const struct smi_instance bsg2150_data[]  = {
+>> -	{ "bmc150_accel", IRQ_RESOURCE_GPIO, 0 },
+>> -	{ "bmc150_magn" },
+>> -	/* The resources describe a 3th client, but it is not really there. */
+>> -	{ "bsg2150_dummy_dev" },
+>> -	{}
+>> +static const struct smi_node bsg2150_data = {
+>> +	.instances = {
+>> +		{ "bmc150_accel", IRQ_RESOURCE_GPIO, 0 },
+>> +		{ "bmc150_magn" },
+>> +		/* The resources describe a 3th client, but it is not really there. */
+>> +		{ "bsg2150_dummy_dev" },
+>> +		{}
+>> +	},
+>> +	.bus_type = SMI_I2C,
+>>  };
+>>  
+>> -static const struct smi_instance int3515_data[]  = {
+>> -	{ "tps6598x", IRQ_RESOURCE_APIC, 0 },
+>> -	{ "tps6598x", IRQ_RESOURCE_APIC, 1 },
+>> -	{ "tps6598x", IRQ_RESOURCE_APIC, 2 },
+>> -	{ "tps6598x", IRQ_RESOURCE_APIC, 3 },
+>> -	{}
+>> +static const struct smi_node int3515_data = {
+>> +	.instances = {
+>> +		{ "tps6598x", IRQ_RESOURCE_APIC, 0 },
+>> +		{ "tps6598x", IRQ_RESOURCE_APIC, 1 },
+>> +		{ "tps6598x", IRQ_RESOURCE_APIC, 2 },
+>> +		{ "tps6598x", IRQ_RESOURCE_APIC, 3 },
+>> +		{}
+>> +	},
+>> +	.bus_type = SMI_I2C,
+>>  };
+>>  
+>>  /*
+>> @@ -187,9 +313,9 @@ static const struct smi_instance int3515_data[]  = {
+>>   * drivers/acpi/scan.c: acpi_device_enumeration_by_parent().
+>>   */
+>>  static const struct acpi_device_id smi_acpi_ids[] = {
+>> -	{ "BSG1160", (unsigned long)bsg1160_data },
+>> -	{ "BSG2150", (unsigned long)bsg2150_data },
+>> -	{ "INT3515", (unsigned long)int3515_data },
+>> +	{ "BSG1160", (unsigned long)&bsg1160_data },
+>> +	{ "BSG2150", (unsigned long)&bsg2150_data },
+>> +	{ "INT3515", (unsigned long)&int3515_data },
+>>  	{ }
+>>  };
+>>  MODULE_DEVICE_TABLE(acpi, smi_acpi_ids);
+>>
+

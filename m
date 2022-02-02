@@ -2,92 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0490F4A71AD
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 14:36:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C00C4A72B1
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Feb 2022 15:09:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92673172D;
-	Wed,  2 Feb 2022 14:35:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92673172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6826172D;
+	Wed,  2 Feb 2022 15:08:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6826172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643808988;
-	bh=hmlZ41HJw9J3JHWdUsBjIgztv+biztPQs1grfLIHYE4=;
+	s=default; t=1643810948;
+	bh=gHPQaa5lUIMo31tXiem0BbrRpbJt2lqVLdonVgjwhDc=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l4tDYiFNHwpQiRKAYTXwDUa7wPB9kZ1pQ9twyuImVh+8w6pfmx0WBxC0Pk3jfHkOQ
-	 BUJMXZ5GAyWIKsBkiKF2+IKCRCBhxynXxe5aIYdbJw0k5tcfkdFyYSM3wCoYAfAn0V
-	 LHiy0IEwJsDLDzlkpwbFakjluPRDIwYo0b2g3lA8=
+	b=tiNMNN+W2XR35EzWDq2YvIg0k+pN34xeTTq8iGHAskkLPouS84rRhlHuDo5wxFWMt
+	 OIaG98LOQHYTRtNu+ZlyQ2taBc7jRUFIMfIh81F/d0/cDdkcLYBXAapbmR/fBIw4i/
+	 2VHiBra6tufrWGA8v6flJuQ0K844TqZeSwB3ARE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02BA6F804B1;
-	Wed,  2 Feb 2022 14:35:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C59DF804B1;
+	Wed,  2 Feb 2022 15:08:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7495F804B0; Wed,  2 Feb 2022 14:35:19 +0100 (CET)
+ id 6C1EBF804B0; Wed,  2 Feb 2022 15:08:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E13FDF80171
+ for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 15:07:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E13FDF80171
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="cK+exRF9"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 060DAF80171
- for <alsa-devel@alsa-project.org>; Wed,  2 Feb 2022 14:35:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 060DAF80171
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="O9N+QiAX"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 212Cttd3016922;
- Wed, 2 Feb 2022 07:35:14 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=zil3erRqQ6REDNww3hB6SYg8k003yQMvo4dOPkUSjxM=;
- b=O9N+QiAXRJltqW1/AI1xHSiXgR42pnrXfOK3zM/n8i/nYSXKzy8vS2MGrt+6X7XQVQ/x
- 1B0DJF2+bhW43NfSsmyQuN97uztITN8DenV7+7C4TPjNCmY8g//Vv5DxUJorCnKlNJN+
- 08YaiPOC+W5HjikeQt19ZeScBjCB105ImYtXsnSlcYHT8PM5QbyqBPZS/gL6a98qqDZ8
- ZFiOTRizPSlvZZksVuEPVMOlFDdFxbMtLOI3ZORdq3f3f198zMzhdPNgwnOV4w/JDVkD
- 2czddpoOnyD2gCdfBnB5ZkYKIBdCN6E81px4fHSxDuxzwNZcJ7BRCEUZ9Uj0XG82ien5 Dg== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3dxksx2wk0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 02 Feb 2022 07:35:13 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 2 Feb
- 2022 13:35:11 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Wed, 2 Feb 2022 13:35:11 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CD6DD46C;
- Wed,  2 Feb 2022 13:35:11 +0000 (UTC)
-Date: Wed, 2 Feb 2022 13:35:11 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Martin Kepplinger <martin.kepplinger@puri.sm>
-Subject: Re: [PATCH] wm8962: add a simple DMIC enable control
-Message-ID: <20220202133511.GB18506@ediswmail.ad.cirrus.com>
-References: <20220201150113.880330-1-martin.kepplinger@puri.sm>
- <20220202095301.GZ18506@ediswmail.ad.cirrus.com>
- <3542af028b622ec1513810b014c35a94b82a94c0.camel@puri.sm>
- <20220202104657.GA18506@ediswmail.ad.cirrus.com>
- <99b847d17e8ac399dba10842ec20091df926aa06.camel@puri.sm>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A312161879;
+ Wed,  2 Feb 2022 14:07:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC32C004E1;
+ Wed,  2 Feb 2022 14:07:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643810871;
+ bh=gHPQaa5lUIMo31tXiem0BbrRpbJt2lqVLdonVgjwhDc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cK+exRF9NIw8faQt8Zp5rfeL8ffi/TOEstvEaea+PHYkFFY97JJQbTb5G0ex2k3LW
+ 69d/+pqH/v+tcmhnwA0B+jEEB55UVNJNebBtRn8hkT74Rqbhxh0UH4rNP39sVVB9t3
+ 23Zt8YdjXD3dBoJA/BXSXlcHRsDmqYCwmaLEZGRFwDbBEtiHHKRf3l4qDwHJJCOFBI
+ IOeyYRotKcTEfNDATpX/GKJJ8H+tfsv+rFuuWhKB0KWsjY8eWEdv2xim1WtLY4ZUcE
+ CNNYt52js0le0XvUbfeqNU4CKUlEEMfJCxo0M9i7fMtJK9hrYx/wnura3cg1YW4F7Y
+ RR6RvKV4ADnxg==
+Date: Wed, 2 Feb 2022 14:07:45 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Curtis Malainey <cujomalainey@google.com>
+Subject: Re: [PATCH] Revert "ASoC: amd: acp: Power on/off the speaker enable
+ gpio pin based on DAPM callback."
+Message-ID: <YfqQMTMeAabi8m1Z@sirena.org.uk>
+References: <20220129000837.6207-1-cujomalainey@chromium.org>
+ <a8ffb740-9f03-340f-a7ba-5e0f1a074b22@amd.com>
+ <CAGXAbSq4+YY3qNt2c8J-P278QtUMTkJAo7x3=6UvJof4bH2C2Q@mail.gmail.com>
+ <Yfl+rZEucvLEmFjD@sirena.org.uk>
+ <CAOReqxgK54Gzz=L78Xh1U2bY+rPacJ86h+Ssy6=x11skDevSXw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="qAS1ftfJQ+vX6+zr"
 Content-Disposition: inline
-In-Reply-To: <99b847d17e8ac399dba10842ec20091df926aa06.camel@puri.sm>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: iI9cdgR_6GcuaMQ8og95Bek4P1CUJXtj
-X-Proofpoint-GUID: iI9cdgR_6GcuaMQ8og95Bek4P1CUJXtj
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, kernel@puri.sm, patches@opensource.cirrus.com,
- tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org, geert@glider.be,
- daniel.baluta@nxp.com
+In-Reply-To: <CAOReqxgK54Gzz=L78Xh1U2bY+rPacJ86h+Ssy6=x11skDevSXw@mail.gmail.com>
+X-Cookie: Quack!
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Curtis Malainey <cujomalainey@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ V sujith kumar Reddy <vsujithkumar.reddy@amd.com>,
+ Curtis Malainey <cujomalainey@chromium.org>, Eric Peers <epeers@google.com>,
+ Rob Barnes <robbarnes@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,59 +96,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Feb 02, 2022 at 12:55:04PM +0100, Martin Kepplinger wrote:
-> Am Mittwoch, dem 02.02.2022 um 10:46 +0000 schrieb Charles Keepax:
-> > On Wed, Feb 02, 2022 at 11:17:34AM +0100, Martin Kepplinger wrote:
-> > > Am Mittwoch, dem 02.02.2022 um 09:53 +0000 schrieb Charles Keepax:
-> > > > On Tue, Feb 01, 2022 at 04:01:13PM +0100, Martin Kepplinger
-> > > > wrote:
-> > > Do you have a code example from a different codec that has roughly
-> > > what
-> > > is missing here? (the sound subsystem is new to me)
-> > 
-> > Full disclosure this is complete untested, but it should be
-> > pretty close. Let me know if it does the trick and I will send a
-> > proper patch to the list. I do have a Librem 5 in a draw
-> > somewhere so can pull that out if we get really stuck, but that
-> > might have to wait until the weekend :-).
-> > 
-> > I don't know if you guys are using the analogue bypass paths
-> > around the digital core on the chip. I think those will still
-> > work with the mics set to digital, so I have left the routes as
-> > is, but that might require some checking at some point.
-> 
-> ok that's great and seems to work! that's luxury.
-> 
 
-Excellent glad that is working for you, I will prep up a proper
-patch and send it to the list. Should get that done tomorrow
-morning, if I don't manage it this afternoon.
+--qAS1ftfJQ+vX6+zr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> Volume / sensitivity of Analog input is too low, I saw that before.
-> What would you try to change that?
-> 
+On Tue, Feb 01, 2022 at 11:07:45AM -0800, Curtis Malainey wrote:
+> On Tue, Feb 1, 2022 at 10:40 AM Mark Brown <broonie@kernel.org> wrote:
 
-Hmm... you say you saw this before? I assume the input volume
-is always low, not just low sometimes? I would probably start by
-checking the voltage you have on the micbias, make sure that is
-as expected. Does the signal coming into the IN3R pin look low on
-a scope or is it just the level after it has been through the ADC
-on the chip that seems low?
+> > In general if there's something like a speaker amplifier that's just
+> > controlled via GPIO I'd expect that to be something that's set up by the
+> > machine driver.  If the CODEC is a GPIO provider then the pattern should
 
-The input routing on this chip is pretty byzantine, the output of
-just "amixer" showing all the controls in the relevant use-case
-would probably be helpful to look over. I suspect there is a
-reasonable chance something around the input PGA is not
-configured to match the hardware, although I am not the most
-familiar with this part so hard to guess at exactly what off the
-top of my head.
+> Just to confirm, by provider, you mean it has on codec gpio it is
+> exposing to the kernel correct? Interestingly, this appears to be
+> counter to the max98357a.c driver. It has the SDMODE pin which can put
+> it into a low power state. The codec driver appears to consume this
+> pin from FW lookup and toggle it on trigger. I am just curious why we
+> would not want the codec to handle its own pins? That way the control
+> logic for the pin is collected into a non-chipset dependent location
+> that is close to the internal state of the driver.
 
-Finally, do you know how much the amplitude is off by?
+Bear in mind that I'm just reading some e-mail about a machine driver
+here, the most common case for a GPIO for an amplifier is something
+where there's a very simple analogue amplifier with just a GPIO to
+mute it that's been attached to a CODEC or if it's something that goes
+into a device that's otherwise visible to software.  I don't have
+immediate visibility of the full set of machines and CODECs here.  Like
+I say the state of ACPI firmware description really doesn't help here.
 
-> you can do all of our tasks if you want to :)
-> 
+> The board this patch fixes is not shipping, the board it breaks is
+> planned to ship from my understanding. Eric, feel free to correct me.
+> We could do a partial revert and remove the _NP fields and both boards
+> would work (Sujith already sent a patch for this "ASoC: amd: acp: Set
+> gpio_spkr_en to None for max speaker amplifer in machine driver") but
+> I think we should still consider a patch to stop hard coding the GPIO
+> as it should be available via a lookup.
 
-Ha! Not sure about that, but happy to help out where I can.
+Are there other systems that aren't Chromebooks being covered here, and
+if so what state are they in?  In any case what I'd expect to see here
+is a series transitioning the existing code to use lookups from the
+firmware.
 
-Thanks,
-Charles
+--qAS1ftfJQ+vX6+zr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmH6kDAACgkQJNaLcl1U
+h9BkzQf+Ocd6qwUzu/0Dt1tLiUSj+tcyBajGeKH1FcgPZ1qR+0ZJmZbbuCOlxEna
+wUXbW7poqYb46OCwxNDSzlgntzCjm8mbVNXAGopitLzLUCIcTOppmrrweMqXZkqD
+KwsQy52yxBB/WCkAafPGcUHs/SRm6RJ92fOxU9wCUol3S/LrRt95jcmUQZ4ORmCN
+vcB5FS70Oz0YnMCBPD8mVh+bckNLBXXBHxIZnURBGbnIgLhoUnRLWhmtmcm2LMEy
+v7M5ou2YPi0q1Gmpzh5JojTRECBPVrTU5lI11lI32VifH79SEx+XcpDmVBuXgeXf
+SYPK9wNFi4BX+ROIWzyea32HWvPSSg==
+=UNxo
+-----END PGP SIGNATURE-----
+
+--qAS1ftfJQ+vX6+zr--

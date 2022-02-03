@@ -2,49 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 083F74ABE91
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 13:27:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CC074AC190
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 15:46:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EB341733;
-	Mon,  7 Feb 2022 13:26:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EB341733
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE7D31816;
+	Mon,  7 Feb 2022 15:45:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE7D31816
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644236863;
-	bh=XNhcDDTemOBayVV82sFx9x1jQUmWWl5oXgIkNCJZPjg=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1644245190;
+	bh=ftaBg70Fywe23xPOkzO2k/1SUWqJcEF9h7huEHsLFR4=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Qn6akbA6KNQFy8DclbTJerXeqHrLVSSi//FRen9CNxsFlid1GARYhWqQxLknRQ7VB
-	 j//ZmZfBpNlaZ/ySzwd8OcEfqc8suNhlrWfXthCsE+CeBrfbhFBykRZHgx0TMZNXNN
-	 V/5qDkWHviDkS/i0XLKIIsM9+Yr8ukAeuZ/Or6uQ=
+	b=S2BvMBjlB/n4p5HPEvK6O5VyE87RHg9MTSgujaY12TexG+J6CT0OpNagtFjPR28Bk
+	 zy2Y2qL3W+Sp6uJBhwl2B4ZkdD3bdYLQauS6MhiTq2U/OKncdocOlmtyYR0Qa6nOgp
+	 YBFN6u+7CWhqKF1J+xL6xZo+LMk4Aok6m+aURm5c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 324A7F80246;
-	Mon,  7 Feb 2022 13:26:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46973F80246;
+	Mon,  7 Feb 2022 15:45:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A5E5F800F5; Mon,  7 Feb 2022 13:26:37 +0100 (CET)
+ id 93B9FF8027C; Thu,  3 Feb 2022 10:22:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 08194F800F5
- for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 13:26:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08194F800F5
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from comms.puri.sm (comms.puri.sm [159.203.221.185])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3EFCAF80082
+ for <alsa-devel@alsa-project.org>; Thu,  3 Feb 2022 10:22:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EFCAF80082
+Received: from localhost (localhost [127.0.0.1])
+ by comms.puri.sm (Postfix) with ESMTP id 2FD6DDFAB9;
+ Thu,  3 Feb 2022 01:21:33 -0800 (PST)
+Received: from comms.puri.sm ([127.0.0.1])
+ by localhost (comms.puri.sm [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id rGQv4tBnuPp7; Thu,  3 Feb 2022 01:21:32 -0800 (PST)
+Message-ID: <77418b2bac0c91002488f126db5a9d5b79416782.camel@puri.sm>
+Subject: Re: [PATCH] ASoC: wm8962: Allow switching between analog and
+ digital inputs
+From: Martin Kepplinger <martin.kepplinger@puri.sm>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org
+Date: Thu, 03 Feb 2022 10:21:28 +0100
+In-Reply-To: <20220202164545.30457-1-ckeepax@opensource.cirrus.com>
+References: <20220202164545.30457-1-ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.38.3-1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1644236790368707895-webhooks-bot@alsa-project.org>
-References: <1644236790368707895-webhooks-bot@alsa-project.org>
-Subject: Add UCM for PinePhone
-Message-Id: <20220207122637.0A5E5F800F5@alsa1.perex.cz>
-Date: Mon,  7 Feb 2022 13:26:37 +0100 (CET)
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 07 Feb 2022 15:45:23 +0100
+Cc: patches@opensource.cirrus.com, shengjiu.wang@nxp.com, daniel.baluta@nxp.com,
+ lgirdwood@gmail.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,23 +72,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #134 was edited from tomfitzhenry:
+Am Mittwoch, dem 02.02.2022 um 16:45 +0000 schrieb Charles Keepax:
+> When the DMIC_ENA bit is set the analogue inputs are disconnected
+> from
+> the digital core of the chip, in favour of the digital microphones.
+> Currently the driver will always enable DMIC_ENA whilst the GPIOs are
+> configured for the DMIC function, this means the user can't currently
+> use both the analog inputs and the digital inputs in one system.
+> 
+> Add an additional DAPM mutex that allows switching between analog and
+> digital inputs into the digital core.
+> 
+> Reported-by: Martin Kepplinger <martin.kepplinger@puri.sm>
 
-Fixes https://github.com/alsa-project/alsa-ucm-conf/issues/124.
+Hi Charles, thank you again very much for this! You can make this
 
-The DTS configuration has had a unique audio card name since 5.14:
+Reported-and-tested-by: Martin Kepplinger <martin.kepplinger@puri.sm>
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi?h=v5.14#n436
 
-This UCM config is copied from https://gitlab.com/pine64-org/pine64-alsa-ucm/, which was developed by many developers ( https://gitlab.com/pine64-org/pine64-alsa-ucm/-/merge_requests/1 ) and is BSD-3-Clause licensed.
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
+>  sound/soc/codecs/wm8962.c | 21 +++++++++++++++++----
+>  1 file changed, 17 insertions(+), 4 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+> index a5584ba962dcf..2c41d31956aa8 100644
+> --- a/sound/soc/codecs/wm8962.c
+> +++ b/sound/soc/codecs/wm8962.c
+> @@ -2049,6 +2049,13 @@ static SOC_ENUM_SINGLE_DECL(hpoutl_enum,
+>  static const struct snd_kcontrol_new hpoutl_mux =
+>         SOC_DAPM_ENUM("HPOUTL Mux", hpoutl_enum);
+>  
+> +static const char * const input_mode_text[] = { "Analog", "Digital"
+> };
+> +
+> +static SOC_ENUM_SINGLE_VIRT_DECL(input_mode_enum, input_mode_text);
+> +
+> +static const struct snd_kcontrol_new input_mode_mux =
+> +       SOC_DAPM_ENUM("Input Mode", input_mode_enum);
+> +
+>  static const struct snd_kcontrol_new inpgal[] = {
+>  SOC_DAPM_SINGLE("IN1L Switch", WM8962_LEFT_INPUT_PGA_CONTROL, 3, 1,
+> 0),
+>  SOC_DAPM_SINGLE("IN2L Switch", WM8962_LEFT_INPUT_PGA_CONTROL, 2, 1,
+> 0),
+> @@ -2147,6 +2154,9 @@ SND_SOC_DAPM_MIXER("MIXINR", WM8962_PWR_MGMT_1,
+> 4, 0,
+>  
+>  SND_SOC_DAPM_AIF_IN("DMIC_ENA", NULL, 0, WM8962_PWR_MGMT_1, 10, 0),
+>  
+> +SND_SOC_DAPM_MUX("Input Mode L", SND_SOC_NOPM, 0, 0,
+> &input_mode_mux),
+> +SND_SOC_DAPM_MUX("Input Mode R", SND_SOC_NOPM, 0, 0,
+> &input_mode_mux),
+> +
+>  SND_SOC_DAPM_ADC("ADCL", "Capture", WM8962_PWR_MGMT_1, 3, 0),
+>  SND_SOC_DAPM_ADC("ADCR", "Capture", WM8962_PWR_MGMT_1, 2, 0),
+>  
+> @@ -2226,16 +2236,19 @@ static const struct snd_soc_dapm_route
+> wm8962_intercon[] = {
+>  
+>         { "DMIC_ENA", NULL, "DMICDAT" },
+>  
+> +       { "Input Mode L", "Analog", "MIXINL" },
+> +       { "Input Mode L", "Digital", "DMIC_ENA" },
+> +       { "Input Mode R", "Analog", "MIXINR" },
+> +       { "Input Mode R", "Digital", "DMIC_ENA" },
+> +
+>         { "ADCL", NULL, "SYSCLK" },
+>         { "ADCL", NULL, "TOCLK" },
+> -       { "ADCL", NULL, "MIXINL" },
+> -       { "ADCL", NULL, "DMIC_ENA" },
+> +       { "ADCL", NULL, "Input Mode L" },
+>         { "ADCL", NULL, "DSP2" },
+>  
+>         { "ADCR", NULL, "SYSCLK" },
+>         { "ADCR", NULL, "TOCLK" },
+> -       { "ADCR", NULL, "MIXINR" },
+> -       { "ADCR", NULL, "DMIC_ENA" },
+> +       { "ADCR", NULL, "Input Mode R" },
+>         { "ADCR", NULL, "DSP2" },
+>  
+>         { "STL", "Left", "ADCL" },
 
-I have tested that with this PR, the PinePhone has the expected HiFi and VoiceCall profiles.This testing found that the `File` directive in `SectionUseCase` needs to be absolute (for the symlink to work). I've fixed this in this PR: https://github.com/alsa-project/alsa-ucm-conf/pull/134/commits/5059e57a2197bb38848bbec10f589637df64679e.
 
-See also:
-* `alsa-info`: https://alsa-project.org/db/?f=5e331f5ef10bd167b3bd7640bfcf0e879100f80d
-* `pa-info`: [pa-info.txt](https://github.com/alsa-project/alsa-ucm-conf/files/8015083/pa-info.txt)
-* https://gitlab.com/pine64-org/pine64-alsa-ucm/-/issues/3
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/134
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/134.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf

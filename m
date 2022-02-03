@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C8BD4A841D
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Feb 2022 13:53:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E7B64A8794
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Feb 2022 16:21:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18DA81750;
-	Thu,  3 Feb 2022 13:52:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18DA81750
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA6BA1714;
+	Thu,  3 Feb 2022 16:20:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA6BA1714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643892808;
-	bh=MX6s01rx/OdEQk4J2Dq8jkWD7sSlbsMea8gvpLM4cko=;
+	s=default; t=1643901697;
+	bh=U1gNFtAlZR+EFXmlK4Tayt9UuGQCOFAeHjEPoyzGIKU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V08KuSPWXtqdIN4kZEl3THTzX8YJmpRDtJloICextyF482ikQB84XUDYy5qkQT36W
-	 ZU+z6R3TGbD13YuIknDDpu+TGUjf2OdQLfgghTs3R0JMjISUN9pl2sCi4gvggqHC1l
-	 x2wbjxwK5p6llJGsMzyMr5mAelvu3Xy+RkJDukzA=
+	b=YQS5Tdn3+jtaaMeKB2M7StbP+SiUUKWFLtD3YKikgd0EruP0kmR14ll+IRYdjhmzd
+	 FWuM883Bh30lqeu9quoOTnNPpl8/Y78+8zSpPvzPrgF5CCBB8mIJeg6s7bjE/0111w
+	 oQWJjx13mwINN5U+fQvpByEOTFcUYqYCGU8uI8yI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 637E5F8027C;
-	Thu,  3 Feb 2022 13:52:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E2A9F8050F;
+	Thu,  3 Feb 2022 16:20:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6814DF8027C; Thu,  3 Feb 2022 13:52:20 +0100 (CET)
+ id 27EFFF80082; Thu,  3 Feb 2022 16:19:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F14C6F80082
- for <alsa-devel@alsa-project.org>; Thu,  3 Feb 2022 13:52:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F14C6F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5096F80159
+ for <alsa-devel@alsa-project.org>; Thu,  3 Feb 2022 16:19:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5096F80159
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HYobC6OA"
+ header.b="eC1kIa9J"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8B576617C2;
- Thu,  3 Feb 2022 12:52:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8881C340EF;
- Thu,  3 Feb 2022 12:52:12 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B2550B83499;
+ Thu,  3 Feb 2022 15:19:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F581C340E4;
+ Thu,  3 Feb 2022 15:19:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643892735;
- bh=MX6s01rx/OdEQk4J2Dq8jkWD7sSlbsMea8gvpLM4cko=;
+ s=k20201202; t=1643901592;
+ bh=U1gNFtAlZR+EFXmlK4Tayt9UuGQCOFAeHjEPoyzGIKU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=HYobC6OAV25jU4TLHmN98rYtmMP+gXpealy44ooOuiTZcjhNsSmac8mlmHdw6tRq5
- XjOKsYb+f4mcf1E1sEhkrpxW5MjX/yqr7JFMIdTFg6Zrwv3TSGM29vc0gcYszfQqau
- iraoFNF+2Sm051YqSgxWIK9DXySP/j4IoQ8h9J0X5vYslNOfoLll40O4e88jk1Grco
- IYSVdOoRNEP6f3vTPGFnTmdWA3B2IRzpXZ2NsexB860Rm0QIXYLPoh+LaQtA/3EBzd
- AfTbxagjSBpbYsBMARh/OCvS6l5nYsLtr903wzDIEwRc72nIy2r0J7RSTjNhJJ1Pi8
- OAhTDiSD+ermw==
+ b=eC1kIa9JW466IRmR7rBF9bG2P58yh9zzwCiqZn9JGFA5037XuUaHQv9b/DMLbGusT
+ NZ25d2ZKuzwMB1URNgrqN2clcb/m9ki07DmvctVhaN8wcNz0TfKzvuIodcbb8cc4w6
+ 9J49+G6iBnptxc5ZBqKUDvg6N1/MCxSQkUjT6Rs7Dw7oVaPFitugCpBjcI5fK8a33j
+ 1T6NMz2bLCb0j2myMMFjh+//sx22WphYGlwAQPMD3FRN55tY6KMRC3KY31IJs2fxSy
+ zpC0FT74v/1BbL/5FvnTN/5ZHSqlW1rIjk+9O7Q1G+tyLwIqbVCbmjk7SdsHhFGUNI
+ 9OrjMdCTeZOQQ==
 From: Mark Brown <broonie@kernel.org>
-To: V sujith kumar Reddy <vsujithkumar.reddy@amd.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20220131203225.1418648-1-vsujithkumar.reddy@amd.com>
-References: <20220131203225.1418648-1-vsujithkumar.reddy@amd.com>
-Subject: Re: [PATCH] ASoC: amd: acp: Set gpio_spkr_en to None for max speaker
- amplifer in machine driver
-Message-Id: <164389273260.1027470.16661556291810590077.b4-ty@kernel.org>
-Date: Thu, 03 Feb 2022 12:52:12 +0000
+To: Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>
+In-Reply-To: <20220202191322.3650708-1-broonie@kernel.org>
+References: <20220202191322.3650708-1-broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: samsung: Explicitly include gpiolib header
+Message-Id: <164390159108.786717.736751828909746309.b4-ty@kernel.org>
+Date: Thu, 03 Feb 2022 15:19:51 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Sunil-kumar.Dommati@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Basavaraj.Hiregoudar@amd.com,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Vijendar.Mukunda@amd.com
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,20 +86,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 1 Feb 2022 02:02:15 +0530, V sujith kumar Reddy wrote:
-> Maxim codec driver already enabling/disabling spk_en_gpio in form of sd_mode gpio
-> hence remove such gpio access control from machine driver to avoid conflict
+On Wed, 2 Feb 2022 19:13:22 +0000, Mark Brown wrote:
+> midas_wm811 uses gpiolib but relies on the header being implicitly included
+> which can lead to build failures in some configurations, explicitly pull
+> the header in to avoid problems.
 > 
 > 
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
 Thanks!
 
-[1/1] ASoC: amd: acp: Set gpio_spkr_en to None for max speaker amplifer in machine driver
-      commit: 7fa5c33d043160eba3be9fb8e21588dff2a467c7
+[1/1] ASoC: samsung: Explicitly include gpiolib header
+      commit: ed482dc8c76db7613c08f39b09c6b98718c92940
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

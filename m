@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DF384A96FA
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Feb 2022 10:41:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFADF4A96FF
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Feb 2022 10:41:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9196B1689;
-	Fri,  4 Feb 2022 10:40:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9196B1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B34F16CC;
+	Fri,  4 Feb 2022 10:41:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B34F16CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643967685;
-	bh=pRA/otCjZcklIKsScvPc7IBL2RW6AmvCZ98M/Id9Knk=;
+	s=default; t=1643967719;
+	bh=CcOS1D8lxZzsdPRUBzApoZYi/tQhOM8jT2cwWDiETB4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N7A5Gbpoh5Vbj+jHgVttekVUnDnjosvRpSyLQdL2QkbaSs11tQ0ezt037UwOb6Hqc
-	 yqmwqd5Ppg7+0BId/S+bf8Jz/4Ns4jKMdO20y2b/Ce33OLG1zxGvOLdNB5vbbNxoGl
-	 wQHxyAct75yiMYhKh6xg9P2ApG4e8aSAj2qOBPwQ=
+	b=NYNDINHV/Aw/ExuMPspGr6PxrZxSoGoxRx7yldA+JkMQgU4dqJjiRDIIKY1naHEWd
+	 jqYpxhCxsktxR5yzlBjMmr+OCkCNkyYjBaFdgqbqPRe82V9sHyPi0vkIJ1p2+SEW3L
+	 3PXLhGwJA8vUcQ1qQau6VBhqpREx55ecgl7Mq7YY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB765F804CF;
-	Fri,  4 Feb 2022 10:40:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86AAEF804DF;
+	Fri,  4 Feb 2022 10:40:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92511F80310; Fri,  4 Feb 2022 10:40:15 +0100 (CET)
+ id 78749F804D6; Fri,  4 Feb 2022 10:40:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5420F80083
- for <alsa-devel@alsa-project.org>; Fri,  4 Feb 2022 10:40:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5420F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E1EAF80169
+ for <alsa-devel@alsa-project.org>; Fri,  4 Feb 2022 10:40:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E1EAF80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="1Zubdx1C"; 
+ header.b="uUOSrSZ3"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="OkbE/OTd"
+ header.b="roFpTuwk"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id D5E621F44E;
- Fri,  4 Feb 2022 09:40:08 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 703851F450;
+ Fri,  4 Feb 2022 09:40:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1643967608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1643967622; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7HKhPrTrS+osv6KlVAcI7StcH6WyLP6pkUwGJOWdhHg=;
- b=1Zubdx1CIs9+nAbXwy4aplmFV5+ZkCKLO5Q3LKDG8aNGWS7yq5aarePU4MhYNEh2B5Lzae
- jOIvcpUmv1OgswK2ZOQDUyjRUZb2jiozUjSjgrQ9dPkQ7sNBoCQLznCBs69mgWy0aY7CgR
- aU1+1RRyM07kElfwqX+0VGVY426LE6Y=
+ bh=sZqUwyeoUjcuInqOvAbOiLgDqnVIVYI6iZNFGXsbLxM=;
+ b=uUOSrSZ3y9/Anx7AGOB+zEX0C2DlxH2kNBmlrgsDsfTgdfvfGFM0+QQAiUYFD3ACUPizJz
+ bz4KFIrpWqRsjAkJ4NA45bE/DrXUorZMTb3l3y+L097b87wpUt2dNiCbyjNx6wVRg4xnlL
+ 9wNcf4vnLSDmmM/BNUC4H/+xuZkeWys=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1643967608;
+ s=susede2_ed25519; t=1643967622;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7HKhPrTrS+osv6KlVAcI7StcH6WyLP6pkUwGJOWdhHg=;
- b=OkbE/OTd8wkDBW5AphiJJrqFkGyKecAZRm/Ba+pNYbz0jJYIaLGevIFij3A/a5e4MQLwrv
- QIN6O0pCuCjF1HDQ==
+ bh=sZqUwyeoUjcuInqOvAbOiLgDqnVIVYI6iZNFGXsbLxM=;
+ b=roFpTuwksPHA4dc3Zg62kajPXTdCPYIo1QPndXE/YGytRDH01gepePbDLNV9Y1Wb/e6wrX
+ 7/NpvjIn7DudYVBg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id AA6E0A3B84;
- Fri,  4 Feb 2022 09:40:08 +0000 (UTC)
-Date: Fri, 04 Feb 2022 10:40:08 +0100
-Message-ID: <s5h7dabx953.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 5B781A3B81;
+ Fri,  4 Feb 2022 09:40:22 +0000 (UTC)
+Date: Fri, 04 Feb 2022 10:40:22 +0100
+Message-ID: <s5h5ypvx94p.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v3 1/2] kselftest: alsa: Check for event generation when
- we write to controls
-In-Reply-To: <20220202150902.19563-1-broonie@kernel.org>
+Subject: Re: [PATCH v3 2/2] kselftest: alsa: Declare most functions static
+In-Reply-To: <20220202150902.19563-2-broonie@kernel.org>
 References: <20220202150902.19563-1-broonie@kernel.org>
+ <20220202150902.19563-2-broonie@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -95,27 +95,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 02 Feb 2022 16:09:01 +0100,
+On Wed, 02 Feb 2022 16:09:02 +0100,
 Mark Brown wrote:
 > 
-> Add some coverage of event generation to mixer-test. Rather than doing a
-> separate set of writes designed to trigger events we add a step to the
-> existing write_and_verify() which checks to see if the value we read back
-> from non-volatile controls matches the value before writing and that an
-> event is or isn't generated as appropriate. The "tests" for events then
-> simply check that no spurious or missing events were detected. This avoids
-> needing further logic to generate appropriate values for each control type
-> and maximises coverage.
-> 
-> When checking for events we use a timeout of 0. This relies on the kernel
-> generating any event prior to returning to userspace when setting a control.
-> That is currently the case and it is difficult to see it changing, if it
-> does the test will need to be updated. Using a delay of 0 means that we
-> don't slow things down unduly when checking for no event or when events
-> fail to be generated.
-> 
-> We don't check behaviour for volatile controls since we can't tell what
-> the behaviour is supposed to be for any given control.
+> This program has only one file so most functions can be static.
 > 
 > Signed-off-by: Mark Brown <broonie@kernel.org>
 > Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>

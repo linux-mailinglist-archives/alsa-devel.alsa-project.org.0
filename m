@@ -2,73 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A02094A8796
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Feb 2022 16:22:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DF384A96FA
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Feb 2022 10:41:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BFA11769;
-	Thu,  3 Feb 2022 16:21:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BFA11769
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9196B1689;
+	Fri,  4 Feb 2022 10:40:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9196B1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1643901727;
-	bh=FctJN1sIoIS0ykPIhJCIx5ELzMe65UGssOiXwzd68qg=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1643967685;
+	bh=pRA/otCjZcklIKsScvPc7IBL2RW6AmvCZ98M/Id9Knk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q2Nr8SfZ78k54IfdEuVx2zdIEIrL3PU3cVp3D/sprlf7a7pL3ABWdwkkTi0t9eWw9
-	 R6F0zf4WzT8+EX7rBtZiq018IH0mWvk78UsmHs3BQdAaViBRuJ9dDZYmVpYCSslycf
-	 AR7KjQQYHDYs7TbdzSR0+325cdO5n1pRyPHrEapk=
+	b=N7A5Gbpoh5Vbj+jHgVttekVUnDnjosvRpSyLQdL2QkbaSs11tQ0ezt037UwOb6Hqc
+	 yqmwqd5Ppg7+0BId/S+bf8Jz/4Ns4jKMdO20y2b/Ce33OLG1zxGvOLdNB5vbbNxoGl
+	 wQHxyAct75yiMYhKh6xg9P2ApG4e8aSAj2qOBPwQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB5ADF80518;
-	Thu,  3 Feb 2022 16:20:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB765F804CF;
+	Fri,  4 Feb 2022 10:40:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B788F8032B; Thu,  3 Feb 2022 16:20:06 +0100 (CET)
+ id 92511F80310; Fri,  4 Feb 2022 10:40:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C6EAF8032B
- for <alsa-devel@alsa-project.org>; Thu,  3 Feb 2022 16:20:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C6EAF8032B
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5420F80083
+ for <alsa-devel@alsa-project.org>; Fri,  4 Feb 2022 10:40:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5420F80083
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YFRCXwdt"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 56D1860A54;
- Thu,  3 Feb 2022 15:19:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0DC2C340E8;
- Thu,  3 Feb 2022 15:19:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643901598;
- bh=FctJN1sIoIS0ykPIhJCIx5ELzMe65UGssOiXwzd68qg=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=YFRCXwdtzRppEIpPukxJXc5ARbRELlf72Wb25Ssz8Ys62mOOhx9v2VshG6ogdDC5W
- ISejDX1xo8aKMEXiA6w7BZKpD6L+f1JICXaOWhzyXhA9tGdf8Bm1zbCMMkW5R5D7On
- FYgU2qaSiesupS1nYiqzNgDcbOKKChKFDaXzVqz2kBLZCWs+aHMkD6TE8sGIEmvaAy
- vJY9vMRXeGw8+KKqfjA7dA8ONp/IUIe1CKqCpBLQLNW4h3LbgoD99gXChDluJrbeLO
- ku2DOSComdQsm8yY2+vBYJ7Fne1YKDHEHUz+L7P31veeLAl3rzoV+vDHnmBdvyzJcN
- wcVUceSwKKfHg==
-From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-In-Reply-To: <20220203115025.16464-1-ckeepax@opensource.cirrus.com>
-References: <20220203115025.16464-1-ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: madera: Add dependencies on MFD
-Message-Id: <164390159763.786717.14382838277432263194.b4-ty@kernel.org>
-Date: Thu, 03 Feb 2022 15:19:57 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="1Zubdx1C"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="OkbE/OTd"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id D5E621F44E;
+ Fri,  4 Feb 2022 09:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1643967608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7HKhPrTrS+osv6KlVAcI7StcH6WyLP6pkUwGJOWdhHg=;
+ b=1Zubdx1CIs9+nAbXwy4aplmFV5+ZkCKLO5Q3LKDG8aNGWS7yq5aarePU4MhYNEh2B5Lzae
+ jOIvcpUmv1OgswK2ZOQDUyjRUZb2jiozUjSjgrQ9dPkQ7sNBoCQLznCBs69mgWy0aY7CgR
+ aU1+1RRyM07kElfwqX+0VGVY426LE6Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1643967608;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7HKhPrTrS+osv6KlVAcI7StcH6WyLP6pkUwGJOWdhHg=;
+ b=OkbE/OTd8wkDBW5AphiJJrqFkGyKecAZRm/Ba+pNYbz0jJYIaLGevIFij3A/a5e4MQLwrv
+ QIN6O0pCuCjF1HDQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id AA6E0A3B84;
+ Fri,  4 Feb 2022 09:40:08 +0000 (UTC)
+Date: Fri, 04 Feb 2022 10:40:08 +0100
+Message-ID: <s5h7dabx953.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v3 1/2] kselftest: alsa: Check for event generation when
+ we write to controls
+In-Reply-To: <20220202150902.19563-1-broonie@kernel.org>
+References: <20220202150902.19563-1-broonie@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kselftest@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>,
+ Shuah Khan <shuah@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,40 +95,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 3 Feb 2022 11:50:25 +0000, Charles Keepax wrote:
-> The Madera CODECs use regmap_irq functions but nothing ensures that
-> regmap_irq is built into the kernel. Add dependencies on the ASoC
-> symbols for the relevant MFD component. There is no point in building
-> the ASoC driver if the MFD doesn't support it and the MFD part contains
-> the necessary dependencies to ensure everything is built into the
-> kernel.
+On Wed, 02 Feb 2022 16:09:01 +0100,
+Mark Brown wrote:
 > 
-> [...]
+> Add some coverage of event generation to mixer-test. Rather than doing a
+> separate set of writes designed to trigger events we add a step to the
+> existing write_and_verify() which checks to see if the value we read back
+> from non-volatile controls matches the value before writing and that an
+> event is or isn't generated as appropriate. The "tests" for events then
+> simply check that no spurious or missing events were detected. This avoids
+> needing further logic to generate appropriate values for each control type
+> and maximises coverage.
+> 
+> When checking for events we use a timeout of 0. This relies on the kernel
+> generating any event prior to returning to userspace when setting a control.
+> That is currently the case and it is difficult to see it changing, if it
+> does the test will need to be updated. Using a delay of 0 means that we
+> don't slow things down unduly when checking for no event or when events
+> fail to be generated.
+> 
+> We don't check behaviour for volatile controls since we can't tell what
+> the behaviour is supposed to be for any given control.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
+> Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
-Applied to
+Thanks, applied now to for-next branch.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
-
-[1/1] ASoC: madera: Add dependencies on MFD
-      commit: ec29170c724ca30305fc3a19ba2ee73ecac65509
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

@@ -2,65 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C384AC191
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 15:47:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31C974AC192
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 15:47:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F0DC182F;
-	Mon,  7 Feb 2022 15:46:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F0DC182F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 554151843;
+	Mon,  7 Feb 2022 15:46:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 554151843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644245222;
-	bh=miLYE4WTmYIEQsrPMTH6/1I04mhkN+NJeKruSmFsNTU=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=SKCHJO3UkWTj4PmuQbBUN+68fiQy8+lb5ml/C+mrNYfeJQGpgc/s6dT150V5Ib1te
-	 xKBp6BCgHeyFyCzRp1DIqrvyBznCGi+8IjCZF62aSANmN0rHxxpwaggkHliy6Mc5QO
-	 AUA761hY3GqhInjzX4LPverv9dq+eotxATzD3adI=
+	s=default; t=1644245227;
+	bh=HTtV/2KIdcgjjUnx9B8JRSEVwa9DjGhwkfhxBad15zI=;
+	h=Date:In-Reply-To:Subject:From:To:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=upiIXksH05Mje92UvGtzFiqjfoD+yEkjwpZeJPefLBebx0iYGNajxk6TFLEakqhVn
+	 VvjuAw1+0JxJfNZYnJmVdxMezj/3d2D+Ou8LFITq9WNn8y+YtmuEcSjPaF+4DSBcHI
+	 gbpEMkvaRgaM9M6ic9DJG+71EOjAox3Xx4B7tpCE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD587F804D2;
-	Mon,  7 Feb 2022 15:45:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49912F804FF;
+	Mon,  7 Feb 2022 15:45:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 584ADF8027C; Thu,  3 Feb 2022 10:58:28 +0100 (CET)
+ id ED5EDF8027C; Fri,  4 Feb 2022 03:12:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from comms.puri.sm (comms.puri.sm [159.203.221.185])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.3 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_76,SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-il1-f198.google.com (mail-il1-f198.google.com
+ [209.85.166.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6317EF80159
- for <alsa-devel@alsa-project.org>; Thu,  3 Feb 2022 10:58:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6317EF80159
-Received: from localhost (localhost [127.0.0.1])
- by comms.puri.sm (Postfix) with ESMTP id C4919DF983;
- Thu,  3 Feb 2022 01:57:50 -0800 (PST)
-Received: from comms.puri.sm ([127.0.0.1])
- by localhost (comms.puri.sm [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 6_Ej29ugCaGo; Thu,  3 Feb 2022 01:57:49 -0800 (PST)
-Message-ID: <62ee89792a3f8921b4aad4d47f4db0bf2adb33f0.camel@puri.sm>
-Subject: Re: [PATCH] wm8962: add a simple DMIC enable control
-From: Martin Kepplinger <martin.kepplinger@puri.sm>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Date: Thu, 03 Feb 2022 10:57:44 +0100
-In-Reply-To: <20220202133511.GB18506@ediswmail.ad.cirrus.com>
-References: <20220201150113.880330-1-martin.kepplinger@puri.sm>
- <20220202095301.GZ18506@ediswmail.ad.cirrus.com>
- <3542af028b622ec1513810b014c35a94b82a94c0.camel@puri.sm>
- <20220202104657.GA18506@ediswmail.ad.cirrus.com>
- <99b847d17e8ac399dba10842ec20091df926aa06.camel@puri.sm>
- <20220202133511.GB18506@ediswmail.ad.cirrus.com>
-Content-Type: multipart/mixed; boundary="=-FLXWMLOD0j9p5eW8ekRe"
-User-Agent: Evolution 3.38.3-1 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93585F80163
+ for <alsa-devel@alsa-project.org>; Fri,  4 Feb 2022 03:12:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93585F80163
+Received: by mail-il1-f198.google.com with SMTP id
+ h8-20020a92c088000000b002bc03432559so2952387ile.7
+ for <alsa-devel@alsa-project.org>; Thu, 03 Feb 2022 18:12:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:date:in-reply-to:message-id:subject
+ :from:to;
+ bh=loIlQQhD8rASiuX2pvX5Xk8j8M8qufubC/OTk/rx/20=;
+ b=aJQ8azrebJz0TYruEiAzoErz3/2m+VAhNkw9pRm/vAWMZhDjVXZL/tAtgQ+r1uitZQ
+ AdBSC1Z12vSvT58HMw2EkvWmQKmuVx/O+O+cmL5uw7t1WjwI5lHiga4Q738R2ie/nZpT
+ OMUPTzf1jxHYHBkqJBcFyFPWk5zc8eaoRI42SmQX/YYHFxG8pD2fQeQeYYrfn/yZQ4Rr
+ Jgl45axfbtrdb+z0N423JYY9VmRaOLT419SCf3pPG+HVC8qNa9YXOZNS/rUO+RmXHJ9v
+ RyWqSAzrJc1pHs38auEqL/eKwKcgoGrCdiq1wlkOUHukx1Z1bkYrJFlYXQ0RLUhsPAda
+ QqJg==
+X-Gm-Message-State: AOAM530dSP5WVBvXoNhErhnSaOAdIr7oS6JWstjYcIYO89GK15jmye2D
+ CcwIlF89DptS0zD18RAuHzd40g6ouvpdJWaOQKnWPEUxnUcZ
+X-Google-Smtp-Source: ABdhPJzJ3WI4uBBax7afQtYmDH9dEDjQYsCF7WblXFkdBoz4A2BYRwc2+dDmjQp2RH0cHybba0nx2KDBNFr6KdmszizWN1o11051
 MIME-Version: 1.0
+X-Received: by 2002:a05:6e02:18c6:: with SMTP id
+ s6mr407633ilu.301.1643940739387; 
+ Thu, 03 Feb 2022 18:12:19 -0800 (PST)
+Date: Thu, 03 Feb 2022 18:12:19 -0800
+In-Reply-To: <000000000000afc4bc05d150d3af@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000cd945f05d727c7f6@google.com>
+Subject: Re: [syzbot] possible deadlock in snd_timer_interrupt (2)
+From: syzbot <syzbot+1ee0910eca9c94f71f25@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, bfields@fieldses.org, hdanton@sina.com, 
+ jlayton@kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, perex@perex.cz, syzkaller-bugs@googlegroups.com, 
+ tiwai@suse.com, viro@zeniv.linux.org.uk, wangwensheng4@huawei.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 07 Feb 2022 15:45:24 +0100
-Cc: alsa-devel@alsa-project.org, kernel@puri.sm, patches@opensource.cirrus.com,
- tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org, geert@glider.be,
- daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,435 +86,364 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+syzbot has found a reproducer for the following issue on:
 
---=-FLXWMLOD0j9p5eW8ekRe
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+HEAD commit:    1f2cfdd349b7 printk: Fix incorrect __user type in proc_doi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=146fce24700000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b4a89edfcc8f7c74
+dashboard link: https://syzkaller.appspot.com/bug?extid=1ee0910eca9c94f71f25
+compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1007e462700000
 
-Am Mittwoch, dem 02.02.2022 um 13:35 +0000 schrieb Charles Keepax:
-> On Wed, Feb 02, 2022 at 12:55:04PM +0100, Martin Kepplinger wrote:
-> > Am Mittwoch, dem 02.02.2022 um 10:46 +0000 schrieb Charles Keepax:
-> > > On Wed, Feb 02, 2022 at 11:17:34AM +0100, Martin Kepplinger
-> > > wrote:
-> > > > Am Mittwoch, dem 02.02.2022 um 09:53 +0000 schrieb Charles
-> > > > Keepax:
-> > > > > On Tue, Feb 01, 2022 at 04:01:13PM +0100, Martin Kepplinger
-> > > > > wrote:
-> > > > Do you have a code example from a different codec that has
-> > > > roughly
-> > > > what
-> > > > is missing here? (the sound subsystem is new to me)
-> > > 
-> > > Full disclosure this is complete untested, but it should be
-> > > pretty close. Let me know if it does the trick and I will send a
-> > > proper patch to the list. I do have a Librem 5 in a draw
-> > > somewhere so can pull that out if we get really stuck, but that
-> > > might have to wait until the weekend :-).
-> > > 
-> > > I don't know if you guys are using the analogue bypass paths
-> > > around the digital core on the chip. I think those will still
-> > > work with the mics set to digital, so I have left the routes as
-> > > is, but that might require some checking at some point.
-> > 
-> > ok that's great and seems to work! that's luxury.
-> > 
-> 
-> Excellent glad that is working for you, I will prep up a proper
-> patch and send it to the list. Should get that done tomorrow
-> morning, if I don't manage it this afternoon.
-> 
-> > Volume / sensitivity of Analog input is too low, I saw that before.
-> > What would you try to change that?
-> > 
-> 
-> Hmm... you say you saw this before? I assume the input volume
-> is always low, not just low sometimes? I would probably start by
-> checking the voltage you have on the micbias, make sure that is
-> as expected. Does the signal coming into the IN3R pin look low on
-> a scope or is it just the level after it has been through the ADC
-> on the chip that seems low?
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1ee0910eca9c94f71f25@syzkaller.appspotmail.com
 
-Literally *no* effort went into this yet :) All I see is when I set the
-"headset mic" volume to max in gnome settings, the recorded volume is
-something like "almost usable", so that's off a bit.
-
-I can't easily measure, but different headset mics produce similar
-volume.
-
-> 
-> The input routing on this chip is pretty byzantine, the output of
-> just "amixer" showing all the controls in the relevant use-case
-> would probably be helpful to look over. I suspect there is a
-> reasonable chance something around the input PGA is not
-> configured to match the hardware, although I am not the most
-> familiar with this part so hard to guess at exactly what off the
-> top of my head.
-> 
-
-I append the output of `amixer contents` below.
-
-> Finally, do you know how much the amplitude is off by?
-
-no
-
-> 
-> > you can do all of our tasks if you want to :)
-> > 
-> 
-> Ha! Not sure about that, but happy to help out where I can.
-> 
-> Thanks,
-> Charles
-
-:) thank you very much so far. You already really helped. We can even
-make the mic available now (to enable manually by the user) while we
-look into the volume and detection.
-
-so long, all the best,
-
-                                martin
+========================================================
+WARNING: possible irq lock inversion dependency detected
+5.17.0-rc2-syzkaller-00071-g1f2cfdd349b7 #0 Not tainted
+--------------------------------------------------------
+syz-executor.3/4250 just changed the state of lock:
+ffff88814a62e148 (&timer->lock){..-.}-{2:2}, at: snd_timer_interrupt.part.0+0x34/0xcf0 sound/core/timer.c:856
+but this lock took another, SOFTIRQ-READ-unsafe lock in the past:
+ (tasklist_lock){.+.+}-{2:2}
 
 
---=-FLXWMLOD0j9p5eW8ekRe
-Content-Disposition: attachment; filename="amixer_contents.txt"
-Content-Type: text/plain; name="amixer_contents.txt"; charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-bnVtaWQ9MSxpZmFjZT1DQVJELG5hbWU9J0hlYWRwaG9uZXMgSmFjaycKICA7IHR5cGU9Qk9PTEVB
-TixhY2Nlc3M9ci0tLS0tLS0sdmFsdWVzPTEKICA6IHZhbHVlcz1vZmYKbnVtaWQ9MzAsaWZhY2U9
-TUlYRVIsbmFtZT0nSGVhZHBob25lIEF1eCBWb2x1bWUnCiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNz
-PXJ3LS0tUi0tLHZhbHVlcz0yLG1pbj0wLG1heD03LHN0ZXA9MAogIDogdmFsdWVzPTAsMAogIHwg
-ZEJzY2FsZS1taW49LTcuMDBkQixzdGVwPTEuMDBkQixtdXRlPTAKbnVtaWQ9MzEsaWZhY2U9TUlY
-RVIsbmFtZT0nSGVhZHBob25lIE1peGVyIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9
-cnctLS0tLS0sdmFsdWVzPTIKICA6IHZhbHVlcz1vZmYsb2ZmCm51bWlkPTI5LGlmYWNlPU1JWEVS
-LG5hbWU9J0hlYWRwaG9uZSBaQyBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0t
-LS0tLHZhbHVlcz0yCiAgOiB2YWx1ZXM9b2ZmLG9mZgpudW1pZD0yOCxpZmFjZT1NSVhFUixuYW1l
-PSdIZWFkcGhvbmUgU3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1
-ZXM9MgogIDogdmFsdWVzPW9mZixvZmYKbnVtaWQ9MjcsaWZhY2U9TUlYRVIsbmFtZT0nSGVhZHBo
-b25lIFZvbHVtZScKICA7IHR5cGU9SU5URUdFUixhY2Nlc3M9cnctLS1SLS0sdmFsdWVzPTIsbWlu
-PTAsbWF4PTEyNyxzdGVwPTAKICA6IHZhbHVlcz0xMjEsMTIxCiAgfCBkQnNjYWxlLW1pbj0tMTIx
-LjAwZEIsc3RlcD0xLjAwZEIsbXV0ZT0xCm51bWlkPTI1LGlmYWNlPU1JWEVSLG5hbWU9J0FEQyBI
-aWdoIFBlcmZvcm1hbmNlIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnctLS0tLS0s
-dmFsdWVzPTEKICA6IHZhbHVlcz1vbgpudW1pZD0yMixpZmFjZT1NSVhFUixuYW1lPSdBREMgTC9S
-IFN3YXAgU3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQog
-IDogdmFsdWVzPW9uCm51bWlkPTI0LGlmYWNlPU1JWEVSLG5hbWU9J0FEQyBNb25vbWl4IFN3aXRj
-aCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEKICA6IHZhbHVlcz1v
-ZmYKbnVtaWQ9MTUsaWZhY2U9TUlYRVIsbmFtZT0nQ2FwdHVyZSBIUEYgQ3V0b2ZmJwogIDsgdHlw
-ZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MSxtaW49MCxtYXg9NyxzdGVwPTAKICA6
-IHZhbHVlcz0wCm51bWlkPTE0LGlmYWNlPU1JWEVSLG5hbWU9J0NhcHR1cmUgSFBGIE1vZGUnCiAg
-OyB0eXBlPUVOVU1FUkFURUQsYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xLGl0ZW1zPTIKICA7IEl0
-ZW0gIzAgJ0hpLWZpJwogIDsgSXRlbSAjMSAnQXBwbGljYXRpb24nCiAgOiB2YWx1ZXM9MApudW1p
-ZD0xMyxpZmFjZT1NSVhFUixuYW1lPSdDYXB0dXJlIEhQRiBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xF
-QU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b24KbnVtaWQ9MTcsaWZhY2U9
-TUlYRVIsbmFtZT0nQ2FwdHVyZSBMSFBGIE1vZGUnCiAgOyB0eXBlPUVOVU1FUkFURUQsYWNjZXNz
-PXJ3LS0tLS0tLHZhbHVlcz0xLGl0ZW1zPTIKICA7IEl0ZW0gIzAgJ0xQRicKICA7IEl0ZW0gIzEg
-J0hQRicKICA6IHZhbHVlcz0wCm51bWlkPTE2LGlmYWNlPU1JWEVSLG5hbWU9J0NhcHR1cmUgTEhQ
-RiBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2
-YWx1ZXM9b2ZmCm51bWlkPTEyLGlmYWNlPU1JWEVSLG5hbWU9J0NhcHR1cmUgWkMgU3dpdGNoJwog
-IDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MgogIDogdmFsdWVzPW9uLG9u
-Cm51bWlkPTExLGlmYWNlPU1JWEVSLG5hbWU9J0NhcHR1cmUgU3dpdGNoJwogIDsgdHlwZT1CT09M
-RUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MgogIDogdmFsdWVzPW9mZixvZmYKbnVtaWQ9MTAs
-aWZhY2U9TUlYRVIsbmFtZT0nQ2FwdHVyZSBWb2x1bWUnCiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNz
-PXJ3LS0tUi0tLHZhbHVlcz0yLG1pbj0wLG1heD02MyxzdGVwPTAKICA6IHZhbHVlcz0yOSwyOQog
-IHwgZEJzY2FsZS1taW49LTIzLjI1ZEIsc3RlcD0wLjc1ZEIsbXV0ZT0wCm51bWlkPTUwLGlmYWNl
-PU1JWEVSLG5hbWU9JzNEIENvZWZmaWNpZW50cycKICA7IHR5cGU9QllURVMsYWNjZXNzPXJ3LS0t
-LS0tLHZhbHVlcz04CiAgOiB2YWx1ZXM9MHgwMCwweDAwLDB4MDAsMHgwMCwweDAwLDB4MDAsMHgw
-MCwweDAwCm51bWlkPTQ5LGlmYWNlPU1JWEVSLG5hbWU9JzNEIFN3aXRjaCcKICA7IHR5cGU9Qk9P
-TEVBTixhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEKICA6IHZhbHVlcz1vZmYKbnVtaWQ9NjMsaWZh
-Y2U9TUlYRVIsbmFtZT0nQUxDIENvZWZmaWNpZW50cycKICA7IHR5cGU9QllURVMsYWNjZXNzPXJ3
-LS0tLS0tLHZhbHVlcz04CiAgOiB2YWx1ZXM9MHgwMCwweDdiLDB4MDAsMHgwMCwweDFjLDB4MzIs
-MHgzMiwweDAwCm51bWlkPTYyLGlmYWNlPU1JWEVSLG5hbWU9J0FMQyBTd2l0Y2gnCiAgOyB0eXBl
-PUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0yCiAgOiB2YWx1ZXM9b2ZmLG9mZgpudW1p
-ZD0yNixpZmFjZT1NSVhFUixuYW1lPSdCZWVwIFZvbHVtZScKICA7IHR5cGU9SU5URUdFUixhY2Nl
-c3M9cnctLS1SLS0sdmFsdWVzPTEsbWluPTAsbWF4PTE1LHN0ZXA9MAogIDogdmFsdWVzPTAKICB8
-IGRCc2NhbGUtbWluPS05Ni4wMGRCLHN0ZXA9Ni4wMGRCLG11dGU9MQpudW1pZD0yMCxpZmFjZT1N
-SVhFUixuYW1lPSdEQUMgSGlnaCBQZXJmb3JtYW5jZSBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4s
-YWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTIxLGlmYWNlPU1J
-WEVSLG5hbWU9J0RBQyBML1IgU3dhcCBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3
-LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTIzLGlmYWNlPU1JWEVSLG5hbWU9
-J0RBQyBNb25vbWl4IFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnctLS0tLS0sdmFs
-dWVzPTEKICA6IHZhbHVlcz1vbgpudW1pZD01MixpZmFjZT1NSVhFUixuYW1lPSdERjEgQ29lZmZp
-Y2llbnRzJwogIDsgdHlwZT1CWVRFUyxhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTE0CiAgOiB2YWx1
-ZXM9MHgwMCwweDAwLDB4MDAsMHgwMCwweDAwLDB4MDAsMHgwMCwweDAwLDB4MDAsMHgwMCwweDAw
-LDB4MDAsMHgwMCwweDAwCm51bWlkPTUxLGlmYWNlPU1JWEVSLG5hbWU9J0RGMSBTd2l0Y2gnCiAg
-OyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51
-bWlkPTU0LGlmYWNlPU1JWEVSLG5hbWU9J0RSQyBDb2VmZmljaWVudHMnCiAgOyB0eXBlPUJZVEVT
-LGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MTAKICA6IHZhbHVlcz0weDAwLDB4MGMsMHgwOSwweDI1
-LDB4MDAsMHgwMCwweDAwLDB4MDAsMHgwMCwweDAwCm51bWlkPTUzLGlmYWNlPU1JWEVSLG5hbWU9
-J0RSQyBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAg
-OiB2YWx1ZXM9b2ZmCm51bWlkPTksaWZhY2U9TUlYRVIsbmFtZT0nRGlnaXRhbCBDYXB0dXJlIFZv
-bHVtZScKICA7IHR5cGU9SU5URUdFUixhY2Nlc3M9cnctLS1SLS0sdmFsdWVzPTIsbWluPTAsbWF4
-PTEyNyxzdGVwPTAKICA6IHZhbHVlcz0xMTYsMTE2CiAgfCBkQnNjYWxlLW1pbj0tNzIuMDBkQixz
-dGVwPTAuNzVkQixtdXRlPTEKbnVtaWQ9MTksaWZhY2U9TUlYRVIsbmFtZT0nRGlnaXRhbCBQbGF5
-YmFjayBWb2x1bWUnCiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNzPXJ3LS0tUi0tLHZhbHVlcz0yLG1p
-bj0wLG1heD0xMjcsc3RlcD0wCiAgOiB2YWx1ZXM9MTAwLDEwMAogIHwgZEJzY2FsZS1taW49LTcy
-LjAwZEIsc3RlcD0wLjc1ZEIsbXV0ZT0xCm51bWlkPTQxLGlmYWNlPU1JWEVSLG5hbWU9J0VRIFN3
-aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEKICA6IHZhbHVl
-cz1vZmYKbnVtaWQ9NDIsaWZhY2U9TUlYRVIsbmFtZT0nRVExIFZvbHVtZScKICA7IHR5cGU9SU5U
-RUdFUixhY2Nlc3M9cnctLS1SLS0sdmFsdWVzPTIsbWluPTAsbWF4PTMxLHN0ZXA9MAogIDogdmFs
-dWVzPTEyLDEyCiAgfCBkQnNjYWxlLW1pbj0tMTIuMDBkQixzdGVwPTEuMDBkQixtdXRlPTAKbnVt
-aWQ9NDMsaWZhY2U9TUlYRVIsbmFtZT0nRVEyIFZvbHVtZScKICA7IHR5cGU9SU5URUdFUixhY2Nl
-c3M9cnctLS1SLS0sdmFsdWVzPTIsbWluPTAsbWF4PTMxLHN0ZXA9MAogIDogdmFsdWVzPTEyLDEy
-CiAgfCBkQnNjYWxlLW1pbj0tMTIuMDBkQixzdGVwPTEuMDBkQixtdXRlPTAKbnVtaWQ9NDQsaWZh
-Y2U9TUlYRVIsbmFtZT0nRVEzIFZvbHVtZScKICA7IHR5cGU9SU5URUdFUixhY2Nlc3M9cnctLS1S
-LS0sdmFsdWVzPTIsbWluPTAsbWF4PTMxLHN0ZXA9MAogIDogdmFsdWVzPTEyLDEyCiAgfCBkQnNj
-YWxlLW1pbj0tMTIuMDBkQixzdGVwPTEuMDBkQixtdXRlPTAKbnVtaWQ9NDUsaWZhY2U9TUlYRVIs
-bmFtZT0nRVE0IFZvbHVtZScKICA7IHR5cGU9SU5URUdFUixhY2Nlc3M9cnctLS1SLS0sdmFsdWVz
-PTIsbWluPTAsbWF4PTMxLHN0ZXA9MAogIDogdmFsdWVzPTEyLDEyCiAgfCBkQnNjYWxlLW1pbj0t
-MTIuMDBkQixzdGVwPTEuMDBkQixtdXRlPTAKbnVtaWQ9NDYsaWZhY2U9TUlYRVIsbmFtZT0nRVE1
-IFZvbHVtZScKICA7IHR5cGU9SU5URUdFUixhY2Nlc3M9cnctLS1SLS0sdmFsdWVzPTIsbWluPTAs
-bWF4PTMxLHN0ZXA9MAogIDogdmFsdWVzPTEzLDEzCiAgfCBkQnNjYWxlLW1pbj0tMTIuMDBkQixz
-dGVwPTEuMDBkQixtdXRlPTAKbnVtaWQ9NDcsaWZhY2U9TUlYRVIsbmFtZT0nRVFMIENvZWZmaWNp
-ZW50cycKICA7IHR5cGU9QllURVMsYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0zNgogIDogdmFsdWVz
-PTB4MGYsMHhjYSwweDA0LDB4MDAsMHgwMCwweGQ4LDB4MWUsMHhiNSwweGYxLDB4NDUsMHgwYiww
-eDc1LDB4MDEsMHhjNSwweDFjLDB4NTgsMHhmMywweDczLDB4MGEsMHg1NCwweDA1LDB4NTgsMHgx
-NiwweDhlLDB4ZjgsMHgyOSwweDA3LDB4YWQsMHgxMSwweDAzLDB4MDUsMHg2NCwweDA1LDB4NTks
-MHg0MCwweDAwCm51bWlkPTQ4LGlmYWNlPU1JWEVSLG5hbWU9J0VRUiBDb2VmZmljaWVudHMnCiAg
-OyB0eXBlPUJZVEVTLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MzYKICA6IHZhbHVlcz0weDBmLDB4
-Y2EsMHgwNCwweDAwLDB4MDAsMHhkOCwweDFlLDB4YjUsMHhmMSwweDQ1LDB4MGIsMHg3NSwweDAx
-LDB4YzUsMHgxYywweDU4LDB4ZjMsMHg3MywweDBhLDB4NTQsMHgwNSwweDU4LDB4MTYsMHg4ZSww
-eGY4LDB4MjksMHgwNywweGFkLDB4MTEsMHgwMywweDA1LDB4NjQsMHgwNSwweDU5LDB4NDAsMHgw
-MApudW1pZD02MSxpZmFjZT1NSVhFUixuYW1lPSdIRCBCYXNzIENvZWZmaWNpZW50cycKICA7IHR5
-cGU9QllURVMsYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz02MAogIDogdmFsdWVzPTB4MDAsMHgwMiww
-eGJkLDB4MTIsMHgwMCwweDdjLDB4NTgsMHg2YywweDAwLDB4NTMsMHg4MSwweDIxLDB4MDAsMHgz
-ZiwweDhiLDB4ZDgsMHgwMCwweDMyLDB4ZjUsMHgyZCwweDAwLDB4NjUsMHhhYywweDhjLDB4MDAs
-MHg2YiwweGUwLDB4ODcsMHgwMCwweDcyLDB4MTQsMHg4MywweDAwLDB4NzIsMHgxNCwweDgzLDB4
-MDAsMHg0MywweDM1LDB4MjUsMHgwMCwweDA2LDB4NmEsMHg0YSwweDAwLDB4NDMsMHg2MCwweDc5
-LDB4MDAsMHgwOCwweDAwLDB4MDAsMHgwMCwweDAxLDB4MDAsMHgwMCwweDAwLDB4NTksMHg5OSww
-eDlhCm51bWlkPTYwLGlmYWNlPU1JWEVSLG5hbWU9J0hEIEJhc3MgU3dpdGNoJwogIDsgdHlwZT1C
-T09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9mZgpudW1pZD01OSxp
-ZmFjZT1NSVhFUixuYW1lPSdIUEYgQ29lZmZpY2llbnRzJwogIDsgdHlwZT1CWVRFUyxhY2Nlc3M9
-cnctLS0tLS0sdmFsdWVzPTIKICA6IHZhbHVlcz0weDAwLDB4MDAKbnVtaWQ9NTcsaWZhY2U9TUlY
-RVIsbmFtZT0nSFBGMSBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZh
-bHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTU4LGlmYWNlPU1JWEVSLG5hbWU9J0hQRjIgU3dp
-dGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVz
-PW9mZgpudW1pZD05NyxpZmFjZT1NSVhFUixuYW1lPSdIUE1JWEwgREFDTCBTd2l0Y2gnCiAgOyB0
-eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlk
-PTk4LGlmYWNlPU1JWEVSLG5hbWU9J0hQTUlYTCBEQUNSIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVB
-TixhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEKICA6IHZhbHVlcz1vZmYKbnVtaWQ9MTAxLGlmYWNl
-PU1JWEVSLG5hbWU9J0hQTUlYTCBJTjRMIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9
-cnctLS0tLS0sdmFsdWVzPTEKICA6IHZhbHVlcz1vZmYKbnVtaWQ9MzIsaWZhY2U9TUlYRVIsbmFt
-ZT0nSFBNSVhMIElONEwgVm9sdW1lJwogIDsgdHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLVItLSx2
-YWx1ZXM9MSxtaW49MCxtYXg9NyxzdGVwPTAKICA6IHZhbHVlcz03CiAgfCBkQnNjYWxlLW1pbj0t
-MTUuMDBkQixzdGVwPTMuMDBkQixtdXRlPTAKbnVtaWQ9MTAyLGlmYWNlPU1JWEVSLG5hbWU9J0hQ
-TUlYTCBJTjRSIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnctLS0tLS0sdmFsdWVz
-PTEKICA6IHZhbHVlcz1vZmYKbnVtaWQ9MzMsaWZhY2U9TUlYRVIsbmFtZT0nSFBNSVhMIElONFIg
-Vm9sdW1lJwogIDsgdHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLVItLSx2YWx1ZXM9MSxtaW49MCxt
-YXg9NyxzdGVwPTAKICA6IHZhbHVlcz03CiAgfCBkQnNjYWxlLW1pbj0tMTUuMDBkQixzdGVwPTMu
-MDBkQixtdXRlPTAKbnVtaWQ9OTksaWZhY2U9TUlYRVIsbmFtZT0nSFBNSVhMIE1JWElOTCBTd2l0
-Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9
-b2ZmCm51bWlkPTM0LGlmYWNlPU1JWEVSLG5hbWU9J0hQTUlYTCBNSVhJTkwgVm9sdW1lJwogIDsg
-dHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLVItLSx2YWx1ZXM9MSxtaW49MCxtYXg9MSxzdGVwPTAK
-ICA6IHZhbHVlcz0xCiAgfCBkQnNjYWxlLW1pbj0tNi4wMGRCLHN0ZXA9Ni4wMGRCLG11dGU9MApu
-dW1pZD0xMDAsaWZhY2U9TUlYRVIsbmFtZT0nSFBNSVhMIE1JWElOUiBTd2l0Y2gnCiAgOyB0eXBl
-PUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTM1
-LGlmYWNlPU1JWEVSLG5hbWU9J0hQTUlYTCBNSVhJTlIgVm9sdW1lJwogIDsgdHlwZT1JTlRFR0VS
-LGFjY2Vzcz1ydy0tLVItLSx2YWx1ZXM9MSxtaW49MCxtYXg9MSxzdGVwPTAKICA6IHZhbHVlcz0x
-CiAgfCBkQnNjYWxlLW1pbj0tNi4wMGRCLHN0ZXA9Ni4wMGRCLG11dGU9MApudW1pZD0xMDMsaWZh
-Y2U9TUlYRVIsbmFtZT0nSFBNSVhSIERBQ0wgU3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vz
-cz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9mZgpudW1pZD0xMDQsaWZhY2U9TUlYRVIs
-bmFtZT0nSFBNSVhSIERBQ1IgU3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0t
-LSx2YWx1ZXM9MQogIDogdmFsdWVzPW9mZgpudW1pZD0xMDcsaWZhY2U9TUlYRVIsbmFtZT0nSFBN
-SVhSIElONEwgU3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9
-MQogIDogdmFsdWVzPW9mZgpudW1pZD0zNixpZmFjZT1NSVhFUixuYW1lPSdIUE1JWFIgSU40TCBW
-b2x1bWUnCiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNzPXJ3LS0tUi0tLHZhbHVlcz0xLG1pbj0wLG1h
-eD03LHN0ZXA9MAogIDogdmFsdWVzPTcKICB8IGRCc2NhbGUtbWluPS0xNS4wMGRCLHN0ZXA9My4w
-MGRCLG11dGU9MApudW1pZD0xMDgsaWZhY2U9TUlYRVIsbmFtZT0nSFBNSVhSIElONFIgU3dpdGNo
-JwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9m
-ZgpudW1pZD0zNyxpZmFjZT1NSVhFUixuYW1lPSdIUE1JWFIgSU40UiBWb2x1bWUnCiAgOyB0eXBl
-PUlOVEVHRVIsYWNjZXNzPXJ3LS0tUi0tLHZhbHVlcz0xLG1pbj0wLG1heD03LHN0ZXA9MAogIDog
-dmFsdWVzPTcKICB8IGRCc2NhbGUtbWluPS0xNS4wMGRCLHN0ZXA9My4wMGRCLG11dGU9MApudW1p
-ZD0xMDUsaWZhY2U9TUlYRVIsbmFtZT0nSFBNSVhSIE1JWElOTCBTd2l0Y2gnCiAgOyB0eXBlPUJP
-T0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTM4LGlm
-YWNlPU1JWEVSLG5hbWU9J0hQTUlYUiBNSVhJTkwgVm9sdW1lJwogIDsgdHlwZT1JTlRFR0VSLGFj
-Y2Vzcz1ydy0tLVItLSx2YWx1ZXM9MSxtaW49MCxtYXg9MSxzdGVwPTAKICA6IHZhbHVlcz0xCiAg
-fCBkQnNjYWxlLW1pbj0tNi4wMGRCLHN0ZXA9Ni4wMGRCLG11dGU9MApudW1pZD0xMDYsaWZhY2U9
-TUlYRVIsbmFtZT0nSFBNSVhSIE1JWElOUiBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNz
-PXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTM5LGlmYWNlPU1JWEVSLG5h
-bWU9J0hQTUlYUiBNSVhJTlIgVm9sdW1lJwogIDsgdHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLVIt
-LSx2YWx1ZXM9MSxtaW49MCxtYXg9MSxzdGVwPTAKICA6IHZhbHVlcz0xCiAgfCBkQnNjYWxlLW1p
-bj0tNi4wMGRCLHN0ZXA9Ni4wMGRCLG11dGU9MApudW1pZD0xMDksaWZhY2U9TUlYRVIsbmFtZT0n
-SFBPVVRMIFBHQScKICA7IHR5cGU9RU5VTUVSQVRFRCxhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEs
-aXRlbXM9MgogIDsgSXRlbSAjMCAnREFDJwogIDsgSXRlbSAjMSAnTWl4ZXInCiAgOiB2YWx1ZXM9
-MApudW1pZD0xMTAsaWZhY2U9TUlYRVIsbmFtZT0nSFBPVVRSIFBHQScKICA7IHR5cGU9RU5VTUVS
-QVRFRCxhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEsaXRlbXM9MgogIDsgSXRlbSAjMCAnREFDJwog
-IDsgSXRlbSAjMSAnTWl4ZXInCiAgOiB2YWx1ZXM9MApudW1pZD04MCxpZmFjZT1NSVhFUixuYW1l
-PSdJTlBHQUwgSU4xTCBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZh
-bHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTgxLGlmYWNlPU1JWEVSLG5hbWU9J0lOUEdBTCBJ
-TjJMIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEKICA6
-IHZhbHVlcz1vZmYKbnVtaWQ9ODIsaWZhY2U9TUlYRVIsbmFtZT0nSU5QR0FMIElOM0wgU3dpdGNo
-JwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9m
-ZgpudW1pZD04MyxpZmFjZT1NSVhFUixuYW1lPSdJTlBHQUwgSU40TCBTd2l0Y2gnCiAgOyB0eXBl
-PUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTg0
-LGlmYWNlPU1JWEVSLG5hbWU9J0lOUEdBUiBJTjFSIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixh
-Y2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEKICA6IHZhbHVlcz1vZmYKbnVtaWQ9ODUsaWZhY2U9TUlY
-RVIsbmFtZT0nSU5QR0FSIElOMlIgU3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0t
-LS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9mZgpudW1pZD04NixpZmFjZT1NSVhFUixuYW1lPSdJ
-TlBHQVIgSU4zUiBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVl
-cz0xCiAgOiB2YWx1ZXM9b24KbnVtaWQ9ODcsaWZhY2U9TUlYRVIsbmFtZT0nSU5QR0FSIElONFIg
-U3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFs
-dWVzPW9mZgpudW1pZD0yLGlmYWNlPU1JWEVSLG5hbWU9J0lucHV0IE1peGVyIFN3aXRjaCcKICA7
-IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTIKICA6IHZhbHVlcz1vZmYsb24K
-bnVtaWQ9OTQsaWZhY2U9TUlYRVIsbmFtZT0nSW5wdXQgTW9kZScKICA7IHR5cGU9RU5VTUVSQVRF
-RCxhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEsaXRlbXM9MgogIDsgSXRlbSAjMCAnQW5hbG9nJwog
-IDsgSXRlbSAjMSAnRGlnaXRhbCcKICA6IHZhbHVlcz0xCm51bWlkPTg4LGlmYWNlPU1JWEVSLG5h
-bWU9J01JWElOTCBJTjJMIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnctLS0tLS0s
-dmFsdWVzPTEKICA6IHZhbHVlcz1vZmYKbnVtaWQ9MyxpZmFjZT1NSVhFUixuYW1lPSdNSVhJTkwg
-SU4yTCBWb2x1bWUnCiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNzPXJ3LS0tUi0tLHZhbHVlcz0xLG1p
-bj0wLG1heD03LHN0ZXA9MAogIDogdmFsdWVzPTcKICB8IGRCc2NhbGUtbWluPS0xNS4wMGRCLHN0
-ZXA9My4wMGRCLG11dGU9MApudW1pZD04OSxpZmFjZT1NSVhFUixuYW1lPSdNSVhJTkwgSU4zTCBT
-d2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1
-ZXM9b2ZmCm51bWlkPTUsaWZhY2U9TUlYRVIsbmFtZT0nTUlYSU5MIElOM0wgVm9sdW1lJwogIDsg
-dHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLVItLSx2YWx1ZXM9MSxtaW49MCxtYXg9NyxzdGVwPTAK
-ICA6IHZhbHVlcz03CiAgfCBkQnNjYWxlLW1pbj0tMTUuMDBkQixzdGVwPTMuMDBkQixtdXRlPTAK
-bnVtaWQ9OTAsaWZhY2U9TUlYRVIsbmFtZT0nTUlYSU5MIFBHQSBTd2l0Y2gnCiAgOyB0eXBlPUJP
-T0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b24KbnVtaWQ9NCxpZmFj
-ZT1NSVhFUixuYW1lPSdNSVhJTkwgUEdBIFZvbHVtZScKICA7IHR5cGU9SU5URUdFUixhY2Nlc3M9
-cnctLS1SLS0sdmFsdWVzPTEsbWluPTAsbWF4PTcsc3RlcD0wCiAgOiB2YWx1ZXM9NwogIHwgZEJy
-YW5nZS0KICAgIHJhbmdlbWluPTAsLHJhbmdlbWF4PTEKICAgICAgfCBkQnNjYWxlLW1pbj0wLjAw
-ZEIsc3RlcD02LjAwZEIsbXV0ZT0wCiAgICByYW5nZW1pbj0yLCxyYW5nZW1heD0yCiAgICAgIHwg
-ZEJzY2FsZS1taW49MTMuMDBkQixzdGVwPTEzLjAwZEIsbXV0ZT0wCiAgICByYW5nZW1pbj0zLCxy
-YW5nZW1heD00CiAgICAgIHwgZEJzY2FsZS1taW49MTguMDBkQixzdGVwPTIuMDBkQixtdXRlPTAK
-ICAgIHJhbmdlbWluPTUsLHJhbmdlbWF4PTUKICAgICAgfCBkQnNjYWxlLW1pbj0yNC4wMGRCLHN0
-ZXA9MC4wMGRCLG11dGU9MAogICAgcmFuZ2VtaW49NiwscmFuZ2VtYXg9NwogICAgICB8IGRCc2Nh
-bGUtbWluPTI3LjAwZEIsc3RlcD0zLjAwZEIsbXV0ZT0wCgpudW1pZD05MSxpZmFjZT1NSVhFUixu
-YW1lPSdNSVhJTlIgSU4yUiBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0t
-LHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTYsaWZhY2U9TUlYRVIsbmFtZT0nTUlYSU5S
-IElOMlIgVm9sdW1lJwogIDsgdHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLVItLSx2YWx1ZXM9MSxt
-aW49MCxtYXg9NyxzdGVwPTAKICA6IHZhbHVlcz03CiAgfCBkQnNjYWxlLW1pbj0tMTUuMDBkQixz
-dGVwPTMuMDBkQixtdXRlPTAKbnVtaWQ9OTIsaWZhY2U9TUlYRVIsbmFtZT0nTUlYSU5SIElOM1Ig
-U3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFs
-dWVzPW9mZgpudW1pZD04LGlmYWNlPU1JWEVSLG5hbWU9J01JWElOUiBJTjNSIFZvbHVtZScKICA7
-IHR5cGU9SU5URUdFUixhY2Nlc3M9cnctLS1SLS0sdmFsdWVzPTEsbWluPTAsbWF4PTcsc3RlcD0w
-CiAgOiB2YWx1ZXM9MAogIHwgZEJzY2FsZS1taW49LTE1LjAwZEIsc3RlcD0zLjAwZEIsbXV0ZT0w
-Cm51bWlkPTkzLGlmYWNlPU1JWEVSLG5hbWU9J01JWElOUiBQR0EgU3dpdGNoJwogIDsgdHlwZT1C
-T09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9uCm51bWlkPTcsaWZh
-Y2U9TUlYRVIsbmFtZT0nTUlYSU5SIFBHQSBWb2x1bWUnCiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNz
-PXJ3LS0tUi0tLHZhbHVlcz0xLG1pbj0wLG1heD03LHN0ZXA9MAogIDogdmFsdWVzPTcKICB8IGRC
-cmFuZ2UtCiAgICByYW5nZW1pbj0wLCxyYW5nZW1heD0xCiAgICAgIHwgZEJzY2FsZS1taW49MC4w
-MGRCLHN0ZXA9Ni4wMGRCLG11dGU9MAogICAgcmFuZ2VtaW49MiwscmFuZ2VtYXg9MgogICAgICB8
-IGRCc2NhbGUtbWluPTEzLjAwZEIsc3RlcD0xMy4wMGRCLG11dGU9MAogICAgcmFuZ2VtaW49Myws
-cmFuZ2VtYXg9NAogICAgICB8IGRCc2NhbGUtbWluPTE4LjAwZEIsc3RlcD0yLjAwZEIsbXV0ZT0w
-CiAgICByYW5nZW1pbj01LCxyYW5nZW1heD01CiAgICAgIHwgZEJzY2FsZS1taW49MjQuMDBkQixz
-dGVwPTAuMDBkQixtdXRlPTAKICAgIHJhbmdlbWluPTYsLHJhbmdlbWF4PTcKICAgICAgfCBkQnNj
-YWxlLW1pbj0yNy4wMGRCLHN0ZXA9My4wMGRCLG11dGU9MAoKbnVtaWQ9MTExLGlmYWNlPU1JWEVS
-LG5hbWU9J1NQS09VVEwgTWl4ZXIgREFDTCBTd2l0Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNz
-PXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCm51bWlkPTcyLGlmYWNlPU1JWEVSLG5h
-bWU9J1NQS09VVEwgTWl4ZXIgREFDTCBWb2x1bWUnCiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNzPXJ3
-LS0tUi0tLHZhbHVlcz0xLG1pbj0wLG1heD0xLHN0ZXA9MAogIDogdmFsdWVzPTAKICB8IGRCc2Nh
-bGUtbWluPS02LjAwZEIsc3RlcD02LjAwZEIsbXV0ZT0wCm51bWlkPTExMixpZmFjZT1NSVhFUixu
-YW1lPSdTUEtPVVRMIE1peGVyIERBQ1IgU3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1y
-dy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9mZgpudW1pZD03MyxpZmFjZT1NSVhFUixuYW1l
-PSdTUEtPVVRMIE1peGVyIERBQ1IgVm9sdW1lJwogIDsgdHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0t
-LVItLSx2YWx1ZXM9MSxtaW49MCxtYXg9MSxzdGVwPTAKICA6IHZhbHVlcz0wCiAgfCBkQnNjYWxl
-LW1pbj0tNi4wMGRCLHN0ZXA9Ni4wMGRCLG11dGU9MApudW1pZD0xMTUsaWZhY2U9TUlYRVIsbmFt
-ZT0nU1BLT1VUTCBNaXhlciBJTjRMIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnct
-LS0tLS0sdmFsdWVzPTEKICA6IHZhbHVlcz1vZmYKbnVtaWQ9NjgsaWZhY2U9TUlYRVIsbmFtZT0n
-U1BLT1VUTCBNaXhlciBJTjRMIFZvbHVtZScKICA7IHR5cGU9SU5URUdFUixhY2Nlc3M9cnctLS1S
-LS0sdmFsdWVzPTEsbWluPTAsbWF4PTcsc3RlcD0wCiAgOiB2YWx1ZXM9NwogIHwgZEJzY2FsZS1t
-aW49LTE1LjAwZEIsc3RlcD0zLjAwZEIsbXV0ZT0wCm51bWlkPTExNixpZmFjZT1NSVhFUixuYW1l
-PSdTUEtPVVRMIE1peGVyIElONFIgU3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0t
-LS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9mZgpudW1pZD02OSxpZmFjZT1NSVhFUixuYW1lPSdT
-UEtPVVRMIE1peGVyIElONFIgVm9sdW1lJwogIDsgdHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLVIt
-LSx2YWx1ZXM9MSxtaW49MCxtYXg9NyxzdGVwPTAKICA6IHZhbHVlcz03CiAgfCBkQnNjYWxlLW1p
-bj0tMTUuMDBkQixzdGVwPTMuMDBkQixtdXRlPTAKbnVtaWQ9MTEzLGlmYWNlPU1JWEVSLG5hbWU9
-J1NQS09VVEwgTWl4ZXIgTUlYSU5MIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnct
-LS0tLS0sdmFsdWVzPTEKICA6IHZhbHVlcz1vZmYKbnVtaWQ9NzAsaWZhY2U9TUlYRVIsbmFtZT0n
-U1BLT1VUTCBNaXhlciBNSVhJTkwgVm9sdW1lJwogIDsgdHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0t
-LVItLSx2YWx1ZXM9MSxtaW49MCxtYXg9MSxzdGVwPTAKICA6IHZhbHVlcz0xCiAgfCBkQnNjYWxl
-LW1pbj0tNi4wMGRCLHN0ZXA9Ni4wMGRCLG11dGU9MApudW1pZD0xMTQsaWZhY2U9TUlYRVIsbmFt
-ZT0nU1BLT1VUTCBNaXhlciBNSVhJTlIgU3dpdGNoJwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1y
-dy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9mZgpudW1pZD03MSxpZmFjZT1NSVhFUixuYW1l
-PSdTUEtPVVRMIE1peGVyIE1JWElOUiBWb2x1bWUnCiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNzPXJ3
-LS0tUi0tLHZhbHVlcz0xLG1pbj0wLG1heD0xLHN0ZXA9MAogIDogdmFsdWVzPTEKICB8IGRCc2Nh
-bGUtbWluPS02LjAwZEIsc3RlcD02LjAwZEIsbXV0ZT0wCm51bWlkPTEyMyxpZmFjZT1NSVhFUixu
-YW1lPSdTUEtPVVRMIFBHQScKICA7IHR5cGU9RU5VTUVSQVRFRCxhY2Nlc3M9cnctLS0tLS0sdmFs
-dWVzPTEsaXRlbXM9MgogIDsgSXRlbSAjMCAnREFDJwogIDsgSXRlbSAjMSAnTWl4ZXInCiAgOiB2
-YWx1ZXM9MApudW1pZD0xMTcsaWZhY2U9TUlYRVIsbmFtZT0nU1BLT1VUUiBNaXhlciBEQUNMIFN3
-aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEKICA6IHZhbHVl
-cz1vZmYKbnVtaWQ9NzgsaWZhY2U9TUlYRVIsbmFtZT0nU1BLT1VUUiBNaXhlciBEQUNMIFZvbHVt
-ZScKICA7IHR5cGU9SU5URUdFUixhY2Nlc3M9cnctLS1SLS0sdmFsdWVzPTEsbWluPTAsbWF4PTEs
-c3RlcD0wCiAgOiB2YWx1ZXM9MAogIHwgZEJzY2FsZS1taW49LTYuMDBkQixzdGVwPTYuMDBkQixt
-dXRlPTAKbnVtaWQ9MTE4LGlmYWNlPU1JWEVSLG5hbWU9J1NQS09VVFIgTWl4ZXIgREFDUiBTd2l0
-Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9
-b2ZmCm51bWlkPTc5LGlmYWNlPU1JWEVSLG5hbWU9J1NQS09VVFIgTWl4ZXIgREFDUiBWb2x1bWUn
-CiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNzPXJ3LS0tUi0tLHZhbHVlcz0xLG1pbj0wLG1heD0xLHN0
-ZXA9MAogIDogdmFsdWVzPTAKICB8IGRCc2NhbGUtbWluPS02LjAwZEIsc3RlcD02LjAwZEIsbXV0
-ZT0wCm51bWlkPTEyMSxpZmFjZT1NSVhFUixuYW1lPSdTUEtPVVRSIE1peGVyIElONEwgU3dpdGNo
-JwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9m
-ZgpudW1pZD03NCxpZmFjZT1NSVhFUixuYW1lPSdTUEtPVVRSIE1peGVyIElONEwgVm9sdW1lJwog
-IDsgdHlwZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLVItLSx2YWx1ZXM9MSxtaW49MCxtYXg9NyxzdGVw
-PTAKICA6IHZhbHVlcz03CiAgfCBkQnNjYWxlLW1pbj0tMTUuMDBkQixzdGVwPTMuMDBkQixtdXRl
-PTAKbnVtaWQ9MTIyLGlmYWNlPU1JWEVSLG5hbWU9J1NQS09VVFIgTWl4ZXIgSU40UiBTd2l0Y2gn
-CiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2Zm
-Cm51bWlkPTc1LGlmYWNlPU1JWEVSLG5hbWU9J1NQS09VVFIgTWl4ZXIgSU40UiBWb2x1bWUnCiAg
-OyB0eXBlPUlOVEVHRVIsYWNjZXNzPXJ3LS0tUi0tLHZhbHVlcz0xLG1pbj0wLG1heD03LHN0ZXA9
-MAogIDogdmFsdWVzPTcKICB8IGRCc2NhbGUtbWluPS0xNS4wMGRCLHN0ZXA9My4wMGRCLG11dGU9
-MApudW1pZD0xMTksaWZhY2U9TUlYRVIsbmFtZT0nU1BLT1VUUiBNaXhlciBNSVhJTkwgU3dpdGNo
-JwogIDsgdHlwZT1CT09MRUFOLGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MQogIDogdmFsdWVzPW9m
-ZgpudW1pZD03NixpZmFjZT1NSVhFUixuYW1lPSdTUEtPVVRSIE1peGVyIE1JWElOTCBWb2x1bWUn
-CiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNzPXJ3LS0tUi0tLHZhbHVlcz0xLG1pbj0wLG1heD0xLHN0
-ZXA9MAogIDogdmFsdWVzPTEKICB8IGRCc2NhbGUtbWluPS02LjAwZEIsc3RlcD02LjAwZEIsbXV0
-ZT0wCm51bWlkPTEyMCxpZmFjZT1NSVhFUixuYW1lPSdTUEtPVVRSIE1peGVyIE1JWElOUiBTd2l0
-Y2gnCiAgOyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9
-b2ZmCm51bWlkPTc3LGlmYWNlPU1JWEVSLG5hbWU9J1NQS09VVFIgTWl4ZXIgTUlYSU5SIFZvbHVt
-ZScKICA7IHR5cGU9SU5URUdFUixhY2Nlc3M9cnctLS1SLS0sdmFsdWVzPTEsbWluPTAsbWF4PTEs
-c3RlcD0wCiAgOiB2YWx1ZXM9MQogIHwgZEJzY2FsZS1taW49LTYuMDBkQixzdGVwPTYuMDBkQixt
-dXRlPTAKbnVtaWQ9MTI0LGlmYWNlPU1JWEVSLG5hbWU9J1NQS09VVFIgUEdBJwogIDsgdHlwZT1F
-TlVNRVJBVEVELGFjY2Vzcz1ydy0tLS0tLSx2YWx1ZXM9MSxpdGVtcz0yCiAgOyBJdGVtICMwICdE
-QUMnCiAgOyBJdGVtICMxICdNaXhlcicKICA6IHZhbHVlcz0xCm51bWlkPTk1LGlmYWNlPU1JWEVS
-LG5hbWU9J1NUTCcKICA7IHR5cGU9RU5VTUVSQVRFRCxhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEs
-aXRlbXM9MwogIDsgSXRlbSAjMCAnTm9uZScKICA7IEl0ZW0gIzEgJ0xlZnQnCiAgOyBJdGVtICMy
-ICdSaWdodCcKICA6IHZhbHVlcz0wCm51bWlkPTk2LGlmYWNlPU1JWEVSLG5hbWU9J1NUUicKICA7
-IHR5cGU9RU5VTUVSQVRFRCxhY2Nlc3M9cnctLS0tLS0sdmFsdWVzPTEsaXRlbXM9MwogIDsgSXRl
-bSAjMCAnTm9uZScKICA7IEl0ZW0gIzEgJ0xlZnQnCiAgOyBJdGVtICMyICdSaWdodCcKICA6IHZh
-bHVlcz0wCm51bWlkPTE4LGlmYWNlPU1JWEVSLG5hbWU9J1NpZGV0b25lIFZvbHVtZScKICA7IHR5
-cGU9SU5URUdFUixhY2Nlc3M9cnctLS1SLS0sdmFsdWVzPTIsbWluPTAsbWF4PTEyLHN0ZXA9MAog
-IDogdmFsdWVzPTAsMAogIHwgZEJzY2FsZS1taW49LTM2LjAwZEIsc3RlcD0zLjAwZEIsbXV0ZT0w
-Cm51bWlkPTQwLGlmYWNlPU1JWEVSLG5hbWU9J1NwZWFrZXIgQm9vc3QgVm9sdW1lJwogIDsgdHlw
-ZT1JTlRFR0VSLGFjY2Vzcz1ydy0tLVItLSx2YWx1ZXM9MSxtaW49MCxtYXg9NyxzdGVwPTAKICA6
-IHZhbHVlcz02CiAgfCBkQnJhbmdlLQogICAgcmFuZ2VtaW49MCwscmFuZ2VtYXg9NgogICAgICB8
-IGRCc2NhbGUtbWluPTAuMDBkQixzdGVwPTEuNTBkQixtdXRlPTAKICAgIHJhbmdlbWluPTcsLHJh
-bmdlbWF4PTcKICAgICAgfCBkQnNjYWxlLW1pbj0xMi4wMGRCLHN0ZXA9MC4wMGRCLG11dGU9MAoK
-bnVtaWQ9NjcsaWZhY2U9TUlYRVIsbmFtZT0nU3BlYWtlciBNaXhlciBTd2l0Y2gnCiAgOyB0eXBl
-PUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0yCiAgOiB2YWx1ZXM9b2ZmLG9mZgpudW1p
-ZD02NSxpZmFjZT1NSVhFUixuYW1lPSdTcGVha2VyIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixh
-Y2Nlc3M9cnctLS0tLS0sdmFsdWVzPTIKICA6IHZhbHVlcz1vbixvZmYKbnVtaWQ9NjQsaWZhY2U9
-TUlYRVIsbmFtZT0nU3BlYWtlciBWb2x1bWUnCiAgOyB0eXBlPUlOVEVHRVIsYWNjZXNzPXJ3LS0t
-Ui0tLHZhbHVlcz0yLG1pbj0wLG1heD0xMjcsc3RlcD0wCiAgOiB2YWx1ZXM9MTIxLDEyMQogIHwg
-ZEJzY2FsZS1taW49LTEyMS4wMGRCLHN0ZXA9MS4wMGRCLG11dGU9MQpudW1pZD02NixpZmFjZT1N
-SVhFUixuYW1lPSdTcGVha2VyIFpDIFN3aXRjaCcKICA7IHR5cGU9Qk9PTEVBTixhY2Nlc3M9cnct
-LS0tLS0sdmFsdWVzPTIKICA6IHZhbHVlcz1vZmYsb2ZmCm51bWlkPTU2LGlmYWNlPU1JWEVSLG5h
-bWU9J1ZTUyBDb2VmZmljaWVudHMnCiAgOyB0eXBlPUJZVEVTLGFjY2Vzcz1ydy0tLS0tLSx2YWx1
-ZXM9Mjk2CiAgOiB2YWx1ZXM9MHgwMCwweDhjLDB4MDIsMHgwMCwweDAwLDB4MzUsMHgwNywweDAw
-LDB4MDAsMHgzYSwweDQxLDB4MDAsMHgwMCwweDhiLDB4N2QsMHgwMCwweDAwLDB4M2EsMHg0MSww
-eDAwLDB4MDAsMHg4YywweGZlLDB4ZTgsMHgwMCwweDc4LDB4MDAsMHgwMCwweDAwLDB4M2YsMHhi
-MiwweDYwLDB4MDAsMHgyZCwweDE4LDB4MTgsMHgwMCwweDIwLDB4MDAsMHgwMCwweDAwLDB4ZjEs
-MHg4MywweDQwLDB4MDAsMHhmYiwweDgzLDB4MDAsMHgwMCwweGVlLDB4YWUsMHhjMCwweDAwLDB4
-ZmIsMHhhYywweDQwLDB4MDAsMHhmMSwweDdmLDB4ODAsMHgwMCwweGY0LDB4M2IsMHg0MCwweDAw
-LDB4ZjUsMHhmYiwweDAwLDB4MDAsMHhlYSwweDEwLDB4YzAsMHgwMCwweGZjLDB4YzUsMHg4MCww
-eDAwLDB4ZTIsMHg3NSwweGMwLDB4MDAsMHgwNCwweGI0LDB4ODAsMHgwMCwweGQ0LDB4ZjksMHg4
-MCwweDAwLDB4MDQsMHg5MSwweDQwLDB4MDAsMHhkOCwweGE0LDB4ODAsMHgwMCwweDAyLDB4M2Qs
-MHhjMCwweDAwLDB4Y2YsMHg3YSwweDgwLDB4MDAsMHhkYywweDA2LDB4MDAsMHgwMCwweGYyLDB4
-ZGEsMHhjMCwweDAwLDB4YmEsMHhmMywweDQwLDB4MDAsMHgwYSwweDc5LDB4NDAsMHgwMCwweDFj
-LDB4MDYsMHg4MCwweDAwLDB4ZmQsMHgyZCwweDAwLDB4MDAsMHgxYywweGU4LDB4NDAsMHgwMCww
-eDBkLDB4ZGMsMHg0MCwweDAwLDB4ZmMsMHg5ZCwweDAwLDB4MDAsMHgwOSwweDU1LDB4ODAsMHgw
-MCwweGZlLDB4N2UsMHg4MCwweDAwLDB4MGUsMHhhYiwweDQwLDB4MDAsMHhmOSwweDk4LDB4ODAs
-MHgwMCwweDA5LDB4ODcsMHhjMCwweDAwLDB4ZmQsMHgyYywweDQwLDB4MDAsMHgwOSwweDQ4LDB4
-MDAsMHgwMCwweDAzLDB4NWYsMHg0MCwweDAwLDB4MDAsMHg4NywweDAwLDB4MDAsMHhmYSwweGU0
-LDB4YzAsMHgwMCwweDAwLDB4MGIsMHg0MCwweDAwLDB4MDQsMHhlMSwweDgwLDB4MDAsMHgwMSww
-eDFmLDB4NDAsMHgwMCwweGY4LDB4YjAsMHgwMCwweDAwLDB4ZmIsMHhjYiwweGMwLDB4MDAsMHgw
-NCwweGYzLDB4ODAsMHgwMCwweDA3LDB4ZGYsMHg0MCwweDAwLDB4ZmYsMHgwNywweDAwLDB4MDAs
-MHhlZiwweGQ3LDB4MDAsMHgwMCwweGZiLDB4YWYsMHg0MCwweDAwLDB4MTAsMHg4YSwweDgwLDB4
-MDAsMHgxMSwweDA3LDB4YzAsMHgwMCwweGUwLDB4MDgsMHgwMCwweDAwLDB4ZDIsMHg3NiwweDAw
-LDB4MDAsMHgyMCwweGNmLDB4NDAsMHgwMCwweDMwLDB4MjMsMHg0MCwweDAwLDB4ZmQsMHg2OSww
-eGMwLDB4MDAsMHgyOCwweDM1LDB4MDAsMHgwMCwweDA2LDB4MzMsMHgwMCwweDAwLDB4ZDksMHhm
-NiwweGMwLDB4MDAsMHhmMywweDMzLDB4NDAsMHgwMCwweDBmLDB4NDIsMHgwMCwweDAwLDB4MDQs
-MHgwYywweDgwLDB4MDAsMHhmYiwweDNmLDB4ODAsMHgwMCwweGY3LDB4NTcsMHhjMCwweDAwLDB4
-MDMsMHg1NCwweDAwLDB4MDAsMHgwMCwweGM2LDB4YzAsMHgwMCwweDAzLDB4MTIsMHhjMCwweDAw
-LDB4ZmQsMHg4NSwweDgwCm51bWlkPTU1LGlmYWNlPU1JWEVSLG5hbWU9J1ZTUyBTd2l0Y2gnCiAg
-OyB0eXBlPUJPT0xFQU4sYWNjZXNzPXJ3LS0tLS0tLHZhbHVlcz0xCiAgOiB2YWx1ZXM9b2ZmCg==
+and interrupts could create inverse lock ordering between them.
 
 
---=-FLXWMLOD0j9p5eW8ekRe--
+other info that might help us debug this:
+Chain exists of:
+  &timer->lock --> &new->fa_lock --> tasklist_lock
+
+ Possible interrupt unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(tasklist_lock);
+                               local_irq_disable();
+                               lock(&timer->lock);
+                               lock(&new->fa_lock);
+  <Interrupt>
+    lock(&timer->lock);
+
+ *** DEADLOCK ***
+
+2 locks held by syz-executor.3/4250:
+ #0: ffff88807efef828 (&mm->mmap_lock#2){++++}-{3:3}, at: __might_fault+0xa1/0x170 mm/memory.c:5271
+ #1: ffffc90000dc0d70 ((&priv->tlist)){+.-.}-{0:0}, at: lockdep_copy_map include/linux/lockdep.h:35 [inline]
+ #1: ffffc90000dc0d70 ((&priv->tlist)){+.-.}-{0:0}, at: call_timer_fn+0xd5/0x6b0 kernel/time/timer.c:1411
+
+the shortest dependencies between 2nd lock and 1st lock:
+   -> (tasklist_lock){.+.+}-{2:2} {
+      HARDIRQ-ON-R at:
+                          lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                          lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                          __raw_read_lock include/linux/rwlock_api_smp.h:150 [inline]
+                          _raw_read_lock+0x5b/0x70 kernel/locking/spinlock.c:228
+                          do_wait+0x284/0xce0 kernel/exit.c:1518
+                          kernel_wait+0x9c/0x150 kernel/exit.c:1708
+                          call_usermodehelper_exec_sync kernel/umh.c:139 [inline]
+                          call_usermodehelper_exec_work+0xf5/0x180 kernel/umh.c:166
+                          process_one_work+0x9ac/0x1650 kernel/workqueue.c:2307
+                          worker_thread+0x657/0x1110 kernel/workqueue.c:2454
+                          kthread+0x2e9/0x3a0 kernel/kthread.c:377
+                          ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+      SOFTIRQ-ON-R at:
+                          lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                          lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                          __raw_read_lock include/linux/rwlock_api_smp.h:150 [inline]
+                          _raw_read_lock+0x5b/0x70 kernel/locking/spinlock.c:228
+                          do_wait+0x284/0xce0 kernel/exit.c:1518
+                          kernel_wait+0x9c/0x150 kernel/exit.c:1708
+                          call_usermodehelper_exec_sync kernel/umh.c:139 [inline]
+                          call_usermodehelper_exec_work+0xf5/0x180 kernel/umh.c:166
+                          process_one_work+0x9ac/0x1650 kernel/workqueue.c:2307
+                          worker_thread+0x657/0x1110 kernel/workqueue.c:2454
+                          kthread+0x2e9/0x3a0 kernel/kthread.c:377
+                          ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+      INITIAL USE at:
+                         lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                         lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                         __raw_write_lock_irq include/linux/rwlock_api_smp.h:195 [inline]
+                         _raw_write_lock_irq+0x32/0x50 kernel/locking/spinlock.c:326
+                         copy_process+0x47da/0x7300 kernel/fork.c:2284
+                         kernel_clone+0xe7/0xab0 kernel/fork.c:2555
+                         kernel_thread+0xb5/0xf0 kernel/fork.c:2607
+                         rest_init+0x23/0x3e0 init/main.c:690
+                         start_kernel+0x47a/0x49b init/main.c:1138
+                         secondary_startup_64_no_verify+0xc3/0xcb
+      INITIAL READ USE at:
+                              lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                              lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                              __raw_read_lock include/linux/rwlock_api_smp.h:150 [inline]
+                              _raw_read_lock+0x5b/0x70 kernel/locking/spinlock.c:228
+                              do_wait+0x284/0xce0 kernel/exit.c:1518
+                              kernel_wait+0x9c/0x150 kernel/exit.c:1708
+                              call_usermodehelper_exec_sync kernel/umh.c:139 [inline]
+                              call_usermodehelper_exec_work+0xf5/0x180 kernel/umh.c:166
+                              process_one_work+0x9ac/0x1650 kernel/workqueue.c:2307
+                              worker_thread+0x657/0x1110 kernel/workqueue.c:2454
+                              kthread+0x2e9/0x3a0 kernel/kthread.c:377
+                              ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+    }
+    ... key      at: [<ffffffff8b80a098>] tasklist_lock+0x18/0x40
+    ... acquired at:
+   __raw_read_lock include/linux/rwlock_api_smp.h:150 [inline]
+   _raw_read_lock+0x5b/0x70 kernel/locking/spinlock.c:228
+   send_sigio+0xab/0x380 fs/fcntl.c:810
+   kill_fasync_rcu fs/fcntl.c:1021 [inline]
+   kill_fasync fs/fcntl.c:1035 [inline]
+   kill_fasync+0x1f8/0x470 fs/fcntl.c:1028
+   sock_wake_async+0xd2/0x160 net/socket.c:1372
+   sk_wake_async include/net/sock.h:2444 [inline]
+   sk_wake_async include/net/sock.h:2440 [inline]
+   sock_def_readable+0x349/0x4e0 net/core/sock.c:3149
+   unix_dgram_sendmsg+0xf30/0x1a10 net/unix/af_unix.c:2029
+   sock_sendmsg_nosec net/socket.c:705 [inline]
+   sock_sendmsg+0xcf/0x120 net/socket.c:725
+   ____sys_sendmsg+0x331/0x810 net/socket.c:2413
+   ___sys_sendmsg+0xf3/0x170 net/socket.c:2467
+   __sys_sendmmsg+0x195/0x470 net/socket.c:2553
+   __do_sys_sendmmsg net/socket.c:2582 [inline]
+   __se_sys_sendmmsg net/socket.c:2579 [inline]
+   __x64_sys_sendmmsg+0x99/0x100 net/socket.c:2579
+   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+  -> (&f->f_owner.lock){....}-{2:2} {
+     INITIAL USE at:
+                       lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                       lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                       __raw_write_lock_irq include/linux/rwlock_api_smp.h:195 [inline]
+                       _raw_write_lock_irq+0x32/0x50 kernel/locking/spinlock.c:326
+                       f_modown+0x2a/0x390 fs/fcntl.c:91
+                       __f_setown fs/fcntl.c:110 [inline]
+                       f_setown+0xd7/0x230 fs/fcntl.c:138
+                       sock_ioctl+0x37e/0x640 net/socket.c:1182
+                       vfs_ioctl fs/ioctl.c:51 [inline]
+                       __do_sys_ioctl fs/ioctl.c:874 [inline]
+                       __se_sys_ioctl fs/ioctl.c:860 [inline]
+                       __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+                       do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                       do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                       entry_SYSCALL_64_after_hwframe+0x44/0xae
+     INITIAL READ USE at:
+                            lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                            lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                            __raw_read_lock_irqsave include/linux/rwlock_api_smp.h:160 [inline]
+                            _raw_read_lock_irqsave+0x70/0x90 kernel/locking/spinlock.c:236
+                            send_sigio+0x24/0x380 fs/fcntl.c:796
+                            kill_fasync_rcu fs/fcntl.c:1021 [inline]
+                            kill_fasync fs/fcntl.c:1035 [inline]
+                            kill_fasync+0x1f8/0x470 fs/fcntl.c:1028
+                            snd_timer_user_ccallback+0x298/0x330 sound/core/timer.c:1386
+                            snd_timer_notify1+0x11c/0x3b0 sound/core/timer.c:516
+                            snd_timer_start1+0x4d4/0x800 sound/core/timer.c:578
+                            snd_timer_start sound/core/timer.c:696 [inline]
+                            snd_timer_start sound/core/timer.c:689 [inline]
+                            snd_timer_user_start.isra.0+0x1e3/0x260 sound/core/timer.c:1984
+                            __snd_timer_user_ioctl.isra.0+0xda8/0x2490 sound/core/timer.c:2107
+                            snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+                            vfs_ioctl fs/ioctl.c:51 [inline]
+                            __do_sys_ioctl fs/ioctl.c:874 [inline]
+                            __se_sys_ioctl fs/ioctl.c:860 [inline]
+                            __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+                            do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                            do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                            entry_SYSCALL_64_after_hwframe+0x44/0xae
+   }
+   ... key      at: [<ffffffff9057ea40>] __key.5+0x0/0x40
+   ... acquired at:
+   __raw_read_lock_irqsave include/linux/rwlock_api_smp.h:160 [inline]
+   _raw_read_lock_irqsave+0x70/0x90 kernel/locking/spinlock.c:236
+   send_sigio+0x24/0x380 fs/fcntl.c:796
+   kill_fasync_rcu fs/fcntl.c:1021 [inline]
+   kill_fasync fs/fcntl.c:1035 [inline]
+   kill_fasync+0x1f8/0x470 fs/fcntl.c:1028
+   snd_timer_user_ccallback+0x298/0x330 sound/core/timer.c:1386
+   snd_timer_notify1+0x11c/0x3b0 sound/core/timer.c:516
+   snd_timer_start1+0x4d4/0x800 sound/core/timer.c:578
+   snd_timer_start sound/core/timer.c:696 [inline]
+   snd_timer_start sound/core/timer.c:689 [inline]
+   snd_timer_user_start.isra.0+0x1e3/0x260 sound/core/timer.c:1984
+   __snd_timer_user_ioctl.isra.0+0xda8/0x2490 sound/core/timer.c:2107
+   snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+   vfs_ioctl fs/ioctl.c:51 [inline]
+   __do_sys_ioctl fs/ioctl.c:874 [inline]
+   __se_sys_ioctl fs/ioctl.c:860 [inline]
+   __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+ -> (&new->fa_lock){....}-{2:2} {
+    INITIAL USE at:
+                     lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                     lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                     __raw_write_lock_irq include/linux/rwlock_api_smp.h:195 [inline]
+                     _raw_write_lock_irq+0x32/0x50 kernel/locking/spinlock.c:326
+                     fasync_remove_entry+0xb6/0x1f0 fs/fcntl.c:891
+                     fasync_helper+0x9e/0xb0 fs/fcntl.c:994
+                     __fput+0x846/0x9f0 fs/file_table.c:308
+                     task_work_run+0xdd/0x1a0 kernel/task_work.c:164
+                     tracehook_notify_resume include/linux/tracehook.h:188 [inline]
+                     exit_to_user_mode_loop kernel/entry/common.c:175 [inline]
+                     exit_to_user_mode_prepare+0x27e/0x290 kernel/entry/common.c:207
+                     __syscall_exit_to_user_mode_work kernel/entry/common.c:289 [inline]
+                     syscall_exit_to_user_mode+0x19/0x60 kernel/entry/common.c:300
+                     do_syscall_64+0x42/0xb0 arch/x86/entry/common.c:86
+                     entry_SYSCALL_64_after_hwframe+0x44/0xae
+    INITIAL READ USE at:
+                          lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                          lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                          __raw_read_lock_irqsave include/linux/rwlock_api_smp.h:160 [inline]
+                          _raw_read_lock_irqsave+0x70/0x90 kernel/locking/spinlock.c:236
+                          kill_fasync_rcu fs/fcntl.c:1014 [inline]
+                          kill_fasync fs/fcntl.c:1035 [inline]
+                          kill_fasync+0x136/0x470 fs/fcntl.c:1028
+                          snd_timer_user_ccallback+0x298/0x330 sound/core/timer.c:1386
+                          snd_timer_notify1+0x11c/0x3b0 sound/core/timer.c:516
+                          snd_timer_start1+0x4d4/0x800 sound/core/timer.c:578
+                          snd_timer_start sound/core/timer.c:696 [inline]
+                          snd_timer_start sound/core/timer.c:689 [inline]
+                          snd_timer_user_start.isra.0+0x1e3/0x260 sound/core/timer.c:1984
+                          __snd_timer_user_ioctl.isra.0+0xda8/0x2490 sound/core/timer.c:2107
+                          snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+                          vfs_ioctl fs/ioctl.c:51 [inline]
+                          __do_sys_ioctl fs/ioctl.c:874 [inline]
+                          __se_sys_ioctl fs/ioctl.c:860 [inline]
+                          __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+                          do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                          do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                          entry_SYSCALL_64_after_hwframe+0x44/0xae
+  }
+  ... key      at: [<ffffffff9057f820>] __key.0+0x0/0x40
+  ... acquired at:
+   __raw_read_lock_irqsave include/linux/rwlock_api_smp.h:160 [inline]
+   _raw_read_lock_irqsave+0x70/0x90 kernel/locking/spinlock.c:236
+   kill_fasync_rcu fs/fcntl.c:1014 [inline]
+   kill_fasync fs/fcntl.c:1035 [inline]
+   kill_fasync+0x136/0x470 fs/fcntl.c:1028
+   snd_timer_user_ccallback+0x298/0x330 sound/core/timer.c:1386
+   snd_timer_notify1+0x11c/0x3b0 sound/core/timer.c:516
+   snd_timer_start1+0x4d4/0x800 sound/core/timer.c:578
+   snd_timer_start sound/core/timer.c:696 [inline]
+   snd_timer_start sound/core/timer.c:689 [inline]
+   snd_timer_user_start.isra.0+0x1e3/0x260 sound/core/timer.c:1984
+   __snd_timer_user_ioctl.isra.0+0xda8/0x2490 sound/core/timer.c:2107
+   snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+   vfs_ioctl fs/ioctl.c:51 [inline]
+   __do_sys_ioctl fs/ioctl.c:874 [inline]
+   __se_sys_ioctl fs/ioctl.c:860 [inline]
+   __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+-> (&timer->lock){..-.}-{2:2} {
+   IN-SOFTIRQ-W at:
+                    lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                    lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                    __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:110 [inline]
+                    _raw_spin_lock_irqsave+0x39/0x50 kernel/locking/spinlock.c:162
+                    snd_timer_interrupt.part.0+0x34/0xcf0 sound/core/timer.c:856
+                    snd_timer_interrupt sound/core/timer.c:1154 [inline]
+                    snd_timer_s_function+0x14b/0x200 sound/core/timer.c:1154
+                    call_timer_fn+0x1a5/0x6b0 kernel/time/timer.c:1421
+                    expire_timers kernel/time/timer.c:1466 [inline]
+                    __run_timers.part.0+0x67c/0xa30 kernel/time/timer.c:1734
+                    __run_timers kernel/time/timer.c:1715 [inline]
+                    run_timer_softirq+0xb3/0x1d0 kernel/time/timer.c:1747
+                    __do_softirq+0x29b/0x9c2 kernel/softirq.c:558
+                    invoke_softirq kernel/softirq.c:432 [inline]
+                    __irq_exit_rcu+0x123/0x180 kernel/softirq.c:637
+                    irq_exit_rcu+0x5/0x20 kernel/softirq.c:649
+                    sysvec_apic_timer_interrupt+0x93/0xc0 arch/x86/kernel/apic/apic.c:1097
+                    asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:638
+                    kasan_check_range+0x0/0x180 mm/kasan/generic.c:349
+                    instrument_atomic_read include/linux/instrumented.h:71 [inline]
+                    test_bit include/asm-generic/bitops/instrumented-non-atomic.h:134 [inline]
+                    cpumask_test_cpu include/linux/cpumask.h:379 [inline]
+                    cpu_online include/linux/cpumask.h:921 [inline]
+                    trace_lock_release include/trace/events/lock.h:58 [inline]
+                    lock_release+0xa1/0x720 kernel/locking/lockdep.c:5650
+                    __might_fault mm/memory.c:5272 [inline]
+                    __might_fault+0x142/0x170 mm/memory.c:5257
+                    _copy_from_user+0x27/0x180 lib/usercopy.c:13
+                    copy_from_user include/linux/uaccess.h:192 [inline]
+                    snd_seq_oss_write+0x38b/0x780 sound/core/seq/oss/seq_oss_rw.c:93
+                    odev_write+0x55/0x90 sound/core/seq/oss/seq_oss.c:168
+                    vfs_write+0x28e/0xae0 fs/read_write.c:588
+                    ksys_write+0x12d/0x250 fs/read_write.c:643
+                    do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                    do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                    entry_SYSCALL_64_after_hwframe+0x44/0xae
+   INITIAL USE at:
+                   lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                   lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                   __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:110 [inline]
+                   _raw_spin_lock_irqsave+0x39/0x50 kernel/locking/spinlock.c:162
+                   snd_timer_resolution+0x55/0x100 sound/core/timer.c:489
+                   snd_timer_user_params.isra.0+0x18e/0x8c0 sound/core/timer.c:1851
+                   __snd_timer_user_ioctl.isra.0+0x1020/0x2490 sound/core/timer.c:2100
+                   snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+                   vfs_ioctl fs/ioctl.c:51 [inline]
+                   __do_sys_ioctl fs/ioctl.c:874 [inline]
+                   __se_sys_ioctl fs/ioctl.c:860 [inline]
+                   __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+                   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                   entry_SYSCALL_64_after_hwframe+0x44/0xae
+ }
+ ... key      at: [<ffffffff9087d3c0>] __key.12+0x0/0x40
+ ... acquired at:
+   mark_usage kernel/locking/lockdep.c:4500 [inline]
+   __lock_acquire+0x11d2/0x5470 kernel/locking/lockdep.c:4981
+   lock_acquire kernel/locking/lockdep.c:5639 [inline]
+   lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+   __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:110 [inline]
+   _raw_spin_lock_irqsave+0x39/0x50 kernel/locking/spinlock.c:162
+   snd_timer_interrupt.part.0+0x34/0xcf0 sound/core/timer.c:856
+   snd_timer_interrupt sound/core/timer.c:1154 [inline]
+   snd_timer_s_function+0x14b/0x200 sound/core/timer.c:1154
+   call_timer_fn+0x1a5/0x6b0 kernel/time/timer.c:1421
+   expire_timers kernel/time/timer.c:1466 [inline]
+   __run_timers.part.0+0x67c/0xa30 kernel/time/timer.c:1734
+   __run_timers kernel/time/timer.c:1715 [inline]
+   run_timer_softirq+0xb3/0x1d0 kernel/time/timer.c:1747
+   __do_softirq+0x29b/0x9c2 kernel/softirq.c:558
+   invoke_softirq kernel/softirq.c:432 [inline]
+   __irq_exit_rcu+0x123/0x180 kernel/softirq.c:637
+   irq_exit_rcu+0x5/0x20 kernel/softirq.c:649
+   sysvec_apic_timer_interrupt+0x93/0xc0 arch/x86/kernel/apic/apic.c:1097
+   asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:638
+   kasan_check_range+0x0/0x180 mm/kasan/generic.c:349
+   instrument_atomic_read include/linux/instrumented.h:71 [inline]
+   test_bit include/asm-generic/bitops/instrumented-non-atomic.h:134 [inline]
+   cpumask_test_cpu include/linux/cpumask.h:379 [inline]
+   cpu_online include/linux/cpumask.h:921 [inline]
+   trace_lock_release include/trace/events/lock.h:58 [inline]
+   lock_release+0xa1/0x720 kernel/locking/lockdep.c:5650
+   __might_fault mm/memory.c:5272 [inline]
+   __might_fault+0x142/0x170 mm/memory.c:5257
+   _copy_from_user+0x27/0x180 lib/usercopy.c:13
+   copy_from_user include/linux/uaccess.h:192 [inline]
+   snd_seq_oss_write+0x38b/0x780 sound/core/seq/oss/seq_oss_rw.c:93
+   odev_write+0x55/0x90 sound/core/seq/oss/seq_oss.c:168
+   vfs_write+0x28e/0xae0 fs/read_write.c:588
+   ksys_write+0x12d/0x250 fs/read_write.c:643
+   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+
+stack backtrace:
+CPU: 1 PID: 4250 Comm: syz-executor.3 Not tainted 5.17.0-rc2-syzkaller-00071-g1f2cfdd349b7 #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Call Trace:
+ <IRQ>
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0xcd/0x134 lib/dump_stack.c:106
 

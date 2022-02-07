@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0F194ABE80
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 13:21:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C464ABE7F
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 13:21:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7252E16DC;
-	Mon,  7 Feb 2022 13:20:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7252E16DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9EF7416CE;
+	Mon,  7 Feb 2022 13:20:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EF7416CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644236507;
-	bh=v7+wW+jNPaxRV6F8vlQUE4G/w1VKwl4tS1grrGIk5No=;
+	s=default; t=1644236490;
+	bh=X9hVJMBz2FdGKDs9+AEWlxbLni3ldM81qYTEjd6fWm8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XifKlKfaa/x4XssbEEJam75a/CJ+qf8yddX0/tOUKmqQRqWHVjLvjJ7rwB9DKeuwi
-	 saXCwrFevIQCRdFbhNw6PpajkXNvYhBEyxSTMZLo/uGJ41G+FaYbeUbTQd7qGdmCBT
-	 AlkwKN5TTeGGHrTrjLlt5rc7SJ8+/Yze6b7L/nAs=
+	b=AGjMDBSh9OMN45A2DKC2y2fNLkCq1Abfs1noaELeCdxlihH+NJheAbsWFvyWOJ5vM
+	 kwQRvYX4vFBfIfQHBzcdG95GeVJYtMyOP2o/JQ1baM9WzgbXhzfuXzdSAx3pdQsTcY
+	 qYXWhnguwqzdfDJuIk/FYR3KXsFPtAlTZ7tVTkpI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B51FFF80528;
-	Mon,  7 Feb 2022 13:19:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3645F80527;
+	Mon,  7 Feb 2022 13:19:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54AA2F800F5; Mon,  7 Feb 2022 13:19:31 +0100 (CET)
+ id 45684F80518; Mon,  7 Feb 2022 13:19:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_FILL_THIS_FORM_SHORT,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BE6FF800F5
- for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 13:19:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BE6FF800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 247BBF804D2
+ for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 13:19:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 247BBF804D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="LDCOGICq"
+ header.b="BDy0rWxK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644236365; x=1675772365;
+ t=1644236367; x=1675772367;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=v7+wW+jNPaxRV6F8vlQUE4G/w1VKwl4tS1grrGIk5No=;
- b=LDCOGICqLZcNhpSw/zrpIAUe/Jzi27xYs4BpMOdkm5aR/ux3lAXgf4ts
- Um6AgkfMdT0NTsd1DZkozqzTT3pTca7ZPutVTFSfHQcFX7RE7e5cAi+Fg
- LivMPdSSgHvnTIu7dwT9DlCc/NYWFrRTyX+Bs90sOOZQw2YPQ29eNa8QW
- BhB6PVHT6dnTSpKCykR3tHJWloVTMrhQJw0Cr4ESIpSNr/0mWucei534s
- gin9Gm9+ScVrONvzijVuJa3FpMWmPvsAqP/+BHZx09DwAbHjsbSJsXwHg
- Wm6QRchooRZQVMRYmsNOIbC3luhrtyq6FZ2BXrqoAx2z0BlVbPNVYbwu1 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10250"; a="248914808"
-X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="248914808"
+ bh=X9hVJMBz2FdGKDs9+AEWlxbLni3ldM81qYTEjd6fWm8=;
+ b=BDy0rWxKnBg0WUQ3Q8r2MiyHlRq51/pSS8jsIL/gQpuLlDJei/dw2yQE
+ FYpza9B3eGxJw32I9UR1zVUQ/qnursk7xjfCOT7wGS9nv88IVJRQeQEr2
+ 7UljxkPr4EQNhJampns3smIKDrD5Q7N+yFKQ3LVcRtkhr9/eqjrEv16pc
+ 1E/bpLvQglVx3u4qptTvhh8zo4fxcE/nxs7Gn+FdMmIGOCdTbRZrvlh7g
+ wXXITB2gDQbHNsO7+/IGof6Npq+kDQB63J+8aNOAJfWiydMGOZgiSVCED
+ o/f4i2zlBgV6jC7k558cJBXyozceSnpFFo63wx2xc13ozTgTtvodZsc3K w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10250"; a="248914816"
+X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="248914816"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2022 04:19:07 -0800
+ 07 Feb 2022 04:19:11 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="525112454"
+X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="525112471"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga007.jf.intel.com with ESMTP; 07 Feb 2022 04:19:04 -0800
+ by orsmga007.jf.intel.com with ESMTP; 07 Feb 2022 04:19:08 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 05/17] ASoC: Intel: avs: Add code loading requests
-Date: Mon,  7 Feb 2022 13:20:56 +0100
-Message-Id: <20220207122108.3780926-6-cezary.rojewski@intel.com>
+Subject: [PATCH 06/17] ASoC: Intel: avs: Add pipeline management requests
+Date: Mon,  7 Feb 2022 13:20:57 +0100
+Message-Id: <20220207122108.3780926-7-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220207122108.3780926-1-cezary.rojewski@intel.com>
 References: <20220207122108.3780926-1-cezary.rojewski@intel.com>
@@ -92,152 +92,193 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Before firmware and its modules can be used, they have to be loaded.
-Code loading process is complex and is a combination of DMA and IPC
-operations. Here, IPC part is being added and accounts for CLDMA and HDA
-mechanisms both.
+A 'Pipeline' represents both a container of module instances, and a
+scheduling entity. Multiple pipelines can be bound together to create an
+audio graph. The Pipeline state machine is entirely controlled by IPCs
+(creation, deletion and state changes).
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/Makefile   |  2 +-
- sound/soc/intel/avs/messages.c | 65 ++++++++++++++++++++++++++++++++++
- sound/soc/intel/avs/messages.h | 22 ++++++++++++
- 3 files changed, 88 insertions(+), 1 deletion(-)
- create mode 100644 sound/soc/intel/avs/messages.c
+ sound/soc/intel/avs/messages.c | 76 ++++++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/messages.h | 56 +++++++++++++++++++++++++
+ 2 files changed, 132 insertions(+)
 
-diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
-index e243806dd38a..c0824f30fd3b 100644
---- a/sound/soc/intel/avs/Makefile
-+++ b/sound/soc/intel/avs/Makefile
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
--snd-soc-avs-objs := dsp.o ipc.o
-+snd-soc-avs-objs := dsp.o ipc.o messages.o
- 
- obj-$(CONFIG_SND_SOC_INTEL_AVS) += snd-soc-avs.o
 diff --git a/sound/soc/intel/avs/messages.c b/sound/soc/intel/avs/messages.c
-new file mode 100644
-index 000000000000..8dac946dd8dd
---- /dev/null
+index 8dac946dd8dd..ab13fc7809fe 100644
+--- a/sound/soc/intel/avs/messages.c
 +++ b/sound/soc/intel/avs/messages.c
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2021 Intel Corporation. All rights reserved.
-+//
-+// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
-+//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
-+//
+@@ -63,3 +63,79 @@ int avs_ipc_load_library(struct avs_dev *adev, u32 dma_id, u32 lib_id)
+ 
+ 	return ret;
+ }
 +
-+#include "avs.h"
-+#include "messages.h"
-+
-+#define AVS_CL_TIMEOUT_MS	5000
-+
-+int avs_ipc_load_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids)
++int avs_ipc_create_pipeline(struct avs_dev *adev, u16 req_size, u8 priority,
++			    u8 instance_id, bool lp, u16 attributes)
 +{
-+	union avs_global_msg msg = AVS_GLOBAL_REQUEST(LOAD_MULTIPLE_MODULES);
-+	struct avs_ipc_msg request;
-+	int ret;
-+
-+	msg.load_multi_mods.mod_cnt = num_mod_ids;
-+	request.header = msg.val;
-+	request.data = mod_ids;
-+	request.size = sizeof(*mod_ids) * num_mod_ids;
-+
-+	ret = avs_dsp_send_msg_timeout(adev, &request, NULL, AVS_CL_TIMEOUT_MS);
-+	if (ret)
-+		avs_ipc_err(adev, &request, "load multiple modules", ret);
-+
-+	return ret;
-+}
-+
-+int avs_ipc_unload_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids)
-+{
-+	union avs_global_msg msg = AVS_GLOBAL_REQUEST(UNLOAD_MULTIPLE_MODULES);
-+	struct avs_ipc_msg request;
-+	int ret;
-+
-+	msg.load_multi_mods.mod_cnt = num_mod_ids;
-+	request.header = msg.val;
-+	request.data = mod_ids;
-+	request.size = sizeof(*mod_ids) * num_mod_ids;
-+
-+	ret = avs_dsp_send_msg_timeout(adev, &request, NULL, AVS_CL_TIMEOUT_MS);
-+	if (ret)
-+		avs_ipc_err(adev, &request, "unload multiple modules", ret);
-+
-+	return ret;
-+}
-+
-+int avs_ipc_load_library(struct avs_dev *adev, u32 dma_id, u32 lib_id)
-+{
-+	union avs_global_msg msg = AVS_GLOBAL_REQUEST(LOAD_LIBRARY);
++	union avs_global_msg msg = AVS_GLOBAL_REQUEST(CREATE_PIPELINE);
 +	struct avs_ipc_msg request = {0};
 +	int ret;
 +
-+	msg.load_lib.dma_id = dma_id;
-+	msg.load_lib.lib_id = lib_id;
++	msg.create_ppl.ppl_mem_size = req_size;
++	msg.create_ppl.ppl_priority = priority;
++	msg.create_ppl.instance_id = instance_id;
++	msg.ext.create_ppl.lp = lp;
++	msg.ext.create_ppl.attributes = attributes;
 +	request.header = msg.val;
 +
-+	ret = avs_dsp_send_msg_timeout(adev, &request, NULL, AVS_CL_TIMEOUT_MS);
++	ret = avs_dsp_send_msg(adev, &request, NULL);
 +	if (ret)
-+		avs_ipc_err(adev, &request, "load library", ret);
++		avs_ipc_err(adev, &request, "create pipeline", ret);
 +
 +	return ret;
 +}
++
++int avs_ipc_delete_pipeline(struct avs_dev *adev, u8 instance_id)
++{
++	union avs_global_msg msg = AVS_GLOBAL_REQUEST(DELETE_PIPELINE);
++	struct avs_ipc_msg request = {0};
++	int ret;
++
++	msg.ppl.instance_id = instance_id;
++	request.header = msg.val;
++
++	ret = avs_dsp_send_msg(adev, &request, NULL);
++	if (ret)
++		avs_ipc_err(adev, &request, "delete pipeline", ret);
++
++	return ret;
++}
++
++int avs_ipc_set_pipeline_state(struct avs_dev *adev, u8 instance_id,
++			       enum avs_pipeline_state state)
++{
++	union avs_global_msg msg = AVS_GLOBAL_REQUEST(SET_PIPELINE_STATE);
++	struct avs_ipc_msg request = {0};
++	int ret;
++
++	msg.set_ppl_state.ppl_id = instance_id;
++	msg.set_ppl_state.state = state;
++	request.header = msg.val;
++
++	ret = avs_dsp_send_msg(adev, &request, NULL);
++	if (ret)
++		avs_ipc_err(adev, &request, "set pipeline state", ret);
++
++	return ret;
++}
++
++int avs_ipc_get_pipeline_state(struct avs_dev *adev, u8 instance_id,
++			       enum avs_pipeline_state *state)
++{
++	union avs_global_msg msg = AVS_GLOBAL_REQUEST(GET_PIPELINE_STATE);
++	struct avs_ipc_msg request = {0};
++	struct avs_ipc_msg reply = {0};
++	int ret;
++
++	msg.get_ppl_state.ppl_id = instance_id;
++	request.header = msg.val;
++
++	ret = avs_dsp_send_msg(adev, &request, &reply);
++	if (ret) {
++		avs_ipc_err(adev, &request, "get pipeline state", ret);
++		return ret;
++	}
++
++	*state = reply.rsp.ext.get_ppl_state.state;
++	return ret;
++}
 diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
-index 003e634f5547..b9ec1c64179b 100644
+index b9ec1c64179b..67f7e1826e45 100644
 --- a/sound/soc/intel/avs/messages.h
 +++ b/sound/soc/intel/avs/messages.h
-@@ -24,6 +24,9 @@ enum avs_msg_direction {
- };
- 
+@@ -26,6 +26,10 @@ enum avs_msg_direction {
  enum avs_global_msg_type {
-+	AVS_GLB_LOAD_MULTIPLE_MODULES = 15,
-+	AVS_GLB_UNLOAD_MULTIPLE_MODULES = 16,
-+	AVS_GLB_LOAD_LIBRARY = 24,
+ 	AVS_GLB_LOAD_MULTIPLE_MODULES = 15,
+ 	AVS_GLB_UNLOAD_MULTIPLE_MODULES = 16,
++	AVS_GLB_CREATE_PIPELINE = 17,
++	AVS_GLB_DELETE_PIPELINE = 18,
++	AVS_GLB_SET_PIPELINE_STATE = 19,
++	AVS_GLB_GET_PIPELINE_STATE = 20,
+ 	AVS_GLB_LOAD_LIBRARY = 24,
  	AVS_GLB_NOTIFICATION = 27,
  };
- 
-@@ -38,6 +41,16 @@ union avs_global_msg {
- 				u32 msg_direction:1;
- 				u32 msg_target:1;
- 			};
-+			/* module loading */
+@@ -45,6 +49,23 @@ union avs_global_msg {
+ 			struct {
+ 				u32 mod_cnt:8;
+ 			} load_multi_mods;
++			/* pipeline management */
 +			struct {
-+				u32 mod_cnt:8;
-+			} load_multi_mods;
-+			/* library loading */
++				u32 ppl_mem_size:11;
++				u32 ppl_priority:5;
++				u32 instance_id:8;
++			} create_ppl;
 +			struct {
-+				u32 dma_id:5;
-+				u32 rsvd:11;
-+				u32 lib_id:4;
-+			} load_lib;
++				u32 rsvd:16;
++				u32 instance_id:8;
++			} ppl; /* generic ppl request */
++			struct {
++				u32 state:16;
++				u32 ppl_id:8;
++			} set_ppl_state;
++			struct {
++				u32 ppl_id:8;
++			} get_ppl_state;
+ 			/* library loading */
+ 			struct {
+ 				u32 dma_id:5;
+@@ -54,6 +75,16 @@ union avs_global_msg {
  		};
  		union {
  			u32 val;
-@@ -84,6 +97,10 @@ union avs_reply_msg {
- 		};
- 		union {
- 			u32 val;
-+			/* module loading */
++			/* pipeline management */
 +			struct {
-+				u32 err_mod_id:16;
-+			} load_multi_mods;
++				u32 lp:1;
++				u32 rsvd:3;
++				u32 attributes:16;
++			} create_ppl;
++			struct {
++				u32 multi_ppl:1;
++				u32 sync_stop_start:1;
++			} set_ppl_state;
  		} ext;
  	};
  } __packed;
-@@ -167,4 +184,9 @@ struct avs_notify_mod_data {
- 	u32 data[];
+@@ -101,6 +132,10 @@ union avs_reply_msg {
+ 			struct {
+ 				u32 err_mod_id:16;
+ 			} load_multi_mods;
++			/* pipeline management */
++			struct {
++				u32 state:5;
++			} get_ppl_state;
+ 		} ext;
+ 	};
  } __packed;
+@@ -189,4 +224,25 @@ int avs_ipc_load_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
+ int avs_ipc_unload_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
+ int avs_ipc_load_library(struct avs_dev *adev, u32 dma_id, u32 lib_id);
  
-+/* Code loading messages */
-+int avs_ipc_load_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
-+int avs_ipc_unload_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
-+int avs_ipc_load_library(struct avs_dev *adev, u32 dma_id, u32 lib_id);
++/* Pipeline management messages */
++enum avs_pipeline_state {
++	AVS_PPL_STATE_INVALID,
++	AVS_PPL_STATE_UNINITIALIZED,
++	AVS_PPL_STATE_RESET,
++	AVS_PPL_STATE_PAUSED,
++	AVS_PPL_STATE_RUNNING,
++	AVS_PPL_STATE_EOS,
++	AVS_PPL_STATE_ERROR_STOP,
++	AVS_PPL_STATE_SAVED,
++	AVS_PPL_STATE_RESTORED,
++};
++
++int avs_ipc_create_pipeline(struct avs_dev *adev, u16 req_size, u8 priority,
++			    u8 instance_id, bool lp, u16 attributes);
++int avs_ipc_delete_pipeline(struct avs_dev *adev, u8 instance_id);
++int avs_ipc_set_pipeline_state(struct avs_dev *adev, u8 instance_id,
++			       enum avs_pipeline_state state);
++int avs_ipc_get_pipeline_state(struct avs_dev *adev, u8 instance_id,
++			       enum avs_pipeline_state *state);
 +
  #endif /* __SOUND_SOC_INTEL_AVS_MSGS_H */
 -- 

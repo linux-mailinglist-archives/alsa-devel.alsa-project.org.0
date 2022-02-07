@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7126A4ABE83
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 13:22:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B39D84ABE85
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 13:22:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 079FD16D2;
-	Mon,  7 Feb 2022 13:21:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 079FD16D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5669916D6;
+	Mon,  7 Feb 2022 13:22:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5669916D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644236539;
-	bh=Yn144WF6zBViJm5R64PcXJTQhr+2vz5MwG0180TiVNY=;
+	s=default; t=1644236574;
+	bh=VmXVRtu43FC6bOzG5na5R79Mwwype/OFjX5oPQdTL1U=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p9m4vSa308GkYIXO0Y49V8uZNZQhvNHYRaxAvEoIpN2oK7Q4PyrvFwnFlTNF/0K6v
-	 ytBFhDU5H/X/lVt/4GuL419kBQdxZQCjvCuAcIQqpq50ESLbbQBMIN4kw19EKuX0ks
-	 76XNEa/IQXYMsZMMjsApCBVXOO+xffmweJS1qHwc=
+	b=KJlfW2Fd0T9qq0EVVUr12oNgFF8qrXH7Ft3fr8knfQUq2fHZH37uAmvxBgvhEPeKZ
+	 /64LMzDgGn6RknbAg0YiP0IJBVEGYJLKgAgEITsejth9YsuMOrGuiznvDznw7PQodk
+	 pdY+3GJK4U7Od6E3k2MDQhoCx4o6vGm4kgXpuN1I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84C3DF80537;
-	Mon,  7 Feb 2022 13:19:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55B6AF80552;
+	Mon,  7 Feb 2022 13:19:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0E5DF8051C; Mon,  7 Feb 2022 13:19:36 +0100 (CET)
+ id E181FF80525; Mon,  7 Feb 2022 13:19:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C353F800F5
- for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 13:19:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C353F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 275D5F804D2
+ for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 13:19:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 275D5F804D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="gltJfOPI"
+ header.b="PEg4hS7j"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644236373; x=1675772373;
+ t=1644236375; x=1675772375;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Yn144WF6zBViJm5R64PcXJTQhr+2vz5MwG0180TiVNY=;
- b=gltJfOPINpUTq02CQnfxCKUNp3P70NoGRh+7LeYVd08Udrdr102ZftNH
- vwu1LwvwagUK3Kn5O1DVOlKJD1o13CtWoHg2puu5yuu2r/g6C4IwRH4cf
- +fAo3ard3KFsZbvh0l0VyJQ1uSpa/FZkvL5xfniRgimqfB4yAonhQv22w
- zUgwAYORM8eJSyzUUY+eJY/23OzghK0jR6NKP3tRJZrs2DvPGzYUPhxDZ
- z7oGXqti6of6qwzcpZF/TdCCrn7r45iRIBa0pgROtrXNlLZjh9/x15/F2
- k305ftsWCFMRwSH0xEauxMqMORNVIpI+r4MUgfBwCLejh7eQIeUu+Wph6 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10250"; a="248914835"
-X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="248914835"
+ bh=VmXVRtu43FC6bOzG5na5R79Mwwype/OFjX5oPQdTL1U=;
+ b=PEg4hS7jfOuAxMw/xortd61sd6J5u0rUpYJm6FE1QBq4NJjk0HvOlQVy
+ NeveUSn7CSvDYIAwfx7dSBARrwssliHRFOB6IW1V13gdbDETtbuam7ujI
+ hiYT7sdg1tFcD7XOpnOWOadVjdCeIFhmEamUIEpXMqfGnV3OGiGLrOWps
+ zvpS136dSTFrB1FIF4Gy18soJa/5/by5rXsIAln+wJDVdgYUp9JWxUtom
+ odNOqkO5X8yz/QuS+JXjWoPC/W4J2UhLSrub8pESTR456LztMlYxbcOAu
+ ErCG1XZ8fGcwXAsRzgfcUZZhOsIAXWBHnh2ZXs0VsVqktocm2ywydLK9a A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10250"; a="248914842"
+X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="248914842"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2022 04:19:21 -0800
+ 07 Feb 2022 04:19:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="525112540"
+X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="525112564"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga007.jf.intel.com with ESMTP; 07 Feb 2022 04:19:18 -0800
+ by orsmga007.jf.intel.com with ESMTP; 07 Feb 2022 04:19:21 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 09/17] ASoC: Intel: avs: Add ROM requests
-Date: Mon,  7 Feb 2022 13:21:00 +0100
-Message-Id: <20220207122108.3780926-10-cezary.rojewski@intel.com>
+Subject: [PATCH 10/17] ASoC: Intel: avs: Add basefw runtime-parameter requests
+Date: Mon,  7 Feb 2022 13:21:01 +0100
+Message-Id: <20220207122108.3780926-11-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220207122108.3780926-1-cezary.rojewski@intel.com>
 References: <20220207122108.3780926-1-cezary.rojewski@intel.com>
@@ -92,85 +92,431 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ROM requests are messages initiated by Host to alter firmware early boot
-process. They specify whether the next boot should be a fresh start or if
-IMR can be used to speed things up.
+Each module may expose a range of runtime parameters. For basefw,
+implement handlers for: FIRMWARE_CONFIG, HARDWARE_CONFIG and
+MODULES_INFO. These are used by driver to dynamically allocate resources
+in respect to platform details, reducing number of hardcodes and code
+duplications that would otherwise be needed to be defined within the
+driver code.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/messages.c | 18 ++++++++++++++++++
- sound/soc/intel/avs/messages.h | 14 ++++++++++++++
- 2 files changed, 32 insertions(+)
+ sound/soc/intel/avs/messages.c | 215 +++++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/messages.h | 179 +++++++++++++++++++++++++++
+ 2 files changed, 394 insertions(+)
 
 diff --git a/sound/soc/intel/avs/messages.c b/sound/soc/intel/avs/messages.c
-index 1b589689410f..b7a4ba6717b7 100644
+index b7a4ba6717b7..b9e1bcd749fa 100644
 --- a/sound/soc/intel/avs/messages.c
 +++ b/sound/soc/intel/avs/messages.c
-@@ -12,6 +12,24 @@
+@@ -408,3 +408,218 @@ int avs_ipc_set_d0ix(struct avs_dev *adev, bool enable_pg, bool streaming)
  
- #define AVS_CL_TIMEOUT_MS	5000
- 
-+int avs_ipc_set_boot_config(struct avs_dev *adev, u32 dma_id, u32 purge)
+ 	return ret;
+ }
++
++int avs_ipc_get_fw_config(struct avs_dev *adev, struct avs_fw_cfg *cfg)
 +{
-+	union avs_global_msg msg = AVS_GLOBAL_REQUEST(ROM_CONTROL);
-+	struct avs_ipc_msg request = {0};
++	struct avs_tlv *tlv;
++	size_t payload_size;
++	size_t offset = 0;
++	u8 *payload;
 +	int ret;
 +
-+	msg.boot_cfg.rom_ctrl_msg_type = AVS_ROM_SET_BOOT_CONFIG;
-+	msg.boot_cfg.dma_id = dma_id;
-+	msg.boot_cfg.purge_request = purge;
-+	request.header = msg.val;
-+
-+	ret = avs_dsp_send_rom_msg(adev, &request);
++	ret = avs_ipc_get_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
++				       AVS_BASEFW_FIRMWARE_CONFIG, NULL, 0,
++				       &payload, &payload_size);
 +	if (ret)
-+		avs_ipc_err(adev, &request, "set boot config", ret);
++		return ret;
 +
++	while (offset < payload_size) {
++		tlv = (struct avs_tlv *)(payload + offset);
++
++		switch (tlv->type) {
++		case AVS_FW_CFG_FW_VERSION:
++			memcpy(&cfg->fw_version, tlv->value,
++				sizeof(cfg->fw_version));
++			break;
++
++		case AVS_FW_CFG_MEMORY_RECLAIMED:
++			cfg->memory_reclaimed = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_SLOW_CLOCK_FREQ_HZ:
++			cfg->slow_clock_freq_hz = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_FAST_CLOCK_FREQ_HZ:
++			cfg->fast_clock_freq_hz = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_ALH_SUPPORT_LEVEL:
++			cfg->alh_support = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_IPC_DL_MAILBOX_BYTES:
++			cfg->ipc_dl_mailbox_bytes = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_IPC_UL_MAILBOX_BYTES:
++			cfg->ipc_ul_mailbox_bytes = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_TRACE_LOG_BYTES:
++			cfg->trace_log_bytes = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_MAX_PPL_COUNT:
++			cfg->max_ppl_count = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_MAX_ASTATE_COUNT:
++			cfg->max_astate_count = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_MAX_MODULE_PIN_COUNT:
++			cfg->max_module_pin_count = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_MODULES_COUNT:
++			cfg->modules_count = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_MAX_MOD_INST_COUNT:
++			cfg->max_mod_inst_count = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_MAX_LL_TASKS_PER_PRI_COUNT:
++			cfg->max_ll_tasks_per_pri_count = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_LL_PRI_COUNT:
++			cfg->ll_pri_count = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_MAX_DP_TASKS_COUNT:
++			cfg->max_dp_tasks_count = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_MAX_LIBS_COUNT:
++			cfg->max_libs_count = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_XTAL_FREQ_HZ:
++			cfg->xtal_freq_hz = *tlv->value;
++			break;
++
++		case AVS_FW_CFG_POWER_GATING_POLICY:
++			cfg->power_gating_policy = *tlv->value;
++			break;
++
++		/* Known but not useful to us. */
++		case AVS_FW_CFG_DMA_BUFFER_CONFIG:
++		case AVS_FW_CFG_SCHEDULER_CONFIG:
++		case AVS_FW_CFG_CLOCKS_CONFIG:
++			break;
++
++		default:
++			dev_info(adev->dev, "Unrecognized fw param: %d\n",
++				 tlv->type);
++			break;
++		}
++
++		offset += sizeof(*tlv) + tlv->length;
++	}
++
++	kfree(payload);
 +	return ret;
 +}
 +
- int avs_ipc_load_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids)
- {
- 	union avs_global_msg msg = AVS_GLOBAL_REQUEST(LOAD_MULTIPLE_MODULES);
++int avs_ipc_get_hw_config(struct avs_dev *adev, struct avs_hw_cfg *cfg)
++{
++	struct avs_tlv *tlv;
++	size_t payload_size;
++	size_t size, offset = 0;
++	u8 *payload;
++	int ret;
++
++	ret = avs_ipc_get_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
++				       AVS_BASEFW_HARDWARE_CONFIG, NULL, 0,
++				       &payload, &payload_size);
++	if (ret)
++		return ret;
++
++	while (offset < payload_size) {
++		tlv = (struct avs_tlv *)(payload + offset);
++
++		switch (tlv->type) {
++		case AVS_HW_CFG_AVS_VER:
++			cfg->avs_version = *tlv->value;
++			break;
++
++		case AVS_HW_CFG_DSP_CORES:
++			cfg->dsp_cores = *tlv->value;
++			break;
++
++		case AVS_HW_CFG_MEM_PAGE_BYTES:
++			cfg->mem_page_bytes = *tlv->value;
++			break;
++
++		case AVS_HW_CFG_TOTAL_PHYS_MEM_PAGES:
++			cfg->total_phys_mem_pages = *tlv->value;
++			break;
++
++		case AVS_HW_CFG_I2S_CAPS:
++			cfg->i2s_caps.i2s_version = tlv->value[0];
++			size = tlv->value[1];
++			cfg->i2s_caps.ctrl_count = size;
++			if (!size)
++				break;
++
++			/* Multiply to get entire array size. */
++			size *= sizeof(*cfg->i2s_caps.ctrl_base_addr);
++			cfg->i2s_caps.ctrl_base_addr = devm_kmemdup(adev->dev,
++								    &tlv->value[2],
++								    size, GFP_KERNEL);
++			if (!cfg->i2s_caps.ctrl_base_addr) {
++				ret = -ENOMEM;
++				goto exit;
++			}
++			break;
++
++		case AVS_HW_CFG_GATEWAY_COUNT:
++			cfg->gateway_count = *tlv->value;
++			break;
++
++		case AVS_HW_CFG_HP_EBB_COUNT:
++			cfg->hp_ebb_count = *tlv->value;
++			break;
++
++		case AVS_HW_CFG_LP_EBB_COUNT:
++			cfg->lp_ebb_count = *tlv->value;
++			break;
++
++		case AVS_HW_CFG_EBB_SIZE_BYTES:
++			cfg->ebb_size_bytes = *tlv->value;
++			break;
++
++		case AVS_HW_CFG_GPDMA_CAPS:
++			break;
++
++		default:
++			dev_info(adev->dev, "Unrecognized hw config: %d\n",
++				 tlv->type);
++			break;
++		}
++
++		offset += sizeof(*tlv) + tlv->length;
++	}
++
++exit:
++	kfree(payload);
++	return ret;
++}
++
++int avs_ipc_get_modules_info(struct avs_dev *adev, struct avs_mods_info **info)
++{
++	size_t payload_size;
++	u8 *payload;
++	int ret;
++
++	ret = avs_ipc_get_large_config(adev, AVS_BASEFW_MOD_ID, AVS_BASEFW_INST_ID,
++				       AVS_BASEFW_MODULES_INFO, NULL, 0,
++				       &payload, &payload_size);
++	if (ret)
++		return ret;
++
++	*info = (struct avs_mods_info *)payload;
++	return 0;
++}
 diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
-index bbdba4631b1f..580229772395 100644
+index 580229772395..44e8efa980f3 100644
 --- a/sound/soc/intel/avs/messages.h
 +++ b/sound/soc/intel/avs/messages.h
-@@ -24,6 +24,7 @@ enum avs_msg_direction {
- };
+@@ -328,4 +328,183 @@ struct avs_dxstate_info {
+ int avs_ipc_set_dx(struct avs_dev *adev, u32 core_mask, bool powerup);
+ int avs_ipc_set_d0ix(struct avs_dev *adev, bool enable_pg, bool streaming);
  
- enum avs_global_msg_type {
-+	AVS_GLB_ROM_CONTROL = 1,
- 	AVS_GLB_LOAD_MULTIPLE_MODULES = 15,
- 	AVS_GLB_UNLOAD_MULTIPLE_MODULES = 16,
- 	AVS_GLB_CREATE_PIPELINE = 17,
-@@ -45,6 +46,12 @@ union avs_global_msg {
- 				u32 msg_direction:1;
- 				u32 msg_target:1;
- 			};
-+			/* set boot config */
-+			struct {
-+				u32 rom_ctrl_msg_type:9;
-+				u32 dma_id:5;
-+				u32 purge_request:1;
-+			} boot_cfg;
- 			/* module loading */
- 			struct {
- 				u32 mod_cnt:8;
-@@ -260,6 +267,13 @@ struct avs_notify_mod_data {
- 	u32 data[];
- } __packed;
- 
-+/* ROM messages */
-+enum avs_rom_control_msg_type {
-+	AVS_ROM_SET_BOOT_CONFIG = 0,
++/* Base-firmware runtime parameters */
++
++#define AVS_BASEFW_MOD_ID	0
++#define AVS_BASEFW_INST_ID	0
++
++enum avs_basefw_runtime_param {
++	AVS_BASEFW_FIRMWARE_CONFIG = 7,
++	AVS_BASEFW_HARDWARE_CONFIG = 8,
++	AVS_BASEFW_MODULES_INFO = 9,
++	AVS_BASEFW_LIBRARIES_INFO = 16,
 +};
 +
-+int avs_ipc_set_boot_config(struct avs_dev *adev, u32 dma_id, u32 purge);
++struct avs_fw_version {
++	u16 major;
++	u16 minor;
++	u16 hotfix;
++	u16 build;
++};
 +
- /* Code loading messages */
- int avs_ipc_load_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
- int avs_ipc_unload_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
++enum avs_fw_cfg_params {
++	AVS_FW_CFG_FW_VERSION = 0,
++	AVS_FW_CFG_MEMORY_RECLAIMED,
++	AVS_FW_CFG_SLOW_CLOCK_FREQ_HZ,
++	AVS_FW_CFG_FAST_CLOCK_FREQ_HZ,
++	AVS_FW_CFG_DMA_BUFFER_CONFIG,
++	AVS_FW_CFG_ALH_SUPPORT_LEVEL,
++	AVS_FW_CFG_IPC_DL_MAILBOX_BYTES,
++	AVS_FW_CFG_IPC_UL_MAILBOX_BYTES,
++	AVS_FW_CFG_TRACE_LOG_BYTES,
++	AVS_FW_CFG_MAX_PPL_COUNT,
++	AVS_FW_CFG_MAX_ASTATE_COUNT,
++	AVS_FW_CFG_MAX_MODULE_PIN_COUNT,
++	AVS_FW_CFG_MODULES_COUNT,
++	AVS_FW_CFG_MAX_MOD_INST_COUNT,
++	AVS_FW_CFG_MAX_LL_TASKS_PER_PRI_COUNT,
++	AVS_FW_CFG_LL_PRI_COUNT,
++	AVS_FW_CFG_MAX_DP_TASKS_COUNT,
++	AVS_FW_CFG_MAX_LIBS_COUNT,
++	AVS_FW_CFG_SCHEDULER_CONFIG,
++	AVS_FW_CFG_XTAL_FREQ_HZ,
++	AVS_FW_CFG_CLOCKS_CONFIG,
++	AVS_FW_CFG_RESERVED,
++	AVS_FW_CFG_POWER_GATING_POLICY,
++	AVS_FW_CFG_ASSERT_MODE,
++};
++
++struct avs_fw_cfg {
++	struct avs_fw_version fw_version;
++	u32 memory_reclaimed;
++	u32 slow_clock_freq_hz;
++	u32 fast_clock_freq_hz;
++	u32 alh_support;
++	u32 ipc_dl_mailbox_bytes;
++	u32 ipc_ul_mailbox_bytes;
++	u32 trace_log_bytes;
++	u32 max_ppl_count;
++	u32 max_astate_count;
++	u32 max_module_pin_count;
++	u32 modules_count;
++	u32 max_mod_inst_count;
++	u32 max_ll_tasks_per_pri_count;
++	u32 ll_pri_count;
++	u32 max_dp_tasks_count;
++	u32 max_libs_count;
++	u32 xtal_freq_hz;
++	u32 power_gating_policy;
++};
++
++int avs_ipc_get_fw_config(struct avs_dev *adev, struct avs_fw_cfg *cfg);
++
++enum avs_hw_cfg_params {
++	AVS_HW_CFG_AVS_VER,
++	AVS_HW_CFG_DSP_CORES,
++	AVS_HW_CFG_MEM_PAGE_BYTES,
++	AVS_HW_CFG_TOTAL_PHYS_MEM_PAGES,
++	AVS_HW_CFG_I2S_CAPS,
++	AVS_HW_CFG_GPDMA_CAPS,
++	AVS_HW_CFG_GATEWAY_COUNT,
++	AVS_HW_CFG_HP_EBB_COUNT,
++	AVS_HW_CFG_LP_EBB_COUNT,
++	AVS_HW_CFG_EBB_SIZE_BYTES,
++};
++
++enum avs_iface_version {
++	AVS_AVS_VER_1_5 = 0x10005,
++	AVS_AVS_VER_1_8 = 0x10008,
++};
++
++enum avs_i2s_version {
++	AVS_I2S_VER_15_SKYLAKE   = 0x00000,
++	AVS_I2S_VER_15_BROXTON   = 0x10000,
++	AVS_I2S_VER_15_BROXTON_P = 0x20000,
++	AVS_I2S_VER_18_KBL_CNL   = 0x30000,
++};
++
++struct avs_i2s_caps {
++	u32 i2s_version;
++	u32 ctrl_count;
++	u32 *ctrl_base_addr;
++};
++
++struct avs_hw_cfg {
++	u32 avs_version;
++	u32 dsp_cores;
++	u32 mem_page_bytes;
++	u32 total_phys_mem_pages;
++	struct avs_i2s_caps i2s_caps;
++	u32 gateway_count;
++	u32 hp_ebb_count;
++	u32 lp_ebb_count;
++	u32 ebb_size_bytes;
++};
++
++int avs_ipc_get_hw_config(struct avs_dev *adev, struct avs_hw_cfg *cfg);
++
++#define AVS_MODULE_LOAD_TYPE_BUILTIN	0
++#define AVS_MODULE_LOAD_TYPE_LOADABLE	1
++#define AVS_MODULE_STATE_LOADED		BIT(0)
++
++struct avs_module_type {
++	u32 load_type:4;
++	u32 auto_start:1;
++	u32 domain_ll:1;
++	u32 domain_dp:1;
++	u32 lib_code:1;
++	u32 rsvd:24;
++} __packed;
++
++union avs_segment_flags {
++	u32 ul;
++	struct {
++		u32 contents:1;
++		u32 alloc:1;
++		u32 load:1;
++		u32 readonly:1;
++		u32 code:1;
++		u32 data:1;
++		u32 rsvd_1:2;
++		u32 type:4;
++		u32 rsvd_2:4;
++		u32 length:16;
++	};
++} __packed;
++
++struct avs_segment_desc {
++	union avs_segment_flags flags;
++	u32 v_base_addr;
++	u32 file_offset;
++} __packed;
++
++struct avs_module_entry {
++	u16 module_id;
++	u16 state_flags;
++	u8 name[8];
++	guid_t uuid;
++	struct avs_module_type type;
++	u8 hash[32];
++	u32 entry_point;
++	u16 cfg_offset;
++	u16 cfg_count;
++	u32 affinity_mask;
++	u16 instance_max_count;
++	u16 instance_bss_size;
++	struct avs_segment_desc segments[3];
++} __packed;
++
++struct avs_mods_info {
++	u32 count;
++	struct avs_module_entry entries[];
++} __packed;
++
++static inline bool avs_module_entry_is_loaded(struct avs_module_entry *mentry)
++{
++	return mentry->type.load_type == AVS_MODULE_LOAD_TYPE_BUILTIN ||
++	       mentry->state_flags & AVS_MODULE_STATE_LOADED;
++}
++
++int avs_ipc_get_modules_info(struct avs_dev *adev, struct avs_mods_info **info);
++
+ #endif /* __SOUND_SOC_INTEL_AVS_MSGS_H */
 -- 
 2.25.1
 

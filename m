@@ -2,89 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C99784AC09E
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 15:07:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00C804AC113
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 15:22:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64CB317EF;
-	Mon,  7 Feb 2022 15:06:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64CB317EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88A0117AA;
+	Mon,  7 Feb 2022 15:21:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88A0117AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644242853;
-	bh=rCcsH6TuR9fkG5Ythz+wA2JNsI+ErlMTUMNeDYwyspk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=CV+yX5raOuFPjM82dcAokHh5+fIZW+D7EvXIlG815yOMwD+aerxD4JQD84syxB8EP
-	 koPHHTlGyTUtMhGhqF2LrhPJghwGkz0uBtx+sI/AltE24PXr9flmO0FXatfemDyUgd
-	 9Y8RpDXoraaS7C7akRzXArBe7n1ThHnycP9gUMEI=
+	s=default; t=1644243764;
+	bh=vyQboMuod2Foq1LBMcBZ21gamrd6H+BAk28vS/E2gHo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Z+4Zj/g2tOh4EuD1XQKH8gmVUWqGzlHBTg3UbvWcxPHXf842iHfjz2gT5WUrIvuFz
+	 d5aZS7OtFALDvfjGHAFEVCJKAMP88AYmgoGGke76JqdSAX4XCtWwkxVfUyH6SPl4+c
+	 oyC7f7V2/+mdHNRIrAjfksip35yjQ8bffr/aHvBU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C893BF80246;
-	Mon,  7 Feb 2022 15:06:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3ACDF800E1;
+	Mon,  7 Feb 2022 15:21:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E44C2F800E1; Mon,  7 Feb 2022 15:06:24 +0100 (CET)
+ id DA7F4F80240; Mon,  7 Feb 2022 15:21:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E440CF800E1
- for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 15:06:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E440CF800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 207FFF800E1
+ for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 15:21:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 207FFF800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="dXHUkHHH"
-Received: by mail-wr1-x42c.google.com with SMTP id r29so7049727wrr.13
- for <alsa-devel@alsa-project.org>; Mon, 07 Feb 2022 06:06:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=tBKWnS+g7You4oahdBZV1moenSdw6O464+uIoP4Ehfw=;
- b=dXHUkHHHLQVcF081BhnShtt/ILiXpVb0T3NzyCo3i0nakhqxWs2EPz9K/tIrOG4t/q
- ZmJBv6zMZ9oe2EmWqrcUsw0RWxqGsxtBSS4T4i2UE1VGygzOS0q5+qq1slHJLFk61oua
- 32mR5gFhRVh0FEPZ8PCqrbEPsdeUVImaqnqPUkg2cYvsF55RNOzS7L/8Bl9l/pljVxiV
- Tc8pb7VPlg5FpOF2bd6lqh7OJ7EpRKlboqsn/+n+WB8gl5tuYmx6b8XTa6k97x7IPPxt
- q7Mvq5E2Hi7r8q6eIWDyZ0jZ+gnBR4HFiHWwyOlmMbRQeGVbu6rIxc85DNgUrhocF6eh
- OF4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=tBKWnS+g7You4oahdBZV1moenSdw6O464+uIoP4Ehfw=;
- b=scOHXtpi9t5s9CnYH3R4H/c48BOZ9qNlg0ynfIZ6pGrd0s06R73Y3TttIZJfldGUst
- 42ZR0BVdaFpH1WXyw8h/5P3FoHgcozTagXYkYFXIzQfHkeEwgIEgRhIzOVZi3LYZS8PV
- Do9IvETOBlFJyPui2lirOA5DX64SejynJZLG1wnNEDS8pK7pr3tP2U4NeOHECGehQaxr
- BbAoptvLscy1qPlp5AdQvI3oYgaGGpP4lruoxEgaJhhMGjv/e4WwR8FXZY7Jx0LBMWwk
- NaH9pa3YumePXgs+x/76KrEQnKSHSl9J3116eTZZNbWuPY2BWag93jI9/7OAkdsFvVd0
- HKbw==
-X-Gm-Message-State: AOAM532ar1xtOzdMx4x0OtUKaFJ4EQTwdBderddVPLof8wL5gS2Z0vRO
- vh+Hrrg7DOGDmDfKBgvVFXY=
-X-Google-Smtp-Source: ABdhPJyKet9Uuh60UU/p6hDZJIyCF7NM/ixYXuVRcY9k1xOZeokpEzA36xzaIhpdpjAHmboNRpfbrw==
-X-Received: by 2002:a05:6000:1866:: with SMTP id
- d6mr10140333wri.309.1644242778904; 
- Mon, 07 Feb 2022 06:06:18 -0800 (PST)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194])
- by smtp.gmail.com with ESMTPSA id n10sm4140786wrt.93.2022.02.07.06.06.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Feb 2022 06:06:18 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: remove redundant assignment to variable c
-Date: Mon,  7 Feb 2022 14:06:17 +0000
-Message-Id: <20220207140617.341172-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="R5G+Jsjz"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 217EAkfE005957;
+ Mon, 7 Feb 2022 08:21:30 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ content-transfer-encoding : in-reply-to; s=PODMain02222019;
+ bh=aiQdobHVu+OZo+WepQox1wI4nh4eTBu1JSfdpz/m9nQ=;
+ b=R5G+JsjzTY0XiU8drZ7R/2avIUB4k2UAcxHd9kVTlXsEjCBLecPfmxOw9uNho0YHz6iD
+ 85Xu6BMU1TysZl2Ba4sUmF3qZtOiwuaLWPG/0N3wG9dPwM3kyjLe3vQoRrvZQXz6qE6E
+ JgciHcJF4iq2+03OrypivI+98/+Bu/FKm3xwxna9R7q5avgVOzvqKVpgA/nFczo2z4QP
+ 20omERcse98k+yCfrkZfQlSfj/3mGk7Zq4U3rMf/wKvXXl633TE/hOdZY6C126BmlSwX
+ AYvRPsaHT6TFHVSJl53My7lEmxtA4CypXZNhbax9mq/WXQCfK3eLB121R8rLnhI1ExGw wQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3e34y5r0cd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 07 Feb 2022 08:21:30 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 7 Feb
+ 2022 14:21:29 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Mon, 7 Feb 2022 14:21:29 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 28629B16;
+ Mon,  7 Feb 2022 14:21:29 +0000 (UTC)
+Date: Mon, 7 Feb 2022 14:21:29 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Martin Kepplinger <martin.kepplinger@puri.sm>
+Subject: Re: [PATCH] wm8962: add a simple DMIC enable control
+Message-ID: <20220207142129.GB112838@ediswmail.ad.cirrus.com>
+References: <20220202095301.GZ18506@ediswmail.ad.cirrus.com>
+ <3542af028b622ec1513810b014c35a94b82a94c0.camel@puri.sm>
+ <20220202104657.GA18506@ediswmail.ad.cirrus.com>
+ <99b847d17e8ac399dba10842ec20091df926aa06.camel@puri.sm>
+ <20220202133511.GB18506@ediswmail.ad.cirrus.com>
+ <62ee89792a3f8921b4aad4d47f4db0bf2adb33f0.camel@puri.sm>
+ <20220203110518.GF18506@ediswmail.ad.cirrus.com>
+ <7b3306d7a80f605973c932a0a4679bcac067ae8a.camel@puri.sm>
+ <20220204172116.GG18506@ediswmail.ad.cirrus.com>
+ <fca54f527f619e21c19918ed3165d9ec8f85f6f6.camel@puri.sm>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <fca54f527f619e21c19918ed3165d9ec8f85f6f6.camel@puri.sm>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: sIRDfwxHUcNOZs_4qZ-j6P9tPM8ojMe3
+X-Proofpoint-ORIG-GUID: sIRDfwxHUcNOZs_4qZ-j6P9tPM8ojMe3
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, kernel@puri.sm, patches@opensource.cirrus.com,
+ tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org, geert@glider.be,
+ daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,28 +109,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The variable c is being initialized in an outer for-loop and also
-re-initialized inside an inner for-loop. The first initialization
-is redundant and can be removed.
+On Mon, Feb 07, 2022 at 11:49:32AM +0100, Martin Kepplinger wrote:
+> Am Freitag, dem 04.02.2022 um 17:21 +0000 schrieb Charles Keepax:
+> > On Fri, Feb 04, 2022 at 10:43:53AM +0100, Martin Kepplinger wrote:
+> > > numid=92,iface=MIXER,name='MIXINR IN3R Switch'
+> > >   ; type=BOOLEAN,access=rw------,values=1
+> > >   : values=on
+> > > numid=93,iface=MIXER,name='MIXINR PGA Switch'
+> > >   ; type=BOOLEAN,access=rw------,values=1
+> > >   : values=on
+> > 
+> > I don't think you should have both the IN3R and PGA switches
+> > enabled at once. I would suggest only using the PGA switch.
+> > 
+> > Ok, I think what is happening here is you have both of
+> > these connected, and because you have the PGA muted, you are
+> > only hearing the unboosted mic signal coming through MIXINR
+> > IN3R. This would explain both why the Capture Volume has no
+> > effect and why your signal is quiet.
+> 
+> ok. I keep MIXINR IN3R Switch disabled now and the volume is indeed
+> high now, and I control volume using
+> 
+> CaptureSwitch "name='Capture Volume'"
+> 
+> Volume itself indeed is good now. Recorded voice is very "metallic" and
+> "shallow" if you know what I mean - and distorted when using MAX
+> volume. The gnome audio recorder doesn't show *any* signal in the UI,
+> so that must still be kind of bad - even though I understand recorded
+> voice way better now than before.
+> 
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- sound/usb/mixer_s1810c.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+My first thought is that the signal is clipping somewhere in the
+chain. You have a lot of the gaines up very high from when you
+were trying to working around the low signal level issues.
 
-diff --git a/sound/usb/mixer_s1810c.c b/sound/usb/mixer_s1810c.c
-index 0255089c9efb..fac4bbc6b275 100644
---- a/sound/usb/mixer_s1810c.c
-+++ b/sound/usb/mixer_s1810c.c
-@@ -221,7 +221,7 @@ static int snd_s1810c_init_mixer_maps(struct snd_usb_audio *chip)
- 	e = 0xbc;
- 	for (n = 0; n < 2; n++) {
- 		off = n * 18;
--		for (b = off, c = 0; b < 18 + off; b++) {
-+		for (b = off; b < 18 + off; b++) {
- 			/* This channel to all outputs ? */
- 			for (c = 0; c <= 8; c++) {
- 				snd_s1810c_send_ctl_packet(dev, a, b, c, 0, e);
--- 
-2.34.1
+Can we be clear here on what paths are in play here. Presumably
+the gnome audio recorder is capturing over the I2S. When you say
+you can understand the recorded voice way better now, do you mean
+in the file captured by the gnome audio recorder? Or are you
+listening to that on another path, like direct to the headphones?
 
+> thanks for all the time and help, and sorry for all the wrong amixer
+> output I sent you,
+> 
+
+No problem, always a bit of back and forth in these debugging
+exercises.
+
+> numid=10,iface=MIXER,name='Capture Volume'
+>   ; type=INTEGER,access=rw---R--,values=2,min=0,max=63,step=0
+>   : values=63,63
+>   | dBscale-min=-23.25dB,step=0.75dB,mute=0
+
+This is +24dB, I would start with something like +0dB, +3dB or
++6dB.
+
+> numid=7,iface=MIXER,name='MIXINR PGA Volume'
+>   ; type=INTEGER,access=rw---R--,values=1,min=0,max=7,step=0
+>   : values=7
+>   | dBrange-
+>     rangemin=0,,rangemax=1
+>       | dBscale-min=0.00dB,step=6.00dB,mute=0
+>     rangemin=2,,rangemax=2
+>       | dBscale-min=13.00dB,step=13.00dB,mute=0
+>     rangemin=3,,rangemax=4
+>       | dBscale-min=18.00dB,step=2.00dB,mute=0
+>     rangemin=5,,rangemax=5
+>       | dBscale-min=24.00dB,step=0.00dB,mute=0
+>     rangemin=6,,rangemax=7
+>       | dBscale-min=27.00dB,step=3.00dB,mute=0
+> 
+
+Hmm... step size here seems to disagree with the datasheet but
+this is either +29dB or +30dB depending on who we trust.
+
+So combining those two you have like +54dB of analogue gain, like
+no way that isn't causing the signal to clip.
+
+I would start with 0dB on each, then bump them up to like
++6dB if the signal is really quiet. But somewhere you should
+be able to get specs on the mic and work out what actual gain
+you need to get a full scale signal out of the mic for the
+given micbias voltage. Your hardware folks should be able to help
+out there.
+
+Thanks,
+Charles

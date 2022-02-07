@@ -2,103 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF9174AAAB1
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Feb 2022 18:46:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A4F4AB779
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 10:23:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56979168C;
-	Sat,  5 Feb 2022 18:46:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56979168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52083210;
+	Mon,  7 Feb 2022 10:23:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52083210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644083215;
-	bh=m09tII0rL7dnNGb5It0Leu8jTqUAnrhC6/SOJcAbSB0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=J75zSkNRsMQCm/qFaDv58kAtgC6R4ol5j3n1NSssvOxFUKTNdn10mnRJSZuW/96Bk
-	 OqtHK5GgCQadXAb2AINCSIT98mh+Q74LXQByo/wtJZCBV2YaY0BEsMbVRDm39yBJGW
-	 ikiTYmM7kwIvCpNUjDHJNcS/mthyj4N8ryU4GjFc=
+	s=default; t=1644225836;
+	bh=XrJdNyEHxgO04eWbYS+P5myhoR15kWeRwGv0iod5Ndg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UU7ST8ivzy8dqoJ9H606YgP1pwTCgv1Ecl+KVAHYdWZOsRSYUq7yiJQPD0XtmsB65
+	 7taFcmpTSrQKr6CeINHl8DjYXytMkkuAwMIa3hZ5O4mgZreOCKmOUswlJXd1lUUqKS
+	 oqZPGMx/86xxs4xcyyCPKk5tve4+8ABqs6wxnE6Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAF83F80083;
-	Sat,  5 Feb 2022 18:45:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7D85F800E1;
+	Mon,  7 Feb 2022 10:22:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C046F80424; Sat,  5 Feb 2022 18:45:42 +0100 (CET)
+ id 29282F800E1; Mon,  7 Feb 2022 10:22:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DDBFBF800E9
- for <alsa-devel@alsa-project.org>; Sat,  5 Feb 2022 18:45:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDBFBF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 379CBF800E1
+ for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 10:22:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 379CBF800E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="jXTEHu9p"
-Received: by mail-lj1-x234.google.com with SMTP id t14so13334788ljh.8
- for <alsa-devel@alsa-project.org>; Sat, 05 Feb 2022 09:45:37 -0800 (PST)
+ header.b="C2zZvx93"
+Received: by mail-wr1-x431.google.com with SMTP id e3so9553762wra.0
+ for <alsa-devel@alsa-project.org>; Mon, 07 Feb 2022 01:22:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:user-agent:references
- :mime-version:content-disposition:in-reply-to;
- bh=cRzVy8dQSyjDKFOJ91Sg7KEwkjk8USDTRteVjsR+Cio=;
- b=jXTEHu9pEoQcJaaekEcxkBtIE95TEMXUJrUo+supNsm02ZlbK4T4S2d6mnWsSDo6Qx
- PW71oDI8p5fVCZ1SI0nx65QMSNVxLgBjiZFWz/Q7KXPjcZvDI+kyWyLp9aUzzxVYtYTx
- cUgaIl1D0iHXIj70U5/sO0iI/y4ZCWTcXLpeTSDnjGgm5kXAQp60RnedcPoHJV+3z/o3
- bYqi0oa19O3rTp98HfHLSu1LlyPrTV06SaTubKhWUA+Msx+IFlGCzEGJj1DIoc0M9YmF
- LZwhsbAmG33dGdE8pQKmmZB3BzsdG5Xx9nL5r00CYr0PO6qhNx2ODvXrWdQOJDFXramU
- SeOA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=nZXczi6C0VGVtmz89xEAfWTFn3tEw4CtQGzJll0eCx4=;
+ b=C2zZvx93c1YXMt79tE8s8Jb3PihXIjoInyAK1MvgNVVXGccfgn9/SllQZRW1jKrZYF
+ 2ho9PDLah+3FbqS4d+l2VEvYjavolvmDhi7cQagujQbESdY84abjGgqJOJ9tRhv2Sje0
+ z76oNUH8LHs6e1CKpGldvwzh1XJdncNUFItMfL39LtF2/mo1DOxg53yamVyv6+Fl/Dxx
+ y10C8NXFT4bhLLwn/aiVMwMGx+Bpx2Wc5xz5KwJ4kv9U36R/cnQYpZlGvw2FyEnGFcw1
+ xlaqEbaA3oEIq1xE3oXXoME6BghM8oQoINGDpGqRrd59yNJ4uIVYcKzv0DtC4LjeWffG
+ UkWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:user-agent
- :references:mime-version:content-disposition:in-reply-to;
- bh=cRzVy8dQSyjDKFOJ91Sg7KEwkjk8USDTRteVjsR+Cio=;
- b=aExAkg0yyX1i0/5tj+3aBLlS5FgL+qu6IMXY9Js1sCBBrn3XmngTSSyaczfEEJoofu
- JSTFtPMvoxvf0J9pH1fWs+5ziBYagJQ2k6xIEa0DrHVbpuk5yJO/BeIJ7P7naAQ2QOXQ
- WJL5vVO8qQGRaTB1fWmVZnjBAh2qidGqPjpb2CW8aV9/5o4+Wr8uBh6Uunzn43+uo4ZW
- RpVCDOSJrHq1MGHxbPysSDxpSkGYsf6uZOUupCPzlGxZQE/dhLzAGA5q3ztfAKcxKe6W
- Dc1LQiUVP631XtM3vN8O05TyEQ88cEaCY8uhI8QXqMDjA9WRrHvRvVsMHUVbuFYHAl4X
- ZyWA==
-X-Gm-Message-State: AOAM5307/EgDyTphUKCe8I9VeCEYkgiUprBfaT5qSGEXV0PcNioGQJys
- PrPXDY4J6ykLLEDWKo80Qzk=
-X-Google-Smtp-Source: ABdhPJz7ogkncJjTXq48mAK0ycccQfH5qE/3wQx/QTci2lK6q525ctJYnswaNihtjmy80MkztqfS7w==
-X-Received: by 2002:a2e:958d:: with SMTP id w13mr3401629ljh.113.1644083136084; 
- Sat, 05 Feb 2022 09:45:36 -0800 (PST)
-Received: from localhost.localdomain (broadband-95-84-228-163.ip.moscow.rt.ru.
- [95.84.228.163])
- by smtp.gmail.com with ESMTPSA id k14sm811589ljh.82.2022.02.05.09.45.34
- (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
- Sat, 05 Feb 2022 09:45:35 -0800 (PST)
-Date: Sat, 5 Feb 2022 20:51:32 +0300
-From: Alexander Sergeyev <sergeev917@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-Message-ID: <20220205175132.ihwp5wlxga4efngl@localhost.localdomain>
-User-Agent: mtt
-References: <20220115152215.kprws5nja2i43qax@localhost.localdomain>
- <s5hilugw0l0.wl-tiwai@suse.de>
- <20220119093249.eaxem33bjqjxcher@localhost.localdomain>
- <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
- <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
- <s5ho83yldu3.wl-tiwai@suse.de>
- <20220129144704.xlmeylllvy3b3fum@localhost.localdomain>
- <20220130111020.44gzrm5ckrakjta2@localhost.localdomain>
- <s5htudk9cn3.wl-tiwai@suse.de>
- <20220205150016.gvrst7ldvgjh7fra@localhost.localdomain>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=nZXczi6C0VGVtmz89xEAfWTFn3tEw4CtQGzJll0eCx4=;
+ b=C4qLddjw2EmJSYTBTiAJpVSf288oUb05wlMM2r/PZKphBbbm0mDXRwza+81QByA+4G
+ tZYYyeO4xO0Ny0QppnF5dVgtaSrpPGr0Ag9oyWNV4HopeU6CrMJmoj4BkS68iLv0lR0w
+ EaI99rlBgTKev4h0bre66Mrb+f1ouXkCVQsVEhmp/cYVCJkkAFZ1YjxKmtlDLMUx5NtA
+ bQ26jK/xkuzXHoX2Fi3S52d/hHdY7jaf3wAEYuS7VrsAAu4FiKr5p8+bFGNYa1XDquJv
+ m4xkZA4phkNioLAaw6AzSr/6G9kRpa0sOy9xvF0OahUp7zz1BOU4CajoNihhnlqgX5Tw
+ B47g==
+X-Gm-Message-State: AOAM533Q9dD4ZaRry/tl0UJm6rgo+yigq7hwCPlu/n64YRwsQRpdMbv3
+ gunT9/aEB5gqn3ycYndYChc=
+X-Google-Smtp-Source: ABdhPJybMsIXGUh1RzkJaVESTlrR03bfCQ5VzIOs1f03/DoZiXQy4UAlySTzfi0iky0Us5HZSHJx8Q==
+X-Received: by 2002:adf:f690:: with SMTP id v16mr510766wrp.707.1644225758361; 
+ Mon, 07 Feb 2022 01:22:38 -0800 (PST)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194])
+ by smtp.gmail.com with ESMTPSA id g7sm9866205wmq.3.2022.02.07.01.22.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Feb 2022 01:22:37 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Shuah Khan <shuah@kernel.org>,
+ alsa-devel@alsa-project.org, linux-kselftest@vger.kernel.org
+Subject: [PATCH][next] kselftest: alsa: fix spelling mistake "desciptor" ->
+ "descriptor"
+Date: Mon,  7 Feb 2022 09:22:35 +0000
+Message-Id: <20220207092235.240284-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220205150016.gvrst7ldvgjh7fra@localhost.localdomain>
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,40 +101,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jan 31, 2022 at 03:57:04PM +0100, Takashi Iwai wrote:
-> In anyway, we need to track down exactly which access triggers those 
-> errors...
+There are some spelling mistakes in some ksft messages. Fix them.
 
-I went deeper into codec reads and writes:
-- snd_hda_codec_write
-- snd_hdac_codec_write
-- codec_write
-- snd_hdac_exec_verb
-- codec_exec_verb
-- snd_hdac_bus_exec_verb_unlocked
-- azx_send_cmd / azx_get_response
-- snd_hdac_bus_send_cmd / azx_rirb_get_response
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ tools/testing/selftests/alsa/mixer-test.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-In the last functions a circular buffer is used to write commands. The 
-problem is that "bus->corb.buf[wp]" and "bus->rirb.res[addr]" are 
-nowhere close to the IOMMU-reported address of the offending memory 
-access. It's likely that I've missed other communication channels. But 
-is it possible that IOMMU-reported address and buffers addresses are of 
-different kinds (physical/virtual) or different regions mapped to the 
-same physical pages?
+diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
+index d0b788b8d287..eb2213540fe3 100644
+--- a/tools/testing/selftests/alsa/mixer-test.c
++++ b/tools/testing/selftests/alsa/mixer-test.c
+@@ -198,7 +198,7 @@ static void find_controls(void)
+ 
+ 		err = snd_ctl_poll_descriptors_count(card_data->handle);
+ 		if (err != 1) {
+-			ksft_exit_fail_msg("Unexpected desciptor count %d for card %d\n",
++			ksft_exit_fail_msg("Unexpected descriptor count %d for card %d\n",
+ 					   err, card);
+ 		}
+ 
+@@ -248,12 +248,12 @@ static int wait_for_event(struct ctl_data *ctl, int timeout)
+ 						       &(ctl->card->pollfd),
+ 						       1, &revents);
+ 		if (err < 0) {
+-			ksft_print_msg("snd_ctl_poll_desciptors_revents() failed for %s: %d\n",
++			ksft_print_msg("snd_ctl_poll_descriptors_revents() failed for %s: %d\n",
+ 				       ctl->name, err);
+ 			return err;
+ 		}
+ 		if (revents & POLLERR) {
+-			ksft_print_msg("snd_ctl_poll_desciptors_revents() reported POLLERR for %s\n",
++			ksft_print_msg("snd_ctl_poll_descriptors_revents() reported POLLERR for %s\n",
+ 				       ctl->name);
+ 			return -1;
+ 		}
+-- 
+2.34.1
 
-Example:
-snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x3b8000, wp=0xfb, &buf[wp]=00000000f1fd4592
-snd_hdac_bus_get_response: reading result from 0000000059c4003d
-snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x339000, wp=0xfc, &buf[wp]=000000007f14c128
-snd_hdac_bus_get_response: reading result from 0000000059c4003d
-snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x1470740, wp=0xfd, &buf[wp]=00000000a6b14901
-snd_hdac_bus_get_response: reading result from 0000000059c4003d
-snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x14ba000, wp=0xfe, &buf[wp]=00000000d8d1672a
-snd_hdac_bus_get_response: reading result from 0000000059c4003d
-snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x14b8000, wp=0xff, &buf[wp]=00000000b87b3287
-snd_hdac_bus_get_response: reading result from 0000000059c4003d
-snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x2ba000, wp=0x0, &buf[wp]=000000002162c728
-snd_hdac_bus_get_response: reading result from 0000000059c4003d
-snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x2b8000, wp=0x1, &buf[wp]=0000000095f61061
-snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]

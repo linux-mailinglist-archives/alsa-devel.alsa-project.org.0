@@ -2,94 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F0A34AC115
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 15:23:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E83A4AC407
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 16:40:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D5371813;
-	Mon,  7 Feb 2022 15:22:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D5371813
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C548187D;
+	Mon,  7 Feb 2022 16:39:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C548187D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644243792;
-	bh=8VKhuGsGMxb+Me5jnvB4Inp2OlMhDiQOaRdBmZnBuvo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Zn6wmSJONjYALjX4Eaw7r87/ji++RFKwXM+NKT3d3mzP5NtVPWqpz4EmQqhVsteNa
-	 GDkc2bzORtXugcDdtVcWUefDFz+GyHhFnvKgWxxbAiSTaOebcgJ40INgDtwAM26tSn
-	 16qFEy6ZMhHCQzhsR3brpaCMhqrTtrCtXFeAwHsQ=
+	s=default; t=1644248433;
+	bh=HY7MVKcXpMu5mQDAhQkFIj+x1Nih51r+Y0slJWpEr98=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AetIiJQeF6pvIRg4TqjAehJehnwrs7mEDhjO4kKxG9Rm4d6i/OFcnd2A+bb0246v/
+	 sVHOlqyR1yXcTJTEhljO8gP59f3m1muoeF4bZsY3tboTNhiDfgLKzVVpdisIeTTiVa
+	 vn391uHSNZYyDc8FZRznXgAwmFtH/GeX09pwf6HE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5675F80515;
-	Mon,  7 Feb 2022 15:22:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10240F8023B;
+	Mon,  7 Feb 2022 16:38:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03708F80511; Mon,  7 Feb 2022 15:22:02 +0100 (CET)
+ id 904E2F8023B; Mon,  7 Feb 2022 16:38:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66327F804A9
- for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 15:21:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66327F804A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id A174DF8023B
+ for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 16:38:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A174DF8023B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="iBfqES/I"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="QXXXuqoI"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 6B311210FD;
- Mon,  7 Feb 2022 14:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1644243718; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=sAhh4gqPC9v9hFbZq/l77CXsNyM7wDN8WvcunYKnnQw=;
- b=iBfqES/I9Wd6THlQ1EkiHdjWlvW8EKqfLotzLJoSA0USixJN5V0aqNq/Fo6ROlJNgJjgAJ
- IWvahUOFHfQ2eTuqh9MIud46EK4vsQfGYlrjkO9K121XHYTo1o04Wi6/ANXqoaGqRPQcP2
- 4pG8SlgNbKN08ml0TDaOlbToHc5NM/Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1644243718;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=sAhh4gqPC9v9hFbZq/l77CXsNyM7wDN8WvcunYKnnQw=;
- b=QXXXuqoIaBjXf1BCW9WHoz6QzhXCnPDaxMbtyE3OR6hyPWOWo9ZJTGvdZcA+w8DSi6DWRZ
- MSS7W/MkYd2LXWAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 18B42A3BA1;
- Mon,  7 Feb 2022 14:21:58 +0000 (UTC)
-Date: Mon, 07 Feb 2022 15:21:58 +0100
-Message-ID: <s5hzgn2u589.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Sergeyev <sergeev917@gmail.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-In-Reply-To: <20220205175132.ihwp5wlxga4efngl@localhost.localdomain>
-References: <20220115152215.kprws5nja2i43qax@localhost.localdomain>
- <s5hilugw0l0.wl-tiwai@suse.de>
- <20220119093249.eaxem33bjqjxcher@localhost.localdomain>
- <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
- <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
- <s5ho83yldu3.wl-tiwai@suse.de>
- <20220129144704.xlmeylllvy3b3fum@localhost.localdomain>
- <20220130111020.44gzrm5ckrakjta2@localhost.localdomain>
- <s5htudk9cn3.wl-tiwai@suse.de>
- <20220205150016.gvrst7ldvgjh7fra@localhost.localdomain>
- <20220205175132.ihwp5wlxga4efngl@localhost.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, tiwai@suse.com,
- open list <linux-kernel@vger.kernel.org>, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="GJ+2RDIo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644248327; x=1675784327;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=HY7MVKcXpMu5mQDAhQkFIj+x1Nih51r+Y0slJWpEr98=;
+ b=GJ+2RDIoWy1ZHFFDDzWbvqD0nLwHl+pcAw/Ll8VqH9JkMqlQyQGBhoDj
+ 8LkwUbzadgg0jR6V0ikNM59kC4bp8xGFKNECjjGviHGRgl7FlEge+DgWC
+ 0z/ncQIehLxlnWKDynDsdXd0TL3lvr5+tIICYD7nWHNEY56RRwNtZ8iIV
+ 56XkO2mSVIYliw+Z/yGuZPpQ8SZ6vZwS8gdqfwSJh/EUkZ3pR39e+p1yP
+ bmiUwSWyJD5Rmfgj9t/TMQQxPqTkwtkmY1LMqGgYtpY/KgcANaR6HliSP
+ z//1q+U31ucwvTowoeo4rv8gxSkqxZ7uRWNmGnmEtUp2cbM9BNI5nOyPw A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10250"; a="228708969"
+X-IronPort-AV: E=Sophos;i="5.88,350,1635231600"; d="scan'208";a="228708969"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2022 07:38:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,350,1635231600"; d="scan'208";a="481616889"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga003.jf.intel.com with ESMTP; 07 Feb 2022 07:38:34 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org, Oder Chiou <oder_chiou@realtek.com>,
+ broonie@kernel.org
+Subject: [PATCH 1/3] ASoC: rt5682s: do not block workqueue if card is unbound
+Date: Mon,  7 Feb 2022 17:29:58 +0200
+Message-Id: <20220207153000.3452802-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ Shuming Fan <shumingf@realtek.com>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,74 +88,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 05 Feb 2022 18:51:32 +0100,
-Alexander Sergeyev wrote:
-> 
-> On Mon, Jan 31, 2022 at 03:57:04PM +0100, Takashi Iwai wrote:
-> > In anyway, we need to track down exactly which access triggers those 
-> > errors...
-> 
-> I went deeper into codec reads and writes:
-> - snd_hda_codec_write
-> - snd_hdac_codec_write
-> - codec_write
-> - snd_hdac_exec_verb
-> - codec_exec_verb
-> - snd_hdac_bus_exec_verb_unlocked
-> - azx_send_cmd / azx_get_response
-> - snd_hdac_bus_send_cmd / azx_rirb_get_response
-> 
-> In the last functions a circular buffer is used to write commands. The 
-> problem is that "bus->corb.buf[wp]" and "bus->rirb.res[addr]" are 
-> nowhere close to the IOMMU-reported address of the offending memory 
-> access. It's likely that I've missed other communication channels. But 
-> is it possible that IOMMU-reported address and buffers addresses are of 
-> different kinds (physical/virtual) or different regions mapped to the 
-> same physical pages?
-> 
-> Example:
-> snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x3b8000, wp=0xfb, &buf[wp]=00000000f1fd4592
-> snd_hdac_bus_get_response: reading result from 0000000059c4003d
-> snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x339000, wp=0xfc, &buf[wp]=000000007f14c128
-> snd_hdac_bus_get_response: reading result from 0000000059c4003d
-> snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x1470740, wp=0xfd, &buf[wp]=00000000a6b14901
-> snd_hdac_bus_get_response: reading result from 0000000059c4003d
-> snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x14ba000, wp=0xfe, &buf[wp]=00000000d8d1672a
-> snd_hdac_bus_get_response: reading result from 0000000059c4003d
-> snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x14b8000, wp=0xff, &buf[wp]=00000000b87b3287
-> snd_hdac_bus_get_response: reading result from 0000000059c4003d
-> snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x2ba000, wp=0x0, &buf[wp]=000000002162c728
-> snd_hdac_bus_get_response: reading result from 0000000059c4003d
-> snd_hdac_bus_send_cmd: bus->corb.buf[wp] = cpu_to_le32(val) // = 0x2b8000, wp=0x1, &buf[wp]=0000000095f61061
-> snd_hda_intel 0000:05:00.6: AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0015 address=0x1fffff800 flags=0x0020]
+The current rt5682s_jack_detect_handler() assumes the component
+and card will always show up and implements an infinite usleep
+loop waiting for them to show up.
 
-Hm, I'm not sure, either.  But let's try to avoid some possible
-confusion at first, e.g. a patch like below.
+This does not hold true if a codec interrupt (or other
+event) occurs when the card is unbound. The codec driver's
+remove  or shutdown functions cannot cancel the workqueue due
+to the wait loop. As a result, code can either end up blocking
+the workqueue, or hit a kernel oops when the card is freed.
 
+Fix the issue by rescheduling the jack detect handler in
+case the card is not ready. In case card never shows up,
+the shutdown/remove/suspend calls can now cancel the detect
+task.
 
-Takashi
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Shuming Fan <shumingf@realtek.com>
+---
+ sound/soc/codecs/rt5682s.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
--- 8< --
-diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
-index f7bd6e2db085..074199aa73ea 100644
---- a/sound/hda/hdac_controller.c
-+++ b/sound/hda/hdac_controller.c
-@@ -618,7 +618,7 @@ int snd_hdac_bus_alloc_stream_pages(struct hdac_bus *bus)
- 	if (WARN_ON(!num_streams))
- 		return -EINVAL;
- 	/* allocate memory for the position buffer */
--	err = snd_dma_alloc_pages(dma_type, bus->dev,
-+	err = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, bus->dev,
- 				  num_streams * 8, &bus->posbuf);
- 	if (err < 0)
- 		return -ENOMEM;
-@@ -626,7 +626,7 @@ int snd_hdac_bus_alloc_stream_pages(struct hdac_bus *bus)
- 		s->posbuf = (__le32 *)(bus->posbuf.area + s->index * 8);
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index efa1016831dd..1e662d1be2b3 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -824,11 +824,13 @@ static void rt5682s_jack_detect_handler(struct work_struct *work)
+ 		container_of(work, struct rt5682s_priv, jack_detect_work.work);
+ 	int val, btn_type;
  
- 	/* single page (at least 4096 bytes) must suffice for both ringbuffes */
--	return snd_dma_alloc_pages(dma_type, bus->dev, PAGE_SIZE, &bus->rb);
-+	return snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, bus->dev, PAGE_SIZE, &bus->rb);
- }
- EXPORT_SYMBOL_GPL(snd_hdac_bus_alloc_stream_pages);
+-	while (!rt5682s->component)
+-		usleep_range(10000, 15000);
+-
+-	while (!rt5682s->component->card->instantiated)
+-		usleep_range(10000, 15000);
++	if (!rt5682s->component || !rt5682s->component->card ||
++	    !rt5682s->component->card->instantiated) {
++		/* card not yet ready, try later */
++		mod_delayed_work(system_power_efficient_wq,
++				 &rt5682s->jack_detect_work, msecs_to_jiffies(15));
++		return;
++	}
  
+ 	mutex_lock(&rt5682s->jdet_mutex);
+ 	mutex_lock(&rt5682s->calibrate_mutex);
+
+base-commit: d466706b9d0dae4754a47c34fd5f4654ee54f609
+-- 
+2.35.1
 

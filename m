@@ -2,142 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17AD4AC6B6
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 18:05:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0158E4AC6EE
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 18:13:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59D4B17F8;
-	Mon,  7 Feb 2022 18:04:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59D4B17F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 961641888;
+	Mon,  7 Feb 2022 18:12:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 961641888
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644253511;
-	bh=iIS7/t94QyOWCwSr2OT6wkdGYB4H4xN3+F2J3Eh9OFY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uQZZZb4HAZMOJNsEgrlJ3kEzzSJcFV6+OONDU8PV4FYLFeyvinFT4eZfT0hgQCSJE
-	 3J1Qk9Ve1yVP0o7Vg59h1A3MW59nTt9pZeWHR2h4ck8AYA0FwekNw3nYONfLmW3o5v
-	 8AHITl8CbcNzF3u+Zsghr9DgjA5vlZ4BXqv9ExC4=
+	s=default; t=1644254006;
+	bh=bk7Z9jZhsU6gAFTXqhA5wXjohyDbNYd6KKWxzoBKGUs=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YiUrT+pktGNWvga1O26XzYAAVlrCm6uWoNfRI1gwoZmYoroYuEm8LSob1nMnF5wyt
+	 mUjpRLWRkgJKNTq1f9PHDxpclqsFN9UQEqog+7mPvpL1qmhpJBtxdM+uzLWtER8zmv
+	 U73Iy5HQPYBmRWgjzCmU8wJCdSD1RIrU/1JEpILg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8251F8023B;
-	Mon,  7 Feb 2022 18:04:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF1D9F80246;
+	Mon,  7 Feb 2022 18:12:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B602F800E1; Mon,  7 Feb 2022 18:04:02 +0100 (CET)
+ id CA1D8F80240; Mon,  7 Feb 2022 18:12:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from CHE01-ZR0-obe.outbound.protection.outlook.com
- (mail-zr0che01on20701.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:4023::701])
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2241F800E1
- for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 18:03:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2241F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7DDA0F800E1
+ for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 18:12:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DDA0F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
- header.b="hIyF/h5N"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LvG2Eeqw5y9yplG8Yr6wJ9Pg/+q8miqi4QrPv4xo2O4D2x9VFZRgWHQn7FsR3/i63DNDiydQU/7VF0w+/gSSnVFdfx13bxjjkx3Ag2hoDbpz1bQspM+KHs72VbXNP9Fa41Nmn0mGd0XeXUHtulD0WutpeFbuLDjr/orUw8wUzCaraNWsJyZxmkc0xMNbaqPtdd0evrR04I3JsapptQM2hRWZDhcX/1A0OWtFbVEuzj4g7Uo38cuWi9cXNzg1HzY/loVKkmIXgp4E7jvYlF8vcoXorG46Vskt9NWSkgbi0L/SO3XMiqjXe//9PeTBU0EkSrtmOH5Iq4yEIT8JwuAbsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yUMj3mCTCoF5ErCjyxWtfJLf11TdEXFuACUOurOAy2I=;
- b=ackxB7XQFl+emuyVr9tFoYnszHhh145B8PMUt0HV1/LOvvLPZPEcb3/vKNg62kTN8LfbpXG1i9YHbOKGB1cZExlTLsyRhKjlfqER8RrBOVMU3rYsXO0au2j3imZWswbEhKDSaCaBxkFc90VNr+XZRphsxv5/ia0ishqpkZBJ13OHYRmwF67DfWz6UaK3zOrlWKLpFCqmPjIRkzsFxRnbKBWikqrrzdDZrUr4g41Nm6cktQ0UNYTTMmyk6YYdVHDJ5O1ABDSs3ckt/eSEwgo1Uhm4x6o+QTCNB63d11pSoa+qhSNN1HHyggoI1kQjo6ygR8zvm7zQ1ca/qBtZIxFO2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yUMj3mCTCoF5ErCjyxWtfJLf11TdEXFuACUOurOAy2I=;
- b=hIyF/h5NtOeW2sioLMcFiEA2q4JqUrMBOmgs34J05+TN9Z0n3bWUdBSK/lBb30upnSuMYAcEH5tQkke9cSPWQQQZoRQlOCm1hiQwuazhcPjKVpprIRpEwXVSBfIppaKQy3AMR3g2mikxrpey7c36sV04PZWE3l53sfSyyQXzgqo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=toradex.com;
-Received: from ZRAP278MB0642.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:3d::11)
- by ZR0P278MB0715.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:26::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Mon, 7 Feb
- 2022 17:03:53 +0000
-Received: from ZRAP278MB0642.CHEP278.PROD.OUTLOOK.COM
- ([fe80::6c4e:9890:b0f5:6abb]) by ZRAP278MB0642.CHEP278.PROD.OUTLOOK.COM
- ([fe80::6c4e:9890:b0f5:6abb%4]) with mapi id 15.20.4951.018; Mon, 7 Feb 2022
- 17:03:53 +0000
-Date: Mon, 7 Feb 2022 18:03:51 +0100
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v1] ASoC: nau8822: export right speaker inversion
-Message-ID: <20220207170351.GA1217637@francesco-nb.int.toradex.com>
-References: <20220207153229.1285574-1-francesco.dolcini@toradex.com>
- <YgFClQRVX5cX6L3J@sirena.org.uk>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YgFClQRVX5cX6L3J@sirena.org.uk>
-X-ClientProxiedBy: GV0P278CA0022.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:710:28::9) To ZRAP278MB0642.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:3d::11)
+ dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
+ header.b="UbMApB3m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1644253934;
+ x=1675789934;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=rvsi9cl93TqLjGbnJuqfpOw8Ea302qJWH6Ck01IvfIE=;
+ b=UbMApB3md3eaeQPOmZ03GBkLzeT7W9BZqhnt69YJsXfMxDOBFVLoINdS
+ Nb+jODS/GLDu7pjjg4yjmSTHfxMBL0ctG2eSzXCaSF+g2WpiJaH+ixq+o
+ pmCFY7W5NVswrkBR4ruZLT85Xqx96C9L7gbFnDr5+Rm1xaYd9SYsUCagB
+ SFx05TaNnGYT7+sC7VtudHdThfkXConn3JVkK6wqQB/+x4hHEwR8UiCcR
+ w6c4oqCqQcLW5He4tHIv8nNoPB/xThXO3Dv8F4RQCpBpy9L1en8gFy7ef
+ glaoxS5ECaS0jt5hDgg1edhkmNjf1mPrNBt2wLSy8/g3iAXfBYdI3i6M1 Q==;
+Date: Mon, 7 Feb 2022 18:12:06 +0100
+From: Ricard Wanderlof <ricardw@axis.com>
+X-X-Sender: ricardw@lnxricardw1.se.axis.com
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: tlv320adc3xxx: Add IIR filter configuration
+Message-ID: <alpine.DEB.2.21.2202071806580.31604@lnxricardw1.se.axis.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 53c8207b-cc58-43b4-f376-08d9ea5bd19b
-X-MS-TrafficTypeDiagnostic: ZR0P278MB0715:EE_
-X-Microsoft-Antispam-PRVS: <ZR0P278MB0715415C914B52367CC2AD60E22C9@ZR0P278MB0715.CHEP278.PROD.OUTLOOK.COM>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PWn1jlKqEKTeJe7Iew/8vKKfHl9h9VkQQaM9WNn3Q0gw+nM65sWJN1qapwYPfwlSkmMvzv60xWsT7gVnMf4mJQ5fDUI8N7ftFPwwnfX+s8dyeQKzfqRAwFLwcaVnM/oaMFrrLQTlr+1TecAIusxHPhpPbN7v0tAvwZbyg7Wxiu2Khv7pGdgc8+hZBth53w3BudFTtbB8ZWH6V54KB6UO53RovZOsTSnJ4tKqV7s+7bVF0vfwxL2pS4ltgkwZSorAFdzP9nLyqJBtVvhC0rFdiiPH6uqenT6HlkxTWtemipWXzLv1OZpeBqO3I4s9oTHeqiIWsqfftZsR81znZYa93rARMudZBFGVITpf/4nKfEhcSrpaFupfBxLN1e+hFJi3OZK2/eGpU398YchBdsOnGl8C/yIvLqpFAZnRW1MxgpaUA6rnyc9ghOZ9DhJA1HgPxDDH6z6fZu1vJa7QpGt1RsrHTFkj52Q/NuAKNPRuiNIfLJ2aFOnxdI02IpB6oafh78VUbPBq7OQho5N6+3XqjYrM4W6RlfbdPfp+/cMNL0gA2JV3tXGE/+B6mc328k7um74P1bzwfvKA2xaPOvtA7JpUAbfrAHB0lMVRr6vneIxezUwMdeERCFRAzVQSCWoV+leEp7II1fLwrNL7kRoixMphdRXv1A8vJcMqfHQmY3jWLUsAzxpgOvgG4f4gknrIX+c4HLp0j6WaIYSZODl+kA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:ZRAP278MB0642.CHEP278.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(39850400004)(136003)(346002)(396003)(366004)(376002)(316002)(2906002)(66556008)(6916009)(6486002)(38100700002)(54906003)(38350700002)(4744005)(86362001)(4326008)(44832011)(5660300002)(66946007)(8936002)(33656002)(8676002)(6512007)(1076003)(6506007)(52116002)(26005)(186003)(66476007)(508600001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?F1Ns2FypjnZnPIN0Xt2qvzxl+tPj0y2aFLcL47KzTnVW5i17J513m0rZfj83?=
- =?us-ascii?Q?7l0DGKXcOtnqVFacenXRlgaPI3ukVczeppjMEtNlOIw4qbz6uWNmjQqStwNW?=
- =?us-ascii?Q?Ocm8R1+RuGpyTiqt04EqOwZ1XqnGPbCIsBJUZQqaa2RfxqS3KVViyVOVSb4M?=
- =?us-ascii?Q?RuNIzXuIoagUkQi4AF8U8+nHqxlPt0YShGlZGzbhn47y+ZDMoRWNldqAGo/5?=
- =?us-ascii?Q?jrxHXo/8Om6cyJ6N1oV3w/r50ov34PMUUTC6g4Zi6QSg+iX7A7CJ0Rsio7kC?=
- =?us-ascii?Q?biMu7ydr9BhBUBAnjRccfjfhtku4ieqNnmduEa4oWmlVxN6Degly+uauLtfj?=
- =?us-ascii?Q?kmU+lg4a9pYfcfcn70IrlCB0qoB6cQSba5OZTk1wCo2QCC9lbB/XrwDmCrLE?=
- =?us-ascii?Q?D19UETviaK8IgqG6mLx3fU37jEZRUkYiZ5EHBojqJbGA0j84RWAKMTiyyuF/?=
- =?us-ascii?Q?9GMuqNOiPsCWUb5coRt93RQwRuXOOCmyN2d9aLViVIJBunrNKH0kAi9J6PyU?=
- =?us-ascii?Q?I+CYkKukaL/dj0Wj1C6r7qBU5NuWjCv6jb1PJCoGxmHniDiCkFw2iuYAYr6i?=
- =?us-ascii?Q?Bs6ti7RUjzzUk0/isrF26K0R/h4J15gthxGefh9sUfMlRWhWlG9mtyFTdbaJ?=
- =?us-ascii?Q?S34b9usboovytdVE87OvxJYM+BRkIXqmHiWlPCkzwVRFLlKXInlQS2TK60ft?=
- =?us-ascii?Q?6/lXpEGrFCG4uQUWxc997d+0aEP+7O+1p5bDe7dQyUldU7kP0Qf3wZSkzlmh?=
- =?us-ascii?Q?LGFcdAwPbMzvSHpl3h91ymch4pUpKnGZZa3RTqq0t20ay8RIn4FBUmczf5wF?=
- =?us-ascii?Q?ckEtwaKNPLVmT3+ion9oGfOya1ybkB9AScE4xnwlY10mjfje649KqqbQLPPW?=
- =?us-ascii?Q?boCbHniYs/QVIlYziZlLnoKy4mnJNZUawqrZqRwCFCjlNwnHg/zI2T192nu+?=
- =?us-ascii?Q?uPNJ/Mh+YBJ5WI3PwSCeTvjDk7cNh3BRUm2BnvFrMZsMCl0seUKoejmYXjIa?=
- =?us-ascii?Q?Xyt5y5UvufGl/d8dR+gow3WQRf6nNvPp5lOqL67H6pEBVM1YkJUSGL4gG5Ex?=
- =?us-ascii?Q?0Zdila/4leck7xIijJKuU+0J8bQ0dXZqUaIF/bxZeLj4KAYkFxgOF6+tdJMS?=
- =?us-ascii?Q?h6ggLkCV0wZClODZojqH8rqet1OLqa9lVIKG9jDvWvtzMb6bYpWAa2Y7js2A?=
- =?us-ascii?Q?TEt73/0W4G7tPDEVSfMBBy6jwOUGyc4rduPYkJ8WQZtpg+wi0XNEPg2GGfpP?=
- =?us-ascii?Q?B/KHY5N9L+9O/A/OuSgRch5PJ+tnUxuXjb90HspiaE/lsvGHgPEP1mfPlL1b?=
- =?us-ascii?Q?KzJCvHwE3C+9vNFBXgrSlq8I2YXjSFQEzAeU9c2bZvqqFpcZGXUN8xvtk4PX?=
- =?us-ascii?Q?R/VL/hQYhWk4MaBWJkWR4Pb245LPAkQgLnRIwYyd77wFMUNLQXCjFBS5UMTd?=
- =?us-ascii?Q?8bRP/aHnkOGbrbOTmDG2ywkxqFjFoFddYTO2ggJxNWcjSp5sbpP7uGwT7bnJ?=
- =?us-ascii?Q?fp8qKIGRf2/pT1VITN2xRowZxL7kvAOv7Ob3Efr/1LE5zIwTZz31MReo3Y7v?=
- =?us-ascii?Q?z/BpOBP9t7pjs1+RqeieUL3i3foMGi4Z4OkY684YgLvVPclo6zN5mrwfkMhh?=
- =?us-ascii?Q?rwRYGPbwWWBfIBBh6U/8Pb27jyYe5qvzSDU0lGD9xaeTYoSvJfbk8Ff+9XmV?=
- =?us-ascii?Q?CXwFWA=3D=3D?=
-X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53c8207b-cc58-43b4-f376-08d9ea5bd19b
-X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0642.CHEP278.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 17:03:53.0155 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BZ+wLpQnntMpzrV99ko7+sv9OeYdWJYMmqq7ueQnE9/r+7h74Y9eH+3Xvv38ELSMNiPxWJzt0TZ+iSc6ikEovg6QFSV4k+ap8jT3IgJO6xI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR0P278MB0715
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Max Krummenacher <max.krummenacher@toradex.com>,
- Francesco Dolcini <francesco.dolcini@toradex.com>
+Content-Type: text/plain; charset="US-ASCII"
+X-Originating-IP: [10.0.5.60]
+X-ClientProxiedBy: se-mail04w.axis.com (10.20.40.10) To se-mail07w.axis.com
+ (10.20.40.13)
+Cc: alsa-devel <alsa-devel@alsa-project.org>, kernel@axis.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -153,26 +78,240 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Mark,
 
-On Mon, Feb 07, 2022 at 04:02:29PM +0000, Mark Brown wrote:
-> On Mon, Feb 07, 2022 at 04:32:29PM +0100, Francesco Dolcini wrote:
-> > From: Max Krummenacher <max.krummenacher@toradex.com>
-> > 
-> > This control inverts the signal fed to the right amplifier.
-> > This allows to connect one loudspeaker to the two speaker amplifiers
-> > in a bridge-tied load configuration getting higher output power.
-> 
-> Is the value chosen for this not going to be a property of how the board
-> is wired up, in which case it should be handled as a DT property rather
-> than varied at runtime?
+The TLV320ADC3001/3101 have an internal DSP, which can either be
+used in various preset configurations (called "Processing Blocks"
+in the data sheet), or as a freely programmable (using the 
+"PurePath Studio" graphical programming tool from TI) but rather
+small DSP ("miniDSP").
 
-Not really, in our board we do have a L/R loudspeaker connector and the
-end user either connects a mono speaker to the left and right channel
-and enable this control to get more power out of it. Or you can just
-connect a stereo speaker.
+Using the default configuration (PRB_R1) it's possible to set up
+filtering using a first-order IIR, which can be useful for adding
+a digital high pass filter to the signal chain, for instance.
 
-Enabling this control to me does not depend on the board.
+This patch adds support for configuring the IIR filter coefficients.
+The filter itself is always enabled; the default coefficients 
+implement a pass-through function.
 
-Francesco
+Signed-off-by: Ricard Wanderlof <ricardw@axis.com>
+---
+ sound/soc/codecs/tlv320adc3xxx.c | 160 +++++++++++++++++++++++++++++--
+ 1 file changed, 153 insertions(+), 7 deletions(-)
 
+diff --git a/sound/soc/codecs/tlv320adc3xxx.c b/sound/soc/codecs/tlv320adc3xxx.c
+index 4baf3d881633..d0d5206db0c7 100644
+--- a/sound/soc/codecs/tlv320adc3xxx.c
++++ b/sound/soc/codecs/tlv320adc3xxx.c
+@@ -169,6 +169,23 @@
+ #define ADC3XXX_ANALOG_PGA_FLAGS		ADC3XXX_REG(1, 62)
+ /* 63-127 Reserved */
+ 
++/*
++ * Page 4 registers. First page of coefficient memory for the miniDSP.
++ */
++#define ADC3XXX_LEFT_ADC_IIR_COEFF_N0_MSB	ADC3XXX_REG(4, 8)
++#define ADC3XXX_LEFT_ADC_IIR_COEFF_N0_LSB	ADC3XXX_REG(4, 9)
++#define ADC3XXX_LEFT_ADC_IIR_COEFF_N1_MSB	ADC3XXX_REG(4, 10)
++#define ADC3XXX_LEFT_ADC_IIR_COEFF_N1_LSB	ADC3XXX_REG(4, 11)
++#define ADC3XXX_LEFT_ADC_IIR_COEFF_D1_MSB	ADC3XXX_REG(4, 12)
++#define ADC3XXX_LEFT_ADC_IIR_COEFF_D1_LSB	ADC3XXX_REG(4, 13)
++
++#define ADC3XXX_RIGHT_ADC_IIR_COEFF_N0_MSB	ADC3XXX_REG(4, 72)
++#define ADC3XXX_RIGHT_ADC_IIR_COEFF_N0_LSB	ADC3XXX_REG(4, 73)
++#define ADC3XXX_RIGHT_ADC_IIR_COEFF_N1_MSB	ADC3XXX_REG(4, 74)
++#define ADC3XXX_RIGHT_ADC_IIR_COEFF_N1_LSB	ADC3XXX_REG(4, 75)
++#define ADC3XXX_RIGHT_ADC_IIR_COEFF_D1_MSB	ADC3XXX_REG(4, 76)
++#define ADC3XXX_RIGHT_ADC_IIR_COEFF_D1_LSB	ADC3XXX_REG(4, 77)
++
+ /*
+  * Register bits.
+  */
+@@ -373,22 +390,63 @@ static const struct reg_default adc3xxx_defaults[] = {
+ 	{ 180, 0xff },  { 181, 0x00 },  { 182, 0x3f },  { 183, 0xff },
+ 	{ 184, 0x00 },  { 185, 0x3f },  { 186, 0x00 },  { 187, 0x80 },
+ 	{ 188, 0x80 },  { 189, 0x00 },  { 190, 0x00 },  { 191, 0x00 },
++
++	/* Page 4 */
++	{ 1024, 0x00 },			{ 1026, 0x01 },	{ 1027, 0x17 },
++	{ 1028, 0x01 }, { 1029, 0x17 }, { 1030, 0x7d }, { 1031, 0xd3 },
++	{ 1032, 0x7f }, { 1033, 0xff }, { 1034, 0x00 }, { 1035, 0x00 },
++	{ 1036, 0x00 }, { 1037, 0x00 }, { 1038, 0x7f }, { 1039, 0xff },
++	{ 1040, 0x00 }, { 1041, 0x00 }, { 1042, 0x00 }, { 1043, 0x00 },
++	{ 1044, 0x00 }, { 1045, 0x00 }, { 1046, 0x00 }, { 1047, 0x00 },
++	{ 1048, 0x7f }, { 1049, 0xff }, { 1050, 0x00 }, { 1051, 0x00 },
++	{ 1052, 0x00 }, { 1053, 0x00 }, { 1054, 0x00 }, { 1055, 0x00 },
++	{ 1056, 0x00 }, { 1057, 0x00 }, { 1058, 0x7f }, { 1059, 0xff },
++	{ 1060, 0x00 }, { 1061, 0x00 }, { 1062, 0x00 }, { 1063, 0x00 },
++	{ 1064, 0x00 }, { 1065, 0x00 }, { 1066, 0x00 }, { 1067, 0x00 },
++	{ 1068, 0x7f }, { 1069, 0xff }, { 1070, 0x00 }, { 1071, 0x00 },
++	{ 1072, 0x00 }, { 1073, 0x00 }, { 1074, 0x00 }, { 1075, 0x00 },
++	{ 1076, 0x00 }, { 1077, 0x00 }, { 1078, 0x7f }, { 1079, 0xff },
++	{ 1080, 0x00 }, { 1081, 0x00 }, { 1082, 0x00 }, { 1083, 0x00 },
++	{ 1084, 0x00 }, { 1085, 0x00 }, { 1086, 0x00 }, { 1087, 0x00 },
++	{ 1088, 0x00 }, { 1089, 0x00 }, { 1090, 0x00 }, { 1091, 0x00 },
++	{ 1092, 0x00 }, { 1093, 0x00 }, { 1094, 0x00 }, { 1095, 0x00 },
++	{ 1096, 0x00 }, { 1097, 0x00 }, { 1098, 0x00 }, { 1099, 0x00 },
++	{ 1100, 0x00 }, { 1101, 0x00 }, { 1102, 0x00 }, { 1103, 0x00 },
++	{ 1104, 0x00 }, { 1105, 0x00 }, { 1106, 0x00 }, { 1107, 0x00 },
++	{ 1108, 0x00 }, { 1109, 0x00 }, { 1110, 0x00 }, { 1111, 0x00 },
++	{ 1112, 0x00 }, { 1113, 0x00 }, { 1114, 0x00 }, { 1115, 0x00 },
++	{ 1116, 0x00 }, { 1117, 0x00 }, { 1118, 0x00 }, { 1119, 0x00 },
++	{ 1120, 0x00 }, { 1121, 0x00 }, { 1122, 0x00 }, { 1123, 0x00 },
++	{ 1124, 0x00 }, { 1125, 0x00 }, { 1126, 0x00 }, { 1127, 0x00 },
++	{ 1128, 0x00 }, { 1129, 0x00 }, { 1130, 0x00 }, { 1131, 0x00 },
++	{ 1132, 0x00 }, { 1133, 0x00 }, { 1134, 0x00 }, { 1135, 0x00 },
++	{ 1136, 0x00 }, { 1137, 0x00 }, { 1138, 0x00 }, { 1139, 0x00 },
++	{ 1140, 0x00 }, { 1141, 0x00 }, { 1142, 0x00 }, { 1143, 0x00 },
++	{ 1144, 0x00 }, { 1145, 0x00 }, { 1146, 0x00 }, { 1147, 0x00 },
++	{ 1148, 0x00 }, { 1149, 0x00 }, { 1150, 0x00 }, { 1151, 0x00 },
+ };
+ 
+ static bool adc3xxx_volatile_reg(struct device *dev, unsigned int reg)
+ {
+-	switch (reg) {
+-	case ADC3XXX_RESET:
++	if (reg == ADC3XXX_RESET)
+ 		return true;
+-	default:
+-		return false;
+-	}
++
++	/*
++	 * Coefficient RAM registers for miniDSP are marked as volatile
++	 * mainly because they must be written in pairs, so we don't want
++	 * them to be cached. Updates are not likely to occur very often,
++	 * so the performance penalty is minimal.
++	 */
++	if (reg >= ADC3XXX_REG(4, 2) && reg <= ADC3XXX_REG(4, 128))
++		return true;
++
++	return false;
+ }
+ 
+ static const struct regmap_range_cfg adc3xxx_ranges[] = {
+ 	{
+ 		.range_min = 0,
+-		.range_max = 2 * ADC3XXX_PAGE_SIZE,
++		.range_max = 5 * ADC3XXX_PAGE_SIZE,
+ 		.selector_reg = ADC3XXX_PAGE_SELECT,
+ 		.selector_mask = 0xff,
+ 		.selector_shift = 0,
+@@ -410,7 +468,7 @@ static const struct regmap_config adc3xxx_regmap = {
+ 
+ 	.ranges = adc3xxx_ranges,
+ 	.num_ranges = ARRAY_SIZE(adc3xxx_ranges),
+-	.max_register = 2 * ADC3XXX_PAGE_SIZE,
++	.max_register = 5 * ADC3XXX_PAGE_SIZE,
+ };
+ 
+ struct adc3xxx_rate_divs {
+@@ -497,6 +555,83 @@ static int adc3xxx_pll_delay(struct snd_soc_dapm_widget *w,
+ 	return 0;
+ }
+ 
++static int adc3xxx_coefficient_info(struct snd_kcontrol *kcontrol,
++				    struct snd_ctl_elem_info *uinfo)
++{
++	int numcoeff = kcontrol->private_value >> 16;
++
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = numcoeff;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 0xffff; /* all coefficients are 16 bit */
++	return 0;
++}
++
++static int adc3xxx_coefficient_get(struct snd_kcontrol *kcontrol,
++				   struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
++	int numcoeff  = kcontrol->private_value >> 16;
++	int reg = kcontrol->private_value & 0xffff;
++	int index = 0;
++
++	while (index < numcoeff) {
++		unsigned int value_msb, value_lsb, value;
++
++		value_msb = snd_soc_component_read(component, reg++);
++		if ((int)value_msb < 0)
++			return (int)value_msb;
++
++		value_lsb = snd_soc_component_read(component, reg++);
++		if ((int)value_lsb < 0)
++			return (int)value_lsb;
++
++		value = (value_msb << 8) | value_lsb;
++		ucontrol->value.integer.value[index++] = value;
++	}
++
++	return 0;
++}
++
++static int adc3xxx_coefficient_put(struct snd_kcontrol *kcontrol,
++				   struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
++	int numcoeff  = kcontrol->private_value >> 16;
++	int reg = kcontrol->private_value & 0xffff;
++	int index = 0;
++	int ret;
++
++	while (index < numcoeff) {
++		unsigned int value = ucontrol->value.integer.value[index++];
++		unsigned int value_msb = (value >> 8) & 0xff;
++		unsigned int value_lsb = value & 0xff;
++
++		ret = snd_soc_component_write(component, reg++, value_msb);
++		if (ret)
++			return ret;
++
++		ret = snd_soc_component_write(component, reg++, value_lsb);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++/* All on-chip filters have coefficients which are expressed in terms of
++ * 16 bit values, so represent them as strings of 16-bit integers.
++ */
++#define TI_COEFFICIENTS(xname, reg, numcoeffs) { \
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, \
++	.name = xname, \
++	.info = adc3xxx_coefficient_info, \
++	.get = adc3xxx_coefficient_get,\
++	.put = adc3xxx_coefficient_put, \
++	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE, \
++	.private_value = reg | (numcoeffs << 16) \
++}
++
+ static const char * const adc_softstepping_text[] = { "1 step", "2 step", "off" };
+ static SOC_ENUM_SINGLE_DECL(adc_softstepping_enum, ADC3XXX_ADC_DIGITAL, 0,
+ 			    adc_softstepping_text);
+@@ -640,6 +775,17 @@ static const struct snd_kcontrol_new adc3xxx_snd_controls[] = {
+ 	SOC_SINGLE("Right ADC Unselected CM Bias Capture Switch",
+ 		   ADC3XXX_RIGHT_PGA_SEL_2, 6, 1, 0),
+ 	SOC_ENUM("Dither Control DC Offset", dither_dc_offset_enum),
++
++	/* Coefficient memory for miniDSP. */
++	/* For the default PRB_R1 processing block, the only available
++	 * filter is the first order IIR.
++	 */
++
++	TI_COEFFICIENTS("Left ADC IIR Coefficients N0 N1 D1",
++			ADC3XXX_LEFT_ADC_IIR_COEFF_N0_MSB, 3),
++
++	TI_COEFFICIENTS("Right ADC IIR Coefficients N0 N1 D1",
++			ADC3XXX_RIGHT_ADC_IIR_COEFF_N0_MSB, 3),
+ };
+ 
+ /* Left input selection, Single Ended inputs and Differential inputs */
+-- 
+2.20.1
+
+
+-- 
+Ricard Wolf Wanderlof                           ricardw(at)axis.com
+Axis Communications AB, Lund, Sweden            www.axis.com
+Phone +46 46 272 2016                           Fax +46 46 13 61 30

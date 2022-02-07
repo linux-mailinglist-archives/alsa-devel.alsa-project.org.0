@@ -2,82 +2,189 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36C284ABFA2
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 14:29:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADAE24ABFBA
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 14:43:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC8DF17F8;
-	Mon,  7 Feb 2022 14:28:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC8DF17F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EB251740;
+	Mon,  7 Feb 2022 14:43:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EB251740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644240541;
-	bh=4rldWVYjTgzbfH/WViMCBFiBOcBbZ6bC+5zKE0PBCaY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1644241430;
+	bh=VFVYh+0Mx0R2GEbEWurkErG7Zu5djZMXAwy0lgQkj6w=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=stNq74YLGN86M6ofbjkdbmlXmHtzX3yymHEGvS9nTyKu9OMp6IKqr5xFgf/9S0Avi
-	 WyM5L7d1whvVFHsDRgx+ZEZmI/dIB90MrYZPm4lWWzYLa5ZaJ7QMj1OfhNTAAkl/bj
-	 yvVKbumhhYIDCd1WXUB1Wt9ZglixitZ7yVgi8rb0=
+	b=NlG4eZw9p1OKljlGx8aGhqsLyV2bDgV8im2+Zs1cVmXVb44cKo+C++GFrqBb3l0vF
+	 mOMgaItOXW5Yn5DKRePpELcgpLnVeFayDaHNQJSEEkmmM/4JwSmxiFfNUD+53LatoS
+	 UDtBMAK++fTG4m1fzjdlKhr9GGn88x7V8rjYQd9A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C60EF8055B;
-	Mon,  7 Feb 2022 14:24:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4D0CF80249;
+	Mon,  7 Feb 2022 14:42:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0727F80587; Mon,  7 Feb 2022 14:24:33 +0100 (CET)
+ id 75979F800E9; Mon,  7 Feb 2022 14:42:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C576BF8055B
- for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 14:24:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C576BF8055B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7327CF800E9
+ for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 14:42:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7327CF800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="X/mHtQ2M"
+ header.b="F4UDzm6G"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644240271; x=1675776271;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=4rldWVYjTgzbfH/WViMCBFiBOcBbZ6bC+5zKE0PBCaY=;
- b=X/mHtQ2My9rzMWRbOFWx1X53fM+pXlX5LdvILollRdwFBP05MOQmWnne
- Z/O7T+nN5ppdVuHF3HXECy6Gbi0l86W29b3RDC2iMGQ1D9rhF5cHlecxJ
- z1pmlgbQ/A+0+U9hVjxWknw4ubv5gN/Se+bcoOPWDP6/8z5rhFFnQ5051
- TEkLrYQKG5DBsFe5bp+dic9uQa6K5raWwMeXvaAR+Mc1VnAC0z1wHn4B9
- /GerOtGNfQwwNsaVBLgdWLc+GCFuQ0hPGGNxlYyWbQlylTQMdjscYL6Qw
- kqOFaXOGm5p8QjRiyPC45COidNQcquWtJT//sm3k5xvGxFeS47PyJMCxY w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10250"; a="312011636"
-X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="312011636"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2022 05:24:29 -0800
+ t=1644241360; x=1675777360;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=VFVYh+0Mx0R2GEbEWurkErG7Zu5djZMXAwy0lgQkj6w=;
+ b=F4UDzm6GNmx/NN4BZiazaIQ9f6ZvcVhiTsL5o/4xQ5+b4zREqnx9+d0X
+ 5f1uMl1BnPsWuPauvlFfdStKQoDTqNI57t4S0/ptXCtDFrewaGojh8bN+
+ GA2R3ajqvFdQG5Q6tb6ZdORw2g2lumpFoLDEDcv8+fAnd79l7LPP59lkF
+ lTmyVuCk5hTnNC0vowl1ssPtme1BWwY+yfZqxA2BSQFwsLJK/jStoIUPT
+ ws3jv8NMg3LcHFKYpqcYG1JEXqqWUjh8lk4VS13cw8bzCbrjJdZQ+//n2
+ 0cZNtWRbyFS/OUGJx95Hi46xv7BuWGcAE8H1GOevZeBBFfi4XGfYXp4in w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10250"; a="248926950"
+X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="248926950"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2022 05:42:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="677751405"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga001.fm.intel.com with ESMTP; 07 Feb 2022 05:24:26 -0800
+X-IronPort-AV: E=Sophos;i="5.88,349,1635231600"; d="scan'208";a="484423123"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by orsmga006.jf.intel.com with ESMTP; 07 Feb 2022 05:42:35 -0800
+Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Mon, 7 Feb 2022 05:42:35 -0800
+Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
+ fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Mon, 7 Feb 2022 05:42:35 -0800
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20 via Frontend Transport; Mon, 7 Feb 2022 05:42:35 -0800
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.57.44) by
+ edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Mon, 7 Feb 2022 05:42:34 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ncuGwM1MyG9bvqrCpmLoGdVl2b187hCtkXCffGlkH5nsmmGXhZEy1MVexmSP4RnpMCFQP33G/4HK+LWURU99s5Ww8CfKql7k1BPsWDMvRxJO+ZU/XXoPwM+vcZ6h9FefEB7+MCGrTQvGxmze/OI5B1V0ca9Jc2Yp6MIrAYYGSymbmq78MP+hivglfH0TST+HRN/QiL2RK6sKKFWRzExM3SnV8JNioSrkm4whJEe2DM9InqRkeCJ7IdL8j88EZEzEyyFrafYURuIdrNgAAo6sBk9kpOmdxegzgSCxNlzQqUe0gZdIi4hU/Un4GItboEygHDAjUbzIwri8xzkvjS6Byg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9x/wKdvAv5SFB7sBcgpoB1RzgcWifaSqvRWuRpJtODE=;
+ b=GsCKRCzspaNOWoPIPV7iSvG2KFQjbpxO/Ng0RuI3b83KFgx+5tEy3tQZeVILkHuskJAubpPEm1s5y3g20NPSZ54T+VA9MJlndZRcvXh4nKQU+kdDkRmbJJYJU6aG4za0hQp6GA0Jq9RF9kfEWmj5o5C89dNh6RT9AfKFVddmHUksVjDOS8EkKyv2Y4NHcwXad20E5x4KHKCbIlhaP4bliB7kdWV+cMPPxbR473vY/CAvpGKlC/q5jEDOW95vXv76QbEFCYCe71TyVpwAa3hIxnSUy4VgBNz/xfRZqsVwpZw263Wg/Y6BcXxGMp2G89ePDH9zW8rbiSq+N3N419eF5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
+ (2603:10b6:301:51::10) by SN6PR11MB3374.namprd11.prod.outlook.com
+ (2603:10b6:805:c5::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Mon, 7 Feb
+ 2022 13:42:31 +0000
+Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
+ ([fe80::24c3:c14:92a4:22a6]) by MWHPR1101MB2157.namprd11.prod.outlook.com
+ ([fe80::24c3:c14:92a4:22a6%5]) with mapi id 15.20.4951.019; Mon, 7 Feb 2022
+ 13:42:31 +0000
+Message-ID: <b120a683-fdd9-1312-67e4-72b3f32789e4@intel.com>
+Date: Mon, 7 Feb 2022 14:42:22 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.4.1
+Subject: Re: [RFC 00/37] ASoC: Intel: AVS - Audio DSP for cAVS
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+References: <20211208111301.1817725-1-cezary.rojewski@intel.com>
+ <YcXFwTmP6k1Zfbw9@sirena.org.uk>
+ <fecf5a0a-c2b6-f4a0-b4b1-d8243ea324a0@intel.com>
+ <YfQhIoXTkzO9AEQc@sirena.org.uk>
+ <ccb2f9f0-e9fa-3215-f623-bac58b4c9633@intel.com>
+ <YfqYDkXQsyLOzfdp@sirena.org.uk>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [RFC 13/13] ASoC: Intel: avs: Configure modules according to their
- type
-Date: Mon,  7 Feb 2022 14:25:31 +0100
-Message-Id: <20220207132532.3782412-14-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220207132532.3782412-1-cezary.rojewski@intel.com>
-References: <20220207132532.3782412-1-cezary.rojewski@intel.com>
+In-Reply-To: <YfqYDkXQsyLOzfdp@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO2P123CA0088.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:138::21) To MWHPR1101MB2157.namprd11.prod.outlook.com
+ (2603:10b6:301:51::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, rad@semihalf.com,
- upstream@semihalf.com, harshapriya.n@intel.com, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- lma@semihalf.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 33ab1f6c-83e2-4cca-6c85-08d9ea3fb035
+X-MS-TrafficTypeDiagnostic: SN6PR11MB3374:EE_
+X-Microsoft-Antispam-PRVS: <SN6PR11MB337416E41A51A3CA11A17468E32C9@SN6PR11MB3374.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CNwbn0IW+0X9ONV0FbOc+yG6fuO4XD5UyLKhjyaY3ETtEErpYPMKkfnk3YArTZNbMmRWZQeN7Tiw9nClD5XOCmIke2KM4E8CXm09xyDAMNbXTl6wXdi0zkyZkAdwpHXgR/nK/RXg5mz46urvDmZBVvjWH78ghQe/p550nE9Xl/foKgOz+fzgTaKkKwQEQYKKJOU0eg34cczlkbZ6HmsKyfxUIDVAGtwBOBntf9QVQ4pGWj9UpiWX8tXG4RISBHmB/uBucRs8d9vbV6BWJaUf9JaxzkKhIZL4QMUXR+X7OCP0Oi80Lavm51eMFOAjLeUDU2IbMMfbBYC70c9+A7LHm66dprY3UZ/FQwH+IANy93lGBYxXtQ9W/kgT0mHBe/csQRjGiHvRV/OoXRO18Fpnzcr6mNNq0a825z9kmxi7xH0vk+vDeQOAt0rvrq8EmqZTvMdmjM8RMmvQWBhTtHH4g5PPdMi1ktVkvl4xtmQwaC9fW6Hv77O5BOxSkqd23+Gj7ZR9bAsjhm/ut1f7Dx+m8mNGSX3u+tX1e8bVkfM0kangsa+3QW5CFZelUC9oMc0RQsLXNzKMvW+tjMfzYlmC0lJZF3FdqajvygBy3rAcuK2suhol4+98A4PU1/pUrrwTygmH5aw+0d3sNUjub7ajiECOhfuy2wjbsk8GjefgpFh4JLeTovZT6CbJim0JbjwTpGdM56GcUVgmKYrwRCAgC/5KhWFJlgGFoqxQkp7V4Qi+WDIbfVrIpAhnNHDQPSqLz9eBfpPeuZtIkiuGdmCp3L9N62JsEIoaaPqIO/jmOWhCSXOk+nx9FKkhw9rg0iVF
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(366004)(36756003)(38100700002)(6916009)(6666004)(316002)(83380400001)(82960400001)(86362001)(6512007)(44832011)(6486002)(966005)(2616005)(31686004)(7416002)(5660300002)(4326008)(8936002)(2906002)(8676002)(508600001)(186003)(6506007)(26005)(31696002)(66556008)(66476007)(66946007)(53546011)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1Mxa1JUWmE2WVFwOGhtTmtLWkpKaEpkcWY2YUxRTkplenJ6aEhEM05idldE?=
+ =?utf-8?B?SFhhaDlGZVRiazZyVFdNb1UxK1FPY1h3QmFNbTNPU2RJY2Y0anpqMFJ5anRp?=
+ =?utf-8?B?OUhTQmdLZ2VwYUZHWVFpTmlOVFMvUmVOVGZ3TkJJQXpveERKNC83dW5VZGVD?=
+ =?utf-8?B?M1c1M2toK2crTDA1UGx1bC9YSE1abTY3bTNteHUwKzNKM3JFZmVhZ3dwUkFR?=
+ =?utf-8?B?WkErZWlXV01ScTNqN0lTNGNUdEpjSUxsTXlnT0pzUXN1UTI2QStHRTZUQjdp?=
+ =?utf-8?B?b20xcHZCcGw2Y2c2U0RxUlpNZ1orQU8valA2L0ovaHBJdGFDZGpwNGNubFhl?=
+ =?utf-8?B?VHNIdzFxajhNazNpRys0R0h6bEhWRldrMEQ5VVR3NzQzSmNwYVdoODI4ZEx2?=
+ =?utf-8?B?Vld6OUVETEo5WXZFRnl5RlFYRjNrVHhIUDc1K3BWZUpNYjZnYnBYNG9XOGN6?=
+ =?utf-8?B?QWZrYktlUU5JeUlEdFBDOCtGQnk0RFRwQlcyTU14MEtBQXdjdExlbWl6TmNr?=
+ =?utf-8?B?M2xBcjhvVUxBREhWVUNYZTB2dmt6Umoyem1HQ1hPYXUwYUp3S1BOSFFFWFJW?=
+ =?utf-8?B?RjZSMUNMM09jMlducFhXMFc2SUlyZUFRcGMrUHVDaFFCRzI2K0Mxd0YvQjVt?=
+ =?utf-8?B?NDhtcmFXbHM5ZWdGVXlYQVRGWmNHbUVVNE95TTV5RlBXYUV0MVgwT0FaK0lM?=
+ =?utf-8?B?NXhvWDE4cTBIV1hTVmZYbTJjWHlwV01hdHNRMDMwSE1ndGdOQXlGUzdWNzR2?=
+ =?utf-8?B?Z25TUHdqWldZZUJPd3FqZnkvWEg5M05oQjIyV3E0K2FycXVmQ0t3dWJpSkZF?=
+ =?utf-8?B?dmVLVGVrcUxCRFBLQng5bnZKcUdrR1h1d2FIYXd4QVBYUklkUDd3WTJYdzRU?=
+ =?utf-8?B?dGYwMDFYazF6ZzhCejBnc1hqQ3h0VXEzN2VPeG5kVHNjVnhRL2E4djQ5b2lw?=
+ =?utf-8?B?K3NVL1doeFo2bGVYUW9uTE9nUEYwMXRKLzdRZ2VCT3FtUEV6VzBMMVptOTZy?=
+ =?utf-8?B?dE16aHNGMEtCK01TSUdiVmxzSmNwb1YyM050Vnp5YUQ2TWl3ZHJEMTUwQ0NT?=
+ =?utf-8?B?MnVrNFo5MU0zWkxuRXM4SXUxM1NrbHJiaW5KVWliMXJpVG1JSUhXOUozOWFT?=
+ =?utf-8?B?ZjBTcmVWMjBXM1hhSzhvY2c0cURoMUcrZHpabWtrWENOU0M0Y1ZsT3hBS29I?=
+ =?utf-8?B?SmExRGV1bUlSOVI3YjNrRXZaMkt1L25yS0QvWk9RZEdVdE1hSG9OSkFhVzVW?=
+ =?utf-8?B?NXNZUCt3ZTZDV1ByanVqRTFpc2ttK0RZUEFtSDI3bzQ3UE9ITHB0QkkvSTQ4?=
+ =?utf-8?B?RTE2RzNpOTArOEdRQzIwT1dTUjVpRWF6NDlxSjlHVzlZVHV4NU1PSGU1TDdR?=
+ =?utf-8?B?cWNFYkFaenRVUnl2TVl6STlkSnpyNDdYSlZsVGlYaHVaaXpGQWc3T1ZtdmZP?=
+ =?utf-8?B?aW1BVGFqYlp2dkFic01kL1BUT1ZmMEZaTk9yRzlwdGh5UGJXMnVaQlEwbnpW?=
+ =?utf-8?B?dzBZaTd5UGptcVJ4TlRkZ1RQenVGQVlvdFlKZXpNVWN3V25YcnZqWkZYR2Vj?=
+ =?utf-8?B?QWRHSmsvekZDQlQweElhbEJWQlhGMzRudFFDd3E2ZmtKbmNDK0VqaTAyWklC?=
+ =?utf-8?B?MndhL0pQSjhFekEwZkIwWEdMNEFIbjcrNndCaXpuOHlyeUkzOG5JME1LbktL?=
+ =?utf-8?B?UnoxczlrNzZweS9zdXJpN0I2d0JHaGlJK2lmY2xmK0p3NnRrOVNNTDRldGdH?=
+ =?utf-8?B?UzIvM1lydXFYVURMMjFNNExQdEQ3cUt1b0Y5VldUSm52dVMwS3lhcDlWdVJ2?=
+ =?utf-8?B?KzhqaTdDYlEvWEVTOWpIekI4eUg4MVBxT2lRSHhzZ3ltd0JXUkE2cWcxMk83?=
+ =?utf-8?B?SXpoK2dTWmxKU3I0NGkrNmR2SmYxZkFOdzIyYzNNRXBsWkJMUEV3NjQvaW5F?=
+ =?utf-8?B?YUhrUUx1RTVTanJvSyt3YnhCVS9Cc3c2VmlIdlkyUmhPdHJWc0VTcXd1SHB1?=
+ =?utf-8?B?Z3V1Mm9uSk5DMkllNms1ZVQ5cTQ3dXJMc3Z3OWk4cnJPTmtGRFgrS01sd084?=
+ =?utf-8?B?NkE4eXMydEgrWC82QTdqRW4xQzJjdDFlUURYcmpCenRrd3ViTzlMMjU2RjhH?=
+ =?utf-8?B?dnE3WkVjYm5iTGs1ajVWS3BGMklvQXpieG5IbktFYVNPQTZLSWhmekU3elI2?=
+ =?utf-8?B?cjUveU13UmxxZ0JBTHlsYTdTczRsdFU1NDFESXdLUkNQWm42Ky9JMWxEb0J0?=
+ =?utf-8?B?Wk0zU3RsNWQ0L0xBQngyckwrdnJnPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33ab1f6c-83e2-4cca-6c85-08d9ea3fb035
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 13:42:31.3984 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2Zt+PBTvjwCCdM834gRTBadkZByJONBdmS0FWs9LQ0gZYI60IcQIgY1y020eUFHF42r+6Zs3A4kEm8WzB54ZcgAeLTmu6Nbnj+mawuNkEhU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB3374
+X-OriginatorOrg: intel.com
+Cc: alsa-devel@alsa-project.org, upstream@semihalf.com, harshapriya.n@intel.com,
+ yung-chuan.liao@linux.intel.com, rad@semihalf.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ ranjani.sridharan@linux.intel.com, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, peter.ujfalusi@linux.intel.com, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,459 +200,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Each module on DSP side serves a processing purpose. Depending on its
-purpose, it needs different information during its initialization. Add
-functions responsible for creating instances of specific module types
-given the information coming from the topology file.
+On 2022-02-02 3:41 PM, Mark Brown wrote:
+> I don't have an off the shelf answer for you here, like I said half the
+> thing here is to split this out from the rest of the series so it can be
+> considered separately.  The digital domain stuff is obviously key here,
+> the main extra bit for any sort of dynamic DSP routing seems to be
+> working out a way for userspace to set up and remove new paths - that's
+> probably new userspace ABI.  Perhaps that's a runtime thing with initial
+> setup in UCM.  Or perhaps it's better to have something closer to what
+> you have done but split out like topology is so that the bulk of the
+> code is reusable with other firmwares and there's a thinner layer with
+> the firmware specific bits in it.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/Kconfig    |   1 +
- sound/soc/intel/avs/avs.h  |   1 +
- sound/soc/intel/avs/path.c | 378 ++++++++++++++++++++++++++++++++++++-
- sound/soc/intel/avs/path.h |   1 +
- 4 files changed, 380 insertions(+), 1 deletion(-)
+I've re-organized the series and sent three chunks that could be sent 
+immediately, at least in my opinion.
 
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index f0688c3d76a7..b01c492d3514 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -219,6 +219,7 @@ config SND_SOC_INTEL_AVS
- 	select SND_SOC_TOPOLOGY
- 	select SND_HDA_EXT_CORE
- 	select SND_HDA_DSP_LOADER
-+	select SND_INTEL_NHLT
- 	help
- 	  Enable support for Intel(R) cAVS 1.5 platforms with DSP
- 	  capabilities. This includes Skylake, Kabylake, Amberlake and
-diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index 313001b0455f..4da8e16280fc 100644
---- a/sound/soc/intel/avs/avs.h
-+++ b/sound/soc/intel/avs/avs.h
-@@ -92,6 +92,7 @@ struct avs_dev {
- 
- 	struct completion fw_ready;
- 
-+	struct nhlt_acpi_table *nhlt;
- 	struct list_head comp_list;
- 	struct mutex comp_list_mutex;
- 	struct list_head path_list;
-diff --git a/sound/soc/intel/avs/path.c b/sound/soc/intel/avs/path.c
-index b5c0f89add4f..8c5d2672a081 100644
---- a/sound/soc/intel/avs/path.c
-+++ b/sound/soc/intel/avs/path.c
-@@ -113,6 +113,375 @@ avs_path_find_variant(struct avs_dev *adev,
- 	return NULL;
- }
- 
-+__maybe_unused
-+static bool avs_dma_type_is_host(u32 dma_type)
-+{
-+	return dma_type == AVS_DMA_HDA_HOST_OUTPUT ||
-+	       dma_type == AVS_DMA_HDA_HOST_INPUT;
-+}
-+
-+__maybe_unused
-+static bool avs_dma_type_is_link(u32 dma_type)
-+{
-+	return !avs_dma_type_is_host(dma_type);
-+}
-+
-+__maybe_unused
-+static bool avs_dma_type_is_output(u32 dma_type)
-+{
-+	return dma_type == AVS_DMA_HDA_HOST_OUTPUT ||
-+	       dma_type == AVS_DMA_HDA_LINK_OUTPUT ||
-+	       dma_type == AVS_DMA_I2S_LINK_OUTPUT;
-+}
-+
-+__maybe_unused
-+static bool avs_dma_type_is_input(u32 dma_type)
-+{
-+	return !avs_dma_type_is_output(dma_type);
-+}
-+
-+static int avs_copier_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct nhlt_acpi_table *nhlt = adev->nhlt;
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_copier_cfg *cfg;
-+	struct nhlt_specific_cfg *ep_blob;
-+	union avs_connector_node_id node_id = {0};
-+	size_t cfg_size, data_size = 0;
-+	void *data = NULL;
-+	u32 dma_type;
-+	int ret;
-+
-+	dma_type = t->cfg_ext->copier.dma_type;
-+	node_id.dma_type = dma_type;
-+
-+	switch (dma_type) {
-+		struct avs_audio_format *fmt;
-+		int direction;
-+
-+	case AVS_DMA_I2S_LINK_OUTPUT:
-+	case AVS_DMA_I2S_LINK_INPUT:
-+		if (avs_dma_type_is_input(dma_type))
-+			direction = SNDRV_PCM_STREAM_CAPTURE;
-+		else
-+			direction = SNDRV_PCM_STREAM_PLAYBACK;
-+
-+		if (t->cfg_ext->copier.blob_fmt)
-+			fmt = t->cfg_ext->copier.blob_fmt;
-+		else if (direction == SNDRV_PCM_STREAM_CAPTURE)
-+			fmt = t->in_fmt;
-+		else
-+			fmt = t->cfg_ext->copier.out_fmt;
-+
-+		ep_blob = intel_nhlt_get_endpoint_blob(adev->dev,
-+			nhlt, t->cfg_ext->copier.vindex.i2s.instance,
-+			NHLT_LINK_SSP, fmt->valid_bit_depth, fmt->bit_depth,
-+			fmt->num_channels, fmt->sampling_freq, direction,
-+			NHLT_DEVICE_I2S);
-+		if (!ep_blob) {
-+			dev_err(adev->dev, "no I2S ep_blob found\n");
-+			return -ENOENT;
-+		}
-+
-+		data = ep_blob->caps;
-+		data_size = ep_blob->size;
-+		/* I2S gateway's vindex is statically assigned in topology */
-+		node_id.vindex = t->cfg_ext->copier.vindex.val;
-+
-+		break;
-+
-+	case AVS_DMA_DMIC_LINK_INPUT:
-+		direction = SNDRV_PCM_STREAM_CAPTURE;
-+
-+		if (t->cfg_ext->copier.blob_fmt)
-+			fmt = t->cfg_ext->copier.blob_fmt;
-+		else
-+			fmt = t->in_fmt;
-+
-+		ep_blob = intel_nhlt_get_endpoint_blob(adev->dev, nhlt, 0,
-+				NHLT_LINK_DMIC, fmt->valid_bit_depth,
-+				fmt->bit_depth, fmt->num_channels,
-+				fmt->sampling_freq, direction, NHLT_DEVICE_DMIC);
-+		if (!ep_blob) {
-+			dev_err(adev->dev, "no DMIC ep_blob found\n");
-+			return -ENOENT;
-+		}
-+
-+		data = ep_blob->caps;
-+		data_size = ep_blob->size;
-+		/* DMIC gateway's vindex is statically assigned in topology */
-+		node_id.vindex = t->cfg_ext->copier.vindex.val;
-+
-+		break;
-+
-+	case AVS_DMA_HDA_HOST_OUTPUT:
-+	case AVS_DMA_HDA_HOST_INPUT:
-+		/* HOST gateway's vindex is dynamically assigned with DMA id */
-+		node_id.vindex = mod->owner->owner->dma_id;
-+		break;
-+
-+	case AVS_DMA_HDA_LINK_OUTPUT:
-+	case AVS_DMA_HDA_LINK_INPUT:
-+		node_id.vindex = t->cfg_ext->copier.vindex.val |
-+				 mod->owner->owner->dma_id;
-+		break;
-+
-+	case INVALID_OBJECT_ID:
-+	default:
-+		node_id = INVALID_NODE_ID;
-+		break;
-+	}
-+
-+	cfg_size = sizeof(*cfg) + data_size;
-+	/* Every config-BLOB contains gateway attributes. */
-+	if (data_size)
-+		cfg_size -= sizeof(cfg->gtw_cfg.config.attrs);
-+
-+	cfg = kzalloc(cfg_size, GFP_KERNEL);
-+	if (!cfg)
-+		return -ENOMEM;
-+
-+	cfg->base.cpc = t->cfg_base->cpc;
-+	cfg->base.ibs = t->cfg_base->ibs;
-+	cfg->base.obs = t->cfg_base->obs;
-+	cfg->base.is_pages = t->cfg_base->is_pages;
-+	cfg->base.audio_fmt = *t->in_fmt;
-+	cfg->out_fmt = *t->cfg_ext->copier.out_fmt;
-+	cfg->feature_mask = t->cfg_ext->copier.feature_mask;
-+	cfg->gtw_cfg.node_id = node_id;
-+	cfg->gtw_cfg.dma_buffer_size = t->cfg_ext->copier.dma_buffer_size;
-+	/* config_length in DWORDs */
-+	cfg->gtw_cfg.config_length = DIV_ROUND_UP(data_size, 4);
-+	if (data)
-+		memcpy(&cfg->gtw_cfg.config, data, data_size);
-+
-+	mod->gtw_attrs = cfg->gtw_cfg.config.attrs;
-+
-+	ret = avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				  t->core_id, t->domain, cfg, cfg_size,
-+				  &mod->instance_id);
-+	kfree(cfg);
-+	return ret;
-+}
-+
-+static int avs_updown_mix_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_updown_mixer_cfg cfg;
-+	int i;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.out_channel_config = t->cfg_ext->updown_mix.out_channel_config;
-+	cfg.coefficients_select = t->cfg_ext->updown_mix.coefficients_select;
-+	for (i = 0; i < AVS_CHANNELS_MAX; i++)
-+		cfg.coefficients[i] = t->cfg_ext->updown_mix.coefficients[i];
-+	cfg.channel_map = t->cfg_ext->updown_mix.channel_map;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_src_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_src_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.out_freq = t->cfg_ext->src.out_freq;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_asrc_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_asrc_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.out_freq = t->cfg_ext->asrc.out_freq;
-+	cfg.mode = t->cfg_ext->asrc.mode;
-+	cfg.disable_jitter_buffer = t->cfg_ext->asrc.disable_jitter_buffer;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_aec_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_aec_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.ref_fmt = *t->cfg_ext->aec.ref_fmt;
-+	cfg.out_fmt = *t->cfg_ext->aec.out_fmt;
-+	cfg.cpc_lp_mode = t->cfg_ext->aec.cpc_lp_mode;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_mux_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_mux_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.ref_fmt = *t->cfg_ext->mux.ref_fmt;
-+	cfg.out_fmt = *t->cfg_ext->mux.out_fmt;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_wov_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_wov_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.cpc_lp_mode = t->cfg_ext->wov.cpc_lp_mode;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_micsel_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_micsel_cfg cfg;
-+
-+	cfg.base.cpc = t->cfg_base->cpc;
-+	cfg.base.ibs = t->cfg_base->ibs;
-+	cfg.base.obs = t->cfg_base->obs;
-+	cfg.base.is_pages = t->cfg_base->is_pages;
-+	cfg.base.audio_fmt = *t->in_fmt;
-+	cfg.out_fmt = *t->cfg_ext->micsel.out_fmt;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_modbase_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_modcfg_base cfg;
-+
-+	cfg.cpc = t->cfg_base->cpc;
-+	cfg.ibs = t->cfg_base->ibs;
-+	cfg.obs = t->cfg_base->obs;
-+	cfg.is_pages = t->cfg_base->is_pages;
-+	cfg.audio_fmt = *t->in_fmt;
-+
-+	return avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				   t->core_id, t->domain, &cfg, sizeof(cfg),
-+				   &mod->instance_id);
-+}
-+
-+static int avs_modext_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	struct avs_tplg_module *t = mod->template;
-+	struct avs_tplg_modcfg_ext *tcfg = t->cfg_ext;
-+	struct avs_modcfg_ext *cfg;
-+	size_t cfg_size, num_pins;
-+	int ret, i;
-+
-+	num_pins = tcfg->generic.num_input_pins + tcfg->generic.num_output_pins;
-+	cfg_size = sizeof(*cfg) + sizeof(*cfg->pin_fmts) * num_pins;
-+
-+	cfg = kzalloc(cfg_size, GFP_KERNEL);
-+	if (!cfg)
-+		return -ENOMEM;
-+
-+	cfg->base.cpc = t->cfg_base->cpc;
-+	cfg->base.ibs = t->cfg_base->ibs;
-+	cfg->base.obs = t->cfg_base->obs;
-+	cfg->base.is_pages = t->cfg_base->is_pages;
-+	cfg->base.audio_fmt = *t->in_fmt;
-+	cfg->num_input_pins = tcfg->generic.num_input_pins;
-+	cfg->num_output_pins = tcfg->generic.num_output_pins;
-+
-+	/* configure pin formats */
-+	for (i = 0; i < num_pins; i++) {
-+		struct avs_tplg_pin_format *tpin = &tcfg->generic.pin_fmts[i];
-+		struct avs_pin_format *pin = &cfg->pin_fmts[i];
-+
-+		pin->pin_index = tpin->pin_index;
-+		pin->iobs = tpin->iobs;
-+		pin->audio_fmt = *tpin->fmt;
-+	}
-+
-+	ret = avs_dsp_init_module(adev, mod->module_id, mod->owner->instance_id,
-+				  t->core_id, t->domain, cfg, cfg_size,
-+				  &mod->instance_id);
-+	kfree(cfg);
-+	return ret;
-+}
-+
-+static int avs_path_module_type_create(struct avs_dev *adev, struct avs_path_module *mod)
-+{
-+	const guid_t *type = &mod->template->cfg_ext->type;
-+
-+	if (guid_equal(type, &AVS_MIXIN_MOD_UUID) ||
-+	    guid_equal(type, &AVS_MIXOUT_MOD_UUID) ||
-+	    guid_equal(type, &AVS_KPBUFF_MOD_UUID))
-+		return avs_modbase_create(adev, mod);
-+	if (guid_equal(type, &AVS_COPIER_MOD_UUID))
-+		return avs_copier_create(adev, mod);
-+	if (guid_equal(type, &AVS_MICSEL_MOD_UUID))
-+		return avs_micsel_create(adev, mod);
-+	if (guid_equal(type, &AVS_MUX_MOD_UUID))
-+		return avs_mux_create(adev, mod);
-+	if (guid_equal(type, &AVS_UPDWMIX_MOD_UUID))
-+		return avs_updown_mix_create(adev, mod);
-+	if (guid_equal(type, &AVS_SRCINTC_MOD_UUID))
-+		return avs_src_create(adev, mod);
-+	if (guid_equal(type, &AVS_AEC_MOD_UUID))
-+		return avs_aec_create(adev, mod);
-+	if (guid_equal(type, &AVS_ASRC_MOD_UUID))
-+		return avs_asrc_create(adev, mod);
-+	if (guid_equal(type, &AVS_INTELWOV_MOD_UUID))
-+		return avs_wov_create(adev, mod);
-+
-+	if (guid_equal(type, &AVS_PROBE_MOD_UUID)) {
-+		dev_err(adev->dev, "Probe module can't be instantiated by topology");
-+		return -EINVAL;
-+	}
-+
-+	return avs_modext_create(adev, mod);
-+}
-+
- static void avs_path_module_free(struct avs_dev *adev, struct avs_path_module *mod)
- {
- 	kfree(mod);
-@@ -124,7 +493,7 @@ avs_path_module_create(struct avs_dev *adev,
- 		       struct avs_tplg_module *template)
- {
- 	struct avs_path_module *mod;
--	int module_id;
-+	int module_id, ret;
- 
- 	module_id = avs_get_module_id(adev, &template->cfg_ext->type);
- 	if (module_id < 0)
-@@ -139,6 +508,13 @@ avs_path_module_create(struct avs_dev *adev,
- 	mod->owner = owner;
- 	INIT_LIST_HEAD(&mod->node);
- 
-+	ret = avs_path_module_type_create(adev, mod);
-+	if (ret) {
-+		dev_err(adev->dev, "module-type create failed: %d\n", ret);
-+		kfree(mod);
-+		return ERR_PTR(ret);
-+	}
-+
- 	return mod;
- }
- 
-diff --git a/sound/soc/intel/avs/path.h b/sound/soc/intel/avs/path.h
-index 04a06473f04b..197222c5e008 100644
---- a/sound/soc/intel/avs/path.h
-+++ b/sound/soc/intel/avs/path.h
-@@ -38,6 +38,7 @@ struct avs_path_pipeline {
- struct avs_path_module {
- 	u16 module_id;
- 	u16 instance_id;
-+	union avs_gtw_attributes gtw_attrs;
- 
- 	struct avs_tplg_module *template;
- 	struct avs_path_pipeline *owner;
--- 
-2.25.1
+HDA bits and IPC protocol plus code loading make the first two and are 
+probably least important for the current discussion.
 
+Two patches that target topology parsing and path management have been 
+split into total of 13 patches and sent as an RFC [1]. This should help 
+in further discussion, extracting the framework-friendly bits and 
+possibly shaping the new framework interface.
+
+[1]: 
+https://lore.kernel.org/alsa-devel/20220207132532.3782412-1-cezary.rojewski@intel.com/T/#t
+
+
+Regards,
+Czarek

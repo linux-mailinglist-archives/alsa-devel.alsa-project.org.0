@@ -2,95 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 122E44AC8A1
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Feb 2022 19:33:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB2E4ACF82
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Feb 2022 04:14:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A940185E;
-	Mon,  7 Feb 2022 19:32:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A940185E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 423031720;
+	Tue,  8 Feb 2022 04:13:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 423031720
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644258828;
-	bh=4AkJhKcTG1eAcSCAESumZzfpHv2pBQn/dIfra0MV2zw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qtbRXwasvMbjHcmjNp29LtCQnCTRWsuEpgdm40N/7eDNURlNcpfykpK9U25DVhsD7
-	 BtYuRb97oruMyWINdpLpl2FkVl1Kp1bbMzqYxPNMCCOrpQqEvwZaNC6kUuA9hHUYws
-	 ji7qt+OVqbF3PvowwLfc9+97OYU0bySt4yKmjB30=
+	s=default; t=1644290082;
+	bh=rxS8dDC4zafXfN6Nj23MYMKYfReVrqhGsZ8HfulDj7o=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Nhc70LpF0v3TDfOPvupmPjuwuuSvHlppUWAbLr8vOxVy58E/MsfsYJ60f56SYPBg9
+	 C8SAQ4y5UgYsseurkSqIxlp4NLp+lhQ36UrVKbIP0IPdw8KFQV0yUC3ZkaPMPctpgr
+	 uSCTiK6G3YPEagVp6tuCwEiogGn+ycAD3qL9rOBk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14C4FF800E9;
-	Mon,  7 Feb 2022 19:32:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96216F800F0;
+	Tue,  8 Feb 2022 04:13:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29A05F80240; Mon,  7 Feb 2022 19:32:39 +0100 (CET)
+ id B8153F8013C; Tue,  8 Feb 2022 04:13:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
+ [IPv6:2607:f8b0:4864:20::b4a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D238F800E9
- for <alsa-devel@alsa-project.org>; Mon,  7 Feb 2022 19:32:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D238F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8809AF800F0
+ for <alsa-devel@alsa-project.org>; Tue,  8 Feb 2022 04:13:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8809AF800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="Dj8tHg/5"
-Received: by mail-io1-xd2a.google.com with SMTP id d188so18001808iof.7
- for <alsa-devel@alsa-project.org>; Mon, 07 Feb 2022 10:32:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=lHF1VpH0DQWDH5n7whaT5A/13tsAV04BQTsvPAisIH0=;
- b=Dj8tHg/5t1JB+owhj2ZjiEZL01octdxE8ToKWyyO+Mc27jiSIyo4407/YMOcfmzSnt
- p17FI0FIsTEzmPy2Y5xTPdNLD097MXmh1K+EyMfe5VjMNf1/JZ3EH0bidk6DQhir9imY
- vQWBjEHVY4rmWu/aXT0leiUl8vc/d8lFpNc4M=
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="LRooLhjf"
+Received: by mail-yb1-xb4a.google.com with SMTP id
+ 2-20020a251302000000b006118f867dadso32765514ybt.12
+ for <alsa-devel@alsa-project.org>; Mon, 07 Feb 2022 19:13:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=AIZ/knnwAKeb/BKuZaLULYu/UPf7imccggwpo1VmmoU=;
+ b=LRooLhjfDEzbuItD6IuJxZtuFd26gy99kjvMR6fLnHJe5dJr66zdonhVpSyoBXoFG1
+ zfRPUxZGwOw25mdUxklh9s+EUPyUDJ75Vb1CdWTLTZsfU7GK05kBLH7MPuPoC1ujna/H
+ FIitNTZshopGp7U/Oj54x9chdeILa5PJg0gUpzn8CoiKew8B7Mzol01sLojS7LmXT6ui
+ Il68t5PWrfcrMRGy6256bhpt8HKmW/K2K+Kt+t3xIzXn1QOIlJYjYaGFV5CiPk17YXB2
+ KE00qodHkjqzfvEBOOTU6m1WsHdRd+anCIUXIYsYb9ztIoUhI07zvNkuYKqkBMiID1uY
+ 5Hqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=lHF1VpH0DQWDH5n7whaT5A/13tsAV04BQTsvPAisIH0=;
- b=pRz6SBVm97BTA9kqlRC6+Ljgm9RjDOV9lbUPTu+1PbTIzKovqQde37PFSTLkEoePDA
- qqAOuIOVQ940cqxhBwQMf43PEvF6i40KLyRVwGIbBYdrVRHIE4BtYcJPYwqha+jM523L
- 7Z0smFXhO8CLT+WbbCJIhCLOxUY+UXbImntpiq00lndv0GveDEuxysxfCZj2o8hrSUnk
- av7A+7sNkG6Jybo2uZwjB27+izu4UlPucPZfJ8nFmDOBdm41mjS7cSqz2P6qNe4RHRTV
- 4MsPlu5PU9+CeW84G3f9iD/RWYcB5TVl5ozSQNkkrnerXovGhubLE//qo3+EIPPk8qN/
- Yong==
-X-Gm-Message-State: AOAM530om6sYkl5mFtoT+glTfNgUB+UTXgfFde0gvHn66Mgg07z/Xaai
- 8S3AXmFA+Ei1M+6MjFDTngRLZA==
-X-Google-Smtp-Source: ABdhPJwAi7OgegFLvzLu3DSbiMS8FE+D6rNCLKTStU8ZEgIomXfkDkIRujGcZ3DVxw92MTT9otWwPQ==
-X-Received: by 2002:a5e:c20b:: with SMTP id v11mr398967iop.197.1644258753611; 
- Mon, 07 Feb 2022 10:32:33 -0800 (PST)
-Received: from [192.168.1.128] ([71.205.29.0])
- by smtp.gmail.com with ESMTPSA id c11sm1632610iln.56.2022.02.07.10.32.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Feb 2022 10:32:33 -0800 (PST)
-Subject: Re: [PATCH][next] kselftest: alsa: fix spelling mistake "desciptor"
- -> "descriptor"
-To: Colin Ian King <colin.i.king@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shuah Khan <shuah@kernel.org>, alsa-devel@alsa-project.org,
- linux-kselftest@vger.kernel.org
-References: <20220207092235.240284-1-colin.i.king@gmail.com>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <3c47e21f-45de-1bd1-a547-225b3ef0ebc0@linuxfoundation.org>
-Date: Mon, 7 Feb 2022 11:32:31 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-MIME-Version: 1.0
-In-Reply-To: <20220207092235.240284-1-colin.i.king@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=AIZ/knnwAKeb/BKuZaLULYu/UPf7imccggwpo1VmmoU=;
+ b=yX5z9LzDURrx/wf0KvApC6gHwF58oOOP7HPjcRasEpJ0r+5mshaXSoLkSINfKqrr9W
+ YtvODbK3d+Q74qm6LJFVqHO6ePkYeCtm2utI5CrqNIaI4qJtiJnicP0w2nfhH+LaJI7G
+ +8uAALAyEjWdir5SLS9S5juD3lRX6OVnJooM3zhTxmDakJcdh+iSN3R5kqDLRo5M7dF6
+ /2nXlaZL0C4VWIirH+NecCp33QHkwejg/Xv9MSp+rNIdBu9szxkJYKEQ2a5xL/Zz4hqK
+ 1J+nsKoz7Xekikp0Qq7RFzn6KWCVDfL53PobakdjTrsLK8+M/py1b8CmpQd6iD17E9f5
+ sVrQ==
+X-Gm-Message-State: AOAM533EkoN/wcyLFWiM9wy9VytYeUibHtHHVvaOvnfgZjDPSBEkqhJk
+ w+EEoYXQ3eNR6PcsDJyXL7hbfXk1Abji
+X-Google-Smtp-Source: ABdhPJzzFjsZhO0447mYnQrzEUxP6u2E7S74KuYeOZ8nSpGEuuSAJs0p+hEcd5fdvF05cSubltgQWz3J3tIV
+X-Received: from tzungbi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:d041:828a:7048:cfc9])
+ (user=tzungbi job=sendgmr) by 2002:a81:a781:: with SMTP id
+ e123mr3110938ywh.63.1644290005913; Mon, 07 Feb 2022 19:13:25 -0800 (PST)
+Date: Tue,  8 Feb 2022 11:12:42 +0800
+Message-Id: <20220208031242.227563-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.35.0.263.gb82422642f-goog
+Subject: [PATCH] MAINTAINERS: update cros_ec_codec maintainers
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org, cychiang@chromium.org, bleung@chromium.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org,
+ chrome-platform@lists.linux.dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,20 +94,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/7/22 2:22 AM, Colin Ian King wrote:
-> There are some spelling mistakes in some ksft messages. Fix them.
-> 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> ---
->   tools/testing/selftests/alsa/mixer-test.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
+Updates cros_ec_codec maintainers.
 
-Looks good to me. If it goes through sounds tree:
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
+ .../devicetree/bindings/sound/google,cros-ec-codec.yaml          | 1 +
+ MAINTAINERS                                                      | 1 +
+ 2 files changed, 2 insertions(+)
 
-Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
-
-thanks,
--- Shuah
-
+diff --git a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+index 77adbebed824..c3e9f3485449 100644
+--- a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
++++ b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+@@ -8,6 +8,7 @@ title: Audio codec controlled by ChromeOS EC
+ 
+ maintainers:
+   - Cheng-Yi Chiang <cychiang@chromium.org>
++  - Tzung-Bi Shih <tzungbi@google.com>
+ 
+ description: |
+   Google's ChromeOS EC codec is a digital mic codec provided by the
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 568152aa9973..a1f4fd15e770 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4573,6 +4573,7 @@ F:	drivers/platform/chrome/
+ 
+ CHROMEOS EC CODEC DRIVER
+ M:	Cheng-Yi Chiang <cychiang@chromium.org>
++M:	Tzung-Bi Shih <tzungbi@google.com>
+ R:	Guenter Roeck <groeck@chromium.org>
+ L:	chrome-platform@lists.linux.dev
+ S:	Maintained
+-- 
+2.35.0.263.gb82422642f-goog
 

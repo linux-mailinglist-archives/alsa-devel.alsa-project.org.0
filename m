@@ -2,67 +2,141 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 308BD4AD831
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Feb 2022 13:15:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0885D4AD837
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Feb 2022 13:18:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3F6F16FE;
-	Tue,  8 Feb 2022 13:15:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3F6F16FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EE83174B;
+	Tue,  8 Feb 2022 13:18:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EE83174B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644322555;
-	bh=jIk/BE1mxNOFD8lbIJ5kHJ3c9C57V8qajNoNjPU1lRg=;
-	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JL5r2LIpEIPqXX63ZLi/5W2c79lI7w8ToPN2q4vZC/9xyogBr+x3IAgD9EQPSsJhO
-	 bHyctWup6x31Yz19d8BsF+ouQp9u6twK5GDCqIDIUexDSik3oLxi35WGTXXv20kC7r
-	 K9o1j9zBACLvaxdhKFk7ZMxZBOXqGoWNE3cdoPTM=
+	s=default; t=1644322736;
+	bh=qWAWOKsAqaK07GysBFSzRuXAxTGYBeS6QyqdwUjcHE8=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Z0O4zWJVuK1oOqi8TnRPNe5KXYw8FhOAwoLlBd1bMAU1e0TcAHmPBc6xjzMXYGbYK
+	 kzCQ5hpJ7Wkd20SZNNxdP/btXDfsJEMRg86dOjzPYltZqPMsUzdXjQoATLZZMnyx8c
+	 oMLMxTN9MtYW7J8dmtbUcv8f8WjYf0r9S6oD8Y5w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10E01F8012B;
-	Tue,  8 Feb 2022 13:14:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB0CBF800E1;
+	Tue,  8 Feb 2022 13:17:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5643AF8013C; Tue,  8 Feb 2022 13:14:48 +0100 (CET)
+ id DD0DBF8013C; Tue,  8 Feb 2022 13:17:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=NICE_REPLY_A,PRX_BODY_135,
- PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on0630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0d::630])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA209F800F0
- for <alsa-devel@alsa-project.org>; Tue,  8 Feb 2022 13:14:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA209F800F0
-Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
- helo=[192.168.66.200]); authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1nHPON-00026R-MF; Tue, 08 Feb 2022 13:14:43 +0100
-Message-ID: <e4d45921-ebe2-a06a-5f86-eac981d75e8d@leemhuis.info>
-Date: Tue, 8 Feb 2022 13:14:43 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6AD1F800F0
+ for <alsa-devel@alsa-project.org>; Tue,  8 Feb 2022 13:17:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6AD1F800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
+ header.i=@NXP1.onmicrosoft.com header.b="FC6K9Xe0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UdMmAKY/OCXTJMaUuuFnzPHwBQdNE2Cz0fffXIwUMh1JCUb42NszijgWs0W1Erc+oSS6NumgaLq5GHvK1IF5zdvAGX8qxhq+uprJ1NxlBNAfdvHxLmmXdF40GTUqMdtcW3q4gdK2nzf02CAkiO4gRlFgiyHNO00qKPDe1/rgf/G5NaI2P7mRhoIn9sEzaCAMJYBLV0v177LRai1XQCsBf4fmHu+T6s/9oBWcVx34TZv3Ra7XvHvn3g4eMAOlmWAArUPSge76bryXLgrTyhtPPZJn7sc4YJL3r4dmb6HAmPC760aGZhr2NnIG6BoW/pFo6/FYqH+OEtwut954IPbrPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jehz2CGQ/78gH5W6bQj7gRfwRkj1JZMXA4L762ITIXc=;
+ b=lZuDh9VrgJzfTZtFgnE3poFP2FXrSfc7kn3rnDQiLxkupzs4URxxOiQbkrnisQq66ec0okI52eLLFe6iJS+QSPdz9Ha3+xSJt3zBPbHCXvw25YqSpIAx2wYEwSVljx0DlPBr6TSIVcfiTADxYInEMz7XnePmfyTWDPDEqh7vNZy32ifDXJlJV0jp+8I4Uhx1AQvjXQ/FhMx36b8mFCEF/9zcITxCYtj6Jrz9Kmn9N1lxCuw6GOXWkDrCAUZ4QhpTUn2EMGjwu1ALQ9N/9KxybECBo9AxMJ/pNXgLdi7MUV1vd+6m55EFwcIaWu0aovYjkbcUBVOMI/7q3kV/iwBX+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector2-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jehz2CGQ/78gH5W6bQj7gRfwRkj1JZMXA4L762ITIXc=;
+ b=FC6K9Xe0vC+xjEn6tAn95NZdFydA/1dwLZE4j1dUeF3d2U06/AeqG6zinmKoZXq6vPhPc0zgFAkpFWkT7V0a27KT9jelERK9RbUpyaZ5pvbTFFzPv8C3Pebq7rrsN0ErP8kQonHiKTlJy6DFzHRLqRrNtQPaVgc7SFK63Dp/2cQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR04MB5005.eurprd04.prod.outlook.com (2603:10a6:803:57::30)
+ by PAXPR04MB8301.eurprd04.prod.outlook.com (2603:10a6:102:1c5::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19; Tue, 8 Feb
+ 2022 12:17:37 +0000
+Received: from VI1PR04MB5005.eurprd04.prod.outlook.com
+ ([fe80::acb8:bd1e:d125:8259]) by VI1PR04MB5005.eurprd04.prod.outlook.com
+ ([fe80::acb8:bd1e:d125:8259%4]) with mapi id 15.20.4951.017; Tue, 8 Feb 2022
+ 12:17:37 +0000
+From: "Viorel Suman (OSS)" <viorel.suman@oss.nxp.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@freescale.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Viorel Suman <viorel.suman@nxp.com>,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: codec: wm8960: complete discharge on BIAS OFF->STANDBY
+Date: Tue,  8 Feb 2022 14:17:27 +0200
+Message-Id: <20220208121727.4461-1-viorel.suman@oss.nxp.com>
+X-Mailer: git-send-email 2.26.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VI1PR07CA0226.eurprd07.prod.outlook.com
+ (2603:10a6:802:58::29) To VI1PR04MB5005.eurprd04.prod.outlook.com
+ (2603:10a6:803:57::30)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: Bug 215561 - snd-usb-audio:reset_resume error -22 after suspend
- (fwd from bugzilla)
-Content-Language: en-BS
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <a8100c3d-007e-3207-7dc1-92849f638d71@leemhuis.info>
-In-Reply-To: <a8100c3d-007e-3207-7dc1-92849f638d71@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1644322486;
- 03dea8a9; 
-X-HE-SMSGID: 1nHPON-00026R-MF
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7adaf6bb-0bfa-4989-65c4-08d9eafcfe8a
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8301:EE_
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-Microsoft-Antispam-PRVS: <PAXPR04MB83018F0596BAC61D9C73D4B8D32D9@PAXPR04MB8301.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OOSzTEbdhg6LJbwyS10LhO1TviSBY7ErJNtoLMXTnf/fLrAKi1V5FW94jqZZYUblnqi6fGGJMTH5Y/o6dOzEC785efrMkpIynC3QDOzMGV4GlWSYFl7hlKl89gKunVeSvOGIK6jKSb/F1XIZ31YC8oIelhadXTyGivOY1vnkLtOaSLt1DvqUX0ocd6wznMD8tS6hgRZ/AToGiGU5yQML/cQQAOh1fm15yCr+tx8Ygma+DzZw/oBJjPs4Agu/hIkTqEG3Soh5D5yLGHhB538xK3ySaP1/ae727Kq/rCA3HKcR2HDeV6cNpDQ4I+MuBH9PgI540J+WxKZEx0PmiAW00GHG4+UkZ1V4SgUGYD3CB60LWx3LUbponObm8idbUoOV8Zg01X3m4bAKYMl8CYK2SYQw1Yb2OQHHWnCV4NvIP5/Zze33m8r7KF6n4Pk1QVCYr+aM2z2IXS0SGeGGyh/YLIarL/4kDWGpnhDX1X10QvN9axvgz3OHRq6oAFFnP/EMi8thUwg1MqdCbl8mpslZV0FmJbA8wrCMidlqoVkjL9OTgwTaiKbD7QMJPHhco46u6mNnJeKPSNJaU/p74MPJLtSbt+0gK0hWYR3/5yXJeh+XhcT5Ef6NGQpyCAekKcBffQmD6XIW+CfknCBGR0rIdJBIMEksxECLrHMB2wT0L1QCIw/er+zR8pMDD7egahOxGNYIWFelur/lI9+IWVL4i/t8nm8krdqf7fa5ILkcL1Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB5005.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(186003)(1076003)(6506007)(316002)(26005)(508600001)(6486002)(83380400001)(52116002)(2616005)(2906002)(86362001)(6666004)(8676002)(8936002)(66946007)(66556008)(66476007)(110136005)(6512007)(38350700002)(38100700002)(921005)(5660300002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0IF+Pkw0vvYQdLysxzUMX4tU2BlekP/Qowj4t25m7/jcw5JCjntPXoZ66itp?=
+ =?us-ascii?Q?i51nOdKlxT7wvkAqTyOtwheSFCTWyg3+Ub1MtcZL6fyvqxnsxpi93oyvWkfT?=
+ =?us-ascii?Q?Un+Ig+XBKnuoj0M9ijFB4o+Q+iJj2bnwaCHGtVRWD443IyEbU3h0ojSXgYn0?=
+ =?us-ascii?Q?6XLMLZdNlqHbUa0jsIrp3KAN8mVc2yYKcCFsB+0ISIQUh4I/7+7POTvF+CIs?=
+ =?us-ascii?Q?qYE8C2bQ/nXQv+ZcfPn2r6jLJGFYDNiGgciZlxWSVhdA/2uItLs4iRYEjDFu?=
+ =?us-ascii?Q?De1gM/YI6J36zg8bDUl4u8j1QWCXHoVDqWGb0pB8idDg4iaSkNrhiNXJXm2h?=
+ =?us-ascii?Q?48ERuA7ukfWdzIXfieMJ4J/KuYqM98rlZa3vjIK4S4DSKqplytGM6N4dvUTq?=
+ =?us-ascii?Q?oxev5Sn4hsriVXc8ULF6uIw9u5h+Be4MAaDtWuBcXX11W2qTFy/W2CeefqHX?=
+ =?us-ascii?Q?KWdENYf1J4eSoV2zz6c03BoeUSrYeaiH6P6xbzqCu8I0D42O4jOA4pgYa3qN?=
+ =?us-ascii?Q?NOfZWt8snBMc4HDxmJiPxC/3Cv7o1cuvCcomkYILj25NT2zTjDhjj03GHGSu?=
+ =?us-ascii?Q?f78XNV0V1gUovMOwJb0KtBsWOsDHbw/KT4+PZEPVBfZKVvgSOO/l0sJ3jc6L?=
+ =?us-ascii?Q?hskhBcaLvNRcVKs+PA0XFedpIJeprnaavLpv7Qk8zS+HSzKReVDzeJdl5YF9?=
+ =?us-ascii?Q?qrozeJlhoWwbqLm28U/BOyt2WXcWNJrHLhpuaBDrNloPXxouttVuAw5ZSTZz?=
+ =?us-ascii?Q?Exk+q0lozAB5qA61LPigIp8ZUq7Iw4RbfKCD6Bh9J9VKLZZoAbnlSlrFr8pe?=
+ =?us-ascii?Q?NRoVQovcYtcLBDhWv2KXN4srSiebe6Nv6Uy5kbds8VSYspqNUXF0EGyTy3H6?=
+ =?us-ascii?Q?ZQ4F3re+7BKuxKVtgEE3Td8H+q6PzI74qZxrojTp15NZyen3kCl9RvCvvW5R?=
+ =?us-ascii?Q?5JD0HljZ58tgtLStBRIhImeSHZx+8aeHBz8uLQsfQUJ2ve3Qzv2GU5bavK1h?=
+ =?us-ascii?Q?Ltpfu0nN2atimAe3Z+9tGNtyPQ1mkRGz56pGaow3AXYCDUw4AsHuebLJbF71?=
+ =?us-ascii?Q?BkMqS8FgwPmn/KtdqQ4eiCdkukr++djK+V3F45ZqHK3+BE8OniSHLodZqArg?=
+ =?us-ascii?Q?0/ilRthKjKffKRtXd8fAKRul3y0wuEYKSpW8K6jJD/G+H1R9V3C7MUu6Gveu?=
+ =?us-ascii?Q?ZUWM9fKR+0sHKi29EvIk+atiNFxRclvXk6WabsL8I0ZwqU9niVKyR/23hhlM?=
+ =?us-ascii?Q?4Ldp1JErD+qseY4XFjFwAkZGUR0yXc8j0VMDsCOP2HsWHg2pEqXlhIyS1O3N?=
+ =?us-ascii?Q?VIgJUEmVmZlmEayAEMyEWXLLV0aY7QPUIbkbMn/wOisOuH9fK3XwWeabDktE?=
+ =?us-ascii?Q?ldWW+xwd90wsf9e7Jl8mLFeogLBO4cso91hc9FDsYW7hVYLNFxWPzChrjqTP?=
+ =?us-ascii?Q?g9pmrxpewwxTpF+U0C9pl2hXINVHy0agwiI/odQwbbydL1N481iIfLWWGM/N?=
+ =?us-ascii?Q?bkoJG+7CHHSMykU78eeTm7+XrlnmMy48lVtHSczaO/DM5Cs4hOxOFI0bCtxl?=
+ =?us-ascii?Q?qvP0Tf0mSpx//F947Fceenz15kQpVPa0x6OvTvqDRcnq7qKbVf3up+YfjAUp?=
+ =?us-ascii?Q?2b1E2sl0x0KuJmjYdqY5cJ8=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7adaf6bb-0bfa-4989-65c4-08d9eafcfe8a
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5005.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2022 12:17:37.5589 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DU0k1w1dTVMB0+KahZTV0Cw8FhNvLL0i04geWu1/nMScb4a2q0vhP/rwVCHngCHjvc8dDy6WnKs87mw6EAGtcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8301
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,113 +152,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, this is your Linux kernel regression tracker speaking.
+From: Viorel Suman <viorel.suman@nxp.com>
 
-Top-posting for once, to make this easy accessible to everyone.
+On BIAS STANDBY->OFF transition the current implementation sleeps
+600ms on suspend in order to discharge the chip. The suspend is
+propagated from "snd_soc_suspend" call for all audio cards in a
+serial fashion, thus in case of boards like i.MX8DXL EVK which has
+3 distinct WM8960 codecs the total cumulated sleep on suspend is 1.8
+seconds.
 
-Below issue is one of those those reports that seem to get stranded in
-bugzilla.kernel.org
+On the other hand the BIAS OFF->STANDBY transition happens
+asynchronously with regard to "snd_soc_resume" - the call is
+propagated from "soc_resume_deferred" which is just scheduled
+from "snd_soc_resume", each card having its own work scheduled to
+execute "soc_resume_deferred" call.
 
-Greg, Jaroslav, Takashi, could one of you please take a look? The
-reporter submitted it as USB bug, but maybe that wasn't a wise choice.
+The patch performs discharge completion on BIAS OFF->STANDBY transition
+so that the cumulated effect on suspend described above is avoided
+and discharge is completed in paralel in case of multiple WM8960
+codecs on the board.
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+---
+ sound/soc/codecs/wm8960.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-P.S.: As the Linux kernel's regression tracker I'm getting a lot of
-reports on my table. I can only look briefly into most of them and lack
-knowledge about most of the areas they concern. I thus unfortunately
-will sometimes get things wrong or miss something important. I hope
-that's not the case here; if you think it is, don't hesitate to tell me
-in a public reply, it's in everyone's interest to set the public record
-straight.
+diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
+index 75de6a81465df..b7a2246184e08 100644
+--- a/sound/soc/codecs/wm8960.c
++++ b/sound/soc/codecs/wm8960.c
+@@ -45,6 +45,8 @@
+ #define WM8960_DISOP     0x40
+ #define WM8960_DRES_MASK 0x30
+ 
++#define WM8960_DSCH_TOUT	600 /* discharge timeout, ms */
++
+ static bool is_pll_freq_available(unsigned int source, unsigned int target);
+ static int wm8960_set_pll(struct snd_soc_component *component,
+ 		unsigned int freq_in, unsigned int freq_out);
+@@ -133,6 +135,7 @@ struct wm8960_priv {
+ 	int freq_in;
+ 	bool is_stream_in_use[2];
+ 	struct wm8960_data pdata;
++	ktime_t dsch_start;
+ };
+ 
+ #define wm8960_reset(c)	regmap_write(c, WM8960_RESET, 0)
+@@ -898,6 +901,7 @@ static int wm8960_set_bias_level_out3(struct snd_soc_component *component,
+ 	struct wm8960_priv *wm8960 = snd_soc_component_get_drvdata(component);
+ 	u16 pm2 = snd_soc_component_read(component, WM8960_POWER2);
+ 	int ret;
++	ktime_t tout;
+ 
+ 	switch (level) {
+ 	case SND_SOC_BIAS_ON:
+@@ -944,6 +948,11 @@ static int wm8960_set_bias_level_out3(struct snd_soc_component *component,
+ 
+ 	case SND_SOC_BIAS_STANDBY:
+ 		if (snd_soc_component_get_bias_level(component) == SND_SOC_BIAS_OFF) {
++			/* ensure discharge is complete */
++			tout = WM8960_DSCH_TOUT - ktime_ms_delta(ktime_get(), wm8960->dsch_start);
++			if (tout > 0)
++				msleep(tout);
++
+ 			regcache_sync(wm8960->regmap);
+ 
+ 			/* Enable anti-pop features */
+@@ -973,9 +982,9 @@ static int wm8960_set_bias_level_out3(struct snd_soc_component *component,
+ 			     WM8960_POBCTRL | WM8960_SOFT_ST |
+ 			     WM8960_BUFDCOPEN | WM8960_BUFIOEN);
+ 
+-		/* Disable VMID and VREF, let them discharge */
++		/* Disable VMID and VREF, mark discharge */
+ 		snd_soc_component_write(component, WM8960_POWER1, 0);
+-		msleep(600);
++		wm8960->dsch_start = ktime_get();
+ 		break;
+ 	}
+ 
+-- 
+2.26.3
 
-#regzbot poke
-
-On 03.02.22 15:59, Thorsten Leemhuis wrote:
-> Hi, this is your Linux kernel regression tracker speaking.
-> 
-> There is a regression in bugzilla.kernel.org I'd like to add to the
-> tracking:
-> 
-> #regzbot introduced: v5.15..v5.16
-> #regzbot from: antifermion@protonmail.com <antifermion@protonmail.com>
-> #regzbot title: snd: usb: snd-usb-audio:reset_resume error -22 after suspen
-> #regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=215561
-> 
-> Quote:
-> 
->> If I use the microphone, then suspend and wake up again, I get the error
->>
->> ```
->> snd-usb-audio 1-5:1.0: reset_resume error -22
->> ```
->>
->> Aftewards, audio stops working completely. Both pipewire and pulseaudio (tried both; not at the same time) freeze.
->>
->> After running
->>
->> ```
->> rmmod -f snd_usb_audio
->> ```
->>
->> and replugging the microphone, audio works again.
->> Here is the relevant log:
->>
->> ```
->> [  157.791937] usbcore: deregistering interface driver snd-usb-audio
->> [  228.517855] usb 1-5: USB disconnect, device number 2
->> [  236.464334] usb 1-5: new high-speed USB device number 3 using xhci_hcd
->> [  236.798863] usb 1-5: New USB device found, idVendor=0d8c, idProduct=0171, bcdDevice= 1.04
->> [  236.798867] usb 1-5: New USB device strings: Mfr=3, Product=1, SerialNumber=0
->> [  236.798869] usb 1-5: Product: USB 2.0 HD Audio
->> [  236.798871] usb 1-5: Manufacturer: C-Media Electronics Inc.
->> [  236.826966] input: C-Media Electronics Inc. USB 2.0 HD Audio Consumer Control as /devices/pci0000:00/0000:00:01.3/0000:02:00.0/usb1/1-5/1-5:1.3/0003:0D8C:0171.000B/input/input40
->> [  236.878380] input: C-Media Electronics Inc. USB 2.0 HD Audio as /devices/pci0000:00/0000:00:01.3/0000:02:00.0/usb1/1-5/1-5:1.3/0003:0D8C:0171.000B/input/input41
->> [  236.878447] hid-generic 0003:0D8C:0171.000B: input,hiddev96,hidraw2: USB HID v1.11 Device [C-Media Electronics Inc. USB 2.0 HD Audio] on usb-0000:02:00.0-5/input3
->> [  242.306593] usbcore: registered new interface driver snd-usb-audio
->>
->> ```
->>
->> I'm running Arch Linux (5.16.4.arch1-1). The linux-lts kernel (5.15.18-1) works fine.
->>
->> Other uses report the same error: https://bbs.archlinux.org/viewtopic.php?id=273469
-> 
-> Ciao, Thorsten (wearing his 'Linux kernel regression tracker' hat)
-> 
-> P.S.: As a Linux kernel regression tracker I'm getting a lot of reports
-> on my table. I can only look briefly into most of them. Unfortunately
-> therefore I sometimes will get things wrong or miss something important.
-> I hope that's not the case here; if you think it is, don't hesitate to
-> tell me about it in a public reply, that's in everyone's interest.
-> 
-> BTW, I have no personal interest in this issue, which is tracked using
-> regzbot, my Linux kernel regression tracking bot
-> (https://linux-regtracking.leemhuis.info/regzbot/). I'm only posting
-> this mail to get things rolling again and hence don't need to be CC on
-> all further activities wrt to this regression.
-> 
-> ---
-> Additional information about regzbot:
-> 
-> If you want to know more about regzbot, check out its web-interface, the
-> getting start guide, and/or the references documentation:
-> 
-> https://linux-regtracking.leemhuis.info/regzbot/
-> https://gitlab.com/knurd42/regzbot/-/blob/main/docs/getting_started.md
-> https://gitlab.com/knurd42/regzbot/-/blob/main/docs/reference.md
-> 
-> The last two documents will explain how you can interact with regzbot
-> yourself if your want to.
-> 
-> Hint for reporters: when reporting a regression it's in your interest to
-> tell #regzbot about it in the report, as that will ensure the regression
-> gets on the radar of regzbot and the regression tracker. That's in your
-> interest, as they will make sure the report won't fall through the
-> cracks unnoticed.
-> 
-> Hint for developers: you normally don't need to care about regzbot once
-> it's involved. Fix the issue as you normally would, just remember to
-> include a 'Link:' tag to the report in the commit message, as explained
-> in Documentation/process/submitting-patches.rst
-> That aspect was recently was made more explicit in commit 1f57bd42b77c:
-> https://git.kernel.org/linus/1f57bd42b77c

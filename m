@@ -2,179 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A9794AEDA6
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 10:09:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C8E4AEDAE
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 10:10:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC3F318A4;
-	Wed,  9 Feb 2022 10:08:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC3F318A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id D07D318A9;
+	Wed,  9 Feb 2022 10:09:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D07D318A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644397787;
-	bh=arWyuKrgF6+HTy5MGGr9g1ZYG3YqGe+bpPoKBhwDtjY=;
+	s=default; t=1644397814;
+	bh=iQ+/UanXs/ytqCKrnJ+MylBsqkW5v+Irsw5nOpPkZYs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qj/Kg5x9hP5ygwJ8pJWWMlbR5NV+E6PdObHWCOlslxTA5UINpgcp+K+CnbVddfmbm
-	 KZ6Y6ciRtk+V15s7ZNDt8LjU6rgUk5X2ShqkIJGfmENDyIGpcRnpN2K6Cr0wZTWzwI
-	 EnYNApwR04/VVM+bWosd3lmLmjhHiV8l0lUZ2KRw=
+	b=h6jczCiHSVom6nZKBw+3VwfTWAep4momg/m+GDXROslqR6tfbEO0rdN07hOzbFgCQ
+	 QvTsmF4X2zQNp7dGAHajYfH932OYwZ/N4c2nUmeQa6Hs6lu4fNWtLNP/nhWZEgHzhR
+	 Z8ihiBBJsJdVwsWPy1qaIixWD4DZspufHF9likF4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2B05F804FF;
-	Wed,  9 Feb 2022 10:08:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49AEFF80518;
+	Wed,  9 Feb 2022 10:08:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FB63F8013C; Tue,  8 Feb 2022 14:40:03 +0100 (CET)
+ id D656DF800EB; Tue,  8 Feb 2022 20:22:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FSL_HELO_FAKE,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1824EF800EB
- for <alsa-devel@alsa-project.org>; Tue,  8 Feb 2022 14:39:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1824EF800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BC8EF8012B
+ for <alsa-devel@alsa-project.org>; Tue,  8 Feb 2022 20:22:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BC8EF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iRcMxm2N"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1172D60B28;
- Tue,  8 Feb 2022 13:39:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BA8C340E9;
- Tue,  8 Feb 2022 13:39:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1644327596;
- bh=arWyuKrgF6+HTy5MGGr9g1ZYG3YqGe+bpPoKBhwDtjY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iRcMxm2NinrxP0/dQodYfHh7RziJJ6SzP7mzdIkPqhMs3k5TCjS1XddxBIZiBLRWe
- fwsdHqkyllv+f+u1X7HW1pRH236O9WBWXThRFXUZ3DGcllJJyj+jpn8NGzuMduVmt2
- VH9+3pdfzFM+wiZ3119U215A3SNS6eM4zENnhzdV2JsEUAIyTv0hA+0xyYGATs+knD
- eiR0PPJyCdHewwzmyv7KEe+xE2Y45P468g1Y7LTuTiliKkMrJXkeMtFJ3bAd55MtPd
- phoE2FDW40WGRPJHyNd45b9VSjxZK9ZOanjsJLzazKAr+DS4Zf4rcVtyQzybCN9V04
- WOeQ8tXUTVsFw==
-Date: Tue, 8 Feb 2022 13:39:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH 5/5] spi: make remove callback a void function
-Message-ID: <YgJyiiLqLu44MWF1@sirena.org.uk>
-References: <20220123175201.34839-1-u.kleine-koenig@pengutronix.de>
- <20220123175201.34839-6-u.kleine-koenig@pengutronix.de>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="gx78wvcP"
+Received: by mail-pf1-x430.google.com with SMTP id b3so156035pfg.7
+ for <alsa-devel@alsa-project.org>; Tue, 08 Feb 2022 11:22:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=UHiwMBQmec+N97KOodr45Eaci5XXOZ3CLvB0wqnkTBE=;
+ b=gx78wvcP/xtx3ixA17CLVN/xPosDin1SvP8cuPUl9t7+Isj1i4xCuOrL8bNPqlRk6f
+ UxzlnfsQsqVMqRs0ZFndxsx8oqHyVfeo/GaoganJhPIq5Yd7V3X3zMl+mWNMdH2vYDHt
+ GH0LkO/uR0DcU2Cw3kJzvGQjqsxMlJDPzV+Ccwd1Qs6GzrRlvOqgRZbl7NNngQTQme7a
+ Qsx4ZoEnYQ37GqttUEYiZzt0N4x+HOR64le3cDDWLc97YLOtc2RL+ujle3mCdA5eF8OD
+ t2Q1u9vscurRBeR9F2yjvNiglcgizvTuwtEeoLXQcqC0N8SzrUSm/6JKh0hYZzfGeNg3
+ inyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=UHiwMBQmec+N97KOodr45Eaci5XXOZ3CLvB0wqnkTBE=;
+ b=Iucc0rSEMEYBN6ComO4vI482CoZSMkkpQeuC8dl4WvnTTYBiya8GvGwV1QbACKkv2G
+ j7syjTJx7Eq8Lcgkl/m4YwQzhJqJ9Qdfy5cY12vpc05hSQfBqYgDO2/DemLdxy8qH2Mj
+ oU4eYFVEmrDMdC0OmQnSBL+SHnaZ+1J4w+gxO72dlZG9ZzWVAsWdlBfPUWDWZ1ojcWXv
+ 98wCS3/rz7HdOEz6xXaydAvRRjwOjdZL3OBN6ch+gLdOcrYCwwmp4vM8MDPC1k0xps38
+ TmtPMyDUnfrzo7/2Jln+UbelPMQuP2Fviiq8IELI92MpTA1kXbjGcF+qAFpU7m02001s
+ jr5Q==
+X-Gm-Message-State: AOAM532Ol0IxJblnaS3fBVkTglcJcU0Izf1vmi7tTrZz9dZBZpfwXQOT
+ 04rVQ64dZCw34N6xoU95pw88Pw==
+X-Google-Smtp-Source: ABdhPJxFxBU745usl8AxFr3QNQAJI/ZY9KReUb3512zMvSEe5Py8g1mdXbC4+YNZT9bhRqbS97B0Xw==
+X-Received: by 2002:a05:6a00:1150:: with SMTP id
+ b16mr5846653pfm.57.1644348153059; 
+ Tue, 08 Feb 2022 11:22:33 -0800 (PST)
+Received: from google.com ([2620:15c:202:201:8e00:959f:eb2f:89fc])
+ by smtp.gmail.com with ESMTPSA id p4sm277853pgh.53.2022.02.08.11.22.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Feb 2022 11:22:31 -0800 (PST)
+Date: Tue, 8 Feb 2022 11:22:26 -0800
+From: Benson Leung <bleung@google.com>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Subject: Re: [PATCH] MAINTAINERS: update cros_ec_codec maintainers
+Message-ID: <YgLC8trl9L30Ofwn@google.com>
+References: <20220208031242.227563-1-tzungbi@google.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ef2aNFzDYnZC/zcG"
+ protocol="application/pgp-signature"; boundary="EYCneR3bHevFCBY0"
 Content-Disposition: inline
-In-Reply-To: <20220123175201.34839-6-u.kleine-koenig@pengutronix.de>
-X-Cookie: You will forget that you ever knew me.
+In-Reply-To: <20220208031242.227563-1-tzungbi@google.com>
 X-Mailman-Approved-At: Wed, 09 Feb 2022 10:08:04 +0100
-Cc: Andrew Lunn <andrew@lunn.ch>, Gwendal Grignou <gwendal@chromium.org>,
- Yasunari Takiguchi <Yasunari.Takiguchi@sony.com>, Claudius Heine <ch@denx.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Nanyong Sun <sunnanyong@huawei.com>, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org,
- Frieder Schrempf <frieder.schrempf@kontron.de>, Pavel Machek <pavel@ucw.cz>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Christian Lamparter <chunkeey@googlemail.com>,
- Ajay Singh <ajay.kathat@microchip.com>, linux-clk@vger.kernel.org,
- Stefan Schmidt <stefan@datenfreihafen.org>, Sidong Yang <realwakka@gmail.com>,
- libertas-dev@lists.infradead.org, linux-omap@vger.kernel.org,
- Antti Palosaari <crope@iki.fi>, Guenter Roeck <linux@roeck-us.net>,
- Jean Delvare <jdelvare@suse.com>, linux-serial@vger.kernel.org,
- =?utf-8?Q?=C5=81ukasz?= Stelmach <l.stelmach@samsung.com>,
- Mark Tomlinson <mark.tomlinson@alliedtelesis.co.nz>,
- James Schulman <james.schulman@cirrus.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Zhang Qilong <zhangqilong3@huawei.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Michael Walle <michael@walle.cc>,
- Noralf =?iso-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mtd@lists.infradead.org,
- Andrew Morton <akpm@linux-foundation.org>, Vladimir Oltean <olteanv@gmail.com>,
- linux-wpan@vger.kernel.org, Claudiu Beznea <claudiu.beznea@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Dan Robertson <dan@dlrobertson.com>, Markuss Broks <markuss.broks@gmail.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>, David Airlie <airlied@linux.ie>,
- linux-wireless@vger.kernel.org, Marco Felsch <m.felsch@pengutronix.de>,
- David Rhodes <david.rhodes@cirrus.com>,
- Thierry Reding <thierry.reding@gmail.com>, Solomon Peachy <pizza@shaftnet.org>,
- Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>,
- Jiri Slaby <jirislaby@kernel.org>, Helge Deller <deller@gmx.de>,
- Tudor Ambarus <tudor.ambarus@microchip.com>,
- Minghao Chi <chi.minghao@zte.com.cn>, Jon Hunter <jonathanh@nvidia.com>,
- dingsenjie <dingsenjie@yulong.com>, Heiko Schocher <hs@denx.de>,
- Wolfgang Grandegger <wg@grandegger.com>, Matt Kline <matt@bitbashing.io>,
- Woojung Huh <woojung.huh@microchip.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Mike Looijmans <mike.looijmans@topic.nl>,
- Ronald =?iso-8859-1?Q?Tschal=E4r?= <ronald@innovation.ch>,
- Daniel Thompson <daniel.thompson@linaro.org>,
- Maxime Ripard <mripard@kernel.org>, linux-can@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Hans de Goede <hdegoede@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
- Davidlohr Bueso <dbueso@suse.de>, UNGLinuxDriver@microchip.com,
- Jarkko Sakkinen <jarkko@kernel.org>, linux-usb@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-integrity@vger.kernel.org,
- Jonathan Cameron <jic23@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-staging@lists.linux.dev,
- linux-iio@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- alsa-devel@alsa-project.org, Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- netdev@vger.kernel.org, Wei Yongjun <weiyongjun1@huawei.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- =?iso-8859-1?B?Suly9G1l?= Pouiller <jerome.pouiller@silabs.com>,
- linux-rtc@vger.kernel.org, Marcus Folkesson <marcus.folkesson@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Aditya Srivastava <yashsri421@gmail.com>,
- Varka Bhadram <varkabhadram@gmail.com>, wengjianfeng <wengjianfeng@yulong.com>,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>,
- Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
- Mark Greer <mgreer@animalcreek.com>, Mark Gross <markgross@kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-fbdev@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
- Stefan =?iso-8859-1?Q?M=E4tje?= <stefan.maetje@esd.eu>,
- linux-hwmon@vger.kernel.org, Felipe Balbi <balbi@kernel.org>,
- Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Julia Lawall <Julia.Lawall@inria.fr>,
- Yang Li <yang.lee@linux.alibaba.com>, Dan Carpenter <dan.carpenter@oracle.com>,
- patches@opensource.cirrus.com, Kent Gustavsson <kent@minoris.se>,
- "David S. Miller" <davem@davemloft.net>,
- Charles-Antoine Couret <charles-antoine.couret@nexvision.fr>,
- Alexander Aring <alex.aring@gmail.com>, Jiri Prchal <jiri.prchal@aksignal.cz>,
- Vignesh Raghavendra <vigneshr@ti.com>, Emma Anholt <emma@anholt.net>,
- Peter Zijlstra <peterz@infradead.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alexandru Ardelean <ardeleanalex@gmail.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>, Peter Huewe <peterhuewe@gmx.de>,
- Torin Cooper-Bennun <torin@maxiluxsystems.com>,
- Lee Jones <lee.jones@linaro.org>, linux-leds@vger.kernel.org,
- Eric Piel <eric.piel@tremplin-utc.net>, Stephan Gerhold <stephan@gerhold.net>,
- Richard Weinberger <richard@nod.at>, Russell King <linux@armlinux.org.uk>,
- Jason Gunthorpe <jgg@ziepe.ca>, Thomas Kopp <thomas.kopp@microchip.com>,
- Jakub Kicinski <kuba@kernel.org>, Vivien Didelot <vivien.didelot@gmail.com>,
- platform-driver-x86@vger.kernel.org, Stefan Wahren <stefan.wahren@i2se.com>,
- Xue Liu <liuxuenetmail@gmail.com>, David Lechner <david@lechnology.com>,
- Will Deacon <will@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Kalle Valo <kvalo@kernel.org>, Rui Miguel Silva <rmfrfs@gmail.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Harry Morris <h.morris@cascoda.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>,
- Alessandro Zummo <a.zummo@towertech.it>, Yang Shen <shenyang39@huawei.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Takashi Iwai <tiwai@suse.com>,
- Cai Huoqing <caihuoqing@baidu.com>, Daniel Mack <daniel@zonque.org>,
- Daniel Vetter <daniel@ffwll.ch>, Colin Ian King <colin.king@intel.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Alan Ott <alan@signal11.us>
+Cc: chrome-platform@lists.linux.dev, alsa-devel@alsa-project.org,
+ broonie@kernel.org, bleung@chromium.org, cychiang@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -191,38 +104,72 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---ef2aNFzDYnZC/zcG
-Content-Type: text/plain; charset=iso-8859-1
+--EYCneR3bHevFCBY0
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jan 23, 2022 at 06:52:01PM +0100, Uwe Kleine-K=F6nig wrote:
-> The value returned by an spi driver's remove function is mostly ignored.
-> (Only an error message is printed if the value is non-zero that the
-> error is ignored.)
+Hi Tzung-Bi,
+
+On Tue, Feb 08, 2022 at 11:12:42AM +0800, Tzung-Bi Shih wrote:
+> Updates cros_ec_codec maintainers.
 >=20
-> So change the prototype of the remove function to return no value. This
-> way driver authors are not tempted to assume that passing an error to
-> the upper layer is a good idea. All drivers are adapted accordingly.
-> There is no intended change of behaviour, all callbacks were prepared to
-> return 0 before.
+> Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 
-I was going to apply this but it needs rebasing against current code
-unfortunately.
+Acked-By: Benson Leung <bleung@chromium.org>
 
---ef2aNFzDYnZC/zcG
+> ---
+>  .../devicetree/bindings/sound/google,cros-ec-codec.yaml          | 1 +
+>  MAINTAINERS                                                      | 1 +
+>  2 files changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/sound/google,cros-ec-codec=
+=2Eyaml b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+> index 77adbebed824..c3e9f3485449 100644
+> --- a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+> +++ b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+> @@ -8,6 +8,7 @@ title: Audio codec controlled by ChromeOS EC
+> =20
+>  maintainers:
+>    - Cheng-Yi Chiang <cychiang@chromium.org>
+> +  - Tzung-Bi Shih <tzungbi@google.com>
+> =20
+>  description: |
+>    Google's ChromeOS EC codec is a digital mic codec provided by the
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 568152aa9973..a1f4fd15e770 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4573,6 +4573,7 @@ F:	drivers/platform/chrome/
+> =20
+>  CHROMEOS EC CODEC DRIVER
+>  M:	Cheng-Yi Chiang <cychiang@chromium.org>
+> +M:	Tzung-Bi Shih <tzungbi@google.com>
+>  R:	Guenter Roeck <groeck@chromium.org>
+>  L:	chrome-platform@lists.linux.dev
+>  S:	Maintained
+> --=20
+> 2.35.0.263.gb82422642f-goog
+>=20
+
+--=20
+Benson Leung
+Staff Software Engineer
+Chrome OS Kernel
+Google Inc.
+bleung@google.com
+Chromium OS Project
+bleung@chromium.org
+
+--EYCneR3bHevFCBY0
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmICcokACgkQJNaLcl1U
-h9DmcQf+LJZ969n1sCqmHKwy4lQ2Pxdy53x61CG2xi4rHMBDaahnhIqh6OONUbd+
-C69P1GRsp8evXqnMb8d4TH1pFPvi3X7mWWwRFhXalhZsYYw/b3jmnQNO7zN81ayi
-80hp04WF+UE2A+FJhiN9n9i47vM4FEBcuKxNp9AZNSxwiTfVHUoHAF3UddqF0oAo
-hThmCBaRZYCQ9dCX1glz8vfrfXVIqRVx30esuamogMGtZbM5bSDoPizzdk83trN4
-pfd594g2DUBkpQBHZvadCjp92MBULn5nNnlF5Ob5PAmP1T0NUVsTu7Ra/ZJTnUNb
-GfkUNfSvLNah+a6BUd3Jp6LazHu9Ew==
-=bpX2
+iHUEABYKAB0WIQQCtZK6p/AktxXfkOlzbaomhzOwwgUCYgLC8gAKCRBzbaomhzOw
+wjivAQCm86EOuf8EiBIvum7dUEufsdutArt9C3zy92ghKFaZ9wEAplKUR8Y8Dc5y
+Tb+P00hCjfI6CLzKw/3JiokxIu4sEww=
+=XJ8Z
 -----END PGP SIGNATURE-----
 
---ef2aNFzDYnZC/zcG--
+--EYCneR3bHevFCBY0--

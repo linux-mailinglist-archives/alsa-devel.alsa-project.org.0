@@ -2,96 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 636924ADB4D
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Feb 2022 15:37:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD4884ADBFF
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Feb 2022 16:09:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFA0F16F5;
-	Tue,  8 Feb 2022 15:36:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFA0F16F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40F7F16E7;
+	Tue,  8 Feb 2022 16:08:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40F7F16E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644331047;
-	bh=qsWdiitj+zS6k13GjuGMqcEYcLMLgbvNKTa4o7Y6zrY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1644332942;
+	bh=Psk1ZLqh0UmevxZEu2HWDv2B9PaVEyoi99nYlDcN5bk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bRjUdDPQhwuHpK2Jn7G74oMADKgSunuM3GjzVUpPlXbdbjRrWWMaqNojh1ysRd2iD
-	 uqaU+NkK64LNZkwmzJIofF8DbAyq0WfmEOQkp/O62FDazIFS6Fa3k9PMiKJwsP/l3P
-	 QwXGxniTjOZ5rGILvkMBRMUXG4L7pk3JkosZnGrk=
+	b=ER2ZL+wTiNG5yJplOkHZpXHoE69MfU71CCaAfA7EzoyCwcstMbXm2fXinfZTENST+
+	 koZ31yB8iJSBnk0pex/EKmhp1u/XyLeBX1B8ke7KIpbedvaUxAtFbN2jGM6KSuQ15G
+	 IKXhSBq3s3mwKORXqbdeV53XWAz3gRoVnChl/hKk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AC24F80154;
-	Tue,  8 Feb 2022 15:36:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E0ECF8015B;
+	Tue,  8 Feb 2022 16:07:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F779F8013C; Tue,  8 Feb 2022 15:36:15 +0100 (CET)
+ id EA9F0F8013C; Tue,  8 Feb 2022 16:07:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F9B1F800F0
- for <alsa-devel@alsa-project.org>; Tue,  8 Feb 2022 15:36:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F9B1F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E800F800F0
+ for <alsa-devel@alsa-project.org>; Tue,  8 Feb 2022 16:07:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E800F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="r6Lri+jQ"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="CRndj1fB"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 7FE7D1F383;
- Tue,  8 Feb 2022 14:36:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1644330968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=w7gtMUxuaQuez2p2NU0gwYSVzb8SS4pccG2VoclEwiU=;
- b=r6Lri+jQ6r2ENsII3Twwv2v1c/rAfwZszxD5OD02T5ZJ4frY4hodngTm1x8GhLZ/qWuob6
- h4ijemgWAIO0Fu0FK7k1qrxB/kkimN9/5zLbUnylqWd9ven3McXdZvoc3XIgTyq0JCR+hn
- EpP3EbNTkoAVysoxEaU67BOPLB92jiE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1644330968;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=w7gtMUxuaQuez2p2NU0gwYSVzb8SS4pccG2VoclEwiU=;
- b=CRndj1fBDXkEUsIDlWAUljevzY4lcwsl2B7HIRc2Lbasoqci228NUdYBaH5n9DLDVJnq0T
- aApLS2vqaCg1r7Dw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 37069A3B85;
- Tue,  8 Feb 2022 14:36:08 +0000 (UTC)
-Date: Tue, 08 Feb 2022 15:36:08 +0100
-Message-ID: <s5h4k59s9wn.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Sergeyev <sergeev917@gmail.com>
-Subject: Re: [PATCH 1/4] ALSA: hda/realtek: fix mute/micmute LEDs for HP 855 G8
-In-Reply-To: <s5htudk9cn3.wl-tiwai@suse.de>
-References: <s5ha6fy46jt.wl-tiwai@suse.de>
- <20220114183720.n46wealclg6spxkp@localhost.localdomain>
- <s5hsftp3027.wl-tiwai@suse.de>
- <20220115152215.kprws5nja2i43qax@localhost.localdomain>
- <s5hilugw0l0.wl-tiwai@suse.de>
- <20220119093249.eaxem33bjqjxcher@localhost.localdomain>
- <20220122190522.ycaygrqcen7d3hj2@localhost.localdomain>
- <20220122205637.7gzurdu7xl4sthxw@localhost.localdomain>
- <s5ho83yldu3.wl-tiwai@suse.de>
- <20220129144704.xlmeylllvy3b3fum@localhost.localdomain>
- <20220130111020.44gzrm5ckrakjta2@localhost.localdomain>
- <s5htudk9cn3.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- Huacai Chen <chenhuacai@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Jian-Hong Pan <jhp@endlessos.org>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="epXTRJKM"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6F8A0B81B97;
+ Tue,  8 Feb 2022 15:07:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98D2C004E1;
+ Tue,  8 Feb 2022 15:07:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1644332869;
+ bh=Psk1ZLqh0UmevxZEu2HWDv2B9PaVEyoi99nYlDcN5bk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=epXTRJKMg3TdD2CrQP41zs9bWglTCNWIZKOanGKLS/4N7Fq5u7k5lwd8O7L33yNvt
+ cWIEkyoBSAMbcmM+0BslJOs3EKzsJDzd2R7FNIY8oQXrH9/YUH6IOSVplePNoiT7lZ
+ VK7EDqqSjlHi6fnuISrAfeBIJu2o6w4jh1tSV7PuJmq28Z+iFYP8MvEJVYn671AOaG
+ 8Jpr5Of8yH11OCZjpqHZ7Z7EIbIHbTYEaJ/3CIZIeiCYbgEObINpqNmMsxPPejJjar
+ JNifvLa4/kr79MLys530o6M1vL+acdekAKpHsTBAl+9leVROqZ4XRLjU5Ayj0WeL2r
+ m4i/SkVCsJCaw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Martin Povišer <povik+lin@cutebit.org>
+In-Reply-To: <20220204095301.5554-1-povik+lin@cutebit.org>
+References: <20220204095301.5554-1-povik+lin@cutebit.org>
+Subject: Re: [PATCH v2] ASoC: tas2770: Insert post reset delay
+Message-Id: <164433286760.2964899.3613770196974272763.b4-ty@kernel.org>
+Date: Tue, 08 Feb 2022 15:07:47 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Frank Shi <shifu0704@thundersoft.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ye Bin <yebin10@huawei.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,106 +86,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 31 Jan 2022 15:57:04 +0100,
-Takashi Iwai wrote:
+On Fri, 4 Feb 2022 10:53:01 +0100, Martin Povišer wrote:
+> Per TAS2770 datasheet there must be a 1 ms delay from reset to first
+> command. So insert delays into the driver where appropriate.
 > 
-> On Sun, 30 Jan 2022 12:10:20 +0100,
-> Alexander Sergeyev wrote:
-> > What is also interesting, unbind & bind consistently fails on 31th bind:
-> > 
-> > echo -n '0000:05:00.6' > /sys/bus/pci/drivers/snd_hda_intel/bind
-> > -bash: echo: write error: No such device
-> > 
-> > And does not recover from there until a reboot.
 > 
-> This is intended behavior.  The driver has a static device index that
-> is incremented at each probe, so that the driver may probe multiple
-> instances.  It'll be tricky to reset this for dynamic binding,
-> though.  This problem is not only for HD-audio but for most of other
-> drivers.  But I leave this as is for now, since the dynamic binding is
-> rarely used for PCI and other buses, so far.
 
-... and here is a fix patch for allowing more rebinds.
-Give it a try.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
 
-Takashi
+Thanks!
 
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: hda: Fix driver index handling at re-binding
+[1/1] ASoC: tas2770: Insert post reset delay
+      commit: 307f31452078792aab94a729fce33200c6e42dc4
 
-HD-audio driver handles the multiple instances and keeps the static
-index that is incremented at each probe.  This becomes a problem when
-user tries to re-bind the device via sysfs multiple times; as the
-device index isn't cleared unlike rmmod case, it points to the next
-element at re-binding, and eventually later you can't probe any more
-when it reaches to SNDRV_CARDS_MAX (usually 32).
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-This patch is an attempt to improve the handling at rebinding.
-Instead of a static device index, now we keep a bitmap and assigns to
-the first zero bit position.  At the driver remove, in return, the
-bitmap slot is cleared again, so that it'll be available for the next
-probe.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Reported-by: Alexander Sergeyev <sergeev917@gmail.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/hda_intel.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 4b0338c4c543..a2922233e85f 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2064,14 +2064,16 @@ static const struct hda_controller_ops pci_hda_ops = {
- 	.position_check = azx_position_check,
- };
- 
-+static DECLARE_BITMAP(probed_devs, SNDRV_CARDS);
-+
- static int azx_probe(struct pci_dev *pci,
- 		     const struct pci_device_id *pci_id)
- {
--	static int dev;
- 	struct snd_card *card;
- 	struct hda_intel *hda;
- 	struct azx *chip;
- 	bool schedule_probe;
-+	int dev;
- 	int err;
- 
- 	if (pci_match_id(driver_denylist, pci)) {
-@@ -2079,10 +2081,11 @@ static int azx_probe(struct pci_dev *pci,
- 		return -ENODEV;
- 	}
- 
-+	dev = find_first_zero_bit(probed_devs, SNDRV_CARDS);
- 	if (dev >= SNDRV_CARDS)
- 		return -ENODEV;
- 	if (!enable[dev]) {
--		dev++;
-+		set_bit(dev, probed_devs);
- 		return -ENOENT;
- 	}
- 
-@@ -2149,7 +2152,7 @@ static int azx_probe(struct pci_dev *pci,
- 	if (schedule_probe)
- 		schedule_delayed_work(&hda->probe_work, 0);
- 
--	dev++;
-+	set_bit(dev, probed_devs);
- 	if (chip->disabled)
- 		complete_all(&hda->probe_wait);
- 	return 0;
-@@ -2372,6 +2375,7 @@ static void azx_remove(struct pci_dev *pci)
- 		cancel_delayed_work_sync(&hda->probe_work);
- 		device_lock(&pci->dev);
- 
-+		clear_bit(chip->dev_index, probed_devs);
- 		pci_set_drvdata(pci, NULL);
- 		snd_card_free(card);
- 	}
--- 
-2.34.1
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
+Thanks,
+Mark

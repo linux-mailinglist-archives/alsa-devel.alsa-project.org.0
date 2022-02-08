@@ -2,73 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D3A94AD7D3
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Feb 2022 12:50:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 308BD4AD831
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Feb 2022 13:15:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5A551711;
-	Tue,  8 Feb 2022 12:49:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5A551711
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3F6F16FE;
+	Tue,  8 Feb 2022 13:15:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3F6F16FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644321038;
-	bh=ql12/h0aJ28wbCitdt6ZQyiGrqMJxTLwML5CvfxZ2ok=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1644322555;
+	bh=jIk/BE1mxNOFD8lbIJ5kHJ3c9C57V8qajNoNjPU1lRg=;
+	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C65NdnazI3W9zSbLOArtlVMCKSzKXQdu7sZL31vZTLyyKlW8xMu2kt2i0c6qCW/ew
-	 PBg7KmDHIkRGRwpc7p350d/yKQUrS4qeSLD3lZE8/ziOXMisa8rGL3Zq9YBGUeCwhx
-	 C6T0mL+N7FgTzhHtDs1q6eCI3SnlSd7f/2esw7zI=
+	b=JL5r2LIpEIPqXX63ZLi/5W2c79lI7w8ToPN2q4vZC/9xyogBr+x3IAgD9EQPSsJhO
+	 bHyctWup6x31Yz19d8BsF+ouQp9u6twK5GDCqIDIUexDSik3oLxi35WGTXXv20kC7r
+	 K9o1j9zBACLvaxdhKFk7ZMxZBOXqGoWNE3cdoPTM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F936F80154;
-	Tue,  8 Feb 2022 12:49:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10E01F8012B;
+	Tue,  8 Feb 2022 13:14:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5BBBF8013C; Tue,  8 Feb 2022 12:49:30 +0100 (CET)
+ id 5643AF8013C; Tue,  8 Feb 2022 13:14:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=0.3 required=5.0 tests=NICE_REPLY_A,PRX_BODY_135,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [IPv6:2a01:488:42:1000:50ed:8234::])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A3C3F800F0
- for <alsa-devel@alsa-project.org>; Tue,  8 Feb 2022 12:49:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A3C3F800F0
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1nHOzp-0001MD-O7; Tue, 08 Feb 2022 12:49:21 +0100
-Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1nHOzo-0001NK-Ty; Tue, 08 Feb 2022 12:49:20 +0100
-Date: Tue, 8 Feb 2022 12:49:20 +0100
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_sai: Enable combine mode soft
-Message-ID: <20220208114920.GF22780@pengutronix.de>
-References: <20220111081518.982437-1-s.hauer@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA209F800F0
+ for <alsa-devel@alsa-project.org>; Tue,  8 Feb 2022 13:14:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA209F800F0
+Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
+ helo=[192.168.66.200]); authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1nHPON-00026R-MF; Tue, 08 Feb 2022 13:14:43 +0100
+Message-ID: <e4d45921-ebe2-a06a-5f86-eac981d75e8d@leemhuis.info>
+Date: Tue, 8 Feb 2022 13:14:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220111081518.982437-1-s.hauer@pengutronix.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-IRC: #ptxdist @freenode
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-Uptime: 12:48:03 up 59 days, 20:33, 87 users,  load average: 0.01, 0.10, 0.12
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- kernel@pengutronix.de
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: Bug 215561 - snd-usb-audio:reset_resume error -22 after suspend
+ (fwd from bugzilla)
+Content-Language: en-BS
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <a8100c3d-007e-3207-7dc1-92849f638d71@leemhuis.info>
+In-Reply-To: <a8100c3d-007e-3207-7dc1-92849f638d71@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1644322486;
+ 03dea8a9; 
+X-HE-SMSGID: 1nHPON-00026R-MF
+Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,102 +78,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Nicolin, Xiubo,
+Hi, this is your Linux kernel regression tracker speaking.
 
-Any input to this one?
+Top-posting for once, to make this easy accessible to everyone.
 
-Sascha
+Below issue is one of those those reports that seem to get stranded in
+bugzilla.kernel.org
 
-On Tue, Jan 11, 2022 at 09:15:18AM +0100, Sascha Hauer wrote:
-> The fsl_sai driver calculates the number of pins used and enables
-> multiple channels if necessary. This means the SAI expects data in
-> one FIFO per pin. The SDMA engine only services a single FIFO, so
-> multi pin support doesn't work at all.
+Greg, Jaroslav, Takashi, could one of you please take a look? The
+reporter submitted it as USB bug, but maybe that wasn't a wise choice.
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+
+P.S.: As the Linux kernel's regression tracker I'm getting a lot of
+reports on my table. I can only look briefly into most of them and lack
+knowledge about most of the areas they concern. I thus unfortunately
+will sometimes get things wrong or miss something important. I hope
+that's not the case here; if you think it is, don't hesitate to tell me
+in a public reply, it's in everyone's interest to set the public record
+straight.
+
+#regzbot poke
+
+On 03.02.22 15:59, Thorsten Leemhuis wrote:
+> Hi, this is your Linux kernel regression tracker speaking.
 > 
-> This patch enables the software combine mode in chips that support
-> it. With this the SAI presents only a single FIFO to the outside
-> and distributes the data into the different FIFOs internally.
+> There is a regression in bugzilla.kernel.org I'd like to add to the
+> tracking:
 > 
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> #regzbot introduced: v5.15..v5.16
+> #regzbot from: antifermion@protonmail.com <antifermion@protonmail.com>
+> #regzbot title: snd: usb: snd-usb-audio:reset_resume error -22 after suspen
+> #regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=215561
+> 
+> Quote:
+> 
+>> If I use the microphone, then suspend and wake up again, I get the error
+>>
+>> ```
+>> snd-usb-audio 1-5:1.0: reset_resume error -22
+>> ```
+>>
+>> Aftewards, audio stops working completely. Both pipewire and pulseaudio (tried both; not at the same time) freeze.
+>>
+>> After running
+>>
+>> ```
+>> rmmod -f snd_usb_audio
+>> ```
+>>
+>> and replugging the microphone, audio works again.
+>> Here is the relevant log:
+>>
+>> ```
+>> [  157.791937] usbcore: deregistering interface driver snd-usb-audio
+>> [  228.517855] usb 1-5: USB disconnect, device number 2
+>> [  236.464334] usb 1-5: new high-speed USB device number 3 using xhci_hcd
+>> [  236.798863] usb 1-5: New USB device found, idVendor=0d8c, idProduct=0171, bcdDevice= 1.04
+>> [  236.798867] usb 1-5: New USB device strings: Mfr=3, Product=1, SerialNumber=0
+>> [  236.798869] usb 1-5: Product: USB 2.0 HD Audio
+>> [  236.798871] usb 1-5: Manufacturer: C-Media Electronics Inc.
+>> [  236.826966] input: C-Media Electronics Inc. USB 2.0 HD Audio Consumer Control as /devices/pci0000:00/0000:00:01.3/0000:02:00.0/usb1/1-5/1-5:1.3/0003:0D8C:0171.000B/input/input40
+>> [  236.878380] input: C-Media Electronics Inc. USB 2.0 HD Audio as /devices/pci0000:00/0000:00:01.3/0000:02:00.0/usb1/1-5/1-5:1.3/0003:0D8C:0171.000B/input/input41
+>> [  236.878447] hid-generic 0003:0D8C:0171.000B: input,hiddev96,hidraw2: USB HID v1.11 Device [C-Media Electronics Inc. USB 2.0 HD Audio] on usb-0000:02:00.0-5/input3
+>> [  242.306593] usbcore: registered new interface driver snd-usb-audio
+>>
+>> ```
+>>
+>> I'm running Arch Linux (5.16.4.arch1-1). The linux-lts kernel (5.15.18-1) works fine.
+>>
+>> Other uses report the same error: https://bbs.archlinux.org/viewtopic.php?id=273469
+> 
+> Ciao, Thorsten (wearing his 'Linux kernel regression tracker' hat)
+> 
+> P.S.: As a Linux kernel regression tracker I'm getting a lot of reports
+> on my table. I can only look briefly into most of them. Unfortunately
+> therefore I sometimes will get things wrong or miss something important.
+> I hope that's not the case here; if you think it is, don't hesitate to
+> tell me about it in a public reply, that's in everyone's interest.
+> 
+> BTW, I have no personal interest in this issue, which is tracked using
+> regzbot, my Linux kernel regression tracking bot
+> (https://linux-regtracking.leemhuis.info/regzbot/). I'm only posting
+> this mail to get things rolling again and hence don't need to be CC on
+> all further activities wrt to this regression.
+> 
 > ---
->  sound/soc/fsl/fsl_sai.c | 9 +++++++++
->  sound/soc/fsl/fsl_sai.h | 1 +
->  2 files changed, 10 insertions(+)
+> Additional information about regzbot:
 > 
-> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> index 10544fa27dc0..cab015d96889 100644
-> --- a/sound/soc/fsl/fsl_sai.c
-> +++ b/sound/soc/fsl/fsl_sai.c
-> @@ -517,6 +517,10 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
->  				   FSL_SAI_CR5_FBT_MASK, val_cr5);
->  	}
->  
-> +	if (sai->soc_data->pins > 1)
-> +		regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
-> +				   FSL_SAI_CR4_FCOMB_MASK, FSL_SAI_CR4_FCOMB_SOFT);
-> +
->  	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx, ofs),
->  			   FSL_SAI_CR3_TRCE_MASK,
->  			   FSL_SAI_CR3_TRCE((1 << pins) - 1));
-> @@ -1195,6 +1199,7 @@ static const struct fsl_sai_soc_data fsl_sai_vf610_data = {
->  	.use_imx_pcm = false,
->  	.use_edma = false,
->  	.fifo_depth = 32,
-> +	.pins = 1,
->  	.reg_offset = 0,
->  	.mclk0_is_mclk1 = false,
->  	.flags = 0,
-> @@ -1204,6 +1209,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx6sx_data = {
->  	.use_imx_pcm = true,
->  	.use_edma = false,
->  	.fifo_depth = 32,
-> +	.pins = 1,
->  	.reg_offset = 0,
->  	.mclk0_is_mclk1 = true,
->  	.flags = 0,
-> @@ -1213,6 +1219,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx7ulp_data = {
->  	.use_imx_pcm = true,
->  	.use_edma = false,
->  	.fifo_depth = 16,
-> +	.pins = 2,
->  	.reg_offset = 8,
->  	.mclk0_is_mclk1 = false,
->  	.flags = PMQOS_CPU_LATENCY,
-> @@ -1222,6 +1229,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8mq_data = {
->  	.use_imx_pcm = true,
->  	.use_edma = false,
->  	.fifo_depth = 128,
-> +	.pins = 8,
->  	.reg_offset = 8,
->  	.mclk0_is_mclk1 = false,
->  	.flags = 0,
-> @@ -1231,6 +1239,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8qm_data = {
->  	.use_imx_pcm = true,
->  	.use_edma = true,
->  	.fifo_depth = 64,
-> +	.pins = 1,
->  	.reg_offset = 0,
->  	.mclk0_is_mclk1 = false,
->  	.flags = 0,
-> diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-> index 9aaf231bc024..410f6e6a9137 100644
-> --- a/sound/soc/fsl/fsl_sai.h
-> +++ b/sound/soc/fsl/fsl_sai.h
-> @@ -223,6 +223,7 @@ struct fsl_sai_soc_data {
->  	bool use_edma;
->  	bool mclk0_is_mclk1;
->  	unsigned int fifo_depth;
-> +	unsigned int pins;
->  	unsigned int reg_offset;
->  	unsigned int flags;
->  };
-> -- 
-> 2.30.2
+> If you want to know more about regzbot, check out its web-interface, the
+> getting start guide, and/or the references documentation:
 > 
+> https://linux-regtracking.leemhuis.info/regzbot/
+> https://gitlab.com/knurd42/regzbot/-/blob/main/docs/getting_started.md
+> https://gitlab.com/knurd42/regzbot/-/blob/main/docs/reference.md
 > 
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+> The last two documents will explain how you can interact with regzbot
+> yourself if your want to.
+> 
+> Hint for reporters: when reporting a regression it's in your interest to
+> tell #regzbot about it in the report, as that will ensure the regression
+> gets on the radar of regzbot and the regression tracker. That's in your
+> interest, as they will make sure the report won't fall through the
+> cracks unnoticed.
+> 
+> Hint for developers: you normally don't need to care about regzbot once
+> it's involved. Fix the issue as you normally would, just remember to
+> include a 'Link:' tag to the report in the commit message, as explained
+> in Documentation/process/submitting-patches.rst
+> That aspect was recently was made more explicit in commit 1f57bd42b77c:
+> https://git.kernel.org/linus/1f57bd42b77c

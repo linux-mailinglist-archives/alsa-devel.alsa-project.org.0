@@ -2,88 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72D744AEADA
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 08:15:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E39604AEC0F
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 09:20:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F582187B;
-	Wed,  9 Feb 2022 08:15:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F582187B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CF571748;
+	Wed,  9 Feb 2022 09:19:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CF571748
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644390958;
-	bh=kAyYrRm9RURN1R+wVfTuXkSWdRa09rUJgLiLBOLXQrk=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mrEWdPFpCVKGgcG8MQBZ7kauJwVlyLnIhtopwsYYc2QmYLERSUtXdLFawaIvFBPwV
-	 u6ImXhw4Lkhcmm6OeRPqCZOKQZGEzdOiFtiVs6Ud7HUnkSCHt+RWpMLaZtBhDmp4Ss
-	 1IqtKh55t+Ue1c69hFZkaJY9deQsJXsVuFORA0Pw=
+	s=default; t=1644394833;
+	bh=hsiz7mEWy8JMkhaec1KZJGTEIr5cChnfF09GLTp9zLY=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XW+hvMqQSL96tjwj1PruWV5Io4eBqPd3K/XpjgFHOa0WzqHkErB1l/WnHYFzN/C+2
+	 cPAJC2JgkKwsc+pM7RW4VHpC0E+ThLL0CGULQNru5/UKU8D3XQUiwNb5p3OPz90kBH
+	 zNTftHz8onsMqgUlWO29suW8IU0M9LtOuSLLNfeM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E8C0F8016B;
-	Wed,  9 Feb 2022 08:14:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF33BF8016B;
+	Wed,  9 Feb 2022 09:19:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F6B8F8016A; Wed,  9 Feb 2022 08:14:50 +0100 (CET)
+ id ADDF8F8016A; Wed,  9 Feb 2022 09:19:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,MIME_HTML_ONLY,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59811F800A7
- for <alsa-devel@alsa-project.org>; Wed,  9 Feb 2022 08:14:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59811F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D960F800ED
+ for <alsa-devel@alsa-project.org>; Wed,  9 Feb 2022 09:19:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D960F800ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=web.de header.i=@web.de header.b="nArzUzHJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1644390880;
- bh=MEoaMzVESXUBRSJO2YgU3U5Am+Mlnfm5fvmShg8aQ1o=;
- h=X-UI-Sender-Class:From:To:Subject:Date:In-Reply-To:References;
- b=nArzUzHJUH1w8PUAIE0l5L2fnH+bw21hFRvrNbFDD90HfRmCf5ugU3MqVwAFbE1y4
- iRajVC3MaIWAEQVsDptTn/cp+rKnV1zRihkTbIM99nvWmNv/qG+UqPJXvr7vHFdzuw
- N7Yb2h6gkk7kuhvXxOmlqxaDnOXKd4xpIq7N6/OA=
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [87.134.109.82] ([87.134.109.82]) by web-mail.web.de
- (3c-app-webde-bap12.server.lan [172.19.172.12]) (via HTTP); Wed, 9 Feb 2022
- 08:14:40 +0100
-Message-ID: <trinity-c5ab92fd-fbab-4431-8579-f8576a9ba71e-1644390880605@3c-app-webde-bap12>
-From: dmummenschanz@web.de
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Subject: Aw: Re: Cannon Lake PCH cAVS (ALC892) not detected by kernel driver
-Date: Wed, 9 Feb 2022 08:14:40 +0100
-Importance: normal
-Sensitivity: Normal
-In-Reply-To: <209270c3-4a46-d6a1-0f1d-d4400ecc5962@linux.intel.com>
-References: <trinity-f018660b-95c9-442b-a2a8-c92a56eb07ed-1644345967148@3c-app-webde-bap22>
- <209270c3-4a46-d6a1-0f1d-d4400ecc5962@linux.intel.com>
-X-UI-Message-Type: mail
-X-Priority: 3
-X-Provags-ID: V03:K1:Y6Js/e12ZJeGfHkVOjXVYMlH+KLzZdYx44h2sK9k+Z0mqiiFClJJFAZHgTyBJHUrTs4LD
- 954F5OKLO9V8z8IQ+ZDuPAzMhMWi1Nr+gojCxU5Exk0KDrvVjunmJFaR1O4zENpFOIeKjohvVWxz
- xs0nmD8wQruomUg3NnVNqxaH3xk5FrG868qBWAwoJU6Qsoibx0YzAkHwzbe1tDcnOyA2KYyyxWAU
- kzz3q2d+RZgx18xcbQVdTtLfgxqKI0pKfsIdGono+YkkckcAei/jgWUWpKi7EwaOlSa3PtijpZwg
- bw=
-X-UI-Out-Filterresults: notjunk:1;V03:K0:erWU1ZirkWg=:QIGmcMQJJYhjidqCdKpVBA
- ejOi5a/Z4ha1NnFvpFK4aWQO4Ew5zXIemEnv0/nH6oyF2QkYX1enDEeuGhtG6VGL0DovnRNv9
- gB0nB30j9VfVcFIpr4rX5CNWF2aiyV58cuAvfUSvUTdGcnZ1fmh6+84bfk0OxyFEDIjKqerHy
- 84rRes4jIE2AFLBzPewjw2ar0y372w0LHZArLKXe1BR8/l9tPDEHi9vF4eve/+nzb1egiH3H0
- yjBx1m1WsJZENQvNW1t2FXxsW62An5e/NNMxcsdHk0ZGxxjOv6JWf696xPyLgz/z3JZVP4kRY
- r0L1NahNbysCzfc7dFQLrkNWSYeP/CkNioUbBCEqgYyFVIpFbsq2OIR7/Ps4XWO1XkE16hMk6
- Q04/DXmPSGz5mwO1rPRz45Mzy16TI9o20vCrBslzFB7Sk/MuE8jdla3a4tL7H3ET/VPdH28W5
- 1Qav3iROwMaaU02udazcY4GeKJk3BR+Y5a1/0iZizLJ0zoBxDkU4gxQKA7uWLgRhuzA6dfmnZ
- 4OAVWZts637sxEbOyyXtuEw//zDZLs/TVaJtAoL/ueP7cqARUc/p25Zlca760KoI+eSX2R7fB
- P2NPL4CDQ1Z6eokdWHXxuWzGqr/ueSpDGdyysvokb+3El5K7ISX3Sp7A0kknO6Yzlnrcn5Hm3
- arfM6CujaKa0kTkRGGLbsFb+M/1j6EB5nnLsX4BRlMlseR8jQ16v/pQRsfPHe5Am48oVGw8Dn
- QtSAbfHy03iBZ0jglob6CF0uOxxsTpsDHhP7hF2O7lp6J2gBzTwnKCLVBtpe22JPEUJ5Fsxiq
- RLsCoKT
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Mv5GXhd6"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="gNs4UHc6"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id F3CD11F390
+ for <alsa-devel@alsa-project.org>; Wed,  9 Feb 2022 08:19:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1644394755; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wpn4RFeUdoJrW+Irg/TI47v9TP9/LOIfCeGcX52FeT4=;
+ b=Mv5GXhd6YdGRTPjZK1iXaqDKuf1KjDq0U27A625BUxVElenFuQjUU9t4HxcjiRJtYBp/Xz
+ 3sKgfDuHWIFQL3797r79VopJVydQzUoWuIjD/VarcyrhOLIVqYMNiUVJZ7FrsaWgQRGgqQ
+ 7o8E1m24iL5ojKTng3K5NPp/aCawo6s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1644394755;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wpn4RFeUdoJrW+Irg/TI47v9TP9/LOIfCeGcX52FeT4=;
+ b=gNs4UHc6/PnPfBqYbUiYZS6Y107RWixW4YqMScqE7IB23N5AFhoSm9q3bWNc7y8Y1tNh0J
+ eV8il6TQd5E5WnBA==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id E2297A3B81;
+ Wed,  9 Feb 2022 08:19:14 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda: Fix driver index handling at re-binding
+Date: Wed,  9 Feb 2022 09:19:12 +0100
+Message-Id: <20220209081912.20687-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,118 +84,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-   The information about the codec is based on the string windows
-   provides:
+HD-audio driver handles the multiple instances and keeps the static
+index that is incremented at each probe.  This becomes a problem when
+user tries to re-bind the device via sysfs multiple times; as the
+device index isn't cleared unlike rmmod case, it points to the next
+element at re-binding, and eventually later you can't probe any more
+when it reaches to SNDRV_CARDS_MAX (usually 32).
 
-   HDAUDIO\FUNC_01&VEN_10EC&DEV_0892&SUBSYS_15580351&REV_1003\4&16AF2B56&&
-   0001
+This patch is an attempt to improve the handling at rebinding.
+Instead of a static device index, now we keep a bitmap and assigns to
+the first zero bit position.  At the driver remove, in return, the
+bitmap slot is cleared again, so that it'll be available for the next
+probe.
 
-   Here is the alsa-info output for the 5.16 mainline kernel:
+Reported-by: Alexander Sergeyev <sergeev917@gmail.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/hda_intel.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-   http://alsa-project.org/db/?f=38c48cd24dc4ba9a9487dd96f857120cc9ce4367
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 4b0338c4c543..a2922233e85f 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2064,14 +2064,16 @@ static const struct hda_controller_ops pci_hda_ops = {
+ 	.position_check = azx_position_check,
+ };
+ 
++static DECLARE_BITMAP(probed_devs, SNDRV_CARDS);
++
+ static int azx_probe(struct pci_dev *pci,
+ 		     const struct pci_device_id *pci_id)
+ {
+-	static int dev;
+ 	struct snd_card *card;
+ 	struct hda_intel *hda;
+ 	struct azx *chip;
+ 	bool schedule_probe;
++	int dev;
+ 	int err;
+ 
+ 	if (pci_match_id(driver_denylist, pci)) {
+@@ -2079,10 +2081,11 @@ static int azx_probe(struct pci_dev *pci,
+ 		return -ENODEV;
+ 	}
+ 
++	dev = find_first_zero_bit(probed_devs, SNDRV_CARDS);
+ 	if (dev >= SNDRV_CARDS)
+ 		return -ENODEV;
+ 	if (!enable[dev]) {
+-		dev++;
++		set_bit(dev, probed_devs);
+ 		return -ENOENT;
+ 	}
+ 
+@@ -2149,7 +2152,7 @@ static int azx_probe(struct pci_dev *pci,
+ 	if (schedule_probe)
+ 		schedule_delayed_work(&hda->probe_work, 0);
+ 
+-	dev++;
++	set_bit(dev, probed_devs);
+ 	if (chip->disabled)
+ 		complete_all(&hda->probe_wait);
+ 	return 0;
+@@ -2372,6 +2375,7 @@ static void azx_remove(struct pci_dev *pci)
+ 		cancel_delayed_work_sync(&hda->probe_work);
+ 		device_lock(&pci->dev);
+ 
++		clear_bit(chip->dev_index, probed_devs);
+ 		pci_set_drvdata(pci, NULL);
+ 		snd_card_free(card);
+ 	}
+-- 
+2.34.1
 
-   Kernel config for the sound part:
-
-   CONFIG_SOUND=y
-   CONFIG_SND=y
-   CONFIG_SND_TIMER=y
-   CONFIG_SND_PCM=m
-   CONFIG_SND_HWDEP=m
-   CONFIG_SND_RAWMIDI=m
-   CONFIG_SND_JACK=y
-   CONFIG_SND_JACK_INPUT_DEV=y
-   CONFIG_SND_PCM_TIMER=y
-   CONFIG_SND_HRTIMER=y
-   CONFIG_SND_DYNAMIC_MINORS=y
-   CONFIG_SND_MAX_CARDS=8
-   CONFIG_SND_PROC_FS=y
-   CONFIG_SND_VMASTER=y
-   CONFIG_SND_DMA_SGBUF=y
-   CONFIG_SND_CTL_LED=m
-   CONFIG_SND_PCI=y
-   #
-   # HD-Audio
-   #
-   CONFIG_SND_HDA=m
-   CONFIG_SND_HDA_GENERIC_LEDS=y
-   CONFIG_SND_HDA_INTEL=m
-   CONFIG_SND_HDA_HWDEP=y
-   CONFIG_SND_HDA_RECONFIG=y
-   CONFIG_SND_HDA_CODEC_REALTEK=m
-   CONFIG_SND_HDA_CODEC_ANALOG=m
-   CONFIG_SND_HDA_CODEC_SIGMATEL=m
-   CONFIG_SND_HDA_CODEC_VIA=m
-   CONFIG_SND_HDA_CODEC_HDMI=m
-   CONFIG_SND_HDA_CODEC_CIRRUS=m
-   CONFIG_SND_HDA_CODEC_CS8409=m
-   CONFIG_SND_HDA_CODEC_CONEXANT=m
-   CONFIG_SND_HDA_CODEC_CA0110=m
-   CONFIG_SND_HDA_CODEC_CA0132=m
-   CONFIG_SND_HDA_CODEC_CA0132_DSP=y
-   CONFIG_SND_HDA_CODEC_CMEDIA=m
-   CONFIG_SND_HDA_CODEC_SI3054=m
-   CONFIG_SND_HDA_GENERIC=m
-   CONFIG_SND_HDA_POWER_SAVE_DEFAULT=5
-   # end of HD-Audio
-
-
-   Also tried current ubuntu distro with same results.
-
-   Any advice?
-
-
-   Gesendet: Dienstag, 08. Februar 2022 um 22:55 Uhr
-   Von: "Pierre-Louis Bossart" <pierre-louis.bossart@linux.intel.com>
-   An: dmummenschanz@web.de, alsa-devel@alsa-project.org
-   Betreff: Re: Cannon Lake PCH cAVS (ALC892) not detected by kernel
-   driver
-   On 2/8/22 12:46, dmummenschanz@web.de wrote:
-   > Hello,
-   >
-   > the audio chip Cannon Lake PCH cAVS ALC892 does not get recognized on
-   > my system. Only the HDMI devices are recognized.
-   >
-   > lspci shows the following audio device:
-   > 00:1f.3 Audio device: Intel Corporation Cannon Lake PCH cAVS (rev 10)
-   >
-   > dmesg only shows:
-   >
-   > [ 189.559786] snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops
-   > i915_exit [i915])
-   > [ 189.581395] input: HDA Intel PCH HDMI/DP,pcm=3 as
-   > /devices/pci0000:00/0000:00:1f.3/sound/card0/input20
-   > [ 189.581503] input: HDA Intel PCH HDMI/DP,pcm=7 as
-   > /devices/pci0000:00/0000:00:1f.3/sound/card0/input21
-   > [ 189.581628] input: HDA Intel PCH HDMI/DP,pcm=8 as
-   > /devices/pci0000:00/0000:00:1f.3/sound/card0/input22
-   > [ 189.581711] input: HDA Intel PCH HDMI/DP,pcm=9 as
-   > /devices/pci0000:00/0000:00:1f.3/sound/card0/input23
-   > [ 189.581849] input: HDA Intel PCH HDMI/DP,pcm=10 as
-   > /devices/pci0000:00/0000:00:1f.3/sound/card0/input24
-   >
-   >
-   > ALSA-info file:
-   >
-   [1]http://alsa-project.org/db/?f=96102ee84f258d1cac83ed3379535655018151
-   1c
-   I see to references to ALC892 in this profile, is this information
-   based
-   on the hardware specs or Windows logs?
-   we usually ask people to try with a more recent kernel, but in your
-   case
-   I would try to go back to a mainline release. I have no idea what this
-   version might contain audio-wise: 5.17.0-rc3-drmtip
-   >
-   > There is a workaround availble:
-   >
-   > echo auto | tee /sys/devices/pci0000\:00/0000\:00\:1f.3/power/control
-   > echo 1 | tee /sys/devices/pci0000\:00/0000\:00\:1f.3/remove
-   > echo 1 | tee /sys/bus/pci/rescan
-   >
-   > unfortunately this doesn't work for me. The device never shows up.
-   > Sound on winX works fine on this device btw.
-   > I'm happy to assist with any attempts to make the sound work.
-
-References
-
-   1. http://alsa-project.org/db/?f=96102ee84f258d1cac83ed33795356550181511c

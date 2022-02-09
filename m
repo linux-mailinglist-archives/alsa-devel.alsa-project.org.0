@@ -2,102 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 824AD4AF4A4
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 16:02:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3207C4AF576
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 16:36:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F79B18CC;
-	Wed,  9 Feb 2022 16:02:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F79B18CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8CF81744;
+	Wed,  9 Feb 2022 16:35:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8CF81744
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644418976;
-	bh=75NDQYMX4B066Jeh6HZtTwh0uPauGP9/bE9DyKQ/5mc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZIQJyegU+HKKFp+AU6zBycrg5K/v6cZpbKp5k0OkxzHX0UNJ35l2KzV9awx2K7RqH
-	 JDZUECVGf9OppY69Xe3e81EbERBm1ni2lLmwZe8o9g0smvLqlrQ1ARCfiFfgBpBPVK
-	 F2IZlPWt1Fur06UpEMTG5AQGRq+IIXFY9RuL2I7Y=
+	s=default; t=1644420992;
+	bh=l+8AfwKk12cDPjhCx1zRP+yNdCniBP0DxBPVOilG/Vg=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jJlHXQT7KVZPgFwpPdZ/HOLL8CrtK7TmEj8bacq6sAlNo8y7qvMGJTpqUAFa8N5NA
+	 ouMg0YxZsKRq9Rg77Mh8wlAcgC1nEchyG194x7D7eI01V4u1XuYqDg4JEHDQymGuHR
+	 ep+6thjiM2Ch5ZpRSGI+V9dZNY5RbYfIyoWgPrfw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F95BF8016B;
-	Wed,  9 Feb 2022 16:01:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F24BF8016B;
+	Wed,  9 Feb 2022 16:35:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 442F6F8016A; Wed,  9 Feb 2022 16:01:46 +0100 (CET)
+ id 3EA37F800A7; Wed,  9 Feb 2022 16:35:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
+ [209.85.161.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD83AF800A7
- for <alsa-devel@alsa-project.org>; Wed,  9 Feb 2022 16:01:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD83AF800A7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="KcC3ydTq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1644418902;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=yOENEFAxeV6WDUDDmj8Y/MC+cvCFTJP4OBxZd3XquaY=;
- b=KcC3ydTq3PUJNVmQl9RsYrwAo5tGuN2XUGi72oz+7xxS3TENBjynt8BcTqLFLHwkVFFJNb
- XK98Vz19xm0IuFhIpqZqLN0J5oV+uPwb+8WDX9nhk20jBwRxIdwFo0AYwqihLA6VwJ3WDh
- ov9XnTKVRyFgTNLF/tYV076D/tdAshM=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-12-k-QuHSRANjOQOp8VJo0X8g-1; Wed, 09 Feb 2022 10:01:41 -0500
-X-MC-Unique: k-QuHSRANjOQOp8VJo0X8g-1
-Received: by mail-qt1-f197.google.com with SMTP id
- g18-20020ac84b72000000b002cf274754c5so1886113qts.14
- for <alsa-devel@alsa-project.org>; Wed, 09 Feb 2022 07:01:41 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1977EF800A7
+ for <alsa-devel@alsa-project.org>; Wed,  9 Feb 2022 16:35:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1977EF800A7
+Received: by mail-oo1-f41.google.com with SMTP id
+ f11-20020a4abb0b000000b002e9abf6bcbcso2909578oop.0
+ for <alsa-devel@alsa-project.org>; Wed, 09 Feb 2022 07:35:17 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=yOENEFAxeV6WDUDDmj8Y/MC+cvCFTJP4OBxZd3XquaY=;
- b=pDouXr5fC1He27+vWctUBugZFIYEBaV1oVNBi/Q0aOla4C1HfiQvcT7Sio44raTLs2
- JVw6hQsV5XH3zZVvTIHGxtWnB4Lqu2hOd35oOeMGL9D9J/JBMLS3ZcBwUiHitfTx8xwG
- Ylv+gUgQlJwHytjCveZXJtql5e/2+7REN44wxZDmVXYhY1NNN3KdDIIVJcQ6G+MAnkjz
- NluWVoEdCGQgd8kJ7fsn3xkd5FIX5lgv+QNo9ehSuUro+vTqRxWdh+G48onPFF/PPo1c
- 9I4EFtH1O/xpVlZ7E1fhE/RbervQXXnwfSL8vcrTNM/D2t2VzssHMU0fLWrbgHE7yp/q
- 2ccQ==
-X-Gm-Message-State: AOAM533JDfLxQnMXmooP66baYKzSryAlTqm2/J48y2M0hZ91JzV5wkYd
- 6BrS7DNPP9oniwUEHiKXmhEc2fkbs6FbKfUiVlCjOtuUAY+GFvU+aWWryyXxl2G3xEWmMWp1UkV
- KdcUpxa4vsu96DnsAHwxww2c=
-X-Received: by 2002:a05:622a:14d2:: with SMTP id
- u18mr1562552qtx.615.1644418899279; 
- Wed, 09 Feb 2022 07:01:39 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzcj4EjGhN8CzP3asDDyVKZTAdwOuO5eNnV9Dsmlc5T8QSbtReodIbPMN5JR/u4AgiHxsMgYg==
-X-Received: by 2002:a05:622a:14d2:: with SMTP id
- u18mr1562499qtx.615.1644418898824; 
- Wed, 09 Feb 2022 07:01:38 -0800 (PST)
-Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
- [24.205.208.113])
- by smtp.gmail.com with ESMTPSA id g21sm9338111qtb.70.2022.02.09.07.01.36
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=H19TdmlGQeOvqWibXwnTgQaKpp298rj11z4re+ZlqzE=;
+ b=NEbxK4Lo5+CFkCzmYo4KPNjMue9kbcZ2O5fvXA2UKLpX/LPyPKHENT8dVbT51lpyWq
+ MNkB0cnHTVv7eWjlMo0mhoEsTiR/tKiTTxRoZ8IEH4+oPTv90DJYbit4SX45xTpOTTmU
+ nnEA6luRPEAZuxgPsi+3fM7G8QsiWQt0ktUtDnwZhGX0oZLDAfX9eNjJKbYx1zibM63g
+ XvnO6qNP6TwJEeEK593hxYwvbJg3fO1cZmVEqgDKUJqc+7E1Tq1BZ5fk9SyPCc3BZAVI
+ b5Yi4G+5ifP0TMWbTFzpAANIqdHXLn/whAuTJsip/4rkQrqD8YcpDUrRccJ948CkkYAs
+ P/EQ==
+X-Gm-Message-State: AOAM533BMkH/8PIg6PB9nS+VaAfsa56tIMcSC1iJ7yXtfw9NGkcqXuZz
+ YBpepJ36/s8cfX+0ZN+NuQ==
+X-Google-Smtp-Source: ABdhPJxKdqFqfL7xuc3s+WdsojPu3tY6PLqK4sVB4rB6S59yfpnWW0p0L5BzV9TGDFMjVhphJCSaLg==
+X-Received: by 2002:a05:6870:12cc:: with SMTP id
+ 12mr902265oam.215.1644420916147; 
+ Wed, 09 Feb 2022 07:35:16 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id t2sm6862136ooo.24.2022.02.09.07.35.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Feb 2022 07:01:37 -0800 (PST)
-From: trix@redhat.com
-To: perex@perex.cz,
-	tiwai@suse.com
-Subject: [PATCH] ALSA: cleanup double word in comment
-Date: Wed,  9 Feb 2022 07:01:33 -0800
-Message-Id: <20220209150133.2291856-1-trix@redhat.com>
-X-Mailer: git-send-email 2.26.3
-MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-Cc: Tom Rix <trix@redhat.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ Wed, 09 Feb 2022 07:35:15 -0800 (PST)
+Received: (nullmailer pid 391817 invoked by uid 1000);
+ Wed, 09 Feb 2022 15:35:08 -0000
+From: Rob Herring <robh@kernel.org>
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+In-Reply-To: <1644413181-26358-2-git-send-email-quic_srivasam@quicinc.com>
+References: <1644413181-26358-1-git-send-email-quic_srivasam@quicinc.com>
+ <1644413181-26358-2-git-send-email-quic_srivasam@quicinc.com>
+Subject: Re: [RESEND v8 1/3] ASoC: google: dt-bindings: Add sc7280-herobrine
+ machine bindings
+Date: Wed, 09 Feb 2022 09:35:08 -0600
+Message-Id: <1644420908.409006.391816.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ linux-arm-msm@vger.kernel.org, plai@codeaurora.org, tiwai@suse.com,
+ robh+dt@kernel.org, agross@kernel.org, srinivas.kandagatla@linaro.org,
+ broonie@kernel.org, rohitkr@codeaurora.org, swboyd@chromium.org,
+ judyhsiao@chromium.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,28 +95,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Tom Rix <trix@redhat.com>
+On Wed, 09 Feb 2022 18:56:19 +0530, Srinivasa Rao Mandadapu wrote:
+> Add devicetree bindings documentation file for sc7280 sound card
+> registration.
+> 
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> ---
+>  .../bindings/sound/google,sc7280-herobrine.yaml    | 171 +++++++++++++++++++++
+>  1 file changed, 171 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+> 
 
-Remove the second 'device'.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- include/sound/hda_verbs.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+yamllint warnings/errors:
 
-diff --git a/include/sound/hda_verbs.h b/include/sound/hda_verbs.h
-index e36b77531c5c3..006d358acce25 100644
---- a/include/sound/hda_verbs.h
-+++ b/include/sound/hda_verbs.h
-@@ -461,7 +461,7 @@ enum {
- #define AC_DE_ELDV			(1<<1)
- #define AC_DE_IA			(1<<2)
- 
--/* device device types (0x0-0xf) */
-+/* device types (0x0-0xf) */
- enum {
- 	AC_JACK_LINE_OUT,
- 	AC_JACK_SPEAKER,
--- 
-2.26.3
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@0: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@1: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@2: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@3: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.example.dt.yaml: sound: dai-link@5: 'sound-dai' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1590375
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 

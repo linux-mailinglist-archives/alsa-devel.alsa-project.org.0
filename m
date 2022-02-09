@@ -2,189 +2,183 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB8D04AEF6F
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 11:39:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0BDE4AF0BE
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 13:06:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A4B7186E;
-	Wed,  9 Feb 2022 11:39:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A4B7186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6595417F4;
+	Wed,  9 Feb 2022 13:06:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6595417F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644403195;
-	bh=LlRAxFngmdSqQEvU8ybYgHsAW8UZe6m5Tw0wb25sJE8=;
-	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1644408415;
+	bh=ugocTCbMtr9zEtJNjbP7dm4Cm38Nc9LcjIZuQICzn8Q=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tyhajjr0MWOhNz7LmhcPiJG59xbh+/UxqpLr6PT4nfSvSgkzav+bx0RjUnsJp7LUv
-	 MWCDiKNZ+9QfWRegY60YFnn0wxdOzlusfauc4St50J7K6ZHd++CU5hLxIobbitkWTG
-	 tLF0d0y0v/OMBWizQAspstgNpg3ZVaND3kNJJXms=
+	b=VSLPDPFp7t70zYoQI087a1LH+QW4zSHlWuPbNcWsr8eAFI9J8vJXHxSzRrp1Cx1Yc
+	 ZE0b3WtbIu1kaM+tMLSBMylF1rfGILfpMXLcenVKfAyDeC3ZJVSxOFchqETWlBvOW3
+	 xUJD8jPyJI5+Lx+R3QZ2fY+SIkb/rC7xb1fVdS60=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92B5DF8016B;
-	Wed,  9 Feb 2022 11:38:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7C36F8016B;
+	Wed,  9 Feb 2022 13:05:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB171F8016A; Wed,  9 Feb 2022 11:38:45 +0100 (CET)
+ id 254A6F8016A; Wed,  9 Feb 2022 13:05:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96C0DF800A7
- for <alsa-devel@alsa-project.org>; Wed,  9 Feb 2022 11:38:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96C0DF800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D880F800A7
+ for <alsa-devel@alsa-project.org>; Wed,  9 Feb 2022 13:05:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D880F800A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="TAqQGusS"
+ header.b="Mw2j46g4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644403123; x=1675939123;
- h=message-id:date:subject:from:to:cc:references:
+ t=1644408343; x=1675944343;
+ h=message-id:date:subject:to:cc:references:from:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=LlRAxFngmdSqQEvU8ybYgHsAW8UZe6m5Tw0wb25sJE8=;
- b=TAqQGusSbNbU4CXu3wDuJ5veSg/mDjciQwmcPX3mW+A4FU+17C9lMhuJ
- RK56IeQwazuon/x1ThsMibPlUUQY9esntkHDMVd0LL8k3aMa36UE09ZO9
- w3XaK/vK0I/z5nZmDb+eqcQgvIia7jsgvCMe3qlKA1hsdUYiybNv3xtlc
- uvWpu9taFDehrKhZpEArHgYioxbV7q7fGao0g1M3NQTcVk6eN7WfSDVWq
- 5llKgJrxNC3SgbNOg2c+AYG6PNpNwUBTknhbdBBLmW6ZEBoWw3v14UZQr
- BDBqp3DzMJ1+ZDKkhwWH+ygN9MsrVVlEwgQYxEG67bVDVF7OJAmkd/keT Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="335578686"
-X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="335578686"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 02:38:38 -0800
+ bh=ugocTCbMtr9zEtJNjbP7dm4Cm38Nc9LcjIZuQICzn8Q=;
+ b=Mw2j46g44R/7MLnJ230GBsOG0mZTjWc5MpN5B695t3HaO4/euBmZeYvn
+ vcLTbBTfCm5YjlkU/ck2ZvQTneZ2uz58D2GFSOnY9rVozsmiJn25jhcri
+ vgJVZuQEK9m1C00SxFoDttJ4oKTop2iO7YaT3uIFE6n2YBYp7BHNe16fn
+ vTz6J4rD33utvyW/IA4cchUYmsHEWPkfLaJJT81qzWTMyg1Ff7Z95ezfR
+ 2uhsjqGXa/To28cdLS/f4m7B9CgM+7K0lZRnEY4/GfTQDyXx35Yzf0Iu2
+ SD1ma2e8Xgu+b9QYA1MCPqumQHxv81txhJMfrreW9n01yhulyCbM8WoLN A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="312483975"
+X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="312483975"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2022 04:05:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="771304988"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmsmga006.fm.intel.com with ESMTP; 09 Feb 2022 02:38:38 -0800
-Received: from orsmsx608.amr.corp.intel.com (10.22.229.21) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.88,355,1635231600"; d="scan'208";a="541068391"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga008.jf.intel.com with ESMTP; 09 Feb 2022 04:05:36 -0800
+Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Wed, 9 Feb 2022 02:38:37 -0800
-Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
- ORSMSX608.amr.corp.intel.com (10.22.229.21) with Microsoft SMTP Server
+ 15.1.2308.20; Wed, 9 Feb 2022 04:05:35 -0800
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Wed, 9 Feb 2022 02:38:37 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20 via Frontend Transport; Wed, 9 Feb 2022 02:38:37 -0800
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.172)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ 15.1.2308.20 via Frontend Transport; Wed, 9 Feb 2022 04:05:35 -0800
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.172)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.20; Wed, 9 Feb 2022 02:38:37 -0800
+ 15.1.2308.20; Wed, 9 Feb 2022 04:05:35 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i5KJY7yWvyyiVRuHBKhUw1p9AqQRmO7E4UWGhOqfjKpiZvI9xVDLi8DKiGwzRYuMMhmUqC67RaZUvDeE76BXiyQ3hkDlJIqJEvXsLBwFqY75sZVZV4XP3yM0+tS7X1jHCAaVOwG9Iyjzt4QiAS8jkZYupWX/okyCX3m42a3KkmxZZTPYkqozDCfHwja5/zLAfJzEBAoJqaqgEX9a+E/5s57gz2CsnpZhU8SX0c5kngZjwLkPai8nVdIsfJK6FSj7lR2oX+geD5g0Oj+udDrd1yuxeInF5Udx8yxYJCL4b6p1cT8TpB0AwIFuqEcdkbzgmDDqiGj1D+whzZMa//5gow==
+ b=CzE1VCe4tnDVRGJcLCQoNg3FVqPWVtGM7H0iIL/njgl774FJ9D3wghP/n0sftEj42dHG6FVctp8ZatjVvy26F1gAzCYkhheeqC2z+xKkRAoNo/1okluJdxm2SfMcBPbzI7UoI7sYF7sIyJTVBvvYOSfNGklFj8y90qPvzFKaIKSIr4zWe8S+EfABOuB6ErDxv456GF5MHeHJ++4pDvyRR63YlqK3k3xMmIOH8Ht6YiidK9S7vClClO+eraFuW1IYeSW9UqihtKvle66UslLwJOtqnNNmlAOc4oKx6p+xKSni1BATkwKfR0BJdwfnLWvgPWil4XMvadr2Mrpg1hvnkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qPsWZzbkn5h/cpOAhnARvELji+08SBwl+VtmiC7rNwg=;
- b=PDDwetCvcE11K18icf/cpm913VLtKNreA8RHs9PSHVqtAOeHCq76GobBPUAahLRsnQKMnJBFC9qB984bv8B6bSV+ucgIcSUD3IQV9xPqJNiHy76xXw4ezttE2vsgvbP7WomumeALjNGUAiWYqDqJ58yBYMfdIJEw6Cd+Wjr7WNOYGWrV7PwXkIwe80kL1l4lVsycWkOPhWsgOHG7hFvlKlpyQEAw2BaQPVZyoy8WkooqdW9YNIZMm88wj2mnmWVLPqDv9qrm9aoxxHoxTkE3GPmRn2H8iSZseopZmL3rSmUutX9t7Q6xhqzpLYzXs3MBKuNjRmQbrpfXfjMOgyJWoA==
+ bh=Zj0jmPd2//plhIThRnwbU2JjHdrnadCCv8vClZ92t9s=;
+ b=HV8n+NDAR990Agpxy9acWCIwRK8NdGVyFWCS6k3yXuCPDcNdTZtRhnC1mJYb2IJ7+2oX49lQAy+fabzU5RzPEJkK16WsWqm+nc4fw91/CvXkSCX//u10FvFgHCoDphZqTSy2Uft+yhDz9EWlmMmGQlJjRbjOyM9awQP/zLNIxJ9eM4T1WsviiP6RnVgpQh2Lm5sn/AYDisQW/o3sYo/AFxOCumaZhles552PymI824AG0bYFVYPB2ftAKeTv8GVuXIsLI4OHOp589oX/kf8Y+ZPWVSLQmNpNeRgvDch4IjgliG0pvPPpjKCiHuWSy6pmZz9ZczBwyZaLOoG53UkIRg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- (2603:10b6:301:51::10) by MWHPR11MB0014.namprd11.prod.outlook.com
- (2603:10b6:301:64::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Wed, 9 Feb
- 2022 10:38:30 +0000
+ (2603:10b6:301:51::10) by SN6PR11MB2718.namprd11.prod.outlook.com
+ (2603:10b6:805:63::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.14; Wed, 9 Feb
+ 2022 12:05:33 +0000
 Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
  ([fe80::24c3:c14:92a4:22a6]) by MWHPR1101MB2157.namprd11.prod.outlook.com
  ([fe80::24c3:c14:92a4:22a6%5]) with mapi id 15.20.4951.019; Wed, 9 Feb 2022
- 10:38:30 +0000
-Message-ID: <397ec3b5-c54c-5b7b-22b1-e34e3afc0943@intel.com>
-Date: Wed, 9 Feb 2022 11:38:23 +0100
+ 12:05:32 +0000
+Message-ID: <23f36ba1-277c-6998-f569-2861887720dd@intel.com>
+Date: Wed, 9 Feb 2022 13:05:25 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.4.1
 Subject: Re: [PATCH 3/4] ALSA: hda: Update and expose codec register procedures
 Content-Language: en-US
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>
 References: <20220207114906.3759800-1-cezary.rojewski@intel.com>
  <20220207114906.3759800-4-cezary.rojewski@intel.com>
  <alpine.DEB.2.22.394.2202081753430.3088432@eliteleevi.tm.intel.com>
  <c144c67d-e6a8-1baa-82e8-37065c053919@intel.com>
- <s5hiltpqo0n.wl-tiwai@suse.de>
- <14d6492c-ad72-772c-55ed-2e5d51f3cbdc@intel.com>
-In-Reply-To: <14d6492c-ad72-772c-55ed-2e5d51f3cbdc@intel.com>
+ <41671a26-bd27-78ab-3440-eb9cb22c1ad1@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <41671a26-bd27-78ab-3440-eb9cb22c1ad1@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR04CA0052.eurprd04.prod.outlook.com
- (2603:10a6:20b:46a::21) To MWHPR1101MB2157.namprd11.prod.outlook.com
+X-ClientProxiedBy: AM5PR0601CA0082.eurprd06.prod.outlook.com
+ (2603:10a6:206::47) To MWHPR1101MB2157.namprd11.prod.outlook.com
  (2603:10b6:301:51::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dcaac893-d439-4f81-ca5b-08d9ebb85067
-X-MS-TrafficTypeDiagnostic: MWHPR11MB0014:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR11MB0014FE29AD529B65A5093F3AE32E9@MWHPR11MB0014.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Office365-Filtering-Correlation-Id: ce587ae2-4970-4ebe-d1dd-08d9ebc478ff
+X-MS-TrafficTypeDiagnostic: SN6PR11MB2718:EE_
+X-Microsoft-Antispam-PRVS: <SN6PR11MB27189A6113219BDC5072017DE32E9@SN6PR11MB2718.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tZczQ2OLJMDrw440UnO5R9MXpffPGpy5vqWj4eLrhsBtN2QNWQJMwogO6G588QMwF+Unr9jaMOpj1dbpAk5TfhOvo3sVjgZ+2MwDW9viD9UnPqg2xmo9kwUMnf1Nh09XSJRTbFOquZpANNb2nCBpq05NnHsA9ZFZHOSWj6HtneVj84p3BW/UB9Zol7yzhkP3SNSiZEJeJYVQQq+5wq2DbmdIxAA9Zs5bZPCRm4hp4AWpD4tf5sQMXtaLhMkV7Z2P9ecgrI3L3x1xNR4EuJaYyJMTMBLwbh+VJh6s0+RLZPJI0Wg25uHqZDX6qdM7G9l+glojWePSq5e4ICxTewrXXIYzC//GjjyKJQowFKUvT+7a64cVwk9BFFXmdQ5F4SP1hU6gkmN2ROjeAOJvXTDE0/FRSzuPrKBsKUNv4Ea8Xo3ldLQ/LP3WJunMRhrn7HO0Dky/4OoAemaZ2CTu2iH/K06fZub9x6ek4mB6m47hDQypU8vvp7DmV94zNx+abR+lvQhU2X/u3zJITmdrIf5hZ1Z3JB2utfSZfzmoPP1GrAIZjQTsk4docWroFSxFswWOkDKvo/rEDc20s6E3PL+iAlbXn6RIoGhUumY7SYL8WAoPfksQdltgVGPbtYHNuVTqX4+ENM1g0eRQ2EsIVQUCxI4RABwmEli8YUXqAZZia06I/uFspA2fMSyqoISYP5q3FU3Xeq50g5G2yCupOsEqJe04PsyLfprq9ra+ED+FcRo=
+X-Microsoft-Antispam-Message-Info: N17DUaU4VV57vtYt0bfG4/s6PmwPoIdVOpuUwJ1vd7/E6CuJ5tPXzB3GoyJGz4rpP72rntNk/SgQ3TfOFy/IikRx2cvlk50GZDiwYQW2XH2vi8E+tmtbR++HvR/9roa+xjzb9177iJ0f4OywDyeGzzmWR0hoUZHp89VU+NVJfvHvzHgVQOOKmYiNrWUzVtUU8nXLod4e4rZASMSVm5FkCpAvZR79CeuWdoL0KBu1XjP9L3bSWtVN3xGaF2qdtpUwns4bLMv/xLV0FHMGcFpDFjBDqgOfjGhUllefQwQiRKSQQh0QyvF9+I/GOYapnKc8GquQwd9lyr4aw/AuvYmqC0cxM5P7+NZESyO9O586S4GvyqRTHtgjWy1rNvWQwIz1fW70dfrEqGFFx4vxzQS9mQX4DI9XRZrYBhax6Xf5ka7TaYiz8L19g+I+thhHB8LGbfF/z4He26R3qxcW66g+e6eJpLYyKcsoFo62xrzwyy6Nabyllt3QgEhY8jUamlFOrDeUjmeg7TMnJhwT/67uIYRYqzkSadMfdIB+iRPgyJp2UxgeR9wNbLo6MWca8XTEDHptk/5F8qqBOV/QQpvBItvlYiprC+C+Yk3NRwM5Nv/qzwHXboRWCZH+vd4IRUWafgZ+POAjEnN+PMnM378QgHBTeLSn9ZFu/9aZ4kzVRvNz0+jrV402Kul3xHGuijjn9dbaf4Ebe0zT4bdcIHTa58f1myeac85OjyfIXRwYRGpKcvSZaLeaYE44DcwQuAJ5
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(6512007)(86362001)(53546011)(6506007)(4326008)(82960400001)(316002)(31696002)(15650500001)(8676002)(44832011)(5660300002)(38100700002)(2906002)(36756003)(83380400001)(66946007)(66476007)(66556008)(6916009)(31686004)(26005)(7416002)(2616005)(6666004)(508600001)(6486002)(4744005)(186003)(8936002)(45980500001)(43740500002);
+ SFS:(13230001)(366004)(6512007)(26005)(31696002)(15650500001)(5660300002)(6666004)(110136005)(8936002)(53546011)(66556008)(66476007)(6506007)(8676002)(186003)(44832011)(86362001)(66946007)(4326008)(316002)(508600001)(7416002)(31686004)(6486002)(38100700002)(83380400001)(2616005)(82960400001)(36756003)(2906002)(45980500001)(43740500002);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dEFrcGF4cFE4dmJldkhiR1RYOUtrOUpuZjZRVC9vSzZYeUVIMXdGbmUzbkM0?=
- =?utf-8?B?RWN0WGJoOHJsU0g2RTIxV3lINFlOQ05sZFVjQ3IwblBudDE4c1NQejgwQnhS?=
- =?utf-8?B?RWlNMVF2QU0za0hZemVLa3BPa29BWXpoRHNWSGxQYk4zUmtUOVpUbEx6Qkg5?=
- =?utf-8?B?L1NnMGUzS2IrSS9ZeVNHT3hKaG1PeGs5L3puTXFVbXlCTGFnUzdZTFVhUkVI?=
- =?utf-8?B?ZTdmQjhiNFNCeXRxOW1rbWYvaThBcmpNWkZQR3RoWGQxZGh5MklReGpkM3FL?=
- =?utf-8?B?SndLQXRzQzhjQlJGUWtna1NPY1YzYmdwclR1aHVOUDBXbGkvM1FvS0JrU0lT?=
- =?utf-8?B?MGRkL3ZjNWxrRFFXK1oyYndVUTBIVEJpVE5aS3l4OGVEditZRW1FUnNnN1JQ?=
- =?utf-8?B?OVdrN1JVeW02R3Z5S243TjFhUHV5bWVkcWlmNHF2YkNINWM2Z2dzWG1PVDBj?=
- =?utf-8?B?b3NsTDZkRzJ6L0xDUnhCazhiYmdRZWxoWndPWUp6L0ZMMXBwcEdXSU1TZld2?=
- =?utf-8?B?aXB0L3RVTVNEKzFSUkF6aEVxNWpyNTA0TGZXM0Q3UitsUTJGMWJaYUVHQ1dS?=
- =?utf-8?B?SnNDYXY2N0pmNkx1aXNYVXoxL3BwUlFZWnNSYXpnYlRwOU9oN0ZWTjE1MVQ1?=
- =?utf-8?B?V1pRN0t6RVhwemFxS2JHdzMwOUc4VDlUNXJNVi94QU04N0xpNWVPWjVOSG4y?=
- =?utf-8?B?TVBuSVVidWVYS2c0cmZMYzJsSnFIUnl4bHJOZlNkWkdhb29rcktyNjRVWVNv?=
- =?utf-8?B?VWRMUkV2bW5QRkp1NHBWSkJqSkJ5ZFFlNFVKc3ZWVHdLWkg3Sk9TNmZvSWdC?=
- =?utf-8?B?ZWxkMzVwdXY4TzExK1p1d3V3aVpPZUIwaUtsWFVvWUdWMUJjdkhFWllYNVJl?=
- =?utf-8?B?ZjY5ZWd5VVBrbk8vRHZ2RXBub2RKYTl4ZmFwblBmNXArTjF1SStodXdudE41?=
- =?utf-8?B?czRzaUpkaXJUN05DZ1RLOW1YL25VcmRjNXIyWjl2Rkdhd25CZjZOQ1VUWDRm?=
- =?utf-8?B?MGxwRzJBRktucVgzNEV1M0xnS0pKRUJPQ0hrOG5wOW5VK0VUS0xta0ZJTVpi?=
- =?utf-8?B?bDR2TzJvZ1pVUGtVVGExSWdzUXVRMlJ5eDc3RVQ4UE1qbU1pQWQvbUd1NUxF?=
- =?utf-8?B?QVd5dmc4OXYzd1NWLzYzZGFXbVhUUWNyYmVUaGdJR1ZkNFNHeEdnWVc4TTc0?=
- =?utf-8?B?S01EMjY3QzkweHk5ZGl0aElzdERPMEpwV2pXQmhQMGx1L3lGS3M2bWZkU3lU?=
- =?utf-8?B?Z29sdnErOUFpbFZ2ZDNKRGpsNHB2QU52QXkzWjN4bEpnK3VNYXdycFpVKzFK?=
- =?utf-8?B?NWQ0eXRGTmd2cDRoakRBMjZjdHFObmVHenh2THJmWFVEaDJERGpaN2lvSmp1?=
- =?utf-8?B?R0syV1ZCNW9ocVBSQ2g4V0pNOW1sYUQyYVlsVVVpOHFNVzJHeGcrRWVvQUJ4?=
- =?utf-8?B?K0pWVzVrV0NJYXFaVlI0bEtMdmEzYmpmNXVXRkM2ZUFReVFMS0E1bURnZzlp?=
- =?utf-8?B?SEZ4Zy91L2FPdzFTOUMxQnNtaVVHRmQ1VVVFcytPbG43TE9UYXNuZlpIQXd0?=
- =?utf-8?B?VjM1UFRFN2R5Y0ViV1VIcVp3VWNxamJYUWFGSEpuQ3hjUysvUUNMQVZSZWt6?=
- =?utf-8?B?WTdublAzVUNSMVRMRXRYdW9RN29XdnBJNksxcXpCRVJ1bjVjNlBUdkhxZ1Vi?=
- =?utf-8?B?YnM0eXh5bEhDS2JpMUZ4N0pvbzdCYTJHc2x1OGFrZjlER3VqUUZGK0xiNXkw?=
- =?utf-8?B?eTNubVhPQzhDZzJHZWw0czlYMTUrbE9SUi8xU2RNWW1nV1plSG03Sjd1bmtW?=
- =?utf-8?B?Q2R0ZXFNWlZ3bjZDbW9DZlJpVWdYT2tiVDBMVlQzb2NEenhTZ00rMDdUYzB2?=
- =?utf-8?B?d0hNVndKN2UwaUltcGRZOEJ0bzNkd3JvTDlOaW9CTEVLaEtCUTN0bUNHNmIr?=
- =?utf-8?B?amNEeEd4alk2UW5KdnJxRWxGakY4K0U0Q3dta0NsdGE3OEUwSWNlOVNuSGFw?=
- =?utf-8?B?RTBHVmsyWGxiZDFrZ2szTmExZjdkdDJaUXFWdytNWkVSTUlSQjY0SnEzZjFY?=
- =?utf-8?B?ZlZDL3dsU2NvckZ0Yi9jTCtWSFV1bkMrWW9rRE52ak5EcGxUREhPN2syL0lW?=
- =?utf-8?B?d0I0NWU1b0hNR2VlSWlHbnpqUVNBc1VEWWRqY1JFRzVFZDNqeldHczU5SHpI?=
- =?utf-8?B?M1QxYXRGUThDaE1xNndXeWhBazVPemh2b0NFKzAydVlEYXc5YzFsTnNZWmdO?=
- =?utf-8?Q?LVsBdETOGjqyFL4AJ81PZz5gfmDYphfOVDPXhwQDzE=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcaac893-d439-4f81-ca5b-08d9ebb85067
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dWx5RWR3TDUzallNSzFJeWhKaVpnSVJyNmJNMFBndFZzb2c1dG9EYTJ5M2JQ?=
+ =?utf-8?B?ZVB4eDh4ajFFYm1rMWFoeE12N0xrWTR3VUhUaTBRWkZJcEl3YlpFM3d4ZDA4?=
+ =?utf-8?B?Rm5Ic3dJTXlYSzhaNkhua0ZvYm8xQ0x6NkIvSW5YQ2cwaGV1aThEWEFSR2VH?=
+ =?utf-8?B?N1RFUE1DcXdzUGhNZGxBWXl2NldBWXNyM3Fva0V5eTdaMmhsYVk4MkVZSmxH?=
+ =?utf-8?B?Y1Exa1g4SHVxaVZXMVdCdTRDRTZqeDZjYlg0OXBGcGpVcHVMdElXclA5eDhO?=
+ =?utf-8?B?bHNUbGYvUU1zcGFwd2RHVU9nbS9sVXE1WmFvdXZYZmFVb1grbmE5dzExWDEv?=
+ =?utf-8?B?Y2trSGRXRlZUVTBZemlKUTZlNnRiWmtiZTJCMXFLSGNwODlKaUhsTmtsZEpT?=
+ =?utf-8?B?eEt5ZU5mbmFTMmxWMFgwTjlaNVVkSGptUDkzWWRmeDA2NUc2a1d6d2NWaVNP?=
+ =?utf-8?B?M1BTSVBvT0pTYkE5WEl4dWFUbFBFVis0K3FCaTNzWSsrRXA0eml5WDJLVmhU?=
+ =?utf-8?B?Znh6cFArRG1teUJjRy9aNzNUSUh6VUlHZG83N0NuV0p5T0l6N3pEOCtWNlVS?=
+ =?utf-8?B?MVUzSXdCQzIvd28xTWQ1dXo1M1UzNCtrYVdjRmRuM1pXVkN5YlhCWEc4R2wx?=
+ =?utf-8?B?MTIvMjRjbXpwN2RhSlowc2YySURTUFppN3krUFF4cXVSMWVxYWp2UFh0MDJ5?=
+ =?utf-8?B?ZHRnd1BrOEdjdjRKMngzdFhhT2F2UzNncDAzMEt0NUJZWFhFdzJ2RmwrK1dp?=
+ =?utf-8?B?MCsvWEZyUVpZMmNuZ3VVWENhRU1XajA4aTUvaTQwcmJOa0cxT3ZIOUFVMFBV?=
+ =?utf-8?B?MEh4U2hkSWc5ZEt4MnovSTNZZjdiZGpDQW1mMnlINHB1S3FlNmk3cGE5UCtE?=
+ =?utf-8?B?RFNlc1JrOGcxdUxIV3h4c0ZKbzEwemVoVjg5aW9vTFV6RlBoY1ZXTDRsSDd4?=
+ =?utf-8?B?bmdPekZXVUZJYzEwd1FhQWdkYklwdHJIdjRmb0NJallQZFoyeG54NERhdHh4?=
+ =?utf-8?B?cXNabFNLQ2dCSkdiQ1lhZEs3NW9UNWZQME4zVmxxdmNJd05udGZnSFFvTWtZ?=
+ =?utf-8?B?SWNGLzJmUEJ5Q2RVUlkrM3pkbGFJcFM0QWU2aUt4ckdtcEYvNWtmWHpWT0RV?=
+ =?utf-8?B?VlJRTjA1YUJuc1NuY1pKK0FSMUlacUN6ekFUNkxuUnBPZnUwTmhvdCtMQURu?=
+ =?utf-8?B?OXlxQUJldWhGQiszcEtTVU1vR0NuTmtzSXV6K3d5Y3BET0RPTk5XRERDeEtC?=
+ =?utf-8?B?SlJyVldNdERLREorUFl0OHBPTjFzbHBmV0RTQkMvL2lRNGxHNmZmY253bTRy?=
+ =?utf-8?B?WXlNODNKWVN4MkVGSmh0akQ1bEcxWW1Yb3pKcWJKUndJQzNsaEsvRk5CSG84?=
+ =?utf-8?B?cVpaYVBqd0U0c0Z3eWJFdkZrc0dJM0F3NmpuOU5yZkk2bDZqZXhtcStWK3lw?=
+ =?utf-8?B?ajd3QjlxeEVhNG5HY0czaXp5RUhqWXh6TjN0T2hSVFdaK2h1aU8yNVVLNDRx?=
+ =?utf-8?B?TUR3WXIyRjZmNkZBUlZWc1lHdXIrQzh5ZUZZT0NtL0MxN1JMc3hveWhDYnM2?=
+ =?utf-8?B?N1lKc0FTWkJtWG4xeXJJam9qcDB3djdScWQ1cVBDamNLZGN3Z09nNDlzM1pF?=
+ =?utf-8?B?d3JqT0xlVE1PRUdrVTlqUUJyTUN0Zm1ZOWdseHZiWTZvZXJyeWMxejMya1d0?=
+ =?utf-8?B?SkhyclR1QVphZHV4KzczNzNvYnc1cHJaa2VzSHEwd2VBU21wcFBOQzNXdDV0?=
+ =?utf-8?B?TWlxaFVYNGI2V2NWWG90VWltZ2VjcUNlVy9yN0F4c2h5Q0FGQVpNS3U2SjU2?=
+ =?utf-8?B?Y29Xdm0zMXVZU0tXdUFvVFMvUWpvSzMzbGxRNTJWdlBZVFJtTjFuWm4zY1Jk?=
+ =?utf-8?B?VEE4ajg0VEZjZng5SlQvMTNnL29ob3IrMDhXYjZrNGtySDdiOTlqVjBnWXdG?=
+ =?utf-8?B?TC9VenBuUHRuY3hETXlBWGFGcXEwd1dBWm5qQkZTMll3MzNOVEkyME0vTVhj?=
+ =?utf-8?B?bWZ1bTczdGJxa1ZGL2dTRDdsNE1vODZOM0ZUOHNoK0s2VnBHVDJCdkx2YklN?=
+ =?utf-8?B?WnRYMThEWnNKRU1KamJKYnRzcXJVSkYrU0lUTFpsTGJIZ0o4WVFrMmN3WWFM?=
+ =?utf-8?B?Tm9lZkZvZDJPR1dBcDhaTDFQSFVrRUs3QjI3MzFXblc5Q1BDNGQ1bmFMRW9E?=
+ =?utf-8?B?Zk5PNTR4c1VLQ1ZBcHlGdThtWWpIMUVnR0YyWW1uK216S3Y0RTk3VjRmclY5?=
+ =?utf-8?Q?l5QHLqnqV05gttO7Cq3KQFlUkj+Vb8275DutGVI9iY=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce587ae2-4970-4ebe-d1dd-08d9ebc478ff
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2022 10:38:30.7780 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2022 12:05:32.9065 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fR5svUNB6IPZ4dC8pArj6YPh5ZQob1IWbOcN6kWM9H92JUb2qj+8IpjrTZ1d6jLzc73llvWh7dXOiPjwT2rVCM4ENl+UPUX0Fu9Mp/TpAIQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB0014
+X-MS-Exchange-CrossTenant-UserPrincipalName: +e41IzqHbeSqwwxu6sX9jakc0ngMgltZdnDdNGvqBSQy2pxyChnQi/W2zLyPpaWU+VilHzbfaKLsza8qeCuy4XEYwGm6mr4nmZP6qYtKQ5o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB2718
 X-OriginatorOrg: intel.com
-Cc: alsa-devel@alsa-project.org, upstream@semihalf.com,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, harshapriya.n@intel.com,
- rad@semihalf.com, pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
- hdegoede@redhat.com, broonie@kernel.org, cujomalainey@chromium.org,
- lma@semihalf.com
+Cc: alsa-devel@alsa-project.org, upstream@semihalf.com, harshapriya.n@intel.com,
+ rad@semihalf.com, tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -200,15 +194,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-02-09 11:21 AM, Cezary Rojewski wrote:
-> snd_soc_bind_card() invokes snd_card_register() which in consequence 
-> leads to snd_device_register_all() and that to automatic ->dev_register 
-> call. That call involves PM operations, and at that moment, codec is not 
-> ready for it.
-By that I mean: bus driver (here, avs-driver) has some saying on the PM 
-matter too e.g.: sets their (codecs) status to suspended via 
-pm_runtime_set_suspended() so the bus runtime suspend is not blocked by 
-codecs that could possibly never complete their probing.
+On 2022-02-08 6:46 PM, Pierre-Louis Bossart wrote:
+
+> New capabilities are always welcome, what I am missing is how important
+> your suggestion is for end users or OEMs.
+
+
+Users won't notice and why would we like them to notice? The intended 
+behavior is 1:1 with hda legacy one.
+
+> The main reason for using a DSP-based driver on a HDaudio Intel platform
+> is when DMICs connected to the PCH, since this link cannot be handled by
+> the legacy driver. Those sort of form factors typically have analog
+> playback and capture only. UCM exposes only analog playback and capture.
+> 
+> Desktops without DMICs generally rely on the legacy driver and have
+> different sorts of problems with jack retasking and other time-consuming
+> problems.
+
+
+I believe we're all aware why and when DSP-drivers are chosen over HDA 
+legacy driver. That's orthogonal to the current subject.
+
+> Exposing additional DAIs in a DSP-based driver when supported by the
+> codec is a good idea on paper, but it's far from straightforward.
+
+
+The outcome is reduction in number of DAIs exposed for basically all 
+codecs except for HDMIs as DSP-based solutions are hardcoding 3-DAIs. 
+Here, the intended behavior is to be 1:1 with hda legacy behavior, not 
+hardcoding.
+
+> a) it assumes that there are indeed additional DAIs. Is this really the
+> case on the SKL/KBL devices you are targeting? It's not on newer
+> CML..ADL devices we've been supporting with SOF.
+
+
+It does not _assume_, it _reads_. The outcome is reduction of DAIs 
+exposed rather than hardcoding Analog/Alt Analog/Digital endpoints what 
+is currently the case.
+
+> b) it assumes that what is exposed by the codec actually does work - and
+> the number of quirks tells us to be cautious. We routinely get reports
+> that even Intel NUCs don't have the right quirks in the kernel...
+
+
+Patches just expose functions. Logic stays the same. As it is 
+sound/pci/hda code we're talking about, that code is quirk-friendly - it 
+contains several "patches" and quirks already.
+
+> c) and then it creates new problems for the topology that may expose
+> paths that may or may not be supported by the codec. I am not aware of
+> any existing APIs to take down or enable a path conditionally - though
+> it's been a problem for a very long time for SSP and DMIC enablement
+> that are not always correctly described, and any suggestions to improve
+> this limitation would have my full support.
+
+
+The default for topology is to expose just single analog endpoint as 
+majority of codecs expose nothing else. Moreover, having just 1 FE 
+defined in topology can be used to limit the usecases where we know 
+codec says it exposes more but in fact these endpoints aren't 
+functional. For specific codecs that expose more, a specific topology 
+can be provided just like it's done for any DSP-driver today.
+
+> FWIW, in our latest SOF work we went back to handling ONE DAI with
+> analog playback and capture and ditched the 'digital playback'. Trying
+> to do more led us to too many issues of 'works on platform A' and 'does
+> not work on platform B', and sometimes with different answers depending
+> on which BIOS version is used.
+> 
+> IMHO what's really problematic for HDaudio is the support for amplifiers
+> located behind the HDaudio codec, for which we more often than not are
+> missing the I2C configuration sequences. Suspend-resume is a recurring
+> problem as well.
+> 
+> I am not saying no for the sake of saying no, I have just never heard of
+> anyone complain about restrictions on the number of DAIs in the HDaudio
+> world.
+
+
+I believe our goals align. Rather than hardcoding Analog/Alt 
+Analog/Digital endpoints as it's done currently, when codec most of the 
+time do not have them working anyway, rely on behavior found in 
+sound/hda and sound/pci/hda. If there are some problems there it's 
+win:win for us and legacy driver. Fix one spot, have both drivers happy.
 
 
 Regards,

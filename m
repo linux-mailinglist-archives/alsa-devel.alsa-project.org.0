@@ -2,72 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE29C4AF7F6
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 18:21:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AC694AF88D
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Feb 2022 18:32:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5018F18C5;
-	Wed,  9 Feb 2022 18:20:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5018F18C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 348AA18FF;
+	Wed,  9 Feb 2022 18:31:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 348AA18FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644427285;
-	bh=LRZKvcwRS7VwhUBCPgKP6Vu+fDnrRrpNU46LxrM8iVA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1644427962;
+	bh=t1lEOIRmRPKWizbxtPG961FmB3OcoApK7Ih0tplgx5A=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h/vbSAAkcLHrcB6RjL1lylo77UPlh+3pw6oYMK0cDArrVGm9Ji2qkZTVsE7NETAjY
-	 VJzVfRQKg3xQDdfgzn0WWyX75+fqHhOxBSPUw5mHgTHexCUVd0izv48ZVxaZUiTJEj
-	 TTQAoWpKXV7agz9TKAy9aQvTDASdmvRxGcxY22Wk=
+	b=LVDR18LpM9nMpkZxbBKaVO5fzXzqRybJ6+ckphHSp9VIZOlkTbe/1hED79ZiWRQez
+	 wBuYIKYQ1G4OfMZePNhzGPxEvNBrU+m6QSJBdyQEGoZElxbx+qMGURyUraGy0N8GrT
+	 CqQ0KFPGDG8EXhUwEFFZa6vYOGDLFICXBtgHz980=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B00E5F8016B;
-	Wed,  9 Feb 2022 18:20:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E019F8016B;
+	Wed,  9 Feb 2022 18:31:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F06AF8016A; Wed,  9 Feb 2022 18:20:16 +0100 (CET)
+ id 330BCF8016A; Wed,  9 Feb 2022 18:31:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 719DCF800F0
+ for <alsa-devel@alsa-project.org>; Wed,  9 Feb 2022 18:31:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 719DCF800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="maFSzG+m"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4AE22F800ED
- for <alsa-devel@alsa-project.org>; Wed,  9 Feb 2022 18:20:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AE22F800ED
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="UVHxsZJQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1644427211;
- x=1675963211; h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=ZyPDtwYnBZtr+r3B3XVUonvi+pSwueSjBCEanvvBJrg=;
- b=UVHxsZJQYKGlE4KI4U3PvKJyvSTgC6Ue1+v1iY9hi3uliwFa9T8/b7Kd
- B/pjoZIFxW3JCVuj4yIGpR0DCDLJyUPS91RtnogZihhyctK55nZs0rtTK
- DSiDkoTH970Y85B1TOa5wXo49Z4AcubuQHM3qpWPSWVrtWSWvBPoTPCR7
- 1524GWq67JfAJl0GsKpKkmWEwxZyTqTVGeaXJ1jpX1uZJ8GukhotnJK35
- gZXs5ebN5sQk5Xr/jMMqkk03Kq/cwOk4hrtDYU0T8LGCdL3uERX/LRMSe
- J+snqLQx+/UDM6xapW8Gpc33bDmxX/kYzw+YE0PezjlpNnimTZCAA6cIS g==;
-Date: Wed, 9 Feb 2022 18:20:00 +0100
-From: Ricard Wanderlof <ricardw@axis.com>
-X-X-Sender: ricardw@lnxricardw1.se.axis.com
-To: Mark Brown <broonie@kernel.org>
+ by ams.source.kernel.org (Postfix) with ESMTPS id E7A2EB82343;
+ Wed,  9 Feb 2022 17:31:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DBF3C340E7;
+ Wed,  9 Feb 2022 17:31:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1644427881;
+ bh=t1lEOIRmRPKWizbxtPG961FmB3OcoApK7Ih0tplgx5A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=maFSzG+mdEIqzFOKKsn9IM0Ji4dLeOlnbVSl41l7spaYaO3loaDe8jLKdIcskYmfC
+ c0vzY3bx9DJbWE66YfPoUM8l/LSkRsUegpuprT9I9EXjVVFhhyi9s4JpA8SbhYVWXI
+ JzKSRsiDRhtjKmhPkAt970fiNiTu029di4YL2W8AoED1fy3h67JRcvXzYcbfy8tJJY
+ 3bkgLQOlyU1D2tL81L3FR98tixXot4QSo24o2L5P69fV7MML5DCFgq2ZN3i0lGVICm
+ athXn8eRXyOAzf/kXAzG5Mx92yFeNa3Lj0cI+biiVhoPbfhQE3sGmNApLm55HdTKg3
+ 7IhUMh0cLayFQ==
+Date: Wed, 9 Feb 2022 17:31:17 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Ricard Wanderlof <ricardw@axis.com>
 Subject: Re: [PATCH] ASoC: tlv320adc3xxx: Add IIR filter configuration
-In-Reply-To: <YgPkX4UaYa0jyo6K@sirena.org.uk>
-Message-ID: <alpine.DEB.2.21.2202091803550.21772@lnxricardw1.se.axis.com>
+Message-ID: <YgP6ZSqpJQwRoMLE@sirena.org.uk>
 References: <alpine.DEB.2.21.2202071806580.31604@lnxricardw1.se.axis.com>
  <YgK81R6ipwLagmoE@sirena.org.uk>
  <alpine.DEB.2.21.2202091518030.21772@lnxricardw1.se.axis.com>
  <YgPkX4UaYa0jyo6K@sirena.org.uk>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <alpine.DEB.2.21.2202091803550.21772@lnxricardw1.se.axis.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-Originating-IP: [10.0.5.60]
-X-ClientProxiedBy: se-mail06w.axis.com (10.20.40.12) To se-mail07w.axis.com
- (10.20.40.13)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ZOG7cttW2MxV3nei"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2202091803550.21772@lnxricardw1.se.axis.com>
+X-Cookie: Disc space -- the final frontier!
 Cc: alsa-devel <alsa-devel@alsa-project.org>, kernel@axis.com,
  Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -86,68 +91,66 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On Wed, 9 Feb 2022, Mark Brown wrote:
+--ZOG7cttW2MxV3nei
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> > Isn't one consequence of caching that writing to a register which is known 
-> > to already have the value to be written are simply skipped? 
-> 
-> No, look at the code for regmap_write().
+On Wed, Feb 09, 2022 at 06:20:00PM +0100, Ricard Wanderlof wrote:
 
-Thanks. Good. Should have checked. I had the case previosly described 
-deeply ingrained in my mind since it was an elusive issue at the time.
+> In this case it was the ADAU1761 driver and it was several years ago
+> and I don't know if it still is an issue. Basically the sequence was=20
+> something like:
 
-> > I remember having that problem with a codec which did not have any means 
-> > of resetting the codec other than power-on-reset (i.e. no reset pin or 
-> > software controlled reset). If the system was rebooted without cycling the 
-> > power, the registers would potentially contain non-default values, and 
-> > this meant that for instance attempting to explicitly set the sample rate 
-> > to the default value was not possible, as the regcache assumed that the 
-> > default value was already set and thus skipped the corresponding register 
-> 
-> This is during a cache sync, a sync will only write out non-default
-> values if the device was flagged as having been reset in order to reduce
-> power on times.  Your driver is not doing a cache sync at any point so
-> won't be affected by this, but in any case...
-> 
-> > write. (A workaround was to write another sample rate and then default).
-> 
-> If your driver has no way of ensuring that the device has default
-> register values your driver should just not specify any register
-> defaults, but in this case it sounds like you have some other bug going
-> on.  If the device is getting suspended with a default value set in the
-> registers then comes out of suspend with a non-default value it's hard
-> to see how that could happen in the hardware, either the device will
-> retain the value it had or it will reset to power on default but either
-> way it's the same value.  I have seen drivers bypassing the cache for a
-> shutdown sequence that wrote non-default values to the hardware without
-> updating the cache.
+> - System boots up.
+> - Codec is configured (I think it was the sample rate, but it could have=
+=20
+>   been the format or some other I2S parameter) to something that is non=
+=20
+>   default.
+> - System reboots. Since the codec has no means of getting reset, it
+>   retains all its register values.
+> - This time, an attempt is made to configure the codec with the default
+>   sample rate. Since the driver believes the default is already set
+>   it does not attempt to write anything, although looking at=20
+>   regmap_write() now I'm not sure how this could be the case.
 
-In this case it was the ADAU1761 driver and it was several years ago
-and I don't know if it still is an issue. Basically the sequence was 
-something like:
+update_bits() could also trigger this if it thinks the value didn't
+change, but that's at a higher level before it ever gets as far as
+trying to do the write and unrelated to the cache (it will also
+suppress redundant writes with no cache present).
 
-- System boots up.
-- Codec is configured (I think it was the sample rate, but it could have 
-  been the format or some other I2S parameter) to something that is non 
-  default.
-- System reboots. Since the codec has no means of getting reset, it
-  retains all its register values.
-- This time, an attempt is made to configure the codec with the default
-  sample rate. Since the driver believes the default is already set
-  it does not attempt to write anything, although looking at 
-  regmap_write() now I'm not sure how this could be the case.
-- When codec is started, the sample rate / format / whatever is wrong
-  compared to what was allegedly set up.
+> - When codec is started, the sample rate / format / whatever is wrong
+>   compared to what was allegedly set up.
 
-It was all rather academic, because the above sequence only occurred in 
-the lab under manual control; in the actual production code the same 
-format and sample rate was used every time, so it wasn't an issue that was 
-pressing to fix. It could as you said have been a bug somewhere else. I 
-distinctly remember the last point about the codec running in seemingly 
-the wrong mode after a (power-cycle-less) reboot at any rate.
+> It was all rather academic, because the above sequence only occurred in=
+=20
+> the lab under manual control; in the actual production code the same=20
+> format and sample rate was used every time, so it wasn't an issue that wa=
+s=20
+> pressing to fix. It could as you said have been a bug somewhere else. I=
+=20
+> distinctly remember the last point about the codec running in seemingly=
+=20
+> the wrong mode after a (power-cycle-less) reboot at any rate.
 
-/Ricard
--- 
-Ricard Wolf Wanderlof                           ricardw(at)axis.com
-Axis Communications AB, Lund, Sweden            www.axis.com
-Phone +46 46 272 2016                           Fax +46 46 13 61 30
+A soft reboot could trigger something like that, the easiest fix would
+just be to not specify any register defaults so that there's no default
+values to compare with.
+
+--ZOG7cttW2MxV3nei
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmID+mQACgkQJNaLcl1U
+h9DMBQf/QrU6gaTo6FfNY1nR2rgR7XtPYH6HJZPTj4sPkRE024yi3pr+tWDh85tZ
+uiKQJ33D1EUJOHhbUPafdx+xlp9ponQW66hsysi+FvThjayh5arrAzzQoFVTFRod
+NpkZI2uHl3FRsO8XSCGFX12B/2KPe5hS/yHo8fTeFp6Lxy7rkWaa1xg0uPFXGcmj
+dHMcQBNYOuRT/DWZbjiO3l7dL/0xfMqqqiMdyvq/EQ6E7a3Sr3ZRtiMS/m2IL8l8
+ao8qRq1Ef3qgCtySChk18gPysVcPulflF/M8Viphz2Z+DMTYUgQ3I0f8lQXiuP97
+558f5j62sjROWM+E9cau11EoVbEN5g==
+=A8M9
+-----END PGP SIGNATURE-----
+
+--ZOG7cttW2MxV3nei--

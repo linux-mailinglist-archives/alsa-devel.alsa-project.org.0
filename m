@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 549254B151C
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Feb 2022 19:18:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3763D4B151D
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Feb 2022 19:19:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACC6C1AAA;
-	Thu, 10 Feb 2022 19:17:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACC6C1AAA
+	by alsa0.perex.cz (Postfix) with ESMTPS id BAF551AB2;
+	Thu, 10 Feb 2022 19:18:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAF551AB2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644517106;
-	bh=y9KoYEHTuytQnzjdUCEQMgDLFL2j5uawuME74AvZBFw=;
+	s=default; t=1644517141;
+	bh=2EAjaZiUEmEoGGWFDQJoh0nNq0fjsMZ/51ajAw8p5mI=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XIbiHU9XgosThdws2hAKKTo3S6+WrNOgOo76ZXaPWrhocGCxqHmFiizk7HJQtTwYm
-	 V/yQi8fJh9hZ8aWK1uYkOgxXSKObo24fXSm/LuHCG7xSLi8urFFSgr93lCi+0VyIkt
-	 dTao0ZO7XlXcmBSpqe/4Zuh9mzLnkvRq2qc6S5z0=
+	b=FoYrt9fge412jU7ZgmxrJ2YaxGD0r/JQna1bkKPkLexC4Y6PQq40uDKC7ozdaPXKk
+	 hV/7/YaWvwm5STz0gvdlW/3BNZrxp2d3Ew+qMg+g2/VFd7ISEGAXEiwbTWKQ5yJOsr
+	 ubYWJG7OoJysIyAIIAri5Uz+squAnHLcG+P2von8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23FF1F80302;
-	Thu, 10 Feb 2022 19:17:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B635DF804AC;
+	Thu, 10 Feb 2022 19:17:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89F71F800A7; Thu, 10 Feb 2022 19:17:19 +0100 (CET)
+ id D01C2F804AB; Thu, 10 Feb 2022 19:17:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03B54F800A7
- for <alsa-devel@alsa-project.org>; Thu, 10 Feb 2022 19:17:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03B54F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21F34F80054
+ for <alsa-devel@alsa-project.org>; Thu, 10 Feb 2022 19:17:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21F34F80054
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ix/mZN/5"
+ header.b="RDQAnF9u"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 99E1161E59;
+ by sin.source.kernel.org (Postfix) with ESMTPS id 205D9CE2627;
+ Thu, 10 Feb 2022 18:17:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B6F4C340EB;
  Thu, 10 Feb 2022 18:17:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DC03C004E1;
- Thu, 10 Feb 2022 18:17:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1644517030;
- bh=y9KoYEHTuytQnzjdUCEQMgDLFL2j5uawuME74AvZBFw=;
+ s=k20201202; t=1644517032;
+ bh=2EAjaZiUEmEoGGWFDQJoh0nNq0fjsMZ/51ajAw8p5mI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ix/mZN/5UW7pmVM3vYhS7NC+PUaymZ+trN2vNmdR2x1+Jhg/EyMXtP6O/J0KCQZa8
- f3kpnqnwUAbrZwkQU9XW2d54BbskBx7K1C/sYEXQP8zZ7m0vxz8QyehqFEQX958Iz3
- qIq2HOuR9XJknJcVm3IwN5Oc8bVwyfusA+NvaTH4tBF8OIAhugHP5gn5/nrGQX+otk
- J0fy+g/JbeBvQ2/BHpQd5M7exuntEgKQWxDSSov9qCLwZgMMvQbIKxYAcEIk4nmGTf
- UYonPN9jiuDyUeX+rBH/UklWubkXd0VQ2SDdNFaQGrI3PN+IXIisAVMqDBDR2tGWi2
- gtzLpSDPoH5lA==
+ b=RDQAnF9uMV0AD7GqyFFT2f8/doZ8H1YuMSaaoF5IA4yrVaEqLz3EaThJqZ8OsgkKF
+ WYnovp6l5E51Ae/6/LORXRXccA37QcVmnE55W2Aj+uWjanhHZcX8XXSW2iJZwvYQmi
+ BulehKofnxfzucQov85WLCn/vdBAoW8xl1EwenCRpoinl31HOkedI58AUHdAR2Rc/p
+ arhHWwkysvROnNXkFF6fpy9WsKUrDv3dF1PHh5Wq+ib8r+Ulf+InOwMDlB2VWxraVn
+ b74pHx/0jgsGvWm8xwAZYprEIHrBC26PVKluIAOaEPvl2IOji1R1PshQv3nkJ6lwb+
+ aftfx0L/XIVgw==
 From: Mark Brown <broonie@kernel.org>
 To: pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
  lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20220210105519.19795-1-peter.ujfalusi@linux.intel.com>
-References: <20220210105519.19795-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/9] ASoC: SOF: IPC client infrastructure
-Message-Id: <164451702780.82170.4074299845971307664.b4-ty@kernel.org>
-Date: Thu, 10 Feb 2022 18:17:07 +0000
+In-Reply-To: <20220210150525.30756-1-peter.ujfalusi@linux.intel.com>
+References: <20220210150525.30756-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH v2 0/9] ASoC: SOF: IPC client infrastructure
+Message-Id: <164451703022.82170.12789113355234920462.b4-ty@kernel.org>
+Date: Thu, 10 Feb 2022 18:17:10 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -85,15 +85,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Feb 2022 12:55:10 +0200, Peter Ujfalusi wrote:
-> The Linux SOF implementation is historically monolithic in a sense that all
-> features accessible in the firmware can be used via the snd_sof_dev struct in
-> one way or another.
+On Thu, 10 Feb 2022 17:05:16 +0200, Peter Ujfalusi wrote:
+> Changes since v1:
+> - Fix compilation error in sound/soc/sof/compress.c:
+>   error: implicit declaration of function 'snd_sof_create_page_table'
+>   The patch introducing this is not in sof-dev, and I have missed cross compiling
+>   for aarch64.
 > 
-> Support for features can not be added or removed runtime and with the current
-> way of things it is hard if not impossible to implement support for dynamic
-> feature support when based on the firmware manifest we can easily enable/access
-> independent modules with the SOF.
+> Original Cover letter
 > 
 > [...]
 

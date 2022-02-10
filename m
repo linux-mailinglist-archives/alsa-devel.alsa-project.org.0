@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C2484B0B92
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Feb 2022 11:57:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD7984B0B94
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Feb 2022 11:57:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34E821833;
-	Thu, 10 Feb 2022 11:56:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34E821833
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F3AD1899;
+	Thu, 10 Feb 2022 11:57:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F3AD1899
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644490649;
-	bh=kNx55RY7X0IIBJcH0/hbI5dhEt5+Ybz6eMFNnHsll1c=;
+	s=default; t=1644490678;
+	bh=zG0rPmc+M7NnPQ92kjKfNGFNbwAdhoZlDMjs1VeaqKs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OCCorq04ft49/Yp3rUqzwVNtNEw6VynQIPVIzxSMs6yOlUlwqMUpJKH7YlJvoq356
-	 5RpqwhBWb2BZgZQcw03Uf4efaUjQG9pPPIQX5pvubcxoxnd1PA/M8uOc/m4RTp7C7B
-	 y1kQ/RUj8PydbDXDhzKrLdj7aKdxVZgGTiOBUkDo=
+	b=A/cJfdGDNXH5jHCD9mWOdE1vZktaZI8Be3Rzof/0Gid5oh5ZMwB5FFocIuPF6i2Np
+	 6ckv8SXyMC9PuaTJ/RKdbhLu8/PUvdGEq/fhudxcJvvG14Fbu2kf80B6P0yDYeMjeF
+	 PSnUbfDgbfV72kMqMY1GiSMVHXSHs6QPva79E1eM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C1B6F80515;
-	Thu, 10 Feb 2022 11:55:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4C65F8051E;
+	Thu, 10 Feb 2022 11:55:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EED88F80517; Thu, 10 Feb 2022 11:55:40 +0100 (CET)
+ id AF07DF8051A; Thu, 10 Feb 2022 11:55:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0CB2F800A7
- for <alsa-devel@alsa-project.org>; Thu, 10 Feb 2022 11:55:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0CB2F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B6C3F8016C
+ for <alsa-devel@alsa-project.org>; Thu, 10 Feb 2022 11:55:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B6C3F8016C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="nVI85FvS"
+ header.b="gXiS0Yf1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644490534; x=1676026534;
+ t=1644490537; x=1676026537;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kNx55RY7X0IIBJcH0/hbI5dhEt5+Ybz6eMFNnHsll1c=;
- b=nVI85FvSTkUFT27zNKnVqtsYlbmdiC308wnBCkOC4sBxAEyOrcRwo+d9
- 1c6ZtzQkudK1ty82U/Si3qCaI7jJmfpjZxcYPF6zOZNIhQbLyjlTq5d+e
- u5Sjy3LyNyq8Sf24QBh4/NQfG9+MDMjYMc7iUAwdiIfrwdAxBY5stCU1F
- kwbSrs84NjwJwo5pKlCn40dmZQkn3Zvtbfraod8K3z/uRWh9Pz7VFLuTL
- fGEHqwraI2ux1StUNs6ORxr58ZcqXnZroKwMES4sFFN0M7FZDZENB0gR7
- CWltYkwtLyWEeTzAEhxNtwg4GiL6WrTiNNFcj+f3LD6+kHYF+kkxFUxSA A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="310202849"
-X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="310202849"
+ bh=zG0rPmc+M7NnPQ92kjKfNGFNbwAdhoZlDMjs1VeaqKs=;
+ b=gXiS0Yf1Y4+DMedxxWH30GrYYQ7ddiDINIl+lJVoKNu2SsEqCyT7ouDB
+ F6eiRaTUBqRqwdNXiyh819NlIjDmFL2a/x7eI+dTtcOJ9sw+WTyqQ8cTY
+ OFW7nDyKQjcwo0WGJjeOqzDOYLk2pdxjwRwqD2hksetc18HmYSnSMlYVi
+ 2+IoEpDTVXXPAgFEA9XG/ESbfcV4OHQK/m44xJt/7cJ9ZUyyHEkOa3hF7
+ Buz5G+EHCS3XLnrzfAw6FybCQpX/mhsdPS9GurZUoOghJ9/E2zyIif4pW
+ UhFsUCVH5MM+5Cfv16M0Aeoumrti5I7eZ3MEAguJLv2/nZDag3uU47hTh w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10253"; a="310202857"
+X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="310202857"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 02:55:32 -0800
-X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="679106849"
+ 10 Feb 2022 02:55:35 -0800
+X-IronPort-AV: E=Sophos;i="5.88,358,1635231600"; d="scan'208";a="679106853"
 Received: from barabano-mobl.ccr.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.41.18])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 02:55:29 -0800
+ 10 Feb 2022 02:55:32 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
-Subject: [PATCH 3/9] ASoC: SOF: ipc: Read and pass the whole message to
- handlers for IPC events
-Date: Thu, 10 Feb 2022 12:55:13 +0200
-Message-Id: <20220210105519.19795-4-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 4/9] ASoC: SOF: Split up utils.c into sof-utils and iomem-utils
+Date: Thu, 10 Feb 2022 12:55:14 +0200
+Message-Id: <20220210105519.19795-5-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220210105519.19795-1-peter.ujfalusi@linux.intel.com>
 References: <20220210105519.19795-1-peter.ujfalusi@linux.intel.com>
@@ -90,189 +90,282 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change the parameter list for the firmware initiated message (IPC event)
-handler functions to:
-handler(struct snd_sof_dev *sdev, void *full_msg);
+The utils.c contains wrappers and implementation for accessing iomem mapped
+regions and a single unrelated function to create a compressed page table
+from snd_dma_buffer for firmware use.
 
-Allocate memory and read the whole message in snd_sof_ipc_msgs_rx() then
-pass the pointer to the function handling the message.
-Do this only if we actually have a function which is tasked to process the
-given type.
+The latter is used by the PCM and the dma trace code and it needs to be
+moved to a generic source/header for the client conversion to be possible.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/ipc.c | 85 +++++++++++++++++++++++----------------------
- 1 file changed, 44 insertions(+), 41 deletions(-)
+ sound/soc/sof/Makefile                   |  5 +-
+ sound/soc/sof/{utils.c => iomem-utils.c} | 61 +------------------
+ sound/soc/sof/pcm.c                      |  1 +
+ sound/soc/sof/sof-priv.h                 |  4 --
+ sound/soc/sof/sof-utils.c                | 77 ++++++++++++++++++++++++
+ sound/soc/sof/sof-utils.h                | 19 ++++++
+ sound/soc/sof/trace.c                    |  1 +
+ 7 files changed, 103 insertions(+), 65 deletions(-)
+ rename sound/soc/sof/{utils.c => iomem-utils.c} (59%)
+ create mode 100644 sound/soc/sof/sof-utils.c
+ create mode 100644 sound/soc/sof/sof-utils.h
 
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index 16a0d7a059f3..ee56d4fa4053 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -18,8 +18,10 @@
- #include "sof-audio.h"
- #include "ops.h"
+diff --git a/sound/soc/sof/Makefile b/sound/soc/sof/Makefile
+index 964b429146be..4b9fccacc2b7 100644
+--- a/sound/soc/sof/Makefile
++++ b/sound/soc/sof/Makefile
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
  
--static void ipc_trace_message(struct snd_sof_dev *sdev, u32 msg_type);
--static void ipc_stream_message(struct snd_sof_dev *sdev, u32 msg_cmd);
-+typedef void (*ipc_rx_callback)(struct snd_sof_dev *sdev, void *msg_buf);
+ snd-sof-objs := core.o ops.o loader.o ipc.o pcm.o pm.o debug.o topology.o\
+-		control.o trace.o utils.o sof-audio.o stream-ipc.o
++		control.o trace.o iomem-utils.o sof-audio.o stream-ipc.o
+ 
+ snd-sof-$(CONFIG_SND_SOC_SOF_DEBUG_PROBES) += sof-probes.o
+ snd-sof-$(CONFIG_SND_SOC_SOF_COMPRESS) += compress.o
+@@ -12,9 +12,12 @@ snd-sof-of-objs := sof-of-dev.o
+ 
+ snd-sof-nocodec-objs := nocodec.o
+ 
++snd-sof-utils-objs := sof-utils.o
 +
-+static void ipc_trace_message(struct snd_sof_dev *sdev, void *msg_buf);
-+static void ipc_stream_message(struct snd_sof_dev *sdev, void *msg_buf);
+ obj-$(CONFIG_SND_SOC_SOF) += snd-sof.o
+ obj-$(CONFIG_SND_SOC_SOF_NOCODEC) += snd-sof-nocodec.o
  
- /*
-  * IPC message Tx/Rx message handling.
-@@ -477,44 +479,30 @@ void snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id)
++obj-$(CONFIG_SND_SOC_SOF) += snd-sof-utils.o
+ 
+ obj-$(CONFIG_SND_SOC_SOF_ACPI_DEV) += snd-sof-acpi.o
+ obj-$(CONFIG_SND_SOC_SOF_OF_DEV) += snd-sof-of.o
+diff --git a/sound/soc/sof/utils.c b/sound/soc/sof/iomem-utils.c
+similarity index 59%
+rename from sound/soc/sof/utils.c
+rename to sound/soc/sof/iomem-utils.c
+index 66fa6602fb67..3f57f6cf6542 100644
+--- a/sound/soc/sof/utils.c
++++ b/sound/soc/sof/iomem-utils.c
+@@ -3,7 +3,7 @@
+ // This file is provided under a dual BSD/GPLv2 license.  When using or
+ // redistributing this file, you may do so under either license.
+ //
+-// Copyright(c) 2018 Intel Corporation. All rights reserved.
++// Copyright(c) 2018-2022 Intel Corporation. All rights reserved.
+ //
+ // Author: Keyon Jie <yang.jie@linux.intel.com>
+ //
+@@ -125,62 +125,3 @@ int sof_block_read(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_type,
+ 	return 0;
  }
- EXPORT_SYMBOL(snd_sof_ipc_reply);
- 
--static void ipc_comp_notification(struct snd_sof_dev *sdev,
--				  struct sof_ipc_cmd_hdr *hdr)
-+static void ipc_comp_notification(struct snd_sof_dev *sdev, void *msg_buf)
- {
-+	struct sof_ipc_cmd_hdr *hdr = msg_buf;
- 	u32 msg_type = hdr->cmd & SOF_CMD_TYPE_MASK;
--	struct sof_ipc_ctrl_data *cdata;
--	int ret;
- 
- 	switch (msg_type) {
- 	case SOF_IPC_COMP_GET_VALUE:
- 	case SOF_IPC_COMP_GET_DATA:
--		cdata = kmalloc(hdr->size, GFP_KERNEL);
--		if (!cdata)
--			return;
+ EXPORT_SYMBOL(sof_block_read);
 -
--		/* read back full message */
--		ret = snd_sof_ipc_msg_data(sdev, NULL, cdata, hdr->size);
--		if (ret < 0) {
--			dev_err(sdev->dev,
--				"error: failed to read component event: %d\n", ret);
--			goto err;
--		}
- 		break;
- 	default:
- 		dev_err(sdev->dev, "error: unhandled component message %#x\n", msg_type);
- 		return;
- 	}
- 
--	snd_sof_control_notify(sdev, cdata);
+-/*
+- * Generic buffer page table creation.
+- * Take the each physical page address and drop the least significant unused
+- * bits from each (based on PAGE_SIZE). Then pack valid page address bits
+- * into compressed page table.
+- */
 -
--err:
--	kfree(cdata);
-+	snd_sof_control_notify(sdev, msg_buf);
- }
- 
- /* DSP firmware has sent host a message  */
- void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
- {
-+	ipc_rx_callback rx_callback = NULL;
- 	struct sof_ipc_cmd_hdr hdr;
--	u32 cmd, type;
-+	void *msg_buf;
-+	u32 cmd;
- 	int err;
- 
- 	/* read back header */
-@@ -523,10 +511,15 @@ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
- 		dev_warn(sdev->dev, "failed to read IPC header: %d\n", err);
- 		return;
- 	}
-+
-+	if (hdr.size < sizeof(hdr)) {
-+		dev_err(sdev->dev, "The received message size is invalid\n");
-+		return;
-+	}
-+
- 	ipc_log_header(sdev->dev, "ipc rx", hdr.cmd);
- 
- 	cmd = hdr.cmd & SOF_GLB_TYPE_MASK;
--	type = hdr.cmd & SOF_CMD_TYPE_MASK;
- 
- 	/* check message type */
- 	switch (cmd) {
-@@ -551,20 +544,35 @@ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
- 	case SOF_IPC_GLB_PM_MSG:
- 		break;
- 	case SOF_IPC_GLB_COMP_MSG:
--		ipc_comp_notification(sdev, &hdr);
-+		rx_callback = ipc_comp_notification;
- 		break;
- 	case SOF_IPC_GLB_STREAM_MSG:
--		/* need to pass msg id into the function */
--		ipc_stream_message(sdev, hdr.cmd);
-+		rx_callback = ipc_stream_message;
- 		break;
- 	case SOF_IPC_GLB_TRACE_MSG:
--		ipc_trace_message(sdev, type);
-+		rx_callback = ipc_trace_message;
- 		break;
- 	default:
--		dev_err(sdev->dev, "error: unknown DSP message 0x%x\n", cmd);
-+		dev_err(sdev->dev, "%s: Unknown DSP message: 0x%x\n", __func__, cmd);
- 		break;
- 	}
- 
-+	if (rx_callback) {
-+		/* read the full message as we have rx handler for it */
-+		msg_buf = kmalloc(hdr.size, GFP_KERNEL);
-+		if (!msg_buf)
-+			return;
-+
-+		err = snd_sof_ipc_msg_data(sdev, NULL, msg_buf, hdr.size);
-+		if (err < 0)
-+			dev_err(sdev->dev, "%s: Failed to read message: %d\n",
-+				__func__, err);
-+		else
-+			rx_callback(sdev, msg_buf);
-+
-+		kfree(msg_buf);
-+	}
-+
- 	ipc_log_header(sdev->dev, "ipc rx done", hdr.cmd);
- }
- EXPORT_SYMBOL(snd_sof_ipc_msgs_rx);
-@@ -573,19 +581,14 @@ EXPORT_SYMBOL(snd_sof_ipc_msgs_rx);
-  * IPC trace mechanism.
-  */
- 
--static void ipc_trace_message(struct snd_sof_dev *sdev, u32 msg_type)
-+static void ipc_trace_message(struct snd_sof_dev *sdev, void *msg_buf)
- {
--	struct sof_ipc_dma_trace_posn posn;
--	int ret;
-+	struct sof_ipc_cmd_hdr *hdr = msg_buf;
-+	u32 msg_type = hdr->cmd & SOF_CMD_TYPE_MASK;
- 
- 	switch (msg_type) {
- 	case SOF_IPC_TRACE_DMA_POSITION:
--		/* read back full message */
--		ret = snd_sof_ipc_msg_data(sdev, NULL, &posn, sizeof(posn));
--		if (ret < 0)
--			dev_warn(sdev->dev, "failed to read trace position: %d\n", ret);
+-int snd_sof_create_page_table(struct device *dev,
+-			      struct snd_dma_buffer *dmab,
+-			      unsigned char *page_table, size_t size)
+-{
+-	int i, pages;
+-
+-	pages = snd_sgbuf_aligned_pages(size);
+-
+-	dev_dbg(dev, "generating page table for %p size 0x%zx pages %d\n",
+-		dmab->area, size, pages);
+-
+-	for (i = 0; i < pages; i++) {
+-		/*
+-		 * The number of valid address bits for each page is 20.
+-		 * idx determines the byte position within page_table
+-		 * where the current page's address is stored
+-		 * in the compressed page_table.
+-		 * This can be calculated by multiplying the page number by 2.5.
+-		 */
+-		u32 idx = (5 * i) >> 1;
+-		u32 pfn = snd_sgbuf_get_addr(dmab, i * PAGE_SIZE) >> PAGE_SHIFT;
+-		u8 *pg_table;
+-
+-		dev_vdbg(dev, "pfn i %i idx %d pfn %x\n", i, idx, pfn);
+-
+-		pg_table = (u8 *)(page_table + idx);
+-
+-		/*
+-		 * pagetable compression:
+-		 * byte 0     byte 1     byte 2     byte 3     byte 4     byte 5
+-		 * ___________pfn 0__________ __________pfn 1___________  _pfn 2...
+-		 * .... ....  .... ....  .... ....  .... ....  .... ....  ....
+-		 * It is created by:
+-		 * 1. set current location to 0, PFN index i to 0
+-		 * 2. put pfn[i] at current location in Little Endian byte order
+-		 * 3. calculate an intermediate value as
+-		 *    x = (pfn[i+1] << 4) | (pfn[i] & 0xf)
+-		 * 4. put x at offset (current location + 2) in LE byte order
+-		 * 5. increment current location by 5 bytes, increment i by 2
+-		 * 6. continue to (2)
+-		 */
+-		if (i & 1)
+-			put_unaligned_le32((pg_table[0] & 0xf) | pfn << 4,
+-					   pg_table);
 -		else
--			snd_sof_trace_update_pos(sdev, &posn);
-+		snd_sof_trace_update_pos(sdev, msg_buf);
- 		break;
- 	default:
- 		dev_err(sdev->dev, "error: unhandled trace message %#x\n", msg_type);
-@@ -667,11 +670,11 @@ static void ipc_xrun(struct snd_sof_dev *sdev, u32 msg_id)
- }
+-			put_unaligned_le32(pfn, pg_table);
+-	}
+-
+-	return pages;
+-}
+-EXPORT_SYMBOL(snd_sof_create_page_table);
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index 37fb8e6cd493..62cb61655761 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -19,6 +19,7 @@
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
+ #include "sof-probes.h"
+ #endif
++#include "sof-utils.h"
  
- /* stream notifications from DSP FW */
--static void ipc_stream_message(struct snd_sof_dev *sdev, u32 msg_cmd)
-+static void ipc_stream_message(struct snd_sof_dev *sdev, void *msg_buf)
- {
--	/* get msg cmd type and msd id */
--	u32 msg_type = msg_cmd & SOF_CMD_TYPE_MASK;
--	u32 msg_id = SOF_IPC_MESSAGE_ID(msg_cmd);
-+	struct sof_ipc_cmd_hdr *hdr = msg_buf;
-+	u32 msg_type = hdr->cmd & SOF_CMD_TYPE_MASK;
-+	u32 msg_id = SOF_IPC_MESSAGE_ID(hdr->cmd);
+ /* Create DMA buffer page table for DSP */
+ static int create_page_table(struct snd_soc_component *component,
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 2e474048d708..27d2f3ca2f06 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -502,10 +502,6 @@ void snd_sof_complete(struct device *dev);
  
- 	switch (msg_type) {
- 	case SOF_IPC_STREAM_POSITION:
+ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev);
+ 
+-int snd_sof_create_page_table(struct device *dev,
+-			      struct snd_dma_buffer *dmab,
+-			      unsigned char *page_table, size_t size);
+-
+ /*
+  * Firmware loading.
+  */
+diff --git a/sound/soc/sof/sof-utils.c b/sound/soc/sof/sof-utils.c
+new file mode 100644
+index 000000000000..a3300ecee062
+--- /dev/null
++++ b/sound/soc/sof/sof-utils.c
+@@ -0,0 +1,77 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++//
++// This file is provided under a dual BSD/GPLv2 license.  When using or
++// redistributing this file, you may do so under either license.
++//
++// Copyright(c) 2018-2022 Intel Corporation. All rights reserved.
++//
++// Author: Keyon Jie <yang.jie@linux.intel.com>
++//
++
++#include <asm/unaligned.h>
++#include <linux/io-64-nonatomic-lo-hi.h>
++#include <linux/device.h>
++#include <sound/memalloc.h>
++#include <linux/module.h>
++#include "sof-utils.h"
++
++/*
++ * Generic buffer page table creation.
++ * Take the each physical page address and drop the least significant unused
++ * bits from each (based on PAGE_SIZE). Then pack valid page address bits
++ * into compressed page table.
++ */
++
++int snd_sof_create_page_table(struct device *dev,
++			      struct snd_dma_buffer *dmab,
++			      unsigned char *page_table, size_t size)
++{
++	int i, pages;
++
++	pages = snd_sgbuf_aligned_pages(size);
++
++	dev_dbg(dev, "generating page table for %p size 0x%zx pages %d\n",
++		dmab->area, size, pages);
++
++	for (i = 0; i < pages; i++) {
++		/*
++		 * The number of valid address bits for each page is 20.
++		 * idx determines the byte position within page_table
++		 * where the current page's address is stored
++		 * in the compressed page_table.
++		 * This can be calculated by multiplying the page number by 2.5.
++		 */
++		u32 idx = (5 * i) >> 1;
++		u32 pfn = snd_sgbuf_get_addr(dmab, i * PAGE_SIZE) >> PAGE_SHIFT;
++		u8 *pg_table;
++
++		dev_vdbg(dev, "pfn i %i idx %d pfn %x\n", i, idx, pfn);
++
++		pg_table = (u8 *)(page_table + idx);
++
++		/*
++		 * pagetable compression:
++		 * byte 0     byte 1     byte 2     byte 3     byte 4     byte 5
++		 * ___________pfn 0__________ __________pfn 1___________  _pfn 2...
++		 * .... ....  .... ....  .... ....  .... ....  .... ....  ....
++		 * It is created by:
++		 * 1. set current location to 0, PFN index i to 0
++		 * 2. put pfn[i] at current location in Little Endian byte order
++		 * 3. calculate an intermediate value as
++		 *    x = (pfn[i+1] << 4) | (pfn[i] & 0xf)
++		 * 4. put x at offset (current location + 2) in LE byte order
++		 * 5. increment current location by 5 bytes, increment i by 2
++		 * 6. continue to (2)
++		 */
++		if (i & 1)
++			put_unaligned_le32((pg_table[0] & 0xf) | pfn << 4,
++					   pg_table);
++		else
++			put_unaligned_le32(pfn, pg_table);
++	}
++
++	return pages;
++}
++EXPORT_SYMBOL(snd_sof_create_page_table);
++
++MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/sound/soc/sof/sof-utils.h b/sound/soc/sof/sof-utils.h
+new file mode 100644
+index 000000000000..6f902893807e
+--- /dev/null
++++ b/sound/soc/sof/sof-utils.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
++/*
++ * This file is provided under a dual BSD/GPLv2 license.  When using or
++ * redistributing this file, you may do so under either license.
++ *
++ * Copyright(c) 2022 Intel Corporation. All rights reserved.
++ */
++
++#ifndef __SOC_SOF_UTILS_H
++#define __SOC_SOF_UTILS_H
++
++struct snd_dma_buffer;
++struct device;
++
++int snd_sof_create_page_table(struct device *dev,
++			      struct snd_dma_buffer *dmab,
++			      unsigned char *page_table, size_t size);
++
++#endif
+diff --git a/sound/soc/sof/trace.c b/sound/soc/sof/trace.c
+index 2335d0f06d42..104388c551cb 100644
+--- a/sound/soc/sof/trace.c
++++ b/sound/soc/sof/trace.c
+@@ -12,6 +12,7 @@
+ #include <linux/sched/signal.h>
+ #include "sof-priv.h"
+ #include "ops.h"
++#include "sof-utils.h"
+ 
+ #define TRACE_FILTER_ELEMENTS_PER_ENTRY 4
+ #define TRACE_FILTER_MAX_CONFIG_STRING_LENGTH 1024
 -- 
 2.35.1
 

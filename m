@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 348BE4B1144
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Feb 2022 16:07:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 971454B1145
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Feb 2022 16:07:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B939A16A9;
-	Thu, 10 Feb 2022 16:06:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B939A16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8A9719FF;
+	Thu, 10 Feb 2022 16:07:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8A9719FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644505643;
-	bh=+resf7s8/0bfeptpaysoY6mJLYoPAYzroKommF5fV40=;
+	s=default; t=1644505671;
+	bh=kNx55RY7X0IIBJcH0/hbI5dhEt5+Ybz6eMFNnHsll1c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WYPanlxgt3bBgiXkkaSkT1cx0UbUYpN0PC3H1373NXprye/EXKFLUtOCKpQAGnJYl
-	 SZLEls21WNjT6vw6c4XjisxDFk9MbhZOlOC4NWUSdR3D/YpJOK0c/KRGQWpFTrcgrf
-	 MGeBF/ToN/eMCI9CcCJVtExGfovUy0vmqBp0oeEw=
+	b=ZRK2X08Wz5xNTLqLh3C7BWnjOk2sSEBFIEa90EDW/OPrXo0qnsUN19pG6PCQueGsY
+	 F8ll4yNMubnZFYL9rVc7E/pDBI02fsxqxeooW5ezZ9UljTaj1fP0c2SAs+EoLx+xpe
+	 IYKi2n1oyMySP1OE6uXAuQXuS5nV5z/BzZ02ZO6Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 221E1F8016C;
-	Thu, 10 Feb 2022 16:05:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 990D7F8051D;
+	Thu, 10 Feb 2022 16:05:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D85CF800A7; Thu, 10 Feb 2022 16:05:44 +0100 (CET)
+ id 41D5AF80517; Thu, 10 Feb 2022 16:05:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,41 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83C54F800A7
- for <alsa-devel@alsa-project.org>; Thu, 10 Feb 2022 16:05:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83C54F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9FF0F80517
+ for <alsa-devel@alsa-project.org>; Thu, 10 Feb 2022 16:05:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9FF0F80517
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="XM7yRSAS"
+ header.b="gnXZrMjm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644505538; x=1676041538;
+ t=1644505542; x=1676041542;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+resf7s8/0bfeptpaysoY6mJLYoPAYzroKommF5fV40=;
- b=XM7yRSASnhy3BJbgsCsGi5DlzpplKO3etosoir30QNs3G61tVq7WhXBn
- +S9F6/iy28HsAkrQay4Utg/p0cT4z7+Sckneyu8eETXEnbx/SHPzaeTbx
- +GB8ZCUwHE1NMpkMc2qMq7UnF0e4W66Rd7iw5Tn2VC2+wzypg9oDgbezL
- m1Pnt0qD+WQqyDKcYmd4lHesqTKXLFHymUS/MqTU0ive/h1cgSfr+HGMp
- rDeLc3v/HrAc5WRpQwYlEyToG5bOnx2C2EV7IQ0KnUPh3JHQTaSOuAK5c
- 0QmlxbwSFROGztXkXDnRozAZgJwzzZRvOZFP6wICkjcFIxAgqZCWB7ujP g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="249714965"
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="249714965"
+ bh=kNx55RY7X0IIBJcH0/hbI5dhEt5+Ybz6eMFNnHsll1c=;
+ b=gnXZrMjmhxT0BcHJL3SbIoFKaa+kg8YkiLf+tYm5omfGlt0CBr1ngO8U
+ HLgmANdQnjgScj+rTz7svieAAR88lFk7yvfzqcYy3YCZwx/QX7gljskDE
+ C9NT9w/D4YWC1+ElQ7wuVRYoEDXhbXau8fKUKDgWARWwlbtd3Y+BVB+cg
+ 2tKvefKXcPmXvs3j1PA7K3Ct6QfqU6YaMxxLI8BOomLWEjOC8H8A/9cek
+ LwEUxvtjY0GIVJrRs73WxMpxzv9SA4bKRMR8Ys6eauoEhKzTMtRPATKkY
+ QmFt65kD9xi2l+1IokPREbNbMfrgqgP/1n3mV3QmkNvhg8whCDc9r6/WL Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="249714981"
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="249714981"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 07:05:36 -0800
-X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="500422594"
+ 10 Feb 2022 07:05:39 -0800
+X-IronPort-AV: E=Sophos;i="5.88,359,1635231600"; d="scan'208";a="500422625"
 Received: from barabano-mobl.ccr.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.41.18])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 07:05:33 -0800
+ 10 Feb 2022 07:05:36 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
-Subject: [PATCH v2 2/9] ASoC: SOF: Move the definition of enum
- sof_dsp_power_states to global header
-Date: Thu, 10 Feb 2022 17:05:18 +0200
-Message-Id: <20220210150525.30756-3-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH v2 3/9] ASoC: SOF: ipc: Read and pass the whole message to
+ handlers for IPC events
+Date: Thu, 10 Feb 2022 17:05:19 +0200
+Message-Id: <20220210150525.30756-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220210150525.30756-1-peter.ujfalusi@linux.intel.com>
 References: <20220210150525.30756-1-peter.ujfalusi@linux.intel.com>
@@ -90,56 +90,189 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move the enum sof_dsp_power_states to include/sound/sof.h
-to be accessible outside of the core SOF stack.
+Change the parameter list for the firmware initiated message (IPC event)
+handler functions to:
+handler(struct snd_sof_dev *sdev, void *full_msg);
+
+Allocate memory and read the whole message in snd_sof_ipc_msgs_rx() then
+pass the pointer to the function handling the message.
+Do this only if we actually have a function which is tasked to process the
+given type.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- include/sound/sof.h      | 8 ++++++++
- sound/soc/sof/sof-priv.h | 8 --------
- 2 files changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/sof/ipc.c | 85 +++++++++++++++++++++++----------------------
+ 1 file changed, 44 insertions(+), 41 deletions(-)
 
-diff --git a/include/sound/sof.h b/include/sound/sof.h
-index 813680ab9aad..7cdfc954df12 100644
---- a/include/sound/sof.h
-+++ b/include/sound/sof.h
-@@ -39,6 +39,14 @@ enum sof_fw_state {
- 	SOF_FW_CRASHED,
- };
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index 16a0d7a059f3..ee56d4fa4053 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -18,8 +18,10 @@
+ #include "sof-audio.h"
+ #include "ops.h"
  
-+/* DSP power states */
-+enum sof_dsp_power_states {
-+	SOF_DSP_PM_D0,
-+	SOF_DSP_PM_D1,
-+	SOF_DSP_PM_D2,
-+	SOF_DSP_PM_D3,
-+};
+-static void ipc_trace_message(struct snd_sof_dev *sdev, u32 msg_type);
+-static void ipc_stream_message(struct snd_sof_dev *sdev, u32 msg_cmd);
++typedef void (*ipc_rx_callback)(struct snd_sof_dev *sdev, void *msg_buf);
 +
- /*
-  * SOF Platform data.
-  */
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 6358f8c84cce..2e474048d708 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -79,14 +79,6 @@ bool sof_debug_check_flag(int mask);
- /* max number of DSP cores */
- #define SOF_MAX_DSP_NUM_CORES 8
++static void ipc_trace_message(struct snd_sof_dev *sdev, void *msg_buf);
++static void ipc_stream_message(struct snd_sof_dev *sdev, void *msg_buf);
  
--/* DSP power state */
--enum sof_dsp_power_states {
--	SOF_DSP_PM_D0,
--	SOF_DSP_PM_D1,
--	SOF_DSP_PM_D2,
--	SOF_DSP_PM_D3,
--};
+ /*
+  * IPC message Tx/Rx message handling.
+@@ -477,44 +479,30 @@ void snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id)
+ }
+ EXPORT_SYMBOL(snd_sof_ipc_reply);
+ 
+-static void ipc_comp_notification(struct snd_sof_dev *sdev,
+-				  struct sof_ipc_cmd_hdr *hdr)
++static void ipc_comp_notification(struct snd_sof_dev *sdev, void *msg_buf)
+ {
++	struct sof_ipc_cmd_hdr *hdr = msg_buf;
+ 	u32 msg_type = hdr->cmd & SOF_CMD_TYPE_MASK;
+-	struct sof_ipc_ctrl_data *cdata;
+-	int ret;
+ 
+ 	switch (msg_type) {
+ 	case SOF_IPC_COMP_GET_VALUE:
+ 	case SOF_IPC_COMP_GET_DATA:
+-		cdata = kmalloc(hdr->size, GFP_KERNEL);
+-		if (!cdata)
+-			return;
 -
- struct sof_dsp_power_state {
- 	u32 state;
- 	u32 substate; /* platform-specific */
+-		/* read back full message */
+-		ret = snd_sof_ipc_msg_data(sdev, NULL, cdata, hdr->size);
+-		if (ret < 0) {
+-			dev_err(sdev->dev,
+-				"error: failed to read component event: %d\n", ret);
+-			goto err;
+-		}
+ 		break;
+ 	default:
+ 		dev_err(sdev->dev, "error: unhandled component message %#x\n", msg_type);
+ 		return;
+ 	}
+ 
+-	snd_sof_control_notify(sdev, cdata);
+-
+-err:
+-	kfree(cdata);
++	snd_sof_control_notify(sdev, msg_buf);
+ }
+ 
+ /* DSP firmware has sent host a message  */
+ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
+ {
++	ipc_rx_callback rx_callback = NULL;
+ 	struct sof_ipc_cmd_hdr hdr;
+-	u32 cmd, type;
++	void *msg_buf;
++	u32 cmd;
+ 	int err;
+ 
+ 	/* read back header */
+@@ -523,10 +511,15 @@ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
+ 		dev_warn(sdev->dev, "failed to read IPC header: %d\n", err);
+ 		return;
+ 	}
++
++	if (hdr.size < sizeof(hdr)) {
++		dev_err(sdev->dev, "The received message size is invalid\n");
++		return;
++	}
++
+ 	ipc_log_header(sdev->dev, "ipc rx", hdr.cmd);
+ 
+ 	cmd = hdr.cmd & SOF_GLB_TYPE_MASK;
+-	type = hdr.cmd & SOF_CMD_TYPE_MASK;
+ 
+ 	/* check message type */
+ 	switch (cmd) {
+@@ -551,20 +544,35 @@ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
+ 	case SOF_IPC_GLB_PM_MSG:
+ 		break;
+ 	case SOF_IPC_GLB_COMP_MSG:
+-		ipc_comp_notification(sdev, &hdr);
++		rx_callback = ipc_comp_notification;
+ 		break;
+ 	case SOF_IPC_GLB_STREAM_MSG:
+-		/* need to pass msg id into the function */
+-		ipc_stream_message(sdev, hdr.cmd);
++		rx_callback = ipc_stream_message;
+ 		break;
+ 	case SOF_IPC_GLB_TRACE_MSG:
+-		ipc_trace_message(sdev, type);
++		rx_callback = ipc_trace_message;
+ 		break;
+ 	default:
+-		dev_err(sdev->dev, "error: unknown DSP message 0x%x\n", cmd);
++		dev_err(sdev->dev, "%s: Unknown DSP message: 0x%x\n", __func__, cmd);
+ 		break;
+ 	}
+ 
++	if (rx_callback) {
++		/* read the full message as we have rx handler for it */
++		msg_buf = kmalloc(hdr.size, GFP_KERNEL);
++		if (!msg_buf)
++			return;
++
++		err = snd_sof_ipc_msg_data(sdev, NULL, msg_buf, hdr.size);
++		if (err < 0)
++			dev_err(sdev->dev, "%s: Failed to read message: %d\n",
++				__func__, err);
++		else
++			rx_callback(sdev, msg_buf);
++
++		kfree(msg_buf);
++	}
++
+ 	ipc_log_header(sdev->dev, "ipc rx done", hdr.cmd);
+ }
+ EXPORT_SYMBOL(snd_sof_ipc_msgs_rx);
+@@ -573,19 +581,14 @@ EXPORT_SYMBOL(snd_sof_ipc_msgs_rx);
+  * IPC trace mechanism.
+  */
+ 
+-static void ipc_trace_message(struct snd_sof_dev *sdev, u32 msg_type)
++static void ipc_trace_message(struct snd_sof_dev *sdev, void *msg_buf)
+ {
+-	struct sof_ipc_dma_trace_posn posn;
+-	int ret;
++	struct sof_ipc_cmd_hdr *hdr = msg_buf;
++	u32 msg_type = hdr->cmd & SOF_CMD_TYPE_MASK;
+ 
+ 	switch (msg_type) {
+ 	case SOF_IPC_TRACE_DMA_POSITION:
+-		/* read back full message */
+-		ret = snd_sof_ipc_msg_data(sdev, NULL, &posn, sizeof(posn));
+-		if (ret < 0)
+-			dev_warn(sdev->dev, "failed to read trace position: %d\n", ret);
+-		else
+-			snd_sof_trace_update_pos(sdev, &posn);
++		snd_sof_trace_update_pos(sdev, msg_buf);
+ 		break;
+ 	default:
+ 		dev_err(sdev->dev, "error: unhandled trace message %#x\n", msg_type);
+@@ -667,11 +670,11 @@ static void ipc_xrun(struct snd_sof_dev *sdev, u32 msg_id)
+ }
+ 
+ /* stream notifications from DSP FW */
+-static void ipc_stream_message(struct snd_sof_dev *sdev, u32 msg_cmd)
++static void ipc_stream_message(struct snd_sof_dev *sdev, void *msg_buf)
+ {
+-	/* get msg cmd type and msd id */
+-	u32 msg_type = msg_cmd & SOF_CMD_TYPE_MASK;
+-	u32 msg_id = SOF_IPC_MESSAGE_ID(msg_cmd);
++	struct sof_ipc_cmd_hdr *hdr = msg_buf;
++	u32 msg_type = hdr->cmd & SOF_CMD_TYPE_MASK;
++	u32 msg_id = SOF_IPC_MESSAGE_ID(hdr->cmd);
+ 
+ 	switch (msg_type) {
+ 	case SOF_IPC_STREAM_POSITION:
 -- 
 2.35.1
 

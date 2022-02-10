@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A35494B139F
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Feb 2022 17:55:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA484B13A1
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Feb 2022 17:55:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1380B1A43;
-	Thu, 10 Feb 2022 17:54:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1380B1A43
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90F3F192D;
+	Thu, 10 Feb 2022 17:54:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90F3F192D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644512103;
-	bh=jU4woLASpR6Ex/J6X55lhs4XNVlGTKqO4+sal3OhZzg=;
+	s=default; t=1644512131;
+	bh=QQhZfdW64LTpTkLBsJ+VYIpO4vR+c1i9aVKNRteNGfU=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FHH7oZ4pGV/ySSOy1XMwZlvBdaxXtdxirVFOpIB8geuyi8Fdzu5FOEGrYilWeqDfN
-	 gZoWc936SvS4POIcdHjK3DjdjohmLhAhrg9Pz2GCRI9BNm+Pz55BwCzh5w2DhnJzVw
-	 vOT9ST4GVY7PAVbeY8UVGg+0YjQNf5UGiVU0/dJA=
+	b=HyFjBjx8gofNvOfeUDgVpB8wX/ujxVv8o51WjeDM3QBcSzjuS6ieVQEhWx/7QoRyV
+	 qWsbp8VNOE4Io6c8qhJfAe7C878GWx8Qf1hZrLOF340J6EZt/MjZ1sQHOssa9y3JhD
+	 Ca8fqY1Cer57HkocpPRtw+RLq2MA7aImwCWE5Wvw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAA21F80054;
-	Thu, 10 Feb 2022 17:53:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B67FDF80511;
+	Thu, 10 Feb 2022 17:53:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A059DF804AB; Thu, 10 Feb 2022 17:53:23 +0100 (CET)
+ id AB909F80517; Thu, 10 Feb 2022 17:53:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B222F80302
- for <alsa-devel@alsa-project.org>; Thu, 10 Feb 2022 17:53:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B222F80302
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DEB4F80515
+ for <alsa-devel@alsa-project.org>; Thu, 10 Feb 2022 17:53:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DEB4F80515
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MtSnP5go"
+ header.b="aC7WTNGh"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A946161D99;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 88950B82665;
+ Thu, 10 Feb 2022 16:53:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87251C340F0;
  Thu, 10 Feb 2022 16:53:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6A0C340EB;
- Thu, 10 Feb 2022 16:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1644511999;
- bh=jU4woLASpR6Ex/J6X55lhs4XNVlGTKqO4+sal3OhZzg=;
+ s=k20201202; t=1644512001;
+ bh=QQhZfdW64LTpTkLBsJ+VYIpO4vR+c1i9aVKNRteNGfU=;
  h=From:To:In-Reply-To:References:Subject:Date:From;
- b=MtSnP5goZivyhhcyM1qavOq0s+jAuT2xOsOPztOxRfCVXqxOgtmL+EzpUdD9Ie9vd
- /CaIzzqw2YbXKjaqPVdI3x7xrep0rLJ6CIkSuMoPdN4SsWxGi/nTvSOj757LD/taku
- HqLDfWdBeO3X9hcDWADDFwCpzQAt1ZA5/IM39/JQCorHxM3kCLpyD4MLqPNl83lXXY
- L7xmwvYH5Lyo7SRGDOGn7IXMcwkfxDzp5iT5sL3PIoNO+bz9n3Xd3t2wcnqNN/RtvK
- MHoyLVYSdYuhw5dyN3rk3YxbnXMwIOtXTxSWHcsfE8iMvQIS9aj/137kyiFQPzoIUr
- xvXkJ5VSiCpVQ==
+ b=aC7WTNGhTPm1hBOHvQVzXbUElSHcZi9uuXPhurKvDjM9axlvLpQ/UTuTYL3vIK09z
+ ZloXBcJiGJ2Igf+rmTwm47sYB3pR1DlJaYXR/8Wz0MXSDiH+0RO5cktiqR4IsQgeW0
+ auiF/H07VVs7elCjViBK09S0nRfTm1x1646rTmx+5ygUvYzmrIsKAdeZ9s+W0D2L+u
+ vKFBZ0+0G0CEWHGJxVE6jw87bGe3fa8nBIdYWVW+C+kF0KXNREs9ucN1VNi09U485e
+ uF6w3uZiK98tsffgldc/+8MShpKQWcwsVxWOR4GqkvCVMth3ci3o1QbFmId8g02K1c
+ 40FGcgKQi5dsQ==
 From: Mark Brown <broonie@kernel.org>
-To: bgoswami@codeaurora.org, srinivas.kandagatla@linaro.org,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, tiwai@suse.com,
- perex@perex.cz, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- plai@codeaurora.org, robh+dt@kernel.org, judyhsiao@chromium.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, agross@kernel.org,
- swboyd@chromium.org, alsa-devel@alsa-project.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org
-In-Reply-To: <1644497415-25291-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1644497415-25291-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v9 0/3] Machine driver to support LPASS SC7280 sound card
- registration
-Message-Id: <164451199562.2625306.8749637139176937235.b4-ty@kernel.org>
-Date: Thu, 10 Feb 2022 16:53:15 +0000
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ alsa-devel@alsa-project.org, Jonathan Bakker <xc-racer2@live.ca>,
+ Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>
+In-Reply-To: <20220129122357.45545-1-krzysztof.kozlowski@canonical.com>
+References: <20220129122357.45545-1-krzysztof.kozlowski@canonical.com>
+Subject: Re: [PATCH v2 0/6] ASoC: dt-bindings: samsung: convert to dtschema
+Message-Id: <164451199927.2625306.12763946891056497371.b4-ty@kernel.org>
+Date: Thu, 10 Feb 2022 16:53:19 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -88,14 +85,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Feb 2022 18:20:12 +0530, Srinivasa Rao Mandadapu wrote:
-> This patch set is to add support for SC7280 sound card registration and
-> to add dt-bindings documentation file.
+On Sat, 29 Jan 2022 13:23:51 +0100, Krzysztof Kozlowski wrote:
+> The patchset is based on Rob's sound-dai changes:
+> https://lore.kernel.org/all/20220126231427.1638089-1-robh@kernel.org/
 > 
-> Srinivasa Rao Mandadapu (3):
->   ASoC: google: dt-bindings: Add sc7280-herobrine machine bindings
->   ASoC: qcom: Add macro for lpass DAI id's max limit
->   ASoC: qcom: SC7280: Add machine driver
+> Changes since v1:
+> 1. Correct samsung,snow cpu/sound-dai.
+> 
+> Best regards,
+> Krzysztof
 > 
 > [...]
 
@@ -105,12 +103,18 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: google: dt-bindings: Add sc7280-herobrine machine bindings
-      commit: 7bd431486511482b6e789dd69d07654a1d8c5eba
-[2/3] ASoC: qcom: Add macro for lpass DAI id's max limit
-      commit: 77d0ffef793da818741127f4905a3e3d45d05ac7
-[3/3] ASoC: qcom: SC7280: Add machine driver
-      commit: 57350bd41c3ac01bcae1d94e2c85d47dd90b6a3f
+[1/6] ASoC: dt-bindings: samsung,aries-wm8994: require sound-dai property
+      commit: 7f021b723ea51ae94329e6d76f68189e1696deca
+[2/6] ASoC: dt-bindings: samsung,arndale: convert to dtschema
+      commit: 0412539614a223817646150d910ab6fedbb80507
+[3/6] ASoC: dt-bindings: samsung,arndale: document ALC5631
+      commit: b6145d8f0d6436a83a31024d4f9953d7088710b4
+[4/6] ASoC: dt-bindings: samsung,smdk5250: convert to dtschema
+      commit: 6752770d590594ff42fc19e74c30059d34f133af
+[5/6] ASoC: dt-bindings: samsung,snow: convert to dtschema
+      commit: a7e5305f7ab03cf3ae19ddd3f29919a7a2da0e5d
+[6/6] ASoC: dt-bindings: samsung,tm2: convert to dtschema
+      commit: c1fc51ebb098cd43a68ebc82fde51364c207de32
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

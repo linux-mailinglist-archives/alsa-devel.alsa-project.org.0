@@ -2,59 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C634B2356
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Feb 2022 11:39:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 407254B236F
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Feb 2022 11:40:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB8AA17F1;
-	Fri, 11 Feb 2022 11:38:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB8AA17F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1B4218AF;
+	Fri, 11 Feb 2022 11:39:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1B4218AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644575990;
-	bh=NM8YqUZIWCxkqHRtJjd4VOhEkRtgrzyFSFkp2vMmthM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=GXyPjbGCbOFJdAkOOOFmfdv60biAC2/H7ulhjav8pYLlhGG3MmZrXDG9YNtOjPSU9
-	 0xpOeQqbHvKBqOX1lzlQnHZGSDlW3BY7jA7YVh+uUEYkiUtFbQa5gd+BjAXsUziGAO
-	 Clm3hzKGdcluYh5Q49fjuIC7myA4UDFScwtcbHlI=
+	s=default; t=1644576018;
+	bh=viCPVoAd3s1odcws1Nt1roA4bEkzA8l0SMcx5gBH32o=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=S83wVDCXnbiOiF9bJZCL44ciEjOrO5eCp/UjRVIHhvvs/IMrQnIihl8fcJ0g2C88e
+	 hPKnkbCH9E6qhdK8RkJjKeHNsRr6kSsMIr3BMe6VluRxN4jpv28LcK6hxKbQPaGiHQ
+	 LCo8+L+KTzejfp1/dLgX1fES1RKDkpa5qAQYJCGo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFE3EF80508;
-	Fri, 11 Feb 2022 11:38:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 029E2F8051E;
+	Fri, 11 Feb 2022 11:38:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED44EF80425; Fri, 11 Feb 2022 11:38:36 +0100 (CET)
+ id 81563F80311; Fri, 11 Feb 2022 11:38:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 492E8F8012C
- for <alsa-devel@alsa-project.org>; Fri, 11 Feb 2022 11:38:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 492E8F8012C
-X-UUID: 52936ecda16c4ff0a424fd5be5e3a990-20220211
-X-UUID: 52936ecda16c4ff0a424fd5be5e3a990-20220211
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0004F80054
+ for <alsa-devel@alsa-project.org>; Fri, 11 Feb 2022 11:38:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0004F80054
+X-UUID: 132cd1ca924447b6a00f1e5d537fbd3d-20220211
+X-UUID: 132cd1ca924447b6a00f1e5d537fbd3d-20220211
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
  mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 713808520; Fri, 11 Feb 2022 18:38:23 +0800
+ with ESMTP id 133670868; Fri, 11 Feb 2022 18:38:24 +0800
 Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
  15.0.1497.2; Fri, 11 Feb 2022 18:38:23 +0800
 Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 11 Feb 2022 18:38:22 +0800
+ Transport; Fri, 11 Feb 2022 18:38:23 +0800
 From: Jiaxin Yu <jiaxin.yu@mediatek.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
  <robh+dt@kernel.org>, <matthias.bgg@gmail.com>, <perex@perex.cz>,
  <p.zabel@pengutronix.de>, <geert+renesas@glider.be>
-Subject: [PATCH 00/15] ASoC: mediatek: Add support for MT8186 SoC
-Date: Fri, 11 Feb 2022 18:38:03 +0800
-Message-ID: <20220211103818.8266-1-jiaxin.yu@mediatek.com>
+Subject: [PATCH 01/15] ASoC: mediatek: mt6366: add codec driver
+Date: Fri, 11 Feb 2022 18:38:04 +0800
+Message-ID: <20220211103818.8266-2-jiaxin.yu@mediatek.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220211103818.8266-1-jiaxin.yu@mediatek.com>
+References: <20220211103818.8266-1-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -63,6 +66,7 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  zhangqilong3@huawei.com, linux-kernel@vger.kernel.org,
  Jiaxin Yu <jiaxin.yu@mediatek.com>, tzungbi@google.com,
  linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ Jiaxin Yu <jiaxin.yu@mediatek.corp-partner.google.com>,
  linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -79,88 +83,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series of patches adds support for Mediatek AFE of MT8186 Soc.
-Patches are based on broonie tree "for-next" branch.
+From: Jiaxin Yu <jiaxin.yu@mediatek.corp-partner.google.com>
 
-Jiaxin Yu (15):
-  ASoC: mediatek: mt6366: add codec driver
-  ASoC: mediatek: mt8186: support audsys clock control
-  ASoC: mediatek: mt8186: support adda in platform driver
-  ASoC: mediatek: mt8186: support hostless in platform driver
-  ASoC: mediatek: mt8186: support hw gain in platform driver
-  ASoC: mediatek: mt8186: support i2s in platform driver
-  ASoC: mediatek: mt8186: support pcm in platform driver
-  ASoC: mediatek: mt8186: support src in platform driver
-  ASoC: mediatek: mt8186: support tdm in platform driver
-  ASoC: mediatek: mt8186: add platform driver
-  dt-bindings: mediatek: mt8186: add audio afe document
-  ASoC: mediatek: mt8186: add machine driver with mt6366, da7219 and
-    max98357
-  dt-bindings: mediatek: mt8186: add mt8186-mt6366-da7219-max98357
-    document
-  ASoC: mediatek: mt8186: add machine driver with mt6366, rt1019 and
-    rt5682
-  dt-bindings: mediatek: mt8186: add mt8186-mt6366-rt1019-rt5682
-    document
+Mt6366 is a new version of mt6358, and they are same about audio part.
+So we can reuse the driver of mt6358.
 
- .../bindings/sound/mt8186-afe-pcm.yaml        |  175 +
- .../sound/mt8186-mt6366-da7219-max98357.yaml  |   47 +
- .../sound/mt8186-mt6366-rt1019-rt5682.yaml    |   47 +
- sound/soc/codecs/Kconfig                      |    8 +
- sound/soc/codecs/Makefile                     |    2 +
- sound/soc/mediatek/Kconfig                    |   44 +
- sound/soc/mediatek/Makefile                   |    1 +
- sound/soc/mediatek/mt8186/Makefile            |   21 +
- sound/soc/mediatek/mt8186/mt8186-afe-clk.c    |  719 ++++
- sound/soc/mediatek/mt8186/mt8186-afe-clk.h    |  210 +
- sound/soc/mediatek/mt8186/mt8186-afe-common.h |  245 ++
- .../soc/mediatek/mt8186/mt8186-afe-control.c  |  262 ++
- sound/soc/mediatek/mt8186/mt8186-afe-gpio.c   |  211 +
- sound/soc/mediatek/mt8186/mt8186-afe-gpio.h   |   19 +
- sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    | 3030 +++++++++++++++
- sound/soc/mediatek/mt8186/mt8186-audsys-clk.c |  151 +
- sound/soc/mediatek/mt8186/mt8186-audsys-clk.h |   15 +
- .../soc/mediatek/mt8186/mt8186-audsys-clkid.h |   45 +
- sound/soc/mediatek/mt8186/mt8186-dai-adda.c   |  897 +++++
- .../soc/mediatek/mt8186/mt8186-dai-hostless.c |  296 ++
- .../soc/mediatek/mt8186/mt8186-dai-hw-gain.c  |  246 ++
- sound/soc/mediatek/mt8186/mt8186-dai-i2s.c    | 1352 +++++++
- sound/soc/mediatek/mt8186/mt8186-dai-pcm.c    |  433 +++
- sound/soc/mediatek/mt8186/mt8186-dai-src.c    |  758 ++++
- sound/soc/mediatek/mt8186/mt8186-dai-tdm.c    |  723 ++++
- .../mediatek/mt8186/mt8186-interconnection.h  |   69 +
- .../soc/mediatek/mt8186/mt8186-misc-control.c | 1729 +++++++++
- .../mt8186/mt8186-mt6366-da7219-max98357.c    |  903 +++++
- .../mt8186/mt8186-mt6366-rt1019-rt5682.c      |  887 +++++
- sound/soc/mediatek/mt8186/mt8186-reg.h        | 3433 +++++++++++++++++
- 30 files changed, 16978 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mt8186-afe-pcm.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682.yaml
- create mode 100644 sound/soc/mediatek/mt8186/Makefile
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-clk.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-clk.h
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-common.h
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-control.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-gpio.h
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-audsys-clk.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-audsys-clk.h
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-audsys-clkid.h
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-adda.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-hostless.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-hw-gain.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-i2s.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-pcm.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-src.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-tdm.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-interconnection.h
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-misc-control.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682.c
- create mode 100644 sound/soc/mediatek/mt8186/mt8186-reg.h
+Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+---
+ sound/soc/codecs/Kconfig  | 8 ++++++++
+ sound/soc/codecs/Makefile | 2 ++
+ 2 files changed, 10 insertions(+)
 
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 8fa24783ce01..6631094678f5 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -132,6 +132,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_MT6351
+ 	imply SND_SOC_MT6358
+ 	imply SND_SOC_MT6359
++	imply SND_SOC_MT6366
+ 	imply SND_SOC_MT6660
+ 	imply SND_SOC_NAU8315
+ 	imply SND_SOC_NAU8540
+@@ -1888,6 +1889,13 @@ config SND_SOC_MT6359_ACCDET
+ 	  for ASoC codec soc-jack detection mechanism.
+ 	  Select N if you don't have jack on board.
+ 
++config SND_SOC_MT6366
++	tristate "MediaTek MT6366 Codec"
++	depends on MTK_PMIC_WRAP
++	help
++	  Enable support for the platform which uses MT6366 as
++	  external codec device.
++
+ config SND_SOC_MT6660
+ 	tristate "Mediatek MT6660 Speaker Amplifier"
+ 	depends on I2C
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 42d00aa4ee46..df6518306cd4 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -137,6 +137,7 @@ snd-soc-mt6351-objs := mt6351.o
+ snd-soc-mt6358-objs := mt6358.o
+ snd-soc-mt6359-objs := mt6359.o
+ snd-soc-mt6359-accdet-objs := mt6359-accdet.o
++snd-soc-mt6366-objs := mt6358.o
+ snd-soc-mt6660-objs := mt6660.o
+ snd-soc-nau8315-objs := nau8315.o
+ snd-soc-nau8540-objs := nau8540.o
+@@ -465,6 +466,7 @@ obj-$(CONFIG_SND_SOC_MT6351)	+= snd-soc-mt6351.o
+ obj-$(CONFIG_SND_SOC_MT6358)	+= snd-soc-mt6358.o
+ obj-$(CONFIG_SND_SOC_MT6359)	+= snd-soc-mt6359.o
+ obj-$(CONFIG_SND_SOC_MT6359_ACCDET) += mt6359-accdet.o
++obj-$(CONFIG_SND_SOC_MT6366)	+= snd-soc-mt6366.o
+ obj-$(CONFIG_SND_SOC_MT6660)	+= snd-soc-mt6660.o
+ obj-$(CONFIG_SND_SOC_NAU8315)   += snd-soc-nau8315.o
+ obj-$(CONFIG_SND_SOC_NAU8540)   += snd-soc-nau8540.o
 -- 
 2.18.0
 

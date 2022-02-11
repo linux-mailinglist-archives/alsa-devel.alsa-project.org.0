@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C578B4B29E4
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Feb 2022 17:15:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ABFC4B2B20
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Feb 2022 17:59:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 654741A60;
-	Fri, 11 Feb 2022 17:14:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 654741A60
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5605F191B;
+	Fri, 11 Feb 2022 17:59:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5605F191B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644596128;
-	bh=sNz2tFUsc7yL/pDTYZgBpCU9uV+JsVM0G9jqqLqvVS8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=SPq4WiNR6lCK0qfO2NJtcfhLeRYbqqnlfp1xli18albaPE4/K5onZhk2W2ZGG0IDc
-	 UBN1IVjMYMLBDi9fevqmDXJeGFXo28XOOjivETZGdwC6PSnp/K2VvtO3cPBR0nc9VV
-	 DQ9UEioRmAMWox2QEqQ3yJd/15fVcSRE4yl7/fuM=
+	s=default; t=1644598792;
+	bh=kcascgmrZLysKpi6HM+Z8y67brqdTYtutuVMh4BIJv4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kfkhnZB4V1sZsBp2I85dQUQbTIhLb0BAST6Yxx3M3NS2M8zcWhLlNSFRw6xHGFmJ1
+	 rXF1tOHE0dfccbnMmShRajaa0bMcIiwNq+rSPnI57eWTWui6iq3YQ/dNqA29weNKly
+	 Rr266sB1fJRqHvqvKGE0i+I6URuiLQY+Ow6pOCzg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE8EAF8013D;
-	Fri, 11 Feb 2022 17:14:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF644F80125;
+	Fri, 11 Feb 2022 17:58:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05F5BF80139; Fri, 11 Feb 2022 17:14:21 +0100 (CET)
+ id B3503F80139; Fri, 11 Feb 2022 17:58:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D199AF800B0
- for <alsa-devel@alsa-project.org>; Fri, 11 Feb 2022 17:14:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D199AF800B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30846F800B0
+ for <alsa-devel@alsa-project.org>; Fri, 11 Feb 2022 17:58:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30846F800B0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uwgNsAej"
+ header.b="IaSJVi2e"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1D2D7B82A95;
- Fri, 11 Feb 2022 16:14:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE074C340E9;
- Fri, 11 Feb 2022 16:14:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A05FA616C0;
+ Fri, 11 Feb 2022 16:58:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A68C340ED;
+ Fri, 11 Feb 2022 16:58:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1644596055;
- bh=sNz2tFUsc7yL/pDTYZgBpCU9uV+JsVM0G9jqqLqvVS8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uwgNsAej4XLRiZXEwDL7bwZAM73hhCpGYFCmS8Y6u8dtAKyi+fmfSTv9AJWAE2NeI
- KSzDwuVt9HFRbOvvpN1ayO7UN31FXA0Ceo6ao0md5ccyywTJcUwoi2C3JOV0sQrSGt
- RZWXUqS2O9OMReelWJYHPAB7PXNi3OMmTa9QRQXXRJYF1XB3VyhQGb3qQ2Nfq+2NN2
- KSVm73tUGepdEjLf02jl4IMwtYVaoUpB/Pp/TusIqrBCYPrpslzBOQOTE4Jsbz+4+V
- y/7LQF9rNVOomWzPV/XJkGr3z8oe/friRlhBR40sQwaU4/hcZbxA8/Fs7Rjw8Z3r7k
- B3GU6bwsnq+YQ==
-Date: Fri, 11 Feb 2022 16:14:08 +0000
+ s=k20201202; t=1644598718;
+ bh=kcascgmrZLysKpi6HM+Z8y67brqdTYtutuVMh4BIJv4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=IaSJVi2ehUN2vIqQ6UdvKG6lkZui2TdZXknB6xn8+x4DjxUHvzttbCHieOQ7U5hhl
+ qDp8g/3Ib5wSelgSN4Q/LZJz97likemr9pO1YeaO6a5AIlRLh1oGi/t/sqnaH//BaA
+ heBwwim23lWnGXDFHMR5N1KZjgiZ0UcG0fZqE21CCtJBN6L39QkRj+BdNguH3YxSLG
+ 0VZIas01YDsrVmNwn4FeoBn8b4aSvvPqv8FKaJ6Qhl6gggIZwxP71kEmcP5diHaYaW
+ FTZu9MCK3sFsoIEUvmBxQXvfYvjM4OjZWjVuCK2hugNXccHoMl+oAiFsdWi+0Oku17
+ m2zUQ7t4pK+qQ==
 From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [PATCH 00/15] ASoC: mediatek: Add support for MT8186 SoC
-Message-ID: <YgaLUNQXnGsZHuXQ@sirena.org.uk>
-References: <20220211103818.8266-1-jiaxin.yu@mediatek.com>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: wm8731: Delete empty remove() function
+Date: Fri, 11 Feb 2022 16:58:11 +0000
+Message-Id: <20220211165811.1176005-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xkn+amad5HrevOtl"
-Content-Disposition: inline
-In-Reply-To: <20220211103818.8266-1-jiaxin.yu@mediatek.com>
-X-Cookie: do {
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- geert+renesas@glider.be, linux-kernel@vger.kernel.org, zhangqilong3@huawei.com,
- tiwai@suse.com, lgirdwood@gmail.com, tzungbi@google.com, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=882; h=from:subject;
+ bh=kcascgmrZLysKpi6HM+Z8y67brqdTYtutuVMh4BIJv4=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBiBpVEmv0mOHhwYCNcSqgrgHamWYstuH+FTzBi31BU
+ cGJj1/WJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYgaVRAAKCRAk1otyXVSH0GnYB/
+ wKlsV7FE6G7yMPo440iD2lUxJ5TwehL5Oh6F/XhJpjaBLq2MoWCJVzzXJ6jsW0tcbdCmkYCjLKx2aS
+ ICI1PPLISfCYoojNHcX6oRw4aeSnr2t/OjCT25lwkMBobnRMbt3malnqzm82wIekDoBZgooJec+oC0
+ RreomwrckvRsDyryUxFKIw0NBAhD6MxXb7XM2ElFkY0NGm7KtTFgMvkonZF8x6KzaisJJIeA2fjbrW
+ PzFDR59eVYJww8EpHoInRUsPM/DG9jc8C2Re83Bwfl+4XrwCflL5u0XlncQCsJ5lQnBpuOZ44q+6wo
+ yaTNzLKjNk8uH9iXzwEtp19RY5BVZS
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,33 +91,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The I2C remove function is empty for the wm8731 driver, it can just be
+deleted.
 
---xkn+amad5HrevOtl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/wm8731.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-On Fri, Feb 11, 2022 at 06:38:03PM +0800, Jiaxin Yu wrote:
-> This series of patches adds support for Mediatek AFE of MT8186 Soc.
-> Patches are based on broonie tree "for-next" branch.
+diff --git a/sound/soc/codecs/wm8731.c b/sound/soc/codecs/wm8731.c
+index 86b1f6eaa599..5d4949c2ec9b 100644
+--- a/sound/soc/codecs/wm8731.c
++++ b/sound/soc/codecs/wm8731.c
+@@ -777,11 +777,6 @@ static int wm8731_i2c_probe(struct i2c_client *i2c,
+ 	return 0;
+ }
+ 
+-static int wm8731_i2c_remove(struct i2c_client *client)
+-{
+-	return 0;
+-}
+-
+ static const struct i2c_device_id wm8731_i2c_id[] = {
+ 	{ "wm8731", 0 },
+ 	{ }
+@@ -794,7 +789,6 @@ static struct i2c_driver wm8731_i2c_driver = {
+ 		.of_match_table = wm8731_of_match,
+ 	},
+ 	.probe =    wm8731_i2c_probe,
+-	.remove =   wm8731_i2c_remove,
+ 	.id_table = wm8731_i2c_id,
+ };
+ #endif
+-- 
+2.30.2
 
-This all looks basically good, there are some issues which I've
-highlighted on the patches but like I kept on saying they're all fairly
-small and hopefully easy to address - there's no big structural problems
-or anything that I noticed.
-
---xkn+amad5HrevOtl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIGi08ACgkQJNaLcl1U
-h9CKkwf/SLonnfl3fV+46O1AC+u/WFZePStG+cGxvOGhs2iKcs612qJNEAOgEy0T
-5lZRM+tTsja54tt7keZXc+AulVVpMOu2ROqTU4BJp3Zygt++snT8v2OTC3XSnjcI
-vJOrvxSUxA3zKxdquTHgcCG+MQOjQi2B1MfD5gU5ZrJLhO9u6CjOSkhTFGwCdhn5
-O38VRqcD17TbQXKnSqWKGOKJJWywGW84Gv2P7M7QlZqugFHkEzo21Fw+Y6m0SSQI
-I/LKyDgTu+Me3OIweHSNrFO9WDAE3Pv8Q9V8alHjd+iGpGLJWBoHk3SMXVnCZEe2
-xr5Jvd5fZyGKpL/T//Iyhxzqx84fDg==
-=7jLS
------END PGP SIGNATURE-----
-
---xkn+amad5HrevOtl--

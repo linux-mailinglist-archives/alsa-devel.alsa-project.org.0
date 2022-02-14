@@ -2,106 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 844384B843B
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 10:28:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98AE74B843C
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 10:28:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3641B1923;
-	Wed, 16 Feb 2022 10:27:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3641B1923
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4615C190E;
+	Wed, 16 Feb 2022 10:28:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4615C190E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645003726;
-	bh=YQung3I6nLH1X2bSWZFxSHoQgofub5OjT2yQnWh7W40=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1645003738;
+	bh=IQKHs148sOwzSOJ9x7YM1yay1qSuKlbeZzKnX8pviEM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GaX1mgAmwZQSk3HU4LIAXe2OgpOeAh3uy9Fn1t2Mflq2VQARQRDR/AP6T+4fXo+8z
-	 wXhjXJVCyWHjR9kBv/Qu05lzoAktCDRriNmPmg9Cy4xngkTmQVchpTvd5p0z1UmC6m
-	 weU5HUZeekkIdjYcNYG55n8XqYJ/aRslGcFupqpU=
+	b=MAGjx/9qOSLGDg0Qll+Op6GqlX4VSYW3Xp7Gh9/za0QvKUm0ODjVFSpTQf06NmNmS
+	 KyY1S2Sxy2D56Y/kewM5VZE7SLZhjelqEgCM3kfaM/B1wsQd7MAG5KJr05KRzPoWsC
+	 Tup4EfgQ2DUAgN68FgDJx1zLhSsaP5VoM60wnChg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B666F80535;
-	Wed, 16 Feb 2022 10:25:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C4A8F8053D;
+	Wed, 16 Feb 2022 10:25:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56024F800D8; Mon, 14 Feb 2022 11:43:22 +0100 (CET)
+ id AF7ADF80310; Mon, 14 Feb 2022 13:40:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mxout03.lancloud.ru (mxout03.lancloud.ru [45.84.86.113])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A3DCF800D8
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 11:43:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A3DCF800D8
-Received: from LanCloud
-DKIM-Filter: OpenDKIM Filter v2.11.0 mxout03.lancloud.ru 5C61B20EAFAD
-Received: from LanCloud
-Received: from LanCloud
-Received: from LanCloud
-Subject: Re: [PATCH v2 1/2] platform: make platform_get_irq_optional() optional
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-References: <20220212201631.12648-1-s.shtylyov@omp.ru>
- <20220212201631.12648-2-s.shtylyov@omp.ru>
- <CAMuHMdUPxX7Tja6BCjEb4KDobNFPMcM66Fk7Z+VsO7pgb8JnjA@mail.gmail.com>
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-Message-ID: <41b49828-e0bc-3e7a-32d7-5ee41c778206@omp.ru>
-Date: Mon, 14 Feb 2022 13:43:11 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54FE4F800C0
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 13:40:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54FE4F800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="rWhH+LSo"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B5B0AB80E91;
+ Mon, 14 Feb 2022 12:40:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4250FC340E9;
+ Mon, 14 Feb 2022 12:40:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1644842418;
+ bh=IQKHs148sOwzSOJ9x7YM1yay1qSuKlbeZzKnX8pviEM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rWhH+LSokZ3Zs/QiXpu8o5Ki+KnAslQZ/LWSTzG9fMRcf+8pxIVHNAgtUU1oj6cvU
+ ueXKCU7WZKJ/wRK68K+zEAjeJMdaM7s47AyvQ25N8LoFbUMh7pKIayN3VgCmqiQ99S
+ EQR52sV8lX24QDh5Y6RmFhExf1wnMLker7AQ7F8D4NFlTeWtaasxrCVfhF99LVv4oK
+ GCeaHeVIzO4MU8vxm/xgXbvG8u+tFoMpgRZSLd4+HwKHyKf5X75+YbpnFVMkkgUSk6
+ fDvjyddaRrvSTNImWVKyRUoZuzRyOMhMV3cPUcakLZra9OnBOGXZW/szRhs+oQ3MYF
+ 1e2CJ3Ew+jpfQ==
+Date: Mon, 14 Feb 2022 12:40:08 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Yong Wu <yong.wu@mediatek.com>
+Subject: Re: [PATCH 20/23] ASoC: codecs: wcd938x: Make use of the helper
+ component_compare/release_of
+Message-ID: <YgpNqLQzpx4J6d8K@sirena.org.uk>
+References: <20220214060819.7334-1-yong.wu@mediatek.com>
+ <20220214060819.7334-21-yong.wu@mediatek.com>
 MIME-Version: 1.0
-In-Reply-To: <CAMuHMdUPxX7Tja6BCjEb4KDobNFPMcM66Fk7Z+VsO7pgb8JnjA@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [192.168.11.198]
-X-ClientProxiedBy: LFEXT02.lancloud.ru (fd00:f066::142) To
- LFEX1907.lancloud.ru (fd00:f066::207)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="kmbocLNYrfZ7Ic0Q"
+Content-Disposition: inline
+In-Reply-To: <20220214060819.7334-21-yong.wu@mediatek.com>
+X-Cookie: Am I in GRADUATE SCHOOL yet?
 X-Mailman-Approved-At: Wed, 16 Feb 2022 10:25:43 +0100
-Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
- Vignesh Raghavendra <vigneshr@ti.com>, Jiri Slaby <jirislaby@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- alsa-devel@alsa-project.org, Joakim Zhang <qiangqing.zhang@nxp.com>,
- linux-phy@lists.infradead.org, Thierry Reding <thierry.reding@gmail.com>,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-gpio@vger.kernel.org, Miquel
- Raynal <miquel.raynal@bootlin.com>, Guenter
- Roeck <groeck@chromium.org>, linux-spi@vger.kernel.org,
- Lee Jones <lee.jones@linaro.org>, openipmi-developer@lists.sourceforge.net,
- Peter Korsgaard <peter@korsgaard.com>, Florian Fainelli <f.fainelli@gmail.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>, kvm@vger.kernel.org,
- Kamal Dasu <kdasu.kdev@gmail.com>, Richard Weinberger <richard@nod.at>,
- Bartosz Golaszewski <brgl@bgdev.pl>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Kishon Vijay Abraham I <kishon@ti.com>, bcm-kernel-feedback-list@broadcom.com,
- linux-serial@vger.kernel.org,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- platform-driver-x86@vger.kernel.org, linux-pwm@vger.kernel.org,
- Zha Qipeng <qipeng.zha@intel.com>, Corey Minyard <minyard@acm.org>,
- linux-pm@vger.kernel.org, Liam
- Girdwood <lgirdwood@gmail.com>, John Garry <john.garry@huawei.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Takashi
- Iwai <tiwai@suse.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
- Mun Yew Tham <mun.yew.tham@intel.com>, Eric Auger <eric.auger@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Cornelia Huck <cohuck@redhat.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Oleksij Rempel <linux@rempel-privat.de>,
- linux-renesas-soc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
- =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund@ragnatech.se>,
- Brian Norris <computersforpeace@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ David Airlie <airlied@linux.ie>, Liviu Dudau <liviu.dudau@arm.com>,
+ dri-devel@lists.freedesktop.org, Sebastian Reichel <sre@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Will Deacon <will@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Joerg Roedel <joro@8bytes.org>, Takashi Iwai <tiwai@suse.com>,
+ Rob Clark <robdclark@gmail.com>, James Wang <james.qian.wang@arm.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-mediatek@lists.infradead.org, Hsin-Yi Wang <hsinyi@chromium.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ srv_heupstream@mediatek.com, Stephen Boyd <sboyd@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Tomasz Figa <tfiga@chromium.org>, iommu@lists.linux-foundation.org,
+ Daniel Vetter <daniel@ffwll.ch>, Robin Murphy <robin.murphy@arm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,146 +106,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello!
 
-On 2/14/22 11:54 AM, Geert Uytterhoeven wrote:
+--kmbocLNYrfZ7Ic0Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-[...]
+On Mon, Feb 14, 2022 at 02:08:16PM +0800, Yong Wu wrote:
+> Use the common compare/release helpers from component.
 
->> This patch is based on the former Andy Shevchenko's patch:
->>
->> https://lore.kernel.org/lkml/20210331144526.19439-1-andriy.shevchenko@linux.intel.com/
->>
->> Currently platform_get_irq_optional() returns an error code even if IRQ
->> resource simply has not been found.  It prevents the callers from being
->> error code agnostic in their error handling:
->>
->>         ret = platform_get_irq_optional(...);
->>         if (ret < 0 && ret != -ENXIO)
->>                 return ret; // respect deferred probe
->>         if (ret > 0)
->>                 ...we get an IRQ...
->>
->> All other *_optional() APIs seem to return 0 or NULL in case an optional
->> resource is not available.  Let's follow this good example, so that the
->> callers would look like:
->>
->>         ret = platform_get_irq_optional(...);
->>         if (ret < 0)
->>                 return ret;
->>         if (ret > 0)
->>                 ...we get an IRQ...
->>
->> Reported-by: Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
->> Signed-off-by: Sergey Shtylyov <s.shtylyov@omp.ru>
->> ---
->> Changes in version 2:
-> 
-> Thanks for the update!
-> 
->>  drivers/base/platform.c                  | 60 +++++++++++++++---------
-> 
-> The core change LGTM.
+What's the story with dependencies here?  I've just got this one patch
+with no cover letter...
 
-   Thanx! :-)
+--kmbocLNYrfZ7Ic0Q
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> I'm only looking at Renesas drivers below...
-> 
->> --- a/drivers/mmc/host/sh_mmcif.c
->> +++ b/drivers/mmc/host/sh_mmcif.c
->> @@ -1465,14 +1465,14 @@ static int sh_mmcif_probe(struct platform_device *pdev)
->>         sh_mmcif_sync_reset(host);
->>         sh_mmcif_writel(host->addr, MMCIF_CE_INT_MASK, MASK_ALL);
->>
->> -       name = irq[1] < 0 ? dev_name(dev) : "sh_mmc:error";
->> +       name = irq[1] <= 0 ? dev_name(dev) : "sh_mmc:error";
-> 
-> "== 0" should be sufficient here, if the code above would bail out
-> on errors returned by platform_get_irq_optional(), which it currently
-> doesn't do.
-> As this adds missing error handling, this is to be fixed by a separate
-> patch later?
+-----BEGIN PGP SIGNATURE-----
 
-   Yes.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIKTagACgkQJNaLcl1U
+h9ChNwf9H0Bf8Q4NJFX6MpkURJU1WTUkJZ8s9zjT9F5003kszR2qdhtG8TCUYisF
+m+Ywr7okO1EGsbMSae1gxr0q5In/J/buVsEnIjl42Be7doIn1xXcDB+3tjDyi4aH
+ZN/sHluDMyiwzeBgN2jiu99gsgHDVXThtPOdyMLab2QMCVo6PEox6vsKyIb6vO2F
+Rl7BLwS916U45mWEFF/XAJLWV7QPG5f43JvKlSkjKLgJhFP8H/cxKzlNZclRAdEi
+fSWK497fgwmyoHrXr2inZNyDmAh20f9np1WMgLBl2sJwN8LnmWSDpp76C/XfRV0T
+Qp7CAMe19I/TqvJsaFw7oluNeBT7Yg==
+=2URH
+-----END PGP SIGNATURE-----
 
-[...]
->>                 ret = devm_request_threaded_irq(dev, irq[1],
->>                                                 sh_mmcif_intr, sh_mmcif_irqt,
->>                                                 0, "sh_mmc:int", host);
-> 
->> --- a/drivers/phy/renesas/phy-rcar-gen3-usb2.c
->> +++ b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
->> @@ -439,7 +439,7 @@ static int rcar_gen3_phy_usb2_init(struct phy *p)
->>         u32 val;
->>         int ret;
->>
->> -       if (!rcar_gen3_is_any_rphy_initialized(channel) && channel->irq >= 0) {
->> +       if (!rcar_gen3_is_any_rphy_initialized(channel) && channel->irq > 0) {
->>                 INIT_WORK(&channel->work, rcar_gen3_phy_usb2_work);
->>                 ret = request_irq(channel->irq, rcar_gen3_phy_usb2_irq,
->>                                   IRQF_SHARED, dev_name(channel->dev), channel);
->> @@ -486,7 +486,7 @@ static int rcar_gen3_phy_usb2_exit(struct phy *p)
->>                 val &= ~USB2_INT_ENABLE_UCOM_INTEN;
->>         writel(val, usb2_base + USB2_INT_ENABLE);
->>
->> -       if (channel->irq >= 0 && !rcar_gen3_is_any_rphy_initialized(channel))
->> +       if (channel->irq > 0 && !rcar_gen3_is_any_rphy_initialized(channel))
->>                 free_irq(channel->irq, channel);
->>
->>         return 0;
-> 
-> LGTM, but note that all errors returned by platform_get_irq_optional()
-> are currently ignored, even real errors, which should be propagated
-> up.
-> As this adds missing error handling, this is to be fixed by a separate
-> patch later?
-
-   Yes.
-
->> --- a/drivers/thermal/rcar_gen3_thermal.c
->> +++ b/drivers/thermal/rcar_gen3_thermal.c
->> @@ -432,6 +432,8 @@ static int rcar_gen3_thermal_request_irqs(struct rcar_gen3_thermal_priv *priv,
->>                 irq = platform_get_irq_optional(pdev, i);
->>                 if (irq < 0)
->>                         return irq;
->> +               if (!irq)
->> +                       return -ENXIO;
-> 
-> While correct, and preserving existing behavior, this looks strange
-> to me.  Probably this should return zero instead (i.e. the check
-> above should be changed to "<= 0"), and the caller should start caring
-> about and propagating up real errors.
-
-   Hm, you're right... should be <= 0 there, it seems.
-
-> As this adds missing error handling, this is to be fixed by a separate
-> patch later?
-
-   Propagating errors from the probe() method is a matter of separate patch, yes.
-
->>
->>                 irqname = devm_kasprintf(dev, GFP_KERNEL, "%s:ch%d",
->>                                          dev_name(dev), i);
->> diff --git a/drivers/tty/serial/8250/8250_mtk.c b/drivers/tty/serial/8250/8250_mtk.c
->> index fb65dc601b23..328ab074fd89 100644
-> 
->> --- a/drivers/tty/serial/sh-sci.c
->> +++ b/drivers/tty/serial/sh-sci.c
-> 
-> I think you missed
-> 
->     #define SCIx_IRQ_IS_MUXED(port)                 \
->             ((port)->irqs[SCIx_ERI_IRQ] ==  \
->              (port)->irqs[SCIx_RXI_IRQ]) || \
->             ((port)->irqs[SCIx_ERI_IRQ] &&  \
->              ((port)->irqs[SCIx_RXI_IRQ] < 0))
-> 
-> above? The last condition should become "<= 0".
-
-   Yes, probably... TY!
-
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-
-MBR, Sergey
+--kmbocLNYrfZ7Ic0Q--

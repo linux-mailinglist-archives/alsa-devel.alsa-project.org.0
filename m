@@ -2,76 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14B674B4286
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 08:09:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBDBE4B4287
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 08:09:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D3B3168D;
-	Mon, 14 Feb 2022 08:08:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D3B3168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D79F616B1;
+	Mon, 14 Feb 2022 08:08:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D79F616B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644822554;
-	bh=zRwIjWadERt36ALUSui8bA9C99V5TX7zIVkUucu64Fk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qpxUFqa2r3LHAxB6GykM7vlZ0yPrBn0BhflJ3hSI5FTtXSlPOSm2Juyh/gdOn8Iuo
-	 UVoDZHBHgN8Fuw168G3Wx/1gmnENpnwbjsxCmQ6V2QsGd9fjKDXIgWdRs1lJJ/aeGn
-	 I7Svd5osArWaaDJxmomywC8dJvCxoDRqLWAEjaM8=
+	s=default; t=1644822589;
+	bh=MUGxuaBoS5+4XYHYmXV6xhCCvfscYnoWRL3ljzsDpd0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=EksJUc9pnM5LkAUwN69bWp2WKmkkcjWwKxYzBR3LtQRXxVtmJW3N0wjceqt+CwLUK
+	 4cMSh3KncYhFzrhnVghag4JgTEb1lF2OH4FObRGTXrbXuEAagGa5887oS6iingRCc6
+	 n8DNz1utrNeIKTt/zo9780+AKKDBB6TfbyIDCgkA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 650A2F8012F;
-	Mon, 14 Feb 2022 08:08:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BCAFF80169;
+	Mon, 14 Feb 2022 08:08:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE784F80310; Mon, 14 Feb 2022 08:08:05 +0100 (CET)
+ id EDECAF804D1; Mon, 14 Feb 2022 08:08:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE795F800C0
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 08:07:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE795F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67C59F80430
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 08:08:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67C59F80430
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="nnPpqY6C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644822480; x=1676358480;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=zRwIjWadERt36ALUSui8bA9C99V5TX7zIVkUucu64Fk=;
- b=nnPpqY6CbnLGiAoBmL4h5B+6i35GgvWUPxk7+0eGHpU1V30Gb3EgdIOU
- /r5v+604q+yPWNgi4TlIjvs+fsBPK013xIy4HsAHJuroUwprVts0GVjky
- hXnJSMlU7F8RN1Al4SFu0UAEx9gEBe22L/a29kQ/kcxXPztNleBGvphP+
- dmC8XpD9QrsFkMT2AwQpzHHS/8wydqAsUzc9t+D1mz1Ubdi8OjF8+1HpL
- szx0PacQy7RSKokKXkMTCclzupp1WUfxnyoaV+mkMH2EjQWYYkShbhqqg
- YLWcv82V2UzKN0E4myOm+HzFE352ZoTzvMsTqsAXSS2bBTnXay2hi4wGz A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="249778421"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="249778421"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2022 23:07:53 -0800
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="543255797"
-Received: from amrobles-mobl1.amr.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.249.47.75])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2022 23:07:51 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
-Subject: [PATCH] ASoC: SOF: Makefile: Fix randconfig sof-client build when
- SND_SOC_SOF=y
-Date: Mon, 14 Feb 2022 09:07:52 +0200
-Message-Id: <20220214070752.21063-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com, tiwai@suse.com,
- linux-kernel@vger.kernel.org, fred.oh@linux.intel.com, daniel.baluta@nxp.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ijTSSOH5"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="biyZHITC"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 7CF10210F5;
+ Mon, 14 Feb 2022 07:08:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1644822532; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2rY4rRZo1qfWGIkhxkIEv83o1WXhDcY8Wef6hSoNe7c=;
+ b=ijTSSOH5msdaUIimuDRnMrasdwFRocg/l6WjbGLiv7ceoGCfncUv7b0gni5jHT29UHf1sG
+ wCYwS6w3ggHXMjDd72jkM6XJWXYG81e2OihSS4LAIkuqgTG6kWXMvWQmgO2toyaGWXzNTw
+ /3iNeIQS2928TUUVXM9w9cljjCmvb7E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1644822532;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2rY4rRZo1qfWGIkhxkIEv83o1WXhDcY8Wef6hSoNe7c=;
+ b=biyZHITCRWvWdIpG78+7JftJw2cyx1BYCa+QbaYVroMr2XyA81/P6C7mYjKhDR7PGPI7xE
+ I26tw0KG8zZAA5Cg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 752D7A3B8A;
+ Mon, 14 Feb 2022 07:08:52 +0000 (UTC)
+Date: Mon, 14 Feb 2022 08:08:52 +0100
+Message-ID: <s5hfsolhqm3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: dmummenschanz@web.de
+Subject: Re: Cannon Lake PCH cAVS (ALC892) not detected by kernel driver
+In-Reply-To: <trinity-354a4a90-f564-4f73-bbea-ed00bc502c24-1644821395116@3c-app-webde-bs52>
+References: <trinity-f018660b-95c9-442b-a2a8-c92a56eb07ed-1644345967148@3c-app-webde-bap22>
+ <209270c3-4a46-d6a1-0f1d-d4400ecc5962@linux.intel.com>
+ <trinity-c5ab92fd-fbab-4431-8579-f8576a9ba71e-1644390880605@3c-app-webde-bap12>
+ <c71dbf89-80a3-538e-6ebe-e1d1869183e8@linux.intel.com>
+ <trinity-dc5c0214-ab7c-48bf-a502-e93062638611-1644425274650@3c-app-webde-bap11>
+ <trinity-7e2e8baa-0f43-4b12-902d-a907bd7efb79-1644665613748@3c-app-webde-bs56>
+ <2db61794-d772-8df6-a843-fd1512cfaa57@linux.intel.com>
+ <s5hmtivgmld.wl-tiwai@suse.de>
+ <trinity-354a4a90-f564-4f73-bbea-ed00bc502c24-1644821395116@3c-app-webde-bs52>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,48 +100,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+On Mon, 14 Feb 2022 07:49:55 +0100,
+dmummenschanz@web.de wrote:
+> 
+> Thanks for the scoop. I've added "options snd-hda-intel probe_mask=0x105" to /
+> etc/modules-d/alsa.conf. Unfortunately that didn't help. The ALC892
+> didn't show up. Why the log below says "codec_mask forced to 0x5" but I've
+> explicitly set the value to 0x105 I don't know.
 
-Intel's kernel test robot found the following randconfig combination:
-SND_SOC_SOF=y
-SND_SOC_SOF_CLIENT=m
+The bit 0x100 means to forcibly set the codec probe mask, so this is
+fine.  But the actual work of the forced bit doesn't seem right.
 
-In this the sof-client object is not going to be built into the snd-sof.o
-and we will have undefined references to the sof-client functions.
+Could you try the patch below and test with probe_mask=0x105 again?
 
-Fixes: 6955d9512d0e ("ASoC: SOF: Introduce IPC SOF client support")
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
----
-Hi Mark, Pierre,
 
-When the client support was added we did some permutation tests (at least I did)
-but missed this combination.
-It is a valid one for sure and the proper fix is via the Makefile.
+thanks,
 
-Sorry for mising this
+Takashi
 
-Regards,
-Peter
-
- sound/soc/sof/Makefile | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/sof/Makefile b/sound/soc/sof/Makefile
-index 4d31282c847d..a0459f06c68a 100644
---- a/sound/soc/sof/Makefile
-+++ b/sound/soc/sof/Makefile
-@@ -2,7 +2,9 @@
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1798,8 +1798,6 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
  
- snd-sof-objs := core.o ops.o loader.o ipc.o pcm.o pm.o debug.o topology.o\
- 		control.o trace.o iomem-utils.o sof-audio.o stream-ipc.o
--snd-sof-$(CONFIG_SND_SOC_SOF_CLIENT) += sof-client.o
-+ifneq ($(CONFIG_SND_SOC_SOF_CLIENT),)
-+snd-sof-objs += sof-client.o
-+endif
+ 	assign_position_fix(chip, check_position_fix(chip, position_fix[dev]));
  
- snd-sof-$(CONFIG_SND_SOC_SOF_COMPRESS) += compress.o
+-	check_probe_mask(chip, dev);
+-
+ 	if (single_cmd < 0) /* allow fallback to single_cmd at errors */
+ 		chip->fallback_to_single_cmd = 1;
+ 	else /* explicitly set to single_cmd or not */
+@@ -2280,6 +2278,8 @@ static int azx_probe_continue(struct azx *chip)
+ 	chip->beep_mode = beep_mode[dev];
+ #endif
  
--- 
-2.35.1
-
++	check_probe_mask(chip, dev);
++
+ 	/* create codec instances */
+ 	if (bus->codec_mask) {
+ 		err = azx_probe_codecs(chip, azx_max_codecs[chip->driver_type]);

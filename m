@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62C7E4B50DC
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 13:58:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC5EC4B5108
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 14:05:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB5111754;
-	Mon, 14 Feb 2022 13:57:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB5111754
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41ECA1767;
+	Mon, 14 Feb 2022 14:04:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41ECA1767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644843510;
-	bh=ognt00oMRmNZaG+w3LT1jmLXB0pBmxHwCDpv9lryFQw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1644843938;
+	bh=xdxIjiqOGOnqG1esxtzAPtgpschni9BAAC7rbq6X7xo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=m0sPKpDQGQGOhnJD9nX4MM1OKd4LXmensz6lVLgZFaj9VH2VPHK/P4CnWrZDmtgtS
-	 a7Q1F1cuccmTK77Z/k5Y0bue6BQQ9CSeM1Bwtshxq1un3wBpcd5oy3IlXmzLG1Ps6+
-	 OAdGyjmSnMpA+zcYZvz6rmZTQg/jlQtlGy0yX7Ag=
+	b=Q2DC6lGjJYA1XYCUe4fMdjck2YwWBRxlC+J+i0PxzNhSyD0w9wkFYQZeJZYfbjhiT
+	 roqWfREP7936ZxwuI4Wsx3e16+422LjQRoepzqKl3V3a79CSycyEsZHDJdDHwd2rOX
+	 c+nF93Z7M6Ny0J6UeEtt8Nq1XO/ksRKISQJawsIc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63D7FF80430;
-	Mon, 14 Feb 2022 13:57:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84428F80430;
+	Mon, 14 Feb 2022 14:04:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C92BFF80310; Mon, 14 Feb 2022 13:57:22 +0100 (CET)
+ id CB34EF80310; Mon, 14 Feb 2022 14:04:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD956F800C0
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 13:57:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD956F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5330F800D8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 14:04:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5330F800D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="AEDGE3sZ"; 
+ header.b="NmrmFgfs"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="10HIWsSq"
+ header.b="DIGwCl2p"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 43B8D210F0
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 12:57:12 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 94531210E6;
+ Mon, 14 Feb 2022 13:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1644843432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1644843851; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=ZKgnC64UlkRjypCtepBBcqmG9O7e55SdNoP0fdf8Sbs=;
- b=AEDGE3sZYGC1PdIl7ylQwc7gDSkVNZRuW3YEFPpaLaxqKNyuYVA0kXCmJkuS5S0agH86kN
- eIGBxbQ4p8LDO97K7Ctjb4VeXSdUr1DIy81WuyInnnzMbAI+b91bViybuNKwnGqdZISRgQ
- BbSP7o8gQvCUP+79miMG5QYHrhti9uY=
+ bh=9K4NjcCoyd1LM9QiTIF28hEP8naBuXj/X3Zd4w906PY=;
+ b=NmrmFgfsOfiMFe5mF68tZmupS6e622RBcA6c9J6X+f+smzyYycc+qcO8b53hOtCu2oSWD4
+ UW9CG8iKhzyRwFgN8sokiKj5tnk/KL3evwKL3B271UU0naNJrrKE1TQSHnCW9UIiWgULUg
+ kx+Tg5qDSe1xLyMshEGTMJRpcDpVsS4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1644843432;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ s=susede2_ed25519; t=1644843851;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=ZKgnC64UlkRjypCtepBBcqmG9O7e55SdNoP0fdf8Sbs=;
- b=10HIWsSqJrCrCP42DwvKJhFU8CfQq4FqoeYjwEzujnGoBHqmyBnfBSeoiuNkO26GalaV8s
- GcXFJfSoAwah7rDw==
+ bh=9K4NjcCoyd1LM9QiTIF28hEP8naBuXj/X3Zd4w906PY=;
+ b=DIGwCl2pnTTXTKdcnqu8oH/3lIiryCpOOQeZkhoOZwa6oyfbXM+gErfoicQsoKkXx9XfdJ
+ f8F1PnvqmaKTjqAQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3BBE2A3B89;
- Mon, 14 Feb 2022 12:57:12 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 8EBBAA3B84;
+ Mon, 14 Feb 2022 13:04:11 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Don't abort resume upon errors
-Date: Mon, 14 Feb 2022 13:57:11 +0100
-Message-Id: <20220214125711.20531-1-tiwai@suse.de>
+Subject: [PATCH] ALSA: hda/realtek: Fix deadlock by COEF mutex
+Date: Mon, 14 Feb 2022 14:04:10 +0100
+Message-Id: <20220214130410.21230-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Cc: Julian Wollrath <jwollrath@web.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,54 +85,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The default mixer resume code treats the errors at restoring the
-modified mixer items as a fatal error, and it returns back to the
-caller.  This ends up in the resume failure, and the device will be
-come unavailable, although basically those errors are intermittent and
-can be safely ignored.
+The recently introduced coef_mutex for Realtek codec seems causing a
+deadlock when the relevant code is invoked from the power-off state;
+then the HD-audio core tries to power-up internally, and this kicks
+off the codec runtime PM code that tries to take the same coef_mutex.
 
-The problem itself has been present from the beginning, but it didn't
-hit usually because the code tries to resume only the modified items.
-But now with the recent commit to forcibly initialize each item at the
-probe time, the problem surfaced more often, hence it appears as a
-regression.
+In order to avoid the deadlock, do the temporary power up/down around
+the coef_mutex acquisition and release.  This assures that the
+power-up sequence runs before the mutex, hence no re-entrance will
+happen.
 
-This patch fixes the regression simply by ignoring the errors at
-resume.
-
-Fixes: b96681bd5827 ("ALSA: usb-audio: Initialize every feature unit once at probe time")
+Fixes: b837a9f5ab3b ("ALSA: hda: realtek: Fix race at concurrent COEF updates")
+Reported-and-tested-by: Julian Wollrath <jwollrath@web.de>
 Cc: <stable@vger.kernel.org>
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=215561
+Link: https://lore.kernel.org/r/20220214132838.4db10fca@schienar
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/mixer.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ sound/pci/hda/patch_realtek.c | 39 +++++++++++++++++++++--------------
+ 1 file changed, 24 insertions(+), 15 deletions(-)
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 630766ba259f..a5641956ef10 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -3678,17 +3678,14 @@ static int restore_mixer_value(struct usb_mixer_elem_list *list)
- 				err = snd_usb_set_cur_mix_value(cval, c + 1, idx,
- 							cval->cache_val[idx]);
- 				if (err < 0)
--					return err;
-+					break;
- 			}
- 			idx++;
- 		}
- 	} else {
- 		/* master */
--		if (cval->cached) {
--			err = snd_usb_set_cur_mix_value(cval, 0, 0, *cval->cache_val);
--			if (err < 0)
--				return err;
--		}
-+		if (cval->cached)
-+			snd_usb_set_cur_mix_value(cval, 0, 0, *cval->cache_val);
- 	}
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 9473fb76ff19..3a42457984e9 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -138,6 +138,22 @@ struct alc_spec {
+  * COEF access helper functions
+  */
  
- 	return 0;
++static void coef_mutex_lock(struct hda_codec *codec)
++{
++	struct alc_spec *spec = codec->spec;
++
++	snd_hda_power_up_pm(codec);
++	mutex_lock(&spec->coef_mutex);
++}
++
++static void coef_mutex_unlock(struct hda_codec *codec)
++{
++	struct alc_spec *spec = codec->spec;
++
++	mutex_unlock(&spec->coef_mutex);
++	snd_hda_power_down_pm(codec);
++}
++
+ static int __alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+ 				 unsigned int coef_idx)
+ {
+@@ -151,12 +167,11 @@ static int __alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+ static int alc_read_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+ 			       unsigned int coef_idx)
+ {
+-	struct alc_spec *spec = codec->spec;
+ 	unsigned int val;
+ 
+-	mutex_lock(&spec->coef_mutex);
++	coef_mutex_lock(codec);
+ 	val = __alc_read_coefex_idx(codec, nid, coef_idx);
+-	mutex_unlock(&spec->coef_mutex);
++	coef_mutex_unlock(codec);
+ 	return val;
+ }
+ 
+@@ -173,11 +188,9 @@ static void __alc_write_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+ static void alc_write_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+ 				 unsigned int coef_idx, unsigned int coef_val)
+ {
+-	struct alc_spec *spec = codec->spec;
+-
+-	mutex_lock(&spec->coef_mutex);
++	coef_mutex_lock(codec);
+ 	__alc_write_coefex_idx(codec, nid, coef_idx, coef_val);
+-	mutex_unlock(&spec->coef_mutex);
++	coef_mutex_unlock(codec);
+ }
+ 
+ #define alc_write_coef_idx(codec, coef_idx, coef_val) \
+@@ -198,11 +211,9 @@ static void alc_update_coefex_idx(struct hda_codec *codec, hda_nid_t nid,
+ 				  unsigned int coef_idx, unsigned int mask,
+ 				  unsigned int bits_set)
+ {
+-	struct alc_spec *spec = codec->spec;
+-
+-	mutex_lock(&spec->coef_mutex);
++	coef_mutex_lock(codec);
+ 	__alc_update_coefex_idx(codec, nid, coef_idx, mask, bits_set);
+-	mutex_unlock(&spec->coef_mutex);
++	coef_mutex_unlock(codec);
+ }
+ 
+ #define alc_update_coef_idx(codec, coef_idx, mask, bits_set)	\
+@@ -235,9 +246,7 @@ struct coef_fw {
+ static void alc_process_coef_fw(struct hda_codec *codec,
+ 				const struct coef_fw *fw)
+ {
+-	struct alc_spec *spec = codec->spec;
+-
+-	mutex_lock(&spec->coef_mutex);
++	coef_mutex_lock(codec);
+ 	for (; fw->nid; fw++) {
+ 		if (fw->mask == (unsigned short)-1)
+ 			__alc_write_coefex_idx(codec, fw->nid, fw->idx, fw->val);
+@@ -245,7 +254,7 @@ static void alc_process_coef_fw(struct hda_codec *codec,
+ 			__alc_update_coefex_idx(codec, fw->nid, fw->idx,
+ 						fw->mask, fw->val);
+ 	}
+-	mutex_unlock(&spec->coef_mutex);
++	coef_mutex_unlock(codec);
+ }
+ 
+ /*
 -- 
 2.31.1
 

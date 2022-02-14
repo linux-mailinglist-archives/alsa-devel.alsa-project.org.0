@@ -2,91 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1B634B4477
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 09:43:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81D3C4B44B1
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 09:46:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 401AA851;
-	Mon, 14 Feb 2022 09:42:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 401AA851
+	by alsa0.perex.cz (Postfix) with ESMTPS id F354C16DB;
+	Mon, 14 Feb 2022 09:45:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F354C16DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644828199;
-	bh=UfTYQGrMt7g/jkD5H7ahiax4HrhWetuyJAFxoHhQD9o=;
+	s=default; t=1644828392;
+	bh=P1yLZoGiuGAHFcOQmAe83yHJD8nfKtWk6I3N63/oDtc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z2bLboEpb4Otgfs02+csKvFnI6x7X5VuXin25B4fGfB9x7mwSr+k9bWqPCQ8vNxFA
-	 nE7ztKn6GFdq1UqGnDcf+Rcpl1hA4u54+V3B3HdDXbwkbiKvVVP3r/ElAigQ5nxiBf
-	 5JCxrNEkbsoNR1Uw7BnAuDIRfKxPtyr1K+6yJbCw=
+	b=fxRe4c6eg8J/GZbH1iwCero5WlaNYO2g/RfPsoEuh1zHlySK1uCtek4//9/jolBxy
+	 FfWtvT8lkXYaJP5H6scgwptEd09PYdQy94CkYi9t8twKKRGFV2LWar2WNFRndpp+dz
+	 vHWcxiWhMOey71U1FrDFZeSPIPTiDonKHO7ct/R4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96A3BF80430;
-	Mon, 14 Feb 2022 09:42:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F282F80430;
+	Mon, 14 Feb 2022 09:45:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1168DF80310; Mon, 14 Feb 2022 09:42:12 +0100 (CET)
+ id 77B61F80310; Mon, 14 Feb 2022 09:45:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC6F3F800D8
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 09:42:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC6F3F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49194F800D8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 09:45:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49194F800D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xcAHWLlX"; 
+ header.b="J+5ewe5y"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="UV+SwxeK"
+ header.b="ET/VjbHH"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 66A25210F5;
- Mon, 14 Feb 2022 08:42:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 37EF6210E5;
+ Mon, 14 Feb 2022 08:45:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1644828128; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1644828321; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3hgWWvfrQuOVxMCMx6CXcZaa/IOPaQ4tYpR7d5Vh33Q=;
- b=xcAHWLlXGBV4ubKU8Gp3WX9rIdXopiOZyuV9YK4gKjYoHBm+5v3QOE49AyKR+n7QaByS5I
- ud03wcgcrYF01vu6UxpfznXf+NETwXy0nD/JycJCShmh7n+UX0iEyIAmWkz82gLfmXKANw
- CO88Y0XcqYCFV2v3QmStc2EH5MJ8+pM=
+ bh=2x1aJhG1xmYIfZnGIalvIAgLXEpAWQyV04ILeNRwUTE=;
+ b=J+5ewe5y7qKikUaNfaMUdQdzQcsICf954ZNUoxM3blMAVm61/38A8p7Q5ZRl77IT+5riOb
+ 8CpfiNKDnTGc1h3+d2tFgAwJ/POZv2jtGRW7dmDaw/ZWeM5JQqpgGSc+tiKxc8GPMEPt6K
+ f4UG6wlaPphdW3cqC2zfzxqi9MMBU0c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1644828128;
+ s=susede2_ed25519; t=1644828321;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3hgWWvfrQuOVxMCMx6CXcZaa/IOPaQ4tYpR7d5Vh33Q=;
- b=UV+SwxeK5T+YK4fyRXm2Y2IzQgcI1ig8vNJAx7Ir58z7GV82DjtvFT6w9KRqy3aHypdPBK
- c7HparYAZVS225AA==
+ bh=2x1aJhG1xmYIfZnGIalvIAgLXEpAWQyV04ILeNRwUTE=;
+ b=ET/VjbHHObt9CwBYc2l3K56eqmnEA0gz83nFm03IiM7Cmzxdzky33o8XgwUz1lzXqeMaIx
+ VD4/03+VEqt5nFCA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 5F075A3B88;
- Mon, 14 Feb 2022 08:42:08 +0000 (UTC)
-Date: Mon, 14 Feb 2022 09:42:08 +0100
-Message-ID: <s5hbkz9hman.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 1F0FCA3B8F;
+ Mon, 14 Feb 2022 08:45:21 +0000 (UTC)
+Date: Mon, 14 Feb 2022 09:45:21 +0100
+Message-ID: <s5h8rudhm5a.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: dmummenschanz@web.de
-Subject: Re: Cannon Lake PCH cAVS (ALC892) not detected by kernel driver
-In-Reply-To: <trinity-5e9e2188-92d3-4307-9e57-4981ce4440db-1644824332706@3c-app-webde-bap49>
-References: <trinity-f018660b-95c9-442b-a2a8-c92a56eb07ed-1644345967148@3c-app-webde-bap22>
- <209270c3-4a46-d6a1-0f1d-d4400ecc5962@linux.intel.com>
- <trinity-c5ab92fd-fbab-4431-8579-f8576a9ba71e-1644390880605@3c-app-webde-bap12>
- <c71dbf89-80a3-538e-6ebe-e1d1869183e8@linux.intel.com>
- <trinity-dc5c0214-ab7c-48bf-a502-e93062638611-1644425274650@3c-app-webde-bap11>
- <trinity-7e2e8baa-0f43-4b12-902d-a907bd7efb79-1644665613748@3c-app-webde-bs56>
- <2db61794-d772-8df6-a843-fd1512cfaa57@linux.intel.com>
- <s5hmtivgmld.wl-tiwai@suse.de>
- <trinity-354a4a90-f564-4f73-bbea-ed00bc502c24-1644821395116@3c-app-webde-bs52>
- <s5hfsolhqm3.wl-tiwai@suse.de>
- <trinity-5e9e2188-92d3-4307-9e57-4981ce4440db-1644824332706@3c-app-webde-bap49>
+To: Matteo Martelli <matteomartelli3@gmail.com>
+Subject: Re: [PATCH 1/1] ALSA: usb-audio: revert to IMPLICIT_FB_FIXED_DEV for
+ M-Audio FastTrack Ultra
+In-Reply-To: <20220211224913.20683-2-matteomartelli3@gmail.com>
+References: <20220211224913.20683-1-matteomartelli3@gmail.com>
+ <20220211224913.20683-2-matteomartelli3@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: multipart/mixed; boundary="Multipart_Mon_Feb_14_09:42:08_2022-1"
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,113 +93,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---Multipart_Mon_Feb_14_09:42:08_2022-1
-Content-Type: text/plain; charset=US-ASCII
-
-On Mon, 14 Feb 2022 08:38:52 +0100,
-dmummenschanz@web.de wrote:
+On Fri, 11 Feb 2022 23:49:13 +0100,
+Matteo Martelli wrote:
 > 
-> Applied yout patch with "probe_mask=0x105" option. ALC892 is now found and I
-> have sound. Thanks! :)
+> Commit 83b7dcbc51c930fc2079ab6c6fc9d719768321f1 introduced a generic
+> implicit feedback parser, which fails to execute for M-Audio FastTrack
+> Ultra sound cards. The issue is with the ENDPOINT_SYNCTYPE check in
+> add_generic_implicit_fb() where the SYNCTYPE is ADAPTIVE instead of ASYNC.
+> The reason is that the sync type of the FastTrack output endpoints are
+> set to adaptive in the quirks table since commit
+> 65f04443c96dbda11b8fff21d6390e082846aa3c.
+> 
+> Signed-off-by: Matteo Martelli <matteomartelli3@gmail.com>
 
-Good to hear.
+Thanks, applied now.
 
-Below are two patches, one for a slightly revised version of
-probe_mask fix, and another to add your device to the quirk table.
-Could you give those a try, and test without probe_mask option?
-
-
-thanks,
 
 Takashi
-
-
---Multipart_Mon_Feb_14_09:42:08_2022-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0001-ALSA-hda-Fix-regression-on-forced-probe-mask-option.patch"
-Content-Transfer-Encoding: 7bit
-
-From 652dae26e0894c4bafe865eb89f0d57ba1bdfb8a Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Mon, 14 Feb 2022 09:33:54 +0100
-Subject: [PATCH 1/2] ALSA: hda: Fix regression on forced probe mask option
-
-The forced probe mask via probe_mask 0x100 bit doesn't work any longer
-as expected since the bus init code was moved and it's clearing the
-codec_mask value that was set beforehand.  This patch fixes the
-long-time regression by moving the check_probe_mask() call.
-
-Fixes: a41d122449be ("ALSA: hda - Embed bus into controller object")
-Reported-by: dmummenschanz@web.de
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/trinity-f018660b-95c9-442b-a2a8-c92a56eb07ed-1644345967148@3c-app-webde-bap22
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/hda_intel.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 4b0338c4c543..18b795220b52 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1798,8 +1798,6 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
- 
- 	assign_position_fix(chip, check_position_fix(chip, position_fix[dev]));
- 
--	check_probe_mask(chip, dev);
--
- 	if (single_cmd < 0) /* allow fallback to single_cmd at errors */
- 		chip->fallback_to_single_cmd = 1;
- 	else /* explicitly set to single_cmd or not */
-@@ -1825,6 +1823,8 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
- 		chip->bus.core.needs_damn_long_delay = 1;
- 	}
- 
-+	check_probe_mask(chip, dev);
-+
- 	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
- 	if (err < 0) {
- 		dev_err(card->dev, "Error creating device [card]!\n");
--- 
-2.31.1
-
-
---Multipart_Mon_Feb_14_09:42:08_2022-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0002-ALSA-hda-Fix-missing-codec-probe-on-Shenker-Dock-15.patch"
-Content-Transfer-Encoding: 7bit
-
-From 122e4fb9cc7845c252cd29f871c0166d32698e88 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Mon, 14 Feb 2022 09:39:03 +0100
-Subject: [PATCH 2/2] ALSA: hda: Fix missing codec probe on Shenker Dock 15
-
-By some unknown reason, BIOS on Shenker Dock 15 doesn't set up the
-codec mask properly for the onboard audio.  Let's set the forced codec
-mask to enable the codec discovery.
-
-Reported-by: dmummenschanz@web.de
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/trinity-f018660b-95c9-442b-a2a8-c92a56eb07ed-1644345967148@3c-app-webde-bap22
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/hda_intel.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 18b795220b52..917ad9d375b1 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1615,6 +1615,7 @@ static const struct snd_pci_quirk probe_mask_list[] = {
- 	/* forced codec slots */
- 	SND_PCI_QUIRK(0x1043, 0x1262, "ASUS W5Fm", 0x103),
- 	SND_PCI_QUIRK(0x1046, 0x1262, "ASUS W5F", 0x103),
-+	SND_PCI_QUIRK(0x1558, 0x0351, "Schenker Dock 15", 0x105),
- 	/* WinFast VP200 H (Teradici) user reported broken communication */
- 	SND_PCI_QUIRK(0x3a21, 0x040d, "WinFast VP200 H", 0x101),
- 	{}
--- 
-2.31.1
-
-
---Multipart_Mon_Feb_14_09:42:08_2022-1--

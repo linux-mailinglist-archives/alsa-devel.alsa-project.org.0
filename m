@@ -2,97 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C12C74B8439
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 10:28:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75E694B843A
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 10:28:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58EBB822;
-	Wed, 16 Feb 2022 10:27:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58EBB822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BC4E18F7;
+	Wed, 16 Feb 2022 10:27:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BC4E18F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645003696;
-	bh=QRj4vkBWgyXx6ewekqW9hJ0FbQoQ8DvTt6uGMLsmpoc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1645003707;
+	bh=iMfir8Hys8PoRkg7XbbXRj39pNMes8hLErnltaIltH8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dCPYq/UMVojdfkBsijCJ4Zsxiqt5pRgNMkh4HI0qryTyWtrQZzx18pH3T8y9VK0Nx
-	 oEZfjJYGiZXYLhElJYJgNBDJANCn3/FkuPmCxGHqpb8aAZBg8iZegFUK3iPOGB2GYZ
-	 hSzjqK4831KZJFmAv8pj8mEhvkGFgrCEr5e5riwg=
+	b=QAthmFfmmIMVVzIZmtcY0z2uWInzFKJJwqyJH5eUzmx8vSWT+UrQ1CBJPj8P652Ar
+	 jViw91qMbd7K1bDnqqKp1sKkqBfOgFNI3217BhDfESzO1GC1NrC/MkYEAcOxJOnaLL
+	 9uYpytF6RHEIxyNeBTCVS06GAZk1iCHrz5Ar2V3o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A3BAF80527;
+	by alsa1.perex.cz (Postfix) with ESMTP id C209CF8052E;
 	Wed, 16 Feb 2022 10:25:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95855F80310; Mon, 14 Feb 2022 10:01:36 +0100 (CET)
+ id 136EDF800D8; Mon, 14 Feb 2022 11:16:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
- [209.85.221.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F278F800D8
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 10:01:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F278F800D8
-Received: by mail-vk1-f171.google.com with SMTP id o129so7818175vko.7
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 01:01:30 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=3zUaM8opKL0LG20PPLjLO0sGhx6OMEFs8RjHjfjsiY4=;
- b=WqyDltrbFGZS6iRf6hQtEr9EUpceAikiogSmrpSUQ/1m+Gjjm2Ywe+c8dluxFc5nwT
- zQswXYyyK2HYWwwpI9MjTjEfGGqe6qXV2bHRiidHDHlJhBHixYv2LfY96J10t8UFcGYy
- y5/x+A8wR4b6lg8i+di8Ez2iJb7sK8L2LPlpMZmH/XKsHjJ52gNYtZ7G4zH1cvMVdtoc
- 1e0+T2BE+ErI5ddFrExppPj1C5392194A7YoNSmE27EhAu7tsJc0IwkMu8teIyBrIYmE
- Jnzwy6t92wjUm8nUlYKJtMGWQR2TvMSP/+s+k96r5NBju1+ferZQpGKDiD/F46Ri6Vpi
- XGsQ==
-X-Gm-Message-State: AOAM530ya2aliSQV6ORuf1T6UeHfi+YtHAb8WYDn7tKBK9GZdSKR6VXP
- rR4SXRATzlSkA7oU/zEMtcrNq/o8hkxlKFq0
-X-Google-Smtp-Source: ABdhPJw2bpKfmbnYmHro8gKeSsw0oVeKsr8izZh1hWPhauI7MPwW0YaOu9xzMUiC9eQAta0PJLVuYQ==
-X-Received: by 2002:a05:6122:926:: with SMTP id
- j38mr3666269vka.33.1644829288432; 
- Mon, 14 Feb 2022 01:01:28 -0800 (PST)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com.
- [209.85.221.171])
- by smtp.gmail.com with ESMTPSA id f3sm704713vsl.1.2022.02.14.01.01.27
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Feb 2022 01:01:27 -0800 (PST)
-Received: by mail-vk1-f171.google.com with SMTP id j201so1335595vke.11
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 01:01:27 -0800 (PST)
-X-Received: by 2002:a1f:7307:: with SMTP id o7mr818150vkc.0.1644829286141;
- Mon, 14 Feb 2022 01:01:26 -0800 (PST)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84B11F800D8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 11:16:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84B11F800D8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Wa8LyAHA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644833797; x=1676369797;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=iMfir8Hys8PoRkg7XbbXRj39pNMes8hLErnltaIltH8=;
+ b=Wa8LyAHAgrA1h2k/KMPw8SgsmfCETNO676PCx1G6fa/DLWIxin2Bvm/H
+ j/4JAQ0YGS+oV1PJGx5VdymEnoH8omv688M+r1mvEPiPigqBRXCqNgKen
+ zzrTiUFs1ImDTty8A/4cgPBjUKJXmmPdaDudRMjqRdz//nsxqGw41wuA0
+ bfPXZaQTwpU1rnzsE7pV9sYqO0VeekQtaH5wpxElNcmXARdgAt9GFNadX
+ yC87IHx2rAgOB2ba1HmtRtO1wuunfes7Hvgs7wh6fWhrNsh5dOI16myxx
+ GMKdfxhLRl/3vV0dA0hRgcd0Qgntkz5Ko5jwsHWok/qywTBbB3xIQD9Oy g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="247654288"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="247654288"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 02:16:32 -0800
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="603187011"
+Received: from smile.fi.intel.com ([10.237.72.61])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 02:16:17 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1nJYLy-004PC8-6n; Mon, 14 Feb 2022 12:13:06 +0200
+Date: Mon, 14 Feb 2022 12:13:01 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH v2 1/2] platform: make platform_get_irq_optional() optional
+Message-ID: <YgorLXUr8aT+1ttv@smile.fi.intel.com>
 References: <20220212201631.12648-1-s.shtylyov@omp.ru>
  <20220212201631.12648-2-s.shtylyov@omp.ru>
  <20220214071351.pcvstrzkwqyrg536@pengutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 In-Reply-To: <20220214071351.pcvstrzkwqyrg536@pengutronix.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 14 Feb 2022 10:01:14 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWi8gno_FBbc=AwsdRtDJik8_bANjQrrRtUOOBRjFN=KA@mail.gmail.com>
-Message-ID: <CAMuHMdWi8gno_FBbc=AwsdRtDJik8_bANjQrrRtUOOBRjFN=KA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] platform: make platform_get_irq_optional() optional
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Wed, 16 Feb 2022 10:25:43 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  Vignesh Raghavendra <vigneshr@ti.com>, kvm@vger.kernel.org,
  "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
  Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- alsa-devel@alsa-project.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Guenter Roeck <groeck@chromium.org>,
- Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-phy@lists.infradead.org, Oleksij Rempel <linux@rempel-privat.de>,
- Lee Jones <lee.jones@linaro.org>, "David S. Miller" <davem@davemloft.net>,
- Peter Korsgaard <peter@korsgaard.com>, Florian Fainelli <f.fainelli@gmail.com>,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Guenter Roeck <groeck@chromium.org>, Thierry Reding <thierry.reding@gmail.com>,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-phy@lists.infradead.org,
+ Oleksij Rempel <linux@rempel-privat.de>, Lee Jones <lee.jones@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>, Peter Korsgaard <peter@korsgaard.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
  Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
  Joakim Zhang <qiangqing.zhang@nxp.com>, Kamal Dasu <kdasu.kdev@gmail.com>,
  Jiri Slaby <jirislaby@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
@@ -117,7 +113,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Ulf Hansson <ulf.hansson@linaro.org>,
  linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
  Zha Qipeng <qipeng.zha@intel.com>, Richard Weinberger <richard@nod.at>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
  Brian Norris <computersforpeace@gmail.com>, netdev@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -134,72 +130,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Uwe,
-
-On Mon, Feb 14, 2022 at 8:29 AM Uwe Kleine-K=C3=B6nig
-<u.kleine-koenig@pengutronix.de> wrote:
+On Mon, Feb 14, 2022 at 08:13:51AM +0100, Uwe Kleine-König wrote:
 > On Sat, Feb 12, 2022 at 11:16:30PM +0300, Sergey Shtylyov wrote:
 > > This patch is based on the former Andy Shevchenko's patch:
-> >
-> > https://lore.kernel.org/lkml/20210331144526.19439-1-andriy.shevchenko@l=
-inux.intel.com/
-> >
+> > 
+> > https://lore.kernel.org/lkml/20210331144526.19439-1-andriy.shevchenko@linux.intel.com/
+> > 
 > > Currently platform_get_irq_optional() returns an error code even if IRQ
 > > resource simply has not been found.  It prevents the callers from being
 > > error code agnostic in their error handling:
-> >
-> >       ret =3D platform_get_irq_optional(...);
-> >       if (ret < 0 && ret !=3D -ENXIO)
-> >               return ret; // respect deferred probe
-> >       if (ret > 0)
-> >               ...we get an IRQ...
-> >
-> > All other *_optional() APIs seem to return 0 or NULL in case an optiona=
-l
+> > 
+> > 	ret = platform_get_irq_optional(...);
+> > 	if (ret < 0 && ret != -ENXIO)
+> > 		return ret; // respect deferred probe
+> > 	if (ret > 0)
+> > 		...we get an IRQ...
+> > 
+> > All other *_optional() APIs seem to return 0 or NULL in case an optional
 > > resource is not available.  Let's follow this good example, so that the
 > > callers would look like:
-> >
-> >       ret =3D platform_get_irq_optional(...);
-> >       if (ret < 0)
-> >               return ret;
-> >       if (ret > 0)
-> >               ...we get an IRQ...
-> >
+> > 
+> > 	ret = platform_get_irq_optional(...);
+> > 	if (ret < 0)
+> > 		return ret;
+> > 	if (ret > 0)
+> > 		...we get an IRQ...
+> > 
 > > Reported-by: Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
 > > Signed-off-by: Sergey Shtylyov <s.shtylyov@omp.ru>
->
+> 
 > While this patch is better than v1, I still don't like it for the
 > reasons discussed for v1. (i.e. 0 isn't usable as a dummy value which I
 > consider the real advantage for the other _get_optional() functions.)
 
-IMHO the real advantage is the simplified error handling, which is the
-area where most of the current bugs are. So I applaud the core change.
-
-Also IMHO, the dummy value handling is a red herring.  Contrary to
-optional clocks and resets, a missing optional interrupt does not
-always mean there is nothing to do: in case of polling, something
-else must definitely be done.  So even if request_irq() would accept
-a dummy interrupt zero and just do nothing, it would give the false
-impression that that is all there is to do, while an actual check
-for zero with polling code handling may still need to be present,
-thus leading to more not less bugs.
+I think you haven't reacted anyhow to my point that you mixing apples and
+bananas together when comparing this 0 to the others _optional APIs.
 
 > Apart from that, I think the subject is badly chosen. With "Make
 > somefunc() optional" I would expect that you introduce a Kconfig symbol
 > that results in the function not being available when disabled.
 
-Agreed.
 
-Gr{oetje,eeting}s,
+-- 
+With Best Regards,
+Andy Shevchenko
 
-                        Geert
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds

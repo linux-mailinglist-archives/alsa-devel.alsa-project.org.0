@@ -2,86 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA224B4FFC
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 13:24:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A71494B50BB
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 13:55:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 172711689;
-	Mon, 14 Feb 2022 13:23:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 172711689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 314251DF;
+	Mon, 14 Feb 2022 13:55:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 314251DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644841482;
-	bh=/O1/0Ncq6Khjr222vp/kkSCB9hqv4XlDdDlNAKTnb7w=;
-	h=From:Subject:To:References:Date:In-Reply-To:List-Id:
+	s=default; t=1644843359;
+	bh=wuI1+4Z5X/VTgvDJWRpj82tpujnNvJpdexZA46NI7iE=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t+0jpEoPH5yXY7hU1LbgEIeJ4JCY5FkQ/Gt7EjeycFibqTCpIJSOjRCfGu51l5e86
-	 33/+Ovsxya6Y4yuWlekt9fw411+mjZNdA3MIIAqA/anbqGWB0P3nOfMWz9Gaoet8Al
-	 AF1Mt/rgtwxREYCQytJdGSbJLCLtl5sMSYN5Nso4=
+	b=T71IvO7NecKw/engK8z/lRwGwutZLsdOxZpXHqqVgObYy8QZPavyIFKzKpGBSHjtc
+	 xxzZj8JXQkzI2Gb0m4b+neooxIzHzXK6ageoUrHfd6dxDHK15eeY+fsIYV0vnc/ZCC
+	 ZIfl1OYPlmkY4thHyMdWLgQB19ncwQOBTu2VLpBA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BE52F80430;
-	Mon, 14 Feb 2022 13:23:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A442CF80430;
+	Mon, 14 Feb 2022 13:54:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F074F80310; Mon, 14 Feb 2022 13:23:34 +0100 (CET)
+ id DEBD5F80430; Mon, 14 Feb 2022 13:54:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, NICE_REPLY_A, PRX_BODYSUB_1, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09AF8F800D8
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 13:23:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09AF8F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73E48F800D8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 13:54:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73E48F800D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.b="nIcNRzDR"; 
- dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.b="psMg/UCq"
-Received: from localhost (localhost [127.0.0.1])
- by cable.insite.cz (Postfix) with ESMTP id CBFDAA1A3D403
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 13:23:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
- t=1644841406; bh=/O1/0Ncq6Khjr222vp/kkSCB9hqv4XlDdDlNAKTnb7w=;
- h=From:Subject:To:References:Date:In-Reply-To:From;
- b=nIcNRzDR4eBo2XHb6vOIFzK4hPAp3a4NRGBQEvjJ3k5cXzeHfgBkqXRqFFfJZ0evl
- c3rjCjiwE2OR8K/AhSJa5eC3l2x5GZHmPmTAQ0y0kR6lCNtObTPH+P1tznNlHWolnI
- YaxQaKnbgAS/lCggULaaF+5Lx38BPutMaITe1T+M=
-Received: from cable.insite.cz ([84.242.75.189])
- by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Vh0feuZv2n9M for <alsa-devel@alsa-project.org>;
- Mon, 14 Feb 2022 13:23:21 +0100 (CET)
-Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
- (Authenticated sender: pavel)
- by cable.insite.cz (Postfix) with ESMTPSA id 10B1DA1A3D401
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 13:23:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
- t=1644841401; bh=/O1/0Ncq6Khjr222vp/kkSCB9hqv4XlDdDlNAKTnb7w=;
- h=From:Subject:To:References:Date:In-Reply-To:From;
- b=psMg/UCqYZ3ryMjGCcJX/Jj0TO7AIkCRhA3qyh0VwMVvcVwidDIo5WSWBd7XTpBdX
- lAZK87uq7ivsHAarFYj3QeoiVWP1kPI3pXuVAuFV0aSx4vrjJqtuCieOcNvI7q9200
- Shmr4Kmk4IOkWGh6KT1cynPcbH6S4VgMf9GkjNOY=
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-Subject: Re: [PATCH] ALSA: pcm: accept the OPEN state for snd_pcm_stop()
-To: ALSA development <alsa-devel@alsa-project.org>
-References: <20220113113130.1961332-1-perex@perex.cz>
- <s5hmtjz7q16.wl-tiwai@suse.de>
- <40388d17-0c5e-5d10-2f8a-ba75e2b7b9c7@perex.cz>
- <s5hk0f37nrq.wl-tiwai@suse.de>
- <1794d3b3-9838-ae90-bb54-79e2b4d14197@perex.cz>
-Message-ID: <d358cda1-d1d6-ac70-7c18-e57cc97b72ed@ivitera.com>
-Date: Mon, 14 Feb 2022 13:23:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="S9bSBd8h"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 06B8E6145E;
+ Mon, 14 Feb 2022 12:54:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2102C340E9;
+ Mon, 14 Feb 2022 12:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1644843283;
+ bh=wuI1+4Z5X/VTgvDJWRpj82tpujnNvJpdexZA46NI7iE=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=S9bSBd8hQTzVfkq+2DG1Fgz/5NpFQTETQoUg1tV+WwDcHHFcAXFuz4nLtkZj5BgYe
+ iE2oS+LjRCnXilGh3vBTvyh/cNGCJfjc0tGIyjZG//Rd8MB/LY6sc2a0uFMLXK5xlv
+ GNNPJuR3xldf64AyH4tAM3LWL62k+57E1rvfULRlnXZsImXXvt3FQCKV12KFUkeKz3
+ VYgF+NFyZf3qfh15nUI/uIYl1wZloR6QUYk4S6f71wxv06gedSHYwK8xFFQkGZ+N6T
+ 6jNKbvKhtKanO2qpS+KKud1JuGA1kTA/4qTQ9NhVZeuXoH8yo7TJ2F6i+qtDX114dT
+ snWNaZNtEmVKA==
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20220210172053.22782-1-ckeepax@opensource.cirrus.com>
+References: <20220210172053.22782-1-ckeepax@opensource.cirrus.com>
+Subject: Re: (subset) [PATCH 1/3] ASoC: wm_adsp: Correct control read size
+ when parsing compressed buffer
+Message-Id: <164484328249.12994.10698429649837203152.b4-ty@kernel.org>
+Date: Mon, 14 Feb 2022 12:54:42 +0000
 MIME-Version: 1.0
-In-Reply-To: <1794d3b3-9838-ae90-bb54-79e2b4d14197@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Vlad.Karpovich@cirrus.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,56 +85,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 13. 01. 22 v 16:08 Jaroslav Kysela napsal(a):
-> On 13. 01. 22 14:45, Takashi Iwai wrote:
+On Thu, 10 Feb 2022 17:20:51 +0000, Charles Keepax wrote:
+> When parsing the compressed stream the whole buffer descriptor is
+> now read in a single cs_dsp_coeff_read_ctrl; on older firmwares
+> this descriptor is just 4 bytes but on more modern firmwares it is
+> 24 bytes. The current code reads the full 24 bytes regardless, this
+> was working but reading junk for the last 20 bytes. However commit
+> f444da38ac92 ("firmware: cs_dsp: Add offset to cs_dsp read/write")
+> added a size check into cs_dsp_coeff_read_ctrl, causing the older
+> firmwares to now return an error.
 > 
->>> Also ideally, there may be a check in hw_params, if parameters
->>> (buffers) are changed, but the implementation is not so easy. Maybe we
->>> can allow OPEN ->
->>> PREPARE transition for this case, so the applications may just restart
->>> the streaming in the most light way.
->>
->> Hmm.  Reading more about those restrictions and requirements, I feel
->> that this might be better implemented in the gadget driver side
->> locally at first.  Basically we can handle similarly: add a new local
->> flag, set it at the stream stop, and return an error at prepare until
->> hw_params gets reconfigured.  This might be even smaller changes?
-> 
-> Pavel reported that stop to SETUP is not enough for sox, but it's true 
-> that the driver may fail in the prepare() callback until the standard 
-> stream operation is not recovered. I think that sox is trying to recover 
-> and it succeeds - then the I/O timeout occurs.
-> 
-> Ref: 
-> https://lore.kernel.org/alsa-devel/9635d70f-dc12-f9ed-29f5-ce34a1d4b112@ivitera.com/ 
-> 
-> 
-> The gadget driver (drivers/usb/gadget/function/u_audio.c) has empty 
-> prepare callback at the moment.
-> 
-> Pavel, could you try to add the no-stream flag management to the gadget 
-> driver and return an error in the prepare callback in this case?
+> [...]
 
-My apology for the delay. I can make the changes to the gadget to be 
-prepared for the alsa change. Let me recap to see if I understand your 
-plan correctly:
+Applied to
 
-* Currently the stopped stream is indicated by unsetting prm->active 
-https://kernel.googlesource.com/pub/scm/linux/kernel/git/gregkh/usb/+/554237f2bb62c4fcf01372e4c63d3e0062f27bac/drivers/usb/gadget/function/u_audio.c#502 
-.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-* A hw_params_set flag indicating that hw params have been configured 
-should be set at 
-https://kernel.googlesource.com/pub/scm/linux/kernel/git/gregkh/usb/+/554237f2bb62c4fcf01372e4c63d3e0062f27bac/drivers/usb/gadget/function/u_audio.c#423 
-. Where should it be unset? At snd_pcm_ops.stop (currently empty), at 
-https://kernel.googlesource.com/pub/scm/linux/kernel/git/gregkh/usb/+/554237f2bb62c4fcf01372e4c63d3e0062f27bac/drivers/usb/gadget/function/u_audio.c#494 
-for active = false, or somewhere else?
+Thanks!
 
-* A check should be added to snd_pcm_ops.prepare which fails if the 
-hw_params_set flag is unset. What error type should the fail return?
+[2/3] ASoC: wm_adsp: Make compressed buffers optional
+      commit: 0f1d41a85bda6f3502634fe15fa21bfee4c668a4
+[3/3] ASoC: wm_adsp: Add trace caps to speaker protection FW
+      commit: c55b3e46cb99a8342cad9c1a35485bfe15187832
 
-Thanks a lot for help.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Best regards,
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Pavel.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

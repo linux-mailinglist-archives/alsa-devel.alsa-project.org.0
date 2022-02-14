@@ -2,67 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E2FB4B5486
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 16:22:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F294B4B54AA
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 16:23:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B05A18F2;
-	Mon, 14 Feb 2022 16:22:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B05A18F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95BF71913;
+	Mon, 14 Feb 2022 16:22:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95BF71913
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644852171;
-	bh=s3epTqkCxpORK0GFhu4CyrYffkSRB+uqCAYRkjZbGew=;
+	s=default; t=1644852205;
+	bh=VR9ks7pcGZ0649p2RtK43WqM2CyAv+tVwE4L849Oc8k=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bq1zM5SGojkuofbXSij+dG0M/MVAdGkILmIVCRsnv8Zqv8wYiwcCG9JRlhTP9wuju
-	 OmRCj9r8q72K2ASJMUn2w2M/6vK2b78nPblMXTGQUYB/C1fv9fZTV6+Xne9L9uOwfx
-	 8ufqRPuKt4CDgwhuvZRgddBbYPYlIYV2W2oAYEXw=
+	b=uiCF8new6tN71L6dufmA3bYY3SxI1gebznFMg911GqUyJyvUd5LU+VB2V44piFeei
+	 v6I6+U1S6HYgtlEVVe9+i7BceDDxqOOX/ymMiVfVUWfPrik+vusyNT7kfD3tARp68S
+	 rZqoJEyCPpPtzOm/uZ+QwySa0eu83aa7QSyH9De8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6311FF8051A;
-	Mon, 14 Feb 2022 16:21:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D85FFF80169;
+	Mon, 14 Feb 2022 16:21:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 787AEF8051A; Mon, 14 Feb 2022 16:21:12 +0100 (CET)
+ id 47ECAF804FE; Mon, 14 Feb 2022 16:21:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
  (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2CD5CF800C0
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 16:21:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CD5CF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C1F6F80511
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 16:21:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C1F6F80511
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="wc8lqGvb"
+ header.b="Wa+322E5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644852067; x=1676388067;
+ t=1644852070; x=1676388070;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=/ZrpOkGvcxNekvWB0YiQP3d9M/gWLHdT6eMjqnjmv5M=;
- b=wc8lqGvbNeAoEmHK47SItAZkeY64c7WAJu5ywXf9pf1i8+E2a+8LLCQB
- PMKlirkU4MLWojXP8DnwoZgIis0HBmAiyoB3+BPRG6ovcF5ea7xdFkqQr
- lK1ZDoqZYB3IhQE+gma+Wyc97UH9IR3ieEM+5dvMjykiO0IsUhwjBPctw s=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 14 Feb 2022 07:21:04 -0800
+ bh=8dC7sOeAzc2HklL16iWZkoTTzYHThttXe++5lhVNBIw=;
+ b=Wa+322E54KSoV3KYle24pxsB2zcMTEZyTr4W4QOpuJBToqbv5BZSitQo
+ OGkdGzssT9+93dOsd3RDDzpDRRuV6uPSPb0xiCtkPYw2J/3tZbven7ux8
+ /J3XMMXdyxtRUm7ABtS3yojBYopQ+hyKWRiaWWkl1SbzZye6JvLDvJqsP U=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 14 Feb 2022 07:21:03 -0800
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 07:21:03 -0800
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 07:21:01 -0800
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Mon, 14 Feb 2022 07:20:23 -0800
+ 15.2.986.15; Mon, 14 Feb 2022 07:20:29 -0800
 Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Mon, 14 Feb 2022 07:20:16 -0800
+ 15.2.922.19; Mon, 14 Feb 2022 07:20:23 -0800
 From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
  <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
@@ -72,10 +73,10 @@ To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>,
  <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
  <swboyd@chromium.org>, <judyhsiao@chromium.org>, Linus Walleij
  <linus.walleij@linaro.org>, <linux-gpio@vger.kernel.org>
-Subject: [PATCH v6 1/7] dt-bindings: pinctrl: qcom: Update lpass lpi file name
- to SoC specific
-Date: Mon, 14 Feb 2022 20:49:48 +0530
-Message-ID: <1644851994-22732-2-git-send-email-quic_srivasam@quicinc.com>
+Subject: [PATCH v6 2/7] dt-bindings: pinctrl: qcom: Add sc7280 lpass lpi
+ pinctrl bindings
+Date: Mon, 14 Feb 2022 20:49:49 +0530
+Message-ID: <1644851994-22732-3-git-send-email-quic_srivasam@quicinc.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1644851994-22732-1-git-send-email-quic_srivasam@quicinc.com>
 References: <1644851994-22732-1-git-send-email-quic_srivasam@quicinc.com>
@@ -101,174 +102,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change generic lpass lpi pincotrol bindings file to SoC specific file,
-to distinguish and accomadate other SoC specific dt bindings.
+Add device tree binding Documentation details for Qualcomm SC7280
+LPASS LPI pinctrl driver.
 
 Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- .../bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml   | 133 ---------------------
- .../pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml     | 133 +++++++++++++++++++++
- 2 files changed, 133 insertions(+), 133 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
- create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml
+ .../pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml     | 115 +++++++++++++++++++++
+ 1 file changed, 115 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
-deleted file mode 100644
-index 5c5542f..0000000
---- a/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
-+++ /dev/null
-@@ -1,133 +0,0 @@
--# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
--%YAML 1.2
-----
--$id: http://devicetree.org/schemas/pinctrl/qcom,lpass-lpi-pinctrl.yaml#
--$schema: http://devicetree.org/meta-schemas/core.yaml#
--
--title: Qualcomm Technologies, Inc. Low Power Audio SubSystem (LPASS)
--  Low Power Island (LPI) TLMM block
--
--maintainers:
--  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
--
--description: |
--  This binding describes the Top Level Mode Multiplexer block found in the
--  LPASS LPI IP on most Qualcomm SoCs
--
--properties:
--  compatible:
--    const: qcom,sm8250-lpass-lpi-pinctrl
--
--  reg:
--    minItems: 2
--    maxItems: 2
--
--  clocks:
--    items:
--      - description: LPASS Core voting clock
--      - description: LPASS Audio voting clock
--
--  clock-names:
--    items:
--      - const: core
--      - const: audio
--
--  gpio-controller: true
--
--  '#gpio-cells':
--    description: Specifying the pin number and flags, as defined in
--      include/dt-bindings/gpio/gpio.h
--    const: 2
--
--  gpio-ranges:
--    maxItems: 1
--
--#PIN CONFIGURATION NODES
--patternProperties:
--  '-pins$':
--    type: object
--    description:
--      Pinctrl node's client devices use subnodes for desired pin configuration.
--      Client device subnodes use below standard properties.
--    $ref: "/schemas/pinctrl/pincfg-node.yaml"
--
--    properties:
--      pins:
--        description:
--          List of gpio pins affected by the properties specified in this
--          subnode.
--        items:
--          oneOf:
--            - pattern: "^gpio([0-9]|[1-9][0-9])$"
--        minItems: 1
--        maxItems: 14
--
--      function:
--        enum: [ gpio, swr_tx_clk, qua_mi2s_sclk, swr_tx_data, qua_mi2s_ws,
--                qua_mi2s_data, swr_rx_clk, swr_rx_data, dmic1_clk, i2s1_clk,
--                dmic1_data, i2s1_ws, dmic2_clk, dmic2_data, i2s1_data,
--                i2s2_clk, wsa_swr_clk, i2s2_ws, wsa_swr_data, dmic3_clk,
--                dmic3_data, i2s2_data ]
--        description:
--          Specify the alternative function to be configured for the specified
--          pins.
--
--      drive-strength:
--        enum: [2, 4, 6, 8, 10, 12, 14, 16]
--        default: 2
--        description:
--          Selects the drive strength for the specified pins, in mA.
--
--      slew-rate:
--        enum: [0, 1, 2, 3]
--        default: 0
--        description: |
--            0: No adjustments
--            1: Higher Slew rate (faster edges)
--            2: Lower Slew rate (slower edges)
--            3: Reserved (No adjustments)
--
--      bias-pull-down: true
--
--      bias-pull-up: true
--
--      bias-disable: true
--
--      output-high: true
--
--      output-low: true
--
--    required:
--      - pins
--      - function
--
--    additionalProperties: false
--
--allOf:
--  - $ref: "pinctrl.yaml#"
--
--required:
--  - compatible
--  - reg
--  - clocks
--  - clock-names
--  - gpio-controller
--  - '#gpio-cells'
--  - gpio-ranges
--
--additionalProperties: false
--
--examples:
--  - |
--    #include <dt-bindings/sound/qcom,q6afe.h>
--    lpi_tlmm: pinctrl@33c0000 {
--        compatible = "qcom,sm8250-lpass-lpi-pinctrl";
--        reg = <0x33c0000 0x20000>,
--              <0x3550000 0x10000>;
--        clocks = <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
--                 <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
--        clock-names = "core", "audio";
--        gpio-controller;
--        #gpio-cells = <2>;
--        gpio-ranges = <&lpi_tlmm 0 0 14>;
--    };
-diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
 new file mode 100644
-index 0000000..06efb13
+index 0000000..d32ee32
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml
-@@ -0,0 +1,133 @@
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
+@@ -0,0 +1,115 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml#
++$id: http://devicetree.org/schemas/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
 +title: Qualcomm Technologies, Inc. Low Power Audio SubSystem (LPASS)
 +  Low Power Island (LPI) TLMM block
 +
 +maintainers:
++  - Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 +
 +description: |
@@ -277,21 +139,11 @@ index 0000000..06efb13
 +
 +properties:
 +  compatible:
-+    const: qcom,sm8250-lpass-lpi-pinctrl
++    const: qcom,sc7280-lpass-lpi-pinctrl
 +
 +  reg:
 +    minItems: 2
 +    maxItems: 2
-+
-+  clocks:
-+    items:
-+      - description: LPASS Core voting clock
-+      - description: LPASS Audio voting clock
-+
-+  clock-names:
-+    items:
-+      - const: core
-+      - const: audio
 +
 +  gpio-controller: true
 +
@@ -321,7 +173,7 @@ index 0000000..06efb13
 +          oneOf:
 +            - pattern: "^gpio([0-9]|[1-9][0-9])$"
 +        minItems: 1
-+        maxItems: 14
++        maxItems: 15
 +
 +      function:
 +        enum: [ gpio, swr_tx_clk, qua_mi2s_sclk, swr_tx_data, qua_mi2s_ws,
@@ -364,14 +216,9 @@ index 0000000..06efb13
 +
 +    additionalProperties: false
 +
-+allOf:
-+  - $ref: "pinctrl.yaml#"
-+
 +required:
 +  - compatible
 +  - reg
-+  - clocks
-+  - clock-names
 +  - gpio-controller
 +  - '#gpio-cells'
 +  - gpio-ranges
@@ -380,17 +227,13 @@ index 0000000..06efb13
 +
 +examples:
 +  - |
-+    #include <dt-bindings/sound/qcom,q6afe.h>
-+    lpi_tlmm: pinctrl@33c0000 {
-+        compatible = "qcom,sm8250-lpass-lpi-pinctrl";
++    lpass_tlmm: pinctrl@33c0000 {
++        compatible = "qcom,sc7280-lpass-lpi-pinctrl";
 +        reg = <0x33c0000 0x20000>,
 +              <0x3550000 0x10000>;
-+        clocks = <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+                 <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+        clock-names = "core", "audio";
 +        gpio-controller;
 +        #gpio-cells = <2>;
-+        gpio-ranges = <&lpi_tlmm 0 0 14>;
++        gpio-ranges = <&lpass_tlmm 0 0 15>;
 +    };
 -- 
 2.7.4

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81D3C4B44B1
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 09:46:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC4FC4B44BF
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 09:47:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F354C16DB;
-	Mon, 14 Feb 2022 09:45:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F354C16DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 249A616E1;
+	Mon, 14 Feb 2022 09:46:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 249A616E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644828392;
-	bh=P1yLZoGiuGAHFcOQmAe83yHJD8nfKtWk6I3N63/oDtc=;
+	s=default; t=1644828427;
+	bh=8rrCl9tJE28KJFEOD6xbFMqhbCEEYMYyC4CqlGpo/w0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fxRe4c6eg8J/GZbH1iwCero5WlaNYO2g/RfPsoEuh1zHlySK1uCtek4//9/jolBxy
-	 FfWtvT8lkXYaJP5H6scgwptEd09PYdQy94CkYi9t8twKKRGFV2LWar2WNFRndpp+dz
-	 vHWcxiWhMOey71U1FrDFZeSPIPTiDonKHO7ct/R4=
+	b=gkz1QmQyHXbOrw/TLYIBFyRZqcCsI/KvxmWENW0bxdFLSbqzD839Zmfn03El7J3PL
+	 XyHXkTKYpFR6Adnpo3aaNlla0sEOfKgxEdEP4IQtf3qfTJlq8UGnbbsCgD41EX5A7N
+	 pSaGKzszY6d9pLnv2RKzZAcW+u82Z47o0Dn+i134=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F282F80430;
-	Mon, 14 Feb 2022 09:45:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B755F804E4;
+	Mon, 14 Feb 2022 09:46:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77B61F80310; Mon, 14 Feb 2022 09:45:25 +0100 (CET)
+ id 0F494F80169; Mon, 14 Feb 2022 09:46:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,51 +33,54 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49194F800D8
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 09:45:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49194F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE8ABF80169
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 09:46:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE8ABF80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="J+5ewe5y"; 
+ header.b="VnpFaink"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ET/VjbHH"
+ header.b="3KQFiDxs"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 37EF6210E5;
- Mon, 14 Feb 2022 08:45:21 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 95F83210E0;
+ Mon, 14 Feb 2022 08:46:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1644828321; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1644828371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2x1aJhG1xmYIfZnGIalvIAgLXEpAWQyV04ILeNRwUTE=;
- b=J+5ewe5y7qKikUaNfaMUdQdzQcsICf954ZNUoxM3blMAVm61/38A8p7Q5ZRl77IT+5riOb
- 8CpfiNKDnTGc1h3+d2tFgAwJ/POZv2jtGRW7dmDaw/ZWeM5JQqpgGSc+tiKxc8GPMEPt6K
- f4UG6wlaPphdW3cqC2zfzxqi9MMBU0c=
+ bh=FgcyUlQOHZEmd4lpMBS5KJ2pIgVe7vbS5MjVf6/TUWQ=;
+ b=VnpFainkeDPnXiogMYL1YtNYfTV9Y1SvGpxMvG3LZnqy347J7B1tWk9vkRJebWg6Tnx4Jy
+ 3CB3fhjxS482MkTiRVjvx/vmNxK0i0RQko/BdLUyChqDycFLKj1QBRiKoWfb4qE+wGWQ+/
+ Np9fzHE1dWo3VvBnxw8nBtB5bfpte+0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1644828321;
+ s=susede2_ed25519; t=1644828371;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2x1aJhG1xmYIfZnGIalvIAgLXEpAWQyV04ILeNRwUTE=;
- b=ET/VjbHHObt9CwBYc2l3K56eqmnEA0gz83nFm03IiM7Cmzxdzky33o8XgwUz1lzXqeMaIx
- VD4/03+VEqt5nFCA==
+ bh=FgcyUlQOHZEmd4lpMBS5KJ2pIgVe7vbS5MjVf6/TUWQ=;
+ b=3KQFiDxssJ95gtwu8kSWNyh6CVOB2Jeu7K/rXFk4DBhFDc8DxP4pf6ayL1vhyZcr58JaoL
+ VD0aPkJakqrNIHDA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1F0FCA3B8F;
- Mon, 14 Feb 2022 08:45:21 +0000 (UTC)
-Date: Mon, 14 Feb 2022 09:45:21 +0100
-Message-ID: <s5h8rudhm5a.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 18E41A3B81;
+ Mon, 14 Feb 2022 08:46:11 +0000 (UTC)
+Date: Mon, 14 Feb 2022 09:46:11 +0100
+Message-ID: <s5h5yphhm3w.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Matteo Martelli <matteomartelli3@gmail.com>
-Subject: Re: [PATCH 1/1] ALSA: usb-audio: revert to IMPLICIT_FB_FIXED_DEV for
- M-Audio FastTrack Ultra
-In-Reply-To: <20220211224913.20683-2-matteomartelli3@gmail.com>
-References: <20220211224913.20683-1-matteomartelli3@gmail.com>
- <20220211224913.20683-2-matteomartelli3@gmail.com>
+To: Yu Huang <diwang90@gmail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Legion Y9000X 2019
+In-Reply-To: <20220212160835.165065-1-diwang90@gmail.com>
+References: <20220212160835.165065-1-diwang90@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Werner Sembach <wse@tuxedocomputers.com>,
+ Hui Wang <hui.wang@canonical.com>, Sami Loone <sami@loone.fi>,
+ Cameron Berkenpas <cam@neo-zeon.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,20 +96,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Feb 2022 23:49:13 +0100,
-Matteo Martelli wrote:
+On Sat, 12 Feb 2022 17:08:33 +0100,
+Yu Huang wrote:
 > 
-> Commit 83b7dcbc51c930fc2079ab6c6fc9d719768321f1 introduced a generic
-> implicit feedback parser, which fails to execute for M-Audio FastTrack
-> Ultra sound cards. The issue is with the ENDPOINT_SYNCTYPE check in
-> add_generic_implicit_fb() where the SYNCTYPE is ADAPTIVE instead of ASYNC.
-> The reason is that the sync type of the FastTrack output endpoints are
-> set to adaptive in the quirks table since commit
-> 65f04443c96dbda11b8fff21d6390e082846aa3c.
+> Legion Y9000X 2019 has the same speaker with Y9000X 2020,
+> but with a different quirk address. Add one quirk entry
+> to make the speaker work on Y9000X 2019 too.
 > 
-> Signed-off-by: Matteo Martelli <matteomartelli3@gmail.com>
+> Signed-off-by: Yu Huang <diwang90@gmail.com>
 
-Thanks, applied now.
+Thanks, applied.
 
 
 Takashi

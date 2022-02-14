@@ -2,93 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8034F4B538B
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 15:41:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CA3B4B53D8
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 15:57:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C7AA173E;
-	Mon, 14 Feb 2022 15:40:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C7AA173E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01B841744;
+	Mon, 14 Feb 2022 15:56:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01B841744
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644849708;
-	bh=09UEBpmWExnjgZ/4q649GNXD6GnHlgBH3SRqWGJAmxU=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1644850631;
+	bh=ClzPXiHGSV1D78vo35GeeCpuxD0sHuhefm+2UeDa9fk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JUt7ZV+VgHLYweUGEP4OgRX6xCYnigdHKQ4Tm/bDVbBUslFd/5Y9C2yyU6U0PG2ct
-	 ktKCEdLyyLtpiegN+v7QJwn57GLSOyjZLg0AfvMIGKelAUHVTMCu3FQQkyT/BGOFS1
-	 pu6O+r206oMtmGtEcJMVYYlT6srajoPFSWOvNDiI=
+	b=j1L5O4DtG0BAX/Msu6xdG7hd4uWUrPy3w1w4EVnP0KTq+fBLZN3Ep3jgDrvifAQHt
+	 WmiA2FY+yDM70INLuP04xoU2F0llPARQ/ILsfjSudgkUk25lLCd6D4yquNaozrE0ol
+	 E80SUnoXRIfqoN5TWPGPjEiXWFnGUlK1vAfRQ+RE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92B72F800D8;
-	Mon, 14 Feb 2022 15:40:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F72BF80430;
+	Mon, 14 Feb 2022 15:56:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14C6EF80310; Mon, 14 Feb 2022 15:40:39 +0100 (CET)
+ id F3D18F80310; Mon, 14 Feb 2022 15:56:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55920F800D8
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 15:40:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55920F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87EB9F800C0
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 15:56:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87EB9F800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="zF6BqyI9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644849637; x=1676385637;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=z4Yj6e6wk3vVOcZYYzBSEkeNyLew/1NMrFeiL4ZI3sM=;
- b=zF6BqyI9jz3LrBXAwIgxm3TkzvSu35DzbA4jbRN3TBovj01VJoyhHE8l
- 5IapLEUxKSZVyaKHNB6ndDBJI3T57p3jJEc+exdrOTM5tbK0RX03ko813
- kbO8mGv34hLKlIcaeBVLVcfv6dWvwyH5NL7dt7s/iv+XTEtjQWnzt9/HO c=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 14 Feb 2022 06:40:29 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 06:40:29 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Mon, 14 Feb 2022 06:40:29 -0800
-Received: from [10.216.15.72] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Mon, 14 Feb
- 2022 06:40:23 -0800
-Subject: Re: [PATCH v13 07/10] ASoC: qcom: Add support for codec dma driver
-To: Mark Brown <broonie@kernel.org>
-References: <1644832778-16064-1-git-send-email-quic_srivasam@quicinc.com>
- <1644832778-16064-2-git-send-email-quic_srivasam@quicinc.com>
- <YgppMcVjs0KuE5y8@sirena.org.uk>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-Message-ID: <669f2d39-8c14-68b9-6d89-a26e0e2e8857@quicinc.com>
-Date: Mon, 14 Feb 2022 20:10:20 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="goysGbYO"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 67914B810D5;
+ Mon, 14 Feb 2022 14:55:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48C8C340E9;
+ Mon, 14 Feb 2022 14:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1644850558;
+ bh=ClzPXiHGSV1D78vo35GeeCpuxD0sHuhefm+2UeDa9fk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=goysGbYO/E6BNSGxe3aWMtmFrEx9FaRj053wc7JSgtgi55QmQGG6ioP4E58NK2A7V
+ lZS9b/Jrjl6g+VSzzoGGAB9haXAh21AY5oEb0miEynxOwsupy5juGJbcrx3XZlp+5S
+ JugTZDouzwjRs/Mv/zRAPLQ9uNV/t5ZRyZlyoU4L2sruQ74sSwQ89VlLS5CwTVXvKA
+ cuoAe/fI+3DkOaC2LyWC2UxGyKrmu52ii1AXwL1xbuEjbAqZ7G9ohKS8S05kX13rWQ
+ VaaGKsizr5evLX29H6X9PiA28jHP6FI2Y1gmirz2OzU/8b3LnBkIKJmioL4h5xz5Kg
+ fPzYiYPyT1fjA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Nikita Yushchenko <nikita.yoush@cogentembedded.com>
+In-Reply-To: <20220208084220.1289836-1-nikita.yoush@cogentembedded.com>
+References: <20220208084220.1289836-1-nikita.yoush@cogentembedded.com>
+Subject: Re: [PATCH 0/4] ASoC: pcm3168a: code cleanup
+Message-Id: <164485055645.397940.4337733738992515921.b4-ty@kernel.org>
+Date: Mon, 14 Feb 2022 14:55:56 +0000
 MIME-Version: 1.0
-In-Reply-To: <YgppMcVjs0KuE5y8@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, bjorn.andersson@linaro.org,
- rohitkr@codeaurora.org, agross@kernel.org, srinivas.kandagatla@linaro.org,
- quic_plai@quicinc.com, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,16 +86,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 8 Feb 2022 11:42:16 +0300, Nikita Yushchenko wrote:
+> These patches clean up pcm3168a driver, without introducing any
+> functional change.
+> 
+> Nikita Yushchenko (4):
+>   ASoC: pcm3168a: cleanup unintuitive mask usage
+>   ASoC: pcm3168a: refactor hw_params routine
+>   ASoC: pcm3168a: refactor format handling
+>   ASoC: pcm3168a: remove numeric PCM3168A_NUM_SUPPLIES
+> 
+> [...]
 
-On 2/14/2022 8:07 PM, Mark Brown wrote:
-Sorry for inconvenience Mark Brown.
-> On Mon, Feb 14, 2022 at 03:29:38PM +0530, Srinivasa Rao Mandadapu wrote:
->> Upadate lpass cpu and platform driver to support audio over codec dma
->> in ADSP bypass use case.
-> I only have this patch from both v12 and v13, which were sent very close
-> together.  Please check what's going on here.
+Applied to
 
-As only one patch has update, so sent only one patch. will do resend all 
-patches if needed.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
 
+[1/4] ASoC: pcm3168a: cleanup unintuitive mask usage
+      commit: 0c483a07e92638aca1f7d42a4986e32c58d29ad2
+[2/4] ASoC: pcm3168a: refactor hw_params routine
+      commit: c7270209fc6fc377ba5813e8d5b2ce2b26352ee7
+[3/4] ASoC: pcm3168a: refactor format handling
+      commit: 6bfc1242ee995f23f8c167bf1308a43b86560fce
+[4/4] ASoC: pcm3168a: remove numeric PCM3168A_NUM_SUPPLIES
+      commit: 3e63d3c1a2e52fb60d66bb23cb62c92c92ad0a3f
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

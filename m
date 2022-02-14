@@ -2,95 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17D6D4B58A5
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 18:36:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C454B5AC2
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 20:58:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACD85193F;
-	Mon, 14 Feb 2022 18:35:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACD85193F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C928B17F6;
+	Mon, 14 Feb 2022 20:57:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C928B17F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644860184;
-	bh=d1rvKuRRHsBOJZY+pXCwAky74eIaMb44tBhgcEMVP/w=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dxDkr/s/aLGDsGVAdWK9HoUFc0dL7qCBHjCyHXoI524mKVGyDEYBoNkWFKFO6CZ1y
-	 PIZ1NEMNAnfOaRubXOb8xp5u46bXZYSbzWyBD6npDfZlvtm9cZlc6501dlzrXWqSPj
-	 kFu3Txhu4p8rU0vWEdw/WrQBjFJXX/4p7htAMF+Y=
+	s=default; t=1644868723;
+	bh=bEPy6NJl7Wq/HjmZFY73/HZHbqfu0PFJaWVuNBjag7o=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HJfXHfUAYFhkeee3p0FfhMhXQ++Y8bmicCig/X6Dgfxi2V5B/NrYMopeV/NCcrZS4
+	 yiFCZ6b/yLwQrMuKTCJaTRrryyhRfGSMz7OjQIOy+a28gn5uy5E2J5epCO6+zBMOz4
+	 gVmBcxxVhj8so4imMNr8UzKCVvx0Qk1d6MbxqGTQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F28CEF8012F;
-	Mon, 14 Feb 2022 18:35:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48564F8012F;
+	Mon, 14 Feb 2022 20:57:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2781F80310; Mon, 14 Feb 2022 18:35:15 +0100 (CET)
+ id C0A05F80310; Mon, 14 Feb 2022 20:57:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5AC2F8012F
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 18:35:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5AC2F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58B06F8012F
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 20:57:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58B06F8012F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="wDBH5Pdk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644860113; x=1676396113;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=5XlD8vp21eTKSkpNbt94DxzMkq8qEZEWW+TU+APGf4I=;
- b=wDBH5Pdkt+BH1rmoOb1isEZchY1TwHe1Q7cX4E14UgTPZNeGiADYjKcO
- n8DKvpFobbfHtdX05m/sNNkcub8704xhlk4P8kLdE7wuomK+uYJZNvBdo
- 5wssUV56LXAemEVQJPrmH98080/t9GDaRXiniLfX16GuAiMfDvYjSTgVT A=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 14 Feb 2022 09:35:09 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 09:35:08 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Mon, 14 Feb 2022 09:35:08 -0800
-Received: from [10.216.62.158] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Mon, 14 Feb
- 2022 09:35:02 -0800
-Subject: Re: [PATCH v13 07/10] ASoC: qcom: Add support for codec dma driver
-To: Mark Brown <broonie@kernel.org>
-References: <1644832778-16064-1-git-send-email-quic_srivasam@quicinc.com>
- <1644832778-16064-2-git-send-email-quic_srivasam@quicinc.com>
- <YgppMcVjs0KuE5y8@sirena.org.uk>
- <669f2d39-8c14-68b9-6d89-a26e0e2e8857@quicinc.com>
- <YgqBmvAQvh9WRMj+@sirena.org.uk>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-Message-ID: <3a13a99d-6b8b-bab5-3adc-fdd2565fc93a@quicinc.com>
-Date: Mon, 14 Feb 2022 23:04:58 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="I01WRmE5"
+Received: by mail-oo1-xc34.google.com with SMTP id
+ c7-20020a4ad207000000b002e7ab4185d2so20605420oos.6
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 11:57:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9Uivi620S657cMyL0oc/T0uVgPl9V4a4viL4QV6K6iY=;
+ b=I01WRmE5ZetWTX9ZKAY3UdqRXs3jz79StozPRwhUVP8EjaTxtQBT9NHefjrZCzug0y
+ 8A8fe4yfO2qHoee33cQRfSzV5RMGYUYwR+88Se0dTMbwMsxAUYLAiWJjN8RjWQTmCemo
+ xJe5svhaLkzgZV1Gh/6ZsQCnCWl/5jbDeePRR3Ro3vOi+2aozNpNyfhi8SBJlTlSr0XG
+ SOLSGBLp0rT5M6csDorBr6ze7McHe8W5UHM9UabKEO2h2Lda6PEZrdWkCSxqP53VP5Ib
+ eMsmALbgCcMraoVFmt4t/om0RdeN2dFNk+k+uMpJ3UwDGb50oEqjGygXOOWwYbMgMiIz
+ QscQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9Uivi620S657cMyL0oc/T0uVgPl9V4a4viL4QV6K6iY=;
+ b=X4E4+L2f3k3nZXV7Czn5/YiQ8j8zKomL80GPyJnBltp+5GV+QRsyqAl9T5FR1tqzyS
+ 8ftkoBEYTOuYPKg3/sxuryndhYjBRwEm5cgaCUVZ4UMQUJ4Gf4MLK9Jll+nHTObt+nKu
+ OxILQxtjc6EiQNZzZ3sozbyw78EH6SOLEasd13Q0yRTqKbl3+QGvN4g69VimRF++X0Im
+ ZVgX0Qn3Zp5vpL/1dc++kl18Goxmoe0uiCqu/ix7aW3JkLuybqTxE0aZubd91c2x5/ze
+ 3S/z9GPQ/Mz2XB7L+g0fzFNZboYXShKLTmU82m9PpCe8ve43HalliWa/Nbd+7lR3zlVt
+ BEdQ==
+X-Gm-Message-State: AOAM533SlsUH0R7S1fZyoGEIpMkLRPdsFCOo1K2scBs7EYaPedYrwoLV
+ kyUomXIVfKFJwm4aX5CKnE4=
+X-Google-Smtp-Source: ABdhPJx6VV2c210PhcrwrOgYNp/i3qn+mspJzl7/Nw3I5m6sgNg8fkkRLCK40xxbhgTr7r1UYSTZhg==
+X-Received: by 2002:a05:6870:10d6:: with SMTP id
+ 22mr164488oar.238.1644868645762; 
+ Mon, 14 Feb 2022 11:57:25 -0800 (PST)
+Received: from localhost.localdomain ([2804:14c:485:4b69:2cbd:f00f:fa12:3ccc])
+ by smtp.gmail.com with ESMTPSA id
+ t21sm12890341otj.26.2022.02.14.11.57.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Feb 2022 11:57:24 -0800 (PST)
+From: Fabio Estevam <festevam@gmail.com>
+To: broonie@kernel.org
+Subject: [PATCH] ASoC: cs4265: Fix the duplicated control name
+Date: Mon, 14 Feb 2022 16:57:16 -0300
+Message-Id: <20220214195716.1096265-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <YgqBmvAQvh9WRMj+@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, bjorn.andersson@linaro.org,
- rohitkr@codeaurora.org, agross@kernel.org, srinivas.kandagatla@linaro.org,
- quic_plai@quicinc.com, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@denx.de>,
+ ckeepax@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,16 +100,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Fabio Estevam <festevam@denx.de>
 
-On 2/14/2022 9:51 PM, Mark Brown wrote:
-Thanks Brown for your time!!!
-> On Mon, Feb 14, 2022 at 08:10:20PM +0530, Srinivasa Rao Mandadapu wrote:
->> On 2/14/2022 8:07 PM, Mark Brown wrote:
->>> I only have this patch from both v12 and v13, which were sent very close
->>> together.  Please check what's going on here.
->> As only one patch has update, so sent only one patch. will do resend all
->> patches if needed.
-> You should always send all patches in a series, sending only some
-> patches at best makes it very difficult to follow what the current
-> version of the series is intended to look like.
-Okay. Sorry for inconvenience. Resent all patches again.
+Currently, the following error messages are seen during boot:
+
+asoc-simple-card sound: control 2:0:0:SPDIF Switch:0 is already present
+cs4265 1-004f: ASoC: failed to add widget SPDIF dapm kcontrol SPDIF Switch: -16
+
+Quoting Mark Brown:
+
+"The driver is just plain buggy, it defines both a regular SPIDF Switch
+control and a SND_SOC_DAPM_SWITCH() called SPDIF both of which will
+create an identically named control, it can never have loaded without
+error.  One or both of those has to be renamed."
+
+Rename it from "SPDIF Switch" to "SPDIF" to avoid the name confict.
+
+Signed-off-by: Fabio Estevam <festevam@denx.de>
+---
+ sound/soc/codecs/cs4265.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/cs4265.c b/sound/soc/codecs/cs4265.c
+index c338c9f6cf91..8891e9275cba 100644
+--- a/sound/soc/codecs/cs4265.c
++++ b/sound/soc/codecs/cs4265.c
+@@ -150,7 +150,7 @@ static const struct snd_kcontrol_new cs4265_snd_controls[] = {
+ 	SOC_SINGLE("E to F Buffer Disable Switch", CS4265_SPDIF_CTL1,
+ 				6, 1, 0),
+ 	SOC_ENUM("C Data Access", cam_mode_enum),
+-	SOC_SINGLE("SPDIF Switch", CS4265_SPDIF_CTL2, 5, 1, 1),
++	SOC_SINGLE("SPDIF", CS4265_SPDIF_CTL2, 5, 1, 1),
+ 	SOC_SINGLE("Validity Bit Control Switch", CS4265_SPDIF_CTL2,
+ 				3, 1, 0),
+ 	SOC_ENUM("SPDIF Mono/Stereo", spdif_mono_stereo_enum),
+-- 
+2.25.1
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5B904B48F8
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 11:14:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57C094B48FA
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Feb 2022 11:14:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48A771738;
-	Mon, 14 Feb 2022 11:13:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48A771738
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0516174D;
+	Mon, 14 Feb 2022 11:14:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0516174D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644833667;
-	bh=uqQLq4r3XQeXrKyg/yfTfYsuiVgvhSCCqA+N/Lc1OMg=;
+	s=default; t=1644833697;
+	bh=vDZ9783BaDBJVTuarcANUW4jGNuvFTLDX9wmmtgRof4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p+N77dGOAyI1oWtkZeyXYUGSf1DRb0yhAMlV2I85HiwnGjSpMer8ZdvQOQqn0k46x
-	 m9ZMofgrJx8maQKrTSndojMCipvrCjqsMNe1Lgen1qTeIgdoPXL0L054HYPvqN2pOE
-	 1WX0cAqFH5Y1UskQjtAScoqu0n2c8i7o9jPmUY3c=
+	b=jA5lnn4DbTxwWnUk2NDx9PBQxGSMPh14aZLcK/4NQr0MctosrfHNB7DJy4921prxn
+	 /8rQlJ31dzc8Cjby1Ipky1uCLd/uVa+v6uv2DfXPZpZ2iYceNBAK0T10rs3e6xuApv
+	 hP1li1qJsn79GOnE0XbnrR8gk/8XLd8iYlP8cDnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 340B6F800C0;
-	Mon, 14 Feb 2022 11:12:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 413A4F80518;
+	Mon, 14 Feb 2022 11:12:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85583F804DF; Mon, 14 Feb 2022 11:12:47 +0100 (CET)
+ id 5897FF80518; Mon, 14 Feb 2022 11:12:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31565F800D8
- for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 11:12:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31565F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 934E2F804E4
+ for <alsa-devel@alsa-project.org>; Mon, 14 Feb 2022 11:12:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 934E2F804E4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Po+wRnLo"
+ header.b="d4+QA+k3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644833565; x=1676369565;
+ t=1644833569; x=1676369569;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uqQLq4r3XQeXrKyg/yfTfYsuiVgvhSCCqA+N/Lc1OMg=;
- b=Po+wRnLo2RuXERBkkd0aW8TyAd0nlRvnLE5PLkZjdO2YJvanLkGKzRRX
- Ftn+VTMClNnFHnWUZHuzCgJONBasgw9tg9+jkFAKHRy/WAg051rDAgZho
- 1iDNl2bO/AshUIWXaim8BjoI0YVq4GfphKa8Hk5gA1cNmlZ7l9D23TLU0
- 7m/ZKsWHCJbEm1GJO//oLt6AYpPr5/OfdjssUHOpKgVwOdRoxMo7I7K5+
- YRiQe+8YIIuAXWOVGbMN2A1XBXbjA6cNWWyO+0s0Jk5jzqyr5NLP0+zx1
- QF/YG0wy19g/rH1sN+/CbZIRLCHFCoWBtSsNELmeJDpq9GadlqOD8vm0s w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="313338758"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="313338758"
+ bh=vDZ9783BaDBJVTuarcANUW4jGNuvFTLDX9wmmtgRof4=;
+ b=d4+QA+k3lJllevjovmNxq5YtYmyu48psjdAL70uMF261c6CaNB9K5Ez8
+ 6bBqrdp6nudkTgyU8RYhJht9E56PMzFpLjDs/Y5+ag6WpLd2IqpEgrieE
+ RjpDSfjEeZkPxWFCJdxmyPYdGAbgpyaLizPghye/8BXtCh25YJZt2szH/
+ 0kyNXZbPPceXg4bfcUYBTOSHKL8l4ByNnIYUukJM7mWCR+5T+xoquzCXu
+ cbRgeyg83qFwv+G3BuetUNd2xRr701SkUPUrlBfyZCi/qSmNSnh6NQYwm
+ 1l8/CMQ3D5BEHvt7ivJn9N3ql69W9oszhD+xLVcxlrkXpqW82JdCI6+bY w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="313338764"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="313338764"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 02:12:38 -0800
+ 14 Feb 2022 02:12:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="495382198"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="495382230"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga006.jf.intel.com with ESMTP; 14 Feb 2022 02:12:35 -0800
+ by orsmga006.jf.intel.com with ESMTP; 14 Feb 2022 02:12:38 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 1/4] ALSA: hda: Add snd_hdac_ext_bus_link_at() helper
-Date: Mon, 14 Feb 2022 11:14:01 +0100
-Message-Id: <20220214101404.4074026-2-cezary.rojewski@intel.com>
+Subject: [PATCH v2 2/4] ALSA: hda: Update and expose
+ snd_hda_codec_device_init()
+Date: Mon, 14 Feb 2022 11:14:02 +0100
+Message-Id: <20220214101404.4074026-3-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220214101404.4074026-1-cezary.rojewski@intel.com>
 References: <20220214101404.4074026-1-cezary.rojewski@intel.com>
@@ -91,84 +92,119 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch exposes a new helper to directly retrieve the link from the
-codec address, and makes use of this helper when retrieving the link
-from the codec name.
+With few changes, snd_hda_codec_device_init() can be re-used by ASoC
+drivers. While at it, provide kernel doc for the exposed function.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- include/sound/hdaudio_ext.h         |  1 +
- sound/hda/ext/hdac_ext_controller.c | 31 +++++++++++++++++++----------
- 2 files changed, 22 insertions(+), 10 deletions(-)
+ include/sound/hda_codec.h |  3 +++
+ sound/pci/hda/hda_codec.c | 45 +++++++++++++++++++++++++--------------
+ 2 files changed, 32 insertions(+), 16 deletions(-)
 
-diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
-index 77123c3e4095..b0c8e4936168 100644
---- a/include/sound/hdaudio_ext.h
-+++ b/include/sound/hdaudio_ext.h
-@@ -28,6 +28,7 @@ void snd_hdac_ext_stream_spbcap_enable(struct hdac_bus *chip,
- 				 bool enable, int index);
+diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index 82d9daa17851..5e3cbcca42f0 100644
+--- a/include/sound/hda_codec.h
++++ b/include/sound/hda_codec.h
+@@ -306,6 +306,9 @@ struct hda_codec {
+ /*
+  * constructors
+  */
++__printf(3, 4) struct hda_codec *
++snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
++			  const char *fmt, ...);
+ int snd_hda_codec_new(struct hda_bus *bus, struct snd_card *card,
+ 		      unsigned int codec_addr, struct hda_codec **codecp);
+ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 7016b48227bf..3787060ad77f 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -877,36 +877,48 @@ static void snd_hda_codec_dev_release(struct device *dev)
  
- int snd_hdac_ext_bus_get_ml_capabilities(struct hdac_bus *bus);
-+struct hdac_ext_link *snd_hdac_ext_bus_link_at(struct hdac_bus *bus, int addr);
- struct hdac_ext_link *snd_hdac_ext_bus_get_link(struct hdac_bus *bus,
- 						const char *codec_name);
+ #define DEV_NAME_LEN 31
  
-diff --git a/sound/hda/ext/hdac_ext_controller.c b/sound/hda/ext/hdac_ext_controller.c
-index b2df7b4f9227..b072392725c7 100644
---- a/sound/hda/ext/hdac_ext_controller.c
-+++ b/sound/hda/ext/hdac_ext_controller.c
-@@ -132,6 +132,26 @@ void snd_hdac_link_free_all(struct hdac_bus *bus)
- }
- EXPORT_SYMBOL_GPL(snd_hdac_link_free_all);
- 
+-static int snd_hda_codec_device_init(struct hda_bus *bus, struct snd_card *card,
+-			unsigned int codec_addr, struct hda_codec **codecp)
 +/**
-+ * snd_hdac_ext_bus_link_at - get link at specified address
-+ * @bus: link's parent bus device
-+ * @addr: codec device address
++ * snd_hda_codec_device_init - allocate HDA codec device
++ * @bus: codec's parent bus
++ * @codec_addr: the codec address on the parent bus
++ * @fmt: format string for the device's name
 + *
-+ * Returns link object or NULL if matching link is not found.
++ * Returns newly allocated codec device or ERR_PTR() on failure.
 + */
-+struct hdac_ext_link *snd_hdac_ext_bus_link_at(struct hdac_bus *bus, int addr)
-+{
-+	struct hdac_ext_link *hlink;
-+	int i;
-+
-+	list_for_each_entry(hlink, &bus->hlink_list, list)
-+		for (i = 0; i < HDA_MAX_CODECS; i++)
-+			if (hlink->lsdiid & (0x1 << addr))
-+				return hlink;
-+	return NULL;
-+}
-+EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_link_at);
-+
- /**
-  * snd_hdac_ext_bus_get_link - get link based on codec name
-  * @bus: the pointer to HDAC bus object
-@@ -140,8 +160,6 @@ EXPORT_SYMBOL_GPL(snd_hdac_link_free_all);
- struct hdac_ext_link *snd_hdac_ext_bus_get_link(struct hdac_bus *bus,
- 						 const char *codec_name)
++struct hda_codec *
++snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
++			  const char *fmt, ...)
  {
--	int i;
--	struct hdac_ext_link *hlink = NULL;
- 	int bus_idx, addr;
++	va_list vargs;
+ 	char name[DEV_NAME_LEN];
+ 	struct hda_codec *codec;
+ 	int err;
  
- 	if (sscanf(codec_name, "ehdaudio%dD%d", &bus_idx, &addr) != 2)
-@@ -151,14 +169,7 @@ struct hdac_ext_link *snd_hdac_ext_bus_get_link(struct hdac_bus *bus,
- 	if (addr < 0 || addr > 31)
- 		return NULL;
- 
--	list_for_each_entry(hlink, &bus->hlink_list, list) {
--		for (i = 0; i < HDA_MAX_CODECS; i++) {
--			if (hlink->lsdiid & (0x1 << addr))
--				return hlink;
--		}
--	}
+-	dev_dbg(card->dev, "%s: entry\n", __func__);
 -
--	return NULL;
-+	return snd_hdac_ext_bus_link_at(bus, addr);
- }
- EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_get_link);
+ 	if (snd_BUG_ON(!bus))
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 	if (snd_BUG_ON(codec_addr > HDA_MAX_CODEC_ADDRESS))
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
  
+ 	codec = kzalloc(sizeof(*codec), GFP_KERNEL);
+ 	if (!codec)
+-		return -ENOMEM;
++		return ERR_PTR(-ENOMEM);
++
++	va_start(vargs, fmt);
++	vsprintf(name, fmt, vargs);
++	va_end(vargs);
+ 
+-	sprintf(name, "hdaudioC%dD%d", card->number, codec_addr);
+ 	err = snd_hdac_device_init(&codec->core, &bus->core, name, codec_addr);
+ 	if (err < 0) {
+ 		kfree(codec);
+-		return err;
++		return ERR_PTR(err);
+ 	}
+ 
++	codec->bus = bus;
+ 	codec->core.type = HDA_DEV_LEGACY;
+-	*codecp = codec;
+ 
+-	return err;
++	return codec;
+ }
++EXPORT_SYMBOL_GPL(snd_hda_codec_device_init);
+ 
+ /**
+  * snd_hda_codec_new - create a HDA codec
+@@ -920,11 +932,13 @@ static int snd_hda_codec_device_init(struct hda_bus *bus, struct snd_card *card,
+ int snd_hda_codec_new(struct hda_bus *bus, struct snd_card *card,
+ 		      unsigned int codec_addr, struct hda_codec **codecp)
+ {
+-	int ret;
++	struct hda_codec *codec;
+ 
+-	ret = snd_hda_codec_device_init(bus, card, codec_addr, codecp);
+-	if (ret < 0)
+-		return ret;
++	codec = snd_hda_codec_device_init(bus, codec_addr, "hdaudioC%dD%d",
++					  card->number, codec_addr);
++	if (IS_ERR(codec))
++		return PTR_ERR(codec);
++	*codecp = codec;
+ 
+ 	return snd_hda_codec_device_new(bus, card, codec_addr, *codecp);
+ }
+@@ -951,7 +965,6 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+ 	codec->core.dev.release = snd_hda_codec_dev_release;
+ 	codec->core.exec_verb = codec_exec_verb;
+ 
+-	codec->bus = bus;
+ 	codec->card = card;
+ 	codec->addr = codec_addr;
+ 	mutex_init(&codec->spdif_mutex);
 -- 
 2.25.1
 

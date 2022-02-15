@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809D24B6D77
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Feb 2022 14:30:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED26B4B6D99
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Feb 2022 14:35:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D47B18CD;
-	Tue, 15 Feb 2022 14:30:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D47B18CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F38518AF;
+	Tue, 15 Feb 2022 14:34:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F38518AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644931852;
-	bh=Dk9d0GIjLpHG9EqhCV/wXj3JOrngJwIzwakalbcSVyA=;
+	s=default; t=1644932115;
+	bh=pJGNEGH2anUGG5oomSyoWzO6eZrHSkMqKJhTEmL6lOs=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=flOT+jUABMZtF8jYL38sha32eQI2yloWwee6s1We1GwGDJs0dukp5/jv+QA9pJpFN
-	 cr7wSt4+2uYFlR+ErdjKNZ4o7cwD/t9lGfsj6dU+ST+Z7/+WR7/bwwzRlTsfJeMNB4
-	 6cTM/gvicvDPjEOHUvqQgmb0SNxkhNlxpgP/sgnI=
+	b=IwAffJCBcxZjavqM+rw1gGbcv3BYo6rwbvXPq40dV4u0NaqukiEaYNug30Tl48H2T
+	 D6IoSdPstHX3rDHQ8LeosUhSRThNILl0gcsw5Zk/InDm20zAxlRCQcsNELqMo1AqtC
+	 jJWCdQqCMHqymLsnJf2EeZDP7vJeRhp4F+5geVto=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D8B2F80100;
-	Tue, 15 Feb 2022 14:30:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEDE6F80159;
+	Tue, 15 Feb 2022 14:34:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA25AF80159; Tue, 15 Feb 2022 14:30:00 +0100 (CET)
+ id 1A12AF80132; Tue, 15 Feb 2022 14:34:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,44 @@ X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9887EF80100
- for <alsa-devel@alsa-project.org>; Tue, 15 Feb 2022 14:29:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9887EF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0440F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 15 Feb 2022 14:34:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0440F800C0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="kbXIIVQx"; 
+ header.b="ywFp+K87"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="O1k0di7v"
+ header.b="gL0vbRx5"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 387E51F38A;
- Tue, 15 Feb 2022 13:29:54 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id AE5A71F38A;
+ Tue, 15 Feb 2022 13:34:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1644931794; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1644932041; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=y7TuJb01MxHR8ILN71qt78hpvGNPxuxb3fSK52SQW5s=;
- b=kbXIIVQxDUyMeSo23lxkbHz595B4YBWvOJfWYdP8w8hnlFuTzc7ectt3sXzAuyO37dpR9D
- 1ykMFI3eWcTAYIEVuRKgDpgpK9Mv1kwPtQJcGbguYEqRTTsrJ4dQ8M+w1zPkuphmvhLCte
- VBUatHQUV+8B/nKfjph5d0rs9mLcANY=
+ bh=BrN4c0pgOML/EcLVozpTZVE4KY9kQPNPjtOpgr4a6iw=;
+ b=ywFp+K87BqwPlH6WVcbm3R4jOg1r/MIDX2LzsvM3SGef2Fpz+t73sSXbYxQeqjaEtwsq51
+ 9wEzFS08K9Q/IoKXvXgr7MF0XX8YfKfGnqCIoVkotPAcFlRCsdXzapIXH4SIcVqiLaqp+a
+ sFGu9XRPFvhRbICo4MeN1Oqp20d+xxM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1644931794;
+ s=susede2_ed25519; t=1644932041;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=y7TuJb01MxHR8ILN71qt78hpvGNPxuxb3fSK52SQW5s=;
- b=O1k0di7vp4H8u5b/CloGSi511qqPzZcslRwg4kaGt+Fm0h3bca3mbiVcegQ7KHCkX/M4Ww
- stV/XG0RxjGtuuDA==
+ bh=BrN4c0pgOML/EcLVozpTZVE4KY9kQPNPjtOpgr4a6iw=;
+ b=gL0vbRx5Ip+3TkhKpFtKG/oiPLair6eNv5DWL6KhjCYWInZF0kjD5PVsh73Y76MOu1TJ+s
+ S/0N7IDkAUVd/vAQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1EB45A3B81;
- Tue, 15 Feb 2022 13:29:54 +0000 (UTC)
-Date: Tue, 15 Feb 2022 14:29:54 +0100
-Message-ID: <s5hmtiscl65.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 9C555A3B88;
+ Tue, 15 Feb 2022 13:34:01 +0000 (UTC)
+Date: Tue, 15 Feb 2022 14:34:01 +0100
+Message-ID: <s5hk0dwckza.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mohan Kumar <mkumard@nvidia.com>
 Subject: Re: [PATCH v2 0/6] Add Tegra234 HDA support
-In-Reply-To: <20220210065057.13555-1-mkumard@nvidia.com>
+In-Reply-To: <s5hmtiscl65.wl-tiwai@suse.de>
 References: <20220210065057.13555-1-mkumard@nvidia.com>
+ <s5hmtiscl65.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -95,22 +96,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Feb 2022 07:50:51 +0100,
-Mohan Kumar wrote:
+On Tue, 15 Feb 2022 14:29:54 +0100,
+Takashi Iwai wrote:
 > 
-> This series add the support for TEGRA234 HDA driver support
+> On Thu, 10 Feb 2022 07:50:51 +0100,
+> Mohan Kumar wrote:
+> > 
+> > This series add the support for TEGRA234 HDA driver support
+> > 
+> > Mohan Kumar (6):
+> >   ALSA: hda/tegra: Add Tegra234 hda driver support
+> >   ALSA: hda/tegra: Hardcode GCAP ISS value on T234
+> >   ALSA: hda/tegra: Update scratch reg. communication
+> >   dt-bindings: Add HDA support for Tegra234
+> >   dt-bindings: Document Tegra234 HDA support
+> >   arm64: tegra: Add hda dts node for Tegra234
 > 
-> Mohan Kumar (6):
->   ALSA: hda/tegra: Add Tegra234 hda driver support
->   ALSA: hda/tegra: Hardcode GCAP ISS value on T234
->   ALSA: hda/tegra: Update scratch reg. communication
->   dt-bindings: Add HDA support for Tegra234
->   dt-bindings: Document Tegra234 HDA support
->   arm64: tegra: Add hda dts node for Tegra234
+> Applied all six patches to for-next branch now.
 
-Applied all six patches to for-next branch now.
+... and now I realized that it's conflicting with the latest Tegra234
+reset stuff on linux-next.
 
+Maybe better to split the patches to be merged through several trees?
 
-thanks,
 
 Takashi

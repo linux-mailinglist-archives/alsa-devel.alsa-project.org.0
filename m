@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28E694B8E0B
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 17:32:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C4CD4B8E10
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 17:33:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE8FC1AA6;
-	Wed, 16 Feb 2022 17:31:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE8FC1AA6
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6C761AAA;
+	Wed, 16 Feb 2022 17:32:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6C761AAA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645029149;
-	bh=+IxjPiP5bxN3ghR75uZ/F8DAxaQ91B6oRYHAuN8zFVs=;
+	s=default; t=1645029185;
+	bh=mO5tDUtqRebDAIgJR1yd7aBDtcvTpOepMJuSEjV/TTg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JrAsirCI26162iK4kD2C+E9hORSMqiHqo+alV/mN2bewEsEeN86cpaKnfmaeDjAt7
-	 T3nzudTXAF7zlCz2F1aVsiPXEpxbYQjVrXmzJc69pIj8vK4K4qydDRjxv8d4e5XfZj
-	 mG5M4WPcyuXrPRVvvJLzDdHNY9tVCE/PT5yjfoc8=
+	b=cXv7Dt4Dx9HsLHgC2oHoL2MhzENmFP0E3Qit4mx5/kCCIYk/Ia0SNXHynLXZ4bN1I
+	 TZDmftJHcJZxCmaK8rx1/1MyBRAxN5fw2SlyUMOXpDTS9RItMW4zc8fEc7Ko1JbEyo
+	 2rIdgcERwVqv0S4zwQlqw3GTjvkuLE/sG6ISCIKM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E57CF800C0;
-	Wed, 16 Feb 2022 17:31:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5C1CF80256;
+	Wed, 16 Feb 2022 17:31:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73D5AF80128; Wed, 16 Feb 2022 17:31:23 +0100 (CET)
+ id 360FFF80245; Wed, 16 Feb 2022 17:31:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24188F800C0
- for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 17:31:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24188F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D42CDF80118
+ for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 17:31:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D42CDF80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Zo/YS3Lm"
+ header.b="HdNL1qyx"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CAE6961B40;
- Wed, 16 Feb 2022 16:31:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619FAC004E1;
- Wed, 16 Feb 2022 16:31:16 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9FD53B81E61;
+ Wed, 16 Feb 2022 16:31:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771D0C004E1;
+ Wed, 16 Feb 2022 16:31:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645029077;
- bh=+IxjPiP5bxN3ghR75uZ/F8DAxaQ91B6oRYHAuN8zFVs=;
+ s=k20201202; t=1645029096;
+ bh=mO5tDUtqRebDAIgJR1yd7aBDtcvTpOepMJuSEjV/TTg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Zo/YS3Lm2oR9caGDTkB5cPyqV3P/PRrdcV2vGiWyvmZ/3Ews0Q7qXdzUoz9dcWxG3
- 6k0JkmPBN9ivGPI6WZyRIGnUPMWAfdlWgk11hZKfkxyYmV+AM2k9++85R4JoXpSg3+
- iozJrJqD8Wa3VHjavGZVjsjIXcdEPBl5neLZLgIyi6NeNz8sOS6bUrlo62LxhXykyw
- Y9EoAvls4eGRMca7jRj4Di6VV59ZdBeVCwUUqv+xM5mFPdXWTr2cn52nV850Y5MulC
- oYUacUmT3bxn3rcqYm4Ub1VghaLKShI09t6GCHNLavWaMVs8S373z9bkvFgnG34/Jb
- wKfgI0Fkx4jdg==
-Date: Wed, 16 Feb 2022 16:31:13 +0000
+ b=HdNL1qyxrc/A0gNWMAtadBYhaVYjMcVwVRM9SgputFHdU6BNEGTiBYlhTaUp/q6/E
+ ZIZYcJPNYkS1VX3zz3iBWVCVqwj95OAz1fq/Cb6DWT1nrrclAm6TTDOfAh/0HknHaM
+ UsVw/sxID1ABvvOR4u2ArMEAhNVKMCdZ1YC3baSyJzqOwdfObrpO8PW70Czf98RgNG
+ beQhhS3lWJMM0popIFjvJxIp7tQvron86rVoghkS/+MiP+eZp4hsna3epqmyLZ4pc4
+ xzB/b6j84ImCYPLlZYbhTU1QxOEx/ilahDMfJPlfns1o3iEXEP5OnelGHCD4sUxUxs
+ KYZVAset75R4g==
+Date: Wed, 16 Feb 2022 16:31:32 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 2/3] ASoC: SOF: hda: Set max DMA segment size
-Message-ID: <Yg0m0T/5dNpx2Xqa@sirena.org.uk>
+Subject: Re: [PATCH 3/3] ASoC: intel: skylake: Set max DMA segment size
+Message-ID: <Yg0m5DF59veJ8MZo@sirena.org.uk>
 References: <20220215132756.31236-1-tiwai@suse.de>
- <20220215132756.31236-3-tiwai@suse.de>
+ <20220215132756.31236-4-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="SuurQS1bKHUL/qwH"
+ protocol="application/pgp-signature"; boundary="QzYP4wgCsHAlqyPG"
 Content-Disposition: inline
-In-Reply-To: <20220215132756.31236-3-tiwai@suse.de>
+In-Reply-To: <20220215132756.31236-4-tiwai@suse.de>
 X-Cookie: Fremen add life to spice!
 Cc: alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -87,30 +87,30 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---SuurQS1bKHUL/qwH
+--QzYP4wgCsHAlqyPG
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Feb 15, 2022 at 02:27:55PM +0100, Takashi Iwai wrote:
+On Tue, Feb 15, 2022 at 02:27:56PM +0100, Takashi Iwai wrote:
 > The recent code refactoring to use the standard DMA helper requires
-> the max	DMA segment size setup for SG list management.	Without	it,
+> the max DMA segment size setup for SG list management.  Without it,
 > the kernel may spew warnings when a large buffer is allocated.
 
 Acked-by: Mark Brown <broonie@kernel.org>
 
---SuurQS1bKHUL/qwH
+--QzYP4wgCsHAlqyPG
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmINJtAACgkQJNaLcl1U
-h9B7VggAgMJ8h83qGitj82ktes1JS5lqfF9SdJkGaKjPB/ktyf+/L8U/r2sVhBag
-9ZXoxsmyefdCfPK1ki2hsIJthCovrIVJpNuWZn+new47pHW6mrhV//HXMhfPq45e
-8gLErkeqbX13iAYKL0orSRvwIfXv0eagAQ9+dycjpW2hEiZns+VjhJ8jh01ZHGu7
-HKVSWORG0nlnd53cZMqWzKpRM8IYWrHGheAhu58cvDDmIF5qMqE2PEHYJV0TC6IM
-sliR1hQDTRY6rG5qwAFQOFbHuZJllM5HY5Rkb+uZ9e7k9wNYtdiw7sOHYuNz8/1f
-z/FAD9/AgJKVD1ufOBuTRj4HdF2xJA==
-=DW3B
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmINJuMACgkQJNaLcl1U
+h9D19Qf/XziQ9wI4oItBQC1LiQqxRwkqzAJBOzFlAR8ZnaJWNTQ2yOwyYAcNDNl7
+yzXggTl1wsE2d93/Qwr0dHnt4eP4z5nnmEWq5GPKnpigjD5yGs97sjH/CfTL1GyO
+D5s1Wo4rZ806LCPkY5mdzw273wD5aXPM8SMmr6WQ72JkCPQPznyjXnWzizGFF7HE
+8J8yu6yoCV2V3pERA26Hg6GXlFdL0e34YjzK1oFnlGolDjz3KzuBNHZO0SPDyrrX
+Nhaj9FIzHAdkdoxHHo7YJasVkhtwjh3RSj5XCqjbmAndvrm6FvetXu7QNhNjzP6/
+FVv136/4wVflW3dLFE3e/oEt4S24kA==
+=asqP
 -----END PGP SIGNATURE-----
 
---SuurQS1bKHUL/qwH--
+--QzYP4wgCsHAlqyPG--

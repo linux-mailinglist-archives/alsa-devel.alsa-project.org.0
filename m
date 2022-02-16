@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2D8D4B8FD1
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 19:03:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E709B4B8FD2
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 19:03:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AA3F1949;
-	Wed, 16 Feb 2022 19:02:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AA3F1949
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81BDD1A2C;
+	Wed, 16 Feb 2022 19:02:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81BDD1A2C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645034590;
-	bh=WVgN2U+mLl41uR6SAT7+qakZtHd3vfQQyCqycQFbs00=;
+	s=default; t=1645034626;
+	bh=XD/nyKzA7YBuZeYgwMrWbmDBjd9uoqzMMHucltaUhbA=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NBaiI76+Vz1kVmUXifdGzpOPML1QQjIlxBGQ3ScRW5uCwNOlAh+QLTGqoJvircvzs
-	 xmZiikV4Lo3N5XVp/pKkqLIOEx6hv7m2n51qTgFnfbKYRLlrHrCn80+KadWHVH79H1
-	 3I5aadIexZQJx+qGKFtL/MLBgGe5copWmLa3cLIg=
+	b=R52ouT2hQPOfVih5Qrs2PziPF4RBK/nh5yBYUMitShcfY8tjF/lyv/uY7HaqDxR51
+	 pcWNleXC14Ks2lIQcizUYRt8Y1UXTae54f2I/XagvYpJCU3mwSYB+XBem/YqaE1Mep
+	 d3iRvD16lcBvdSug+9To2bVra9gTRQf+bX/A3mzY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7C14F80245;
-	Wed, 16 Feb 2022 19:02:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 956A0F80256;
+	Wed, 16 Feb 2022 19:02:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B81A4F80128; Wed, 16 Feb 2022 19:02:00 +0100 (CET)
+ id E5DF4F80118; Wed, 16 Feb 2022 19:02:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C393F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id C475CF80118
  for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 19:01:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C393F80118
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C475CF80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AOUAvu0n"
+ header.b="lsw7TqR9"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E68CD60AEA;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 24CA4B81FB5;
+ Wed, 16 Feb 2022 18:01:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB183C340E8;
  Wed, 16 Feb 2022 18:01:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE896C004E1;
- Wed, 16 Feb 2022 18:01:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645034515;
- bh=WVgN2U+mLl41uR6SAT7+qakZtHd3vfQQyCqycQFbs00=;
+ s=k20201202; t=1645034516;
+ bh=XD/nyKzA7YBuZeYgwMrWbmDBjd9uoqzMMHucltaUhbA=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=AOUAvu0nuysOfusZ57OwDgdcL4pj2WEUGP8Mk5MboAdMElP1BK7nTF5acWvHBVjQW
- T88lZwg3+wnW57Cv6voWRBiqTFLhVYzLwGBz2PolcBFvilKaNkc64yKood6dbru81U
- eX64dZjXDjY3/rtk53YpsW8LvMkOL+fV38TCCl29pR6bRjuxB/stbPl2qr3cy3442Y
- xazzeIiRg1D8kOegQ97ZZvvy6F47Uqunf5Zjei2xRMIYxMVzsoqIAhNJtChN5BVw9P
- /iUepa1H5ZlZufeLR2w7UOGaAgMsse6q5rmy2zerpkMq1bSyu9HDzEyPJTBMb/aEOM
- za/pVS1LBsZdA==
+ b=lsw7TqR94cuOYN7RpzTW0pZPBDQHuB7PtYzjwIgTlGKRpktVRzhP2C56iSvga3j/+
+ robxjMFO4g9WJhBW0ssmsERgjqVGry8g9Rm0fkBJTjYMxc6QsZkl/bT2Vvjl6PA23g
+ 31v3QApr2zv8lB4q/zPzfPnxHJGBOYkrzNP0Bqcx0b0NbQrR1xXa8Q4GFflB8Nqy51
+ udE5m+K0XuHsgGuB2f6a6tQ1W/2Cf3vHwlyc2h22j3A4uF0Q8WASBwTffK6UMFm+ep
+ XF++5GCHzMpfU67zVarNFv9Xwyx3wPd5t2cn0GaE45EOBeLouGZaxZiRF/hwFTrkSc
+ sS1X1SFuxeKZA==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Marek Vasut <marex@denx.de>
-In-Reply-To: <20220215130645.164025-1-marex@denx.de>
-References: <20220215130645.164025-1-marex@denx.de>
-Subject: Re: [PATCH] ASoC: ops: Shift tested values in snd_soc_put_volsw() by
- +min
-Message-Id: <164503451442.3088802.17577982526948199324.b4-ty@kernel.org>
-Date: Wed, 16 Feb 2022 18:01:54 +0000
+To: Fabio Estevam <festevam@gmail.com>
+In-Reply-To: <20220215120514.1760628-1-festevam@gmail.com>
+References: <20220215120514.1760628-1-festevam@gmail.com>
+Subject: Re: [PATCH v2] ASoC: cs4265: Fix the duplicated control name
+Message-Id: <164503451555.3088802.5545811785236254940.b4-ty@kernel.org>
+Date: Wed, 16 Feb 2022 18:01:55 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: stable@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@denx.de>,
+ ckeepax@opensource.cirrus.com, flatmax@flatmax.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,13 +84,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 15 Feb 2022 14:06:45 +0100, Marek Vasut wrote:
-> While the $val/$val2 values passed in from userspace are always >= 0
-> integers, the limits of the control can be signed integers and the $min
-> can be non-zero and less than zero. To correctly validate $val/$val2
-> against platform_max, add the $min offset to val first.
+On Tue, 15 Feb 2022 09:05:14 -0300, Fabio Estevam wrote:
+> From: Fabio Estevam <festevam@denx.de>
 > 
+> Currently, the following error messages are seen during boot:
 > 
+> asoc-simple-card sound: control 2:0:0:SPDIF Switch:0 is already present
+> cs4265 1-004f: ASoC: failed to add widget SPDIF dapm kcontrol SPDIF Switch: -16
+> 
+> [...]
 
 Applied to
 
@@ -97,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ops: Shift tested values in snd_soc_put_volsw() by +min
-      commit: 9bdd10d57a8807dba0003af0325191f3cec0f11c
+[1/1] ASoC: cs4265: Fix the duplicated control name
+      commit: c5487b9cdea5c1ede38a7ec94db0fc59963c8e86
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

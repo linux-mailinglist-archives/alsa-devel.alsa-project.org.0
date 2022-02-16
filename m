@@ -2,96 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC0DB4B7FF6
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 06:15:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C17244B80CA
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 07:44:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6320916FA;
-	Wed, 16 Feb 2022 06:15:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6320916FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50151177C;
+	Wed, 16 Feb 2022 07:44:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50151177C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644988557;
-	bh=yhXlAOHBQ1qwE9VEoSYTwMP1F+8Qe9BUSgpIA9/AGZ4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1644993890;
+	bh=lM1SEU0VwVmIPrNwAlzATA/OOqDndWKV5hV1fkHz7+w=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aNC0LbQ6QD+M3PvrBx9FcMt0K1+xblxfXQStgaGwf4M73UTshj0yDMUwkn/cSiVuK
-	 MQO+4IYYMohpaAhzu0FLFDapkrHaId/9XjZ0WTGooxeyRwJtrtU7CC8r82FB4yDtBQ
-	 mmytrnqd6CdNm0UWcWDis/qlxYKe0KzzoV72vBpE=
+	b=n96/nTjdEjU44E7XFXbJtnw445b00JGFvbepOZlCivM4rXZRKRaZRh9PTRIyI82Rp
+	 561n8iQvNyQoCrsv3jdVU/HUqWZDnvdGMtOGOdOc+AWsXRniSeTNsqxYoVqS3mm0yY
+	 zwIYff1V6YHUcd+dLXuN9BwcERWHxpMLCmBFW/P4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9DC6F8012E;
-	Wed, 16 Feb 2022 06:14:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D132AF800C0;
+	Wed, 16 Feb 2022 07:43:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2A4BF80128; Wed, 16 Feb 2022 06:14:49 +0100 (CET)
+ id AE1B3F80128; Wed, 16 Feb 2022 07:43:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A15EF800C0
- for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 06:14:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A15EF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14D1AF80118
+ for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 07:43:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14D1AF80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="anhgRD2w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644988484; x=1676524484;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=ylavwFYQD6KGHhXFsIL//yJI76kYPD2M2lrrfVfYUGw=;
- b=anhgRD2wahskLrkf14k0kcOdGFCXuEQwdc5yY0edn5xM8KmYjnRXXHYF
- XDqN0aYsLK2Yl5/CpT2TbvNHaGvOlyBFaMRWOGTAKvNuXu7bi0oVVAeTM
- lwoTROozFRHBNAMjnVAQQY7hRtHEH+aP97Sz+ezkGw2eSUk3XXrj7qcUv 4=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 15 Feb 2022 21:14:40 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2022 21:14:33 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Tue, 15 Feb 2022 21:14:32 -0800
-Received: from [10.216.55.237] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Tue, 15 Feb
- 2022 21:14:27 -0800
-Subject: Re: [RESEND v13 05/10] ASoC: qcom: Add register definition for codec
- rddma and wrdma
-To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
- <alsa-devel@alsa-project.org>, <bgoswami@codeaurora.org>,
- <bjorn.andersson@linaro.org>, <broonie@kernel.org>,
- <devicetree@vger.kernel.org>, <judyhsiao@chromium.org>,
- <lgirdwood@gmail.com>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <perex@perex.cz>, <quic_plai@quicinc.com>,
- <robh+dt@kernel.org>, <rohitkr@codeaurora.org>,
- <srinivas.kandagatla@linaro.org>, <tiwai@suse.com>
-References: <1644850708-11099-1-git-send-email-quic_srivasam@quicinc.com>
- <1644850708-11099-6-git-send-email-quic_srivasam@quicinc.com>
- <CAE-0n53iKwT8u=d2KG5KX8fJgFs1JhTnaGCfG=OLarhvLdmf3Q@mail.gmail.com>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-Message-ID: <13d0bb5c-4f63-12a0-3c2c-c2d0e0211026@quicinc.com>
-Date: Wed, 16 Feb 2022 10:44:24 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="F6yREI5W"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644993817; x=1676529817;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=lM1SEU0VwVmIPrNwAlzATA/OOqDndWKV5hV1fkHz7+w=;
+ b=F6yREI5WQ0vfMLLR2WHfBNoMyDjRua/JF30cE8GerTcjiylHlXwuThne
+ ENf7yqGcitZIoC8wOzvdY/wcq2PpbORki2SjN45DtPDIUZYWkhwHKmr9Q
+ jKc8gtjfHNDKqlbvZIfYUvmPwCjOMfb9nMNAioW2U377nrEJ4QRCuSrie
+ Hz4jxwOSzEh3ENXiLocDuLZJ2rJOX9o/IHPzrWWFXRCavtV3nNyQIxAAT
+ 9JkQsP0/WTugC8gbB3g+aM6kHBvXSV4g9iiBsmr2KhooGaqR6/g37zZnx
+ ADQACPYZ1aJVGUi/IxWpT9XWBrBVt0rqrYyD1Y0K/jhGZSWl3ZZ+4Tmnk A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10259"; a="249367976"
+X-IronPort-AV: E=Sophos;i="5.88,373,1635231600"; d="scan'208";a="249367976"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Feb 2022 22:43:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,373,1635231600"; d="scan'208";a="773887453"
+Received: from lkp-server01.sh.intel.com (HELO d95dc2dabeb1) ([10.239.97.150])
+ by fmsmga006.fm.intel.com with ESMTP; 15 Feb 2022 22:43:28 -0800
+Received: from kbuild by d95dc2dabeb1 with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nKE2B-000AWi-MV; Wed, 16 Feb 2022 06:43:27 +0000
+Date: Wed, 16 Feb 2022 14:42:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, quic_plai@quicinc.com, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, srinivas.kandagatla@linaro.org,
+ rohitkr@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, swboyd@chromium.org, judyhsiao@chromium.org
+Subject: Re: [RESEND v13 07/10] ASoC: qcom: Add support for codec dma driver
+Message-ID: <202202161407.5MOObZwm-lkp@intel.com>
+References: <1644850708-11099-8-git-send-email-quic_srivasam@quicinc.com>
 MIME-Version: 1.0
-In-Reply-To: <CAE-0n53iKwT8u=d2KG5KX8fJgFs1JhTnaGCfG=OLarhvLdmf3Q@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1644850708-11099-8-git-send-email-quic_srivasam@quicinc.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>, kbuild-all@lists.01.org,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,62 +98,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Srinivasa,
 
-On 2/15/2022 6:42 AM, Stephen Boyd wrote:
-Thanks for your time Stephen!!!
-> Quoting Srinivasa Rao Mandadapu (2022-02-14 06:58:23)
->> This patch adds register definitions for codec read dma and write dma
->   git grep "This patch" -- Documentation/process/
-Okay. Will remove and reword the commit message.
->
->> lpass interface.
->>
->> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
->> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
->> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
->> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
->> index 7cc3763..e059c4a 100644
->> --- a/sound/soc/qcom/lpass.h
->> +++ b/sound/soc/qcom/lpass.h
->> @@ -39,6 +39,29 @@
->>                          return -EINVAL;         \
->>          } while (0)
->>
->> +static inline bool is_cdc_dma_port(int dai_id)
->> +{
->> +       switch (dai_id) {
->> +       case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
->> +       case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
->> +       case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
->> +               return true;
->> +       default:
-> Drop case
-Okay. will remove it.
->
->> +               return false;
->> +       }
-> return false;
->
-> would be shorter.
-Okay. will change it.
->
->> +}
->> +
->> +static inline bool is_rxtx_cdc_dma_port(int dai_id)
->> +{
->> +       switch (dai_id) {
->> +       case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
->> +       case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
->> +               return true;
->> +       default:
->> +               return false;
->> +       }
-> Same.
-Okay.
->
->> +}
->> +
->>   struct lpaif_i2sctl {
->>          struct regmap_field *loopback;
->>          struct regmap_field *spken;
+Thank you for the patch! Perhaps something to improve:
+
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on v5.17-rc4 next-20220215]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/0day-ci/linux/commits/Srinivasa-Rao-Mandadapu/Add-support-for-audio-on-SC7280-based-targets/20220214-230256
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+config: csky-randconfig-s032-20220216 (https://download.01.org/0day-ci/archive/20220216/202202161407.5MOObZwm-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 11.2.0
+reproduce:
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # apt-get install sparse
+        # sparse version: v0.6.4-dirty
+        # https://github.com/0day-ci/linux/commit/e81c7e5d842d2b8039700a71557683e88ce0162d
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Srinivasa-Rao-Mandadapu/Add-support-for-audio-on-SC7280-based-targets/20220214-230256
+        git checkout e81c7e5d842d2b8039700a71557683e88ce0162d
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' O=build_dir ARCH=csky SHELL=/bin/bash sound/soc/qcom/
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+
+sparse warnings: (new ones prefixed by >>)
+>> sound/soc/qcom/lpass-platform.c:1218:52: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void [noderef] __iomem *dma_buf @@     got unsigned char * @@
+   sound/soc/qcom/lpass-platform.c:1218:52: sparse:     expected void [noderef] __iomem *dma_buf
+   sound/soc/qcom/lpass-platform.c:1218:52: sparse:     got unsigned char *
+
+vim +1218 sound/soc/qcom/lpass-platform.c
+
+  1209	
+  1210	static int lpass_platform_copy(struct snd_soc_component *component,
+  1211				       struct snd_pcm_substream *substream, int channel,
+  1212				       unsigned long pos, void __user *buf, unsigned long bytes)
+  1213	{
+  1214		struct snd_pcm_runtime *rt = substream->runtime;
+  1215		unsigned int dai_id = component->id;
+  1216		int ret = 0;
+  1217	
+> 1218		void __iomem *dma_buf = rt->dma_area + pos +
+  1219					channel * (rt->dma_bytes / rt->channels);
+  1220	
+  1221		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+  1222			if (is_cdc_dma_port(dai_id))
+  1223				ret = copy_from_user_toio(dma_buf, buf, bytes);
+  1224			else
+  1225				ret = copy_from_user((void __force *)dma_buf, buf, bytes);
+  1226		} else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
+  1227			if (is_cdc_dma_port(dai_id))
+  1228				ret = copy_to_user_fromio(buf, dma_buf, bytes);
+  1229			else
+  1230				ret = copy_to_user(buf, (void __force *)dma_buf, bytes);
+  1231		}
+  1232	
+  1233		return ret;
+  1234	}
+  1235	
+
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org

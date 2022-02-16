@@ -2,77 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C948D4B7445
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Feb 2022 19:16:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E93074B7D0C
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 03:12:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A49BE17E7;
-	Tue, 15 Feb 2022 19:15:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A49BE17E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04C15174D;
+	Wed, 16 Feb 2022 03:11:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04C15174D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1644948997;
-	bh=pf86zRo7PbseCg0QyFI2S2/R2iaKLejvTnbsr95L+7Q=;
+	s=default; t=1644977555;
+	bh=3mW+K2DoVM3p73yamKYhLBRUF5y2Wz/jULL9EmpcsUY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=AsFfGQNG/SkRvBQz3tbVPAdoNHA0lGG4/c7KhK65iR3vJjDd84gmdubh1SPsUbCfD
-	 ir2Gdo1nWXNhoSAyra25W6ftqDi3Yf9r8cQH7f2m7/Gnp8rYrK+0VzTneFjiKhwdLp
-	 lWEyicUKOyUZoYgUwOEJnM7QpjoFJa9v52Q9mKTM=
+	b=LG3lTCJ0NT6AWvJSkjze3JnvFqUg96C9mllseDhsvtb86KwZ2LUZ8DmIJsKm6wnXf
+	 1vnAbMDMCTItz8cRXsh4Ccja1DhAuHtnf0r2r5MXKzj9ELPR5O1OMaM4y/e/OsOiU2
+	 nuypZtywu0/KQvz9FfQCfG0VeA5PpQ4tTi3vsSp4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16629F80159;
-	Tue, 15 Feb 2022 19:15:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A082F80159;
+	Wed, 16 Feb 2022 03:11:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81EADF80124; Tue, 15 Feb 2022 19:15:29 +0100 (CET)
+ id 6EF48F80132; Wed, 16 Feb 2022 03:11:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from out199-11.us.a.mail.aliyun.com (out199-11.us.a.mail.aliyun.com
+ [47.90.199.11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2311F80124
- for <alsa-devel@alsa-project.org>; Tue, 15 Feb 2022 19:15:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2311F80124
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="EOGwa0XF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644948923; x=1676484923;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=pf86zRo7PbseCg0QyFI2S2/R2iaKLejvTnbsr95L+7Q=;
- b=EOGwa0XF6FbHm3gzAcUYgUyHHHTrUEcewH/BdQOse25o/S1jEustCAP6
- dXF4wv0Hyla/lWbehHo5q72KuwRCO8XdMiT5RBEHZr+WaHwogXAYZyKrb
- ByK4RSu3HBx2N8/vP3eZ/oSXsCbCNyJEknYj58xSmJ70vEJ6AHYB5JUyc
- Y+WfX9qY4bk2JGTHvivzbEw5PII4RMpmVyulSHJa6Um4vxGqoSDyjctab
- yXkCRprzxF2LgbOyvIyU9cYziTSmodu+2k6sS2gRUn65k0R8Bcqh3Todw
- rVy3pvV8tRo8gDb2vmt2QOW/CpLC3R1EtY+fh7bFpCh84piL8kOKH4CQf w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10259"; a="231051180"
-X-IronPort-AV: E=Sophos;i="5.88,371,1635231600"; d="scan'208";a="231051180"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2022 10:15:18 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,371,1635231600"; d="scan'208";a="539463792"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga007.fm.intel.com with ESMTP; 15 Feb 2022 10:15:16 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: core: unregister clients and machine drivers in
- .shutdown
-Date: Tue, 15 Feb 2022 20:06:28 +0200
-Message-Id: <20220215180628.3893282-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CFEBF800C0
+ for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 03:11:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CFEBF800C0
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424; MF=yang.lee@linux.alibaba.com;
+ NM=1; PH=DS; RN=9; SR=0; TI=SMTPD_---0V4b3tCJ_1644977477; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0V4b3tCJ_1644977477) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 16 Feb 2022 10:11:18 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: perex@perex.cz
+Subject: [PATCH -next] ASoC: codec: wcd938x: Fix NULL but dereferenced
+ coccicheck error
+Date: Wed, 16 Feb 2022 10:11:16 +0800
+Message-Id: <20220216021116.94384-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
- peter.ujfalusi@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- daniel.baluta@nxp.com
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, broonie@kernel.org, Yang Li <yang.lee@linux.alibaba.com>,
+ quic_srivasam@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,51 +70,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Eliminate the following coccicheck warning:
+./sound/soc/codecs/wcd938x.c:4210:21-24: ERROR: component is NULL but
+dereferenced.
 
-On a platform shutdown, the expectation for most drivers is that
-userspace tasks will release all resources. When those sequences do
-not complete, it can be the case that PCM devices exposed by ALSA
-cards are used *after* the DSP shutdown completes, leading to a
-platform hang.
-
-When the clients and machine drivers provide an _unregister callback,
-let's invoke it in the shutdown sequence.
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Fixes: 013cc2aea0f6 ("ASoC: codec: wcd938x: Add switch control for selecting CTIA/OMTP Headset")
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 ---
- sound/soc/sof/core.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ sound/soc/codecs/wcd938x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index d99ecbb4282d..2a35d8ddf43e 100644
---- a/sound/soc/sof/core.c
-+++ b/sound/soc/sof/core.c
-@@ -463,10 +463,19 @@ EXPORT_SYMBOL(snd_sof_device_remove);
- int snd_sof_device_shutdown(struct device *dev)
- {
- 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-+	struct snd_sof_pdata *pdata = sdev->pdata;
+diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+index 2663fe0bf64f..c46c4bfd84f2 100644
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -4207,7 +4207,7 @@ static bool wcd938x_swap_gnd_mic(struct snd_soc_component *component, bool activ
+ 	struct wcd938x_priv *wcd938x;
  
- 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
- 		cancel_work_sync(&sdev->probe_work);
+ 	if (!component) {
+-		dev_err(component->dev, "%s component is NULL\n", __func__);
++		pr_err("The snd_soc_component is NULL\n");
+ 		return false;
+ 	}
  
-+	/*
-+	 * make sure clients and machine driver(s) are unregistered to force
-+	 * all userspace devices to be closed prior to the DSP shutdown sequence
-+	 */
-+	sof_unregister_clients(sdev);
-+
-+	snd_sof_machine_unregister(sdev, pdata);
-+
- 	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
- 		return snd_sof_shutdown(sdev);
- 
-
-base-commit: f7d344a2bd5ec81fbd1ce76928fd059e57ec9bea
 -- 
-2.35.1
+2.20.1.7.g153144c
 

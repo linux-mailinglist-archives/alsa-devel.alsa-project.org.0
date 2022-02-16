@@ -2,85 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B1674B831D
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 09:40:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34DED4B831F
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 09:40:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF5B5172C;
-	Wed, 16 Feb 2022 09:39:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF5B5172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBCB617E8;
+	Wed, 16 Feb 2022 09:39:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBCB617E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645000804;
-	bh=KqWDucsnUhxwQ5qGTdYTWYlRrWbp/rqcIKImDN2LieU=;
+	s=default; t=1645000839;
+	bh=VPBgHu7rmw7l8P2PkQhwc9tPS8Zj1T3H6k4XpCdGg+s=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UVJej19bv4JOwf8Byex8O3KuK14VdeOkfDPoq6yoz5WEaICLV+IhWFnEKRi+Ktp1z
-	 DGeN4JqSGSLOTOZTsXSYMT64oZMSiBzDz2w4o0SVjZeEzc6mlAQWwPJCeFyRZQWcMC
-	 v+5AHxCObu8vG0IbFKJG/wxkL0vLrePNV60GoV/c=
+	b=U03QEfUTdcCg92OIfEnKdO1rJggKOt0G55qORpAfzMd8J86E6vL0RR/EnglV5Jmbb
+	 nUqnQ6vOnBdVB1GB2EnUPjq1pgiMd0+xP0psA5P1W0hMDD5GqUj/EoFwWDAVUk+nLt
+	 lllg/n8CTEl0Vlk2zq7xdy3BK3HQa3OGMPIAsjJE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32FF8F80134;
-	Wed, 16 Feb 2022 09:38:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E39B2F80256;
+	Wed, 16 Feb 2022 09:39:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6125BF80128; Wed, 16 Feb 2022 09:38:55 +0100 (CET)
+ id 6C3EBF800C0; Wed, 16 Feb 2022 09:38:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 733CCF800D8
- for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 09:38:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 733CCF800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5863AF800C0
+ for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 09:38:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5863AF800C0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="nbwYnNmH"
+ header.b="RUUrHS1a"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645000729; x=1676536729;
+ t=1645000736; x=1676536736;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=KqWDucsnUhxwQ5qGTdYTWYlRrWbp/rqcIKImDN2LieU=;
- b=nbwYnNmHmMPZBS/3b81marNvee60b3x/Dtmi3rOGYR+EfmM+l5clu7Ho
- Y9SvhTTNnnmjFZ4r+kt8whLR2+rjbFxJmTrnvyAmH56zxgBIDvdjlck/M
- xxxVKN3/ZDaSxro+geOq2oKvtRf2vOCHwzI7tX0kH3qv2XYVWiVXfADvL
- z+O7cDJ7laKIhTyLFuSah+FljUxFd3dromXM8pUoXuszVkOGt2h92e2mA
- ypSE0M8cxJLJDRTUVErYAA42T5scDY5nYPA1J7Ix/aqEUIjUk2AKcUNBQ
- H2+vINn8Afxj94MQ7FwU4nRqH70oJHKbx75/sS8z1S0SJvw174RmErBAY g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10259"; a="275133549"
-X-IronPort-AV: E=Sophos;i="5.88,373,1635231600"; d="scan'208";a="275133549"
+ bh=VPBgHu7rmw7l8P2PkQhwc9tPS8Zj1T3H6k4XpCdGg+s=;
+ b=RUUrHS1alyvPk9CFH3khffC4G2YyV2qiaLoN+1Sa4QtVkcFBkgKOLmM3
+ otwdG7pV4WQfeGbd/FcY5MDsAaLzQCJiVpdtyifwhGUfP2htiyHp2uvSy
+ kYWREq0BI6r36Nu5ICpbmV+kXZ2vkxArBGwIV25nntJClFzh3vy6hKM0V
+ 8MmTRwean+eleORa/BNI9BqxCKE+DOJlv4IQGGJ6AFItQSYwgXGfI9AuE
+ bHxD4ISuLDgvXD912s0J+wxAN/Wz3OtOstV+grv62kQvhhRJ/GNn1yNQI
+ 2S5joS+3XeKU5FHUrwBWnxA3uLKpIe77l+y4pw0MQM8cT0AVW66redypr g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10259"; a="237958558"
+X-IronPort-AV: E=Sophos;i="5.88,373,1635231600"; d="scan'208";a="237958558"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 00:38:40 -0800
-X-IronPort-AV: E=Sophos;i="5.88,373,1635231600"; d="scan'208";a="544804321"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2022 00:38:48 -0800
+X-IronPort-AV: E=Sophos;i="5.88,373,1635231600"; d="scan'208";a="544804369"
 Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.249.215])
  ([10.99.249.215])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 00:38:38 -0800
-Message-ID: <82363efa-10c4-192e-d8dc-4abeb0f63543@linux.intel.com>
-Date: Wed, 16 Feb 2022 09:38:35 +0100
+ 16 Feb 2022 00:38:46 -0800
+Message-ID: <68cbcd13-00dc-a3e3-244a-773c4fd4707d@linux.intel.com>
+Date: Wed, 16 Feb 2022 09:38:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.0
-Subject: Re: [PATCH] ASoC: core: unregister clients and machine drivers in
- .shutdown
+Subject: Re: [PATCH] ALSA: hda/hdmi: add keep-alive support for ADL-P and DG2
 Content-Language: en-US
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
-References: <20220215180628.3893282-1-kai.vehmanen@linux.intel.com>
+ tiwai@suse.de
+References: <20220215140118.3856001-1-kai.vehmanen@linux.intel.com>
 From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20220215180628.3893282-1-kai.vehmanen@linux.intel.com>
+In-Reply-To: <20220215140118.3856001-1-kai.vehmanen@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: pierre-louis.bossart@linux.intel.com, yung-chuan.liao@linux.intel.com,
- peter.ujfalusi@linux.intel.com, ranjani.sridharan@linux.intel.com,
- lgirdwood@gmail.com, daniel.baluta@nxp.com
+Cc: Jyri Sarha <jyri.sarha@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,53 +93,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/15/2022 7:06 PM, Kai Vehmanen wrote:
+On 2/15/2022 3:01 PM, Kai Vehmanen wrote:
 
-Nitpicking, but I guess "SOF:" got lost in title ;)
-
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> 
-> On a platform shutdown, the expectation for most drivers is that
-> userspace tasks will release all resources. When those sequences do
-> not complete, it can be the case that PCM devices exposed by ALSA
-> cards are used *after* the DSP shutdown completes, leading to a
-> platform hang.
-> 
-> When the clients and machine drivers provide an _unregister callback,
-> let's invoke it in the shutdown sequence.
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> ---
->   sound/soc/sof/core.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-> index d99ecbb4282d..2a35d8ddf43e 100644
-> --- a/sound/soc/sof/core.c
-> +++ b/sound/soc/sof/core.c
-> @@ -463,10 +463,19 @@ EXPORT_SYMBOL(snd_sof_device_remove);
->   int snd_sof_device_shutdown(struct device *dev)
+>   static void silent_stream_disable(struct hda_codec *codec,
+> @@ -1726,7 +1786,16 @@ static void silent_stream_disable(struct hda_codec *codec,
 >   {
->   	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-> +	struct snd_sof_pdata *pdata = sdev->pdata;
->   
->   	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
->   		cancel_work_sync(&sdev->probe_work);
->   
-> +	/*
-> +	 * make sure clients and machine driver(s) are unregistered to force
-> +	 * all userspace devices to be closed prior to the DSP shutdown sequence
-> +	 */
-> +	sof_unregister_clients(sdev);
+>   	struct hdmi_spec *spec = codec->spec;
+>   	struct hdmi_spec_per_cvt *per_cvt;
+> -	int cvt_idx;
+> +	int cvt_idx, err;
 > +
-> +	snd_sof_machine_unregister(sdev, pdata);
-> +
->   	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
->   		return snd_sof_shutdown(sdev);
+> +	err = snd_hda_power_up_pm(codec);
+> +	if (err < 0 && err != -EACCES) {
+> +		codec_err(codec,
+> +			  "Failed to power up codec for silent stream disable ret=[%d]\n",
+> +			  err);
+> +		snd_hda_power_down_pm(codec);
+
+If power up failed, do you need to power down?
+
+> +		return;
+> +	}
 >   
-> 
-> base-commit: f7d344a2bd5ec81fbd1ce76928fd059e57ec9bea
+>   	mutex_lock(&per_pin->lock);
+>   	if (!per_pin->silent_stream)
 

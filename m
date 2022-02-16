@@ -2,87 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 591934B8B4F
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 15:21:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 387734B8B50
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Feb 2022 15:22:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F088B193B;
-	Wed, 16 Feb 2022 15:21:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F088B193B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9A431941;
+	Wed, 16 Feb 2022 15:21:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9A431941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645021316;
-	bh=KoWa0akEfjYDRz1er5o4EjprGKVFybd/AJSc0T8y8lk=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1645021339;
+	bh=OV/pF5nY682FvFfzRdju6ZTgsI/e2hhMVbl5Ra0DPNs=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=moOi0h0Nl1WdXxaj7edu1cRp18aCmZ7pdUSBs8XQVkHRX3EmXltHuUShHBzNPaOvA
-	 g5UjVJ2J7VYQs9lWXLHkU7OZYMJIYNVxBbpvSkx9nemp0cTCc4HHeVAFOwprh/jYWN
-	 2aBTNO1L3vMpSvxTPHxdxmKCdYfzDcHqDqLjhAN0=
+	b=RIzPzjZTQpVouQyd6W8/V+vjISpBp/VtMFFEBFKROIaw8OW3vS8yufWLeylttaf4S
+	 748se194UmbDZIYu2CQjoaorZe/C1OWzZfGUJ1lg3xo6VWzaTFI1NMyZ+Z6/EZcjg/
+	 gDMuMbwriwbV0++FvJZG0xk01eaOmRefiZdWbZUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F280EF80519;
-	Wed, 16 Feb 2022 15:20:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60D41F8051C;
+	Wed, 16 Feb 2022 15:20:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A0F9F80518; Wed, 16 Feb 2022 15:20:34 +0100 (CET)
+ id 7D526F8051B; Wed, 16 Feb 2022 15:20:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62E19F80516
- for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 15:20:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62E19F80516
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5EED0F80516
+ for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 15:20:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EED0F80516
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="WGexOQIl"
-Received: by mail-wm1-x32e.google.com with SMTP id
- k3-20020a1ca103000000b0037bdea84f9cso1729054wme.1
- for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 06:20:27 -0800 (PST)
+ header.b="S657ZCmw"
+Received: by mail-wr1-x434.google.com with SMTP id e3so3822266wra.0
+ for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 06:20:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=wMfxI0Hd2SbSzakzeFPLxOWB5h6XEFlubm95jAhvb/o=;
- b=WGexOQIlhTvYMjSmv7dTY8NFq2DFmGwQTbEOeazPGATpb3ygAExomKrk9SgSuzoawm
- IazEfGjnuS8DygMSKN1qL1kVt3vi1UtK/DpMv7qd9m/KqOmyPLlBNu8Lub5BXlXDQqWW
- TftyBaX0AMsJ4w36HssvwqzC9CXwaLUhH6DmtmvLHgtxlwsRfX6TxpFPhsYA13FF0hU8
- +PnEY/TfqLHxsP1OCv7aI0vzQJCfG21iZl47KBmpCwK2LuMeARYQCAbrNX+XwEjbK6zH
- MCYPNfOHelDXiO0XCgtQCsbkUvd8rRlWaEAcMlN+y2F2S79T3gbNUvfRQ9HtCeVWs7ep
- FHKQ==
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=fJttqD83JtcJ4lbDggnFlbM6cstaH6DYAd/AKXx3eLo=;
+ b=S657ZCmwQ0Q6bSYlkDVeZ6mhrjpjDuakfGtu2AwZSz1wQ1biP8aSnn3FfncID+4RgR
+ lOQzP6MJgXdZeuZVDlWh8IrFOXGas68VPXmwNWjQz4WZ1IkRU2svHateZ/1MsEIDycOt
+ AfxKO+Ik0JxTT51Jaludyg4qTB3uV6Oi7bwagq9XO+CL//b2korJMnkdEQZwI7RG7gGG
+ DpS9a03ijmmikXKp/nyr2O5lP0IuJ2N8bXv3rX6gpFCFBkAJgCL4vCcd/k+ns2vtb6GF
+ /JIwNZmJwY7X5UA4OCuM9iaXltZPMMuOBtXd4UfWUcKWC+qXxwepAaRLUfmR078Vn5fu
+ PH8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
+ :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=wMfxI0Hd2SbSzakzeFPLxOWB5h6XEFlubm95jAhvb/o=;
- b=hSMZc/A+Cir1tB7xmGIzMFZM9UZLhbIxnG/943WZq8iNEe27UrCrm9Wd+YlxHAb/+k
- 9TpUnaWpGiqvqLFDAFxa1xMdNs53CeaEI67V5aYUBF2gYXo1hL2RlopYqX6tOBtm8+if
- h0IoDpg4OfMWISXOEHd0ko9PAKo+F/fIlh1NvFhSLz3V0Z6hHtetqiHxRTxWFGyTKALI
- L48AGQhwcOhqIcZPlb0spDAaT6AoyfZG9OIFNjRVYzXZaBZI/BI9+Dp567N/3mEHwrd2
- ixIXCPYU9tIAXiGQIRF06DAfOmyu5brkF9a/0NqKVLcz5tyl6O11+5YQZcrTpRizEJ2q
- 7CwQ==
-X-Gm-Message-State: AOAM532Icja2QRk5zXqCtuaem5ov27VA6MCE84kdjnLNmbVwFY+lLDsV
- acygfsrUNB+TQHozzq7U/Kx0iA==
-X-Google-Smtp-Source: ABdhPJw+HIMlxvyMyiZHqYnDAVhxDQCh9sJA/W3kdjGvLRtbtmg0yVD7Etvv2zoR3BXysQE3ej5LJw==
-X-Received: by 2002:a05:600c:34c1:b0:352:41db:bc55 with SMTP id
- d1-20020a05600c34c100b0035241dbbc55mr1829647wmq.112.1645021225490; 
- Wed, 16 Feb 2022 06:20:25 -0800 (PST)
+ bh=fJttqD83JtcJ4lbDggnFlbM6cstaH6DYAd/AKXx3eLo=;
+ b=Fk9AQ55F+UXtRYHP0L1lkUMJxG63mh0m1Ex8CWH4Wb/yk27wyUTLG7MQrDOLYceUsB
+ IEgAYbNZ3HEF8F3rJshKf2dHkoTXj5S3Pq/f4gte1oA0mioaI2OSm/UKDVk2vpZ/WZNl
+ w4u9C1IO/oo4+TkGQOQ0V07qRxvJa8fRFo2tjpqyOu03hceVRAH+X2QLp/9ujQ+wc7JH
+ ljcCpzWOIhS7/WpSoYB4+5E0JQNiwCr2NXTqeUZl4m/GeEibQzu6zTOcY7582pZLGVRK
+ Nx+JofawH6WzuHuWdC8L7MyLnbeBbqLpJdxssNBzdT/bSX+pLYw/GL1zmx9YhWvuPXXD
+ Pr4g==
+X-Gm-Message-State: AOAM53327finH4xXTjPlQCpvIfV8piswozt9oOPFXPpVjpOBIeH35D5D
+ HtGxU1PpkLPwTcUJEHMr7B090g==
+X-Google-Smtp-Source: ABdhPJxm23Yuzt/CVqGgMXoOxwEXECgdCw4FnfkCJOiYKoi9WKeYemIFFyT21qzVKpv1dm1S/D9Ykg==
+X-Received: by 2002:adf:d1cb:0:b0:1e8:57d1:8f50 with SMTP id
+ b11-20020adfd1cb000000b001e857d18f50mr1656042wrd.21.1645021249045; 
+ Wed, 16 Feb 2022 06:20:49 -0800 (PST)
 Received: from [192.168.86.34]
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id n11sm19555593wms.13.2022.02.16.06.20.24
+ by smtp.googlemail.com with ESMTPSA id e8sm20591211wru.37.2022.02.16.06.20.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Feb 2022 06:20:24 -0800 (PST)
-Message-ID: <a55e8624-7a90-e02f-9c52-5d5d2c825fd0@linaro.org>
-Date: Wed, 16 Feb 2022 14:20:23 +0000
+ Wed, 16 Feb 2022 06:20:48 -0800 (PST)
+Message-ID: <ba8a3cef-6df4-e482-8042-b9249143e284@linaro.org>
+Date: Wed, 16 Feb 2022 14:20:47 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH v6 0/7] Add pin control support for lpass sc7280
+Subject: Re: [PATCH v6 5/7] pinctrl: qcom: Extract chip specific LPASS LPI code
 Content-Language: en-US
 To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
  bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
@@ -93,10 +92,12 @@ To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
  swboyd@chromium.org, judyhsiao@chromium.org,
  Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org
 References: <1644851994-22732-1-git-send-email-quic_srivasam@quicinc.com>
+ <1644851994-22732-6-git-send-email-quic_srivasam@quicinc.com>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <1644851994-22732-1-git-send-email-quic_srivasam@quicinc.com>
+In-Reply-To: <1644851994-22732-6-git-send-email-quic_srivasam@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,69 +116,42 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 On 14/02/2022 15:19, Srinivasa Rao Mandadapu wrote:
-> This patch series is to split lpass variant common pin control
-> functions and SoC specific functions and to add lpass sc7280 pincontrol support.
-> It also Adds dt-bindings for lpass sc7280 lpass lpi pincontrol.
+> Extract the chip specific SM8250 data from the LPASS LPI pinctrl driver
+> to allow reusing the common code in the addition of subsequent
+> platforms.
 > 
-> Changes Since V5:
->      -- Create new patch by updating macro name to lpi specific.
->      -- Create new patch by updating lpi pin group structure with core group_desc structure.
->      -- Fix typo errors.
->      -- Sort macros in the make file and configuration file.
-> Changes Since V4:
->      -- Update commit message and description of the chip specific extraction patch.
->      -- Sort macros in kconfig and makefile.
->      -- Update optional clock voting to conditional clock voting.
->      -- Fix typo errors.
->      -- Move to quicinc domain email id's.
-> Changes Since V3:
->      -- Update separate Kconfig fields for sm8250 and sc7280.
->      -- Update module license and description.
->      -- Move static variables to corresponding .c files from header file.
-> 
-> Changes Since V2:
->      -- Add new dt-bindings for sc7280 lpi driver.
->      -- Make clock voting change as separate patch.
->      -- Split existing pincontrol driver and make common functions
->         as part of separate file.
->      -- Rename lpass pincontrol lpi dt-bindings to sm8250 specific dt-bindings
-> 		
-> Changes Since V1:
->      -- Make lpi pinctrl variant data structure as constant
->      -- Add appropriate commit message
->      -- Change signedoff by sequence.
-> 
-> Srinivasa Rao Mandadapu (7):
->    dt-bindings: pinctrl: qcom: Update lpass lpi file name to SoC specific
->    dt-bindings: pinctrl: qcom: Add sc7280 lpass lpi pinctrl bindings
->    pinctrl: qcom: Update macro name to LPI specific
->    pinctrl: qcom: Update lpi pin group structure
->    pinctrl: qcom: Extract chip specific LPASS LPI code
->    pinctrl: qcom: Add SC7280 lpass pin configuration
->    pinctrl: qcom: Update clock voting as optional
-
-
-Tested this on SM8250 MTP with WSA and WCD codecs
-
-Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
---srini
-
-> 
->   .../bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml   | 133 -----------
->   .../pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml     | 115 +++++++++
->   .../pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml     | 133 +++++++++++
->   drivers/pinctrl/qcom/Kconfig                       |  16 ++
->   drivers/pinctrl/qcom/Makefile                      |   2 +
->   drivers/pinctrl/qcom/pinctrl-lpass-lpi.c           | 257 ++-------------------
->   drivers/pinctrl/qcom/pinctrl-lpass-lpi.h           |  87 +++++++
->   drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c    | 170 ++++++++++++++
->   drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c    | 166 +++++++++++++
->   9 files changed, 706 insertions(+), 373 deletions(-)
->   delete mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
->   create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,sc7280-lpass-lpi-pinctrl.yaml
->   create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+> ---
+>   drivers/pinctrl/qcom/Kconfig                    |   8 +
+>   drivers/pinctrl/qcom/Makefile                   |   1 +
+>   drivers/pinctrl/qcom/pinctrl-lpass-lpi.c        | 233 +-----------------------
+>   drivers/pinctrl/qcom/pinctrl-lpass-lpi.h        |  86 +++++++++
+>   drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c | 166 +++++++++++++++++
+>   5 files changed, 266 insertions(+), 228 deletions(-)
 >   create mode 100644 drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
->   create mode 100644 drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
 >   create mode 100644 drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c
 > 
+> diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
+> index ca6f68a..8871451 100644
+> --- a/drivers/pinctrl/qcom/Kconfig
+> +++ b/drivers/pinctrl/qcom/Kconfig
+> @@ -357,4 +357,12 @@ config PINCTRL_LPASS_LPI
+>   	  Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
+>   	  (Low Power Island) found on the Qualcomm Technologies Inc SoCs.
+>   
+> +config PINCTRL_SM8250_LPASS_LPI
+> +	tristate "Qualcomm Technologies Inc SM8250 LPASS LPI pin controller driver"
+> +	depends on PINCTRL_LPASS_LPI
+
+shouldn't this be select instead of depends.
+
+
+> +	help
+> +	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
+> +	  Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
+> +	  (Low Power Island) found on the Qualcomm Technologies Inc SM8250 platform.
+> +
+>   endif
+

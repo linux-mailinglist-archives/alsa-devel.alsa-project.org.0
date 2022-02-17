@@ -2,75 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0325C4BA1D0
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Feb 2022 14:47:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B2D4BA1E5
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Feb 2022 14:50:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AD701836;
-	Thu, 17 Feb 2022 14:46:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AD701836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 923E61ADC;
+	Thu, 17 Feb 2022 14:49:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 923E61ADC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645105663;
-	bh=K6tHzNaLFRivnYcA2MS5RoTTs66MwIp12/0xe+/PsBg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=PIMnRYDAuGboV/0U2hPzzLKNwCOfwpC4ZkJCQhkNSx6LBlY4SUbDWov0qGgu0EiAn
-	 qoUP2TVIFXs+laKV7Pr550JrH/UqAUeXUoVV85KDCwgEzt/n56Q6fw7zFkWApVHuop
-	 jLlAwMvVfU1tsXYvEie9uEQy1Oy/qowYd6+hggAk=
+	s=default; t=1645105837;
+	bh=PYYGPUryO+dpfTAKHqMDyne1xKvqK1todpxuB3FcT88=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=izi+Y8aSPIpajb842Utw6XDBaoxBLRRex4xklv5LZfm9BsBIA/SBG0xdlvUSsGebW
+	 /PqCDv0raygSrNVI/n3B5UwJDsp4WNlEZhKlS2tf2IWfe/rwQr5brcH+taMwmXN+SO
+	 spit1QDZILF2Fl9ossJePtS+A+VgrGzlBzwu85l4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB1C1F8057A;
-	Thu, 17 Feb 2022 14:42:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20B45F80519;
+	Thu, 17 Feb 2022 14:48:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2A47F80508; Thu, 17 Feb 2022 14:42:46 +0100 (CET)
+ id 7D38BF804D6; Thu, 17 Feb 2022 14:48:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C3A2F80520
- for <alsa-devel@alsa-project.org>; Thu, 17 Feb 2022 14:42:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C3A2F80520
-X-UUID: cbe6935b7f414503a3df4dfbc2669e95-20220217
-X-UUID: cbe6935b7f414503a3df4dfbc2669e95-20220217
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1751469062; Thu, 17 Feb 2022 21:42:32 +0800
-Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Thu, 17 Feb 2022 21:42:31 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb01.mediatek.inc
- (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Thu, 17 Feb 2022 21:42:31 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Thu, 17 Feb 2022 21:42:29 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>
-Subject: [v2 17/17] dt-bindings: mediatek: mt8186: add
- mt8186-mt6366-rt1019-rt5682s document
-Date: Thu, 17 Feb 2022 21:42:05 +0800
-Message-ID: <20220217134205.15400-18-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220217134205.15400-1-jiaxin.yu@mediatek.com>
-References: <20220217134205.15400-1-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 518CCF800CE
+ for <alsa-devel@alsa-project.org>; Thu, 17 Feb 2022 14:48:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 518CCF800CE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="XRLRW4jO"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21HCNFGO030051;
+ Thu, 17 Feb 2022 07:48:41 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=RXMw4ELiiPGxb1BhM1EtrpskMk8OtBkyJrUegKF5rBQ=;
+ b=XRLRW4jOC2j3jgVA8macDkPJcqW9rzrqrL3Um9hPcrcXyy74QMxLqgTBuIIbcWmsw179
+ SFQw+I0dF1t9IKkHpq44aDyIYB3k7nkTF40TpDcFjdTudqVz4Y8BKE3+znwjgA/qbPlu
+ ktsoII82Nv+LWfJ8ejVgdGIr3dbqI0wJtd72UBt/Pwo7698T1RVKxIW71t7ex9axAEqr
+ WTOuztt3CY16bnuW3zNZhzngzzT0Hd3tfavfmHBKll/PjXZ+UULzYBZ6VTIWyLaVk0CF
+ SXseO1t968TVfIiCJtIj77Ld8Gn1tWG9KVqkZ+ItXNhQ5BmsjuVbuQgjF9tCKOtCwGzS tA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3e8nyda81v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 17 Feb 2022 07:48:40 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 17 Feb
+ 2022 13:48:39 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Thu, 17 Feb 2022 13:48:39 +0000
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.64.199])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1641146B;
+ Thu, 17 Feb 2022 13:48:38 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>,
+ <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH V2 0/2] ASoC: audio_graph_card2: Support variable slot widths
+Date: Thu, 17 Feb 2022 13:48:33 +0000
+Message-ID: <20220217134835.282389-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-MTK: N
+X-Proofpoint-GUID: E2bZm9GJmWyN-WL5TubSTxMn7nc8Cscq
+X-Proofpoint-ORIG-GUID: E2bZm9GJmWyN-WL5TubSTxMn7nc8Cscq
+X-Proofpoint-Spam-Reason: safe
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- geert+renesas@glider.be, linux-kernel@vger.kernel.org, zhangqilong3@huawei.com,
- tiwai@suse.com, lgirdwood@gmail.com, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- tzungbi@google.com, robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
- trevor.wu@mediatek.com, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- aaronyu@google.com, linux-arm-kernel@lists.infradead.org
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,67 +98,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds document for mt8186 board with mt6366, rt1019 and rt5682s.
+This adds support for I2S/TDM links where the slot width varies
+depending on the sample width, in a way that cannot be guessed by
+component hw_params().
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
----
- .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   | 47 +++++++++++++++++++
- 1 file changed, 47 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
+A typical example is:
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-new file mode 100644
-index 000000000000..9280a26038f3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-@@ -0,0 +1,47 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mt8186-mt6366-rt1019-rt5682s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Mediatek MT8186 with MT6366, RT1019 and RT5682S ASoC sound card driver
-+
-+maintainers:
-+  - Jiaxin Yu <jiaxin.yu@mediatek.com>
-+
-+description:
-+  This binding describes the MT8186 sound card.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - mediatek,mt8186_mt6366_rt1019_rt5682s_sound
-+
-+  mediatek,platform:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of MT8186 ASoC platform.
-+
-+  mediatek,hdmi-codec:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of HDMI codec.
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - mediatek,platform
-+
-+examples:
-+  - |
-+
-+    sound: mt8186-sound {
-+        compatible = "mediatek,mt8186_mt6366_rt1019_rt5682s_sound";
-+        mediatek,platform = <&afe>;
-+        mediatek,hdmi-codec = <&it6505dptx>;
-+        pinctrl-names = "aud_clk_mosi_off",
-+                        "aud_clk_mosi_on";
-+        pinctrl-0 = <&aud_clk_mosi_off>;
-+        pinctrl-1 = <&aud_clk_mosi_on>;
-+    };
-+
-+...
+- 16-bit samples use 16-bit slots
+- 24-bit samples use 32-bit slots
+
+There is no way for a component hw_params() to deduce from the information
+it is passed that 24-bit samples will be in 32-bit slots.
+
+Some audio hardware cannot support a fixed slot width or a slot width
+equal to the sample width in all cases. This is usually due either to
+limitations of the audio serial port or system clocking restrictions.
+
+These two patches add support for defining a mapping between sample widths
+and sample slots. This allows audio_graph_card2 to be used in these
+situations instead of having to write a custom machine driver.
+
+Richard Fitzgerald (2):
+  ASoC: dt-bindings: audio-graph-port: Add dai-tdm-slot-width-map
+  ASoC: audio_graph_card2: Add support for variable slot widths
+
+ .../bindings/sound/audio-graph-port.yaml      |  7 ++
+ include/sound/simple_card_utils.h             | 10 ++
+ sound/soc/generic/audio-graph-card2.c         |  4 +
+ sound/soc/generic/simple-card-utils.c         | 93 +++++++++++++++++++
+ 4 files changed, 114 insertions(+)
+
 -- 
-2.18.0
+2.30.2
 

@@ -2,84 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C6FE4B99B2
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Feb 2022 08:18:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25AD04B99E7
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Feb 2022 08:36:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1429A182B;
-	Thu, 17 Feb 2022 08:17:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1429A182B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A95A818F8;
+	Thu, 17 Feb 2022 08:35:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A95A818F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645082318;
-	bh=i3vLeRSvKXK9W1RF0/Yuinq0IT1mN8b0hgGHomjXJsY=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1645083376;
+	bh=/VOyMnc8qNs9Goprscke0HifeA/+0gM/2Q4ClEizzOg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ri7T/WkBGapzxF/IspNPK4SExMED/JKBLB/c2ow+od5ubRjWfjxR7Ee2EJYqYA6lb
-	 sJpKP1QO75AlgD+TDNmcANPissAHgTaAiLqOQIu/LTuXssfRmRjbJtLtOxolwOQ86F
-	 RLV9yRodvRQxcmA4ubBP8J8y1TYqeD2QNGi2bpIo=
+	b=dPguqmbKrMJnTbMimOj3EzQ2Px4KaBGo7wpOrpEtte7AboT/QZJ+aQEHtCHmgWUza
+	 GRkhA6VRAPLnMdMU2FWZQzOTU7d700QxqWDBItfLgJ5pLGRifcMNJyCidT3JFTgv72
+	 4wl6jHzg3B6x2oZijQzl4fCQEPiov/O3EAT5JCV8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F05EF80246;
-	Thu, 17 Feb 2022 08:17:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20608F800C0;
+	Thu, 17 Feb 2022 08:35:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7206F80240; Thu, 17 Feb 2022 08:17:30 +0100 (CET)
+ id 6FF21F80240; Thu, 17 Feb 2022 08:35:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0F96F800C0
- for <alsa-devel@alsa-project.org>; Thu, 17 Feb 2022 08:17:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0F96F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EAA95F800C0
+ for <alsa-devel@alsa-project.org>; Thu, 17 Feb 2022 08:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAA95F800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="hmmNDNJ0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645082245; x=1676618245;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=i3vLeRSvKXK9W1RF0/Yuinq0IT1mN8b0hgGHomjXJsY=;
- b=hmmNDNJ07mtbQmwzK263p/Vor85X13h+Ja05qg5HgGRf7s3KZO2Xnzhj
- zt4P31Aq7kegTf4otO5Aj6F1b2NFmfpZVpHoNuk18ZJpbTOP/R3wXZ7qG
- Ne0uhJN7B4Z3hXTm1MJd142tDQWHHteY7/atJ14TCWfUX68mUF6Os4b6a
- +js8+PeWJ5rkR/l1tZCDD0UBZuU/uBFzj7KEBjuiZD2aOWu3SfVnNDd3i
- xcqDv9qec8Bp97kdb/fjrBA7UdKRrZ+I/kJoNNmcAKYXxgZ3bvSr4sCka
- 9n8O+W1CYAq9ZN3awVkGJEbK7s7Y4XauLoJ58+G1QDHN7KXK5zRW0ZGQd w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="311555946"
-X-IronPort-AV: E=Sophos;i="5.88,375,1635231600"; d="scan'208";a="311555946"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 23:17:18 -0800
-X-IronPort-AV: E=Sophos;i="5.88,375,1635231600"; d="scan'208";a="681839546"
-Received: from vcraciun-mobl.ger.corp.intel.com (HELO [10.252.61.53])
- ([10.252.61.53])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2022 23:17:15 -0800
-Message-ID: <fa8546ec-c475-7169-f3e5-7afb93fa60aa@linux.intel.com>
-Date: Thu, 17 Feb 2022 09:17:18 +0200
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="po2VcBKQ"
+Received: by mail-wr1-x429.google.com with SMTP id e3so7450688wra.0
+ for <alsa-devel@alsa-project.org>; Wed, 16 Feb 2022 23:35:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=xPL+09khBYV8RItKtpzdQuIqr8WWC0DLKqJPTa3LDKw=;
+ b=po2VcBKQKTamBBBBaXEQhUyyZbCWMQux6CI+7Qrkva5Bj4pzsuE87SAnqEwNj4V1Ga
+ RJOnxqn90soXyp3/xLT5xQMwiyDD+Ve/3Qi9F7SshuX43g1SusUC4tkbcxAs0F4VR8Kz
+ ptxToypmbaHTKb+FOcTgd0i4CWay8lxRZViii5WI0KZjuwSU/o2e1D3BABfh1PLS16IY
+ 7Xdxu2sq75ARv1Ys466UjviCKYMW3CHtxLjzIA50bW7Tlv09LW4+96jN4MaeGdyNz+RV
+ v7GV3HLMwrcj4o9wCIFdj4gD2MQlcwhaRbDAA6K8x+J+j2+DxDlzUKzRhlFqlXtxMZ4O
+ Ah/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=xPL+09khBYV8RItKtpzdQuIqr8WWC0DLKqJPTa3LDKw=;
+ b=eAyLrD7KwaFKrlb7Q5PttwRXB0ZyCRpzQ5kvjF9G4Yoo026SlB59qgKasrgXv0B2Py
+ GzUoFAqhttRyH77YnAIC2zdQlhPYM10tI882ORUC1p891eufu0q1BuPnV+GcQy9LGMHp
+ vgflmhh1ry1cQfEAT76IU+kj78gQXJOxiJOoaHMQJ4J/OcVbpVol1kGqRNzfBAiENh4L
+ nMqfw7d3U7e/f7yHe98kzHwVPFphwLs0WJ/0R2RbbRITqRXno0I/XWZ07RBrCc3I6mRR
+ lVu1HUTAlxLBplLbDBnEEoNhyQ6yf8DALBtbsPGQtOVRa7gtThUkgLv6tfbDE74gjfyo
+ isOQ==
+X-Gm-Message-State: AOAM530VaJDqLPSqThA1r5nBzn6ah/vtetQl2r2PSRztAe0NhcNrTVqN
+ X0iv9vjFJRWj9iOGcKMF0x4=
+X-Google-Smtp-Source: ABdhPJxhGgAhRLb4mOGFtIHKutI5wjGBXoSwwtqIMocgzYakd20/sX20pkYG0oJAAmM5fSBjnhp38w==
+X-Received: by 2002:a5d:5221:0:b0:1d9:2680:5fb with SMTP id
+ i1-20020a5d5221000000b001d9268005fbmr1243143wra.23.1645083300515; 
+ Wed, 16 Feb 2022 23:35:00 -0800 (PST)
+Received: from orome (p200300e41f0a6900000000000000043a.dip0.t-ipconnect.de.
+ [2003:e4:1f0a:6900::43a])
+ by smtp.gmail.com with ESMTPSA id ba14sm15366890wrb.56.2022.02.16.23.34.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Feb 2022 23:34:59 -0800 (PST)
+Date: Thu, 17 Feb 2022 08:34:57 +0100
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v3 2/5] dt-bindings: Add Tegra234 APE support
+Message-ID: <Yg36oUdUiB/H+Ngf@orome>
+References: <1643373476-8538-1-git-send-email-spujar@nvidia.com>
+ <1643373476-8538-3-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Subject: Re: [PATCH v2] ASoC: SOF: core: unregister clients and machine
- drivers in .shutdown
-Content-Language: en-US
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
-References: <20220216133241.3990281-1-kai.vehmanen@linux.intel.com>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20220216133241.3990281-1-kai.vehmanen@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- amadeuszx.slawinski@linux.intel.com, daniel.baluta@nxp.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="Bq7R2hPdkx7Mharn"
+Content-Disposition: inline
+In-Reply-To: <1643373476-8538-3-git-send-email-spujar@nvidia.com>
+User-Agent: Mutt/2.2 (7160e05a) (2022-02-12)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ robh+dt@kernel.org, broonie@kernel.org, linux-tegra@vger.kernel.org,
+ jonathanh@nvidia.com, mkumard@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,61 +108,84 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--Bq7R2hPdkx7Mharn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 16/02/2022 15:32, Kai Vehmanen wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> 
-> On a platform shutdown, the expectation for most drivers is that
-> userspace tasks will release all resources. When those sequences do
-> not complete, it can be the case that PCM devices exposed by ALSA
-> cards are used *after* the DSP shutdown completes, leading to a
-> platform hang.
-> 
-> When the clients and machine drivers provide an _unregister callback,
-> let's invoke it in the shutdown sequence.
-
-Github lost my Reviewed-by...
-
-Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+On Fri, Jan 28, 2022 at 06:07:53PM +0530, Sameer Pujar wrote:
+> Add clocks, power-domain and memory bindings to support APE subsystem
+> on Tegra234.
+>=20
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
 > ---
->  sound/soc/sof/core.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> V1->V2:
->   - correct patch title to have "ASoC: SOF: " prefix (reported
->     by Amadeusz)
-> 
-> diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-> index d99ecbb4282d..2a35d8ddf43e 100644
-> --- a/sound/soc/sof/core.c
-> +++ b/sound/soc/sof/core.c
-> @@ -463,10 +463,19 @@ EXPORT_SYMBOL(snd_sof_device_remove);
->  int snd_sof_device_shutdown(struct device *dev)
->  {
->  	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-> +	struct snd_sof_pdata *pdata = sdev->pdata;
->  
->  	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
->  		cancel_work_sync(&sdev->probe_work);
->  
-> +	/*
-> +	 * make sure clients and machine driver(s) are unregistered to force
-> +	 * all userspace devices to be closed prior to the DSP shutdown sequence
-> +	 */
-> +	sof_unregister_clients(sdev);
-> +
-> +	snd_sof_machine_unregister(sdev, pdata);
-> +
->  	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
->  		return snd_sof_shutdown(sdev);
->  
-> 
-> base-commit: f7d344a2bd5ec81fbd1ce76928fd059e57ec9bea
+>  include/dt-bindings/clock/tegra234-clock.h     | 74 ++++++++++++++++++++=
++++++-
+>  include/dt-bindings/memory/tegra234-mc.h       |  7 +++
+>  include/dt-bindings/power/tegra234-powergate.h |  9 ++++
+>  3 files changed, 89 insertions(+), 1 deletion(-)
+>  create mode 100644 include/dt-bindings/power/tegra234-powergate.h
+[...]
+> diff --git a/include/dt-bindings/memory/tegra234-mc.h b/include/dt-bindin=
+gs/memory/tegra234-mc.h
+> index 2662f70..444e62d 100644
+> --- a/include/dt-bindings/memory/tegra234-mc.h
+> +++ b/include/dt-bindings/memory/tegra234-mc.h
+> @@ -1,4 +1,5 @@
+>  /* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
+> +/* Copyright (c) 2018-2022, NVIDIA CORPORATION. All rights reserved. */
+> =20
+>  #ifndef DT_BINDINGS_MEMORY_TEGRA234_MC_H
+>  #define DT_BINDINGS_MEMORY_TEGRA234_MC_H
+> @@ -7,6 +8,8 @@
+>  #define TEGRA234_SID_INVALID		0x00
+>  #define TEGRA234_SID_PASSTHROUGH	0x7f
+> =20
+> +/* NISO0 stream IDs */
+> +#define TEGRA234_SID_APE	0x02
+> =20
+>  /* NISO1 stream IDs */
+>  #define TEGRA234_SID_SDMMC4	0x02
+> @@ -20,6 +23,10 @@
+>  #define TEGRA234_MEMORY_CLIENT_SDMMCRAB 0x63
+>  /* sdmmcd memory write client */
+>  #define TEGRA234_MEMORY_CLIENT_SDMMCWAB 0x67
+> +/* Audio Processing (APE) engine read clients */
+> +#define TEGRA234_MEMORY_CLIENT_APER 0x7a
+> +/* Audio Processing (APE) engine write clients */
+> +#define TEGRA234_MEMORY_CLIENT_APEW 0x7b
+>  /* BPMP read client */
+>  #define TEGRA234_MEMORY_CLIENT_BPMPR 0x93
+>  /* BPMP write client */
 
--- 
-Péter
+This usually needs to be accompanied by a corresponding addition to the
+memory controller driver. Unfortunately it seems like the changes
+targetted at v5.17-rc1 never made it upstream, so I've queued them up
+again for v5.18-rc1. They should show up in today's linux-next. When
+they do, can you please follow up with a patch to the memory controller
+driver that adds the various registers for these clients?
+
+Thanks,
+Thierry
+
+--Bq7R2hPdkx7Mharn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmIN+p4ACgkQ3SOs138+
+s6HXzg/+Pt32PqWtDsespPZuvsrN9+Q2VO1sd3mIrkZIHBZFTPHrIEo0LSpJFuwB
+4cjq/re93NRotAh3oOc9UbEhXLCq7sGMpUqFMiwvASLqLOJ+O1EJnokqyqrxXXlm
+T407gBsg/+95avKFbgoOCC+D+5nK48HziZL1BLyFBj2jRbkFH08uPcHRWcj25kPh
+ANh1sejoM+GIa7t6dARwh0jX5QdZCErIM7jCL2uHKH5dJawCclfNNv1qsMTqIol/
+F17NEcLjtC3XrZ00JB6akE2r8iLdga0PO8QyE8c1REWTvwD3KFqkKorw9Tup5/u/
+i0JzJi0dsf6yTT/IAPjMUOU2HlEmmbgHWkvBw4MaLJYlefq5/XQQgEXpcKYcPo0Y
+y1C9XWyNfRbdn8yM6JLP5LHo8UdvNV1mZFZf+LMoQ3VbIcl9sbPRgvP7Sc8LoT61
+1tDmq3yW9ViRj9XHdvlhDGt2yipDTEG9LLn6XwpxcOpWHAa/UuSLtEzF362YLvZ9
+mZXAewuzIGWzOHxKT9h3F8rSr6J8Ep8pS2M4i1YyQwIS+CWhIdL5Q6OdU0QS6aaO
+po2J0PR8FQ1PZaLnikMHz1/potg/8+SzmKrUI3HuJSNa2ImpDdU8+msJJLtimjLh
+4U6UwCfQXuGhttj/rv3S4F/TTBlFhXV00TY2J6Ow4AAZ1R36raM=
+=udsN
+-----END PGP SIGNATURE-----
+
+--Bq7R2hPdkx7Mharn--

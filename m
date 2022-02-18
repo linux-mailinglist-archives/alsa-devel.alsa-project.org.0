@@ -2,88 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A91484BAD07
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Feb 2022 00:05:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F74F4BB430
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Feb 2022 09:32:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F30A187D;
-	Fri, 18 Feb 2022 00:04:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F30A187D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0372B17A2;
+	Fri, 18 Feb 2022 09:31:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0372B17A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645139103;
-	bh=OO5QeJBeIhbkKQUPmn7/Wwe7hFTDM/XNfT9aU6O2tYI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bj05uPeZpv+g5xn+AeQ0fYLEmot0IpPoaAchE3BH6U4sCXciYAJI/+jTZvsWHwnXA
-	 ELy69Zts+krMTerewgfz0M+4M+zA3YWo7+dR7h8qkr3Xjq0ap4vUkhKTZ7TxMU3U0I
-	 ws0JsGo5Wk0U9wd0Ir6kcfofhcYsZfeZb+n1nKCE=
+	s=default; t=1645173126;
+	bh=X4dKIlW+L1OU06c5P3qQy/8tIznfj0CKwjIgQAnzeTI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TS71zjBcO4XTNPBXpT5ereDx4MvHW498W+3SvpZ9809zesc/rDqleDtWkb1t4gE+w
+	 5F+wgZD3/5Y+F04pK6SJIB0Q8sQP5Rba5l+7y+6zFOoAjT4uG4UnrP5RKIAcemBVBJ
+	 vQu61L2E4OBboPwhLMYcxh5dRRVywFI3Tp0tN9DQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A99BCF80246;
-	Fri, 18 Feb 2022 00:03:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7978EF80154;
+	Fri, 18 Feb 2022 09:31:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E01EEF80240; Fri, 18 Feb 2022 00:03:54 +0100 (CET)
+ id CE358F8013C; Fri, 18 Feb 2022 09:30:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0866F800C0
- for <alsa-devel@alsa-project.org>; Fri, 18 Feb 2022 00:03:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0866F800C0
-Received: by mail-io1-f51.google.com with SMTP id w7so5564823ioj.5
- for <alsa-devel@alsa-project.org>; Thu, 17 Feb 2022 15:03:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=a90pTChAYnDmwk/LBPu/23Ywkd3tKQPqdNOZmAKI93Q=;
- b=kW/T+y6cJtjzyHrqDYimE56seKDQRJAwHO1bKUBi9NxnRO6sCgj1XWByd7Rv2tuxGO
- MkUVcrTdK1jk8iiyI7//oo3xZP5ph9hLh21UcRLKdAfOvu3qbaz/WTupUuMPxwk5veRi
- 1DNRXGL5NvgO9J9nBzuqm2dQdyG83T7m/htmeRj4KzxrSqXDo1Ou9tObHlP7ZQjWGXUD
- o5SYLunXc8XSIxJ/+Djv1wVD93Qw4KdceJz7GFHNCpMnUQeQNvsF9Pzi8pkb4+7Hj9U9
- G7dOP4lAIaKYg0GAABdQNJU+QRFNYebiNOYNaIKsojUmTAsA3a3LlXb6QEK9icnFjAyg
- hcKQ==
-X-Gm-Message-State: AOAM5330jI46MUdlB7o46BxldmCA8OU9sHY6O8DBuIQnndBFvZ/X0KKX
- zw9ltyhDQL6OKrXtripzAw==
-X-Google-Smtp-Source: ABdhPJwBNOHhOTwNdVsdNbEO922dnDGVriqBho+EVOye2+ET06i6szcEIK8HwmqntGDDgPD3BpC68A==
-X-Received: by 2002:a05:6602:1652:b0:611:56a8:8aae with SMTP id
- y18-20020a056602165200b0061156a88aaemr3410597iow.101.1645139026697; 
- Thu, 17 Feb 2022 15:03:46 -0800 (PST)
-Received: from robh.at.kernel.org ([64.188.179.250])
- by smtp.gmail.com with ESMTPSA id w15sm268284iou.44.2022.02.17.15.03.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Feb 2022 15:03:45 -0800 (PST)
-Received: (nullmailer pid 3935833 invoked by uid 1000);
- Thu, 17 Feb 2022 23:03:43 -0000
-Date: Thu, 17 Feb 2022 17:03:43 -0600
-From: Rob Herring <robh@kernel.org>
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v6 1/7] dt-bindings: pinctrl: qcom: Update lpass lpi file
- name to SoC specific
-Message-ID: <Yg7UT5eZbmMF+SyN@robh.at.kernel.org>
-References: <1644851994-22732-1-git-send-email-quic_srivasam@quicinc.com>
- <1644851994-22732-2-git-send-email-quic_srivasam@quicinc.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52418F800FF;
+ Fri, 18 Feb 2022 09:30:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52418F800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="gmxmtjJ4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645173052; x=1676709052;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=X4dKIlW+L1OU06c5P3qQy/8tIznfj0CKwjIgQAnzeTI=;
+ b=gmxmtjJ4NixBi5FtG9ZjGEi4uLn139Q0RZfSP3bmlnjL7QOot7w6ZcHW
+ p9Tf+jNm0qU2/vPeA9ySLWmoC/MKneqikdZ0HHHhRbdrxdwx+ybcsDHQf
+ i5PN0tpgXW5i+ylfkaI0TgK+l90jFyHZEoif+gXWXD/zArRrvimUXhKBX
+ kt1DVK3yY0ufZiZWcQil2jgEcqq1Ql9gfHknWaSlGIIVjmMynsfvSsdeG
+ ORC8DqcEmmHUsO31Q3JdK54ObYRrZM/URdhum6e6g7qaP0ak3I58oXmZL
+ UOP/AKGqh0cwDMrKvmlWOaccxHqSfG4+uOMqSLQzbaIXE+JfqAs7jGZ9T g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="231064342"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="231064342"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 00:30:44 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="503921065"
+Received: from brentlu-brix.itwn.intel.com ([10.5.253.25])
+ by orsmga002.jf.intel.com with ESMTP; 18 Feb 2022 00:30:42 -0800
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: SOF: Intel: Add topology overwrite for Felwinter
+Date: Fri, 18 Feb 2022 16:27:41 +0800
+Message-Id: <20220218082741.1707209-1-brent.lu@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1644851994-22732-2-git-send-email-quic_srivasam@quicinc.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, tiwai@suse.com, robh+dt@kernel.org,
- bjorn.andersson@linaro.org, linux-gpio@vger.kernel.org,
- srinivas.kandagatla@linaro.org, broonie@kernel.org, rohitkr@codeaurora.org,
- agross@kernel.org, quic_plai@quicinc.com, swboyd@chromium.org,
- Venkata Prasad Potturu <quic_potturu@quicinc.com>, judyhsiao@chromium.org,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ Brent Lu <brent.lu@intel.com>, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,25 +91,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 14 Feb 2022 20:49:48 +0530, Srinivasa Rao Mandadapu wrote:
-> Change generic lpass lpi pincotrol bindings file to SoC specific file,
-> to distinguish and accomadate other SoC specific dt bindings.
-> 
-> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> ---
->  .../bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml   | 133 ---------------------
->  .../pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml     | 133 +++++++++++++++++++++
->  2 files changed, 133 insertions(+), 133 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
->  create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml
-> 
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
 
+The Felwinter uses four max98360a amplifiers on corresponding CH0~CH3.
+There are four amps on the board connecting to headphone to SSP0 port,
+amp to SSP1,and the DAI format would be DSP_A,8-slots, 32 bit slot-width.
 
-Please add Acked-by/Reviewed-by tags when posting new versions. However,
-there's no need to repost patches *only* to add the tags. The upstream
-maintainer will do that for acks received on the version they apply.
+CH0: L(Woofer), CH1:R(Woofer), CH2:L(Tweeter), CH3:R(Tweeter)
 
-If a tag was not added on purpose, please state why and what changed.
+Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
+ sound/soc/sof/sof-pci-dev.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index 20c6ca37dbc4..61f2afd54c3e 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -67,6 +67,14 @@ static const struct dmi_system_id sof_tplg_table[] = {
+ 		},
+ 		.driver_data = "sof-adl-max98390-ssp2-rt5682-ssp0.tplg",
+ 	},
++	{
++		.callback = sof_tplg_cb,
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Brya"),
++			DMI_MATCH(DMI_OEM_STRING, "AUDIO_AMP-MAX98360_ALC5682VS_I2S_2WAY"),
++		},
++		.driver_data = "sof-adl-max98360a-rt5682-2way.tplg",
++	},
+ 
+ 	{}
+ };
+-- 
+2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1108E4BBB54
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Feb 2022 15:57:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 445064BBB56
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Feb 2022 15:57:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5505182B;
-	Fri, 18 Feb 2022 15:56:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5505182B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E95E917C1;
+	Fri, 18 Feb 2022 15:56:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E95E917C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645196245;
-	bh=9LOKSJOw3hrIjnfZFnzW6ySiVT5icMuzMaCYA+0KEPE=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1645196267;
+	bh=BNRqVaIznxdSI5UmM/CDXnRb7mKcNybQ0QVeUyjm68A=;
+	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g++9WF2ON52GJc9XVJ2Um0tncmsem+GgS48B52mJaWwLiPM3b99NNSuhcOHXZ/aTm
-	 MQoPhkTOMLOsoN5vyyZjJHe4SUzdVvQjHfiiwLBmBKlSv1ditMhbWctzVVLIniJk/m
-	 1klA1Oaa9zKAG1EMKC1J/LLp69xa0Y/Rl2QaX1pQ=
+	b=F/LFsCl55ok5vRTOZpMBzUoDd4A+Z9qtnrd2tI0g5hQ7O0No6yDM1ZSmJEI0azMZ8
+	 1Fp4l3qmNzrwSl04ldadOQ5Gt8QDYT0OF4kZLj5Vr9kVxdhzpP3PYXqYADcv41i3hP
+	 /dCmrlvzWtHlKVUTjgOrOOshArUodf/zK3K2zCi4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85B08F80536;
-	Fri, 18 Feb 2022 15:54:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52773F8053A;
+	Fri, 18 Feb 2022 15:54:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2B37F8052F; Fri, 18 Feb 2022 15:54:39 +0100 (CET)
+ id 362D1F8053B; Fri, 18 Feb 2022 15:54:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A1F2F8051F
- for <alsa-devel@alsa-project.org>; Fri, 18 Feb 2022 15:54:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A1F2F8051F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28069F80525
+ for <alsa-devel@alsa-project.org>; Fri, 18 Feb 2022 15:54:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28069F80525
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="ORUI+1d1"
+ header.b="YHby/413"
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id B3C001F46B9E
+ (Authenticated sender: kholk11) with ESMTPSA id 5EEB31F46BA2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1645196072;
- bh=9LOKSJOw3hrIjnfZFnzW6ySiVT5icMuzMaCYA+0KEPE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ORUI+1d1LqsS47HvLYgL9rWWZbGCGwRSwH0OIKPA+Dg8FcNHD9a7cXR9/GhTNAGB9
- dyhCmfYXO88uBAn/iclOsmUg5rmlsxL4blVkrWGLWl45MJGFdHbutAVQwlO7d3PZEq
- uHtj6fvqH7WdNuK3EAu9lPtFN6JlX5U9sQHbJn+c0Nj3Efns8pl87Yvcj4DPR2NgYn
- tIP8WLqquDZ9/1Aa+vB6wvmg5gHSkSBVq7L9xYTyimjBKfrXLVIE9oIVDDfc/dhEqf
- me8K3g28zyq9eCr4fhGsWpJgVSMDcyxoIt8TaX2vvXTrtKOkFgj3Prp+x3imtLt9aj
- qHaR4n5uv5pDw==
-Message-ID: <fcae42a5-6e11-e683-8f3a-453650f08d38@collabora.com>
-Date: Fri, 18 Feb 2022 15:54:28 +0100
+ s=mail; t=1645196076;
+ bh=BNRqVaIznxdSI5UmM/CDXnRb7mKcNybQ0QVeUyjm68A=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+ b=YHby/413Ve8qordns5PK1EjLZ5b8YVnn01Vc48Khr299WvQnwQDKXEXOR8QAick1q
+ bLidhVVBXHXoh09EIV041YqqO4UaPyOLCjQbCh8T+w3568WVmcBOClo0VsnlXyAEjL
+ VGgEOtP2N2MH9F5jBMJ3Yz+1QsWKofFKvok7yIh33RzAcGN44bpn2hQ35mdSQFDTzH
+ T5w46UVGQ36yefpFcNqybe/k/R/Kqti3T+zhqxewREa3vH/a00KEdrJZSRIpF/UfX2
+ py2xwM7PZ9BcDuJalCqHA0muYGQa7urdgUttHsHaBiNBYiXt18NPn66Q/4xW/ylxfN
+ YVFppWTpK1svg==
+Message-ID: <e2d28d1a-4bbc-931d-3534-776ee18369f4@collabora.com>
+Date: Fri, 18 Feb 2022 15:54:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
-Subject: Re: [v2 09/17] ASoC: mediatek: mt8186: support tdm in platform driver
-Content-Language: en-US
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [v2 10/17] ASoC: mediatek: mt8186: support audio clock control in
+ platform driver
 To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org
 References: <20220217134205.15400-1-jiaxin.yu@mediatek.com>
- <20220217134205.15400-10-jiaxin.yu@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20220217134205.15400-10-jiaxin.yu@mediatek.com>
+ <20220217134205.15400-11-jiaxin.yu@mediatek.com>
+Content-Language: en-US
+In-Reply-To: <20220217134205.15400-11-jiaxin.yu@mediatek.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -88,433 +89,949 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Il 17/02/22 14:41, Jiaxin Yu ha scritto:
-> This patch adds mt8186 tdm dai driver.
+> This patch add audio clock control with CCF interface.
 > 
 > Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
 > ---
->   sound/soc/mediatek/mt8186/mt8186-dai-tdm.c | 713 +++++++++++++++++++++
->   1 file changed, 713 insertions(+)
->   create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-tdm.c
+>   sound/soc/mediatek/mt8186/mt8186-afe-clk.c | 719 +++++++++++++++++++++
+>   sound/soc/mediatek/mt8186/mt8186-afe-clk.h | 210 ++++++
+>   2 files changed, 929 insertions(+)
+>   create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-clk.c
+>   create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-clk.h
 > 
-> diff --git a/sound/soc/mediatek/mt8186/mt8186-dai-tdm.c b/sound/soc/mediatek/mt8186/mt8186-dai-tdm.c
+> diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-clk.c b/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
 > new file mode 100644
-> index 000000000000..28dd3661f0e0
+> index 000000000000..14f64b935619
 > --- /dev/null
-> +++ b/sound/soc/mediatek/mt8186/mt8186-dai-tdm.c
-> @@ -0,0 +1,713 @@
+> +++ b/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
+> @@ -0,0 +1,719 @@
 > +// SPDX-License-Identifier: GPL-2.0
 > +//
-> +// MediaTek ALSA SoC Audio DAI TDM Control
+> +// mt8186-afe-clk.c  --  Mediatek 8186 afe clock ctrl
 > +//
 > +// Copyright (c) 2022 MediaTek Inc.
 > +// Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
 > +
+> +#include <linux/clk.h>
 > +#include <linux/regmap.h>
-> +#include <sound/pcm_params.h>
+> +#include <linux/mfd/syscon.h>
 > +
-> +#include "mt8186-afe-clk.h"
 > +#include "mt8186-afe-common.h"
-> +#include "mt8186-afe-gpio.h"
-> +#include "mt8186-interconnection.h"
+> +#include "mt8186-afe-clk.h"
+> +#include "mt8186-audsys-clk.h"
 > +
-> +#define TDM_HD_EN_W_NAME "TDM_HD_EN"
-> +#define TDM_MCLK_EN_W_NAME "TDM_MCLK_EN"
-> +#define MTK_AFE_TDM_KCONTROL_NAME "TDM_HD_Mux"
+> +static DEFINE_MUTEX(mutex_request_dram);
 > +
-> +struct mtk_afe_tdm_priv {
-> +	unsigned int id;
-> +	unsigned int rate; /* for determine which apll to use */
-> +	unsigned int bck_invert;
-> +	unsigned int lck_invert;
-> +	unsigned int lrck_width;
-> +	unsigned int mclk_id;
-> +	unsigned int mclk_multiple; /* according to sample rate */
-> +	unsigned int mclk_rate;
-> +	unsigned int mclk_apll;
-> +	unsigned int tdm_mode;
-> +	unsigned int data_mode;
-> +	unsigned int slave_mode;
-> +	unsigned int low_jitter_en;
+> +static const char *aud_clks[CLK_NUM] = {
+> +	[CLK_AFE] = "aud_afe_clk",
+> +	[CLK_DAC] = "aud_dac_clk",
+> +	[CLK_DAC_PREDIS] = "aud_dac_predis_clk",
+> +	[CLK_ADC] = "aud_adc_clk",
+> +	[CLK_TML] = "aud_tml_clk",
+> +	[CLK_APLL22M] = "aud_apll22m_clk",
+> +	[CLK_APLL24M] = "aud_apll24m_clk",
+> +	[CLK_APLL1_TUNER] = "aud_apll_tuner_clk",
+> +	[CLK_APLL2_TUNER] = "aud_apll2_tuner_clk",
+> +	[CLK_TDM] = "aud_tdm_clk",
+> +	[CLK_NLE] = "aud_nle_clk",
+> +	[CLK_DAC_HIRES] = "aud_dac_hires_clk",
+> +	[CLK_ADC_HIRES] = "aud_adc_hires_clk",
+> +	[CLK_I2S1_BCLK] = "aud_i2s1_bclk",
+> +	[CLK_I2S2_BCLK] = "aud_i2s2_bclk",
+> +	[CLK_I2S3_BCLK] = "aud_i2s3_bclk",
+> +	[CLK_I2S4_BCLK] = "aud_i2s4_bclk",
+> +	[CLK_CONNSYS_I2S_ASRC] = "aud_connsys_i2s_asrc",
+> +	[CLK_GENERAL1_ASRC] = "aud_general1_asrc",
+> +	[CLK_GENERAL2_ASRC] = "aud_general2_asrc",
+> +	[CLK_ADC_HIRES_TML] = "aud_adc_hires_tml",
+> +	[CLK_ADDA6_ADC] = "aud_adda6_adc",
+> +	[CLK_ADDA6_ADC_HIRES] = "aud_adda6_adc_hires",
+> +	[CLK_3RD_DAC] = "aud_3rd_dac",
+> +	[CLK_3RD_DAC_PREDIS] = "aud_3rd_dac_predis",
+> +	[CLK_3RD_DAC_TML] = "aud_3rd_dac_tml",
+> +	[CLK_3RD_DAC_HIRES] = "aud_3rd_dac_hires",
+> +	[CLK_ETDM_IN1_BCLK] = "aud_etdm_in1_bclk",
+> +	[CLK_ETDM_OUT1_BCLK] = "aud_etdm_out1_bclk",
+> +	[CLK_INFRA_SYS_AUDIO] = "aud_infra_clk",
+> +	[CLK_INFRA_AUDIO_26M] = "mtkaif_26m_clk",
+> +	[CLK_MUX_AUDIO] = "top_mux_audio",
+> +	[CLK_MUX_AUDIOINTBUS] = "top_mux_audio_int",
+> +	[CLK_TOP_MAINPLL_D2_D4] = "top_mainpll_d2_d4",
+> +	[CLK_TOP_MUX_AUD_1] = "top_mux_aud_1",
+> +	[CLK_TOP_APLL1_CK] = "top_apll1_ck",
+> +	[CLK_TOP_MUX_AUD_2] = "top_mux_aud_2",
+> +	[CLK_TOP_APLL2_CK] = "top_apll2_ck",
+> +	[CLK_TOP_MUX_AUD_ENG1] = "top_mux_aud_eng1",
+> +	[CLK_TOP_APLL1_D8] = "top_apll1_d8",
+> +	[CLK_TOP_MUX_AUD_ENG2] = "top_mux_aud_eng2",
+> +	[CLK_TOP_APLL2_D8] = "top_apll2_d8",
+> +	[CLK_TOP_MUX_AUDIO_H] = "top_mux_audio_h",
+> +	[CLK_TOP_I2S0_M_SEL] = "top_i2s0_m_sel",
+> +	[CLK_TOP_I2S1_M_SEL] = "top_i2s1_m_sel",
+> +	[CLK_TOP_I2S2_M_SEL] = "top_i2s2_m_sel",
+> +	[CLK_TOP_I2S4_M_SEL] = "top_i2s4_m_sel",
+> +	[CLK_TOP_TDM_M_SEL] = "top_tdm_m_sel",
+> +	[CLK_TOP_APLL12_DIV0] = "top_apll12_div0",
+> +	[CLK_TOP_APLL12_DIV1] = "top_apll12_div1",
+> +	[CLK_TOP_APLL12_DIV2] = "top_apll12_div2",
+> +	[CLK_TOP_APLL12_DIV4] = "top_apll12_div4",
+> +	[CLK_TOP_APLL12_DIV_TDM] = "top_apll12_div_tdm",
+> +	[CLK_CLK26M] = "top_clk26m_clk",
 > +};
 > +
-> +enum {
-> +	TDM_IN_I2S = 0,
-> +	TDM_IN_LJ = 1,
-> +	TDM_IN_RJ = 2,
-> +	TDM_IN_DSP_A = 4,
-> +	TDM_IN_DSP_B = 5,
-> +};
-> +
-> +enum {
-> +	TDM_DATA_ONE_PIN = 0,
-> +	TDM_DATA_MULTI_PIN,
-> +};
-> +
-> +enum {
-> +	TDM_BCK_NON_INV = 0,
-> +	TDM_BCK_INV = 1,
-> +};
-> +
-> +enum {
-> +	TDM_LCK_NON_INV = 0,
-> +	TDM_LCK_INV = 1,
-> +};
-> +
-> +static unsigned int get_tdm_lrck_width(snd_pcm_format_t format,
-> +				       unsigned int mode)
+> +int mt8186_set_audio_int_bus_parent(struct mtk_base_afe *afe,
+> +				    int clk_id)
 > +{
-> +	if (mode == TDM_IN_DSP_A || mode == TDM_IN_DSP_B)
-> +		return 0;
-> +	else
-
-Drop the "else"
-
-> +		return snd_pcm_format_physical_width(format) - 1;
-> +}
-> +
-> +static unsigned int get_tdm_ch_fixup(unsigned int channels)
-> +{
-> +	if (channels > 4)
-> +		return 8;
-> +	else if (channels > 2)
-> +		return 4;
-> +	else
-
-Same here
-
-> +		return 2;
-> +}
-> +
-> +static unsigned int get_tdm_ch_per_sdata(unsigned int mode,
-> +					 unsigned int channels)
-> +{
-> +	if (mode == TDM_IN_DSP_A || mode == TDM_IN_DSP_B)
-> +		return get_tdm_ch_fixup(channels);
-> +	else
-
-...and same here
-
-> +		return 2;
-> +}
-> +
-> +enum {
-> +	SUPPLY_SEQ_APLL,
-> +	SUPPLY_SEQ_TDM_MCK_EN,
-> +	SUPPLY_SEQ_TDM_HD_EN,
-> +	SUPPLY_SEQ_TDM_EN,
-> +};
-> +
-> +static int get_tdm_id_by_name(const char *name)
-> +{
-> +	return MT8186_DAI_TDM_IN;
-> +}
-> +
-> +static int mtk_tdm_en_event(struct snd_soc_dapm_widget *w,
-> +			    struct snd_kcontrol *kcontrol,
-> +			    int event)
-> +{
-> +	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
-> +	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
 > +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	int dai_id = get_tdm_id_by_name(w->name);
-> +	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[dai_id];
+> +	int ret;
 > +
-> +	if (!tdm_priv) {
-> +		dev_info(afe->dev, "%s(), tdm_priv == NULL", __func__);
+> +	ret = clk_set_parent(afe_priv->clk[CLK_MUX_AUDIOINTBUS],
+> +			     afe_priv->clk[clk_id]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +			 __func__, aud_clks[CLK_MUX_AUDIOINTBUS],
+> +			 aud_clks[clk_id], ret);
+
+		dev_err(......)
+		return ret;
+
+> +	}
+> +
+
+	return 0;
+
+> +	return ret;
+> +}
+> +
+> +static int apll1_mux_setting(struct mtk_base_afe *afe, bool enable)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +	int ret = 0;
+> +
+> +	if (enable) {
+> +		ret = clk_prepare_enable(afe_priv->clk[CLK_TOP_MUX_AUD_1]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_1], ret);
+> +			goto EXIT;
+> +		}
+> +		ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_1],
+> +				     afe_priv->clk[CLK_TOP_APLL1_CK]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_1],
+> +				 aud_clks[CLK_TOP_APLL1_CK], ret);
 
 dev_err()
 
-> +		return -EINVAL;
+> +			goto EXIT;
+> +		}
+> +
+> +		/* 180.6336 / 8 = 22.5792MHz */
+> +		ret = clk_prepare_enable(afe_priv->clk[CLK_TOP_MUX_AUD_ENG1]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_ENG1], ret);
+> +			goto EXIT;
+> +		}
+> +		ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_ENG1],
+> +				     afe_priv->clk[CLK_TOP_APLL1_D8]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_ENG1],
+> +				 aud_clks[CLK_TOP_APLL1_D8], ret);
+> +			goto EXIT;
+> +		}
+> +	} else {
+> +		ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_ENG1],
+> +				     afe_priv->clk[CLK_CLK26M]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_ENG1],
+> +				 aud_clks[CLK_CLK26M], ret);
+> +			goto EXIT;
+> +		}
+> +		clk_disable_unprepare(afe_priv->clk[CLK_TOP_MUX_AUD_ENG1]);
+> +
+> +		ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_1],
+> +				     afe_priv->clk[CLK_CLK26M]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_1],
+> +				 aud_clks[CLK_CLK26M], ret);
+> +			goto EXIT;
+> +		}
+> +		clk_disable_unprepare(afe_priv->clk[CLK_TOP_MUX_AUD_1]);
 > +	}
-> +
-> +	dev_dbg(cmpnt->dev, "%s(), name %s, event 0x%x\n",
-> +		__func__, w->name, event);
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_PRE_PMU:
-> +		mt8186_afe_gpio_request(afe->dev, true, tdm_priv->id, 0);
-> +		break;
-> +	case SND_SOC_DAPM_POST_PMD:
-> +		mt8186_afe_gpio_request(afe->dev, false, tdm_priv->id, 0);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
+> +EXIT:
 > +	return 0;
+
+You're returning 0 even in error cases, this is wrong.
+
 > +}
 > +
-> +static int mtk_tdm_mck_en_event(struct snd_soc_dapm_widget *w,
-> +				struct snd_kcontrol *kcontrol,
-> +				int event)
+> +static int apll2_mux_setting(struct mtk_base_afe *afe, bool enable)
 > +{
-> +	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
-> +	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
 > +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	int dai_id = get_tdm_id_by_name(w->name);
-> +	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[dai_id];
+> +	int ret = 0;
 > +
-> +	if (!tdm_priv) {
-> +		dev_info(afe->dev, "%s(), tdm_priv == NULL", __func__);
-
-dev_err() - please fix all other instances
-
-> +		return -EINVAL;
+> +	if (enable) {
+> +		ret = clk_prepare_enable(afe_priv->clk[CLK_TOP_MUX_AUD_2]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_2], ret);
+> +			goto EXIT;
+> +		}
+> +		ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_2],
+> +				     afe_priv->clk[CLK_TOP_APLL2_CK]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_2],
+> +				 aud_clks[CLK_TOP_APLL2_CK], ret);
+> +			goto EXIT;
+> +		}
+> +
+> +		/* 196.608 / 8 = 24.576MHz */
+> +		ret = clk_prepare_enable(afe_priv->clk[CLK_TOP_MUX_AUD_ENG2]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_ENG2], ret);
+> +			goto EXIT;
+> +		}
+> +		ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_ENG2],
+> +				     afe_priv->clk[CLK_TOP_APLL2_D8]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_ENG2],
+> +				 aud_clks[CLK_TOP_APLL2_D8], ret);
+> +			goto EXIT;
+> +		}
+> +	} else {
+> +		ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_ENG2],
+> +				     afe_priv->clk[CLK_CLK26M]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_ENG2],
+> +				 aud_clks[CLK_CLK26M], ret);
+> +			goto EXIT;
+> +		}
+> +		clk_disable_unprepare(afe_priv->clk[CLK_TOP_MUX_AUD_ENG2]);
+> +
+> +		ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_2],
+> +				     afe_priv->clk[CLK_CLK26M]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +				 __func__, aud_clks[CLK_TOP_MUX_AUD_2],
+> +				 aud_clks[CLK_CLK26M], ret);
+> +			goto EXIT;
+> +		}
+> +		clk_disable_unprepare(afe_priv->clk[CLK_TOP_MUX_AUD_2]);
 > +	}
 > +
-> +	dev_dbg(cmpnt->dev, "%s(), name %s, event 0x%x, dai_id %d\n",
-> +		__func__, w->name, event, dai_id);
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_PRE_PMU:
-> +		mt8186_mck_enable(afe, tdm_priv->mclk_id, tdm_priv->mclk_rate);
-> +		break;
-> +	case SND_SOC_DAPM_POST_PMD:
-> +		tdm_priv->mclk_rate = 0;
-> +		mt8186_mck_disable(afe, tdm_priv->mclk_id);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
+> +EXIT:
 > +	return 0;
 > +}
 > +
-
-...snip...
-
-> +
-> +static int mt8186_tdm_hd_set(struct snd_kcontrol *kcontrol,
-> +			     struct snd_ctl_elem_value *ucontrol)
+> +int mt8186_afe_enable_cgs(struct mtk_base_afe *afe)
 > +{
-> +	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
-> +	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
 > +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	int dai_id = get_tdm_id_by_name(kcontrol->id.name);
-> +	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[dai_id];
-> +	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
-> +	int hd_en;
+> +	int ret = 0;
+> +	int i;
 > +
-> +	if (ucontrol->value.enumerated.item[0] >= e->items)
-> +		return -EINVAL;
-> +
-> +	hd_en = ucontrol->value.integer.value[0];
-> +
-> +	dev_info(afe->dev, "%s(), kcontrol name %s, hd_en %d\n",
-> +		 __func__, kcontrol->id.name, hd_en);
+> +	for (i = CLK_I2S1_BCLK; i <= CLK_ETDM_OUT1_BCLK; i++) {
+> +		ret = clk_prepare_enable(afe_priv->clk[i]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +				 __func__, aud_clks[i], ret);
 
-dev_dbg()
+dev_err()
 
-> +
-> +	if (!tdm_priv) {
-> +		dev_info(afe->dev, "%s(), tdm_priv == NULL", __func__);
-> +		return -EINVAL;
+> +			return ret;
+> +		}
 > +	}
-> +
-> +	tdm_priv->low_jitter_en = hd_en;
 > +
 > +	return 0;
 > +}
 > +
-> +static const struct snd_kcontrol_new mtk_dai_tdm_controls[] = {
-> +	SOC_ENUM_EXT(MTK_AFE_TDM_KCONTROL_NAME, mt8186_tdm_enum[0],
-> +		     mt8186_tdm_hd_get, mt8186_tdm_hd_set),
-> +};
-> +
-> +static const struct snd_soc_dapm_route mtk_dai_tdm_routes[] = {
-> +	{"TDM IN", NULL, "aud_tdm_clk"},
-> +	{"TDM IN", NULL, "TDM_EN"},
-> +	{"TDM IN", NULL, TDM_HD_EN_W_NAME, mtk_afe_tdm_hd_connect},
-> +	{TDM_HD_EN_W_NAME, NULL, APLL1_W_NAME, mtk_afe_tdm_apll_connect},
-> +	{TDM_HD_EN_W_NAME, NULL, APLL2_W_NAME, mtk_afe_tdm_apll_connect},
-> +
-> +	{"TDM IN", NULL, TDM_MCLK_EN_W_NAME, mtk_afe_tdm_mclk_connect},
-> +	{TDM_MCLK_EN_W_NAME, NULL, APLL1_W_NAME, mtk_afe_tdm_mclk_apll_connect},
-> +	{TDM_MCLK_EN_W_NAME, NULL, APLL2_W_NAME, mtk_afe_tdm_mclk_apll_connect},
-> +
-> +	/* allow tdm on without codec on */
-> +	{"TDM IN", NULL, "TDM_In_Mux"},
-> +	{"TDM_In_Mux", "Dummy_Widget", "TDM_DUMMY_IN"},
-> +};
-> +
-> +/* dai ops */
-> +static int mtk_dai_tdm_cal_mclk(struct mtk_base_afe *afe,
-> +				struct mtk_afe_tdm_priv *tdm_priv,
-> +				int freq)
+> +void mt8186_afe_disable_cgs(struct mtk_base_afe *afe)
 > +{
-> +	int apll;
-> +	int apll_rate;
-> +
-> +	apll = mt8186_get_apll_by_rate(afe, freq);
-> +	apll_rate = mt8186_get_apll_rate(afe, apll);
-> +
-> +	if (!freq || freq > apll_rate) {
-> +		dev_info(afe->dev,
-> +			 "%s(), freq(%d Hz) invalid\n", __func__, freq);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (apll_rate % freq != 0) {
-> +		dev_info(afe->dev,
-> +			 "%s(), APLL cannot generate %d Hz", __func__, freq);
-> +		return -EINVAL;
-> +	}
-> +
-> +	tdm_priv->mclk_rate = freq;
-> +	tdm_priv->mclk_apll = apll;
-> +
-> +	return 0;
-> +}
-> +
-> +static int mtk_dai_tdm_hw_params(struct snd_pcm_substream *substream,
-> +				 struct snd_pcm_hw_params *params,
-> +				 struct snd_soc_dai *dai)
-> +{
-> +	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
 > +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	int tdm_id = dai->id;
-> +	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[tdm_id];
-> +	unsigned int tdm_mode = tdm_priv->tdm_mode;
-> +	unsigned int data_mode = tdm_priv->data_mode;
-> +	unsigned int rate = params_rate(params);
-> +	unsigned int channels = params_channels(params);
-> +	snd_pcm_format_t format = params_format(params);
-> +	unsigned int bit_width =
-> +		snd_pcm_format_physical_width(format);
-> +	unsigned int tdm_channels = (data_mode == TDM_DATA_ONE_PIN) ?
-> +		get_tdm_ch_per_sdata(tdm_mode, channels) : 2;
-> +	unsigned int lrck_width =
-> +		get_tdm_lrck_width(format, tdm_mode);
-> +	unsigned int tdm_con = 0;
-> +	bool slave_mode = tdm_priv->slave_mode;
-> +	bool lrck_inv = tdm_priv->lck_invert;
-> +	bool bck_inv = tdm_priv->bck_invert;
-> +	unsigned int ctrl_reg;
-> +	unsigned int ctrl_mask;
-> +	unsigned int tran_rate;
-> +	unsigned int tran_relatch_rate;
+> +	int i;
 > +
-> +	if (tdm_priv)
-> +		tdm_priv->rate = rate;
+> +	for (i = CLK_I2S1_BCLK; i <= CLK_ETDM_OUT1_BCLK; i++)
+> +		clk_disable_unprepare(afe_priv->clk[i]);
+> +}
+> +
+> +int mt8186_afe_enable_clock(struct mtk_base_afe *afe)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +	int ret = 0;
+> +
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_INFRA_SYS_AUDIO]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_INFRA_SYS_AUDIO], ret);
+
+dev_err()
+
+> +		goto CLK_INFRA_SYS_AUDIO_ERR;
+
+also, please use lower-case labels (here and everywhere else).
+
+> +	}
+> +
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_INFRA_AUDIO_26M]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_INFRA_AUDIO_26M], ret);
+> +		goto CLK_INFRA_AUDIO_26M_ERR;
+> +	}
+> +
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_MUX_AUDIO]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_MUX_AUDIO], ret);
+> +		goto CLK_MUX_AUDIO_ERR;
+> +	}
+> +	ret = clk_set_parent(afe_priv->clk[CLK_MUX_AUDIO],
+> +			     afe_priv->clk[CLK_CLK26M]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +			 __func__, aud_clks[CLK_MUX_AUDIO],
+> +			 aud_clks[CLK_CLK26M], ret);
+> +		goto CLK_MUX_AUDIO_ERR;
+> +	}
+> +
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_MUX_AUDIOINTBUS]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_MUX_AUDIOINTBUS], ret);
+> +		goto CLK_MUX_AUDIO_INTBUS_ERR;
+> +	}
+> +	ret = mt8186_set_audio_int_bus_parent(afe,
+> +					      CLK_TOP_MAINPLL_D2_D4);
+> +	if (ret)
+> +		goto CLK_MUX_AUDIO_INTBUS_PARENT_ERR;
+> +
+> +	ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUDIO_H],
+> +			     afe_priv->clk[CLK_TOP_APLL2_CK]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_set_parent %s-%s fail %d\n",
+> +			 __func__, aud_clks[CLK_TOP_MUX_AUDIO_H],
+> +			 aud_clks[CLK_TOP_APLL2_CK], ret);
+> +		goto CLK_MUX_AUDIO_H_PARENT_ERR;
+> +	}
+> +
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_AFE]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_AFE], ret);
+> +		goto CLK_AFE_ERR;
+> +	}
+> +
+> +	return 0;
+> +
+> +CLK_AFE_ERR:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_AFE]);
+> +CLK_MUX_AUDIO_H_PARENT_ERR:
+> +CLK_MUX_AUDIO_INTBUS_PARENT_ERR:
+> +	mt8186_set_audio_int_bus_parent(afe, CLK_CLK26M);
+> +CLK_MUX_AUDIO_INTBUS_ERR:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_MUX_AUDIOINTBUS]);
+> +CLK_MUX_AUDIO_ERR:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_MUX_AUDIO]);
+> +CLK_INFRA_SYS_AUDIO_ERR:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_INFRA_SYS_AUDIO]);
+> +CLK_INFRA_AUDIO_26M_ERR:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_INFRA_AUDIO_26M]);
+> +
+> +	return ret;
+> +}
+> +
+> +void mt8186_afe_disable_clock(struct mtk_base_afe *afe)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +
+> +	clk_disable_unprepare(afe_priv->clk[CLK_AFE]);
+> +	mt8186_set_audio_int_bus_parent(afe, CLK_CLK26M);
+> +	clk_disable_unprepare(afe_priv->clk[CLK_MUX_AUDIOINTBUS]);
+> +	clk_disable_unprepare(afe_priv->clk[CLK_MUX_AUDIO]);
+> +	clk_disable_unprepare(afe_priv->clk[CLK_INFRA_AUDIO_26M]);
+> +	clk_disable_unprepare(afe_priv->clk[CLK_INFRA_SYS_AUDIO]);
+> +}
+> +
+> +int mt8186_afe_suspend_clock(struct mtk_base_afe *afe)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +	int ret;
+> +
+> +	/* set audio int bus to 26M */
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_MUX_AUDIOINTBUS]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_MUX_AUDIOINTBUS], ret);
+
+dev_err() - here and for the other similar instances.
+
+> +		goto CLK_MUX_AUDIO_INTBUS_ERR;
+> +	}
+> +	ret = mt8186_set_audio_int_bus_parent(afe, CLK_CLK26M);
+> +	if (ret)
+> +		goto CLK_MUX_AUDIO_INTBUS_PARENT_ERR;
+> +
+> +	clk_disable_unprepare(afe_priv->clk[CLK_MUX_AUDIOINTBUS]);
+> +
+> +	return 0;
+> +
+> +CLK_MUX_AUDIO_INTBUS_PARENT_ERR:
+> +	mt8186_set_audio_int_bus_parent(afe, CLK_TOP_MAINPLL_D2_D4);
+> +CLK_MUX_AUDIO_INTBUS_ERR:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_MUX_AUDIOINTBUS]);
+> +	return ret;
+> +}
+> +
+> +int mt8186_afe_resume_clock(struct mtk_base_afe *afe)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +	int ret;
+> +
+> +	/* set audio int bus to normal working clock */
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_MUX_AUDIOINTBUS]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_MUX_AUDIOINTBUS], ret);
+> +		goto CLK_MUX_AUDIO_INTBUS_ERR;
+> +	}
+> +	ret = mt8186_set_audio_int_bus_parent(afe,
+> +					      CLK_TOP_MAINPLL_D2_D4);
+> +	if (ret)
+> +		goto CLK_MUX_AUDIO_INTBUS_PARENT_ERR;
+> +
+> +	clk_disable_unprepare(afe_priv->clk[CLK_MUX_AUDIOINTBUS]);
+> +
+> +	return 0;
+> +
+> +CLK_MUX_AUDIO_INTBUS_PARENT_ERR:
+> +	mt8186_set_audio_int_bus_parent(afe, CLK_CLK26M);
+> +CLK_MUX_AUDIO_INTBUS_ERR:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_MUX_AUDIOINTBUS]);
+> +	return ret;
+> +}
+> +
+> +int mt8186_apll1_enable(struct mtk_base_afe *afe)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +	int ret;
+> +
+> +	/* setting for APLL */
+> +	apll1_mux_setting(afe, true);
+> +
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_APLL22M]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_APLL22M], ret);
+> +		goto ERR_CLK_APLL22M;
+> +	}
+> +
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_APLL1_TUNER]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_APLL1_TUNER], ret);
+> +		goto ERR_CLK_APLL1_TUNER;
+> +	}
+> +
+> +	regmap_update_bits(afe->regmap, AFE_APLL1_TUNER_CFG,
+> +			   0x0000FFF7, 0x00000832);
+
+no leading zeroes - and without them, it fits in one line.
+
+> +	regmap_update_bits(afe->regmap, AFE_APLL1_TUNER_CFG, 0x1, 0x1);
+> +
+> +	regmap_update_bits(afe->regmap, AFE_HD_ENGEN_ENABLE,
+> +			   AFE_22M_ON_MASK_SFT,
+> +			   0x1 << AFE_22M_ON_SFT);
+
+BIT() macro please
+
+> +
+> +	return 0;
+> +
+> +ERR_CLK_APLL1_TUNER:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_APLL1_TUNER]);
+> +ERR_CLK_APLL22M:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_APLL22M]);
+> +
+> +	return ret;
+> +}
+> +
+> +void mt8186_apll1_disable(struct mtk_base_afe *afe)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +
+> +	regmap_update_bits(afe->regmap, AFE_HD_ENGEN_ENABLE,
+> +			   AFE_22M_ON_MASK_SFT,
+> +			   0x0 << AFE_22M_ON_SFT);
+> +
+> +	regmap_update_bits(afe->regmap, AFE_APLL1_TUNER_CFG, 0x1, 0x0);
+> +
+> +	clk_disable_unprepare(afe_priv->clk[CLK_APLL1_TUNER]);
+> +	clk_disable_unprepare(afe_priv->clk[CLK_APLL22M]);
+> +
+> +	apll1_mux_setting(afe, false);
+> +}
+> +
+> +int mt8186_apll2_enable(struct mtk_base_afe *afe)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +	int ret;
+> +
+> +	/* setting for APLL */
+> +	apll2_mux_setting(afe, true);
+> +
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_APLL24M]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_APLL24M], ret);
+> +		goto ERR_CLK_APLL24M;
+> +	}
+> +
+> +	ret = clk_prepare_enable(afe_priv->clk[CLK_APLL2_TUNER]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[CLK_APLL2_TUNER], ret);
+> +		goto ERR_CLK_APLL2_TUNER;
+> +	}
+> +
+> +	regmap_update_bits(afe->regmap, AFE_APLL2_TUNER_CFG,
+> +			   0x0000FFF7, 0x00000634);
+> +	regmap_update_bits(afe->regmap, AFE_APLL2_TUNER_CFG, 0x1, 0x1);
+> +
+> +	regmap_update_bits(afe->regmap, AFE_HD_ENGEN_ENABLE,
+> +			   AFE_24M_ON_MASK_SFT,
+> +			   0x1 << AFE_24M_ON_SFT);
+> +
+> +	return 0;
+> +
+> +ERR_CLK_APLL2_TUNER:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_APLL2_TUNER]);
+> +ERR_CLK_APLL24M:
+> +	clk_disable_unprepare(afe_priv->clk[CLK_APLL24M]);
+> +
+> +	return ret;
+> +}
+> +
+> +void mt8186_apll2_disable(struct mtk_base_afe *afe)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +
+> +	regmap_update_bits(afe->regmap, AFE_HD_ENGEN_ENABLE,
+> +			   AFE_24M_ON_MASK_SFT,
+> +			   0x0 << AFE_24M_ON_SFT);
+> +
+> +	regmap_update_bits(afe->regmap, AFE_APLL2_TUNER_CFG, 0x1, 0x0);
+> +
+> +	clk_disable_unprepare(afe_priv->clk[CLK_APLL2_TUNER]);
+> +	clk_disable_unprepare(afe_priv->clk[CLK_APLL24M]);
+> +
+> +	apll2_mux_setting(afe, false);
+> +}
+> +
+> +int mt8186_get_apll_rate(struct mtk_base_afe *afe, int apll)
+> +{
+> +	return (apll == MT8186_APLL1) ? 180633600 : 196608000;
+> +}
+> +
+> +int mt8186_get_apll_by_rate(struct mtk_base_afe *afe, int rate)
+> +{
+> +	return ((rate % 8000) == 0) ? MT8186_APLL2 : MT8186_APLL1;
+> +}
+> +
+> +int mt8186_get_apll_by_name(struct mtk_base_afe *afe, const char *name)
+> +{
+> +	if (strcmp(name, APLL1_W_NAME) == 0)
+> +		return MT8186_APLL1;
 > +	else
-> +		dev_info(afe->dev, "%s(), tdm_priv == NULL", __func__);
+> +		return MT8186_APLL2;
+> +}
 > +
-> +	tran_rate = mt8186_rate_transform(afe->dev, rate, dai->id);
-> +	tran_relatch_rate = mt8186_tdm_relatch_rate_transform(afe->dev, rate);
+> +/* mck */
+> +struct mt8186_mck_div {
+> +	int m_sel_id;
+> +	int div_clk_id;
+> +	/* below will be deprecated */
+> +	int div_pdn_reg;
+> +	int div_pdn_mask_sft;
+> +	int div_reg;
+> +	int div_mask_sft;
+> +	int div_mask;
+> +	int div_sft;
+> +	int div_msb_reg;
+> +	int div_msb_mask_sft;
+> +	int div_msb_mask;
+> +	int div_msb_sft;
+> +	int div_apll_sel_reg;
+> +	int div_apll_sel_mask_sft;
+> +	int div_apll_sel_sft;
+> +	int div_inv_reg;
+> +	int div_inv_mask_sft;
+
+
+
+*_reg fits in u16.
+*_mask_sft, *_sel_sft can be u32.
+
+This would be nice to avoid wasting memory for variables that are larger than
+needed; besides, you're also using a signed type for a number that may not
+ever be less than zero.
+
+
+> +};
 > +
-> +	/* calculate mclk_rate, if not set explicitly */
-> +	if (!tdm_priv->mclk_rate) {
-> +		tdm_priv->mclk_rate = rate * tdm_priv->mclk_multiple;
-> +		mtk_dai_tdm_cal_mclk(afe,
-> +				     tdm_priv,
-> +				     tdm_priv->mclk_rate);
+> +static const struct mt8186_mck_div mck_div[MT8186_MCK_NUM] = {
+> +	[MT8186_I2S0_MCK] = {
+> +		.m_sel_id = CLK_TOP_I2S0_M_SEL,
+> +		.div_clk_id = CLK_TOP_APLL12_DIV0,
+> +		.div_pdn_reg = CLK_AUDDIV_0,
+> +		.div_pdn_mask_sft = APLL12_DIV0_PDN_MASK_SFT,
+> +		.div_reg = CLK_AUDDIV_2,
+> +		.div_mask_sft = APLL12_CK_DIV0_MASK_SFT,
+> +		.div_mask = APLL12_CK_DIV0_MASK,
+> +		.div_sft = APLL12_CK_DIV0_SFT,
+> +		.div_apll_sel_reg = CLK_AUDDIV_0,
+> +		.div_apll_sel_mask_sft = APLL_I2S0_MCK_SEL_MASK_SFT,
+> +		.div_apll_sel_sft = APLL_I2S0_MCK_SEL_SFT,
+> +	},
+> +	[MT8186_I2S1_MCK] = {
+> +		.m_sel_id = CLK_TOP_I2S1_M_SEL,
+> +		.div_clk_id = CLK_TOP_APLL12_DIV1,
+> +		.div_pdn_reg = CLK_AUDDIV_0,
+> +		.div_pdn_mask_sft = APLL12_DIV1_PDN_MASK_SFT,
+> +		.div_reg = CLK_AUDDIV_2,
+> +		.div_mask_sft = APLL12_CK_DIV1_MASK_SFT,
+> +		.div_mask = APLL12_CK_DIV1_MASK,
+> +		.div_sft = APLL12_CK_DIV1_SFT,
+> +		.div_apll_sel_reg = CLK_AUDDIV_0,
+> +		.div_apll_sel_mask_sft = APLL_I2S1_MCK_SEL_MASK_SFT,
+> +		.div_apll_sel_sft = APLL_I2S1_MCK_SEL_SFT,
+> +	},
+> +	[MT8186_I2S2_MCK] = {
+> +		.m_sel_id = CLK_TOP_I2S2_M_SEL,
+> +		.div_clk_id = CLK_TOP_APLL12_DIV2,
+> +		.div_pdn_reg = CLK_AUDDIV_0,
+> +		.div_pdn_mask_sft = APLL12_DIV2_PDN_MASK_SFT,
+> +		.div_reg = CLK_AUDDIV_2,
+> +		.div_mask_sft = APLL12_CK_DIV2_MASK_SFT,
+> +		.div_mask = APLL12_CK_DIV2_MASK,
+> +		.div_sft = APLL12_CK_DIV2_SFT,
+> +		.div_apll_sel_reg = CLK_AUDDIV_0,
+> +		.div_apll_sel_mask_sft = APLL_I2S2_MCK_SEL_MASK_SFT,
+> +		.div_apll_sel_sft = APLL_I2S2_MCK_SEL_SFT,
+> +	},
+> +	[MT8186_I2S4_MCK] = {
+> +		.m_sel_id = CLK_TOP_I2S4_M_SEL,
+> +		.div_clk_id = CLK_TOP_APLL12_DIV4,
+> +		.div_pdn_reg = CLK_AUDDIV_0,
+> +		.div_pdn_mask_sft = APLL12_DIV4_PDN_MASK_SFT,
+> +		.div_reg = CLK_AUDDIV_2,
+> +		.div_mask_sft = APLL12_CK_DIV4_MASK_SFT,
+> +		.div_mask = APLL12_CK_DIV4_MASK,
+> +		.div_sft = APLL12_CK_DIV4_SFT,
+> +		.div_apll_sel_reg = CLK_AUDDIV_0,
+> +		.div_apll_sel_mask_sft = APLL_I2S4_MCK_SEL_MASK_SFT,
+> +		.div_apll_sel_sft = APLL_I2S4_MCK_SEL_SFT,
+> +	},
+> +	[MT8186_TDM_MCK] = {
+> +		.m_sel_id = CLK_TOP_TDM_M_SEL,
+> +		.div_clk_id = CLK_TOP_APLL12_DIV_TDM,
+> +		.div_pdn_reg = CLK_AUDDIV_0,
+> +		.div_pdn_mask_sft = APLL12_DIV_TDM_PDN_MASK_SFT,
+> +		.div_reg = CLK_AUDDIV_3,
+> +		.div_mask_sft = APLL12_CK_DIV_TDM_MASK_SFT,
+> +		.div_mask = APLL12_CK_DIV_TDM_MASK,
+> +		.div_sft = APLL12_CK_DIV_TDM_SFT,
+> +		.div_apll_sel_reg = CLK_AUDDIV_0,
+> +		.div_apll_sel_mask_sft = APLL_TDM_MCK_SEL_MASK_SFT,
+> +		.div_apll_sel_sft = APLL_TDM_MCK_SEL_SFT,
+> +	},
+> +};
+> +
+> +int mt8186_mck_enable(struct mtk_base_afe *afe, int mck_id, int rate)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +	int apll = mt8186_get_apll_by_rate(afe, rate);
+> +	int apll_clk_id = apll == MT8186_APLL1 ?
+> +			  CLK_TOP_MUX_AUD_1 : CLK_TOP_MUX_AUD_2;
+> +	int m_sel_id = mck_div[mck_id].m_sel_id;
+> +	int div_clk_id = mck_div[mck_id].div_clk_id;
+> +	int ret;
+> +
+> +	/* select apll */
+> +	if (m_sel_id >= 0) {
+> +		ret = clk_prepare_enable(afe_priv->clk[m_sel_id]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s(), clk_prepare_enable %s fail %d\n",
+> +				 __func__, aud_clks[m_sel_id], ret);
+
+dev_err()
+
+> +			return ret;
+> +		}
+> +		ret = clk_set_parent(afe_priv->clk[m_sel_id],
+> +				     afe_priv->clk[apll_clk_id]);
+> +		if (ret) {
+> +			dev_info(afe->dev, "%s(), clk_set_parent %s-%s fail %d\n",
+> +				 __func__, aud_clks[m_sel_id],
+> +				aud_clks[apll_clk_id], ret);
+
+again
+
+> +			return ret;
+> +		}
 > +	}
 > +
-> +	/* ETDM_IN1_CON0 */
-> +	tdm_con |= slave_mode << ETDM_IN1_CON0_REG_SLAVE_MODE_SFT;
-> +	tdm_con |= tdm_mode << ETDM_IN1_CON0_REG_FMT_SFT;
-> +	tdm_con |= (bit_width - 1) << ETDM_IN1_CON0_REG_BIT_LENGTH_SFT;
-> +	tdm_con |= (bit_width - 1) << ETDM_IN1_CON0_REG_WORD_LENGTH_SFT;
-> +	tdm_con |= (tdm_channels - 1) << ETDM_IN1_CON0_REG_CH_NUM_SFT;
-> +	/* default disable sync mode */
-> +	tdm_con |= 0 << ETDM_IN1_CON0_REG_SYNC_MODE_SFT;
+> +	/* enable div, set rate */
+> +	ret = clk_prepare_enable(afe_priv->clk[div_clk_id]);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s(), clk_prepare_enable %s fail %d\n",
+> +			 __func__, aud_clks[div_clk_id], ret);
 
-0 << (anything) == 0
+again
 
-(number |= 0) == number
+> +		return ret;
+> +	}
+> +	ret = clk_set_rate(afe_priv->clk[div_clk_id], rate);
+> +	if (ret) {
+> +		dev_info(afe->dev, "%s(), clk_set_rate %s, rate %d, fail %d\n",
+> +			 __func__, aud_clks[div_clk_id],
+> +			 rate, ret);
 
-Is this a mistake, or are you really doing nothing here?
+again - and this fits in two lines.
 
-
-> +	/* relatch fix to h26m */
-> +	tdm_con |= 0 << ETDM_IN1_CON0_REG_RELATCH_1X_EN_SEL_DOMAIN_SFT;
+> +		return ret;
+> +	}
 > +
-> +	ctrl_reg = ETDM_IN1_CON0;
-> +	ctrl_mask = ETDM_IN_CON0_CTRL_MASK;
-> +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
+> +	return 0;
+> +}
 > +
-> +	/* ETDM_IN1_CON1 */
-> +	tdm_con = 0;
-> +	tdm_con |= 0 << ETDM_IN1_CON1_REG_LRCK_AUTO_MODE_SFT;
-> +	tdm_con |= 1 << ETDM_IN1_CON1_PINMUX_MCLK_CTRL_OE_SFT;
-> +	tdm_con |= (lrck_width - 1) << ETDM_IN1_CON1_REG_LRCK_WIDTH_SFT;
+> +void mt8186_mck_disable(struct mtk_base_afe *afe, int mck_id)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +	int m_sel_id = mck_div[mck_id].m_sel_id;
+> +	int div_clk_id = mck_div[mck_id].div_clk_id;
 > +
-> +	ctrl_reg = ETDM_IN1_CON1;
-> +	ctrl_mask = ETDM_IN_CON1_CTRL_MASK;
-> +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
+> +	clk_disable_unprepare(afe_priv->clk[div_clk_id]);
+> +	if (m_sel_id >= 0)
+> +		clk_disable_unprepare(afe_priv->clk[m_sel_id]);
+> +}
+> +
+> +int mt8186_init_clock(struct mtk_base_afe *afe)
+> +{
+> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> +	struct device_node *of_node = afe->dev->of_node;
+> +	int i = 0;
+> +
+> +	 mt8186_audsys_clk_register(afe);
 
-You don't need the ctrl_reg, nor ctrl_mask variables...
-
-regmap_update_bits(afe->regmap, ETDM_IN1_CON1, ETDM_IN_CON1_CTRL_MASK, tdm_con);
+Fix indentation please
 
 > +
-> +	/* ETDM_IN1_CON3 */
-> +	tdm_con = 0;
-> +	tdm_con = ETDM_IN_CON3_FS(tran_rate);
+> +	afe_priv->clk = devm_kcalloc(afe->dev, CLK_NUM, sizeof(*afe_priv->clk),
+> +				     GFP_KERNEL);
+> +	if (!afe_priv->clk)
+> +		return -ENOMEM;
 > +
-> +	ctrl_reg = ETDM_IN1_CON3;
-> +	ctrl_mask = ETDM_IN_CON3_CTRL_MASK;
-> +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
+> +	for (i = 0; i < CLK_NUM; i++) {
+> +		afe_priv->clk[i] = devm_clk_get(afe->dev, aud_clks[i]);
+> +		if (IS_ERR(afe_priv->clk[i])) {
+> +			dev_info(afe->dev, "%s devm_clk_get %s fail, ret %ld\n",
+> +				 __func__,
+> +				 aud_clks[i], PTR_ERR(afe_priv->clk[i]));
+> +			afe_priv->clk[i] = NULL;
+> +		}
+> +	}
+> +
+> +	afe_priv->apmixedsys = syscon_regmap_lookup_by_phandle(of_node,
+> +							       "mediatek,apmixedsys");
+> +	if (IS_ERR(afe_priv->apmixedsys)) {
+> +		dev_err(afe->dev, "%s() Cannot find apmixedsys controller: %ld\n",
+> +			__func__, PTR_ERR(afe_priv->apmixedsys));
+> +		return PTR_ERR(afe_priv->apmixedsys);
+> +	}
+> +
+> +	afe_priv->topckgen = syscon_regmap_lookup_by_phandle(of_node,
+> +							     "mediatek,topckgen");
+> +	if (IS_ERR(afe_priv->topckgen)) {
+> +		dev_err(afe->dev, "%s() Cannot find topckgen controller: %ld\n",
+> +			__func__, PTR_ERR(afe_priv->topckgen));
+> +		return PTR_ERR(afe_priv->topckgen);
+> +	}
+> +
+> +	afe_priv->infracfg = syscon_regmap_lookup_by_phandle(of_node,
+> +							     "mediatek,infracfg");
+> +	if (IS_ERR(afe_priv->infracfg)) {
+> +		dev_err(afe->dev, "%s() Cannot find infracfg: %ld\n",
+> +			__func__, PTR_ERR(afe_priv->infracfg));
+> +		return PTR_ERR(afe_priv->infracfg);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +void mt8186_deinit_clock(struct mtk_base_afe *afe)
+> +{
+> +	mt8186_audsys_clk_unregister(afe);
+> +}
+> diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-clk.h b/sound/soc/mediatek/mt8186/mt8186-afe-clk.h
+> new file mode 100644
+> index 000000000000..3ce7a9a24d4a
+> --- /dev/null
+> +++ b/sound/soc/mediatek/mt8186/mt8186-afe-clk.h
+> @@ -0,0 +1,210 @@
+> +/* SPDX-License-Identifier: GPL-2.0
+> + *
+> + * mt8186-afe-clk.h  --  Mediatek 8186 afe clock ctrl definition
+> + *
+> + * Copyright (c) 2022 MediaTek Inc.
+> + * Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> + */
+> +
+> +#ifndef _MT8186_AFE_CLOCK_CTRL_H_
+> +#define _MT8186_AFE_CLOCK_CTRL_H_
+> +
+> +#define PERI_BUS_DCM_CTRL 0x0074
+> +#define MODULE_SW_CG_1_STA 0x0094
+> +#define MODULE_SW_CG_2_STA 0x00ac
+> +#define CLK_CFG_7 0x0080
+> +#define CLK_CFG_8 0x0090
+> +#define CLK_CFG_11 0x00c0
+> +#define CLK_CFG_12 0x00d0
+> +#define CLK_CFG_13 0x00e0
+> +#define CLK_CFG_15 0x0100
+> +#define AP_PLL_CON3 0x0014
+> +#define APLL1_CON4 0x0328
+> +#define APLL1_TUNER_CON0 0x0040
+> +#define APLL2_CON4 0x033c
+> +#define APLL2_TUNER_CON0 0x0044
+> +
+> +#define AP_PLL_CON5 0x0014
+> +#define APLL1_CON0 0x02c0
+> +#define APLL1_CON1 0x02c4
+> +#define APLL1_CON2 0x02c8
+> +#define APLL1_CON3 0x02cc
+> +#define APLL1_PWR_CON0 0x02d0
+> +
+> +#define APLL2_CON0 0x02d4
+> +#define APLL2_CON1 0x02d8
+> +#define APLL2_CON2 0x02dc
+> +#define APLL2_CON3 0x02e0
+> +#define APLL2_PWR_CON0 0x02e4
+> +
+> +#define APMIXEDSYS_MAX_LENGTH APLL2_PWR_CON0
+> +
+> +#define CLK_CFG_6 0x0080
+> +#define CLK_AUDDIV_0 0x0320
+> +#define CLK_AUDDIV_1 0x0324
+> +#define CLK_AUDDIV_2 0x0328
+> +#define CKSYS_AUD_TOP_CFG 0x032c
+> +#define CKSYS_AUD_TOP_MON 0x0330
+> +#define CLK_AUDDIV_3 0x0334
+> +
+> +#define CLK_MAX_LENGTH CLK_AUDDIV_3
+> +
+> +/* CLK_CFG_6 */
+> +#define CLK_AUD_INTBUS_SEL_SFT              16
+> +#define CLK_AUD_INTBUS_SEL_MASK             0x3
+> +#define CLK_AUD_INTBUS_SEL_MASK_SFT         (0x3 << 16)
+
+#define CLK_AUD_INTBUS_SEL_MASK_SFT		GENMASK(23, 22)
+
+> +
+> +/* CLK_AUDDIV_0 */
+> +#define APLL12_DIV0_PDN_SFT                0
+> +#define APLL12_DIV0_PDN_MASK               0x1
+> +#define APLL12_DIV0_PDN_MASK_SFT           (0x1 << 0)
+
+BIT() macro please
+
+#define APLL12_DIV0_PDN_MASK_SFT		BIT(0)
+
+also, using tabulations instead of spaces is nicer.
+
+> +#define APLL12_DIV1_PDN_SFT                1
+> +#define APLL12_DIV1_PDN_MASK               0x1
+> +#define APLL12_DIV1_PDN_MASK_SFT           (0x1 << 1)
+
+Of course, BIT() macro again, here and everywhere else applicable.
+
+> +#define APLL12_DIV2_PDN_SFT                2
+> +#define APLL12_DIV2_PDN_MASK               0x1
+> +#define APLL12_DIV2_PDN_MASK_SFT           (0x1 << 2)
+> +#define APLL12_DIV4_PDN_SFT                3
+> +#define APLL12_DIV4_PDN_MASK               0x1
+> +#define APLL12_DIV4_PDN_MASK_SFT           (0x1 << 3)
+> +#define APLL12_DIV_TDM_PDN_SFT             4
+> +#define APLL12_DIV_TDM_PDN_MASK            0x1
+> +#define APLL12_DIV_TDM_PDN_MASK_SFT        (0x1 << 4)
+> +#define APLL_I2S0_MCK_SEL_SFT              16
+> +#define APLL_I2S0_MCK_SEL_MASK             0x1
+> +#define APLL_I2S0_MCK_SEL_MASK_SFT         (0x1 << 16)
+> +#define APLL_I2S1_MCK_SEL_SFT              17
+> +#define APLL_I2S1_MCK_SEL_MASK             0x1
+> +#define APLL_I2S1_MCK_SEL_MASK_SFT         (0x1 << 17)
+> +#define APLL_I2S2_MCK_SEL_SFT              18
+> +#define APLL_I2S2_MCK_SEL_MASK             0x1
+> +#define APLL_I2S2_MCK_SEL_MASK_SFT         (0x1 << 17)
+> +#define APLL_I2S4_MCK_SEL_SFT              19
+> +#define APLL_I2S4_MCK_SEL_MASK             0x1
+> +#define APLL_I2S4_MCK_SEL_MASK_SFT         (0x1 << 19)
+> +#define APLL_TDM_MCK_SEL_SFT               20
+> +#define APLL_TDM_MCK_SEL_MASK              0x1
+> +#define APLL_TDM_MCK_SEL_MASK_SFT          (0x1 << 20)
+> +
+> +/* CLK_AUDDIV_2 */
+> +#define APLL12_CK_DIV0_SFT                 0
+> +#define APLL12_CK_DIV0_MASK                0xff
+> +#define APLL12_CK_DIV0_MASK_SFT            (0xff << 0)
+
+GENMASK(7, 0)
+
+> +#define APLL12_CK_DIV1_SFT                 8
+> +#define APLL12_CK_DIV1_MASK                0xff
+> +#define APLL12_CK_DIV1_MASK_SFT            (0xff << 8)
+
+GENMASK(15, 8)
+
+> +#define APLL12_CK_DIV2_SFT                 16
+> +#define APLL12_CK_DIV2_MASK                0xff
+> +#define APLL12_CK_DIV2_MASK_SFT            (0xff << 16)
+
+Fix all the others too :))
+
+> +#define APLL12_CK_DIV4_SFT                 24
+> +#define APLL12_CK_DIV4_MASK                0xff
+> +#define APLL12_CK_DIV4_MASK_SFT            (0xff << 24)
+> +
+> +/* CLK_AUDDIV_3 */
+> +#define APLL12_CK_DIV_TDM_SFT              0
+> +#define APLL12_CK_DIV_TDM_MASK             0xff
+> +#define APLL12_CK_DIV_TDM_MASK_SFT         (0xff << 0)
+> +
+> +/* AUD_TOP_CFG */
+> +#define AUD_TOP_CFG_SFT                    0
+> +#define AUD_TOP_CFG_MASK                   0xffffffff
+> +#define AUD_TOP_CFG_MASK_SFT               (0xffffffff << 0)
+
+This is GENMASK(31, 0) for both MASK and MASK_SFT
+
+> +
+> +/* AUD_TOP_MON */
+> +#define AUD_TOP_MON_SFT                    0
+> +#define AUD_TOP_MON_MASK                   0xffffffff
+> +#define AUD_TOP_MON_MASK_SFT               (0xffffffff << 0)
 
 same here
 
-> +
-> +	/* ETDM_IN1_CON4 */
-> +	tdm_con = 0;
-> +	tdm_con = ETDM_IN_CON4_FS(tran_relatch_rate);
-> +	if (slave_mode) {
-> +		if (lrck_inv)
-> +			tdm_con |= ETDM_IN_CON4_CON0_SLAVE_LRCK_INV;
-> +		if (bck_inv)
-> +			tdm_con |= ETDM_IN_CON4_CON0_SLAVE_BCK_INV;
-> +	} else {
-> +		if (lrck_inv)
-> +			tdm_con |= ETDM_IN_CON4_CON0_MASTER_LRCK_INV;
-> +		if (bck_inv)
-> +			tdm_con |= ETDM_IN_CON4_CON0_MASTER_BCK_INV;
-> +	}
-> +
-> +	ctrl_reg = ETDM_IN1_CON4;
-> +	ctrl_mask = ETDM_IN_CON4_CTRL_MASK;
-> +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
 
-and here
 
-> +
-> +	/* ETDM_IN1_CON2 */
-> +	tdm_con = 0;
-> +	if (data_mode == TDM_DATA_MULTI_PIN) {
-> +		tdm_con |= ETDM_IN_CON2_MULTI_IP_2CH_MODE;
-> +		tdm_con |= ETDM_IN_CON2_MULTI_IP_CH(channels);
-> +	}
-> +
-> +	ctrl_reg = ETDM_IN1_CON2;
-> +	ctrl_mask = ETDM_IN_CON2_CTRL_MASK;
-> +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
-
-and here
-
-> +
-> +	/* ETDM_IN1_CON8 */
-> +	tdm_con = 0;
-> +	if (slave_mode) {
-> +		tdm_con |= 1 << ETDM_IN1_CON8_REG_ETDM_USE_AFIFO_SFT;
-> +		tdm_con |= 0 << ETDM_IN1_CON8_REG_AFIFO_CLOCK_DOMAIN_SEL_SFT;
-> +		tdm_con |= ETDM_IN_CON8_FS(tran_relatch_rate);
-> +	} else {
-> +		tdm_con |= 0 << ETDM_IN1_CON8_REG_ETDM_USE_AFIFO_SFT;
-> +	}
-> +
-> +	ctrl_reg = ETDM_IN1_CON8;
-> +	ctrl_mask = ETDM_IN_CON8_CTRL_MASK;
-> +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
-
-finally, here too.
-
-> +
-> +	return 0;
-> +}
-> +
-
-Thanks,
-ANgelo
+Regards,
+Angelo

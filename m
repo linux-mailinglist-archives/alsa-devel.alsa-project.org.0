@@ -2,77 +2,170 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77C3C4BBB86
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Feb 2022 15:58:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BFDD4BBC47
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Feb 2022 16:35:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29A06189C;
-	Fri, 18 Feb 2022 15:58:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29A06189C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEEA8170A;
+	Fri, 18 Feb 2022 16:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEEA8170A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645196333;
-	bh=al6Ev0bQKorkckF2iTM/jxCkPr35vPyHBaRFp9zx2wg=;
-	h=Date:From:Subject:To:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HWyMaFkJWYwG4FDwWucI9igzMwhGzWfd5R0t70yzd57hgzZnsaFx3Mm/mPuuLxPfN
-	 pymqqzgdtJoE+wWXoSNcqLO4BK2FjrtI831XV1CdwI7tbEoVygFwIIdrB73SwXboI6
-	 qYKFdjKTEU+mYxhSwlcY6SvrBTM8rHSytpMOrPDU=
+	s=default; t=1645198552;
+	bh=f7Lk/ls7s96JfGl61n7RupmPjJnRHS4n8sdGo9s+/zg=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PC28G64sn6/AOVS4YxHJeYRP7HnVz6Arydz5fr3SdGKaMHTg5jpZ5FF3+jp92fp9q
+	 +k2hd+TfrQoYyseoz2maBC8gyzGTz+a3UO4d4uDJUzijPCI1wkrCEUBBhtkyzCxpIN
+	 ClhvEn8T8fJMnDawWFZEHkMIbsZ9/vuFi/Yqf8yw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE617F80571;
-	Fri, 18 Feb 2022 15:55:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48F5CF800FF;
+	Fri, 18 Feb 2022 16:34:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CEF9F8055B; Fri, 18 Feb 2022 15:54:58 +0100 (CET)
+ id A6BFFF8013C; Fri, 18 Feb 2022 16:34:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F089FF80563
- for <alsa-devel@alsa-project.org>; Fri, 18 Feb 2022 15:54:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F089FF80563
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93F27F800CE
+ for <alsa-devel@alsa-project.org>; Fri, 18 Feb 2022 16:34:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93F27F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="JABE/NDH"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id 270C21F46B85
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1645196091;
- bh=al6Ev0bQKorkckF2iTM/jxCkPr35vPyHBaRFp9zx2wg=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
- b=JABE/NDHqXiChVUIOUwgcgWWfmBkoDCrMTVFDcPnx9onUsr3vWZrMkHoDK5JDfpdt
- ER/sFomFfCRzO90HeEf5YnqMlJM1n/vHzmwtIIyRiTHbWZfpQQE7ZqovIyDZtEGzr2
- vHe92RxN4JsKH84jdlq/5xKgFMrd4vKRM9rUNPrvJBTza7Mb271Dt1ENj74fjx1t9X
- T1ELDH9lHFXVoNCCtplqAAdU0QbJZmFpu+TaJ/mHrexNfE7krhUflPcX4QQxVFrV+J
- eR1xgPqFSDotoGGON0gUG5ACKIYT04Q4qgVFnHTBfxP9BXkXWPOw7fHuurEDGSgcQ+
- cD6mdVX2hKyqg==
-Message-ID: <70147e6f-a008-ab1a-eb07-dbb1236849b0@collabora.com>
-Date: Fri, 18 Feb 2022 15:54:47 +0100
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="t73C5/Zo"; 
+ dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
+ header.i=@oracle.onmicrosoft.com header.b="rJqIHhPZ"
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 21IF65Gh029158; 
+ Fri, 18 Feb 2022 15:34:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=bP8wrbz2vuLLEVdzFHoXfVRArUgGnt89Rj04ds8KMaQ=;
+ b=t73C5/ZonMitt4jsjEIfVLDpQyDBJnvhNipegIMbzVzhdunKQGm8OWqFffIFRT0lPmcA
+ rhgSY4uQctbFrJtFCn/NVjIcD75dzctRDW1O9IhADdVkn4nDFqWZ8jDM1AfgKs6myWbE
+ 2+AQX7Kl7ByueKlfColSBFpHKR56oLtLSQwOoYE4grtjx5TqMqWGIzq4zVwOJndl3fZq
+ 5c9cOVhh58hrP41x4664CXP/MKYBhIE+ysPtfNcz+NBQiksFSEQS5y1XMT5ZYkkkl7Fu
+ QAqAYWeMBAaey8NSUFN20aqMkbxjKPpUNjWSGhr2NAUlVQnAHMkgmtzyqdJdESi2fA8g MA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3e8nkdsyxc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Feb 2022 15:34:37 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 21IFUWGb150717;
+ Fri, 18 Feb 2022 15:34:36 GMT
+Received: from nam02-dm3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07lp2042.outbound.protection.outlook.com [104.47.56.42])
+ by userp3020.oracle.com with ESMTP id 3e8n4xpa34-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Feb 2022 15:34:35 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZAUfAiIQzIIeTST23yg++yNfinZEdE2a5Vb+CD9LzmfB/7+1EEMkrKxSvIdtTUs/12eX3GFV0nig6weGFTaGO1/efjUFPK5PCLPy3rdOQNYhZLlGJz5TC4z1CKfkpG2jhrbozvbONFf/IxvuqSqnECflZdo5vFtxIKOUb33IBdjLvBBnpbNXDx9QCxdNcHnXA2+XPguTN6r00pxu0IkTp+azD1IOQM9fJjQJ5UZSgjObzVEeF3qveXBYqMx9pvlossckyX50TZhlzpZYrQ/b2cst1vQ4o9UrjaMREtUq8zz3w6LJS0n//9tKHW5sHH6amSKrtoiLyy4ci6BwyGrLgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bP8wrbz2vuLLEVdzFHoXfVRArUgGnt89Rj04ds8KMaQ=;
+ b=TBx8PTwgI+Pq7yp4H3Tv1wDl7zf0SRJuhGGr+bqNJPXWGxrKOkIfwOkzTu8q5rw1T0S31Cd4FjLeao7bYkNcCG5+SXd3d4MF0Wf2Hfx7MdEeHslDux0aphyv93JkjEhRN6AC70cyYlxjtAO3npSAxmJh1ntvLz8/kADpg0ypBF0sGG6wrQTL99mLuL2ziIFslkGXJye7J0RwFYM6jYcetUcwNKh3n8gTAcMGFGiYMJh5Q/vcMU2nSUs2JJSi4607S59gdgN/Njy1WzTaAeE2NKSFPHDb3NeHvKWpti0W5KeZPbPUeBQHyhyTRA7j+bisjf9rXNu4w+9g8nHVdu8OvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bP8wrbz2vuLLEVdzFHoXfVRArUgGnt89Rj04ds8KMaQ=;
+ b=rJqIHhPZeSEd/GV+Lf+qYsZxYY5A/m2kqLw2MYn05eZD9RXiKIW3teQFIDU80aTuV1RJWHTmFwcEs0sdg0IBr4D8Kzyah02rEfqy2AFi3lDtOG681L11IGlLFgemlaBg1ceEbLe/mwNJj80cNH4RONJeILv8y7o9cxWswa4IrgU=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by BLAPR10MB5028.namprd10.prod.outlook.com
+ (2603:10b6:208:307::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.14; Fri, 18 Feb
+ 2022 15:34:34 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::2c3d:92b5:42b3:c1c5]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::2c3d:92b5:42b3:c1c5%3]) with mapi id 15.20.4975.019; Fri, 18 Feb 2022
+ 15:34:34 +0000
+Date: Fri, 18 Feb 2022 18:34:25 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: quic_srivasam@quicinc.com
+Subject: [bug report] ASoC: codec: wcd938x: Add switch control for selecting
+ CTIA/OMTP Headset
+Message-ID: <20220218153425.GB4392@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: ZR0P278CA0179.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:45::19) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [v2 14/17] ASoC: mediatek: mt8186: add machine driver with
- mt6366, da7219 and max98357
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org
-References: <20220217134205.15400-1-jiaxin.yu@mediatek.com>
- <20220217134205.15400-15-jiaxin.yu@mediatek.com>
-Content-Language: en-US
-In-Reply-To: <20220217134205.15400-15-jiaxin.yu@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- geert+renesas@glider.be, linux-kernel@vger.kernel.org, zhangqilong3@huawei.com,
- tiwai@suse.com, lgirdwood@gmail.com, tzungbi@google.com, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- p.zabel@pengutronix.de, matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 52ad7cda-8fcc-4b31-f033-08d9f2f429d0
+X-MS-TrafficTypeDiagnostic: BLAPR10MB5028:EE_
+X-Microsoft-Antispam-PRVS: <BLAPR10MB502858ACD98CAA2A1A2E20DC8E379@BLAPR10MB5028.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: oAbu1oQ6QHN3Q8U96FnZCZOrIWJtfMBk1Q7YohpznX+t3hYMksvYapp8Kp2vWbyG5lUpJZJxAB8AR90aGEtI7XepuGSwE+w6QT7OaAp6xN4KqpYeL9hg8UHvJTr5Do3/ZTpuMp9vxK4kz8S9mlOAyeBQWSvU9n24ex01T9vRdRNr4O7hqKOVJrdL50yqRjQjysNM7esMl3gudqwvtb1mXvJZ4IARo95XghWogAvbD10UfOSLk3JZkYlfRoARhAJRGJUTZToXOo5dSCnjmLFS3BhhNbTqc5bYCUMpR1s7a4DSQzLG87NBMBMrNX+KORohxIFSmG0RZIzlhwMezC+HWjogSHkR/KNvrJpReTTBivVhMfzRUGJOPSZH1MALjr7PqPlgs3F4Rn6SeV4uTuIiw6o92yqsucRELJQodLeusE886CPFGHfDdgwVhWRlYBAH9wP0i6kJ8mQQuvM+af+735lxgopJLcPCcbomZ5qIZ7UGzOHu6fpCzDb0KH90ZnXABk5BuUmEYuGhRWN1dGqpVhvWZHK1qyoZdFab/K12RMO1/m36k4EOPOTdJE4ZDqbtAH0voZkSEcfhr+gM9xY/N2YxAK0eSfdPtzqLlvqfXM8Kz5T3VVY1+c9Zk/nqeNo3LkM8PcTUK2JO6ZDk/dxACdxWjxZgOsvF6zOl1X3rjll89WapBGcrsiBAzQq4t1MeDlQ4yQIyDZu6Igc0Ie9FdQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(366004)(83380400001)(186003)(66476007)(33656002)(26005)(52116002)(2906002)(9686003)(38350700002)(1076003)(38100700002)(6506007)(6512007)(6666004)(4744005)(8936002)(44832011)(5660300002)(86362001)(6486002)(508600001)(33716001)(8676002)(6916009)(316002)(4326008)(66556008)(66946007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?TnTMAv/McV7qK6r730l6Y4AX0SrjWV9GpIXJt6v2t6YmephpuGDnJimEvE98?=
+ =?us-ascii?Q?QIYMIYknGQu1SqaQSfwKkAPN2MYbLjDyZl0y9qlCvhJedkE8uDTe8AGiy93j?=
+ =?us-ascii?Q?BFclpVLnG9oEcBZTNECquZojJ9axfHTab6/0SJOiw6x0B4AlH/yLprLxePo6?=
+ =?us-ascii?Q?C3xe3UKOuIu91RyrVUnxd8YpFhoZ3B8AdumfUBSJBIJftEiMTiupvmCHCzIj?=
+ =?us-ascii?Q?eud4jEiN2ixWYXTvU5FDT8FPHKtjzby8vekx6kzAIZr8x6Hjr9fk7rgZ1USk?=
+ =?us-ascii?Q?oPG7bH+c4NOj9g8HoBSH+iYJUnUewk8kJz14DclJdbz93GX6jbLoefgC3DqB?=
+ =?us-ascii?Q?ujQZXnbg7IfJuhYLPTJgcED1IbgsqGZPddLqwj+6Zol8LTZp5SL645YVYIkB?=
+ =?us-ascii?Q?dSY9hAxFpW9cbPm8NGITpp6jTArcGQu8S6bg4oOzJFKyWTJWi96VV3mfuXL+?=
+ =?us-ascii?Q?e0kuOQWfXCGE/TFuzmaLoSgo2tV7GH3feheKM0HzV1I0tZIRqmREIZxBwJRr?=
+ =?us-ascii?Q?uSjI3XHkz+KYSqOE91HiI0QY9huV0P80tIxQcx3pPNDS30IPzkRwpokGCWDJ?=
+ =?us-ascii?Q?O7V+rZcXIRWTZ47CclVzewEnKjrFUN6vj6etyciprYNIxAulMJPYlrR9wsn9?=
+ =?us-ascii?Q?80cuzv1zl13QSEMdhQEPMACQ03kwOhQyvKqc4o2P1rVA2ys71eihcz4pGLM3?=
+ =?us-ascii?Q?HtYI0iJuQ9dSkMrcu5eOJJc5V5AVB8eiPsUICbFCKWWQUiVM28yYk04QNW5+?=
+ =?us-ascii?Q?+CsZ+oXb6b+0yBQKRkwViI+fV3+3aC0MvQsb64T8op/Nk42Zjp5wK6jN2D+g?=
+ =?us-ascii?Q?YgAR848BlK5dy3289bDHqCLSHEGUrEBoo4kPD/Yuzz0lvlj7/O86adyv540+?=
+ =?us-ascii?Q?VtcBcODLfe82GT3H1RyVKd/lRfxVfYMih8B3/A/lXJf4S203lMjrC0AAeUFm?=
+ =?us-ascii?Q?iZ/1vm5rYi2IuwPXnICcOtbJQzV60UghvvxTurx/A+/1bne19z5/OOzaRJ4Y?=
+ =?us-ascii?Q?4BqBRMK9y1fowFmXakkRvxHtC/K3FlpNqPHUf10EGHwx200lTf303BI9rvOS?=
+ =?us-ascii?Q?geonLiIagof/AR33wmZY43Og8CmDFnztv600tgsLCFTLc/rByYxe5W/CzQUm?=
+ =?us-ascii?Q?x0X5aKlWptLcOO7PrNz4qUUgl//TkNkByVW+467l3PTDtqSCOvo3qDsKHgwg?=
+ =?us-ascii?Q?b931x9QaSMr9ZMZ3AuNard4Hl2G3XLu81eRSUUKjjxbRoO917RFa3veN+JT5?=
+ =?us-ascii?Q?zJHKKRYswgligY/LSClxk12Lic4QK9DQq7BD7N28s+laN+t871YEXPh8XfPh?=
+ =?us-ascii?Q?cQAF7xaZbL7OAufTAZPDycbH/UfsDKLreq/raz6K1mfQg6Pnem0P8/uUfVOz?=
+ =?us-ascii?Q?7dr7b5Grh99usnfh19lyFuxwIuSTPd8KD0YAeHeBmlcdVC3f3VQuzaA/H181?=
+ =?us-ascii?Q?Syi7bEufDmAL+Jvj3WSQhpnvYJ5nHie/pP8GiZYP2vw5xMsSQWDD/WPYmxwr?=
+ =?us-ascii?Q?uDhsFrWi8diS1qhr7K+y/7p/EQXB3SHbvwhl81G0jw6v2HVzPxe8nOY42V/B?=
+ =?us-ascii?Q?Hm8WLfVoPetG/OWHN322VsE2TF+JH3KKJ0VkeIoxbpJQLvVYkB50Q1KyugzL?=
+ =?us-ascii?Q?WPfM16FdCnTKw9v9MmN7ZV7YnlkjnX3geUeB/AYsi19urx9+nWBglgbW/Oh0?=
+ =?us-ascii?Q?ORLS4A=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52ad7cda-8fcc-4b31-f033-08d9f2f429d0
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2022 15:34:34.0261 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a7L3w3L3alJZ3MwXJVNUPVvGRKqb8EAqbzymwNTUGiOULVQCJJnz9si3Tcizmy5wNSvFdcmPizMfolvVKhn1vsxFbsmU4s/Sdpq0TQhIgis=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB5028
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10261
+ signatures=677564
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ suspectscore=0 spamscore=0
+ phishscore=0 bulkscore=0 mlxlogscore=845 mlxscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
+ definitions=main-2202180100
+X-Proofpoint-ORIG-GUID: v_aVV1esAHu_0qydxystI1Y9CzS6pzpp
+X-Proofpoint-GUID: v_aVV1esAHu_0qydxystI1Y9CzS6pzpp
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,442 +181,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 17/02/22 14:42, Jiaxin Yu ha scritto:
-> This patch adds support for mt8186 board with mt6366, da7219 and max98357.
-> 
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> ---
->   .../mt8186/mt8186-mt6366-da7219-max98357.c    | 910 ++++++++++++++++++
->   1 file changed, 910 insertions(+)
->   create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-> 
-> diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-> new file mode 100644
-> index 000000000000..6ba53b8d1e46
-> --- /dev/null
-> +++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
-> @@ -0,0 +1,910 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +// mt8186-mt6366-da7219-max98357.c
-> +//	--  MT8186-MT6366-DA7219-MAX98357 ALSA SoC machine driver
-> +//
-> +// Copyright (c) 2022 MediaTek Inc.
-> +// Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> +//
-> +
-> +#include <linux/input.h>
-> +#include <linux/module.h>
-> +#include <linux/pm_runtime.h>
-> +#include <sound/pcm_params.h>
-> +#include <sound/soc.h>
-> +
-> +#include "../../codecs/da7219-aad.h"
-> +#include "../../codecs/da7219.h"
-> +#include "../../codecs/mt6358.h"
-> +#include "../common/mtk-afe-platform-driver.h"
-> +#include "mt8186-afe-common.h"
-> +#include "mt8186-afe-clk.h"
-> +#include "mt8186-afe-gpio.h"
-> +
-> +#define DA7219_CODEC_DAI "da7219-hifi"
-> +#define DA7219_DEV_NAME "da7219.5-001a"
-> +
-> +struct mt8186_mt6366_da7219_max98357_priv {
-> +	struct snd_soc_jack headset_jack, hdmi_jack;
-> +};
-> +
-> +static struct snd_soc_codec_conf mt6366_codec_conf[] = {
-> +	{
-> +		.dlc = COMP_CODEC_CONF("mt6358-sound"),
-> +		.name_prefix = "Mt6366",
-> +	},
-> +};
-> +
-> +static int mt8186_da7219_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +	struct mt8186_mt6366_da7219_max98357_priv *priv =
-> +		snd_soc_card_get_drvdata(rtd->card);
-> +	struct snd_soc_jack *jack = &priv->headset_jack;
-> +	struct snd_soc_component *cmpnt_codec =
-> +		asoc_rtd_to_codec(rtd, 0)->component;
-> +	int ret;
-> +
-> +	/* Enable Headset and 4 Buttons Jack detection */
-> +	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
-> +				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
-> +				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
-> +				    SND_JACK_BTN_3 | SND_JACK_LINEOUT,
-> +				    jack, NULL, 0);
-> +	if (ret) {
-> +		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
-> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
-> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
-> +
-> +	da7219_aad_jack_det(cmpnt_codec, &priv->headset_jack);
-> +
-> +	return 0;
-> +}
-> +
-> +static int mt8186_da7219_i2s_hw_params(struct snd_pcm_substream *substream,
-> +				       struct snd_pcm_hw_params *params)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *codec_dai;
-> +	unsigned int rate = params_rate(params);
-> +	unsigned int mclk_fs_ratio = 256;
-> +	unsigned int mclk_fs = rate * mclk_fs_ratio;
-> +	unsigned int freq;
-> +	int ret = 0, j;
-> +
-> +	ret = snd_soc_dai_set_sysclk(asoc_rtd_to_cpu(rtd, 0), 0,
-> +				     mclk_fs, SND_SOC_CLOCK_OUT);
-> +	if (ret < 0)
-> +		dev_err(rtd->dev, "failed to set cpu dai sysclk\n");
-
-Does it really make sense to go on after this failure?
-
-> +
-> +	for_each_rtd_codec_dais(rtd, j, codec_dai) {
-> +		if (!strcmp(codec_dai->component->name, DA7219_DEV_NAME)) {
-> +			ret = snd_soc_dai_set_sysclk(codec_dai,
-> +						     DA7219_CLKSRC_MCLK,
-> +						     mclk_fs,
-> +						     SND_SOC_CLOCK_IN);
-> +			if (ret < 0)
-> +				dev_err(rtd->dev, "failed to set sysclk\n");
-> +
-
-I think that going on past this wouldn't make sense as well, as it may result
-in unexpected behavior... just return a failure here
-
-> +			if ((rate % 8000) == 0)
-> +				freq = DA7219_PLL_FREQ_OUT_98304;
-> +			else
-> +				freq = DA7219_PLL_FREQ_OUT_90316;
-> +
-> +			ret = snd_soc_dai_set_pll(codec_dai, 0,
-> +						  DA7219_SYSCLK_PLL_SRM,
-> +						  0, freq);
-> +			if (ret)
-> +				dev_err(rtd->dev, "failed to start PLL: %d\n",
-> +					ret);
-
-and here
-
-> +		}
-> +	}
-> +
-
-So, you've covered all failure cases already, for which, you can simply
-return 0 here.
-
-> +	return ret;
-> +}
-> +
-> +static int mt8186_da7219_i2s_hw_free(struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *codec_dai;
-> +	int ret = 0, j;
-> +
-> +	for_each_rtd_codec_dais(rtd, j, codec_dai) {
-> +		if (!strcmp(codec_dai->component->name, DA7219_DEV_NAME)) {
-> +			ret = snd_soc_dai_set_pll(codec_dai,
-> +						  0, DA7219_SYSCLK_MCLK, 0, 0);
-> +			if (ret < 0) {
-> +				dev_err(rtd->dev, "failed to stop PLL: %d\n",
-> +					ret);
-> +				break;
-> +			}
-> +		}
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct snd_soc_ops mt8186_da7219_i2s_ops = {
-> +	.hw_params = mt8186_da7219_i2s_hw_params,
-> +	.hw_free = mt8186_da7219_i2s_hw_free,
-> +};
-> +
-> +static int mt8186_mt6366_hdmi_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +	struct snd_soc_component *cmpnt_codec =
-> +		asoc_rtd_to_codec(rtd, 0)->component;
-> +	struct mt8186_mt6366_da7219_max98357_priv *priv =
-> +		snd_soc_card_get_drvdata(rtd->card);
-> +	int ret;
-> +
-> +	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
-> +				    &priv->hdmi_jack, NULL, 0);
-> +	if (ret) {
-> +		dev_err(rtd->dev, "HDMI Jack creation failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return snd_soc_component_set_jack(cmpnt_codec, &priv->hdmi_jack, NULL);
-> +}
-> +
-> +static int mt8186_mt6366_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +	struct snd_soc_component *cmpnt_afe =
-> +		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
-> +	struct snd_soc_component *cmpnt_codec =
-> +		asoc_rtd_to_codec(rtd, 0)->component;
-> +	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
-> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	struct snd_soc_dapm_context *dapm = &rtd->card->dapm;
-> +	int ret;
-> +
-> +	/* set mtkaif protocol */
-> +	mt6358_set_mtkaif_protocol(cmpnt_codec,
-> +				   MT6358_MTKAIF_PROTOCOL_1);
-> +	afe_priv->mtkaif_protocol = MT6358_MTKAIF_PROTOCOL_1;
-> +
-> +	ret = snd_soc_dapm_sync(dapm);
-> +	if (ret) {
-> +		dev_info(rtd->dev, "failed to snd_soc_dapm_sync\n");
-
-dev_err()
-
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int mt8186_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
-> +				      struct snd_pcm_hw_params *params)
-> +{
-> +	struct snd_interval *channels = hw_param_interval(params,
-> +		SNDRV_PCM_HW_PARAM_CHANNELS);
-> +	dev_info(rtd->dev, "%s(), fix format to 32bit\n", __func__);
-> +
-
-dev_dbg()
-
-> +	/* fix BE i2s channel to 2 channel */
-> +	channels->min = 2;
-> +	channels->max = 2;
-> +
-> +	/* fix BE i2s format to S32_LE, clean param mask first */
-> +	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
-> +			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
-> +
-> +	params_set_format(params, SNDRV_PCM_FORMAT_S32_LE);
-> +
-> +	return 0;
-> +}
-> +
-> +static int mt8186_hdmi_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
-> +					   struct snd_pcm_hw_params *params)
-> +{
-> +	struct snd_interval *channels = hw_param_interval(params,
-> +		SNDRV_PCM_HW_PARAM_CHANNELS);
-> +	dev_info(rtd->dev, "%s(), fix format to 32bit\n", __func__);
-> +
-
-dev_dbg()
-
-> +	/* fix BE i2s channel to 2 channel */
-> +	channels->min = 2;
-> +	channels->max = 2;
-> +
-> +	/* fix BE i2s format to S24_LE, clean param mask first */
-> +	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
-> +			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
-> +
-> +	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
-> +
-> +	return 0;
-> +}
-
-Besides, I would do the following instead:
-
-static int mt8186_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
-
-				  struct snd_pcm_hw_params *params,
-
-				  snd_pcm_format_t fmt)
-
-{
-
-	struct snd_interval *channels = hw_param_interval(params,
-
-		SNDRV_PCM_HW_PARAM_CHANNELS);
-
-	dev_dbg(rtd->dev, "%s(), fix format to 32bit\n", __func__);
-
-
-
-	/* fix BE i2s channel to 2 channel */
-
-	channels->min = 2;
-
-	channels->max = 2;
-
-
-
-	/* fix BE i2s format to S32_LE, clean param mask first */
-
-	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
-
-			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
-
-
-
-	params_set_format(params, fmt);
-
-
-
-	return 0;
-
-}
-
-
-
-static int mt8186_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
-
-				      struct snd_pcm_hw_params *params)
-
-{
-
-	return mt8186_hw_params_fixup(rtd, params, SNDRV_PCM_FORMAT_S32_LE);
-
-}
-
-
-
-static int mt8186_hdmi_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
-
-					   struct snd_pcm_hw_params *params)
-
-{
-
-	return mt8186_hw_params_fixup(rtd, params, SNDRV_PCM_FORMAT_S24_LE);
-
-}
-
-... this reduces code duplication!
-
-> +
-> +/* FE */
-> +SND_SOC_DAILINK_DEFS(playback1,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL1")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-
-
-..snip..
-
-> +static int mt8186_mt6366_da7219_max98357_dev_probe(struct platform_device *pdev)
-> +{
-> +	struct snd_soc_card *card = &mt8186_mt6366_da7219_max98357_soc_card;
-> +	struct snd_soc_dai_link *dai_link;
-> +	struct mt8186_mt6366_da7219_max98357_priv *priv;
-> +	struct device_node *platform_node, *hdmi_codec;
-> +	int ret, i;
-> +
-> +	dev_info(&pdev->dev, "%s(), ++\n", __func__);
-> +
-> +	card->dev = &pdev->dev;
-> +
-> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	platform_node = of_parse_phandle(pdev->dev.of_node,
-> +					 "mediatek,platform", 0);
-> +	if (!platform_node) {
-> +		dev_info(&pdev->dev,
-> +			 "Property 'platform' missing or invalid\n");
-
-	if (!platform_node)
-		return dev_err_probe(&pdev->dev, -EINVAL,
-				    "mediatek,platform missing or invalid\n");
-
-> +		return -EINVAL;
-> +	}
-> +
-> +	hdmi_codec = of_parse_phandle(pdev->dev.of_node,
-> +				      "mediatek,hdmi-codec", 0);
-> +	if (!hdmi_codec) {
-> +		dev_info(&pdev->dev,
-> +			 "Property 'hdmi' missing or invalid\n");
-
-dev_err()
-
-> +		return -EINVAL;
-> +	}
-> +
-> +	for_each_card_prelinks(card, i, dai_link) {
-> +		if (dai_link->platforms->name)
-> +			continue;
-> +
-> +		if (hdmi_codec && strcmp(dai_link->name, "I2S3") == 0) {
-> +			dai_link->codecs->of_node = hdmi_codec;
-> +			dai_link->ignore = 0;
-> +		}
-> +
-> +		dai_link->platforms->of_node = platform_node;
-> +	}
-> +
-> +	snd_soc_card_set_drvdata(card, priv);
-> +
-> +	/* init gpio */
-> +	ret = mt8186_afe_gpio_init(&pdev->dev);
-> +	if (ret)
-> +		dev_info(&pdev->dev, "init gpio error\n");
-
-dev_err() and goto end;
-
-> +
-> +	dev_info(&pdev->dev, "%s(), devm_snd_soc_register_card\n", __func__);
-> +	ret = devm_snd_soc_register_card(&pdev->dev, card);
-> +	if (ret)
-> +		dev_info(&pdev->dev, "%s snd_soc_register_card fail %d\n",
-> +			 __func__, ret);
-
-dev_err_probe()
-
-end:
-
-> +	of_node_put(platform_node);
-> +	of_node_put(hdmi_codec);
-> +
-> +	return ret;
-> +}
-> +
-> +#if IS_ENABLED(CONFIG_OF)
-> +static const struct of_device_id mt8186_mt6366_da7219_max98357_dt_match[] = {
-> +	{.compatible = "mediatek,mt8186_mt6366_da7219_max98357_sound",},
-> +	{}
-> +};
-> +#endif
-> +
-> +static struct platform_driver mt8186_mt6366_da7219_max98357_driver = {
-> +	.driver = {
-> +		.name = "mt8186_mt6366_da7219_max98357",
-> +#if IS_ENABLED(CONFIG_OF)
-> +		.of_match_table = mt8186_mt6366_da7219_max98357_dt_match,
-> +#endif
-> +		.pm = &snd_soc_pm_ops,
-> +	},
-> +	.probe = mt8186_mt6366_da7219_max98357_dev_probe,
-> +};
-> +
-> +module_platform_driver(mt8186_mt6366_da7219_max98357_driver);
-> +
-> +/* Module information */
-> +MODULE_DESCRIPTION("MT8186-MT6366-DA7219-MAX98357 ALSA SoC machine driver");
-> +MODULE_AUTHOR("Jiaxin Yu <jiaxin.yu@mediatek.com>");
-> +MODULE_LICENSE("GPL v2");
-> +MODULE_ALIAS("mt8186_mt6366_da7219_max98357 soc card");
-
-
+Hello Srinivasa Rao Mandadapu,
+
+This is a semi-automatic email about new static checker warnings.
+
+The patch 013cc2aea0f6: "ASoC: codec: wcd938x: Add switch control for
+selecting CTIA/OMTP Headset" from Feb 12, 2022, leads to the
+following Smatch complaint:
+
+    sound/soc/codecs/wcd938x.c:4210 wcd938x_swap_gnd_mic()
+    error: we previously assumed 'component' could be null (see line 4209)
+
+sound/soc/codecs/wcd938x.c
+  4203        static bool wcd938x_swap_gnd_mic(struct snd_soc_component *component, bool active)
+  4204        {
+  4205                int value;
+  4206
+  4207                struct wcd938x_priv *wcd938x;
+  4208
+  4209                if (!component) {
+                           ^^^^^^^^^
+Check for NULL.
+
+  4210                        dev_err(component->dev, "%s component is NULL\n", __func__);
+                                      ^^^^^^^^^^^^^^
+NULL Dereference.  But can it really be NULL?
+
+  4211                        return false;
+  4212                }
+  4213
+
+regards,
+dan carpenter

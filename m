@@ -2,79 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3738C4BC304
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Feb 2022 00:47:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B29544BC4E0
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Feb 2022 03:33:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC7801753;
-	Sat, 19 Feb 2022 00:46:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC7801753
+	by alsa0.perex.cz (Postfix) with ESMTPS id 379F61734;
+	Sat, 19 Feb 2022 03:32:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 379F61734
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645228059;
-	bh=Nf4QWHJQf6uMYeqUXDUKolXQIDg74FWqWkoKRg8EeRc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1645238024;
+	bh=GMyd0+sXMi4cIFzcL0iJI6zscXkgFMDHcUknF9cxQis=;
+	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SrO90fNJimbrH7uUJ5isgounJail5yxVMd17mnd/U/Ncrchll1cxR2aywMBSfhQYc
-	 4Uh3frGQvB7F4VE+jHHsWsyi0jbEOACUNtaBHRYg8Bie3y844sNKRl5at5Ffx2mJfk
-	 PqDtLsCJijutjt3LnCXRjWFCQ+yHLZdKVnbxcIVY=
+	b=dOQLW+GLrkRiVyypVVpigG3jVGuT3oaqDxednuMIU65a+vDL+yNxSQkzun/8VJVsj
+	 bJ87NM8USwa7erqzwMA0f4FU7ZPtoKr849HOzo8n2hALgRjDldzFOyPFXLZtDI02/z
+	 PwD71Q9J//utxFy8CTQsAcHuUuNNxgYjrWZ9ifaI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21AB5F80154;
-	Sat, 19 Feb 2022 00:46:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 574C3F8016B;
+	Sat, 19 Feb 2022 03:32:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A9DFF8013C; Sat, 19 Feb 2022 00:46:32 +0100 (CET)
+ id 9AFBEF8016A; Sat, 19 Feb 2022 03:32:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D93CF800CE
- for <alsa-devel@alsa-project.org>; Sat, 19 Feb 2022 00:46:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D93CF800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 510F0F800AB
+ for <alsa-devel@alsa-project.org>; Sat, 19 Feb 2022 03:32:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 510F0F800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rz7jPVer"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1F8E1B8272A;
- Fri, 18 Feb 2022 23:46:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90654C340E9;
- Fri, 18 Feb 2022 23:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645227983;
- bh=Nf4QWHJQf6uMYeqUXDUKolXQIDg74FWqWkoKRg8EeRc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=rz7jPVerk5V3ozJNYK+1G0lFwI7OHwQibB57qbd/3lYLBpf5zVMpECQ0OkN3v2gzs
- PhbYL3SES+sxuboenAfJFiNcfjBlU54dVYWi2Wi4wLA4Vjy8KhhGDaZzDW20NnXVM4
- d0lnj5b+wmWMYOSRWuyvAMBaZMBDELpldDT+I7zmomwHOx/cItN3fzjdKvc/Fu7wz2
- I7cDcm6tBTlefJ77THO1X4X1m/kmIsOCI2tKBdnEmJVppeWPFsoOJ5Lt750EnKsP3j
- e+ki2oHlkMdRb5zrwuEc5aX9RxQmK3j9LfcH4/2vn5xANxWlTQg5fTBIgR7AleZrP0
- PSnZniAT+XGIg==
-Date: Sat, 19 Feb 2022 00:46:18 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Mark Brown
- <broonie@kernel.org>
-Subject: Re: [PATCH 0/1] sound: add quirk for Huawei D15
-Message-ID: <20220219004618.07cb69a9@coco.lan>
-In-Reply-To: <c17173cb-290c-9ecd-54e3-b74f9d4e9061@linux.intel.com>
-References: <cover.1640351150.git.mchehab@kernel.org>
- <164519450743.1836505.3912962145996830275.b4-ty@kernel.org>
- <c17173cb-290c-9ecd-54e3-b74f9d4e9061@linux.intel.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-redhat-linux-gnu)
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="i1BaGO+F"
+Received: by mail-oi1-x22d.google.com with SMTP id a6so5048074oid.9
+ for <alsa-devel@alsa-project.org>; Fri, 18 Feb 2022 18:32:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=GMyd0+sXMi4cIFzcL0iJI6zscXkgFMDHcUknF9cxQis=;
+ b=i1BaGO+F9XGzIZMSKGhY8yTuyr89G7+EJfFqOOAHde+lwE4P4HgSbb5JUP0L1xQG3q
+ xWVV24YMKR1/KeN6qa7KKstzzQZmkIBIDVx6wdPP+CvgNlYQFcigM1AlOqA5VWaGtDtt
+ DXkpIN5IlLhK182wst1HI3hS6xIv+B42mKRio=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=GMyd0+sXMi4cIFzcL0iJI6zscXkgFMDHcUknF9cxQis=;
+ b=wPWXFO9T31hJRGs55/KviAgPtQUqBalxV1KYxGdZntfNqezyoMdQ2Bp61lVLRRIcY/
+ a5v1a0l3D6wP2jopeOqAkdcHtfwUpP9CVlE9K0BPCHuZfrP0uL5woQcN/D99YDsIQuQo
+ DESukdpS/I7bHdodq/k3XPoCWnBXSooSLI/Uoxt9ZHK1U1AORl29sW3gcRM+Y04nUk9R
+ qtYUowglQPWpUY21M7p4uTy/tn8c8bfdfVC2ru5QYJH2FCKPNvoTaY8cNQiyS2vXH6RC
+ HBeglrW7WdgH0Lnlw6LVCiXjCeBRpwb6cPEGPmlK1PjGAfhBVhk4PD9dzya3jIjVqx5M
+ IxDA==
+X-Gm-Message-State: AOAM532cFpu0TL9U0ByN3wlFbxFejozC5k8Si79ru6UJC2iBaxoWbV0z
+ BWgaAvnab3bFZOkA1TNTZeWggC34wK4yvV8kfwb1dw==
+X-Google-Smtp-Source: ABdhPJw34gCloewSbJ7M6JQB0jN6jKAkR9GAZpyAcVGrzLxrbEqMsFWVYuzOyI1NGQWi4ffTFeIXjyjw0kRA2nfyoa8=
+X-Received: by 2002:aca:df44:0:b0:2ce:285f:cb99 with SMTP id
+ w65-20020acadf44000000b002ce285fcb99mr6296170oig.40.1645237948132; Fri, 18
+ Feb 2022 18:32:28 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 18 Feb 2022 18:32:27 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- tiwai@suse.de, Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Huajun Li <huajun.li@intel.com>
+In-Reply-To: <1644851994-22732-2-git-send-email-quic_srivasam@quicinc.com>
+References: <1644851994-22732-1-git-send-email-quic_srivasam@quicinc.com>
+ <1644851994-22732-2-git-send-email-quic_srivasam@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Fri, 18 Feb 2022 18:32:27 -0800
+Message-ID: <CAE-0n52Ksur6aSuB69h49LjDFU2LXBh-b3HRTK+uYTU4fcQhDA@mail.gmail.com>
+Subject: Re: [PATCH v6 1/7] dt-bindings: pinctrl: qcom: Update lpass lpi file
+ name to SoC specific
+To: Linus Walleij <linus.walleij@linaro.org>, 
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
+ alsa-devel@alsa-project.org, 
+ bgoswami@codeaurora.org, bjorn.andersson@linaro.org, broonie@kernel.org, 
+ devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, perex@perex.cz, quic_plai@quicinc.com, 
+ robh+dt@kernel.org, rohitkr@codeaurora.org, srinivas.kandagatla@linaro.org, 
+ tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
+Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,64 +105,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Fri, 18 Feb 2022 12:11:59 -0600
-Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> escreveu:
+Quoting Srinivasa Rao Mandadapu (2022-02-14 07:19:48)
+> Change generic lpass lpi pincotrol bindings file to SoC specific file,
+> to distinguish and accomadate other SoC specific dt bindings.
+>
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+> ---
 
-> On 2/18/22 08:28, Mark Brown wrote:
-> > On Fri, 24 Dec 2021 14:09:48 +0100, Mauro Carvalho Chehab wrote:  
-> >> Based on my tests, Huawei D15 (Intel) uses SSP0 on es8336.
-> >>
-> >> Add a quirk for it.
-> >>
-> >> Please notice that, currently, only the internal speaker is working.
-> >> The topology for the internal microphone and for the headphones
-> >> is wrong. Enabling/disabling the other two quirks (GPIO and/or DMIC)
-> >> doesn't cause any audible results, nor change the devices listed
-> >> on pavucontrol (tested with pipewire-pulse).
-> >>
-> >> [...]  
-> > 
-> > Applied to
-> > 
-> >    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> > 
-> > Thanks!
-> > 
-> > [1/1] ASoC: Intel: sof_es8336: add quirk for Huawei D15 2021
-> >       commit: ce6a70bfce21bb4edb7c0f29ecfb0522fa34ab71  
-> 
-> I'll probably revert this change in my next update [1], I have a set of
-> changes where we can detect which SSP is used by parsing the NHTL
-> information in platform firmware.
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 
-Mark,
+If you generate the patch with git format-patch -M -C does it detect
+this is largely a copy? I tried myself and it looks like it is.
 
-Yeah, I tested Pierre-Louis pull request from:
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
+b/Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml
+similarity index 97%
+rename from Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
+rename to Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml
+index 5c5542f1627c..06efb1382876 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/pinctrl/qcom,lpass-lpi-pinctrl.yaml#
++$id: http://devicetree.org/schemas/pinctrl/qcom,sm8250-lpass-lpi-pinctrl.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
 
-	https://github.com/thesofproject/linux/pull/3338
-
-and indeed this quirk is not needed anymore for the speaker to work.
-
-So, once his new update gets merged upstream, feel free to revert
-this one.
-
-Pierre-Louis,
-
-When you submit your next update from PR#3338, feel free to add:
-
-Tested-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-
-and my Acked-by at the revert patch:
-
-Acked-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-
-> 
-> I am still trying to figure out how to detect which MCLK is used, and
-> once this is done I'll send the patches upstream.
-> 
-> [1] https://github.com/thesofproject/linux/pull/3338
+ title: Qualcomm Technologies, Inc. Low Power Audio SubSystem (LPASS)
 
 
-
-Thanks,
-Mauro
+Please generate with -M and -C in the future.

@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B8C24BC4FD
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Feb 2022 03:44:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08E524BC4FE
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Feb 2022 03:44:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A59D1760;
-	Sat, 19 Feb 2022 03:43:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A59D1760
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA1D817CF;
+	Sat, 19 Feb 2022 03:43:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA1D817CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645238646;
-	bh=UtmLegRwkVr3wWezyzKfAFB4JnMC10QKAFNciSgGel8=;
+	s=default; t=1645238688;
+	bh=014ucoLmLZKoW+u9rrEk7PlAOl6zKSpKB5MHAKfT78s=;
 	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=crF4nx/78Eh9Q1PGwgKJTcicIm0aCp1CuV4G4gMTgAYrYOzrVULgCp9WH3QT/ripX
-	 fW/4Yyw+sxEVBqwKoYRik9rygN5YNl+X/K+1OR/BJRqALtM2iVdD8EidRCGdC2iqsT
-	 JWM+6E3UKTlUV2RFb9HQkorx7OejcTvmJRUow5vc=
+	b=YkWnVWBlpSgNMfMB4hb4V8ORdNCT9wKCdcT8WRZ4e45TUjbK15ptgVO++GTNPhvrl
+	 EO1O/0nkqUoNj4PmyNG0tJB5bKnWffakSi3HJcSOIlsO6tqux93kZq5Wekr8r6mBwI
+	 HrlxmGlakcMIWl0+ShE+8livWpmwsGRPFzN9gahU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27750F8014B;
-	Sat, 19 Feb 2022 03:43:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B415F80118;
+	Sat, 19 Feb 2022 03:43:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A970F8016B; Sat, 19 Feb 2022 03:43:14 +0100 (CET)
+ id 153AFF8047B; Sat, 19 Feb 2022 03:43:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY
  autolearn=disabled version=3.4.0
-Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
- [IPv6:2607:f8b0:4864:20::c2d])
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54A81F8016A
- for <alsa-devel@alsa-project.org>; Sat, 19 Feb 2022 03:43:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54A81F8016A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91683F80118
+ for <alsa-devel@alsa-project.org>; Sat, 19 Feb 2022 03:43:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91683F80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="gp+cIOnx"
-Received: by mail-oo1-xc2d.google.com with SMTP id
- x6-20020a4a4106000000b003193022319cso5849056ooa.4
- for <alsa-devel@alsa-project.org>; Fri, 18 Feb 2022 18:43:10 -0800 (PST)
+ header.b="YXQoib1c"
+Received: by mail-oi1-x229.google.com with SMTP id q5so5077900oij.6
+ for <alsa-devel@alsa-project.org>; Fri, 18 Feb 2022 18:43:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=UtmLegRwkVr3wWezyzKfAFB4JnMC10QKAFNciSgGel8=;
- b=gp+cIOnxmQg7Dp1LrEiyItHTBnFsiBoTH+TFr7BWN7cP6hlyyWou26Z7+8zcEGyJ2A
- AjBu6Wq3JamEwfL92rRMKTo7LVZhOsOElFEBmt4PUeKVsbYyub6dYvBg4Kh1nFqHigM4
- deFs0k/av9MBoIE02OhAuN4jGzs4Q8njkTe60=
+ bh=T6YKxmWEz7AOdGW5A6l/US7/zZ5Y8isivPpi4loytTw=;
+ b=YXQoib1cF59dR1Ga68uc3HOYXQPS149MEtMxdda+swZtnY6HhQDt9/fbgprCKLT4yr
+ xkRsaBWX7bufF32Md2CRjB86jat7u4T72Ngx6AWxnWONIqPYRtNce8FUZx2wQEjh+FbQ
+ Z9I4EiPyRCCiA5ZXaCXpcLxXIl7KlnN6fTHDQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=UtmLegRwkVr3wWezyzKfAFB4JnMC10QKAFNciSgGel8=;
- b=fYUjqfWvqjKzcJs3utWy+nVtepz8T8Kp/GwKM0V1K+Ph91q937VRYyuybN2FudqoyV
- RluvYZZaKnkPm+KIDbFOohjbRj3oJU28QQSoHTKNzbfoy15dr9EFNg2Jq6QYneR26kMJ
- EbvCxpuy8hX/x4fZDRYH3uPwrKIjElmFOkFV5RfaDMpfToGR0gQJpTe2OIL09PcUXX7e
- FV8lPbptndirYa06O8FZALo6If5Sd2kAv5acq+BAt9PjZji08yfFXAEz5b0Ed/m9tbwZ
- 2o1mSzyS5+i9Dx5MB8/OjqRZHZysaZ+/f3+xGLCVL26bRCnAQ4tTAwZk5KzAboXM9HGZ
- EePA==
-X-Gm-Message-State: AOAM5300bc9KanCrADJAP++eMFy85BUdJTiBl9fzZc4d8lS+qC3m9u+a
- UqabaEmFtkdJfWU1TyWBsLo4e9rVfrsu0wPAUiW8lQ==
-X-Google-Smtp-Source: ABdhPJyJRpYWmNIAyLH41NYmoT3dSHWPGOzyrIKyiiCwW0H31OICFyU7NDyFeQSP1l2LdJpQqD2GSgVtwJOSExvYoaQ=
-X-Received: by 2002:a05:6870:5829:b0:c8:9f42:f919 with SMTP id
- r41-20020a056870582900b000c89f42f919mr4191267oap.54.1645238589326; Fri, 18
- Feb 2022 18:43:09 -0800 (PST)
+ bh=T6YKxmWEz7AOdGW5A6l/US7/zZ5Y8isivPpi4loytTw=;
+ b=0lvllOaI5hYVhZe1jzcHoEkdiZdAflTm5nAzCoHyodWrqUBZk/M766PeQahye/N+ZU
+ OBHnhs8P4zvU5ZerqC5KhAZ6d9OU4ri/XJqsrvltF3Su4O582Xn43PgEbwDvdFHChO6P
+ 1oS7WzJ31I7Od6SxaHKfw5UzIgvGpnSNVlx7er2UYPkay+8VvFK21IPIwSJM9o7gX9ia
+ ppK+9GsLDveoO7UpXK0Xbzi7+QMZdmpggGUV8krGH+DXS082ZsUmWRoAurY1HY4SNUdH
+ wPjbEofIrQlEiLMXFIV1m+UofyyusEqxwoewh4zphr6yfrooNKa31o5vYsYjujlESATd
+ QEHQ==
+X-Gm-Message-State: AOAM532ulqbgf0vWa+/K+CM92fZM7+278WQgmNZPdZahgMicgd5rkBJv
+ q64OxSa1D+LDzjOyJNshnIufVwyJOqXeSYocGCLrMw==
+X-Google-Smtp-Source: ABdhPJz/KsMR5cwJXf4h7firlHqcR38NSaLD0e9vVXsj0n4ovrJXx7T2uNws7j4DG1rO95sIaCLrNdWZrYLYo6BuXoA=
+X-Received: by 2002:aca:df44:0:b0:2ce:285f:cb99 with SMTP id
+ w65-20020acadf44000000b002ce285fcb99mr6309701oig.40.1645238631013; Fri, 18
+ Feb 2022 18:43:51 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 18 Feb 2022 18:43:08 -0800
+ HTTPREST; Fri, 18 Feb 2022 18:43:50 -0800
 MIME-Version: 1.0
-In-Reply-To: <1644851994-22732-6-git-send-email-quic_srivasam@quicinc.com>
+In-Reply-To: <1644851994-22732-7-git-send-email-quic_srivasam@quicinc.com>
 References: <1644851994-22732-1-git-send-email-quic_srivasam@quicinc.com>
- <1644851994-22732-6-git-send-email-quic_srivasam@quicinc.com>
+ <1644851994-22732-7-git-send-email-quic_srivasam@quicinc.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Fri, 18 Feb 2022 18:43:08 -0800
-Message-ID: <CAE-0n53-GRneymVoac=AT6M17aYseS88vM-o1xZxmk8sFQOYhw@mail.gmail.com>
-Subject: Re: [PATCH v6 5/7] pinctrl: qcom: Extract chip specific LPASS LPI code
+Date: Fri, 18 Feb 2022 18:43:50 -0800
+Message-ID: <CAE-0n533mcROZYQ_6SrH4gMhFXjME=1R9oMknsJDcwLUT1LGPQ@mail.gmail.com>
+Subject: Re: [PATCH v6 6/7] pinctrl: qcom: Add SC7280 lpass pin configuration
 To: Linus Walleij <linus.walleij@linaro.org>, 
  Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
  alsa-devel@alsa-project.org, 
@@ -105,24 +104,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2022-02-14 07:19:52)
-> diff --git a/drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c
+Quoting Srinivasa Rao Mandadapu (2022-02-14 07:19:53)
+> diff --git a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
 > new file mode 100644
-> index 0000000..27e358e
+> index 0000000..5bf30d97
 > --- /dev/null
-> +++ b/drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c
-> @@ -0,0 +1,166 @@
+> +++ b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
+> @@ -0,0 +1,169 @@
 > +// SPDX-License-Identifier: GPL-2.0-only
 > +/*
-> + * Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
-> + * Copyright (c) 2020 Linaro Ltd.
+> + * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
+> + * ALSA SoC platform-machine driver for QTi LPASS
 > + */
 > +
 > +#include <linux/clk.h>
+
+Drop unused include.
+
 > +#include <linux/gpio/driver.h>
 > +#include <linux/module.h>
 > +#include <linux/platform_device.h>
 > +
 > +#include "pinctrl-lpass-lpi.h"
 
-Please include ../core.h here as well for the pin_group definition.
+include ../core.h
+
+> +
+> +enum lpass_lpi_functions {
+> +       LPI_MUX_dmic1_clk,
+> +       LPI_MUX_dmic1_data,
+> +       LPI_MUX_dmic2_clk,
+> +       LPI_MUX_dmic2_data,
+> +       LPI_MUX_dmic3_clk,
+> +       LPI_MUX_dmic3_data,
+> +       LPI_MUX_i2s1_clk,
+> +       LPI_MUX_i2s1_data,
+> +       LPI_MUX_i2s1_ws,
+> +       LPI_MUX_i2s2_clk,
+> +       LPI_MUX_i2s2_data,
+> +       LPI_MUX_i2s2_ws,
+> +       LPI_MUX_qua_mi2s_data,
+> +       LPI_MUX_qua_mi2s_sclk,
+> +       LPI_MUX_qua_mi2s_ws,
+> +       LPI_MUX_swr_rx_clk,
+> +       LPI_MUX_swr_rx_data,
+> +       LPI_MUX_swr_tx_clk,
+> +       LPI_MUX_swr_tx_data,
+> +       LPI_MUX_wsa_swr_clk,
+> +       LPI_MUX_wsa_swr_data,
+> +       LPI_MUX_gpio,
+> +       LPI_MUX__,
+> +};
+> +
+> +static int gpio0_pins[] = { 0 };
+
+const?
+
+> +static int gpio1_pins[] = { 1 };
+> +static int gpio2_pins[] = { 2 };
+> +static int gpio3_pins[] = { 3 };
+> +static int gpio4_pins[] = { 4 };
+> +static int gpio5_pins[] = { 5 };
+> +static int gpio6_pins[] = { 6 };
+> +static int gpio7_pins[] = { 7 };

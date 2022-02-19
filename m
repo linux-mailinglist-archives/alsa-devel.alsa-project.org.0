@@ -2,97 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2C104BC9F9
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Feb 2022 19:38:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCCED4BCA2C
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Feb 2022 19:46:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 322121699;
-	Sat, 19 Feb 2022 19:37:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 322121699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65A9A16C6;
+	Sat, 19 Feb 2022 19:45:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65A9A16C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645295897;
-	bh=a6kJOJpN+a6t5OFhrDyEaygcPei3t/eK8TW/yrqnBA0=;
+	s=default; t=1645296399;
+	bh=CZZ4+U77AlL4oysAZTlA60Q73v4CU6EvIUT2oMgILrY=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m7m+GlkfKPY4NKdUPBl5zoDNr7zbBk3KAMnFfi7m7puBU2Py9U334Ku8OH8GTu1nn
-	 5RZgMG4Ccrj+p64zHrVNJ86ONuH5ruRnIVoK5WpMnenFWsMN1/Qa1kU97NuuBDN0gu
-	 vTdhds09EkrVoijDY2fDIRTZh+8cvuv2oC+5Su0o=
+	b=lRLjAs5ED1DsUZnEq3qLaWdYozKlF6IhPa4yp9tH5KEfhIrLYd+8lIYs6vR1dYP/n
+	 y9d6Ezazc7mp0514Uv+GhL5i/V78kNuEJbIw8JAKU9dHartohPx+pc44wor4EuqcqX
+	 yV9y+i8px/CU6AosSp9cixKz7s+w6GUVIVqeSmwU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3F29F80118;
-	Sat, 19 Feb 2022 19:37:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF422F8016B;
+	Sat, 19 Feb 2022 19:45:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 354B8F8016A; Sat, 19 Feb 2022 19:37:10 +0100 (CET)
+ id 0083CF8016A; Sat, 19 Feb 2022 19:45:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
  (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 511E0F80118
- for <alsa-devel@alsa-project.org>; Sat, 19 Feb 2022 19:37:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 511E0F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9997EF800AB
+ for <alsa-devel@alsa-project.org>; Sat, 19 Feb 2022 19:45:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9997EF800AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="Rbae3GcL"
+ header.b="AcIvg298"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645295828; x=1676831828;
+ t=1645296326; x=1676832326;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=GhY3fDCHu53ziSnkTw5eFSyoPC2rhAzNSF2CnP6JEi4=;
- b=Rbae3GcLM1Krwb/fNo0Kmihf9YgDPVuniJ9OBFORDA67em5x/8U5c2nt
- vxgYjEume/wHd71gxBiHcykPb3OENzRmMTpToxocSd9fdKj5CwkiLUbQu
- mX/drlkjuZ0SCj2Edh2taFiDKBx3ogcyEAOtmMkL7wDjp3Sz+VuBq65nM U=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 19 Feb 2022 10:37:05 -0800
+ bh=5v+5eGF0fWqQFfqO8WRWVTuzMoPWbF2CAaKbG/Q1V5s=;
+ b=AcIvg2989HP5p1SFVl7fqPpzzTu6HTgw4vFtdQoPvXdhj34c5t7vyT9j
+ E22JmveyemAOKtJEYyb8ygEig3lrpI/6MCNwv5AT2HdZz6sUa25hxOAqy
+ JpAdRsmtDSV765UFha+J7QdtWAwQB82Yi9NZDhj35Z7Q79uKj+mieTLGe 8=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 19 Feb 2022 10:45:23 -0800
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2022 10:37:04 -0800
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Feb 2022 10:45:23 -0800
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Sat, 19 Feb 2022 10:36:51 -0800
+ 15.2.986.15; Sat, 19 Feb 2022 10:45:22 -0800
 Received: from [10.216.20.52] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Sat, 19 Feb
- 2022 10:36:44 -0800
-Message-ID: <a3bb48ec-1174-ba2f-eca5-0fed78c55799@quicinc.com>
-Date: Sun, 20 Feb 2022 00:06:41 +0530
+ 2022 10:45:16 -0800
+Message-ID: <356abae0-c19b-ccbb-fa5f-4e91619243bf@quicinc.com>
+Date: Sun, 20 Feb 2022 00:15:12 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: Re: [PATCH v6 7/7] pinctrl: qcom: Update clock voting as optional
+Subject: Re: [RESEND v13 04/10] ASoC: qcom: Add helper function to get dma
+ control and lpaif handle
 Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, Linus Walleij
- <linus.walleij@linaro.org>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>, <agross@kernel.org>,
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
  <alsa-devel@alsa-project.org>, <bgoswami@codeaurora.org>,
  <bjorn.andersson@linaro.org>, <broonie@kernel.org>,
  <devicetree@vger.kernel.org>, <judyhsiao@chromium.org>,
  <lgirdwood@gmail.com>, <linux-arm-msm@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <perex@perex.cz>, <quic_plai@quicinc.com>, <robh+dt@kernel.org>,
- <rohitkr@codeaurora.org>, <tiwai@suse.com>
-References: <1644851994-22732-1-git-send-email-quic_srivasam@quicinc.com>
- <1644851994-22732-8-git-send-email-quic_srivasam@quicinc.com>
- <a209336a-9108-f1ac-ee6d-a838df115c6d@linaro.org>
- <b663f63f-4a5a-3a2a-9be7-fa7258ce93c5@quicinc.com>
- <09b00fe9-1770-1723-3c4c-6c494da87e8d@linaro.org>
- <CAE-0n5009g2WwnTsmUeKs5jgrnrUf21SgEL1s65C3FL+HJefkQ@mail.gmail.com>
+ <linux-kernel@vger.kernel.org>, <perex@perex.cz>, <quic_plai@quicinc.com>,
+ <robh+dt@kernel.org>, <rohitkr@codeaurora.org>,
+ <srinivas.kandagatla@linaro.org>, <tiwai@suse.com>
+References: <1644850708-11099-1-git-send-email-quic_srivasam@quicinc.com>
+ <1644850708-11099-5-git-send-email-quic_srivasam@quicinc.com>
+ <CAE-0n504R0avU9Ybj68jxqDRH-Ya5ro0hPo5GJ=2zC6p2SZ_=g@mail.gmail.com>
+ <13007276-c827-0cc4-5db1-396c5184bb35@quicinc.com>
+ <CAE-0n538Lhp7U=pEB_7R5EARG6LveeO=jvF+kE7HCCEXUEm-kQ@mail.gmail.com>
 From: "Srinivasa Rao Mandadapu (Temp)" <quic_srivasam@quicinc.com>
 Organization: Qualcomm
-In-Reply-To: <CAE-0n5009g2WwnTsmUeKs5jgrnrUf21SgEL1s65C3FL+HJefkQ@mail.gmail.com>
+In-Reply-To: <CAE-0n538Lhp7U=pEB_7R5EARG6LveeO=jvF+kE7HCCEXUEm-kQ@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -111,42 +110,81 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 2/19/2022 8:16 AM, Stephen Boyd wrote:
+On 2/18/2022 1:11 AM, Stephen Boyd wrote:
 Thanks for Your time Stephen!!!
-> Quoting Srinivas Kandagatla (2022-02-16 07:38:02)
->>
->> On 16/02/2022 14:41, Srinivasa Rao Mandadapu wrote:
->>> On 2/16/2022 7:50 PM, Srinivas Kandagatla wrote:
->>> Thanks for Your Time Srini!!!
->>>> On 14/02/2022 15:19, Srinivasa Rao Mandadapu wrote:
->>>>> diff --git a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
->>>>> b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
->>>>> index 5bf30d97..4277e31 100644
->>>>> --- a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
->>>>> +++ b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
->>>>> @@ -143,6 +143,7 @@ static const struct lpi_pinctrl_variant_data
->>>>> sc7280_lpi_data = {
->>>>>        .ngroups = ARRAY_SIZE(sc7280_groups),
->>>>>        .functions = sc7280_functions,
->>>>>        .nfunctions = ARRAY_SIZE(sc7280_functions),
->>>>> +    .is_clk_optional = 1,
->>>> This is forcefully set assuming that sc7280 is always used in ADSP
->>>> bypass mode. Which is not correct.
+> Quoting Srinivasa Rao Mandadapu (2022-02-15 21:11:29)
+>> On 2/15/2022 6:40 AM, Stephen Boyd wrote:
+>> Thanks for your time Stephen!!!
+>>> Quoting Srinivasa Rao Mandadapu (2022-02-14 06:58:22)
+>>>> Add support function to get dma control and lpaif handle to avoid
+>>>> repeated code in platform driver
 >>>>
->>>> Can't you use devm_clk_bulk_get_optional instead?
->>> Yes. Agreed. Initially used devm_clk_bulk_get_optional, but Bjorn
->>> suggested for conditional check instead of optional.
->>>
->>> Again Shall we go for optional clock voting?
->> That means that the condition has to be dynamic based on the platform
->> using DSP or not. Which is impossible to deduce without some help from DT.
->>
->> I would prefer to stay with optional clock unless Bjorn has some strong
->> objection on not using int.
-> I think we need the combination of optional API and bool flag. My
-> understanding is it's optional on sc7280, but not on the previous
-> revision, so we want to be very strict on previous revision and less
-> strict on sc7280. Hence the flag. Maybe we should change it to
-> clk_required and then assume optional going forward. Then the callsite
-> can use one or the other API?
-Okay.Will change accordingly.
+>>>> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+>>>> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+>>>> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+>>>> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>>>> ---
+>>>>    sound/soc/qcom/lpass-platform.c | 113 +++++++++++++++++++++++-----------------
+>>>>    1 file changed, 66 insertions(+), 47 deletions(-)
+>>>>
+>>>> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+>>>> index a44162c..5d77240 100644
+>>>> --- a/sound/soc/qcom/lpass-platform.c
+>>>> +++ b/sound/soc/qcom/lpass-platform.c
+>>>> @@ -177,6 +177,49 @@ static int lpass_platform_pcmops_close(struct snd_soc_component *component,
+>>>>           return 0;
+>>>>    }
+>>>>
+>>>> +static void __lpass_get_lpaif_handle(struct snd_pcm_substream *substream,
+>>> const?
+>> Okay. will add const to substream pointer.
+>>>> +                                    struct snd_soc_component *component,
+>>> const?
+>> Here const is giving compilation errors in below code.
+> Ok
+>
+>>>> +                       l_id = pcm_data->dma_ch;
+>>>> +                       l_dmactl = drvdata->rd_dmactl;
+>>>> +               } else {
+>>>> +                       l_dmactl = drvdata->wr_dmactl;
+>>>> +                       l_id = pcm_data->dma_ch - v->wrdma_channel_start;
+>>>> +               }
+>>>> +               l_map = drvdata->lpaif_map;
+>>>> +               break;
+>>>> +       case LPASS_DP_RX:
+>>>> +               l_id = pcm_data->dma_ch;
+>>>> +               l_dmactl = drvdata->hdmi_rd_dmactl;
+>>>> +               l_map = drvdata->hdmiif_map;
+>>>> +               break;
+>>>> +       default:
+>>>> +               break;
+>>>> +       }
+>>>> +       if (dmactl)
+>>>> +               *dmactl = l_dmactl;
+>>>> +       if (id)
+>>>> +               *id = l_id;
+>>>> +       if (map)
+>>>> +               *map = l_map;
+>>> Why not 'return 0' here and return -EINVAL in the default case above? Then
+>>> we can skip the checks for !map or !dmactl below and simply bail out if
+>>> it failed with an error value.
+>> Here the check is for input params. some users call for only damctl or
+>> only map.
+> Yes the check is to make sure there's a pointer to store the value into.
+> I get that. The users are all internal to this driver though because
+> the function is static. If the function returned an error because it
+> couldn't find something then we wouldn't have to test the resulting
+> pointers for success, instead we could check for a return value.
+> Similarly, it may be clearer to have a single get for each item and then
+> return a pointer from the function vs. passing it in to extract
+> something. It may duplicate some code but otherwise the code would be
+> clearer because we're getting one thing and can pass an error value
+> through the pointer with PTR_ERR().
+
+Okay. Agreed. But in initial review comments, asked to make common 
+function for code readability,
+
+and to avoid duplicate code.
+
+Anyway will change accordingly and re post it.
+

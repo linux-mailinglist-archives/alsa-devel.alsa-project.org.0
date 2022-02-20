@@ -2,98 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 493714BCA56
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Feb 2022 19:58:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72E224BCB3D
+	for <lists+alsa-devel@lfdr.de>; Sun, 20 Feb 2022 01:17:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E83E516B9;
-	Sat, 19 Feb 2022 19:57:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E83E516B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DBDA16CD;
+	Sun, 20 Feb 2022 01:16:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DBDA16CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645297086;
-	bh=+8SOjm7LWtOqw+f3KeDcIojQ1tl2JKaYHuGgRWgideo=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1645316234;
+	bh=JzN3CN2BrYi7wgxDiIWCbv3SSNFkS0635LX5WXVpbaY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VOu2tY2un5Mg4L/d8BLAF3OcOO+A6267JrKu6y+IAi5rxsaLoGWDCzNjIhztjX8An
-	 PMOR1/bQZAjjtRiB7sIKPyQ/MHzqfmpZIItEIwJX5rqiIkyPBOhj5mXXOnnejwQ00v
-	 fhOCcpfFn2W+gXTR308SjsnrQr6ByUI/4+DTeXS8=
+	b=S6sF3JI/ooxMG6kG4Jny0mxEMAXSmWx6DucR8MboPo32uJI7/fhlpALRxRFgXdNjE
+	 6lQMbxM19d6JyVATdQ/6kZeW9zoeAI9rpU22NnAk84JUOphrWK6/fxiYKOm151N3lq
+	 TlPISsj54EL0Vjv8UO2MNonYgcw2b0bX2IsUofLY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49DF5F8016B;
-	Sat, 19 Feb 2022 19:57:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6337F8016E;
+	Sun, 20 Feb 2022 01:15:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99CD7F800EB; Sat, 19 Feb 2022 19:56:58 +0100 (CET)
+ id A5CB0F8016B; Sun, 20 Feb 2022 01:15:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from sender11-of-o51.zoho.eu (sender11-of-o51.zoho.eu
+ [31.186.226.237])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BDEA4F800EB
- for <alsa-devel@alsa-project.org>; Sat, 19 Feb 2022 19:56:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDEA4F800EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="DD9O0jAO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645297017; x=1676833017;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=OEri4uDqfVq3Sq55bw1JpjblsjiHhv7blHvy92mJyQM=;
- b=DD9O0jAOfo8T2jUnw3VgwxkUcFQTGWC994X7Cy8VA/oaXpzF106DDg2j
- qNORkUp+Uut5DXJcuMZzRmRA5VYzR3ktDQpPBB2/Uo7mH/loeoonaNI7g
- aQwHuuzONIGY35UKbyITfmd9nY2rUxqk9KGC36T+U/vdZRuFau/3emtEL o=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 19 Feb 2022 10:56:53 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2022 10:56:52 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Sat, 19 Feb 2022 10:56:52 -0800
-Received: from [10.216.20.52] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Sat, 19 Feb
- 2022 10:56:45 -0800
-Message-ID: <e279b9ec-92af-1b86-9ea0-09c9c36e1404@quicinc.com>
-Date: Sun, 20 Feb 2022 00:26:42 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [RESEND v13 08/10] ASoC: qcom: Add lpass CPU driver for codec dma
- control
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
- <alsa-devel@alsa-project.org>, <bgoswami@codeaurora.org>,
- <bjorn.andersson@linaro.org>, <broonie@kernel.org>,
- <devicetree@vger.kernel.org>, <judyhsiao@chromium.org>,
- <lgirdwood@gmail.com>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <perex@perex.cz>, <quic_plai@quicinc.com>,
- <robh+dt@kernel.org>, <rohitkr@codeaurora.org>,
- <srinivas.kandagatla@linaro.org>, <tiwai@suse.com>
-References: <1644850708-11099-1-git-send-email-quic_srivasam@quicinc.com>
- <1644850708-11099-9-git-send-email-quic_srivasam@quicinc.com>
- <CAE-0n52jD_BvQm4CeTkiR723-3uKC9G4fFeynFbs5Ukg_S762g@mail.gmail.com>
- <d70291a6-7e3f-0406-2826-3a30f2d5650b@quicinc.com>
- <CAE-0n51zr2qZ4qSzsC4=3d_jCYGvSxh8_3znrEQFaNrGfRU2Gw@mail.gmail.com>
-From: "Srinivasa Rao Mandadapu (Temp)" <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <CAE-0n51zr2qZ4qSzsC4=3d_jCYGvSxh8_3znrEQFaNrGfRU2Gw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C202F800EB
+ for <alsa-devel@alsa-project.org>; Sun, 20 Feb 2022 01:15:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C202F800EB
+ARC-Seal: i=1; a=rsa-sha256; t=1645316098; cv=none; d=zohomail.eu; s=zohoarc; 
+ b=iHTfEyOMVKQCQUWTEkxAl7lD59sCRhIq4DcgSqMi+dBUaQI/XXXLG33RtXJUKF9uYLaXkGHujgROognsNWRqybGaRtAZyou1K//uu3TVVV6lLzIh4z7J2gQvreQKpPEdzz9U4oOH7eKa+E8VLW/t1ZgCS3a3QwWp0PMMfq5kejo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
+ s=zohoarc; t=1645316098;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
+ bh=I2SPFUqVbuiNnXgGeTuoa/g4+z6ufb1oWENl/qsaZ88=; 
+ b=IihROJ3ugIWVGgG6QS7hYdrzkUhhCaxoTv4Js1Pbl4Pjqi9ogFgL11i+1z5Yh08Gv6qVoiLEQHUARzH9MYceGANS4oFR2a4jAr1ApBdVdWVd5i89IAuxdE5/b7jxknrgAbhPu3fT/quDassy3sngUBlfXjDvU26g/tjYN5lA0S0=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+ spf=pass  smtp.mailfrom=philipp@uvos.xyz;
+ dmarc=pass header.from=<philipp@uvos.xyz>
+Received: from UVOSLinux (ip-037-201-192-120.um10.pools.vodafone-ip.de
+ [37.201.192.120]) by mx.zoho.eu
+ with SMTPS id 1645316096336579.5571665667055;
+ Sun, 20 Feb 2022 01:14:56 +0100 (CET)
+Date: Sun, 20 Feb 2022 01:14:54 +0100
+From: Carl Philipp Klemm <philipp@uvos.xyz>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 1/6] ASoC: simple_card_utils: call
+ snd_soc_component_set_jack() at asoc_simple_init_jack()
+Message-Id: <20220220011454.34b190c26487faa18c16e4d2@uvos.xyz>
+In-Reply-To: <OS3PR01MB8426FD3FD1B45BB31C971A56D4509@OS3PR01MB8426.jpnprd01.prod.outlook.com>
+References: <20211228190931.df5d518220080a734532ebfd@uvos.xyz>
+ <87a6gawxpe.wl-kuninori.morimoto.gx@gmail.com>
+ <20220105101028.620b7f2cb7727eedfccd933e@uvos.xyz>
+ <87r19ld48v.wl-kuninori.morimoto.gx@gmail.com>
+ <20220108145749.f55500222b049f344415a5c3@uvos.xyz>
+ <OS3PR01MB8426FD3FD1B45BB31C971A56D4509@OS3PR01MB8426.jpnprd01.prod.outlook.com>
+X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-unknown-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+X-ZohoMailClient: External
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tony@atomide.com" <tony@atomide.com>,
+ "merlijn@wizzup.org" <merlijn@wizzup.org>, "sre@kernel.org" <sre@kernel.org>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "kuninori.morimoto.gx@gmail.com" <kuninori.morimoto.gx@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,34 +89,253 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Current simple-card / audio-graph-card are detecting HP/MIC at card->probe
+timing (= A), and not calling snd_soc_component_set_jack() for it.
+Other sound card drivers are using dai_link->init timing (= B) for
+both detecting and set_jack().
 
-On 2/18/2022 1:23 AM, Stephen Boyd wrote:
-Thanks for Your time Stephen!!!
-> Quoting Srinivasa Rao Mandadapu (2022-02-16 01:42:42)
->> On 2/15/2022 7:03 AM, Stephen Boyd wrote:
->> Thanks for your time Stephen!!!
->>> Quoting Srinivasa Rao Mandadapu (2022-02-14 06:58:26)
->>>> +       struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
->>>> +       struct lpaif_dmactl *dmactl;
->>>> +       int ret = 0, id;
->>>> +
->>>> +       switch (cmd) {
->>>> +       case SNDRV_PCM_TRIGGER_START:
->>>> +       case SNDRV_PCM_TRIGGER_RESUME:
->>>> +       case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
->>>> +               __lpass_platform_codec_intf_init(dai, substream);
->>>> +               break;
->>>> +       case SNDRV_PCM_TRIGGER_STOP:
->>>> +       case SNDRV_PCM_TRIGGER_SUSPEND:
->>>> +       case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
->>>> +               __lpass_get_dmactl_handle(substream, dai, &dmactl, &id);
->>>> +               if (!dmactl) {
->>>> +                       dev_err(soc_runtime->dev, "failed to get dmactl handle\n");
->>> This same message is in many places. I really hope it never gets printed
->>> because finding out which line it got printed at is going to be
->>> impossible.
->> Okay. Will add function name in each print.
-> Are they useful prints at all? They seem like development prints that
-> won't trigger after the driver is developed. Why can't we just remove
-> them?
-Okay. Will remove prints.
+	static int snd_soc_bind_card(...)
+	{
+		....
+(A)		ret = snd_soc_card_probe(card);
+		...
+		for_each_card_rtds(card, rtd) {
+(B)			ret = soc_init_pcm_runtime(card, rtd);
+			...
+		}
+		...
+	}
+
+This patch
+(a) calls set_jack() (= Y) at asoc_simple_init_jack() (= X) which is
+    used to detect HP/MIC.
+(b) calls it from dai_link->init timing (= B) instead of card->probe
+    timing (= A).
+(c) allows  non-gpio jacks to be reported by a componant give it via
+    snd_soc_component_set_jack if a of node defined by the driver is set
+(d) remove card->init (= A) timing function from
+    simple-card / audio-graph-card.
+
+(X)	int asoc_simple_init_jack(...)
+	{
+		...
+		if (gpio_is_valid(det)) {
+			...
+
+			snd_soc_card_jack_new(...);
+			snd_soc_jack_add_gpios(...);
+			for_each_card_components(card, component)
+(Y)				snd_soc_component_set_jack(component, ...);
+		}
+		...
+	}
+
+One note here is that simple-card needs PREFIX to detecting HP/MIC,
+but it is not needed on audio-graph-card.
+Thus simple-card uses local function for it, and audio-graph-card is
+using global function and sharing the code with
+audio-graph-card / audio-graph-card2 / audio-graph-card2-custom-sample /
+tegra_audio_graph_card.
+
+Co-Developed-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Carl Philipp Klemm <philipp@uvos.xyz>
+---
+ include/sound/simple_card_utils.h             |  2 +-
+ .../generic/audio-graph-card2-custom-sample.c |  3 +-
+ sound/soc/generic/audio-graph-card2.c         |  3 +-
+ sound/soc/generic/simple-card-utils.c         | 20 +++++++++-
+ sound/soc/generic/simple-card.c               | 40 ++++++++++---------
+ sound/soc/tegra/tegra_audio_graph_card.c      |  2 +-
+ 6 files changed, 44 insertions(+), 26 deletions(-)
+
+diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
+index df430f1c2a10..34891da5a0fa 100644
+--- a/include/sound/simple_card_utils.h
++++ b/include/sound/simple_card_utils.h
+@@ -182,7 +182,7 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
+ 			       struct link_info *li);
+ int asoc_simple_remove(struct platform_device *pdev);
+ 
+-int asoc_graph_card_probe(struct snd_soc_card *card);
++int asoc_graph_dai_init(struct snd_soc_pcm_runtime *rtd);
+ int asoc_graph_is_ports0(struct device_node *port);
+ 
+ #ifdef DEBUG
+diff --git a/sound/soc/generic/audio-graph-card2-custom-sample.c b/sound/soc/generic/audio-graph-card2-custom-sample.c
+index 4a2c743e286c..da6cb69faa8d 100644
+--- a/sound/soc/generic/audio-graph-card2-custom-sample.c
++++ b/sound/soc/generic/audio-graph-card2-custom-sample.c
+@@ -34,8 +34,7 @@ static int custom_card_probe(struct snd_soc_card *card)
+ 
+ 	custom_priv->custom_params = 1;
+ 
+-	/* you can use generic probe function */
+-	return asoc_graph_card_probe(card);
++	return 0;
+ }
+ 
+ static int custom_hook_pre(struct asoc_simple_priv *priv)
+diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
+index b6049bcfb771..dacf158389f9 100644
+--- a/sound/soc/generic/audio-graph-card2.c
++++ b/sound/soc/generic/audio-graph-card2.c
+@@ -710,7 +710,7 @@ static void graph_link_init(struct asoc_simple_priv *priv,
+ 		daiclk = snd_soc_daifmt_clock_provider_fliped(daiclk);
+ 
+ 	dai_link->dai_fmt	= daifmt | daiclk;
+-	dai_link->init		= asoc_simple_dai_init;
++	dai_link->init		= asoc_graph_dai_init;
+ 	dai_link->ops		= &graph_ops;
+ 	if (priv->ops)
+ 		dai_link->ops	= priv->ops;
+@@ -1180,7 +1180,6 @@ int audio_graph2_parse_of(struct asoc_simple_priv *priv, struct device *dev,
+ 	if (!li)
+ 		return -ENOMEM;
+ 
+-	card->probe	= asoc_graph_card_probe;
+ 	card->owner	= THIS_MODULE;
+ 	card->dev	= dev;
+ 
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index 850e968677f1..a135c85584df 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -588,6 +588,8 @@ int asoc_simple_init_jack(struct snd_soc_card *card,
+ 		return -EPROBE_DEFER;
+ 
+ 	if (gpio_is_valid(det)) {
++		struct snd_soc_component *component;
++
+ 		sjack->pin.pin		= pin_name;
+ 		sjack->pin.mask		= mask;
+ 
+@@ -603,6 +605,15 @@ int asoc_simple_init_jack(struct snd_soc_card *card,
+ 
+ 		snd_soc_jack_add_gpios(&sjack->jack, 1,
+ 				       &sjack->gpio);
++
++		for_each_card_components(card, component)
++			snd_soc_component_set_jack(component, &sjack->jack, NULL);
++	} else if (of_property_read_bool(dev->of_node, prefix)) {
++		snd_soc_card_jack_new(card, pin_name, mask,
++				      &sjack->jack,
++				      &sjack->pin, 1);
++		for_each_card_components(card, component)
++			snd_soc_component_set_jack(component, &sjack->jack, NULL);
+ 	}
+ 
+ 	return 0;
+@@ -758,11 +769,16 @@ int asoc_simple_remove(struct platform_device *pdev)
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_remove);
+ 
+-int asoc_graph_card_probe(struct snd_soc_card *card)
++int asoc_graph_dai_init(struct snd_soc_pcm_runtime *rtd)
+ {
++	struct snd_soc_card *card = rtd->card;
+ 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(card);
+ 	int ret;
+ 
++	ret = asoc_simple_dai_init(rtd);
++	if (ret < 0)
++		return ret;
++
+ 	ret = asoc_simple_init_hp(card, &priv->hp_jack, NULL);
+ 	if (ret < 0)
+ 		return ret;
+@@ -773,7 +789,7 @@ int asoc_graph_card_probe(struct snd_soc_card *card)
+ 
+ 	return 0;
+ }
+-EXPORT_SYMBOL_GPL(asoc_graph_card_probe);
++EXPORT_SYMBOL_GPL(asoc_graph_dai_init);
+ 
+ int asoc_graph_is_ports0(struct device_node *np)
+ {
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index a3a7990b5cb6..0ead77c40a30 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -149,6 +149,27 @@ static int simple_parse_node(struct asoc_simple_priv *priv,
+ 	return 0;
+ }
+ 
++static int simple_dai_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_card *card = rtd->card;
++	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(card);
++	int ret;
++
++	ret = asoc_simple_dai_init(rtd);
++	if (ret < 0)
++		return ret;
++
++	ret = asoc_simple_init_hp(card, &priv->hp_jack, PREFIX);
++	if (ret < 0)
++		return ret;
++
++	ret = asoc_simple_init_mic(card, &priv->mic_jack, PREFIX);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
+ static int simple_link_init(struct asoc_simple_priv *priv,
+ 			    struct device_node *node,
+ 			    struct device_node *codec,
+@@ -164,7 +185,7 @@ static int simple_link_init(struct asoc_simple_priv *priv,
+ 	if (ret < 0)
+ 		return 0;
+ 
+-	dai_link->init			= asoc_simple_dai_init;
++	dai_link->init			= simple_dai_init;
+ 	dai_link->ops			= &simple_ops;
+ 
+ 	return asoc_simple_set_dailink_name(dev, dai_link, name);
+@@ -587,22 +608,6 @@ static int simple_get_dais_count(struct asoc_simple_priv *priv,
+ 				    simple_count_dpcm);
+ }
+ 
+-static int simple_soc_probe(struct snd_soc_card *card)
+-{
+-	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(card);
+-	int ret;
+-
+-	ret = asoc_simple_init_hp(card, &priv->hp_jack, PREFIX);
+-	if (ret < 0)
+-		return ret;
+-
+-	ret = asoc_simple_init_mic(card, &priv->mic_jack, PREFIX);
+-	if (ret < 0)
+-		return ret;
+-
+-	return 0;
+-}
+-
+ static int asoc_simple_probe(struct platform_device *pdev)
+ {
+ 	struct asoc_simple_priv *priv;
+@@ -620,7 +625,6 @@ static int asoc_simple_probe(struct platform_device *pdev)
+ 	card = simple_priv_to_card(priv);
+ 	card->owner		= THIS_MODULE;
+ 	card->dev		= dev;
+-	card->probe		= simple_soc_probe;
+ 	card->driver_name       = "simple-card";
+ 
+ 	li = devm_kzalloc(dev, sizeof(*li), GFP_KERNEL);
+diff --git a/sound/soc/tegra/tegra_audio_graph_card.c b/sound/soc/tegra/tegra_audio_graph_card.c
+index 1f2c5018bf5a..404762d40389 100644
+--- a/sound/soc/tegra/tegra_audio_graph_card.c
++++ b/sound/soc/tegra/tegra_audio_graph_card.c
+@@ -184,7 +184,7 @@ static int tegra_audio_graph_card_probe(struct snd_soc_card *card)
+ 		return PTR_ERR(priv->clk_plla_out0);
+ 	}
+ 
+-	return asoc_graph_card_probe(card);
++	return 0;
+ }
+ 
+ static int tegra_audio_graph_probe(struct platform_device *pdev)
+-- 
+2.35.1

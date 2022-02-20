@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72E224BCB3D
-	for <lists+alsa-devel@lfdr.de>; Sun, 20 Feb 2022 01:17:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D99D4BCB3B
+	for <lists+alsa-devel@lfdr.de>; Sun, 20 Feb 2022 01:16:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DBDA16CD;
-	Sun, 20 Feb 2022 01:16:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DBDA16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88A8016B4;
+	Sun, 20 Feb 2022 01:15:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88A8016B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645316234;
-	bh=JzN3CN2BrYi7wgxDiIWCbv3SSNFkS0635LX5WXVpbaY=;
+	s=default; t=1645316200;
+	bh=xnXUXTD/gkGINVh7sS8pU9Yrwu33QtFHQs04hrKbosQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S6sF3JI/ooxMG6kG4Jny0mxEMAXSmWx6DucR8MboPo32uJI7/fhlpALRxRFgXdNjE
-	 6lQMbxM19d6JyVATdQ/6kZeW9zoeAI9rpU22NnAk84JUOphrWK6/fxiYKOm151N3lq
-	 TlPISsj54EL0Vjv8UO2MNonYgcw2b0bX2IsUofLY=
+	b=H/X5miskGKO7KryXdUQracy7hmzEoTTOhNRuzR51y2nmsureueQniaDg4GPFSCWU7
+	 ijP9DRs218zHRv9++0KWobnlGsS7jeGc128ak5GWNIftVhVgMjmAPuD5IHwJS5PqDS
+	 2IdIQ4m4A/iQHQqmMO2V7co8EuGL/qjSMVJ9VK0k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6337F8016E;
+	by alsa1.perex.cz (Postfix) with ESMTP id 07317F800EB;
 	Sun, 20 Feb 2022 01:15:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5CB0F8016B; Sun, 20 Feb 2022 01:15:32 +0100 (CET)
+ id D0515F8016A; Sun, 20 Feb 2022 01:15:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -34,29 +34,29 @@ Received: from sender11-of-o51.zoho.eu (sender11-of-o51.zoho.eu
  [31.186.226.237])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C202F800EB
- for <alsa-devel@alsa-project.org>; Sun, 20 Feb 2022 01:15:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C202F800EB
-ARC-Seal: i=1; a=rsa-sha256; t=1645316098; cv=none; d=zohomail.eu; s=zohoarc; 
- b=iHTfEyOMVKQCQUWTEkxAl7lD59sCRhIq4DcgSqMi+dBUaQI/XXXLG33RtXJUKF9uYLaXkGHujgROognsNWRqybGaRtAZyou1K//uu3TVVV6lLzIh4z7J2gQvreQKpPEdzz9U4oOH7eKa+E8VLW/t1ZgCS3a3QwWp0PMMfq5kejo=
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3FCD1F8014B
+ for <alsa-devel@alsa-project.org>; Sun, 20 Feb 2022 01:15:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FCD1F8014B
+ARC-Seal: i=1; a=rsa-sha256; t=1645316110; cv=none; d=zohomail.eu; s=zohoarc; 
+ b=bigFUDdZ2wMnQ2d/5wIhFdqxm3e8RFNL8UU+YYJizwNThxZm2DV8IQKCTnEoydNVnYatyeug07+MC93WV0Cq/s9FHTcVvyWsA0YO//W6wQzsr61yFSr4K62tVuBOom7duvYVg9kIin+zWA4Npo/GwoksTbXnqHY7lw1APVC7jlI=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
- s=zohoarc; t=1645316098;
+ s=zohoarc; t=1645316110;
  h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
- bh=I2SPFUqVbuiNnXgGeTuoa/g4+z6ufb1oWENl/qsaZ88=; 
- b=IihROJ3ugIWVGgG6QS7hYdrzkUhhCaxoTv4Js1Pbl4Pjqi9ogFgL11i+1z5Yh08Gv6qVoiLEQHUARzH9MYceGANS4oFR2a4jAr1ApBdVdWVd5i89IAuxdE5/b7jxknrgAbhPu3fT/quDassy3sngUBlfXjDvU26g/tjYN5lA0S0=
+ bh=TxrtmrJJ22codCwapsCweA2PwXwm9IdvB4gM7D6ogMw=; 
+ b=PZjAw1owXJ0EQauvT7b9RidiwdVqelT8/XA9GjOJizyZx7o8556Vmvw4VT9QEKXHd+2RA6e+8NeZ3g7oenDhDka+bP+cAhhQcDKrNFbKj/n5VZKeeGUHOi1kGKNqNjiEem1rcYLcvzUtouaPJmr6uaFN0ILZb0Z+G50R8qk0KsY=
 ARC-Authentication-Results: i=1; mx.zohomail.eu;
  spf=pass  smtp.mailfrom=philipp@uvos.xyz;
  dmarc=pass header.from=<philipp@uvos.xyz>
 Received: from UVOSLinux (ip-037-201-192-120.um10.pools.vodafone-ip.de
  [37.201.192.120]) by mx.zoho.eu
- with SMTPS id 1645316096336579.5571665667055;
- Sun, 20 Feb 2022 01:14:56 +0100 (CET)
-Date: Sun, 20 Feb 2022 01:14:54 +0100
+ with SMTPS id 1645316109044132.10370953547556;
+ Sun, 20 Feb 2022 01:15:09 +0100 (CET)
+Date: Sun, 20 Feb 2022 01:15:08 +0100
 From: Carl Philipp Klemm <philipp@uvos.xyz>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/6] ASoC: simple_card_utils: call
- snd_soc_component_set_jack() at asoc_simple_init_jack()
-Message-Id: <20220220011454.34b190c26487faa18c16e4d2@uvos.xyz>
+Subject: [PATCH 2/6] ASoC: audio-graph-card: use new functionality in
+ simple_card_utils to implement has-hp-jack of property
+Message-Id: <20220220011508.b60109377252d188ed3ccb02@uvos.xyz>
 In-Reply-To: <OS3PR01MB8426FD3FD1B45BB31C971A56D4509@OS3PR01MB8426.jpnprd01.prod.outlook.com>
 References: <20211228190931.df5d518220080a734532ebfd@uvos.xyz>
  <87a6gawxpe.wl-kuninori.morimoto.gx@gmail.com>
@@ -89,253 +89,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Current simple-card / audio-graph-card are detecting HP/MIC at card->probe
-timing (= A), and not calling snd_soc_component_set_jack() for it.
-Other sound card drivers are using dai_link->init timing (= B) for
-both detecting and set_jack().
+Setting this will cause audio-graph-card to register a headphone jack
+and provide it to its componants via set_jack.
 
-	static int snd_soc_bind_card(...)
-	{
-		....
-(A)		ret = snd_soc_card_probe(card);
-		...
-		for_each_card_rtds(card, rtd) {
-(B)			ret = soc_init_pcm_runtime(card, rtd);
-			...
-		}
-		...
-	}
-
-This patch
-(a) calls set_jack() (= Y) at asoc_simple_init_jack() (= X) which is
-    used to detect HP/MIC.
-(b) calls it from dai_link->init timing (= B) instead of card->probe
-    timing (= A).
-(c) allows  non-gpio jacks to be reported by a componant give it via
-    snd_soc_component_set_jack if a of node defined by the driver is set
-(d) remove card->init (= A) timing function from
-    simple-card / audio-graph-card.
-
-(X)	int asoc_simple_init_jack(...)
-	{
-		...
-		if (gpio_is_valid(det)) {
-			...
-
-			snd_soc_card_jack_new(...);
-			snd_soc_jack_add_gpios(...);
-			for_each_card_components(card, component)
-(Y)				snd_soc_component_set_jack(component, ...);
-		}
-		...
-	}
-
-One note here is that simple-card needs PREFIX to detecting HP/MIC,
-but it is not needed on audio-graph-card.
-Thus simple-card uses local function for it, and audio-graph-card is
-using global function and sharing the code with
-audio-graph-card / audio-graph-card2 / audio-graph-card2-custom-sample /
-tegra_audio_graph_card.
-
-Co-Developed-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Carl Philipp Klemm <philipp@uvos.xyz>
 ---
- include/sound/simple_card_utils.h             |  2 +-
- .../generic/audio-graph-card2-custom-sample.c |  3 +-
- sound/soc/generic/audio-graph-card2.c         |  3 +-
- sound/soc/generic/simple-card-utils.c         | 20 +++++++++-
- sound/soc/generic/simple-card.c               | 40 ++++++++++---------
- sound/soc/tegra/tegra_audio_graph_card.c      |  2 +-
- 6 files changed, 44 insertions(+), 26 deletions(-)
+ sound/soc/generic/audio-graph-card.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index df430f1c2a10..34891da5a0fa 100644
---- a/include/sound/simple_card_utils.h
-+++ b/include/sound/simple_card_utils.h
-@@ -182,7 +182,7 @@ int asoc_simple_init_priv(struct asoc_simple_priv *priv,
- 			       struct link_info *li);
- int asoc_simple_remove(struct platform_device *pdev);
+diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
+index 7eb027238327..32a81bf10f18 100644
+--- a/sound/soc/generic/audio-graph-card.c
++++ b/sound/soc/generic/audio-graph-card.c
+@@ -259,7 +259,7 @@ static int graph_link_init(struct asoc_simple_priv *priv,
+ 	if (ret < 0)
+ 		return ret;
  
--int asoc_graph_card_probe(struct snd_soc_card *card);
-+int asoc_graph_dai_init(struct snd_soc_pcm_runtime *rtd);
- int asoc_graph_is_ports0(struct device_node *port);
- 
- #ifdef DEBUG
-diff --git a/sound/soc/generic/audio-graph-card2-custom-sample.c b/sound/soc/generic/audio-graph-card2-custom-sample.c
-index 4a2c743e286c..da6cb69faa8d 100644
---- a/sound/soc/generic/audio-graph-card2-custom-sample.c
-+++ b/sound/soc/generic/audio-graph-card2-custom-sample.c
-@@ -34,8 +34,7 @@ static int custom_card_probe(struct snd_soc_card *card)
- 
- 	custom_priv->custom_params = 1;
- 
--	/* you can use generic probe function */
--	return asoc_graph_card_probe(card);
-+	return 0;
- }
- 
- static int custom_hook_pre(struct asoc_simple_priv *priv)
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index b6049bcfb771..dacf158389f9 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -710,7 +710,7 @@ static void graph_link_init(struct asoc_simple_priv *priv,
- 		daiclk = snd_soc_daifmt_clock_provider_fliped(daiclk);
- 
- 	dai_link->dai_fmt	= daifmt | daiclk;
 -	dai_link->init		= asoc_simple_dai_init;
 +	dai_link->init		= asoc_graph_dai_init;
  	dai_link->ops		= &graph_ops;
  	if (priv->ops)
  		dai_link->ops	= priv->ops;
-@@ -1180,7 +1180,6 @@ int audio_graph2_parse_of(struct asoc_simple_priv *priv, struct device *dev,
- 	if (!li)
- 		return -ENOMEM;
- 
--	card->probe	= asoc_graph_card_probe;
- 	card->owner	= THIS_MODULE;
- 	card->dev	= dev;
- 
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 850e968677f1..a135c85584df 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -588,6 +588,8 @@ int asoc_simple_init_jack(struct snd_soc_card *card,
- 		return -EPROBE_DEFER;
- 
- 	if (gpio_is_valid(det)) {
-+		struct snd_soc_component *component;
-+
- 		sjack->pin.pin		= pin_name;
- 		sjack->pin.mask		= mask;
- 
-@@ -603,6 +605,15 @@ int asoc_simple_init_jack(struct snd_soc_card *card,
- 
- 		snd_soc_jack_add_gpios(&sjack->jack, 1,
- 				       &sjack->gpio);
-+
-+		for_each_card_components(card, component)
-+			snd_soc_component_set_jack(component, &sjack->jack, NULL);
-+	} else if (of_property_read_bool(dev->of_node, prefix)) {
-+		snd_soc_card_jack_new(card, pin_name, mask,
-+				      &sjack->jack,
-+				      &sjack->pin, 1);
-+		for_each_card_components(card, component)
-+			snd_soc_component_set_jack(component, &sjack->jack, NULL);
- 	}
- 
- 	return 0;
-@@ -758,11 +769,16 @@ int asoc_simple_remove(struct platform_device *pdev)
- }
- EXPORT_SYMBOL_GPL(asoc_simple_remove);
- 
--int asoc_graph_card_probe(struct snd_soc_card *card)
-+int asoc_graph_dai_init(struct snd_soc_pcm_runtime *rtd)
- {
-+	struct snd_soc_card *card = rtd->card;
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(card);
- 	int ret;
- 
-+	ret = asoc_simple_dai_init(rtd);
-+	if (ret < 0)
-+		return ret;
-+
- 	ret = asoc_simple_init_hp(card, &priv->hp_jack, NULL);
+@@ -568,6 +568,8 @@ int audio_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev)
  	if (ret < 0)
  		return ret;
-@@ -773,7 +789,7 @@ int asoc_graph_card_probe(struct snd_soc_card *card)
  
- 	return 0;
- }
--EXPORT_SYMBOL_GPL(asoc_graph_card_probe);
-+EXPORT_SYMBOL_GPL(asoc_graph_dai_init);
- 
- int asoc_graph_is_ports0(struct device_node *np)
- {
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index a3a7990b5cb6..0ead77c40a30 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -149,6 +149,27 @@ static int simple_parse_node(struct asoc_simple_priv *priv,
- 	return 0;
- }
- 
-+static int simple_dai_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(card);
-+	int ret;
++	asoc_simple_init_jack(card, &priv->hp_jack, TRUE, "has-hp-jack", NULL);
 +
-+	ret = asoc_simple_dai_init(rtd);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = asoc_simple_init_hp(card, &priv->hp_jack, PREFIX);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = asoc_simple_init_mic(card, &priv->mic_jack, PREFIX);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
- static int simple_link_init(struct asoc_simple_priv *priv,
- 			    struct device_node *node,
- 			    struct device_node *codec,
-@@ -164,7 +185,7 @@ static int simple_link_init(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		return 0;
- 
--	dai_link->init			= asoc_simple_dai_init;
-+	dai_link->init			= simple_dai_init;
- 	dai_link->ops			= &simple_ops;
- 
- 	return asoc_simple_set_dailink_name(dev, dai_link, name);
-@@ -587,22 +608,6 @@ static int simple_get_dais_count(struct asoc_simple_priv *priv,
- 				    simple_count_dpcm);
- }
- 
--static int simple_soc_probe(struct snd_soc_card *card)
--{
--	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(card);
--	int ret;
--
--	ret = asoc_simple_init_hp(card, &priv->hp_jack, PREFIX);
--	if (ret < 0)
--		return ret;
--
--	ret = asoc_simple_init_mic(card, &priv->mic_jack, PREFIX);
--	if (ret < 0)
--		return ret;
--
--	return 0;
--}
--
- static int asoc_simple_probe(struct platform_device *pdev)
- {
- 	struct asoc_simple_priv *priv;
-@@ -620,7 +625,6 @@ static int asoc_simple_probe(struct platform_device *pdev)
+ 	memset(li, 0, sizeof(*li));
+ 	ret = graph_for_each_link(priv, li,
+ 				  graph_dai_link_of,
+@@ -719,7 +721,6 @@ static int graph_probe(struct platform_device *pdev)
  	card = simple_priv_to_card(priv);
- 	card->owner		= THIS_MODULE;
- 	card->dev		= dev;
--	card->probe		= simple_soc_probe;
- 	card->driver_name       = "simple-card";
+ 	card->dapm_widgets	= graph_dapm_widgets;
+ 	card->num_dapm_widgets	= ARRAY_SIZE(graph_dapm_widgets);
+-	card->probe		= asoc_graph_card_probe;
  
- 	li = devm_kzalloc(dev, sizeof(*li), GFP_KERNEL);
-diff --git a/sound/soc/tegra/tegra_audio_graph_card.c b/sound/soc/tegra/tegra_audio_graph_card.c
-index 1f2c5018bf5a..404762d40389 100644
---- a/sound/soc/tegra/tegra_audio_graph_card.c
-+++ b/sound/soc/tegra/tegra_audio_graph_card.c
-@@ -184,7 +184,7 @@ static int tegra_audio_graph_card_probe(struct snd_soc_card *card)
- 		return PTR_ERR(priv->clk_plla_out0);
- 	}
- 
--	return asoc_graph_card_probe(card);
-+	return 0;
- }
- 
- static int tegra_audio_graph_probe(struct platform_device *pdev)
+ 	if (of_device_get_match_data(dev))
+ 		priv->dpcm_selectable = 1;
 -- 
 2.35.1
+

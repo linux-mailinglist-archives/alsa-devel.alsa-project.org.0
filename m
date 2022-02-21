@@ -2,77 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D4724BD46C
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 05:01:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06FE64BD5A7
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 06:58:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8A771662;
-	Mon, 21 Feb 2022 05:00:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8A771662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DE831674;
+	Mon, 21 Feb 2022 06:57:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DE831674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645416092;
-	bh=EkGuGgzb5N9FmkTHBRN2CjL/sAm46fYFQB1dTF/2VrY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oa2ZmIbxvAepOOL41QZByngGv4v6kQhTLzktEhvGCBFTtIEIcm0+X+BIgyXY5sjox
-	 HoNb4vsx8IbjhoYXm/UU1xUq30i7MQZKl6lFIHFHsVZnQroT8mj1N1fSltFm28KdKj
-	 rOhIui3omQh5ffPscetJcRJZAO/2EjhVfzPPQpWU=
+	s=default; t=1645423126;
+	bh=dowOYlnJLhTc8t3x7ITeC0TIQo9mC6M0czdXpeErFRk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aQdjGIAAGuZW2AJ53cDqJqKJ/0/bVBcuFrUFVLrhyAFd+crOqz4MLgR4j4VB90Qbq
+	 eBi3eKCFMHuWTxx2PK9yhE1PSgUVJ2pqM4TuGogbVuHnRwfRKKIgXalyFxS5BhZ4b3
+	 VSP2UoWMY3mU8a4AFzf6PZ0Zh2+U4psf/7DYcM4k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39133F80149;
-	Mon, 21 Feb 2022 05:00:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01288F80149;
+	Mon, 21 Feb 2022 06:57:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2DDAF8013D; Mon, 21 Feb 2022 05:00:24 +0100 (CET)
+ id F0CA7F8013D; Mon, 21 Feb 2022 06:57:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 329E4F800D1
- for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 05:00:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 329E4F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fF6eKmzU"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DDA8A61180;
- Mon, 21 Feb 2022 04:00:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4B6EC340E9;
- Mon, 21 Feb 2022 04:00:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645416009;
- bh=EkGuGgzb5N9FmkTHBRN2CjL/sAm46fYFQB1dTF/2VrY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fF6eKmzUMUxMjiHrZLLWNjEU5kU7w4uFBKc36H0/lCPmE6dj982vcoC/Wq4R33QTm
- B8oVFSRbSS4uUa0DDkVGeJmx9xLCX5qZlnIcfWJ7pBx/PgLBQFjTMmHu1pacA8BHTh
- 6EwZJ9ke1lDM4Q3rOx6infC88/VJr+9vjy+eMgrhtDaEoGJ/UWHL+i5wPOZFinksth
- zMYHPmwyNy1AcSm+rvcKR3sraiWUjIY9X3UdMb1ZdRMStNGl1dwimnjTfRbfJ8wbb8
- 8NQKLI2hEI+JFW0OhG3rd3J23zW+m+9GVrbJ9Jscf8KuWx+I/G7I1cN/jYE8OywmeM
- oF+/cwDOEHO7w==
-Date: Mon, 21 Feb 2022 12:00:03 +0800
-From: Shawn Guo <shawnguo@kernel.org>
-To: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
-Subject: Re: [PATCH v3] arm64: dts: imx8mn-bsh-smm-s2pro: Add tlv320aic31xx
- audio card node
-Message-ID: <20220221040003.GI2249@dragon>
-References: <20220214120307.15665-1-ariel.dalessandro@collabora.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6A61EF80118
+ for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 06:57:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A61EF80118
+X-UUID: 8490de897e484d41a53be731ec7513ea-20220221
+X-UUID: 8490de897e484d41a53be731ec7513ea-20220221
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
+ (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 711862382; Mon, 21 Feb 2022 13:57:20 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Mon, 21 Feb 2022 13:57:19 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Mon, 21 Feb 2022 13:57:19 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <tiwai@suse.com>, <matthias.bgg@gmail.com>
+Subject: [PATCH] ASoC: mediatek: mt8195: enable apll tuner
+Date: Mon, 21 Feb 2022 13:57:16 +0800
+Message-ID: <20220221055716.18580-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220214120307.15665-1-ariel.dalessandro@collabora.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- krzysztof.kozlowski@canonical.com, s.hauer@pengutronix.de,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- broonie@kernel.org, linux-imx@nxp.com, kernel@pengutronix.de,
- michael@amarulasolutions.com, festevam@gmail.com,
+Content-Type: text/plain
+X-MTK: N
+Cc: alsa-devel@alsa-project.org, bicycle.tsai@mediatek.com,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ trevor.wu@mediatek.com, yc.hung@mediatek.com,
  linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -89,144 +76,395 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Feb 14, 2022 at 09:03:07AM -0300, Ariel D'Alessandro wrote:
-> BSH SystemMaster (SMM) S2 PRO board comes with an audio card based on
-> tlv320aic31xx family codec.
-> 
-> The audio card exposes two playback devices, one of them using the EASRC
-> (Enhanced Asynchronous Sample Rate Converter) module. Note that this
-> would require SDMA and EASRC firmware in order to work.
-> 
-> Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
-> Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
-> ---
->  .../dts/freescale/imx8mn-bsh-smm-s2pro.dts    | 94 +++++++++++++++++++
->  1 file changed, 94 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dts b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dts
-> index c6a8ed6745c1..44e2635d3096 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dts
-> @@ -7,6 +7,7 @@
->  /dts-v1/;
->  
->  #include "imx8mn-bsh-smm-s2-common.dtsi"
-> +#include <dt-bindings/sound/tlv320aic31xx.h>
+Normally, the clock source of audio module is either 26M or APLL1/APLL2,
+but APLL1/APLL2 are not the multiple of 26M.
 
-Ping me when this header lands on Linus's tree.
+In the patch, APLL1 and APLL2 tuners are enabled to handle sample rate
+mismatch when the data path crosses two different clock domains.
 
-Shawn
+Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+---
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.c | 282 ++++++++++++++++++++-
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.h |  11 +
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c |   3 -
+ 3 files changed, 292 insertions(+), 4 deletions(-)
 
->  
->  / {
->  	model = "BSH SMM S2 PRO";
-> @@ -16,6 +17,69 @@ memory@40000000 {
->  		device_type = "memory";
->  		reg = <0x0 0x40000000 0x0 0x20000000>;
->  	};
-> +
-> +	sound-tlv320aic31xx {
-> +		compatible = "fsl,imx-audio-tlv320aic31xx";
-> +		model = "tlv320aic31xx-hifi";
-> +		audio-cpu = <&sai3>;
-> +		audio-codec = <&codec>;
-> +		audio-asrc = <&easrc>;
-> +		audio-routing =
-> +			"Ext Spk", "SPL",
-> +			"Ext Spk", "SPR";
-> +		mclk-id = <PLL_CLKIN_BCLK>;
-> +	};
-> +
-> +	vdd_input: vdd_input {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vdd_input";
-> +		regulator-min-microvolt = <5000000>;
-> +		regulator-max-microvolt = <5000000>;
-> +	};
-> +};
-> +
-> +&easrc {
-> +	fsl,asrc-rate = <48000>;
-> +	fsl,asrc-format = <10>;
-> +	status = "okay";
-> +};
-> +
-> +&i2c2 {
-> +	clock-frequency = <400000>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_i2c2>;
-> +	status = "okay";
-> +
-> +	tlv320dac3101: audio-codec@18 {
-> +		#sound-dai-cells = <0>;
-> +		compatible = "ti,tlv320dac3101";
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&pinctrl_dac_rst>;
-> +		reg = <0x18>;
-> +
-> +		ai31xx-micbias-vg = <MICBIAS_AVDDV>;
-> +
-> +		HPVDD-supply = <&buck4_reg>;
-> +		SPRVDD-supply = <&vdd_input>;
-> +		SPLVDD-supply = <&vdd_input>;
-> +		AVDD-supply = <&buck4_reg>;
-> +		IOVDD-supply = <&buck4_reg>;
-> +		DVDD-supply = <&buck5_reg>;
-> +		reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
-> +
-> +		clocks = <&clk IMX8MN_CLK_SAI3_ROOT>;
-> +		clock-names = "mclk";
-> +	};
-> +};
-> +
-> +&sai3 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_sai3>;
-> +	assigned-clocks = <&clk IMX8MN_CLK_SAI3>;
-> +	assigned-clock-parents = <&clk IMX8MN_AUDIO_PLL1_OUT>;
-> +	assigned-clock-rates = <24576000>;
-> +	fsl,sai-mclk-direction-output;
-> +	status = "okay";
->  };
->  
->  /* eMMC */
-> @@ -30,6 +94,36 @@ &usdhc1 {
->  };
->  
->  &iomuxc {
-> +	pinctrl_dac_rst: dacrstgrp {
-> +		fsl,pins = <
-> +			MX8MN_IOMUXC_GPIO1_IO06_GPIO1_IO6		0x19 /* DAC_RST */
-> +		>;
-> +	};
-> +
-> +	pinctrl_espi2: espi2grp {
-> +		fsl,pins = <
-> +			MX8MN_IOMUXC_ECSPI2_SCLK_ECSPI2_SCLK		0x082
-> +			MX8MN_IOMUXC_ECSPI2_MOSI_ECSPI2_MOSI		0x082
-> +			MX8MN_IOMUXC_ECSPI2_MISO_ECSPI2_MISO		0x082
-> +			MX8MN_IOMUXC_ECSPI2_SS0_ECSPI2_SS0		0x040
-> +		>;
-> +	};
-> +
-> +	pinctrl_i2c2: i2c2grp {
-> +		fsl,pins = <
-> +			MX8MN_IOMUXC_I2C2_SCL_I2C2_SCL			0x400000c3
-> +			MX8MN_IOMUXC_I2C2_SDA_I2C2_SDA			0x400000c3
-> +		>;
-> +	};
-> +
-> +	pinctrl_sai3: sai3grp {
-> +		fsl,pins = <
-> +			MX8MN_IOMUXC_SAI3_TXFS_SAI3_TX_SYNC		0xd6
-> +			MX8MN_IOMUXC_SAI3_TXC_SAI3_TX_BCLK		0xd6
-> +			MX8MN_IOMUXC_SAI3_TXD_SAI3_TX_DATA0		0xd6
-> +		>;
-> +	};
-> +
->  	pinctrl_usdhc1: usdhc1grp {
->  		fsl,pins = <
->  			MX8MN_IOMUXC_SD1_CLK_USDHC1_CLK			0x40000090
-> -- 
-> 2.34.1
-> 
+diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
+index c2543f4cffb7..efd5cc364a35 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
++++ b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
+@@ -40,6 +40,8 @@ static const char *aud_clks[MT8195_CLK_NUM] = {
+ 	[MT8195_CLK_SCP_ADSP_AUDIODSP] = "scp_adsp_audiodsp",
+ 	/* afe clock gate */
+ 	[MT8195_CLK_AUD_AFE] = "aud_afe",
++	[MT8195_CLK_AUD_APLL1_TUNER] = "aud_apll1_tuner",
++	[MT8195_CLK_AUD_APLL2_TUNER] = "aud_apll2_tuner",
+ 	[MT8195_CLK_AUD_APLL] = "aud_apll",
+ 	[MT8195_CLK_AUD_APLL2] = "aud_apll2",
+ 	[MT8195_CLK_AUD_DAC] = "aud_dac",
+@@ -77,6 +79,268 @@ static const char *aud_clks[MT8195_CLK_NUM] = {
+ 	[MT8195_CLK_AUD_MEMIF_DL11] = "aud_memif_dl11",
+ };
+ 
++struct mt8195_afe_tuner_cfg {
++	unsigned int id;
++	int apll_div_reg;
++	unsigned int apll_div_shift;
++	unsigned int apll_div_maskbit;
++	unsigned int apll_div_default;
++	int ref_ck_sel_reg;
++	unsigned int ref_ck_sel_shift;
++	unsigned int ref_ck_sel_maskbit;
++	unsigned int ref_ck_sel_default;
++	int tuner_en_reg;
++	unsigned int tuner_en_shift;
++	unsigned int tuner_en_maskbit;
++	int upper_bound_reg;
++	unsigned int upper_bound_shift;
++	unsigned int upper_bound_maskbit;
++	unsigned int upper_bound_default;
++	spinlock_t ctrl_lock; /* lock for apll tuner ctrl*/
++	int ref_cnt;
++};
++
++static struct mt8195_afe_tuner_cfg mt8195_afe_tuner_cfgs[MT8195_AUD_PLL_NUM] = {
++	[MT8195_AUD_PLL1] = {
++		.id = MT8195_AUD_PLL1,
++		.apll_div_reg = AFE_APLL_TUNER_CFG,
++		.apll_div_shift = 4,
++		.apll_div_maskbit = 0xf,
++		.apll_div_default = 0x7,
++		.ref_ck_sel_reg = AFE_APLL_TUNER_CFG,
++		.ref_ck_sel_shift = 1,
++		.ref_ck_sel_maskbit = 0x3,
++		.ref_ck_sel_default = 0x2,
++		.tuner_en_reg = AFE_APLL_TUNER_CFG,
++		.tuner_en_shift = 0,
++		.tuner_en_maskbit = 0x1,
++		.upper_bound_reg = AFE_APLL_TUNER_CFG,
++		.upper_bound_shift = 8,
++		.upper_bound_maskbit = 0xff,
++		.upper_bound_default = 0x2,
++	},
++	[MT8195_AUD_PLL2] = {
++		.id = MT8195_AUD_PLL2,
++		.apll_div_reg = AFE_APLL_TUNER_CFG1,
++		.apll_div_shift = 4,
++		.apll_div_maskbit = 0xf,
++		.apll_div_default = 0x7,
++		.ref_ck_sel_reg = AFE_APLL_TUNER_CFG1,
++		.ref_ck_sel_shift = 1,
++		.ref_ck_sel_maskbit = 0x3,
++		.ref_ck_sel_default = 0x1,
++		.tuner_en_reg = AFE_APLL_TUNER_CFG1,
++		.tuner_en_shift = 0,
++		.tuner_en_maskbit = 0x1,
++		.upper_bound_reg = AFE_APLL_TUNER_CFG1,
++		.upper_bound_shift = 8,
++		.upper_bound_maskbit = 0xff,
++		.upper_bound_default = 0x2,
++	},
++	[MT8195_AUD_PLL3] = {
++		.id = MT8195_AUD_PLL3,
++		.apll_div_reg = AFE_EARC_APLL_TUNER_CFG,
++		.apll_div_shift = 4,
++		.apll_div_maskbit = 0x3f,
++		.apll_div_default = 0x3,
++		.ref_ck_sel_reg = AFE_EARC_APLL_TUNER_CFG,
++		.ref_ck_sel_shift = 24,
++		.ref_ck_sel_maskbit = 0x3,
++		.ref_ck_sel_default = 0x0,
++		.tuner_en_reg = AFE_EARC_APLL_TUNER_CFG,
++		.tuner_en_shift = 0,
++		.tuner_en_maskbit = 0x1,
++		.upper_bound_reg = AFE_EARC_APLL_TUNER_CFG,
++		.upper_bound_shift = 12,
++		.upper_bound_maskbit = 0xff,
++		.upper_bound_default = 0x4,
++	},
++	[MT8195_AUD_PLL4] = {
++		.id = MT8195_AUD_PLL4,
++		.apll_div_reg = AFE_SPDIFIN_APLL_TUNER_CFG,
++		.apll_div_shift = 4,
++		.apll_div_maskbit = 0x3f,
++		.apll_div_default = 0x7,
++		.ref_ck_sel_reg = AFE_SPDIFIN_APLL_TUNER_CFG1,
++		.ref_ck_sel_shift = 8,
++		.ref_ck_sel_maskbit = 0x1,
++		.ref_ck_sel_default = 0,
++		.tuner_en_reg = AFE_SPDIFIN_APLL_TUNER_CFG,
++		.tuner_en_shift = 0,
++		.tuner_en_maskbit = 0x1,
++		.upper_bound_reg = AFE_SPDIFIN_APLL_TUNER_CFG,
++		.upper_bound_shift = 12,
++		.upper_bound_maskbit = 0xff,
++		.upper_bound_default = 0x4,
++	},
++	[MT8195_AUD_PLL5] = {
++		.id = MT8195_AUD_PLL5,
++		.apll_div_reg = AFE_LINEIN_APLL_TUNER_CFG,
++		.apll_div_shift = 4,
++		.apll_div_maskbit = 0x3f,
++		.apll_div_default = 0x3,
++		.ref_ck_sel_reg = AFE_LINEIN_APLL_TUNER_CFG,
++		.ref_ck_sel_shift = 24,
++		.ref_ck_sel_maskbit = 0x1,
++		.ref_ck_sel_default = 0,
++		.tuner_en_reg = AFE_LINEIN_APLL_TUNER_CFG,
++		.tuner_en_shift = 0,
++		.tuner_en_maskbit = 0x1,
++		.upper_bound_reg = AFE_LINEIN_APLL_TUNER_CFG,
++		.upper_bound_shift = 12,
++		.upper_bound_maskbit = 0xff,
++		.upper_bound_default = 0x4,
++	},
++};
++
++static struct mt8195_afe_tuner_cfg *mt8195_afe_found_apll_tuner(unsigned int id)
++{
++	if (id >= MT8195_AUD_PLL_NUM)
++		return NULL;
++
++	return &mt8195_afe_tuner_cfgs[id];
++}
++
++static int mt8195_afe_init_apll_tuner(unsigned int id)
++{
++	struct mt8195_afe_tuner_cfg *cfg = mt8195_afe_found_apll_tuner(id);
++
++	if (!cfg)
++		return -EINVAL;
++
++	cfg->ref_cnt = 0;
++	spin_lock_init(&cfg->ctrl_lock);
++
++	return 0;
++}
++
++static int mt8195_afe_setup_apll_tuner(struct mtk_base_afe *afe,
++				       unsigned int id)
++{
++	const struct mt8195_afe_tuner_cfg *cfg = mt8195_afe_found_apll_tuner(id);
++
++	if (!cfg)
++		return -EINVAL;
++
++	regmap_update_bits(afe->regmap, cfg->apll_div_reg,
++			   cfg->apll_div_maskbit << cfg->apll_div_shift,
++			   cfg->apll_div_default << cfg->apll_div_shift);
++
++	regmap_update_bits(afe->regmap, cfg->ref_ck_sel_reg,
++			   cfg->ref_ck_sel_maskbit << cfg->ref_ck_sel_shift,
++			   cfg->ref_ck_sel_default << cfg->ref_ck_sel_shift);
++
++	regmap_update_bits(afe->regmap, cfg->upper_bound_reg,
++			   cfg->upper_bound_maskbit << cfg->upper_bound_shift,
++			   cfg->upper_bound_default << cfg->upper_bound_shift);
++
++	return 0;
++}
++
++static int mt8195_afe_enable_tuner_clk(struct mtk_base_afe *afe,
++				       unsigned int id)
++{
++	struct mt8195_afe_private *afe_priv = afe->platform_priv;
++
++	switch (id) {
++	case MT8195_AUD_PLL1:
++		mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL]);
++		mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL1_TUNER]);
++		break;
++	case MT8195_AUD_PLL2:
++		mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL2]);
++		mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL2_TUNER]);
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++static int mt8195_afe_disable_tuner_clk(struct mtk_base_afe *afe,
++					unsigned int id)
++{
++	struct mt8195_afe_private *afe_priv = afe->platform_priv;
++
++	switch (id) {
++	case MT8195_AUD_PLL1:
++		mt8195_afe_disable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL1_TUNER]);
++		mt8195_afe_disable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL]);
++		break;
++	case MT8195_AUD_PLL2:
++		mt8195_afe_disable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL2_TUNER]);
++		mt8195_afe_disable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL2]);
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++static int mt8195_afe_enable_apll_tuner(struct mtk_base_afe *afe,
++					unsigned int id)
++{
++	struct mt8195_afe_tuner_cfg *cfg = mt8195_afe_found_apll_tuner(id);
++	unsigned long flags;
++	int ret = 0;
++
++	if (!cfg)
++		return -EINVAL;
++
++	ret = mt8195_afe_setup_apll_tuner(afe, id);
++	if (ret)
++		return ret;
++
++	ret = mt8195_afe_enable_tuner_clk(afe, id);
++	if (ret)
++		return ret;
++
++	spin_lock_irqsave(&cfg->ctrl_lock, flags);
++
++	cfg->ref_cnt++;
++	if (cfg->ref_cnt == 1)
++		regmap_update_bits(afe->regmap,
++				   cfg->tuner_en_reg,
++				   cfg->tuner_en_maskbit << cfg->tuner_en_shift,
++				   1 << cfg->tuner_en_shift);
++
++	spin_unlock_irqrestore(&cfg->ctrl_lock, flags);
++
++	return ret;
++}
++
++static int mt8195_afe_disable_apll_tuner(struct mtk_base_afe *afe,
++					 unsigned int id)
++{
++	struct mt8195_afe_tuner_cfg *cfg = mt8195_afe_found_apll_tuner(id);
++	unsigned long flags;
++	int ret = 0;
++
++	if (!cfg)
++		return -EINVAL;
++
++	spin_lock_irqsave(&cfg->ctrl_lock, flags);
++
++	cfg->ref_cnt--;
++	if (cfg->ref_cnt == 0)
++		regmap_update_bits(afe->regmap,
++				   cfg->tuner_en_reg,
++				   cfg->tuner_en_maskbit << cfg->tuner_en_shift,
++				   0 << cfg->tuner_en_shift);
++	else if (cfg->ref_cnt < 0)
++		cfg->ref_cnt = 0;
++
++	spin_unlock_irqrestore(&cfg->ctrl_lock, flags);
++
++	ret = mt8195_afe_disable_tuner_clk(afe, id);
++	if (ret)
++		return ret;
++
++	return ret;
++}
++
+ int mt8195_afe_get_mclk_source_clk_id(int sel)
+ {
+ 	switch (sel) {
+@@ -113,7 +377,7 @@ int mt8195_afe_get_default_mclk_source_by_rate(int rate)
+ int mt8195_afe_init_clock(struct mtk_base_afe *afe)
+ {
+ 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
+-	int i;
++	int i, ret;
+ 
+ 	mt8195_audsys_clk_register(afe);
+ 
+@@ -133,6 +397,16 @@ int mt8195_afe_init_clock(struct mtk_base_afe *afe)
+ 		}
+ 	}
+ 
++	/* initial tuner */
++	for (i = 0; i < MT8195_AUD_PLL_NUM; i++) {
++		ret = mt8195_afe_init_apll_tuner(i);
++		if (ret) {
++			dev_dbg(afe->dev, "%s(), init apll_tuner%d failed",
++				__func__, (i + 1));
++			return -EINVAL;
++		}
++	}
++
+ 	return 0;
+ }
+ 
+@@ -428,11 +702,17 @@ int mt8195_afe_enable_main_clock(struct mtk_base_afe *afe)
+ 
+ 	mt8195_afe_enable_afe_on(afe);
+ 
++	mt8195_afe_enable_apll_tuner(afe, MT8195_AUD_PLL1);
++	mt8195_afe_enable_apll_tuner(afe, MT8195_AUD_PLL2);
++
+ 	return 0;
+ }
+ 
+ int mt8195_afe_disable_main_clock(struct mtk_base_afe *afe)
+ {
++	mt8195_afe_disable_apll_tuner(afe, MT8195_AUD_PLL2);
++	mt8195_afe_disable_apll_tuner(afe, MT8195_AUD_PLL1);
++
+ 	mt8195_afe_disable_afe_on(afe);
+ 
+ 	mt8195_afe_disable_timing_sys(afe);
+diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-clk.h b/sound/soc/mediatek/mt8195/mt8195-afe-clk.h
+index f8e6eeb29a89..40663e31becd 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-afe-clk.h
++++ b/sound/soc/mediatek/mt8195/mt8195-afe-clk.h
+@@ -35,6 +35,8 @@ enum {
+ 	MT8195_CLK_INFRA_AO_AUDIO_26M_B,
+ 	MT8195_CLK_SCP_ADSP_AUDIODSP,
+ 	MT8195_CLK_AUD_AFE,
++	MT8195_CLK_AUD_APLL1_TUNER,
++	MT8195_CLK_AUD_APLL2_TUNER,
+ 	MT8195_CLK_AUD_APLL,
+ 	MT8195_CLK_AUD_APLL2,
+ 	MT8195_CLK_AUD_DAC,
+@@ -84,6 +86,15 @@ enum {
+ 	MT8195_MCK_SEL_NUM,
+ };
+ 
++enum {
++	MT8195_AUD_PLL1,
++	MT8195_AUD_PLL2,
++	MT8195_AUD_PLL3,
++	MT8195_AUD_PLL4,
++	MT8195_AUD_PLL5,
++	MT8195_AUD_PLL_NUM,
++};
++
+ struct mtk_base_afe;
+ 
+ int mt8195_afe_get_mclk_source_clk_id(int sel);
+diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+index e425f868476a..b77c2ba5a629 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
++++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+@@ -2583,8 +2583,6 @@ static bool mt8195_is_volatile_reg(struct device *dev, unsigned int reg)
+ 	case AFE_IRQ3_CON_MON:
+ 	case AFE_IRQ_MCU_MON2:
+ 	case ADSP_IRQ_STATUS:
+-	case AFE_APLL_TUNER_CFG:
+-	case AFE_APLL_TUNER_CFG1:
+ 	case AUDIO_TOP_STA0:
+ 	case AUDIO_TOP_STA1:
+ 	case AFE_GAIN1_CUR:
+@@ -2623,7 +2621,6 @@ static bool mt8195_is_volatile_reg(struct device *dev, unsigned int reg)
+ 	case SPDIFIN_USERCODE10:
+ 	case SPDIFIN_USERCODE11:
+ 	case SPDIFIN_USERCODE12:
+-	case AFE_SPDIFIN_APLL_TUNER_CFG:
+ 	case AFE_LINEIN_APLL_TUNER_MON:
+ 	case AFE_EARC_APLL_TUNER_MON:
+ 	case AFE_CM0_MON:
+-- 
+2.18.0
+

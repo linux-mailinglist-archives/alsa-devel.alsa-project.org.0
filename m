@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83C854BD9D4
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 14:13:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE3A84BD9D8
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 14:14:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC20616F9;
-	Mon, 21 Feb 2022 14:12:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC20616F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6462416E3;
+	Mon, 21 Feb 2022 14:13:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6462416E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645449200;
-	bh=3IU/tRv0KjefSCVQHvgDaPsB1jiAkzW/LrK7ObF3uXc=;
+	s=default; t=1645449242;
+	bh=hqfGMiE+PTiDXZbZNl3n15ucyC2jxL+AGEd/p33/RGU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QhTi9ViJSK8bgZwUgU9z7Q5gLYKCLtm3XDjfdX46RjZmaFtcGthdZ0JcnoSNArgXa
-	 LbNO+nWfP9Po9+jMsA0F425SJAMQwJ+CYC57e/M6LzipUU6lLEx1qX7XkpjI2xzYGc
-	 APWBTzwcyynxAUrtCLFCnxNRZaxdAFi1zcJim86w=
+	b=UrIBpigQIbN/6mWOni33dM8bURAsBxTbsxbrPY5lYY5uM46Kywzq1a3+ujkn+6jvm
+	 1PaARC1B/7/DIx0tbXqoR857niJCj0lIRBEnOl2cOzYBiew1DmL0/z/xXqR2YjZhds
+	 AUypqfBh19uP5HxW2cDuoF8djYftu7oTszc9CYek=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E167F8052F;
-	Mon, 21 Feb 2022 14:11:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC433F80533;
+	Mon, 21 Feb 2022 14:11:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC673F80527; Mon, 21 Feb 2022 14:10:56 +0100 (CET)
+ id 2CD09F80534; Mon, 21 Feb 2022 14:11:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6189CF800D1
- for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 14:10:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6189CF800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9675F80511
+ for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 14:10:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9675F80511
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="WWR2i/oD"
-Received: by mail-wm1-x32b.google.com with SMTP id w13so9005849wmi.2
- for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 05:10:46 -0800 (PST)
+ header.b="Qhf8qTxo"
+Received: by mail-wr1-x435.google.com with SMTP id h6so26983741wrb.9
+ for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 05:10:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=u/873brHhZR6xm18sDiZdhD33uqz5ep38GtGCx69qMY=;
- b=WWR2i/oD1/ImYmqzvGm+tSJJ7MlYn6oWxndq5vCHMn2AFVVnhZ/RRBzCsMw6c831ag
- +5JoERRNMn0iyyrGiJxWZv6FFkwWZRl9yv32YVwUpqYgbh28p7CYJV7h+9P867hF010F
- r9gP6OdjsJuWvEZ6BIxpy84WwiSP8clBu/odr+AgHbHNqlRYq3YZ8pTwaJtxSqY3HmGy
- NG7tReTFSjSfIeBzXa7yaIxwjoZcEaaPtpo7mXeyubfh/lBjeNlLp5Z1qTozN0i9ub0R
- dq0L6M1nwXV5wBuMnUEb9/zMUQdVainoXaQ9FZp2P6Py7yg7TWFfqdRqZ0S0EVI5kF2W
- 6IQQ==
+ bh=Lv2cURY5ctLyr3w/A6pppI7w3hfD7whTI0vMJP1Qd1k=;
+ b=Qhf8qTxok8B+nYSoESkmhYepqk5DhUeRay0CpursGNJLagZ+rGGfLsFjJkoB+caVcv
+ gfPZL7uWeUq+O0SjB7iwPAOE7EkmGwo9D/d8Xmt977m9bNabSyJXx4xjmp3YpL9W837T
+ ZbduZOLtx4JTMqsQgNHPlZmERTLF79DlVMjmneW/q6Pyr3i1xv/zLvP8BI415iXBOPBd
+ kwCgqvWY767wX+dkeJUyO12moZ8ojm6ymLq24zphhUoNAcvbyxR0D+PdWROsJOt948ku
+ dfzq2+wUaxr6PXe2Bv6W92by1grhecHKCU41lraXGPDUv1qlg0am7Rlz5WqKi0OxpfTP
+ hhqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=u/873brHhZR6xm18sDiZdhD33uqz5ep38GtGCx69qMY=;
- b=YM48upB9hg4OmTA4+poKhu9+sbJaNnA5agKMLgouOSzu0/0GbAD5JsU+7UldS9LR2g
- JeRqibk2iA2DYPwXyQkXmKEJJ4++MTMdDhyQz7uEUP3dO7MUQmOxg4GZuC9DJEiplYcr
- SkeYuD2QhapswFsP2SQaCGMCtDX0T/knTJDTt5QSSFq+1Xerr1v3/IeQ7yUEBlvzFoks
- TlDCJ7Mk3koQZoe0CpUzHMm6mDI/39UHPsM2h+JfRWUbXILsVPPWqoahZvj+FjnX2WGP
- ZdrdIkh7hRefLub2n3fW69RzIYrmr9A06lzGsIu5ILmdJSjg0Cpe6VSfaaVmi2nSrhLl
- VJhQ==
-X-Gm-Message-State: AOAM530Jap0AvK+xwge9FvbEt7SLKzYYNH7uJe5eoqsBfUKSrp6SdFMo
- DHd7WbCJWHBFNPqQFmwZl1IP2Q==
-X-Google-Smtp-Source: ABdhPJwsozEEOuF/0rPoouuPwDOTCYZ96rRUj9bR+ckw7xR4Yo/oO3Yc462V1ta/luwtz7dIWCoRHQ==
-X-Received: by 2002:a05:600c:384a:b0:37b:e8ac:851f with SMTP id
- s10-20020a05600c384a00b0037be8ac851fmr9358623wmr.158.1645449045225; 
- Mon, 21 Feb 2022 05:10:45 -0800 (PST)
+ bh=Lv2cURY5ctLyr3w/A6pppI7w3hfD7whTI0vMJP1Qd1k=;
+ b=sqNWOevMctCB191trneFB+Z/2pk1JQcjA/llcK8WIru2MmzfyfwVr7i5UpX8R/Sw0v
+ 3KXn0XpDPne1MzfN+UKxpQMVQ5j1R1a0dVw7Rq7dbVYGJfQI2ac+ePnhUWBb7SsW3SYU
+ GaLXE6nIxiJnZzhF+XMfCDty2jx+1QDKyMqddgq4YrigwsxaXZ3Aw1EzNaxtuQzYcwZ+
+ O6CaeB6QDdEfFp+l3SA8DTQeytRptEShJ8Q7G6BDD2xqJ2Fqn1WpNYtrWHZThe6I2S56
+ Z20gzeyB2eT1xIwznni2gbPCvLjaBJHCEk/IduKv9mhL/Wvt8T/+h8cwIpZ0RLoTnL0w
+ F0NQ==
+X-Gm-Message-State: AOAM531l0jmQPV/OOt1zcI5xoV5b38jKEfeqw4RWDRfWYR4W/9+/0RPe
+ npYAs89YR62naH9pHBRrOvYctA==
+X-Google-Smtp-Source: ABdhPJxmN9JoqBG+vnbmNNu11ati/Y+uONpXUxzd/ucsg+UiEuVXR6Aeymf5Rc+ZEIF67qkKuQze2Q==
+X-Received: by 2002:a05:6000:44:b0:1e4:b901:5f72 with SMTP id
+ k4-20020a056000004400b001e4b9015f72mr15506187wrx.109.1645449046590; 
+ Mon, 21 Feb 2022 05:10:46 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id 3sm49412801wrz.86.2022.02.21.05.10.44
+ by smtp.gmail.com with ESMTPSA id 3sm49412801wrz.86.2022.02.21.05.10.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Feb 2022 05:10:44 -0800 (PST)
+ Mon, 21 Feb 2022 05:10:46 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH 04/10] ASoC: codecs: tx-macro: add runtime pm support
-Date: Mon, 21 Feb 2022 13:10:31 +0000
-Message-Id: <20220221131037.8809-5-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 05/10] ASoC: codecs: wsa881x: add runtime pm support
+Date: Mon, 21 Feb 2022 13:10:32 +0000
+Message-Id: <20220221131037.8809-6-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20220221131037.8809-1-srinivas.kandagatla@linaro.org>
 References: <20220221131037.8809-1-srinivas.kandagatla@linaro.org>
@@ -104,84 +104,133 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+WSA881x codecs can not cope up with clk stop and requires a full reset after suspend.
+
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/codecs/lpass-tx-macro.c | 41 +++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ sound/soc/codecs/wsa881x.c | 54 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index 7347d79a6329..1c0f0d27ed42 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -6,6 +6,7 @@
- #include <linux/clk.h>
- #include <linux/io.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
+diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
+index 0222370ff95d..d851ba14fbdd 100644
+--- a/sound/soc/codecs/wsa881x.c
++++ b/sound/soc/codecs/wsa881x.c
+@@ -11,6 +11,7 @@
+ #include <linux/of_gpio.h>
  #include <linux/regmap.h>
- #include <sound/soc.h>
- #include <sound/soc-dapm.h>
-@@ -1844,6 +1845,13 @@ static int tx_macro_probe(struct platform_device *pdev)
- 					      ARRAY_SIZE(tx_macro_dai));
- 	if (ret)
- 		goto err;
+ #include <linux/slab.h>
++#include <linux/pm_runtime.h>
+ #include <linux/soundwire/sdw.h>
+ #include <linux/soundwire/sdw_registers.h>
+ #include <linux/soundwire/sdw_type.h>
+@@ -198,6 +199,7 @@
+ #define WSA881X_OCP_CTL_TIMER_SEC 2
+ #define WSA881X_OCP_CTL_TEMP_CELSIUS 25
+ #define WSA881X_OCP_CTL_POLL_TIMER_SEC 60
++#define WSA881X_PROBE_TIMEOUT 1000
+ 
+ #define WSA881X_PA_GAIN_TLV(xname, reg, shift, max, invert, tlv_array) \
+ {	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = xname, \
+@@ -747,6 +749,12 @@ static int wsa881x_put_pa_gain(struct snd_kcontrol *kc,
+ 	unsigned int mask = (1 << fls(max)) - 1;
+ 	int val, ret, min_gain, max_gain;
+ 
++	ret = pm_runtime_get_sync(comp->dev);
++	if (ret < 0 && ret != -EACCES) {
++		pm_runtime_put_noidle(comp->dev);
++		return ret;
++	}
 +
+ 	max_gain = (max - ucontrol->value.integer.value[0]) & mask;
+ 	/*
+ 	 * Gain has to set incrementally in 4 steps
+@@ -773,6 +781,9 @@ static int wsa881x_put_pa_gain(struct snd_kcontrol *kc,
+ 		usleep_range(1000, 1010);
+ 	}
+ 
++	pm_runtime_mark_last_busy(comp->dev);
++	pm_runtime_put_autosuspend(comp->dev);
++
+ 	return 1;
+ }
+ 
+@@ -1101,6 +1112,7 @@ static int wsa881x_probe(struct sdw_slave *pdev,
+ 			 const struct sdw_device_id *id)
+ {
+ 	struct wsa881x_priv *wsa881x;
++	struct device *dev = &pdev->dev;
+ 
+ 	wsa881x = devm_kzalloc(&pdev->dev, sizeof(*wsa881x), GFP_KERNEL);
+ 	if (!wsa881x)
+@@ -1124,6 +1136,7 @@ static int wsa881x_probe(struct sdw_slave *pdev,
+ 	pdev->prop.sink_ports = GENMASK(WSA881X_MAX_SWR_PORTS, 0);
+ 	pdev->prop.sink_dpn_prop = wsa_sink_dpn_prop;
+ 	pdev->prop.scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
++	pdev->prop.simple_clk_stop_capable = true;
+ 	gpiod_direction_output(wsa881x->sd_n, 1);
+ 
+ 	wsa881x->regmap = devm_regmap_init_sdw(pdev, &wsa881x_regmap_config);
+@@ -1132,12 +1145,52 @@ static int wsa881x_probe(struct sdw_slave *pdev,
+ 		return PTR_ERR(wsa881x->regmap);
+ 	}
+ 
 +	pm_runtime_set_autosuspend_delay(dev, 3000);
 +	pm_runtime_use_autosuspend(dev);
 +	pm_runtime_mark_last_busy(dev);
 +	pm_runtime_set_active(dev);
 +	pm_runtime_enable(dev);
 +
- 	return ret;
- err:
- 	clk_bulk_disable_unprepare(TX_NUM_CLKS_MAX, tx->clks);
-@@ -1862,6 +1870,38 @@ static int tx_macro_remove(struct platform_device *pdev)
- 	return 0;
+ 	return devm_snd_soc_register_component(&pdev->dev,
+ 					       &wsa881x_component_drv,
+ 					       wsa881x_dais,
+ 					       ARRAY_SIZE(wsa881x_dais));
  }
  
-+static int __maybe_unused tx_macro_runtime_suspend(struct device *dev)
++static int __maybe_unused wsa881x_runtime_suspend(struct device *dev)
 +{
-+	struct tx_macro *tx = dev_get_drvdata(dev);
++	struct regmap *regmap = dev_get_regmap(dev, NULL);
++	struct wsa881x_priv *wsa881x = dev_get_drvdata(dev);
 +
-+	regcache_cache_only(tx->regmap, true);
-+	regcache_mark_dirty(tx->regmap);
++	gpiod_direction_output(wsa881x->sd_n, 0);
 +
-+	clk_disable_unprepare(tx->clks[2].clk);
-+	clk_disable_unprepare(tx->clks[3].clk);
-+	clk_disable_unprepare(tx->clks[4].clk);
++	regcache_cache_only(regmap, true);
++	regcache_mark_dirty(regmap);
 +
 +	return 0;
 +}
 +
-+static int __maybe_unused tx_macro_runtime_resume(struct device *dev)
++static int __maybe_unused wsa881x_runtime_resume(struct device *dev)
 +{
-+	struct tx_macro *tx = dev_get_drvdata(dev);
++	struct sdw_slave *slave = dev_to_sdw_dev(dev);
++	struct regmap *regmap = dev_get_regmap(dev, NULL);
++	struct wsa881x_priv *wsa881x = dev_get_drvdata(dev);
 +
-+	clk_prepare_enable(tx->clks[2].clk);
-+	clk_prepare_enable(tx->clks[3].clk);
-+	clk_prepare_enable(tx->clks[4].clk);
-+	regcache_cache_only(tx->regmap, false);
-+	regcache_sync(tx->regmap);
-+	tx->reset_swr = true;
++	gpiod_direction_output(wsa881x->sd_n, 1);
++
++	wait_for_completion_timeout(&slave->initialization_complete,
++				    msecs_to_jiffies(WSA881X_PROBE_TIMEOUT));
++
++	regcache_cache_only(regmap, false);
++	regcache_sync(regmap);
 +
 +	return 0;
 +}
 +
-+static const struct dev_pm_ops tx_macro_pm_ops = {
-+	SET_RUNTIME_PM_OPS(tx_macro_runtime_suspend, tx_macro_runtime_resume, NULL)
++static const struct dev_pm_ops wsa881x_pm_ops = {
++	SET_RUNTIME_PM_OPS(wsa881x_runtime_suspend, wsa881x_runtime_resume, NULL)
 +};
 +
- static const struct of_device_id tx_macro_dt_match[] = {
- 	{ .compatible = "qcom,sc7280-lpass-tx-macro" },
- 	{ .compatible = "qcom,sm8250-lpass-tx-macro" },
-@@ -1873,6 +1913,7 @@ static struct platform_driver tx_macro_driver = {
- 		.name = "tx_macro",
- 		.of_match_table = tx_macro_dt_match,
- 		.suppress_bind_attrs = true,
-+		.pm = &tx_macro_pm_ops,
- 	},
- 	.probe = tx_macro_probe,
- 	.remove = tx_macro_remove,
+ static const struct sdw_device_id wsa881x_slave_id[] = {
+ 	SDW_SLAVE_ENTRY(0x0217, 0x2010, 0),
+ 	SDW_SLAVE_ENTRY(0x0217, 0x2110, 0),
+@@ -1151,6 +1204,7 @@ static struct sdw_driver wsa881x_codec_driver = {
+ 	.id_table = wsa881x_slave_id,
+ 	.driver = {
+ 		.name	= "wsa881x-codec",
++		.pm = &wsa881x_pm_ops,
+ 	}
+ };
+ module_sdw_driver(wsa881x_codec_driver);
 -- 
 2.21.0
 

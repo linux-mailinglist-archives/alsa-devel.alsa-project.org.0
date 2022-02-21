@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 020554BD9C6
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 14:04:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61A544BD9CA
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 14:11:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 693751633;
-	Mon, 21 Feb 2022 14:03:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 693751633
+	by alsa0.perex.cz (Postfix) with ESMTPS id E95301696;
+	Mon, 21 Feb 2022 14:11:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E95301696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645448645;
-	bh=pp1RnX80CFNJtRZqQ4apT6ENk8EH8JwTfexSTSBTXK0=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UKHm1TOuSDYAlJ+VBxy8q6aoRXX8JskmCuEdKxBjFSUT9HXM1Hxd/he/3eHsh8Etu
-	 h6ZxltauQJKjnAF8kZOYD14P+VgiqhwK1RVg6j4BNao+h2TCOsEaOBMAduX4L9QY4V
-	 HZqja5xqL//F7ygCeJA0746djzcMUTBcgLe0KUn0=
+	s=default; t=1645449113;
+	bh=j8O98fIaBwImujfyKTkGpCBt03EBCrPK+Q+5mANRzdc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lTXxckHbSX0Vr2fUOIgSXemZSzANMqHUIauuclQsj55z0vL4DT1TUkxGlO81AdGIQ
+	 DIv5dIuPmkNyp96XrjS5GHcJYXBx9a01QhRMB6ta1lAO1lqOV3DP/oHJjeHRYHr36G
+	 JZI+w6oH283fbinNh7iyvJcN/bBfdeuu1m+8Hr3A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B84B3F800FA;
-	Mon, 21 Feb 2022 14:02:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B3F4F80425;
+	Mon, 21 Feb 2022 14:10:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4824FF800FA; Mon, 21 Feb 2022 14:02:55 +0100 (CET)
+ id B14A7F80149; Mon, 21 Feb 2022 14:10:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F143AF800FA
- for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 14:02:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F143AF800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52591F80118
+ for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 14:10:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52591F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="GX/tCmpf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645448573; x=1676984573;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=KZx0AC6N1KetqJgjIGPHT+c6fRZkwXmMUhQ/6zLIsZ0=;
- b=GX/tCmpfM/SE7L5SY0scQ4HB0ew8HbsIvH3A5sa3HLsVE7wMgG4ff6C7
- uDhpwq/W0w6m+xOzmmsDDon+vcxWY4FK99PkRJ4pCUFu8TLjIF/EuoBB+
- MWamyCrNp4V4ggDrFi+98zaNgyGmbSVK3IKLux5am6JLMUFL8TEtFUzdY c=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 21 Feb 2022 05:02:48 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2022 05:02:47 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Mon, 21 Feb 2022 05:02:47 -0800
-Received: from [10.216.15.213] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Mon, 21 Feb
- 2022 05:02:44 -0800
-Message-ID: <58726955-9682-15fc-56c7-cf504ef4d3e9@quicinc.com>
-Date: Mon, 21 Feb 2022 18:32:40 +0530
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="qtMgF8es"
+Received: by mail-wr1-x434.google.com with SMTP id d3so11352959wrf.1
+ for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 05:10:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zmju7T8l5cjpjfMcYV9GyQ+faFiFa5fab7CyUuOg12E=;
+ b=qtMgF8esbXrSOD1/RGSdSaMPZQBu6eqWm0IzOK1TFEEH9fqLGnbomg0E3DafC8rTAK
+ ezivsrYSoEs02yuEDa4buWFnQQUybuVDfpwDoARvOo6KUJDuVkhr2XghRdsiR0oP6P58
+ em8mZdfaJvXF7v96IHpgYeZ+1C0mDJUPx5KpNPhShAvLSqjTUUr5glb8vRBBPDXtaic3
+ Aa1qeDx/ai+6UVZyAtXXblEORCgFzBKPh6TXJ53k4kxRPFQMEJ4/2LpwrmrZJP9VLA58
+ NpkdeHm1MWkVZBlSYIBuWYeNHproxubOHGdzzIfc+XgCJokE1C4K9NgXXVPi/1H/LJ7d
+ 7s0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zmju7T8l5cjpjfMcYV9GyQ+faFiFa5fab7CyUuOg12E=;
+ b=b50Lk9VPwhzwbip2hjE2+wUw9aPpyI3w/qsGVBV4rfIi4eXY0CF4yONhfneMIS21Ct
+ 2+POa4li4xtfSjHDCPxoHn+dOXKTEQ8rNCXP9ohxPwnzFn/j8v7KnMhGjwd9HDT3StYI
+ ONbjyWC+eD+q0LybBQKc+8Ju9u353FWzxH/RroTluz4mZbgLO9DBrXD568cSvIloBdnX
+ a9McR4jGi139Jlg9fzd0G2yTkQojmztM4QILSLrwblqt0DkqMx2eM51ezisdyXF4t/zU
+ +2uiKesMVJ3iiM1pMXgaadtlmfWSLtQQoILMwiiWWQMrq24EkFRF7dU5DCza3Aob8z3R
+ LkDQ==
+X-Gm-Message-State: AOAM532x9D4SjjkCBmw0qo43RHpOMXbEZgr2JEFLgK3F+Cb7nl+xqvJz
+ CYtdvn4MT7fDr/YD/O4EODwArw==
+X-Google-Smtp-Source: ABdhPJx+Nwif8L9DJPdvertRKu3XLrN1K3ocaB+yfSE5aF5k5X4RWp9aZfXRgvqFrTjjFL339yolrg==
+X-Received: by 2002:adf:e8c5:0:b0:1e4:7c8a:21a7 with SMTP id
+ k5-20020adfe8c5000000b001e47c8a21a7mr16004022wrn.516.1645449040742; 
+ Mon, 21 Feb 2022 05:10:40 -0800 (PST)
+Received: from srini-hackbox.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.gmail.com with ESMTPSA id 3sm49412801wrz.86.2022.02.21.05.10.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Feb 2022 05:10:40 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH 00/10] ASoC: codec: add pm runtime support for Qualcomm codecs
+Date: Mon, 21 Feb 2022 13:10:27 +0000
+Message-Id: <20220221131037.8809-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH 0/3] soundwire: qcom: add pm runtime support
-Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- <robh+dt@kernel.org>, <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>
-References: <20220221104127.15670-1-srinivas.kandagatla@linaro.org>
-From: "Srinivasa Rao Mandadapu (Temp)" <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <20220221104127.15670-1-srinivas.kandagatla@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ quic_srivasam@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,28 +101,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Srini for Your patches!!!
+This patchset adds support for runtime pm on tx/rx/wsa/wcd lpass macro, wsa881x
+and wcd938x codecs that are wired up on SoundWire bus.
+During pm testing it was also found that soundwire clks enabled by lpass macros
+are not enabling all the required clocks correctly, so last 3 patches corrects them.
 
-I think runtime pm support in bolero codecs side still pending right?
+Tested this on SM8250 MTP along SoundWire In band Headset Button wakeup interrupts.
 
+Srinivas Kandagatla (10):
+  ASoC: codecs: va-macro: add runtime pm support
+  ASoC: codecs: wsa-macro: add runtime pm support
+  ASoC: codecs: rx-macro: add runtime pm support
+  ASoC: codecs: tx-macro: add runtime pm support
+  ASoC: codecs: wsa881x: add runtime pm support
+  ASoC: codecs: wcd938x: add simple clk stop support
+  ASoC: codecs: wcd-mbhc: add runtime pm support
+  ASoC: codecs: wsa-macro: setup soundwire clks correctly
+  ASoC: codecs: tx-macro: setup soundwire clks correctly
+  ASoC: codecs: rx-macro: setup soundwire clks correctly
 
-On 2/21/2022 4:11 PM, Srinivas Kandagatla wrote:
-> This patchset adds pm runtime support to Qualcomm SounWire Controller using
-> SoundWire Clock Stop and Wake up using Headset events on supported instances and
-> a bus reset on instances that require full reset.
->
->
-> Tested it on SM8250 MTP and Dragon Board DB845c
->
-> --srini
->
->
-> Srinivas Kandagatla (3):
->    soundwire: qcom: add runtime pm support
->    dt-bindings: soundwire: qcom: document optional wake irq
->    soundwire: qcom: add wake up interrupt support
->
->   .../bindings/soundwire/qcom,sdw.txt           |   2 +-
->   drivers/soundwire/qcom.c                      | 215 +++++++++++++++++-
->   2 files changed, 215 insertions(+), 2 deletions(-)
->
+ sound/soc/codecs/lpass-rx-macro.c  | 49 +++++++++++++++++++++++++--
+ sound/soc/codecs/lpass-tx-macro.c  | 45 ++++++++++++++++++++++++-
+ sound/soc/codecs/lpass-va-macro.c  | 36 ++++++++++++++++++++
+ sound/soc/codecs/lpass-wsa-macro.c | 43 +++++++++++++++++++++++-
+ sound/soc/codecs/wcd-mbhc-v2.c     | 26 ++++++++++++++
+ sound/soc/codecs/wcd938x-sdw.c     |  1 +
+ sound/soc/codecs/wsa881x.c         | 54 ++++++++++++++++++++++++++++++
+ 7 files changed, 250 insertions(+), 4 deletions(-)
+
+-- 
+2.21.0
+

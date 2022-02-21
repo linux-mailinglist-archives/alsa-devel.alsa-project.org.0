@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03D724BDA88
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 16:25:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2ECA4BDA8A
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 16:26:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78401172D;
-	Mon, 21 Feb 2022 16:25:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78401172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A9521F0;
+	Mon, 21 Feb 2022 16:25:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A9521F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645457154;
-	bh=MW2Yg1Kfyp2Pc04JtrMTt1mmSjFcqsfeEWHrq1tp5ZI=;
+	s=default; t=1645457168;
+	bh=vfiV1Qm1/MHU0lksy3rapa4k1HrN7kyCz4nC8r4epk0=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sVD0jYvaP9l0AwfKo840tAhlz9omQ5T/w1UOR0lzmSKH5ss8flJ00uAhfa/NiR19g
-	 mYEYSPwwS/5cfvkZESGn05ILHZEwH3WT3KIa6xQZ+bGA722MEzrhvQYf5oVhnUYDRB
-	 DmhQ1ygRXsZfvTOdcYA7JDmQbcWfdzjMx4fWRU64=
+	b=qKximxiYlkgXzwKJG6Uty8vb+Ux9yILZdj9+EcNDtIL8/jPFMLGIBRzqVRTxMtJYa
+	 SAkkcRrTKVueOC9d81rVBbIMUYbohXKO4JamOKMKlELunznFsqNHSeCxrotK/gXUGw
+	 FEv5uLGnjIbueJhaFax0KGdLcCj3t2YvEtKH3BgM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66C19F80516;
-	Mon, 21 Feb 2022 16:24:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC24BF80519;
+	Mon, 21 Feb 2022 16:24:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB08FF804AB; Mon, 21 Feb 2022 16:24:28 +0100 (CET)
+ id 027E8F80518; Mon, 21 Feb 2022 16:24:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,49 +35,42 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 468FAF8013D;
- Mon, 21 Feb 2022 16:24:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 468FAF8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F48DF80118
+ for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 16:24:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F48DF80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MvuEPI44"
+ header.b="JF/QiYig"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 17A1E611B7;
- Mon, 21 Feb 2022 15:24:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3748C340EC;
- Mon, 21 Feb 2022 15:24:18 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4EB0C61050;
+ Mon, 21 Feb 2022 15:24:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F13CEC340E9;
+ Mon, 21 Feb 2022 15:24:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645457061;
- bh=MW2Yg1Kfyp2Pc04JtrMTt1mmSjFcqsfeEWHrq1tp5ZI=;
+ s=k20201202; t=1645457063;
+ bh=vfiV1Qm1/MHU0lksy3rapa4k1HrN7kyCz4nC8r4epk0=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=MvuEPI44YNV4uqrNek4yRX2u1HAYJGNNWEu43R2dUulIfG5gN1QZHBsP6WqsvHAFT
- 8Ae6IJu1Um68cL+p+W3fum2eTncELXcdvLN8/3sr0i2etvMD2EZ3nUMPgzfbUbGSpt
- gbDmLBI/LdEXPECp06YZqtHhaba3kvvc8wssvL30qVZGCow+zUFl3WjTY9qJFX0kT9
- CMjrBKeEc9MFXwOmCUA6fUpmXMbxcQqLqfzjBuGkCEvYsSO2mavrPu2hGDhQeVpVm0
- iYZunii92i7zNygEvuFNPbBEYtLL4Lyl+LhQthU3KHDHQmFbRoSPEASU/xcTLtJRfO
- 3cvw6U0n1hzBQ==
+ b=JF/QiYigsSz+pDmwfxF75oFVURELZH86roMYRIxPV2sXjLtCr8j7QaJ+DYY262j71
+ N5G4zXCg6UYzFKY/S7tD/bO5roVrmGYUN17dYEaOORamn/93HQr9WCBjGcAQy25wm4
+ 74HVL4u9SWjnMCo0yaJ7EpBzoidHCyGnCpf6pYj5guyRmx9rveRWzeK/lmNYZhFyJZ
+ J9mCNS3pHnDNpB8jx3bSEGOg/DssqZxVGNeayKqcObShy3ycFAfX+M3OO4ga1Q+yYS
+ Xsx8vOW1g/kUMTkcAIXceXoHyTJ8iY/UunYYno0cFj+Gj4znXpnjsrTERBXCKcOHFJ
+ G78z2xTWfEH8A==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Brent Lu <brent.lu@intel.com>
-In-Reply-To: <20220221064005.1752500-1-brent.lu@intel.com>
-References: <20220221064005.1752500-1-brent.lu@intel.com>
-Subject: Re: [PATCH v2] ASoC: SOF: Intel: Add topology overwrite for Felwinter
-Message-Id: <164545705858.730905.4275248547658138991.b4-ty@kernel.org>
-Date: Mon, 21 Feb 2022 15:24:18 +0000
+To: tiwai@suse.com, matthias.bgg@gmail.com, Trevor Wu <trevor.wu@mediatek.com>
+In-Reply-To: <20220221055716.18580-1-trevor.wu@mediatek.com>
+References: <20220221055716.18580-1-trevor.wu@mediatek.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8195: enable apll tuner
+Message-Id: <164545706169.730905.15839904852131851975.b4-ty@kernel.org>
+Date: Mon, 21 Feb 2022 15:24:21 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org, bicycle.tsai@mediatek.com,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ yc.hung@mediatek.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,14 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 21 Feb 2022 14:40:05 +0800, Brent Lu wrote:
-> From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+On Mon, 21 Feb 2022 13:57:16 +0800, Trevor Wu wrote:
+> Normally, the clock source of audio module is either 26M or APLL1/APLL2,
+> but APLL1/APLL2 are not the multiple of 26M.
 > 
-> The Felwinter uses four max98360a amplifiers on corresponding CH0~CH3.
-> There are four amps on the board connecting to headphone to SSP0 port,
-> amp to SSP1,and the DAI format would be DSP_A,8-slots, 32 bit slot-width.
+> In the patch, APLL1 and APLL2 tuners are enabled to handle sample rate
+> mismatch when the data path crosses two different clock domains.
 > 
-> CH0: L(Woofer), CH1:R(Woofer), CH2:L(Tweeter), CH3:R(Tweeter)
 > 
 > [...]
 
@@ -110,8 +102,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: Add topology overwrite for Felwinter
-      commit: b9afe038b1fba24e815000606d5877de97f9f154
+[1/1] ASoC: mediatek: mt8195: enable apll tuner
+      commit: ff5a90173d981934e1134d28af3625acaab01d80
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,86 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D75504BD8F0
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 11:09:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AE4F4BD923
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Feb 2022 11:42:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A71B168C;
-	Mon, 21 Feb 2022 11:08:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A71B168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81419168D;
+	Mon, 21 Feb 2022 11:42:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81419168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645438143;
-	bh=iUWxIP5GUWCieNeQH7bIFBd4JYLRV3SNF0a8wm9wQys=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=tQ1nAuxUzylNlDsLu7Yai0fo+ci2qjKBFayzwVspm5wArMMxa8Ap+oL8lofPv+yBA
-	 5KCqE3YA8wYOtLxyudZkq9sxKZvkoNuuroO4kC5KJQvo4CcFHLMjk4yzo1nubDQZ+i
-	 WOky6blaI6kId8A5BkS4tnqVmzb8KOROoMubtxzc=
+	s=default; t=1645440171;
+	bh=xPpJoqL+2/j8nyTF1ydQtLUM4P5alLm/sysvPwl5YvU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ix7lY66FCyT0CK5hGXZanXdu37xIZW94H7swLw9wJtFNuwcZmCWUtvPpbeRwGdk/d
+	 l2jEASjiIM/6Mh7FDFPMiC4wxjJYl1Gpv1xlACIop4v/RLPl0yYB3UrBwrN/9Q9LAw
+	 cfbMWo1kTPjJoZQHTehSVu/lTi1VYMKbewq6jB5Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A2ACF800FA;
-	Mon, 21 Feb 2022 11:07:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBC71F80425;
+	Mon, 21 Feb 2022 11:41:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAD8AF8013D; Mon, 21 Feb 2022 11:07:54 +0100 (CET)
+ id 5E8D8F800FA; Mon, 21 Feb 2022 11:41:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94DD3F800FA
- for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 11:07:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94DD3F800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1414DF800FA
+ for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 11:41:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1414DF800FA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="M9d/T8Dx"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="SCH7XSZM"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id D16421F38E;
- Mon, 21 Feb 2022 10:07:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1645438071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BT+TInnDhxHuwYiGptQP8Zx6c0a1MWdfdZ8/yiPMU+M=;
- b=M9d/T8DxiGhgu2MDt/xlY3FVmyjty5EaCJVWIDXM5Eg9KAbZrmMNc/r1NT8hWi0ht7CMhQ
- 7pd7pfkzkDri7e5Eu3vX6BwGZemtUlWJC8bgMfecGuK3RgCDadTQpMOyYk5Hisx85gWE+S
- C/OKnmvChnFrdXSQmkwY/oKIwRHgOR4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1645438071;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BT+TInnDhxHuwYiGptQP8Zx6c0a1MWdfdZ8/yiPMU+M=;
- b=SCH7XSZMdhiU4hQ6V6Fe4z/ozMA58TSTL1bDCeofy4aqfMwYqR2mUD4d2Vyn80+96zVyD4
- 1QOZcVuYb8vu9lBw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id A9D11A3B85;
- Mon, 21 Feb 2022 10:07:51 +0000 (UTC)
-Date: Mon, 21 Feb 2022 11:07:51 +0100
-Message-ID: <s5hv8x8353c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v2 0/4] ALSA: hda: Expose codec organization functions
-In-Reply-To: <daf5b3ae-18fb-2ab8-dd50-fc598c297b5b@intel.com>
-References: <20220214101404.4074026-1-cezary.rojewski@intel.com>
- <daf5b3ae-18fb-2ab8-dd50-fc598c297b5b@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, upstream@semihalf.com, harshapriya.n@intel.com,
- rad@semihalf.com, pierre-louis.bossart@linux.intel.com,
- Takashi Iwai <tiwai@suse.com>, hdegoede@redhat.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- lma@semihalf.com
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="scTQgqOp"
+Received: by mail-wr1-x42a.google.com with SMTP id k1so26245323wrd.8
+ for <alsa-devel@alsa-project.org>; Mon, 21 Feb 2022 02:41:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7izwyhUUirLGOcbvAKJ/ySoVgmZ6zFx6mt9CtP50ZlI=;
+ b=scTQgqOpSpwrm9rIIYQvXQ9ri48Rb9VOE6Ov48Q7Wi/2AVOQRsZGHvJyISPd8tdmJj
+ fu2dmeagLhwu8sYbPzjobQSw+amz2had4hNZE3QRNN8C2M5iQRmHs4/YPuv++ddKVz+4
+ zIZMciYnCEdvNukga9CPtvxD8thHLgRf9vFYI65ZdNWpwq+SZnq+jAf+buBU9cD20Tak
+ LzKl9Rpt9e4tksx5SXy0qRc5B3HLDHdbUllxB8P5s9caCLxqRQOczP3zDWI1b5b+f8SY
+ 9yuS4KUfBQFhsiCj+65dvGqBUcAWThiDZxLGgIWwJVHfSulJ0ZQVo1/hFF1F+rBR6CkA
+ EEvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7izwyhUUirLGOcbvAKJ/ySoVgmZ6zFx6mt9CtP50ZlI=;
+ b=JFyEbxut+H1NNnnGNIg0g6ue9DYecWeje/s6tYQlOR5KQmTAsAZ8ZwKqpwwmrKiimF
+ 8eUnRRMVV96xBk45RT4m6JcsV3WQR8T/GzwlLRA0NMswqiNpsoJsLUf8YpL/1KjIIssB
+ CMkceahGmEWNgWYiC74MjffNWSsLvDQXMi9IskuAfFpNa60Xq7rA4N+N7aIoO8A1+wct
+ vy/8NNZLz6hpAl1d3IuVF67PuPQVPk0NTIHg+U141Dr5qJMlEBS1qHSgEE5ONfZaldzn
+ auLJKuZYEcnqhdrP2ypyG3GZLA6YNmsH/gxsAPVpIaOLGjEyt2KJgzGHlmZerxQESxWq
+ aLjA==
+X-Gm-Message-State: AOAM530OWr1sDa14BzFCnL92YPT51edLLfVAuHE321P8d2YTREDnt1jT
+ s+bxmfF/hOxn4A0Tfs2F/PR2PA==
+X-Google-Smtp-Source: ABdhPJw28jTxSN/JYzVLnVzXnpvJGWhK5Wo2D27AVHnLLE47KPQvJxrpG/4l2yAZrLWAw6jmzoDwhA==
+X-Received: by 2002:a5d:45c4:0:b0:1e4:a672:586b with SMTP id
+ b4-20020a5d45c4000000b001e4a672586bmr14394858wrs.388.1645440098837; 
+ Mon, 21 Feb 2022 02:41:38 -0800 (PST)
+Received: from srini-hackbox.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.gmail.com with ESMTPSA id
+ n19-20020a05600c4f9300b0037c06fe68casm7584817wmq.44.2022.02.21.02.41.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Feb 2022 02:41:38 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: robh+dt@kernel.org,
+	vkoul@kernel.org,
+	yung-chuan.liao@linux.intel.com
+Subject: [PATCH 0/3] soundwire: qcom: add pm runtime support
+Date: Mon, 21 Feb 2022 10:41:24 +0000
+Message-Id: <20220221104127.15670-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ quic_srivasam@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,44 +104,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 21 Feb 2022 10:51:25 +0100,
-Cezary Rojewski wrote:
-> 
-> On 2022-02-14 11:14 AM, Cezary Rojewski wrote:
-> > Changes expose several function that are currently unavailable for
-> > HDA-DSP drivers for use. Those functions are:
-> >
-> > snd_hda_codec_cleanup_for_unbind()
-> > snd_hda_codec_set_power_save()
-> > snd_hda_codec_register()
-> > snd_hda_codec_unregister()
-> > snd_hda_codec_device_init()
-> >
-> > This allows upcoming AVS driver [1] to re-use even mode of HDA related
-> > code that is currently available in sound/pci/hda and sound/hda and
-> > prevent any code duplication within avs-driver that would otherwise had
-> > to happen.
-> >
-> > Last patch in the series provides snd_hdac_ext_bus_link_at() - a helper
-> > function which allows for retrieval of HDA segment (link) based on codec
-> > address directly. This is simpler than parsing codec-name first to
-> > extract the address what is the case for snd_hdac_ext_bus_get_link().
-> > The latter function is updated to re-use newly added one so core logic
-> > is not duplicated after the addition.
-> >
-> >
-> > Changes v1 -> v2:
-> > - snd_hda_codec_new() now calls snd_hda_codec_device_new() with
-> >    'snddev_managed' param set to 'true', reported by Kai
-> 
-> Hello Takashi,
-> 
-> Is there anything else I could help with or explain to help get this
-> series merged?
-
-I merged all patches now to for-next branch.
+This patchset adds pm runtime support to Qualcomm SounWire Controller using
+SoundWire Clock Stop and Wake up using Headset events on supported instances and
+a bus reset on instances that require full reset.
 
 
-thanks,
+Tested it on SM8250 MTP and Dragon Board DB845c
 
-Takashi
+--srini
+
+
+Srinivas Kandagatla (3):
+  soundwire: qcom: add runtime pm support
+  dt-bindings: soundwire: qcom: document optional wake irq
+  soundwire: qcom: add wake up interrupt support
+
+ .../bindings/soundwire/qcom,sdw.txt           |   2 +-
+ drivers/soundwire/qcom.c                      | 215 +++++++++++++++++-
+ 2 files changed, 215 insertions(+), 2 deletions(-)
+
+-- 
+2.21.0
+

@@ -2,85 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB5CD4BF794
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Feb 2022 13:01:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8537A4BF7B7
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Feb 2022 13:02:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 339EF175E;
-	Tue, 22 Feb 2022 13:00:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 339EF175E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1876E17B2;
+	Tue, 22 Feb 2022 13:02:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1876E17B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645531266;
-	bh=iZnLVqPhEdCoeqFRLaS0iaEnLO4STijD7zpqt3gEDfM=;
+	s=default; t=1645531376;
+	bh=7L0MaZUFtVhaDRMQtwSZV3TbXZZYsB14bS5A8nzpVoQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SpAGRRv0inKN7YW3i2DXv5ayeIr2R6V7gMwvcNcNZQe3K4IyXzFw5TLM9BTPNZWCs
-	 ZoJDcyAzNT5m1s4Rj+VQSxkfoo4hjW8Rtg0RcyWL+OJTUmqadJ4zQgqy2KPmPyUyc1
-	 lPH1GmZxKTJMJNTGxR43T8I0P0Y7v/iugQl9uc4I=
+	b=A6HjOXcv6Xrt9+CNx2ooxK7ILRKUWR2Bf3X2CM+yGnKv4SyEGUCkFf0Up6ysvnv61
+	 wTbVeDebofBby/wT6hvR2o6aQrMZ+DE53gDKlomqEJwiPhljr6oXOsMqVHQdHwNo3Q
+	 iPG0aVZ0ZkqnW1tGlfBT+Qx93sMHIWJonW27KU0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4489F801EC;
-	Tue, 22 Feb 2022 12:59:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A2A7F8052E;
+	Tue, 22 Feb 2022 13:00:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A041DF804FD; Tue, 22 Feb 2022 12:59:55 +0100 (CET)
+ id 65B2DF80518; Tue, 22 Feb 2022 13:00:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CAD1EF8012C
- for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 12:59:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAD1EF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7719EF80224
+ for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 12:59:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7719EF80224
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="UIYqOQ5C"
-Received: by mail-wr1-x42f.google.com with SMTP id j17so6035464wrc.0
- for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 03:59:50 -0800 (PST)
+ header.b="CQqzgB9y"
+Received: by mail-wm1-x32f.google.com with SMTP id
+ x3-20020a05600c21c300b0037c01ad715bso1621002wmj.2
+ for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 03:59:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=86hxaHzF3RhEyMf0w7EdDLKHhFRcTnHl9QY4411LC24=;
- b=UIYqOQ5C+72BzCNoV0Ugv17YE9b5pOJ8j4O4j8v5N3W3spxXNFGYmh+JuMT6dyBZKb
- LgYLALuS0ZRyW1ETyfWUoXYOnHNSlESqQGOuAtDPwGhyqehPgnuqkf2MRw35c5ojGyet
- d+GFubJ4UQzpFdkmNknnaqkjCTknZYI4L01jiQ1kDjKNVKmkGPek9fNkR3DS4A6SKxqp
- KwEdE9xqccsnhLTHECBq0N2JJMy7Z6sLOgz4asz9ckKRmkYEIkjNtX7EhALiFDUSxUlI
- cnSrdT75XERF/adspig2vL09edaCtVQF3noFXpLboD2IJ1N2tuACnHavad6EqLbiVA5w
- +DaA==
+ bh=qAYVw6f87nBCDJGUCPz374Y+GRm8ih0aIXd7jYiegYk=;
+ b=CQqzgB9yPbuTyePAU9nroBloxL1ZgVMRzSIxuE5V8cp8RnsAAmLD/DG4Y/U4+52JtP
+ l0i4vxh63W11kE4hkrTnjovKpOEVgEa1OuzczjQflVozla893MxHxmTRZ5RSpbgYPPpu
+ WWWCPTDJC6Ah2yvXr1BXpsOLIK8iBQlC1cLaVJyOHRuFnvHI0iZWvmwHpjWP3WmThslC
+ Az2U5BLZUkpfGspnqVwzfcBt+TqzwaTTQGEBq8/AjQs0gqSr+1LZOL29qIt0ZY/0QuqW
+ Hb/khWTEL9bGjL6XLp9XcEClJHUQYc66qWhLG2pBq4leI/6VB9v52SoFzyqpLgYHk4tN
+ oqWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=86hxaHzF3RhEyMf0w7EdDLKHhFRcTnHl9QY4411LC24=;
- b=5rdgx6Dj1LhL15QgDAiD8/AAKv6cpkgPCb5ePJlQuHMrWgj7/NyaaXS+4nvHpvssRg
- 0gj+AUw5tlxvfRVwfS6B5/um6mCdKnNG153FCZCIUwZqsdUTtjfPt4ExmZ8gQ1EsIHsB
- VVHq7uLvrVlzj2nrKA8NCU2BRfC03aResuEW+zM07/TPry6QdXlZD56Emp1RZhc20alN
- ItmPWO8/NMalcDkQFZNDilJaNpRgBDgM0F7Y1RIKhaqSH8w5nFW5Huy8YA6smtCZKW5c
- iMHP7RKkDgzkprsVdBPO3qIMpsrc6DbdPLgYkOMQX9yT+NyfMo6UyP94/rQTIEH7M+Zi
- /QXw==
-X-Gm-Message-State: AOAM530TQPF+KPu2Xzk7FSHwC+dhJfadJ+TE5nKQQu9qKfliEGRTRoy+
- g7bBiR1Xrj+fGGY0frDBnFI8GA==
-X-Google-Smtp-Source: ABdhPJzmGXWQa2fjf4E5qRANCuTFxziwaIr5wdxaoMdvMBH8nLxjraz5vVllu62TnUTDy9y72pbn3Q==
-X-Received: by 2002:a5d:5185:0:b0:1e5:78a3:7747 with SMTP id
- k5-20020a5d5185000000b001e578a37747mr19520727wrv.470.1645531189570; 
- Tue, 22 Feb 2022 03:59:49 -0800 (PST)
+ bh=qAYVw6f87nBCDJGUCPz374Y+GRm8ih0aIXd7jYiegYk=;
+ b=wcl21FKbGxyDwYKa8TK01XABuYtLEknjzQX3k0GAJbN2S+oJMiWf3NE0E9gdL68uMk
+ eevMpuKGVkaiT8pfgjWfVqNXUe3Y2FhUolAqvugEJ1/03fd4VRCwma/SiacX7IMraEno
+ QuOZZtQlBjSfd8EzrdCdk3fSumiPtZ/lb9h/ATBUGpaJuCmtzb6zP22ank/XIvuX9Qd5
+ bz8na4u7qNHKlCWoLFzXXEudDCqrVZbMvNaHJ7nyf1IUHNnurZCT0z9keSSZhiwLokOz
+ PalWIa4rIdqaVpDMXAOohOs9PsMkCrU8RARlkxKika3O9+EmVGYUssskt0KpvchmIwq6
+ f4Zg==
+X-Gm-Message-State: AOAM530iGOPwJZqcRzgrHU8ZfFMke2HH8qK1iw9pNhrTvjPTomev4CuG
+ BelqdfkNGjMSdKIXGSpLA2ygmg==
+X-Google-Smtp-Source: ABdhPJwhpijOE/o2mCXCiE9KnjdyQ6TxkwxS7wznSwBFTO06MlhP+grm26A3hMPj6+GwbD3L+uTUQg==
+X-Received: by 2002:a05:600c:3650:b0:37b:dd89:2f01 with SMTP id
+ y16-20020a05600c365000b0037bdd892f01mr3086611wmq.43.1645531190597; 
+ Tue, 22 Feb 2022 03:59:50 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id a18sm50014661wrg.13.2022.02.22.03.59.48
+ by smtp.gmail.com with ESMTPSA id a18sm50014661wrg.13.2022.02.22.03.59.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Feb 2022 03:59:49 -0800 (PST)
+ Tue, 22 Feb 2022 03:59:50 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH 02/16] ASoC: codecs: rx-macro: fix accessing array out of
+Subject: [PATCH 03/16] ASoC: codecs: tx-macro: fix accessing array out of
  bounds for enum type
-Date: Tue, 22 Feb 2022 11:59:19 +0000
-Message-Id: <20220222115933.9114-3-srinivas.kandagatla@linaro.org>
+Date: Tue, 22 Feb 2022 11:59:20 +0000
+Message-Id: <20220222115933.9114-4-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20220222115933.9114-1-srinivas.kandagatla@linaro.org>
 References: <20220222115933.9114-1-srinivas.kandagatla@linaro.org>
@@ -109,52 +110,54 @@ Accessing enums using integer would result in array out of bounds access
 on platforms like aarch64 where sizeof(long) is 8 compared to enum size
 which is 4 bytes.
 
-Fixes: 4f692926f562 ("ASoC: codecs: lpass-rx-macro: add dapm widgets and route")
+Also few return value of put functions, so that change notifications are
+sent correctly.
+
+Fixes: c39667ddcfc5 ("ASoC: codecs: lpass-tx-macro: add support for lpass tx macro")
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/codecs/lpass-rx-macro.c | 8 ++++----
+ sound/soc/codecs/lpass-tx-macro.c | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index a7f86b094a4f..058d8634ce40 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -2273,7 +2273,7 @@ static int rx_macro_mux_get(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(widget->dapm);
- 	struct rx_macro *rx = snd_soc_component_get_drvdata(component);
- 
--	ucontrol->value.integer.value[0] =
-+	ucontrol->value.enumerated.item[0] =
- 			rx->rx_port_value[widget->shift];
- 	return 0;
- }
-@@ -2285,7 +2285,7 @@ static int rx_macro_mux_put(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(widget->dapm);
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index 094756544eed..f90786100d1a 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -998,7 +998,7 @@ static int tx_macro_dec_mode_get(struct snd_kcontrol *kcontrol,
  	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
- 	struct snd_soc_dapm_update *update = NULL;
--	u32 rx_port_value = ucontrol->value.integer.value[0];
-+	u32 rx_port_value = ucontrol->value.enumerated.item[0];
- 	u32 aif_rst;
- 	struct rx_macro *rx = snd_soc_component_get_drvdata(component);
+ 	int path = e->shift_l;
  
-@@ -2397,7 +2397,7 @@ static int rx_macro_get_hph_pwr_mode(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
- 	struct rx_macro *rx = snd_soc_component_get_drvdata(component);
+-	ucontrol->value.integer.value[0] = tx->dec_mode[path];
++	ucontrol->value.enumerated.item[0] = tx->dec_mode[path];
  
--	ucontrol->value.integer.value[0] = rx->hph_pwr_mode;
-+	ucontrol->value.enumerated.item[0] = rx->hph_pwr_mode;
  	return 0;
  }
- 
-@@ -2407,7 +2407,7 @@ static int rx_macro_put_hph_pwr_mode(struct snd_kcontrol *kcontrol,
+@@ -1007,14 +1007,14 @@ static int tx_macro_dec_mode_put(struct snd_kcontrol *kcontrol,
+ 				 struct snd_ctl_elem_value *ucontrol)
+ {
  	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
- 	struct rx_macro *rx = snd_soc_component_get_drvdata(component);
+-	int value = ucontrol->value.integer.value[0];
++	int value = ucontrol->value.enumerated.item[0];
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	int path = e->shift_l;
+ 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
  
--	rx->hph_pwr_mode = ucontrol->value.integer.value[0];
-+	rx->hph_pwr_mode = ucontrol->value.enumerated.item[0];
- 	return 0;
+ 	tx->dec_mode[path] = value;
+ 
+-	return 0;
++	return 1;
  }
  
+ static int tx_macro_get_bcs(struct snd_kcontrol *kcontrol,
+@@ -1037,7 +1037,7 @@ static int tx_macro_set_bcs(struct snd_kcontrol *kcontrol,
+ 
+ 	tx->bcs_enable = value;
+ 
+-	return 0;
++	return 1;
+ }
+ 
+ static int tx_macro_hw_params(struct snd_pcm_substream *substream,
 -- 
 2.21.0
 

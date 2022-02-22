@@ -2,85 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 465844BF7C2
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Feb 2022 13:04:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C30B54BF7BD
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Feb 2022 13:03:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE59B183A;
-	Tue, 22 Feb 2022 13:03:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE59B183A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 519C3180F;
+	Tue, 22 Feb 2022 13:02:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 519C3180F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645531469;
-	bh=OTqe7P6ZDt3BcL/rzHwWxH0caW7iOvtaHWapELEE1Oc=;
+	s=default; t=1645531426;
+	bh=Tav74BvuRa2PbxXQjXYIr6aEZYGE/+bwylo90YsFX3M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VusFo0/ar9nbgEZcz802OpUTtKud1ubhszwutSYrZEO/YqIzEVecdlU5nwKQlKqx+
-	 WDLp3/B7ATUxs9rThKEu1SR/gKfb0xJELI9oFkbyvubLCPKQSUrw9b8AtPNuXn0FPH
-	 g40bfHb8w5C/IN0nRR05ZtNkGIUhaI/yQV9YZyqM=
+	b=ekxIGQ9dVRnrXCWz3Kxp2mAhLRFt76pJFk3qQy4clnP3jKuc+EmjFMLxflnexmANU
+	 RJi3LVzVPk3vtY7kMgpv5H/KSVSlIOtV2IEPqo6K4hh57sZ4c0qYleDarAuZkO8/9C
+	 idUFV3qNi/MPhMzpepKjw53BfUPJ46Y24LSa9siM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA693F80548;
-	Tue, 22 Feb 2022 13:00:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65F7EF80537;
+	Tue, 22 Feb 2022 13:00:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21458F80529; Tue, 22 Feb 2022 13:00:09 +0100 (CET)
+ id 9D082F80520; Tue, 22 Feb 2022 13:00:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40F02F8051C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6BD9F80508
  for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 12:59:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40F02F8051C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6BD9F80508
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Ws7XkwwK"
-Received: by mail-wm1-x335.google.com with SMTP id
- n29-20020a05600c3b9d00b00380e379bae2so211766wms.3
+ header.b="OlsqQ+HY"
+Received: by mail-wm1-x332.google.com with SMTP id
+ az13-20020a05600c600d00b003808a3380faso1625834wmb.1
  for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 03:59:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=9SOM2m1l2t9AVsCxObqTWKpNPnvoS4HHumlCtnLuW+M=;
- b=Ws7XkwwKIezWgelZILQpFNUflefi0UZ+gNdHXODwz5Wgz6M7G4Lkz03OEg8ypHxZSh
- F1dAdWeyAZAq/ggyhtolZpE13XXYYVaZHSHu1k2Lnk4ASX7aXK8xXL0mj6yGKxZeqbLi
- I+DNvCVWd2qRSyMKkFs1GpZyBSI6fAbUTHA6jzXS2lQHOEn/zrHOBiH+Bad2DUGbq26E
- 3CIXJU2YwhumujO1PvGEQFUqWQ3sfAwWig01vvqeznAA+YaHlz/Tzxjrsaz2iZVheRZ6
- DSD2sDIWZpRw0TjFCniFsNcLLfp9VAUbEG37WPP3dlQykVOMA+1ZoESKqRirFR+Qxb0C
- oRXw==
+ bh=TT58Pxq1258T4AxyuLdXgL1OIhP7Hr2onHMX8NaDui0=;
+ b=OlsqQ+HYW21fdRD6Ie2kAF0sLLQXbbvVHzDRxuPbFBpppJeOcibTqM53uRG725SIm/
+ 5hZ/AGJpEmJP5N3am+fe7KIvlFwLrrn93UN6ZV3ky4sQrUoAs5TVKpAU2Q4F+cz8SQGX
+ K+rfi/eblBV5qbMFbU07oElE7eOsTeU1tp/c6zSPfUQlgNqwOKlMS4iRRFl5cAIU1zyN
+ CoftkLdoW0KnNngUjTdrxms5xLic4p6+Etf3nDx2U7ZAufFJf6o1G7O/HKH14OlwAIdL
+ HxNtQvbXxGDxymxxMkGeYxlSLWZEiJ5+Y4A+VovzD/K2OmbM8zA4S1Zvalqg2czbNlVg
+ nz2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=9SOM2m1l2t9AVsCxObqTWKpNPnvoS4HHumlCtnLuW+M=;
- b=cH2suXlUDZSrOr9DHhYs3rn/RodPSw/C4Do50VB4AKbpxfEn00NQ9Y4YtDGucm2vVD
- 7jHvRP3w6kpLqVpjfWqrql6fX+0kAAq1rsN6t+6Gs09cyNwUp7ZoSbv1PaLiB8rFPujf
- 1bEf8zbLU08CWOsjHBLvvLBd5R9sWjZxYrmPE6XtvE4G+YLvEA4reX6EY/MhpX3bb95W
- qzKueMtFL7J7k9/oodv71Ufh4RYDzRsNsO/NdIeWdY13KfZkM31KY6p3QOUKF164QZie
- IfyxwlNWbBjdDUkOAS2VaGLp8Nk2HhYyY8hz8zr7DYhh3L5Q9UrWVanGO0lb7+Iju9kz
- OewA==
-X-Gm-Message-State: AOAM533yaCXx9VnDOvrS1cjcbq8AhrXXLvuqDtbSeiekcb4nr4/kND5g
- 40hb2yIrRzrMIcjyfRAxfvxI/A==
-X-Google-Smtp-Source: ABdhPJzqXjAvt+WjhqvdqALlx7KBzS2s2u+JGKdes+D0KUZHJe2rkc1SqLbt7miNgQbZuB+oG+Iv1Q==
-X-Received: by 2002:a7b:c159:0:b0:37c:c0d5:6534 with SMTP id
- z25-20020a7bc159000000b0037cc0d56534mr3022313wmi.182.1645531195942; 
- Tue, 22 Feb 2022 03:59:55 -0800 (PST)
+ bh=TT58Pxq1258T4AxyuLdXgL1OIhP7Hr2onHMX8NaDui0=;
+ b=gGGqvFAdG1T8C5rJ1LH032T13vjDtocitT3rxQWMPu0mN7PS0RmDcopzHlOeAkLuB8
+ kgvL1RFEylSh6Vggf7GbvMZfJxyoZYQ0ieFOQZTDNjnBvwBYUv9/INw4lRZzL5Pnk86l
+ KbiCm1i2hZfdpNiYgkvdyXyMiPxqRFgWQLBKrOsYGVPiswLVWinmAyBjPWPam5ncBHrx
+ 5mfUnYrrW/Prj7LFPbGZfsqfODyGkIf8klkkStetmY1p1UTcRkoQsQJLbNmTfOsg3Qei
+ YY/Ar3dn4sImuFnRO7zunHOnyQxRzFwITftmUdkeWXmUZ42aVszX6f3qtBCESNiRCgaR
+ 5IoA==
+X-Gm-Message-State: AOAM5322JnlcW2CPDtN3Tr+kunmU8FBhG1jaCaK26hUX/KFdPQ2rRl0q
+ +yLtlUfrhHykguAXmXa6kFmZgw==
+X-Google-Smtp-Source: ABdhPJxBY/ikhqjz0AGd2wmSRhvxpIVt0C6nKXdpBIDhdfbRAM6xKSfI39VaB3VRbnro5u+Oi0EiQA==
+X-Received: by 2002:a1c:a915:0:b0:380:e3de:b78f with SMTP id
+ s21-20020a1ca915000000b00380e3deb78fmr321477wme.19.1645531196938; 
+ Tue, 22 Feb 2022 03:59:56 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id a18sm50014661wrg.13.2022.02.22.03.59.55
+ by smtp.gmail.com with ESMTPSA id a18sm50014661wrg.13.2022.02.22.03.59.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Feb 2022 03:59:55 -0800 (PST)
+ Tue, 22 Feb 2022 03:59:56 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH 08/16] ASoC: codecs: wcd934x: fix kcontrol max values
-Date: Tue, 22 Feb 2022 11:59:25 +0000
-Message-Id: <20220222115933.9114-9-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 09/16] ASoC: codecs: wcd934x: fix return value of
+ wcd934x_rx_hph_mode_put
+Date: Tue, 22 Feb 2022 11:59:26 +0000
+Message-Id: <20220222115933.9114-10-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20220222115933.9114-1-srinivas.kandagatla@linaro.org>
 References: <20220222115933.9114-1-srinivas.kandagatla@linaro.org>
@@ -105,40 +106,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-set "HPH Type" Kcontrol max value of WCD_MBHC_HPH_STEREO instead of UINT_MAX.
-set "HPHL/R Impedance" Kcontrols max value to INT_MAX instead of UINT_MAX as
-max field is integer type.
+wcd934x_rx_hph_mode_put currently returns zero eventhough it changes the value.
+Fix this, so that change notifications are sent correctly.
 
-Without this patch amixer for these controls will show -1 as max value to userspace.
-
-Fixes: 9fb9b1690f0b ("ASoC: codecs: wcd934x: add mbhc support")
+Fixes: 1cde8b822332 ("ASoC: wcd934x: add basic controls")
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/codecs/wcd934x.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/codecs/wcd934x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
-index 6c468527fec6..f2674905a4a7 100644
+index f2674905a4a7..ab580f37cf00 100644
 --- a/sound/soc/codecs/wcd934x.c
 +++ b/sound/soc/codecs/wcd934x.c
-@@ -3023,14 +3023,14 @@ static int wcd934x_hph_impedance_get(struct snd_kcontrol *kcontrol,
- 	return 0;
+@@ -3314,7 +3314,7 @@ static int wcd934x_rx_hph_mode_put(struct snd_kcontrol *kc,
+ 	}
+ 	wcd->hph_mode = mode_val;
+ 
+-	return 0;
++	return 1;
  }
- static const struct snd_kcontrol_new hph_type_detect_controls[] = {
--	SOC_SINGLE_EXT("HPH Type", 0, 0, UINT_MAX, 0,
-+	SOC_SINGLE_EXT("HPH Type", 0, 0, WCD_MBHC_HPH_STEREO, 0,
- 		       wcd934x_get_hph_type, NULL),
- };
  
- static const struct snd_kcontrol_new impedance_detect_controls[] = {
--	SOC_SINGLE_EXT("HPHL Impedance", 0, 0, UINT_MAX, 0,
-+	SOC_SINGLE_EXT("HPHL Impedance", 0, 0, INT_MAX, 0,
- 		       wcd934x_hph_impedance_get, NULL),
--	SOC_SINGLE_EXT("HPHR Impedance", 0, 1, UINT_MAX, 0,
-+	SOC_SINGLE_EXT("HPHR Impedance", 0, 1, INT_MAX, 0,
- 		       wcd934x_hph_impedance_get, NULL),
- };
- 
+ static int slim_rx_mux_get(struct snd_kcontrol *kc,
 -- 
 2.21.0
 

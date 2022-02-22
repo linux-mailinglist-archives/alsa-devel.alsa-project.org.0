@@ -2,74 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C94134C00EC
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Feb 2022 19:06:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E931E4C012A
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Feb 2022 19:23:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63B9917B4;
-	Tue, 22 Feb 2022 19:05:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63B9917B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B1B017DB;
+	Tue, 22 Feb 2022 19:22:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B1B017DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645553175;
-	bh=4rGunFeowv1Q7DwwOPcd8Fc+MZiAHpzWeM0Krnzv4VM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1645554184;
+	bh=AXgDFsLujzRCirWAaY42/Ts3TNnP5GcZ1a51J/noHxo=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fSyEx2CxXzCYrIck+ghcl9P4ij9y/nr2BtVL+jtu3Ne3RqEa/iIEgguPbmXDIkGXC
-	 7YYqb6DXUBZl1gcxnaNYXCoQBvKZKDUuwxE1c81wD34bXEAPHu8mFzS5gPeq1Mnn3C
-	 rnSpCgQnduCpDtifqh12pmTMIGE9GwlAfJImWe80=
+	b=Qd8CmuYZ/oeA3g7MmNZ7z40RvKmPW2GmEBiXk8PprXLF0D08T39nPOSxy/9SA/mq6
+	 PMibQ4ocnfGrXQNgfgEH4naRuOScjtKIAzmSo1ILsnCTFJBByXqOoBjYYKADjMNAOU
+	 U/65s5fR+yKKEXg/1Pzbv0WnvSxubaBUwifVBxAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04463F80118;
-	Tue, 22 Feb 2022 19:05:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0B0CF801F5;
+	Tue, 22 Feb 2022 19:21:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B41BAF801EC; Tue, 22 Feb 2022 19:05:06 +0100 (CET)
+ id C5D8FF801EC; Tue, 22 Feb 2022 19:21:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92516F800D1
- for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 19:05:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92516F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E9CFF80118
+ for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 19:21:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E9CFF80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HM7ygPwg"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 61F37614AD;
- Tue, 22 Feb 2022 18:04:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08619C340E8;
- Tue, 22 Feb 2022 18:04:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645553098;
- bh=4rGunFeowv1Q7DwwOPcd8Fc+MZiAHpzWeM0Krnzv4VM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HM7ygPwgt7MgTBoq2EwQ9W8wWn2YcRDZepg0PMGUEB5XnA/zV2IhUp8hVtJxxL1u2
- o648rmQHhU/CZX2bNh1McSd7PgMs6cjeJoeBIQY8xPn3fWyOnnFZ3ZKiBzM9JMRmFi
- 7eR6mFk5zWq6luOdz58sjZNZ3PlVCIu3XY8/ZXMBdn1FLE3ABYXi45ZgDI5xpTkW/k
- 4RACbVXMF6OpDgQRlMEEJ83ZiKpOtQGnOFRek8geYZutCY/ii88o6xzUNWaxbT7KMI
- fxSEpzZTDIKMN3qpWcK3bX8jlwUdmoSNdsIRMK57ddxoThA7Ul1zf3MFaVrPvxPRvG
- sclUXAwb9/W6A==
-Date: Tue, 22 Feb 2022 18:04:53 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="KUp9ejm7"
+Received: by mail-wm1-x332.google.com with SMTP id
+ k3-20020a1ca103000000b0037bdea84f9cso2501188wme.1
+ for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 10:21:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=dSxkVeNACVhXNOyAclYVu585cWApPTR7Lum44hdkYwM=;
+ b=KUp9ejm7G/GDzW/HgFDmPcHSUo6BgrU8As2BQ++t4QDBGfqRUPdCJ4EDEsjBairuee
+ YDO5THZCMsfIaytQ35sv4VZveVmQQfw+bc8KlBtbYnMgcRvakUuOdAIlIWwVEaETUOvQ
+ I33Apnbr3OkKJg7rtXHkFZdJnAjr1RBL6/xzmSay2169bZQHv/rdMdGk50fcefuiS3/X
+ ry1Wzeji4n4S4mL3rJCfn/6TIBdjSTqp/h6HjpffDm74faKqBA5ygVfuzVZv8S+Ws8zy
+ joQE9cc+2X0KZWzURVkjpragffCG1UUjDX9dGZ/bUccHJzMd9mzBKel4+PtKjrK0nw24
+ vntg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=dSxkVeNACVhXNOyAclYVu585cWApPTR7Lum44hdkYwM=;
+ b=aEK11UUM88OmUNbcp1xiabmzIFmQYlHSjSs7x2B3Jr9GB1D6XdpcB4dpaMEaYl6si+
+ ynJOLu6uEcONm7BEj9j0pL7sh6Nvo4ln45Hhag9LDbDqV5PHskZUU1RDzvH//AoA8RiP
+ sLS0xCgIjslMZAkR98QVV4dk4rKPhSpfeLCxC0SYLP//Q2D/8mVnRM8iTGoajo9lXpj6
+ 4MCF1vCwKIUb0LOd7omRWfN09g1uvSopLvZnkInkeCk1rW8j965tLXM9865ozBlEULte
+ 67ISGbrqJtrkbcVFB5bvPzI7E4hebLt1HwcAdTGl5vdLZeddjRm2kpb/jWdzvEaXKx0v
+ E8Rw==
+X-Gm-Message-State: AOAM531dCaFvnysPhUgYrN7hVnqJBrLC7KHdCvlGUR/5QFfskXDtfsB4
+ Ju2FLJI6+246lEUclLkcYYQFQw==
+X-Google-Smtp-Source: ABdhPJwRUV2AEHrfZaJhwuqauojIOkr7b975DSxtTUzdw9CR8yoOTabV2gW7611r27lHdCT6Q93MiQ==
+X-Received: by 2002:a7b:c143:0:b0:37b:dacd:bf2f with SMTP id
+ z3-20020a7bc143000000b0037bdacdbf2fmr4337818wmi.16.1645554108175; 
+ Tue, 22 Feb 2022 10:21:48 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id f3sm20861563wri.6.2022.02.22.10.21.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Feb 2022 10:21:47 -0800 (PST)
+Message-ID: <9919c5f2-6c7c-b041-e5c5-fe7488de3a8a@linaro.org>
+Date: Tue, 22 Feb 2022 18:21:46 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
 Subject: Re: [PATCH 10/16] ASoC: codecs: rx-macro: fix tlv min max range
-Message-ID: <YhUlxX461J9bskg3@sirena.org.uk>
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
 References: <20220222115933.9114-1-srinivas.kandagatla@linaro.org>
  <20220222115933.9114-11-srinivas.kandagatla@linaro.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4fuKPQSv5bl+QP9H"
-Content-Disposition: inline
-In-Reply-To: <20220222115933.9114-11-srinivas.kandagatla@linaro.org>
-X-Cookie: I smell a wumpus.
+ <YhUlxX461J9bskg3@sirena.org.uk>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <YhUlxX461J9bskg3@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
  linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
  tiwai@suse.com, quic_srivasam@quicinc.com
@@ -89,44 +111,27 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---4fuKPQSv5bl+QP9H
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Feb 22, 2022 at 11:59:27AM +0000, Srinivas Kandagatla wrote:
-> on Qualcomm codecs gain tlv control specifies min max range as both
-> negative to positive numbers like
->=20
-> SOC_SINGLE_S8_TLV("... Volume", ..,  -84, 40, gain)
->=20
-> However with recent boundary checks added in commit 817f7c9335ec0
-> ("ASoC: ops: Reject out of bounds values in snd_soc_put_volsw())
-> setting a value above 40 gain will fail.
->=20
-> So fix this min max range correctly to
-> SOC_SINGLE_S8_TLV("... Volume", ..,  0, 124, gain)
-> so that users can now set gain correctly
+On 22/02/2022 18:04, Mark Brown wrote:
+> On Tue, Feb 22, 2022 at 11:59:27AM +0000, Srinivas Kandagatla wrote:
+>> on Qualcomm codecs gain tlv control specifies min max range as both
+>> negative to positive numbers like
+>>
+>> SOC_SINGLE_S8_TLV("... Volume", ..,  -84, 40, gain)
+>>
+>> However with recent boundary checks added in commit 817f7c9335ec0
+>> ("ASoC: ops: Reject out of bounds values in snd_soc_put_volsw())
+>> setting a value above 40 gain will fail.
+>>
+>> So fix this min max range correctly to
+>> SOC_SINGLE_S8_TLV("... Volume", ..,  0, 124, gain)
+>> so that users can now set gain correctly
+> 
+> Are you sure this isn't a bug in the core?  -84..40 should be a valid
+> range for a signed control.  See Marek's fix in 9bdd10d57a ("ASoC: ops:
+> Shift tested values in snd_soc_put_volsw() by +min") though that onlyNice, This works for me. Will drop all he tlv patches.
 
-Are you sure this isn't a bug in the core?  -84..40 should be a valid
-range for a signed control.  See Marek's fix in 9bdd10d57a ("ASoC: ops:
-Shift tested values in snd_soc_put_volsw() by +min") though that only
-kicks in for systems with a platform_max.  I can't immediately spot any
-other issues for S8 but I could be missing something.
+--srini
 
---4fuKPQSv5bl+QP9H
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIVJcUACgkQJNaLcl1U
-h9DDlQf/f2Ci6r9z/pr5qr0/dF0MmFwhyBNnZ33/mSONg5YGjV+uQQnjoVsAfTPT
-30EXf2rI5VaRs6J2SrQIExE/fUhMJLkydyG4loHwr212AM4preDD9P00c0Mn8UkX
-q/eVLRLvFDLg08uBD2+xz0EzaqgF9bPcJ0Cxir+UWJG87Ai6W4k+5xy6TG5K5C5S
-QVuQZXuh2OKMRnlH+naPv6jjYhlHSRfIX3PwPdDvUluH/4fxJDhmZch71ogzkHsc
-sVxjDB2Rt73k/YT+74BzMLzn/cWVNYN18ZbQud2Q+WedRzbnH/uEoSsJWUX4bGbU
-tmv3Xzsr4xHQd9jeJcpZs5BCD13Qlg==
-=y7ad
------END PGP SIGNATURE-----
-
---4fuKPQSv5bl+QP9H--
+> kicks in for systems with a platform_max.  I can't immediately spot any
+> other issues for S8 but I could be missing something.

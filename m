@@ -2,128 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950724BF84F
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Feb 2022 13:46:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04E154BF84C
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Feb 2022 13:46:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F93B189F;
-	Tue, 22 Feb 2022 13:45:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F93B189F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F0E7189C;
+	Tue, 22 Feb 2022 13:45:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F0E7189C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645534007;
-	bh=SPH6cwuyPpFk50zdfv5pu3SPtsn+LgQl/1YrjkJN3h8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Gv6T+xnFpsIDO0ryUokbvcx4/Z7Bdp7MZ/nAlhWKXYuBc5WaOLRz1Qiw6ylOPJ/Z2
-	 cgyAlRhp8+wVu/89dijgXQu8M9XFUhOY7XUUEjNImp+brTOj6nhSdN05IgnW+2rt9u
-	 POvNWh8I5eVzEfjuNMvjvDAwzUSHTVuRVGDEjKTk=
+	s=default; t=1645533961;
+	bh=D8g90I250HULVbGozgbHQtF3dI3sGsEwN79ajGHZGfU=;
+	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LnLq3XZiZzjWFWTaixHkIqwXKtee1J4kfjJhtVBOkSUYSgJEq2y+5mk7+qIzacRyy
+	 FOdq7ueQVhY0xRMRwIZa6+qmARWVpmyQCPVkaklVZJwYgwg8Cp+koLi6vcCE/1hmsu
+	 L5FLnS1mCba9atmmzU88bcVBuIiadVeCODdFp54Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7895BF80520;
-	Tue, 22 Feb 2022 13:44:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17379F80511;
+	Tue, 22 Feb 2022 13:44:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCDC9F8051A; Tue, 22 Feb 2022 13:44:51 +0100 (CET)
+ id BB569F80508; Tue, 22 Feb 2022 13:44:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2061e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8d::61e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0078F8051A
- for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 13:44:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0078F8051A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D85EF800F5
+ for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 13:44:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D85EF800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="tH4/ssTi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a7BFvjAMyhWma5DbuWRKgfOhMPfvPPoVR+JyEFcKluShVyw9v8lJLaIJfo6LvFNkk/XkrQbO954sSGOL8PGMRBkygnxMY1TTykLh/s+uzRAfVGu1xOAx/OIHxLE8SRgGZ0X9vVfqa0gOitSOvb9ZNP0TZWsu0rlc2l7bxHvzmHoQuxGT90vdz54XvgSuCOysDy1dH+tRicllRreKhB8jDnGNts017rWBbRlzhuYUS1NYEAYoph5cB45wFdUoAdVFG4l4EUJUVQmdg+S4lqb2I5ORFJNhpI6L1OB1JKofxRpyPJialLINi+5MFB9+rFgPCE2IM2e3kve2mW6uOm4uhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OiNSGGyM0C1UPk4vM3/QgttQek1MahQKX1tvma+NlQw=;
- b=nt2po3iSlTcC49nL0J133vNshwq7PKt4ZVdSPyASXgJZ5Vo/irGcsR0Zh4kKddY3Hg9AMvNaAI9OKfegKBw9dCAL86Ot8cBOvGVh6yqJtHcER2NMXrjyPFjGGB6GIkr3KYaVCbJhSbt3i4ELdxY5nWC6JgUgpmZCBr4DFQxLniA4JSmzJ6JJ0563stdV67zspHhm/S22Vx+duBLLOYo9rPQdEtGYa5nJquJo0fClPjH82/py55/Y0chIAJ6LamIr2hhW+EQ8UjohJijPe5q//2mM6fXvebtc/GjK9ic3uSRsUROFIJevOtMufvOVvIrId/3ldpdZOz9POHGLAXkGfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OiNSGGyM0C1UPk4vM3/QgttQek1MahQKX1tvma+NlQw=;
- b=tH4/ssTiNmd7okdtAEharfr+/Oe9NaTlDbFu4+Yywr7o9WyZg9UxdgVblP8Y6cX60TjdPChQKTiBxIGgZ1f8CJJ4wDB/YU8TwPt4o6Lxx9liAAjPlY66oZ5dhK/KFbdoivK4hVWUllZuEC1vfvH8zzZT6QLcrmyRqnlHLTCTFSo=
-Received: from MWHPR04CA0050.namprd04.prod.outlook.com (2603:10b6:300:6c::12)
- by BN6PR1201MB0242.namprd12.prod.outlook.com (2603:10b6:405:57::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.21; Tue, 22 Feb
- 2022 12:44:40 +0000
-Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:6c:cafe::88) by MWHPR04CA0050.outlook.office365.com
- (2603:10b6:300:6c::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.21 via Frontend
- Transport; Tue, 22 Feb 2022 12:44:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4995.15 via Frontend Transport; Tue, 22 Feb 2022 12:44:39 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 22 Feb
- 2022 06:44:38 -0600
-Received: from chrome.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.18 via Frontend
- Transport; Tue, 22 Feb 2022 06:44:35 -0600
-From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH  v2 3/3] ASoC: amd: acp: Add DMIC machine driver ops
-Date: Tue, 22 Feb 2022 18:12:13 +0530
-Message-ID: <20220222124213.721224-4-AjitKumar.Pandey@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220222124213.721224-1-AjitKumar.Pandey@amd.com>
-References: <20220222124213.721224-1-AjitKumar.Pandey@amd.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Er0i6Mp8"
+Received: by mail-ej1-x62f.google.com with SMTP id p15so42422413ejc.7
+ for <alsa-devel@alsa-project.org>; Tue, 22 Feb 2022 04:44:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:content-language:to:from
+ :subject:content-transfer-encoding;
+ bh=o28P5AnAmXgoz0YSgXUOswFKN8KrAyOVkkfKsZOTLgw=;
+ b=Er0i6Mp8c4jC2NWApFgDB9PE82z5MmueJCRwyRyGMyRSjxGuADj1crRVxBof8esbIq
+ oA7q66kEpAVJ1fcSZU/1ndDdnDTj8OPoQW8XtQiydbV801GQ8TODOtzQgfVgSwyNTOhd
+ aGBPUm0xeG8Yfwe476vjUiPWcd9cBMZzW1fy5ctFCetqMLR5fN/6toKCey37mIaiXkfD
+ sBWoOtTlPzSb509Fvh1dAdGcZT9YeFmtICEsku9Idawh4ix/90M4OuCgUx+D6Yqp0IPI
+ cPkytZRmtcOADLPz/PkUz3UMzWid1nyqjPokfg5gztvHhpIK3IkZkpN6vncpxGxzDThZ
+ jlHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent
+ :content-language:to:from:subject:content-transfer-encoding;
+ bh=o28P5AnAmXgoz0YSgXUOswFKN8KrAyOVkkfKsZOTLgw=;
+ b=wU2T/UlPPUgQf5EKUxwjLftw9nOUxyIwOzOjWJXbPQXd7EKBMOvQkdOB/9n46dlxsp
+ 9nPSJjKsd4/pmU+zjjlngowyMtCGxxfFR7UWHYt0nnd0sqqfKICM0wbViHmnmY0FO/xV
+ xVnQqessX4e0V2ZhZ+icA2JgqHS8zzafwiC3JfBre5ySR9rZwQ1HkNt8G8vU+YW1gAiP
+ J9Xh3L2/W9K/2SubCnBaPf7tyLQnTmX0XwpNN8vdxRb8UvdYyf0QCHToGi3dE8KKct1h
+ tXtJlG8dfzUnPp45yjDvnFTEogExGMJ1pCi2h/5Tg5DeD2pgrijJbwyRwOHWzMGBOs5M
+ TMnA==
+X-Gm-Message-State: AOAM5312xJVKPdatFHfPES/WJvJVrhcrhgN8OicUnBaIvTi2+2/+bsoT
+ 39ugox48PBlcUZL03j178AjGtlW1yPl0HQ==
+X-Google-Smtp-Source: ABdhPJyjLQbPKfte+Oerdmwa8WlvcJyEKyFaRhQe/MxiUupSCb9/bX5gwcnDcmy8GyyxMoDZa0hMyw==
+X-Received: by 2002:a17:906:c59:b0:6b9:59d8:263e with SMTP id
+ t25-20020a1709060c5900b006b959d8263emr19930081ejf.770.1645533868819; 
+ Tue, 22 Feb 2022 04:44:28 -0800 (PST)
+Received: from [192.168.1.2] (net-2-37-79-164.cust.vodafonedsl.it.
+ [2.37.79.164])
+ by smtp.gmail.com with ESMTPSA id h7sm10209665ede.66.2022.02.22.04.44.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Feb 2022 04:44:28 -0800 (PST)
+Message-ID: <d261d1b3-66fd-19b0-219b-85dbe1df341d@gmail.com>
+Date: Tue, 22 Feb 2022 13:44:27 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Content-Language: en-US
+To: broonie@kernel.org, alsa-devel@alsa-project.org
+From: Giacomo Guiduzzi <guiduzzi.giacomo@gmail.com>
+Subject: Asking for information about ALSA's kselftest
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6d059d31-2bce-4290-6c04-08d9f6011766
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0242:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB0242DBD52B43F7AD30B64314823B9@BN6PR1201MB0242.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: d0iOlSROiRzrmCs7A86uASQLj0fK+7p2CdcE12DRlWuiqmFwEESsTwWtlttE8/xeMWh12YfrYWH4KA0i/dv70LH+t3d6Rc7Nw92q2+nCIwrRguuF3p3vadJicADP9IfuqV0OFcXWVzOdSv/iiS++wHCS03wpRIcNtiS8pZXxgrVWnl8v90jhb6mxN8OJ0ybGlvE4TdnNL1hM39h/mgl5rorXg3F3QtfPShc5lmG+dSSzArjEEjpAGSuEi36STR2wFvpZ19OjFpLLlGLtRrIjbIgvx5b/ljlKTyIiOACWiALNaLrVXPV7ltGgz1oxbOokCNxni9z3Owxk2j4n+5afef7eeVQ7CYMyqWkMhaCPkc1fjxijEnqSgoEQx3LTbLMywsW8+nz1WyL3P0fZ72+/4zRxOFHT8/6j0RXL7d59ioVz1bw2Llz5o+mRs9hoSl8TizoLLceEyddGrhZDSBfDnhWDg2lOMcdQOZMldISjzOJBiU+76IWiOCpiMxahfzViJT7MvJSrO9YLXzNxX2/HgvpxrBbkxF2gKIw6BFhZM45196G+oCjLRYr1E7lWMnzVpdrqa7wF71k2OTJu7eoBroBY2ZKzzHAHvoa9YppgjtL3toUqIzm5NWgRB9wXnlpxmV8WUrtehJ+R26B9P3OeGda4oLazICLXfSEt3HEL5vK4SbGJz5g1AUhiFWYFzMPHluPGoegxvL2dlXN4oCSDxA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(8936002)(47076005)(336012)(2906002)(36756003)(426003)(5660300002)(36860700001)(508600001)(40460700003)(6666004)(7696005)(26005)(82310400004)(186003)(1076003)(2616005)(86362001)(70206006)(81166007)(356005)(70586007)(4326008)(8676002)(316002)(110136005)(54906003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 12:44:39.5749 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d059d31-2bce-4290-6c04-08d9f6011766
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0242
-Cc: Sunil-kumar.Dommati@amd.com, Ajit Kumar
- Pandey <AjitKumar.Pandey@amd.com>, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, V sujith
- kumar Reddy <vsujithkumar.reddy@amd.com>, Vijendar.Mukunda@amd.com,
- Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,59 +100,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add dmic ops and startup callback to add snd_pcm_hw_constraint for
-pdm related device node.
+[RESENDING BECAUSE BOUNCED BY SPAMASSASSIN]
 
-Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
----
- sound/soc/amd/acp/acp-mach-common.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
 
-diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
-index b45442a56c40..d3034ee2ff59 100644
---- a/sound/soc/amd/acp/acp-mach-common.c
-+++ b/sound/soc/amd/acp/acp-mach-common.c
-@@ -291,6 +291,32 @@ static const struct snd_soc_ops acp_card_rt5682s_ops = {
- 	.shutdown = acp_card_shutdown,
- };
- 
-+static const unsigned int dmic_channels[] = {
-+	DUAL_CHANNEL, FOUR_CHANNEL,
-+};
-+
-+static const struct snd_pcm_hw_constraint_list dmic_constraints_channels = {
-+	.count = ARRAY_SIZE(dmic_channels),
-+	.list = dmic_channels,
-+	.mask = 0,
-+};
-+
-+static int acp_card_dmic_startup(struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+
-+	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
-+				   &dmic_constraints_channels);
-+	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
-+				   &constraints_rates);
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops acp_card_dmic_ops = {
-+	.startup = acp_card_dmic_startup,
-+};
-+
- /* Declare RT1019 codec components */
- SND_SOC_DAILINK_DEF(rt1019,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC1019:00", "rt1019-aif"),
-@@ -633,6 +659,7 @@ int acp_legacy_dai_links_create(struct snd_soc_card *card)
- 		links[i].num_cpus = ARRAY_SIZE(pdm_dmic);
- 		links[i].platforms = platform_component;
- 		links[i].num_platforms = ARRAY_SIZE(platform_component);
-+		links[i].ops = &acp_card_dmic_ops;
- 		links[i].dpcm_capture = 1;
- 	}
- 
--- 
-2.25.1
+Greetings Mr. Brown and users of the alsa-devel mailing list,
+
+I’m a student at the University of Modena and Reggio Emilia. I am 
+working on the Kernel Hacking course’s exam, a course kept by Paolo 
+Valente which introduces students to the world of the Linux kernel and 
+its magics. I was taking a look at the kernel’s kselftests from Linus 
+Torvald’s repository to find some test to fix for the exam and I 
+stumbled upon the ALSA’s selftest, which I’ve passed the last few days 
+on, debugging and exploring. During the execution the test goes as it 
+should except for two or three tests. Until now I’ve tried understanding 
+test 71, which sometimes succeeds and sometimes fails, and test 72. I 
+have no previous knowledge of how ALSA works and I’m completely new to 
+the kselftests and the kernel in general. Test 71 gives the following 
+output:
+
+
+# Surround Playback Volume.0 expected 0 but read 1, is_volatile 0
+# Surround Playback Volume.1 expected 1 but read 0, is_volatile 0
+not ok 71 write_default.0.22
+
+
+I wanted to ask you if it is normal or not that this test fails on my 
+hardware, and if not, what I could do to debug the problem and give you 
+useful information to help understand what the issue is. I am currently 
+testing on an Ubuntu Desktop VirtualBox VM on kernel 5.17.0-rc3. The 
+audio hardware (as the output of the lshw command, multimedia section) is:
+
+
+description: Multimedia audio controller
+product: 82801AA AC'97 Audio Controller
+vendor: Intel Corporation
+physical id: 5
+bus info: pci@0000:00:05.0
+version: 01
+width: 32 bits
+clock: 33MHz
+capabilities: bus_master
+configuration: driver=snd_intel8x0 latency=64
+resources: irq:21 ioport:d100(size=256) ioport:d200(size=64)
+
+
+ From what I have seen until now it doesn’t look like a bug from the 
+test nor an issue from the kernel, so I’m not really sure where to look 
+at: I have compiled alsalib’s source code from the Git repo with debug 
+symbols and I’ve followed the execution of the test until I reached a 
+call to the ioctl syscall, which doesn’t return an error code so it 
+doesn’t look like the problem relies in the kernel; I’m no expert 
+though, I’ll let you confirm this or not.
+
+I am at your complete disposal to give you any further useful 
+information as I can’t do much more from my side alone.
+
+Thank you in advance, looking forward to your kind response.
+
+
+Best Regards,
+
+Giacomo Guiduzzi
 

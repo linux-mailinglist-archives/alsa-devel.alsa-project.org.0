@@ -2,76 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA8364C0AD3
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 05:10:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16DC74C0CED
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 08:02:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10B7E1A2C;
-	Wed, 23 Feb 2022 05:09:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10B7E1A2C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D5F51929;
+	Wed, 23 Feb 2022 08:01:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D5F51929
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645589401;
-	bh=chHr6Hi6/ljF9MKppMHTjh511Ke4P0ALuSXD4iHjEDY=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1645599734;
+	bh=BgOFDJBnKwFGywesIJYdpobTLbeR8+y/Y8OzmG64e6k=;
+	h=Date:Subject:From:To:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=chZYrgAsR0MnCwrn4pBV/BXPfCoFLXTn961izbGgMhB0xOsxme/WBw9QKaf76Axu3
-	 9TUT0YyDm0xXLC4gb4WUf3awakGopezGA2qs3Eun20eEcyMnPB1OeKxugC89ECdT3B
-	 TuJGNVweYKDAzSZ8bbUdO9QWAQoLfYEHCh4Bq6fU=
+	b=M1HtptqzJ/4GuvHPvpR2zJQA67qgXA8rtfvSXsrwhJW/yLQyxWsnlhDP40TsM6oKS
+	 mpuZ4oYYc0TkYUuJn2raXNFgvXBru4hHRH3IjEC5AwseMt23Lg1XQ7ouD3TN1MeeWD
+	 N6zKszLQ9nLx2fRjWNMJorBxRgkTVJLRk/EMnn4Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E14FF80519;
-	Wed, 23 Feb 2022 05:08:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AB9CF8019D;
+	Wed, 23 Feb 2022 08:01:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC6DCF80237; Wed, 23 Feb 2022 05:08:19 +0100 (CET)
+ id 0AC2CF80237; Wed, 23 Feb 2022 08:01:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D374F8019D
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 05:08:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D374F8019D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0CD3EF80118
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 08:00:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CD3EF80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OKlPxFYS"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B680A60AB2;
- Wed, 23 Feb 2022 04:08:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1ABC340E7;
- Wed, 23 Feb 2022 04:08:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645589295;
- bh=chHr6Hi6/ljF9MKppMHTjh511Ke4P0ALuSXD4iHjEDY=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=OKlPxFYSSapEKrPD9S4F7Nic9law6V+xiPcLbPSUTJ/D2R7IutSzUUunxxVMPxf+R
- E+SNm2YYN3o7jhCdk5TWsDSdrKdAvHJnVXm3nV8Qdjx4vUMnnCIqlEhgyLH8HJeK5m
- XlK+kH1wmCiCQbyS0DUWjdnaKw9nepXzmJejiVfhGHYrTDcNOeyzXbFBfQgKBYHhkQ
- 4GrxLhkYYCWGXA4kSZND5b3rfd30sZmgW7rirHCmA1fiW5h7e43sEnUZ3YCR5UWd53
- zgLCtk3JU4kmZ74DBwzp7RkZPtK8X4nqc/qNTm/R8WIp4nJL+dzImhN0JCKbHvU5eW
- zxS12pq8FoUlQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Mark Brown <broonie@kernel.org>
-In-Reply-To: <20220223011913.2753938-1-broonie@kernel.org>
-References: <20220223011913.2753938-1-broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: sc7280: Really depends on SOUNDWIRE
-Message-Id: <164558929424.1665056.16734918253890057955.b4-ty@kernel.org>
-Date: Wed, 23 Feb 2022 04:08:14 +0000
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="DxAHyWmj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1645599662; x=1677135662;
+ h=message-id:date:mime-version:subject:from:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=P8IB5i4i8mccW/2mm5mdBV6fgyPwz4NSzRZVqW15XCw=;
+ b=DxAHyWmjzd5ZvzmcoJlSsK+bAlSAYg5VZFE+68heCCf4uP3FI7a5LKpF
+ HcCAI8L3LwZS0he/59gpP8vNiK+SFtdrz3ISuYNLk44XACXDtwejSYhIt
+ 2ay3BC7x0ZRYoWTVJSxxcmNnjjpb5btxC85MZqLoTw8GGDegwvsohj32Z 8=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 22 Feb 2022 23:00:52 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2022 23:00:51 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Tue, 22 Feb 2022 23:00:51 -0800
+Received: from [10.216.58.51] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Tue, 22 Feb
+ 2022 23:00:45 -0800
+Message-ID: <9a618cb6-c528-94f1-c10c-248e2a04aa13@quicinc.com>
+Date: Wed, 23 Feb 2022 12:30:42 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH v6 5/7] pinctrl: qcom: Extract chip specific LPASS LPI code
+Content-Language: en-US
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: Stephen Boyd <swboyd@chromium.org>, Linus Walleij
+ <linus.walleij@linaro.org>, <agross@kernel.org>,
+ <alsa-devel@alsa-project.org>, <bgoswami@codeaurora.org>,
+ <bjorn.andersson@linaro.org>, <broonie@kernel.org>,
+ <devicetree@vger.kernel.org>, <judyhsiao@chromium.org>,
+ <lgirdwood@gmail.com>, <linux-arm-msm@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <perex@perex.cz>, <quic_plai@quicinc.com>, <robh+dt@kernel.org>,
+ <rohitkr@codeaurora.org>, <srinivas.kandagatla@linaro.org>, <tiwai@suse.com>
+References: <1644851994-22732-1-git-send-email-quic_srivasam@quicinc.com>
+ <1644851994-22732-6-git-send-email-quic_srivasam@quicinc.com>
+ <CAE-0n53-GRneymVoac=AT6M17aYseS88vM-o1xZxmk8sFQOYhw@mail.gmail.com>
+ <ee5004ea-0aa9-b7ef-061a-e07d0d47c7c6@quicinc.com>
+Organization: Qualcomm
+In-Reply-To: <ee5004ea-0aa9-b7ef-061a-e07d0d47c7c6@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,37 +108,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Feb 2022 01:19:12 +0000, Mark Brown wrote:
-> The sc7280 driver really does depend on SOUNDWIRE since it calls various
-> sdw_ functions (eg, sdw_enable_stream(), sdw_prepare_stream()) which do
-> not have stubs when that is disabled so we can't build with COMPILE_TEST.
-> 
-> 
 
-Applied to
+On 2/20/2022 12:02 AM, Srinivasa Rao Mandadapu (Temp) wrote:
+>
+> On 2/19/2022 8:13 AM, Stephen Boyd wrote:
+> Thanks for Your time Stephen!!!
+>> Quoting Srinivasa Rao Mandadapu (2022-02-14 07:19:52)
+>>> diff --git a/drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c 
+>>> b/drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c
+>>> new file mode 100644
+>>> index 0000000..27e358e
+>>> --- /dev/null
+>>> +++ b/drivers/pinctrl/qcom/pinctrl-sm8250-lpass-lpi.c
+>>> @@ -0,0 +1,166 @@
+>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>> +/*
+>>> + * Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>> + * Copyright (c) 2020 Linaro Ltd.
+>>> + */
+>>> +
+>>> +#include <linux/clk.h>
+>>> +#include <linux/gpio/driver.h>
+>>> +#include <linux/module.h>
+>>> +#include <linux/platform_device.h>
+>>> +
+>>> +#include "pinctrl-lpass-lpi.h"
+>> Please include ../core.h here as well for the pin_group definition.
+> Okay. will add it.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Actually, core.h was included in pinctrl-lpass-lpi.h. Including again 
+here giving redefinition errors.
 
-Thanks!
+Already sent V8 with this change. will revert it and post again in v9.
 
-[1/1] ASoC: sc7280: Really depends on SOUNDWIRE
-      commit: b83eb8be4f2ca9d6beb1a8b66f666ef7039b7a64
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DA3B4C1C89
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 20:48:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 028E94C1CB3
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 20:59:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8BC7E18F3;
-	Wed, 23 Feb 2022 20:47:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BC7E18F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A66C1913;
+	Wed, 23 Feb 2022 20:58:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A66C1913
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645645689;
-	bh=83yi7+J2BaWupY0URhVucnRMpWAXsu49yuiZO526r4A=;
+	s=default; t=1645646346;
+	bh=ldrwldCU5gsBt1seEEqjOtl356f4DibFuHjEzUZfiwg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CBSo6StszAZQpTV7cAIS+REVoXgVbrjJ4yQvx1aQOE1DT0vpMzd0jRdPKX5mJxiTp
-	 FY8H+MRE5r0o1MjZ7CD5o1CqMcDTw0BJgnskw4vkFhXCd/Aw7/KTHq1rnoBS4eG08i
-	 MsZ2y7hPKGQ/9j9XXyH+msVlA9+31OmrPdfSaZSk=
+	b=eckXeJ+Yt40cJL2EQ5D/aW6W5WFs3fRyo4nTSOQNwcT4LFfhvRWRbTbEKqKhECn9/
+	 VCBQ0UfFiXBG0Ei1i7MuqoihIuPuYuQIOx90a/DO3zXWjNh2CWszhakgEeIkUH8trb
+	 O3U1MZ+XkEbDykAT+aalfa5mgAkbPDrma+Ip4Imc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8D1AF8025D;
-	Wed, 23 Feb 2022 20:47:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17315F8025D;
+	Wed, 23 Feb 2022 20:58:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17551F80237; Wed, 23 Feb 2022 20:47:01 +0100 (CET)
+ id 45F37F80237; Wed, 23 Feb 2022 20:57:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92B11F800F5
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 20:46:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92B11F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 068B1F80118
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 20:57:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 068B1F80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="kWUpKIoy"
+ header.b="cPSapyE7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645645615; x=1677181615;
+ t=1645646273; x=1677182273;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=83yi7+J2BaWupY0URhVucnRMpWAXsu49yuiZO526r4A=;
- b=kWUpKIoy7D4UYx/wGq5I09ko9OGkdjqYWL58PBjDHSY46Jlp3ho3BxRN
- fGo7IXWZD660t8CdpRbTriV8oR7UdR+t4Zu5SItu6IP29iHFkkVGZ7la5
- 54HFeaPP+RzFIjbkIhuCGepqTf+ypdB5pMd1LLUvpmBYXMRJcW5MYPMyU
- yBKRg5IjuIYfAscfHrelIRq7rtLn6HZnvnABUPc0+ZS4fQG5dR2+aOkw6
- pwXDu5i7ptdC23zPP5c5/YGJDnD5a6FjOKy5QwdbfzXnR9rVfhsXQ1BOF
- DJxfuFvZlreNA1rq8LHmMKMYshdh3ezKLiuOlE76CHNnMxRS8SVgzVV4k A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="251985977"
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="251985977"
+ bh=ldrwldCU5gsBt1seEEqjOtl356f4DibFuHjEzUZfiwg=;
+ b=cPSapyE73BZMz9M9rkQH1Msh+fu8bOR7uTTOmhoWU42bZyZBhi/LC5TO
+ GgJDbVJbT55l622zxrKyEdRZvQn/+d6hEuBhXeeNx2Wz4Vi4GoNS7k33c
+ tDW56x4LpwOTW5al5rAee6RfVmwdFL4RtkW7lQIaS2X27LTih6IalYmQ6
+ BKejNgVjD8mq7VihBqfd9gItBaFSM7cZ6VFBb6Xf2Oe/4j+Osrrqa+yfq
+ XSvzrDDkGD0r1RHB+eQvz/zSPXj7TnU/MHRDovatWpvKyjVzrWPEK65N4
+ MWaTNdO3M3Wdakci/MHzIy5wMfDWGqOrdfyahqnpVuB1HCsyCwHBWq6J/ g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="232689605"
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="232689605"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 11:46:48 -0800
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 11:57:48 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="628208534"
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="628210831"
 Received: from lkp-server01.sh.intel.com (HELO 788b1cd46f0d) ([10.239.97.150])
- by FMSMGA003.fm.intel.com with ESMTP; 23 Feb 2022 11:46:45 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 23 Feb 2022 11:57:46 -0800
 Received: from kbuild by 788b1cd46f0d with local (Exim 4.92)
  (envelope-from <lkp@intel.com>)
- id 1nMxb3-0001l4-5P; Wed, 23 Feb 2022 19:46:45 +0000
-Date: Thu, 24 Feb 2022 03:46:34 +0800
+ id 1nMxlh-0001lz-Ja; Wed, 23 Feb 2022 19:57:45 +0000
+Date: Thu, 24 Feb 2022 03:56:54 +0800
 From: kernel test robot <lkp@intel.com>
 To: Raghu Bankapur <quic_rbankapu@quicinc.com>,
  Jaroslav Kysela <perex@perex.cz>, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
 Subject: Re: [PATCH V1 1/1] ASoC: compress: propagate the error code from the
  compress framework
-Message-ID: <202202240324.GFUDFcms-lkp@intel.com>
+Message-ID: <202202240311.3VkBiyO2-lkp@intel.com>
 References: <eda8b6cdd53576c5487422e46af20bae1a5c864f.1645618332.git.quic_rbankapu@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -108,7 +108,7 @@ https://git-scm.com/docs/git-format-patch]
 
 url:    https://github.com/0day-ci/linux/commits/Raghu-Bankapur/ASoC-compress-propagate-the-error-code-from-the-compress-framework/20220223-215509
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-config: hexagon-buildonly-randconfig-r001-20220223 (https://download.01.org/0day-ci/archive/20220224/202202240324.GFUDFcms-lkp@intel.com/config)
+config: i386-randconfig-a011 (https://download.01.org/0day-ci/archive/20220224/202202240311.3VkBiyO2-lkp@intel.com/config)
 compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project d271fc04d5b97b12e6b797c6067d3c96a8d7470e)
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
@@ -119,18 +119,18 @@ reproduce (this is a W=1 build):
         git checkout 6154c602c715dac9253695c89bebd921f43cc81d
         # save the config file to linux build tree
         mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash sound/core/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash sound/core/
 
 If you fix the issue, kindly add following tag as appropriate
 Reported-by: kernel test robot <lkp@intel.com>
 
-All error/warnings (new ones prefixed by >>):
+All errors (new ones prefixed by >>):
 
->> sound/core/compress_offload.c:34:35: warning: extra tokens at end of #include directive [-Wextra-tokens]
+   sound/core/compress_offload.c:34:35: warning: extra tokens at end of #include directive [-Wextra-tokens]
    #include <sound/compress_driver.h>ASoC: compress: propagate the error code from the compress framework
                                      ^
                                      //
->> sound/core/compress_offload.c:36:1: error: unknown type name 'Propagate'
+   sound/core/compress_offload.c:36:1: error: unknown type name 'Propagate'
    Propagate the error code from the compress framework for the timestamp
    ^
 >> sound/core/compress_offload.c:36:14: error: expected ';' after top level declarator
@@ -312,29 +312,8 @@ All error/warnings (new ones prefixed by >>):
    1 warning and 20 errors generated.
 
 
-vim +/Propagate +36 sound/core/compress_offload.c
+vim +36 sound/core/compress_offload.c
 
-    14	
-    15	#include <linux/file.h>
-    16	#include <linux/fs.h>
-    17	#include <linux/list.h>
-    18	#include <linux/math64.h>
-    19	#include <linux/mm.h>
-    20	#include <linux/mutex.h>
-    21	#include <linux/poll.h>
-    22	#include <linux/slab.h>
-    23	#include <linux/sched.h>
-    24	#include <linux/types.h>
-    25	#include <linux/uio.h>
-    26	#include <linux/uaccess.h>
-    27	#include <linux/module.h>
-    28	#include <linux/compat.h>
-    29	#include <sound/core.h>
-    30	#include <sound/initval.h>
-    31	#include <sound/info.h>
-    32	#include <sound/compress_params.h>
-    33	#include <sound/compress_offload.h>
-  > 34	#include <sound/compress_driver.h>ASoC: compress: propagate the error code from the compress framework
     35	
   > 36	Propagate the error code from the compress framework for the timestamp
     37	query. This error code will be used by the client to handle the

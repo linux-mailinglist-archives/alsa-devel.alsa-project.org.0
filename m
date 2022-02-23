@@ -2,86 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 036A94C17A7
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 16:48:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4FB24C1862
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 17:20:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9922D1AE0;
-	Wed, 23 Feb 2022 16:47:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9922D1AE0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B82D1AD4;
+	Wed, 23 Feb 2022 17:19:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B82D1AD4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645631303;
-	bh=GA21nGz5l/UoPhtk7yRZw71jd5mKsv2RIFBeP2JFnRY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Bhd2b8T+HoF/S2YgVINGZR08CzpV2Moh0weHr26mZwPgktDPAcElvfPsk1f3LiEYu
-	 aHs7nOmxbkTWdbe/4UCIYO/BhgS+IDL3kwLHvxuZENyNmFZ1Ng9JVExmA3ErpenLS1
-	 gwA/G9+6e4HlDsD4+t7cJ/mACAjyefHkSJ+hrU48=
+	s=default; t=1645633207;
+	bh=kdFETTBddN7EdBnhGYgG52WV2uKpzlnZnEFWwu9QLo0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=tAYrsBy6sCaVDvEp1uMxj/MzyLL3vigwNhUHdNsCJz7UYTjeNHQFS1fORcb/3yNUD
+	 q8O43XanKAkZ6Kba87WW39l3ZxTmYoP9I5Vq9IQX56D1aKe3GSNcHSe8uncEaF9E15
+	 zNMtW+sr+uVm4tovgCbWG9/DUs4Mvxlulz8UxQmQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09381F80118;
-	Wed, 23 Feb 2022 16:47:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3775F800B6;
+	Wed, 23 Feb 2022 17:19:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C601F80118; Wed, 23 Feb 2022 16:47:15 +0100 (CET)
+ id 94ED0F800B6; Wed, 23 Feb 2022 17:18:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B6A1F80118
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 16:47:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B6A1F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id C85FCF800B6
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 17:18:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C85FCF800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="zgJD+TMV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645631230; x=1677167230;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=YYctxn0kpK727CV6skfZz0Ey30lYJIa7enZ014ijZ4g=;
- b=zgJD+TMVZrEYEWOFgSA0FOccueuck+tI3Mvr1zJFpVY8EDGOPD6iyp88
- nOBPJQGGJ+DGUG4w5lki3ZUZ+TvZnWOd6HG2Ma/7ZD6DB9F+H4qJ/ELZ8
- SMT4olKZddMRyCqdOJfcEydXhCbLFrqVM7XpSHa9x6pvJLZFYuJ/71wpa Y=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 23 Feb 2022 07:47:07 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 07:47:07 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Wed, 23 Feb 2022 07:47:06 -0800
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Wed, 23 Feb 2022 07:47:01 -0800
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
- <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
- <bgoswami@codeaurora.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <srinivas.kandagatla@linaro.org>, <rohitkr@codeaurora.org>,
- <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <swboyd@chromium.org>, <judyhsiao@chromium.org>
-Subject: [PATCH v2] ASoC: codecs: Add power domains support in digital macro
- codecs
-Date: Wed, 23 Feb 2022 21:16:38 +0530
-Message-ID: <1645631198-4701-1-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="mGc0ygNt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645633134; x=1677169134;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=kdFETTBddN7EdBnhGYgG52WV2uKpzlnZnEFWwu9QLo0=;
+ b=mGc0ygNtSLIE/6R7e7a2SNNryA9/OlkXo8GhTefbimtWz/OjPGRgOvrK
+ b968O62lq9BtAxgxO4p4RBQ6cS79luFc6DOGgLR5Rk45iHSzFu3M1eK0+
+ k3i69oH91x1KMtYPa2d2j7j8f11eLdBKi14HYenD3n9qeSO1VSqwoV5XC
+ iUTuVmuv34vuG80Sxj47hKbOcAz4KGbwoIkCVwycHJTzUgeENROwKXo7e
+ srQhhjYZa/6wbleO9nDeAdrS3xDnnpBwMsiAw84JwU2lBz4pu9/V3dq9B
+ m1JttYMydXqvz+ycySzqe3mC8OH7VqOmN9RVp1IdGLOP1sEFaus/WTHMj Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="249585676"
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="249585676"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 08:10:00 -0800
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="548312807"
+Received: from vermaama-mobl.ger.corp.intel.com (HELO [10.252.44.244])
+ ([10.252.44.244])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 08:09:57 -0800
+Message-ID: <16567e15-2ea5-60cc-74bd-97475b793a57@linux.intel.com>
+Date: Wed, 23 Feb 2022 18:10:02 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH] ASoC: SOF: pcm: Add compress_ops for SOF platform
+ component driver
+Content-Language: en-US
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>, broonie@kernel.org
+References: <20220223153849.84471-1-daniel.baluta@oss.nxp.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20220223153849.84471-1-daniel.baluta@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ Daniel Baluta <daniel.baluta@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,337 +95,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for enabling required power domains in digital macro codecs.
-macro and dcodec power domains are being requested as clocks by HLOS
-in ADSP based architectures and ADSP internally handling as powerdomains.
-In ADSP bypass case need to handle them as power domains explicitly.
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Reported-by: kernel test robot <lkp@intel.com>
----
-Changes since v1:
-    -- Add missing macros in Kconfig.
 
- sound/soc/codecs/Kconfig              |  7 ++++
- sound/soc/codecs/Makefile             |  2 +
- sound/soc/codecs/lpass-macro-common.c | 72 +++++++++++++++++++++++++++++++++++
- sound/soc/codecs/lpass-macro-common.h | 18 +++++++++
- sound/soc/codecs/lpass-rx-macro.c     | 13 ++++++-
- sound/soc/codecs/lpass-tx-macro.c     | 10 +++++
- sound/soc/codecs/lpass-va-macro.c     | 11 +++++-
- sound/soc/qcom/Kconfig                |  1 +
- 8 files changed, 132 insertions(+), 2 deletions(-)
- create mode 100644 sound/soc/codecs/lpass-macro-common.c
- create mode 100644 sound/soc/codecs/lpass-macro-common.h
+On 23/02/2022 17:38, Daniel Baluta wrote:
+> From: Daniel Baluta <daniel.baluta@nxp.com>
+> 
+> Now that sof_compressed_ops initial implementation was merged
+> we can enable it in SOF platform component driver.
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index c2627f7..4de029a 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -244,6 +244,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_WCD9335
- 	imply SND_SOC_WCD934X
- 	imply SND_SOC_WCD938X_SDW
-+	imply SND_SOC_LPASS_MACRO_COMMON
- 	imply SND_SOC_LPASS_RX_MACRO
- 	imply SND_SOC_LPASS_TX_MACRO
- 	imply SND_SOC_WL1273
-@@ -2008,6 +2009,9 @@ config SND_SOC_TPA6130A2
- 	tristate "Texas Instruments TPA6130A2 headphone amplifier"
- 	depends on I2C
- 
-+config SND_SOC_LPASS_MACRO_COMMON
-+        tristate
-+
- config SND_SOC_LPASS_WSA_MACRO
- 	depends on COMMON_CLK
- 	select REGMAP_MMIO
-@@ -2016,16 +2020,19 @@ config SND_SOC_LPASS_WSA_MACRO
- config SND_SOC_LPASS_VA_MACRO
- 	depends on COMMON_CLK
- 	select REGMAP_MMIO
-+	select SND_SOC_LPASS_MACRO_COMMON
- 	tristate "Qualcomm VA Macro in LPASS(Low Power Audio SubSystem)"
- 
- config SND_SOC_LPASS_RX_MACRO
- 	depends on COMMON_CLK
- 	select REGMAP_MMIO
-+	select SND_SOC_LPASS_MACRO_COMMON
- 	tristate "Qualcomm RX Macro in LPASS(Low Power Audio SubSystem)"
- 
- config SND_SOC_LPASS_TX_MACRO
- 	depends on COMMON_CLK
- 	select REGMAP_MMIO
-+	select SND_SOC_LPASS_MACRO_COMMON
- 	tristate "Qualcomm TX Macro in LPASS(Low Power Audio SubSystem)"
- 
- endmenu
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index b4e11c3..c3c6059 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -112,6 +112,7 @@ snd-soc-l3-objs := l3.o
- snd-soc-lm4857-objs := lm4857.o
- snd-soc-lm49453-objs := lm49453.o
- snd-soc-lochnagar-sc-objs := lochnagar-sc.o
-+snd-soc-lpass-macro-common-objs := lpass-macro-common.o
- snd-soc-lpass-rx-macro-objs := lpass-rx-macro.o
- snd-soc-lpass-tx-macro-objs := lpass-tx-macro.o
- snd-soc-lpass-wsa-macro-objs := lpass-wsa-macro.o
-@@ -676,6 +677,7 @@ obj-$(CONFIG_SND_SOC_MAX9877)	+= snd-soc-max9877.o
- obj-$(CONFIG_SND_SOC_MAX98504)	+= snd-soc-max98504.o
- obj-$(CONFIG_SND_SOC_SIMPLE_AMPLIFIER)	+= snd-soc-simple-amplifier.o
- obj-$(CONFIG_SND_SOC_TPA6130A2)	+= snd-soc-tpa6130a2.o
-+obj-$(CONFIG_SND_SOC_LPASS_MACRO_COMMON)	+= snd-soc-lpass-macro-common.o
- obj-$(CONFIG_SND_SOC_LPASS_WSA_MACRO)	+= snd-soc-lpass-wsa-macro.o
- obj-$(CONFIG_SND_SOC_LPASS_VA_MACRO)	+= snd-soc-lpass-va-macro.o
- obj-$(CONFIG_SND_SOC_LPASS_RX_MACRO)	+= snd-soc-lpass-rx-macro.o
-diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
-new file mode 100644
-index 0000000..b8e50e6
---- /dev/null
-+++ b/sound/soc/codecs/lpass-macro-common.c
-@@ -0,0 +1,72 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (c) 2022, The Linux Foundation. All rights reserved.
-+
-+#include <linux/export.h>
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_domain.h>
-+#include <linux/pm_runtime.h>
-+
-+#include "lpass-macro-common.h"
-+
-+int lpass_macro_pds_init(struct platform_device *pdev, struct lpass_macro **pds)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct lpass_macro *l_pds;
-+	int ret;
-+
-+	const struct property *prop = of_find_property(dev->of_node, "power-domains", NULL);
-+
-+	if (!prop)
-+		return 0;
-+
-+	l_pds = devm_kzalloc(dev, sizeof(*l_pds), GFP_KERNEL);
-+	if (!l_pds)
-+		return -ENOMEM;
-+
-+	l_pds->macro_pd = dev_pm_domain_attach_by_name(dev,  "macro");
-+	if (IS_ERR_OR_NULL(l_pds->macro_pd)) {
-+		ret = PTR_ERR(l_pds->macro_pd) ? : -ENODATA;
-+		return ret;
-+	}
-+	ret = pm_runtime_get_sync(l_pds->macro_pd);
-+	if (ret < 0) {
-+		dev_err(dev, "%s failed for macro_pd, ret %d\n", __func__, ret);
-+		dev_pm_domain_detach(l_pds->macro_pd, false);
-+		pm_runtime_put_noidle(l_pds->macro_pd);
-+		return ret;
-+	}
-+
-+	l_pds->dcodec_pd = dev_pm_domain_attach_by_name(dev, "dcodec");
-+	if (IS_ERR_OR_NULL(l_pds->dcodec_pd)) {
-+		ret = PTR_ERR(l_pds->dcodec_pd) ? : -ENODATA;
-+		dev_pm_domain_detach(l_pds->macro_pd, false);
-+		return ret;
-+	}
-+
-+	ret = pm_runtime_get_sync(l_pds->dcodec_pd);
-+	if (ret < 0) {
-+		dev_err(dev, "%s failed for dcodec_pd, ret %d\n", __func__, ret);
-+
-+		dev_pm_domain_detach(l_pds->dcodec_pd, false);
-+		pm_runtime_put_noidle(l_pds->dcodec_pd);
-+		return ret;
-+	}
-+	*pds = l_pds;
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(lpass_macro_pds_init);
-+
-+void lpass_macro_pds_exit(struct platform_device *pdev, struct lpass_macro *pds)
-+{
-+	pm_runtime_put(pds->macro_pd);
-+	pm_runtime_put(pds->dcodec_pd);
-+	dev_pm_domain_detach(pds->macro_pd, false);
-+	dev_pm_domain_detach(pds->dcodec_pd, false);
-+}
-+EXPORT_SYMBOL_GPL(lpass_macro_pds_exit);
-+
-+MODULE_DESCRIPTION("QTI SC7280 LPI GPIO pin control driver");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
-new file mode 100644
-index 0000000..c343f0e
---- /dev/null
-+++ b/sound/soc/codecs/lpass-macro-common.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2022, The Linux Foundation. All rights reserved.
-+ */
-+
-+#ifndef __LPASS_MACRO_COMMON_H__
-+#define __LPASS_MACRO_COMMON_H__
-+
-+
-+struct lpass_macro {
-+	struct device *macro_pd;
-+	struct device *dcodec_pd;
-+};
-+
-+int lpass_macro_pds_init(struct platform_device *pdev, struct lpass_macro **pds);
-+void lpass_macro_pds_exit(struct platform_device *pdev, struct lpass_macro *pds);
-+
-+#endif /* __LPASS_MACRO_COMMON_H__ */
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index 29d214f..db32090 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -14,6 +14,8 @@
- #include <linux/of_clk.h>
- #include <linux/clk-provider.h>
- 
-+#include "lpass-macro-common.h"
-+
- #define CDC_RX_TOP_TOP_CFG0		(0x0000)
- #define CDC_RX_TOP_SWR_CTRL		(0x0008)
- #define CDC_RX_TOP_DEBUG		(0x000C)
-@@ -606,7 +608,7 @@ struct rx_macro {
- 	int is_softclip_on;
- 	int is_aux_hpf_on;
- 	int softclip_clk_users;
--
-+	struct lpass_macro *pds;
- 	struct regmap *regmap;
- 	struct clk_bulk_data clks[RX_NUM_CLKS_MAX];
- 	struct clk_hw hw;
-@@ -3537,6 +3539,12 @@ static int rx_macro_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	ret = lpass_macro_pds_init(pdev, &rx->pds);
-+	if (ret < 0) {
-+		dev_err(dev, "Enabling power domains failed in %s\n", __func__);
-+		return ret;
-+	}
-+
- 	base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
-@@ -3575,6 +3583,9 @@ static int rx_macro_remove(struct platform_device *pdev)
- 
- 	of_clk_del_provider(pdev->dev.of_node);
- 	clk_bulk_disable_unprepare(RX_NUM_CLKS_MAX, rx->clks);
-+
-+	lpass_macro_pds_exit(pdev, rx->pds);
-+
- 	return 0;
- }
- 
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index 9c96ab1..4d1e5ab 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -13,6 +13,8 @@
- #include <linux/of_clk.h>
- #include <linux/clk-provider.h>
- 
-+#include "lpass-macro-common.h"
-+
- #define CDC_TX_CLK_RST_CTRL_MCLK_CONTROL (0x0000)
- #define CDC_TX_MCLK_EN_MASK		BIT(0)
- #define CDC_TX_MCLK_ENABLE		BIT(0)
-@@ -266,6 +268,7 @@ struct tx_macro {
- 	u16 dmic_clk_div;
- 	bool bcs_enable;
- 	int dec_mode[NUM_DECIMATORS];
-+	struct lpass_macro *pds;
- 	bool bcs_clk_en;
- };
- #define to_tx_macro(_hw) container_of(_hw, struct tx_macro, hw)
-@@ -1802,6 +1805,11 @@ static int tx_macro_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	ret = lpass_macro_pds_init(pdev, &tx->pds);
-+	if (ret < 0) {
-+		dev_err(dev, "Enabling power domains failed in %s\n", __func__);
-+		return ret;
-+	}
- 	base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
-@@ -1859,6 +1867,8 @@ static int tx_macro_remove(struct platform_device *pdev)
- 
- 	clk_bulk_disable_unprepare(TX_NUM_CLKS_MAX, tx->clks);
- 
-+	lpass_macro_pds_exit(pdev, tx->pds);
-+
- 	return 0;
- }
- 
-diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-index 11147e3..b29b9a1 100644
---- a/sound/soc/codecs/lpass-va-macro.c
-+++ b/sound/soc/codecs/lpass-va-macro.c
-@@ -15,6 +15,8 @@
- #include <sound/soc-dapm.h>
- #include <sound/tlv.h>
- 
-+#include "lpass-macro-common.h"
-+
- /* VA macro registers */
- #define CDC_VA_CLK_RST_CTRL_MCLK_CONTROL	(0x0000)
- #define CDC_VA_MCLK_CONTROL_EN			BIT(0)
-@@ -195,6 +197,7 @@ struct va_macro {
- 	struct regmap *regmap;
- 	struct clk_bulk_data clks[VA_NUM_CLKS_MAX];
- 	struct clk_hw hw;
-+	struct lpass_macro *pds;
- 
- 	s32 dmic_0_1_clk_cnt;
- 	s32 dmic_2_3_clk_cnt;
-@@ -1413,7 +1416,11 @@ static int va_macro_probe(struct platform_device *pdev)
- 		dev_err(dev, "Error getting VA Clocks (%d)\n", ret);
- 		return ret;
- 	}
--
-+	ret = lpass_macro_pds_init(pdev, &va->pds);
-+	if (ret < 0) {
-+		dev_err(dev, "Enabling power domains failed %s\n", __func__);
-+		return ret;
-+	}
- 	ret = of_property_read_u32(dev->of_node, "qcom,dmic-sample-rate",
- 				   &sample_rate);
- 	if (ret) {
-@@ -1468,6 +1475,8 @@ static int va_macro_remove(struct platform_device *pdev)
- 
- 	clk_bulk_disable_unprepare(VA_NUM_CLKS_MAX, va->clks);
- 
-+	lpass_macro_pds_exit(pdev, va->pds);
-+
- 	return 0;
- }
- 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 52db003..6ffd51a 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -194,6 +194,7 @@ config SND_SOC_SC7280
- 	select SND_SOC_LPASS_SC7280
- 	select SND_SOC_MAX98357A
- 	select SND_SOC_WCD938X
-+	select SND_SOC_LPASS_MACRO_COMMON
- 	select SND_SOC_LPASS_RX_MACRO
- 	select SND_SOC_LPASS_TX_MACRO
- 	help
+and fixes the following sparse error:
+sound/soc/sof/compress.c:310:25: error: symbol 'sof_compressed_ops' was
+not declared. Should it be static?
+
+> This partially reverts commit
+> 8a720724589e ("ASoC: SOF: pcm: Remove non existent CONFIG_SND_SOC_SOF_COMPRESS reference")
+
+Back at that time there were _no_ sof_compressed_ops in the tree...
+
+> Reported-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+> ---
+>  sound/soc/sof/pcm.c      | 4 ++++
+>  sound/soc/sof/sof-priv.h | 5 +++++
+>  2 files changed, 9 insertions(+)
+> 
+> diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+> index 137f8ed71677..a312ed855f1a 100644
+> --- a/sound/soc/sof/pcm.c
+> +++ b/sound/soc/sof/pcm.c
+> @@ -922,6 +922,10 @@ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
+>  	pd->pointer = sof_pcm_pointer;
+>  	pd->ack = sof_pcm_ack;
+>  
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_COMPRESS)
+> +	pd->compress_ops = &sof_compressed_ops;
+> +#endif
+> +
+>  	pd->pcm_construct = sof_pcm_new;
+>  	pd->ignore_machine = drv_name;
+>  	pd->be_hw_params_fixup = sof_pcm_dai_link_fixup;
+> diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+> index 2c8e556cd5cc..886787a9997f 100644
+> --- a/sound/soc/sof/sof-priv.h
+> +++ b/sound/soc/sof/sof-priv.h
+> @@ -556,6 +556,11 @@ int snd_sof_debugfs_add_region_item_iomem(struct snd_sof_dev *sdev,
+>  		enum snd_sof_fw_blk_type blk_type, u32 offset, size_t size,
+>  		const char *name, enum sof_debugfs_access_type access_type);
+>  
+> +/*
+> + * Platform specific ops.
+> + */
+> +extern struct snd_compress_ops sof_compressed_ops;
+
+This is not really platform ops?
+
+> +
+>  /*
+>   * DSP Architectures.
+>   */
+
 -- 
-2.7.4
-
+Péter

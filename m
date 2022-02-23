@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B10D4C1757
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 16:43:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 036A94C17A7
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 16:48:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EF731AE4;
-	Wed, 23 Feb 2022 16:42:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EF731AE4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9922D1AE0;
+	Wed, 23 Feb 2022 16:47:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9922D1AE0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645631023;
-	bh=frC5Ra7eX8hlpRroZ52DfrhdgxZQdHILh91JiEw4GlI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pB8ZLayrNn4Bc7yGzf9D5N7BPi6VEQcdw2f3qVzb8t/5XGYjC+md4pFCpF2kQul4i
-	 5UL8l13ZqXNgDdcHwYYBH7svbEWRpsM9BKyag+4rk/G/Xvj3iLdU6iEtneq6cBZID8
-	 zcN9yqTbM7Mbsc90ci+zFbJHtPgq9NgDL6pWdIS8=
+	s=default; t=1645631303;
+	bh=GA21nGz5l/UoPhtk7yRZw71jd5mKsv2RIFBeP2JFnRY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Bhd2b8T+HoF/S2YgVINGZR08CzpV2Moh0weHr26mZwPgktDPAcElvfPsk1f3LiEYu
+	 aHs7nOmxbkTWdbe/4UCIYO/BhgS+IDL3kwLHvxuZENyNmFZ1Ng9JVExmA3ErpenLS1
+	 gwA/G9+6e4HlDsD4+t7cJ/mACAjyefHkSJ+hrU48=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94093F80553;
-	Wed, 23 Feb 2022 16:40:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09381F80118;
+	Wed, 23 Feb 2022 16:47:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C807F8051A; Wed, 23 Feb 2022 16:40:29 +0100 (CET)
+ id 8C601F80118; Wed, 23 Feb 2022 16:47:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,35 +34,34 @@ Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
  [199.106.114.39])
  (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44835F80553
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 16:40:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44835F80553
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B6A1F80118
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 16:47:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B6A1F80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="or2G4zlC"
+ header.b="zgJD+TMV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645630823; x=1677166823;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=DUMRWEom12SBvjmB0sFJaBBT+LMJjsPnggYjE97qxpo=;
- b=or2G4zlCLgkSTAZwQOHvaZJBmfM7oipx08Y0bTTYjI0f3e5TtTAakH/P
- BRPUgTDa/fJkCnKfqPKYgYvv0YSc7ZI6QDPKRhZOERJGCUsXIbPbljgP8
- xYPbuhxwPAE3oIuAfbUzJv8WDhCu9Lu4kowY111F1ng2qb0w4oB2kO2en 0=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 23 Feb 2022 07:40:21 -0800
+ t=1645631230; x=1677167230;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=YYctxn0kpK727CV6skfZz0Ey30lYJIa7enZ014ijZ4g=;
+ b=zgJD+TMVZrEYEWOFgSA0FOccueuck+tI3Mvr1zJFpVY8EDGOPD6iyp88
+ nOBPJQGGJ+DGUG4w5lki3ZUZ+TvZnWOd6HG2Ma/7ZD6DB9F+H4qJ/ELZ8
+ SMT4olKZddMRyCqdOJfcEydXhCbLFrqVM7XpSHa9x6pvJLZFYuJ/71wpa Y=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 23 Feb 2022 07:47:07 -0800
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 07:40:21 -0800
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 07:47:07 -0800
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Wed, 23 Feb 2022 07:40:21 -0800
+ 15.2.986.15; Wed, 23 Feb 2022 07:47:06 -0800
 Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Wed, 23 Feb 2022 07:40:15 -0800
+ 15.2.986.15; Wed, 23 Feb 2022 07:47:01 -0800
 From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
  <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
@@ -72,13 +70,11 @@ To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>,
  <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
  <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
  <swboyd@chromium.org>, <judyhsiao@chromium.org>
-Subject: [PATCH v15 10/10] ASoC: qcom: lpass-sc7280: Add platform driver for
- lpass audio
-Date: Wed, 23 Feb 2022 21:09:05 +0530
-Message-ID: <1645630745-25051-11-git-send-email-quic_srivasam@quicinc.com>
+Subject: [PATCH v2] ASoC: codecs: Add power domains support in digital macro
+ codecs
+Date: Wed, 23 Feb 2022 21:16:38 +0530
+Message-ID: <1645631198-4701-1-git-send-email-quic_srivasam@quicinc.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1645630745-25051-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1645630745-25051-1-git-send-email-quic_srivasam@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
@@ -101,472 +97,337 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add platform driver for configuring sc7280 lpass core I2S and
-DMA configuration to support playback & capture to external codecs
-connected over secondary MI2S interface and soundwire interface.
+Add support for enabling required power domains in digital macro codecs.
+macro and dcodec power domains are being requested as clocks by HLOS
+in ADSP based architectures and ADSP internally handling as powerdomains.
+In ADSP bypass case need to handle them as power domains explicitly.
 
 Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Reported-by: kernel test robot <lkp@intel.com>
 ---
- sound/soc/qcom/lpass-sc7280.c | 447 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 447 insertions(+)
- create mode 100644 sound/soc/qcom/lpass-sc7280.c
+Changes since v1:
+    -- Add missing macros in Kconfig.
 
-diff --git a/sound/soc/qcom/lpass-sc7280.c b/sound/soc/qcom/lpass-sc7280.c
-new file mode 100644
-index 0000000..61a445c
---- /dev/null
-+++ b/sound/soc/qcom/lpass-sc7280.c
-@@ -0,0 +1,447 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
-+ *
-+ * lpass-sc7180.c -- ALSA SoC platform-machine driver for QTi LPASS
-+ */
+ sound/soc/codecs/Kconfig              |  7 ++++
+ sound/soc/codecs/Makefile             |  2 +
+ sound/soc/codecs/lpass-macro-common.c | 72 +++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/lpass-macro-common.h | 18 +++++++++
+ sound/soc/codecs/lpass-rx-macro.c     | 13 ++++++-
+ sound/soc/codecs/lpass-tx-macro.c     | 10 +++++
+ sound/soc/codecs/lpass-va-macro.c     | 11 +++++-
+ sound/soc/qcom/Kconfig                |  1 +
+ 8 files changed, 132 insertions(+), 2 deletions(-)
+ create mode 100644 sound/soc/codecs/lpass-macro-common.c
+ create mode 100644 sound/soc/codecs/lpass-macro-common.h
+
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index c2627f7..4de029a 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -244,6 +244,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_WCD9335
+ 	imply SND_SOC_WCD934X
+ 	imply SND_SOC_WCD938X_SDW
++	imply SND_SOC_LPASS_MACRO_COMMON
+ 	imply SND_SOC_LPASS_RX_MACRO
+ 	imply SND_SOC_LPASS_TX_MACRO
+ 	imply SND_SOC_WL1273
+@@ -2008,6 +2009,9 @@ config SND_SOC_TPA6130A2
+ 	tristate "Texas Instruments TPA6130A2 headphone amplifier"
+ 	depends on I2C
+ 
++config SND_SOC_LPASS_MACRO_COMMON
++        tristate
 +
+ config SND_SOC_LPASS_WSA_MACRO
+ 	depends on COMMON_CLK
+ 	select REGMAP_MMIO
+@@ -2016,16 +2020,19 @@ config SND_SOC_LPASS_WSA_MACRO
+ config SND_SOC_LPASS_VA_MACRO
+ 	depends on COMMON_CLK
+ 	select REGMAP_MMIO
++	select SND_SOC_LPASS_MACRO_COMMON
+ 	tristate "Qualcomm VA Macro in LPASS(Low Power Audio SubSystem)"
+ 
+ config SND_SOC_LPASS_RX_MACRO
+ 	depends on COMMON_CLK
+ 	select REGMAP_MMIO
++	select SND_SOC_LPASS_MACRO_COMMON
+ 	tristate "Qualcomm RX Macro in LPASS(Low Power Audio SubSystem)"
+ 
+ config SND_SOC_LPASS_TX_MACRO
+ 	depends on COMMON_CLK
+ 	select REGMAP_MMIO
++	select SND_SOC_LPASS_MACRO_COMMON
+ 	tristate "Qualcomm TX Macro in LPASS(Low Power Audio SubSystem)"
+ 
+ endmenu
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index b4e11c3..c3c6059 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -112,6 +112,7 @@ snd-soc-l3-objs := l3.o
+ snd-soc-lm4857-objs := lm4857.o
+ snd-soc-lm49453-objs := lm49453.o
+ snd-soc-lochnagar-sc-objs := lochnagar-sc.o
++snd-soc-lpass-macro-common-objs := lpass-macro-common.o
+ snd-soc-lpass-rx-macro-objs := lpass-rx-macro.o
+ snd-soc-lpass-tx-macro-objs := lpass-tx-macro.o
+ snd-soc-lpass-wsa-macro-objs := lpass-wsa-macro.o
+@@ -676,6 +677,7 @@ obj-$(CONFIG_SND_SOC_MAX9877)	+= snd-soc-max9877.o
+ obj-$(CONFIG_SND_SOC_MAX98504)	+= snd-soc-max98504.o
+ obj-$(CONFIG_SND_SOC_SIMPLE_AMPLIFIER)	+= snd-soc-simple-amplifier.o
+ obj-$(CONFIG_SND_SOC_TPA6130A2)	+= snd-soc-tpa6130a2.o
++obj-$(CONFIG_SND_SOC_LPASS_MACRO_COMMON)	+= snd-soc-lpass-macro-common.o
+ obj-$(CONFIG_SND_SOC_LPASS_WSA_MACRO)	+= snd-soc-lpass-wsa-macro.o
+ obj-$(CONFIG_SND_SOC_LPASS_VA_MACRO)	+= snd-soc-lpass-va-macro.o
+ obj-$(CONFIG_SND_SOC_LPASS_RX_MACRO)	+= snd-soc-lpass-rx-macro.o
+diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
+new file mode 100644
+index 0000000..b8e50e6
+--- /dev/null
++++ b/sound/soc/codecs/lpass-macro-common.c
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) 2022, The Linux Foundation. All rights reserved.
++
++#include <linux/export.h>
 +#include <linux/module.h>
-+#include <sound/pcm.h>
-+#include <sound/soc.h>
++#include <linux/init.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/pm_domain.h>
 +#include <linux/pm_runtime.h>
 +
-+#include <dt-bindings/sound/sc7180-lpass.h>
++#include "lpass-macro-common.h"
 +
-+#include "lpass-lpaif-reg.h"
-+#include "lpass.h"
-+
-+static struct snd_soc_dai_driver sc7280_lpass_cpu_dai_driver[] = {
-+	{
-+		.id = MI2S_PRIMARY,
-+		.name = "Primary MI2S",
-+		.playback = {
-+			.stream_name = "Primary Playback",
-+			.formats	= SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.capture = {
-+			.stream_name = "Primary Capture",
-+			.formats = SNDRV_PCM_FMTBIT_S16 |
-+				SNDRV_PCM_FMTBIT_S32,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
-+		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
-+	}, {
-+		.id = MI2S_SECONDARY,
-+		.name = "Secondary MI2S",
-+		.playback = {
-+			.stream_name = "Secondary MI2S Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
-+		.ops	= &asoc_qcom_lpass_cpu_dai_ops,
-+	}, {
-+		.id = LPASS_DP_RX,
-+		.name = "Hdmi",
-+		.playback = {
-+			.stream_name = "DP Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S24,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_hdmi_dai_ops,
-+	}, {
-+		.id = LPASS_CDC_DMA_RX0,
-+		.name = "CDC DMA RX",
-+		.playback = {
-+			.stream_name = "WCD Playback",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops	= &asoc_qcom_lpass_cdc_dma_dai_ops,
-+	}, {
-+		.id = LPASS_CDC_DMA_TX3,
-+		.name = "CDC DMA TX",
-+		.capture = {
-+			.stream_name = "WCD Capture",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 1,
-+			.channels_max	= 1,
-+		},
-+		.ops	= &asoc_qcom_lpass_cdc_dma_dai_ops,
-+	}, {
-+		.id = LPASS_CDC_DMA_VA_TX0,
-+		.name = "CDC DMA VA",
-+		.capture = {
-+			.stream_name = "DMIC Capture",
-+			.formats = SNDRV_PCM_FMTBIT_S16,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 4,
-+		},
-+		.ops	= &asoc_qcom_lpass_cdc_dma_dai_ops,
-+	},
-+};
-+
-+static int sc7280_lpass_alloc_dma_channel(struct lpass_data *drvdata,
-+					  int direction, unsigned int dai_id)
++int lpass_macro_pds_init(struct platform_device *pdev, struct lpass_macro **pds)
 +{
-+	struct lpass_variant *v = drvdata->variant;
-+	int chan = 0;
-+
-+	switch (dai_id) {
-+	case MI2S_PRIMARY ... MI2S_QUINARY:
-+		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
-+						   v->rdma_channels);
-+
-+			if (chan >= v->rdma_channels)
-+				return -EBUSY;
-+		} else {
-+			chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
-+						  v->wrdma_channel_start +
-+						  v->wrdma_channels,
-+						  v->wrdma_channel_start);
-+
-+			if (chan >= v->wrdma_channel_start + v->wrdma_channels)
-+				return -EBUSY;
-+		}
-+		set_bit(chan, &drvdata->dma_ch_bit_map);
-+		break;
-+	case LPASS_DP_RX:
-+		chan = find_first_zero_bit(&drvdata->hdmi_dma_ch_bit_map,
-+					   v->hdmi_rdma_channels);
-+		if (chan >= v->hdmi_rdma_channels)
-+			return -EBUSY;
-+		set_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
-+		chan = find_first_zero_bit(&drvdata->rxtx_dma_ch_bit_map,
-+					   v->rxtx_rdma_channels);
-+		if (chan >= v->rxtx_rdma_channels)
-+			return -EBUSY;
-+		break;
-+	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
-+		chan = find_next_zero_bit(&drvdata->rxtx_dma_ch_bit_map,
-+					  v->rxtx_wrdma_channel_start +
-+					  v->rxtx_wrdma_channels,
-+					  v->rxtx_wrdma_channel_start);
-+		if (chan >= v->rxtx_wrdma_channel_start + v->rxtx_wrdma_channels)
-+			return -EBUSY;
-+		set_bit(chan, &drvdata->rxtx_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
-+		chan = find_next_zero_bit(&drvdata->va_dma_ch_bit_map,
-+					  v->va_wrdma_channel_start +
-+					  v->va_wrdma_channels,
-+					  v->va_wrdma_channel_start);
-+		if (chan >= v->va_wrdma_channel_start + v->va_wrdma_channels)
-+			return -EBUSY;
-+		set_bit(chan, &drvdata->va_dma_ch_bit_map);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return chan;
-+}
-+
-+static int sc7280_lpass_free_dma_channel(struct lpass_data *drvdata, int chan, unsigned int dai_id)
-+{
-+	switch (dai_id) {
-+	case MI2S_PRIMARY ... MI2S_QUINARY:
-+		clear_bit(chan, &drvdata->dma_ch_bit_map);
-+		break;
-+	case LPASS_DP_RX:
-+		clear_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
-+	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
-+		clear_bit(chan, &drvdata->rxtx_dma_ch_bit_map);
-+		break;
-+	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
-+		clear_bit(chan, &drvdata->va_dma_ch_bit_map);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int sc7280_lpass_init(struct platform_device *pdev)
-+{
-+	struct lpass_data *drvdata = platform_get_drvdata(pdev);
-+	struct lpass_variant *variant = drvdata->variant;
 +	struct device *dev = &pdev->dev;
-+	int ret, i;
++	struct lpass_macro *l_pds;
++	int ret;
 +
-+	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
-+				     sizeof(*drvdata->clks), GFP_KERNEL);
-+	if (!drvdata->clks)
++	const struct property *prop = of_find_property(dev->of_node, "power-domains", NULL);
++
++	if (!prop)
++		return 0;
++
++	l_pds = devm_kzalloc(dev, sizeof(*l_pds), GFP_KERNEL);
++	if (!l_pds)
 +		return -ENOMEM;
 +
-+	drvdata->num_clks = variant->num_clks;
-+
-+	for (i = 0; i < drvdata->num_clks; i++)
-+		drvdata->clks[i].id = variant->clk_name[i];
-+
-+	ret = devm_clk_bulk_get(dev, drvdata->num_clks, drvdata->clks);
-+	if (ret) {
-+		dev_err(dev, "Failed to get clocks %d\n", ret);
++	l_pds->macro_pd = dev_pm_domain_attach_by_name(dev,  "macro");
++	if (IS_ERR_OR_NULL(l_pds->macro_pd)) {
++		ret = PTR_ERR(l_pds->macro_pd) ? : -ENODATA;
++		return ret;
++	}
++	ret = pm_runtime_get_sync(l_pds->macro_pd);
++	if (ret < 0) {
++		dev_err(dev, "%s failed for macro_pd, ret %d\n", __func__, ret);
++		dev_pm_domain_detach(l_pds->macro_pd, false);
++		pm_runtime_put_noidle(l_pds->macro_pd);
 +		return ret;
 +	}
 +
-+	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
-+	if (ret) {
-+		dev_err(dev, "sc7280 clk_enable failed\n");
++	l_pds->dcodec_pd = dev_pm_domain_attach_by_name(dev, "dcodec");
++	if (IS_ERR_OR_NULL(l_pds->dcodec_pd)) {
++		ret = PTR_ERR(l_pds->dcodec_pd) ? : -ENODATA;
++		dev_pm_domain_detach(l_pds->macro_pd, false);
 +		return ret;
 +	}
 +
-+	return 0;
++	ret = pm_runtime_get_sync(l_pds->dcodec_pd);
++	if (ret < 0) {
++		dev_err(dev, "%s failed for dcodec_pd, ret %d\n", __func__, ret);
++
++		dev_pm_domain_detach(l_pds->dcodec_pd, false);
++		pm_runtime_put_noidle(l_pds->dcodec_pd);
++		return ret;
++	}
++	*pds = l_pds;
++	return ret;
 +}
++EXPORT_SYMBOL_GPL(lpass_macro_pds_init);
 +
-+static int sc7280_lpass_exit(struct platform_device *pdev)
++void lpass_macro_pds_exit(struct platform_device *pdev, struct lpass_macro *pds)
 +{
-+	struct lpass_data *drvdata = platform_get_drvdata(pdev);
-+
-+	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
-+
-+	return 0;
++	pm_runtime_put(pds->macro_pd);
++	pm_runtime_put(pds->dcodec_pd);
++	dev_pm_domain_detach(pds->macro_pd, false);
++	dev_pm_domain_detach(pds->dcodec_pd, false);
 +}
++EXPORT_SYMBOL_GPL(lpass_macro_pds_exit);
 +
-+static struct lpass_variant sc7280_data = {
-+	.i2sctrl_reg_base		= 0x1000,
-+	.i2sctrl_reg_stride		= 0x1000,
-+	.i2s_ports			= 3,
-+	.irq_reg_base			= 0x9000,
-+	.irq_reg_stride			= 0x1000,
-+	.irq_ports			= 3,
-+	.rdma_reg_base			= 0xC000,
-+	.rdma_reg_stride		= 0x1000,
-+	.rdma_channels			= 5,
-+	.rxtx_rdma_reg_base		= 0xC000,
-+	.rxtx_rdma_reg_stride		= 0x1000,
-+	.rxtx_rdma_channels		= 8,
-+	.hdmi_rdma_reg_base		= 0x64000,
-+	.hdmi_rdma_reg_stride		= 0x1000,
-+	.hdmi_rdma_channels		= 4,
-+	.dmactl_audif_start		= 1,
-+	.wrdma_reg_base			= 0x18000,
-+	.wrdma_reg_stride		= 0x1000,
-+	.wrdma_channel_start		= 5,
-+	.wrdma_channels			= 4,
-+	.rxtx_irq_reg_base		= 0x9000,
-+	.rxtx_irq_reg_stride		= 0x1000,
-+	.rxtx_irq_ports			= 3,
-+	.rxtx_wrdma_reg_base		= 0x18000,
-+	.rxtx_wrdma_reg_stride		= 0x1000,
-+	.rxtx_wrdma_channel_start	= 5,
-+	.rxtx_wrdma_channels		= 6,
-+	.va_wrdma_reg_base		= 0x18000,
-+	.va_wrdma_reg_stride		= 0x1000,
-+	.va_wrdma_channel_start		= 5,
-+	.va_wrdma_channels		= 3,
-+	.va_irq_reg_base		= 0x9000,
-+	.va_irq_reg_stride		= 0x1000,
-+	.va_irq_ports			= 3,
-+
-+	.loopback			= REG_FIELD_ID(0x1000, 17, 17, 3, 0x1000),
-+	.spken				= REG_FIELD_ID(0x1000, 16, 16, 3, 0x1000),
-+	.spkmode			= REG_FIELD_ID(0x1000, 11, 15, 3, 0x1000),
-+	.spkmono			= REG_FIELD_ID(0x1000, 10, 10, 3, 0x1000),
-+	.micen				= REG_FIELD_ID(0x1000, 9, 9, 3, 0x1000),
-+	.micmode			= REG_FIELD_ID(0x1000, 4, 8, 3, 0x1000),
-+	.micmono			= REG_FIELD_ID(0x1000, 3, 3, 3, 0x1000),
-+	.wssrc				= REG_FIELD_ID(0x1000, 2, 2, 3, 0x1000),
-+	.bitwidth			= REG_FIELD_ID(0x1000, 0, 1, 3, 0x1000),
-+
-+	.rdma_dyncclk			= REG_FIELD_ID(0xC000, 21, 21, 5, 0x1000),
-+	.rdma_bursten			= REG_FIELD_ID(0xC000, 20, 20, 5, 0x1000),
-+	.rdma_wpscnt			= REG_FIELD_ID(0xC000, 16, 19, 5, 0x1000),
-+	.rdma_intf			= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
-+	.rdma_fifowm			= REG_FIELD_ID(0xC000, 1, 5, 5, 0x1000),
-+	.rdma_enable			= REG_FIELD_ID(0xC000, 0, 0, 5, 0x1000),
-+
-+	.wrdma_dyncclk			= REG_FIELD_ID(0x18000, 22, 22, 4, 0x1000),
-+	.wrdma_bursten			= REG_FIELD_ID(0x18000, 21, 21, 4, 0x1000),
-+	.wrdma_wpscnt			= REG_FIELD_ID(0x18000, 17, 20, 4, 0x1000),
-+	.wrdma_intf			= REG_FIELD_ID(0x18000, 12, 16, 4, 0x1000),
-+	.wrdma_fifowm			= REG_FIELD_ID(0x18000, 1, 5, 4, 0x1000),
-+	.wrdma_enable			= REG_FIELD_ID(0x18000, 0, 0, 4, 0x1000),
-+
-+	.rxtx_rdma_enable		= REG_FIELD_ID(0xC000, 0, 0, 7, 0x1000),
-+	.rxtx_rdma_fifowm		= REG_FIELD_ID(0xC000, 1, 11, 7, 0x1000),
-+	.rxtx_rdma_intf			= REG_FIELD_ID(0xC000, 12, 15, 7, 0x1000),
-+	.rxtx_rdma_wpscnt		= REG_FIELD_ID(0xC000, 16, 19, 7, 0x1000),
-+	.rxtx_rdma_bursten		= REG_FIELD_ID(0xC000, 20, 20, 7, 0x1000),
-+	.rxtx_rdma_dyncclk		= REG_FIELD_ID(0xC000, 21, 21, 7, 0x1000),
-+
-+	.rxtx_rdma_codec_ch		= REG_FIELD_ID(0xC050, 0, 7, 7, 0x1000),
-+	.rxtx_rdma_codec_intf		= REG_FIELD_ID(0xC050, 16, 19, 7, 0x1000),
-+	.rxtx_rdma_codec_fs_delay	= REG_FIELD_ID(0xC050, 21, 24, 7, 0x1000),
-+	.rxtx_rdma_codec_fs_sel		= REG_FIELD_ID(0xC050, 25, 27, 7, 0x1000),
-+	.rxtx_rdma_codec_pack		= REG_FIELD_ID(0xC050, 29, 29, 5, 0x1000),
-+	.rxtx_rdma_codec_enable		= REG_FIELD_ID(0xC050, 30, 30, 7, 0x1000),
-+
-+	.rxtx_wrdma_enable		= REG_FIELD_ID(0x18000, 0, 0, 5, 0x1000),
-+	.rxtx_wrdma_fifowm		= REG_FIELD_ID(0x18000, 1, 11, 5, 0x1000),
-+	.rxtx_wrdma_intf		= REG_FIELD_ID(0x18000, 12, 16, 5, 0x1000),
-+	.rxtx_wrdma_wpscnt		= REG_FIELD_ID(0x18000, 17, 20, 5, 0x1000),
-+	.rxtx_wrdma_bursten		= REG_FIELD_ID(0x18000, 21, 21, 5, 0x1000),
-+	.rxtx_wrdma_dyncclk		= REG_FIELD_ID(0x18000, 22, 22, 5, 0x1000),
-+
-+	.rxtx_wrdma_codec_ch		= REG_FIELD_ID(0x18050, 0, 7, 5, 0x1000),
-+	.rxtx_wrdma_codec_intf		= REG_FIELD_ID(0x18050, 16, 19, 5, 0x1000),
-+	.rxtx_wrdma_codec_fs_delay	= REG_FIELD_ID(0x18050, 21, 24, 5, 0x1000),
-+	.rxtx_wrdma_codec_fs_sel	= REG_FIELD_ID(0x18050, 25, 27, 5, 0x1000),
-+	.rxtx_wrdma_codec_pack		= REG_FIELD_ID(0x18050, 29, 29, 5, 0x1000),
-+	.rxtx_wrdma_codec_enable	= REG_FIELD_ID(0x18050, 30, 30, 5, 0x1000),
-+
-+	.va_wrdma_enable		= REG_FIELD_ID(0x18000, 0, 0, 5, 0x1000),
-+	.va_wrdma_fifowm		= REG_FIELD_ID(0x18000, 1, 11, 5, 0x1000),
-+	.va_wrdma_intf			= REG_FIELD_ID(0x18000, 12, 16, 5, 0x1000),
-+	.va_wrdma_wpscnt		= REG_FIELD_ID(0x18000, 17, 20, 5, 0x1000),
-+	.va_wrdma_bursten		= REG_FIELD_ID(0x18000, 21, 21, 5, 0x1000),
-+	.va_wrdma_dyncclk		= REG_FIELD_ID(0x18000, 22, 22, 5, 0x1000),
-+
-+	.va_wrdma_codec_ch		= REG_FIELD_ID(0x18050, 0, 7, 5, 0x1000),
-+	.va_wrdma_codec_intf		= REG_FIELD_ID(0x18050, 16, 19, 5, 0x1000),
-+	.va_wrdma_codec_fs_delay	= REG_FIELD_ID(0x18050, 21, 24, 5, 0x1000),
-+	.va_wrdma_codec_fs_sel		= REG_FIELD_ID(0x18050, 25, 27, 5, 0x1000),
-+	.va_wrdma_codec_pack		= REG_FIELD_ID(0x18050, 29, 29, 5, 0x1000),
-+	.va_wrdma_codec_enable		= REG_FIELD_ID(0x18050, 30, 30, 5, 0x1000),
-+
-+	.hdmi_tx_ctl_addr		= 0x1000,
-+	.hdmi_legacy_addr		= 0x1008,
-+	.hdmi_vbit_addr			= 0x610c0,
-+	.hdmi_ch_lsb_addr		= 0x61048,
-+	.hdmi_ch_msb_addr		= 0x6104c,
-+	.ch_stride			= 0x8,
-+	.hdmi_parity_addr		= 0x61034,
-+	.hdmi_dmactl_addr		= 0x61038,
-+	.hdmi_dma_stride		= 0x4,
-+	.hdmi_DP_addr			= 0x610c8,
-+	.hdmi_sstream_addr		= 0x6101c,
-+	.hdmi_irq_reg_base		= 0x63000,
-+	.hdmi_irq_ports			= 1,
-+
-+	.hdmi_rdma_dyncclk		= REG_FIELD_ID(0x64000, 14, 14, 4, 0x1000),
-+	.hdmi_rdma_bursten		= REG_FIELD_ID(0x64000, 13, 13, 4, 0x1000),
-+	.hdmi_rdma_burst8		= REG_FIELD_ID(0x64000, 15, 15, 4, 0x1000),
-+	.hdmi_rdma_burst16		= REG_FIELD_ID(0x64000, 16, 16, 4, 0x1000),
-+	.hdmi_rdma_dynburst		= REG_FIELD_ID(0x64000, 18, 18, 4, 0x1000),
-+	.hdmi_rdma_wpscnt		= REG_FIELD_ID(0x64000, 10, 12, 4, 0x1000),
-+	.hdmi_rdma_fifowm		= REG_FIELD_ID(0x64000, 1, 5, 4, 0x1000),
-+	.hdmi_rdma_enable		= REG_FIELD_ID(0x64000, 0, 0, 4, 0x1000),
-+
-+	.sstream_en			= REG_FIELD(0x6101c, 0, 0),
-+	.dma_sel			= REG_FIELD(0x6101c, 1, 2),
-+	.auto_bbit_en			= REG_FIELD(0x6101c, 3, 3),
-+	.layout				= REG_FIELD(0x6101c, 4, 4),
-+	.layout_sp			= REG_FIELD(0x6101c, 5, 8),
-+	.set_sp_on_en			= REG_FIELD(0x6101c, 10, 10),
-+	.dp_audio			= REG_FIELD(0x6101c, 11, 11),
-+	.dp_staffing_en			= REG_FIELD(0x6101c, 12, 12),
-+	.dp_sp_b_hw_en			= REG_FIELD(0x6101c, 13, 13),
-+
-+	.mute				= REG_FIELD(0x610c8, 0, 0),
-+	.as_sdp_cc			= REG_FIELD(0x610c8, 1, 3),
-+	.as_sdp_ct			= REG_FIELD(0x610c8, 4, 7),
-+	.aif_db4			= REG_FIELD(0x610c8, 8, 15),
-+	.frequency			= REG_FIELD(0x610c8, 16, 21),
-+	.mst_index			= REG_FIELD(0x610c8, 28, 29),
-+	.dptx_index			= REG_FIELD(0x610c8, 30, 31),
-+
-+	.soft_reset			= REG_FIELD(0x1000, 31, 31),
-+	.force_reset			= REG_FIELD(0x1000, 30, 30),
-+
-+	.use_hw_chs			= REG_FIELD(0x61038, 0, 0),
-+	.use_hw_usr			= REG_FIELD(0x61038, 1, 1),
-+	.hw_chs_sel			= REG_FIELD(0x61038, 2, 4),
-+	.hw_usr_sel			= REG_FIELD(0x61038, 5, 6),
-+
-+	.replace_vbit			= REG_FIELD(0x610c0, 0, 0),
-+	.vbit_stream			= REG_FIELD(0x610c0, 1, 1),
-+
-+	.legacy_en			=  REG_FIELD(0x1008, 0, 0),
-+	.calc_en			=  REG_FIELD(0x61034, 0, 0),
-+	.lsb_bits			=  REG_FIELD(0x61048, 0, 31),
-+	.msb_bits			=  REG_FIELD(0x6104c, 0, 31),
-+
-+
-+	.clk_name			= (const char*[]) {
-+							"core_cc_sysnoc_mport_core"
-+						},
-+	.num_clks			= 1,
-+	.cdc_dma_clk_names		= (const char*[]) {
-+							"aon_cc_audio_hm_h",
-+							"audio_cc_codec_mem",
-+							"audio_cc_codec_mem0",
-+							"audio_cc_codec_mem1",
-+							"audio_cc_codec_mem2",
-+							"aon_cc_va_mem0"
-+							},
-+	.cdc_dma_num_clks		= 6,
-+	.dai_driver			= sc7280_lpass_cpu_dai_driver,
-+	.num_dai			= ARRAY_SIZE(sc7280_lpass_cpu_dai_driver),
-+	.dai_osr_clk_names		= (const char *[]) {
-+							"audio_cc_ext_mclk0",
-+							"null"
-+							},
-+	.dai_bit_clk_names		= (const char *[]) {
-+							"core_cc_ext_if0_ibit",
-+							"core_cc_ext_if1_ibit"
-+							},
-+	.init				= sc7280_lpass_init,
-+	.exit				= sc7280_lpass_exit,
-+	.alloc_dma_channel		= sc7280_lpass_alloc_dma_channel,
-+	.free_dma_channel		= sc7280_lpass_free_dma_channel,
-+};
-+
-+static const struct of_device_id sc7280_lpass_cpu_device_id[] = {
-+	{.compatible = "qcom,sc7280-lpass-cpu", .data = &sc7280_data},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, sc7280_lpass_cpu_device_id);
-+
-+static struct platform_driver sc7280_lpass_cpu_platform_driver = {
-+	.driver = {
-+		.name = "sc7280-lpass-cpu",
-+		.of_match_table = of_match_ptr(sc7280_lpass_cpu_device_id),
-+	},
-+	.probe = asoc_qcom_lpass_cpu_platform_probe,
-+	.remove = asoc_qcom_lpass_cpu_platform_remove,
-+	.shutdown = asoc_qcom_lpass_cpu_platform_shutdown,
-+};
-+
-+module_platform_driver(sc7280_lpass_cpu_platform_driver);
-+
-+MODULE_DESCRIPTION("SC7280 LPASS CPU DRIVER");
++MODULE_DESCRIPTION("QTI SC7280 LPI GPIO pin control driver");
 +MODULE_LICENSE("GPL");
+diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
+new file mode 100644
+index 0000000..c343f0e
+--- /dev/null
++++ b/sound/soc/codecs/lpass-macro-common.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2022, The Linux Foundation. All rights reserved.
++ */
++
++#ifndef __LPASS_MACRO_COMMON_H__
++#define __LPASS_MACRO_COMMON_H__
++
++
++struct lpass_macro {
++	struct device *macro_pd;
++	struct device *dcodec_pd;
++};
++
++int lpass_macro_pds_init(struct platform_device *pdev, struct lpass_macro **pds);
++void lpass_macro_pds_exit(struct platform_device *pdev, struct lpass_macro *pds);
++
++#endif /* __LPASS_MACRO_COMMON_H__ */
+diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+index 29d214f..db32090 100644
+--- a/sound/soc/codecs/lpass-rx-macro.c
++++ b/sound/soc/codecs/lpass-rx-macro.c
+@@ -14,6 +14,8 @@
+ #include <linux/of_clk.h>
+ #include <linux/clk-provider.h>
+ 
++#include "lpass-macro-common.h"
++
+ #define CDC_RX_TOP_TOP_CFG0		(0x0000)
+ #define CDC_RX_TOP_SWR_CTRL		(0x0008)
+ #define CDC_RX_TOP_DEBUG		(0x000C)
+@@ -606,7 +608,7 @@ struct rx_macro {
+ 	int is_softclip_on;
+ 	int is_aux_hpf_on;
+ 	int softclip_clk_users;
+-
++	struct lpass_macro *pds;
+ 	struct regmap *regmap;
+ 	struct clk_bulk_data clks[RX_NUM_CLKS_MAX];
+ 	struct clk_hw hw;
+@@ -3537,6 +3539,12 @@ static int rx_macro_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
++	ret = lpass_macro_pds_init(pdev, &rx->pds);
++	if (ret < 0) {
++		dev_err(dev, "Enabling power domains failed in %s\n", __func__);
++		return ret;
++	}
++
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+@@ -3575,6 +3583,9 @@ static int rx_macro_remove(struct platform_device *pdev)
+ 
+ 	of_clk_del_provider(pdev->dev.of_node);
+ 	clk_bulk_disable_unprepare(RX_NUM_CLKS_MAX, rx->clks);
++
++	lpass_macro_pds_exit(pdev, rx->pds);
++
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index 9c96ab1..4d1e5ab 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -13,6 +13,8 @@
+ #include <linux/of_clk.h>
+ #include <linux/clk-provider.h>
+ 
++#include "lpass-macro-common.h"
++
+ #define CDC_TX_CLK_RST_CTRL_MCLK_CONTROL (0x0000)
+ #define CDC_TX_MCLK_EN_MASK		BIT(0)
+ #define CDC_TX_MCLK_ENABLE		BIT(0)
+@@ -266,6 +268,7 @@ struct tx_macro {
+ 	u16 dmic_clk_div;
+ 	bool bcs_enable;
+ 	int dec_mode[NUM_DECIMATORS];
++	struct lpass_macro *pds;
+ 	bool bcs_clk_en;
+ };
+ #define to_tx_macro(_hw) container_of(_hw, struct tx_macro, hw)
+@@ -1802,6 +1805,11 @@ static int tx_macro_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
++	ret = lpass_macro_pds_init(pdev, &tx->pds);
++	if (ret < 0) {
++		dev_err(dev, "Enabling power domains failed in %s\n", __func__);
++		return ret;
++	}
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+@@ -1859,6 +1867,8 @@ static int tx_macro_remove(struct platform_device *pdev)
+ 
+ 	clk_bulk_disable_unprepare(TX_NUM_CLKS_MAX, tx->clks);
+ 
++	lpass_macro_pds_exit(pdev, tx->pds);
++
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+index 11147e3..b29b9a1 100644
+--- a/sound/soc/codecs/lpass-va-macro.c
++++ b/sound/soc/codecs/lpass-va-macro.c
+@@ -15,6 +15,8 @@
+ #include <sound/soc-dapm.h>
+ #include <sound/tlv.h>
+ 
++#include "lpass-macro-common.h"
++
+ /* VA macro registers */
+ #define CDC_VA_CLK_RST_CTRL_MCLK_CONTROL	(0x0000)
+ #define CDC_VA_MCLK_CONTROL_EN			BIT(0)
+@@ -195,6 +197,7 @@ struct va_macro {
+ 	struct regmap *regmap;
+ 	struct clk_bulk_data clks[VA_NUM_CLKS_MAX];
+ 	struct clk_hw hw;
++	struct lpass_macro *pds;
+ 
+ 	s32 dmic_0_1_clk_cnt;
+ 	s32 dmic_2_3_clk_cnt;
+@@ -1413,7 +1416,11 @@ static int va_macro_probe(struct platform_device *pdev)
+ 		dev_err(dev, "Error getting VA Clocks (%d)\n", ret);
+ 		return ret;
+ 	}
+-
++	ret = lpass_macro_pds_init(pdev, &va->pds);
++	if (ret < 0) {
++		dev_err(dev, "Enabling power domains failed %s\n", __func__);
++		return ret;
++	}
+ 	ret = of_property_read_u32(dev->of_node, "qcom,dmic-sample-rate",
+ 				   &sample_rate);
+ 	if (ret) {
+@@ -1468,6 +1475,8 @@ static int va_macro_remove(struct platform_device *pdev)
+ 
+ 	clk_bulk_disable_unprepare(VA_NUM_CLKS_MAX, va->clks);
+ 
++	lpass_macro_pds_exit(pdev, va->pds);
++
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index 52db003..6ffd51a 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -194,6 +194,7 @@ config SND_SOC_SC7280
+ 	select SND_SOC_LPASS_SC7280
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_WCD938X
++	select SND_SOC_LPASS_MACRO_COMMON
+ 	select SND_SOC_LPASS_RX_MACRO
+ 	select SND_SOC_LPASS_TX_MACRO
+ 	help
 -- 
 2.7.4
 

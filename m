@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 766E24C15AE
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 15:48:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFBC04C15EA
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 15:57:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AAA818FC;
-	Wed, 23 Feb 2022 15:47:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AAA818FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 825311AA4;
+	Wed, 23 Feb 2022 15:56:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 825311AA4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645627723;
-	bh=5/JvfoO2VwwIDuhmp394xcXwQPuBdu6XLeUqYUXCi1s=;
+	s=default; t=1645628229;
+	bh=4bd/dv9LeBYoIH2AVL50bQsZpdKpVad3C1hnh6JLNjg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aauXke7KUVetYXImMH2qJ5s43/LikPM4n8mxw38zBNsXGDOupxd9ZRa8HWmYFkSLL
-	 fHJVKaq1bURUolp5+vKvvHomSkVqoz0GheIz/R8707PrNulDwwspbfhQ/V4n9h4Lkk
-	 10BnhOMgf82uwPWHMM87d0D7smeJ9A4Ki4XyFi9Q=
+	b=WWvQCRT5h2KqFqwb6d5TNEiDDFCDJ2jzSCq/CGiK+qCs9OmZF+AkYnQ1xeBu0Uv03
+	 b5bfT0q6OuOZmylyeMPMgtpdjEBTFYB5BUsiIsuxGXAQwKV5GmdCycCS1BHfW+YkDY
+	 NH/vwm9ehv9Gp+K3yA15ozqxGpFKYP0gkZpMtiZ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DB00F800B6;
-	Wed, 23 Feb 2022 15:47:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBB07F800B6;
+	Wed, 23 Feb 2022 15:56:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41473F8025D; Wed, 23 Feb 2022 15:47:34 +0100 (CET)
+ id 5D4B9F80118; Wed, 23 Feb 2022 15:56:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4A08F80118
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 15:47:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4A08F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47342F80118
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 15:55:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47342F80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="avZ+FcUB"; 
+ header.b="dCoFYXHJ"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="U6DKsBtj"
+ header.b="ChEjBgXj"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D8160212B9;
- Wed, 23 Feb 2022 14:47:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 1BF251F43D;
+ Wed, 23 Feb 2022 14:55:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1645627648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1645628154; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=t5j27iF2JYPTiS2Ic/ShprOzBKQYPuNbn1juatrTQOk=;
- b=avZ+FcUBPZrFZyvJ1ZO7ZVYtHjQItAPy/fDvSUNmrjbPU8hzr4SbUg5JE4MhXm5sLQX+i4
- u5xhVCqNBKEjKPZMFvLcsSDvYFN7oTytCnFQHGL+aKLEQhiXAF21b1Hcls6MtSpRUUJmoK
- OznTwEZp91vUNDESylK0NYzbvH4yVjQ=
+ bh=8p03YFSiQNYbmpdsHRPWLLm9yRxaqTmYDt6YPNvOYuc=;
+ b=dCoFYXHJqJOuPfQ10Gjy0smCHzI5UqlCM5C26sm1cHxRdor+0qIaKalp9r9hiL8fff2w84
+ 9iFxafCtJxJYjmEamz3qRAevdF+HLXPWu5MDsyj7cMP+DBgk+ILXMpCrZ6bQRIQdi4fRAo
+ UtbldQu+8dx7TgMm1AbpPymJ6rvxzts=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1645627648;
+ s=susede2_ed25519; t=1645628154;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=t5j27iF2JYPTiS2Ic/ShprOzBKQYPuNbn1juatrTQOk=;
- b=U6DKsBtjlUknrMbo6iDYaDzAlL9wn+2DR7IBGGZhzlPbikAttO29a7h3Cwf+n+AnXsbAPX
- 9mNEXrCRgkeZO8Bw==
+ bh=8p03YFSiQNYbmpdsHRPWLLm9yRxaqTmYDt6YPNvOYuc=;
+ b=ChEjBgXjp3n30A1chu0JGP69O7X2htRlokSQAwrc2pl01FTpCf6K81aINMpacoD2cDqp9W
+ 1dOvXuaN/rt90BDA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C8DFDA3B85;
- Wed, 23 Feb 2022 14:47:28 +0000 (UTC)
-Date: Wed, 23 Feb 2022 15:47:28 +0100
-Message-ID: <s5hzgmhy70f.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 115FFA3B81;
+ Wed, 23 Feb 2022 14:55:54 +0000 (UTC)
+Date: Wed, 23 Feb 2022 15:55:54 +0100
+Message-ID: <s5hy221y6md.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.17-rc5
-In-Reply-To: <20220223124454.8C7F6C340E7@smtp.kernel.org>
-References: <20220223124454.8C7F6C340E7@smtp.kernel.org>
+To: Marek Vasut <marex@denx.de>
+Subject: Re: [PATCH] ASoC: ops: Shift tested values in snd_soc_put_volsw() by
+ +min
+In-Reply-To: <20220215130645.164025-1-marex@denx.de>
+References: <20220215130645.164025-1-marex@denx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,29 +94,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Feb 2022 13:44:41 +0100,
-Mark Brown wrote:
+On Tue, 15 Feb 2022 14:06:45 +0100,
+Marek Vasut wrote:
 > 
-> The following changes since commit a887f9c7a4d37a8e874ba8415a42a92a1b5139fc:
+> While the $val/$val2 values passed in from userspace are always >= 0
+> integers, the limits of the control can be signed integers and the $min
+> can be non-zero and less than zero. To correctly validate $val/$val2
+> against platform_max, add the $min offset to val first.
 > 
->   ASoC: wm_adsp: Correct control read size when parsing compressed buffer (2022-02-10 17:26:43 +0000)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.17-rc5
-> 
-> for you to fetch changes up to c5487b9cdea5c1ede38a7ec94db0fc59963c8e86:
-> 
->   ASoC: cs4265: Fix the duplicated control name (2022-02-16 16:34:16 +0000)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v5.17
-> 
-> A few more fixes for v5.17, one followup to the bounds checking fixes
-> handling controls which support negative values internally and a driver
-> specific one.
+> Fixes: 817f7c9335ec0 ("ASoC: ops: Reject out of bounds values in snd_soc_put_volsw()")
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: stable@vger.kernel.org
 
-Thanks, pulled now.
+Now I'm looking at this since I pulled Mark's PR, and noticed that
+snd_soc_put_volsw_sx() may have a similar problem.  Care to cover
+that, too?
 
+
+But, more reading the code, I suspect whether the function does work
+correctly at all...  How is the mask calculation done in that way?
+  unsigned int mask = (1U << (fls(min + max) - 1)) - 1;
+What's the difference of this function with snd_soc_put_volsw()?
+
+Furthermore, the mask calculation and usage in snd_soc_put_volsw()
+isn't right, either, I'm afraid; if the range is [-10, 0], max=0, then
+mask will 0, which will omit all values...
+
+I guess we need to revisit those functions (or I need more coffee).
+
+
+thanks,
 
 Takashi

@@ -2,87 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F4834C0F50
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 10:39:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 885694C1004
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 11:16:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B27A1A96;
-	Wed, 23 Feb 2022 10:38:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B27A1A96
+	by alsa0.perex.cz (Postfix) with ESMTPS id 219B31706;
+	Wed, 23 Feb 2022 11:15:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 219B31706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645609162;
-	bh=uWUA5AXOyYNcwsMisuIfA4XzSYcscPTKlTF1kn16klM=;
+	s=default; t=1645611388;
+	bh=bvaXNd14O6uI9dM0U+1/dlgeUGvK29J8FyRtkfxMVT4=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ptaCzy0b6URJ1iV6N/0E7AJSk6LPAt81HSAMnybnQ0IVS+EskEcIkBWMmeCHjHwFG
-	 fzxdzVnnjqdGfOURzEzxz0R9tBOBkeJs1zjWxQGx5CpKfGhojkPNYGbr5bOPCrSG7v
-	 Z3WI+ydGGsUj0y0c2bX7s/v8J/b/VDMHO1ERIoJM=
+	b=tAbqvSxGiPcnrMmGC01mWpClAbhn71TcWH6evK03Q7ZIZp8jZxJM3sR+i/FjymFNq
+	 YWKgYmWJfpJZctEQmOeKgbu0pquCJXouPXGqiRB2c8G+ZTi/QmqoHXUMlJzZYQB9jS
+	 6oav0iFmkPwWZsCbkreWCKHU0B5t4zR/Dyx+gZ1c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E353F8025D;
-	Wed, 23 Feb 2022 10:38:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D191F80237;
+	Wed, 23 Feb 2022 11:15:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A65BF80237; Wed, 23 Feb 2022 10:38:13 +0100 (CET)
+ id 3B2AFF80237; Wed, 23 Feb 2022 11:15:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98024F80118
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 10:38:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98024F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="W9//dLFs"
-Received: by mail-ej1-x635.google.com with SMTP id qx21so50996686ejb.13
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 01:38:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=P//RFNU8QGEKYuAQ+gDMeXJ3hARQqa91sPEYb36da38=;
- b=W9//dLFsBDlRpSO+zyqplXFbyI5o8LW38Tds0Wi1Kte8sLaoV0pdKG7J0jF2ghH4+E
- OPp0dM6Y9p7hp55vHgui6fEH0SIpEy8T+pEGoPiu8UAfKkP5ZBbUNHdcf512WHRyGmhX
- ZWRYtq9Vv2VkSgq2h+Oe+myy2fSNFFoZXDRYBK8m/Z+hDp7QdnRLxKrUl8i2V++hmY4H
- ZElOG3fZRj6t8C0+z7P85/lQdbPkV3C9rTMqRLfk9yj9yqkJor7cWUnULPzNQFeOjdcQ
- a0Kp5PJR9xzM8/wiaocF37bLcCAuZM0gEqvWEj7j1HN0hJHVQ6ueX7DtEG8tzX/nZXI3
- /yPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=P//RFNU8QGEKYuAQ+gDMeXJ3hARQqa91sPEYb36da38=;
- b=4OfKChALicZBRa7u3Ff6tnrMFok4RF/TVARk5hLnptX3oRcLgveXBIrxmHdDpVrdYa
- vavDE4eyrmtCgneE0T1IbefqT1ZcNaWIMQBdS/ISq1bcj3Iiz1YU0LRNenaR4lJaVraD
- ySMTuWEOTtpf/vGmKs2m/TYd5jKgmGaUAK1FMopXvde4ouBJ5o/JBorbPLGaD++tIECb
- zn3E3uqfyhKWc8nhV+kD2fzYQNobwOenmlrJGqzXKq6SHcHZKl+n0iAGQElChiLX3ro8
- RK0my9s+/TCanB3ikgehZLqkbH/cS3ZWS4sghQKq9Rfg9YaKTRlLLqTTtKk0XxjH/Va/
- Wy+w==
-X-Gm-Message-State: AOAM5325KbDxA3F3yTTb2BZp90S7sFl1uYyDAACE8xuqz1O/wRu5p5vc
- nVVEomgX/L+2p+OO0u22f9gZxxcg4hw=
-X-Google-Smtp-Source: ABdhPJwZGUNJV3IKeAMhpyfHiEyUrhOehHeMKffbaWFfB3P+algDJwkveMPANcs16enaT7KFnGLUqw==
-X-Received: by 2002:a17:906:c299:b0:6b6:baa1:e5cb with SMTP id
- r25-20020a170906c29900b006b6baa1e5cbmr22421158ejz.624.1645609085159; 
- Wed, 23 Feb 2022 01:38:05 -0800 (PST)
-Received: from Dell-Boy.localdomain (39.191.90.146.dyn.plus.net.
- [146.90.191.39])
- by smtp.gmail.com with ESMTPSA id 7sm7299423edw.37.2022.02.23.01.38.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Feb 2022 01:38:04 -0800 (PST)
-From: Alan Young <consult.awy@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] pcm: rate: fix drain of partial period at end of buffer
-Date: Wed, 23 Feb 2022 09:37:40 +0000
-Message-Id: <20220223093740.113617-1-consult.awy@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BCC3F800F5
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 11:15:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BCC3F800F5
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 21NAF0290009118,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 21NAF0290009118
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 23 Feb 2022 18:15:00 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Wed, 23 Feb 2022 18:15:00 +0800
+Received: from localhost.localdomain (172.22.233.98) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Wed, 23 Feb 2022 18:15:00 +0800
+From: <derek.fang@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt5682s: Fix the wrong jack type detected
+Date: Wed, 23 Feb 2022 18:14:50 +0800
+Message-ID: <20220223101450.4577-1-derek.fang@realtek.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Alan Young <consult.awy@gmail.com>
+Content-Type: text/plain
+X-Originating-IP: [172.22.233.98]
+X-ClientProxiedBy: RTEXMBS01.realtek.com.tw (172.21.6.94) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: trusted connection
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Deterministic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 02/23/2022 09:45:00
+X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
+ rules found
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzIvMjMgpFekyCAwODoxMDowMA==?=
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, albertchen@realtek.com, Derek Fang <derek.fang@realtek.com>,
+ shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,61 +94,133 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the case that:
-* the buffer size is not an integer multiple of the period size, and
-* drain must flush a partial period located before the end of the buffer
-  but without a full period available, where
-* these conditions may pertain to the source or slave pcm buffer, and
-* because rate conversion is always done on a full period,
-it is necessary to check that both a full source period is available
-before source pcm buffer wrap and a full slave period is available
-before slave pcm buffer wrap in order to use the simple, single-commit
-implementation in snd_pcm_rate_commit_area().
+From: Derek Fang <derek.fang@realtek.com>
 
-The alternative fix would be to change snd_pcm_rate_write_areas1() to
-take size and slave_size parameters. This would be more disruptive to
-the code base, tricky to get right, and is unnecessary given that
-snd_pcm_mmap_commit() only commits the partial period of actually valid
-converted samples.
+Some powers were changed during the jack insert detection and clk's
+enable/disable in CCF.
+If in parallel, the influence has a chance to detect the wrong jack
+type.
 
-Fixes: 3047f8fa5a3dce0c9775404a2285fb2cff462d96
-Signed-off-by: Alan Young <consult.awy@gmail.com>
+We refer to the below commit of the variant codec (rt5682) to fix
+this issue.
+  ASoC: rt5682: Fix deadlock on resume
+
+1. Remove rt5682s_headset_detect in rt5682s_jd_check_handler and
+   use jack_detect_work instead of.
+2. Use dapm mutex used in CCF to protect most of jack_detect_work.
+
+Signed-off-by: Derek Fang <derek.fang@realtek.com>
 ---
- src/pcm/pcm_rate.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ sound/soc/codecs/rt5682s.c | 26 +++++++++-----------------
+ sound/soc/codecs/rt5682s.h |  1 -
+ 2 files changed, 9 insertions(+), 18 deletions(-)
 
-diff --git a/src/pcm/pcm_rate.c b/src/pcm/pcm_rate.c
-index c45895a9..ba5364c0 100644
---- a/src/pcm/pcm_rate.c
-+++ b/src/pcm/pcm_rate.c
-@@ -781,16 +781,25 @@ static int snd_pcm_rate_commit_area(snd_pcm_t *pcm, snd_pcm_rate_t *rate,
- 	snd_pcm_sframes_t result;
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index efa1016831dd..849fcd7132a8 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -822,6 +822,7 @@ static void rt5682s_jack_detect_handler(struct work_struct *work)
+ {
+ 	struct rt5682s_priv *rt5682s =
+ 		container_of(work, struct rt5682s_priv, jack_detect_work.work);
++	struct snd_soc_dapm_context *dapm;
+ 	int val, btn_type;
  
- 	areas = snd_pcm_mmap_areas(pcm);
--	if (cont >= size) {
-+	/*
-+	 * Because snd_pcm_rate_write_areas1() below will convert a full source period
-+	 * then there had better be a full period available in the current buffer.
-+	 */
-+	if (cont >= pcm->period_size) {
- 		result = snd_pcm_mmap_begin(rate->gen.slave, &slave_areas, &slave_offset, &slave_frames);
- 		if (result < 0)
- 			return result;
--		if (slave_frames < slave_size) {
-+		/*
-+		 * Because snd_pcm_rate_write_areas1() below will convert to a full slave period
-+		 * then there had better be a full slave period available in the slave buffer.
-+		 */
-+		if (slave_frames < rate->gen.slave->period_size) {
- 			snd_pcm_rate_write_areas1(pcm, areas, appl_offset, rate->sareas, 0);
- 			goto __partial;
- 		}
- 		snd_pcm_rate_write_areas1(pcm, areas, appl_offset,
- 					  slave_areas, slave_offset);
-+		/* Only commit the requested slave_size, even if more was actually converted */
- 		result = snd_pcm_mmap_commit(rate->gen.slave, slave_offset, slave_size);
- 		if (result < (snd_pcm_sframes_t)slave_size) {
- 			if (result < 0)
+ 	while (!rt5682s->component)
+@@ -830,7 +831,9 @@ static void rt5682s_jack_detect_handler(struct work_struct *work)
+ 	while (!rt5682s->component->card->instantiated)
+ 		usleep_range(10000, 15000);
+ 
+-	mutex_lock(&rt5682s->jdet_mutex);
++	dapm = snd_soc_component_get_dapm(rt5682s->component);
++
++	snd_soc_dapm_mutex_lock(dapm);
+ 	mutex_lock(&rt5682s->calibrate_mutex);
+ 
+ 	val = snd_soc_component_read(rt5682s->component, RT5682S_AJD1_CTRL)
+@@ -887,6 +890,9 @@ static void rt5682s_jack_detect_handler(struct work_struct *work)
+ 		rt5682s->irq_work_delay_time = 50;
+ 	}
+ 
++	mutex_unlock(&rt5682s->calibrate_mutex);
++	snd_soc_dapm_mutex_unlock(dapm);
++
+ 	snd_soc_jack_report(rt5682s->hs_jack, rt5682s->jack_type,
+ 		SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 		SND_JACK_BTN_2 | SND_JACK_BTN_3);
+@@ -896,9 +902,6 @@ static void rt5682s_jack_detect_handler(struct work_struct *work)
+ 		schedule_delayed_work(&rt5682s->jd_check_work, 0);
+ 	else
+ 		cancel_delayed_work_sync(&rt5682s->jd_check_work);
+-
+-	mutex_unlock(&rt5682s->calibrate_mutex);
+-	mutex_unlock(&rt5682s->jdet_mutex);
+ }
+ 
+ static void rt5682s_jd_check_handler(struct work_struct *work)
+@@ -906,14 +909,9 @@ static void rt5682s_jd_check_handler(struct work_struct *work)
+ 	struct rt5682s_priv *rt5682s =
+ 		container_of(work, struct rt5682s_priv, jd_check_work.work);
+ 
+-	if (snd_soc_component_read(rt5682s->component, RT5682S_AJD1_CTRL)
+-		& RT5682S_JDH_RS_MASK) {
++	if (snd_soc_component_read(rt5682s->component, RT5682S_AJD1_CTRL) & RT5682S_JDH_RS_MASK) {
+ 		/* jack out */
+-		rt5682s->jack_type = rt5682s_headset_detect(rt5682s->component, 0);
+-
+-		snd_soc_jack_report(rt5682s->hs_jack, rt5682s->jack_type,
+-			SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-			SND_JACK_BTN_2 | SND_JACK_BTN_3);
++		schedule_delayed_work(&rt5682s->jack_detect_work, 0);
+ 	} else {
+ 		schedule_delayed_work(&rt5682s->jd_check_work, 500);
+ 	}
+@@ -1321,7 +1319,6 @@ static int rt5682s_hp_amp_event(struct snd_soc_dapm_widget *w,
+ 		struct snd_kcontrol *kcontrol, int event)
+ {
+ 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+-	struct rt5682s_priv *rt5682s = snd_soc_component_get_drvdata(component);
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_POST_PMU:
+@@ -1337,8 +1334,6 @@ static int rt5682s_hp_amp_event(struct snd_soc_dapm_widget *w,
+ 		snd_soc_component_write(component, RT5682S_BIAS_CUR_CTRL_11, 0x6666);
+ 		snd_soc_component_write(component, RT5682S_BIAS_CUR_CTRL_12, 0xa82a);
+ 
+-		mutex_lock(&rt5682s->jdet_mutex);
+-
+ 		snd_soc_component_update_bits(component, RT5682S_HP_CTRL_2,
+ 			RT5682S_HPO_L_PATH_MASK | RT5682S_HPO_R_PATH_MASK |
+ 			RT5682S_HPO_SEL_IP_EN_SW, RT5682S_HPO_L_PATH_EN |
+@@ -1346,8 +1341,6 @@ static int rt5682s_hp_amp_event(struct snd_soc_dapm_widget *w,
+ 		usleep_range(5000, 10000);
+ 		snd_soc_component_update_bits(component, RT5682S_HP_AMP_DET_CTL_1,
+ 			RT5682S_CP_SW_SIZE_MASK, RT5682S_CP_SW_SIZE_L | RT5682S_CP_SW_SIZE_S);
+-
+-		mutex_unlock(&rt5682s->jdet_mutex);
+ 		break;
+ 
+ 	case SND_SOC_DAPM_POST_PMD:
+@@ -3101,7 +3094,6 @@ static int rt5682s_i2c_probe(struct i2c_client *i2c,
+ 
+ 	mutex_init(&rt5682s->calibrate_mutex);
+ 	mutex_init(&rt5682s->sar_mutex);
+-	mutex_init(&rt5682s->jdet_mutex);
+ 	rt5682s_calibrate(rt5682s);
+ 
+ 	regmap_update_bits(rt5682s->regmap, RT5682S_MICBIAS_2,
+diff --git a/sound/soc/codecs/rt5682s.h b/sound/soc/codecs/rt5682s.h
+index 1bf2ef7ce578..397a2531b6f6 100644
+--- a/sound/soc/codecs/rt5682s.h
++++ b/sound/soc/codecs/rt5682s.h
+@@ -1446,7 +1446,6 @@ struct rt5682s_priv {
+ 	struct delayed_work jd_check_work;
+ 	struct mutex calibrate_mutex;
+ 	struct mutex sar_mutex;
+-	struct mutex jdet_mutex;
+ 
+ #ifdef CONFIG_COMMON_CLK
+ 	struct clk_hw dai_clks_hw[RT5682S_DAI_NUM_CLKS];
 -- 
-2.25.1
+2.17.1
 

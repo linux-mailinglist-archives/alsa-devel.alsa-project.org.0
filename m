@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3AFA4C1B3E
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 19:56:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B89974C1B43
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 19:57:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4437D191E;
-	Wed, 23 Feb 2022 19:56:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4437D191E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CB3B1A26;
+	Wed, 23 Feb 2022 19:56:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CB3B1A26
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645642616;
-	bh=6ATkQ3SPbHg1uNzvDgcRhzJ0i/tVyFJ14GLbD7i2C7I=;
+	s=default; t=1645642649;
+	bh=RimaKXFhr9mzukP4fNaT0hhnC3zqMaGlaLRl4CVVfDA=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ClSiXdEpQLDz3kl/9cI3OkKd9hnnLSwFMcvExlRkR7GbSnbCJgnnPC3RTtz4e3sss
-	 auacozWZkZ1jwNDiKGCGulYmUpZVoS6SPvApP2e1PakP1kl73Wjq5c0lhdv62ezy08
-	 PVJnlwAyFXClFlpjb8YRDgLVr7gs4Zt0nOW36cz4=
+	b=INozIu/xx1zthC/4/5dGJtL0Jvg2edzsWdzwzbKegIs98ctIEVGTgZm6pJqr6TOOG
+	 kGgfHHC59vPS1/iYpU1U7gwmVOqU0XrYixq00kO2WcTnG4n9kQX1ITyA4XY7bbPCF+
+	 t/lamJ3o74IxSJc+esxKdJ7vjKfldNZZv9xgXFAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B70A0F800B6;
-	Wed, 23 Feb 2022 19:55:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CCA5F8025D;
+	Wed, 23 Feb 2022 19:55:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA158F800F5; Wed, 23 Feb 2022 19:55:47 +0100 (CET)
+ id F0487F802E3; Wed, 23 Feb 2022 19:55:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,53 +34,51 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DBC78F800F5
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 19:55:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBC78F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCBB8F80118
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 19:55:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCBB8F80118
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="iWJBgZ8r"
+ header.b="Enl0hfN7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645642546; x=1677178546;
+ t=1645642548; x=1677178548;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=6ATkQ3SPbHg1uNzvDgcRhzJ0i/tVyFJ14GLbD7i2C7I=;
- b=iWJBgZ8rmJK0pxp2NCzgmv9UhU4PKOgNf8wyiezGKY4Hg4ljZKBg7Psd
- wKQQKsQAo7ZYdanrbE5DymGTJ9bymtXojkAdJ0I7R7u7a2Bju+df3Pcfz
- ykQWF7aL3wVLTvoa6N83V0EBmNycV6f39sD8KZ3POzwxWJkQEw2T8isOU
- RW6ll0a/2Q2wj79UC8L4db5x04fm+dY4GYHL40LJ+bW9cGPek49lNVdZ2
- NB8BIaMNeql8wjXk5fmDOU5VQ2Ko+0rOaI0g9og1kKzFO9FBjFEhY04EP
- 1ILziQMaUbg99kaF9+VeHJhPicOQqhJKM/wCJJ9JJEn3C7sc7gk2vgYpC w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="276676935"
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="276676935"
+ bh=RimaKXFhr9mzukP4fNaT0hhnC3zqMaGlaLRl4CVVfDA=;
+ b=Enl0hfN7gbpSaubMfaLSZOwKgpYw5lEhoFa7xow0fqOXD6EP5GvFqwQc
+ arFce1LZBndoQ7myJOJPeUk0RZgdpRQNLmHUx6RmTonZRFqSVDi8I3Rvt
+ P5BXcOr/PHaPdV6gemLGQQWtias+3QZ+g2+piubdt9QpQJXYSVGJ7srSN
+ z7a95d5yG22YPG5yZjjtaz0peKzRFqteDdPnFjbYT7cEU02dqykfHd9I5
+ oEw8N9S3JJ9l5Ml2h8fSrKTWSYat6uvktCfToyyH8L8BFEQts1VfEFYzr
+ 9UajffadVu0Wx0Wt6UFnQmFgM3jahCpwppykCzTy5GBVf9OmXT52U2nzi g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="276676944"
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="276676944"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 10:55:38 -0800
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="491319470"
+ 23 Feb 2022 10:55:39 -0800
+X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="491319477"
 Received: from aacunaco-mobl1.amr.corp.intel.com (HELO [10.209.144.93])
  ([10.209.144.93])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 10:55:37 -0800
-Message-ID: <6e79238c-2ceb-0ae7-2b37-7ffac777db60@linux.intel.com>
-Date: Wed, 23 Feb 2022 12:14:58 -0600
+ 23 Feb 2022 10:55:39 -0800
+Message-ID: <d0b57e7b-3591-ee7c-c77b-02e328dba752@linux.intel.com>
+Date: Wed, 23 Feb 2022 12:21:45 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 3/3] soundwire: qcom: add wake up interrupt support
+Subject: Re: [PATCH 1/3] soundwire: qcom: add runtime pm support
 Content-Language: en-US
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, robh+dt@kernel.org, 
  vkoul@kernel.org, yung-chuan.liao@linux.intel.com
 References: <20220221104127.15670-1-srinivas.kandagatla@linaro.org>
- <20220221104127.15670-4-srinivas.kandagatla@linaro.org>
- <5e050d4c-e3d2-35fb-ca49-7be53579bc31@linux.intel.com>
- <1cb4e02f-f040-23bd-44d0-0675429332bd@linaro.org>
- <49099bcb-35e9-0bea-9658-006caed3ab33@linux.intel.com>
- <ee14c940-85c9-6c14-5738-e055801407ab@linaro.org>
+ <20220221104127.15670-2-srinivas.kandagatla@linaro.org>
+ <70db9c01-104e-e081-198e-0b6d8a1c17da@linux.intel.com>
+ <1e532280-5388-157b-8e2d-2ca8b2619f37@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <ee14c940-85c9-6c14-5738-e055801407ab@linaro.org>
+In-Reply-To: <1e532280-5388-157b-8e2d-2ca8b2619f37@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, quic_srivasam@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -99,36 +97,44 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+> There are two cases here.
+> 
+> 1> Controller Instance support ClockStop Mode0, we mostly use the
+> generic core to do that except in resume path we make sure that we start
+> the clock.
+> 
+> 2> Controller Instances which that do not support ClockStop, we do soft
+> reset of controller along with hard resetting slaves.
 
->> Not following, sorry. if you use pm_runtime functions and it so happens
->> that the resume already started, then those routines would wait for the
->> resume to complete.
-> yes that is true,
-> 
-> TBH, I was trying to reproduce the issue since morning to collect some
-> traces but no luck so far, I hit these issues pretty much rarely. Now
-> code has changed since few months back am unable to reproduce this
-> anymore. Or it might be just the state of code I had while writing this up.
-> 
-> But when I hit the issue, this is how it looks like:
-> 
-> 1. IRQ Wake interrupt resume parent.
-> 
-> 2. parent is in middle of resuming
-> 
-> 3. Slave Pend interrupt in controller fired up
-> 
-> 4. because of (3) child resume is requested and then the parent resume
-> blocked on (2) to finish.
-> 
-> 5. from (2) we also trying to resume child.
-> 
-> 6. (5) is blocked on (4) to finish which is blocked on (2) to finish
-> 
-> we are dead locked. Only way for me to avoid dead lock was to wake the
-> child up after IRQ wake interrupts.
+both are fine. we have similar cases defined in sdw_intel.h
 
-Maybe a red-herring, but we're seen cases like this where we called
-pm_runtime_get_sync() while resuming, that didn't go so well. I would
-look into the use of _no_pm routines if you are already trying to resume.
 
+
+>>> +static int swrm_runtime_resume(struct device *dev)
+>>> +{
+>>> +    struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
+>>> +    int ret;
+>>> +
+>>> +    clk_prepare_enable(ctrl->hclk);
+>>> +
+>>> +    if (ctrl->clk_stop_bus_reset) {
+>>> +        reinit_completion(&ctrl->enumeration);
+>>> +        ctrl->reg_write(ctrl, SWRM_COMP_SW_RESET, 0x01);
+>>> +        qcom_swrm_get_device_status(ctrl);
+>>
+>> don't you need some sort of delay before checking the controller and
+>> device status? The bus reset sequence takes 4096 bits, that's a non-zero
+>> time.
+> 
+> This is soft reset not full Bus Reset as WSA slaves have hard reset pins
+> that will be toggled as part of suspend-resume.
+
+Above you mentioned the peripherals go through a reset as well, in which
+case they can only re-attach on the bus after 16 frames best case - they
+need to observe a full cycle of the dynamic sync before changing status.
+
+That's still a non-zero delay (0.3ms for a 48kHz frame rate)
+
+>>
+>>> +        sdw_handle_slave_status(&ctrl->bus, ctrl->status);
+>>> +        qcom_swrm_init(ctrl);

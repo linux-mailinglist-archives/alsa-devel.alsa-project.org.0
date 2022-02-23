@@ -2,77 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D8094C45C7
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 14:17:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B60B04C45C8
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 14:17:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 074851B50;
-	Fri, 25 Feb 2022 14:16:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 074851B50
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39E861B20;
+	Fri, 25 Feb 2022 14:17:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39E861B20
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645795062;
-	bh=M0+mVIZ0Lc26AANZRRAz4t6SzyvF92PylFUdbqphFSM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1645795078;
+	bh=9lKBU3pTEDi5zr6j/7WBZBcnx996ERE3hOHQe6iypFQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XWtYnziw2tHxpWdglZf0E9YUYX7fWwVRW3CepW98T3AQA75+dTT4rWU+35GZRB+bc
-	 axqPjCu/TL3+2zvyLX/bgF27BUM3nJauJrk/5Cc5EW7/3XXN2i1qUxDFqQOmlt379X
-	 BKEnjDCs+AquTv89BB+fsCNp7rsIVZMIykvCYvZ0=
+	b=Oev/CUN1iUof21KHhnrGfR8VynvNM44DyyY9O/ZzGH4Qsk++fLfrx0iLUFr7E5cPg
+	 c+hJEmgwxIG1aua3qNe0VCNpTbdrPxmayfAIPFNHNQwkPKBGzECtApPp0mtX/GjvGG
+	 qKlDJ6fL8+ikqvdm+Ko6Mta12DwvgaSsGeZ146ok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 092B8F805B2;
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E2D3F805B6;
 	Fri, 25 Feb 2022 14:11:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 067A7F80237; Wed, 23 Feb 2022 21:05:04 +0100 (CET)
+ id 7929FF80237; Wed, 23 Feb 2022 21:13:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 982CDF80118
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 21:04:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 982CDF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28949F800F5
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 21:13:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28949F800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="htHMZ4ej"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="ugMTRqf/"
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 58B54617B1;
- Wed, 23 Feb 2022 20:04:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3349C340E7;
- Wed, 23 Feb 2022 20:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645646693;
- bh=M0+mVIZ0Lc26AANZRRAz4t6SzyvF92PylFUdbqphFSM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=htHMZ4ejkmVw5UZH147OWWvzPaFhKffm1si8PWKoQ3tnFx1yOLEVU9zQwxK66D03d
- wplmLYlyIr1r52XdFqTtlesPjts/kWIf+iN1ATyktMdKEcaUJvlYonZ1V6H/8HPLI/
- jMTrjWGhifOrhupEC9mn93Sk6u/MBMyXLCtr0HLQ/nz2PeL0MlAZGOz+uRBQ2dNQP+
- 1Ic12cGDQBffBc1oiHIM2JMAZUrS567iuIBAS786fIZ1Fhesjvllp4NBTINXzKcMxj
- GOt37pF22BkcR2HDO2jvs15Y7ID8CBJEsV/Q3gpu+i821dkJIfTeyhhFcFWSUe12Qd
- deVfLFRokXTYQ==
-Date: Wed, 23 Feb 2022 20:04:42 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 314ED405D7
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 20:13:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1645647191;
+ bh=iwWa9JcbVhEYFFR9LsmnA7bsxJWJbrU0gOV0sfgjYeA=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=ugMTRqf/dNN2yJ+Fwc559+kKZKSoJSbnlZ5ne6B/VatWfF9i5t1sbH1InHlPw5bHz
+ YTs3Zm0cR9Mv7GNEwCMXffRe+JPs82YVRVREmru5k2Ily+P9+DG2BCTqMWtfhDOaW8
+ 7el9wu/u/uk7LgHbkyPAMAvNodolNY142iADvMc2BsH6K2dPyYccVaj1c+qlxS7JDc
+ L8f6cLeYa26sxTYqTZ1jonyRjA+Q+JnmMU7jTsc40JVWy5iRSBJ1+YqTdRhWhEaOFI
+ ilrpDGsYPEExhmC5zctJffN4DUNWw2IMTfDGbdRS4SPEVQsk2O5rN1xJZ5VGmS4srN
+ Lv/BP0o6X6DRg==
+Received: by mail-ed1-f72.google.com with SMTP id
+ d11-20020a50c88b000000b00410ba7a14acso14116539edh.6
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 12:13:11 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=iwWa9JcbVhEYFFR9LsmnA7bsxJWJbrU0gOV0sfgjYeA=;
+ b=DCseT6MuFBL47JLfs5KPDJNh81NR+HkRiPy2d3i7HJROpVCMUYzjIHw2Ec+pDgHU8+
+ UGyPvRlhuohxp1Bzzklmwgq2hKDzsTxRPmvxPMGardAnZ7mCzvI/O0pk25fZ/mmmT2E+
+ MaVW6NqYpjjyBzLY08dkroboVOci/X/SJPwkY283g5kx8ZKpR/tppC1eMioP83KGlLjb
+ E2Ry28GyYxGvSrz6po7zmxZPwJtIRhldn5D6Iod2/zEFz6OvkTmO4F/Yx0il6vgBJSwT
+ 10EqHKBhFse9WRFsVdEmmK2Ywm02oyMn9+VoYCPcvx/KFEPtq1K85WD7A6tE8pUldsKO
+ Vi7Q==
+X-Gm-Message-State: AOAM533uHYV+ciaNxW286XFVejwJ2m9U0Lm90wQ7JOYH2c9CjFB6j/E9
+ naPIxnkXqyqYoYsR6Krr2w7NUQxaVRVzbwAqXxNjcM2iL9Ue6mGm1zYGKZCUREPjZ896gQqs8zb
+ 82qD6LrrB5/SwoHucNvhFitIE0ephMGGwu9kQcV9H
+X-Received: by 2002:a50:d4d2:0:b0:410:9fa2:60d6 with SMTP id
+ e18-20020a50d4d2000000b004109fa260d6mr1046079edj.35.1645647190019; 
+ Wed, 23 Feb 2022 12:13:10 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJz26puqYUhlyjvmoVu/kDMW076CFmPiGqR/4gF9iezSP9z6kTJySAPUmRGeoBQCBAPnogL/Qg==
+X-Received: by 2002:a50:d4d2:0:b0:410:9fa2:60d6 with SMTP id
+ e18-20020a50d4d2000000b004109fa260d6mr1046041edj.35.1645647189826; 
+ Wed, 23 Feb 2022 12:13:09 -0800 (PST)
+Received: from [192.168.0.127] (xdsl-188-155-181-108.adslplus.ch.
+ [188.155.181.108])
+ by smtp.gmail.com with ESMTPSA id ee30sm359292edb.4.2022.02.23.12.13.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Feb 2022 12:13:09 -0800 (PST)
+Message-ID: <ab308509-0f81-6f6b-7b94-0ac1086de53a@canonical.com>
+Date: Wed, 23 Feb 2022 21:13:07 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
 Subject: Re: [PATCH v2 07/11] spi: use helper for safer setting of
  driver_override
-Message-ID: <YhaTWiSQl6pTVxqC@sirena.org.uk>
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
 References: <20220223191310.347669-1-krzysztof.kozlowski@canonical.com>
  <20220223191441.348109-1-krzysztof.kozlowski@canonical.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="PaAAhqOBo3hBuacY"
-Content-Disposition: inline
-In-Reply-To: <20220223191441.348109-1-krzysztof.kozlowski@canonical.com>
-X-Cookie: I smell a wumpus.
-X-Mailman-Approved-At: Fri, 25 Feb 2022 14:11:19 +0100
+ <YhaTWiSQl6pTVxqC@sirena.org.uk>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+In-Reply-To: <YhaTWiSQl6pTVxqC@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Fri, 25 Feb 2022 14:11:18 +0100
 Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
  "Rafael J. Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
  Jason Wang <jasowang@redhat.com>, linux-remoteproc@vger.kernel.org,
@@ -114,32 +147,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 23/02/2022 21:04, Mark Brown wrote:
+> On Wed, Feb 23, 2022 at 08:14:37PM +0100, Krzysztof Kozlowski wrote:
+> 
+>> Remove also "const" from the definition of spi_device.driver_override,
+>> because it is not correct.  The SPI driver already treats it as
+>> dynamic, not const, memory.
+> 
+> We don't modify the string do we, we just allocate a new one?
 
---PaAAhqOBo3hBuacY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Actually you're right - the SPI and VDPA implementations operate on
+"const char *". The others do not, so I can convert them to "const char
+*". Thanks!
 
-On Wed, Feb 23, 2022 at 08:14:37PM +0100, Krzysztof Kozlowski wrote:
-
-> Remove also "const" from the definition of spi_device.driver_override,
-> because it is not correct.  The SPI driver already treats it as
-> dynamic, not const, memory.
-
-We don't modify the string do we, we just allocate a new one?
-
---PaAAhqOBo3hBuacY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIWk1kACgkQJNaLcl1U
-h9DKugf+JTJnnQWx+6mOA4DxLKfWqeASwwB38nUbBFMpWAEhjMvez2XAp0h33Cp9
-bH+dZ5NjHjeUoLGkWBHxWiyuu1r4QrqL7E32x/mV1JsG7I2svj0l0XyCx7Xw7lqT
-QIFJxxSknnL1YtmnB53Rz55GDGQhIg4ewuv/ayCjk0oBDS6G2WBS2UAx2FWJQg2l
-0ALu1QKfCU2DfjLPbmMqLoJb9anvSLyPxe38+Q2dqLx6kUl1WqVWz/Af6dJp9YWY
-UDYfURm/JqyzEo/wiM5ZS39VO9Kv8M7EO9MFJvwxdkmM1evQah6crAugVx/WeCQy
-4Tv/1RJYx8DyQ53XSPVEVcgh9tSx9w==
-=g4g9
------END PGP SIGNATURE-----
-
---PaAAhqOBo3hBuacY--
+Best regards,
+Krzysztof

@@ -2,84 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6BAF4C14C8
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 14:54:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B0D04C1511
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 15:05:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7350B1AAA;
-	Wed, 23 Feb 2022 14:53:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7350B1AAA
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECAB41AA8;
+	Wed, 23 Feb 2022 15:04:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECAB41AA8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645624443;
-	bh=CLZsWQ+7BFB+rBmAyvPvlz6X0mprcYonjsyzkaBx7bY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=awyu+F3i6GPRxln6HXfopXMJttk1e8zeho62AyqZMHRi+knskA7LcV2E22to2ad0X
-	 RrVUuHEWrU5+9coLazb8yMMvDujS/aiwQ9IlTdYcFa1wMyoVKktHAT8GWVh8scnhue
-	 n1pKjuCi7MQvwr4YyXXPCrs5Ya87uAUq5BmD5z64=
+	s=default; t=1645625146;
+	bh=Ksh7ojyup1xH1eAX2liVw+3ETJb4LTiC6fZId4XMlTA=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BtHf+qRa4K3eQB6X+049LNp0pFCkaLOsYT1AjH3svNJzoNkKfHxvsyXa+F62Vm6pc
+	 mqNaWIQXrrl+poACXJ6JRgcH4IYoD1oSFrpeYrLQs45LGpCvlF9tLQwFi7CLdWx91z
+	 O3AW5bosWaPJ6f5STqPmLvNWqdKFSXY2CYJtLW78=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3B84F8025D;
-	Wed, 23 Feb 2022 14:52:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65432F80118;
+	Wed, 23 Feb 2022 15:04:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D7DDF80237; Wed, 23 Feb 2022 14:52:55 +0100 (CET)
+ id 70E2DF80237; Wed, 23 Feb 2022 15:04:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DDE5F800F5
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 14:52:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DDE5F800F5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="HPpqK8wS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1645624370;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Zg8eMdlUSfsC97SBpNr/q2lGhR0GmoyErU4xR7SjinQ=;
- b=HPpqK8wSBQSP7A/uuuNqtDlLAElmAQjvTrUXHF0uI0QsLvaNmgGTfvQF/LH4anihif9oNP
- 9GuGCnqoKyLR5pDFMhu9JObHn0qfbRfxuEF8GH3LvYYkGBAspofcGQ34RaO2XsCA5R8Iwj
- f+5j5h+mFi6uj0YvDktLwbN3FNWXJNE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-577-YhBZL0vRNBaq1VEVbcELsQ-1; Wed, 23 Feb 2022 08:52:49 -0500
-X-MC-Unique: YhBZL0vRNBaq1VEVbcELsQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B0A2E800422;
- Wed, 23 Feb 2022 13:52:47 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.39.195.37])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 900CC838C5;
- Wed, 23 Feb 2022 13:52:45 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: Intel: soc-acpi-byt: Add new WM5102 ACPI HID
-Date: Wed, 23 Feb 2022 14:52:37 +0100
-Message-Id: <20220223135237.731638-1-hdegoede@redhat.com>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id AA530F80118
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 15:04:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA530F80118
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 35FB3ED1;
+ Wed, 23 Feb 2022 06:04:31 -0800 (PST)
+Received: from [10.57.40.147] (unknown [10.57.40.147])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 228AF3F5A1;
+ Wed, 23 Feb 2022 06:04:28 -0800 (PST)
+Message-ID: <0442526f-b6d9-8868-ac1c-dd11a2d3b2ab@arm.com>
+Date: Wed, 23 Feb 2022 14:04:23 +0000
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [RFT PATCH 0/3] Fix kfree() of const memory on setting
+ driver_override
+Content-Language: en-GB
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, Abel Vesa <abel.vesa@nxp.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Andy Gross
+ <agross@kernel.org>, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org
+References: <20220222132707.266883-1-krzysztof.kozlowski@canonical.com>
+ <708eabb1-7b35-d525-d4c3-451d4a3de84f@rasmusvillemoes.dk>
+ <afa7001d-901e-55bf-b8dc-77051b1e7f78@canonical.com>
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <afa7001d-901e-55bf-b8dc-77051b1e7f78@canonical.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,27 +83,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Lenovo Yoga Tablet 2 1050F/L tablets use an ACPI HID of "10WM5102"
-for their wm5102 codec, add this to the list of HIDs for the wm5102 codec.
+On 2022-02-22 14:06, Krzysztof Kozlowski wrote:
+> On 22/02/2022 14:51, Rasmus Villemoes wrote:
+>> On 22/02/2022 14.27, Krzysztof Kozlowski wrote:
+>>> Hi,
+>>>
+>>> Drivers still seem to use driver_override incorrectly. Perhaps my old
+>>> patch makes sense now?
+>>> https://lore.kernel.org/all/1550484960-2392-3-git-send-email-krzk@kernel.org/
+>>>
+>>> Not tested - please review and test (e.g. by writing to dirver_override
+>>> sysfs entry with KASAN enabled).
+>>
+>> Perhaps it would make sense to update the core code to release using
+>> kfree_const(), allowing drivers to set the initial value with
+>> kstrdup_const(). Drivers that currently use kstrdup() or kasprintf()
+>> will continue to work [but if they kstrdup() a string literal they could
+>> be changed to use kstrdup_const].
+> 
+> The core here means several buses, so the change would not be that
+> small. However I don't see the reason why "driver_override" is special
+> and should be freed with kfree_const() while most of other places don't
+> use it.
+> 
+> The driver_override field definition is here obvious: "char *", so any
+> assignments of "const char *" are logically wrong (although GCC does not
+> warn of this literal string const discarding). Adding kfree_const() is
+> hiding the problem - someone did not read the definition of assigned field.
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- sound/soc/intel/common/soc-acpi-intel-byt-match.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+That's not the issue, though, is it? If I take the struct 
+platform_device definition at face value, this should be perfectly valid:
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-byt-match.c b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-index 142000991813..c532529a3856 100644
---- a/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-@@ -127,7 +127,7 @@ static const struct snd_soc_acpi_codecs rt5640_comp_ids = {
- 
- static const struct snd_soc_acpi_codecs wm5102_comp_ids = {
- 	.num_codecs = 2,
--	.codecs = { "WM510204", "WM510205"},
-+	.codecs = { "10WM5102", "WM510204", "WM510205"},
- };
- 
- static const struct snd_soc_acpi_codecs da7213_comp_ids = {
--- 
-2.35.1
+	static char foo[] = "foo";
+	pdev->driver_override = &foo;
 
+And in fact that's effectively how the direct assignment form works 
+anyway - string literals are static arrays of type char (or wchar_t), 
+*not* const char, however trying to modify them is undefined behaviour.
+
+There's a big difference between "non-const" and "kfree()able", and 
+AFAICS there's no obvious clue that the latter is actually a requirement.
+
+Cheers,
+Robin.

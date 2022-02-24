@@ -2,81 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C549B4C3038
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 16:46:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 446B54C30AD
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 16:59:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52F301AB8;
-	Thu, 24 Feb 2022 16:46:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52F301AB8
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC2E11AB3;
+	Thu, 24 Feb 2022 16:58:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC2E11AB3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645717616;
-	bh=PzX96kduRIYE/gKPsTNuQPtzkDDYW6yJR2z6E96mZSY=;
+	s=default; t=1645718372;
+	bh=SvOwU+BP5TatpmYXSFRSqDkxLVZf1n4ALXQbU3cjpBY=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qPy9hcTM5VQZaOp7YtbiexEh3RSNvJ3sbXOKDYcwh+8nGPyRLFTmHaULkS5CfL8VJ
-	 NUfCtMKjiIwS77smsiqEUhU6M9q1KXLjztIJ/3za+c2YWBLs7qK526Ynp7HGON6+KE
-	 +hWdQpnIZFxDmS4yIwz1IXlq6VWNJB/xlIUnsIhM=
+	b=YwcharKplSEqqMwaaAgtXhpzgIIKDT51kxDPqSDEgUCiEBfzCojvvebXvitW3N/XS
+	 gBuaeYJ0njV8dtWAoJ547zeC/f58jzWXcwBo/FDU2dE5AcVSiAsk32ZyYULKxhIbyZ
+	 9xhKklINBTvFKtS0NE5hh7NSuloK4mZ7MiYwvCzs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3698BF804FD;
-	Thu, 24 Feb 2022 16:45:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D173F80310;
+	Thu, 24 Feb 2022 16:58:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB88CF800F3; Thu, 24 Feb 2022 16:45:14 +0100 (CET)
+ id A6888F8030F; Thu, 24 Feb 2022 16:58:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F367F800F3
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 16:45:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F367F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 420C1F80118
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 16:58:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420C1F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="n1qJ+J5B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645717512; x=1677253512;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=PzX96kduRIYE/gKPsTNuQPtzkDDYW6yJR2z6E96mZSY=;
- b=n1qJ+J5BKysnwMJN63cDu/slPxu0Xm6/9DlJ6741muKxAWAJ1ceJioQw
- yYhln/i2tNb1dOTUnbdTaXs1hScjHc0E9R41duvnwNAa5kAoIebXud/bx
- Gf2kEcr1J7I0TG0iHszrWKbagt/Z4VC+7fUGCilfYWKsWDCK/zKvYLsxp
- COwj8GnIdEuYS3/G9rVno3QJGTu1xI4Gtgb5DW7fUMfGG/l4gomRAow0L
- X3J9kp5SReoQy4rWbAid07Cjrz4gmSNP2dwfEaOec1ibyS1piQC9gab4a
- nrv2hWYBzFKt/OtVeMXOP30+W9Egj/kwlQs9J+gB1XXV8+Zh9dQTb01D/ Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="276890964"
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="276890964"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 07:45:08 -0800
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="533178518"
-Received: from ronakmeh-mobl1.amr.corp.intel.com (HELO [10.212.97.131])
- ([10.212.97.131])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 07:45:07 -0800
-Message-ID: <87f434b5-0e99-d1d1-e4d1-248cf35cd05c@linux.intel.com>
-Date: Thu, 24 Feb 2022 09:44:23 -0600
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="uLqbKonl"
+Received: by mail-wr1-x433.google.com with SMTP id u1so315268wrg.11
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 07:58:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=cHggUxZ2d6PFKqdQLzVPT8UbBPpze8bsOzv1kvrdrlo=;
+ b=uLqbKonlTeDMASK8EgJjQw1+cd5N+/lABIBHk1MxzHAA8xedvKecOXkanT+MpMCDK3
+ eGhDQZKUrTZu920ISxBr2+tWsr8lS8FbKyZdKUvefRAN6YNFzoaT81b3EeXKiRDHuPC3
+ l1EO3GOyA/9C10IfLSl4MoTC99veIjsaWNCrYfY438nN4/dDv2EWQK+FOYOpHd6fJR/n
+ AOo+3vdrXDzla6QR+RLClnVI8NIgpiH/liMgoqBYyNLgIJLTOO1j5Dop6cvv0PvImon3
+ p8WPmE1zElfiLAR4zGn+b+2/2DjzqRATz5PGci7lF5cHat+OQEd/S76f3wbadlMBnWyY
+ QiaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=cHggUxZ2d6PFKqdQLzVPT8UbBPpze8bsOzv1kvrdrlo=;
+ b=Nec4gVGjm+H+aWC5RX6Z9kmXOiTK4mxv4E0zgfcxFWaYZNBbgX7tl9rj/T3MKZqnYd
+ 0P0BJ1u1VDFAmZdXCnku+T4bpldhz8qReFi8lTqGe6iY+tYgaN63mY2lVDbau7lbuFkY
+ ckgYMuYJi3ooicrDMEH8V9hwByoiZpiRDyu/NeNtVTw8E/vXh39vvUv/Z0+MN579PzVe
+ dYnRdRb9XOFWf1NH0HQHOC1LqVnivYIx7cnC24ssOGY6oJweXkUR5APmoA75yeUlyWs4
+ a7rIBvFlGrWtn0pmjusAdUVZkTwyVasSnj46mny6mipo3SYLLyQkmisHq/eeJIvx/Lc1
+ wkYQ==
+X-Gm-Message-State: AOAM532e8UfqNUrd7aXWQ91hQVr5ZNmH176QwmYBCgjX07iC0crKBCXS
+ MKX6Prqr9/yLfvMIoivjnA5Utw==
+X-Google-Smtp-Source: ABdhPJybbfb1DD6u3EohFr6j+SFN/2b6PczIRrH7DpwSghsm9siYp0NGbochHvlp1lJ++O8pqoiL1w==
+X-Received: by 2002:adf:f1ca:0:b0:1ed:e2d7:b5f3 with SMTP id
+ z10-20020adff1ca000000b001ede2d7b5f3mr2828386wro.75.1645718298367; 
+ Thu, 24 Feb 2022 07:58:18 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id
+ n4-20020a7bc5c4000000b0037e0c62604fsm3007605wmk.14.2022.02.24.07.58.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Feb 2022 07:58:17 -0800 (PST)
+Message-ID: <be9c99ac-ebdb-e0c1-669b-1257f630f267@linaro.org>
+Date: Thu, 24 Feb 2022 15:58:16 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH v2 3/3] soundwire: qcom: add in-band wake up interrupt
- support
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v2 1/3] soundwire: qcom: add runtime pm support
 Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, robh+dt@kernel.org, 
- vkoul@kernel.org, yung-chuan.liao@linux.intel.com
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ robh+dt@kernel.org, vkoul@kernel.org, yung-chuan.liao@linux.intel.com
 References: <20220224133125.6674-1-srinivas.kandagatla@linaro.org>
- <20220224133125.6674-4-srinivas.kandagatla@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220224133125.6674-4-srinivas.kandagatla@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+ <20220224133125.6674-2-srinivas.kandagatla@linaro.org>
+ <3dbed2f1-0c6d-9ba6-232f-db57ec9097ce@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <3dbed2f1-0c6d-9ba6-232f-db57ec9097ce@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, quic_srivasam@quicinc.com
@@ -97,19 +112,86 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 2/24/22 07:31, Srinivas Kandagatla wrote:
-> Some of the Qualcomm SoundWire Controller instances like the ones that are
-> connected to RX path along with Headset connections support Waking up
-> Controller from Low power clock stop state using SoundWire In-band interrupt.
-> SoundWire Slave on the bus would intiate this by pulling the data line high,
+On 24/02/2022 15:41, Pierre-Louis Bossart wrote:
+> 
+>>   static const struct snd_soc_dai_ops qcom_swrm_pdm_dai_ops = {
+>> @@ -1197,12 +1224,23 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>>   static int swrm_reg_show(struct seq_file *s_file, void *data)
+>>   {
+>>   	struct qcom_swrm_ctrl *swrm = s_file->private;
+>> -	int reg, reg_val;
+>> +	int reg, reg_val, ret;
+>> +
+>> +	ret = pm_runtime_get_sync(swrm->dev);
+>> +	if (ret < 0 && ret != -EACCES) {
+>> +		dev_err_ratelimited(swrm->dev,
+>> +				    "pm_runtime_get_sync failed in %s, ret %d\n",
+>> +				    __func__, ret);
+>> +		pm_runtime_put_noidle(swrm->dev);
+>> +	}
+>>   
+>>   	for (reg = 0; reg <= SWR_MSTR_MAX_REG_ADDR; reg += 4) {
+>>   		swrm->reg_read(swrm, reg, &reg_val);
+>>   		seq_printf(s_file, "0x%.3x: 0x%.2x\n", reg, reg_val);
+>>   	}
+>> +	pm_runtime_mark_last_busy(swrm->dev);
+>> +	pm_runtime_put_autosuspend(swrm->dev);
+>> +
+> 
+> question: is there a reason why this specific set of reg_read() is
+> surrounded pm_runtime stuff? Is this saying that in all other case where
+> the callback is used, the controller is already resumed and fully
+> operational? That's be worthy of a comment.
 
-typo: initiate
+controller register reads require clk to be ON, which might not be 
+always ON. In suspended case we switch off the clocks.
 
-> during clock stop condition.
-
-while the clock is stopped.
-
-A peripheral cannot generate an interrupt after a successful completion
-of a write to the ClockStopNow bitfield.
+Other places so far that I have seen is that controller is either 
+already resumed or clk is on (interrupt case) and resume case.
 
 
+
+>> struct qcom_swrm_ctrl *swrm
+>> struct qcom_swrm_ctrl *ctrl
+> 
+> nit-pick: it helps reviewers when the same variable name is used
+> consistently.
+
+Yes, I did notice this, but for some reason I forgot to fix it.
+
+> 
+>> +static int __maybe_unused swrm_runtime_suspend(struct device *dev)
+>> +{
+>> +	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
+>> +	int ret;
+>> +
+>> +	if (!ctrl->clock_stop_not_supported) {
+>> +		/* Mask bus clash interrupt */
+>> +		ctrl->intr_mask &= ~SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
+>> +		ctrl->reg_write(ctrl, SWRM_INTERRUPT_MASK_ADDR, ctrl->intr_mask);
+>> +		ctrl->reg_write(ctrl, SWRM_INTERRUPT_CPU_EN, ctrl->intr_mask);
+>> +	}
+>> +	/* Prepare slaves for clock stop */
+>> +	ret = sdw_bus_prep_clk_stop(&ctrl->bus);
+>> +	if (ret < 0) {
+> 
+> if (ret < 0 && ret != -ENODATA) {
+> 
+> ?
+> 
+>> +		dev_err(dev, "prepare clock stop failed %d", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = sdw_bus_clk_stop(&ctrl->bus);
+>> +	if (ret < 0 && ret != -ENODATA) {
+>> +		dev_err(dev, "bus clock stop failed %d", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	clk_disable_unprepare(ctrl->hclk);
+>> +
+>> +	usleep_range(300, 305);
+>> +
+>> +	return 0;
+>> +}

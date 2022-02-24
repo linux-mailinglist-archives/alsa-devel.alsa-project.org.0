@@ -2,68 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBF1D4C2FF9
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 16:37:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B04984C2FFA
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 16:37:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 884DD1A90;
-	Thu, 24 Feb 2022 16:36:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 884DD1A90
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45B9D1942;
+	Thu, 24 Feb 2022 16:37:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45B9D1942
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645717063;
-	bh=7dtCRY9iLxlGCH8sOEFM3jl84XAR7IRv62tdxVtMiA4=;
+	s=default; t=1645717078;
+	bh=7uZMphQdWOLyaNaib2cAZMb8PtpqZ9f9V01Gu8vga2c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PS2My0csm2X5opM8wnMJ6BnpqL4btdHDOERhFCapY554nzDDrZ1ATkp+Gfd32Z08V
-	 iWFgUPTgG4zAhKT1DWNEbKQb97hVbeKD59kgKGtsNceF1hfuExCwJF1M1/uztNDjfA
-	 BFNkXC4B9h8YWAABkAPekpfzcMYaP0+52tdjvd2s=
+	b=ATqgKTxNYpdDdRF12i5kLTDjfgy1H6+EWo1VCaZDRa9qvwUMHN794m0RV0ok6KQrT
+	 YXbyJ8ogAnXdoFhU6gHL3aW4aWRs49Gxv3t/5vCRG0OTEDFmfxgtO9b4xkKUZr/d7F
+	 8v+ik4rhbWDouu3YI21K4I459BZNyJrr6TmcaJh8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68AE9F80543;
-	Thu, 24 Feb 2022 16:34:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02E4AF80544;
+	Thu, 24 Feb 2022 16:35:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF12FF80542; Thu, 24 Feb 2022 16:34:54 +0100 (CET)
+ id DD586F8053E; Thu, 24 Feb 2022 16:34:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
  (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44E20F80534
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 16:34:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44E20F80534
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75148F8053E
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 16:34:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75148F8053E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="ZPTAvsID"
+ header.b="cPV5vQ73"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645716889; x=1677252889;
+ t=1645716894; x=1677252894;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=vVKHmrVaNxBcLb3zMlPq0+y44Y+pmXLT7/0VKCf5J+Y=;
- b=ZPTAvsIDGr+9Tj3RdLVZ7rYu+HE0rwyydJMCQKcDpekgy8kCGUM+hifE
- 54xLOO83vjMc5gxtY+XjQOf7aUnlW16Tca33liDYJ6AQqs1gMfYJo9hTi
- aVWhl7p40QSgb524ROPM+Hk+/iEnPmu4Nl4jWqCIqlmUMHBNcSO6AdLhO 4=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 24 Feb 2022 07:34:46 -0800
+ bh=kbjwhiK2tTRbM4zrwUQx7sOHj8zt1NylUTymteyHln0=;
+ b=cPV5vQ73k2X8XZS8pqaxLbSCFJCON6Lfkhb/TXZx/vZI7RymZ/SlVFoj
+ tBTxawg8MzymNMKDu5xGZKs2g4EZtbjVztmFV0d+cJ/ST0d+Ep6t2rzcw
+ FJ1RrrQzE2wTfIm2JPjCcDDxj6D7HWVGs5jShwQCq+a2xe9hI2Drr8SZA 0=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 24 Feb 2022 07:34:52 -0800
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 07:34:46 -0800
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2022 07:34:51 -0800
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Thu, 24 Feb 2022 07:34:45 -0800
+ 15.2.986.15; Thu, 24 Feb 2022 07:34:50 -0800
 Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Thu, 24 Feb 2022 07:34:39 -0800
+ 15.2.986.15; Thu, 24 Feb 2022 07:34:45 -0800
 From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
  <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
@@ -72,9 +71,9 @@ To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>,
  <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
  <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
  <swboyd@chromium.org>, <judyhsiao@chromium.org>
-Subject: [PATCH v16 7/9] ASoC: qcom: Add lpass CPU driver for codec dma control
-Date: Thu, 24 Feb 2022 21:03:46 +0530
-Message-ID: <1645716828-15305-8-git-send-email-quic_srivasam@quicinc.com>
+Subject: [PATCH v16 8/9] ASoC: dt-bindings: Add SC7280 lpass cpu bindings
+Date: Thu, 24 Feb 2022 21:03:47 +0530
+Message-ID: <1645716828-15305-9-git-send-email-quic_srivasam@quicinc.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1645716828-15305-1-git-send-email-quic_srivasam@quicinc.com>
 References: <1645716828-15305-1-git-send-email-quic_srivasam@quicinc.com>
@@ -100,374 +99,140 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add lpass cpu driver to support audio over codec dma for
-ADSP bypass usecase.
+Add bindings for sc7280 lpass cpu driver which supports
+audio over i2s based speaker, soundwire based headset, msm dmics
+and HDMI Port.
 
 Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- sound/soc/qcom/Kconfig         |   4 +
- sound/soc/qcom/Makefile        |   2 +
- sound/soc/qcom/lpass-cdc-dma.c | 301 +++++++++++++++++++++++++++++++++++++++++
- sound/soc/qcom/lpass.h         |   1 +
- 4 files changed, 308 insertions(+)
- create mode 100644 sound/soc/qcom/lpass-cdc-dma.c
+ .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 75 +++++++++++++++++++---
+ 1 file changed, 67 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index dd5949e..286d446 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -20,6 +20,10 @@ config SND_SOC_LPASS_PLATFORM
- 	tristate
- 	select REGMAP_MMIO
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+index 1e23c0e..2c81efb 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+@@ -22,35 +22,41 @@ properties:
+       - qcom,lpass-cpu
+       - qcom,apq8016-lpass-cpu
+       - qcom,sc7180-lpass-cpu
++      - qcom,sc7280-lpass-cpu
  
-+config SND_SOC_LPASS_CDC_DMA
-+	tristate
-+	select REGMAP_MMIO
-+
- config SND_SOC_LPASS_IPQ806X
- 	tristate
- 	select SND_SOC_LPASS_CPU
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 625aec6..010b44c 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- # Platform
- snd-soc-lpass-cpu-objs := lpass-cpu.o
-+snd-soc-lpass-cdc-dma-objs := lpass-cdc-dma.o
- snd-soc-lpass-hdmi-objs := lpass-hdmi.o
- snd-soc-lpass-platform-objs := lpass-platform.o
- snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
-@@ -8,6 +9,7 @@ snd-soc-lpass-apq8016-objs := lpass-apq8016.o
- snd-soc-lpass-sc7180-objs := lpass-sc7180.o
+   reg:
+-    maxItems: 2
++    minItems: 2
++    maxItems: 6
+     description: LPAIF core registers
  
- obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
-+obj-$(CONFIG_SND_SOC_LPASS_CDC_DMA) += snd-soc-lpass-cdc-dma.o
- obj-$(CONFIG_SND_SOC_LPASS_HDMI) += snd-soc-lpass-hdmi.o
- obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
- obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
-diff --git a/sound/soc/qcom/lpass-cdc-dma.c b/sound/soc/qcom/lpass-cdc-dma.c
-new file mode 100644
-index 0000000..31b9f1c
---- /dev/null
-+++ b/sound/soc/qcom/lpass-cdc-dma.c
-@@ -0,0 +1,301 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2021 The Linux Foundation. All rights reserved.
-+ *
-+ * lpass-cdc-dma.c -- ALSA SoC CDC DMA CPU DAI driver for QTi LPASS
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/module.h>
-+#include <linux/export.h>
-+#include <sound/soc.h>
-+#include <sound/soc-dai.h>
-+
-+#include "lpass-lpaif-reg.h"
-+#include "lpass.h"
-+
-+#define CODEC_MEM_HZ_NORMAL 153600000
-+
-+enum codec_dma_interfaces {
-+	LPASS_CDC_DMA_INTERFACE1 = 1,
-+	LPASS_CDC_DMA_INTERFACE2,
-+	LPASS_CDC_DMA_INTERFACE3,
-+	LPASS_CDC_DMA_INTERFACE4,
-+	LPASS_CDC_DMA_INTERFACE5,
-+	LPASS_CDC_DMA_INTERFACE6,
-+	LPASS_CDC_DMA_INTERFACE7,
-+	LPASS_CDC_DMA_INTERFACE8,
-+	LPASS_CDC_DMA_INTERFACE9,
-+	LPASS_CDC_DMA_INTERFACE10,
-+};
-+
-+static void __lpass_get_dmactl_handle(struct snd_pcm_substream *substream, struct snd_soc_dai *dai,
-+				      struct lpaif_dmactl **dmactl, int *id)
-+{
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
-+	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct snd_pcm_runtime *rt = substream->runtime;
-+	struct lpass_pcm_data *pcm_data = rt->private_data;
-+	struct lpass_variant *v = drvdata->variant;
-+	unsigned int dai_id = cpu_dai->driver->id;
-+
-+	switch (dai_id) {
-+	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
-+		*dmactl = drvdata->rxtx_rd_dmactl;
-+		*id = pcm_data->dma_ch;
-+		break;
-+	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
-+		*dmactl = drvdata->rxtx_wr_dmactl;
-+		*id = pcm_data->dma_ch - v->rxtx_wrdma_channel_start;
-+		break;
-+	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX8:
-+		*dmactl = drvdata->va_wr_dmactl;
-+		*id = pcm_data->dma_ch - v->va_wrdma_channel_start;
-+		break;
-+	default:
-+		dev_err(soc_runtime->dev, "invalid dai id for dma ctl: %d\n", dai_id);
-+		break;
-+	}
-+}
-+
-+static int __lpass_get_codec_dma_intf_type(int dai_id)
-+{
-+	int ret;
-+
-+	switch (dai_id) {
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_TX0:
-+	case LPASS_CDC_DMA_VA_TX0:
-+		ret = LPASS_CDC_DMA_INTERFACE1;
-+		break;
-+	case LPASS_CDC_DMA_RX1:
-+	case LPASS_CDC_DMA_TX1:
-+	case LPASS_CDC_DMA_VA_TX1:
-+		ret = LPASS_CDC_DMA_INTERFACE2;
-+		break;
-+	case LPASS_CDC_DMA_RX2:
-+	case LPASS_CDC_DMA_TX2:
-+	case LPASS_CDC_DMA_VA_TX2:
-+		ret = LPASS_CDC_DMA_INTERFACE3;
-+		break;
-+	case LPASS_CDC_DMA_RX3:
-+	case LPASS_CDC_DMA_TX3:
-+	case LPASS_CDC_DMA_VA_TX3:
-+		ret = LPASS_CDC_DMA_INTERFACE4;
-+		break;
-+	case LPASS_CDC_DMA_RX4:
-+	case LPASS_CDC_DMA_TX4:
-+	case LPASS_CDC_DMA_VA_TX4:
-+		ret = LPASS_CDC_DMA_INTERFACE5;
-+		break;
-+	case LPASS_CDC_DMA_RX5:
-+	case LPASS_CDC_DMA_TX5:
-+	case LPASS_CDC_DMA_VA_TX5:
-+		ret = LPASS_CDC_DMA_INTERFACE6;
-+		break;
-+	case LPASS_CDC_DMA_RX6:
-+	case LPASS_CDC_DMA_TX6:
-+	case LPASS_CDC_DMA_VA_TX6:
-+		ret = LPASS_CDC_DMA_INTERFACE7;
-+		break;
-+	case LPASS_CDC_DMA_RX7:
-+	case LPASS_CDC_DMA_TX7:
-+	case LPASS_CDC_DMA_VA_TX7:
-+		ret = LPASS_CDC_DMA_INTERFACE8;
-+		break;
-+	case LPASS_CDC_DMA_RX8:
-+	case LPASS_CDC_DMA_TX8:
-+	case LPASS_CDC_DMA_VA_TX8:
-+		ret = LPASS_CDC_DMA_INTERFACE9;
-+		break;
-+	case LPASS_CDC_DMA_RX9:
-+		ret  = LPASS_CDC_DMA_INTERFACE10;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+	return ret;
-+}
-+
-+static int __lpass_platform_codec_intf_init(struct snd_soc_dai *dai,
-+					    struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_runtime, 0);
-+	struct lpaif_dmactl *dmactl = NULL;
-+	struct device *dev = soc_runtime->dev;
-+	int ret, id, codec_intf;
-+	unsigned int dai_id = cpu_dai->driver->id;
-+
-+	codec_intf = __lpass_get_codec_dma_intf_type(dai_id);
-+	if (codec_intf < 0) {
-+		dev_err(dev, "failed to get codec_intf: %d\n", codec_intf);
-+		return codec_intf;
-+	}
-+
-+	__lpass_get_dmactl_handle(substream, dai, &dmactl, &id);
-+	if (!dmactl)
-+		return -EINVAL;
-+
-+	ret = regmap_fields_write(dmactl->codec_intf, id, codec_intf);
-+	if (ret) {
-+		dev_err(dev, "error writing to dmactl codec_intf reg field: %d\n", ret);
-+		return ret;
-+	}
-+	ret = regmap_fields_write(dmactl->codec_fs_sel, id, 0x0);
-+	if (ret) {
-+		dev_err(dev, "error writing to dmactl codec_fs_sel reg field: %d\n", ret);
-+		return ret;
-+	}
-+	ret = regmap_fields_write(dmactl->codec_fs_delay, id, 0x0);
-+	if (ret) {
-+		dev_err(dev, "error writing to dmactl codec_fs_delay reg field: %d\n", ret);
-+		return ret;
-+	}
-+	ret = regmap_fields_write(dmactl->codec_pack, id, 0x1);
-+	if (ret) {
-+		dev_err(dev, "error writing to dmactl codec_pack reg field: %d\n", ret);
-+		return ret;
-+	}
-+	ret = regmap_fields_write(dmactl->codec_enable, id, LPAIF_DMACTL_ENABLE_ON);
-+	if (ret) {
-+		dev_err(dev, "error writing to dmactl codec_enable reg field: %d\n", ret);
-+		return ret;
-+	}
-+	return 0;
-+}
-+
-+static int lpass_cdc_dma_daiops_startup(struct snd_pcm_substream *substream,
-+				    struct snd_soc_dai *dai)
-+{
-+	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
-+
-+	switch (dai->id) {
-+	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
-+	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
-+		clk_set_rate(drvdata->codec_mem0, CODEC_MEM_HZ_NORMAL);
-+		clk_prepare_enable(drvdata->codec_mem0);
-+		break;
-+	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
-+		clk_set_rate(drvdata->va_mem0, CODEC_MEM_HZ_NORMAL);
-+		clk_prepare_enable(drvdata->va_mem0);
-+		break;
-+	default:
-+		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static void lpass_cdc_dma_daiops_shutdown(struct snd_pcm_substream *substream,
-+				      struct snd_soc_dai *dai)
-+{
-+	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
-+
-+	switch (dai->id) {
-+	case LPASS_CDC_DMA_RX0 ... LPASS_CDC_DMA_RX9:
-+	case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX8:
-+		clk_disable_unprepare(drvdata->codec_mem0);
-+		break;
-+	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
-+		clk_disable_unprepare(drvdata->va_mem0);
-+		break;
-+	default:
-+		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
-+		break;
-+	}
-+}
-+
-+static int lpass_cdc_dma_daiops_hw_params(struct snd_pcm_substream *substream,
-+				      struct snd_pcm_hw_params *params,
-+				      struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
-+	struct lpaif_dmactl *dmactl = NULL;
-+	unsigned int ret, regval;
-+	unsigned int channels = params_channels(params);
-+	int id;
-+
-+	switch (channels) {
-+	case 1:
-+		regval = LPASS_CDC_DMA_INTF_ONE_CHANNEL;
-+		break;
-+	case 2:
-+		regval = LPASS_CDC_DMA_INTF_TWO_CHANNEL;
-+		break;
-+	case 4:
-+		regval = LPASS_CDC_DMA_INTF_FOUR_CHANNEL;
-+		break;
-+	case 6:
-+		regval = LPASS_CDC_DMA_INTF_SIX_CHANNEL;
-+		break;
-+	case 8:
-+		regval = LPASS_CDC_DMA_INTF_EIGHT_CHANNEL;
-+		break;
-+	default:
-+		dev_err(soc_runtime->dev, "invalid PCM config\n");
-+		return -EINVAL;
-+	}
-+
-+	__lpass_get_dmactl_handle(substream, dai, &dmactl, &id);
-+	if (!dmactl)
-+		return -EINVAL;
-+
-+	ret = regmap_fields_write(dmactl->codec_channel, id, regval);
-+	if (ret) {
-+		dev_err(soc_runtime->dev,
-+			"error writing to dmactl codec_channel reg field: %d\n", ret);
-+		return ret;
-+	}
-+	return 0;
-+}
-+
-+static int lpass_cdc_dma_daiops_trigger(struct snd_pcm_substream *substream,
-+				    int cmd, struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_pcm_runtime *soc_runtime = asoc_substream_to_rtd(substream);
-+	struct lpaif_dmactl *dmactl;
-+	int ret = 0, id;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		__lpass_platform_codec_intf_init(dai, substream);
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		__lpass_get_dmactl_handle(substream, dai, &dmactl, &id);
-+		if (!dmactl)
-+			return -EINVAL;
-+
-+		ret = regmap_fields_write(dmactl->codec_enable, id, LPAIF_DMACTL_ENABLE_OFF);
-+		if (ret) {
-+			dev_err(soc_runtime->dev,
-+				"error writing to dmactl codec_enable reg: %d\n", ret);
-+			return ret;
-+		}
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		dev_err(soc_runtime->dev, "%s: invalid %d interface\n", __func__, cmd);
-+		break;
-+	}
-+	return ret;
-+}
-+
-+const struct snd_soc_dai_ops asoc_qcom_lpass_cdc_dma_dai_ops = {
-+	.startup	= lpass_cdc_dma_daiops_startup,
-+	.shutdown	= lpass_cdc_dma_daiops_shutdown,
-+	.hw_params	= lpass_cdc_dma_daiops_hw_params,
-+	.trigger	= lpass_cdc_dma_daiops_trigger,
-+};
-+EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cdc_dma_dai_ops);
-+
-+MODULE_DESCRIPTION("QTi LPASS CDC DMA Driver");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
-index fdcf992..dd78600 100644
---- a/sound/soc/qcom/lpass.h
-+++ b/sound/soc/qcom/lpass.h
-@@ -406,5 +406,6 @@ int asoc_qcom_lpass_cpu_dai_probe(struct snd_soc_dai *dai);
- extern const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops;
- int lpass_cpu_pcm_new(struct snd_soc_pcm_runtime *rtd,
- 				struct snd_soc_dai *dai);
-+extern const struct snd_soc_dai_ops asoc_qcom_lpass_cdc_dma_dai_ops;
+   reg-names:
+-    maxItems: 2
++    minItems: 2
++    maxItems: 6
  
- #endif /* __LPASS_H__ */
+   clocks:
+     minItems: 3
+-    maxItems: 6
++    maxItems: 7
+ 
+   clock-names:
+     minItems: 3
+-    maxItems: 6
++    maxItems: 7
+ 
+   interrupts:
+-    maxItems: 2
++    minItems: 2
++    maxItems: 4
+     description: LPAIF DMA buffer interrupt
+ 
+   interrupt-names:
+-    maxItems: 2
++    minItems: 2
++    maxItems: 4
+ 
+   qcom,adsp:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description: Phandle for the audio DSP node
+ 
+   iommus:
+-    maxItems: 2
++    minItems: 2
++    maxItems: 3
+     description: Phandle to apps_smmu node with sid mask
+ 
+   power-domains:
+@@ -69,7 +75,7 @@ patternProperties:
+   "^dai-link@[0-9a-f]$":
+     type: object
+     description: |
+-      LPASS CPU dai node for each I2S device. Bindings of each node
++      LPASS CPU dai node for each I2S device or Soundwire device. Bindings of each node
+       depends on the specific driver providing the functionality and
+       properties.
+     properties:
+@@ -174,6 +180,59 @@ allOf:
+         - iommus
+         - power-domains
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,sc7280-lpass-cpu
++
++    then:
++      properties:
++        clock-names:
++          oneOf:
++            - items:   #for I2S
++                - const: aon_cc_audio_hm_h
++                - const: core_cc_sysnoc_mport_core
++                - const: core_cc_ext_if1_ibit
++            - items:   #for Soundwire
++                - const: aon_cc_audio_hm_h
++                - const: audio_cc_codec_mem0
++                - const: audio_cc_codec_mem1
++                - const: audio_cc_codec_mem2
++            - items:   #for HDMI
++                - const: aon_cc_audio_hm_h
++
++        reg-names:
++          anyOf:
++            - items:   #for I2S
++                - const: lpass-lpaif
++            - items:   #for I2S and HDMI
++                - const: lpass-hdmiif
++                - const: lpass-lpaif
++            - items:   #for I2S, soundwire and HDMI
++                - const: lpass-hdmiif
++                - const: lpass-lpaif
++                - const: lpass-rxtx-cdc-dma-lpm
++                - const: lpass-rxtx-lpaif
++                - const: lpass-va-lpaif
++                - const: lpass-va-cdc-dma-lpm
++        interrupt-names:
++          anyOf:
++            - items:   #for I2S
++                - const: lpass-irq-lpaif
++            - items:   #for I2S and HDMI
++                - const: lpass-irq-lpaif
++                - const: lpass-irq-hdmi
++            - items:   #for I2S, soundwire and HDMI
++                - const: lpass-irq-lpaif
++                - const: lpass-irq-hdmi
++                - const: lpass-irq-vaif
++                - const: lpass-irq-rxtxif
++
++      required:
++        - iommus
++        - power-domains
++
+ examples:
+   - |
+     #include <dt-bindings/sound/sc7180-lpass.h>
 -- 
 2.7.4
 

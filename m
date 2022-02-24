@@ -2,99 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 446B54C30AD
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 16:59:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C0684C3114
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 17:14:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC2E11AB3;
-	Thu, 24 Feb 2022 16:58:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC2E11AB3
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBD0218E9;
+	Thu, 24 Feb 2022 17:13:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBD0218E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645718372;
-	bh=SvOwU+BP5TatpmYXSFRSqDkxLVZf1n4ALXQbU3cjpBY=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1645719248;
+	bh=QVGIYCuiZn6XQXJrJ2gFPMZGb/PNokAZN0ymU8ZzE7E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YwcharKplSEqqMwaaAgtXhpzgIIKDT51kxDPqSDEgUCiEBfzCojvvebXvitW3N/XS
-	 gBuaeYJ0njV8dtWAoJ547zeC/f58jzWXcwBo/FDU2dE5AcVSiAsk32ZyYULKxhIbyZ
-	 9xhKklINBTvFKtS0NE5hh7NSuloK4mZ7MiYwvCzs=
+	b=R0tGqMSRqeXetl1qGph42FpY9fba8BXlDw2+md/XlULWyaK8NLMw3l0FkjvawigC6
+	 B4Rs/5jaeT9SJiZjEdbWxuW4wn9L+d7iOvrAg1cNHEtqT/ZRhNJ/RMlZJajV0L9yEo
+	 au7LQ456vLk1jtutl/frkAoQuBS8hvUhq45HvevU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D173F80310;
-	Thu, 24 Feb 2022 16:58:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D9CBF80310;
+	Thu, 24 Feb 2022 17:13:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6888F8030F; Thu, 24 Feb 2022 16:58:25 +0100 (CET)
+ id 9F54FF8030F; Thu, 24 Feb 2022 17:13:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
+ [209.85.167.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 420C1F80118
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 16:58:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420C1F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="uLqbKonl"
-Received: by mail-wr1-x433.google.com with SMTP id u1so315268wrg.11
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 07:58:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=cHggUxZ2d6PFKqdQLzVPT8UbBPpze8bsOzv1kvrdrlo=;
- b=uLqbKonlTeDMASK8EgJjQw1+cd5N+/lABIBHk1MxzHAA8xedvKecOXkanT+MpMCDK3
- eGhDQZKUrTZu920ISxBr2+tWsr8lS8FbKyZdKUvefRAN6YNFzoaT81b3EeXKiRDHuPC3
- l1EO3GOyA/9C10IfLSl4MoTC99veIjsaWNCrYfY438nN4/dDv2EWQK+FOYOpHd6fJR/n
- AOo+3vdrXDzla6QR+RLClnVI8NIgpiH/liMgoqBYyNLgIJLTOO1j5Dop6cvv0PvImon3
- p8WPmE1zElfiLAR4zGn+b+2/2DjzqRATz5PGci7lF5cHat+OQEd/S76f3wbadlMBnWyY
- QiaA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD9F6F80118;
+ Thu, 24 Feb 2022 17:12:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD9F6F80118
+Received: by mail-oi1-f182.google.com with SMTP id k2so3154252oia.2;
+ Thu, 24 Feb 2022 08:12:54 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=cHggUxZ2d6PFKqdQLzVPT8UbBPpze8bsOzv1kvrdrlo=;
- b=Nec4gVGjm+H+aWC5RX6Z9kmXOiTK4mxv4E0zgfcxFWaYZNBbgX7tl9rj/T3MKZqnYd
- 0P0BJ1u1VDFAmZdXCnku+T4bpldhz8qReFi8lTqGe6iY+tYgaN63mY2lVDbau7lbuFkY
- ckgYMuYJi3ooicrDMEH8V9hwByoiZpiRDyu/NeNtVTw8E/vXh39vvUv/Z0+MN579PzVe
- dYnRdRb9XOFWf1NH0HQHOC1LqVnivYIx7cnC24ssOGY6oJweXkUR5APmoA75yeUlyWs4
- a7rIBvFlGrWtn0pmjusAdUVZkTwyVasSnj46mny6mipo3SYLLyQkmisHq/eeJIvx/Lc1
- wkYQ==
-X-Gm-Message-State: AOAM532e8UfqNUrd7aXWQ91hQVr5ZNmH176QwmYBCgjX07iC0crKBCXS
- MKX6Prqr9/yLfvMIoivjnA5Utw==
-X-Google-Smtp-Source: ABdhPJybbfb1DD6u3EohFr6j+SFN/2b6PczIRrH7DpwSghsm9siYp0NGbochHvlp1lJ++O8pqoiL1w==
-X-Received: by 2002:adf:f1ca:0:b0:1ed:e2d7:b5f3 with SMTP id
- z10-20020adff1ca000000b001ede2d7b5f3mr2828386wro.75.1645718298367; 
- Thu, 24 Feb 2022 07:58:18 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- n4-20020a7bc5c4000000b0037e0c62604fsm3007605wmk.14.2022.02.24.07.58.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Feb 2022 07:58:17 -0800 (PST)
-Message-ID: <be9c99ac-ebdb-e0c1-669b-1257f630f267@linaro.org>
-Date: Thu, 24 Feb 2022 15:58:16 +0000
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=zbkQNmRMiKw/pcrFZH62eSxRpSbb/s9oDkkz3K5wBJ4=;
+ b=pjqa/Semc0RVNCfxr+jXQqrNpKpBhQyY3jvy9TGrGPLsNWrs5w/TMl6mzycpc9XRB/
+ BQLnGTXhSWqrr/zzHz8aGvzG61p9lbQE+suCI0p1fGzWWntUoM3kaxfcv2xUro7tjTfB
+ EmzEHH9U8C0hIlqZgDkbbRh7I2Yvvx9AizAiAOiiP8Q/DKKUYhLaOnHmQ+/XRWBT7mI7
+ 8skP+2T023hNQokw35OLnVFBOFinZ4kwWLLjV5ze/0BfgoFaDbZDOGfGa3rAfsEiEkVm
+ CD9QUlP5Nsq3msxaI5LrCb3jJr0j9RgGHYz4Z9chNCL9YJz/1Qh92Adl4WI3rRszKDkI
+ PhxQ==
+X-Gm-Message-State: AOAM532YemRVuAtA31oQm2ucvFcmRjUtqz6hc5BhuyvZlZZowjY2ofEW
+ FZFPrYPLrCZA93PQryqyTw==
+X-Google-Smtp-Source: ABdhPJxUdvQQ74bDVPACbU46SgRLAo662OysqMgqfjKUa3F3TgTNZydiCsoVlSxthTdtiIVIFdbrsg==
+X-Received: by 2002:aca:5c89:0:b0:2d5:18eb:9e6 with SMTP id
+ q131-20020aca5c89000000b002d518eb09e6mr1735362oib.58.1645719172925; 
+ Thu, 24 Feb 2022 08:12:52 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id bc16sm1650906oib.26.2022.02.24.08.12.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Feb 2022 08:12:52 -0800 (PST)
+Received: (nullmailer pid 3173677 invoked by uid 1000);
+ Thu, 24 Feb 2022 16:12:50 -0000
+Date: Thu, 24 Feb 2022 10:12:50 -0600
+From: Rob Herring <robh@kernel.org>
+To: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+Subject: Re: [PATCH v17 1/2] dt-bindings: mailbox: mtk,adsp-mbox: add mtk
+ adsp-mbox document
+Message-ID: <YheugpFub9ArHDyT@robh.at.kernel.org>
+References: <20220224133045.23903-1-allen-kh.cheng@mediatek.com>
+ <20220224133045.23903-2-allen-kh.cheng@mediatek.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v2 1/3] soundwire: qcom: add runtime pm support
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- robh+dt@kernel.org, vkoul@kernel.org, yung-chuan.liao@linux.intel.com
-References: <20220224133125.6674-1-srinivas.kandagatla@linaro.org>
- <20220224133125.6674-2-srinivas.kandagatla@linaro.org>
- <3dbed2f1-0c6d-9ba6-232f-db57ec9097ce@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <3dbed2f1-0c6d-9ba6-232f-db57ec9097ce@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, quic_srivasam@quicinc.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220224133045.23903-2-allen-kh.cheng@mediatek.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ sound-open-firmware@alsa-project.org, Kevin Hilman <khilman@baylibre.com>,
+ Jassi Brar <jassisinghbrar@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ Chen-Yu Tsai <wenst@chromium.org>, devicetree@vger.kernel.org,
+ Jassi Brar <jaswinder.singh@linaro.org>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,88 +105,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 24/02/2022 15:41, Pierre-Louis Bossart wrote:
+On Thu, Feb 24, 2022 at 09:30:44PM +0800, Allen-KH Cheng wrote:
+> From: Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
 > 
->>   static const struct snd_soc_dai_ops qcom_swrm_pdm_dai_ops = {
->> @@ -1197,12 +1224,23 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
->>   static int swrm_reg_show(struct seq_file *s_file, void *data)
->>   {
->>   	struct qcom_swrm_ctrl *swrm = s_file->private;
->> -	int reg, reg_val;
->> +	int reg, reg_val, ret;
->> +
->> +	ret = pm_runtime_get_sync(swrm->dev);
->> +	if (ret < 0 && ret != -EACCES) {
->> +		dev_err_ratelimited(swrm->dev,
->> +				    "pm_runtime_get_sync failed in %s, ret %d\n",
->> +				    __func__, ret);
->> +		pm_runtime_put_noidle(swrm->dev);
->> +	}
->>   
->>   	for (reg = 0; reg <= SWR_MSTR_MAX_REG_ADDR; reg += 4) {
->>   		swrm->reg_read(swrm, reg, &reg_val);
->>   		seq_printf(s_file, "0x%.3x: 0x%.2x\n", reg, reg_val);
->>   	}
->> +	pm_runtime_mark_last_busy(swrm->dev);
->> +	pm_runtime_put_autosuspend(swrm->dev);
->> +
+> This patch adds document for mediatek adsp mbox
 > 
-> question: is there a reason why this specific set of reg_read() is
-> surrounded pm_runtime stuff? Is this saying that in all other case where
-> the callback is used, the controller is already resumed and fully
-> operational? That's be worthy of a comment.
-
-controller register reads require clk to be ON, which might not be 
-always ON. In suspended case we switch off the clocks.
-
-Other places so far that I have seen is that controller is either 
-already resumed or clk is on (interrupt case) and resume case.
-
-
-
->> struct qcom_swrm_ctrl *swrm
->> struct qcom_swrm_ctrl *ctrl
+> Signed-off-by: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../bindings/mailbox/mtk,adsp-mbox.yaml       | 52 +++++++++++++++++++
+>  1 file changed, 52 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
 > 
-> nit-pick: it helps reviewers when the same variable name is used
-> consistently.
+> diff --git a/Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml b/Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
+> new file mode 100644
+> index 000000000000..25756837797f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mailbox/mtk,adsp-mbox.yaml
+> @@ -0,0 +1,52 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/mailbox/mtk,adsp-mbox.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Mediatek ADSP mailbox
+> +
+> +maintainers:
+> +  - Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>
+> +
+> +description: |
+> +  The MTK ADSP mailbox Inter-Processor Communication (IPC) enables the SoC
+> +  to ommunicate with ADSP by passing messages through two mailbox channels.
+> +  The MTK ADSP mailbox IPC also provides the ability for one processor to
+> +  signal the other processor using interrupts.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: mediatek,mt8195-adsp-mbox
+> +
+> +  "#mbox-cells":
+> +    const: 0
+> +
+> +  reg:
+> +    description:
+> +      Physical address base for dsp mbox registers.
 
-Yes, I did notice this, but for some reason I forgot to fix it.
+That's fairly obvious. Drop.
 
+You need to define how many: 'maxItems: 1'
+
+> +
+> +  interrupts:
+> +    description:
+> +      adsp mbox interrupt
+
+Same here.
+
+> +
+> +required:
+> +  - compatible
+> +  - "#mbox-cells"
+> +  - reg
+> +  - interrupts
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    adsp_mailbox0:mailbox@10816000 {
+> +        compatible = "mediatek,mt8195-adsp-mbox";
+> +        #mbox-cells = <0>;
+> +        reg = <0x10816000 0x1000>;
+> +        interrupts = <GIC_SPI 702 IRQ_TYPE_LEVEL_HIGH 0>;
+> +    };
+> -- 
+> 2.18.0
 > 
->> +static int __maybe_unused swrm_runtime_suspend(struct device *dev)
->> +{
->> +	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
->> +	int ret;
->> +
->> +	if (!ctrl->clock_stop_not_supported) {
->> +		/* Mask bus clash interrupt */
->> +		ctrl->intr_mask &= ~SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
->> +		ctrl->reg_write(ctrl, SWRM_INTERRUPT_MASK_ADDR, ctrl->intr_mask);
->> +		ctrl->reg_write(ctrl, SWRM_INTERRUPT_CPU_EN, ctrl->intr_mask);
->> +	}
->> +	/* Prepare slaves for clock stop */
->> +	ret = sdw_bus_prep_clk_stop(&ctrl->bus);
->> +	if (ret < 0) {
 > 
-> if (ret < 0 && ret != -ENODATA) {
-> 
-> ?
-> 
->> +		dev_err(dev, "prepare clock stop failed %d", ret);
->> +		return ret;
->> +	}
->> +
->> +	ret = sdw_bus_clk_stop(&ctrl->bus);
->> +	if (ret < 0 && ret != -ENODATA) {
->> +		dev_err(dev, "bus clock stop failed %d", ret);
->> +		return ret;
->> +	}
->> +
->> +	clk_disable_unprepare(ctrl->hclk);
->> +
->> +	usleep_range(300, 305);
->> +
->> +	return 0;
->> +}

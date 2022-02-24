@@ -2,93 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3CDC4C2ACB
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 12:22:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 966C34C2B7C
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 13:17:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4874F1838;
-	Thu, 24 Feb 2022 12:22:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4874F1838
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26D61174D;
+	Thu, 24 Feb 2022 13:16:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26D61174D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645701778;
-	bh=sf/C1D3uZu2irFWKc3hKP9pwQ55D0OiPpXYgIvqHxb4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1645705024;
+	bh=9EYwuXUUNe4s56JSespRsmrf4WVo2K2M5a/Ux3TMvqs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o1Ppzk32d+p3nl/FUiFbY/IVCRfJqgALlAvqGGL4k01o9KVPZ9IGIfDHFv3D1HVMs
-	 U28HqRemk5a2dNdj7B5xBRt8FcmYIbfQpYOCTnw0iN5dFSMewms0/l22xQBg2Fvy4g
-	 ef2uulUjC2IkC2tQ/pFRsLMtzKWtvWLTWZKimrMo=
+	b=RW5IWTS/VQwpKovgbop3E4Vm+Xn3ptAfpe+O5rWCTZpvTWdvjsC/2LTSnJjgr9lGm
+	 Fvk1NkfSJLKnA/MB3Z0ado07jREIyzxnLtL3cTDREgNuQKLyrgW96Ve1N+uyebudpU
+	 Bd9QPmY/mSPn0JkHTY3yRUN6O8m/2LjpE75aVGS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60E01F8057D;
-	Thu, 24 Feb 2022 12:17:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FF1DF800F3;
+	Thu, 24 Feb 2022 13:15:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A080FF8053D; Thu, 24 Feb 2022 12:17:48 +0100 (CET)
+ id C8E44F80118; Thu, 24 Feb 2022 13:15:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 474A5F80535
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 12:17:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 474A5F80535
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CF6AF80118
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 13:15:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CF6AF80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="FhYFTNt+"
-Received: by mail-wr1-x436.google.com with SMTP id u1so2413176wrg.11
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 03:17:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=vyVwZE5kS8xGdR91o+WjovvMprsI53ZLyaYZnmErV2U=;
- b=FhYFTNt+x3zszGAAc6gGVhzw88T2nJfziV8IMyz+t5pRZHT/uQUpG/qBROnyUaOInX
- t6ydRexMU9xeDqLPuLmfDwCcCcley4x4U48EGfc4N6WukdVvYf8DZlawzrDNKd8C7FFV
- piEKh1CH2rdUJ1/FKZ0wmHE4/5BGxIbZHJG5Ki926kOMial7fMtmRNM3mz5ZKagcqQjk
- tL4T4laIIAgpVqkFPZUZZNUePbs6aG+cQbu0t7oetR3A6Br0XbUtDfDTA3TY2Orv2o9P
- yyD0rt+BDpSTqiVwmhzn7HbDPMIxaJxxqu9Fsoa9qSLz8xyqDGQHvgI9lumtnZ6NGpm4
- c+gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=vyVwZE5kS8xGdR91o+WjovvMprsI53ZLyaYZnmErV2U=;
- b=khG+Zr7a0OvNI8TVG03mNz/UOhZ8pr1mKNOsgTVbDja0/otBqZVnBEzj5nXfIfw15e
- C3JpBSymOOrWO3wLtw4nVoiHYVkRAPvXeVWGeDd5q4B12vi6w91T4Lb0SWs83+VybqpW
- GOitWuH3fAQGis5EYs0JoAxVo47tDvISj+uK8gh19+35yO0yofzAMxiTPLfYkG+6/oKq
- qfCTOlTXtC8Vg7G7tsLBPC509O4lU7tc/tyshV1cIJut46Gf9RHZvTH404pzCxG8diom
- xrTrj9X4tN6QJb8566hPfSyCCHR1eLl/XFWSrBlXwg3hH5OHbIwv3jTWNsq5cNszh3U+
- c8aw==
-X-Gm-Message-State: AOAM530DnYQCpDCmvMRv1t8hmc3e0nojzhbG+LSLrk3RJs15qFdskpzC
- bZsHhM9eP2BYc9bxLNdT07Nwog==
-X-Google-Smtp-Source: ABdhPJyAAhwj8cEam23zueLna4wetFnGKEXHXXgZhuqBgsSnzAi5Elri6zJEPYc0C7b8nXQqOuN60A==
-X-Received: by 2002:a05:6000:2ad:b0:1ea:793a:3284 with SMTP id
- l13-20020a05600002ad00b001ea793a3284mr1835943wry.63.1645701460101; 
- Thu, 24 Feb 2022 03:17:40 -0800 (PST)
-Received: from srini-hackbox.lan
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id t4sm2245737wmj.10.2022.02.24.03.17.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Feb 2022 03:17:39 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH v2 16/16] ASoC: codecs: wcd-mbhc: add runtime pm support
-Date: Thu, 24 Feb 2022 11:17:18 +0000
-Message-Id: <20220224111718.6264-17-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20220224111718.6264-1-srinivas.kandagatla@linaro.org>
-References: <20220224111718.6264-1-srinivas.kandagatla@linaro.org>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="EO20dRI6"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id EEBD3B8256D;
+ Thu, 24 Feb 2022 12:15:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8962C340E9;
+ Thu, 24 Feb 2022 12:15:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1645704943;
+ bh=9EYwuXUUNe4s56JSespRsmrf4WVo2K2M5a/Ux3TMvqs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EO20dRI6IsJOnpEYkrjAoI8Gfmbt38X+lccQKIlTplkGD+mQ39K3JwP5YURGYwyM+
+ bipJHv7pDLoOpYdsF9A4LJf5cwubCHeEtD8dGw9MLIL/sM9jfBbRKaide45qafv78J
+ I/SqNA0SLapUbLI9tNOp8kmck8xHVZW+p/khy9R2ri5yuhICOVMl38CDiVBxib9tnL
+ hyIM3Gguyjxmfx6/opYrxLAIw6xmGnYUUmy5Omjq4HQZU5zz3/LtVmORuo9g16IjSk
+ dmLGWDPW6VmWy4Ldc7h0vDUlv1LPE1/nRhAwEt+LMWm9RKjoSQ/4Mbkbdt0JWxpjzh
+ /aPqggDSVmVQQ==
+Date: Thu, 24 Feb 2022 12:15:36 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Subject: Re: [PATCH v15 6/10] ASoC: qcom: Add regmap config support for codec
+ dma driver
+Message-ID: <Yhd26Cbe6ecbiVYH@sirena.org.uk>
+References: <1645630745-25051-1-git-send-email-quic_srivasam@quicinc.com>
+ <1645630745-25051-7-git-send-email-quic_srivasam@quicinc.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- quic_srivasam@quicinc.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="FvdNv5j3qU77ttYL"
+Content-Disposition: inline
+In-Reply-To: <1645630745-25051-7-git-send-email-quic_srivasam@quicinc.com>
+X-Cookie: You will soon forget this.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, swboyd@chromium.org, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, bjorn.andersson@linaro.org,
+ rohitkr@codeaurora.org, agross@kernel.org, srinivas.kandagatla@linaro.org,
+ quic_plai@quicinc.com, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,83 +92,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-under low power state a SoundWire Wake IRQ could trigger MBHC interrupts
-so make sure that codec is not in suspended state when this happens.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/codecs/wcd-mbhc-v2.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+--FvdNv5j3qU77ttYL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
-index 7488a150a138..c53c2ef33e1a 100644
---- a/sound/soc/codecs/wcd-mbhc-v2.c
-+++ b/sound/soc/codecs/wcd-mbhc-v2.c
-@@ -5,6 +5,7 @@
- #include <linux/init.h>
- #include <linux/slab.h>
- #include <linux/device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/printk.h>
- #include <linux/delay.h>
- #include <linux/kernel.h>
-@@ -711,6 +712,16 @@ static irqreturn_t wcd_mbhc_hphr_ocp_irq(int irq, void *data)
- static int wcd_mbhc_initialise(struct wcd_mbhc *mbhc)
- {
- 	struct snd_soc_component *component = mbhc->component;
-+	int ret;
-+
-+	ret = pm_runtime_get_sync(component->dev);
-+	if (ret < 0 && ret != -EACCES) {
-+		dev_err_ratelimited(component->dev,
-+				    "pm_runtime_get_sync failed in %s, ret %d\n",
-+				    __func__, ret);
-+		pm_runtime_put_noidle(component->dev);
-+		return ret;
-+	}
- 
- 	mutex_lock(&mbhc->lock);
- 
-@@ -751,6 +762,9 @@ static int wcd_mbhc_initialise(struct wcd_mbhc *mbhc)
- 
- 	mutex_unlock(&mbhc->lock);
- 
-+	pm_runtime_mark_last_busy(component->dev);
-+	pm_runtime_put_autosuspend(component->dev);
-+
- 	return 0;
- }
- 
-@@ -1078,10 +1092,19 @@ static void wcd_correct_swch_plug(struct work_struct *work)
- 	int output_mv, cross_conn, hs_threshold, try = 0, micbias_mv;
- 	bool is_spl_hs = false;
- 	bool is_pa_on;
-+	int ret;
- 
- 	mbhc = container_of(work, struct wcd_mbhc, correct_plug_swch);
- 	component = mbhc->component;
- 
-+	ret = pm_runtime_get_sync(component->dev);
-+	if (ret < 0 && ret != -EACCES) {
-+		dev_err_ratelimited(component->dev,
-+				    "pm_runtime_get_sync failed in %s, ret %d\n",
-+				    __func__, ret);
-+		pm_runtime_put_noidle(component->dev);
-+		return;
-+	}
- 	micbias_mv = wcd_mbhc_get_micbias(mbhc);
- 	hs_threshold = wcd_mbhc_adc_get_hs_thres(mbhc);
- 
-@@ -1232,6 +1255,9 @@ static void wcd_correct_swch_plug(struct work_struct *work)
- 
- 	if (mbhc->mbhc_cb->hph_pull_down_ctrl)
- 		mbhc->mbhc_cb->hph_pull_down_ctrl(component, true);
-+
-+	pm_runtime_mark_last_busy(component->dev);
-+	pm_runtime_put_autosuspend(component->dev);
- }
- 
- static irqreturn_t wcd_mbhc_adc_hs_rem_irq(int irq, void *data)
--- 
-2.21.0
+On Wed, Feb 23, 2022 at 09:09:01PM +0530, Srinivasa Rao Mandadapu wrote:
+> Update regmap configuration for supporting headset playback and
+> capture and DMIC capture using codec dma interface
 
+This breaks an x86 allmodconfig build:
+
+/mnt/kernel/sound/soc/qcom/lpass-cpu.c:976:29: error: 'lpass_va_regmap_config' defined but not used [-Werror=unused-variable]
+  976 | static struct regmap_config lpass_va_regmap_config = {
+      |                             ^~~~~~~~~~~~~~~~~~~~~~
+/mnt/kernel/sound/soc/qcom/lpass-cpu.c:966:29: error: 'lpass_rxtx_regmap_config' defined but not used [-Werror=unused-variable]
+  966 | static struct regmap_config lpass_rxtx_regmap_config = {
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~~
+
+
+--FvdNv5j3qU77ttYL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIXdugACgkQJNaLcl1U
+h9DUDAf+O6sb93bAoBGhzMwOIQTlMCUY6RbjN6tCvv7xqIeI3FKZu9UXYMvTvRqr
+oozDPOY5L+qBqOgtN4YDhD5ocrIt7MD6P+vEiXxPZc7nSDJZiiu17gTIrQNAHkOJ
+aiTh9Ur/Kabr3RogUR0sKm2XwLrsxBvHNpfBKG+0cKTCKCP2gcmbeA6W0AJJMesI
+q+Nuh5wO0oOEA8gUyx3qAxS9JAunaHmTPrvlGx/wGoXyDJ3kx30ON/rMyrWIFCQp
+ZOEJ4wqTVfc52iIHPI/GssqOwAQRuhNt/wLiAMcla4rIMS2JAu4xjUK2z1KGoyHH
+f6iH6riNaGRSyCi2k2zz6Sfj9nXxeg==
+=jFE4
+-----END PGP SIGNATURE-----
+
+--FvdNv5j3qU77ttYL--

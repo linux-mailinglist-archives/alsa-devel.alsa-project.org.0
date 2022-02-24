@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8464F4C2D4D
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 14:38:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 926DC4C2D53
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 14:38:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D01E191E;
-	Thu, 24 Feb 2022 14:37:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D01E191E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29E4E1944;
+	Thu, 24 Feb 2022 14:38:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29E4E1944
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645709907;
-	bh=5iJ6NjF03NsxuPxJ694YwbvcZcFiydVzfQ6L9KJvSgg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WAdMbWFeqrj1v1GFSdZh4e+HJy0qkm9bU6fSk/8k2FRtPWjfDduwy5vAoopXRmj5V
-	 iBUN5wqGINEYNWNIQnCz9TnHDVJRT8csla3nYL6Ekt9HpyzNaNiCZYOzeUK2xVeFtA
-	 zPjN/cSWWXSiWsv0TBKZUkiUWtaPpV8cT3nVtTbQ=
+	s=default; t=1645709937;
+	bh=JClDauwCVJf7bbSPZo5ihAVgSbc0Rr5iirQrRhKxdgI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nkKeAc9/QK2qbqyd/sht+aF0464WQZAzhBsHs+x57yWndD4qdco3GFAvN65DBtmjw
+	 AUIV0yQTxrIrRBhRPuffziKexXpOtCt7+QiPU6mlfnvbAzf1OWcFrbQrvUH54EgpsU
+	 rV4HI/ovYTGtb99kZMMgizW2tMr9up5dPnXGh1XU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B753F80310;
-	Thu, 24 Feb 2022 14:37:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23CD4F804FC;
+	Thu, 24 Feb 2022 14:37:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC380F8030F; Thu, 24 Feb 2022 14:37:13 +0100 (CET)
+ id 4B0B0F804D9; Thu, 24 Feb 2022 14:37:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AFCCEF800B6
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 14:37:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFCCEF800B6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="APcQR+Qt"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1C3DC61AE0;
- Thu, 24 Feb 2022 13:37:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB42EC340E9;
- Thu, 24 Feb 2022 13:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645709828;
- bh=5iJ6NjF03NsxuPxJ694YwbvcZcFiydVzfQ6L9KJvSgg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=APcQR+QtL9yy5a2JKfAPmToK5AYKxu6YA2KzrtkqkPuH/8V5/depf51H83uAp1z7i
- DW3qxUtc7anDLPtJtCaTeQY1hHefWTBb+kTC1+gj4oq8+14qMrW4kH0YV4AXnnti93
- hKLUQkf5yBumsoWB7LseExEb25G7+yrJqFju2d8KorAHWv734FoYcD4zsAsw6OV0C8
- sEA4u3Y3ERZWWidrjsdAfLkshyAF7t+VxR29Hawq7VMes5KszhaglymdgRxaVHfUSR
- s0Kk4wCI9BKWlvDfEJSyQnOCmZmQbQS6m1pNQeM6sNEC9v/g3QZYZuPImjxLAHR2PL
- TKeDCjeaIfmNQ==
-Date: Thu, 24 Feb 2022 19:07:04 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Raghu Bankapur <quic_rbankapu@quicinc.com>
-Subject: Re: [PATCH V2 1/1] ASoC: compress: propagate the error code from the
- compress framework
-Message-ID: <YheKAJtKe5BcFms9@matsya>
-References: <cover.1645704570.git.quic_rbankapu@quicinc.com>
- <ca6d05bccf692c7e8ab9aa00f08878f163e524b1.1645704570.git.quic_rbankapu@quicinc.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 975B1F800F3;
+ Thu, 24 Feb 2022 14:37:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 975B1F800F3
+X-UUID: b2f4f3387be346a4aa577ab6cdb742f0-20220224
+X-UUID: b2f4f3387be346a4aa577ab6cdb742f0-20220224
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw01.mediatek.com (envelope-from <allen-kh.cheng@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1881224592; Thu, 24 Feb 2022 21:37:40 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 24 Feb 2022 21:37:39 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Thu, 24 Feb 2022 21:37:39 +0800
+From: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: [RESEND v6 0/1] firmware: mtk: add adsp ipc protocol for sof
+Date: Thu, 24 Feb 2022 21:37:36 +0800
+Message-ID: <20220224133737.28056-1-allen-kh.cheng@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ca6d05bccf692c7e8ab9aa00f08878f163e524b1.1645704570.git.quic_rbankapu@quicinc.com>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Krishna Jha <quic_kkishorj@quicinc.com>
+Content-Type: text/plain
+X-MTK: N
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Allen-KH Cheng <allen-kh.cheng@mediatek.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, cujomalainey@google.com,
+ Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Chen-Yu Tsai <wenst@chromium.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,14 +84,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 24-02-22, 17:48, Raghu Bankapur wrote:
-> Propagate the error code from the compress framework for the timestamp
-> query. This error code will be used by the client to handle the
-> error case scenarios gracefully.
+This patch provides mtk adsp ipc support for sof.
 
+ADSP IPC protocol offers (send/recv) interfaces using
+mediatek-mailbox APIs.
 
-Acked-By: Vinod Koul <vkoul@kernel.org>
+This was tested and confirmed on MT8195 cherry board with sof.
 
+Based on linux-next
+
+changes since v5:
+- fix WARNING: modpost: missing MODULE_LICENSE() in drivers/mailbox
+  /mtk-adsp-mailbox.o. Add MODULE_LICENSE in the last line.
+- Due to WARNING: Missing or malformed SPDX-License-Identifier tag
+  in line 1 in checkpatch, we don't remove SPDX-License in line 1.
+
+changes since v4:
+- add error message for wrong mbox chan
+
+changes since v3:
+- rebase on v5.16-rc8
+- update reviewers
+
+changes since v2:
+- add out tag for two memory free phases
+
+changes since v1:
+- add comments for mtk_adsp_ipc_send and mtk_adsp_ipc_recv
+- remove useless MODULE_LICENSE
+- change label name to out_free
+
+Allen-KH Cheng (1):
+  firmware: mediatek: add adsp ipc protocol interface
+
+ drivers/firmware/Kconfig                      |   1 +
+ drivers/firmware/Makefile                     |   1 +
+ drivers/firmware/mediatek/Kconfig             |   9 +
+ drivers/firmware/mediatek/Makefile            |   2 +
+ drivers/firmware/mediatek/mtk-adsp-ipc.c      | 161 ++++++++++++++++++
+ .../linux/firmware/mediatek/mtk-adsp-ipc.h    |  65 +++++++
+ 6 files changed, 239 insertions(+)
+ create mode 100644 drivers/firmware/mediatek/Kconfig
+ create mode 100644 drivers/firmware/mediatek/Makefile
+ create mode 100644 drivers/firmware/mediatek/mtk-adsp-ipc.c
+ create mode 100644 include/linux/firmware/mediatek/mtk-adsp-ipc.h
 
 -- 
-~Vinod
+2.18.0
+

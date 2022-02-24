@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BA0C4C3974
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 00:02:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FEB44C3979
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 00:02:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B75D1AD1;
-	Fri, 25 Feb 2022 00:01:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B75D1AD1
+	by alsa0.perex.cz (Postfix) with ESMTPS id F21FE1AF6;
+	Fri, 25 Feb 2022 00:01:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F21FE1AF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645743729;
-	bh=ZWXXupdP+z3mMoHFbYDrLkme/FSZI7hGTF3wCfDqx2A=;
+	s=default; t=1645743745;
+	bh=f2axcuH0kVopEF8vAExYdzBNZLYU0uQakKJNSchWm5M=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vsl+dvn0KvBtR3dLsoORt+20zQpwuL4OoNrNgb2PoBm3QmXC2MaadxEO7aillL2rX
-	 ZWkEhWQoMncr5nEdX7c/dS/ycKrgICUFZjn4Lod7x/yRNxxe7jNCtC/ATUb3U7MFxN
-	 nIrT170psHhSN1l5E8WZg7lM2n9fwUAl2cFRpc9k=
+	b=W7rQozkcYxc7GVtErW7wNI8ZGfG7QTWxrs+ttASZZpgHDWThsIntcRzVRIHr7Mulg
+	 +gtTbbNV9RvdtFOt2yaFW3ZVIXU9Z4wOxwrFwlWp4ROt6SuLvSOaHdQ8Hws5Z69RX5
+	 4KWZ1l1I7NnRNMhs/+Lzg4nRHsfBdUw9grEUfjEY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83A27F80543;
-	Thu, 24 Feb 2022 23:59:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DAC9F80538;
+	Thu, 24 Feb 2022 23:59:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 594F9F8053A; Thu, 24 Feb 2022 23:59:19 +0100 (CET)
+ id E83C6F80548; Thu, 24 Feb 2022 23:59:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4220F80539
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 23:59:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4220F80539
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4597F80538
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 23:59:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4597F80538
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lUgCHjGc"
+ header.b="VYfGAOW1"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 13E80B829EF;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7924461B77;
+ Thu, 24 Feb 2022 22:59:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD38FC340E9;
  Thu, 24 Feb 2022 22:59:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 580D6C340F1;
- Thu, 24 Feb 2022 22:59:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645743552;
- bh=ZWXXupdP+z3mMoHFbYDrLkme/FSZI7hGTF3wCfDqx2A=;
+ s=k20201202; t=1645743557;
+ bh=f2axcuH0kVopEF8vAExYdzBNZLYU0uQakKJNSchWm5M=;
  h=From:To:In-Reply-To:References:Subject:Date:From;
- b=lUgCHjGcT5ghuhQ5FB9JeIgBRC0AxcVfo4ZO8RZf4mrGLD7f+ZmLCamAYqXM6eXSt
- 4LLDUD61kkQeq4kc42PWHLqkGkBYSVt2EZq8S2jnKiLgj3TActUoz7GYvfXX4gMhhD
- sP13NEyK7EKgd5cuLhaTk/1b263jDSpQ1HOVhu/j1S9S87rwleiuFoNi80O5lmW2yU
- mvGVhJvLFVqx87L+SILSTFt0ljsmhbEVEr0bvxKGCMeWKVP3TFut/Rtenc49R3HyqO
- EmoToMsHwQpMIKbacPeBUzLFQoIa78MIuNkiyXY4ElGLA1rGjjsbMrGLCPLjfGftVr
- pKnY9OSbQTe4w==
+ b=VYfGAOW1AxjxGX8UPLm1rigdSYIbh7syZ1RgBDueITaWA5si+3d9LXvylh/U7jNh4
+ oKdBg59TCj3/kkUJzA8sovGeuYxD+1sMAPFyLJLdLdp+PrDVaoIi19r5MqLAzkfEp8
+ szue+1klWRROpYaxRDBFKGF0SIwTkOVTKpgC+SE5awEXjNa7dr7TGRrRoVd3xsm/XD
+ MsqGeBsQankiZXittQZfkjbVeXjxtyzJbOuapwZ/aq2I0XGiWwjTDuyaHEoYJ8X52Y
+ Da2iHEmkUIqq5akYK/BQOo/DqkAiCKaU/IygJwgf1rQnIF/1TMohUKWvGkImhCDfRo
+ FWDtuQrkk7how==
 From: Mark Brown <broonie@kernel.org>
 To: agross@kernel.org, linux-arm-msm@vger.kernel.org,
  alsa-devel@alsa-project.org, perex@perex.cz, quic_plai@quicinc.com,
  Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, swboyd@chromium.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org, srinivas.kandagatla@linaro.org,
- linux-kernel@vger.kernel.org, bgoswami@codeaurora.org, judyhsiao@chromium.org,
- tiwai@suse.com, rohitkr@codeaurora.org, lgirdwood@gmail.com,
- bjorn.andersson@linaro.org
-In-Reply-To: <1645630745-25051-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1645630745-25051-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: (subset) [PATCH v15 00/10] Add support for audio on SC7280 based
- targets
-Message-Id: <164574354907.4011497.12699483058167321693.b4-ty@kernel.org>
-Date: Thu, 24 Feb 2022 22:59:09 +0000
+ robh+dt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, bgoswami@codeaurora.org,
+ judyhsiao@chromium.org, tiwai@suse.com, rohitkr@codeaurora.org,
+ lgirdwood@gmail.com, bjorn.andersson@linaro.org
+In-Reply-To: <1645716828-15305-1-git-send-email-quic_srivasam@quicinc.com>
+References: <1645716828-15305-1-git-send-email-quic_srivasam@quicinc.com>
+Subject: Re: [PATCH v16 0/9] Add support for audio on SC7280 based targets
+Message-Id: <164574355449.4011497.10462197371710891447.b4-ty@kernel.org>
+Date: Thu, 24 Feb 2022 22:59:14 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -89,10 +88,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Feb 2022 21:08:55 +0530, Srinivasa Rao Mandadapu wrote:
+On Thu, 24 Feb 2022 21:03:39 +0530, Srinivasa Rao Mandadapu wrote:
 > This patch set is to add support for Audio over wcd codec,
 > digital mics, through digital codecs and without ADSP.
 > 
+> Changes Since V15:
+>     -- Bisect patches to avoid build failure in other architectures.
+>     -- Remove redundant variables lpass variant structure.
 > Changes Since V14:
 >     -- Split common wrapper function to separate wrapper for each handle in platform driver.
 >     -- Update cdc dma buffer handling with memremap with ioremap.
@@ -149,6 +151,16 @@ On Wed, 23 Feb 2022 21:08:55 +0530, Srinivasa Rao Mandadapu wrote:
 >     -- CPU driver readable/writable apis optimization.
 >     -- Add Missing config patch
 >     -- Add Common api for repeated dmactl initialization.
+> Srinivasa Rao Mandadapu (9):
+>   ASoC: qcom: Move lpass_pcm_data structure to lpass header
+>   ASoC: qcom: lpass: Add dma fields for codec dma lpass interface
+>   ASoC: qcom: Add helper function to get dma control and lpaif handle
+>   ASoC: qcom: Add register definition for codec rddma and wrdma
+>   ASoC: qcom: Add regmap config support for codec dma driver
+>   ASoC: qcom: Add support for codec dma driver
+>   ASoC: qcom: Add lpass CPU driver for codec dma control
+>   ASoC: dt-bindings: Add SC7280 lpass cpu bindings
+>   ASoC: qcom: lpass-sc7280: Add platform driver for lpass audio
 > 
 > [...]
 
@@ -158,18 +170,24 @@ Applied to
 
 Thanks!
 
-[02/10] ASoC: qcom: Move lpass_pcm_data structure to lpass header
-        commit: 74190d7cd3e8ab5123206d383dbfe125a4b7bb19
-[03/10] ASoC: qcom: lpass: Add dma fields for codec dma lpass interface
-        commit: ddd60045caa59d4b3d4b2a4b48fefd4974198587
-[04/10] ASoC: qcom: Add helper function to get dma control and lpaif handle
-        commit: 16413d5c5a2ed81d8fece1c5fe0b85752ecdbdf2
-[05/10] ASoC: qcom: Add register definition for codec rddma and wrdma
-        commit: dc8d9766bc03efee4d1b6dd912659858fdf981de
-[06/10] ASoC: qcom: Add regmap config support for codec dma driver
-        commit: b138706225c9ce9fac7a4955df31d8f68bb1d409
-[07/10] ASoC: qcom: Add support for codec dma driver
-        commit: 7d7209557b6712e8aa72ac1ce67a3fe209f5f889
+[1/9] ASoC: qcom: Move lpass_pcm_data structure to lpass header
+      commit: 74190d7cd3e8ab5123206d383dbfe125a4b7bb19
+[2/9] ASoC: qcom: lpass: Add dma fields for codec dma lpass interface
+      commit: ddd60045caa59d4b3d4b2a4b48fefd4974198587
+[3/9] ASoC: qcom: Add helper function to get dma control and lpaif handle
+      commit: 16413d5c5a2ed81d8fece1c5fe0b85752ecdbdf2
+[4/9] ASoC: qcom: Add register definition for codec rddma and wrdma
+      commit: dc8d9766bc03efee4d1b6dd912659858fdf981de
+[5/9] ASoC: qcom: Add regmap config support for codec dma driver
+      commit: b138706225c9ce9fac7a4955df31d8f68bb1d409
+[6/9] ASoC: qcom: Add support for codec dma driver
+      commit: 7d7209557b6712e8aa72ac1ce67a3fe209f5f889
+[7/9] ASoC: qcom: Add lpass CPU driver for codec dma control
+      commit: b81af585ea54ee9f749391e594ee9cbd44061eae
+[8/9] ASoC: dt-bindings: Add SC7280 lpass cpu bindings
+      commit: f3fc4fbfa2d2a09cb279af4e290d0a6dbbc93c7e
+[9/9] ASoC: qcom: lpass-sc7280: Add platform driver for lpass audio
+      commit: b62c4e5fba2f910bc9f23ae152d11627e4c2f00f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

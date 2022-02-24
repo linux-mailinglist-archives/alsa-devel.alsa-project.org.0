@@ -2,81 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 966C34C2B7C
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 13:17:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57BCB4C2B99
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 13:24:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26D61174D;
-	Thu, 24 Feb 2022 13:16:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26D61174D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5B7118BF;
+	Thu, 24 Feb 2022 13:23:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5B7118BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645705024;
-	bh=9EYwuXUUNe4s56JSespRsmrf4WVo2K2M5a/Ux3TMvqs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1645705444;
+	bh=5Q0siXaaNwrf7iH3McYzCVp+6p9LYGLMu46CcaXcPe8=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RW5IWTS/VQwpKovgbop3E4Vm+Xn3ptAfpe+O5rWCTZpvTWdvjsC/2LTSnJjgr9lGm
-	 Fvk1NkfSJLKnA/MB3Z0ado07jREIyzxnLtL3cTDREgNuQKLyrgW96Ve1N+uyebudpU
-	 Bd9QPmY/mSPn0JkHTY3yRUN6O8m/2LjpE75aVGS4=
+	b=QPQ6bglH5NHrHk0kWrqYQJcb4iZUCizm7MTCGQZbbuLhKDeZcbMx98CsZ2ZyK+jho
+	 TjPP4ZfUZcMBCUS8U2NhphLhC2998IuskK8hyHqGU+GjovT2rJdvlhE+HOrVGEks/d
+	 6zLLeiknXtTEaYOIc/a87k99MHTQBpktdDHFQBkQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FF1DF800F3;
-	Thu, 24 Feb 2022 13:15:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30E9FF80519;
+	Thu, 24 Feb 2022 13:22:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8E44F80118; Thu, 24 Feb 2022 13:15:52 +0100 (CET)
+ id 564F3F804D9; Thu, 24 Feb 2022 13:22:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CF6AF80118
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 13:15:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CF6AF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D528F804D9
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 13:22:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D528F804D9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="EO20dRI6"
+ header.b="lJk/SVCJ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EEBD3B8256D;
- Thu, 24 Feb 2022 12:15:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8962C340E9;
- Thu, 24 Feb 2022 12:15:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F16B26186B;
+ Thu, 24 Feb 2022 12:22:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1DBEC340E9;
+ Thu, 24 Feb 2022 12:22:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645704943;
- bh=9EYwuXUUNe4s56JSespRsmrf4WVo2K2M5a/Ux3TMvqs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EO20dRI6IsJOnpEYkrjAoI8Gfmbt38X+lccQKIlTplkGD+mQ39K3JwP5YURGYwyM+
- bipJHv7pDLoOpYdsF9A4LJf5cwubCHeEtD8dGw9MLIL/sM9jfBbRKaide45qafv78J
- I/SqNA0SLapUbLI9tNOp8kmck8xHVZW+p/khy9R2ri5yuhICOVMl38CDiVBxib9tnL
- hyIM3Gguyjxmfx6/opYrxLAIw6xmGnYUUmy5Omjq4HQZU5zz3/LtVmORuo9g16IjSk
- dmLGWDPW6VmWy4Ldc7h0vDUlv1LPE1/nRhAwEt+LMWm9RKjoSQ/4Mbkbdt0JWxpjzh
- /aPqggDSVmVQQ==
-Date: Thu, 24 Feb 2022 12:15:36 +0000
+ s=k20201202; t=1645705335;
+ bh=5Q0siXaaNwrf7iH3McYzCVp+6p9LYGLMu46CcaXcPe8=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=lJk/SVCJYiTbvnzWeAWtOTPXg8dFh057UFAUV3TPBtf0Hxh8FXL2uiDxnS5KFGFpQ
+ vj+KzVi2d02LEM38xdGQwIoWF8xP/XmDRdtIqrQZfQQrXPINttmvEDVHWKrJmC+H1J
+ TDl0HYqI52P5g9JzWTWEVpbtKST/EqI+FnqN//ND0LXzIfeXQmIe0hHq0pwEWJGyc2
+ fxKv6BDymqrVZD89+USR58upube+xWQZjwv4Sx9x7nyrVa+lZa+z3Gh57D8hYna/lI
+ bNxmZHELa+zTfKetokKufHtvUE/kvUuSeXClVwAWefMbKXBpEwir/LKk+Tm+ASTNgg
+ YgpGFGldksvfg==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v15 6/10] ASoC: qcom: Add regmap config support for codec
- dma driver
-Message-ID: <Yhd26Cbe6ecbiVYH@sirena.org.uk>
-References: <1645630745-25051-1-git-send-email-quic_srivasam@quicinc.com>
- <1645630745-25051-7-git-send-email-quic_srivasam@quicinc.com>
+To: derek.fang@realtek.com, lgirdwood@gmail.com
+In-Reply-To: <20220223101450.4577-1-derek.fang@realtek.com>
+References: <20220223101450.4577-1-derek.fang@realtek.com>
+Subject: Re: [PATCH] ASoC: rt5682s: Fix the wrong jack type detected
+Message-Id: <164570533337.1194769.2622352254259019677.b4-ty@kernel.org>
+Date: Thu, 24 Feb 2022 12:22:13 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="FvdNv5j3qU77ttYL"
-Content-Disposition: inline
-In-Reply-To: <1645630745-25051-7-git-send-email-quic_srivasam@quicinc.com>
-X-Cookie: You will soon forget this.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, bjorn.andersson@linaro.org,
- rohitkr@codeaurora.org, agross@kernel.org, srinivas.kandagatla@linaro.org,
- quic_plai@quicinc.com, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, albertchen@realtek.com, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,38 +86,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 23 Feb 2022 18:14:50 +0800, derek.fang@realtek.com wrote:
+> From: Derek Fang <derek.fang@realtek.com>
+> 
+> Some powers were changed during the jack insert detection and clk's
+> enable/disable in CCF.
+> If in parallel, the influence has a chance to detect the wrong jack
+> type.
+> 
+> [...]
 
---FvdNv5j3qU77ttYL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, Feb 23, 2022 at 09:09:01PM +0530, Srinivasa Rao Mandadapu wrote:
-> Update regmap configuration for supporting headset playback and
-> capture and DMIC capture using codec dma interface
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-linus
 
-This breaks an x86 allmodconfig build:
+Thanks!
 
-/mnt/kernel/sound/soc/qcom/lpass-cpu.c:976:29: error: 'lpass_va_regmap_config' defined but not used [-Werror=unused-variable]
-  976 | static struct regmap_config lpass_va_regmap_config = {
-      |                             ^~~~~~~~~~~~~~~~~~~~~~
-/mnt/kernel/sound/soc/qcom/lpass-cpu.c:966:29: error: 'lpass_rxtx_regmap_config' defined but not used [-Werror=unused-variable]
-  966 | static struct regmap_config lpass_rxtx_regmap_config = {
-      |                             ^~~~~~~~~~~~~~~~~~~~~~~~
+[1/1] ASoC: rt5682s: Fix the wrong jack type detected
+      commit: c07ac3ee76e5e5506bca9c03fbbb15e40ab28430
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---FvdNv5j3qU77ttYL
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIXdugACgkQJNaLcl1U
-h9DUDAf+O6sb93bAoBGhzMwOIQTlMCUY6RbjN6tCvv7xqIeI3FKZu9UXYMvTvRqr
-oozDPOY5L+qBqOgtN4YDhD5ocrIt7MD6P+vEiXxPZc7nSDJZiiu17gTIrQNAHkOJ
-aiTh9Ur/Kabr3RogUR0sKm2XwLrsxBvHNpfBKG+0cKTCKCP2gcmbeA6W0AJJMesI
-q+Nuh5wO0oOEA8gUyx3qAxS9JAunaHmTPrvlGx/wGoXyDJ3kx30ON/rMyrWIFCQp
-ZOEJ4wqTVfc52iIHPI/GssqOwAQRuhNt/wLiAMcla4rIMS2JAu4xjUK2z1KGoyHH
-f6iH6riNaGRSyCi2k2zz6Sfj9nXxeg==
-=jFE4
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---FvdNv5j3qU77ttYL--
+Thanks,
+Mark

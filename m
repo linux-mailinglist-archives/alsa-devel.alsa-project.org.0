@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20F514C396F
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 00:00:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C7A84C396E
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 00:00:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79E521AF7;
-	Thu, 24 Feb 2022 23:59:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79E521AF7
+	by alsa0.perex.cz (Postfix) with ESMTPS id D97081AB0;
+	Thu, 24 Feb 2022 23:59:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D97081AB0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645743647;
-	bh=CO5/sGueBwwMRa9A9zjBVB4qVAii3ODAKpYKxMTzJNs=;
+	s=default; t=1645743642;
+	bh=gYd1RTI9rJtBrwrtL9+aQ/yOPEmRInBZHf3X2dw7+Sc=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TY8/qikEmVCBK3oljPDayPn12JY1lwGla42aZlcfriMaiKwh6H1hJqOjzGT5aaPGO
-	 dNkvX2RHPy0m8tFeSS+zzCQbIGgbmQoMxIId4Tj5ZAHSfA1/rSh9kcgsyaDjDGOoPS
-	 n8pCO2OZXZuWNZ7R5is7JjDPh5ppaJplyTpYQAoQ=
+	b=QfFmsiK9M6lDcBu0FPBN0cTRCBG7CvKVAk8ij6btW6SMCj//3q74fWzBoE0oYJHER
+	 T+CTbPkRAz8WYfVaYIA5yuad+xBYPWiQT46cWaKfYZQiVqUy38ailBcv6KOAHJVbKP
+	 bLELmvjMakDnR4o8zN6K5uCCy4rUhafAoX6dolao=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D16C8F8051C;
-	Thu, 24 Feb 2022 23:59:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67361F804FD;
+	Thu, 24 Feb 2022 23:59:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24EB9F80511; Thu, 24 Feb 2022 23:59:05 +0100 (CET)
+ id E3C41F804FD; Thu, 24 Feb 2022 23:59:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EDB3FF80118;
- Thu, 24 Feb 2022 23:58:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDB3FF80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D8F6F800F3;
+ Thu, 24 Feb 2022 23:58:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D8F6F800F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CjpXndFo"
+ header.b="DPduJ6jH"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6F74B61BE7;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 66957B829D2;
+ Thu, 24 Feb 2022 22:58:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E197C340E9;
  Thu, 24 Feb 2022 22:58:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12217C340EF;
- Thu, 24 Feb 2022 22:58:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645743533;
- bh=CO5/sGueBwwMRa9A9zjBVB4qVAii3ODAKpYKxMTzJNs=;
+ s=k20201202; t=1645743537;
+ bh=gYd1RTI9rJtBrwrtL9+aQ/yOPEmRInBZHf3X2dw7+Sc=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=CjpXndFoGzZhD9Sl2oj4fVvfks3oGDRE6wAdLl7AwbQFYd2513T60wygKB378y4LI
- sDRqzhBOm6syyd+NiOg/VzgJOUHZq3WIEX+MZ1G8X6cAtfxfGN50+gwyQXHq3S2b3u
- puk2yzPBWTj7kpxWnCVFRzBLXOyvcW8uEOKtPeZShQajcNTC8Sey79SM7Mc+DgzDYL
- rmvCRtqZb8V0mGeKKl9YouLyXXlVrduAqrzpfosxhR0HjUeFBK5E7Ex7DPIFeGani+
- gDuPZruaPrAtFa88yGRWJhyMdIRxp8qf4c8cQYkSucROhAH2IKhWhPhUw5PNFq/v8v
- gKqDAKRpYz4Dw==
+ b=DPduJ6jHZFqExPfWuPOkfbvB0jKRRXRsPAkkrdy+OqKcigkwTDhqDWgi48aPs8T8k
+ R1KwnYFHsieJH+Rqu7Ue9jztoJOEalYCOVcWQ9q1c0w0G8gEqcfwY+/7zTNmEkl7h1
+ fl4aGHwgGWHF7TaRMPMzScCq/SEHRNmhv1gZXl5/+mlfCr9Gk9GStz4NCpnpOsMSoI
+ FOowQv6QjfLlUIe2A1WYbBCFdrOXgL8XO0ukkG9xoCEY3YWOBC2IqWGzFO+HlF8835
+ fWGv1lywrgUWZzaf07h3RPsMCHUdQcNQlahogBhk3ODCQoYyW85JgZx0ECZ4ylNNre
+ wyJqGpFdOeqBg==
 From: Mark Brown <broonie@kernel.org>
 To: Ammar Faizi <ammarfaizi2@gnuweeb.org>
-In-Reply-To: <20220224182818.40301-1-ammarfaizi2@gnuweeb.org>
+In-Reply-To: <20220224185836.44907-1-ammarfaizi2@gnuweeb.org>
 References: <20220224145124.15985-1-ammarfaizi2@gnuweeb.org>
  <cfe9e583-e20a-f1d6-2a81-2538ca3ca054@linux.intel.com>
  <Yhe/3rELNfFOdU4L@sirena.org.uk>
@@ -68,9 +68,10 @@ References: <20220224145124.15985-1-ammarfaizi2@gnuweeb.org>
  <20220224180850.34592-1-ammarfaizi2@gnuweeb.org>
  <YhfLCWm0Ms3E+j4z@sirena.org.uk>
  <20220224182818.40301-1-ammarfaizi2@gnuweeb.org>
-Subject: Re: [PATCH v3] ASoC: SOF: Intel: Fix NULL ptr dereference when ENOMEM
-Message-Id: <164574353079.3982297.3715467450133041074.b4-ty@kernel.org>
-Date: Thu, 24 Feb 2022 22:58:50 +0000
+ <20220224185836.44907-1-ammarfaizi2@gnuweeb.org>
+Subject: Re: [PATCH v4] ASoC: SOF: Intel: Fix NULL ptr dereference when ENOMEM
+Message-Id: <164574353404.3982297.17368553261476958555.b4-ty@kernel.org>
+Date: Thu, 24 Feb 2022 22:58:54 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -97,13 +98,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 25 Feb 2022 01:28:18 +0700, Ammar Faizi wrote:
-> From: Ammar Faizi <ammarfaizi2@gnuweeb.org>
-> 
+On Fri, 25 Feb 2022 01:58:36 +0700, Ammar Faizi wrote:
 > Do not call snd_dma_free_pages() when snd_dma_alloc_pages() returns
 > -ENOMEM because it leads to a NULL pointer dereference bug.
 > 
 > The dmesg says:
+> 
+>   [ T1387] sof-audio-pci-intel-tgl 0000:00:1f.3: error: memory alloc failed: -12
+>   [ T1387] BUG: kernel NULL pointer dereference, address: 0000000000000000
+>   [ T1387] #PF: supervisor read access in kernel mode
+>   [ T1387] #PF: error_code(0x0000) - not-present page
+>   [ T1387] PGD 0 P4D 0
+>   [ T1387] Oops: 0000 [#1] PREEMPT SMP NOPTI
+>   [ T1387] CPU: 6 PID: 1387 Comm: alsa-sink-HDA A Tainted: G        W         5.17.0-rc4-superb-owl-00055-g80d47f5de5e3
+>   [ T1387] Hardware name: HP HP Laptop 14s-dq2xxx/87FD, BIOS F.15 09/15/2021
+>   [ T1387] RIP: 0010:dma_free_noncontiguous+0x37/0x80
+>   [ T1387] Code: [... snip ...]
+>   [ T1387] RSP: 0000:ffffc90002b87770 EFLAGS: 00010246
+>   [ T1387] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+>   [ T1387] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff888101db30d0
+>   [ T1387] RBP: 00000000fffffff4 R08: 0000000000000000 R09: 0000000000000000
+>   [ T1387] R10: 0000000000000000 R11: ffffc90002b874d0 R12: 0000000000000001
+>   [ T1387] R13: 0000000000058000 R14: ffff888105260c68 R15: ffff888105260828
+>   [ T1387] FS:  00007f42e2ffd640(0000) GS:ffff888466b80000(0000) knlGS:0000000000000000
+>   [ T1387] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>   [ T1387] CR2: 0000000000000000 CR3: 000000014acf0003 CR4: 0000000000770ee0
+>   [ T1387] PKRU: 55555554
+>   [ T1387] Call Trace:
+>   [ T1387]  <TASK>
+>   [ T1387]  cl_stream_prepare+0x10a/0x120 [snd_sof_intel_hda_common 146addf995b9279ae7f509621078cccbe4f875e1]
+>   [... snip ...]
+>   [ T1387]  </TASK>
 > 
 > [...]
 

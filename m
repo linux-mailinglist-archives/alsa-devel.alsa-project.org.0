@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11FEE4C3970
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 00:01:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4CD4C3971
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 00:01:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9239A1AF8;
-	Fri, 25 Feb 2022 00:00:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9239A1AF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13F391B02;
+	Fri, 25 Feb 2022 00:00:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13F391B02
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645743684;
-	bh=fYoEIyHxJXFbQHtImWGdgeWJQrrKCd4uP7hMzgtSFJo=;
+	s=default; t=1645743696;
+	bh=3Qb2BkHQDJuZIu/isvYb9+K/H30oWB63BPIe7mkdsjA=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d3rKnQaqBE6N0IV/X6ajFW29y18Yi6v80ygrV9b+8clrM3rF6CnZeROQLnSvY3plf
-	 wKzFVGlXBHuaLj3U4Rwzi6an3AnVgx67U+YvRNI9F8ZQiz294JhmS0kga21pJrPsd2
-	 w310OugBdzKJl0UXJLWEzMbvGNZAkmFi+vA/P3cs=
+	b=fVgR69Oh+jqkFE7Gw5pniKz8N2wF6W5clJylEyhotO2JVNFlKd3q+N0lAa+Okxaml
+	 x/fuLKIxNFjeCkiEZ8j6b3MnZXME09Zn/dGMIF6DM8Debpq6/gOAH2gbXMzGMYpYNK
+	 moQYLQ7r2tyKhb98q5RCZBM28BAH+ypFZUwSgKsM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 375DEF80527;
-	Thu, 24 Feb 2022 23:59:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46E07F8052F;
+	Thu, 24 Feb 2022 23:59:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37FD7F8052F; Thu, 24 Feb 2022 23:59:10 +0100 (CET)
+ id 9D864F80536; Thu, 24 Feb 2022 23:59:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,42 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2660F80527
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 23:59:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2660F80527
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1025F8052F
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 23:59:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1025F8052F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HiVAhWkp"
+ header.b="eaIXBQmF"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B605FB829EA;
- Thu, 24 Feb 2022 22:59:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246DCC340EF;
- Thu, 24 Feb 2022 22:59:01 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3A4F9B829F0;
+ Thu, 24 Feb 2022 22:59:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA000C340F3;
+ Thu, 24 Feb 2022 22:59:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645743545;
- bh=fYoEIyHxJXFbQHtImWGdgeWJQrrKCd4uP7hMzgtSFJo=;
+ s=k20201202; t=1645743548;
+ bh=3Qb2BkHQDJuZIu/isvYb9+K/H30oWB63BPIe7mkdsjA=;
  h=From:To:In-Reply-To:References:Subject:Date:From;
- b=HiVAhWkp5u+A7KSnLZiaXW1BZJ5COq/D+xrTS1Op8nNSSoBONJuznhycvi7S64yJF
- 2pVeB89JVjkfiAMxMxW+EDtksne91Zr3BMrjsf+dmCh4fP3SaeqD+yYmF2qHe6dnbG
- kbZF4DJ56T4JX4FpaLM/1i6w6eBt9APqEF/lHGHX/GwUoWB4PhEGShaZgcUb8HJu2Z
- 0hXWoYh7M2T4DCabQea4szy6FqWnR+Jn33a7yxl5YQHP8SKhdbiHgE3LfxKkYRLMnt
- LST2g6m+OlxwFkGU+VYbWkDY/Mv1eZ9waK5BN/h9M9nbu+cG0hBYMRcnDAYoupE8mf
- WQx+UeFi2gtCw==
+ b=eaIXBQmF7b+U5I8q1detGGs6SLD11jCUGts6JTw8S06U0qxITDP8GrJoV1lyEuKJy
+ DKjAR34X6/4+QDT5v+fGwHyeFBvU11+MxKgCQiUF+t0gQ3TjBnjXrPuCWIG6BBXtAf
+ p4IbMDyWbEQJx+NHqwdyoYOhIMarpzi6J1KAXkEBVek16LK+TjXmMkxgqOBJw82KrC
+ GZQg8RvuniuAD/+I6f9ZFN76kRqSlrRxgKgR0cqIO9bEBS2l0UU//sRFPtN/cg8gEn
+ 2NFeaa0jc7M5fetCBYmNxzrCCE6vDoPsuESA30xzAO1mJGRuXkOAmhd9pl5G+dT1ak
+ P8q3PjmQgpBJw==
 From: Mark Brown <broonie@kernel.org>
-To: agross@kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, perex@perex.cz, plai@codeaurora.org,
+To: agross@kernel.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, perex@perex.cz, tiwai@suse.com,
  Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, swboyd@chromium.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
  srinivas.kandagatla@linaro.org, bgoswami@codeaurora.org,
- judyhsiao@chromium.org, tiwai@suse.com, rohitkr@codeaurora.org,
+ judyhsiao@chromium.org, plai@codeaurora.org, rohitkr@codeaurora.org,
  lgirdwood@gmail.com, bjorn.andersson@linaro.org
-In-Reply-To: <1638800567-27222-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1638800567-27222-1-git-send-email-quic_srivasam@quicinc.com>
-Subject: Re: [RESEND, v9 00/10] Add support for audio on SC7280 based targets
-Message-Id: <164574354184.4011497.138303028643209346.b4-ty@kernel.org>
-Date: Thu, 24 Feb 2022 22:59:01 +0000
+In-Reply-To: <1639503391-10715-1-git-send-email-quic_srivasam@quicinc.com>
+References: <1639503391-10715-1-git-send-email-quic_srivasam@quicinc.com>
+Subject: Re: [PATCH v10 00/10] Add support for audio on SC7280 based targets
+Message-Id: <164574354548.4011497.8789309217655990766.b4-ty@kernel.org>
+Date: Thu, 24 Feb 2022 22:59:05 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -89,10 +89,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 6 Dec 2021 19:52:37 +0530, Srinivasa Rao Mandadapu wrote:
+On Tue, 14 Dec 2021 23:06:21 +0530, Srinivasa Rao Mandadapu wrote:
 > This patch set is to add support for Audio over wcd codec,
 > digital mics, through digital codecs and without ADSP.
 > 
+> Changes Since V9:
+>     -- Change individual clock voting to bulk clock voting of lpass-sc7280 platform driver.
+>     -- Remove redundant clocks in lpass variant structure.
+>     -- Add mclk for MI2S based headset path.
+>     -- Remove unused lpass variant structure members in lpass header.
 > Changes Since V8:
 >     -- Fix errors in sc7280 lpass cpu dt-bindings.
 >     -- Move to quicinc domain email id's.

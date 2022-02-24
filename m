@@ -2,77 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8998A4C36CE
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 21:22:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4DAD4C3888
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 23:12:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D6B71AEF;
-	Thu, 24 Feb 2022 21:21:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D6B71AEF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EA9B1914;
+	Thu, 24 Feb 2022 23:11:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EA9B1914
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645734150;
-	bh=jHJhesHy+9/fGMrcaHrx6dRyS22nbc2nynNMtLMtBCY=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1645740734;
+	bh=8ow+wmCJuqfgcbP9qOk/LgaL1DGb/kYpUEP42yl8fSE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aOsvToTtQciLFC1Co/RzdYhzFQRLzdWO2iZrGM12xjUEZxrX7ALsEFr/wLuPjMlid
-	 zcgUqIAJL3urFLHJYD4+gSnWcLtGxCdf0mvHfmhT7ZOEa5x7w3xcSMz/zmCXLdhihU
-	 XcBzlzyOeZ0H48caPma9MyYBtghLWtV8lPBhcBwo=
+	b=C2PEpwuzNsKEldVBYFk+ldcCXYWZnxhn5Du11NjHMKAk5BeDw213PfXm6gm1Pq9CV
+	 68zKanwbsNS5Sxas5cvsQVHSRQ6Q2QVTC4PaQ8HXOU4902lBF8/uL+KZA6Z8olEAT2
+	 +aIR4ISKPSWvJILTHZPJOH+kxLnaJlnCq8z4r2vE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CEF8F800B6;
-	Thu, 24 Feb 2022 21:20:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84EF0F80310;
+	Thu, 24 Feb 2022 23:11:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC281F804D9; Thu, 24 Feb 2022 21:20:50 +0100 (CET)
+ id A8B5FF80118; Thu, 24 Feb 2022 23:11:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1F89F80169
- for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 21:20:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1F89F80169
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="k08/uO31"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7759FB82684;
- Thu, 24 Feb 2022 20:20:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5CFC340F2;
- Thu, 24 Feb 2022 20:20:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645734040;
- bh=jHJhesHy+9/fGMrcaHrx6dRyS22nbc2nynNMtLMtBCY=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=k08/uO31fAuRW7vQFOqGyJslkunL8DVwQipPk0y+Uik8Z/1FtQ7IJnau+PPf8mB1k
- YA2ykCk+TocFcfWpUOvPww1Rh+HFQY9XyrTUsYqbmeoB1Y0u0rtlhEHZBw1i9H0euK
- CUXS2AZ8SDh/LffuLfhT1eqAn+3LaOOkrkL5053dmw2r9He56rKIpMFXwGt2NCMS74
- idvZdXx9OY8LGa+5kV4GGqVeG1pgPrTxY1Kn+yLQLUgmskGMXM5M9gv+1Bz7VKX14l
- /AOLtA3N701mPQYB1hNWA209cjUKnGdrUawBmJ7pjqrD16cX625cW8ugfk1XwrpseS
- m+nH0lBuYjb9g==
-From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20220223153849.84471-1-daniel.baluta@oss.nxp.com>
-References: <20220223153849.84471-1-daniel.baluta@oss.nxp.com>
-Subject: Re: [PATCH] ASoC: SOF: pcm: Add compress_ops for SOF platform
- component driver
-Message-Id: <164573403817.3139675.11623054539337651313.b4-ty@kernel.org>
-Date: Thu, 24 Feb 2022 20:20:38 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CC40F80118
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 23:10:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CC40F80118
+Received: by mail-oi1-f177.google.com with SMTP id y7so5346457oih.5
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 14:10:56 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=7jPRav2CBDz3bnsE92/TjinGeDQiDfreC+VSHQD3Hp4=;
+ b=tOvCQKLWT9rC9uNY6mX8X2CPH+cZsJmGjaEOtzC2OsHuhZLc1J9TEaVIeeym5GJVxD
+ LflPtePAgSPHxHnb0jrXwiurHYJzUit3BaXTEEP11sC3uyoCCe7uBWtTUJrwiScf/Uqg
+ AyoZg8Rsalvh2NI5ytpANDrRviDwopbfA8dh85rksyqK/G9db5XlkBnQ8BkqQuJ3KG8e
+ EOtc8uhBrGWOEUIA2kpZlkD0XXVq1NXhCL+B13Mqmya2JRQ07pZrAgAZljt93qKaikdn
+ 1cqs4zNb5/PLVF3vOSdifCdBeNj1MgttqoyjZudx2NH5cu5EbnebPZ6buaTH0HfktCJr
+ +Vqg==
+X-Gm-Message-State: AOAM530/rPI05SiFgSDN3Lh7t9jfi30T/v2yD3o/kOiKGzdeow+mRSKL
+ zUvKtB5PGO4/fA94C0PkBw==
+X-Google-Smtp-Source: ABdhPJznW56jFcCUmuEQYwGk6nU6rHrA/vbhYqbxHRVKPXvFamDlaVIiItC6QsjgrLyazIV5oHQaxw==
+X-Received: by 2002:a05:6808:bc9:b0:2d7:3078:d98d with SMTP id
+ o9-20020a0568080bc900b002d73078d98dmr127686oik.196.1645740654999; 
+ Thu, 24 Feb 2022 14:10:54 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213]) by smtp.gmail.com with ESMTPSA id
+ bl26-20020a056808309a00b002d4f48e3799sm464399oib.12.2022.02.24.14.10.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Feb 2022 14:10:53 -0800 (PST)
+Received: (nullmailer pid 3679049 invoked by uid 1000);
+ Thu, 24 Feb 2022 22:10:53 -0000
+Date: Thu, 24 Feb 2022 16:10:52 -0600
+From: Rob Herring <robh@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH V2 1/2] ASoC: dt-bindings: audio-graph-port: Add
+ dai-tdm-slot-width-map
+Message-ID: <YhgCbKzfPXEVauwW@robh.at.kernel.org>
+References: <20220217134835.282389-1-rf@opensource.cirrus.com>
+ <20220217134835.282389-2-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
- peter.ujfalusi@linux.intel.com, ranjani.sridharan@linux.intel.com,
- linux-kernel@vger.kernel.org, Daniel Baluta <daniel.baluta@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220217134835.282389-2-rf@opensource.cirrus.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,41 +95,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Feb 2022 17:38:49 +0200, Daniel Baluta wrote:
-> From: Daniel Baluta <daniel.baluta@nxp.com>
+On Thu, Feb 17, 2022 at 01:48:34PM +0000, Richard Fitzgerald wrote:
+> Some audio hardware cannot support a fixed slot width or a slot width
+> equal to the sample width in all cases. This is usually due either to
+> limitations of the audio serial port or system clocking restrictions.
 > 
-> Now that sof_compressed_ops initial implementation was merged
-> we can enable it in SOF platform component driver.
+> This property allows setting a mapping of sample widths and the
+> corresponding tdm slot widths.
 > 
-> This partially reverts commit
-> 8a720724589e ("ASoC: SOF: pcm: Remove non existent CONFIG_SND_SOC_SOF_COMPRESS reference")
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> ---
+>  .../devicetree/bindings/sound/audio-graph-port.yaml        | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> [...]
+> diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> index 476dcb49ece6..420adad49382 100644
+> --- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> +++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> @@ -71,4 +71,11 @@ patternProperties:
+>          description: CPU to Codec rate channels.
+>          $ref: /schemas/types.yaml#/definitions/uint32
+>  
+> +      dai-tdm-slot-width-map:
+> +        description: Mapping of sample widths to slot widths. For hardware that
+> +          cannot support a fixed slot width or a slot width equal to sample
 
-Applied to
+A variable slot width sounds like a feature, not a limitation.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> +          width. An array containing one or more pairs of values. Each pair
+> +          of values is a sample_width and the corresponding slot_width.
 
-Thanks!
+That sounds like a matrix, not an array. N entries of 2 cells each. 
 
-[1/1] ASoC: SOF: pcm: Add compress_ops for SOF platform component driver
-      commit: 76cdd90b27b4e7379ce4d9032dda1927ac69ad01
+> +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> +
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+I'd think there are some constraints on the values? Slots should be at 
+least 8 bits, right? A max of 2x32 bits or is there more 
+than stereo within a slot? In any case, it's for sure no where near 2^32 
+max.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Is there a need for specifying where in the slot the data is?
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Rob

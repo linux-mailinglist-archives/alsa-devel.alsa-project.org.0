@@ -2,85 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 028E94C1CB3
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Feb 2022 20:59:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 393744C20DC
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Feb 2022 02:03:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A66C1913;
-	Wed, 23 Feb 2022 20:58:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A66C1913
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5531118BA;
+	Thu, 24 Feb 2022 02:02:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5531118BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645646346;
-	bh=ldrwldCU5gsBt1seEEqjOtl356f4DibFuHjEzUZfiwg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1645664592;
+	bh=oiUNfiVnkQCLNoUKGxwxzzuFLPEaxuohSLOO11x8o4A=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eckXeJ+Yt40cJL2EQ5D/aW6W5WFs3fRyo4nTSOQNwcT4LFfhvRWRbTbEKqKhECn9/
-	 VCBQ0UfFiXBG0Ei1i7MuqoihIuPuYuQIOx90a/DO3zXWjNh2CWszhakgEeIkUH8trb
-	 O3U1MZ+XkEbDykAT+aalfa5mgAkbPDrma+Ip4Imc=
+	b=sNztYJNmzKabi+/MKGZAqKgQeqNg1ghkmlCN213aABNvDPaz0c45w8VB5uUIBopC4
+	 I3XY4yLvnLhjHGAy87UU9wRBycHUOnqH+QUChWuVmV25Fy7dYDxyjDMX9TdV1DDM9r
+	 tilfKojldRF/lXk2gwzo9+AVaAGLp8vSQLaWHADQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17315F8025D;
-	Wed, 23 Feb 2022 20:58:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7A2BF8019D;
+	Thu, 24 Feb 2022 02:02:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45F37F80237; Wed, 23 Feb 2022 20:57:58 +0100 (CET)
+ id B3912F80237; Thu, 24 Feb 2022 02:02:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 068B1F80118
- for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 20:57:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 068B1F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4564F80118
+ for <alsa-devel@alsa-project.org>; Thu, 24 Feb 2022 02:01:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4564F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="cPSapyE7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645646273; x=1677182273;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ldrwldCU5gsBt1seEEqjOtl356f4DibFuHjEzUZfiwg=;
- b=cPSapyE73BZMz9M9rkQH1Msh+fu8bOR7uTTOmhoWU42bZyZBhi/LC5TO
- GgJDbVJbT55l622zxrKyEdRZvQn/+d6hEuBhXeeNx2Wz4Vi4GoNS7k33c
- tDW56x4LpwOTW5al5rAee6RfVmwdFL4RtkW7lQIaS2X27LTih6IalYmQ6
- BKejNgVjD8mq7VihBqfd9gItBaFSM7cZ6VFBb6Xf2Oe/4j+Osrrqa+yfq
- XSvzrDDkGD0r1RHB+eQvz/zSPXj7TnU/MHRDovatWpvKyjVzrWPEK65N4
- MWaTNdO3M3Wdakci/MHzIy5wMfDWGqOrdfyahqnpVuB1HCsyCwHBWq6J/ g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10267"; a="232689605"
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="232689605"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 11:57:48 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,391,1635231600"; d="scan'208";a="628210831"
-Received: from lkp-server01.sh.intel.com (HELO 788b1cd46f0d) ([10.239.97.150])
- by FMSMGA003.fm.intel.com with ESMTP; 23 Feb 2022 11:57:46 -0800
-Received: from kbuild by 788b1cd46f0d with local (Exim 4.92)
- (envelope-from <lkp@intel.com>)
- id 1nMxlh-0001lz-Ja; Wed, 23 Feb 2022 19:57:45 +0000
-Date: Thu, 24 Feb 2022 03:56:54 +0800
-From: kernel test robot <lkp@intel.com>
-To: Raghu Bankapur <quic_rbankapu@quicinc.com>,
- Jaroslav Kysela <perex@perex.cz>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH V1 1/1] ASoC: compress: propagate the error code from the
- compress framework
-Message-ID: <202202240311.3VkBiyO2-lkp@intel.com>
-References: <eda8b6cdd53576c5487422e46af20bae1a5c864f.1645618332.git.quic_rbankapu@quicinc.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="JCFtRmGY"
+Received: by mail-wr1-x42f.google.com with SMTP id j17so629061wrc.0
+ for <alsa-devel@alsa-project.org>; Wed, 23 Feb 2022 17:01:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=4e/Dnvb9YoryIhdTdufKPGz6hPEp9xb9MXXu9Z2tkes=;
+ b=JCFtRmGYiQtsLAv3rnw5tWOfOC90RRwv2f9AUUFq/YozNBiu88clQpOm6YJEyg717J
+ fWBVXoKeaK9KJp+DgOwv1LSMhNUDge91NpJyqwctN0uC3kCNeW5zKJPQH2ZzrMCwvspm
+ Tec720f6qxbR2CG1kPA396ITMOwpcgyKQt2/+RvThEqPKPGfmr80/CuqLsP3QtnXJ/AO
+ xOtbtGeuHEEbsR4EPtxcDvyB0uTM9mGGUVG/gh8DOXlw4/UE/G81VuUEzkaRQDgAtLrt
+ cHC15C2634RTP5lT0wJ5lHaWkyrVuGkZMtz1YfsE2NnTaK7zGGvag4iDfEJNp/gKUyBw
+ 9g2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=4e/Dnvb9YoryIhdTdufKPGz6hPEp9xb9MXXu9Z2tkes=;
+ b=suLE/s25LAFmXlzCijQKO4S6wSgZ+Aw+kxnmp60gu8hNKfu4a5TvLc98aK9PYf/ZB3
+ 9oCixBEQp+Af6AA95CqSaO+v8ATr3A8GElsGuL9/8N/HGlQR+l8x3YXWozHjxJMCXKHY
+ OtK14c2ZhpC8TKjHp0I3CZ9jaAc4NHMIfeaIgVlsZcjfTZsYXY+wslk4ZnD7OrpfFVAl
+ OMynASrtZ1Oh1B1p9PlRvAhfdaEHO2VA8E1NCh8RxbzD5xltTOcFAwPtde9x0gfqhlBS
+ A5m9/5fSqdfCYlxCZp4/rI/DUbu8SS5/KF6UbCwZGG50JsuFiY3dRhnJmQyb5Fw5b8rf
+ aD3g==
+X-Gm-Message-State: AOAM530e02UjyiI3RT7zc1CBVgmuhZD0tZ+L3du96Fyu09L06XUG28YK
+ V5jV4wBwkYvQFuXFUMSPiemYmA==
+X-Google-Smtp-Source: ABdhPJzd71Svvs+9vb34rVpI3x2LL2LRf43Sjc2JTuzUKjBhmXKAYZpDbpI7YkNZJndN4rzKu1Kfcg==
+X-Received: by 2002:adf:dd50:0:b0:1ea:8de3:9372 with SMTP id
+ u16-20020adfdd50000000b001ea8de39372mr204367wrm.495.1645664511727; 
+ Wed, 23 Feb 2022 17:01:51 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id r17sm971856wrp.64.2022.02.23.17.01.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Feb 2022 17:01:51 -0800 (PST)
+Message-ID: <4b972404-578a-b13b-b036-4033c89fafa9@linaro.org>
+Date: Thu, 24 Feb 2022 01:01:49 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eda8b6cdd53576c5487422e46af20bae1a5c864f.1645618332.git.quic_rbankapu@quicinc.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: llvm@lists.linux.dev, kbuild-all@lists.01.org,
- Raghu Bankapur <quic_rbankapu@quicinc.com>,
- Krishna Jha <kkishorj@codeaurora.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v2] ASoC: codecs: Add power domains support in digital
+ macro codecs
+Content-Language: en-US
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, quic_plai@quicinc.com, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+References: <1645631198-4701-1-git-send-email-quic_srivasam@quicinc.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <1645631198-4701-1-git-send-email-quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,335 +112,346 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Raghu,
-
-Thank you for the patch! Yet something to improve:
-
-[auto build test ERROR on tiwai-sound/for-next]
-[also build test ERROR on linux/master broonie-sound/for-next linus/master v5.17-rc5 next-20220222]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
-
-url:    https://github.com/0day-ci/linux/commits/Raghu-Bankapur/ASoC-compress-propagate-the-error-code-from-the-compress-framework/20220223-215509
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-config: i386-randconfig-a011 (https://download.01.org/0day-ci/archive/20220224/202202240311.3VkBiyO2-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project d271fc04d5b97b12e6b797c6067d3c96a8d7470e)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/0day-ci/linux/commit/6154c602c715dac9253695c89bebd921f43cc81d
-        git remote add linux-review https://github.com/0day-ci/linux
-        git fetch --no-tags linux-review Raghu-Bankapur/ASoC-compress-propagate-the-error-code-from-the-compress-framework/20220223-215509
-        git checkout 6154c602c715dac9253695c89bebd921f43cc81d
-        # save the config file to linux build tree
-        mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash sound/core/
-
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
-   sound/core/compress_offload.c:34:35: warning: extra tokens at end of #include directive [-Wextra-tokens]
-   #include <sound/compress_driver.h>ASoC: compress: propagate the error code from the compress framework
-                                     ^
-                                     //
-   sound/core/compress_offload.c:36:1: error: unknown type name 'Propagate'
-   Propagate the error code from the compress framework for the timestamp
-   ^
->> sound/core/compress_offload.c:36:14: error: expected ';' after top level declarator
-   Propagate the error code from the compress framework for the timestamp
-                ^
-                ;
->> sound/core/compress_offload.c:112:23: error: invalid application of 'sizeof' to an incomplete type 'struct snd_compr_file'
-           data = kzalloc(sizeof(*data), GFP_KERNEL);
-                                ^~~~~~~
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
->> sound/core/compress_offload.c:118:25: error: incomplete definition of type 'struct snd_compr_file'
-           INIT_DELAYED_WORK(&data->stream.error_work, error_delayed_work);
-                              ~~~~^
-   include/linux/workqueue.h:267:22: note: expanded from macro 'INIT_DELAYED_WORK'
-           __INIT_DELAYED_WORK(_work, _func, 0)
-                               ^~~~~
-   include/linux/workqueue.h:252:15: note: expanded from macro '__INIT_DELAYED_WORK'
-                   INIT_WORK(&(_work)->work, (_func));                     \
-                               ^~~~~
-   include/linux/workqueue.h:245:15: note: expanded from macro 'INIT_WORK'
-           __INIT_WORK((_work), (_func), 0)
-                        ^~~~~
-   include/linux/workqueue.h:228:16: note: expanded from macro '__INIT_WORK'
-                   __init_work((_work), _onstack);                         \
-                                ^~~~~
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
->> sound/core/compress_offload.c:118:25: error: incomplete definition of type 'struct snd_compr_file'
-           INIT_DELAYED_WORK(&data->stream.error_work, error_delayed_work);
-                              ~~~~^
-   include/linux/workqueue.h:267:22: note: expanded from macro 'INIT_DELAYED_WORK'
-           __INIT_DELAYED_WORK(_work, _func, 0)
-                               ^~~~~
-   include/linux/workqueue.h:252:15: note: expanded from macro '__INIT_DELAYED_WORK'
-                   INIT_WORK(&(_work)->work, (_func));                     \
-                               ^~~~~
-   include/linux/workqueue.h:245:15: note: expanded from macro 'INIT_WORK'
-           __INIT_WORK((_work), (_func), 0)
-                        ^~~~~
-   include/linux/workqueue.h:229:4: note: expanded from macro '__INIT_WORK'
-                   (_work)->data = (atomic_long_t) WORK_DATA_INIT();       \
-                    ^~~~~
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
->> sound/core/compress_offload.c:118:25: error: incomplete definition of type 'struct snd_compr_file'
-           INIT_DELAYED_WORK(&data->stream.error_work, error_delayed_work);
-                              ~~~~^
-   include/linux/workqueue.h:267:22: note: expanded from macro 'INIT_DELAYED_WORK'
-           __INIT_DELAYED_WORK(_work, _func, 0)
-                               ^~~~~
-   include/linux/workqueue.h:252:15: note: expanded from macro '__INIT_DELAYED_WORK'
-                   INIT_WORK(&(_work)->work, (_func));                     \
-                               ^~~~~
-   include/linux/workqueue.h:245:15: note: expanded from macro 'INIT_WORK'
-           __INIT_WORK((_work), (_func), 0)
-                        ^~~~~
-   include/linux/workqueue.h:230:22: note: expanded from macro '__INIT_WORK'
-                   lockdep_init_map(&(_work)->lockdep_map, "(work_completion)"#_work, &__key, 0); \
-                                      ^~~~~
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
->> sound/core/compress_offload.c:118:25: error: incomplete definition of type 'struct snd_compr_file'
-           INIT_DELAYED_WORK(&data->stream.error_work, error_delayed_work);
-                              ~~~~^
-   include/linux/workqueue.h:267:22: note: expanded from macro 'INIT_DELAYED_WORK'
-           __INIT_DELAYED_WORK(_work, _func, 0)
-                               ^~~~~
-   include/linux/workqueue.h:252:15: note: expanded from macro '__INIT_DELAYED_WORK'
-                   INIT_WORK(&(_work)->work, (_func));                     \
-                               ^~~~~
-   include/linux/workqueue.h:245:15: note: expanded from macro 'INIT_WORK'
-           __INIT_WORK((_work), (_func), 0)
-                        ^~~~~
-   include/linux/workqueue.h:231:20: note: expanded from macro '__INIT_WORK'
-                   INIT_LIST_HEAD(&(_work)->entry);                        \
-                                    ^~~~~
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
->> sound/core/compress_offload.c:118:25: error: incomplete definition of type 'struct snd_compr_file'
-           INIT_DELAYED_WORK(&data->stream.error_work, error_delayed_work);
-                              ~~~~^
-   include/linux/workqueue.h:267:22: note: expanded from macro 'INIT_DELAYED_WORK'
-           __INIT_DELAYED_WORK(_work, _func, 0)
-                               ^~~~~
-   include/linux/workqueue.h:252:15: note: expanded from macro '__INIT_DELAYED_WORK'
-                   INIT_WORK(&(_work)->work, (_func));                     \
-                               ^~~~~
-   include/linux/workqueue.h:245:15: note: expanded from macro 'INIT_WORK'
-           __INIT_WORK((_work), (_func), 0)
-                        ^~~~~
-   include/linux/workqueue.h:232:4: note: expanded from macro '__INIT_WORK'
-                   (_work)->func = (_func);                                \
-                    ^~~~~
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
->> sound/core/compress_offload.c:118:25: error: incomplete definition of type 'struct snd_compr_file'
-           INIT_DELAYED_WORK(&data->stream.error_work, error_delayed_work);
-                              ~~~~^
-   include/linux/workqueue.h:267:22: note: expanded from macro 'INIT_DELAYED_WORK'
-           __INIT_DELAYED_WORK(_work, _func, 0)
-                               ^~~~~
-   include/linux/workqueue.h:253:18: note: expanded from macro '__INIT_DELAYED_WORK'
-                   __init_timer(&(_work)->timer,                           \
-                                  ^~~~~
-   include/linux/timer.h:115:19: note: expanded from macro '__init_timer'
-                   init_timer_key((_timer), (_fn), (_flags), #_timer, &__key);\
-                                   ^~~~~~
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
-   sound/core/compress_offload.c:120:6: error: incomplete definition of type 'struct snd_compr_file'
-           data->stream.ops = compr->ops;
-           ~~~~^
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
-   sound/core/compress_offload.c:121:6: error: incomplete definition of type 'struct snd_compr_file'
-           data->stream.direction = dirn;
-           ~~~~^
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
-   sound/core/compress_offload.c:122:6: error: incomplete definition of type 'struct snd_compr_file'
-           data->stream.private_data = compr->private_data;
-           ~~~~^
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
-   sound/core/compress_offload.c:123:6: error: incomplete definition of type 'struct snd_compr_file'
-           data->stream.device = compr;
-           ~~~~^
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
-   sound/core/compress_offload.c:132:6: error: incomplete definition of type 'struct snd_compr_file'
-           data->stream.runtime = runtime;
-           ~~~~^
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
-   sound/core/compress_offload.c:135:30: error: incomplete definition of type 'struct snd_compr_file'
-           ret = compr->ops->open(&data->stream);
-                                   ~~~~^
-   sound/core/compress_offload.c:82:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data;
-                  ^
-   sound/core/compress_offload.c:148:42: error: incomplete definition of type 'struct snd_compr_file'
-           struct snd_compr_runtime *runtime = data->stream.runtime;
-                                               ~~~~^
-   sound/core/compress_offload.c:147:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data = f->private_data;
-                  ^
-   sound/core/compress_offload.c:150:32: error: incomplete definition of type 'struct snd_compr_file'
-           cancel_delayed_work_sync(&data->stream.error_work);
-                                     ~~~~^
-   sound/core/compress_offload.c:147:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data = f->private_data;
-                  ^
-   sound/core/compress_offload.c:156:7: error: incomplete definition of type 'struct snd_compr_file'
-                   data->stream.ops->trigger(&data->stream, SNDRV_PCM_TRIGGER_STOP);
-                   ~~~~^
-   sound/core/compress_offload.c:147:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data = f->private_data;
-                  ^
-   sound/core/compress_offload.c:156:34: error: incomplete definition of type 'struct snd_compr_file'
-                   data->stream.ops->trigger(&data->stream, SNDRV_PCM_TRIGGER_STOP);
-                                              ~~~~^
-   sound/core/compress_offload.c:147:9: note: forward declaration of 'struct snd_compr_file'
-           struct snd_compr_file *data = f->private_data;
-                  ^
-   fatal error: too many errors emitted, stopping now [-ferror-limit=]
-   1 warning and 20 errors generated.
 
 
-vim +36 sound/core/compress_offload.c
+On 23/02/2022 15:46, Srinivasa Rao Mandadapu wrote:
+> Add support for enabling required power domains in digital macro codecs.
+> macro and dcodec power domains are being requested as clocks by HLOS
+> in ADSP based architectures and ADSP internally handling as powerdomains.
+> In ADSP bypass case need to handle them as power domains explicitly.
+> 
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+> Reported-by: kernel test robot <lkp@intel.com>
+> ---
+> Changes since v1:
+>      -- Add missing macros in Kconfig.
+> 
+>   sound/soc/codecs/Kconfig              |  7 ++++
+>   sound/soc/codecs/Makefile             |  2 +
+>   sound/soc/codecs/lpass-macro-common.c | 72 +++++++++++++++++++++++++++++++++++
+>   sound/soc/codecs/lpass-macro-common.h | 18 +++++++++
+>   sound/soc/codecs/lpass-rx-macro.c     | 13 ++++++-
+>   sound/soc/codecs/lpass-tx-macro.c     | 10 +++++
+>   sound/soc/codecs/lpass-va-macro.c     | 11 +++++-
+>   sound/soc/qcom/Kconfig                |  1 +
+>   8 files changed, 132 insertions(+), 2 deletions(-)
+>   create mode 100644 sound/soc/codecs/lpass-macro-common.c
+>   create mode 100644 sound/soc/codecs/lpass-macro-common.h
+> 
+> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+> index c2627f7..4de029a 100644
+> --- a/sound/soc/codecs/Kconfig
+> +++ b/sound/soc/codecs/Kconfig
+> @@ -244,6 +244,7 @@ config SND_SOC_ALL_CODECS
+>   	imply SND_SOC_WCD9335
+>   	imply SND_SOC_WCD934X
+>   	imply SND_SOC_WCD938X_SDW
+> +	imply SND_SOC_LPASS_MACRO_COMMON
+>   	imply SND_SOC_LPASS_RX_MACRO
+>   	imply SND_SOC_LPASS_TX_MACRO
+>   	imply SND_SOC_WL1273
+> @@ -2008,6 +2009,9 @@ config SND_SOC_TPA6130A2
+>   	tristate "Texas Instruments TPA6130A2 headphone amplifier"
+>   	depends on I2C
+>   
+> +config SND_SOC_LPASS_MACRO_COMMON
+> +        tristate
+> +
+>   config SND_SOC_LPASS_WSA_MACRO
+>   	depends on COMMON_CLK
+>   	select REGMAP_MMIO
+> @@ -2016,16 +2020,19 @@ config SND_SOC_LPASS_WSA_MACRO
+>   config SND_SOC_LPASS_VA_MACRO
+>   	depends on COMMON_CLK
+>   	select REGMAP_MMIO
+> +	select SND_SOC_LPASS_MACRO_COMMON
+>   	tristate "Qualcomm VA Macro in LPASS(Low Power Audio SubSystem)"
+>   
+>   config SND_SOC_LPASS_RX_MACRO
+>   	depends on COMMON_CLK
+>   	select REGMAP_MMIO
+> +	select SND_SOC_LPASS_MACRO_COMMON
+>   	tristate "Qualcomm RX Macro in LPASS(Low Power Audio SubSystem)"
+>   
+>   config SND_SOC_LPASS_TX_MACRO
+>   	depends on COMMON_CLK
+>   	select REGMAP_MMIO
+> +	select SND_SOC_LPASS_MACRO_COMMON
+>   	tristate "Qualcomm TX Macro in LPASS(Low Power Audio SubSystem)"
+>   
+>   endmenu
+> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+> index b4e11c3..c3c6059 100644
+> --- a/sound/soc/codecs/Makefile
+> +++ b/sound/soc/codecs/Makefile
+> @@ -112,6 +112,7 @@ snd-soc-l3-objs := l3.o
+>   snd-soc-lm4857-objs := lm4857.o
+>   snd-soc-lm49453-objs := lm49453.o
+>   snd-soc-lochnagar-sc-objs := lochnagar-sc.o
+> +snd-soc-lpass-macro-common-objs := lpass-macro-common.o
+>   snd-soc-lpass-rx-macro-objs := lpass-rx-macro.o
+>   snd-soc-lpass-tx-macro-objs := lpass-tx-macro.o
+>   snd-soc-lpass-wsa-macro-objs := lpass-wsa-macro.o
+> @@ -676,6 +677,7 @@ obj-$(CONFIG_SND_SOC_MAX9877)	+= snd-soc-max9877.o
+>   obj-$(CONFIG_SND_SOC_MAX98504)	+= snd-soc-max98504.o
+>   obj-$(CONFIG_SND_SOC_SIMPLE_AMPLIFIER)	+= snd-soc-simple-amplifier.o
+>   obj-$(CONFIG_SND_SOC_TPA6130A2)	+= snd-soc-tpa6130a2.o
+> +obj-$(CONFIG_SND_SOC_LPASS_MACRO_COMMON)	+= snd-soc-lpass-macro-common.o
+>   obj-$(CONFIG_SND_SOC_LPASS_WSA_MACRO)	+= snd-soc-lpass-wsa-macro.o
+>   obj-$(CONFIG_SND_SOC_LPASS_VA_MACRO)	+= snd-soc-lpass-va-macro.o
+>   obj-$(CONFIG_SND_SOC_LPASS_RX_MACRO)	+= snd-soc-lpass-rx-macro.o
+> diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
+> new file mode 100644
+> index 0000000..b8e50e6
+> --- /dev/null
+> +++ b/sound/soc/codecs/lpass-macro-common.c
+> @@ -0,0 +1,72 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +// Copyright (c) 2022, The Linux Foundation. All rights reserved.
+> +
+> +#include <linux/export.h>
+> +#include <linux/module.h>
+> +#include <linux/init.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_domain.h>
+> +#include <linux/pm_runtime.h>
+> +
+> +#include "lpass-macro-common.h"
+> +
+> +int lpass_macro_pds_init(struct platform_device *pdev, struct lpass_macro **pds)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct lpass_macro *l_pds;
+> +	int ret;
+> +
+> +	const struct property *prop = of_find_property(dev->of_node, "power-domains", NULL);
+> +
+> +	if (!prop)
+> +		return 0;
 
-    35	
-  > 36	Propagate the error code from the compress framework for the timestamp
-    37	query. This error code will be used by the client to handle the
-    38	error case scenarios gracefully.
-    39	
-    40	/* struct snd_compr_codec_caps overflows the ioctl bit size for some
-    41	 * architectures, so we need to disable the relevant ioctls.
-    42	 */
-    43	#if _IOC_SIZEBITS < 14
-    44	#define COMPR_CODEC_CAPS_OVERFLOW
-    45	#endif
-    46	
-    47	/* TODO:
-    48	 * - add substream support for multiple devices in case of
-    49	 *	SND_DYNAMIC_MINORS is not used
-    50	 * - Multiple node representation
-    51	 *	driver should be able to register multiple nodes
-    52	 */
-    53	
-    54	struct snd_compr_file {
-    55		unsigned long caps;
-    56		struct snd_compr_stream stream;
-    57	};
-    58	
-    59	static void error_delayed_work(struct work_struct *work);
-    60	
-    61	/*
-    62	 * a note on stream states used:
-    63	 * we use following states in the compressed core
-    64	 * SNDRV_PCM_STATE_OPEN: When stream has been opened.
-    65	 * SNDRV_PCM_STATE_SETUP: When stream has been initialized. This is done by
-    66	 *	calling SNDRV_COMPRESS_SET_PARAMS. Running streams will come to this
-    67	 *	state at stop by calling SNDRV_COMPRESS_STOP, or at end of drain.
-    68	 * SNDRV_PCM_STATE_PREPARED: When a stream has been written to (for
-    69	 *	playback only). User after setting up stream writes the data buffer
-    70	 *	before starting the stream.
-    71	 * SNDRV_PCM_STATE_RUNNING: When stream has been started and is
-    72	 *	decoding/encoding and rendering/capturing data.
-    73	 * SNDRV_PCM_STATE_DRAINING: When stream is draining current data. This is done
-    74	 *	by calling SNDRV_COMPRESS_DRAIN.
-    75	 * SNDRV_PCM_STATE_PAUSED: When stream is paused. This is done by calling
-    76	 *	SNDRV_COMPRESS_PAUSE. It can be stopped or resumed by calling
-    77	 *	SNDRV_COMPRESS_STOP or SNDRV_COMPRESS_RESUME respectively.
-    78	 */
-    79	static int snd_compr_open(struct inode *inode, struct file *f)
-    80	{
-    81		struct snd_compr *compr;
-    82		struct snd_compr_file *data;
-    83		struct snd_compr_runtime *runtime;
-    84		enum snd_compr_direction dirn;
-    85		int maj = imajor(inode);
-    86		int ret;
-    87	
-    88		if ((f->f_flags & O_ACCMODE) == O_WRONLY)
-    89			dirn = SND_COMPRESS_PLAYBACK;
-    90		else if ((f->f_flags & O_ACCMODE) == O_RDONLY)
-    91			dirn = SND_COMPRESS_CAPTURE;
-    92		else
-    93			return -EINVAL;
-    94	
-    95		if (maj == snd_major)
-    96			compr = snd_lookup_minor_data(iminor(inode),
-    97						SNDRV_DEVICE_TYPE_COMPRESS);
-    98		else
-    99			return -EBADFD;
-   100	
-   101		if (compr == NULL) {
-   102			pr_err("no device data!!!\n");
-   103			return -ENODEV;
-   104		}
-   105	
-   106		if (dirn != compr->direction) {
-   107			pr_err("this device doesn't support this direction\n");
-   108			snd_card_unref(compr->card);
-   109			return -EINVAL;
-   110		}
-   111	
- > 112		data = kzalloc(sizeof(*data), GFP_KERNEL);
-   113		if (!data) {
-   114			snd_card_unref(compr->card);
-   115			return -ENOMEM;
-   116		}
-   117	
- > 118		INIT_DELAYED_WORK(&data->stream.error_work, error_delayed_work);
-   119	
-   120		data->stream.ops = compr->ops;
-   121		data->stream.direction = dirn;
-   122		data->stream.private_data = compr->private_data;
-   123		data->stream.device = compr;
-   124		runtime = kzalloc(sizeof(*runtime), GFP_KERNEL);
-   125		if (!runtime) {
-   126			kfree(data);
-   127			snd_card_unref(compr->card);
-   128			return -ENOMEM;
-   129		}
-   130		runtime->state = SNDRV_PCM_STATE_OPEN;
-   131		init_waitqueue_head(&runtime->sleep);
-   132		data->stream.runtime = runtime;
-   133		f->private_data = (void *)data;
-   134		mutex_lock(&compr->lock);
-   135		ret = compr->ops->open(&data->stream);
-   136		mutex_unlock(&compr->lock);
-   137		if (ret) {
-   138			kfree(runtime);
-   139			kfree(data);
-   140		}
-   141		snd_card_unref(compr->card);
-   142		return ret;
-   143	}
-   144	
+how about
+	if (!of_property_read_bool(dev->of_node, "power-domains"))
+		return 0;
 
----
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+> +
+> +	l_pds = devm_kzalloc(dev, sizeof(*l_pds), GFP_KERNEL);
+> +	if (!l_pds)
+> +		return -ENOMEM;
+> +
+> +	l_pds->macro_pd = dev_pm_domain_attach_by_name(dev,  "macro");
+> +	if (IS_ERR_OR_NULL(l_pds->macro_pd)) {
+> +		ret = PTR_ERR(l_pds->macro_pd) ? : -ENODATA;
+> +		return ret;
+> +	}
+> +	ret = pm_runtime_get_sync(l_pds->macro_pd);
+> +	if (ret < 0) {
+> +		dev_err(dev, "%s failed for macro_pd, ret %d\n", __func__, ret);
+> +		dev_pm_domain_detach(l_pds->macro_pd, false);
+> +		pm_runtime_put_noidle(l_pds->macro_pd);
+> +		return ret;
+> +	}
+> +
+> +	l_pds->dcodec_pd = dev_pm_domain_attach_by_name(dev, "dcodec");
+> +	if (IS_ERR_OR_NULL(l_pds->dcodec_pd)) {
+> +		ret = PTR_ERR(l_pds->dcodec_pd) ? : -ENODATA;
+> +		dev_pm_domain_detach(l_pds->macro_pd, false);
+> +		return ret;
+> +	}
+> +
+> +	ret = pm_runtime_get_sync(l_pds->dcodec_pd);
+> +	if (ret < 0) {
+> +		dev_err(dev, "%s failed for dcodec_pd, ret %d\n", __func__, ret);
+> +
+> +		dev_pm_domain_detach(l_pds->dcodec_pd, false);
+should you not detach and do pm_put on macro_pd here?
+
+> +		pm_runtime_put_noidle(l_pds->dcodec_pd);
+> +		return ret;
+> +	}
+> +	*pds = l_pds;
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(lpass_macro_pds_init);
+> +
+> +void lpass_macro_pds_exit(struct platform_device *pdev, struct lpass_macro *pds)
+> +{
+> +	pm_runtime_put(pds->macro_pd);
+> +	pm_runtime_put(pds->dcodec_pd);
+> +	dev_pm_domain_detach(pds->macro_pd, false);
+> +	dev_pm_domain_detach(pds->dcodec_pd, false);
+> +}
+> +EXPORT_SYMBOL_GPL(lpass_macro_pds_exit);
+> +
+> +MODULE_DESCRIPTION("QTI SC7280 LPI GPIO pin control driver");
+Seems incorrect description for the module.
+
+> +MODULE_LICENSE("GPL");
+> diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
+> new file mode 100644
+> index 0000000..c343f0e
+> --- /dev/null
+> +++ b/sound/soc/codecs/lpass-macro-common.h
+> @@ -0,0 +1,18 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2022, The Linux Foundation. All rights reserved.
+> + */
+> +
+> +#ifndef __LPASS_MACRO_COMMON_H__
+> +#define __LPASS_MACRO_COMMON_H__
+> +
+> +
+> +struct lpass_macro {
+> +	struct device *macro_pd;
+> +	struct device *dcodec_pd;
+> +};
+> +
+> +int lpass_macro_pds_init(struct platform_device *pdev, struct lpass_macro **pds);
+> +void lpass_macro_pds_exit(struct platform_device *pdev, struct lpass_macro *pds);
+> +
+> +#endif /* __LPASS_MACRO_COMMON_H__ */
+> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+> index 29d214f..db32090 100644
+> --- a/sound/soc/codecs/lpass-rx-macro.c
+> +++ b/sound/soc/codecs/lpass-rx-macro.c
+> @@ -14,6 +14,8 @@
+>   #include <linux/of_clk.h>
+>   #include <linux/clk-provider.h>
+>   
+> +#include "lpass-macro-common.h"
+> +
+>   #define CDC_RX_TOP_TOP_CFG0		(0x0000)
+>   #define CDC_RX_TOP_SWR_CTRL		(0x0008)
+>   #define CDC_RX_TOP_DEBUG		(0x000C)
+> @@ -606,7 +608,7 @@ struct rx_macro {
+>   	int is_softclip_on;
+>   	int is_aux_hpf_on;
+>   	int softclip_clk_users;
+> -
+> +	struct lpass_macro *pds;
+>   	struct regmap *regmap;
+>   	struct clk_bulk_data clks[RX_NUM_CLKS_MAX];
+>   	struct clk_hw hw;
+> @@ -3537,6 +3539,12 @@ static int rx_macro_probe(struct platform_device *pdev)
+>   		return ret;
+>   	}
+>   
+> +	ret = lpass_macro_pds_init(pdev, &rx->pds);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Enabling power domains failed in %s\n", __func__);
+> +		return ret;
+> +	}
+> +
+>   	base = devm_platform_ioremap_resource(pdev, 0);
+>   	if (IS_ERR(base))
+>   		return PTR_ERR(base);
+> @@ -3575,6 +3583,9 @@ static int rx_macro_remove(struct platform_device *pdev)
+>   
+>   	of_clk_del_provider(pdev->dev.of_node);
+>   	clk_bulk_disable_unprepare(RX_NUM_CLKS_MAX, rx->clks);
+> +
+> +	lpass_macro_pds_exit(pdev, rx->pds);
+> +
+>   	return 0;
+>   }
+>   
+> diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+> index 9c96ab1..4d1e5ab 100644
+> --- a/sound/soc/codecs/lpass-tx-macro.c
+> +++ b/sound/soc/codecs/lpass-tx-macro.c
+> @@ -13,6 +13,8 @@
+>   #include <linux/of_clk.h>
+>   #include <linux/clk-provider.h>
+>   
+> +#include "lpass-macro-common.h"
+> +
+>   #define CDC_TX_CLK_RST_CTRL_MCLK_CONTROL (0x0000)
+>   #define CDC_TX_MCLK_EN_MASK		BIT(0)
+>   #define CDC_TX_MCLK_ENABLE		BIT(0)
+> @@ -266,6 +268,7 @@ struct tx_macro {
+>   	u16 dmic_clk_div;
+>   	bool bcs_enable;
+>   	int dec_mode[NUM_DECIMATORS];
+> +	struct lpass_macro *pds;
+>   	bool bcs_clk_en;
+>   };
+>   #define to_tx_macro(_hw) container_of(_hw, struct tx_macro, hw)
+> @@ -1802,6 +1805,11 @@ static int tx_macro_probe(struct platform_device *pdev)
+>   		return ret;
+>   	}
+>   
+> +	ret = lpass_macro_pds_init(pdev, &tx->pds);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Enabling power domains failed in %s\n", __func__);
+> +		return ret;
+> +	}
+>   	base = devm_platform_ioremap_resource(pdev, 0);
+>   	if (IS_ERR(base))
+>   		return PTR_ERR(base);
+> @@ -1859,6 +1867,8 @@ static int tx_macro_remove(struct platform_device *pdev)
+>   
+>   	clk_bulk_disable_unprepare(TX_NUM_CLKS_MAX, tx->clks);
+>   
+> +	lpass_macro_pds_exit(pdev, tx->pds);
+> +
+>   	return 0;
+>   }
+>   
+> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+> index 11147e3..b29b9a1 100644
+> --- a/sound/soc/codecs/lpass-va-macro.c
+> +++ b/sound/soc/codecs/lpass-va-macro.c
+> @@ -15,6 +15,8 @@
+>   #include <sound/soc-dapm.h>
+>   #include <sound/tlv.h>
+>   
+> +#include "lpass-macro-common.h"
+> +
+>   /* VA macro registers */
+>   #define CDC_VA_CLK_RST_CTRL_MCLK_CONTROL	(0x0000)
+>   #define CDC_VA_MCLK_CONTROL_EN			BIT(0)
+> @@ -195,6 +197,7 @@ struct va_macro {
+>   	struct regmap *regmap;
+>   	struct clk_bulk_data clks[VA_NUM_CLKS_MAX];
+>   	struct clk_hw hw;
+> +	struct lpass_macro *pds;
+>   
+>   	s32 dmic_0_1_clk_cnt;
+>   	s32 dmic_2_3_clk_cnt;
+> @@ -1413,7 +1416,11 @@ static int va_macro_probe(struct platform_device *pdev)
+>   		dev_err(dev, "Error getting VA Clocks (%d)\n", ret);
+>   		return ret;
+>   	}
+> -
+> +	ret = lpass_macro_pds_init(pdev, &va->pds);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Enabling power domains failed %s\n", __func__);
+> +		return ret;
+> +	}
+>   	ret = of_property_read_u32(dev->of_node, "qcom,dmic-sample-rate",
+>   				   &sample_rate);
+>   	if (ret) {
+> @@ -1468,6 +1475,8 @@ static int va_macro_remove(struct platform_device *pdev)
+>   
+>   	clk_bulk_disable_unprepare(VA_NUM_CLKS_MAX, va->clks);
+>   
+> +	lpass_macro_pds_exit(pdev, va->pds);
+> +
+>   	return 0;
+>   }
+>   
+> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+> index 52db003..6ffd51a 100644
+> --- a/sound/soc/qcom/Kconfig
+> +++ b/sound/soc/qcom/Kconfig
+> @@ -194,6 +194,7 @@ config SND_SOC_SC7280
+>   	select SND_SOC_LPASS_SC7280
+>   	select SND_SOC_MAX98357A
+>   	select SND_SOC_WCD938X
+> +	select SND_SOC_LPASS_MACRO_COMMON
+>   	select SND_SOC_LPASS_RX_MACRO
+>   	select SND_SOC_LPASS_TX_MACRO
+>   	help

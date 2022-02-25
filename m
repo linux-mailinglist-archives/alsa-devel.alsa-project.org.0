@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5836D4C3BCC
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 03:41:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F0604C3BCF
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 03:41:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBC6A1AA1;
-	Fri, 25 Feb 2022 03:40:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBC6A1AA1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87C2E18F6;
+	Fri, 25 Feb 2022 03:40:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87C2E18F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645756860;
-	bh=LOikF0/rX3AHINd6AeQtehpEpzOfhrfPiCunH6goSBw=;
+	s=default; t=1645756906;
+	bh=lawUbwxLS8pJsMMtnhHHoC0fMaHb4wwa9FSJKHy7rjI=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X6CFNbuSRD68Sdt05CVZwtYaskRtMqpetgVjdz3rUqd2uQC892TeExrBsVb9bQwfz
-	 9R1MmrtFFYVV7W1fW/EREumzcHtGh4/eGktcTKMIHt8qA6QEpGcfyxWa8NPSWUeQut
-	 d2N819Ptljm8H2Wg5wlrGfsEErfJmc1pftzwlRgI=
+	b=KugflxzU+ZN1HCFYdjaLJUY26JoDVyQhT1XCBsdDYxNcn6EjJMMMRl2WwOWIfQbB3
+	 u1zOeUOqO6mUqaBrOXQShtSc0cL3TInAz/+EeVAS457IkuWrxPmdZAvdlHrhnBpuHi
+	 opkDqj44Pc4kH1a+kucyqfYCRQIwO2C6K3YlyRs4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 184C6F804D9;
-	Fri, 25 Feb 2022 03:39:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F3F8F8051C;
+	Fri, 25 Feb 2022 03:39:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E3A0F804FD; Fri, 25 Feb 2022 03:39:22 +0100 (CET)
+ id C66B6F80430; Fri, 25 Feb 2022 03:39:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,46 +34,46 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21543F800F3
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 03:39:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21543F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8BA4F800B6
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 03:39:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8BA4F800B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="jrkrV3Rm"
+ header.b="gyV4pfPN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645756756; x=1677292756;
+ t=1645756761; x=1677292761;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=LOikF0/rX3AHINd6AeQtehpEpzOfhrfPiCunH6goSBw=;
- b=jrkrV3RmvvTrcm3rBSeKDiqTFcv9pkTUB5Xm9s99g4CLoWBG04kdO6oa
- 1wSukYMTPSfHS8488ljfiEERhxJaOj57XkJlLp5rwzf8lHonWStvGZt1/
- lt1hYXh9aTzj55ehjP2YdRt9uEXX3ZKmC1VvFvGv07frtMyVXfJpIw54u
- fxSyeNhf07nMl8pPiM1rjOjaHWHH+w41+v3+Si/vkq6fKnzoI55b+P1Au
- fmYTk/Ggcd1pwYiF+DJAmuIbgJue16wV82z5z+2hLmb63REW7Eh7tcyTP
- xEXvWU4PBtpg1VoRkgCp8oKSH15ksxKtliFChfE/buX5JL1+tXREg3u3F A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="277036138"
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="277036138"
+ bh=lawUbwxLS8pJsMMtnhHHoC0fMaHb4wwa9FSJKHy7rjI=;
+ b=gyV4pfPNTeSL7S1A+dBWFp50cBkBxjAfbsEexcGd05IW/Gy7Oebyz6Uy
+ WG9/ZDHyczVBhnOC0a5LSDTuvvAKMU8t1Sno+coYgYKB/5SQvTwbLSuGN
+ AvswfDOOH5YJgLN5fk0AFju70SQdk5J4O0k6oQi9xcVbyfTO4tN7zR/Wz
+ LHa2kQ2uekYzdgj9ipA9yvfPRAZf/L7BV/JrcRfNCVWvi6Y4yTyX0krsa
+ QA7kWO8lGlvOPQ3NZx8jjgVhcbvXTbOwtnXHRZMd3E4IsbRO787tpgswa
+ uTd0OSNGn8xNiAa/amgR/VJMR9jPZUexpxwtMoxs+kRIMUzBAUZqadP9v w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="277036141"
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="277036141"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 18:39:11 -0800
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="491832604"
+ 24 Feb 2022 18:39:13 -0800
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="491832616"
 Received: from jsegev-mobl1.ger.corp.intel.com (HELO [10.212.99.193])
  ([10.212.99.193])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 18:39:10 -0800
-Message-ID: <bde92ad1-0eda-d70a-4435-4963aa617cb4@linux.intel.com>
-Date: Thu, 24 Feb 2022 17:55:37 -0600
+ 24 Feb 2022 18:39:11 -0800
+Message-ID: <c2f249df-0b3e-1032-6514-81fabb544b6f@linux.intel.com>
+Date: Thu, 24 Feb 2022 18:56:40 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 03/17] ASoC: Intel: Introduce AVS driver
+Subject: Re: [PATCH 04/17] ASoC: Intel: avs: Inter process communication
 Content-Language: en-US
 To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
 References: <20220207122108.3780926-1-cezary.rojewski@intel.com>
- <20220207122108.3780926-4-cezary.rojewski@intel.com>
+ <20220207122108.3780926-5-cezary.rojewski@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220207122108.3780926-4-cezary.rojewski@intel.com>
+In-Reply-To: <20220207122108.3780926-5-cezary.rojewski@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
@@ -98,249 +98,488 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-> +config SND_SOC_INTEL_AVS
-> +	tristate "Intel AVS driver"
-> +	depends on PCI && ACPI
-> +	depends on COMMON_CLK
-> +	depends on SND_SOC_INTEL_SKYLAKE_FAMILY=n
-> +	default n
+> The boot process involving ROM-code requires specific handling with
+> 'unstall' operations which are not required post-boot with normal IPC so
+> separate set of send-message handlers is added for each of the usecases.
 
-default is already n
-
-> +	select SND_SOC_ACPI
-> +	select SND_HDA_EXT_CORE
-> +	help
-> +	  Enable support for Intel(R) cAVS 1.5 platforms with DSP
-> +	  capabilities. This includes Skylake, Kabylake, Amberlake and
-> +	  Apollolake. This option is mutually exclusive with SKYLAKE
-> +	  driver.
-
-The feedback from the RFC was that this is not desirable if you want
-anyone to use this driver. The suggested solution was to use the
-intel_dspcfg layer with e.g. dsp_driver=4 for avs. That would allow
-distributions to build this solution for early adopters.
+consider splitting this long sentence and use simpler logic. It's quite
+unclear how you went from boot to use cases.
 
 
-> +/* Platform specific descriptor */
-> +struct avs_spec {
-> +	const char *name;
+> +#include "messages.h"
+
+avs_messages.h?
+
+>  
+>  struct avs_dev;
+>  
+> @@ -18,6 +19,9 @@ struct avs_dsp_ops {
+>  	int (* const power)(struct avs_dev *, u32, bool);
+>  	int (* const reset)(struct avs_dev *, u32, bool);
+>  	int (* const stall)(struct avs_dev *, u32, bool);
+> +	irqreturn_t (* const irq_handler)(int, void *);
+> +	irqreturn_t (* const irq_thread)(int, void *);
+> +	void (* const int_control)(struct avs_dev *, bool);
+
+kernel-doc or comments on what the last op might mean?
+
+>  };
+>  
+>  #define avs_dsp_op(adev, op, ...) \
+> @@ -34,6 +38,18 @@ struct avs_spec {
+>  
+>  	const u32 core_init_mask;	/* used during DSP boot */
+>  	const u64 attributes;		/* bitmask of AVS_PLATATTR_* */
+> +	const u32 sram_base_offset;
+> +	const u32 sram_window_size;
 > +
-> +	const struct avs_dsp_ops *const dops;
+> +	const u32 rom_status;
+> +	const u32 hipc_req_offset;
+> +	const u32 hipc_req_ext_offset;
+> +	const u32 hipc_req_busy_mask;
+> +	const u32 hipc_ack_offset;
+> +	const u32 hipc_ack_done_mask;
+> +	const u32 hipc_rsp_offset;
+> +	const u32 hipc_rsp_busy_mask;
+> +	const u32 hipc_ctl_offset;
 
-dsp_ops would be clearer. 'd' could refer to just about anything.
+is this really desirable to describe the IPC registers, when we know
+there were 3 generations of Intel IPC registers. this is ipc-1.5 only.
 
-> +	const u32 core_init_mask;	/* used during DSP boot */
-> +	const u64 attributes;		/* bitmask of AVS_PLATATTR_* */
+>  };
+>  
+>  struct avs_dev {
+> @@ -42,6 +58,9 @@ struct avs_dev {
+>  
+>  	void __iomem *adsp_ba;
+>  	const struct avs_spec *spec;
+> +	struct avs_ipc *ipc;
+> +
+> +	struct completion fw_ready;
+>  };
+>  
+>  /* from hda_bus to avs_dev */
+> @@ -61,4 +80,78 @@ int avs_dsp_core_stall(struct avs_dev *adev, u32 core_mask, bool stall);
+>  int avs_dsp_core_enable(struct avs_dev *adev, u32 core_mask);
+>  int avs_dsp_core_disable(struct avs_dev *adev, u32 core_mask);
+>  
+> +/* Inter Process Communication */
+> +
+> +struct avs_ipc_msg {
+> +	union {
+> +		u64 header;
+> +		union avs_global_msg glb;
+> +		union avs_reply_msg rsp;
+> +	};
+> +	void *data;
+> +	size_t size;
 > +};
 > +
-> +struct avs_dev {
-> +	struct hda_bus base;
+> +struct avs_ipc {
 > +	struct device *dev;
+> +
+> +	struct avs_ipc_msg rx;
+> +	u32 default_timeout_ms;
+> +	bool ready;
 
-question: could you directly embed a struct device instead of a pointer,
-that would simplify the conversion through dev_get_drvdata below.
-
-Unless this *dev is related to the PCI device, in which case you could
-add a comment.
+ready for what? This should be described or documented.
 
 > +
-> +	void __iomem *adsp_ba;
+> +	bool rx_completed;
+> +	spinlock_t rx_lock;
+> +	struct mutex msg_mutex;
 
-I would guess 'ba' is base address? this could be added with comments or
-kernel-doc
+checkpatch would tell you to add a comment for spinlock and mutex. it's
+quite unclear what they might describe and if they are related.
 
-> +	const struct avs_spec *spec;
+> +	struct completion done_completion;
+> +	struct completion busy_completion;
 > +};
 > +
-> +/* from hda_bus to avs_dev */
-> +#define hda_to_avs(hda) container_of(hda, struct avs_dev, base)
-> +/* from hdac_bus to avs_dev */
-> +#define hdac_to_avs(hdac) hda_to_avs(to_hda_bus(hdac))
-> +/* from device to avs_dev */
-> +#define to_avs_dev(dev) \
-> +({ \
-> +	struct hdac_bus *__bus = dev_get_drvdata(dev); \
-> +	hdac_to_avs(__bus); \
-> +})
-> +
-> +int avs_dsp_core_power(struct avs_dev *adev, u32 core_mask, bool active);
-
-does this mean 'active' affects all bits in the core_mask? that doesn't
-seem very intuitive.
-
-> +int avs_dsp_core_reset(struct avs_dev *adev, u32 core_mask, bool reset);
-> +int avs_dsp_core_stall(struct avs_dev *adev, u32 core_mask, bool stall);
-> +int avs_dsp_core_enable(struct avs_dev *adev, u32 core_mask);
-> +int avs_dsp_core_disable(struct avs_dev *adev, u32 core_mask);
-
-it's a bit inconsistent to have enable/disable but a boolean for other
-functions?
-
-
-> +#include <linux/module.h>
-> +#include <sound/hdaudio_ext.h>
-> +#include "avs.h"
-> +#include "registers.h"
-
-consider renaming as avs_registers.h?
-
-> +
-> +#define AVS_ADSPCS_INTERVAL_US		500
-> +#define AVS_ADSPCS_TIMEOUT_US		10000
-
-these values don't match with anything that was previously used for
-Intel platforms, where the values could be different depending on
-generations.
-
-bxt-sst.c:#define BXT_BASEFW_TIMEOUT    3000
-bxt-sst.c:#define BXT_ROM_INIT_TIMEOUT  70
-cnl-sst.c:#define CNL_INIT_TIMEOUT      300
-cnl-sst.c:#define CNL_BASEFW_TIMEOUT    3000
-skl-sst-cldma.h:#define SKL_WAIT_TIMEOUT                500     /* 500
-msec */
-skl-sst-dsp.h:#define BXT_INIT_TIMEOUT          300
-skl-sst-ipc.c:#define IPC_TIMEOUT_MSECS         3000
-skl-sst.c:#define SKL_BASEFW_TIMEOUT    300
-skl-sst.c:#define SKL_INIT_TIMEOUT      1000
-
-please add a comment on how they were determined or align on hardware
-recommendations.
-
-> +int avs_dsp_core_power(struct avs_dev *adev, u32 core_mask, bool active)
-> +{
-> +	u32 value, mask, reg;
-> +	int ret;
-> +
-> +	mask = AVS_ADSPCS_SPA_MASK(core_mask);
-> +	value = active ? mask : 0;
-> +
-> +	snd_hdac_adsp_updatel(adev, AVS_ADSP_REG_ADSPCS, mask, value);
-> +
-> +	mask = AVS_ADSPCS_CPA_MASK(core_mask);
-> +	value = active ? mask : 0;
-> +
-> +	ret = snd_hdac_adsp_readl_poll(adev, AVS_ADSP_REG_ADSPCS,
-> +				       reg, (reg & mask) == value,
-> +				       AVS_ADSPCS_INTERVAL_US,
-> +				       AVS_ADSPCS_TIMEOUT_US);
-> +	if (ret)
-> +		dev_err(adev->dev, "core_mask %d %spower failed: %d\n",
-> +			core_mask, active ? "" : "un", ret);
-
-unpower is an odd wording.
-
-> +
-> +	return ret;
-> +}
-> +
-> +int avs_dsp_core_reset(struct avs_dev *adev, u32 core_mask, bool reset)
-> +{
-> +	u32 value, mask, reg;
-> +	int ret;
-> +
-> +	mask = AVS_ADSPCS_CRST_MASK(core_mask);
-> +	value = reset ? mask : 0;
-> +
-> +	snd_hdac_adsp_updatel(adev, AVS_ADSP_REG_ADSPCS, mask, value);
-> +
-> +	ret = snd_hdac_adsp_readl_poll(adev, AVS_ADSP_REG_ADSPCS,
-> +				       reg, (reg & mask) == value,
-> +				       AVS_ADSPCS_INTERVAL_US,
-> +				       AVS_ADSPCS_TIMEOUT_US);
-> +	if (ret)
-> +		dev_err(adev->dev, "core_mask %d %sreset failed: %d\n",
-> +			core_mask, reset ? "" : "un", ret);
-
-unreset is even more odd. enter reset or exit reset.
-
-> +
-> +	return ret;
-> +}
-> +
-> +int avs_dsp_core_stall(struct avs_dev *adev, u32 core_mask, bool stall)
-> +{
-> +	u32 value, mask, reg;
-> +	int ret;
-> +
-> +	mask = AVS_ADSPCS_CSTALL_MASK(core_mask);
-> +	value = stall ? mask : 0;
-> +
-> +	snd_hdac_adsp_updatel(adev, AVS_ADSP_REG_ADSPCS, mask, value);
-> +
-> +	ret = snd_hdac_adsp_readl_poll(adev, AVS_ADSP_REG_ADSPCS,
-> +				       reg, (reg & mask) == value,
-> +				       AVS_ADSPCS_INTERVAL_US,
-> +				       AVS_ADSPCS_TIMEOUT_US);
-> +	if (ret)
-> +		dev_err(adev->dev, "core_mask %d %sstall failed: %d\n",
-> +			core_mask, stall ? "" : "un", ret);
-
-that was probably a copy/paste of stall/unstall in the two cases
-above...this one works, the two above not so much.
-
-> +
-> +	return ret;
-> +}
-> +
-> +int avs_dsp_core_enable(struct avs_dev *adev, u32 core_mask)
-> +{
-> +	int ret;
-> +
-> +	ret = avs_dsp_op(adev, power, core_mask, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = avs_dsp_op(adev, reset, core_mask, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return avs_dsp_op(adev, stall, core_mask, false);
-> +}
-> +
-> +int avs_dsp_core_disable(struct avs_dev *adev, u32 core_mask)
-> +{
-> +	/* Be permissive to allow for full DSP shutdown in disable path. */
-
-that comment isn't very clear, what is permissive here?
-
-> +	avs_dsp_op(adev, stall, core_mask, true);
-> +	avs_dsp_op(adev, reset, core_mask, true);
-> +
-> +	return avs_dsp_op(adev, power, core_mask, false);
-> +}
-> +
-> +MODULE_LICENSE("GPL v2");
-
-"GPL"
-
-> diff --git a/sound/soc/intel/avs/registers.h b/sound/soc/intel/avs/registers.h
-> new file mode 100644
-> index 000000000000..e0b6c8ffe633
-> --- /dev/null
-> +++ b/sound/soc/intel/avs/registers.h
-
-avs_registers.h?
-
-> @@ -0,0 +1,22 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#define AVS_EIPC	EREMOTEIO
 > +/*
-> + * Copyright(c) 2021 Intel Corporation. All rights reserved.
+> + * IPC handlers may return positive value (firmware error code) what denotes
+> + * successful HOST <-> DSP communication yet failure to process specific request.
 > + *
-> + * Authors: Cezary Rojewski <cezary.rojewski@intel.com>
-> + *          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
+> + * Below macro converts returned value to linux kernel error code.
+> + * All IPC callers MUST use it as soon as firmware error code is consumed.
 > + */
+> +#define AVS_IPC_RET(ret) \
+> +	(((ret) <= 0) ? (ret) : -AVS_EIPC)
+
+why not use -EREMOTEIO directly? -AVS_EIPC is not very useful for the
+reader.
+
+And why -EREMOTEIO? I see that you used it in catpt but that's a very
+surprising code that no one else uses in sound/
+
 > +
-> +#ifndef __SOUND_SOC_INTEL_AVS_REGS_H
-> +#define __SOUND_SOC_INTEL_AVS_REGS_H
+> +static inline void avs_ipc_err(struct avs_dev *adev, struct avs_ipc_msg *tx,
+> +			       const char *name, int error)
+> +{
+> +	/*
+> +	 * If IPC channel is blocked e.g.: due to ongoing recovery,
+> +	 * -EPERM error code is expected and thus it's not an actual error.
+> +	 */
+> +	if (error == -EPERM)
+> +		dev_dbg(adev->dev, "%s 0x%08x 0x%08x failed: %d\n", name,
+> +			tx->glb.primary, tx->glb.ext.val, error);
+> +	else
+> +		dev_err(adev->dev, "%s 0x%08x 0x%08x failed: %d\n", name,
+> +			tx->glb.primary, tx->glb.ext.val, error);
+> +}
+
+we've used such functions before and the feedback, e.g. from GregKH and
+Mark Brown, has consistenly been that this is pushing the use of dev_dbg
+too far.
+
+
+> +#define AVS_IPC_TIMEOUT_MS	300
+
+skl-sst-ipc.c:#define IPC_TIMEOUT_MSECS         3000
+
+that's one order of magniture lower. please add a comment or align.
+
+> +static void avs_dsp_receive_rx(struct avs_dev *adev, u64 header)
+> +{
+> +	struct avs_ipc *ipc = adev->ipc;
+> +	union avs_reply_msg msg = AVS_MSG(header);
 > +
-> +/* Intel HD Audio General DSP Registers */
-> +#define AVS_ADSP_GEN_BASE		0x0
-> +#define AVS_ADSP_REG_ADSPCS		(AVS_ADSP_GEN_BASE + 0x04)
+> +	ipc->rx.header = header;
+> +	if (!msg.status)
+> +		memcpy_fromio(ipc->rx.data, avs_uplink_addr(adev),
+> +			      ipc->rx.size);
+
+it wouldn't hurt to describe that the status determines whether
+additional information can be read from a mailbox.
+
+> +}
 > +
-> +#define AVS_ADSPCS_CRST_MASK(cm)	(cm)
-> +#define AVS_ADSPCS_CSTALL_MASK(cm)	((cm) << 8)
-> +#define AVS_ADSPCS_SPA_MASK(cm)		((cm) << 16)
-> +#define AVS_ADSPCS_CPA_MASK(cm)		((cm) << 24)
-> +#define AVS_MAIN_CORE_MASK		BIT(0)
+> +static void avs_dsp_process_notification(struct avs_dev *adev, u64 header)
+> +{
+> +	struct avs_notify_mod_data mod_data;
+> +	union avs_notify_msg msg = AVS_MSG(header);
+> +	size_t data_size = 0;
+> +	void *data = NULL;
 > +
-> +#endif /* __SOUND_SOC_INTEL_AVS_REGS_H */
+> +	if (!adev->ipc->ready && msg.notify_msg_type != AVS_NOTIFY_FW_READY) {
+> +		dev_dbg(adev->dev, "FW not ready, skip notification: 0x%08x\n",
+> +			msg.primary);
+
+can this happen?
+
+you should add a comment on what could be sent before the first 'real'
+sign of life from the DSP.
+
+it's also unclear why this dev_dbg() when 'unknown notifications' below
+are handled as dev_warn()
+
+> +		return;
+> +	}
+> +
+> +	/* Calculate notification payload size. */
+> +	switch (msg.notify_msg_type) {
+> +	case AVS_NOTIFY_FW_READY:
+> +		break;
+> +
+> +	case AVS_NOTIFY_PHRASE_DETECTED:
+> +		data_size = sizeof(struct avs_notify_voice_data);
+> +		break;
+> +
+> +	case AVS_NOTIFY_RESOURCE_EVENT:
+> +		data_size = sizeof(struct avs_notify_res_data);
+> +		break;
+> +
+> +	case AVS_NOTIFY_MODULE_EVENT:
+> +		memcpy_fromio(&mod_data, avs_uplink_addr(adev), sizeof(mod_data));
+> +		data_size = sizeof(mod_data) + mod_data.data_size;
+
+it wouldn't hurt to describe the layout behing this formula.
+
+> +		break;
+> +
+> +	default:
+> +		dev_warn(adev->dev, "unknown notification: 0x%08x\n",
+> +			 msg.primary);
+> +		break;
+> +	}
+> +
+> +	if (data_size) {
+> +		data = kmalloc(data_size, GFP_KERNEL);
+> +		if (!data)
+> +			return;
+> +
+> +		memcpy_fromio(data, avs_uplink_addr(adev), data_size);
+> +	}
+> +
+> +	/* Perform notification-specific operations. */
+> +	switch (msg.notify_msg_type) {
+> +	case AVS_NOTIFY_FW_READY:
+> +		dev_dbg(adev->dev, "FW READY 0x%08x\n", msg.primary);
+> +		adev->ipc->ready = true;
+
+avs->ipc->fw_ready?
+
+> +		complete(&adev->fw_ready);> +		break;
+> +
+> +	default:
+> +		break;
+> +	}
+> +
+> +	kfree(data);
+> +}
+> +
+> +void avs_dsp_process_response(struct avs_dev *adev, u64 header)
+> +{
+> +	struct avs_ipc *ipc = adev->ipc;
+> +
+> +	if (avs_msg_is_reply(header)) {
+
+the naming is confusing, it's difficult for me to understand that a
+'response' could not be a 'reply'. The two terms are synonyms, aren't they?
+
+> +		/* Response processing is invoked from IRQ thread. */
+> +		spin_lock_irq(&ipc->rx_lock);
+> +		avs_dsp_receive_rx(adev, header);
+> +		ipc->rx_completed = true;
+> +		spin_unlock_irq(&ipc->rx_lock);
+> +	} else {
+> +		avs_dsp_process_notification(adev, header);
+> +	}
+> +
+> +	complete(&ipc->busy_completion);
+> +}
+> +
+> +irqreturn_t avs_dsp_irq_handler(int irq, void *dev_id)
+> +{
+> +	struct avs_dev *adev = dev_id;
+> +	struct avs_ipc *ipc = adev->ipc;
+> +	const struct avs_spec *const spec = adev->spec;
+> +	u32 adspis, hipc_rsp, hipc_ack;
+> +	irqreturn_t ret = IRQ_NONE;
+> +
+> +	adspis = snd_hdac_adsp_readl(adev, AVS_ADSP_REG_ADSPIS);
+> +	if (adspis == UINT_MAX || !(adspis & AVS_ADSP_ADSPIS_IPC))
+> +		return ret;
+> +
+> +	hipc_ack = snd_hdac_adsp_readl(adev, spec->hipc_ack_offset);
+> +	hipc_rsp = snd_hdac_adsp_readl(adev, spec->hipc_rsp_offset);
+> +
+> +	/* DSP acked host's request */
+> +	if (hipc_ack & spec->hipc_ack_done_mask) {
+> +		/* mask done interrupt */
+> +		snd_hdac_adsp_updatel(adev, spec->hipc_ctl_offset,
+> +				      AVS_ADSP_HIPCCTL_DONE, 0);
+> +
+> +		complete(&ipc->done_completion);
+> +
+> +		/* tell DSP it has our attention */
+> +		snd_hdac_adsp_updatel(adev, spec->hipc_ack_offset,
+> +				      spec->hipc_ack_done_mask,
+> +				      spec->hipc_ack_done_mask);
+> +		/* unmask done interrupt */
+> +		snd_hdac_adsp_updatel(adev, spec->hipc_ctl_offset,
+> +				      AVS_ADSP_HIPCCTL_DONE,
+> +				      AVS_ADSP_HIPCCTL_DONE);
+
+does the order between the complete() and the next two register updates
+matter?
+
+I would have updated the registers immediately and signal the completion
+later.
+
+I am also not sure why it's necessary to mask the done interrupt then
+unmask it. There is nothing that seems to require this masking?
+
+Or are you expecting the code blocked on wait_for_completion to be
+handled with interrupts masked, which could be quite racy?
+
+> +		ret = IRQ_HANDLED;
+> +	}
+> +
+> +	/* DSP sent new response to process */
+> +	if (hipc_rsp & spec->hipc_rsp_busy_mask) {
+> +		/* mask busy interrupt */
+> +		snd_hdac_adsp_updatel(adev, spec->hipc_ctl_offset,
+> +				      AVS_ADSP_HIPCCTL_BUSY, 0);
+> +
+> +		ret = IRQ_WAKE_THREAD;
+> +	}
+> +
+> +	return ret;
+> +}
+
+> +static int avs_ipc_wait_busy_completion(struct avs_ipc *ipc, int timeout)
+> +{
+> +	int ret;
+> +
+> +again:
+> +	ret = wait_for_completion_timeout(&ipc->busy_completion,
+> +					  msecs_to_jiffies(timeout));
+> +	/*
+> +	 * DSP could be unresponsive at this point e.g. manifested by
+> +	 * EXCEPTION_CAUGHT notification. If so, no point in continuing.
+
+EXCEPTION_CAUGHT doesn't seem to be described in this patchset, so not
+sure what this comment might mean.
+
+> +	 */
+> +	if (!ipc->ready)
+> +		return -EPERM;
+> +
+> +	if (!ret) {
+> +		if (!avs_ipc_is_busy(ipc))
+> +			return -ETIMEDOUT;
+> +		/*
+> +		 * Firmware did its job, either notification or reply
+> +		 * has been received - now wait until it's processed.
+> +		 */
+> +		wait_for_completion_killable(&ipc->busy_completion);
+
+can you elaborate on why wait_for_completion() is not enough? I haven't
+seen the 'killable' attribute been used by anyone in sound/
+
+> +	}
+> +
+> +	/* Ongoing notification's bottom-half may cause early wakeup */
+> +	spin_lock(&ipc->rx_lock);
+> +	if (!ipc->rx_completed) {
+> +		/* Reply delayed due to notification. */
+> +		reinit_completion(&ipc->busy_completion);
+> +		spin_unlock(&ipc->rx_lock);
+> +		goto again;
+
+shouldn't there be some counter to avoid potential infinite loops here?
+
+> +	}
+> +
+> +	spin_unlock(&ipc->rx_lock);
+> +	return 0;
+> +}
+
+> +static int avs_dsp_do_send_msg(struct avs_dev *adev, struct avs_ipc_msg *request,
+> +			       struct avs_ipc_msg *reply, int timeout)
+> +{
+> +	struct avs_ipc *ipc = adev->ipc;
+> +	int ret;
+> +
+> +	if (!ipc->ready)
+> +		return -EPERM;
+> +
+> +	mutex_lock(&ipc->msg_mutex);
+> +
+> +	spin_lock(&ipc->rx_lock);
+> +	avs_ipc_msg_init(ipc, reply);
+> +	avs_dsp_send_tx(adev, request);
+> +	spin_unlock(&ipc->rx_lock);
+> +
+> +	ret = avs_ipc_wait_busy_completion(ipc, timeout);
+> +	if (ret) {
+> +		if (ret == -ETIMEDOUT) {
+> +			dev_crit(adev->dev, "communication severed: %d, rebooting dsp..\n",
+> +				 ret);
+
+dev_crit() seems over the top if there is a recovery mechanism
+
+> +
+> +			avs_ipc_block(ipc);
+> +		}
+> +		goto exit;
+> +	}
+> +
+> +	ret = ipc->rx.rsp.status;
+> +	if (reply) {
+> +		reply->header = ipc->rx.header;
+> +		if (reply->data && ipc->rx.size)
+> +			memcpy(reply->data, ipc->rx.data, reply->size);
+> +	}
+> +
+> +exit:
+> +	mutex_unlock(&ipc->msg_mutex);
+> +	return ret;
+> +}
+> +
+> +static int avs_dsp_send_msg_sequence(struct avs_dev *adev,
+> +				     struct avs_ipc_msg *request,
+> +				     struct avs_ipc_msg *reply, int timeout,
+> +				     bool wake_d0i0, bool schedule_d0ix)
+
+the last two arguments are not used. is this intentional?
+
+> +{
+> +	return avs_dsp_do_send_msg(adev, request, reply, timeout);
+> +}
+> +
+> +int avs_dsp_send_msg_timeout(struct avs_dev *adev, struct avs_ipc_msg *request,
+> +			     struct avs_ipc_msg *reply, int timeout)
+> +{
+> +	return avs_dsp_send_msg_sequence(adev, request, reply, timeout,
+> +					 false, false);
+> +}
+> +
+> +int avs_dsp_send_msg(struct avs_dev *adev, struct avs_ipc_msg *request,
+> +		     struct avs_ipc_msg *reply)
+> +{
+> +	return avs_dsp_send_msg_timeout(adev, request, reply,
+> +					adev->ipc->default_timeout_ms);
+> +}
+
+is there really a 4-level nesting in your helpers?
+
+avs_dsp_send_msg
+  avs_dsp_send_msg_timeout
+     avs_dsp_send_msg_sequence
+           avs_dsp_do_send_msg
+
+this seems complicated, no?
+
+At the very least you should explain what a message and message sequence
+are, and why this is split this way.
+
+> +
+> +int avs_dsp_send_pm_msg_timeout(struct avs_dev *adev,
+> +				struct avs_ipc_msg *request,
+> +				struct avs_ipc_msg *reply, int timeout,
+> +				bool wake_d0i0)
+> +{
+> +	return avs_dsp_send_msg_sequence(adev, request, reply, timeout,
+> +					 wake_d0i0, false);
+> +}
+
+so the 'pm' means 'wake-d0i0'? that's far from intuitive.
+
+avs_dsp_send_d0i0_msg_timeout() would better describe what you are
+trying to do.
+
+In addition you need an explanation that d0i0 is a *firmware* concept
+without direct links to the *device* Dx status.
+
+> +int avs_dsp_send_pm_msg(struct avs_dev *adev,
+> +			struct avs_ipc_msg *request,
+> +			struct avs_ipc_msg *reply, bool wake_d0i0)
+> +{
+> +	return avs_dsp_send_pm_msg_timeout(adev, request, reply,
+> +					   adev->ipc->default_timeout_ms,
+> +					   wake_d0i0);
+> +}
+
+> +void avs_dsp_interrupt_control(struct avs_dev *adev, bool enable)
+> +{
+> +	const struct avs_spec *const spec = adev->spec;
+> +	u32 value;
+> +
+> +	value = enable ? AVS_ADSP_ADSPIC_IPC : 0;
+> +	snd_hdac_adsp_updatel(adev, AVS_ADSP_REG_ADSPIC,
+> +			      AVS_ADSP_ADSPIC_IPC, value);
+> +
+> +	value = enable ? AVS_ADSP_HIPCCTL_DONE : 0;
+> +	snd_hdac_adsp_updatel(adev, spec->hipc_ctl_offset,
+> +			      AVS_ADSP_HIPCCTL_DONE, value);
+> +
+> +	value = enable ? AVS_ADSP_HIPCCTL_BUSY : 0;
+> +	snd_hdac_adsp_updatel(adev, spec->hipc_ctl_offset,
+> +			      AVS_ADSP_HIPCCTL_BUSY, value);
+
+does the order matter? please add a comment.
+
+

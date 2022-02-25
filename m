@@ -2,85 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31FAB4C4F92
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 21:22:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 725E44C5032
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 21:56:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF2991F14;
-	Fri, 25 Feb 2022 21:21:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF2991F14
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED39B1F7C;
+	Fri, 25 Feb 2022 21:55:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED39B1F7C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645820541;
-	bh=aDZZNxOIyVZZyJ1tcxuj5JFdDx1BCsfQi/D+2GBi7+U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1645822583;
+	bh=U+mxbqqdFb5KpuxmhqGId0cLOioJTxrJTteOK3WoFBM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ObydQxnS1IHlUlQ6E6+BV166234apnNPvZXOzu7hEp/2xEkk0VInc2aPao1ICSAZ5
-	 0xffnIFKSqGVA6vSDjbKykneSxRsno1shxgtg30BHb80G3ghWrZh/0K+ypII5MlV1Y
-	 t6VURyGbYm6LbO3kTTIzvrEXs0rl1uONTgNx9e94=
+	b=eGpHx1z1WdW4cs6yJm6S/NcgvVhV/u2LfcyfsZK4Wg7zQo1jvY7DDDQEjN5SPS13K
+	 gCbCijcLcWvGuQ4XL9rIZncO+EImxgG9U+lyksblkbQyk7NLJT3fnCEZzQ95NSHKLT
+	 OScPSWhoco10T5O/4/4+a/zQmeOSx0WBmGxW5E/0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06DC5F800B6;
-	Fri, 25 Feb 2022 21:21:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AADDF8053E;
+	Fri, 25 Feb 2022 21:53:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86B43F80132; Fri, 25 Feb 2022 21:21:13 +0100 (CET)
+ id 8B528F80525; Fri, 25 Feb 2022 21:52:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com
- [209.85.161.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 542A0F80118
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 21:21:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 542A0F80118
-Received: by mail-oo1-f48.google.com with SMTP id
- p206-20020a4a2fd7000000b0031bfec11983so7800787oop.13
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 12:21:06 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=cVQN4rhbQ0VOMwlW4HIOTs15wpfmF5Ue6t6aR8MNAkQ=;
- b=Tr5xvVbIFAwL1Jv6pAmf0x0NL5Vz2mwJjv3uSZYmyTXSuU4sAIfd3qZ5Q1olxYSwKO
- tE4PMtwfMZR2ny7J5ajoMOOPF1NiwCpPZxi/jpSb5BnqMQC6RZfYnYEB2Ke9adKQEtRy
- XPJtGQXiikn9Mo7bj5PWrY6nAE/74jFwITDQVvLq/IieEdWEZTkd1D1+1riFlXuH/2To
- OYowojKzRGgrquWL44zWoVpDbj95aFRcOvODIr2qDmmalpJEn8hIenHJFNEWeeTapP3V
- BbpPhaz4PtVmG8pM0q7YdjwvxLbn4PanQOC7B5zcWaMg8/gpvQoUIVfKxKXzz6rajtSk
- 3kKA==
-X-Gm-Message-State: AOAM533FmzoDsx9bhJaT3Oz7dVsyPVqYmU9qRAmODsLr5CXQ2PLncs6M
- MnVtsHlPwy0f9pG8DHZheQ==
-X-Google-Smtp-Source: ABdhPJx8Y+SLyadWMmRFoYqEtYcO0Fuazi2wPPSrB7KFEXUBA6VreCaYupIKMIMx/c3Yt/sE+8pjYg==
-X-Received: by 2002:a05:6870:494e:b0:d1:4708:9247 with SMTP id
- fl14-20020a056870494e00b000d147089247mr2143738oab.160.1645820464751; 
- Fri, 25 Feb 2022 12:21:04 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213]) by smtp.gmail.com with ESMTPSA id
- l7-20020a9d4c07000000b005afa8981a42sm1578029otf.8.2022.02.25.12.21.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Feb 2022 12:21:03 -0800 (PST)
-Received: (nullmailer pid 1367683 invoked by uid 1000);
- Fri, 25 Feb 2022 20:21:03 -0000
-Date: Fri, 25 Feb 2022 14:21:03 -0600
-From: Rob Herring <robh@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v2 2/3] dt-bindings: soundwire: qcom: document optional
- wake irq
-Message-ID: <Yhk6L+Z7cOs5z6hr@robh.at.kernel.org>
-References: <20220224133125.6674-1-srinivas.kandagatla@linaro.org>
- <20220224133125.6674-3-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BAC8F80118
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 21:52:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BAC8F80118
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Wl9jVhvw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645822362; x=1677358362;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=U+mxbqqdFb5KpuxmhqGId0cLOioJTxrJTteOK3WoFBM=;
+ b=Wl9jVhvwHJtuB7lhlgVI2MxlmwSI/jr26/utE/H8hKvy2etcZ5Eu/Btx
+ Um7tjW1ZTT/XBC1jNhRGtlqa6rr3fS7nTdUCuLzgjkxoP9AyrkZ+1XeQ7
+ H7HcOWSN2REE7zkbUgPOXKf6iFpa2erGVp6FK7CpRwfPJAWpa1xLDChzx
+ kc8ktk7rlmodqU6lh4KIRCnpaq1or3EYupldz4QqvxzT6oc9ltNioNwCU
+ IQ5P3g66mxyJFuojHTJJ1/GS/xABFdOG3ED50naME9+aP8X1VItP/yeXj
+ vbWkZT7n3maSswHeDMMIR3PPM6z9PuE0YRqZkEYIjfMhAbufG7SnHch3K A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10269"; a="313296141"
+X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="313296141"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2022 12:52:40 -0800
+X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="777520588"
+Received: from nnwogbe-mobl1.amr.corp.intel.com (HELO [10.212.101.231])
+ ([10.212.101.231])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2022 12:52:39 -0800
+Message-ID: <66c8d1f7-f181-03ae-d5b1-17ec60b2b798@linux.intel.com>
+Date: Fri, 25 Feb 2022 14:21:51 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220224133125.6674-3-srinivas.kandagatla@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, yung-chuan.liao@linux.intel.com, quic_srivasam@quicinc.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH 13/17] ASoC: Intel: avs: Dynamic firmware resources
+ management
+Content-Language: en-US
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
+References: <20220207122108.3780926-1-cezary.rojewski@intel.com>
+ <20220207122108.3780926-14-cezary.rojewski@intel.com>
+ <c7a06bdf-5ad5-3d58-bd6b-4a533b8e7d8a@linux.intel.com>
+ <3e85850e-8e9b-757c-f640-498bf83996d8@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <3e85850e-8e9b-757c-f640-498bf83996d8@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,33 +98,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Feb 24, 2022 at 01:31:24PM +0000, Srinivas Kandagatla wrote:
-> Wake IRQ is optional interrupt that can be wired up on SoundWire controller
-> instances like RX path along with MBHC(Multi Button Headset connection).
-> Document this in bindings.
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  Documentation/devicetree/bindings/soundwire/qcom,sdw.txt | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-> index b93a2b3e029d..bade68f429b0 100644
-> --- a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-> +++ b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-> @@ -22,7 +22,7 @@ board specific bus parameters.
->  - interrupts:
->  	Usage: required
->  	Value type: <prop-encoded-array>
-> -	Definition: should specify the SoundWire Controller IRQ
-> +	Definition: should specify the SoundWire Controller and optional wake IRQ
 
-What about 'wakeup-source' property?
 
->  
->  - clock-names:
->  	Usage: required
-> -- 
-> 2.21.0
+
+>>> +static int avs_dsp_enable(struct avs_dev *adev, u32 core_mask)
+>>> +{
+>>> +    u32 mask;
+>>> +    int ret;
+>>> +
+>>> +    ret = avs_dsp_core_enable(adev, core_mask);
+>>> +    if (ret < 0)
+>>> +        return ret;
+>>> +
+>>> +    mask = core_mask & ~AVS_MAIN_CORE_MASK;
+>>
+>> so here BIT(MAIN_CORE) is zero in mask
 > 
 > 
+> What's wrong with AVS_MAIN_CORE_MASK being used explicitly?
+> 
+>>> +    if (!mask)
+>>> +        /*
+>>> +         * without main core, fw is dead anyway
+>>> +         * so setting D0 for it is futile.
+>>
+>> I don't get the comment, you explicitly discarded the main core with
+>> your logical AND above, so this test means that all other non-main cores
+>> are disabled.
+> 
+> There is no setting D0 for MAIN_CORE as firmware is not operational
+> without it. Firmware needs to be notified about D3 -> D0 transitions
+> only in case of non-MAIN_COREs.
+
+the comment was about 'without main core'.
+
+This is difficult to follow, because you've discarded the main code in
+the if (!mask), so that's an always-true case, which makes the rest of
+the explanations not so clear.

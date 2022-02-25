@@ -2,79 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AECF64C3BD6
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 03:42:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F37B94C3BD7
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 03:43:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44CF91B1C;
-	Fri, 25 Feb 2022 03:42:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44CF91B1C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 889451B22;
+	Fri, 25 Feb 2022 03:42:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 889451B22
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645756970;
-	bh=TJpmQK1FhUpf2DVpogbMHbQBqvaWPDVsgtivF9qTdmQ=;
+	s=default; t=1645756985;
+	bh=lK+F/K8sddvv4NKQjE9W+Yz3/aEg8j9pHI+RJnDq4ec=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ELHX6/nOa0tdkH5yoZOCxRMTFhNgueK6X4A/h6ejOVWqAeoXEuQQaverNMXfLxmF6
-	 qCOOBxxwIv+eCxZaYIFPBrXCMq5dNqPtX9LsNWKWgxajNDtovIP+7mXdkXe+FZo1h9
-	 yQMzzSyLS+liQCxJHvWm/LvitxY54DBjBzaMzM3U=
+	b=S1TLr+YH255rG8a3fo1mPPuJRoTlU7sy0NnNBhbOrWvVONreljiscZhyKrWWCynMx
+	 Dbn/xaZfyq1J0K9ekeOlHuFt63jKaAruBaTgjdyNYLhueX0h1eWC3UxwFW5NKd+Bt4
+	 X/x6lRLXyQTzbea8R0BTMbfe9ZZ1dUtdfNeO+YR4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA93EF80536;
-	Fri, 25 Feb 2022 03:39:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83D9FF80539;
+	Fri, 25 Feb 2022 03:39:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2159F80517; Fri, 25 Feb 2022 03:39:32 +0100 (CET)
+ id 5FB6FF8052D; Fri, 25 Feb 2022 03:39:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A48F2F800B6
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 03:39:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A48F2F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A780F8052F
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 03:39:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A780F8052F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ZB3PTCVl"
+ header.b="fnkRniVw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645756770; x=1677292770;
+ t=1645756778; x=1677292778;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=TJpmQK1FhUpf2DVpogbMHbQBqvaWPDVsgtivF9qTdmQ=;
- b=ZB3PTCVlcOW1obRYgJA32auivz+/U0enYt7ELYUCtIEndbcJ6uMv3N1D
- wcvZgzeDNAXZKjZE0FrcvbpYz4IOueUnmsH8kIq1jVhCdFbdi7ULm9gLd
- rh7+0y58kOPU0IAoIdzfPsqhKWOBrMOfQpcZTxhG9Hnhyz0Q3qxesILKM
- IehBsJrDUsrW1XPQ5D4Wyf6wSFgYbh5sWJWPyWAJ+MAE8b7HK81xhy1St
- bh+kcVUcs8gibRw5EcudjdluBFd7HfQFX5m6G5/ZhTh8767gFJajZcQs0
- P1jCHn9MWQVbzqis0dwpQDN751443ucilAftC482wTtxpT9HekyxGCxrA g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="277036175"
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="277036175"
+ bh=lK+F/K8sddvv4NKQjE9W+Yz3/aEg8j9pHI+RJnDq4ec=;
+ b=fnkRniVwdvcUSuvTyJ7gRw64wgyy8MycrCEzXR/+8ttWgPmR4x6ByPee
+ 7nvd+HXaV4LZdGULbQTQ4qDtYPkRJTOkTLumCuluUBtn/4eZLd/4l5inS
+ kh8A7EHZ2R2M8mL4YEmzgVi7/kM5eWDOwOzOvS3r1lAcaRaO9aT3Mk9Ow
+ 0NqgSrLPU1ZNECWDNz3MUQiuK6ti3NTi9RvOPwupnb/3+oLzdlkR8+Fbg
+ 7T/AVH/f5H84I8R1OLhY4oLx0d6h66TOOKg4oANaBNutq1oRwGDQ7LUMI
+ srPvBvobzVXgzfuJXkLSGdbUNfhRwenzCGRdYScH8voFdXFB23JMre6Uj w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="252133438"
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="252133438"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 18:39:27 -0800
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="491832690"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2022 18:39:33 -0800
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="491832706"
 Received: from jsegev-mobl1.ger.corp.intel.com (HELO [10.212.99.193])
  ([10.212.99.193])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 18:39:25 -0800
-Message-ID: <c7a06bdf-5ad5-3d58-bd6b-4a533b8e7d8a@linux.intel.com>
-Date: Thu, 24 Feb 2022 20:02:52 -0600
+ 24 Feb 2022 18:39:28 -0800
+Message-ID: <945de468-e2c2-a609-ac6f-a668ddee13a7@linux.intel.com>
+Date: Thu, 24 Feb 2022 20:15:31 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 13/17] ASoC: Intel: avs: Dynamic firmware resources
- management
+Subject: Re: [PATCH 14/17] ASoC: Intel: avs: General code loading flow
 Content-Language: en-US
 To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
 References: <20220207122108.3780926-1-cezary.rojewski@intel.com>
- <20220207122108.3780926-14-cezary.rojewski@intel.com>
+ <20220207122108.3780926-15-cezary.rojewski@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220207122108.3780926-14-cezary.rojewski@intel.com>
+In-Reply-To: <20220207122108.3780926-15-cezary.rojewski@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
@@ -97,110 +96,128 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> +static int avs_dsp_enable(struct avs_dev *adev, u32 core_mask)
-> +{
-> +	u32 mask;
-> +	int ret;
+
+> +#define AVS_FW_INIT_TIMEOUT_MS		3000
+
+another timeout?
+
+skl-sst.c:#define SKL_BASEFW_TIMEOUT    300
+skl-sst.c:#define SKL_INIT_TIMEOUT      1000
+bxt-sst.c:#define BXT_BASEFW_TIMEOUT    3000
+cnl-sst.c:#define CNL_INIT_TIMEOUT      300
+cnl-sst.c:#define CNL_BASEFW_TIMEOUT    3000
+
+> +#define AVS_ROOT_DIR			"intel/avs"
+> +#define AVS_BASEFW_FILENAME		"dsp_basefw.bin"
+> +#define AVS_EXT_MANIFEST_MAGIC		0x31454124
+> +#define SKL_MANIFEST_MAGIC		0x00000006
+> +#define SKL_ADSPFW_OFFSET		0x284
 > +
-> +	ret = avs_dsp_core_enable(adev, core_mask);
-> +	if (ret < 0)
+> +static bool debug_ignore_fw_version_check;
+
+this_is_a_very_long_variable_name_isn_t_it?
+
+> +module_param_named(ignore_fw_version, debug_ignore_fw_version_check, bool, 0444);
+> +MODULE_PARM_DESC(ignore_fw_version, "Verify FW version 0=yes (default), 1=no");
+
+You should clarify the purpose of the version check, and why this driver
+needs different firmware binaries and versions than what was already
+released to linux-firmware.
+
+
+> +static int avs_fw_manifest_strip_verify(struct avs_dev *adev, struct firmware *fw,
+> +					const struct avs_fw_version *min)
+> +{
+> +	struct avs_fw_manifest *man;
+> +	int offset, ret;
+> +
+> +	ret = avs_fw_ext_manifest_strip(fw);
+> +	if (ret)
 > +		return ret;
 > +
-> +	mask = core_mask & ~AVS_MAIN_CORE_MASK;
-
-so here BIT(MAIN_CORE) is zero in mask
-
-> +	if (!mask)
-> +		/*
-> +		 * without main core, fw is dead anyway
-> +		 * so setting D0 for it is futile.
-
-I don't get the comment, you explicitly discarded the main core with
-your logical AND above, so this test means that all other non-main cores
-are disabled.
-
-> +		 */
+> +	offset = avs_fw_manifest_offset(fw);
+> +	if (offset < 0)
+> +		return offset;
+> +
+> +	if (fw->size < offset + sizeof(*man))
+> +		return -EINVAL;
+> +	if (!min)
 > +		return 0;
 > +
-> +	ret = avs_ipc_set_dx(adev, mask, true);
-> +	return AVS_IPC_RET(ret);
-> +}
+> +	man = (struct avs_fw_manifest *)(fw->data + offset);
+> +	if (man->version.major != min->major ||
+> +	    man->version.minor != min->minor ||
+> +	    man->version.hotfix != min->hotfix ||
+> +	    man->version.build < min->build) {
+> +		dev_warn(adev->dev, "bad FW version %d.%d.%d.%d, expected %d.%d.%d.%d or newer\n",
+> +			 man->version.major, man->version.minor,
+> +			 man->version.hotfix, man->version.build,
+> +			 min->major, min->minor, min->hotfix, min->build);
+
+usually when the relevant firmware is not found, the distributions and
+users like to see a message informing them of the location of the
+firmware binaries.
+
+see thread with Bruce Perens and Jaroslav at
+https://github.com/thesofproject/sof-bin/issues/22
+
 > +
-> +static int avs_dsp_disable(struct avs_dev *adev, u32 core_mask)
-> +{
-> +	int ret;
-> +
-> +	ret = avs_ipc_set_dx(adev, core_mask, false);
-> +	if (ret)
-> +		return AVS_IPC_RET(ret);
-> +
-> +	return avs_dsp_core_disable(adev, core_mask);
-> +}
-> +
-> +static int avs_dsp_get_core(struct avs_dev *adev, u32 core_id)
-> +{
-> +	u32 mask;
-> +	int ret;
-> +
-> +	mask = BIT_MASK(core_id);
-> +	if (mask == AVS_MAIN_CORE_MASK)
-> +		/* nothing to do for main core */
-> +		return 0;
-> +	if (core_id >= adev->hw_cfg.dsp_cores) {
-> +		ret = -EINVAL;
-> +		goto err;
-> +	}
-> +
-> +	adev->core_refs[core_id]++;
-> +	if (adev->core_refs[core_id] == 1) {
-> +		ret = avs_dsp_enable(adev, mask);
-> +		if (ret)
-> +			goto err_enable_dsp;
+> +		if (!debug_ignore_fw_version_check)
+> +			return -EINVAL;
 > +	}
 > +
 > +	return 0;
-> +
-> +err_enable_dsp:
-> +	adev->core_refs[core_id]--;
-> +err:
-> +	dev_err(adev->dev, "get core failed: %d\n", ret);
-
-you should log which core could not be enabled
-
-> +	return ret;
 > +}
 > +
-> +static int avs_dsp_put_core(struct avs_dev *adev, u32 core_id)
+> +static int avs_dsp_load_basefw(struct avs_dev *adev)
 > +{
-> +	u32 mask;
+> +	const struct avs_fw_version *min_req;
+> +	const struct avs_spec *const spec = adev->spec;
+> +	const struct firmware *fw;
+> +	struct firmware stripped_fw;
+> +	char *filename;
 > +	int ret;
 > +
-> +	mask = BIT_MASK(core_id);
-> +	if (mask == AVS_MAIN_CORE_MASK)
-> +		/* nothing to do for main core */
-> +		return 0;
-> +	if (core_id >= adev->hw_cfg.dsp_cores) {
-> +		ret = -EINVAL;
-> +		goto err;
+> +	filename = kasprintf(GFP_KERNEL, "%s/%s/%s", AVS_ROOT_DIR, spec->name,
+> +			     AVS_BASEFW_FILENAME);
+> +	if (!filename)
+> +		return -ENOMEM;
+> +
+> +	ret = avs_request_firmware(adev, &fw, filename);
+> +	kfree(filename);
+> +	if (ret < 0) {
+> +		dev_err(adev->dev, "request firmware failed: %d\n", ret);
+> +		return ret;
 > +	}
 > +
-> +	adev->core_refs[core_id]--;
-> +	if (!adev->core_refs[core_id]) {
-> +		ret = avs_dsp_disable(adev, mask);
-> +		if (ret)
-> +			goto err;
+> +	stripped_fw = *fw;
+> +	min_req = &adev->spec->min_fw_version;
+> +
+> +	ret = avs_fw_manifest_strip_verify(adev, &stripped_fw, min_req);
+> +	if (ret < 0) {
+> +		dev_err(adev->dev, "invalid firmware data: %d\n", ret);
+
+should you not release the firmware in all error cases?
+
+if this is handled at a higher level, please add a comment.
+
+> +		return ret;
+> +	}
+> +
+> +	ret = avs_dsp_op(adev, load_basefw, &stripped_fw);
+> +	if (ret < 0) {
+> +		dev_err(adev->dev, "basefw load failed: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = wait_for_completion_timeout(&adev->fw_ready,
+> +					  msecs_to_jiffies(AVS_FW_INIT_TIMEOUT_MS));
+> +	if (!ret) {
+> +		dev_err(adev->dev, "firmware ready timeout\n");
+> +		avs_dsp_core_disable(adev, AVS_MAIN_CORE_MASK);
+> +		return -ETIMEDOUT;
 > +	}
 > +
 > +	return 0;
-> +err:
-> +	dev_err(adev->dev, "put core failed: %d\n", ret);
-
-put core %d
-
-> +	return ret;
 > +}
-
->  MODULE_LICENSE("GPL v2");
-
-"GPL"
 

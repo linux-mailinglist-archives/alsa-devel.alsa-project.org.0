@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FE074C3BD8
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 03:43:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF6A44C3BDA
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 03:43:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C35121B29;
-	Fri, 25 Feb 2022 03:42:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C35121B29
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FFF41B31;
+	Fri, 25 Feb 2022 03:42:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FFF41B31
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645756998;
-	bh=NKI2tGNN1+xn4hT9aYWaqxnkkbPb03W5EFcXbYMpVX4=;
+	s=default; t=1645757017;
+	bh=74+49TCrMQ7jAxfbjbaydv86+No0xoF1y8SiKLJpHgE=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ahC3M1HCdkXetxmbp+HejkbLd7Gpe6ekGsFq3NsXgHtAofXqL4/YmaWvlyNuSuduf
-	 BDIApgbTdHM6tdTMCuvYjVFYgBHLuSiu8FRYLw6bzkhxTkdfuU0gOch0hOfZBlgPIc
-	 rNoDscV2EEleiIgxazhz52BtxtUMPWZIFHpQ5kRU=
+	b=j58DamTRrFu+d3ZnvDttVipOpKNLVqawBAkyyHT6jCK2gwyq4lnihIhlgfznTpOKy
+	 1uvsgQE92z4gr0xPKFz7gjOTr7ullWP7h3eJlJ0284FFo2tznR5uGvRyZPsyinbmQ6
+	 N7kF0mX6r8t9UP+TPSHMnVpuIu10sV63F4nrQCTQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2AC77F8053B;
+	by alsa1.perex.cz (Postfix) with ESMTP id AC21EF8053E;
 	Fri, 25 Feb 2022 03:39:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EBDFF80535; Fri, 25 Feb 2022 03:39:42 +0100 (CET)
+ id C6E25F80534; Fri, 25 Feb 2022 03:39:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,46 +34,46 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A40E2F80533
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 03:39:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A40E2F80533
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1AA2F8052F
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 03:39:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1AA2F8052F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="J1Mlagb6"
+ header.b="awJIYpkq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645756780; x=1677292780;
+ t=1645756782; x=1677292782;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=NKI2tGNN1+xn4hT9aYWaqxnkkbPb03W5EFcXbYMpVX4=;
- b=J1Mlagb6kG5AgcuNyBqj+tJHHzSU4HV49rvs1QTw4IswUDPkp6KwvuhT
- pjh3Fffwaz6GW+iA6rJntWOqwwxYe9J+u2EuJp0cxN3BRp01qyGJg4n8j
- wOeo3s7ZHvtVHb6WX0Oi3jcqZspUAz7kE/ZUDTZrbwmZpYkqu/dxYegSC
- N5tmo/PDtqPP0G/CDQPaaaw1Oad4B/ar99LrJe/EPt8/NFKnswnNOIDAA
- fkAt7Uy+lFjMZ5VxRUtUDsZToUZZzZrWyWteEdhQ887cZeerfB8ICvfaP
- jYDG9kHfL6zrdWrRoYPx+1UjdbP3KkIJdVlb6LpYwUd6nFpKHyLVk3nV2 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="252133439"
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="252133439"
+ bh=74+49TCrMQ7jAxfbjbaydv86+No0xoF1y8SiKLJpHgE=;
+ b=awJIYpkqybRYunu/VMmNbIOAXzETpCfVnc1w53R8ZdHtHTs8eqgqCpGB
+ W6oEGSnXVQr+rvE8bg1BeG8vcMBzXG9/J+tYM7hF6pMnYIUD43CbhKMRF
+ DhxWNAqusi7Zcz2+q3mQvfpLyl9rFO5JKYkU0m1yGuEFN4EFzTs17ybDl
+ ZhE7l3y0sSya6KVD2ayMNBuehLhzKMg14ACZkm1VmpOnRz8IfVQEHwAGy
+ pGCOo1KQ6yzWHFAe1jH87pxRrelw/KdVDZJhVwztXEQGJYubUbtOxvoW6
+ azmUx7n3ESjqs5Uz9qgwc/n+VRk+7MbZj2fYQQfwekr5RMQ8htAR4tqeR w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="252133441"
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="252133441"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  24 Feb 2022 18:39:33 -0800
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="491832717"
+X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="491832725"
 Received: from jsegev-mobl1.ger.corp.intel.com (HELO [10.212.99.193])
  ([10.212.99.193])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 18:39:30 -0800
-Message-ID: <fdfe86e5-f44a-134f-c98d-a808b22032a1@linux.intel.com>
-Date: Thu, 24 Feb 2022 20:18:37 -0600
+ 24 Feb 2022 18:39:32 -0800
+Message-ID: <14f6c074-e898-6479-879f-6e3bc5152f07@linux.intel.com>
+Date: Thu, 24 Feb 2022 20:21:46 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 15/17] ASoC: Intel: avs: Implement CLDMA transfer
+Subject: Re: [PATCH 16/17] ASoC: Intel: avs: Code loading over CLDMA
 Content-Language: en-US
 To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
 References: <20220207122108.3780926-1-cezary.rojewski@intel.com>
- <20220207122108.3780926-16-cezary.rojewski@intel.com>
+ <20220207122108.3780926-17-cezary.rojewski@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220207122108.3780926-16-cezary.rojewski@intel.com>
+In-Reply-To: <20220207122108.3780926-17-cezary.rojewski@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
@@ -96,30 +96,58 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-
-
-> +int hda_cldma_stop(struct hda_cldma *cl)
+> +int avs_cldma_load_library(struct avs_dev *adev, struct firmware *lib, u32 id)
 > +{
-> +	unsigned int reg;
+> +	struct hda_cldma *cl = &code_loader;
 > +	int ret;
 > +
-> +	/* disable interrupts */
-> +	snd_hdac_adsp_updatel(cl, AVS_ADSP_REG_ADSPIC,
-> +			      AVS_ADSP_ADSPIC_CLDMA, 0);
+> +	hda_cldma_set_data(cl, (void *)lib->data, lib->size);
+> +	/* transfer modules manifest */
+> +	hda_cldma_transfer(cl, msecs_to_jiffies(AVS_CLDMA_START_DELAY_MS));
+> +	/* DMA id ignored as there is only ever one code-loader DMA */
 
-single line?
+consider adding new lines to make comments more readable. this is a bit
+of an eyesore.
 
-> +	snd_hdac_stream_updateb(cl, SD_CTL, SD_INT_MASK | SD_CTL_DMA_START, 0);
+> +	ret = avs_ipc_load_library(adev, 0, id);
+> +	hda_cldma_stop(cl);
 > +
-> +	/* await DMA engine stop */
-> +	ret = snd_hdac_stream_readb_poll(cl, SD_CTL, reg,
-> +					 !(reg & SD_CTL_DMA_START),
-
-move to previous line? we can use 100 chars these days, and that's what
-you do below.
-
-> +					  AVS_CL_OP_INTERVAL_US, AVS_CL_OP_TIMEOUT_US);
-> +	cancel_delayed_work_sync(&cl->memcpy_work);
+> +	if (ret) {
+> +		ret = AVS_IPC_RET(ret);
+> +		dev_err(adev->dev, "transfer lib %d failed: %d\n", id, ret);
+> +	}
 > +
 > +	return ret;
 > +}
+> +
+> +static int avs_cldma_load_module(struct avs_dev *adev, struct avs_module_entry *mentry)
+> +{
+> +	struct hda_cldma *cl = &code_loader;
+> +	const struct firmware *mod;
+> +	char mod_name[128];
+
+use kasprintf?
+
+> +	int ret;
+> +
+> +	snprintf(mod_name, sizeof(mod_name), "%s/%s/dsp_mod_%pUL.bin",
+> +		 AVS_ROOT_DIR, adev->spec->name, mentry->uuid.b);
+> +
+> +	ret = avs_request_firmware(adev, &mod, mod_name);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	hda_cldma_set_data(cl, (void *)mod->data, mod->size);
+> +	hda_cldma_transfer(cl, msecs_to_jiffies(AVS_CLDMA_START_DELAY_MS));
+> +	ret = avs_ipc_load_modules(adev, &mentry->module_id, 1);
+> +	hda_cldma_stop(cl);
+> +
+> +	if (ret) {
+> +		dev_err(adev->dev, "load module %d failed: %d\n", mentry->module_id,
+> +			ret);
+> +		return AVS_IPC_RET(ret);
+> +	}
+> +
+> +	return 0;
+> +}
+

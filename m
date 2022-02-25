@@ -2,93 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2D0A4C4629
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 14:24:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3B714C458D
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 14:12:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C3401DE4;
-	Fri, 25 Feb 2022 14:23:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C3401DE4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63D071937;
+	Fri, 25 Feb 2022 14:11:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63D071937
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645795459;
-	bh=J9B/a0jLbaT/B029EhJJONAz4BjyNh45Kx20o4dVs74=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WRmEPG3mueRWRc90+o7SWgJujxB6tBO6yRhkucUyKidWaieLWiHUORMuUXsY0svZk
-	 sHk986115L3DnD/ptjDHeyjKqK1XZuSd9vb+EL9xxdwNRYqnIgSowPliWYaqNdbmAF
-	 anStJ4qPYQoV0/UcBZqFmZFKV5s58iTHgWeMpG3E=
+	s=default; t=1645794723;
+	bh=bwh3aA9vgYgiNtyB2bydYL/HM2BD7wjkYI0gUnBS/uM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UtjwVMDyCbjidJ1LPjYMlkKQ7TpZT5ZZg91ScNYErwNyTdkaqmJbkcax+Yd5MRcxZ
+	 fpy8kOjQMomQpjD0qXk5PPaYl89xPwF+p2bqjskThxjLtD5MVnbtfLOT43Zm1Cfb1M
+	 fOlsgT4I4mN0tZv55JF3leauxNSb8i8wGuH9Sm/c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E6B0F80619;
-	Fri, 25 Feb 2022 14:11:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD689F80159;
+	Fri, 25 Feb 2022 14:10:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 254B9F80132; Fri, 25 Feb 2022 13:26:54 +0100 (CET)
+ id 24B56F80132; Fri, 25 Feb 2022 14:10:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C214F800B6
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 13:26:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C214F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E09FF800B6
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 14:10:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E09FF800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="zL5cMZES"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645792012; x=1677328012;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to;
- bh=p9Ak9NOX9ibO4qAU6vbMRodTIY87h/JOpPOKCV9uebM=;
- b=zL5cMZES6OrMrGJfjNKIv+UeNll2ktOFjfXSb8XzWJnOOuEIYjtWhJyh
- /WzV4o5dWq+Hu35+uITeg5uHlmVo6aE9C1aINeh+9k+msvc8BW+hPpKl/
- 1Bq9ZZPFlWFyABxMT7Vtbbh43JKvAbAdEYcwz5LfT2+BGhNQMS3n3ZDcO k=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 25 Feb 2022 04:26:44 -0800
-X-QCInternal: smtphost
-Received: from unknown (HELO nasanex01a.na.qualcomm.com) ([10.52.223.231])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2022 04:26:43 -0800
-Received: from [10.50.33.182] (10.80.80.8) by nasanex01a.na.qualcomm.com
- (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Fri, 25 Feb
- 2022 04:26:39 -0800
-Message-ID: <35bfd332-891f-1323-8b61-9e4e2fc5cd1c@quicinc.com>
-Date: Fri, 25 Feb 2022 17:56:36 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Subject: Re: [PATCH V0 1/1] ALSA: pcm: fix blocking while loop in
- snd_pcm_update_hw_ptr0()
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>
-References: <cover.1645784757.git.quic_rbankapu@quicinc.com>
- <4d8b1cb4b0db88c3e28207a81403fbf1e4a87bff.1645784757.git.quic_rbankapu@quicinc.com>
- <83e4b67d-91d3-dca9-4b1f-d209f927d517@perex.cz>
- <s5hee3rur42.wl-tiwai@suse.de>
-From: Raghu Ballappa Bankapur <quic_rbankapu@quicinc.com>
-In-Reply-To: <s5hee3rur42.wl-tiwai@suse.de>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-Mailman-Approved-At: Fri, 25 Feb 2022 14:11:19 +0100
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: ierre-Louis
- Bossart <pierre-louis.bossart@linux.intel.com>, alsa-devel@alsa-project.org,
- Zubin Mithra <zsm@chromium.org>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- linux-kernel@vger.kernel.org, Ranjani
- Sridharan <ranjani.sridharan@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- Krishna Jha <quic_kkishorj@quicinc.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Zk1vTZUm"
+Received: by mail-wr1-x42c.google.com with SMTP id r10so4469070wrp.3
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 05:10:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=fcpSanLXTluEH1o3Di3VGPHlfJFzXldmeWc3Lc0lqLs=;
+ b=Zk1vTZUmiGcgGskXNTXtWMVdtBc28Z/taq9E7cQRToI1sWHpLiL0pG2iwpEOoiqEnT
+ DifajOEgMkiTp6w4TAkNWoJFa4l8GKcO6umclQvtwbsMZGTkNeEMMhhhieO90DjzyBA1
+ vLU8Gwh5/iiSrChSx6OFHHzLTIpwT8mmd3aqd7eqOGcLZzVSi5o8QYxuxxEXBzO62Qm9
+ ir6xdbc0uD3c8DGyoHSwN3XmgB7/Tca6UBc0YC6/TDHE9QzTTvECJgcInRz3hrY/DaG+
+ TExuv2PP4qJMKcqjSwwMY6ussMfFX8ynFxpgJ09IuA0rYfITvbu+0M+l3UiNN5cmzl1R
+ xFWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=fcpSanLXTluEH1o3Di3VGPHlfJFzXldmeWc3Lc0lqLs=;
+ b=M5lMtidh/VDxMdl3N9LwSgnqPABuQUsYauY9feVDJAhpWS3mtf9QtAUImI3cP0+bOO
+ JyNGiS7/xwrUui3NJFpLhvnorrKPev/gXIkCq9NPifjqp8OMZuQKgHRmJ8sX942zpF0y
+ B1Vd50M3fu/9T1hj0nGj+Hh1wGiuHK+rs+IVW/Iex46UNWehm/eo/4NntAyPgjbmrGid
+ qxqc3unnXBmfUhiHaajQbADRcwNWOIhwOYppHwqxh2lt44uUs2mJkN5mDExD7K7j69Pq
+ 43V+xKuVHzID41JtL5sNknNUQPdZvR8RVtDY4WGPed27i0Pfx/ceIoK4gqLd8CoGZCDP
+ AFTg==
+X-Gm-Message-State: AOAM531Acle2GAG7q8rXjNzNxcoRRp3Xx6zeLiFz5Ef9BBWLi6BtMQbM
+ jnUYzETmHZnkhOgY09kBo+swXTQgmieYug==
+X-Google-Smtp-Source: ABdhPJyre3/XXa54d/UN7EUXy/JFbdoL52eQtuhRqP5E+3QcqPH/s40WiFNE1Y8lkp08FQKUN7/IrQ==
+X-Received: by 2002:adf:e18d:0:b0:1ef:7c17:cf96 with SMTP id
+ az13-20020adfe18d000000b001ef7c17cf96mr330851wrb.444.1645794644476; 
+ Fri, 25 Feb 2022 05:10:44 -0800 (PST)
+Received: from localhost.localdomain ([64.64.123.58])
+ by smtp.gmail.com with ESMTPSA id
+ l15-20020a05600c4f0f00b0037d62a899b1sm2494089wmq.6.2022.02.25.05.10.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Feb 2022 05:10:43 -0800 (PST)
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+To: oder_chiou@realtek.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com
+Subject: [PATCH] ALSA: rt5663: check the return value of devm_kzalloc() in
+ rt5663_parse_dp()
+Date: Fri, 25 Feb 2022 05:10:30 -0800
+Message-Id: <20220225131030.27248-1-baijiaju1990@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: alsa-devel@alsa-project.org, Jia-Ju Bai <baijiaju1990@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,41 +97,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+The function devm_kzalloc() in rt5663_parse_dp() can fail, so its return
+value should be checked.
 
-Thanks for your feedback.
+Fixes: 457c25efc592 ("ASoC: rt5663: Add the function of impedance sensing")
+Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
+Signed-off-by: Jia-Ju Bai <baijiaju1990@gmail.com>
+---
+ sound/soc/codecs/rt5663.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I see your below statement
+diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
+index 2138f62e6af5..3a8fba101b20 100644
+--- a/sound/soc/codecs/rt5663.c
++++ b/sound/soc/codecs/rt5663.c
+@@ -3478,6 +3478,8 @@ static int rt5663_parse_dp(struct rt5663_priv *rt5663, struct device *dev)
+ 		table_size = sizeof(struct impedance_mapping_table) *
+ 			rt5663->pdata.impedance_sensing_num;
+ 		rt5663->imp_table = devm_kzalloc(dev, table_size, GFP_KERNEL);
++		if (!rt5663->imp_table)
++			return -ENOMEM;
+ 		ret = device_property_read_u32_array(dev,
+ 			"realtek,impedance_sensing_table",
+ 			(u32 *)rt5663->imp_table, table_size);
+-- 
+2.17.1
 
-But,*having either this zero check*  or minimal hw_ptr_buffer_jiffies=1
-*would be good in anyway*, even if we add more check for the hw_params
-for no-period-wakeup case.
-
-Please review if those changes are Ok
-
-Regards
-Raghu
-
-On 2/25/2022 4:53 PM, Takashi Iwai wrote:
-> On Fri, 25 Feb 2022 11:52:05 +0100,
-> Jaroslav Kysela wrote:
->> On 25. 02. 22 11:39, Raghu Bankapur wrote:
->>> When period interrupts are disabled, while loop in snd_pcm_update_hw_ptr0()
->>> results in the machine locking up if runtime->hw_ptr_buffer_jiffies is 0.
->>> Validate runtime->hw_ptr_buffer_jiffies value before while loop to avoid
->>> delta check.
->> I would set hw_ptr_buffer_jiffies to 1 in this case in snd_pcm_post_start().
-> I thought of it at the first glance, but after reading the code again,
-> I doubt whether it makes sense at all to allow this condition.
-> Since the buffer size is too small and the rate is too high, we can't
-> calculate the buffer crossing condition accurately under such
-> condition.
->
-> But, having either this zero check or minimal hw_ptr_buffer_jiffies=1
-> would be good in anyway, even if we add more check for the hw_params
-> for no-period-wakeup case.
->
->
-> thanks,
->
-> Takashi

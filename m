@@ -2,91 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F09354C436B
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 12:24:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59AA64C4421
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 13:01:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CB2618F0;
-	Fri, 25 Feb 2022 12:24:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CB2618F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBA8A1872;
+	Fri, 25 Feb 2022 13:01:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBA8A1872
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645788293;
-	bh=xpFsGJald+jtgCLY+Np0vzd0C5RjTBfKFa2HnlVb1Ws=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lDCKGGEuhJ+da6hsb216YgvOt4KQSewLuG7X399RYCMS3MkvCENsduzCsMXiERoaZ
-	 jpUbypd2BdALBfJxQCZVS/ShXOb5VZIXYLIR8ynhffMLgLKkPYWwvyOu9C/AkYV+NU
-	 +Tom8QNCD36TA3wcwzEf0oIXx/Y/peBvhqh2KUU0=
+	s=default; t=1645790516;
+	bh=c9OWvqnyXVR2lKzdl+uG4oiVN1Rt9uUm7gcgYxiKaTY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=F60aRGn0TD8vtjv/dk+MqBtMLoGqsG+o2bjP4LIFaS4qLnmnMF+D5FC+qANezjwwk
+	 738yLO6B1K0xPJEGu+mcONhQMhKAim2/a/Mf8G3VGXGXAxpsYqFmXp0yUw9vkshsZT
+	 QBVwj6HeQdDiUYYtSGu8UmFG7n982ooRGIj/Nlz0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFCB6F80159;
-	Fri, 25 Feb 2022 12:23:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F2ACF80159;
+	Fri, 25 Feb 2022 13:00:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4DFCF80132; Fri, 25 Feb 2022 12:23:45 +0100 (CET)
+ id 171B5F80132; Fri, 25 Feb 2022 13:00:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3DD1BF800B6
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 12:23:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DD1BF800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5953EF80118
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 13:00:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5953EF80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="1VDkWvmh"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="1WdlpGXT"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 8E24F1F380;
- Fri, 25 Feb 2022 11:23:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1645788222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I1cUAs5p8YagTc3OqTQ5ToQ2uL2zX4mTWJqUy1RYpiQ=;
- b=1VDkWvmhd1vjegxFPyX4ZXFS4Iucrp8NxNRwXRESdtEb+H5w/8tMd4ag8b3K4MChdT3YBw
- EdfziVpxjjyaQGqqtQE0AiBklnC8eJcyQOaveWa7P22yh0qAiE9nTHZ1G7wG49+O0zwFQb
- X+6+8qdubHI53uukfAgnPD205yxz3x0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1645788222;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I1cUAs5p8YagTc3OqTQ5ToQ2uL2zX4mTWJqUy1RYpiQ=;
- b=1WdlpGXT3y/D/5RcLIfHAy6h4oYgxPVF9hPhChETqvt4Kczbc8bEylR6lfliUQBHgXMu7G
- QkmhgOFJ0TYAQnAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 90E9EA3B84;
- Fri, 25 Feb 2022 11:23:41 +0000 (UTC)
-Date: Fri, 25 Feb 2022 12:23:41 +0100
-Message-ID: <s5hee3rur42.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH V0 1/1] ALSA: pcm: fix blocking while loop in
- snd_pcm_update_hw_ptr0()
-In-Reply-To: <83e4b67d-91d3-dca9-4b1f-d209f927d517@perex.cz>
-References: <cover.1645784757.git.quic_rbankapu@quicinc.com>
- <4d8b1cb4b0db88c3e28207a81403fbf1e4a87bff.1645784757.git.quic_rbankapu@quicinc.com>
- <83e4b67d-91d3-dca9-4b1f-d209f927d517@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Zubin Mithra <zsm@chromium.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Raghu Bankapur <quic_rbankapu@quicinc.com>, linux-kernel@vger.kernel.org,
- ierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Vinod Koul <vkoul@kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Krishna Jha <quic_kkishorj@quicinc.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="ayQ4jQsx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645790437; x=1677326437;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=c9OWvqnyXVR2lKzdl+uG4oiVN1Rt9uUm7gcgYxiKaTY=;
+ b=ayQ4jQsxtHHn9dLOmG1jWMzx5kadzVEJPNCtUJayZi1lCXoKXHSDtOmS
+ CY3If90sEW36PCa+qYIZe3yC2qJuJXpMHNoI9JWf/9r8VR9t5l65baAVc
+ XFN3AZCbYW86QdTAqw5aOVI8c+xFzQjfwgmI4xRwI88F2MBo/4QA3QFxO
+ c9Xg9cnfytah+3W5o65r0IPdccMq7KU2ed1oHOztr1J5xOU0uKqjWk7Sy
+ vKzqEsQL9IHHqe4uUnVSBye828pUkCfY2PUuczXnAD9KpsYfaa+tvrNbH
+ DrZPZGBYbq6IMpw7/2WomLhslj//A+PqxfTGWb8UN7yOccM2M3SzgbDvc A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="233107526"
+X-IronPort-AV: E=Sophos;i="5.90,136,1643702400"; d="scan'208";a="233107526"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2022 04:00:32 -0800
+X-IronPort-AV: E=Sophos;i="5.90,136,1643702400"; d="scan'208";a="549234257"
+Received: from akarbown-mobl1.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.45.25])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2022 04:00:30 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ daniel.baluta@nxp.com
+Subject: [PATCH] ASoC: SOF: sof-priv: Drop duplicate sof_compressed_ops
+ declaration
+Date: Fri, 25 Feb 2022 14:00:34 +0200
+Message-Id: <20220225120034.11028-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,28 +88,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 25 Feb 2022 11:52:05 +0100,
-Jaroslav Kysela wrote:
-> 
-> On 25. 02. 22 11:39, Raghu Bankapur wrote:
-> > When period interrupts are disabled, while loop in snd_pcm_update_hw_ptr0()
-> > results in the machine locking up if runtime->hw_ptr_buffer_jiffies is 0.
-> > Validate runtime->hw_ptr_buffer_jiffies value before while loop to avoid
-> > delta check.
-> 
-> I would set hw_ptr_buffer_jiffies to 1 in this case in snd_pcm_post_start().
+Other commit added the declaration of the sof_compressed_ops, drop the
+instance which added it as Platform specific ops, which the
+sof_compressed_ops is not.
 
-I thought of it at the first glance, but after reading the code again,
-I doubt whether it makes sense at all to allow this condition.
-Since the buffer size is too small and the rate is too high, we can't
-calculate the buffer crossing condition accurately under such
-condition.
+76cdd90b27b4e ("ASoC: SOF: pcm: Add compress_ops for SOF platform component driver")
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/sof/sof-priv.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-But, having either this zero check or minimal hw_ptr_buffer_jiffies=1
-would be good in anyway, even if we add more check for the hw_params
-for no-period-wakeup case.
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 1cc6dce17582..2e19ac619ad5 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -561,11 +561,6 @@ int snd_sof_debugfs_add_region_item_iomem(struct snd_sof_dev *sdev,
+ 		enum snd_sof_fw_blk_type blk_type, u32 offset, size_t size,
+ 		const char *name, enum sof_debugfs_access_type access_type);
+ 
+-/*
+- * Platform specific ops.
+- */
+-extern struct snd_compress_ops sof_compressed_ops;
+-
+ /*
+  * DSP Architectures.
+  */
+-- 
+2.35.1
 
-
-thanks,
-
-Takashi

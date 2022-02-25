@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A0324C503A
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 21:57:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F2634C503F
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 21:58:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 271F11FBF;
-	Fri, 25 Feb 2022 21:56:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 271F11FBF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 148171FCD;
+	Fri, 25 Feb 2022 21:57:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 148171FCD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645822648;
-	bh=VO2b7mZp1MmZe9GUeYmWjagvBg37++qhmnrAYwGd0mc=;
+	s=default; t=1645822680;
+	bh=lKo7nfI5LGCpObRJF0V4PcskLJO4y5rSqkL8ektw6t4=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s4M/h9MoJAa+MZlinb4ONfIBMZIUI1obXxly+tQZVRaTnRBm+9NUjXRNNDgbRy0yc
-	 9DkqzVoXOmA7eiEwlfgJ6Kg3l+plM6XzsfDET7sKm483LJrKGbNSw42vtiYyYEZmuD
-	 q0IrwMt2NwOuEauKVHMLL9nWYtVfNrYgSxcKdwrA=
+	b=fRohjxCYaDTsXHEJPiY6rlPU8LGbeMlkOuZE7ThYyOHpeADKrfu+tdt5jptRl4hHD
+	 UKw2uCqlLFkXU26xHx5BPskmMsWUmL9wt63ca6F7WQNh8kNs8gg0o6q5z6kY64WqKG
+	 e8J9yRngFalli7OzdbTTIymHlEHqeBPX+h5ONCYU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67C25F8055A;
-	Fri, 25 Feb 2022 21:53:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 837D9F8056F;
+	Fri, 25 Feb 2022 21:53:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9F1AF80529; Fri, 25 Feb 2022 21:52:51 +0100 (CET)
+ id ED8A7F80533; Fri, 25 Feb 2022 21:52:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,48 +34,48 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F1F0F80533
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 21:52:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F1F0F80533
+ by alsa1.perex.cz (Postfix) with ESMTPS id 642D8F80526
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 21:52:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 642D8F80526
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="b1rWa+dY"
+ header.b="Z5DTHaxi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645822368; x=1677358368;
+ t=1645822370; x=1677358370;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=VO2b7mZp1MmZe9GUeYmWjagvBg37++qhmnrAYwGd0mc=;
- b=b1rWa+dY0JPL5+0Y3A7tle1T/T2r5F97CWigyvngl+4hQl8SMVB7FcYd
- y7p3YKTxNgRDCu9DrdX4LJiwWYt7YKDFAK1L7oWaVwbMoC52Fx5t0jhUF
- y3kBraQYSzMx/FYIMAOegWfg4vxyBi2xPV1R295YFG2RheqsKMq9IFm+c
- d39sbo/jfRha1ohmNlALwc5/gRmecOHczRqVKCYTU3z8FNSAhJkOypCYW
- ryuZ2Ue9ibN7qsOtLjziT4l++eP4VYmOdv+iyhJXUpuClwo8tt3i1JnnT
- rSceMRLM8yZlUoNTc02WsmzCxBwrwwTbgs82Sk1Jnq/iK6fSw0kE/aAcG w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10269"; a="313296150"
-X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="313296150"
+ bh=lKo7nfI5LGCpObRJF0V4PcskLJO4y5rSqkL8ektw6t4=;
+ b=Z5DTHaxiP5sQ0UY0FpJs1tRNY6TwXAHb9u+GXDPcr1gMqbjVjLfR6n1q
+ TMn36AD8mJMNY027/dQZvlaONdZBgYG134iXcaNNHllDraD8CXIMvwCuZ
+ jlZ+uVSq2UdGYWh8aRUizC/mkyUwgAGExFX1Z7x6akc1a7J45NhVI9AFl
+ OCVUjGjVMJEb3520WRBEWGX3gDIMMhh9VjG/PFZzzrp1snVsfqL67ScX5
+ N67A3hOzBSwAdn9Ff/8ljcjhBYCCPd9K4jZkfJNUyPfu0rAIpWdpaDv7I
+ RaUbmuC1aPOlNrOk0mvnrOBWiW5WyHTPDvfZiGVvBi/e8UdBSUtA09FFZ g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10269"; a="313296155"
+X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="313296155"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2022 12:52:46 -0800
-X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="777520609"
+ 25 Feb 2022 12:52:48 -0800
+X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="777520627"
 Received: from nnwogbe-mobl1.amr.corp.intel.com (HELO [10.212.101.231])
  ([10.212.101.231])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2022 12:52:46 -0800
-Message-ID: <e33d7adf-3a99-c82c-c380-f65344e7cdbb@linux.intel.com>
-Date: Fri, 25 Feb 2022 14:44:31 -0600
+ 25 Feb 2022 12:52:48 -0800
+Message-ID: <da68f26b-fb7b-a8d6-ea91-b05ce3a41701@linux.intel.com>
+Date: Fri, 25 Feb 2022 14:46:52 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 07/17] ASoC: Intel: avs: Add module management requests
+Subject: Re: [PATCH 08/17] ASoC: Intel: avs: Add power management requests
 Content-Language: en-US
 To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
 References: <20220207122108.3780926-1-cezary.rojewski@intel.com>
- <20220207122108.3780926-8-cezary.rojewski@intel.com>
- <e63ad06a-a583-b9f0-de00-644cbe389888@linux.intel.com>
- <d44240ee-822e-51ed-6aed-957ac9e6bf91@intel.com>
+ <20220207122108.3780926-9-cezary.rojewski@intel.com>
+ <24125d33-bcb6-050b-88fb-6b2ef549fbad@linux.intel.com>
+ <b24a4d37-6eac-0cae-b1e1-cf26a8fff5ec@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <d44240ee-822e-51ed-6aed-957ac9e6bf91@intel.com>
+In-Reply-To: <b24a4d37-6eac-0cae-b1e1-cf26a8fff5ec@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
@@ -98,142 +98,93 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-
-On 2/25/22 12:50, Cezary Rojewski wrote:
-> On 2022-02-25 2:27 AM, Pierre-Louis Bossart wrote:
->>> +int avs_ipc_init_instance(struct avs_dev *adev, u16 module_id, u8
->>> instance_id,
->>> +              u8 ppl_id, u8 core_id, u8 domain,
+> 
+>>> +    msg.ext.set_d0ix.wake = enable_pg;
 >>
->> you should explain the relationship between ppl_id and core_id. It seems
->> that in the same pipeline different modules instances can be pegged to
->> different cores, which isn't very intuitive given the previous
->> explanation that a pipeline is a scheduling unit.
+>> simplify the argument? Not sure anyone could understand what wake and
+>> enable_pg mean.
+> 
+> 
+> Well, CG and PG are popular shortcuts among Intel audio team and stand
+> for clock gating and power gating respectively. 'wake' is firmware
+> specific. I can provide a comment, but not all question are going to be
+> answered by it. Firmware specification is the place to find the answer
+> for most of these.
+
+again please do not assume that anyone reviewing this code has access to
+the firmware specification.
+
+> 
+>> int avs_ipc_set_d0ix(struct avs_dev *adev, bool wake, bool streaming)
 >>
->> The domain as a u8 is not very clear either, I was under the impression
->> there were only two domains (LL and EDF)?
-> 
-> 
-> Hmm.. such explanations are supposed to be part of HW or FW
-> specifications. I don't believe kernel is a place for that. Fields found
-
-how do you expect people with no access to those specs to understand
-this code then?
-
-You have to describe the concepts in vague-enough terms that someone
-familiar with DSPs can understand.
-
-> here are needed to provide all the necessary information firmware
-> expects when requesting INIT_INSTANCE. What's possible and how's
-> everything handled internally is for firmware to decide and explain.
-> There are no if-statements in the driver's code that force
-> ppl_id/core_id relation so I don't see why reader would get an
-> impression there is some dependency. What's in the topology gets routed
-> to firmware with help of above function.
-> 
-> Just to confirm: yes, you can have multiple cores engaged in servicing
-> modules found in single pipelines.
-> 
-> In regard to field name/sizes: again, these match firmware equivalents
-> 1:1 so it's easy to switch back and forth.
-
-add comments then.
-
-> 
->>> +              void *param, u32 param_size)
->>> +{
->>> +    union avs_module_msg msg = AVS_MODULE_REQUEST(INIT_INSTANCE);
->>> +    struct avs_ipc_msg request;
->>> +    int ret;
->>> +
->>> +    msg.module_id = module_id;
->>> +    msg.instance_id = instance_id;
->>> +    /* firmware expects size provided in dwords */
->>> +    msg.ext.init_instance.param_block_size =
->>> +            DIV_ROUND_UP(param_size, sizeof(u32));
->>> +    msg.ext.init_instance.ppl_instance_id = ppl_id;
->>> +    msg.ext.init_instance.core_id = core_id;
->>> +    msg.ext.init_instance.proc_domain = domain;
+>>> +    msg.ext.set_d0ix.streaming = streaming;
 >>> +
 >>> +    request.header = msg.val;
->>> +    request.data = param;
->>> +    request.size = param_size;
->>
->> isn't there a need to check if the module can be initialized? there's
->> got to be some dependency on pipeline state?
-> 
-> 
-> IPC handlers found in message.c have one and only one purpose only: send
-> a message. Firmware will return an error if arguments passed are invalid.
-> 
-> Also, note that ALSA/ASoC already have a working state machine for
-> streaming. There is no reason to re-implement it here.
-
-add a comment then.
-
-> 
 >>> +
->>> +    ret = avs_dsp_send_msg(adev, &request, NULL);
+>>> +    ret = avs_dsp_send_pm_msg(adev, &request, NULL, false);
 >>> +    if (ret)
->>> +        avs_ipc_err(adev, &request, "init instance", ret);
+>>> +        avs_ipc_err(adev, &request, "set d0ix", ret);
 >>> +
 >>> +    return ret;
 >>> +}
->>> +
->>> +int avs_ipc_delete_instance(struct avs_dev *adev, u16 module_id, u8
->>> instance_id)
->>> +{
->>> +    union avs_module_msg msg = AVS_MODULE_REQUEST(DELETE_INSTANCE);
->>> +    struct avs_ipc_msg request = {0};
->>> +    int ret;
->>> +
->>> +    msg.module_id = module_id;
->>> +    msg.instance_id = instance_id;
->>> +    request.header = msg.val;
->>> +
->>> +    ret = avs_dsp_send_msg(adev, &request, NULL);
->>> +    if (ret)
->>> +        avs_ipc_err(adev, &request, "delete instance", ret);
->>> +
->>> +    return ret;
+>>> diff --git a/sound/soc/intel/avs/messages.h
+>>> b/sound/soc/intel/avs/messages.h
+>>> index 1dabd1005327..bbdba4631b1f 100644
+>>> --- a/sound/soc/intel/avs/messages.h
+>>> +++ b/sound/soc/intel/avs/messages.h
+>>> @@ -101,6 +101,8 @@ enum avs_module_msg_type {
+>>>       AVS_MOD_LARGE_CONFIG_SET = 4,
+>>>       AVS_MOD_BIND = 5,
+>>>       AVS_MOD_UNBIND = 6,
+>>> +    AVS_MOD_SET_DX = 7,
+>>> +    AVS_MOD_SET_D0IX = 8,
+>>>       AVS_MOD_DELETE_INSTANCE = 11,
+>>>   };
+>>>   @@ -137,6 +139,11 @@ union avs_module_msg {
+>>>                   u32 dst_queue:3;
+>>>                   u32 src_queue:3;
+>>>               } bind_unbind;
+>>> +            struct {
+>>> +                /* cAVS < 2.0 */
+>>> +                u32 wake:1;
+>>> +                u32 streaming:1;
 >>
->> same here, can this be used in any pipeline state?
+>> you probably want to explain how a 'streaming' flag is set at the module
+>> level? One would think all modules connected in a pipeline would need to
+>> use the same flag value.
 > 
 > 
-> Ditto.
+> Some of the fields are confusing and I agree, but driver has to adhere
+> to FW expectations if it wants to be a working one. I would like to
+> avoid judging the firmware architecture here, regardless of how
+> confusing we think it is.
+
+it's not about judging, just explaining what is expected on the firmware
+side and what the driver needs to do.
+
 > 
->>> +}
->>> +
->>> +int avs_ipc_bind(struct avs_dev *adev, u16 module_id, u8 instance_id,
->>> +         u16 dst_module_id, u8 dst_instance_id,
->>> +         u8 dst_queue, u8 src_queue)
+> 'wake' and 'streaming' fields are part of SET_D0ix message is which part
+> of MODULE-type message interface. Base firmware is, from architecture
+> point of view, a module of type=0 (module_id) and instance id=0
+> (instance_id).
+> 
+>>> +            } set_d0ix;
+>>>           } ext;
+>>>       };
+>>>   } __packed;
+>>> @@ -298,4 +305,13 @@ int avs_ipc_get_large_config(struct avs_dev
+>>> *adev, u16 module_id, u8 instance_id
+>>>                    u8 param_id, u8 *request_data, size_t request_size,
+>>>                    u8 **reply_data, size_t *reply_size);
+>>>   +/* DSP cores and domains power management messages */
+>>> +struct avs_dxstate_info {
+>>> +    u32 core_mask;
+>>> +    u32 dx_mask;
 >>
->> what does a queue represent?
+>> what is the convention for D0 and D3 in the mask ? which one is 0 or 1?
+>>
+>> Is this also handled in a hierarchical way where only the bits set in
+>> core_mask matter?
 > 
 > 
-> In firmware's nomenclature pin/index/queue are synonyms when speaking
-> about module instances.
-
-well, that's worthy of a comment...
-
-> 
->>> +{
->>> +    union avs_module_msg msg = AVS_MODULE_REQUEST(BIND);
->>> +    struct avs_ipc_msg request = {0};
->>> +    int ret;
->>> +
->>> +    msg.module_id = module_id;
->>> +    msg.instance_id = instance_id;
->>> +    msg.ext.bind_unbind.dst_module_id = dst_module_id;
->>> +    msg.ext.bind_unbind.dst_instance_id = dst_instance_id;
->>> +    msg.ext.bind_unbind.dst_queue = dst_queue;
->>> +    msg.ext.bind_unbind.src_queue = src_queue;
->>> +    request.header = msg.val;
->>> +
->>> +    ret = avs_dsp_send_msg(adev, &request, NULL);
->>> +    if (ret)
->>> +        avs_ipc_err(adev, &request, "bind modules", ret);
->>> +
->>> +    return ret;
->>> +}
-
+> Can provide a short kernel-doc for these two, sure.

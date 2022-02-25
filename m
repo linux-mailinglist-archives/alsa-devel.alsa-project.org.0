@@ -2,154 +2,186 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A23854C4DEF
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 19:37:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66C384C4E0F
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 19:51:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3115E1EE5;
-	Fri, 25 Feb 2022 19:36:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3115E1EE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC63B1EEC;
+	Fri, 25 Feb 2022 19:51:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC63B1EEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645814266;
-	bh=VwEKiXLfbaLJuN+IM+UCgGSR0uJPTwe8KvMFLu5ceBE=;
+	s=default; t=1645815111;
+	bh=3fD0KvfDasSvLmArDvSUm4UT2LMGC7/j6WM9v7uMk1w=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FWZpg94lGYOpESm6rgkIbJnCHfCNBrqP/DnMKa6P95WyaNtPjmA+CwIsjwC6/9MsW
-	 RalKuKwyfraGBbm/EFX3NPWh4pKnbk911vADFFyvmNBRJ6hY1g3AQsIrba9hnb0DBo
-	 pZ9wzmhjGY/C7GM7WQ92B9CEoz0lRb8Xpz4DpU5s=
+	b=iMgitSPvGAUun68JDaFFY95ft8+0DMSurvWv/oM9ewpHCu1G/PWeTlt7ugIz0eNjC
+	 xXOwBgmPSKsNuANVpWizy+eOQI3IKmPk9GaVRfqisW8QHaxQBbnyNg8M5xNu4VUSRz
+	 olguZ8tdziUzPEk3IdY0AdG8u4DfFD5LZosYmpaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99023F80159;
-	Fri, 25 Feb 2022 19:36:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D872F800E1;
+	Fri, 25 Feb 2022 19:50:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8868F80118; Fri, 25 Feb 2022 19:36:38 +0100 (CET)
+ id AE81FF800E1; Fri, 25 Feb 2022 19:50:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20630.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::630])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D781F80118
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 19:36:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D781F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0089F800E1
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 19:50:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0089F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="wh2Buqv0"
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="hzjLRFry"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645815041; x=1677351041;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=3fD0KvfDasSvLmArDvSUm4UT2LMGC7/j6WM9v7uMk1w=;
+ b=hzjLRFry6eUV/z4/x77YL9HxMuDrSQD1vRR3uN57cLABI1nqUDoN7k48
+ 43OOx+HoG3yVjVC9g21PWrgmYlqwuI/DZn/kgjiSBiEr30u7a/V+EgdSi
+ l6+h2iL4Dc+YRo0cV6pPJWZ/oqGRzzAGfb8CpWrJL2755VisZYVNY92/L
+ UyRsDVTupTbiBGEuK1CTxvw8HJ2pmVmguKs7sbenDhk44cEG1iTodixvl
+ jOu72sUFsNSJV/+rvm+QUt8giGDFt15X2Wpqr4bYhUlPnLVjLODh7w2Zy
+ egw9NUfwDPZ0l4Pnrq2yHnpYCsPzZkY1l9vfJgyj2tZVwRLqXgV29cqFD A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="338994934"
+X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="338994934"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2022 10:50:33 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="638326403"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmsmga002.fm.intel.com with ESMTP; 25 Feb 2022 10:50:33 -0800
+Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Fri, 25 Feb 2022 10:50:33 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Fri, 25 Feb 2022 10:50:32 -0800
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21 via Frontend Transport; Fri, 25 Feb 2022 10:50:32 -0800
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.175)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Fri, 25 Feb 2022 10:50:32 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PGwkSGQkL+rfxlZeAr4fJnL6UAwf4Kodz+cRi/VTSweBOP84btAbPen0BZCYuRzmUvDQo85W2NEguT4UZ68rn+MNIqO3xA1Joe5oakWAiW6SfgS+2m3fgUJ9ibRpB8yP0mh+qmwxYByYayGeryWfLBxXcuyyoCvyXSCC8JjCpghgaMuRRaDYT6BlI1St07/L94UT+C4Yhv7yGBQHW5lPYO0Oe3dplYWl5M242pNg4yZhaKQ8B4f+7av3x/L9ayNQqopn5qpOCouqDhNu4MOMaHLZSI3Jv0QqI4w1f8jpgosCYeLOm7tLSS75XOAgPY7O1hz7d+otvJgcHqAoLlVcvw==
+ b=G5SJYuy5H5it9qmztuPphtjvjnhVXGnPBYvz7QwU0dOaRt27is0nQhLY6Og6jhIphkdnt7OQm/hp/g+tp6cmC5YWO58NV9fO0dVDNkRyaHxpFa3LmP8DXTO+QOXSffSdwL1pQ1LGKCfu8wU17gcjH3j9bYg9+wlWmOTiHX89/jx1lbwBPy6X93mhycootqTmODelUV/Rmo37By5j+btRbciNM/BBrXIyO/aNP3irhPZ2PeRXNzOlrWrC2eYgiNjqO0lhfbjkmax2fkJLZblaLASjwyRiYHYswrCEZII4NpwnH+CvK74kLbomoKmXuq7WlzjL/4oAHBIDryTBOR+bhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AluFW2Dhp/HMVeBWJkAzchlb6L9BE/BCuW76qOJgLJE=;
- b=eJdikICJS8g6E1v+DCKu/fT6hVHh4uFn8ZYujOopo3L35iWTHEP6hqJPQra43le5bTXpwTGUNdvxKzCmBTY6aJKA1dzpC87pBE08A7KItWkQ2vo1CYMPRRPv93J2fbHwodKvy0eVWCkyHvr37cWtaCaPzZRX4CCwYBl1vrfys5qIRPglIeRSnYr4HEyzIfU3hTv4wtoCwUGKDFfNRh0rrrZviEnBHTfhVv6A+3tDV3ky0iwMSVEh/MpYcBL427OpcYXcJtgf8m7eeppWg89+MlmWhRjgqKQDvLzs7f1Qj+LVCgP9fNEntWdyAvhqrCXl/HHcKysMTvSLV1a0HkH0jg==
+ bh=DeIf/t8MeYUyxwWsuFQXGnl0u+yDsJmcIplt4DBWHp8=;
+ b=T4MUCW2aZLObFVLmP35y0Uu9N6JijP7MII8kvsp6cjm/BAEN7enT3MQeJCew8Ju9y19bf5stu+5UOJOJO+Heci1+h08Asqr19/EyCpVYxj/RDand1q06NfZNje/mj8V0CBhRBsES/BjyoJd9PowV2qUZhSgQvCLuoycl70EpYrZz8BdUYttHo3kLNwaI5sC70ui3SuMNhFAZbpin8LLAPSU7NXo0lMhlTU/g/Lqp57JAmydhFFUjCt66aMPZ73PrfeWsrm5SL8NY4sSJRkEGsmhqKPnyPu77S3DeuRf8hMInB2atozssLlptO1aBUXqAkLyHK0FrJ/4ulUXdhLlBSA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AluFW2Dhp/HMVeBWJkAzchlb6L9BE/BCuW76qOJgLJE=;
- b=wh2Buqv0ppUJLTUEjc6POTNI5jExtJhTwSlJqJw3G+UK0d+3iuuevZBWbYclPl8xJ8uv0oTmzpuX7a0Z081nIkXdRhvCO2BjUZaiWD0svZO7bVM7TnpTo8j6aFCbQNgd+5gIV2BoBXGcb7Qobktcsm63AO8oEeLpTBhzc1Sivno=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by SJ0PR12MB5487.namprd12.prod.outlook.com (2603:10b6:a03:301::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.24; Fri, 25 Feb
- 2022 18:36:27 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::497e:ae36:b6ef:86b2]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::497e:ae36:b6ef:86b2%6]) with mapi id 15.20.5017.026; Fri, 25 Feb 2022
- 18:36:27 +0000
-Message-ID: <d4b3f072-198b-0656-0b0c-134ccbac0d58@amd.com>
-Date: Sat, 26 Feb 2022 00:02:53 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: (subset) [PATCH 1/9] ASoC: amd: vg: fix for pm resume callback
- sequence
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
+ (2603:10b6:301:51::10) by MWHPR11MB1406.namprd11.prod.outlook.com
+ (2603:10b6:300:23::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Fri, 25 Feb
+ 2022 18:50:30 +0000
+Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
+ ([fe80::24c3:c14:92a4:22a6]) by MWHPR1101MB2157.namprd11.prod.outlook.com
+ ([fe80::24c3:c14:92a4:22a6%5]) with mapi id 15.20.4995.027; Fri, 25 Feb 2022
+ 18:50:30 +0000
+Message-ID: <d44240ee-822e-51ed-6aed-957ac9e6bf91@intel.com>
+Date: Fri, 25 Feb 2022 19:50:23 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.6.0
+Subject: Re: [PATCH 07/17] ASoC: Intel: avs: Add module management requests
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org
-References: <20220223071959.13539-1-Vijendar.Mukunda@amd.com>
- <164570533555.1194769.3668536221336070255.b4-ty@kernel.org>
-From: "Mukunda,Vijendar" <Vijendar.Mukunda@amd.com>
-In-Reply-To: <164570533555.1194769.3668536221336070255.b4-ty@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <alsa-devel@alsa-project.org>
+References: <20220207122108.3780926-1-cezary.rojewski@intel.com>
+ <20220207122108.3780926-8-cezary.rojewski@intel.com>
+ <e63ad06a-a583-b9f0-de00-644cbe389888@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <e63ad06a-a583-b9f0-de00-644cbe389888@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BM1PR01CA0114.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00::30)
- To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+X-ClientProxiedBy: LNXP265CA0088.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:76::28) To MWHPR1101MB2157.namprd11.prod.outlook.com
+ (2603:10b6:301:51::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 75a35db8-c2c8-4a16-3d9e-08d9f88dbb66
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5487:EE_
-X-Microsoft-Antispam-PRVS: <SJ0PR12MB54877B5ABD2F429B7C8A3E98973E9@SJ0PR12MB5487.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 938b2f5e-1092-4fe1-502a-08d9f88fb1cf
+X-MS-TrafficTypeDiagnostic: MWHPR11MB1406:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR11MB140643C88A72A8234B7524ABE33E9@MWHPR11MB1406.namprd11.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3bnJDSVvjAek6BPUkgO45KiFWfyRnlsJjjSg+XoQz1GirbuFJm6AYnRhK8kHdPUprt+cNSA7WRDfFAYYShK+qnc5D7YAkZDPJLc49UZUG3ZwMQQyh3UMAIr8vvUaMr49Htzexr7a0MGQYKyXPzknILAeMbhqtaAYqKpzqDT+ke7fwbW1LCrEhfyjbm/V5kNShTYi6DHGYUzd/U8UwU4VSFf6effU8oPtPKGxqAoZZI/ZZyNSTBid6KQo5VsmO35vo4OwVhduSVHkP3kMQADL0EUXyqsQUqQZoARopF1HIF/A36X3P+8VHf966nEgzt1FTm5lSxCEzHiEKLsTw81CqV0EUSGQsf7slVIyEc8X1RPnO2XJVwLljc2stbDbru5if6ULZIVWqc/AC0pF0RMihL802EIKqt9jWXq/6W4hIx7FAosYxGnqJR0QmOHU9EOivzDNRXTNB0/Bs+tQkUu3KoXlJVwG+oj8fRKUMipHZbsUZuEFB1SdVwaVZvdMubRthjrYZHrN3tjc/GQxZ2hYGt/+lhAeKFLC3XMETNkVT3jlB+WbbvlSKQvEjJD+k2D6l2dHHvaT1V/VIzzH5K0fZtpJpYVFdzjh28k7+yjKJoX3zIE7cWd6lbQObVe6djLQEZSqtr3mEMJ+oCWiA2zQIl+jc821XhHxsc3eUjsMathcSLSyomFHg67O5L3732khWs1ubFDAdA5E/qKAjNx+1Jg7xuoU86FOU6QUO+ai5j/Su0E+UvJEl2CdFYS4z0D5vNUnfSIzTYriS9OksdQdr4/1Ej1ncGw96Tpz0lItIrCNkPuhRflPXdD4JTtlnlfV
+X-Microsoft-Antispam-Message-Info: Zz4q3r5GL+wAZkHA7BXzDBGl8Jz/FtJn68WmOtg5JwnJXhoDRR6qk8tBenjSTEzfoPxZOE59eQf7Cyw3SpLQOlaQ0biTMhB+uvkGI1bxv5DjbcwW5pj6QnSFwrnkhCvpcxmqLLKu9ZkBAfmDQjhciXbQPKNCttGI9ws4l2XIiK4HD6dfA3H8k+yhawRyMAvFmGt6z7WMhtDhUUG/HcLoL0hmicD6mk7ayDEHX5Lds2xz8IexIcfQLHrifSAw8Oj9Lht7sdFuahRh68b710Uj4N4XQxQrCRrauX+9PnIx5CAR8bht108PVmKQ7VzfCuI45H4ImgEHQf9/mlvRrwJ4T/EYmZcuY3+dnsmU1GBPyRFmtNf8bd0vodmGKWt6M5tCdWWHZkkcZEgbp2GmpWPzncZuBcI0BUfX1fC8cSir2TUV1yfv5E2aMxJ/C8ikb8lm2uzer121bGDUHaNPbAP4/M4LppXEYtOQuujDH+7Ed61ixTHSfflqjNXmaBGpG/7xjjVP79DBOaYZEqaPAMVkp7pKITh69kfaN5lBCwF6uNsJM3uXwCOmWgqQ1ymCLUSeD1SJkUh1cFCvWqnIAS6R3Cab6w2leUBGb8SQjyinabck4j7RtE4bCO+GFL7QG5TC/n6jnftd5mSjVl95tJ6qyovBABV4g6WfM13MjgsZ19c1lg6GHiYNAa+MQcTeM4bBdHRafnByC/TbuN7J9S0LyPfroKkSVDbFVE2FTML4OXZUBGswHc4PwPRgVwrJalDd
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6506007)(38100700002)(31696002)(45080400002)(966005)(6486002)(2906002)(508600001)(86362001)(6512007)(53546011)(316002)(5660300002)(6666004)(2616005)(8936002)(54906003)(4326008)(36756003)(26005)(186003)(66946007)(83380400001)(66476007)(66556008)(8676002)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(366004)(8676002)(36756003)(83380400001)(6506007)(38100700002)(66946007)(66476007)(66556008)(82960400001)(508600001)(2906002)(6486002)(2616005)(186003)(26005)(31686004)(31696002)(86362001)(4326008)(316002)(6512007)(5660300002)(6666004)(8936002)(7416002)(53546011)(44832011)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVVXaUUyUXB3YWY2dEZ5dUQ4NFdvT21sQncrRE11R01mNjBTK2hNRTNEZEYx?=
- =?utf-8?B?NDNyVlYzditPN3V2VmVrUnlXcnlvN0RqNHcxcnNiQTRJUFdMMnVVMWdBOTNl?=
- =?utf-8?B?aytNaytCaXB0aWFLUEhDTVZFSzR2L05DTEZqQnhha0lHNjJXRWRzMThjTmxl?=
- =?utf-8?B?M2JuTXExN29yM0FGejNuQjdXbm1aZk5jSkVYWVFDMjJmMGlRRnZseDJwZXdp?=
- =?utf-8?B?b3FlNWVyc1EwL1RiSkd6YmJKMDgzTlBhYWtWem5Hd1J3bEZoVjQvVHFtV2tp?=
- =?utf-8?B?QlVDL05iQUFhQnlGWitXU2FwRmhvZzM2dTFmd3hXVDVqa3RyUk9LUGZ1cS9x?=
- =?utf-8?B?akhKbzNPdlRpWjRXOXZJUUhmcWl6czNPWjJYK1IvSjVhc1NzV1g3eTQvS3c1?=
- =?utf-8?B?bmtzSGdhY1J5OEhYdDNhblBSTDZwQks0Z2tBU2ZBRUw1WFo0dVZBcklVN1lE?=
- =?utf-8?B?akdFTWFia0l6UVR0dnNNdGFNb3hPL2QycFl5VFk5NU1KaWNvaEJRL0N4Z29C?=
- =?utf-8?B?RTFlbHVLd1VGLytwZUg0Y3d3MithR3E0WWdjQTRUNUxhQmlWN2pacHQ1Qjc5?=
- =?utf-8?B?Rkg5bGdWd2hZSjRtbC95QmswVmVsR2JEeGo0VUJIbXBpVU55MDBxdGF5VXc2?=
- =?utf-8?B?eFR4SG82dFU0M0I1SC8zSW1STlNTeFNVd1Q3ZXF5SFk3UWdWMlo4V3FUN0hY?=
- =?utf-8?B?R2pObEdnY084YUFIRmcvMXliMVVRdGVBV3ZaeWtSNWRhckVDY3VBY0NWNVlS?=
- =?utf-8?B?aXdJQ1k2RmZKbUc5U045Si9kazAvNXlZMTBRYnJTR3RyQ1R4U2Q3aE5meDBp?=
- =?utf-8?B?Lzl2Z3pyb0xER3pwNUs1c25GZDdnN2V5dUVoSW1pTzNkN3FibytNVFlNVVox?=
- =?utf-8?B?ZlZmTW5admQwWk9VaTVEQnVRQW9WUE1vYXZSbGczKzZ1TUt0eVRTT3pzeHh4?=
- =?utf-8?B?d0V1NTdSSWg2VUIxY2RxVmdLdUlhQkFDOHlGT0piUGVVQnlsaUJjWi9sMjhE?=
- =?utf-8?B?dHJuUXhWSHVIRkpRcjJRckY3YzhMajZaZmtaN040YUVCd3RxNVZNZXRtYi9G?=
- =?utf-8?B?QmFQRy9iaGtnV2hLcVBBWWhvTjFCK2hZTlQxTThXN2hFSGthTHptYmk3bksv?=
- =?utf-8?B?bEYxeURYYk9ERWFDWWJGdjlkOGJnYmlUekw2bTkydnhTUnFWSS9leStVT0Ix?=
- =?utf-8?B?S1VacXVOa3Z1SjdZZ0FXNDlLV0V5Q1VwaU5KTld5bDBPSlN3bjh2Y3NqSjRJ?=
- =?utf-8?B?QUNiUkNOYTZTajZnckVlRFpYampZZWhTWnhRQy9BM1Q1azlsdHFZTFlwaTNK?=
- =?utf-8?B?d25VSTZFQlNTRW9GZEdhMXZ0aHZwRU1OMkpPR3ZlM29FaVRkUUhObmxjVnQ0?=
- =?utf-8?B?OUxsYzQ1N0NrV3dWcktRUGFmSy82bGl0RWpsVUMwS2l5N21NcEtRRFF3ZXlP?=
- =?utf-8?B?YWpRYm5PMzFDNjd1UW02dFFBL21EU2FUU0Y2d1hvUWpYMTRjZ3FKNk16VU1p?=
- =?utf-8?B?cXZrclo5SzhhMlJKcmhucHp5dHZ6UVlFNk1YNjlzQ284YXdlbGpKaWxua09y?=
- =?utf-8?B?dXBUT3RMRHNyeW5vQThxNE5WYjdQeVlRRzY3cHRxNXBmNEt2eTV0VUZZS2ov?=
- =?utf-8?B?WmJGM2dtdVBMRnp3WkdYcCtHeVZQZlJVTFl5em1rUzVuZ1NaM1liakZNYWRk?=
- =?utf-8?B?NWVOblZEVDhIanVyeUNNNk8wM09Mb2I1WkdIRnAxMlRPNTYxVWZJQVJSbDRa?=
- =?utf-8?B?Yzl3NEVGa0d5bXBpc055S0NzT3ZKNHlHR0J0aWllWnlDUTA2VFVkOEVSenR3?=
- =?utf-8?B?UEJqbndzcVNzL1JSenk4QU1ET2s5c25jZXljOGtzQjBtUklvZkcwNjR6ekVN?=
- =?utf-8?B?cW1LQlpUTkNHMTJnNlZJYThGTDdWV0ZZdmxSZ3ZyRXdwamZhdmtwUktUZzRt?=
- =?utf-8?B?eDBrSklINGE5Um5Jb296eEVJT1ZqaWx0MHFRa2xkdFcydkdSaXdIZFBqWkJI?=
- =?utf-8?B?cklFT01hdXVXSjU0NlhVQmRQQXYrVG4zM011aFUxbUZaVUpvNmpRQUMxLzhH?=
- =?utf-8?B?QWtkNTlPWmVuaHZPWFpBUHBtQXVYd1o3UUJuQUlOYkNFTU96S01EVzZaZVdV?=
- =?utf-8?B?ZGZVeGlpMEcwNDZZK3VNMElpWitQRVNvQXo2NkYraS9yaVVxa2xRaU45NzBX?=
- =?utf-8?Q?OYvGOYGl0dcgTh+2IoUkyO0=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75a35db8-c2c8-4a16-3d9e-08d9f88dbb66
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEpvWGlSVFhRWkVvY1NsTEplZkpIb2VjcHRTYWlzdTFvTUNUMGpqb3ZZbllC?=
+ =?utf-8?B?SHJ5d2RwWVZxbkpjeXRESllJdzNoaFlTOEw2Tm9UbXk1b3pVNHMwcjg5d1oy?=
+ =?utf-8?B?WXBXTkJSZkd6TDArTkd6MTRrcC9kZTIwcjVjeGlQOWhlRzYyYW15Y0toTWFP?=
+ =?utf-8?B?NVVWQzU1M2Uzam9KNWF4eDlnTWxuWmkxYTFlczdEQ01xV1F5ZnZyaFdua3RY?=
+ =?utf-8?B?dEZ5ejlncExuTktRclZWUE5uWUVJd0IwZ0VmT3ZWQW9sa2hGbGh4elNaQlR4?=
+ =?utf-8?B?WUIvSVlFMWx1S3VMN20wWG9HSmNtUU9CdUtJV3VLc3AzV2twaXNreTFTV29a?=
+ =?utf-8?B?T3lmR0xTZ2l3c1BNaU9xRzRSZFQ5UTNmOEZKamFKR1BLV1JZWmFZR2ZZTXRz?=
+ =?utf-8?B?VFJzSWlDN3I1QzZHRzdPT1pQZ2x4RXdxaHp4MEtrMnZNMngwdWg3TmtuYWRk?=
+ =?utf-8?B?NEFGR25LSFQrN3Qwdjk1VWRxbDk5R0dDak5uL0lNWTR3SVg4Q1RUbEp0R2Zx?=
+ =?utf-8?B?aTB1MFN0U3VZbUdiQVBXSWNlamZwa3dxdmE1Nlo5R29GY1dIZ3BXaTR3Wmp5?=
+ =?utf-8?B?bVlpTUxQOVRtZkpBOW1WWFRJNmx3cFp6MUtWQWd0ZHFuaWgrTVBFd3JMQUZ3?=
+ =?utf-8?B?S0Exd0l0aExmTGF4Y3VxeGZCMmVhay9KL2xtV2xRYkhVYm1KSGdHcFFtdnkw?=
+ =?utf-8?B?VzlEc09ZdTRqYU54L3JHRVpZd3VGK25zNU9kSy9FcGxlQTBwbHBjam5ya2Zu?=
+ =?utf-8?B?Z1dtUzY4SHRjUW9JZFAvNTJqbGF3VlhYRWJxL0dhbzhUMnVHM2prQlJCd28r?=
+ =?utf-8?B?UE5sSTNzb091d04yaW1IRFdWRytUdktVSDdxN0pPNVpZSDJPOU5ZalVrTU9C?=
+ =?utf-8?B?dnV5RkRTMWpzRE5ubGR1VlFrVThwNWdBNEFPVXI0M2tqbFVkcm9IMkpDUjI0?=
+ =?utf-8?B?dHU4M09EZy95OHBuMnhYOTl0dmdMOENHQmgzSmZnRTk5RlhjUFN6S2FnSmxL?=
+ =?utf-8?B?ejFySTJwZDNQNkRWc1lVTnRiMHB2WUhSU3EvTElxOTc3TU5RVzEwM1dQRkpz?=
+ =?utf-8?B?TG1EUlplZkE4eGs4UFhzRVRjby9GaStsUUdzSkh2Z1JDamcwb3RFZHNwbVRq?=
+ =?utf-8?B?eG9PL2l4NVh6RmE2QnBJZ05SSUczc01QaHpFUHZCMGkyc0NkUjJVSnltWG9E?=
+ =?utf-8?B?bDB1dkVVazh4dTJwV0ZTMDBwSEhlQzV4MVppb1JXWGRZZDRudCtSVlVxek1E?=
+ =?utf-8?B?blpwaFA4UkFlWnpFMDVpYmsybjlHcnhKWkYycmVkWU1lSm1yZDkzblhlTTl6?=
+ =?utf-8?B?MzNwOTJaM0c0aTA1SGtHZ2l5R3VROTZlU3NIa2U5MGppOXFSUjZ4dno2M1ds?=
+ =?utf-8?B?YTBLbWJnaWlHM0R5em42U0VOTE43OUdBTFhUREM2Z2kvMkxWWlFMSi9yeVRq?=
+ =?utf-8?B?c2hQdTNzWmtKa0paa1lFYkZYTDA2WlFqcms4Yk1MYWt3ZkhaTThNTUorZDVM?=
+ =?utf-8?B?Y09pS29rN2lJQ2dCbGI3dkhKUjR6c1pzai82OExmcHFoL2J0ZzVGTmJoZk5E?=
+ =?utf-8?B?S2grRi82bHpHM0FnRWNaVlBKcWpINnNnR1ZFbG14Z3NwWFBuZ0N5ZTdXQnJy?=
+ =?utf-8?B?OElWd1BOelpVS2x1WXJHOTM4RGVhbVRHM2RuT0JQSGpydmxySUpGZkcvZ3Nj?=
+ =?utf-8?B?TmpZUCtTRDdYUmxiUzJvdUNXYm5zNE5BaUJwQTF3bCtKUllOT2RiS3BqRDV1?=
+ =?utf-8?B?ZFlGb2puNDcraVcvc0VYNkJlMzZFNGtSTThVTEY5RzdUWGc1SUFuWk1KOEhx?=
+ =?utf-8?B?WGIyc0pWSHNuQ2d6NFVKN3ltSzB3cVNUOWsrK21zOWFXN3JmdjZVVFZHSlZK?=
+ =?utf-8?B?R3ZGU3BOejlGVndjMWxjVTJESzk5MHlwT1lJeUVjZ1JIRk5JNWR6aVcvd1BN?=
+ =?utf-8?B?NXVwaDh4LzNhT25ZYTdiRnVzdjVOc2ZiWm5KU3hrZDhnU0M0dEdCc0lIU0Z4?=
+ =?utf-8?B?TnR5SUcxVnVkWHlNQmhudXVseFIzUUNUSW14MUp2Q2M4WWlxaDh2YkpqdzhD?=
+ =?utf-8?B?c0xLeENCTjZEdzQrOVR4MEtYdnVCNWpmME1LNW1QL3VyMXhyMTB4aGszUlF4?=
+ =?utf-8?B?dGd2RmtFcG1zV3Btb09vdjFPbUo2dEVUeHV5M1ArWUFqUTFtRjRDYVNPM21G?=
+ =?utf-8?B?RE43b2E3VUVIanVubW5kRnFxR2t1T0p6b0JsN1dOQ01NZ05vTU1NbmFwU0V5?=
+ =?utf-8?Q?m7ZQZRcJH0uFw3cB8jU7+T9CYRxhMSprpJpa2ZO9jo=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 938b2f5e-1092-4fe1-502a-08d9f88fb1cf
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2022 18:36:27.3075 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2022 18:50:29.9457 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rmoGqOSFowk12IzpPKArtyJs51UszVqJWJPQFmfaeTaE1L3IIWTBfp5sL3WEHyJM4D8peKcBbzm1vPuvPC+iEw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5487
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- wtli@nuvoton.com, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Alexander.Deucher@amd.com,
- krisman@collabora.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: FfUL5bxoiCgEeGDUBN4WWuBUNK2D6rY2bSuDPMCuUN9RE0PuebiWovLVwGsLiTAZOYN2KWyTvi5WkVeFQfMSSdKSEIsYeiUsM1xo3WKwqO4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1406
+X-OriginatorOrg: intel.com
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -165,56 +197,152 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 2022-02-25 2:27 AM, Pierre-Louis Bossart wrote:
+>> +int avs_ipc_init_instance(struct avs_dev *adev, u16 module_id, u8 instance_id,
+>> +			  u8 ppl_id, u8 core_id, u8 domain,
+> 
+> you should explain the relationship between ppl_id and core_id. It seems
+> that in the same pipeline different modules instances can be pegged to
+> different cores, which isn't very intuitive given the previous
+> explanation that a pipeline is a scheduling unit.
+> 
+> The domain as a u8 is not very clear either, I was under the impression
+> there were only two domains (LL and EDF)?
 
 
-On 2/24/22 5:52 PM, Mark Brown wrote:
-> On Wed, 23 Feb 2022 12:49:30 +0530, Vijendar Mukunda wrote:
->> The previous condition is used to cross check only the active
->> stream status for I2S HS instance playback and capture use cases.
->>
->> Modified logic to invoke sequence for two i2s controller instances.
->>
->>
-> 
-> Applied to
-> 
->    https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Fbroonie%2Fsound.git&amp;data=04%7C01%7CVijendar.Mukunda%40amd.com%7C3a19f223da704ef29da308d9f7904df5%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637813021442156506%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=EfbRAjgpLmD0cuSsnfJVtdRIP1OqVPh3pxcTD6AKx6c%3D&amp;reserved=0 for-linus
-> 
-> Thanks!
-> 
-> [1/9] ASoC: amd: vg: fix for pm resume callback sequence
->       (no commit info)
-This patch hasn't been applied to tree.
-Should I re-send the patch ?
+Hmm.. such explanations are supposed to be part of HW or FW 
+specifications. I don't believe kernel is a place for that. Fields found 
+here are needed to provide all the necessary information firmware 
+expects when requesting INIT_INSTANCE. What's possible and how's 
+everything handled internally is for firmware to decide and explain. 
+There are no if-statements in the driver's code that force 
+ppl_id/core_id relation so I don't see why reader would get an 
+impression there is some dependency. What's in the topology gets routed 
+to firmware with help of above function.
 
---
-Vijendar
-> [2/9] ASoC: amd: vangogh: refactor i2s master mode clock sequence code
->       commit: 5ca4cf2c83dac27768f1d7d3e2404f5a17830ca5
-> [3/9] ASoC: nau8821: enable no_capture_mute flag
->       commit: aa9753a4677d0a2c53e7e46ca173c985a3f7b83e
-> [4/9] ASoC: amd: vg: update platform clock control sequence
->       commit: 9a617f0e109cfba2017d76f807ebb3a00c47bdca
-> [5/9] ASoC: amd: vg: apply sample bits pcm constraint
->       commit: 0c38cc1dd17e766eada0aa44be4c1a47bcbb7bc3
-> [6/9] ASoC: amd: vg: update acp init and deinit sequence
->       commit: a9230ccc0c6f5fca0b94f57729dc61e0a6098a0a
+Just to confirm: yes, you can have multiple cores engaged in servicing 
+modules found in single pipelines.
+
+In regard to field name/sizes: again, these match firmware equivalents 
+1:1 so it's easy to switch back and forth.
+
+>> +			  void *param, u32 param_size)
+>> +{
+>> +	union avs_module_msg msg = AVS_MODULE_REQUEST(INIT_INSTANCE);
+>> +	struct avs_ipc_msg request;
+>> +	int ret;
+>> +
+>> +	msg.module_id = module_id;
+>> +	msg.instance_id = instance_id;
+>> +	/* firmware expects size provided in dwords */
+>> +	msg.ext.init_instance.param_block_size =
+>> +			DIV_ROUND_UP(param_size, sizeof(u32));
+>> +	msg.ext.init_instance.ppl_instance_id = ppl_id;
+>> +	msg.ext.init_instance.core_id = core_id;
+>> +	msg.ext.init_instance.proc_domain = domain;
+>> +
+>> +	request.header = msg.val;
+>> +	request.data = param;
+>> +	request.size = param_size;
 > 
-> All being well this means that it will be integrated into the linux-next
-> tree (usually sometime in the next 24 hours) and sent to Linus during
-> the next merge window (or sooner if it is a bug fix), however if
-> problems are discovered then the patch may be dropped or reverted.
+> isn't there a need to check if the module can be initialized? there's
+> got to be some dependency on pipeline state?
+
+
+IPC handlers found in message.c have one and only one purpose only: send 
+a message. Firmware will return an error if arguments passed are invalid.
+
+Also, note that ALSA/ASoC already have a working state machine for 
+streaming. There is no reason to re-implement it here.
+
+>> +
+>> +	ret = avs_dsp_send_msg(adev, &request, NULL);
+>> +	if (ret)
+>> +		avs_ipc_err(adev, &request, "init instance", ret);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +int avs_ipc_delete_instance(struct avs_dev *adev, u16 module_id, u8 instance_id)
+>> +{
+>> +	union avs_module_msg msg = AVS_MODULE_REQUEST(DELETE_INSTANCE);
+>> +	struct avs_ipc_msg request = {0};
+>> +	int ret;
+>> +
+>> +	msg.module_id = module_id;
+>> +	msg.instance_id = instance_id;
+>> +	request.header = msg.val;
+>> +
+>> +	ret = avs_dsp_send_msg(adev, &request, NULL);
+>> +	if (ret)
+>> +		avs_ipc_err(adev, &request, "delete instance", ret);
+>> +
+>> +	return ret;
 > 
-> You may get further e-mails resulting from automated or manual testing
-> and review of the tree, please engage with people reporting problems and
-> send followup patches addressing any issues that are reported if needed.
+> same here, can this be used in any pipeline state?
+
+
+Ditto.
+
+>> +}
+>> +
+>> +int avs_ipc_bind(struct avs_dev *adev, u16 module_id, u8 instance_id,
+>> +		 u16 dst_module_id, u8 dst_instance_id,
+>> +		 u8 dst_queue, u8 src_queue)
 > 
-> If any updates are required or you are submitting further changes they
-> should be sent as incremental updates against current git, existing
-> patches will not be replaced.
+> what does a queue represent?
+
+
+In firmware's nomenclature pin/index/queue are synonyms when speaking 
+about module instances.
+
+>> +{
+>> +	union avs_module_msg msg = AVS_MODULE_REQUEST(BIND);
+>> +	struct avs_ipc_msg request = {0};
+>> +	int ret;
+>> +
+>> +	msg.module_id = module_id;
+>> +	msg.instance_id = instance_id;
+>> +	msg.ext.bind_unbind.dst_module_id = dst_module_id;
+>> +	msg.ext.bind_unbind.dst_instance_id = dst_instance_id;
+>> +	msg.ext.bind_unbind.dst_queue = dst_queue;
+>> +	msg.ext.bind_unbind.src_queue = src_queue;
+>> +	request.header = msg.val;
+>> +
+>> +	ret = avs_dsp_send_msg(adev, &request, NULL);
+>> +	if (ret)
+>> +		avs_ipc_err(adev, &request, "bind modules", ret);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +int avs_ipc_unbind(struct avs_dev *adev, u16 module_id, u8 instance_id,
+>> +		   u16 dst_module_id, u8 dst_instance_id,
+>> +		   u8 dst_queue, u8 src_queue)
+>> +{
+>> +	union avs_module_msg msg = AVS_MODULE_REQUEST(UNBIND);
+>> +	struct avs_ipc_msg request = {0};
+>> +	int ret;
+>> +
+>> +	msg.module_id = module_id;
+>> +	msg.instance_id = instance_id;
+>> +	msg.ext.bind_unbind.dst_module_id = dst_module_id;
+>> +	msg.ext.bind_unbind.dst_instance_id = dst_instance_id;
+>> +	msg.ext.bind_unbind.dst_queue = dst_queue;
+>> +	msg.ext.bind_unbind.src_queue = src_queue;
+>> +	request.header = msg.val;
+>> +
+>> +	ret = avs_dsp_send_msg(adev, &request, NULL);
+>> +	if (ret)
+>> +		avs_ipc_err(adev, &request, "unbind modules", ret);
+>> +
+>> +	return ret;
 > 
-> Please add any relevant lists and maintainers to the CCs when replying
-> to this mail.
-> 
-> Thanks,
-> Mark
+> can this be merged with the bind in a helper, the code looks
+> quasi-identical with just two lines different.
+
+
+We had these two coupled together in the past just like you mention. 
+Lately we'd decided that having two if-statements (one for message type 
+and the other for error message) just two reduce file by just few lines 
+is not worth it. So we chose the readability over small file-size gain.

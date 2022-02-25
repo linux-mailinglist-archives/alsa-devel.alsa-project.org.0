@@ -2,135 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B23214C460A
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 14:22:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0404F4C460B
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Feb 2022 14:22:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CA111B14;
-	Fri, 25 Feb 2022 14:21:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CA111B14
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B9341EE9;
+	Fri, 25 Feb 2022 14:22:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B9341EE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1645795363;
-	bh=QyktwxJ4I/HQbNDvEpnDeiScW3g+x+92desbsiyAylM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=l9TQ8PBFHmNvx9+g6UXLRY53NFXkjWLMDyBUMV+iHAk6JHYSCC6TswE0wJRDj4Lkm
-	 mX1XictPxgEm4FEDvbJKxbeh5obEmNihCTj8n9UcaH9DBTVKP26OE8fuELfI4B5Uvv
-	 RESDL3ShsHdotri++Ia+C1kIp/+nyE+0ekLCZS/g=
+	s=default; t=1645795374;
+	bh=QeTqIQ3wQitzIsSCOXLCDNHXab6GX+uIIin2r2eyh44=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FwNkpsxjdwlC6lacrC1utFtLbmoBTg9jIuIVLsLLjn9t7Bo15KabAUJhULIRGBwAL
+	 P4jQ/fU+cX85f407P345MsRjt6IZJF1FQQ5JavbdYGidfvNySuVMbls9xOA7VU+zb/
+	 ONdcBE2kUiaLyHNiFVwjvUTU/Vn1RXTyuRoti45E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A7C4F80608;
+	by alsa1.perex.cz (Postfix) with ESMTP id E100CF800E1;
 	Fri, 25 Feb 2022 14:11:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6DC9AF80132; Fri, 25 Feb 2022 10:36:31 +0100 (CET)
+ id 9C6D5F80132; Fri, 25 Feb 2022 11:40:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED4B4F800E1
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 10:36:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED4B4F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D419F80118
+ for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 11:40:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D419F80118
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="r9eAB7z4"
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 5E52B3FCA6
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 09:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1645781783;
- bh=mwBGuSv1vzWcEgYl2MgCXz9QnnQmXLrpGmSTa9ywwuI=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=r9eAB7z4Au066qpDSZhT/9tLha4EycFEcDpSDYbGUKhKjIf6GqDyx0qOB4yMtdJ0g
- 84ewarQUNcMrY1MhjENr9hz+gZwZhthQsFtTnD8l2MUdO2beuYmflKwP1Pn8smPDxq
- ATilhUpWEAjVu80vT+V8eS3udpxyBM4152O0envOSLXto9+dUtvR1CNRWwYztBzb1O
- wyxvFAljpddatUQCLUt3LTK8FXE0MoodphirVw10CK9HYuGFqRXyvBqmzy9+kbqXYP
- RKSppOkDReF4VnmoAhKPnhqTr8mJl1Jdn05HngR7ByJe7btYmeRO/EdxDHyG0Hqlaq
- OY6Od5OYf5hbA==
-Received: by mail-ej1-f69.google.com with SMTP id
- k21-20020a1709063e1500b006d0777c06d6so2418913eji.1
- for <alsa-devel@alsa-project.org>; Fri, 25 Feb 2022 01:36:23 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=mwBGuSv1vzWcEgYl2MgCXz9QnnQmXLrpGmSTa9ywwuI=;
- b=PlMv9yzVFkCDkKVIH/I1GtWDhbc8Ijju45OdAG+P7FWq02oyy5fRpT2kDO0zn1mjvA
- aHdHkedx+G474OTqeJ5FXJZusw2QOfuDt6AnFx45v4CsIT86iD4wrVCm7hxgV7f3N0J/
- xhs26TW3DOHqO4/wBxr9n9Myv6thMUk/ux9n5ulU30SQoNIHVsnevtrdM5ZiAZZ3WN0T
- 8MAhe1saRoIWGN8yHn5vCz++udt9G80b4f9IDfTnX405F8lZAFxJI/YLo1mPwhgHii9+
- 4yfp5aeIGJSqlSD+OGLsxsn7SPWSuBw5divw1DIO1k8jJIpFPhkL8zOB4yH8sEOgfkCn
- ctkQ==
-X-Gm-Message-State: AOAM531OQbqKs9XO2cPa99cFc5GO09N1px3uCklPGS9ehWACAQz0GlyN
- r1ZRUkvOD0H/Jjxemo9RhfsUU5xkBt7pqWU0Lc9+KHlLGxuVca13VMm4QogfFsBKLXs4iucff6C
- 78iC+WVIlLrfN9Vu8jA5/sbMmScUtSSznGW0Xn/OY
-X-Received: by 2002:a17:906:4cca:b0:6ce:6a06:bf7 with SMTP id
- q10-20020a1709064cca00b006ce6a060bf7mr5644757ejt.109.1645781782638; 
- Fri, 25 Feb 2022 01:36:22 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxvGXs5zpBbIxYfXArg3HJWTHPHMBjqJChT5RpHzF7M3/UrStNiNcxogS5o2fNS3FLp8Ip6Ag==
-X-Received: by 2002:a17:906:4cca:b0:6ce:6a06:bf7 with SMTP id
- q10-20020a1709064cca00b006ce6a060bf7mr5644737ejt.109.1645781782424; 
- Fri, 25 Feb 2022 01:36:22 -0800 (PST)
-Received: from [192.168.0.130] (xdsl-188-155-181-108.adslplus.ch.
- [188.155.181.108]) by smtp.gmail.com with ESMTPSA id
- bo9-20020a170906d04900b006ce6b8e05c1sm773655ejb.150.2022.02.25.01.36.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Feb 2022 01:36:21 -0800 (PST)
-Message-ID: <0aff95ff-5b79-8ae9-48fd-720a9f27cbce@canonical.com>
-Date: Fri, 25 Feb 2022 10:36:20 +0100
+ dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
+ header.b="FD07+CAD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1645785610; x=1677321610;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=mudAdqXMqc4msOewE4p+yyZWAmcOkujoS1WyKCFB/IE=;
+ b=FD07+CADg9ingyy2g/dAeE6Babvl++QmwTCsGZHNnAvrJxJZg1PvIK7z
+ GFqqIBgUQjY/YlNaYaQOH5YwRcHYhSUuy5iEIoZcTFGZeGqBaSrKNVT8U
+ 0kDf4TSsKlxBlKgsBcakzUkYkn7bNtlw61vdQBg0RHzmuCOcxplrAzOoC A=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 25 Feb 2022 02:40:04 -0800
+X-QCInternal: smtphost
+Received: from unknown (HELO nasanex01a.na.qualcomm.com) ([10.52.223.231])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2022 02:40:03 -0800
+Received: from hu-rbankapu-blr.qualcomm.com (10.80.80.8) by
+ nasanex01a.na.qualcomm.com (10.52.223.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Fri, 25 Feb 2022 02:39:59 -0800
+From: Raghu Bankapur <quic_rbankapu@quicinc.com>
+To: Vinod Koul <vkoul@kernel.org>, Jaroslav Kysela <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>, ierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Mark Brown <broonie@kernel.org>, "Kai
+ Vehmanen" <kai.vehmanen@linux.intel.com>, Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>, Takashi Sakamoto
+ <o-takashi@sakamocchi.jp>, Raghu Bankapur <quic_rbankapu@quicinc.com>,
+ <alsa-devel@alsa-project.org>, Zubin Mithra <zsm@chromium.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH V0 0/1] ALSA: pcm: fix blocking while loop in 
+Date: Fri, 25 Feb 2022 16:09:31 +0530
+Message-ID: <cover.1645784757.git.quic_rbankapu@quicinc.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v2 05/11] pci: use helper for safer setting of
- driver_override
-Content-Language: en-US
-To: Bjorn Helgaas <helgaas@kernel.org>
-References: <20220224235206.GA302751@bhelgaas>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-In-Reply-To: <20220224235206.GA302751@bhelgaas>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
 X-Mailman-Approved-At: Fri, 25 Feb 2022 14:11:19 +0100
-Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
- Jason Wang <jasowang@redhat.com>, linux-remoteproc@vger.kernel.org,
- alsa-devel@alsa-project.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, Fabio Estevam <festevam@gmail.com>,
- linux-clk@vger.kernel.org, linux-s390@vger.kernel.org,
- Wei Liu <wei.liu@kernel.org>, Stephen Hemminger <sthemmin@microsoft.com>,
- Abel Vesa <abel.vesa@nxp.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Dexuan Cui <decui@microsoft.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Bjorn Helgaas <bhelgaas@google.com>, virtualization@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Peter Oberparleiter <oberpar@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Sven Schnelle <svens@linux.ibm.com>, Shawn Guo <shawnguo@kernel.org>
+Cc: Krishna Jha <quic_kkishorj@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,52 +93,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 25/02/2022 00:52, Bjorn Helgaas wrote:
-> On Thu, Feb 24, 2022 at 08:49:15AM +0100, Krzysztof Kozlowski wrote:
->> On 23/02/2022 22:51, Bjorn Helgaas wrote:
->>> In subject, to match drivers/pci/ convention, do something like:
->>>
->>>   PCI: Use driver_set_override() instead of open-coding
->>>
->>> On Wed, Feb 23, 2022 at 08:13:04PM +0100, Krzysztof Kozlowski wrote:
->>>> Use a helper for seting driver_override to reduce amount of duplicated
->>>> code.
->>>> @@ -567,31 +567,15 @@ static ssize_t driver_override_store(struct device *dev,
->>>>  				     const char *buf, size_t count)
->>>>  {
->>>>  	struct pci_dev *pdev = to_pci_dev(dev);
->>>> -	char *driver_override, *old, *cp;
->>>> +	int ret;
->>>>  
->>>>  	/* We need to keep extra room for a newline */
->>>>  	if (count >= (PAGE_SIZE - 1))
->>>>  		return -EINVAL;
->>>
->>> This check makes no sense in the new function.  Michael alluded to
->>> this as well.
->>
->> I am not sure if I got your comment properly. You mean here:
->> 1. Move this check to driver_set_override()?
->> 2. Remove the check entirely?
-> 
-> I was mistaken about the purpose of the comment and the check.  I
-> thought it had to do with *this* function, and this function doesn't
-> add a newline, and there's no obvious connection with PAGE_SIZE.
-> 
-> But looking closer, I think the "extra room for a newline" is really
-> to make sure that *driver_override_show()* can add a newline and have
-> it still fit within the PAGE_SIZE sysfs limit.
-> 
-> Most driver_override_*() functions have the same comment, so maybe
-> this was obvious to everybody except me :)  I do see that spi.c adds
-> "when displaying value" at the end, which helps a lot.
-> 
-> Sorry for the wild goose chase.
-
-I think I will move this check anyway to driver_set_override() helper,
-because there is no particular benefit to have duplicated all over. The
-helper will receive "count" argument so can perform all checks.
+When period interrupts are disabled, while loop in snd_pcm_update_hw_ptr0()
+results in the machine locking up if runtime->hw_ptr_buffer_jiffies is 0.
+Validate runtime->hw_ptr_buffer_jiffies value before while loop to avoid
+delta check.
 
 
-Best regards,
-Krzysztof
+when runtime->hw_ptr_buffer_jiffies is 0 then update of while condition 
+hdelta > xrun_threshold will be always true because hdelta will not
+change. This will lead to infinite loop causing lock-up
+
+This issue found during stability test, below log explains CPU lock-up on CPU1
+
+[ 922.249028] sched: RT throttling activated for rt_rq ffffffc0f9970778 (cpu 1)
+[ 922.249028] potential CPU hogs:
+[ 922.249028] **FastCapture (11426)
+[ 922.249105] ------------[ cut here ]---------
+
+To fix this lock-up issue, added new condition to check if runtime->
+hw_ptr_buffer_jiffies is ZERO or negative.
+
+Raghu Bankapur (1):
+  ALSA: pcm: fix blocking while loop in snd_pcm_update_hw_ptr0()
+
+ sound/core/pcm_lib.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+-- 
+2.17.1
+

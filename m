@@ -2,99 +2,187 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74DDE4C9FB4
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:46:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 190724C9FB6
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:46:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1364317F1;
-	Wed,  2 Mar 2022 09:45:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1364317F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC9441B5A;
+	Wed,  2 Mar 2022 09:45:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC9441B5A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646210778;
-	bh=uSavGpk0ExFlsWEKDVZVzJWcPdfAeGmRGCCGsNDGZJI=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=bjAGRwSyant1pYMzLSFM+Qzn+0uOSspNQiV4fNCrNtwaG9dTRvwVxPwjY3yoyIws8
-	 o8bc2FwN7l6DZtMf0uPOWKQExF0saGvh4iaqhN6+fTWxy291B5bZxyYXU/1jg8trEo
-	 2A23gXkpyfWtnDLBI/EjqPSH0Hzqz2mEIKBqwCjs=
+	s=default; t=1646210794;
+	bh=jgcSPVXuwIXVQSxSNCwONfOfH/Ci7HfsE8SPjwSUrzg=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hoj7jDM9nZy1e9WiYuZLfrIdTgcUgMjtszpRRrOU9b98rcRpfbOib5q7DelD4SfHO
+	 6AJrJIVCmk17HV9/s2dnYCetlg/Ew1/1h3cTsOtsAOn+8jJyXbYA+M79knk2wiPalQ
+	 OMc6u/QnPtzCmJT+i+gZJ+B0Wf42kAzNmrSgigms=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BED46F80615;
-	Wed,  2 Mar 2022 09:34:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FF52F8061C;
+	Wed,  2 Mar 2022 09:34:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28385F80125; Mon, 28 Feb 2022 21:06:20 +0100 (CET)
+ id 0AA3DF8013C; Mon, 28 Feb 2022 21:07:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BA07F80125
- for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 21:06:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BA07F80125
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Qb3B2kQ3"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODYSUB_1,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::61c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2C01AB8164E;
- Mon, 28 Feb 2022 20:06:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85E29C340F1;
- Mon, 28 Feb 2022 20:06:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646078767;
- bh=uSavGpk0ExFlsWEKDVZVzJWcPdfAeGmRGCCGsNDGZJI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=Qb3B2kQ3+f9XzXe4nmDRsU8fezmZ+/v8PAEwfxslUlmRBgDPXTSFx61nrA8w3HnnB
- jiO48/wBjY9ATJ1CiCs8pQbzqi+CPyMUD7VJzynEdGC7iEhWqi2wiMxXsSWYiUDIQt
- A3kKL2pQXkopi7jn30+fSIP85KMOScBqm+z9JZHWR2G9Pnhp71ylIv9Hk7UHqh5TFW
- vROrJiyF+MkB5CSUYjMTwfvPtGA4K1mbCgJkjG4HhaTUDUqd2aSATsYWThH1CNVAP/
- Q0tdc6VQmrdT+I+jgvtFLagljNriJV7jZByMhdj/HNW8K7kIBTiLovJvYIp5rkp81v
- RPoj3hmNJbrCA==
-Date: Mon, 28 Feb 2022 14:06:06 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Subject: Re: [PATCH v3 05/11] PCI: Use driver_set_override() instead of
- open-coding
-Message-ID: <20220228200606.GA516338@bhelgaas>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CAE6F80054
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 21:07:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CAE6F80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="yR2JVvc5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gL9OvQXRZlLdS0nWu38zKJUPGpd8Lw1yhpw0d+9zMnw5veNcCSl+j10Lj2ZBjoB5CfikiNko3OGYPd5ME3Vpnpr6n3gUYUUXyI/nkCpK1pboNWydXnK5jyRh9RlwUC2J4LqkRcYIcUEdvbcAPOtxCPnt41mkj7xD+m15Kvaf2q7v/g8rWPGCeIDynZ/oNm9fnv9Ju75vK4G9aE6aBcPLDtlUp1ST1JK7/NKF82SiZ4n1XSg+J4DKH5YpYNZ2xk39/JLPCrAzvhJAKKUntlEf2q3g2Pj1J5/dfEOPCBMx04zbq/GH674VvLGDrCGvs5qux8fGUlsbgRV2o3e8r2NFDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1cP3BgbbNuGDusjcZMNEuDHV1LUQdbelhp6M0fWPy5M=;
+ b=jdvC0+wMuIjUshRFXNDwX32c2zskPNpWzUT0ktJHw/5EiOrhAsU94pzDNGLqksNFWg+blmisV1k0kohfJdS4O05gRW7IHqVrOqq+Mv5c+HjZN3GrTnkeTf8cvr5w9XQlSh1NpbpQV9SfTtNox7n0FzrCxGIn2Y97pJ0Ozwd2zkUTZZwzZzxBKK4GvrZ+BR8TCxc8QZ0nYFwhOXfRlKMAnTFtySBUzXq/5mIt6py7gbpk+GQ1GQytDDsZI5lf5E8qHWfr02zFw9K3Qsuz9W3QSbnWtzK3Tll4VEq5yh73hCY4N6sQ7OaGkztdVoBWliieGcToSd9yyiqDpPsytzNReg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1cP3BgbbNuGDusjcZMNEuDHV1LUQdbelhp6M0fWPy5M=;
+ b=yR2JVvc5BtwSjUOODC9WmjehMXRGxzHYe8ljFxqZPlt6ZskvnNvnIoLUWVTSqL4Nvnz3mlJ6Vj4yuzWXjUdfSbDpZboDHZVxGObnXC8gvFtZZmR10HmqPv3h4fJHh1C2OVQ9oxctvZyNbcFFjGdzd7Nu0zIl+DqaxiZBFvhDfEY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CY4PR12MB1352.namprd12.prod.outlook.com (2603:10b6:903:3a::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.26; Mon, 28 Feb
+ 2022 20:07:16 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.5017.027; Mon, 28 Feb 2022
+ 20:07:16 +0000
+Message-ID: <282f0f8d-f491-26fc-6ae0-604b367a5a1a@amd.com>
+Date: Mon, 28 Feb 2022 21:07:03 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
+ as a ptr
+Content-Language: en-US
+To: Linus Torvalds <torvalds@linux-foundation.org>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-3-jakobkoschel@gmail.com>
+ <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
+ <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM6P195CA0084.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:209:86::25) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220227135214.145599-6-krzysztof.kozlowski@canonical.com>
-X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:34 +0100
-Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
- Jason Wang <jasowang@redhat.com>, linux-remoteproc@vger.kernel.org,
- alsa-devel@alsa-project.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, Fabio Estevam <festevam@gmail.com>,
- linux-clk@vger.kernel.org, linux-s390@vger.kernel.org,
- Wei Liu <wei.liu@kernel.org>, Stephen Hemminger <sthemmin@microsoft.com>,
- Abel Vesa <abel.vesa@nxp.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Dexuan Cui <decui@microsoft.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Bjorn Helgaas <bhelgaas@google.com>, virtualization@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Peter Oberparleiter <oberpar@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Sven Schnelle <svens@linux.ibm.com>, Shawn Guo <shawnguo@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4780f435-f0f8-4e6e-4169-08d9faf5eaa6
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1352:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1352374DF851D24C14A1673183019@CY4PR12MB1352.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WfwKM4Ph3ffnU0p23PH6MmiWNssrAz4krll5evTSfx5ow0w1waswCyvqds83nXv/vKDqYeZ4nJPcE+5c6efbm9H+KF/V2vkIMjot7L3c4MJ2NUhhEHsU61Ft6hDBrl1jcnh9EapZmPmwTsw6ESVHpQs83QWblnrflHE+8n0pBPJGvO3BeOdLsq6sLykuPS1jfG+7mtvc1cC2b1biubmL14GLB/Sibk/qCZsfJd+KpT79kHhBzhYli4e6xf6Wf1XCotcM5PIbpVyqjZVKnKalewT7P85o/5nImHgkRdBqjmpldKbagBWNo3eLeex+hQocJ+uVVSXcSY7JFayKRxGcjUSrsgMDZrXESXUUKqA2mcVUrfGKkMgocWawoVlaIc8zSfyMrNNe3nWuqcEl1nUJv4F1V5m9d4aOTKdWVZb54C0D9BwOD0vvihgr/d8C1eTPDO8I+2XuopCbxIp48N14+nqKgxqddT9BQavA6sWNymzE8JSwtOP120c3NQbuDtR+2v/o2/9Bmx4GJDnVOim+gwVs91eOOaI51wF7Cfho1hyg5C8uiYQPM6RQIxlrMbnSX2DiyJmm7nOua0x6ZP0Vf9uP9VSnVikg0lwLJsx/nXxnp4VUactFuFQvm+o20VuEseTDTm8ixZYbdKCR2VF37spoXVt05gbXrIjEYGT1QRdZxRJAOxMWU/f0TemCgmhtJDDJ8n2ceV4KZQ7pwCR8VpLyLtZo05+32aCrevz7uZ8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(7406005)(86362001)(7366002)(7416002)(5660300002)(31696002)(2616005)(8936002)(316002)(6512007)(8676002)(66556008)(66476007)(66946007)(4326008)(2906002)(186003)(6506007)(53546011)(36756003)(66574015)(6486002)(6666004)(6916009)(83380400001)(508600001)(54906003)(38100700002)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVk3ZlI0aHd3U2MzRTQ0QkwvaWlpT1JkYWNicURJVHg1U3BkTWNEbjhxamVK?=
+ =?utf-8?B?QWRpaER3c01nNWcwcXBWTjRqeDQyYVJjR01sZFUrd0FKbCswZXRYc2luTWRr?=
+ =?utf-8?B?M3BRcmp2MmtvUEVxUEdJSU1YbXUvY3l2T0VlbW04TFVkM3ZVU0NacEJvOFMx?=
+ =?utf-8?B?UjkxWGRjNVgxcENNZFFFTFJUbHA1Mzg1WStJMzRDb21zcUNmMitra3lES1Nj?=
+ =?utf-8?B?dWxXV25UQW1NTHhKRnpweCsxZldJWGRmc3NwSU1ldFlmZnhaY3ZLbmNNSktv?=
+ =?utf-8?B?a3RpQ2VhQUZDbTkyQTdRVkd6K09STzZTQ040TFU1NDZ6c3NBamFnQ3JWN3JR?=
+ =?utf-8?B?R0taZkgwQzc0Q3VKRDJ5d21lNmdNRWtCNmlEVS9HRko3RXFNdzNReE4rVUVM?=
+ =?utf-8?B?ZllFWDNjK3B5Wml4N0twOVNqOURNSXpNMVVra1hibUw0S2o5dnlIQzQzL2xh?=
+ =?utf-8?B?QUY5WGZhODlMQXcxUTBDMGtBTjdsUHp1UFBlQVJBQUV2NklCMi92TEMzaS9O?=
+ =?utf-8?B?Mmgra1dvQVh4SUoybk9IUzVSTWVlUTJaUnM1UmlhRE0vM0J5TWIrRldsNjhO?=
+ =?utf-8?B?T0EvbFZlTHNWUnIxRkVIVllMTFRjTWhXTFNEQXJLZnNtSVcvaWthRHRLN3RJ?=
+ =?utf-8?B?dTZtNzhuTSs4YXJhNDJLTHhnUThLSWE0VS9VSGlzQTFoN3AwSGR5RTNLWklk?=
+ =?utf-8?B?aklyWXZyQ21pWFIwaGNJQW1wc2R4RGx2UDczeDJqcXh1S253WFhqVm9DeGt0?=
+ =?utf-8?B?cUZncHozM0VOYllMWXdnaWRSNDhFczlIKzZVd1Fia1Q4b1M4T0hyQVIxTVdp?=
+ =?utf-8?B?a0tFZzBzY1ZEemlqM2JmR1UrSlhoeDdLSUQ4c0VnaDMxZDJRS3hVM0I0dXlP?=
+ =?utf-8?B?MGVzeVhzTlU1U0VSN0tBOC9CcUVkQjk5bm53STJsVFRBKzVoQVdUSUVmTDZm?=
+ =?utf-8?B?UjBMYmIzR3VTWWszR2JtN0padGQyNitIbTlONXdPbUlsa1J4ckpEYnlRYlEv?=
+ =?utf-8?B?WStUT2VxTHRWQmpVTDdlZ3pPWktOT1djUkU1QkhyK1lzeFJqOEJsWEFDcXpE?=
+ =?utf-8?B?ZndXZE9saWpOMXBrUEtFbW0vZWpNNzY0ME1JNkp2NUZtNUtYMnY0eDlOWmFM?=
+ =?utf-8?B?RlhQQzA1WXgrOG0yUUE4K0FOVkpIalp0RVF5WDYzbzlkcHNkb3ZNck5ZelpZ?=
+ =?utf-8?B?bFBqeHVWekdheTRrL25YVG14OXdoNldjQkpkSTJIZ3l2aE05RDRaUThHNU1F?=
+ =?utf-8?B?TGxBU1hIaHJIL3l5dVZsYVZNYTRyVDNJektucmlndUw0bFpVYkxTdGVCZURt?=
+ =?utf-8?B?R082dmllRUlwYWY1SFlXYWVlSUErc3h2TkVSWXFYbWFMa1p4bFJLeUQvbUlB?=
+ =?utf-8?B?Tm9WWjNWck9Nc2czQjJJajRDM2VvWG5BVWkyVGdxN1Y1YW51T2VFbjB4TmJK?=
+ =?utf-8?B?V3BzNkpPaWpWemNRMlo0Zmpzdkt1MkJPQ1ZjOTRhTUZuSU9vQ0VlZkc0SHRy?=
+ =?utf-8?B?VllCelFZSExvNEU5eW42SkoyOWZoc2RwLzFvaFZrVk5TYlZpeWllYi9DVDdF?=
+ =?utf-8?B?VWJUZW02SU9hUjNud0RGdFhHS2VCVndtem1ycWtEVzFWY1dJT1JQb2lSRG9K?=
+ =?utf-8?B?YTdOYVVINmNwOUVqZHREdTJyTnVWQ0p2Q2hPcEVyVHp1TzdXU2lPQ2NIWFcz?=
+ =?utf-8?B?Z0xsNEo5VkVnSjlHb1c3Y3lvVGVtbjduOVJqRWlMRU02ZXBzZkdodkQ5Qjgw?=
+ =?utf-8?B?SWRwZWlGckFDaG1zeEdoOHoramREZElwY1gwTW94V0daOGJDMUVDb1RocVVZ?=
+ =?utf-8?B?T3daenQwci9BS08vUkhMR2tyaldua2dHUDNwV3IyaU90SC94eEp6a0h5a2hi?=
+ =?utf-8?B?cGwvdkMySkY1Y3RZcEZzWkZQVGZEK280TnhaeTFMODlLdWNPUW9SVGZYNDZP?=
+ =?utf-8?B?M3o4eHMxMWxlck13OHdWTEpMRnBuVDhMTUJkM244S2YrS3RPZ1RFR0NxNjA0?=
+ =?utf-8?B?WFYxM1psMUpEWmpUYVVZdzk2alNEN3V5RmJaUzdGelcxVVp3TFlLVjFlWklJ?=
+ =?utf-8?B?eFJIbHcwRjdRZ2pRK0lkbStvQ3I5MVNJWlUzM0g4N0lWTktxTDRySmZDZ1Yv?=
+ =?utf-8?B?Yit3VlkwT0NvQ0RqODM0SjlyNVk1cTRrYjRUUDRROFBlZXkzdkh0Umk1V09L?=
+ =?utf-8?Q?8uoT/2QhUUvglQjhlKjPyEE=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4780f435-f0f8-4e6e-4169-08d9faf5eaa6
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2022 20:07:16.2675 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9i/3JKdvHOc+ANDAjhzus2inu3JjqQ65q85KPxov4Nf4LQL0qSpalNxmpuhhtHy3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1352
+X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:35 +0100
+Cc: linux-wireless <linux-wireless@vger.kernel.org>,
+ alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
+ linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
+ bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ Linux PM <linux-pm@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
+ linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
+ tipc-discussion@lists.sourceforge.net,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,31 +198,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Feb 27, 2022 at 02:52:08PM +0100, Krzysztof Kozlowski wrote:
-> Use a helper for seting driver_override to reduce amount of duplicated
-> code. Make the driver_override field const char, because it is not
-> modified by the core and it matches other subsystems.
+Am 28.02.22 um 20:56 schrieb Linus Torvalds:
+> On Mon, Feb 28, 2022 at 4:19 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>> I don't think that using the extra variable makes the code in any way
+>> more reliable or easier to read.
+> So I think the next step is to do the attached patch (which requires
+> that "-std=gnu11" that was discussed in the original thread).
+>
+> That will guarantee that the 'pos' parameter of list_for_each_entry()
+> is only updated INSIDE the for_each_list_entry() loop, and can never
+> point to the (wrongly typed) head entry.
+>
+> And I would actually hope that it should actually cause compiler
+> warnings about possibly uninitialized variables if people then use the
+> 'pos' pointer outside the loop. Except
+>
+>   (a) that code in sgx/encl.c currently initializes 'tmp' to NULL for
+> inexplicable reasons - possibly because it already expected this
+> behavior
+>
+>   (b) when I remove that NULL initializer, I still don't get a warning,
+> because we've disabled -Wno-maybe-uninitialized since it results in so
+> many false positives.
+>
+> Oh well.
+>
+> Anyway, give this patch a look, and at least if it's expanded to do
+> "(pos) = NULL" in the entry statement for the for-loop, it will avoid
+> the HEAD type confusion that Jakob is working on. And I think in a
+> cleaner way than the horrid games he plays.
+>
+> (But it won't avoid possible CPU speculation of such type confusion.
+> That, in my opinion, is a completely different issue)
 
-s/seting/setting/
-or even better, s/for seting/to set/
+Yes, completely agree.
 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> I do wish we could actually poison the 'pos' value after the loop
+> somehow - but clearly the "might be uninitialized" I was hoping for
+> isn't the way to do it.
+>
+> Anybody have any ideas?
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+I think we should look at the use cases why code is touching (pos) after 
+the loop.
 
-> -	char		*driver_override; /* Driver name to force a match */
-> +	/*
-> +	 * Driver name to force a match.
-> +	 * Do not set directly, because core frees it.
-> +	 * Use driver_set_override() to set or clear it.
+Just from skimming over the patches to change this and experience with 
+the drivers/subsystems I help to maintain I think the primary pattern 
+looks something like this:
 
-Wrap this comment to fill 78 columns or so.
+list_for_each_entry(entry, head, member) {
+     if (some_condition_checking(entry))
+         break;
+}
+do_something_with(entry);
 
-> +	 */
-> +	const char	*driver_override;
->  
->  	unsigned long	priv_flags;	/* Private flags for the PCI driver */
->  
-> -- 
-> 2.32.0
-> 
+So the solution should probably not be to change all those use cases to 
+use more temporary variables, but rather to add a list_find_entry(..., 
+condition) macro and consistently use that one instead.
+
+Regards,
+Christian.
+
+>
+>                  Linus
+

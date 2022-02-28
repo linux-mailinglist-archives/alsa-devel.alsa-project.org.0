@@ -2,66 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BA7F4C6250
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Feb 2022 06:01:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83A1B4C6251
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Feb 2022 06:02:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96B9516E6;
-	Mon, 28 Feb 2022 06:00:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96B9516E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09E8F16F8;
+	Mon, 28 Feb 2022 06:01:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09E8F16F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646024494;
-	bh=Bmid9a8UKFbaNYHPyDJdQHOnTYZMp256/rXKGnOE6m0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Zr8KXw1gl3Mxafpvc1D43PYXXMkNDLhqnmA0Z4yasf9B/15+evNVDeUk9MRU4OFXw
-	 2nPMaCrq0EAWtygukgil+RNdQr1A11GYod2+FxBjU3Ltz22ha4Bz7pO0Dc0DrluV1Y
-	 NGX1Ab88h8Yb/+J7C8DZ68NsN2i8FT1SdQkozlhA=
+	s=default; t=1646024528;
+	bh=ouHChIiSl2vX78TvvE/Ul3EbXu7SFvvD4uRGjJrtHTw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=iEn7hbwQ0uHgoBiTq3g3hdaLcGnN65mGbp2uoE3nhoJI1AJoD8utesxN6anIFW6+a
+	 i+TBF0Ma1U8SM0Sq5S7ez+WKxx7BbkDWIZxswn7FQsr+Lr4FVysyffR3/lUHJ21XC6
+	 LCqnS58NOT37dHrPYzXrsV+zXICTSGiMCcSioMa4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01230F80054;
+	by alsa1.perex.cz (Postfix) with ESMTP id EC05EF804FB;
 	Mon, 28 Feb 2022 06:00:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CA90F8015B; Mon, 28 Feb 2022 06:00:26 +0100 (CET)
+ id A155EF80054; Mon, 28 Feb 2022 06:00:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
+X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpproxy21.qq.com (smtpbg702.qq.com [203.205.195.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90BE0F80128
- for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 06:00:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90BE0F80128
-X-QQ-mid: bizesmtp65t1646024415tgb8fz03
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC489F80125
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 06:00:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC489F80125
+X-QQ-mid: bizesmtp65t1646024411tgnc47i6
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 28 Feb 2022 13:00:13 +0800 (CST)
-X-QQ-SSF: 01400000002000C0F000B00A0000000
-X-QQ-FEAT: F3yR32iATbiob0GwumxSEecyqtbY2ZSDQEfiAHX9Jy4WUUwlk/vzNs9XabPiU
- 3sU/gC1KLfAtN0c0h6J/3ARq4Dn6YVqOqRl+78uSQq9JkA0KZIav/4yv62k6ERNm6FbOxLZ
- 1rfoiLiWAJi0FsF4DQRCK0Z0PalGZUkIFFX4TuMqTa16RvtGEkhxr05v2QPNQ17TapcAH3P
- ozeKVgqzGszy2SXixvrznqbM6R3hyb5urNIag/uI5RIXrXa1HmbvmhtIbYiIglVW3hhVYjA
- 3ozIqcMuTXLEfAeitWHjkbhoYJ2orxNvZn+i8Id3iLEZTNoRMXX8Q79CYGlsbN5QuUSMzx0
- ZqjXd6XMM3+gmCzjnqiqHJKAbhnNyj/f3rRDndlyq2/LoWKCkg=
+ id ; Mon, 28 Feb 2022 13:00:05 +0800 (CST)
+X-QQ-SSF: 01400000002000C0G000B00A0000000
+X-QQ-FEAT: b/pVLV+mlKhsaxZlA0xX19TWfTydP5ZCFMRVs9EBdNBpgM4KL2t4c2RDxtTgF
+ ZWU/PqiF1L74EuBZ8JmCWRQaxgd3RCkJS6k4t8BZuxEOaGbNQCXBZmftjxOeGKyUewp36ro
+ XB+5MMHRLBJpTU5QK+tHHsZJ17eTlkGEu7jUBY+s2gDGWJ4Cnyq5nYeCzaJ5NIKHRWQsd3V
+ Pqyz6MHtYoYrDcgBJgTnf/FHX6o75LvPHIBUTTNUurixGqJ46INLMEAVi9uaI4GGRlXlLFk
+ rieQ8JReScz6n8qgswVUFNR1P++2e2Yb47jRzC776LQqDjmKpLaavwUIABniEmOZMAGLoug
+ h9t9YiFYKvlqyormH+H8zNvj/hDQEm5TsJuPebiAd/gOv6GFGk=
 X-QQ-GoodBg: 2
 From: Meng Tang <tangmeng@uniontech.com>
 To: perex@perex.cz,
 	tiwai@suse.com
-Subject: [PATCH v3 2/2] ALSA: core: Remove redundant variable and return the
- last statement
-Date: Mon, 28 Feb 2022 13:00:03 +0800
-Message-Id: <20220228050003.32509-2-tangmeng@uniontech.com>
+Subject: [PATCH v3 1/2] ALSA: core: remove initialise static variables to 0
+Date: Mon, 28 Feb 2022 13:00:02 +0800
+Message-Id: <20220228050003.32509-1-tangmeng@uniontech.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20220228050003.32509-1-tangmeng@uniontech.com>
-References: <20220228050003.32509-1-tangmeng@uniontech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
 X-QQ-Bgrelay: 1
 Cc: JOE Perches <joe@perches.com>, Meng Tang <tangmeng@uniontech.com>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
@@ -80,54 +76,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Return the result from file->f_op->open() directly instead of
-taking this in another redundant variable. Make the typical
-return the last statement, return early and reduce the indentation
-too.
+Initializing the static variable to 0 causes the following error
+when exec checkpatch:
+
+ERROR: do not initialise statics to 0
+FILE: sound/sound_core.c:142:
+static int preclaim_oss = 0;
+
+In addition, considering the following way of writing
+139: #ifdef config_sound_oss_core_preclaim
+140: Static int preclaim_oss = 1;
+141: #ELSE
+142: Static int preclaim_oss = 0;
+143: #ENDIF
+We can optimize it by IS_ENABLED(CONFIG_SOUND_OSS_CORE_PRECLAIM),
+so modified it to
+static int preclaim_oss = IS_ENABLED(CONFIG_SOUND_OSS_CORE_PRECLAIM);
 
 Signed-off-by: Meng Tang <tangmeng@uniontech.com>
 Signed-off-by: JOE Perches <joe@perches.com>
 ---
- sound/sound_core.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ sound/sound_core.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
 diff --git a/sound/sound_core.c b/sound/sound_core.c
-index aa4a57e488e5..3332fe321737 100644
+index 90d118cd9164..aa4a57e488e5 100644
 --- a/sound/sound_core.c
 +++ b/sound/sound_core.c
-@@ -577,20 +577,20 @@ static int soundcore_open(struct inode *inode, struct file *file)
- 			new_fops = fops_get(s->unit_fops);
- 	}
- 	spin_unlock(&sound_loader_lock);
--	if (new_fops) {
--		/*
--		 * We rely upon the fact that we can't be unloaded while the
--		 * subdriver is there.
--		 */
--		int err = 0;
--		replace_fops(file, new_fops);
+@@ -136,11 +136,7 @@ struct sound_unit
+  * All these clutters are scheduled to be removed along with
+  * sound-slot/service-* module aliases.
+  */
+-#ifdef CONFIG_SOUND_OSS_CORE_PRECLAIM
+-static int preclaim_oss = 1;
+-#else
+-static int preclaim_oss = 0;
+-#endif
++static int preclaim_oss = IS_ENABLED(CONFIG_SOUND_OSS_CORE_PRECLAIM);
  
--		if (file->f_op->open)
--			err = file->f_op->open(inode,file);
-+	if (!new_fops)
-+		return -ENODEV;
+ module_param(preclaim_oss, int, 0444);
  
--		return err;
--	}
--	return -ENODEV;
-+	/*
-+	 * We rely upon the fact that we can't be unloaded while the
-+	 * subdriver is there.
-+	 */
-+	replace_fops(file, new_fops);
-+
-+	if (!file->f_op->open)
-+		return -ENODEV;
-+
-+	return file->f_op->open(inode, file);
- }
- 
- MODULE_ALIAS_CHARDEV_MAJOR(SOUND_MAJOR);
 -- 
 2.20.1
 

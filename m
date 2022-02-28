@@ -2,99 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 967BF4C9FA9
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:45:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F29364C9FB3
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:46:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3577C1EE7;
-	Wed,  2 Mar 2022 09:44:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3577C1EE7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9275F1EEC;
+	Wed,  2 Mar 2022 09:45:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9275F1EEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646210746;
-	bh=mHHh973hMePN9wmM/jcpBb22Q6OGomp4QlydWc1Dh6w=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=kJhaMSsZ9ja3K45FYySotkej8tDr/Z8j9vqmx2v64zngpnxzB0YYjjchrINkp0j19
-	 sPSHH4FJ4g2Zgy7CImV4Iza663yecWOHV35Q+4dXzPsqSqpUf+30gn95y4BQRgU3pt
-	 QnwHlnGQlh2ZrftRsPRBGbPvzwy/7ZGiIb/W1vx4=
+	s=default; t=1646210761;
+	bh=QxxFiDVtwnMSk8+8669mvQUOLd94qQbiP4MDj4G3KJY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hkwmK/iMWMzRX2TFZDQwSyDNmzAJim+4ZS2h7lxJH4gMmyMYJEoUonQyfE0tAv967
+	 R78EPDfujy9TJzhCAQcX0kyH4DLFagoKSq2suBYpW3CcLdHINz2zRyrZcaljd9ND6f
+	 SIFgmDeeIx43CRFvh2x9acvq6V+X6oK/cTirq9AI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84B71F8060E;
-	Wed,  2 Mar 2022 09:34:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30FAEF80614;
+	Wed,  2 Mar 2022 09:34:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B798F80125; Mon, 28 Feb 2022 21:03:33 +0100 (CET)
+ id BD034F80125; Mon, 28 Feb 2022 21:04:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 286F5F80054
- for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 21:03:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 286F5F80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4FB26F80125
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 21:03:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FB26F80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aCeGMO5x"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9CAF360B12;
- Mon, 28 Feb 2022 20:03:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D75C340F2;
- Mon, 28 Feb 2022 20:03:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646078608;
- bh=mHHh973hMePN9wmM/jcpBb22Q6OGomp4QlydWc1Dh6w=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=aCeGMO5xD8fsEhRGr4+eOr9z8MstaRRDVGhQ2JFOj5VttTy3IwU/54lJ+oouIG28u
- z81XCgIJowof9B0hR7N3AT4EL/cp1tR3vbL6RuXPasvJp4dShvWkyCbSLiUvoOUiy9
- Ch40bfT8hyQmBKmOBWB/wdlu+kbLkxch8hnE1YJuMD+DqGmnrqOp1buDYyiFRg9zyZ
- nZTjzG+1MPqyPE0xBXIt+SPfFuZFdVwk0yBkI7QA+0xdPnGZ8DjYwz0x7qT3uUHRRq
- N8JYHkY9orf+PL5YgJkzP9kJWMETh9P7vFNG2d7Sp1HIFzdd8vaKYbZBnn3S5kUq8h
- a4Caw+KYsuQwg==
-Date: Mon, 28 Feb 2022 14:03:26 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Subject: Re: [PATCH v3 01/11] driver: platform: Add helper for safer setting
- of driver_override
-Message-ID: <20220228200326.GA516164@bhelgaas>
+ dkim=pass (1024-bit key) header.d=linux-foundation.org
+ header.i=@linux-foundation.org header.b="Y+K+LAch"
+Received: by mail-lf1-x133.google.com with SMTP id bu29so23405622lfb.0
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 12:03:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=uod9R4vPcpqIjzHofeC96qXcIXUlGW+U5alvKq7K0ZA=;
+ b=Y+K+LAchMzIcesbCiqrzhisJgvbUIKYh3oFG/AlZJTKul1K9rRfHylHsN/EgM8hdwz
+ P3hABFpC0Wcw+/0V4cKR5X0P787Wy9QwMeL5ORY50P9+oNZqmMp6NkFq4yV6NAIkP79C
+ 0bvk8ZnwfFSPqzKfD7Qqea+fs2YLRTaNcLanw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=uod9R4vPcpqIjzHofeC96qXcIXUlGW+U5alvKq7K0ZA=;
+ b=xsj8OI0nNq1Jj634ubwo9/dQ4jthqHEco/KZ2hk+rzlHCSREnCUbdMLZxrVS99gHWV
+ ntbSKhrmEUe5jrnAsx+0VzkHbw4/QFz4blFqtJsK+h28lQsoHLQMupasrs7eLpzmxuzl
+ IsHF4wOIDWox/dLXHXpHkKra6zJnouo5AU6uauVspUPRJILsRFpGR2/tBL8m3elToFBK
+ zUmSezIuOieL1EnYYMfFuKYfsh1YPDdkRpVtNap0lE+yvby7tLF+1VmXkW4k0mSJzxXg
+ YOgkKMuE2fvnynfUSeLooGk46pq+qkVdB8UPOB0OyAEnqcfY9+iDH/fdgNSyEEwrChdd
+ K/zQ==
+X-Gm-Message-State: AOAM530bu/g2losps7nJY4+5a708j9/SEYTOPEayOdfkvEWUh2icBuNq
+ MB7ATx7N72cc0+m9Bs9OcFD/hyE9gMenI+or7rI=
+X-Google-Smtp-Source: ABdhPJxZqSvgeZ7GvLH/YrfKyeRiy9PaftYFj0zWHydOwovCWXtUd3Xe9i9sb4XS60xKn2xPNH8G5Q==
+X-Received: by 2002:a05:6512:e8a:b0:443:7225:247a with SMTP id
+ bi10-20020a0565120e8a00b004437225247amr14087766lfb.680.1646078633852; 
+ Mon, 28 Feb 2022 12:03:53 -0800 (PST)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com.
+ [209.85.167.42]) by smtp.gmail.com with ESMTPSA id
+ bd26-20020a05651c169a00b00246469549bbsm1450130ljb.104.2022.02.28.12.03.51
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Feb 2022 12:03:51 -0800 (PST)
+Received: by mail-lf1-f42.google.com with SMTP id y24so23305410lfg.1
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 12:03:51 -0800 (PST)
+X-Received: by 2002:ac2:44a4:0:b0:445:8fc5:a12a with SMTP id
+ c4-20020ac244a4000000b004458fc5a12amr7653619lfm.27.1646078630855; Mon, 28 Feb
+ 2022 12:03:50 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220227135214.145599-2-krzysztof.kozlowski@canonical.com>
-X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:34 +0100
-Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
- Jason Wang <jasowang@redhat.com>, linux-remoteproc@vger.kernel.org,
- alsa-devel@alsa-project.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, Fabio Estevam <festevam@gmail.com>,
- linux-clk@vger.kernel.org, linux-s390@vger.kernel.org,
- Wei Liu <wei.liu@kernel.org>, Stephen Hemminger <sthemmin@microsoft.com>,
- Abel Vesa <abel.vesa@nxp.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Dexuan Cui <decui@microsoft.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Bjorn Helgaas <bhelgaas@google.com>, virtualization@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Peter Oberparleiter <oberpar@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Sven Schnelle <svens@linux.ibm.com>, Shawn Guo <shawnguo@kernel.org>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-3-jakobkoschel@gmail.com>
+ <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
+ <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
+In-Reply-To: <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 28 Feb 2022 12:03:34 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
+Message-ID: <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
+Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
+ as a ptr
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:36 +0100
+Cc: linux-wireless <linux-wireless@vger.kernel.org>,
+ alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
+ linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
+ bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ Linux PM <linux-pm@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
+ linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
+ tipc-discussion@lists.sourceforge.net,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,25 +143,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Feb 27, 2022 at 02:52:04PM +0100, Krzysztof Kozlowski wrote:
-> Several core drivers and buses expect that driver_override is a
-> dynamically allocated memory thus later they can kfree() it.
+On Mon, Feb 28, 2022 at 11:56 AM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> I do wish we could actually poison the 'pos' value after the loop
+> somehow - but clearly the "might be uninitialized" I was hoping for
+> isn't the way to do it.
 
-> +int driver_set_override(struct device *dev, const char **override,
-> +			const char *s, size_t len)
-> +{
-> +	const char *new, *old;
-> +	char *cp;
-> +
-> +	if (!dev || !override || !s)
-> +		return -EINVAL;
-> +
-> +	/* We need to keep extra room for a newline */
+Side note: we do need *some* way to do it.
 
-It would help a lot to extend this comment with a hint about where the
-room for a newline is needed.  It was confusing even before, but it's
-much more so now that the check is in a completely different file than
-the "show" functions that need the space.
+Because if we make that change, and only set it to another pointer
+when not the head, then we very much change the semantics of
+"list_for_each_head()". The "list was empty" case would now exit with
+'pos' not set at all (or set to NULL if we add that). Or it would be
+set to the last entry.
 
-> +	if (len >= (PAGE_SIZE - 1))
-> +		return -EINVAL;
+And regardless, that means that all the
+
+        if (pos == head)
+
+kinds of checks after the loop would be fundamentally broken.
+
+Darn. I really hoped for (and naively expected) that we could actually
+have the compiler warn about the use-after-loop case. That whole
+"compiler will now complain about bad use" was integral to my clever
+plan to use the C99 feature of declaring the iterator inside the loop.
+
+But my "clever plan" was apparently some ACME-level Wile E. Coyote sh*t.
+
+Darn.
+
+                   Linus

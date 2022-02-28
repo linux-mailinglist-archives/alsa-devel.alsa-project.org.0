@@ -2,71 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DEE34C9F86
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:41:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0F3B4C9F87
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:42:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01C9C1A00;
-	Wed,  2 Mar 2022 09:41:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01C9C1A00
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5032A1B32;
+	Wed,  2 Mar 2022 09:41:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5032A1B32
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646210517;
-	bh=TZYI8CoLqZwdjhCp4FIqkyAKtFSpIqtbXR7Aczi5lHQ=;
+	s=default; t=1646210532;
+	bh=tbro1CjlBKP/R8y7Wa27noCyXd9eGjFIrR0Ok1yiLe0=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DvHRx01peVG7OSzG7uZtzbutrA8lPXxIzZ4bhQ9BS7z8Mn7fkH60ezZtxTPCIQHOU
-	 Pm70FVhNT3Akr3uOexOdrquRStVq85jauMrfPJckHfspF9l3QIfuUTgraR7OasmRyY
-	 HLnEcGzkWy/O4t8t6gNcxUuhh1bh707+LqvW8DXs=
+	b=tddL0tIvp+Yt+QzogILdMZSxm3biMJVRsLXuhVuzIxCpCK1+Dbd5A/7tVf5MnC6Ak
+	 9ASxchAPyE0OYDYn/cL3zw9pG4Vq1IlTYH4MfS7/a1Ymz/9mgVBX9cbkiG/91TBNvn
+	 U62Ov9GyuvhP68DISXyXHmEguj5NeSIT2vwT7FbA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3761F805CB;
-	Wed,  2 Mar 2022 09:33:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DE5DF805D8;
+	Wed,  2 Mar 2022 09:33:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44DDDF8013C; Mon, 28 Feb 2022 12:20:15 +0100 (CET)
+ id 21850F80125; Mon, 28 Feb 2022 12:22:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODYSUB_1,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from nautica.notk.org (ipv6.notk.org [IPv6:2001:41d0:1:7a93::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C77CAF80125
- for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 12:20:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C77CAF80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2225F80125
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 12:22:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2225F80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="C57riiYn"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DE71F60F9E;
- Mon, 28 Feb 2022 11:20:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577DAC340E7;
- Mon, 28 Feb 2022 11:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1646047208;
- bh=TZYI8CoLqZwdjhCp4FIqkyAKtFSpIqtbXR7Aczi5lHQ=;
+ dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org
+ header.b="KzQ5VK5b"; 
+ dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org
+ header.b="E7ShsxTd"
+Received: by nautica.notk.org (Postfix, from userid 108)
+ id 17E29C01B; Mon, 28 Feb 2022 12:22:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org; s=2;
+ t=1646047354; bh=nbIjFrzgDVTmB4SrJnZGd7fIFmdwChwe2lL83Uag4us=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=C57riiYnEjUdxOZhn04GGyA8PIVDUJ6DJKuCKjTYwuUmTfW6bVKDrs724kyxSBaKx
- RgI2btjN0kChcFl20e7HpTgxlexOr2YrBREdqqTBvDVt/Whdw/5z0V77N814zObmo3
- /EeMG4N6szzw6EaZ5Y2WBm3/aL7Ea4aeZYOpa8Fs=
-Date: Mon, 28 Feb 2022 12:20:03 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
+ b=KzQ5VK5bfQJ50dqk23dxDjUwDDK7TA/irQD0Z9CNQKb+g550mz4220rMxu0PuRkB0
+ zSH1KEphDNBJ7hKNULh8KlQjyIdBHOs8MI/nUYoPBmpLppCasulnFAsrKdaEXzwMTJ
+ IwpM9+gWlHHqb/G70sMsoon8bZGjqe3igvlHvXWdB+dQG/WEtTlWyekznVAIp4LN7e
+ b5pg6TDJ9pKPwGgBdsioef4sXDvyaKtcCCYy35g3YAfKpCdoJctnMsERag3cdTSjTi
+ 8bbBH2/ntqNttGvGikrePwX+5MLUaZ7SwFWR8e1TQHG1akbelVXWBNaL48rZXDJvyO
+ 7HTqyJ/PLNd5Q==
+Received: from odin.codewreck.org (localhost [127.0.0.1])
+ by nautica.notk.org (Postfix) with ESMTPS id 6162EC009;
+ Mon, 28 Feb 2022 12:22:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org; s=2;
+ t=1646047353; bh=nbIjFrzgDVTmB4SrJnZGd7fIFmdwChwe2lL83Uag4us=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E7ShsxTdVoGEbpDYFF27HXnsiskOzo+90fWYK/YK/pcgewcio/aI2ukKBbk8Ggf8c
+ PSXNNRohBAnroHDgJmzD26WOCBS51v3CgaeWJoVRlz3gzi1Wk2c722FgVeG9ZC8Gq1
+ VxeMBZJsJJ2s49Z0zkRuzCFT0FdEMmJ4Jlg8so5xUNkI1Pmhr9T77hNpqbhc5MUSIm
+ Vf9CZqLUP+U5LMthWxqmxcIfa+qcI6C/HHTtBGWVbD6UPJLDQeI2MK30nqaJN3mP3G
+ MxeZ4iTWnejwYcukxHfaPz9ZlYf9Zxp1r7k3O+mRBYZR8EPZsNImCl3hToWu78+1r5
+ 3QpJ5t/64l3TQ==
+Received: from localhost (odin.codewreck.org [local])
+ by odin.codewreck.org (OpenSMTPD) with ESMTPA id 8186bc45;
+ Mon, 28 Feb 2022 11:22:16 +0000 (UTC)
+Date: Mon, 28 Feb 2022 20:22:01 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
 To: Jakob Koschel <jakobkoschel@gmail.com>
-Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Message-ID: <Yhyv42ONIxTj04mg@kroah.com>
+Subject: Re: [PATCH 6/6] treewide: remove check of list iterator against head
+ past the loop body
+Message-ID: <YhywWTEIY7UnCYtL@codewreck.org>
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
- <20220228110822.491923-3-jakobkoschel@gmail.com>
+ <20220228110822.491923-7-jakobkoschel@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20220228110822.491923-3-jakobkoschel@gmail.com>
-X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:35 +0100
+In-Reply-To: <20220228110822.491923-7-jakobkoschel@gmail.com>
+X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:33 +0100
 Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
  "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
  nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
@@ -110,35 +124,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Feb 28, 2022 at 12:08:18PM +0100, Jakob Koschel wrote:
-> If the list does not contain the expected element, the value of
-> list_for_each_entry() iterator will not point to a valid structure.
-> To avoid type confusion in such case, the list iterator
-> scope will be limited to list_for_each_entry() loop.
-> 
-> In preparation to limiting scope of a list iterator to the list traversal
-> loop, use a dedicated pointer to point to the found element.
-> Determining if an element was found is then simply checking if
-> the pointer is != NULL.
-> 
-> Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
-> ---
->  arch/x86/kernel/cpu/sgx/encl.c       |  6 +++--
->  drivers/scsi/scsi_transport_sas.c    | 17 ++++++++-----
->  drivers/thermal/thermal_core.c       | 38 ++++++++++++++++++----------
->  drivers/usb/gadget/configfs.c        | 22 ++++++++++------
->  drivers/usb/gadget/udc/max3420_udc.c | 11 +++++---
->  drivers/usb/gadget/udc/tegra-xudc.c  | 11 +++++---
->  drivers/usb/mtu3/mtu3_gadget.c       | 11 +++++---
->  drivers/usb/musb/musb_gadget.c       | 11 +++++---
->  drivers/vfio/mdev/mdev_core.c        | 11 +++++---
->  9 files changed, 88 insertions(+), 50 deletions(-)
+This is a bit more work (and a lot more noise), but I'd prefer if
+this were split into as many patches as there are components.
 
-The drivers/usb/ portion of this patch should be in patch 1/X, right?
+I'm not going to review the parts of the patches that don't concern me,
+and if something turns out to be a problem later one (it shouldn't but
+one never knows) it'll be much easier to revert or put the blame on an
+individual smaller commit than on this...
 
-Also, you will have to split these up per-subsystem so that the
-different subsystem maintainers can take these in their trees.
+With that being said, ultimately I don't care that much and will leave
+that to people who do :)
 
-thanks,
+Jakob Koschel wrote on Mon, Feb 28, 2022 at 12:08:22PM +0100:
+>  net/9p/trans_xen.c                            | 11 +++--
 
-greg k-h
+This 9p change looks good to me.
+
+Reviewed-by: Dominique Martinet <asmadeus@codewreck.org> # 9p
+
+-- 
+Dominique

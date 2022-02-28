@@ -2,178 +2,164 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A9874C9F76
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:39:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D977F4C9F78
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:39:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF4A81B46;
-	Wed,  2 Mar 2022 09:38:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF4A81B46
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BE291B3F;
+	Wed,  2 Mar 2022 09:38:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BE291B3F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646210369;
-	bh=ZRtvAepOxRT+iIz3mw9+7gu/h+Ctbv9MmQy+IDgjtw4=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1646210386;
+	bh=FlI7oQsVkvoJD/3cCoVC7iR1pg/1iHVfen40ySIqsDc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NtJcmoHujKWTqmzYT1o0wG9uY6rup8WhjSp0jSFP9kV/0iBuSv38wJ2PvrO+wVNyz
-	 xYPk3qggy3HVGLtG7olynoOFm7TQJrSgBmJeuNPAEkTnhZtRd4VtXgf9GhdgJPYQ0T
-	 pM4Y+yojMhbhwt/2n4pGcmHBuFgPxrsNkuxY58aA=
+	b=ABt69RpiXAj1Vxal2Yf6wLM72HGStcXz+eaeQNCkOj7n50EdoKzXvGf2csWwGjbN8
+	 ROZSmmZ0nzQD43WaFEkabKs8j/Hb1IwOTXCmUje57I1mCUv5ESL8P6YPrDBeWNOYMF
+	 KVOlgZxA7CqB0G9oxBJ2to3Fb77+Cg0NB2Jjuda0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82326F8057A;
-	Wed,  2 Mar 2022 09:33:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14FC7F8058C;
+	Wed,  2 Mar 2022 09:33:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A47E6F80155; Sun, 27 Feb 2022 16:53:13 +0100 (CET)
+ id 5F3BDF8013C; Mon, 28 Feb 2022 11:52:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2070e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e83::70e])
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03on0608.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe09::608])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAC55F800B6
- for <alsa-devel@alsa-project.org>; Sun, 27 Feb 2022 16:53:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAC55F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9A9EF80125
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 11:52:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9A9EF80125
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com
- header.b="Lu6BxTpY"
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="RtUrsowN"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jUvrZ1nf0JJxBcu1tV7NVbQVQnN2g0006IB+Y/xuFShH/ZMdZSteOsfKVc2tl3TlN4yQjt+N6Vp/8w7JMpvJPhcZhQwATG3a/5IdBkMH8XFd0UiUrOfkWrj2Tyjw4sPFWgcfOWTM0W1lhfqI9ufLASjdRiUagc36gdO7iyuYXOjhxhtpjTx0tnpvVuUPTZynID+RdkuYZVx0hsnl550Ykomg8G29WEKngy2CwdDy5PzbXO40kGScJHWmVvyv66TY7opd4/6QAw8L2V81D0vY3iWnkeU9qjOyiCDu1LZPGWljX/Jj986g2ZLsue5Ls7EFojkicbeBW+LrRUuTwEeLNA==
+ b=dxHH1DS+T8wJ8qh6aeTrcPQibGVnY0G977MuoOSSSjzTWM938aaJX5vDBqcymI+GMSHEMLAv1LaA4Hy9f/h5Hs1sV2sEEqw+Uof0/QXkiyG110KOKm1neBIWhMNKwwppySkjbtr9bRCrwLX1h7k3K5Uc8Hp5nSarMPCuV2A+yTjNGN3G9IbzvRG7IflFEcm2hX/KCTf5N+ZcL8OsvZdGX/fYC/2DFl9g0ZnoNPCElmd79DfD82IksZ4LOZtpwas20cAMyGV+O4cdttjH5DvWLAMeNrmjz2tJaFuIJd1lhoJO3h99d0kdUnOfhhlQWiQWhuBNCx/913lgfb+rz0xTzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N5MpYU+R3yeg/GySAs2eiprasrvco6MaaLUf40Me7V0=;
- b=RQEed/W3meB4gWNzSCaGas9uxrh6F65gR4Gst+BeRSukeG0eelYRYWROGskM4Ruij4X9wzvtm+PjlR49Xczg8LAxwmdKC8NqgCsznTNd6jBJuW/OUqFA5N+Km9/6cUD1YxmUDwOt48EFDus4+r3mJ2FP8UOBtZ/xu08+rMjxZ9qV9Z6fKNsm9J+FKVRW4euFA6P39BKoLWZ2Jp8+eC2BrCDoMPg4aAygYYSeLRTb1V1eIjekPMuTg59ITt68IZr4ylL06P2ts5E//KOX0k06XrZXozc0Dm7nKwWcPKTla7vxeEHUFz8g8nRO3INrMG6u86fVMIIi+krreawGSMyI9Q==
+ bh=UBPr8WEifrBJFiauY4ybsJ556N5UvNvNfBmPDdzg1Y8=;
+ b=AS6ogbVOjyljmp8UYXS7E2UdEYMwN2i1bLXILIjCioWw0LUiVhbkb2CP5J7eqWVSlb8T2U7APoBd44AJAh9t4msEUM5uvVbWGo7iVoaR/f9NZoiN3VLuYkyRSNR3dV/z0kBb4yebd3mmAx1J0WWHUsG5SNKEKuhDj10GdYu2rN4/fn/H4dwzdXGOkZygihAA54TKxMGQGHPMLwKMSH87pqKFRvJHN4p4ivmKq2AEtt/W9aF0fKDGGTUI+8g9BZRTu6Z/6Y9UjFYHnY2uk6oZyaV/0WgSTGd/4oEta4O7ZqgNCes+HfImLVLnKiJKZ2uHGdO7r0uF95RFL665j+XT0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N5MpYU+R3yeg/GySAs2eiprasrvco6MaaLUf40Me7V0=;
- b=Lu6BxTpYzyxeHyrDwyq9Jn4kyA7eBBksljkrGSRJtHFIbwqqDwnR3eMq42Q/J3NV+zwiKUDDnU7YGdViHPpJVuvRXHYlauPazeesrGWel8RWqDFyxGY0LMtvKcx71BaCDEWRmy1uiSfSq/I5kqRU0ItKmudYrE9DiV5gs42W6VY=
-Received: from MN0PR21MB3098.namprd21.prod.outlook.com (2603:10b6:208:376::14)
- by MN0PR21MB3384.namprd21.prod.outlook.com (2603:10b6:208:380::21)
+ bh=UBPr8WEifrBJFiauY4ybsJ556N5UvNvNfBmPDdzg1Y8=;
+ b=RtUrsowNF3mMboXFsO1epqXl+gDr7DlIKsO46KAc2ksn4+UhLnMndiK6QUgHyxrDRcSbGOpuivfRLbnIhxJdSLdiirlk92kxTqUUb0j7ZkZ+IVXkotyMVrjq0+BfbqsJCNgiBo7qcwcjChRcvrqCFXIbTl90ly/JvECAX8hAn6c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VI1PR04MB4688.eurprd04.prod.outlook.com (2603:10a6:803:6a::30)
+ by VI1PR0401MB2496.eurprd04.prod.outlook.com (2603:10a6:800:56::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.3; Sun, 27 Feb
- 2022 15:53:01 +0000
-Received: from MN0PR21MB3098.namprd21.prod.outlook.com
- ([fe80::69f8:51be:b573:e70c]) by MN0PR21MB3098.namprd21.prod.outlook.com
- ([fe80::69f8:51be:b573:e70c%5]) with mapi id 15.20.5038.006; Sun, 27 Feb 2022
- 15:53:01 +0000
-From: "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Stuart Yoder <stuyoder@gmail.com>, Laurentiu Tudor
- <laurentiu.tudor@nxp.com>, Abel Vesa <abel.vesa@nxp.com>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam
- <festevam@gmail.com>, KY Srinivasan <kys@microsoft.com>, Haiyang Zhang
- <haiyangz@microsoft.com>, Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu
- <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu
- Poirier <mathieu.poirier@linaro.org>, Vineeth Vijayan
- <vneethv@linux.ibm.com>, Peter Oberparleiter <oberpar@linux.ibm.com>, Heiko
- Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Alexander
- Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Andy Gross
- <agross@kernel.org>, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Mark Brown <broonie@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, Jason
- Wang <jasowang@redhat.com>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-clk@vger.kernel.org"
- <linux-clk@vger.kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-hyperv@vger.kernel.org"
- <linux-hyperv@vger.kernel.org>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>, "linux-remoteproc@vger.kernel.org"
- <linux-remoteproc@vger.kernel.org>, "linux-s390@vger.kernel.org"
- <linux-s390@vger.kernel.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "linux-spi@vger.kernel.org"
- <linux-spi@vger.kernel.org>, "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>, Linus Torvalds
- <torvalds@linux-foundation.org>
-Subject: RE: [PATCH v3 04/11] hv: Use driver_set_override() instead of
- open-coding
-Thread-Topic: [PATCH v3 04/11] hv: Use driver_set_override() instead of
- open-coding
-Thread-Index: AQHYK+FckIRUQCAZmEqm74E1fgzZE6ynizFQ
-Date: Sun, 27 Feb 2022 15:53:00 +0000
-Message-ID: <MN0PR21MB30980EDB65A4CE643990635FD7009@MN0PR21MB3098.namprd21.prod.outlook.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Mon, 28 Feb
+ 2022 10:52:02 +0000
+Received: from VI1PR04MB4688.eurprd04.prod.outlook.com
+ ([fe80::98a7:fbac:5cec:776e]) by VI1PR04MB4688.eurprd04.prod.outlook.com
+ ([fe80::98a7:fbac:5cec:776e%5]) with mapi id 15.20.5017.026; Mon, 28 Feb 2022
+ 10:52:01 +0000
+Date: Mon, 28 Feb 2022 12:51:58 +0200
+From: Abel Vesa <abel.vesa@nxp.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Subject: Re: [PATCH v3 01/11] driver: platform: Add helper for safer setting
+ of driver_override
+Message-ID: <YhypTr5754yK9WGi@abelvesa>
 References: <20220227135214.145599-1-krzysztof.kozlowski@canonical.com>
- <20220227135214.145599-5-krzysztof.kozlowski@canonical.com>
-In-Reply-To: <20220227135214.145599-5-krzysztof.kozlowski@canonical.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=a42ede4f-4007-465b-a95d-466cf4e30263;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2022-02-27T15:48:34Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f3d1ed8c-400e-4f68-96a6-08d9fa093b9d
-x-ms-traffictypediagnostic: MN0PR21MB3384:EE_
-x-ms-exchange-atpmessageproperties: SA|SL
-x-microsoft-antispam-prvs: <MN0PR21MB338498506434E964B2C21C4FD7009@MN0PR21MB3384.namprd21.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3DsZvhnJsgBy4hcyBdF24BcIqlIet8SDRZjzhA4we36uhLdNOL/qPAf0soespQmTKHh7k28ISobqQEPJO8Vsx0w9eNmLhNVoAlhOvkKZB2Ds1Mn/+B33wrSfIwyiTzwMK0jsEhAqj4nwFJGVKW6pgr7wj9VNFv27Sz2l5Z3LLP4gRDkO1mMWjAVgEui2hS/3fGd+nqxB3aJTdhLsbxmwOIJw1FwI/jQtZgzuxsWZAbvkszPE61uJCixjn4Y15waGdURkmSSzfoI7L9YH97335wlLdIXnd+1GgtkVjm4JUR6g8VIJNpTAuXsa9AiUstmgCugZyA/9t0Y02eVp7la/pop6re90EASQYDi3dj58rkPI5fodVfzLqidLyxrG2DoQGQvbPFUPqVRqFR7c6/5etf5r0GKSqwRd0I1WORd3sBn2twvOXUff+D+VHKntDJv732JTW0V6gsbcQMjXa8ESlNCSkkehC7fRH+aoDuoh5nvp+58oP1M4/wOESRSxTtUj3TzMU2GLJ8paoDvJMLtoUTIiX8teqYbHniWxjXqlsTXT/Zc1YrO7B3RQyH67WgAu4cDJWcBZM/z/k8ewLp3jb9lSDei7ulHoaXm/yn3qQ0TlU4oBARbzcICSjHZRIXsuaHzAUBLyfFYz3eLkmaTV85o5d1Ps3so8vVfabZOF36RI+mhq54s7RI+lLRAk5E7mTS37pgwae8yvIR5GowFJiUxTEJ3tbY7EEb/dVsCc6FxS/8TIEP4/fdRXQOfA/4v5GzlU3rhNN2P67FrSysTViw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR21MB3098.namprd21.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(38100700002)(82950400001)(110136005)(921005)(9686003)(2906002)(316002)(38070700005)(86362001)(122000001)(186003)(508600001)(10290500003)(7416002)(7406005)(5660300002)(8990500004)(26005)(7696005)(6506007)(4326008)(71200400001)(55016003)(33656002)(82960400001)(83380400001)(8936002)(64756008)(8676002)(66946007)(66446008)(52536014)(66556008)(66476007)(76116006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kMgwLaTJkeBdNQmItVe396aKj14chfUmxXPbIae7fO/x3HRuDBvgIqjsF1vD?=
- =?us-ascii?Q?PuUijf78zDjvl5wwHTNXWeYGOj12ok1O1o5XM+Si+PkDyl4WX4QaJzWQ+UMp?=
- =?us-ascii?Q?whdFZzUTcDbHNqk3gUSfJbITSBt4G/PEm5MiQPRk5DfhcpknivaXCFIrmZBn?=
- =?us-ascii?Q?1sSDPyGSuilnxISfU3z71DtWujsjyNXJN6pbdfSr3UoE8CdolQQ6G0jRFtsb?=
- =?us-ascii?Q?qHZnaliTLNiN5jT057Kbxs5PUS7BCIs7XMPir0PpHDaMOhBoXm2WhNc/yabe?=
- =?us-ascii?Q?nEq/GqsHia936CF/IUUmLN766yFLyucpfqN67d/ACrvIEQBAv32KoG9Tq7mZ?=
- =?us-ascii?Q?Iql2TLw8vv1DndMhSp/kaXNmooYl3v2Xlop3YoBX0dm79vaENwaFXAR7jxtO?=
- =?us-ascii?Q?BYpfSmuMq/11Wos9xuwxlZrgsmBXh8TP1+1W+9KjrRA90gkfB/wjL2j+Qe8M?=
- =?us-ascii?Q?QXai++NRFkoML7mZP+/tdoaVysf1FGaQ4kH2B8klFZzfnyY4eh3NxIcdopCT?=
- =?us-ascii?Q?2bkUCTLWjFet3+wKBBKYropHw4HTPuOpL4tpN917X6iz7PIbcN2vj/BpkTgu?=
- =?us-ascii?Q?6D4uIe1KdvWptCZM9+Pc38M/nvilOKvsmtHvPKAd6S2r5L+BE3/BTzUNsPmU?=
- =?us-ascii?Q?aEpowQh+EiZOfd9jSrA6Osd63ql5d0AEWEGL52rqNyjVZP8Z0qZ5aarLFIGc?=
- =?us-ascii?Q?39+vaAgqTUP4Vb28frF0LDGTQSQzYia0Gi/v2NX55aRAXsB3xVl1nOQ97TjP?=
- =?us-ascii?Q?DkI8197peAWtjDyU6rT2x5WwBOzuOljM1taSz+qgiRvO53Htf1wQIsxaEYQJ?=
- =?us-ascii?Q?iiMQH/aFNTBzaYV7J4SyZHcTdDBKD9aRLTk+cIu3Adam3joPP7iEEJxZd7Bj?=
- =?us-ascii?Q?ryBNpmPD5ToCdHQkJevjIJBB2Jj0GOVfYxL+SmiuVKs0hJ7jpn9nSGkj5nOp?=
- =?us-ascii?Q?LUWhGIpVmu0C1tcX0LgfqtasbrWsTmdk9MNQIuLrVhwnVbIWWmmNai07QDuK?=
- =?us-ascii?Q?DOwLAbYYcgeHFHScoXv/uR6iPyHSQQ+pRbjnGV5jTrYcXFYH/8lJ+ZL0Ellk?=
- =?us-ascii?Q?gbS6t7hJEtKKabZjV0fT4Prq5OJ5wSFbkEwY64Yh9bbznxTYqz/saUrz8kCk?=
- =?us-ascii?Q?OIN8EWLH7gcdRt6XWBxv51viHM1r+IIkF9Ie1KgNxYNPA+fXJ/Ih9muUYzS+?=
- =?us-ascii?Q?IcVrsAfPT1+RwjHoj4ZkLgAN7A7XO8Z8xKZ4Q+O7v+N4ar18LqwZctLvEqXr?=
- =?us-ascii?Q?x3vujWrpt/XDZ6LDWsGKt/jXbVXNVadgT1kELeQbAo6IpQNYvJGL/N4CeDiL?=
- =?us-ascii?Q?DCllBpoGPatWZE6ivNCTKgil9FoYA+ZdPE+fW0Stun3lcraDQxdOJkhifo7f?=
- =?us-ascii?Q?bdHi32JgMlZp4p+EPai2lw7cecM/3eU9Y15tKS8oxDh8SGVuwPrhS6/bRsLX?=
- =?us-ascii?Q?gVdLPBnqZlZnEERqLAn9azgC7Mq+C8thiNOZEmYXuEK813vtfFLF2g=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ <20220227135214.145599-2-krzysztof.kozlowski@canonical.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220227135214.145599-2-krzysztof.kozlowski@canonical.com>
+X-ClientProxiedBy: VI1PR08CA0172.eurprd08.prod.outlook.com
+ (2603:10a6:800:d1::26) To VI1PR04MB4688.eurprd04.prod.outlook.com
+ (2603:10a6:803:6a::30)
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b3122d3f-ec07-4a24-d4b0-08d9faa85978
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2496:EE_
+X-Microsoft-Antispam-PRVS: <VI1PR0401MB24965216C5D9C611B4CA133BF6019@VI1PR0401MB2496.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: mG+Zf2OvGgKwpyI/8I8qiziwlVMDs3xJ3dalNm7Se+CGXhaS7CugC2q7hucvXl7MxsUUgWx/hbQpg5gKRBxIQmtwnPlqn4QQaOUao5Wb8CPspfy86gSIyk1mbKeeXJNhTDdofRY1Snkq9sQZROl2+OOZcorsmgsFZvWhrJWoDbyCEZLEHRJZV4dNw2yy6Fb37V41BG2DmBBb3UDJpVbPGiHByBnZAz/P3wQQ3Ak5O8BSWa8g7c84isRO+4EqEIJ/reDyVhn9TyTmQ+ThGK9JI1UV83NbzAzCP4NLJi/zUFwvyqQNlWPlL7cqTjWJQxtoH5i33P+PMBUjDqU2owVYh3WLAxADQhgkmTe4/d3805zxEWm8//lzBnKQt4Ogdb7oWOptV0XoeoKXyt1OHEk0CZqnig/GEp1y4kOJej6D7WIMQZHKzQKtfQe/mhn/RhKWU8zYlyMXmPvKwL7xuQ+h+he2XrbXmYWy1RDOkQ+pYszxPGaNRr/e7HSE8jlQP90yDR18KAiDpYMIa7Vmw1md8CyH4Gp9EX4CxyvwC8ZjjCqpRidL1quLKJbn9kZEtqZGmNAQx5sApJDxPNLEKVTAd3zeRxCy/oQswOYmg75K7HC25DgKzqnOHFqFwdUvmOi/Ik50bWdL41LBSplJH0Tn+dHkvOxRHIg1RFvKXXyeBwmPlbYH5QDyWc3NBUId1NTDbpC0+7HeQrAECu1FUlf+7A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB4688.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(7916004)(366004)(9686003)(33716001)(2906002)(6512007)(38100700002)(83380400001)(44832011)(186003)(26005)(38350700002)(53546011)(508600001)(7406005)(66946007)(7416002)(66556008)(66476007)(8676002)(4326008)(8936002)(6666004)(5660300002)(6916009)(54906003)(316002)(6506007)(86362001)(52116002)(6486002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vwsULYGzYdv85DwjHAKuYdGOp3Vdvdr/TFI58zj2Zn8k8IEVoBP7At4kFVQr?=
+ =?us-ascii?Q?8sEmHLlUYqjkl0vZUIvtCIoLth2qhkGQCCZDlOJ+7KjXU27XoI1A7o4pqtTG?=
+ =?us-ascii?Q?dFc4yOHeF3Nndc+pbWT2b/iwkzUbhWcW4R/GsijGS8Gcg+TmNJAAM6ZS+FZt?=
+ =?us-ascii?Q?loKBr9yHEyeG64byLTor8Kh5sSJdtLENiwNzsmfa75x8WKMD6m37X03/OPwk?=
+ =?us-ascii?Q?LUJVwtT5yaIiu9lRsa7VbTjUfqLL+5TFfLXGuskj4pIeDzbOEMJllItC4RTD?=
+ =?us-ascii?Q?G64b86u2dH1BgPuLeAnsVOqh+WM9WydPyYBBoUpVcvVj/tjqRqP0Z18KlLro?=
+ =?us-ascii?Q?yVgVQ+vhWFo5SGL3l9dYSLTkLiMRk6bH6gnIwrk+Q74qEiZ73tkvZNBMPc02?=
+ =?us-ascii?Q?6SkQRNDkGMSxID+isF+uzUptoA7yROTtO4kiKQPGGrsKFzj2zAdFOytcV5q2?=
+ =?us-ascii?Q?QkgzIYTdxuZDtgkcBCVDwdjiuwaFTz3yfJ2516qjDNwTrAXlttEvK3QTIyml?=
+ =?us-ascii?Q?XX93g/M9+XrOnKUkTUY4YJcJZFwjykRIeMvIee3KeIpTnU6WhaHV4Rj5PL3j?=
+ =?us-ascii?Q?HHjh1vj/5WpaQS5UqOvu3IO+qi3eKhrNVRHSKbCC4Sfh+FB7ytsDoqndJsBS?=
+ =?us-ascii?Q?/xte/3bTQSMSEchOa9gnMrrlpNiww8go912bjSW50aufKFBh8MrzlQXC4Kwa?=
+ =?us-ascii?Q?49MN5jZi4Ebpr3BhQu8ygvEVI02dLpFtajI6eWNFYUPxl2ZWm6KJb14YqveV?=
+ =?us-ascii?Q?nFTEifQfKk70gxQYqPQ8Qzqe2zxo80LFXUrgFACBUUIX+ork9AIBTBaWYPrl?=
+ =?us-ascii?Q?K0+GOO5imJNuwtwARjigjEqYO1MrCMTKy81y0ETHKVyyB7ZuPj8yo1/C7h4Q?=
+ =?us-ascii?Q?pfEhfCCLj6WaEjFSo/9kVmdXhkSLsNAFfGx6fJ0EabbTCIaRLjzc5NGH5j9s?=
+ =?us-ascii?Q?hNv+uo2Y9rE/+CUjtbLoO5jboYInro2XeKFEIVLmqY4iPD+Y5gEacKUiV/KT?=
+ =?us-ascii?Q?HW/Dd/OLWo27b4gQ1xexNMRKnY5jArNAiLb6bWVSHtUC6VMKRpvbXE3kAnlz?=
+ =?us-ascii?Q?Fjz6gLamh+N78MxINPI/ZqiCjU2xfgQTZ2XAd7D68zhMDaNAuW9nH20MBBr7?=
+ =?us-ascii?Q?BsbyDmCjCFmCQ2F8SNoUr3qUyfSxsuEF+dBMzhzFFsz0/UOxSHbim45o+h4N?=
+ =?us-ascii?Q?/GBpX2f2HAFJgH4tp/+FZumlrTi0+G6XpBx5Agw6CuPlW9QtcX4DX9p6SZd7?=
+ =?us-ascii?Q?I6Un5RQiBCjsPoDc6mIgDupsUFfu8RYCF8DP809ratrBQE/EMDrCZAcjclgr?=
+ =?us-ascii?Q?5OVs7OJuncadv9c5w+ozOBbGu1g+6a6Gd1uicC4kxeLTVg2Vh+t9VAN3m6SN?=
+ =?us-ascii?Q?HBtk20nYdq4pyfdR2Z58OiYUm92dGj84/DPy72ZGhmf8t1UGr/eRsMI0191t?=
+ =?us-ascii?Q?7j90RZCORPttcolCX10O6QhgBGxUp/s1r9Al7M/Mo6qjWmuslDwA3dNEYZcx?=
+ =?us-ascii?Q?WvpiV1cMdR/QOmRkJX7asz7B54KQ14Y9Mu/JOTiyQf8+WnXTr5zYsWXrP30g?=
+ =?us-ascii?Q?67G/aX6Wu2alPHyATxmQVjYvTmdqdmPDV6jr2IPzUTsdeor/9zJ7/i8VSUsu?=
+ =?us-ascii?Q?9nBowi4grdl7d54l5d2ARHE=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3122d3f-ec07-4a24-d4b0-08d9faa85978
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4688.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR21MB3098.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3d1ed8c-400e-4f68-96a6-08d9fa093b9d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2022 15:53:00.7669 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iDOXGdO1qmEgbik6eJDNhDD+uhSLmDsN42bfXfMe1dm2pt8yFJLKPqofVIHfDtR3qE+lQBwgCqkIanlTzNaMyvnaiNytkv7Uf5yywIOAowk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR21MB3384
-X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:33 +0100
-Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2022 10:52:01.7644 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8oYAF7NbVtZMXDenpDx9BTJZcZiG7EIJ3H99HYQCn7llKIugJQRwJSPk7rgVkQFej2uCfe2lHSy2wKXidvC+sg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2496
+X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:34 +0100
+Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
+ Jason Wang <jasowang@redhat.com>, linux-remoteproc@vger.kernel.org,
+ alsa-devel@alsa-project.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-clk@vger.kernel.org, linux-s390@vger.kernel.org,
+ Wei Liu <wei.liu@kernel.org>, Stephen Hemminger <sthemmin@microsoft.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Dexuan Cui <decui@microsoft.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>, Andy Gross <agross@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Bjorn Helgaas <bhelgaas@google.com>, virtualization@lists.linux-foundation.org,
+ linux-arm-kernel@lists.infradead.org,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ Sven Schnelle <svens@linux.ibm.com>, Shawn Guo <shawnguo@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -189,68 +175,188 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com> Sent: Sunday,=
- February 27, 2022 5:52 AM
->=20
-> Use a helper for seting driver_override to reduce amount of duplicated
-> code. Make the driver_override field const char, because it is not
-> modified by the core and it matches other subsystems.
->=20
+On 22-02-27 14:52:04, Krzysztof Kozlowski wrote:
+> Several core drivers and buses expect that driver_override is a
+> dynamically allocated memory thus later they can kfree() it.
+> 
+> However such assumption is not documented, there were in the past and
+> there are already users setting it to a string literal. This leads to
+> kfree() of static memory during device release (e.g. in error paths or
+> during unbind):
+> 
+>     kernel BUG at ../mm/slub.c:3960!
+>     Internal error: Oops - BUG: 0 [#1] PREEMPT SMP ARM
+>     ...
+>     (kfree) from [<c058da50>] (platform_device_release+0x88/0xb4)
+>     (platform_device_release) from [<c0585be0>] (device_release+0x2c/0x90)
+>     (device_release) from [<c0a69050>] (kobject_put+0xec/0x20c)
+>     (kobject_put) from [<c0f2f120>] (exynos5_clk_probe+0x154/0x18c)
+>     (exynos5_clk_probe) from [<c058de70>] (platform_drv_probe+0x6c/0xa4)
+>     (platform_drv_probe) from [<c058b7ac>] (really_probe+0x280/0x414)
+>     (really_probe) from [<c058baf4>] (driver_probe_device+0x78/0x1c4)
+>     (driver_probe_device) from [<c0589854>] (bus_for_each_drv+0x74/0xb8)
+>     (bus_for_each_drv) from [<c058b48c>] (__device_attach+0xd4/0x16c)
+>     (__device_attach) from [<c058a638>] (bus_probe_device+0x88/0x90)
+>     (bus_probe_device) from [<c05871fc>] (device_add+0x3dc/0x62c)
+>     (device_add) from [<c075ff10>] (of_platform_device_create_pdata+0x94/0xbc)
+>     (of_platform_device_create_pdata) from [<c07600ec>] (of_platform_bus_create+0x1a8/0x4fc)
+>     (of_platform_bus_create) from [<c0760150>] (of_platform_bus_create+0x20c/0x4fc)
+>     (of_platform_bus_create) from [<c07605f0>] (of_platform_populate+0x84/0x118)
+>     (of_platform_populate) from [<c0f3c964>] (of_platform_default_populate_init+0xa0/0xb8)
+>     (of_platform_default_populate_init) from [<c01031f8>] (do_one_initcall+0x8c/0x404)
+>     (do_one_initcall) from [<c0f012c0>] (kernel_init_freeable+0x3d0/0x4d8)
+>     (kernel_init_freeable) from [<c0a7def0>] (kernel_init+0x8/0x114)
+>     (kernel_init) from [<c01010b4>] (ret_from_fork+0x14/0x20)
+> 
+> Provide a helper which clearly documents the usage of driver_override.
+> This will allow later to reuse the helper and reduce amount of
+> duplicated code.
+> 
+> Convert the platform driver to use new helper and make the
+> driver_override field const char (it is not modified by the core).
+> 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 > ---
->  drivers/hv/vmbus_drv.c | 28 ++++------------------------
->  include/linux/hyperv.h |  7 ++++++-
->  2 files changed, 10 insertions(+), 25 deletions(-)
->=20
-> diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-> index 12a2b37e87f3..a0ff4139c3d2 100644
-> --- a/drivers/hv/vmbus_drv.c
-> +++ b/drivers/hv/vmbus_drv.c
-> @@ -575,31 +575,11 @@ static ssize_t driver_override_store(struct device =
-*dev,
+>  drivers/base/driver.c           | 51 +++++++++++++++++++++++++++++++++
+>  drivers/base/platform.c         | 28 +++---------------
+>  include/linux/device/driver.h   |  2 ++
+>  include/linux/platform_device.h |  7 ++++-
+>  4 files changed, 63 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/base/driver.c b/drivers/base/driver.c
+> index 8c0d33e182fd..353750b0bbc5 100644
+> --- a/drivers/base/driver.c
+> +++ b/drivers/base/driver.c
+> @@ -30,6 +30,57 @@ static struct device *next_device(struct klist_iter *i)
+>  	return dev;
+>  }
+>  
+> +/**
+> + * driver_set_override() - Helper to set or clear driver override.
+> + * @dev: Device to change
+> + * @override: Address of string to change (e.g. &device->driver_override);
+> + *            The contents will be freed and hold newly allocated override.
+> + * @s: NUL terminated string, new driver name to force a match, pass empty
+> + *     string to clear it
+> + * @len: length of @s
+> + *
+> + * Helper to set or clear driver override in a device, intended for the cases
+> + * when the driver_override field is allocated by driver/bus code.
+> + *
+> + * Returns: 0 on success or a negative error code on failure.
+> + */
+> +int driver_set_override(struct device *dev, const char **override,
+> +			const char *s, size_t len)
+
+TBH, I think it would make more sense to have this generic
+driver_set_override receive only the dev and the string. And then,
+each bus type will have their own implementation that handle things
+their own way. This would allow all the drivers that will use this to
+do something like this:
+
+	ret = driver_set_override(&pdev->dev, "override_string");
+
+I think it would look more cleaner.
+
+> +{
+> +	const char *new, *old;
+> +	char *cp;
+> +
+> +	if (!dev || !override || !s)
+> +		return -EINVAL;
+> +
+> +	/* We need to keep extra room for a newline */
+> +	if (len >= (PAGE_SIZE - 1))
+> +		return -EINVAL;
+> +
+> +	new = kstrndup(s, len, GFP_KERNEL);
+> +	if (!new)
+> +		return -ENOMEM;
+> +
+> +	cp = strchr(new, '\n');
+> +	if (cp)
+> +		*cp = '\0';
+> +
+> +	device_lock(dev);
+> +	old = *override;
+> +	if (cp != new) {
+> +		*override = new;
+> +	} else {
+> +		kfree(new);
+> +		*override = NULL;
+> +	}
+> +	device_unlock(dev);
+> +
+> +	kfree(old);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(driver_set_override);
+> +
+>  /**
+>   * driver_for_each_device - Iterator for devices bound to a driver.
+>   * @drv: Driver we're iterating.
+> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+> index 6cb04ac48bf0..8dd87f44bd74 100644
+> --- a/drivers/base/platform.c
+> +++ b/drivers/base/platform.c
+> @@ -1275,31 +1275,11 @@ static ssize_t driver_override_store(struct device *dev,
 >  				     const char *buf, size_t count)
 >  {
->  	struct hv_device *hv_dev =3D device_to_hv_device(dev);
+>  	struct platform_device *pdev = to_platform_device(dev);
 > -	char *driver_override, *old, *cp;
 > -
 > -	/* We need to keep extra room for a newline */
-> -	if (count >=3D (PAGE_SIZE - 1))
+> -	if (count >= (PAGE_SIZE - 1))
 > -		return -EINVAL;
 > -
-> -	driver_override =3D kstrndup(buf, count, GFP_KERNEL);
+> -	driver_override = kstrndup(buf, count, GFP_KERNEL);
 > -	if (!driver_override)
 > -		return -ENOMEM;
 > -
-> -	cp =3D strchr(driver_override, '\n');
+> -	cp = strchr(driver_override, '\n');
 > -	if (cp)
-> -		*cp =3D '\0';
+> -		*cp = '\0';
 > -
 > -	device_lock(dev);
-> -	old =3D hv_dev->driver_override;
+> -	old = pdev->driver_override;
 > -	if (strlen(driver_override)) {
-> -		hv_dev->driver_override =3D driver_override;
+> -		pdev->driver_override = driver_override;
 > -	} else {
 > -		kfree(driver_override);
-> -		hv_dev->driver_override =3D NULL;
+> -		pdev->driver_override = NULL;
 > -	}
 > -	device_unlock(dev);
 > +	int ret;
->=20
+>  
 > -	kfree(old);
-> +	ret =3D driver_set_override(dev, &hv_dev->driver_override, buf, count);
+> +	ret = driver_set_override(dev, &pdev->driver_override, buf, count);
 > +	if (ret)
 > +		return ret;
->=20
+>  
 >  	return count;
 >  }
-> diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-> index fe2e0179ed51..beea11874be2 100644
-> --- a/include/linux/hyperv.h
-> +++ b/include/linux/hyperv.h
-> @@ -1257,7 +1257,12 @@ struct hv_device {
->  	u16 device_id;
->=20
->  	struct device device;
+> diff --git a/include/linux/device/driver.h b/include/linux/device/driver.h
+> index 15e7c5e15d62..700453017e1c 100644
+> --- a/include/linux/device/driver.h
+> +++ b/include/linux/device/driver.h
+> @@ -151,6 +151,8 @@ extern int __must_check driver_create_file(struct device_driver *driver,
+>  extern void driver_remove_file(struct device_driver *driver,
+>  			       const struct driver_attribute *attr);
+>  
+> +int driver_set_override(struct device *dev, const char **override,
+> +			const char *s, size_t len);
+>  extern int __must_check driver_for_each_device(struct device_driver *drv,
+>  					       struct device *start,
+>  					       void *data,
+> diff --git a/include/linux/platform_device.h b/include/linux/platform_device.h
+> index 7c96f169d274..e39963889aa3 100644
+> --- a/include/linux/platform_device.h
+> +++ b/include/linux/platform_device.h
+> @@ -31,7 +31,12 @@ struct platform_device {
+>  	struct resource	*resource;
+>  
+>  	const struct platform_device_id	*id_entry;
 > -	char *driver_override; /* Driver name to force a match */
 > +	/*
 > +	 * Driver name to force a match.
@@ -258,11 +364,9 @@ From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com> Sent: Sunday,=
 > +	 * Use driver_set_override() to set or clear it.
 > +	 */
 > +	const char *driver_override;
->=20
->  	struct vmbus_channel *channel;
->  	struct kset	     *channels_kset;
-> --
+>  
+>  	/* MFD cell pointer */
+>  	struct mfd_cell *mfd_cell;
+> -- 
 > 2.32.0
-
-Reviewed-by: Michael Kelley <mikelley@microsoft.com>
-
+>

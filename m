@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C8DD4C78B9
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Feb 2022 20:22:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E2A4C78BA
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Feb 2022 20:22:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9378718F6;
-	Mon, 28 Feb 2022 20:21:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9378718F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B45E1917;
+	Mon, 28 Feb 2022 20:21:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B45E1917
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646076137;
-	bh=8FYmaxqsi8/KhMb09vDGQSwOhqKXJTcOOa5fIGaspcc=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1646076153;
+	bh=rKHN0tABQaAaxZGmbVUu6SNde2wmYhf2Ll+XbGWr9NE=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IsX9ihi6R0kCMiH9jXA1zhqeg7OG8WTrKoFvSyZYXH73Ep7hqD0Bj2uaLMdx1iuHW
-	 /SL8McDzzANIeSJiDotRzWAE9lAF+WJP9jOA3YCidmyIPYf4rTYxzISJgLWLjzKMq6
-	 cCM3FalYOUGKmeh/uwYYhqPsUyuEA8nuiMpFndO4=
+	b=Z76bnM68hlWe2S4Zi2LOFQpu/DSowiWYCIU4KCGuC3z8lMECi2rZObAuu6GvsV8HA
+	 CYGdOClv2w8gEXzpfboIdpRXMsv2zfrQe4abjHIsDtSsBxsvfbLkOofvrUtxjpRVfF
+	 n82mWvPbnm6cfF3S8UFrTGeEfTIlEBxeafKrXid8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56DAFF8057D;
-	Mon, 28 Feb 2022 20:16:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29FFFF805BB;
+	Mon, 28 Feb 2022 20:16:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CB7CF8054A; Mon, 28 Feb 2022 20:15:43 +0100 (CET)
+ id 8E379F805A8; Mon, 28 Feb 2022 20:15:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,41 +35,45 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0DA3F80519
- for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 20:15:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0DA3F80519
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFA11F8057D
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 20:15:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFA11F8057D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="F/u7ihxD"
+ header.b="shfwThSZ"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 382BAB815CB;
- Mon, 28 Feb 2022 19:15:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA358C340F1;
- Mon, 28 Feb 2022 19:15:37 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D1768B8162C;
+ Mon, 28 Feb 2022 19:15:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5070DC340F2;
+ Mon, 28 Feb 2022 19:15:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646075738;
- bh=8FYmaxqsi8/KhMb09vDGQSwOhqKXJTcOOa5fIGaspcc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=F/u7ihxDwbEOqAmlhWv+kVnm22rNioLjCRUTROmSZ50qD8kRn575gBbK0NgI3LDyi
- Z9sQbAGrT+dQXKGD9h37GOuH5ZbL7iNS/YMdVdXanOHj2WS6ImUHMaeo2zTbubFpds
- My6g8Kp183n/ISvpes2eAK9nTPoSoI3Mg0cFqDD7Z9VjDRnRb2KTLAJp7HPj6dp6Le
- 3mVtCcDm+U6Q5MenBtqtb2hKfvwFfDW3i/F4647WdkU+pf6x+ya3wxopmLycG/R/VB
- oW1FXHsjFU4z00idUO+vJlzhi+oWIDLT61H038fdQU9V7Zn7s/vgI1STpJDGYjMe+3
- 0JV+SaqG8fdiA==
+ s=k20201202; t=1646075742;
+ bh=rKHN0tABQaAaxZGmbVUu6SNde2wmYhf2Ll+XbGWr9NE=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=shfwThSZNZuNKWBahhXUVqLxgnTEBvDCLAQzOUP7VoE3++J+qzsfTO3zIGbZ2gOqw
+ XVj73sMm7GIyEsO2+UniOaqzJawRCvIe9W8hKY4Gy30j6oBTFsMTSkc0ejSyuGp1nH
+ kzriIYWpT43tEQU2/bMWYKURtvz96CfwCPmdiiv99AexI2jL8KRHhB4W4eXh0uuyrw
+ g1HT35Q5KapaUD0LNz8by0H2QxxY/7NW5qmBwx9EDdZ2L3A1paO+f8L4pupnVAeI34
+ l3jC7dEDQGlrSqGxBVI9tIREPPTI7X4cKh30iwYcqhPbmiHJUP9snNnM5y3HmlnkaV
+ YYWvwb9aZWpwQ==
 From: Mark Brown <broonie@kernel.org>
-To: Sascha Hauer <s.hauer@pengutronix.de>, alsa-devel@alsa-project.org
-In-Reply-To: <20220223130625.3430589-1-s.hauer@pengutronix.de>
-References: <20220223130625.3430589-1-s.hauer@pengutronix.de>
-Subject: Re: [PATCH] ASoC: fsl: Drop unused argument from imx_pcm_dma_init()
-Message-Id: <164607573754.3538791.4095490674890244349.b4-ty@kernel.org>
-Date: Mon, 28 Feb 2022 19:15:37 +0000
+To: linux-arm-msm@vger.kernel.org, perex@perex.cz, linux-kernel@vger.kernel.org,
+ bgoswami@codeaurora.org, tiwai@suse.com, lgirdwood@gmail.com,
+ swboyd@chromium.org, agross@kernel.org, judyhsiao@chromium.org,
+ alsa-devel@alsa-project.org, bjorn.andersson@linaro.org,
+ srinivas.kandagatla@linaro.org, devicetree@vger.kernel.org, robh+dt@kernel.org,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, rohitkr@codeaurora.org,
+ quic_plai@quicinc.com
+In-Reply-To: <1645786624-12311-1-git-send-email-quic_srivasam@quicinc.com>
+References: <1645786624-12311-1-git-send-email-quic_srivasam@quicinc.com>
+Subject: Re: [PATCH v4 0/2] Add power domains support for digital macro codecs
+Message-Id: <164607573904.3538791.16540077443386812939.b4-ty@kernel.org>
+Date: Mon, 28 Feb 2022 19:15:39 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Nicolin Chen <nicoleotsuka@gmail.com>, kernel@pengutronix.de,
- Xiubo Li <Xiubo.Lee@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,13 +89,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Feb 2022 14:06:25 +0100, Sascha Hauer wrote:
-> Since 70d435ba1cd ("ASoC: imx-pcm-dma: simplify pcm_config") the size
-> argument to imx_pcm_dma_init() is unused, so drop it. Also remove the
-> now unused defines that the users of imx_pcm_dma_init() used to pass the
-> size argument
+On Fri, 25 Feb 2022 16:27:02 +0530, Srinivasa Rao Mandadapu wrote:
+> This patch set is to add power domains support for RX, TX and VA macros.
 > 
+> Changes since v3:
+>     -- Add dt-bindings support.
+> Changes since v2:
+>     -- Remove redundant local variable.
+>     -- Update pds error handling sequence.
+>     -- Update module description.
+>     -- Clean up pds init function.
+>     -- Remove redundant arguments.
+> Changes since v1:
+>     -- Add missing macros in Kconfig.
 > 
+> [...]
 
 Applied to
 
@@ -99,8 +111,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl: Drop unused argument from imx_pcm_dma_init()
-      commit: 9b3ff6378df33dbea4b9459ee804b25f1ce294ca
+[1/2] ASoC: codecs: Add power domains support in digital macro codecs
+      commit: 9e3d83c52844f955aa2975f78cee48bf9f72f5e1
+[2/2] ASoC: qcom: dt-bindings: Add bindings for power domains in lpass digital codecs
+      commit: 6619c7d4379aca716a90f7581be2853071c086f6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

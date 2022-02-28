@@ -2,64 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83A1B4C6251
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Feb 2022 06:02:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B36114C6255
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Feb 2022 06:04:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09E8F16F8;
-	Mon, 28 Feb 2022 06:01:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09E8F16F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CA611711;
+	Mon, 28 Feb 2022 06:04:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CA611711
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646024528;
-	bh=ouHChIiSl2vX78TvvE/Ul3EbXu7SFvvD4uRGjJrtHTw=;
+	s=default; t=1646024698;
+	bh=zNNqBvjBwro/mIEUtlox+UTz4xR9QVvVTVx3XfL6qBk=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=iEn7hbwQ0uHgoBiTq3g3hdaLcGnN65mGbp2uoE3nhoJI1AJoD8utesxN6anIFW6+a
-	 i+TBF0Ma1U8SM0Sq5S7ez+WKxx7BbkDWIZxswn7FQsr+Lr4FVysyffR3/lUHJ21XC6
-	 LCqnS58NOT37dHrPYzXrsV+zXICTSGiMCcSioMa4=
+	b=oU59qJnLM+GJaQ1vzQklON9B7xfqIYiA/+R93hwmwQMsgmUTonsnkeR4bbLZ/L0TU
+	 aNbw/kVYgbeRECIfXL2JDjNn8Vfe1N3Y1k2dSGewTmfdG5OoLp4u7440d7acEbOJRa
+	 CUyVubBsNJOWi4SWDk0qz7JtKteHVW5JNQvfqAdg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC05EF804FB;
-	Mon, 28 Feb 2022 06:00:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB4ABF804CA;
+	Mon, 28 Feb 2022 06:03:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A155EF80054; Mon, 28 Feb 2022 06:00:26 +0100 (CET)
+ id 14B52F8013C; Mon, 28 Feb 2022 06:03:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpproxy21.qq.com (smtpbg702.qq.com [203.205.195.102])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC489F80125
- for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 06:00:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC489F80125
-X-QQ-mid: bizesmtp65t1646024411tgnc47i6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B6ACF80128
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 06:03:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B6ACF80128
+X-QQ-mid: bizesmtp89t1646024581to4er8do
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 28 Feb 2022 13:00:05 +0800 (CST)
-X-QQ-SSF: 01400000002000C0G000B00A0000000
-X-QQ-FEAT: b/pVLV+mlKhsaxZlA0xX19TWfTydP5ZCFMRVs9EBdNBpgM4KL2t4c2RDxtTgF
- ZWU/PqiF1L74EuBZ8JmCWRQaxgd3RCkJS6k4t8BZuxEOaGbNQCXBZmftjxOeGKyUewp36ro
- XB+5MMHRLBJpTU5QK+tHHsZJ17eTlkGEu7jUBY+s2gDGWJ4Cnyq5nYeCzaJ5NIKHRWQsd3V
- Pqyz6MHtYoYrDcgBJgTnf/FHX6o75LvPHIBUTTNUurixGqJ46INLMEAVi9uaI4GGRlXlLFk
- rieQ8JReScz6n8qgswVUFNR1P++2e2Yb47jRzC776LQqDjmKpLaavwUIABniEmOZMAGLoug
- h9t9YiFYKvlqyormH+H8zNvj/hDQEm5TsJuPebiAd/gOv6GFGk=
+ id ; Mon, 28 Feb 2022 13:02:54 +0800 (CST)
+X-QQ-SSF: 01400000002000C0F000B00A0000000
+X-QQ-FEAT: QyOv+T7lL607yB/RoMZHCyCDkKlK60Qk9XFhA859T+zC67fKLL3IRQ/qdRbFK
+ BqjgscymxqgKNd0xK4Wu7TS2DFt0kHraYtYn9Ex9MClt6goyTV2NCD2peFCruhfsw67tfD7
+ UIVOUvLpDGzh5hH0yPeufX9ThUJ95TDFumsCr4Sp1yZS9skaswi19ezZ/fvJ6MsbHtdRYB1
+ PvAqKchIvgQytScx9NmhknPh6jgj2L7bBdCuQAbpWsLYeXTUx0NGAqC+ZNtD5hEXZfgwKCz
+ dajCY1bROsEm4Z1Wnwfa1NN30aeewKKxZG/M26Di17BMEFjJgyBhNA5CZv3iyFLim0RWmTd
+ h7XazZWQGEQFHs7MP1/wYix7+0JPqQc7YOU9Mu1th8YYau72LI=
 X-QQ-GoodBg: 2
 From: Meng Tang <tangmeng@uniontech.com>
 To: perex@perex.cz,
 	tiwai@suse.com
-Subject: [PATCH v3 1/2] ALSA: core: remove initialise static variables to 0
-Date: Mon, 28 Feb 2022 13:00:02 +0800
-Message-Id: <20220228050003.32509-1-tangmeng@uniontech.com>
+Subject: [PATCH v4 1/2] ALSA: core: remove initialise static variables to 0
+Date: Mon, 28 Feb 2022 13:02:52 +0800
+Message-Id: <20220228050253.1649-1-tangmeng@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
 X-QQ-Bgrelay: 1
-Cc: JOE Perches <joe@perches.com>, Meng Tang <tangmeng@uniontech.com>,
+Cc: Joe Perches <joe@perches.com>, Meng Tang <tangmeng@uniontech.com>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -94,7 +94,7 @@ so modified it to
 static int preclaim_oss = IS_ENABLED(CONFIG_SOUND_OSS_CORE_PRECLAIM);
 
 Signed-off-by: Meng Tang <tangmeng@uniontech.com>
-Signed-off-by: JOE Perches <joe@perches.com>
+Signed-off-by: Joe Perches <joe@perches.com>
 ---
  sound/sound_core.c | 6 +-----
  1 file changed, 1 insertion(+), 5 deletions(-)

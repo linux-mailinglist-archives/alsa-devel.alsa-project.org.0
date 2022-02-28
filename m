@@ -2,68 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36FE84C71D7
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Feb 2022 17:40:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AB964C720E
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Feb 2022 17:59:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B20A11756;
-	Mon, 28 Feb 2022 17:39:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B20A11756
+	by alsa0.perex.cz (Postfix) with ESMTPS id D213917EB;
+	Mon, 28 Feb 2022 17:58:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D213917EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646066443;
-	bh=0+DE4Y4zkqTSqcuTcUgN91hRbSGG9ohuLmjbjc9w170=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646067552;
+	bh=FIF3EvWBK78fcRAPtuAQoL5Ci/SQPK5xr60809KWfxM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iiWc60lbb/6qiLWMU51+aQdmEA0gq33I+WAKpaLzXzfNapg7lG7ld/rPV+35LZ/ma
-	 iq059upcZWD1fjarL8pdZmC8BDJ1fMbfG5OVL3H4nj67P5WA9LC2MKBhNprF3EO9zE
-	 HdaoD69nbDty6TAxQQSr6IE9UMXPhRRTK2n3TGeU=
+	b=uiUWv//iqeMvTImQNRScWA3AdGiPd/HHRY8t6mG8yrYOQv/ZPJ831RI66kTJqhPnh
+	 ZQu0kzx0g7a3ypaYx/p4htahPmNMR/PQ9DEn6mMPKdH9o9sP+lsCFStkbdu/uGe4tp
+	 vK1/0gLSFT0MSPRWLO3D2VXdJCcw1dZY69U1E9Ns=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 102BFF80154;
-	Mon, 28 Feb 2022 17:39:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FC97F800F8;
+	Mon, 28 Feb 2022 17:58:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C92B3F8013C; Mon, 28 Feb 2022 17:39:34 +0100 (CET)
+ id 90C04F8013C; Mon, 28 Feb 2022 17:58:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from relay4.hostedemail.com (relay4.hostedemail.com [64.99.140.35])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B12FCF800F8
- for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 17:39:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B12FCF800F8
-Received: from omf02.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay09.hostedemail.com (Postfix) with ESMTP id DC0A623715;
- Mon, 28 Feb 2022 16:39:23 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
- omf02.hostedemail.com (Postfix) with ESMTPA id 5F7028000F; 
- Mon, 28 Feb 2022 16:38:49 +0000 (UTC)
-Message-ID: <1760d9be590e18b5cccceef6e049651c69556c37.camel@perches.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB8D3F800F8
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 17:57:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB8D3F800F8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ZPU88y8Z"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="nBQswWkp"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 083791F446;
+ Mon, 28 Feb 2022 16:57:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1646067479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7SQezWrefdfyxYAuqsK1Ki9iYBM12AVThkoZEyjK+Zc=;
+ b=ZPU88y8ZF6FXH0afyVvu6HAMJgRMsZF3hNWU2XICwxzXL/snhtsxGXhAVRF2gokDO9Gom+
+ px+XSjFF7ndXCbfn1l5fBt8sbOzQlKzZKsalRzM6QSv1AXR9RbevP2iOkOEtYoRrJE3sLN
+ YW/VZqwoL83En2w7OJgirSXFdUWizaA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1646067479;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7SQezWrefdfyxYAuqsK1Ki9iYBM12AVThkoZEyjK+Zc=;
+ b=nBQswWkpY13GEqau7Zffx2DBRTDruvMIeiXXZgmJknRXIVZW1tru+BRU7vtJLxNiMDhtrT
+ 4AzaOm7mF03FIGCA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C745FA3B8B;
+ Mon, 28 Feb 2022 16:57:58 +0000 (UTC)
+Date: Mon, 28 Feb 2022 17:57:58 +0100
+Message-ID: <s5hzgmbq67d.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Joe Perches <joe@perches.com>
 Subject: Re: [PATCH v4 2/2] ALSA: core: Remove redundant variable and return
  the last statement
-From: Joe Perches <joe@perches.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Mon, 28 Feb 2022 08:39:21 -0800
-In-Reply-To: <s5ha6ebrnbl.wl-tiwai@suse.de>
+In-Reply-To: <1760d9be590e18b5cccceef6e049651c69556c37.camel@perches.com>
 References: <20220228050253.1649-1-tangmeng@uniontech.com>
  <20220228050253.1649-2-tangmeng@uniontech.com>
  <e5c1ba2f7db29b78066d12dab812b7a1c0a37a81.camel@perches.com>
  <s5ha6ebrnbl.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.40.4-1ubuntu2 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: dtaitigs3myn5hecefhi3rzmhzwsmi5t
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: 5F7028000F
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1/cTFZr/pNsYnF7B693HsSfdXRXrxvc6LM=
-X-HE-Tag: 1646066329-978216
+ <1760d9be590e18b5cccceef6e049651c69556c37.camel@perches.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: Meng Tang <tangmeng@uniontech.com>, alsa-devel@alsa-project.org,
  tiwai@suse.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -81,40 +98,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2022-02-28 at 17:02 +0100, Takashi Iwai wrote:
-> On Mon, 28 Feb 2022 06:20:45 +0100, Joe Perches wrote:
-> > On Mon, 2022-02-28 at 13:02 +0800, Meng Tang wrote:
-> > > Return the result from file->f_op->open() directly instead of
-> > > taking this in another redundant variable. Make the typical
-> > > return the last statement, return early and reduce the indentation
-> > > too.
+On Mon, 28 Feb 2022 17:39:21 +0100,
+Joe Perches wrote:
+> 
+> On Mon, 2022-02-28 at 17:02 +0100, Takashi Iwai wrote:
+> > On Mon, 28 Feb 2022 06:20:45 +0100, Joe Perches wrote:
+> > > On Mon, 2022-02-28 at 13:02 +0800, Meng Tang wrote:
+> > > > Return the result from file->f_op->open() directly instead of
+> > > > taking this in another redundant variable. Make the typical
+> > > > return the last statement, return early and reduce the indentation
+> > > > too.
+> > > > 
+> > > > Signed-off-by: Meng Tang <tangmeng@uniontech.com>
+> > > > Signed-off-by: Joe Perches <joe@perches.com>
 > > > 
-> > > Signed-off-by: Meng Tang <tangmeng@uniontech.com>
-> > > Signed-off-by: Joe Perches <joe@perches.com>
+> > > Hi Meng Tang.
+> > > 
+> > > For the next time: it's not necessary (or even good) to add a sign-off
+> > > for another person unless they specifically authorize one.
+> > > 
+> > > You wrote and are submitting these changes, I merely gave you simple
+> > > suggestions as to how you could improve them.
 > > 
-> > Hi Meng Tang.
+> > Joe, would you like to drop your S-o-b lines from those two patches?
+> > Or shall I keep them?
 > > 
-> > For the next time: it's not necessary (or even good) to add a sign-off
-> > for another person unless they specifically authorize one.
+> > thanks,
 > > 
-> > You wrote and are submitting these changes, I merely gave you simple
-> > suggestions as to how you could improve them.
+> > Takashi
 > 
-> Joe, would you like to drop your S-o-b lines from those two patches?
-> Or shall I keep them?
+> Hi Takashi.
 > 
-> thanks,
+> Nominally, the sign-off-by chain shows who pushed these changes upstream
+> and I did not and I am not an upstream aggregator.
 > 
-> Takashi
+> But whatever you choose is OK.
+> It's not really a concern to me.
+> I do think these changes are ok.
 
-Hi Takashi.
+OK, I dropped S-o-b lines and applied the patches now.
 
-Nominally, the sign-off-by chain shows who pushed these changes upstream
-and I did not and I am not an upstream aggregator.
 
-But whatever you choose is OK.
-It's not really a concern to me.
-I do think these changes are ok.
+thanks,
 
-cheers, Joe
-
+Takashi

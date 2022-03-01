@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A05A4C9513
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 20:51:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A73BA4C9515
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 20:52:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3FAA1B38;
-	Tue,  1 Mar 2022 20:51:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3FAA1B38
+	by alsa0.perex.cz (Postfix) with ESMTPS id 301F11AA2;
+	Tue,  1 Mar 2022 20:51:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 301F11AA2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646164315;
-	bh=op+kuWhB/CG0oX7mmKMPBA/PcIrUxK7caqToZ1P2vik=;
+	s=default; t=1646164332;
+	bh=Jg8eeRpXN3KyAy29VO2q5rBOhw/+sRIGyyHHcOCu0j8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FxRmC1VCzcuynQa0zuTTmQxbINc01lwpYVmWUfNX0BHtspB7fCmVbmmmUvsgGDy/K
-	 94Ho4JAfC4YiBi8u8OkwkuMkEpaH7wTD6fv7qEOv0kVmZeg1as+HRJduWofkHRCYdq
-	 h75ZmU237o5+84iNhFynziSvMrhMKrwF7Ac2Nnz0=
+	b=tcjUOVpuSOorp3azBiRPhV4+VIcs/lhhWYyoWw5rzCpJBsBYlNpoBmbqwQuVs/LPB
+	 LcmJB9ZFU+IBGfha3myE6E+nEPBPzDcuIdRW15DlSIHBcZXkBzPfvK3D37XlihH/8m
+	 19XI4sfHyz1d8uw8N1U4LfSWViHPto8XpiaDmVdg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6277CF8052D;
+	by alsa1.perex.cz (Postfix) with ESMTP id E4050F80534;
 	Tue,  1 Mar 2022 20:49:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF96DF80528; Tue,  1 Mar 2022 20:49:31 +0100 (CET)
+ id B9326F80227; Tue,  1 Mar 2022 20:49:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A83F7F80227
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 20:49:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A83F7F80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id C13C4F80508
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 20:49:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C13C4F80508
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="kkY6NQ4D"
+ header.b="RCBSUrDO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646164161; x=1677700161;
+ t=1646164164; x=1677700164;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=op+kuWhB/CG0oX7mmKMPBA/PcIrUxK7caqToZ1P2vik=;
- b=kkY6NQ4D0AVNGzfjb2uI1IVxJbJ1AAS3JIfs5jEt06+cy6iF+fJwQjgf
- 3XOlweofje5luxcOOn816ZlfheB5fBNr59a05h3dMDK+HCwKzNbotErcb
- aTr9ns0Zc/5XE3pQ/2P5EywBj2XDvd9Qkg9c2hcz8M9BM4Vj1J0+RjcD8
- mxhWNMWlxxUT8nieKjIvTEcBi6t746jlAlr6v8M01A6TwkKZW8SIlO4Qr
- Juwq5acqu/04dQJZT9aHsr2UcW07h4RIGIsUanZ60XBNCA3oKBjN2PQtG
- LPMEzZRltitjDg8GV/eaH1GzFf8RzH49BnyOFEw5RtTkGEof+bE6hKPei Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233841069"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233841069"
+ bh=Jg8eeRpXN3KyAy29VO2q5rBOhw/+sRIGyyHHcOCu0j8=;
+ b=RCBSUrDOfDU91JtpRrFjtJN2h6Hx4ZsjSLQMZ8FFmwT7U0oNvu7ZsXWn
+ yK4vCxIHiz2GPWk73J1/FlGbX6X9R6XyHuAG8J5+1Z8NmaocjA3kLQb2K
+ V1WNZi0/gNuAa+jmJ6I8x1G2o/LMTAdO/0aNAS3PjtlUuzcFd65S2rw+K
+ rzLHIQ3s0WdXIORJOtBLsZzL1W11fZAQwXqhVTboCQn+s7FwaQ6pPU7QE
+ kzZc/7B0MKMptunGvdEPFlYYoJnYAA5OUQQ4VEv58HxIOSEVrV5UUMqil
+ 807eCva0q6151S2CWhj7CQLgC/Ocvmw2dDEv0CuTWXCePIRF153bu7Jl3 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233841071"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233841071"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Mar 2022 11:49:16 -0800
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="630131859"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="630131863"
 Received: from rbrosius-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.209.131.146])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 11:49:15 -0800
+ 01 Mar 2022 11:49:16 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 5/8] ASoC: Intel: sof_rt1308: move rt1308 code to common module
-Date: Tue,  1 Mar 2022 13:49:00 -0600
-Message-Id: <20220301194903.60859-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 6/8] ASoC: Intel: cirrus-common: support cs35l41 amplifier
+Date: Tue,  1 Mar 2022 13:49:01 -0600
+Message-Id: <20220301194903.60859-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
 References: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
@@ -92,97 +92,148 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Brent Lu <brent.lu@intel.com>
 
-Move the code related to rt1308 dai link to the realtek common module.
-It creates a clean base to add more amplifier support to this machine
-driver in the future.
+Implement cs35l41 support code in this common module so it could be
+shared between multiple SOF machine drivers.
 
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Brent Lu <brent.lu@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/Kconfig              |  1 +
- sound/soc/intel/boards/sof_realtek_common.c | 98 +++++++++++++++++++++
- sound/soc/intel/boards/sof_realtek_common.h |  4 +
- sound/soc/intel/boards/sof_rt1308.c         | 70 +++------------
- 4 files changed, 114 insertions(+), 59 deletions(-)
+ sound/soc/intel/boards/Kconfig             |   3 +
+ sound/soc/intel/boards/Makefile            |   3 +
+ sound/soc/intel/boards/sof_cirrus_common.c | 163 +++++++++++++++++++++
+ sound/soc/intel/boards/sof_cirrus_common.h |  25 ++++
+ 4 files changed, 194 insertions(+)
+ create mode 100644 sound/soc/intel/boards/sof_cirrus_common.c
+ create mode 100644 sound/soc/intel/boards/sof_cirrus_common.h
 
 diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index cdf94b09c372..d96ebc335249 100644
+index d96ebc335249..f29f9b731ed9 100644
 --- a/sound/soc/intel/boards/Kconfig
 +++ b/sound/soc/intel/boards/Kconfig
-@@ -609,6 +609,7 @@ config SND_SOC_INTEL_SOF_RT1308_MACH
- 	depends on MFD_INTEL_LPSS || COMPILE_TEST
- 	select SND_SOC_RT1308
- 	select SND_SOC_DMIC
-+	select SND_SOC_INTEL_SOF_REALTEK_COMMON
- 	help
- 	   This adds support for ASoC machine driver for Tigerlake platforms
- 	   with RT1308 I2S audio codec.
-diff --git a/sound/soc/intel/boards/sof_realtek_common.c b/sound/soc/intel/boards/sof_realtek_common.c
-index 669e44c73c17..a2bcbeee0216 100644
---- a/sound/soc/intel/boards/sof_realtek_common.c
-+++ b/sound/soc/intel/boards/sof_realtek_common.c
-@@ -10,9 +10,11 @@
- #include <sound/soc-acpi.h>
- #include <sound/soc-dai.h>
- #include <sound/soc-dapm.h>
-+#include <sound/sof.h>
- #include <uapi/sound/asound.h>
- #include "../../codecs/rt1011.h"
- #include "../../codecs/rt1015.h"
-+#include "../../codecs/rt1308.h"
- #include "sof_realtek_common.h"
+@@ -35,6 +35,9 @@ config SND_SOC_INTEL_SOF_MAXIM_COMMON
+ config SND_SOC_INTEL_SOF_REALTEK_COMMON
+ 	tristate
  
- /*
-@@ -361,5 +363,101 @@ void sof_rt1015_dai_link(struct snd_soc_dai_link *link, unsigned int fs)
- }
- EXPORT_SYMBOL_NS(sof_rt1015_dai_link, SND_SOC_INTEL_SOF_REALTEK_COMMON);
++config SND_SOC_INTEL_SOF_CIRRUS_COMMON
++	tristate
++
+ if SND_SOC_INTEL_CATPT
  
+ config SND_SOC_INTEL_HASWELL_MACH
+diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
+index b2966020e7ed..d0ef71b7af6e 100644
+--- a/sound/soc/intel/boards/Makefile
++++ b/sound/soc/intel/boards/Makefile
+@@ -91,3 +91,6 @@ obj-$(CONFIG_SND_SOC_INTEL_SOF_MAXIM_COMMON) += snd-soc-intel-sof-maxim-common.o
+ 
+ snd-soc-intel-sof-realtek-common-objs += sof_realtek_common.o
+ obj-$(CONFIG_SND_SOC_INTEL_SOF_REALTEK_COMMON) += snd-soc-intel-sof-realtek-common.o
++
++snd-soc-intel-sof-cirrus-common-objs += sof_cirrus_common.o
++obj-$(CONFIG_SND_SOC_INTEL_SOF_CIRRUS_COMMON) += snd-soc-intel-sof-cirrus-common.o
+diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
+new file mode 100644
+index 000000000000..e71d74ec1b0b
+--- /dev/null
++++ b/sound/soc/intel/boards/sof_cirrus_common.c
+@@ -0,0 +1,163 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * RT1308 audio amplifier
++ * This file defines data structures and functions used in Machine
++ * Driver for Intel platforms with Cirrus Logic Codecs.
++ *
++ * Copyright 2022 Intel Corporation.
 + */
-+static const struct snd_kcontrol_new rt1308_kcontrols[] = {
-+	SOC_DAPM_PIN_SWITCH("Speakers"),
++#include <linux/module.h>
++#include <sound/sof.h>
++#include "../../codecs/cs35l41.h"
++#include "sof_cirrus_common.h"
++
++/*
++ * Cirrus Logic CS35L41/CS35L53
++ */
++static const struct snd_kcontrol_new cs35l41_kcontrols[] = {
++	SOC_DAPM_PIN_SWITCH("WL Spk"),
++	SOC_DAPM_PIN_SWITCH("WR Spk"),
++	SOC_DAPM_PIN_SWITCH("TL Spk"),
++	SOC_DAPM_PIN_SWITCH("TR Spk"),
 +};
 +
-+static const struct snd_soc_dapm_widget rt1308_dapm_widgets[] = {
-+	SND_SOC_DAPM_SPK("Speakers", NULL),
++static const struct snd_soc_dapm_widget cs35l41_dapm_widgets[] = {
++	SND_SOC_DAPM_SPK("WL Spk", NULL),
++	SND_SOC_DAPM_SPK("WR Spk", NULL),
++	SND_SOC_DAPM_SPK("TL Spk", NULL),
++	SND_SOC_DAPM_SPK("TR Spk", NULL),
 +};
 +
-+static const struct snd_soc_dapm_route rt1308_dapm_routes[] = {
++static const struct snd_soc_dapm_route cs35l41_dapm_routes[] = {
 +	/* speaker */
-+	{"Speakers", NULL, "SPOL"},
-+	{"Speakers", NULL, "SPOR"},
++	{"WL Spk", NULL, "WL SPK"},
++	{"WR Spk", NULL, "WR SPK"},
++	{"TL Spk", NULL, "TL SPK"},
++	{"TR Spk", NULL, "TR SPK"},
 +};
 +
-+static struct snd_soc_dai_link_component rt1308_components[] = {
++static struct snd_soc_dai_link_component cs35l41_components[] = {
 +	{
-+		.name = RT1308_DEV0_NAME,
-+		.dai_name = RT1308_CODEC_DAI,
-+	}
++		.name = CS35L41_DEV0_NAME,
++		.dai_name = CS35L41_CODEC_DAI,
++	},
++	{
++		.name = CS35L41_DEV1_NAME,
++		.dai_name = CS35L41_CODEC_DAI,
++	},
++	{
++		.name = CS35L41_DEV2_NAME,
++		.dai_name = CS35L41_CODEC_DAI,
++	},
++	{
++		.name = CS35L41_DEV3_NAME,
++		.dai_name = CS35L41_CODEC_DAI,
++	},
 +};
 +
-+static int rt1308_init(struct snd_soc_pcm_runtime *rtd)
++static struct snd_soc_codec_conf cs35l41_codec_conf[] = {
++	{
++		.dlc = COMP_CODEC_CONF(CS35L41_DEV0_NAME),
++		.name_prefix = "WL",
++	},
++	{
++		.dlc = COMP_CODEC_CONF(CS35L41_DEV1_NAME),
++		.name_prefix = "WR",
++	},
++	{
++		.dlc = COMP_CODEC_CONF(CS35L41_DEV2_NAME),
++		.name_prefix = "TL",
++	},
++	{
++		.dlc = COMP_CODEC_CONF(CS35L41_DEV3_NAME),
++		.name_prefix = "TR",
++	},
++};
++
++static int cs35l41_init(struct snd_soc_pcm_runtime *rtd)
 +{
 +	struct snd_soc_card *card = rtd->card;
 +	int ret;
 +
-+	ret = snd_soc_dapm_new_controls(&card->dapm, rt1308_dapm_widgets,
-+					ARRAY_SIZE(rt1308_dapm_widgets));
++	ret = snd_soc_dapm_new_controls(&card->dapm, cs35l41_dapm_widgets,
++					ARRAY_SIZE(cs35l41_dapm_widgets));
 +	if (ret) {
 +		dev_err(rtd->dev, "fail to add dapm controls, ret %d\n", ret);
 +		return ret;
 +	}
 +
-+	ret = snd_soc_add_card_controls(card, rt1308_kcontrols,
-+					ARRAY_SIZE(rt1308_kcontrols));
++	ret = snd_soc_add_card_controls(card, cs35l41_kcontrols,
++					ARRAY_SIZE(cs35l41_kcontrols));
 +	if (ret) {
 +		dev_err(rtd->dev, "fail to add card controls, ret %d\n", ret);
 +		return ret;
 +	}
 +
-+	ret = snd_soc_dapm_add_routes(&card->dapm, rt1308_dapm_routes,
-+				      ARRAY_SIZE(rt1308_dapm_routes));
++	ret = snd_soc_dapm_add_routes(&card->dapm, cs35l41_dapm_routes,
++				      ARRAY_SIZE(cs35l41_dapm_routes));
 +
 +	if (ret)
 +		dev_err(rtd->dev, "fail to add dapm routes, ret %d\n", ret);
@@ -190,210 +241,97 @@ index 669e44c73c17..a2bcbeee0216 100644
 +	return ret;
 +}
 +
-+static int rt1308_hw_params(struct snd_pcm_substream *substream,
-+			    struct snd_pcm_hw_params *params)
++static int cs35l41_hw_params(struct snd_pcm_substream *substream,
++			     struct snd_pcm_hw_params *params)
 +{
 +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_card *card = rtd->card;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	int clk_id, clk_freq, pll_out;
-+	int ret;
++	struct snd_soc_dai *codec_dai;
++	int clk_freq, i, ret;
 +
-+	clk_id = RT1308_PLL_S_MCLK;
-+	/* get the tplg configured mclk. */
-+	clk_freq = sof_dai_get_mclk(rtd);
++	clk_freq = sof_dai_get_bclk(rtd); /* BCLK freq */
 +
-+	pll_out = params_rate(params) * 512;
-+
-+	/* Set rt1308 pll */
-+	ret = snd_soc_dai_set_pll(codec_dai, 0, clk_id, clk_freq, pll_out);
-+	if (ret < 0) {
-+		dev_err(card->dev, "Failed to set RT1308 PLL: %d\n", ret);
-+		return ret;
++	if (clk_freq <= 0) {
++		dev_err(rtd->dev, "fail to get bclk freq, ret %d\n", clk_freq);
++		return -EINVAL;
 +	}
 +
-+	/* Set rt1308 sysclk */
-+	ret = snd_soc_dai_set_sysclk(codec_dai, RT1308_FS_SYS_S_PLL, pll_out,
-+				     SND_SOC_CLOCK_IN);
-+	if (ret < 0)
-+		dev_err(card->dev, "Failed to set RT1308 SYSCLK: %d\n", ret);
++	for_each_rtd_codec_dais(rtd, i, codec_dai) {
++		/* call dai driver's set_sysclk() callback */
++		ret = snd_soc_dai_set_sysclk(codec_dai, CS35L41_CLKID_SCLK,
++					     clk_freq, SND_SOC_CLOCK_IN);
++		if (ret < 0) {
++			dev_err(codec_dai->dev, "fail to set sysclk, ret %d\n",
++				ret);
++			return ret;
++		}
 +
-+	return ret;
++		/* call component driver's set_sysclk() callback */
++		ret = snd_soc_component_set_sysclk(codec_dai->component,
++						   CS35L41_CLKID_SCLK, 0,
++						   clk_freq, SND_SOC_CLOCK_IN);
++		if (ret < 0) {
++			dev_err(codec_dai->dev, "fail to set component sysclk, ret %d\n",
++				ret);
++			return ret;
++		}
++	}
++
++	return 0;
 +}
 +
-+static const struct snd_soc_ops rt1308_ops = {
-+	.hw_params = rt1308_hw_params,
++static const struct snd_soc_ops cs35l41_ops = {
++	.hw_params = cs35l41_hw_params,
 +};
 +
-+void sof_rt1308_dai_link(struct snd_soc_dai_link *link)
++void cs35l41_set_dai_link(struct snd_soc_dai_link *link)
 +{
-+	link->codecs = rt1308_components;
-+	link->num_codecs = ARRAY_SIZE(rt1308_components);
-+	link->init = rt1308_init;
-+	link->ops = &rt1308_ops;
++	link->codecs = cs35l41_components;
++	link->num_codecs = ARRAY_SIZE(cs35l41_components);
++	link->init = cs35l41_init;
++	link->ops = &cs35l41_ops;
 +}
-+EXPORT_SYMBOL_NS(sof_rt1308_dai_link, SND_SOC_INTEL_SOF_REALTEK_COMMON);
++EXPORT_SYMBOL_NS(cs35l41_set_dai_link, SND_SOC_INTEL_SOF_CIRRUS_COMMON);
 +
- MODULE_DESCRIPTION("ASoC Intel SOF Realtek helpers");
- MODULE_LICENSE("GPL");
-diff --git a/sound/soc/intel/boards/sof_realtek_common.h b/sound/soc/intel/boards/sof_realtek_common.h
-index 228ac9c08430..e0a5518e8dd2 100644
---- a/sound/soc/intel/boards/sof_realtek_common.h
-+++ b/sound/soc/intel/boards/sof_realtek_common.h
-@@ -35,4 +35,8 @@ void sof_rt1015p_codec_conf(struct snd_soc_card *card);
- void sof_rt1015_dai_link(struct snd_soc_dai_link *link, unsigned int fs);
- void sof_rt1015_codec_conf(struct snd_soc_card *card);
- 
-+#define RT1308_CODEC_DAI	"rt1308-aif"
-+#define RT1308_DEV0_NAME	"i2c-10EC1308:00"
-+void sof_rt1308_dai_link(struct snd_soc_dai_link *link);
++void cs35l41_set_codec_conf(struct snd_soc_card *card)
++{
++	card->codec_conf = cs35l41_codec_conf;
++	card->num_configs = ARRAY_SIZE(cs35l41_codec_conf);
++}
++EXPORT_SYMBOL_NS(cs35l41_set_codec_conf, SND_SOC_INTEL_SOF_CIRRUS_COMMON);
 +
- #endif /* __SOF_REALTEK_COMMON_H */
-diff --git a/sound/soc/intel/boards/sof_rt1308.c b/sound/soc/intel/boards/sof_rt1308.c
-index 7e33c49b3531..971ab53236a5 100644
---- a/sound/soc/intel/boards/sof_rt1308.c
-+++ b/sound/soc/intel/boards/sof_rt1308.c
-@@ -16,7 +16,7 @@
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/sof.h>
--#include "../../codecs/rt1308.h"
-+#include "sof_realtek_common.h"
- 
- #define SOF_RT1308_SSP_CODEC(quirk)		((quirk) & GENMASK(3, 0))
- #define SOF_RT1308_SSP_CODEC_MASK			(GENMASK(3, 0))
-@@ -38,22 +38,16 @@
- #define SOF_HDMI_CAPTURE_2_SSP(quirk)	\
- 	(((quirk) << SOF_HDMI_CAPTURE_2_SSP_SHIFT) & SOF_HDMI_CAPTURE_2_SSP_MASK)
- 
-+#define SOF_RT1308_SPEAKER_AMP_PRESENT		BIT(13)
++MODULE_DESCRIPTION("ASoC Intel SOF Cirrus Logic helpers");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/intel/boards/sof_cirrus_common.h b/sound/soc/intel/boards/sof_cirrus_common.h
+new file mode 100644
+index 000000000000..ca438c12c386
+--- /dev/null
++++ b/sound/soc/intel/boards/sof_cirrus_common.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * This file defines data structures used in Machine Driver for Intel
++ * platforms with Cirrus Logic Codecs.
++ *
++ * Copyright 2022 Intel Corporation.
++ */
++#ifndef __SOF_CIRRUS_COMMON_H
++#define __SOF_CIRRUS_COMMON_H
 +
- /* Default: SSP2  */
- static unsigned long sof_rt1308_quirk = SOF_RT1308_SSP_CODEC(2);
- 
- static const struct snd_soc_dapm_widget sof_rt1308_dapm_widgets[] = {
--	SND_SOC_DAPM_SPK("Speakers", NULL),
- 	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
- };
- 
--static const struct snd_kcontrol_new sof_rt1308_controls[] = {
--	SOC_DAPM_PIN_SWITCH("Speakers"),
--};
--
- static const struct snd_soc_dapm_route sof_rt1308_dapm_routes[] = {
--	{ "Speakers", NULL, "SPOL" },
--	{ "Speakers", NULL, "SPOR" },
--
- 	/* digital mics */
- 	{"DMic", NULL, "SoC DMIC"},
- };
-@@ -61,8 +55,6 @@ static const struct snd_soc_dapm_route sof_rt1308_dapm_routes[] = {
- static struct snd_soc_card sof_rt1308_card = {
- 	.name         = "rt1308",
- 	.owner        = THIS_MODULE,
--	.controls = sof_rt1308_controls,
--	.num_controls = ARRAY_SIZE(sof_rt1308_controls),
- 	.dapm_widgets = sof_rt1308_dapm_widgets,
- 	.num_dapm_widgets = ARRAY_SIZE(sof_rt1308_dapm_widgets),
- 	.dapm_routes = sof_rt1308_dapm_routes,
-@@ -70,37 +62,6 @@ static struct snd_soc_card sof_rt1308_card = {
- 	.fully_routed = true,
- };
- 
--static int sof_rt1308_hw_params(struct snd_pcm_substream *substream,
--				struct snd_pcm_hw_params *params)
--{
--	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_card *card = rtd->card;
--	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
--	int clk_id, clk_freq, pll_out;
--	int ret;
--
--	clk_id = RT1308_PLL_S_MCLK;
--	/* get the tplg configured mclk. */
--	clk_freq = sof_dai_get_mclk(rtd);
--
--	pll_out = params_rate(params) * 512;
--
--	/* Set rt1308 pll */
--	ret = snd_soc_dai_set_pll(codec_dai, 0, clk_id, clk_freq, pll_out);
--	if (ret < 0) {
--		dev_err(card->dev, "Failed to set RT1308 PLL: %d\n", ret);
--		return ret;
--	}
--
--	/* Set rt1308 sysclk */
--	ret = snd_soc_dai_set_sysclk(codec_dai, RT1308_FS_SYS_S_PLL, pll_out,
--				     SND_SOC_CLOCK_IN);
--	if (ret < 0)
--		dev_err(card->dev, "Failed to set RT1308 SYSCLK: %d\n", ret);
--
--	return ret;
--}
--
- static struct snd_soc_dai_link_component platform_component[] = {
- 	{
- 		/* name might be overridden during probe */
-@@ -108,13 +69,6 @@ static struct snd_soc_dai_link_component platform_component[] = {
- 	}
- };
- 
--static struct snd_soc_dai_link_component rt1308_component[] = {
--	{
--		.name = "i2c-10EC1308:00",
--		.dai_name = "rt1308-aif",
--	}
--};
--
- static struct snd_soc_dai_link_component dmic_component[] = {
- 	{
- 		.name = "dmic-codec",
-@@ -129,11 +83,6 @@ static struct snd_soc_dai_link_component dummy_component[] = {
- 	}
- };
- 
--/* machine stream operations */
--static const struct snd_soc_ops sof_rt1308_ops = {
--	.hw_params = sof_rt1308_hw_params,
--};
--
- static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 							  int ssp_codec,
- 							  int dmic_be_num)
-@@ -186,11 +135,11 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 		return NULL;
- 
- 	links[id].id = id;
--	links[id].codecs = rt1308_component;
--	links[id].num_codecs = ARRAY_SIZE(rt1308_component);
-+	if (sof_rt1308_quirk & SOF_RT1308_SPEAKER_AMP_PRESENT) {
-+		sof_rt1308_dai_link(&links[id]);
-+	}
- 	links[id].platforms = platform_component;
- 	links[id].num_platforms = ARRAY_SIZE(platform_component);
--	links[id].ops = &sof_rt1308_ops;
- 	links[id].dpcm_playback = 1;
- 	links[id].no_pcm = 1;
- 	links[id].cpus = &cpus[id];
-@@ -284,7 +233,8 @@ static const struct platform_device_id board_ids[] = {
- 					SOF_NO_OF_HDMI_CAPTURE_SSP(2) |
- 					SOF_HDMI_CAPTURE_1_SSP(1) |
- 					SOF_HDMI_CAPTURE_2_SSP(5) |
--					SOF_SSP_HDMI_CAPTURE_PRESENT),
-+					SOF_SSP_HDMI_CAPTURE_PRESENT |
-+					SOF_RT1308_SPEAKER_AMP_PRESENT),
- 	},
- 	{ }
- };
-@@ -301,5 +251,7 @@ static struct platform_driver sof_rt1308_driver = {
- module_platform_driver(sof_rt1308_driver);
- 
- MODULE_DESCRIPTION("ASoC Intel(R) SOF + RT1308 Machine driver");
-+MODULE_AUTHOR("balamurugan.c <balamurugan.c@intel.com>");
-+MODULE_AUTHOR("Brent Lu <brent.lu@intel.com>");
- MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:sof_rt1308");
-+MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_REALTEK_COMMON);
++#include <sound/soc.h>
++
++/*
++ * Cirrus Logic CS35L41/CS35L53
++ */
++#define CS35L41_CODEC_DAI	"cs35l41-pcm"
++#define CS35L41_DEV0_NAME	"i2c-CSC3541:00"
++#define CS35L41_DEV1_NAME	"i2c-CSC3541:01"
++#define CS35L41_DEV2_NAME	"i2c-CSC3541:02"
++#define CS35L41_DEV3_NAME	"i2c-CSC3541:03"
++
++void cs35l41_set_dai_link(struct snd_soc_dai_link *link);
++void cs35l41_set_codec_conf(struct snd_soc_card *card);
++
++#endif /* __SOF_CIRRUS_COMMON_H */
 -- 
 2.25.1
 

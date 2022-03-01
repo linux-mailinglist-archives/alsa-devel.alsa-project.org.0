@@ -2,105 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94FE24CA001
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:55:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B92B14CA004
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:55:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35FED1FA9;
-	Wed,  2 Mar 2022 09:54:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35FED1FA9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57A151FB3;
+	Wed,  2 Mar 2022 09:54:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57A151FB3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646211303;
-	bh=ohQNYco1WgPwmsA+tXJLYlmjXY2pH709l2E93AfEqCI=;
+	s=default; t=1646211319;
+	bh=ExGFu8K5ER6qNinoN7e1ZBiqiOo+u7jASudUiw7CUEg=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hP3iGHCsyXx/dR5HcmKLOvNN8yQ7mWxQrzR5+MO4HQpfOa5vwmj7JzsojvTyz5OAg
-	 pgsGYNTujbofhWmu2vfmripjXVbfPV9+/Nu9w9UqrB+nsWHcf5s/zSJk3Y9tmgObaK
-	 JQD7TXkUo48VB2kvk3VFAT7Tg2/NBDciKbF6V7Jg=
+	b=vZ7Z4GU6Rk3qpmkus5btZ/Zl4y1CZDHSpsWtWgz1mlf8xJ6/6+atj/KI4Q8g7UApY
+	 4LCiPYd8XBYCIQe7T72UiS63MvFMBTnRdWRkcSp2eT3ACk0L9KUOfdBXYtIIBOk8SO
+	 Q47bTkB3tyikGSBg32bSZ8ziPRGzvlDKROAWKvbE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EC6FF80753;
-	Wed,  2 Mar 2022 09:34:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14824F80760;
+	Wed,  2 Mar 2022 09:34:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9253CF80227; Tue,  1 Mar 2022 09:42:23 +0100 (CET)
+ id 9D64CF80227; Tue,  1 Mar 2022 09:49:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
 Received: from smtp-relay-internal-0.canonical.com
  (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD73AF80054
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 09:42:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD73AF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 738E7F80167
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 09:49:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 738E7F80167
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="lnGUbzHE"
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71])
+ header.b="hAPDoKJk"
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 8F3D63F4B4
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 08:42:10 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id DD82940814
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 08:49:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1646124130;
- bh=dZm4dVdpcvNRhKnzE3iapZ6aqr4LkpURHZ0F0cP2Ffk=;
+ s=20210705; t=1646124588;
+ bh=i5oNvJtWT2nQMVMnHuzSOVOeJhkbSN882hqbqowwmW8=;
  h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
  In-Reply-To:Content-Type;
- b=lnGUbzHETtjnQI7VKG3h2dyCH8Suvjl+KIfHSApi9Fl7fDIiTAv4TfqdbvPhXOQjS
- x/waZRxy3SDJri3EXADCffEfSiPf9m6u7swBaCep+DuDW1CbVwnMbw+/BtqTLEuBd4
- U9WoRFMzMkRXTKJ5r2olp8yj7N4KTDiR9q5x7vznFVBrCzYVT2ISDuGlFu5/gL24Ri
- dwEAXk7J4ZTLFLqH1nWXNMexvbcjOrsWGSShNi60X9AYo7+7CSB9+MEjig+F4JU6nk
- EMPH3uV39DmOH/J7q2FSokZkUkLTCMtFys0eMSjxJJ8z2Zb2uygFmPErNUvlWbDkp0
- ZvGvFrFhgRAiw==
-Received: by mail-ej1-f71.google.com with SMTP id
- la22-20020a170907781600b006a7884de505so6496061ejc.7
- for <alsa-devel@alsa-project.org>; Tue, 01 Mar 2022 00:42:10 -0800 (PST)
+ b=hAPDoKJkdI9ov0HfkFPeWTN9mV733EHTIkgwDtxCO0GE9OFp2MH9B6JhRS45U+Mex
+ ddtFQPoaurROokMYEkeUhvJeJKYFx2n/x3+B+VYcZtbaC94c4gUtt4JRPE+5vyQXFE
+ 3KgDX6FZ5d+vF1rjy8n9tNNxMP/PsR5fdgAm/150K82k9junmHj/eaNuBsLXUz8adP
+ 3Q7c0T+S076u/cJTGgIsjzBub9T5nAzkvYJ20j7SLDi9zQ+zGZp5YgAevtYJbF7/k0
+ PTeYx5ZaL5tEVZKKrjY4X7n3ibw+sXtqcUlYQ0o/Mh4S6iwGQ7JHe1TtOwzwtliv9u
+ +Iii2om+F+aWA==
+Received: by mail-wr1-f70.google.com with SMTP id
+ h11-20020a5d430b000000b001f01a35a86fso261112wrq.4
+ for <alsa-devel@alsa-project.org>; Tue, 01 Mar 2022 00:49:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=dZm4dVdpcvNRhKnzE3iapZ6aqr4LkpURHZ0F0cP2Ffk=;
- b=ah+0/V1yQHfyGpVCjd6+ZYEUC0HNDETqagu2mYHKuxUQEN2uRenfBnSo0TNjHL4hQj
- 1ELrguiImZJE0zpW+12wtuXiyfY6P2d3xOEFukbMcusy0cPG12Ly5DM9qksGr013hht2
- 6t18uw2OCFccP9Mtugh3EGL+dH+NS8IVSKCPE/SX5RqkxdHrQGOYewlZLH354+Sxpi50
- KW4QQvq+JvVbO143mcNq7rl3l9cuZlwumFwXGPsDuSeRzVLUb+gHeNCeZLpSmKnhkURP
- tPT3GW4um+aJ91rt+crBls1GSFoiMSRy5PDvfnVY1IhiUM8rke+1h7PfKck4RxLTL3kz
- lkMQ==
-X-Gm-Message-State: AOAM530R4bNvziudTivwNznNbiOQCDNJ+PGOBYW8sDWnRomin5MpW0ot
- Z2iTKU7mLDNKe80JuoOPuiM2KyjxUbkw45Dj4WULhQdxCgXjSPyWBLTwDEIW62LMUIHMMzOaIEE
- l5PdAoKZ4kMf4p4Cq4iFbRQWJzaVdkKCD08ANRgdG
-X-Received: by 2002:a17:907:248a:b0:69b:ba2d:62cd with SMTP id
- zg10-20020a170907248a00b0069bba2d62cdmr18284929ejb.212.1646124119343; 
- Tue, 01 Mar 2022 00:41:59 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxkLsXZPJFLzXPV5FGYgxl+qkbahIyWcZp4Gh4Ixdg/+bf55XzGLZMALWtwePubTl5fD9ILsg==
-X-Received: by 2002:a17:907:248a:b0:69b:ba2d:62cd with SMTP id
- zg10-20020a170907248a00b0069bba2d62cdmr18284886ejb.212.1646124119100; 
- Tue, 01 Mar 2022 00:41:59 -0800 (PST)
-Received: from [192.168.0.135] (xdsl-188-155-181-108.adslplus.ch.
+ bh=i5oNvJtWT2nQMVMnHuzSOVOeJhkbSN882hqbqowwmW8=;
+ b=T0WHf6sVDllXw1pZ5aNGS5+btUPGbjMdJqMRlr903YRiPoM2XFcEz3gmI42PSE15Ta
+ M+yWB/ygRLUJZEwvaRZ0FWEbdQacwNTCF3J8H1RVXpgfRoAecerUf/rd+0pzyYR/pLUy
+ sANztCM3nwbXurR+itJeoesYYJ9dpHTbUo+Lflr2NOFngEEAR/QGVHAwZUHATwvhM6xE
+ qGVdSpof34mwlDkaK6Z+06tgT/niqsVseuYoo39Y96BPvYE2DRjuJLMv0RxHwM9TR7Rc
+ 7GsGJBfY+D+ofyl/WQLPujxyl7uNU/QMWqFUVr98iKlSL9rztn/v2aHpBNQUIpL7eGqM
+ SkTg==
+X-Gm-Message-State: AOAM532irwA2/Iw43B+g+WQfUS22fG08g4ErwpO8uuwL6g5VSgam0wAH
+ GsL4tdMvtA5mPuHkjVvJtS7x81xEd2qEBg9jEWRA2G9rzDKZtNu/BuF+zNHls8YauaRI/LskZRm
+ +vLqKvqdllkrn218i3PLCncKO3jainWY/YUkXwY9E
+X-Received: by 2002:aa7:db47:0:b0:413:7649:c2bb with SMTP id
+ n7-20020aa7db47000000b004137649c2bbmr18696653edt.123.1646124577531; 
+ Tue, 01 Mar 2022 00:49:37 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJz0Ji57X8BPtLBdo02/7Aw5hrJyfazNqZcwT3ns08IlVBGD/uW7vhmHoqEKLaS5kqGFV7Hlhw==
+X-Received: by 2002:aa7:db47:0:b0:413:7649:c2bb with SMTP id
+ n7-20020aa7db47000000b004137649c2bbmr18696608edt.123.1646124577357; 
+ Tue, 01 Mar 2022 00:49:37 -0800 (PST)
+Received: from [192.168.0.136] (xdsl-188-155-181-108.adslplus.ch.
  [188.155.181.108]) by smtp.gmail.com with ESMTPSA id
- bo14-20020a170906d04e00b006ce98d9c3e3sm5116757ejb.194.2022.03.01.00.41.57
+ y14-20020a50eb8e000000b00410a2e7798dsm6893213edr.38.2022.03.01.00.49.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Mar 2022 00:41:58 -0800 (PST)
-Message-ID: <59ba1fd5-4be5-278f-47df-d26c341da73a@canonical.com>
-Date: Tue, 1 Mar 2022 09:41:57 +0100
+ Tue, 01 Mar 2022 00:49:36 -0800 (PST)
+Message-ID: <40d9b2ad-2f8a-42c8-54cf-b22e24d78538@canonical.com>
+Date: Tue, 1 Mar 2022 09:49:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH v3 05/11] PCI: Use driver_set_override() instead of
- open-coding
+Subject: Re: [PATCH v3 01/11] driver: platform: Add helper for safer setting
+ of driver_override
 Content-Language: en-US
 To: Bjorn Helgaas <helgaas@kernel.org>
-References: <20220228200606.GA516338@bhelgaas>
+References: <20220228200326.GA516164@bhelgaas>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-In-Reply-To: <20220228200606.GA516338@bhelgaas>
+In-Reply-To: <20220228200326.GA516164@bhelgaas>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:35 +0100
@@ -146,28 +146,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 28/02/2022 21:06, Bjorn Helgaas wrote:
-> On Sun, Feb 27, 2022 at 02:52:08PM +0100, Krzysztof Kozlowski wrote:
->> Use a helper for seting driver_override to reduce amount of duplicated
->> code. Make the driver_override field const char, because it is not
->> modified by the core and it matches other subsystems.
+On 28/02/2022 21:03, Bjorn Helgaas wrote:
+> On Sun, Feb 27, 2022 at 02:52:04PM +0100, Krzysztof Kozlowski wrote:
+>> Several core drivers and buses expect that driver_override is a
+>> dynamically allocated memory thus later they can kfree() it.
 > 
-> s/seting/setting/
-> or even better, s/for seting/to set/
+>> +int driver_set_override(struct device *dev, const char **override,
+>> +			const char *s, size_t len)
+>> +{
+>> +	const char *new, *old;
+>> +	char *cp;
+>> +
+>> +	if (!dev || !override || !s)
+>> +		return -EINVAL;
+>> +
+>> +	/* We need to keep extra room for a newline */
 > 
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> It would help a lot to extend this comment with a hint about where the
+> room for a newline is needed.  It was confusing even before, but it's
+> much more so now that the check is in a completely different file than
+> the "show" functions that need the space.
 > 
-> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> 
->> -	char		*driver_override; /* Driver name to force a match */
->> +	/*
->> +	 * Driver name to force a match.
->> +	 * Do not set directly, because core frees it.
->> +	 * Use driver_set_override() to set or clear it.
-> 
-> Wrap this comment to fill 78 columns or so.
 
-Thanks, I'll fix both.
+Indeed, this needs explanation.
 
 
 Best regards,

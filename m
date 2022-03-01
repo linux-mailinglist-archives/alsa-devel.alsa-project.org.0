@@ -2,97 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8E814C8F64
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 16:46:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE2804C913A
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 18:13:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36A7C1750;
-	Tue,  1 Mar 2022 16:45:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36A7C1750
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63025185D;
+	Tue,  1 Mar 2022 18:12:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63025185D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646149596;
-	bh=CNhKdzYx7dBeNftKP0AOrcsjEyOEhSaW2jObrhIYaPo=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VIj21tNL+6rNBSZj+yEyDwaojNiZmQaFLtKEdvvzzr55jOU7ge8YLylDMxGoMurgd
-	 PYkwCuS43KGnsfWNxbob3Dfw4QCoG3uNindm1leSP4dVXnVKJAPylLG9LYVXYJHhTm
-	 nhLJi+pjtKQNIFzKyUGv9gpZiulb0WPL4NcE+fCw=
+	s=default; t=1646154791;
+	bh=sCZXFcBAwo2Vev/0iPuFwyhNDq/Nfeq2nktdBj4Aj/E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jInImvFdGtbQWeiiICBE4fKWnJEKG+ttVBNRXy2H5ub9dX97aEv8kz4XXYvlbLi9M
+	 Lmg9FOcwNGNYX0I9rNhkaaGbIEWkeeS08o/0cWmpHsCwNBWjbc0S8D/2y0JCLpj/5w
+	 nCYEDp9NEvAFZkWEYvMvfYZG0u/uYHSoufbRINK8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E10CF802D2;
-	Tue,  1 Mar 2022 16:45:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF563F802D2;
+	Tue,  1 Mar 2022 18:12:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC38EF80167; Tue,  1 Mar 2022 16:45:27 +0100 (CET)
+ id E171CF80227; Tue,  1 Mar 2022 18:12:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50627F80167
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 16:45:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50627F80167
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="JVLAVtn8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1646149522; x=1677685522;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=C/BjzGXxbcQNucZ4IX+eGwpvmWxMB4jt2HQM1WP1dbg=;
- b=JVLAVtn8OkHCp1cdR2us095sXud0ShhIhPV7b/XvkG7fL7crgh/mwNfN
- pRLTM0CTLSkUjdcg/RL3c7QG2I5ztwxVD5+ukgPNCVV4hiTT36n8GfNql
- /UT/Xagu7ewewUMOeFeGu0kOODo04Y4G0S+WmimzIo5kFKOJkFsnDPhvA g=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 01 Mar 2022 07:45:17 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 07:45:07 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Tue, 1 Mar 2022 07:45:07 -0800
-Received: from [10.216.24.177] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Tue, 1 Mar 2022
- 07:45:00 -0800
-Message-ID: <134a64a9-abab-df25-a613-2d01ac7e5ee5@quicinc.com>
-Date: Tue, 1 Mar 2022 21:14:56 +0530
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7D81BF80167
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 18:11:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D81BF80167
+X-UUID: 324a8ac07c6e4322b7abfc1e2e63fe3b-20220302
+X-UUID: 324a8ac07c6e4322b7abfc1e2e63fe3b-20220302
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw02.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 953268586; Wed, 02 Mar 2022 01:11:48 +0800
+Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 2 Mar 2022 01:11:46 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb02.mediatek.inc
+ (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 2 Mar 2022 01:11:41 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 2 Mar 2022 01:11:40 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: bt-sco: fix bt-sco-pcm-wb dai widget don't connect to
+ the endpoint
+Date: Wed, 2 Mar 2022 01:11:37 +0800
+Message-ID: <20220301171137.27442-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH v5 1/2] soundwire: qcom: Add compatible name for v1.6.0
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
- <alsa-devel@alsa-project.org>, <bgoswami@codeaurora.org>,
- <bjorn.andersson@linaro.org>, <broonie@kernel.org>,
- <devicetree@vger.kernel.org>, <judyhsiao@chromium.org>,
- <lgirdwood@gmail.com>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <perex@perex.cz>,
- <pierre-louis.bossart@linux.intel.com>, <quic_plai@quicinc.com>,
- <robh+dt@kernel.org>, <rohitkr@codeaurora.org>, <sanyog.r.kale@intel.com>,
- <srinivas.kandagatla@linaro.org>, <tiwai@suse.com>,
- <yung-chuan.liao@linux.intel.com>
-References: <1646030377-12092-1-git-send-email-quic_srivasam@quicinc.com>
- <1646030377-12092-2-git-send-email-quic_srivasam@quicinc.com>
- <CAE-0n53XVfXeVHFhokw7pwSOnL4MQAzDg-83OaH=FB=cB2gqdA@mail.gmail.com>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <CAE-0n53XVfXeVHFhokw7pwSOnL4MQAzDg-83OaH=FB=cB2gqdA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,47 +83,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch fix the second dai driver's dai widget can't connect to the
+endpoint. Because "bt-sco-pcm" and "bt-sco-pcm-wb" dai driver have the
+same stream_name, so it will cause they have the same widget name.
+Therefor it will just create only one route when do snd_soc_dapm_add_route
+that only find the widget through the widget name.
 
-On 3/1/2022 2:32 AM, Stephen Boyd wrote:
-> Quoting Srinivasa Rao Mandadapu (2022-02-27 22:39:36)
->> Update compatible string and master data information in soundwire driver
->> to support v1.6.0 in lpass sc7280 based platform.
->>
->> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
->> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
->> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
->> ---
->>   drivers/soundwire/qcom.c | 6 ++++++
->>   1 file changed, 6 insertions(+)
->>
->> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
->> index 9eb31ba..fb183bd 100644
->> --- a/drivers/soundwire/qcom.c
->> +++ b/drivers/soundwire/qcom.c
->> @@ -175,6 +175,11 @@ static struct qcom_swrm_data swrm_v1_5_data = {
->>          .default_cols = 16,
->>   };
->>
->> +static struct qcom_swrm_data swrm_v1_6_data = {
-> Why not const?
-Okay.
->
->> +       .default_rows = 50,
->> +       .default_cols = 16,
-> This is the same as swrm_v1_5_data so just use that struct again?
-Okay. Will use  swrm_v1_5_data.
->
->> +};
->> +
->>   #define to_qcom_sdw(b) container_of(b, struct qcom_swrm_ctrl, bus)
->>
->>   static int qcom_swrm_ahb_reg_read(struct qcom_swrm_ctrl *ctrl, int reg,
->> @@ -1343,6 +1348,7 @@ static int qcom_swrm_remove(struct platform_device *pdev)
->>   static const struct of_device_id qcom_swrm_of_match[] = {
->>          { .compatible = "qcom,soundwire-v1.3.0", .data = &swrm_v1_3_data },
->>          { .compatible = "qcom,soundwire-v1.5.1", .data = &swrm_v1_5_data },
-> These other structs for v1.5 and v1.3 could also be const.
-Okay. Will add const and re post.
->
->> +       { .compatible = "qcom,soundwire-v1.6.0", .data = &swrm_v1_6_data },
->>          {/* sentinel */},
+Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+---
+
+Hi maintainter,
+
+   Need your comments. The patch is the one that I think it makes the
+   mose sense. Maybe we can define the new stream_name for
+   "bt-sco-pcm-wb" and add the new route.
+
+ sound/soc/codecs/bt-sco.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/bt-sco.c b/sound/soc/codecs/bt-sco.c
+index 4d286844e3c8..578f9df2a25e 100644
+--- a/sound/soc/codecs/bt-sco.c
++++ b/sound/soc/codecs/bt-sco.c
+@@ -13,11 +13,16 @@
+ static const struct snd_soc_dapm_widget bt_sco_widgets[] = {
+ 	SND_SOC_DAPM_INPUT("RX"),
+ 	SND_SOC_DAPM_OUTPUT("TX"),
++	SND_SOC_DAPM_AIF_IN("BT_SCO_RX", "Playback", 0,
++			    SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("BT_SCO_TX", "Capture", 0,
++			     SND_SOC_NOPM, 0, 0),
+ };
+ 
+ static const struct snd_soc_dapm_route bt_sco_routes[] = {
+-	{ "Capture", NULL, "RX" },
+-	{ "TX", NULL, "Playback" },
++	{ "BT_SCO_TX", NULL, "RX" },
++	{ "TX", NULL, "BT_SCO_RX" },
++};
+ };
+ 
+ static struct snd_soc_dai_driver bt_sco_dai[] = {
+-- 
+2.25.1
+

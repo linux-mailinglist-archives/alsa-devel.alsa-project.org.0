@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89AC14C950E
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 20:51:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 691654C9518
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 20:52:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 391D81AE0;
-	Tue,  1 Mar 2022 20:50:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 391D81AE0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D730F1B35;
+	Tue,  1 Mar 2022 20:52:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D730F1B35
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646164265;
-	bh=9OiijKPqNgNf5BOclgu/GF3dPWc5uVuw1BUtQWqQW/k=;
+	s=default; t=1646164372;
+	bh=KtxwDerMncrohbmjqLkgFEyezsc9L0e7Pm2KMMn53S8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CQSmkPWW9VJdF6h8iU/sAxlQ8e8SkNKnvp8nQZ1ehgmuMNKvmNSqgAp1GR8KMiCIt
-	 DclufF2ARxqbSyHeZ+krsWFhtnWODOdGHdwdVv7pqDqUKWoQrrZRx0Cm2kDLXVX81N
-	 k3X0hzRoB8UwVW7tV/ku11Y7ng6DN3rmMjNyR2ac=
+	b=EHjJv4kZY3EczxMuyMu/DKhQQd1PacWqtXR7ozVs9SLxpE/Ui3ykpdWNmDPe04jhj
+	 Hr06F0rQCSIrfZqI6dZIYIREPyU8VX0M5AdM28jIv5q09aXxpLnb1SltOJqfF6Yb7T
+	 PvxNQCQSmQmP+KC34k4jwo5zSQP2RotzUwcoXTug=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 938B5F80518;
-	Tue,  1 Mar 2022 20:49:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B26EF80543;
+	Tue,  1 Mar 2022 20:49:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9515F80517; Tue,  1 Mar 2022 20:49:25 +0100 (CET)
+ id 6C3A8F80516; Tue,  1 Mar 2022 20:49:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,48 +34,48 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 692E7F801D8
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 20:49:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 692E7F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFF6FF802DB
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 20:49:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFF6FF802DB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Adlco03G"
+ header.b="jlurXetF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646164159; x=1677700159;
+ t=1646164162; x=1677700162;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9OiijKPqNgNf5BOclgu/GF3dPWc5uVuw1BUtQWqQW/k=;
- b=Adlco03GaKVDvRSdkFuHpnUgfzzBMSE5OQAlBklPaEBnRNF44vcbGMxz
- GS2ZUGY2SThaDYryL/Y7jrObklGJmamVfA0VsVCJjfGuirza4cTeHoMWk
- Z9ijkFZmL5rg+OUL3Gli2xE6R9OV8Sqm2O/ajcD+TDDSH1gaDW1yJsrXZ
- VfVlSJ3X1DV20In4xmjfgMlnfZUq0NeknLHNnytkhehPJYuNnFTJxwa/B
- Sz0oyjiGlHKG/OANGnAU+bRC3XDRf4urWfElDW1Zze89V0XMguLzrqpyY
- WmObs4kPKHmtoIBed82e4hi/fiE+pPmijWLw0fyiIMjw/XCcoGnnLDdLk A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233841059"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233841059"
+ bh=KtxwDerMncrohbmjqLkgFEyezsc9L0e7Pm2KMMn53S8=;
+ b=jlurXetF0AbEYRt4C2lTFKoi8u0pMym3lC21qs13C158vrB1lpq9/quP
+ KroMuw1vBsz1GnsI9M1jLTiSk7kRP83gnSVs/gryk04i/UmNghv21UR0o
+ TGSs3IKLlYc4VIZmEbEBQXrZYX220ozF38VQPkHohwI7/IX2EiKtaPNG6
+ 268KVioT89c6r3HPiF8XioVTZUus4Err6qOp8m76lfrO4iAf/KRs3Wq32
+ TQu2Kj7Usagq/ko/xcWEk8DPInkDJdTRHnuY+q0rG72qZkmiZW0Lq0nq8
+ 3GttQN/zUF5nPF4VAgtsTExc3+zDFcYcdPZdWCErfkaoHHuJXrc1QZY+I A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233841060"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233841060"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 11:49:13 -0800
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="630131846"
+ 01 Mar 2022 11:49:14 -0800
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="630131847"
 Received: from rbrosius-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.209.131.146])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 11:49:13 -0800
+ 01 Mar 2022 11:49:14 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/8] ASoC: soc-acpi: remove sof_fw_filename
-Date: Tue,  1 Mar 2022 13:48:56 -0600
-Message-Id: <20220301194903.60859-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 2/8] ASoC: Intel: boards: fix spelling in comments
+Date: Tue,  1 Mar 2022 13:48:57 -0600
+Message-Id: <20220301194903.60859-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
 References: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, broonie@kernel.org,
+Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ FRED OH <fred.oh@linux.intel.com>, broonie@kernel.org,
  =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -92,808 +92,257 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We've been using a default firmware name for each PCI/ACPI/OF platform
-for a while. The machine-specific sof_fw_filename is in practice not
-different from the default, and newer devices don't set this field, so
-let's remove the redundant definitions.
+copy/paste spelling issues with platforms and buttons.
 
-When OEMs modify the base firmware, they can keep the same firmware
-name but store the file in a separate directory.
-
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: FRED OH <fred.oh@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/soc-acpi.h                            |  2 --
- sound/soc/intel/common/soc-acpi-intel-adl-match.c   | 13 -------------
- sound/soc/intel/common/soc-acpi-intel-bxt-match.c   |  6 ------
- sound/soc/intel/common/soc-acpi-intel-byt-match.c   | 11 -----------
- sound/soc/intel/common/soc-acpi-intel-cht-match.c   | 12 ------------
- sound/soc/intel/common/soc-acpi-intel-cml-match.c   | 11 -----------
- sound/soc/intel/common/soc-acpi-intel-cnl-match.c   |  4 ----
- sound/soc/intel/common/soc-acpi-intel-ehl-match.c   |  1 -
- sound/soc/intel/common/soc-acpi-intel-glk-match.c   |  6 ------
- sound/soc/intel/common/soc-acpi-intel-hda-match.c   |  2 --
- .../soc/intel/common/soc-acpi-intel-hsw-bdw-match.c |  5 -----
- sound/soc/intel/common/soc-acpi-intel-icl-match.c   |  5 -----
- sound/soc/intel/common/soc-acpi-intel-jsl-match.c   |  7 -------
- sound/soc/intel/common/soc-acpi-intel-tgl-match.c   |  7 -------
- sound/soc/sof/intel/hda.c                           |  5 +----
- sound/soc/sof/intel/pci-tng.c                       |  1 -
- 16 files changed, 1 insertion(+), 97 deletions(-)
+ sound/soc/intel/boards/bdw-rt5650.c           | 2 +-
+ sound/soc/intel/boards/bdw-rt5677.c           | 2 +-
+ sound/soc/intel/boards/broadwell.c            | 2 +-
+ sound/soc/intel/boards/bxt_da7219_max98357a.c | 2 +-
+ sound/soc/intel/boards/bxt_rt298.c            | 2 +-
+ sound/soc/intel/boards/bytcht_cx2072x.c       | 2 +-
+ sound/soc/intel/boards/bytcht_da7213.c        | 2 +-
+ sound/soc/intel/boards/bytcht_es8316.c        | 2 +-
+ sound/soc/intel/boards/bytcr_rt5640.c         | 2 +-
+ sound/soc/intel/boards/bytcr_rt5651.c         | 2 +-
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c  | 4 ++--
+ sound/soc/intel/boards/cht_bsw_nau8824.c      | 4 ++--
+ sound/soc/intel/boards/cht_bsw_rt5645.c       | 2 +-
+ sound/soc/intel/boards/cht_bsw_rt5672.c       | 2 +-
+ sound/soc/intel/boards/glk_rt5682_max98357a.c | 2 +-
+ sound/soc/intel/boards/haswell.c              | 2 +-
+ 16 files changed, 18 insertions(+), 18 deletions(-)
 
-diff --git a/include/sound/soc-acpi.h b/include/sound/soc-acpi.h
-index ac0893df9c76..fdb536d699ff 100644
---- a/include/sound/soc-acpi.h
-+++ b/include/sound/soc-acpi.h
-@@ -142,7 +142,6 @@ struct snd_soc_acpi_link_adr {
-  * audio codecs whose presence if checked with ACPI
-  * @pdata: intended for platform data or machine specific-ops. This structure
-  *  is not constant since this field may be updated at run-time
-- * @sof_fw_filename: Sound Open Firmware file name, if enabled
-  * @sof_tplg_filename: Sound Open Firmware topology file name, if enabled
-  */
- /* Descriptor for SST ASoC machine driver */
-@@ -158,7 +157,6 @@ struct snd_soc_acpi_mach {
- 	const void *quirk_data;
- 	void *pdata;
- 	struct snd_soc_acpi_mach_params mach_params;
--	const char *sof_fw_filename;
- 	const char *sof_tplg_filename;
- };
+diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
+index 6cba5552f7a2..bc0eab1c304a 100644
+--- a/sound/soc/intel/boards/bdw-rt5650.c
++++ b/sound/soc/intel/boards/bdw-rt5650.c
+@@ -299,7 +299,7 @@ static int bdw_rt5650_probe(struct platform_device *pdev)
+ 	if (!bdw_rt5650)
+ 		return -ENOMEM;
  
-diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-index 20257f547275..86444e331d80 100644
---- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-@@ -390,7 +390,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.drv_name = "adl_mx98373_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &adl_max98373_amp,
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-max98373-rt5682.tplg",
- 	},
- 	{
-@@ -398,7 +397,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.drv_name = "adl_mx98357_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &adl_max98357a_amp,
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-max98357a-rt5682.tplg",
- 	},
- 	{
-@@ -406,7 +404,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.drv_name = "adl_mx98360_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &adl_max98360a_amp,
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-max98360a-rt5682.tplg",
- 	},
- 	{
-@@ -414,7 +411,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.drv_name = "adl_rt1019p_nau8825",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &adl_rt1019p_amp,
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-rt1019-nau8825.tplg",
- 	},
- 	{
-@@ -422,7 +418,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.drv_name = "adl_max98373_nau8825",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &adl_max98373_amp,
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-max98373-nau8825.tplg",
- 	},
- 	{
-@@ -430,13 +425,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.drv_name = "adl_mx98360a_nau8825",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &adl_max98360a_amp,
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-mx98360a-nau8825.tplg",
- 	},
- 	{
- 		.id = "10508825",
- 		.drv_name = "sof_nau8825",
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-nau8825.tplg",
- 	},
- 	{
-@@ -444,13 +437,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.drv_name = "adl_max98390_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &adl_max98390_amp,
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-max98390-rt5682.tplg",
- 	},
- 	{
- 		.comp_ids = &adl_rt5682_rt5682s_hp,
- 		.drv_name = "adl_rt5682",
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-rt5682.tplg",
- 	},
- 	{},
-@@ -481,21 +472,18 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_sdw_machines[] = {
- 		.link_mask = 0xF, /* 4 active links required */
- 		.links = adl_sdw_rt711_link2_rt1316_link01_rt714_link3,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-rt711-l2-rt1316-l01-rt714-l3.tplg",
- 	},
- 	{
- 		.link_mask = 0xC, /* rt1316 on link2 & rt714 on link3 */
- 		.links = adl_sdw_rt1316_link2_rt714_link3,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-rt1316-l2-mono-rt714-l3.tplg",
- 	},
- 	{
- 		.link_mask = 0x7, /* rt714 on link0 & two rt1316s on link1 and link2 */
- 		.links = adl_sdw_rt1316_link12_rt714_link0,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-rt1316-l12-rt714-l0.tplg",
- 	},
- 	{
-@@ -514,7 +502,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_sdw_machines[] = {
- 		.link_mask = 0x5, /* rt5682 on link0 & 2xmax98373 on link 2 */
- 		.links = adl_chromebook_base,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-sdw-max98373-rt5682.tplg",
- 	},
- 	{},
-diff --git a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-index 342d34052204..718947068956 100644
---- a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-@@ -51,7 +51,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_bxt_machines[] = {
- 		.id = "INT343A",
- 		.drv_name = "bxt_alc298s_i2s",
- 		.fw_filename = "intel/dsp_fw_bxtn.bin",
--		.sof_fw_filename = "sof-apl.ri",
- 		.sof_tplg_filename = "sof-apl-rt298.tplg",
- 	},
- 	{
-@@ -60,32 +59,27 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_bxt_machines[] = {
- 		.fw_filename = "intel/dsp_fw_bxtn.bin",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &bxt_codecs,
--		.sof_fw_filename = "sof-apl.ri",
- 		.sof_tplg_filename = "sof-apl-da7219.tplg",
- 	},
- 	{
- 		.id = "104C5122",
- 		.drv_name = "sof_pcm512x",
--		.sof_fw_filename = "sof-apl.ri",
- 		.sof_tplg_filename = "sof-apl-pcm512x.tplg",
- 	},
- 	{
- 		.id = "1AEC8804",
- 		.drv_name = "sof-wm8804",
--		.sof_fw_filename = "sof-apl.ri",
- 		.sof_tplg_filename = "sof-apl-wm8804.tplg",
- 	},
- 	{
- 		.id = "INT34C3",
- 		.drv_name = "bxt_tdf8532",
- 		.machine_quirk = apl_quirk,
--		.sof_fw_filename = "sof-apl.ri",
- 		.sof_tplg_filename = "sof-apl-tdf8532.tplg",
- 	},
- 	{
- 		.id = "ESSX8336",
- 		.drv_name = "sof-essx8336",
--		.sof_fw_filename = "sof-apl.ri",
- 		.sof_tplg_filename = "sof-apl-es8336.tplg",
- 	},
- 	{},
-diff --git a/sound/soc/intel/common/soc-acpi-intel-byt-match.c b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-index c532529a3856..db5a92b9875a 100644
---- a/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-@@ -91,7 +91,6 @@ static struct snd_soc_acpi_mach byt_rt5672 = {
- 	.drv_name = "cht-bsw-rt5672",
- 	.fw_filename = "intel/fw_sst_0f28.bin",
- 	.board = "cht-bsw",
--	.sof_fw_filename = "sof-byt.ri",
- 	.sof_tplg_filename = "sof-byt-rt5670.tplg",
- };
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	mach = pdev->dev.platform_data;
+ 	ret = snd_soc_fixup_dai_links_platform_name(&bdw_rt5650_card,
+ 						    mach->mach_params.platform);
+diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+index 119c441f4c10..071557fada29 100644
+--- a/sound/soc/intel/boards/bdw-rt5677.c
++++ b/sound/soc/intel/boards/bdw-rt5677.c
+@@ -426,7 +426,7 @@ static int bdw_rt5677_probe(struct platform_device *pdev)
+ 	if (!bdw_rt5677)
+ 		return -ENOMEM;
  
-@@ -100,7 +99,6 @@ static struct snd_soc_acpi_mach byt_pov_p1006w = {
- 	.drv_name = "bytcr_rt5651",
- 	.fw_filename = "intel/fw_sst_0f28.bin",
- 	.board = "bytcr_rt5651",
--	.sof_fw_filename = "sof-byt.ri",
- 	.sof_tplg_filename = "sof-byt-rt5651.tplg",
- };
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	mach = pdev->dev.platform_data;
+ 	ret = snd_soc_fixup_dai_links_platform_name(&bdw_rt5677_card,
+ 						    mach->mach_params.platform);
+diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
+index 618d0645ed8d..d37c74fd1a3c 100644
+--- a/sound/soc/intel/boards/broadwell.c
++++ b/sound/soc/intel/boards/broadwell.c
+@@ -292,7 +292,7 @@ static int broadwell_audio_probe(struct platform_device *pdev)
  
-@@ -147,7 +145,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 		.fw_filename = "intel/fw_sst_0f28.bin",
- 		.board = "bytcr_rt5640",
- 		.machine_quirk = byt_quirk,
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-rt5640.tplg",
- 	},
- 	{
-@@ -155,7 +152,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 		.drv_name = "bytcr_rt5651",
- 		.fw_filename = "intel/fw_sst_0f28.bin",
- 		.board = "bytcr_rt5651",
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-rt5651.tplg",
- 	},
- 	{
-@@ -163,7 +159,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 		.drv_name = "bytcr_wm5102",
- 		.fw_filename = "intel/fw_sst_0f28.bin",
- 		.board = "bytcr_wm5102",
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-wm5102.tplg",
- 	},
- 	{
-@@ -171,7 +166,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 		.drv_name = "bytcht_da7213",
- 		.fw_filename = "intel/fw_sst_0f28.bin",
- 		.board = "bytcht_da7213",
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-da7213.tplg",
- 	},
- 	{
-@@ -179,13 +173,11 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 		.drv_name = "bytcht_es8316",
- 		.fw_filename = "intel/fw_sst_0f28.bin",
- 		.board = "bytcht_es8316",
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-es8316.tplg",
- 	},
- 	{
- 		.id = "10EC5682",
- 		.drv_name = "sof_rt5682",
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-rt5682.tplg",
- 	},
- 	/* some Baytrail platforms rely on RT5645, use CHT machine driver */
-@@ -194,7 +186,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 		.drv_name = "cht-bsw-rt5645",
- 		.fw_filename = "intel/fw_sst_0f28.bin",
- 		.board = "cht-bsw",
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-rt5645.tplg",
- 	},
- 	/* use CHT driver to Baytrail Chromebooks */
-@@ -203,7 +194,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 		.drv_name = "cht-bsw-max98090",
- 		.fw_filename = "intel/fw_sst_0f28.bin",
- 		.board = "cht-bsw",
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-max98090.tplg",
- 	},
- 	{
-@@ -211,7 +201,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 		.drv_name = "bytcht_cx2072x",
- 		.fw_filename = "intel/fw_sst_0f28.bin",
- 		.board = "bytcht_cx2072x",
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-cx2072x.tplg",
- 	},
- #if IS_ENABLED(CONFIG_SND_SOC_INTEL_BYT_CHT_NOCODEC_MACH)
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-index c60a5e8e7bc9..6beb00858c33 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-@@ -35,7 +35,6 @@ static struct snd_soc_acpi_mach cht_surface_mach = {
- 	.drv_name = "cht-bsw-rt5645",
- 	.fw_filename = "intel/fw_sst_22a8.bin",
- 	.board = "cht-bsw",
--	.sof_fw_filename = "sof-cht.ri",
- 	.sof_tplg_filename = "sof-cht-rt5645.tplg",
- };
+ 	broadwell_rt286.dev = &pdev->dev;
  
-@@ -79,7 +78,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.drv_name = "cht-bsw-rt5672",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "cht-bsw",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-rt5670.tplg",
- 	},
- 	{
-@@ -87,7 +85,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.drv_name = "cht-bsw-rt5645",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "cht-bsw",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-rt5645.tplg",
- 	},
- 	{
-@@ -95,7 +92,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.drv_name = "cht-bsw-max98090",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "cht-bsw",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-max98090.tplg",
- 	},
- 	{
-@@ -103,7 +99,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.drv_name = "cht-bsw-nau8824",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "cht-bsw",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-nau8824.tplg",
- 	},
- 	{
-@@ -111,7 +106,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.drv_name = "bytcht_da7213",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "bytcht_da7213",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-da7213.tplg",
- 	},
- 	{
-@@ -119,7 +113,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.drv_name = "bytcht_es8316",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "bytcht_es8316",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-es8316.tplg",
- 	},
- 	/* some CHT-T platforms rely on RT5640, use Baytrail machine driver */
-@@ -129,13 +122,11 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "bytcr_rt5640",
- 		.machine_quirk = cht_quirk,
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-rt5640.tplg",
- 	},
- 	{
- 		.id = "10EC5682",
- 		.drv_name = "sof_rt5682",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-rt5682.tplg",
- 	},
- 	/* some CHT-T platforms rely on RT5651, use Baytrail machine driver */
-@@ -144,7 +135,6 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.drv_name = "bytcr_rt5651",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "bytcr_rt5651",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-rt5651.tplg",
- 	},
- 	{
-@@ -152,13 +142,11 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.drv_name = "bytcht_cx2072x",
- 		.fw_filename = "intel/fw_sst_22a8.bin",
- 		.board = "bytcht_cx2072x",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-cx2072x.tplg",
- 	},
- 	{
- 		.id = "104C5122",
- 		.drv_name = "sof_pcm512x",
--		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-src-50khz-pcm512x.tplg",
- 	},
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	mach = pdev->dev.platform_data;
+ 	ret = snd_soc_fixup_dai_links_platform_name(&broadwell_rt286,
+ 						    mach->mach_params.platform);
+diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+index b768d9b8ec02..9bc7b88e346b 100644
+--- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
++++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+@@ -825,7 +825,7 @@ static int broxton_audio_probe(struct platform_device *pdev)
+ 		}
+ 	}
  
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-index 4eebc79d4b48..d033474f8768 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-@@ -40,7 +40,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = {
- 		.drv_name = "cml_rt1011_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &rt1011_spk_codecs,
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt1011-rt5682.tplg",
- 	},
- 	{
-@@ -48,7 +47,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = {
- 		.drv_name = "cml_rt1015_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &rt1015_spk_codecs,
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt1011-rt5682.tplg",
- 	},
- 	{
-@@ -56,13 +54,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = {
- 		.drv_name = "sof_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &max98357a_spk_codecs,
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt5682-max98357a.tplg",
- 	},
- 	{
- 		.id = "10EC5682",
- 		.drv_name = "sof_rt5682",
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt5682.tplg",
- 	},
- 	{
-@@ -70,7 +66,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = {
- 		.drv_name = "cml_da7219_mx98357a",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &max98357a_spk_codecs,
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-da7219-max98357a.tplg",
- 	},
- 	{
-@@ -78,13 +73,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = {
- 		.drv_name = "cml_da7219_mx98357a",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &max98390_spk_codecs,
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-da7219-max98390.tplg",
- 	},
- 	{
- 		.id = "ESSX8336",
- 		.drv_name = "sof-essx8336",
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-es8336.tplg",
- 	},
- 	{},
-@@ -283,14 +276,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_sdw_machines[] = {
- 		.link_mask = 0xF, /* 4 active links required */
- 		.links = cml_3_in_1_default,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt711-rt1308-rt715.tplg",
- 	},
- 	{
- 		.link_mask = 0xF, /* 4 active links required */
- 		.links = cml_3_in_1_sdca,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt711-rt1316-rt714.tplg",
- 	},
- 	{
-@@ -302,14 +293,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_sdw_machines[] = {
- 		.link_mask = 0xF,
- 		.links = cml_3_in_1_mono_amp,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt711-rt1308-mono-rt715.tplg",
- 	},
- 	{
- 		.link_mask = 0x2, /* RT700 connected on Link1 */
- 		.links = cml_rvp,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt700.tplg",
- 	},
- 	{}
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-index 94b650767e11..8d3e8c3b589b 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-@@ -21,7 +21,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
- 		.drv_name = "cnl_rt274",
- 		.fw_filename = "intel/dsp_fw_cnl.bin",
- 		.pdata = &cnl_pdata,
--		.sof_fw_filename = "sof-cnl.ri",
- 		.sof_tplg_filename = "sof-cnl-rt274.tplg",
- 	},
- 	{},
-@@ -58,21 +57,18 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_sdw_machines[] = {
- 		.link_mask = BIT(2),
- 		.links = up_extreme_rt5682_2,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-cnl.ri",
- 		.sof_tplg_filename = "sof-cnl-rt5682-sdw2.tplg"
- 	},
- 	{
- 		.link_mask = GENMASK(3, 0),
- 		.links = sdw_mockup_headset_2amps_mic,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-cnl.ri",
- 		.sof_tplg_filename = "sof-cml-rt711-rt1308-rt715.tplg",
- 	},
- 	{
- 		.link_mask = BIT(0) | BIT(1) | BIT(3),
- 		.links = sdw_mockup_headset_1amp_mic,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-cnl.ri",
- 		.sof_tplg_filename = "sof-cml-rt711-rt1308-mono-rt715.tplg",
- 	},
- 	{}
-diff --git a/sound/soc/intel/common/soc-acpi-intel-ehl-match.c b/sound/soc/intel/common/soc-acpi-intel-ehl-match.c
-index 6222708a98e7..84639c41a268 100644
---- a/sound/soc/intel/common/soc-acpi-intel-ehl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-ehl-match.c
-@@ -14,7 +14,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_ehl_machines[] = {
- 	{
- 		.id = "10EC5660",
- 		.drv_name = "ehl_rt5660",
--		.sof_fw_filename = "sof-ehl.ri",
- 		.sof_tplg_filename = "sof-ehl-rt5660.tplg",
- 	},
- 	{},
-diff --git a/sound/soc/intel/common/soc-acpi-intel-glk-match.c b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-index 8492b7e2a945..c5ca077c7ac9 100644
---- a/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-@@ -19,7 +19,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_glk_machines[] = {
- 		.id = "INT343A",
- 		.drv_name = "glk_alc298s_i2s",
- 		.fw_filename = "intel/dsp_fw_glk.bin",
--		.sof_fw_filename = "sof-glk.ri",
- 		.sof_tplg_filename = "sof-glk-alc298.tplg",
- 	},
- 	{
-@@ -28,7 +27,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_glk_machines[] = {
- 		.fw_filename = "intel/dsp_fw_glk.bin",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &glk_codecs,
--		.sof_fw_filename = "sof-glk.ri",
- 		.sof_tplg_filename = "sof-glk-da7219.tplg",
- 	},
- 	{
-@@ -37,7 +35,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_glk_machines[] = {
- 		.fw_filename = "intel/dsp_fw_glk.bin",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &glk_codecs,
--		.sof_fw_filename = "sof-glk.ri",
- 		.sof_tplg_filename = "sof-glk-rt5682.tplg",
- 	},
- 	{
-@@ -45,7 +42,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_glk_machines[] = {
- 		.drv_name = "glk_rt5682_max98357a",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &glk_codecs,
--		.sof_fw_filename = "sof-glk.ri",
- 		.sof_tplg_filename = "sof-glk-rt5682.tplg",
- 	},
- 	{
-@@ -54,13 +50,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_glk_machines[] = {
- 		.fw_filename = "intel/dsp_fw_glk.bin",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &glk_codecs,
--		.sof_fw_filename = "sof-glk.ri",
- 		.sof_tplg_filename = "sof-glk-cs42l42.tplg",
- 	},
- 	{
- 		.id = "ESSX8336",
- 		.drv_name = "sof-essx8336",
--		.sof_fw_filename = "sof-glk.ri",
- 		.sof_tplg_filename = "sof-glk-es8336.tplg",
- 	},
- 	{},
-diff --git a/sound/soc/intel/common/soc-acpi-intel-hda-match.c b/sound/soc/intel/common/soc-acpi-intel-hda-match.c
-index aa9cb522aac9..2017fd0d676f 100644
---- a/sound/soc/intel/common/soc-acpi-intel-hda-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-hda-match.c
-@@ -21,8 +21,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_hda_machines[] = {
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	mach = pdev->dev.platform_data;
+ 	platform_name = mach->mach_params.platform;
  
- 		/* .fw_filename is dynamically set in skylake driver */
+diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
+index 920e575b4314..05e833076499 100644
+--- a/sound/soc/intel/boards/bxt_rt298.c
++++ b/sound/soc/intel/boards/bxt_rt298.c
+@@ -628,7 +628,7 @@ static int broxton_audio_probe(struct platform_device *pdev)
+ 	card->dev = &pdev->dev;
+ 	snd_soc_card_set_drvdata(card, ctx);
  
--		/* .sof_fw_filename is dynamically set in sof/intel driver */
--
- 		.sof_tplg_filename = "sof-hda-generic.tplg",
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	mach = pdev->dev.platform_data;
+ 	platform_name = mach->mach_params.platform;
  
- 		/*
-diff --git a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-index fe343a95b5ff..0441df97b260 100644
---- a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-@@ -14,7 +14,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_haswell_machines[] = {
- 		.id = "INT33CA",
- 		.drv_name = "haswell-audio",
- 		.fw_filename = "intel/IntcSST1.bin",
--		.sof_fw_filename = "sof-hsw.ri",
- 		.sof_tplg_filename = "sof-hsw.tplg",
- 	},
- 	{}
-@@ -26,28 +25,24 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_broadwell_machines[] = {
- 		.id = "INT343A",
- 		.drv_name = "broadwell-audio",
- 		.fw_filename =  "intel/IntcSST2.bin",
--		.sof_fw_filename = "sof-bdw.ri",
- 		.sof_tplg_filename = "sof-bdw-rt286.tplg",
- 	},
- 	{
- 		.id = "10EC5650",
- 		.drv_name = "bdw-rt5650",
- 		.fw_filename = "intel/IntcSST2.bin",
--		.sof_fw_filename = "sof-bdw.ri",
- 		.sof_tplg_filename = "sof-bdw-rt5650.tplg",
- 	},
- 	{
- 		.id = "RT5677CE",
- 		.drv_name = "bdw-rt5677",
- 		.fw_filename =  "intel/IntcSST2.bin",
--		.sof_fw_filename = "sof-bdw.ri",
- 		.sof_tplg_filename = "sof-bdw-rt5677.tplg",
- 	},
- 	{
- 		.id = "INT33CA",
- 		.drv_name = "haswell-audio",
- 		.fw_filename = "intel/IntcSST2.bin",
--		.sof_fw_filename = "sof-bdw.ri",
- 		.sof_tplg_filename = "sof-bdw-rt5640.tplg",
- 	},
- 	{}
-diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-index 768ed538c4ea..b032bc07de8b 100644
---- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-@@ -20,13 +20,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_icl_machines[] = {
- 		.drv_name = "icl_rt274",
- 		.fw_filename = "intel/dsp_fw_icl.bin",
- 		.pdata = &icl_pdata,
--		.sof_fw_filename = "sof-icl.ri",
- 		.sof_tplg_filename = "sof-icl-rt274.tplg",
- 	},
- 	{
- 		.id = "10EC5682",
- 		.drv_name = "sof_rt5682",
--		.sof_fw_filename = "sof-icl.ri",
- 		.sof_tplg_filename = "sof-icl-rt5682.tplg",
- 	},
- 	{},
-@@ -165,21 +163,18 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_icl_sdw_machines[] = {
- 		.link_mask = 0xF, /* 4 active links required */
- 		.links = icl_3_in_1_default,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-icl.ri",
- 		.sof_tplg_filename = "sof-icl-rt711-rt1308-rt715.tplg",
- 	},
- 	{
- 		.link_mask = 0xB, /* 3 active links required */
- 		.links = icl_3_in_1_mono_amp,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-icl.ri",
- 		.sof_tplg_filename = "sof-icl-rt711-rt1308-rt715-mono.tplg",
- 	},
- 	{
- 		.link_mask = 0x1, /* rt700 connected on link0 */
- 		.links = icl_rvp,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-icl.ri",
- 		.sof_tplg_filename = "sof-icl-rt700.tplg",
- 	},
- 	{},
-diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-index 278ec196da7b..a2da5cad520c 100644
---- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-@@ -43,7 +43,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 	{
- 		.id = "DLGS7219",
- 		.drv_name = "sof_da7219_mx98373",
--		.sof_fw_filename = "sof-jsl.ri",
- 		.sof_tplg_filename = "sof-jsl-da7219.tplg",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &jsl_7219_98373_codecs,
-@@ -51,13 +50,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 	{
- 		.id = "DLGS7219",
- 		.drv_name = "sof_da7219_mx98360a",
--		.sof_fw_filename = "sof-jsl.ri",
- 		.sof_tplg_filename = "sof-jsl-da7219-mx98360a.tplg",
- 	},
- 	{
- 		.comp_ids = &rt5682_rt5682s_hp,
- 		.drv_name = "jsl_rt5682_rt1015",
--		.sof_fw_filename = "sof-jsl.ri",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &rt1015_spk,
- 		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
-@@ -65,7 +62,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 	{
- 		.comp_ids = &rt5682_rt5682s_hp,
- 		.drv_name = "jsl_rt5682_rt1015p",
--		.sof_fw_filename = "sof-jsl.ri",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &rt1015p_spk,
- 		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
-@@ -73,7 +69,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 	{
- 		.comp_ids = &rt5682_rt5682s_hp,
- 		.drv_name = "jsl_rt5682_mx98360",
--		.sof_fw_filename = "sof-jsl.ri",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &mx98360a_spk,
- 		.sof_tplg_filename = "sof-jsl-rt5682-mx98360a.tplg",
-@@ -81,7 +76,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 	{
- 		.id = "10134242",
- 		.drv_name = "jsl_cs4242_mx98360a",
--		.sof_fw_filename = "sof-jsl.ri",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &mx98360a_spk,
- 		.sof_tplg_filename = "sof-jsl-cs42l42-mx98360a.tplg",
-@@ -89,7 +83,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 	{
- 		.id = "ESSX8336",
- 		.drv_name = "sof-essx8336",
--		.sof_fw_filename = "sof-jsl.ri",
- 		.sof_tplg_filename = "sof-jsl-es8336.tplg",
- 	},
- 	{},
-diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-index da31bb3cca17..daff01466c05 100644
---- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-@@ -369,7 +369,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
- 		.drv_name = "tgl_mx98357_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &tgl_codecs,
--		.sof_fw_filename = "sof-tgl.ri",
- 		.sof_tplg_filename = "sof-tgl-max98357a-rt5682.tplg",
- 	},
- 	{
-@@ -377,7 +376,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
- 		.drv_name = "tgl_mx98373_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &tgl_max98373_amp,
--		.sof_fw_filename = "sof-tgl.ri",
- 		.sof_tplg_filename = "sof-tgl-max98373-rt5682.tplg",
- 	},
- 	{
-@@ -385,13 +383,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
- 		.drv_name = "tgl_rt1011_rt5682",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &tgl_rt1011_amp,
--		.sof_fw_filename = "sof-tgl.ri",
- 		.sof_tplg_filename = "sof-tgl-rt1011-rt5682.tplg",
- 	},
- 	{
- 		.id = "ESSX8336",
- 		.drv_name = "sof-essx8336",
--		.sof_fw_filename = "sof-tgl.ri",
- 		.sof_tplg_filename = "sof-tgl-es8336.tplg",
- 	},
- 	{},
-@@ -405,21 +401,18 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_sdw_machines[] = {
- 		.link_mask = GENMASK(3, 0),
- 		.links = sdw_mockup_headset_2amps_mic,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-tgl.ri",
- 		.sof_tplg_filename = "sof-tgl-rt711-rt1308-rt715.tplg",
- 	},
- 	{
- 		.link_mask = BIT(0) | BIT(1) | BIT(3),
- 		.links = sdw_mockup_headset_1amp_mic,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-tgl.ri",
- 		.sof_tplg_filename = "sof-tgl-rt711-rt1308-mono-rt715.tplg",
- 	},
- 	{
- 		.link_mask = BIT(0) | BIT(1) | BIT(2),
- 		.links = sdw_mockup_mic_headset_1amp,
- 		.drv_name = "sof_sdw",
--		.sof_fw_filename = "sof-tgl.ri",
- 		.sof_tplg_filename = "sof-tgl-rt715-rt711-rt1308-mono.tplg",
- 	},
- 	{
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 659fe9d1a542..e42b45722e9d 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -1313,10 +1313,7 @@ static struct snd_soc_acpi_mach *hda_sdw_machine_select(struct snd_sof_dev *sdev
- 			mach->mach_params.links = mach->links;
- 			mach->mach_params.link_mask = mach->link_mask;
- 			mach->mach_params.platform = dev_name(sdev->dev);
--			if (mach->sof_fw_filename)
--				pdata->fw_filename = mach->sof_fw_filename;
--			else
--				pdata->fw_filename = pdata->desc->default_fw_filename;
-+			pdata->fw_filename = pdata->desc->default_fw_filename;
- 			pdata->tplg_filename = mach->sof_tplg_filename;
+diff --git a/sound/soc/intel/boards/bytcht_cx2072x.c b/sound/soc/intel/boards/bytcht_cx2072x.c
+index ffd497a5b5a5..96d3201efbbd 100644
+--- a/sound/soc/intel/boards/bytcht_cx2072x.c
++++ b/sound/soc/intel/boards/bytcht_cx2072x.c
+@@ -257,7 +257,7 @@ static int snd_byt_cht_cx2072x_probe(struct platform_device *pdev)
+ 		byt_cht_cx2072x_dais[dai_index].codecs->name = codec_name;
+ 	}
  
- 			/*
-diff --git a/sound/soc/sof/intel/pci-tng.c b/sound/soc/sof/intel/pci-tng.c
-index f8c841caa362..7d5062f8076e 100644
---- a/sound/soc/sof/intel/pci-tng.c
-+++ b/sound/soc/sof/intel/pci-tng.c
-@@ -25,7 +25,6 @@ static struct snd_soc_acpi_mach sof_tng_machines[] = {
- 	{
- 		.id = "INT343A",
- 		.drv_name = "edison",
--		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt.tplg",
- 	},
- 	{}
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	ret = snd_soc_fixup_dai_links_platform_name(&byt_cht_cx2072x_card,
+ 						    mach->mach_params.platform);
+ 	if (ret)
+diff --git a/sound/soc/intel/boards/bytcht_da7213.c b/sound/soc/intel/boards/bytcht_da7213.c
+index fae1e7e785b0..eb19bf16afad 100644
+--- a/sound/soc/intel/boards/bytcht_da7213.c
++++ b/sound/soc/intel/boards/bytcht_da7213.c
+@@ -260,7 +260,7 @@ static int bytcht_da7213_probe(struct platform_device *pdev)
+ 		dailink[dai_index].codecs->name = codec_name;
+ 	}
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	platform_name = mach->mach_params.platform;
+ 
+ 	ret_val = snd_soc_fixup_dai_links_platform_name(card, platform_name);
+diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
+index 9d86fea51a7d..f4bf26e802a2 100644
+--- a/sound/soc/intel/boards/bytcht_es8316.c
++++ b/sound/soc/intel/boards/bytcht_es8316.c
+@@ -497,7 +497,7 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
+ 		return -ENXIO;
+ 	}
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	byt_cht_es8316_card.dev = dev;
+ 	platform_name = mach->mach_params.platform;
+ 
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 2ace32c03ec9..d76a505052fb 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -1764,7 +1764,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
+ 	byt_rt5640_card.long_name = byt_rt5640_long_name;
+ #endif
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	platform_name = mach->mach_params.platform;
+ 
+ 	ret_val = snd_soc_fixup_dai_links_platform_name(&byt_rt5640_card,
+diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
+index 5e9c53dadbc7..39348d2b242f 100644
+--- a/sound/soc/intel/boards/bytcr_rt5651.c
++++ b/sound/soc/intel/boards/bytcr_rt5651.c
+@@ -1088,7 +1088,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
+ 	byt_rt5651_card.long_name = byt_rt5651_long_name;
+ #endif
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	platform_name = mach->mach_params.platform;
+ 
+ 	ret_val = snd_soc_fixup_dai_links_platform_name(&byt_rt5651_card,
+diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+index 1bc21434c9de..b3d7a0725ef2 100644
+--- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
++++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+@@ -296,7 +296,7 @@ static int cht_max98090_headset_init(struct snd_soc_component *component)
+ 	int ret;
+ 
+ 	/*
+-	 * TI supports 4 butons headset detection
++	 * TI supports 4 buttons headset detection
+ 	 * KEY_MEDIA
+ 	 * KEY_VOICECOMMAND
+ 	 * KEY_VOLUMEUP
+@@ -558,7 +558,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 			dev_dbg(dev, "Unable to add GPIO mapping table\n");
+ 	}
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	snd_soc_card_cht.dev = &pdev->dev;
+ 	mach = pdev->dev.platform_data;
+ 	platform_name = mach->mach_params.platform;
+diff --git a/sound/soc/intel/boards/cht_bsw_nau8824.c b/sound/soc/intel/boards/cht_bsw_nau8824.c
+index bad32d2bdf89..da6c659de266 100644
+--- a/sound/soc/intel/boards/cht_bsw_nau8824.c
++++ b/sound/soc/intel/boards/cht_bsw_nau8824.c
+@@ -100,7 +100,7 @@ static int cht_codec_init(struct snd_soc_pcm_runtime *runtime)
+ 	struct snd_soc_component *component = codec_dai->component;
+ 	int ret, jack_type;
+ 
+-	/* NAU88L24 supports 4 butons headset detection
++	/* NAU88L24 supports 4 buttons headset detection
+ 	 * KEY_PLAYPAUSE
+ 	 * KEY_VOICECOMMAND
+ 	 * KEY_VOLUMEUP
+@@ -257,7 +257,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 	snd_soc_card_set_drvdata(&snd_soc_card_cht, drv);
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	snd_soc_card_cht.dev = &pdev->dev;
+ 	mach = pdev->dev.platform_data;
+ 	platform_name = mach->mach_params.platform;
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+index e182012d0c60..c21561c6a464 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5645.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+@@ -653,7 +653,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 	    (cht_rt5645_quirk & CHT_RT5645_SSP0_AIF2))
+ 		cht_dailink[dai_index].cpus->dai_name = "ssp0-port";
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	platform_name = mach->mach_params.platform;
+ 
+ 	ret_val = snd_soc_fixup_dai_links_platform_name(card,
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
+index 26eb8ad0d262..9882aeb24d33 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5672.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
+@@ -483,7 +483,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 		drv->use_ssp0 = true;
+ 	}
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	snd_soc_card_cht.dev = &pdev->dev;
+ 	platform_name = mach->mach_params.platform;
+ 
+diff --git a/sound/soc/intel/boards/glk_rt5682_max98357a.c b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+index bad3829e52ca..e4bfb0fe5f12 100644
+--- a/sound/soc/intel/boards/glk_rt5682_max98357a.c
++++ b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+@@ -638,7 +638,7 @@ static int geminilake_audio_probe(struct platform_device *pdev)
+ 	card->dev = &pdev->dev;
+ 	snd_soc_card_set_drvdata(card, ctx);
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	mach = pdev->dev.platform_data;
+ 	platform_name = mach->mach_params.platform;
+ 
+diff --git a/sound/soc/intel/boards/haswell.c b/sound/soc/intel/boards/haswell.c
+index 36e136acbef5..aa61e101f793 100644
+--- a/sound/soc/intel/boards/haswell.c
++++ b/sound/soc/intel/boards/haswell.c
+@@ -175,7 +175,7 @@ static int haswell_audio_probe(struct platform_device *pdev)
+ 
+ 	haswell_rt5640.dev = &pdev->dev;
+ 
+-	/* override plaform name, if required */
++	/* override platform name, if required */
+ 	mach = pdev->dev.platform_data;
+ 	ret = snd_soc_fixup_dai_links_platform_name(&haswell_rt5640,
+ 						    mach->mach_params.platform);
 -- 
 2.25.1
 

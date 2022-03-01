@@ -2,94 +2,138 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ED334CA011
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:56:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE5CF4CA017
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:57:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BAEAA1FE2;
-	Wed,  2 Mar 2022 09:55:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAEAA1FE2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A9831FF8;
+	Wed,  2 Mar 2022 09:56:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A9831FF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646211401;
-	bh=fYZEvCHUTCzzIGB8L9LcKOsoY2tpWRjSUopTwwDl04A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1646211433;
+	bh=T4p6dOI3iQ65EU9D7EtBvUOEeiH000zcmIMr0oMYLWY=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=htfVni2rU4vlRT+ZfLnUaT7PuBez9OJsaMX2LLGNNm+ogyI6msPp/4E2lb2kJwNVp
-	 G/mPniKwHDzYTIK5FUDaZ3CyuuInzVIenyLGbpRiftU9LuSH61yxFlMGpTswv4rnA+
-	 ON3sQhYiwq/sj5wyv17SE9Bt9R69NgBJHiqmHvKQ=
+	b=tWf8dajfWNSxTuQOAQwVNcQRWSgYZQF8R4q//qcP3ozn8Onr3cJrpcPNMKdCowrEC
+	 iFPxJC81Scv5p/xisIzAbbB/+pGkWVht/E/Ab12vLyrEIyME8PmXxhHA0RlHlviuzx
+	 g/owhR3+kw+hkFxoPG9tM/un00KtfZ7w+y0DpVqA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C635CF80793;
-	Wed,  2 Mar 2022 09:34:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E07C8F807B6;
+	Wed,  2 Mar 2022 09:34:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8969F80227; Tue,  1 Mar 2022 11:06:57 +0100 (CET)
+ id 9F9B4F80227; Tue,  1 Mar 2022 12:28:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DD3AF80095
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 11:06:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DD3AF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29B48F80054
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 12:28:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29B48F80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Xx3JkpMG"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id DED95B817AD;
- Tue,  1 Mar 2022 10:06:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84BFC340F1;
- Tue,  1 Mar 2022 10:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646129213;
- bh=fYZEvCHUTCzzIGB8L9LcKOsoY2tpWRjSUopTwwDl04A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Xx3JkpMGPfR90bvsEfJqssfeOVD4am2Noqa3KOgFZGWbwMPG13nGrRruOPt4zeJk6
- SBnDTJra4wi+jXHwz3J43NUmeyuMstDhoISZnCGhAY8ROQCVJreeKbMA+nARphIuMh
- ZgOw1/MouAINJXpZzmXZJwuoNL3TXV+0LHTvNriedKzFyQm0GtT00zdr2LzOsphHMU
- 6ipvcgHIeNmyMATrUY8U009qFXGO94XM75aYICxRWsy+5+krA86NOT5pbSm8ZWOyIQ
- KR8efYpq0czOCDE/678WEj6ininKhpTtp8FShG/wEs4ASgRLXuHzy96S8SX7m2RobP
- h2fJWhSnBya6Q==
-Date: Tue, 1 Mar 2022 15:36:49 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Another pass removing cases of 'allOf'
- containing a '$ref'
-Message-ID: <Yh3wOYFnN9Q1F68N@matsya>
-References: <20220228213802.1639658-1-robh@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220228213802.1639658-1-robh@kernel.org>
-X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:36 +0100
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- Vignesh Raghavendra <vigneshr@ti.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Sebastian Reichel <sre@kernel.org>, linux-phy@lists.infradead.org,
- Thierry Reding <thierry.reding@gmail.com>, linux-mtd@lists.infradead.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Guenter Roeck <groeck@chromium.org>, Lee Jones <lee.jones@linaro.org>,
- linux-leds@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Richard Weinberger <richard@nod.at>, Kishon Vijay Abraham I <kishon@ti.com>,
- linux-input@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, netdev@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ioxwEWwS"
+Received: by mail-ej1-x634.google.com with SMTP id a23so30831800eju.3
+ for <alsa-devel@alsa-project.org>; Tue, 01 Mar 2022 03:28:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=rLPvv7mVdDwWU3WqqHUc/M/t9o2wkfNNz2uUSA/i/Q0=;
+ b=ioxwEWwSec2mkWoQpVaP+m+cuqfrILVMZy97DsxGJQFNwUj5vt0t9wo5G7myUpC8Gn
+ ea9oHHWNkcI1g0+ETzPDSekL4muwhDYsG3jrD0dPjJWnH1vW4gUq2ufbL8yBIo9ax2rC
+ LCc4peu3G2+oC3D/CoxTwxe0jKznErkS9hGO2cQ4rpTAmgLJ5M6BCvPaoqQObgiQcr6n
+ RKDduahlScES6wicQqME3eGzY8GUno55Oqx2eUsC/sQVyrcKAkNt4/DW8JZWJd6l/Vwp
+ mTTzA+edxLDCldwyXcUf3Jn0ErW39L5ba+PqRXF7jiU95w3jgcW/Rs/bUGAwA8mWZWkw
+ L2Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=rLPvv7mVdDwWU3WqqHUc/M/t9o2wkfNNz2uUSA/i/Q0=;
+ b=Y1PTOmICeycDGJJlI4AYCWzFyxhDeqKPmHsEV7QJr8a6rMGFSwr7CVeTvb4FP+W8uI
+ Q58N9x252oKTlD64XrirgfjSpMBEs/tU/ZZ7XU/4ymvt8NC8i/CCgpG3FB3f82FuzTLX
+ OZ21mMPhkdsIx40A4jIY6dgN0ATExz/L4zUcwx8s7j5x7MmPQPM42cima3ReQCGwc7iZ
+ 9kXOa2ONOS5Tv3Cb1sRcGzTpWtPDoKAeOzldRAncc2JxnTOeXSZKVl1IWQqG6b+KJgRQ
+ M+Ao7Ipl+moU8PZr643FLWmzd2YPJorlTliBmbhD3DKp8V7gSdmM5VT46Gr82n49SQJP
+ v5kg==
+X-Gm-Message-State: AOAM530awvJcFPk7gUv372UqjF+oY3E30OjV8y7spPbD8u6uMo7iO4zw
+ 6/RHpL0ZbP1CKCLmfHjznns=
+X-Google-Smtp-Source: ABdhPJykJwlP+KqTh6zSzndCpDSZzE2bN4aLh28OSmyBBaWLei6TdHv4i/sMtFtkO4GxsNuXK9LBkw==
+X-Received: by 2002:a17:906:68c2:b0:6b4:9f26:c099 with SMTP id
+ y2-20020a17090668c200b006b49f26c099mr18827008ejr.41.1646134097608; 
+ Tue, 01 Mar 2022 03:28:17 -0800 (PST)
+Received: from smtpclient.apple ([2a02:8109:9d80:3f6c:6db3:8d4c:747e:98ad])
+ by smtp.gmail.com with ESMTPSA id
+ a25-20020a50ff19000000b0040f84cd806csm7036870edu.59.2022.03.01.03.28.15
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 01 Mar 2022 03:28:17 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 15.0 \(3693.60.0.1.1\))
+Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
+ as a ptr
+From: Jakob Koschel <jakobkoschel@gmail.com>
+In-Reply-To: <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
+Date: Tue, 1 Mar 2022 12:28:15 +0100
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <CEDAD0D9-56EE-4105-9107-72C2EAD940B0@gmail.com>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-3-jakobkoschel@gmail.com>
+ <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
+ <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
+ <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
+ <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
+ <FC710A1A-524E-481B-A668-FC258F529A2E@gmail.com>
+ <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+X-Mailer: Apple Mail (2.3693.60.0.1.1)
+X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:34 +0100
+Cc: linux-wireless <linux-wireless@vger.kernel.org>,
+ alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
+ linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev, "Bos,
+ H.J." <h.j.bos@vu.nl>, Jason Gunthorpe <jgg@ziepe.ca>,
+ intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
+ bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ Linux PM <linux-pm@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ v9fs-developer@lists.sourceforge.net,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
+ linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
+ tipc-discussion@lists.sourceforge.net,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,33 +149,137 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 28-02-22, 15:38, Rob Herring wrote:
-> Another pass at removing unnecessary use of 'allOf' with a '$ref'.
-> 
-> json-schema versions draft7 and earlier have a weird behavior in that
-> any keywords combined with a '$ref' are ignored (silently). The correct
-> form was to put a '$ref' under an 'allOf'. This behavior is now changed
-> in the 2019-09 json-schema spec and '$ref' can be mixed with other
-> keywords.
 
-...
 
->  .../bindings/connector/usb-connector.yaml         |  3 +--
->  .../bindings/display/brcm,bcm2711-hdmi.yaml       |  3 +--
->  .../bindings/display/bridge/adi,adv7511.yaml      |  5 ++---
->  .../bindings/display/bridge/synopsys,dw-hdmi.yaml |  5 ++---
->  .../bindings/display/panel/display-timings.yaml   |  3 +--
->  .../devicetree/bindings/display/ste,mcde.yaml     |  4 ++--
->  .../devicetree/bindings/input/adc-joystick.yaml   |  9 ++++-----
->  .../bindings/leds/cznic,turris-omnia-leds.yaml    |  3 +--
->  .../devicetree/bindings/leds/leds-lp50xx.yaml     |  3 +--
->  .../devicetree/bindings/mfd/google,cros-ec.yaml   | 12 ++++--------
->  .../devicetree/bindings/mtd/nand-controller.yaml  |  8 +++-----
->  .../bindings/mtd/rockchip,nand-controller.yaml    |  3 +--
->  .../devicetree/bindings/net/ti,cpsw-switch.yaml   |  3 +--
->  .../bindings/phy/phy-stm32-usbphyc.yaml           |  3 +--
+> On 1. Mar 2022, at 01:41, Linus Torvalds =
+<torvalds@linux-foundation.org> wrote:
+>=20
+> On Mon, Feb 28, 2022 at 1:47 PM Jakob Koschel <jakobkoschel@gmail.com> =
+wrote:
+>>=20
+>> The goal of this is to get compiler warnings right? This would indeed =
+be great.
+>=20
+> Yes, so I don't mind having a one-time patch that has been gathered
+> using some automated checker tool, but I don't think that works from a
+> long-term maintenance perspective.
+>=20
+> So if we have the basic rule being "don't use the loop iterator after
+> the loop has finished, because it can cause all kinds of subtle
+> issues", then in _addition_ to fixing the existing code paths that
+> have this issue, I really would want to (a) get a compiler warning for
+> future cases and (b) make it not actually _work_ for future cases.
+>=20
+> Because otherwise it will just happen again.
+>=20
+>> Changing the list_for_each_entry() macro first will break all of =
+those cases
+>> (e.g. the ones using 'list_entry_is_head()).
+>=20
+> So I have no problems with breaking cases that we basically already
+> have a patch for due to  your automated tool. There were certainly
+> more than a handful, but it didn't look _too_ bad to just make the
+> rule be "don't use the iterator after the loop".
+>=20
+> Of course, that's just based on that patch of yours. Maybe there are a
+> ton of other cases that your patch didn't change, because they didn't
+> match your trigger case, so I may just be overly optimistic here.
 
-Acked-By: Vinod Koul <vkoul@kernel.org>
+Based on the coccinelle script there are ~480 cases that need fixing
+in total. I'll now finish all of them and then split them by
+submodules as Greg suggested and repost a patch set per submodule.
+Sounds good?
 
--- 
-~Vinod
+>=20
+> But basically to _me_, the important part is that the end result is
+> maintainable longer-term. I'm more than happy to have a one-time patch
+> to fix a lot of dubious cases if we can then have clean rules going
+> forward.
+>=20
+>> I assumed it is better to fix those cases first and then have a =
+simple
+>> coccinelle script changing the macro + moving the iterator into the =
+scope
+>> of the macro.
+>=20
+> So that had been another plan of mine, until I actually looked at
+> changing the macro. In the one case I looked at, it was ugly beyond
+> belief.
+>=20
+> It turns out that just syntactically, it's really nice to give the
+> type of the iterator from outside the way we do now. Yeah, it may be a
+> bit odd, and maybe it's partly because I'm so used to the
+> "list_for_each_list_entry()" syntax, but moving the type into the loop
+> construct really made it nasty - either one very complex line, or
+> having to split it over two lines which was even worse.
+>=20
+> Maybe the place I looked at just happened to have a long typename, but
+> it's basically always going to be a struct, so it's never a _simple_
+> type. And it just looked very odd adn unnatural to have the type as
+> one of the "arguments" to that list_for_each_entry() macro.
+>=20
+> So yes, initially my idea had been to just move the iterator entirely
+> inside the macro. But specifying the type got so ugly that I think
+> that
+>=20
+>        typeof (pos) pos
+>=20
+> trick inside the macro really ends up giving us the best of all =
+worlds:
+>=20
+> (a) let's us keep the existing syntax and code for all the nice cases
+> that did everything inside the loop anyway
+>=20
+> (b) gives us a nice warning for any normal use-after-loop case
+> (unless you explicitly initialized it like that
+> sgx_mmu_notifier_release() function did for no good reason
+>=20
+> (c) also guarantees that even if you don't get a warning,
+> non-converted (or newly written) bad code won't actually _work_
+>=20
+> so you end up getting the new rules without any ambiguity or mistaken
+>=20
+>> With this you are no longer able to set the 'outer' pos within the =
+list
+>> iterator loop body or am I missing something?
+>=20
+> Correct. Any assignment inside the loop will be entirely just to the
+> local loop case. So any "break;" out of the loop will have to set
+> another variable - like your updated patch did.
+>=20
+>> I fail to see how this will make most of the changes in this
+>> patch obsolete (if that was the intention).
+>=20
+> I hope my explanation above clarifies my thinking: I do not dislike
+> your patch, and in fact your patch is indeed required to make the new
+> semantics work.
+
+ok it's all clear now, thanks for clarifying.
+I've defined all the 'tmp' iterator variables uninitialized so applying
+your patch on top of that later will just give the nice compiler warning=20=
+
+if they are used past the loop body.
+
+>=20
+> What I disliked was always the maintainability of your patch - making
+> the rules be something that isn't actually visible in the source code,
+> and letting the old semantics still work as well as they ever did, and
+> having to basically run some verification pass to find bad users.
+
+Since this patch is not a complete list of cases that need fixing (30%)
+I haven't included the actual change of moving the iterator variable
+into the loop and thought that would be a second step coming after this
+is merged.
+
+With these changes alone, yes you still rely on manual verification =
+passes.
+
+>=20
+> (I also disliked your original patch that mixed up the "CPU
+> speculation type safety" with the actual non-speculative problems, but
+> that was another issue).
+>=20
+>                Linus
+
+- Jakob
+

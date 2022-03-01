@@ -2,77 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12EED4C8C0A
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 13:54:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A212A4C8C9D
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 14:27:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F1131B35;
-	Tue,  1 Mar 2022 13:53:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F1131B35
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1819018EE;
+	Tue,  1 Mar 2022 14:27:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1819018EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646139283;
-	bh=geBK4WcKXnL3gfRqFcEBFFhDxaV1Q5HCKUOcLe7m0ww=;
+	s=default; t=1646141272;
+	bh=1DTqbTc4ulkb0fviBXNsAj3qxd0r1QufWdpYuJIk+fg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f7Of26YFlC51j1iNALkI1mpl6LitTzWYZpfkOt6dAbmiZbih+q2Gt9/o8eCDUI+jl
-	 Rg00tNS2gWq1wJXI9A6z4s+gMJaTYNEWKebhyYdNml+MZIgwUKy42KBiF2Kq9ih53R
-	 ZoQj0fw1EEy3AjKEro8SRGDo7ig0wW0+Zq0elg60=
+	b=JABcjJ+r2zJlxUCj0Yab/cEuidJJaSrAy5e0f2w+BZ8tdq23LuNFMyE5dsqGXLCxC
+	 loSUnxRasdwp3lf0AMjN1JXWFILh81+tSs6klhAgLNxQVXrl5NpJACy66hQ/irN6MJ
+	 kdAAI2y44Ei9dsCiRaeh5WBsEVvodOWCSZVxhUg8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01C4AF80054;
-	Tue,  1 Mar 2022 13:53:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B1ADF802D2;
+	Tue,  1 Mar 2022 14:26:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15960F80227; Tue,  1 Mar 2022 13:53:34 +0100 (CET)
+ id 1E9D5F80227; Tue,  1 Mar 2022 14:26:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [85.215.255.82])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0DADF80054
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 14:26:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0DADF80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="IL/g5/Lr"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB7CAF80054
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 13:53:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB7CAF80054
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="eEAxS9Rf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1646139204;
- s=strato-dkim-0002; d=gerhold.net;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
- From:Subject:Sender;
- bh=E0/pLDycfjg5UgInPN+YotNuJ3zzV/iGM8G9D9KGSHI=;
- b=eEAxS9Rflo+Ob0bTeRyYno/btBHAc3bl0W9FlcftRxUHd/CjSOaBmH6V98VC1zSXFO
- CrB0T5zcWzeIRrqF5VwHMFUuovl3nk90zD50YMk+J/1eCAUaoocNwfV0oPjKZcHYtBlb
- ZRDUNXKt6OiCi3/R00Zs3++uyJAenZRKeBlFEwVLLniV8gnY07rKIqIy96zxRmrWkMHv
- HSH8uweHbFvUxWCp3Ve7Pp+dA0xkuXTDQ+Nn/vZJNbknQikiwtv/8D4WjjybDXQiCn5W
- dQk5XV8DLfJHAp5ouIy6Zg/qVaX+L+CfhBJ4CN2EnUxlwJt8uNlRHThqBVTI+i6jcj4p
- fGlg==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u267FZF9PwpcNKLVrK86+6Y="
-X-RZG-CLASS-ID: mo00
-Received: from gerhold.net by smtp.strato.de (RZmta 47.40.1 AUTH)
- with ESMTPSA id kdc58dy21CrOa80
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 1 Mar 2022 13:53:24 +0100 (CET)
-Date: Tue, 1 Mar 2022 13:53:12 +0100
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Mark Brown <broonie@kernel.org>
+ by ams.source.kernel.org (Postfix) with ESMTPS id EBD36B818F3;
+ Tue,  1 Mar 2022 13:26:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112BAC340EE;
+ Tue,  1 Mar 2022 13:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646141197;
+ bh=1DTqbTc4ulkb0fviBXNsAj3qxd0r1QufWdpYuJIk+fg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=IL/g5/Lr67CKCze983PhXU7r3WSgt/3c2FqN+IahHY7hEtjJbK3hmMVgRLQ+KYj9w
+ BuCvFcnm3kPOtbqxjdF5DeM3jQNiG96/76ZaQFYer74eMo7tyTt4GIdXTGW+mf6Tqa
+ BZJ1fWdmZz/jnqT+l0aUjiQgjYezIAUa18c3QsWMHw962VgLhALl2ixTbeNkmltYlS
+ AF6ZFg9g9UX9QmDI55cHs39F6clGu48KjisWDRIZ77UR7LUL2rMZu+Eqw2og0oJoer
+ L2UDAwWL89DJXt4faq1LXjUR95xrca7JF/eOryOfAqdt3qXZTDKWgUYgayABfo5Txs
+ lZTIFxTpdteWw==
+Date: Tue, 1 Mar 2022 13:26:32 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Stephan Gerhold <stephan@gerhold.net>
 Subject: Re: [PATCH 2/2] ASoC: codecs: Add Awinic AW8738 audio amplifier driver
-Message-ID: <Yh4XOC5+Uam9UMdJ@gerhold.net>
+Message-ID: <Yh4fCAE41Sc5AjwL@sirena.org.uk>
 References: <20220301123742.72146-1-stephan@gerhold.net>
  <20220301123742.72146-3-stephan@gerhold.net>
- <Yh4VziYJ2M2aenjz@sirena.org.uk>
+ <Yh4VziYJ2M2aenjz@sirena.org.uk> <Yh4XOC5+Uam9UMdJ@gerhold.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="OHqBp8PbVqqccFla"
 Content-Disposition: inline
-In-Reply-To: <Yh4VziYJ2M2aenjz@sirena.org.uk>
+In-Reply-To: <Yh4XOC5+Uam9UMdJ@gerhold.net>
+X-Cookie: You have a message from the operator.
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
  ~postmarketos/upstreaming@lists.sr.ht,
@@ -92,24 +91,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 01, 2022 at 12:47:10PM +0000, Mark Brown wrote:
-> On Tue, Mar 01, 2022 at 01:37:42PM +0100, Stephan Gerhold wrote:
-> > From: Jonathan Albrieux <jonathan.albrieux@gmail.com>
-> > 
-> > The Awinic AW8738 is a simple audio amplifier using an enable GPIO.
-> > The main difference to simple-amplifier is that there is a "one-wire
-> > pulse control" that allows configuring the amplifier to one of a few
-> > pre-defined modes.
-> 
-> I only have this patch, nothing else from the rest of the series.
-> What's the story with dependencies?
 
-Hmm, I definitely sent the whole series to you. Let's wait a bit longer
-to see if it will still arrive, otherwise let me know and I can try to
-send it again.
+--OHqBp8PbVqqccFla
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-It seems to have arrived fully on the mailing list:
-https://lore.kernel.org/alsa-devel/20220301123742.72146-1-stephan@gerhold.net/
+On Tue, Mar 01, 2022 at 01:53:12PM +0100, Stephan Gerhold wrote:
+> On Tue, Mar 01, 2022 at 12:47:10PM +0000, Mark Brown wrote:
 
-Thanks,
-Stephan
+> > I only have this patch, nothing else from the rest of the series.
+> > What's the story with dependencies?
+
+> Hmm, I definitely sent the whole series to you. Let's wait a bit longer
+> to see if it will still arrive, otherwise let me know and I can try to
+> send it again.
+
+Yes, it's turned up OK now - wonder what delayed the earlier bits.
+
+--OHqBp8PbVqqccFla
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIeHwgACgkQJNaLcl1U
+h9BWeAf/Yxb5JebNr2s6Zb7XhaUYHkIHB4qi6c5jEG/QHKrIYgGQJOmxMfXzJewU
+QPMY/0A0rgq598SpBrQQKeyWKy6T74kAbz8vW98zCGG4T3Xk82orhS2q8y5NLewQ
+pxFodkNSktD4XhgvzGjMhLmTSROF64Uo0JTIgKZ0VuKN0m4Mio2pH7mYWKxR/Qt0
+y9NACNV+PisVMsPSrsPCqABg8MstUBNzBsNkPGr8S3C0elXMusOwB+zcPp1PAbF4
+MqJhaqNiJ2Hsuoo+Vi2kcKoXeY9Y7Tqn/GuwR+TjjbRjhOCC6eQLgmC2yzlhp41X
+GjS4+8plJi3zJ5kuttHepVQGjPaF7A==
+=3Fav
+-----END PGP SIGNATURE-----
+
+--OHqBp8PbVqqccFla--

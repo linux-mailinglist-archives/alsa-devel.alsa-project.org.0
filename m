@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76E994C950D
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 20:51:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0EFD4C9511
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 20:51:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 002C61AB2;
-	Tue,  1 Mar 2022 20:50:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 002C61AB2
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD65B1B25;
+	Tue,  1 Mar 2022 20:50:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD65B1B25
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646164262;
-	bh=UCbHTQfNfGrq+Q5MNsFEtHhPITOCx++8yy3x8AYF5GM=;
+	s=default; t=1646164293;
+	bh=UVNXeTcoIHJuKBwX8l7GptzK/hiLaPfG6iKCrFs23rw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m9wo7VmE7Ukb0Oh7z1D4+x8kj+bkUXIP6CA9CKfHEvZO5/WNapQzXsaoAevWGUCju
-	 p1LLZbkGrdz3s/o7wc+Fstaq/EYyundCqWijMGQHY7F5+XFmm1mTJ1BdiqFmWn2h41
-	 Ize84sKXBm3NsIMNmb37eHWtuHglTzStv+LVOYVY=
+	b=hfflauT+FLS7ZyI0MlRW2LVTycuCtw6sD8IYj44ZlqLmlMOcGuCh6rzRWfvNynNMc
+	 0efknl4Ba2NLacoo3My+a9Cof6QDDAM7d9gvEaMJHCD6r3s1s0/wFVR48cWl3ZN5t5
+	 xHQ2JRhJKcHqYuUoh/1M0LZADvNH/004QM++cFLk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAF7CF802D2;
-	Tue,  1 Mar 2022 20:49:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6ED6F80516;
+	Tue,  1 Mar 2022 20:49:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 807E6F80095; Tue,  1 Mar 2022 20:49:25 +0100 (CET)
+ id 6E4B6F80518; Tue,  1 Mar 2022 20:49:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,47 +34,46 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9587BF80095
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 20:49:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9587BF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id A85E6F802D2
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 20:49:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A85E6F802D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="BhKNNhyX"
+ header.b="fRRDbHWQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646164159; x=1677700159;
+ t=1646164161; x=1677700161;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UCbHTQfNfGrq+Q5MNsFEtHhPITOCx++8yy3x8AYF5GM=;
- b=BhKNNhyXUP7xGEsbe4PmdE0dHfaK0DYnpCiyDhE/MtDz8BBxffruBVMC
- MMZ4DWkyzHBYbMxmZ2wcGMurhwU29w66sGmtWT3dL6JtK4dt+prPRJu9h
- GLMMVc6HPEXhrKSS0OOtyztTeSB+vW+NgkQ9J66TciYIr8o9Mmoy8/uIo
- +Ofm/n3QmqLZvzFTjXTzVjQPkGnw4e3p3egMRbIjEPHdMuzkkAYAlsCKg
- hPglxIiFlVQN4XLTvg5L1HoOLm66WsJ3qcF9Xz6XGNqruZEEZBJksPNqG
- vh6dX2czTs11x79XCZUX/p5/w3jGwpkLL/iKqfOUOweGZ0NU4pSJ9TXeO g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233841063"
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233841063"
+ bh=UVNXeTcoIHJuKBwX8l7GptzK/hiLaPfG6iKCrFs23rw=;
+ b=fRRDbHWQUwiAsYwS3/vAFxkrZjfvZxXpqidfNjeuEayikopz1tDnf/iL
+ +Sfm3J21DNHAGaEjLq1pZiirh8UaaJ7+YRS7xciOssMfuEhJQsVdMM0iZ
+ 96shgcoJ2jWiJAFJRAUL/XnKXP75stfRDnC4FqecjS9rw5IkkDln7NAjv
+ z7H1ULi/Y87d4XC6V1MH7ejArIEu70ERw7BG1MTQXX0l3i0ZmYZdyzOpU
+ 9CQnItHtKZOnUJMsPjfNn6qgB9e5mrAo/dPIFJUlMGZ8djzDTatLWTWxM
+ QT+hKKZkLi+4zk3sAMWdK688reaW+zvj2mZMMrvazIcRxIFNrC8rgEdAy g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10273"; a="233841067"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="233841067"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Mar 2022 11:49:15 -0800
-X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="630131851"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="630131854"
 Received: from rbrosius-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.209.131.146])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2022 11:49:14 -0800
+ 01 Mar 2022 11:49:15 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/8] ASoC: Intel: add RT1308 I2S machine driver and HDMI-in
- capture via I2S support.
-Date: Tue,  1 Mar 2022 13:48:58 -0600
-Message-Id: <20220301194903.60859-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 4/8] ASoC: Intel: boards: create sof-realtek-common module
+Date: Tue,  1 Mar 2022 13:48:59 -0600
+Message-Id: <20220301194903.60859-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
 References: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, "balamurugan.c" <balamurugan.c@intel.com>,
- broonie@kernel.org, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,407 +90,127 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: "balamurugan.c" <balamurugan.c@intel.com>
+From: Brent Lu <brent.lu@intel.com>
 
-Adding separate I2S machine driver for RT1308.
+Move sof_realtek_common.o to a dedicated module like the module to
+support maxim amplifiers.
 
-Adding support for HDMI-In capture via I2S in slave mode configuration.
-
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: balamurugan.c <balamurugan.c@intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Brent Lu <brent.lu@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/Kconfig                |  12 +
- sound/soc/intel/boards/Makefile               |   2 +
- sound/soc/intel/boards/sof_rt1308.c           | 305 ++++++++++++++++++
- .../intel/common/soc-acpi-intel-tgl-match.c   |  12 +
- 4 files changed, 331 insertions(+)
- create mode 100644 sound/soc/intel/boards/sof_rt1308.c
+ sound/soc/intel/boards/Kconfig              | 4 ++++
+ sound/soc/intel/boards/Makefile             | 7 +++++--
+ sound/soc/intel/boards/sof_realtek_common.c | 9 +++++++++
+ sound/soc/intel/boards/sof_rt5682.c         | 1 +
+ 4 files changed, 19 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 34ccefcc30c7..ad0664ca4915 100644
+index ad0664ca4915..cdf94b09c372 100644
 --- a/sound/soc/intel/boards/Kconfig
 +++ b/sound/soc/intel/boards/Kconfig
-@@ -599,6 +599,18 @@ config SND_SOC_INTEL_SOF_DA7219_MAX98373_MACH
+@@ -32,6 +32,9 @@ config SND_SOC_INTEL_HDA_DSP_COMMON
+ config SND_SOC_INTEL_SOF_MAXIM_COMMON
+ 	tristate
  
- endif ## SND_SOC_SOF_JASPERLAKE
- 
-+config SND_SOC_INTEL_SOF_RT1308_MACH
-+	tristate "SOF with RT1308 in I2S Mode"
-+	depends on I2C && ACPI && GPIOLIB
-+	depends on MFD_INTEL_LPSS || COMPILE_TEST
-+	select SND_SOC_RT1308
-+	select SND_SOC_DMIC
-+	help
-+	   This adds support for ASoC machine driver for Tigerlake platforms
-+	   with RT1308 I2S audio codec.
-+	   Say Y if you have such a device.
-+	   If unsure select "N".
++config SND_SOC_INTEL_SOF_REALTEK_COMMON
++	tristate
 +
- if SND_SOC_SOF_ELKHARTLAKE
+ if SND_SOC_INTEL_CATPT
  
- config SND_SOC_INTEL_EHL_RT5660_MACH
+ config SND_SOC_INTEL_HASWELL_MACH
+@@ -477,6 +480,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
+ 	select SND_SOC_HDAC_HDMI
+ 	select SND_SOC_INTEL_HDA_DSP_COMMON
+ 	select SND_SOC_INTEL_SOF_MAXIM_COMMON
++	select SND_SOC_INTEL_SOF_REALTEK_COMMON
+ 	help
+ 	   This adds support for ASoC machine driver for SOF platforms
+ 	   with rt5682 codec.
 diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index 3ea273d27168..9f044290b420 100644
+index 9f044290b420..b2966020e7ed 100644
 --- a/sound/soc/intel/boards/Makefile
 +++ b/sound/soc/intel/boards/Makefile
-@@ -35,6 +35,7 @@ snd-skl_nau88l25_max98357a-objs := skl_nau88l25_max98357a.o
- snd-soc-skl_nau88l25_ssm4567-objs := skl_nau88l25_ssm4567.o
- snd-soc-sof_da7219_max98373-objs := sof_da7219_max98373.o
- snd-soc-ehl-rt5660-objs := ehl_rt5660.o
-+snd-soc-sof-rt1308-objs := sof_rt1308.o
- snd-soc-sof-sdw-objs += sof_sdw.o				\
- 			sof_sdw_max98373.o			\
- 			sof_sdw_rt1308.o sof_sdw_rt1316.o	\
-@@ -79,6 +80,7 @@ obj-$(CONFIG_SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH) += snd-soc-skl_hda_dsp.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_DA7219_MAX98373_MACH) += snd-soc-sof_da7219_max98373.o
- obj-$(CONFIG_SND_SOC_INTEL_EHL_RT5660_MACH) += snd-soc-ehl-rt5660.o
- obj-$(CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH) += snd-soc-sof-sdw.o
-+obj-$(CONFIG_SND_SOC_INTEL_SOF_RT1308_MACH) += snd-soc-sof-rt1308.o
+@@ -19,10 +19,10 @@ snd-soc-sst-byt-cht-cx2072x-objs := bytcht_cx2072x.o
+ snd-soc-sst-byt-cht-da7213-objs := bytcht_da7213.o
+ snd-soc-sst-byt-cht-es8316-objs := bytcht_es8316.o
+ snd-soc-sst-byt-cht-nocodec-objs := bytcht_nocodec.o
+-snd-soc-sof_rt5682-objs := sof_rt5682.o sof_realtek_common.o
++snd-soc-sof_rt5682-objs := sof_rt5682.o
+ snd-soc-sof_cs42l42-objs := sof_cs42l42.o
+ snd-soc-sof_es8336-objs := sof_es8336.o
+-snd-soc-sof_nau8825-objs := sof_nau8825.o sof_realtek_common.o
++snd-soc-sof_nau8825-objs := sof_nau8825.o
+ snd-soc-cml_rt1011_rt5682-objs := cml_rt1011_rt5682.o
+ snd-soc-kbl_da7219_max98357a-objs := kbl_da7219_max98357a.o
+ snd-soc-kbl_da7219_max98927-objs := kbl_da7219_max98927.o
+@@ -88,3 +88,6 @@ obj-$(CONFIG_SND_SOC_INTEL_HDA_DSP_COMMON) += snd-soc-intel-hda-dsp-common.o
  
- # common modules
- snd-soc-intel-hda-dsp-common-objs := hda_dsp_common.o
-diff --git a/sound/soc/intel/boards/sof_rt1308.c b/sound/soc/intel/boards/sof_rt1308.c
-new file mode 100644
-index 000000000000..7e33c49b3531
---- /dev/null
-+++ b/sound/soc/intel/boards/sof_rt1308.c
-@@ -0,0 +1,305 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2022 Intel Corporation. All rights reserved.
+ snd-soc-intel-sof-maxim-common-objs += sof_maxim_common.o
+ obj-$(CONFIG_SND_SOC_INTEL_SOF_MAXIM_COMMON) += snd-soc-intel-sof-maxim-common.o
 +
-+/*
-+ * sof_rt1308.c - ASoc Machine driver for Intel platforms
-+ * with RT1308 codec.
-+ */
++snd-soc-intel-sof-realtek-common-objs += sof_realtek_common.o
++obj-$(CONFIG_SND_SOC_INTEL_SOF_REALTEK_COMMON) += snd-soc-intel-sof-realtek-common.o
+diff --git a/sound/soc/intel/boards/sof_realtek_common.c b/sound/soc/intel/boards/sof_realtek_common.c
+index 4cf131310ad3..669e44c73c17 100644
+--- a/sound/soc/intel/boards/sof_realtek_common.c
++++ b/sound/soc/intel/boards/sof_realtek_common.c
+@@ -132,12 +132,14 @@ void sof_rt1011_dai_link(struct snd_soc_dai_link *link)
+ 	link->init = rt1011_init;
+ 	link->ops = &rt1011_ops;
+ }
++EXPORT_SYMBOL_NS(sof_rt1011_dai_link, SND_SOC_INTEL_SOF_REALTEK_COMMON);
+ 
+ void sof_rt1011_codec_conf(struct snd_soc_card *card)
+ {
+ 	card->codec_conf = rt1011_codec_confs;
+ 	card->num_configs = ARRAY_SIZE(rt1011_codec_confs);
+ }
++EXPORT_SYMBOL_NS(sof_rt1011_codec_conf, SND_SOC_INTEL_SOF_REALTEK_COMMON);
+ 
+ /*
+  * rt1015:  i2c mode driver for ALC1015 and ALC1015Q
+@@ -233,6 +235,7 @@ void sof_rt1015p_dai_link(struct snd_soc_dai_link *link)
+ 	link->init = rt1015p_init;
+ 	link->ops = &rt1015p_ops;
+ }
++EXPORT_SYMBOL_NS(sof_rt1015p_dai_link, SND_SOC_INTEL_SOF_REALTEK_COMMON);
+ 
+ void sof_rt1015p_codec_conf(struct snd_soc_card *card)
+ {
+@@ -242,6 +245,7 @@ void sof_rt1015p_codec_conf(struct snd_soc_card *card)
+ 	card->codec_conf = rt1015p_codec_confs;
+ 	card->num_configs = ARRAY_SIZE(rt1015p_codec_confs);
+ }
++EXPORT_SYMBOL_NS(sof_rt1015p_codec_conf, SND_SOC_INTEL_SOF_REALTEK_COMMON);
+ 
+ /*
+  * RT1015 audio amplifier
+@@ -343,6 +347,7 @@ void sof_rt1015_codec_conf(struct snd_soc_card *card)
+ 	card->codec_conf = rt1015_amp_conf;
+ 	card->num_configs = ARRAY_SIZE(rt1015_amp_conf);
+ }
++EXPORT_SYMBOL_NS(sof_rt1015_codec_conf, SND_SOC_INTEL_SOF_REALTEK_COMMON);
+ 
+ void sof_rt1015_dai_link(struct snd_soc_dai_link *link, unsigned int fs)
+ {
+@@ -354,3 +359,7 @@ void sof_rt1015_dai_link(struct snd_soc_dai_link *link, unsigned int fs)
+ 	if (fs == 100)
+ 		rt1015_ops.hw_params = rt1015_hw_params_pll_and_tdm;
+ }
++EXPORT_SYMBOL_NS(sof_rt1015_dai_link, SND_SOC_INTEL_SOF_REALTEK_COMMON);
 +
-+#include <linux/acpi.h>
-+#include <linux/delay.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <sound/core.h>
-+#include <sound/jack.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/sof.h>
-+#include "../../codecs/rt1308.h"
-+
-+#define SOF_RT1308_SSP_CODEC(quirk)		((quirk) & GENMASK(3, 0))
-+#define SOF_RT1308_SSP_CODEC_MASK			(GENMASK(3, 0))
-+
-+/* HDMI capture*/
-+#define SOF_SSP_HDMI_CAPTURE_PRESENT		BIT(4)
-+#define SOF_NO_OF_HDMI_CAPTURE_SSP_SHIFT		5
-+#define SOF_NO_OF_HDMI_CAPTURE_SSP_MASK		(GENMASK(6, 5))
-+#define SOF_NO_OF_HDMI_CAPTURE_SSP(quirk)	\
-+	(((quirk) << SOF_NO_OF_HDMI_CAPTURE_SSP_SHIFT) & SOF_NO_OF_HDMI_CAPTURE_SSP_MASK)
-+
-+#define SOF_HDMI_CAPTURE_1_SSP_SHIFT		7
-+#define SOF_HDMI_CAPTURE_1_SSP_MASK		(GENMASK(9, 7))
-+#define SOF_HDMI_CAPTURE_1_SSP(quirk)	\
-+	(((quirk) << SOF_HDMI_CAPTURE_1_SSP_SHIFT) & SOF_HDMI_CAPTURE_1_SSP_MASK)
-+
-+#define SOF_HDMI_CAPTURE_2_SSP_SHIFT		10
-+#define SOF_HDMI_CAPTURE_2_SSP_MASK		(GENMASK(12, 10))
-+#define SOF_HDMI_CAPTURE_2_SSP(quirk)	\
-+	(((quirk) << SOF_HDMI_CAPTURE_2_SSP_SHIFT) & SOF_HDMI_CAPTURE_2_SSP_MASK)
-+
-+/* Default: SSP2  */
-+static unsigned long sof_rt1308_quirk = SOF_RT1308_SSP_CODEC(2);
-+
-+static const struct snd_soc_dapm_widget sof_rt1308_dapm_widgets[] = {
-+	SND_SOC_DAPM_SPK("Speakers", NULL),
-+	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
-+};
-+
-+static const struct snd_kcontrol_new sof_rt1308_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Speakers"),
-+};
-+
-+static const struct snd_soc_dapm_route sof_rt1308_dapm_routes[] = {
-+	{ "Speakers", NULL, "SPOL" },
-+	{ "Speakers", NULL, "SPOR" },
-+
-+	/* digital mics */
-+	{"DMic", NULL, "SoC DMIC"},
-+};
-+
-+static struct snd_soc_card sof_rt1308_card = {
-+	.name         = "rt1308",
-+	.owner        = THIS_MODULE,
-+	.controls = sof_rt1308_controls,
-+	.num_controls = ARRAY_SIZE(sof_rt1308_controls),
-+	.dapm_widgets = sof_rt1308_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sof_rt1308_dapm_widgets),
-+	.dapm_routes = sof_rt1308_dapm_routes,
-+	.num_dapm_routes = ARRAY_SIZE(sof_rt1308_dapm_routes),
-+	.fully_routed = true,
-+};
-+
-+static int sof_rt1308_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_card *card = rtd->card;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	int clk_id, clk_freq, pll_out;
-+	int ret;
-+
-+	clk_id = RT1308_PLL_S_MCLK;
-+	/* get the tplg configured mclk. */
-+	clk_freq = sof_dai_get_mclk(rtd);
-+
-+	pll_out = params_rate(params) * 512;
-+
-+	/* Set rt1308 pll */
-+	ret = snd_soc_dai_set_pll(codec_dai, 0, clk_id, clk_freq, pll_out);
-+	if (ret < 0) {
-+		dev_err(card->dev, "Failed to set RT1308 PLL: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* Set rt1308 sysclk */
-+	ret = snd_soc_dai_set_sysclk(codec_dai, RT1308_FS_SYS_S_PLL, pll_out,
-+				     SND_SOC_CLOCK_IN);
-+	if (ret < 0)
-+		dev_err(card->dev, "Failed to set RT1308 SYSCLK: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static struct snd_soc_dai_link_component platform_component[] = {
-+	{
-+		/* name might be overridden during probe */
-+		.name = "0000:00:1f.3"
-+	}
-+};
-+
-+static struct snd_soc_dai_link_component rt1308_component[] = {
-+	{
-+		.name = "i2c-10EC1308:00",
-+		.dai_name = "rt1308-aif",
-+	}
-+};
-+
-+static struct snd_soc_dai_link_component dmic_component[] = {
-+	{
-+		.name = "dmic-codec",
-+		.dai_name = "dmic-hifi",
-+	}
-+};
-+
-+static struct snd_soc_dai_link_component dummy_component[] = {
-+	{
-+		.name = "snd-soc-dummy",
-+		.dai_name = "snd-soc-dummy-dai",
-+	}
-+};
-+
-+/* machine stream operations */
-+static const struct snd_soc_ops sof_rt1308_ops = {
-+	.hw_params = sof_rt1308_hw_params,
-+};
-+
-+static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
-+							  int ssp_codec,
-+							  int dmic_be_num)
-+{
-+	struct snd_soc_dai_link_component *cpus;
-+	struct snd_soc_dai_link *links;
-+	int i, id = 0;
-+
-+	links = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link) *
-+					sof_rt1308_card.num_links, GFP_KERNEL);
-+	cpus = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link_component) *
-+					sof_rt1308_card.num_links, GFP_KERNEL);
-+	if (!links || !cpus)
-+		return NULL;
-+
-+	/* HDMI-In SSP */
-+	if (sof_rt1308_quirk & SOF_SSP_HDMI_CAPTURE_PRESENT) {
-+		int num_of_hdmi_ssp = (sof_rt1308_quirk & SOF_NO_OF_HDMI_CAPTURE_SSP_MASK) >>
-+				SOF_NO_OF_HDMI_CAPTURE_SSP_SHIFT;
-+
-+		for (i = 1; i <= num_of_hdmi_ssp; i++) {
-+			int port = (i == 1 ? (sof_rt1308_quirk & SOF_HDMI_CAPTURE_1_SSP_MASK) >>
-+						SOF_HDMI_CAPTURE_1_SSP_SHIFT :
-+						(sof_rt1308_quirk & SOF_HDMI_CAPTURE_2_SSP_MASK) >>
-+						SOF_HDMI_CAPTURE_2_SSP_SHIFT);
-+
-+			links[id].cpus = &cpus[id];
-+			links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+								  "SSP%d Pin", port);
-+			if (!links[id].cpus->dai_name)
-+				return NULL;
-+			links[id].name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-HDMI", port);
-+			if (!links[id].name)
-+				return NULL;
-+			links[id].id = id;
-+			links[id].codecs = dummy_component;
-+			links[id].num_codecs = ARRAY_SIZE(dummy_component);
-+			links[id].platforms = platform_component;
-+			links[id].num_platforms = ARRAY_SIZE(platform_component);
-+			links[id].dpcm_capture = 1;
-+			links[id].no_pcm = 1;
-+			links[id].num_cpus = 1;
-+			id++;
-+		}
-+	}
-+
-+	/* codec SSP */
-+	links[id].name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-Codec", ssp_codec);
-+	if (!links[id].name)
-+		return NULL;
-+
-+	links[id].id = id;
-+	links[id].codecs = rt1308_component;
-+	links[id].num_codecs = ARRAY_SIZE(rt1308_component);
-+	links[id].platforms = platform_component;
-+	links[id].num_platforms = ARRAY_SIZE(platform_component);
-+	links[id].ops = &sof_rt1308_ops;
-+	links[id].dpcm_playback = 1;
-+	links[id].no_pcm = 1;
-+	links[id].cpus = &cpus[id];
-+	links[id].num_cpus = 1;
-+	links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", ssp_codec);
-+	if (!links[id].cpus->dai_name)
-+		return NULL;
-+
-+	id++;
-+
-+	/* dmic */
-+	if (dmic_be_num > 0) {
-+		/* at least we have dmic01 */
-+		links[id].name = "dmic01";
-+		links[id].cpus = &cpus[id];
-+		links[id].cpus->dai_name = "DMIC01 Pin";
-+		if (dmic_be_num > 1) {
-+			/* set up 2 BE links at most */
-+			links[id + 1].name = "dmic16k";
-+			links[id + 1].cpus = &cpus[id + 1];
-+			links[id + 1].cpus->dai_name = "DMIC16k Pin";
-+			dmic_be_num = 2;
-+		}
-+	}
-+
-+	for (i = 0; i < dmic_be_num; i++) {
-+		links[id].id = id;
-+		links[id].num_cpus = 1;
-+		links[id].codecs = dmic_component;
-+		links[id].num_codecs = ARRAY_SIZE(dmic_component);
-+		links[id].platforms = platform_component;
-+		links[id].num_platforms = ARRAY_SIZE(platform_component);
-+		links[id].ignore_suspend = 1;
-+		links[id].dpcm_capture = 1;
-+		links[id].no_pcm = 1;
-+		id++;
-+	}
-+
-+	return links;
-+}
-+
-+static int sof_rt1308_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_dai_link *dai_links;
-+	struct snd_soc_acpi_mach *mach;
-+	int dmic_be_num;
-+	int ret, ssp_codec;
-+
-+	if (pdev->id_entry && pdev->id_entry->driver_data)
-+		sof_rt1308_quirk = (unsigned long)pdev->id_entry->driver_data;
-+
-+	mach = pdev->dev.platform_data;
-+
-+	dmic_be_num = mach->mach_params.dmic_num;
-+
-+	ssp_codec = sof_rt1308_quirk & SOF_RT1308_SSP_CODEC_MASK;
-+
-+	/* set number of dai links */
-+	sof_rt1308_card.num_links = 1 + dmic_be_num;
-+
-+	if (sof_rt1308_quirk & SOF_SSP_HDMI_CAPTURE_PRESENT)
-+		sof_rt1308_card.num_links += (sof_rt1308_quirk & SOF_NO_OF_HDMI_CAPTURE_SSP_MASK) >>
-+				SOF_NO_OF_HDMI_CAPTURE_SSP_SHIFT;
-+
-+	dai_links = sof_card_dai_links_create(&pdev->dev, ssp_codec, dmic_be_num);
-+	if (!dai_links)
-+		return -ENOMEM;
-+
-+	sof_rt1308_card.dai_link = dai_links;
-+
-+	sof_rt1308_card.dev = &pdev->dev;
-+
-+	/* set platform name for each dailink */
-+	ret = snd_soc_fixup_dai_links_platform_name(&sof_rt1308_card,
-+						    mach->mach_params.platform);
-+	if (ret)
-+		return ret;
-+
-+	snd_soc_card_set_drvdata(&sof_rt1308_card, NULL);
-+
-+	return devm_snd_soc_register_card(&pdev->dev, &sof_rt1308_card);
-+}
-+
-+static const struct platform_device_id board_ids[] = {
-+	{
-+		.name = "sof_rt1308",
-+	},
-+	{
-+		.name = "tgl_rt1308_hdmi_ssp",
-+		.driver_data = (kernel_ulong_t)(SOF_RT1308_SSP_CODEC(2) |
-+					SOF_NO_OF_HDMI_CAPTURE_SSP(2) |
-+					SOF_HDMI_CAPTURE_1_SSP(1) |
-+					SOF_HDMI_CAPTURE_2_SSP(5) |
-+					SOF_SSP_HDMI_CAPTURE_PRESENT),
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(platform, board_ids);
-+
-+static struct platform_driver sof_rt1308_driver = {
-+	.probe          = sof_rt1308_probe,
-+	.driver = {
-+		.name   = "sof_rt1308",
-+		.pm = &snd_soc_pm_ops,
-+	},
-+	.id_table = board_ids,
-+};
-+module_platform_driver(sof_rt1308_driver);
-+
-+MODULE_DESCRIPTION("ASoC Intel(R) SOF + RT1308 Machine driver");
++MODULE_DESCRIPTION("ASoC Intel SOF Realtek helpers");
 +MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:sof_rt1308");
-diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-index daff01466c05..224b54d35c7a 100644
---- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-@@ -363,6 +363,11 @@ static const struct snd_soc_acpi_codecs tgl_rt5682_rt5682s_hp = {
- 	.codecs = {"10EC5682", "RTL5682"},
- };
- 
-+static const struct snd_soc_acpi_codecs tgl_lt6911_hdmi = {
-+	.num_codecs = 1,
-+	.codecs = {"INTC10B0"}
-+};
-+
- struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
- 	{
- 		.comp_ids = &tgl_rt5682_rt5682s_hp,
-@@ -390,6 +395,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
- 		.drv_name = "sof-essx8336",
- 		.sof_tplg_filename = "sof-tgl-es8336.tplg",
- 	},
-+	{
-+		.id = "10EC1308",
-+		.drv_name = "tgl_rt1308_hdmi_ssp",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &tgl_lt6911_hdmi,
-+		.sof_tplg_filename = "sof-tgl-rt1308-ssp2-hdmi-ssp15.tplg"
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_tgl_machines);
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 2fcd22272900..ebec4d15edaa 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -1081,3 +1081,4 @@ MODULE_AUTHOR("Mac Chiang <mac.chiang@intel.com>");
+ MODULE_LICENSE("GPL v2");
+ MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
+ MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_MAXIM_COMMON);
++MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_REALTEK_COMMON);
 -- 
 2.25.1
 

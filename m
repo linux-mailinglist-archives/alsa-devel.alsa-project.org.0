@@ -2,54 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BCA44C8AE6
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 12:36:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFD404C8B77
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 13:22:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4F9B1736;
-	Tue,  1 Mar 2022 12:35:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4F9B1736
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E2AA1AA6;
+	Tue,  1 Mar 2022 13:21:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E2AA1AA6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646134565;
-	bh=8XbFCygKNS+RK/YK6HysO0vG+sdiqy+Hj94EE2b/1+0=;
+	s=default; t=1646137349;
+	bh=+gqKtxtbnRWrpJPKfgB7Z6qJq4uMLNMxOAqLmucl4Ew=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=pwNmYaPpVejZpETtGdVTIkSJU4/KmvnMooYQSNmtt7gfVihTHwhVT1WvZYp5Ld7VS
-	 IHRwtRpU2uAN9DML0tGov9nweJ6mNekP4HY+rAw/pIyg9e4/4jKwmToR/h11mFoHVb
-	 P5DsDV/CLpyg7/ddgMCT4ZayCNiDR1+lgthQt9ac=
+	b=vM353w9+YSu6+y3ZtgCJ0VBd102IDhRDzO4YAYHVMukQoS7/3VLgt2W6BKzfwstIx
+	 uLZaE8xJACVZWH7E6CV+4C5Y4BQnIwQrPf0FKkaBOZUqCSPkNUNqNgBS8TeZ4tLd/7
+	 VXJ0dkszJ2OGIvzrcLwInJi8US+z4z3V5tpGu7SM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 322AAF802D2;
-	Tue,  1 Mar 2022 12:34:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0F28F80167;
+	Tue,  1 Mar 2022 13:21:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D25C1F80227; Tue,  1 Mar 2022 12:34:56 +0100 (CET)
+ id EE8C5F80227; Tue,  1 Mar 2022 13:21:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_FILL_THIS_FORM_SHORT,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE30CF80054
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 12:34:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE30CF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0812DF80167
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 13:21:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0812DF80167
 Received: from dude02.hi.pengutronix.de ([2001:67c:670:100:1d::28])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <sha@pengutronix.de>)
- id 1nP0mG-0003rK-1S; Tue, 01 Mar 2022 12:34:48 +0100
+ id 1nP1VC-0000Yv-HC; Tue, 01 Mar 2022 13:21:14 +0100
 Received: from sha by dude02.hi.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <sha@pengutronix.de>)
- id 1nP0mF-004PzO-18; Tue, 01 Mar 2022 12:34:47 +0100
+ id 1nP1VB-004VC5-Fu; Tue, 01 Mar 2022 13:21:13 +0100
 From: Sascha Hauer <s.hauer@pengutronix.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: soc-generic-dmaengine-pcm: set period_bytes_min based
- on maxburst
-Date: Tue,  1 Mar 2022 12:34:46 +0100
-Message-Id: <20220301113446.1053171-1-s.hauer@pengutronix.de>
+Subject: [PATCH] ASoC: soc-generic-dmaengine-pcm: Use default config when none
+ is given
+Date: Tue,  1 Mar 2022 13:21:11 +0100
+Message-Id: <20220301122111.1073174-1-s.hauer@pengutronix.de>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -75,37 +76,161 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In dmaengine_pcm_set_runtime_hwparams() period_bytes_min is hardcoded to
-256. For some applications that may be too big. This patch changes that
-to calculate the value based on dma_data->maxburst. The correct value
-would be maxburst multiplied by the address width of the hardware FIFO.
-Unfortunately the address width is dynamically calculated based on the
-stream parameters and is not known at open time, so the worst case
-is chosen here which is 8 bytes, the maximum that is supported by
-dmaengine drivers.
-Not all drivers may set a maxburst value, so we fall back to the
-previously used hardcoded value of 256 bytes.
+snd_dmaengine_pcm_register() can be passed a NULL pointer for the config
+which means that the we have to test for pcm->config being non NULL
+before accessing it. Make the code more straight forward by providing a
+default config when none is passed.
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- sound/soc/soc-generic-dmaengine-pcm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/soc-generic-dmaengine-pcm.c | 55 ++++++++++++---------------
+ 1 file changed, 24 insertions(+), 31 deletions(-)
 
 diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index 99253de29a74e..734d46b9783f7 100644
+index 0f6c9c55a22d6..734d46b9783f7 100644
 --- a/sound/soc/soc-generic-dmaengine-pcm.c
 +++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -122,7 +122,9 @@ dmaengine_pcm_set_runtime_hwparams(struct snd_soc_component *component,
- 			SNDRV_PCM_INFO_INTERLEAVED;
- 	hw.periods_min = 2;
- 	hw.periods_max = UINT_MAX;
--	hw.period_bytes_min = 256;
-+	hw.period_bytes_min = dma_data->maxburst * DMA_SLAVE_BUSWIDTH_8_BYTES;
-+	if (!hw.period_bytes_min)
-+		hw.period_bytes_min = 256;
- 	hw.period_bytes_max = dma_get_max_seg_size(dma_dev);
- 	hw.buffer_bytes_max = SIZE_MAX;
- 	hw.fifo_size = dma_data->fifo_size;
+@@ -79,29 +79,19 @@ static int dmaengine_pcm_hw_params(struct snd_soc_component *component,
+ {
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	struct dma_chan *chan = snd_dmaengine_pcm_get_chan(substream);
+-	int (*prepare_slave_config)(struct snd_pcm_substream *substream,
+-			struct snd_pcm_hw_params *params,
+-			struct dma_slave_config *slave_config);
+ 	struct dma_slave_config slave_config;
++	int ret;
+ 
+-	memset(&slave_config, 0, sizeof(slave_config));
+-
+-	if (!pcm->config)
+-		prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config;
+-	else
+-		prepare_slave_config = pcm->config->prepare_slave_config;
++	if (!pcm->config->prepare_slave_config)
++		return 0;
+ 
+-	if (prepare_slave_config) {
+-		int ret = prepare_slave_config(substream, params, &slave_config);
+-		if (ret)
+-			return ret;
++	memset(&slave_config, 0, sizeof(slave_config));
+ 
+-		ret = dmaengine_slave_config(chan, &slave_config);
+-		if (ret)
+-			return ret;
+-	}
++	ret = pcm->config->prepare_slave_config(substream, params, &slave_config);
++	if (ret)
++		return ret;
+ 
+-	return 0;
++	return dmaengine_slave_config(chan, &slave_config);
+ }
+ 
+ static int
+@@ -121,7 +111,7 @@ dmaengine_pcm_set_runtime_hwparams(struct snd_soc_component *component,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (pcm->config && pcm->config->pcm_hardware)
++	if (pcm->config->pcm_hardware)
+ 		return snd_soc_set_runtime_hwparams(substream,
+ 				pcm->config->pcm_hardware);
+ 
+@@ -188,7 +178,6 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
+ {
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+-	dma_filter_fn fn = NULL;
+ 
+ 	if (rtd->num_cpus > 1) {
+ 		dev_err(rtd->dev,
+@@ -201,13 +190,11 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
+ 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_HALF_DUPLEX) && pcm->chan[0])
+ 		return pcm->chan[0];
+ 
+-	if (pcm->config && pcm->config->compat_request_channel)
++	if (pcm->config->compat_request_channel)
+ 		return pcm->config->compat_request_channel(rtd, substream);
+ 
+-	if (pcm->config)
+-		fn = pcm->config->compat_filter_fn;
+-
+-	return snd_dmaengine_pcm_request_channel(fn, dma_data->filter_data);
++	return snd_dmaengine_pcm_request_channel(pcm->config->compat_filter_fn,
++						 dma_data->filter_data);
+ }
+ 
+ static bool dmaengine_pcm_can_report_residue(struct device *dev,
+@@ -239,7 +226,7 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+ 	size_t max_buffer_size;
+ 	unsigned int i;
+ 
+-	if (config && config->prealloc_buffer_size) {
++	if (config->prealloc_buffer_size) {
+ 		prealloc_buffer_size = config->prealloc_buffer_size;
+ 		max_buffer_size = config->pcm_hardware->buffer_bytes_max;
+ 	} else {
+@@ -252,7 +239,7 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+ 		if (!substream)
+ 			continue;
+ 
+-		if (!pcm->chan[i] && config && config->chan_names[i])
++		if (!pcm->chan[i] && config->chan_names[i])
+ 			pcm->chan[i] = dma_request_slave_channel(dev,
+ 				config->chan_names[i]);
+ 
+@@ -365,10 +352,10 @@ static int dmaengine_pcm_request_chan_of(struct dmaengine_pcm *pcm,
+ 	struct dma_chan *chan;
+ 
+ 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_NO_DT) || (!dev->of_node &&
+-	    !(config && config->dma_dev && config->dma_dev->of_node)))
++	    !(config->dma_dev && config->dma_dev->of_node)))
+ 		return 0;
+ 
+-	if (config && config->dma_dev) {
++	if (config->dma_dev) {
+ 		/*
+ 		 * If this warning is seen, it probably means that your Linux
+ 		 * device structure does not match your HW device structure.
+@@ -385,7 +372,7 @@ static int dmaengine_pcm_request_chan_of(struct dmaengine_pcm *pcm,
+ 			name = "rx-tx";
+ 		else
+ 			name = dmaengine_pcm_dma_channel_names[i];
+-		if (config && config->chan_names[i])
++		if (config->chan_names[i])
+ 			name = config->chan_names[i];
+ 		chan = dma_request_chan(dev, name);
+ 		if (IS_ERR(chan)) {
+@@ -423,6 +410,10 @@ static void dmaengine_pcm_release_chan(struct dmaengine_pcm *pcm)
+ 	}
+ }
+ 
++static const struct snd_dmaengine_pcm_config snd_dmaengine_pcm_default_config = {
++	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
++};
++
+ /**
+  * snd_dmaengine_pcm_register - Register a dmaengine based PCM device
+  * @dev: The parent device for the PCM device
+@@ -443,6 +434,8 @@ int snd_dmaengine_pcm_register(struct device *dev,
+ #ifdef CONFIG_DEBUG_FS
+ 	pcm->component.debugfs_prefix = "dma";
+ #endif
++	if (!config)
++		config = &snd_dmaengine_pcm_default_config;
+ 	pcm->config = config;
+ 	pcm->flags = flags;
+ 
+@@ -450,7 +443,7 @@ int snd_dmaengine_pcm_register(struct device *dev,
+ 	if (ret)
+ 		goto err_free_dma;
+ 
+-	if (config && config->process)
++	if (config->process)
+ 		driver = &dmaengine_pcm_component_process;
+ 	else
+ 		driver = &dmaengine_pcm_component;
 -- 
 2.30.2
 

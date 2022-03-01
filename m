@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A212A4C8C9D
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 14:27:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FD674C8CA5
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 14:29:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1819018EE;
-	Tue,  1 Mar 2022 14:27:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1819018EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9CD11B3D;
+	Tue,  1 Mar 2022 14:28:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9CD11B3D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646141272;
-	bh=1DTqbTc4ulkb0fviBXNsAj3qxd0r1QufWdpYuJIk+fg=;
+	s=default; t=1646141382;
+	bh=BTT0XbgCMW/Y/EC0V0fvpkq3sfhwmki/mQaIJqJBGbs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JABcjJ+r2zJlxUCj0Yab/cEuidJJaSrAy5e0f2w+BZ8tdq23LuNFMyE5dsqGXLCxC
-	 loSUnxRasdwp3lf0AMjN1JXWFILh81+tSs6klhAgLNxQVXrl5NpJACy66hQ/irN6MJ
-	 kdAAI2y44Ei9dsCiRaeh5WBsEVvodOWCSZVxhUg8=
+	b=qRfmdlE8s/qIVxM/eGW2Vb6H1qKZRZv30poVOKX5p9VcGL3dWVwx53Bf4YOKxvuNh
+	 DIo06d7AgWVPN3DNX6w4FikyT+eXy6dlFf5fnjYPx2dOUJLdY97nN4SokDNAmqRfst
+	 W9B9O1zYGuD14JIyaftzatS64jCbYINnZ1lX08Fk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B1ADF802D2;
-	Tue,  1 Mar 2022 14:26:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55FCBF802D2;
+	Tue,  1 Mar 2022 14:28:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E9D5F80227; Tue,  1 Mar 2022 14:26:42 +0100 (CET)
+ id 523E5F80227; Tue,  1 Mar 2022 14:28:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,47 +35,43 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0DADF80054
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 14:26:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0DADF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA356F80095
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 14:28:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA356F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IL/g5/Lr"
+ header.b="gbpcdKoH"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EBD36B818F3;
- Tue,  1 Mar 2022 13:26:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112BAC340EE;
- Tue,  1 Mar 2022 13:26:35 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2DB89B818F3;
+ Tue,  1 Mar 2022 13:28:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5384C340EE;
+ Tue,  1 Mar 2022 13:28:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646141197;
- bh=1DTqbTc4ulkb0fviBXNsAj3qxd0r1QufWdpYuJIk+fg=;
+ s=k20201202; t=1646141305;
+ bh=BTT0XbgCMW/Y/EC0V0fvpkq3sfhwmki/mQaIJqJBGbs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=IL/g5/Lr67CKCze983PhXU7r3WSgt/3c2FqN+IahHY7hEtjJbK3hmMVgRLQ+KYj9w
- BuCvFcnm3kPOtbqxjdF5DeM3jQNiG96/76ZaQFYer74eMo7tyTt4GIdXTGW+mf6Tqa
- BZJ1fWdmZz/jnqT+l0aUjiQgjYezIAUa18c3QsWMHw962VgLhALl2ixTbeNkmltYlS
- AF6ZFg9g9UX9QmDI55cHs39F6clGu48KjisWDRIZ77UR7LUL2rMZu+Eqw2og0oJoer
- L2UDAwWL89DJXt4faq1LXjUR95xrca7JF/eOryOfAqdt3qXZTDKWgUYgayABfo5Txs
- lZTIFxTpdteWw==
-Date: Tue, 1 Mar 2022 13:26:32 +0000
+ b=gbpcdKoHPsK+hV6dgNtnijrTO0eIyDNHaCNSDz5N/sVrddqaIT/iIXLCh35b78cBj
+ pQ3okINhaCg5VXvuanIH38RK7URXi4YQY/SsYiM2p73cdI+rlywEIjMbf8xe+cHW0E
+ yZsdgthlywjSAbr7I6Dg+aR4a9enNY6RgBaHfI8fz/L+6ob9kv7ZM91qrGPUJyov9R
+ T+V39jCIMj8J5iinPWImdzXhatuDhAj4or8jZ16hnfxReiSXOKclv8yqwf2YfI1y5e
+ AsEi2QNOX8AmGx+qxUxX2c/O7+Gh9yO6MMpAerCs+nWeQIxtwdaMqdOsnDEeVwxUGT
+ Om+cYqYDelTaw==
+Date: Tue, 1 Mar 2022 13:28:21 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>
-Subject: Re: [PATCH 2/2] ASoC: codecs: Add Awinic AW8738 audio amplifier driver
-Message-ID: <Yh4fCAE41Sc5AjwL@sirena.org.uk>
-References: <20220301123742.72146-1-stephan@gerhold.net>
- <20220301123742.72146-3-stephan@gerhold.net>
- <Yh4VziYJ2M2aenjz@sirena.org.uk> <Yh4XOC5+Uam9UMdJ@gerhold.net>
+To: Zhen Ni <nizhen@uniontech.com>
+Subject: Re: [PATCH] Asoc: au1x: Use devm_snd_soc_register_component()
+Message-ID: <Yh4fdXOUKNeV7Mi5@sirena.org.uk>
+References: <20220301092322.5523-1-nizhen@uniontech.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="OHqBp8PbVqqccFla"
+ protocol="application/pgp-signature"; boundary="zr9XoaaziLUuphUQ"
 Content-Disposition: inline
-In-Reply-To: <Yh4XOC5+Uam9UMdJ@gerhold.net>
+In-Reply-To: <20220301092322.5523-1-nizhen@uniontech.com>
 X-Cookie: You have a message from the operator.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- Jonathan Albrieux <jonathan.albrieux@gmail.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,35 +88,43 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---OHqBp8PbVqqccFla
+--zr9XoaaziLUuphUQ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 01, 2022 at 01:53:12PM +0100, Stephan Gerhold wrote:
-> On Tue, Mar 01, 2022 at 12:47:10PM +0000, Mark Brown wrote:
+On Tue, Mar 01, 2022 at 05:23:22PM +0800, Zhen Ni wrote:
 
-> > I only have this patch, nothing else from the rest of the series.
-> > What's the story with dependencies?
+> +++ b/sound/soc/au1x/psc-ac97.c
+> @@ -411,7 +411,7 @@ static int au1xpsc_ac97_drvprobe(struct platform_devi=
+ce *pdev)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	ret =3D snd_soc_register_component(&pdev->dev, &au1xpsc_ac97_component,
+> +	ret =3D devm_snd_soc_register_component(&pdev->dev, &au1xpsc_ac97_compo=
+nent,
+>  					 &wd->dai_drv, 1);
+>  	if (ret)
+>  		return ret;
+> --=20
 
-> Hmm, I definitely sent the whole series to you. Let's wait a bit longer
-> to see if it will still arrive, otherwise let me know and I can try to
-> send it again.
+This introduces a double free since there is a remove() function which
+calls snd_soc_unregister_component().
 
-Yes, it's turned up OK now - wonder what delayed the earlier bits.
-
---OHqBp8PbVqqccFla
+--zr9XoaaziLUuphUQ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIeHwgACgkQJNaLcl1U
-h9BWeAf/Yxb5JebNr2s6Zb7XhaUYHkIHB4qi6c5jEG/QHKrIYgGQJOmxMfXzJewU
-QPMY/0A0rgq598SpBrQQKeyWKy6T74kAbz8vW98zCGG4T3Xk82orhS2q8y5NLewQ
-pxFodkNSktD4XhgvzGjMhLmTSROF64Uo0JTIgKZ0VuKN0m4Mio2pH7mYWKxR/Qt0
-y9NACNV+PisVMsPSrsPCqABg8MstUBNzBsNkPGr8S3C0elXMusOwB+zcPp1PAbF4
-MqJhaqNiJ2Hsuoo+Vi2kcKoXeY9Y7Tqn/GuwR+TjjbRjhOCC6eQLgmC2yzlhp41X
-GjS4+8plJi3zJ5kuttHepVQGjPaF7A==
-=3Fav
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIeH3QACgkQJNaLcl1U
+h9AlGQf8DucapLDhz1pD0o0kOT1xiZ6hy8KKO8CpBrPAdGBfrXe91VdcA/CVeXFY
+kRnW/mOLksTrt/cpimgUHgU5zO+Uld3crP618bQE+xjdDkeL+qrLm91u5I9GzkDp
+GwlJ8yqTwabMtnnixq9JfwI4kSvaOxasS7Egd2jOqxmNmvrj+8xfi/L+nKTK3Ry0
+YJrAtLXMnqX3c+qudrlRQ3VEwVMN9S7yM5Ykflyq7UBstVCmdQRbiN6nFtUK76+Q
+ANDZL7D/oZJbvMv/E7sDk8uMSMeK4th+txIJAahQZkTiTJFeBTIGzcFjxZUnCB6H
+OxV+fMyBHv920/AZQV5JbPdcw+Sr6w==
+=4xOp
 -----END PGP SIGNATURE-----
 
---OHqBp8PbVqqccFla--
+--zr9XoaaziLUuphUQ--

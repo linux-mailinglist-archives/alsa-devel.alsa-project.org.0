@@ -2,71 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF2994C8642
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 09:18:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FB864C8707
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 09:49:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79FC31B2F;
-	Tue,  1 Mar 2022 09:17:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79FC31B2F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9894B18C6;
+	Tue,  1 Mar 2022 09:48:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9894B18C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646122723;
-	bh=mf0tLDEiYQ9hlzfOQ87vmhVskKaA+vj6vJ7qSco6gi4=;
+	s=default; t=1646124565;
+	bh=iU10cQakzSUARMZz5QTRMfwz9r/toUvw0+/n7JVZ9bY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=A5drB/g6a4xqCB2NtSojRddg0VsMi/YajxrX9+sNIWupnqw2GTXaeUt8esbIBJe4V
-	 9ltRYQdi73Ng5TegalEgxI3IvruD68kA+7udxFq1shUr23se99O1hTLQlfjoembCyp
-	 VVTjUF3176/Gb/bLEl2GDatDOkW5yAI5sNn0iQDs=
+	b=ncVj/RyKAIGRGiAraRT2TAl/RyODpZw8jfVpkZLxfhrhGYjyJPz0ZDTFqYYgFQ3No
+	 CMHcmwcNvulW1eyhzKBHH1hKBr7MVd54gtvfjghD4tf5h/pDvqdvoD919DvCHdEkln
+	 Ox803G3/pYA1/Plkd9AsvLFCD16GNM1hWGplKDd4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCD3FF80095;
-	Tue,  1 Mar 2022 09:17:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07D36F802D2;
+	Tue,  1 Mar 2022 09:48:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D70CFF80227; Tue,  1 Mar 2022 09:17:35 +0100 (CET)
+ id CC6EFF80227; Tue,  1 Mar 2022 09:48:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by alsa1.perex.cz (Postfix) with ESMTP id 1665BF80167
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 09:17:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1665BF80167
+ by alsa1.perex.cz (Postfix) with ESMTP id F0DC0F80167
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 09:47:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0DC0F80167
 Received: from localhost.localdomain (unknown [124.16.138.126])
- by APP-01 (Coremail) with SMTP id qwCowABXX8eP1h1iVVHwAQ--.63688S2;
- Tue, 01 Mar 2022 16:17:20 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowACnr8ev3R1ifM_wAQ--.26497S2;
+ Tue, 01 Mar 2022 16:47:44 +0800 (CST)
 From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com, Julia.Lawall@inria.fr
-Subject: [PATCH] ASoC: mxs-saif: Handle errors for clk_enable
-Date: Tue,  1 Mar 2022 16:17:17 +0800
-Message-Id: <20220301081717.3727190-1-jiasheng@iscas.ac.cn>
+ robin.murphy@arm.com, yangyingliang@huawei.com
+Subject: [PATCH] ASoC: dwc-i2s: Handle errors for clk_enable
+Date: Tue,  1 Mar 2022 16:47:42 +0800
+Message-Id: <20220301084742.3751939-1-jiasheng@iscas.ac.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowABXX8eP1h1iVVHwAQ--.63688S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Xr47tF18GF17Kry8Gw1UGFg_yoWfXrc_ta
- 92kw4DZrWYvFZa9r1DJr4DAr40gwsrAw1rWa4FqrnxtFyfJF13urZFqrZxur90vr1vvFyf
- GryjvrZ7ArW29jkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbxkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
- Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
- AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
- c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
- AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Wr1j6rW3Jr1lIxAIcVC2z280aVAFwI0_
- Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
- XdbUUUUUU==
+X-CM-TRANSID: qwCowACnr8ev3R1ifM_wAQ--.26497S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw43XF4DGrWDZFWUXr4rGrg_yoW8GFWkpa
+ naya9YgrWxXFySkay3ZF48ZF13trW0yFW7G3y2g34fZwnxCrn09FW8Gryvya1UCFy8CF15
+ Gr4Uta4UCF48ZaUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUyK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
+ r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+ xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+ cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+ AvwI8IcIk0rVWrJr0_WFyUJwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF
+ 7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUoOJ5UUUUU
 X-Originating-IP: [124.16.138.126]
 X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
 Cc: alsa-devel@alsa-project.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,30 +81,51 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 As the potential failure of the clk_enable(),
-it should be better to check it, like mxs_saif_trigger().
+it should be better to check it, as same as clk_prepare_enable().
 
-Fixes: d0ba4c014934 ("ASoC: mxs-saif: set a base clock rate for EXTMASTER mode work")
+Fixes: c9afc1834e81 ("ASoC: dwc: Disallow building designware_pcm as a module")
 Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 ---
- sound/soc/mxs/mxs-saif.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/dwc/dwc-i2s.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/mxs/mxs-saif.c b/sound/soc/mxs/mxs-saif.c
-index 6a2d24d48964..879c1221a809 100644
---- a/sound/soc/mxs/mxs-saif.c
-+++ b/sound/soc/mxs/mxs-saif.c
-@@ -455,7 +455,10 @@ static int mxs_saif_hw_params(struct snd_pcm_substream *substream,
- 		* basic clock which should be fast enough for the internal
- 		* logic.
- 		*/
--		clk_enable(saif->clk);
-+		ret = clk_enable(saif->clk);
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index 5cb58929090d..1edac3e10f34 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -403,9 +403,13 @@ static int dw_i2s_runtime_suspend(struct device *dev)
+ static int dw_i2s_runtime_resume(struct device *dev)
+ {
+ 	struct dw_i2s_dev *dw_dev = dev_get_drvdata(dev);
++	int ret;
+ 
+-	if (dw_dev->capability & DW_I2S_MASTER)
+-		clk_enable(dw_dev->clk);
++	if (dw_dev->capability & DW_I2S_MASTER) {
++		ret = clk_enable(dw_dev->clk);
 +		if (ret)
 +			return ret;
-+
- 		ret = clk_set_rate(saif->clk, 24000000);
- 		clk_disable(saif->clk);
- 		if (ret)
++	}
+ 	return 0;
+ }
+ 
+@@ -422,10 +426,13 @@ static int dw_i2s_resume(struct snd_soc_component *component)
+ {
+ 	struct dw_i2s_dev *dev = snd_soc_component_get_drvdata(component);
+ 	struct snd_soc_dai *dai;
+-	int stream;
++	int stream, ret;
+ 
+-	if (dev->capability & DW_I2S_MASTER)
+-		clk_enable(dev->clk);
++	if (dev->capability & DW_I2S_MASTER) {
++		ret = clk_enable(dev->clk);
++		if (ret)
++			return ret;
++	}
+ 
+ 	for_each_component_dais(component, dai) {
+ 		for_each_pcm_streams(stream)
 -- 
 2.25.1
 

@@ -2,79 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E5B4C8753
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 10:05:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FB0D4C876A
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 10:08:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E30451AFB;
-	Tue,  1 Mar 2022 10:04:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E30451AFB
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEA221B38;
+	Tue,  1 Mar 2022 10:07:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEA221B38
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646125508;
-	bh=1c14S9dVNVF1VyP3FFe0N65e9c5Jwxgr+ehoV6e9Nh4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JEbQRNqiQHoKqKGGBNl5ocOctkNSWZLt3sQqnKQgfyOWEoqwuiwfzcVSR8ujYkt4W
-	 3yu6ocXDLEgK9bnU2BGNO283CSsWp3/7AEClgZHMGyXJS2X6tOR26Kaiq8fjaqj1ev
-	 pfssGFzJPLmkoX/0Z4ZDiA3Z5tm0VErfXbvNseX8=
+	s=default; t=1646125680;
+	bh=uR8fTwhG0L8PXMuzqpONdNCLpLxwDNb3QiAHtuzdPSE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VLq6/4sDzoKWT/dVIlXsWYjQXtzYom1dLki7/2O+B8vybNhNmAbGuqF66lO9Y+WCF
+	 PpSecCSNQEOQmqA3j5a2FFgxttUcjGRBEII8wmku11U8p4QXcko6j4RoeBoWIXFjQa
+	 t1tWUfiVxJqY8sV6nf/Cheqg7jCIp0/41qhWOQb4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 568BAF802D2;
-	Tue,  1 Mar 2022 10:04:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1ACDAF802D2;
+	Tue,  1 Mar 2022 10:06:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14A70F80054; Tue,  1 Mar 2022 10:03:59 +0100 (CET)
+ id C62C1F80054; Tue,  1 Mar 2022 10:06:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42606F80054
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 10:03:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42606F80054
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gD5dXXhU"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1AAD1B817F9;
- Tue,  1 Mar 2022 09:03:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1186C340EE;
- Tue,  1 Mar 2022 09:03:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646125429;
- bh=1c14S9dVNVF1VyP3FFe0N65e9c5Jwxgr+ehoV6e9Nh4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gD5dXXhUeEpUdK7hh/LestsugNYQB0olqAMDGA85MmxmdxSbaa8ZXOIKWM/2ZswUK
- xLf/XlReSOYTALDhEGkCR0pV6xgf7JEhKLhbjM7EKbXIALSoDeXUPTnV6Kp5bcUCAj
- Pz9UtyP8vv8NGM+AM6IM0VTUdqn2iSoDw9OYSpBi+B52N4oDlTHdYAzBvDS0b+mjKp
- Xd+5CA9Tugg4uwvHbkVQGI4iS4yFkYZb2cRkbPGwSZ1HOdjxyr/WRRvMuKUwgWri48
- TVoO6bSS5lESM/u0uNGB/qSpd/iWw67aaIm9iqO04J6Quh83P17qIcnpFKP9V2Z4I6
- dzEq5egneiLXQ==
-Date: Tue, 1 Mar 2022 17:03:45 +0800
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [PATCH 2/2] ASoC: mediatek: mt8192: support rt1015p_rt5682s
-Message-ID: <Yh3hcQpLngg8Pnd4@google.com>
-References: <20220301072924.24814-1-jiaxin.yu@mediatek.com>
- <20220301072924.24814-3-jiaxin.yu@mediatek.com>
+X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by alsa1.perex.cz (Postfix) with ESMTP id E3B86F80054
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 10:06:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3B86F80054
+Received: from localhost.localdomain (unknown [124.16.138.126])
+ by APP-01 (Coremail) with SMTP id qwCowAC3V8Ue4h1iFBzxAQ--.26163S2;
+ Tue, 01 Mar 2022 17:06:38 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: codrin.ciubotariu@microchip.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, nicolas.ferre@microchip.com,
+ alexandre.belloni@bootlin.com, claudiu.beznea@microchip.com
+Subject: [PATCH] ASoC: atmel_ssc_dai: Handle errors for clk_enable
+Date: Tue,  1 Mar 2022 17:06:37 +0800
+Message-Id: <20220301090637.3776558-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220301072924.24814-3-jiaxin.yu@mediatek.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- Jiaxin Yu <jiaxin.yu@mediatek.corp-partner.google.com>, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowAC3V8Ue4h1iFBzxAQ--.26163S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xr47trWfJF4UZr4UZw4xZwb_yoWDGFg_Wa
+ n7Ww1DXrW5CrWFy3WDur45ArWj9ry7ZrW3tw18tF15tFWUAF1akrW5Janxur17ur4ava4f
+ GrnFqryfAFW7WjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbVAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkIecxEwVAFwVW8uwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
+ W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+ 1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
+ IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6rWUJVWrZr1UMIIF
+ 0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
+ VjvjDU0xZFpf9x0JUhNVgUUUUU=
+X-Originating-IP: [124.16.138.126]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Cc: alsa-devel@alsa-project.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,97 +82,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 01, 2022 at 03:29:24PM +0800, Jiaxin Yu wrote:
-> From: Jiaxin Yu <jiaxin.yu@mediatek.corp-partner.google.com>
+As the potential failure of the clk_enable(),
+it should be better to check it and return error if fals.
 
-The environment didn't configure properly so that the header showed up.
-See [1].
+Fixes: cbaadf0f90d6 ("ASoC: atmel_ssc_dai: refactor the startup and shutdown")
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+---
+ sound/soc/atmel/atmel_ssc_dai.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-[1]: https://git-scm.com/docs/git-send-email#Documentation/git-send-email.txt---fromltaddressgt
+diff --git a/sound/soc/atmel/atmel_ssc_dai.c b/sound/soc/atmel/atmel_ssc_dai.c
+index 26e2bc690d86..c1dea8d62416 100644
+--- a/sound/soc/atmel/atmel_ssc_dai.c
++++ b/sound/soc/atmel/atmel_ssc_dai.c
+@@ -280,7 +280,10 @@ static int atmel_ssc_startup(struct snd_pcm_substream *substream,
+ 
+ 	/* Enable PMC peripheral clock for this SSC */
+ 	pr_debug("atmel_ssc_dai: Starting clock\n");
+-	clk_enable(ssc_p->ssc->clk);
++	ret = clk_enable(ssc_p->ssc->clk);
++	if (ret)
++		return ret;
++
+ 	ssc_p->mck_rate = clk_get_rate(ssc_p->ssc->clk);
+ 
+ 	/* Reset the SSC unless initialized to keep it in a clean state */
+-- 
+2.25.1
 
-> diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-[...]
-> +static struct snd_soc_card mt8192_mt6359_rt1015p_rt5682s_card = {
-> +	.name = "mt8192_mt6359_rt1015p_rt5682s",
-> +	.owner = THIS_MODULE,
-> +	.dai_link = mt8192_mt6359_dai_links,
-> +	.num_links = ARRAY_SIZE(mt8192_mt6359_dai_links),
-> +	.controls = mt8192_mt6359_rt1015p_rt5682_controls,
-> +	.num_controls = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_controls),
-> +	.dapm_widgets = mt8192_mt6359_rt1015p_rt5682_widgets,
-> +	.num_dapm_widgets = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_widgets),
-> +	.dapm_routes = mt8192_mt6359_rt1015p_rt5682_routes,
-> +	.num_dapm_routes = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_routes),
-> +};
-
-Are the two cards only different from names
-(mt8192_mt6359_rt1015p_rt5682_card vs. mt8192_mt6359_rt1015p_rt5682s_card)?
-
-> @@ -1150,6 +1177,52 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
->  				dai_link->num_platforms =
->  					ARRAY_SIZE(i2s3_rt1015p_platforms);
->  			}
-> +		} else if (strcmp(dai_link->name, "I2S8") == 0) {
-> +			if (card == &mt8192_mt6359_rt1015_rt5682_card ||
-> +			    card == &mt8192_mt6359_rt1015p_rt5682_card) {
-> +				dai_link->cpus = i2s8_rt5682_cpus;
-> +				dai_link->num_cpus =
-> +					ARRAY_SIZE(i2s8_rt5682_cpus);
-> +				dai_link->codecs = i2s8_rt5682_codecs;
-> +				dai_link->num_codecs =
-> +					ARRAY_SIZE(i2s8_rt5682_codecs);
-> +				dai_link->platforms = i2s8_rt5682_platforms;
-> +				dai_link->num_platforms =
-> +					ARRAY_SIZE(i2s8_rt5682_platforms);
-> +			} else if (card == &mt8192_mt6359_rt1015p_rt5682s_card) {
-> +				dai_link->cpus = i2s8_rt5682s_cpus;
-> +				dai_link->num_cpus =
-> +					ARRAY_SIZE(i2s8_rt5682s_cpus);
-> +				dai_link->codecs = i2s8_rt5682s_codecs;
-> +				dai_link->num_codecs =
-> +					ARRAY_SIZE(i2s8_rt5682s_codecs);
-> +				dai_link->platforms = i2s8_rt5682s_platforms;
-> +				dai_link->num_platforms =
-> +					ARRAY_SIZE(i2s8_rt5682s_platforms);
-> +			}
-> +		} else if (strcmp(dai_link->name, "I2S9") == 0) {
-> +			if (card == &mt8192_mt6359_rt1015_rt5682_card ||
-> +			    card == &mt8192_mt6359_rt1015p_rt5682_card) {
-> +				dai_link->cpus = i2s9_rt5682_cpus;
-> +				dai_link->num_cpus =
-> +					ARRAY_SIZE(i2s9_rt5682_cpus);
-> +				dai_link->codecs = i2s9_rt5682_codecs;
-> +				dai_link->num_codecs =
-> +					ARRAY_SIZE(i2s9_rt5682_codecs);
-> +				dai_link->platforms = i2s9_rt5682_platforms;
-> +				dai_link->num_platforms =
-> +					ARRAY_SIZE(i2s9_rt5682_platforms);
-> +			} else if (card == &mt8192_mt6359_rt1015p_rt5682s_card) {
-> +				dai_link->cpus = i2s9_rt5682s_cpus;
-> +				dai_link->num_cpus =
-> +					ARRAY_SIZE(i2s9_rt5682s_cpus);
-> +				dai_link->codecs = i2s9_rt5682s_codecs;
-> +				dai_link->num_codecs =
-> +					ARRAY_SIZE(i2s9_rt5682s_codecs);
-> +				dai_link->platforms = i2s9_rt5682s_platforms;
-> +				dai_link->num_platforms =
-> +					ARRAY_SIZE(i2s9_rt5682s_platforms);
-> +			}
-
-After seeing the code, I am starting to wonder if the reuse is overkill.  If
-they (RT5682 vs. RT5682S) only have some minor differences, probably it could
-reuse more by:
-
-SND_SOC_DAILINK_DEFS(i2s8, ...
-SND_SOC_DAILINK_DEFS(i2s9, ...
-
-...
-
-if (card == &mt8192_mt6359_rt1015p_rt5682s_card) {
-        i2s8_codecs.name = RT5682S_DEV0_NAME;
-        i2s8_codecs.dai_name = RT5682S_CODEC_DAI;
-        ...
-}
-
-Or even uses of_device_is_compatible() if it would like to reuse the struct
-snd_soc_card.

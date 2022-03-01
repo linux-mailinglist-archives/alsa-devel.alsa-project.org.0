@@ -2,75 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924AD4C7D3E
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Feb 2022 23:25:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 622504C820E
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Mar 2022 05:15:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E8E518BB;
-	Mon, 28 Feb 2022 23:24:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E8E518BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id F15BC1B19;
+	Tue,  1 Mar 2022 05:14:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F15BC1B19
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646087143;
-	bh=TE+Rt0fIAbSZ+4U5Y9r3PdSJRY6MPGXc12FuKcxtb6E=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AcIgjR8kGfZMeBtUF2jD2kyhx1JZ6+fljKyaYLQfvpTzK+BEOkQMwJP2zZ/NXRYyt
-	 ZOPf9HEAWDMrTUck+roFKEhvOcjLsZr5Jwjiegs4odjmfPo5Ke/fmoqITuBYDtysyo
-	 m1c5dwz26iKfKrWD9vPmoSCFn1hjvIZKVAcIM5rg=
+	s=default; t=1646108107;
+	bh=v7oiJacm0+wsOsNdjZM1Q3iSa762Qt1sZFgEqfpf3/c=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=j7jD3GMuSOe886mHpWAKEY5Wn5G4LSg1m1zfqi0CE6FKlazw6OASWZbelpyEqMJbw
+	 tZc6NTNdYo4UP8TC+Jc/6/0KhsgX+o/lmoxzKOkKGjq6oByVjMZuT40tJo6HwW4etm
+	 TtP2b6Zy7ECPClVBTc9JBOLtpvc/Bx+DXBWXht9o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D974AF80054;
-	Mon, 28 Feb 2022 23:24:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65C42F802D2;
+	Tue,  1 Mar 2022 05:14:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F8F5F80125; Mon, 28 Feb 2022 23:24:03 +0100 (CET)
+ id 19FD6F801D8; Tue,  1 Mar 2022 05:13:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com
+ [IPv6:2607:f8b0:4864:20::f31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E512F80125
- for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 23:23:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E512F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9888FF80167
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 05:13:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9888FF80167
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qazoUsG6"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DB77B61299;
- Mon, 28 Feb 2022 22:23:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD289C340F1;
- Mon, 28 Feb 2022 22:23:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646087036;
- bh=TE+Rt0fIAbSZ+4U5Y9r3PdSJRY6MPGXc12FuKcxtb6E=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=qazoUsG6WZM5lo2vUSbvOUqnvQ9hzxrPkVTEwSqrn7QEnoV9eTi9O6q6otat6lwqa
- q4LVw1wObT8OlR4bgSWiZOHZrSX6nX0D+TPqLQt5e1YswLGbeagtM+sAgNx3/Kc54a
- 5rYNEy7wRpI62Oh4lT0rBrNe7nvRikqfyxMOkaayBjQx2qIHMysjXrWeHvRk5zy9NF
- wxBldyZ0LDEeTE/97yMVkfLrJr5HpziBIEBlruu1/5eAHdO8EKvZIcygbtcG+8al1X
- Deb/cQpEC89SfpqVlAfzqnXqV1P4U9S4YtgHYeyd5SNMB6POpTyCwRYhJF/ZmUYfNv
- I+4TTMQF7qa3w==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220228144235.24208-1-srinivas.kandagatla@linaro.org>
-References: <20220228144235.24208-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v4] ASoC: codecs: wsa881x: add runtime pm support
-Message-Id: <164608703449.3143764.5366445148621158953.b4-ty@kernel.org>
-Date: Mon, 28 Feb 2022 22:23:54 +0000
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="T2Ujh5Dq"
+Received: by mail-qv1-xf31.google.com with SMTP id 8so15843367qvf.2
+ for <alsa-devel@alsa-project.org>; Mon, 28 Feb 2022 20:13:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=TA4z/TQd5Ml23p6Mp3p/g231OA/seFe8B/IVikvo0Pk=;
+ b=T2Ujh5Dq9BlAbtru7jelh0O0xu1vzZ51bB6xlv3FMEu1EZoLUXGHJheFiBMgMQdF1u
+ pBDuSg2qaAZ9z+o3E7uTyTEbiBpoPk4cDL2OvMyy8mo7iBAz04iQzKSlKOca6kjZ8FgY
+ Taupq7pY97wY6wQ/iWX1rRGn6JqFJdD0MgMrf6cikLF2q2LbDJKsIJN3xGRHPJXXc4Mg
+ XLzCLDMfE0v9xyXdmjNug2ytOik0VcOJ/M1a7goUm3PXO01u+9q3iOa83VvsbRoR7poG
+ kNKL18jyAob1gRGmnZVQ7h3icGrarQKDikucK3pettkDoPm2Z3ny3QzNU1fVTZlcnxSf
+ A7QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=TA4z/TQd5Ml23p6Mp3p/g231OA/seFe8B/IVikvo0Pk=;
+ b=o2WtFT06+eWON4RWquieTtgyOruTRJFxOB4TWYXGXtmhUKOqDSumkLdgSD3y3dMXOs
+ kf8WMDcIk7zUFKbCR8sxpS3PXteCxcUz3pFhjB8ss04OhdhSAutOBVNyuFFV6GHZjPa8
+ Gv4wIl+6Nlk3DYbvGeNzCVnPgTq6tOseRq3WitB5smMYhKk/ahAZjfcHl52yoPr4XEAQ
+ +FI/HjfCFQJzpwD4QOJiUZcxXL9RGXtjoctQTasIW1QpFWfCcGMlhGHYVpGhg7sF+o9x
+ ZNj6Op6m/l1k1PN6CUxx+S0WhN+3Qk47pG7+CDm/Tq1oajtJZKc6dinNubfIj60JTZXm
+ FaVw==
+X-Gm-Message-State: AOAM533lgq2FTJOzsRBmRLgKPe7fkgIQHfLXQLsT7rYXoZVNQHgmjyCq
+ dvGSRxNkZG8f/G6aDwSco1T/9h5m7sbzaNHKoiS4laSIw0I=
+X-Google-Smtp-Source: ABdhPJxeh9UUKlnqT+996Ah9uhtPO8bZDPrS9IuTO+lwSIeAA3o7xnmBT67PQc4UXYVOOUNI+/uL88bK7LRnSxJq+T8=
+X-Received: by 2002:a05:6214:19c5:b0:432:ec12:f121 with SMTP id
+ j5-20020a05621419c500b00432ec12f121mr8276272qvc.128.1646108026149; Mon, 28
+ Feb 2022 20:13:46 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, tiwai@suse.com, linux-kernel@vger.kernel.org,
- quic_srivasam@quicinc.com
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Tue, 1 Mar 2022 12:13:35 +0800
+Message-ID: <CAA+D8AMxmrxL9rWuZ6uStpHwBY3b4DhVcfKsYzZJ-mJHwNARKQ@mail.gmail.com>
+Subject: chancel.liu@nxp.com, shengjiu.wang@nxp.com
+To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>, 
+ Jaroslav Kysela <perex@perex.cz>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,40 +91,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Feb 2022 14:42:35 +0000, Srinivas Kandagatla wrote:
-> WSA SoundWire Controller does not support Clock stop and performs a soft reset
-> on suspend  resume path. Its recommended that WSA881x codecs connected to this
-> are also reset using a hard reset during suspend resume.
-> 
-> So this codec driver performs a hard reset during suspend resume cycle.
-> 
-> 
-> [...]
+Hi Takashi Iwai, Jaroslav Kysela
 
-Applied to
+    We encountered an issue in the pcm_dsnoop use case, could you please
+help to have a look?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+    *Issue description:*
+    With two instances for dsnoop type device running in parallel, after
+suspend/resume,  one of the instances will be hung in memcpy because the
+very large copy size is obtained.
 
-Thanks!
+#3 0x0000ffffa78d5098 in snd_pcm_dsnoop_sync_ptr (pcm=0xaaab06563da0)
+at pcm_dsnoop.c:158
+dsnoop = 0xaaab06563c20
+slave_hw_ptr = 64
+old_slave_hw_ptr = 533120
+avail = *187651522444320*
 
-[1/1] ASoC: codecs: wsa881x: add runtime pm support
-      commit: 8dd55245836119ee3636543b6c2597efd78e643d
+  * Reason analysis: *
+   The root cause that I analysis is that after suspend/resume,  one
+instance will get the SND_PCM_STATE_SUSPENDED state from slave pcm device,
+  then it will do snd_pcm_prepare() and snd_pcm_start(),  which will reset
+the dsnoop->slave_hw_ptr and the hw_ptr of slave pcm device,  then the
+state of this instance is correct.  But another instance may not get
+the SND_PCM_STATE_SUSPENDED state from slave pcm device because slave
+device may have been recovered by first instance,  so
+the dsnoop->slave_hw_ptr is not reset.  but because hw_ptr of slave pcm
+device has been reset,  so there will be a very large "avail" size.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+   *Solution:*
+   I didn't come up with a fix for this issue,  seems there is no easy way
+to let another instance know this case and reset the
+dsnoop->slave_hw_ptr,  could you please help?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best regards
+Wang shengjiu

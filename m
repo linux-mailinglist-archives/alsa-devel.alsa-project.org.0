@@ -2,134 +2,204 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C97274C9FE9
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:53:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE3CC4C9FEA
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:53:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C2701F69;
-	Wed,  2 Mar 2022 09:52:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C2701F69
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EAC71F57;
+	Wed,  2 Mar 2022 09:52:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EAC71F57
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646211203;
-	bh=JRcu3/u/bVExjAzFhqGznUGwHsHLBq01P+nPZRREeyc=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1646211221;
+	bh=DryJrKy7hQH4UXuYo+ntyPLnl+2KQHV5NJACIOoaRQw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I8EaKaYi+EUrMwUoJ4UPsvQihIriCQIIIKDLZy1BGFvMX5sGWbPJDVcyc2N+Q0bxP
-	 fDzVW9AYVdN42oqBNA/QvjA5huY3KyQi3VKqnMZwqqfI5r7zBcDUdcCyItB6uaSzD5
-	 jHNqqdIZ6cJisJn42z4J91W5IlWHbuVCE+HaSKtY=
+	b=k0+zA1suFg+1L9Y7EVp2qweNQ10YvUEXmO/dJdG7qv39G1oT79/1jeNtY3KjFU4Xt
+	 94IYzefvOG0WijVAOSUnr7r0NFGt4+H3uZLhC/cFsde6NZAEzCGJE6hJEbWtWfwhfk
+	 gseTGPaTeAXRK+KZsSq8CulOBd3CK4W8QQrZoWvw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CA64F80726;
+	by alsa1.perex.cz (Postfix) with ESMTP id 96151F8072A;
 	Wed,  2 Mar 2022 09:34:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94E5FF801D8; Tue,  1 Mar 2022 04:04:02 +0100 (CET)
+ id 0DF5DF801D8; Tue,  1 Mar 2022 06:53:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_135,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76B5CF80095
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 04:03:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76B5CF80095
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-267-9MSeLLg1PRGi9Q5Mk98pjw-1; Tue, 01 Mar 2022 03:03:54 +0000
-X-MC-Unique: 9MSeLLg1PRGi9Q5Mk98pjw-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.28; Tue, 1 Mar 2022 03:03:52 +0000
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.028; Tue, 1 Mar 2022 03:03:52 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Matthew Wilcox' <willy@infradead.org>, Linus Torvalds
- <torvalds@linux-foundation.org>
-Subject: RE: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Thread-Topic: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Thread-Index: AQHYLOAn+DU/OogLf0+tiSFmjztyUKyp1n9A
-Date: Tue, 1 Mar 2022 03:03:52 +0000
-Message-ID: <198022f201814cdc9384ef083741185e@AcuMS.aculab.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5F6FF80167
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 06:53:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5F6FF80167
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="uLwvDX28"; 
+ dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com
+ header.i=@oracle.onmicrosoft.com header.b="Dbbf4FKt"
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 2212ZQsJ018802; 
+ Tue, 1 Mar 2022 05:53:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=corp-2021-07-09;
+ bh=aZCvnIYHE8JMwzWHBnvAkTMzbTJeEGOE71a9D+oKdj8=;
+ b=uLwvDX28g+RhMO1TnspnflfrF9B2bB8E4REmNzTOSOnhe+BvZMoFkSwvAnRivHmaQOZV
+ xdZIrbiFI1mLDJjOO+WObKrhajjMPyn34jtznm+PcNxrGvn536LLgYKw6/YwTNl8yYH4
+ TfZspQAdSDmittfsCWO0dftmXG5EQAXln+P7KI1wj0R0F1Eo+8dzaLrwoGIFy7NocVnl
+ zrqAXwi5jFwh1FrVH7PMT2iRMWDI22eSGmy2Cy/35o5e435HoD1cAC07D9MklICwwkaQ
+ KfHw6T5YLL/GBcsRVMugQhDZ9JS2WGPzdSmIBBwRQUc72KKNBkG1Zg9hOXuPBiSlT6we Tg== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3efbttean7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 01 Mar 2022 05:53:15 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 2215amqI000723;
+ Tue, 1 Mar 2022 05:53:14 GMT
+Received: from nam11-co1-obe.outbound.protection.outlook.com
+ (mail-co1nam11lp2177.outbound.protection.outlook.com [104.47.56.177])
+ by aserp3020.oracle.com with ESMTP id 3efc13sxjf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 01 Mar 2022 05:53:14 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SSe0jOaT6wwqHjG2yeUJ1Eie1nUuba4Tna/oV6Ckyd4MLjk0IWFb+i5CTzfzDBpViygsVhsAJjR2qv0Sp/SzoEJt+SF1LElWgFjfTCh0DfcBhsf/wPL/4OE1x2tRvL6pnpmqbHetmfDvxfobbB0hKfylmfso4G0P7A7xp5MI/bl3U7jYr+YEcnByJroE8fRmJtP6SI9qK+nkJTZQVDfT7mOFYW4ngxnoKeneB3u2G+3187cKwnThTrNtNCEt75BizKh73Xfr+MlUYXUqX2Jvmrl8HA/95YiQlDDJ2ha2V+BRGp6pYFN11PxlaJdlFfe3e7n/u0BJ5BjSKLjh2151Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aZCvnIYHE8JMwzWHBnvAkTMzbTJeEGOE71a9D+oKdj8=;
+ b=EvV0Zy+bW9rP8zEPRNg75K0D5rMu0pBEXpf3i5V8Gm44m880ksauiGDBW73gpRLLrmi+dDI1aG1iEE+5lmY2wBRVNHCWRKImkBsULLkRNYRGYE/FlJW1QMP1+uSWne0mQOQG1dyu1VnaEITb0m24nHOlTW7qLAsdC7gbfxtNSoJBO0cZgYLxqSC1pSgjof667zdOIk9ACOOnpBYaqlBsppb6NfpxKfshvSlgOZt6+HInklBqMvgl6e9DsYvTRFwuClUndVKYqg1u/IrfY7dtaXWcy04u3YIQ273tRLqj+5KgulbtanR+v7IFE44O8gSdwUM43CYLeGofZpFWYr5XlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aZCvnIYHE8JMwzWHBnvAkTMzbTJeEGOE71a9D+oKdj8=;
+ b=Dbbf4FKtSfC13/FdIgguVp6E/eW5+/iY8Op3SpabZa/BL3dzLqTBc9xfhuLp9kZ468+IvRAmC7Pj9gdjhJaLdZEYk40fJw5GHU2fRxlxDPnJ1nLyrDBWY6n159Z9akT2fAsqMrgM4cJJHQoaYhjkpac157Z6iZUXYonKjEuxKNs=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by PH0PR10MB4533.namprd10.prod.outlook.com
+ (2603:10b6:510:39::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.23; Tue, 1 Mar
+ 2022 05:53:11 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::2c3d:92b5:42b3:c1c5]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::2c3d:92b5:42b3:c1c5%4]) with mapi id 15.20.5017.027; Tue, 1 Mar 2022
+ 05:53:10 +0000
+Date: Tue, 1 Mar 2022 08:52:31 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Joe Perches <joe@perches.com>
+Subject: Re: [PATCH 1/6] drivers: usb: remove usage of list iterator past the
+ loop body
+Message-ID: <20220301055231.GI2812@kadam>
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
- <20220228110822.491923-3-jakobkoschel@gmail.com>
- <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
- <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
- <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
- <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
- <Yh0tl3Lni4weIMkl@casper.infradead.org>
-In-Reply-To: <Yh0tl3Lni4weIMkl@casper.infradead.org>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+ <20220228110822.491923-2-jakobkoschel@gmail.com>
+ <20220228112413.GA2812@kadam>
+ <0be9de3920442df490f01b6fb1c42521c3de6190.camel@perches.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0be9de3920442df490f01b6fb1c42521c3de6190.camel@perches.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: CT2P275CA0038.ZAFP275.PROD.OUTLOOK.COM
+ (2603:1086:100:a::26) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:36 +0100
-Cc: linux-wireless <linux-wireless@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- KVM list <kvm@vger.kernel.org>, "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>,
- "linux1394-devel@lists.sourceforge.net"
- <linux1394-devel@lists.sourceforge.net>,
- "drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
- linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- linux-scsi <linux-scsi@vger.kernel.org>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
- "kgdb-bugreport@lists.sourceforge.net" <kgdb-bugreport@lists.sourceforge.net>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Kees Cook <keescook@chromium.org>, Arnd
- Bergman <arnd@arndb.de>, Linux PM <linux-pm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f00bd6dc-d76c-4bf7-86ca-08d9fb47c40f
+X-MS-TrafficTypeDiagnostic: PH0PR10MB4533:EE_
+X-Microsoft-Antispam-PRVS: <PH0PR10MB45336ABFCDF312DB98F2AE608E029@PH0PR10MB4533.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: G2x+t26wSuTDDkq5o4q7dbW4/UjzD3hW6M5tuxN3cE9Ky9PRtHnitbQRwuVildDloArCtPWngk4gSsu2J/fQ1Yg7oEb/EDYZPN4hKOG7qZjkOXxG5P7QScLppmuJjx+iRUvRSdNc++RCkzB00ZstVPzvo2uA97a94UXPnBMXuj29Q8DLxo4w4cR+L5FYhAEoXORyrzlEng+TFzLzMDCkGR8iTfh9dT+LhiI9ZxGrIsMsuvjhSFlMnXwhyv3ryp99PKiK2eOXjxSoYxIydBdXDy6CYe2WGe+BRAPFcJTjiAsEGE0aKaMhAz8xEkejdm4oa/Bs6dr6HUqm0kFoXPW7E0KL/IsCU1+Nbfk1UNIUSPqGhrqvfvzS6WPiiolWtALU5nn7rg1yVKAte4zF2FUTVoeog8mMJQchv7t5XzlOetD2/h//JB/WFS3HxqR1BmSAnqxmiDFqzgiUIeHot/VQWVa8e/lOW+usUgBYH7akTOk1d/UbmcTrs06sSNHp7YA9XhLvVHsSHzqOJzwu6sM999sl3EUPiOqOK2dgp8uE/VPSaOPnBt4s0sYroeoytfrA093GhdFDswl/nyfYtlw13WUItyPieJ9Wh4ui7AfWP2A/S3WdVMDcMoqeVcIS4mj6eTAy2ZdsN46S/07W0NdfYiGebfCMs/eXnmJljIv3aeWJYhrMTm930JqyPq3eTHwA
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(366004)(4744005)(44832011)(6506007)(316002)(33716001)(7406005)(6916009)(6666004)(8936002)(54906003)(86362001)(52116002)(66556008)(66476007)(66946007)(6512007)(33656002)(9686003)(8676002)(6486002)(508600001)(2906002)(1076003)(26005)(186003)(7366002)(4326008)(38350700002)(38100700002)(5660300002)(7416002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?4IvDCtl5VM5rcP0Skuq04PLt/9msaa8KrgRc5DZjGXsPhA9y4iJD88IBEQ1c?=
+ =?us-ascii?Q?5NlEFNIcsvnz9BinB/mgAkczuiQ215LgILS+oP8xbCLw3Z5P8AhLO1KPD4wd?=
+ =?us-ascii?Q?dUYAfATfNveCiClhAExDGcXu1vqHxF0cBcSMhyo1jII5XE9OWZoDTCKHtW6w?=
+ =?us-ascii?Q?CFJ4fhH/Fy0pCAeZsouRcbdAyjLHlrhUwCbIX9PadaSdTcnVMqesGvuxgr3d?=
+ =?us-ascii?Q?hC75pQ0koF7QtkaYc72EswV5NZ9j7FsZ6PMgEUn9BL7KStD6UmhWBgt67eY/?=
+ =?us-ascii?Q?9Yd77VvL3i+hZ/rHLbQsh0G8SWHoBJtac4ylVeaRMKOYJ7U7C4H7jdy3mbHL?=
+ =?us-ascii?Q?LA+NSHBWuze+IuI1swbSTBFcwgz/WQcp/plyNQhxeF4UGJzK6Am/zcwas6Mb?=
+ =?us-ascii?Q?BvixPxIPDopJH6kgHoRXPYMUDpqy0NFviNqOzU2uDB+OzW7mt8VLMXCgShQx?=
+ =?us-ascii?Q?dumf9Hh4CjFQL8zAUaJhrxRx6juz8Cvyjou0C2LfXRzJvnYDsBs3YidywzHI?=
+ =?us-ascii?Q?z7APDKEhaxiNh5aHtdCmurO3Nh0S93wPKYeKijEFOvmJCNn5ENvDsRz8h5m2?=
+ =?us-ascii?Q?XfgtNwJFiw0FKCGRGyMjLGlkDw5Z7U3FLsk5OrUB5Xo78w+E5Tz6b16m6DHj?=
+ =?us-ascii?Q?bFfxM2xveRZjeFbu8TCQcCAzuS8Wq6qkmETePfOoe0KLCN//mNekgvWmHSkw?=
+ =?us-ascii?Q?Km7b4FQuWHYE0OYf6V9CQYbNLYNqtkCNYgUocYFlSaJb0TCFy38gertqTVFg?=
+ =?us-ascii?Q?3j6Xvbc4PI9BQJ55gqjyF018IRMPwH4OFdjaB+I3VJDFp+MWSJyBcx6quuxK?=
+ =?us-ascii?Q?TNVWOUZb8na8LSkT3Ts8oNMSyDjGRu6cM66iNEIOPphYRUWJ5vnJvqStxZ+J?=
+ =?us-ascii?Q?rOoeqvgCCrmQXc3iVUJih3eWUtEPxvcC9cuFN2WJszS39zOTkLbW0lNCpss/?=
+ =?us-ascii?Q?UiTcmCvYiA846OQB/82ioH25a5wURPUY5Gk6tcZQKbvQF2QSm4W8mEl0qMd9?=
+ =?us-ascii?Q?dvwtMIf2UTyDDy9hvv0AnAeopFT+l+GJu1gYxMsIzbYCTjDtydjCr8NbS0+p?=
+ =?us-ascii?Q?MsggsisVU8DVl7AwTV7qwaLf6m9DeqEU6lwBNO+3mE23mo9Vuhx+1kATyxgv?=
+ =?us-ascii?Q?BM95B7XfndX+325MFt1wEDMBPrgQ+fgnBsBXxALYHlS4/rkd/MceSPJEGrwK?=
+ =?us-ascii?Q?WQYbjDgt/t2RpV9z2C40TzZp3jFpkyBCt7g7Vufq9wLNNY0x2H3AVQQvUSo+?=
+ =?us-ascii?Q?h0f9KsCB0CKiep1vFz0U7aq8+waWIK7GZOlgJcIOJHOS5NWG4jMb5Lxf2ISm?=
+ =?us-ascii?Q?J7zq+23uZrZ1Wix8nRxbFxCej7mwuEgcX6BccuAvA1Hat2WPXVIgsyIZHOUu?=
+ =?us-ascii?Q?G2oJdd3yFHfVfUzDutAE9P/fdF82VTo8JgyV9kydaT68/rQZKREIGW2YHoyV?=
+ =?us-ascii?Q?nzuOchXYtl7AbU54KCN6/QLAp7gb5GtqGa0ft4+OO3b5qCISc3Dzwv/ckEqJ?=
+ =?us-ascii?Q?j3kpuVuZGFcv2qd8z6IKmuC6ezfYglOMY9ZVI++aIsIELDpVuolntfe0fyMG?=
+ =?us-ascii?Q?aXl3xdbSxonrnMA4DJF41RcXnV2SAVsfcBmG/Bq95pmkZjXOmb5Hpo3Xs+R+?=
+ =?us-ascii?Q?FgQ9YbTSVBtx3emhgqmaM5eLloVjjXBpGs9Mr2bGJ5t5kwIC2hcy5ccEFGfA?=
+ =?us-ascii?Q?0xxlvA=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f00bd6dc-d76c-4bf7-86ca-08d9fb47c40f
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2022 05:53:10.6487 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aEWUTcysPwoFeIZPleBXa/PNJnNLmuAC5LuxoVYyUGkAGrPdM28HZ3zTODvsT2Hs+dTwsQzEnxTFSLDh+VD98ov86BVdCluK+h5G3DARlTs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB4533
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10272
+ signatures=684655
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxscore=0 phishscore=0
+ bulkscore=0 adultscore=0 spamscore=0 suspectscore=0 mlxlogscore=797
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
+ definitions=main-2203010026
+X-Proofpoint-GUID: 1VKc32mrS9XhcTkgdE8hJyTpCeJ2-R09
+X-Proofpoint-ORIG-GUID: 1VKc32mrS9XhcTkgdE8hJyTpCeJ2-R09
+X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:35 +0100
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx@lists.freedesktop.org, samba-technical@lists.samba.org,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, linux-cifs@vger.kernel.org,
+ kvm@vger.kernel.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-staging@lists.linux.dev, "Bos, H.J." <h.j.bos@vu.nl>,
+ Jason Gunthorpe <jgg@ziepe.ca>, intel-wired-lan@lists.osuosl.org,
+ kgdb-bugreport@lists.sourceforge.net, bcm-kernel-feedback-list@broadcom.com,
+ linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ Arnd Bergman <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org,
  Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Jakob
- Koschel <jakobkoschel@gmail.com>,
- "v9fs-developer@lists.sourceforge.net" <v9fs-developer@lists.sourceforge.net>,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- "linux-sgx@vger.kernel.org" <linux-sgx@vger.kernel.org>,
- linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "samba-technical@lists.samba.org" <samba-technical@lists.samba.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux F2FS Dev
- Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
- "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
- Mike Rapoport <rppt@kernel.org>
+ Nathan Chancellor <nathan@kernel.org>, linux-fsdevel@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
+ linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
+ linux-block@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,41 +215,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Matthew Wilcox
-> Sent: 28 February 2022 20:16
->=20
-> On Mon, Feb 28, 2022 at 12:10:24PM -0800, Linus Torvalds wrote:
-> > We can do
-> >
-> >         typeof(pos) pos
-> >
-> > in the 'for ()' loop, and never use __iter at all.
-> >
-> > That means that inside the for-loop, we use a _different_ 'pos' than ou=
-tside.
->=20
-> Then we can never use -Wshadow ;-(  I'd love to be able to turn it on;
-> it catches real bugs.
->=20
-> > +#define list_for_each_entry(pos, head, member)=09=09=09=09=09\
-> > +=09for (typeof(pos) pos =3D list_first_entry(head, typeof(*pos), membe=
-r);=09\
-> > +=09     !list_entry_is_head(pos, head, member);=09\
-> >  =09     pos =3D list_next_entry(pos, member))
+On Mon, Feb 28, 2022 at 10:20:28AM -0800, Joe Perches wrote:
+> On Mon, 2022-02-28 at 14:24 +0300, Dan Carpenter wrote:
+> 
+> > a multi-line indent gets curly braces for readability even though
+> > it's not required by C.  And then both sides would get curly braces.
+> 
+> That's more your personal preference than a coding style guideline.
+> 
 
-Actually can't you use 'pos' to temporarily hold the address of 'member'.
-Something like:
-=09for (pos =3D (void *)head; \
-=09=09pos ? ((pos =3D (void *)pos - offsetof(member)), 1) : 0; \
-=09=09pos =3D (void *)pos->next)
-So that 'pos' is NULL if the loop terminates.
-No pointers outside structures are generated.
-Probably need to kill list_entry_is_head() - or it just checks for NULL.
+It's a USB patch.  I thought Greg prefered it that way.  Greg has some
+specific style things which he likes and I have adopted and some I
+pretend not to see.
 
-=09David
-
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
-PT, UK
-Registration No: 1397386 (Wales)
-
+regards,
+dan carpenter

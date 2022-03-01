@@ -2,123 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9D674CA019
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:57:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 204204CA01B
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:58:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79A05201A;
-	Wed,  2 Mar 2022 09:56:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79A05201A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B83F7202F;
+	Wed,  2 Mar 2022 09:57:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B83F7202F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646211466;
-	bh=P7E7V2j6XF48nR1c44ChhcUP9k+6FRTrXulntRgFm9M=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1646211483;
+	bh=fIbf0jFEjnvrwHqBRT5LzBMRpKJBoY/svPPM9bpwoNA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W06yDstc41aErrFkB6P1PwvIy2ACgF7Cy2XSPu7uMlu6QbpApwfk6INJy68LGg5LW
-	 shsW0krT+tc0INR/SagU9r3M0Ha+OHO2miMRb41LPhQkhYx9ewjAeJoM7Dhyt2zFdd
-	 CO+SfyYqc3JZGKg9QYyGWbrnNMYS4kl2ATK+DTuQ=
+	b=n/pITBaQZW+1tBwo9uhiJMRVNc3z/jIFhz7Y/Zpxn/bt8gFi2zdpdAq8DBDmtLn1X
+	 nQs902t+NxqKPb6KkBusbt2pwd+fc9CIM3ucPsJyJ7F2/ubxge3re4C23k8OM2pMw4
+	 fUu/R9R5ROObA8GAyT4d+VO6Kd8BTMmkOSMBvozM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0F35F807FC;
-	Wed,  2 Mar 2022 09:34:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76BE1F80171;
+	Wed,  2 Mar 2022 09:34:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B15BF80227; Tue,  1 Mar 2022 18:28:36 +0100 (CET)
+ id 32069F80227; Tue,  1 Mar 2022 18:36:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA362F80095
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 18:28:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA362F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCBA4F80054
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 18:36:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCBA4F80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ifR445Pt"
-Received: by mail-wm1-x331.google.com with SMTP id c192so7919140wma.4
- for <alsa-devel@alsa-project.org>; Tue, 01 Mar 2022 09:28:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=Y86hBfPWj9E4aTo+XMBrAu6Y5p4SQMawkPD4Q/SuKPY=;
- b=ifR445Ptk0kZIwyK/iR5LauUeexT4h+Xm5fWIS9UfHsJTwIXI+TBUH0b1B1nklV58Q
- e3posB9tDmWAuXNqOByYa8OEIeuEgFpyIkDoWKkxe1RAiCnFE6ZEzQVCpMvS62fGzNFV
- nWcw5JV2lmoD9jxvmDMFuNVsgy/NwYWUQ6a0I1zB2e5jSr3/JFEIp9xW/NRIDhtT+/y6
- uvAB7/5ZICC2qcmaHb2EAlpVYU+L8My5syB7aELi6iajmzjea09g2vNncJq3GY6hv/nP
- g2d17hu4ZYUIRYCXpyuRUhAY/Kr9r3k7MyrtDEVfLOZZZFWPJ239r6w7DpTzLNolCHHw
- A62A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=Y86hBfPWj9E4aTo+XMBrAu6Y5p4SQMawkPD4Q/SuKPY=;
- b=IbUadRMwaGgwt+6aAepMZOBiHMUhzll1AY5Ke2puqX4ja8L9mF2HLg6m4T4eBr0PjO
- uONPbNzfPQEvoSMiITi9NxpajcFKxqQ54bevTELpvj6SMw8/Onl6UGZp0fNgHfnM8IA8
- RwjvublMb0xVDQWeR5WyEzUR1ArORHPj1iV0uZ+rqOG6zms9kK3y3BCrbBj2YNC5yq46
- 5YrNmyEieveoZ73BtWgt04a5S9bfFBRerFcuPmEPqxBwljcnK8Z/vNKHT5h6+VroaZXr
- fDiyJ2xfBm3mpf2FZL/kf/wHEbw77hVhcvTAbNZ2xfGGzV5So+1drdN9YsVVpksIcrH/
- iTTg==
-X-Gm-Message-State: AOAM5328sf2hOhC22cT7GlWVbNkzYLG+8Lpw4ZNZq6T7NaCJHjqJTYXP
- 8ivDKEp/yJEp0T9Lt4Ng+lWLTA==
-X-Google-Smtp-Source: ABdhPJyP4zzjkBPeDrhk1IU4HHA4Z4mVRSeyWw7DiZ4BmjKx+FbF6/CkwhxttMvqrC0XO+mqNoqKvQ==
-X-Received: by 2002:a05:600c:a4b:b0:37b:ea2b:5583 with SMTP id
- c11-20020a05600c0a4b00b0037bea2b5583mr18173339wmq.139.1646155705687; 
- Tue, 01 Mar 2022 09:28:25 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- c4-20020adfed84000000b001e5b8d5b8dasm20457807wro.36.2022.03.01.09.28.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Mar 2022 09:28:24 -0800 (PST)
-Message-ID: <5f481315-021c-39d6-8c6c-91918851ab13@linaro.org>
-Date: Tue, 1 Mar 2022 17:28:22 +0000
+ dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com
+ header.b="PuP2Nuoq"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="EDVGv6yE"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 668835801CF;
+ Tue,  1 Mar 2022 12:36:34 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 01 Mar 2022 12:36:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm3; bh=5OE8xr6GO9X7MbNpDAcWFGeEO3b3B/8LX5WMVM
+ 23luQ=; b=PuP2NuoqB9WepsjY0Uqokte1F02OSePW/KnqWPOHGfC62jDMQy8d6J
+ jihmHY7jaxPeYmV/brYSLMo2rdd0E65RFIbVZNaw+d6hF5TlV5h/HTFiyyQeuhEh
+ tTvMohVc8vJzz2F3uGXDhJ11n60AMBcwryX0OIQ4h4vBoJz9sXnQjtTWmMBfJvV8
+ ASNImP/JJmHc6aQngUkaR/9ejN6V67gkY3Ss3hOhMxZ05fa2rytR+8neryd7GnHR
+ NnoILjHkJCXbghnuIwO3WAIr0wjFgm+H99CgrlgjXtrJoB87p0eZTz8QaQ9jXLS7
+ eUmDU4ThQ2iD/GAcK9q8FPfYZ3dj5Siw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=5OE8xr6GO9X7MbNpD
+ AcWFGeEO3b3B/8LX5WMVM23luQ=; b=EDVGv6yEMy7PTbky8OfXVA9jYKh0oiM5+
+ sk6xt1CX3smAZYI0P9oaKzOCIkwMemVmh9foKoLwOV/IyVUBTTJc+ljLrovpUDdP
+ pIA4BCkMgcGpU96mM/8o9zjz4bY87GlxWmxlUETAhWUvR7QqjYOuAQqLjAz9vvM2
+ 9w41DE+muRcTBgXgq7R5mX2xPAK9bu7QEmldC6d/UhIWw84PgZEMMUkVZDfimvGr
+ 9rb1WTZ4HmbXffSgmjvpYAD0fz3a3kb/jxO9vzcKzkIUx9MDQUxolnVJ5gWPPm0P
+ 3SACLLdt3Ji3p4//lVUF9os4MIANF8EQiUgikZ8An4R/ZWSxaE7Og==
+X-ME-Sender: <xms:oFkeYrv0LJt2Pjt0ZOYMYd1jCK6G-Z0GZXtRlOiCbijoVlbqDToesg>
+ <xme:oFkeYsdRXoRXAxTjhPFWtM5JX8rU2-dsIwxZfpFocA89gDBFD4vx9xsWmcbxEuUyQ
+ lpRakwPpYLi7A>
+X-ME-Received: <xmr:oFkeYuzzdQb5kL72Vvj74Xn0xRRyhzff8uvNHTyUqFsrLF_56anw9-ykyIbZGqAzSj0KTqXLBgC1Qf0KKdPZ7IM>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddruddtvddguddttdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghg
+ ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepveeuhe
+ ejgfffgfeivddukedvkedtleelleeghfeljeeiueeggeevueduudekvdetnecuvehluhhs
+ thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorg
+ hhrdgtohhm
+X-ME-Proxy: <xmx:oFkeYqNP0oPgoNRpau1EsmnsGvsi8MuHt5Oau7Uh5DcasQw65k9YTg>
+ <xmx:oFkeYr8eoBRonSMDQgE0d2CdwAX12XsrowbLGxOxF_rvtS3YwiTEgg>
+ <xmx:oFkeYqVNxx7WBcYUGhcHc73BR9KI7xEAuh9FjZrqFDwJGYsF_7MqUw>
+ <xmx:olkeYkWtK93reuC1fg-f2X2RrUvR780eGtvCg6vOtajRgdiJ73bSmQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Mar 2022 12:36:31 -0500 (EST)
+Date: Tue, 1 Mar 2022 18:36:27 +0100
+From: Greg KH <greg@kroah.com>
+To: Jakob Koschel <jakobkoschel@gmail.com>
+Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
+ as a ptr
+Message-ID: <Yh5ZmwiH5AxtQ69K@kroah.com>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-3-jakobkoschel@gmail.com>
+ <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
+ <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
+ <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
+ <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
+ <FC710A1A-524E-481B-A668-FC258F529A2E@gmail.com>
+ <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
+ <CEDAD0D9-56EE-4105-9107-72C2EAD940B0@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v3 10/11] slimbus: qcom-ngd: Fix kfree() of static memory
- on setting driver_override
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Stuart Yoder <stuyoder@gmail.com>,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>, Abel Vesa <abel.vesa@nxp.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Peter Oberparleiter <oberpar@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Andy Gross <agross@kernel.org>,
- Mark Brown <broonie@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, NXP Linux Team <linux-imx@nxp.com>,
- linux-arm-kernel@lists.infradead.org, linux-hyperv@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-spi@vger.kernel.org,
- virtualization@lists.linux-foundation.org,
- Linus Torvalds <torvalds@linux-foundation.org>
-References: <20220227135214.145599-1-krzysztof.kozlowski@canonical.com>
- <20220227135329.145862-4-krzysztof.kozlowski@canonical.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220227135329.145862-4-krzysztof.kozlowski@canonical.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CEDAD0D9-56EE-4105-9107-72C2EAD940B0@gmail.com>
 X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:33 +0100
-Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>, stable@vger.kernel.org
+Cc: linux-wireless <linux-wireless@vger.kernel.org>,
+ alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
+ linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev, "Bos,
+ H.J." <h.j.bos@vu.nl>, Jason Gunthorpe <jgg@ziepe.ca>,
+ intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
+ bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ Linux PM <linux-pm@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ v9fs-developer@lists.sourceforge.net,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
+ linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
+ tipc-discussion@lists.sourceforge.net,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,55 +161,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 27/02/2022 13:53, Krzysztof Kozlowski wrote:
-> The driver_override field from platform driver should not be initialized
-> from static memory (string literal) because the core later kfree() it,
-> for example when driver_override is set via sysfs.
+On Tue, Mar 01, 2022 at 12:28:15PM +0100, Jakob Koschel wrote:
 > 
-> Use dedicated helper to set driver_override properly.
 > 
-> Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-
-LGTM,
-
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
-> ---
->   drivers/slimbus/qcom-ngd-ctrl.c | 13 ++++++++++++-
->   1 file changed, 12 insertions(+), 1 deletion(-)
+> > On 1. Mar 2022, at 01:41, Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> > 
+> > On Mon, Feb 28, 2022 at 1:47 PM Jakob Koschel <jakobkoschel@gmail.com> wrote:
+> >> 
+> >> The goal of this is to get compiler warnings right? This would indeed be great.
+> > 
+> > Yes, so I don't mind having a one-time patch that has been gathered
+> > using some automated checker tool, but I don't think that works from a
+> > long-term maintenance perspective.
+> > 
+> > So if we have the basic rule being "don't use the loop iterator after
+> > the loop has finished, because it can cause all kinds of subtle
+> > issues", then in _addition_ to fixing the existing code paths that
+> > have this issue, I really would want to (a) get a compiler warning for
+> > future cases and (b) make it not actually _work_ for future cases.
+> > 
+> > Because otherwise it will just happen again.
+> > 
+> >> Changing the list_for_each_entry() macro first will break all of those cases
+> >> (e.g. the ones using 'list_entry_is_head()).
+> > 
+> > So I have no problems with breaking cases that we basically already
+> > have a patch for due to  your automated tool. There were certainly
+> > more than a handful, but it didn't look _too_ bad to just make the
+> > rule be "don't use the iterator after the loop".
+> > 
+> > Of course, that's just based on that patch of yours. Maybe there are a
+> > ton of other cases that your patch didn't change, because they didn't
+> > match your trigger case, so I may just be overly optimistic here.
 > 
-> diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-> index 7040293c2ee8..e5d9fdb81eb0 100644
-> --- a/drivers/slimbus/qcom-ngd-ctrl.c
-> +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-> @@ -1434,6 +1434,7 @@ static int of_qcom_slim_ngd_register(struct device *parent,
->   	const struct of_device_id *match;
->   	struct device_node *node;
->   	u32 id;
-> +	int ret;
->   
->   	match = of_match_node(qcom_slim_ngd_dt_match, parent->of_node);
->   	data = match->data;
-> @@ -1455,7 +1456,17 @@ static int of_qcom_slim_ngd_register(struct device *parent,
->   		}
->   		ngd->id = id;
->   		ngd->pdev->dev.parent = parent;
-> -		ngd->pdev->driver_override = QCOM_SLIM_NGD_DRV_NAME;
-> +
-> +		ret = driver_set_override(&ngd->pdev->dev,
-> +					  &ngd->pdev->driver_override,
-> +					  QCOM_SLIM_NGD_DRV_NAME,
-> +					  strlen(QCOM_SLIM_NGD_DRV_NAME));
-> +		if (ret) {
-> +			platform_device_put(ngd->pdev);
-> +			kfree(ngd);
-> +			of_node_put(node);
-> +			return ret;
-> +		}
->   		ngd->pdev->dev.of_node = node;
->   		ctrl->ngd = ngd;
->   
+> Based on the coccinelle script there are ~480 cases that need fixing
+> in total. I'll now finish all of them and then split them by
+> submodules as Greg suggested and repost a patch set per submodule.
+> Sounds good?
+
+Sounds good to me!
+
+If you need help carving these up and maintaining them over time as
+different subsystem maintainers accept/ignore them, just let me know.
+Doing large patchsets like this can be tough without a lot of
+experience.
+
+thanks,
+
+greg k-h

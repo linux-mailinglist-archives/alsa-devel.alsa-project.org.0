@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC9AF4CA026
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 09:59:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BF674CA029
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 10:00:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FE362013;
-	Wed,  2 Mar 2022 09:59:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FE362013
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39F5020DD;
+	Wed,  2 Mar 2022 09:59:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39F5020DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646211597;
-	bh=qFifPF35a27ig2L4/OyAUzqdq4TFybp9dI09iY2ELEY=;
+	s=default; t=1646211615;
+	bh=8P6Kqh8f0Nqdhi/Tup0+tyIsCu16OfiE/FZKrZV3pnc=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UC6tpYhWoDgp1oe2l/iH7lLCGmnqLARlwXeDNP1/rUJslDfDo1/qjDT8K24IgywOj
-	 QXLARb4DYT7uE7WM4HzxmjAMU+0ct77f9DJZNUZ7ut+enWbrOTu7hZ9n5rea7/afWh
-	 7E5kMYmjR7KY8EmBmuYHUbwXuWkcY6qiWTKxzdz4=
+	b=fR0TVnmvqxxF/KsENqJmyVz89V19tHdwhcLCpjSHBijH2tWQObulStTGvdFoaEcTS
+	 9m0cvvNgTBr/5gIdkGYwdYR6vpYaemp+hXkLf5//91MMJYc0jPwBZv4sSOHFuL3DAD
+	 CGjcAmjX9Gvoo0NwQ2qJE3Z12n/OIWEFyJWJTb30=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38355F80856;
+	by alsa1.perex.cz (Postfix) with ESMTP id CD23CF8085A;
 	Wed,  2 Mar 2022 09:34:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73225F80227; Tue,  1 Mar 2022 20:07:16 +0100 (CET)
+ id 11819F80475; Tue,  1 Mar 2022 20:42:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43CE5F80054
- for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 20:07:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43CE5F80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7276F80054
+ for <alsa-devel@alsa-project.org>; Tue,  1 Mar 2022 20:42:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7276F80054
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=linux-foundation.org
- header.i=@linux-foundation.org header.b="NEmpYuhx"
-Received: by mail-lf1-x12f.google.com with SMTP id g39so28456923lfv.10
- for <alsa-devel@alsa-project.org>; Tue, 01 Mar 2022 11:07:09 -0800 (PST)
+ header.i=@linux-foundation.org header.b="MSgmT6lR"
+Received: by mail-lf1-x12e.google.com with SMTP id t13so16659965lfd.9
+ for <alsa-devel@alsa-project.org>; Tue, 01 Mar 2022 11:42:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux-foundation.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+FYbGAw6yxU17iUDUp61Ry7f+ZSO9wN0ehJ+hGfk2DQ=;
- b=NEmpYuhxkY3jphhiKwB9rL7CFHETV0OarciDwH/Y25b8gogpFDGLbcsm2Hp5JlhbRM
- fgLdNaX0z1k1bpDTdAa2T+xhPoQGBlkWInAyVtxomjmoWydKKz6S1Vw5P8QyPxUNcXPG
- O8s4ZVUjpR1ZVkG2oqZOMI9ApgRXI/RsyC5iE=
+ :cc; bh=PzY8tILS7/J5BzJfiKLdBDXy8/s4RAHqODI+UdY57jc=;
+ b=MSgmT6lRet0jPev3NhT8poLSNE2IuVKHhTmnMdindDPsxNrbDdzPrkBSaT4BauMeD+
+ LWq3ALR2NImH9IAbyg/9Mpz0DLX1H3V94a1gLKACC1HvSqM9EwtH2Km4ZUYlkqLoZgsQ
+ ZV7jqWBOB7cCGsim0JopuTtvt6tgng/ReKRwg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=+FYbGAw6yxU17iUDUp61Ry7f+ZSO9wN0ehJ+hGfk2DQ=;
- b=2oYmQdzevGIiXwsy2L+mbFpydowkyP5LewpSai2kAT/Sz8JytdUftU+8FgPyiSSYx7
- l/lHZONrVM4XuNl/GjnFujAiKJRyktJ1c3obAjAjsrUUAaLCX7L4Y2RwLTnPYEVD6zDM
- 9sqWpvw6A7SToNB7axO+CsmgQLV1/AX/55cVYEh4F5/wdef0fgXwqkBphmNgwIoqji2t
- QKUrGl26T3eulfsyp9IpjdXbwQ8epcQ/dvpvpqLF9VfQ4r0iM6Mx/OR9KUkRI7v+Ednv
- P4VxtBD7Muf/Hr0T6eBCFVEmSQfm074TKIfOQZVgO5O1uNwHT1KFO7nigbvgjJCDR9+o
- fvsQ==
-X-Gm-Message-State: AOAM531nh8b9DEFULANLtljuJi/mvcnpkjXKWrZEYqwWmQ6kRTaY7vPf
- JWHaX/4jzNvrfCEnGe+OYGUrBIB0CyZGMl0JozI=
-X-Google-Smtp-Source: ABdhPJxV08YAjaxn7D3DJk0qgbO0Hp51gVBB7ML9lObDBhX0QWcsdv6hpsNKp4vqH26TZCq+hSwI5w==
-X-Received: by 2002:a05:6512:287:b0:443:7f1d:e8ed with SMTP id
- j7-20020a056512028700b004437f1de8edmr16272617lfp.321.1646161628098; 
- Tue, 01 Mar 2022 11:07:08 -0800 (PST)
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com.
- [209.85.208.180]) by smtp.gmail.com with ESMTPSA id
- g13-20020a2ea4ad000000b0023382d8819esm2062841ljm.69.2022.03.01.11.07.02
+ bh=PzY8tILS7/J5BzJfiKLdBDXy8/s4RAHqODI+UdY57jc=;
+ b=fmUqvA6+tMfbe29SwSAaEEAwwR30Rq3I1XCkK2wkOU5vZpUorj3rK97t1TRSwsm9dv
+ b9xq1xP/tIS4OsagecGwYNQgtkDeX85orjhTpQtn6UD/wzjYnQQAQgTUzlzT/hqLLJFl
+ Uxtgcaycjd8j8pj0649D7RPp9GrK5XxVp5/zZ1wBEkaPwjr+NaG7CIiPD7OrAbUardi5
+ jRKoEUDLcoK9pX/humqQma7ZT/EvQ/piInLgvoUpFbwn4TVQ36ElaLJUs7MjchlJ1tW3
+ xSBZ+ZNeKsCRgjTsD8az6/rT69BHzWh8QdXp6+2wFqNnB9BWKxIEDK9Bf5O204734gHG
+ D75g==
+X-Gm-Message-State: AOAM531IHg7V6G9p971o0j3X701jY3EkHiiDMHC9bm24lYhDASm2EHaS
+ eBAZYAO7Gmw1ixmQ1l5yDIoVaFVclasFWy8eoFQ=
+X-Google-Smtp-Source: ABdhPJyMeVagP4/XYKbfoqOhBGkGKGv6qiilx64Se5yXBPa+fVRyYzrKsnXpPvYEVs135XCqTDKbUA==
+X-Received: by 2002:a19:dc08:0:b0:444:366:10c4 with SMTP id
+ t8-20020a19dc08000000b00444036610c4mr16091076lfg.556.1646163767299; 
+ Tue, 01 Mar 2022 11:42:47 -0800 (PST)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com.
+ [209.85.208.181]) by smtp.gmail.com with ESMTPSA id
+ x6-20020ac259c6000000b004435e105572sm1636100lfn.131.2022.03.01.11.42.43
  for <alsa-devel@alsa-project.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Mar 2022 11:07:04 -0800 (PST)
-Received: by mail-lj1-f180.google.com with SMTP id v28so23130301ljv.9
- for <alsa-devel@alsa-project.org>; Tue, 01 Mar 2022 11:07:02 -0800 (PST)
+ Tue, 01 Mar 2022 11:42:44 -0800 (PST)
+Received: by mail-lj1-f181.google.com with SMTP id u11so23291069lju.4
+ for <alsa-devel@alsa-project.org>; Tue, 01 Mar 2022 11:42:43 -0800 (PST)
 X-Received: by 2002:a2e:3013:0:b0:246:2ca9:365e with SMTP id
- w19-20020a2e3013000000b002462ca9365emr17902580ljw.291.1646161622598; Tue, 01
- Mar 2022 11:07:02 -0800 (PST)
+ w19-20020a2e3013000000b002462ca9365emr17983151ljw.291.1646163763108; Tue, 01
+ Mar 2022 11:42:43 -0800 (PST)
 MIME-Version: 1.0
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
  <20220228110822.491923-3-jakobkoschel@gmail.com>
@@ -87,11 +87,12 @@ References: <20220228110822.491923-1-jakobkoschel@gmail.com>
  <b2d20961dbb7533f380827a7fcc313ff849875c1.camel@HansenPartnership.com>
  <7D0C2A5D-500E-4F38-AD0C-A76E132A390E@kernel.org>
  <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
-In-Reply-To: <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
+ <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
+In-Reply-To: <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 1 Mar 2022 11:06:45 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
-Message-ID: <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
+Date: Tue, 1 Mar 2022 11:42:26 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wghQygmASNUWj=LZn5FR5wsce2osyR6EXcfEB_FaX_6Og@mail.gmail.com>
+Message-ID: <CAHk-=wghQygmASNUWj=LZn5FR5wsce2osyR6EXcfEB_FaX_6Og@mail.gmail.com>
 Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
  as a ptr
 To: James Bottomley <James.Bottomley@hansenpartnership.com>
@@ -149,54 +150,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Feb 28, 2022 at 2:29 PM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
+On Tue, Mar 1, 2022 at 11:06 AM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> However, if the desire is really to poison the loop variable then we
-> can do
->
-> #define list_for_each_entry(pos, head, member)                          \
->         for (pos = list_first_entry(head, typeof(*pos), member);        \
->              !list_entry_is_head(pos, head, member) && ((pos = NULL) == NULL;                   \
->              pos = list_next_entry(pos, member))
->
-> Which would at least set pos to NULL when the loop completes.
+> So instead of that simple "if (!entry)", we'd effectively have to
+> continue to use something that still works with the old world order
+> (ie that "if (list_entry_is_head())" model).
 
-That would actually have been excellent if we had done that
-originally. It would not only avoid the stale and incorrectly typed
-head entry left-over turd, it would also have made it very easy to
-test for "did I find an entry in the loop".
+Just to prove my point about how this is painful, that doesn't work at all.
 
-But I don't much like it in the situation we are now.
+If the loop iterator at the end is NULL (good, in theory), we can't
+use "list_entry_is_head()" to check whether we ended. We'd have to use
+a new thing entirely, to handle the "list_for_each_entry() has the
+old/new semantics" cases.
 
-Why? Mainly because it basically changes the semantics of the loop
-_without_ any warnings about it.  And we don't actually get the
-advantage of the nicer semantics, because we can't actually make code
-do
+That's largely why I was pushing for the "let's make it impossible to
+use the loop iterator at all outside the loop". It avoids the
+confusing case, and the patches to move to that stricter semantic can
+be merged independently (and before) doing the actual semantic change.
 
-        list_for_each_entry(entry, ....) {
-                ..
-        }
-        if (!entry)
-                return -ESRCH;
-        .. use the entry we found ..
+I'm not saying my suggested approach is wonderful either. Honestly,
+it's painful that we have so nasty semantics for the end-of-loop case
+for list_for_each_entry().
 
-because that would be a disaster for back-porting, plus it would be a
-flag-day issue (ie we'd have to change the semantics of the loop at
-the same time we change every single user).
+The minimal patch would clearly be to keep those broken semantics, and
+just force everybody to use the list_entry_is_head() case. That's the
+"we know we messed up, we are too lazy to fix it, we'll just work
+around it and people need to be careful" approach.
 
-So instead of that simple "if (!entry)", we'd effectively have to
-continue to use something that still works with the old world order
-(ie that "if (list_entry_is_head())" model).
+And laziness is a virtue. But bad semantics are bad semantics. So it's
+a question of balancing those two issues.
 
-So we couldn't really take _advantage_ of the nicer semantics, and
-we'd not even get a warning if somebody does it wrong - the code would
-just silently do the wrong thing.
-
-IOW: I don't think you are wrong about that patch: it would solve the
-problem that Jakob wants to solve, and it would have absolutely been
-much better if we had done this from the beginning. But I think that
-in our current situation, it's actually a really fragile solution to
-the "don't do that then" problem we have.
-
-              Linus
+               Linus

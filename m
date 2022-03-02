@@ -2,80 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACCBF4CA5A5
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 14:13:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F298B4CA62E
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 14:41:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E5331F54;
-	Wed,  2 Mar 2022 14:12:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E5331F54
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81DFC1DE1;
+	Wed,  2 Mar 2022 14:40:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81DFC1DE1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646226786;
-	bh=HH6BcwYmzPzwuwKnKZ0uOj8l/hGrP7oWeQFG40wMCR8=;
+	s=default; t=1646228498;
+	bh=6q2kRdswExBAa2xgwYObFAs5vGYmm8B9taGuz5HLlXw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BociKT73vmIP9nBr4DLPMWlRr/Y3s7BFedXNc/+pqubUFFprLY2NCwl2ORKg3meNz
-	 uo49vqKiu7Ry+jXDT4wdB1JNZzl5GL3dRc/bP3Ntc0bL7PC/pI+peoLoXJEfhoAJuX
-	 bs7pRtDoYxp7S4x7yjmMQKfSkcqTujT2aeHlK2os=
+	b=mLdhJgxWgnMfIXnd896WTuEDJID3IWeY+T/2rElFaSefLiQQ58yZdv9u19FiADR3H
+	 zJGtk+1ImoQiAVKe6mHh73mfePUtJic7E66waWcwbammRNfPUqZQC1vyQiHA+ycwyM
+	 5wORvCpgGPgyC7zoa5OHfRCdn5c2WKDcA6hwFkOQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DA41F80054;
-	Wed,  2 Mar 2022 14:11:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D096BF804AC;
+	Wed,  2 Mar 2022 14:40:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED58CF80167; Wed,  2 Mar 2022 14:11:55 +0100 (CET)
+ id B71ACF80054; Wed,  2 Mar 2022 14:40:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB9DEF80167
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 14:11:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB9DEF80167
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AB7b86DM"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CD588B81FE8;
- Wed,  2 Mar 2022 13:11:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC00C004E1;
- Wed,  2 Mar 2022 13:11:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646226710;
- bh=HH6BcwYmzPzwuwKnKZ0uOj8l/hGrP7oWeQFG40wMCR8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AB7b86DM0maYg6oUioxF6IsG2D78ibFRMHYQtGUaAThypyBCQPiC+Yp1QLmd+aY59
- DjhpLzgknEwstFtzZ0YaONUO+7jHKxBuq8W5uu0ARQ9Ydurr0U0bNTQuf4CVo7bCjN
- 2iaPBE9uxEHmwAic4FL23lJ8dv6GDxuHvYsZwUWQIu+c8f/G7jsGYtv6BVXwnkvNfM
- jgmiFmKQqDRzh6dVA73NJdN78+GKEGGpX9/O+sy7DUMvIsayh9hGBCacVX0lty/xNu
- wX46l6xR5x+rwCV1nT71gXlkMNHpnqdFsEgTCNyagrgauxogT5yrFjdEY98Xg3du4n
- XgnoLG0mdvpBw==
-Date: Wed, 2 Mar 2022 13:11:45 +0000
-From: Mark Brown <broonie@kernel.org>
-To: "Yang.Lee" <yang.lee@linux.alibaba.com>
-Subject: Re: =?utf-8?B?5Zue5aSN77yaW1BBVENIIC1uZXh0?=
- =?utf-8?Q?=5D_ASoC=3A_amd?= =?utf-8?Q?=3A?= Fix an ignored error return from
- platform_get_irq_byname()
-Message-ID: <Yh9tEYtfKTBIICQS@sirena.org.uk>
-References: <20220301064920.37788-1-yang.lee@linux.alibaba.com>
- <Yh4UGGuspsc/gAyY@sirena.org.uk>
- <53306907-c963-4740-9a90-c1249ba0dff4.yang.lee@linux.alibaba.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8DD65F80054
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 14:40:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DD65F80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="art1XNi3"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 222CLnEh014849;
+ Wed, 2 Mar 2022 07:40:19 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=+ZHXvfB4+x5sXa1tYzjh7at6YCaVtS1TQokImGO6/U4=;
+ b=art1XNi3skDpM/2pyDTn7p/ES/4BUFe5soXDHLNkGKwPu41eqxjRRDYh23M+Hsv/ZJ5J
+ LzZaAj+yAv99YwvENqkX8N/5bjTUmbFukb6YV+wgqw4pg58YTimVVYZyW3WrRRycDTv0
+ WuXlD1H1hMGBXLAcTIQzem+xVfzYEGs+D2pfd1DRdxswUyW2XCFN+kK2haZdYh59fx3Y
+ gNaAP23TRAwH9BtXps6Rdbyh2BgUeCPCbXzRY/R+vR1oxE4S/8Pgu5dqQggOZ/+uLjkY
+ 6MJPueAIQkCD+TiTX/H6cPCr30ts3rKhDB2BEUDWXzqmdl7HV9ev6WECEenFs04kIaML IA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3eh5bq2kw9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 02 Mar 2022 07:40:19 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 2 Mar
+ 2022 13:40:17 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Wed, 2 Mar 2022 13:40:17 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2EF597C;
+ Wed,  2 Mar 2022 13:40:17 +0000 (UTC)
+Date: Wed, 2 Mar 2022 13:40:17 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Martin Kepplinger <martin.kepplinger@puri.sm>
+Subject: Re: [PATCH] wm8962: add a simple DMIC enable control
+Message-ID: <20220302134017.GL38351@ediswmail.ad.cirrus.com>
+References: <20220202133511.GB18506@ediswmail.ad.cirrus.com>
+ <62ee89792a3f8921b4aad4d47f4db0bf2adb33f0.camel@puri.sm>
+ <20220203110518.GF18506@ediswmail.ad.cirrus.com>
+ <7b3306d7a80f605973c932a0a4679bcac067ae8a.camel@puri.sm>
+ <20220204172116.GG18506@ediswmail.ad.cirrus.com>
+ <fca54f527f619e21c19918ed3165d9ec8f85f6f6.camel@puri.sm>
+ <20220207142129.GB112838@ediswmail.ad.cirrus.com>
+ <20220301134441.GK38351@ediswmail.ad.cirrus.com>
+ <b867e8d576536907d383e66f85afee995074b53b.camel@puri.sm>
+ <ebede30e994b8178c4a929814c7f85739656c621.camel@puri.sm>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="X6e1+/WO22PbXzdY"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <53306907-c963-4740-9a90-c1249ba0dff4.yang.lee@linux.alibaba.com>
-X-Cookie: The sheep died in the wool.
-Cc: alsa-devel <alsa-devel@alsa-project.org>, tangmeng <tangmeng@uniontech.com>,
- Abaci Robot <abaci@linux.alibaba.com>, tiwai <tiwai@suse.com>,
- lgirdwood <lgirdwood@gmail.com>, linux-kernel <linux-kernel@vger.kernel.org>
+In-Reply-To: <ebede30e994b8178c4a929814c7f85739656c621.camel@puri.sm>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: IgL7BZZZhX6_aNLDUHeuK1Zq9G8kNQun
+X-Proofpoint-ORIG-GUID: IgL7BZZZhX6_aNLDUHeuK1Zq9G8kNQun
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, kernel@puri.sm, patches@opensource.cirrus.com,
+ tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org, geert@glider.be,
+ daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,43 +109,101 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Mar 02, 2022 at 12:48:28PM +0100, Martin Kepplinger wrote:
+> Am Dienstag, dem 01.03.2022 um 15:00 +0100 schrieb Martin Kepplinger:
+> > Am Dienstag, dem 01.03.2022 um 13:44 +0000 schrieb Charles Keepax:
+> > > On Mon, Feb 07, 2022 at 02:21:29PM +0000, Charles Keepax wrote:
+> > > > On Mon, Feb 07, 2022 at 11:49:32AM +0100, Martin Kepplinger
+> > > > > Am Freitag, dem 04.02.2022 um 17:21 +0000 schrieb Charles
+> > > > > > On Fri, Feb 04, 2022 at 10:43:53AM +0100, Martin Kepplinger
+> > that's really nice of you to ask. Sorry for not replying earlier.
+> > Mainly cset "name='MIXINR PGA Volume' 0,0" made things much better
+> > indeed. I took a break from this then and the issue is still open,
+> > here:
+> > https://source.puri.sm/Librem5/librem5-base/-/merge_requests/296
+> > or if you want to look at the current ucm file:
+> > https://source.puri.sm/Librem5/librem5-base/-/blob/bb48912242dd0db1f35c6de8425984414c6d37bb/default/audio/ucm2/Librem_5/HiFi.conf
+> > 
+> > As you know I'm no expert with the codec and this definitely can be
+> > improved: When visualizing the signal, it doesn't look "good" yet and
+> > the signal strength seems to only go to 50% of the available scale
+> > (in
+> > the gnome volume setting). Actually I'll talk about this to Guido
+> > tomorrow and even though it is kind of usable now, I hope to that we
+> > can come up with a profile that we're preliminarliy happy with.
+> Let me forward the commit message I just did for the ucm settings here,
+> now that I have a *bit* of an overview of the codec:
+> 
+> There are 3 Volume controls for the analog parts, all before the ADC.
+> In order from Jack to ADC, they are:
+> 
+> numid=10,iface=MIXER,name='Capture Volume'
+>    ; type=INTEGER,access=rw---R--,values=2,min=0,max=63,step=0
+>    : values=63,63
+>    | dBscale-min=-23.25dB,step=0.75dB,mute=0
+> 
+> "Input PGA Volume Control". 31=0dB. We use 39=+6dB.
+> 
+> numid=7,iface=MIXER,name='MIXINR PGA Volume'
+>    ; type=INTEGER,access=rw---R--,values=1,min=0,max=7,step=0
+>    : values=7
+>    | dBrange-
+>      rangemin=0,,rangemax=1
+>        | dBscale-min=0.00dB,step=6.00dB,mute=0
+>      rangemin=2,,rangemax=2
+>        | dBscale-min=13.00dB,step=13.00dB,mute=0
+>      rangemin=3,,rangemax=4
+>        | dBscale-min=18.00dB,step=2.00dB,mute=0
+>      rangemin=5,,rangemax=5
+>        | dBscale-min=24.00dB,step=0.00dB,mute=0
+>      rangemin=6,,rangemax=7
+>        | dBscale-min=27.00dB,step=3.00dB,mute=0
+> 
+> "Right input PGA to Right input Boost-Mixer Gain"
+> 0=0dB. we use 1=+3dB.
+> 
+> 
+> numid=8,iface=MIXER,name='MIXINR IN3R Volume'
+>   ; type=INTEGER,access=rw---R--,values=1,min=0,max=7,step=0
+>   : values=6
+>   | dBscale-min=-15.00dB,step=3.00dB,mute=0
+> 
+> 5=0dB. we use 6=+3dB. That's a later amplifier, "Boost-Mixer Gain".
+> 
+> ("quotes" are from the datasheet)
+> 
+> Still, the recording sounds pretty good I think, but since gnome sound-
+> recording doesn't visualize the signal waves - whatever that means :)
+> I'll look at the file in audacity or something similar later.
+> 
 
---X6e1+/WO22PbXzdY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Yeah I have been having a look at your patch you linked. I think
+there are still maybe a couple things I am not sure on. I would
+try removing these two lines:
 
-On Wed, Mar 02, 2022 at 09:17:21AM +0800, Yang.Lee wrote:
+cset "name='MIXINR IN3R Switch' on"
+cset "name='MIXINR IN3R Volume' 6"
 
-Please don't top post, reply in line with needed context.  This allows
-readers to readily follow the flow of conversation and understand what
-you are talking about and also helps ensure that everything in the
-discussion is being addressed.
+I am pretty sure we want to be using the PGA path here. If you
+check Figure 13 in the datasheet, you can route IN3R to
+MIXINR either through the IN3R input or through the PGA input.
+I suspect we want to come through the PGA. Using the IN3R path
+should mean the PGA volume has no effect, it is effectively
+bypassing the PGA. You may need to also add:
 
-> The function dev_err_probe() is called in function platform_get_irq_byname() to print the error code.
+cset "name='MIXINR PGA Switch' on"
 
-That doesn't seem at all relevant to the error code being returned which
-is what the review feedback was about:
+Although your previous control dumps had that input set
+on. I suspect if you have both enabled you will get some slightly
+weird effects, there is probably a slightly phase delay through
+the PGA and there won't be on the direct path, so when they mix
+together it will likely sound weird.
 
-> > If an error code is being returned we should report that error code
-> > rather than squashing it down to -ENODEV.
+Hopefully that gets us to a clean signal. The settings described
+in your commit message give +9dB analogue gain which seems
+reasonable to me, and from the patch itself looks like you have
++15dB digital gain, which feels a little high but not total
+unreasonable.
 
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
-
---X6e1+/WO22PbXzdY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIfbRAACgkQJNaLcl1U
-h9BNxwf9EbCJYEIUuEHT4sfAEoL+oFQovgYwW1G0unYzJ5kgO0t0NXEDRVx7Yo/S
-O63wumrjLCGoIgofpYa0xJ2WtnBAe5LchcLCdFo5GrwLvrgMHtup4lAWo8ZfiJc6
-DynyIUycZcdmlz9XqPIvsaZ8sUNHV83BtpwtgLT5QtJtmhQwqaLnYDdWJh2A3CE9
-R4DkZejr7792OHDjHsoEUB93DqcPjUhvY6tDbQvcwEBNnv48YOS+lw9V7vGRKQFa
-pQZrOeo5OeV29WOJPFo1LbL4WExvAXOpQoCr17YXrfP3LeQ061gsFLvCAfvZOH34
-YjL5Td+BT4IYahRiNjh8i90DKi1VeA==
-=qTYQ
------END PGP SIGNATURE-----
-
---X6e1+/WO22PbXzdY--
+Thanks,
+Charles

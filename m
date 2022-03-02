@@ -2,66 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E714C9A53
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 02:18:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCE1B4C9A7D
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 02:37:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0128518C6;
-	Wed,  2 Mar 2022 02:17:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0128518C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E6C7193B;
+	Wed,  2 Mar 2022 02:36:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E6C7193B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646183924;
-	bh=nIvvaem+k+6hnx/ohPtVgwNDvGvdINIt+iVn6LJ7TVU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=HOhrZn7LmTtCHDS+lquz8B8vu9Tmar5qmm5+GEs1pmrTDtVI1c+HKv+nxzsbu7hRw
-	 EeeSg99ylneUG3Bl43mEg9z7n2UFGLn9zbZuRAweaYY+550ZBqja2Hs7YEzYby8tBK
-	 lM5Wrx5abcOL+ftnHB5H7eX6tfWjRTx2rQsKbKas=
+	s=default; t=1646185025;
+	bh=opmbzsqmBiZ/FFZoI3HXvFp45v3SoeNkJ5Uwxrmt+hQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=A4C5P/uPo7VBnVHEZTHR97+I6EL5mwPecIm4suO6cZ9XneqrMezAGsD6R+DRAjkrp
+	 ZqLPbHqW2agOFxCoDbJHK8CFsqiJQ4zeGAcROBrhNXyA0UNjuYaJdpmK+rSxZSwLjV
+	 KVoW5jF5Lzw3jOz/1oUqNECelUEE/dkKXzv2xFZE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59915F80054;
-	Wed,  2 Mar 2022 02:17:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA004F802D2;
+	Wed,  2 Mar 2022 02:35:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7EA1F80227; Wed,  2 Mar 2022 02:17:34 +0100 (CET)
+ id EA63DF80227; Wed,  2 Mar 2022 02:35:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
  SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from out30-45.freemail.mail.aliyun.com
- (out30-45.freemail.mail.aliyun.com [115.124.30.45])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84825F80054
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 02:17:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84825F80054
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R481e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04407; MF=yang.lee@linux.alibaba.com;
- NM=1; PH=DW; RN=8; SR=0; TI=W4_0.1.10_DEFAULT_21281DB5_1646183748019_o7001c92l;
-Received: from WS-web
- (yang.lee@linux.alibaba.com[W4_0.1.10_DEFAULT_21281DB5_1646183748019_o7001c92l])
- by e01e07461.eu6 at Wed, 02 Mar 2022 09:17:21 +0800
-Date: Wed, 02 Mar 2022 09:17:21 +0800
-From: "Yang.Lee" <yang.lee@linux.alibaba.com>
-To: "Mark Brown" <broonie@kernel.org>
-Message-ID: <53306907-c963-4740-9a90-c1249ba0dff4.yang.lee@linux.alibaba.com>
-Subject: =?UTF-8?B?5Zue5aSN77yaW1BBVENIIC1uZXh0XSBBU29DOiBhbWQ6IEZpeCBhbiBpZ25vcmVkIGVycm9y?=
- =?UTF-8?B?IHJldHVybiBmcm9tIHBsYXRmb3JtX2dldF9pcnFfYnluYW1lKCk=?=
-X-Mailer: [Alimail-Mailagent][W4_0.1.10][DEFAULT][Chrome]
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0783DF80054
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 02:35:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0783DF80054
+X-UUID: 66b5d979f953409ca628dad6f38cac4f-20220302
+X-UUID: 66b5d979f953409ca628dad6f38cac4f-20220302
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1145418492; Wed, 02 Mar 2022 09:35:37 +0800
+Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 2 Mar 2022 09:35:36 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb02.mediatek.inc
+ (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 2 Mar 2022 09:35:36 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 2 Mar 2022 09:35:35 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>
+Subject: [v2] ASoC: bt-sco: fix bt-sco-pcm-wb dai widget don't connect to the
+ endpoint
+Date: Wed, 2 Mar 2022 09:35:33 +0800
+Message-ID: <20220302013533.29068-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220301064920.37788-1-yang.lee@linux.alibaba.com>,
- <Yh4UGGuspsc/gAyY@sirena.org.uk>
-x-aliyun-mail-creator: W4_0.1.10_DEFAULT_TCwTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzkxLjAuNDQ3Mi4xMjQgU2FmYXJpLzUzNy4zNiBFZGcvOTEuMC44NjQuNjQ=FR
-In-Reply-To: <Yh4UGGuspsc/gAyY@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel <alsa-devel@alsa-project.org>, tangmeng <tangmeng@uniontech.com>,
- Abaci Robot <abaci@linux.alibaba.com>, tiwai <tiwai@suse.com>,
- lgirdwood <lgirdwood@gmail.com>, linux-kernel <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,26 +80,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: "Yang.Lee" <yang.lee@linux.alibaba.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VGhlIGZ1bmN0aW9uIGRldl9lcnJfcHJvYmUoKSBpcyBjYWxsZWQgaW4gZnVuY3Rpb24gcGxhdGZv
-cm1fZ2V0X2lycV9ieW5hbWUoKSB0byBwcmludCB0aGUgZXJyb3IgY29kZS4KLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCuWP
-keS7tuS6uu+8mk1hcmsgQnJvd24gPGJyb29uaWVAa2VybmVsLm9yZz4K5Y+R6YCB5pe26Ze077ya
-MjAyMuW5tDPmnIgx5pelKOaYn+acn+S6jCkgMjA6NDAK5pS25Lu25Lq677yaWWFuZyBMaSA8eWFu
-Zy5sZWVAbGludXguYWxpYmFiYS5jb20+CuaKhOOAgOmAge+8mmxnaXJkd29vZCA8bGdpcmR3b29k
-QGdtYWlsLmNvbT47IHBlcmV4IDxwZXJleEBwZXJleC5jej47IHRpd2FpIDx0aXdhaUBzdXNlLmNv
-bT47IHRhbmdtZW5nIDx0YW5nbWVuZ0B1bmlvbnRlY2guY29tPjsgYWxzYS1kZXZlbCA8YWxzYS1k
-ZXZlbEBhbHNhLXByb2plY3Qub3JnPjsgbGludXgta2VybmVsIDxsaW51eC1rZXJuZWxAdmdlci5r
-ZXJuZWwub3JnPjsgQWJhY2kgUm9ib3QgPGFiYWNpQGxpbnV4LmFsaWJhYmEuY29tPgrkuLvjgIDp
-opjvvJpSZTogW1BBVENIIC1uZXh0XSBBU29DOiBhbWQ6IEZpeCBhbiBpZ25vcmVkIGVycm9yIHJl
-dHVybiBmcm9tIHBsYXRmb3JtX2dldF9pcnFfYnluYW1lKCkKCk9uIFR1ZSwgTWFyIDAxLCAyMDIy
-IGF0IDAyOjQ5OjIwUE0gKzA4MDAsIFlhbmcgTGkgd3JvdGU6Cgo+IC0gYWRhdGEtPmkyc19pcnEg
-PSBwbGF0Zm9ybV9nZXRfaXJxX2J5bmFtZShwZGV2LCAiYWNwX2RhaV9pcnEiKTsKPiAtIGlmIChh
-ZGF0YS0+aTJzX2lycSA8IDApCj4gKyBhZGF0YS0+aTJzX2lycSA9IHJldCA9IHBsYXRmb3JtX2dl
-dF9pcnFfYnluYW1lKHBkZXYsICJhY3BfZGFpX2lycSIpOwo+ICsgaWYgKHJldCA8IDApCj4gICAg
-cmV0dXJuIC1FTk9ERVY7CgpJZiBhbiBlcnJvciBjb2RlIGlzIGJlaW5nIHJldHVybmVkIHdlIHNo
-b3VsZCByZXBvcnQgdGhhdCBlcnJvciBjb2RlCnJhdGhlciB0aGFuIHNxdWFzaGluZyBpdCBkb3du
-IHRvIC1FTk9ERVYuCgo=
+This patch fix the second dai driver's dai widget can't connect to the
+endpoint. Because "bt-sco-pcm" and "bt-sco-pcm-wb" dai driver have the
+same stream_name, so it will cause they have the same widget name.
+Therefor it will just create only one route when do snd_soc_dapm_add_route
+that only find the widget through the widget name.
+
+Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+---
+
+Change from v1:
+   fix build error
+
+Hi maintainer,
+   Need your comments. The patch is the one that I think it makes the
+   most sense. Maybe we can define the new stream_name for
+   "bt-sco-pcm-wb" and add the new route.
+
+ sound/soc/codecs/bt-sco.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/bt-sco.c b/sound/soc/codecs/bt-sco.c
+index 4d286844e3c8..cf17b9741bd8 100644
+--- a/sound/soc/codecs/bt-sco.c
++++ b/sound/soc/codecs/bt-sco.c
+@@ -13,11 +13,15 @@
+ static const struct snd_soc_dapm_widget bt_sco_widgets[] = {
+ 	SND_SOC_DAPM_INPUT("RX"),
+ 	SND_SOC_DAPM_OUTPUT("TX"),
++	SND_SOC_DAPM_AIF_IN("BT_SCO_RX", "Playback", 0,
++			    SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("BT_SCO_TX", "Capture", 0,
++			     SND_SOC_NOPM, 0, 0),
+ };
+ 
+ static const struct snd_soc_dapm_route bt_sco_routes[] = {
+-	{ "Capture", NULL, "RX" },
+-	{ "TX", NULL, "Playback" },
++	{ "BT_SCO_TX", NULL, "RX" },
++	{ "TX", NULL, "BT_SCO_RX" },
+ };
+ 
+ static struct snd_soc_dai_driver bt_sco_dai[] = {
+-- 
+2.25.1
+

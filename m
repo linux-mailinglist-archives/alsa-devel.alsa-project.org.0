@@ -2,74 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AB0D4CAB18
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 18:04:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DB294CAB27
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 18:08:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02B441F9D;
-	Wed,  2 Mar 2022 18:03:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02B441F9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A0A71B3E;
+	Wed,  2 Mar 2022 18:07:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A0A71B3E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646240653;
-	bh=0XIBIVlUzZNiW/2J+5FrMjaWIJoPwfNBGNfX1p4g7uE=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HU4m7ZUigOIPHSai+yKhID4eZiREJoJ2SBn3iusUtxrXJDAMjCpAniIpX+0iwft3c
-	 xrlKRvCTgzimAsNnNPiTmapQdel1gg/aSbJ1BasG/B+U2pIxNkAmVsFSQLFUsljzj0
-	 UzOwehm2ZuxBWo7kJ+NSGN9dzinc3kgt1ooWqloQ=
+	s=default; t=1646240922;
+	bh=QDKA6RrsLaVuvxcm74QDUNrY6jyiLZPiUjMLBNmHh5Q=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aEj6Wgwrlq6QvjoOtGh9gKIIVSawlMJmYGZMk7KbXeucOuDokMk9kYW128eR/YQAS
+	 98wSVDuvaRBdpSxELV7bbQBrMbFJihFAu/VS51Nr0ya8dK73W6lRuMT1x7vuRMpgr4
+	 ez/Uhwxrv7ri8DhGIpwDGA3w2HKSwxIEiZKXDa2A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 141C7F80538;
-	Wed,  2 Mar 2022 18:01:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A36AF8027D;
+	Wed,  2 Mar 2022 18:07:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 469E6F80537; Wed,  2 Mar 2022 18:01:10 +0100 (CET)
+ id 08106F801D5; Wed,  2 Mar 2022 18:07:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 914CAF8052D
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 18:01:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 914CAF8052D
+ by alsa1.perex.cz (Postfix) with ESMTPS id C26E7F80154
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 18:07:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C26E7F80154
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KuzO4xe8"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6D3DA618F2;
- Wed,  2 Mar 2022 17:01:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA8EC340ED;
- Wed,  2 Mar 2022 17:01:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646240463;
- bh=0XIBIVlUzZNiW/2J+5FrMjaWIJoPwfNBGNfX1p4g7uE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=KuzO4xe83teRijjwcU5153XYI8/9bWjyHIfUI0RwU8trrtTNsjRUV4LQT83jV3nCx
- oOOFwU/pIZ+AekJNWJRb+Jaj+sS0IxmKtQuItYIXlXtPTORjLW4ozhkx55Lu7SIa3O
- sndj6x6Bp0i5Ab0C71Jx2lOJFDHKtutWX4Dxsw4OztQ1W4FrEq+RoIPT2Zl/Gzioj8
- Ufa9Tbil37Yl/VQq1OVB2ns7RbrGDj2W3HVIDAz6iO4mg1RE45eRhVkA56Z/7kTLbg
- kAOhmmKMcNh2byOk1RWOpdqVnIoFqPfzkUIdOEU26HEPKKV/4e2hpF2lcHxMjgN9f9
- GH25Ccjt5/BIw==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
-References: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/8] ASoC: Intel: machine driver updates for 5.18
-Message-Id: <164624046291.1145067.12252402808107543597.b4-ty@kernel.org>
-Date: Wed, 02 Mar 2022 17:01:02 +0000
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="hOrlpj9w"
+Received: by mail-wr1-x435.google.com with SMTP id u10so2188115wra.9
+ for <alsa-devel@alsa-project.org>; Wed, 02 Mar 2022 09:07:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+FBEODWlEwE4ZBpRu4pszv+L75J4ftu6Yw0by+ZcvnE=;
+ b=hOrlpj9wIqQtiZ2iI5gabtXozHts++6EWfoyBCd9XE7smYEqH0D0OVdiWv1pcyWOmv
+ drF40iR0EnF9vCeXmIYqfPop33M7aHpNtmCzSt5le3/11zOqSeexGyBz8MgQ4WEPa5oI
+ IAkV+2cfB3IjRsBMxueIpgamXDtArN4GOSuNjFxfLz7eFSSMx7HDIJrnb/ZruGVPRQqm
+ JuXSGImYl/NJQlq9JmPQ6uAcc6mnjQS0l7Y1oTTVRL9RQWBTmnnBopCO4aH4quRq43/G
+ dc2kmxA0iGAwtQmMN6z3smEFOwKvl/1qLFFuPzojfYWvmcG8HPgoK2q2CCBdNQ2VmTBc
+ 0fUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+FBEODWlEwE4ZBpRu4pszv+L75J4ftu6Yw0by+ZcvnE=;
+ b=JNXmHIS1Z3yquejnMQlbVlYzmm/J8YLSyHGFNX0/mSpBZUao2/xpDlqWL4o0x/4qKQ
+ Y54h/qPhaFmAB+fvAU7Bj51CA3SY7AEYmAiycDs3fC4P6JpEK8EDzAi/gbN6qWsoR5CB
+ knkt2+ooDc0ZYUgCw/6kS1NjEjWsMtxErjwhCVf0bkdFc7/26kxRuaFJVhdKgYAKr32v
+ ahJt4cjjM8H45+xYf1K1fOIEMa3MSXJQIBsW55FvH1cnym/045xBrYp61LvY9bnjsfp8
+ Ao4krCInPzU+25mc+3iJXG1NpJY5nQKZjEgWVC5AXtHPq/EjS5nWtAQPmoFY1ZVCRGQn
+ 6s2w==
+X-Gm-Message-State: AOAM531KILPyZlc2+BGXsb9hLFbDx6RWlQ4cIfpL2PF2k5PF9By8hrMr
+ PI5RXxacL5w6nxIjKqeYJmk=
+X-Google-Smtp-Source: ABdhPJyDPnbwGRm/gHFADgHnG9mY1P7DvsXiSdJn8zqflakPBj5aWX46fD1EGCCM5wnDqY8YQSkV6A==
+X-Received: by 2002:adf:f201:0:b0:1ed:c254:c1a2 with SMTP id
+ p1-20020adff201000000b001edc254c1a2mr23485713wro.106.1646240849938; 
+ Wed, 02 Mar 2022 09:07:29 -0800 (PST)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ l15-20020a05600c4f0f00b0037d62a899b1sm6651200wmq.6.2022.03.02.09.07.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Mar 2022 09:07:29 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: echoaudio: remove redundant assignment to variable bytes
+Date: Wed,  2 Mar 2022 17:07:28 +0000
+Message-Id: <20220302170728.1094633-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de
+Cc: llvm@lists.linux.dev, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,58 +101,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 1 Mar 2022 13:48:55 -0600, Pierre-Louis Bossart wrote:
-> Two cleanups to remove an unused filename and typos, and one addition
-> of an ACPI matching table for a Dell SoundWire SKU without local
-> microphones.
-> 
-> The main change is the addition of a common 'sof-ssp-amp' machine
-> driver for devices with amplifiers only (no headset codec) and
-> different connections using I2S links (Bluetooth offload, HDMI
-> receiver). It's likely that the amplifier will be swapped out by OEMs,
-> this machine driver provides a relatively generic solution to avoid
-> copy-paste of similar solutions.
-> 
-> [...]
+The variable bytes is being assigned a value that is never read, it
+is being re-assigned inside a following if block. The assignment is
+redundant and can be removed.
 
-Applied to
+Cleans up clang scan build warning:
+sound/pci/echoaudio/midi.c:211:9: warning: Although the value stored
+to 'bytes' is used in the enclosing expression, the value is never
+actually read from 'bytes' [deadcode.DeadStores]
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ sound/pci/echoaudio/midi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks!
+diff --git a/sound/pci/echoaudio/midi.c b/sound/pci/echoaudio/midi.c
+index cb72d27e809e..7be5c3327b16 100644
+--- a/sound/pci/echoaudio/midi.c
++++ b/sound/pci/echoaudio/midi.c
+@@ -208,7 +208,7 @@ static void snd_echo_midi_output_write(struct timer_list *t)
+ 
+ 	/* No interrupts are involved: we have to check at regular intervals
+ 	if the card's output buffer has room for new data. */
+-	sent = bytes = 0;
++	sent = 0;
+ 	spin_lock_irqsave(&chip->lock, flags);
+ 	chip->midi_full = 0;
+ 	if (!snd_rawmidi_transmit_empty(chip->midi_out)) {
+-- 
+2.34.1
 
-[1/8] ASoC: soc-acpi: remove sof_fw_filename
-      commit: a6264056b39ee0c478e1d73bfc40f61a8cf3673f
-[2/8] ASoC: Intel: boards: fix spelling in comments
-      commit: f1eebb3bf707b267bd8ed945d00a81c8ca31bd73
-[3/8] ASoC: Intel: add RT1308 I2S machine driver and HDMI-in capture via I2S support.
-      commit: da793fb0f56c0a53d0d461d80d9c1936a39afc30
-[4/8] ASoC: Intel: boards: create sof-realtek-common module
-      commit: e1d5e13324020c4b405e63cae34560c7992bec2e
-[5/8] ASoC: Intel: sof_rt1308: move rt1308 code to common module
-      commit: 024979b67b392569dde3f9294f9b66651d2c0a93
-[6/8] ASoC: Intel: cirrus-common: support cs35l41 amplifier
-      commit: 709ec7bec6b34ee136fff4b1b5265baaae7319a3
-[7/8] ASoC: Intel: sof_ssp_amp: rename driver and support cs35l41 amplifier
-      commit: 2fe14ff61bd6d4fabe313435dd378b5a38eb6102
-[8/8] ASoC: Intel: soc-acpi: add entries in ADL match table
-      commit: c4dcd7100c26881b1095d5b2651d61190fc5f247
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

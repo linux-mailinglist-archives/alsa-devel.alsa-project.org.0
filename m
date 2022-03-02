@@ -2,62 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AFBF4CA033
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 10:02:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F45E4CA036
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 10:02:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4F2C21D4;
-	Wed,  2 Mar 2022 10:01:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4F2C21D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15F7F2229;
+	Wed,  2 Mar 2022 10:01:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15F7F2229
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646211744;
-	bh=LHjgZz1Rx4keVm5nChYt85f676VLQikAEOG8PuK5p60=;
+	s=default; t=1646211761;
+	bh=2mmj0TWLm2W7cxuzBm4uSKeuTZ9NMMhXiXSJNbuiKKc=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cJvAuE5sEejfv0hqImalr8oplre8S8Pp5w5bQhsT2zzE6nvnf27/mlNrKYyT4iPH0
-	 KCvVc2JvmMcR6d1XZEtFh+G/bMLi3f1rLYjMnPrrH3mSHIUstBwh+Y9kzsECHY2xuy
-	 VziJWWLNUNq0QwzmWwidEhbElD5qCW1ksGW53lUY=
+	b=NQzPWpeyAjt5ItkeaPnyy/2L9ZFI9dfXYyweNF2ENjWo5lFxXT6qb7REpd7WEts16
+	 3jWxQ9SQ4Cg501qGfc13rXPQMH3+4OGphkaWs8ZGiETZfh27KcM1/C/RnCxjVOPuLw
+	 nZc4CDwQJfpI8SVT3kqK1pGiyM8GiGyLDMyfWsjw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8124BF80C07;
-	Wed,  2 Mar 2022 09:34:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05268F80C0F;
+	Wed,  2 Mar 2022 09:34:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7669F801D5; Wed,  2 Mar 2022 08:43:01 +0100 (CET)
+ id 0376FF80167; Wed,  2 Mar 2022 09:15:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A0C0F80167
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 08:42:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A0C0F80167
-X-QQ-mid: bizesmtp83t1646206969ta5kjd02
+ by alsa1.perex.cz (Postfix) with ESMTPS id 872B2F80167
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 09:15:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 872B2F80167
+X-QQ-mid: bizesmtp77t1646208909tozdlr7p
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 02 Mar 2022 15:42:45 +0800 (CST)
+ id ; Wed, 02 Mar 2022 16:15:04 +0800 (CST)
 X-QQ-SSF: 0140000000200060D000B00A0000000
-X-QQ-FEAT: zD6y7hNAcUD/3wlbXio0BPozXLW9pL5wqWTOA31Jq7oAQZTipKOvJ3Bz/j2Gu
- pu2ZdhZWaTpg61ZMNTAK1g1tiLYdkOraCID8c3xAb5akGX74hFGKu+HIXtN4WCLxQ8gIvmi
- fefR57OKk5FvSIbwSR0o7KoUtwT7iWO5V8eutYr2fdOiP0nPQT3gkqYB65NYABfKr0HmNW7
- 1kNNbWhNJlB/3A9KCcyB2uKe+eFFPGR0gi/7gZmv3Fs+CWQuQolUcScoVCn3cam0ys3in+Y
- wzJJH9saXlDGfwUvyUY+PXmhKoZWt/Wpffe4c0aE0nEFzitJIk0s70Q9fCxuUq1tYsmVKKH
- tfpB+c92fBFl6kwwqHDStp4EXZzk53iar2HcQer
+X-QQ-FEAT: 5MyhjOca6cU9yUHIx9no9FannyNiVghnXH98EgzPBbBOKRtYKGMkPzrxP6ZcP
+ SfPZp5NObV+KqN/0JwIfl/Shg3ay3rpsjTqRMbdyT1839CS/uvOzRyZJI9wHHhPvFPWrBPL
+ U31gkgtSJUxKsHEWOFuBgxtXzpCXay5/qIB0oSbTrxoZj8FDKGaJOO7iU5N3M0WUJEihT0+
+ /sOpEzyeCJHI6PV2NKWwCmWm74aU5RgYWBOzr94xzWt6oQKA2RdkkGLvPNI4VXQrkMlEKFy
+ xSpL+MRvgKiP1lFAYX1xXCcpNdPBdqWOlnM2Rgs8+17MW6hdcU97KK/RTRqBfIa0q4sLc47
+ VvXuG5M1B5nOHOMHqCJeTYXduLYsS/fzbfmY9lY
 X-QQ-GoodBg: 2
 From: Zhen Ni <nizhen@uniontech.com>
-To: perex@perex.cz,
+To: broonie@kernel.org,
+	perex@perex.cz,
 	tiwai@suse.com
-Subject: [PATCH] ALSA: intel_hdmi: Fix reference to PCM buffer address
-Date: Wed,  2 Mar 2022 15:42:41 +0800
-Message-Id: <20220302074241.30469-1-nizhen@uniontech.com>
+Subject: [PATCH] ASoC: amd: use asoc_substream_to_rtd()
+Date: Wed,  2 Mar 2022 16:15:02 +0800
+Message-Id: <20220302081502.25367-1-nizhen@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign6
 X-QQ-Bgrelay: 1
 X-Mailman-Approved-At: Wed, 02 Mar 2022 09:33:35 +0100
 Cc: Zhen Ni <nizhen@uniontech.com>, alsa-devel@alsa-project.org,
@@ -77,30 +78,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PCM buffers might be allocated dynamically when the buffer
-preallocation failed or a larger buffer is requested, and it's not
-guaranteed that substream->dma_buffer points to the actually used
-buffer.  The driver needs to refer to substream->runtime->dma_addr
-instead for the buffer address.
+Uses asoc_substream_to_rtd() helper.
 
 Signed-off-by: Zhen Ni <nizhen@uniontech.com>
 ---
- sound/x86/intel_hdmi_audio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/amd/vangogh/acp5x-mach.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/x86/intel_hdmi_audio.c b/sound/x86/intel_hdmi_audio.c
-index 1c94eaff1931..4a3ff6468aa7 100644
---- a/sound/x86/intel_hdmi_audio.c
-+++ b/sound/x86/intel_hdmi_audio.c
-@@ -1261,7 +1261,7 @@ static int had_pcm_mmap(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/amd/vangogh/acp5x-mach.c b/sound/soc/amd/vangogh/acp5x-mach.c
+index 14cf325e4b23..f2c32e5ed24f 100644
+--- a/sound/soc/amd/vangogh/acp5x-mach.c
++++ b/sound/soc/amd/vangogh/acp5x-mach.c
+@@ -101,7 +101,7 @@ static const struct snd_pcm_hw_constraint_list constraints_channels = {
+ static int acp5x_8821_startup(struct snd_pcm_substream *substream)
  {
- 	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
- 	return remap_pfn_range(vma, vma->vm_start,
--			substream->dma_buffer.addr >> PAGE_SHIFT,
-+			substream->runtime->dma_addr >> PAGE_SHIFT,
- 			vma->vm_end - vma->vm_start, vma->vm_page_prot);
- }
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct acp5x_platform_info *machine = snd_soc_card_get_drvdata(card);
  
+@@ -119,7 +119,7 @@ static int acp5x_8821_startup(struct snd_pcm_substream *substream)
+ static int acp5x_nau8821_hw_params(struct snd_pcm_substream *substream,
+ 				   struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct snd_soc_dai *codec_dai =
+ 			snd_soc_card_get_codec_dai(card,
+@@ -141,7 +141,7 @@ static int acp5x_nau8821_hw_params(struct snd_pcm_substream *substream,
+ static int acp5x_cs35l41_startup(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct acp5x_platform_info *machine = snd_soc_card_get_drvdata(card);
+ 
+@@ -158,7 +158,7 @@ static int acp5x_cs35l41_startup(struct snd_pcm_substream *substream)
+ static int acp5x_cs35l41_hw_params(struct snd_pcm_substream *substream,
+ 				   struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct snd_soc_dai *codec_dai;
+ 	int ret, i;
 -- 
 2.20.1
 

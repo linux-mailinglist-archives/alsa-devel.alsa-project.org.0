@@ -2,86 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B9C4CB76C
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 08:06:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B3C84CB771
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 08:06:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85C211939;
-	Thu,  3 Mar 2022 08:05:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85C211939
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F8221A00;
+	Thu,  3 Mar 2022 08:06:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F8221A00
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646291194;
-	bh=+zgxtLk+dfPgBQrgB52waUtMNEkXQ03m+IyU5C9fZ4c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1646291212;
+	bh=DL5vRNcM9aJ5Ee/SCMrOl6kP/WBfCGqRrazJ05EWnmg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DYaFr6BtDDDeys0dO1AdrPi1nxydKKlMjRktrxCqqktSQHJJM0PIHS8lkElp++tyq
-	 jJHlk7zcutUdt7cCdsFo/etpPRo+5A8VRu6oslYyt7CeQFOHT0zMeZw5Zn+vUQdEbA
-	 ImLtN0Vn0JXTiktSLGZPyHWMy9KF8p6guQrfCl/g=
+	b=BJFWwdpYamG4fR85/L25ZcDV0TPGT4XzPdGvP+uljcVP6qDPT47VL1v/FFeOgdhhA
+	 5EZdosXqlXYaxLPAAC8184o4BzcoFm2O99hCi8RdhaoQlt2M+zNnZph6hEE6jrZkxy
+	 cCpobf2KSLDo2Jj0oKiPV2PRkS6MWTE4R8MCgzbs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEA7FF80533;
-	Thu,  3 Mar 2022 08:03:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6876F80534;
+	Thu,  3 Mar 2022 08:03:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D13EBF801D5; Wed,  2 Mar 2022 21:25:35 +0100 (CET)
+ id 409EDF801D5; Wed,  2 Mar 2022 21:59:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
+ [IPv6:2607:f8b0:4864:20::52f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9CFBFF80054
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 21:25:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CFBFF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76BAAF80054
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 21:59:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76BAAF80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linux-foundation.org
- header.i=@linux-foundation.org header.b="Be+smD91"
-Received: by mail-ej1-x631.google.com with SMTP id pj17so1816358ejb.2
- for <alsa-devel@alsa-project.org>; Wed, 02 Mar 2022 12:25:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Uy+qIY61mUv01aVZ77KYqcI4VQ6CnEr5ehBFaIlKwdg=;
- b=Be+smD91jIehBxsphVP8GxPmG9fZ7UzsziFVI8sCcayH4ghcjVwFadN69qX3SSZZfA
- w/nKcppYscRVDTynDM99u+3Int1mDvzuW1vHPoDdJ+8JxYLDdH7+xaY9DZL7COnmW4q3
- yEVm7FisHcBkdW7xwzBny/SyDipBoZU1ONqUc=
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="d2ZFN7Fz"
+Received: by mail-pg1-x52f.google.com with SMTP id o23so2638061pgk.13
+ for <alsa-devel@alsa-project.org>; Wed, 02 Mar 2022 12:59:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=R/oQqieG0aXWXHs93Td97reRxAIjZoSgBmUtDJFVhjU=;
+ b=d2ZFN7FzXJICmnX4Tyt0wAx0nHny3V7g7RBF7BzoFi4JqvMjvTlFe6r9CSmtZHYpfY
+ sI7cCbacBhQSn0c2nYjk/wWGRSWn9quhJSSynH9lMYRKPPdVW/LYlF+HQ4F3tfS4GoN+
+ rfxT6gA9HHGJJFfNnOWheyqKpysRyPxkd0f8U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Uy+qIY61mUv01aVZ77KYqcI4VQ6CnEr5ehBFaIlKwdg=;
- b=3oSrU62qTDpHxRbIF47aDhLyNrV5kVS/cY3rDjcHyifoy9lLW2oylVtveFBCoHn/Wv
- nGczX2i9F/y5OScV7wFe6czyHHhpKwcGdSF8zMQn4nmrQWpU2Qu4DAzROVQvZO+KMJ1p
- OX//PzA6RaVcCvwEb75IfoyHPcoaaDqGVopdO9knLjMdNpxgiTg6zBKh+ffrXcoCXBHK
- NVY7HEmauOOUxVPpIzXck7KcrwgOlDs4ik+dBg/n0e36of/KrSSlHXPZRyowXWxu6Vf3
- s6CxyuQW48jfrQFS4xgWx/1Vyfnpgrv+vqCzC5RWQy5B9A1Fv7yc8AnebLGer8vPbK2v
- yaVA==
-X-Gm-Message-State: AOAM532t6dYwTudBoBdVvCrNwp8wP4vj9fz+YQDynMMGp3e0JYpFWOVm
- 0OlgrDYF8TpbOpelPMt/wuApXfuvjjxNw1D437I=
-X-Google-Smtp-Source: ABdhPJxgSKrNBx0LlcHTPu/LA87LvSEKVVBf1ZAjg5Z/0/lIqMrbVvM8S7ZDVUDOUITuy4CDqyT/gQ==
-X-Received: by 2002:a17:906:c282:b0:6ce:369d:3d5 with SMTP id
- r2-20020a170906c28200b006ce369d03d5mr24291017ejz.425.1646252731386; 
- Wed, 02 Mar 2022 12:25:31 -0800 (PST)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com.
- [209.85.218.45]) by smtp.gmail.com with ESMTPSA id
- z22-20020a05640240d600b00415d8c59bf5sm10954edb.25.2022.03.02.12.25.31
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Mar 2022 12:25:31 -0800 (PST)
-Received: by mail-ej1-f45.google.com with SMTP id r13so6221751ejd.5
- for <alsa-devel@alsa-project.org>; Wed, 02 Mar 2022 12:25:31 -0800 (PST)
-X-Received: by 2002:a2e:3013:0:b0:246:2ca9:365e with SMTP id
- w19-20020a2e3013000000b002462ca9365emr21092331ljw.291.1646252342192; Wed, 02
- Mar 2022 12:19:02 -0800 (PST)
-MIME-Version: 1.0
-References: <282f0f8d-f491-26fc-6ae0-604b367a5a1a@amd.com>
- <b2d20961dbb7533f380827a7fcc313ff849875c1.camel@HansenPartnership.com>
- <7D0C2A5D-500E-4F38-AD0C-A76E132A390E@kernel.org>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=R/oQqieG0aXWXHs93Td97reRxAIjZoSgBmUtDJFVhjU=;
+ b=LTf+MZRN+Yu0GfN+FvsJyrnLJHG/pm1pXzjxWDVI8YRnFJqMMv4ZmcFBLSm1gjojOc
+ /oH//piqJYuNyDK5DIhCj2iazvjHlUB346OVLvstoqqhgRHCuBayiLIeqKPnsaVu5FS2
+ l3vQ97IjsCRZQFOXBPwowjT8XzB28Aljc0ssEA3NdxxMVYeaX0jqzabGL968JBlkawQC
+ ax3kXQSq2sag8vZkFuF8qPA5dvuYqGxN34hiutw8X/GYRMyyk1o1BV9j6v/iVG6Z8PSX
+ BuK+geikcXlvQ+jLCZ1EzTR8BjAgxGPOkNoZ3yvS7zK7a5JQCGUerFaWy1RjwKn4fHpC
+ RRZw==
+X-Gm-Message-State: AOAM531YAao0GhnKlN8uOVBedD+HCtYGJyyf6kn33IlAkgQftNLBO/v5
+ mPbfnTo46xhYNAqHSHWUvHAnPg==
+X-Google-Smtp-Source: ABdhPJwV5Vftpu3BNFYOd1YAI3xcgBfQbmCq2DPnKYT59xnVma61vCMoUamoUdgwMbiUWTPibOctJw==
+X-Received: by 2002:a63:595e:0:b0:378:b203:a74e with SMTP id
+ j30-20020a63595e000000b00378b203a74emr13280856pgm.328.1646254769698; 
+ Wed, 02 Mar 2022 12:59:29 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id
+ z9-20020a655a49000000b00373459df190sm58337pgs.35.2022.03.02.12.59.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Mar 2022 12:59:29 -0800 (PST)
+Date: Wed, 2 Mar 2022 12:59:28 -0800
+From: Kees Cook <keescook@chromium.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
+ as a ptr
+Message-ID: <202203021256.69D7C4BCA6@keescook>
+References: <7D0C2A5D-500E-4F38-AD0C-A76E132A390E@kernel.org>
  <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
  <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
  <7dc860874d434d2288f36730d8ea3312@AcuMS.aculab.com>
@@ -90,16 +87,12 @@ References: <282f0f8d-f491-26fc-6ae0-604b367a5a1a@amd.com>
  <CAHk-=wix0HLCBs5sxAeW3uckg0YncXbTjMsE-Tv8WzmkOgLAXQ@mail.gmail.com>
  <78ccb184-405e-da93-1e02-078f90d2b9bc@rasmusvillemoes.dk>
  <202203021158.DB5204A0@keescook>
-In-Reply-To: <202203021158.DB5204A0@keescook>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 2 Mar 2022 12:18:45 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wikKPC0LUqZ8++EC5JOvGdBqVH9uUaTX=DvBioDoReYww@mail.gmail.com>
-Message-ID: <CAHk-=wikKPC0LUqZ8++EC5JOvGdBqVH9uUaTX=DvBioDoReYww@mail.gmail.com>
-Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-To: Kees Cook <keescook@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 03 Mar 2022 08:03:25 +0100
+ <CAHk-=wikKPC0LUqZ8++EC5JOvGdBqVH9uUaTX=DvBioDoReYww@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wikKPC0LUqZ8++EC5JOvGdBqVH9uUaTX=DvBioDoReYww@mail.gmail.com>
+X-Mailman-Approved-At: Thu, 03 Mar 2022 08:03:24 +0100
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
  "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
@@ -150,7 +143,7 @@ Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -167,24 +160,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Mar 2, 2022 at 12:07 PM Kees Cook <keescook@chromium.org> wrote:
->
-> I've long wanted to change kfree() to explicitly set pointers to NULL on
-> free. https://github.com/KSPP/linux/issues/87
+On Wed, Mar 02, 2022 at 12:18:45PM -0800, Linus Torvalds wrote:
+> On Wed, Mar 2, 2022 at 12:07 PM Kees Cook <keescook@chromium.org> wrote:
+> >
+> > I've long wanted to change kfree() to explicitly set pointers to NULL on
+> > free. https://github.com/KSPP/linux/issues/87
+> 
+> We've had this discussion with the gcc people in the past, and gcc
+> actually has some support for it, but it's sadly tied to the actual
+> function name (ie gcc has some special-casing for "free()")
+> 
+> See
+> 
+>     https://gcc.gnu.org/bugzilla/show_bug.cgi?id=94527
+> 
+> for some of that discussion.
+> 
+> Oh, and I see some patch actually got merged since I looked there last
+> so that you can mark "deallocator" functions, but I think it's only
+> for the context matching, not for actually killing accesses to the
+> pointer afterwards.
 
-We've had this discussion with the gcc people in the past, and gcc
-actually has some support for it, but it's sadly tied to the actual
-function name (ie gcc has some special-casing for "free()")
+Ah! I missed that getting added in GCC 11. But yes, there it is:
 
-See
+https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-malloc-function-attribute
 
-    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=94527
+Hah, now we may need to split __malloc from __alloc_size. ;)
 
-for some of that discussion.
+I'd still like the NULL assignment behavior, though, since some things
+can easily avoid static analysis.
 
-Oh, and I see some patch actually got merged since I looked there last
-so that you can mark "deallocator" functions, but I think it's only
-for the context matching, not for actually killing accesses to the
-pointer afterwards.
-
-               Linus
+-- 
+Kees Cook

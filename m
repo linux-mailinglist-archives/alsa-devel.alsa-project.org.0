@@ -2,68 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E90E74CA043
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 10:05:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 697E54CA04C
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 10:07:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A4DF280B;
-	Wed,  2 Mar 2022 10:04:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A4DF280B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14D212036;
+	Wed,  2 Mar 2022 10:06:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14D212036
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646211922;
-	bh=NxYN1oordxpdXD0Ik2hAvGSyeoB6n/Vgs9LHQeQsUHk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646212021;
+	bh=TbOjfJP7owQYjz/QFfaLGyYmZDVe2S0f0Ly0PZ/1kpY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hdVNyVTXXXTXz6lwF6SLA4Ottu1HjXP9Xp2VnhyWNY0QCV72Ihz1JLjHsxJ6ZfRKe
-	 L8rjjRzf3oX2yqqI58WE0q0wzJZJ+g+cG1zefD+UMpIqeHSMF6M7N4P0okkISJOi9L
-	 lfkfCm4ZbbqC/pOYVS/v2vQD/52HDynIgMFd5/HU=
+	b=BTvv6YKSUWFS4JFIxz8BXfASRCpakgx7hxXogS+pWqX7QmEP4V+tzvVYFzKEMR5/x
+	 guAFTMNGnTDScs0SW+9G8MBARWDsp26mTC3IECdQNEqWvIIOCbMQVSkBylmApBLMBX
+	 HNECOKao7Utlnl16xSHWzHc5LYoxgHOHM1N5Udzo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAE36F896EF;
-	Wed,  2 Mar 2022 09:34:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E37DEF8051F;
+	Wed,  2 Mar 2022 09:42:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4952AF80CB5; Wed,  2 Mar 2022 09:34:45 +0100 (CET)
+ id 4D30FF8051E; Wed,  2 Mar 2022 09:42:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A22CF8087A
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 09:34:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A22CF8087A
-Received: from dude02.hi.pengutronix.de ([2001:67c:670:100:1d::28])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1nPKRL-0005uY-F5; Wed, 02 Mar 2022 09:34:31 +0100
-Received: from sha by dude02.hi.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <sha@pengutronix.de>)
- id 1nPKRK-00Fxnj-FQ; Wed, 02 Mar 2022 09:34:30 +0100
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 7/7] ASoC: fsl_sai: implement 1:1 bclk:mclk ratio support
-Date: Wed,  2 Mar 2022 09:34:28 +0100
-Message-Id: <20220302083428.3804687-8-s.hauer@pengutronix.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220302083428.3804687-1-s.hauer@pengutronix.de>
-References: <20220302083428.3804687-1-s.hauer@pengutronix.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::28
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: Ahmad Fatoum <a.fatoum@pengutronix.de>, kernel@pengutronix.de,
- Xiubo Li <Xiubo.Lee@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- Viorel Suman <viorel.suman@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78867F8051A
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 09:42:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78867F8051A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Kd57vTKB"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="xm5o95a9"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 047EE21891;
+ Wed,  2 Mar 2022 08:42:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1646210559; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7OEc+86Wj7TOh2lWHRyn2kRMrJ9Obay5DZsjIv1lXvg=;
+ b=Kd57vTKBMiZiAUc0y4w/cEpsNb3qpxi+0ui+aAci0BJLYZQxN/SOGF5s7jALQnrldp/Mfe
+ cvVur3THn2K/9QMfizpv5oiHflMKVVb1iBQdmA9RbPGX9t9Fn/2jDOpFAGNYKdmJiG87Jj
+ CQCREjrHQNQx2vXfCXkq4tD/nITE2rs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1646210559;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7OEc+86Wj7TOh2lWHRyn2kRMrJ9Obay5DZsjIv1lXvg=;
+ b=xm5o95a9kGsAtOSm4q8DCa+Xd6oQSoz2wv59Z7c1AcKrLi7iYRsC9J3wjytKdAawAvnVqZ
+ +2FXOCHTKyz0jUDw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C1339A3B81;
+ Wed,  2 Mar 2022 08:42:38 +0000 (UTC)
+Date: Wed, 02 Mar 2022 09:42:38 +0100
+Message-ID: <s5ho82ooidd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: SPeak Shen <speakshen@163.com>
+Subject: Re: [PATCH] Documentation: sound: fix typo in control-names.rst
+In-Reply-To: <20220227145204.16600-1-speakshen@163.com>
+References: <20220227145204.16600-1-speakshen@163.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, corbet@lwn.net, linux-doc@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,61 +92,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+On Sun, 27 Feb 2022 15:52:04 +0100,
+SPeak Shen wrote:
+> 
+> From: Sunrisepeak <speakshen@163.com>
+> 
+> change 'cannel' to 'channel'
+> 
+> Signed-off-by: Sunrisepeak <speakshen@163.com>
 
-With higher channel counts, we may need higher clock rates.  Starting
-with SAI v3.1 (i.MX8MM), we can bypass the divider and get a 1:1
-bclk:mclk ratio. Add the necessary support.
+Thanks, applied.
 
-Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
-Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- sound/soc/fsl/fsl_sai.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 818bb982427f8..0845f50735248 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -347,6 +347,7 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
- 	int adir = tx ? RX : TX;
- 	int dir = tx ? TX : RX;
- 	u32 id;
-+	bool support_1_1_ratio = sai->verid.version >= 0x0301;
- 
- 	/* Don't apply to consumer mode */
- 	if (sai->is_consumer_mode)
-@@ -367,7 +368,11 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
- 			continue;
- 
- 		ratio = DIV_ROUND_CLOSEST(clk_rate, freq);
--		if (!ratio || ratio > 512 || ratio & 1)
-+		if (!ratio || ratio > 512)
-+			continue;
-+		if (ratio == 1 && !support_1_1_ratio)
-+			continue;
-+		else if (ratio & 1)
- 			continue;
- 
- 		diff = abs((long)clk_rate - ratio * freq);
-@@ -422,7 +427,15 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
- 
- 	regmap_update_bits(sai->regmap, reg, FSL_SAI_CR2_MSEL_MASK,
- 			   FSL_SAI_CR2_MSEL(sai->mclk_id[tx]));
--	regmap_update_bits(sai->regmap, reg, FSL_SAI_CR2_DIV_MASK, savediv / 2 - 1);
-+
-+	if (savediv == 1)
-+		regmap_update_bits(sai->regmap, reg,
-+				   FSL_SAI_CR2_DIV_MASK | FSL_SAI_CR2_BYP,
-+				   FSL_SAI_CR2_BYP);
-+	else
-+		regmap_update_bits(sai->regmap, reg,
-+				   FSL_SAI_CR2_DIV_MASK | FSL_SAI_CR2_BYP,
-+				   savediv / 2 - 1);
- 
- 	return 0;
- }
--- 
-2.30.2
-
+Takashi

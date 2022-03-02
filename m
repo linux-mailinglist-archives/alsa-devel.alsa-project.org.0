@@ -2,92 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 990EC4CA51C
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 13:45:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACCBF4CA5A5
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 14:13:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28C052024;
-	Wed,  2 Mar 2022 13:44:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28C052024
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E5331F54;
+	Wed,  2 Mar 2022 14:12:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E5331F54
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646225140;
-	bh=XftQybgw3i43mLEuI8u64YncK624ia1eAIg2AmjbC2I=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646226786;
+	bh=HH6BcwYmzPzwuwKnKZ0uOj8l/hGrP7oWeQFG40wMCR8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZlxyKHFKewMPcz0/QhIjpaDvbQLKrx0Lz3qrrmZUNn7JE7TaPf99/j+J3Kis1O9e3
-	 vbGiXvK+tyLmicBsOVwFAbE21ZhOWRCW2mSyfrkNzAvGQsWtIlBT+M5UVD6cW8nAym
-	 v0h0wSIaJfcb54xN+4MHwMlRjYhrfOwaItqPvdPQ=
+	b=BociKT73vmIP9nBr4DLPMWlRr/Y3s7BFedXNc/+pqubUFFprLY2NCwl2ORKg3meNz
+	 uo49vqKiu7Ry+jXDT4wdB1JNZzl5GL3dRc/bP3Ntc0bL7PC/pI+peoLoXJEfhoAJuX
+	 bs7pRtDoYxp7S4x7yjmMQKfSkcqTujT2aeHlK2os=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2270F80508;
-	Wed,  2 Mar 2022 13:43:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DA41F80054;
+	Wed,  2 Mar 2022 14:11:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F40BDF80508; Wed,  2 Mar 2022 13:43:44 +0100 (CET)
+ id ED58CF80167; Wed,  2 Mar 2022 14:11:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3737AF80508
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 13:43:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3737AF80508
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB9DEF80167
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 14:11:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB9DEF80167
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="wS+S1uSP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1646225023; x=1677761023;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=bS9bdC9cgUN0ZMd9zmyc+OAsWWEL36/MhYU9UfQLxI4=;
- b=wS+S1uSPuD0NVLsIjyug/6mOQUh3Q4kla+4RyxuAMKCjzf/YTH+9HjTA
- SoHeZFxVHgr+gY/rZJs3mPya9OMpfaIEgHrU9M6q0x4aLSnoEvspkhbYR
- gsiFObT3gVCD1kd3qATv6ksZksfvdJGBebbi7U2WgUiyQccUFE87tFMs+ I=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 02 Mar 2022 04:43:39 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2022 04:43:38 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Wed, 2 Mar 2022 04:43:38 -0800
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Wed, 2 Mar 2022 04:43:32 -0800
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
- <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
- <bgoswami@codeaurora.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <srinivas.kandagatla@linaro.org>, <rohitkr@codeaurora.org>,
- <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <swboyd@chromium.org>, <judyhsiao@chromium.org>,
- <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.intel.com>,
- <sanyog.r.kale@intel.com>, <vkoul@kernel.org>
-Subject: [PATCH v6 3/3] dt-bindings: soundwire: qcom: Add bindings for audio
- CSR reset control property
-Date: Wed, 2 Mar 2022 18:13:02 +0530
-Message-ID: <1646224982-3361-4-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1646224982-3361-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1646224982-3361-1-git-send-email-quic_srivasam@quicinc.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="AB7b86DM"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CD588B81FE8;
+ Wed,  2 Mar 2022 13:11:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC00C004E1;
+ Wed,  2 Mar 2022 13:11:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646226710;
+ bh=HH6BcwYmzPzwuwKnKZ0uOj8l/hGrP7oWeQFG40wMCR8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AB7b86DM0maYg6oUioxF6IsG2D78ibFRMHYQtGUaAThypyBCQPiC+Yp1QLmd+aY59
+ DjhpLzgknEwstFtzZ0YaONUO+7jHKxBuq8W5uu0ARQ9Ydurr0U0bNTQuf4CVo7bCjN
+ 2iaPBE9uxEHmwAic4FL23lJ8dv6GDxuHvYsZwUWQIu+c8f/G7jsGYtv6BVXwnkvNfM
+ jgmiFmKQqDRzh6dVA73NJdN78+GKEGGpX9/O+sy7DUMvIsayh9hGBCacVX0lty/xNu
+ wX46l6xR5x+rwCV1nT71gXlkMNHpnqdFsEgTCNyagrgauxogT5yrFjdEY98Xg3du4n
+ XgnoLG0mdvpBw==
+Date: Wed, 2 Mar 2022 13:11:45 +0000
+From: Mark Brown <broonie@kernel.org>
+To: "Yang.Lee" <yang.lee@linux.alibaba.com>
+Subject: Re: =?utf-8?B?5Zue5aSN77yaW1BBVENIIC1uZXh0?=
+ =?utf-8?Q?=5D_ASoC=3A_amd?= =?utf-8?Q?=3A?= Fix an ignored error return from
+ platform_get_irq_byname()
+Message-ID: <Yh9tEYtfKTBIICQS@sirena.org.uk>
+References: <20220301064920.37788-1-yang.lee@linux.alibaba.com>
+ <Yh4UGGuspsc/gAyY@sirena.org.uk>
+ <53306907-c963-4740-9a90-c1249ba0dff4.yang.lee@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="X6e1+/WO22PbXzdY"
+Content-Disposition: inline
+In-Reply-To: <53306907-c963-4740-9a90-c1249ba0dff4.yang.lee@linux.alibaba.com>
+X-Cookie: The sheep died in the wool.
+Cc: alsa-devel <alsa-devel@alsa-project.org>, tangmeng <tangmeng@uniontech.com>,
+ Abaci Robot <abaci@linux.alibaba.com>, tiwai <tiwai@suse.com>,
+ lgirdwood <lgirdwood@gmail.com>, linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,39 +91,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update description for audio CSR reset control property, which is
-required for latest chipsets to allow software enabling in CGCR HCLK register.
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
----
- Documentation/devicetree/bindings/soundwire/qcom,sdw.txt | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+--X6e1+/WO22PbXzdY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-index b93a2b3..84c8f54 100644
---- a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-+++ b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-@@ -150,6 +150,18 @@ board specific bus parameters.
- 		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
- 
-+- reset:
-+	Usage: optional
-+	Value type: <prop-encoded-array>
-+	Definition: Should specify the SoundWire audio CSR reset controller interface,
-+		    which is required for SoundWire version 1.6.0 and above.
-+
-+- reset-names:
-+	Usage: optional
-+	Value type: <stringlist>
-+	Definition: should be "swr_audio_cgcr" for SoundWire audio CSR reset
-+		    controller interface.
-+
- Note:
- 	More Information on detail of encoding of these fields can be
- found in MIPI Alliance SoundWire 1.0 Specifications.
--- 
-2.7.4
+On Wed, Mar 02, 2022 at 09:17:21AM +0800, Yang.Lee wrote:
 
+Please don't top post, reply in line with needed context.  This allows
+readers to readily follow the flow of conversation and understand what
+you are talking about and also helps ensure that everything in the
+discussion is being addressed.
+
+> The function dev_err_probe() is called in function platform_get_irq_byname() to print the error code.
+
+That doesn't seem at all relevant to the error code being returned which
+is what the review feedback was about:
+
+> > If an error code is being returned we should report that error code
+> > rather than squashing it down to -ENODEV.
+
+Please fix your mail client to word wrap within paragraphs at something
+substantially less than 80 columns.  Doing this makes your messages much
+easier to read and reply to.
+
+--X6e1+/WO22PbXzdY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIfbRAACgkQJNaLcl1U
+h9BNxwf9EbCJYEIUuEHT4sfAEoL+oFQovgYwW1G0unYzJ5kgO0t0NXEDRVx7Yo/S
+O63wumrjLCGoIgofpYa0xJ2WtnBAe5LchcLCdFo5GrwLvrgMHtup4lAWo8ZfiJc6
+DynyIUycZcdmlz9XqPIvsaZ8sUNHV83BtpwtgLT5QtJtmhQwqaLnYDdWJh2A3CE9
+R4DkZejr7792OHDjHsoEUB93DqcPjUhvY6tDbQvcwEBNnv48YOS+lw9V7vGRKQFa
+pQZrOeo5OeV29WOJPFo1LbL4WExvAXOpQoCr17YXrfP3LeQ061gsFLvCAfvZOH34
+YjL5Td+BT4IYahRiNjh8i90DKi1VeA==
+=qTYQ
+-----END PGP SIGNATURE-----
+
+--X6e1+/WO22PbXzdY--

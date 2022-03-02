@@ -2,81 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 697E54CA04C
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 10:07:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AA814CA115
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 10:45:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14D212036;
-	Wed,  2 Mar 2022 10:06:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14D212036
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85B3620A6;
+	Wed,  2 Mar 2022 10:44:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85B3620A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646212021;
-	bh=TbOjfJP7owQYjz/QFfaLGyYmZDVe2S0f0Ly0PZ/1kpY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BTvv6YKSUWFS4JFIxz8BXfASRCpakgx7hxXogS+pWqX7QmEP4V+tzvVYFzKEMR5/x
-	 guAFTMNGnTDScs0SW+9G8MBARWDsp26mTC3IECdQNEqWvIIOCbMQVSkBylmApBLMBX
-	 HNECOKao7Utlnl16xSHWzHc5LYoxgHOHM1N5Udzo=
+	s=default; t=1646214326;
+	bh=Xs6VvHM/OmjELGzW4GEdMg801tRDhITkfXDOb4NK6Fc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=WnCurXCIzXeLhVnTlq7B2RMR8VTP0Fmqzs/Xt15H8P2Z/8lXbpbk9WBmgDbvd1lu1
+	 fUtRBoL4xVMUAmZ1ZnMxHdkgnrIezjja+AmeHEBHwF1fbmUXsGs4ltZnAmSa9Buneo
+	 Ppjce/JgotkOpjFcp5/Nj7fvqd96bgj+rjD1U0WA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E37DEF8051F;
-	Wed,  2 Mar 2022 09:42:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0434CF80167;
+	Wed,  2 Mar 2022 10:44:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D30FF8051E; Wed,  2 Mar 2022 09:42:43 +0100 (CET)
+ id DC192F80171; Wed,  2 Mar 2022 10:44:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78867F8051A
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 09:42:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78867F8051A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Kd57vTKB"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="xm5o95a9"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 047EE21891;
- Wed,  2 Mar 2022 08:42:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646210559; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7OEc+86Wj7TOh2lWHRyn2kRMrJ9Obay5DZsjIv1lXvg=;
- b=Kd57vTKBMiZiAUc0y4w/cEpsNb3qpxi+0ui+aAci0BJLYZQxN/SOGF5s7jALQnrldp/Mfe
- cvVur3THn2K/9QMfizpv5oiHflMKVVb1iBQdmA9RbPGX9t9Fn/2jDOpFAGNYKdmJiG87Jj
- CQCREjrHQNQx2vXfCXkq4tD/nITE2rs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646210559;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7OEc+86Wj7TOh2lWHRyn2kRMrJ9Obay5DZsjIv1lXvg=;
- b=xm5o95a9kGsAtOSm4q8DCa+Xd6oQSoz2wv59Z7c1AcKrLi7iYRsC9J3wjytKdAawAvnVqZ
- +2FXOCHTKyz0jUDw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C1339A3B81;
- Wed,  2 Mar 2022 08:42:38 +0000 (UTC)
-Date: Wed, 02 Mar 2022 09:42:38 +0100
-Message-ID: <s5ho82ooidd.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: SPeak Shen <speakshen@163.com>
-Subject: Re: [PATCH] Documentation: sound: fix typo in control-names.rst
-In-Reply-To: <20220227145204.16600-1-speakshen@163.com>
-References: <20220227145204.16600-1-speakshen@163.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, corbet@lwn.net, linux-doc@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4ABABF80054
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 10:44:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ABABF80054
+X-QQ-mid: bizesmtp77t1646214239t4q3lvu0
+Received: from localhost.localdomain (unknown [58.240.82.166])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 02 Mar 2022 17:43:53 +0800 (CST)
+X-QQ-SSF: 01400000002000C0G000000A0000000
+X-QQ-FEAT: xyySF+ktKzc8o0sxazVfL1OaxjVY3Ht/nzDo91W+cec1vfOJK2+P94HZr5Ta2
+ 2svAAD6EXCc6FpllvhLHSRkQZSWQLRbN9BXofmljew6Fqk71bOe0o3qhGINLhBHZLOKgs1f
+ PItROfzgeQocrtvNjXK9FeMRFGC3aSm94bNhe0iuFpY8sC2+KvAzGFWUO4yCfBC78dknjp7
+ 7jzOGJavoBZNNGBaK1PLhZ/Eu9SgloLY/UD4fouNLDcV8+o0A0iLmwentlUbnJfTo4bG3Lr
+ Z7ee8MZMuCuzdZlY4bTSFCuRSoeBiaM6FT+mJRTES3g73bXsFJ3GrtP/6IvpkJmqYiO58AX
+ A/9Paf8C8yoApWoQcUjU/QlLxKUwVYZNRBWC4BpRAHvpac8vJWPu8YSWYYvNg==
+X-QQ-GoodBg: 1
+From: Meng Tang <tangmeng@uniontech.com>
+To: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org
+Subject: [PATCH] ASoC: hdac_hda: Avoid unexpected match when pcm_name is
+ "Analog"
+Date: Wed,  2 Mar 2022 17:43:51 +0800
+Message-Id: <20220302094351.3487-1-tangmeng@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign6
+X-QQ-Bgrelay: 1
+Cc: Meng Tang <tangmeng@uniontech.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,16 +76,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 27 Feb 2022 15:52:04 +0100,
-SPeak Shen wrote:
-> 
-> From: Sunrisepeak <speakshen@163.com>
-> 
-> change 'cannel' to 'channel'
-> 
-> Signed-off-by: Sunrisepeak <speakshen@163.com>
+pcm name can be "Analog" and "Alt Analog", cpcm->name can be
+"Analog Codec DAI" and "Alt Analog Codec DAI". When pcm_name
+is "Analog", "Analog Codec DAI" and "Alt Analog Codec DAI" are
+both satisfy the 'if (strstr(cpcm->name, pcm_name))' condition,
+which may cause the returned cpcm to be "Alt Analog Codec DAI".
 
-Thanks, applied.
+Even if we get the pcm name by id, and "Analog Codec DAI" goes
+into the loop before "Alt Analog Codec DAI", but I still think
+we'd better have multiple insurances against unexpected return
+values. After, we can correctly return the expected result
+even if other relevant places are changed.
+
+Signed-off-by: Meng Tang <tangmeng@uniontech.com>
+---
+ sound/soc/codecs/hdac_hda.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 667f3df239c7..a9f61c7e44ee 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -363,8 +363,13 @@ static struct hda_pcm *snd_soc_find_pcm_from_dai(struct hdac_hda_priv *hda_pvt,
+ 	}
+ 
+ 	list_for_each_entry(cpcm, &hcodec->pcm_list_head, list) {
+-		if (strstr(cpcm->name, pcm_name))
++		if (strstr(cpcm->name, pcm_name)) {
++			if (strcmp(pcm_name, "Analog") == 0) {
++				if (strstr(cpcm->name, "Alt Analog"))
++					continue;
++			}
+ 			return cpcm;
++		}
+ 	}
+ 
+ 	dev_err(&hcodec->core.dev, "didn't find PCM for DAI %s\n", dai->name);
+-- 
+2.20.1
 
 
-Takashi
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9F7D4CAB16
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 18:03:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AB0D4CAB18
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 18:04:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B59D1DE9;
-	Wed,  2 Mar 2022 18:03:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B59D1DE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02B441F9D;
+	Wed,  2 Mar 2022 18:03:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02B441F9D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646240634;
-	bh=zQgX99RnmDfopMg14Npy7ylLj4lE4ZQcG0Wt4mJO/ns=;
+	s=default; t=1646240653;
+	bh=0XIBIVlUzZNiW/2J+5FrMjaWIJoPwfNBGNfX1p4g7uE=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PKHUv5bZ9vAnML2ttVGXTpRntBc1qY5Y2BxGKaStgdjSHaN9g0TJIIDvFW2HePyDK
-	 s4Lmg9mUzUNQhGdp9xmDQIbfsBwtbA0iwgmU+qPzyFDeAIOmy8ZsmrFJnX3XDwxU9u
-	 S8qSDGT7Z3sevjKgiObIGPVSsIws1WlD3+9sdoMw=
+	b=HU4m7ZUigOIPHSai+yKhID4eZiREJoJ2SBn3iusUtxrXJDAMjCpAniIpX+0iwft3c
+	 xrlKRvCTgzimAsNnNPiTmapQdel1gg/aSbJ1BasG/B+U2pIxNkAmVsFSQLFUsljzj0
+	 UzOwehm2ZuxBWo7kJ+NSGN9dzinc3kgt1ooWqloQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F697F80535;
-	Wed,  2 Mar 2022 18:01:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 141C7F80538;
+	Wed,  2 Mar 2022 18:01:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E6BEF8051A; Wed,  2 Mar 2022 18:01:07 +0100 (CET)
+ id 469E6F80537; Wed,  2 Mar 2022 18:01:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,41 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B1B9F8051A
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 18:01:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B1B9F8051A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 914CAF8052D
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 18:01:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 914CAF8052D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Z2zBthAA"
+ header.b="KuzO4xe8"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E423A61922;
- Wed,  2 Mar 2022 17:01:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC051C004E1;
- Wed,  2 Mar 2022 17:01:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6D3DA618F2;
+ Wed,  2 Mar 2022 17:01:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA8EC340ED;
+ Wed,  2 Mar 2022 17:01:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646240462;
- bh=zQgX99RnmDfopMg14Npy7ylLj4lE4ZQcG0Wt4mJO/ns=;
+ s=k20201202; t=1646240463;
+ bh=0XIBIVlUzZNiW/2J+5FrMjaWIJoPwfNBGNfX1p4g7uE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Z2zBthAA3qQf62InUSodEhXBrKOBe0x7MWbBYY1wqRCTi32kpGGBma4gaacqrZl85
- 721ybwPBYNV5JtBQXfisKS/iC3r6oRiXLxVX44c/xW5+YQwMlCdriDPjvtg4PhbzDo
- 13LQt0llKBuSyFvPVk+ZuYxKNnwVWT8Vgu0gvG/J8C3D83c/f1Zg8PNOVwWNHoyfBQ
- fPVQ/kQv78TtNYNStBXD8WLEUhaQnYZoj8uuDyScjqI/zvVu42yQwWc5Wt8b8H8om4
- Mo6f0HJucb8GkjjH/gm/vjuyCoEnnQLEfkbomNTZDpEdKUc4QCb/FsLxgQ5l2/6B+W
- oaxyK+cVweUEA==
+ b=KuzO4xe83teRijjwcU5153XYI8/9bWjyHIfUI0RwU8trrtTNsjRUV4LQT83jV3nCx
+ oOOFwU/pIZ+AekJNWJRb+Jaj+sS0IxmKtQuItYIXlXtPTORjLW4ozhkx55Lu7SIa3O
+ sndj6x6Bp0i5Ab0C71Jx2lOJFDHKtutWX4Dxsw4OztQ1W4FrEq+RoIPT2Zl/Gzioj8
+ Ufa9Tbil37Yl/VQq1OVB2ns7RbrGDj2W3HVIDAz6iO4mg1RE45eRhVkA56Z/7kTLbg
+ kAOhmmKMcNh2byOk1RWOpdqVnIoFqPfzkUIdOEU26HEPKKV/4e2hpF2lcHxMjgN9f9
+ GH25Ccjt5/BIw==
 From: Mark Brown <broonie@kernel.org>
-To: Zhen Ni <nizhen@uniontech.com>, tiwai@suse.com, perex@perex.cz
-In-Reply-To: <20220302081502.25367-1-nizhen@uniontech.com>
-References: <20220302081502.25367-1-nizhen@uniontech.com>
-Subject: Re: [PATCH] ASoC: amd: use asoc_substream_to_rtd()
-Message-Id: <164624046142.1145067.13335367262835814922.b4-ty@kernel.org>
-Date: Wed, 02 Mar 2022 17:01:01 +0000
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
+References: <20220301194903.60859-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/8] ASoC: Intel: machine driver updates for 5.18
+Message-Id: <164624046291.1145067.12252402808107543597.b4-ty@kernel.org>
+Date: Wed, 02 Mar 2022 17:01:02 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,10 +85,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2 Mar 2022 16:15:02 +0800, Zhen Ni wrote:
-> Uses asoc_substream_to_rtd() helper.
+On Tue, 1 Mar 2022 13:48:55 -0600, Pierre-Louis Bossart wrote:
+> Two cleanups to remove an unused filename and typos, and one addition
+> of an ACPI matching table for a Dell SoundWire SKU without local
+> microphones.
 > 
+> The main change is the addition of a common 'sof-ssp-amp' machine
+> driver for devices with amplifiers only (no headset codec) and
+> different connections using I2S links (Bluetooth offload, HDMI
+> receiver). It's likely that the amplifier will be swapped out by OEMs,
+> this machine driver provides a relatively generic solution to avoid
+> copy-paste of similar solutions.
 > 
+> [...]
 
 Applied to
 
@@ -95,8 +105,22 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: use asoc_substream_to_rtd()
-      commit: a2253ec7aef2c942630ecbe3380690bd3a704a94
+[1/8] ASoC: soc-acpi: remove sof_fw_filename
+      commit: a6264056b39ee0c478e1d73bfc40f61a8cf3673f
+[2/8] ASoC: Intel: boards: fix spelling in comments
+      commit: f1eebb3bf707b267bd8ed945d00a81c8ca31bd73
+[3/8] ASoC: Intel: add RT1308 I2S machine driver and HDMI-in capture via I2S support.
+      commit: da793fb0f56c0a53d0d461d80d9c1936a39afc30
+[4/8] ASoC: Intel: boards: create sof-realtek-common module
+      commit: e1d5e13324020c4b405e63cae34560c7992bec2e
+[5/8] ASoC: Intel: sof_rt1308: move rt1308 code to common module
+      commit: 024979b67b392569dde3f9294f9b66651d2c0a93
+[6/8] ASoC: Intel: cirrus-common: support cs35l41 amplifier
+      commit: 709ec7bec6b34ee136fff4b1b5265baaae7319a3
+[7/8] ASoC: Intel: sof_ssp_amp: rename driver and support cs35l41 amplifier
+      commit: 2fe14ff61bd6d4fabe313435dd378b5a38eb6102
+[8/8] ASoC: Intel: soc-acpi: add entries in ADL match table
+      commit: c4dcd7100c26881b1095d5b2651d61190fc5f247
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

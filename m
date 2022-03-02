@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07EDE4CA040
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 10:04:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4F804CA042
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 10:05:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8C472803;
-	Wed,  2 Mar 2022 10:03:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8C472803
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33D4327F3;
+	Wed,  2 Mar 2022 10:04:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33D4327F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646211881;
-	bh=tZcFN+U1aEsOFCHiYypk3EadAd+qdc3u0qZvVBP0AnI=;
+	s=default; t=1646211904;
+	bh=vIoWhShgkBYRtYHQulNCsW3bVTaja9uoB2F+un6sxO4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OgPjBUBYjbiOXSCmFIHl+5i61iZP5HnylvUTJCLqPMawxndrVFs+bWmvh5O7jJbak
-	 hYdeyo/rMMHqpePCIXwIHUotnBvtDTFv4JjOXAqS4boOoG0QifK/ofnwRROgjgHcpn
-	 AuR/Z5FbrfWHwe/OS690pT4NiJD9h1lNOnn4g4uY=
+	b=Z4Rm06BK8DQZcc7THI47VkqAZIqB9pka13lCdi78nx6g3HnmtNvXbDWm469cWAI6J
+	 yGxduLpRvJwy+iZgnTd69o6QABw0VmB55jJgKvOnFhYoJbScRcSjCKOZw9X2q3seY8
+	 zKp0FfNkCT+8OZrVEaBn2sKJwGubTc2QlqclEWmE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0B1AF896EA;
-	Wed,  2 Mar 2022 09:34:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 436B6F896EE;
+	Wed,  2 Mar 2022 09:34:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 147D8F80C41; Wed,  2 Mar 2022 09:34:40 +0100 (CET)
+ id B49CBF80C25; Wed,  2 Mar 2022 09:34:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -34,22 +34,22 @@ Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D91EEF80878
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC0B8F8086C
  for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 09:34:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D91EEF80878
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC0B8F8086C
 Received: from dude02.hi.pengutronix.de ([2001:67c:670:100:1d::28])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <sha@pengutronix.de>)
- id 1nPKRL-0005uS-9H; Wed, 02 Mar 2022 09:34:31 +0100
+ id 1nPKRL-0005uT-9K; Wed, 02 Mar 2022 09:34:31 +0100
 Received: from sha by dude02.hi.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <sha@pengutronix.de>)
- id 1nPKRK-00FxnR-CB; Wed, 02 Mar 2022 09:34:30 +0100
+ id 1nPKRK-00FxnU-Cj; Wed, 02 Mar 2022 09:34:30 +0100
 From: Sascha Hauer <s.hauer@pengutronix.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/7] ASoC: fsl_sai: Drop unnecessary defines
-Date: Wed,  2 Mar 2022 09:34:22 +0100
-Message-Id: <20220302083428.3804687-2-s.hauer@pengutronix.de>
+Subject: [PATCH 2/7] ASoC: fsl_sai: simplify irq return value
+Date: Wed,  2 Mar 2022 09:34:23 +0100
+Message-Id: <20220302083428.3804687-3-s.hauer@pengutronix.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220302083428.3804687-1-s.hauer@pengutronix.de>
 References: <20220302083428.3804687-1-s.hauer@pengutronix.de>
@@ -78,95 +78,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The fsl_sai driver has FSL_FMT_TRANSMITTER and FSL_FMT_RECEIVER defines
-which are used in a single function only then are then only translated
-into a bool 'tx' variable. Drop the defines and pass the boolean value
-directly to fsl_sai_set_dai_sysclk_tr(). No functional change.
+Instead of using a boolean "irq_none" to describe the interrupt
+handlers return value use a variable of type irqreturn_t and return
+it directly. No functional change.
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- sound/soc/fsl/fsl_sai.c | 16 ++++++----------
- sound/soc/fsl/fsl_sai.h |  3 ---
- 2 files changed, 6 insertions(+), 13 deletions(-)
+ sound/soc/fsl/fsl_sai.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 10544fa27dc0b..d79cb7eb3b262 100644
+index d79cb7eb3b262..56311a0f23b95 100644
 --- a/sound/soc/fsl/fsl_sai.c
 +++ b/sound/soc/fsl/fsl_sai.c
-@@ -167,11 +167,10 @@ static int fsl_sai_set_dai_bclk_ratio(struct snd_soc_dai *dai,
+@@ -62,7 +62,7 @@ static irqreturn_t fsl_sai_isr(int irq, void *devid)
+ 	unsigned int ofs = sai->soc_data->reg_offset;
+ 	struct device *dev = &sai->pdev->dev;
+ 	u32 flags, xcsr, mask;
+-	bool irq_none = true;
++	irqreturn_t iret = IRQ_NONE;
+ 
+ 	/*
+ 	 * Both IRQ status bits and IRQ mask bits are in the xCSR but
+@@ -76,7 +76,7 @@ static irqreturn_t fsl_sai_isr(int irq, void *devid)
+ 	flags = xcsr & mask;
+ 
+ 	if (flags)
+-		irq_none = false;
++		iret = IRQ_HANDLED;
+ 	else
+ 		goto irq_rx;
+ 
+@@ -110,7 +110,7 @@ static irqreturn_t fsl_sai_isr(int irq, void *devid)
+ 	flags = xcsr & mask;
+ 
+ 	if (flags)
+-		irq_none = false;
++		iret = IRQ_HANDLED;
+ 	else
+ 		goto out;
+ 
+@@ -139,10 +139,7 @@ static irqreturn_t fsl_sai_isr(int irq, void *devid)
+ 		regmap_write(sai->regmap, FSL_SAI_RCSR(ofs), flags | xcsr);
+ 
+ out:
+-	if (irq_none)
+-		return IRQ_NONE;
+-	else
+-		return IRQ_HANDLED;
++	return iret;
  }
  
- static int fsl_sai_set_dai_sysclk_tr(struct snd_soc_dai *cpu_dai,
--		int clk_id, unsigned int freq, int fsl_dir)
-+		int clk_id, unsigned int freq, bool tx)
- {
- 	struct fsl_sai *sai = snd_soc_dai_get_drvdata(cpu_dai);
- 	unsigned int ofs = sai->soc_data->reg_offset;
--	bool tx = fsl_dir == FSL_FMT_TRANSMITTER;
- 	u32 val_cr2 = 0;
- 
- 	switch (clk_id) {
-@@ -205,15 +204,13 @@ static int fsl_sai_set_dai_sysclk(struct snd_soc_dai *cpu_dai,
- 	if (dir == SND_SOC_CLOCK_IN)
- 		return 0;
- 
--	ret = fsl_sai_set_dai_sysclk_tr(cpu_dai, clk_id, freq,
--					FSL_FMT_TRANSMITTER);
-+	ret = fsl_sai_set_dai_sysclk_tr(cpu_dai, clk_id, freq, true);
- 	if (ret) {
- 		dev_err(cpu_dai->dev, "Cannot set tx sysclk: %d\n", ret);
- 		return ret;
- 	}
- 
--	ret = fsl_sai_set_dai_sysclk_tr(cpu_dai, clk_id, freq,
--					FSL_FMT_RECEIVER);
-+	ret = fsl_sai_set_dai_sysclk_tr(cpu_dai, clk_id, freq, false);
- 	if (ret)
- 		dev_err(cpu_dai->dev, "Cannot set rx sysclk: %d\n", ret);
- 
-@@ -221,11 +218,10 @@ static int fsl_sai_set_dai_sysclk(struct snd_soc_dai *cpu_dai,
- }
- 
- static int fsl_sai_set_dai_fmt_tr(struct snd_soc_dai *cpu_dai,
--				unsigned int fmt, int fsl_dir)
-+				unsigned int fmt, bool tx)
- {
- 	struct fsl_sai *sai = snd_soc_dai_get_drvdata(cpu_dai);
- 	unsigned int ofs = sai->soc_data->reg_offset;
--	bool tx = fsl_dir == FSL_FMT_TRANSMITTER;
- 	u32 val_cr2 = 0, val_cr4 = 0;
- 
- 	if (!sai->is_lsb_first)
-@@ -332,13 +328,13 @@ static int fsl_sai_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
- {
- 	int ret;
- 
--	ret = fsl_sai_set_dai_fmt_tr(cpu_dai, fmt, FSL_FMT_TRANSMITTER);
-+	ret = fsl_sai_set_dai_fmt_tr(cpu_dai, fmt, true);
- 	if (ret) {
- 		dev_err(cpu_dai->dev, "Cannot set tx format: %d\n", ret);
- 		return ret;
- 	}
- 
--	ret = fsl_sai_set_dai_fmt_tr(cpu_dai, fmt, FSL_FMT_RECEIVER);
-+	ret = fsl_sai_set_dai_fmt_tr(cpu_dai, fmt, false);
- 	if (ret)
- 		dev_err(cpu_dai->dev, "Cannot set rx format: %d\n", ret);
- 
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index 9aaf231bc0244..4e76ae43d1968 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -201,9 +201,6 @@
- #define FSL_SAI_REC_SYN		BIT(4)
- #define FSL_SAI_USE_I2S_SLAVE	BIT(5)
- 
--#define FSL_FMT_TRANSMITTER	0
--#define FSL_FMT_RECEIVER	1
--
- /* SAI clock sources */
- #define FSL_SAI_CLK_BUS		0
- #define FSL_SAI_CLK_MAST1	1
+ static int fsl_sai_set_dai_tdm_slot(struct snd_soc_dai *cpu_dai, u32 tx_mask,
 -- 
 2.30.2
 

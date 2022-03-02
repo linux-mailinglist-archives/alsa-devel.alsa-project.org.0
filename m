@@ -2,112 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F8FA4CB765
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 08:05:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C30FB4CB766
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 08:05:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64D5D19FF;
-	Thu,  3 Mar 2022 08:04:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64D5D19FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 537701A00;
+	Thu,  3 Mar 2022 08:04:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 537701A00
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646291110;
-	bh=QlTEWcqs9PmTj0Hy2M2yZwl5uiwHaskcjZtW7YQqjSs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646291135;
+	bh=MWqEM1UWVeEsmwGRjNNxoFoL6FWksos5IdS13YIpRRA=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hsfKfR2uqxHTvdRdwo5wd1EUCZNHCFHavWiBtg34O+6kgGzS/NslRSg4rTO5h6Iu1
-	 sg7MNr3d7ORoo2ejxfvBXLwT+AictnqJFem6XgFNmXwlQ30BIHMj9omEwQt0l5+t0l
-	 219E55z+1QYBUKGHC9ZJ0XXaKO3FO4RpQIqLphyM=
+	b=SrX7H5FOB/34FCiVCmB7faFjir+wgsR1E7lyS0hp3UOxXd3BSX/+fwzVNp7v2hrIT
+	 fc/9+hKssau/iK2n1GlPrq4RfBD8pTS5QRBA4YsvbYWR9evzNKxqUl2kjaBdWC5PlW
+	 HHOyzER4SEOyDWoURLq5grHUwuSShAMTejR2En/s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6398CF80511;
+	by alsa1.perex.cz (Postfix) with ESMTP id DB86AF80518;
 	Thu,  3 Mar 2022 08:03:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72055F801D5; Wed,  2 Mar 2022 10:31:39 +0100 (CET)
+ id E4E98F801D5; Wed,  2 Mar 2022 12:01:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.0
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3023BF80167
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 10:31:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3023BF80167
+ by alsa1.perex.cz (Postfix) with ESMTPS id 802CFF80154
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 12:01:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 802CFF80154
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="FSwFYVuD"
-Received: by mail-pf1-x443.google.com with SMTP id k1so1418916pfu.2
- for <alsa-devel@alsa-project.org>; Wed, 02 Mar 2022 01:31:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=yRnvPGVK9XQdKYPg/H0ecgdZJeSxpiKw/X1pv37GC+w=;
- b=FSwFYVuD0cAwR74FpWh/UVnJlZEuhHuzmEJF2CmWuTU5VQk08y1iQ6Cm+4Kk/IHZ7f
- ykn4dSn+LtVJ/QNPcAOF0Kr9OP0uyQbpGUjZhyE2BsGEuIYzlTgMZwHl/BYpjMpkMG0+
- P9mnuSE0YONb1xqLwPVeO/elgzKWhvv7I7OGEBThyQYghI00EIr5RS9MGp7GsCYrqLUi
- wR7dcG4fdae3Ke7WyU9tBlNyUPSMcC8RmnmBsmKYAmxRcsIUhLqhpYW4uCJTlnf3AogC
- YxEVbABh4/fwCz1Lhf2xi5Cnii6w5cwNjqEkAadiEwyP0C/cLXPnnAaLLll6ns+CdAHq
- Ceuw==
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="ilcPuStk"
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8BBEB3F5FE
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 11:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1646218895;
+ bh=Si9sQ7yLz6JK6Nen6lACTBVX2ecHMiwS0ByLXYRxjJA=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=ilcPuStkkOSXcrQlPpgyR3RC0LVaMRHDnDtwKcf/x0PpMKYEjsDD7cQJxuAr5SIrK
+ 5z2zkx4PJCe7j1EX18NJg9igSjx2ka5eVTyyr7Re+IzksWWCCb2r2xkJLdkwI6owGQ
+ uIyVgu6dRPwrnXc97TZheCvA9uXwMK3IiJOv+MRVHSfimjjVH+DW7cahaVDwRLANn3
+ jb++Bx+2TQ59B4cTYLISiBBMbRHZTcoohn40zcWKR34MCJlZX46zhMMjBAGpBU2ms9
+ yr8o4xpM2KgDEVjdywtHVBrJwI4o44GyJVUqsF3WTHb3IYEPRYdYfASM3eW+k0CrLL
+ jcLLE9X9/vpig==
+Received: by mail-lf1-f72.google.com with SMTP id
+ m18-20020a0565120a9200b004439214844dso589284lfu.9
+ for <alsa-devel@alsa-project.org>; Wed, 02 Mar 2022 03:01:35 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=yRnvPGVK9XQdKYPg/H0ecgdZJeSxpiKw/X1pv37GC+w=;
- b=s/1OvtFFKpDuja4NzBR0hC+Pv74Cl3nmZLiThJEdb7QdUb66ljIkl3zVDABnYYeFsq
- lB+a1cT7XHYfMEnMqlmVufHWEqwLu3ahRoigmNNRmTt96arxk0TxcEPbAbeHtXcKrrhc
- IG9AD9CMXHIGWWu0BmQm7BD2csZl2FqRjp38qfeLj58Z3SXSgLe0AV2GT4DjhuAk3Jft
- 79wn/lsKAuYlNxMu3LBdPvQQBcJeP9S1Qxnj7w6fOrWwrndimNIb3fMHlN+WuKw57AUH
- q7GhngQztsMZqwqSh13RtuMs/7uPJusj4i3ho90JOqLrY1WOArEDjFkTxzO/qcNIuZsC
- OOtg==
-X-Gm-Message-State: AOAM533RuMIRwskBf1slR5FExHhf3Kc3UNe7bYheZlQpZ8atYxvt0Amu
- ltCJ4SE3A802xgggvDrpd4o=
-X-Google-Smtp-Source: ABdhPJxxYDNcbSMxl56+YduSTiv9ULKN3/PKEO9PEtlxvCfSyuhc7esxotc8paaSBF6ReGk5V/MJxQ==
-X-Received: by 2002:a05:6a00:244b:b0:4c9:319e:ecb7 with SMTP id
- d11-20020a056a00244b00b004c9319eecb7mr31990006pfj.58.1646213490674; 
- Wed, 02 Mar 2022 01:31:30 -0800 (PST)
-Received: from ubuntu.huawei.com ([119.3.119.20])
- by smtp.googlemail.com with ESMTPSA id
- y74-20020a62644d000000b004f129e94f40sm19496506pfb.131.2022.03.02.01.31.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Mar 2022 01:31:30 -0800 (PST)
-From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-To: torvalds@linux-foundation.org
-Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Date: Wed,  2 Mar 2022 17:31:06 +0800
-Message-Id: <20220302093106.8402-1-xiam0nd.tong@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
-References: <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Si9sQ7yLz6JK6Nen6lACTBVX2ecHMiwS0ByLXYRxjJA=;
+ b=dWXfViSQjqASLgtw3QkwJQ4w4NSroidtJSB5ruhCnZoiBwgDjWP0ve3ONtrniTsoNp
+ FPK7fka/FzPhrjcyjYH84FxusZd6Jj7pXIaif3t/GI9hAfmuobg2DoIkrd7Eo5NcZ9eb
+ a91a5n9tNhKGOKDzDa0c8B/pWsMvFoPm9I5iqhY7HxFJYNPG0cJI38g9wUlbZELeyJYH
+ QriUi5kwSofAAMU+0TQs3xuA9SmbjdbpCl5CaXzqE5jlXW60eQVe3C9Z7p+ddxVdPyRA
+ InCsaE+M9Ktam+XxR2putRR9zwg++U92m+q/5OB98zdYhbhhSOHSDll4vpvcfMMLxC2L
+ VzlA==
+X-Gm-Message-State: AOAM533HXNOjiIOENwaIiTri4i4C2oAEdzX61UvyIS7I7k59G385JRap
+ 4IhqE8Blp/FyTs8ol59EWBqmlSgdeEhjC6mBr4wnmyc8Io3hj99qxQzA2IZhJJTBGd89QKkSdGL
+ qJv0T3XU92mdFe2v04/k3x0XsSN2mtwdGIGZ2Kkt1
+X-Received: by 2002:a05:6402:369a:b0:413:81b5:7b64 with SMTP id
+ ej26-20020a056402369a00b0041381b57b64mr22935760edb.163.1646218881615; 
+ Wed, 02 Mar 2022 03:01:21 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwaXIpVKlG8abGyix74I9rTqmFoJz7zygw3QnLROE8hwqkRWj9/wBCxZT5ACGsypW51MBpi7Q==
+X-Received: by 2002:a05:6402:369a:b0:413:81b5:7b64 with SMTP id
+ ej26-20020a056402369a00b0041381b57b64mr22935729edb.163.1646218881424; 
+ Wed, 02 Mar 2022 03:01:21 -0800 (PST)
+Received: from [192.168.0.136] (xdsl-188-155-181-108.adslplus.ch.
+ [188.155.181.108]) by smtp.gmail.com with ESMTPSA id
+ et3-20020a170907294300b006d6534ef273sm5617821ejc.156.2022.03.02.03.01.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Mar 2022 03:01:20 -0800 (PST)
+Message-ID: <22099da9-fad0-a5fb-f45a-484635ca485f@canonical.com>
+Date: Wed, 2 Mar 2022 12:01:19 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v3 06/11] s390: cio: Use driver_set_override() instead of
+ open-coding
+Content-Language: en-US
+To: Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Stuart Yoder <stuyoder@gmail.com>,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>, Abel Vesa <abel.vesa@nxp.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Andy Gross <agross@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Mark Brown <broonie@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, NXP Linux Team <linux-imx@nxp.com>,
+ linux-arm-kernel@lists.infradead.org, linux-hyperv@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-spi@vger.kernel.org,
+ virtualization@lists.linux-foundation.org,
+ Linus Torvalds <torvalds@linux-foundation.org>
+References: <20220227135214.145599-1-krzysztof.kozlowski@canonical.com>
+ <20220227135214.145599-7-krzysztof.kozlowski@canonical.com>
+ <b2295eba-722a-67e2-baae-20dac9d72625@linux.ibm.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+In-Reply-To: <b2295eba-722a-67e2-baae-20dac9d72625@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 03 Mar 2022 08:03:25 +0100
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org, gustavo@embeddedor.com,
- linux-iio@vger.kernel.org, kgdb-bugreport@lists.sourceforge.net,
- linux@rasmusvillemoes.dk, dri-devel@lists.freedesktop.org, c.giuffrida@vu.nl,
- amd-gfx@lists.freedesktop.org, samba-technical@lists.samba.org,
- linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
- linux-arch@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-scsi@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, h.j.bos@vu.nl,
- jgg@ziepe.ca, intel-wired-lan@lists.osuosl.org, nouveau@lists.freedesktop.org,
- bcm-kernel-feedback-list@broadcom.com, dan.carpenter@oracle.com,
- linux-media@vger.kernel.org, keescook@chromium.org, arnd@arndb.de,
- linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- bjohannesmeyer@gmail.com, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, christophe.jaillet@wanadoo.fr,
- jakobkoschel@gmail.com, v9fs-developer@lists.sourceforge.net,
- linux-tegra@vger.kernel.org, tglx@linutronix.de,
- andriy.shevchenko@linux.intel.com, linux-arm-kernel@lists.infradead.org,
- linux-sgx@vger.kernel.org, nathan@kernel.org, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-mediatek@lists.infradead.org,
- akpm@linux-foundation.org, linuxppc-dev@lists.ozlabs.org,
- christian.koenig@amd.com, rppt@kernel.org
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,93 +147,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Feb 2022 16:41:04 -0800, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> But basically to _me_, the important part is that the end result is
-> maintainable longer-term.
+On 01/03/2022 17:01, Vineeth Vijayan wrote:
+> 
+> On 2/27/22 14:52, Krzysztof Kozlowski wrote:
+>> Use a helper for seting driver_override to reduce amount of duplicated
+>> code. Make the driver_override field const char, because it is not
+>> modified by the core and it matches other subsystems.
+> s/seting/setting/
+> 
+> Also could you please change the title to start with "s390/cio:"
+> instead of "s390 : cio"
+> 
 
-I couldn't agree more. And because of that, I stick with the following
-approach because it's maintainable longer-term than "type(pos) pos" one:
- Implements a new macro for each list_for_each_entry* with _inside suffix.
-  #define list_for_each_entry_inside(pos, type, head, member)
+Sure, thanks for review!
 
-I have posted a patch series here to demonstrate this approach:
-https://lore.kernel.org/lkml/20220301075839.4156-3-xiam0nd.tong@gmail.com/
 
-Although we need replace all the use of list_for_each_entry* (15000+)
-with list_for_each_entry*_inside, the work can be done gradually rather
-than all at once. We can incrementally replace these callers until
-all these in the kernel are completely updated with *_inside* one. At
-that time, we can just remove the implements of origin macros and rename
-the *_inside* macro back to the origin name just in one single patch.
-
-And the "type(pos) pos" approach need teach developers to "not initialize
-the iterator variable, otherwise the use-after-loop will not be reported by
-compiler", which is unreasonable and impossible for all developers. 
-
-And it will mess up the following code logic and no warnning reported by
-compiler, even without initializing "ext" at the beginning:
-void foo(struct mem_extent *arg) {
-  struct mem_extent *ext;  // used both for iterator and normal ptr
-  ...
-  ext = arg;  // this assignment can alse be done in another bar() func
-  ...
-  list_for_each_entry(ext, head, member) {
-    if (found(ext))
-       break;
-  }
-  ...
-  // use ext after the loop
-  ret = ext;
-}
-If the loop hit the break, the last "ret" will be the found ext iterator.
-However, if the "type(pos) pos" approach applied, the last "ret" will be
-"arg" which is not the intention of the developers, because the "ext" is
-two different variables inside and outside the loop.
-
-Thus, my idea is *better a finger off than always aching*, let's choose
-the "list_for_each_entry_inside(pos, type, head, member)" approach.
-
-> It turns out that just syntactically, it's really nice to give the
-> type of the iterator from outside the way we do now. Yeah, it may be a
-> bit odd, and maybe it's partly because I'm so used to the
-> "list_for_each_list_entry()" syntax, but moving the type into the loop
-> construct really made it nasty - either one very complex line, or
-> having to split it over two lines which was even worse.
->
-> Maybe the place I looked at just happened to have a long typename, but
-> it's basically always going to be a struct, so it's never a _simple_
-> type. And it just looked very odd adn unnatural to have the type as
-> one of the "arguments" to that list_for_each_entry() macro.
-
-we can pass a shorter type name to list_for_each_entry_inside, thus no
-need to split it over two lines. Actually it is not a big problem.
-+ #define t struct sram_bank_info
-- list_for_each_entry(pos, head, member) {
-+ list_for_each_entry_inside(pos, t, head, member) {
-
-I put the type at the second argument not the first to avoid messing up
-the pattern match in some coccinelle scripts.
-
->  (b) gives us a nice warning for any normal use-after-loop case
-> (unless you explicitly initialized it like that
-> sgx_mmu_notifier_release() function did for no good reason
-
-sometimes developers can be confused by the reported warnning:
-"used without having been initialized", and can not figure out immediately
-that "oh, now i am using another different variable but with the same name
-of the loop iterator variable", which has changed the programming habits
-of developers.
-
->  (c) also guarantees that even if you don't get a warning,
-> non-converted (or newly written) bad code won't actually _work_
->
-> so you end up getting the new rules without any ambiguity or mistaken
-
-It will lead to a wrong/NULL pointer dereference if the pointer is used
-anywhere else, depend on which value is used to initialized with.
-
-Best regard,
---
-Xiaomeng Tong
+Best regards,
+Krzysztof

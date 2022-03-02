@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCE1B4C9A7D
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 02:37:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11ECD4C9BDA
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Mar 2022 04:10:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E6C7193B;
-	Wed,  2 Mar 2022 02:36:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E6C7193B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9916118E9;
+	Wed,  2 Mar 2022 04:09:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9916118E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646185025;
-	bh=opmbzsqmBiZ/FFZoI3HXvFp45v3SoeNkJ5Uwxrmt+hQ=;
+	s=default; t=1646190625;
+	bh=cf59QRbFuVQvOE3eA4G7qqX0jLYNdZZGJMxAOIgIj3M=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=A4C5P/uPo7VBnVHEZTHR97+I6EL5mwPecIm4suO6cZ9XneqrMezAGsD6R+DRAjkrp
-	 ZqLPbHqW2agOFxCoDbJHK8CFsqiJQ4zeGAcROBrhNXyA0UNjuYaJdpmK+rSxZSwLjV
-	 KVoW5jF5Lzw3jOz/1oUqNECelUEE/dkKXzv2xFZE=
+	b=nmJCB7cvlEPWX6OJQbiSoKTk6SPGzo3W8Vg3mOEupmZDAPiEW6Aosaq5w8rbhhEjl
+	 lhGMrYCQD1mTrdAatEMwCuEhNoIiC/TUp4aK8L/1odRTho4Puey1XD02nv2N63SkJc
+	 2y8qCrjP58W3v5L6qu4qM6edwwpWZ8g9u02q+quQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA004F802D2;
-	Wed,  2 Mar 2022 02:35:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3CAEF80154;
+	Wed,  2 Mar 2022 04:09:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA63DF80227; Wed,  2 Mar 2022 02:35:55 +0100 (CET)
+ id C1C58F801D5; Wed,  2 Mar 2022 04:09:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0783DF80054
- for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 02:35:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0783DF80054
-X-UUID: 66b5d979f953409ca628dad6f38cac4f-20220302
-X-UUID: 66b5d979f953409ca628dad6f38cac4f-20220302
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1145418492; Wed, 02 Mar 2022 09:35:37 +0800
-Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Wed, 2 Mar 2022 09:35:36 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb02.mediatek.inc
- (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 2 Mar 2022 09:35:36 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 2 Mar 2022 09:35:35 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>
-Subject: [v2] ASoC: bt-sco: fix bt-sco-pcm-wb dai widget don't connect to the
- endpoint
-Date: Wed, 2 Mar 2022 09:35:33 +0800
-Message-ID: <20220302013533.29068-1-jiaxin.yu@mediatek.com>
+X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
+ by alsa1.perex.cz (Postfix) with ESMTP id DA4B3F80154
+ for <alsa-devel@alsa-project.org>; Wed,  2 Mar 2022 04:09:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA4B3F80154
+Received: from localhost.localdomain (unknown [124.16.138.126])
+ by APP-03 (Coremail) with SMTP id rQCowACXnsLO3x5iwKaQAQ--.25965S2;
+ Wed, 02 Mar 2022 11:09:03 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: broonie@kernel.org
+Subject: [PATCH v2] ASoC: fsi: Add check for clk_enable
+Date: Wed,  2 Mar 2022 11:09:00 +0800
+Message-Id: <20220302030900.46341-1-jiasheng@iscas.ac.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
+X-CM-TRANSID: rQCowACXnsLO3x5iwKaQAQ--.25965S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xr47tF15uFW3uw4kKFW7Arb_yoWkXwb_Aa
+ 1jg39Iq3W5urWfCasrJr4UA34j9r47Za4UGryIq3Z3tayUJrs8ur48Z3sYvrn0qw1Y9as3
+ Aa1DZr4xArW3CjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbxAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+ 0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+ xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5
+ MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+ 0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v2
+ 6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
+ UQvtAUUUUU=
+X-Originating-IP: [124.16.138.126]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Cc: alsa-devel@alsa-project.org, songliubraving@fb.com,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>, ast@kernel.org,
+ kuninori.morimoto.gx@renesas.com, daniel@iogearbox.net, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, john.fastabend@gmail.com,
+ andrii@kernel.org, tiwai@suse.com, netdev@vger.kernel.org, kpsingh@kernel.org,
+ yhs@fb.com, f.suligoi@asem.it, kafai@fb.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,48 +84,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fix the second dai driver's dai widget can't connect to the
-endpoint. Because "bt-sco-pcm" and "bt-sco-pcm-wb" dai driver have the
-same stream_name, so it will cause they have the same widget name.
-Therefor it will just create only one route when do snd_soc_dapm_add_route
-that only find the widget through the widget name.
+As the potential failure of the clk_enable(),
+it should be better to check it and return error
+if fails.
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Fixes: ab6f6d85210c ("ASoC: fsi: add master clock control functions")
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 ---
+Changelog:
 
-Change from v1:
-   fix build error
+v1 -> v2
 
-Hi maintainer,
-   Need your comments. The patch is the one that I think it makes the
-   most sense. Maybe we can define the new stream_name for
-   "bt-sco-pcm-wb" and add the new route.
+* Change 1. Seperate the error handler.
+---
+ sound/soc/sh/fsi.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
- sound/soc/codecs/bt-sco.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/codecs/bt-sco.c b/sound/soc/codecs/bt-sco.c
-index 4d286844e3c8..cf17b9741bd8 100644
---- a/sound/soc/codecs/bt-sco.c
-+++ b/sound/soc/codecs/bt-sco.c
-@@ -13,11 +13,15 @@
- static const struct snd_soc_dapm_widget bt_sco_widgets[] = {
- 	SND_SOC_DAPM_INPUT("RX"),
- 	SND_SOC_DAPM_OUTPUT("TX"),
-+	SND_SOC_DAPM_AIF_IN("BT_SCO_RX", "Playback", 0,
-+			    SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("BT_SCO_TX", "Capture", 0,
-+			     SND_SOC_NOPM, 0, 0),
- };
+diff --git a/sound/soc/sh/fsi.c b/sound/soc/sh/fsi.c
+index cdf3b7f69ba7..91050478844a 100644
+--- a/sound/soc/sh/fsi.c
++++ b/sound/soc/sh/fsi.c
+@@ -816,14 +816,27 @@ static int fsi_clk_enable(struct device *dev,
+ 			return ret;
+ 		}
  
- static const struct snd_soc_dapm_route bt_sco_routes[] = {
--	{ "Capture", NULL, "RX" },
--	{ "TX", NULL, "Playback" },
-+	{ "BT_SCO_TX", NULL, "RX" },
-+	{ "TX", NULL, "BT_SCO_RX" },
- };
+-		clk_enable(clock->xck);
+-		clk_enable(clock->ick);
+-		clk_enable(clock->div);
++		ret = clk_enable(clock->xck);
++		if (ret)
++			goto err;
++		ret = clk_enable(clock->ick);
++		if (ret)
++			goto disable_xck;
++		ret = clk_enable(clock->div);
++		if (ret)
++			goto disable_ick;
  
- static struct snd_soc_dai_driver bt_sco_dai[] = {
+ 		clock->count++;
+ 	}
+ 
+ 	return ret;
++
++disable_xck:
++	clk_disable(clock->xck);
++disable_ick:
++	clk_disable(clock->ick);
++err:
++	return ret;
+ }
+ 
+ static int fsi_clk_disable(struct device *dev,
 -- 
 2.25.1
 

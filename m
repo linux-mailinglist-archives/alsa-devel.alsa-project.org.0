@@ -2,83 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FCEE4CC691
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 20:51:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9F784CC759
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 21:51:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E02941AC8;
-	Thu,  3 Mar 2022 20:51:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E02941AC8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3728B1AB9;
+	Thu,  3 Mar 2022 21:50:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3728B1AB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646337119;
-	bh=b5BU+SAqqYljAtWCup3n4sht4Rd4PBW6aWFPDSVogxI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dXLnrOxlTE/2Yfb3d/9xnlohwBydVVRGo7V/XmQe9O1JlLjuIotIX2hzYix3JFVuS
-	 D0jZ9fnF43P83Zf+ySLwl3O/KTd3yZTgjqkzv3mc/NoRzcJ2aCO3jeGj8QiKcjqZSU
-	 oNnL35a7SXubgV6SNKw5H5aauFFUlIFez4m3RF8w=
+	s=default; t=1646340684;
+	bh=WMgOq8QriG3dwkYS26oDG14Rj2FlP0cgncO4aI2uZOU=;
+	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fJOM//5s4MkSewZ7Y7ko4oXSFuMMzw9abV/uEs7F1lGCic+uCKCjCcU9tUzi7ST9g
+	 d7uRW96w87AUmHx+eSrKTDgdolscug8INyT+r7+TqjbWL4QpGVCtcdSHAly0c4sBhH
+	 xQ/QO4VEUeO1y2ly94/YumqgRxe56bQinlzHOTqQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65796F800F0;
-	Thu,  3 Mar 2022 20:50:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B87CF800F0;
+	Thu,  3 Mar 2022 21:50:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC46FF80152; Thu,  3 Mar 2022 20:50:48 +0100 (CET)
+ id 4F8A0F80109; Thu,  3 Mar 2022 21:50:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
- [209.85.210.47])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3112F800F0
- for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 20:50:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3112F800F0
-Received: by mail-ot1-f47.google.com with SMTP id
- k9-20020a056830242900b005ad25f8ebfdso5534750ots.7
- for <alsa-devel@alsa-project.org>; Thu, 03 Mar 2022 11:50:42 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2FF3F80109
+ for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 21:50:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2FF3F80109
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="XBskywTT"
+Received: by mail-oi1-x22f.google.com with SMTP id j24so5927426oii.11
+ for <alsa-devel@alsa-project.org>; Thu, 03 Mar 2022 12:50:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=WMgOq8QriG3dwkYS26oDG14Rj2FlP0cgncO4aI2uZOU=;
+ b=XBskywTTDBuz5qGzYAHWERha68kGkkOkfHqtq5h5WJLJerCpCk+uXIL5u75JqH1JmO
+ DhKD1a0Pqllwt5WwoXDdG6OxZkEeNgcIM8BJGMbQcjEG9URXSdKQvV9fz1J0ww3gREj0
+ 8CVOwWtG3iTUDBHt9r1F9rFOPhQUP/NqgiAZA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=WhMaxl9TNUY7wmimyJIBPEvN19wmFM03Xz5lz5R1wLg=;
- b=B/d3OIMsrp7hZpUVWVmscCjyUxv1GdQcZXSj8gPZ+F1RioKIzWiRCLCEF0YbEcKMvJ
- x9nX5Qwsk2PCRQcalxpfhNPKB/lT9X6+Lomcpv74BeGdFIeG5vk7oJJ6BJS2+DGzxJC8
- Sg/pl6DSXT3RrBIIukBsJfR8CT1INeTdkGpP63+8/FmMBha6A2HwP9zAvATfXHRIcQIn
- jpEjV2B/y0Wj1/oBfHg74Pp849UQkLIion52E4vVG703K5YfaHwgfhK1+SGqy1NbokWq
- 0x1BIbuIsn8Et7v7OL2iZ76lG9RHJgJBYrvgseGzPNsKwIxUK99Sc3CcXaewj5aezRsq
- yGKw==
-X-Gm-Message-State: AOAM533WRK1OSnVdE/WhaHOnB2K9Cm0fpd8BiqJZIYwiKXVcfpbxnnUP
- +8aq73rxNnZJCuAcE3VRMg==
-X-Google-Smtp-Source: ABdhPJxNkjR26g3ZjckCD3XAvZYDK3jRzlipdtAmUPlc+MmhHO0P1uj50SZKAybUR7H9R9TVdomSGQ==
-X-Received: by 2002:a05:6830:920:b0:5af:ca85:67c4 with SMTP id
- v32-20020a056830092000b005afca8567c4mr18478108ott.363.1646337040861; 
- Thu, 03 Mar 2022 11:50:40 -0800 (PST)
-Received: from xps15.herring.priv (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213]) by smtp.googlemail.com with ESMTPSA id
- bm5-20020a056820188500b0031c42eb457csm1367350oob.43.2022.03.03.11.50.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Mar 2022 11:50:40 -0800 (PST)
-From: Rob Herring <robh@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Linus Walleij <linus.walleij@linaro.org>, - <patches@opensource.cirrus.com>
-Subject: [PATCH v2] dt-bindings: mfd: Fix pinctrl node name warnings
-Date: Thu,  3 Mar 2022 13:50:34 -0600
-Message-Id: <20220303195034.2261989-1-robh@kernel.org>
-X-Mailer: git-send-email 2.32.0
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=WMgOq8QriG3dwkYS26oDG14Rj2FlP0cgncO4aI2uZOU=;
+ b=5Ba8JlUpQrI6PmExWUJ/1blaVChT/sZJTz7UteInycX5wtHf4Yl3DTbrsAr1m+dv87
+ fwxMGiysXGbNidaq/L9iSsbSRZLTbzpRJ4QXlLnza6BI0rzvKWzBwj0PIT4aT2w5aYQO
+ gBVnNGYZaRiGKVrLYeEuOFDKB1BQRJC4bOHkIIdk9l3aQ7tKrHVaczLe6JJZQfEHKPeI
+ oaiG8pEDaLQSa3W+kfk88uoEWVWwMyxfSNMAGPrmvSyXO2V8Y9bp4/SOLj+9hq0Pw+Cy
+ SEAAY33FNaf6eJzWCl8UyqGUraULdYMHmQxQNEp3niUhOUOwSlsOU2sbR6t5jGAIw3QC
+ 0dsw==
+X-Gm-Message-State: AOAM532In//FZ9KaoBx+AQ86FRejLa9KA+zsODc4JmZ+RRT4NjeN73EB
+ 517iCiLu23I9P8dhCFNe7TU4oW/8egQtbKnhltFomQ==
+X-Google-Smtp-Source: ABdhPJz4Kx7vxyyYZLMTaNh21vf+yXQVK7J7QO4u1XiXyxk38AGVXWGkPv52G7JF6m/Cotna8sZoSbPGE0U0s+J9VoQ=
+X-Received: by 2002:aca:3346:0:b0:2d9:91f9:a7f2 with SMTP id
+ z67-20020aca3346000000b002d991f9a7f2mr532977oiz.32.1646340605925; Thu, 03 Mar
+ 2022 12:50:05 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 3 Mar 2022 12:50:05 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+In-Reply-To: <1646317851-14414-2-git-send-email-quic_srivasam@quicinc.com>
+References: <1646317851-14414-1-git-send-email-quic_srivasam@quicinc.com>
+ <1646317851-14414-2-git-send-email-quic_srivasam@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Thu, 3 Mar 2022 12:50:05 -0800
+Message-ID: <CAE-0n53=eTcEBCCQbT_p2ObcBGOUS6Q1eXdocYt3J8BRdD-dOA@mail.gmail.com>
+Subject: Re: [RESEND v7 1/2] soundwire: qcom: Add compatible name for v1.6.0
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org, 
+ alsa-devel@alsa-project.org, bgoswami@codeaurora.org, 
+ bjorn.andersson@linaro.org, broonie@kernel.org, devicetree@vger.kernel.org, 
+ judyhsiao@chromium.org, lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, perex@perex.cz, 
+ pierre-louis.bossart@linux.intel.com, quic_plai@quicinc.com, 
+ robh+dt@kernel.org, rohitkr@codeaurora.org, sanyog.r.kale@intel.com, 
+ srinivas.kandagatla@linaro.org, tiwai@suse.com, vkoul@kernel.org, 
+ yung-chuan.liao@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,89 +104,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent addition pinctrl.yaml in commit c09acbc499e8 ("dt-bindings:
-pinctrl: use pinctrl.yaml") resulted in some node name warnings:
+Quoting Srinivasa Rao Mandadapu (2022-03-03 06:30:50)
+> Update compatible string and master data information in soundwire driver
+> to support v1.6.0 in lpass sc7280 based platform.
+>
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
+> ---
 
-Documentation/devicetree/bindings/mfd/cirrus,lochnagar.example.dt.yaml: \
- lochnagar-pinctrl: $nodename:0: 'lochnagar-pinctrl' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
-Documentation/devicetree/bindings/mfd/cirrus,madera.example.dt.yaml: \
- codec@1a: $nodename:0: 'codec@1a' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
-Documentation/devicetree/bindings/mfd/brcm,cru.example.dt.yaml: \
- pin-controller@1c0: $nodename:0: 'pin-controller@1c0' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
-
-Fix the node names to the preferred 'pinctrl'. For cirrus,madera,
-nothing from pinctrl.yaml schema is used, so just drop the reference.
-
-Fixes: c09acbc499e8 ("dt-bindings: pinctrl: use pinctrl.yaml")
-Cc: Rafał Miłecki <rafal@milecki.pl>
-Signed-off-by: Rob Herring <robh@kernel.org>
----
-v2:
- - Fix lochnagar-pinctrl nodename in example
-
- Documentation/devicetree/bindings/mfd/brcm,cru.yaml          | 4 ++--
- Documentation/devicetree/bindings/mfd/cirrus,lochnagar.yaml  | 4 ++--
- Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml | 3 ---
- 3 files changed, 4 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/mfd/brcm,cru.yaml b/Documentation/devicetree/bindings/mfd/brcm,cru.yaml
-index be4a2df71c25..b85819fbb07c 100644
---- a/Documentation/devicetree/bindings/mfd/brcm,cru.yaml
-+++ b/Documentation/devicetree/bindings/mfd/brcm,cru.yaml
-@@ -39,7 +39,7 @@ patternProperties:
-   '^phy@[a-f0-9]+$':
-     $ref: ../phy/bcm-ns-usb2-phy.yaml
- 
--  '^pin-controller@[a-f0-9]+$':
-+  '^pinctrl@[a-f0-9]+$':
-     $ref: ../pinctrl/brcm,ns-pinmux.yaml
- 
-   '^syscon@[a-f0-9]+$':
-@@ -94,7 +94,7 @@ examples:
-             reg = <0x180 0x4>;
-         };
- 
--        pin-controller@1c0 {
-+        pinctrl@1c0 {
-             compatible = "brcm,bcm4708-pinmux";
-             reg = <0x1c0 0x24>;
-             reg-names = "cru_gpio_control";
-diff --git a/Documentation/devicetree/bindings/mfd/cirrus,lochnagar.yaml b/Documentation/devicetree/bindings/mfd/cirrus,lochnagar.yaml
-index c00ad3e21c21..a04570335b76 100644
---- a/Documentation/devicetree/bindings/mfd/cirrus,lochnagar.yaml
-+++ b/Documentation/devicetree/bindings/mfd/cirrus,lochnagar.yaml
-@@ -126,7 +126,7 @@ properties:
-       clock-frequency:
-         const: 12288000
- 
--  lochnagar-pinctrl:
-+  pinctrl:
-     type: object
-     $ref: /schemas/pinctrl/cirrus,lochnagar.yaml#
- 
-@@ -293,7 +293,7 @@ examples:
-                 clock-frequency = <32768>;
-             };
- 
--            lochnagar-pinctrl {
-+            pinctrl {
-                 compatible = "cirrus,lochnagar-pinctrl";
- 
-                 gpio-controller;
-diff --git a/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml b/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml
-index c85f759ae5a3..8a90d8273767 100644
---- a/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml
-@@ -107,9 +107,6 @@ properties:
- 
-     additionalProperties: false
- 
--allOf:
--  - $ref: "pinctrl.yaml#"
--
- required:
-   - pinctrl-0
-   - pinctrl-names
--- 
-2.32.0
-
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>

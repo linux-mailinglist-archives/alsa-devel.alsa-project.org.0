@@ -2,93 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 019774CBC18
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 12:04:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A7114CBC84
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 12:28:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 825C31A9E;
-	Thu,  3 Mar 2022 12:03:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 825C31A9E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29BF517B5;
+	Thu,  3 Mar 2022 12:27:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29BF517B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646305485;
-	bh=IsRZoZ9KQqOEda6ZTVmiz3cTaRRZuVIbhB0jBijioXY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=acV9AR3o9uhwEGPT9uh2px0HLtki4oMpfUyijvcMJm1LKxtWWdDkPEoFXrlnNGveG
-	 vUREKGSZncttKEXu/fPNhGUCzXnsh8jj661bhthSZWtmB4CHPkxOp2gsf+L5JTptBT
-	 erEbY4Mx0UIgrFfDwQ4ZylbZb9X2TFIQAw1th+I4=
+	s=default; t=1646306900;
+	bh=tV/Ow5Jp4b3MHtm2QDHCd+vujg3ZfeZ36OEjSUEriUE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=l63+eBUxl1+26DsIsaYwu2QgSvc3EGbGOpFDFYwF3NqogWRP1PGtYUU0tzkgHB73O
+	 8Dbfn2r8Hfskb4RzpvG66p40KvsksoCK2Jn65Symlv21wJwYoAEBAYDi4DtobScxXK
+	 Qf4EpNkytE2WgREPqcQp1PnB17fBzcmBgnodFWzY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E31AEF80166;
-	Thu,  3 Mar 2022 12:03:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81DAAF80166;
+	Thu,  3 Mar 2022 12:27:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B19DF80109; Thu,  3 Mar 2022 12:03:36 +0100 (CET)
+ id 396FCF80152; Thu,  3 Mar 2022 12:27:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 567CCF80109
- for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 12:03:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 567CCF80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8877BF80109
+ for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 12:27:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8877BF80109
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="XDYOccH9"
-Received: by mail-wr1-x433.google.com with SMTP id ay10so7220861wrb.6
- for <alsa-devel@alsa-project.org>; Thu, 03 Mar 2022 03:03:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8hDu3jQ0/KFwUauJ0s0iiJQ5+oez30L/TC9C+H82oIY=;
- b=XDYOccH9/feL6Ga45UDMA4UeGQ2IytWYoXsBswjEKD7uNTlpf0VtbxzB3avjKa0Xr2
- GyImAA3NbJi7tuwKzXOol2I72Z+rEZSPw+LyUw6NdzxexCd5VQ1K5h/R9Hub5aeFHcan
- ivv0S/qSgsVYRr1oyWRIpSau/cOF/2FqgjGotx/sLggikMWwsaH4JJ0RP+Yeusqm89H0
- XJN+C3MG05/iJxVFre2ytXzWNm9wNEfw7iaKgLY+o1QyPP6l+rI65MCP+EhVZuhzh6Rf
- H/CfoqcTUwHjZb2TxaQgltSIKz5RObYoNSsv3Y+zYHUKcmAO85IFb4Xj1cnBkzqYjvgQ
- zWvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8hDu3jQ0/KFwUauJ0s0iiJQ5+oez30L/TC9C+H82oIY=;
- b=K+jPlvVvtOWSsCwG3v9HEwG9FlQYYMc+NyKVxAagWSHMY4BKQ4vJftMM4yBo1AJDa6
- c9gHCnfHcgu2aDlajI+tIFsCwpe6ypdq3o0+DoGgcWObT8cZPbbo4eSvcv7YF4f8auKj
- rkVpywf2gR2VW4fwsryWnsd4IZPGgO1JjRwYoyEchuqZlCt0AgJJuo3cYbwFZMglZys/
- 3ztAV5Rv8Vm1sE7SSOOsBigeQMiCuHEzjV2cPknB05WHuWmGwC76hk1/9/h/uxRcioSa
- ArbchzFXc59oxC1Mv/wZBt3fdhYO3uq+zOGtteMp6myY3qe3zm8QOFpzTVvscWeWl5Q/
- h7QQ==
-X-Gm-Message-State: AOAM531HGIwSjo00xLm0zMaXM4QUiHnnLXDtrHA1lnKmr8c2aBclTZjd
- YSdSBgcoHaTwglYCoRiJUnb+jA==
-X-Google-Smtp-Source: ABdhPJxmv07Y0UCCmrx9Mk4RldZATonv6UYABP7hLa0VMXaYKQQfPtPdCbK4cU+CsbZNk76xvOwhQg==
-X-Received: by 2002:adf:a199:0:b0:1f0:20f5:8f79 with SMTP id
- u25-20020adfa199000000b001f020f58f79mr7842466wru.296.1646305408054; 
- Thu, 03 Mar 2022 03:03:28 -0800 (PST)
-Received: from srini-hackbox.lan
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id
- p16-20020adff210000000b001f062b80091sm638187wro.34.2022.03.03.03.03.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Mar 2022 03:03:27 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: vkoul@kernel.org,
-	yung-chuan.liao@linux.intel.com
-Subject: [PATCH] soundwire: qcom: fix build failures if CONFIG_PM=n
-Date: Thu,  3 Mar 2022 11:03:21 +0000
-Message-Id: <20220303110321.23666-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="C2vF6nFQ"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 223509Bm013880;
+ Thu, 3 Mar 2022 05:27:02 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=EAVQ9BTgA44GRc27JLLgB99fSIgoFgOWBfBA7P8DU7o=;
+ b=C2vF6nFQPlgkzR4J/aTvN3MgR2zWtIREBe87y4x18cu+Pmzi81wYPwU8NGyjvrIT4EmI
+ nTzQ1CgeAlAi1BYbPZPLnsNoACB6SudKYC3lVY3KGsCrNRWXBMJT/Dj94nSYnOJw6hVF
+ LZ5CbL7ahza0LYVpIGkAvbkrrvYr99o4h26m2AMWAOkLa/rNjmWU+Vif9m19pyn+0CRT
+ OHHgiaWvw8RsLEqZGhYNAWeEGKYIaJgBlVsQXjplWHMTswPDy4FJA9B8ts2z9yYV3DRw
+ 8dP5Rdru2/Hgz+3Pa/ESbCJE4K2PffPlZUqfKI7kdKkmDQF9RWy0E/wb5wFwTEWyoonS nw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ejncq8fv7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 03 Mar 2022 05:27:02 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 3 Mar
+ 2022 11:27:00 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Thu, 3 Mar 2022 11:27:00 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CFAF42A1;
+ Thu,  3 Mar 2022 11:27:00 +0000 (UTC)
+Date: Thu, 3 Mar 2022 11:27:00 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Martin Kepplinger <martin.kepplinger@puri.sm>
+Subject: Re: [PATCH] wm8962: add a simple DMIC enable control
+Message-ID: <20220303112700.GM38351@ediswmail.ad.cirrus.com>
+References: <20220203110518.GF18506@ediswmail.ad.cirrus.com>
+ <7b3306d7a80f605973c932a0a4679bcac067ae8a.camel@puri.sm>
+ <20220204172116.GG18506@ediswmail.ad.cirrus.com>
+ <fca54f527f619e21c19918ed3165d9ec8f85f6f6.camel@puri.sm>
+ <20220207142129.GB112838@ediswmail.ad.cirrus.com>
+ <20220301134441.GK38351@ediswmail.ad.cirrus.com>
+ <b867e8d576536907d383e66f85afee995074b53b.camel@puri.sm>
+ <ebede30e994b8178c4a929814c7f85739656c621.camel@puri.sm>
+ <20220302134017.GL38351@ediswmail.ad.cirrus.com>
+ <1eecf3fec0b1e7a2f229f4b6cb6dea3955f19dff.camel@puri.sm>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Stephen Rothwell <sfr@canb.auug.org.au>, pierre-louis.bossart@linux.intel.com,
- linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, quic_srivasam@quicinc.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <1eecf3fec0b1e7a2f229f4b6cb6dea3955f19dff.camel@puri.sm>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: SHAbAPGswAgFV9BjismtGd7wHEZpIs6w
+X-Proofpoint-GUID: SHAbAPGswAgFV9BjismtGd7wHEZpIs6w
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org, kernel@puri.sm, patches@opensource.cirrus.com,
+ tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org, geert@glider.be,
+ daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,31 +109,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix below build failure
-drivers/soundwire/qcom.c:1460:12: error: 'swrm_runtime_resume' defined
-but not used [-Werror=unused-function]
-by marking the resume swrm_runtime_resume() with  __maybe_unused attribute.
+On Wed, Mar 02, 2022 at 03:11:00PM +0100, Martin Kepplinger wrote:
+> Am Mittwoch, dem 02.03.2022 um 13:40 +0000 schrieb Charles Keepax:
+> > On Wed, Mar 02, 2022 at 12:48:28PM +0100, Martin Kepplinger wrote:
+> > > Am Dienstag, dem 01.03.2022 um 15:00 +0100 schrieb Martin
+> > > > Am Dienstag, dem 01.03.2022 um 13:44 +0000 schrieb Charles
+> > > > > On Mon, Feb 07, 2022 at 02:21:29PM +0000, Charles Keepax wrote:
+> > > > > > On Mon, Feb 07, 2022 at 11:49:32AM +0100, Martin Kepplinger
+> > > > > > > Am Freitag, dem 04.02.2022 um 17:21 +0000 schrieb Charles
+> > > > > > > > On Fri, Feb 04, 2022 at 10:43:53AM +0100, Martin
+> > Although your previous control dumps had that input set
+> > on. I suspect if you have both enabled you will get some slightly
+> > weird effects, there is probably a slightly phase delay through
+> > the PGA and there won't be on the direct path, so when they mix
+> > together it will likely sound weird.
+> 
+> it was not that bad but with your changes, especially a recorded "s"
+> sounds indeed better now.
+> 
 
-Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- drivers/soundwire/qcom.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Awesome hopefully that should be us getting pretty close.
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index e893aee1b057..6575695cd400 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -1459,7 +1459,7 @@ static bool swrm_wait_for_frame_gen_enabled(struct qcom_swrm_ctrl *swrm)
- 	return false;
- }
- 
--static int swrm_runtime_resume(struct device *dev)
-+static int __maybe_unused swrm_runtime_resume(struct device *dev)
- {
- 	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
- 	int ret;
--- 
-2.21.0
+> > Hopefully that gets us to a clean signal. The settings described
+> > in your commit message give +9dB analogue gain which seems
+> > reasonable to me, and from the patch itself looks like you have
+> > +15dB digital gain, which feels a little high but not total
+> > unreasonable.
+> I left MIXINR PGA Volume at 1 and Capture Volume ("Input PGA Volume
+> Control") at 39 for now since I think it shouldn't be quieter than that
+> at least.
 
+I think we probably bump the PGA gain up another 3dB, maybe even
+6dB if you really need to, I would just be careful to test some
+very loud sound levels to make sure your not starting to clip the
+signal.
+
+Thanks,
+Charles

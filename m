@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AC424CBEF4
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 14:34:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F33E4CBEF6
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 14:35:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0E4E18FA;
-	Thu,  3 Mar 2022 14:33:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0E4E18FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0740191F;
+	Thu,  3 Mar 2022 14:34:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0740191F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646314471;
-	bh=p2C7b5c/cUQV9McqiJLePU5w1eCpvl0FqwxxR66KW3c=;
+	s=default; t=1646314503;
+	bh=Ei0hkSjteYCI4Mye6PPB4xKcN0OiLDypiHdbTkPJbMk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tiiDRG5nT6fNs0OTvAsgFu/lC52Q31pMAG/HV5ZgQbqnoX3NnC0Odctg6Mo8mZLsa
-	 rskA7fzQBW5p8IJHxYfkwikbfeD6VbW58L8JjS2NciTpNRSaqze5WFZAy90opRJHOK
-	 57MZ7vRyytpvG/HbCHaAWNRx8eWrUGxdCzULKwbQ=
+	b=SPB3n0Ls/GFFRc0XHOA8kN/l3FZ42hWoop8iUgKt3VKSlrYLWMT5/FauQzFd1lXZq
+	 GIGrEWNMKg/hPYh7rSKnUd3YYiqaRbdOPqm0pgxSKbs7verGdW5/RpspGh0g4quELb
+	 p9KGkCoAfo2NjfSKF1TYPyFGOEPdEedGIe41y4FU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DD6CF80166;
-	Thu,  3 Mar 2022 14:33:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67359F804BC;
+	Thu,  3 Mar 2022 14:33:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E85AF80152; Thu,  3 Mar 2022 14:33:20 +0100 (CET)
+ id D38B9F80152; Thu,  3 Mar 2022 14:33:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D0B6F8013D
- for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 14:33:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D0B6F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70D4CF8013D
+ for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 14:33:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70D4CF8013D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Hfiz7Szl"
+ header.b="bV1p3W54"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 486FDB8254C;
- Thu,  3 Mar 2022 13:33:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EAC9C004E1;
- Thu,  3 Mar 2022 13:33:08 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2F9E461A87;
+ Thu,  3 Mar 2022 13:33:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C6AC340ED;
+ Thu,  3 Mar 2022 13:33:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646314391;
- bh=p2C7b5c/cUQV9McqiJLePU5w1eCpvl0FqwxxR66KW3c=;
+ s=k20201202; t=1646314393;
+ bh=Ei0hkSjteYCI4Mye6PPB4xKcN0OiLDypiHdbTkPJbMk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Hfiz7SzlXv23kTOu2VKGxKVgiYhP4fTT7098Cx4jimhp/UBzWjBSlsmpA4PwCP0BI
- ZDn+4+G8eE+Iiin/G+HGlKI6JW89ENHtP3szsQLgOSJpIUUy5K/pMmyikLSpu5n+uo
- FmBzmcY/4fnqIXvljAWbFHPO9duZuh4Eu92asbi6E0Ok1Q2k1rV1FNfj3DydPqGydM
- LzbDei8LBdviYQKbIAqDRRTnXwVO0YP7vKSG0beUdQgR9lz7BV30dEfxK9bfzRBjRR
- 4BOUrXs9w/KhHeeD6RZ4xWEsRaFwbg8sAZhSs3AY+RxNozi4NlZ9Im31Fupzl18zwG
- Hb8uFwEI84NCg==
+ b=bV1p3W54n9fe12HXoG10azO3Qv2wZbJA2N4wQZyQG5F4/vw+ZZU4bslukFSK7TNZS
+ xxRw1IZO560DhSeGmta+18G8k9UrQLG6v9PLuvtIAzpIfdeKI49q7lfkl6TaIdQzSJ
+ AwGD7NvD6gb5A0JqWZaIAewbVhp2sE1L+aeHvD/yUn8mrWYwrEE0++rRzbVnwzZwnl
+ PbFWddyGcJ/52+2c6CevUJRGj/V4qNbFu39N/ZOH+fQFDLAYpk4c5siHOX6QFOU99e
+ Mm6cVy/xqOUS1xBVJy3t/sYvs7PYEaUv0DeAPUKSwXkiz49wA5UKCqm/YJmVKxiAAP
+ +OFiCePFaTVGA==
 From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-In-Reply-To: <20220302013533.29068-1-jiaxin.yu@mediatek.com>
-References: <20220302013533.29068-1-jiaxin.yu@mediatek.com>
-Subject: Re: [v2] ASoC: bt-sco: fix bt-sco-pcm-wb dai widget don't connect to
- the endpoint
-Message-Id: <164631438805.1870788.7887428309950116158.b4-ty@kernel.org>
-Date: Thu, 03 Mar 2022 13:33:08 +0000
+To: perex@perex.cz, Meng Tang <tangmeng@uniontech.com>, lgirdwood@gmail.com,
+ tiwai@suse.com
+In-Reply-To: <20220302094351.3487-1-tangmeng@uniontech.com>
+References: <20220302094351.3487-1-tangmeng@uniontech.com>
+Subject: Re: [PATCH] ASoC: hdac_hda: Avoid unexpected match when pcm_name is
+ "Analog"
+Message-Id: <164631439115.1870788.3267235264627671548.b4-ty@kernel.org>
+Date: Thu, 03 Mar 2022 13:33:11 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,13 +86,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2 Mar 2022 09:35:33 +0800, Jiaxin Yu wrote:
-> This patch fix the second dai driver's dai widget can't connect to the
-> endpoint. Because "bt-sco-pcm" and "bt-sco-pcm-wb" dai driver have the
-> same stream_name, so it will cause they have the same widget name.
-> Therefor it will just create only one route when do snd_soc_dapm_add_route
-> that only find the widget through the widget name.
+On Wed, 2 Mar 2022 17:43:51 +0800, Meng Tang wrote:
+> pcm name can be "Analog" and "Alt Analog", cpcm->name can be
+> "Analog Codec DAI" and "Alt Analog Codec DAI". When pcm_name
+> is "Analog", "Analog Codec DAI" and "Alt Analog Codec DAI" are
+> both satisfy the 'if (strstr(cpcm->name, pcm_name))' condition,
+> which may cause the returned cpcm to be "Alt Analog Codec DAI".
 > 
+> Even if we get the pcm name by id, and "Analog Codec DAI" goes
+> into the loop before "Alt Analog Codec DAI", but I still think
+> we'd better have multiple insurances against unexpected return
+> values. After, we can correctly return the expected result
+> even if other relevant places are changed.
 > 
 > [...]
 
@@ -105,8 +107,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: bt-sco: fix bt-sco-pcm-wb dai widget don't connect to the endpoint
-      commit: 8f2b025abc31bc15d38657d1286d7470bbbd5efa
+[1/1] ASoC: hdac_hda: Avoid unexpected match when pcm_name is "Analog"
+      commit: e94769900f4302b4034945e5d9ec8262a2f5e086
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

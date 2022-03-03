@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 395DC4CC406
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 18:35:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98A424CC3FC
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 18:33:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0B2217CF;
-	Thu,  3 Mar 2022 18:34:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0B2217CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7E641943;
+	Thu,  3 Mar 2022 18:32:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7E641943
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646328906;
-	bh=/QQCP28GjHMO6pIgOyzNvBSnfRrRMh8cL43N4mVDRPQ=;
+	s=default; t=1646328829;
+	bh=CXWIGsolUZtCu/tRLytdpDgRgcJdF7W72/c8kbQP8T0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jPjk5BxcXpVIgj56I5gpbULNQ7TvPcsG1WSVeqrnzs8J3L2VEVAoE/0ZbHnUJVrSB
-	 ktDJFVmYOwAYuFG4d+9tEwbVvEvOLT4BLwcYYVoEsCkQwP7eaPQkI2tx3ACDZXbraR
-	 fpXmk8/KZI13KaqvC9ckpijE4tt4VN0rNaecU6uA=
+	b=hdBv6uuWCTfFcC8L3ztB2Y+puaOfRnO++H/V4e/BnjQEK7pv8BU/0iqq9H+yRXK+K
+	 lTNOYsnAG2JcQ9o7BW+20xWNOnR67xvrAStKX34FzdFvuTqe5KPu8EKIqS3qjCGgiX
+	 GcMRa54bNjH1nHOyzwa/v8CbqoDgyMCUY1YtMQoI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 621F9F80557;
-	Thu,  3 Mar 2022 18:31:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 397CEF8053B;
+	Thu,  3 Mar 2022 18:31:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FA17F8053E; Thu,  3 Mar 2022 18:31:24 +0100 (CET)
+ id D84B1F80536; Thu,  3 Mar 2022 18:31:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,54 +35,54 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC44BF8051B
- for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 18:31:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC44BF8051B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F9FBF80167
+ for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 18:31:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F9FBF80167
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="B4ptfMT4"
+ header.b="SbrtGi9j"
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 223509T8013880;
- Thu, 3 Mar 2022 11:31:10 -0600
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2234AADw028599;
+ Thu, 3 Mar 2022 11:31:08 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=S6u3GQtfaXIgPITm/HGCnkWxfKFOTDremsnnkLjeMOw=;
- b=B4ptfMT4GDXHj3CNHnjCMxC4P9I55mV37sy6BQkkclqc9rwfDqcEa4SwVowtV34sS9Gg
- L1Y/U9Ss/l6Fr5oqt0S32VJyBx2k1k80PEAE1eNm9ArDgvKNYd8Z1OT6ZOC9pNsoYLDv
- VHqHJiDsRzpNjy3xCfu/6NGLP74YoKSDlWFb3ahy+69/t/wdB6mg+eM+RfPfaP55RPda
- VaLdidsWe/nk/gF4Iy+AiFJqq7YorSYw0qOwaVp4409Q7xmcF83mmJPCE/ObeV1g4XEg
- BKByLAMxUyQLdV7c+jOSwMysjZGaGml1eAzZTRoyWwfFTkRTR0GJRN5pJZ1YGQU9k3xC qg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ejncq8ybn-7
+ bh=cnANgRnNMxthB+Az/dRLrs4+S0q0VAMFd2idCCcyUx8=;
+ b=SbrtGi9jspS/LEHsQnK5k/SqWDU0/GbrU1zCBvCbOiDdBnoH/S9P+kSq7mS9x712fCoy
+ 6RkAttrWIHmvVjBx5ucGCt1B0wGI+rHZF3nuEZbOhD1CkLoudQvtS6Ase7ZYgcoOKeRa
+ 08JfhVXTdwlv4A+jeBbFVTOZGsEU4Wh0+GuM3e6jDwX2nwDC7NAyfP9HUKeIAHzEzRQf
+ y3ijhju/ApAJLjB7l+eGI8oTn0OYQRDZ5oH4/hk906oLYogclie2rseGo53y+m5/0wD2
+ FOHNC1Hv+6T28M4zTgSuVgd3IEjNw4nP0qLaEN7tPbIzZ/gmRjwPa7HXK5LG2coerTXJ rg== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ejncq8ybk-7
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 03 Mar 2022 11:31:10 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ Thu, 03 Mar 2022 11:31:08 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 3 Mar
- 2022 17:31:06 +0000
+ 2022 17:31:07 +0000
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Thu, 3 Mar 2022 17:31:06 +0000
+ Frontend Transport; Thu, 3 Mar 2022 17:31:07 +0000
 Received: from aryzen.ad.cirrus.com (unknown [198.61.65.198])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 98E207C;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id ECF3AB1A;
  Thu,  3 Mar 2022 17:31:06 +0000 (UTC)
 From: Lucas Tanure <tanureal@opensource.cirrus.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob
  Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 12/20] hda: cs35l41: Mute the device before shutdown
-Date: Thu, 3 Mar 2022 17:30:51 +0000
-Message-ID: <20220303173059.269657-13-tanureal@opensource.cirrus.com>
+Subject: [PATCH 13/20] sound: cs35l41: Enable Internal Boost in shared lib
+Date: Thu, 3 Mar 2022 17:30:52 +0000
+Message-ID: <20220303173059.269657-14-tanureal@opensource.cirrus.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220303173059.269657-1-tanureal@opensource.cirrus.com>
 References: <20220303173059.269657-1-tanureal@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 1LNFhf7yo1UP5oChga3AAQ90bqNPNoK0
-X-Proofpoint-GUID: 1LNFhf7yo1UP5oChga3AAQ90bqNPNoK0
+X-Proofpoint-ORIG-GUID: 60vMfnR0GnMQSWeoaeHXc0Rk7eZROQIh
+X-Proofpoint-GUID: 60vMfnR0GnMQSWeoaeHXc0Rk7eZROQIh
 X-Proofpoint-Spam-Reason: safe
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
@@ -102,46 +102,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mute the device before shutdown to avoid pops
-and clicks all types of boost.
+Boost enable is the default option from reset,
+but with external boost support, internal boost
+must be disabled.
+Add the enable of boost in cs35l41_boost_config
+to centralize the internal boost configuration.
 
 Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
 ---
- sound/pci/hda/cs35l41_hda.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/soc/codecs/cs35l41-lib.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 665f0b4e191a..75c5088cb224 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -28,6 +28,11 @@ static const struct reg_sequence cs35l41_hda_config[] = {
- 	{ CS35L41_PWR_CTRL2,		0x00000001 }, // AMP_EN = 1
- };
+diff --git a/sound/soc/codecs/cs35l41-lib.c b/sound/soc/codecs/cs35l41-lib.c
+index 3fae34a232cd..34ba163874a6 100644
+--- a/sound/soc/codecs/cs35l41-lib.c
++++ b/sound/soc/codecs/cs35l41-lib.c
+@@ -1036,6 +1036,9 @@ int cs35l41_boost_config(struct device *dev, struct regmap *regmap, int boost_in
+ 		return ret;
+ 	}
  
-+static const struct reg_sequence cs35l41_hda_mute[] = {
-+	{ CS35L41_AMP_GAIN_CTRL,	0x00000000 }, // AMP_GAIN_PCM 0.5 dB
-+	{ CS35L41_AMP_DIG_VOL_CTRL,	0x0000A678 }, // AMP_VOL_PCM Mute
-+};
++	regmap_update_bits(regmap, CS35L41_PWR_CTRL2, CS35L41_BST_EN_MASK,
++			   CS35L41_BST_EN_DEFAULT << CS35L41_BST_EN_SHIFT);
 +
- static const struct reg_sequence cs35l41_hda_start_bst[] = {
- 	{ CS35L41_PWR_CTRL2,		0x00000021 }, // BST_EN = 10, AMP_EN = 1
- 	{ CS35L41_PWR_CTRL1,		0x00000001, 3000}, // set GLOBAL_EN = 1
-@@ -89,7 +94,6 @@ static const struct reg_sequence cs35l41_active_to_safe[] = {
- 	{ 0x00000040,			0x00000055 },
- 	{ 0x00000040,			0x000000AA },
- 	{ 0x00007438,			0x00585941 },
--	{ CS35L41_AMP_DIG_VOL_CTRL,	0x0000A678 }, // AMP_VOL_PCM Mute
- 	{ CS35L41_PWR_CTRL2,		0x00000000 }, // AMP_EN = 0
- 	{ CS35L41_PWR_CTRL1,		0x00000000 },
- 	{ 0x0000742C,			0x00000009, 2000 },
-@@ -146,6 +150,7 @@ static void cs35l41_hda_playback_hook(struct device *dev, int action)
- 			ret = regmap_multi_reg_write(reg, reg_seq->prepare, reg_seq->num_prepare);
- 		break;
- 	case HDA_GEN_PCM_ACT_CLEANUP:
-+		regmap_multi_reg_write(reg, cs35l41_hda_mute, ARRAY_SIZE(cs35l41_hda_mute));
- 		if (reg_seq->cleanup)
- 			ret = regmap_multi_reg_write(reg, reg_seq->cleanup, reg_seq->num_cleanup);
- 		break;
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(cs35l41_boost_config);
 -- 
 2.35.1
 

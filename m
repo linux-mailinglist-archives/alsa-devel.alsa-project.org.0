@@ -2,99 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 098304CC2C2
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 17:29:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37E174CC372
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 18:11:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DC381877;
-	Thu,  3 Mar 2022 17:29:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DC381877
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDD6518F4;
+	Thu,  3 Mar 2022 18:10:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDD6518F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646324994;
-	bh=CtO+q+db8vVqoYn5hGybpLCePxeBiCv7x6IgL+nEjAU=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1646327472;
+	bh=EZ64RrLAufcaTfxOU8QnB6umg8UYTEL5J9ra8Ckkkn8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hyUojSZczmeqXliSyEu2seatJLeOaRaQ67uTzjRj6uQhwfj6g6DqSzlmdFz45Vdne
-	 Ucq0eb1LIrMJR/3N5WSVM0QJ4tSeyf15arv/PQwkoKW08Ohg8+5sORgMrCR9gHvLIN
-	 B2rp70Cu90H/+4qsTH8r1oSiyBYvDqkUl5HsitGc=
+	b=vaU5aQeRXCZms5f4LQsGTxUr/ZxUocj7iqFmqk9SHf16TzLZdskDDe7ncVUb4+NxC
+	 J4Uan2FBp9NLjwIr8ckQ0Fu63fQXp6mbfcqA7+a5KqYZzKmAgbzzF4q3606gRxK7pH
+	 SHu7EihwCtSzOm+W/11BBzNTQAXZerV1t5MKG1Rs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF1E5F80166;
-	Thu,  3 Mar 2022 17:28:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 352FDF800F0;
+	Thu,  3 Mar 2022 18:10:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4AF2FF80152; Thu,  3 Mar 2022 17:28:42 +0100 (CET)
+ id EA119F80152; Thu,  3 Mar 2022 18:10:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6652AF800F0
- for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 17:28:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6652AF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC2A1F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 18:09:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC2A1F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Vcev2SFI"
-Received: by mail-wr1-x434.google.com with SMTP id m6so8664156wrr.10
- for <alsa-devel@alsa-project.org>; Thu, 03 Mar 2022 08:28:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=e9uAigxs46BqjYn/NnAb73WG4q/CVGltu1N4Y/zwCMs=;
- b=Vcev2SFIz15CNPNz6TgieU6hpUaPUyb2MiXTR9yTHY32sCp/JeqnNvir2PknyHnDzI
- jJwtHbgTSNp/z0wchPmANaZIrlJdoKv7kQz1OJbLNbX1F0ARrRKmj6RsJBckurzoETnv
- A8CYJP4srXFo+uv8g+fTSD8j6J0/8NSkTADCX2Ds0k6d+yQqZr96K40JIK4uIYUuUUsH
- BOAvBEaqJyAQvG3LObSDzHoHEUYtNzGIERv9dbDQLHMN3jskOFXkehgBlp89UmXhWQk7
- zgzZhKL0CetqGCoRuobLTnyqYqIe2UA59mgDFLo6Vgv+i/qv6fZ7D4iarndZpeFBLXQp
- YSZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=e9uAigxs46BqjYn/NnAb73WG4q/CVGltu1N4Y/zwCMs=;
- b=CAlWbdP/jQcekv39FdNgSRi2fvOyGOo7X3HPn2y2MIDki5G+j0c9lTrfbmYGTQ/uXh
- cgRFDuK0M7g2VrasVtKq7PiH0TJZk4xKmGtIzRL5/K/uOXGCDZW1faHXTMC5v4VwFpho
- Ox7u+/E3jc5BQLmnU2S7mzsiwre8fTMSjbUfFc/c4tSzPGbGkmcisURBuIUvBZcW5ctM
- EHF9XruzSbjqBC18suZFpERTvMy4AeYBRsrVAk8cut6zvo9MMfJgVfQBOICM9J1APUl7
- 41NG6Q0RhZK4h1OpUpt9Amuu8Gg9ZeCFWHUJYPYQHIDY4rzqhDaKXAAzqaBKSuo2gZpd
- A1LA==
-X-Gm-Message-State: AOAM53255BV8BT5iCperzme3KT+SuQ/Zw5v1ysV4KJnBjaf3k50ga1nM
- 4QoBkKltnub5ntBBk+pewMXngQ==
-X-Google-Smtp-Source: ABdhPJw+68OTesX5GBgIs6OHFuXgq005qYLbStO1qwh6vFVRL4WvvzUZwrz7pgV1BM2p92GZLjvDSg==
-X-Received: by 2002:adf:f5c3:0:b0:1f0:4b6e:b7e7 with SMTP id
- k3-20020adff5c3000000b001f04b6eb7e7mr3513863wrp.287.1646324918134; 
- Thu, 03 Mar 2022 08:28:38 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- r1-20020a5d4941000000b001ed89dcacbbsm2419346wrs.23.2022.03.03.08.28.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Mar 2022 08:28:37 -0800 (PST)
-Message-ID: <cef16c0a-c0a8-3ed2-c35b-09fda2068073@linaro.org>
-Date: Thu, 3 Mar 2022 16:28:36 +0000
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="qmd1yQHr"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22385YKu022391;
+ Thu, 3 Mar 2022 11:09:52 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=sBTx+Sb/4DNav975t+tA9y9v878xAq0yu9TI8CLTbDc=;
+ b=qmd1yQHrdxJjir+tgeUEtTYne1r1QkfzfXPZfiLmbyATWwvR5qfKmn1ju+237HM7GdH3
+ y+UPjKGa61WBdwFF5Xax5HYDZy4aB84Bl7Pi5XOydD9r25g1Qq7HJdgIl0jlEYs0dNn+
+ qCDDI6/y0tJJMCAVpTndzF6/r4S1ZeGJ9wmBKm8TG0DNqaWydEhtRcpBPMptpd+xn/6n
+ 4HxzbuZkPAVTmRNJ05jmyj+58mUtGeiQcWOuQ8wEyDl58HFFE3A1TFHuALi+c/mZsOru
+ HkbqE7Ru4iOFIzgs1yK5AMWKV15iVnWWvP0T2CUwTkEf7E7Q8pwVX8Kp20D51Lxqq8sO bg== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ejsv20pne-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 03 Mar 2022 11:09:52 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 3 Mar
+ 2022 17:09:50 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Thu, 3 Mar 2022 17:09:50 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id EBEAD7C;
+ Thu,  3 Mar 2022 17:09:49 +0000 (UTC)
+Date: Thu, 3 Mar 2022 17:09:49 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Simon Trimmer <simont@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: wm_adsp: Expand firmware loading search options
+Message-ID: <20220303170949.GR38351@ediswmail.ad.cirrus.com>
+References: <20220303155016.122125-1-simont@opensource.cirrus.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] soundwire: qcom: fix build failures if CONFIG_PM=n
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>
-References: <20220303110321.23666-1-srinivas.kandagatla@linaro.org>
- <YiDlBevX3/BrXmwb@matsya>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <YiDlBevX3/BrXmwb@matsya>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Stephen Rothwell <sfr@canb.auug.org.au>, pierre-louis.bossart@linux.intel.com,
- linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- yung-chuan.liao@linux.intel.com, quic_srivasam@quicinc.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220303155016.122125-1-simont@opensource.cirrus.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: SsBYKiKjvpqxnUz1WRs4hYWDISr14wwM
+X-Proofpoint-ORIG-GUID: SsBYKiKjvpqxnUz1WRs4hYWDISr14wwM
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ broonie@kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,31 +99,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 03/03/2022 15:55, Vinod Koul wrote:
-> On 03-03-22, 11:03, Srinivas Kandagatla wrote:
->> Fix below build failure
->> drivers/soundwire/qcom.c:1460:12: error: 'swrm_runtime_resume' defined
->> but not used [-Werror=unused-function]
->> by marking the resume swrm_runtime_resume() with  __maybe_unused attribute.
+On Thu, Mar 03, 2022 at 03:50:16PM +0000, Simon Trimmer wrote:
+> The parts supported by this driver can have product-specific
+> firmware and tunings files. Typically these have been used on
+> embedded systems where the manufacturer is responsible for
+> installing the correct product-specific firmware files into
+> /lib/firmware. However, the linux-firmware repository places all
+> available firmwares into /lib/firmware and it is up to the driver to
+> select the correct product-specific firmware from that directory.
 > 
-> A patch title should reflect the change and not the cause. So i have
-> taken liberty to fix it as:
+> For example a product containing four smart amplifiers may provide
+> firmware specific for that product and each of the amplifiers may
+> have coefficient files containing tunings for their placement in the
+> mechanical design.
 > 
-> soundwire: qcom: use __maybe_unused for swrm_runtime_resume()
->   
-> swrm_runtime_resume() would not be defined when CONFIG_PM=n
->   
-> This causes below build failure
-> drivers/soundwire/qcom.c:1460:12: error: 'swrm_runtime_resume' defined
-> but not used [-Werror=unused-function]
->   
-> Mark the resume swrm_runtime_resume() with  __maybe_unused attribute.
+> This change extends firmware (wmfw) and coefficient (bin) filenames
+> to be of the general form:
 > 
-> With this i have applied
+> <cirrus/>part-dspN-fwtype<-system_name<-asoc_component_prefix>>.type
+> 
+> Where the cirrus subdirectory, system_name and asoc_component_prefix
+> are optional.
+> 
+> New files will be placed in the cirrus subdirectory to avoid
+> polluting the main /lib/firmware/ location. The generic name must be
+> searched in /lib/firmware before /lib/firmware/cirrus so that a
+> generic file in the new location does not override existing
+> product-specific files in the legacy location.
+> 
+> The search order for firmware files is:
+>   - cirrus/part-dspN-fwtype-system_name-asoc_component_prefix.wmfw
+>   - cirrus/part-dspN-fwtype-system_name.wmfw
+>   - part-dspN-fwtype.wmfw
+>   - cirrus/part-dspN-fwtype.wmfw
+> 
+> - Qualifications are added to the filename so that rightwards is more
+>   specific.
+> - The system_name is provided by the codec driver.
+> - The asoc_component_prefix is used to identify tunings for individual
+>   parts because it would already exist to disambiguate the controls
+>   and it makes it obvious which firmware file applies to which device.
+> 
+> The optional coefficient file must have the same filename
+> construction as the discovered wmfw except:
+>   - where the wmfw has only system_name then the bin file can
+>     optionally include the asoc_component_prefix. This is to allow a
+>     common wmfw for all amps but separate tunings per amp.
+> 
+> Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+> ---
 
-Thanks Vinod,
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
---srini
-> 
+Thanks,
+Charles

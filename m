@@ -2,92 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 855F54CBF7D
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 15:04:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FE514CBF9C
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 15:11:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2D311947;
-	Thu,  3 Mar 2022 15:03:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2D311947
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1107E1916;
+	Thu,  3 Mar 2022 15:10:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1107E1916
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646316262;
-	bh=LEBkQQdD194dF/5UO6CjDk0ocLx1ezFezLYlyU7yaOQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646316700;
+	bh=gqxKIANqBq3jtIOzakh8XJXPr8MBFZH83XrpbY63mpE=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TwWwpxIe7IwTN8aYpgt6cb2fSegamjm2cPTIMPgSukDrW4w9PwDS1yqpm/rVf4R6G
-	 Ft4EW20dh2wnvjU70nLuKZtwQeeuwiJtAE9gdI8FOvrGQ39AVqkdvuinBv8lPd9AVw
-	 J2/6R8jas+4aN8g4sb5nBIkpqQGJgt2WcW6MnwlI=
+	b=WdSoUqC2P1cazGSYIoDzsFVGIx1kxdLaYmolv384aIWOzAfd7RJxE1Bo+ckKokYkf
+	 VZOovOmholVb78fPULXY9WNRNEId58TbEbWEsmcnQtEqZUR40pqbAA+asX5+quyb2m
+	 agyzAIKPYwyoUvv+HS/os/2qcWMqB2w8kBue86YY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B516F8051B;
-	Thu,  3 Mar 2022 15:02:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8356BF80166;
+	Thu,  3 Mar 2022 15:10:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77C63F80516; Thu,  3 Mar 2022 15:02:50 +0100 (CET)
+ id 61E81F80109; Thu,  3 Mar 2022 15:10:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2D8AF804BC
- for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 15:02:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2D8AF804BC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="LVVVQ1/L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1646316168; x=1677852168;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=bh/uahIEsWNuKKULv6bRUufRjjRvk8F5xyVGfWVXA90=;
- b=LVVVQ1/LwsuqYpEQGAbZF3A45k3R+JW6+HOrwer5WEajAUDjS7qmSAh4
- g0HATM85GbVhDA4WpaDOze2bA1axpiCUNjvvkP/kXs9xk/vonrqV6GbTe
- +Vc9DKy4BVE683/OhMjmfaNPzI8NBzG+LAhOb+xz2qRw7vrsXew4BAqgE k=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 03 Mar 2022 06:02:45 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2022 06:02:44 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Thu, 3 Mar 2022 06:02:44 -0800
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Thu, 3 Mar 2022 06:02:38 -0800
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <agross@kernel.org>, <bjorn.andersson@linaro.org>, <lgirdwood@gmail.com>, 
- <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
- <bgoswami@codeaurora.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <srinivas.kandagatla@linaro.org>, <rohitkr@codeaurora.org>,
- <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <swboyd@chromium.org>, <judyhsiao@chromium.org>,
- <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.intel.com>,
- <sanyog.r.kale@intel.com>, <vkoul@kernel.org>
-Subject: [PATCH v7 2/2] dt-bindings: soundwire: qcom: Add bindings for audio
- clock reset control property
-Date: Thu, 3 Mar 2022 19:32:08 +0530
-Message-ID: <1646316128-21082-3-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1646316128-21082-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1646316128-21082-1-git-send-email-quic_srivasam@quicinc.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5247DF80109
+ for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 15:10:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5247DF80109
+X-UUID: 6d8ca964a6bd4ff9abb1f2dea29c70d2-20220303
+X-UUID: 6d8ca964a6bd4ff9abb1f2dea29c70d2-20220303
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 571788455; Thu, 03 Mar 2022 22:10:09 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Thu, 3 Mar 2022 22:10:07 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Thu, 3 Mar 2022 22:10:06 +0800
+Message-ID: <9ba63387baecf598db696d0ebbc1583406a57a62.camel@mediatek.com>
+Subject: Re: [v2 09/17] ASoC: mediatek: mt8186: support tdm in platform driver
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ <broonie@kernel.org>
+Date: Thu, 3 Mar 2022 22:10:06 +0800
+In-Reply-To: <fcae42a5-6e11-e683-8f3a-453650f08d38@collabora.com>
+References: <20220217134205.15400-1-jiaxin.yu@mediatek.com>
+ <20220217134205.15400-10-jiaxin.yu@mediatek.com>
+ <fcae42a5-6e11-e683-8f3a-453650f08d38@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Cc: Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Content-Transfer-Encoding: 7bit
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ geert+renesas@glider.be, linux-kernel@vger.kernel.org, zhangqilong3@huawei.com,
+ tiwai@suse.com, lgirdwood@gmail.com, tzungbi@google.com, robh+dt@kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,49 +86,466 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update description for audio clock reset control property, which is required
-for latest chipsets, to allow rx, tx and wsa bus clock enabling in software
- control mode by configuring dynamic clock gating control registers.
+On Fri, 2022-02-18 at 15:54 +0100, AngeloGioacchino Del Regno wrote:
+> Il 17/02/22 14:41, Jiaxin Yu ha scritto:
+> > This patch adds mt8186 tdm dai driver.
+> > 
+> > Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> > ---
+> >   sound/soc/mediatek/mt8186/mt8186-dai-tdm.c | 713
+> > +++++++++++++++++++++
+> >   1 file changed, 713 insertions(+)
+> >   create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-tdm.c
+> > 
+> > diff --git a/sound/soc/mediatek/mt8186/mt8186-dai-tdm.c
+> > b/sound/soc/mediatek/mt8186/mt8186-dai-tdm.c
+> > new file mode 100644
+> > index 000000000000..28dd3661f0e0
+> > --- /dev/null
+> > +++ b/sound/soc/mediatek/mt8186/mt8186-dai-tdm.c
+> > @@ -0,0 +1,713 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +//
+> > +// MediaTek ALSA SoC Audio DAI TDM Control
+> > +//
+> > +// Copyright (c) 2022 MediaTek Inc.
+> > +// Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> > +
+> > +#include <linux/regmap.h>
+> > +#include <sound/pcm_params.h>
+> > +
+> > +#include "mt8186-afe-clk.h"
+> > +#include "mt8186-afe-common.h"
+> > +#include "mt8186-afe-gpio.h"
+> > +#include "mt8186-interconnection.h"
+> > +
+> > +#define TDM_HD_EN_W_NAME "TDM_HD_EN"
+> > +#define TDM_MCLK_EN_W_NAME "TDM_MCLK_EN"
+> > +#define MTK_AFE_TDM_KCONTROL_NAME "TDM_HD_Mux"
+> > +
+> > +struct mtk_afe_tdm_priv {
+> > +	unsigned int id;
+> > +	unsigned int rate; /* for determine which apll to use */
+> > +	unsigned int bck_invert;
+> > +	unsigned int lck_invert;
+> > +	unsigned int lrck_width;
+> > +	unsigned int mclk_id;
+> > +	unsigned int mclk_multiple; /* according to sample rate */
+> > +	unsigned int mclk_rate;
+> > +	unsigned int mclk_apll;
+> > +	unsigned int tdm_mode;
+> > +	unsigned int data_mode;
+> > +	unsigned int slave_mode;
+> > +	unsigned int low_jitter_en;
+> > +};
+> > +
+> > +enum {
+> > +	TDM_IN_I2S = 0,
+> > +	TDM_IN_LJ = 1,
+> > +	TDM_IN_RJ = 2,
+> > +	TDM_IN_DSP_A = 4,
+> > +	TDM_IN_DSP_B = 5,
+> > +};
+> > +
+> > +enum {
+> > +	TDM_DATA_ONE_PIN = 0,
+> > +	TDM_DATA_MULTI_PIN,
+> > +};
+> > +
+> > +enum {
+> > +	TDM_BCK_NON_INV = 0,
+> > +	TDM_BCK_INV = 1,
+> > +};
+> > +
+> > +enum {
+> > +	TDM_LCK_NON_INV = 0,
+> > +	TDM_LCK_INV = 1,
+> > +};
+> > +
+> > +static unsigned int get_tdm_lrck_width(snd_pcm_format_t format,
+> > +				       unsigned int mode)
+> > +{
+> > +	if (mode == TDM_IN_DSP_A || mode == TDM_IN_DSP_B)
+> > +		return 0;
+> > +	else
+> 
+> Drop the "else"
+> 
+> > +		return snd_pcm_format_physical_width(format) - 1;
+> > +}
+> > +
+> > +static unsigned int get_tdm_ch_fixup(unsigned int channels)
+> > +{
+> > +	if (channels > 4)
+> > +		return 8;
+> > +	else if (channels > 2)
+> > +		return 4;
+> > +	else
+> 
+> Same here
+> 
+> > +		return 2;
+> > +}
+> > +
+> > +static unsigned int get_tdm_ch_per_sdata(unsigned int mode,
+> > +					 unsigned int channels)
+> > +{
+> > +	if (mode == TDM_IN_DSP_A || mode == TDM_IN_DSP_B)
+> > +		return get_tdm_ch_fixup(channels);
+> > +	else
+> 
+> ...and same here
+> 
+> > +		return 2;
+> > +}
+> > +
+> > +enum {
+> > +	SUPPLY_SEQ_APLL,
+> > +	SUPPLY_SEQ_TDM_MCK_EN,
+> > +	SUPPLY_SEQ_TDM_HD_EN,
+> > +	SUPPLY_SEQ_TDM_EN,
+> > +};
+> > +
+> > +static int get_tdm_id_by_name(const char *name)
+> > +{
+> > +	return MT8186_DAI_TDM_IN;
+> > +}
+> > +
+> > +static int mtk_tdm_en_event(struct snd_soc_dapm_widget *w,
+> > +			    struct snd_kcontrol *kcontrol,
+> > +			    int event)
+> > +{
+> > +	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w-
+> > >dapm);
+> > +	struct mtk_base_afe *afe =
+> > snd_soc_component_get_drvdata(cmpnt);
+> > +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> > +	int dai_id = get_tdm_id_by_name(w->name);
+> > +	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[dai_id];
+> > +
+> > +	if (!tdm_priv) {
+> > +		dev_info(afe->dev, "%s(), tdm_priv == NULL", __func__);
+> 
+> dev_err()
+> 
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	dev_dbg(cmpnt->dev, "%s(), name %s, event 0x%x\n",
+> > +		__func__, w->name, event);
+> > +
+> > +	switch (event) {
+> > +	case SND_SOC_DAPM_PRE_PMU:
+> > +		mt8186_afe_gpio_request(afe->dev, true, tdm_priv->id,
+> > 0);
+> > +		break;
+> > +	case SND_SOC_DAPM_POST_PMD:
+> > +		mt8186_afe_gpio_request(afe->dev, false, tdm_priv->id,
+> > 0);
+> > +		break;
+> > +	default:
+> > +		break;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int mtk_tdm_mck_en_event(struct snd_soc_dapm_widget *w,
+> > +				struct snd_kcontrol *kcontrol,
+> > +				int event)
+> > +{
+> > +	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w-
+> > >dapm);
+> > +	struct mtk_base_afe *afe =
+> > snd_soc_component_get_drvdata(cmpnt);
+> > +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> > +	int dai_id = get_tdm_id_by_name(w->name);
+> > +	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[dai_id];
+> > +
+> > +	if (!tdm_priv) {
+> > +		dev_info(afe->dev, "%s(), tdm_priv == NULL", __func__);
+> 
+> dev_err() - please fix all other instances
+> 
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	dev_dbg(cmpnt->dev, "%s(), name %s, event 0x%x, dai_id %d\n",
+> > +		__func__, w->name, event, dai_id);
+> > +
+> > +	switch (event) {
+> > +	case SND_SOC_DAPM_PRE_PMU:
+> > +		mt8186_mck_enable(afe, tdm_priv->mclk_id, tdm_priv-
+> > >mclk_rate);
+> > +		break;
+> > +	case SND_SOC_DAPM_POST_PMD:
+> > +		tdm_priv->mclk_rate = 0;
+> > +		mt8186_mck_disable(afe, tdm_priv->mclk_id);
+> > +		break;
+> > +	default:
+> > +		break;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> 
+> ...snip...
+> 
+> > +
+> > +static int mt8186_tdm_hd_set(struct snd_kcontrol *kcontrol,
+> > +			     struct snd_ctl_elem_value *ucontrol)
+> > +{
+> > +	struct snd_soc_component *cmpnt =
+> > snd_soc_kcontrol_component(kcontrol);
+> > +	struct mtk_base_afe *afe =
+> > snd_soc_component_get_drvdata(cmpnt);
+> > +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> > +	int dai_id = get_tdm_id_by_name(kcontrol->id.name);
+> > +	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[dai_id];
+> > +	struct soc_enum *e = (struct soc_enum *)kcontrol-
+> > >private_value;
+> > +	int hd_en;
+> > +
+> > +	if (ucontrol->value.enumerated.item[0] >= e->items)
+> > +		return -EINVAL;
+> > +
+> > +	hd_en = ucontrol->value.integer.value[0];
+> > +
+> > +	dev_info(afe->dev, "%s(), kcontrol name %s, hd_en %d\n",
+> > +		 __func__, kcontrol->id.name, hd_en);
+> 
+> dev_dbg()
+> 
+> > +
+> > +	if (!tdm_priv) {
+> > +		dev_info(afe->dev, "%s(), tdm_priv == NULL", __func__);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	tdm_priv->low_jitter_en = hd_en;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static const struct snd_kcontrol_new mtk_dai_tdm_controls[] = {
+> > +	SOC_ENUM_EXT(MTK_AFE_TDM_KCONTROL_NAME, mt8186_tdm_enum[0],
+> > +		     mt8186_tdm_hd_get, mt8186_tdm_hd_set),
+> > +};
+> > +
+> > +static const struct snd_soc_dapm_route mtk_dai_tdm_routes[] = {
+> > +	{"TDM IN", NULL, "aud_tdm_clk"},
+> > +	{"TDM IN", NULL, "TDM_EN"},
+> > +	{"TDM IN", NULL, TDM_HD_EN_W_NAME, mtk_afe_tdm_hd_connect},
+> > +	{TDM_HD_EN_W_NAME, NULL, APLL1_W_NAME,
+> > mtk_afe_tdm_apll_connect},
+> > +	{TDM_HD_EN_W_NAME, NULL, APLL2_W_NAME,
+> > mtk_afe_tdm_apll_connect},
+> > +
+> > +	{"TDM IN", NULL, TDM_MCLK_EN_W_NAME, mtk_afe_tdm_mclk_connect},
+> > +	{TDM_MCLK_EN_W_NAME, NULL, APLL1_W_NAME,
+> > mtk_afe_tdm_mclk_apll_connect},
+> > +	{TDM_MCLK_EN_W_NAME, NULL, APLL2_W_NAME,
+> > mtk_afe_tdm_mclk_apll_connect},
+> > +
+> > +	/* allow tdm on without codec on */
+> > +	{"TDM IN", NULL, "TDM_In_Mux"},
+> > +	{"TDM_In_Mux", "Dummy_Widget", "TDM_DUMMY_IN"},
+> > +};
+> > +
+> > +/* dai ops */
+> > +static int mtk_dai_tdm_cal_mclk(struct mtk_base_afe *afe,
+> > +				struct mtk_afe_tdm_priv *tdm_priv,
+> > +				int freq)
+> > +{
+> > +	int apll;
+> > +	int apll_rate;
+> > +
+> > +	apll = mt8186_get_apll_by_rate(afe, freq);
+> > +	apll_rate = mt8186_get_apll_rate(afe, apll);
+> > +
+> > +	if (!freq || freq > apll_rate) {
+> > +		dev_info(afe->dev,
+> > +			 "%s(), freq(%d Hz) invalid\n", __func__,
+> > freq);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	if (apll_rate % freq != 0) {
+> > +		dev_info(afe->dev,
+> > +			 "%s(), APLL cannot generate %d Hz", __func__,
+> > freq);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	tdm_priv->mclk_rate = freq;
+> > +	tdm_priv->mclk_apll = apll;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int mtk_dai_tdm_hw_params(struct snd_pcm_substream
+> > *substream,
+> > +				 struct snd_pcm_hw_params *params,
+> > +				 struct snd_soc_dai *dai)
+> > +{
+> > +	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+> > +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+> > +	int tdm_id = dai->id;
+> > +	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[tdm_id];
+> > +	unsigned int tdm_mode = tdm_priv->tdm_mode;
+> > +	unsigned int data_mode = tdm_priv->data_mode;
+> > +	unsigned int rate = params_rate(params);
+> > +	unsigned int channels = params_channels(params);
+> > +	snd_pcm_format_t format = params_format(params);
+> > +	unsigned int bit_width =
+> > +		snd_pcm_format_physical_width(format);
+> > +	unsigned int tdm_channels = (data_mode == TDM_DATA_ONE_PIN) ?
+> > +		get_tdm_ch_per_sdata(tdm_mode, channels) : 2;
+> > +	unsigned int lrck_width =
+> > +		get_tdm_lrck_width(format, tdm_mode);
+> > +	unsigned int tdm_con = 0;
+> > +	bool slave_mode = tdm_priv->slave_mode;
+> > +	bool lrck_inv = tdm_priv->lck_invert;
+> > +	bool bck_inv = tdm_priv->bck_invert;
+> > +	unsigned int ctrl_reg;
+> > +	unsigned int ctrl_mask;
+> > +	unsigned int tran_rate;
+> > +	unsigned int tran_relatch_rate;
+> > +
+> > +	if (tdm_priv)
+> > +		tdm_priv->rate = rate;
+> > +	else
+> > +		dev_info(afe->dev, "%s(), tdm_priv == NULL", __func__);
+> > +
+> > +	tran_rate = mt8186_rate_transform(afe->dev, rate, dai->id);
+> > +	tran_relatch_rate = mt8186_tdm_relatch_rate_transform(afe->dev, 
+> > rate);
+> > +
+> > +	/* calculate mclk_rate, if not set explicitly */
+> > +	if (!tdm_priv->mclk_rate) {
+> > +		tdm_priv->mclk_rate = rate * tdm_priv->mclk_multiple;
+> > +		mtk_dai_tdm_cal_mclk(afe,
+> > +				     tdm_priv,
+> > +				     tdm_priv->mclk_rate);
+> > +	}
+> > +
+> > +	/* ETDM_IN1_CON0 */
+> > +	tdm_con |= slave_mode << ETDM_IN1_CON0_REG_SLAVE_MODE_SFT;
+> > +	tdm_con |= tdm_mode << ETDM_IN1_CON0_REG_FMT_SFT;
+> > +	tdm_con |= (bit_width - 1) << ETDM_IN1_CON0_REG_BIT_LENGTH_SFT;
+> > +	tdm_con |= (bit_width - 1) <<
+> > ETDM_IN1_CON0_REG_WORD_LENGTH_SFT;
+> > +	tdm_con |= (tdm_channels - 1) << ETDM_IN1_CON0_REG_CH_NUM_SFT;
+> > +	/* default disable sync mode */
+> > +	tdm_con |= 0 << ETDM_IN1_CON0_REG_SYNC_MODE_SFT;
+> 
+> 0 << (anything) == 0
+> 
+> (number |= 0) == number
+> 
+> Is this a mistake, or are you really doing nothing here?
+> 
+No, this is just to emphasize the need to set this bit to 0.
+It really do nothing here, just link a reminder.
+Can I keep this sentence?
+> 
+> > +	/* relatch fix to h26m */
+> > +	tdm_con |= 0 << ETDM_IN1_CON0_REG_RELATCH_1X_EN_SEL_DOMAIN_SFT;
+> > +
+> > +	ctrl_reg = ETDM_IN1_CON0;
+> > +	ctrl_mask = ETDM_IN_CON0_CTRL_MASK;
+> > +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
+> > +
+> > +	/* ETDM_IN1_CON1 */
+> > +	tdm_con = 0;
+> > +	tdm_con |= 0 << ETDM_IN1_CON1_REG_LRCK_AUTO_MODE_SFT;
+> > +	tdm_con |= 1 << ETDM_IN1_CON1_PINMUX_MCLK_CTRL_OE_SFT;
+> > +	tdm_con |= (lrck_width - 1) <<
+> > ETDM_IN1_CON1_REG_LRCK_WIDTH_SFT;
+> > +
+> > +	ctrl_reg = ETDM_IN1_CON1;
+> > +	ctrl_mask = ETDM_IN_CON1_CTRL_MASK;
+> > +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
+> 
+> You don't need the ctrl_reg, nor ctrl_mask variables...
+I was trying to avoid a line of more than 80 words, so I shortened the
+number of words through variables.
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
----
- Documentation/devicetree/bindings/soundwire/qcom,sdw.txt | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-index b93a2b3..32e156d 100644
---- a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-+++ b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-@@ -150,6 +150,18 @@ board specific bus parameters.
- 		    or applicable for the respective data port.
- 		    More info in MIPI Alliance SoundWire 1.0 Specifications.
- 
-+- reset:
-+	Usage: optional
-+	Value type: <prop-encoded-array>
-+	Definition: Should specify the SoundWire audio CSR reset controller interface,
-+		    which is required for SoundWire version 1.6.0 and above.
-+
-+- reset-names:
-+	Usage: optional
-+	Value type: <stringlist>
-+	Definition: should be "swr_audio_cgcr" for SoundWire audio CSR reset
-+		    controller interface.
-+
- Note:
- 	More Information on detail of encoding of these fields can be
- found in MIPI Alliance SoundWire 1.0 Specifications.
-@@ -168,6 +180,8 @@ soundwire: soundwire@c85 {
- 	interrupts = <20 IRQ_TYPE_EDGE_RISING>;
- 	clocks = <&wcc>;
- 	clock-names = "iface";
-+	resets = <&lpass_audiocc LPASS_AUDIO_SWR_TX_CGCR>;
-+	reset-names = "swr_audio_cgcr";
- 	#sound-dai-cells = <1>;
- 	qcom,dports-type = <0>;
- 	qcom,dout-ports	= <6>;
--- 
-2.7.4
+> 
+> regmap_update_bits(afe->regmap, ETDM_IN1_CON1,
+> ETDM_IN_CON1_CTRL_MASK, tdm_con);
+> 
+> > +
+> > +	/* ETDM_IN1_CON3 */
+> > +	tdm_con = 0;
+> > +	tdm_con = ETDM_IN_CON3_FS(tran_rate);
+> > +
+> > +	ctrl_reg = ETDM_IN1_CON3;
+> > +	ctrl_mask = ETDM_IN_CON3_CTRL_MASK;
+> > +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
+> 
+> same here
+> 
+> > +
+> > +	/* ETDM_IN1_CON4 */
+> > +	tdm_con = 0;
+> > +	tdm_con = ETDM_IN_CON4_FS(tran_relatch_rate);
+> > +	if (slave_mode) {
+> > +		if (lrck_inv)
+> > +			tdm_con |= ETDM_IN_CON4_CON0_SLAVE_LRCK_INV;
+> > +		if (bck_inv)
+> > +			tdm_con |= ETDM_IN_CON4_CON0_SLAVE_BCK_INV;
+> > +	} else {
+> > +		if (lrck_inv)
+> > +			tdm_con |= ETDM_IN_CON4_CON0_MASTER_LRCK_INV;
+> > +		if (bck_inv)
+> > +			tdm_con |= ETDM_IN_CON4_CON0_MASTER_BCK_INV;
+> > +	}
+> > +
+> > +	ctrl_reg = ETDM_IN1_CON4;
+> > +	ctrl_mask = ETDM_IN_CON4_CTRL_MASK;
+> > +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
+> 
+> and here
+> 
+> > +
+> > +	/* ETDM_IN1_CON2 */
+> > +	tdm_con = 0;
+> > +	if (data_mode == TDM_DATA_MULTI_PIN) {
+> > +		tdm_con |= ETDM_IN_CON2_MULTI_IP_2CH_MODE;
+> > +		tdm_con |= ETDM_IN_CON2_MULTI_IP_CH(channels);
+> > +	}
+> > +
+> > +	ctrl_reg = ETDM_IN1_CON2;
+> > +	ctrl_mask = ETDM_IN_CON2_CTRL_MASK;
+> > +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
+> 
+> and here
+> 
+> > +
+> > +	/* ETDM_IN1_CON8 */
+> > +	tdm_con = 0;
+> > +	if (slave_mode) {
+> > +		tdm_con |= 1 << ETDM_IN1_CON8_REG_ETDM_USE_AFIFO_SFT;
+> > +		tdm_con |= 0 <<
+> > ETDM_IN1_CON8_REG_AFIFO_CLOCK_DOMAIN_SEL_SFT;
+> > +		tdm_con |= ETDM_IN_CON8_FS(tran_relatch_rate);
+> > +	} else {
+> > +		tdm_con |= 0 << ETDM_IN1_CON8_REG_ETDM_USE_AFIFO_SFT;
+> > +	}
+> > +
+> > +	ctrl_reg = ETDM_IN1_CON8;
+> > +	ctrl_mask = ETDM_IN_CON8_CTRL_MASK;
+> > +	regmap_update_bits(afe->regmap, ctrl_reg, ctrl_mask, tdm_con);
+> 
+> finally, here too.
+> 
+> > +
+> > +	return 0;
+> > +}
+> > +
+> 
+> Thanks,
+> ANgelo
 

@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A434CB473
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 02:53:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D9D84CB49C
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Mar 2022 02:57:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B53E41A2B;
-	Thu,  3 Mar 2022 02:52:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B53E41A2B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC87B1A6B;
+	Thu,  3 Mar 2022 02:56:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC87B1A6B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646272408;
-	bh=XfrjREq9+Lt0/PDEq4RtZKOe7Yuy3MBWVk0EQX5EWDg=;
+	s=default; t=1646272656;
+	bh=S1GuRPnyYaNf80EYuZYfaDICh9ByX3QnITdARR7oqnQ=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pmwu6Z2zYTG4BQEdtgn7L7uT9gXSvPCd8xJ2jvFk6T9OZHvPYgRb99w6ZJ4Uf4pdq
-	 kKfH1XlBoxI7HINh0LP1ilp6V62mbhHDimOcsQRCWSrhK/Lb9i3piiQiUg4JtMIPwo
-	 zlRmNmj0I2CgewSgTwJH9GnkTUeVH+3o6K9QhoDc=
+	b=NmF+tQU/trTkzLs5by5nWpEmy1nFpMPhIuKvr00TU9zQW4BbMHrhL5d8GAyyUG8ZG
+	 S4Sy3wT4jB3uWRZktiquAuS8QnZK+eEjLltfwKeYBFurX+wriymzIY7IxgZpTj4WcD
+	 a+aFY5+VGtztHVLO6dlFReNe0ejiUqyhZgl4iLso=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BE19F8027D;
-	Thu,  3 Mar 2022 02:52:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24423F80054;
+	Thu,  3 Mar 2022 02:56:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9FA7F801D5; Thu,  3 Mar 2022 02:52:18 +0100 (CET)
+ id BAE17F80167; Thu,  3 Mar 2022 02:56:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
  (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28D0FF80054
- for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 02:52:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28D0FF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B13DF80167
+ for <alsa-devel@alsa-project.org>; Thu,  3 Mar 2022 02:56:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B13DF80167
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=quicinc.com header.i=@quicinc.com
- header.b="SZB4SmPh"
+ header.b="hSkV/0dC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1646272335; x=1677808335;
+ t=1646272582; x=1677808582;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=icOWcKXZ8RLcuFhBmkMKn2v/xS0KeI078BnGvm3HMPU=;
- b=SZB4SmPhAnRDuUJoeKRU0L/ENzgeu9ke4GMY5/MaQb8DXXNQmFeoCpxK
- jlqpO2ChZwJApRZVT2lNw091YEhqFOdPo1GO0Mx3rTh0TEUZe2cILtqBG
- OHJDJ0I8m81+epY4PzYDDnFXXU2+tnq3/T69wR6FRLWQmGVpQklJy1EzV 4=;
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 02 Mar 2022 17:52:11 -0800
+ bh=3bzSRY1al0oYlmM52NOwKtS+br8ieRk+tPabImmuEUM=;
+ b=hSkV/0dCuzjdSQQ/FTt8NaferQ5NsIzVOg7PxOB49VS93FcN61CWLQ+z
+ PeLMYL9ALJw1tryAg6j5XfiJ4A5T8R2OyqUKjdZQEk1BaIARmHLzvEyvg
+ D3wNMdbERAKg2PvVbYutOhI1pLt+mDSgHALHPaOicUATtqGrsbT6yDs+i U=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 02 Mar 2022 17:56:18 -0800
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2022 17:52:10 -0800
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2022 17:56:17 -0800
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Wed, 2 Mar 2022 17:52:09 -0800
+ 15.2.986.15; Wed, 2 Mar 2022 17:56:16 -0800
 Received: from [10.216.42.174] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Wed, 2 Mar 2022
- 17:52:03 -0800
-Message-ID: <6a1a4129-00af-4db2-6bd5-974784646e50@quicinc.com>
-Date: Thu, 3 Mar 2022 07:21:58 +0530
+ 17:56:09 -0800
+Message-ID: <7e9fceed-6b29-d6a6-2035-fdf3fc70a773@quicinc.com>
+Date: Thu, 3 Mar 2022 07:26:06 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: Re: [PATCH v6 1/3] soundwire: qcom: Add compatible name for v1.6.0
+Subject: Re: [PATCH v6 3/3] dt-bindings: soundwire: qcom: Add bindings for
+ audio CSR reset control property
 Content-Language: en-US
 To: Vinod Koul <vkoul@kernel.org>
 References: <1646224982-3361-1-git-send-email-quic_srivasam@quicinc.com>
- <1646224982-3361-2-git-send-email-quic_srivasam@quicinc.com>
- <Yh+Qs6P3pm2mHDjJ@matsya>
+ <1646224982-3361-4-git-send-email-quic_srivasam@quicinc.com>
+ <Yh+RwQS1Cyeuq4Jf@matsya>
 From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 Organization: Qualcomm
-In-Reply-To: <Yh+Qs6P3pm2mHDjJ@matsya>
+In-Reply-To: <Yh+RwQS1Cyeuq4Jf@matsya>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -107,32 +109,46 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 3/2/2022 9:13 PM, Vinod Koul wrote:
-Thanks for Your time Vinod!!!
+On 3/2/2022 9:18 PM, Vinod Koul wrote:
+Thanks for your time Vinod!!!
 > On 02-03-22, 18:13, Srinivasa Rao Mandadapu wrote:
->> Update compatible string and master data information in soundwire driver
->> to support v1.6.0 in lpass sc7280 based platform.
-> Where is the documentation of this new compatible
-The compatible name already exists in 
-Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+>> Update description for audio CSR reset control property, which is
+>> required for latest chipsets to allow software enabling in CGCR HCLK register.
+> too many acronyms pls explain!
+Okay. Will expand and re post the patch.
+>
 >> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 >> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 >> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
 >> ---
->>   drivers/soundwire/qcom.c | 1 +
->>   1 file changed, 1 insertion(+)
+>>   Documentation/devicetree/bindings/soundwire/qcom,sdw.txt | 12 ++++++++++++
+>>   1 file changed, 12 insertions(+)
 >>
->> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
->> index 5481341..fc41210 100644
->> --- a/drivers/soundwire/qcom.c
->> +++ b/drivers/soundwire/qcom.c
->> @@ -1348,6 +1348,7 @@ static int qcom_swrm_remove(struct platform_device *pdev)
->>   static const struct of_device_id qcom_swrm_of_match[] = {
->>   	{ .compatible = "qcom,soundwire-v1.3.0", .data = &swrm_v1_3_data },
->>   	{ .compatible = "qcom,soundwire-v1.5.1", .data = &swrm_v1_5_data },
->> +	{ .compatible = "qcom,soundwire-v1.6.0", .data = &swrm_v1_5_data },
->>   	{/* sentinel */},
->>   };
+>> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+>> index b93a2b3..84c8f54 100644
+>> --- a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+>> +++ b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+>> @@ -150,6 +150,18 @@ board specific bus parameters.
+>>   		    or applicable for the respective data port.
+>>   		    More info in MIPI Alliance SoundWire 1.0 Specifications.
 >>   
+>> +- reset:
+>> +	Usage: optional
+>> +	Value type: <prop-encoded-array>
+>> +	Definition: Should specify the SoundWire audio CSR reset controller interface,
+>> +		    which is required for SoundWire version 1.6.0 and above.
+>> +
+>> +- reset-names:
+>> +	Usage: optional
+>> +	Value type: <stringlist>
+>> +	Definition: should be "swr_audio_cgcr" for SoundWire audio CSR reset
+>> +		    controller interface.
+>> +
+> We should add these in example as well...
+Okay. Will add in Example.
+>
+>>   Note:
+>>   	More Information on detail of encoding of these fields can be
+>>   found in MIPI Alliance SoundWire 1.0 Specifications.
 >> -- 
 >> 2.7.4

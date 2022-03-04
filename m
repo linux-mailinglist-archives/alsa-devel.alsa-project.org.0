@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27BD24CDEEE
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 21:59:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 707CA4CDF56
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 22:01:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE59E1F64;
-	Fri,  4 Mar 2022 21:59:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE59E1F64
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12691FA;
+	Fri,  4 Mar 2022 22:00:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12691FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646427598;
-	bh=/CrtTBpUSmCpKf1lL978G3wDpXv6ly7B9bzjmrbaO9Y=;
+	s=default; t=1646427677;
+	bh=GpGb6XGYSFak51cPRJ81OCjkpIJLIgCTh3m6S1l/VzM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DDUIGcIQkQBvWCVy2hjVTVkmkx5dNloRvXx68FJt9G3yXjjarSlQOYzlBg2HTkkgi
-	 MsiMfDULT8qpqC65owAhhnEjnhrs3Nn9gfGgnunN5bOMR+qwSZ+Aab4D0ijnJO8yrY
-	 QHjH7B7HK+CvNAazPAyI6uxSbtxFld3+UPOgIeNA=
+	b=fSq8Tg7nJCz4PokTZFai1ioDTaMUC+9c0XJZyuEGbTDFMALzk+8Zrj0PF+P8oCOqh
+	 6NCkO1pwSFbaiQqcprLvX9jngnYsfF1/zJnoxrT+Dxz+p1CrOpfET2TOgcTlvUMda7
+	 CqWi0RopTdlO0WsMriaEQW5z6NQwyUWRSpCCDJnE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82CE2F80519;
-	Fri,  4 Mar 2022 21:57:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDE33F80537;
+	Fri,  4 Mar 2022 21:58:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEBA2F8051C; Fri,  4 Mar 2022 21:57:52 +0100 (CET)
+ id 8E14EF8051F; Fri,  4 Mar 2022 21:57:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E05B0F80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22E29F801F5
  for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 21:57:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E05B0F80139
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22E29F801F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="ZRZ6GPHR"
+ header.b="QbS1NjeJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1646427470; x=1677963470;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/CrtTBpUSmCpKf1lL978G3wDpXv6ly7B9bzjmrbaO9Y=;
- b=ZRZ6GPHRRq73lcawd8HUpOZg0zzpaEOb21JuDRGpn4ghpWgeE5T5rQEV
- IlVhIAuKGOXs+b947T+xZWCepmr0JcrS883o8dlDrqHN0V97ub5c3bkzj
- 0kv43ha1JgsxN2kUXTXeNZtDR2mcmn0yOoC4X4JnSrj457F2l1dmcwVd2
- jMtBVBzdvjKjfLvVJEg98HyKuRtfZdBZvfamhzfOuqYoHWnlsMrz244jH
- mc82+LYVUlqQPEDKada77m2X5cWCmKFQjUiJ7bjpKvthCw9psr4T4qVaG
- H0an0RdAm9kHFKeEJxAMm6NhPnsA14YvfLHOgZXpxOSMZ8d4Q1F+VI2KR A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="340492551"
-X-IronPort-AV: E=Sophos;i="5.90,156,1643702400"; d="scan'208";a="340492551"
+ bh=GpGb6XGYSFak51cPRJ81OCjkpIJLIgCTh3m6S1l/VzM=;
+ b=QbS1NjeJ+IsWtzHZcWO+FQ24NWtCRZq2DgTqG6eU2/KmVeNMK+Ii5cYR
+ tEGkAPRPvMUlzKclmEP8WMttaFq0cB4eS6JZSK7tHfRFuMg0T6fGtylGM
+ cNLKH2/eHa/8X3ySKBgtKGpBJCVW6ksmkU1wsPaii6+H45vZ/ADkbdvhS
+ e21swDnb361eS5iNW9d751DSTz/NaytANuSewVaB0SNQb2rBs2kLXdfud
+ 9ZX7wWcVGo9mxcN8r+c2BUTNKH0JNq2AS35xSklxpIsHHFjSprSFxFCxx
+ VyXbhaKA24UqJ+wEXdb8b0wjxt/PrL0yGxJeC89lERQT03NnLodj1PiXK g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="340492552"
+X-IronPort-AV: E=Sophos;i="5.90,156,1643702400"; d="scan'208";a="340492552"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 12:57:44 -0800
-X-IronPort-AV: E=Sophos;i="5.90,156,1643702400"; d="scan'208";a="631271290"
+ 04 Mar 2022 12:57:45 -0800
+X-IronPort-AV: E=Sophos;i="5.90,156,1643702400"; d="scan'208";a="631271292"
 Received: from grmundad-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.209.115.48])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 12:57:44 -0800
+ 04 Mar 2022 12:57:45 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 05/10] ASoC: SOF: amd: Use semaphore register to synchronize
- ipc's irq
-Date: Fri,  4 Mar 2022 14:57:28 -0600
-Message-Id: <20220304205733.62233-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 06/10] ASoC: SOF: amd: Move group register configuration to
+ acp-loader
+Date: Fri,  4 Mar 2022 14:57:29 -0600
+Message-Id: <20220304205733.62233-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220304205733.62233-1-pierre-louis.bossart@linux.intel.com>
 References: <20220304205733.62233-1-pierre-louis.bossart@linux.intel.com>
@@ -94,113 +94,83 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 
-Add lock and unlock around ipc irq handling code using hw semaphore
-register that exhibit special property for register read calls. As
-host and DSP firmware uses few shared registers, there is a possible
-race condition around those shared registers values. This lock ensure
-synchronization between Firmware and host ipc interrupts.
+We are using PTE_GRP1 for DMA operations to load firmware binaries
+but we are enabling PTE_GRP and flushing ATU cache much before in
+probe callbacks. This can cause issue if we try to load firmware
+runtime during system resume as probe callback will not be invoked
+hence PTE_GRP will not be enabled. Moreover it makes more sense to
+flush the cache after register configuration.
+
+Move PTE group register configuration to acp-loader within pre_fw_run
+callback to avoid such issue.
 
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/amd/acp-dsp-offset.h |  1 +
- sound/soc/sof/amd/acp-ipc.c        | 14 ++++++++++++++
- sound/soc/sof/amd/acp.c            | 15 ++++++++++++++-
- sound/soc/sof/amd/acp.h            |  1 +
- 4 files changed, 30 insertions(+), 1 deletion(-)
+ sound/soc/sof/amd/acp-loader.c |  9 +++++++++
+ sound/soc/sof/amd/acp.c        | 14 --------------
+ 2 files changed, 9 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/sof/amd/acp-dsp-offset.h b/sound/soc/sof/amd/acp-dsp-offset.h
-index 63f13c111b24..40fbf11facba 100644
---- a/sound/soc/sof/amd/acp-dsp-offset.h
-+++ b/sound/soc/sof/amd/acp-dsp-offset.h
-@@ -61,6 +61,7 @@
- #define ACP_DSP_SW_INTR_STAT                    0x1818
- #define ACP_SW_INTR_TRIG                        0x181C
- #define ACP_ERROR_STATUS			0x18C4
-+#define ACP_AXI2DAGB_SEM_0			0x1880
- 
- /* Registers from ACP_SHA block */
- #define ACP_SHA_DSP_FW_QUALIFIER		0x1C70
-diff --git a/sound/soc/sof/amd/acp-ipc.c b/sound/soc/sof/amd/acp-ipc.c
-index cd5af3d85002..9fcd2535fd3b 100644
---- a/sound/soc/sof/amd/acp-ipc.c
-+++ b/sound/soc/sof/amd/acp-ipc.c
-@@ -62,12 +62,26 @@ int acp_sof_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- {
- 	struct acp_dev_data *adata = sdev->pdata->hw_pdata;
- 	unsigned int offset = offsetof(struct scratch_ipc_conf, sof_in_box);
-+	unsigned int count = ACP_HW_SEM_RETRY_COUNT;
-+
-+	while (snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_AXI2DAGB_SEM_0)) {
-+		/* Wait until acquired HW Semaphore Lock or timeout*/
-+		count--;
-+		if (!count) {
-+			dev_err(sdev->dev, "%s: Failed to acquire HW lock\n", __func__);
-+			return -EINVAL;
-+		}
-+	};
- 
- 	acp_mailbox_write(sdev, offset, msg->msg_data, msg->msg_size);
- 	acp_ipc_host_msg_set(sdev);
- 
- 	/* Trigger host to dsp interrupt for the msg */
- 	acpbus_trigger_host_to_dsp_swintr(adata);
-+
-+	/* Unlock or Release HW Semaphore */
-+	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_AXI2DAGB_SEM_0, 0x0);
-+
- 	return 0;
- }
- EXPORT_SYMBOL_NS(acp_sof_ipc_send_msg, SND_SOC_SOF_AMD_COMMON);
-diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
-index fe9b7dc5bc86..ba8b6427b59f 100644
---- a/sound/soc/sof/amd/acp.c
-+++ b/sound/soc/sof/amd/acp.c
-@@ -273,7 +273,7 @@ static int acp_memory_init(struct snd_sof_dev *sdev)
- static irqreturn_t acp_irq_thread(int irq, void *context)
- {
- 	struct snd_sof_dev *sdev = context;
--	unsigned int val;
-+	unsigned int val, count = ACP_HW_SEM_RETRY_COUNT;
- 
- 	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_EXTERNAL_INTR_STAT);
- 	if (val & ACP_SHA_STAT) {
-@@ -284,9 +284,22 @@ static irqreturn_t acp_irq_thread(int irq, void *context)
- 
- 	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_STAT);
- 	if (val & ACP_DSP_TO_HOST_IRQ) {
-+		while (snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_AXI2DAGB_SEM_0)) {
-+			/* Wait until acquired HW Semaphore lock or timeout */
-+			count--;
-+			if (!count) {
-+				dev_err(sdev->dev, "%s: Failed to acquire HW lock\n", __func__);
-+				return IRQ_NONE;
-+			}
-+		};
-+
- 		sof_ops(sdev)->irq_thread(irq, sdev);
- 		val |= ACP_DSP_TO_HOST_IRQ;
- 		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_STAT, val);
-+
-+		/* Unlock or Release HW Semaphore */
-+		snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_AXI2DAGB_SEM_0, 0x0);
-+
- 		return IRQ_HANDLED;
+diff --git a/sound/soc/sof/amd/acp-loader.c b/sound/soc/sof/amd/acp-loader.c
+index 2dc15ae38155..7ca51e0f3b1b 100644
+--- a/sound/soc/sof/amd/acp-loader.c
++++ b/sound/soc/sof/amd/acp-loader.c
+@@ -127,6 +127,12 @@ static void configure_pte_for_fw_loading(int type, int num_pages, struct acp_dev
+ 		return;
  	}
  
-diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index 8ed4e338467f..db1030d36811 100644
---- a/sound/soc/sof/amd/acp.h
-+++ b/sound/soc/sof/amd/acp.h
-@@ -17,6 +17,7 @@
++	/* Group Enable */
++	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACPAXI2AXI_ATU_BASE_ADDR_GRP_1,
++			  ACP_SRAM_PTE_OFFSET | BIT(31));
++	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACPAXI2AXI_ATU_PAGE_SIZE_GRP_1,
++			  PAGE_SIZE_4K_ENABLE);
++
+ 	for (page_idx = 0; page_idx < num_pages; page_idx++) {
+ 		low = lower_32_bits(addr);
+ 		high = upper_32_bits(addr);
+@@ -136,6 +142,9 @@ static void configure_pte_for_fw_loading(int type, int num_pages, struct acp_dev
+ 		offset += 8;
+ 		addr += PAGE_SIZE;
+ 	}
++
++	/* Flush ATU Cache after PTE Update */
++	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACPAXI2AXI_ATU_CTRL, ACP_ATU_CACHE_INVALID);
+ }
  
- #define ACP_DSP_BAR	0
+ /* pre fw run operations */
+diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
+index ba8b6427b59f..66ca05545be2 100644
+--- a/sound/soc/sof/amd/acp.c
++++ b/sound/soc/sof/amd/acp.c
+@@ -36,19 +36,6 @@ static int smn_read(struct pci_dev *dev, u32 smn_addr, u32 *data)
+ 	return 0;
+ }
  
-+#define ACP_HW_SEM_RETRY_COUNT			10
- #define ACP_REG_POLL_INTERVAL                   500
- #define ACP_REG_POLL_TIMEOUT_US                 2000
- #define ACP_DMA_COMPLETE_TIMEOUT_US		5000
+-static void configure_acp_groupregisters(struct acp_dev_data *adata)
+-{
+-	struct snd_sof_dev *sdev = adata->dev;
+-
+-	/* Group Enable */
+-	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACPAXI2AXI_ATU_BASE_ADDR_GRP_1,
+-			  ACP_SRAM_PTE_OFFSET | BIT(31));
+-	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACPAXI2AXI_ATU_PAGE_SIZE_GRP_1,
+-			  PAGE_SIZE_4K_ENABLE);
+-
+-	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACPAXI2AXI_ATU_CTRL, ACP_ATU_CACHE_INVALID);
+-}
+-
+ static void init_dma_descriptor(struct acp_dev_data *adata)
+ {
+ 	struct snd_sof_dev *sdev = adata->dev;
+@@ -264,7 +251,6 @@ static int acp_memory_init(struct snd_sof_dev *sdev)
+ 
+ 	snd_sof_dsp_update_bits(sdev, ACP_DSP_BAR, ACP_DSP_SW_INTR_CNTL,
+ 				ACP_DSP_INTR_EN_MASK, ACP_DSP_INTR_EN_MASK);
+-	configure_acp_groupregisters(adata);
+ 	init_dma_descriptor(adata);
+ 
+ 	return 0;
 -- 
 2.30.2
 

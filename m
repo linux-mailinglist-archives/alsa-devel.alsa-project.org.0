@@ -2,114 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DEB74CE3AA
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Mar 2022 09:40:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FBB24CE3AB
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Mar 2022 09:40:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AF3E1B1A;
-	Sat,  5 Mar 2022 09:39:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AF3E1B1A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFFAC1B48;
+	Sat,  5 Mar 2022 09:39:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFFAC1B48
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646469630;
-	bh=91eD2uF3bLL4OIvpk8Nx67yZ00oHnR0gxNTiwOVnYaM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JBIjkLOAnkJte+7l7HapMfQLsxmzYIfFGCw2rMBEmooM7EQK5sIHFrnbmDZN75zaf
-	 SnT2TWIqLKsVR6Tb8N9BUIZ+pCLWkD4glGG2K7EoIWrxMRv7mD3p0OXqF7w235yuyK
-	 DCLmQZ13Eqs+B2qzrs08khmXqsK+bueZTkaJ67zM=
+	s=default; t=1646469646;
+	bh=TfWYbv+aDNgp19oj6542xM8fYXx1IXx7rD5RrDt3Hbw=;
+	h=Date:In-Reply-To:Subject:From:To:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=C4ncCmJuQIDHQPLq7j+kpOARh3gk+P4VAE2vO7zFgJ88fx4qBPivaYHzGUya1mv1b
+	 X9FTTehrd6PKDt/Wjg2sR6gKXhJ/yzVvBOVV/elkwcu6K3eVQ2qocp/nH1jWzlwOlZ
+	 aArt4w6a8wHkdZ+niA5Lvjgfgx/1+bwreO8Tn7Vc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 549E5F80538;
+	by alsa1.perex.cz (Postfix) with ESMTP id F360EF80542;
 	Sat,  5 Mar 2022 09:36:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35492F801EC; Fri,  4 Mar 2022 08:00:29 +0100 (CET)
+ id 649A7F80139; Fri,  4 Mar 2022 15:46:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.2 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_76,SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
+ [209.85.166.200])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26229F800F2
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 08:00:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26229F800F2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="UcHSzcmM"
-Received: by mail-pf1-x436.google.com with SMTP id e15so5302819pfv.11
- for <alsa-devel@alsa-project.org>; Thu, 03 Mar 2022 23:00:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=0a+oQu3LYTAbOOyoILb+F/zkApGIum0yjd+xPCLEHo4=;
- b=UcHSzcmMAevEFsqxc8gimvoSIew96LrW3UYvjfgkcaeLb/Edql9668oTELTgMdhcyh
- uwTLYgNgPfuwuQfZCbkLtuIX59UkP2xXrD0mK6eOfNdOu/KSihdjQUFHL7gwAFzgpb4Z
- PeSQfhLMwS3uLkuXfSSL1QQyblGTA4kTyWBkcty1viz6EkWmIbbGn99xu95lY6jAsJ0c
- CbisDo/RPFGn8gAJnKluj00ht4OQ80XaXmCEvGalnXTnvAWrV5UWFfWh6kgUBnLZJvSQ
- W0PYU136vUwP4grvjJEIhDxHc0WM1lPQ2cysIXPjh+breTQ07tU9AM0RgZ3Jr4UsSFjT
- NaGQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 268EFF80139
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 15:46:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 268EFF80139
+Received: by mail-il1-f200.google.com with SMTP id
+ m3-20020a056e02158300b002b6e3d1f97cso5653535ilu.19
+ for <alsa-devel@alsa-project.org>; Fri, 04 Mar 2022 06:46:27 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=0a+oQu3LYTAbOOyoILb+F/zkApGIum0yjd+xPCLEHo4=;
- b=xqNzVb9C7gJD693JiRm8V0bOuNztRLlxPglJnjxuCZ213JYwbXvvln96klCm5hbIoT
- bR0A/e5y1A9MP0G/lIlC+rVs2rxVEHz7qCH1VfLy9uZRBifk/pYVEc5KhzKg57P3dGV5
- srUEhW0X6aclFytqgI5fY2ut4hGyJn25pXjRurksqArq15cgiWvCqcXejeq3obC/8Qv0
- sJoRd+Cbv3PqGiEQXH8LwzpX4JFQtwZx9A7OEaiXWs3FQsiDFsk7GK8JEfHeOgbAOi83
- 9LD58MiW1uZh/TCir6bzjYpZoL9axWNbn64rxSXgUTIxPgB8ci+g7hf+R1rOH6/o4sSI
- NI4Q==
-X-Gm-Message-State: AOAM533NFHLeKPkx5UosmHpDWUuKrGVnhrTV6kkEP9D4BlENErNeNTCb
- /vWnZhRqRuxaziPOuXiElG8=
-X-Google-Smtp-Source: ABdhPJxBFOb3A6C/RlDh1uHGrWM51HjSkR68cXfNAhNGErUbSC2hd/FilwMHkJmidt1eEHAWD7GVrA==
-X-Received: by 2002:a05:6a00:cc7:b0:4ec:c6f3:ad29 with SMTP id
- b7-20020a056a000cc700b004ecc6f3ad29mr41958698pfv.66.1646377221067; 
- Thu, 03 Mar 2022 23:00:21 -0800 (PST)
-Received: from ubuntu.huawei.com ([119.3.119.19])
- by smtp.googlemail.com with ESMTPSA id
- f6-20020a654006000000b00346193b405fsm3665134pgp.44.2022.03.03.23.00.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Mar 2022 23:00:20 -0800 (PST)
-From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-To: daniel.thompson@linaro.org
-Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Date: Fri,  4 Mar 2022 14:59:57 +0800
-Message-Id: <20220304065957.16799-1-xiam0nd.tong@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220303121824.qdyrognluik74iph@maple.lan>
-References: <20220303121824.qdyrognluik74iph@maple.lan>
+ h=x-gm-message-state:mime-version:date:in-reply-to:message-id:subject
+ :from:to;
+ bh=FvxOikeOYNqGVM9ftilHrry3PJVEslcNGdspyK5pBos=;
+ b=FbU7f3AX4gMyMdKqbnXqIq1UTxLIFZgC2sF7XqzcDMJEg9yfYBVjM/s+OgZv+SO9XN
+ pFxUT+urlxMfPjtn38SznKkjTjFeGDbEe9Y6/ThwQyu5l5H14WqlC7kkz5wJczxsxol6
+ UiQIP1dZKDQGOcdR5WJEto5n4jP4LyjdPFjzR05N1sTVGedLfN/wL0wQ1JEkgcz9oYVd
+ Yrx9nbTK8d2R9J1nqXhCYK7mZyEsA7Aimi4FAObhxTxpiAZ1Uo+tO36mOmYIzFvkG3tV
+ iRCaACoeCIuVnrvY0CcgumYxJu01xKivGURoGr1TlM+u4TuNuwiBvniZGrAFnBT9t+bu
+ bB1Q==
+X-Gm-Message-State: AOAM532IiyYtawNugrwPkriKzdNFG/ecstZwl8aSitBSq1ZBQK2uX3Xn
+ ox5ruTUaGCr0ir0vYtSGK+r9SAwCtJUUiZp1EVPKqoCeCr4U
+X-Google-Smtp-Source: ABdhPJz9nmRn18CZObo+KiOWTyOo+v2+W1VazKHeJcQI2WpXfGvfvQON847vBVKWzyTU8vJlXdQ+bjNG+LckTdeFa+9Ndbo79MHB
+MIME-Version: 1.0
+X-Received: by 2002:a05:6e02:18ce:b0:2be:1f36:eef8 with SMTP id
+ s14-20020a056e0218ce00b002be1f36eef8mr35773987ilu.88.1646405186273; Fri, 04
+ Mar 2022 06:46:26 -0800 (PST)
+Date: Fri, 04 Mar 2022 06:46:26 -0800
+In-Reply-To: <000000000000afc4bc05d150d3af@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <00000000000048c71405d96594c7@google.com>
+Subject: Re: [syzbot] possible deadlock in snd_timer_interrupt (2)
+From: syzbot <syzbot+1ee0910eca9c94f71f25@syzkaller.appspotmail.com>
+To: alsa-devel-owner@alsa-project.org, alsa-devel@alsa-project.org, 
+ bfields@fieldses.org, hdanton@sina.com, jlayton@kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com, viro@zeniv.linux.org.uk, 
+ wangwensheng4@huawei.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Sat, 05 Mar 2022 09:36:45 +0100
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org, gustavo@embeddedor.com,
- linux-iio@vger.kernel.org, kgdb-bugreport@lists.sourceforge.net,
- linux@rasmusvillemoes.dk, dri-devel@lists.freedesktop.org, c.giuffrida@vu.nl,
- amd-gfx@lists.freedesktop.org, torvalds@linux-foundation.org,
- samba-technical@lists.samba.org, linux1394-devel@lists.sourceforge.net,
- drbd-dev@lists.linbit.com, linux-arch@vger.kernel.org,
- linux-cifs@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-staging@lists.linux.dev, h.j.bos@vu.nl, jgg@ziepe.ca,
- intel-wired-lan@lists.osuosl.org, nouveau@lists.freedesktop.org,
- bcm-kernel-feedback-list@broadcom.com, dan.carpenter@oracle.com,
- linux-media@vger.kernel.org, keescook@chromium.org, arnd@arndb.de,
- linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- bjohannesmeyer@gmail.com, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, christophe.jaillet@wanadoo.fr,
- jakobkoschel@gmail.com, v9fs-developer@lists.sourceforge.net,
- linux-tegra@vger.kernel.org, tglx@linutronix.de,
- andriy.shevchenko@linux.intel.com, linux-arm-kernel@lists.infradead.org,
- linux-sgx@vger.kernel.org, nathan@kernel.org, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- xiam0nd.tong@gmail.com, david.laight@aculab.com,
- tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-mediatek@lists.infradead.org,
- akpm@linux-foundation.org, linuxppc-dev@lists.ozlabs.org,
- christian.koenig@amd.com, rppt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,99 +87,462 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 3 Mar 2022 12:18:24 +0000, Daniel Thompson wrote:
-> On Thu, Mar 03, 2022 at 03:26:57PM +0800, Xiaomeng Tong wrote:
-> > On Thu, 3 Mar 2022 04:58:23 +0000, David Laight wrote:
-> > > on 3 Mar 2022 10:27:29 +0800, Xiaomeng Tong wrote:
-> > > > The problem is the mis-use of iterator outside the loop on exit, and
-> > > > the iterator will be the HEAD's container_of pointer which pointers
-> > > > to a type-confused struct. Sidenote: The *mis-use* here refers to
-> > > > mistakely access to other members of the struct, instead of the
-> > > > list_head member which acutally is the valid HEAD.
-> > >
-> > > The problem is that the HEAD's container_of pointer should never
-> > > be calculated at all.
-> > > This is what is fundamentally broken about the current definition.
-> > 
-> > Yes, the rule is "the HEAD's container_of pointer should never be
-> > calculated at all outside the loop", but how do you make sure everyone
-> > follows this rule?
-> 
-> Your formulation of the rule is correct: never run container_of() on HEAD
-> pointer.
+syzbot has found a reproducer for the following issue on:
 
-Actually, it is not my rule. My rule is that never access other members
-of the struct except for the list_head member after the loop, because
-this is a invalid member after loop exit, but valid for the list_head
-member which just is HEAD and the lately caculation (&pos->head) seems
-harmless.
+HEAD commit:    38f80f42147f MAINTAINERS: Remove dead patchwork link
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=161736d6700000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4e9585407e09f75f
+dashboard link: https://syzkaller.appspot.com/bug?extid=1ee0910eca9c94f71f25
+compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11b6ad85700000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12527ef1700000
 
-I have considered the case that the HEAD's container "pos" is layouted
-across the max and the min address boundary, which means the address of
-HEAD is likely 0x60, and the address of pos is likely 0xffffffe0.
-It seems ok to caculate pos with:
-((type *)(__mptr - offsetof(type, member)));
-and it seems ok to caculate head outside the loop with:
-if (&pos->head == &HEAD)
-    return NULL;
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1ee0910eca9c94f71f25@syzkaller.appspotmail.com
 
-The only case I can think of with the rule "never run container_of()
-on HEAD" must be followed is when the first argument (which is &HEAD)
-passing to container_of() is NULL + some offset, it may lead to the
-resulting "pos->member" access being a NULL dereference. But maybe
-the caller can take the responsibility to check if it is NULL, not
-container_of() itself.
+========================================================
+WARNING: possible irq lock inversion dependency detected
+5.17.0-rc6-syzkaller-00184-g38f80f42147f #0 Not tainted
+--------------------------------------------------------
+syz-executor301/4486 just changed the state of lock:
+ffff88814a78a948 (&timer->lock){..-.}-{2:2}, at: snd_timer_interrupt.part.0+0x34/0xcf0 sound/core/timer.c:856
+but this lock took another, SOFTIRQ-READ-unsafe lock in the past:
+ (tasklist_lock){.+.+}-{2:2}
 
-Please remind me if i missed somthing, thanks.
 
-> 
-> However the rule that is introduced by list_for_each_entry_inside() is
-> *not* this rule. The rule it introduces is: never access the iterator
-> variable outside the loop.
+and interrupts could create inverse lock ordering between them.
 
-Sorry for the confusion, indeed, that is two *different* rule.
 
-> 
-> Making the iterator NULL on loop exit does follow the rule you proposed
-> but using a different technique: do not allow HEAD to be stored in the
-> iterator variable after loop exit. This also makes it impossible to run
-> container_of() on the HEAD pointer.
-> 
+other info that might help us debug this:
+Chain exists of:
+  &timer->lock --> &new->fa_lock --> tasklist_lock
 
-It does not. My rule is: never access the iterator variable outside the loop.
-The "Making the iterator NULL on loop exit" way still leak the pos with NULL
-outside the loop, may lead to a NULL deference.
+ Possible interrupt unsafe locking scenario:
 
-> 
-> > Everyone makes mistakes, but we can eliminate them all from the beginning
-> > with the help of compiler which can catch such use-after-loop things.
-> 
-> Indeed but if we introduce new interfaces then we don't have to worry
-> about existing usages and silent regressions. Code will have been
-> written knowing the loop can exit with the iterator set to NULL.
+       CPU0                    CPU1
+       ----                    ----
+  lock(tasklist_lock);
+                               local_irq_disable();
+                               lock(&timer->lock);
+                               lock(&new->fa_lock);
+  <Interrupt>
+    lock(&timer->lock);
 
-Yes, it is more simple and compatible with existing interfaces. Howerver,
-you should make every developers to remember that "pos will be set NULL on
-loop exit", which is unreasonable and impossible for *every* single person.
-Otherwise the mis-use-after-loop will lead to a NULL dereference.
-But we can kill this problem by declaring iterator inside the loop and the
-complier will catch it if somebody mis-use-after-loop.
+ *** DEADLOCK ***
 
-> 
-> Sure it is still possible for programmers to make mistakes and
-> dereference the NULL pointer but C programmers are well training w.r.t.
-> NULL pointer checking so such mistakes are much less likely than with
-> the current list_for_each_entry() macro. This risk must be offset
-> against the way a NULLify approach can lead to more elegant code when we
-> are doing a list search.
-> 
+1 lock held by syz-executor301/4486:
+ #0: ffffc90000007d70 ((&priv->tlist)){+.-.}-{0:0}, at: lockdep_copy_map include/linux/lockdep.h:35 [inline]
+ #0: ffffc90000007d70 ((&priv->tlist)){+.-.}-{0:0}, at: call_timer_fn+0xd5/0x6b0 kernel/time/timer.c:1411
 
-Yes, the NULLify approach is better than the current list_for_each_entry()
-macro, but i stick with that the list_for_each_entry_inside() way is best
-and perfect _technically_.
+the shortest dependencies between 2nd lock and 1st lock:
+   -> (tasklist_lock){.+.+}-{2:2} {
+      HARDIRQ-ON-R at:
+                          lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                          lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                          __raw_read_lock include/linux/rwlock_api_smp.h:150 [inline]
+                          _raw_read_lock+0x5b/0x70 kernel/locking/spinlock.c:228
+                          do_wait+0x284/0xce0 kernel/exit.c:1518
+                          kernel_wait+0x9c/0x150 kernel/exit.c:1708
+                          call_usermodehelper_exec_sync kernel/umh.c:139 [inline]
+                          call_usermodehelper_exec_work+0xf5/0x180 kernel/umh.c:166
+                          process_one_work+0x9ac/0x1650 kernel/workqueue.c:2307
+                          worker_thread+0x657/0x1110 kernel/workqueue.c:2454
+                          kthread+0x2e9/0x3a0 kernel/kthread.c:377
+                          ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+      SOFTIRQ-ON-R at:
+                          lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                          lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                          __raw_read_lock include/linux/rwlock_api_smp.h:150 [inline]
+                          _raw_read_lock+0x5b/0x70 kernel/locking/spinlock.c:228
+                          do_wait+0x284/0xce0 kernel/exit.c:1518
+                          kernel_wait+0x9c/0x150 kernel/exit.c:1708
+                          call_usermodehelper_exec_sync kernel/umh.c:139 [inline]
+                          call_usermodehelper_exec_work+0xf5/0x180 kernel/umh.c:166
+                          process_one_work+0x9ac/0x1650 kernel/workqueue.c:2307
+                          worker_thread+0x657/0x1110 kernel/workqueue.c:2454
+                          kthread+0x2e9/0x3a0 kernel/kthread.c:377
+                          ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+      INITIAL USE at:
+                         lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                         lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                         __raw_write_lock_irq include/linux/rwlock_api_smp.h:195 [inline]
+                         _raw_write_lock_irq+0x32/0x50 kernel/locking/spinlock.c:326
+                         copy_process+0x486a/0x7250 kernel/fork.c:2295
+                         kernel_clone+0xe7/0xab0 kernel/fork.c:2565
+                         kernel_thread+0xb5/0xf0 kernel/fork.c:2617
+                         rest_init+0x23/0x3e0 init/main.c:690
+                         start_kernel+0x47a/0x49b init/main.c:1138
+                         secondary_startup_64_no_verify+0xc3/0xcb
+      INITIAL READ USE at:
+                              lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                              lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                              __raw_read_lock include/linux/rwlock_api_smp.h:150 [inline]
+                              _raw_read_lock+0x5b/0x70 kernel/locking/spinlock.c:228
+                              do_wait+0x284/0xce0 kernel/exit.c:1518
+                              kernel_wait+0x9c/0x150 kernel/exit.c:1708
+                              call_usermodehelper_exec_sync kernel/umh.c:139 [inline]
+                              call_usermodehelper_exec_work+0xf5/0x180 kernel/umh.c:166
+                              process_one_work+0x9ac/0x1650 kernel/workqueue.c:2307
+                              worker_thread+0x657/0x1110 kernel/workqueue.c:2454
+                              kthread+0x2e9/0x3a0 kernel/kthread.c:377
+                              ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+    }
+    ... key      at: [<ffffffff8b80a098>] tasklist_lock+0x18/0x40
+    ... acquired at:
+   __raw_read_lock include/linux/rwlock_api_smp.h:150 [inline]
+   _raw_read_lock+0x5b/0x70 kernel/locking/spinlock.c:228
+   send_sigio+0xab/0x380 fs/fcntl.c:810
+   kill_fasync_rcu fs/fcntl.c:1021 [inline]
+   kill_fasync fs/fcntl.c:1035 [inline]
+   kill_fasync+0x1f8/0x470 fs/fcntl.c:1028
+   snd_timer_user_ccallback+0x298/0x330 sound/core/timer.c:1386
+   snd_timer_notify1+0x11c/0x3b0 sound/core/timer.c:516
+   snd_timer_stop1+0x496/0x860 sound/core/timer.c:657
+   snd_timer_stop sound/core/timer.c:710 [inline]
+   snd_timer_close_locked+0x20f/0xbb0 sound/core/timer.c:408
+   snd_timer_close+0x87/0xf0 sound/core/timer.c:463
+   __snd_timer_user_ioctl.isra.0+0x10e2/0x2490 sound/core/timer.c:1762
+   snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+   vfs_ioctl fs/ioctl.c:51 [inline]
+   __do_sys_ioctl fs/ioctl.c:874 [inline]
+   __se_sys_ioctl fs/ioctl.c:860 [inline]
+   __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
 
-Thus, my idea is *better a finger off than always aching*, let's settle this
-damn problem once and for all, with list_for_each_entry_inside().
+  -> (&f->f_owner.lock){....}-{2:2} {
+     INITIAL USE at:
+                       lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                       lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                       __raw_write_lock_irq include/linux/rwlock_api_smp.h:195 [inline]
+                       _raw_write_lock_irq+0x32/0x50 kernel/locking/spinlock.c:326
+                       f_modown+0x2a/0x390 fs/fcntl.c:91
+                       __f_setown fs/fcntl.c:110 [inline]
+                       f_setown+0xd7/0x230 fs/fcntl.c:138
+                       do_fcntl+0x749/0x1210 fs/fcntl.c:393
+                       __do_sys_fcntl fs/fcntl.c:472 [inline]
+                       __se_sys_fcntl fs/fcntl.c:457 [inline]
+                       __x64_sys_fcntl+0x165/0x1e0 fs/fcntl.c:457
+                       do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                       do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                       entry_SYSCALL_64_after_hwframe+0x44/0xae
+     INITIAL READ USE at:
+                            lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                            lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                            __raw_read_lock_irqsave include/linux/rwlock_api_smp.h:160 [inline]
+                            _raw_read_lock_irqsave+0x70/0x90 kernel/locking/spinlock.c:236
+                            send_sigio+0x24/0x380 fs/fcntl.c:796
+                            kill_fasync_rcu fs/fcntl.c:1021 [inline]
+                            kill_fasync fs/fcntl.c:1035 [inline]
+                            kill_fasync+0x1f8/0x470 fs/fcntl.c:1028
+                            snd_timer_user_ccallback+0x298/0x330 sound/core/timer.c:1386
+                            snd_timer_notify1+0x11c/0x3b0 sound/core/timer.c:516
+                            snd_timer_start1+0x4d4/0x800 sound/core/timer.c:578
+                            snd_timer_start sound/core/timer.c:696 [inline]
+                            snd_timer_start sound/core/timer.c:689 [inline]
+                            snd_timer_user_start.isra.0+0x1e3/0x260 sound/core/timer.c:1984
+                            __snd_timer_user_ioctl.isra.0+0xda8/0x2490 sound/core/timer.c:2107
+                            snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+                            vfs_ioctl fs/ioctl.c:51 [inline]
+                            __do_sys_ioctl fs/ioctl.c:874 [inline]
+                            __se_sys_ioctl fs/ioctl.c:860 [inline]
+                            __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+                            do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                            do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                            entry_SYSCALL_64_after_hwframe+0x44/0xae
+   }
+   ... key      at: [<ffffffff90585a40>] __key.5+0x0/0x40
+   ... acquired at:
+   __raw_read_lock_irqsave include/linux/rwlock_api_smp.h:160 [inline]
+   _raw_read_lock_irqsave+0x70/0x90 kernel/locking/spinlock.c:236
+   send_sigio+0x24/0x380 fs/fcntl.c:796
+   kill_fasync_rcu fs/fcntl.c:1021 [inline]
+   kill_fasync fs/fcntl.c:1035 [inline]
+   kill_fasync+0x1f8/0x470 fs/fcntl.c:1028
+   snd_timer_user_ccallback+0x298/0x330 sound/core/timer.c:1386
+   snd_timer_notify1+0x11c/0x3b0 sound/core/timer.c:516
+   snd_timer_start1+0x4d4/0x800 sound/core/timer.c:578
+   snd_timer_start sound/core/timer.c:696 [inline]
+   snd_timer_start sound/core/timer.c:689 [inline]
+   snd_timer_user_start.isra.0+0x1e3/0x260 sound/core/timer.c:1984
+   __snd_timer_user_ioctl.isra.0+0xda8/0x2490 sound/core/timer.c:2107
+   snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+   vfs_ioctl fs/ioctl.c:51 [inline]
+   __do_sys_ioctl fs/ioctl.c:874 [inline]
+   __se_sys_ioctl fs/ioctl.c:860 [inline]
+   __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
 
---
-Xiaomeng Tong
+ -> (&new->fa_lock){....}-{2:2} {
+    INITIAL USE at:
+                     lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                     lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                     __raw_write_lock_irq include/linux/rwlock_api_smp.h:195 [inline]
+                     _raw_write_lock_irq+0x32/0x50 kernel/locking/spinlock.c:326
+                     fasync_remove_entry+0xb6/0x1f0 fs/fcntl.c:891
+                     fasync_helper+0x9e/0xb0 fs/fcntl.c:994
+                     __fput+0x846/0x9f0 fs/file_table.c:314
+                     task_work_run+0xdd/0x1a0 kernel/task_work.c:164
+                     exit_task_work include/linux/task_work.h:32 [inline]
+                     do_exit+0xb29/0x2a30 kernel/exit.c:806
+                     do_group_exit+0xd2/0x2f0 kernel/exit.c:935
+                     __do_sys_exit_group kernel/exit.c:946 [inline]
+                     __se_sys_exit_group kernel/exit.c:944 [inline]
+                     __x64_sys_exit_group+0x3a/0x50 kernel/exit.c:944
+                     do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                     do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                     entry_SYSCALL_64_after_hwframe+0x44/0xae
+    INITIAL READ USE at:
+                          lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                          lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                          __raw_read_lock_irqsave include/linux/rwlock_api_smp.h:160 [inline]
+                          _raw_read_lock_irqsave+0x70/0x90 kernel/locking/spinlock.c:236
+                          kill_fasync_rcu fs/fcntl.c:1014 [inline]
+                          kill_fasync fs/fcntl.c:1035 [inline]
+                          kill_fasync+0x136/0x470 fs/fcntl.c:1028
+                          snd_timer_user_ccallback+0x298/0x330 sound/core/timer.c:1386
+                          snd_timer_notify1+0x11c/0x3b0 sound/core/timer.c:516
+                          snd_timer_start1+0x4d4/0x800 sound/core/timer.c:578
+                          snd_timer_start sound/core/timer.c:696 [inline]
+                          snd_timer_start sound/core/timer.c:689 [inline]
+                          snd_timer_user_start.isra.0+0x1e3/0x260 sound/core/timer.c:1984
+                          __snd_timer_user_ioctl.isra.0+0xda8/0x2490 sound/core/timer.c:2107
+                          snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+                          vfs_ioctl fs/ioctl.c:51 [inline]
+                          __do_sys_ioctl fs/ioctl.c:874 [inline]
+                          __se_sys_ioctl fs/ioctl.c:860 [inline]
+                          __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+                          do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                          do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                          entry_SYSCALL_64_after_hwframe+0x44/0xae
+  }
+  ... key      at: [<ffffffff90586820>] __key.0+0x0/0x40
+  ... acquired at:
+   __raw_read_lock_irqsave include/linux/rwlock_api_smp.h:160 [inline]
+   _raw_read_lock_irqsave+0x70/0x90 kernel/locking/spinlock.c:236
+   kill_fasync_rcu fs/fcntl.c:1014 [inline]
+   kill_fasync fs/fcntl.c:1035 [inline]
+   kill_fasync+0x136/0x470 fs/fcntl.c:1028
+   snd_timer_user_ccallback+0x298/0x330 sound/core/timer.c:1386
+   snd_timer_notify1+0x11c/0x3b0 sound/core/timer.c:516
+   snd_timer_start1+0x4d4/0x800 sound/core/timer.c:578
+   snd_timer_start sound/core/timer.c:696 [inline]
+   snd_timer_start sound/core/timer.c:689 [inline]
+   snd_timer_user_start.isra.0+0x1e3/0x260 sound/core/timer.c:1984
+   __snd_timer_user_ioctl.isra.0+0xda8/0x2490 sound/core/timer.c:2107
+   snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+   vfs_ioctl fs/ioctl.c:51 [inline]
+   __do_sys_ioctl fs/ioctl.c:874 [inline]
+   __se_sys_ioctl fs/ioctl.c:860 [inline]
+   __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+-> (&timer->lock){..-.}-{2:2} {
+   IN-SOFTIRQ-W at:
+                    lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                    lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                    __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:110 [inline]
+                    _raw_spin_lock_irqsave+0x39/0x50 kernel/locking/spinlock.c:162
+                    snd_timer_interrupt.part.0+0x34/0xcf0 sound/core/timer.c:856
+                    snd_timer_interrupt sound/core/timer.c:1154 [inline]
+                    snd_timer_s_function+0x14b/0x200 sound/core/timer.c:1154
+                    call_timer_fn+0x1a5/0x6b0 kernel/time/timer.c:1421
+                    expire_timers kernel/time/timer.c:1466 [inline]
+                    __run_timers.part.0+0x67c/0xa30 kernel/time/timer.c:1734
+                    __run_timers kernel/time/timer.c:1715 [inline]
+                    run_timer_softirq+0xb3/0x1d0 kernel/time/timer.c:1747
+                    __do_softirq+0x29b/0x9c2 kernel/softirq.c:558
+                    invoke_softirq kernel/softirq.c:432 [inline]
+                    __irq_exit_rcu+0x123/0x180 kernel/softirq.c:637
+                    irq_exit_rcu+0x5/0x20 kernel/softirq.c:649
+                    sysvec_apic_timer_interrupt+0x93/0xc0 arch/x86/kernel/apic/apic.c:1097
+                    asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:638
+                    bytes_is_nonzero mm/kasan/generic.c:85 [inline]
+                    memory_is_nonzero mm/kasan/generic.c:102 [inline]
+                    memory_is_poisoned_n mm/kasan/generic.c:128 [inline]
+                    memory_is_poisoned mm/kasan/generic.c:159 [inline]
+                    check_region_inline mm/kasan/generic.c:180 [inline]
+                    kasan_check_range+0xde/0x180 mm/kasan/generic.c:189
+                    instrument_atomic_read include/linux/instrumented.h:71 [inline]
+                    atomic_long_read include/linux/atomic/atomic-instrumented.h:1265 [inline]
+                    filp_close+0x22/0x170 fs/open.c:1318
+                    close_files fs/file.c:403 [inline]
+                    put_files_struct fs/file.c:418 [inline]
+                    put_files_struct+0x1d0/0x350 fs/file.c:415
+                    exit_files+0x7e/0xa0 fs/file.c:435
+                    do_exit+0xaf2/0x2a30 kernel/exit.c:801
+                    do_group_exit+0xd2/0x2f0 kernel/exit.c:935
+                    __do_sys_exit_group kernel/exit.c:946 [inline]
+                    __se_sys_exit_group kernel/exit.c:944 [inline]
+                    __x64_sys_exit_group+0x3a/0x50 kernel/exit.c:944
+                    do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                    do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                    entry_SYSCALL_64_after_hwframe+0x44/0xae
+   INITIAL USE at:
+                   lock_acquire kernel/locking/lockdep.c:5639 [inline]
+                   lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+                   __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:110 [inline]
+                   _raw_spin_lock_irqsave+0x39/0x50 kernel/locking/spinlock.c:162
+                   snd_timer_stop1+0x5c/0x860 sound/core/timer.c:626
+                   snd_timer_stop sound/core/timer.c:710 [inline]
+                   snd_timer_user_start.isra.0+0x8b/0x260 sound/core/timer.c:1981
+                   __snd_timer_user_ioctl.isra.0+0xda8/0x2490 sound/core/timer.c:2107
+                   snd_timer_user_ioctl+0x77/0xb0 sound/core/timer.c:2128
+                   vfs_ioctl fs/ioctl.c:51 [inline]
+                   __do_sys_ioctl fs/ioctl.c:874 [inline]
+                   __se_sys_ioctl fs/ioctl.c:860 [inline]
+                   __x64_sys_ioctl+0x193/0x200 fs/ioctl.c:860
+                   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+                   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+                   entry_SYSCALL_64_after_hwframe+0x44/0xae
+ }
+ ... key      at: [<ffffffff908843c0>] __key.12+0x0/0x40
+ ... acquired at:
+   mark_lock kernel/locking/lockdep.c:4569 [inline]
+   mark_usage kernel/locking/lockdep.c:4500 [inline]
+   __lock_acquire+0x11e3/0x56c0 kernel/locking/lockdep.c:4981
+   lock_acquire kernel/locking/lockdep.c:5639 [inline]
+   lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+   __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:110 [inline]
+   _raw_spin_lock_irqsave+0x39/0x50 kernel/locking/spinlock.c:162
+   snd_timer_interrupt.part.0+0x34/0xcf0 sound/core/timer.c:856
+   snd_timer_interrupt sound/core/timer.c:1154 [inline]
+   snd_timer_s_function+0x14b/0x200 sound/core/timer.c:1154
+   call_timer_fn+0x1a5/0x6b0 kernel/time/timer.c:1421
+   expire_timers kernel/time/timer.c:1466 [inline]
+   __run_timers.part.0+0x67c/0xa30 kernel/time/timer.c:1734
+   __run_timers kernel/time/timer.c:1715 [inline]
+   run_timer_softirq+0xb3/0x1d0 kernel/time/timer.c:1747
+   __do_softirq+0x29b/0x9c2 kernel/softirq.c:558
+   invoke_softirq kernel/softirq.c:432 [inline]
+   __irq_exit_rcu+0x123/0x180 kernel/softirq.c:637
+   irq_exit_rcu+0x5/0x20 kernel/softirq.c:649
+   sysvec_apic_timer_interrupt+0x93/0xc0 arch/x86/kernel/apic/apic.c:1097
+   asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:638
+   bytes_is_nonzero mm/kasan/generic.c:85 [inline]
+   memory_is_nonzero mm/kasan/generic.c:102 [inline]
+   memory_is_poisoned_n mm/kasan/generic.c:128 [inline]
+   memory_is_poisoned mm/kasan/generic.c:159 [inline]
+   check_region_inline mm/kasan/generic.c:180 [inline]
+   kasan_check_range+0xde/0x180 mm/kasan/generic.c:189
+   instrument_atomic_read include/linux/instrumented.h:71 [inline]
+   atomic_long_read include/linux/atomic/atomic-instrumented.h:1265 [inline]
+   filp_close+0x22/0x170 fs/open.c:1318
+   close_files fs/file.c:403 [inline]
+   put_files_struct fs/file.c:418 [inline]
+   put_files_struct+0x1d0/0x350 fs/file.c:415
+   exit_files+0x7e/0xa0 fs/file.c:435
+   do_exit+0xaf2/0x2a30 kernel/exit.c:801
+   do_group_exit+0xd2/0x2f0 kernel/exit.c:935
+   __do_sys_exit_group kernel/exit.c:946 [inline]
+   __se_sys_exit_group kernel/exit.c:944 [inline]
+   __x64_sys_exit_group+0x3a/0x50 kernel/exit.c:944
+   do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+   do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+
+stack backtrace:
+CPU: 0 PID: 4486 Comm: syz-executor301 Not tainted 5.17.0-rc6-syzkaller-00184-g38f80f42147f #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Call Trace:
+ <IRQ>
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0xcd/0x134 lib/dump_stack.c:106
+ print_irq_inversion_bug kernel/locking/lockdep.c:194 [inline]
+ check_usage_forwards kernel/locking/lockdep.c:4043 [inline]
+ mark_lock_irq kernel/locking/lockdep.c:4175 [inline]
+ mark_lock.part.0.cold+0x86/0xd8 kernel/locking/lockdep.c:4605
+ mark_lock kernel/locking/lockdep.c:4569 [inline]
+ mark_usage kernel/locking/lockdep.c:4500 [inline]
+ __lock_acquire+0x11e3/0x56c0 kernel/locking/lockdep.c:4981
+ lock_acquire kernel/locking/lockdep.c:5639 [inline]
+ lock_acquire+0x1ab/0x510 kernel/locking/lockdep.c:5604
+ __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:110 [inline]
+ _raw_spin_lock_irqsave+0x39/0x50 kernel/locking/spinlock.c:162
+ snd_timer_interrupt.part.0+0x34/0xcf0 sound/core/timer.c:856
+ snd_timer_interrupt sound/core/timer.c:1154 [inline]
+ snd_timer_s_function+0x14b/0x200 sound/core/timer.c:1154
+ call_timer_fn+0x1a5/0x6b0 kernel/time/timer.c:1421
+ expire_timers kernel/time/timer.c:1466 [inline]
+ __run_timers.part.0+0x67c/0xa30 kernel/time/timer.c:1734
+ __run_timers kernel/time/timer.c:1715 [inline]
+ run_timer_softirq+0xb3/0x1d0 kernel/time/timer.c:1747
+ __do_softirq+0x29b/0x9c2 kernel/softirq.c:558
+ invoke_softirq kernel/softirq.c:432 [inline]
+ __irq_exit_rcu+0x123/0x180 kernel/softirq.c:637
+ irq_exit_rcu+0x5/0x20 kernel/softirq.c:649
+ sysvec_apic_timer_interrupt+0x93/0xc0 arch/x86/kernel/apic/apic.c:1097
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:638
+RIP: 0010:bytes_is_nonzero mm/kasan/generic.c:85 [inline]
+RIP: 0010:memory_is_nonzero mm/kasan/generic.c:102 [inline]
+RIP: 0010:memory_is_poisoned_n mm/kasan/generic.c:128 [inline]
+RIP: 0010:memory_is_poisoned mm/kasan/generic.c:159 [inline]
+RIP: 0010:check_region_inline mm/kasan/generic.c:180 [inline]
+RIP: 0010:kasan_check_range+0xde/0x180 mm/kasan/generic.c:189
+Code: 74 f2 48 89 c2 b8 01 00 00 00 48 85 d2 75 56 5b 5d 41 5c c3 48 85 d2 74 5e 48 01 ea eb 09 48 83 c0 01 48 39 d0 74 50 80 38 00 <74> f2 eb d4 41 bc 08 00 00 00 48 89 ea 45 29 dc 4d 8d 1c 2c eb 0c
+RSP: 0018:ffffc9000376fd30 EFLAGS: 00000246
+RAX: ffffed100f1d3d9f RBX: ffffed100f1d3da0 RCX: ffffffff81cb24b2
+RDX: ffffed100f1d3da0 RSI: 0000000000000008 RDI: ffff888078e9ecf8
+RBP: ffffed100f1d3d9f R08: 0000000000000000 R09: ffff888078e9ecff
+R10: ffffed100f1d3d9f R11: 0000000000000000 R12: ffff88807ee70f00
+R13: ffff888078e9ecf8 R14: ffff88807ee70f00 R15: ffff88807ee71028
+ instrument_atomic_read include/linux/instrumented.h:71 [inline]
+ atomic_long_read include/linux/atomic/atomic-instrumented.h:1265 [inline]
+ filp_close+0x22/0x170 fs/open.c:1318
+ close_files fs/file.c:403 [inline]
+ put_files_struct fs/file.c:418 [inline]
+ put_files_struct+0x1d0/0x350 fs/file.c:415
+ exit_files+0x7e/0xa0 fs/file.c:435
+ do_exit+0xaf2/0x2a30 kernel/exit.c:801
+ do_group_exit+0xd2/0x2f0 kernel/exit.c:935
+ __do_sys_exit_group kernel/exit.c:946 [inline]
+ __se_sys_exit_group kernel/exit.c:944 [inline]
+ __x64_sys_exit_group+0x3a/0x50 kernel/exit.c:944
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7ff95f986c99
+Code: Unable to access opcode bytes at RIP 0x7ff95f986c6f.
+RSP: 002b:00007ffecd4a5e98 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
+RAX: ffffffffffffffda RBX: 00007ff95f9fb330 RCX: 00007ff95f986c99
+RDX: 000000000000003c RSI: 00000000000000e7 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffffffffffffc0 R09: 0000000000000001
+R10: 0000000000000001 R11: 0000000000000246 R12: 00007ff95f9fb330
+R13: 0000000000000001 R14: 0000000000000000 R15: 0000000000000001
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	74 f2                	je     0xfffffff4
+   2:	48 89 c2             	mov    %rax,%rdx
+   5:	b8 01 00 00 00       	mov    $0x1,%eax
+   a:	48 85 d2             	test   %rdx,%rdx
+   d:	75 56                	jne    0x65
+   f:	5b                   	pop    %rbx
+  10:	5d                   	pop    %rbp
+  11:	41 5c                	pop    %r12
+  13:	c3                   	retq
+  14:	48 85 d2             	test   %rdx,%rdx
+  17:	74 5e                	je     0x77
+  19:	48 01 ea             	add    %rbp,%rdx
+  1c:	eb 09                	jmp    0x27
+  1e:	48 83 c0 01          	add    $0x1,%rax
+  22:	48 39 d0             	cmp    %rdx,%rax
+  25:	74 50                	je     0x77
+  27:	80 38 00             	cmpb   $0x0,(%rax)
+* 2a:	74 f2                	je     0x1e <-- trapping instruction
+  2c:	eb d4                	jmp    0x2
+  2e:	41 bc 08 00 00 00    	mov    $0x8,%r12d
+  34:	48 89 ea             	mov    %rbp,%rdx
+  37:	45 29 dc             	sub    %r11d,%r12d
+  3a:	4d 8d 1c 2c          	lea    (%r12,%rbp,1),%r11
+  3e:	eb 0c                	jmp    0x4c
+

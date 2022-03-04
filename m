@@ -2,86 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70A014CD695
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 15:41:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66E474CD6E5
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 15:57:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6ACE91A2C;
-	Fri,  4 Mar 2022 15:40:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ACE91A2C
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1A8C18BE;
+	Fri,  4 Mar 2022 15:56:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1A8C18BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646404880;
-	bh=cHs/mmRl+RFiYISXWPbbLE5oHem+pZqfeoiFLwysSr4=;
+	s=default; t=1646405829;
+	bh=7y9hFjv67emiM1FNag/PXQ3ztIU65wZgmignYSVHcPQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=C5dm7o5EuUCZoEHNauPDpqB+qPRVI2K1BrTWiye5kS4j8plnl5dJMOaspKBoRRq/I
-	 WdOm+I5AeEg1Ds+HtOpIc4+gAcbX329HyLaqwuY7Oieo460Qs7Utmmvc7cIM2qi3DF
-	 I1vInMqUkyvwwdVW05Z0f5VOYkMXxGssojpE/Kf0=
+	b=FJSm4l2/BYAfZ7RyGkkUbItggZP+AjTajae+jfvm3L9GuDN3mx4uI90Zu8m/lY9d9
+	 2li4zlgMYmp427M/9jvNuojpcwMYzbiYSt0mWWWdKUomUaakW+CAEEjeSAU9LYelZY
+	 ZJHqwGbNt1qdJxWzIA/t09x1Pd9Q4lVW1UKyC32I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06A2FF80224;
-	Fri,  4 Mar 2022 15:40:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64CA9F80311;
+	Fri,  4 Mar 2022 15:56:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BF25F80139; Fri,  4 Mar 2022 15:40:27 +0100 (CET)
+ id 9CF47F80311; Fri,  4 Mar 2022 15:55:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 16C5AF800F2
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 15:40:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16C5AF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0935FF800F0
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 15:55:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0935FF800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="dxXP/m1O"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2248TIlJ019088;
- Fri, 4 Mar 2022 08:40:18 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=bFhXLBMGqICJ9xa4zHe1IgD/QVmyIzhRYAhGIXcq0CU=;
- b=dxXP/m1O4qV6f6lgFmV2P9GFp126XRrB7ogHV29TDLnxAW703vhrcpSkq7bSlvjkd4Z3
- wV9FhLfji9kDnbyhPHkuyOGLVG/BlWr0W8m6gNi4Jplax4E/jKF39+CvkjKG9W/Uf+h+
- zX8Cag0MDQLxGWhKc6co1l7Stfe5NtelgR38k9pAdDwZehoGUdg8t4QlSE8yF/sdM6/G
- EX2a0rtTo8IFhkicBw3f717cUu5kwQkHp5uPebwbKp0bOZqq53NjgZWIXm4AQmdkUgxM
- XJL6ZxlOoiPejG/uH2gUxmZMNw8i7ahho/0Eljd3mMGjQF6lyPEUqxoTyXYY4nJmJtlp bA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ek4j3h2td-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 04 Mar 2022 08:40:18 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 4 Mar
- 2022 14:40:17 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Fri, 4 Mar 2022 14:40:17 +0000
-Received: from AUSNPC0LSNW1-debian.ad.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
- [198.90.251.79])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 36C747C;
- Fri,  4 Mar 2022 14:40:17 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: cs42l42: Add warnings about DETECT_MODE and PLL_START
-Date: Fri, 4 Mar 2022 14:40:15 +0000
-Message-ID: <20220304144015.398656-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="DkDTAhpC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646405753; x=1677941753;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=7y9hFjv67emiM1FNag/PXQ3ztIU65wZgmignYSVHcPQ=;
+ b=DkDTAhpCNEpgJIfGRqmvXivUc3xQ9aYPO/Wa1rKgnOXjU0aoAoxlcEVc
+ c4jYW8yGhJjo+DAPtuvTeNQsIoCy/EpMpdBKpkFLsWy37ECs5e4ghaKIa
+ X9YHjFU1S5a54hKlfqMEmrlkD8pJ4sgPo6ZHM6ZeKa3GyyeHwde5HA/N4
+ GKiyo/rn2Ns481JgInMwntNYHxM/vDqeakuO/nonU2NaSngDM1hX+vmqu
+ KLyzH+5khxLdmxEaIisMAYH5ZbixsRP+BYWMKrc0hLLTlHhPTZZJ8Pp8v
+ ffZUQhtfxTQSHimr/HnYZZhQpUkzFroDyfhKAvvBGl6AjIulTH2Q/kyjS w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="233949047"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="233949047"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2022 06:55:47 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="609963194"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga004.fm.intel.com with ESMTP; 04 Mar 2022 06:55:44 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v3 00/17] ASoC: Intel: AVS - Audio DSP for cAVS
+Date: Fri,  4 Mar 2022 15:57:38 +0100
+Message-Id: <20220304145755.2844173-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: alberyu2hsG-jYvJnT3dm0fL5Q1eubXO
-X-Proofpoint-ORIG-GUID: alberyu2hsG-jYvJnT3dm0fL5Q1eubXO
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, rad@semihalf.com,
+ upstream@semihalf.com, harshapriya.n@intel.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,95 +89,237 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DETECT_MODE and PLL_START must be zero while HP_PDN and ADC_PDN are
-both 1. If this condition is broken it can discharge FILT+ and it
-can then take up to 1 second for FILT+ to recharge.
+A continuation of cleanup work of Intel SST solutions found in
+sound/soc/intel/. With two major chapters released last year catpt [1]
+and removal of haswell solution [2], time has come for Skylake-driver.
 
-There is no workaround required for this, simply avoiding settings
-and sequences that would break the requirement. The driver already
-meets the requirement.
+Througout 2019, 2020 and 2021 Skylake-driver has had many fixes applied
+and even attempts of refactors as seen in fundamental overhaul [3], IPC
+flow adjustments [4] and LARGE_CONFIG overhaul [5] series.
+Unfortunately, story repeats itself - problems are found within the core
+of a driver. Painting it with different colors does not change the fact
+that is it still a house of cards. As changes needed to address those
+issues would make Skylake solution incompatible with its previous
+revisions, a decision has been made to provide a new solution instead.
+In time it would deprecate and replace Skylake-driver.
 
-But it is not obvious from reading the code that this requirement
-exists, or what is ensuring it is met. So it would not currently be
-obvious to someone changing the code that there is certain special
-behaviour that must be maintained.
+That solution has been called AVS - from AudioDSP architecture name:
+Audio-Voice-Speech. It is meant to provide support for the exact same
+range of platforms as its predecessor: SKL, KBL, AML and APL.
 
-To avoid accidental breakage in the future:
+Note: this series is dependent upon HDA-series [6] which exposes several
+codec-organization functions allowing for reduced code size on
+avs-driver side.
 
-- Add comments into the register definitions to warn about this so
-  that anyone changing the code around DETECT_MODE and PLL_START is
-  aware of this requirement.
+Note: this series does not add fully functional driver as its size would
+get out of control. Here, focus is put on adding IPC protocol and code
+loading code.
 
-- Add a comment where PLL_START is written to 1 to highlight the
-  requirement and why it is satisfied.
 
-- Add a comment in cs42l42_setup_hs_type_detect() when DETECT_MODE is
-  initialized.
+Changes v2 -> v3:
+- fixed variable initialization errors mentioned by sparse
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/soc/codecs/cs42l42.c | 13 ++++++++++++-
- sound/soc/codecs/cs42l42.h |  9 ++++++++-
- 2 files changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index db6ef6cdce15..c8409d50e934 100644
---- a/sound/soc/codecs/cs42l42.c
-+++ b/sound/soc/codecs/cs42l42.c
-@@ -1012,7 +1012,14 @@ static int cs42l42_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
- 		}
- 	} else {
- 		if (!cs42l42->stream_use) {
--			/* SCLK must be running before codec unmute */
-+			/* SCLK must be running before codec unmute.
-+			 *
-+			 * PLL must not be started with ADC and HP both off
-+			 * otherwise the FILT+ supply will not charge properly.
-+			 * DAPM widgets power-up before stream unmute so at least
-+			 * one of the "DAC" or "ADC" widgets will already have
-+			 * powered-up.
-+			 */
- 			if (pll_ratio_table[cs42l42->pll_config].mclk_src_sel) {
- 				snd_soc_component_update_bits(component, CS42L42_PLL_CTL1,
- 							      CS42L42_PLL_START_MASK, 1);
-@@ -1830,6 +1837,10 @@ static void cs42l42_setup_hs_type_detect(struct cs42l42_private *cs42l42)
- 
- 	cs42l42->hs_type = CS42L42_PLUG_INVALID;
- 
-+	/*
-+	 * DETECT_MODE must always be 0 with ADC and HP both off otherwise the
-+	 * FILT+ supply will not charge properly.
-+	 */
- 	regmap_update_bits(cs42l42->regmap, CS42L42_MISC_DET_CTL,
- 			   CS42L42_DETECT_MODE_MASK, 0);
- 
-diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
-index 244b24d1f5e9..60d3bdf5d7c9 100644
---- a/sound/soc/codecs/cs42l42.h
-+++ b/sound/soc/codecs/cs42l42.h
-@@ -491,7 +491,10 @@
- #define CS42L42_TS_UNPLUG		0
- #define CS42L42_TS_TRANS		1
- 
--/* Page 0x15 Fractional-N PLL Registers */
-+/*
-+ * NOTE: PLL_START must be 0 while both ADC_PDN=1 and HP_PDN=1.
-+ * Otherwise it will prevent FILT+ from charging properly.
-+ */
- #define CS42L42_PLL_CTL1		(CS42L42_PAGE_15 + 0x01)
- #define CS42L42_PLL_START_SHIFT		0
- #define CS42L42_PLL_START_MASK		(1 << CS42L42_PLL_START_SHIFT)
-@@ -574,6 +577,10 @@
- #define CS42L42_TIP_SENSE_CTRL_MASK		(3 << \
- 					CS42L42_TIP_SENSE_CTRL_SHIFT)
- 
-+/*
-+ * NOTE: DETECT_MODE must be 0 while both ADC_PDN=1 and HP_PDN=1.
-+ * Otherwise it will prevent FILT+ from charging properly.
-+ */
- #define CS42L42_MISC_DET_CTL		(CS42L42_PAGE_1B + 0x74)
- #define CS42L42_PDN_MIC_LVL_DET_SHIFT	0
- #define CS42L42_PDN_MIC_LVL_DET_MASK	(1 << CS42L42_PDN_MIC_LVL_DET_SHIFT)
+Changes v1 -> v2:
+Almost all updates here are thanks to feedback from Pierre.
+
+- several comments and few kernel-docs have been added in areas which
+  felt more or less unclear
+- avs_ipc_wait_busy_completion() now spins up to 'repeats_left' number
+  of times before giving up
+- 'adsp_ba' field of struct avs_dev has been renamed to 'dsp_ba'
+- 'dops' field of struct avs_spec has been renamed to 'dsp_ops'
+- IPC abstraction has been simplified: SKL_ADSP_REG_HIP* regs are used
+  directly
+- fixed allnoconfig with AVS enabled compilation issues
+- fixed code loading error paths: previously requested firmware is now
+  released before function return to the caller
+- code and function arguments tied to D0IX support have been removed
+  from this patchset and will be part of followup series adding that
+  feature instead
+- enriched dev_err() messages in avs_dsp_get_core() and
+  avs_dsp_put_core()
+- numerous wording fixes used in power/reset/stall DSP operations
+
+
+Changes RFC v1 [7]: -> v1:
+- separated HDA codec-organization patches, path and topology handling,
+  PCM and complementary features such as recovery from this series to
+  ease the review process
+- fixed EXPORT_SYMBOL_GPL for exported members of ASoC framework
+- result of stall() is now checked when sending ROM message
+- result of snd_hdac_ext_stream_set_spib() is now checked when loading
+  basefw
+- if basefw is not ready, notification processing is now skipped
+- documented several topology parsing helpers
+
+
+Changes [internal] RFC v2 -> [public] RFC v1:
+- dropped any sysfs related changes from this series, moved to follow up
+  one
+- dropped entire subscription-mechanism found in ipc.c. Handlers that
+  are delegated to service certain firmware notifications are now called
+  directly
+- fixed kernel doc for snd_soc_dapm_new_dai_widgets() as reported by ikp
+- prefixed snd_hda_codec_device_init() as suggested by Amadeo
+- improved comments for d0ix transitions for APL-based platforms as
+  suggested by Pierre
+- a ton of spelling related fixes in most of the commit messages
+- fixed remaining warnings pointed by scan-build (variable assigned but
+  not used)
+- replaced most of 'cAVS X.Y' expression usages with 'platform-based'
+  equivalents as suggested by Pierre e.g.: cAVS 1.5 -> SKL-based
+
+
+Changes [internal] RFC v1 -> [internal] RFC v2:
+- fixed memleak caused by lack of kfree(vols) if memory allocation fails
+  in avs_peakvol_create() as reported by Curtis
+- fixed missing 'i' iterator incrementation in avs_widget_ready()
+  causing reference loss as reported by Curtis
+- replace hardcode: 0x40 usage with snd_hdac_calc_stream_format as
+  suggested by Curtis.
+  In consequence, readability for all code loading (CL) procedues has
+  increased and such approach auto-documents the CL stream preparation
+
+- updated behavior of all index-fetching functions found in utils.c:
+  avs_module_entry_index(), avs_module_id_entry_index() and follow ups:
+  avs_get_module_entry(), avs_get_module_id_entry() to better conform to
+  linux-kernel standard when no entry is found (return -ENOENT) rather
+  than C++ standard (return -1, what in kernel case translated to -EPERM)
+  as suggested by Curtis and Peter
+- several suggestions have been made regarding spacing, and so far, I've
+  agreed and applied with all of them. None proposed seemed out of place
+  or redundant
+
+- avs_path_stop() renamed to avs_path_pause() pipeline states are
+  represented by RESET/PAUSED/RUNNING. avs_path_reset() and
+  avs_path_run() were already there and avs_path_stop() just didn't look
+  cohesive
+- added missing parsers for num_output_pin and num_input_pin which are
+  required for custom modules such as WAVES or DSM
+- dropped 'priv_param_length' from custom module descriptor as this
+  field is obsolete in firmware
+
+- parse_dictionary() has been split into parse_dictionary_header() and
+  parse_dictionary_entries() to drop code duplication present in several
+  parsing function which could not re-use entire parse_dictionary()
+- added avs_tplg_vendor_array_lookup_next() and
+  avs_tplg_vendor_entry_next() to drop code duplicated present in several
+  parsing functions. This change greatly impacted readability of all
+  parsers
+- parsing helpers such avs_tplg_vendor_array_lookup() now return offset
+  by updating specified in function argument list u32 *offset variable.
+  This is to address problem when u32 offset would be greater than max
+  int, which is the return type for these functions
+- AVS_DEFINE_PTR_PARSER() macro has been introduced to drop code
+  duplication for all ptr-parsing users
+
+- all struct avs_path_module creators have had their declaration
+  updated: function argument *owner ceased to exist as it could already
+  be accessed by mod->owner
+
+- fixed the order of operation for conditional paths (e.g.: echo
+  reference) so these are no longer controlled by "source" path and
+  instead are impacted by state changes of source and sink paths both.
+  Previously only source path e.g. playback sourcing echo reference
+  would trigger RUNNING status for conditional path. Equivalent RUNNING
+  on WoV path which is in this case sink path, would not do so, leading
+  to order-of-operation problems. Behavior has been changed to: both
+  source and sink need to be RUNNING for conditional path to be set to
+  RUNNING too. PAUSED for either source or sink will cause PAUSED
+  transition for conditional path.
+- to achieve the above, path states are now saved in 'state' i.e. new
+  u32 field for struct avs_path
+
+- resigned from fw_filename field usage in favour of newly added
+  tplg_filename for machine board descriptors as suggested by Pierre
+- platform descriptor fields have had their names update better reflect
+  their purpose as suggested by Pierre
+- fixed comp_list missing locking when manipulated
+- all message senders now accept request as pointer as suggeseted by
+  Peter
+- resigned of AZX_ usage for all ADSP-related registers, leaving them
+  only for HOST memory space related operations
+- fixed disable path for core DSP operations: power/reset/stall as
+  reported by Peter
+
+- safety when locking between received responses (reply vs notification)
+  has been lowered as suggested by Pierre. Most usages are not performed
+  in IRQ context and none is done in hard-IRQ one
+- s/master/main/ plus AVS_MAIN_CORE_MASK has replaced ->master_mask
+- several functions have had their logging updated - logs have been
+  moved to lower level functions as suggested by Pierre
+- hdac_ext_stream usage has been streamlined to estream, hdac_streams
+  are represented by hstream instead
+- hw_params() are resilient to scenarios when they are called mutliple
+  times as reported by Pierre
+- avs_dsp_enable() now collapses if any of its steps fails as reported
+  by Pierre and Peter
+- avs_module_ida_empty() now returns value of type bool as suggested by
+  Bard
+
+
+[1]: https://www.spinics.net/lists/alsa-devel/msg116440.html
+[2]: https://www.spinics.net/lists/alsa-devel/msg116901.html
+[3]: https://www.spinics.net/lists/alsa-devel/msg94199.html
+[4]: https://www.spinics.net/lists/alsa-devel/msg92588.html
+[5]: https://lore.kernel.org/all/20190808181549.12521-1-cezary.rojewski@intel.com/
+[6]: https://lore.kernel.org/alsa-devel/20220207114906.3759800-1-cezary.rojewski@intel.com/T/#t
+[7]: https://lore.kernel.org/all/20211208111301.1817725-1-cezary.rojewski@intel.com/
+
+
+Cezary Rojewski (17):
+  ALSA: hda: Add helper macros for DSP capable devices
+  ASoC: Export DAI register and widget ctor and dctor functions
+  ASoC: Intel: Introduce AVS driver
+  ASoC: Intel: avs: Inter process communication
+  ASoC: Intel: avs: Add code loading requests
+  ASoC: Intel: avs: Add pipeline management requests
+  ASoC: Intel: avs: Add module management requests
+  ASoC: Intel: avs: Add power management requests
+  ASoC: Intel: avs: Add ROM requests
+  ASoC: Intel: avs: Add basefw runtime-parameter requests
+  ASoC: Intel: avs: Firmware resources management utilities
+  ASoC: Intel: avs: Declare module configuration types
+  ASoC: Intel: avs: Dynamic firmware resources management
+  ASoC: Intel: avs: General code loading flow
+  ASoC: Intel: avs: Implement CLDMA transfer
+  ASoC: Intel: avs: Code loading over CLDMA
+  ASoC: Intel: avs: Code loading over HDA
+
+ include/sound/hdaudio.h         |   2 +
+ include/sound/hdaudio_ext.h     |  50 +++
+ include/sound/soc-dapm.h        |   1 +
+ sound/soc/intel/Kconfig         |  12 +
+ sound/soc/intel/Makefile        |   1 +
+ sound/soc/intel/avs/Makefile    |   6 +
+ sound/soc/intel/avs/avs.h       | 248 +++++++++++
+ sound/soc/intel/avs/cldma.c     | 317 ++++++++++++++
+ sound/soc/intel/avs/cldma.h     |  29 ++
+ sound/soc/intel/avs/core.c      |  62 +++
+ sound/soc/intel/avs/dsp.c       | 303 +++++++++++++
+ sound/soc/intel/avs/ipc.c       | 393 +++++++++++++++++
+ sound/soc/intel/avs/loader.c    | 607 +++++++++++++++++++++++++
+ sound/soc/intel/avs/messages.c  | 697 +++++++++++++++++++++++++++++
+ sound/soc/intel/avs/messages.h  | 753 ++++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/registers.h |  75 ++++
+ sound/soc/intel/avs/utils.c     | 301 +++++++++++++
+ sound/soc/soc-core.c            |   1 +
+ sound/soc/soc-dapm.c            |  15 +
+ 19 files changed, 3873 insertions(+)
+ create mode 100644 sound/soc/intel/avs/Makefile
+ create mode 100644 sound/soc/intel/avs/avs.h
+ create mode 100644 sound/soc/intel/avs/cldma.c
+ create mode 100644 sound/soc/intel/avs/cldma.h
+ create mode 100644 sound/soc/intel/avs/core.c
+ create mode 100644 sound/soc/intel/avs/dsp.c
+ create mode 100644 sound/soc/intel/avs/ipc.c
+ create mode 100644 sound/soc/intel/avs/loader.c
+ create mode 100644 sound/soc/intel/avs/messages.c
+ create mode 100644 sound/soc/intel/avs/messages.h
+ create mode 100644 sound/soc/intel/avs/registers.h
+ create mode 100644 sound/soc/intel/avs/utils.c
+
 -- 
-2.30.2
+2.25.1
 

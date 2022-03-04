@@ -2,92 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1CB84CD8A9
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 17:11:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 466904CD8D3
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 17:15:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E32716A9;
-	Fri,  4 Mar 2022 17:10:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E32716A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E81941B30;
+	Fri,  4 Mar 2022 17:14:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E81941B30
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646410278;
-	bh=vhBroNnbAY0yoDg/C3iEBB3fwv59u0v9Xzj22j+KcGY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=oybk0rxJZ5sTIy/Xa4u7CgnvoLRoJPS3deC8a5KzEvpfuTXrj0oetJa7zffinwTMh
-	 hHHq+x0HseAS87go5wThAuLSfGT3YvadXYtNR7uubAxsyuMQOibdliKJ86X+LqMWt0
-	 PFU8whsf/NJD1tz9LbUxqAOahzK1xFgYfxLrwot8=
+	s=default; t=1646410515;
+	bh=DM/R36Y9gjmobZX7kVfYEYP0cwTv3+cuoEmMQNK1RaU=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KiksUgGL1OKs5Xyv7ou1q8E0MvcffRxuSF99X/vbIVpYjJ/YPk5XbGYkGm/ZeuNLT
+	 480TcS/CkNWZnS/EFwyAUj9eih++N74Ar+T6hKeGM2yinEcYWiumwEIZfOSQyPtEwJ
+	 u7RKfTVDqgYWUktG+ZR7nrrPxpMLexcHiWsXMoqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FF64F80517;
-	Fri,  4 Mar 2022 17:09:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E4BEF801F5;
+	Fri,  4 Mar 2022 17:14:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCF9AF800FA; Fri,  4 Mar 2022 17:09:50 +0100 (CET)
+ id C9F93F801EC; Fri,  4 Mar 2022 17:14:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_FILL_THIS_FORM_SHORT,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02DA8F80507
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 17:09:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02DA8F80507
+ by alsa1.perex.cz (Postfix) with ESMTPS id 483C0F800F2
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 17:13:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 483C0F800F2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="rkdCrZjm"
-Received: by mail-wr1-x42c.google.com with SMTP id p9so13369402wra.12
- for <alsa-devel@alsa-project.org>; Fri, 04 Mar 2022 08:09:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=mpcaFFM4Vlil9J8sKnIMDV3zVV5Y4u+XZLqTyb1B72k=;
- b=rkdCrZjmyS/RXcib6D6bM3pF7QZLt8bqrNCOt3MH3NGpjgzQNxvLEBsFXyfon8z7zT
- OGEJTdpnHH5Q0RVO4gKNmrXIvcA5xCNdRPNZHpJfeABZn/9VeC0UqkVFumhHce1fGjBD
- tlqjw3aasK96+a73ofc0GYsB44dTRHopnqC1HcwMBLUbmnVpwAtqDHkcYmS3GnOKT7Mv
- dPnOzmJECWkyDDds8fiUokCXgI0jA/KEGTAB8F1kyhjEd19fJZ3J/yrtPBZJ84fQWn+D
- B/6PPv+alt+3hW3wyAI0hpFI+oJYmFFRRC/ggKLBn/TWTRfqlaE7wU5Dc5r4E686eAMH
- MItg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=mpcaFFM4Vlil9J8sKnIMDV3zVV5Y4u+XZLqTyb1B72k=;
- b=W86lAeVzwa0FPOHLh1nQIXzguCiEY1OkIxXZU0kFN0T4FpTHgBx7N6t+pZ2TwjAtVz
- 666wiKVQzVIirVOonhUC91nilZdbHhsEtaTQVPl4toqq2x91pIGiPvLmCmXxNIhVLu2Q
- robmxP0QfJI+f29ZUs62ps9vqLn+u3R17Nr+fiaatRtyC880UFV7WGkucJSw8h7ZoIao
- CYvdFqkoI8nSEUEu/NuA++STpooTlYBBSYK74vcXV0+NiTLlu6OpeJ7B4NgiDoI+25bk
- 81qVQlqgYEN1dcHs+3b1lO8WF8fZkJZpnyikQiMhx5He3lowlfxTokahdpGhlPayZEC7
- wZMg==
-X-Gm-Message-State: AOAM532e4SWbnStxa6goRfJY3MEbjZZaIYFbFoIVrJwLvukeUraS0TPi
- Er8rB7xSBx/GxJsxkjP09uASaQ==
-X-Google-Smtp-Source: ABdhPJyGwmzyIoQ9ro/TZ+vxg/5BiF5i9Kky2BCfEyUx0I0fCDIdJ2pVlz+q5Scz0R5Q4+qf1ka2nQ==
-X-Received: by 2002:a05:6000:1b07:b0:1f0:248d:bc1d with SMTP id
- f7-20020a0560001b0700b001f0248dbc1dmr10801281wrz.534.1646410182680; 
- Fri, 04 Mar 2022 08:09:42 -0800 (PST)
-Received: from srini-hackbox.lan
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.gmail.com with ESMTPSA id
- 11-20020a05600c22cb00b00382a960b17csm10275145wmg.7.2022.03.04.08.09.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Mar 2022 08:09:41 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: qcom: select correct WCD938X config for SC7280
-Date: Fri,  4 Mar 2022 16:09:34 +0000
-Message-Id: <20220304160934.32010-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Xyw23RHh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646410442; x=1677946442;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=DM/R36Y9gjmobZX7kVfYEYP0cwTv3+cuoEmMQNK1RaU=;
+ b=Xyw23RHhhsod2OBW+hhxwczgd/QEvDSes+BcagegjynaT0Jfvvk4tcdu
+ 3rubr8zfoPcIP1rXGq68tPUpGYSoxRducQg0OomvlFHodUSdBjcGjVRSV
+ Q3a9WMNwmdsmE3M90j9krLjmzBtQFccrZxAgF/6prNa3RBudyW71bghww
+ jPBTLqJ/yfF6Fe32buHAJtxVG7XMkRogtZL5GiEws1iNpt28wMPTq/3sG
+ prUZdz/6Zpr6q4G019BurhH3f+j8PuUrh4czFEBNYx6sd2b78SfUbYTd0
+ kiSpxM7kYIB0pUYeyTQcCdT3MNj0s64UlYCNhOcAEiwO94am9LdVcMcSX w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="234612790"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="234612790"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2022 08:13:47 -0800
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="686913402"
+Received: from srstocke-mobl.amr.corp.intel.com ([10.251.130.3])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2022 08:13:46 -0800
+Message-ID: <a972e3d9a919cb8445295ec65f510c33b6239819.camel@linux.intel.com>
+Subject: Re: [PATCH v3 06/17] ASoC: Intel: avs: Add pipeline management
+ requests
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
+Date: Fri, 04 Mar 2022 08:13:46 -0800
+In-Reply-To: <20220304145755.2844173-7-cezary.rojewski@intel.com>
+References: <20220304145755.2844173-1-cezary.rojewski@intel.com>
+ <20220304145755.2844173-7-cezary.rojewski@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.3-0ubuntu1 
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- quic_srivasam@quicinc.com
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,40 +93,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SC7280 config selected WCD938X instead of WCD938X_SDW Soundwire codecs.
-WCD938X_SDW actually selects WCD938X, so directly selecting WCD938X results
-in unmet dependencies and below warning
+On Fri, 2022-03-04 at 15:57 +0100, Cezary Rojewski wrote:
+> Pipeline represents a scheduling entity. Their existence as well as
+> their state machine is controlled through CREATE_PIPELINE,
+> DELETE_PIPELINE and SET_PIPELINE_STATE IPCs.
+> 
+> Signed-off-by: Amadeusz Sławiński <
+> amadeuszx.slawinski@linux.intel.com>
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  sound/soc/intel/avs/messages.c | 76
+> ++++++++++++++++++++++++++++++++++
+>  sound/soc/intel/avs/messages.h | 48 +++++++++++++++++++++
+>  2 files changed, 124 insertions(+)
+> 
+> diff --git a/sound/soc/intel/avs/messages.c
+> b/sound/soc/intel/avs/messages.c
+> index d568338b0737..de2d50f8c6b4 100644
+> --- a/sound/soc/intel/avs/messages.c
+> +++ b/sound/soc/intel/avs/messages.c
+> @@ -63,3 +63,79 @@ int avs_ipc_load_library(struct avs_dev *adev, u32
+> dma_id, u32 lib_id)
+>  
+>  	return ret;
+>  }
+> +
+> +int avs_ipc_create_pipeline(struct avs_dev *adev, u16 req_size, u8
+> priority,
+> +			    u8 instance_id, bool lp, u16 attributes)
+> +{
+> +	union avs_global_msg msg = AVS_GLOBAL_REQUEST(CREATE_PIPELINE);
+> +	struct avs_ipc_msg request = {{0}};
+> +	int ret;
+> +
+> +	msg.create_ppl.ppl_mem_size = req_size;
+> +	msg.create_ppl.ppl_priority = priority;
+> +	msg.create_ppl.instance_id = instance_id;
+> +	msg.ext.create_ppl.lp = lp;
+> +	msg.ext.create_ppl.attributes = attributes;
+> +	request.header = msg.val;
+> +
+> +	ret = avs_dsp_send_msg(adev, &request, NULL);
+> +	if (ret)
+> +		avs_ipc_err(adev, &request, "create pipeline", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +int avs_ipc_delete_pipeline(struct avs_dev *adev, u8 instance_id)
+> +{
+> +	union avs_global_msg msg = AVS_GLOBAL_REQUEST(DELETE_PIPELINE);
+> +	struct avs_ipc_msg request = {{0}};
+> +	int ret;
+> +
+> +	msg.ppl.instance_id = instance_id;
+> +	request.header = msg.val;
+> +
+> +	ret = avs_dsp_send_msg(adev, &request, NULL);
+> +	if (ret)
+> +		avs_ipc_err(adev, &request, "delete pipeline", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +int avs_ipc_set_pipeline_state(struct avs_dev *adev, u8 instance_id,
+> +			       enum avs_pipeline_state state)
+> +{
+> +	union avs_global_msg msg =
+> AVS_GLOBAL_REQUEST(SET_PIPELINE_STATE);
+> +	struct avs_ipc_msg request = {{0}};
+> +	int ret;
+> +
+> +	msg.set_ppl_state.ppl_id = instance_id;
+> +	msg.set_ppl_state.state = state;
+> +	request.header = msg.val;
+> +
+> +	ret = avs_dsp_send_msg(adev, &request, NULL);
+> +	if (ret)
+> +		avs_ipc_err(adev, &request, "set pipeline state", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +int avs_ipc_get_pipeline_state(struct avs_dev *adev, u8 instance_id,
+> +			       enum avs_pipeline_state *state)
+Can the pipeline state in the firmware change without the driver's
+knowledge? When should the driver use this get_pipeline_state()?
 
-WARNING: unmet direct dependencies detected for SND_SOC_WCD938X
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=m]
- && SND_SOC_WCD938X_SDW [=n] && (SOUNDWIRE [=n] || !SOUNDWIRE [=n])
-  Selected by [m]:
-  - SND_SOC_SC7280 [=m] && SOUND [=y] && !UML && SND [=y]
- && SND_SOC [=m] && SND_SOC_QCOM [=m] && (I2C [=y] && SOUNDWIRE [=n] ||
- COMPILE_TEST [=y])
-
-Fix this issue by selecting WCD SoundWire codecs instead of component driver.
-
-Fixes: 57350bd41c3a ("ASoC: qcom: SC7280: Add machine driver")
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 0cd0dae5c545..82f5eafb2f6c 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -193,7 +193,7 @@ config SND_SOC_SC7280
- 	select SND_SOC_QCOM_COMMON
- 	select SND_SOC_LPASS_SC7280
- 	select SND_SOC_MAX98357A
--	select SND_SOC_WCD938X
-+	select SND_SOC_WCD938X_SDW
- 	select SND_SOC_LPASS_MACRO_COMMON
- 	select SND_SOC_LPASS_RX_MACRO
- 	select SND_SOC_LPASS_TX_MACRO
--- 
-2.21.0
+Thanks,Ranjani
 

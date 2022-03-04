@@ -2,112 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDAA74CCF16
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 08:32:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2CC54CD000
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 09:36:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A14118B2;
-	Fri,  4 Mar 2022 08:32:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A14118B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54947185C;
+	Fri,  4 Mar 2022 09:35:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54947185C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646379171;
-	bh=fpNP7k3LdP5YaXaBSUcjZ5GsJ5QqcW8nCOoaUoU1z7w=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TlRHc17RTNGJIzXt4GrlmWqyKHcsvqSJEveX0/rzEMv0w6eVTZ4MAefuxng2//rXe
-	 bNFwq2qMoQ0rBu8Cbnv0rGIOCSE0TqwAieFFpj6V0uG4nsvTPh2gqMy6PhNp12TI1X
-	 LE7P1M6BR9XFJ+Yus+M63KAOPTTg6megGjW5X34A=
+	s=default; t=1646383006;
+	bh=0Jp97bHMTmcHNkPF2ZvC3MAnAxKJ8AULaFxKYw2rZfw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EM1afSnpCL0Yn4ip2DNNBv5zdEnSH5ARGk3NO7rdmwavlRGfo3j1yPgWp+9LJU28z
+	 z0t+E9bMJGc5maoSsJx0v9J8gZ54EE2hMk5wJ6rZllc4seTD1uHaWXCT7+ccZM6LbT
+	 wRShLTDFkB2xNOG1D5xtaBgpK9uJLz7kMOV57Y2o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F14DF801F5;
-	Fri,  4 Mar 2022 08:31:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF2B1F80139;
+	Fri,  4 Mar 2022 09:35:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EADB7F800F2; Fri,  4 Mar 2022 08:31:40 +0100 (CET)
+ id 99E2BF801EC; Fri,  4 Mar 2022 09:35:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur03on062c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe08::62c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE72FF800F2
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 08:31:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE72FF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE6B0F800F0
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 09:35:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE6B0F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="Zyk9Sltx"
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 0A90E3F5FB
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 07:31:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1646379092;
- bh=znesbVorVsm63iCSSQmBPsZdwQn81pwm1UwoEW27Z4s=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=Zyk9SltxFPRFG8PTfyNHHH2W7EMJBbcAlbxw0HEhMNndN/414D31h8qOCHjJvIgro
- 2avSunDNuTPbWVOVZOSoTH8iP5V8YEIMu44BxcbFbSXc66IS69Ua090Pv4UCzOsMdg
- Mg3nf3fB8GCk+FU2+5LPpM5BuHacHBPO6OKO915j6jHOdNpES9fpn172A2O/4RPMu7
- DhvYK4sL67H9d2CU/bV0c4OGS7wVKGivDHHd849SX2PnwBBgo2WFlPCIEISLHIOGOu
- DalFhPDlVMrOms1zEE93KuBi2otyjIABpwUBPQzULECKuWxoMKtm1BF8l34f339UAB
- 8mISGJp8yHSNQ==
-Received: by mail-ej1-f69.google.com with SMTP id
- le4-20020a170907170400b006dab546bc40so751691ejc.15
- for <alsa-devel@alsa-project.org>; Thu, 03 Mar 2022 23:31:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=znesbVorVsm63iCSSQmBPsZdwQn81pwm1UwoEW27Z4s=;
- b=MvorLaYI5d9RvUG4gSKNSB4QCHf0X4rkthcp2e0vz8Bb+X1OzFsQ2uP5v8gJ/CRyqR
- 9nZ5doEtN1KwjE3EH7R4vUwXGzH5kY3MnibqIqB9Poz0F6egNVqgY8UBhnlVnTMl7ltr
- zxQDQTN5suWdagwBdDOg1D52Wyff3Cz9NtvV80hTr75iuEQJTDS8QZmv5H30A/0pr2el
- qiyae/YHiGzoZCZv4siHcAdNTCylvdGfFw23yKDMZbc5DR3Q/UfhwoN9kA663WGGZ/aW
- ZDfgTzxZZf5rdAwt3+sGy0+yxnQoZ+fA/ACTiqPsc8Y1rwxloywEjmTusFN7iS5LYnj3
- dJnQ==
-X-Gm-Message-State: AOAM532ql6Z6mw9Ng8d8nRc/ny7e65HWXkBSpLq+ustCLn1LjL1jXUBQ
- F/ONmNyUTcGIKv8MouOPjqP4flNjmfOX6ETPxJdcX/FK18nqOnwnB4vNGizXwl/YnaDseneJsNX
- wrcxxoxfiJKd+xFUVUWE49o/0m86m3//3tj2BI1v/
-X-Received: by 2002:a17:907:c0c:b0:6d1:8c46:6415 with SMTP id
- ga12-20020a1709070c0c00b006d18c466415mr30485463ejc.326.1646379090644; 
- Thu, 03 Mar 2022 23:31:30 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxGxs7X16ZzeLCZ/AHvyM0eIiEfVTT/3+RbXNFeYwjEzaLA6uLgNdT/DxKdJK+w4/ntCeI8hg==
-X-Received: by 2002:a17:907:c0c:b0:6d1:8c46:6415 with SMTP id
- ga12-20020a1709070c0c00b006d18c466415mr30485439ejc.326.1646379090348; 
- Thu, 03 Mar 2022 23:31:30 -0800 (PST)
-Received: from [192.168.0.138] (xdsl-188-155-181-108.adslplus.ch.
- [188.155.181.108]) by smtp.gmail.com with ESMTPSA id
- t7-20020a1709063e4700b006da6357b1c0sm1445738eji.196.2022.03.03.23.31.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Mar 2022 23:31:29 -0800 (PST)
-Message-ID: <53fbfcde-0f5e-8ea2-4bca-c7a414f96c57@canonical.com>
-Date: Fri, 4 Mar 2022 08:31:28 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v3] dt-bindings: mfd: Fix pinctrl node name warnings
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="ZRVZ4Y1b"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Tvpts8is6+wjjskA1H/HxqdHHdzKcCxvKhGIYgOL87tfUYJamgTGS5djAly0gO90fNGQiHcvod+ovozTuzImHlH0xuD/LiiHhgNUBg0ySvsj7/oEdnZ0k7UeHvjWL31hwFokEB3yI6OU5cw0lFMzcT28ipzB/8TGVpWK128E4rWoHHNe3A+iRZp0eMLsaQZoRltjs6MexF3w9zWqgw7WHb5SCj1FWGuTNiK64ICgW7rGQz2UFu7WQSSpa5PwEZn/tCowMqsPLc7+nZgtA7ieVPlQKr+CyMALbEAwDrEmTZj6jX8UrqfjIlYR8GerUidd4PK0dScXhm36y/eoohud4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/hBCs+N23ycPv7g0MJcWcLPW5I+lRuLOHV1b+1ekclg=;
+ b=KaRiQ2S3za1Wbg9OX+sLfXVwP7qnxkyJ7y/e50/xn9sVyE2d/coWqMA2rDQkD4XCTiBI0T2iWPJUHk+s+/KR+QhhgfkQ9sGQGp3YMbkkIQkV08CRLKToBjAkIR+GGc0q0IVj2PY5CL0FEJVk7ECUGYtuqNkADJb3VEIEKFheWKrsxFzXpOwJj+yPT9E4TQ2sy62TYiMA4S+xhuyoCt9frIUuypch6feEGtbARXAKH2Q5e+OD84P2vgs+offzNF1ci40s4UXYzHniyN/8lbo2036IDoFEBQpUg2sVReELanQBtc7kURpUz2NAJyuTgx9Q7hdtd9E8f9C/Zo+M8Pc0kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/hBCs+N23ycPv7g0MJcWcLPW5I+lRuLOHV1b+1ekclg=;
+ b=ZRVZ4Y1b8CaMMy4tQRbmDMonKD7B+f8qALs38k3vSRblQbXx0b23YtTMZZ2mBZv9lAKnVbCArbmse8VGv828HRBR3Mw4HC2tcIpfWXzZnJ4QM/42Kv2bla9EPUmF9lSJSU1ss1FauYs3uxch7MQb14jDigi3tddnlBOEQQq/Avk=
+Received: from PAXPR04MB9089.eurprd04.prod.outlook.com (2603:10a6:102:225::22)
+ by AM0PR04MB4337.eurprd04.prod.outlook.com (2603:10a6:208:62::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Fri, 4 Mar
+ 2022 08:35:28 +0000
+Received: from PAXPR04MB9089.eurprd04.prod.outlook.com
+ ([fe80::bc25:a82e:ab71:84fb]) by PAXPR04MB9089.eurprd04.prod.outlook.com
+ ([fe80::bc25:a82e:ab71:84fb%7]) with mapi id 15.20.5038.015; Fri, 4 Mar 2022
+ 08:35:28 +0000
+From: "S.J. Wang" <shengjiu.wang@nxp.com>
+To: Takashi Iwai <tiwai@suse.de>, Shengjiu Wang <shengjiu.wang@gmail.com>
+Subject: Re: Issue in pcm_dsnoop.c in alsa-lib
+Thread-Topic: Issue in pcm_dsnoop.c in alsa-lib
+Thread-Index: Adgvoqi4X3jn7zMXTYmREv32EqL7oQ==
+Date: Fri, 4 Mar 2022 08:35:28 +0000
+Message-ID: <PAXPR04MB9089532964E25CA9DB4B19BCE3059@PAXPR04MB9089.eurprd04.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Lee Jones <lee.jones@linaro.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Linus Walleij <linus.walleij@linaro.org>, - <patches@opensource.cirrus.com>
-References: <20220303232350.2591143-1-robh@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-In-Reply-To: <20220303232350.2591143-1-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a2f56a83-0850-4a20-e485-08d9fdb9f016
+x-ms-traffictypediagnostic: AM0PR04MB4337:EE_
+x-microsoft-antispam-prvs: <AM0PR04MB4337CDC9F0D0A4A32EC678AAE3059@AM0PR04MB4337.eurprd04.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: NnXxI9lOwFiu9s48cmfPd8sRY9UqoPWMA0dTLzyp2qi4OY5Glae9SeDRNQfWf6fDbS+1gVjbaP3NAuaNa+iqjaM9C7vUisLJhqLHhCcF5n3w7DkwXGxMeOp1Ha6wFoA63YYHmO+J+FWBSAeH+etdSJXcA0Y0z9Qwg44JNQzrO3shL3mmcV8kgzY05OIAz2Loi6iyPgdikHVaEpja0gS49OSRaKNBcbJW3/q4iw02jYYcV9Ak1/PAmq4CJtbHgXsMVneuZw+Q2Og17q3Pum+17CYqd7KFBYSeNnxPjrsqQwwxnDPXbvcjV4+7BVV4s7CR/DmKB/uo+B2U+SI+yjrofcDBq9sPqoUQo4PKdWzStLON1FEz8opbJB7B8teBbwviIPh604O34xGm5Np4/nXGBrvGBCTaZ8FrC0d+uciUT6bbYd43lwhlMvUkQm8jDKZvRd3vGOWdxAYH7LNFItg8hxCgSVkF2IlKSf4dfPmSXIKoE6pUKfbmdfAd5RvIET2m/jAjHTebs9qtT92iZrE3k7BNiFIUOJu9yW5oXCDlrHJbMfDMhSCQAINE/cJgY5igph9xxO8iID76OYd7UdXBEZF1NHdoh/5sUFCCf3VBwvLv+MQUYyDHmLidVNEkA0CcjBkvs18nASjEBXiXWwolwLA7mxjZyHBUh+TFdlDRcdCzVKIter83aDcvARhQ8pIP7lbIaZXMqS5M7mxgiSTxOqZmvAGHzFKMIVz+evgnpGAMWNy1dxp7Zjv27PkwGgZj7OEjveVOzAKldpa6p2a2gMzw88kIOm6lrnvDfu9dZ6lMtwgx0Pi79Ym+yMNwnUhb+Ij0EuqR1aAzOxqzoItOsA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB9089.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6506007)(76116006)(2906002)(52536014)(8936002)(5660300002)(26005)(71200400001)(186003)(9686003)(7696005)(54906003)(45080400002)(86362001)(498600001)(83380400001)(966005)(110136005)(33656002)(8676002)(4326008)(64756008)(66446008)(66476007)(66556008)(66946007)(55016003)(38070700005)(38100700002)(122000001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jomduRoZ+CGzr1ChJEvLOxmvmCUANqo0sl2lB+vr3WHNZljMUFnWESPeaa0H?=
+ =?us-ascii?Q?7WXwpR8JocZImnTpZZv2wbF7xWCjXLTsFFvTXuJ6W6/UhGz2A/TuotlV6Xeq?=
+ =?us-ascii?Q?jWvf/Halzn14dW4oNeYb8NOTpvpGmGySANHu/kgo8lQmpvVD75VAySVeP8mu?=
+ =?us-ascii?Q?CVglFXBdztZDcWG6U/F6bbqzFB2R0DwX4oYcJoSo4WuAKfjcXH2IFIJT1PqG?=
+ =?us-ascii?Q?5bXn0yfgSgL50qn34c2DNyUiuqKQs4gL7JMyiIvbzy2CCmMTPkZ/2Lk9ryGq?=
+ =?us-ascii?Q?d3mENH5St7K+2Ororb+9eAgsF2eS4T+UwKzH3Ct5X354AUn0a2k/QsNlRk2h?=
+ =?us-ascii?Q?CmopxsXIgisnJBXSHGe8i1uvyEaa/sbFPxRGm70b15nNMQ05t5CNBeltICOf?=
+ =?us-ascii?Q?aeO4axUIDC6UV3NDZUkJafYdYB841J3wTdpBObxUa14S21PUTl23mCh2F1b6?=
+ =?us-ascii?Q?uKyzrMbQTg59on+GE2dRtyBwLH/ZRkrUxWeYtsATnDkQ0bxUbCTM5vB9SIuD?=
+ =?us-ascii?Q?wEL1jlGxMQKN2JdRXGkiycUET8G+/zsGgRiYkG+L06vbZdYC2ap7m3nvprtF?=
+ =?us-ascii?Q?0gsNim7CsaE6U1+irWTgVPPTW0A44euvE59CeSdeTwUoo8XuX5Mc8hs4z2Vw?=
+ =?us-ascii?Q?Oz9bqi+c3KsDQ6HklAwZTRVde4hMta3JX3egDh/HXTfV7aXuAktmvrnKCF7p?=
+ =?us-ascii?Q?FiaBRg++jdq24jEVOhATCk1jXaKgBvTb5vhxOAVE5YIXEIWcQRW8vfgw1e8I?=
+ =?us-ascii?Q?9pW9EpouWu3GhsdrWThTwa2LEHDTFuDzgP6m0/dVkC/JuOgC5fBU/VveZZpb?=
+ =?us-ascii?Q?do/WWW8ZTS9dT1XoCxNy1CM1qzuJJEKT4HMcbxaKIAYQl1uhJYXE+3oEaF7j?=
+ =?us-ascii?Q?bEuC5Llbulpgqbb2IyaLpsrlkNMkYEb6qDDael13NEXeWGzG7KTVFxoKtI6x?=
+ =?us-ascii?Q?Q/8jM6CV9NzJ/t2YlhH1F4ejVjCgi98wmyBerUvLESETBEw/2TxkGS0zu9HG?=
+ =?us-ascii?Q?HEnsPsm/Ad3GoQwfeBe05/vTHldSXhYoKcbY695xapcf8+7E1lNp8SaEynS+?=
+ =?us-ascii?Q?U423gpTQlnRtBJsmgv3QfoJpLcOeg7Ia/0vMNPTbYkYOcyU1y/PakvD/XZm4?=
+ =?us-ascii?Q?y6PPCaEdozxQfZzRLvqoegrI5bw5OwpnQrtUE/0JJ2Rce7tBlrojQZyed0u0?=
+ =?us-ascii?Q?YO6oWQIqlbHpqKVCbitcO4XIgYXMD3DI4QQ727e6pkjWhyZBYktjiCKFU1Vc?=
+ =?us-ascii?Q?XEHnGcMSixV2MAQpQIwph8Jrke1+I8Vr/fpgo7LNafFqjpzsPZ7ji++7Vkx1?=
+ =?us-ascii?Q?wiQ86j+yaDZ6NXs3F6c6QupRwjx0b1LfAkRuOWV66RtPnJK0Klb8/A0ujfEC?=
+ =?us-ascii?Q?mO529DD6SeKoRPlxfw3HrI4+JHKFq3EoRBB9SbC+k3W/pF7pKLKfjaGfsthF?=
+ =?us-ascii?Q?3IUgAc4jI7EquRsDIJxCpm4aAuiJkGassowxedzwTodMBSQiKXC44eJ9OAJl?=
+ =?us-ascii?Q?NpzMOCYzcpfNJT0xXE9varLhs2SrQlFsw/e1RysREO7lJ3ZSGDDPu+qC/lCn?=
+ =?us-ascii?Q?MP3Pi5T2cBR27inLsm6o07P/luNbw/ievRDTjwrHOFdyDmeDXXT6TuhrKKKQ?=
+ =?us-ascii?Q?tA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9089.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2f56a83-0850-4a20-e485-08d9fdb9f016
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2022 08:35:28.7507 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xRHGWx2gAZMfkqLcrqQIBxpfw2sOW5jmxJnZZZYDHqc8XSCdh5eMG+XZkQ8QbuXDHrqy11VORTQ4OpJvmBObrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4337
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Chancel Liu <chancel.liu@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,55 +148,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 04/03/2022 00:23, Rob Herring wrote:
-> The recent addition pinctrl.yaml in commit c09acbc499e8 ("dt-bindings:
-> pinctrl: use pinctrl.yaml") resulted in some node name warnings:
-> 
-> Documentation/devicetree/bindings/mfd/cirrus,lochnagar.example.dt.yaml: \
->  lochnagar-pinctrl: $nodename:0: 'lochnagar-pinctrl' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
-> Documentation/devicetree/bindings/mfd/cirrus,madera.example.dt.yaml: \
->  codec@1a: $nodename:0: 'codec@1a' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
-> Documentation/devicetree/bindings/mfd/brcm,cru.example.dt.yaml: \
->  pin-controller@1c0: $nodename:0: 'pin-controller@1c0' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
-> 
-> Fix the node names to the preferred 'pinctrl'. For cirrus,madera,
-> nothing from pinctrl.yaml schema is used, so just drop the reference.
-> 
-> Fixes: c09acbc499e8 ("dt-bindings: pinctrl: use pinctrl.yaml")
-> Cc: Rafał Miłecki <rafal@milecki.pl>
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-> v2:
->  - Fix lochnagar-pinctrl nodename in example
-> v3:
->  - And fix lochnagar-pinctrl nodename in 'required'. Sigh...
-> ---
->  Documentation/devicetree/bindings/mfd/brcm,cru.yaml         | 4 ++--
->  Documentation/devicetree/bindings/mfd/cirrus,lochnagar.yaml | 6 +++---
->  .../devicetree/bindings/pinctrl/cirrus,madera.yaml          | 3 ---
->  3 files changed, 5 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/brcm,cru.yaml b/Documentation/devicetree/bindings/mfd/brcm,cru.yaml
-> index be4a2df71c25..b85819fbb07c 100644
-> --- a/Documentation/devicetree/bindings/mfd/brcm,cru.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/brcm,cru.yaml
-> @@ -39,7 +39,7 @@ patternProperties:
->    '^phy@[a-f0-9]+$':
->      $ref: ../phy/bcm-ns-usb2-phy.yaml
->  
-> -  '^pin-controller@[a-f0-9]+$':
-> +  '^pinctrl@[a-f0-9]+$':
->      $ref: ../pinctrl/brcm,ns-pinmux.yaml
->  
->    '^syscon@[a-f0-9]+$':
-> @@ -94,7 +94,7 @@ examples:
->              reg = <0x180 0x4>;
->          };
->  
-> -        pin-controller@1c0 {
-> +        pinctrl@1c0 {
 
-DTS also need such change.
 
-Best regards,
-Krzysztof
+> >
+> > Hi Takashi Iwai, Jaroslav Kysela
+> >
+> >     We encountered an issue in the pcm_dsnoop use case, could you
+> > please help to have a look?
+> >
+> >     *Issue description:*
+> >     With two instances for dsnoop type device running in parallel,
+> > after suspend/resume,  one of the instances will be hung in memcpy
+> > because the very large copy size is obtained.
+> >
+> > #3 0x0000ffffa78d5098 in snd_pcm_dsnoop_sync_ptr
+> (pcm=3D0xaaab06563da0)
+> > at pcm_dsnoop.c:158 dsnoop =3D 0xaaab06563c20 slave_hw_ptr =3D 64
+> > old_slave_hw_ptr =3D 533120 avail =3D *187651522444320*
+> >
+> >   * Reason analysis: *
+> >    The root cause that I analysis is that after suspend/resume,  one
+> > instance will get the SND_PCM_STATE_SUSPENDED state from slave pcm
+> device,
+> >   then it will do snd_pcm_prepare() and snd_pcm_start(),  which will
+> > reset the dsnoop->slave_hw_ptr and the hw_ptr of slave pcm device,
+> > then the state of this instance is correct.  But another instance may
+> > not get the SND_PCM_STATE_SUSPENDED state from slave pcm device
+> > because slave device may have been recovered by first instance,  so
+> > the dsnoop->slave_hw_ptr is not reset.  but because hw_ptr of slave
+> > pcm device has been reset,  so there will be a very large "avail" size.
+> >
+> >    *Solution:*
+> >    I didn't come up with a fix for this issue,  seems there is no easy
+> > way to let another instance know this case and reset the
+> > dsnoop->slave_hw_ptr,  could you please help?
+>=20
+> Could you try topic/pcm-direct-resume branch on
+>=20
+> https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgithu=
+b
+> .com%2Ftiwai%2Falsa-
+> lib&amp;data=3D04%7C01%7Cshengjiu.wang%40nxp.com%7C95f97de3f2c840d
+> 9853508d9fd2e79ea%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C
+> 637819198319430045%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwM
+> DAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdat
+> a=3DWWX1ZlcQhJF3pHJdHPIH%2B0xG9o%2FjQnHG5fHDbKXwQwE%3D&amp;r
+> eserved=3D0
+>=20
+
+Thanks,  I push my test result in https://github.com/alsa-project/alsa-lib/=
+issues/213
+Could you please review?
+
+Best regards
+Wang shengjiu
+

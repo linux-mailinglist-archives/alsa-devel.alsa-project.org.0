@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B6C34CD1D7
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 11:01:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D01634CD1DB
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 11:01:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D32B18B4;
-	Fri,  4 Mar 2022 11:00:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D32B18B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AE8618EE;
+	Fri,  4 Mar 2022 11:00:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AE8618EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646388068;
-	bh=7X0J0UmVQ7zsnG8nEJBipLsjA3trAvEZaHsLKZR4XpQ=;
+	s=default; t=1646388094;
+	bh=SQ/dovxX4NY1VaTmp93es90qldmdY+W1UIQlqDhXpJs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q/32p25NmYyWZGTHd7r5/VsEzza0ylGRvtaF9gIw2XNygsZXJiwNUV6QqoP6EUeyl
-	 Vmsr0uTcRJTebRA37bI9hlVMAiRMvULZ0/Dfu49nnl44u0KhsFKFghfgmeFEcZrhaS
-	 zqZFHKzCUYYmVcOBuAYwvyqLTknsCjq+sIuV/NZY=
+	b=ARqahMIHGvQ8/cHI66bCY6Rl2xDuq4o8Bz92qGqqkNpUcSgobWizExjxi80mNt9wI
+	 N9mM+GvNK+p6OScLq4YclibFKS8bCpD1dUbcUIDVyxwaR5G+pwyJ4TEMQJKfzh0oCs
+	 RV4EvRL/fy2duQBRwokXxNI7Z2wLvmx2Gf4T2t7A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F9B3F80224;
-	Fri,  4 Mar 2022 10:59:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CEF6F804E4;
+	Fri,  4 Mar 2022 11:00:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9F58F80224; Fri,  4 Mar 2022 10:59:57 +0100 (CET)
+ id C1484F804E4; Fri,  4 Mar 2022 11:00:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,61 +35,55 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6716AF800F2
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 10:59:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6716AF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F6F9F800F2
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 11:00:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F6F9F800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="X+QTqqOT"
+ header.b="kBi4q7QO"
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2247SM8n025160;
- Fri, 4 Mar 2022 03:59:48 -0600
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2247b5Ct008062;
+ Fri, 4 Mar 2022 04:00:29 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=date : from : to : cc
  : subject : message-id : references : mime-version : content-type :
- content-transfer-encoding : in-reply-to; s=PODMain02222019;
- bh=c8eP9HroHxShDKJHy/WIcgOqMwSp/Lh7256Ia5hnEog=;
- b=X+QTqqOTfHvllC9DeCjvH8Ro+mfAeXI3xlhCPmRV0Fznq8r5z4oBv6qixDzsU05bo1xP
- xzl3gJ9qcF+GBj0XLfdje/bBAh0UZJIIHv/PI4/ZBK7L6ud9tLAaMIxhfYX8pCoQUaLi
- bmYeB6zbhAl+Hec5fZTyx+nrTJOcsNXtXh45/mFctom6IRwxI/Jobc++fUPzv60iW9QX
- DV+Yg8GahFOrd7CgVDXAu+s3b3uHirf2DMN4QRUVSkSOoGdRWAkS0Nspcgu9uwuMWABo
- LhxgYp+uW/K1bXrsY0MApCPWNmrGinSbRoZliFAS7XmpIRcQu3+MPJTNhHMDqsaSiIHl 9g== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ek4j1rs1k-1
+ in-reply-to; s=PODMain02222019;
+ bh=QWEErRiRWN1/TNCzeHf5WfEfHdlTZ8X8iK6zXZlSBlM=;
+ b=kBi4q7QOyrZYtE4asa+JrOP/uCGNM4996vND6b7BSAcxnLmLBJLanx5ea97ZmPQW9ODM
+ dGd3jX2y++2Djd4x8vFmOtQtqvEa6NDbjjkR1cGNJCR6VYyeIBOzjVjVpgp9W/9Q0jYV
+ 7ZhccuNs1qSNC2c7EP7VfQnIx2xZB1/8i+g5zncR4A3RozxaMKn54idDOUpgIZx3UU7l
+ WzECScygZeOTL+kJdd/q0h+aVYM9sMNIRWZyakLYOSUd+1nHh3mmvaSMygywkgy2CM2S
+ 7G0wpX/k4adIDWO3pDxyUkxu5rxG/axg3kvy0rNVx/EP34ymeAzQMHAzh5Q4wQo7y0UM 8w== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ek4j1rs2n-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 04 Mar 2022 03:59:48 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ Fri, 04 Mar 2022 04:00:29 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 4 Mar
- 2022 09:59:46 +0000
+ 2022 10:00:27 +0000
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Fri, 4 Mar 2022 09:59:46 +0000
+ Frontend Transport; Fri, 4 Mar 2022 10:00:27 +0000
 Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6B1627C;
- Fri,  4 Mar 2022 09:59:46 +0000 (UTC)
-Date: Fri, 4 Mar 2022 09:59:46 +0000
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6675A7C;
+ Fri,  4 Mar 2022 10:00:27 +0000 (UTC)
+Date: Fri, 4 Mar 2022 10:00:27 +0000
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v3] dt-bindings: mfd: Fix pinctrl node name warnings
-Message-ID: <20220304095946.GT38351@ediswmail.ad.cirrus.com>
-References: <20220303232350.2591143-1-robh@kernel.org>
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Subject: Re: [PATCH v2] ASoC: wm8350: Handle error for wm8350_register_irq
+Message-ID: <20220304100027.GV38351@ediswmail.ad.cirrus.com>
+References: <20220304023821.391936-1-jiasheng@iscas.ac.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220303232350.2591143-1-robh@kernel.org>
+In-Reply-To: <20220304023821.391936-1-jiasheng@iscas.ac.cn>
 User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: 3Rn2dKnwhFdKWFP3851f8qGC5WKWDEGz
-X-Proofpoint-ORIG-GUID: 3Rn2dKnwhFdKWFP3851f8qGC5WKWDEGz
+X-Proofpoint-GUID: 2KrBtTRaR9Ej1GARveBYJN7a8ldIOiBw
+X-Proofpoint-ORIG-GUID: 2KrBtTRaR9Ej1GARveBYJN7a8ldIOiBw
 X-Proofpoint-Spam-Reason: safe
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- - <patches@opensource.cirrus.com>, Linus Walleij <linus.walleij@linaro.org>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- Lee Jones <lee.jones@linaro.org>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,26 +99,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Mar 03, 2022 at 05:23:49PM -0600, Rob Herring wrote:
-> The recent addition pinctrl.yaml in commit c09acbc499e8 ("dt-bindings:
-> pinctrl: use pinctrl.yaml") resulted in some node name warnings:
+On Fri, Mar 04, 2022 at 10:38:21AM +0800, Jiasheng Jiang wrote:
+> As the potential failure of the wm8350_register_irq(),
+> it should be better to check it and return error if fails.
+> Also, use 'free_' in order to avoid the same code.
 > 
-> Documentation/devicetree/bindings/mfd/cirrus,lochnagar.example.dt.yaml: \
->  lochnagar-pinctrl: $nodename:0: 'lochnagar-pinctrl' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
-> Documentation/devicetree/bindings/mfd/cirrus,madera.example.dt.yaml: \
->  codec@1a: $nodename:0: 'codec@1a' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
-> Documentation/devicetree/bindings/mfd/brcm,cru.example.dt.yaml: \
->  pin-controller@1c0: $nodename:0: 'pin-controller@1c0' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
-> 
-> Fix the node names to the preferred 'pinctrl'. For cirrus,madera,
-> nothing from pinctrl.yaml schema is used, so just drop the reference.
-> 
-> Fixes: c09acbc499e8 ("dt-bindings: pinctrl: use pinctrl.yaml")
-> Cc: Rafał Miłecki <rafal@milecki.pl>
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> Fixes: a6ba2b2dabb5 ("ASoC: Implement WM8350 headphone jack detection")
+> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 > ---
-
-For the Madera and Lochnagar bits.
 
 Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 

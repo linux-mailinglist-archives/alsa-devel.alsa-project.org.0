@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 894B44CD067
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 09:45:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96B084CD081
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 09:52:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28EC518D2;
-	Fri,  4 Mar 2022 09:44:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28EC518D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 360CC18AC;
+	Fri,  4 Mar 2022 09:51:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 360CC18AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646383534;
-	bh=btdIYxnkQ3rbF3WfjxYfQWXkOrtofB6mb5hpCkxJsKo=;
+	s=default; t=1646383959;
+	bh=a3Wl5Wt21qNRcTkkVDgPqnpY2YMRLkaf7gonM+DZPC4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oPphnD+vTYgKTmOa9/ciacy2p9r8pVpGqEk1fuGr9BwnB/v7hKE+ZxoM19Cf9Dtcz
-	 qmAk6YB4WZZlztGfe3bhR2dy3q/cRiMMLWyQZLftvGt2yLHiAqw8hsPLT5RsxiQPtW
-	 LRoMY7XrtbeM8IQsAkZUzRUPTgNMQYiGmftl3NnM=
+	b=A+Pg+eEFabg9bVd8MOsqHF/oSDM0b3JoNrsoMIvUyO6zh1Q64mozK7VMJ2OCVYaM6
+	 ojq+QiPjzyMIJmVQhdMICJ/EZsCIAPVEtbdJYPloYOhtWRjMESBCwuvI6F/nnoQmVG
+	 gdyK5ddhktrd95JZVYQ7HihtPJQj5cfXjhPiWTos=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87191F801F5;
-	Fri,  4 Mar 2022 09:44:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E9CEF801F5;
+	Fri,  4 Mar 2022 09:51:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 596FBF800F2; Fri,  4 Mar 2022 09:44:23 +0100 (CET)
+ id 95A64F801EC; Fri,  4 Mar 2022 09:51:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,51 +34,52 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1ED9F800F2
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 09:44:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1ED9F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3041BF800F0
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 09:51:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3041BF800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="zcqChJiI"; 
+ header.b="CJjoqG1K"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="rw/dH8Rz"
+ header.b="nGdOjxJi"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 6032321115;
- Fri,  4 Mar 2022 08:44:16 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id A4C8E21136;
+ Fri,  4 Mar 2022 08:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646383456; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646383885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=laZCxCImG/PcxqdShUBHqM4Li3kIMMy3VJIir8N3ihY=;
- b=zcqChJiIVMyMGNutPjpvUV3X0V5FWCyfoEl2xjQLu7gkXcJS4LM5Dr6jWx9CXzNMIZv6//
- MszRwFxZGteNattGSc1bv8e1z384fhRm7DLSeryMfXpH+Nx5VMyUqu1IwFRlZ4XJpM3lRJ
- UxfocMjZV4YxRAYFJEepkyz0urxRZUQ=
+ bh=slqWuDwOoH/Q5XlOhkioyiGZ0ilW0OBu5hUs4LHxwxA=;
+ b=CJjoqG1Kh563odELWTDZkXLiqEDm+WjyISHd5xwzsNAhGqqw/VajH3xLlE9tlJxkcLbASy
+ ReDQ5Jayk8E+eQfPurL4RYjuWWXJm+lEhQPdHFVW96qv4olsmKsHXsbbP38hziUezy3BCc
+ HiCbWHBhoIqdWwJ5myzr10lydClipoY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646383456;
+ s=susede2_ed25519; t=1646383885;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=laZCxCImG/PcxqdShUBHqM4Li3kIMMy3VJIir8N3ihY=;
- b=rw/dH8Rz+ghigFFFeINI8zSr10YlJ3AnryHR0RwFoqC0JOQngdpW5QcZVFeKkSnsm8xSrB
- 0D/fZvoRu6qQCzAQ==
+ bh=slqWuDwOoH/Q5XlOhkioyiGZ0ilW0OBu5hUs4LHxwxA=;
+ b=nGdOjxJiB8ElSvqgH5B1ZDOIKsxBc3K6YbRTDuh+qkY2fD/s98hl908MXPlc1WKYs2oj1s
+ X7HLpiTPpHQZntCA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 56156A3B99;
- Fri,  4 Mar 2022 08:44:16 +0000 (UTC)
-Date: Fri, 04 Mar 2022 09:44:16 +0100
-Message-ID: <s5hy21qrtsv.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 877EAA3B83;
+ Fri,  4 Mar 2022 08:51:25 +0000 (UTC)
+Date: Fri, 04 Mar 2022 09:51:25 +0100
+Message-ID: <s5hsfryrtgy.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "S.J. Wang" <shengjiu.wang@nxp.com>
-Subject: Re: Issue in pcm_dsnoop.c in alsa-lib
-In-Reply-To: <PAXPR04MB9089532964E25CA9DB4B19BCE3059@PAXPR04MB9089.eurprd04.prod.outlook.com>
-References: <PAXPR04MB9089532964E25CA9DB4B19BCE3059@PAXPR04MB9089.eurprd04.prod.outlook.com>
+To: Colin Ian King <colin.i.king@gmail.com>
+Subject: Re: [PATCH] ALSA: echoaudio: remove redundant assignment to variable
+ bytes
+In-Reply-To: <20220302170728.1094633-1-colin.i.king@gmail.com>
+References: <20220302170728.1094633-1-colin.i.king@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Chancel Liu <chancel.liu@nxp.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: alsa-devel@alsa-project.org, llvm@lists.linux.dev,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,60 +95,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 04 Mar 2022 09:35:28 +0100,
-S.J. Wang wrote:
+On Wed, 02 Mar 2022 18:07:28 +0100,
+Colin Ian King wrote:
 > 
+> The variable bytes is being assigned a value that is never read, it
+> is being re-assigned inside a following if block. The assignment is
+> redundant and can be removed.
 > 
+> Cleans up clang scan build warning:
+> sound/pci/echoaudio/midi.c:211:9: warning: Although the value stored
+> to 'bytes' is used in the enclosing expression, the value is never
+> actually read from 'bytes' [deadcode.DeadStores]
 > 
-> > >
-> > > Hi Takashi Iwai, Jaroslav Kysela
-> > >
-> > >     We encountered an issue in the pcm_dsnoop use case, could you
-> > > please help to have a look?
-> > >
-> > >     *Issue description:*
-> > >     With two instances for dsnoop type device running in parallel,
-> > > after suspend/resume,  one of the instances will be hung in memcpy
-> > > because the very large copy size is obtained.
-> > >
-> > > #3 0x0000ffffa78d5098 in snd_pcm_dsnoop_sync_ptr
-> > (pcm=0xaaab06563da0)
-> > > at pcm_dsnoop.c:158 dsnoop = 0xaaab06563c20 slave_hw_ptr = 64
-> > > old_slave_hw_ptr = 533120 avail = *187651522444320*
-> > >
-> > >   * Reason analysis: *
-> > >    The root cause that I analysis is that after suspend/resume,  one
-> > > instance will get the SND_PCM_STATE_SUSPENDED state from slave pcm
-> > device,
-> > >   then it will do snd_pcm_prepare() and snd_pcm_start(),  which will
-> > > reset the dsnoop->slave_hw_ptr and the hw_ptr of slave pcm device,
-> > > then the state of this instance is correct.  But another instance may
-> > > not get the SND_PCM_STATE_SUSPENDED state from slave pcm device
-> > > because slave device may have been recovered by first instance,  so
-> > > the dsnoop->slave_hw_ptr is not reset.  but because hw_ptr of slave
-> > > pcm device has been reset,  so there will be a very large "avail" size.
-> > >
-> > >    *Solution:*
-> > >    I didn't come up with a fix for this issue,  seems there is no easy
-> > > way to let another instance know this case and reset the
-> > > dsnoop->slave_hw_ptr,  could you please help?
-> > 
-> > Could you try topic/pcm-direct-resume branch on
-> > 
-> > https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub
-> > .com%2Ftiwai%2Falsa-
-> > lib&amp;data=04%7C01%7Cshengjiu.wang%40nxp.com%7C95f97de3f2c840d
-> > 9853508d9fd2e79ea%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C
-> > 637819198319430045%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwM
-> > DAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdat
-> > a=WWX1ZlcQhJF3pHJdHPIH%2B0xG9o%2FjQnHG5fHDbKXwQwE%3D&amp;r
-> > eserved=0
-> > 
-> 
-> Thanks,  I push my test result in https://github.com/alsa-project/alsa-lib/issues/213
-> Could you please review?
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-Please keep the discussion on ML.
+Thanks, applied.
 
 
 Takashi

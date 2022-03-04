@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A6114CD6FF
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 16:01:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969BF4CD706
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 16:01:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F133A1DF;
-	Fri,  4 Mar 2022 16:00:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F133A1DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 367B71B49;
+	Fri,  4 Mar 2022 16:01:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 367B71B49
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646406079;
-	bh=WCF9NrVZo0B5xH0Td5xaoK094c6E8aFuFIJq8S3PZoU=;
+	s=default; t=1646406114;
+	bh=VERtGWR4BglR1XB/zKB85QMtWV9Xc3tyGN0prRPC6LE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KDIURmPDh8Mp6dPbwonm1J/Zn/WDDCmUF/uB7lUMy0mj2cVvSpb+/GDWbBEDGnNiT
-	 ah8Hjfb1CP8lVHZu2SxuhXQdFPqNntZ4v5rEnkOC05VaL8R44uWkFeE1V1uuHMugdd
-	 eODhI6lrMnqnhK3oNaWH1a0hJ77wCulJ5W+hNEZU=
+	b=azhDPVJEtRIAXRKoR0YQ1vMwAaBGd7rJaGX9wkQckpXyh/zbZKvwmigYZIpfIvl6S
+	 rBsr/n9ucTygqn5dEhLvXhVRmMdgXfyn8PIM+7OagGitnaF7+ICc1eoQsTCFCiWBcR
+	 RuW+m8mXf77ZkWqQa/Kaf0r95QnXJucZv4W/maq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B3D2F801F5;
-	Fri,  4 Mar 2022 15:56:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D60BF805BB;
+	Fri,  4 Mar 2022 15:56:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A672F805A1; Fri,  4 Mar 2022 15:56:37 +0100 (CET)
+ id AEF40F805BA; Fri,  4 Mar 2022 15:56:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D211BF80589
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 15:56:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D211BF80589
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60548F805B1
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 15:56:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60548F805B1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="HFDiaLGE"
+ header.b="IJsyUM9O"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646405795; x=1677941795;
+ t=1646405801; x=1677941801;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=WCF9NrVZo0B5xH0Td5xaoK094c6E8aFuFIJq8S3PZoU=;
- b=HFDiaLGEN1DVKzp5ynGJgQxre+libfkfXzKv69qWUZVuAigsXNoHK/mF
- tH2uK92uDtUoLLJTH2cKntrJRjXD/tpEzErRD+Lslw0kstYALJJHthSDQ
- KqkhTQokQC1pO6L1unHpNuNN2t53P3sSygKNux6VfJzjLe4vtWttUYRjJ
- 8T7sJVmBYIH0O3CJ9U8iJO+i1x8pvA48m8A8vKurY28FDRFdWTnESXOnX
- cQ93e6Zu4F6xkpnJg0UEvx9wABzQJvDFobsvLdMJhnA+AS4mFGyn5Dtpu
- 6+wF4KVdSCgzOl/R7SDp5FJTCY5q9jiZQsH9jmkG11vpQEamTDvxmrnoG A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="233949244"
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="233949244"
+ bh=VERtGWR4BglR1XB/zKB85QMtWV9Xc3tyGN0prRPC6LE=;
+ b=IJsyUM9O8G1XnaZ72IdgN/BEfSo8A62VebD7sUCinY4t9hRbVyUwt9ur
+ MWvTiy/rP4Cttb8LX7VSF6sEW+2AQxZe3WsLL/Uaq/kNzz/pSVkajam7b
+ r8Js1/V4Z2wgKumFMGWVDD57jqxHusvRqiPE+NhwLVDJjLBE0PyRFQxCT
+ PpDfOBGP/GV+xCOom/EVEoOcJpDwip+ysRc6QGwf7cmd9RH/PzZ/EAwJz
+ fS6/2PydfFxQ6euhaJ/uUtHFSuGeLJSx1T9fAQypRv20qjDomWcTUHjpp
+ Tl32TxsrKXJeLYc/WnrlQ9wIagyaFhL6UepRxFIPRXaTMArO6hcoeF6X5 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="233949252"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="233949252"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 06:56:33 -0800
+ 04 Mar 2022 06:56:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="609963553"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="609963559"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga004.fm.intel.com with ESMTP; 04 Mar 2022 06:56:30 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 04 Mar 2022 06:56:33 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 15/17] ASoC: Intel: avs: Implement CLDMA transfer
-Date: Fri,  4 Mar 2022 15:57:53 +0100
-Message-Id: <20220304145755.2844173-16-cezary.rojewski@intel.com>
+Subject: [PATCH v3 16/17] ASoC: Intel: avs: Code loading over CLDMA
+Date: Fri,  4 Mar 2022 15:57:54 +0100
+Message-Id: <20220304145755.2844173-17-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220304145755.2844173-1-cezary.rojewski@intel.com>
 References: <20220304145755.2844173-1-cezary.rojewski@intel.com>
@@ -92,405 +92,229 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SKL and KBL rely on a dedicated HDAudio DMA stream for code loading and
-authentication. The implementation of this specific mechanism for
-SKL-based platforms re-uses HDAudio DMA (streaming) functions found in
-HDA library to avoid duplication of functionality.
+With CLDMA transfer implemented, make use of it to shape firmware,
+library and module loading routines for SKL and KBL platforms.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/Makefile    |   1 +
- sound/soc/intel/avs/cldma.c     | 317 ++++++++++++++++++++++++++++++++
- sound/soc/intel/avs/cldma.h     |  29 +++
- sound/soc/intel/avs/registers.h |   2 +
- 4 files changed, 349 insertions(+)
- create mode 100644 sound/soc/intel/avs/cldma.c
- create mode 100644 sound/soc/intel/avs/cldma.h
+ sound/soc/intel/avs/avs.h    |   7 ++
+ sound/soc/intel/avs/loader.c | 159 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 166 insertions(+)
 
-diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
-index d9c793160612..f842bfc5e97e 100644
---- a/sound/soc/intel/avs/Makefile
-+++ b/sound/soc/intel/avs/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
+diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
+index 2527d6170417..fb3520f32488 100644
+--- a/sound/soc/intel/avs/avs.h
++++ b/sound/soc/intel/avs/avs.h
+@@ -44,6 +44,8 @@ struct avs_dsp_ops {
+ #define avs_dsp_op(adev, op, ...) \
+ 	((adev)->spec->dsp_ops->op(adev, ## __VA_ARGS__))
  
- snd-soc-avs-objs := dsp.o ipc.o messages.o utils.o core.o loader.o
-+snd-soc-avs-objs += cldma.o
- 
- obj-$(CONFIG_SND_SOC_INTEL_AVS) += snd-soc-avs.o
-diff --git a/sound/soc/intel/avs/cldma.c b/sound/soc/intel/avs/cldma.c
-new file mode 100644
-index 000000000000..8a1c59b5d7d0
---- /dev/null
-+++ b/sound/soc/intel/avs/cldma.c
-@@ -0,0 +1,317 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright(c) 2021 Intel Corporation. All rights reserved.
-+//
-+// Author: Cezary Rojewski <cezary.rojewski@intel.com>
-+//
++#define AVS_PLATATTR_CLDMA		BIT_ULL(0)
 +
-+#include <linux/pci.h>
-+#include <sound/hda_register.h>
+ #define avs_platattr_test(adev, attr) \
+ 	((adev)->spec->attributes & AVS_PLATATTR_##attr)
+ 
+@@ -233,4 +235,9 @@ void avs_hda_l1sen_enable(struct avs_dev *adev, bool enable);
+ int avs_dsp_boot_firmware(struct avs_dev *adev, bool purge);
+ int avs_dsp_first_boot_firmware(struct avs_dev *adev);
+ 
++int avs_cldma_load_basefw(struct avs_dev *adev, struct firmware *fw);
++int avs_cldma_load_library(struct avs_dev *adev, struct firmware *lib, u32 id);
++int avs_cldma_transfer_modules(struct avs_dev *adev, bool load,
++			       struct avs_module_entry *mods, u32 num_mods);
++
+ #endif /* __SOUND_SOC_INTEL_AVS_H */
+diff --git a/sound/soc/intel/avs/loader.c b/sound/soc/intel/avs/loader.c
+index 47e1f9a21e43..2134aaabe2c6 100644
+--- a/sound/soc/intel/avs/loader.c
++++ b/sound/soc/intel/avs/loader.c
+@@ -9,12 +9,24 @@
+ #include <linux/firmware.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
 +#include <sound/hdaudio_ext.h>
+ #include "avs.h"
 +#include "cldma.h"
-+#include "registers.h"
+ #include "messages.h"
+ #include "registers.h"
+ 
++#define AVS_ROM_STS_MASK		0xFF
++#define AVS_ROM_INIT_DONE		0x1
++#define SKL_ROM_BASEFW_ENTERED		0xF
++#define AVS_ROM_INIT_POLLING_US		5
++#define SKL_ROM_INIT_TIMEOUT_US		1000000
 +
-+/* Stream Registers */
-+#define AZX_CL_SD_BASE			0x80
-+#define AZX_SD_CTL_STRM_MASK		GENMASK(23, 20)
-+#define AZX_SD_CTL_STRM(s) \
-+	(((s)->stream_tag << 20) & AZX_SD_CTL_STRM_MASK)
-+#define AZX_SD_BDLPL_BDLPLBA_MASK	GENMASK(31, 7)
-+#define AZX_SD_BDLPL_BDLPLBA(lb)	((lb) & AZX_SD_BDLPL_BDLPLBA_MASK)
++#define AVS_FW_INIT_POLLING_US		500
++#define AVS_FW_INIT_TIMEOUT_US		3000000
+ #define AVS_FW_INIT_TIMEOUT_MS		3000
+ 
++#define AVS_CLDMA_START_DELAY_MS	100
 +
-+/* Software Position Based FIFO Capability Registers */
-+#define AZX_CL_SPBFCS			0x20
-+#define AZX_REG_CL_SPBFCTL		(AZX_CL_SPBFCS + 0x4)
-+#define AZX_REG_CL_SD_SPIB		(AZX_CL_SPBFCS + 0x8)
-+
-+#define AVS_CL_OP_INTERVAL_US		3
-+#define AVS_CL_OP_TIMEOUT_US		300
-+#define AVS_CL_IOC_TIMEOUT_MS		300
-+#define AVS_CL_STREAM_INDEX		0
-+
-+struct hda_cldma {
-+	struct device *dev;
-+	struct hdac_bus *bus;
-+	void __iomem *dsp_ba;
-+
-+	unsigned int buffer_size;
-+	unsigned int num_periods;
-+	unsigned int stream_tag;
-+	void __iomem *sd_addr;
-+
-+	struct snd_dma_buffer dmab_data;
-+	struct snd_dma_buffer dmab_bdl;
-+	struct delayed_work memcpy_work;
-+	struct completion completion;
-+
-+	/* runtime */
-+	void *position;
-+	unsigned int remaining;
-+	unsigned int sd_status;
-+};
-+
-+static void cldma_memcpy_work(struct work_struct *work);
-+
-+struct hda_cldma code_loader = {
-+	.stream_tag	= AVS_CL_STREAM_INDEX + 1,
-+	.memcpy_work	= __DELAYED_WORK_INITIALIZER(code_loader.memcpy_work, cldma_memcpy_work, 0),
-+	.completion	= COMPLETION_INITIALIZER(code_loader.completion),
-+};
-+
-+void hda_cldma_fill(struct hda_cldma *cl)
+ #define AVS_ROOT_DIR			"intel/avs"
+ #define AVS_BASEFW_FILENAME		"dsp_basefw.bin"
+ #define AVS_EXT_MANIFEST_MAGIC		0x31454124
+@@ -111,6 +123,144 @@ static int avs_fw_manifest_strip_verify(struct avs_dev *adev, struct firmware *f
+ 	return 0;
+ }
+ 
++int avs_cldma_load_basefw(struct avs_dev *adev, struct firmware *fw)
 +{
-+	unsigned int size, offset;
-+
-+	if (cl->remaining > cl->buffer_size)
-+		size = cl->buffer_size;
-+	else
-+		size = cl->remaining;
-+
-+	offset = snd_hdac_stream_readl(cl, CL_SD_SPIB);
-+	if (offset + size > cl->buffer_size) {
-+		unsigned int ss;
-+
-+		ss = cl->buffer_size - offset;
-+		memcpy(cl->dmab_data.area + offset, cl->position, ss);
-+		offset = 0;
-+		size -= ss;
-+		cl->position += ss;
-+		cl->remaining -= ss;
-+	}
-+
-+	memcpy(cl->dmab_data.area + offset, cl->position, size);
-+	cl->position += size;
-+	cl->remaining -= size;
-+
-+	snd_hdac_stream_writel(cl, CL_SD_SPIB, offset + size);
-+}
-+
-+static void cldma_memcpy_work(struct work_struct *work)
-+{
-+	struct hda_cldma *cl = container_of(work, struct hda_cldma, memcpy_work.work);
++	struct hda_cldma *cl = &code_loader;
++	unsigned int reg;
 +	int ret;
 +
-+	ret = hda_cldma_start(cl);
++	ret = avs_dsp_op(adev, power, AVS_MAIN_CORE_MASK, true);
++	if (ret < 0)
++		return ret;
++
++	ret = avs_dsp_op(adev, reset, AVS_MAIN_CORE_MASK, false);
++	if (ret < 0)
++		return ret;
++
++	ret = hda_cldma_reset(cl);
 +	if (ret < 0) {
-+		dev_err(cl->dev, "cldma set RUN failed: %d\n", ret);
-+		return;
++		dev_err(adev->dev, "cldma reset failed: %d\n", ret);
++		return ret;
 +	}
++	hda_cldma_setup(cl);
 +
-+	while (true) {
-+		ret = wait_for_completion_timeout(&cl->completion,
-+						  msecs_to_jiffies(AVS_CL_IOC_TIMEOUT_MS));
-+		if (!ret) {
-+			dev_err(cl->dev, "cldma IOC timeout\n");
-+			break;
-+		}
++	ret = avs_dsp_op(adev, stall, AVS_MAIN_CORE_MASK, false);
++	if (ret < 0)
++		return ret;
 +
-+		if (!(cl->sd_status & SD_INT_COMPLETE)) {
-+			dev_err(cl->dev, "cldma transfer error, SD status: 0x%08x\n",
-+				cl->sd_status);
-+			break;
-+		}
++	reinit_completion(&adev->fw_ready);
++	avs_dsp_op(adev, int_control, true);
 +
-+		if (!cl->remaining)
-+			break;
-+
-+		reinit_completion(&cl->completion);
-+		hda_cldma_fill(cl);
-+		/* enable CLDMA interrupt */
-+		snd_hdac_adsp_updatel(cl, AVS_ADSP_REG_ADSPIC, AVS_ADSP_ADSPIC_CLDMA,
-+				      AVS_ADSP_ADSPIC_CLDMA);
-+	}
-+}
-+
-+void hda_cldma_transfer(struct hda_cldma *cl, unsigned long start_delay)
-+{
-+	if (!cl->remaining)
-+		return;
-+
-+	reinit_completion(&cl->completion);
-+	/* fill buffer with the first chunk before scheduling run */
-+	hda_cldma_fill(cl);
-+
-+	schedule_delayed_work(&cl->memcpy_work, start_delay);
-+}
-+
-+int hda_cldma_start(struct hda_cldma *cl)
-+{
-+	unsigned int reg;
-+
-+	/* enable interrupts */
-+	snd_hdac_adsp_updatel(cl, AVS_ADSP_REG_ADSPIC, AVS_ADSP_ADSPIC_CLDMA,
-+			      AVS_ADSP_ADSPIC_CLDMA);
-+	snd_hdac_stream_updateb(cl, SD_CTL, SD_INT_MASK | SD_CTL_DMA_START,
-+				SD_INT_MASK | SD_CTL_DMA_START);
-+
-+	/* await DMA engine start */
-+	return snd_hdac_stream_readb_poll(cl, SD_CTL, reg, reg & SD_CTL_DMA_START,
-+					  AVS_CL_OP_INTERVAL_US, AVS_CL_OP_TIMEOUT_US);
-+}
-+
-+int hda_cldma_stop(struct hda_cldma *cl)
-+{
-+	unsigned int reg;
-+	int ret;
-+
-+	/* disable interrupts */
-+	snd_hdac_adsp_updatel(cl, AVS_ADSP_REG_ADSPIC, AVS_ADSP_ADSPIC_CLDMA, 0);
-+	snd_hdac_stream_updateb(cl, SD_CTL, SD_INT_MASK | SD_CTL_DMA_START, 0);
-+
-+	/* await DMA engine stop */
-+	ret = snd_hdac_stream_readb_poll(cl, SD_CTL, reg, !(reg & SD_CTL_DMA_START),
-+					 AVS_CL_OP_INTERVAL_US, AVS_CL_OP_TIMEOUT_US);
-+	cancel_delayed_work_sync(&cl->memcpy_work);
-+
-+	return ret;
-+}
-+
-+int hda_cldma_reset(struct hda_cldma *cl)
-+{
-+	unsigned int reg;
-+	int ret;
-+
-+	ret = hda_cldma_stop(cl);
++	/* await ROM init */
++	ret = snd_hdac_adsp_readl_poll(adev, AVS_FW_REG_STATUS(adev), reg,
++			(reg & AVS_ROM_INIT_DONE) == AVS_ROM_INIT_DONE,
++			AVS_ROM_INIT_POLLING_US, SKL_ROM_INIT_TIMEOUT_US);
 +	if (ret < 0) {
-+		dev_err(cl->dev, "cldma stop failed: %d\n", ret);
++		dev_err(adev->dev, "rom init timeout: %d\n", ret);
++		avs_dsp_core_disable(adev, AVS_MAIN_CORE_MASK);
 +		return ret;
 +	}
 +
-+	snd_hdac_stream_updateb(cl, SD_CTL, 1, 1);
-+	ret = snd_hdac_stream_readb_poll(cl, SD_CTL, reg, (reg & 1), AVS_CL_OP_INTERVAL_US,
-+					 AVS_CL_OP_TIMEOUT_US);
++	hda_cldma_set_data(cl, (void *)fw->data, fw->size);
++	/* transfer firmware */
++	hda_cldma_transfer(cl, 0);
++	ret = snd_hdac_adsp_readl_poll(adev, AVS_FW_REG_STATUS(adev), reg,
++			(reg & AVS_ROM_STS_MASK) == SKL_ROM_BASEFW_ENTERED,
++			AVS_FW_INIT_POLLING_US, AVS_FW_INIT_TIMEOUT_US);
++	hda_cldma_stop(cl);
 +	if (ret < 0) {
-+		dev_err(cl->dev, "cldma set SRST failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	snd_hdac_stream_updateb(cl, SD_CTL, 1, 0);
-+	ret = snd_hdac_stream_readb_poll(cl, SD_CTL, reg, !(reg & 1), AVS_CL_OP_INTERVAL_US,
-+					 AVS_CL_OP_TIMEOUT_US);
-+	if (ret < 0) {
-+		dev_err(cl->dev, "cldma unset SRST failed: %d\n", ret);
++		dev_err(adev->dev, "transfer fw failed: %d\n", ret);
++		avs_dsp_core_disable(adev, AVS_MAIN_CORE_MASK);
 +		return ret;
 +	}
 +
 +	return 0;
 +}
 +
-+void hda_cldma_set_data(struct hda_cldma *cl, void *data, unsigned int size)
++int avs_cldma_load_library(struct avs_dev *adev, struct firmware *lib, u32 id)
 +{
-+	/* setup runtime */
-+	cl->position = data;
-+	cl->remaining = size;
-+}
-+
-+static void cldma_setup_bdle(struct hda_cldma *cl, u32 bdle_size)
-+{
-+	struct snd_dma_buffer *dmab = &cl->dmab_data;
-+	__le32 *bdl = (__le32 *)cl->dmab_bdl.area;
-+	int remaining = cl->buffer_size;
-+	int offset = 0;
-+
-+	cl->num_periods = 0;
-+
-+	while (remaining > 0) {
-+		phys_addr_t addr;
-+		int chunk;
-+
-+		addr = snd_sgbuf_get_addr(dmab, offset);
-+		bdl[0] = cpu_to_le32(lower_32_bits(addr));
-+		bdl[1] = cpu_to_le32(upper_32_bits(addr));
-+		chunk = snd_sgbuf_get_chunk_size(dmab, offset, bdle_size);
-+		bdl[2] = cpu_to_le32(chunk);
-+
-+		remaining -= chunk;
-+		/* set IOC only for the last entry */
-+		bdl[3] = (remaining > 0) ? 0 : cpu_to_le32(0x01);
-+
-+		bdl += 4;
-+		offset += chunk;
-+		cl->num_periods++;
-+	}
-+}
-+
-+void hda_cldma_setup(struct hda_cldma *cl)
-+{
-+	dma_addr_t bdl_addr = cl->dmab_bdl.addr;
-+
-+	cldma_setup_bdle(cl, cl->buffer_size / 2);
-+
-+	snd_hdac_stream_writel(cl, SD_BDLPL, AZX_SD_BDLPL_BDLPLBA(lower_32_bits(bdl_addr)));
-+	snd_hdac_stream_writel(cl, SD_BDLPU, upper_32_bits(bdl_addr));
-+
-+	snd_hdac_stream_writel(cl, SD_CBL, cl->buffer_size);
-+	snd_hdac_stream_writeb(cl, SD_LVI, cl->num_periods - 1);
-+
-+	snd_hdac_stream_updatel(cl, SD_CTL, AZX_SD_CTL_STRM_MASK, AZX_SD_CTL_STRM(cl));
-+	/* enable spib */
-+	snd_hdac_stream_writel(cl, CL_SPBFCTL, 1);
-+}
-+
-+static irqreturn_t cldma_irq_handler(int irq, void *dev_id)
-+{
-+	struct hda_cldma *cl = dev_id;
-+	u32 adspis;
-+
-+	adspis = snd_hdac_adsp_readl(cl, AVS_ADSP_REG_ADSPIS);
-+	if (adspis == UINT_MAX)
-+		return IRQ_NONE;
-+	if (!(adspis & AVS_ADSP_ADSPIS_CLDMA))
-+		return IRQ_NONE;
-+
-+	cl->sd_status = snd_hdac_stream_readb(cl, SD_STS);
-+	dev_warn(cl->dev, "%s sd_status: 0x%08x\n", __func__, cl->sd_status);
-+
-+	/* disable CLDMA interrupt */
-+	snd_hdac_adsp_updatel(cl, AVS_ADSP_REG_ADSPIC, AVS_ADSP_ADSPIC_CLDMA, 0);
-+
-+	complete(&cl->completion);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+int hda_cldma_init(struct hda_cldma *cl, struct hdac_bus *bus, void __iomem *dsp_ba,
-+		   unsigned int buffer_size)
-+{
-+	struct pci_dev *pci = to_pci_dev(bus->dev);
++	struct hda_cldma *cl = &code_loader;
 +	int ret;
 +
-+	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_SG, bus->dev, buffer_size, &cl->dmab_data);
-+	if (ret < 0)
-+		return ret;
++	hda_cldma_set_data(cl, (void *)lib->data, lib->size);
++	/* transfer modules manifest */
++	hda_cldma_transfer(cl, msecs_to_jiffies(AVS_CLDMA_START_DELAY_MS));
 +
-+	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, bus->dev, BDL_SIZE, &cl->dmab_bdl);
-+	if (ret < 0)
-+		goto alloc_err;
++	/* DMA id ignored as there is only ever one code-loader DMA */
++	ret = avs_ipc_load_library(adev, 0, id);
++	hda_cldma_stop(cl);
 +
-+	cl->dev = bus->dev;
-+	cl->bus = bus;
-+	cl->dsp_ba = dsp_ba;
-+	cl->buffer_size = buffer_size;
-+	cl->sd_addr = dsp_ba + AZX_CL_SD_BASE;
-+
-+	ret = pci_request_irq(pci, 0, cldma_irq_handler, NULL, cl, "CLDMA");
-+	if (ret < 0) {
-+		dev_err(cl->dev, "Failed to request CLDMA IRQ handler: %d\n", ret);
-+		goto req_err;
++	if (ret) {
++		ret = AVS_IPC_RET(ret);
++		dev_err(adev->dev, "transfer lib %d failed: %d\n", id, ret);
 +	}
-+
-+	return 0;
-+
-+req_err:
-+	snd_dma_free_pages(&cl->dmab_bdl);
-+alloc_err:
-+	snd_dma_free_pages(&cl->dmab_data);
 +
 +	return ret;
 +}
 +
-+void hda_cldma_free(struct hda_cldma *cl)
++static int avs_cldma_load_module(struct avs_dev *adev, struct avs_module_entry *mentry)
 +{
-+	struct pci_dev *pci = to_pci_dev(cl->dev);
++	struct hda_cldma *cl = &code_loader;
++	const struct firmware *mod;
++	char *mod_name;
++	int ret;
 +
-+	pci_free_irq(pci, 0, cl);
-+	snd_dma_free_pages(&cl->dmab_data);
-+	snd_dma_free_pages(&cl->dmab_bdl);
++	mod_name = kasprintf(GFP_KERNEL, "%s/%s/dsp_mod_%pUL.bin", AVS_ROOT_DIR,
++			     adev->spec->name, mentry->uuid.b);
++	if (!mod_name)
++		return -ENOMEM;
++
++	ret = avs_request_firmware(adev, &mod, mod_name);
++	kfree(mod_name);
++	if (ret < 0)
++		return ret;
++
++	hda_cldma_set_data(cl, (void *)mod->data, mod->size);
++	hda_cldma_transfer(cl, msecs_to_jiffies(AVS_CLDMA_START_DELAY_MS));
++	ret = avs_ipc_load_modules(adev, &mentry->module_id, 1);
++	hda_cldma_stop(cl);
++
++	if (ret) {
++		dev_err(adev->dev, "load module %d failed: %d\n", mentry->module_id, ret);
++		avs_release_last_firmware(adev);
++		return AVS_IPC_RET(ret);
++	}
++
++	return 0;
 +}
-diff --git a/sound/soc/intel/avs/cldma.h b/sound/soc/intel/avs/cldma.h
-new file mode 100644
-index 000000000000..cad81f03095a
---- /dev/null
-+++ b/sound/soc/intel/avs/cldma.h
-@@ -0,0 +1,29 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright(c) 2021 Intel Corporation. All rights reserved.
-+ *
-+ * Author: Cezary Rojewski <cezary.rojewski@intel.com>
-+ */
 +
-+#ifndef __SOUND_SOC_INTEL_AVS_CLDMA_H
-+#define __SOUND_SOC_INTEL_AVS_CLDMA_H
++int avs_cldma_transfer_modules(struct avs_dev *adev, bool load,
++			       struct avs_module_entry *mods, u32 num_mods)
++{
++	u16 *mod_ids;
++	int ret, i;
 +
-+#define AVS_CL_DEFAULT_BUFFER_SIZE	(32 * PAGE_SIZE)
++	/* Either load to DSP or unload them to free space. */
++	if (load) {
++		for (i = 0; i < num_mods; i++) {
++			ret = avs_cldma_load_module(adev, &mods[i]);
++			if (ret)
++				return ret;
++		}
 +
-+struct hda_cldma;
-+extern struct hda_cldma code_loader;
++		return 0;
++	}
 +
-+void hda_cldma_fill(struct hda_cldma *cl);
-+void hda_cldma_transfer(struct hda_cldma *cl, unsigned long start_delay);
++	mod_ids = kcalloc(num_mods, sizeof(u16), GFP_KERNEL);
++	if (!mod_ids)
++		return -ENOMEM;
 +
-+int hda_cldma_start(struct hda_cldma *cl);
-+int hda_cldma_stop(struct hda_cldma *cl);
-+int hda_cldma_reset(struct hda_cldma *cl);
++	for (i = 0; i < num_mods; i++)
++		mod_ids[i] = mods[i].module_id;
 +
-+void hda_cldma_set_data(struct hda_cldma *cl, void *data, unsigned int size);
-+void hda_cldma_setup(struct hda_cldma *cl);
-+int hda_cldma_init(struct hda_cldma *cl, struct hdac_bus *bus, void __iomem *dsp_ba,
-+		   unsigned int buffer_size);
-+void hda_cldma_free(struct hda_cldma *cl);
++	ret = avs_ipc_unload_modules(adev, mod_ids, num_mods);
++	kfree(mod_ids);
++	if (ret)
++		return AVS_IPC_RET(ret);
 +
-+#endif
-diff --git a/sound/soc/intel/avs/registers.h b/sound/soc/intel/avs/registers.h
-index a05465bac6d0..0f55f526d962 100644
---- a/sound/soc/intel/avs/registers.h
-+++ b/sound/soc/intel/avs/registers.h
-@@ -22,7 +22,9 @@
- #define AVS_ADSP_REG_ADSPIS		(AVS_ADSP_GEN_BASE + 0x0C)
++	return 0;
++}
++
+ static int avs_dsp_load_basefw(struct avs_dev *adev)
+ {
+ 	const struct avs_fw_version *min_req;
+@@ -196,6 +346,15 @@ int avs_dsp_first_boot_firmware(struct avs_dev *adev)
+ {
+ 	int ret, i;
  
- #define AVS_ADSP_ADSPIC_IPC		BIT(0)
-+#define AVS_ADSP_ADSPIC_CLDMA		BIT(1)
- #define AVS_ADSP_ADSPIS_IPC		BIT(0)
-+#define AVS_ADSP_ADSPIS_CLDMA		BIT(1)
- 
- #define AVS_ADSPCS_CRST_MASK(cm)	(cm)
- #define AVS_ADSPCS_CSTALL_MASK(cm)	((cm) << 8)
++	if (avs_platattr_test(adev, CLDMA)) {
++		ret = hda_cldma_init(&code_loader, &adev->base.core,
++				     adev->dsp_ba, AVS_CL_DEFAULT_BUFFER_SIZE);
++		if (ret < 0) {
++			dev_err(adev->dev, "cldma init failed: %d\n", ret);
++			return ret;
++		}
++	}
++
+ 	ret = avs_dsp_boot_firmware(adev, true);
+ 	if (ret < 0) {
+ 		dev_err(adev->dev, "firmware boot failed: %d\n", ret);
 -- 
 2.25.1
 

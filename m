@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DB1C4CD6F5
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 15:59:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 043194CD6F7
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 15:59:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 094B61AF5;
-	Fri,  4 Mar 2022 15:58:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 094B61AF5
+	by alsa0.perex.cz (Postfix) with ESMTPS id A63351B01;
+	Fri,  4 Mar 2022 15:58:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A63351B01
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646405970;
-	bh=yeOvXcDrBIA28P9BIlssBcxGaEk4JyYQIy/Spx2+50o=;
+	s=default; t=1646405989;
+	bh=qaTyULVfHaLm3NVsFZ3HMvVFK2rbsy3kPt3ceZY5Hj4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lWQsk8L5naRr1z0lZszecliPtNBYq7wo9GuJ/q59wOSpGRBL90de3OrFSkJIbLKC8
-	 5NzAuJfl7YqFhZ+rYgWd6ZMjckJuwy6CqCSOj9soQBXSplkbt6BoPyPT74MZX8vPdd
-	 WFquCjDAcf4AIZ6o6l1rbDTkSAiJlx35e9mdLaAc=
+	b=poiNdJ+sj2ovm1AgeBQypJB6ya+KA062E8yy6oeB1aOw7d0CoE0ThMLcHjtDVSh+z
+	 E7ZFy5sEbbg0cyKETccQrBzizqsEfbqbe0DPUhz6df92ph7QOb9h8ibLDub2hqC3qa
+	 1VARS3B28mRjWQv5uKV8gqpnmDwtqjmOAsLlPK4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97664F8053C;
-	Fri,  4 Mar 2022 15:56:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8561AF80553;
+	Fri,  4 Mar 2022 15:56:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5623FF80535; Fri,  4 Mar 2022 15:56:20 +0100 (CET)
+ id E80B7F80543; Fri,  4 Mar 2022 15:56:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF7B6F8051F
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 15:56:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF7B6F8051F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D68EF8053C
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 15:56:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D68EF8053C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="TzA2J8VY"
+ header.b="fo5QopW4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646405775; x=1677941775;
+ t=1646405776; x=1677941776;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=yeOvXcDrBIA28P9BIlssBcxGaEk4JyYQIy/Spx2+50o=;
- b=TzA2J8VYVFFyM2xCbQnq/Ayygdq75z+3pyp49ZnrH/5UzSjQPNqTDCle
- Ip/kj2yqo45roGYwS/EgpGTSajVbOPtIQrK0spxUE+RLU9uGXUmJ/+zJV
- NvEzVzB9XP6dV17bdwUp27gdao4trnZof7cQ3vAk55aCqECrH7+zbGW9i
- +pk3UO4NhUmyk1bfK5zxk5QwybKE6O9Ti4iCls51Ql0YG5DQUWl6alWN8
- VEM8Xdy670yaFHFHQMmfYZ6WazgBs3KnIKuqnWj5cdx0USZzFLvlq3wL1
- ahs2Fl5zYCP1aBOFPRTAKHrBily7qsmDEgVcKXDErMMjx03UCOD+g8oj0 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="233949185"
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="233949185"
+ bh=qaTyULVfHaLm3NVsFZ3HMvVFK2rbsy3kPt3ceZY5Hj4=;
+ b=fo5QopW4TnmiDOghrzSOzAj2RG6GWboJHJ0Zac6hioR40sJoNYHc2oka
+ aEP8vTbpZCD3zjmFBAGQOtUKZ+izTLb+k9eFeo7woADjhjvjxQ+6SdjHR
+ eEocWkXJ30aKXDcGtVmSW3Az6BMkTty7UcAJJOxkGiGIBi+QCoWePCZ28
+ SFx7WFB2xZCae0Y1cjOHDdMb6yHdumcE/dTjmBWxZa56K8VSI8l/NSBoO
+ 1FkGNAmO6uVXDZ2/I8K9ZVtKH8ZC6DDwy7+8oG+PJ/UaX4oBwLa59NNMd
+ oaoLqVVbgcJcbks74IIndCxy9lJgkC+rJ7IsRJ5XQdAGiUn/vcHJGSX2b Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="233949194"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="233949194"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 06:56:12 -0800
+ 04 Mar 2022 06:56:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="609963479"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="609963500"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga004.fm.intel.com with ESMTP; 04 Mar 2022 06:56:09 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 04 Mar 2022 06:56:12 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 08/17] ASoC: Intel: avs: Add power management requests
-Date: Fri,  4 Mar 2022 15:57:46 +0100
-Message-Id: <20220304145755.2844173-9-cezary.rojewski@intel.com>
+Subject: [PATCH v3 09/17] ASoC: Intel: avs: Add ROM requests
+Date: Fri,  4 Mar 2022 15:57:47 +0100
+Message-Id: <20220304145755.2844173-10-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220304145755.2844173-1-cezary.rojewski@intel.com>
 References: <20220304145755.2844173-1-cezary.rojewski@intel.com>
@@ -92,107 +92,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Audio DSP supports low power states i.e.: transitions between D0 and D3
-and D0-substates in form of D0i0 and D0i3. That process is a combination
-of core and IPC operations. Here, Dx and D0ix IPC handlers are added.
+ROM requests are messages initiated by Host to alter firmware early boot
+process. They specify whether the next boot should be a fresh start or if
+IMR can be used to speed things up.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/messages.c | 44 ++++++++++++++++++++++++++++++++++
- sound/soc/intel/avs/messages.h | 15 ++++++++++++
- 2 files changed, 59 insertions(+)
+ sound/soc/intel/avs/messages.c | 18 ++++++++++++++++++
+ sound/soc/intel/avs/messages.h | 14 ++++++++++++++
+ 2 files changed, 32 insertions(+)
 
 diff --git a/sound/soc/intel/avs/messages.c b/sound/soc/intel/avs/messages.c
-index 613c9452226d..e8f441b28d71 100644
+index e8f441b28d71..f7d00e541323 100644
 --- a/sound/soc/intel/avs/messages.c
 +++ b/sound/soc/intel/avs/messages.c
-@@ -401,3 +401,47 @@ int avs_ipc_get_large_config(struct avs_dev *adev, u16 module_id, u8 instance_id
+@@ -12,6 +12,24 @@
  
- 	return 0;
- }
-+
-+int avs_ipc_set_dx(struct avs_dev *adev, u32 core_mask, bool powerup)
+ #define AVS_CL_TIMEOUT_MS	5000
+ 
++int avs_ipc_set_boot_config(struct avs_dev *adev, u32 dma_id, u32 purge)
 +{
-+	union avs_module_msg msg = AVS_MODULE_REQUEST(SET_DX);
-+	struct avs_ipc_msg request;
-+	struct avs_dxstate_info dx;
-+	int ret;
-+
-+	dx.core_mask = core_mask;
-+	dx.dx_mask = powerup ? core_mask : 0;
-+	request.header = msg.val;
-+	request.data = &dx;
-+	request.size = sizeof(dx);
-+
-+	ret = avs_dsp_send_msg(adev, &request, NULL);
-+	if (ret)
-+		avs_ipc_err(adev, &request, "set dx", ret);
-+
-+	return ret;
-+}
-+
-+/*
-+ * avs_ipc_set_d0ix - Set power gating policy (entering D0IX substates)
-+ *
-+ * @enable_pg: Whether to enable or disable power gating
-+ * @streaming: Whether a stream is running when transitioning
-+ */
-+int avs_ipc_set_d0ix(struct avs_dev *adev, bool enable_pg, bool streaming)
-+{
-+	union avs_module_msg msg = AVS_MODULE_REQUEST(SET_D0IX);
++	union avs_global_msg msg = AVS_GLOBAL_REQUEST(ROM_CONTROL);
 +	struct avs_ipc_msg request = {{0}};
 +	int ret;
 +
-+	msg.ext.set_d0ix.wake = enable_pg;
-+	msg.ext.set_d0ix.streaming = streaming;
-+
++	msg.boot_cfg.rom_ctrl_msg_type = AVS_ROM_SET_BOOT_CONFIG;
++	msg.boot_cfg.dma_id = dma_id;
++	msg.boot_cfg.purge_request = purge;
 +	request.header = msg.val;
 +
-+	ret = avs_dsp_send_msg(adev, &request, NULL);
++	ret = avs_dsp_send_rom_msg(adev, &request);
 +	if (ret)
-+		avs_ipc_err(adev, &request, "set d0ix", ret);
++		avs_ipc_err(adev, &request, "set boot config", ret);
 +
 +	return ret;
 +}
++
+ int avs_ipc_load_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids)
+ {
+ 	union avs_global_msg msg = AVS_GLOBAL_REQUEST(LOAD_MULTIPLE_MODULES);
 diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
-index e4b95b066d70..69920f5e802b 100644
+index 69920f5e802b..615a61cef4f6 100644
 --- a/sound/soc/intel/avs/messages.h
 +++ b/sound/soc/intel/avs/messages.h
-@@ -97,6 +97,8 @@ enum avs_module_msg_type {
- 	AVS_MOD_LARGE_CONFIG_SET = 4,
- 	AVS_MOD_BIND = 5,
- 	AVS_MOD_UNBIND = 6,
-+	AVS_MOD_SET_DX = 7,
-+	AVS_MOD_SET_D0IX = 8,
- 	AVS_MOD_DELETE_INSTANCE = 11,
+@@ -24,6 +24,7 @@ enum avs_msg_direction {
  };
  
-@@ -133,6 +135,10 @@ union avs_module_msg {
- 				u32 dst_queue:3;
- 				u32 src_queue:3;
- 			} bind_unbind;
+ enum avs_global_msg_type {
++	AVS_GLB_ROM_CONTROL = 1,
+ 	AVS_GLB_LOAD_MULTIPLE_MODULES = 15,
+ 	AVS_GLB_UNLOAD_MULTIPLE_MODULES = 16,
+ 	AVS_GLB_CREATE_PIPELINE = 17,
+@@ -45,6 +46,12 @@ union avs_global_msg {
+ 				u32 msg_direction:1;
+ 				u32 msg_target:1;
+ 			};
++			/* set boot config */
 +			struct {
-+				u32 wake:1;
-+				u32 streaming:1;
-+			} set_d0ix;
- 		} ext;
- 	};
++				u32 rom_ctrl_msg_type:9;
++				u32 dma_id:5;
++				u32 purge_request:1;
++			} boot_cfg;
+ 			/* module loading */
+ 			struct {
+ 				u32 mod_cnt:8;
+@@ -255,6 +262,13 @@ struct avs_notify_mod_data {
+ 	u32 data[];
  } __packed;
-@@ -290,4 +296,13 @@ int avs_ipc_get_large_config(struct avs_dev *adev, u16 module_id, u8 instance_id
- 			     u8 param_id, u8 *request_data, size_t request_size,
- 			     u8 **reply_data, size_t *reply_size);
  
-+/* DSP cores and domains power management messages */
-+struct avs_dxstate_info {
-+	u32 core_mask;	/* which cores are subject for power transition */
-+	u32 dx_mask;	/* bit[n]=1 core n goes to D0, bit[n]=0 it goes to D3 */
-+} __packed;
++/* ROM messages */
++enum avs_rom_control_msg_type {
++	AVS_ROM_SET_BOOT_CONFIG = 0,
++};
 +
-+int avs_ipc_set_dx(struct avs_dev *adev, u32 core_mask, bool powerup);
-+int avs_ipc_set_d0ix(struct avs_dev *adev, bool enable_pg, bool streaming);
++int avs_ipc_set_boot_config(struct avs_dev *adev, u32 dma_id, u32 purge);
 +
- #endif /* __SOUND_SOC_INTEL_AVS_MSGS_H */
+ /* Code loading messages */
+ int avs_ipc_load_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
+ int avs_ipc_unload_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
 -- 
 2.25.1
 

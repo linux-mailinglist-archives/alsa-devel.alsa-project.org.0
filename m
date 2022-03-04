@@ -2,81 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4B284CD36C
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 12:29:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BF794CD498
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 13:58:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 833CB18C9;
-	Fri,  4 Mar 2022 12:28:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 833CB18C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2ADFC18DD;
+	Fri,  4 Mar 2022 13:57:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ADFC18DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646393378;
-	bh=XdZzCg3lQzD436i7PrhtrwbuzP03WT12BFIP80rNj0Y=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YL3U4EhcQednHWcTbcxdkzgN/ZNAAgvA5RtAtBNi+TQ19iawxJSOyMV8zXbmQD528
-	 P7nwXfFxhK8iFhXAog30bbXB7/BMTTUEvvkUWSQdRmtxRaGiYLPw9VWXAtdjQkj1RR
-	 Rgz33bEqOBHWxKP8MG24/qOV3HbVtO3q6OpmSmpo=
+	s=default; t=1646398693;
+	bh=c9GsidHFer9z4Reazya4U/pdoSFZnMPjcH9x6GJMMko=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ujUvT9w6YOXeGxqI9dEaEUS9H3uicuktvm9NTeZUp8a2t6LPGk9eVfW4HYb2A67Qg
+	 NobTQshohN8hDoqH6WNQMgV/DUvz3JjQM6mCvS8rZvdFMTttPjvUkAQyPqlfIzFZ6A
+	 bbYs6D7c8zWefei/3H8tSni8K4gw3Q+56XDaEDtM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8BCAF800F0;
-	Fri,  4 Mar 2022 12:28:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9145FF801F5;
+	Fri,  4 Mar 2022 13:57:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B607BF801EC; Fri,  4 Mar 2022 12:28:26 +0100 (CET)
+ id C4472F800F2; Fri,  4 Mar 2022 13:57:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C74CF800FA
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 12:28:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C74CF800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD892F800F2
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 13:56:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD892F800F2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="lxaWNUJf"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="2SDyWCik"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 5212E1F387;
- Fri,  4 Mar 2022 11:28:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646393295; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=r4bUUWOE/ergbXemmAlzi1XBS8wFFYd+ABVY4rAugmE=;
- b=lxaWNUJfbww3av64rKSCglcuO7DX8dZJDJlL6hwo6mowiCXYkjc8lR4ikV9kmk3C3Wsry0
- mFYExKXOh+bLgB4qn6VTTsyrNjh8qGraxqEj2PudKL/Ekp8FHonFKbZ1xKHqG5GnkhrNxN
- uZdaOLBZLCL5rRqt7k2wcy0A6JPob2s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646393295;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=r4bUUWOE/ergbXemmAlzi1XBS8wFFYd+ABVY4rAugmE=;
- b=2SDyWCik8JtuKf+lpbQGsymitRiJo0GuD7w7JblxXi+BeiiR5XqANjf9hLuTWY14wAuKRE
- EKNLDfwqKiQzypDg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3EE61A3B8C;
- Fri,  4 Mar 2022 11:28:15 +0000 (UTC)
-Date: Fri, 04 Mar 2022 12:28:15 +0100
-Message-ID: <s5hfsnyrm7k.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: firewire-lib: fix uninitialized flag for AV/C
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="ukNRHifO"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="HT8xZYlj"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 330F95C0167;
+ Fri,  4 Mar 2022 07:56:52 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Fri, 04 Mar 2022 07:56:52 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-transfer-encoding:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:sender:subject
+ :subject:to:to; s=fm1; bh=S9+2MFWplu0f54AmUu36RPYDmbTlSVqLmnJd4O
+ 0e+o8=; b=ukNRHifOM1HIApe53EiiV5W/AZV1us4NO851jhQ/d/DLTmBeImZCBQ
+ CRVdr72kkvouv6gV0kWJ3qAaW2XvzeovxM/x72UFI3HDOOL6ETLc0OAuRJTCIbDt
+ AT30zcs7WP232Z0pH3PUb31YpPBOxj28FZZYP8FDq1yfgx4+QkU1QrvA0n7FUs/x
+ UaUfnXdqrVhA60y2QHoPKsITkfYSuh9LKHyt55EpV0VmscZm8Mhjn4wPNFrriYFt
+ UBbZmOOH42r6W/2hDs4fSYixC1wi44FwjYBiWHpkTT4MMNHviQYC+jNs0580imf/
+ zR9jbiJetgHJDCfN2v/KoweonoVTvuMw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+ :from:from:in-reply-to:message-id:mime-version:reply-to:sender
+ :subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=S9+2MFWplu0f54AmUu36RPYDmbTlS
+ VqLmnJd4O0e+o8=; b=HT8xZYljl7xsmwtrS3zG/gMY8EtheipxUmVBahRWmeSNu
+ l5GGHNckk+O7IPxfDAvdcV5N2QM8+dkX6GLI8nGMacaEOKmbIWzIo53q2zOu5iO+
+ VtDFIMVi5T0NoE/21Dh800CGxSsowxuorcWzMhm2fLzqzaGteFqEiiuUZPaoYGiO
+ YsDLTMY9Oq65TiprFnDs5qiY5ZMGKgLfObHN5xqu9YQsRiAaAp8Sopg9Xq9ijYyi
+ C9/+tx73DsV0ocRLhZuskPP+1Yf9dPnExZqGP/FXLgJX7xzi8XwPXsTuQtCUY5eS
+ natX+zIRjgjcufxAzYAShW6JL4A5X8bpD2iyWeQOQ==
+X-ME-Sender: <xms:kwwiYvinpyOq3xFMiVprOSLXD7BRJtiD8XuIiLut-M-I4BJ-OXGaUQ>
+ <xme:kwwiYsBw4f8PjmI-lGKtgf0wn29dUK5cXSSf4cTxB9fAtJYFefL1Wzhuk6-EBB6BQ
+ EzsHZOvo8wlRh64Di8>
+X-ME-Received: <xmr:kwwiYvHZqeZlSalt1IRM3oGaYyMXlsHKP9XXzgnatIehNyaocrBoTYnB5ASIwsR2hYxqtbwqOgI5KZuiNUbavE4mqe42l4IbiI7QLBGgAPW8K76JDETU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddruddtkedggeehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
+ ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
+ ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
+ grmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:kwwiYsS9L_1BGY-9pXUXUDoAZTMrtnGHkoGltOlWhVUfmztNXzae6w>
+ <xmx:kwwiYsyoxdboB74ICo5ToBDYV8FHLVrRRQ8kwbYX3lUlqOweghmetw>
+ <xmx:kwwiYi7Dxgz41fDa8f4N-T60k32ygtUbMpun70oi03bdYGldGz5g_A>
+ <xmx:lAwiYpo9r45mCLZ2YngjqryJJVNIgqPrK4-eKg7Y36t3lQMXUB0tbw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Mar 2022 07:56:50 -0500 (EST)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH v2] ALSA: firewire-lib: fix uninitialized flag for AV/C
  deferred transaction
-In-Reply-To: <20220304110124.68988-1-o-takashi@sakamocchi.jp>
-References: <20220304110124.68988-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+Date: Fri,  4 Mar 2022 21:56:47 +0900
+Message-Id: <20220304125647.78430-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -93,79 +111,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 04 Mar 2022 12:01:24 +0100,
-Takashi Sakamoto wrote:
-> 
-> AV/C deferred transaction was supported at a commit 00a7bb81c20f ("ALSA:
-> firewire-lib: Add support for deferred transaction") while 'deferrable'
-> flag can be uninitialized for non-control/notify AV/C transactions.
-> UBSAN reports it:
-> 
-> kernel: ================================================================================
-> kernel: UBSAN: invalid-load in /build/linux-aa0B4d/linux-5.15.0/sound/firewire/fcp.c:363:9
-> kernel: load of value 158 is not a valid value for type '_Bool'
-> kernel: CPU: 3 PID: 182227 Comm: irq/35-firewire Tainted: P           OE     5.15.0-18-generic #18-Ubuntu
-> kernel: Hardware name: Gigabyte Technology Co., Ltd. AX370-Gaming 5/AX370-Gaming 5, BIOS F42b 08/01/2019
-> kernel: Call Trace:
-> kernel:  <IRQ>
-> kernel:  show_stack+0x52/0x58
-> kernel:  dump_stack_lvl+0x4a/0x5f
-> kernel:  dump_stack+0x10/0x12
-> kernel:  ubsan_epilogue+0x9/0x45
-> kernel:  __ubsan_handle_load_invalid_value.cold+0x44/0x49
-> kernel:  fcp_response.part.0.cold+0x1a/0x2b [snd_firewire_lib]
-> kernel:  fcp_response+0x28/0x30 [snd_firewire_lib]
-> kernel:  fw_core_handle_request+0x230/0x3d0 [firewire_core]
-> kernel:  handle_ar_packet+0x1d9/0x200 [firewire_ohci]
-> kernel:  ? handle_ar_packet+0x1d9/0x200 [firewire_ohci]
-> kernel:  ? transmit_complete_callback+0x9f/0x120 [firewire_core]
-> kernel:  ar_context_tasklet+0xa8/0x2e0 [firewire_ohci]
-> kernel:  tasklet_action_common.constprop.0+0xea/0xf0
-> kernel:  tasklet_action+0x22/0x30
-> kernel:  __do_softirq+0xd9/0x2e3
-> kernel:  ? irq_finalize_oneshot.part.0+0xf0/0xf0
-> kernel:  do_softirq+0x75/0xa0
-> kernel:  </IRQ>
-> kernel:  <TASK>
-> kernel:  __local_bh_enable_ip+0x50/0x60
-> kernel:  irq_forced_thread_fn+0x7e/0x90
-> kernel:  irq_thread+0xba/0x190
-> kernel:  ? irq_thread_fn+0x60/0x60
-> kernel:  kthread+0x11e/0x140
-> kernel:  ? irq_thread_check_affinity+0xf0/0xf0
-> kernel:  ? set_kthread_struct+0x50/0x50
-> kernel:  ret_from_fork+0x22/0x30
-> kernel:  </TASK>
-> kernel: ================================================================================
-> 
-> This commit fixes the bug. The bug has no disadvantage for the non-
-> control/notify AV/C transactions since the flag has an effect for AV/C
-> response with INTERIM (0x0f) status which is not used for the transactions
-> in AV/C general specification.
-> 
-> Fixes: 00a7bb81c20f ("ALSA: firewire-lib: Add support for deferred transaction")
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> ---
->  sound/firewire/fcp.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/sound/firewire/fcp.c b/sound/firewire/fcp.c
-> index bbfbebf4affb..564607e083ca 100644
-> --- a/sound/firewire/fcp.c
-> +++ b/sound/firewire/fcp.c
-> @@ -240,9 +240,7 @@ int fcp_avc_transaction(struct fw_unit *unit,
->  	t.response_match_bytes = response_match_bytes;
->  	t.state = STATE_PENDING;
->  	init_waitqueue_head(&t.wait);
-> -
-> -	if (*(const u8 *)command == 0x00 || *(const u8 *)command == 0x03)
-> -		t.deferrable = true;
-> +	t.deferrable = !!(*(const u8 *)command == 0x00 || *(const u8 *)command == 0x03);
+AV/C deferred transaction was supported at a commit 00a7bb81c20f ("ALSA:
+firewire-lib: Add support for deferred transaction") while 'deferrable'
+flag can be uninitialized for non-control/notify AV/C transactions.
+UBSAN reports it:
 
-The "!!" is superfluous as the comparison results are already
-boolean.
+kernel: ================================================================================
+kernel: UBSAN: invalid-load in /build/linux-aa0B4d/linux-5.15.0/sound/firewire/fcp.c:363:9
+kernel: load of value 158 is not a valid value for type '_Bool'
+kernel: CPU: 3 PID: 182227 Comm: irq/35-firewire Tainted: P           OE     5.15.0-18-generic #18-Ubuntu
+kernel: Hardware name: Gigabyte Technology Co., Ltd. AX370-Gaming 5/AX370-Gaming 5, BIOS F42b 08/01/2019
+kernel: Call Trace:
+kernel:  <IRQ>
+kernel:  show_stack+0x52/0x58
+kernel:  dump_stack_lvl+0x4a/0x5f
+kernel:  dump_stack+0x10/0x12
+kernel:  ubsan_epilogue+0x9/0x45
+kernel:  __ubsan_handle_load_invalid_value.cold+0x44/0x49
+kernel:  fcp_response.part.0.cold+0x1a/0x2b [snd_firewire_lib]
+kernel:  fcp_response+0x28/0x30 [snd_firewire_lib]
+kernel:  fw_core_handle_request+0x230/0x3d0 [firewire_core]
+kernel:  handle_ar_packet+0x1d9/0x200 [firewire_ohci]
+kernel:  ? handle_ar_packet+0x1d9/0x200 [firewire_ohci]
+kernel:  ? transmit_complete_callback+0x9f/0x120 [firewire_core]
+kernel:  ar_context_tasklet+0xa8/0x2e0 [firewire_ohci]
+kernel:  tasklet_action_common.constprop.0+0xea/0xf0
+kernel:  tasklet_action+0x22/0x30
+kernel:  __do_softirq+0xd9/0x2e3
+kernel:  ? irq_finalize_oneshot.part.0+0xf0/0xf0
+kernel:  do_softirq+0x75/0xa0
+kernel:  </IRQ>
+kernel:  <TASK>
+kernel:  __local_bh_enable_ip+0x50/0x60
+kernel:  irq_forced_thread_fn+0x7e/0x90
+kernel:  irq_thread+0xba/0x190
+kernel:  ? irq_thread_fn+0x60/0x60
+kernel:  kthread+0x11e/0x140
+kernel:  ? irq_thread_check_affinity+0xf0/0xf0
+kernel:  ? set_kthread_struct+0x50/0x50
+kernel:  ret_from_fork+0x22/0x30
+kernel:  </TASK>
+kernel: ================================================================================
 
+This commit fixes the bug. The bug has no disadvantage for the non-
+control/notify AV/C transactions since the flag has an effect for AV/C
+response with INTERIM (0x0f) status which is not used for the transactions
+in AV/C general specification.
 
-thanks,
+Fixes: 00a7bb81c20f ("ALSA: firewire-lib: Add support for deferred transaction")
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/fcp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Takashi
+diff --git a/sound/firewire/fcp.c b/sound/firewire/fcp.c
+index bbfbebf4affb..df44dd5dc4b2 100644
+--- a/sound/firewire/fcp.c
++++ b/sound/firewire/fcp.c
+@@ -240,9 +240,7 @@ int fcp_avc_transaction(struct fw_unit *unit,
+ 	t.response_match_bytes = response_match_bytes;
+ 	t.state = STATE_PENDING;
+ 	init_waitqueue_head(&t.wait);
+-
+-	if (*(const u8 *)command == 0x00 || *(const u8 *)command == 0x03)
+-		t.deferrable = true;
++	t.deferrable = (*(const u8 *)command == 0x00 || *(const u8 *)command == 0x03);
+ 
+ 	spin_lock_irq(&transactions_lock);
+ 	list_add_tail(&t.list, &transactions);
+-- 
+2.34.1
+

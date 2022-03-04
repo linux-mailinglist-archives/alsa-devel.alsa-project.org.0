@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA8C94CD90D
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 17:24:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A76E54CD912
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 17:26:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8884D1B45;
-	Fri,  4 Mar 2022 17:23:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8884D1B45
+	by alsa0.perex.cz (Postfix) with ESMTPS id 380941DF9;
+	Fri,  4 Mar 2022 17:25:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 380941DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646411085;
-	bh=xQRaFe0QgjjH/oFRVt6rl/YcevCZNJMqzSWaICq1rTw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646411166;
+	bh=WPkbSFt3CyvrYqwGSTEjU2KzSN2tg65j/y4CA9bfHUI=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XSaHP3BWz9nrK2p7WfabTnN8lOSzkwJ8yUkmt0kPMZoHiLyOml8m64yaDIiT9speD
-	 fFNMYDmzjvwhkKOxbnFN/hcTxx3mtfwHwATXOef4cFV6TrwyGjUGHgMk3LkKmFL7J5
-	 0gElTH6uVj7cLRbcHgcCpVC+Rbx4Q9oaQU2GF124=
+	b=eaSMIjwtPffDHr0/7516DOIh5JMY1luIDnD4ytAlIeHtvtaxSqHAJJcKCZOTjzrve
+	 eLuFM9skesyme47CoAmfnhCugovsFa+YspttxES45VQKoJicroP4GuTYX9qRKd3ot8
+	 o2pfptlh/t++MhReUR6DQdfgKOe7W0UkmBK/1AeE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18DD4F800F0;
-	Fri,  4 Mar 2022 17:23:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA90BF801F5;
+	Fri,  4 Mar 2022 17:24:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B62DF801EC; Fri,  4 Mar 2022 17:23:36 +0100 (CET)
+ id AA9C4F801EC; Fri,  4 Mar 2022 17:24:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2893EF800F2
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 17:23:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2893EF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16989F800F0
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 17:24:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16989F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="jfx1wbe0"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="onoG9MRx"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id B3FB121124;
- Fri,  4 Mar 2022 16:23:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646411009; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5/hNJOqDfBSZwXE0K1TFXxWpcydZiYIJ7gXWElhDr3o=;
- b=jfx1wbe0HvfxWOIA/0UPqaT3XbamqGaFW83JuMQlG+an6wmPGVCxwFPqIizSymxIVebmk2
- U8VoDKaNXZj1UBjJ60UQul5TjbasE9dWhogsVPGEiO6RizXVpN7t1CVoRBWEl6nkEa1igH
- aKp7HrOuAMxdGQtdi+1bjQenrPnHqYo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646411009;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5/hNJOqDfBSZwXE0K1TFXxWpcydZiYIJ7gXWElhDr3o=;
- b=onoG9MRxYjf/uHijsGVES+r0SrjgViiV7qQYZgho8fjpuPl3IJ+qlqqTlPhZnWkxkV+Uun
- EQz2YOnNxmtJigBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id AE18AA3B84;
- Fri,  4 Mar 2022 16:23:29 +0000 (UTC)
-Date: Fri, 04 Mar 2022 17:23:29 +0100
-Message-ID: <s5hy21pr8ji.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH v2] ALSA: firewire-lib: fix uninitialized flag for AV/C
- deferred transaction
-In-Reply-To: <20220304125647.78430-1-o-takashi@sakamocchi.jp>
-References: <20220304125647.78430-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="mHV3Q8Js"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646411090; x=1677947090;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=WPkbSFt3CyvrYqwGSTEjU2KzSN2tg65j/y4CA9bfHUI=;
+ b=mHV3Q8JsRg0U/mVX4qyc9SZe3Qd5VUiuFDjmghGi3hT3rSBLk914RDci
+ rhhRYPFCQSRzjeIhQXU5fJK+RlkKo8h79lMaAmHKOab5+RCHK045c1z7j
+ 7k6ji/jSWKziT6HYDph8eGMd2budCYdmQz4fA+LY3lQ3igZE25WIIwGji
+ 5+TcF8hfdj/tPc7/JT8YNjisMk3lU0XFobxVwIYGF9JNuTU5Bq+/nAiYh
+ UnK0lrrCrbAitZtRrsOyXvunSHZhvdK8sS0s68kPsA3oaRRIcASRhPcVj
+ Z1LB0AvaNsBFXU5c1sHJur9iXQn2sGjQXDg5cuPOK0i2HKLpQtKMdSKJa A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="241430547"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="241430547"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2022 08:24:46 -0800
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="552275611"
+Received: from srstocke-mobl.amr.corp.intel.com ([10.251.130.3])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2022 08:24:45 -0800
+Message-ID: <9133f43515f17e3467594d344db73ea6f6f5ec9f.camel@linux.intel.com>
+Subject: Re: [PATCH v3 08/17] ASoC: Intel: avs: Add power management requests
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
+Date: Fri, 04 Mar 2022 08:24:45 -0800
+In-Reply-To: <20220304145755.2844173-9-cezary.rojewski@intel.com>
+References: <20220304145755.2844173-1-cezary.rojewski@intel.com>
+ <20220304145755.2844173-9-cezary.rojewski@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.3-0ubuntu1 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,60 +92,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 04 Mar 2022 13:56:47 +0100,
-Takashi Sakamoto wrote:
+On Fri, 2022-03-04 at 15:57 +0100, Cezary Rojewski wrote:
+> Audio DSP supports low power states i.e.: transitions between D0 and
+> D3
+> and D0-substates in form of D0i0 and D0i3. That process is a
+> combination
+> of core and IPC operations. Here, Dx and D0ix IPC handlers are added.
 > 
-> AV/C deferred transaction was supported at a commit 00a7bb81c20f ("ALSA:
-> firewire-lib: Add support for deferred transaction") while 'deferrable'
-> flag can be uninitialized for non-control/notify AV/C transactions.
-> UBSAN reports it:
+> Signed-off-by: Amadeusz Sławiński <
+> amadeuszx.slawinski@linux.intel.com>
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  sound/soc/intel/avs/messages.c | 44
+> ++++++++++++++++++++++++++++++++++
+>  sound/soc/intel/avs/messages.h | 15 ++++++++++++
+>  2 files changed, 59 insertions(+)
 > 
-> kernel: ================================================================================
-> kernel: UBSAN: invalid-load in /build/linux-aa0B4d/linux-5.15.0/sound/firewire/fcp.c:363:9
-> kernel: load of value 158 is not a valid value for type '_Bool'
-> kernel: CPU: 3 PID: 182227 Comm: irq/35-firewire Tainted: P           OE     5.15.0-18-generic #18-Ubuntu
-> kernel: Hardware name: Gigabyte Technology Co., Ltd. AX370-Gaming 5/AX370-Gaming 5, BIOS F42b 08/01/2019
-> kernel: Call Trace:
-> kernel:  <IRQ>
-> kernel:  show_stack+0x52/0x58
-> kernel:  dump_stack_lvl+0x4a/0x5f
-> kernel:  dump_stack+0x10/0x12
-> kernel:  ubsan_epilogue+0x9/0x45
-> kernel:  __ubsan_handle_load_invalid_value.cold+0x44/0x49
-> kernel:  fcp_response.part.0.cold+0x1a/0x2b [snd_firewire_lib]
-> kernel:  fcp_response+0x28/0x30 [snd_firewire_lib]
-> kernel:  fw_core_handle_request+0x230/0x3d0 [firewire_core]
-> kernel:  handle_ar_packet+0x1d9/0x200 [firewire_ohci]
-> kernel:  ? handle_ar_packet+0x1d9/0x200 [firewire_ohci]
-> kernel:  ? transmit_complete_callback+0x9f/0x120 [firewire_core]
-> kernel:  ar_context_tasklet+0xa8/0x2e0 [firewire_ohci]
-> kernel:  tasklet_action_common.constprop.0+0xea/0xf0
-> kernel:  tasklet_action+0x22/0x30
-> kernel:  __do_softirq+0xd9/0x2e3
-> kernel:  ? irq_finalize_oneshot.part.0+0xf0/0xf0
-> kernel:  do_softirq+0x75/0xa0
-> kernel:  </IRQ>
-> kernel:  <TASK>
-> kernel:  __local_bh_enable_ip+0x50/0x60
-> kernel:  irq_forced_thread_fn+0x7e/0x90
-> kernel:  irq_thread+0xba/0x190
-> kernel:  ? irq_thread_fn+0x60/0x60
-> kernel:  kthread+0x11e/0x140
-> kernel:  ? irq_thread_check_affinity+0xf0/0xf0
-> kernel:  ? set_kthread_struct+0x50/0x50
-> kernel:  ret_from_fork+0x22/0x30
-> kernel:  </TASK>
-> kernel: ================================================================================
-> 
-> This commit fixes the bug. The bug has no disadvantage for the non-
-> control/notify AV/C transactions since the flag has an effect for AV/C
-> response with INTERIM (0x0f) status which is not used for the transactions
-> in AV/C general specification.
-> 
-> Fixes: 00a7bb81c20f ("ALSA: firewire-lib: Add support for deferred transaction")
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> diff --git a/sound/soc/intel/avs/messages.c
+> b/sound/soc/intel/avs/messages.c
+> index 613c9452226d..e8f441b28d71 100644
+> --- a/sound/soc/intel/avs/messages.c
+> +++ b/sound/soc/intel/avs/messages.c
+> @@ -401,3 +401,47 @@ int avs_ipc_get_large_config(struct avs_dev
+> *adev, u16 module_id, u8 instance_id
+>  
+>  	return 0;
+>  }
+> +
+> +int avs_ipc_set_dx(struct avs_dev *adev, u32 core_mask, bool
+> powerup)
+a description for this function would be helpful.
+> +{
+> +	union avs_module_msg msg = AVS_MODULE_REQUEST(SET_DX);
+> +	struct avs_ipc_msg request;
+> +	struct avs_dxstate_info dx;
+> +	int ret;
+> +
+> +	dx.core_mask = core_mask;
+> +	dx.dx_mask = powerup ? core_mask : 0;
+> +	request.header = msg.val;
+> +	request.data = &dx;
+> +	request.size = sizeof(dx);
+> +
+> +	ret = avs_dsp_send_msg(adev, &request, NULL);
+> +	if (ret)
+> +		avs_ipc_err(adev, &request, "set dx", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +/*
+> + * avs_ipc_set_d0ix - Set power gating policy (entering D0IX
+> substates)
+> + *
+> + * @enable_pg: Whether to enable or disable power gating
+> + * @streaming: Whether a stream is running when transitioning
+> + */
+What do you mean why "whether a stream is running" does it mean any
+stream? What is the difference between a D0ix transition with a stream
+running compared to not running?
+Thanks,Ranjani
 
-Thanks, applied.
-
-
-Takashi

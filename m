@@ -2,66 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 314DC4CCDB4
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 07:29:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDAA74CCF16
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 08:32:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DB4D185A;
-	Fri,  4 Mar 2022 07:28:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DB4D185A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A14118B2;
+	Fri,  4 Mar 2022 08:32:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A14118B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646375376;
-	bh=xTWQicnytAj3CzkL4it1W+1H31MuVsFjGdGiLwXqjMU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=covWGzL1GSNwaL7tuVxk06kgpTdSaJuZC16aH9BYJ08szPmMmnMjUM47mFknYO/TA
-	 9fX0+nn++1x09JYt1RucaSNZG+ylZ9c/EJnawxl+xbUjJc28HJB9HMOxASgWLHJkpg
-	 qScPICe3+Tw6M3I52T9Q7lFYqLehtc7W8OFDy0O4=
+	s=default; t=1646379171;
+	bh=fpNP7k3LdP5YaXaBSUcjZ5GsJ5QqcW8nCOoaUoU1z7w=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TlRHc17RTNGJIzXt4GrlmWqyKHcsvqSJEveX0/rzEMv0w6eVTZ4MAefuxng2//rXe
+	 bNFwq2qMoQ0rBu8Cbnv0rGIOCSE0TqwAieFFpj6V0uG4nsvTPh2gqMy6PhNp12TI1X
+	 LE7P1M6BR9XFJ+Yus+M63KAOPTTg6megGjW5X34A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14607F801F5;
-	Fri,  4 Mar 2022 07:28:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F14DF801F5;
+	Fri,  4 Mar 2022 08:31:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 939F6F801EC; Fri,  4 Mar 2022 07:28:23 +0100 (CET)
+ id EADB7F800F2; Fri,  4 Mar 2022 08:31:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpbg506.qq.com (smtpbg506.qq.com [203.205.250.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F06E9F800F0
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 07:28:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F06E9F800F0
-X-QQ-mid: bizesmtp88t1646375284t6hkac1h
-Received: from localhost.localdomain ( [58.240.82.166])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 04 Mar 2022 14:28:00 +0800 (CST)
-X-QQ-SSF: 0140000000200060D000B00A0000000
-X-QQ-FEAT: ec8fk5hwdl7lFPnUj7yMxNNeEAsAECkd2tcce7oPDG2vXjcuuzYCmoQ8NWjmh
- EYRKQymFqS7+cnFjnOg3PUYObVMpPmFRnthu6ZVJ0WJQF5BA/1tfbAVDobHUa7pkB3zwLMx
- y5rII46OjZcVRx1ul4/nwRH3lWmAxNBg7fYoZunvvQ5l126mEknGP6JyMfHPX9CN9YN8Uk7
- UAi7UnzsjyXZ8CzcFMg1AZ6+4FHyeySvQqntH42nANjb9tYW6PDcEse6DdUORn8MNQ/rbaj
- Sia7cE0qQ4rJWMcYcrZh/neiHL9Jb3yziwgV2R4FbNt3nbimZgUnzLoJxdEEv4HYxv5mwcS
- +wzNDMy+fQ4H/2j5cMShzBQjsGhYw==
-X-QQ-GoodBg: 2
-From: Zhen Ni <nizhen@uniontech.com>
-To: oder_chiou@realtek.com,
-	broonie@kernel.org,
-	tiwai@suse.com
-Subject: [PATCH] ASoC: rt5665: Don't block workqueue if card is unbound
-Date: Fri,  4 Mar 2022 14:27:58 +0800
-Message-Id: <20220304062758.9701-1-nizhen@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE72FF800F2
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 08:31:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE72FF800F2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="Zyk9Sltx"
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 0A90E3F5FB
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 07:31:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1646379092;
+ bh=znesbVorVsm63iCSSQmBPsZdwQn81pwm1UwoEW27Z4s=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=Zyk9SltxFPRFG8PTfyNHHH2W7EMJBbcAlbxw0HEhMNndN/414D31h8qOCHjJvIgro
+ 2avSunDNuTPbWVOVZOSoTH8iP5V8YEIMu44BxcbFbSXc66IS69Ua090Pv4UCzOsMdg
+ Mg3nf3fB8GCk+FU2+5LPpM5BuHacHBPO6OKO915j6jHOdNpES9fpn172A2O/4RPMu7
+ DhvYK4sL67H9d2CU/bV0c4OGS7wVKGivDHHd849SX2PnwBBgo2WFlPCIEISLHIOGOu
+ DalFhPDlVMrOms1zEE93KuBi2otyjIABpwUBPQzULECKuWxoMKtm1BF8l34f339UAB
+ 8mISGJp8yHSNQ==
+Received: by mail-ej1-f69.google.com with SMTP id
+ le4-20020a170907170400b006dab546bc40so751691ejc.15
+ for <alsa-devel@alsa-project.org>; Thu, 03 Mar 2022 23:31:32 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=znesbVorVsm63iCSSQmBPsZdwQn81pwm1UwoEW27Z4s=;
+ b=MvorLaYI5d9RvUG4gSKNSB4QCHf0X4rkthcp2e0vz8Bb+X1OzFsQ2uP5v8gJ/CRyqR
+ 9nZ5doEtN1KwjE3EH7R4vUwXGzH5kY3MnibqIqB9Poz0F6egNVqgY8UBhnlVnTMl7ltr
+ zxQDQTN5suWdagwBdDOg1D52Wyff3Cz9NtvV80hTr75iuEQJTDS8QZmv5H30A/0pr2el
+ qiyae/YHiGzoZCZv4siHcAdNTCylvdGfFw23yKDMZbc5DR3Q/UfhwoN9kA663WGGZ/aW
+ ZDfgTzxZZf5rdAwt3+sGy0+yxnQoZ+fA/ACTiqPsc8Y1rwxloywEjmTusFN7iS5LYnj3
+ dJnQ==
+X-Gm-Message-State: AOAM532ql6Z6mw9Ng8d8nRc/ny7e65HWXkBSpLq+ustCLn1LjL1jXUBQ
+ F/ONmNyUTcGIKv8MouOPjqP4flNjmfOX6ETPxJdcX/FK18nqOnwnB4vNGizXwl/YnaDseneJsNX
+ wrcxxoxfiJKd+xFUVUWE49o/0m86m3//3tj2BI1v/
+X-Received: by 2002:a17:907:c0c:b0:6d1:8c46:6415 with SMTP id
+ ga12-20020a1709070c0c00b006d18c466415mr30485463ejc.326.1646379090644; 
+ Thu, 03 Mar 2022 23:31:30 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxGxs7X16ZzeLCZ/AHvyM0eIiEfVTT/3+RbXNFeYwjEzaLA6uLgNdT/DxKdJK+w4/ntCeI8hg==
+X-Received: by 2002:a17:907:c0c:b0:6d1:8c46:6415 with SMTP id
+ ga12-20020a1709070c0c00b006d18c466415mr30485439ejc.326.1646379090348; 
+ Thu, 03 Mar 2022 23:31:30 -0800 (PST)
+Received: from [192.168.0.138] (xdsl-188-155-181-108.adslplus.ch.
+ [188.155.181.108]) by smtp.gmail.com with ESMTPSA id
+ t7-20020a1709063e4700b006da6357b1c0sm1445738eji.196.2022.03.03.23.31.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Mar 2022 23:31:29 -0800 (PST)
+Message-ID: <53fbfcde-0f5e-8ea2-4bca-c7a414f96c57@canonical.com>
+Date: Fri, 4 Mar 2022 08:31:28 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v3] dt-bindings: mfd: Fix pinctrl node name warnings
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>, Lee Jones <lee.jones@linaro.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Linus Walleij <linus.walleij@linaro.org>, - <patches@opensource.cirrus.com>
+References: <20220303232350.2591143-1-robh@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+In-Reply-To: <20220303232350.2591143-1-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
-X-QQ-Bgrelay: 1
-Cc: Zhen Ni <nizhen@uniontech.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,59 +123,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The current rt5665_jack_detect_handler() assumes the component
-and card will always show up and implements an infinite usleep
-loop waiting for them to show up.
+On 04/03/2022 00:23, Rob Herring wrote:
+> The recent addition pinctrl.yaml in commit c09acbc499e8 ("dt-bindings:
+> pinctrl: use pinctrl.yaml") resulted in some node name warnings:
+> 
+> Documentation/devicetree/bindings/mfd/cirrus,lochnagar.example.dt.yaml: \
+>  lochnagar-pinctrl: $nodename:0: 'lochnagar-pinctrl' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
+> Documentation/devicetree/bindings/mfd/cirrus,madera.example.dt.yaml: \
+>  codec@1a: $nodename:0: 'codec@1a' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
+> Documentation/devicetree/bindings/mfd/brcm,cru.example.dt.yaml: \
+>  pin-controller@1c0: $nodename:0: 'pin-controller@1c0' does not match '^(pinctrl|pinmux)(@[0-9a-f]+)?$'
+> 
+> Fix the node names to the preferred 'pinctrl'. For cirrus,madera,
+> nothing from pinctrl.yaml schema is used, so just drop the reference.
+> 
+> Fixes: c09acbc499e8 ("dt-bindings: pinctrl: use pinctrl.yaml")
+> Cc: Rafał Miłecki <rafal@milecki.pl>
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+> v2:
+>  - Fix lochnagar-pinctrl nodename in example
+> v3:
+>  - And fix lochnagar-pinctrl nodename in 'required'. Sigh...
+> ---
+>  Documentation/devicetree/bindings/mfd/brcm,cru.yaml         | 4 ++--
+>  Documentation/devicetree/bindings/mfd/cirrus,lochnagar.yaml | 6 +++---
+>  .../devicetree/bindings/pinctrl/cirrus,madera.yaml          | 3 ---
+>  3 files changed, 5 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/brcm,cru.yaml b/Documentation/devicetree/bindings/mfd/brcm,cru.yaml
+> index be4a2df71c25..b85819fbb07c 100644
+> --- a/Documentation/devicetree/bindings/mfd/brcm,cru.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/brcm,cru.yaml
+> @@ -39,7 +39,7 @@ patternProperties:
+>    '^phy@[a-f0-9]+$':
+>      $ref: ../phy/bcm-ns-usb2-phy.yaml
+>  
+> -  '^pin-controller@[a-f0-9]+$':
+> +  '^pinctrl@[a-f0-9]+$':
+>      $ref: ../pinctrl/brcm,ns-pinmux.yaml
+>  
+>    '^syscon@[a-f0-9]+$':
+> @@ -94,7 +94,7 @@ examples:
+>              reg = <0x180 0x4>;
+>          };
+>  
+> -        pin-controller@1c0 {
+> +        pinctrl@1c0 {
 
-This does not hold true if a codec interrupt (or other
-event) occurs when the card is unbound. The codec driver's
-remove  or shutdown functions cannot cancel the workqueue due
-to the wait loop. As a result, code can either end up blocking
-the workqueue, or hit a kernel oops when the card is freed.
+DTS also need such change.
 
-Fix the issue by rescheduling the jack detect handler in
-case the card is not ready. In case card never shows up,
-the shutdown/remove/suspend calls can now cancel the detect
-task.
-
-Signed-off-by: Zhen Ni <nizhen@uniontech.com>
----
- sound/soc/codecs/rt5665.c | 20 +++++++-------------
- 1 file changed, 7 insertions(+), 13 deletions(-)
-
-diff --git a/sound/soc/codecs/rt5665.c b/sound/soc/codecs/rt5665.c
-index 33e889802ff8..cdfd7085df2a 100644
---- a/sound/soc/codecs/rt5665.c
-+++ b/sound/soc/codecs/rt5665.c
-@@ -1293,19 +1293,13 @@ static void rt5665_jack_detect_handler(struct work_struct *work)
- 		container_of(work, struct rt5665_priv, jack_detect_work.work);
- 	int val, btn_type;
- 
--	while (!rt5665->component) {
--		pr_debug("%s codec = null\n", __func__);
--		usleep_range(10000, 15000);
--	}
--
--	while (!rt5665->component->card->instantiated) {
--		pr_debug("%s\n", __func__);
--		usleep_range(10000, 15000);
--	}
--
--	while (!rt5665->calibration_done) {
--		pr_debug("%s calibration not ready\n", __func__);
--		usleep_range(10000, 15000);
-+	if (!rt5665->component || !rt5665->component->card->instantiated ||
-+			!rt5665->calibration_done) {
-+		pr_debug("%s card not yet ready\n", __func__);
-+		/* try later */
-+		mod_delayed_work(system_power_efficient_wq,
-+				&rt5665->jack_detect_work, msecs_to_jiffies(15));
-+		return;
- 	}
- 
- 	mutex_lock(&rt5665->calibrate_mutex);
--- 
-2.20.1
-
-
-
+Best regards,
+Krzysztof

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 002D04CDEF1
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 22:00:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A76754CDF01
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 22:00:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 964911F6B;
-	Fri,  4 Mar 2022 21:59:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 964911F6B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A9391F8F;
+	Fri,  4 Mar 2022 21:59:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A9391F8F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646427626;
-	bh=NL+cAusQIcG3vgSYbLPekRpXmWyOfn4IygYUiusEByw=;
+	s=default; t=1646427648;
+	bh=2JK0mNcu7PUPAwarOyY/Z+yeDnC1ZKF9pTQ519uiz7g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cWVYDG34gK4lkEanxAYtktQ83qn5RrtMfYatafJ7S5Fs6sFqU7Ct62NAKhL9oJ68P
-	 7kNDvZ4l8bg2ubY5gULBy/jt2xQW7LvUqtQHKiwQ0JT6S1Jf8MbVIXX2sth0aC1JVe
-	 iIkH6DfcTpDvXNOeMdUJ2R+njmrj5Kn10c2Gas1I=
+	b=Q7DCM1tBYuOQaefbDYohbLEv4qIyHddbUQN9924dbUtvl6WVfPk9tcE1mPs+8WJPk
+	 pdUOiBORfiiGJzafAZRNwUs1r7z1zG5EfXBKyVd+AYfg/VnJ0dIKxiBcRXOYdbb7ec
+	 uSqB0ZUV+pIRLDPh+GPEB3G8uUce4hj/4ZurVVQQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22ED0F8051E;
-	Fri,  4 Mar 2022 21:57:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A389DF80517;
+	Fri,  4 Mar 2022 21:57:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA255F8051E; Fri,  4 Mar 2022 21:57:54 +0100 (CET)
+ id 92AA4F80139; Fri,  4 Mar 2022 21:57:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,48 +34,49 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2965CF80311
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 21:57:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2965CF80311
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60492F80519
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 21:57:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60492F80519
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="QkQofnAX"
+ header.b="lTkIQbVw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646427470; x=1677963470;
+ t=1646427472; x=1677963472;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NL+cAusQIcG3vgSYbLPekRpXmWyOfn4IygYUiusEByw=;
- b=QkQofnAXQeUAfmLiMs6QuvmFn50YQk2XXK0PG/pRxybAEtSutMEFToXB
- wDfC3kNWyu/+8Kda0q9d4cheyUCIASK0e0U6IiJ7qffoBFokpuGG6ybpO
- wY5pDt649aZHBeeOK0fAfBbZ3KO4t/i2lfLcHrpvDtEcDarUYiI8wqs6A
- 2N6J1yy+lyXwUumM9CwmxRthQF0I7Uh2XJmi/qmovtZN2w4uRFN2HflNt
- atGtGgh665kZ+UDsTG7k/Tn+KlS7K2hQk8KS0lc8HkKD52mewn9itKjPl
- 0ZwYiJx2cD5zyvCSDHg+BI3lZs/ay9aA2lsZpSCmiOdvlG2SUapQWfdO3 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="340492553"
-X-IronPort-AV: E=Sophos;i="5.90,156,1643702400"; d="scan'208";a="340492553"
+ bh=2JK0mNcu7PUPAwarOyY/Z+yeDnC1ZKF9pTQ519uiz7g=;
+ b=lTkIQbVwWmHF76NzbBrYbOKboc4En2L5HkfDnQH2b+xvN9Gs3+8/qT47
+ L3HuHNhrtIejDo4NOpFlJL3bWv1hGup1BHRfffLQaN90Qzv4xTJbbxWK5
+ dZOvPEO++8mjqOjNx2KMhMC0e1c4FcQ/yk3i60qhGq0Qc9Av5H0wP8irj
+ gTVTzBm/hcOx5z+y1TOBDoQwphs1an4B7orihiAKuegqztwmaBxHuQKDo
+ HccVePda9Nya6sM1877wfU68GRAmZlhJyo/g43KNKk6kt93woQ9RhIQx8
+ wXq55ri7CTUsuCEamK9BnYT0RSs1/Fc/Ck0teIb88CoHdfS8iBcqsQ+cW w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="340492557"
+X-IronPort-AV: E=Sophos;i="5.90,156,1643702400"; d="scan'208";a="340492557"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 12:57:46 -0800
-X-IronPort-AV: E=Sophos;i="5.90,156,1643702400"; d="scan'208";a="631271294"
+ 04 Mar 2022 12:57:47 -0800
+X-IronPort-AV: E=Sophos;i="5.90,156,1643702400"; d="scan'208";a="631271303"
 Received: from grmundad-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.209.115.48])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 12:57:45 -0800
+ 04 Mar 2022 12:57:47 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 07/10] ASoC: SOF: amd: Increase ACP_HW_SEM_RETRY_COUNT value
-Date: Fri,  4 Mar 2022 14:57:30 -0600
-Message-Id: <20220304205733.62233-8-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 09/10] ASoC: SOF: debug: clarify operator precedence
+Date: Fri,  4 Mar 2022 14:57:32 -0600
+Message-Id: <20220304205733.62233-10-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220304205733.62233-1-pierre-louis.bossart@linux.intel.com>
 References: <20220304205733.62233-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: tiwai@suse.de, broonie@kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,40 +92,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+cppcheck warning:
 
-Host is trying to acquire semaphore lock based on HW_SEM_RETRY_COUNT
-value which is set to 10 by default. So host will loop for 10 times
-trying to acquire lock before giving error msg "Failed to acquire HW
-lock". Though this loop count of 10 is good enough with most of the
-times but we have observed such failure msg in very few cases(~5 %).
-
-Increase ACP_HW_SEM_RETRY_COUNT to avoid such issue and loop for a
-significant time period before throwing error. We're setting newer
-loop count to quite higher value of 10K but it's very unlikely that
-it will loop for this count, since for most of the cases lock will
-get acquired at much lesser loop iterations.
-
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+sound/soc/sof/debug.c:398:46: style: Clarify calculation precedence
+for '&' and '?'. [clarifyCalculation]
+ char *level = flags & SOF_DBG_DUMP_OPTIONAL ? KERN_DEBUG : KERN_ERR;
+                                             ^
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/amd/acp.h | 2 +-
+ sound/soc/sof/debug.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index db1030d36811..f550a5010a91 100644
---- a/sound/soc/sof/amd/acp.h
-+++ b/sound/soc/sof/amd/acp.h
-@@ -17,7 +17,7 @@
+diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+index 145fd0d1e166..7b1139961a99 100644
+--- a/sound/soc/sof/debug.c
++++ b/sound/soc/sof/debug.c
+@@ -395,7 +395,7 @@ static void snd_sof_dbg_print_fw_state(struct snd_sof_dev *sdev, const char *lev
  
- #define ACP_DSP_BAR	0
+ void snd_sof_dsp_dbg_dump(struct snd_sof_dev *sdev, const char *msg, u32 flags)
+ {
+-	char *level = flags & SOF_DBG_DUMP_OPTIONAL ? KERN_DEBUG : KERN_ERR;
++	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
+ 	bool print_all = sof_debug_check_flag(SOF_DBG_PRINT_ALL_DUMPS);
  
--#define ACP_HW_SEM_RETRY_COUNT			10
-+#define ACP_HW_SEM_RETRY_COUNT			10000
- #define ACP_REG_POLL_INTERVAL                   500
- #define ACP_REG_POLL_TIMEOUT_US                 2000
- #define ACP_DMA_COMPLETE_TIMEOUT_US		5000
+ 	if (flags & SOF_DBG_DUMP_OPTIONAL && !print_all)
 -- 
 2.30.2
 

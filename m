@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AF694CD76B
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 16:13:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 950C94CD7AD
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 16:23:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6C5B1F3B;
-	Fri,  4 Mar 2022 16:12:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6C5B1F3B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A4E71F3B;
+	Fri,  4 Mar 2022 16:23:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A4E71F3B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646406779;
-	bh=K8nPJdM0BI2KCW++CFL47ChpBYcJVQG9Mg6NMSpEc2w=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646407432;
+	bh=vDbWA01scFSr/zhxDvUqBQPBkoAbmoscgeL1MD/0qp4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p5b0lVm1bjhpRkSAySOKawoBRBQ3/d6dcUaJ27B87TIl+xAgJtdMQ8K+T/zvBqGUI
-	 1/rEjMhlYd5p3U96+m0KaEw+hWUVigJFAZ8eISN1F5SlaPPgXG3yxNgWUXNnhMn7wq
-	 A9gLQpyNuwacOuNptDGWGSOVh5JPcg+EhU2JHdoI=
+	b=cGt+duVp+iqzlvx+Y4ziqP9bcTLtDUqasseTV+s+btwgCJNBJCoqooFsxZO+eW9Cm
+	 PJWIzA1mA9BwKGFIebZiXUe+xZL7a30ykWT3xsYAXi7Re3WVNLwfjNzNGXutjn4Xjm
+	 k7IinyEZc9OC9U53BYxPPXR/WpxGzPqt6boKCvmU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07D75F8057C;
-	Fri,  4 Mar 2022 16:07:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25C08F80311;
+	Fri,  4 Mar 2022 16:22:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B063F8055B; Fri,  4 Mar 2022 16:07:53 +0100 (CET)
+ id 19194F80224; Fri,  4 Mar 2022 16:22:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,58 +35,59 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61DF2F80525
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 16:07:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61DF2F80525
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0125AF800F2
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 16:22:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0125AF800F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="QG1PrPyb"
+ header.b="Kq7vR+Kh"
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2244w2hN013723;
- Fri, 4 Mar 2022 09:07:37 -0600
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2244w2iN013723;
+ Fri, 4 Mar 2022 09:22:29 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=GEv9qT1f52mVGZUhddgvUUHJMJPW1Ae8wHQRQufXyns=;
- b=QG1PrPybqd2HLHukhtNuQxQQ4gELVs/29DrwyxaSGeANw2uasdyvW345dMCHp9HASpS6
- 4erMNh79lXsoJ7qOryhoxXbOEK9dWykgsSLlSW90zqSMMmjw9VenkesOGHn5q5/CV27o
- 37BX8fMGuhOehby8d3YeIsP5yd6L9R0KKQYqm+xLWcrd6iTvy4UsBZM4lJiAcIaWYj4Y
- WJjJ12WTdFG39QzDKvLMMlxlIgdWS5W6VDGTwIlU19/Z2gYltQtYXsKT3lA4Pkjai0c2
- tSK29Ur1YfXXjebxtjq0UyMEawt/km7D5zknSdJmQIuVjxmpK43eYDbfqyAfN7ai63o+ Ew== 
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=zdyEa7Y4Dsr2FafTy8WZl0nDrvZfH+dMGq9ZuvpLGnQ=;
+ b=Kq7vR+KhtGA8dQRLQZ9Ne23lw2Po/DfkMXM9tOJ8Z4dwp7gCwgaMoZciXJLJyq9Uu+Ll
+ f0WpxYdJ+cgZQ1LukhKGZJLs1VI+Forr6P883c+ws+0Fj72ByolDi8iX2q/8jK7EIiPb
+ Tj5yZTCRzno+y9sSIvqCR1TkVGpW36sqXrID9AKyRSbHVnyXl2AqR75LimN9Db7BRvf4
+ pVE8Y/u/JqxTXKgn0rY4uerxlB8ifh7mW75HsNtVKBljx+4KuJ+TMMu9hhVshc1nIP93
+ PAx8EmAibGAto7N5HzLYpaNgH9rt4KyAAueuw3tDLqNx/WdhUgj11dSS4g5Ck/EPBg5Y nw== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ek4j3h414-9
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ek4j3h4nx-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 04 Mar 2022 09:07:35 -0600
+ Fri, 04 Mar 2022 09:22:28 -0600
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 4 Mar
- 2022 15:07:30 +0000
+ 2022 15:22:27 +0000
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Fri, 4 Mar 2022 15:07:30 +0000
-Received: from aryzen.ad.cirrus.com (unknown [198.61.65.198])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A41517C;
- Fri,  4 Mar 2022 15:07:30 +0000 (UTC)
-From: Lucas Tanure <tanureal@opensource.cirrus.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob
- Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 20/20] ASoC: cs35l41: Document CS35l41 External Boost
-Date: Fri, 4 Mar 2022 15:07:21 +0000
-Message-ID: <20220304150721.3802-21-tanureal@opensource.cirrus.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220304150721.3802-1-tanureal@opensource.cirrus.com>
+ Frontend Transport; Fri, 4 Mar 2022 15:22:27 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3B95BB1A;
+ Fri,  4 Mar 2022 15:22:26 +0000 (UTC)
+Date: Fri, 4 Mar 2022 15:22:26 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Lucas Tanure <tanureal@opensource.cirrus.com>
+Subject: Re: [PATCH v2 01/20] ASoC: cs35l41: Fix GPIO2 configuration
+Message-ID: <20220304152226.GE38351@ediswmail.ad.cirrus.com>
 References: <20220304150721.3802-1-tanureal@opensource.cirrus.com>
+ <20220304150721.3802-2-tanureal@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: o8ixPIuU6yT6JzdEqSm8p5Nrifm-qFt3
-X-Proofpoint-ORIG-GUID: o8ixPIuU6yT6JzdEqSm8p5Nrifm-qFt3
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220304150721.3802-2-tanureal@opensource.cirrus.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: 6j_lMiZTNMeNu_XmAeDm7JNCjuNaQLYm
+X-Proofpoint-ORIG-GUID: 6j_lMiZTNMeNu_XmAeDm7JNCjuNaQLYm
 X-Proofpoint-Spam-Reason: safe
-Cc: David Rhodes <drhodes@opensource.cirrus.com>, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
+Cc: David Rhodes <drhodes@opensource.cirrus.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,84 +103,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: David Rhodes <drhodes@opensource.cirrus.com>
+On Fri, Mar 04, 2022 at 03:07:02PM +0000, Lucas Tanure wrote:
+> From: David Rhodes <drhodes@opensource.cirrus.com>
+> 
+> Fix GPIO2 polarity and direction configuration
+> 
+> Fixes: fe1024d50477b ("ASoC: cs35l41: Combine adjacent register writes")
+> Signed-off-by: David Rhodes <drhodes@opensource.cirrus.com>
+> Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
 
-Document external boost feature on CS35L41
+Really sorry I only just spotted this but you are missing your
+own sign off here. You always need to personally sign each patch
+you are sending up.
 
-Signed-off-by: David Rhodes <drhodes@opensource.cirrus.com>
----
- .../bindings/sound/cirrus,cs35l41.yaml        | 44 +++++++++++++++++--
- 1 file changed, 41 insertions(+), 3 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
-index 3235702ce402..2f60776b3e9b 100644
---- a/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
-+++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
-@@ -75,6 +75,19 @@ properties:
-     maximum: 3
-     default: 2
- 
-+  cirrus,boost-type:
-+    description:
-+      Configures the type of Boost being used.
-+      Internal boost requires boost-peak-milliamp, boost-ind-nanohenry and
-+      boost-cap-microfarad.
-+      External Boost must have GPIO1 as GPIO output. GPIO1 will be set high to
-+      enable boost voltage.
-+      0 = Internal Boost
-+      1 = External Boost
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 1
-+
-   cirrus,gpio1-polarity-invert:
-     description:
-       Boolean which specifies whether the GPIO1
-@@ -131,9 +144,32 @@ required:
-   - compatible
-   - reg
-   - "#sound-dai-cells"
--  - cirrus,boost-peak-milliamp
--  - cirrus,boost-ind-nanohenry
--  - cirrus,boost-cap-microfarad
-+
-+allOf:
-+  - if:
-+      properties:
-+        cirrus,boost-type:
-+          contains:
-+            const: 0
-+
-+    then:
-+      required:
-+        - cirrus,boost-peak-milliamp
-+        - cirrus,boost-ind-nanohenry
-+        - cirrus,boost-cap-microfarad
-+
-+  - if:
-+      properties:
-+        cirrus,boost-type:
-+          contains:
-+            const: 1
-+
-+    then:
-+      required:
-+        - cirrus,gpio1-output-enable
-+      properties:
-+        cirrus,gpio1-src-select:
-+          const: 1
- 
- additionalProperties: false
- 
-@@ -150,6 +186,8 @@ examples:
-           VA-supply = <&dummy_vreg>;
-           VP-supply = <&dummy_vreg>;
-           reset-gpios = <&gpio 110 0>;
-+
-+          cirrus,boost-type = <0>;
-           cirrus,boost-peak-milliamp = <4500>;
-           cirrus,boost-ind-nanohenry = <1000>;
-           cirrus,boost-cap-microfarad = <15>;
--- 
-2.35.1
-
+Thanks,
+Charles

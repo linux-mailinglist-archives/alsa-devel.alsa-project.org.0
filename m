@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7415C4CD974
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 17:49:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCDAA4CD98B
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Mar 2022 17:56:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 153CE1F13;
-	Fri,  4 Mar 2022 17:48:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 153CE1F13
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EFB614C;
+	Fri,  4 Mar 2022 17:55:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EFB614C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646412560;
-	bh=YCNLQ3eme71gVy6Ftb97jrI1BX/A1fiORCPLznZg5LU=;
+	s=default; t=1646412976;
+	bh=rSeNYpXu4SslxnYDFSCBcx1acLGtQv6Ggijf/C5OQIE=;
 	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UsYU1rgO54aL8v5ccDUAzeVdonF2MOFn6+1tHls1SK2/xb8uowVIfRYeoB7HjeZuh
-	 iaGVdxAkzHvTk+c9SDTW5MlLrn1WcDW4Z7JvZ0HjChY5JITpSDzLiz8+I7gIKYtk2G
-	 ugprjgxT8D6PztBDv67GLeR9iCmQcFdqNSjjyxXg=
+	b=lJBAiySaDs9O6wQ6BkzBiIkxT30NpndjjPLf8mVkiWRMmWqfV77wHu3NFrOMytQ5P
+	 h543os9JijW1rMz/fTAWSjzUWxHLZTfQUCPrAStqqHfAkprBsaNJsTB2rqRZ61F/U7
+	 BcpjP8px4ZcbWpsbe1J0cnZDfWnnQciXqjnSk0YQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93BAAF801F5;
-	Fri,  4 Mar 2022 17:48:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B900BF800F0;
+	Fri,  4 Mar 2022 17:55:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E952CF800F2; Fri,  4 Mar 2022 17:48:09 +0100 (CET)
+ id CE414F801EC; Fri,  4 Mar 2022 17:55:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6905AF800F2
- for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 17:47:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6905AF800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7F19F800F0
+ for <alsa-devel@alsa-project.org>; Fri,  4 Mar 2022 17:54:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7F19F800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="aUfVMU9h"
+ header.b="nbkbrcgg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646412484; x=1677948484;
+ t=1646412901; x=1677948901;
  h=message-id:subject:from:to:cc:date:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YCNLQ3eme71gVy6Ftb97jrI1BX/A1fiORCPLznZg5LU=;
- b=aUfVMU9hzveb5j7naUhukN545fTQXbXVEPuzmyMmYXmrlZ1vVc/C42bC
- 7eqJ92cFMMIq3k+XVNO9xdlohEUj7IZQ27G1W72clWoMmD/htC+XiYcz8
- Q2FwokI8U3MVFhlHZARuQYDV9R3P4Vwe1hTZGnEkBXZf6UcWxU6IMs7zK
- gTS66GTZbaGdscj58MdU3MnLcFz36LcIxawb2NhR6BSwc6Bd439ZwXRCm
- 9WYeMj5nygXyLBsn5PidY94i/DzHSMNx5EIWn3dH+OWpGQoWaSMScY41A
- T90xHGingOsgjV1NfkJ32jfHmG61d120fhG9ul/mBTQ7pMZwt8TmgZllb Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="253944456"
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="253944456"
+ bh=rSeNYpXu4SslxnYDFSCBcx1acLGtQv6Ggijf/C5OQIE=;
+ b=nbkbrcggu6ExwAXuD+c2R1Nu/KXgHITQBz6oZgnW3KNZbyqgc+DFXP04
+ hal44QN+4coe2j+t486PALcIB3FGzrRnjc8WSL4dQ3pBQsiTFH2SJ9ptc
+ AqSc6oee0dz+4sBUxHmuOAFCO2mbX2Ayl43DgszKp5qgtW7JvZQMmeQty
+ 5hfd7IxZmo2oe/526sEEHDIGTgD2uK58jWOxuF9/t5579mwQUNJAJcoSZ
+ n2cpujqj9aEiiGJ3JLy7khPyjegqG3Rg1dXGi/WwxktxRZiwL1iBhd+8I
+ xdTj/JcP82MtpGqZ7pcnO7//Ul4zjlXJL9CTBVi3LnoQbIHAuYCR4JBo0 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10276"; a="233972941"
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="233972941"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 08:47:43 -0800
-X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="779682564"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2022 08:54:55 -0800
+X-IronPort-AV: E=Sophos;i="5.90,155,1643702400"; d="scan'208";a="779684350"
 Received: from srstocke-mobl.amr.corp.intel.com ([10.251.130.3])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2022 08:47:43 -0800
-Message-ID: <0afcd1f47073d84b2871a4dc2cb12754ff0d1a7e.camel@linux.intel.com>
-Subject: Re: [PATCH v3 13/17] ASoC: Intel: avs: Dynamic firmware resources
- management
+ 04 Mar 2022 08:54:55 -0800
+Message-ID: <0c3e200bd14536534115e2a44fa744a102faa107.camel@linux.intel.com>
+Subject: Re: [PATCH v3 14/17] ASoC: Intel: avs: General code loading flow
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-Date: Fri, 04 Mar 2022 08:47:43 -0800
-In-Reply-To: <20220304145755.2844173-14-cezary.rojewski@intel.com>
+Date: Fri, 04 Mar 2022 08:54:55 -0800
+In-Reply-To: <20220304145755.2844173-15-cezary.rojewski@intel.com>
 References: <20220304145755.2844173-1-cezary.rojewski@intel.com>
- <20220304145755.2844173-14-cezary.rojewski@intel.com>
+ <20220304145755.2844173-15-cezary.rojewski@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 User-Agent: Evolution 3.36.3-0ubuntu1 
 MIME-Version: 1.0
@@ -94,33 +93,456 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Fri, 2022-03-04 at 15:57 +0100, Cezary Rojewski wrote:
-> Wrap elementary DSP-core operations and resource control into more
-> complex handlers. This is done to reduce the number of invocations of
-> wrapped operations throughout the driver as order of operations
-> matters -
-> most flows involve register manipulation and IPCs combined.
+> Code loading is a complex procedure and requires combined effort of
+> DMA
+> and IPCs. With IPCs already in place, lay out ground for specific DMA
+> transfer operations.
 > 
 > Signed-off-by: Amadeusz Sławiński <
 > amadeuszx.slawinski@linux.intel.com>
 > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 > ---
->  sound/soc/intel/avs/avs.h |  10 +++
->  sound/soc/intel/avs/dsp.c | 170
-> ++++++++++++++++++++++++++++++++++++++
->  2 files changed, 180 insertions(+)
+>  sound/soc/intel/avs/Makefile    |   2 +-
+>  sound/soc/intel/avs/avs.h       |  18 +++
+>  sound/soc/intel/avs/core.c      |  62 +++++++++
+>  sound/soc/intel/avs/dsp.c       |  26 ++++
+>  sound/soc/intel/avs/loader.c    | 237
+> ++++++++++++++++++++++++++++++++
+>  sound/soc/intel/avs/registers.h |   6 +
+>  6 files changed, 350 insertions(+), 1 deletion(-)
+>  create mode 100644 sound/soc/intel/avs/core.c
+>  create mode 100644 sound/soc/intel/avs/loader.c
 > 
+> diff --git a/sound/soc/intel/avs/Makefile
+> b/sound/soc/intel/avs/Makefile
+> index d9f92c5f5407..d9c793160612 100644
+> --- a/sound/soc/intel/avs/Makefile
+> +++ b/sound/soc/intel/avs/Makefile
+> @@ -1,5 +1,5 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+>  
+> -snd-soc-avs-objs := dsp.o ipc.o messages.o utils.o
+> +snd-soc-avs-objs := dsp.o ipc.o messages.o utils.o core.o loader.o
+>  
+>  obj-$(CONFIG_SND_SOC_INTEL_AVS) += snd-soc-avs.o
 > diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-> index 02d7591d0eac..0034c075fa64 100644
+> index 0034c075fa64..2527d6170417 100644
 > --- a/sound/soc/intel/avs/avs.h
 > +++ b/sound/soc/intel/avs/avs.h
-> @@ -89,6 +89,7 @@ struct avs_dev {
->  	struct mutex modres_mutex;
+> @@ -10,8 +10,11 @@
+>  #define __SOUND_SOC_INTEL_AVS_H
+>  
+>  #include <linux/device.h>
+> +#include <linux/firmware.h>
+>  #include <sound/hda_codec.h>
+> +#include <sound/hda_register.h>
+>  #include "messages.h"
+> +#include "registers.h"
+>  
+>  struct avs_dev;
+>  
+> @@ -32,6 +35,10 @@ struct avs_dsp_ops {
+>  	irqreturn_t (* const irq_handler)(int, void *);
+>  	irqreturn_t (* const irq_thread)(int, void *);
+>  	void (* const int_control)(struct avs_dev *, bool);
+> +	int (* const load_basefw)(struct avs_dev *, struct firmware *);
+> +	int (* const load_lib)(struct avs_dev *, struct firmware *,
+> u32);
+> +	int (* const transfer_mods)(struct avs_dev *, bool,
+> +				    struct avs_module_entry *, u32);
+>  };
+>  
+>  #define avs_dsp_op(adev, op, ...) \
+> @@ -45,6 +52,7 @@ struct avs_spec {
+>  	const char *name;
+>  
+>  	const struct avs_dsp_ops *const dsp_ops;
+> +	struct avs_fw_version min_fw_version; /* anything below is
+> rejected */
+>  
+>  	const u32 core_init_mask;	/* used during DSP boot */
+>  	const u64 attributes;		/* bitmask of AVS_PLATATTR_*
+> */
+> @@ -90,6 +98,7 @@ struct avs_dev {
 >  	struct ida ppl_ida;
 >  	struct list_head fw_list;
-> +	int *core_refs;
+>  	int *core_refs;
+> +	char **lib_names;
+>  
+>  	struct completion fw_ready;
+>  };
+> @@ -215,4 +224,13 @@ int avs_dsp_create_pipeline(struct avs_dev
+> *adev, u16 req_size, u8 priority,
+>  			    bool lp, u16 attributes, u8 *instance_id);
+>  int avs_dsp_delete_pipeline(struct avs_dev *adev, u8 instance_id);
+>  
+> +/* Firmware loading */
+> +
+> +void avs_hda_clock_gating_enable(struct avs_dev *adev, bool enable);
+> +void avs_hda_power_gating_enable(struct avs_dev *adev, bool enable);
+> +void avs_hda_l1sen_enable(struct avs_dev *adev, bool enable);
+> +
+> +int avs_dsp_boot_firmware(struct avs_dev *adev, bool purge);
+> +int avs_dsp_first_boot_firmware(struct avs_dev *adev);
+> +
+>  #endif /* __SOUND_SOC_INTEL_AVS_H */
+> diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
+> new file mode 100644
+> index 000000000000..117b31ef9cd0
+> --- /dev/null
+> +++ b/sound/soc/intel/avs/core.c
+> @@ -0,0 +1,62 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +//
+> +// Copyright(c) 2021 Intel Corporation. All rights reserved.
+> +//
+> +// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
+> +//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
+> +//
+> +// Special thanks to:
+> +//    Krzysztof Hejmowski <krzysztof.hejmowski@intel.com>
+> +//    Michal Sienkiewicz <michal.sienkiewicz@intel.com>
+> +//    Filip Proborszcz
+> +//
+> +// for sharing Intel AudioDSP expertise and helping shape the very
+> +// foundation of this driver
+> +//
+> +
+> +#include <linux/pci.h>
+> +#include <sound/hdaudio.h>
+> +#include "avs.h"
+> +
+> +static void
+> +avs_hda_update_config_dword(struct hdac_bus *bus, u32 reg, u32 mask,
+> u32 value)
+> +{
+> +	struct pci_dev *pci = to_pci_dev(bus->dev);
+> +	u32 data;
+> +
+> +	pci_read_config_dword(pci, reg, &data);
+> +	data &= ~mask;
+> +	data |= (value & mask);
+> +	pci_write_config_dword(pci, reg, data);
+> +}
+> +
+> +void avs_hda_power_gating_enable(struct avs_dev *adev, bool enable)
+> +{
+> +	u32 value;
+> +
+> +	value = enable ? 0 : AZX_PGCTL_LSRMD_MASK;
+> +	avs_hda_update_config_dword(&adev->base.core, AZX_PCIREG_PGCTL,
+> +				    AZX_PGCTL_LSRMD_MASK, value);
+> +}
+> +
+> +static void avs_hdac_clock_gating_enable(struct hdac_bus *bus, bool
+> enable)
+> +{
+> +	u32 value;
+> +
+> +	value = enable ? AZX_CGCTL_MISCBDCGE_MASK : 0;
+> +	avs_hda_update_config_dword(bus, AZX_PCIREG_CGCTL,
+> +				    AZX_CGCTL_MISCBDCGE_MASK, value);
+> +}
+> +
+> +void avs_hda_clock_gating_enable(struct avs_dev *adev, bool enable)
+> +{
+> +	avs_hdac_clock_gating_enable(&adev->base.core, enable);
+> +}
+> +
+> +void avs_hda_l1sen_enable(struct avs_dev *adev, bool enable)
+> +{
+> +	u32 value;
+> +
+> +	value = enable ? AZX_VS_EM2_L1SEN : 0;
+> +	snd_hdac_chip_updatel(&adev->base.core, VS_EM2,
+> AZX_VS_EM2_L1SEN, value);
+> +}
+> diff --git a/sound/soc/intel/avs/dsp.c b/sound/soc/intel/avs/dsp.c
+> index 5994d64d2468..a434e9918c51 100644
+> --- a/sound/soc/intel/avs/dsp.c
+> +++ b/sound/soc/intel/avs/dsp.c
+> @@ -198,6 +198,7 @@ int avs_dsp_init_module(struct avs_dev *adev, u16
+> module_id, u8 ppl_instance_id,
+>  			u16 *instance_id)
+>  {
+>  	struct avs_module_entry mentry;
+> +	bool was_loaded = false;
+>  	int ret, id;
+>  
+>  	id = avs_module_id_alloc(adev, module_id);
+> @@ -212,6 +213,16 @@ int avs_dsp_init_module(struct avs_dev *adev,
+> u16 module_id, u8 ppl_instance_id,
+>  	if (ret)
+>  		goto err_mod_entry;
+>  
+> +	/* Load code into memory if this is the first instance. */
+> +	if (!id && !avs_module_entry_is_loaded(&mentry)) {
+> +		ret = avs_dsp_op(adev, transfer_mods, true, &mentry,
+> 1);
+> +		if (ret) {
+> +			dev_err(adev->dev, "load modules failed: %d\n",
+> ret);
+> +			goto err_mod_entry;
+> +		}
+> +		was_loaded = true;
+> +	}
+> +
+>  	ret = avs_ipc_init_instance(adev, module_id, id,
+> ppl_instance_id,
+>  				    core_id, domain, param,
+> param_size);
+>  	if (ret) {
+> @@ -223,6 +234,8 @@ int avs_dsp_init_module(struct avs_dev *adev, u16
+> module_id, u8 ppl_instance_id,
+>  	return 0;
+>  
+>  err_ipc:
+> +	if (was_loaded)
+> +		avs_dsp_op(adev, transfer_mods, false, &mentry, 1);
+>  	avs_dsp_put_core(adev, core_id);
+>  err_mod_entry:
+>  	avs_module_id_free(adev, module_id, id);
+> @@ -232,12 +245,25 @@ int avs_dsp_init_module(struct avs_dev *adev,
+> u16 module_id, u8 ppl_instance_id,
+>  void avs_dsp_delete_module(struct avs_dev *adev, u16 module_id, u16
+> instance_id,
+>  			   u8 ppl_instance_id, u8 core_id)
+>  {
+> +	struct avs_module_entry mentry;
+> +	int ret;
+> +
+>  	/* Modules not owned by any pipeline need to be freed
+> explicitly. */
+>  	if (ppl_instance_id == INVALID_PIPELINE_ID)
+>  		avs_ipc_delete_instance(adev, module_id, instance_id);
+>  
+>  	avs_module_id_free(adev, module_id, instance_id);
+>  
+> +	ret = avs_get_module_id_entry(adev, module_id, &mentry);
+> +	/* Unload occupied memory if this was the last instance. */
+> +	if (!ret && mentry.type.load_type ==
+> AVS_MODULE_LOAD_TYPE_LOADABLE) {
+> +		if (avs_is_module_ida_empty(adev, module_id)) {
+> +			ret = avs_dsp_op(adev, transfer_mods, false,
+> &mentry, 1);
+> +			if (ret)
+> +				dev_err(adev->dev, "unload modules
+> failed: %d\n", ret);
+> +		}
+> +	}
+> +
+>  	avs_dsp_put_core(adev, core_id);
+>  }
+>  
+> diff --git a/sound/soc/intel/avs/loader.c
+> b/sound/soc/intel/avs/loader.c
+> new file mode 100644
+> index 000000000000..47e1f9a21e43
+> --- /dev/null
+> +++ b/sound/soc/intel/avs/loader.c
+> @@ -0,0 +1,237 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +//
+> +// Copyright(c) 2021 Intel Corporation. All rights reserved.
+> +//
+> +// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
+> +//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
+> +//
+> +
+> +#include <linux/firmware.h>
+> +#include <linux/module.h>
+> +#include <linux/slab.h>
+> +#include "avs.h"
+> +#include "messages.h"
+> +#include "registers.h"
+> +
+> +#define AVS_FW_INIT_TIMEOUT_MS		3000
+> +
+> +#define AVS_ROOT_DIR			"intel/avs"
+> +#define AVS_BASEFW_FILENAME		"dsp_basefw.bin"
+> +#define AVS_EXT_MANIFEST_MAGIC		0x31454124
+> +#define SKL_MANIFEST_MAGIC		0x00000006
+> +#define SKL_ADSPFW_OFFSET		0x284
+> +
+> +/* Occasionally, engineering (release candidate) firmware is
+> provided for testing. */
+> +static bool debug_ignore_fw_version;
+> +module_param_named(ignore_fw_version, debug_ignore_fw_version, bool,
+> 0444);
+> +MODULE_PARM_DESC(ignore_fw_version, "Verify FW version 0=yes
+> (default), 1=no");
+> +
+> +#define AVS_LIB_NAME_SIZE	8
+> +
+> +struct avs_fw_manifest {
+> +	u32 id;
+> +	u32 len;
+> +	char name[AVS_LIB_NAME_SIZE];
+> +	u32 preload_page_count;
+> +	u32 img_flags;
+> +	u32 feature_mask;
+> +	struct avs_fw_version version;
+> +} __packed;
+> +
+> +struct avs_fw_ext_manifest {
+> +	u32 id;
+> +	u32 len;
+> +	u16 version_major;
+> +	u16 version_minor;
+> +	u32 entries;
+> +} __packed;
+> +
+> +static int avs_fw_ext_manifest_strip(struct firmware *fw)
+> +{
+> +	struct avs_fw_ext_manifest *man;
+> +
+> +	if (fw->size < sizeof(*man))
+> +		return -EINVAL;
+> +
+> +	man = (struct avs_fw_ext_manifest *)fw->data;
+> +	if (man->id == AVS_EXT_MANIFEST_MAGIC) {
+> +		fw->data += man->len;
+> +		fw->size -= man->len;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int avs_fw_manifest_offset(struct firmware *fw)
+> +{
+> +	/* Header type found in first DWORD of fw binary. */
+> +	u32 magic = *(u32 *)fw->data;
+> +
+> +	switch (magic) {
+> +	case SKL_MANIFEST_MAGIC:
+> +		return SKL_ADSPFW_OFFSET;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int avs_fw_manifest_strip_verify(struct avs_dev *adev, struct
+> firmware *fw,
+> +					const struct avs_fw_version
+> *min)
+> +{
+> +	struct avs_fw_manifest *man;
+> +	int offset, ret;
+> +
+> +	ret = avs_fw_ext_manifest_strip(fw);
+> +	if (ret)
+> +		return ret;
+> +
+> +	offset = avs_fw_manifest_offset(fw);
+> +	if (offset < 0)
+> +		return offset;
+> +
+> +	if (fw->size < offset + sizeof(*man))
+> +		return -EINVAL;
+> +	if (!min)
+> +		return 0;
+> +
+> +	man = (struct avs_fw_manifest *)(fw->data + offset);
+> +	if (man->version.major != min->major ||
+> +	    man->version.minor != min->minor ||
+> +	    man->version.hotfix != min->hotfix ||
+> +	    man->version.build < min->build) {
+Isnt this check a bit too strict? Isnt a check major enough?
 
-Is this a per core ref_count? a comment or explicitly calling it
-core_ref_count would help.
-
+> +		dev_warn(adev->dev, "bad FW version %d.%d.%d.%d,
+> expected %d.%d.%d.%d or newer\n",
+> +			 man->version.major, man->version.minor,
+> +			 man->version.hotfix, man->version.build,
+> +			 min->major, min->minor, min->hotfix, min-
+> >build);
+> +
+> +		if (!debug_ignore_fw_version)
+> +			return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int avs_dsp_load_basefw(struct avs_dev *adev)
+> +{
+> +	const struct avs_fw_version *min_req;
+> +	const struct avs_spec *const spec = adev->spec;
+> +	const struct firmware *fw;
+> +	struct firmware stripped_fw;
+> +	char *filename;
+> +	int ret;
+> +
+> +	filename = kasprintf(GFP_KERNEL, "%s/%s/%s", AVS_ROOT_DIR,
+> spec->name,
+> +			     AVS_BASEFW_FILENAME);
+> +	if (!filename)
+> +		return -ENOMEM;
+> +
+> +	ret = avs_request_firmware(adev, &fw, filename);
+> +	kfree(filename);
+> +	if (ret < 0) {
+> +		dev_err(adev->dev, "request firmware failed: %d\n",
+> ret);
+> +		return ret;
+> +	}
+> +
+> +	stripped_fw = *fw;
+> +	min_req = &adev->spec->min_fw_version;
+> +
+> +	ret = avs_fw_manifest_strip_verify(adev, &stripped_fw,
+> min_req);
+> +	if (ret < 0) {
+> +		dev_err(adev->dev, "invalid firmware data: %d\n", ret);
+> +		goto release_fw;
+> +	}
+> +
+> +	ret = avs_dsp_op(adev, load_basefw, &stripped_fw);
+> +	if (ret < 0) {
+> +		dev_err(adev->dev, "basefw load failed: %d\n", ret);
+> +		goto release_fw;
+> +	}
+> +
+> +	ret = wait_for_completion_timeout(&adev->fw_ready,
+> +					  msecs_to_jiffies(AVS_FW_INIT_
+> TIMEOUT_MS));
+> +	if (!ret) {
+> +		dev_err(adev->dev, "firmware ready timeout\n");
+> +		avs_dsp_core_disable(adev, AVS_MAIN_CORE_MASK);
+> +		ret = -ETIMEDOUT;
+> +		goto release_fw;
+> +	}
+> +
+> +	return 0;
+> +
+> +release_fw:
+> +	avs_release_last_firmware(adev);
+> +	return ret;
+> +}
+> +
+> +int avs_dsp_boot_firmware(struct avs_dev *adev, bool purge)
+> +{
+> +	int ret, i;
+> +
+> +	/* Full boot, clear cached data except for basefw (slot 0). */
+Does this mean IMR restore is only available for base FW and not for
+module libraries? Do I understand this correctly?
+> +	for (i = 1; i < adev->fw_cfg.max_libs_count; i++)
+> +		memset(adev->lib_names[i], 0, AVS_LIB_NAME_SIZE);
+> +
+> +	avs_hda_clock_gating_enable(adev, false);
+> +	avs_hda_l1sen_enable(adev, false);
+> +
+> +	ret = avs_dsp_load_basefw(adev);
+> +
+> +	avs_hda_l1sen_enable(adev, true);
+> +	avs_hda_clock_gating_enable(adev, true);
+> +
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* With all code loaded, refresh module information. */
+> +	ret = avs_module_info_init(adev, true);
+It is not clear if this required only after first boot or after a
+suspend/resume as well.
 Thanks,Ranjani
 

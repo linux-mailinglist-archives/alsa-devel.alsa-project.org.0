@@ -2,68 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C62F14CE9FE
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Mar 2022 09:04:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABA3B4CEC11
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Mar 2022 16:22:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 362621743;
-	Sun,  6 Mar 2022 09:03:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 362621743
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F38F1749;
+	Sun,  6 Mar 2022 16:21:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F38F1749
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646553869;
-	bh=ZZ+OtJOuogCOK45CGSAO0Tp44JBnJ9yubwcBDFH8KSs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1646580127;
+	bh=GSdqzw1/RvziA+lOvp3BMqWA5kKlyvwaqxlgHpZDXFA=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cWj1mWXFWXgWFDyudDhhfK59Rfz8+wD0AYmQSMitgKvv2RB3GXgIDwPoVy0Xe1/51
-	 h8pYZEj45HB6FkIb1XYKafOLGU71zMxykPvI7U7U0nyDy6/wesKIE6eFJfTEq+oyT+
-	 1xRnonjPmypvB8hTrNPb75F4ATWx5YivvftSqhsQ=
+	b=qHoQtA2fp+IBnCBLs/NUwiXoSSCmVFYYft4uTrxizcUB2XIu+gWElHU607ZGj7aTA
+	 h/Cj3N5DAOlbycYozYoI1bZFkm9vllOLIxTUvDIG7SALEe1VG708PFpziVnJ1m5iCJ
+	 a9jNSLpFEBDJLecqPecTrGiA6GK0ubQXLPjQwZFM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98BB4F801F5;
-	Sun,  6 Mar 2022 09:03:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 918C7F800E9;
+	Sun,  6 Mar 2022 16:20:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0DC01F80237; Sat,  5 Mar 2022 13:51:34 +0100 (CET)
+ id C3A1BF8014C; Sun,  6 Mar 2022 16:20:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from m.b4.vu (m.b4.vu [203.16.231.148])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BFB4F800E4
- for <alsa-devel@alsa-project.org>; Sat,  5 Mar 2022 13:51:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BFB4F800E4
-X-QQ-mid: bizesmtp90t1646484673tmmsihaa
-Received: from localhost.localdomain ( [114.222.120.105])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Sat, 05 Mar 2022 20:51:08 +0800 (CST)
-X-QQ-SSF: 01400000002000B0I000000A0000000
-X-QQ-FEAT: GiB59JtT4hAixvUU2qMoUK1jxRaTIQvQpwNoHAYOtAikGp4o7FujPsm4KBCi+
- uVQPuReEEfBKYprwtvfCTYJs5343XjPZY3W2QVV+JWWaMPx0guzNqRTPAMYx6Rp58oRc4Qy
- XdgY/PXb+IZhSwYshdtwFPgWq8tfStviCNxVXMLeOI0zc9hzZUt/89SWqZx/GJsbWsHaRvI
- bSK/lbPRwInv6hWY/wfJ6rY9NBPjWTq98g2GWfGbdihVmt1UXD8rDEDnxxSnv6kJI3k+oAh
- LxS/966DoHhRMeTB8/XwlQ0Z7t03Z/473ci74uTPQekaGGSF5HjDJbKaQPDCvv6Jw+KAd8e
- PWXuDcRZER2Ot/R0Fc=
-X-QQ-GoodBg: 1
-From: zhanglianjie <zhanglianjie@uniontech.com>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH] ASoC: intel: use asoc_substream_to_rtd()
-Date: Sat,  5 Mar 2022 20:51:05 +0800
-Message-Id: <20220305125105.142704-1-zhanglianjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 724F7F8014C
+ for <alsa-devel@alsa-project.org>; Sun,  6 Mar 2022 16:20:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 724F7F8014C
+Received: by m.b4.vu (Postfix, from userid 1000)
+ id E56B16135FCC; Mon,  7 Mar 2022 01:50:40 +1030 (ACDT)
+Date: Mon, 7 Mar 2022 01:50:40 +1030
+From: "Geoffrey D. Bennett" <g@b4.vu>
+To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 0/2] ALSA: scarlett2: Add "Standalone" switch
+Message-ID: <cover.1646578164.git.g@b4.vu>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
-X-QQ-Bgrelay: 1
-X-Mailman-Approved-At: Sun, 06 Mar 2022 09:03:19 +0100
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, zhanglianjie <zhanglianjie@uniontech.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Hin-Tak Leung <htl10@users.sourceforge.net>,
+ Vladimir Sadovnikov <sadko4u@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,44 +63,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now we can use asoc_substream_to_rtd() macro,
-let's use it.
+Hi Takashi,
 
-Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
+I discovered an internal "standalone" switch on all the Scarlett Gen
+2/3 interfaces with internal mixers. After enabling this switch, the
+interface will act as a standalone mixer (according to its previous
+configuration) when not connected to a USB host. The interfaces come
+from the factory with the switch off, and the vendor driver enables it
+without question. This patch adds a new ALSA control to set the switch
+on or off.
 
-diff --git a/sound/soc/intel/catpt/pcm.c b/sound/soc/intel/catpt/pcm.c
-index 939a9b801dec..a26000cd5ceb 100644
---- a/sound/soc/intel/catpt/pcm.c
-+++ b/sound/soc/intel/catpt/pcm.c
-@@ -74,7 +74,7 @@ static struct catpt_stream_template *catpt_topology[] = {
- static struct catpt_stream_template *
- catpt_get_stream_template(struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtm = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtm = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtm, 0);
- 	enum catpt_stream_type type;
+This is the first configuration item that is common between the Gen 2
+and 3 interfaces but with a different offset, so the patch is in two
+parts. The first patch allows for the same configuration item to have
+a different offset between Gen 2/3 and the second patch adds the new
+switch.
 
-@@ -593,7 +593,7 @@ static int catpt_component_pcm_construct(struct snd_soc_component *component,
- static int catpt_component_open(struct snd_soc_component *component,
- 				struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtm = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtm = asoc_substream_to_rtd(substream);
+Regards,
+Geoffrey.
 
- 	if (!rtm->dai_link->no_pcm)
- 		snd_soc_set_runtime_hwparams(substream, &catpt_pcm_hardware);
-@@ -604,7 +604,7 @@ static snd_pcm_uframes_t
- catpt_component_pointer(struct snd_soc_component *component,
- 			struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtm = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtm = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtm, 0);
- 	struct catpt_stream_runtime *stream;
- 	struct catpt_dev *cdev = dev_get_drvdata(component->dev);
---
-2.20.1
+Geoffrey D. Bennett (2):
+  ALSA: scarlett2: Split scarlett2_config_items[] into 3 sections
+  ALSA: scarlett2: Add support for the internal "standalone" switch
 
+ sound/usb/mixer_scarlett_gen2.c | 171 ++++++++++++++++++++++++++------
+ 1 file changed, 141 insertions(+), 30 deletions(-)
 
+-- 
+2.35.1
 

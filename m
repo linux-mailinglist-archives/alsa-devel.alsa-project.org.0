@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F074D0426
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 17:29:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A113A4D044F
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 17:41:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6992F1733;
-	Mon,  7 Mar 2022 17:28:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6992F1733
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E3F416E4;
+	Mon,  7 Mar 2022 17:40:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E3F416E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646670560;
-	bh=64oNNmTtWsxUxeaKawvUIWDixHMJvkFSVykLx6hxC70=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1646671260;
+	bh=EoMwT7XroUqXHHO2Z0YMy2QbMA4SIYCBYpApenFHGsM=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u8NTTcvnGuB1eXdSesCxJvbS+uhNeK1FTAE0hdtmee2i8SyTNvt2RAXRnyTGM1RIY
-	 tc5fXxFZnLYkxe3brZLflNSV9jEO/QP23qN2RFm9Bi9YOvbbEbIEkOy70cfYZvR9uC
-	 hQoQ9Q1AaLyt4K/dpN8jvO7aSyrxB8OfUQpLgseQ=
+	b=heUqlOHY+W2OJ1bRLACU4QY3cIOxgQ6sneUEGaefeasNjIU5+xGKALMAMYMdsoBjD
+	 3ml4glnsS78epBGMJ54Y3U26Nlr02DnDkrWogg4SPWWVyu/GnYd4b3pLyiIMZvhqmD
+	 eDL7e/WUDbQQhWU6s4DlqCZDS1WYcK56e+KbHUJk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7912F800E9;
-	Mon,  7 Mar 2022 17:28:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EEDAF80159;
+	Mon,  7 Mar 2022 17:39:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01823F8013F; Mon,  7 Mar 2022 17:28:08 +0100 (CET)
+ id BAB1BF800E9; Mon,  7 Mar 2022 17:39:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66CFCF800E9
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 17:28:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66CFCF800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="G82FpeRU"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7B6A3B8162E;
- Mon,  7 Mar 2022 16:28:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E948C340E9;
- Mon,  7 Mar 2022 16:27:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646670481;
- bh=64oNNmTtWsxUxeaKawvUIWDixHMJvkFSVykLx6hxC70=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=G82FpeRU/RnFOrLaYMthW0VcknwxZiLtJ3XSuLnjjgndDCMXeViuKQgMuIg0CDOv7
- zeEH8h2TTfcPU7S4iunbQ8mIiE0OFeIte5wI0FuT0qH0LytIzikNVFwSqsvKoA/Ipi
- 2r5D9ZkK8X5QTKYYnaJ7wWVkMWrg5lF/Cv9k4ER9wOcfC/2aba+Fkg451vwQ4MWQVx
- Ki+GbWF0cJ3YUGbSeZEsKCJ7Zm7LAhWYhA583FMsZf2ToEmPUo074Zg4X/DAAAJsfY
- 23l2Ro+fT+lDsFcVv38XtW00uNRvKlZ0X1NWH7pTKpeU2kOiT3/MBNIM/KOUZoHPR7
- ryiJHFsbUb3Gw==
-Date: Mon, 7 Mar 2022 16:27:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [PATCH 1/4] ASoC: amd: vg: fix signedness bug in
- acp5x_audio_probe()
-Message-ID: <YiYyi/3BZekjTcrC@sirena.org.uk>
-References: <20220304131256.GA28739@kili> <YiX9Kp9AFYNiqJcL@sirena.org.uk>
- <20220307124152.GB3315@kadam>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D6BBF800E9
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 17:39:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D6BBF800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="TF5zAoaO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646671189; x=1678207189;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=EoMwT7XroUqXHHO2Z0YMy2QbMA4SIYCBYpApenFHGsM=;
+ b=TF5zAoaOmYcIzJgnSdth34B9SKVHv69JeRBKgfAmlu3BKFIC/LkoGkS3
+ u70PLDY7h/Y/FhtKFhkqR6Wa0+qUmZQEGBR8aHsnPzRra99neQdiOauqp
+ DtYqTVRuJfVo5spQHL4gdFG0eUKx0Y9zj6GnZ4ReXOx7h9FlnTFJm+kAH
+ zNGzoJoqxMRqAfvHhKEIbU6U0QPhsyMK8al+FjjjLn9EaudfyPfySMLkp
+ w+eWpy00bFycLa2qFjCCpzHYdoMzXxogHnOmXXmWaTt65BD1Tis01RFH4
+ y3c/Uij1mzMdTx/1UuVc5ZZzEsZQbYSySbEhS9WHJsuwG08voM3fZJ+xf Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10279"; a="279144660"
+X-IronPort-AV: E=Sophos;i="5.90,162,1643702400"; d="scan'208";a="279144660"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2022 08:39:18 -0800
+X-IronPort-AV: E=Sophos;i="5.90,162,1643702400"; d="scan'208";a="546946816"
+Received: from zhaojohn-mobl1.amr.corp.intel.com ([10.254.24.100])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2022 08:39:17 -0800
+Message-ID: <886dacf8fdffb08af26cea6e754d09d4ed7811ea.camel@linux.intel.com>
+Subject: Re: [PATCH v3 07/17] ASoC: Intel: avs: Add module management requests
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
+Date: Mon, 07 Mar 2022 08:39:17 -0800
+In-Reply-To: <e463df51-a0a5-b863-0cd6-80b1d60dc09b@intel.com>
+References: <20220304145755.2844173-1-cezary.rojewski@intel.com>
+ <20220304145755.2844173-8-cezary.rojewski@intel.com>
+ <0e7e51e94157c6ca43957b27a13fd4cf058bfc33.camel@linux.intel.com>
+ <e463df51-a0a5-b863-0cd6-80b1d60dc09b@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.3-0ubuntu1 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="NPfp81odsDC3ClI1"
-Content-Disposition: inline
-In-Reply-To: <20220307124152.GB3315@kadam>
-X-Cookie: Whatever became of eternal truth?
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Meng Tang <tangmeng@uniontech.com>, kernel-janitors@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Content-Transfer-Encoding: 7bit
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,32 +93,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 2022-03-04 at 18:21 +0100, Cezary Rojewski wrote:
+> > Are there any rules for unbinding? For example if you have 2
+> > modules
+> > connected to a mixer? Can you unbind the module belonging to the
+> > host
+> > pipeline that is getting stopped while the mixer is still active?
+> 
+> 
+> 
+> 
+> Here we have just a delegate. All the rules are defined and enforced
+> by 
+> 
+> the firmware.
+I'm not following this, Czarek. If there are rules defined by the FW,
+the driver has to follow it isnt it? What I am asking is how and where
+do you enforce this in the AVS driver?
 
---NPfp81odsDC3ClI1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+...
+> > > 
+> > How come you dont have a loop here? What if the rec'd data size if
+> > larger than the max size of IP payload?
+> 
+> 
+> 
+> 
+> That's not how LARGE_CONFIG_GET message works. There is no looping 
+> 
+> involved or expected by the firmware and so we don't have it here.
 
-On Mon, Mar 07, 2022 at 03:41:52PM +0300, Dan Carpenter wrote:
+So, are you saying that when retrieving data from the FW, the size of
+the retrieved data can never exceed max IPC payload size?
 
-> Oops.  Sorry about that.  The 1/3 was intended to be 3/4.  Do you need
-> me to resend it?
+Thanks,Ranjani
 
-I think I worked around it but please check what gets applied and resend
-anything that got dropped.
-
---NPfp81odsDC3ClI1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmImMosACgkQJNaLcl1U
-h9Bppwf/eC/6CIIkse3i6pE3QPuWCDquC7sogKJQYHGLRbVf4m2/sJRdONv5gDW/
-Mjr57Bx8iuZ20tuoNgZ5ek3V1XoF1csY6XTejWiIx+XQ6gu3wRcZMQ3fdHIvIxPg
-8hAabf2HO4hbF0CgxdWXZZPpO71CUCGMVr1tdMlsc8Dd8CStF7QOWuUQujkplZ01
-dwoqTRaH9jiZr6osDUAq/CGyCtf2JVyRxDlCSIX1n1pkiUCRucYiMtrrSNFGYazw
-z9GXJ88nCywGzeMInlxQdm3WaztZwY1B7GXUXR+T0lhCabo/7/j+Cd5b8l5srdLW
-JSdBARVJbY7iuqmkTZ8gTufbYnY5Ag==
-=Enlb
------END PGP SIGNATURE-----
-
---NPfp81odsDC3ClI1--

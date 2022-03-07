@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 319294D0618
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 19:13:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5AD24D061C
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 19:14:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 696E0172E;
-	Mon,  7 Mar 2022 19:12:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 696E0172E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 826271753;
+	Mon,  7 Mar 2022 19:13:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 826271753
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646676817;
-	bh=OdwpZhnkH3fsn24S2qyNFERuNq4To+pJrSgKfRredho=;
+	s=default; t=1646676884;
+	bh=UVmT4vGTjHXhvY2uwKjrUYIq7VIV4m+y5CyPjaSCAus=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MGrErCdx1FH5kT01ULq5jyl8U4N5ggUHA9OJYx/jD8gX1DIXchxrDKy/9eTbYa5r4
-	 HYkYckJB7AW6HwOtBnatC8EqYH0EnB2suC9J9kx1K6XKjpg08tHvx8SeLz+F6s/jiR
-	 mTWLdIUqh11TRN6zXMvenSQt4JfQuF4DUHy1SENY=
+	b=GAZeDkNpFOvaFKLlrlJ/jgoX5fWw+Abrbpd79QBAtk7SpSC/OvvkZKV6/R82EOgap
+	 BmDo0kuz6PX1ZpLBDwm5/TVMDywJMm4G9cYr3L1ZBW3gGo57ToRdy/ism0YRDAZcu6
+	 lvkGjgnzykA/h7D0nC+FJlIENCBUOmu5+fxhda+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B37AF8052D;
-	Mon,  7 Mar 2022 19:11:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0536F8053E;
+	Mon,  7 Mar 2022 19:11:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53442F80529; Mon,  7 Mar 2022 19:11:38 +0100 (CET)
+ id ED4EDF80516; Mon,  7 Mar 2022 19:11:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B68C9F802DF
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 19:11:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B68C9F802DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54BA8F80515
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 19:11:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54BA8F80515
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="hefbRIKn"
+ header.b="ce7FlvYF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646676693; x=1678212693;
+ t=1646676694; x=1678212694;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OdwpZhnkH3fsn24S2qyNFERuNq4To+pJrSgKfRredho=;
- b=hefbRIKnk9VkHGjLZx7nTI+Fmu7EaMJInqGFJ0Bo0L4hSX+bEU058Awe
- twGeGXcbe7a0Fvenygq4LEpivdKD9RI7fL8iVWJKIlLmmdstLvcokCpCd
- ZO1kl81SANqIOuq7IWuQyPb6iuP6uT5lwNhVPjjlzbkfnfeaDHbpKNMXo
- YKUbdnuEfRzMex6fKQhQX2/UmZDnJLOZuzU4aYmAE/q8LGgAoaTLlK3QN
- B7YKedV3a9QlI6+BiNYWYMAKCaj5+Ri1lbCbrAiyIxiRZe9eEmFrMNTS/
- OBRvjQapnwWU2wKw5+tv/LZxxco0jbQBupsq4cx/hy0rHcDt91nvJUrUl A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10279"; a="254401321"
-X-IronPort-AV: E=Sophos;i="5.90,162,1643702400"; d="scan'208";a="254401321"
+ bh=UVmT4vGTjHXhvY2uwKjrUYIq7VIV4m+y5CyPjaSCAus=;
+ b=ce7FlvYFDcNChWEhIDxwDmJVVW76edf193PO/9e9e+zcUa0iRGWBPkZq
+ V29OAPuLVKyIt+GEahmBih3RLlgI6+w2klyqqv1bbCk7CzICyw96QfS3B
+ YUQKenhWvc6bgK2YPvgO/5NPG5qHPdkmZU7vtcM4+WK67tkXYB5riBDNS
+ 5EB0s3s2hkeL3/S0OkZRuS5L7ef4gnRu+ki9nfk7FxFBq/gUfpWwacqd9
+ YGg+ujqS2e/gjO+eQOUbOcXla9H+x9TL+IsFRRX7Sqh370S5t9dYTaIGq
+ TlR36+F5WcO2jkCbgXOlMHlibKhAgWlMR0L/ENkRgiAkA8O6DaiNLNPuU w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10279"; a="254401325"
+X-IronPort-AV: E=Sophos;i="5.90,162,1643702400"; d="scan'208";a="254401325"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Mar 2022 10:11:27 -0800
-X-IronPort-AV: E=Sophos;i="5.90,162,1643702400"; d="scan'208";a="495146669"
+X-IronPort-AV: E=Sophos;i="5.90,162,1643702400"; d="scan'208";a="495146671"
 Received: from echun1-mobl.amr.corp.intel.com (HELO rsridh2-mobl1.localdomain)
  ([10.251.130.219])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Mar 2022 10:11:27 -0800
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 08/18] ASoC: SOF: topology: Modify the get_token op for string
- tokens
-Date: Mon,  7 Mar 2022 10:11:01 -0800
-Message-Id: <20220307181111.49392-9-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 09/18] ASoC: SOF: topology: expose some get_token ops
+Date: Mon,  7 Mar 2022 10:11:02 -0800
+Message-Id: <20220307181111.49392-10-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220307181111.49392-1-ranjani.sridharan@linux.intel.com>
 References: <20220307181111.49392-1-ranjani.sridharan@linux.intel.com>
@@ -94,63 +93,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Modify the get_token op for string type tokens to pass the string as the
-argument instead of a pointer to struct snd_soc_tplg_vendor_string_elem.
+These will be used later on by IPC-specific code.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/topology.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ sound/soc/sof/sof-audio.h |  5 +++++
+ sound/soc/sof/topology.c  | 10 +++++-----
+ 2 files changed, 10 insertions(+), 5 deletions(-)
 
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index f2f32f2065d3..feda5793b589 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -260,4 +260,9 @@ int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream, struct snd_sof_dev
+ 			 struct snd_sof_pcm *spcm);
+ int sof_pcm_stream_free(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream,
+ 			struct snd_sof_pcm *spcm, int dir, bool free_widget_list);
++int get_token_u32(void *elem, void *object, u32 offset);
++int get_token_u16(void *elem, void *object, u32 offset);
++int get_token_comp_format(void *elem, void *object, u32 offset);
++int get_token_dai_type(void *elem, void *object, u32 offset);
++int get_token_uuid(void *elem, void *object, u32 offset);
+ #endif
 diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 7280e14c13bc..4ba46ea73c8a 100644
+index 4ba46ea73c8a..dd1cc6e26686 100644
 --- a/sound/soc/sof/topology.c
 +++ b/sound/soc/sof/topology.c
-@@ -507,28 +507,25 @@ static int get_token_uuid(void *elem, void *object, u32 offset)
+@@ -477,7 +477,7 @@ struct sof_topology_token {
+ 	u32 offset;
+ };
  
- static int get_token_comp_format(void *elem, void *object, u32 offset)
+-static int get_token_u32(void *elem, void *object, u32 offset)
++int get_token_u32(void *elem, void *object, u32 offset)
  {
--	struct snd_soc_tplg_vendor_string_elem *velem = elem;
+ 	struct snd_soc_tplg_vendor_value_elem *velem = elem;
  	u32 *val = (u32 *)((u8 *)object + offset);
- 
--	*val = find_format(velem->string);
-+	*val = find_format((const char *)elem);
+@@ -486,7 +486,7 @@ static int get_token_u32(void *elem, void *object, u32 offset)
  	return 0;
  }
  
- static int get_token_dai_type(void *elem, void *object, u32 offset)
+-static int get_token_u16(void *elem, void *object, u32 offset)
++int get_token_u16(void *elem, void *object, u32 offset)
  {
--	struct snd_soc_tplg_vendor_string_elem *velem = elem;
- 	u32 *val = (u32 *)((u8 *)object + offset);
- 
--	*val = find_dai(velem->string);
-+	*val = find_dai((const char *)elem);
+ 	struct snd_soc_tplg_vendor_value_elem *velem = elem;
+ 	u16 *val = (u16 *)((u8 *)object + offset);
+@@ -495,7 +495,7 @@ static int get_token_u16(void *elem, void *object, u32 offset)
  	return 0;
  }
  
- static int get_token_process_type(void *elem, void *object, u32 offset)
+-static int get_token_uuid(void *elem, void *object, u32 offset)
++int get_token_uuid(void *elem, void *object, u32 offset)
  {
--	struct snd_soc_tplg_vendor_string_elem *velem = elem;
- 	u32 *val = (u32 *)((u8 *)object + offset);
- 
--	*val = find_process(velem->string);
-+	*val = find_process((const char *)elem);
+ 	struct snd_soc_tplg_vendor_uuid_elem *velem = elem;
+ 	u8 *dst = (u8 *)object + offset;
+@@ -505,7 +505,7 @@ static int get_token_uuid(void *elem, void *object, u32 offset)
  	return 0;
  }
  
-@@ -872,8 +869,7 @@ static int sof_parse_string_tokens(struct snd_soc_component *scomp,
- 				continue;
+-static int get_token_comp_format(void *elem, void *object, u32 offset)
++int get_token_comp_format(void *elem, void *object, u32 offset)
+ {
+ 	u32 *val = (u32 *)((u8 *)object + offset);
  
- 			/* matched - now load token */
--			tokens[j].get_token(elem, object,
--					    offset + tokens[j].offset);
-+			tokens[j].get_token(elem->string, object, offset + tokens[j].offset);
+@@ -513,7 +513,7 @@ static int get_token_comp_format(void *elem, void *object, u32 offset)
+ 	return 0;
+ }
  
- 			found++;
- 		}
+-static int get_token_dai_type(void *elem, void *object, u32 offset)
++int get_token_dai_type(void *elem, void *object, u32 offset)
+ {
+ 	u32 *val = (u32 *)((u8 *)object + offset);
+ 
 -- 
 2.25.1
 

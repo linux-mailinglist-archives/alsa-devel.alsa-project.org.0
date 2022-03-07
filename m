@@ -2,102 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 572974CF45C
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 10:11:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F1C04CF469
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 10:15:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE54F170E;
-	Mon,  7 Mar 2022 10:10:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE54F170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE00916A0;
+	Mon,  7 Mar 2022 10:15:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE00916A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646644276;
-	bh=uuCfDCLnMvHHqJs5imEb7n3vxA0hd2HrAV00OTwPoS8=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=auv6gp7R+fHEs6p4P6MEpJrQIOF5XxH1dEmhAqkKqa6OUkcmOzWLMZ7lu2rupqm6E
-	 EKKNY++On7q79PKQUS9qreKHIgFhsr8qeMcy6FjsFIxa2e1+M8NX1k4eoxFTewVQEL
-	 4oFd1sLYL9c8OuN3RNiOVOv46//DSnsgyBnwg5iA=
+	s=default; t=1646644550;
+	bh=y5wFZOPrJguTiNiuQsXjBDEDLhAkspRoJiXXu3PVstE=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iqZDEtTiPNurqNrp5mi8/u3wnTMz0rD4W8ZAiXEN5JerDc3++4MV5n7G2sZppKF+0
+	 /yzUoaPvU4ntPyjGZwMcOzbYIl1Qr7rgkdIDEYpcLHDV5eUj7jQ57J3vsF822UVvgJ
+	 qSp/QnjMLDiWUfuE2EpQOSKaqY+sCP7TTzcvHNCQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D842F80159;
-	Mon,  7 Mar 2022 10:10:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2881EF80159;
+	Mon,  7 Mar 2022 10:14:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81D5EF8013F; Mon,  7 Mar 2022 10:10:06 +0100 (CET)
+ id 4A65EF800E9; Mon,  7 Mar 2022 10:14:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from AUS01-SY4-obe.outbound.protection.outlook.com
- (mail-sy4aus01olkn20804.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7005::804])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79D14F80124
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 10:10:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79D14F80124
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4801AF800E9
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 10:14:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4801AF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com
- header.b="T/psk2vH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CM87ftEwSFznp5rJy/h1q2UIvhImXdYcHbxsbAlxf/0k0dks3zGOieVRIOyq4WkIicB/rs3unJCij/SFFgx1prWfAw8WpOx5KbQSXSSvYXfHuBZqWllEjZEPF4ydckkfhWGHHUKoMYckk41nai2h0GfIVl5Vp/7hfxjDqtS2rBKprQzE870a4sHC1X++ol6wROj9Za3zQcWmBy5YZxnSqb0CZ/43gCpC3FJ3Iw45o50SYHU55HQBec5+D7ukCeZtAGP6NVuoE10R2dIXZ3yaZgdF/59IaHgGBcEU8Oi/lQspjqpmUBYBhb4IdEPox8cv0np4h5SeDvuZaJaMPsTPYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=efqFz5PqrKTB61LpXlTtIGVCHDJMAsmTiOICHRKJ6H0=;
- b=BRBeeC9uj/XYorQSfgUuDwUUGf0I4oZoI6HyMGLelx/ZFutz5HnUn0Iz8aek84GChcMbZlQbkqJFIMKGQnjKUBz/BJqqw3tU1i65Dcvy9D17oPAmCbvihJcYPgGCT50JwWp+n9pACy7KD/HRAPHvn3H1++tyeGf+mzgsvcNk5msvV6E1mES5SOIvepqGPcXyKcyGw/2SeKAzUvPqIZCm8XC/jj2R4Kqz1VjETEnWl8S4BJ0UpeiUtI80DM5JlkwzjDfB1JZ415v8rjzwcAMvjZ962ZdhLLePGBPR8PKCTSSCh0gGCRbZhZRfoHClwNAjhvOYl9susP+wdll4zxt+fg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=efqFz5PqrKTB61LpXlTtIGVCHDJMAsmTiOICHRKJ6H0=;
- b=T/psk2vHEIJuw3q8GEwJZ3Ydw53o0MfHWf5WZLhjJSowW+t4rm0fqwzSZUry/vN1UYE58hH0uA+NwLcXjyQqrHuXGIZdYN+vRK6C+FfeCHXnsInGanofKC+qZ0h/W7F+OI2rN4+PaMxYYfLNwSon8BuMJmVIus2CZEBtC/QyGel4yvrf3kBZEaqooO57hARNiiEK1ZGz1ZaWMeETav7wO0JuXJ17OcHv73w5Pw6XD1j2YJBN0AktbYlI2GP9zYXpSgF9Zro+pIZ3OL5JLaVV1RfpF2BRWs+gUKzrfcHENRPI9AFl2w89XBsQxdeDUzaditkdS/i97cpH6kyQmWlifA==
-Received: from SY4P282MB1482.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:c1::14) by
- MEAP282MB0694.AUSP282.PROD.OUTLOOK.COM (2603:10c6:220:63::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5038.17; Mon, 7 Mar 2022 09:09:55 +0000
-Received: from SY4P282MB1482.AUSP282.PROD.OUTLOOK.COM
- ([fe80::8008:638e:9683:e5b2]) by SY4P282MB1482.AUSP282.PROD.OUTLOOK.COM
- ([fe80::8008:638e:9683:e5b2%3]) with mapi id 15.20.5038.026; Mon, 7 Mar 2022
- 09:09:56 +0000
-From: Chengyi Zhao <chengyi.zhao@outlook.com>
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: How to judge USB Audio device has no digital in/out.
-Thread-Topic: How to judge USB Audio device has no digital in/out.
-Thread-Index: AQHYMf9jzHDT/FYeEk+SaSP/oIz/kA==
-Date: Mon, 7 Mar 2022 09:09:56 +0000
-Message-ID: <ME3P282MB1473ECF3C97907838188223799089@ME3P282MB1473.AUSP282.PROD.OUTLOOK.COM>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-suggested_attachment_session_id: a4e667e3-331b-89d5-cbac-6fe41c276628
-x-tmn: [MlOWKxLPXQbCIkqAFmIiyPMpray6+n5p]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 38485cca-bf4a-4a95-3510-08da001a3f9d
-x-ms-traffictypediagnostic: MEAP282MB0694:EE_
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: xIYz0k4OC4bBs83sj7bwKlWPWaBXh0y5C1q5z+MQj31if7vEVX2phUYE4U6rfZ13R0iIN16SI426o2II+IVVFe6wqv8zqvveILB5+YotLP5FECOmDjiOplRapOSTui3Op3jGSKve7zbFNnD2jEdtc61CsSZ2jEu+EFITBfyr7+aYr1/I5Vv9TGD9Z5zOAzE73ARgnrT+rEz7eeSGXmHRrsNDwNlekdBRjC6fimRwdGFwTYVS4YETky/HC3C3zB61GYDm1HZ59x9X6Aj/XxyaZYeTBn6nbvdPaPo9o2VECmkR01Nf1WAZRP88lvfPJrtGqH2Zq8rZap0GhAELFizw0fHivyP6gqzNf8WTLJZ7Csn/Gk99ZZq8v/nfj0eqfkEhjTWPWXlxb7pET+A1CCB0ajV1ecL/zcQzr+Rjy0tw31OKWA+OkRaLwqsssT0OuaQFwssMOmZvOwnXPdyBml+/l1beXDonZBuoiXPvLrvku+2BNt9tnt6kxCqSdtoPtre+E/SUM1N7HFbJHnvtc3GGE7S2MaAHoOBaxZ60eORiGk9CHA/UrghLFdLUgRicNajmYr2HEWb/cx2jNvrzg5vzQw==
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: XcFYhLjgvicK+UVm9r9PEe8qHJdl5DkVPJD/V+dqeb0nP1d+weG9gQE0sQnjV+KRLJAmoiSeDFDw+loHXNkyBXgw3r5aZHvv6ES/s9ItrMK2cYt7NgSFTLpCwTOfyE3mfmnYISET1qf8d7IjoI3tVMNwjo2bnagSfRw9ksIorWUhNK2G9pfslAnmNxNfmj88zabTKJZbcC9jD8uJHarIBeVtindZscS2vhzNPmzu/EOzmKVuVURlk2Irg1OqWpeouxxXn7azj+qMhY+mASwK4Y1KAomIopcOOi5zb7F7YFbmWMyYy/SfonsjGu2bYa8N+WakW6HqSQtSBvIWNzd+u2g7xgcQUqCfTfwLVR2RuxyzLAHy4zTlV0NtsIvdfgPWRP3A16WdNakL9PSeebj+vscIz2a+MztlmOsCLqK3/kFfHo2vJr0J8Bb5jgmWwn2vS51jxHYXdDpbKSdTHnvV/6jKY4xF5XryzySS1FA7PIfdaG35A/V70WsW4ojyToqnuGi7dlOlk1Y3tusdCUH75FWmle1IA4/c31Nv9RoOF977b6gdK9maQ+iMN1rCRZ39h/1EydUBtBjzOE0JzC0/5lCWNUtzh1yGDSmEs6qK4B52YyxWhM0rSunISfpsM7HOmZ3a13CRKn1iw6VAvyzN4DiSoytCTo3xCflTafQOMu21nD42tqwYs+tbREbzgY48e+1Lu2EPpmTCPZr9PN4Sc6RfJ8O2OaQLSNqoknqok6HDsU7BAll/JrRek6N2aXJfdRZ73sSssrqVe7/WRALvjwNXlvpcMVug0fklqerpGYrQivGh6iv88vmwD6TsZE8RTJD/Va1bzNLLBRhLjNvV/Mr8zHSD6SVDXq0M5lwV1QrGhcp51qzQD6yjGQrrXovYgLdFq2Y1B1pkW2O2jjBHD34lPDZIpEhx43uVhq2ngNu1R3qkiCYwOsogNAPEB/B9
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="MYbjOMHY"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id B7D491F4389A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1646644472;
+ bh=y5wFZOPrJguTiNiuQsXjBDEDLhAkspRoJiXXu3PVstE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=MYbjOMHYmoAWo7oFbRCePEeWHJPVbHQQwjBApkqDzU9Vs2TRKf2H5i2L8vjnmEVoM
+ nw6DNmeQg8G6NMZFtwgaXpa2G/Jr1EnSdhNDvHdR7W1UnHLkLF3JJSit+W6q7e3jXy
+ iaXwe48D4ZfwFL5eHGbhDThOZxqYJymFUAfHFCZsFUujgD71G3VhlPkh78U8zKCPr+
+ CWBMp/dNd1eWl10rgCz5u34MBWGV4UAPqjKPdAn20u1PJDIvoN6oA4OYEK8aQO2n7V
+ R193lQcCBrvxueC8BO9OjlY5X2TXKL4YysXPog1NEIEdxAWXefjNWQfiBBOcChvu10
+ RE6M23I+Q23Dw==
+Message-ID: <88a15ed7-6457-9529-954b-08e845bf00d3@collabora.com>
+Date: Mon, 7 Mar 2022 10:14:29 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SY4P282MB1482.AUSP282.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38485cca-bf4a-4a95-3510-08da001a3f9d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2022 09:09:56.2138 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MEAP282MB0694
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Subject: Re: [v2 14/17] ASoC: mediatek: mt8186: add machine driver with
+ mt6366, da7219 and max98357
+Content-Language: en-US
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org
+References: <20220217134205.15400-1-jiaxin.yu@mediatek.com>
+ <20220217134205.15400-15-jiaxin.yu@mediatek.com>
+ <70147e6f-a008-ab1a-eb07-dbb1236849b0@collabora.com>
+ <4aa814cdac002dde73fe01054c642e90b043429a.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <4aa814cdac002dde73fe01054c642e90b043429a.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ geert+renesas@glider.be, linux-kernel@vger.kernel.org, zhangqilong3@huawei.com,
+ tiwai@suse.com, lgirdwood@gmail.com, tzungbi@google.com, robh+dt@kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,49 +90,528 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi guys,
+Il 05/03/22 09:58, Jiaxin Yu ha scritto:
+> On Fri, 2022-02-18 at 15:54 +0100, AngeloGioacchino Del Regno wrote:
+>> Il 17/02/22 14:42, Jiaxin Yu ha scritto:
+>>> This patch adds support for mt8186 board with mt6366, da7219 and
+>>> max98357.
+>>>
+>>> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+>>> ---
+>>>    .../mt8186/mt8186-mt6366-da7219-max98357.c    | 910
+>>> ++++++++++++++++++
+>>>    1 file changed, 910 insertions(+)
+>>>    create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-
+>>> da7219-max98357.c
+>>>
+>>> diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-
+>>> max98357.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-
+>>> max98357.c
+>>> new file mode 100644
+>>> index 000000000000..6ba53b8d1e46
+>>> --- /dev/null
+>>> +++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+>>> @@ -0,0 +1,910 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>> +//
+>>> +// mt8186-mt6366-da7219-max98357.c
+>>> +//	--  MT8186-MT6366-DA7219-MAX98357 ALSA SoC machine driver
+>>> +//
+>>> +// Copyright (c) 2022 MediaTek Inc.
+>>> +// Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
+>>> +//
+>>> +
+>>> +#include <linux/input.h>
+>>> +#include <linux/module.h>
+>>> +#include <linux/pm_runtime.h>
+>>> +#include <sound/pcm_params.h>
+>>> +#include <sound/soc.h>
+>>> +
+>>> +#include "../../codecs/da7219-aad.h"
+>>> +#include "../../codecs/da7219.h"
+>>> +#include "../../codecs/mt6358.h"
+>>> +#include "../common/mtk-afe-platform-driver.h"
+>>> +#include "mt8186-afe-common.h"
+>>> +#include "mt8186-afe-clk.h"
+>>> +#include "mt8186-afe-gpio.h"
+>>> +
+>>> +#define DA7219_CODEC_DAI "da7219-hifi"
+>>> +#define DA7219_DEV_NAME "da7219.5-001a"
+>>> +
+>>> +struct mt8186_mt6366_da7219_max98357_priv {
+>>> +	struct snd_soc_jack headset_jack, hdmi_jack;
+>>> +};
+>>> +
+>>> +static struct snd_soc_codec_conf mt6366_codec_conf[] = {
+>>> +	{
+>>> +		.dlc = COMP_CODEC_CONF("mt6358-sound"),
+>>> +		.name_prefix = "Mt6366",
+>>> +	},
+>>> +};
+>>> +
+>>> +static int mt8186_da7219_init(struct snd_soc_pcm_runtime *rtd)
+>>> +{
+>>> +	struct mt8186_mt6366_da7219_max98357_priv *priv =
+>>> +		snd_soc_card_get_drvdata(rtd->card);
+>>> +	struct snd_soc_jack *jack = &priv->headset_jack;
+>>> +	struct snd_soc_component *cmpnt_codec =
+>>> +		asoc_rtd_to_codec(rtd, 0)->component;
+>>> +	int ret;
+>>> +
+>>> +	/* Enable Headset and 4 Buttons Jack detection */
+>>> +	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+>>> +				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+>>> +				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+>>> +				    SND_JACK_BTN_3 | SND_JACK_LINEOUT,
+>>> +				    jack, NULL, 0);
+>>> +	if (ret) {
+>>> +		dev_err(rtd->dev, "Headset Jack creation failed: %d\n",
+>>> ret);
+>>> +		return ret;
+>>> +	}
+>>> +
+>>> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+>>> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
+>>> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
+>>> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
+>>> +
+>>> +	da7219_aad_jack_det(cmpnt_codec, &priv->headset_jack);
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +static int mt8186_da7219_i2s_hw_params(struct snd_pcm_substream
+>>> *substream,
+>>> +				       struct snd_pcm_hw_params
+>>> *params)
+>>> +{
+>>> +	struct snd_soc_pcm_runtime *rtd =
+>>> asoc_substream_to_rtd(substream);
+>>> +	struct snd_soc_dai *codec_dai;
+>>> +	unsigned int rate = params_rate(params);
+>>> +	unsigned int mclk_fs_ratio = 256;
+>>> +	unsigned int mclk_fs = rate * mclk_fs_ratio;
+>>> +	unsigned int freq;
+>>> +	int ret = 0, j;
+>>> +
+>>> +	ret = snd_soc_dai_set_sysclk(asoc_rtd_to_cpu(rtd, 0), 0,
+>>> +				     mclk_fs, SND_SOC_CLOCK_OUT);
+>>> +	if (ret < 0)
+>>> +		dev_err(rtd->dev, "failed to set cpu dai sysclk\n");
+>>
+>> Does it really make sense to go on after this failure?
+>>
+>>> +
+>>> +	for_each_rtd_codec_dais(rtd, j, codec_dai) {
+>>> +		if (!strcmp(codec_dai->component->name,
+>>> DA7219_DEV_NAME)) {
+>>> +			ret = snd_soc_dai_set_sysclk(codec_dai,
+>>> +						     DA7219_CLKSRC_MCLK
+>>> ,
+>>> +						     mclk_fs,
+>>> +						     SND_SOC_CLOCK_IN);
+>>> +			if (ret < 0)
+>>> +				dev_err(rtd->dev, "failed to set
+>>> sysclk\n");
+>>> +
+>>
+>> I think that going on past this wouldn't make sense as well, as it
+>> may result
+>> in unexpected behavior... just return a failure here
+> 
+> Yes, it is.
+>>
+>>> +			if ((rate % 8000) == 0)
+>>> +				freq = DA7219_PLL_FREQ_OUT_98304;
+>>> +			else
+>>> +				freq = DA7219_PLL_FREQ_OUT_90316;
+>>> +
+>>> +			ret = snd_soc_dai_set_pll(codec_dai, 0,
+>>> +						  DA7219_SYSCLK_PLL_SRM
+>>> ,
+>>> +						  0, freq);
+>>> +			if (ret)
+>>> +				dev_err(rtd->dev, "failed to start PLL:
+>>> %d\n",
+>>> +					ret);
+>>
+>> and here
+> Yes, you are right.
+> 
+>>
+>>> +		}
+>>> +	}
+>>> +
+>>
+>> So, you've covered all failure cases already, for which, you can
+>> simply
+>> return 0 here.
+> Yes, it is.
+> 
+>>
+>>> +	return ret;
+>>> +}
+>>> +
+>>> +static int mt8186_da7219_i2s_hw_free(struct snd_pcm_substream
+>>> *substream)
+>>> +{
+>>> +	struct snd_soc_pcm_runtime *rtd =
+>>> asoc_substream_to_rtd(substream);
+>>> +	struct snd_soc_dai *codec_dai;
+>>> +	int ret = 0, j;
+>>> +
+>>> +	for_each_rtd_codec_dais(rtd, j, codec_dai) {
+>>> +		if (!strcmp(codec_dai->component->name,
+>>> DA7219_DEV_NAME)) {
+>>> +			ret = snd_soc_dai_set_pll(codec_dai,
+>>> +						  0,
+>>> DA7219_SYSCLK_MCLK, 0, 0);
+>>> +			if (ret < 0) {
+>>> +				dev_err(rtd->dev, "failed to stop PLL:
+>>> %d\n",
+>>> +					ret);
+>>> +				break;
+>>> +			}
+>>> +		}
+>>> +	}
+>>> +
+>>> +	return ret;
+>>> +}
+>>> +
+>>> +static const struct snd_soc_ops mt8186_da7219_i2s_ops = {
+>>> +	.hw_params = mt8186_da7219_i2s_hw_params,
+>>> +	.hw_free = mt8186_da7219_i2s_hw_free,
+>>> +};
+>>> +
+>>> +static int mt8186_mt6366_hdmi_init(struct snd_soc_pcm_runtime
+>>> *rtd)
+>>> +{
+>>> +	struct snd_soc_component *cmpnt_codec =
+>>> +		asoc_rtd_to_codec(rtd, 0)->component;
+>>> +	struct mt8186_mt6366_da7219_max98357_priv *priv =
+>>> +		snd_soc_card_get_drvdata(rtd->card);
+>>> +	int ret;
+>>> +
+>>> +	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack",
+>>> SND_JACK_LINEOUT,
+>>> +				    &priv->hdmi_jack, NULL, 0);
+>>> +	if (ret) {
+>>> +		dev_err(rtd->dev, "HDMI Jack creation failed: %d\n",
+>>> ret);
+>>> +		return ret;
+>>> +	}
+>>> +
+>>> +	return snd_soc_component_set_jack(cmpnt_codec, &priv-
+>>>> hdmi_jack, NULL);
+>>> +}
+>>> +
+>>> +static int mt8186_mt6366_init(struct snd_soc_pcm_runtime *rtd)
+>>> +{
+>>> +	struct snd_soc_component *cmpnt_afe =
+>>> +		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+>>> +	struct snd_soc_component *cmpnt_codec =
+>>> +		asoc_rtd_to_codec(rtd, 0)->component;
+>>> +	struct mtk_base_afe *afe =
+>>> snd_soc_component_get_drvdata(cmpnt_afe);
+>>> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+>>> +	struct snd_soc_dapm_context *dapm = &rtd->card->dapm;
+>>> +	int ret;
+>>> +
+>>> +	/* set mtkaif protocol */
+>>> +	mt6358_set_mtkaif_protocol(cmpnt_codec,
+>>> +				   MT6358_MTKAIF_PROTOCOL_1);
+>>> +	afe_priv->mtkaif_protocol = MT6358_MTKAIF_PROTOCOL_1;
+>>> +
+>>> +	ret = snd_soc_dapm_sync(dapm);
+>>> +	if (ret) {
+>>> +		dev_info(rtd->dev, "failed to snd_soc_dapm_sync\n");
+>>
+>> dev_err()
+>>
+>>> +		return ret;
+>>> +	}
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +static int mt8186_i2s_hw_params_fixup(struct snd_soc_pcm_runtime
+>>> *rtd,
+>>> +				      struct snd_pcm_hw_params *params)
+>>> +{
+>>> +	struct snd_interval *channels = hw_param_interval(params,
+>>> +		SNDRV_PCM_HW_PARAM_CHANNELS);
+>>> +	dev_info(rtd->dev, "%s(), fix format to 32bit\n", __func__);
+>>> +
+>>
+>> dev_dbg()
+>>
+>>> +	/* fix BE i2s channel to 2 channel */
+>>> +	channels->min = 2;
+>>> +	channels->max = 2;
+>>> +
+>>> +	/* fix BE i2s format to S32_LE, clean param mask first */
+>>> +	snd_mask_reset_range(hw_param_mask(params,
+>>> SNDRV_PCM_HW_PARAM_FORMAT),
+>>> +			     0, (__force unsigned
+>>> int)SNDRV_PCM_FORMAT_LAST);
+>>> +
+>>> +	params_set_format(params, SNDRV_PCM_FORMAT_S32_LE);
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +static int mt8186_hdmi_i2s_hw_params_fixup(struct
+>>> snd_soc_pcm_runtime *rtd,
+>>> +					   struct snd_pcm_hw_params
+>>> *params)
+>>> +{
+>>> +	struct snd_interval *channels = hw_param_interval(params,
+>>> +		SNDRV_PCM_HW_PARAM_CHANNELS);
+>>> +	dev_info(rtd->dev, "%s(), fix format to 32bit\n", __func__);
+>>> +
+>>
+>> dev_dbg()
+>>
+>>> +	/* fix BE i2s channel to 2 channel */
+>>> +	channels->min = 2;
+>>> +	channels->max = 2;
+>>> +
+>>> +	/* fix BE i2s format to S24_LE, clean param mask first */
+>>> +	snd_mask_reset_range(hw_param_mask(params,
+>>> SNDRV_PCM_HW_PARAM_FORMAT),
+>>> +			     0, (__force unsigned
+>>> int)SNDRV_PCM_FORMAT_LAST);
+>>> +
+>>> +	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
+>>> +
+>>> +	return 0;
+>>> +}
+>>
+> 
+> Ok, I will use this code which is really more concise.
+> 
+>> Besides, I would do the following instead:
+>>
+>> static int mt8186_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+>>
+>> 				  struct snd_pcm_hw_params *params,
+>>
+>> 				  snd_pcm_format_t fmt)
+>>
+>> {
+>>
+>> 	struct snd_interval *channels = hw_param_interval(params,
+>>
+>> 		SNDRV_PCM_HW_PARAM_CHANNELS);
+>>
+>> 	dev_dbg(rtd->dev, "%s(), fix format to 32bit\n", __func__);
+>>
+>>
+>>
+>> 	/* fix BE i2s channel to 2 channel */
+>>
+>> 	channels->min = 2;
+>>
+>> 	channels->max = 2;
+>>
+>>
+>>
+>> 	/* fix BE i2s format to S32_LE, clean param mask first */
+>>
+>> 	snd_mask_reset_range(hw_param_mask(params,
+>> SNDRV_PCM_HW_PARAM_FORMAT),
+>>
+>> 			     0, (__force unsigned
+>> int)SNDRV_PCM_FORMAT_LAST);
+>>
+>>
+>>
+>> 	params_set_format(params, fmt);
+>>
+>>
+>>
+>> 	return 0;
+>>
+>> }
+>>
+>>
+>>
+>> static int mt8186_i2s_hw_params_fixup(struct snd_soc_pcm_runtime
+>> *rtd,
+>>
+>> 				      struct snd_pcm_hw_params *params)
+>>
+>> {
+>>
+>> 	return mt8186_hw_params_fixup(rtd, params,
+>> SNDRV_PCM_FORMAT_S32_LE);
+>>
+>> }
+>>
+>>
+>>
+>> static int mt8186_hdmi_i2s_hw_params_fixup(struct snd_soc_pcm_runtime
+>> *rtd,
+>>
+>> 					   struct snd_pcm_hw_params
+>> *params)
+>>
+>> {
+>>
+>> 	return mt8186_hw_params_fixup(rtd, params,
+>> SNDRV_PCM_FORMAT_S24_LE);
+>>
+>> }
+>>
+>> ... this reduces code duplication!
+>>
+>>> +
+>>> +/* FE */
+>>> +SND_SOC_DAILINK_DEFS(playback1,
+>>> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL1")),
+>>> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+>>> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+>>
+>>
+>> ..snip..
+>>
+>>> +static int mt8186_mt6366_da7219_max98357_dev_probe(struct
+>>> platform_device *pdev)
+>>> +{
+>>> +	struct snd_soc_card *card =
+>>> &mt8186_mt6366_da7219_max98357_soc_card;
+>>> +	struct snd_soc_dai_link *dai_link;
+>>> +	struct mt8186_mt6366_da7219_max98357_priv *priv;
+>>> +	struct device_node *platform_node, *hdmi_codec;
+>>> +	int ret, i;
+>>> +
+>>> +	dev_info(&pdev->dev, "%s(), ++\n", __func__);
+>>> +
+>>> +	card->dev = &pdev->dev;
+>>> +
+>>> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+>>> +	if (!priv)
+>>> +		return -ENOMEM;
+>>> +
+>>> +	platform_node = of_parse_phandle(pdev->dev.of_node,
+>>> +					 "mediatek,platform", 0);
+>>> +	if (!platform_node) {
+>>> +		dev_info(&pdev->dev,
+>>> +			 "Property 'platform' missing or invalid\n");
+>>
+>> 	if (!platform_node)
+>> 		return dev_err_probe(&pdev->dev, -EINVAL,
+>> 				    "mediatek,platform missing or
+>> invalid\n");
+>>
+>>> +		return -EINVAL;
+> got err_platform_node;
+>>> +	}
+>>> +
+>>> +	hdmi_codec = of_parse_phandle(pdev->dev.of_node,
+>>> +				      "mediatek,hdmi-codec", 0);
+>>> +	if (!hdmi_codec) {
+>>> +		dev_info(&pdev->dev,
+>>> +			 "Property 'hdmi' missing or invalid\n");
+>>
+>> dev_err()
+>>
+>>> +		return -EINVAL;
+>>> +	}
+> Should I of_node_put(platform_node) befor return?
+> 
+> goto err_hdmi_node;
+> 
 
-I found that in the following configuration file "alsa-lib/src/conf/cards/U=
-SB-Audio.conf" there are many kinds of
-USB Audio devices that need to turn off digital in/out.
+of_node_put() has to be called only when of_parse_phandle() succeeds,
+otherwise there is nothing to put.
 
-However, how can I judge that this USB Audio device has no digital in/out, =
-thanks.
+> 
+>>> +
+>>> +	for_each_card_prelinks(card, i, dai_link) {
+>>> +		if (dai_link->platforms->name)
+>>> +			continue;
+>>> +
+>>> +		if (hdmi_codec && strcmp(dai_link->name, "I2S3") == 0)
+>>> {
+>>> +			dai_link->codecs->of_node = hdmi_codec;
+>>> +			dai_link->ignore = 0;
+>>> +		}
+>>> +
+>>> +		dai_link->platforms->of_node = platform_node;
+>>> +	}
+>>> +
+>>> +	snd_soc_card_set_drvdata(card, priv);
+>>> +
+>>> +	/* init gpio */
+>>> +	ret = mt8186_afe_gpio_init(&pdev->dev);
+>>> +	if (ret)
+>>> +		dev_info(&pdev->dev, "init gpio error\n");
+>>
+>> dev_err() and goto end;
+> Yes, goto err_init_gpio and of_node_put for hdmi_codec and
+> platform_node.
 
-USB-Audio.pcm.iec958_device {
+Yes, agreed.
 
-        # The below don't have digital in/out, so prevent them from being o=
-pened.
-        "Andrea PureAudio USB-SA Headset" 999
-        "Blue Snowball" 999
-        "C-Media USB Headphone Set" 999
-        "Cmedia Audio" 999
-        "DELL PROFESSIONAL SOUND BAR AE5" 999
-        "HP Digital Stereo Headset" 999
-        "GN 9330" 999
-        "Logitech Speaker Lapdesk N700" 999
-        "Logitech G35 Headset" 999
-        "Logitech USB Headset" 999
-        "Logitech USB Headset H540" 999
-        "Logitech Wireless Headset" 999
-        "Plantronics Blackwire 3220 Seri" 999
-        "Plantronics GameCom 780" 999
-        "Plantronics USB Headset" 999
-        "Plantronics Wireless Audio" 999
-        "SB WoW Headset" 999
-        "Scarlett 2i2 USB" 999
-        "Scarlett 2i4 USB" 999
-        "Sennheiser USB headset" 999
-        "SWTOR Gaming Headset by Razer" 999
-        "ThinkStation P620 Main" 999
-        "ThinkStation P620 Rear" 999
-        "Thunderbolt Dock Audio Headset" 999
-        "Thunderbolt Dock Audio Module" 999
-        "USB Device 0x46d_0x821" 999
-        "USB Device 0x46d_0x992" 999
-        "WD15 Dock" 999
-        "WD19 Dock" 999
-}
 
-Best Regards,
-Chengyi
+Regards,
+Angelo
+
+>>
+>>> +
+>>> +	dev_info(&pdev->dev, "%s(), devm_snd_soc_register_card\n",
+>>> __func__);
+>>> +	ret = devm_snd_soc_register_card(&pdev->dev, card);
+>>> +	if (ret)
+>>> +		dev_info(&pdev->dev, "%s snd_soc_register_card fail
+>>> %d\n",
+>>> +			 __func__, ret);
+>>
+>> dev_err_probe()
+>>
+>> end:
+>>
+> err_init_gpio:
+>>> +	of_node_put(hdmi_codec);
+> err_hdmi_node:
+>>> +	of_node_put(platform_node);
+>>> +
+> err_platform_node:
+>>> +	return ret;
+>>> +}
+>>> +
+>>> +#if IS_ENABLED(CONFIG_OF)
+>>> +static const struct of_device_id
+>>> mt8186_mt6366_da7219_max98357_dt_match[] = {
+>>> +	{.compatible =
+>>> "mediatek,mt8186_mt6366_da7219_max98357_sound",},
+>>> +	{}
+>>> +};
+>>> +#endif
+>>> +
+>>> +static struct platform_driver mt8186_mt6366_da7219_max98357_driver
+>>> = {
+>>> +	.driver = {
+>>> +		.name = "mt8186_mt6366_da7219_max98357",
+>>> +#if IS_ENABLED(CONFIG_OF)
+>>> +		.of_match_table =
+>>> mt8186_mt6366_da7219_max98357_dt_match,
+>>> +#endif
+>>> +		.pm = &snd_soc_pm_ops,
+>>> +	},
+>>> +	.probe = mt8186_mt6366_da7219_max98357_dev_probe,
+>>> +};
+>>> +
+>>> +module_platform_driver(mt8186_mt6366_da7219_max98357_driver);
+>>> +
+>>> +/* Module information */
+>>> +MODULE_DESCRIPTION("MT8186-MT6366-DA7219-MAX98357 ALSA SoC machine
+>>> driver");
+>>> +MODULE_AUTHOR("Jiaxin Yu <jiaxin.yu@mediatek.com>");
+>>> +MODULE_LICENSE("GPL v2");
+>>> +MODULE_ALIAS("mt8186_mt6366_da7219_max98357 soc card");
+>>
+>>
+> 
+

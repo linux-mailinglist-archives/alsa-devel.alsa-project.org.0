@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAC834CF3BB
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 09:37:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E3814CF3E6
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 09:46:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77C5E1732;
-	Mon,  7 Mar 2022 09:36:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77C5E1732
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3E3B1727;
+	Mon,  7 Mar 2022 09:45:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3E3B1727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646642235;
-	bh=LiYxJXO7BpAlaOqHrmcW/Ra1rjP/9EQrAWSaoPyrN7Y=;
+	s=default; t=1646642805;
+	bh=6r+XgMIsU4Ie3CXYXDqh0oHUBh0ouTe2elUDO80bRME=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ItQ0xADI1QCmenfjI7V30Bd7DMRglVFpLNoq/sotvEQhWrFfTWciS9/3w4ArwcE1W
-	 gJ5X8rirnDPQ+rUOpvN6LSzzexhTWTKHyUvEKdhF8TfGWuQPnmZv1G6cSpyPdghIKC
-	 Jzj8IaGgSYKD1wnA1JWW0BWpipG26FEBngVu7gBQ=
+	b=QEVqqvXxbCY7TNocl1ILUE09/o6N2v9mDzDcyokp2nC0PfiI8cm44joXzOpyfYDKi
+	 WMSXZVxprt5GaMI83CGMx0xlYAj3bSMNGlSWS022X66bQ2oygfd9qiTqufuCPmkxE7
+	 3sZnO07pNSdPdKLqHqUGczSpsMChd31G9AS9BaA0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCA20F800D1;
-	Mon,  7 Mar 2022 09:36:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66BCFF80159;
+	Mon,  7 Mar 2022 09:45:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E704F8013F; Mon,  7 Mar 2022 09:36:06 +0100 (CET)
+ id C2D93F8013F; Mon,  7 Mar 2022 09:45:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3683F80124
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 09:36:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3683F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2605EF800D1
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 09:45:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2605EF800D1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="kSq5RBX4"
-Received: by mail-pl1-x633.google.com with SMTP id t19so9571148plr.5
- for <alsa-devel@alsa-project.org>; Mon, 07 Mar 2022 00:36:00 -0800 (PST)
+ header.b="T4NVnNiG"
+Received: by mail-pj1-x1034.google.com with SMTP id bx5so12700884pjb.3
+ for <alsa-devel@alsa-project.org>; Mon, 07 Mar 2022 00:45:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id;
- bh=mNiCQomHe3AZpULgmNuzd/nevg4o0tLCGfPqsWacIDg=;
- b=kSq5RBX4GqueV2igKVHKCILxMbbWs7+3aAu+Vpq8k2nZErehVPHkMl7W3dmW4MpcGR
- kuA1JEdVxm1mqyxpKKZ/Z0PNvZ+h/nW5QLJUpuF9sepwi6TYVFwhMLi4cci1AmUk5NB8
- Ccu7E/UsHX7FYUx3/dr6/1w+f23vtFBZgC7u6PjZp40j2Lq6QD/r5C/gRndmIDtTrC0g
- Ds+LAeufJHywwhIgNDp2br/5ML3rm7unqaqsGu4hAWXe6c9ONh34KMKvrwyTTnx0Qr9b
- b3+7ekRl3eLkdnKqx/qU4XM8WlYTM0ju1/wX6FJHm7lgt/1tHSnskXKyQSfXUgmL2lol
- rPtg==
+ bh=UnOTdbP36uQdWVvv2vJzAekSb/8o0Oe+p5E2vt+S+ug=;
+ b=T4NVnNiGS1Muf3VR2in4zLSK86XJVDGHoEhJhvCUEBQ+3tcPvmrHZUpGvRdlsjtcs4
+ U50wcXlRgK+zhrWV4Wrq7XTvZzb4ISOwQ8GfCw9hBFWbMhrW/Y7VgTyvNsV5s1mX/4F0
+ PteXB58we6VQrZz/q/4fA4WHXnzyDUYTObtckFHPN7mJSn38eeBSU4xrpIkXPHrT0GV2
+ oBB+NXcHG99GIGXSUo+aaDBjkOKwar1nIUmQQ3w85UlQNLGbp02jdmZ/DPoh3YegGzJt
+ 7qAvtXrpxJ9VoYFidxl64YYlwOxIGuxDp8vp0NKP9xuTzd83QKaS11o4RUcdxNumWZ99
+ tSFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=mNiCQomHe3AZpULgmNuzd/nevg4o0tLCGfPqsWacIDg=;
- b=p9m4QPqGotuSYb2DzQwsYwqS9EWO7Gn3Ohrszaeqlm2I3f1R8RDqKe2pJzFECD61ia
- QVcWy+JG3+Wi0WVrzZKQQW9UOuuyYkTFXYuWi2oscegM99HFPdDcwbR4Ad6mJ3Nd4enU
- oVZSkLkYqU6AfjaN6DYz25BAW6AZ958Y/HBq9iiTrXJh2zN8bPXRplLim8ASC7kD2m5b
- Wpb/b6n+lTaOqWJd3bCZ7LKFFUJMRTCdSSGcpZ0b3oLFYFQGFo+8fe6GOvbj9zA+og7w
- zAiHFlM7mNsdtJ2PNTZdc5hib9g1EnzP4xJfdy7CPGw9uhR3wut95xIuDSfIu1KU8Ayp
- XCFA==
-X-Gm-Message-State: AOAM532Euv3W11csgTA+GklFaXjkg3TaNT5VKAr14MeNuI9UoekOcQ0C
- ZDdQbOYZwWqRPzAHecOtwPA=
-X-Google-Smtp-Source: ABdhPJxOvB200XwC3KbSEeD9yNj4/yZaDfwprj85CYxXE7HWOzQrXXTiuZQc9KJCbRN0m7Ef8wgh/A==
-X-Received: by 2002:a17:902:bb8f:b0:151:c488:cd24 with SMTP id
- m15-20020a170902bb8f00b00151c488cd24mr10673839pls.118.1646642158364; 
- Mon, 07 Mar 2022 00:35:58 -0800 (PST)
+ bh=UnOTdbP36uQdWVvv2vJzAekSb/8o0Oe+p5E2vt+S+ug=;
+ b=CDxFBos8ti7D9pETlsE5XPFqoAND773hMVjJSgW2wF349s9ucCmL+QuncOaKkVpaTz
+ WUxy5tcuVkABItMkYoe6rzi9dsAurd/I5famRZzr8UXbhaa/lXgnW1fQYJ/jZtDcKqv3
+ hgUUwfXCP36IruXRoMqyByMKTDMzezVTmHbV9suL8U9XPlUJqk7HwIKl+swNQqMU7Z8b
+ cUXCfeqJ1JkrlJMPdnWJBsNaEV64diThVx2Nyn9KhiBcWC6uChVT5lCn4mT9dB0Gu4EN
+ Cx9VWM0Fb7HEVv6683HZBDoK/WIOG14NSTA8+azQEYEbthA7vRcK1UUendrjS/zWbWPn
+ FGLg==
+X-Gm-Message-State: AOAM531Qh+n8YXRqSupiypRV7jVYBENL6F4Tzvas0hd0H5FxUnIvyNS1
+ WkHyeLK9uhEK4ITZqo+1HZ0=
+X-Google-Smtp-Source: ABdhPJxr0p4VCR38LEhMY2qMANg8ktrD0H+xhr3U1pYrZh5H3mjPOrE5RdurcbcW+/wY8D7+31RCXA==
+X-Received: by 2002:a17:90b:4b4a:b0:1bf:83d:6805 with SMTP id
+ mi10-20020a17090b4b4a00b001bf083d6805mr24461078pjb.174.1646642728807; 
+ Mon, 07 Mar 2022 00:45:28 -0800 (PST)
 Received: from localhost.localdomain ([159.226.95.43])
  by smtp.googlemail.com with ESMTPSA id
- o65-20020a17090a0a4700b001bef5cffea7sm14562495pjo.0.2022.03.07.00.35.55
+ a133-20020a621a8b000000b004f6a79008ddsm12541851pfa.45.2022.03.07.00.45.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Mar 2022 00:35:58 -0800 (PST)
+ Mon, 07 Mar 2022 00:45:28 -0800 (PST)
 From: Miaoqian Lin <linmq006@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Heiko Stuebner <heiko@sntech.de>, Jianqun <jay.xu@rock-chips.com>,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: rockchip: i2s: Fix missing clk_disable_unprepare() in
- rockchip_i2s_probe
-Date: Mon,  7 Mar 2022 08:35:52 +0000
-Message-Id: <20220307083553.26009-1-linmq006@gmail.com>
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: msm8916-wcd-digital: Fix missing
+ clk_disable_unprepare() in msm8916_wcd_digital_probe
+Date: Mon,  7 Mar 2022 08:45:22 +0000
+Message-Id: <20220307084523.28687-1-linmq006@gmail.com>
 X-Mailer: git-send-email 2.17.1
 Cc: linmq006@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -100,56 +100,37 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Fix the missing clk_disable_unprepare() before return
-from rockchip_i2s_probe() in the error handling case.
+from msm8916_wcd_digital_probe in the error handling case.
 
-Fixes: 01605ad12875 ("ASoC: rockchip-i2s: enable "hclk" for rockchip I2S controller")
+Fixes: 150db8c5afa1 ("ASoC: codecs: Add msm8916-wcd digital codec")
 Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 ---
- sound/soc/rockchip/rockchip_i2s.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ sound/soc/codecs/msm8916-wcd-digital.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index a6d7656c206e..4ce5d2579387 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -716,19 +716,23 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
- 	i2s->mclk = devm_clk_get(&pdev->dev, "i2s_clk");
- 	if (IS_ERR(i2s->mclk)) {
- 		dev_err(&pdev->dev, "Can't retrieve i2s master clock\n");
--		return PTR_ERR(i2s->mclk);
-+		ret = PTR_ERR(i2s->mclk);
+diff --git a/sound/soc/codecs/msm8916-wcd-digital.c b/sound/soc/codecs/msm8916-wcd-digital.c
+index fcc10c8bc625..9ad7fc0baf07 100644
+--- a/sound/soc/codecs/msm8916-wcd-digital.c
++++ b/sound/soc/codecs/msm8916-wcd-digital.c
+@@ -1201,7 +1201,7 @@ static int msm8916_wcd_digital_probe(struct platform_device *pdev)
+ 	ret = clk_prepare_enable(priv->mclk);
+ 	if (ret < 0) {
+ 		dev_err(dev, "failed to enable mclk %d\n", ret);
+-		return ret;
 +		goto err_clk;
  	}
  
- 	regs = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
--	if (IS_ERR(regs))
--		return PTR_ERR(regs);
-+	if (IS_ERR(regs)) {
-+		ret = PTR_ERR(regs);
-+		goto err_clk;
-+	}
- 
- 	i2s->regmap = devm_regmap_init_mmio(&pdev->dev, regs,
- 					    &rockchip_i2s_regmap_config);
- 	if (IS_ERR(i2s->regmap)) {
- 		dev_err(&pdev->dev,
- 			"Failed to initialise managed register map\n");
--		return PTR_ERR(i2s->regmap);
-+		ret = PTR_ERR(i2s->regmap);
-+		goto err_clk;
- 	}
- 
- 	i2s->bclk_ratio = 64;
-@@ -768,7 +772,8 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
- 		i2s_runtime_suspend(&pdev->dev);
- err_pm_disable:
- 	pm_runtime_disable(&pdev->dev);
--
+ 	dev_set_drvdata(dev, priv);
+@@ -1209,6 +1209,9 @@ static int msm8916_wcd_digital_probe(struct platform_device *pdev)
+ 	return devm_snd_soc_register_component(dev, &msm8916_wcd_digital,
+ 				      msm8916_wcd_digital_dai,
+ 				      ARRAY_SIZE(msm8916_wcd_digital_dai));
 +err_clk:
-+	clk_disable_unprepare(i2s->hclk);
- 	return ret;
++	clk_disable_unprepare(priv->ahbclk);
++	return ret;
  }
  
+ static int msm8916_wcd_digital_remove(struct platform_device *pdev)
 -- 
 2.17.1
 

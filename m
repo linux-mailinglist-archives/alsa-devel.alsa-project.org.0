@@ -2,74 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D1534D08A8
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 21:42:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC3694D08AB
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 21:43:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 219BE1788;
-	Mon,  7 Mar 2022 21:42:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 219BE1788
+	by alsa0.perex.cz (Postfix) with ESMTPS id 705E9175E;
+	Mon,  7 Mar 2022 21:42:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 705E9175E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646685770;
-	bh=0Cv5vxXicRFXtF41SUF86JorRsvlrBPG16Z1OipQCFY=;
+	s=default; t=1646685801;
+	bh=kfRKFupuLhzforhTOfYrOlnEcnMRt1cRf4Jr2UuaEzk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R1b8pYuB9PAau8wg7xEDT+FvGHSS/97y43XHwDHREptL2DEUcIF6gbl0/gnF02mjd
-	 Mv0t0LPdGwNX6I8I9QwNPORT1XmVWRo6IbA/A2CYgOvhmSTL6AVoPPayys5miKFvTY
-	 5k576pQJ7N2YfY/D6jfBzvqtzmzYCrsbxgbBMbh4=
+	b=c2Bo3o+YpvsEZInXs7vzBDNLn9jlFS6rGKPmYudlsYaJBCGqgkL6UDkDZDXcWvNCC
+	 4Pj4OJXyYhwp5PZ7tObglou3+Y51CcpMPXUVzlRuF4CWS2Fmv4EAQqAMKhnjkQOOro
+	 uxWMYTi/6zG0gEz/krO0yLselrr7QYfAw3TnUBf4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D92ECF80544;
-	Mon,  7 Mar 2022 21:39:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADFCBF80558;
+	Mon,  7 Mar 2022 21:39:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C858F8053B; Mon,  7 Mar 2022 21:39:21 +0100 (CET)
+ id CA92DF80542; Mon,  7 Mar 2022 21:39:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B84B1F80534
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 21:39:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B84B1F80534
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43FFEF8053E
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 21:39:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43FFEF8053E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GXICFvko"
+ header.b="k9vaLGfp"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6A318614C1;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B12E56151F;
+ Mon,  7 Mar 2022 20:39:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51622C340E9;
  Mon,  7 Mar 2022 20:39:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 015F6C36AEB;
- Mon,  7 Mar 2022 20:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646685556;
- bh=0Cv5vxXicRFXtF41SUF86JorRsvlrBPG16Z1OipQCFY=;
+ s=k20201202; t=1646685558;
+ bh=kfRKFupuLhzforhTOfYrOlnEcnMRt1cRf4Jr2UuaEzk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=GXICFvko+7lCN6j/JEWFGf/TCOSFpNoXmvZFEL4W8HNoeng2ozIrEjxEOzpgBKAmZ
- SYnEaNSHfOtfw8nitbgpigzL6rQWb/CMHG8RHxX2K6XLKNtCMNEmubD5by/K6RFlJQ
- lPKTDiXx0spXrhKYUvjP2UrOheNacI7Po4C9p9cxZGCB0HEFV1kRyj9xYpyFM+Zp1i
- 63ySRHC3bMDqwSviMmNe85L5QdMkmJl9+2vakW1441KUh7q1IBHksx6ucgUnnQPBr3
- S0L2ii6LG83hQNlBUshk785Y7A6Lsam20y3Gv6DcuNZzDcS59VtzxRJzAP/HVAxgne
- fbDXz0mfflt5g==
+ b=k9vaLGfp6eL7dBGmy0wsTzzeZk52nprOXcKgBXka3S6jh7jC51F85NRzpEf9BQhnb
+ cjFsfy0Q28gZfGYLPAGeaU+TJQH+d5gJWZB8yE9TyBdKL3NY49ZicG0j1bv7CcI9SF
+ wgHoh6i+vWovxkX/g9Iu08Jcmv7bFoWPLBelLLEhYcg9XPV7POwWLdVXx4lgQu0J+E
+ PAsEyMc9qxJW7wC4eI/hY6OwbjhQBtxKEUEG+uvUsf7FN2CyvFLDJvMQ8qMxfKtSRA
+ we8tX9pvjFApmaSMIouM3toICelnY3tAxQftCR+8ZTc/u0GIopXVvppghy/GCF7SF3
+ il6YO4L+FmTHA==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20220304144015.398656-1-rf@opensource.cirrus.com>
-References: <20220304144015.398656-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs42l42: Add warnings about DETECT_MODE and
- PLL_START
-Message-Id: <164668555573.3137316.14425492431771518376.b4-ty@kernel.org>
-Date: Mon, 07 Mar 2022 20:39:15 +0000
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>, Meng Tang <tangmeng@uniontech.com>
+In-Reply-To: <20220304131449.GC28739@kili>
+References: <20220304131449.GC28739@kili>
+Subject: Re: [PATCH 1/3] ASoC: amd: acp: Fix signedness bug in
+ renoir_audio_probe()
+Message-Id: <164668555706.3137316.278603309577942240.b4-ty@kernel.org>
+Date: Mon, 07 Mar 2022 20:39:17 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,16 +87,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 4 Mar 2022 14:40:15 +0000, Richard Fitzgerald wrote:
-> DETECT_MODE and PLL_START must be zero while HP_PDN and ADC_PDN are
-> both 1. If this condition is broken it can discharge FILT+ and it
-> can then take up to 1 second for FILT+ to recharge.
+On Fri, 4 Mar 2022 16:14:49 +0300, Dan Carpenter wrote:
+> The "adata->i2s_irq" is unsigned so this error handling will not
+> work.
 > 
-> There is no workaround required for this, simply avoiding settings
-> and sequences that would break the requirement. The driver already
-> meets the requirement.
 > 
-> [...]
 
 Applied to
 
@@ -102,8 +99,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs42l42: Add warnings about DETECT_MODE and PLL_START
-      commit: 71a6254c8b8aa3dcac3a5cb1d1cc2a2d3a840bfb
+[1/3] ASoC: amd: acp: Fix signedness bug in renoir_audio_probe()
+      commit: 899a9a7f624b5a9d100c9ac6b3f0960981f0e4c5
+[2/4] ASoC: amd: pcm-dma: Fix signedness bug in acp_pdm_audio_probe()
+      commit: 00925272f166db31fed73f3c00c151eb5f7ce1d8
+[4/4] ASoC: amd: pcm-dma: Fix signedness bug in acp3x_audio_probe()
+      commit: 9a33f5632ca573e512c49fa46cc7131cbc83d4c9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

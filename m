@@ -2,78 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A75134CF449
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 10:09:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 572974CF45C
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 10:11:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AF3516FC;
-	Mon,  7 Mar 2022 10:08:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AF3516FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE54F170E;
+	Mon,  7 Mar 2022 10:10:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE54F170E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646644146;
-	bh=mKuKc24peBTHJq96oPXVMVEPFG1UMKdTfUdLfSGxtH0=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TmcssQ360xrXMXziabqRQyPBRcWOuYJNrrCxZD4baK0bSOqvlirfA3/wY2LgYbJnk
-	 93sWOf667mwWbja3+gQll2yJP7rgDH4Lsr7rWOydghnovwc2DDDP8UAGMH2przKD5K
-	 xuX4N7r0GsjIPzn7zjsJrtLlzqKSmwCtjNmiisDY=
+	s=default; t=1646644276;
+	bh=uuCfDCLnMvHHqJs5imEb7n3vxA0hd2HrAV00OTwPoS8=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=auv6gp7R+fHEs6p4P6MEpJrQIOF5XxH1dEmhAqkKqa6OUkcmOzWLMZ7lu2rupqm6E
+	 EKKNY++On7q79PKQUS9qreKHIgFhsr8qeMcy6FjsFIxa2e1+M8NX1k4eoxFTewVQEL
+	 4oFd1sLYL9c8OuN3RNiOVOv46//DSnsgyBnwg5iA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 913FEF80159;
-	Mon,  7 Mar 2022 10:07:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D842F80159;
+	Mon,  7 Mar 2022 10:10:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2344F8013F; Mon,  7 Mar 2022 10:07:56 +0100 (CET)
+ id 81D5EF8013F; Mon,  7 Mar 2022 10:10:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C2D1F800D1
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 10:07:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C2D1F800D1
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from AUS01-SY4-obe.outbound.protection.outlook.com
+ (mail-sy4aus01olkn20804.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:7005::804])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79D14F80124
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 10:10:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79D14F80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="S+nr6l6u"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id 2631B1F43859
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1646644069;
- bh=mKuKc24peBTHJq96oPXVMVEPFG1UMKdTfUdLfSGxtH0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=S+nr6l6ud+gdKu5ahDRDne/nb8H6YRD77OPWBF4KsxIFPSWoe0DszZrrWihtjWXaT
- KIcAbqgmYkYHkpqe6Z6JIVmXD00hmusob2Umsc2496UYcKdboInRXDfzCggoz19RLR
- yUcKjJLTR5n9L4ijWAvo0cXjEp1LFJ2idl8PREEPXlHFCtEDOHQS3xaoyiRnW2c6Is
- Tx6TPN7W1wrUrHC8GJH3UPzLbd3U+G4/vlXNJyg0fofeJG/E+3SOzatheWUZxcRDZa
- SK2WUgGituRC1LNkpgBKcCC0WJyGTNKbC2Oj4PfAu+ykatmh19xUR76VCfEYLa1aZ8
- g2zwcLTBmrPYA==
-Message-ID: <e2299a96-9f91-0ca3-1617-18029b3940d2@collabora.com>
-Date: Mon, 7 Mar 2022 10:07:45 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Subject: Re: [v2 01/17] ASoC: mediatek: mt6366: add codec driver
+ dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com
+ header.b="T/psk2vH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CM87ftEwSFznp5rJy/h1q2UIvhImXdYcHbxsbAlxf/0k0dks3zGOieVRIOyq4WkIicB/rs3unJCij/SFFgx1prWfAw8WpOx5KbQSXSSvYXfHuBZqWllEjZEPF4ydckkfhWGHHUKoMYckk41nai2h0GfIVl5Vp/7hfxjDqtS2rBKprQzE870a4sHC1X++ol6wROj9Za3zQcWmBy5YZxnSqb0CZ/43gCpC3FJ3Iw45o50SYHU55HQBec5+D7ukCeZtAGP6NVuoE10R2dIXZ3yaZgdF/59IaHgGBcEU8Oi/lQspjqpmUBYBhb4IdEPox8cv0np4h5SeDvuZaJaMPsTPYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=efqFz5PqrKTB61LpXlTtIGVCHDJMAsmTiOICHRKJ6H0=;
+ b=BRBeeC9uj/XYorQSfgUuDwUUGf0I4oZoI6HyMGLelx/ZFutz5HnUn0Iz8aek84GChcMbZlQbkqJFIMKGQnjKUBz/BJqqw3tU1i65Dcvy9D17oPAmCbvihJcYPgGCT50JwWp+n9pACy7KD/HRAPHvn3H1++tyeGf+mzgsvcNk5msvV6E1mES5SOIvepqGPcXyKcyGw/2SeKAzUvPqIZCm8XC/jj2R4Kqz1VjETEnWl8S4BJ0UpeiUtI80DM5JlkwzjDfB1JZ415v8rjzwcAMvjZ962ZdhLLePGBPR8PKCTSSCh0gGCRbZhZRfoHClwNAjhvOYl9susP+wdll4zxt+fg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=efqFz5PqrKTB61LpXlTtIGVCHDJMAsmTiOICHRKJ6H0=;
+ b=T/psk2vHEIJuw3q8GEwJZ3Ydw53o0MfHWf5WZLhjJSowW+t4rm0fqwzSZUry/vN1UYE58hH0uA+NwLcXjyQqrHuXGIZdYN+vRK6C+FfeCHXnsInGanofKC+qZ0h/W7F+OI2rN4+PaMxYYfLNwSon8BuMJmVIus2CZEBtC/QyGel4yvrf3kBZEaqooO57hARNiiEK1ZGz1ZaWMeETav7wO0JuXJ17OcHv73w5Pw6XD1j2YJBN0AktbYlI2GP9zYXpSgF9Zro+pIZ3OL5JLaVV1RfpF2BRWs+gUKzrfcHENRPI9AFl2w89XBsQxdeDUzaditkdS/i97cpH6kyQmWlifA==
+Received: from SY4P282MB1482.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:c1::14) by
+ MEAP282MB0694.AUSP282.PROD.OUTLOOK.COM (2603:10c6:220:63::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5038.17; Mon, 7 Mar 2022 09:09:55 +0000
+Received: from SY4P282MB1482.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::8008:638e:9683:e5b2]) by SY4P282MB1482.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::8008:638e:9683:e5b2%3]) with mapi id 15.20.5038.026; Mon, 7 Mar 2022
+ 09:09:56 +0000
+From: Chengyi Zhao <chengyi.zhao@outlook.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: How to judge USB Audio device has no digital in/out.
+Thread-Topic: How to judge USB Audio device has no digital in/out.
+Thread-Index: AQHYMf9jzHDT/FYeEk+SaSP/oIz/kA==
+Date: Mon, 7 Mar 2022 09:09:56 +0000
+Message-ID: <ME3P282MB1473ECF3C97907838188223799089@ME3P282MB1473.AUSP282.PROD.OUTLOOK.COM>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org
-References: <20220217134205.15400-1-jiaxin.yu@mediatek.com>
- <20220217134205.15400-2-jiaxin.yu@mediatek.com>
- <b22976ee-6426-cabf-f153-fbe093611e97@collabora.com>
- <6555d89deb9087825f865b9d4265f07465e7ae09.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <6555d89deb9087825f865b9d4265f07465e7ae09.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- geert+renesas@glider.be, linux-kernel@vger.kernel.org, zhangqilong3@huawei.com,
- tiwai@suse.com, lgirdwood@gmail.com, tzungbi@google.com, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- p.zabel@pengutronix.de, matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+suggested_attachment_session_id: a4e667e3-331b-89d5-cbac-6fe41c276628
+x-tmn: [MlOWKxLPXQbCIkqAFmIiyPMpray6+n5p]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 38485cca-bf4a-4a95-3510-08da001a3f9d
+x-ms-traffictypediagnostic: MEAP282MB0694:EE_
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: xIYz0k4OC4bBs83sj7bwKlWPWaBXh0y5C1q5z+MQj31if7vEVX2phUYE4U6rfZ13R0iIN16SI426o2II+IVVFe6wqv8zqvveILB5+YotLP5FECOmDjiOplRapOSTui3Op3jGSKve7zbFNnD2jEdtc61CsSZ2jEu+EFITBfyr7+aYr1/I5Vv9TGD9Z5zOAzE73ARgnrT+rEz7eeSGXmHRrsNDwNlekdBRjC6fimRwdGFwTYVS4YETky/HC3C3zB61GYDm1HZ59x9X6Aj/XxyaZYeTBn6nbvdPaPo9o2VECmkR01Nf1WAZRP88lvfPJrtGqH2Zq8rZap0GhAELFizw0fHivyP6gqzNf8WTLJZ7Csn/Gk99ZZq8v/nfj0eqfkEhjTWPWXlxb7pET+A1CCB0ajV1ecL/zcQzr+Rjy0tw31OKWA+OkRaLwqsssT0OuaQFwssMOmZvOwnXPdyBml+/l1beXDonZBuoiXPvLrvku+2BNt9tnt6kxCqSdtoPtre+E/SUM1N7HFbJHnvtc3GGE7S2MaAHoOBaxZ60eORiGk9CHA/UrghLFdLUgRicNajmYr2HEWb/cx2jNvrzg5vzQw==
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: XcFYhLjgvicK+UVm9r9PEe8qHJdl5DkVPJD/V+dqeb0nP1d+weG9gQE0sQnjV+KRLJAmoiSeDFDw+loHXNkyBXgw3r5aZHvv6ES/s9ItrMK2cYt7NgSFTLpCwTOfyE3mfmnYISET1qf8d7IjoI3tVMNwjo2bnagSfRw9ksIorWUhNK2G9pfslAnmNxNfmj88zabTKJZbcC9jD8uJHarIBeVtindZscS2vhzNPmzu/EOzmKVuVURlk2Irg1OqWpeouxxXn7azj+qMhY+mASwK4Y1KAomIopcOOi5zb7F7YFbmWMyYy/SfonsjGu2bYa8N+WakW6HqSQtSBvIWNzd+u2g7xgcQUqCfTfwLVR2RuxyzLAHy4zTlV0NtsIvdfgPWRP3A16WdNakL9PSeebj+vscIz2a+MztlmOsCLqK3/kFfHo2vJr0J8Bb5jgmWwn2vS51jxHYXdDpbKSdTHnvV/6jKY4xF5XryzySS1FA7PIfdaG35A/V70WsW4ojyToqnuGi7dlOlk1Y3tusdCUH75FWmle1IA4/c31Nv9RoOF977b6gdK9maQ+iMN1rCRZ39h/1EydUBtBjzOE0JzC0/5lCWNUtzh1yGDSmEs6qK4B52YyxWhM0rSunISfpsM7HOmZ3a13CRKn1iw6VAvyzN4DiSoytCTo3xCflTafQOMu21nD42tqwYs+tbREbzgY48e+1Lu2EPpmTCPZr9PN4Sc6RfJ8O2OaQLSNqoknqok6HDsU7BAll/JrRek6N2aXJfdRZ73sSssrqVe7/WRALvjwNXlvpcMVug0fklqerpGYrQivGh6iv88vmwD6TsZE8RTJD/Va1bzNLLBRhLjNvV/Mr8zHSD6SVDXq0M5lwV1QrGhcp51qzQD6yjGQrrXovYgLdFq2Y1B1pkW2O2jjBHD34lPDZIpEhx43uVhq2ngNu1R3qkiCYwOsogNAPEB/B9
+MIME-Version: 1.0
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SY4P282MB1482.AUSP282.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38485cca-bf4a-4a95-3510-08da001a3f9d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2022 09:09:56.2138 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MEAP282MB0694
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,100 +113,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 05/03/22 05:24, Jiaxin Yu ha scritto:
-> On Fri, 2022-02-18 at 15:54 +0100, AngeloGioacchino Del Regno wrote:
->> Il 17/02/22 14:41, Jiaxin Yu ha scritto:
->>> Mt6366 is a new version of mt6358, and they are same about audio
->>> part.
->>> So we can reuse the driver of mt6358.
->>>
->>> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
->>
->> Hello Jiaxin,
->> I'm sorry but this commit makes very little sense.
->>
->> If you want to advertise MT6366 support, please write a note and/or
->> a new compatible string inside of the mt6358 driver (and dt-
->> bindings),
->> then, please drop this commit.
->>
-> 
-> Hello angelogioacchino,
-> 
-> Thank you for your advice.
-> 
-> If I add a new compatible string inside of the mt6358 driver and dt-
-> bindings, then the machine driver which want to use mt6366 should
-> select SND_SOC_MT6358.
-> 
-> like below:
-> 
-> config SND_SOC_MT8186_MT6366_DA7219_MAX98357
-> 	tristate "ASoC Audio driver for MT8186 with DA7219 MAX98357A
-> codec"
->   	depends on I2C && GPIOLIB
->   	depends on SND_SOC_MT8186 && MTK_PMIC_WRAP
->   	select SND_SOC_MT6366   ==> SND_SOC_MT6358
-> 	...
-> 
-> I just doubt it's enough to make sense. I originally wanted to put this
-> relationship in the sound/soc/codecs layer. So that this relationship
-> is not perceived by users(machine driver).
-> However, if the general practice is like this, I will adopt your
-> suggestion. Thank you again.
-> 
+Hi guys,
 
-Yes this is acceptable, please do it like that.
+I found that in the following configuration file "alsa-lib/src/conf/cards/U=
+SB-Audio.conf" there are many kinds of
+USB Audio devices that need to turn off digital in/out.
 
-Thanks,
-Angelo
+However, how can I judge that this USB Audio device has no digital in/out, =
+thanks.
 
->>
->>> ---
->>>    sound/soc/codecs/Kconfig  | 8 ++++++++
->>>    sound/soc/codecs/Makefile | 1 +
->>>    2 files changed, 9 insertions(+)
->>>
->>> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
->>> index 8fa24783ce01..6631094678f5 100644
->>> --- a/sound/soc/codecs/Kconfig
->>> +++ b/sound/soc/codecs/Kconfig
->>> @@ -132,6 +132,7 @@ config SND_SOC_ALL_CODECS
->>>    	imply SND_SOC_MT6351
->>>    	imply SND_SOC_MT6358
->>>    	imply SND_SOC_MT6359
->>> +	imply SND_SOC_MT6366
->>>    	imply SND_SOC_MT6660
->>>    	imply SND_SOC_NAU8315
->>>    	imply SND_SOC_NAU8540
->>> @@ -1888,6 +1889,13 @@ config SND_SOC_MT6359_ACCDET
->>>    	  for ASoC codec soc-jack detection mechanism.
->>>    	  Select N if you don't have jack on board.
->>>    
->>> +config SND_SOC_MT6366
->>> +	tristate "MediaTek MT6366 Codec"
->>> +	depends on MTK_PMIC_WRAP
->>> +	help
->>> +	  Enable support for the platform which uses MT6366 as
->>> +	  external codec device.
->>> +
->>>    config SND_SOC_MT6660
->>>    	tristate "Mediatek MT6660 Speaker Amplifier"
->>>    	depends on I2C
->>> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
->>> index 42d00aa4ee46..1279684feaf0 100644
->>> --- a/sound/soc/codecs/Makefile
->>> +++ b/sound/soc/codecs/Makefile
->>> @@ -465,6 +465,7 @@ obj-$(CONFIG_SND_SOC_MT6351)	+= snd-soc-
->>> mt6351.o
->>>    obj-$(CONFIG_SND_SOC_MT6358)	+= snd-soc-mt6358.o
->>>    obj-$(CONFIG_SND_SOC_MT6359)	+= snd-soc-mt6359.o
->>>    obj-$(CONFIG_SND_SOC_MT6359_ACCDET) += mt6359-accdet.o
->>> +obj-$(CONFIG_SND_SOC_MT6366)	+= snd-soc-mt6358.o
->>>    obj-$(CONFIG_SND_SOC_MT6660)	+= snd-soc-mt6660.o
->>>    obj-$(CONFIG_SND_SOC_NAU8315)   += snd-soc-nau8315.o
->>>    obj-$(CONFIG_SND_SOC_NAU8540)   += snd-soc-nau8540.o
->>
->>
-> 
+USB-Audio.pcm.iec958_device {
 
+        # The below don't have digital in/out, so prevent them from being o=
+pened.
+        "Andrea PureAudio USB-SA Headset" 999
+        "Blue Snowball" 999
+        "C-Media USB Headphone Set" 999
+        "Cmedia Audio" 999
+        "DELL PROFESSIONAL SOUND BAR AE5" 999
+        "HP Digital Stereo Headset" 999
+        "GN 9330" 999
+        "Logitech Speaker Lapdesk N700" 999
+        "Logitech G35 Headset" 999
+        "Logitech USB Headset" 999
+        "Logitech USB Headset H540" 999
+        "Logitech Wireless Headset" 999
+        "Plantronics Blackwire 3220 Seri" 999
+        "Plantronics GameCom 780" 999
+        "Plantronics USB Headset" 999
+        "Plantronics Wireless Audio" 999
+        "SB WoW Headset" 999
+        "Scarlett 2i2 USB" 999
+        "Scarlett 2i4 USB" 999
+        "Sennheiser USB headset" 999
+        "SWTOR Gaming Headset by Razer" 999
+        "ThinkStation P620 Main" 999
+        "ThinkStation P620 Rear" 999
+        "Thunderbolt Dock Audio Headset" 999
+        "Thunderbolt Dock Audio Module" 999
+        "USB Device 0x46d_0x821" 999
+        "USB Device 0x46d_0x992" 999
+        "WD15 Dock" 999
+        "WD19 Dock" 999
+}
+
+Best Regards,
+Chengyi

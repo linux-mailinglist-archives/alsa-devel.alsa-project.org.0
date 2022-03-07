@@ -2,91 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48C84CF42F
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 10:03:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A75134CF449
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 10:09:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25C6E16FA;
-	Mon,  7 Mar 2022 10:03:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25C6E16FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AF3516FC;
+	Mon,  7 Mar 2022 10:08:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AF3516FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646643830;
-	bh=75WRyuPbnV9lLjBM6kBvq5GWkgfpyg+hxJWevkwMD70=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=m4Shu7DjR1nT0aJVjvFem6bFGGcMkRYR4xwmzpwFz7LazbRq+IisCuxkUQgu+S2hJ
-	 054siyVbFmHii4+7clRH8UUs7bUkpjZRwHpGT3z+8hKeorBn9SsDfQgVY6eZrWV7Jf
-	 q25a4mJW7UbXqoCJL8QZ6GQh+nJR9ctC9VE/8IJU=
+	s=default; t=1646644146;
+	bh=mKuKc24peBTHJq96oPXVMVEPFG1UMKdTfUdLfSGxtH0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TmcssQ360xrXMXziabqRQyPBRcWOuYJNrrCxZD4baK0bSOqvlirfA3/wY2LgYbJnk
+	 93sWOf667mwWbja3+gQll2yJP7rgDH4Lsr7rWOydghnovwc2DDDP8UAGMH2przKD5K
+	 xuX4N7r0GsjIPzn7zjsJrtLlzqKSmwCtjNmiisDY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96DD9F800D1;
-	Mon,  7 Mar 2022 10:02:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 913FEF80159;
+	Mon,  7 Mar 2022 10:07:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E2F9F8013F; Mon,  7 Mar 2022 10:02:41 +0100 (CET)
+ id B2344F8013F; Mon,  7 Mar 2022 10:07:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D60BF80124
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 10:02:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D60BF80124
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C2D1F800D1
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 10:07:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C2D1F800D1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="kKYdGsJR"
-Received: by mail-pj1-x1034.google.com with SMTP id
- mg21-20020a17090b371500b001bef9e4657cso12631418pjb.0
- for <alsa-devel@alsa-project.org>; Mon, 07 Mar 2022 01:02:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id;
- bh=T9sNyGPslu7pePFJSRIoI7XN6IK0Rl/U6UawibuUj8w=;
- b=kKYdGsJROD4OCCbZLJfSbXDMuUvSumWj8d/pHxsMdlNQJH0c43xdLeVuIhK/9jkAh9
- I/had2q6jkKGNqwPXv2Q2kJ8q1/9lX+z92l3zRzcoUDnXBkuv7vmkyiZz2Tu+srNfcTI
- zqzK+uNoiv9VvRd6zw/sAXbTUf8KfY8LboKMENE/cdvNF2R4HqOqAMQ87X5EIHDFY0tR
- DdakT5HIykvDSRe/c1Ls15g/HzYEurN7pH/ysDj7aYBgDYwnGM6i0EWEPx7G5/OFU9t+
- vSDvBcYM1ZBcHC6Oo8wbjfPGS1j0YIde0h7zzLs4gPVPYfY5/dJJxY3MuWtO9XpOiUif
- biAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=T9sNyGPslu7pePFJSRIoI7XN6IK0Rl/U6UawibuUj8w=;
- b=tuOZR+at+93RWq/xaCpteyVeq8bWg4dTVwaNpomlqtLe8MIfYog/AeLjiXRlX2YYNj
- 2KbcKaxzawoRY34BGa3j4czKFKm2DwcM0vNbZ0Yhq+toYJPl3Y5SgIhW80Cox4G2NDtk
- XNOXMFKsrzd9qRaVcm2YYqofqqnF8G6D2jpIhUtaRC1rdtXokPp9z1VPUft23Q56AqLh
- W9AA1qMFatM40gRJvnG2LdKYY1gXgXvCK+h2WTMwYed/L0Ob3VtMp6JuIeeyqIrIPE+Q
- dXVDRD1daPxUqV/Iiu0ne+CVbi02rCjCJGy4S8Lc4zwKLDX4xdmPWlvp08Y2WoBV/ISN
- XsSw==
-X-Gm-Message-State: AOAM532jyYMZsoskaLU/zkAi0u+mVdw8FgmKEFIs4PbUbSizkv7tyMeV
- HlxMSWOU4tfXTZZWiVHGUG8=
-X-Google-Smtp-Source: ABdhPJzkVOsSJAkFEiNUwUFAsy1730LBS8+OzwMcXGSseI3J/C0zrMKB8QafKzTl3vzqGryZ2R83uQ==
-X-Received: by 2002:a17:902:8b87:b0:14d:7920:e54a with SMTP id
- ay7-20020a1709028b8700b0014d7920e54amr10915799plb.140.1646643755176; 
- Mon, 07 Mar 2022 01:02:35 -0800 (PST)
-Received: from localhost.localdomain ([159.226.95.43])
- by smtp.googlemail.com with ESMTPSA id
- u10-20020a6540ca000000b0037445e95c93sm11177939pgp.15.2022.03.07.01.02.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Mar 2022 01:02:34 -0800 (PST)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Lee Jones <lee.jones@linaro.org>, Chris Morgan <macromorgan@hotmail.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Wei Yongjun <weiyongjun1@huawei.com>, Miaoqian Lin <linmq006@gmail.com>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Colin Ian King <colin.king@intel.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: rk817: Fix missing clk_disable_unprepare() in
- rk817_platform_probe
-Date: Mon,  7 Mar 2022 09:01:30 +0000
-Message-Id: <20220307090146.4104-1-linmq006@gmail.com>
-X-Mailer: git-send-email 2.17.1
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="S+nr6l6u"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id 2631B1F43859
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1646644069;
+ bh=mKuKc24peBTHJq96oPXVMVEPFG1UMKdTfUdLfSGxtH0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=S+nr6l6ud+gdKu5ahDRDne/nb8H6YRD77OPWBF4KsxIFPSWoe0DszZrrWihtjWXaT
+ KIcAbqgmYkYHkpqe6Z6JIVmXD00hmusob2Umsc2496UYcKdboInRXDfzCggoz19RLR
+ yUcKjJLTR5n9L4ijWAvo0cXjEp1LFJ2idl8PREEPXlHFCtEDOHQS3xaoyiRnW2c6Is
+ Tx6TPN7W1wrUrHC8GJH3UPzLbd3U+G4/vlXNJyg0fofeJG/E+3SOzatheWUZxcRDZa
+ SK2WUgGituRC1LNkpgBKcCC0WJyGTNKbC2Oj4PfAu+ykatmh19xUR76VCfEYLa1aZ8
+ g2zwcLTBmrPYA==
+Message-ID: <e2299a96-9f91-0ca3-1617-18029b3940d2@collabora.com>
+Date: Mon, 7 Mar 2022 10:07:45 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Subject: Re: [v2 01/17] ASoC: mediatek: mt6366: add codec driver
+Content-Language: en-US
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org
+References: <20220217134205.15400-1-jiaxin.yu@mediatek.com>
+ <20220217134205.15400-2-jiaxin.yu@mediatek.com>
+ <b22976ee-6426-cabf-f153-fbe093611e97@collabora.com>
+ <6555d89deb9087825f865b9d4265f07465e7ae09.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <6555d89deb9087825f865b9d4265f07465e7ae09.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ geert+renesas@glider.be, linux-kernel@vger.kernel.org, zhangqilong3@huawei.com,
+ tiwai@suse.com, lgirdwood@gmail.com, tzungbi@google.com, robh+dt@kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,36 +89,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix the missing clk_disable_unprepare() before return
-from rk817_platform_probe() in the error handling case.
+Il 05/03/22 05:24, Jiaxin Yu ha scritto:
+> On Fri, 2022-02-18 at 15:54 +0100, AngeloGioacchino Del Regno wrote:
+>> Il 17/02/22 14:41, Jiaxin Yu ha scritto:
+>>> Mt6366 is a new version of mt6358, and they are same about audio
+>>> part.
+>>> So we can reuse the driver of mt6358.
+>>>
+>>> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+>>
+>> Hello Jiaxin,
+>> I'm sorry but this commit makes very little sense.
+>>
+>> If you want to advertise MT6366 support, please write a note and/or
+>> a new compatible string inside of the mt6358 driver (and dt-
+>> bindings),
+>> then, please drop this commit.
+>>
+> 
+> Hello angelogioacchino,
+> 
+> Thank you for your advice.
+> 
+> If I add a new compatible string inside of the mt6358 driver and dt-
+> bindings, then the machine driver which want to use mt6366 should
+> select SND_SOC_MT6358.
+> 
+> like below:
+> 
+> config SND_SOC_MT8186_MT6366_DA7219_MAX98357
+> 	tristate "ASoC Audio driver for MT8186 with DA7219 MAX98357A
+> codec"
+>   	depends on I2C && GPIOLIB
+>   	depends on SND_SOC_MT8186 && MTK_PMIC_WRAP
+>   	select SND_SOC_MT6366   ==> SND_SOC_MT6358
+> 	...
+> 
+> I just doubt it's enough to make sense. I originally wanted to put this
+> relationship in the sound/soc/codecs layer. So that this relationship
+> is not perceived by users(machine driver).
+> However, if the general practice is like this, I will adopt your
+> suggestion. Thank you again.
+> 
 
-Fixes: 0d6a04da9b25 ("ASoC: Add Rockchip rk817 audio CODEC support")
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
----
- sound/soc/codecs/rk817_codec.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Yes this is acceptable, please do it like that.
 
-diff --git a/sound/soc/codecs/rk817_codec.c b/sound/soc/codecs/rk817_codec.c
-index 03f24edfe4f6..8fffe378618d 100644
---- a/sound/soc/codecs/rk817_codec.c
-+++ b/sound/soc/codecs/rk817_codec.c
-@@ -508,12 +508,14 @@ static int rk817_platform_probe(struct platform_device *pdev)
- 	if (ret < 0) {
- 		dev_err(&pdev->dev, "%s() register codec error %d\n",
- 			__func__, ret);
--		goto err_;
-+		goto err_clk;
- 	}
- 
- 	return 0;
--err_:
- 
-+err_clk:
-+	clk_disable_unprepare(rk817_codec_data->mclk);
-+err_:
- 	return ret;
- }
- 
--- 
-2.17.1
+Thanks,
+Angelo
+
+>>
+>>> ---
+>>>    sound/soc/codecs/Kconfig  | 8 ++++++++
+>>>    sound/soc/codecs/Makefile | 1 +
+>>>    2 files changed, 9 insertions(+)
+>>>
+>>> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+>>> index 8fa24783ce01..6631094678f5 100644
+>>> --- a/sound/soc/codecs/Kconfig
+>>> +++ b/sound/soc/codecs/Kconfig
+>>> @@ -132,6 +132,7 @@ config SND_SOC_ALL_CODECS
+>>>    	imply SND_SOC_MT6351
+>>>    	imply SND_SOC_MT6358
+>>>    	imply SND_SOC_MT6359
+>>> +	imply SND_SOC_MT6366
+>>>    	imply SND_SOC_MT6660
+>>>    	imply SND_SOC_NAU8315
+>>>    	imply SND_SOC_NAU8540
+>>> @@ -1888,6 +1889,13 @@ config SND_SOC_MT6359_ACCDET
+>>>    	  for ASoC codec soc-jack detection mechanism.
+>>>    	  Select N if you don't have jack on board.
+>>>    
+>>> +config SND_SOC_MT6366
+>>> +	tristate "MediaTek MT6366 Codec"
+>>> +	depends on MTK_PMIC_WRAP
+>>> +	help
+>>> +	  Enable support for the platform which uses MT6366 as
+>>> +	  external codec device.
+>>> +
+>>>    config SND_SOC_MT6660
+>>>    	tristate "Mediatek MT6660 Speaker Amplifier"
+>>>    	depends on I2C
+>>> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+>>> index 42d00aa4ee46..1279684feaf0 100644
+>>> --- a/sound/soc/codecs/Makefile
+>>> +++ b/sound/soc/codecs/Makefile
+>>> @@ -465,6 +465,7 @@ obj-$(CONFIG_SND_SOC_MT6351)	+= snd-soc-
+>>> mt6351.o
+>>>    obj-$(CONFIG_SND_SOC_MT6358)	+= snd-soc-mt6358.o
+>>>    obj-$(CONFIG_SND_SOC_MT6359)	+= snd-soc-mt6359.o
+>>>    obj-$(CONFIG_SND_SOC_MT6359_ACCDET) += mt6359-accdet.o
+>>> +obj-$(CONFIG_SND_SOC_MT6366)	+= snd-soc-mt6358.o
+>>>    obj-$(CONFIG_SND_SOC_MT6660)	+= snd-soc-mt6660.o
+>>>    obj-$(CONFIG_SND_SOC_NAU8315)   += snd-soc-nau8315.o
+>>>    obj-$(CONFIG_SND_SOC_NAU8540)   += snd-soc-nau8540.o
+>>
+>>
+> 
 

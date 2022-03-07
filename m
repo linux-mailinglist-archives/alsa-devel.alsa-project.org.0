@@ -2,76 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E71254D0286
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 16:14:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AD7E4D0299
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 16:21:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 710B016A2;
-	Mon,  7 Mar 2022 16:13:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 710B016A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D029116FB;
+	Mon,  7 Mar 2022 16:20:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D029116FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646666073;
-	bh=QRW2RyTSOhboFthSYoyDRc4nKPsN9M47AoNVFFmLTzQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OxQTtWz7Z1jl+2FdPydRMm690SJB47+py7bwUXTSMv+Knt/kZG6diMgotKVNzegM1
-	 6gvvXXUfzUVJmwNz8QbZDsegVjEUJRRjHv1r8OVRqOS/+VkBiZYu0Sl/nqfrnthopK
-	 34bN2zeTYaXT/yqWU4GtPJEYnG/XyBtWmfqVUNU4=
+	s=default; t=1646666508;
+	bh=Zs95eP1BilLHQkkVohzQtrENVHLlGGsc6C/CJDNHmLQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fo/Rm5+FGfgAEusF4/Ow/LqLU2i7oNDoU3GOIWFIyYCVaUjIwTL3GTK4JQnyOXqiX
+	 5sWy0sMKBfGXRCZWMZsDqEpJtMc6jAJZZpcJlm/LNtr0ZnU8vanvva4Wsa7xHjlW3D
+	 vnpYILb3KNJxRI9X+bxVLtfj6t3D+0bwkkol7+a4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0CA9F80159;
-	Mon,  7 Mar 2022 16:13:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E2DAF80124;
+	Mon,  7 Mar 2022 16:20:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74128F8013F; Mon,  7 Mar 2022 16:13:23 +0100 (CET)
+ id 5103CF8013F; Mon,  7 Mar 2022 16:20:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3650CF80124
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 16:13:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3650CF80124
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sTTg8qiF"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8CF99612BB;
- Mon,  7 Mar 2022 15:13:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B68C340EB;
- Mon,  7 Mar 2022 15:13:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646665998;
- bh=QRW2RyTSOhboFthSYoyDRc4nKPsN9M47AoNVFFmLTzQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sTTg8qiFESfVb3+Dtnxu+MSTKtwVEAo6cIs+ry6615RmrhGucYmGEVKVBDkaiQxZC
- I+afnOArHT1cxt7dYjW1CAaQJQKn7UlLBtYH/ybR/Pj2YbMCCTTXdimMt/w6u9hzFc
- 8uHUwavMgd7k1LPoGjHMj0dXp9WoHFNc2bIyA555hxo/F9Yq76VRmXe/xfDRZT7UYG
- +soacU/X2yFL/xtmiVh47VC4E7GgH/JIQFaGXQWzyDPxwPZovCH/QunLY+tgwYFCMf
- SdzNaYWqjnjl+xtl3ez2OxZEvKHcrxTaoTT4i85rQvSYDaRC/BEDAuQYoH77un21qZ
- akZ8w/p6o7Z9w==
-Date: Mon, 7 Mar 2022 15:13:12 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Alifer Moraes <alifer.m@variscite.com>
-Subject: Re: [PATCH] ASoC: simple-card: add bindings for amplifier support
-Message-ID: <YiYhCEgHILYoDH4H@sirena.org.uk>
-References: <20220307142923.28365-1-alifer.m@variscite.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25429F80124
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 16:20:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25429F80124
+X-QQ-mid: bizesmtp90t1646666426tldfkns3
+Received: from localhost.localdomain ( [114.222.120.105])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Mon, 07 Mar 2022 23:20:20 +0800 (CST)
+X-QQ-SSF: 01400000002000C0I000B00A0000000
+X-QQ-FEAT: FXvDfBZI5O5S/McaXi3cuxWk1Q1MS5RO0634j6zHeJ9soIovgRq6aHksoO4dB
+ Fp+b/c1Eh+7wKGISBy/dpcDywCZoSh/PorAiLF2JoJLO/zfLzgBVRQo1jaSKywaWNMgfBmq
+ udq3gkFSgNmO8wt6ba0wTPVfnJi1wxRu+JDGgGcyKcKLLmlXI9utNVYV+4Gdb01J9DOM6hi
+ A+9wq3gOzss2m6x1WSlXjcatagVz19ri8Mb+WTlo/ZgI6cKrmML7DOgjmn4VWAHYVSYaogb
+ /jFf5aS3soon7mlQzyf/euGpParnitMfQehTT29NK2NtN5XH0NYHDSe0vd1RzuSo/KnvyV/
+ 3SRYxUz/TAluAkQTabdsQUnw2K+c32319vcITKnvnSb+9v/9RI=
+X-QQ-GoodBg: 2
+From: Lianjie Zhang <zhanglianjie@uniontech.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH v2] ASoC: Intel: catpt: use asoc_substream_to_rtd()
+Date: Mon,  7 Mar 2022 23:19:39 +0800
+Message-Id: <20220307151939.32870-1-zhanglianjie@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="OHnuGjMM4wK2ZTjf"
-Content-Disposition: inline
-In-Reply-To: <20220307142923.28365-1-alifer.m@variscite.com>
-X-Cookie: Whatever became of eternal truth?
-Cc: pierluigi.p@variscite.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, alsa-devel@alsa-project.org,
- eran.m@variscite.com
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
+X-QQ-Bgrelay: 1
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Lianjie Zhang <zhanglianjie@uniontech.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,36 +78,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Now we can use asoc_substream_to_rtd() macro,
+let's use it.
 
---OHnuGjMM4wK2ZTjf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Lianjie Zhang <zhanglianjie@uniontech.com>
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
-On Mon, Mar 07, 2022 at 11:29:23AM -0300, Alifer Moraes wrote:
+diff --git a/sound/soc/intel/catpt/pcm.c b/sound/soc/intel/catpt/pcm.c
+index 939a9b801dec..a26000cd5ceb 100644
+--- a/sound/soc/intel/catpt/pcm.c
++++ b/sound/soc/intel/catpt/pcm.c
+@@ -74,7 +74,7 @@ static struct catpt_stream_template *catpt_topology[] = {
+ static struct catpt_stream_template *
+ catpt_get_stream_template(struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtm = substream->private_data;
++	struct snd_soc_pcm_runtime *rtm = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtm, 0);
+ 	enum catpt_stream_type type;
 
-> +	priv->pa_gpio = devm_gpiod_get_optional(dev, "pa", GPIOD_OUT_LOW);
-> +	if (IS_ERR(priv->pa_gpio)) {
-> +		ret = PTR_ERR(priv->pa_gpio);
-> +		dev_err(dev, "failed to get amplifier gpio: %d\n", ret);
-> +		return ret;
-> +	}
+@@ -593,7 +593,7 @@ static int catpt_component_pcm_construct(struct snd_soc_component *component,
+ static int catpt_component_open(struct snd_soc_component *component,
+ 				struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtm = substream->private_data;
++	struct snd_soc_pcm_runtime *rtm = asoc_substream_to_rtd(substream);
 
-This would need to update the DT binding document.  It is not clear that
-we can't just use the existing simple-amplifier binding here though?
+ 	if (!rtm->dai_link->no_pcm)
+ 		snd_soc_set_runtime_hwparams(substream, &catpt_pcm_hardware);
+@@ -604,7 +604,7 @@ static snd_pcm_uframes_t
+ catpt_component_pointer(struct snd_soc_component *component,
+ 			struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtm = substream->private_data;
++	struct snd_soc_pcm_runtime *rtm = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtm, 0);
+ 	struct catpt_stream_runtime *stream;
+ 	struct catpt_dev *cdev = dev_get_drvdata(component->dev);
+--
+2.20.1
 
---OHnuGjMM4wK2ZTjf
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmImIQcACgkQJNaLcl1U
-h9CPwAf9HbpzVhWhChyQy+Fwd0TYD3iOOJ1H6RF/w62+TZlyS43sN2gaXswUiWhL
-mf5lJSl26f7a2i+ZmC6WTZI9IAcmws5GzZ8btqzwCbq8P1//5OOi6j3oB50a7pBg
-DK6xFxdv2xs9jdBeHAnvhR5UH81T41BQKBg2CexHPfmBjwAZi8wY315hOpG/rb5m
-IxXZWw7mSy1VzAjBIYkDuULoNizQtdwTAdsEuAykAWRb5H9VtjLvyRdkWL65Es2U
-Y4djQ20MFT4Ie1VbHIJyAoItBAtbbDl6CeaPVtMs7dVjZ9X5iSg+FH9GWCzfXXSc
-Rr1GGoZ5cU6G8TbD5kxS2av/ncCIKw==
-=Yhyl
------END PGP SIGNATURE-----
-
---OHnuGjMM4wK2ZTjf--

@@ -2,79 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D54BB4D08AF
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 21:43:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D39E34D08B1
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Mar 2022 21:44:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71D3417F0;
-	Mon,  7 Mar 2022 21:43:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71D3417F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A90717E6;
+	Mon,  7 Mar 2022 21:43:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A90717E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646685833;
-	bh=A56E0vmOp/YT5PrfBwMSlSMazuSnJdz9v37YbJ9aDww=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1646685869;
+	bh=KPjTrbSp37sg80WJ3I6fvznHmg6f5wif6U21+HUCBmk=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SCmIxSLSzukxM8ri2SPn32Tayq0zEAcZtZSvmSWrCgdRjpE3fMyyVJ434ZPdzB7Ph
-	 ALzeSg+4KDCKISLmyZiRBnIdRgqMXTrdKHvwZfdqkECkhHzAYWwrGyfyDu4PQGZuyx
-	 je36gkRuHiyxH+mEnOii4YSteODK1b8iIDSgdrpM=
+	b=SlZnTmdaWxwpGBN2ML0nRfwa6IoD0a/7AbMAMhuq8dE+SPtVxesGiJDNrI8mptXA4
+	 UNxw9sjqWbFcXZ/P0fs9QrObZw9la4CbEag+DTNOdOPjHa3U3Yo1R9J10pgXv+E5Y2
+	 /gdi8JixJrP8Np3q5eUWjEcT/0fkToLnZBhT4NGQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37347F80567;
-	Mon,  7 Mar 2022 21:39:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9AACF80588;
+	Mon,  7 Mar 2022 21:39:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6491AF80558; Mon,  7 Mar 2022 21:39:28 +0100 (CET)
+ id BAB65F8057C; Mon,  7 Mar 2022 21:39:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9A14F80542
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 21:39:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9A14F80542
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1601F80552
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 21:39:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1601F80552
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="M0L1B7yR"
+ header.b="NmjAQCvU"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 29D3AB81707;
- Mon,  7 Mar 2022 20:39:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BFFC340E9;
- Mon,  7 Mar 2022 20:39:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8C02D6150C;
+ Mon,  7 Mar 2022 20:39:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E624C340EB;
+ Mon,  7 Mar 2022 20:39:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646685563;
- bh=A56E0vmOp/YT5PrfBwMSlSMazuSnJdz9v37YbJ9aDww=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=M0L1B7yR/TkazCfrocdu5z7peB/y/WVFKIBpsqCyho1foIs0y6gJ/uLkxF5Lvb6Dy
- ay4Vc4UMjglO7kb+d0Dqoy31WdEug48X/JWr3xIItQ/PyIAtvmwBzhbhP0iBd3cjxO
- xlxpC7RP9Bs6EhCY5s5qa0GY32H6aRUGdAJSeSmusW2r88l5d9w010z3LalZ1anZYZ
- CPumO7Qi+h1ZR8UDvmUx7OesVjCpEDkbUcR1rlWGzc1YFzLhbiP76YDK1jNTQOu+1N
- WCoFjBZowdtrN7GY2X/gUYEJwMxD+1lvTyUERryE8bjbldK2XUbExTQkFsAzVjdjLQ
- aAP9+jDdJBtaw==
+ s=k20201202; t=1646685566;
+ bh=KPjTrbSp37sg80WJ3I6fvznHmg6f5wif6U21+HUCBmk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=NmjAQCvUN8VKi9AGyy2RzMWEFQp+q8Zx/sg49qprXVJFCt6tSK2r6RpdDdGOOPBHU
+ 3u9jj3OeMPlwNFx/OJ/05m8XsMv8l82br7GK+3RZt+t5NlvtVRUcWEcbTpq7P+Ufk7
+ aQryuGm9nmL93K24Mv13SoGkPxuZED/0l0UmZKBtb9r/nLFt0oZV3hmXsFGbphDGFL
+ swwylnJb23A3VHpKTDWvN5Ni3s5lr2KE27FugEyDE4ZBtz7zVgHM4LORjf1evYxAZ2
+ jvZpU6tAhK89xnES9ZI6FcfBMEitJjoZJQKcWqdSHX7gXg91U4QcErZWXG+fb/C7ZG
+ 0wHm743P4zkUQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Bo Shen <voice.shen@atmel.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jaroslav Kysela <perex@perex.cz>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Miaoqian Lin <linmq006@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- alsa-devel@alsa-project.org, Nicolas Ferre <nicolas.ferre@microchip.com>
-In-Reply-To: <20220307124539.1743-1-linmq006@gmail.com>
-References: <20220307124539.1743-1-linmq006@gmail.com>
-Subject: Re: [PATCH] ASoC: atmel: Add missing of_node_put() in
- at91sam9g20ek_audio_probe
-Message-Id: <164668556128.3137316.11962793804624015559.b4-ty@kernel.org>
-Date: Mon, 07 Mar 2022 20:39:21 +0000
+To: lgirdwood@gmail.com, derek.fang@realtek.com
+In-Reply-To: <20220307102154.26065-1-derek.fang@realtek.com>
+References: <20220307102154.26065-1-derek.fang@realtek.com>
+Subject: Re: [PATCH] ASoC: rt5682s: Stabilize the combo jack detection
+Message-Id: <164668556398.3137316.401333742593254454.b4-ty@kernel.org>
+Date: Mon, 07 Mar 2022 20:39:23 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, albertchen@realtek.com, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,12 +85,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 7 Mar 2022 12:45:39 +0000, Miaoqian Lin wrote:
-> This node pointer is returned by of_parse_phandle() with refcount
-> incremented in this function.
-> Calling of_node_put() to avoid the refcount leak.
+On Mon, 7 Mar 2022 18:21:54 +0800, derek.fang@realtek.com wrote:
+> From: Derek Fang <derek.fang@realtek.com>
 > 
+> Changes:
+> 1. Revise rt5682s_sar_power_mode and rt5682s_headset_detect to be more
+>    rational.
+> 2. Manually set to the jack-unplugging state via rt5682s_headset_detect
+>    during going to suspend. Close unnecessary powers and prepare for
+>    re-detecting the CBJ during resuming.
+> 3. Simplize rt5682s_resume.
 > 
+> [...]
 
 Applied to
 
@@ -103,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: atmel: Add missing of_node_put() in at91sam9g20ek_audio_probe
-      commit: f590797fa3c1bccdd19e55441592a23b46aef449
+[1/1] ASoC: rt5682s: Stabilize the combo jack detection
+      commit: b41d6195b2f0c5d5df009aa518958f3c46e66d9a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

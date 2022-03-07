@@ -2,143 +2,138 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29FCD4D1B74
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 16:15:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 517F64D1B75
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 16:15:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EF9F17F6;
-	Tue,  8 Mar 2022 16:14:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EF9F17F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id F4033176B;
+	Tue,  8 Mar 2022 16:14:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F4033176B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646752512;
-	bh=p0/8qKuLI7uzwsP6BmrPjHyOpOlfclJzSdR498GhR3I=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=O4/16dpZFts7pLUPJXCcBgmhVvjDuXsGUoGWJ/cP1eiW0NY48NHxUyykeAerVDwmb
-	 AwwJ9qrCxYr3oSAVrAXKYcmojQLzhS1jZ7j0C4CM8XOsIqrksMPW3XJ4rtG++BFh1d
-	 9Xii2tdF0e9r8DGmZWymsu/b+c1reFjrtJzMqLvQ=
+	s=default; t=1646752534;
+	bh=z7/Qx1BdMbGxwp0isrrPS48QWP/0AJqpYHEgrzXhRKA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HiX9SYigxQUZbev7YIYthon+LwjWqn7cO4o5iGdv+aIvLsDYZkUa0kpYtAMLk8zWQ
+	 twbB91eFH8tBd0f6/ECegRKXy0i7thXEXJmU36ZcbFdrOgp+B5Ra9llwfZ09jNiUql
+	 MPRU0/BzvVhZ+mtQTjskUhYFdtU8Oa2Z525tUvHI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD018F80525;
-	Tue,  8 Mar 2022 16:12:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B948F80526;
+	Tue,  8 Mar 2022 16:12:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38F77F80124; Mon,  7 Mar 2022 15:12:13 +0100 (CET)
+ id E4EBEF8013F; Mon,  7 Mar 2022 15:29:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0623.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe0e::623])
+ (mail-vi1eur04on060f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0e::60f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3ABF3F800E9
- for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 15:12:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ABF3F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C30DF80124
+ for <alsa-devel@alsa-project.org>; Mon,  7 Mar 2022 15:29:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C30DF80124
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=variscite.com header.i=@variscite.com
- header.b="GRH8vOiV"
+ header.b="acxY1Lx1"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IQygDwizy5xvTcNr7QKinmNuxiYeWONMXfY/qKrSQAkxMH8Jdf5gZeRYBM+chMvrnuRPC882f2RMVpCdA0HWEuJL+CB6TnzzEo3Jh2SsljkprLGLvHzNH6Km0dIcAlyTmkjgeIOOs9OywzK2XGlI5HAALfFMH3KeqE70bB3o6FPdl2yk0eAIsIjyNjfwJcjyOpwnMi5E/U2rBqg5nPgfB65wEsjnmJ5qccvnsrUFcJcrKCJHR8o3Uv72g4uBsJXnGVnNN7ji+Ttea+iLtnQaqq1TxK8GIbpPnEHs/IL4BOuSwFZfeWO70u5Z5XxyNb03jnWa+YqlGAP/bWCXp2XW3w==
+ b=BZrzglwRYi35MFh6Tug+AbpXWAwW3g+N0SoK3ICL1I+tPS2A/zHW0VNCzsiKyzTu6s6CTyKLYhBVL8QHzBkt2GBhqoQvqLj0kq97pGOWhIVa3ArMJ/7QF4j86c4j81syXH1d0ZlGgbqwv/x26UwdRvzymMA7lnCuD/vCSD9mC4crh83+HIVuANL+yAGNvjrvAnM1K6J+O/rW4RPk7A/17Uj1dLGe3TrfXRx4Ucp/VCsWprgl7hXyYZGp66Kkg8b6gU7V7yG3iQ5pkgdN5TnNw0T1nnROzKI1i04uH6QLPocio0LhNt0cbgyaYrGC3/u0jTYwcJOSKn9m4w+CXdwy2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4gx8BNL3s+XeagdGo0wt7kXm6iK7lPEosXJ3aAMvoDY=;
- b=OzpP0pnTIrhvS2pqnMJMgMTXQGoz0GiDjWks0AwE2ZQ26c4+VvWHCfa5y5KqrGFc/1gzU2nlfXZYZKct5kwtVuc0nfBuyZn1FSJ7GMEMJn3pJymBXwwOlBj/jq8shN7XQIO1nAjtEEWAFCy5ejyYasm5WxHUvymxpQwu600zg6G1Ji/TlSKu3fDGEUY1r9EhnS1nbM0ybVzgBy4D9UJyGHqem6iNmLdKDV6NRgpEELDzD1aWbaIF9qrGFBULzBTBKBs3+hiJstHmfewxgKkYFlzSr+C2MzU1eAGi/aI7vrP74SDmhmbJZde2UoTkwJboMRnHVniEIo8nng92qzxaPg==
+ bh=L/uUZogRVj6IEov+sc1F21msDWJOo7H/ekaq8yXaXaU=;
+ b=NwKEpA1sSxS6ie6Nao2Hinpmfp6uSqpO5Az4Hds/CdwEMamf9pbKZqA61RXPRbitm/veiJPWI9Cc/yIb22LqbmDSGWpBt4pwQJH+KCqoF96O2tI9wNRrRi/a5UU56LB4LotpaDlLpEwQUpFrYt1j4J8QI0BDnAhwAqOt8cd1Kjx/5O3YU53tA0TtCS0KTfF5QftLk9q5Zd4tPWWNIIORzgAyWiKIIpPK4zzlD43HED8TpP0LFH8nOQj5ziICXtYckW5ro3piVbobADQagmbxFGunnOoF7rTwXNB9upPqD0CYzIASTzE+mUyk5PFuTjE6xTu5gE1JAsr2p3PTz6TwWg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=variscite.com; dmarc=pass action=none
  header.from=variscite.com; dkim=pass header.d=variscite.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=variscite.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4gx8BNL3s+XeagdGo0wt7kXm6iK7lPEosXJ3aAMvoDY=;
- b=GRH8vOiVB9r01fL3lOXA+LYqhPZeD9sJNHPHi+ESpUeYfSNeiQY1JuzcMw263SW1Y/tFWp992fdx72AGh8cU/2TaNFSpC5yHuqmojlyolNpucoa5IxW+VXV04gzO4Fwv+VtmWiT9jkEbjCdeJ1ZLdIMZzRHD36bs9pNm9LoGQKX1YNYfgKhbjamGeXEp8vAWQgb+1ps+wm7Ap5NuRBekjTBvNrjwDzK1+pDnrcWiCnGG/3+uQ2XmG+G71vygvdkScI5/YdHsPX2z/CFzrnevxQmn7/KV+JnRUpmIQaHNKolUa6iiuY0qQ90kpbXBWtsudfsSomzlFSIDU5lxb9oR7Q==
+ bh=L/uUZogRVj6IEov+sc1F21msDWJOo7H/ekaq8yXaXaU=;
+ b=acxY1Lx1fvVML02VHaPclWZZaL4DL2iP1u874AxNK9V8OBtkCkOq18TZQkDC3eG4/8Hf/q7P/rKKQfKXTewZNEJUzdcBoSA+WyepPnORwqo3F6OL6tpz5/pF79Z64+ZVCUDftqZ1Aqz8HY83PMMGRYQm4oXJuZFgX0tupOpYWPX7WdVIV7G6bb99zH86pEKapsFUwuTTLFu8OTmhHRqR5nXRq2oX+V4YQe8G+GnmMmiUJ0DEkLpmbXuy/Yc54oMOHJDn1NNojklrXMCA3KhhjmHKqCU6x/F7cmrD/1gLw2bHq4X/MXLrame/yBv+Zvv3sCjZZz7ritd7yklWiJyxLA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=variscite.com;
 Received: from AM9PR08MB6999.eurprd08.prod.outlook.com (2603:10a6:20b:41a::7)
- by AM6PR08MB5219.eurprd08.prod.outlook.com (2603:10a6:20b:ce::22)
+ by AM5PR0802MB2481.eurprd08.prod.outlook.com (2603:10a6:203:a0::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Mon, 7 Mar
- 2022 14:12:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.16; Mon, 7 Mar
+ 2022 14:29:41 +0000
 Received: from AM9PR08MB6999.eurprd08.prod.outlook.com
  ([fe80::784c:5631:d38f:9a63]) by AM9PR08MB6999.eurprd08.prod.outlook.com
  ([fe80::784c:5631:d38f:9a63%6]) with mapi id 15.20.5038.027; Mon, 7 Mar 2022
- 14:12:06 +0000
+ 14:29:39 +0000
 From: Alifer Moraes <alifer.m@variscite.com>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] ASoC: wm8904: add DMIC support
-Date: Mon,  7 Mar 2022 11:10:41 -0300
-Message-Id: <20220307141041.27538-4-alifer.m@variscite.com>
+Subject: [PATCH] ASoC: simple-card: add bindings for amplifier support
+Date: Mon,  7 Mar 2022 11:29:23 -0300
+Message-Id: <20220307142923.28365-1-alifer.m@variscite.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220307141041.27538-1-alifer.m@variscite.com>
-References: <20220307141041.27538-1-alifer.m@variscite.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: CP2PR80CA0081.lamprd80.prod.outlook.com
- (2603:10d6:102:14::19) To AM9PR08MB6999.eurprd08.prod.outlook.com
+X-ClientProxiedBy: CP2PR80CA0041.lamprd80.prod.outlook.com (2603:10d6:102::27)
+ To AM9PR08MB6999.eurprd08.prod.outlook.com
  (2603:10a6:20b:41a::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 39063901-efac-4b8f-b88a-08da004475df
-X-MS-TrafficTypeDiagnostic: AM6PR08MB5219:EE_
-X-Microsoft-Antispam-PRVS: <AM6PR08MB5219EFE3CF32D8B38E392ECB87089@AM6PR08MB5219.eurprd08.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 6c6c7234-3cd2-49df-9088-08da0046e9d4
+X-MS-TrafficTypeDiagnostic: AM5PR0802MB2481:EE_
+X-Microsoft-Antispam-PRVS: <AM5PR0802MB2481901BEED4A27C78A6106087089@AM5PR0802MB2481.eurprd08.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4/NjRiVRDQFTTrYXLrbj+Ic7yBa2qMffIURHm1mQA2Zt+A6UwTClc8aIEYgvUcdigp0qS28FWB/hbu8kNJA1San4aMQes4b4KWeI8gYg/xzTT5B9QaDcxfPmcweOpGhgq6lSb8WGQc6W8BcTJBG0E79Qsf48p0MDduHZQ62dg6vgjxuaUlxiMKjN6EpYuNdAaTV5ylPJYazhidsr9qN2qTozwo4VxxgdkSUWXZD2c4u2zATRKx6yyLslxlCbeySfBPzPNrPsMIsSgStWlsweGxAFsins4KlfnOQbBfDzJocL9SCEEdvjt+16GqqPRLjJjkhLXeT9Gu6qzjJPJP+EsJDU3nbb6xr9HTL5VycIEhE1uw9A0mb1WVkUWRYP7MAwlmydmYHRDSzcnbkOKwqTLsqjU2CFtTXfTGovL1MosHgNK1VmhSG/DN783mHHcc6QOCwCjdLiDLOaqXFrhzV02soSYIEJ7L7a997rJdZNTQ/E65WIgZc8U3bdcBJrvDvziWhD/Gs/Ifhp+Ok+yhhtwHOv2gxJ8r/mC7faTRwmRXYlEgkYN2HvPxZpl1j98bUS9ZGg3Z+sH9OG2FeCfTkxwNtx3f2Y8nH5Qs273bzD/BwvLmg2qpiF3B0X8emv7wdnkZ1g9EuRxagsscpIMoAxnZmiAKv9CqBXuN5UH0PIHFkr+HFaMy6+7TOgOl+27Uc8bqNiD+NSJRfMcWxV9nMx8w==
+X-Microsoft-Antispam-Message-Info: lYe/Bq/razSpEtTWIsobNwexAVY5OFKYQhpdtf31wQz5J6VHSZ8zfjvow+0nKsPdHa+CzF9jUtyWMExT3IVpAOiS4z5BSjRjggzQ4hoY/HIw3Im9Ix8zAVFGRmn03P7Pzb+uos/JRZkJez89GiasMMQCaMZ753ZD2e+d9x7cXn4Vq7tTYag7BVgZNnGTlGIXI7gJVB+uYOXCpgQx3vJQ5cIO6H8w1MK01Y7bDg43L29gRw00ba4t0hpbmmga11RCoE/EFJM6cRmW5rsYYmFCe5WgHPF1ufeNNzkQJQRxHFIeODM1Y/Qii3OPqi6IBLofu582Lb3KthbTY8IPjluZQz6Jnj1hP8Dl2IyyJVYPYmzZEejcwmoITO+pRFziCX49aZgiM0pHRduWKYQrAt1TVsBzksqk8j4p34w3qC9VKUynSUEJCzFBN3tBJ/I8ZrfxPewzkG8C9besmDAC0/ttRx5dZ7li85DHObWxfP3eE5ikeSdm/Wqa+5UCVtqj4gpWCFiGcVDVk+rtt72C75gOjNYPhsfGihkurVMfM07aNI1eY5ywgQuIWUQdJgeuGW3w72GmmtlxcxNkY+WtIT9jBDQImAoIGMG8qQhymvvCdzWsgBBLzWmam6ZEspCStWozxxHiQ2qHEcr6p5p/SdB3T1vLqlb2onh+jr5W4IbC3jsWFPO2pXK7BAyxPURT5z/c
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR08MB6999.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(346002)(6916009)(186003)(26005)(2616005)(1076003)(508600001)(6486002)(52116002)(6666004)(6512007)(6506007)(86362001)(38100700002)(38350700002)(36756003)(2906002)(66946007)(66476007)(8936002)(8676002)(66556008)(7416002)(4326008)(5660300002);
+ SFS:(13230001)(4636009)(366004)(346002)(508600001)(8936002)(6666004)(6512007)(6506007)(2906002)(86362001)(38100700002)(38350700002)(5660300002)(4326008)(107886003)(36756003)(8676002)(6916009)(52116002)(2616005)(1076003)(186003)(26005)(66476007)(66946007)(66556008)(6486002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ix1VWjlxmevFZYjgBNsZ1oVy3c+JvEYTYo5PItLrngnZ1bBWkf/fz53LLI79?=
- =?us-ascii?Q?ZeEx3zYOSy4pessprbjunUWRrCO2ez/c3HHWv3gh4m7rvN8Zmu/o8pLU7clT?=
- =?us-ascii?Q?NgCbP71Z3kOC0eGpuVhe6VuzuUWXr5Krs4G2CWsEVyazMO92+PZKbSA6BxMl?=
- =?us-ascii?Q?Ll0jnyefZ2pa3lnxT81w4Ne6PseK9UvIhcnBpIAEXO94awrPLINQUKAYaYaV?=
- =?us-ascii?Q?cxZszLEm/CnTSsEtWey2o++BRzHcr+H9oyOAUxkfMZqV4pn+/n8fSIKA2En+?=
- =?us-ascii?Q?WN+UsZtsQ5RxYsCrV5s+FhyfhA7BbE38CeFVH0hs4jFfq3KuSbKd5pSe+atn?=
- =?us-ascii?Q?Bsa8hnFnXoUoryJkI/tshGkSHhoIQ8PERiYp01g5LfvBS/UlFb3u6CozRdxM?=
- =?us-ascii?Q?/0bnLXEllvWgO0RKc/CmGCL9UdFcj/8P4qxBuilJeKZagGWUdosWU7lefc8T?=
- =?us-ascii?Q?5ziqFZFdnV86nHnq+Ktp0yXmacuBiJyn0MAvh4ySQr2aML2auYlax9DlNa4o?=
- =?us-ascii?Q?Fa2kgB4l181/oBp49K7QONR46EGd0juroUbfAFcP/uZSZJCu1gIU/odmQoQZ?=
- =?us-ascii?Q?1A/kg2i3n+OGWIme0I1nXInvgUIEPAaZzNW3dGiP2IAUnF3qMxkWe9HMGjoA?=
- =?us-ascii?Q?h5l+76J5KSWEOImkHBMD6s7Q9/DikJg4AHQWzCsp7h2NYXt3Vb1fwPfQinHH?=
- =?us-ascii?Q?h/eKS/Tcg8QJ0/CLTyr5q7+tAyTjkgsZgyPBObzV74B3KK9e1oFuEvQUhKOc?=
- =?us-ascii?Q?+YN/PCtQW08dclxCue6UU5hAv8tRPCWdkekDATJCmGClH9434X1npJclKB2O?=
- =?us-ascii?Q?sD+wbL5aJFaxRO7M6dPJLt1CmsTojiS7bicS3wHpYF7UhbGVB3265Qm6pGfP?=
- =?us-ascii?Q?OxFg8Ujk4tA8/GxGR4zn871iziZ4ymZu1etwO+L2tVB0HtnvZA5nfvvCqLkQ?=
- =?us-ascii?Q?6DK3/2eHu5/Ysd+6IIipT4tYhL5owNVdhjieGA/tCgj4s2FPcG5cKP7fytMD?=
- =?us-ascii?Q?PlO7gXddSCUuwPuLy9uf7WSOji17NuqmDYUkWjI25aIum2xwGqHvH+TetvqJ?=
- =?us-ascii?Q?weIyd/BJ7NiPmlZm526DqOc+jGsN1wWbq5zDUZT8s+c+SY69El+MZ9PcgdUC?=
- =?us-ascii?Q?gKJVlkRlCwv15oHPiA8PwKUBJyVbjK10cnn48prq9oZaJykNka/TdAzFdbT7?=
- =?us-ascii?Q?knQU/4o+rnUTKLWfyOwgJmUCfM9l8ZJUeNb0pTEjWMKDE9yZSLVK7KD0COh8?=
- =?us-ascii?Q?uEx7ePORzCuZ/qqx0uQJfht8cGmCZg+CpY3oAWt4U9LyoC1pGiOh9kSp5CS1?=
- =?us-ascii?Q?KFMDzy532UjKWZFrpI+FeoW2X2cmyMl26xwI1gXw5bHAaU7GyHTUpOgKXTKl?=
- =?us-ascii?Q?gpUDEJAbGF310Ue8/Tttun/0DknyjJCixyz5Ap5N22y0qJCk2h41lQ7QcFJ1?=
- =?us-ascii?Q?8Lui54vJuVr4UDikoZqW6AtisHxw8dN8cL0ObRbFGvkAp+3h2naMJUgZc+Gm?=
- =?us-ascii?Q?bt/Xt8DF+WPtuBM0HBtQbNX3h+SQK5KRrG0TnseJfiLM6ZJ+VXqKYPynkCwb?=
- =?us-ascii?Q?I2OUwAV5LY4JXcyU84d+qlRtsGr7dk3E79df0Me8U/R5GhCL/c1ca89GOdUu?=
- =?us-ascii?Q?zY76qZSP+A+GV4DfcW5G308=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hXx9dMMzeqF0YydMk+uq0NqfDSOiHoZnUsn+oXOC1aGCJSLV20qqTJruiuhF?=
+ =?us-ascii?Q?bDDTztxxIlHngxgFOIOMnrqeo6GSKu+0rFGo0iCTVnELz5h70ES4BOXr98Pu?=
+ =?us-ascii?Q?+NpOaBiDtORLPWe2Er1pzXqeyOXlJF6sRj7UySBUqO2rfFIlU2nYyUmAKJyL?=
+ =?us-ascii?Q?84waBlUKh/BjY4gMniWKMFXNbVyunUN4nCSHjJw7GhI9802GpOxGeMHQJ2Nj?=
+ =?us-ascii?Q?QD7eMfm/0GOKVWOywQwnN0orF5m+kgUglkVOss4uYCjORxvSx/JdL/42ZvMs?=
+ =?us-ascii?Q?ZxldaggESB+An3yg7UEAdPAs+ZRINGh+svUYJQoYh6wwd3yHntZu+PS6Czop?=
+ =?us-ascii?Q?CTYCPIm05l3D/BM6CLib0pWMM4XNRsPJ/zAsO5lVIh/Bd367QlqcSUznNyFf?=
+ =?us-ascii?Q?7qbTgkdd2ZUBROR5QgNMtx5CILAGSmB84eZwwwIHwHd4eZgp8tBvytbQbKyM?=
+ =?us-ascii?Q?XEnB/z20nCzzGUwxK22du58XnlHeIbO1pdMnlCRstXd3clcjKpz1J61bNT/s?=
+ =?us-ascii?Q?94REGPyolPKromUzVF2Qfs0x/fSzfQfPIfOuwsqvs0Kpe/PvSgFAasLVLCdg?=
+ =?us-ascii?Q?u+5ebgQgmti/0B8ci3bkpJk+q54PYI1t/OYjKmGPR6BVHLWoWGvLxTJnRDUi?=
+ =?us-ascii?Q?xvUIwPPKw/E96+zKHCr9n1dBFuMyJmv0EYPjifjb3l2StT1S9z3gA762L9j5?=
+ =?us-ascii?Q?elYIxXZmsRLow7inUUJY+KnEHYJxK4jaJ3xA//aYdPRslNOW4lV3No0c2v7z?=
+ =?us-ascii?Q?ikU5yHvjWVYsPU476NCR7djs/043fHzBIJa/IA0t6bfOTihPyxd/9aEt6AGo?=
+ =?us-ascii?Q?ROJi0oAEfQVw6qZAVmVBZ9dlPHSktaVOg+EzzBRacP/jtGbNHE7kLlBwoQ+f?=
+ =?us-ascii?Q?0dSH7laszOYJlKZePusYtllZ7sObnIBDSFiAWo0C1vWY9qpoeMPhWiRFI4hH?=
+ =?us-ascii?Q?NUJ+WclmOBeicSTFlPeU2YQPf9nNJDFkgXSsVt7JNbt3W1flZIxtgVsgVu5m?=
+ =?us-ascii?Q?ayPpSpgaJIkcoNlIyeEqVqHzLbTaIPDyepQXvXjU7huGG5kEBANYyZoSJDPJ?=
+ =?us-ascii?Q?l2NhAUHRLyy/uLvP9s2sQRWxcolE8O0umVX/ckNdm7TF7jzOahnvn3L3mR1/?=
+ =?us-ascii?Q?QdPZvPJN/YZTgt8ssYPEZ4faHRpV8MRXkTGctCtdT0RwYvvoNA3Oc/3MfXOm?=
+ =?us-ascii?Q?xf+c24WFYN5e4zSiY1AD1nW71CXvHh/qYwwRzhk8h5/wvdJwhcBVKwozAvby?=
+ =?us-ascii?Q?1lxEtASfo3vCP2YBFrGGn50wguxdk8lYHQ/8W7gYwUZAWO7tmEfNrzR+iE5o?=
+ =?us-ascii?Q?69Gs73irlMR5ODWKQ8yp0vw7qDcwEz0RIt1fgDngWY5bTQdvvStv0OSlAkxF?=
+ =?us-ascii?Q?U1cYNXJNhz3Cvn0Z8b6+j1yHi+AAwgNUJHEeT7qunFCnpNPXxntzAS1yE9Dh?=
+ =?us-ascii?Q?Na4MHO9senTiusgnkjGTkDkEhszQYjdEHDvVFJe8WW0o+azgTDkhzionWGo9?=
+ =?us-ascii?Q?GmqMu+JccSSs2ilZeMMv9tu81WNbtm/JFlgFnrna/Bf4D1Ltfr+FV9QJ42BW?=
+ =?us-ascii?Q?4I72OalA1vtZf9JpaYjgZLLPq5tWLVw9bTeSBbI6pozzsergwAIg3sfeiRiD?=
+ =?us-ascii?Q?aCbr1RtE2vN8mAmknfRj8J0=3D?=
 X-OriginatorOrg: variscite.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39063901-efac-4b8f-b88a-08da004475df
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c6c7234-3cd2-49df-9088-08da0046e9d4
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR08MB6999.eurprd08.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 14:12:06.2499 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 14:29:39.8016 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 399ae6ac-38f4-4ef0-94a8-440b0ad581de
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jYx0NfhGEOceVS5NQhX1NviuJfrPDuAD33JWsXyRNw45brM1JTHyLqYMuesVQQUdBhF2Pq+qh4yfrsQCu2/6Xw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB5219
+X-MS-Exchange-CrossTenant-UserPrincipalName: SxkDjNtvZQcZGUoVjJSV6FkzoUnXDjEtx+d/UcRMgDi58obU8s0jB9zgfkYgBnRwsN6cWH58CipMAK/mevOP+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0802MB2481
 X-Mailman-Approved-At: Tue, 08 Mar 2022 16:12:38 +0100
-Cc: pierluigi.p@variscite.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, shengjiu.wang@gmail.com, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, eran.m@variscite.com,
- broonie@kernel.org, patches@opensource.cirrus.com, festevam@gmail.com
+Cc: pierluigi.p@variscite.com, tiwai@suse.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, eran.m@variscite.com, broonie@kernel.org,
+ Alifer Moraes <alifer.m@variscite.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,79 +151,84 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierluigi Passaro <pierluigi.p@variscite.com>
 
-The WM8904 codec supports both ADC and DMIC inputs.
-Add dedicated controls to support the additional routing.
+Add an optional property 'pa-gpios' for controlling external amplifier,
+which depends on DAPM widgets and routing.
 
 Signed-off-by: Pierluigi Passaro <pierluigi.p@variscite.com>
-Signed-off by: Alifer Moraes <alifer.m@variscite.com>
+Signed-off-by: Alifer Moraes <alifer.m@variscite.com>
 ---
- sound/soc/codecs/wm8904.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ sound/soc/generic/simple-card.c | 37 +++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
-index 4121771db104..c7987dc81e4d 100644
---- a/sound/soc/codecs/wm8904.c
-+++ b/sound/soc/codecs/wm8904.c
-@@ -837,6 +837,26 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
- 	return 0;
- }
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index a89d1cfdda32..d042be556f1b 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -10,6 +10,7 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
++#include <linux/of_gpio.h>
+ #include <linux/platform_device.h>
+ #include <linux/string.h>
+ #include <sound/simple_card.h>
+@@ -22,6 +23,33 @@
+ #define CELL	"#sound-dai-cells"
+ #define PREFIX	"simple-audio-card,"
  
-+static const char *dmic_text[] = {
-+	"DMIC1", "DMIC2"
++static int simple_outdrv_event(struct snd_soc_dapm_widget *w,
++			      struct snd_kcontrol *kcontrol,
++			      int event)
++{
++	struct snd_soc_dapm_context *dapm = w->dapm;
++	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(dapm->card);
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		gpiod_set_value_cansleep(priv->pa_gpio, 1);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		gpiod_set_value_cansleep(priv->pa_gpio, 0);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static const struct snd_soc_dapm_widget simple_dapm_widgets[] = {
++	SND_SOC_DAPM_OUT_DRV_E("Amplifier", SND_SOC_NOPM,
++			       0, 0, NULL, 0, simple_outdrv_event,
++			       SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
 +};
 +
-+static SOC_ENUM_SINGLE_DECL(dmic_enum,
-+			    WM8904_DIGITAL_MICROPHONE_0, 11, dmic_text);
-+
-+static const struct snd_kcontrol_new dmic_mux =
-+	SOC_DAPM_ENUM("DMIC Mux", dmic_enum);
-+
-+static const char *cin_text[] = {
-+	"ADC", "DMIC"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(cin_enum,
-+			    WM8904_DIGITAL_MICROPHONE_0, 12, cin_text);
-+
-+static const struct snd_kcontrol_new cin_mux =
-+	SOC_DAPM_ENUM("Capture Input", cin_enum);
-+
- static const char *input_mode_text[] = {
- 	"Single-Ended", "Differential Line", "Differential Mic"
- };
-@@ -930,6 +950,10 @@ SND_SOC_DAPM_INPUT("IN2R"),
- SND_SOC_DAPM_INPUT("IN3L"),
- SND_SOC_DAPM_INPUT("IN3R"),
+ static const struct snd_soc_ops simple_ops = {
+ 	.startup	= asoc_simple_startup,
+ 	.shutdown	= asoc_simple_shutdown,
+@@ -620,6 +648,8 @@ static int asoc_simple_probe(struct platform_device *pdev)
+ 	card = simple_priv_to_card(priv);
+ 	card->owner		= THIS_MODULE;
+ 	card->dev		= dev;
++	card->dapm_widgets	= simple_dapm_widgets;
++	card->num_dapm_widgets	= ARRAY_SIZE(simple_dapm_widgets);
+ 	card->probe		= simple_soc_probe;
+ 	card->driver_name       = "simple-card";
  
-+SND_SOC_DAPM_MUX("DMIC Mux", SND_SOC_NOPM, 0, 0, &dmic_mux),
-+SND_SOC_DAPM_MUX("Left Capture Input", SND_SOC_NOPM, 0, 0, &cin_mux),
-+SND_SOC_DAPM_MUX("Right Capture Input", SND_SOC_NOPM, 0, 0, &cin_mux),
+@@ -638,6 +668,13 @@ static int asoc_simple_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	priv->pa_gpio = devm_gpiod_get_optional(dev, "pa", GPIOD_OUT_LOW);
++	if (IS_ERR(priv->pa_gpio)) {
++		ret = PTR_ERR(priv->pa_gpio);
++		dev_err(dev, "failed to get amplifier gpio: %d\n", ret);
++		return ret;
++	}
 +
- SND_SOC_DAPM_SUPPLY("MICBIAS", WM8904_MIC_BIAS_CONTROL_0, 0, 0, NULL, 0),
+ 	if (np && of_device_is_available(np)) {
  
- SND_SOC_DAPM_MUX("Left Capture Mux", SND_SOC_NOPM, 0, 0, &lin_mux),
-@@ -1093,11 +1117,21 @@ static const struct snd_soc_dapm_route adc_intercon[] = {
- 	{ "AIFOUTL", NULL, "AIFOUTL Mux" },
- 	{ "AIFOUTR", NULL, "AIFOUTR Mux" },
- 
-+	{ "DMIC Mux", "DMIC1", "IN1L" },
-+	{ "DMIC Mux", "DMIC2", "IN1R" },
-+
-+	{ "Left Capture Input", "ADC", "Left Capture PGA" },
-+	{ "Left Capture Input", "DMIC", "DMIC Mux" },
-+	{ "Right Capture Input", "ADC", "Right Capture PGA" },
-+	{ "Right Capture Input", "DMIC", "DMIC Mux" },
-+
- 	{ "ADCL", NULL, "CLK_DSP" },
- 	{ "ADCL", NULL, "Left Capture PGA" },
-+	{ "ADCL", NULL, "Left Capture Input" },
- 
- 	{ "ADCR", NULL, "CLK_DSP" },
- 	{ "ADCR", NULL, "Right Capture PGA" },
-+	{ "ADCR", NULL, "Right Capture Input" },
- };
- 
- static const struct snd_soc_dapm_route dac_intercon[] = {
+ 		ret = simple_parse_of(priv, li);
 -- 
 2.25.1
 

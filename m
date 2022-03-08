@@ -2,71 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD0A04D10EC
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 08:26:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B963F4D130E
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 10:07:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A6C1174A;
-	Tue,  8 Mar 2022 08:25:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A6C1174A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B36C1779;
+	Tue,  8 Mar 2022 10:06:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B36C1779
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646724400;
-	bh=s/hOYx6Nxlk8ZgZiSVpuz+464uxKPl5RqyNVv+T8Uk4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646730461;
+	bh=b16gJCQFnfitbp/wbTnh4yfCBRsHFCL0FyNBS5tyfi4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vu7eK/2gVOu8tM3lvWv8k2GJpzQXyctDbc/hHMaPeUo0hS2C/xUZlsN7/l3iFqfp2
-	 lsLce8AHgPzqKOOZaIwkYvrfegRtWbOdCLP9+L3wdtmxy9mm95g1RWF/ZKL/E9Y7Lq
-	 o023Lgs5mSKi2zjznWWjABwUP6yXpYq1CJW8qdc0=
+	b=myXt746kYD1Jcm7uO2E4pCTca2J3kihv3XKKvt4lEhJ/mHfKXGVaHaSgGmWnJ2+4k
+	 YjFSXS9PnkhE2OSjhIWZiEoLOKGPdiJgRc65JEKRrOLTrMDy2aEnwPBWL5yLsTmUNj
+	 l9dLQhT/XuDgkLlu2a4ihUPm51C/UJCxau2uV6G4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61548F80516;
-	Tue,  8 Mar 2022 08:25:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4C9CF800D1;
+	Tue,  8 Mar 2022 10:06:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A25BF80515; Tue,  8 Mar 2022 08:25:02 +0100 (CET)
+ id D4747F8026A; Tue,  8 Mar 2022 10:06:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37FD2F8025E
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 08:24:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37FD2F8025E
-X-UUID: 210bfb5b9a47439b8a353621811e02cf-20220308
-X-UUID: 210bfb5b9a47439b8a353621811e02cf-20220308
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
- (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1706165390; Tue, 08 Mar 2022 15:24:42 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Tue, 8 Mar 2022 15:24:42 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Tue, 8 Mar 2022 15:24:41 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
- <matthias.bgg@gmail.com>
-Subject: [PATCH 5/5] dt-bindings: mediatek: mt8195: add
- mt8195-mt6359-max98390-rt5682 document
-Date: Tue, 8 Mar 2022 15:24:35 +0800
-Message-ID: <20220308072435.22460-6-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20220308072435.22460-1-trevor.wu@mediatek.com>
-References: <20220308072435.22460-1-trevor.wu@mediatek.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
- trevor.wu@mediatek.com, yc.hung@mediatek.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0A18F800D1
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 10:06:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0A18F800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="KcHn5pur"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="4cDxvBvD"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 29000210F5;
+ Tue,  8 Mar 2022 09:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1646730390; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Xt5VdlMG1mEWjFRouj5ZIgmONOGtSaKCGiKgINNQ+G4=;
+ b=KcHn5purinJLLpm7L3chbz6e5dCKzVsKhrHzlX2FrsAY06p7PulzPRAxkquhpz+/qU0B5V
+ zHJTh3ivunDHPnbpto9xXbo6Vplyz13Eitq+TcUhCRLgaa6xWdOiO+er+yF8fM09eJxHkV
+ 0RkT9VGa6OIfyGGa+6lPsBLkVptnfuA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1646730390;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Xt5VdlMG1mEWjFRouj5ZIgmONOGtSaKCGiKgINNQ+G4=;
+ b=4cDxvBvDAe1VdBRpw1ovh6mRY7n6iVNxGWF/0I5r7775VIeaY2yEsd1gJBpPUHo3fG8rBJ
+ 6dG0I+56NtbhI6BQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 154EFA3B8D;
+ Tue,  8 Mar 2022 09:06:29 +0000 (UTC)
+Date: Tue, 08 Mar 2022 10:06:29 +0100
+Message-ID: <s5hy21kn78q.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Geoffrey D. Bennett" <g@b4.vu>
+Subject: Re: [PATCH 0/2] ALSA: scarlett2: Add "Standalone" switch
+In-Reply-To: <cover.1646578164.git.g@b4.vu>
+References: <cover.1646578164.git.g@b4.vu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Hin-Tak Leung <htl10@users.sourceforge.net>, alsa-devel@alsa-project.org,
+ Vladimir Sadovnikov <sadko4u@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,82 +93,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds document for mt8195 board with mt6359, max98390 and
-rt5682.
+On Sun, 06 Mar 2022 16:20:40 +0100,
+Geoffrey D. Bennett wrote:
+> 
+> Hi Takashi,
+> 
+> I discovered an internal "standalone" switch on all the Scarlett Gen
+> 2/3 interfaces with internal mixers. After enabling this switch, the
+> interface will act as a standalone mixer (according to its previous
+> configuration) when not connected to a USB host. The interfaces come
+> from the factory with the switch off, and the vendor driver enables it
+> without question. This patch adds a new ALSA control to set the switch
+> on or off.
+> 
+> This is the first configuration item that is common between the Gen 2
+> and 3 interfaces but with a different offset, so the patch is in two
+> parts. The first patch allows for the same configuration item to have
+> a different offset between Gen 2/3 and the second patch adds the new
+> switch.
+> 
+> Regards,
+> Geoffrey.
+> 
+> Geoffrey D. Bennett (2):
+>   ALSA: scarlett2: Split scarlett2_config_items[] into 3 sections
+>   ALSA: scarlett2: Add support for the internal "standalone" switch
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- .../sound/mt8195-mt6359-max98390-rt5682.yaml  | 61 +++++++++++++++++++
- 1 file changed, 61 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mt8195-mt6359-max98390-rt5682.yaml
+Thanks, applied both patches now.
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8195-mt6359-max98390-rt5682.yaml b/Documentation/devicetree/bindings/sound/mt8195-mt6359-max98390-rt5682.yaml
-new file mode 100644
-index 000000000000..7ec14d61b109
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mt8195-mt6359-max98390-rt5682.yaml
-@@ -0,0 +1,61 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mt8195-mt6359-max98390-rt5682.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Mediatek MT8195 with MT6359, MAX98390 and RT5682 ASoC sound card driver
-+
-+maintainers:
-+  - Trevor Wu <trevor.wu@mediatek.com>
-+
-+description:
-+  This binding describes the MT8195 sound card.
-+
-+properties:
-+  compatible:
-+    const: mediatek,mt8195_mt6359_max98390_rt5682
-+
-+  model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: User specified audio sound card name
-+
-+  mediatek,platform:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of MT8195 ASoC platform.
-+
-+  mediatek,dptx-codec:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of MT8195 Display Port Tx codec node.
-+
-+  mediatek,hdmi-codec:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of MT8195 HDMI codec node.
-+
-+  mediatek,adsp:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of MT8195 ADSP platform.
-+
-+  mediatek,dai-link:
-+    $ref: /schemas/types.yaml#/definitions/string-array
-+    description:
-+      A list of the desired dai-links in the sound card. Each entry is a
-+      name defined in the machine driver.
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - mediatek,platform
-+
-+examples:
-+  - |
-+
-+    sound: mt8195-sound {
-+        compatible = "mediatek,mt8195_mt6359_max98390_rt5682";
-+        mediatek,platform = <&afe>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&aud_pins_default>;
-+    };
-+
-+...
--- 
-2.18.0
 
+Takashi

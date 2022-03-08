@@ -2,81 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07D0C4D10B5
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 08:07:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F0284D10F2
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 08:27:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E0A416D5;
-	Tue,  8 Mar 2022 08:07:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E0A416D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAD3F171D;
+	Tue,  8 Mar 2022 08:26:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAD3F171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646723272;
-	bh=C5ew54H1avdNODktKYE2Ol8ZNHf+SxEq4I2loZTN2/s=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KF/t2uqBsmqdiwrIZZGTvWFjKY7PX5D8oShO1lf7AEdegbSybQ3kQhf7xlouRRuYY
-	 sZiaCsJbGwzkPw6n0TdWjRapC6jWy8mgi9ZEMOceealAkgnPBJNjrS6+iIs7Zu/4TH
-	 YuOzcQnLLs1+rMNj8AXZ4CG9aHf0ihAK5YehpADQ=
+	s=default; t=1646724451;
+	bh=BQ9bgyvG4zkx9gZ9Kq/tXnQJMO+3Jh5yqdnegtlogNY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QN4r/VR28hGkdkkw6EVCN0N1I7/47jUn83/qxTewd2nQbjnLlatNEDPKg30Zt05x1
+	 hqOO/h+AlSEZbdhU5BAM33RdtfWMHbzHxYW0o0jHj+jQxSOExsZdVCM3IWxkk1vj2l
+	 D7lD/3ZZyrCw8QZMbsJ4fkouBRoS+NitkFgQ/Zwc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4DFCF8026D;
-	Tue,  8 Mar 2022 08:06:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3678F80520;
+	Tue,  8 Mar 2022 08:25:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B062F8026A; Tue,  8 Mar 2022 08:06:43 +0100 (CET)
+ id 6D21AF8051C; Tue,  8 Mar 2022 08:25:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9FE1CF800D2
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 08:06:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FE1CF800D2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="gksSWJVV"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ASsoq1qw"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id DDF21210E6;
- Tue,  8 Mar 2022 07:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646723191; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=20HX+J/S/uQm7i6HTWK3CGFyrNdGGqyeN3StrN4p+mM=;
- b=gksSWJVVA4b5wyDiwfzb+zHIY/wjl66vHh1D8OoLFQwXksv8UN5QDhqn9NdAptb9BnTUQ8
- 727lyoHS1fHHC0qMF7HQ6PA84QgaeluOI7+0tJrtPvaseOE/VJ7j62fWGIJCX2jY2cGw4S
- IwOgqw2hTSSpFkC+eYx2/oyD4N38z2w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646723191;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=20HX+J/S/uQm7i6HTWK3CGFyrNdGGqyeN3StrN4p+mM=;
- b=ASsoq1qweZUu+wzKXx6xY2CTnXgCe2Fg76YiWKCJ1zTfGV2CsGpN2zIXxa3Vns01yXlkAs
- X7zxVAOFZuvAnyCg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CCE1BA3B81;
- Tue,  8 Mar 2022 07:06:31 +0000 (UTC)
-Date: Tue, 08 Mar 2022 08:06:31 +0100
-Message-ID: <s5h5yooord4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Tim Crawford <tcrawford@system76.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NP50PNJ
-In-Reply-To: <20220307193229.5141-1-tcrawford@system76.com>
-References: <20220307193229.5141-1-tcrawford@system76.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: productdev@system76.com, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B3BBF80121
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 08:24:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B3BBF80121
+X-UUID: 8e0b449563f9494f8ff25ddbc85a45fb-20220308
+X-UUID: 8e0b449563f9494f8ff25ddbc85a45fb-20220308
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw02.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 121888610; Tue, 08 Mar 2022 15:24:41 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Tue, 8 Mar 2022 15:24:40 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Tue, 8 Mar 2022 15:24:39 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+ <matthias.bgg@gmail.com>
+Subject: [PATCH 0/5] ASoC: mediatek: Add support for MT8195 sound card with
+ max98390 and rt5682
+Date: Tue, 8 Mar 2022 15:24:30 +0800
+Message-ID: <20220308072435.22460-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
+MIME-Version: 1.0
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ trevor.wu@mediatek.com, yc.hung@mediatek.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,14 +78,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 07 Mar 2022 20:32:29 +0100,
-Tim Crawford wrote:
-> 
-> Fixes headset detection on Clevo NP50PNJ.
-> 
-> Signed-off-by: Tim Crawford <tcrawford@system76.com>
+This series of patches adds support for mt8195 board with mt6359, max98390
+and rt5682.
 
-Thanks, applied now.
+Reset controller is included because mt8195 etdm is used to play sound via
+max98390 before kernel boot.
 
+In addition, the common part of machine driver is extracted for 
+simplification.
 
-Takashi
+Patches are based on broonie tree "for-next" branch.
+
+Trevor Wu (5):
+  ASoC: mediatek: mt8195: add reset controller
+  dt-bindings: mediatek: mt8195: add reset property
+  ASoC: mediatek: mt8195: common code for mt8195 machine driver
+  ASoC: mediatek: mt8195: add machine driver with mt6359, max98390 and
+    rt5682
+  dt-bindings: mediatek: mt8195: add mt8195-mt6359-max98390-rt5682
+    document
+
+ .../bindings/sound/mt8195-afe-pcm.yaml        |   10 +
+ .../sound/mt8195-mt6359-max98390-rt5682.yaml  |   61 +
+ sound/soc/mediatek/Kconfig                    |   16 +
+ sound/soc/mediatek/mt8195/Makefile            |   17 +-
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    |   16 +
+ .../mediatek/mt8195/mt8195-mt6359-common.c    |  398 +++++++
+ .../mediatek/mt8195/mt8195-mt6359-common.h    |   30 +
+ .../mt8195/mt8195-mt6359-max98390-rt5682.c    | 1058 +++++++++++++++++
+ .../mt8195/mt8195-mt6359-rt1011-rt5682.c      |  406 +------
+ .../mt8195/mt8195-mt6359-rt1019-rt5682.c      |  409 +------
+ 10 files changed, 1618 insertions(+), 803 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8195-mt6359-max98390-rt5682.yaml
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-common.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-common.h
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-max98390-rt5682.c
+
+-- 
+2.18.0
+

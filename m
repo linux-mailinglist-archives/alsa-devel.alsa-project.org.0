@@ -2,87 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A09F14D1F32
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 18:37:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 834604D1F5E
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 18:47:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2292E18D2;
-	Tue,  8 Mar 2022 18:36:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2292E18D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25B9418A7;
+	Tue,  8 Mar 2022 18:46:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25B9418A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646761026;
-	bh=thOvARg1UtVlOLotQd7Li3cy7FNbJPL8X9+8eAjIcd4=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bwymN2XBvs5brUKkrEARifTTWFK8+2tRCFG/tGAUBkMqiav5byR8L4itovKFVnMEU
-	 nH5Gni3GQq70EO/kLqpQP6MW5gJ4/vzUo/oJh0tu5vUc2kXe5yyUoPoZjpuTS0MxcW
-	 xxoTcaHocQ5F+RxKIMOWUT5CgivtTSpk0No+phUM=
+	s=default; t=1646761632;
+	bh=kRUgUYX7nSK1Pz7datAgqAM8AShHcJ606PqwoOaNhhU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JSD/3rZNKYAGTc4xsdGlgRXp3Ce57w/CWYmm5iYhbGDhAeAkf3WdffbIFAZDBbTr3
+	 1q0KDEA/oWCD6D7qWJgl7bz/Zal8SPEKAvOXSLNL78WF9uEHqyo+W1zBgVnLt1MMWt
+	 41RlpS7oCENgaOez53p6QHmiKLIY9eR5FEkudSzs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F3CBF8026D;
-	Tue,  8 Mar 2022 18:35:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCDA2F80121;
+	Tue,  8 Mar 2022 18:46:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4CB47F8026A; Tue,  8 Mar 2022 18:35:58 +0100 (CET)
+ id E0C9BF8026A; Tue,  8 Mar 2022 18:46:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D617DF800D2
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 18:35:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D617DF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F438F80121
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 18:45:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F438F80121
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Tj4dwiIE"
+ header.b="XAWNXEWN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646760956; x=1678296956;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=thOvARg1UtVlOLotQd7Li3cy7FNbJPL8X9+8eAjIcd4=;
- b=Tj4dwiIEPU7Zg0ny8iiVK3vXf4eOXeYwqmF830+Nic+vYHN9x0AAPKGz
- UYXVfCD3a6uDn+1tWedPLSnRNfo0yzfY+r6Fji2SzYqbDuKPgAR51b5UG
- Xx7LI3ZscTFHPWzw2AgMaUBv5hhekR5KuUalqZAuGHb4o2IJqIF03kMla
- Xo9SmSTzutM9MhjzI/sR2sBUahmxeLKtt3hR+0TZLX9Jriy7zHzd2BS+G
- 1ccbgXDc73gVG6OO2b0Bod+3dXbQv5kKePl7uwX40f26u9hQkxR1PUGeV
- HtTUadlPlqCzIR9a40/PI6CgjrbiGwAkbxlaOoH25yKlK2WY6SVST4yFy Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="254488139"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="254488139"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 09:22:55 -0800
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="537649598"
-Received: from bustam3x-mobl.amr.corp.intel.com ([10.251.130.225])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 09:22:54 -0800
-Message-ID: <3c79c158757bfd542747bcf7b4de73e4529ac4d5.camel@linux.intel.com>
-Subject: Re: [PATCH v3 11/17] ASoC: Intel: avs: Firmware resources
- management utilities
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-Date: Tue, 08 Mar 2022 09:22:54 -0800
-In-Reply-To: <4691b216-92f6-8d46-d3db-e302f5f21c34@intel.com>
-References: <20220304145755.2844173-1-cezary.rojewski@intel.com>
- <20220304145755.2844173-12-cezary.rojewski@intel.com>
- <66e20563567955124488eb9f9b53ea6a2bc5d744.camel@linux.intel.com>
- <d7676598-27bc-fe5d-1167-c82795e533f7@intel.com>
- <a571f334944f3ae7762068572003299c34fd187a.camel@linux.intel.com>
- <f70be289-ee9c-51b5-4003-7bc567e87a54@intel.com>
- <9f4cbf5a720aa66d6a540092187ad88b3adb5525.camel@linux.intel.com>
- <4691b216-92f6-8d46-d3db-e302f5f21c34@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.3-0ubuntu1 
+ t=1646761561; x=1678297561;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kRUgUYX7nSK1Pz7datAgqAM8AShHcJ606PqwoOaNhhU=;
+ b=XAWNXEWNTDV34uEjR2QXKyEw8PYe4ecL12qwF+tT4OfUP7RZ/GKHRyG2
+ XnVrN/WJ315aws8tm+/Opim3NUTIocsptjPv5VZoufsynnKYuAqTkUinE
+ VRqXWGKgWUkWvccbLXZiPl+VgMX2gf3rJm3kBkEZMq748n/i72iGzZitk
+ ikU2BL9iGqmSXPboFLvlXs1QFKUioiJQFztzBlcUS4hYcoLJS7lIaFicE
+ V6wVGsbluMSGL2YH1VyiqdB/9hIf734Ik++QLVSy5WNCz2rGzvP16cr20
+ SnLYjtrwrZCVQxPmBJDhxGuhdmHLzsQxNEA8dmZj4EbH1ws+Vf0tiJtIr w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="317990073"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="317990073"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2022 09:37:02 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="513196477"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga006.jf.intel.com with ESMTP; 08 Mar 2022 09:37:00 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Subject: [PATCH v2] ALSA: hda/i915 - avoid hung task timeout in i915 wait
+Date: Tue,  8 Mar 2022 19:27:59 +0200
+Message-Id: <20220308172759.920551-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
- tiwai@suse.com, pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
- broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
- cujomalainey@chromium.org, lma@semihalf.com
+Content-Transfer-Encoding: 8bit
+Cc: Ramalingam C <ramalingam.c@intel.com>, intel-gfx@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>, kai.vehmanen@linux.intel.com,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,35 +87,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2022-03-08 at 17:57 +0100, Cezary Rojewski wrote:
-> Scenario you describe is correct and does not prompt the need for the
-> mutex.
-> 
-> 
-> 
-> However, ->mods_info is accessed through getters found in utils.c
-> (this 
-> 
-> very patch) during stream creation too. That fragment is part of
-> path 
-> 
-> management series though - it was requested to split those bits away.
-> 
-> 
-> 
-> So, there is a possibility for a platform-soc-component to have its 
-> 
-> ->probe() called - and thus triggering ->mods_info update - while a 
-> 
-> stream is being opened on a different sound card simultaneously. To 
-> 
-> avoid unwanted behavior e.g.: looping through ->mods_info while it's 
-> 
-> being updated in separate thread, we lock the array.
+If kernel is built with hung task detection enabled and
+CONFIG_DEFAULT_HUNG_TASK_TIMEOUT set to less than 60 seconds,
+snd_hdac_i915_init() will trigger the hung task timeout in case i915 is
+not available and taint the kernel.
 
-Keeping in mind that this driver is meant for older platforms, how
-likely are you to support multiple sound cards with those topologies?
+Split the 60sec wait into a loop of smaller waits to avoid this.
 
-Thanks,
-Ranjani
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Co-developed-by: Ramalingam C <ramalingam.c@intel.com>
+Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/hda/hdac_i915.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+Changes V1->V2:
+ - address local variable naming issue raised by Amadeusz
+   and use Takashi's proposal
+
+diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
+index 454474ac5716..aa48bed7baf7 100644
+--- a/sound/hda/hdac_i915.c
++++ b/sound/hda/hdac_i915.c
+@@ -143,7 +143,7 @@ static bool i915_gfx_present(void)
+ int snd_hdac_i915_init(struct hdac_bus *bus)
+ {
+ 	struct drm_audio_component *acomp;
+-	int err;
++	int err, i;
+ 
+ 	if (!i915_gfx_present())
+ 		return -ENODEV;
+@@ -159,9 +159,11 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
+ 	if (!acomp->ops) {
+ 		if (!IS_ENABLED(CONFIG_MODULES) ||
+ 		    !request_module("i915")) {
+-			/* 60s timeout */
+-			wait_for_completion_timeout(&acomp->master_bind_complete,
+-						    msecs_to_jiffies(60 * 1000));
++			/* max 60s timeout */
++			for (i = 0; i < 60; i++)
++				if (wait_for_completion_timeout(&acomp->master_bind_complete,
++								msecs_to_jiffies(1000)))
++					break;
+ 		}
+ 	}
+ 	if (!acomp->ops) {
+
+base-commit: fd7698cf0858f8c5e659b655109cd93c2f15cdd3
+-- 
+2.35.1
 

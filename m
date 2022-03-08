@@ -2,98 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706C94D1FD6
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 19:13:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0EE24D2043
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 19:29:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 082C716EF;
-	Tue,  8 Mar 2022 19:12:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 082C716EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62B741724;
+	Tue,  8 Mar 2022 19:28:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62B741724
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646763189;
-	bh=6hlJy78PlcVbxE6b9SzBauQcwNLdYuMxg3dsfe7vPCQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1646764161;
+	bh=JBHfXnj8F282xvFMF+nU221aD2nlurLIXu2okWterO0=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kHsJX1ooO9O81hNbUA/U2zGlJIWgQ3EU2zv7IfvOKhRWQEa/p4lHMhZ4dRC/Er8vB
-	 y/APYZ/19a1WJD5MDiZZAWgH/GRX0auybq9BC9zpMiEwjzYKRJvgNDQ9saiBvajkXL
-	 aigwsnKBx/cL3YVNeKmFjweYV9BUAdxJ1VQqnTlI=
+	b=dVqfXA+nAkqSzTJDSI1896WkAb6wBIFrFU6kP11QCanfTe9Lcqm7cbN5CF6AAgIL3
+	 gT7rjOI+E0HjCoBm7PZf3Me1Ojgkf1eDsOr/+pfFOW6jwU4wwJb/jDBSNoyXfcHQcS
+	 fpqqfyIqplAClk7l88qwdErSUu8jbEPHrS1Vu0RQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72C87F8026D;
-	Tue,  8 Mar 2022 19:12:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6864F80121;
+	Tue,  8 Mar 2022 19:28:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D25D5F80121; Tue,  8 Mar 2022 19:12:00 +0100 (CET)
+ id 6C13FF8026A; Tue,  8 Mar 2022 19:28:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE170F80121
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 19:11:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE170F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75F0EF800D1
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 19:28:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75F0EF800D1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Rt7ZP4DL"
-Received: by mail-ot1-x32a.google.com with SMTP id
- s35-20020a0568302aa300b005b2463a41faso3581908otu.10
- for <alsa-devel@alsa-project.org>; Tue, 08 Mar 2022 10:11:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=eCjdrkWFXlI2z3fvVt8j+mPo6k+YDOLeGzfqyXA7qwI=;
- b=Rt7ZP4DLJ8Wvx6/WSEzVQ+9M9PDDM1AMWmX47E+JoHJJLzlhu1GZ6UBtDpeWJlmCis
- JElGAotsUYcn60aAgpObiD+qgQ7vWebEub1OIMH1Yt+WOhiFkZlu6nKcvXcA5xMQUexW
- bQ75EJDkJdHW7EPeiKBCVxbEfvsLdMupm+RRCyoPAWndKIGFS20MAr5SaTQweE8fL7cK
- rdpxJUO1sxQN4H0yp6pCT4pg+GMD92K7cunI9n1yfLMXAy+OwhlEJZrrPjc646j6VCHp
- qPXIQ5zK4FLN3mOYJrBjLT4NVSHKN/ng/zOCIyHqQl0iQC0tDnQe6cAweP7FFc3p/ksz
- Ioww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=eCjdrkWFXlI2z3fvVt8j+mPo6k+YDOLeGzfqyXA7qwI=;
- b=ZoAd3CXfAtd0Ai7TQvm022kgNmnI0Vk/cB/425C/nosHdqOSOGR6ApDZk0eb8LR0/2
- Elm/m6hBXNboUUguig+zM8KWpAQBHo2aBXRdQh/Qga08VwVSwwWaGYJ+/l89gI87dv8q
- /psB67HB6tm3imidxP4z7jkTXR9A+bDskDPWDhvBSbmZLBMnllUNyclw++fwRAeDkT8v
- gC+vGdXTCzDlsKgv4jerBKqj6A4kRr8uBVjC++C0zRUXk42p+eaGMGX9G6EJPMg//N3V
- GjtFSmR0T5QVp0UbQu0YSDDEwUTeLjJPssb+QnVbKgu7MLNm220ikgUmeI85P57psbch
- FoFA==
-X-Gm-Message-State: AOAM531FMvQno/PWvsbcjdCUtRGr5CBCKA64f2beluGkKkijiaSMrhqT
- UwH7tBXLT3pXiH93XL1/YhT43Q==
-X-Google-Smtp-Source: ABdhPJxvEGLL54Z+BCjwAaRSpUbf47FFGDFMMrjqGpR5+XILsKSYph+QmQPxjTwKOFmXTYhdaeb/wQ==
-X-Received: by 2002:a9d:4e99:0:b0:5b2:54f4:75e7 with SMTP id
- v25-20020a9d4e99000000b005b254f475e7mr1433951otk.94.1646763112445; 
- Tue, 08 Mar 2022 10:11:52 -0800 (PST)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id
- u7-20020a05687036c700b000da4bcdae42sm3072206oak.13.2022.03.08.10.11.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Mar 2022 10:11:52 -0800 (PST)
-Date: Tue, 8 Mar 2022 10:13:35 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Subject: Re: [PATCH v10 7/7] pinctrl: qcom: Update clock voting as optional
-Message-ID: <Yieczzo96xSaA7jp@ripper>
-References: <1646737394-4740-1-git-send-email-quic_srivasam@quicinc.com>
- <1646737394-4740-8-git-send-email-quic_srivasam@quicinc.com>
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="Jvsv5ynV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646764087; x=1678300087;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=JBHfXnj8F282xvFMF+nU221aD2nlurLIXu2okWterO0=;
+ b=Jvsv5ynVToRpLOwSrn/mSwi5ax1qaF8SFwZiqbeq5QFXjvjzdSe+/n/r
+ 0HX2yEVfb1vHINswzq12kd+rFXzbnTeqJIplmPGmXx8DmAiIbVnXJi6vW
+ guCEtOeXSymQEmgw9P7eFimX1Fjr/TVOKSxoFhmiwkZ3f4pNQ0NWdlxR3
+ 5t3wSDdjIBIBeI5xwrKOM/ePUYRQTt6XLrriCUMuSfZyBEEqJ+4fgy4VJ
+ vol2cdDDdHbK+9VMMgVGBu0eGZb6JIuWrIrh/qbgfUBszuj4q45wwo85V
+ vElDeR40KMb2RjRO2JT9x2yYd7mLmCnlFNo0nuJh/rfl/FxNalqLZRFsq g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="235385553"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="235385553"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2022 10:26:37 -0800
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="495555926"
+Received: from slkortic-mobl1.amr.corp.intel.com ([10.254.25.36])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2022 10:26:36 -0800
+Message-ID: <e71e12e1af0b9af115410c8210f21f4e50a09e6f.camel@linux.intel.com>
+Subject: Re: [PATCH v3 11/17] ASoC: Intel: avs: Firmware resources
+ management utilities
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
+Date: Tue, 08 Mar 2022 10:26:35 -0800
+In-Reply-To: <361901b8-f8a5-7b27-ee44-872c4e10bc2c@intel.com>
+References: <20220304145755.2844173-1-cezary.rojewski@intel.com>
+ <20220304145755.2844173-12-cezary.rojewski@intel.com>
+ <66e20563567955124488eb9f9b53ea6a2bc5d744.camel@linux.intel.com>
+ <d7676598-27bc-fe5d-1167-c82795e533f7@intel.com>
+ <a571f334944f3ae7762068572003299c34fd187a.camel@linux.intel.com>
+ <f70be289-ee9c-51b5-4003-7bc567e87a54@intel.com>
+ <9f4cbf5a720aa66d6a540092187ad88b3adb5525.camel@linux.intel.com>
+ <4691b216-92f6-8d46-d3db-e302f5f21c34@intel.com>
+ <3c79c158757bfd542747bcf7b4de73e4529ac4d5.camel@linux.intel.com>
+ <361901b8-f8a5-7b27-ee44-872c4e10bc2c@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.3-0ubuntu1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1646737394-4740-8-git-send-email-quic_srivasam@quicinc.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, tiwai@suse.com,
- agross@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- linux-gpio@vger.kernel.org, rohitkr@codeaurora.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, quic_plai@quicinc.com, judyhsiao@chromium.org,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,84 +100,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue 08 Mar 03:03 PST 2022, Srinivasa Rao Mandadapu wrote:
-
-> Update bulk clock voting to optional voting as ADSP bypass platform doesn't
-> need macro and decodec clocks,
-
-Even I am not sure what "ADSP bypass platform" means, so please express
-this better.
-
-Are they optional because sc7280 typically come with ADSP based audio,
-but it might not and if not then we shouldn't control those clocks?
-
-> these are maintained as power domains and
-> operated from lpass audio core cc.
+On Tue, 2022-03-08 at 19:07 +0100, Cezary Rojewski wrote:
+> > Keeping in mind that this driver is meant for older platforms, how
+> > likely are you to support multiple sound cards with those
+> > topologies?
 > 
-
-So there are clocks, but they are exposed as power-domains? Or are you
-just trying to say that the LPASS LPI pinctrl block is always in a
-power-domain controlled by the audio clock-controller?
-
-Regards,
-Bjorn
-
-> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-> Co-developed-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> Signed-off-by: Venkata Prasad Potturu <quic_potturu@quicinc.com>
-> ---
->  drivers/pinctrl/qcom/pinctrl-lpass-lpi.c        | 12 +++++++++---
->  drivers/pinctrl/qcom/pinctrl-lpass-lpi.h        |  1 +
->  drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c |  1 +
->  3 files changed, 11 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> index 1ab572f..c618b74 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> @@ -407,9 +407,15 @@ int lpi_pinctrl_probe(struct platform_device *pdev)
->  		return dev_err_probe(dev, PTR_ERR(pctrl->slew_base),
->  				     "Slew resource not provided\n");
->  
-> -	ret = devm_clk_bulk_get(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
-> -	if (ret)
-> -		return dev_err_probe(dev, ret, "Can't get clocks\n");
-> +	if (data->is_clk_optional) {
-> +		ret = devm_clk_bulk_get_optional(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "Can't get clocks\n");
-> +	} else {
-> +		ret = devm_clk_bulk_get(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "Can't get clocks\n");
-> +	}
->  
->  	ret = clk_bulk_prepare_enable(MAX_LPI_NUM_CLKS, pctrl->clks);
->  	if (ret)
-> diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-> index afbac2a..3bcede6 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-> +++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-> @@ -77,6 +77,7 @@ struct lpi_pinctrl_variant_data {
->  	int ngroups;
->  	const struct lpi_function *functions;
->  	int nfunctions;
-> +	int is_clk_optional;
->  };
->  
->  int lpi_pinctrl_probe(struct platform_device *pdev);
-> diff --git a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-> index d67ff25..304d8a2 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
-> @@ -142,6 +142,7 @@ static const struct lpi_pinctrl_variant_data sc7280_lpi_data = {
->  	.ngroups = ARRAY_SIZE(sc7280_groups),
->  	.functions = sc7280_functions,
->  	.nfunctions = ARRAY_SIZE(sc7280_functions),
-> +	.is_clk_optional = 1,
->  };
->  
->  static const struct of_device_id lpi_pinctrl_of_match[] = {
-> -- 
-> 2.7.4
+> Not sure what's the question here. Age of the platform has nothing to
+> do 
 > 
+> with the subject. There is not a single DSP-capable platform that
+> Intel 
+> 
+> has shipped that would not contain more one audio device onboard. At 
+> 
+> least I'm not aware of any.
+
+My question was related to your comment about multiple sound cards.
+What I asked was do you plan to support multiple topologies with
+modules spread across then with multiple sound component drivers with
+the AVS driver and firmware? Does this mean you will need multiple
+topology files and machine driver? And what is the rationale for this?
+
+If not, there's no need for the mutex.
+
+Thanks,
+Ranjani
+

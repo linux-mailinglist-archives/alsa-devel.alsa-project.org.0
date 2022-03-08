@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E95674D1DC2
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 17:50:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08E6F4D1DA9
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 17:45:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62061188F;
-	Tue,  8 Mar 2022 17:49:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62061188F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A89D17BF;
+	Tue,  8 Mar 2022 17:45:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A89D17BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646758209;
-	bh=sevLvA+JDI8wNatLa+aq2cOCsP36Y/uVOwtNk3A0OS8=;
+	s=default; t=1646757951;
+	bh=BloCR7IgHwGqVaKqlil5nTnQMYwWqLtZl3zLrRzF46c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=usTOByFbw3rShBjtYslh/YdHXeGgStYckSb620QGZ+cVEnqNczMYrsrdIY5ZRvhcX
-	 nK9hhM7WRQVb0kXZ+sPNEvOaM7hZKIvylPJ5v9rLLNnTCc7DyrIlGR4nLCYXXGkkV0
-	 PCDBEkOjy0hesHMBWwlVweMJrL0mOWIW+Uxg1Kik=
+	b=oOPv3gAyj0WJTtIHLBFR+vyGkCxPPRrC5OPZKYMphwrebXC9rr/g7RIOd5C9EhXs5
+	 pX/HpqAZrCNKMSn/2DPsxjWuJn/CaUgGch+DYfYex6wNG+/FEjXs7jFewiERz4ZxCY
+	 eUyN8AFB7a2+kbrHazTyhl6ZM2nsJpDY27TIOabA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE7ACF805AF;
-	Tue,  8 Mar 2022 17:44:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B069FF8051C;
+	Tue,  8 Mar 2022 17:44:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E1C0F80543; Tue,  8 Mar 2022 17:44:27 +0100 (CET)
+ id 51BC1F804F3; Tue,  8 Mar 2022 17:44:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D37EF80271
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 17:44:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D37EF80271
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61617F8025E
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 17:44:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61617F8025E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="UhLTm2ia"
+ header.b="ZL70IIEh"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646757857; x=1678293857;
+ t=1646757843; x=1678293843;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sevLvA+JDI8wNatLa+aq2cOCsP36Y/uVOwtNk3A0OS8=;
- b=UhLTm2iaIa/YD/2g8XxFvRjyE6H+j9ueNg2DM+JbyyNfyBZuFgsuJT9z
- Pz7tuRRwb2sPSw2VrWeQhHspPVPb/hXrHN6C/+HSmFOFV4g/EGtOZ/xFG
- yR+GvU/rZ7m1RB9DtZYMGeVxYaunMQPJEFpIoVSyt3BsrgKPSBtr/KYD9
- Kwv6CW1GRrBvF/6IqCPuTE3Uchw4vmxDfyLgJGkDfqJinsAiP/N8YaSXM
- Z6gRHK2HldYekTtD9YcfwboPmjCCqsZEg2Qx2jiDjC0+fGZymFrJBFNrF
- bGHFfCWjM/dZ8n52KbXAEyBGrs5bwxB9D2pfxr89lkl+9MQTXuRG1fKiP A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252307241"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252307241"
+ bh=BloCR7IgHwGqVaKqlil5nTnQMYwWqLtZl3zLrRzF46c=;
+ b=ZL70IIEht+h4B8xPGKZKjv2lLaf3RjMCK5s5Qnj3gTDBMjVdqE5x56Vn
+ 4tVj2aOqEup3aKGoD1SZA+N9IGoPImFXkyr5eoevMxQGgPKkhYLyP+KNV
+ XTah4FzKzBgDInKwuzL3OEdRDG0hWV9OrbJY81zFbv221vyxij2p2Erpi
+ fWIPdZxWUJPZfN4bQmLFbbYNtyr4DsCNQqtJvhOgYSncWjsFL9ZDUp3YI
+ /7EzbuTUaiJ2j6DZczViR6zGVF6MHJu9m51YksCL/RN3Y9g90t+fZbjJ0
+ Vm0S4JfQjPLZZra/9xj7r3HCgsK1tdd6QAJIVYiYsiMGjh84ba1eZzjTD A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="317964769"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="317964769"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 08:43:57 -0800
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="537633266"
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2022 08:43:58 -0800
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="537633268"
 Received: from bustam3x-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.251.130.225])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Mar 2022 08:43:57 -0800
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 12/18] ASoC: SOF: topology: make sof_route_load() IPC
- agnostic
-Date: Tue,  8 Mar 2022 08:43:38 -0800
-Message-Id: <20220308164344.577647-13-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH v2 13/18] ASoC: SOF: Add a tuples array to struct
+ snd_sof_widget
+Date: Tue,  8 Mar 2022 08:43:39 -0800
+Message-Id: <20220308164344.577647-14-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220308164344.577647-1-ranjani.sridharan@linux.intel.com>
 References: <20220308164344.577647-1-ranjani.sridharan@linux.intel.com>
@@ -94,120 +94,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The IPC structure can be set up using the fields in struct snd_sof_route
-when the pipeline connections are established.
+Add 2 new fields to snd_sof_widget to store an array of tuples
+defined by struct snd_sof_tuple and the number of tuples. When the
+topology gets parsed, the tuples associated with a widget will be stored
+in this array and will be used to construct the IPC structure
+depending on the IPC version.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/sof-audio.c | 15 ++++++---------
- sound/soc/sof/topology.c  | 17 -----------------
- 2 files changed, 6 insertions(+), 26 deletions(-)
+ sound/soc/sof/sof-audio.h | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index b49d8e348077..8fccfbb339a3 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -259,28 +259,25 @@ EXPORT_SYMBOL(sof_widget_setup);
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index 10330d826d40..2a1da9e13279 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -30,6 +30,18 @@
  
- static int sof_route_setup_ipc(struct snd_sof_dev *sdev, struct snd_sof_route *sroute)
- {
--	struct sof_ipc_pipe_comp_connect *connect;
-+	struct sof_ipc_pipe_comp_connect connect;
- 	struct sof_ipc_reply reply;
- 	int ret;
+ #define WIDGET_IS_DAI(id) ((id) == snd_soc_dapm_dai_in || (id) == snd_soc_dapm_dai_out)
  
--	/* skip if there's no private data */
--	if (!sroute->private)
--		return 0;
--
- 	/* nothing to do if route is already set up */
- 	if (sroute->setup)
- 		return 0;
++/** struct snd_sof_tuple - Tuple info
++ * @token:	Token ID
++ * @value:	union of a string or a u32 values
++ */
++struct snd_sof_tuple {
++	u32 token;
++	union {
++		u32 v;
++		const char *s;
++	} value;
++};
++
+ /* PCM stream, mapped to FW component  */
+ struct snd_sof_pcm_stream {
+ 	u32 comp_id;
+@@ -112,6 +124,9 @@ struct snd_sof_widget {
  
--	connect = sroute->private;
-+	connect.hdr.size = sizeof(connect);
-+	connect.hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_COMP_CONNECT;
-+	connect.source_id = sroute->src_widget->comp_id;
-+	connect.sink_id = sroute->sink_widget->comp_id;
+ 	const guid_t uuid;
  
- 	dev_dbg(sdev->dev, "setting up route %s -> %s\n",
- 		sroute->src_widget->widget->name,
- 		sroute->sink_widget->widget->name);
++	int num_tuples;
++	struct snd_sof_tuple *tuples;
++
+ 	void *private;		/* core does not touch this */
+ };
  
- 	/* send ipc */
--	ret = sof_ipc_tx_message(sdev->ipc,
--				 connect->hdr.cmd,
--				 connect, sizeof(*connect),
-+	ret = sof_ipc_tx_message(sdev->ipc, connect.hdr.cmd, &connect, sizeof(connect),
- 				 &reply, sizeof(reply));
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "%s: route setup failed %d\n", __func__, ret);
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 111ff0f77be4..42260d0b9740 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -3322,7 +3322,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 			  struct snd_soc_dapm_route *route)
- {
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct sof_ipc_pipe_comp_connect *connect;
- 	struct snd_sof_widget *source_swidget, *sink_swidget;
- 	struct snd_soc_dobj *dobj = &route->dobj;
- 	struct snd_sof_route *sroute;
-@@ -3334,16 +3333,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 		return -ENOMEM;
- 
- 	sroute->scomp = scomp;
--
--	connect = kzalloc(sizeof(*connect), GFP_KERNEL);
--	if (!connect) {
--		kfree(sroute);
--		return -ENOMEM;
--	}
--
--	connect->hdr.size = sizeof(*connect);
--	connect->hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_COMP_CONNECT;
--
- 	dev_dbg(scomp->dev, "sink %s control %s source %s\n",
- 		route->sink, route->control ? route->control : "none",
- 		route->source);
-@@ -3367,8 +3356,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 	    source_swidget->id == snd_soc_dapm_output)
- 		goto err;
- 
--	connect->source_id = source_swidget->comp_id;
--
- 	/* sink component */
- 	sink_swidget = snd_sof_find_swidget(scomp, (char *)route->sink);
- 	if (!sink_swidget) {
-@@ -3386,8 +3373,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 	    sink_swidget->id == snd_soc_dapm_output)
- 		goto err;
- 
--	connect->sink_id = sink_swidget->comp_id;
--
- 	/*
- 	 * For virtual routes, both sink and source are not
- 	 * buffer. Since only buffer linked to component is supported by
-@@ -3402,7 +3387,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 	} else {
- 		sroute->route = route;
- 		dobj->private = sroute;
--		sroute->private = connect;
- 		sroute->src_widget = source_swidget;
- 		sroute->sink_widget = sink_swidget;
- 
-@@ -3413,7 +3397,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 	}
- 
- err:
--	kfree(connect);
- 	kfree(sroute);
- 	return ret;
- }
 -- 
 2.25.1
 

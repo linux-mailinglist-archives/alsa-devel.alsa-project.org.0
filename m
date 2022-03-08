@@ -2,95 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AE804D0E0F
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 03:34:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D0C4D10B5
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 08:07:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D407717BF;
-	Tue,  8 Mar 2022 03:34:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D407717BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E0A416D5;
+	Tue,  8 Mar 2022 08:07:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E0A416D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646706890;
-	bh=+KvJAL4OcbkNzOoqiQL9STYHCsHUydNNQ4YMjGQZzWU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=niSFmafpSmwq0k0ZUoqWPpFMSHParMjIN5u4IarZs2VrQw/0IVvvAURH7w+lBJz/o
-	 wz4ecVOtBx28VHBsWBQYCH5/65aZUKfo/hEXQ/DyoTjbIN2njSwuH0sSiLgxUnmJ5B
-	 EdIM1LR5xSV728CYjHQg0+KNtSVuzW5Lvmv8AD8k=
+	s=default; t=1646723272;
+	bh=C5ew54H1avdNODktKYE2Ol8ZNHf+SxEq4I2loZTN2/s=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KF/t2uqBsmqdiwrIZZGTvWFjKY7PX5D8oShO1lf7AEdegbSybQ3kQhf7xlouRRuYY
+	 sZiaCsJbGwzkPw6n0TdWjRapC6jWy8mgi9ZEMOceealAkgnPBJNjrS6+iIs7Zu/4TH
+	 YuOzcQnLLs1+rMNj8AXZ4CG9aHf0ihAK5YehpADQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 407C8F80159;
-	Tue,  8 Mar 2022 03:33:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4DFCF8026D;
+	Tue,  8 Mar 2022 08:06:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A69AF800E9; Tue,  8 Mar 2022 03:33:43 +0100 (CET)
+ id 0B062F8026A; Tue,  8 Mar 2022 08:06:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68356F800E9;
- Tue,  8 Mar 2022 03:33:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68356F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FE1CF800D2
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 08:06:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FE1CF800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WEkcwRIg"
-Received: by mail-pg1-x52c.google.com with SMTP id 6so10642087pgg.0;
- Mon, 07 Mar 2022 18:33:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id;
- bh=JHlL483tOPXXwrShSRIjSrIFbu7utMjXnFg9i5hed/o=;
- b=WEkcwRIgKqaeYDHUvRzHgwypMhdMJA7j9eG+yN5S8IeEe3Lw9dLXp7vuoF4rdLjZYH
- iHOeyF1zmrCYUPpJj8L44HMC/wzABiTl/xT3IfsBJpXbdL9CuNxN5mPNj4pxgcoarq4J
- jFUecfa7EpJ2s+MG6QjLSa/Gv3sg7ZBTEXEUaXitC9oUAoki/eooiwrlAbfHJcQZs71U
- RDBlDmCnyURAPGkT1xAs6St1K/JQyrnubKxoqNMIynU52soHzR/64MOd0zCiKAsZGWh0
- D8ma+B2LDuYNojD+uRIpApmn9HX/BxoZ3X/iW4Rwb3QsX7zSV7fCTiiZkj2AmbZIdK09
- KZTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=JHlL483tOPXXwrShSRIjSrIFbu7utMjXnFg9i5hed/o=;
- b=mMRICZeVhxlw8qNpHkVMDbbJc7Pk1Cl/Ymdiy7V0jNN5W/GbNRN7/jQBkZ76VRfcpb
- KC7TyRfK+nKJslGUHHX05383LqRB+TkF8+jZuTEORqzMUi6rf6ADxDqVsmTSXd7FMGBe
- Dm3NwbacGE36HnIVxMk9K/L/xamsTqALE/i+1pCkGhQkldRaEo+L8lHpDQM/+RvhhWTj
- 3ZvEaNgS+pEanDgYKIo98por4So/MUPxsDVwJd48FU/LfEmcYJ5O2tg0JtBcZp22CRNf
- WMCAAqfJVbO8VhBLmsT7uDpgEe2WlqiL9hlCCE7owVT4hNCW6pWb4oZmEH+MrJe3Hfhu
- 3LuQ==
-X-Gm-Message-State: AOAM532mz3SHXUatvj98HoWblgljOWDsVNtQyB9qzcpqCd5fDNeBR8zp
- R3jW4TpjkCEL1gZRnVE4/S0=
-X-Google-Smtp-Source: ABdhPJxwTjC/2YyrJTs09m/FPQR/5h0YkmUvTnHXVS+nNfwwgujRr2t9vFbiZBCRxEjAV81GX2UXbw==
-X-Received: by 2002:a65:4c06:0:b0:373:a7d1:75d5 with SMTP id
- u6-20020a654c06000000b00373a7d175d5mr12060573pgq.502.1646706812977; 
- Mon, 07 Mar 2022 18:33:32 -0800 (PST)
-Received: from localhost.localdomain ([159.226.95.43])
- by smtp.googlemail.com with ESMTPSA id
- p186-20020a62d0c3000000b004f6fa49c4b9sm5895103pfg.218.2022.03.07.18.33.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Mar 2022 18:33:32 -0800 (PST)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Viorel Suman <viorel.suman@nxp.com>, sound-open-firmware@alsa-project.org,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: SOF: Add missing of_node_put() in imx8m_probe
-Date: Tue,  8 Mar 2022 02:33:23 +0000
-Message-Id: <20220308023325.31702-1-linmq006@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Cc: linmq006@gmail.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="gksSWJVV"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ASsoq1qw"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id DDF21210E6;
+ Tue,  8 Mar 2022 07:06:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1646723191; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=20HX+J/S/uQm7i6HTWK3CGFyrNdGGqyeN3StrN4p+mM=;
+ b=gksSWJVVA4b5wyDiwfzb+zHIY/wjl66vHh1D8OoLFQwXksv8UN5QDhqn9NdAptb9BnTUQ8
+ 727lyoHS1fHHC0qMF7HQ6PA84QgaeluOI7+0tJrtPvaseOE/VJ7j62fWGIJCX2jY2cGw4S
+ IwOgqw2hTSSpFkC+eYx2/oyD4N38z2w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1646723191;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=20HX+J/S/uQm7i6HTWK3CGFyrNdGGqyeN3StrN4p+mM=;
+ b=ASsoq1qweZUu+wzKXx6xY2CTnXgCe2Fg76YiWKCJ1zTfGV2CsGpN2zIXxa3Vns01yXlkAs
+ X7zxVAOFZuvAnyCg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id CCE1BA3B81;
+ Tue,  8 Mar 2022 07:06:31 +0000 (UTC)
+Date: Tue, 08 Mar 2022 08:06:31 +0100
+Message-ID: <s5h5yooord4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Tim Crawford <tcrawford@system76.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NP50PNJ
+In-Reply-To: <20220307193229.5141-1-tcrawford@system76.com>
+References: <20220307193229.5141-1-tcrawford@system76.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: productdev@system76.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,27 +92,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The device_node pointer is returned by of_parse_phandle()  with refcount
-incremented. We should use of_node_put() on it when done.
+On Mon, 07 Mar 2022 20:32:29 +0100,
+Tim Crawford wrote:
+> 
+> Fixes headset detection on Clevo NP50PNJ.
+> 
+> Signed-off-by: Tim Crawford <tcrawford@system76.com>
 
-Fixes: afb93d716533 ("ASoC: SOF: imx: Add i.MX8M HW support")
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
----
- sound/soc/sof/imx/imx8m.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks, applied now.
 
-diff --git a/sound/soc/sof/imx/imx8m.c b/sound/soc/sof/imx/imx8m.c
-index 788e77bcb603..60251486b24b 100644
---- a/sound/soc/sof/imx/imx8m.c
-+++ b/sound/soc/sof/imx/imx8m.c
-@@ -224,6 +224,7 @@ static int imx8m_probe(struct snd_sof_dev *sdev)
- 	}
- 
- 	ret = of_address_to_resource(res_node, 0, &res);
-+	of_node_put(res_node);
- 	if (ret) {
- 		dev_err(&pdev->dev, "failed to get reserved region address\n");
- 		goto exit_pdev_unregister;
--- 
-2.17.1
 
+Takashi

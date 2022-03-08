@@ -2,81 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDFB94D0BDB
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 00:15:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87BD94D0D9E
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 02:41:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 539781728;
-	Tue,  8 Mar 2022 00:14:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 539781728
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B5EA1753;
+	Tue,  8 Mar 2022 02:40:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B5EA1753
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646694948;
-	bh=g+/4EEm5vckt73UbeiMu/wj0gPRST7Yt4oNCh2xPfEI=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1646703704;
+	bh=i5/8W6P0KQvpDq7ttaGTvsmVn8Fa376zv+isnKt/73A=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D0PofKfPTGrsmd/t25uMcNgVNUarsdvgZmXMqcxBJ4yUePeJ9g4M/MH8alVX/1cCP
-	 hDaI/5lh/lDgCPWU07wTRnLLNgZsseL9EmIRGC9WiW8KkUtMEMBqBKzGCVvbkh67pV
-	 gnAfkgd++Uwmg0GS/IA/9c2KxBvn+gXAmXfsOpM0=
+	b=GASZnRhYBj8ZfLr9i2CsLP3XFvZk+v8jILgPrp4fDaGEkkRYDE7g/DrRHY7/Sj15n
+	 OZYKQi899PBSpnoXm4SHyRO2jkFzOIDyvW1GRPJtsLX8i9ZT5/iB08n9CxrYmcQNh9
+	 bwcZWTUd4MNXJnZblK2d7Hb9CLgPL+O17Wz02p9E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0AD9F80159;
-	Tue,  8 Mar 2022 00:14:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79164F80159;
+	Tue,  8 Mar 2022 02:40:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B7C8F8013F; Tue,  8 Mar 2022 00:14:38 +0100 (CET)
+ id EEC34F8013F; Tue,  8 Mar 2022 02:40:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, 
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 619F0F80124
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 00:14:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 619F0F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FA7FF800D1
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 02:40:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FA7FF800D1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="VGTbphPW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=1RJl9gPUoZ5r0tpE3KAj5UTUngTysCjGJETPpOzuLSc=; b=VGTbphPW+44xgsldnOtrZRksPu
- 5zkcPB10d7stBVRUgLup1/+ZOqiUvtIR0i/gWWUtg27mYsPGBVQO/v8api9RAOMYi9/6JrrH1hHAF
- DMWqQrlOEJawA4SrKudJDam5qVxWoj3rc4BA1ynbsUY11vUBk5iN3VMwKlxSPpUUoYxG/s706r5pO
- GH5gsdudLQ8vOWfKGmnHrIu1e7g7nMu3DVDkrbqa1TpyJsRpiKj+D4hTOmVa00peZ5KqgBG9ZAFo8
- TRSprjiHqeLkkD8RN18BUr+CfDxfs9t4a4uKRuy61DQfLrVZKYPbF9CrENHACF8akyc3Q7QrHL3aa
- /KeJgFLw==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nRMYM-00FdR5-9S; Mon, 07 Mar 2022 23:14:10 +0000
-Message-ID: <9d85050f-33c5-0cd0-3278-ca62f4ca098e@infradead.org>
-Date: Mon, 7 Mar 2022 15:14:03 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: mmotm 2022-03-06-20-33 uploaded (sound/soc/intel/boards/)
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, broonie@kernel.org,
- mhocko@suse.cz, sfr@canb.auug.org.au, linux-next@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, mm-commits@vger.kernel.org
-References: <20220307043435.251DBC340E9@smtp.kernel.org>
- <39c76613-3fb4-651b-1838-f460c4f76a17@infradead.org>
- <178c7536-7b54-5f73-b759-745db4fae2bc@linux.intel.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <178c7536-7b54-5f73-b759-745db4fae2bc@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Keyon Jie <yang.jie@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="BqC3IovN"
+Received: by mail-pj1-x102b.google.com with SMTP id b8so15725243pjb.4
+ for <alsa-devel@alsa-project.org>; Mon, 07 Mar 2022 17:40:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=2oZHqNig67lQrBY101pOAHHtLLvXMV3c8bnYL4oUFgs=;
+ b=BqC3IovNxG0EX5R6eBwELil4WePyK5xpcSbZKRaGDvvWQv34opW72yKZwwI0ZERwOy
+ +q3qkTj8qt2V2lOoPUQusa1YS2V2olRuJFZ4SBpb8q1CVMrRLUdR9981BNODggbtVCme
+ dE/RoJ4lXkgCw592blfxLHs1wuvI7YBy+YUdQ6cvp5VtrmI5IBtsaWat8+olN5zakUjC
+ 7dolRIi314WCbw8yMDCVQ8eyH0JLtoPmwWweeGUHBeui/Y+MmyOMZQ/KAFbsolZcm7fa
+ HVxTYqIyWcebbu0sqMVq6Wx5S32fyUmQzMNEqbKDyV1n0YXiZ77VTcOj6jOvPTKgBMSh
+ dmzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=2oZHqNig67lQrBY101pOAHHtLLvXMV3c8bnYL4oUFgs=;
+ b=AfatNpVu0zWxpTRhY9sBwCCuNjggNLOLED2e5x9KdocfLotn1t+qRGuL1vMACOTLdl
+ 7ihj5y5RXrPKIxFSeyryKIBm7/5DBmUtWVp+xlsyJLB6SOnUY2aSF9SITPEMY6PqsX+L
+ czQjcglPppm3Rj145BBEHWPjSZx1fdUJVhsfa6LybrNlnX0X57yXfgdVovbK8PuOHqjt
+ gIl9RTk6Ze1MCpvq18dXqzkwRkLXnuKv3qGCWD1bDmO9RljbvJmkng6xaRx2kVqXDXX8
+ nlN8gwXyOjTbHywrTxD9Ehia8q5vCdgCiTIR0Z6VmOEj0TY/r6v1EFSOJBtiZKuHXBmX
+ Mb2g==
+X-Gm-Message-State: AOAM532AiuU+KfgfUGicu+d3zbHUF2dhnTcMvqU0+gekrXY74wko0QkO
+ pgd0mfdC4RKPYBW1ZfD/57Y=
+X-Google-Smtp-Source: ABdhPJxEA3atALbfBSMj03rRMPNFxv4vBrK8TkDMyB2LCuJkL3ERSbUrRspo08Cewso0/CaU3sS9Og==
+X-Received: by 2002:a17:90a:7e95:b0:1bc:5d56:8d4c with SMTP id
+ j21-20020a17090a7e9500b001bc5d568d4cmr1989175pjl.93.1646703623972; 
+ Mon, 07 Mar 2022 17:40:23 -0800 (PST)
+Received: from localhost.localdomain ([159.226.95.43])
+ by smtp.googlemail.com with ESMTPSA id
+ e14-20020a056a001a8e00b004e136d54a15sm17858175pfv.105.2022.03.07.17.40.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Mar 2022 17:40:23 -0800 (PST)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Florian Meier <florian.meier@koalo.de>, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ASoC: atmel: Fix error handling in snd_proto_probe
+Date: Tue,  8 Mar 2022 01:39:48 +0000
+Message-Id: <20220308013949.20323-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <582c39ac-3099-d54f-5de3-d54a4ace0a04@microchip.com>
+References: <582c39ac-3099-d54f-5de3-d54a4ace0a04@microchip.com>
+Cc: linmq006@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,91 +106,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The device_node pointer is returned by of_parse_phandle()  with refcount
+incremented. We should use of_node_put() on it when done.
 
+This function only calls of_node_put() in the regular path.
+And it will cause refcount leak in error paths.
+Fix this by calling of_node_put() in error handling too.
 
-On 3/7/22 13:54, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 3/7/22 15:12, Randy Dunlap wrote:
->>
->>
->> On 3/6/22 20:34, Andrew Morton wrote:
->>> The mm-of-the-moment snapshot 2022-03-06-20-33 has been uploaded to
->>>
->>>     https://www.ozlabs.org/~akpm/mmotm/
->>>
->>> mmotm-readme.txt says
->>>
->>> README for mm-of-the-moment:
->>>
->>> https://www.ozlabs.org/~akpm/mmotm/
->>>
->>> This is a snapshot of my -mm patch queue.  Uploaded at random hopefully
->>> more than once a week.
->>>
->>> You will need quilt to apply these patches to the latest Linus release (5.x
->>> or 5.x-rcY).  The series file is in broken-out.tar.gz and is duplicated in
->>> https://ozlabs.org/~akpm/mmotm/series
->>
->> on x86_64:
->>
->> ERROR: modpost: "sof_dai_get_bclk" [sound/soc/intel/boards/snd-soc-intel-sof-cirrus-common.ko] undefined!
->> ERROR: modpost: "sof_dai_get_mclk" [sound/soc/intel/boards/snd-soc-intel-sof-realtek-common.ko] undefined!
->>
->>
->> Full randconfig file is attached.
-> 
-> Thanks Randy for the report. Indeed there's a problem with the SND_SOC_INTEL_SOF_SSP_AMP_MACH option. It should be conditional on at least one Intel/SOF platform being selected, as all the other platforms are already.
-> 
-> The following diff makes the problem go away:
+Fixes: a45f8853a5f9 ("ASoC: Add driver for PROTO Audio CODEC (with a WM8731)")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+Reviewed-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+---
+changes in v2:
+- remove extra line.
+---
+ sound/soc/atmel/mikroe-proto.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-Ack. Works for me. (after ignoring the double-spaced lines :)
-
-Thanks.
-
-> 
-> diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-> 
-> index 6884ddf9edad..81e012c164b0 100644
-> 
-> --- a/sound/soc/intel/boards/Kconfig
-> 
-> +++ b/sound/soc/intel/boards/Kconfig
-> 
-> @@ -615,6 +615,8 @@ config SND_SOC_INTEL_SOF_DA7219_MAX98373_MACH
-> 
-> 
-> 
->  endif ## SND_SOC_SOF_JASPERLAKE
-> 
-> 
-> 
-> +if SND_SOC_SOF_HDA_LINK
-> 
-> +
-> 
->  config SND_SOC_INTEL_SOF_SSP_AMP_MACH
-> 
->         tristate "SOF with amplifiers in I2S Mode"
-> 
->         depends on I2C && ACPI
-> 
-> @@ -631,6 +633,7 @@ config SND_SOC_INTEL_SOF_SSP_AMP_MACH
-> 
->            with RT1308/CS35L41 I2S audio codec.
-> 
->            Say Y if you have such a device.
-> 
->            If unsure select "N".
-> 
-> +endif ## SND_SOC_SOF_HDA_LINK
-> 
-> 
-> 
->  if SND_SOC_SOF_ELKHARTLAKE
-> 
-> 
-> 
-
+diff --git a/sound/soc/atmel/mikroe-proto.c b/sound/soc/atmel/mikroe-proto.c
+index 627564c18c27..ce46d8a0b7e4 100644
+--- a/sound/soc/atmel/mikroe-proto.c
++++ b/sound/soc/atmel/mikroe-proto.c
+@@ -115,7 +115,8 @@ static int snd_proto_probe(struct platform_device *pdev)
+ 	cpu_np = of_parse_phandle(np, "i2s-controller", 0);
+ 	if (!cpu_np) {
+ 		dev_err(&pdev->dev, "i2s-controller missing\n");
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto put_codec_node;
+ 	}
+ 	dai->cpus->of_node = cpu_np;
+ 	dai->platforms->of_node = cpu_np;
+@@ -125,7 +126,8 @@ static int snd_proto_probe(struct platform_device *pdev)
+ 						       &bitclkmaster, &framemaster);
+ 	if (bitclkmaster != framemaster) {
+ 		dev_err(&pdev->dev, "Must be the same bitclock and frame master\n");
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto put_cpu_node;
+ 	}
+ 	if (bitclkmaster) {
+ 		if (codec_np == bitclkmaster)
+@@ -136,18 +138,20 @@ static int snd_proto_probe(struct platform_device *pdev)
+ 		dai_fmt |= snd_soc_daifmt_parse_clock_provider_as_flag(np, NULL);
+ 	}
+ 
+-	of_node_put(bitclkmaster);
+-	of_node_put(framemaster);
+-	dai->dai_fmt = dai_fmt;
+-
+-	of_node_put(codec_np);
+-	of_node_put(cpu_np);
+ 
++	dai->dai_fmt = dai_fmt;
+ 	ret = snd_soc_register_card(&snd_proto);
+ 	if (ret)
+ 		dev_err_probe(&pdev->dev, ret,
+ 			"snd_soc_register_card() failed\n");
+ 
++
++put_cpu_node:
++	of_node_put(bitclkmaster);
++	of_node_put(framemaster);
++	of_node_put(cpu_np);
++put_codec_node:
++	of_node_put(codec_np);
+ 	return ret;
+ }
+ 
 -- 
-~Randy
+2.17.1
+

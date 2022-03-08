@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9E614D2172
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 20:28:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C49AF4D217A
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 20:30:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75F141898;
-	Tue,  8 Mar 2022 20:28:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75F141898
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64B5118AF;
+	Tue,  8 Mar 2022 20:29:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64B5118AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646767734;
-	bh=7aEi+ev1LAZnnatkTM38uBcSHka2wqOlb1eNtSgSHCg=;
+	s=default; t=1646767800;
+	bh=vDyiMC0goHPX1CvjQLSs/6fdaolU354xTVnxXUU0E9A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BOqAhkb2xF8kuOYaapAHpHnyd4XvAGIL/XA723sSe/s70EX6QTJPCnjdR6O+7oLO7
-	 yOwkKotzjf3/7Pom76mO51hVd6IvZanhewvrB/w3tNnV2xB564ducsnvjqF4PcqVZP
-	 oLjt5SjQ1Uuts0+AePAV1HiLSxMMkecG1imQKnwY=
+	b=uvFFNhN5CyC0IQAgiqSsyFUTi1a8laVH/pxao4O7CqjPAv2cZ0YHbpCGaUypRG3hE
+	 xX3eLb23xQ3cUMW6NzSf1qp3yIClaNeryJZK2CNou6XICpTTXyNRRWvcctD3Z4DDfx
+	 bZcs1P4FJlYg0YrHcOiqbjx19r7N3rN5ZxOlTXZ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED6B5F80279;
-	Tue,  8 Mar 2022 20:26:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A28C1F80544;
+	Tue,  8 Mar 2022 20:27:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C4CEF80518; Tue,  8 Mar 2022 20:26:52 +0100 (CET)
+ id BF286F80272; Tue,  8 Mar 2022 20:26:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 805A9F8026D
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 20:26:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 805A9F8026D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8769DF800D2
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 20:26:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8769DF800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="WLNkHnD3"
+ header.b="kMMeNWBU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646767604; x=1678303604;
+ t=1646767606; x=1678303606;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7aEi+ev1LAZnnatkTM38uBcSHka2wqOlb1eNtSgSHCg=;
- b=WLNkHnD3rMWsUccatVJJmp1VK7oo7SrDb5i6yU82TqfsZqiNqn03Qlxe
- WFbgj6n7va/zx0hJPS7PIobVy7wWQUzPo58ofqD9jynO4UqcGPbmAeFTD
- rRJ+63TqbhfKEmopq86eA8ve/0TQIIaGj1Tt8qTZPd1bSXuWNqfa0df3b
- xBmmtn0GHoF8MCFJaVziPMtOdIymA7ez6jijaQ9sQDCWz+ALvvt01Tif+
- 2M+SjvA4+XNBT1k4LWV1FMTrGgXaHe/3qVdtjJXFBYmRIxAnHVwXN3gtX
- MKSQPNo4sSgC7XmJiGGCnCzNE34g2mQkYvqjclh3FgTr6fwOkP9A7duOl g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252363683"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252363683"
+ bh=vDyiMC0goHPX1CvjQLSs/6fdaolU354xTVnxXUU0E9A=;
+ b=kMMeNWBUclWHzLg1b63wI2geeTN3er6GVHToNul2KkmPfRtATC+X1EZB
+ uqXLHvyU8bCtrpq9RT2pf3RC3umtP84Wt2uoJWCkNddo4r2jxE9fHPu0A
+ 0MGTTo+t9rGD5KDkuv1k8fP3RTwzv4ka01OGQklBclWETAlIprwvU6/Gl
+ kcYuxmpyyisqa40keUZuVqqEgZ8rmRd5YfRoTJaLnbp4GB/qeqBYHZ8cD
+ NbBCH+rWSlzIt2BgE1XaftIrwncQPPfjQE8qQucbSnzgzpzXRrHnELyow
+ 4/GNCZHkcOnDrJPbhEC13/WO94ooqTZwNLpQUtrRe0Ff5DcYCOnKQMpSC g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252363686"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252363686"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 11:26:40 -0800
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="495573943"
+ 08 Mar 2022 11:26:41 -0800
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="495573947"
 Received: from jhaskins-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.209.53.149])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 11:26:39 -0800
+ 08 Mar 2022 11:26:40 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 04/20] ALSA: intel-nhlt: add helper to detect SSP link mask
-Date: Tue,  8 Mar 2022 13:25:54 -0600
-Message-Id: <20220308192610.392950-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 05/20] ASoC: SOF: Intel: hda: report SSP link mask to machine
+ driver
+Date: Tue,  8 Mar 2022 13:25:55 -0600
+Message-Id: <20220308192610.392950-6-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
 References: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
@@ -95,117 +96,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The NHLT information can be used to figure out which SSPs are enabled
-in a platform.
+For devices designed for Windows, the SSP information should be listed
+in the NHLT, and when present can be used to set quirks automatically
+in the machine driver.
 
-The 'SSP' link type is too broad for machine drivers, since it can
-cover the Bluetooth sideband and the analog audio codec connections,
-so this helper exposes a parameter to filter with the device
-type (DEVICE_I2S refers to analog audio codec in NHLT parlance).
+The NHLT information exposes BT and analog audio connections
+separately, for now we are only interested in the analog audio parts.
 
-The helper returns a mask, since more than one SSP may be used for
-analog audio, e.g. the NHLT spec describes the use of SSP0 for
-amplifiers and SSP1 for headset codec. Note that if more than one bit
-is set, it's impossible to determine which SSP is connected to what
-external component. Additional platform-specific information based on
-e.g. DMI quirks would still be required in the machine driver to
-configure the relevant dailinks.
+The use of dev_info() for the SSP mask is intentional so that we can
+immediately flag devices with an ES8336 codec. Since NHLT is not used
+for recent Chromebooks these messages should be rare.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- include/sound/intel-nhlt.h | 22 +++++++++++++++-------
- sound/hda/intel-nhlt.c     | 22 ++++++++++++++++++++++
- 2 files changed, 37 insertions(+), 7 deletions(-)
+ sound/soc/sof/intel/hda.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/include/sound/intel-nhlt.h b/include/sound/intel-nhlt.h
-index 089a760d36eb..6fb2d5e378fd 100644
---- a/include/sound/intel-nhlt.h
-+++ b/include/sound/intel-nhlt.h
-@@ -18,6 +18,13 @@ enum nhlt_link_type {
- 	NHLT_LINK_INVALID
- };
- 
-+enum nhlt_device_type {
-+	NHLT_DEVICE_BT = 0,
-+	NHLT_DEVICE_DMIC = 1,
-+	NHLT_DEVICE_I2S = 4,
-+	NHLT_DEVICE_INVALID
-+};
-+
- #if IS_ENABLED(CONFIG_ACPI) && IS_ENABLED(CONFIG_SND_INTEL_NHLT)
- 
- struct wav_fmt {
-@@ -41,13 +48,6 @@ struct wav_fmt_ext {
- 	u8 sub_fmt[16];
- } __packed;
- 
--enum nhlt_device_type {
--	NHLT_DEVICE_BT = 0,
--	NHLT_DEVICE_DMIC = 1,
--	NHLT_DEVICE_I2S = 4,
--	NHLT_DEVICE_INVALID
--};
--
- struct nhlt_specific_cfg {
- 	u32 size;
- 	u8 caps[];
-@@ -133,6 +133,9 @@ void intel_nhlt_free(struct nhlt_acpi_table *addr);
- int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt);
- 
- bool intel_nhlt_has_endpoint_type(struct nhlt_acpi_table *nhlt, u8 link_type);
-+
-+int intel_nhlt_ssp_endpoint_mask(struct nhlt_acpi_table *nhlt, u8 device_type);
-+
- struct nhlt_specific_cfg *
- intel_nhlt_get_endpoint_blob(struct device *dev, struct nhlt_acpi_table *nhlt,
- 			     u32 bus_id, u8 link_type, u8 vbps, u8 bps,
-@@ -163,6 +166,11 @@ static inline bool intel_nhlt_has_endpoint_type(struct nhlt_acpi_table *nhlt,
- 	return false;
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 711d14a821bb..eebb3b318d79 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -669,6 +669,25 @@ static int check_dmic_num(struct snd_sof_dev *sdev)
+ 	return dmic_num;
  }
  
-+static inline int intel_nhlt_ssp_endpoint_mask(struct nhlt_acpi_table *nhlt, u8 device_type)
++static int check_nhlt_ssp_mask(struct snd_sof_dev *sdev)
 +{
-+	return 0;
-+}
-+
- static inline struct nhlt_specific_cfg *
- intel_nhlt_get_endpoint_blob(struct device *dev, struct nhlt_acpi_table *nhlt,
- 			     u32 bus_id, u8 link_type, u8 vbps, u8 bps,
-diff --git a/sound/hda/intel-nhlt.c b/sound/hda/intel-nhlt.c
-index 128476aa7c61..4063da378283 100644
---- a/sound/hda/intel-nhlt.c
-+++ b/sound/hda/intel-nhlt.c
-@@ -130,6 +130,28 @@ bool intel_nhlt_has_endpoint_type(struct nhlt_acpi_table *nhlt, u8 link_type)
- }
- EXPORT_SYMBOL(intel_nhlt_has_endpoint_type);
- 
-+int intel_nhlt_ssp_endpoint_mask(struct nhlt_acpi_table *nhlt, u8 device_type)
-+{
-+	struct nhlt_endpoint *epnt;
++	struct nhlt_acpi_table *nhlt;
 +	int ssp_mask = 0;
-+	int i;
 +
-+	if (!nhlt || (device_type != NHLT_DEVICE_BT && device_type != NHLT_DEVICE_I2S))
-+		return 0;
++	nhlt = intel_nhlt_init(sdev->dev);
++	if (!nhlt)
++		return ssp_mask;
 +
-+	epnt = (struct nhlt_endpoint *)nhlt->desc;
-+	for (i = 0; i < nhlt->endpoint_count; i++) {
-+		if (epnt->linktype == NHLT_LINK_SSP && epnt->device_type == device_type) {
-+			/* for SSP the virtual bus id is the SSP port */
-+			ssp_mask |= BIT(epnt->virtual_bus_id);
-+		}
-+		epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
++	if (intel_nhlt_has_endpoint_type(nhlt, NHLT_LINK_SSP)) {
++		ssp_mask = intel_nhlt_ssp_endpoint_mask(nhlt, NHLT_DEVICE_I2S);
++		if (ssp_mask)
++			dev_info(sdev->dev, "NHLT_DEVICE_I2S detected, ssp_mask %#x\n", ssp_mask);
 +	}
++	intel_nhlt_free(nhlt);
 +
 +	return ssp_mask;
 +}
-+EXPORT_SYMBOL(intel_nhlt_ssp_endpoint_mask);
 +
- static struct nhlt_specific_cfg *
- nhlt_get_specific_cfg(struct device *dev, struct nhlt_fmt *fmt, u8 num_ch,
- 		      u32 rate, u8 vbps, u8 bps)
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA) || IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
+ 
+ static const char *fixup_tplg_name(struct snd_sof_dev *sdev,
+@@ -1391,6 +1410,9 @@ struct snd_soc_acpi_mach *hda_machine_select(struct snd_sof_dev *sdev)
+ 			mach->mach_params.links = mach->links;
+ 			mach->mach_params.link_mask = mach->link_mask;
+ 		}
++
++		/* report SSP link mask to machine driver */
++		mach->mach_params.i2s_link_mask = check_nhlt_ssp_mask(sdev);
+ 	}
+ 
+ 	/*
 -- 
 2.30.2
 

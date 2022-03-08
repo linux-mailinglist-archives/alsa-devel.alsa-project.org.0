@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DD5A4D218A
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 20:32:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44BF64D2194
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 20:33:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AD6118E2;
-	Tue,  8 Mar 2022 20:31:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AD6118E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB22E1904;
+	Tue,  8 Mar 2022 20:32:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB22E1904
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646767928;
-	bh=YMV9ndX1LvuBj2L34J3+8VJ3DD2EBrcKOBA271heEjk=;
+	s=default; t=1646767993;
+	bh=YJ3rgonVNF8TIfR8pAWq/X4mw4wp81le54Z8mYk8n+g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t9AHqf7CqWv4giCD4jS9RG0oCGq3E6tjfxQ+mTfrBhWustEDZUYZVARiflGZNnZuj
-	 G2x2AopVqq/+cLjkz/O9+O0lkNA8TM06SG9/7ei1Me6+2cxz3ApN8nVFl3nZWILgf0
-	 xJhO/MU14Ysms6hMwhotF1P89FYABK+9prXyXMkQ=
+	b=M0l6LAXOJ3ZqajSkAp7m75evhzSr6C0OR7bEQl81NgNxliN7/EviyRr/bYkmU0Q7l
+	 jCPFcvcIbWpLm9qpBOG2BKaW5t3U5QDAwo6hxcvQUHNUT2ftHZxTC3DAKHar3hhs5B
+	 1JCaT+1luDoeWBM6SrNT/zH4J5SG+i445pRaod4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B5B2F8057A;
-	Tue,  8 Mar 2022 20:27:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB027F805AB;
+	Tue,  8 Mar 2022 20:27:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDB78F80551; Tue,  8 Mar 2022 20:27:02 +0100 (CET)
+ id 2916BF8052D; Tue,  8 Mar 2022 20:27:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A27ABF8051E
+ by alsa1.perex.cz (Postfix) with ESMTPS id C782BF80525
  for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 20:26:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A27ABF8051E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C782BF80525
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="JO2gfGGN"
+ header.b="NHztG1Sr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646767612; x=1678303612;
+ t=1646767613; x=1678303613;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YMV9ndX1LvuBj2L34J3+8VJ3DD2EBrcKOBA271heEjk=;
- b=JO2gfGGN0cPNjqRg7I8TZ7P5/8k8ItSWCYpucPZARc14JD6nWTWbgPik
- /+tO1ZVWssUWKbN7sKEa13JnH7oPYRnxNNdICtCFDDaLr8brmlUNUnxIk
- gAL5i/8Cno7plSD9yB8NHrounwauLpLMF4UBNRJC5/qcv2Zt9phngU/Mx
- pxoFcosx9PCXam3vW6mcQB/cpOHuCOau2VQAsO8SsrtSCtZJw6fKwjOqn
- IIpBIcYPuCLnOl2/m6lAO+SQvl8o4ulemmduBwaXCWfd2kHt/OFGW8WbA
- iomZAsXDvgMvIrUetVRODo4ixf5JOWowWMrjnn/4qZ7ZYTsjDAHWdP9vN Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252363740"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252363740"
+ bh=YJ3rgonVNF8TIfR8pAWq/X4mw4wp81le54Z8mYk8n+g=;
+ b=NHztG1SroWNgcpXcICd0/C+IEGWJw80H0rkTa2IskLZd5Fd1m8ukI4P9
+ hFqk5uH1QPViM6YvSE3kv8GjSFePo+MMZR1lNcn4mIBvQSP3ZnWtLgdbZ
+ so2I818m69OT4V/vYdjtbuP4DhofFK56h8mw+3wT/YaWl1pGuhyxKb+ce
+ A9C2Z8GOONxIfFpL68D7CJB/SREKlZYL1B3dXQdGMhOqbpexuEOH+cLSW
+ E2nOEgu5kqXFq99mrx2apMxUBPd0OKCu2laP35ZzmdOJ0R5xbAefxHPcn
+ DHzBL8KcDaTY90wqBcPlvPvZHM327XBOiwsm96b5+GvK1GhTEpX8Y8UXt A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252363746"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252363746"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 11:26:50 -0800
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="495573986"
+ 08 Mar 2022 11:26:51 -0800
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="495573991"
 Received: from jhaskins-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.209.53.149])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 11:26:49 -0800
+ 08 Mar 2022 11:26:50 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 15/20] ASoC: Intel: sof_es8336: log all quirks
-Date: Tue,  8 Mar 2022 13:26:05 -0600
-Message-Id: <20220308192610.392950-16-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 16/20] ASoC: Intel: sof_es8336: move comment to the right place
+Date: Tue,  8 Mar 2022 13:26:06 -0600
+Message-Id: <20220308192610.392950-17-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
 References: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
@@ -95,34 +95,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We only logged the SSP quirk, make sure the GPIO and DMIC quirks are
-exposed.
+Additional code was added and the comment on the speaker GPIO needs to
+be moved before we actually try to get the GPIO.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_es8336.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/sof_es8336.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
-index 1a8680470577..e2daa57902af 100644
+index e2daa57902af..d7dff61c9ba8 100644
 --- a/sound/soc/intel/boards/sof_es8336.c
 +++ b/sound/soc/intel/boards/sof_es8336.c
-@@ -63,7 +63,12 @@ static const struct acpi_gpio_mapping *gpio_mapping = acpi_es8336_gpios;
+@@ -537,12 +537,12 @@ static int sof_es8336_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
  
- static void log_quirks(struct device *dev)
- {
--	dev_info(dev, "quirk SSP%ld",  SOF_ES8336_SSP_CODEC(quirk));
-+	dev_info(dev, "quirk mask %#lx\n", quirk);
-+	dev_info(dev, "quirk SSP%ld\n",  SOF_ES8336_SSP_CODEC(quirk));
-+	if (quirk & SOF_ES8336_ENABLE_DMIC)
-+		dev_info(dev, "quirk DMIC enabled\n");
-+	if (quirk & SOF_ES8336_TGL_GPIO_QUIRK)
-+		dev_info(dev, "quirk TGL GPIO enabled\n");
- }
+-	/* get speaker enable GPIO */
+ 	codec_dev = acpi_get_first_physical_node(adev);
+ 	if (!codec_dev)
+ 		return -EPROBE_DEFER;
+ 	priv->codec_dev = get_device(codec_dev);
  
- static int sof_es8316_speaker_power_event(struct snd_soc_dapm_widget *w,
++	/* get speaker enable GPIO */
+ 	ret = devm_acpi_dev_add_driver_gpios(codec_dev, gpio_mapping);
+ 	if (ret)
+ 		dev_warn(codec_dev, "unable to add GPIO mapping table\n");
 -- 
 2.30.2
 

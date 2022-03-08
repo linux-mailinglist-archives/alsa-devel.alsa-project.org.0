@@ -2,87 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30A5D4D1E71
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 18:19:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4274D1EB9
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 18:20:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D29EA17CF;
-	Tue,  8 Mar 2022 18:18:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D29EA17CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A103187B;
+	Tue,  8 Mar 2022 18:20:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A103187B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646759964;
-	bh=vmIpMEH6TAgRevHFXOil7xycZtF2syGxMp74GtrIx2E=;
+	s=default; t=1646760057;
+	bh=AN72OL0dXEGI0OEMMfVN1TwIk5aNwgb706b95+NXmcs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IIqI4wHHq7ntbcxVMnyehcTQSN87PNNu/byezW0l3lmVzZgy2fMVnXkbTW4CmZbBV
-	 fXaPnu6lu3clu2SvHrnoCciqfW+reVtn5cpdZqR1iuTKYgC8DH8XSzZb3e4k7F51YB
-	 jA5byqmGRgbw9zUoR0Aq/Fs6Dsqhglu7MIE9DKck=
+	b=e+O6lp3WwZKlipREc8adXdnlLyoGvj3Re8nzlthdtUloydNQ/0hTAauBPQUae2tnu
+	 Qf/ER0yN+z9VyweCLJ0j8f17KBs+7U1HzTTIabarf4efl8peqt4gDv0PoTtCU5rqpB
+	 nvncSKBAHz5ppz0Qe8VNXa9irSj5C6UOUNnen0hQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6BFEF804F3;
-	Tue,  8 Mar 2022 18:17:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75D0FF8053B;
+	Tue,  8 Mar 2022 18:17:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7FDF7F80271; Tue,  8 Mar 2022 18:17:43 +0100 (CET)
+ id 3EF8AF80535; Tue,  8 Mar 2022 18:17:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74AD6F8025E
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 18:17:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74AD6F8025E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2EC87F80518
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 18:17:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EC87F80518
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="JAXoJGoq"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 228FxtbU015166;
- Tue, 8 Mar 2022 11:17:35 -0600
+ header.b="UIel5sQr"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 228FxhGV010224;
+ Tue, 8 Mar 2022 11:17:43 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=BSRIu4u7LP/BX+4EuzrjD7JUJiD1RuxHbQLO9l1wmac=;
- b=JAXoJGoqVCeJMcO/wcVICcFCrWGUYS3WwH6+9ZPqVAnNt7vPW+/izcwufDE4TrSsiX0P
- Rp/on5WpaBfu+XEseJz+mZaVbGaFTLPeo7jamjwFzDDqB+fOdA34TulILOK53jymbfXg
- ERqYqxLnjmhxEOQJNKZqYCCRCWsAfN8sdokfJivnbH1RZ40vRR4t5JhYwPt4b5gZ7DFI
- 8ACuS8TU+30yJb+x+ckcNkLnbYHWjugLoe5hQJfg5PRhmUyvAxy4BlwQ3x8raCSPDpKq
- O4Oap3ncUDs6b93LEzBwsDox7aAtuEIbPDRkHpfq+kASD0DhFwxHMINl4rw6hBqdqXTp Bw== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3em55svhnr-2
+ bh=mGz/I8GdLl656J3RCjFowA+MLJmwN8TeQmYF2TCEC3o=;
+ b=UIel5sQrGyZj9N0108N48KDiTEZQ8G1MHCs4l2JjIxAoEYNOS1avgI+Uf+LmAqC82nev
+ gO+35rl4xdqdUh2xlFIrzYzi1ENcLSsl4yijmBBe5lm1qTFV2VeNI67Q6+C7P16FLV3V
+ UPEEEONShCQrfuQl+wQHGU6W18t8wtV3eJw7hR+wD1AAkt0xF9TdN6/NRqPTOS7wOGqX
+ yhVcm7TE+192xItOdQ91UwwDkWrlXu2T7mDQQ/HK/9CW8IoqV7Y3agzRvaWNN75Tc53Q
+ /um0n5zRXNw+PCZnGR0lb9uKc84lGC172udcCwRkf2D7UWX0yonA0ElDMURNnliGkHkU dg== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3em656mh5v-4
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 08 Mar 2022 11:17:34 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ Tue, 08 Mar 2022 11:17:43 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 8 Mar
  2022 17:17:33 +0000
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
  Frontend Transport; Tue, 8 Mar 2022 17:17:33 +0000
 Received: from aryzen.ad.cirrus.com (unknown [198.61.65.38])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id AF11AB06;
- Tue,  8 Mar 2022 17:17:32 +0000 (UTC)
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 18F9511D1;
+ Tue,  8 Mar 2022 17:17:33 +0000 (UTC)
 From: Lucas Tanure <tanureal@opensource.cirrus.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob
  Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v3 04/16] ALSA: hda: cs35l41: Fix I2S params comments
-Date: Tue, 8 Mar 2022 17:17:18 +0000
-Message-ID: <20220308171730.454587-5-tanureal@opensource.cirrus.com>
+Subject: [PATCH v3 05/16] ALSA: hda: cs35l41: Always configure the DAI
+Date: Tue, 8 Mar 2022 17:17:19 +0000
+Message-ID: <20220308171730.454587-6-tanureal@opensource.cirrus.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220308171730.454587-1-tanureal@opensource.cirrus.com>
 References: <20220308171730.454587-1-tanureal@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: XX9Bl1KwTYaDf6ZDRMSnhkEq93vMv_Gb
-X-Proofpoint-GUID: XX9Bl1KwTYaDf6ZDRMSnhkEq93vMv_Gb
+X-Proofpoint-ORIG-GUID: Pw_C11ee-rv0nN9wtCImYdaIKyQY_GIS
+X-Proofpoint-GUID: Pw_C11ee-rv0nN9wtCImYdaIKyQY_GIS
 X-Proofpoint-Spam-Reason: safe
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
@@ -102,31 +101,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix clock and slot size comments
+The dai configuration is always the same and should always configured
+during the opening the stream.
 
 Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
 ---
- sound/pci/hda/cs35l41_hda.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/pci/hda/cs35l41_hda.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
 diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 81cdbd84cf7d..fe6f6a208d29 100644
+index fe6f6a208d29..4c99dcac2dd7 100644
 --- a/sound/pci/hda/cs35l41_hda.c
 +++ b/sound/pci/hda/cs35l41_hda.c
-@@ -17,11 +17,11 @@
- #include "cs35l41_hda.h"
+@@ -111,8 +111,6 @@ static const struct reg_sequence cs35l41_reset_to_safe[] = {
+ static const struct cs35l41_hda_reg_sequence cs35l41_hda_reg_seq_no_bst = {
+ 	.probe		= cs35l41_reset_to_safe,
+ 	.num_probe	= ARRAY_SIZE(cs35l41_reset_to_safe),
+-	.open		= cs35l41_hda_config,
+-	.num_open	= ARRAY_SIZE(cs35l41_hda_config),
+ 	.prepare	= cs35l41_safe_to_active,
+ 	.num_prepare	= ARRAY_SIZE(cs35l41_safe_to_active),
+ 	.cleanup	= cs35l41_active_to_safe,
+@@ -120,8 +118,6 @@ static const struct cs35l41_hda_reg_sequence cs35l41_hda_reg_seq_no_bst = {
+ };
  
- static const struct reg_sequence cs35l41_hda_config[] = {
--	{ CS35L41_PLL_CLK_CTRL,		0x00000430 }, // 3200000Hz, BCLK Input, PLL_REFCLK_EN = 1
-+	{ CS35L41_PLL_CLK_CTRL,		0x00000430 }, // 3072000Hz, BCLK Input, PLL_REFCLK_EN = 1
- 	{ CS35L41_GLOBAL_CLK_CTRL,	0x00000003 }, // GLOBAL_FS = 48 kHz
- 	{ CS35L41_SP_ENABLES,		0x00010000 }, // ASP_RX1_EN = 1
- 	{ CS35L41_SP_RATE_CTRL,		0x00000021 }, // ASP_BCLK_FREQ = 3.072 MHz
--	{ CS35L41_SP_FORMAT,		0x20200200 }, // 24 bits, I2S, BCLK Slave, FSYNC Slave
-+	{ CS35L41_SP_FORMAT,		0x20200200 }, // 32 bits RX/TX slots, I2S, clk consumer
- 	{ CS35L41_DAC_PCM1_SRC,		0x00000008 }, // DACPCM1_SRC = ASPRX1
- 	{ CS35L41_AMP_DIG_VOL_CTRL,	0x00000000 }, // AMP_VOL_PCM  0.0 dB
- 	{ CS35L41_AMP_GAIN_CTRL,	0x00000084 }, // AMP_GAIN_PCM 4.5 dB
+ static const struct cs35l41_hda_reg_sequence cs35l41_hda_reg_seq_ext_bst = {
+-	.open		= cs35l41_hda_config,
+-	.num_open	= ARRAY_SIZE(cs35l41_hda_config),
+ 	.prepare	= cs35l41_start_ext_vspk,
+ 	.num_prepare	= ARRAY_SIZE(cs35l41_start_ext_vspk),
+ 	.cleanup	= cs35l41_stop_ext_vspk,
+@@ -129,8 +125,6 @@ static const struct cs35l41_hda_reg_sequence cs35l41_hda_reg_seq_ext_bst = {
+ };
+ 
+ static const struct cs35l41_hda_reg_sequence cs35l41_hda_reg_seq_int_bst = {
+-	.open		= cs35l41_hda_config,
+-	.num_open	= ARRAY_SIZE(cs35l41_hda_config),
+ 	.prepare	= cs35l41_hda_start_bst,
+ 	.num_prepare	= ARRAY_SIZE(cs35l41_hda_start_bst),
+ 	.cleanup	= cs35l41_hda_stop_bst,
+@@ -146,8 +140,8 @@ static void cs35l41_hda_playback_hook(struct device *dev, int action)
+ 
+ 	switch (action) {
+ 	case HDA_GEN_PCM_ACT_OPEN:
+-		if (reg_seq->open)
+-			ret = regmap_multi_reg_write(reg, reg_seq->open, reg_seq->num_open);
++		ret = regmap_multi_reg_write(reg, cs35l41_hda_config,
++					     ARRAY_SIZE(cs35l41_hda_config));
+ 		break;
+ 	case HDA_GEN_PCM_ACT_PREPARE:
+ 		if (reg_seq->prepare)
 -- 
 2.35.1
 

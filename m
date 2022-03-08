@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D67B84D2191
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 20:32:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA1CF4D218C
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 20:32:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66F871900;
-	Tue,  8 Mar 2022 20:32:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66F871900
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D80218F9;
+	Tue,  8 Mar 2022 20:31:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D80218F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646767978;
-	bh=wFGi6BRru0zkGxuUmc27uhyHXzmyF+yFtfxSIEMV9qg=;
+	s=default; t=1646767944;
+	bh=KV/8Ns2IlUyCE5aKhFXP59hsVbtria4qp0JsZ5Jlq+g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TGHrtC4Ow2L3pw2yLkpH8io+mOrm1/G3jWTPH8a9Ooi3D6kAxHt8y0/5dT+kM3ebj
-	 8DJnZZszEKJjXQ6uEbMB3dBrsN3mjJUes3gQBiTl5XeDsvb8KqZdTfM4VYXuJUuSCS
-	 zRu5IUxSYxO5boi8pUX96xMDW074LeFIAfvIMhY4=
+	b=b8qQ/8StmRIHT1F4ODTn9uDwSOIjl/diuPfafLRlDbDWDjNJJDAcEh+8MJEvqbB2A
+	 6ibKuSVNAA6eW89C7HTQObhdUUUVYjYYU3cqg8yCmUI/KZCLhk3u0ztZBWBn2FjFXs
+	 4CKn/a/hQXUrgcbBmZ+PVjqJYwG+z87dE0ICL6Mw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D9D1F805A9;
-	Tue,  8 Mar 2022 20:27:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A4BFF8057B;
+	Tue,  8 Mar 2022 20:27:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02FDAF8051E; Tue,  8 Mar 2022 20:27:05 +0100 (CET)
+ id 9AB6BF80520; Tue,  8 Mar 2022 20:27:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86556F80528
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90104F8052D
  for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 20:26:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86556F80528
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90104F8052D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="XJlC0eWS"
+ header.b="AuuLX1DY"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1646767614; x=1678303614;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wFGi6BRru0zkGxuUmc27uhyHXzmyF+yFtfxSIEMV9qg=;
- b=XJlC0eWSE+6AXy25goOOhoorvx1SnelMH3zX1ik5dDIa8Xg7PHuNEJQg
- JD33aN5q+YC5TMOMp3Y4qKeAMK2GWAntknYDUBc0syn5t/PPuxtuntj6Z
- 8pMUoOgncCqcBgdNjH2z0ZDUt4+U/XVIiAkcNBO0QlgG0yIy8PD4/2QG5
- wM4U3Qia5dCvqcTQ6p3o6guNZCtItA/t1oFmEbXpBdF/gpfOr8Vqshav5
- lSrZdxY7pDe5xyzSDbBWHwuUlkzs4QHaPpsj3YGEhEc9OMeek0AEhfTZX
- Z9ABzbXXQSxKxT+GRWBtNBTDDX7/NyvArPHA3bYQVAjeoPy6Et58CetGP Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252363748"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252363748"
+ bh=KV/8Ns2IlUyCE5aKhFXP59hsVbtria4qp0JsZ5Jlq+g=;
+ b=AuuLX1DYkvMuMB2BXJh5xYIK6DHcsFRIEvCikRg9Hkc1Ld7p8nxpwGWg
+ iMgREuPCHs950NuW7piT3yxiHkYTtZEe2wnlW1jm+SbEuRSwDJmt+odWc
+ Rj1JZevErMNh56IYice2ALz6rxq9KAVd4fhu5sKFq5YX/2Af7o9PSEKuK
+ +Gz3dk9jzZPzOBJIbccmCSWnx+X8mOidn91NTAr9yjYjfTWbB/3ddoE9l
+ Ic5JZnVAVrA+PblczAVx6JnFoesk8wxNRo+BbkOYwjnA0uXcD6Y4ok0CF
+ oilIaWKmK5oxGk/JJvPVlj8Lmd8fPb0aD7E8WGWHuUHFBhY/8cr5sYMnn Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252363757"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252363757"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 11:26:52 -0800
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="495573994"
+ 08 Mar 2022 11:26:53 -0800
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="495573997"
 Received: from jhaskins-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.209.53.149])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 11:26:51 -0800
+ 08 Mar 2022 11:26:52 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 17/20] ASoC: Intel: sof_es8336: add support for JD inverted
- quirk
-Date: Tue,  8 Mar 2022 13:26:07 -0600
-Message-Id: <20220308192610.392950-18-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 18/20] ASoC: Intel: sof_es8336: extend machine driver to
+ support ES8326 codec
+Date: Tue,  8 Mar 2022 13:26:08 -0600
+Message-Id: <20220308192610.392950-19-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
 References: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
@@ -96,131 +96,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The codec driver exposes a set of properties that can be set from the
-machine driver - as done in bytcht_es8316.c
+The ES8326 requires a different codec driver than ES8316/8336, fixup
+the codec name and dai name depending on the ACPI _HID exposed in the
+DSDT.
 
-Start by adding the JD_INVERTED quirk.
+Also add the select in Kconfig
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_es8336.c | 40 ++++++++++++++++++++++++++---
- 1 file changed, 37 insertions(+), 3 deletions(-)
+ sound/soc/intel/boards/Kconfig      |  3 ++-
+ sound/soc/intel/boards/sof_es8336.c | 10 +++++++---
+ 2 files changed, 9 insertions(+), 4 deletions(-)
 
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index 6884ddf9edad..a62785893bec 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -530,12 +530,13 @@ config SND_SOC_INTEL_SOF_PCM512x_MACH
+ 	  If unsure select "N".
+ 
+ config SND_SOC_INTEL_SOF_ES8336_MACH
+-	tristate "SOF with ES8336 codec in I2S mode"
++	tristate "SOF with ES8336 or ES8326 codec in I2S mode"
+ 	depends on I2C && ACPI
+ 	depends on MFD_INTEL_LPSS || COMPILE_TEST
+ 	depends on GPIOLIB || COMPILE_TEST
+ 	depends on SND_HDA_CODEC_HDMI && SND_SOC_SOF_HDA_AUDIO_CODEC
+ 	select SND_SOC_ES8316
++	select SND_SOC_ES8326
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_INTEL_HDA_DSP_COMMON
+ 	help
 diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
-index d7dff61c9ba8..932a80e62bc8 100644
+index 932a80e62bc8..32f5303041b8 100644
 --- a/sound/soc/intel/boards/sof_es8336.c
 +++ b/sound/soc/intel/boards/sof_es8336.c
-@@ -21,11 +21,15 @@
- #include <sound/soc-acpi.h>
- #include "hda_dsp_common.h"
+@@ -292,7 +292,7 @@ static struct snd_soc_dai_link_component platform_component[] = {
+ 	}
+ };
  
-+/* jd-inv + terminating entry */
-+#define MAX_NO_PROPS 2
-+
- #define SOF_ES8336_SSP_CODEC(quirk)		((quirk) & GENMASK(3, 0))
- #define SOF_ES8336_SSP_CODEC_MASK		(GENMASK(3, 0))
+-SND_SOC_DAILINK_DEF(ssp1_codec,
++SND_SOC_DAILINK_DEF(es8336_codec,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-ESSX8336:00", "ES8316 HiFi")));
  
- #define SOF_ES8336_TGL_GPIO_QUIRK		BIT(4)
- #define SOF_ES8336_ENABLE_DMIC			BIT(5)
-+#define SOF_ES8336_JD_INVERTED			BIT(6)
+ static struct snd_soc_dai_link_component dmic_component[] = {
+@@ -356,8 +356,8 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 		goto devm_err;
  
- static unsigned long quirk;
- 
-@@ -69,6 +73,8 @@ static void log_quirks(struct device *dev)
- 		dev_info(dev, "quirk DMIC enabled\n");
- 	if (quirk & SOF_ES8336_TGL_GPIO_QUIRK)
- 		dev_info(dev, "quirk TGL GPIO enabled\n");
-+	if (quirk & SOF_ES8336_JD_INVERTED)
-+		dev_info(dev, "quirk JD inverted enabled\n");
- }
- 
- static int sof_es8316_speaker_power_event(struct snd_soc_dapm_widget *w,
-@@ -461,10 +467,13 @@ static int sof_es8336_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct snd_soc_card *card;
- 	struct snd_soc_acpi_mach *mach = pdev->dev.platform_data;
-+	struct property_entry props[MAX_NO_PROPS] = {};
- 	struct sof_es8336_private *priv;
-+	struct fwnode_handle *fwnode;
- 	struct acpi_device *adev;
- 	struct snd_soc_dai_link *dai_links;
- 	struct device *codec_dev;
-+	unsigned int cnt = 0;
- 	int dmic_be_num = 0;
- 	int hdmi_num = 3;
- 	int ret;
-@@ -530,6 +539,9 @@ static int sof_es8336_probe(struct platform_device *pdev)
+ 	links[id].id = id;
+-	links[id].codecs = ssp1_codec;
+-	links[id].num_codecs = ARRAY_SIZE(ssp1_codec);
++	links[id].codecs = es8336_codec;
++	links[id].num_codecs = ARRAY_SIZE(es8336_codec);
+ 	links[id].platforms = platform_component;
+ 	links[id].num_platforms = ARRAY_SIZE(platform_component);
+ 	links[id].init = sof_es8316_init;
+@@ -539,6 +539,10 @@ static int sof_es8336_probe(struct platform_device *pdev)
  			 "i2c-%s", acpi_dev_name(adev));
  		put_device(&adev->dev);
  		dai_links[0].codecs->name = codec_name;
-+	} else {
-+		dev_err(dev, "Error cannot find '%s' dev\n", mach->id);
-+		return -ENXIO;
- 	}
- 
- 	ret = snd_soc_fixup_dai_links_platform_name(&sof_es8336_card,
-@@ -542,6 +554,26 @@ static int sof_es8336_probe(struct platform_device *pdev)
- 		return -EPROBE_DEFER;
- 	priv->codec_dev = get_device(codec_dev);
- 
-+	if (quirk & SOF_ES8336_JD_INVERTED)
-+		props[cnt++] = PROPERTY_ENTRY_BOOL("everest,jack-detect-inverted");
 +
-+	if (cnt) {
-+		fwnode = fwnode_create_software_node(props, NULL);
-+		if (IS_ERR(fwnode)) {
-+			put_device(codec_dev);
-+			return PTR_ERR(fwnode);
-+		}
-+
-+		ret = device_add_software_node(codec_dev, to_software_node(fwnode));
-+
-+		fwnode_handle_put(fwnode);
-+
-+		if (ret) {
-+			put_device(codec_dev);
-+			return ret;
-+		}
-+	}
-+
- 	/* get speaker enable GPIO */
- 	ret = devm_acpi_dev_add_driver_gpios(codec_dev, gpio_mapping);
- 	if (ret)
-@@ -551,7 +583,7 @@ static int sof_es8336_probe(struct platform_device *pdev)
- 	if (IS_ERR(priv->gpio_pa)) {
- 		ret = dev_err_probe(dev, PTR_ERR(priv->gpio_pa),
- 				    "could not get pa-enable GPIO\n");
--		goto err;
-+		goto err_put_codec;
- 	}
- 
- 	INIT_LIST_HEAD(&priv->hdmi_pcm_list);
-@@ -562,12 +594,13 @@ static int sof_es8336_probe(struct platform_device *pdev)
- 	if (ret) {
- 		gpiod_put(priv->gpio_pa);
- 		dev_err(dev, "snd_soc_register_card failed: %d\n", ret);
--		goto err;
-+		goto err_put_codec;
- 	}
- 	platform_set_drvdata(pdev, &sof_es8336_card);
- 	return 0;
- 
--err:
-+err_put_codec:
-+	device_remove_software_node(priv->codec_dev);
- 	put_device(codec_dev);
- 	return ret;
- }
-@@ -578,6 +611,7 @@ static int sof_es8336_remove(struct platform_device *pdev)
- 	struct sof_es8336_private *priv = snd_soc_card_get_drvdata(card);
- 
- 	gpiod_put(priv->gpio_pa);
-+	device_remove_software_node(priv->codec_dev);
- 	put_device(priv->codec_dev);
- 
- 	return 0;
++		/* also fixup codec dai name if relevant */
++		if (!strncmp(mach->id, "ESSX8326", SND_ACPI_I2C_ID_LEN))
++			dai_links[0].codecs->dai_name = "ES8326 HiFi";
+ 	} else {
+ 		dev_err(dev, "Error cannot find '%s' dev\n", mach->id);
+ 		return -ENXIO;
 -- 
 2.30.2
 

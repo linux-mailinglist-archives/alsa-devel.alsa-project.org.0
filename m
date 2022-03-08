@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10B224D1DC5
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 17:50:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39DF24D1DC0
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 17:49:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AD991899;
-	Tue,  8 Mar 2022 17:49:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AD991899
+	by alsa0.perex.cz (Postfix) with ESMTPS id DEC501833;
+	Tue,  8 Mar 2022 17:49:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEC501833
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646758228;
-	bh=awRSYm/ShBm2AHHz0TLp7CG7IR19eAKuSH9xjSUavE0=;
+	s=default; t=1646758195;
+	bh=qpTry2xtJme7DtNAhhYtM85udfZjqGT4pX9G4Qusr+c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JF0nzXi7gH2lezQfRIzROwuvL1muwKA0yxGV5HOg33+KhZbY+We7rhNLR110mDbCh
-	 2dG0unQnOH5X0XRUdkUEVFQ9zYxEoSNJi7nzGAXBeISlohOmkB3EgiYF9OqtItjqIc
-	 +zoBJ9PN/wIx2sCjP1re2zwULDfHy3w25KEZMB94=
+	b=g/lnI9UccU+cnrZ4d5BOD9lalxODG46Sanom1GRGyf+lMyWqbylrRj6ppfwPW0vId
+	 McPUsX5N6pOHnNCI2CZuL4ayI6Ncb7AUG7dbchMGheF/WUJ2EstlKLzNb1kPQaXkH1
+	 XuT0X61Vi4sazlprEN0c2bEi4NfskITZ2433PN48=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7730AF805B6;
-	Tue,  8 Mar 2022 17:44:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CED4F805AE;
+	Tue,  8 Mar 2022 17:44:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29B60F80542; Tue,  8 Mar 2022 17:44:28 +0100 (CET)
+ id A8431F80544; Tue,  8 Mar 2022 17:44:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75B06F8025E
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 17:44:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75B06F8025E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56EFFF800D2
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 17:44:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56EFFF800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Nwb5mgYI"
+ header.b="Ox/ozRGk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646757856; x=1678293856;
+ t=1646757857; x=1678293857;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=awRSYm/ShBm2AHHz0TLp7CG7IR19eAKuSH9xjSUavE0=;
- b=Nwb5mgYIRON9b0im8OBP9VH12Vq7h79ke7yOgIL7wJotuIdsYIYdJk3G
- YHmHQuHbSpWHOQIST7CE1TO6fiop6hFlfpCpfLz4X6QwTINLhF80NIn1o
- wNFLG2tEoBG1WrGCj24PA0t3YCiI6xpayWyIRUkcPBPmEFRwNmFBD1SMp
- 1sWwbfCw4GrPqcvDl/zT8ltKlGkhONH+bIWR6XO7NlpGw1IDZN8W/lhTe
- QVDZMzei5ZegknjH4pQutwZCYxIRjBaxVT+QqvJ7Zxliu9YWKOoGl8PGC
- cV1Mpu4UFqTIv84D/AtOk3KueVt0a4OzmeuMNWqsH+s3GIx7pVGJCOvXx w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252307235"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252307235"
+ bh=qpTry2xtJme7DtNAhhYtM85udfZjqGT4pX9G4Qusr+c=;
+ b=Ox/ozRGk8NclTogwJUmbn/IAApWYJIWxqh4JvGcyCgf2220jKnqkdtBn
+ Kxjtk8kMSo+8zeTUJA8TOGEXd44mqTeudQ6faDYF6BtUJF+HQGqQcZpg3
+ htLC3DupH6LpbYcwWOjc3ev0iSKeMuM28uRP+d3+p8CXLmH1myF/UMBGL
+ BncW4TmOWoFb8nYgjMxhCyDs6kUZvt6mg5xvooyiPgSL/dIofP0btKmC7
+ t9NRlB4Kc/PEfM8/FJPEflP/b6FbFQduewJpcoVNKEiz6fZVDXfD0Lc1T
+ Oj3McpOoaHuaat4pgmlEIbXD5Q6rUAPikfK6BN+nC0mrdgkPVKoRk9Mw5 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252307237"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252307237"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 08:43:56 -0800
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="537633260"
+ 08 Mar 2022 08:43:57 -0800
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="537633262"
 Received: from bustam3x-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.251.130.225])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Mar 2022 08:43:56 -0800
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 10/18] ASoC: SOF: change comp_dai to a pointer in struct
- snd_sof_dai
-Date: Tue,  8 Mar 2022 08:43:36 -0800
-Message-Id: <20220308164344.577647-11-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH v2 11/18] ASoC: SOF: make struct snd_sof_widget IPC agnostic
+Date: Tue,  8 Mar 2022 08:43:37 -0800
+Message-Id: <20220308164344.577647-12-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220308164344.577647-1-ranjani.sridharan@linux.intel.com>
 References: <20220308164344.577647-1-ranjani.sridharan@linux.intel.com>
@@ -94,156 +93,116 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This will avoid having to add the extended data for DAI components during
-sof_widget_setup() as an extra step.
+Parse the UUID token and save it in the new uuid field in struct
+snd_sof_widget. struct sof_ipc_comp_ext is no longer needed. So remove
+it too.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/pcm.c       |  6 +++---
- sound/soc/sof/sof-audio.c | 18 +++---------------
- sound/soc/sof/sof-audio.h |  2 +-
- sound/soc/sof/topology.c  | 17 +++++------------
- 4 files changed, 12 insertions(+), 31 deletions(-)
+ include/sound/sof/topology.h |  8 --------
+ sound/soc/sof/sof-audio.h    |  3 +--
+ sound/soc/sof/topology.c     | 21 ++++++++++-----------
+ 3 files changed, 11 insertions(+), 21 deletions(-)
 
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index a312ed855f1a..1d04f75e6d32 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -717,7 +717,7 @@ int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_pa
- 	/* read format from topology */
- 	snd_mask_none(fmt);
+diff --git a/include/sound/sof/topology.h b/include/sound/sof/topology.h
+index adee6afd1490..88560281d420 100644
+--- a/include/sound/sof/topology.h
++++ b/include/sound/sof/topology.h
+@@ -87,9 +87,6 @@ struct sof_ipc_comp {
+  */
+ #define SOF_BUF_UNDERRUN_PERMITTED	BIT(1)
  
--	switch (dai->comp_dai.config.frame_fmt) {
-+	switch (dai->comp_dai->config.frame_fmt) {
- 	case SOF_IPC_FRAME_S16_LE:
- 		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
- 		break;
-@@ -752,10 +752,10 @@ int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_pa
- 		break;
- 	case SOF_DAI_INTEL_DMIC:
- 		/* DMIC only supports 16 or 32 bit formats */
--		if (dai->comp_dai.config.frame_fmt == SOF_IPC_FRAME_S24_4LE) {
-+		if (dai->comp_dai->config.frame_fmt == SOF_IPC_FRAME_S24_4LE) {
- 			dev_err(component->dev,
- 				"error: invalid fmt %d for DAI type %d\n",
--				dai->comp_dai.config.frame_fmt,
-+				dai->comp_dai->config.frame_fmt,
- 				dai->dai_config->type);
- 		}
- 		break;
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index e39f18e824b4..b49d8e348077 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -170,7 +170,6 @@ int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
- 	struct sof_ipc_cmd_hdr *hdr;
- 	struct sof_ipc_comp *comp;
- 	struct snd_sof_dai *dai;
--	size_t ipc_size;
- 	int ret;
- 
- 	/* skip if there is no private data */
-@@ -192,23 +191,12 @@ int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
- 	switch (swidget->id) {
- 	case snd_soc_dapm_dai_in:
- 	case snd_soc_dapm_dai_out:
--		ipc_size = sizeof(struct sof_ipc_comp_dai) + sizeof(struct sof_ipc_comp_ext);
--		comp = kzalloc(ipc_size, GFP_KERNEL);
--		if (!comp) {
--			ret = -ENOMEM;
--			goto core_put;
--		}
+-/* the UUID size in bytes, shared between FW and host */
+-#define SOF_UUID_SIZE	16
 -
- 		dai = swidget->private;
-+		comp = &dai->comp_dai->comp;
- 		dai->configured = false;
--		memcpy(comp, &dai->comp_dai, sizeof(struct sof_ipc_comp_dai));
+ /* create new component buffer - SOF_IPC_TPLG_BUFFER_NEW */
+ struct sof_ipc_buffer {
+ 	struct sof_ipc_comp comp;
+@@ -303,9 +300,4 @@ enum sof_event_types {
+ 	SOF_KEYWORD_DETECT_DAPM_EVENT,
+ };
  
--		/* append extended data to the end of the component */
--		memcpy((u8 *)comp + sizeof(struct sof_ipc_comp_dai), &swidget->comp_ext,
--		       sizeof(swidget->comp_ext));
+-/* extended data struct for UUID components */
+-struct sof_ipc_comp_ext {
+-	uint8_t uuid[SOF_UUID_SIZE];
+-}  __packed;
 -
--		ret = sof_ipc_tx_message(sdev->ipc, comp->hdr.cmd, comp, ipc_size, &r, sizeof(r));
--		kfree(comp);
-+		ret = sof_ipc_tx_message(sdev->ipc, comp->hdr.cmd, dai->comp_dai, comp->hdr.size,
-+					 &r, sizeof(r));
- 		if (ret < 0) {
- 			dev_err(sdev->dev, "error: failed to load widget %s\n",
- 				swidget->widget->name);
+ #endif
 diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index feda5793b589..a8eeffc12b24 100644
+index a8eeffc12b24..10330d826d40 100644
 --- a/sound/soc/sof/sof-audio.h
 +++ b/sound/soc/sof/sof-audio.h
-@@ -134,7 +134,7 @@ struct snd_sof_dai {
- 	struct snd_soc_component *scomp;
- 	const char *name;
+@@ -110,8 +110,7 @@ struct snd_sof_widget {
+ 	struct list_head list;	/* list in sdev widget list */
+ 	struct snd_sof_widget *pipe_widget;
  
--	struct sof_ipc_comp_dai comp_dai;
-+	struct sof_ipc_comp_dai *comp_dai;
- 	int number_configs;
- 	int current_config;
- 	bool configured; /* DAI configured during BE hw_params */
+-	/* extended data for UUID components */
+-	struct sof_ipc_comp_ext comp_ext;
++	const guid_t uuid;
+ 
+ 	void *private;		/* core does not touch this */
+ };
 diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index dd1cc6e26686..41927e99ace2 100644
+index 41927e99ace2..111ff0f77be4 100644
 --- a/sound/soc/sof/topology.c
 +++ b/sound/soc/sof/topology.c
-@@ -1478,7 +1478,7 @@ static int sof_widget_load_dai(struct snd_soc_component *scomp, int index,
+@@ -743,7 +743,7 @@ static const struct sof_topology_token core_tokens[] = {
+ static const struct sof_topology_token comp_ext_tokens[] = {
+ 	{SOF_TKN_COMP_UUID,
+ 		SND_SOC_TPLG_TUPLE_TYPE_UUID, get_token_uuid,
+-		offsetof(struct sof_ipc_comp_ext, uuid)},
++		offsetof(struct snd_sof_widget, uuid)},
+ };
+ 
+ /*
+@@ -1419,16 +1419,16 @@ static int sof_connect_dai_widget(struct snd_soc_component *scomp,
+  *
+  * Return: The pointer to the new allocated component, NULL if failed.
+  */
+-static struct sof_ipc_comp *sof_comp_alloc(struct snd_sof_widget *swidget,
+-					   size_t *ipc_size, int index)
++static struct sof_ipc_comp *sof_comp_alloc(struct snd_sof_widget *swidget, size_t *ipc_size,
++					   int index)
+ {
+-	u8 nil_uuid[SOF_UUID_SIZE] = {0};
+ 	struct sof_ipc_comp *comp;
+ 	size_t total_size = *ipc_size;
++	size_t ext_size = sizeof(swidget->uuid);
+ 
+ 	/* only non-zero UUID is valid */
+-	if (memcmp(&swidget->comp_ext, nil_uuid, SOF_UUID_SIZE))
+-		total_size += sizeof(swidget->comp_ext);
++	if (!guid_is_null(&swidget->uuid))
++		total_size += ext_size;
+ 
+ 	comp = kzalloc(total_size, GFP_KERNEL);
+ 	if (!comp)
+@@ -1444,8 +1444,8 @@ static struct sof_ipc_comp *sof_comp_alloc(struct snd_sof_widget *swidget,
+ 	/* handle the extended data if needed */
+ 	if (total_size > *ipc_size) {
+ 		/* append extended data to the end of the component */
+-		memcpy((u8 *)comp + *ipc_size, &swidget->comp_ext, sizeof(swidget->comp_ext));
+-		comp->ext_data_length = sizeof(swidget->comp_ext);
++		memcpy((u8 *)comp + *ipc_size, &swidget->uuid, ext_size);
++		comp->ext_data_length = ext_size;
+ 	}
+ 
+ 	/* update ipc_size and return */
+@@ -2276,9 +2276,8 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->core = comp.core;
+ 
+-	ret = sof_parse_tokens(scomp, &swidget->comp_ext, comp_ext_tokens,
+-			       ARRAY_SIZE(comp_ext_tokens), tw->priv.array,
+-			       le32_to_cpu(tw->priv.size));
++	ret = sof_parse_tokens(scomp, swidget, comp_ext_tokens, ARRAY_SIZE(comp_ext_tokens),
++			       tw->priv.array, le32_to_cpu(tw->priv.size));
  	if (ret != 0) {
- 		dev_err(scomp->dev, "error: parse dai tokens failed %d\n",
- 			le32_to_cpu(private->size));
--		goto finish;
-+		return ret;
- 	}
- 
- 	ret = sof_parse_tokens(scomp, &comp_dai->config, comp_tokens,
-@@ -1487,7 +1487,7 @@ static int sof_widget_load_dai(struct snd_soc_component *scomp, int index,
- 	if (ret != 0) {
- 		dev_err(scomp->dev, "error: parse dai.cfg tokens failed %d\n",
- 			private->size);
--		goto finish;
-+		return ret;
- 	}
- 
- 	dev_dbg(scomp->dev, "dai %s: type %d index %d\n",
-@@ -1496,17 +1496,9 @@ static int sof_widget_load_dai(struct snd_soc_component *scomp, int index,
- 
- 	if (dai) {
- 		dai->scomp = scomp;
--
--		/*
--		 * copy only the sof_ipc_comp_dai to avoid collapsing
--		 * the snd_sof_dai, the extended data is kept in the
--		 * snd_sof_widget.
--		 */
--		memcpy(&dai->comp_dai, comp_dai, sizeof(*comp_dai));
-+		dai->comp_dai = comp_dai;
- 	}
- 
--finish:
--	kfree(comp_dai);
- 	return ret;
- }
- 
-@@ -2429,6 +2421,7 @@ static int sof_widget_unload(struct snd_soc_component *scomp,
- 		dai = swidget->private;
- 
- 		if (dai) {
-+			kfree(dai->comp_dai);
- 			/* free dai config */
- 			kfree(dai->dai_config);
- 			list_del(&dai->list);
-@@ -2668,7 +2661,7 @@ static int sof_set_dai_config_multi(struct snd_sof_dev *sdev, u32 size,
- 			 * dai_index.
- 			 */
- 			for (i = 0; i < num_conf; i++)
--				config[i].dai_index = dai->comp_dai.dai_index;
-+				config[i].dai_index = dai->comp_dai->dai_index;
- 
- 			dev_dbg(sdev->dev, "set DAI config for %s index %d\n",
- 				dai->name, config[curr_conf].dai_index);
+ 		dev_err(scomp->dev, "error: parsing comp_ext_tokens failed %d\n",
+ 			ret);
 -- 
 2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1D314D1F01
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 18:25:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD1834D1F03
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 18:25:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6327918BE;
-	Tue,  8 Mar 2022 18:24:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6327918BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FF6A18CA;
+	Tue,  8 Mar 2022 18:24:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FF6A18CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646760316;
-	bh=wSgfdJeBnQuD5Tw0f9riM3mLX4grfj+Fq6bUvc86P64=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1646760349;
+	bh=Yfasz//GbWj31pLz9SiA6bXz155z6fMe8IJXsB7WIpA=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mhNjeUzEx+RYCr5CEWujxQ95xoeRCXsCQkxtjUe3R5EUIO323mol5kZuarLJzTVIa
-	 9pmsFu5VwxWg6PmQ58h9Dp8a+hjXhoh1YLTr7P/vKLEH6fEFN2LoEM3ZBnZM35qXf5
-	 GDbYhaQ0Pk38lpGpFFFVfJDX8NVpy7JwJpOUI9MA=
+	b=Ses+sfhwYT1W6p2SGxt076AcSKX23ouJkd+m/j3BZc2GMidU+TI/208SjXAhCfOan
+	 kMK78Z+BVVKCKdOU1pENB2u0oBOODeh4H+MJmYbecFmS7RnzZIm7bqMPbDqYM/3TK8
+	 vZEvWndHnyF68LFltov3kF5LYOtYlCidjhLp8Mzw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C3A0F8052F;
-	Tue,  8 Mar 2022 18:21:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F91EF8053E;
+	Tue,  8 Mar 2022 18:21:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E98EF8052F; Tue,  8 Mar 2022 18:21:05 +0100 (CET)
+ id 5E03CF80537; Tue,  8 Mar 2022 18:21:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,44 +35,48 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4708F8052F
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 18:20:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4708F8052F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3EB01F80534
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 18:21:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EB01F80534
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OCeTIOQh"
+ header.b="n11nMwb9"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 977C160F89;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id ECE7161274;
+ Tue,  8 Mar 2022 17:21:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75B21C340F5;
  Tue,  8 Mar 2022 17:20:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA83DC340EF;
- Tue,  8 Mar 2022 17:20:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646760058;
- bh=wSgfdJeBnQuD5Tw0f9riM3mLX4grfj+Fq6bUvc86P64=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=OCeTIOQh9qpUvmWZfWOIAHCl07UBaqndWDIed2WZLKCEj6mM+IAu2/OlhJ/IH590C
- LpcWjyKkTwoDt7u2nBbe4ZeBMRTANTgGV3HkoH+vLArzFNOfSs+rNX8Qz0Numr2JkT
- b/LWAdoFLatB4+ZAoUxXHipZX1Y5Lo69Xx6xu/ebiAwlUu6JGnRABEBqF5epD0APUm
- 8txfRgGU+zsu+02WBuxVu8dxvE3QozWxKbKaXI6nWMDN8gepdgRtDcbqk9dsE//RC4
- 5eEtaNCoEjamqaakfjzWwRcbp3LiqKstoY++yeAfDkS64QrlH2MnLi/AA4FBnQglrp
- TK9zbhdiwpTBg==
+ s=k20201202; t=1646760060;
+ bh=Yfasz//GbWj31pLz9SiA6bXz155z6fMe8IJXsB7WIpA=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=n11nMwb9nWqKWmlJcFE/z2Z68R6fKnmsJWDEAHmEpFDw337VEC8haxvHUhalJNyiI
+ +5F+ghpsKb6jSO1JHlwkbBDRDbB5Sq8X0ALp4G+KbYo6rnuJQNl+P6O8RjJkRarWDq
+ 3uRrQC4Mcfg4TiaAxZplUtKr81kDfPu7OBmtkXU/nmGMTpzsr5G6QFdYxtKblq84uo
+ OjvWfZkATHmZFwuYsPoKrlGE2VJTu56KL4B/2ItejA2NfXwH51SBWfVIe5YQhvEIKJ
+ GqtTzEcS8UK2opqMwoRHmtnoETbF0xRFnWFd6sOeSBcx9S/5iHZN4inGGYeKmdyYny
+ B/IljWZjCscnw==
 From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-In-Reply-To: <20220307033056.11463-1-jiaxin.yu@mediatek.com>
-References: <20220307033056.11463-1-jiaxin.yu@mediatek.com>
-Subject: Re: [v2] ASoC: mediatek: mt8183: support wb bt audio
-Message-Id: <164676005561.54315.8574406268011125156.b4-ty@kernel.org>
-Date: Tue, 08 Mar 2022 17:20:55 +0000
+To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Florian Meier <florian.meier@koalo.de>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Miaoqian Lin <linmq006@gmail.com>
+In-Reply-To: <20220308013949.20323-1-linmq006@gmail.com>
+References: <582c39ac-3099-d54f-5de3-d54a4ace0a04@microchip.com>
+ <20220308013949.20323-1-linmq006@gmail.com>
+Subject: Re: [PATCH v2] ASoC: atmel: Fix error handling in snd_proto_probe
+Message-Id: <164676005819.54315.3431589094288420530.b4-ty@kernel.org>
+Date: Tue, 08 Mar 2022 17:20:58 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- Tzung-Bi Shih <tzungbi@kernel.org>, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,10 +92,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 7 Mar 2022 11:30:56 +0800, Jiaxin Yu wrote:
-> Use "bt-sco-pcm-wb" codec dai driver for wb bt audio.
+On Tue, 8 Mar 2022 01:39:48 +0000, Miaoqian Lin wrote:
+> The device_node pointer is returned by of_parse_phandle()  with refcount
+> incremented. We should use of_node_put() on it when done.
 > 
+> This function only calls of_node_put() in the regular path.
+> And it will cause refcount leak in error paths.
+> Fix this by calling of_node_put() in error handling too.
 > 
+> [...]
 
 Applied to
 
@@ -99,8 +108,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8183: support wb bt audio
-      commit: 5ea14bf62ef4501c13f56fce75f6752cf643748f
+[1/1] ASoC: atmel: Fix error handling in snd_proto_probe
+      commit: b0bfaf0544d08d093d6211d7ef8816fb0b5b6c75
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

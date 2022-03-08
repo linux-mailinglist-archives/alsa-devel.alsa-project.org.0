@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39DF24D1DC0
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 17:49:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E95674D1DC2
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 17:50:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEC501833;
-	Tue,  8 Mar 2022 17:49:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEC501833
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62061188F;
+	Tue,  8 Mar 2022 17:49:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62061188F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646758195;
-	bh=qpTry2xtJme7DtNAhhYtM85udfZjqGT4pX9G4Qusr+c=;
+	s=default; t=1646758209;
+	bh=sevLvA+JDI8wNatLa+aq2cOCsP36Y/uVOwtNk3A0OS8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g/lnI9UccU+cnrZ4d5BOD9lalxODG46Sanom1GRGyf+lMyWqbylrRj6ppfwPW0vId
-	 McPUsX5N6pOHnNCI2CZuL4ayI6Ncb7AUG7dbchMGheF/WUJ2EstlKLzNb1kPQaXkH1
-	 XuT0X61Vi4sazlprEN0c2bEi4NfskITZ2433PN48=
+	b=usTOByFbw3rShBjtYslh/YdHXeGgStYckSb620QGZ+cVEnqNczMYrsrdIY5ZRvhcX
+	 nK9hhM7WRQVb0kXZ+sPNEvOaM7hZKIvylPJ5v9rLLNnTCc7DyrIlGR4nLCYXXGkkV0
+	 PCDBEkOjy0hesHMBWwlVweMJrL0mOWIW+Uxg1Kik=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CED4F805AE;
+	by alsa1.perex.cz (Postfix) with ESMTP id DE7ACF805AF;
 	Tue,  8 Mar 2022 17:44:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8431F80544; Tue,  8 Mar 2022 17:44:26 +0100 (CET)
+ id 1E1C0F80543; Tue,  8 Mar 2022 17:44:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56EFFF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D37EF80271
  for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 17:44:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56EFFF800D2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D37EF80271
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="Ox/ozRGk"
+ header.b="UhLTm2ia"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1646757857; x=1678293857;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qpTry2xtJme7DtNAhhYtM85udfZjqGT4pX9G4Qusr+c=;
- b=Ox/ozRGk8NclTogwJUmbn/IAApWYJIWxqh4JvGcyCgf2220jKnqkdtBn
- Kxjtk8kMSo+8zeTUJA8TOGEXd44mqTeudQ6faDYF6BtUJF+HQGqQcZpg3
- htLC3DupH6LpbYcwWOjc3ev0iSKeMuM28uRP+d3+p8CXLmH1myF/UMBGL
- BncW4TmOWoFb8nYgjMxhCyDs6kUZvt6mg5xvooyiPgSL/dIofP0btKmC7
- t9NRlB4Kc/PEfM8/FJPEflP/b6FbFQduewJpcoVNKEiz6fZVDXfD0Lc1T
- Oj3McpOoaHuaat4pgmlEIbXD5Q6rUAPikfK6BN+nC0mrdgkPVKoRk9Mw5 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252307237"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252307237"
+ bh=sevLvA+JDI8wNatLa+aq2cOCsP36Y/uVOwtNk3A0OS8=;
+ b=UhLTm2iaIa/YD/2g8XxFvRjyE6H+j9ueNg2DM+JbyyNfyBZuFgsuJT9z
+ Pz7tuRRwb2sPSw2VrWeQhHspPVPb/hXrHN6C/+HSmFOFV4g/EGtOZ/xFG
+ yR+GvU/rZ7m1RB9DtZYMGeVxYaunMQPJEFpIoVSyt3BsrgKPSBtr/KYD9
+ Kwv6CW1GRrBvF/6IqCPuTE3Uchw4vmxDfyLgJGkDfqJinsAiP/N8YaSXM
+ Z6gRHK2HldYekTtD9YcfwboPmjCCqsZEg2Qx2jiDjC0+fGZymFrJBFNrF
+ bGHFfCWjM/dZ8n52KbXAEyBGrs5bwxB9D2pfxr89lkl+9MQTXuRG1fKiP A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252307241"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252307241"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Mar 2022 08:43:57 -0800
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="537633262"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="537633266"
 Received: from bustam3x-mobl.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.251.130.225])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 08:43:56 -0800
+ 08 Mar 2022 08:43:57 -0800
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 11/18] ASoC: SOF: make struct snd_sof_widget IPC agnostic
-Date: Tue,  8 Mar 2022 08:43:37 -0800
-Message-Id: <20220308164344.577647-12-ranjani.sridharan@linux.intel.com>
+Subject: [PATCH v2 12/18] ASoC: SOF: topology: make sof_route_load() IPC
+ agnostic
+Date: Tue,  8 Mar 2022 08:43:38 -0800
+Message-Id: <20220308164344.577647-13-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220308164344.577647-1-ranjani.sridharan@linux.intel.com>
 References: <20220308164344.577647-1-ranjani.sridharan@linux.intel.com>
@@ -93,116 +94,120 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Parse the UUID token and save it in the new uuid field in struct
-snd_sof_widget. struct sof_ipc_comp_ext is no longer needed. So remove
-it too.
+The IPC structure can be set up using the fields in struct snd_sof_route
+when the pipeline connections are established.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/sof/topology.h |  8 --------
- sound/soc/sof/sof-audio.h    |  3 +--
- sound/soc/sof/topology.c     | 21 ++++++++++-----------
- 3 files changed, 11 insertions(+), 21 deletions(-)
+ sound/soc/sof/sof-audio.c | 15 ++++++---------
+ sound/soc/sof/topology.c  | 17 -----------------
+ 2 files changed, 6 insertions(+), 26 deletions(-)
 
-diff --git a/include/sound/sof/topology.h b/include/sound/sof/topology.h
-index adee6afd1490..88560281d420 100644
---- a/include/sound/sof/topology.h
-+++ b/include/sound/sof/topology.h
-@@ -87,9 +87,6 @@ struct sof_ipc_comp {
-  */
- #define SOF_BUF_UNDERRUN_PERMITTED	BIT(1)
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index b49d8e348077..8fccfbb339a3 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -259,28 +259,25 @@ EXPORT_SYMBOL(sof_widget_setup);
  
--/* the UUID size in bytes, shared between FW and host */
--#define SOF_UUID_SIZE	16
+ static int sof_route_setup_ipc(struct snd_sof_dev *sdev, struct snd_sof_route *sroute)
+ {
+-	struct sof_ipc_pipe_comp_connect *connect;
++	struct sof_ipc_pipe_comp_connect connect;
+ 	struct sof_ipc_reply reply;
+ 	int ret;
+ 
+-	/* skip if there's no private data */
+-	if (!sroute->private)
+-		return 0;
 -
- /* create new component buffer - SOF_IPC_TPLG_BUFFER_NEW */
- struct sof_ipc_buffer {
- 	struct sof_ipc_comp comp;
-@@ -303,9 +300,4 @@ enum sof_event_types {
- 	SOF_KEYWORD_DETECT_DAPM_EVENT,
- };
+ 	/* nothing to do if route is already set up */
+ 	if (sroute->setup)
+ 		return 0;
  
--/* extended data struct for UUID components */
--struct sof_ipc_comp_ext {
--	uint8_t uuid[SOF_UUID_SIZE];
--}  __packed;
--
- #endif
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index a8eeffc12b24..10330d826d40 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -110,8 +110,7 @@ struct snd_sof_widget {
- 	struct list_head list;	/* list in sdev widget list */
- 	struct snd_sof_widget *pipe_widget;
+-	connect = sroute->private;
++	connect.hdr.size = sizeof(connect);
++	connect.hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_COMP_CONNECT;
++	connect.source_id = sroute->src_widget->comp_id;
++	connect.sink_id = sroute->sink_widget->comp_id;
  
--	/* extended data for UUID components */
--	struct sof_ipc_comp_ext comp_ext;
-+	const guid_t uuid;
+ 	dev_dbg(sdev->dev, "setting up route %s -> %s\n",
+ 		sroute->src_widget->widget->name,
+ 		sroute->sink_widget->widget->name);
  
- 	void *private;		/* core does not touch this */
- };
+ 	/* send ipc */
+-	ret = sof_ipc_tx_message(sdev->ipc,
+-				 connect->hdr.cmd,
+-				 connect, sizeof(*connect),
++	ret = sof_ipc_tx_message(sdev->ipc, connect.hdr.cmd, &connect, sizeof(connect),
+ 				 &reply, sizeof(reply));
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev, "%s: route setup failed %d\n", __func__, ret);
 diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 41927e99ace2..111ff0f77be4 100644
+index 111ff0f77be4..42260d0b9740 100644
 --- a/sound/soc/sof/topology.c
 +++ b/sound/soc/sof/topology.c
-@@ -743,7 +743,7 @@ static const struct sof_topology_token core_tokens[] = {
- static const struct sof_topology_token comp_ext_tokens[] = {
- 	{SOF_TKN_COMP_UUID,
- 		SND_SOC_TPLG_TUPLE_TYPE_UUID, get_token_uuid,
--		offsetof(struct sof_ipc_comp_ext, uuid)},
-+		offsetof(struct snd_sof_widget, uuid)},
- };
- 
- /*
-@@ -1419,16 +1419,16 @@ static int sof_connect_dai_widget(struct snd_soc_component *scomp,
-  *
-  * Return: The pointer to the new allocated component, NULL if failed.
-  */
--static struct sof_ipc_comp *sof_comp_alloc(struct snd_sof_widget *swidget,
--					   size_t *ipc_size, int index)
-+static struct sof_ipc_comp *sof_comp_alloc(struct snd_sof_widget *swidget, size_t *ipc_size,
-+					   int index)
+@@ -3322,7 +3322,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
+ 			  struct snd_soc_dapm_route *route)
  {
--	u8 nil_uuid[SOF_UUID_SIZE] = {0};
- 	struct sof_ipc_comp *comp;
- 	size_t total_size = *ipc_size;
-+	size_t ext_size = sizeof(swidget->uuid);
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+-	struct sof_ipc_pipe_comp_connect *connect;
+ 	struct snd_sof_widget *source_swidget, *sink_swidget;
+ 	struct snd_soc_dobj *dobj = &route->dobj;
+ 	struct snd_sof_route *sroute;
+@@ -3334,16 +3333,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
+ 		return -ENOMEM;
  
- 	/* only non-zero UUID is valid */
--	if (memcmp(&swidget->comp_ext, nil_uuid, SOF_UUID_SIZE))
--		total_size += sizeof(swidget->comp_ext);
-+	if (!guid_is_null(&swidget->uuid))
-+		total_size += ext_size;
+ 	sroute->scomp = scomp;
+-
+-	connect = kzalloc(sizeof(*connect), GFP_KERNEL);
+-	if (!connect) {
+-		kfree(sroute);
+-		return -ENOMEM;
+-	}
+-
+-	connect->hdr.size = sizeof(*connect);
+-	connect->hdr.cmd = SOF_IPC_GLB_TPLG_MSG | SOF_IPC_TPLG_COMP_CONNECT;
+-
+ 	dev_dbg(scomp->dev, "sink %s control %s source %s\n",
+ 		route->sink, route->control ? route->control : "none",
+ 		route->source);
+@@ -3367,8 +3356,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
+ 	    source_swidget->id == snd_soc_dapm_output)
+ 		goto err;
  
- 	comp = kzalloc(total_size, GFP_KERNEL);
- 	if (!comp)
-@@ -1444,8 +1444,8 @@ static struct sof_ipc_comp *sof_comp_alloc(struct snd_sof_widget *swidget,
- 	/* handle the extended data if needed */
- 	if (total_size > *ipc_size) {
- 		/* append extended data to the end of the component */
--		memcpy((u8 *)comp + *ipc_size, &swidget->comp_ext, sizeof(swidget->comp_ext));
--		comp->ext_data_length = sizeof(swidget->comp_ext);
-+		memcpy((u8 *)comp + *ipc_size, &swidget->uuid, ext_size);
-+		comp->ext_data_length = ext_size;
+-	connect->source_id = source_swidget->comp_id;
+-
+ 	/* sink component */
+ 	sink_swidget = snd_sof_find_swidget(scomp, (char *)route->sink);
+ 	if (!sink_swidget) {
+@@ -3386,8 +3373,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
+ 	    sink_swidget->id == snd_soc_dapm_output)
+ 		goto err;
+ 
+-	connect->sink_id = sink_swidget->comp_id;
+-
+ 	/*
+ 	 * For virtual routes, both sink and source are not
+ 	 * buffer. Since only buffer linked to component is supported by
+@@ -3402,7 +3387,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
+ 	} else {
+ 		sroute->route = route;
+ 		dobj->private = sroute;
+-		sroute->private = connect;
+ 		sroute->src_widget = source_swidget;
+ 		sroute->sink_widget = sink_swidget;
+ 
+@@ -3413,7 +3397,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
  	}
  
- 	/* update ipc_size and return */
-@@ -2276,9 +2276,8 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
- 
- 	swidget->core = comp.core;
- 
--	ret = sof_parse_tokens(scomp, &swidget->comp_ext, comp_ext_tokens,
--			       ARRAY_SIZE(comp_ext_tokens), tw->priv.array,
--			       le32_to_cpu(tw->priv.size));
-+	ret = sof_parse_tokens(scomp, swidget, comp_ext_tokens, ARRAY_SIZE(comp_ext_tokens),
-+			       tw->priv.array, le32_to_cpu(tw->priv.size));
- 	if (ret != 0) {
- 		dev_err(scomp->dev, "error: parsing comp_ext_tokens failed %d\n",
- 			ret);
+ err:
+-	kfree(connect);
+ 	kfree(sroute);
+ 	return ret;
+ }
 -- 
 2.25.1
 

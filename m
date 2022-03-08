@@ -2,73 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F4E44D230A
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 22:06:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAB8F4D2348
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 22:25:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19644172D;
-	Tue,  8 Mar 2022 22:05:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19644172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D5BA17C8;
+	Tue,  8 Mar 2022 22:25:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D5BA17C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646773593;
-	bh=QMWQCWV1q0cVyGexlV6EMwL7zWzglGPEwxigZVHILVM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1646774757;
+	bh=2Lvdu3NQxwu3/zNl4soTY3BjZxqQ2P+3Ss5h7PVAiQ4=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ItMgZ7NaA1pcDntpJF1OnHmr0OBwKXulzha4tSJTcrGohdoaR2Ms6K4qFTr3ihdyk
-	 yqlWWoEPcR0OacZsXucZeNsVB/cLo5CexftGiFAv8SMbppRDGyfW56s5C6GQbw/9Qf
-	 5RIGXoi20ympJqKHodfxlO9H1PGH9S4oiqC10p6I=
+	b=KaQ7QIUHC+EU2neBa8BaLG0QgEZnBEn+vE0xtOl4lIGTJwX7Lg/rz2yQxybA5n8Qd
+	 2Dq8+BzzhTZXx0U92YWCCQfRGjhbafrzT1ACC3niY3dJgkrZ1yEUBYpo4qWoFnd5dG
+	 E1fDfSwzje5Nyo5oVTSFc6Rhugb+mXlNA4C8FLjI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B7EFF8026D;
-	Tue,  8 Mar 2022 22:05:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 778C2F800D1;
+	Tue,  8 Mar 2022 22:24:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B5AAF8026A; Tue,  8 Mar 2022 22:05:24 +0100 (CET)
+ id 4FDA9F8026A; Tue,  8 Mar 2022 22:24:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com
+ [209.85.161.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B6E7F800D1
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 22:05:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B6E7F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="PqLvd2pJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=aghJjQ/TxIEM63SbYMSSg0+NF0Cmq0zVo1nfIfNkssw=; b=PqLvd2pJRv+fY3NhcB9E77MjSu
- fRb1FyfGUbCWaTR/Ow7MiMidTcEy+patfqvEeKffSuAYwIYS3D5ksh7CUzumX0uyJZvQNZ4sjMiEL
- g5byy1fY2oU5UjcODjMuMbP5sFF1H4ZsFH+jxGuCD4Wcwz+R6zGvyAJpWxHa/qvMENuMLxd+MQiv8
- AledxCWnMP0Q/trAIMb8roOHaigeicCSM7BjFi/YXQh77CBU8dP0yXiGAxoBlI2AU0O9U6131ugHQ
- GUXrvelwkUcdKk6VQwOo+HfO0OSN0PS13Yi7DvXumd+WPdmc5whHPopFG3HuhceJ4jigxjRK61Z+F
- jfNp3a7Q==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nRh18-00GXKC-Hl; Tue, 08 Mar 2022 21:05:14 +0000
-Message-ID: <27360976-8820-cdbb-cc17-52ea0ccb3b55@infradead.org>
-Date: Tue, 8 Mar 2022 13:05:09 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [PATCH] ASoC: Intel: boards: fix randconfig issue
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20220308202318.401358-1-pierre-louis.bossart@linux.intel.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20220308202318.401358-1-pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, broonie@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40938F80121
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 22:24:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40938F80121
+Received: by mail-oo1-f53.google.com with SMTP id
+ y27-20020a4a9c1b000000b0032129651bb0so580014ooj.2
+ for <alsa-devel@alsa-project.org>; Tue, 08 Mar 2022 13:24:42 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=F7AKtHuwjN2s2m0mkt2Zt0oseAiFhWfXD+KKCoRGMtw=;
+ b=pzw35HcFhwkQwYoKgbBgzJJwpu2xQm89Nf9YIZWmSTh+pZYJURh/Z8DakyVCHlssfK
+ WlWNl3oQI09+RaW7XypQ7N4cCA22zJE73lJKKCWfK3gigtVJfJmWMRw1teSO//znutco
+ 0wQamDWdZrEgMzvAF9iZjcPQ9u2NbB4HMs7T2fDiz7yYnRI3mM3F50E/PtPK4Eurgvzz
+ kvfC3o+xhaMt/b+9YYOdOSft1KXIpGP6pvJWCn+NOYMCOX0e2I9daDKN80Rg2NJ06w6X
+ oUthJA2MGSMt4Vk7oSYvlNCPb6TF3U6q2/MJukeUxh615TdZHcSzMnogzENyA3h7Tg1u
+ TUlw==
+X-Gm-Message-State: AOAM532PFwOl5Ns51J70hdjLUy41ALf+O22qsvLlBKmu+kPibxm+BnoF
+ kWb/yny8cKMTVJPj0vvbxA==
+X-Google-Smtp-Source: ABdhPJz5aT6/Ogkn9SbklQVQ5zCOz8O/vrq+Jch3k6VOBoG/Sn8N0p4eGgchTEX6dq8p0pcQvErG8A==
+X-Received: by 2002:a05:6870:313:b0:da:8850:c0bd with SMTP id
+ m19-20020a056870031300b000da8850c0bdmr2015277oaf.52.1646774681244; 
+ Tue, 08 Mar 2022 13:24:41 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ w12-20020a0568080d4c00b002d3e7a6f8e9sm25448oik.26.2022.03.08.13.24.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Mar 2022 13:24:40 -0800 (PST)
+Received: (nullmailer pid 1390767 invoked by uid 1000);
+ Tue, 08 Mar 2022 21:24:39 -0000
+From: Rob Herring <robh@kernel.org>
+To: Lucas Tanure <tanureal@opensource.cirrus.com>
+In-Reply-To: <20220308171730.454587-16-tanureal@opensource.cirrus.com>
+References: <20220308171730.454587-1-tanureal@opensource.cirrus.com>
+ <20220308171730.454587-16-tanureal@opensource.cirrus.com>
+Subject: Re: [PATCH v3 15/16] ASoC: dt-bindings: cs35l41: Document CS35l41
+ External Boost
+Date: Tue, 08 Mar 2022 15:24:39 -0600
+Message-Id: <1646774679.497272.1390766.nullmailer@robh.at.kernel.org>
+Cc: David Rhodes <drhodes@opensource.cirrus.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,56 +95,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 3/8/22 12:23, Pierre-Louis Bossart wrote:
-> on x86_64:
+On Tue, 08 Mar 2022 17:17:29 +0000, Lucas Tanure wrote:
+> From: David Rhodes <drhodes@opensource.cirrus.com>
 > 
-> ERROR: modpost: "sof_dai_get_bclk"
-> [sound/soc/intel/boards/snd-soc-intel-sof-cirrus-common.ko] undefined!
+> Document internal and external boost feature for ASoC CS35L41.
+> For internal boost the following properties are required:
+> - cirrus,boost-peak-milliamp
+> - cirrus,boost-ind-nanohenry
+> - cirrus,boost-cap-microfarad
 > 
-> ERROR: modpost: "sof_dai_get_mclk"
-> [sound/soc/intel/boards/snd-soc-intel-sof-realtek-common.ko]
-> undefined!
+> For external boost, the GPIO1 must be configured as output,
+> so the following properties are required:
+> - cirrus,gpio1-src-select = <1>
+> - cirrus,gpio1-output-enable
 > 
-> This comes from a missing dependency on at least ONE SOF platform
-> being selected. This dependency exists for all other machine drivers,
-> this was missed in the earlier reviews.
-> 
-> Fixes: 2fe14ff61bd6 ("ASoC: Intel: sof_ssp_amp: rename driver and support cs35l41 amplifier")
-> Reported-by: Randy Dunlap <rdunlap@infradead.org>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-
-Thanks.
-
+> Signed-off-by: David Rhodes <drhodes@opensource.cirrus.com>
+> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
 > ---
->  sound/soc/intel/boards/Kconfig | 3 +++
->  1 file changed, 3 insertions(+)
+>  .../bindings/sound/cirrus,cs35l41.yaml        | 44 +++++++++++++++++--
+>  1 file changed, 41 insertions(+), 3 deletions(-)
 > 
-> diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-> index a62785893bec..f3873b5bea87 100644
-> --- a/sound/soc/intel/boards/Kconfig
-> +++ b/sound/soc/intel/boards/Kconfig
-> @@ -616,6 +616,8 @@ config SND_SOC_INTEL_SOF_DA7219_MAX98373_MACH
->  
->  endif ## SND_SOC_SOF_JASPERLAKE
->  
-> +if SND_SOC_SOF_HDA_LINK
-> +
->  config SND_SOC_INTEL_SOF_SSP_AMP_MACH
->  	tristate "SOF with amplifiers in I2S Mode"
->  	depends on I2C && ACPI
-> @@ -632,6 +634,7 @@ config SND_SOC_INTEL_SOF_SSP_AMP_MACH
->  	   with RT1308/CS35L41 I2S audio codec.
->  	   Say Y if you have such a device.
->  	   If unsure select "N".
-> +endif ## SND_SOC_SOF_HDA_LINK
->  
->  if SND_SOC_SOF_ELKHARTLAKE
->  
 
--- 
-~Randy
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml:152:13: [warning] wrong indentation: expected 10 but found 12 (indentation)
+
+dtschema/dtc warnings/errors:
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1603100
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7806E4D2185
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 20:31:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CE844D2187
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 20:31:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 089A91899;
-	Tue,  8 Mar 2022 20:30:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 089A91899
+	by alsa0.perex.cz (Postfix) with ESMTPS id F239B18C6;
+	Tue,  8 Mar 2022 20:30:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F239B18C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646767881;
-	bh=Th4tNXpIGaK2NjoVHOYuvKrkMVZaD3Yop7yozWsbWik=;
+	s=default; t=1646767895;
+	bh=95XKRGm6/kKmQe/wqP6iZkA3xkm1a2LczjRX2vk/TUU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=msA1CAv1N2Tu7Enj2IccIsdI0XFGhAB6pPFmK9e3td6ZW7MrMR5lceDV41t8zleru
-	 SFDZnKDbzLmVHeNcjQovGcXOB08lMhELOxjsZ/law1kURkoKsbWRGU8PImD8sD9QpX
-	 zE3j3xFvWlHkpbB6/+HWgGdMSEar4Tbjqiu2sFDE=
+	b=lJVp0tq1uOBGh4JBZz6iW9Oz8SKzFvXPFfk5/eWJSr7oYzY++5v8Wmw+n1QxUs41A
+	 7oqI8XIQ/eS6VPlSD0t97PuN4Lh/qzYB0umpLWSPoS+t57lBNLVCMx/MqdX/GX+W8N
+	 j820MivoJRTazvmnts0Zp2O20hpW6H6VFUqChJsw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAA3CF80559;
-	Tue,  8 Mar 2022 20:27:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63F10F80567;
+	Tue,  8 Mar 2022 20:27:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3F67F80549; Tue,  8 Mar 2022 20:27:00 +0100 (CET)
+ id 015FEF80552; Tue,  8 Mar 2022 20:27:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF098F80515
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFD08F80517
  for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 20:26:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF098F80515
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFD08F80517
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="AlPgsYPG"
+ header.b="QVCve4uA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646767608; x=1678303608;
+ t=1646767609; x=1678303609;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Th4tNXpIGaK2NjoVHOYuvKrkMVZaD3Yop7yozWsbWik=;
- b=AlPgsYPGonTI+755GUaGNfsa2Jgm5iTHTkpgNvnlcqg8rEmKXmZG5e3B
- 2hFi4ozYeP30vhUFyZL6HzA6vj/YNwr5wuKfUtnOpETuNkQsJYmbaVjzh
- B9LWautFQeSZU1SU6HSxal2zBAib1Il9Pkq11b2oRkQhw5aSATPf+S5Wa
- Wdl2hUyE0S98zHZz4l9Sl1CTK8KeqSe1aWPqEwN1tDZ1AVqynEY3K3j2g
- /TOBTUtSbzdep2yKl4fr8f6Ep87gwPYlSiAhitPRZe0wWdCaNpikvbpzY
- Bq00sYklZuShXNTdS7cAMt21i3anQkELiXNNpIgfif9UEi+WqtFZYDJP3 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252363708"
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252363708"
+ bh=95XKRGm6/kKmQe/wqP6iZkA3xkm1a2LczjRX2vk/TUU=;
+ b=QVCve4uAbXKL8gI+7JCCA8Nu14CHZO1quPAvOoSe5DjqcK7ZRbcpqNou
+ hECGMJv7B8OHRStnFi1o7JNIreQu3irGinvI/ueKqj5A7+g2I9xzsv02v
+ w7WqcmbIzF5OmBgHcfERrjFxB6eH3H9H0VXN05PW120xRIYEDgTRmTNUb
+ z0JMTSHuRdaW55WcPUrBWwHd6xpfvjIFkxiVbszbN44HsQEtcjOcQqjlj
+ HiPagWq0+JVt5/GZwXbfRAdX5YWT48QvYGCWtw9NtRBOvGJPC6U6F0kbq
+ SBDbn++6q8Zyeapg4q2MDSRD/rTRncZ/On32BvJmoPSZruIO6GB9bjkI+ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252363713"
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="252363713"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 11:26:45 -0800
-X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="495573961"
+ 08 Mar 2022 11:26:46 -0800
+X-IronPort-AV: E=Sophos;i="5.90,165,1643702400"; d="scan'208";a="495573965"
 Received: from jhaskins-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.209.53.149])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 11:26:44 -0800
+ 08 Mar 2022 11:26:45 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 09/20] ALSA: intel-dspconfig: add ES8336 support for CNL
-Date: Tue,  8 Mar 2022 13:25:59 -0600
-Message-Id: <20220308192610.392950-10-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 10/20] ASoC: Intel: soc-acpi: add ESSX8336 support on Cannon
+ Lake machines
+Date: Tue,  8 Mar 2022 13:26:00 -0600
+Message-Id: <20220308192610.392950-11-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
 References: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
@@ -95,32 +96,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We're missing this check for the CNL PCI id
+From: Nikolai Kostrigin <nickel@altlinux.org>
 
-Reported-by: Nikolai Kostrigin <nickel@altlinux.org>
+Add the support for all ES83x6 devices
+
+Signed-off-by: Nikolai Kostrigin <nickel@altlinux.org>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/hda/intel-dsp-config.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/soc/intel/common/soc-acpi-intel-cnl-match.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
-index b9b7bf5a5553..70fd8b13938e 100644
---- a/sound/hda/intel-dsp-config.c
-+++ b/sound/hda/intel-dsp-config.c
-@@ -199,6 +199,11 @@ static const struct config_entry config_table[] = {
- 			{}
- 		}
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
+index 8d3e8c3b589b..3df89e4511da 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
+@@ -11,6 +11,11 @@
+ #include "../skylake/skl.h"
+ #include "soc-acpi-intel-sdw-mockup-match.h"
+ 
++static const struct snd_soc_acpi_codecs essx_83x6 = {
++	.num_codecs = 3,
++	.codecs = { "ESSX8316", "ESSX8326", "ESSX8336"},
++};
++
+ static struct skl_machine_pdata cnl_pdata = {
+ 	.use_tplg_pcm = true,
+ };
+@@ -23,6 +28,15 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
+ 		.pdata = &cnl_pdata,
+ 		.sof_tplg_filename = "sof-cnl-rt274.tplg",
  	},
 +	{
-+		.flags = FLAG_SOF,
-+		.device = 0x09dc8,
-+		.codec_hid =  &essx_83x6,
++		.comp_ids = &essx_83x6,
++		.drv_name = "sof-essx8336",
++		/* cnl and cml are identical */
++		.sof_tplg_filename = "sof-cml-es8336", /* the tplg suffix is added at run time */
++		.tplg_quirk_mask = SND_SOC_ACPI_TPLG_INTEL_SSP_NUMBER |
++					SND_SOC_ACPI_TPLG_INTEL_SSP_MSB |
++					SND_SOC_ACPI_TPLG_INTEL_DMIC_NUMBER,
 +	},
- 	{
- 		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE,
- 		.device = 0x9dc8,
+ 	{},
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cnl_machines);
 -- 
 2.30.2
 

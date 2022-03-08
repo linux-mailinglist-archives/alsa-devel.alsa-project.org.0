@@ -2,93 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B23FC4D1E97
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 18:20:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30A5D4D1E71
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Mar 2022 18:19:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 453F017AA;
-	Tue,  8 Mar 2022 18:19:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 453F017AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id D29EA17CF;
+	Tue,  8 Mar 2022 18:18:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D29EA17CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646760015;
-	bh=FONaDskUqycmGxSoc6IzcqJoww+6n6e6iaFxhw5qEbQ=;
+	s=default; t=1646759964;
+	bh=vmIpMEH6TAgRevHFXOil7xycZtF2syGxMp74GtrIx2E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c4jxiGuSiEyyvFumzT6vqlQD+vB10epME0f8U8TPdjA+mP9kgLg8IVMlPoGeGM54h
-	 asGspth4xAHB3RlRMGxFtrZTbT+E5zQhVLGWBc6jfLc2PdR6gQUwuCbyqzXPGj6BTg
-	 mLQA52cATfhtxw3nwb5lKOWPVjDsMIIu4N9kcqP0=
+	b=IIqI4wHHq7ntbcxVMnyehcTQSN87PNNu/byezW0l3lmVzZgy2fMVnXkbTW4CmZbBV
+	 fXaPnu6lu3clu2SvHrnoCciqfW+reVtn5cpdZqR1iuTKYgC8DH8XSzZb3e4k7F51YB
+	 jA5byqmGRgbw9zUoR0Aq/Fs6Dsqhglu7MIE9DKck=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB47BF8026A;
-	Tue,  8 Mar 2022 18:17:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6BFEF804F3;
+	Tue,  8 Mar 2022 18:17:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D5F3F80524; Tue,  8 Mar 2022 18:17:52 +0100 (CET)
+ id 7FDF7F80271; Tue,  8 Mar 2022 18:17:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10B94F80516
- for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 18:17:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10B94F80516
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74AD6F8025E
+ for <alsa-devel@alsa-project.org>; Tue,  8 Mar 2022 18:17:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74AD6F8025E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="JNeuXKRN"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 228FxhGU010224;
- Tue, 8 Mar 2022 11:17:42 -0600
+ header.b="JAXoJGoq"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 228FxtbU015166;
+ Tue, 8 Mar 2022 11:17:35 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=+jSUP1WDLHIrNf3vvifs/ZXeDbLTmOnXuZCGwkc80kg=;
- b=JNeuXKRNnWRdIkhw56dAlXeS9qVde1clZ21ExfHawZOvuqHOIRIYoy/6i5Ef/htsyR0f
- aa8WJHXGdjJNT88ojOq66e0F+vMXhh+wUYIo1RenBi1nVopP/3Mn9lMXn6emSVuqATut
- 9yFPArNzluJbZ4zVGwMR5swRtJALD53fObtltReQ5FP18pybEiWaTZTF9YGuKsiBagjL
- WbpR8O5e2wgnNcD7H8NkuqCBvnvn3UrF0VP7UqOgR+/T+FzwP1ddETon6l43eOyEDVhe
- VIFAm5c/4QyAZGhw0bx1Fjk2X67PJb69ZDyupHBuXDe5x1wJstcc183vMa7N5dMC5H/X SA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3em656mh5v-3
+ bh=BSRIu4u7LP/BX+4EuzrjD7JUJiD1RuxHbQLO9l1wmac=;
+ b=JAXoJGoqVCeJMcO/wcVICcFCrWGUYS3WwH6+9ZPqVAnNt7vPW+/izcwufDE4TrSsiX0P
+ Rp/on5WpaBfu+XEseJz+mZaVbGaFTLPeo7jamjwFzDDqB+fOdA34TulILOK53jymbfXg
+ ERqYqxLnjmhxEOQJNKZqYCCRCWsAfN8sdokfJivnbH1RZ40vRR4t5JhYwPt4b5gZ7DFI
+ 8ACuS8TU+30yJb+x+ckcNkLnbYHWjugLoe5hQJfg5PRhmUyvAxy4BlwQ3x8raCSPDpKq
+ O4Oap3ncUDs6b93LEzBwsDox7aAtuEIbPDRkHpfq+kASD0DhFwxHMINl4rw6hBqdqXTp Bw== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3em55svhnr-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 08 Mar 2022 11:17:42 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ Tue, 08 Mar 2022 11:17:34 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 8 Mar
- 2022 17:17:32 +0000
+ 2022 17:17:33 +0000
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Tue, 8 Mar 2022 17:17:32 +0000
+ Frontend Transport; Tue, 8 Mar 2022 17:17:33 +0000
 Received: from aryzen.ad.cirrus.com (unknown [198.61.65.38])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 549182A1;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id AF11AB06;
  Tue,  8 Mar 2022 17:17:32 +0000 (UTC)
 From: Lucas Tanure <tanureal@opensource.cirrus.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob
  Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v3 03/16] sound: cs35l41: Move cs35l41_gpio_config to shared
- lib
-Date: Tue, 8 Mar 2022 17:17:17 +0000
-Message-ID: <20220308171730.454587-4-tanureal@opensource.cirrus.com>
+Subject: [PATCH v3 04/16] ALSA: hda: cs35l41: Fix I2S params comments
+Date: Tue, 8 Mar 2022 17:17:18 +0000
+Message-ID: <20220308171730.454587-5-tanureal@opensource.cirrus.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220308171730.454587-1-tanureal@opensource.cirrus.com>
 References: <20220308171730.454587-1-tanureal@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: MsEsKE3pWMeC8JWP-kWpRhcLVFWqUs99
-X-Proofpoint-GUID: MsEsKE3pWMeC8JWP-kWpRhcLVFWqUs99
+X-Proofpoint-ORIG-GUID: XX9Bl1KwTYaDf6ZDRMSnhkEq93vMv_Gb
+X-Proofpoint-GUID: XX9Bl1KwTYaDf6ZDRMSnhkEq93vMv_Gb
 X-Proofpoint-Spam-Reason: safe
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,181 +102,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ASoC and HDA can use a single function to configure the chip gpios.
+Fix clock and slot size comments
 
 Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- include/sound/cs35l41.h        |  1 +
- sound/pci/hda/cs35l41_hda.c    | 11 ++++-----
- sound/soc/codecs/cs35l41-lib.c | 41 +++++++++++++++++++++++++++++++
- sound/soc/codecs/cs35l41.c     | 45 +---------------------------------
- 4 files changed, 48 insertions(+), 50 deletions(-)
+ sound/pci/hda/cs35l41_hda.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/cs35l41.h b/include/sound/cs35l41.h
-index 57c47636c223..e3ec0f422fff 100644
---- a/include/sound/cs35l41.h
-+++ b/include/sound/cs35l41.h
-@@ -792,5 +792,6 @@ int cs35l41_set_channels(struct device *dev, struct regmap *reg,
- 			 unsigned int rx_num, unsigned int *rx_slot);
- int cs35l41_boost_config(struct device *dev, struct regmap *regmap, int boost_ind, int boost_cap,
- 			 int boost_ipk);
-+int cs35l41_gpio_config(struct regmap *regmap, struct cs35l41_hw_cfg *hw_cfg);
- 
- #endif /* __CS35L41_H */
 diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index a14ad3b0d516..81cdbd84cf7d 100644
+index 81cdbd84cf7d..fe6f6a208d29 100644
 --- a/sound/pci/hda/cs35l41_hda.c
 +++ b/sound/pci/hda/cs35l41_hda.c
-@@ -235,12 +235,11 @@ static int cs35l41_hda_apply_properties(struct cs35l41_hda *cs35l41)
- 		case CS35L41_NOT_USED:
- 			break;
- 		case CS35l41_VSPK_SWITCH:
--			regmap_update_bits(cs35l41->regmap, CS35L41_GPIO_PAD_CONTROL,
--					   CS35L41_GPIO1_CTRL_MASK, 1 << CS35L41_GPIO1_CTRL_SHIFT);
-+			hw_cfg->gpio1.func = CS35L41_GPIO;
-+			hw_cfg->gpio1.out_en = true;
- 			break;
- 		case CS35l41_SYNC:
--			regmap_update_bits(cs35l41->regmap, CS35L41_GPIO_PAD_CONTROL,
--					   CS35L41_GPIO1_CTRL_MASK, 2 << CS35L41_GPIO1_CTRL_SHIFT);
-+			hw_cfg->gpio1.func = CS35L41_MDSYNC_GPIO1;
- 			break;
- 		default:
- 			dev_err(cs35l41->dev, "Invalid function %d for GPIO1\n",
-@@ -254,8 +253,6 @@ static int cs35l41_hda_apply_properties(struct cs35l41_hda *cs35l41)
- 		case CS35L41_NOT_USED:
- 			break;
- 		case CS35L41_INTERRUPT:
--			regmap_update_bits(cs35l41->regmap, CS35L41_GPIO_PAD_CONTROL,
--					   CS35L41_GPIO2_CTRL_MASK, 2 << CS35L41_GPIO2_CTRL_SHIFT);
- 			break;
- 		default:
- 			dev_err(cs35l41->dev, "Invalid GPIO2 function %d\n", hw_cfg->gpio2.func);
-@@ -263,6 +260,8 @@ static int cs35l41_hda_apply_properties(struct cs35l41_hda *cs35l41)
- 		}
- 	}
+@@ -17,11 +17,11 @@
+ #include "cs35l41_hda.h"
  
-+	cs35l41_gpio_config(cs35l41->regmap, hw_cfg);
-+
- 	if (internal_boost) {
- 		cs35l41->reg_seq = &cs35l41_hda_reg_seq_int_bst;
- 		ret = cs35l41_boost_config(cs35l41->dev, cs35l41->regmap,
-diff --git a/sound/soc/codecs/cs35l41-lib.c b/sound/soc/codecs/cs35l41-lib.c
-index 905c648a8f49..3fae34a232cd 100644
---- a/sound/soc/codecs/cs35l41-lib.c
-+++ b/sound/soc/codecs/cs35l41-lib.c
-@@ -1040,6 +1040,47 @@ int cs35l41_boost_config(struct device *dev, struct regmap *regmap, int boost_in
- }
- EXPORT_SYMBOL_GPL(cs35l41_boost_config);
- 
-+int cs35l41_gpio_config(struct regmap *regmap, struct cs35l41_hw_cfg *hw_cfg)
-+{
-+	struct cs35l41_gpio_cfg *gpio1 = &hw_cfg->gpio1;
-+	struct cs35l41_gpio_cfg *gpio2 = &hw_cfg->gpio2;
-+	int irq_pol = IRQF_TRIGGER_NONE;
-+
-+	regmap_update_bits(regmap, CS35L41_GPIO1_CTRL1,
-+			   CS35L41_GPIO_POL_MASK | CS35L41_GPIO_DIR_MASK,
-+			   gpio1->pol_inv << CS35L41_GPIO_POL_SHIFT |
-+			   !gpio1->out_en << CS35L41_GPIO_DIR_SHIFT);
-+
-+	regmap_update_bits(regmap, CS35L41_GPIO2_CTRL1,
-+			   CS35L41_GPIO_POL_MASK | CS35L41_GPIO_DIR_MASK,
-+			   gpio2->pol_inv << CS35L41_GPIO_POL_SHIFT |
-+			   !gpio2->out_en << CS35L41_GPIO_DIR_SHIFT);
-+
-+	if (gpio1->valid)
-+		regmap_update_bits(regmap, CS35L41_GPIO_PAD_CONTROL, CS35L41_GPIO1_CTRL_MASK,
-+				   gpio1->func << CS35L41_GPIO1_CTRL_SHIFT);
-+
-+	if (gpio2->valid) {
-+		regmap_update_bits(regmap, CS35L41_GPIO_PAD_CONTROL, CS35L41_GPIO2_CTRL_MASK,
-+				   gpio2->func << CS35L41_GPIO2_CTRL_SHIFT);
-+
-+		switch (gpio2->func) {
-+		case CS35L41_INT_PUSH_PULL_LOW_GPIO2:
-+		case CS35L41_INT_OPEN_DRAIN_GPIO2:
-+			irq_pol = IRQF_TRIGGER_LOW;
-+			break;
-+		case CS35L41_INT_PUSH_PULL_HIGH_GPIO2:
-+			irq_pol = IRQF_TRIGGER_HIGH;
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+
-+	return irq_pol;
-+}
-+EXPORT_SYMBOL_GPL(cs35l41_gpio_config);
-+
- MODULE_DESCRIPTION("CS35L41 library");
- MODULE_AUTHOR("David Rhodes, Cirrus Logic Inc, <david.rhodes@cirrus.com>");
- MODULE_AUTHOR("Lucas Tanure, Cirrus Logic Inc, <tanureal@opensource.cirrus.com>");
-diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
-index 5dbc2147209a..d25689fe0c60 100644
---- a/sound/soc/codecs/cs35l41.c
-+++ b/sound/soc/codecs/cs35l41.c
-@@ -1017,49 +1017,6 @@ static int cs35l41_set_pdata(struct cs35l41_private *cs35l41)
- 	return 0;
- }
- 
--static int cs35l41_gpio_config(struct cs35l41_private *cs35l41)
--{
--	struct cs35l41_gpio_cfg *gpio1 = &cs35l41->hw_cfg.gpio1;
--	struct cs35l41_gpio_cfg *gpio2 = &cs35l41->hw_cfg.gpio2;
--	int irq_pol = IRQF_TRIGGER_NONE;
--
--	regmap_update_bits(cs35l41->regmap, CS35L41_GPIO1_CTRL1,
--			   CS35L41_GPIO_POL_MASK | CS35L41_GPIO_DIR_MASK,
--			   gpio1->pol_inv << CS35L41_GPIO_POL_SHIFT |
--			   !gpio1->out_en << CS35L41_GPIO_DIR_SHIFT);
--
--	regmap_update_bits(cs35l41->regmap, CS35L41_GPIO2_CTRL1,
--			   CS35L41_GPIO_POL_MASK | CS35L41_GPIO_DIR_MASK,
--			   gpio2->pol_inv << CS35L41_GPIO_POL_SHIFT |
--			   !gpio2->out_en << CS35L41_GPIO_DIR_SHIFT);
--
--
--	if (gpio1->valid)
--		regmap_update_bits(cs35l41->regmap, CS35L41_GPIO_PAD_CONTROL,
--				   CS35L41_GPIO1_CTRL_MASK,
--				   gpio1->func << CS35L41_GPIO1_CTRL_SHIFT);
--
--	if (gpio2->valid) {
--		regmap_update_bits(cs35l41->regmap, CS35L41_GPIO_PAD_CONTROL,
--				   CS35L41_GPIO2_CTRL_MASK,
--				   gpio2->func << CS35L41_GPIO2_CTRL_SHIFT);
--
--		switch (gpio2->func) {
--		case CS35L41_INT_PUSH_PULL_LOW_GPIO2:
--		case CS35L41_INT_OPEN_DRAIN_GPIO2:
--			irq_pol = IRQF_TRIGGER_LOW;
--			break;
--		case CS35L41_INT_PUSH_PULL_HIGH_GPIO2:
--			irq_pol = IRQF_TRIGGER_HIGH;
--			break;
--		default:
--			break;
--		}
--	}
--
--	return irq_pol;
--}
--
- static int cs35l41_component_probe(struct snd_soc_component *component)
- {
- 	struct cs35l41_private *cs35l41 = snd_soc_component_get_drvdata(component);
-@@ -1367,7 +1324,7 @@ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *
- 
- 	cs35l41_test_key_lock(cs35l41->dev, cs35l41->regmap);
- 
--	irq_pol = cs35l41_gpio_config(cs35l41);
-+	irq_pol = cs35l41_gpio_config(cs35l41->regmap, &cs35l41->hw_cfg);
- 
- 	/* Set interrupt masks for critical errors */
- 	regmap_write(cs35l41->regmap, CS35L41_IRQ1_MASK1,
+ static const struct reg_sequence cs35l41_hda_config[] = {
+-	{ CS35L41_PLL_CLK_CTRL,		0x00000430 }, // 3200000Hz, BCLK Input, PLL_REFCLK_EN = 1
++	{ CS35L41_PLL_CLK_CTRL,		0x00000430 }, // 3072000Hz, BCLK Input, PLL_REFCLK_EN = 1
+ 	{ CS35L41_GLOBAL_CLK_CTRL,	0x00000003 }, // GLOBAL_FS = 48 kHz
+ 	{ CS35L41_SP_ENABLES,		0x00010000 }, // ASP_RX1_EN = 1
+ 	{ CS35L41_SP_RATE_CTRL,		0x00000021 }, // ASP_BCLK_FREQ = 3.072 MHz
+-	{ CS35L41_SP_FORMAT,		0x20200200 }, // 24 bits, I2S, BCLK Slave, FSYNC Slave
++	{ CS35L41_SP_FORMAT,		0x20200200 }, // 32 bits RX/TX slots, I2S, clk consumer
+ 	{ CS35L41_DAC_PCM1_SRC,		0x00000008 }, // DACPCM1_SRC = ASPRX1
+ 	{ CS35L41_AMP_DIG_VOL_CTRL,	0x00000000 }, // AMP_VOL_PCM  0.0 dB
+ 	{ CS35L41_AMP_GAIN_CTRL,	0x00000084 }, // AMP_GAIN_PCM 4.5 dB
 -- 
 2.35.1
 

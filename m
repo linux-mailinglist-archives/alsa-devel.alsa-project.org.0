@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FCCB4D3B20
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 21:33:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 275974D3B21
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 21:33:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0092F17EF;
-	Wed,  9 Mar 2022 21:32:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0092F17EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id B50381845;
+	Wed,  9 Mar 2022 21:32:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B50381845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646857997;
-	bh=NW4Vr6GV+hAJk6wRexIspcQ2CBD/XFUIx1VWqhD+exU=;
+	s=default; t=1646858004;
+	bh=XVfyHb7RlPHyZggCeZLFehkULiJIemg9v9tvdbZ7kfg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QRejZdlW08V12cSl/H5speG9k4yRLjHkLaUEut5DYIgq+2SbsHbRmG+Bl1O3e3GdO
-	 fh8JIhyC+2GDFVHftC2W9hdZQ4gDXU2sjDXqhIrGqrmOtt46tX02YXF068P4pfYSdG
-	 OUqchUpVjBlg0P8tFdrTN4eHNudnjnAFBqbMYLxw=
+	b=duClEcbb/0GszEs104z2lMl8TiFliW5QDlh82I33KmP2EqAdpYdPPjWl7PV+LEtup
+	 oKvwGNMLI14l/1ZCU3/GnoeYRWx/m9d8+4O5KpTyXjjnR9ej0ehLyPouHE7O9pWti0
+	 VAWd8DT80h9yBL0iMhMWaicJg/TQQra/E2iypdI4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83294F80539;
-	Wed,  9 Mar 2022 21:30:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08D34F80542;
+	Wed,  9 Mar 2022 21:30:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B89EF80537; Wed,  9 Mar 2022 21:30:26 +0100 (CET)
+ id 418E8F8053B; Wed,  9 Mar 2022 21:30:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_FILL_THIS_FORM_SHORT,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67406F8012F
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 21:30:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67406F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B9D1F80529
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 21:30:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B9D1F80529
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="mfGyUyZc"
+ header.b="UlAXj9yc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646857820; x=1678393820;
+ t=1646857822; x=1678393822;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NW4Vr6GV+hAJk6wRexIspcQ2CBD/XFUIx1VWqhD+exU=;
- b=mfGyUyZcF7eRcSmgFbvNx8Xp9ZZQ9fGrHsaJx8vdzQylANsTu8xlmC9q
- Vy8SDpp2IIQaeLVNjSFnIA3tVL0rZ1TIqIiCLyESlKBtgTFk+vGn0rleN
- XToHUwffUg4Q1Anmb7vql4WUapb3DlAcoCa95d2p5c2SYIsoAdIZ0uixt
- EBfTEHTKctaOhgntr45XtK2GTrgni6qBo41+y/HteilEnaHtD+dsoN/gT
- RKkktlSUfUksUdMtQqqCaw8cMpbqHxYuaY34KzTCpUFBczAOPYglwgm9m
- UpYEYgfBR9yreXxsM47zavc/SM1CVcM+TjDPVMB/cywtw9RQMKx4/IJSp g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="255028720"
-X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="255028720"
+ bh=XVfyHb7RlPHyZggCeZLFehkULiJIemg9v9tvdbZ7kfg=;
+ b=UlAXj9ycx2YiUQwQcg69CTlWnXBYiTy2vJGc3+iRni/3yUrO5qdos4rC
+ 4LZgPeOHzJVxHbb/ItweRvjHqtj56in2IlBw+ZqLeQ+MKVXJsSOY8m19z
+ WkdvA/J3F7Q5x3KxpBbo8PwUzWf2dW1HnYWtRvgB6CQPwEBZg7+9KggOD
+ Kw53w8BrrvnB7dHIS1UjolJIODi2T2NE8J2LhhdlGCJQDvqzgo9dyeJew
+ zXmaxZDpf60Kh7BJq5Q6FDx5Zivnq1wujtjbHS/jYibMD0Bwh1SBpK5Ch
+ 7Y9l+o/YL8UkQLVJ7iuSjSneD/9rAqRFneFx830zPs8gFS0gyY2Y/zE3y A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="255028731"
+X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="255028731"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 12:30:17 -0800
+ 09 Mar 2022 12:30:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="578527117"
+X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="578527148"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga001.jf.intel.com with ESMTP; 09 Mar 2022 12:30:13 -0800
+ by orsmga001.jf.intel.com with ESMTP; 09 Mar 2022 12:30:17 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v4 06/17] ASoC: Intel: avs: Add pipeline management requests
-Date: Wed,  9 Mar 2022 21:40:18 +0100
-Message-Id: <20220309204029.89040-7-cezary.rojewski@intel.com>
+Subject: [PATCH v4 07/17] ASoC: Intel: avs: Add module management requests
+Date: Wed,  9 Mar 2022 21:40:19 +0100
+Message-Id: <20220309204029.89040-8-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220309204029.89040-1-cezary.rojewski@intel.com>
 References: <20220309204029.89040-1-cezary.rojewski@intel.com>
@@ -92,184 +92,404 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Pipeline represents a scheduling entity. Their existence as well as
-their state machine is controlled through CREATE_PIPELINE,
-DELETE_PIPELINE and SET_PIPELINE_STATE IPCs.
+Firmware modules implement processing algorithms. Their lifecycle,
+similarly to pipelines is being controlled by IPCs: initialization,
+deletion and (un)binding.
+
+Modules can be configured at runtime - runtime parameters. This is done
+with help of LARGE_CONFIG IPCs: getter and setter.
+
+Due to firmware limitations, LARGE_CONFIG_GET handler implementation
+does not support retrieving payload with size larger than IPC inbox
+window size.
 
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/messages.c | 76 ++++++++++++++++++++++++++++++++++
- sound/soc/intel/avs/messages.h | 48 +++++++++++++++++++++
- 2 files changed, 124 insertions(+)
+ sound/soc/intel/avs/ipc.c      |   8 +-
+ sound/soc/intel/avs/messages.c | 262 +++++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/messages.h |  53 +++++++
+ 3 files changed, 322 insertions(+), 1 deletion(-)
 
+diff --git a/sound/soc/intel/avs/ipc.c b/sound/soc/intel/avs/ipc.c
+index c0722f8b195f..9770368a898e 100644
+--- a/sound/soc/intel/avs/ipc.c
++++ b/sound/soc/intel/avs/ipc.c
+@@ -21,9 +21,15 @@ static void avs_dsp_receive_rx(struct avs_dev *adev, u64 header)
+ 
+ 	ipc->rx.header = header;
+ 	/* Abort copying payload if request processing was unsuccessful. */
+-	if (!msg.status)
++	if (!msg.status) {
++		/* update size in case of LARGE_CONFIG_GET */
++		if (msg.msg_target == AVS_MOD_MSG &&
++		    msg.global_msg_type == AVS_MOD_LARGE_CONFIG_GET)
++			ipc->rx.size = msg.ext.large_config.data_off_size;
++
+ 		memcpy_fromio(ipc->rx.data, avs_uplink_addr(adev),
+ 			      ipc->rx.size);
++	}
+ }
+ 
+ static void avs_dsp_process_notification(struct avs_dev *adev, u64 header)
 diff --git a/sound/soc/intel/avs/messages.c b/sound/soc/intel/avs/messages.c
-index d568338b0737..de2d50f8c6b4 100644
+index de2d50f8c6b4..613c9452226d 100644
 --- a/sound/soc/intel/avs/messages.c
 +++ b/sound/soc/intel/avs/messages.c
-@@ -63,3 +63,79 @@ int avs_ipc_load_library(struct avs_dev *adev, u32 dma_id, u32 lib_id)
+@@ -6,6 +6,7 @@
+ //          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
+ //
  
++#include <linux/slab.h>
+ #include "avs.h"
+ #include "messages.h"
+ 
+@@ -139,3 +140,264 @@ int avs_ipc_get_pipeline_state(struct avs_dev *adev, u8 instance_id,
+ 	*state = reply.rsp.ext.get_ppl_state.state;
  	return ret;
  }
 +
-+int avs_ipc_create_pipeline(struct avs_dev *adev, u16 req_size, u8 priority,
-+			    u8 instance_id, bool lp, u16 attributes)
++/*
++ * avs_ipc_init_instance - Initialize module instance
++ *
++ * @adev: Driver context
++ * @module_id: Module-type id
++ * @instance_id: Unique module instance id
++ * @ppl_id: Parent pipeline id
++ * @core_id: DSP core to allocate module on
++ * @domain: Processing domain (low latency or data processing)
++ * @param: Module-type specific configuration
++ * @param_size: Size of @param in bytes
++ *
++ * Argument verification, as well as pipeline state checks are done by the
++ * firmware.
++ *
++ * Note: @ppl_id and @core_id are independent of each other as single pipeline
++ * can be composed of module instances located on different DSP cores.
++ */
++int avs_ipc_init_instance(struct avs_dev *adev, u16 module_id, u8 instance_id,
++			  u8 ppl_id, u8 core_id, u8 domain,
++			  void *param, u32 param_size)
 +{
-+	union avs_global_msg msg = AVS_GLOBAL_REQUEST(CREATE_PIPELINE);
-+	struct avs_ipc_msg request = {{0}};
++	union avs_module_msg msg = AVS_MODULE_REQUEST(INIT_INSTANCE);
++	struct avs_ipc_msg request;
 +	int ret;
 +
-+	msg.create_ppl.ppl_mem_size = req_size;
-+	msg.create_ppl.ppl_priority = priority;
-+	msg.create_ppl.instance_id = instance_id;
-+	msg.ext.create_ppl.lp = lp;
-+	msg.ext.create_ppl.attributes = attributes;
++	msg.module_id = module_id;
++	msg.instance_id = instance_id;
++	/* firmware expects size provided in dwords */
++	msg.ext.init_instance.param_block_size =
++			DIV_ROUND_UP(param_size, sizeof(u32));
++	msg.ext.init_instance.ppl_instance_id = ppl_id;
++	msg.ext.init_instance.core_id = core_id;
++	msg.ext.init_instance.proc_domain = domain;
++
 +	request.header = msg.val;
++	request.data = param;
++	request.size = param_size;
 +
 +	ret = avs_dsp_send_msg(adev, &request, NULL);
 +	if (ret)
-+		avs_ipc_err(adev, &request, "create pipeline", ret);
++		avs_ipc_err(adev, &request, "init instance", ret);
 +
 +	return ret;
 +}
 +
-+int avs_ipc_delete_pipeline(struct avs_dev *adev, u8 instance_id)
++/*
++ * avs_ipc_delete_instance - Delete module instance
++ *
++ * @adev: Driver context
++ * @module_id: Module-type id
++ * @instance_id: Unique module instance id
++ *
++ * Argument verification, as well as pipeline state checks are done by the
++ * firmware.
++ *
++ * Note: only standalone modules i.e. without a parent pipeline shall be
++ * deleted using this IPC message. In all other cases, pipeline owning the
++ * modules peforms cleanup automatically when it is deleted.
++ */
++int avs_ipc_delete_instance(struct avs_dev *adev, u16 module_id, u8 instance_id)
 +{
-+	union avs_global_msg msg = AVS_GLOBAL_REQUEST(DELETE_PIPELINE);
++	union avs_module_msg msg = AVS_MODULE_REQUEST(DELETE_INSTANCE);
 +	struct avs_ipc_msg request = {{0}};
 +	int ret;
 +
-+	msg.ppl.instance_id = instance_id;
++	msg.module_id = module_id;
++	msg.instance_id = instance_id;
 +	request.header = msg.val;
 +
 +	ret = avs_dsp_send_msg(adev, &request, NULL);
 +	if (ret)
-+		avs_ipc_err(adev, &request, "delete pipeline", ret);
++		avs_ipc_err(adev, &request, "delete instance", ret);
 +
 +	return ret;
 +}
 +
-+int avs_ipc_set_pipeline_state(struct avs_dev *adev, u8 instance_id,
-+			       enum avs_pipeline_state state)
++/*
++ * avs_ipc_bind - Bind two module instances
++ *
++ * @adev: Driver context
++ * @module_id: Source module-type id
++ * @instance_id: Source module instance id
++ * @dst_module_id: Sink module-type id
++ * @dst_instance_id: Sink module instance id
++ * @dst_queue: Sink module pin to bind @src_queue with
++ * @src_queue: Source module pin to bind @dst_queue with
++ */
++int avs_ipc_bind(struct avs_dev *adev, u16 module_id, u8 instance_id,
++		 u16 dst_module_id, u8 dst_instance_id,
++		 u8 dst_queue, u8 src_queue)
 +{
-+	union avs_global_msg msg = AVS_GLOBAL_REQUEST(SET_PIPELINE_STATE);
++	union avs_module_msg msg = AVS_MODULE_REQUEST(BIND);
 +	struct avs_ipc_msg request = {{0}};
 +	int ret;
 +
-+	msg.set_ppl_state.ppl_id = instance_id;
-+	msg.set_ppl_state.state = state;
++	msg.module_id = module_id;
++	msg.instance_id = instance_id;
++	msg.ext.bind_unbind.dst_module_id = dst_module_id;
++	msg.ext.bind_unbind.dst_instance_id = dst_instance_id;
++	msg.ext.bind_unbind.dst_queue = dst_queue;
++	msg.ext.bind_unbind.src_queue = src_queue;
 +	request.header = msg.val;
 +
 +	ret = avs_dsp_send_msg(adev, &request, NULL);
 +	if (ret)
-+		avs_ipc_err(adev, &request, "set pipeline state", ret);
++		avs_ipc_err(adev, &request, "bind modules", ret);
 +
 +	return ret;
 +}
 +
-+int avs_ipc_get_pipeline_state(struct avs_dev *adev, u8 instance_id,
-+			       enum avs_pipeline_state *state)
++/*
++ * avs_ipc_unbind - Unbind two module instances
++ *
++ * @adev: Driver context
++ * @module_id: Source module-type id
++ * @instance_id: Source module instance id
++ * @dst_module_id: Sink module-type id
++ * @dst_instance_id: Sink module instance id
++ * @dst_queue: Sink module pin to unbind @src_queue from
++ * @src_queue: Source module pin to unbind @dst_queue from
++ */
++int avs_ipc_unbind(struct avs_dev *adev, u16 module_id, u8 instance_id,
++		   u16 dst_module_id, u8 dst_instance_id,
++		   u8 dst_queue, u8 src_queue)
 +{
-+	union avs_global_msg msg = AVS_GLOBAL_REQUEST(GET_PIPELINE_STATE);
++	union avs_module_msg msg = AVS_MODULE_REQUEST(UNBIND);
 +	struct avs_ipc_msg request = {{0}};
++	int ret;
++
++	msg.module_id = module_id;
++	msg.instance_id = instance_id;
++	msg.ext.bind_unbind.dst_module_id = dst_module_id;
++	msg.ext.bind_unbind.dst_instance_id = dst_instance_id;
++	msg.ext.bind_unbind.dst_queue = dst_queue;
++	msg.ext.bind_unbind.src_queue = src_queue;
++	request.header = msg.val;
++
++	ret = avs_dsp_send_msg(adev, &request, NULL);
++	if (ret)
++		avs_ipc_err(adev, &request, "unbind modules", ret);
++
++	return ret;
++}
++
++static int __avs_ipc_set_large_config(struct avs_dev *adev, u16 module_id, u8 instance_id,
++				      u8 param_id, bool init_block, bool final_block,
++				      u8 *request_data, size_t request_size, size_t off_size)
++{
++	union avs_module_msg msg = AVS_MODULE_REQUEST(LARGE_CONFIG_SET);
++	struct avs_ipc_msg request;
++	int ret;
++
++	msg.module_id = module_id;
++	msg.instance_id = instance_id;
++	msg.ext.large_config.data_off_size = off_size;
++	msg.ext.large_config.large_param_id = param_id;
++	msg.ext.large_config.final_block = final_block;
++	msg.ext.large_config.init_block = init_block;
++
++	request.header = msg.val;
++	request.data = request_data;
++	request.size = request_size;
++
++	ret = avs_dsp_send_msg(adev, &request, NULL);
++	if (ret)
++		avs_ipc_err(adev, &request, "large config set", ret);
++
++	return ret;
++}
++
++int avs_ipc_set_large_config(struct avs_dev *adev, u16 module_id,
++			     u8 instance_id, u8 param_id,
++			     u8 *request, size_t request_size)
++{
++	size_t remaining, tx_size;
++	bool final;
++	int ret;
++
++	remaining = request_size;
++	tx_size = min_t(size_t, AVS_MAILBOX_SIZE, remaining);
++	final = (tx_size == remaining);
++
++	/* Initial request states total payload size. */
++	ret = __avs_ipc_set_large_config(adev, module_id, instance_id,
++					 param_id, 1, final, request, tx_size,
++					 request_size);
++	if (ret)
++		return ret;
++
++	remaining -= tx_size;
++
++	/* Loop the rest only when payload exceeds mailbox's size. */
++	while (remaining) {
++		size_t offset;
++
++		offset = request_size - remaining;
++		tx_size = min_t(size_t, AVS_MAILBOX_SIZE, remaining);
++		final = (tx_size == remaining);
++
++		ret = __avs_ipc_set_large_config(adev, module_id, instance_id,
++						 param_id, 0, final,
++						 request + offset, tx_size,
++						 offset);
++		if (ret)
++			return ret;
++
++		remaining -= tx_size;
++	}
++
++	return 0;
++}
++
++int avs_ipc_get_large_config(struct avs_dev *adev, u16 module_id, u8 instance_id,
++			     u8 param_id, u8 *request_data, size_t request_size,
++			     u8 **reply_data, size_t *reply_size)
++{
++	union avs_module_msg msg = AVS_MODULE_REQUEST(LARGE_CONFIG_GET);
++	struct avs_ipc_msg request;
 +	struct avs_ipc_msg reply = {{0}};
++	size_t size;
++	void *buf;
 +	int ret;
 +
-+	msg.get_ppl_state.ppl_id = instance_id;
++	reply.data = kzalloc(AVS_MAILBOX_SIZE, GFP_KERNEL);
++	if (!reply.data)
++		return -ENOMEM;
++
++	msg.module_id = module_id;
++	msg.instance_id = instance_id;
++	msg.ext.large_config.data_off_size = request_size;
++	msg.ext.large_config.large_param_id = param_id;
++	/* final_block is always 0 on request. Updated by fw on reply. */
++	msg.ext.large_config.final_block = 0;
++	msg.ext.large_config.init_block = 1;
++
 +	request.header = msg.val;
++	request.data = request_data;
++	request.size = request_size;
++	reply.size = AVS_MAILBOX_SIZE;
 +
 +	ret = avs_dsp_send_msg(adev, &request, &reply);
 +	if (ret) {
-+		avs_ipc_err(adev, &request, "get pipeline state", ret);
++		avs_ipc_err(adev, &request, "large config get", ret);
++		kfree(reply.data);
 +		return ret;
 +	}
 +
-+	*state = reply.rsp.ext.get_ppl_state.state;
-+	return ret;
++	size = reply.rsp.ext.large_config.data_off_size;
++	buf = krealloc(reply.data, size, GFP_KERNEL);
++	if (!buf) {
++		kfree(reply.data);
++		return -ENOMEM;
++	}
++
++	*reply_data = buf;
++	*reply_size = size;
++
++	return 0;
 +}
 diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
-index b9ec1c64179b..c1bf1cff54d9 100644
+index c1bf1cff54d9..e4b95b066d70 100644
 --- a/sound/soc/intel/avs/messages.h
 +++ b/sound/soc/intel/avs/messages.h
-@@ -26,6 +26,10 @@ enum avs_msg_direction {
- enum avs_global_msg_type {
- 	AVS_GLB_LOAD_MULTIPLE_MODULES = 15,
- 	AVS_GLB_UNLOAD_MULTIPLE_MODULES = 16,
-+	AVS_GLB_CREATE_PIPELINE = 17,
-+	AVS_GLB_DELETE_PIPELINE = 18,
-+	AVS_GLB_SET_PIPELINE_STATE = 19,
-+	AVS_GLB_GET_PIPELINE_STATE = 20,
- 	AVS_GLB_LOAD_LIBRARY = 24,
- 	AVS_GLB_NOTIFICATION = 27,
- };
-@@ -45,6 +49,23 @@ union avs_global_msg {
- 			struct {
- 				u32 mod_cnt:8;
- 			} load_multi_mods;
-+			/* pipeline management */
-+			struct {
-+				u32 ppl_mem_size:11;
-+				u32 ppl_priority:5;
-+				u32 instance_id:8;
-+			} create_ppl;
-+			struct {
-+				u32 rsvd:16;
-+				u32 instance_id:8;
-+			} ppl; /* generic ppl request */
-+			struct {
-+				u32 state:16;
-+				u32 ppl_id:8;
-+			} set_ppl_state;
-+			struct {
-+				u32 ppl_id:8;
-+			} get_ppl_state;
- 			/* library loading */
- 			struct {
- 				u32 dma_id:5;
-@@ -54,6 +75,12 @@ union avs_global_msg {
+@@ -91,6 +91,15 @@ struct avs_tlv {
+ 	u32 value[];
+ } __packed;
+ 
++enum avs_module_msg_type {
++	AVS_MOD_INIT_INSTANCE = 0,
++	AVS_MOD_LARGE_CONFIG_GET = 3,
++	AVS_MOD_LARGE_CONFIG_SET = 4,
++	AVS_MOD_BIND = 5,
++	AVS_MOD_UNBIND = 6,
++	AVS_MOD_DELETE_INSTANCE = 11,
++};
++
+ union avs_module_msg {
+ 	u64 val;
+ 	struct {
+@@ -106,6 +115,24 @@ union avs_module_msg {
  		};
  		union {
  			u32 val;
-+			/* pipeline management */
 +			struct {
-+				u32 lp:1; /* low power flag */
-+				u32 rsvd:3;
-+				u32 attributes:16; /* additional scheduling flags */
-+			} create_ppl;
++				u32 param_block_size:16;
++				u32 ppl_instance_id:8;
++				u32 core_id:4;
++				u32 proc_domain:1;
++			} init_instance;
++			struct {
++				u32 data_off_size:20;
++				u32 large_param_id:8;
++				u32 final_block:1;
++				u32 init_block:1;
++			} large_config;
++			struct {
++				u32 dst_module_id:16;
++				u32 dst_instance_id:8;
++				u32 dst_queue:3;
++				u32 src_queue:3;
++			} bind_unbind;
  		} ext;
  	};
  } __packed;
-@@ -101,6 +128,10 @@ union avs_reply_msg {
+@@ -132,6 +159,13 @@ union avs_reply_msg {
  			struct {
- 				u32 err_mod_id:16;
- 			} load_multi_mods;
-+			/* pipeline management */
+ 				u32 state:5;
+ 			} get_ppl_state;
++			/* module management */
 +			struct {
-+				u32 state:5;
-+			} get_ppl_state;
++				u32 data_off_size:20;
++				u32 large_param_id:8;
++				u32 final_block:1;
++				u32 init_block:1;
++			} large_config;
  		} ext;
  	};
  } __packed;
-@@ -189,4 +220,21 @@ int avs_ipc_load_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
- int avs_ipc_unload_modules(struct avs_dev *adev, u16 *mod_ids, u32 num_mod_ids);
- int avs_ipc_load_library(struct avs_dev *adev, u32 dma_id, u32 lib_id);
+@@ -237,4 +271,23 @@ int avs_ipc_set_pipeline_state(struct avs_dev *adev, u8 instance_id,
+ int avs_ipc_get_pipeline_state(struct avs_dev *adev, u8 instance_id,
+ 			       enum avs_pipeline_state *state);
  
-+/* Pipeline management messages */
-+enum avs_pipeline_state {
-+	AVS_PPL_STATE_INVALID,
-+	AVS_PPL_STATE_UNINITIALIZED,
-+	AVS_PPL_STATE_RESET,
-+	AVS_PPL_STATE_PAUSED,
-+	AVS_PPL_STATE_RUNNING,
-+};
-+
-+int avs_ipc_create_pipeline(struct avs_dev *adev, u16 req_size, u8 priority,
-+			    u8 instance_id, bool lp, u16 attributes);
-+int avs_ipc_delete_pipeline(struct avs_dev *adev, u8 instance_id);
-+int avs_ipc_set_pipeline_state(struct avs_dev *adev, u8 instance_id,
-+			       enum avs_pipeline_state state);
-+int avs_ipc_get_pipeline_state(struct avs_dev *adev, u8 instance_id,
-+			       enum avs_pipeline_state *state);
++/* Module management messages */
++int avs_ipc_init_instance(struct avs_dev *adev, u16 module_id, u8 instance_id,
++			  u8 ppl_id, u8 core_id, u8 domain,
++			  void *param, u32 param_size);
++int avs_ipc_delete_instance(struct avs_dev *adev, u16 module_id,
++			    u8 instance_id);
++int avs_ipc_bind(struct avs_dev *adev, u16 module_id, u8 instance_id,
++		 u16 dst_module_id, u8 dst_instance_id,
++		 u8 dst_queue, u8 src_queue);
++int avs_ipc_unbind(struct avs_dev *adev, u16 module_id, u8 instance_id,
++		   u16 dst_module_id, u8 dst_instance_id,
++		   u8 dst_queue, u8 src_queue);
++int avs_ipc_set_large_config(struct avs_dev *adev, u16 module_id,
++			     u8 instance_id, u8 param_id,
++			     u8 *request, size_t request_size);
++int avs_ipc_get_large_config(struct avs_dev *adev, u16 module_id, u8 instance_id,
++			     u8 param_id, u8 *request_data, size_t request_size,
++			     u8 **reply_data, size_t *reply_size);
 +
  #endif /* __SOUND_SOC_INTEL_AVS_MSGS_H */
 -- 

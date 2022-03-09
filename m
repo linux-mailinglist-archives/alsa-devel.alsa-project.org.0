@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68D7B4D3537
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 18:29:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB43B4D38BE
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 19:26:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15B021828;
-	Wed,  9 Mar 2022 18:28:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15B021828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A84B1718;
+	Wed,  9 Mar 2022 19:25:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A84B1718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646846944;
-	bh=UjnLfQPqw3UUYGqeNSpb4WueN3QxQhXX6nN/Soeq+PM=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1646850376;
+	bh=Nb2k3DJ2sjUn++CWwkUeUgChHZFdkntbRCx6xp/JsJA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WzK0X2Ll++EjQzC39ASnlLj9Fge3LpE2ED12myQQoV3Cs0/8E8ajW/Pstbf2ATmus
-	 BHBprbvr1+k5+eQ457k1vFeF2O9kCl1rW92qxKu1r4tb4Dw3DoOayQ3ssAlAB8PljP
-	 jR/P5MmKjIVza6W/GdUN0REU+7s7OhjPHI08TqCw=
+	b=D/SyXGdRukZpuaHi/lq6jf2KQba69cCRb5ihiMHvt2d+GoyrmcpV9wmJl9JLulZ0U
+	 G0rZ1serJsq1NzIwgJ2ZLIaz995kKdPOZV6kPdXosig6N4D3eA0oJiAzkgPu4b5fz5
+	 abtdiJq8CT6RXmcXKzdA+CcDMv2Z4wLS5EdXJR9c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE851F80516;
-	Wed,  9 Mar 2022 18:27:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B662FF800D2;
+	Wed,  9 Mar 2022 19:25:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA583F804AB; Wed,  9 Mar 2022 18:27:21 +0100 (CET)
+ id 5A0F4F8016C; Wed,  9 Mar 2022 19:25:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0B19F80158
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 18:27:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0B19F80158
+ by alsa1.perex.cz (Postfix) with ESMTPS id E734DF8012F
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 19:24:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E734DF8012F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="SjvMqCo9"
+ header.b="E6abYMwv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646846839; x=1678382839;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=UjnLfQPqw3UUYGqeNSpb4WueN3QxQhXX6nN/Soeq+PM=;
- b=SjvMqCo95M/xsyWuMv87tb6Po//YCPCdYH0PwzauEiEs6X2+A0yt7M+p
- v5YcyBJaM2EnAM2NUeGDZyqUXU1RsJzOCBGxt6s/VqKg8TJ2LMAYLbZjr
- WAFUqNc/SlLuuspMbANeIZUaQB5lJujPCJ0s4cKIrnG87kpBfIqUt06xe
- U2i2BLt/Ym1LDqAIupAuHxBte6YEoay4zwcPABNbMVNo3ZhI0yloKlAXX
- rrPKwLjDlOHOa3LtPnh5g6kWeBZH8KR71z/qCjhob/WUOowMXdNmlwF3E
- X0adys6iEdzr9aCzuG3toHpqwAzDDp1dgCmR3mTffDu7LLxyAHhHwYhpy g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="242484153"
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="242484153"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 09:27:14 -0800
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="554214584"
-Received: from thihoan5-mobl.amr.corp.intel.com (HELO [10.209.14.48])
- ([10.209.14.48])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 09:27:13 -0800
-Message-ID: <ae033bbe-db89-8750-2a8b-a073001681da@linux.intel.com>
-Date: Wed, 9 Mar 2022 11:24:58 -0600
+ t=1646850303; x=1678386303;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Nb2k3DJ2sjUn++CWwkUeUgChHZFdkntbRCx6xp/JsJA=;
+ b=E6abYMwvwcfqyTpCPd/q22cnMV2IGfkwL249lk4TfZ81nZhwGMIrqqzv
+ pAtuMSm3JiirMuY9fPQjesQ5SLQfx00KsEUQAbi8d/LHWIErM0HhFcRe5
+ eUB04i6Wd/d2grVsZSfY/tnyuihVFZ3qbCeaFtjoLFB8QmNByefOznAyJ
+ xqlu4+Mm0bouYJSvSArslu6kb+2DT9BA1+D5kT9uWA0C8Xo4E5ZdR1o0z
+ MX/smbgys8EDd1zeoZCUgj1mJl1HMh9XYbvbLIRnSFqSc9PEFx4PgiGNI
+ 14y4S9qwj7gYPz1jP2KogXwrN7+C9jfM6Il74tXVQAN3GYdns8HL6IA74 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="237224201"
+X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="237224201"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 10:24:27 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="815073576"
+Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
+ by fmsmga005.fm.intel.com with ESMTP; 09 Mar 2022 10:24:22 -0800
+Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nS0z0-0003go-4i; Wed, 09 Mar 2022 18:24:22 +0000
+Date: Thu, 10 Mar 2022 02:23:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: Raghu Bankapur <quic_rbankapu@quicinc.com>,
+ Vinod Koul <vkoul@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V0 1/1] ASoC: msm: fix integer overflow for long duration
+ offload playback
+Message-ID: <202203100248.RVGW6JZh-lkp@intel.com>
+References: <b906dbaf772d0152a3af52d639b090d15fe8c362.1646835508.git.quic_rbankapu@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 04/20] ALSA: intel-nhlt: add helper to detect SSP link mask
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
- <20220308192610.392950-5-pierre-louis.bossart@linux.intel.com>
- <e12a2a8d-7f96-5055-1168-2ced05d00751@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <e12a2a8d-7f96-5055-1168-2ced05d00751@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: Huajun Li <huajun.li@intel.com>, tiwai@suse.de,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Nikolai Kostrigin <nickel@altlinux.org>, broonie@kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b906dbaf772d0152a3af52d639b090d15fe8c362.1646835508.git.quic_rbankapu@quicinc.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: llvm@lists.linux.dev, kbuild-all@lists.01.org,
+ Krishna Jha <quic_kkishorj@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,57 +96,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Raghu,
 
->> diff --git a/sound/hda/intel-nhlt.c b/sound/hda/intel-nhlt.c
->> index 128476aa7c61..4063da378283 100644
->> --- a/sound/hda/intel-nhlt.c
->> +++ b/sound/hda/intel-nhlt.c
->> @@ -130,6 +130,28 @@ bool intel_nhlt_has_endpoint_type(struct 
->> nhlt_acpi_table *nhlt, u8 link_type)
->>   }
->>   EXPORT_SYMBOL(intel_nhlt_has_endpoint_type);
->> +int intel_nhlt_ssp_endpoint_mask(struct nhlt_acpi_table *nhlt, u8 
->> device_type)
->> +{
->> +    struct nhlt_endpoint *epnt;
->> +    int ssp_mask = 0;
->> +    int i;
->> +
->> +    if (!nhlt || (device_type != NHLT_DEVICE_BT && device_type != 
->> NHLT_DEVICE_I2S))
-> 
-> The '!nhlt' safety is superfluous in my opinion. Kernel core API e.g.: 
-> device one assumes caller is sane in basically all cases.
+Thank you for the patch! Perhaps something to improve:
 
-Agree. I will remove this test in a follow-up optimization patch. the 
-same pattern is used for existing dmic stuff so it's better to remove it 
-in one shot.
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on vkoul-dmaengine/next broonie-sound/for-next v5.17-rc7 next-20220309]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
->> +        return 0;
->> +
->> +    epnt = (struct nhlt_endpoint *)nhlt->desc;
->> +    for (i = 0; i < nhlt->endpoint_count; i++) {
->> +        if (epnt->linktype == NHLT_LINK_SSP && epnt->device_type == 
->> device_type) {
->> +            /* for SSP the virtual bus id is the SSP port */
->> +            ssp_mask |= BIT(epnt->virtual_bus_id);
->> +        }
->> +        epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
->> +    }
->> +
->> +    return ssp_mask;
->> +}
->> +EXPORT_SYMBOL(intel_nhlt_ssp_endpoint_mask);
-> 
-> Since this is a *public* API - not direct part of any driver, really - 
-> providing kernel-doc is recommended.
+url:    https://github.com/0day-ci/linux/commits/Raghu-Bankapur/ASoC-msm-fix-integer-overflow-for-long-duration-compress-offload-playback/20220309-222520
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+config: x86_64-randconfig-a014 (https://download.01.org/0day-ci/archive/20220310/202203100248.RVGW6JZh-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 276ca87382b8f16a65bddac700202924228982f6)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/9020c5c2e38ba210a8d822d20e32bed85a4ffcab
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Raghu-Bankapur/ASoC-msm-fix-integer-overflow-for-long-duration-compress-offload-playback/20220309-222520
+        git checkout 9020c5c2e38ba210a8d822d20e32bed85a4ffcab
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash sound/soc/intel/atom/sst/
 
-there isn't a single line of kernel-doc for the entire NHLT stuff.  and 
-ahem, that includes recent additions from your team ;-)
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-bool intel_nhlt_has_endpoint_type(struct nhlt_acpi_table *nhlt, u8 
-link_type);
+All warnings (new ones prefixed by >>):
 
-So agree, but let's do this in a follow-up patchset. the goal of this 
-patchset is to help community users that don't see an audio card 
-created, not to make NHLT support super shiny.
+>> sound/soc/intel/atom/sst/sst_drv_interface.c:370:11: warning: format specifies type 'int' but the argument has type '__u64' (aka 'unsigned long long') [-Wformat]
+                   str_id, tstamp->copied_total, tstamp->pcm_frames);
+                           ^~~~~~~~~~~~~~~~~~~~
+   include/linux/dev_printk.h:155:39: note: expanded from macro 'dev_dbg'
+           dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
+                                        ~~~     ^~~~~~~~~~~
+   include/linux/dynamic_debug.h:167:19: note: expanded from macro 'dynamic_dev_dbg'
+                              dev, fmt, ##__VA_ARGS__)
+                                   ~~~    ^~~~~~~~~~~
+   include/linux/dynamic_debug.h:152:56: note: expanded from macro '_dynamic_func_call'
+           __dynamic_func_call(__UNIQUE_ID(ddebug), fmt, func, ##__VA_ARGS__)
+                                                                 ^~~~~~~~~~~
+   include/linux/dynamic_debug.h:134:15: note: expanded from macro '__dynamic_func_call'
+                   func(&id, ##__VA_ARGS__);               \
+                               ^~~~~~~~~~~
+   1 warning generated.
+
+
+vim +370 sound/soc/intel/atom/sst/sst_drv_interface.c
+
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  343  
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  344  static int sst_cdev_tstamp(struct device *dev, unsigned int str_id,
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  345  		struct snd_compr_tstamp *tstamp)
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  346  {
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  347  	struct snd_sst_tstamp fw_tstamp = {0,};
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  348  	struct stream_info *stream;
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  349  	struct intel_sst_drv *ctx = dev_get_drvdata(dev);
+ce1cfe295abaa7 sound/soc/intel/atom/sst/sst_drv_interface.c Pierre-Louis Bossart 2018-07-24  350  	void __iomem *addr;
+ce1cfe295abaa7 sound/soc/intel/atom/sst/sst_drv_interface.c Pierre-Louis Bossart 2018-07-24  351  
+ce1cfe295abaa7 sound/soc/intel/atom/sst/sst_drv_interface.c Pierre-Louis Bossart 2018-07-24  352  	addr = (void __iomem *)(ctx->mailbox + ctx->tstamp) +
+ce1cfe295abaa7 sound/soc/intel/atom/sst/sst_drv_interface.c Pierre-Louis Bossart 2018-07-24  353  		(str_id * sizeof(fw_tstamp));
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  354  
+ce1cfe295abaa7 sound/soc/intel/atom/sst/sst_drv_interface.c Pierre-Louis Bossart 2018-07-24  355  	memcpy_fromio(&fw_tstamp, addr, sizeof(fw_tstamp));
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  356  
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  357  	stream = get_stream_info(ctx, str_id);
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  358  	if (!stream)
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  359  		return -EINVAL;
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  360  	dev_dbg(dev, "rb_counter %llu in bytes\n", fw_tstamp.ring_buffer_counter);
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  361  
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  362  	tstamp->copied_total = fw_tstamp.ring_buffer_counter;
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  363  	tstamp->pcm_frames = fw_tstamp.frames_decoded;
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  364  	tstamp->pcm_io_frames = div_u64(fw_tstamp.hardware_counter,
+75afbd052b3675 sound/soc/intel/atom/sst/sst_drv_interface.c Dan Carpenter        2015-04-09  365  			(u64)stream->num_ch * SST_GET_BYTES_PER_SAMPLE(24));
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  366  	tstamp->sampling_rate = fw_tstamp.sampling_frequency;
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  367  
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  368  	dev_dbg(dev, "PCM  = %u\n", tstamp->pcm_io_frames);
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  369  	dev_dbg(dev, "Ptr Query on strid = %d  copied_total %d, decodec %d\n",
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30 @370  		str_id, tstamp->copied_total, tstamp->pcm_frames);
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  371  	dev_dbg(dev, "rendered %d\n", tstamp->pcm_io_frames);
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  372  
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  373  	return 0;
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  374  }
+7adab122a57c5a sound/soc/intel/sst/sst_drv_interface.c      Vinod Koul           2014-10-30  375  
+
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCDB34D3B1A
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 21:31:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 211D54D3B1B
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 21:31:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C754173A;
-	Wed,  9 Mar 2022 21:31:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C754173A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 995031756;
+	Wed,  9 Mar 2022 21:31:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 995031756
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646857912;
-	bh=X4E26zBkroNegIzEIjaPSfcHUNmeq2dapb2aZCcX6lA=;
+	s=default; t=1646857918;
+	bh=ynmj/SGSLNPS1Axn7evAupAXAYelD/M4rNbpGZupXHM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V+9xztUUf6TiSfOyApwW4MSoA5OY05KZqMqt/Um2XbZtQ/m1N+Ujm8iZB5vpmZBDL
-	 BH8uxZJlyNxMJ8N2rPbTriOXvbjcYEwItjVOdWHLaFpZY/p8WGc6y3Zl092xDvXzG/
-	 ys8uZxy5HpM7crcOMrn19SNrsPL71YZKwwPOmpq8=
+	b=Fo/D1kQ3pNqzD8VADja7VQYcDRzIbpWD06jFiCnBaHfSmqo0PEstplp1ds+pureyJ
+	 PjdtlCZIzyfbY/nhtPgrnpmC3ur888DSpMcPaHIDsW2v4sD+RoU1zCX4lxeCVeAoZr
+	 /TddbsJ/EZfptc6anxw0Qfu6NPGo13zlezVkP4O4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77031F80516;
-	Wed,  9 Mar 2022 21:30:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CDC5F80508;
+	Wed,  9 Mar 2022 21:30:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61B6BF8012F; Wed,  9 Mar 2022 21:30:09 +0100 (CET)
+ id 4C09AF80517; Wed,  9 Mar 2022 21:30:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43236F80155
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 21:30:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43236F80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9198BF800D2
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 21:30:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9198BF800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="lB5fPVPl"
+ header.b="Qruwpnup"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646857802; x=1678393802;
+ t=1646857804; x=1678393804;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=X4E26zBkroNegIzEIjaPSfcHUNmeq2dapb2aZCcX6lA=;
- b=lB5fPVPlm5/UOW1ylHmedztJluND9tiU9wYZvTO6TfIyBMQg0pWXGRHQ
- Dn4jg4CU66KC8RN4yDP3oQe6h1pFp/cTLWKlS7g8KqGXTNgGxef5PFl6S
- q9hsi3AO/K5TKHZCRbXDbsv+CIlFofsjUDwuw5Adzp+grzIS6frU75G6X
- s+n4W4Z8gdf700mqz3BxDA0sT8MU6PQTfHpH+6uZ1kcOmmpfZeT+K8OEM
- bi7YzDEwXGQEx7SmrNiGlB3kFZdnIq3b1J3l08cK4jFxcz0WSnqge4N2x
- II2NFzR5/OtLmouG1KaUkkEVba8J1Sakya4EQptzWd49jv725YzeVstaf Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="255028659"
-X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="255028659"
+ bh=ynmj/SGSLNPS1Axn7evAupAXAYelD/M4rNbpGZupXHM=;
+ b=QruwpnupP41EVnkcy/OmCUQjOHj4MRnMbKnnN+XFtUvUBCHTpeg7KcYC
+ fGh6bdYsM70SBWZuu5fVBjyoN1F2YU8F3KBGcvC0j3OqIlpAMpBsjzvJ+
+ M5jSJaUVtD+pCf9RcmGw6rjzZ2ThelboX+4cgRhl9PPjnkDHXgYFORp+N
+ NxsmT04DbgTmyBd8puFLCPok4N1VGPKpApWxzZCvxjRSEwKAAWGhG03jb
+ oDwQvihj3Vw97tBaD7j8ZFgNJZVY44WnC6pve1Zbf/Q+hTD3GXwneyK+M
+ VPnZmWrtvj9paw6MA2EqmUfiRL/EXeuiuAkdzZQsar4yVI4Ogn3B6T9dN Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="255028666"
+X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="255028666"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 12:29:58 -0800
+ 09 Mar 2022 12:30:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="578526920"
+X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="578526949"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga001.jf.intel.com with ESMTP; 09 Mar 2022 12:29:55 -0800
+ by orsmga001.jf.intel.com with ESMTP; 09 Mar 2022 12:29:58 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v4 01/17] ALSA: hda: Add helper macros for DSP capable devices
-Date: Wed,  9 Mar 2022 21:40:13 +0100
-Message-Id: <20220309204029.89040-2-cezary.rojewski@intel.com>
+Subject: [PATCH v4 02/17] ASoC: Export DAI register and widget ctor and dctor
+ functions
+Date: Wed,  9 Mar 2022 21:40:14 +0100
+Message-Id: <20220309204029.89040-3-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220309204029.89040-1-cezary.rojewski@intel.com>
 References: <20220309204029.89040-1-cezary.rojewski@intel.com>
@@ -91,98 +92,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-HDAudio drivers make heavy use of I/O operations. Declare a range of
-update, read and write helpers similar to those available for HDAudio
-legacy driver. These macros are used by AVS driver to improve code
-readability.
+To allow for more flexibility i.e. populating component DAIs dynamically
+during its initialization, without being limited to topology loading
+procedure, expose snd_soc_register(), snd_soc_dapm_new_dai_widgets() and
+snd_soc_dapm_free_widget() functions.
+
+Allows users to first check available resources e.g. number of PCMs
+supported by HDAudio codec before allocating the number of DAPM
+widgets needed. This prevents superfluous objects from being created or
+allows driver to adjust to situation when resources are limited.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- include/sound/hdaudio.h     |  2 ++
- include/sound/hdaudio_ext.h | 50 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 52 insertions(+)
+ include/sound/soc-dapm.h |  1 +
+ sound/soc/soc-core.c     |  1 +
+ sound/soc/soc-dapm.c     | 15 +++++++++++++++
+ 3 files changed, 17 insertions(+)
 
-diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
-index 6a90ce405e60..69907260b9ce 100644
---- a/include/sound/hdaudio.h
-+++ b/include/sound/hdaudio.h
-@@ -448,6 +448,8 @@ static inline u16 snd_hdac_reg_readw(struct hdac_bus *bus, void __iomem *addr)
+diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
+index c3039e97929a..ebb8e7a7fc29 100644
+--- a/include/sound/soc-dapm.h
++++ b/include/sound/soc-dapm.h
+@@ -429,6 +429,7 @@ struct snd_soc_dapm_widget *snd_soc_dapm_new_control_unlocked(
+ 		const struct snd_soc_dapm_widget *widget);
+ int snd_soc_dapm_new_dai_widgets(struct snd_soc_dapm_context *dapm,
+ 				 struct snd_soc_dai *dai);
++void snd_soc_dapm_free_widget(struct snd_soc_dapm_widget *w);
+ int snd_soc_dapm_link_dai_widgets(struct snd_soc_card *card);
+ void snd_soc_dapm_connect_dai_link_widgets(struct snd_soc_card *card);
  
- #define snd_hdac_reg_writel(bus, addr, val)	writel(val, addr)
- #define snd_hdac_reg_readl(bus, addr)	readl(addr)
-+#define snd_hdac_reg_writeq(bus, addr, val)	writeq(val, addr)
-+#define snd_hdac_reg_readq(bus, addr)		readq(addr)
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 259429526c84..1f0564ed3a75 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2465,6 +2465,7 @@ struct snd_soc_dai *snd_soc_register_dai(struct snd_soc_component *component,
+ 	dev_dbg(dev, "ASoC: Registered DAI '%s'\n", dai->name);
+ 	return dai;
+ }
++EXPORT_SYMBOL_GPL(snd_soc_register_dai);
  
- /*
-  * macros for easy use
-diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
-index b0c8e4936168..d26234f9ee46 100644
---- a/include/sound/hdaudio_ext.h
-+++ b/include/sound/hdaudio_ext.h
-@@ -2,6 +2,8 @@
- #ifndef __SOUND_HDAUDIO_EXT_H
- #define __SOUND_HDAUDIO_EXT_H
+ /**
+  * snd_soc_unregister_dais - Unregister DAIs from the ASoC core
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index b06c5682445c..b435b5c4cfb7 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -2484,6 +2484,12 @@ static void dapm_free_path(struct snd_soc_dapm_path *path)
+ 	kfree(path);
+ }
  
-+#include <linux/io-64-nonatomic-lo-hi.h>
-+#include <linux/iopoll.h>
- #include <sound/hdaudio.h>
++/**
++ * snd_soc_dapm_free_widget - Free specified widget
++ * @w: widget to free
++ *
++ * Removes widget from all paths and frees memory occupied by it.
++ */
+ void snd_soc_dapm_free_widget(struct snd_soc_dapm_widget *w)
+ {
+ 	struct snd_soc_dapm_path *p, *next_p;
+@@ -2506,6 +2512,7 @@ void snd_soc_dapm_free_widget(struct snd_soc_dapm_widget *w)
+ 	kfree_const(w->sname);
+ 	kfree(w);
+ }
++EXPORT_SYMBOL_GPL(snd_soc_dapm_free_widget);
  
- int snd_hdac_ext_bus_init(struct hdac_bus *bus, struct device *dev,
-@@ -144,6 +146,54 @@ void snd_hdac_ext_bus_link_power(struct hdac_device *codec, bool enable);
- 	writew(((readw(addr + reg) & ~(mask)) | (val)), \
- 		addr + reg)
+ void snd_soc_dapm_reset_cache(struct snd_soc_dapm_context *dapm)
+ {
+@@ -4208,6 +4215,13 @@ snd_soc_dapm_new_dai(struct snd_soc_card *card,
+ 	return ERR_PTR(ret);
+ }
  
-+#define snd_hdac_adsp_writeb(chip, reg, value) \
-+	snd_hdac_reg_writeb(chip, (chip)->dsp_ba + (reg), value)
-+#define snd_hdac_adsp_readb(chip, reg) \
-+	snd_hdac_reg_readb(chip, (chip)->dsp_ba + (reg))
-+#define snd_hdac_adsp_writew(chip, reg, value) \
-+	snd_hdac_reg_writew(chip, (chip)->dsp_ba + (reg), value)
-+#define snd_hdac_adsp_readw(chip, reg) \
-+	snd_hdac_reg_readw(chip, (chip)->dsp_ba + (reg))
-+#define snd_hdac_adsp_writel(chip, reg, value) \
-+	snd_hdac_reg_writel(chip, (chip)->dsp_ba + (reg), value)
-+#define snd_hdac_adsp_readl(chip, reg) \
-+	snd_hdac_reg_readl(chip, (chip)->dsp_ba + (reg))
-+#define snd_hdac_adsp_writeq(chip, reg, value) \
-+	snd_hdac_reg_writeq(chip, (chip)->dsp_ba + (reg), value)
-+#define snd_hdac_adsp_readq(chip, reg) \
-+	snd_hdac_reg_readq(chip, (chip)->dsp_ba + (reg))
-+
-+#define snd_hdac_adsp_updateb(chip, reg, mask, val) \
-+	snd_hdac_adsp_writeb(chip, reg, \
-+			(snd_hdac_adsp_readb(chip, reg) & ~(mask)) | (val))
-+#define snd_hdac_adsp_updatew(chip, reg, mask, val) \
-+	snd_hdac_adsp_writew(chip, reg, \
-+			(snd_hdac_adsp_readw(chip, reg) & ~(mask)) | (val))
-+#define snd_hdac_adsp_updatel(chip, reg, mask, val) \
-+	snd_hdac_adsp_writel(chip, reg, \
-+			(snd_hdac_adsp_readl(chip, reg) & ~(mask)) | (val))
-+#define snd_hdac_adsp_updateq(chip, reg, mask, val) \
-+	snd_hdac_adsp_writeq(chip, reg, \
-+			(snd_hdac_adsp_readq(chip, reg) & ~(mask)) | (val))
-+
-+#define snd_hdac_adsp_readb_poll(chip, reg, val, cond, delay_us, timeout_us) \
-+	readb_poll_timeout((chip)->dsp_ba + (reg), val, cond, \
-+			   delay_us, timeout_us)
-+#define snd_hdac_adsp_readw_poll(chip, reg, val, cond, delay_us, timeout_us) \
-+	readw_poll_timeout((chip)->dsp_ba + (reg), val, cond, \
-+			   delay_us, timeout_us)
-+#define snd_hdac_adsp_readl_poll(chip, reg, val, cond, delay_us, timeout_us) \
-+	readl_poll_timeout((chip)->dsp_ba + (reg), val, cond, \
-+			   delay_us, timeout_us)
-+#define snd_hdac_adsp_readq_poll(chip, reg, val, cond, delay_us, timeout_us) \
-+	readq_poll_timeout((chip)->dsp_ba + (reg), val, cond, \
-+			   delay_us, timeout_us)
-+#define snd_hdac_stream_readb_poll(strm, reg, val, cond, delay_us, timeout_us) \
-+	readb_poll_timeout((strm)->sd_addr + AZX_REG_ ## reg, val, cond, \
-+			   delay_us, timeout_us)
-+#define snd_hdac_stream_readl_poll(strm, reg, val, cond, delay_us, timeout_us) \
-+	readl_poll_timeout((strm)->sd_addr + AZX_REG_ ## reg, val, cond, \
-+			   delay_us, timeout_us)
++/**
++ * snd_soc_dapm_new_dai_widgets - Create new DAPM widgets
++ * @dapm: DAPM context
++ * @dai: parent DAI
++ *
++ * Returns 0 on success, error code otherwise.
++ */
+ int snd_soc_dapm_new_dai_widgets(struct snd_soc_dapm_context *dapm,
+ 				 struct snd_soc_dai *dai)
+ {
+@@ -4253,6 +4267,7 @@ int snd_soc_dapm_new_dai_widgets(struct snd_soc_dapm_context *dapm,
  
- struct hdac_ext_device;
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(snd_soc_dapm_new_dai_widgets);
  
+ int snd_soc_dapm_link_dai_widgets(struct snd_soc_card *card)
+ {
 -- 
 2.25.1
 

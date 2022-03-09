@@ -2,77 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 136D94D2F9F
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 14:02:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1947F4D2FC8
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 14:15:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 110EE17E9;
-	Wed,  9 Mar 2022 14:01:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 110EE17E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AF7216EE;
+	Wed,  9 Mar 2022 14:15:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AF7216EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646830933;
-	bh=05mWd2rzKwbYb9xhfIrjasgLspp1675V6bzZz5xZETY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1646831754;
+	bh=yq5kY9b7HtjxBubC8SbzOYmAvf9iDGJaasLgL2h1/f8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IT2YlmYdny58zWA9IfRGR+Lh/fmZAegnsnuUIKmi9aWBYDRsDUYuT0+dxrt0FVPGb
-	 Io8xWiayk1ubFVe5I7HvW4Ombgb5PV8G/LqTv4l8ouMWLWeBFiVqGNMNZA6+LlKZyi
-	 +AUOCaokNtYKvhB6VWn5ChJpDRBjh9xL0JIvpBBM=
+	b=JviSKRx77uuqZ4nIpzpiTDBXGxG70qBewg75iHUptNL7EedYvwNQES/h1RIHGne4g
+	 67uoMgbynr+diYn7YlJc/VY7a7CZP1acSFgjMu9nP+Vbt60Ue+QrnlqVJot0M6CzXU
+	 qoWCx+lMu5glHsacyAssVwzrQZRcJ638Zd487apo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FC6AF80518;
-	Wed,  9 Mar 2022 14:00:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 044C4F8012F;
+	Wed,  9 Mar 2022 14:14:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE73AF80517; Wed,  9 Mar 2022 14:00:54 +0100 (CET)
+ id 3A055F80155; Wed,  9 Mar 2022 14:14:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 742A8F804AB
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 14:00:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 742A8F804AB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rk37yvuJ"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6EE45619D2;
- Wed,  9 Mar 2022 13:00:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F13C340E8;
- Wed,  9 Mar 2022 13:00:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646830849;
- bh=05mWd2rzKwbYb9xhfIrjasgLspp1675V6bzZz5xZETY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rk37yvuJ0fjqDriItDz+V3Yf3Jlw+KIqxJ9EwiPxqe517GzBdz8Y9INqZaZkFXJO0
- aTgA0gRrILYDNSpazoNlAvJglkmWVnscCAb/iWI/UQqD/Law+iqbYzFkHTDD1hCkSf
- BZeM9PdY1IdR3x344Egfv26hr/ZYmjtZSwgdaM0mXmP8FUQWLqeAE86qXDyCKIIxbx
- F0prNvHBe5TvtzSN2ISEmmJvI/fyMAIgykRmkSX4BoNGi7awMqXDcXIeSrZxj5fB4R
- l62qg4SfPGH0xyMD3qAs6B6Yr+08O1Scqi2fvUacgPeXVk/UVTH2PLQg34Vt9SwaEf
- lUK8qXsdFhZNw==
-Date: Wed, 9 Mar 2022 13:00:45 +0000
-From: Mark Brown <broonie@kernel.org>
-To: John Keeping <john@metanate.com>
-Subject: Re: [PATCH] ASoC: tas5805m: fix pdn polarity
-Message-ID: <Yiik/f+2bYbU4UL8@sirena.org.uk>
-References: <20220309104104.3605112-1-john@metanate.com>
- <YiiZv7Fc8a4O1nYR@sirena.org.uk> <Yiie1OUCvi49f1Q7@donbot>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94A1DF80155
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 14:14:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94A1DF80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="YQ9jYFKi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646831680; x=1678367680;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=yq5kY9b7HtjxBubC8SbzOYmAvf9iDGJaasLgL2h1/f8=;
+ b=YQ9jYFKi7l2UBR4aaO30pzC04UqdSeUS6Zn90Y8ICDSzoAJzYmB8Vb0k
+ E8F22j74e18cI/xfXdLamsbM4R4cQ/8gQj3m8TZDXyc9P8B+QKs4O3apo
+ YkMEjE/2XGyxCVjLNWU2KrBGaOrIcaQGnDJ/tisdRFBeSolvYHVArQii8
+ yOplxttulHXo15Jx2Wl9Z4hRh7dChS5H6hmQBxPm1BUjKV8Y9LE1zXxXh
+ /dDpIWh0Atn4AQUAr1YFv5AO1Hr8rOBHYNqVeBQ9Y/HoSVAA2gu81iMu/
+ 8qywdz6HLfRIl68XVaRWjwCW0A64f0O94UVLGmqkqFhJSEJiN39lBSDfQ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="252540721"
+X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="252540721"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 05:14:36 -0800
+X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="554110429"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 05:14:34 -0800
+Date: Wed, 9 Mar 2022 15:05:33 +0200 (EET)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [Intel-gfx] [PATCH v2] ALSA: hda/i915 - avoid hung task timeout
+ in i915 wait
+In-Reply-To: <s5hy21jih6m.wl-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.22.394.2203091459470.3088432@eliteleevi.tm.intel.com>
+References: <20220308172759.920551-1-kai.vehmanen@linux.intel.com>
+ <f9f6f831-a05d-2d20-8ade-ab717f342ba5@linux.intel.com>
+ <alpine.DEB.2.22.394.2203091035350.3088432@eliteleevi.tm.intel.com>
+ <9dabb68b-f2af-ae97-0fb2-869367c496bf@linux.intel.com>
+ <s5h5yonjx7i.wl-tiwai@suse.de>
+ <f0c12164-b266-2513-b8e6-323186338181@linux.intel.com>
+ <s5hy21jih6m.wl-tiwai@suse.de>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hjBCmlAKl+Qf/it8"
-Content-Disposition: inline
-In-Reply-To: <Yiie1OUCvi49f1Q7@donbot>
-X-Cookie: You will inherit millions of dollars.
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Daniel Beer <daniel.beer@igorinstitute.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ alsa-devel@alsa-project.org, Paul Menzel <pmenzel+alsa-devel@molgen.mpg.de>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, intel-gfx@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,46 +100,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---hjBCmlAKl+Qf/it8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, 9 Mar 2022, Takashi Iwai wrote:
 
-On Wed, Mar 09, 2022 at 12:34:28PM +0000, John Keeping wrote:
-> On Wed, Mar 09, 2022 at 12:12:47PM +0000, Mark Brown wrote:
-> > On Wed, Mar 09, 2022 at 10:41:04AM +0000, John Keeping wrote:
-> >=20
-> > > Fixes: ec45268467f4 ("ASoC: add support for TAS5805M digital amplifie=
-r")
-> >=20
-> > Please don't insert fixes tags unless you're actually fixing a bug,
-> > stylistic improvements like this - people try to use the tag for
-> > backporting bug fixes and so on so extra tags create noise for them.
+>> Takashi Iwai wrote:
+>>> The question is how often this problem hits.  Basically it's a very
+>>> corner case, and I even think we may leave as is; that's a matter of
+>>> configuration, and lowering such a bar should expect some
+>>> side-effect. OTOH, if the problem happens in many cases, it's
+>>> beneficial to fix in the core part, indeed.
 
-> This isn't purely stylistic - it affects the interpretation of pdn-gpios
-> in the device tree so that it matches all of the other bindings that use
-> this property: active means PDN asserted.
+I'm basicly helping out the intel-gfx folks here. This is now happening 
+systematically in the intel-gfx CI. The hung-task timeout is configured to 
+30sec (in intel-gfx CI), and there's some new hw configs where this 
+happens every time (I have a separate patch in progress [1] that tries 
+to detect this case and skip the init, but this will require more time as there is 
+risk of breaking existing configurations).
 
-So there's some functional change?  That's not at all clear from either
-the patch description or the code - it's flipping both the ACTIVE mode
-for the GPIO and all the values set which should result in no visible
-change.  If there is a functional problem that is being fixed the
-description needs to be clear as to what that is.
+[1] 
+https://lists.freedesktop.org/archives/intel-gfx-trybot/2022-February/128278.html
 
---hjBCmlAKl+Qf/it8
-Content-Type: application/pgp-signature; name="signature.asc"
+Tvrtko Ursulin wrote:
+> Takashi Iwai wrote:
+> > Complete behaviour change how? Isn't this something ran on probe so
+> > likelihood of anyone sending SIGKILL to the modprobe process is only
+> > the init process? And in that case what is the fundamental difference
+>
+[...]
+> The point is that it does change the actual behavior, and changing the
+> actual behavior just for working around the corner case like the above
+> wouldn't be justified without the proper evaluation.
+> 
+> That said, if this behavior change is intentional and even desired,
+> that's a way to go.
 
------BEGIN PGP SIGNATURE-----
+Let me try this out and test on a few configs (with and without the 
+timeout occurring) and send a V3 if this seems ok.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIopPwACgkQJNaLcl1U
-h9Dz6Qf/Rx3O2NC+fo44hKIqYpJBFJAGAT1vhCKye5rC0cPnfrahsuAJlCCtNnD0
-0lH5kzPWDHEDWwFgdqTReBykG6CR2XJeMbmppFJBDXRwleeKLkZsxC4L9b4iQlK3
-B5/67vv6Ju0SECEO8XDQQGnqPYclkGA+Bw0fzUvFZtpLxQFgVgbvO5Zy3NDnPLIb
-NEMZECzfJP2At7zBbYhBR/VgLRNNjfskD1A/fFb66ldkUUenIy5oQc4EhsowIuFQ
-C6hrzwilfB8c2M5gAF1wHdr8I8oOkauoHazJJ2awQZypPn2xKU8JEW2tArhHpTQs
-INvjPb0PRGQJls6P1GKKHKNngVgXzg==
-=uZKY
------END PGP SIGNATURE-----
-
---hjBCmlAKl+Qf/it8--
+Br, Kai

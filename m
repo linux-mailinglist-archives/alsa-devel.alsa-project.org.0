@@ -2,68 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B0C34D30A1
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 14:58:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A338B4D30CD
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 15:07:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD72F1723;
-	Wed,  9 Mar 2022 14:57:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD72F1723
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D59A17BC;
+	Wed,  9 Mar 2022 15:06:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D59A17BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646834292;
-	bh=r9XMlhoZ4VkRX9nQrZ3E3W1+GPKTBG7agfmo2oNAdWo=;
+	s=default; t=1646834832;
+	bh=LyqGzyl8O2pz79MdFs82ouUk0tF5deBaNbBjShpLHSs=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Mb+uTrIrLNe9KvhesGgsTFC+9ck3rxBc5uRIIpm0r65VAy7WhrKXJgdlKHnGSxAR4
-	 PESRMvI3p7uuhpvMUiSgzBXIWd8Pa+5xZat/mXcK2nQmt4Rl0l49TLRckTNZWOw2Ko
-	 kZzr4jVpdaaUyTQBEGiADD1YAQ9D72VgZyOg1+7Q=
+	b=OrUj5T0ZVR/8YpWkQ3upcHI2KDHifZBOyvrXCa4UqAHnPwSH0N/t6RBKOms6d1YTa
+	 zrswQB5j6rFMbVC+5A5vRaqOArU9oXEczFuSQpyT6/WqYT7EJBhmfCI/Qovudt1I4F
+	 I37RgQvGiB7KWZXDBrzuehDDaRPkUlwVzINE7lpQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A760F80236;
-	Wed,  9 Mar 2022 14:57:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57515F80236;
+	Wed,  9 Mar 2022 15:06:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1943EF8016C; Wed,  9 Mar 2022 14:57:04 +0100 (CET)
+ id 2A97CF8016C; Wed,  9 Mar 2022 15:06:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0BE61F800D2
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 14:56:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BE61F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B582F800D2
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 15:05:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B582F800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=metanate.com header.i=@metanate.com
- header.b="TA3tzrxf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=metanate.com; s=stronger; h=Content-Transfer-Encoding:Message-Id:Date:
- Subject:Cc:To:From:Content-Type:Reply-To:Content-ID:Content-Description:
- In-Reply-To:References; bh=jd9/waKNP/F1EwBvBedqrAz7FUsts5B6xAU46O7mnnA=; b=TA
- 3tzrxfbcdR3/g7X6wtwir6MnPmPzrt2+DIhbd7mKVRweYVSO9XTu4QXECx7RVh3lb8uf390t6qMwT
- 0jlg3GD+TZjckjee3c5rwlVEBqsZbh9nh4MiwT/nr+rFJUEu2dlKlPXo0enEjJTTitZX/BZStKBuY
- nMnWPN8UCb1rwsK9mDRzcR2k1A1uUX9+1iOq9uEcHI6079iL8p7keo9fcAKDYkvlYSWoiAX0fflg8
- rRA9gHcdUbedYtrWaFsonOTrJOCDE+VOjyxe6jg24ItZIMzHveDrUqimpqwpV+m/fA8+mIlsrSIfY
- 4wuz9zQTl7xaCTbQNlKCHTyCeXmHAopw==;
-Received: from [81.174.171.191] (helo=donbot.metanate.com)
- by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.93) (envelope-from <john@metanate.com>)
- id 1nRwoA-0002Uf-VE; Wed, 09 Mar 2022 13:56:55 +0000
-From: John Keeping <john@metanate.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ASoC: tas5805m: fix pdn polarity
-Date: Wed,  9 Mar 2022 13:56:49 +0000
-Message-Id: <20220309135649.195277-1-john@metanate.com>
-X-Mailer: git-send-email 2.35.1
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="Cu9kv0Kt"
+Received: by mail-wm1-x331.google.com with SMTP id
+ k8-20020a05600c1c8800b003899c7ac55dso2734426wms.1
+ for <alsa-devel@alsa-project.org>; Wed, 09 Mar 2022 06:05:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9qAOoHj6pXfBEaK0pgqOpVtUmae2rVK+HUiENC7VtPo=;
+ b=Cu9kv0KtKYA/7fzKJO1EF9fzAEDM9lsaVbE8iKKcXZV5FdHjCK+jvNM3uXzmTpcWNp
+ fbtHPyUpra3lA3fKUEwkRS/yf/rh1d0DDdb5Ihb3Eil42NjYzll0/TwW9lq5gq7tfZ09
+ xAq2EY7TJ4OxNBZBNJ0Hp3pnRGJ/yCt8tnPOg4ob5uxR0btb/mvsmPnTuRJyyF6GDNFO
+ 6Xstisheq/5Si/NcDKPx9PrULPWxyP016sRllXPfRbO6EYGIT2A3MHSscou/iq4tK/J0
+ JkDwdwtV/CR7Lum5JO1AlI9b3E/GVZlbBtcAAUdZknV6JiQ5meUEU/pWx5bXtzxAiTx0
+ JfZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9qAOoHj6pXfBEaK0pgqOpVtUmae2rVK+HUiENC7VtPo=;
+ b=XRDIxACwmAFZAGBiFC+h/FMQd6dfDWDLmtKPsGbNMTklyYidq/mwuDr+EVtbQds8QK
+ 9GwpPMzlHEGLX26QJMezbJszEKsj7M1+aRnGNg9XLK1z3GLYgea4kGcG1aeqs2oyXCc5
+ TJHraC0JVu5vytetCBX98lrQUKkggttnvHPGoyNpCTiSGyKt6joX7eg5Z5dQJOVOiRAv
+ /nemLfa2z0gWWGrLKCFTcdrpzffwyAvfF2c+A8WhG27L4ZkhJWegWk0DTfCiBIHHPjm9
+ kMT/hNNjY0uF4YhnKgntoqpT+zRoL1MZi0binPURQms2xVHlTfAKo9mE8RbTsnr93frx
+ KgmA==
+X-Gm-Message-State: AOAM5310FS7RWCOH6kxQ9IqdEguO1kWhZgXJwbWEvaajuRdgj1qveIX4
+ hR404Ta5wq0YpsPXb+1uG8vQjQ==
+X-Google-Smtp-Source: ABdhPJwyja8v3kq5xhmLrPkjUFLztuqnNmIl49Kx2XGkHxoP4LVB3mxhXu2PCUrUTfjrW7ByM8NClw==
+X-Received: by 2002:a05:600c:589:b0:389:a59e:a53d with SMTP id
+ o9-20020a05600c058900b00389a59ea53dmr7564018wmd.28.1646834755745; 
+ Wed, 09 Mar 2022 06:05:55 -0800 (PST)
+Received: from srini-hackbox.lan
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.gmail.com with ESMTPSA id
+ a10-20020a7bc1ca000000b00389bc87db45sm1821323wmj.7.2022.03.09.06.05.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Mar 2022 06:05:55 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Subject: [PATCH v2] ASoC: qcom: fix Kconfig for SC7280
+Date: Wed,  9 Mar 2022 14:05:52 +0000
+Message-Id: <20220309140552.8065-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authenticated: YES
-Cc: linux-kernel@vger.kernel.org, Daniel Beer <daniel.beer@igorinstitute.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, John Keeping <john@metanate.com>
+Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ Randy Dunlap <rdunlap@infradead.org>, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ quic_srivasam@quicinc.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,86 +104,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The binding defines the GPIO as "pdn-gpios" so when the GPIO is active
-the expectation is that the power down signal is asserted and this is
-how all other drivers using this GPIO name interpret the value.
+select would force the symbol to value without checking the dependencies.
+In this case selecting TX and RX MACROs directly without checking its
+dependency on COMMON_CLK would break builds on platform which do no
+set COMMON_CLK.
+ex:
+WARNING: unmet direct dependencies detected for SND_SOC_LPASS_RX_MACRO
+  Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && COMMON_CLK [=n]
+  Selected by [m]:
+  - SND_SOC_SC7280 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] &&
+	 SND_SOC_QCOM [=m] && I2C [=y] && SOUNDWIRE [=m]
 
-But the tas5805m driver inverts the sense from the normal expectation so
-when the powerdown GPIO is logically asserted the chip is running.
+move select to imply which should enforce symbol to be set to 'n' if any
+dependencies are not resolved.
 
-This is a new driver that is not yet in a released kernel and has no
-in-tree users of the binding so fix the sense of the GPIO so that
-logically asserted means that the device is powered down.
-
-Rename the variable to match so that the compiler will catch any places
-that should have been updated but have been missed.
-
-Fixes: ec45268467f4 ("ASoC: add support for TAS5805M digital amplifier")
-Signed-off-by: John Keeping <john@metanate.com>
+Fixes: 57350bd41c3a ("ASoC: qcom: SC7280: Add machine driver")
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
-v2:
-- Rewrite commit message to make it more obvious that this is a change
-  to the interpretation of the GPIO in the binding
+Changes since v1:
+	- rebased on sound-next
 
- sound/soc/codecs/tas5805m.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/qcom/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/tas5805m.c b/sound/soc/codecs/tas5805m.c
-index fa0e81ec875a..12146a860ef8 100644
---- a/sound/soc/codecs/tas5805m.c
-+++ b/sound/soc/codecs/tas5805m.c
-@@ -155,7 +155,7 @@ static const uint32_t tas5805m_volume[] = {
- 
- struct tas5805m_priv {
- 	struct regulator		*pvdd;
--	struct gpio_desc		*gpio_pdn_n;
-+	struct gpio_desc		*gpio_pdn;
- 
- 	uint8_t				*dsp_cfg_data;
- 	int				dsp_cfg_len;
-@@ -444,11 +444,11 @@ static int tas5805m_i2c_probe(struct i2c_client *i2c)
- 
- 	dev_set_drvdata(dev, tas5805m);
- 	tas5805m->regmap = regmap;
--	tas5805m->gpio_pdn_n = devm_gpiod_get(dev, "pdn", GPIOD_OUT_LOW);
--	if (IS_ERR(tas5805m->gpio_pdn_n)) {
-+	tas5805m->gpio_pdn = devm_gpiod_get(dev, "pdn", GPIOD_OUT_HIGH);
-+	if (IS_ERR(tas5805m->gpio_pdn)) {
- 		dev_err(dev, "error requesting PDN gpio: %ld\n",
--			PTR_ERR(tas5805m->gpio_pdn_n));
--		return PTR_ERR(tas5805m->gpio_pdn_n);
-+			PTR_ERR(tas5805m->gpio_pdn));
-+		return PTR_ERR(tas5805m->gpio_pdn);
- 	}
- 
- 	/* This configuration must be generated by PPC3. The file loaded
-@@ -505,7 +505,7 @@ static int tas5805m_i2c_probe(struct i2c_client *i2c)
- 	}
- 
- 	usleep_range(100000, 150000);
--	gpiod_set_value(tas5805m->gpio_pdn_n, 1);
-+	gpiod_set_value(tas5805m->gpio_pdn, 0);
- 	usleep_range(10000, 15000);
- 
- 	/* Don't register through devm. We need to be able to unregister
-@@ -515,7 +515,7 @@ static int tas5805m_i2c_probe(struct i2c_client *i2c)
- 					 &tas5805m_dai, 1);
- 	if (ret < 0) {
- 		dev_err(dev, "unable to register codec: %d\n", ret);
--		gpiod_set_value(tas5805m->gpio_pdn_n, 0);
-+		gpiod_set_value(tas5805m->gpio_pdn, 1);
- 		regulator_disable(tas5805m->pvdd);
- 		return ret;
- 	}
-@@ -529,7 +529,7 @@ static int tas5805m_i2c_remove(struct i2c_client *i2c)
- 	struct tas5805m_priv *tas5805m = dev_get_drvdata(dev);
- 
- 	snd_soc_unregister_component(dev);
--	gpiod_set_value(tas5805m->gpio_pdn_n, 0);
-+	gpiod_set_value(tas5805m->gpio_pdn, 1);
- 	usleep_range(10000, 15000);
- 	regulator_disable(tas5805m->pvdd);
- 	return 0;
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index 82f5eafb2f6c..28d0dfb4033c 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -195,8 +195,8 @@ config SND_SOC_SC7280
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_WCD938X_SDW
+ 	select SND_SOC_LPASS_MACRO_COMMON
+-	select SND_SOC_LPASS_RX_MACRO
+-	select SND_SOC_LPASS_TX_MACRO
++	imply SND_SOC_LPASS_RX_MACRO
++	imply SND_SOC_LPASS_TX_MACRO
+ 	help
+ 	  Add support for audio on Qualcomm Technologies Inc.
+ 	  SC7280 SoC-based systems.
 -- 
-2.35.1
+2.21.0
 

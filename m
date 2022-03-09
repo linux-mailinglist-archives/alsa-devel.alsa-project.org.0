@@ -2,69 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 598494D334B
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 17:20:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3DEA4D34CE
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 17:29:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C54AE1705;
-	Wed,  9 Mar 2022 17:19:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C54AE1705
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74EDE1708;
+	Wed,  9 Mar 2022 17:29:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74EDE1708
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646842845;
-	bh=fg3IFnsJFfDd1gxwFRGWd+tAbwJh/0zdk6z9RWnjDqA=;
+	s=default; t=1646843395;
+	bh=DS+oE04kyudFCTkstsu3g7zMI59LZmfzAO6EZZPQtMs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uDg1hIiwcsIJY4MWeyNIUN+90CCQ8y1NP8acgPIHJ/w9pZzzzjPc0fB0su+a+/RYH
-	 MEyFOjnLzoqVOCpS/H9xb4AvC8vAlwIlqc7cen2VHg/SfGlOxeO+F2egO+l7cJLG5m
-	 vq2kIms9GSS9J6Kx53BaI8K3MXi3LiRh6onFkl38=
+	b=Dw1+GRx8mtTNnDUJEkcDCkFYo5EC5aw6FkI+uRtUOH+D4few2NLMnbYPljGXbvfUb
+	 2C4LP9KlEUuWFs5kXftMr7y5bwaLZa2rwqAwySz1+mu46TFcDQLYoB1BJqdvV2R9kX
+	 37ODEdJsCwyyijmzb16Zj22/KnSoQ0OuGfUFxy4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28757F80236;
-	Wed,  9 Mar 2022 17:19:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD178F80236;
+	Wed,  9 Mar 2022 17:28:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E1D5F8016C; Wed,  9 Mar 2022 17:19:37 +0100 (CET)
+ id 34D72F8016C; Wed,  9 Mar 2022 17:28:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36DF2F800D2
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 17:28:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36DF2F800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="A8MCJiFH"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31249F800D2
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 17:19:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31249F800D2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=metanate.com header.i=@metanate.com
- header.b="jcRm9kij"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=metanate.com; s=stronger; h=In-Reply-To:Content-Type:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description; bh=C6/n0ZrR9zK0w+X6zEmOY3Yoka9sh8gy0v8jEkCxVM0=; b=jcRm9
- kijG8+vrjh62enKeAf0xrHMHEKBQlQXSoeBHCpx8oi19tOnyErNk8jyFl0Pl4EJi8YjihK/v7Sida
- c2Yi3KNHOoL1NE2KtaZTwQ5uvucLWA9wNHTTk6vcJ8+MP3MXZOJ6d535TgvSjDOmN1GyWiiFrmYIH
- zYrwaeUtM1rMePyAVAD350+y6z9c4px6rjU5M6UAhFv4ExYli0Bn9L8GYyPB64Um5V11we5kfRiY6
- eHOZ/6E3Zg7OsDEaa/u2yQ1r7d1nPwCVq3X7H0NrZRyfz2DBCHVdN/PQZBo5K6wh5Hv5XS/DLHFYJ
- 6uPcXOREdAB6QiM+Q3CT+xrPmFY5A==;
-Received: from [81.174.171.191] (helo=donbot)
- by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.93) (envelope-from <john@metanate.com>)
- id 1nRz2D-0004Ud-2p; Wed, 09 Mar 2022 16:19:33 +0000
-Date: Wed, 9 Mar 2022 16:19:31 +0000
-From: John Keeping <john@metanate.com>
-To: Mark Brown <broonie@kernel.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 28DCA61983;
+ Wed,  9 Mar 2022 16:28:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011F0C340E8;
+ Wed,  9 Mar 2022 16:28:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646843315;
+ bh=DS+oE04kyudFCTkstsu3g7zMI59LZmfzAO6EZZPQtMs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=A8MCJiFHiTQWbtViiT3H1FPZssWaHXuBwm5R+INyosPJDE7Pdmj0pP5w/FCak4VwF
+ OYSfBRV5tj6FUUDnHFmJ4t8tCs5h+qCnDXJHVu00d9wH4oFyqh/LyWEXGCumqC2Mml
+ 9VRks5GfifmeJGjVBRzlXQbLWESutw5NTVOh1h8ExebetxR9iBr6oOHy4ON1mO+vM1
+ fNNPusfql4JD/p3fX9QV5A2yzd31R3i3AWaj+l1PPDBxmmkRW8JyttRppFJbirtjb0
+ 7Edg8SAid7J21LXqUpoRyFw5Rpj6G6T2o8G1cXqL3YhqUmRJxcUa5gHymRYJEdzKBx
+ Ej/IoEqYRkNYg==
+Date: Wed, 9 Mar 2022 16:28:30 +0000
+From: Mark Brown <broonie@kernel.org>
+To: John Keeping <john@metanate.com>
 Subject: Re: [PATCH v2] ASoC: tas5805m: fix pdn polarity
-Message-ID: <YijTk0/UTXpjFiRq@donbot>
+Message-ID: <YijVrgZ+Ysv9J/8E@sirena.org.uk>
 References: <20220309135649.195277-1-john@metanate.com>
- <YijOHNT0eqDyoviP@sirena.org.uk>
+ <YijOHNT0eqDyoviP@sirena.org.uk> <YijTk0/UTXpjFiRq@donbot>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="cL1aqbfsnd4ieXht"
 Content-Disposition: inline
-In-Reply-To: <YijOHNT0eqDyoviP@sirena.org.uk>
-X-Authenticated: YES
+In-Reply-To: <YijTk0/UTXpjFiRq@donbot>
+X-Cookie: You will inherit millions of dollars.
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Daniel Beer <daniel.beer@igorinstitute.com>, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <lgirdwood@gmail.com>
@@ -83,30 +89,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Mar 09, 2022 at 03:56:12PM +0000, Mark Brown wrote:
-> On Wed, Mar 09, 2022 at 01:56:49PM +0000, John Keeping wrote:
-> 
-> > The binding defines the GPIO as "pdn-gpios" so when the GPIO is active
-> > the expectation is that the power down signal is asserted and this is
-> > how all other drivers using this GPIO name interpret the value.
-> 
-> > But the tas5805m driver inverts the sense from the normal expectation so
-> > when the powerdown GPIO is logically asserted the chip is running.
-> 
-> > This is a new driver that is not yet in a released kernel and has no
-> > in-tree users of the binding so fix the sense of the GPIO so that
-> > logically asserted means that the device is powered down.
-> 
-> > - Rewrite commit message to make it more obvious that this is a change
-> >   to the interpretation of the GPIO in the binding
-> 
-> I'm still not seeing the functional change here.  The actual state of
-> the GPIO is identical in both cases, all that's changing is the logical
-> view internally to the kernel.
 
-Ah, sorry, I'm considering it functional since it changes the device
-tree ABI.
+--cL1aqbfsnd4ieXht
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Used with the same device tree with, say, GPIO_ACTIVE_HIGH the physical
-state of the GPIO will change as a result of this patch and the device
-tree needs to be updated to use GPIO_ACTIVE_LOW.
+On Wed, Mar 09, 2022 at 04:19:31PM +0000, John Keeping wrote:
+> On Wed, Mar 09, 2022 at 03:56:12PM +0000, Mark Brown wrote:
+
+> > I'm still not seeing the functional change here.  The actual state of
+> > the GPIO is identical in both cases, all that's changing is the logical
+> > view internally to the kernel.
+
+> Ah, sorry, I'm considering it functional since it changes the device
+> tree ABI.
+
+> Used with the same device tree with, say, GPIO_ACTIVE_HIGH the physical
+> state of the GPIO will change as a result of this patch and the device
+> tree needs to be updated to use GPIO_ACTIVE_LOW.
+
+I think the device tree binding needs to be clarified here to be
+explicit about this since there's obviously some room for user confusion
+here.  We can probably get away with a change at this point since it's
+not hit a release but we do need to try to avoid the situation where any
+other implementations use active high polarity for the bindings.
+
+--cL1aqbfsnd4ieXht
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIo1a0ACgkQJNaLcl1U
+h9CyUAf9Exxd5mQWala73V08LmWHXe6yGnuDEkHamyXdTiMDrKyxL2PYq6hwaykr
+PCFp/rVwWTvXeB8BkEPJ2MJzpatF+uhcZBPcK3eFTPDXY/goBWNsYzSOzC+a3ahe
+PgUv4Gf92Z/RR5OFKraL/lkTVaQB975Nraih9gXu4SUBtC91cKPKuAXjSXzEWAgl
+8rgrqlnZ7AK6p+GIkIfhx7IyvxIy1GoC5z5anJsZRyo9T6UlLsj2TywkM7aAPaML
+5YVZg5qoP650il8F2FiCxEiZYKM/tQEu5k19NEtGgl2XUP2mYyEGKKG4TcXqoej/
+9FONTmDDbDyQL3EYy+B4NIEcNzdfcA==
+=bQ22
+-----END PGP SIGNATURE-----
+
+--cL1aqbfsnd4ieXht--

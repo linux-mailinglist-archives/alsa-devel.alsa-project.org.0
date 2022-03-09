@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91FBE4D3535
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 18:28:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D99324D3536
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 18:29:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12F1E17C5;
-	Wed,  9 Mar 2022 18:27:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12F1E17C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AA0B17F0;
+	Wed,  9 Mar 2022 18:28:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AA0B17F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646846908;
-	bh=BVR5NTQasPFDu89RNKNre2hfjG7Sn5HsveNMmi4Pv7U=;
+	s=default; t=1646846942;
+	bh=mP0CR0O9vyPXavl2qyDdIj3TrH8nTnf8xlRsirHZ77Y=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fic+yX4uQ1t9FtONwsythUQat0oM4WNIhx8tgeuA1za3igqr+79pCv8evr1JLLBge
-	 7fEf2yxPa57kGcV/YLNrX1oY9FxRbeMn3SMJN75OVAdkQ5qH7cVfV5mTVLCtbXIZAA
-	 //u4zWPG44tzhW/9Stx/e9bBtVvb8jMw2bPRm3q4=
+	b=KVzmsFRG9minItgKaAwaq2VTR959sYSL0f20VPwfCzV+qPNGsGteJ3/yxbFJ7hVf+
+	 occtTyrc11gOzFcDviIsOnPuZmB/OssQmGDma4j8SSEefxOlSnGA9S3WzWgnlgAotO
+	 l3TRnGS48PAmKnkmbU6VvHscg4wMN6aW96qn3C0A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FA62F8025E;
-	Wed,  9 Mar 2022 18:27:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 352B0F804AB;
+	Wed,  9 Mar 2022 18:27:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED32DF800D2; Wed,  9 Mar 2022 18:27:19 +0100 (CET)
+ id 09CE4F80236; Wed,  9 Mar 2022 18:27:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,48 +34,48 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 923B7F800D2
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 18:27:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 923B7F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7820AF80155
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 18:27:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7820AF80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="LAupdXeD"
+ header.b="CMTGN6Tl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646846837; x=1678382837;
+ t=1646846838; x=1678382838;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=BVR5NTQasPFDu89RNKNre2hfjG7Sn5HsveNMmi4Pv7U=;
- b=LAupdXeDY0YoMwzC2ybTR7h19qSl95PRxT3VkRvtUeky8hDZH/FVH7Kf
- q6CbpSzi0Gdw+zVIstZhG20iqgTuuOfsIA2IV8iBQGknaeygyf5p5XplR
- EYYQDuDLeiEQ+r/V3DZLYzEV7RZZzyG/TSiXA8BRq71gmRw5niQqPu/Fi
- mx/frQBUpEZ7BXyw8ip0KE2ZokPjHblQNrFE5rhXd1veemZ95OwBM0afN
- UYqQy4MDP82k/TeDSsDoPLF+lDynf37ufclgn0zhgl7HSxL21Hs48pte8
- Kq0jHjJ+x0winppEXCGUnl/lMfMiW1LUs3sbeLs3zfy6HbOPhObR34TUH A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="242484136"
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="242484136"
+ bh=mP0CR0O9vyPXavl2qyDdIj3TrH8nTnf8xlRsirHZ77Y=;
+ b=CMTGN6TlgdngAeATTjM7T/XCGgE6JdMUY1/hC5KA5yH3s6RTGCEdM5sN
+ 7U2gyjxaIq/uKXyLCuUk8zFtirNMjRL4Gbos0vozo5ox6/medvje+whZk
+ axjRZP+NKcR56UCPCywOrhMgAJyhqzSgLlj7az7qsycFp3QXh4KK+Gz2J
+ 6Gq3NvwglOGcS/4Vag26KtDkRFTRIJyz+mBUaAZj0NlOQ9ivLRTJA6+JN
+ LnKu/aWRT4helYavPl0gexSHspf61jQDZGzMrSntDStWipPCmMW9Exo6u
+ ivHURzNZElNDkO9Z2MVdKGZU4K9OBCvc6ScjbJXbz3I5oHDrN2I/VpGs8 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="242484143"
+X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="242484143"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 09:27:12 -0800
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="554214538"
+ 09 Mar 2022 09:27:13 -0800
+X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="554214563"
 Received: from thihoan5-mobl.amr.corp.intel.com (HELO [10.209.14.48])
  ([10.209.14.48])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 09:27:11 -0800
-Message-ID: <d5228aa3-ea48-bc2b-6f62-d2ee81cbbb5f@linux.intel.com>
-Date: Wed, 9 Mar 2022 11:10:16 -0600
+ 09 Mar 2022 09:27:12 -0800
+Message-ID: <dfb79a8a-913d-e7e6-8895-15894a7bf231@linux.intel.com>
+Date: Wed, 9 Mar 2022 11:16:25 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH 03/20] ASoC: SOF: Intel: hda: retrieve DMIC number for I2S
- boards
+Subject: Re: [PATCH 05/20] ASoC: SOF: Intel: hda: report SSP link mask to
+ machine driver
 Content-Language: en-US
 To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
 References: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
- <20220308192610.392950-4-pierre-louis.bossart@linux.intel.com>
- <6626d04b-1ad3-457f-1f45-296cb79672fb@intel.com>
+ <20220308192610.392950-6-pierre-louis.bossart@linux.intel.com>
+ <18986c3d-b31c-2361-049d-348779ccdf7f@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <6626d04b-1ad3-457f-1f45-296cb79672fb@intel.com>
+In-Reply-To: <18986c3d-b31c-2361-049d-348779ccdf7f@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Cc: Huajun Li <huajun.li@intel.com>, tiwai@suse.de,
@@ -100,66 +100,54 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 3/9/22 10:49, Cezary Rojewski wrote:
+On 3/9/22 10:59, Cezary Rojewski wrote:
 > On 2022-03-08 8:25 PM, Pierre-Louis Bossart wrote:
->> We currently extract the DMIC number only for HDaudio or SoundWire
->> platforms. For I2S/TDM platforms, this wasn't necessary until now, but
->> with devices with ES8336 we need to find a solution to detect dmics
->> more reliably than with a DMI quirk.
+>> For devices designed for Windows, the SSP information should be listed
+>> in the NHLT, and when present can be used to set quirks automatically
+>> in the machine driver.
+>>
+>> The NHLT information exposes BT and analog audio connections
+>> separately, for now we are only interested in the analog audio parts.
+>>
+>> The use of dev_info() for the SSP mask is intentional so that we can
+>> immediately flag devices with an ES8336 codec. Since NHLT is not used
+>> for recent Chromebooks these messages should be rare.
+> 
 > 
 > ...
 > 
->> @@ -644,24 +642,35 @@ static int hda_init(struct snd_sof_dev *sdev)
->>       return ret;
->>   }
->> -#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA) || 
->> IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
->> -
->> -static int check_nhlt_dmic(struct snd_sof_dev *sdev)
->> +static int check_dmic_num(struct snd_sof_dev *sdev)
->>   {
->>       struct nhlt_acpi_table *nhlt;
->> -    int dmic_num;
->> +    int dmic_num = 0;
-> 
-> 
-> s/int/u32? (paired with question below)
-> 
->>       nhlt = intel_nhlt_init(sdev->dev);
->>       if (nhlt) {
->>           dmic_num = intel_nhlt_get_dmic_geo(sdev->dev, nhlt);
->>           intel_nhlt_free(nhlt);
->> -        if (dmic_num >= 1 && dmic_num <= 4)
->> -            return dmic_num;
->>       }
->> -    return 0;
->> +    /* allow for module parameter override */
->> +    if (dmic_num_override != -1) {
->> +        dev_dbg(sdev->dev,
->> +            "overriding DMICs detected in NHLT tables %d by kernel 
->> param %d\n",
->> +            dmic_num, dmic_num_override);
->> +        dmic_num = dmic_num_override;
->> +    }
+>> +static int check_nhlt_ssp_mask(struct snd_sof_dev *sdev)
+>> +{
+>> +    struct nhlt_acpi_table *nhlt;
+>> +    int ssp_mask = 0;
 >> +
->> +    if (dmic_num < 0 || dmic_num > 4) {
-> 
-> How come dmic_num be negative?
-
-static int dmic_num_override = -1;
-module_param_named(dmic_num, dmic_num_override, int, 0444);
-MODULE_PARM_DESC(dmic_num, "SOF HDA DMIC number");
-
-The value is already negative by default, and we want to apply sanity 
-checks on what the user or distributions sets.
-
-This code has been in the kernel for several years now, we're just 
-moving it around.
-
-> 
->> +        dev_dbg(sdev->dev, "invalid dmic_number %d\n", dmic_num);
->> +        dmic_num = 0;
->> +    }
+>> +    nhlt = intel_nhlt_init(sdev->dev);
+>> +    if (!nhlt)
+>> +        return ssp_mask;
 >> +
->> +    return dmic_num;
->>   }
+>> +    if (intel_nhlt_has_endpoint_type(nhlt, NHLT_LINK_SSP)) {
+>> +        ssp_mask = intel_nhlt_ssp_endpoint_mask(nhlt, NHLT_DEVICE_I2S);
+>> +        if (ssp_mask)
+>> +            dev_info(sdev->dev, "NHLT_DEVICE_I2S detected, ssp_mask 
+>> %#x\n", ssp_mask);
+>> +    }
+>> +    intel_nhlt_free(nhlt);
+> 
+> 
+> NHLT "toggling" found in this function looks weird. Why not cache NHLT 
+> pointer i.e.: get it once and put when driver is no longer required? 
+> Initializing and freeing NHLT (AKA get/put ACPI table) every time a 
+> request is made does not look like an optimal solution.
+
+I agree with your remark, but this is an optimization that we plan on 
+doing later. There are other changes coming wrt to NHTL to extract DMIC 
+blobs, and it's better to change all the functions using the same 
+programming flow when we are in 'stable' state.
+
+The concern isn't really optimization at this point but just to get 
+audio to work. Keep in mind all this patchset was generated with tests 
+crowdsourced to the community, and the empirical detection of the 
+SSP-codec link could be broken on some platforms - the NHLT does not 
+give *any* information on where the codec is actually connected.
+
+

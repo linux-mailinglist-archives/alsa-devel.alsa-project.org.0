@@ -2,87 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2A154D2B47
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 10:03:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 546824D2BF3
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 10:29:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 762E81731;
-	Wed,  9 Mar 2022 10:02:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 762E81731
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0E191768;
+	Wed,  9 Mar 2022 10:28:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0E191768
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646816617;
-	bh=DLoF1DtyJHn/9ajgfHumaK2FEROPRRTAqJhi759co5c=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DexDyMdJ1Xgxfx4oAFgE6ZnwHc3okufM6veAzNAj/6jedBOXN+SskPKrq1bFZUdsC
-	 rjejHPPSL3LeF20MLoNbJRQouZC57yALobLH6MrKjkBaM2/I+W0enbgCtuBFu6C4Mc
-	 R69vbMU4ty4LFvsr3CegLBKNltJp6RnIxGC8uQUw=
+	s=default; t=1646818142;
+	bh=n2d4sj86TOGvwk15A2VP4zHszqFxrGBTNr7jrFpfczA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XfkjUW5TZ157fxiqYxzH0dqnCeGg1lydpDmvo/LilbEb/aJ9LtDi9pttILmGnc2FM
+	 xMUxQBXlH8PMLa24Iy7bRtVReP9ByJ54xv99sitxp3XKsU/s/x1yzUl7sJFk590ihQ
+	 7c+TK04FIaZecOhXlZh5M/iIJMHGdJ9ajzr11Huk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB371F800D2;
-	Wed,  9 Mar 2022 10:02:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4270FF8012F;
+	Wed,  9 Mar 2022 10:27:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEB08F8016C; Wed,  9 Mar 2022 10:02:28 +0100 (CET)
+ id 9408AF8012F; Wed,  9 Mar 2022 10:27:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=2.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HK_RANDOM_ENVFROM,HK_RANDOM_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BF5AF8012F
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 10:02:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BF5AF8012F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="KXwYUhLK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646816543; x=1678352543;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=DLoF1DtyJHn/9ajgfHumaK2FEROPRRTAqJhi759co5c=;
- b=KXwYUhLKAfDC8L9Ym3C694xV001vz3+h8MA+qQFiQcwWfsqpKq74bT4h
- I8hl13gECD2RDCUX9IkYmsjrV2zm9w3uON2PwOZ+xRhgpljVj+Fxqbf+E
- JQheEUqJpLZQk0dmO1mGjGYPGasVpKU80BAElt+8uo+OJ+wIYFyyCoTTr
- E1ZukR9FWqyTHgFwG6rFUQe0DXwXHvNeyI9y4jfmSi02tQlYQ1OJixJ+g
- QRemlhik49pxJTtClsp25SX5XAVXhgjQvNlAKOTyOdTWV2jew2FoJpQdS
- 7Q5uU77oXovxUjaBb+5vJGvIwZa/llS3TFAKrkwlH2X0LDrgDZx2Ol1aR Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="255116625"
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="255116625"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 01:02:17 -0800
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="642080242"
-Received: from hedwards-mobl1.ger.corp.intel.com (HELO [10.213.198.86])
- ([10.213.198.86])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 01:02:16 -0800
-Message-ID: <9dabb68b-f2af-ae97-0fb2-869367c496bf@linux.intel.com>
-Date: Wed, 9 Mar 2022 09:02:13 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [Intel-gfx] [PATCH v2] ALSA: hda/i915 - avoid hung task timeout
- in i915 wait
-Content-Language: en-US
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-References: <20220308172759.920551-1-kai.vehmanen@linux.intel.com>
- <f9f6f831-a05d-2d20-8ade-ab717f342ba5@linux.intel.com>
- <alpine.DEB.2.22.394.2203091035350.3088432@eliteleevi.tm.intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <alpine.DEB.2.22.394.2203091035350.3088432@eliteleevi.tm.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Paul Menzel <pmenzel+alsa-devel@molgen.mpg.de>,
- Takashi Iwai <tiwai@suse.de>, intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- amadeuszx.slawinski@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9AD5AF8012F
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 10:27:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AD5AF8012F
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A9FEA2028D7;
+ Wed,  9 Mar 2022 10:27:47 +0100 (CET)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 468B92027BD;
+ Wed,  9 Mar 2022 10:27:47 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id C23CD183AC94;
+ Wed,  9 Mar 2022 17:27:45 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: fsl_spdif: keep all TxClk sources by txclk array
+Date: Wed,  9 Mar 2022 17:18:43 +0800
+Message-Id: <1646817523-26800-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,35 +71,160 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Viorel Suman <viorel.suman@nxp.com>
 
-On 09/03/2022 08:39, Kai Vehmanen wrote:
-> Hi,
-> 
-> On Wed, 9 Mar 2022, Tvrtko Ursulin wrote:
-> 
->>> -			/* 60s timeout */
->>
->> Where does this 60s come from and why is the fix to work around
->> DEFAULT_HUNG_TASK_TIMEOUT in a hacky way deemed okay? For instance would
->> limiting the wait here to whatever the kconfig is set to be an option?
-> 
-> this was discussed in
-> https://lists.freedesktop.org/archives/intel-gfx/2022-February/290821.html
-> ... and that thread concluded it's cleaner to split the wait than try
-> to figure out hung-task configuration from middle of audio driver.
-> 
-> The 60sec timeout comes from 2019 patch "ALSA: hda: Extend i915 component
-> bind timeout" to fix an issue reported by Paul Menzel (cc'ed).
-> 
-> This patch keeps the timeout intact.
+Use txclk array to keep all TxClk sources instead of keeping
+clocks per rate - need to do this in order to avoid multiple
+prepare_enable/disable_unprepare of the same clock during
+suspend/resume.
 
-I did not spot discussion touching on the point I raised.
+Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/fsl_spdif.c | 41 +++++++++++++++++++--------------------
+ 1 file changed, 20 insertions(+), 21 deletions(-)
 
-How about not fight the hung task detector but mark your wait context as 
-"I really know what I'm doing - not stuck trust me". Maybe using 
-wait_for_completion_killable_timeout would do it since 
-snd_hdac_i915_init is allowed to fail with an error already?
+diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
+index 57c41b2f7d17..e0acce6b2213 100644
+--- a/sound/soc/fsl/fsl_spdif.c
++++ b/sound/soc/fsl/fsl_spdif.c
+@@ -125,7 +125,7 @@ struct fsl_spdif_priv {
+ 	u16 sysclk_df[SPDIF_TXRATE_MAX];
+ 	u8 txclk_src[SPDIF_TXRATE_MAX];
+ 	u8 rxclk_src;
+-	struct clk *txclk[SPDIF_TXRATE_MAX];
++	struct clk *txclk[STC_TXCLK_SRC_MAX];
+ 	struct clk *rxclk;
+ 	struct clk *coreclk;
+ 	struct clk *sysclk;
+@@ -526,7 +526,7 @@ static int spdif_set_sample_rate(struct snd_pcm_substream *substream,
+ 		goto clk_set_bypass;
+ 
+ 	/* The S/PDIF block needs a clock of 64 * fs * txclk_df */
+-	ret = clk_set_rate(spdif_priv->txclk[rate],
++	ret = clk_set_rate(spdif_priv->txclk[clk],
+ 			   64 * sample_rate * txclk_df);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to set tx clock rate\n");
+@@ -537,7 +537,7 @@ static int spdif_set_sample_rate(struct snd_pcm_substream *substream,
+ 	dev_dbg(&pdev->dev, "expected clock rate = %d\n",
+ 			(64 * sample_rate * txclk_df * sysclk_df));
+ 	dev_dbg(&pdev->dev, "actual clock rate = %ld\n",
+-			clk_get_rate(spdif_priv->txclk[rate]));
++			clk_get_rate(spdif_priv->txclk[clk]));
+ 
+ 	/* set fs field in consumer channel status */
+ 	spdif_set_cstatus(ctrl, IEC958_AES3_CON_FS, csfs);
+@@ -1376,12 +1376,10 @@ static int fsl_spdif_probe_txclk(struct fsl_spdif_priv *spdif_priv,
+ 	struct device *dev = &pdev->dev;
+ 	u64 savesub = 100000, ret;
+ 	struct clk *clk;
+-	char tmp[16];
+ 	int i;
+ 
+ 	for (i = 0; i < STC_TXCLK_SRC_MAX; i++) {
+-		sprintf(tmp, "rxtx%d", i);
+-		clk = devm_clk_get(dev, tmp);
++		clk = spdif_priv->txclk[i];
+ 		if (IS_ERR(clk)) {
+ 			dev_err(dev, "no rxtx%d clock in devicetree\n", i);
+ 			return PTR_ERR(clk);
+@@ -1395,7 +1393,6 @@ static int fsl_spdif_probe_txclk(struct fsl_spdif_priv *spdif_priv,
+ 			continue;
+ 
+ 		savesub = ret;
+-		spdif_priv->txclk[index] = clk;
+ 		spdif_priv->txclk_src[index] = i;
+ 
+ 		/* To quick catch a divisor, we allow a 0.1% deviation */
+@@ -1407,7 +1404,7 @@ static int fsl_spdif_probe_txclk(struct fsl_spdif_priv *spdif_priv,
+ 			spdif_priv->txclk_src[index], rate[index]);
+ 	dev_dbg(dev, "use txclk df %d for %dHz sample rate\n",
+ 			spdif_priv->txclk_df[index], rate[index]);
+-	if (clk_is_match(spdif_priv->txclk[index], spdif_priv->sysclk))
++	if (clk_is_match(spdif_priv->txclk[spdif_priv->txclk_src[index]], spdif_priv->sysclk))
+ 		dev_dbg(dev, "use sysclk df %d for %dHz sample rate\n",
+ 				spdif_priv->sysclk_df[index], rate[index]);
+ 	dev_dbg(dev, "the best rate for %dHz sample rate is %dHz\n",
+@@ -1423,6 +1420,7 @@ static int fsl_spdif_probe(struct platform_device *pdev)
+ 	struct resource *res;
+ 	void __iomem *regs;
+ 	int irq, ret, i;
++	char tmp[16];
+ 
+ 	spdif_priv = devm_kzalloc(&pdev->dev, sizeof(*spdif_priv), GFP_KERNEL);
+ 	if (!spdif_priv)
+@@ -1462,8 +1460,17 @@ static int fsl_spdif_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
++	for (i = 0; i < STC_TXCLK_SRC_MAX; i++) {
++		sprintf(tmp, "rxtx%d", i);
++		spdif_priv->txclk[i] = devm_clk_get(&pdev->dev, tmp);
++		if (IS_ERR(spdif_priv->txclk[i])) {
++			dev_err(&pdev->dev, "no rxtx%d clock in devicetree\n", i);
++			return PTR_ERR(spdif_priv->txclk[i]);
++		}
++	}
++
+ 	/* Get system clock for rx clock rate calculation */
+-	spdif_priv->sysclk = devm_clk_get(&pdev->dev, "rxtx5");
++	spdif_priv->sysclk = spdif_priv->txclk[5];
+ 	if (IS_ERR(spdif_priv->sysclk)) {
+ 		dev_err(&pdev->dev, "no sys clock (rxtx5) in devicetree\n");
+ 		return PTR_ERR(spdif_priv->sysclk);
+@@ -1481,7 +1488,7 @@ static int fsl_spdif_probe(struct platform_device *pdev)
+ 		dev_warn(&pdev->dev, "no spba clock in devicetree\n");
+ 
+ 	/* Select clock source for rx/tx clock */
+-	spdif_priv->rxclk = devm_clk_get(&pdev->dev, "rxtx1");
++	spdif_priv->rxclk = spdif_priv->txclk[1];
+ 	if (IS_ERR(spdif_priv->rxclk)) {
+ 		dev_err(&pdev->dev, "no rxtx1 clock in devicetree\n");
+ 		return PTR_ERR(spdif_priv->rxclk);
+@@ -1562,9 +1569,7 @@ static int fsl_spdif_runtime_suspend(struct device *dev)
+ 			&spdif_priv->regcache_srpc);
+ 	regcache_cache_only(spdif_priv->regmap, true);
+ 
+-	clk_disable_unprepare(spdif_priv->rxclk);
+-
+-	for (i = 0; i < SPDIF_TXRATE_MAX; i++)
++	for (i = 0; i < STC_TXCLK_SRC_MAX; i++)
+ 		clk_disable_unprepare(spdif_priv->txclk[i]);
+ 
+ 	if (!IS_ERR(spdif_priv->spbaclk))
+@@ -1594,16 +1599,12 @@ static int fsl_spdif_runtime_resume(struct device *dev)
+ 		}
+ 	}
+ 
+-	for (i = 0; i < SPDIF_TXRATE_MAX; i++) {
++	for (i = 0; i < STC_TXCLK_SRC_MAX; i++) {
+ 		ret = clk_prepare_enable(spdif_priv->txclk[i]);
+ 		if (ret)
+ 			goto disable_tx_clk;
+ 	}
+ 
+-	ret = clk_prepare_enable(spdif_priv->rxclk);
+-	if (ret)
+-		goto disable_tx_clk;
+-
+ 	regcache_cache_only(spdif_priv->regmap, false);
+ 	regcache_mark_dirty(spdif_priv->regmap);
+ 
+@@ -1613,12 +1614,10 @@ static int fsl_spdif_runtime_resume(struct device *dev)
+ 
+ 	ret = regcache_sync(spdif_priv->regmap);
+ 	if (ret)
+-		goto disable_rx_clk;
++		goto disable_tx_clk;
+ 
+ 	return 0;
+ 
+-disable_rx_clk:
+-	clk_disable_unprepare(spdif_priv->rxclk);
+ disable_tx_clk:
+ 	for (i--; i >= 0; i--)
+ 		clk_disable_unprepare(spdif_priv->txclk[i]);
+-- 
+2.17.1
 
-Regards,
-
-Tvrtko

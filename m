@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F3BC4D2C85
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 10:51:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 960684D2C9E
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 10:56:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30A7B17A2;
-	Wed,  9 Mar 2022 10:50:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30A7B17A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14EE21732;
+	Wed,  9 Mar 2022 10:55:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14EE21732
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646819463;
-	bh=4kt6LV+0mnapS/fhsqb7RWgTbI//jQ3jsT/zVlJkRy8=;
+	s=default; t=1646819790;
+	bh=4wAyt4H4NZXmwRc6EGlRgAIKHjZozSnXgcmICVgYmdA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MpkOvvja8Ybm6rO29Wcpat42kAwWqLTObIXZK/DoZu1LJYkEZgrypdJQsslH6osHR
-	 AkfoyzewfFvMnxQ9r0Ahh2qKL3f1y3bLrVZ4pVO7+Y3Q2EynVKnHiCMxJfAmO82Hr+
-	 J8uoLqyElAqWKQQMA312Wu4xkeecIbb3wD2FwT1E=
+	b=vU19PfbP7POyahdWiWKqV+xr0z8xoI+/o/4BNctTsOS9m38HtrcqxW+Q9O/2tMTN4
+	 yFAepYLTZVMfT1CYAChXBxfiEDYEfv+JsSUXuqdn69GTrzNS7poqpc6OOXWvrk7Hg8
+	 IE68ZUZXrb4axIv/8eF0Nt0s9esivLRAzdeHbny0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D70CF8025E;
-	Wed,  9 Mar 2022 10:50:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 800C5F80236;
+	Wed,  9 Mar 2022 10:55:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88DA6F80236; Wed,  9 Mar 2022 10:50:10 +0100 (CET)
+ id 63FF8F8016C; Wed,  9 Mar 2022 10:55:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,49 +34,58 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 991B1F8016C
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 10:50:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 991B1F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BC38F800D2
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 10:55:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BC38F800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="hdg7vEEC"; 
+ header.b="yxtnrHVg"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="RSHsUTjM"
+ header.b="1/Bruwi0"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 869D21F383;
- Wed,  9 Mar 2022 09:50:02 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 15BE71F381;
+ Wed,  9 Mar 2022 09:55:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646819402; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646819714; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=shfMOg+VYYR/ZRmGQAsTtzJM2hWJOsiFgfc1pylSCik=;
- b=hdg7vEEC4v74qUVHmqSgckRTv3YFxj9A02h2rhr3kDELfXfG5aRETEVT0Gs3TgH3pr26pC
- HOw36A5J3H5BEK23YJp4e8NmiZMyq6X/lIF1B4KBdoeDg7poGzX6gEP0rmJzDp00vm+P6E
- uO7m/ChfZmOpvsRYXWoDzsj9fzdLbUY=
+ bh=RhEptUvkL01+IDPPE3mUhxMdrUBnUBWOQvBGBb057G0=;
+ b=yxtnrHVgoHizxWQaXYTJD6LzAS7k+QgbkLlxF0c6+UpS89P/sHlew5vghg/AiwR4rOkjbO
+ IWM6xqfIbvlyVrbRI1OiaVJ97nfh+8VEv/bcJugabp+LzbJ1qgV4gY/n77BoFrXBzSct82
+ aa5CDSARCnMmAc61goaG8BdsR0StamA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646819402;
+ s=susede2_ed25519; t=1646819714;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=shfMOg+VYYR/ZRmGQAsTtzJM2hWJOsiFgfc1pylSCik=;
- b=RSHsUTjM0odIyh/xibtt+3WDFvEpMmVm92lVJqpQh2ELWULbTr6kpXpVFFw/1WP+1axr56
- 4IsYXI8qOzq/2QBQ==
+ bh=RhEptUvkL01+IDPPE3mUhxMdrUBnUBWOQvBGBb057G0=;
+ b=1/Bruwi0rdoOnEj21V/P74j7/0XDIsb6x6DD47/8EjU4l/PaNiW5+jXoHQ+IL0vo7TNK88
+ OT5ZCJ33xclLqODg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 77C64A3B9A;
- Wed,  9 Mar 2022 09:50:02 +0000 (UTC)
-Date: Wed, 09 Mar 2022 10:50:02 +0100
-Message-ID: <s5hzglzihf9.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id EE905A3B92;
+ Wed,  9 Mar 2022 09:55:13 +0000 (UTC)
+Date: Wed, 09 Mar 2022 10:55:13 +0100
+Message-ID: <s5hy21jih6m.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: Add AlderLake-PS variant PCI ID
-In-Reply-To: <20220308141322.880775-1-kai.vehmanen@linux.intel.com>
-References: <20220308141322.880775-1-kai.vehmanen@linux.intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2] ALSA: hda/i915 - avoid hung task timeout
+ in i915 wait
+In-Reply-To: <f0c12164-b266-2513-b8e6-323186338181@linux.intel.com>
+References: <20220308172759.920551-1-kai.vehmanen@linux.intel.com>
+ <f9f6f831-a05d-2d20-8ade-ab717f342ba5@linux.intel.com>
+ <alpine.DEB.2.22.394.2203091035350.3088432@eliteleevi.tm.intel.com>
+ <9dabb68b-f2af-ae97-0fb2-869367c496bf@linux.intel.com>
+ <s5h5yonjx7i.wl-tiwai@suse.de>
+ <f0c12164-b266-2513-b8e6-323186338181@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Paul Menzel <pmenzel+alsa-devel@molgen.mpg.de>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, intel-gfx@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,14 +101,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 08 Mar 2022 15:13:22 +0100,
-Kai Vehmanen wrote:
+On Wed, 09 Mar 2022 10:48:49 +0100,
+Tvrtko Ursulin wrote:
 > 
-> Add HD Audio PCI ID for a variant of Intel AlderLake-P.
 > 
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> On 09/03/2022 09:23, Takashi Iwai wrote:
+> > On Wed, 09 Mar 2022 10:02:13 +0100,
+> > Tvrtko Ursulin wrote:
+> >>
+> >>
+> >> On 09/03/2022 08:39, Kai Vehmanen wrote:
+> >>> Hi,
+> >>>
+> >>> On Wed, 9 Mar 2022, Tvrtko Ursulin wrote:
+> >>>
+> >>>>> -			/* 60s timeout */
+> >>>>
+> >>>> Where does this 60s come from and why is the fix to work around
+> >>>> DEFAULT_HUNG_TASK_TIMEOUT in a hacky way deemed okay? For instance would
+> >>>> limiting the wait here to whatever the kconfig is set to be an option?
+> >>>
+> >>> this was discussed in
+> >>> https://lists.freedesktop.org/archives/intel-gfx/2022-February/290821.html
+> >>> ... and that thread concluded it's cleaner to split the wait than try
+> >>> to figure out hung-task configuration from middle of audio driver.
+> >>>
+> >>> The 60sec timeout comes from 2019 patch "ALSA: hda: Extend i915 component
+> >>> bind timeout" to fix an issue reported by Paul Menzel (cc'ed).
+> >>>
+> >>> This patch keeps the timeout intact.
+> >>
+> >> I did not spot discussion touching on the point I raised.
+> >>
+> >> How about not fight the hung task detector but mark your wait context
+> >> as "I really know what I'm doing - not stuck trust me".
+> >
+> > The question is how often this problem hits.  Basically it's a very
+> > corner case, and I even think we may leave as is; that's a matter of
+> > configuration, and lowering such a bar should expect some
+> > side-effect. OTOH, if the problem happens in many cases, it's
+> > beneficial to fix in the core part, indeed.
+> 
+> Yes argument you raise can be made I agree.
+> 
+> >> Maybe using
+> >> wait_for_completion_killable_timeout would do it since
+> >> snd_hdac_i915_init is allowed to fail with an error already?
+> >
+> > It makes it killable -- which is a complete behavior change.
+> 
+> Complete behaviour change how? Isn't this something ran on probe so
+> likelihood of anyone sending SIGKILL to the modprobe process is only
+> the init process? And in that case what is the fundamental difference
+> in init giving up before the internal 60s in HDA driver does? I don't
+> see a difference. Either party decided to abort the wait and code can
+> just unwind and propagate the different error codes.
 
-Thanks, applied now.
+The point is that it does change the actual behavior, and changing the
+actual behavior just for working around the corner case like the above
+wouldn't be justified without the proper evaluation.
+
+That said, if this behavior change is intentional and even desired,
+that's a way to go.
 
 
 Takashi

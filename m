@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 960684D2C9E
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 10:56:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 213EC4D2CC0
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 11:05:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14EE21732;
-	Wed,  9 Mar 2022 10:55:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14EE21732
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD0B517BC;
+	Wed,  9 Mar 2022 11:04:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD0B517BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646819790;
-	bh=4wAyt4H4NZXmwRc6EGlRgAIKHjZozSnXgcmICVgYmdA=;
+	s=default; t=1646820309;
+	bh=Pl1qIYAzaoUbMLxaDgzB9cRWKeefjEoxPxG/QEOhzU0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vU19PfbP7POyahdWiWKqV+xr0z8xoI+/o/4BNctTsOS9m38HtrcqxW+Q9O/2tMTN4
-	 yFAepYLTZVMfT1CYAChXBxfiEDYEfv+JsSUXuqdn69GTrzNS7poqpc6OOXWvrk7Hg8
-	 IE68ZUZXrb4axIv/8eF0Nt0s9esivLRAzdeHbny0=
+	b=urFfXNBRCbjOQKAtl5iqLiC5yGokoZJ5b42Q32VNSRlKuUYEOWOKZPhrZVB9Gt+17
+	 NMB9EApzQoE8RW1wDkpIbQSlnykTy/GcwNxdHpbenw6xvv0vJeEGKsKyYU+rfJCxLD
+	 3YhP7QShBoszbskis/4+1FTMsxfspPvrgoEkrSZw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 800C5F80236;
-	Wed,  9 Mar 2022 10:55:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17F74F80236;
+	Wed,  9 Mar 2022 11:04:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63FF8F8016C; Wed,  9 Mar 2022 10:55:22 +0100 (CET)
+ id 95C77F8016C; Wed,  9 Mar 2022 11:04:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,58 +34,57 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BC38F800D2
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 10:55:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BC38F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90F7FF80155
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 11:03:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90F7FF80155
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="yxtnrHVg"; 
+ header.b="dEghnUsm"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="1/Bruwi0"
+ header.b="QqoxHJp+"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 15BE71F381;
- Wed,  9 Mar 2022 09:55:14 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 31F631F396;
+ Wed,  9 Mar 2022 10:03:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646819714; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646820234; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RhEptUvkL01+IDPPE3mUhxMdrUBnUBWOQvBGBb057G0=;
- b=yxtnrHVgoHizxWQaXYTJD6LzAS7k+QgbkLlxF0c6+UpS89P/sHlew5vghg/AiwR4rOkjbO
- IWM6xqfIbvlyVrbRI1OiaVJ97nfh+8VEv/bcJugabp+LzbJ1qgV4gY/n77BoFrXBzSct82
- aa5CDSARCnMmAc61goaG8BdsR0StamA=
+ bh=bAiKX5lLUpvMHB7E8RoKAdJgdiQNC3zpRC+bLU5gieM=;
+ b=dEghnUsmdbe9f9rQc6MkSlcCveyWmAISrvw58YDadYMmlBhdp8w3Bns+MUAITv4SZK5ffg
+ cZQSiBk90tkqWflO2E0rqpaw3iIqVVaYXdhwrqbWsXleT10GrPu7AEl8jE6e++HXijQ5zY
+ 7T/EqH5uaew7sH12soQBdnB6qG5Sy0U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646819714;
+ s=susede2_ed25519; t=1646820234;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RhEptUvkL01+IDPPE3mUhxMdrUBnUBWOQvBGBb057G0=;
- b=1/Bruwi0rdoOnEj21V/P74j7/0XDIsb6x6DD47/8EjU4l/PaNiW5+jXoHQ+IL0vo7TNK88
- OT5ZCJ33xclLqODg==
+ bh=bAiKX5lLUpvMHB7E8RoKAdJgdiQNC3zpRC+bLU5gieM=;
+ b=QqoxHJp+y3G0REc0KvSP7h8AKhKvTsZSSLmkBzAWckZYBc9QzcjWeqYAcS4HcMbIYWoWTC
+ x6ZaGM3PAJwAwUAw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id EE905A3B92;
- Wed,  9 Mar 2022 09:55:13 +0000 (UTC)
-Date: Wed, 09 Mar 2022 10:55:13 +0100
-Message-ID: <s5hy21jih6m.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 17F91A3B84;
+ Wed,  9 Mar 2022 10:03:53 +0000 (UTC)
+Date: Wed, 09 Mar 2022 11:03:53 +0100
+Message-ID: <s5htuc7igs6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2] ALSA: hda/i915 - avoid hung task timeout
- in i915 wait
-In-Reply-To: <f0c12164-b266-2513-b8e6-323186338181@linux.intel.com>
-References: <20220308172759.920551-1-kai.vehmanen@linux.intel.com>
- <f9f6f831-a05d-2d20-8ade-ab717f342ba5@linux.intel.com>
- <alpine.DEB.2.22.394.2203091035350.3088432@eliteleevi.tm.intel.com>
- <9dabb68b-f2af-ae97-0fb2-869367c496bf@linux.intel.com>
- <s5h5yonjx7i.wl-tiwai@suse.de>
- <f0c12164-b266-2513-b8e6-323186338181@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 04/20] ALSA: intel-nhlt: add helper to detect SSP link mask
+In-Reply-To: <20220308192610.392950-5-pierre-louis.bossart@linux.intel.com>
+References: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
+ <20220308192610.392950-5-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Paul Menzel <pmenzel+alsa-devel@molgen.mpg.de>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ =?UTF-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ alsa-devel@alsa-project.org, Nikolai Kostrigin <nickel@altlinux.org>,
+ broonie@kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Huajun Li <huajun.li@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,68 +100,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 09 Mar 2022 10:48:49 +0100,
-Tvrtko Ursulin wrote:
+On Tue, 08 Mar 2022 20:25:54 +0100,
+Pierre-Louis Bossart wrote:
 > 
+> The NHLT information can be used to figure out which SSPs are enabled
+> in a platform.
 > 
-> On 09/03/2022 09:23, Takashi Iwai wrote:
-> > On Wed, 09 Mar 2022 10:02:13 +0100,
-> > Tvrtko Ursulin wrote:
-> >>
-> >>
-> >> On 09/03/2022 08:39, Kai Vehmanen wrote:
-> >>> Hi,
-> >>>
-> >>> On Wed, 9 Mar 2022, Tvrtko Ursulin wrote:
-> >>>
-> >>>>> -			/* 60s timeout */
-> >>>>
-> >>>> Where does this 60s come from and why is the fix to work around
-> >>>> DEFAULT_HUNG_TASK_TIMEOUT in a hacky way deemed okay? For instance would
-> >>>> limiting the wait here to whatever the kconfig is set to be an option?
-> >>>
-> >>> this was discussed in
-> >>> https://lists.freedesktop.org/archives/intel-gfx/2022-February/290821.html
-> >>> ... and that thread concluded it's cleaner to split the wait than try
-> >>> to figure out hung-task configuration from middle of audio driver.
-> >>>
-> >>> The 60sec timeout comes from 2019 patch "ALSA: hda: Extend i915 component
-> >>> bind timeout" to fix an issue reported by Paul Menzel (cc'ed).
-> >>>
-> >>> This patch keeps the timeout intact.
-> >>
-> >> I did not spot discussion touching on the point I raised.
-> >>
-> >> How about not fight the hung task detector but mark your wait context
-> >> as "I really know what I'm doing - not stuck trust me".
-> >
-> > The question is how often this problem hits.  Basically it's a very
-> > corner case, and I even think we may leave as is; that's a matter of
-> > configuration, and lowering such a bar should expect some
-> > side-effect. OTOH, if the problem happens in many cases, it's
-> > beneficial to fix in the core part, indeed.
+> The 'SSP' link type is too broad for machine drivers, since it can
+> cover the Bluetooth sideband and the analog audio codec connections,
+> so this helper exposes a parameter to filter with the device
+> type (DEVICE_I2S refers to analog audio codec in NHLT parlance).
 > 
-> Yes argument you raise can be made I agree.
+> The helper returns a mask, since more than one SSP may be used for
+> analog audio, e.g. the NHLT spec describes the use of SSP0 for
+> amplifiers and SSP1 for headset codec. Note that if more than one bit
+> is set, it's impossible to determine which SSP is connected to what
+> external component. Additional platform-specific information based on
+> e.g. DMI quirks would still be required in the machine driver to
+> configure the relevant dailinks.
 > 
-> >> Maybe using
-> >> wait_for_completion_killable_timeout would do it since
-> >> snd_hdac_i915_init is allowed to fail with an error already?
-> >
-> > It makes it killable -- which is a complete behavior change.
-> 
-> Complete behaviour change how? Isn't this something ran on probe so
-> likelihood of anyone sending SIGKILL to the modprobe process is only
-> the init process? And in that case what is the fundamental difference
-> in init giving up before the internal 60s in HDA driver does? I don't
-> see a difference. Either party decided to abort the wait and code can
-> just unwind and propagate the different error codes.
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-The point is that it does change the actual behavior, and changing the
-actual behavior just for working around the corner case like the above
-wouldn't be justified without the proper evaluation.
+Acked-by: Takashi Iwai <tiwai@suse.de>
 
-That said, if this behavior change is intentional and even desired,
-that's a way to go.
 
+thanks,
 
 Takashi

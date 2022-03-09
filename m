@@ -2,78 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 213EC4D2CC0
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 11:05:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 456004D2CC1
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 11:05:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD0B517BC;
-	Wed,  9 Mar 2022 11:04:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD0B517BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2847917F6;
+	Wed,  9 Mar 2022 11:04:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2847917F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646820309;
-	bh=Pl1qIYAzaoUbMLxaDgzB9cRWKeefjEoxPxG/QEOhzU0=;
+	s=default; t=1646820335;
+	bh=kjcajr51ILW/cN73WnqJUpM89fGDIQvWBU8AYkTnZSk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=urFfXNBRCbjOQKAtl5iqLiC5yGokoZJ5b42Q32VNSRlKuUYEOWOKZPhrZVB9Gt+17
-	 NMB9EApzQoE8RW1wDkpIbQSlnykTy/GcwNxdHpbenw6xvv0vJeEGKsKyYU+rfJCxLD
-	 3YhP7QShBoszbskis/4+1FTMsxfspPvrgoEkrSZw=
+	b=YluF8L15e6SXJZRi0/j4G/zEc1Vk7i2kikqc+eDgij1I7r21z0RoEVhjAUUE6Sgy4
+	 IYDswvBK8RTs2hctTsgGDl2Z0FcldjxWYe02J2zH19WL+1tgn/RaTJDEQBH12rlTCz
+	 va4iC3XOr42lATLqyQMz7dFxtfBnSZNLmH9ZMToU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17F74F80236;
-	Wed,  9 Mar 2022 11:04:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2508DF80517;
+	Wed,  9 Mar 2022 11:04:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95C77F8016C; Wed,  9 Mar 2022 11:04:00 +0100 (CET)
+ id 03251F804BB; Wed,  9 Mar 2022 11:04:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90F7FF80155
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 11:03:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90F7FF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEC9FF800D2
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 11:04:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEC9FF800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="dEghnUsm"; 
+ header.b="TC2z0sc2"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="QqoxHJp+"
+ header.b="x69zBl36"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 31F631F396;
- Wed,  9 Mar 2022 10:03:54 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 1B643210EE;
+ Wed,  9 Mar 2022 10:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646820234; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646820251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bAiKX5lLUpvMHB7E8RoKAdJgdiQNC3zpRC+bLU5gieM=;
- b=dEghnUsmdbe9f9rQc6MkSlcCveyWmAISrvw58YDadYMmlBhdp8w3Bns+MUAITv4SZK5ffg
- cZQSiBk90tkqWflO2E0rqpaw3iIqVVaYXdhwrqbWsXleT10GrPu7AEl8jE6e++HXijQ5zY
- 7T/EqH5uaew7sH12soQBdnB6qG5Sy0U=
+ bh=YnfmLjhJvrlu50oRDT8U5DgfrH0srUZtukRcMMKcrIY=;
+ b=TC2z0sc28XiCoibD7+1n/KZX3+L/anbyZcQHD5QQPHkKr2kNDtkBUUc4HvEpzR1iz8H/g4
+ q2apR/D2l/i20ruTMZ4vv+Qr0QZPxk3VFDxazu/fXotwIyhP4qY4LCDHrmrwJqXJSLlvU7
+ 4n84VTPcCJclp99qeo8vsbKMygqzZho=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646820234;
+ s=susede2_ed25519; t=1646820251;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bAiKX5lLUpvMHB7E8RoKAdJgdiQNC3zpRC+bLU5gieM=;
- b=QqoxHJp+y3G0REc0KvSP7h8AKhKvTsZSSLmkBzAWckZYBc9QzcjWeqYAcS4HcMbIYWoWTC
- x6ZaGM3PAJwAwUAw==
+ bh=YnfmLjhJvrlu50oRDT8U5DgfrH0srUZtukRcMMKcrIY=;
+ b=x69zBl36KojvSHPNcwExR3jHzcMehLRw6VVr36LEDNkytsWhur2zAbPCOykT54idsmZNWR
+ ZtoScGqib5eyC9Bg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 17F91A3B84;
- Wed,  9 Mar 2022 10:03:53 +0000 (UTC)
-Date: Wed, 09 Mar 2022 11:03:53 +0100
-Message-ID: <s5htuc7igs6.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 1122DA3B89;
+ Wed,  9 Mar 2022 10:04:11 +0000 (UTC)
+Date: Wed, 09 Mar 2022 11:04:11 +0100
+Message-ID: <s5hsfrrigro.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 04/20] ALSA: intel-nhlt: add helper to detect SSP link mask
-In-Reply-To: <20220308192610.392950-5-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 07/20] ALSA: intel-dsp-config: add more ACPI HIDs for
+ ES83x6 devices
+In-Reply-To: <20220308192610.392950-8-pierre-louis.bossart@linux.intel.com>
 References: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
- <20220308192610.392950-5-pierre-louis.bossart@linux.intel.com>
+ <20220308192610.392950-8-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -81,6 +82,7 @@ MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ anthony tonitch <d.tonitch@gmail.com>,
  =?UTF-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
  alsa-devel@alsa-project.org, Nikolai Kostrigin <nickel@altlinux.org>,
  broonie@kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -100,25 +102,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 08 Mar 2022 20:25:54 +0100,
+On Tue, 08 Mar 2022 20:25:57 +0100,
 Pierre-Louis Bossart wrote:
 > 
-> The NHLT information can be used to figure out which SSPs are enabled
-> in a platform.
+> We only saw ESSX8336 so far, but now with reports of 'ESSX8326' we
+> need to expand to a full list. Let's reuse the 'snd_soc_acpi_codecs'
+> structure to store the information.
 > 
-> The 'SSP' link type is too broad for machine drivers, since it can
-> cover the Bluetooth sideband and the analog audio codec connections,
-> so this helper exposes a parameter to filter with the device
-> type (DEVICE_I2S refers to analog audio codec in NHLT parlance).
-> 
-> The helper returns a mask, since more than one SSP may be used for
-> analog audio, e.g. the NHLT spec describes the use of SSP0 for
-> amplifiers and SSP1 for headset codec. Note that if more than one bit
-> is set, it's impossible to determine which SSP is connected to what
-> external component. Additional platform-specific information based on
-> e.g. DMI quirks would still be required in the machine driver to
-> configure the relevant dailinks.
-> 
+> Reported-by: anthony tonitch <d.tonitch@gmail.com>
 > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 > Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>

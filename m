@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456004D2CC1
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 11:05:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F19C4D2CC2
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 11:05:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2847917F6;
-	Wed,  9 Mar 2022 11:04:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2847917F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9883182B;
+	Wed,  9 Mar 2022 11:04:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9883182B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646820335;
-	bh=kjcajr51ILW/cN73WnqJUpM89fGDIQvWBU8AYkTnZSk=;
+	s=default; t=1646820344;
+	bh=Kzk9/XzuYsujz/kziQ+hmp76Rt8XkQ3V3+RY2QH6PZY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YluF8L15e6SXJZRi0/j4G/zEc1Vk7i2kikqc+eDgij1I7r21z0RoEVhjAUUE6Sgy4
-	 IYDswvBK8RTs2hctTsgGDl2Z0FcldjxWYe02J2zH19WL+1tgn/RaTJDEQBH12rlTCz
-	 va4iC3XOr42lATLqyQMz7dFxtfBnSZNLmH9ZMToU=
+	b=PNpL4pxIq1cSFDHFUHV+UMP5Tk1C1d9ehGxmLjCMItNtiiM3AOD6Xoq7p/8YS6D2s
+	 GuOfATlZLDmkQo4l21bFtiv8QlCee4v4GabciTyAuvUElWVWROE9sAH3OUDT9lhuMF
+	 mlkdqPqC715NQjFRPKPbj3X1vZu8DGPe6d7Fu/lI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2508DF80517;
-	Wed,  9 Mar 2022 11:04:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3DA6F8051B;
+	Wed,  9 Mar 2022 11:04:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03251F804BB; Wed,  9 Mar 2022 11:04:21 +0100 (CET)
+ id E3D42F8051A; Wed,  9 Mar 2022 11:04:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,47 +34,46 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EEC9FF800D2
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 11:04:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEC9FF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3EA17F80515
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 11:04:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EA17F80515
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="TC2z0sc2"; 
+ header.b="Exo7/Cxp"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="x69zBl36"
+ header.b="5RhbBDvI"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1B643210EE;
- Wed,  9 Mar 2022 10:04:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 14848210EE;
+ Wed,  9 Mar 2022 10:04:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646820251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646820269; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YnfmLjhJvrlu50oRDT8U5DgfrH0srUZtukRcMMKcrIY=;
- b=TC2z0sc28XiCoibD7+1n/KZX3+L/anbyZcQHD5QQPHkKr2kNDtkBUUc4HvEpzR1iz8H/g4
- q2apR/D2l/i20ruTMZ4vv+Qr0QZPxk3VFDxazu/fXotwIyhP4qY4LCDHrmrwJqXJSLlvU7
- 4n84VTPcCJclp99qeo8vsbKMygqzZho=
+ bh=X+frtimnNljQ+sMJHh+ymB5b+vz6jC6ZI3sepi3L6qM=;
+ b=Exo7/CxpTBZ+yvEUzjaHTUGj21SKFKdeVJmAbrocYw99+yQic/rfqOqjFr7dtr50O9D0Cn
+ DGKO3gikLUyosqcP15hftwGKPtkDX4Fcrjqty/vcWWno9aDCcysvK/ukkTul7/fKYK9tLT
+ Mxtnt8PaWBSfRiHyPSZYw9snWcXJ2vo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646820251;
+ s=susede2_ed25519; t=1646820269;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YnfmLjhJvrlu50oRDT8U5DgfrH0srUZtukRcMMKcrIY=;
- b=x69zBl36KojvSHPNcwExR3jHzcMehLRw6VVr36LEDNkytsWhur2zAbPCOykT54idsmZNWR
- ZtoScGqib5eyC9Bg==
+ bh=X+frtimnNljQ+sMJHh+ymB5b+vz6jC6ZI3sepi3L6qM=;
+ b=5RhbBDvI7Voy6vE7Hb0a9aSNyvM0L02/a/3aoo3ZAQn3fYx/4tsVC+HGc9qQbXnQUB4msD
+ fptqof3IDfyjEUCQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1122DA3B89;
- Wed,  9 Mar 2022 10:04:11 +0000 (UTC)
-Date: Wed, 09 Mar 2022 11:04:11 +0100
-Message-ID: <s5hsfrrigro.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 075B7A3B84;
+ Wed,  9 Mar 2022 10:04:29 +0000 (UTC)
+Date: Wed, 09 Mar 2022 11:04:29 +0100
+Message-ID: <s5hr17bigr6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 07/20] ALSA: intel-dsp-config: add more ACPI HIDs for
- ES83x6 devices
-In-Reply-To: <20220308192610.392950-8-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 09/20] ALSA: intel-dspconfig: add ES8336 support for CNL
+In-Reply-To: <20220308192610.392950-10-pierre-louis.bossart@linux.intel.com>
 References: <20220308192610.392950-1-pierre-louis.bossart@linux.intel.com>
- <20220308192610.392950-8-pierre-louis.bossart@linux.intel.com>
+ <20220308192610.392950-10-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -82,7 +81,6 @@ MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- anthony tonitch <d.tonitch@gmail.com>,
  =?UTF-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
  alsa-devel@alsa-project.org, Nikolai Kostrigin <nickel@altlinux.org>,
  broonie@kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -102,14 +100,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 08 Mar 2022 20:25:57 +0100,
+On Tue, 08 Mar 2022 20:25:59 +0100,
 Pierre-Louis Bossart wrote:
 > 
-> We only saw ESSX8336 so far, but now with reports of 'ESSX8326' we
-> need to expand to a full list. Let's reuse the 'snd_soc_acpi_codecs'
-> structure to store the information.
+> We're missing this check for the CNL PCI id
 > 
-> Reported-by: anthony tonitch <d.tonitch@gmail.com>
+> Reported-by: Nikolai Kostrigin <nickel@altlinux.org>
 > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 > Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>

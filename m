@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DFFF4D3215
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 16:46:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FEF54D322F
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Mar 2022 16:51:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE02916DC;
-	Wed,  9 Mar 2022 16:45:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE02916DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C49F16E7;
+	Wed,  9 Mar 2022 16:50:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C49F16E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646840787;
-	bh=F13/4Bt3hYx0TgnARvX9PdNzkMy26a1mQJXrehce2eA=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646841070;
+	bh=xnII2Pur9VH4WcRCnbTdGUOzS2gC0Gmmix7TPSqSkYU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FO2cxO7rkuTdIzZl6be2EaxwxKZhad3RQzWfvCr7FG8l4CO1Py5pE8KaaPZ1L7KlB
-	 +kKZciVqznpzN9d9n48WIKHwiga+sq0qNGtnugV1AV2pFZ1SjCAdykbdeXOp/0F3QF
-	 Ehb5kxI7Ejm54yONDMSkCMFPBGVYrrxpvvaGl+OM=
+	b=ttIshBSEExtrAzlhVsDwKBseskcBulZ8RteQ3/+jQ2HgCRVIaxlK2wslkQa2XDURb
+	 bP2ZXmXKLwa6GChLmLyRVsMUttF4MHojRMxjCVUb0MQcaAqtLITw9d35zIhbh/YykQ
+	 Azl/0JJhtpLS6GX1ns86fEwsMFc7BBMY7DjVfvoM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16091F800D2;
-	Wed,  9 Mar 2022 16:45:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10A60F80236;
+	Wed,  9 Mar 2022 16:50:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94685F8016C; Wed,  9 Mar 2022 16:45:19 +0100 (CET)
+ id 3A177F8016C; Wed,  9 Mar 2022 16:50:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C9E14F800D2
+ for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 16:50:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9E14F800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="VjwI1va6"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9A8AF8012F
- for <alsa-devel@alsa-project.org>; Wed,  9 Mar 2022 16:45:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9A8AF8012F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="WbH6mxHk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646840718; x=1678376718;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=F13/4Bt3hYx0TgnARvX9PdNzkMy26a1mQJXrehce2eA=;
- b=WbH6mxHkAFe8W5G5kGhkKrI37gyCo5bv4M7nBdV5V0Trd3NLtmydhv0/
- kbl4NO2CnxEERV1cGWbsM+3NZrH+18HD2g4CE6SXrUKIhwB49KAk4rUMW
- FcvFGqsGhuD9l+jDqjRaarBaA00HKmAVfKx/tO5sIuZcJMhxGIKOEM0MJ
- 2Py3akkEURh3IiMn6iprjW70hp9wsuTNRcz9EMa7zNkDoUhQyEeNiFPXz
- CebaIz/emuSahmqO8m8mIMdjMrmTuLkM4Xari1/Vw88iJYozBL8UTv1kX
- tUFeiTZqXdtmkA+pHmMIzWzi+gG3I/N8ZUfEBWWT3djo6UPz4imgBCoZX w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="253832653"
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="253832653"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 07:44:53 -0800
-X-IronPort-AV: E=Sophos;i="5.90,167,1643702400"; d="scan'208";a="495874383"
-Received: from skawthek-mobl.amr.corp.intel.com ([10.254.24.79])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2022 07:44:53 -0800
-Message-ID: <2d2f89b9ef32ec1e49d8d5c4025598047e30172c.camel@linux.intel.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 85C63B8220A;
+ Wed,  9 Mar 2022 15:49:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B4ECC340E8;
+ Wed,  9 Mar 2022 15:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646840998;
+ bh=xnII2Pur9VH4WcRCnbTdGUOzS2gC0Gmmix7TPSqSkYU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VjwI1va6NJxBOfmjn2Wc8LvAzFDs71WWOyh6cuGWxnbyCQCLjcIo/WEBxn+pSbMAJ
+ jMi+P/DWdYozQIuZzZUmXVXkAR19LeEDCGjpU/GH+mD/4zDe45KCoemhAAEMHT3xU2
+ yhRExRcigcMIDCuJqwNjcy8bZm7zKUM/dVeCgPQwMBAzyQcM8Z11aDS+D/5PFyMtcp
+ VeddFR/gkVh1oBUjf9JQR2BzuVpyiZDwuY1gEJ+kM97lb9yay1PAZOgxwlUxUXUjkz
+ zyab2UPicYTlb+lX0Q8oh6fEuwNmr3mdA6eeYuDI2/xaMjxlo3FJXSMd7hvCZBqfFe
+ FfA7Gd1fB28Cg==
+Date: Wed, 9 Mar 2022 15:49:52 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Subject: Re: [PATCH v2 00/18] Clean ups and preparation for IPC abstraction
  in the SOF driver
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: alsa-devel@alsa-project.org, broonie@kernel.org
-Date: Wed, 09 Mar 2022 07:44:52 -0800
-In-Reply-To: <20220308164344.577647-1-ranjani.sridharan@linux.intel.com>
+Message-ID: <YijMoCDCifqkMzw8@sirena.org.uk>
 References: <20220308164344.577647-1-ranjani.sridharan@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.3-0ubuntu1 
+ <2d2f89b9ef32ec1e49d8d5c4025598047e30172c.camel@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, amadeuszx.slawinski@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="XWtPEyLcpCFmbwE5"
+Content-Disposition: inline
+In-Reply-To: <2d2f89b9ef32ec1e49d8d5c4025598047e30172c.camel@linux.intel.com>
+X-Cookie: You will inherit millions of dollars.
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,25 +89,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2022-03-08 at 08:43 -0800, Ranjani Sridharan wrote:
-> In preparation for adding support for the new IPC version that has
-> been
-> introduced in the SOF firmware, this patch set includes some clean
-> ups
-> and necessary modifications to commonly used functions that will be
-> re-used across different IPC-specific code.
-> 
-> Changes in v2:
-> - Use guid_t instead of u8 array for uuid and the helper
-> guid_is_null()
-Hi Mark,
 
-I see that you have applied the v1 of this series. Please disregard
-this series and I will send the changes in v2 as a separate patch.
-Also, I noticed that your for-next and for-5.18 branches only contain
-12 of the 18 patches in this series. Should I resend the ones that got
-missed?
+--XWtPEyLcpCFmbwE5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Ranjani
+On Wed, Mar 09, 2022 at 07:44:52AM -0800, Ranjani Sridharan wrote:
 
+> I see that you have applied the v1 of this series. Please disregard
+> this series and I will send the changes in v2 as a separate patch.
+> Also, I noticed that your for-next and for-5.18 branches only contain
+> 12 of the 18 patches in this series. Should I resend the ones that got
+> missed?
+
+If it's just resends don't bother it's queued already.  I applied the
+patches up to the one that got review comments from v1 and have queued
+the rest from v2.
+
+--XWtPEyLcpCFmbwE5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIozJ8ACgkQJNaLcl1U
+h9Av/Af8DHkH+UbQiuvRL3AApZeLXSw3dQ2VI4PzVFShv5YFpzuVeo+sNPGOIy6J
+1qLvo1Dlru7dCNAiy59itD3OQv2XYunGkJt2F/WpemcFHLEuPfnG4VDRkmDeHnzB
+3xblY/wO4sqQ0u4lwyGJH4EJrr7+kMY7I6RjphqmRTg/3Z7DFj2qe/p4yN7kHPZN
+0vIdLoDS0aL14V5P0htD7dbfOJMeqoeQQrXYSCbIqs1MY5N3kChl799ty2xFWVQu
+gmBnjf+D9uFFhN1A8FAUQSvF8zZuMAepqt4dWrwaeJytrs8OMk0SkF1fQJ+hN3On
+Ldtcful0jNBjJfYPCmDTB56lqX2PwQ==
+=LYrl
+-----END PGP SIGNATURE-----
+
+--XWtPEyLcpCFmbwE5--

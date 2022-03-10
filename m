@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30EF84D47DF
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:15:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 916424D47E0
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:15:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88D581901;
-	Thu, 10 Mar 2022 14:14:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88D581901
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23B1B191D;
+	Thu, 10 Mar 2022 14:15:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23B1B191D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646918137;
-	bh=t2XbWwQwvFMkiF2+x62xGVRkeCafGaXLEBPkGZlDV0E=;
+	s=default; t=1646918159;
+	bh=QDNquidF6BeD/URlJSXbDXcfjvClofQSBuYPeZ+AuDc=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eDK8GhJVes3YFOSgWmk3otgcDj0+dOjmSwinuemq4Wlpwm58Ho0sq0RMI5RIvaTwF
-	 PKiUDZtE1bep9xu+IQEmNvDZrNrwP3PmcNoOpvPIq4n8MuH3VNXVpOqw/SNe+o2OSb
-	 xAtsevhKmtA9CW9262bhDYWQW6fl0MqvrsWCPlTk=
+	b=FOZzNByFof4uKQHruA2k0eubhE/nIXwJlfn0EGnX3p6gGNhllyMUAWgqYbM06vFaF
+	 IJ2EA6ZF7+zewuJ3hvdLgSR8iCmfleMg12THT7tDfdMouwL5PNDR1ek/ohAVc2j98C
+	 TeBA6nhKxBeAVBcd7GYOflVCQQ5bbGhzeRiAVD1I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAF6BF8051B;
-	Thu, 10 Mar 2022 14:14:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 453F8F8051F;
+	Thu, 10 Mar 2022 14:14:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE9CFF8051B; Thu, 10 Mar 2022 14:14:00 +0100 (CET)
+ id 79C75F8012C; Thu, 10 Mar 2022 14:14:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,47 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 192FCF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5482F80519
  for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:13:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 192FCF8012C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5482F80519
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Kd3PDT/W"
+ header.b="reG3wPZ4"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D8AAD61A34;
- Thu, 10 Mar 2022 13:13:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D35C340E8;
- Thu, 10 Mar 2022 13:13:51 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B0B5561A1E;
+ Thu, 10 Mar 2022 13:13:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D642C340EB;
+ Thu, 10 Mar 2022 13:13:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646918035;
- bh=t2XbWwQwvFMkiF2+x62xGVRkeCafGaXLEBPkGZlDV0E=;
+ s=k20201202; t=1646918037;
+ bh=QDNquidF6BeD/URlJSXbDXcfjvClofQSBuYPeZ+AuDc=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Kd3PDT/WHiC0r1y03Q9M9UNClYYdwsirULQWFXWuwXuGjnNLph6HgKPPd/A8QeImb
- EinmR0G3aeTUv1e9T3mu4l9gFOM8zVDD/eF+2pbBvdOuewP8bI4espTABMiHg6CGzF
- FPBMA6BuWGslBd0AOh1pO1+Fn+IupyZRzK/Cm4wsUZ3WtZi97iN+Cb8B6xmEczAxDc
- isEuU5Vqg1F60Jud761jRazT83SfiDMiyQ7MKCk5MUUX71un25KK7XpFETsY9m/3bA
- t/OcZ5PgchwWdbxi+JDpaOHXPiDtMgDXxukd0wCWnXDzWY34OWm+P0PQYz0esItPiV
- 3OKywL0t0lepQ==
+ b=reG3wPZ4rvbFfjAtFgKD8h/dhEUhG8YfKCpvzgTJGkrTo65UYiw5NJxBmswqHzu29
+ m2IudxMyKuJW58+9AMrjSz82xeCQII1ZV0Vpp3i2LY6RNYTgC0IyuCugt7B8qMQb3H
+ 9zeHtfVKBIvkaUhixpz5GSVcMuBbqVOR8ekRZxTbVgSp6o4vPAJ3Ic+W4mWqtm2259
+ Cao57n20ZR5wpOR+HCahzxKiIJAuOqXRtZ30CM3icTWp2VwXiQxkTL2t3PC+psoipo
+ mO04ato1boi6qtkbunj2r0dim1dBC9SDLAXmRUyi0AfqbOuEU+4CEZm0I1x+gR0MY+
+ 4LJkOhppkNzeQ==
 From: Mark Brown <broonie@kernel.org>
-To: s.hauer@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- shawnguo@kernel.org, linux-imx@nxp.com, tiwai@suse.com, xobs@kosagi.com,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- Wang Wensheng <wangwensheng4@huawei.com>, nicoleotsuka@gmail.com,
- shengjiu.wang@gmail.com, festevam@gmail.com, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, perex@perex.cz, kernel@pengutronix.de,
- Xiubo.Lee@gmail.com
-In-Reply-To: <20220310091902.129299-1-wangwensheng4@huawei.com>
-References: <20220310091902.129299-1-wangwensheng4@huawei.com>
-Subject: Re: [PATCH -next] ASoC: imx-es8328: Fix error return code in
- imx_es8328_probe()
-Message-Id: <164691803138.2018412.9652252221395822627.b4-ty@kernel.org>
-Date: Thu, 10 Mar 2022 13:13:51 +0000
+To: Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com,
+ alsa-devel@alsa-project.org, nicoleotsuka@gmail.com, shengjiu.wang@gmail.com,
+ lgirdwood@gmail.com, perex@perex.cz, festevam@gmail.com, Xiubo.Lee@gmail.com
+In-Reply-To: <1646879863-27711-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1646879863-27711-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_spdif: Disable TX clock when stop
+Message-Id: <164691803517.2018412.16511906603132824768.b4-ty@kernel.org>
+Date: Thu, 10 Mar 2022 13:13:55 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: xuqiang36@huawei.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,11 +85,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Mar 2022 09:19:02 +0000, Wang Wensheng wrote:
-> Fix to return a negative error code from the error handling case instead
-> of 0, as done elsewhere in this function.
+On Thu, 10 Mar 2022 10:37:43 +0800, Shengjiu Wang wrote:
+> The TX clock source may be changed in next case, need to
+> disable it when stop, otherwise the TX may not work after
+> changing the clock source, error log is:
+> 
+> aplay: pcm_write:2058: write error: Input/output error
 > 
 > 
+> [...]
 
 Applied to
 
@@ -102,8 +101,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: imx-es8328: Fix error return code in imx_es8328_probe()
-      commit: 3b891513f95cba3944e72c1139ea706d04f3781b
+[1/1] ASoC: fsl_spdif: Disable TX clock when stop
+      commit: 6ddf611219ba8f7c8fa0d26b39710a641e7d37a5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

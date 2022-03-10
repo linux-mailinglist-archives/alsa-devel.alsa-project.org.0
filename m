@@ -2,72 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E074D4CBA
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 16:22:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 724CA4D4CC1
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 16:26:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA4E918DD;
-	Thu, 10 Mar 2022 16:22:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA4E918DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EFAB1FE;
+	Thu, 10 Mar 2022 16:25:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EFAB1FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646925778;
-	bh=9RWnc91qJqCydh+oNacSQRkGF+Rn1JCDF3OHEhAcIPM=;
+	s=default; t=1646925984;
+	bh=G44TKaXJ2702MH14xQ2xJ5CzDZDhej3DrvU8W8AmQpM=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZBlThwmVn2pFp66HO2MFxmKtN63dNqQ6kXsKFdpboe9KOlWiPOnGT8vH9xJ1Vege8
-	 ebWCUmHRYpLQuCnC73Zy+g7U/pNgrRcTYkbtKEOSgpbd/B4uEKvnOr+Cw2Vd66IQia
-	 yosU3Tn5PjceEdfrCpUJ9TU04hPV3xv59qcI8SZ0=
+	b=pBR8g3KIgPzfKyy1RmatJInNBphmnYw9vQlMHMDYFzwNfcAR0Yte3R9LO/P41AL7G
+	 /pQgSNEENdch2s14kniIZ8PN2Gu/dqklncMBwyDVkxmwT0r5Arih0KRABD8tXcVVVj
+	 IJbQOX9Vcv3Hd+kINFdNt2Etm3XUfltyEsaxZu1I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B432F8012C;
-	Thu, 10 Mar 2022 16:21:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D0ADF8013C;
+	Thu, 10 Mar 2022 16:25:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01ADFF80137; Thu, 10 Mar 2022 16:21:44 +0100 (CET)
+ id 35B0DF80137; Thu, 10 Mar 2022 16:25:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AABCCF8012C
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 16:21:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AABCCF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B2CBF800D2
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 16:25:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B2CBF800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="iE6XZ10j"
+ header.b="SXhuKhFE"
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id 8CDEC1F45626
+ (Authenticated sender: kholk11) with ESMTPSA id 6B0911F45A2A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1646925697;
- bh=9RWnc91qJqCydh+oNacSQRkGF+Rn1JCDF3OHEhAcIPM=;
+ s=mail; t=1646925907;
+ bh=G44TKaXJ2702MH14xQ2xJ5CzDZDhej3DrvU8W8AmQpM=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=iE6XZ10jXgznuAAFzstmKsm8wRjH0v2LI3HM/7SS6H0yKQglrLjuipy230guq8SJg
- ul40OkYJ39fytXbjYcOhLIcqTE9V+esiOpDeefeB4jDkokykapv7tEMyjwd2ijr95/
- SQTHmwOQEL1ogpzZDnb7qAtFFx9AC7EtdztdxoHyM2dI30AATUoPkby3JLl1DFNokz
- k43tT54Cc2Zkioxdk40EkQGQCcl1fF/kZw9xPKDUIAJhmUdfve5iZje87eO1kFGd+H
- gZZavcjftFcslMNL8oSiRV4aO+PVXLbSus6fQXe2lEbDM6w65+d5YH+S1OF/PTle7g
- SoXlLjICWPa4g==
-Message-ID: <e812796f-6b9b-fe9d-50a7-b681d7b174fd@collabora.com>
-Date: Thu, 10 Mar 2022 16:21:33 +0100
+ b=SXhuKhFEp8Pn5kLpJ9uE75VypUMiWbTDJVSbQOK8PeLRuwMErkdO4jbich+dzPauC
+ qCJWCscyap4JMwtArGtY5HzKtdvHxmWP7UbBPZXUPeHdFbn2BmwfQ33I7MwQG8brbd
+ fYowneCd2ko50BtGZSUUzuRyJ/wegpIExSkuV6lgm16tPDRBenjMZEc9g8r/MZCpiT
+ JZBtRYcs3DiM/nITjUjJB6X2evoUXrnf21ef/sN5ap4/j6gW50i8UJIkGflgdbeBHL
+ docIDtmUfdlSE6vs5URQcIca6NSmP9Jcr8vaydjsb9YA3GvDJgCzFyl9ueHgXddWqI
+ r4s8PlBH5D3EQ==
+Message-ID: <ead686bc-06ae-c572-999a-af22c183550f@collabora.com>
+Date: Thu, 10 Mar 2022 16:25:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
-Subject: Re: [PATCH 4/5] ASoC: mediatek: mt8195: add machine driver with
- mt6359, max98390 and rt5682
+Subject: Re: [PATCH 1/5] ASoC: mediatek: mt8195: add reset controller
 Content-Language: en-US
 To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org, tiwai@suse.com,
  robh+dt@kernel.org, matthias.bgg@gmail.com
 References: <20220308072435.22460-1-trevor.wu@mediatek.com>
- <20220308072435.22460-5-trevor.wu@mediatek.com>
+ <20220308072435.22460-2-trevor.wu@mediatek.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20220308072435.22460-5-trevor.wu@mediatek.com>
+In-Reply-To: <20220308072435.22460-2-trevor.wu@mediatek.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -89,692 +87,58 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Il 08/03/22 08:24, Trevor Wu ha scritto:
-> This patch adds support for mt8195 board with mt6359, max98390 and rt5682.
+> Audio hardware is possibly used in the firmware stage, so resetting audio
+> hardware before regcache records default register values is required.
 > 
 > Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
 
-Hello Trevor,
-thanks for the patch! However, there's something to improve...
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
 > ---
->   sound/soc/mediatek/Kconfig                    |   16 +
->   sound/soc/mediatek/mt8195/Makefile            |    5 +
->   .../mt8195/mt8195-mt6359-max98390-rt5682.c    | 1058 +++++++++++++++++
->   3 files changed, 1079 insertions(+)
->   create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-max98390-rt5682.c
+>   sound/soc/mediatek/mt8195/mt8195-afe-pcm.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
 > 
-> diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-> index 0d154350f180..ce9000013ac4 100644
-> --- a/sound/soc/mediatek/Kconfig
-> +++ b/sound/soc/mediatek/Kconfig
-> @@ -229,3 +229,19 @@ config SND_SOC_MT8195_MT6359_RT1011_RT5682
->   	  with the MT6359 RT1011 RT5682 audio codec.
->   	  Select Y if you have such device.
->   	  If unsure select "N".
-> +
-> +config SND_SOC_MT8195_MT6359_MAX98390_RT5682
-> +	tristate "ASoC Audio driver for MT8195 with MT6359 MAX98390 RT5682 codec"
-> +	depends on I2C
-> +	depends on SND_SOC_MT8195 && MTK_PMIC_WRAP
-> +	select SND_SOC_MT6359
-> +	select SND_SOC_MAX98390
-> +	select SND_SOC_RT5682_I2C
-> +	select SND_SOC_RT5682S
-> +	select SND_SOC_DMIC
-> +	select SND_SOC_HDMI_CODEC
-> +	help
-> +	  This adds ASoC driver for Mediatek MT8195 boards
-> +	  with the MT6359 MAX98390 RT5682 audio codec.
-> +	  Select Y if you have such device.
-> +	  If unsure select "N".
-> diff --git a/sound/soc/mediatek/mt8195/Makefile b/sound/soc/mediatek/mt8195/Makefile
-> index d707cbd2672d..e70ee2c6a61e 100644
-> --- a/sound/soc/mediatek/mt8195/Makefile
-> +++ b/sound/soc/mediatek/mt8195/Makefile
-> @@ -20,5 +20,10 @@ snd-soc-mt8195-rt1011-rt5682-objs := \
->   	mt8195-mt6359-rt1011-rt5682.o \
->   	mt8195-mt6359-common.o
+> diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+> index 550636500949..72b2c6d629b9 100644
+> --- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+> +++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+> @@ -16,6 +16,7 @@
+>   #include <linux/of_platform.h>
+>   #include <linux/of_reserved_mem.h>
+>   #include <linux/pm_runtime.h>
+> +#include <linux/reset.h>
+>   #include "mt8195-afe-common.h"
+>   #include "mt8195-afe-clk.h"
+>   #include "mt8195-reg.h"
+> @@ -3056,6 +3057,7 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+>   	struct mtk_base_afe *afe;
+>   	struct mt8195_afe_private *afe_priv;
+>   	struct device *dev = &pdev->dev;
+> +	struct reset_control *rstc;
+>   	int i, irq_id, ret;
+>   	struct snd_soc_component *component;
 >   
-> +snd-soc-mt8195-max98390-rt5682-objs := \
-> +	mt8195-mt6359-max98390-rt5682.o \
-> +	mt8195-mt6359-common.o
-> +
->   obj-$(CONFIG_SND_SOC_MT8195_MT6359_RT1019_RT5682) += snd-soc-mt8195-rt1019-rt5682.o
->   obj-$(CONFIG_SND_SOC_MT8195_MT6359_RT1011_RT5682) += snd-soc-mt8195-rt1011-rt5682.o
-> +obj-$(CONFIG_SND_SOC_MT8195_MT6359_MAX98390_RT5682) += snd-soc-mt8195-max98390-rt5682.o
-> diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-max98390-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-max98390-rt5682.c
-> new file mode 100644
-> index 000000000000..b0d55a7889d2
-> --- /dev/null
-> +++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-max98390-rt5682.c
-> @@ -0,0 +1,1058 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * mt8195-mt6359-max98390-rt5682.c  --
-> + *	MT8195-MT6359-MAX98390-RT5682 ALSA SoC machine driver
-> + *
-> + * Copyright (c) 2022 MediaTek Inc.
-> + * Author: Trevor Wu <trevor.wu@mediatek.com>
-> + */
-> +
-> +#include <linux/input.h>
-> +#include <linux/module.h>
-> +#include <sound/jack.h>
-> +#include <sound/pcm_params.h>
-> +#include <sound/rt5682.h>
-> +#include <sound/sof.h>
-> +#include <sound/soc.h>
-> +#include "../../codecs/rt5682.h"
-> +#include "../common/mtk-afe-platform-driver.h"
-> +#include "mt8195-afe-clk.h"
-> +#include "mt8195-afe-common.h"
-> +#include "mt8195-mt6359-common.h"
-> +
-> +#define MAX98390_CODEC_DAI	"max98390-aif1"
-> +#define MAX98390_DEV0_NAME	"max98390.2-0038" /* right */
-> +#define MAX98390_DEV1_NAME	"max98390.2-0039" /* left */
-> +
-> +#define RT5682_CODEC_DAI	"rt5682-aif1"
-> +#define RT5682_DEV0_NAME	"rt5682.2-001a"
-> +
-> +#define RT5682S_CODEC_DAI	"rt5682s-aif1"
-> +#define RT5682S_DEV0_NAME	"rt5682s.2-001a"
-> +
-> +#define SOF_DMA_DL2 "SOF_DMA_DL2"
-> +#define SOF_DMA_DL3 "SOF_DMA_DL3"
-> +#define SOF_DMA_UL4 "SOF_DMA_UL4"
-> +#define SOF_DMA_UL5 "SOF_DMA_UL5"
-> +
-> +struct sof_conn_stream {
-> +	const char *normal_link;
-> +	const char *sof_link;
-> +	const char *sof_dma;
-> +	int stream_dir;
-> +};
-> +
-> +static const struct snd_soc_dapm_widget
-> +	mt8195_mt6359_max98390_rt5682_widgets[] = {
-> +	SND_SOC_DAPM_SPK("Left Speaker", NULL),
-> +	SND_SOC_DAPM_SPK("Right Speaker", NULL),
-> +	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-
-We can at least partially reuse existing UCM2 configuration if you
-slightly change the names for these controls.
-
-Specifically, MAX98090 (yes I know it's a different codec) has names
-"Speaker Left", "Speaker Right" instead, we will be able to at least
-partially reuse these (or get uniform naming, which is still good).
-As for the "Headphone Jack", it's simply "Headphone".
-
-Please note that the actual control names in userspace will be, exactly,
-
-"Speaker Left Switch", "Speaker Right Switch",
-"Headphone Left Switch", "Headphone Right Switch"...
-
-....where "Switch" gets automatically appended because of the control type.
-
-> +	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-
-This "Headset Mic" name is fine.
-
-> +	SND_SOC_DAPM_MIXER(SOF_DMA_DL2, SND_SOC_NOPM, 0, 0, NULL, 0),
-> +	SND_SOC_DAPM_MIXER(SOF_DMA_DL3, SND_SOC_NOPM, 0, 0, NULL, 0),
-> +	SND_SOC_DAPM_MIXER(SOF_DMA_UL4, SND_SOC_NOPM, 0, 0, NULL, 0),
-> +	SND_SOC_DAPM_MIXER(SOF_DMA_UL5, SND_SOC_NOPM, 0, 0, NULL, 0),
-> +};
-> +
-> +static const struct snd_soc_dapm_route mt8195_mt6359_max98390_rt5682_routes[] = {
-> +	/* speaker */
-> +	{ "Left Speaker", NULL, "Left BE_OUT" },
-> +	{ "Right Speaker", NULL, "Right BE_OUT" },
-> +	/* headset */
-> +	{ "Headphone Jack", NULL, "HPOL" },
-> +	{ "Headphone Jack", NULL, "HPOR" },
-> +	{ "IN1P", NULL, "Headset Mic" },
-> +	/* SOF Uplink */
-> +	{SOF_DMA_UL4, NULL, "O034"},
-> +	{SOF_DMA_UL4, NULL, "O035"},
-> +	{SOF_DMA_UL5, NULL, "O036"},
-> +	{SOF_DMA_UL5, NULL, "O037"},
-> +	/* SOF Downlink */
-> +	{"I070", NULL, SOF_DMA_DL2},
-> +	{"I071", NULL, SOF_DMA_DL2},
-> +	{"I020", NULL, SOF_DMA_DL3},
-> +	{"I021", NULL, SOF_DMA_DL3},
-> +};
-> +
-> +static const struct snd_kcontrol_new mt8195_mt6359_max98390_rt5682_controls[] = {
-> +	SOC_DAPM_PIN_SWITCH("Left Speaker"),
-> +	SOC_DAPM_PIN_SWITCH("Right Speaker"),
-> +	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-> +	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-> +};
-> +
-> +static int mt8195_rt5682_etdm_hw_params(struct snd_pcm_substream *substream,
-> +					struct snd_pcm_hw_params *params)
-> +{
-
-This is a copy-paste of the same function, having the same name, same lines and
-same everything, as found in mt8195-mt6359-rt1019-rt5682.c.
-
-Please don't duplicate code.
-
-> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +	struct snd_soc_card *card = rtd->card;
-> +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-> +	unsigned int rate = params_rate(params);
-> +	int bitwidth;
-> +	int ret;
-> +
-> +	bitwidth = snd_pcm_format_width(params_format(params));
-> +	if (bitwidth < 0) {
-> +		dev_err(card->dev, "invalid bit width: %d\n", bitwidth);
-> +		return bitwidth;
-> +	}
-> +
-> +	ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x00, 0x0, 0x2, bitwidth);
-> +	if (ret) {
-> +		dev_err(card->dev, "failed to set tdm slot\n");
+> @@ -3092,6 +3094,20 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+>   		return ret;
+>   	}
+>   
+> +	/* reset controller to reset audio regs before regmap cache */
+> +	rstc = devm_reset_control_get_exclusive(dev, "audiosys");
+> +	if (IS_ERR(rstc)) {
+> +		ret = PTR_ERR(rstc);
+> +		dev_err(dev, "could not get audiosys reset:%d\n", ret);
 > +		return ret;
 > +	}
 > +
-> +	ret = snd_soc_dai_set_pll(codec_dai, RT5682_PLL1, RT5682_PLL1_S_MCLK,
-> +				  rate * 256, rate * 512);
+> +	ret = reset_control_reset(rstc);
 > +	if (ret) {
-> +		dev_err(card->dev, "failed to set pll\n");
+> +		dev_err(dev, "failed to trigger audio reset:%d\n", ret);
 > +		return ret;
 > +	}
 > +
-> +	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1,
-> +				     rate * 512, SND_SOC_CLOCK_IN);
-> +	if (ret) {
-> +		dev_err(card->dev, "failed to set sysclk\n");
-> +		return ret;
-> +	}
-> +
-> +	return snd_soc_dai_set_sysclk(cpu_dai, 0, rate * 256,
-> +				      SND_SOC_CLOCK_OUT);
-> +}
-> +
-> +static const struct snd_soc_ops mt8195_rt5682_etdm_ops = {
-
-same here.
-
-> +	.hw_params = mt8195_rt5682_etdm_hw_params,
-> +};
-> +
-> +static int mt8195_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+>   	spin_lock_init(&afe_priv->afe_ctrl_lock);
+>   
+>   	mutex_init(&afe->irq_alloc_lock);
 
 
-....and same for this one too, except the "struct mt8195_mt6359_priv" has
-a different name.
 
-I think that you can commonize this function by doing something like...
-
-int mt8195_rt5682_init(struct snd_soc_jack *jack, struct mt8195_afe_private *afe,
-		       struct snd_soc_component *cmpnt_codec)
-
-...and then calling from this file, and the others.
-
-
-> +{
-> +	struct snd_soc_component *cmpnt_codec =
-> +		asoc_rtd_to_codec(rtd, 0)->component;
-> +	struct mt8195_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-> +	struct snd_soc_jack *jack = &priv->headset_jack;
-> +	struct snd_soc_component *cmpnt_afe =
-> +		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
-> +	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
-> +	struct mt8195_afe_private *afe_priv = afe->platform_priv;
-> +	int ret;
-> +
-> +	priv->i2so1_mclk = afe_priv->clk[MT8195_CLK_TOP_APLL12_DIV2];
-> +
-> +	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
-> +				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
-> +				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
-> +				    SND_JACK_BTN_3,
-> +				    jack, NULL, 0);
-> +	if (ret) {
-> +		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-> +
-> +	ret = snd_soc_component_set_jack(cmpnt_codec, jack, NULL);
-> +	if (ret) {
-> +		dev_err(rtd->dev, "Headset Jack set failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +};
-> +
-> +static int mt8195_etdm_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
-> +				       struct snd_pcm_hw_params *params)
-> +{
-> +	/* fix BE i2s format to S24_LE, clean param mask first */
-> +	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
-> +			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
-> +
-> +	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
-
-...this is yet another duplicated function from mt8195-mt6359-rt1019-rt5682.c.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int mt8195_set_bias_level_post(struct snd_soc_card *card,
-> +				      struct snd_soc_dapm_context *dapm,
-> +				      enum snd_soc_bias_level level)
-
-
-.... and again ....
-
-> +{
-> +	struct snd_soc_component *component = dapm->component;
-> +	struct mt8195_mt6359_priv *priv = snd_soc_card_get_drvdata(card);
-> +	int ret;
-> +
-> +	/*
-> +	 * It's required to control mclk directly in the set_bias_level_post
-> +	 * function for rt5682 and rt5682s codec, or the unexpected pop happens
-> +	 * at the end of playback.
-> +	 */
-> +	if (!component ||
-> +	    (strcmp(component->name, RT5682_DEV0_NAME) &&
-> +	    strcmp(component->name, RT5682S_DEV0_NAME)))
-> +		return 0;
-> +
-> +	switch (level) {
-> +	case SND_SOC_BIAS_OFF:
-> +		if (!__clk_is_enabled(priv->i2so1_mclk))
-> +			return 0;
-> +
-> +		clk_disable_unprepare(priv->i2so1_mclk);
-> +		dev_dbg(card->dev, "Disable i2so1 mclk\n");
-> +		break;
-> +	case SND_SOC_BIAS_ON:
-> +		ret = clk_prepare_enable(priv->i2so1_mclk);
-> +		if (ret) {
-> +			dev_err(card->dev, "Can't enable i2so1 mclk: %d\n", ret);
-> +			return ret;
-> +		}
-> +		dev_dbg(card->dev, "Enable i2so1 mclk\n");
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +enum {
-
-....and this is the same enum....
-
-> +	DAI_LINK_DL2_FE,
-> +	DAI_LINK_DL3_FE,
-> +	DAI_LINK_DL6_FE,
-> +	DAI_LINK_DL7_FE,
-> +	DAI_LINK_DL8_FE,
-> +	DAI_LINK_DL10_FE,
-> +	DAI_LINK_DL11_FE,
-> +	DAI_LINK_UL1_FE,
-> +	DAI_LINK_UL2_FE,
-> +	DAI_LINK_UL3_FE,
-> +	DAI_LINK_UL4_FE,
-> +	DAI_LINK_UL5_FE,
-> +	DAI_LINK_UL6_FE,
-> +	DAI_LINK_UL8_FE,
-> +	DAI_LINK_UL9_FE,
-> +	DAI_LINK_UL10_FE,
-> +	DAI_LINK_DL_SRC_BE,
-> +	DAI_LINK_DPTX_BE,
-> +	DAI_LINK_ETDM1_IN_BE,
-> +	DAI_LINK_ETDM2_IN_BE,
-> +	DAI_LINK_ETDM1_OUT_BE,
-> +	DAI_LINK_ETDM2_OUT_BE,
-> +	DAI_LINK_ETDM3_OUT_BE,
-> +	DAI_LINK_PCM1_BE,
-> +	DAI_LINK_UL_SRC1_BE,
-> +	DAI_LINK_UL_SRC2_BE,
-> +	DAI_LINK_REGULAR_LAST = DAI_LINK_UL_SRC2_BE,
-> +	DAI_LINK_SOF_START,
-> +	DAI_LINK_SOF_DL2_BE = DAI_LINK_SOF_START,
-> +	DAI_LINK_SOF_DL3_BE,
-> +	DAI_LINK_SOF_UL4_BE,
-> +	DAI_LINK_SOF_UL5_BE,
-> +	DAI_LINK_SOF_END = DAI_LINK_SOF_UL5_BE,
-> +};
-> +
-> +#define	DAI_LINK_REGULAR_NUM	(DAI_LINK_REGULAR_LAST + 1)
-> +
-> +/* FE */
-> +SND_SOC_DAILINK_DEFS(DL2_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL2")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(DL3_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL3")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(DL6_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL6")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(DL7_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL7")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(DL8_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL8")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(DL10_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL10")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(DL11_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL11")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL1_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL1")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL2_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL2")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL3_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL3")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL4_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL4")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL5_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL5")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL6_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL6")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL8_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL8")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL9_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL9")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL10_FE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL10")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +/* BE */
-> +SND_SOC_DAILINK_DEFS(DL_SRC_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL_SRC")),
-> +		     DAILINK_COMP_ARRAY(COMP_CODEC("mt6359-sound",
-> +						   "mt6359-snd-codec-aif1")),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(DPTX_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("DPTX")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(ETDM1_IN_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM1_IN")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(ETDM2_IN_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM2_IN")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(ETDM1_OUT_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM1_OUT")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-
-
-.... and the same dailink definitions....
-
-> +
-> +SND_SOC_DAILINK_DEFS(ETDM2_OUT_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM2_OUT")),
-> +		     DAILINK_COMP_ARRAY(COMP_CODEC(MAX98390_DEV0_NAME,
-> +						   MAX98390_CODEC_DAI),
-> +					COMP_CODEC(MAX98390_DEV1_NAME,
-> +						   MAX98390_CODEC_DAI)),
-
-...but this one is different.
-
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-
-
-....and the rest is the same again....
-
-> +SND_SOC_DAILINK_DEFS(ETDM3_OUT_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM3_OUT")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(PCM1_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("PCM1")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL_SRC1_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL_SRC1")),
-> +		     DAILINK_COMP_ARRAY(COMP_CODEC("mt6359-sound",
-> +						   "mt6359-snd-codec-aif1"),
-> +					COMP_CODEC("dmic-codec",
-> +						   "dmic-hifi")),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(UL_SRC2_BE,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL_SRC2")),
-> +		     DAILINK_COMP_ARRAY(COMP_CODEC("mt6359-sound",
-> +						   "mt6359-snd-codec-aif2")),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(AFE_SOF_DL2,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL2")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(AFE_SOF_DL3,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL3")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(AFE_SOF_UL4,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL4")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +SND_SOC_DAILINK_DEFS(AFE_SOF_UL5,
-> +		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL5")),
-> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-> +
-> +static const struct sof_conn_stream g_sof_conn_streams[] = {
-
-this is also the same...
-
-> +	{ "ETDM2_OUT_BE", "AFE_SOF_DL2", SOF_DMA_DL2, SNDRV_PCM_STREAM_PLAYBACK},
-> +	{ "ETDM1_OUT_BE", "AFE_SOF_DL3", SOF_DMA_DL3, SNDRV_PCM_STREAM_PLAYBACK},
-> +	{ "UL_SRC1_BE", "AFE_SOF_UL4", SOF_DMA_UL4, SNDRV_PCM_STREAM_CAPTURE},
-> +	{ "ETDM2_IN_BE", "AFE_SOF_UL5", SOF_DMA_UL5, SNDRV_PCM_STREAM_CAPTURE},
-> +};
-> +
-> +/* fixup the BE DAI link to match any values from topology */
-> +static int mt8195_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
-> +				 struct snd_pcm_hw_params *params)
-> +{
-
-...and this function is also a copypaste...
-
-> +	struct snd_soc_card *card = rtd->card;
-> +	struct snd_soc_dai_link *sof_dai_link = NULL;
-> +	struct snd_soc_pcm_runtime *runtime;
-> +	struct snd_soc_dai *cpu_dai;
-> +	int i, j, ret = 0;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(g_sof_conn_streams); i++) {
-> +		const struct sof_conn_stream *conn = &g_sof_conn_streams[i];
-> +
-> +		if (strcmp(rtd->dai_link->name, conn->normal_link))
-> +			continue;
-> +
-> +		for_each_card_rtds(card, runtime) {
-> +			if (strcmp(runtime->dai_link->name, conn->sof_link))
-> +				continue;
-> +
-> +			for_each_rtd_cpu_dais(runtime, j, cpu_dai) {
-> +				if (cpu_dai->stream_active[conn->stream_dir] > 0) {
-> +					sof_dai_link = runtime->dai_link;
-> +					break;
-> +				}
-> +			}
-> +			break;
-> +		}
-> +
-> +		if (sof_dai_link && sof_dai_link->be_hw_params_fixup)
-> +			ret = sof_dai_link->be_hw_params_fixup(runtime, params);
-> +
-> +		break;
-> +	}
-> +
-> +	if (!strcmp(rtd->dai_link->name, "ETDM2_IN_BE") ||
-> +	    !strcmp(rtd->dai_link->name, "ETDM1_OUT_BE")) {
-> +		mt8195_etdm_hw_params_fixup(runtime, params);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int mt8195_mt6359_max98390_rt5682_card_late_probe(struct snd_soc_card *card)
-> +{
-
-... and this function differs from mt8195_mt6359_rt1019_rt5682_card_late_probe()
-only because it has a different name ...
-
-> +	struct snd_soc_pcm_runtime *runtime;
-> +	struct snd_soc_component *sof_comp = NULL;
-> +	int i;
-> +
-> +	/* 1. find sof component */
-> +	for_each_card_rtds(card, runtime) {
-> +		for (i = 0; i < runtime->num_components; i++) {
-> +			if (!runtime->components[i]->driver->name)
-> +				continue;
-> +			if (!strcmp(runtime->components[i]->driver->name, "sof-audio-component")) {
-> +				sof_comp = runtime->components[i];
-> +				break;
-> +			}
-> +		}
-> +	}
-> +
-> +	if (!sof_comp) {
-> +		dev_info(card->dev, " probe without component\n");
-> +		return 0;
-> +	}
-> +	/* 2. add route path and fixup callback */
-> +	for (i = 0; i < ARRAY_SIZE(g_sof_conn_streams); i++) {
-> +		const struct sof_conn_stream *conn = &g_sof_conn_streams[i];
-> +		struct snd_soc_pcm_runtime *sof_rtd = NULL;
-> +		struct snd_soc_pcm_runtime *normal_rtd = NULL;
-> +		struct snd_soc_pcm_runtime *rtd = NULL;
-> +
-> +		for_each_card_rtds(card, rtd) {
-> +			if (!strcmp(rtd->dai_link->name, conn->sof_link)) {
-> +				sof_rtd = rtd;
-> +				continue;
-> +			}
-> +			if (!strcmp(rtd->dai_link->name, conn->normal_link)) {
-> +				normal_rtd = rtd;
-> +				continue;
-> +			}
-> +			if (normal_rtd && sof_rtd)
-> +				break;
-> +		}
-> +		if (normal_rtd && sof_rtd) {
-> +			int j;
-> +			struct snd_soc_dai *cpu_dai;
-> +
-> +			for_each_rtd_cpu_dais(sof_rtd, j, cpu_dai) {
-> +				struct snd_soc_dapm_route route;
-> +				struct snd_soc_dapm_path *p = NULL;
-> +				struct snd_soc_dapm_widget *play_widget =
-> +					cpu_dai->playback_widget;
-> +				struct snd_soc_dapm_widget *cap_widget =
-> +					cpu_dai->capture_widget;
-> +				memset(&route, 0, sizeof(route));
-> +				if (conn->stream_dir == SNDRV_PCM_STREAM_CAPTURE &&
-> +				    cap_widget) {
-> +					snd_soc_dapm_widget_for_each_sink_path(cap_widget, p) {
-> +						route.source = conn->sof_dma;
-> +						route.sink = p->sink->name;
-> +						snd_soc_dapm_add_routes(&card->dapm, &route, 1);
-> +					}
-> +				} else if (conn->stream_dir == SNDRV_PCM_STREAM_PLAYBACK &&
-> +						play_widget){
-> +					snd_soc_dapm_widget_for_each_source_path(play_widget, p) {
-> +						route.source = p->source->name;
-> +						route.sink = conn->sof_dma;
-> +						snd_soc_dapm_add_routes(&card->dapm, &route, 1);
-> +					}
-> +				} else {
-> +					dev_err(cpu_dai->dev, "stream dir and widget not pair\n");
-> +				}
-> +			}
-> +			normal_rtd->dai_link->be_hw_params_fixup = mt8195_dai_link_fixup;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static struct snd_soc_dai_link mt8195_mt6359_max98390_rt5682_dai_links[] = {
-
-
-... again, different name, same contents ...
-
-
-And I won't go on repeating the same thing over and over again.
-I think that the best idea here is to either create a mt8195-mt6359-rt5682-common.c
-file, or to rename the others to something else and get them all in the same file.
-
-
-Regards,
-Angelo

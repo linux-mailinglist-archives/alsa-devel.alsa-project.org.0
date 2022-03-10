@@ -2,79 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF724D5463
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 23:13:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB1274D5480
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 23:19:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B14421932;
-	Thu, 10 Mar 2022 23:12:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B14421932
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77D5219FE;
+	Thu, 10 Mar 2022 23:19:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77D5219FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646950427;
-	bh=SrbeWDUJA575QGcisqemZrmpfYz8rpK9Vq7rnn0N194=;
+	s=default; t=1646950797;
+	bh=JU7F45BV9tpPf4BWSeA+PrkLQlaX7J6OlFV1hWeqmJY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TRnv0TOsmjV0nEcgfdASFGIFNWuwrpT/LSw1IzUlvT1ENxRgWXKTEXJNuWEVOUcl2
-	 wfdM5v02wHAu5/cNSu3IBS57D7tHPNzY4+N47L9gIB9S9oA+VvabUFtA0Alx/p1yfp
-	 3oTKgtgpDdVCEfBrjOlq0y6PW29lFJKAKcc3MD6A=
+	b=qd3I8HmQwbjFBKDefT+BVaf+9uOg9SqmMYuS1o16P11zxoRhumopt3HZdk2F55bLc
+	 XHvXo0EOcLSmVf/iuaIdbYWthnG02uoBtyCiP69TrfFfg3AXNcPc+rumHtuWHkT87P
+	 DfkVAHAFp3ycO5d3/HgOzk7ex6v8g/ko0ajmJ4RM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F222F800D2;
-	Thu, 10 Mar 2022 23:12:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBDDDF8013C;
+	Thu, 10 Mar 2022 23:18:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2AF37F80137; Thu, 10 Mar 2022 23:12:38 +0100 (CET)
+ id 3C598F80137; Thu, 10 Mar 2022 23:18:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B06AF800FD
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 23:12:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B06AF800FD
-Received: by mail-oi1-f172.google.com with SMTP id 12so7418529oix.12
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:12:34 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3B84F800D2
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 23:18:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3B84F800D2
+Received: by mail-ot1-f45.google.com with SMTP id
+ k25-20020a056830151900b005b25d8588dbso5045497otp.4
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:18:39 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=omjoz0M9biHPr5EKrbgbc5QfautyWsC0HyZJaIjRDEg=;
- b=7GPRsDeNfYIXTqfL8K/iabODFxmcKxNxgdCdqNAr2W1E8+KTrAPJ2Nqwd2ZkW2bKAZ
- U9Ta8N+aWdh0M3GgUnB9wfVc+xr+UBRh8O/jszEvzymYQl4VH1MLP3INESbzTfmURRDB
- 22Hdmvk78TAPm9LVuWDV428FdNXg3DUoPD8kO7hE+HDeKOmr+VkYHm0NdCO8bPnGso0A
- YXk6k41UF5nksSCr9XOXh78QAOGpyl6a9pIoyca30RclbQsnwwsaRDPraWQNmSnMQt0G
- 0MQh37WcaxTvqLzrEdpDKcHS+hQSSu7vU/20i+qHghEduSBMo+Dhho8i3KvysYEg4kCN
- Lrrw==
-X-Gm-Message-State: AOAM53268ioWHcOd2sJm2Uk/y3/0BI609sRc2wndtsfVpOEkhBNgqSrQ
- CDxdtuqEh5a+xXHM6kX6rA==
-X-Google-Smtp-Source: ABdhPJxHna6A8giuUalT7X77knNuIyLF0eFu5RYM8FUTp80V2T9F0GnnEXgbqAyoeBJg75biyF6+tw==
-X-Received: by 2002:a05:6808:1528:b0:2da:7f1d:f847 with SMTP id
- u40-20020a056808152800b002da7f1df847mr1796358oiw.85.1646950353167; 
- Thu, 10 Mar 2022 14:12:33 -0800 (PST)
+ bh=uVBl4IjExhMMGQyqVZdtBYxJhbtlhf7V3EID45rNLsk=;
+ b=CcJiRu4ZIIADSEBPHTqRar3KlVWyr8U25uWgWR1z9LcnjoG5BTw+lJLyORh++Gj7WJ
+ aKQqN5vX4qHgBHd1gEVWuVraWpWZv2Q/CImZzKf/ZriyeEA4Viysy6bCJIvDzcnud+5x
+ M3p+WiMCTu4cL7hA8pzYMVJjaFGKl5nKPQNTGQgBAhRoEvkFW+MQvUY8GgDb0WRHWEwm
+ dRD6snhEeNzR6pjRJbGVEeHWpQRON77s0x7elgTYh+F/RfMyKdULpppw7QPVpWv7me1n
+ WqVzHVuT7ivR/41kpKRZrRAzhGXca+iMWteL2wJK1BmAplNDjGrJnxiqn2/2WQuenGzJ
+ is4g==
+X-Gm-Message-State: AOAM532Rc6eD1YRUPVSUbK6o2mVj1yiQfWy8H6YKU5cEkVdSDnWQUOlv
+ Izlztf9fTuGuUNW9971LTNlf9etnKg==
+X-Google-Smtp-Source: ABdhPJymVHkEV5XxQpBNmw5S/gpv0K8uSPo3RhUKisPITsq2PFiS19pD2qkEoukGiphCl2E24hUkYQ==
+X-Received: by 2002:a9d:77d7:0:b0:5b2:29b0:70cb with SMTP id
+ w23-20020a9d77d7000000b005b229b070cbmr3556144otl.276.1646950718003; 
+ Thu, 10 Mar 2022 14:18:38 -0800 (PST)
 Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- c14-20020a056870b28e00b000d7d5962242sm2821551oao.35.2022.03.10.14.12.31
+ i126-20020acab884000000b002d9f958bceesm2925916oif.41.2022.03.10.14.18.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Mar 2022 14:12:32 -0800 (PST)
-Received: (nullmailer pid 2175473 invoked by uid 1000);
- Thu, 10 Mar 2022 22:12:31 -0000
-Date: Thu, 10 Mar 2022 16:12:31 -0600
+ Thu, 10 Mar 2022 14:18:36 -0800 (PST)
+Received: (nullmailer pid 2185267 invoked by uid 1000);
+ Thu, 10 Mar 2022 22:18:35 -0000
+Date: Thu, 10 Mar 2022 16:18:35 -0600
 From: Rob Herring <robh@kernel.org>
 To: Trevor Wu <trevor.wu@mediatek.com>
-Subject: Re: [PATCH 2/5] dt-bindings: mediatek: mt8195: add reset property
-Message-ID: <Yip3z3XoarN8TeMn@robh.at.kernel.org>
+Subject: Re: [PATCH 5/5] dt-bindings: mediatek: mt8195: add
+ mt8195-mt6359-max98390-rt5682 document
+Message-ID: <Yip5O3t0Ymyc2h+p@robh.at.kernel.org>
 References: <20220308072435.22460-1-trevor.wu@mediatek.com>
- <20220308072435.22460-3-trevor.wu@mediatek.com>
+ <20220308072435.22460-6-trevor.wu@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220308072435.22460-3-trevor.wu@mediatek.com>
+In-Reply-To: <20220308072435.22460-6-trevor.wu@mediatek.com>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
  linux-kernel@vger.kernel.org, broonie@kernel.org,
  linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
@@ -95,12 +98,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 08, 2022 at 03:24:32PM +0800, Trevor Wu wrote:
-> Add required properties "resets" and "reset_names", which are used to
-> specify audiosys hw reset for mt8195 afe driver.
+On Tue, Mar 08, 2022 at 03:24:35PM +0800, Trevor Wu wrote:
+> This patch adds document for mt8195 board with mt6359, max98390 and
+> rt5682.
+> 
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+> ---
+>  .../sound/mt8195-mt6359-max98390-rt5682.yaml  | 61 +++++++++++++++++++
+>  1 file changed, 61 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/mt8195-mt6359-max98390-rt5682.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/mt8195-mt6359-max98390-rt5682.yaml b/Documentation/devicetree/bindings/sound/mt8195-mt6359-max98390-rt5682.yaml
+> new file mode 100644
+> index 000000000000..7ec14d61b109
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/mt8195-mt6359-max98390-rt5682.yaml
+> @@ -0,0 +1,61 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/mt8195-mt6359-max98390-rt5682.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Mediatek MT8195 with MT6359, MAX98390 and RT5682 ASoC sound card driver
+> +
+> +maintainers:
+> +  - Trevor Wu <trevor.wu@mediatek.com>
+> +
+> +description:
+> +  This binding describes the MT8195 sound card.
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt8195_mt6359_max98390_rt5682
 
-The subject needs to be more specific and indicate this applies to ASoC 
-and mt8195-afe-pcm. Try to write subjects that could only ever appear 
-once as you can never make the same change twice.
+You have nodes for each of these components, why do we need new 
+compatible string for each combination. You can figure out the 
+combination by looking at each of those nodes.
+
+Second, why does each combination need a new schema doc?
 
 Rob

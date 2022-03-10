@@ -2,81 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F1C4D4424
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 11:01:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969404D445E
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 11:17:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61A5B1867;
-	Thu, 10 Mar 2022 11:00:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61A5B1867
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A93A1883;
+	Thu, 10 Mar 2022 11:16:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A93A1883
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646906475;
-	bh=TvwRXoakGQQI3EHYMoW0++Fnjj6tsuzgkYwE7cVUDks=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1646907455;
+	bh=EXxsU7bb4p75pfO8sLSCyCd/AXaDqiKA9HqIvRAA9hc=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tbvIxwqSYQM4walULvrrBXkqlnua7l3hbKLC0G+Nis9PgnjfHQTyf+Eyw5VMrT7aN
-	 s3SXExQmcn9OSdhSsfuVTtB14OlIRCFhd8LKXP/UVtd7rNntYLroXoJ0qOmYfEbYyN
-	 +jGzSnuw6cPFwqCZTbXaqEV+UYKxPqnSOtc7kr+g=
+	b=SZwFwiOTU3sa5Ru6lk6WRdmtkKuVOmADWiNlRZZu/OG0/YhaNwRJF+3VfOIcaP/dN
+	 1wELd3U1U435DMLBHdDcR45g/RcwSai1bWhAyQ+RF05WUZdyIrDbJvL39Ww5kv9bb0
+	 S34Nf7mF/MNdNA2BAcVtGOsWvoQmXweDSOdEWjds=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8F2EF80425;
-	Thu, 10 Mar 2022 11:00:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54670F800D2;
+	Thu, 10 Mar 2022 11:16:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83753F800D2; Thu, 10 Mar 2022 11:00:23 +0100 (CET)
+ id 5A275F80137; Thu, 10 Mar 2022 11:16:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1169BF800D2
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 11:00:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1169BF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55878F800D2
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 11:16:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55878F800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ciZbvCPh"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="K6BZE/K8"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 5A98F1F443
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 10:00:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646906420; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=P5N8Aa73JtYypFbUeV12FHusZ6v7tU6PoPPalTT+fyg=;
- b=ciZbvCPhPThrF/jpgSVSRqUaFGaJfzy5wVxp3U4NRv9MXjgYvM7HrSAUjrAaUaHQndgihj
- pirMc1ekkdHymFcuNBOj/u08YrkXRbQ6QxIO3yN3l3M9I9CwFRrxJ7JZn+8U/eoQakNPuh
- Btf8E/Lj1kG5fZeGk6+HC/LRfeK87uE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646906420;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=P5N8Aa73JtYypFbUeV12FHusZ6v7tU6PoPPalTT+fyg=;
- b=K6BZE/K8cIojaUKzAanjhcx2TKDS4C+w7rawq349n05pedC+5IJS8f1vGq4oCJcByc/A1O
- M/jHXsA8JicO1GBg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 4BBA3A3B9B;
- Thu, 10 Mar 2022 10:00:20 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-lib v2 3/3] pcm: direct: Check xrun/suspend before the
- slave hwptr update
-Date: Thu, 10 Mar 2022 11:00:18 +0100
-Message-Id: <20220310100018.10038-3-tiwai@suse.de>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20220310100018.10038-1-tiwai@suse.de>
-References: <20220310100018.10038-1-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="Zd+TYWLs"
+Received: by mail-wm1-x32f.google.com with SMTP id
+ n31-20020a05600c3b9f00b003898fc06f1eso5113849wms.1
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 02:16:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=04ryZIvTRUDhoUYmcvNQt9Swok7h0slWygeHVa8vqiY=;
+ b=Zd+TYWLsSoSNZ4+/oqHc8x5LYljlVmF7e5FaMcx556ItTvBHOLjGkpe92tMUlHeg84
+ X2TJbDLtMC75+dpMRAH3b0To67/E5an/De1MrzB0ANAFWByKf1MDsjrwZHLQdJgL/PCl
+ mfdgGLZuCT0FL3SnDYD5obVjh0eEykCQwtBWxEQXywF77qF6hpGivHmJ3ibcr5EedMYh
+ CzJmC3TRzjVh+D6G1Rz87t+jjp8bQZkrUZTBeFWjPn+PaOL7h0hghF+tk0xVtakvyo6u
+ aO95fA5W/7bY8YxsNe/4GByhqCmWH5Ad9Nyyih9514EE8DbPhKoN9epwwmS47fWrGnj7
+ gwQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=04ryZIvTRUDhoUYmcvNQt9Swok7h0slWygeHVa8vqiY=;
+ b=aSu+N6UVkLA628jsxXmASM6XNW7uHPCXjEdUL4gLOq5BsvnbFZcT4efVeEJcYwtYn+
+ pp5U6w/y31L6Gv+zw/1hOFmU5FV1EB3WgxmV5i8UrGTMc6ALlh7IthLIIJ6QZ+9sHXi4
+ rsdmUkUT+DaYwBWLu+kYaA9PT5wIH4HRw7SRZnzvYWXs9HjogHs3VkPKG36gGMaKTYQn
+ i0e3pCXNqU50Nof6bmqJ1V7IJq66c/fZbu2tV+LPH8xDkI5owhxEupGZfFtoJ8Hgxt4z
+ 25FGDlJQTqmxbE1v2brfaBHzy5zDN/EOiC2h6PABAb21wjoRqzccirzIGiOV1CSkG1zC
+ L2ig==
+X-Gm-Message-State: AOAM531zTuZLApCX5I10JRiqqIFsrLLOD1unFVbjyAn85LDZcO9elpga
+ AMYtxvOMzsNQFsRpZBYRmsSyIA==
+X-Google-Smtp-Source: ABdhPJyywi34YHOHVhNPxnoUPjmKH7B/IOtSTulhMR1UULi9LtjP9plyHy6KFFq/cJtVWwQ6br/aJA==
+X-Received: by 2002:a05:600c:1f15:b0:389:ab64:fe80 with SMTP id
+ bd21-20020a05600c1f1500b00389ab64fe80mr11070007wmb.141.1646907378180; 
+ Thu, 10 Mar 2022 02:16:18 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id
+ k10-20020adfe3ca000000b001f0329ba94csm5594508wrm.18.2022.03.10.02.16.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Mar 2022 02:16:17 -0800 (PST)
+Message-ID: <c5ea7235-8642-6a89-f4ce-bd0861b6e4aa@linaro.org>
+Date: Thu, 10 Mar 2022 10:16:16 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: Use platform_get_irq() to get the
+ interrupt
+Content-Language: en-US
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-kernel@vger.kernel.org, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <20211224161334.31123-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20211224161334.31123-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20211224161334.31123-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: linux-arm-msm@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,91 +112,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The xrun/suspend may happen at any time and we should check it right
-after the slave hwptr update (but before the actual sync_ptr update in
-direct pcm side).  Otherwise the hwptr value may be screwed and get
-unexpected large read/write.
 
-Reported-by: S.J. Wang <shengjiu.wang@nxp.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- src/pcm/pcm_dmix.c   | 8 +++++---
- src/pcm/pcm_dshare.c | 8 +++++---
- src/pcm/pcm_dsnoop.c | 6 +++---
- 3 files changed, 13 insertions(+), 9 deletions(-)
 
-diff --git a/src/pcm/pcm_dmix.c b/src/pcm/pcm_dmix.c
-index d00d53bef604..c6cb47f0f840 100644
---- a/src/pcm/pcm_dmix.c
-+++ b/src/pcm/pcm_dmix.c
-@@ -424,15 +424,17 @@ static int snd_pcm_dmix_sync_ptr0(snd_pcm_t *pcm, snd_pcm_uframes_t slave_hw_ptr
- static int snd_pcm_dmix_sync_ptr(snd_pcm_t *pcm)
- {
- 	snd_pcm_direct_t *dmix = pcm->private_data;
-+	snd_pcm_uframes_t slave_hw_ptr;
- 	int err;
- 
-+	if (dmix->slowptr)
-+		snd_pcm_hwsync(dmix->spcm);
-+	slave_hw_ptr = *dmix->spcm->hw.ptr;
- 	err = snd_pcm_direct_check_xrun(dmix, pcm);
- 	if (err < 0)
- 		return err;
--	if (dmix->slowptr)
--		snd_pcm_hwsync(dmix->spcm);
- 
--	return snd_pcm_dmix_sync_ptr0(pcm, *dmix->spcm->hw.ptr);
-+	return snd_pcm_dmix_sync_ptr0(pcm, slave_hw_ptr);
- }
- 
- /*
-diff --git a/src/pcm/pcm_dshare.c b/src/pcm/pcm_dshare.c
-index 0ff43a90d270..461adafc77f8 100644
---- a/src/pcm/pcm_dshare.c
-+++ b/src/pcm/pcm_dshare.c
-@@ -199,15 +199,17 @@ static int snd_pcm_dshare_sync_ptr0(snd_pcm_t *pcm, snd_pcm_uframes_t slave_hw_p
- static int snd_pcm_dshare_sync_ptr(snd_pcm_t *pcm)
- {
- 	snd_pcm_direct_t *dshare = pcm->private_data;
-+	snd_pcm_uframes_t slave_hw_ptr;
- 	int err;
- 
-+	if (dshare->slowptr)
-+		snd_pcm_hwsync(dshare->spcm);
-+	slave_hw_ptr = *dshare->spcm->hw.ptr;
- 	err = snd_pcm_direct_check_xrun(dshare, pcm);
- 	if (err < 0)
- 		return err;
--	if (dshare->slowptr)
--		snd_pcm_hwsync(dshare->spcm);
- 
--	return snd_pcm_dshare_sync_ptr0(pcm, *dshare->spcm->hw.ptr);
-+	return snd_pcm_dshare_sync_ptr0(pcm, slave_hw_ptr);
- }
- 
- /*
-diff --git a/src/pcm/pcm_dsnoop.c b/src/pcm/pcm_dsnoop.c
-index 729ff447b41f..9abbbef2c1b6 100644
---- a/src/pcm/pcm_dsnoop.c
-+++ b/src/pcm/pcm_dsnoop.c
-@@ -134,14 +134,14 @@ static int snd_pcm_dsnoop_sync_ptr(snd_pcm_t *pcm)
- 	snd_pcm_sframes_t diff;
- 	int err;
- 
--	err = snd_pcm_direct_check_xrun(dsnoop, pcm);
--	if (err < 0)
--		return err;
- 	if (dsnoop->slowptr)
- 		snd_pcm_hwsync(dsnoop->spcm);
- 	old_slave_hw_ptr = dsnoop->slave_hw_ptr;
- 	snoop_timestamp(pcm);
- 	slave_hw_ptr = dsnoop->slave_hw_ptr;
-+	err = snd_pcm_direct_check_xrun(dsnoop, pcm);
-+	if (err < 0)
-+		return err;
- 	diff = pcm_frame_diff(slave_hw_ptr, old_slave_hw_ptr, dsnoop->slave_boundary);
- 	if (diff == 0)		/* fast path */
- 		return 0;
--- 
-2.34.1
+On 24/12/2021 16:13, Lad Prabhakar wrote:
+> platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
+> allocation of IRQ resources in DT core code, this causes an issue
 
+Are you saying that we should not be using platform_get_resource(pdev, 
+IORESOURCE_IRQ, ...) on drivers that support DT?
+
+> when using hierarchical interrupt domains using "interrupts" property
+> in the node as this bypasses the hierarchical setup and messes up the
+> irq chaining.
+
+Should this not be fixed in the DT core itself?
+
+> 
+> In preparation for removal of static setup of IRQ resource from DT core
+> code use platform_get_irq().
+
+I would prefer this patch to be part of the series that removes IRQ 
+resource handling from DT core.
+
+
+--srini
+
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> Hi,
+> 
+> Dropping usage of platform_get_resource() was agreed based on
+> the discussion [0].
+> 
+> [0] https://patchwork.kernel.org/project/linux-renesas-soc/
+> patch/20211209001056.29774-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+> 
+> Cheers,
+> Prabhakar
+> ---
+>   drivers/slimbus/qcom-ngd-ctrl.c | 10 ++++------
+>   1 file changed, 4 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+> index 7040293c2ee8..0f29a08b4c09 100644
+> --- a/drivers/slimbus/qcom-ngd-ctrl.c
+> +++ b/drivers/slimbus/qcom-ngd-ctrl.c
+> @@ -1526,13 +1526,11 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+>   	if (IS_ERR(ctrl->base))
+>   		return PTR_ERR(ctrl->base);
+>   
+> -	res = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
+> -	if (!res) {
+> -		dev_err(&pdev->dev, "no slimbus IRQ resource\n");
+> -		return -ENODEV;
+> -	}
+> +	ret = platform_get_irq(pdev, 0);
+> +	if (ret < 0)
+> +		return ret;
+>   
+> -	ret = devm_request_irq(dev, res->start, qcom_slim_ngd_interrupt,
+> +	ret = devm_request_irq(dev, ret, qcom_slim_ngd_interrupt,
+>   			       IRQF_TRIGGER_HIGH, "slim-ngd", ctrl);
+>   	if (ret) {
+>   		dev_err(&pdev->dev, "request IRQ failed\n");

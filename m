@@ -2,102 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49D644D44E7
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 11:44:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 761F94D4583
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 12:18:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD8211896;
-	Thu, 10 Mar 2022 11:43:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD8211896
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A73A18A2;
+	Thu, 10 Mar 2022 12:17:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A73A18A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646909042;
-	bh=HKnog4jUPv78Ewl8NvKqwN5IEDAotFNPtUDK4dUWFWg=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Gpy+69A5kFWUZbUA+ztySocF1C9AXySviM0Tgrlfcb80OVURN/Y0HScUup31BFWSd
-	 ARm5sYbUweH2BhF7/leIDM3fZvH4vLM9kpErjqVuWuQTN89GBL/M1LXgrnMyeyc+jT
-	 suDE5oNmlQLSQx/dehYcWIUmW6KVIB64RehXGYDw=
+	s=default; t=1646911091;
+	bh=9UNu6upX2cZA09mJ4R8IkHmLFLkAoKzdYG1stEZOvHg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=J+YOKTnSF4ljF2uKlcWr0yr7yN+N6740wrAI5xbbhgi/M6ITOYQCzcgq7QnbQHVI7
+	 iuD7Sbsnsg+zgyFYC8aH483Jt9kHNFYt7wWf+ORo4+qaVZ4I5sT9yJ2ey0INqt/OWT
+	 YVzEUxfST//GkmYcpGwQCrLJHwMVCjl7cDJxl9KU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33DCDF800FD;
-	Thu, 10 Mar 2022 11:42:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67B2CF8013C;
+	Thu, 10 Mar 2022 12:17:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1B0BF800FD; Thu, 10 Mar 2022 11:42:53 +0100 (CET)
+ id BFAB6F80137; Thu, 10 Mar 2022 12:17:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::61c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A399AF800FD
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 11:42:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A399AF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A466F8012C
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 12:16:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A466F8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="tIzoauSJ"
-Received: by mail-wr1-x434.google.com with SMTP id x15so7200791wru.13
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 02:42:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=QVMbWuHkkDuZtNM8luekJjrN/fjg/FyiWebrna5roZw=;
- b=tIzoauSJ+w5agVaEFio3bpeTlHSNKY7X4l83Kr8LtMdX7pcS3I+jVWWKNLFprL+e3p
- yMRJADedzZG7//YHPb+2zWxhWZ+UaEz7ubkaPixFQZhL4RXi6Oq+9/bQGTSEMWDeKaPq
- sXaYEm3chI4nvNcNVIEOYeOIIMhumUmkyyCX/h4YUmCiQvpecMQTmILjGYlPj8DmVcn4
- XoeSe0geQ5i32wtQn+Ywn4REMUWuwyqFp6XuK/Bn0bkzuZUQlenWReKxabxrAKIRMzS1
- If+tpvYP0RWQVIbRllPeA+KJ8iVWm/KuKZ3IPewdqJxOmzLG0eK+HO+Bndo5SAjFLSJ6
- wWNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=QVMbWuHkkDuZtNM8luekJjrN/fjg/FyiWebrna5roZw=;
- b=DTI21kwvPADeroIM7NBszVurdkOfaVxpp1QjYqng2cwzE+WZCLJTMwdWhVUEQD3S2M
- aSFXLkhAFevEesNvRiyP5s9mA4lrzGgs8+RbfZLlYC2A8jO0UvjHw9kdGxutpSOJvs9x
- rBURtOwHgvCUbFUCuQB6LC6TEVxzyWqO2i1KyPL677v7AKwhvMHvcqFnGWvE6mQY6rxq
- TrEsO7BYiabfWC+d2JZme6Gw/YIFODTy0+H2SfMj7xHK0yUQe7MTBWC1dVDCbqM9lC52
- vW9bHoK6ZHpsVMEKBvvR1SNJL5sKL2NhopCx4eJb8nkvLTJpl7ASMAItvgBvYyzVmnpu
- tyqw==
-X-Gm-Message-State: AOAM533gcVG9+64vmqA9a4B1Hib0dONwPOfMMBHgaVhikra0BRsIWCKQ
- YVHza2TJ/AT8U7loGbYCp1Fanw==
-X-Google-Smtp-Source: ABdhPJyY6drV+z0QAzNTPASiA7ycLBG5wzjkdEV9U3cnvDm+EIQxess0YzG0KPe/LtY8rbMKgGefdQ==
-X-Received: by 2002:adf:fa41:0:b0:1f0:2118:4832 with SMTP id
- y1-20020adffa41000000b001f021184832mr3016372wrr.571.1646908963682; 
- Thu, 10 Mar 2022 02:42:43 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id
- g2-20020a5d46c2000000b001f079ba0158sm3751927wrs.60.2022.03.10.02.42.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Mar 2022 02:42:43 -0800 (PST)
-Message-ID: <5e13c1ba-0bf5-e360-c350-e7a1a1402350@linaro.org>
-Date: Thu, 10 Mar 2022 10:42:42 +0000
+ dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
+ header.b="chZkQrQm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OIzIXDUNjk/G6MO9WKl8wWgHWzPrHjsNrbDejSa+foTacJ3XtmUhVof20dkoc498rXwW2r6GihEIkfjEGbpxSVDN3oMPw8p9ZnGdHgStPBw++353VSHDuwrPxLNHOt3lT8wpV0iNeT/+Tp9VTOhB3viU7IcRMj/HM0RXuebnt9VBhPiYoUuoAKfXQXNakTWbMSFp/glHw4tE96A+dgxpjoQvr3smvoxeAy3JdY8RdfrOmHiib8vfhkrFb2CJZ1pNr+HiVG6VkQDX2zLEhZtCdifcVibZHday2LLJdJy3Sm0tq4rATcuPxoFPX00EWa2crNtEqz6GdltpBB7YHLU/TQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f00uFFaGyBgFwPRnoY6UZzLKwSyCST51XFaIqjzGgSo=;
+ b=ZW/mPW4XO+01ZSK/9qzVXosSXh0uFxIlXWbCz4q+BgPiLUNhYvFvSo6eiTvrJCOpY3MSJukGVxPjrdRaAwYTX9Xob+XH9aqEj2itd+HF0FK/lUqYZxGnLZL/c8IJ3SovnoD9M8hULa3TArxIvy8rNCplE8IU12xKr+fdNiJaMT14xwCOnm+zEBTmod3aPn47aaDc6RG+8/fwJmwAYGDRZmQrQCKsgpEMJVGMn6m0kuUIqUwiHbvoVqYl1EK9eeOWF50c34QTC05w1TbUW881q+/XwamfbLCm2dzts4CWONBFdAN2uCBj3yVSodsSYs/vw9WxQWuCmk/6/t7sPk9z1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 12.22.5.238) smtp.rcpttodomain=gerhold.net smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f00uFFaGyBgFwPRnoY6UZzLKwSyCST51XFaIqjzGgSo=;
+ b=chZkQrQmYSMybcvGkHBRW+2PaGqqEwaH8oMBAO1kFKrUAK9fK4XxfG6GFsjiyamNEWuuQj++tXYf4UbAZ8fHKwLvDdbjd9yV/uAnQNPG//btT9HIQa5W/ro8Gq9eecxklqYEUJYkar1vvIng/8Rw24gw7DDxTm75mlsEokvXPy+gUet9HN74iuOmX/2ejrfR1uT6HPcasgC9edz3JYqRtU+B012Vgt28GYKprDuMYojqsk378aqn00ahHUYQM8k/bAvZ+XpwiC9/RRRC06QqAfGFoc04CmNzLx5tg6tH79HyZlrHXpg5mV3beJFg/524H5JcyhC6bM2B4PF9IGJ4vA==
+Received: from MW4PR04CA0066.namprd04.prod.outlook.com (2603:10b6:303:6b::11)
+ by DM8PR12MB5496.namprd12.prod.outlook.com (2603:10b6:8:38::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Thu, 10 Mar
+ 2022 11:16:48 +0000
+Received: from CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:6b:cafe::29) by MW4PR04CA0066.outlook.office365.com
+ (2603:10b6:303:6b::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22 via Frontend
+ Transport; Thu, 10 Mar 2022 11:16:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.238)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 12.22.5.238 as permitted sender) receiver=protection.outlook.com;
+ client-ip=12.22.5.238; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (12.22.5.238) by
+ CO1NAM11FT004.mail.protection.outlook.com (10.13.175.89) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.5038.14 via Frontend Transport; Thu, 10 Mar 2022 11:16:48 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by DRHQMAIL105.nvidia.com
+ (10.27.9.14) with Microsoft SMTP Server (TLS) id 15.0.1497.18;
+ Thu, 10 Mar 2022 11:16:46 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 10 Mar
+ 2022 03:16:45 -0800
+Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.9)
+ with Microsoft SMTP Server id 15.2.986.22 via Frontend Transport;
+ Thu, 10 Mar 2022 03:16:42 -0800
+From: Sameer Pujar <spujar@nvidia.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
+ <tiwai@suse.com>
+Subject: [PATCH] ASoC: simple-card-utils: Don't reset clock of active DAI
+Date: Thu, 10 Mar 2022 16:46:39 +0530
+Message-ID: <1646910999-2501-1-git-send-email-spujar@nvidia.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: Use platform_get_irq() to get the
- interrupt
-Content-Language: en-US
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-References: <20211224161334.31123-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20211224161334.31123-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <c5ea7235-8642-6a89-f4ce-bd0861b6e4aa@linaro.org>
- <CA+V-a8tkhERx+8zDae5aWkNQ9Oxd1AamRL=i4TDC2X8RGgAo0w@mail.gmail.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <CA+V-a8tkhERx+8zDae5aWkNQ9Oxd1AamRL=i4TDC2X8RGgAo0w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel <alsa-devel@alsa-project.org>, linux-arm-msm@vger.kernel.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Andy Gross <agross@kernel.org>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 143e8f9c-1a8c-42c3-37ac-08da028777e5
+X-MS-TrafficTypeDiagnostic: DM8PR12MB5496:EE_
+X-Microsoft-Antispam-PRVS: <DM8PR12MB54969606A3CD7DC0DF84AC9DA70B9@DM8PR12MB5496.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CgxajDV6C4JD6Va2E7Mr5E22KQMITSqwLqTLGhF2G6nJ9ZSbyzmNhVObBDOqg9wlShb+GUAeEP8iBi/xnnt82OIHF2Vshkh82V1dffJx4r6zo4IAClqOoCHRFJijY6kKdE2SGrRX1QEyID8mKFqPUcIdYqWO4Zu3C14ypNCCrrtjL/3XjXamd7w8eTmr6NgEegdaB9p2Z1wLr5Yfsr+nR7s/zhRew/uxfZIa9hoPpblOf91Cjy0Go5nj3qKCm0ky9FRthFhwpMFWITnQWfhSptn0KHmGTMGgtQw2yXK86UFXgRtHq2SnrToTv7qD/DW3+jQdKUyZpGthQcK9GQvcyq9NpZz2NhjXB6yUnHbwKXTEN+A2NnSz3T4igY2CwyMcFNfX/133yeNGehwunVsJtcyVWr6KJ/f1zmJFLfXYDGnOoGxcFqbVPVXOk2f9nOTeUxfLSkvrnKpcRANa4riPK/tcS2g0jq7Kx9CrQUfKJpqaxDBi0EbEZKtE8Tff2AoNgfKxrdifgTgLhqgfCFMaUwytNUh/sBxm7a/Z6MySF4YwIq9LGd4ZbPEEoAN8uBsUgqHj5ENLwuM0XH/E1Gji/o2ol5V4LwzeoQxxF1YK8/if9Zp0awfVRqF8pFjEXSSYxNVJjTyfmDHScbilFlrCKDBNSG9asuneaS3ud+O5WKXx6HUmIpB36SvN8m9iILuFLpF1eZq0W+SM95TY9jjnwg==
+X-Forefront-Antispam-Report: CIP:12.22.5.238; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(508600001)(2906002)(356005)(47076005)(81166007)(5660300002)(82310400004)(26005)(336012)(426003)(186003)(2616005)(8936002)(6666004)(40460700003)(7696005)(83380400001)(86362001)(107886003)(110136005)(8676002)(70586007)(36756003)(316002)(70206006)(4326008)(54906003)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2022 11:16:48.0447 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 143e8f9c-1a8c-42c3-37ac-08da028777e5
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.238];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5496
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ stephan@gerhold.net, Sameer Pujar <spujar@nvidia.com>,
+ linux-kernel@vger.kernel.org, robert.hancock@calian.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,93 +137,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Playback or capture errors are seen when clock is reset during an active
+stage of DAI. Presently this scenario happens when DAI has both playback
+and capture sessions running and one of these finishes first which will
+be followed by clock rate reset. The remaining active session will be
+affected in such case.
 
+Address this problem by allowing clock rate reset to happen only when
+the DAI is no more active.
 
-On 10/03/2022 10:23, Lad, Prabhakar wrote:
-> On Thu, Mar 10, 2022 at 10:16 AM Srinivas Kandagatla
-> <srinivas.kandagatla@linaro.org> wrote:
->>
->>
->>
->> On 24/12/2021 16:13, Lad Prabhakar wrote:
->>> platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
->>> allocation of IRQ resources in DT core code, this causes an issue
->>
->> Are you saying that we should not be using platform_get_resource(pdev,
->> IORESOURCE_IRQ, ...) on drivers that support DT?
->>
->>> when using hierarchical interrupt domains using "interrupts" property
->>> in the node as this bypasses the hierarchical setup and messes up the
->>> irq chaining.
->>
->> Should this not be fixed in the DT core itself?
->>
-> Yes the plan is to fix in the DT core itself (refer [0]).
-> 
-> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20211209001056.29774-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-> 
->>>
->>> In preparation for removal of static setup of IRQ resource from DT core
->>> code use platform_get_irq().
->>
->> I would prefer this patch to be part of the series that removes IRQ
->> resource handling from DT core.
->>
-> Since there are too many users (which are in different subsystems)
-> getting this all in single series would be a pain. As a result it is
-> split up into individual subsystems.
-Am happy for this to be included in that series,
-TBH, this patch make more sense along with that series than by itself.
+Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+---
+ sound/soc/generic/simple-card-utils.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-This would also give better insight of what exactly is changing in 
-platform_get_resource() w.r.t handling IRQ resources.
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index a4babfb..6a5faaf 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -272,15 +272,19 @@ void asoc_simple_shutdown(struct snd_pcm_substream *substream)
+ 	int i;
+ 
+ 	for_each_prop_dai_cpu(props, i, dai) {
+-		if (props->mclk_fs && !dai->clk_fixed)
+-			snd_soc_dai_set_sysclk(asoc_rtd_to_cpu(rtd, i),
++		struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, i);
++
++		if (props->mclk_fs && !dai->clk_fixed && !snd_soc_dai_active(cpu_dai))
++			snd_soc_dai_set_sysclk(cpu_dai,
+ 					       0, 0, SND_SOC_CLOCK_IN);
+ 
+ 		asoc_simple_clk_disable(dai);
+ 	}
+ 	for_each_prop_dai_codec(props, i, dai) {
+-		if (props->mclk_fs && !dai->clk_fixed)
+-			snd_soc_dai_set_sysclk(asoc_rtd_to_codec(rtd, i),
++		struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, i);
++
++		if (props->mclk_fs && !dai->clk_fixed && !snd_soc_dai_active(codec_dai))
++			snd_soc_dai_set_sysclk(codec_dai,
+ 					       0, 0, SND_SOC_CLOCK_IN);
+ 
+ 		asoc_simple_clk_disable(dai);
+-- 
+2.7.4
 
-
---srini
-
-> 
-> Cheers,
-> Prabhakar
-> 
->>
->> --srini
->>
->>>
->>> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->>> ---
->>> Hi,
->>>
->>> Dropping usage of platform_get_resource() was agreed based on
->>> the discussion [0].
->>>
->>> [0] https://patchwork.kernel.org/project/linux-renesas-soc/
->>> patch/20211209001056.29774-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
->>>
->>> Cheers,
->>> Prabhakar
->>> ---
->>>    drivers/slimbus/qcom-ngd-ctrl.c | 10 ++++------
->>>    1 file changed, 4 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
->>> index 7040293c2ee8..0f29a08b4c09 100644
->>> --- a/drivers/slimbus/qcom-ngd-ctrl.c
->>> +++ b/drivers/slimbus/qcom-ngd-ctrl.c
->>> @@ -1526,13 +1526,11 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
->>>        if (IS_ERR(ctrl->base))
->>>                return PTR_ERR(ctrl->base);
->>>
->>> -     res = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
->>> -     if (!res) {
->>> -             dev_err(&pdev->dev, "no slimbus IRQ resource\n");
->>> -             return -ENODEV;
->>> -     }
->>> +     ret = platform_get_irq(pdev, 0);
->>> +     if (ret < 0)
->>> +             return ret;
->>>
->>> -     ret = devm_request_irq(dev, res->start, qcom_slim_ngd_interrupt,
->>> +     ret = devm_request_irq(dev, ret, qcom_slim_ngd_interrupt,
->>>                               IRQF_TRIGGER_HIGH, "slim-ngd", ctrl);
->>>        if (ret) {
->>>                dev_err(&pdev->dev, "request IRQ failed\n");

@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 076354D4820
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:36:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 878BB4D482C
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:37:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94415184D;
-	Thu, 10 Mar 2022 14:35:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94415184D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 121E11923;
+	Thu, 10 Mar 2022 14:36:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 121E11923
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646919393;
-	bh=7t1vxZz+L21a9NeHQrJsaK/nOS6yEmEWTVJS4Pnps2Y=;
+	s=default; t=1646919432;
+	bh=IzCKSP06ZyCQdiyV6Oey8jDEMQh3drwg5TOknGuT+A0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=msS8IK4iHncrcSqFG0Oazqy+rfegvN/SalIJBEYpxmC8WLUb+D0Zdkg3b+SDYYHrJ
-	 1EONzW3tu1PvsNwbH7Hetbs1BDlhJ3nX0zHmNdP3g5AY0VPchyMNkzF/1kHUugfrft
-	 DXs4z58ooBVKQzAEmrXE8cSuop7Nk4OczQYctIPI=
+	b=Rl5QrWlnrmczW5Ai6VAhvoqedw1CkB/aower1YUY9mHcNWBmZhGbWAJ01+pQ3Ny5K
+	 eaf3Nns/64Y8kesrHss3M7cWB/29siP8GJDTIPxV/XwbYwFwoDZ4P4XHV6krfgWnqg
+	 JS2EnTt3YwT0H0+ekQf0er/CT0S5B+7ti85ksBEQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06160F8013C;
-	Thu, 10 Mar 2022 14:35:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99B26F800FD;
+	Thu, 10 Mar 2022 14:36:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F95AF8012F; Thu, 10 Mar 2022 14:35:24 +0100 (CET)
+ id 31D25F8012F; Thu, 10 Mar 2022 14:36:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9471F800D2
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:35:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9471F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B4A6F800FD
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:36:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B4A6F800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VeQPCj6Z"; 
+ header.b="cdsB/aaq"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="8r+wMpt3"
+ header.b="GuNde0YD"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5148C210E3;
- Thu, 10 Mar 2022 13:35:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id B27491F385;
+ Thu, 10 Mar 2022 13:36:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646919321; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646919371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=EzfMmIYF/5eXMdRBDxIq6j3HIenGW61SBBRiBlTAZDo=;
- b=VeQPCj6ZyIObrVuB18pL8WhhTWVASsOvC4/ArEK/OJOZr9AEATVlwx87iaAyUf3UWa06T9
- VhjsdX/hGLGhG1MH5rtK+5DUbpERS57V3fHqtboFApSgf+DX+4wxgj1Wc5d1PzKdQLeAFe
- sMOmXe7cuMma0QQ2Sp/njEkoSWGnrvU=
+ bh=eg1lHQJNdKst+PLRqkjA9oK9gtUXO0XsptMPNcYy+BQ=;
+ b=cdsB/aaq8JVS41GFrznrGScENTV5gGqtNORzY/8S5IQp+ZPeDQrKIxFDrDWejBsuoVGA2D
+ DekSPxSrvaa7XkmmkJ0xKIbND44OoXdcjogHFk7+M2rPWT7WG729RAqyn3PWDDy04CsKhF
+ WbU6cycxHgZLYJHPYe39OZ/XgiUI+ys=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646919321;
+ s=susede2_ed25519; t=1646919371;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=EzfMmIYF/5eXMdRBDxIq6j3HIenGW61SBBRiBlTAZDo=;
- b=8r+wMpt3sD/N+4iiyn1EVxeRQiQIZv1MiGcI4IeUFHEfUBbZ0FF9lbCajOTIQjzMChVcHO
- V8H96D4H0H/DmQAg==
+ bh=eg1lHQJNdKst+PLRqkjA9oK9gtUXO0XsptMPNcYy+BQ=;
+ b=GuNde0YD7HILHG9qKO4QNhTtCngfVZxl6Rn3cXQP7cN5/JQa1W5VTmOyMKUBXOyHVTv1A2
+ xXunq99psGC8BEDg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 4B2B4A3B87;
- Thu, 10 Mar 2022 13:35:21 +0000 (UTC)
-Date: Thu, 10 Mar 2022 14:35:21 +0100
-Message-ID: <s5hfsnqexra.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id AB12FA3B96;
+ Thu, 10 Mar 2022 13:36:11 +0000 (UTC)
+Date: Thu, 10 Mar 2022 14:36:11 +0100
+Message-ID: <s5hee3aexpw.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.17-rc7
-In-Reply-To: <20220310121304.2F301C340EB@smtp.kernel.org>
-References: <20220310121304.2F301C340EB@smtp.kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH v3] ALSA: hda/i915 - avoid hung task timeout in i915 wait
+In-Reply-To: <20220309182439.1053856-1-kai.vehmanen@linux.intel.com>
+References: <20220309182439.1053856-1-kai.vehmanen@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: tvrtko.ursulin@linux.intel.com, alsa-devel@alsa-project.org,
+ Ramalingam C <ramalingam.c@intel.com>, intel-gfx@lists.freedesktop.org,
+ lucas.demarchi@intel.com, amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,38 +94,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Mar 2022 13:12:55 +0100,
-Mark Brown wrote:
+On Wed, 09 Mar 2022 19:24:39 +0100,
+Kai Vehmanen wrote:
 > 
-> The following changes since commit c5487b9cdea5c1ede38a7ec94db0fc59963c8e86:
+> If kernel is built with hung task detection enabled and
+> CONFIG_DEFAULT_HUNG_TASK_TIMEOUT set to less than 60 seconds,
+> snd_hdac_i915_init() will trigger the hung task timeout in case i915 is
+> not available and taint the kernel.
 > 
->   ASoC: cs4265: Fix the duplicated control name (2022-02-16 16:34:16 +0000)
+> Use wait_for_completion_killable_timeout() for the wait to
+> avoid this problem.
 > 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.17-rc7
-> 
-> for you to fetch changes up to 5e02fb590e83684f63217f93a9cdeabd6a925f9c:
-> 
->   ASoC: cs35l41: Fix DSP mbox start command and global enable order (2022-03-07 13:12:38 +0000)
-> 
-> ----------------------------------------------------------------
-> ASoC: Potential fixes for v5.17
-> 
-> Rather more fixes here than I'm comfortable with, we've had several
-> vendors noticing issues late in the release cycle all of which are valid
-> and reasonable fixes but it adds up to a much larger change set than I'd
-> like.  Several of the AMD fixes look like cleanups from the subject
-> lines but are actually fixing user visible problems as well.
-> 
-> If you were to merge this for 5.18 rather than 5.17 it wouldn't be the
-> end of the world, stable will probably backport everything anyway.
+> Co-developed-by: Ramalingam C <ramalingam.c@intel.com>
+> Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Thanks, pulled now.
-
-I had a few pending fixes but thought to push for 5.18, as those
-weren't urgent.  This PR also looks like non-urgent fixes, so I'm
-inclined to wait for 5.18 merge for now.  Let's see.
+Applied now.  Thanks.
 
 
 Takashi

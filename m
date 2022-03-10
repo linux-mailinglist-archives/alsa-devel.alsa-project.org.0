@@ -2,85 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E1954D4812
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:31:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A3014D4815
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:31:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD8481917;
-	Thu, 10 Mar 2022 14:30:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD8481917
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AABF191E;
+	Thu, 10 Mar 2022 14:30:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AABF191E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646919072;
-	bh=O0tJs+it21o/2aLM6+nLsXkd1nRiKeI3cP7ZQY9o7xU=;
+	s=default; t=1646919109;
+	bh=npwve240amQqeC1g4LfcE8ZFfIXSuBK8Z3a14nUL5Ac=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bHmIN7nZ4UkhTrF9VYn9mbZWGfWGHsajtRInKgj79ASH+f8QdpASm5wvGEZyz1Cvc
-	 FIJco7V3p7qlzptO7ZbtXOLL/WGdvqvhdqWple7Wx+FqRuDm/ncYTdI4eOal5P0oRy
-	 14LBhmO1Qe7sCJf0UJCRUbOXh7/vbl0i2eR+02W4=
+	b=YmGye7gDupPGnh2z1kFEJeCq//u+r6v0ObwB84BBYZj1GrnyvUp2pLAQNO0j1s6O0
+	 ZwmYJJC3VoDpsJ8hONmcZsvL4kCrrOGEh6/oGpoAUfg2L3/M6SaqzAaB0WGPS3XRw3
+	 GSNlZRZJ8jZo9TcB9OaR+qo9GXicDhSAveIzoO/4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D44F3F8013C;
-	Thu, 10 Mar 2022 14:30:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99ED5F8015B;
+	Thu, 10 Mar 2022 14:30:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7572F80137; Thu, 10 Mar 2022 14:30:00 +0100 (CET)
+ id 9979FF8015B; Thu, 10 Mar 2022 14:30:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62807F800D2
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:29:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62807F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFD89F800FD
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:30:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFD89F800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="uwM/3fmS"; 
+ header.b="c3tLczAr"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="k1pHIieT"
+ header.b="EgYyZCQT"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 79BA61F381;
- Thu, 10 Mar 2022 13:29:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 3A6D621106;
+ Thu, 10 Mar 2022 13:30:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646918991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646919050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=p+BwOJv9TrkOBx6KAoXGGCOccfxsJ7PRbs724DyoEp8=;
- b=uwM/3fmSXvKY+Y9VgLnmTBZrCkcyUV0lyDO7Uvn35myQ+ZnYD+0j2A4SQDOx6YYB8l1ww6
- pzIDPxcA9fK39RKuNNV+Y02rhQwLnUC59H+zsvarGs5HAYBIOe/VGBeVXpOJUxBTgoKUXf
- XOD09JVtJ98hF2G475XFORRUCVJIc4s=
+ bh=IdMoscUHeBFhWMurW1GS4RiCANKcBpaoFNOj4zpNIDE=;
+ b=c3tLczArDvXysxqYd9jnYY9TVDMTdiouXRhLiNe2ijbBkDo2WQ1rarZ+n+YgFUfnoUXZaD
+ dGr9Wm3tWaHI32mDoNIF27Khdd1tfRGR0EEIsVAOTe47sBHKf6BeacmnChOxaegLwqm24R
+ KVFcvHZlhI1w3DbwS9F0NtkmMxQiPXA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646918991;
+ s=susede2_ed25519; t=1646919050;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=p+BwOJv9TrkOBx6KAoXGGCOccfxsJ7PRbs724DyoEp8=;
- b=k1pHIieTXWKiyI8BKoqkk+7qvSB+TsV7IO8Rmu2PjRSmNXRoHuEgH96OzGQzBDy609VO87
- 0bWW7t5qSrJXt5Bg==
+ bh=IdMoscUHeBFhWMurW1GS4RiCANKcBpaoFNOj4zpNIDE=;
+ b=EgYyZCQTrpl2LGFCw31ygV68jTm9ZLPoWBVYHSiJCUBMmTeREOozEyKmZseMnz4oxcBhSY
+ NzvoLdl7rbeNRPCQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 0477BA3B88;
- Thu, 10 Mar 2022 13:29:50 +0000 (UTC)
-Date: Thu, 10 Mar 2022 14:29:50 +0100
-Message-ID: <s5hilsmey0h.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 1D953A3B83;
+ Thu, 10 Mar 2022 13:30:50 +0000 (UTC)
+Date: Thu, 10 Mar 2022 14:30:50 +0100
+Message-ID: <s5hh786exyt.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: huangwenhui <huangwenhuia@uniontech.com>
-Subject: Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
- machine with alc671
-In-Reply-To: <20220310130301.22827-1-huangwenhuia@uniontech.com>
-References: <20220310130301.22827-1-huangwenhuia@uniontech.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v4 01/17] ALSA: hda: Add helper macros for DSP capable
+ devices
+In-Reply-To: <20220309204029.89040-2-cezary.rojewski@intel.com>
+References: <20220309204029.89040-1-cezary.rojewski@intel.com>
+ <20220309204029.89040-2-cezary.rojewski@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kailang@realtek.com,
- tanureal@opensource.cirrus.com, jeremy.szu@canonical.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, wse@tuxedocomputers.com,
- hui.wang@canonical.com, sami@loone.fi, cam@neo-zeon.de
+Cc: alsa-devel@alsa-project.org, upstream@semihalf.com, harshapriya.n@intel.com,
+ rad@semihalf.com, pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
+ hdegoede@redhat.com, broonie@kernel.org, ranjani.sridharan@linux.intel.com,
+ amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,23 +98,109 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Mar 2022 14:03:01 +0100,
-huangwenhui wrote:
+On Wed, 09 Mar 2022 21:40:13 +0100,
+Cezary Rojewski wrote:
 > 
-> On a HP 288 Pro G8, the front Mic could not be detected.
+> HDAudio drivers make heavy use of I/O operations. Declare a range of
+> update, read and write helpers similar to those available for HDAudio
+> legacy driver. These macros are used by AVS driver to improve code
+> readability.
 > 
-> Signed-off-by: huangwenhui <huangwenhuia@uniontech.com>
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
-Thanks for the patch.  Most of the changes look OK, but one thing I
-still don't get:
+Acked-by: Takashi Iwai <tiwai@suse.de>
 
-> +	case HDA_FIXUP_ACT_INIT:
-> +		alc_write_coef_idx(codec, 0x19, 0xa054);
-> +		msleep(80);
-> +		snd_hda_codec_write(codec, hp_pin, 0,
-> +			    AC_VERB_SET_AMP_GAIN_MUTE, AMP_OUT_UNMUTE);
 
-Why this unconditional unmute is required for fixing the mic problem?
-
+thanks,
 
 Takashi
+
+> ---
+>  include/sound/hdaudio.h     |  2 ++
+>  include/sound/hdaudio_ext.h | 50 +++++++++++++++++++++++++++++++++++++
+>  2 files changed, 52 insertions(+)
+> 
+> diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+> index 6a90ce405e60..69907260b9ce 100644
+> --- a/include/sound/hdaudio.h
+> +++ b/include/sound/hdaudio.h
+> @@ -448,6 +448,8 @@ static inline u16 snd_hdac_reg_readw(struct hdac_bus *bus, void __iomem *addr)
+>  
+>  #define snd_hdac_reg_writel(bus, addr, val)	writel(val, addr)
+>  #define snd_hdac_reg_readl(bus, addr)	readl(addr)
+> +#define snd_hdac_reg_writeq(bus, addr, val)	writeq(val, addr)
+> +#define snd_hdac_reg_readq(bus, addr)		readq(addr)
+>  
+>  /*
+>   * macros for easy use
+> diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
+> index b0c8e4936168..d26234f9ee46 100644
+> --- a/include/sound/hdaudio_ext.h
+> +++ b/include/sound/hdaudio_ext.h
+> @@ -2,6 +2,8 @@
+>  #ifndef __SOUND_HDAUDIO_EXT_H
+>  #define __SOUND_HDAUDIO_EXT_H
+>  
+> +#include <linux/io-64-nonatomic-lo-hi.h>
+> +#include <linux/iopoll.h>
+>  #include <sound/hdaudio.h>
+>  
+>  int snd_hdac_ext_bus_init(struct hdac_bus *bus, struct device *dev,
+> @@ -144,6 +146,54 @@ void snd_hdac_ext_bus_link_power(struct hdac_device *codec, bool enable);
+>  	writew(((readw(addr + reg) & ~(mask)) | (val)), \
+>  		addr + reg)
+>  
+> +#define snd_hdac_adsp_writeb(chip, reg, value) \
+> +	snd_hdac_reg_writeb(chip, (chip)->dsp_ba + (reg), value)
+> +#define snd_hdac_adsp_readb(chip, reg) \
+> +	snd_hdac_reg_readb(chip, (chip)->dsp_ba + (reg))
+> +#define snd_hdac_adsp_writew(chip, reg, value) \
+> +	snd_hdac_reg_writew(chip, (chip)->dsp_ba + (reg), value)
+> +#define snd_hdac_adsp_readw(chip, reg) \
+> +	snd_hdac_reg_readw(chip, (chip)->dsp_ba + (reg))
+> +#define snd_hdac_adsp_writel(chip, reg, value) \
+> +	snd_hdac_reg_writel(chip, (chip)->dsp_ba + (reg), value)
+> +#define snd_hdac_adsp_readl(chip, reg) \
+> +	snd_hdac_reg_readl(chip, (chip)->dsp_ba + (reg))
+> +#define snd_hdac_adsp_writeq(chip, reg, value) \
+> +	snd_hdac_reg_writeq(chip, (chip)->dsp_ba + (reg), value)
+> +#define snd_hdac_adsp_readq(chip, reg) \
+> +	snd_hdac_reg_readq(chip, (chip)->dsp_ba + (reg))
+> +
+> +#define snd_hdac_adsp_updateb(chip, reg, mask, val) \
+> +	snd_hdac_adsp_writeb(chip, reg, \
+> +			(snd_hdac_adsp_readb(chip, reg) & ~(mask)) | (val))
+> +#define snd_hdac_adsp_updatew(chip, reg, mask, val) \
+> +	snd_hdac_adsp_writew(chip, reg, \
+> +			(snd_hdac_adsp_readw(chip, reg) & ~(mask)) | (val))
+> +#define snd_hdac_adsp_updatel(chip, reg, mask, val) \
+> +	snd_hdac_adsp_writel(chip, reg, \
+> +			(snd_hdac_adsp_readl(chip, reg) & ~(mask)) | (val))
+> +#define snd_hdac_adsp_updateq(chip, reg, mask, val) \
+> +	snd_hdac_adsp_writeq(chip, reg, \
+> +			(snd_hdac_adsp_readq(chip, reg) & ~(mask)) | (val))
+> +
+> +#define snd_hdac_adsp_readb_poll(chip, reg, val, cond, delay_us, timeout_us) \
+> +	readb_poll_timeout((chip)->dsp_ba + (reg), val, cond, \
+> +			   delay_us, timeout_us)
+> +#define snd_hdac_adsp_readw_poll(chip, reg, val, cond, delay_us, timeout_us) \
+> +	readw_poll_timeout((chip)->dsp_ba + (reg), val, cond, \
+> +			   delay_us, timeout_us)
+> +#define snd_hdac_adsp_readl_poll(chip, reg, val, cond, delay_us, timeout_us) \
+> +	readl_poll_timeout((chip)->dsp_ba + (reg), val, cond, \
+> +			   delay_us, timeout_us)
+> +#define snd_hdac_adsp_readq_poll(chip, reg, val, cond, delay_us, timeout_us) \
+> +	readq_poll_timeout((chip)->dsp_ba + (reg), val, cond, \
+> +			   delay_us, timeout_us)
+> +#define snd_hdac_stream_readb_poll(strm, reg, val, cond, delay_us, timeout_us) \
+> +	readb_poll_timeout((strm)->sd_addr + AZX_REG_ ## reg, val, cond, \
+> +			   delay_us, timeout_us)
+> +#define snd_hdac_stream_readl_poll(strm, reg, val, cond, delay_us, timeout_us) \
+> +	readl_poll_timeout((strm)->sd_addr + AZX_REG_ ## reg, val, cond, \
+> +			   delay_us, timeout_us)
+>  
+>  struct hdac_ext_device;
+>  
+> -- 
+> 2.25.1
+> 

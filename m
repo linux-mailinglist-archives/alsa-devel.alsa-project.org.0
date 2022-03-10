@@ -2,75 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54D454D5025
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 18:24:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FB664D5028
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 18:24:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4F1D19FD;
-	Thu, 10 Mar 2022 18:23:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4F1D19FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2B54195A;
+	Thu, 10 Mar 2022 18:23:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2B54195A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646933040;
-	bh=XtMGYYmwX5L7loH/k8Xp6EGLdSPG9V28wmHctEabBy8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=E5Lg/VJIKFRo5idH6e2ikk3X850tqBqbEsVWTeqIPrykHZMWyeajfG64wjVVdJSgo
-	 C8V6QHfQmO/iWhOpxRIF1Kaj5YmCRtPFYtJWL4ka86KP0tqCOYn8cTMKF7e8xhuroz
-	 Edco5+cxXRRFj4LCQyhAKR1pO1ig83g7n2bV1AHc=
+	s=default; t=1646933072;
+	bh=Zjcu60bEs3gtPOUHEmKDTPwRP3guWqrCKQaDTCC54BU=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=DAxNAyBbyKz8fJCk7Xo/wRNodCy1AN0OlU/uEyXib4aTlXWEpkqG8/QwEadIl7tcc
+	 wAd9AdtSDd8oaQjPVN8drgEIORVKOv56KkIckqJPR1aPTVv8MbASUdgOCEjgG0vMUF
+	 Npp+WtJS5rT1W/y3pHEYLH8z06zaJp5dKG371Kp0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 594B1F80425;
-	Thu, 10 Mar 2022 18:22:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17A52F804CA;
+	Thu, 10 Mar 2022 18:22:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6EA4F8012C; Thu, 10 Mar 2022 18:22:49 +0100 (CET)
+ id 625D9F804CA; Thu, 10 Mar 2022 18:22:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58BFCF8012C
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 18:22:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58BFCF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id E012AF800D2
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 18:22:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E012AF800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="IK9e5y4E"
+ header.b="CbPmwnVy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646932967; x=1678468967;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=XtMGYYmwX5L7loH/k8Xp6EGLdSPG9V28wmHctEabBy8=;
- b=IK9e5y4ERU7x2X3Bo5vB5Ob55jhKaTfcS7qXt8eiR0wfXTpvzJeyVDlg
- MwFh+y5PLUH8mdsIxdJqf03hNWL+ZUGN/K2GdCXmT0lQ6VZGdupgu/SjK
- 8WzH4FaYBUJS1xBVZEvapOFP3U8ViA+eglqyxJWcQpMFMfoKTw4P1FRBE
- Qza/6aNp0AtOcJ3qAJTn6LxLBWCdqvhkdIy/ZlMZyeefrP9Dd8VZG9vup
- Z8y2KSGa8iLOeVFPHbTjLAH8j7uaQK04xtLqbPb+D9gMqd8DHtOrofJrm
- RWll6pg0IhbqHrIVMgiTTNhCA9I2+LLmrIqPEphO8J27MdvU3Gx+kxLWr A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="235918906"
-X-IronPort-AV: E=Sophos;i="5.90,171,1643702400"; d="scan'208";a="235918906"
+ t=1646932968; x=1678468968;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Zjcu60bEs3gtPOUHEmKDTPwRP3guWqrCKQaDTCC54BU=;
+ b=CbPmwnVyLDxVn23a7R8yKOZvhqvP1+LXvIvzdOD0bWnsPlKsI79nHF2B
+ jvf8v8ci88z0q2Du3tUSXMqeGSgzwqitxteAnc1YjuxMMQpMpdyxl49kX
+ 6SXkdjXLTkNE3jA3C1CzXLausKWaT9VFLFnV3glPnFE3DFkaO8+77VG0j
+ 0rpM8FUTyFdtu4kRjR3pxiWbAcORgQm8gT1d1RXpWCm17bUhAsKhncRbf
+ iwnPRyu8nPBdA9oZZqlPQ8cJWs61LIZA+MX4/l6smvbc+QIMc3JyVGiku
+ /P1MLCfw1xv7IYQtYnBg8safPdtpUGpebrtET7vKrT6TtyLP1ySMcjh0S w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="235918911"
+X-IronPort-AV: E=Sophos;i="5.90,171,1643702400"; d="scan'208";a="235918911"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Mar 2022 09:22:39 -0800
-X-IronPort-AV: E=Sophos;i="5.90,171,1643702400"; d="scan'208";a="554738620"
+X-IronPort-AV: E=Sophos;i="5.90,171,1643702400"; d="scan'208";a="554738625"
 Received: from maxdorn-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.209.77.185])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2022 09:22:38 -0800
+ 10 Mar 2022 09:22:39 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/5] ASoC: SOF/Intel: small fixes and updates for 5.18
-Date: Thu, 10 Mar 2022 11:16:46 -0600
-Message-Id: <20220310171651.249385-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 1/5] ASoC: SOF: Intel: enable DMI L1 for playback streams
+Date: Thu, 10 Mar 2022 11:16:47 -0600
+Message-Id: <20220310171651.249385-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220310171651.249385-1-pierre-louis.bossart@linux.intel.com>
+References: <20220310171651.249385-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,34 +93,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-One important fix from Kai to restore DM1 L1 functionality, one
-important update from Peter to use DMA trace buffers as capture-only
-and sync them and a couple of minor updates for Intel/SOF platforms.
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Brent Lu (1):
-  ASoC: SOF: Intel: add topology overwrite for Taniks
+Add back logic to mark all playback streams as L1 compatible.
 
-Kai Vehmanen (1):
-  ASoC: SOF: Intel: enable DMI L1 for playback streams
+Fixes: 246dd4287dfb ("ASoC: SOF: Intel: make DMI L1 selection more robust")
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/intel/hda-pcm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Muralidhar Reddy (1):
-  ASoC: Intel: soc-acpi: Add entry for rt711-sdca-sdw in ADL match table
-
-Peter Ujfalusi (1):
-  ASoC: SOF: trace: Use proper DMA direction for the trace data buffer
-
-Weiguo Li (1):
-  ASoC: SOF: compress: fix null check after dereference
-
- sound/soc/intel/common/soc-acpi-intel-adl-match.c | 15 +++++++++++++++
- sound/soc/sof/compress.c                          |  6 ++++--
- sound/soc/sof/intel/hda-pcm.c                     |  1 +
- sound/soc/sof/sof-pci-dev.c                       |  8 ++++++++
- sound/soc/sof/trace.c                             | 12 ++++++++++--
- 5 files changed, 38 insertions(+), 4 deletions(-)
-
-
-base-commit: 52eaf2bbcf022a61872c812ce41855a90b814ebc
+diff --git a/sound/soc/sof/intel/hda-pcm.c b/sound/soc/sof/intel/hda-pcm.c
+index eec83ca557a1..3e77a2352b98 100644
+--- a/sound/soc/sof/intel/hda-pcm.c
++++ b/sound/soc/sof/intel/hda-pcm.c
+@@ -315,6 +315,7 @@ int hda_dsp_pcm_open(struct snd_sof_dev *sdev,
+ 		runtime->hw.info &= ~SNDRV_PCM_INFO_PAUSE;
+ 
+ 	if (hda_always_enable_dmi_l1 ||
++	    direction == SNDRV_PCM_STREAM_PLAYBACK ||
+ 	    spcm->stream[substream->stream].d0i3_compatible)
+ 		flags |= SOF_HDA_STREAM_DMI_L1_COMPATIBLE;
+ 
 -- 
 2.30.2
 

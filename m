@@ -2,70 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DADAB4D79AE
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 04:38:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D73A34D7B15
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:00:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66B8F16DB;
-	Mon, 14 Mar 2022 04:37:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66B8F16DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D8B716FE;
+	Mon, 14 Mar 2022 07:59:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D8B716FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647229126;
-	bh=L88JYTQK3RSTBXj7ntmxL1R1P44GB1OGBuZ1Hz9SWJI=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rzzqqjp+lRbG4oejHUiNCKR9SLXeTfaZrydHFXhsvj/6p3eM5KTRLAdb/dhhAZgRJ
-	 HTNdag/OrX7BC9U/Igpb1VIYc1Rma/ShpeHGY+WIsi2H/YHpGEeHlzGCdsFBlHWyWD
-	 HWS07gZCl4Mnm6VUZ3j7WkvAB0/hblMy4gThb5JY=
+	s=default; t=1647241201;
+	bh=2IRaH/n8k7QrZ1lJeEoUzQCSsZ7NJCpArTCQdx1lCRg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=uaNfq9zlwTypeVpvHDCBGY8phwhWd2Eh3Tl33zC6aXnvawhJVM6X5KkxxXDqb8hYc
+	 0IsNOSfFU2BepE4vozQFfwoWbf4pnKnMY61AmcdwXdBCFOX/MSibzHqqE61OCl9Sei
+	 o5mKwfJB5qKyCyeSTq2LLME9JnBq1mHPEiH8przA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE192F801EC;
-	Mon, 14 Mar 2022 04:37:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5469F80139;
+	Mon, 14 Mar 2022 07:58:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D395FF80139; Mon, 14 Mar 2022 04:37:37 +0100 (CET)
+ id E27F9F80137; Thu, 10 Mar 2022 09:16:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.8 required=5.0 tests=FORGED_MUA_MOZILLA,
- INVALID_MSGID,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
  autolearn=disabled version=3.4.0
-Received: from smtpbg154.qq.com (smtpbg154.qq.com [15.184.224.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
+ [IPv6:2607:f8b0:4864:20::1043])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA556F80095
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 04:37:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA556F80095
-X-QQ-mid: bizesmtp67t1647229045tcanqqio
-Received: from [10.4.23.86] ( [58.240.82.166]) by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 14 Mar 2022 11:37:24 +0800 (CST)
-X-QQ-SSF: 0040000000200070E000B00A0000000
-X-QQ-FEAT: ALI+OuUAduwySuSoz0J/AbDOxQQT0vTvLZNbIJEQHMAOghGWxyaub7APE5GHw
- B76WsdtwKsAE4JRDibDtbFAvawvqhper4VqF3WypHMjFQbnxJ5iKJDB03FWu2QG2v4s7dEa
- u5jiytiKcLfnRm40mqq8dxc3fmb2jaiTM86YeYl8C0ny5Wmuhz5bLpKWHkbI4VoDQRynEAi
- jO4J+ru489Ru6pIuW19N0Ss5t5lNheVRTsICEc6w6ADNr5Olqf3l6vEvainvZrEZIksnO/N
- HmWlspb6W3rllZ/tRoaUK2QV88dHEIj2hNOdfjnDsFrwM/U35oMSWZXoBdAL620rEUIbh8X
- rTdlkeLFo01fxkU1pg=
-X-QQ-GoodBg: 2
-Message-ID: <bd07817c-9704-a223-9f0b-3c582be2c21b@uniontech.com>+03B81180ECD5C83E
-Date: Mon, 14 Mar 2022 11:37:24 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [PATCH] ASoC: Intel: boards: Use temporary variable for struct
- device
-To: Mark Brown <broonie@kernel.org>
-References: <20220310065354.14493-1-nizhen@uniontech.com>
- <YitRs1YveURmYtJ/@sirena.org.uk>
-From: =?UTF-8?B?5YCq5oyv?= <nizhen@uniontech.com>
-In-Reply-To: <YitRs1YveURmYtJ/@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
-X-QQ-Bgrelay: 1
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5CFAF800D2
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 09:16:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5CFAF800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="FSykQPtD"
+Received: by mail-pj1-x1043.google.com with SMTP id
+ m11-20020a17090a7f8b00b001beef6143a8so4546620pjl.4
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 00:16:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=UqlG/qlH51JzZZsCgyFBRJweMGZD26FahP+uwp4r9BQ=;
+ b=FSykQPtDCQ1wMMLVzooyDgNeZvg0vebosc8YpUWUKsz0xMGoHdez5Xrx+9YJDKnn+i
+ rD3Xmudvj5gGZ3vlviX0TbDh/pwPZSic27LxDN1LUg7XX5NneYzM4QgwtA7ncuVzSU/w
+ 6uJ/5RDzmnKepU4FdBxQw3ZKXBZbM19S1BVWvAHXx8e9Kv/faT43TvyHEaozwqwUb78b
+ jjxirwC/D84rrn03DOKiYMjYmjsyFIDm6Fm+KBaFHWogt3sph4RL+FJHK9DMQT7adsZs
+ N0/Fz1JPrd30+TkezrquUviXm3ls1n2RDbOvZNXcg+0RnQy96wxXfqE1RHYZUF/Um+s4
+ vocA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=UqlG/qlH51JzZZsCgyFBRJweMGZD26FahP+uwp4r9BQ=;
+ b=6moP20xAmdIFQGTpgIPI9eCY7rfjDKKzYgwBD4pm8YXtLg65wutCXVN0HKE2TncWM4
+ be+PJVfVwL5aev4zJp8sAYdFYbNM/+EsBwuLDsL2DYLyZNp6xqVrAaG1c+PgPoyjD/Yi
+ Xd3CRgEFkoUahSnhsp7UDHsk1KBgMh4IPvW723DMBKDxMI1qWQgVS+p4jtEf5XMmDGjk
+ C8lpft5ERSm958AP/qjDUy57UahRBAJA7t3gL2C7wErPctkBnExTgqkdIF8wpCKn1D/o
+ 6C/9YrQeI7VHKqyC0YeUNdQycOHEpOtC/PT/gZYS+DSAzRbDvnEzASuDREBktyWBlAe3
+ fqbA==
+X-Gm-Message-State: AOAM533dgu4nNCV4rz/2pmBlJKafTKR10x80y2TdKnFXrdHVPgFQEJQl
+ /KS7U91FZYKTB7/ufqInIP8=
+X-Google-Smtp-Source: ABdhPJy00iGjkiSnCAWiH3WRRptw5KPM3DJ86R40tXtln3/EFo+qhm9Ikg+kT6B002zR9EzRfyoDlw==
+X-Received: by 2002:a17:902:d4c9:b0:151:d074:cbe8 with SMTP id
+ o9-20020a170902d4c900b00151d074cbe8mr3840413plg.102.1646900163675; 
+ Thu, 10 Mar 2022 00:16:03 -0800 (PST)
+Received: from localhost.localdomain ([211.212.143.131])
+ by smtp.gmail.com with ESMTPSA id
+ q11-20020a056a00084b00b004f73e6c26b8sm5976727pfk.25.2022.03.10.00.15.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Mar 2022 00:16:03 -0800 (PST)
+From: Steve Lee <steve.lee.analog@gmail.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ ckeepax@opensource.cirrus.com, geert@linux-m68k.org,
+ rf@opensource.wolfsonmicro.com, shumingf@realtek.com,
+ srinivas.kandagatla@linaro.org, krzk@kernel.org, dmurphy@ti.com,
+ jack.yu@realtek.com, nuno.sa@analog.com, steves.lee@maximintegrated.com,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: max98390: Add reset gpio control
+Date: Thu, 10 Mar 2022 17:15:48 +0900
+Message-Id: <20220310081548.31846-1-steve.lee.analog@gmail.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Mon, 14 Mar 2022 07:58:50 +0100
+Cc: Steve Lee <steve.lee.analog@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,15 +101,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+ Add reset gpio control to support RESET PIN connected to gpio.
 
+Signed-off-by: Steve Lee <steve.lee.analog@gmail.com>
+---
+ sound/soc/codecs/max98390.c | 18 ++++++++++++++++++
+ sound/soc/codecs/max98390.h |  1 +
+ 2 files changed, 19 insertions(+)
 
-在 2022/3/11 21:42, Mark Brown 写道:
-> On Thu, Mar 10, 2022 at 02:53:54PM +0800, Zhen Ni wrote:
->> Use temporary variable for struct device to make code neater.
-> 
-> This doesn't apply against current code, please check and resend.
-
-I will resend a v2 soon.
-
-
+diff --git a/sound/soc/codecs/max98390.c b/sound/soc/codecs/max98390.c
+index b392567c2b3e..574d8d5f1119 100644
+--- a/sound/soc/codecs/max98390.c
++++ b/sound/soc/codecs/max98390.c
+@@ -1073,6 +1073,24 @@ static int max98390_i2c_probe(struct i2c_client *i2c,
+ 		return ret;
+ 	}
+ 
++	max98390->reset_gpio = of_get_named_gpio(i2c->dev.of_node,
++						"maxim,reset-gpios", 0);
++
++	/* Power on device */
++	if (gpio_is_valid(max98390->reset_gpio)) {
++		ret = devm_gpio_request(&i2c->dev, max98390->reset_gpio,
++					"MAX98390_RESET");
++		if (ret) {
++			dev_err(&i2c->dev, "%s: Failed to request gpio %d\n",
++				__func__, max98390->reset_gpio);
++			return -EINVAL;
++		}
++		gpio_direction_output(max98390->reset_gpio, 0);
++		usleep_range(1000, 2000);
++		gpio_direction_output(max98390->reset_gpio, 1);
++		usleep_range(1000, 2000);
++	}
++
+ 	/* Check Revision ID */
+ 	ret = regmap_read(max98390->regmap,
+ 		MAX98390_R24FF_REV_ID, &reg);
+diff --git a/sound/soc/codecs/max98390.h b/sound/soc/codecs/max98390.h
+index c250740f73a2..5518f2340247 100644
+--- a/sound/soc/codecs/max98390.h
++++ b/sound/soc/codecs/max98390.h
+@@ -655,6 +655,7 @@
+ 
+ struct max98390_priv {
+ 	struct regmap *regmap;
++	int reset_gpio;
+ 	unsigned int sysclk;
+ 	unsigned int master;
+ 	unsigned int tdm_mode;
+-- 
+2.17.1
 

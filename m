@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18D624D45D5
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 12:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A8C24D45E1
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 12:38:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8331C18DD;
-	Thu, 10 Mar 2022 12:36:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8331C18DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id E13BD18D7;
+	Thu, 10 Mar 2022 12:37:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E13BD18D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646912269;
-	bh=TWvMPTJzJ27GVP5gpFDJ0b1Mu0lLmlwPszikGKU7gBE=;
+	s=default; t=1646912315;
+	bh=L1YRU57z+t1MV+KfRtHvqyjYc86lOQpafAuQ+QMnSkU=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GeuTOH7aYQIhb6+sZSpty4UqVNHw4a5Z+K5umQUFCPLuIWhNaI0HCDsaXNkcr06r7
-	 Pyv/BGaTe7afg14ussbLwaqMYImRWBK+8OXBDc4dPHaLlc1Wbei7/M27NN/cUNjZVO
-	 CK296VWOcCFM5fIlBt/PfBpQ9urm6NEgzKl1H9BE=
+	b=UYVAp4VF+2dkJIS5mxU8nZupbvT0+8qbikWmIZZaaOfpY2JcVpg+d1hxexGuAn4rY
+	 WnP1nwkmT6/RNXBlmmZ2LSrrqF+NuL1buDYYs7Ug1aoqMr5HAUJXhZK9k6groWkd2y
+	 ChB1MJWew9UyhJRt88QnMs6vtEcv7enNx7gTv7YQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C43D7F8052E;
-	Thu, 10 Mar 2022 12:35:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2C32F8053B;
+	Thu, 10 Mar 2022 12:35:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35294F80524; Thu, 10 Mar 2022 12:35:25 +0100 (CET)
+ id C111CF8051E; Thu, 10 Mar 2022 12:35:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3FB0F8051A
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 12:35:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3FB0F8051A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FBF8F8051E
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 12:35:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FBF8F8051E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SjxVeEe3"
+ header.b="VJ8IdfaH"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A3D1C61585;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 42C1361625;
+ Thu, 10 Mar 2022 11:35:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84ED5C340E9;
  Thu, 10 Mar 2022 11:35:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0DF3C340E8;
- Thu, 10 Mar 2022 11:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646912120;
- bh=TWvMPTJzJ27GVP5gpFDJ0b1Mu0lLmlwPszikGKU7gBE=;
+ s=k20201202; t=1646912122;
+ bh=L1YRU57z+t1MV+KfRtHvqyjYc86lOQpafAuQ+QMnSkU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=SjxVeEe3tindzUNM1tmZ9KNYMK0v6ASZA/EP3CEWuJevKVaibwyTz/JylOfKN49Ch
- vajwUmReDfpo9oUzy9cmeuD+ZjDuZxo7PIms1b7lgKWNYjMVIZmjqmnE7VUoTpHJH4
- bV1dVMg0luDW1Z0EetyLJUBmzsmxbeZROjO60vCEY7MOedZWPk2SfmdYMR4AVVkty6
- 2h3faUwC0+5+bX2jWGgq8KqNwANm25FAu6kpFp88VEzrCPXvaJZfx+onlYqDkdC2WB
- b0bogAhhXetSurArqeFqRRSR3pm/ygoB8LYRyke36XtQFUX5h/brgWkwt50zcSMfi/
- ezbFSUgwrivRw==
+ b=VJ8IdfaHULgmtZbnG12wBjgsKUabfVGLpNiMjU4HwmiBJPUB4G45haTmR7eJecfrE
+ 7/VEEts2D4wpUDV9H+16U+SxgXOFTqQinFlZrkiOHEIOK5g5bk3tcxUBDmaQdmVXXx
+ Qk408BeOg5XDYK+cyUNZfBeUrfF2V6+WCRBRNAQ9INFHSMZmHb4aywv/VAniF/osPs
+ MC8dMCIuBuyB8p2/mLZgDc7qaQWnfAh50GokZ9/VYNRmlVyYtIwQ7VcBT7hEk6BM2O
+ 6Fc28SkLDNNlaktdI9eyovVZ55ewbl31QgjpxIQ+gpx/YOAkXdzfr5Eovl4mO/ggcB
+ kkvXes9LVW2+w==
 From: Mark Brown <broonie@kernel.org>
 To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, perex@perex.cz,
  tiwai@suse.com, nicoleotsuka@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
  alsa-devel@alsa-project.org, festevam@gmail.com, lgirdwood@gmail.com
-In-Reply-To: <1646822293-26965-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1646822293-26965-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_rpmsg: Remove SET_SYSTEM_SLEEP_PM_OPS callback
-Message-Id: <164691211764.13798.1783261167562942909.b4-ty@kernel.org>
-Date: Thu, 10 Mar 2022 11:35:17 +0000
+In-Reply-To: <1646817523-26800-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1646817523-26800-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_spdif: keep all TxClk sources by txclk array
+Message-Id: <164691212026.13798.15345880576925268759.b4-ty@kernel.org>
+Date: Thu, 10 Mar 2022 11:35:20 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -85,12 +85,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 9 Mar 2022 18:38:13 +0800, Shengjiu Wang wrote:
-> For sound need to be continuously output at suspend with rpmsg
-> sound card, so need to keep the clock always on at suspend,
-> then suspend & resume callback is not needed.
+On Wed, 9 Mar 2022 17:18:43 +0800, Shengjiu Wang wrote:
+> From: Viorel Suman <viorel.suman@nxp.com>
 > 
+> Use txclk array to keep all TxClk sources instead of keeping
+> clocks per rate - need to do this in order to avoid multiple
+> prepare_enable/disable_unprepare of the same clock during
+> suspend/resume.
 > 
+> [...]
 
 Applied to
 
@@ -98,8 +101,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_rpmsg: Remove SET_SYSTEM_SLEEP_PM_OPS callback
-      commit: 8b1d3b733f3e6acaab6c6bc9968ee0e058900a7e
+[1/1] ASoC: fsl_spdif: keep all TxClk sources by txclk array
+      commit: 5bd998af5b69cf21fd4db5eaf7e9db85a4a35295
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 878BB4D482C
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:37:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C4C34D4843
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:41:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 121E11923;
-	Thu, 10 Mar 2022 14:36:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 121E11923
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FEF71913;
+	Thu, 10 Mar 2022 14:41:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FEF71913
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646919432;
-	bh=IzCKSP06ZyCQdiyV6Oey8jDEMQh3drwg5TOknGuT+A0=;
+	s=default; t=1646919716;
+	bh=/2dqqotcYdMyZB8YEQSUt+PX5mpQ2CTEWP38bkLT6Aw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rl5QrWlnrmczW5Ai6VAhvoqedw1CkB/aower1YUY9mHcNWBmZhGbWAJ01+pQ3Ny5K
-	 eaf3Nns/64Y8kesrHss3M7cWB/29siP8GJDTIPxV/XwbYwFwoDZ4P4XHV6krfgWnqg
-	 JS2EnTt3YwT0H0+ekQf0er/CT0S5B+7ti85ksBEQ=
+	b=HWMHAA7ozZpJSwFYslhIaRgNPXe7qMYEHLMK98I4bg7YVBkgSnfe3gaQMjKXi2puJ
+	 qX2xlOxZ1To3EBHjp1543MOtad29w503mRMI7OPqpVIsbTz0EwKXJBw7oDxfP1FD4u
+	 6L5IV/h6ArPQHUg6krIEn5aR5kmsSoeBMe4rawPo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99B26F800FD;
-	Thu, 10 Mar 2022 14:36:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84D9AF8013C;
+	Thu, 10 Mar 2022 14:40:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31D25F8012F; Thu, 10 Mar 2022 14:36:20 +0100 (CET)
+ id DE599F8012F; Thu, 10 Mar 2022 14:40:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B4A6F800FD
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:36:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B4A6F800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1E36F800FD
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:40:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1E36F800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="cdsB/aaq"; 
+ header.b="NAlFcq6v"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="GuNde0YD"
+ header.b="PRGjmFb2"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B27491F385;
- Thu, 10 Mar 2022 13:36:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5D01E21106;
+ Thu, 10 Mar 2022 13:40:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646919371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646919640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eg1lHQJNdKst+PLRqkjA9oK9gtUXO0XsptMPNcYy+BQ=;
- b=cdsB/aaq8JVS41GFrznrGScENTV5gGqtNORzY/8S5IQp+ZPeDQrKIxFDrDWejBsuoVGA2D
- DekSPxSrvaa7XkmmkJ0xKIbND44OoXdcjogHFk7+M2rPWT7WG729RAqyn3PWDDy04CsKhF
- WbU6cycxHgZLYJHPYe39OZ/XgiUI+ys=
+ bh=s0WfDHnB3qQWf1YP5uxdfwdYs8AdzWWU3Bje0Q+7OV4=;
+ b=NAlFcq6v6X84cvG50ghJERg2gd+7VRyccxdqIjUK8tb/V4+tuRfK2ZQ091kkhYR5QjqLci
+ y/ZI7Nkz8X5iG0l76/f19dfW6gaehRPPmeTMLJ0pbNUBIsvZs52aOhwii2Hm96vcWca+YD
+ c7fFVZLnJF973Oj9RoZb9wqOUWODpXA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646919371;
+ s=susede2_ed25519; t=1646919640;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eg1lHQJNdKst+PLRqkjA9oK9gtUXO0XsptMPNcYy+BQ=;
- b=GuNde0YD7HILHG9qKO4QNhTtCngfVZxl6Rn3cXQP7cN5/JQa1W5VTmOyMKUBXOyHVTv1A2
- xXunq99psGC8BEDg==
+ bh=s0WfDHnB3qQWf1YP5uxdfwdYs8AdzWWU3Bje0Q+7OV4=;
+ b=PRGjmFb2jd+ug6p3zxEGQeZVWnB7OHfUFbLnBx0Wb1GAx6oxQhDANgZMiIKRCXvNzxWllb
+ cF/7g5FKY3LoHBAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id AB12FA3B96;
- Thu, 10 Mar 2022 13:36:11 +0000 (UTC)
-Date: Thu, 10 Mar 2022 14:36:11 +0100
-Message-ID: <s5hee3aexpw.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 4B8FEA3B87;
+ Thu, 10 Mar 2022 13:40:40 +0000 (UTC)
+Date: Thu, 10 Mar 2022 14:40:40 +0100
+Message-ID: <s5hcziuexif.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH v3] ALSA: hda/i915 - avoid hung task timeout in i915 wait
-In-Reply-To: <20220309182439.1053856-1-kai.vehmanen@linux.intel.com>
-References: <20220309182439.1053856-1-kai.vehmanen@linux.intel.com>
+To: Lucas Tanure <tanureal@opensource.cirrus.com>
+Subject: Re: [PATCH v3 03/16] sound: cs35l41: Move cs35l41_gpio_config to
+ shared lib
+In-Reply-To: <20220308171730.454587-4-tanureal@opensource.cirrus.com>
+References: <20220308171730.454587-1-tanureal@opensource.cirrus.com>
+ <20220308171730.454587-4-tanureal@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: tvrtko.ursulin@linux.intel.com, alsa-devel@alsa-project.org,
- Ramalingam C <ramalingam.c@intel.com>, intel-gfx@lists.freedesktop.org,
- lucas.demarchi@intel.com, amadeuszx.slawinski@linux.intel.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,22 +98,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 09 Mar 2022 19:24:39 +0100,
-Kai Vehmanen wrote:
+On Tue, 08 Mar 2022 18:17:17 +0100,
+Lucas Tanure wrote:
 > 
-> If kernel is built with hung task detection enabled and
-> CONFIG_DEFAULT_HUNG_TASK_TIMEOUT set to less than 60 seconds,
-> snd_hdac_i915_init() will trigger the hung task timeout in case i915 is
-> not available and taint the kernel.
+> ASoC and HDA can use a single function to configure the chip gpios.
 > 
-> Use wait_for_completion_killable_timeout() for the wait to
-> avoid this problem.
-> 
-> Co-developed-by: Ramalingam C <ramalingam.c@intel.com>
-> Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+> Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Applied now.  Thanks.
+Just use "ALSA:" prefix for the subject instead of "sound:" in case
+both ALSA HD-audio and ASoC are covered in the patch.
 
+
+thanks,
 
 Takashi

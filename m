@@ -2,179 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 159674D4CA9
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 16:13:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18E074D4CBA
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 16:22:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AAD5E171C;
-	Thu, 10 Mar 2022 16:12:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAD5E171C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA4E918DD;
+	Thu, 10 Mar 2022 16:22:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA4E918DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646925199;
-	bh=pZqU6zc1AZJ2zZbVNOPZdmqCr3PxYQBByEvgToUCVYE=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1646925778;
+	bh=9RWnc91qJqCydh+oNacSQRkGF+Rn1JCDF3OHEhAcIPM=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qFhWbc+6yqrSSDPJZ8i4TWMNf1UGc/nexiIfGudPY8Kd+hBDI92uSYcHcRlgtBINB
-	 EE3C+Gn3Qj1H/c3SHPC0G0RlnJf2Boe6SJ7EjKqatf+scSrUg0V60RBuhuq2vMcUBy
-	 dI73CXvJJQnEWmoOlM2zyWLpsVOeLDaIBheEquaU=
+	b=ZBlThwmVn2pFp66HO2MFxmKtN63dNqQ6kXsKFdpboe9KOlWiPOnGT8vH9xJ1Vege8
+	 ebWCUmHRYpLQuCnC73Zy+g7U/pNgrRcTYkbtKEOSgpbd/B4uEKvnOr+Cw2Vd66IQia
+	 yosU3Tn5PjceEdfrCpUJ9TU04hPV3xv59qcI8SZ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1669DF8013C;
-	Thu, 10 Mar 2022 16:12:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B432F8012C;
+	Thu, 10 Mar 2022 16:21:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18540F80137; Thu, 10 Mar 2022 16:12:10 +0100 (CET)
+ id 01ADFF80137; Thu, 10 Mar 2022 16:21:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0930F8012C
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 16:12:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0930F8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id AABCCF8012C
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 16:21:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AABCCF8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="HKlNo51v"; 
- dkim=pass (1024-bit key) header.d=microchiptechnology.onmicrosoft.com
- header.i=@microchiptechnology.onmicrosoft.com header.b="Z7k6YaLA"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1646925124; x=1678461124;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=pZqU6zc1AZJ2zZbVNOPZdmqCr3PxYQBByEvgToUCVYE=;
- b=HKlNo51vvbtiPjWThTnCYdTNH/97OfzxKvtcL8qXKYRlqths9h1Ro7mD
- YVZ6AJagdU86M8x/f70nZPbhA9lM4mQH2jMXT4Tq3dseXMZyGh05IEric
- PYDmiLHWsGl0hHnQ8e58aV4gh58pRQHu1VvIMo85oEs3VmrOXEaTHGBLF
- mDK/dpqDM01VjFGAU0YGHZCxcw/ChA72+/vik/RWZsdWft9ez4acakfY0
- Bxz7XpGgsyhdt38KB4f3z9+1tRSrmIdwH06b76xfJgM/fvjBYrQ21ROPy
- djgUXBPpwP9eRJPe/QMb22tdjhHx01owMR9wqyNP1novOuHT7XCHX/t76 g==;
-X-IronPort-AV: E=Sophos;i="5.90,171,1643698800"; d="scan'208";a="151575798"
-Received: from smtpout.microchip.com (HELO email.microchip.com)
- ([198.175.253.82])
- by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 10 Mar 2022 08:09:23 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Thu, 10 Mar 2022 08:09:22 -0700
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (10.10.215.89) by
- email.microchip.com (10.10.87.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17 via Frontend Transport; Thu, 10 Mar 2022 08:09:22 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IZ71BLZvJ5rwuqgYmeKw8bLxfL0qLxz8SGT6HxJzrXtprhoQYLfmY3XvKn9SR9YWDiC442is/yScJNN+3X+4LAT/0ftHUZn1xRoCsSUsQHP1rzVgblxrKacKR2tEsHyaZ36ZGMKpa+g6kOKEryddpVW6xmZv7NvZM7SMVWdC3lpsn9RspCUtQYFxvolr6i8/dobSKJbp4J3eeClhO8qccoRAWTkGuNokhrwWHYVSnaoH644VH/Y47J1o1yKSIB+UNzyUdxRhEFxXDmDTeFTrpUYjGfmOhAJBSCyghtrDUdM+UFweoOcKda9myt6nJwycG900J8UiQMe8n+pPMs3aIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pZqU6zc1AZJ2zZbVNOPZdmqCr3PxYQBByEvgToUCVYE=;
- b=G9BpWtIO4JGdjoTszjLjQzZJHDtBbE6UUeQoet5zJeLKXAP+hLt7jX5Kr344dCmQC6R9u6u0mG+pcbhqfZRPvTEP3nytyurTHrBKdmVhUUNQ+AyLnZSPeHrABAiETeKukZz/4jOJam/5d78/PpOClZ6BGJArpA0qSM/XTaKrIuDmC/DGg9xTnEEQxjY5TeIn3dgc1vimz+SPObHRIJmHt5cKT+FsT0QX823SjUOM1XehiyQTi4jjYe4JgO4rFJesizizZ4MZ7h/bB48EyyaQbl2t1+eInaOdti86sJk+POcR0Zw9TVNENJkWXt9ivnf2pA0UEhcHqCnU+xP/WLfrXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=microchiptechnology.onmicrosoft.com;
- s=selector2-microchiptechnology-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pZqU6zc1AZJ2zZbVNOPZdmqCr3PxYQBByEvgToUCVYE=;
- b=Z7k6YaLA0y9Skg2Cpla0PUq5+/9anwIBvTxV0jsh5au+sghlxNomagL2Zs8WsmTtxksfypX3bzqAy1nwsrLk79J+SRbLj7l18yZDrYJyP57Sa1eYNWB/8TN+f5q1Jah3CSySF4hyqLV0NzTR7Kvv3n/EB6Hr+Xq86faJoGqjeBs=
-Received: from DM8PR11MB5687.namprd11.prod.outlook.com (2603:10b6:8:22::7) by
- BN7PR11MB2545.namprd11.prod.outlook.com (2603:10b6:406:b0::27) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5038.29; Thu, 10 Mar 2022 15:09:17 +0000
-Received: from DM8PR11MB5687.namprd11.prod.outlook.com
- ([fe80::fc32:96a4:933f:194f]) by DM8PR11MB5687.namprd11.prod.outlook.com
- ([fe80::fc32:96a4:933f:194f%4]) with mapi id 15.20.5038.027; Thu, 10 Mar 2022
- 15:09:17 +0000
-From: <Codrin.Ciubotariu@microchip.com>
-To: <dan.carpenter@oracle.com>
-Subject: Re: [bug report] ASoC: atmel: mchp-pdmc: add PDMC driver
-Thread-Topic: [bug report] ASoC: atmel: mchp-pdmc: add PDMC driver
-Thread-Index: AQHYNI4VMlvd9DN6hkO/EnbkzK/6wqy4uIKA
-Date: Thu, 10 Mar 2022 15:09:17 +0000
-Message-ID: <c054cebe-5a4a-0858-1859-cfc91b6f4287@microchip.com>
-References: <20220310144915.GA7354@kili>
-In-Reply-To: <20220310144915.GA7354@kili>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 91ba5012-6418-4ad3-b4dd-08da02a7f295
-x-ms-traffictypediagnostic: BN7PR11MB2545:EE_
-x-microsoft-antispam-prvs: <BN7PR11MB254560195D8E0FB18E504C5FE70B9@BN7PR11MB2545.namprd11.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ZAqLGzzMJwtKSfG1PPT7uuS14PJRBxRUnpxBk02UNdQ6WfELCDSprkkk+oIKmdffkCE10OwdeRlI8X7NMHK9ZzsJGTttarhbSYBExSzooHifbD/tExwMCjQFlLYdMBTuuJOmT+zsDKDxRFil/BmNLNPct1nkcR4rsowG4nckTzcHCVKijWjYef01hn8nMkduwAvfNxnfrfCje0FdkyLVBIhdkrg3726w9Fd8YyDLrShi+TGEi+o7W2hSS4dwLM1u3DxRE4H9Z1hhwl84p0yHc+4nNb4kCvBJ2GOVzkN/mG3og1NohkzeSpcEQhMMEDy4f1n7zMEzjd74CHrpYbycznpX26aCuvgoFXGfvr+Cj0pJ08msM13WOsBd8PIjsNF8S5S23yS/+K7a1yaJtEFgJbAYbT3dV35TCovEZxxZg6pAGk6k/lb1hyGNcbYX3JKZFGp3jt1pEzRHzQkFcDgR15DiZHxA8I6fmxm7dD8/w/sUYmuFRiv4Z10NFrFCaaGCGkUOifTi2MD/OeuT4R4JA7Q5WHCVu+uRvdOXLQoNGPoWns1GePkp4vDGGoYtaPIe8MLLWlUwgvmmeWhsdMIXDiIdfxi71Z+ihTQS74l/v3t0jX1Z28PhRYAVKTrvAv/8ueBVYk+MrHzcOD/DaZQzDq60QCVnentd41w8rj179yPxs0QeBV7O2NatVerojXMwJHsQD5Juueyv00/AmbWrJJGqWqN+FFMl1wCm1XLRt6Q27382Dtqm/h/4+kB90L6J6kSUVSF9ivZZtluY97kHUuwFEDp9ibVVR7UmUjNO1UnSaQw1hC3HBSsLdrh5IB5EW0BR4+hl2hheUQmq9olHmMM7j2hnBPEEleTsHCAKjmw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR11MB5687.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(36756003)(6512007)(5660300002)(83380400001)(66556008)(6506007)(4744005)(53546011)(2616005)(26005)(186003)(91956017)(2906002)(86362001)(38100700002)(8936002)(31696002)(38070700005)(316002)(508600001)(31686004)(6486002)(966005)(71200400001)(6916009)(4326008)(66946007)(8676002)(66476007)(76116006)(66446008)(122000001)(64756008)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NkxvYnNmQmcvOU1zekYweDMzd2UvczlYeFJTSElKemhMaER4WlNqb0JFelh4?=
- =?utf-8?B?VnpibUFIbWNVZERJT1FFMUU0dE5TM3llOW9lWWN6aGpJQ3A1Y3A0Nm91Z1ps?=
- =?utf-8?B?SHpWRE92bjVDLzJPRWhTWVN1SXQwcEx3K0RIQkhUeEZ3WktsZUZNdWNzSDBK?=
- =?utf-8?B?czhKUWRTNHhZSDNhdGVOVkpSU3E0blB6RzFaZ1RYSnFvTm5ROUREWHl4LzFK?=
- =?utf-8?B?bXZ4dEZGZWRNSzBjUlpWM2JhcFM2ZW52Q0ozTkxCZHVqZXlDTmhXYTVjeTly?=
- =?utf-8?B?MGtQSzdlMmdsdjluNGMyR1hTMXB6U2hjOHRqWCtQYVBNYk1mYWV2czdBWGpZ?=
- =?utf-8?B?Q3JpVkVuek1wQUNocTVMVldEMVhsNmU5Mm01TVJHb2JweVFtU0ViV2tSTEVD?=
- =?utf-8?B?Z1lJSFNJN2pPWkZYbnlnMUtJTkVQWHJFMk84MEdOQjJSMGtPSzQ4UG8xTjhP?=
- =?utf-8?B?Z0IxZU8rbE1IMXl1dis3Q2xYdi9NTTc5RjhKMWhDQ3hWU3UzVG02SUtQMUQy?=
- =?utf-8?B?TFhHRE8yUDVFUGs4eGlSelpsZEwvK3VJOG1HL1d1N1pCeXZSWVptN2tlVXJH?=
- =?utf-8?B?US9MR2lXcE14OVV4VDNMRnlhL3lIUEw4Y0MxVXpPR0NUaVk3eTJLRW9YVlND?=
- =?utf-8?B?ajJlZ1JDQlVLVE9zKzE0cVIrWGxWWVY1TTFxbVFna0Z6dXRKQXpiVGhWSXBo?=
- =?utf-8?B?QUpkL1plVnZCcDJsT09KTXRid1NNdDd1bXUwS2JHRXI0dTZKSnZ2aW5telp6?=
- =?utf-8?B?ZCt2K1RVdUxmdHhOTStzNC9ZTU56WDJUK2pOZCswNDBkNU5KTWJZMG4rY2Jv?=
- =?utf-8?B?RG4wNVBzb2dhbk5ZeHlNK2Z6UVlSaDJ5Z0g5QmIwWVRtS3dObXhxbkNMVjZI?=
- =?utf-8?B?ZUhHYkxkcVlOaUIzdEMwdlkzNEhRRGZlSlVxYXlZbndpdTJaRGVYbGJELzFK?=
- =?utf-8?B?cEZQcndsQ2RZQ3g5c3BOU2hzK0I1Vm53QmpKcytxMjFBVjVrVTlHZFMyWjNK?=
- =?utf-8?B?emtsMkV6MlQzTURaQ1lyVkFGM1RYb3A4d1g3NE5UVCtmTitFbDFGbytUOEtQ?=
- =?utf-8?B?TDdPZkZLYUJmcExjNDdINUV0MnJVRXFVc1dSakZaamJoMEdnOGFpamYrWWFh?=
- =?utf-8?B?TWp0VmZWMTVvNHpiUzRMV2lVekhlYjNnSHVBS3EzUUZTNGdIamlBeTh3MlBR?=
- =?utf-8?B?dmZrUVd0NW13WjlXWGZTc3Vnc3ZBOWtyalg3LytFdWtUWm40WTVaUXg2U213?=
- =?utf-8?B?Ky9UaUI2VzNNVVNHNWl4WUhZaWgyQzYzOVBUamtTenQ5bmsrRUMxbG9BeUdD?=
- =?utf-8?B?Q0lBTUwzaHFndUgvUWRlM2srTTNDcFdBd0VXUy9HSStqekZXeXRubVNMWVY3?=
- =?utf-8?B?R2M5MDFVOS9LdXRZNTdBZXdGSmVOS0FvSjFiQjArNFY2cStKbHFSOHZDZGtF?=
- =?utf-8?B?dTJjbGh3TjBCVnhkbVNHK2Q3WmYvSmdaYktRYjErSkNDamNycVBZemNtUXhH?=
- =?utf-8?B?Z0NRaEYzZWprZ2NkRG5TRVB1bWs3U2NzOHgrK3hGZ2RvREU4a0RuWW9tOS9y?=
- =?utf-8?B?WFMxWmZOOVZ3dy82VEQ0dGhzVmhTcGFxN0hqdTJvU1Jsdi9aZkhRZlhKVTFw?=
- =?utf-8?B?Yy9abkEwUkd1eWZmUXhzYkhBYWk0UlRJc0plTDZPQnNtR1JDNDhYcWwwUkdz?=
- =?utf-8?B?c2FBREF4TitrdkxERnpqWDMyMnp4eDJYVnJLU1dITFIwZStwa1lQR0JtdDNN?=
- =?utf-8?B?amdneExJbno1M2ZUVERCRmgvWlIyc1VNZDZXUHU2dFp2QTRHUGxuZjF5Nktp?=
- =?utf-8?B?d3NVOHg3MVQxOHIxdUt4YlVlZzBHR1E2SDJ3SlFoZUI3eWorT0twQS9vYnFQ?=
- =?utf-8?B?aU1PWEwwMU1Bd0tWTnJTSG9lTjBRNTlxditOTUNEczRKakxZM2NDdzZpWnhP?=
- =?utf-8?B?anByMlBCTUtibHFUK1ovajZaLzJpbkNoL2c3aXNUL3JBTWtEWFVoOGtGamRQ?=
- =?utf-8?B?YS9qb3VpV1BLSlduRHgzT2JKckcrUnE0ZDN0VUlCM0FvdXhvVEYzeE84OVA1?=
- =?utf-8?B?ck92ejB5bUFqV2RoOGhUL2w4aXN2TmNwbXA1cmxDbDlxNUVwdnQxY3VBK0Z1?=
- =?utf-8?B?cTlWZG5maHhkVVVxT0NlMGVjN3o1d3dSbk1rMGVoWVZGUTNqUWR6THRtd0Fn?=
- =?utf-8?B?RXUzRlVNMnhQTXVublZJVkVobU1aRjk3VldRZE1ERzY4YWkyaDBGV0hKWXdW?=
- =?utf-8?B?N1FLL00vUlJUNW9tUWlFL0tKbzFBPT0=?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <897A49316497434CB6CF226ADEEEDD4E@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="iE6XZ10j"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id 8CDEC1F45626
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1646925697;
+ bh=9RWnc91qJqCydh+oNacSQRkGF+Rn1JCDF3OHEhAcIPM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=iE6XZ10jXgznuAAFzstmKsm8wRjH0v2LI3HM/7SS6H0yKQglrLjuipy230guq8SJg
+ ul40OkYJ39fytXbjYcOhLIcqTE9V+esiOpDeefeB4jDkokykapv7tEMyjwd2ijr95/
+ SQTHmwOQEL1ogpzZDnb7qAtFFx9AC7EtdztdxoHyM2dI30AATUoPkby3JLl1DFNokz
+ k43tT54Cc2Zkioxdk40EkQGQCcl1fF/kZw9xPKDUIAJhmUdfve5iZje87eO1kFGd+H
+ gZZavcjftFcslMNL8oSiRV4aO+PVXLbSus6fQXe2lEbDM6w65+d5YH+S1OF/PTle7g
+ SoXlLjICWPa4g==
+Message-ID: <e812796f-6b9b-fe9d-50a7-b681d7b174fd@collabora.com>
+Date: Thu, 10 Mar 2022 16:21:33 +0100
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR11MB5687.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91ba5012-6418-4ad3-b4dd-08da02a7f295
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Mar 2022 15:09:17.8256 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GLQEQeqOangaZvFVlQTMS4Eq8fBdeBD78BubVJMLUmCSk2UVMdLGI97da1ZlzXZRFmMiTpX/jryqQrwudpl5F8yYC/22VFkeXQViucnPfU8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR11MB2545
-Cc: alsa-devel@alsa-project.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Subject: Re: [PATCH 4/5] ASoC: mediatek: mt8195: add machine driver with
+ mt6359, max98390 and rt5682
+Content-Language: en-US
+To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, matthias.bgg@gmail.com
+References: <20220308072435.22460-1-trevor.wu@mediatek.com>
+ <20220308072435.22460-5-trevor.wu@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20220308072435.22460-5-trevor.wu@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ yc.hung@mediatek.com, aaronyu@google.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -190,23 +88,693 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMTAuMDMuMjAyMiAxNjo0OSwgRGFuIENhcnBlbnRlciB3cm90ZToNCj4gSGVsbG8gQ29kcmlu
-IENpdWJvdGFyaXUsDQoNCkhpIERhbiwNCg0KPiANCj4gVGhlIHBhdGNoIDUwMjkxNjUyYWY1Mjog
-IkFTb0M6IGF0bWVsOiBtY2hwLXBkbWM6IGFkZCBQRE1DIGRyaXZlciINCj4gZnJvbSBNYXIgNywg
-MjAyMiwgbGVhZHMgdG8gdGhlIGZvbGxvd2luZyBTbWF0Y2ggc3RhdGljIGNoZWNrZXINCj4gd2Fy
-bmluZzoNCj4gDQo+ICAgICAgICAgIHNvdW5kL3NvYy9hdG1lbC9tY2hwLXBkbWMuYzoxODYgbWNo
-cF9wZG1jX2FmX3B1dCgpDQo+ICAgICAgICAgIHdhcm46IHRoaXMgYXJyYXkgaXMgcHJvYmFibHkg
-bm9uLU5VTEwuICd1dmFsdWUtPnZhbHVlLmludGVnZXIudmFsdWUnDQo+IA0KPiBzb3VuZC9zb2Mv
-YXRtZWwvbWNocC1wZG1jLmMNCj4gICAgICAxODEgc3RhdGljIGludCBtY2hwX3BkbWNfYWZfcHV0
-KHN0cnVjdCBzbmRfa2NvbnRyb2wgKmtjb250cm9sLA0KPiAgICAgIDE4MiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgc3RydWN0IHNuZF9jdGxfZWxlbV92YWx1ZSAqdXZhbHVlKQ0KPiAgICAg
-IDE4MyB7DQo+ICAgICAgMTg0ICAgICAgICAgc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21w
-b25lbnQgPSBzbmRfa2NvbnRyb2xfY2hpcChrY29udHJvbCk7DQo+ICAgICAgMTg1ICAgICAgICAg
-c3RydWN0IG1jaHBfcGRtYyAqZGQgPSBzbmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21w
-b25lbnQpOw0KPiAtLT4gMTg2ICAgICAgICAgYm9vbCBhZiA9IHV2YWx1ZS0+dmFsdWUuaW50ZWdl
-ci52YWx1ZSA/IHRydWUgOiBmYWxzZTsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgXl5e
-Xl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXg0KPiB2YWx1ZSBpcyBhbiBhcnJheSwgbm90IGEgcG9p
-bnRlci4gIEl0J3MgYWx3YXlzIGdvaW5nIHRvIGJlIG5vbi1OVUxMLg0KDQpJbmRlZWQuIFRoZXJl
-IGlzIGFscmVhZHkgYSBwYXRjaCB0aGF0IGFkZHJlc3NlcyB0aGlzIFsxXS4gVGhhbmsgeW91IGZv
-ciANCnlvdXIgcmVwb3J0IQ0KDQpCZXN0IHJlZ2FyZHMsDQpDb2RyaW4NCg0KWzFdIGh0dHBzOi8v
-bGttbC5vcmcvbGttbC8yMDIyLzMvOS82Mw0K
+Il 08/03/22 08:24, Trevor Wu ha scritto:
+> This patch adds support for mt8195 board with mt6359, max98390 and rt5682.
+> 
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+
+Hello Trevor,
+thanks for the patch! However, there's something to improve...
+
+> ---
+>   sound/soc/mediatek/Kconfig                    |   16 +
+>   sound/soc/mediatek/mt8195/Makefile            |    5 +
+>   .../mt8195/mt8195-mt6359-max98390-rt5682.c    | 1058 +++++++++++++++++
+>   3 files changed, 1079 insertions(+)
+>   create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-max98390-rt5682.c
+> 
+> diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
+> index 0d154350f180..ce9000013ac4 100644
+> --- a/sound/soc/mediatek/Kconfig
+> +++ b/sound/soc/mediatek/Kconfig
+> @@ -229,3 +229,19 @@ config SND_SOC_MT8195_MT6359_RT1011_RT5682
+>   	  with the MT6359 RT1011 RT5682 audio codec.
+>   	  Select Y if you have such device.
+>   	  If unsure select "N".
+> +
+> +config SND_SOC_MT8195_MT6359_MAX98390_RT5682
+> +	tristate "ASoC Audio driver for MT8195 with MT6359 MAX98390 RT5682 codec"
+> +	depends on I2C
+> +	depends on SND_SOC_MT8195 && MTK_PMIC_WRAP
+> +	select SND_SOC_MT6359
+> +	select SND_SOC_MAX98390
+> +	select SND_SOC_RT5682_I2C
+> +	select SND_SOC_RT5682S
+> +	select SND_SOC_DMIC
+> +	select SND_SOC_HDMI_CODEC
+> +	help
+> +	  This adds ASoC driver for Mediatek MT8195 boards
+> +	  with the MT6359 MAX98390 RT5682 audio codec.
+> +	  Select Y if you have such device.
+> +	  If unsure select "N".
+> diff --git a/sound/soc/mediatek/mt8195/Makefile b/sound/soc/mediatek/mt8195/Makefile
+> index d707cbd2672d..e70ee2c6a61e 100644
+> --- a/sound/soc/mediatek/mt8195/Makefile
+> +++ b/sound/soc/mediatek/mt8195/Makefile
+> @@ -20,5 +20,10 @@ snd-soc-mt8195-rt1011-rt5682-objs := \
+>   	mt8195-mt6359-rt1011-rt5682.o \
+>   	mt8195-mt6359-common.o
+>   
+> +snd-soc-mt8195-max98390-rt5682-objs := \
+> +	mt8195-mt6359-max98390-rt5682.o \
+> +	mt8195-mt6359-common.o
+> +
+>   obj-$(CONFIG_SND_SOC_MT8195_MT6359_RT1019_RT5682) += snd-soc-mt8195-rt1019-rt5682.o
+>   obj-$(CONFIG_SND_SOC_MT8195_MT6359_RT1011_RT5682) += snd-soc-mt8195-rt1011-rt5682.o
+> +obj-$(CONFIG_SND_SOC_MT8195_MT6359_MAX98390_RT5682) += snd-soc-mt8195-max98390-rt5682.o
+> diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-max98390-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-max98390-rt5682.c
+> new file mode 100644
+> index 000000000000..b0d55a7889d2
+> --- /dev/null
+> +++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-max98390-rt5682.c
+> @@ -0,0 +1,1058 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * mt8195-mt6359-max98390-rt5682.c  --
+> + *	MT8195-MT6359-MAX98390-RT5682 ALSA SoC machine driver
+> + *
+> + * Copyright (c) 2022 MediaTek Inc.
+> + * Author: Trevor Wu <trevor.wu@mediatek.com>
+> + */
+> +
+> +#include <linux/input.h>
+> +#include <linux/module.h>
+> +#include <sound/jack.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/rt5682.h>
+> +#include <sound/sof.h>
+> +#include <sound/soc.h>
+> +#include "../../codecs/rt5682.h"
+> +#include "../common/mtk-afe-platform-driver.h"
+> +#include "mt8195-afe-clk.h"
+> +#include "mt8195-afe-common.h"
+> +#include "mt8195-mt6359-common.h"
+> +
+> +#define MAX98390_CODEC_DAI	"max98390-aif1"
+> +#define MAX98390_DEV0_NAME	"max98390.2-0038" /* right */
+> +#define MAX98390_DEV1_NAME	"max98390.2-0039" /* left */
+> +
+> +#define RT5682_CODEC_DAI	"rt5682-aif1"
+> +#define RT5682_DEV0_NAME	"rt5682.2-001a"
+> +
+> +#define RT5682S_CODEC_DAI	"rt5682s-aif1"
+> +#define RT5682S_DEV0_NAME	"rt5682s.2-001a"
+> +
+> +#define SOF_DMA_DL2 "SOF_DMA_DL2"
+> +#define SOF_DMA_DL3 "SOF_DMA_DL3"
+> +#define SOF_DMA_UL4 "SOF_DMA_UL4"
+> +#define SOF_DMA_UL5 "SOF_DMA_UL5"
+> +
+> +struct sof_conn_stream {
+> +	const char *normal_link;
+> +	const char *sof_link;
+> +	const char *sof_dma;
+> +	int stream_dir;
+> +};
+> +
+> +static const struct snd_soc_dapm_widget
+> +	mt8195_mt6359_max98390_rt5682_widgets[] = {
+> +	SND_SOC_DAPM_SPK("Left Speaker", NULL),
+> +	SND_SOC_DAPM_SPK("Right Speaker", NULL),
+> +	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+
+We can at least partially reuse existing UCM2 configuration if you
+slightly change the names for these controls.
+
+Specifically, MAX98090 (yes I know it's a different codec) has names
+"Speaker Left", "Speaker Right" instead, we will be able to at least
+partially reuse these (or get uniform naming, which is still good).
+As for the "Headphone Jack", it's simply "Headphone".
+
+Please note that the actual control names in userspace will be, exactly,
+
+"Speaker Left Switch", "Speaker Right Switch",
+"Headphone Left Switch", "Headphone Right Switch"...
+
+....where "Switch" gets automatically appended because of the control type.
+
+> +	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+
+This "Headset Mic" name is fine.
+
+> +	SND_SOC_DAPM_MIXER(SOF_DMA_DL2, SND_SOC_NOPM, 0, 0, NULL, 0),
+> +	SND_SOC_DAPM_MIXER(SOF_DMA_DL3, SND_SOC_NOPM, 0, 0, NULL, 0),
+> +	SND_SOC_DAPM_MIXER(SOF_DMA_UL4, SND_SOC_NOPM, 0, 0, NULL, 0),
+> +	SND_SOC_DAPM_MIXER(SOF_DMA_UL5, SND_SOC_NOPM, 0, 0, NULL, 0),
+> +};
+> +
+> +static const struct snd_soc_dapm_route mt8195_mt6359_max98390_rt5682_routes[] = {
+> +	/* speaker */
+> +	{ "Left Speaker", NULL, "Left BE_OUT" },
+> +	{ "Right Speaker", NULL, "Right BE_OUT" },
+> +	/* headset */
+> +	{ "Headphone Jack", NULL, "HPOL" },
+> +	{ "Headphone Jack", NULL, "HPOR" },
+> +	{ "IN1P", NULL, "Headset Mic" },
+> +	/* SOF Uplink */
+> +	{SOF_DMA_UL4, NULL, "O034"},
+> +	{SOF_DMA_UL4, NULL, "O035"},
+> +	{SOF_DMA_UL5, NULL, "O036"},
+> +	{SOF_DMA_UL5, NULL, "O037"},
+> +	/* SOF Downlink */
+> +	{"I070", NULL, SOF_DMA_DL2},
+> +	{"I071", NULL, SOF_DMA_DL2},
+> +	{"I020", NULL, SOF_DMA_DL3},
+> +	{"I021", NULL, SOF_DMA_DL3},
+> +};
+> +
+> +static const struct snd_kcontrol_new mt8195_mt6359_max98390_rt5682_controls[] = {
+> +	SOC_DAPM_PIN_SWITCH("Left Speaker"),
+> +	SOC_DAPM_PIN_SWITCH("Right Speaker"),
+> +	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
+> +	SOC_DAPM_PIN_SWITCH("Headset Mic"),
+> +};
+> +
+> +static int mt8195_rt5682_etdm_hw_params(struct snd_pcm_substream *substream,
+> +					struct snd_pcm_hw_params *params)
+> +{
+
+This is a copy-paste of the same function, having the same name, same lines and
+same everything, as found in mt8195-mt6359-rt1019-rt5682.c.
+
+Please don't duplicate code.
+
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct snd_soc_card *card = rtd->card;
+> +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+> +	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+> +	unsigned int rate = params_rate(params);
+> +	int bitwidth;
+> +	int ret;
+> +
+> +	bitwidth = snd_pcm_format_width(params_format(params));
+> +	if (bitwidth < 0) {
+> +		dev_err(card->dev, "invalid bit width: %d\n", bitwidth);
+> +		return bitwidth;
+> +	}
+> +
+> +	ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x00, 0x0, 0x2, bitwidth);
+> +	if (ret) {
+> +		dev_err(card->dev, "failed to set tdm slot\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = snd_soc_dai_set_pll(codec_dai, RT5682_PLL1, RT5682_PLL1_S_MCLK,
+> +				  rate * 256, rate * 512);
+> +	if (ret) {
+> +		dev_err(card->dev, "failed to set pll\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1,
+> +				     rate * 512, SND_SOC_CLOCK_IN);
+> +	if (ret) {
+> +		dev_err(card->dev, "failed to set sysclk\n");
+> +		return ret;
+> +	}
+> +
+> +	return snd_soc_dai_set_sysclk(cpu_dai, 0, rate * 256,
+> +				      SND_SOC_CLOCK_OUT);
+> +}
+> +
+> +static const struct snd_soc_ops mt8195_rt5682_etdm_ops = {
+
+same here.
+
+> +	.hw_params = mt8195_rt5682_etdm_hw_params,
+> +};
+> +
+> +static int mt8195_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+
+
+....and same for this one too, except the "struct mt8195_mt6359_priv" has
+a different name.
+
+I think that you can commonize this function by doing something like...
+
+int mt8195_rt5682_init(struct snd_soc_jack *jack, struct mt8195_afe_private *afe,
+		       struct snd_soc_component *cmpnt_codec)
+
+...and then calling from this file, and the others.
+
+
+> +{
+> +	struct snd_soc_component *cmpnt_codec =
+> +		asoc_rtd_to_codec(rtd, 0)->component;
+> +	struct mt8195_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
+> +	struct snd_soc_jack *jack = &priv->headset_jack;
+> +	struct snd_soc_component *cmpnt_afe =
+> +		snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+> +	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
+> +	struct mt8195_afe_private *afe_priv = afe->platform_priv;
+> +	int ret;
+> +
+> +	priv->i2so1_mclk = afe_priv->clk[MT8195_CLK_TOP_APLL12_DIV2];
+> +
+> +	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+> +				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+> +				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+> +				    SND_JACK_BTN_3,
+> +				    jack, NULL, 0);
+> +	if (ret) {
+> +		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+> +
+> +	ret = snd_soc_component_set_jack(cmpnt_codec, jack, NULL);
+> +	if (ret) {
+> +		dev_err(rtd->dev, "Headset Jack set failed: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +};
+> +
+> +static int mt8195_etdm_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+> +				       struct snd_pcm_hw_params *params)
+> +{
+> +	/* fix BE i2s format to S24_LE, clean param mask first */
+> +	snd_mask_reset_range(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
+> +			     0, (__force unsigned int)SNDRV_PCM_FORMAT_LAST);
+> +
+> +	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
+
+...this is yet another duplicated function from mt8195-mt6359-rt1019-rt5682.c.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int mt8195_set_bias_level_post(struct snd_soc_card *card,
+> +				      struct snd_soc_dapm_context *dapm,
+> +				      enum snd_soc_bias_level level)
+
+
+.... and again ....
+
+> +{
+> +	struct snd_soc_component *component = dapm->component;
+> +	struct mt8195_mt6359_priv *priv = snd_soc_card_get_drvdata(card);
+> +	int ret;
+> +
+> +	/*
+> +	 * It's required to control mclk directly in the set_bias_level_post
+> +	 * function for rt5682 and rt5682s codec, or the unexpected pop happens
+> +	 * at the end of playback.
+> +	 */
+> +	if (!component ||
+> +	    (strcmp(component->name, RT5682_DEV0_NAME) &&
+> +	    strcmp(component->name, RT5682S_DEV0_NAME)))
+> +		return 0;
+> +
+> +	switch (level) {
+> +	case SND_SOC_BIAS_OFF:
+> +		if (!__clk_is_enabled(priv->i2so1_mclk))
+> +			return 0;
+> +
+> +		clk_disable_unprepare(priv->i2so1_mclk);
+> +		dev_dbg(card->dev, "Disable i2so1 mclk\n");
+> +		break;
+> +	case SND_SOC_BIAS_ON:
+> +		ret = clk_prepare_enable(priv->i2so1_mclk);
+> +		if (ret) {
+> +			dev_err(card->dev, "Can't enable i2so1 mclk: %d\n", ret);
+> +			return ret;
+> +		}
+> +		dev_dbg(card->dev, "Enable i2so1 mclk\n");
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +enum {
+
+....and this is the same enum....
+
+> +	DAI_LINK_DL2_FE,
+> +	DAI_LINK_DL3_FE,
+> +	DAI_LINK_DL6_FE,
+> +	DAI_LINK_DL7_FE,
+> +	DAI_LINK_DL8_FE,
+> +	DAI_LINK_DL10_FE,
+> +	DAI_LINK_DL11_FE,
+> +	DAI_LINK_UL1_FE,
+> +	DAI_LINK_UL2_FE,
+> +	DAI_LINK_UL3_FE,
+> +	DAI_LINK_UL4_FE,
+> +	DAI_LINK_UL5_FE,
+> +	DAI_LINK_UL6_FE,
+> +	DAI_LINK_UL8_FE,
+> +	DAI_LINK_UL9_FE,
+> +	DAI_LINK_UL10_FE,
+> +	DAI_LINK_DL_SRC_BE,
+> +	DAI_LINK_DPTX_BE,
+> +	DAI_LINK_ETDM1_IN_BE,
+> +	DAI_LINK_ETDM2_IN_BE,
+> +	DAI_LINK_ETDM1_OUT_BE,
+> +	DAI_LINK_ETDM2_OUT_BE,
+> +	DAI_LINK_ETDM3_OUT_BE,
+> +	DAI_LINK_PCM1_BE,
+> +	DAI_LINK_UL_SRC1_BE,
+> +	DAI_LINK_UL_SRC2_BE,
+> +	DAI_LINK_REGULAR_LAST = DAI_LINK_UL_SRC2_BE,
+> +	DAI_LINK_SOF_START,
+> +	DAI_LINK_SOF_DL2_BE = DAI_LINK_SOF_START,
+> +	DAI_LINK_SOF_DL3_BE,
+> +	DAI_LINK_SOF_UL4_BE,
+> +	DAI_LINK_SOF_UL5_BE,
+> +	DAI_LINK_SOF_END = DAI_LINK_SOF_UL5_BE,
+> +};
+> +
+> +#define	DAI_LINK_REGULAR_NUM	(DAI_LINK_REGULAR_LAST + 1)
+> +
+> +/* FE */
+> +SND_SOC_DAILINK_DEFS(DL2_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL2")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(DL3_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL3")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(DL6_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL6")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(DL7_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL7")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(DL8_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL8")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(DL10_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL10")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(DL11_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL11")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL1_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL1")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL2_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL2")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL3_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL3")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL4_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL4")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL5_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL5")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL6_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL6")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL8_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL8")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL9_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL9")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL10_FE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL10")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +/* BE */
+> +SND_SOC_DAILINK_DEFS(DL_SRC_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("DL_SRC")),
+> +		     DAILINK_COMP_ARRAY(COMP_CODEC("mt6359-sound",
+> +						   "mt6359-snd-codec-aif1")),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(DPTX_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("DPTX")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(ETDM1_IN_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM1_IN")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(ETDM2_IN_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM2_IN")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(ETDM1_OUT_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM1_OUT")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+
+
+.... and the same dailink definitions....
+
+> +
+> +SND_SOC_DAILINK_DEFS(ETDM2_OUT_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM2_OUT")),
+> +		     DAILINK_COMP_ARRAY(COMP_CODEC(MAX98390_DEV0_NAME,
+> +						   MAX98390_CODEC_DAI),
+> +					COMP_CODEC(MAX98390_DEV1_NAME,
+> +						   MAX98390_CODEC_DAI)),
+
+...but this one is different.
+
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+
+
+....and the rest is the same again....
+
+> +SND_SOC_DAILINK_DEFS(ETDM3_OUT_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("ETDM3_OUT")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(PCM1_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("PCM1")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL_SRC1_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL_SRC1")),
+> +		     DAILINK_COMP_ARRAY(COMP_CODEC("mt6359-sound",
+> +						   "mt6359-snd-codec-aif1"),
+> +					COMP_CODEC("dmic-codec",
+> +						   "dmic-hifi")),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(UL_SRC2_BE,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("UL_SRC2")),
+> +		     DAILINK_COMP_ARRAY(COMP_CODEC("mt6359-sound",
+> +						   "mt6359-snd-codec-aif2")),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(AFE_SOF_DL2,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL2")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(AFE_SOF_DL3,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL3")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(AFE_SOF_UL4,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL4")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +SND_SOC_DAILINK_DEFS(AFE_SOF_UL5,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL5")),
+> +		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
+> +		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
+> +
+> +static const struct sof_conn_stream g_sof_conn_streams[] = {
+
+this is also the same...
+
+> +	{ "ETDM2_OUT_BE", "AFE_SOF_DL2", SOF_DMA_DL2, SNDRV_PCM_STREAM_PLAYBACK},
+> +	{ "ETDM1_OUT_BE", "AFE_SOF_DL3", SOF_DMA_DL3, SNDRV_PCM_STREAM_PLAYBACK},
+> +	{ "UL_SRC1_BE", "AFE_SOF_UL4", SOF_DMA_UL4, SNDRV_PCM_STREAM_CAPTURE},
+> +	{ "ETDM2_IN_BE", "AFE_SOF_UL5", SOF_DMA_UL5, SNDRV_PCM_STREAM_CAPTURE},
+> +};
+> +
+> +/* fixup the BE DAI link to match any values from topology */
+> +static int mt8195_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
+> +				 struct snd_pcm_hw_params *params)
+> +{
+
+...and this function is also a copypaste...
+
+> +	struct snd_soc_card *card = rtd->card;
+> +	struct snd_soc_dai_link *sof_dai_link = NULL;
+> +	struct snd_soc_pcm_runtime *runtime;
+> +	struct snd_soc_dai *cpu_dai;
+> +	int i, j, ret = 0;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(g_sof_conn_streams); i++) {
+> +		const struct sof_conn_stream *conn = &g_sof_conn_streams[i];
+> +
+> +		if (strcmp(rtd->dai_link->name, conn->normal_link))
+> +			continue;
+> +
+> +		for_each_card_rtds(card, runtime) {
+> +			if (strcmp(runtime->dai_link->name, conn->sof_link))
+> +				continue;
+> +
+> +			for_each_rtd_cpu_dais(runtime, j, cpu_dai) {
+> +				if (cpu_dai->stream_active[conn->stream_dir] > 0) {
+> +					sof_dai_link = runtime->dai_link;
+> +					break;
+> +				}
+> +			}
+> +			break;
+> +		}
+> +
+> +		if (sof_dai_link && sof_dai_link->be_hw_params_fixup)
+> +			ret = sof_dai_link->be_hw_params_fixup(runtime, params);
+> +
+> +		break;
+> +	}
+> +
+> +	if (!strcmp(rtd->dai_link->name, "ETDM2_IN_BE") ||
+> +	    !strcmp(rtd->dai_link->name, "ETDM1_OUT_BE")) {
+> +		mt8195_etdm_hw_params_fixup(runtime, params);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static int mt8195_mt6359_max98390_rt5682_card_late_probe(struct snd_soc_card *card)
+> +{
+
+... and this function differs from mt8195_mt6359_rt1019_rt5682_card_late_probe()
+only because it has a different name ...
+
+> +	struct snd_soc_pcm_runtime *runtime;
+> +	struct snd_soc_component *sof_comp = NULL;
+> +	int i;
+> +
+> +	/* 1. find sof component */
+> +	for_each_card_rtds(card, runtime) {
+> +		for (i = 0; i < runtime->num_components; i++) {
+> +			if (!runtime->components[i]->driver->name)
+> +				continue;
+> +			if (!strcmp(runtime->components[i]->driver->name, "sof-audio-component")) {
+> +				sof_comp = runtime->components[i];
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +	if (!sof_comp) {
+> +		dev_info(card->dev, " probe without component\n");
+> +		return 0;
+> +	}
+> +	/* 2. add route path and fixup callback */
+> +	for (i = 0; i < ARRAY_SIZE(g_sof_conn_streams); i++) {
+> +		const struct sof_conn_stream *conn = &g_sof_conn_streams[i];
+> +		struct snd_soc_pcm_runtime *sof_rtd = NULL;
+> +		struct snd_soc_pcm_runtime *normal_rtd = NULL;
+> +		struct snd_soc_pcm_runtime *rtd = NULL;
+> +
+> +		for_each_card_rtds(card, rtd) {
+> +			if (!strcmp(rtd->dai_link->name, conn->sof_link)) {
+> +				sof_rtd = rtd;
+> +				continue;
+> +			}
+> +			if (!strcmp(rtd->dai_link->name, conn->normal_link)) {
+> +				normal_rtd = rtd;
+> +				continue;
+> +			}
+> +			if (normal_rtd && sof_rtd)
+> +				break;
+> +		}
+> +		if (normal_rtd && sof_rtd) {
+> +			int j;
+> +			struct snd_soc_dai *cpu_dai;
+> +
+> +			for_each_rtd_cpu_dais(sof_rtd, j, cpu_dai) {
+> +				struct snd_soc_dapm_route route;
+> +				struct snd_soc_dapm_path *p = NULL;
+> +				struct snd_soc_dapm_widget *play_widget =
+> +					cpu_dai->playback_widget;
+> +				struct snd_soc_dapm_widget *cap_widget =
+> +					cpu_dai->capture_widget;
+> +				memset(&route, 0, sizeof(route));
+> +				if (conn->stream_dir == SNDRV_PCM_STREAM_CAPTURE &&
+> +				    cap_widget) {
+> +					snd_soc_dapm_widget_for_each_sink_path(cap_widget, p) {
+> +						route.source = conn->sof_dma;
+> +						route.sink = p->sink->name;
+> +						snd_soc_dapm_add_routes(&card->dapm, &route, 1);
+> +					}
+> +				} else if (conn->stream_dir == SNDRV_PCM_STREAM_PLAYBACK &&
+> +						play_widget){
+> +					snd_soc_dapm_widget_for_each_source_path(play_widget, p) {
+> +						route.source = p->source->name;
+> +						route.sink = conn->sof_dma;
+> +						snd_soc_dapm_add_routes(&card->dapm, &route, 1);
+> +					}
+> +				} else {
+> +					dev_err(cpu_dai->dev, "stream dir and widget not pair\n");
+> +				}
+> +			}
+> +			normal_rtd->dai_link->be_hw_params_fixup = mt8195_dai_link_fixup;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static struct snd_soc_dai_link mt8195_mt6359_max98390_rt5682_dai_links[] = {
+
+
+... again, different name, same contents ...
+
+
+And I won't go on repeating the same thing over and over again.
+I think that the best idea here is to either create a mt8195-mt6359-rt5682-common.c
+file, or to rename the others to something else and get them all in the same file.
+
+
+Regards,
+Angelo

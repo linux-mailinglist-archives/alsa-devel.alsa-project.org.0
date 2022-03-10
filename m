@@ -2,83 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87B444D427C
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 09:28:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 694384D4286
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 09:29:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DF6A1774;
-	Thu, 10 Mar 2022 09:27:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DF6A1774
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F97917EF;
+	Thu, 10 Mar 2022 09:28:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F97917EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646900927;
-	bh=Fo13dJTaoqB7Y9EyMYmNtVond41TFCTIz0ENFWBc19w=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=O6zU7jD4JuWY0I+2wMOKFvNnX1/mGg1ucmE0hszpT0WTgxg2CSTyfvuEYZ+fbqjx/
-	 8qZ6pmcPq5y71y8D/nYIj0pnrdEC7dnhU7MRHWzuDqc7V9bWC5AxVwxO8pRtKpxkPw
-	 EmFbFSgLC+Bv40smIqUtfP6G22O360nnXF6vnNPI=
+	s=default; t=1646900960;
+	bh=JwdECB7TGqX86TmMeVAiICDlTwD4M+S43tGIBHa/HcA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lZ/SJfwskZ6m4ZKUpaXcLwcfa90nSBybd2uIU0+n1ZiGt+kArVahcFL8NMT20NG8p
+	 37I7ONd9mqbxHIguWPK/0FbmkHjht4ZsrMfGEbzgXO2Fs/lpwWJqEbeTTxWm5tIxqr
+	 SRHnWcC7HB3bw6FE+L1paFhaiWATBSp+o2r6s7V0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65B8CF800D2;
-	Thu, 10 Mar 2022 09:27:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51A6AF800FD;
+	Thu, 10 Mar 2022 09:28:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23CABF80137; Thu, 10 Mar 2022 09:27:38 +0100 (CET)
+ id 3B751F8016C; Thu, 10 Mar 2022 09:28:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06F54F800FD
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 09:27:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06F54F800FD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="fsRNCnmm"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="+wBU37Ro"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 2DC281F442;
- Thu, 10 Mar 2022 08:27:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646900851; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=e2kGQXWEF9rshOJvBulvTYu3X5Fwyrgrfolpor2HTj0=;
- b=fsRNCnmmCEPgb/r5nMYbIyazsdqlXf2UW7CN9MP7ngWFAzybFD63DFrS6LJxmQfjJWTpXy
- TGoiiNNLNyrlIMWOUSbQng6b9FG91gl+CrJo0BNtrsOSU2ZV7GzFsUlTkzx0L04TUpAbpD
- gY8y3eA1rYLs1r6tcLkZVjnCUILPfFc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646900851;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=e2kGQXWEF9rshOJvBulvTYu3X5Fwyrgrfolpor2HTj0=;
- b=+wBU37Ro90vcWgmUH01esXrszcbjXLpa3AOxJM1w6uSlr5a4LlGXzWduxUlmQA6QU/ZOpc
- 4MeTAug9FY94XNAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 23751A3B81;
- Thu, 10 Mar 2022 08:27:31 +0000 (UTC)
-Date: Thu, 10 Mar 2022 09:27:31 +0100
-Message-ID: <s5hfsnqgqks.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "S.J. Wang" <shengjiu.wang@nxp.com>
-Subject: Re: Issue in pcm_dsnoop.c in alsa-lib
-In-Reply-To: <PAXPR04MB90895C938258A36B92595C78E30B9@PAXPR04MB9089.eurprd04.prod.outlook.com>
-References: <PAXPR04MB90895C938258A36B92595C78E30B9@PAXPR04MB9089.eurprd04.prod.outlook.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Chancel Liu <chancel.liu@nxp.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 993FCF8013C
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 09:28:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 993FCF8013C
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R891e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0V6neRAP_1646900878; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0V6neRAP_1646900878) by smtp.aliyun-inc.com(127.0.0.1);
+ Thu, 10 Mar 2022 16:28:04 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: codrin.ciubotariu@microchip.com
+Subject: [PATCH v2] ASoC: atmel: mchp-pdmc: Remove unnecessary print function
+ dev_err()
+Date: Thu, 10 Mar 2022 16:27:56 +0800
+Message-Id: <20220310082756.1183-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ alexandre.belloni@bootlin.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ Abaci Robot <abaci@linux.alibaba.com>, nicolas.ferre@microchip.com,
+ tiwai@suse.com, broonie@kernel.org, claudiu.beznea@microchip.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,100 +74,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Mar 2022 03:25:27 +0100,
-S.J. Wang wrote:
-> 
-> Hi
-> 
-> > >
-> > > > >
-> > > > > Hi Takashi Iwai, Jaroslav Kysela
-> > > > >
-> > > > >     We encountered an issue in the pcm_dsnoop use case, could you
-> > > > > please help to have a look?
-> > > > >
-> > > > >     *Issue description:*
-> > > > >     With two instances for dsnoop type device running in parallel,
-> > > > > after suspend/resume,  one of the instances will be hung in memcpy
-> > > > > because the very large copy size is obtained.
-> > > > >
-> > > > > #3 0x0000ffffa78d5098 in snd_pcm_dsnoop_sync_ptr
-> > > > (pcm=0xaaab06563da0)
-> > > > > at pcm_dsnoop.c:158 dsnoop = 0xaaab06563c20 slave_hw_ptr = 64
-> > > > > old_slave_hw_ptr = 533120 avail = *187651522444320*
-> > > > >
-> > > > >   * Reason analysis: *
-> > > > >    The root cause that I analysis is that after suspend/resume,
-> > > > > one instance will get the SND_PCM_STATE_SUSPENDED state from slave
-> > > > > pcm
-> > > > device,
-> > > > >   then it will do snd_pcm_prepare() and snd_pcm_start(),  which
-> > > > > will reset the dsnoop->slave_hw_ptr and the hw_ptr of slave pcm
-> > > > > device, then the state of this instance is correct.  But another
-> > > > > instance may not get the SND_PCM_STATE_SUSPENDED state from
-> > slave
-> > > > > pcm device because slave device may have been recovered by first
-> > > > > instance,  so the dsnoop->slave_hw_ptr is not reset.  but because
-> > > > > hw_ptr of slave pcm device has been reset,  so there will be a very large
-> > "avail" size.
-> > > > >
-> > > > >    *Solution:*
-> > > > >    I didn't come up with a fix for this issue,  seems there is no
-> > > > > easy way to let another instance know this case and reset the
-> > > > > dsnoop->slave_hw_ptr,  could you please help?
-> > > >
-> > > > Could you try topic/pcm-direct-resume branch on
-> > > >
-> > > > https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgi
-> > > > thub
-> > > > .com%2Ftiwai%2Falsa-
-> > > >
-> > lib&amp;data=04%7C01%7Cshengjiu.wang%40nxp.com%7C95f97de3f2c840d
-> > > >
-> > 9853508d9fd2e79ea%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C
-> > > >
-> > 637819198319430045%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwM
-> > > >
-> > DAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdat
-> > > >
-> > a=WWX1ZlcQhJF3pHJdHPIH%2B0xG9o%2FjQnHG5fHDbKXwQwE%3D&amp;r
-> > > > eserved=0
-> > > >
-> > >
-> > > Thanks,  I push my test result in
-> > > https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgith
-> > > ub.com%2Falsa-project%2Falsa-
-> > lib%2Fissues%2F213&amp;data=04%7C01%7Cshe
-> > >
-> > ngjiu.wang%40nxp.com%7Cf71e70640d1b40b66be508d9fdbb2ac2%7C686ea
-> > 1d3bc2b
-> > >
-> > 4c6fa92cd99c5c301635%7C0%7C0%7C637819802581943763%7CUnknown%7
-> > CTWFpbGZs
-> > >
-> > b3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn
-> > 0%3D
-> > > %7C3000&amp;sdata=fZ2ogNj2RDTv4DV8vgB71M2m0XtU8UhMiXEV1%2Bl
-> > wUrQ%3D&amp
-> > > ;reserved=0
-> > > Could you please review?
-> > 
-> > Please keep the discussion on ML.
-> > 
-> 
-> I saw you have update the origin/topic/pcm-direct-resume branch, I test your 
-> latest change, it is more stable than before, but still meet once of the issue after
-> overnight test, it it very very low possibility.
-> 
-> So I suggest if we need to do below change, shall we?
+The print function dev_err() is redundant because
+platform_get_irq() already prints an error.
 
-Point taken.  The xrun/suspend check should be right before the slave
-hwptr update, yes.
+Eliminate the follow coccicheck warning:
 
-I updated the git repo again.  Will submit the patch set for the merge
-as the final version.
+./sound/soc/atmel/mchp-pdmc.c:991:2-9: line 991 is redundant because
+platform_get_irq() already prints an error.
 
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Reviewed-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+---
+Changes in v2:
+  -The braces be removed.
 
-thanks,
+ sound/soc/atmel/mchp-pdmc.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Takashi
+diff --git a/sound/soc/atmel/mchp-pdmc.c b/sound/soc/atmel/mchp-pdmc.c
+index c44636f6207d..7b737e3f67b7 100644
+--- a/sound/soc/atmel/mchp-pdmc.c
++++ b/sound/soc/atmel/mchp-pdmc.c
+@@ -987,10 +987,8 @@ static int mchp_pdmc_probe(struct platform_device *pdev)
+ 		return ret;
+ 
+ 	irq = platform_get_irq(pdev, 0);
+-	if (irq < 0) {
+-		dev_err(dev, "failed to get irq: %d\n", irq);
++	if (irq < 0)
+ 		return irq;
+-	}
+ 
+ 	dd->pclk = devm_clk_get(dev, "pclk");
+ 	if (IS_ERR(dd->pclk)) {
+-- 
+2.20.1.7.g153144c
+

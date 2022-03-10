@@ -2,154 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85EA54D4BD5
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 16:01:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94F494D4B96
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 16:00:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 295DE1E0;
-	Thu, 10 Mar 2022 16:00:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 295DE1E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B818192F;
+	Thu, 10 Mar 2022 16:00:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B818192F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646924484;
-	bh=1os9EgHluyr2An2wsmuWKoV2xVLgIV+OJZIgH6O/A1o=;
+	s=default; t=1646924451;
+	bh=gSIXry74BXZrNqGQPSMUvAtkT2ZX4kHq7QJZIyDNbG0=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h8v4yZGOI+OElF15diGdguRzCikav1+yxgb30fg4AQkUYEOjr1us1Uk+xxnc+2blY
-	 lIn75S7XP+pOkSRiDX1G6g+PMTAKDGEhKlrcNDt8WJTh+iKCd7gXUQASlQ263xeoj9
-	 yTNgaz93g9nmIIBwf4p7WjX4M04ghDElCRNoFP9Y=
+	b=nMbrb1eOKImNgZpeXeaaOZB2LYtDTejwfbLuIbRLhr/8V9jLRHRmyGKMr1GziDivg
+	 c6Z1xWL/1svfecU/JQ5wJpCU2/GQUKAOtU+2g3UCiGMth/kFV4vsWXxyLjMNP8DUpU
+	 4hvrA1jqcfQCLZzdFXl4YhU4uBbZAWUM1wQh8In8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFE3FF8015B;
-	Thu, 10 Mar 2022 15:59:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B39D5F800D2;
+	Thu, 10 Mar 2022 15:59:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 612BEF8013C; Thu, 10 Mar 2022 15:59:49 +0100 (CET)
+ id 542A3F80137; Thu, 10 Mar 2022 15:59:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20626.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::626])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9552FF8013C
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 15:59:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9552FF8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC80CF8012C
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 15:59:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC80CF8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="hE0VNzk6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jl+Ntez3BR4C96YH+R59cVjht52EE5lE5Nf9qP96Qm0naKY3qC2GrwhxbxD+jmQyjGeQKzIWlEbxIJRSqKjxF6s6Ao6XEPLN+vQfmLJtCE2SWg1cyZBTGVuZO3Z8zSXE5KYHWVnACbbSfbuCQECDIkQbw9/QkrMYo/UrR0dK3wHUEMq/dPKdjDR9bG3y099gfGZFRWYzRwkPhSp9YeIh/Ns5M84q9PwUo94zLc/2ksLY5sJs4CMfKERSu18qvq6nCmFz7k+0FaYpEb+bmxuMKbj7YJaXO0CFu7J+I2VdSCT+/ZDyd0FbzSc7y6KNFa/kl7ZR/Vb6PGtQBDTAYvXSLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QvFe9HM1KJdEPBWZgx8hOdE6m6UrjIf4ysbNyeegMZM=;
- b=hz+00BCphbVnwuJbuawH0sMQTPNF6Zp9YXGZuOEeQvN62dhdsD+RHJSyB+lFj5KlHKkt86olJZ79aVL2OmTpCM0CO2sA3yVoAy3TlbrmlnxMKGo3NtgmBmNkSe0Ajcny2JXjh65eHd1wR4AoPo0gxtl6QbweMxy+Qj8k0U9xBYDXH+klnt/3eJsBXxxmVEjhRCIPsqMKvnt+RSIIAbsuDtpkIo2B8D1G1NxmceMb/NJhlrneOJLWYnZFXhSE7nUD2RtcysZMWJAOkVrdmwYK6l5e26SIpmpVJVgvD811ib9MXdP4zxdwk+9eXksZPUNM+ZBNl8PtVhpsom2QOCCwZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QvFe9HM1KJdEPBWZgx8hOdE6m6UrjIf4ysbNyeegMZM=;
- b=hE0VNzk6/8ggupD8NpI7oujmvkqZdkHMq4P9YMeeTMu44eMhy9n/XGqq9gDs/TaNjO3GWEbXXbOM6k2rMYZD11lLSGCg6h4l5+GFbwmdktLGXotcrEZL0rJ/596BCvDHDWtA4Z7hszIY/RBp6kmP4wd1qXLPFGWq4NUNdKvahg9D+lMTRKr/vXsBPktp7xGiYfZMSGqkFHPJr7yH7OcfeI2frFfyKtmyqHAPCbUyU0AYXplwmUpcNjj+s/0eOaXGTotdb/+CLsKW01QdLQS8iR0QRhlOeKU8K9LBIKK/rirYYOzKNwWEprDAsbblfP/yRGzue6EchfJ4bWIyXC3g5g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY4PR12MB1576.namprd12.prod.outlook.com (2603:10b6:910:10::9)
- by CY4PR1201MB0055.namprd12.prod.outlook.com (2603:10b6:910:1b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.17; Thu, 10 Mar
- 2022 14:59:37 +0000
-Received: from CY4PR12MB1576.namprd12.prod.outlook.com
- ([fe80::a185:161d:ce15:3e07]) by CY4PR12MB1576.namprd12.prod.outlook.com
- ([fe80::a185:161d:ce15:3e07%9]) with mapi id 15.20.5038.027; Thu, 10 Mar 2022
- 14:59:36 +0000
-Message-ID: <5c531e7c-58e4-2c55-57cb-85eff68b0927@nvidia.com>
-Date: Thu, 10 Mar 2022 20:29:26 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [RFC PATCH 2/3] ASoC: rt5659: Expose internal clock relationships
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <1646912477-3160-1-git-send-email-spujar@nvidia.com>
- <1646912477-3160-3-git-send-email-spujar@nvidia.com>
- <YinruZXrpP2bu7lZ@sirena.org.uk>
-From: Sameer Pujar <spujar@nvidia.com>
-In-Reply-To: <YinruZXrpP2bu7lZ@sirena.org.uk>
-X-ClientProxiedBy: MA1PR01CA0154.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:71::24) To CY4PR12MB1576.namprd12.prod.outlook.com
- (2603:10b6:910:10::9)
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="X782N19d"
+Received: by mail-wr1-x42d.google.com with SMTP id i8so8398689wrr.8
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 06:59:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=WfdM7IjnkQbW/GFyl7ZAZWNjxtALccG+KyqYcmtUGo8=;
+ b=X782N19daHKUabLfmL0UoMX7eNDRn81afXG0CWoRE6Cz3LlTu8p8F0X5iacBU0vy/l
+ LdoEuvB+D66xW13jaIyHfVFOcb56AcApZhf4Yrpu5YQEWuxTB5E21Pns7ldjDgvZjCps
+ YHw5a8OpdFXiLOikzgKwqtmzqu5EFeYcgv3N8HY+zJ8g67TgeJrLOAGfp6daFfhQlzHY
+ uu/Ig22PZG7a1ivhNepdqhjoISabu4Kfx5VPgaLPfO9KcImpAzpU9RXMj+xYeln9TdYT
+ 7DZO/P5OUnderhapxJpAUvOk4wpCA/HBCBhapeK6Y3g4VWCen058QniPzWQNPudYy271
+ iaUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=WfdM7IjnkQbW/GFyl7ZAZWNjxtALccG+KyqYcmtUGo8=;
+ b=51hiSpixrrATgCbVcIJw5gzIaouMpHQHvfFFGyxcvgf6ojRC1FqcInT2ka9ZAiUv6U
+ 0Op3IYSir6ccmUv4arAgP8k/rUK7ThDhZkU1779XGhVjoezKf7FDaC+gCpcJ8iHIeVuJ
+ R5iUgXWgZVru3U1T3zuVpe8iAjDOBtGT9+UNqI9ynVt9LtDExZEYNo6aqVwBNR04PRk8
+ o45SQ4l/oyeYUaY7lwGwznpA8IBkIFDW3QIoPNoftlCr5J0/ElwnmKPjU4ZGNjo8+GGB
+ GCubl/B7e5h1qwWn0iwp1gZ7u2KMyrCKB664z0A1xloi+2hYY1uovwloxn30A7EaXMHx
+ /5eg==
+X-Gm-Message-State: AOAM532ML/wpYKPNCsioLcD3i2Or9sbtT7axR9DZ6d9PYuaCGzI0rFer
+ 5o89NlteKlawF0eWBJSdjpRRiQ==
+X-Google-Smtp-Source: ABdhPJxf/wxaLrByJQKeLfO+RTYrRC8nU2ZTBjpj+9snBKtvZmDtOG0GOlbl0kzwhkTQ7TDx1Fp2DA==
+X-Received: by 2002:a05:6000:188e:b0:1f1:f8f0:f75a with SMTP id
+ a14-20020a056000188e00b001f1f8f0f75amr3714496wri.682.1646924371520; 
+ Thu, 10 Mar 2022 06:59:31 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
+ by smtp.googlemail.com with ESMTPSA id
+ g11-20020a5d554b000000b001f0326a23ddsm4303394wrw.70.2022.03.10.06.59.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Mar 2022 06:59:31 -0800 (PST)
+Message-ID: <c3e75761-e554-d8b1-f41d-f7bed5a0cce7@linaro.org>
+Date: Thu, 10 Mar 2022 14:59:29 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 30f57b36-40d2-4608-1782-08da02a697d9
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0055:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB0055C01A87D0FA14B6B8BD3AA70B9@CY4PR1201MB0055.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Hl6dFxu29I7go0RadX0c6v4QVHGFlB5HW5J6oWZX62UTwGitiQy+SI64lVcSKBJ0GcaVwRONkYda2OyvqO4UAp7WLyJQZ5hSUDEQ6m9CeFj/Y3xaxaLCIGtLn4a64tiMhwsm4ry2t1x+r77oIZH4SrFl8AW9Du8Tt1aDBRlXCJzXGbCg+EJhbaxRy5VgxuwbNQbxenyfOE117pRwABTho4okZEH9rVq1Tc516iXxFuPP8WSxt0n41pwCDleF3LV6+4UfuvtB5zbfo58LPDPh/fV60Jo4pSduNmhjnmUhg2rcwYvwOeQHXnJJi5C/VhqU6ZCwG4/GsHjOnzmFCEyTtXLmmUo5b5S8uEn1t85bZK9UOcs6rvdhEiSltfU0Kn3M8wKpB3YqTTHmDCw06Yn85WRnRlDyMduZpzIIvkzr2qlrZqBJR2QbAHmH/vBsEjRxeBumlgDQpg1d24h0MIJmPUVHX+AcwbodtPu6+4SZGYWlcL0iLi7/VrnWAK/noTe8P0zME1ChcdQpv8fCzGsdiJSIlxXFBYyLNIsZGiz7wogYPWNbK+ThnJpOweNVGkdP7WKAnCqwU80paHktrn71NgH8glW5FneMqwMHzo1FbZGv3kWGYD2IKuzW7mHJVDpaYTAyzH1Hk9ITams0bKy23K+c9scqYLmcKBCzirNgVK17Baj1ZRi/2l9/+DPfscNh8r1P0f617Zd1WXGDZa5PoVXZdvrHrcf2C1RqUHFPNXE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1576.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(8676002)(316002)(66556008)(66946007)(4326008)(6916009)(66476007)(36756003)(31686004)(31696002)(86362001)(2906002)(7416002)(38100700002)(5660300002)(8936002)(53546011)(6666004)(6512007)(33964004)(6486002)(6506007)(508600001)(2616005)(26005)(186003)(83380400001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXBJUmxXWHhnRnFGQWtLRWlOMWZuWG11RVNRS2J6Qzc0a25RK2lzNitQMkdJ?=
- =?utf-8?B?V0JYUUh1eVdKTnJIUzhYTGFNNFBVVW52Q05wcnUyNlFmeFVCN1oxV0NaaVdk?=
- =?utf-8?B?bTFEZm1Td1ppV3czUnBEQ2J0cWQyZ0svamJGemZhTEx2UTRnTThDdnlWQ2Q1?=
- =?utf-8?B?Y0xndnRYMHl4Ly8xbjVXVGtMYmRvbXRhYXcyQ1Fvd2xqT0RZZFRDNzV2cjdV?=
- =?utf-8?B?Y09zdW84ZFJiNmFsYTRNbEN6SnpTQ0MvdWlUbTNQMFhuSWVlYnBEd0J2d0I4?=
- =?utf-8?B?aXhoYjhtSUZ1aWE0Y2VGVm5MMEJoTkIwYWd1Y3FWZmNTZGFjWktOZDZFVDgy?=
- =?utf-8?B?dVdxYkFXRGhjMUlKOUJ6ekJNQVJkd3luclZ1L2EzZHd2V2NmdGhpUDBLdDli?=
- =?utf-8?B?ZWdPcUM1Mncrc3cyWmF1dGh4TUhtZEJ3TkhCY1g3TnN6NE8zaG96VHRRa3VF?=
- =?utf-8?B?OGxDcnVqR3o4VkI5TTgvZUtwb1VQeXM5SzI5R2hEZWoxckEyeGdJd0hWYi95?=
- =?utf-8?B?cDVmSWIybWhyRTFObTBsU3JuTGRObjZqRmpiSXFFQ0tiZ1NRa093b3BBQkx1?=
- =?utf-8?B?anFPbnVlNFZORmkrSWV6Qk83bEp5VzZUTFdvMVlzcjZsOThFKzZwenlUR1J0?=
- =?utf-8?B?WU1nOHhXNks1d2NiRGM2NWNVY3ZEQmh6dVROeTFDMmN4YTQ2RmlNUTZ2eFU1?=
- =?utf-8?B?M0RuQ0VUdmcxb0xSeUtlOGN2Y3BGSmRWREdjMWJZR1BMd0ZMc1lYaTByNTFm?=
- =?utf-8?B?YllDRkp0aUNFNEMwekdsNEJ4ZnNmREVVRUE4S1VHQWI1Mm5kK21ZODI0VXdy?=
- =?utf-8?B?ZmZYWnliczhZa0VqUFZkcC81QzBEYTI3bURTVFlHZUhBVkdSV09EQmsvOVk5?=
- =?utf-8?B?N0tQRzF5ZmRXQzVyWHdWRy9FNktvdERsRzc4a2tYeXZCN1piSTc1c3U2cm5T?=
- =?utf-8?B?cisyREVjejJVc1pScnc1cXpiNlVJbUQvK0IvR2d3dHRDMk9oOE4rVWZJcDd3?=
- =?utf-8?B?TmkzcVljUmJLamZ3Qklna1Z3L2xoMzFTOEVSS3ZXTWRNcXZMdFpzRy90OXJQ?=
- =?utf-8?B?aVFzeVdEU1NTU21PeHFSUytKdzgwdldTWFFXNlZMbmRmVmpKVEx3MEx4RzNT?=
- =?utf-8?B?eDl6S1VNbEJKTWtPN1RPVzZJTHJpbXcxWjJYWWRaREV6T2UxSk9RNkVRcXk4?=
- =?utf-8?B?VHFaZUJJOGtkeFgvcklRR00xdzZ6MTYzaHA0UEhFMXg2cHFnLzZ3bjRhVXNk?=
- =?utf-8?B?SkNXZTgvajd0QURCejh0aXlYVVRRdXI0THp2NFJlMFJZMWRvUnVoTklDdFBi?=
- =?utf-8?B?TC85VlZzKzUrT1FZS09jS1VFY0x6MXM0aTdOU09wbWdYK1FLdXMxbDdXN2JJ?=
- =?utf-8?B?cWhWQ055bnBQdE9HVGhOVkFEWjkzL0JPdmg3UnlwT3NBdTRnQ3lrekpqY1FC?=
- =?utf-8?B?UEpBMGxyQmZDWnhJR2EzMXQ1YmxibWxuSTNPOWZwUmc2K05pZ0Z1TU5jbjha?=
- =?utf-8?B?NFRHOUhIdWY2SmxzZHlTTVN1eDVpTFY0OUlmMlYrTjdCUk5NTnR4ZnViU0FD?=
- =?utf-8?B?dmU1dm9vMlV0MEFvblcwQkcwTVNNL2gxNlhBNG1ZeWdSVWFwSU9JTnlkY2Fi?=
- =?utf-8?B?MUd3ejBZR3NJR2NtZ0lqaUlEcHczOG1aL1RNTWJDWWU0WTBRMDJsUGRpTGFr?=
- =?utf-8?B?cnZCancyczJ1Rm5tVG1YSTVLRnVIZ2VMUXRLS1F0NjU2SHNTcTdYeWMxN1dh?=
- =?utf-8?B?T0tFYUcwT2xDZGlpd0JoTTBINlNFbnArVHVnSUhEMzZJclFlYW5EN2h6aHBj?=
- =?utf-8?B?YVk1SGU4TjI2WFFMbS9CZ0lVZTM5czdGeHNZNldrOGhIdzR2K0huL3Y2Tjdr?=
- =?utf-8?B?V3ArL0ZGOHYraG1sVTk0SXRIT0VQWFhURkVJMWJnNzRadjdtQUdlVE1yVXBt?=
- =?utf-8?B?dFg1dzg3bzBJZG5UdVpkRTVnOEwrcFB0a0UrQldRdUQ1YkQwZ1BBL2JIS2w4?=
- =?utf-8?B?Z0g0K1N0Y3owZE42N3pKc0JSdHlib3cvcFJRM2g4cnNHZ2dRZ2dCaEJRVVY0?=
- =?utf-8?B?N21tR29QODNja0RrZmdLVW4yZi9FUGxoYlQwRHJNOENWSGd0QkpQUHErVlIz?=
- =?utf-8?B?Q1lGNnJnQ0hXTktieEphMVlKcGtsUnM4bWF0dVowamdOR0UvODM3NWt4UVBi?=
- =?utf-8?Q?cuwy/wGZA3TwwnZvyLne8bI=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30f57b36-40d2-4608-1782-08da02a697d9
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1576.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2022 14:59:36.6916 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CItkP7ZUWmD407DcB2/3XmCBeJbuTheLSA2YIy58PYXbmwRsPxTEdr6O1NZF2/XtoS6foHpyjqfWh5e3iYS+dw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0055
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: Use platform_get_irq() to get the
+ interrupt
+Content-Language: en-US
+To: Rob Herring <robh+dt@kernel.org>
+References: <20211224161334.31123-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20211224161334.31123-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <c5ea7235-8642-6a89-f4ce-bd0861b6e4aa@linaro.org>
+ <CA+V-a8tkhERx+8zDae5aWkNQ9Oxd1AamRL=i4TDC2X8RGgAo0w@mail.gmail.com>
+ <5e13c1ba-0bf5-e360-c350-e7a1a1402350@linaro.org>
+ <CAL_Jsq+CWKvkHMNhAa3o_rSLy_+AoHi6wkB3MRM8O3jJ5sG_Wg@mail.gmail.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <CAL_Jsq+CWKvkHMNhAa3o_rSLy_+AoHi6wkB3MRM8O3jJ5sG_Wg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: oder_chiou@realtek.com, robh@kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- thierry.reding@gmail.com, linux-tegra@vger.kernel.org, jonathanh@nvidia.com
+Cc: alsa-devel <alsa-devel@alsa-project.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, "Lad,
+ Prabhakar" <prabhakar.csengg@gmail.com>, Andy Gross <agross@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -166,13 +118,71 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 10-03-2022 17:44, Mark Brown wrote:
->> This patch uses standard clock bindings to establish the codec clock
->> relationships. Specific configurations can be applied by DT bindings
->> from codec device node. The codec driver registers PLL and MUX clocks
->> to provide this flexibility.
-> Doesn't this need a binding document update to document what clocks are
-> being provided?
 
-Yes, it would be required and I will include it in v2. In this series, I 
-wanted to get some initial feedback if the idea is right.
+On 10/03/2022 14:14, Rob Herring wrote:
+> On Thu, Mar 10, 2022 at 4:42 AM Srinivas Kandagatla
+> <srinivas.kandagatla@linaro.org> wrote:
+>>
+>>
+>>
+>> On 10/03/2022 10:23, Lad, Prabhakar wrote:
+>>> On Thu, Mar 10, 2022 at 10:16 AM Srinivas Kandagatla
+>>> <srinivas.kandagatla@linaro.org> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 24/12/2021 16:13, Lad Prabhakar wrote:
+>>>>> platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
+>>>>> allocation of IRQ resources in DT core code, this causes an issue
+>>>>
+>>>> Are you saying that we should not be using platform_get_resource(pdev,
+>>>> IORESOURCE_IRQ, ...) on drivers that support DT?
+> 
+> We should be using platform_get_irq(). (period, on all platform drivers)
+> 
+
+Thanks, I see why is it preferred.
+
+Code as of now will not prevent drivers from calling 
+platform_get_resource(..IORESOURCE_IRQ).
+
+Are we planning to enforce this in any way?
+
+>>>>> when using hierarchical interrupt domains using "interrupts" property
+>>>>> in the node as this bypasses the hierarchical setup and messes up the
+>>>>> irq chaining.
+>>>>
+>>>> Should this not be fixed in the DT core itself?
+>>>>
+>>> Yes the plan is to fix in the DT core itself (refer [0]).
+>>>
+>>> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20211209001056.29774-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+>>>
+>>>>>
+>>>>> In preparation for removal of static setup of IRQ resource from DT core
+>>>>> code use platform_get_irq().
+>>>>
+>>>> I would prefer this patch to be part of the series that removes IRQ
+>>>> resource handling from DT core.
+>>>>
+>>> Since there are too many users (which are in different subsystems)
+>>> getting this all in single series would be a pain. As a result it is
+>>> split up into individual subsystems.
+>> Am happy for this to be included in that series,
+>> TBH, this patch make more sense along with that series than by itself.
+> 
+> No it doesn't. This is no different than converting to devm_* variants
+> or other cleanups to match current preferred styles.
+> 
+> Treewide cross subsystem clean-ups are a huge pain to merge. Why would
+> you ask for that when it is clearly not necessary?
+
+Only reason for this ask was to understand how platform_get_resource() 
+will change moving forward, if this is something that you are planning 
+to include in your fix patches.
+
+I can go ahead and apply the patch, if that helps.
+
+--srini
+> 
+> Rob

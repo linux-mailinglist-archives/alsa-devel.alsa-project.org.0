@@ -2,92 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 628054D488B
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 15:04:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFD314D4952
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 15:16:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04AFD1929;
-	Thu, 10 Mar 2022 15:03:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04AFD1929
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8247842;
+	Thu, 10 Mar 2022 15:15:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8247842
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646921057;
-	bh=X/oEaS/LrIvnppLGB+/TL0NyYMSlepGsRG7WkzxFg30=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646921783;
+	bh=yo5cNZOSv/J/WvklnDG16ry9Bw3elHchQ9q/vBCqvbQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OVxi8mG01ttdDjaVsAk4Jj+THCWY/4I20oOX4e9DwYo1sYoH5EpEboOruX7hUsk6c
-	 cPRPXNZLV9O9cH9UsPM8cN26mnlXl9/RBfc/iM9PYZh38xzaKzGwpGpuf3emHoaHJU
-	 SKstD3RccBfO5GSNm+2sIv5L63Z62hKgMRo7po2o=
+	b=cbsBq/bzLZVUcU3ScxBAWvqn7sEcyGE3xdthJyieoK7WBqeJ9mmQtcnj8wO+PAGyR
+	 NsevrRuQqpBTMVRgzHN0c6cjKV7gdLKIaElACNWVAE7HYICVOajJ+nWmE0pK1BlLP/
+	 Asb/7lanoGpw5NZVZHpqD82dA3Mi9k6ECWSvp+fU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6600DF800D2;
-	Thu, 10 Mar 2022 15:03:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E53DBF800D2;
+	Thu, 10 Mar 2022 15:15:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CBE53F8012F; Thu, 10 Mar 2022 15:03:07 +0100 (CET)
+ id A908BF800D2; Thu, 10 Mar 2022 15:15:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 826EDF800FD
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 15:03:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 826EDF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C5DAF800FD
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 15:15:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C5DAF800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ksQ0aeN9"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="33c0q/Wz"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id F05FF210E9;
- Thu, 10 Mar 2022 14:02:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646920979; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cT3dEO1xJTRPVumYeIvPPu1SHUArEx384wqIf7FTOS8=;
- b=ksQ0aeN9krn4d0er3l0gCJBwOWnl2/y3H2evub/Jzli1faQotpj608Et54rigf6un5+yMH
- JxtbyJcH/N9ALH6ukhg3TLtiRwXWTpfHFSLeL3+TmU9pouK/jrFzBrYi0FlJ3SP7tJxRdr
- OzT78KbRCObpps9tjj2udeU51RS+kGA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646920979;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cT3dEO1xJTRPVumYeIvPPu1SHUArEx384wqIf7FTOS8=;
- b=33c0q/WzR/zAPyGVXPVRWgYDRPbRYDvS5SD27rfPl7krCyB8ylN+MR/kKbCFrb9BuvtcZv
- fpm5kSVKl0DgL3DA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6DAC5A3B81;
- Thu, 10 Mar 2022 14:02:59 +0000 (UTC)
-Date: Thu, 10 Mar 2022 15:02:59 +0100
-Message-ID: <s5h5yolgb1o.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: =?UTF-8?B?Ium7hOaWh+i+iSI=?= <huangwenhuia@uniontech.com>
-Subject: Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
- machine with alc671
-In-Reply-To: <tencent_0D06988048F675F173385A1F@qq.com>
-References: <20220310130301.22827-1-huangwenhuia@uniontech.com>
- <s5hilsmey0h.wl-tiwai@suse.de>
- <tencent_0D06988048F675F173385A1F@qq.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel <alsa-devel@alsa-project.org>, kailang <kailang@realtek.com>,
- tanureal <tanureal@opensource.cirrus.com>,
- "jeremy.szu" <jeremy.szu@canonical.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, tiwai <tiwai@suse.com>,
- wse <wse@tuxedocomputers.com>, "hui.wang" <hui.wang@canonical.com>,
- sami <sami@loone.fi>, cam <cam@neo-zeon.de>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="maGHS2m9"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D8A8F61CAF
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:15:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BA5AC340F5
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:15:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646921702;
+ bh=yo5cNZOSv/J/WvklnDG16ry9Bw3elHchQ9q/vBCqvbQ=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=maGHS2m9LDj84cxFFYKfEByaP+07rvv+owPqT7QN/rWpqfNcEJIgelSZsi89z4YEO
+ eQ1qFs24G5TKKZ37vfsaWUuoahmWC2QwUDpYhUJOWTcA5ftlnYtglXuIm3C+NzvXVX
+ gBXYfhzm3t7ZnwmCGQflz+r+w3644ExZdU582Wf+q3jK8KdwigqrOzzNj+ZaARW29C
+ 7hn4UDgR975l1tpTzDFBwdz4PbSL/O4tpE2aHK4RWiwc0aMs1RoAbAgXX3XjuS86s3
+ HePHW4K+4ISCDz6AYjeZei8oxFadEePkK2O4JH54dDvQ9xfKcmwPJoy+iQaWP2GBHv
+ 67tYi9URG2iMw==
+Received: by mail-ed1-f54.google.com with SMTP id h13so7153236ede.5
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 06:15:02 -0800 (PST)
+X-Gm-Message-State: AOAM533tNVDVjsQTotiQn5GitepfIG/Gri3NwMj4giVs32OMBELiv5tj
+ afUiat8CaQ0Z8V6PVg4OSiZdpAjCb/mX+OGCuA==
+X-Google-Smtp-Source: ABdhPJxTKjB6jCuITpAJueLD1jR/nypmp0A/gmHHrMEnwEcpJdUe3bQ2Gx3VCz4Rpb6k9VX70aM1nvGlH0UAjjLTElI=
+X-Received: by 2002:a05:6402:5256:b0:416:97d1:a6a2 with SMTP id
+ t22-20020a056402525600b0041697d1a6a2mr4571157edd.280.1646921700547; Thu, 10
+ Mar 2022 06:15:00 -0800 (PST)
+MIME-Version: 1.0
+References: <20211224161334.31123-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20211224161334.31123-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <c5ea7235-8642-6a89-f4ce-bd0861b6e4aa@linaro.org>
+ <CA+V-a8tkhERx+8zDae5aWkNQ9Oxd1AamRL=i4TDC2X8RGgAo0w@mail.gmail.com>
+ <5e13c1ba-0bf5-e360-c350-e7a1a1402350@linaro.org>
+In-Reply-To: <5e13c1ba-0bf5-e360-c350-e7a1a1402350@linaro.org>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Thu, 10 Mar 2022 08:14:48 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+CWKvkHMNhAa3o_rSLy_+AoHi6wkB3MRM8O3jJ5sG_Wg@mail.gmail.com>
+Message-ID: <CAL_Jsq+CWKvkHMNhAa3o_rSLy_+AoHi6wkB3MRM8O3jJ5sG_Wg@mail.gmail.com>
+Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: Use platform_get_irq() to get the
+ interrupt
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel <alsa-devel@alsa-project.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, "Lad,
+ Prabhakar" <prabhakar.csengg@gmail.com>, Andy Gross <agross@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,55 +102,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Mar 2022 14:58:36 +0100,
-黄文辉 wrote:
-> 
-> Hi  Takashi,
-> 
-> Thank you for your reply.
-> 
-> When booting with plugged headset, the headphone will be muted.
+On Thu, Mar 10, 2022 at 4:42 AM Srinivas Kandagatla
+<srinivas.kandagatla@linaro.org> wrote:
+>
+>
+>
+> On 10/03/2022 10:23, Lad, Prabhakar wrote:
+> > On Thu, Mar 10, 2022 at 10:16 AM Srinivas Kandagatla
+> > <srinivas.kandagatla@linaro.org> wrote:
+> >>
+> >>
+> >>
+> >> On 24/12/2021 16:13, Lad Prabhakar wrote:
+> >>> platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
+> >>> allocation of IRQ resources in DT core code, this causes an issue
+> >>
+> >> Are you saying that we should not be using platform_get_resource(pdev,
+> >> IORESOURCE_IRQ, ...) on drivers that support DT?
 
-The muted state is the default behavior.  Wouldn't it be unmuted if
-you adjust the corresponding mixer element?
+We should be using platform_get_irq(). (period, on all platform drivers)
 
-
-Takashi
-
-> 
-> Thanks.
->  
-> ------------------ Original ------------------
-> From:  "Takashi Iwai"<tiwai@suse.de>;
-> Date:  Thu, Mar 10, 2022 09:29 PM
-> To:  "huangwenhui"<huangwenhuia@uniontech.com>;
-> Cc:  "perex"<perex@perex.cz>; "tiwai"<tiwai@suse.com>; "jeremy.szu"
-> <jeremy.szu@canonical.com>; "hui.wang"<hui.wang@canonical.com>; "wse"
-> <wse@tuxedocomputers.com>; "cam"<cam@neo-zeon.de>; "kailang"
-> <kailang@realtek.com>; "tanureal"<tanureal@opensource.cirrus.com>; "sami"
-> <sami@loone.fi>; "alsa-devel"<alsa-devel@alsa-project.org>; "linux-kernel"
-> <linux-kernel@vger.kernel.org>;
-> Subject:  Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
-> machine with alc671
->  
-> On Thu, 10 Mar 2022 14:03:01 +0100,
-> huangwenhui wrote:
+> >>> when using hierarchical interrupt domains using "interrupts" property
+> >>> in the node as this bypasses the hierarchical setup and messes up the
+> >>> irq chaining.
+> >>
+> >> Should this not be fixed in the DT core itself?
+> >>
+> > Yes the plan is to fix in the DT core itself (refer [0]).
 > >
-> > On a HP 288 Pro G8, the front Mic could not be detected.
+> > [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20211209001056.29774-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
 > >
-> > Signed-off-by: huangwenhui <huangwenhuia@uniontech.com>
-> 
-> Thanks for the patch.  Most of the changes look OK, but one thing I
-> still don't get:
-> 
-> > + case HDA_FIXUP_ACT_INIT:
-> > + alc_write_coef_idx(codec, 0x19, 0xa054);
-> > + msleep(80);
-> > + snd_hda_codec_write(codec, hp_pin, 0,
-> > +     AC_VERB_SET_AMP_GAIN_MUTE, AMP_OUT_UNMUTE);
-> 
-> Why this unconditional unmute is required for fixing the mic problem?
-> 
-> Takashi
-> 
-> 
+> >>>
+> >>> In preparation for removal of static setup of IRQ resource from DT core
+> >>> code use platform_get_irq().
+> >>
+> >> I would prefer this patch to be part of the series that removes IRQ
+> >> resource handling from DT core.
+> >>
+> > Since there are too many users (which are in different subsystems)
+> > getting this all in single series would be a pain. As a result it is
+> > split up into individual subsystems.
+> Am happy for this to be included in that series,
+> TBH, this patch make more sense along with that series than by itself.
+
+No it doesn't. This is no different than converting to devm_* variants
+or other cleanups to match current preferred styles.
+
+Treewide cross subsystem clean-ups are a huge pain to merge. Why would
+you ask for that when it is clearly not necessary?
+
+Rob

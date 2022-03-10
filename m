@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 804544D47DE
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:15:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30EF84D47DF
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 14:15:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA2211913;
-	Thu, 10 Mar 2022 14:14:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA2211913
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88D581901;
+	Thu, 10 Mar 2022 14:14:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88D581901
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646918130;
-	bh=2Ijf7mnkC3H3KU2ylXeDHiFTv2e24/Uk6a1zlh5kRPY=;
+	s=default; t=1646918137;
+	bh=t2XbWwQwvFMkiF2+x62xGVRkeCafGaXLEBPkGZlDV0E=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gjUi9Q7vOXDrkmr0qgTwFCwC4Na6Vj8huSUZ3lTJqwk/65iSuuDAlm4NOnW5mCi+k
-	 n0t5JvCLakWAwgVkHHFAtdcNg1k0Q16HLTIviYEdWjbdTPxwpZcUKgcUUOfkAl5QPT
-	 uMz2paSt8DVClxIAlLG0DAoXDnFS18BUi/VK4OGA=
+	b=eDK8GhJVes3YFOSgWmk3otgcDj0+dOjmSwinuemq4Wlpwm58Ho0sq0RMI5RIvaTwF
+	 PKiUDZtE1bep9xu+IQEmNvDZrNrwP3PmcNoOpvPIq4n8MuH3VNXVpOqw/SNe+o2OSb
+	 xAtsevhKmtA9CW9262bhDYWQW6fl0MqvrsWCPlTk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F933F80516;
-	Thu, 10 Mar 2022 14:13:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAF6BF8051B;
+	Thu, 10 Mar 2022 14:14:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04AB2F8016C; Thu, 10 Mar 2022 14:13:57 +0100 (CET)
+ id AE9CFF8051B; Thu, 10 Mar 2022 14:14:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,46 +34,47 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1E1AF800D2
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:13:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1E1AF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 192FCF8012C
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 14:13:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 192FCF8012C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="W5a5GfAx"
+ header.b="Kd3PDT/W"
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6136761A2B;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D8AAD61A34;
+ Thu, 10 Mar 2022 13:13:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D35C340E8;
  Thu, 10 Mar 2022 13:13:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E865EC340F3;
- Thu, 10 Mar 2022 13:13:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646918031;
- bh=2Ijf7mnkC3H3KU2ylXeDHiFTv2e24/Uk6a1zlh5kRPY=;
+ s=k20201202; t=1646918035;
+ bh=t2XbWwQwvFMkiF2+x62xGVRkeCafGaXLEBPkGZlDV0E=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=W5a5GfAxUilpGsPS8yY+hkrYHKQPkjoxTrpfjxhl72kvueUSNMuQ0gaapHSZ4ghse
- j32wYoyeRhLegBnEmgZbLNNPOq733ITRasukMHDj/zvYwESBPbqlDgmcmPsiSTP+jy
- 2k52aLnRCfRilPvB5XcRmdLaxT28w8eiz8jE6jvysJl8mWnBI0YSi+IAsbPdvSKyF8
- WHgbUbHvF2jlj2lVe2LQRcVNVB5dtgVkt3HL/JVrhG8CO0lESBYn0ncotAZHCRpk0J
- VuzBNMVjFQQUy7O0i7sJA7gFBBZISdtC+LTiidQyG+RywY0L0IoVdWl/3twXqFyanW
- hZMdByCv29iDA==
+ b=Kd3PDT/WHiC0r1y03Q9M9UNClYYdwsirULQWFXWuwXuGjnNLph6HgKPPd/A8QeImb
+ EinmR0G3aeTUv1e9T3mu4l9gFOM8zVDD/eF+2pbBvdOuewP8bI4espTABMiHg6CGzF
+ FPBMA6BuWGslBd0AOh1pO1+Fn+IupyZRzK/Cm4wsUZ3WtZi97iN+Cb8B6xmEczAxDc
+ isEuU5Vqg1F60Jud761jRazT83SfiDMiyQ7MKCk5MUUX71un25KK7XpFETsY9m/3bA
+ t/OcZ5PgchwWdbxi+JDpaOHXPiDtMgDXxukd0wCWnXDzWY34OWm+P0PQYz0esItPiV
+ 3OKywL0t0lepQ==
 From: Mark Brown <broonie@kernel.org>
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- codrin.ciubotariu@microchip.com
-In-Reply-To: <20220310082756.1183-1-jiapeng.chong@linux.alibaba.com>
-References: <20220310082756.1183-1-jiapeng.chong@linux.alibaba.com>
-Subject: Re: [PATCH v2] ASoC: atmel: mchp-pdmc: Remove unnecessary print
- function dev_err()
-Message-Id: <164691802867.2018412.8160055841689752479.b4-ty@kernel.org>
-Date: Thu, 10 Mar 2022 13:13:48 +0000
+To: s.hauer@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ shawnguo@kernel.org, linux-imx@nxp.com, tiwai@suse.com, xobs@kosagi.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ Wang Wensheng <wangwensheng4@huawei.com>, nicoleotsuka@gmail.com,
+ shengjiu.wang@gmail.com, festevam@gmail.com, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, perex@perex.cz, kernel@pengutronix.de,
+ Xiubo.Lee@gmail.com
+In-Reply-To: <20220310091902.129299-1-wangwensheng4@huawei.com>
+References: <20220310091902.129299-1-wangwensheng4@huawei.com>
+Subject: Re: [PATCH -next] ASoC: imx-es8328: Fix error return code in
+ imx_es8328_probe()
+Message-Id: <164691803138.2018412.9652252221395822627.b4-ty@kernel.org>
+Date: Thu, 10 Mar 2022 13:13:51 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, alexandre.belloni@bootlin.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com,
- Abaci Robot <abaci@linux.alibaba.com>, lgirdwood@gmail.com,
- nicolas.ferre@microchip.com, claudiu.beznea@microchip.com,
- linux-arm-kernel@lists.infradead.org
+Cc: xuqiang36@huawei.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,16 +90,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Mar 2022 16:27:56 +0800, Jiapeng Chong wrote:
-> The print function dev_err() is redundant because
-> platform_get_irq() already prints an error.
+On Thu, 10 Mar 2022 09:19:02 +0000, Wang Wensheng wrote:
+> Fix to return a negative error code from the error handling case instead
+> of 0, as done elsewhere in this function.
 > 
-> Eliminate the follow coccicheck warning:
 > 
-> ./sound/soc/atmel/mchp-pdmc.c:991:2-9: line 991 is redundant because
-> platform_get_irq() already prints an error.
-> 
-> [...]
 
 Applied to
 
@@ -106,8 +102,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: atmel: mchp-pdmc: Remove unnecessary print function dev_err()
-      commit: 2588a01431a85a9bb8b2eac9023181ddd714a695
+[1/1] ASoC: imx-es8328: Fix error return code in imx_es8328_probe()
+      commit: 3b891513f95cba3944e72c1139ea706d04f3781b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

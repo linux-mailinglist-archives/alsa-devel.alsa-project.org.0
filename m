@@ -2,62 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48174D4F66
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 17:35:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2114D4F7F
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Mar 2022 17:42:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2063F191E;
-	Thu, 10 Mar 2022 17:34:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2063F191E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C2851939;
+	Thu, 10 Mar 2022 17:41:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C2851939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646930100;
-	bh=cm75yWkXT7qQ2BQmzd7YWZEsUAPvYe4J81bSNn+ZXpA=;
-	h=Date:To:From:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=R5iPS3eGbOkE+U1doIICht4tdbz9wlR0VV4HYm4K6V10ngvOchnGONCZENMbRerMD
-	 ETdUdiRIn1hScDp+i4reBDb2pN+tuOQOX4SMzuyMfwjshuns6fCyzENmjbUH0wx/Sf
-	 7Csg3swAeQkzmn59z34e0eVNNH0BKEqwWwDQANxU=
+	s=default; t=1646930527;
+	bh=HcuVTivZh75RB1ykpWwiN7NHwBnFra61LeU9PZh9+DQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=P0nBnj+RndJnWih0WWhhT9DYnQbEGTvLCO5j8kBHsIjUUIosERH3u14BrTBLedIsb
+	 CUMaA3ykFY3TkUVMccLQ99ESeXfeTZODWngGoSn2YZqJKZ1PYXTF/RSpE9LyC06Dhj
+	 9bhdOtcUbZVy+/hyYKkR+iuzoPRZHEhvgP+/8TPo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 932FDF800D2;
-	Thu, 10 Mar 2022 17:33:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9D1BF8013C;
+	Thu, 10 Mar 2022 17:40:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A3B7F80137; Thu, 10 Mar 2022 17:33:49 +0100 (CET)
+ id 69686F80137; Thu, 10 Mar 2022 17:40:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from router.aksignal.cz (router.aksignal.cz [62.44.4.214])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64A5BF800D2
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 17:33:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64A5BF800D2
-Received: from localhost (localhost [127.0.0.1])
- by router.aksignal.cz (Postfix) with ESMTP id E245C435AD;
- Thu, 10 Mar 2022 17:33:44 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at router.aksignal.cz
-Received: from router.aksignal.cz ([127.0.0.1])
- by localhost (router.aksignal.cz [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id bydpfAjuZnoN; Thu, 10 Mar 2022 17:33:44 +0100 (CET)
-Received: from [172.25.161.48] (unknown [83.240.30.185])
- (Authenticated sender: jiri.prchal@aksignal.cz)
- by router.aksignal.cz (Postfix) with ESMTPSA id EA71A435AA;
- Thu, 10 Mar 2022 17:33:43 +0100 (CET)
-Message-ID: <0f560987-151f-b844-e5b4-a3a10c8d46a8@aksignal.cz>
-Date: Thu, 10 Mar 2022 17:33:42 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A5C9F800D2
+ for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 17:40:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A5C9F800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="MjCm65YB"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22ACrQ0b029203;
+ Thu, 10 Mar 2022 10:40:47 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : from : to : subject : references : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=xt9jZcsbIc3uRwCBEAO7UWcKQ/BRR3pjfdwtdFoPCvo=;
+ b=MjCm65YBhjQqTx8nYg+XemIJG21ENMfZDKNF82HZUvyie42dm4Tto6XCSdtAqXaG/gGR
+ Y37IMrZSJW1VmAffmhfa11aJaSCw6snjw/2B3J4bEUvHbhhBm3oDJjNknxsy4fo+uiiy
+ n0QshAZt42LCTjiBBsMhmH33LHsyTyJSWhqvljEtLnSJZrSWJ+YW/T/IKCFbehZTmEGk
+ R96VroBI3R0z60hC0uANrIgennXgwTHE0JzmWg6oZL+TUIxH88P7dBX4VwxkAr157yYJ
+ ik1yQtQiq9gKUyl/oM3akj/pey3qQ0hGxltaSM+YLftA9XF3NscxkTHVA4zyH99DMzE1 mw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3em55sybva-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 10 Mar 2022 10:40:47 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 10 Mar
+ 2022 16:40:45 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Thu, 10 Mar 2022 16:40:45 +0000
+Received: from [198.61.65.38] (unknown [198.61.65.38])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 551EBB16;
+ Thu, 10 Mar 2022 16:40:45 +0000 (UTC)
+Message-ID: <fa73e75d-9500-43c5-5697-b86a5fb594a0@opensource.cirrus.com>
+Date: Thu, 10 Mar 2022 16:40:45 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org
-From: =?UTF-8?B?SmnFmcOtIFByY2hhbA==?= <jiri.prchal@aksignal.cz>
-Subject: simple-audio-card
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Thunderbird/91.6.1
+From: <tanureal@opensource.cirrus.com>
+To: Takashi Iwai <tiwai@suse.de>, Liam Girdwood <lgirdwood@gmail.com>, Mark
+ Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH v3 01/16] sound: cs35l41: Unify hardware configuration
+References: <20220308171730.454587-1-tanureal@opensource.cirrus.com>
+ <20220308171730.454587-2-tanureal@opensource.cirrus.com>
+ <s5hbkydgbx2.wl-tiwai@suse.de>
+In-Reply-To: <s5hbkydgbx2.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.com>
+X-Proofpoint-ORIG-GUID: vG94vteHVVNXs2KSuFkG7uoGHw8T7SbI
+X-Proofpoint-GUID: vG94vteHVVNXs2KSuFkG7uoGHw8T7SbI
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,100 +105,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi everybody,
-would be someone so kind and help me with my sound card?
-My connection is:
-cpu AT91SAM9G25 I2S (SSC0) --> codec TLV320AIC3106 <-- clock 12MHz
-Codec is clock master.
+On 3/10/22 1:44 PM, Takashi Iwai <tiwai@suse.de> wrote:
+> On Tue, 08 Mar 2022 18:17:15 +0100,
+> Lucas Tanure wrote:
+> > +enum cs35l41_gpio_func {
+> > +	CS35L41_HIZ,
+> > +	CS35L41_GPIO,
+> > +	CS35L41_INT_OPEN_DRAIN_GPIO2,
+> > +	CS35L41_MCLK,
+> > +	CS35L41_INT_PUSH_PULL_LOW_GPIO2,
+> > +	CS35L41_INT_PUSH_PULL_HIGH_GPIO2,
+> > +	CS35L41_PDM_CLK_GPIO2,
+> > +	CS35L41_PDM_DATA_GPIO2,
+> > +	CS35L41_MDSYNC_GPIO1 = 2,
+> > +	CS35L41_PDM_CLK_GPIO1 = 4,
+> > +	CS35L41_PDM_DATA_GPIO1 = 5,
+> >   };
+> 
+> So CS35L41_MDSYNC_GPIO1 is identical with *_DRAIN_GPIO2, i.e. it's an
+> alias?
+> 
+> 
+> thanks,
+> 
+> Takashi
+> 
 
-dts related parts:
-
-	sound {
-		compatible = "simple-audio-card";
-		simple-audio-card,name = "TLV320AIC3106";
-		simple-audio-card,widgets =
-			"Headphone", "Front Out",
-			"Line", "Rear Out",
-			"Line", "GSM Out",
-			"Speaker", "Speaker",
-			"Microphone", "Front In",
-			"Line", "Rear In",
-			"Line", "GSM In";
-		simple-audio-card,routing =
-			"Front Out", "HPLOUT",
-			"Rear Out", "HPROUT",
-			"GSM Out", "LLOUT",
-			"SP_AMP INL", "MONO_LOUT",
-			"Speaker", "SP_AMP OUTL",
-			"MIC3L", "Front In",
-			"LINE1R", "Rear In",
-			"LINE1L", "GSM In";
-		simple-audio-card,format = "i2s";
-		simple-audio-card,bitclock-master = <&sound_master>;
-		simple-audio-card,frame-master = <&sound_master>;
-		simple-audio-card,aux-devs = <&speaker_amp>;
-
-		simple-audio-card,cpu {
-			sound-dai = <&ssc0>;
-		};
-
-		sound_master: simple-audio-card,codec {
-			sound-dai = <&tlv320aic3106>;
-			system-clock-frequency = <12000000>;
-		};
-	};
-
-&ssc0 {
-	#sound-dai-cells = <0>;
-	status = "okay";
-	pinctrl-0 = <&pinctrl_ssc0_tx_rx>;
-};
-
-&spi0 {
-	status = "okay";
-	cs-gpios =
-		<&pioA 22 0
-		 &pioC 14 0
-		 &pioC 29 0
-		 &pioA  4 0>;
-
-	tlv320aic3106: codec@3 {
-		compatible = "ti,tlv320aic3106";
-		reg = <3>;
-		spi-max-frequency = <1000000>;
-		#sound-dai-cells = <0>;
-		adc-settle-ms = <40>;
-		ai3x-micbias-vg = <2>; /* 2.5V */
-		status = "okay";
-		DRVDD-supply = <&vcc_3v3>;
-		AVDD-supply = <&vcc_3v3>;
-		IOVDD-supply = <&vcc_3v3>;
-		DVDD-supply = <&vcc_1v8>;
-		ai3x-ocmv = <2>; /* 1.65V */
-	};
-};
-
-
-In kernel 5.12 it worked fine, but I can't make it in either 5.15 or 5.17.
-
-dmesg doesn't help at all, even with debug compilation switch:
-...
-[    1.203333] ssc f0010000.ssc: Atmel SSC device at 0x(ptrval) (irq 22)
-...
-[    1.616666] atmel_spi f0000000.spi: Using dma0chan2 (tx) and 
-dma0chan3 (rx) for DMA transfers
-...
-[    1.639999] codec@3 enforce active low on chipselect handle
-[    1.656666] at25 spi0.0: 128 KByte fm25 fram, pagesize 4096
-[    1.696666] atmel_spi f0000000.spi: Atmel SPI Controller version 
-0x212 at 0xf0000000 (irq 28)
-...
-[    3.033333] ALSA device list:
-[    3.036666]   No soundcards found.
-
-The only difference in 5.12 is:
-[    3.869999] ALSA device list:
-[    3.876666]   #0: TLV320AIC3106
-
-So, what's wrong?
-Thanks Jiri
+The value 2 sets GPIO1 as MDSYNC pin and GPIO2 as IRQ pin (Open drain).
+It could be the same label, like CS35L41_GPIO1_MDSYNC_GPIO2_IRQ, but I think separating them is better for understanding the code and organizing the code.

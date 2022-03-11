@@ -2,95 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B4304D6928
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 20:40:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B4AF4D6950
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 21:16:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DF8918D6;
-	Fri, 11 Mar 2022 20:39:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DF8918D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2A9A18DB;
+	Fri, 11 Mar 2022 21:15:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2A9A18DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647027644;
-	bh=mh7tQAL0n2bfKeDOiESqkHoSAFen1q88Q72P8o10M7A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XAhGraSbdzBrA38X5wTBImon6AtqEyEdR5qszjp56JV96djfDYqW7KDQmcEOdi0J6
-	 TPPwk/wrCzk6Lp2QZXnOfgYceV5Fx3udz0HvySUHQuCrQT+PDeQ5cvkFKOd7KpQD7t
-	 iAPeY660zFEctBU4E2HQfLNMFgaHoMm+hxI0no54=
+	s=default; t=1647029775;
+	bh=yr0wqfz/5omDgz5A56JPzaEkc41VyITYQncs1Q50cpA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qQpi9+tQ4wlDdXHX3ff2T+jyaRsDux6c3+WIXClksppWYRmWZz6H+K3eQoFgTL+gl
+	 vWatp6PBFltk/cum2fWfn494C/kUlryl+7OTdyS6eXAUYg7OzQJosnL9Q4ngT9e/WD
+	 QCEU3uBpYWHNUt9eHBUKgmKonrS0fncXIsFDTGws=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86F40F80085;
-	Fri, 11 Mar 2022 20:39:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56798F80085;
+	Fri, 11 Mar 2022 21:15:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DFC2F80085; Fri, 11 Mar 2022 20:39:35 +0100 (CET)
+ id 351E9F80227; Fri, 11 Mar 2022 21:15:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8B2FF80085
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 20:39:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8B2FF80085
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DB2CF8012C
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 21:14:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DB2CF8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="W8yPWXik"
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-2dc0364d2ceso104933017b3.7
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 11:39:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mh7tQAL0n2bfKeDOiESqkHoSAFen1q88Q72P8o10M7A=;
- b=W8yPWXikTd3d8CG7OAaTfCsJUv8lX0jtJk/K204unOsnjmJqY5TXkjQbvznknMk/i2
- zslAJLXCzeIvSP5eYHxnbg0im1/T7xstqlhL5icnhxyXLFNT0yIZdR7te+P47YysSnZL
- 17GMjtE3UqI1QjHCld1TOzg1VWO5vZ8DLz8fWSp6iTrvCoA9H/Piy6qBaS0T0SB3cMFO
- avasPngLRedqGgiXrJM1Y27Z2Kh63qZkbdRIF2jmWs0vlIugsGNZF+38iuv39CFwQNtb
- 7GWb7gXFPcr/pAHsuCFN/LAkeRSNH1ugN1K2YHkpFc9Ka8VbAwKLI1T0Lo+001BZktah
- qMig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mh7tQAL0n2bfKeDOiESqkHoSAFen1q88Q72P8o10M7A=;
- b=cH88uoXizjoP/gD7Mfvpp8Uu2oXNmRzLKVS8ekUgizY3y6dxQyxTXVSJMFniVAiZcH
- BJuoRS51l2SeM6j3Pe8ZtGQs7X1hCtvZoZuYrXdO6xNshGMTzUjfAmUQGtpAtqX4HAIn
- D/QLftkXcQeYN+CuisV8OL7kS7FSGYDwEvqq8huo/FFUXZEfIOtON9+p4CQdMC3v2Hi+
- ngFqsAqf/+R6S+BEjaL/bX3NyljaVYtHE1/J9GBG7Hob/yWS5C+F7iVUCBU4x/2EGIiZ
- 3FT0O9G2TOv0Iwdq/Tpf4MU6cMiGn8JjpqNLEbwx4r35Vdeitp4NNOBamndL2aGArV9y
- qNBw==
-X-Gm-Message-State: AOAM5307LGI6ee4Y71tK1OuYcnIwZHXXJ0I3aOifZjWXez8fYwel+Ef8
- Ni94qIYkQRP4xiWgXfQw3RE+X3LZzoVug5N+YFM=
-X-Google-Smtp-Source: ABdhPJwdPCDYT3XTqvaxrFf38dMJcyUvh98/yM+YN1EMw/AaIwHtCxJvZ6LmxyfTNN3Xmd84OjgIZJ8+FQUkanYZdVY=
-X-Received: by 2002:a0d:c645:0:b0:2db:9ed9:e6e5 with SMTP id
- i66-20020a0dc645000000b002db9ed9e6e5mr9835172ywd.292.1647027562199; Fri, 11
- Mar 2022 11:39:22 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
+ header.b="WAB6QQHu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
+ s=default2002;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+ Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References;
+ bh=ZVDcCpO/0E/ykbsgbIMmswF2OSPMyLGBt9qq4Nypk3E=; b=WAB6QQHuW25VP+/UWuc8tdgmDk
+ LPAvPPpfZOniDjPwyj5nkNFPLBv+oruf65DsAB0FT8N9zTjQSFbWgJNw7I5J9oGL/46K3xNMR53KQ
+ Jdt9H53RRTj6vb0BvSnRJg3bfwIF/6UrxJ1ljBhWSMF1Zy7prYBmi6bfHMsrHnbQaSlubbA74C1Rl
+ IRCoYPz0jVJA4iml/osSYfI9YILwO25bgMGuz8+xiEqLbxh5CMr9xJUCRInxLU7CzLRKLC8gcdKdY
+ QWhAUM7fmLhuF8m8NTBTVlb056CsTNj5xFGGcD+Rxefp6xIJ0GicE8ymqkPyUe/pZ/ivmtkuits4y
+ Ocl2PAnw==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+ by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
+ id 1nSlf7-0009yI-Sg; Fri, 11 Mar 2022 21:14:57 +0100
+Received: from [2001:a61:2b4b:5001:9e5c:8eff:fe01:8578]
+ (helo=lars-desktop.fritz.box)
+ by sslproxy06.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <lars@metafoo.de>)
+ id 1nSlf7-000VS9-ND; Fri, 11 Mar 2022 21:14:57 +0100
+From: Lars-Peter Clausen <lars@metafoo.de>
+To: Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ALSA: usb-audio: Add mute TLV for playback volumes on RODE
+ NT-USB
+Date: Fri, 11 Mar 2022 21:14:00 +0100
+Message-Id: <20220311201400.235892-1-lars@metafoo.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20211224161334.31123-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20211224161334.31123-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <c5ea7235-8642-6a89-f4ce-bd0861b6e4aa@linaro.org>
- <CA+V-a8tkhERx+8zDae5aWkNQ9Oxd1AamRL=i4TDC2X8RGgAo0w@mail.gmail.com>
- <5e13c1ba-0bf5-e360-c350-e7a1a1402350@linaro.org>
- <CAL_Jsq+CWKvkHMNhAa3o_rSLy_+AoHi6wkB3MRM8O3jJ5sG_Wg@mail.gmail.com>
- <c3e75761-e554-d8b1-f41d-f7bed5a0cce7@linaro.org>
-In-Reply-To: <c3e75761-e554-d8b1-f41d-f7bed5a0cce7@linaro.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 11 Mar 2022 19:38:56 +0000
-Message-ID: <CA+V-a8vVMu2JteQ9AwvsP=QG6dme+FuFVX5tWgvuEzBffhd1oA@mail.gmail.com>
-Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: Use platform_get_irq() to get the
- interrupt
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel <alsa-devel@alsa-project.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Andy Gross <agross@kernel.org>, LKML <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 0.103.5/26478/Fri Mar 11 10:27:25 2022)
+Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,76 +87,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Mar 10, 2022 at 2:59 PM Srinivas Kandagatla
-<srinivas.kandagatla@linaro.org> wrote:
->
->
->
-> On 10/03/2022 14:14, Rob Herring wrote:
-> > On Thu, Mar 10, 2022 at 4:42 AM Srinivas Kandagatla
-> > <srinivas.kandagatla@linaro.org> wrote:
-> >>
-> >>
-> >>
-> >> On 10/03/2022 10:23, Lad, Prabhakar wrote:
-> >>> On Thu, Mar 10, 2022 at 10:16 AM Srinivas Kandagatla
-> >>> <srinivas.kandagatla@linaro.org> wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 24/12/2021 16:13, Lad Prabhakar wrote:
-> >>>>> platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
-> >>>>> allocation of IRQ resources in DT core code, this causes an issue
-> >>>>
-> >>>> Are you saying that we should not be using platform_get_resource(pdev,
-> >>>> IORESOURCE_IRQ, ...) on drivers that support DT?
-> >
-> > We should be using platform_get_irq(). (period, on all platform drivers)
-> >
->
-> Thanks, I see why is it preferred.
->
-> Code as of now will not prevent drivers from calling
-> platform_get_resource(..IORESOURCE_IRQ).
->
-> Are we planning to enforce this in any way?
->
-> >>>>> when using hierarchical interrupt domains using "interrupts" property
-> >>>>> in the node as this bypasses the hierarchical setup and messes up the
-> >>>>> irq chaining.
-> >>>>
-> >>>> Should this not be fixed in the DT core itself?
-> >>>>
-> >>> Yes the plan is to fix in the DT core itself (refer [0]).
-> >>>
-> >>> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20211209001056.29774-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-> >>>
-> >>>>>
-> >>>>> In preparation for removal of static setup of IRQ resource from DT core
-> >>>>> code use platform_get_irq().
-> >>>>
-> >>>> I would prefer this patch to be part of the series that removes IRQ
-> >>>> resource handling from DT core.
-> >>>>
-> >>> Since there are too many users (which are in different subsystems)
-> >>> getting this all in single series would be a pain. As a result it is
-> >>> split up into individual subsystems.
-> >> Am happy for this to be included in that series,
-> >> TBH, this patch make more sense along with that series than by itself.
-> >
-> > No it doesn't. This is no different than converting to devm_* variants
-> > or other cleanups to match current preferred styles.
-> >
-> > Treewide cross subsystem clean-ups are a huge pain to merge. Why would
-> > you ask for that when it is clearly not necessary?
->
-> Only reason for this ask was to understand how platform_get_resource()
-> will change moving forward, if this is something that you are planning
-> to include in your fix patches.
->
-> I can go ahead and apply the patch, if that helps.
->
-Yes please, that would be helpful.
+For the RODE NT-USB the lowest Playback mixer volume setting mutes the
+audio output. But it is not reported as such causing e.g. PulseAudio to
+accidentally mute the device when selecting a low volume.
 
-Cheers,
-Prabhakar
+Fix this by applying the existing quirk for this kind of issue when the
+device is detected.
+
+Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
+---
+ sound/usb/mixer_quirks.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index e447ddd6854c..d35cf54cab33 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -3360,9 +3360,10 @@ void snd_usb_mixer_fu_apply_quirk(struct usb_mixer_interface *mixer,
+ 		if (unitid == 7 && cval->control == UAC_FU_VOLUME)
+ 			snd_dragonfly_quirk_db_scale(mixer, cval, kctl);
+ 		break;
+-	/* lowest playback value is muted on C-Media devices */
+-	case USB_ID(0x0d8c, 0x000c):
+-	case USB_ID(0x0d8c, 0x0014):
++	/* lowest playback value is muted on some devices */
++	case USB_ID(0x0d8c, 0x000c): /* C-Media */
++	case USB_ID(0x0d8c, 0x0014): /* C-Media */
++	case USB_ID(0x19f7, 0x0003): /* RODE NT-USB */
+ 		if (strstr(kctl->id.name, "Playback"))
+ 			cval->min_mute = 1;
+ 		break;
+-- 
+2.30.2
+

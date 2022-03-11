@@ -2,180 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E77BC4D64BC
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 16:34:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A20C4D6490
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 16:28:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 686621A92;
-	Fri, 11 Mar 2022 16:34:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 686621A92
+	by alsa0.perex.cz (Postfix) with ESMTPS id A977B185F;
+	Fri, 11 Mar 2022 16:28:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A977B185F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647012898;
-	bh=ALFE5WmFvoWfsNxhpSEUZtNm221MInrpxCy1bLoZ0dg=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fPfyp5t8REU8rVNItHYeYb2mNVAarl372an5mmZDqOvNgpLOe/8ZqSjnxtftQ15xJ
-	 w+rPZebap8krpE7ZKR8KKK+i8guskDRZT5Y+ZDF9pe15lSJ2Dc5nshWM6GiL+43KqU
-	 EDRn63HptHVnvj0Wej7jHFSFloFqJCJH115i5AnM=
+	s=default; t=1647012536;
+	bh=oVucPRql8kTKW4zWKireNGC+jJc9pfybfvzchzowX1s=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fMjjbFT4NPyIcUpWxc/Rc0PTX8bnGoo57czGZQhrL+ScsI/tzSrw/uBMPFMpcDVcp
+	 MAz1qqwwAeXM0VS2Hwbe2iQhSWfuEb6r02EG37b3L518WFTv123z8/YBoIMByvsvuD
+	 6BNktkfRgXuYgD67Osys0Zd5Y5ePvXOHktDplEVk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 817BAF8012C;
-	Fri, 11 Mar 2022 16:33:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D29C8F802DB;
+	Fri, 11 Mar 2022 16:27:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3889F804CC; Fri, 11 Mar 2022 16:33:08 +0100 (CET)
+ id F391AF802D2; Fri, 11 Mar 2022 16:27:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_135,SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D87C9F8012C
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 16:33:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D87C9F8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3DE8F8012C
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 16:27:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3DE8F8012C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="iKw4RveE"
+ header.b="a9VN8a7M"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647012787; x=1678548787;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=ALFE5WmFvoWfsNxhpSEUZtNm221MInrpxCy1bLoZ0dg=;
- b=iKw4RveEME6wNzEyHpS+ODsXIN2DSshBPbHq8Q1NRW5x8TOVw+3hl2zF
- GLl0xPdOO460ovmXm6QyyTkham0ULlFT91FzpV3JmTIyqUDmSdlwZr8j2
- 99F9vmRCeFZg5grB1+Vz+vf7WywbRUQmzSsWXnvUffdgvhTH3SfDkSDqF
- y9pLwkAus1R0OfncZdlkRE1EIJkzwA4j+XNg31YOs8ZXg7ZbqqmkN5B1O
- IaY+DQwWRZ4i1N5QZGmSWNMrvKYrwQlDBwyNvsEIQ3G9JrV7sV5xpXANA
- OWn7u+4AGc3BHiXZ/FRZzWe3fDq+gaWJmW2pgG3mjppsTYhGS+/ggpQkd Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="253155312"
-X-IronPort-AV: E=Sophos;i="5.90,174,1643702400"; d="scan'208";a="253155312"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2022 07:33:02 -0800
+ t=1647012461; x=1678548461;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=oVucPRql8kTKW4zWKireNGC+jJc9pfybfvzchzowX1s=;
+ b=a9VN8a7Mbl0Lh5J+ZLvKJ2Kmxj8Efxgr0zCfI57ZtJ20xBHutsB45Mie
+ sGN6C9H1wnSfwN0Kqc2ZjfbjhLvzWvu0xCEHvbk91pDhSf5u9Tg3YpxYp
+ oMUo+PuJbuw4aEASb/gqhtc6AYAz3xmAxWBkDVcnAMOqdHn/sv35Kxfeh
+ 9WPL0xeDRPXpeEuG6GGOCDzGzyZ1W24u4bBeYuUj4DLMh7q47KNTjCq/5
+ vnqZNfkrCdVKcDKHCW+aA8fVoh2YwJhyD8YwXac0DnakVtYpBMqhWyE4O
+ 5hwbUZtuo2rT0zD57Xe2SAayyDk5KtKRbbWE4Qql8qr1Kdkn/v7VsbvQz Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="318813285"
+X-IronPort-AV: E=Sophos;i="5.90,174,1643702400"; d="scan'208";a="318813285"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2022 07:27:35 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,174,1643702400"; d="scan'208";a="643009412"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by fmsmga002.fm.intel.com with ESMTP; 11 Mar 2022 07:33:02 -0800
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Fri, 11 Mar 2022 07:33:01 -0800
-Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Fri, 11 Mar 2022 07:33:01 -0800
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21 via Frontend Transport; Fri, 11 Mar 2022 07:33:01 -0800
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.171)
- by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.21; Fri, 11 Mar 2022 07:33:01 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A3Fg53aJNCJbkBOgwloR77rq1Yg5mx5KSFOGwJaEYN1Yvq9eWtrj8pXxhjjroIVb1RftC+mbQp33k+WrfgEMuzmRGuFmH1WUmEnf4Fe/mAlfqt8IML/cMBUr+QL2qUIlEI1cqzRD+uNlZkDuZZztwJs/b91yfB0rbWM8q6a9ZM1a40Vt68si93WJvC97hB10XrQlAoNBUEyRWjypbT4SIe1xzWiTjOwMrS4Li5bVFeXHlONXxIiPTrKEl1bgVBL+m3PnfEH9mZ+QsZwZSYKW/lVZV+CVeJHfXHyCThFgtOd1PNVYE5Ix6MD8HvtzezlyJxwDcQ23KgvGFlyoMi7lsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gTjF+pNrNh0Yb/M26oEWkZTksJxO/vHIdqOcAUmRh94=;
- b=Mx+uhDrYNArIT8YbVc22ANFeLQ2Xi+zOOep02v3WcRYn9FB5qsoFptI2py0ToRRya8ir3W9Gspj86Eox7Z59cdv2xJjmABBdelNLSmerPKAQPZbzRSIrb/WuqHiRjFJfVIK1Lp6dQgAN6SzZbCTdLLKMhi9rTF/BWdMkD8hJX+lslj87Q4GcBHXmHca7z09YRZmCPnDDeBO74bl6UGalvmwSsTsVGY4GA9eO7Qm3v1sabQNNUvrmXgPU6sDRakrQKt5VliQ3jLy6oE0XMYVPmt6o24SBBi6r2hll/KAQpJOlJjlwH6k0YUiDlFU0Ju7kNt/8ONPllpX8VZbWDusCFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- (2603:10b6:301:51::10) by DM5PR11MB1690.namprd11.prod.outlook.com
- (2603:10b6:3:15::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Fri, 11 Mar
- 2022 15:32:58 +0000
-Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- ([fe80::24c3:c14:92a4:22a6]) by MWHPR1101MB2157.namprd11.prod.outlook.com
- ([fe80::24c3:c14:92a4:22a6%5]) with mapi id 15.20.5038.030; Fri, 11 Mar 2022
- 15:32:57 +0000
-Message-ID: <a9af7344-ad54-6740-8b29-ed268196b6bc@intel.com>
-Date: Fri, 11 Mar 2022 16:32:49 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.6.2
-Subject: Re: [PATCH v4 03/17] ASoC: Intel: Introduce AVS driver
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <alsa-devel@alsa-project.org>
-References: <20220309204029.89040-1-cezary.rojewski@intel.com>
- <20220309204029.89040-4-cezary.rojewski@intel.com>
- <d6f22a35-2587-268d-a4cb-13dd6ded5a11@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.90,174,1643702400"; d="scan'208";a="514532690"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by orsmga006.jf.intel.com with ESMTP; 11 Mar 2022 07:27:31 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <d6f22a35-2587-268d-a4cb-13dd6ded5a11@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0484.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13a::9) To MWHPR1101MB2157.namprd11.prod.outlook.com
- (2603:10b6:301:51::10)
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v5 00/17] ASoC: Intel: AVS - Audio DSP for cAVS
+Date: Fri, 11 Mar 2022 16:35:27 +0100
+Message-Id: <20220311153544.136854-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bd42f4ff-e5df-4c55-a887-08da03746b08
-X-MS-TrafficTypeDiagnostic: DM5PR11MB1690:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR11MB169097430210D019DC387E40E30C9@DM5PR11MB1690.namprd11.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RYvDE+UG1MXkNX1P9FR1WHV7qkrlj4yR50SI5DtQvE/G+vezGUi6z+8N6O48q08rc7PaTJ2C0/W8uiNa5kwUAzyBGMYuhlAnQ0UppoQPBpckKJ/EEuoBA5wK+Xn7RuNkj18dA6jw0BG8mwkTnEsg8Ud+oUfIRnpJjSD55+x8tj+EBMXarAHKQKGMYW4pxhkpJQjgvSpEgJ48lpf3uG5FjCufm4wtRZ5LjqwZAPhcRS13z5lzbRcwmVsYUMcfIpdUXOH1DWu20S9238UWUX7v9MOvVwzZ7VHKk9JuWrzEnhoUduV0QzgosC5kuyFs53TYXHyUbk01/BwTpkB2eh8j9rmh0RaFPzaNhts3qtkD9POWsB195uikJj4BzPxDQnal0iSb/j0FfilzsxaX5rh99TSRR/224qE0FXi87vBGp+hesVeXkDDqGecn5Uj80nWTspaMY8z9s/8sfjiou9dfUi7guHVqJkwXGEuadTiE4TiC80S4HrfJ9FoRCrF0tdflbxp8D0WIxdlY5ySybn7lQbn55Uj3xtthDPQHiH17umXlcanNI5X2clShQ3GIIuJu3QSDEvAb3L1fLx6rqWabUvW6tYO3nH748Fad+y0Lk0fzIhoV+neEwIpVqlJnpdAZDSLWXVR3iEFyxY1XIZTO7TjCXwxvQW4zdOUOsFFQBp+EkmT6PPn3qMU3v//iCf6dzR6TbT0njTr0zcVbi8e2cOuXxAlfIZ6MORgD8TyJBF9uv9kwpvY9FmVeiiOHx3+Q
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(38100700002)(53546011)(2616005)(36756003)(5660300002)(186003)(83380400001)(6666004)(6506007)(26005)(508600001)(6512007)(66946007)(66476007)(82960400001)(316002)(4326008)(8676002)(66556008)(31696002)(86362001)(6486002)(31686004)(44832011)(8936002)(7416002)(2906002)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGJ5ZWExeHoyTzdBdnJLZCtWNEpQdmlTaGhRa2J5UWVWbEd6L3dtNENtdDc0?=
- =?utf-8?B?alRNblgzYldrNUdoYWx0WHVDSCtwbnRpNGlYL3ZsQnpoQi91U0s1V3I3OStr?=
- =?utf-8?B?SFZKYUNucnJyNFplUXhmQUFtSUtXZ0lJdCtnSGtrVEZaNFpFenA4dVBGNloy?=
- =?utf-8?B?Nml4Rm56QlcrelozU2hwa3hUZG8rWVJEV29ac0lhbXRvQjdsQTZjUmNDU1Y2?=
- =?utf-8?B?Z3ZzNzRWTTRXUy9DVGRMQmlFNEZuQ1NvcTlTd05rcDIxbllMYWVpbGpQbmo2?=
- =?utf-8?B?M3VwUlhsdnlSN0lRWkJoSm9QQjBEVi82cFNsQ1dwTEVhSk1yUVd1eGU1R0NL?=
- =?utf-8?B?YTRMamljWTV5a1RSTHh4L1dFUFBWYmFDZHJzK3BmVDBVUkUrMW9paWxNdjh3?=
- =?utf-8?B?a2thQXl4eDRIb29HSEdUeFBJZGhXdFFFRElxeWlhVnRLaFlxYWRGeU1XakRC?=
- =?utf-8?B?Skd4REU4ZmNjMVo5VjB5T2hteWUwRi9ZVkhmcVp1aThtaWlRNmFmeW1NZXhE?=
- =?utf-8?B?N0dIQUhuS2ZNVEw3YUw1bWdmdmliUTNhS0ZjUThEempVcWFPdGVZVjFwNTdP?=
- =?utf-8?B?aG1qTGw0REo4VE9vQ1hXVnpWRkFVRTdLK2lHYitGN2RkY2VqRW5KSU1zLzlL?=
- =?utf-8?B?UFAzRUxURlBsOENSYjRueUtoeGtsWWY2a3o4Y1dpN1dEcFhwZW1QaTg0OWs4?=
- =?utf-8?B?dWp1MnRwMzlia3dtYkZpN21xYWZ5NzN5L1pSQmYyZmt1VlZyUGJJb2NlY0cv?=
- =?utf-8?B?Y2tOV1I3TXE0dDNTdjd4MC9jMGxVM3pZM3QxYVJ5Y3kzdWlscmF2a2srOUlX?=
- =?utf-8?B?Uis4Nkl5ZW5jTHJqdk91alNCWmdZMXdTYnR6WkxudU9KUDZnOTJNOFQ1V0Yw?=
- =?utf-8?B?bmRzUlF1N1VhN3FhbW4xWXRUYWFVWTh1Ym5nVEFSVDU1ZEJaeDlpL0ZhanYv?=
- =?utf-8?B?RXZvSTBuSFcvWXNjKzdmb0NnbXFoVGFqblozSWlhVnZSeVgxQ2tPY3pLSnla?=
- =?utf-8?B?UUNhMmo5NWI2Zi9HbGswV1hHNHNSZm9CRVBCQW1CVTdaZXo0RjdvQnlTR3dK?=
- =?utf-8?B?N2I2a2l2V1JoNVJuanNkaXNsZDA3aXAzM3dEOU9uYUcxYU5uMFBiVnE0QkJs?=
- =?utf-8?B?Mk50aDl1dTFMMG1sckk0NHRXN2hpV2dwQUx0bjJQSVROL2ZBdEdQQ0xNWnNw?=
- =?utf-8?B?bWRGalhGRDArZzVRRTMyTmF2VTZMSzRjNnR6UEhmZE9rdTRnNG4vV0RKRi9U?=
- =?utf-8?B?b0RWY2UyeDUrc0RtQ3l6Q09WNzZDTUtBcEZFZXdSMHhSVmZjQTk3emNjWFcv?=
- =?utf-8?B?a3JvYnkwNDByMEJZZlgreVY3U2xnMTZCeW85dmpQcTNGdEZNNkU5ZHJRck1S?=
- =?utf-8?B?eDErTFJwRi8xTzdaNGZITWJOVUhKcEFJTnVLNjU5NitoblJ3NGR1eDZLWnY2?=
- =?utf-8?B?MVd4NWtPelNWcXY0VXhkSXpnMGdLK2o3ZzdKNFU2ZkxLTHI5NFczbnFaa1p4?=
- =?utf-8?B?QTRtZjhmWU1ZZXVYamVNbnlPTnR4bm5lUk9jMTRyamNxaE5QK05XaWprUE1y?=
- =?utf-8?B?cFR3Wmttd3VtU2VPMEN2YS9xbVVDOWplR0lKUlJ4YU1tYjBmRE5qaFN6YkUx?=
- =?utf-8?B?R0ZmMy94dmxqejBNZ3lMZnN0ajR1QXc4VE1ER3YvbERDTDRKelYvZ1hCWGpm?=
- =?utf-8?B?L3h4b2pXRFByR21iZzdtU296Yys5c0c5RkRMbjdjM1hocXBEOHo4M01DVEdF?=
- =?utf-8?B?MmlrNDJ0R1drczk2aEJpSGE4QnNKQjZaUDZUYUl4S3BSanBDWTQxcERPQ2xQ?=
- =?utf-8?B?TVdON29KeXVBTzFEdU5oWVlqUjd4aklVVCtsQTdvaGQyN3Y3eEVWUnZydUJ5?=
- =?utf-8?B?QzJGNWdIVjd0Y2x4aWJFbnhycTE0SHJIajI1VEZOSjZEeFlLUGxmeFZlUXh0?=
- =?utf-8?B?QzRXODZqNXdsbERuR0RXVk9TMm5PLzNmblJkTHNjQmliYmVia0ZQTkl0cXdQ?=
- =?utf-8?B?Z1lLQXFEN1RRPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd42f4ff-e5df-4c55-a887-08da03746b08
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2022 15:32:57.6134 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4F/qsIFGVHQ9wPa0KOQccpesF7+UGF+xXf6j7lEA88O7Ad6mN2j4ppSwAx6pvwJa+IhVaf+MWY4xphPnTuOQ64I/7IjHocX53FJ9P+j1EUA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR11MB1690
-X-OriginatorOrg: intel.com
-Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
- tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, rad@semihalf.com,
+ upstream@semihalf.com, harshapriya.n@intel.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com, broonie@kernel.org,
  ranjani.sridharan@linux.intel.com, amadeuszx.slawinski@linux.intel.com,
  cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -193,75 +89,250 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-03-09 10:58 PM, Pierre-Louis Bossart wrote:
->> diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
->> new file mode 100644
->> index 000000000000..5f7976a95fe2
->> --- /dev/null
->> +++ b/sound/soc/intel/avs/Makefile
->> @@ -0,0 +1,5 @@
->> +# SPDX-License-Identifier: GPL-2.0-only
->> +
->> +snd-soc-avs-objs := dsp.o
->> +
->> +obj-$(CONFIG_SND_SOC_INTEL_AVS) += snd-soc-avs.o
-> 
-> nit-pick: snd-soc-intel-avs?
-> 
-> avs is not a clear mapping to Intel platforms
+A continuation of cleanup work of Intel SST solutions found in
+sound/soc/intel/. With two major chapters released last year catpt [1]
+and removal of haswell solution [2], time has come for Skylake-driver.
+
+Througout 2019, 2020 and 2021 Skylake-driver has had many fixes applied
+and even attempts of refactors as seen in fundamental overhaul [3], IPC
+flow adjustments [4] and LARGE_CONFIG overhaul [5] series.
+Unfortunately, story repeats itself - problems are found within the core
+of a driver. Painting it with different colors does not change the fact
+that is it still a house of cards. As changes needed to address those
+issues would make Skylake solution incompatible with its previous
+revisions, a decision has been made to provide a new solution instead.
+In time it would deprecate and replace Skylake-driver.
+
+That solution has been called AVS - from AudioDSP architecture name:
+Audio-Voice-Speech. It is meant to provide support for the exact same
+range of platforms as its predecessor: SKL, KBL, AML and APL.
+
+Note: this series is dependent upon HDA-series [6] which exposes several
+codec-organization functions allowing for reduced code size on
+avs-driver side.
+
+Note: this series does not add fully functional driver as its size would
+get out of control. Here, focus is put on adding IPC protocol and code
+loading code.
 
 
-We already have snd_soc_catpt : (
-
->> +/*
->> + * struct avs_dev - Intel HD-Audio driver data
->> + *
->> + * @dev: PCI device
->> + * @dsp_ba: DSP bar address
-> 
-> not sure it's only limited to DSP, is it?
+Changes v4 -> v5:
+- dropped WARN()s usage as requested by Pierre
+- another round of typo fixes
+- aligned code to make use of 100-char-per-line limit
+- updated the dates in source and header files, it's 2022 already
 
 
-Well, this space is classified as: "Host Device Memory Space (Audio DSP)".
-
->> + * @spec: platform-specific descriptor
->> + */
->> +struct avs_dev {
->> +    struct hda_bus base;
->> +    struct device *dev;
->> +
->> +    void __iomem *dsp_ba;
->> +    const struct avs_spec *spec;
->> +};
-> 
->> +int avs_dsp_core_reset(struct avs_dev *adev, u32 core_mask, bool reset)
->> +{
->> +    u32 value, mask, reg;
->> +    int ret;
->> +
->> +    mask = AVS_ADSPCS_CRST_MASK(core_mask);
->> +    value = reset ? mask : 0;
->> +
->> +    snd_hdac_adsp_updatel(adev, AVS_ADSP_REG_ADSPCS, mask, value);
->> +
->> +    ret = snd_hdac_adsp_readl_poll(adev, AVS_ADSP_REG_ADSPCS,
->> +                       reg, (reg & mask) == value,
->> +                       AVS_ADSPCS_INTERVAL_US,
->> +                       AVS_ADSPCS_TIMEOUT_US);
->> +    if (ret)
->> +        dev_err(adev->dev, "core_mask %d %s reset failed: %d\n",
->> +            core_mask, reset ? "enter" : "exit", ret);
-> 
-> nit-pick: reset %s "entry" "exit"
+Changes v3 -> v4:
+- noted the limitations of LARGE_CONFIG_GET handler and dropped
+  non-inclusive wording as requested by Pierre and Ranjani
+- code loading flow now verifies if power downing non-MAIN_CORE fails
+- commented kfree() usage in FW_CONFIG and HW_CONFIG getters
 
 
-I did align with what's already present in sound/hda/hdac_controller.c. 
-It's done the other way around there. My personal opinion is: it sounds 
-more logically the way it is currently - but I'm not a native English 
-speaker.
+Changes v2 -> v3:
+- fixed variable initialization errors mentioned by sparse
 
->> +
->> +    return ret;
->> +}
->> +
-> 
+
+Changes v1 -> v2:
+Almost all updates here are thanks to feedback from Pierre.
+- several comments and few kernel-docs have been added in areas which
+  felt more or less unclear
+- avs_ipc_wait_busy_completion() now spins up to 'repeats_left' number
+  of times before giving up
+- 'adsp_ba' field of struct avs_dev has been renamed to 'dsp_ba'
+- 'dops' field of struct avs_spec has been renamed to 'dsp_ops'
+- IPC abstraction has been simplified: SKL_ADSP_REG_HIP* regs are used
+  directly
+- fixed allnoconfig with AVS enabled compilation issues
+- fixed code loading error paths: previously requested firmware is now
+  released before function return to the caller
+- code and function arguments tied to D0IX support have been removed
+  from this patchset and will be part of followup series adding that
+  feature instead
+- enriched dev_err() messages in avs_dsp_get_core() and
+  avs_dsp_put_core()
+- numerous wording fixes used in power/reset/stall DSP operations
+
+
+Changes RFC v1 [7]: -> v1:
+- separated HDA codec-organization patches, path and topology handling,
+  PCM and complementary features such as recovery from this series to
+  ease the review process
+- fixed EXPORT_SYMBOL_GPL for exported members of ASoC framework
+- result of stall() is now checked when sending ROM message
+- result of snd_hdac_ext_stream_set_spib() is now checked when loading
+  basefw
+- if basefw is not ready, notification processing is now skipped
+- documented several topology parsing helpers
+
+
+Changes [internal] RFC v2 -> [public] RFC v1:
+- dropped any sysfs related changes from this series, moved to follow up
+  one
+- dropped entire subscription-mechanism found in ipc.c. Handlers that
+  are delegated to service certain firmware notifications are now called
+  directly
+- fixed kernel doc for snd_soc_dapm_new_dai_widgets() as reported by ikp
+- prefixed snd_hda_codec_device_init() as suggested by Amadeo
+- improved comments for d0ix transitions for APL-based platforms as
+  suggested by Pierre
+- a ton of spelling related fixes in most of the commit messages
+- fixed remaining warnings pointed by scan-build (variable assigned but
+  not used)
+- replaced most of 'cAVS X.Y' expression usages with 'platform-based'
+  equivalents as suggested by Pierre e.g.: cAVS 1.5 -> SKL-based
+
+
+Changes [internal] RFC v1 -> [internal] RFC v2:
+- fixed memleak caused by lack of kfree(vols) if memory allocation fails
+  in avs_peakvol_create() as reported by Curtis
+- fixed missing 'i' iterator incrementation in avs_widget_ready()
+  causing reference loss as reported by Curtis
+- replace hardcode: 0x40 usage with snd_hdac_calc_stream_format as
+  suggested by Curtis.
+  In consequence, readability for all code loading (CL) procedues has
+  increased and such approach auto-documents the CL stream preparation
+
+- updated behavior of all index-fetching functions found in utils.c:
+  avs_module_entry_index(), avs_module_id_entry_index() and follow ups:
+  avs_get_module_entry(), avs_get_module_id_entry() to better conform to
+  linux-kernel standard when no entry is found (return -ENOENT) rather
+  than C++ standard (return -1, what in kernel case translated to -EPERM)
+  as suggested by Curtis and Peter
+- several suggestions have been made regarding spacing, and so far, I've
+  agreed and applied with all of them. None proposed seemed out of place
+  or redundant
+
+- avs_path_stop() renamed to avs_path_pause() pipeline states are
+  represented by RESET/PAUSED/RUNNING. avs_path_reset() and
+  avs_path_run() were already there and avs_path_stop() just didn't look
+  cohesive
+- added missing parsers for num_output_pin and num_input_pin which are
+  required for custom modules such as WAVES or DSM
+- dropped 'priv_param_length' from custom module descriptor as this
+  field is obsolete in firmware
+
+- parse_dictionary() has been split into parse_dictionary_header() and
+  parse_dictionary_entries() to drop code duplication present in several
+  parsing function which could not re-use entire parse_dictionary()
+- added avs_tplg_vendor_array_lookup_next() and
+  avs_tplg_vendor_entry_next() to drop code duplicated present in several
+  parsing functions. This change greatly impacted readability of all
+  parsers
+- parsing helpers such avs_tplg_vendor_array_lookup() now return offset
+  by updating specified in function argument list u32 *offset variable.
+  This is to address problem when u32 offset would be greater than max
+  int, which is the return type for these functions
+- AVS_DEFINE_PTR_PARSER() macro has been introduced to drop code
+  duplication for all ptr-parsing users
+
+- all struct avs_path_module creators have had their declaration
+  updated: function argument *owner ceased to exist as it could already
+  be accessed by mod->owner
+
+- fixed the order of operation for conditional paths (e.g.: echo
+  reference) so these are no longer controlled by "source" path and
+  instead are impacted by state changes of source and sink paths both.
+  Previously only source path e.g. playback sourcing echo reference
+  would trigger RUNNING status for conditional path. Equivalent RUNNING
+  on WoV path which is in this case sink path, would not do so, leading
+  to order-of-operation problems. Behavior has been changed to: both
+  source and sink need to be RUNNING for conditional path to be set to
+  RUNNING too. PAUSED for either source or sink will cause PAUSED
+  transition for conditional path.
+- to achieve the above, path states are now saved in 'state' i.e. new
+  u32 field for struct avs_path
+
+- resigned from fw_filename field usage in favour of newly added
+  tplg_filename for machine board descriptors as suggested by Pierre
+- platform descriptor fields have had their names update better reflect
+  their purpose as suggested by Pierre
+- fixed comp_list missing locking when manipulated
+- all message senders now accept request as pointer as suggeseted by
+  Peter
+- resigned of AZX_ usage for all ADSP-related registers, leaving them
+  only for HOST memory space related operations
+- fixed disable path for core DSP operations: power/reset/stall as
+  reported by Peter
+
+- safety when locking between received responses (reply vs notification)
+  has been lowered as suggested by Pierre. Most usages are not performed
+  in IRQ context and none is done in hard-IRQ one
+- s/master/main/ plus AVS_MAIN_CORE_MASK has replaced ->master_mask
+- several functions have had their logging updated - logs have been
+  moved to lower level functions as suggested by Pierre
+- hdac_ext_stream usage has been streamlined to estream, hdac_streams
+  are represented by hstream instead
+- hw_params() are resilient to scenarios when they are called mutliple
+  times as reported by Pierre
+- avs_dsp_enable() now collapses if any of its steps fails as reported
+  by Pierre and Peter
+- avs_module_ida_empty() now returns value of type bool as suggested by
+  Bard
+
+
+[1]: https://www.spinics.net/lists/alsa-devel/msg116440.html
+[2]: https://www.spinics.net/lists/alsa-devel/msg116901.html
+[3]: https://www.spinics.net/lists/alsa-devel/msg94199.html
+[4]: https://www.spinics.net/lists/alsa-devel/msg92588.html
+[5]: https://lore.kernel.org/all/20190808181549.12521-1-cezary.rojewski@intel.com/
+[6]: https://lore.kernel.org/alsa-devel/20220207114906.3759800-1-cezary.rojewski@intel.com/T/#t
+[7]: https://lore.kernel.org/all/20211208111301.1817725-1-cezary.rojewski@intel.com/
+
+
+Cezary Rojewski (17):
+  ALSA: hda: Add helper macros for DSP capable devices
+  ASoC: Export DAI register and widget ctor and dctor functions
+  ASoC: Intel: Introduce AVS driver
+  ASoC: Intel: avs: Inter process communication
+  ASoC: Intel: avs: Add code loading requests
+  ASoC: Intel: avs: Add pipeline management requests
+  ASoC: Intel: avs: Add module management requests
+  ASoC: Intel: avs: Add power management requests
+  ASoC: Intel: avs: Add ROM requests
+  ASoC: Intel: avs: Add basefw runtime-parameter requests
+  ASoC: Intel: avs: Firmware resources management utilities
+  ASoC: Intel: avs: Declare module configuration types
+  ASoC: Intel: avs: Dynamic firmware resources management
+  ASoC: Intel: avs: General code loading flow
+  ASoC: Intel: avs: Implement CLDMA transfer
+  ASoC: Intel: avs: Code loading over CLDMA
+  ASoC: Intel: avs: Code loading over HDA
+
+ include/sound/hdaudio.h         |   3 +
+ include/sound/hdaudio_ext.h     |  50 +++
+ include/sound/soc-dapm.h        |   1 +
+ sound/soc/intel/Kconfig         |  12 +
+ sound/soc/intel/Makefile        |   1 +
+ sound/soc/intel/avs/Makefile    |   6 +
+ sound/soc/intel/avs/avs.h       | 247 +++++++++++
+ sound/soc/intel/avs/cldma.c     | 316 ++++++++++++++
+ sound/soc/intel/avs/cldma.h     |  29 ++
+ sound/soc/intel/avs/core.c      |  61 +++
+ sound/soc/intel/avs/dsp.c       | 302 +++++++++++++
+ sound/soc/intel/avs/ipc.c       | 382 ++++++++++++++++
+ sound/soc/intel/avs/loader.c    | 608 ++++++++++++++++++++++++++
+ sound/soc/intel/avs/messages.c  | 695 +++++++++++++++++++++++++++++
+ sound/soc/intel/avs/messages.h  | 752 ++++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/registers.h |  75 ++++
+ sound/soc/intel/avs/utils.c     | 301 +++++++++++++
+ sound/soc/soc-core.c            |   1 +
+ sound/soc/soc-dapm.c            |  15 +
+ 19 files changed, 3857 insertions(+)
+ create mode 100644 sound/soc/intel/avs/Makefile
+ create mode 100644 sound/soc/intel/avs/avs.h
+ create mode 100644 sound/soc/intel/avs/cldma.c
+ create mode 100644 sound/soc/intel/avs/cldma.h
+ create mode 100644 sound/soc/intel/avs/core.c
+ create mode 100644 sound/soc/intel/avs/dsp.c
+ create mode 100644 sound/soc/intel/avs/ipc.c
+ create mode 100644 sound/soc/intel/avs/loader.c
+ create mode 100644 sound/soc/intel/avs/messages.c
+ create mode 100644 sound/soc/intel/avs/messages.h
+ create mode 100644 sound/soc/intel/avs/registers.h
+ create mode 100644 sound/soc/intel/avs/utils.c
+
+-- 
+2.25.1
+

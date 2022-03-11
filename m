@@ -2,70 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FCE34D7B28
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:03:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21BF34D7B2A
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:03:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDAF7174A;
-	Mon, 14 Mar 2022 08:02:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDAF7174A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23CF2174F;
+	Mon, 14 Mar 2022 08:02:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23CF2174F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647241388;
-	bh=0FktFK8M82bdYNyc58we4Ys1Yb62yDCA5wxXoQmsiFs=;
+	s=default; t=1647241405;
+	bh=pZzaT3IA54NCzjk7vvt2GcBK5voMM481inTgGi/ulSA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=a3M4z+XMULr+AsSYzp6BPhn39ekx1qXa55wHu5dwN0YXq1hcHRHw03hCGurNECtZ1
-	 aJIG1gPDTflrjOLe9dQ3Y2VUrvw3tUlbPeMm4zaVoetMOicaYmBIBIfOPbpizM7bY7
-	 hidNYki5xmg/v3n9QYiG09VvqdHE5/SM9nMZBqpM=
+	b=DSVVtgjhHAswp65l4pX0xUyWifR+tai+XbHzwle2KnGif+1O2MW06Kd+tn5rHFux3
+	 siNEPcY+5gZvPutRPwpQbtgaK5YvtQvVqMLqOIeB11uWbKkIsWUA1GAUMJN6rymdAE
+	 yovgZbFc3tPTNkHwHkVQ085b9aTBPyAormuSQFX8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD759F8054A;
-	Mon, 14 Mar 2022 07:59:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6141FF80557;
+	Mon, 14 Mar 2022 07:59:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5D9CF80227; Fri, 11 Mar 2022 10:38:56 +0100 (CET)
+ id 508FBF80238; Fri, 11 Mar 2022 11:34:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpbg506.qq.com (smtpbg506.qq.com [203.205.250.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55715F8012C
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 10:38:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55715F8012C
-X-QQ-mid: bizesmtp81t1646991522tb6643rv
-Received: from localhost.localdomain ( [113.57.152.160])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 11 Mar 2022 17:38:40 +0800 (CST)
-X-QQ-SSF: 01400000002000B0D000B00A0000000
-X-QQ-FEAT: ke64Y+R1JM0aRKmhfsATp+SpcW+C3sJEpa+9URKRwGCpAxHHze9JKVhTICDV/
- MyElnTQUgPve11JsBaJGkjfPYeVWoy+ZRt7Nnf2A3MMbAcx22x6uBIt4y1vPAnTf1f8XhoT
- jmqzadsc4qYt3XKgojg60+exdq9BNk6jK4cZuyDEpkZhBh/HwGMDQYt+cpwSgsajSRH1TCA
- 2KeoSMZBqTXR2iJeIeHCN44lmmAzn/GhOAUXfMnTnyM0HanrwUQ308aWzZrCKwY28vEOmrf
- lC6qOxJ8bhJnAD92B3hWs3/co136Cdlo0fuzGeSura+CPHNP5qH2mrb/2Qt6KyndQYRmzar
- 9XYNqXNMeO6rttvxJc=
-X-QQ-GoodBg: 2
-From: huangwenhui <huangwenhuia@uniontech.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Subject: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP machine
- with alc671
-Date: Fri, 11 Mar 2022 17:38:36 +0800
-Message-Id: <20220311093836.20754-1-huangwenhuia@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64000F80085
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 11:34:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64000F80085
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com
+ header.b="iNIvX7qi"
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 79D72210FB;
+ Fri, 11 Mar 2022 10:34:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1646994873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wxQGvXlNGe5HCBbR63oBE/kK35uYM5cAEXtsbUcwkZQ=;
+ b=iNIvX7qiHCHs8as2v0+a/C6Wf9AM41VW8O+o2xwFxi1cw2QRDGGMgZ/U+wVya50NqXLinC
+ i0LxZhXeNa6Kvoq6FYdE1Rn7t/eAOn4geBVM9tpVaCf3Bq2EMzIQrENQGGyoxOfZbZapRr
+ hZujw3UMlrZhO11g0/T3KzHa4Umc+Jk=
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A827013A85;
+ Fri, 11 Mar 2022 10:34:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Kh3tJ7glK2LxdQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 11 Mar 2022 10:34:32 +0000
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-integrity@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org,
+ v9fs-developer@lists.sourceforge.net
+Subject: [PATCH 0/2] xen/grant-table: do some cleanup
+Date: Fri, 11 Mar 2022 11:34:27 +0100
+Message-Id: <20220311103429.12845-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
-X-QQ-Bgrelay: 1
-X-Mailman-Approved-At: Mon, 14 Mar 2022 07:58:50 +0100
-Cc: alsa-devel@alsa-project.org, kailang@realtek.com,
- tanureal@opensource.cirrus.com, jeremy.szu@canonical.com,
- linux-kernel@vger.kernel.org, wse@tuxedocomputers.com,
- huangwenhui <huangwenhuia@uniontech.com>, hui.wang@canonical.com,
- sami@loone.fi, cam@neo-zeon.de
+X-Mailman-Approved-At: Mon, 14 Mar 2022 07:58:51 +0100
+Cc: Latchesar Ionkov <lucho@ionkov.net>, alsa-devel@alsa-project.org,
+ David Airlie <airlied@linux.ie>, Dominique Martinet <asmadeus@codewreck.org>,
+ Christian Schoenebeck <linux_oss@crudebyte.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Jakub Kicinski <kuba@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Eric Van Hensbergen <ericvh@gmail.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,29 +106,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On a HP 288 Pro G8, the front mic could not be detected.In order to
-get it working, the pin configuration needs to be set correctly, and
-the ALC671_FIXUP_HP_HEADSET_MIC2 fixup needs to be applied.
+Cleanup grant table code by removing unused functionality.
 
-Signed-off-by: huangwenhui <huangwenhuia@uniontech.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+Juergen Gross (2):
+  xen/grant-table: remove gnttab_*transfer*() functions
+  xen/grant-table: remove readonly parameter from functions
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 3a42457984e9..e9c9b1d1bf0d 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -11067,6 +11067,7 @@ static const struct snd_pci_quirk alc662_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1028, 0x069f, "Dell", ALC668_FIXUP_DELL_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x103c, 0x1632, "HP RP5800", ALC662_FIXUP_HP_RP5800),
- 	SND_PCI_QUIRK(0x103c, 0x873e, "HP", ALC671_FIXUP_HP_HEADSET_MIC2),
-+	SND_PCI_QUIRK(0x103c, 0x885f, "HP 288 Pro G8", ALC671_FIXUP_HP_HEADSET_MIC2),
- 	SND_PCI_QUIRK(0x1043, 0x1080, "Asus UX501VW", ALC668_FIXUP_HEADSET_MODE),
- 	SND_PCI_QUIRK(0x1043, 0x11cd, "Asus N550", ALC662_FIXUP_ASUS_Nx50),
- 	SND_PCI_QUIRK(0x1043, 0x129d, "Asus N750", ALC662_FIXUP_ASUS_Nx50),
+ drivers/block/xen-blkfront.c                |   8 +-
+ drivers/char/tpm/xen-tpmfront.c             |   2 +-
+ drivers/gpu/drm/xen/xen_drm_front_evtchnl.c |   2 +-
+ drivers/input/misc/xen-kbdfront.c           |   4 +-
+ drivers/net/xen-netfront.c                  |  13 +-
+ drivers/pci/xen-pcifront.c                  |   2 +-
+ drivers/scsi/xen-scsifront.c                |   4 +-
+ drivers/usb/host/xen-hcd.c                  |   4 +-
+ drivers/xen/gntalloc.c                      |   2 +-
+ drivers/xen/gntdev-dmabuf.c                 |   2 +-
+ drivers/xen/grant-table.c                   | 151 +++-----------------
+ drivers/xen/pvcalls-front.c                 |   6 +-
+ drivers/xen/xen-front-pgdir-shbuf.c         |   3 +-
+ include/xen/grant_table.h                   |  13 +-
+ net/9p/trans_xen.c                          |   8 +-
+ sound/xen/xen_snd_front_evtchnl.c           |   2 +-
+ 16 files changed, 50 insertions(+), 176 deletions(-)
+
 -- 
-2.20.1
-
-
+2.34.1
 

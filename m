@@ -2,79 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 549B04D6975
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 21:25:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D0544D697A
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 21:31:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04D3D1A7E;
-	Fri, 11 Mar 2022 21:25:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04D3D1A7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8A3C18E7;
+	Fri, 11 Mar 2022 21:30:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8A3C18E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647030358;
-	bh=u2mn36kDdkFJFhzFnPH6cGPDk0Rfwipws5OOiqVLFjs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1647030682;
+	bh=kfQ4MBKmAE+cVv6LDcBGqWoEPaKkteKWhLBT/qbGuk0=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KuXFLDB3k2Vu0aED9jcGqs8wv3OCIwcA+Z5nDWEzok19/0EqV6o8NahK97NlAheS2
-	 bkJz8Csye0CYKuOKJp5hOTuLuWUlGbYG1eXfQXF7qtsFTcsqAOvDU/VK11UGVNt/cl
-	 NY3sTXUKGFha53KAhfgsNMloOh+RrRsVqG7lcXJ8=
+	b=H1Chmd0UOzV4JPi7Af0KTouVhVaLER80WDnZhqbdSlulSYutfeVScklCAGX3b90Qp
+	 o/+VRqEkOSOLBDPf96RU1cOQydeiE0D9ordHjR+iJSjRfn2+exuv3nTv0uUA9uTHTp
+	 m1bYZGD4oXFDly5cWyGg3WEdTbfPlvs9iLU9n7YQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07D3EF80238;
-	Fri, 11 Mar 2022 21:24:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C95CF80238;
+	Fri, 11 Mar 2022 21:30:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3685FF80085; Fri, 11 Mar 2022 21:24:50 +0100 (CET)
+ id C2BA7F80227; Fri, 11 Mar 2022 21:30:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0403F80085
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 21:24:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0403F80085
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TlLcQg9p"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3AE8361F67;
- Fri, 11 Mar 2022 20:24:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031A3C340E9;
- Fri, 11 Mar 2022 20:24:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647030285;
- bh=u2mn36kDdkFJFhzFnPH6cGPDk0Rfwipws5OOiqVLFjs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TlLcQg9pPkT2iCcw3k2jhaWcDkEleckVmJNdrKJnIOXouIyy70xhySTZ5ZTzWmoqE
- 1m6qI6Uf7S4fcVpZd5eiHFcDzXlGlkDXsCdpd8XMpgA75ZvANL7h1ZHLjpUvOm7VaM
- BNi2ItFHpBXXGmBVT6pmssa8LBdM4zx45bIAhzHL1mgZx2FRw2jmoYDUF3DghiomRt
- ftnXEki+gv1gpD4Mw48cjChhbFuPjRtRqHmmRisdfYCFHvdVeE1EMA+5RYb4GDiV1A
- JsKBhFN054gzI4zsj0ej9KJycsFwoPHI7uIoVQuSpab5txJzZZ8efAYIKVi4uOjBh+
- iwhZxHolnMRBg==
-Date: Fri, 11 Mar 2022 20:24:39 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v5 00/17] ASoC: Intel: AVS - Audio DSP for cAVS
-Message-ID: <YiuwB43XHnAYEfmo@sirena.org.uk>
-References: <20220311153544.136854-1-cezary.rojewski@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3065AF8012C
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 21:30:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3065AF8012C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
+ header.b="eAkd/lRV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1647030612; x=1678566612;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=kfQ4MBKmAE+cVv6LDcBGqWoEPaKkteKWhLBT/qbGuk0=;
+ b=eAkd/lRVimCqgGHJ5XIrmmvFNvjPznwSbb17i90A9PFkFBvJU28ZNM4T
+ UJFXhVrBw7THXtWelW15qSwhYhIoomNq7jwTMbY5TjlRf/dkjMNwOC5D6
+ L+58VqFdH2ed2L1tjPfixZDkNE7w0MFETAvSoo2X3mzivbOEqRLBc5L93
+ v5ge2C/fHWHRb8ygj9HI93ekc6WZeAISzRI6I24M72Un7OES0ZqHdUUdl
+ eAknOicuZA9obIGodHQuSRK64ifu2G5lUyMPJnOrg0gWvcJ4YYvdI3wO7
+ ZpKO7muyzrEsfNj0D4XBJBx6kheviI7su0YhZerDzA9jma2TSKKUwG3Zl A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10283"; a="253210533"
+X-IronPort-AV: E=Sophos;i="5.90,174,1643702400"; d="scan'208";a="253210533"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2022 12:30:07 -0800
+X-IronPort-AV: E=Sophos;i="5.90,174,1643702400"; d="scan'208";a="579407571"
+Received: from weilili-mobl2.amr.corp.intel.com (HELO [10.209.103.214])
+ ([10.209.103.214])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2022 12:30:06 -0800
+Message-ID: <936f37e6-e0de-b0da-a4ae-ff52ff8af136@linux.intel.com>
+Date: Fri, 11 Mar 2022 14:30:05 -0600
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="OY/BpH51VTrMQ3WT"
-Content-Disposition: inline
-In-Reply-To: <20220311153544.136854-1-cezary.rojewski@intel.com>
-X-Cookie: A fool and his money are soon popular.
-Cc: alsa-devel@alsa-project.org, rad@semihalf.com, upstream@semihalf.com,
- harshapriya.n@intel.com, tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
- hdegoede@redhat.com, ranjani.sridharan@linux.intel.com,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- lma@semihalf.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.5.0
+Subject: Re: [PATCH v4 11/17] ASoC: Intel: avs: Firmware resources management
+ utilities
+Content-Language: en-US
+To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
+References: <20220309204029.89040-1-cezary.rojewski@intel.com>
+ <20220309204029.89040-12-cezary.rojewski@intel.com>
+ <5e47e4dd-bef1-8c3c-ba28-d651fc2dae9a@linux.intel.com>
+ <05f38bf1-4400-354e-bfc6-636e602201f7@intel.com>
+ <7deed9cd-0123-1903-00dd-4b7ce9232f14@linux.intel.com>
+ <8560cb93-c2f8-a486-61d8-7955d888d97b@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <8560cb93-c2f8-a486-61d8-7955d888d97b@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
+ tiwai@suse.com, ranjani.sridharan@linux.intel.com, hdegoede@redhat.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ cujomalainey@chromium.org, lma@semihalf.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,35 +101,81 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---OY/BpH51VTrMQ3WT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Fri, Mar 11, 2022 at 04:35:27PM +0100, Cezary Rojewski wrote:
-> A continuation of cleanup work of Intel SST solutions found in
-> sound/soc/intel/. With two major chapters released last year catpt [1]
-> and removal of haswell solution [2], time has come for Skylake-driver.
+On 3/11/22 11:20, Cezary Rojewski wrote:
+> On 2022-03-11 4:59 PM, Pierre-Louis Bossart wrote:
+>> On 3/11/22 09:46, Cezary Rojewski wrote:
+>>> On 2022-03-09 11:36 PM, Pierre-Louis Bossart wrote:
+>>>>
+>>>>>   /*
+>>>>>    * struct avs_dev - Intel HD-Audio driver data
+>>>>>    *
+>>>>>    * @dev: PCI device
+>>>>>    * @dsp_ba: DSP bar address
+>>>>>    * @spec: platform-specific descriptor
+>>>>> + * @fw_cfg: Firmware configuration, obtained through FW_CONFIG 
+>>>>> message
+>>>>> + * @hw_cfg: Hardware configuration, obtained through HW_CONFIG 
+>>>>> message
+>>>>> + * @mods_info: Available module-types, obtained through 
+>>>>> MODULES_INFO message
+>>>>
+>>>> is this just for the base firmware? If this includes the extensions, 
+>>>> how are the module types defined?
+>>>
+>>>
+>>> Only base firmware is able to process MODULE_INFO getter. So, every 
+>>> time driver loads a library, this info gets updated internally on the 
+>>> firmware side. We make use of said getter to retrieve up-to-date 
+>>> information and cache in ->mods_info for later use. ->mods_info is a 
+>>> member of type struct avs_mods_info with each enter represented by 
+>>> struct avs_module_info. These are introduced with all the basefw 
+> 
+> Sorry for the typo: s/avs_module_info/avs_module_entry/.
+> 
+>>> runtime parameters.
+>>
+>> you clarified the mechanism but not the definition of 'module-type'?
+>>
+>> the definition doesn't really help.
+>>
+>> struct avs_module_type {
+>>      u32 load_type:4;
+>>      u32 auto_start:1;
+>>      u32 domain_ll:1;
+>>      u32 domain_dp:1;
+>>      u32 lib_code:1;
+>>      u32 rsvd:24;
+>> } __packed;
+>>
+>> I see nothing that would e.g. identify a mixer from a gain. The 
+>> definition of 'type' seems to refer to low-level properties, not what 
+>> the module actually does?
+> 
+> 
+> There is no "module-type" enum that software can rely on. We rely on 
+> hardcoded GUIDs instead. "module-type" is represented by struct 
+> avs_module_entry (per type) in context of MODULE_INFO IPC. All these 
+> names are indented to match firmware equivalents to make it easier to 
+> switch between the two worlds.
 
-I've applied this but please do look at some of the clarifications that
-Pierre is asking for - there probably is some room for improvement
-there, but nothing that's going to require a restructuring of the whole
-codebase so it seems better to apply and look at things incrementally
-than to have to recheck the whole series again.  Splitting this into
-easier to digest chunks is helping.
+So the initial kernel-doc I commented on is still quite convoluted, you 
+are referring to a 'module-type' that's not really well defined or 
+useful for a driver.
 
---OY/BpH51VTrMQ3WT
-Content-Type: application/pgp-signature; name="signature.asc"
+Given the definition:
 
------BEGIN PGP SIGNATURE-----
+struct avs_mods_info {
+	u32 count;
+	struct avs_module_entry entries[];
+} __packed;
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIrsAcACgkQJNaLcl1U
-h9B6LAf/RayQCxQcMR+X2+YCGujwYjr3NDzwjaEkgOx3ELxvGirXV6En4ykKhMUs
-WgKq2TbIJBKHL+1DTgGAqJCR1iarYQIpLq0plk+vjV5OViCJe9awIvxUYf6n+8T5
-TSgZiOtGO9SUOh7u/tmsvdEUA64vk/zsRt9eTKJasnxEW6hnHe1gGZ3N4ifgWtjT
-0oLLVhqHWGrDTu0m1VKJmTqwAeQJt0/8bHdL2BL8xAIQXI3RO4jXKfHMGe+UzygX
-VrSKpdT26mRYlmbEFK+7A/0NwtwtxDi5AT9seQSR4hb7WWph2gHEcaigSnUTM9EQ
-ioPiIWrCZUVEaPJfhg+TnZeYjN8OQw==
-=6bjD
------END PGP SIGNATURE-----
 
---OY/BpH51VTrMQ3WT--
+wouldn't this be simpler/less confusing:
+
+"
+@mods_info: Available array of module entries, obtained through
+MODULES_INFO message
+"
+
+?

@@ -2,85 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F60A4D65C4
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 17:06:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF3A24D6604
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 17:23:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CAB41A22;
-	Fri, 11 Mar 2022 17:05:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CAB41A22
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EB011902;
+	Fri, 11 Mar 2022 17:22:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EB011902
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647014800;
-	bh=atc7OWEYjvBBVMD603Q7iZsOFhnKAgUzQEn8miLJxtw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vG9WRn9knPNsEu/ezAggSxmwbwESmBKmFiyVyA30TxTlUtPGzyxYZL6a+7wzXOtfU
-	 jsbolihqGaVs8VoAYytXl4in3jbgpeTHZkkNJMwO6QYU4Om2slxF9QGz23i2sld6dX
-	 0oSYObGbhtjbanpULWyHX6+ZvGGilR8Ji57foiZg=
+	s=default; t=1647015817;
+	bh=3oY9N41xEFDzi2OsD3KFXZKVXSrxzq3pqwuexH5DCZA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VuXJ+8zWeZG6wlUiBG2F9kvNEVsrbRYZUWfQJjQsqCpU87U5U6tjgY8oZ24D8R87s
+	 3+tAbH+RjDHJbhYi1FP/55u4vPfe+YbeQQGATalrbH+ggV9zbjPG1eDA1x/9OhzJ4l
+	 cbfpceKdrmQWpVZ9LXTMv4l2RcjL/KiOpYYudlYs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70206F80227;
-	Fri, 11 Mar 2022 17:05:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06EB6F801D8;
+	Fri, 11 Mar 2022 17:22:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C652F8012C; Fri, 11 Mar 2022 17:05:31 +0100 (CET)
+ id E843CF80085; Fri, 11 Mar 2022 17:22:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BEC16F80085
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 17:05:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEC16F80085
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="qgkWEc+C"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="mXBzdmOq"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 448FD210FB;
- Fri, 11 Mar 2022 16:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647014720; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yApc6HcfAc79gGltdvVeKZkz9xGlddFKuvJ/aLNodbg=;
- b=qgkWEc+Cp+++LoxIF+BKpvL4Vs/a9WoKFhrQ+qrEa5l66DG/Uj2P9P11RR4a6titAcmU+/
- nKI0KN15KvM+XcL10MIGysuZdFg2Aql/AWheLmYisBuHdvTiPaSninza3y/rwEgY8NyhWU
- LPAz1jNxMnq4CU5SDI2Y4hs6AAmP1ac=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647014720;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yApc6HcfAc79gGltdvVeKZkz9xGlddFKuvJ/aLNodbg=;
- b=mXBzdmOqpgklaHnP+YFA71CRR4L2kQP3yaVn5rBv7cpVKQz9Ku5z9DoNFTUeUTVLXywltF
- ZGqyBpIKU9JRsJDw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 8DC61A3B81;
- Fri, 11 Mar 2022 16:05:19 +0000 (UTC)
-Date: Fri, 11 Mar 2022 17:05:19 +0100
-Message-ID: <s5hsfrocw5c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: huangwenhui <huangwenhuia@uniontech.com>
-Subject: Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
- machine with alc671
-In-Reply-To: <20220311093836.20754-1-huangwenhuia@uniontech.com>
-References: <20220311093836.20754-1-huangwenhuia@uniontech.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kailang@realtek.com,
- tanureal@opensource.cirrus.com, jeremy.szu@canonical.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, wse@tuxedocomputers.com,
- hui.wang@canonical.com, sami@loone.fi, cam@neo-zeon.de
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9BEDF80085
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 17:22:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9BEDF80085
+X-UUID: 94ce9022ee8d4ed5844060cefb30fbbf-20220312
+X-UUID: 94ce9022ee8d4ed5844060cefb30fbbf-20220312
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1884727560; Sat, 12 Mar 2022 00:22:16 +0800
+Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Sat, 12 Mar 2022 00:22:15 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb02.mediatek.inc
+ (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Sat, 12 Mar 2022 00:22:15 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Sat, 12 Mar 2022 00:22:14 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>
+Subject: [v4 0/2] ASoC: mediatek: mt8192: support rt1015p_rt5682s
+Date: Sat, 12 Mar 2022 00:22:11 +0800
+Message-ID: <20220311162213.6942-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,16 +83,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Mar 2022 10:38:36 +0100,
-huangwenhui wrote:
-> 
-> On a HP 288 Pro G8, the front mic could not be detected.In order to
-> get it working, the pin configuration needs to be set correctly, and
-> the ALC671_FIXUP_HP_HEADSET_MIC2 fixup needs to be applied.
-> 
-> Signed-off-by: huangwenhui <huangwenhuia@uniontech.com>
+The series reuses mt8192-mt6359-rt10150rt5682.c for supporting machine
+driver with rt1015p speaker amplifier and rt5682s headset codec.
 
-Thanks, applied now.
+Changes from v3:
+  - fix build error: too many arguments for format
+    [-Werror-format-extra-args]
 
+Changes from v2:
+  - fix build warnings such as "data argument not used by format string"
 
-Takashi
+Changes from v1:
+  - uses the snd_soc_of_get_dai_link_codecs to complete the
+  configuration of dai_link's codecs
+  - uses definitions to simplifies card name and compatible name
+
+Jiaxin Yu (2):
+  ASoC: dt-bindings: mt8192-mt6359: add new compatible for using rt1015p
+    and rt5682
+  ASoC: mediatek: mt8192: support rt1015p_rt5682s
+
+ .../sound/mt8192-mt6359-rt1015-rt5682.yaml    |   1 +
+ sound/soc/mediatek/Kconfig                    |   1 +
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 204 +++++++++++-------
+ 3 files changed, 129 insertions(+), 77 deletions(-)
+
+-- 
+2.18.0
+

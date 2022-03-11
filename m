@@ -2,85 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD8844D6667
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 17:34:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3B324D666B
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 17:34:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60936188F;
-	Fri, 11 Mar 2022 17:33:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60936188F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71EFC1A47;
+	Fri, 11 Mar 2022 17:34:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71EFC1A47
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647016461;
-	bh=mGP4UgXgI+4YBNBO95m0+T5xSCxpGud1d52Tmto/hfE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DMHdIUVpKTR1jMM230FZChR3lgmZCdjaAbHxpuYw2tZAihUYu0pylM2vBsRLOEIs+
-	 Nm6XdosLK3y0gxtY4+eOAjW944W6JC1tsm9KcwwKYI3gftR3LJd2DFioSP2M+Haqqm
-	 IB5h0XNtfnjz96xJMsH2LuR/twxpxs+dugrTRuVA=
+	s=default; t=1647016495;
+	bh=nXDTLmoC8BE8JKKBt3JG2w6GdigCA+dZrYuxemDr/RA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OXTj7bCRaQn/PPw7Qg7Flj/QIaY+zsfQMqZWrtbW0WhbZGWC66D3BjBKsW+54d/Me
+	 dBomQa3S7Bt3doC9Qzr/1efgB/Fkpg3MzqF5mQk1BoimLzCAZuEtX6NzdzBHnT4zFI
+	 uzmydkD09a/h/0HADIXh/IN2Sdv/T6XX1s0bOtj4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6DB9F80238;
-	Fri, 11 Mar 2022 17:33:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B321AF801D8;
+	Fri, 11 Mar 2022 17:33:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D647F801D8; Fri, 11 Mar 2022 17:33:12 +0100 (CET)
+ id 52E5AF80227; Fri, 11 Mar 2022 17:33:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1095BF800D2
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 17:33:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1095BF800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="MF8AUhNJ"
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B1C2F8012C
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 17:33:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B1C2F8012C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="aHAIQygG"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22BEUKKK002368;
- Fri, 11 Mar 2022 10:33:00 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=11NQRB95jP9BW2vLPRp75Kp4Z5rtJmYViWGBZWGdHtM=;
- b=aHAIQygGeXfHtJf0Tf/6x75WGElh3Ymc1oszAQjNHdDHEHmUWHZk7dVH2+Tga8jBZLgL
- sCpcx7TPFG7JYqxUyLSDt8oLA8iQQPkJNWm1IUIycloDnmXiSXgexluh6BbBOrJXxS5A
- +7Z73mSm9BP1sb4K2GMAiJ2e2xRXqk+il0+dacY0nMWJvd1HLpx27FL66zIbnODgsSVu
- jkZU8MQZz6XoiE4CvbwW/p4W49imXDtmzHkSd2dxKw75mXycq0AzPjMZ/8/94NVhOZje
- RCdUd1EjeLyo8lyFY+eG5h2JFKq82QKoySIxcuwn43HYlXEDzW7J6twl7sOyMPmY8ROU HQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3em656rrvn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 11 Mar 2022 10:33:00 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 11 Mar
- 2022 16:32:58 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Fri, 11 Mar 2022 16:32:58 +0000
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5B1B42C5;
- Fri, 11 Mar 2022 16:32:58 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: core: Add new SOC_DOUBLE_SX_TLV macro
-Date: Fri, 11 Mar 2022 16:32:58 +0000
-Message-ID: <20220311163258.175627-1-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ by ams.source.kernel.org (Postfix) with ESMTPS id E637AB80EA6;
+ Fri, 11 Mar 2022 16:33:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A90C340E9;
+ Fri, 11 Mar 2022 16:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1647016388;
+ bh=nXDTLmoC8BE8JKKBt3JG2w6GdigCA+dZrYuxemDr/RA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MF8AUhNJgIyAMKvB8bhzDjWZCsJ/dP3bDYqhk7WCBov07ZQLBkt6L9BlQYl8bIe1Q
+ d4wiFcOmNf33i5oiQRJgWf/3lc2UvSnH3Bp2+c4IB97F9YQyaehHoHA3vxTFJ7ev+5
+ RCDkV284k38yfSZzcmBI238YSLnNLeQviYfHBdivOpo4EICAlPCjURJKZHiNRvS4Cs
+ dfv0zdAKQ2bilNkqFG22v+o1U6zLCTbIm1TKkv5fXswm49lIFuKBvIkmLft2NiqTiw
+ zXfnn55BCca9PGALC+h5xpfcp1g4ntewrpzAdpwZTOxXuMHmMS2i4dvZcOlEMPIZoR
+ Q5BixrLnOUd8Q==
+Date: Fri, 11 Mar 2022 16:33:03 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Steve Lee <steve.lee.analog@gmail.com>
+Subject: Re: [PATCH v2 1/2] ASoC: max98390: Add reset gpio control
+Message-ID: <Yit5v+JkYDiWz0z0@sirena.org.uk>
+References: <20220311132906.32292-1-steve.lee.analog@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: OXftemRCB9rV3204gNjDJOTlDOs1hqp8
-X-Proofpoint-GUID: OXftemRCB9rV3204gNjDJOTlDOs1hqp8
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="apjVmizt8XulXsfJ"
+Content-Disposition: inline
+In-Reply-To: <20220311132906.32292-1-steve.lee.analog@gmail.com>
+X-Cookie: The Moral Majority is neither.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ ryans.lee@maximintegrated.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,40 +88,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently macros only exist for SX style (implicit sign bit 2's
-compliment) volume controls where the volumes for left and right
-are in separate registers. Some future Cirrus devices will have
-both volumes in the same register, as such add a new macro to
-support this.
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
- include/sound/soc.h | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+--apjVmizt8XulXsfJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 7a1650b303f14..5e187236c2ad6 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -136,6 +136,18 @@
- 	.put = snd_soc_put_volsw, \
- 	.private_value = SOC_DOUBLE_VALUE(reg, shift_left, shift_right, \
- 					  max, invert, 0) }
-+#define SOC_DOUBLE_SX_TLV(xname, xreg, shift_left, shift_right, xmin, xmax, tlv_array) \
-+{       .iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname), \
-+	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ | \
-+	SNDRV_CTL_ELEM_ACCESS_READWRITE, \
-+	.tlv.p  = (tlv_array), \
-+	.info = snd_soc_info_volsw_sx, \
-+	.get = snd_soc_get_volsw_sx, \
-+	.put = snd_soc_put_volsw_sx, \
-+	.private_value = (unsigned long)&(struct soc_mixer_control) \
-+		{.reg = xreg, .rreg = xreg, \
-+		.shift = shift_left, .rshift = shift_right, \
-+		.max = xmax, .min = xmin} }
- #define SOC_DOUBLE_R_TLV(xname, reg_left, reg_right, xshift, xmax, xinvert, tlv_array) \
- {	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname),\
- 	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
--- 
-2.30.2
+On Fri, Mar 11, 2022 at 10:29:05PM +0900, Steve Lee wrote:
+>  Add reset gpio control to support RESET PIN connected to gpio.
 
+This doesn't apply against current code, please check and resend.
+
+--apjVmizt8XulXsfJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIreb4ACgkQJNaLcl1U
+h9AYZQf9EamrxEyS8lwo4jJYqN1cJ9ICPCbndKpPkymTnb9WG+afnigV3k2hQAjQ
+m1XlnL0pkJu1ICTu4vMwRrIQ2jHG7dn3jLkEqMbzKwgBn4nyCLjijoeUwwPJDZLo
+eI40VY3F5EnHz5I3bWCZD3N/aSYS3ZrGAbYLTZaYLOqOTrm4aatzY1Roz+hhVpgT
+qwUQhy5tyXZtNEQDG2i9A7yGZdDgPQtaCdjwipk3ER72rQbcpmvrQE89fqCf9R0h
+f6sc7V2m+LUSmswOLqNHPapOtRlwQZC2frn/DSwMcr9rBiOfc0i1Ut1wVNfY2Jx+
+eYToDX/nA/2tpmVyALEA31UdBKN7/Q==
+=okX0
+-----END PGP SIGNATURE-----
+
+--apjVmizt8XulXsfJ--

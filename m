@@ -2,89 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D0544D697A
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 21:31:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ADC14D6AF0
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Mar 2022 00:49:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8A3C18E7;
-	Fri, 11 Mar 2022 21:30:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8A3C18E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC80518F0;
+	Sat, 12 Mar 2022 00:48:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC80518F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647030682;
-	bh=kfQ4MBKmAE+cVv6LDcBGqWoEPaKkteKWhLBT/qbGuk0=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=H1Chmd0UOzV4JPi7Af0KTouVhVaLER80WDnZhqbdSlulSYutfeVScklCAGX3b90Qp
-	 o/+VRqEkOSOLBDPf96RU1cOQydeiE0D9ordHjR+iJSjRfn2+exuv3nTv0uUA9uTHTp
-	 m1bYZGD4oXFDly5cWyGg3WEdTbfPlvs9iLU9n7YQ=
+	s=default; t=1647042571;
+	bh=/Jo6gyJr/2BDpAy/Q+/jpBVSGELXNqHHKoiBkeVqunE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DIPHIr4Wu1Yhqxrd/DaGOJyjPQl///MsMeCy/2mYiySd60IXCMKAJYfhw33DHQTr4
+	 TppS+00mVkSMlUKutK8obTkPOkBMb5iEkI94SqNLaONRYDatKgBA7PfiCEhfPFC24F
+	 aTJTRSIK/DAzw5EGo85v8hkQZH+sLfmKQJ1W8ULA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C95CF80238;
-	Fri, 11 Mar 2022 21:30:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD263F80238;
+	Sat, 12 Mar 2022 00:48:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2BA7F80227; Fri, 11 Mar 2022 21:30:14 +0100 (CET)
+ id 219E2F80227; Sat, 12 Mar 2022 00:48:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3065AF8012C
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 21:30:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3065AF8012C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="eAkd/lRV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647030612; x=1678566612;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=kfQ4MBKmAE+cVv6LDcBGqWoEPaKkteKWhLBT/qbGuk0=;
- b=eAkd/lRVimCqgGHJ5XIrmmvFNvjPznwSbb17i90A9PFkFBvJU28ZNM4T
- UJFXhVrBw7THXtWelW15qSwhYhIoomNq7jwTMbY5TjlRf/dkjMNwOC5D6
- L+58VqFdH2ed2L1tjPfixZDkNE7w0MFETAvSoo2X3mzivbOEqRLBc5L93
- v5ge2C/fHWHRb8ygj9HI93ekc6WZeAISzRI6I24M72Un7OES0ZqHdUUdl
- eAknOicuZA9obIGodHQuSRK64ifu2G5lUyMPJnOrg0gWvcJ4YYvdI3wO7
- ZpKO7muyzrEsfNj0D4XBJBx6kheviI7su0YhZerDzA9jma2TSKKUwG3Zl A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10283"; a="253210533"
-X-IronPort-AV: E=Sophos;i="5.90,174,1643702400"; d="scan'208";a="253210533"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2022 12:30:07 -0800
-X-IronPort-AV: E=Sophos;i="5.90,174,1643702400"; d="scan'208";a="579407571"
-Received: from weilili-mobl2.amr.corp.intel.com (HELO [10.209.103.214])
- ([10.209.103.214])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2022 12:30:06 -0800
-Message-ID: <936f37e6-e0de-b0da-a4ae-ff52ff8af136@linux.intel.com>
-Date: Fri, 11 Mar 2022 14:30:05 -0600
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72AEAF8012C
+ for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 00:48:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72AEAF8012C
+Received: by mail-oi1-f171.google.com with SMTP id o83so3684173oif.0
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 15:48:18 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=x6lwOUs0d65LCqBi3QipuhYyxDJ9eIewRF/1SecNNVk=;
+ b=E1Yn+5MA+IaBf/gjiUyYRsdqVYXvKngXTRJE4qH76mErTJstVnQtY9eQEMnQZZVDL1
+ MF+LJNgF1HVAINhVlKgfXBrfip41p4i1FiOoPIErYYj681vkGn0fB/TbmZqO3OLjg/hd
+ arEaNUGstSGkJL8zXUnCcpjMD+82U383JtbubMpiz7yKfadiZ4ReX9kjql/pSH7xGN9r
+ tvTb51LBH7W/MtkrtQ+d2y+h/pd8qKAsHDRbBfGbpRo8ypSwyjVYPARlZ809jr0VcDZd
+ UpsZ1td3I5dd65XsyIUnyI8aMDz9zeGNjMyd5+zb5IGgnuaNb55bslNsJ8xLE4uqfeuk
+ bH3A==
+X-Gm-Message-State: AOAM533XestB2dxzbSjI0Mmw7TSg0Bb9hEtwl4P4fi5su1s7KAS9nQaB
+ 9p0VNmBs6kRfKX/AyUAUZg==
+X-Google-Smtp-Source: ABdhPJyvZ0r+1P93joNo0ptbuIsXbm7FYq3d7tYAdY68/bzI93gYnyJbwvMNDQDUCKsJKaNoyhXoNg==
+X-Received: by 2002:a05:6808:2013:b0:2d9:dbed:6999 with SMTP id
+ q19-20020a056808201300b002d9dbed6999mr14493688oiw.30.1647042496534; 
+ Fri, 11 Mar 2022 15:48:16 -0800 (PST)
+Received: from xps15.. (66-90-144-107.dyn.grandenetworks.net. [66.90.144.107])
+ by smtp.googlemail.com with ESMTPSA id
+ o21-20020a056870e81500b000d9b2ba714asm3942423oan.21.2022.03.11.15.48.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Mar 2022 15:48:15 -0800 (PST)
+From: Rob Herring <robh@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH] ASoC: dt-bindings: Fix patternProperties with fixed strings
+Date: Fri, 11 Mar 2022 17:48:01 -0600
+Message-Id: <20220311234802.417610-1-robh@kernel.org>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Subject: Re: [PATCH v4 11/17] ASoC: Intel: avs: Firmware resources management
- utilities
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20220309204029.89040-1-cezary.rojewski@intel.com>
- <20220309204029.89040-12-cezary.rojewski@intel.com>
- <5e47e4dd-bef1-8c3c-ba28-d651fc2dae9a@linux.intel.com>
- <05f38bf1-4400-354e-bfc6-636e602201f7@intel.com>
- <7deed9cd-0123-1903-00dd-4b7ce9232f14@linux.intel.com>
- <8560cb93-c2f8-a486-61d8-7955d888d97b@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <8560cb93-c2f8-a486-61d8-7955d888d97b@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: upstream@semihalf.com, harshapriya.n@intel.com, rad@semihalf.com,
- tiwai@suse.com, ranjani.sridharan@linux.intel.com, hdegoede@redhat.com,
- broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
- cujomalainey@chromium.org, lma@semihalf.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,82 +88,156 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The simple-audio-card and renesas,rsnd bindings used 'patternProperties'
+with fixed strings to work-around a dtschema meta-schema limitation. This
+is now fixed and the schemas can be fixed to use 'properties' instead.
 
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ .../bindings/sound/renesas,rsnd.yaml          | 16 ++++---
+ .../bindings/sound/simple-card.yaml           | 42 +++++++++----------
+ 2 files changed, 28 insertions(+), 30 deletions(-)
 
-On 3/11/22 11:20, Cezary Rojewski wrote:
-> On 2022-03-11 4:59 PM, Pierre-Louis Bossart wrote:
->> On 3/11/22 09:46, Cezary Rojewski wrote:
->>> On 2022-03-09 11:36 PM, Pierre-Louis Bossart wrote:
->>>>
->>>>>   /*
->>>>>    * struct avs_dev - Intel HD-Audio driver data
->>>>>    *
->>>>>    * @dev: PCI device
->>>>>    * @dsp_ba: DSP bar address
->>>>>    * @spec: platform-specific descriptor
->>>>> + * @fw_cfg: Firmware configuration, obtained through FW_CONFIG 
->>>>> message
->>>>> + * @hw_cfg: Hardware configuration, obtained through HW_CONFIG 
->>>>> message
->>>>> + * @mods_info: Available module-types, obtained through 
->>>>> MODULES_INFO message
->>>>
->>>> is this just for the base firmware? If this includes the extensions, 
->>>> how are the module types defined?
->>>
->>>
->>> Only base firmware is able to process MODULE_INFO getter. So, every 
->>> time driver loads a library, this info gets updated internally on the 
->>> firmware side. We make use of said getter to retrieve up-to-date 
->>> information and cache in ->mods_info for later use. ->mods_info is a 
->>> member of type struct avs_mods_info with each enter represented by 
->>> struct avs_module_info. These are introduced with all the basefw 
-> 
-> Sorry for the typo: s/avs_module_info/avs_module_entry/.
-> 
->>> runtime parameters.
->>
->> you clarified the mechanism but not the definition of 'module-type'?
->>
->> the definition doesn't really help.
->>
->> struct avs_module_type {
->>      u32 load_type:4;
->>      u32 auto_start:1;
->>      u32 domain_ll:1;
->>      u32 domain_dp:1;
->>      u32 lib_code:1;
->>      u32 rsvd:24;
->> } __packed;
->>
->> I see nothing that would e.g. identify a mixer from a gain. The 
->> definition of 'type' seems to refer to low-level properties, not what 
->> the module actually does?
-> 
-> 
-> There is no "module-type" enum that software can rely on. We rely on 
-> hardcoded GUIDs instead. "module-type" is represented by struct 
-> avs_module_entry (per type) in context of MODULE_INFO IPC. All these 
-> names are indented to match firmware equivalents to make it easier to 
-> switch between the two worlds.
+diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+index c2930d65728e..e17c0245f77a 100644
+--- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
++++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+@@ -123,9 +123,7 @@ properties:
+     $ref: audio-graph-port.yaml#
+     unevaluatedProperties: false
+ 
+-# use patternProperties to avoid naming "xxx,yyy" issue
+-patternProperties:
+-  "^rcar_sound,dvc$":
++  rcar_sound,dvc:
+     description: DVC subnode.
+     type: object
+     patternProperties:
+@@ -141,7 +139,7 @@ patternProperties:
+           - dma-names
+     additionalProperties: false
+ 
+-  "^rcar_sound,mix$":
++  rcar_sound,mix:
+     description: MIX subnode.
+     type: object
+     patternProperties:
+@@ -150,7 +148,7 @@ patternProperties:
+         # no properties
+     additionalProperties: false
+ 
+-  "^rcar_sound,ctu$":
++  rcar_sound,ctu:
+     description: CTU subnode.
+     type: object
+     patternProperties:
+@@ -159,7 +157,7 @@ patternProperties:
+         # no properties
+     additionalProperties: false
+ 
+-  "^rcar_sound,src$":
++  rcar_sound,src:
+     description: SRC subnode.
+     type: object
+     patternProperties:
+@@ -182,7 +180,7 @@ patternProperties:
+           - dma-names
+     additionalProperties: false
+ 
+-  "^rcar_sound,ssiu$":
++  rcar_sound,ssiu:
+     description: SSIU subnode.
+     type: object
+     patternProperties:
+@@ -202,7 +200,7 @@ patternProperties:
+           - dma-names
+     additionalProperties: false
+ 
+-  "^rcar_sound,ssi$":
++  rcar_sound,ssi:
+     description: SSI subnode.
+     type: object
+     patternProperties:
+@@ -239,7 +237,7 @@ patternProperties:
+     additionalProperties: false
+ 
+   # For DAI base
+-  "^rcar_sound,dai$":
++  rcar_sound,dai:
+     description: DAI subnode.
+     type: object
+     patternProperties:
+diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
+index 45fd9fd9eb54..103044bd32eb 100644
+--- a/Documentation/devicetree/bindings/sound/simple-card.yaml
++++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
+@@ -156,45 +156,45 @@ properties:
+     description: User specified audio sound card name.
+     $ref: /schemas/types.yaml#/definitions/string
+ 
+-# use patternProperties to avoid naming "xxx,yyy" issue
+-patternProperties:
+-  "^simple-audio-card,widgets$":
++  simple-audio-card,widgets:
+     $ref: "#/definitions/widgets"
+-  "^simple-audio-card,routing$":
++  simple-audio-card,routing:
+     $ref: "#/definitions/routing"
+-  "^simple-audio-card,cpu(@[0-9a-f]+)?":
+-    $ref: "#/definitions/dai"
+-  "^simple-audio-card,codec(@[0-9a-f]+)?":
+-    $ref: "#/definitions/dai"
+ 
+   # common properties
+-  "^simple-audio-card,frame-master$":
++  simple-audio-card,frame-master:
+     $ref: "#/definitions/frame-master"
+-  "^simple-audio-card,bitclock-master$":
++  simple-audio-card,bitclock-master:
+     $ref: "#/definitions/bitclock-master"
+-  "^simple-audio-card,frame-inversion$":
++  simple-audio-card,frame-inversion:
+     $ref: "#/definitions/frame-inversion"
+-  "^simple-audio-card,bitclock-inversion$":
++  simple-audio-card,bitclock-inversion:
+     $ref: "#/definitions/bitclock-inversion"
+-  "^simple-audio-card,format$":
++  simple-audio-card,format:
+     $ref: "#/definitions/format"
+-  "^simple-audio-card,mclk-fs$":
++  simple-audio-card,mclk-fs:
+     $ref: "#/definitions/mclk-fs"
+-  "^simple-audio-card,aux-devs$":
++  simple-audio-card,aux-devs:
+     $ref: "#/definitions/aux-devs"
+-  "^simple-audio-card,convert-rate$":
++  simple-audio-card,convert-rate:
+     $ref: "#/definitions/convert-rate"
+-  "^simple-audio-card,convert-channels$":
++  simple-audio-card,convert-channels:
+     $ref: "#/definitions/convert-channels"
+-  "^simple-audio-card,prefix$":
++  simple-audio-card,prefix:
+     $ref: "#/definitions/prefix"
+-  "^simple-audio-card,pin-switches$":
++  simple-audio-card,pin-switches:
+     $ref: "#/definitions/pin-switches"
+-  "^simple-audio-card,hp-det-gpio$":
++  simple-audio-card,hp-det-gpio:
+     maxItems: 1
+-  "^simple-audio-card,mic-det-gpio$":
++  simple-audio-card,mic-det-gpio:
+     maxItems: 1
+ 
++patternProperties:
++  "^simple-audio-card,cpu(@[0-9a-f]+)?$":
++    $ref: "#/definitions/dai"
++  "^simple-audio-card,codec(@[0-9a-f]+)?$":
++    $ref: "#/definitions/dai"
++
+   "^simple-audio-card,dai-link(@[0-9a-f]+)?$":
+     description: |
+       Container for dai-link level properties and the CPU and CODEC sub-nodes.
+-- 
+2.32.0
 
-So the initial kernel-doc I commented on is still quite convoluted, you 
-are referring to a 'module-type' that's not really well defined or 
-useful for a driver.
-
-Given the definition:
-
-struct avs_mods_info {
-	u32 count;
-	struct avs_module_entry entries[];
-} __packed;
-
-
-wouldn't this be simpler/less confusing:
-
-"
-@mods_info: Available array of module entries, obtained through
-MODULES_INFO message
-"
-
-?

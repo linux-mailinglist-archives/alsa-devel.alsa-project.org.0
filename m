@@ -2,72 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 531A54D57FF
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 03:17:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AC704D5D5D
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 09:32:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D879718CF;
-	Fri, 11 Mar 2022 03:16:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D879718CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 332D1185F;
+	Fri, 11 Mar 2022 09:31:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 332D1185F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646965036;
-	bh=OyshsHz10A/mEdZTlKInblCBL2BmpbjDSWPCRA/msC4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1646987528;
+	bh=L+96nSdfyhlOe1Ls62aQL/baNKdlBJzs9a1pW3RT1bc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AwLtc101piy/H1ADUfkqp6Eof0MT6laYX074c9J5xE1MdJZgjl07k/ka7BlqzYYBx
-	 KsIvKLueJZH2+NgTixDbfCDASaDFOks+L0E5mfgbB6khOLvD/GKIXku/JNQJjr4/9+
-	 aCGnqF5ZvmOxbPC+dqOj3CFKhnpGmorp8prmzi3Y=
+	b=OIqHggXBOs0FzQZhgBifc8pjJVgIhWGADQ0sznE8WFTg7us2I9ppE6Np0uKaTn2ra
+	 bU69BNaMm1xoa/iusB9tXZQrUqmAsBqB1E4/b/+k96yBDkvb6QhkwsvhXSnBha7f16
+	 xtWVIdLdU/glJyflpKC4V47l/SbFFxYI5iZNFUpY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CF03F8027B;
-	Fri, 11 Mar 2022 03:15:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91451F80238;
+	Fri, 11 Mar 2022 09:31:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99513F8013C; Fri, 11 Mar 2022 03:15:34 +0100 (CET)
+ id 699E3F80227; Fri, 11 Mar 2022 09:30:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DBB3F800FD
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 03:15:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DBB3F800FD
-X-UUID: 736117a1fce646b4998b4dd98e24b3dd-20220311
-X-UUID: 736117a1fce646b4998b4dd98e24b3dd-20220311
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1400358078; Fri, 11 Mar 2022 10:15:15 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 11 Mar 2022 10:15:13 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 11 Mar 2022 10:15:12 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>
-Subject: [v3 2/2] ASoC: mediatek: mt8192: support rt1015p_rt5682s
-Date: Fri, 11 Mar 2022 10:15:09 +0800
-Message-ID: <20220311021509.31669-3-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220311021509.31669-1-jiaxin.yu@mediatek.com>
-References: <20220311021509.31669-1-jiaxin.yu@mediatek.com>
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 768CFF800D2
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 09:30:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 768CFF800D2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="VN+qHiXE"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="hYQytmMr"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 2B7E41F441;
+ Fri, 11 Mar 2022 08:30:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1646987450; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dzGcwM7v+f34q9OHR146SuStt4YJu5AWHYm6yTSEKbU=;
+ b=VN+qHiXECN9MeWHI6qSXge+yel8gPdwl2Vp8yAg/VuNjvwOdqDdSepXjm9VAgjlgEg2/XV
+ whFUy28AcFcgi8Or3j1P/VBicHdar4zDrEq2C+nE/8YkdNTcpYtNGfMI2QQVEcR3+Jfl19
+ nMS23lpKQCBdCI9JHkkBcSv99h1E4VA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1646987450;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dzGcwM7v+f34q9OHR146SuStt4YJu5AWHYm6yTSEKbU=;
+ b=hYQytmMrUrlQ/l8hINoIKeISYAqXeTfzMjJZc1EwUnqwjrKQOgjSwI/p46vgpzEUcSdlzM
+ 8113T2KyKJ4nRXBQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 77DECA3B93;
+ Fri, 11 Mar 2022 08:30:49 +0000 (UTC)
+Date: Fri, 11 Mar 2022 09:30:49 +0100
+Message-ID: <s5ho82cevra.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "huangwenhui" <huangwenhuia@uniontech.com>
+Subject: Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
+ machine with alc671
+In-Reply-To: <tencent_080B040F1CE2D7D83D6FD0C8@qq.com>
+References: <tencent_080B040F1CE2D7D83D6FD0C8@qq.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, linmq006@gmail.com,
- kernel test robot <lkp@intel.com>, alsa-devel@alsa-project.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel <alsa-devel@alsa-project.org>, kailang <kailang@realtek.com>,
+ tanureal <tanureal@opensource.cirrus.com>,
+ "jeremy.szu" <jeremy.szu@canonical.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, tiwai <tiwai@suse.com>,
+ wse <wse@tuxedocomputers.com>, "hui.wang" <hui.wang@canonical.com>,
+ sami <sami@loone.fi>, cam <cam@neo-zeon.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,383 +101,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Supports machines with rt1015p and rt5682s. Uses new proposed compatible
-string "mt8192_mt6359_rt1015p_rt5682s". Using define to simplifies card
-name and compatible name, and uses the snd_soc_of_get_dai_link_codecs()
-to complete the configuration of dai_link's codecs.
+On Fri, 11 Mar 2022 02:20:42 +0100,
+huangwenhui wrote:
+> 
+> Hi  Takashi,
+> 
+> if adjusting the mixer element or replugging the headset, the headphone would
+> be unmuted.
+> But most users hope that the default state is unmuted.
+> Should this unconditional unmute be required?
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Reported-by: kernel test robot <lkp@intel.com>
----
- sound/soc/mediatek/Kconfig                    |   1 +
- .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 204 +++++++++++-------
- 2 files changed, 128 insertions(+), 77 deletions(-)
+It's the standard behavior for most of ALSA drivers.
 
-diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-index d515613a79da..cacfbab4262d 100644
---- a/sound/soc/mediatek/Kconfig
-+++ b/sound/soc/mediatek/Kconfig
-@@ -176,6 +176,7 @@ config SND_SOC_MT8192_MT6359_RT1015_RT5682
- 	select SND_SOC_RT1015
- 	select SND_SOC_RT1015P
- 	select SND_SOC_RT5682_I2C
-+	select SND_SOC_RT5682S
- 	select SND_SOC_DMIC
- 	help
- 	  This adds ASoC driver for Mediatek MT8192 boards
-diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-index ee91569c0911..219b38ee25ae 100644
---- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-@@ -28,8 +28,13 @@
- #define RT1015_DEV0_NAME	"rt1015.1-0028"
- #define RT1015_DEV1_NAME	"rt1015.1-0029"
- 
--#define RT5682_CODEC_DAI	"rt5682-aif1"
--#define RT5682_DEV0_NAME	"rt5682.1-001a"
-+#define RT1015_RT5682_CARD_NAME "mt8192_mt6359_rt1015_rt5682"
-+#define RT1015P_RT5682_CARD_NAME "mt8192_mt6359_rt1015p_rt5682"
-+#define RT1015P_RT5682S_CARD_NAME "mt8192_mt6359_rt1015p_rt5682s"
-+
-+#define RT1015_RT5682_OF_NAME "mediatek,mt8192_mt6359_rt1015_rt5682"
-+#define RT1015P_RT5682_OF_NAME "mediatek,mt8192_mt6359_rt1015p_rt5682"
-+#define RT1015P_RT5682S_OF_NAME "mediatek,mt8192_mt6359_rt1015p_rt5682s"
- 
- struct mt8192_mt6359_priv {
- 	struct snd_soc_jack headset_jack;
-@@ -71,8 +76,8 @@ static int mt8192_rt1015_i2s_hw_params(struct snd_pcm_substream *substream,
- 	return snd_soc_dai_set_sysclk(cpu_dai, 0, mclk_fs, SND_SOC_CLOCK_OUT);
- }
- 
--static int mt8192_rt5682_i2s_hw_params(struct snd_pcm_substream *substream,
--				       struct snd_pcm_hw_params *params)
-+static int mt8192_rt5682x_i2s_hw_params(struct snd_pcm_substream *substream,
-+					struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_card *card = rtd->card;
-@@ -121,8 +126,8 @@ static const struct snd_soc_ops mt8192_rt1015_i2s_ops = {
- 	.hw_params = mt8192_rt1015_i2s_hw_params,
- };
- 
--static const struct snd_soc_ops mt8192_rt5682_i2s_ops = {
--	.hw_params = mt8192_rt5682_i2s_hw_params,
-+static const struct snd_soc_ops mt8192_rt5682x_i2s_ops = {
-+	.hw_params = mt8192_rt5682x_i2s_hw_params,
- };
- 
- static int mt8192_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
-@@ -604,17 +609,9 @@ SND_SOC_DAILINK_DEFS(i2s2,
- 		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
- 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
- 
--SND_SOC_DAILINK_DEFS(i2s3_rt1015,
--		     DAILINK_COMP_ARRAY(COMP_CPU("I2S3")),
--		     DAILINK_COMP_ARRAY(COMP_CODEC(RT1015_DEV0_NAME,
--						   RT1015_CODEC_DAI),
--					COMP_CODEC(RT1015_DEV1_NAME,
--						   RT1015_CODEC_DAI)),
--		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
--
--SND_SOC_DAILINK_DEFS(i2s3_rt1015p,
-+SND_SOC_DAILINK_DEFS(i2s3,
- 		     DAILINK_COMP_ARRAY(COMP_CPU("I2S3")),
--		     DAILINK_COMP_ARRAY(COMP_CODEC("rt1015p", "HiFi")),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()),
- 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
- 
- SND_SOC_DAILINK_DEFS(i2s5,
-@@ -634,14 +631,12 @@ SND_SOC_DAILINK_DEFS(i2s7,
- 
- SND_SOC_DAILINK_DEFS(i2s8,
- 		     DAILINK_COMP_ARRAY(COMP_CPU("I2S8")),
--		     DAILINK_COMP_ARRAY(COMP_CODEC(RT5682_DEV0_NAME,
--						   RT5682_CODEC_DAI)),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()),
- 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
- 
- SND_SOC_DAILINK_DEFS(i2s9,
- 		     DAILINK_COMP_ARRAY(COMP_CPU("I2S9")),
--		     DAILINK_COMP_ARRAY(COMP_CODEC(RT5682_DEV0_NAME,
--						   RT5682_CODEC_DAI)),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()),
- 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
- 
- SND_SOC_DAILINK_DEFS(connsys_i2s,
-@@ -929,6 +924,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 		.dpcm_playback = 1,
- 		.ignore_suspend = 1,
- 		.be_hw_params_fixup = mt8192_i2s_hw_params_fixup,
-+		SND_SOC_DAILINK_REG(i2s3),
- 	},
- 	{
- 		.name = "I2S5",
-@@ -962,7 +958,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 		.init = mt8192_rt5682_init,
- 		.be_hw_params_fixup = mt8192_i2s_hw_params_fixup,
- 		SND_SOC_DAILINK_REG(i2s8),
--		.ops = &mt8192_rt5682_i2s_ops,
-+		.ops = &mt8192_rt5682x_i2s_ops,
- 	},
- 	{
- 		.name = "I2S9",
-@@ -971,7 +967,7 @@ static struct snd_soc_dai_link mt8192_mt6359_dai_links[] = {
- 		.ignore_suspend = 1,
- 		.be_hw_params_fixup = mt8192_i2s_hw_params_fixup,
- 		SND_SOC_DAILINK_REG(i2s9),
--		.ops = &mt8192_rt5682_i2s_ops,
-+		.ops = &mt8192_rt5682x_i2s_ops,
- 	},
- 	{
- 		.name = "CONNSYS_I2S",
-@@ -1051,7 +1047,7 @@ static struct snd_soc_codec_conf rt1015_amp_conf[] = {
- };
- 
- static struct snd_soc_card mt8192_mt6359_rt1015_rt5682_card = {
--	.name = "mt8192_mt6359_rt1015_rt5682",
-+	.name = RT1015_RT5682_CARD_NAME,
- 	.owner = THIS_MODULE,
- 	.dai_link = mt8192_mt6359_dai_links,
- 	.num_links = ARRAY_SIZE(mt8192_mt6359_dai_links),
-@@ -1066,13 +1062,13 @@ static struct snd_soc_card mt8192_mt6359_rt1015_rt5682_card = {
- };
- 
- static const struct snd_soc_dapm_widget
--mt8192_mt6359_rt1015p_rt5682_widgets[] = {
-+mt8192_mt6359_rt1015p_rt5682x_widgets[] = {
- 	SND_SOC_DAPM_SPK("Speakers", NULL),
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- };
- 
--static const struct snd_soc_dapm_route mt8192_mt6359_rt1015p_rt5682_routes[] = {
-+static const struct snd_soc_dapm_route mt8192_mt6359_rt1015p_rt5682x_routes[] = {
- 	/* speaker */
- 	{ "Speakers", NULL, "Speaker" },
- 	/* headset */
-@@ -1081,74 +1077,112 @@ static const struct snd_soc_dapm_route mt8192_mt6359_rt1015p_rt5682_routes[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
--static const struct snd_kcontrol_new mt8192_mt6359_rt1015p_rt5682_controls[] = {
-+static const struct snd_kcontrol_new mt8192_mt6359_rt1015p_rt5682x_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Speakers"),
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
- };
- 
--static struct snd_soc_card mt8192_mt6359_rt1015p_rt5682_card = {
--	.name = "mt8192_mt6359_rt1015p_rt5682",
-+static struct snd_soc_card mt8192_mt6359_rt1015p_rt5682x_card = {
- 	.owner = THIS_MODULE,
- 	.dai_link = mt8192_mt6359_dai_links,
- 	.num_links = ARRAY_SIZE(mt8192_mt6359_dai_links),
--	.controls = mt8192_mt6359_rt1015p_rt5682_controls,
--	.num_controls = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_controls),
--	.dapm_widgets = mt8192_mt6359_rt1015p_rt5682_widgets,
--	.num_dapm_widgets = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_widgets),
--	.dapm_routes = mt8192_mt6359_rt1015p_rt5682_routes,
--	.num_dapm_routes = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682_routes),
-+	.controls = mt8192_mt6359_rt1015p_rt5682x_controls,
-+	.num_controls = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682x_controls),
-+	.dapm_widgets = mt8192_mt6359_rt1015p_rt5682x_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682x_widgets),
-+	.dapm_routes = mt8192_mt6359_rt1015p_rt5682x_routes,
-+	.num_dapm_routes = ARRAY_SIZE(mt8192_mt6359_rt1015p_rt5682x_routes),
- };
- 
-+static int mt8192_mt6359_card_set_be_link(struct snd_soc_card *card,
-+					  struct snd_soc_dai_link *link,
-+					  struct device_node *node,
-+					  char *link_name)
-+{
-+	int ret;
-+
-+	if (node && strcmp(link->name, link_name) == 0) {
-+		ret = snd_soc_of_get_dai_link_codecs(card->dev, node, link);
-+		if (ret < 0) {
-+			dev_err(card->dev, "get dai link codecs fail\n");
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card;
--	struct device_node *platform_node, *hdmi_codec;
-+	struct device_node *platform_node, *hdmi_codec, *headset_codec, *speaker_codec;
- 	int ret, i;
- 	struct snd_soc_dai_link *dai_link;
- 	struct mt8192_mt6359_priv *priv;
-+	struct device *dev;
- 
--	platform_node = of_parse_phandle(pdev->dev.of_node,
--					 "mediatek,platform", 0);
--	if (!platform_node) {
--		dev_err(&pdev->dev, "Property 'platform' missing or invalid\n");
-+	card = (struct snd_soc_card *)of_device_get_match_data(&pdev->dev);
-+	if (!card)
- 		return -EINVAL;
-+	card->dev = &pdev->dev;
-+	dev = &pdev->dev;
-+
-+	if (of_device_is_compatible(dev->of_node, RT1015P_RT5682_OF_NAME))
-+		card->name = RT1015P_RT5682_CARD_NAME;
-+	else if (of_device_is_compatible(dev->of_node, RT1015P_RT5682S_OF_NAME))
-+		card->name = RT1015P_RT5682S_CARD_NAME;
-+	else
-+		dev_dbg(dev, "No need to set card name\n");
-+
-+	platform_node = of_parse_phandle(dev->of_node, "mediatek,platform", 0);
-+	if (!platform_node) {
-+		ret = -EINVAL;
-+		dev_err_probe(dev, ret, "Property 'platform' missing or invalid\n");
-+		goto err_platform_node;
- 	}
- 
--	card = (struct snd_soc_card *)of_device_get_match_data(&pdev->dev);
--	if (!card) {
-+	hdmi_codec = of_parse_phandle(dev->of_node, "mediatek,hdmi-codec", 0);
-+	if (!hdmi_codec) {
- 		ret = -EINVAL;
--		goto put_platform_node;
-+		dev_err_probe(dev, ret, "Property 'hdmi-codec' missing or invalid\n");
-+		goto err_hdmi_codec;
- 	}
--	card->dev = &pdev->dev;
- 
--	hdmi_codec = of_parse_phandle(pdev->dev.of_node,
--				      "mediatek,hdmi-codec", 0);
-+	speaker_codec = of_get_child_by_name(dev->of_node, "mediatek,speaker-codec");
-+	if (!speaker_codec) {
-+		ret = -EINVAL;
-+		dev_err_probe(dev, ret, "Property 'speaker_codec' missing or invalid\n");
-+		goto err_speaker_codec;
-+	}
-+
-+	headset_codec = of_get_child_by_name(dev->of_node, "mediatek,headset-codec");
-+	if (!headset_codec) {
-+		ret = -EINVAL;
-+		dev_err_probe(dev, ret, "Property 'headset_codec' missing or invalid\n");
-+		goto err_headset_codec;
-+	}
- 
- 	for_each_card_prelinks(card, i, dai_link) {
--		if (strcmp(dai_link->name, "I2S3") == 0) {
--			if (card == &mt8192_mt6359_rt1015_rt5682_card) {
--				dai_link->ops = &mt8192_rt1015_i2s_ops;
--				dai_link->cpus = i2s3_rt1015_cpus;
--				dai_link->num_cpus =
--					ARRAY_SIZE(i2s3_rt1015_cpus);
--				dai_link->codecs = i2s3_rt1015_codecs;
--				dai_link->num_codecs =
--					ARRAY_SIZE(i2s3_rt1015_codecs);
--				dai_link->platforms = i2s3_rt1015_platforms;
--				dai_link->num_platforms =
--					ARRAY_SIZE(i2s3_rt1015_platforms);
--			} else if (card == &mt8192_mt6359_rt1015p_rt5682_card) {
--				dai_link->cpus = i2s3_rt1015p_cpus;
--				dai_link->num_cpus =
--					ARRAY_SIZE(i2s3_rt1015p_cpus);
--				dai_link->codecs = i2s3_rt1015p_codecs;
--				dai_link->num_codecs =
--					ARRAY_SIZE(i2s3_rt1015p_codecs);
--				dai_link->platforms = i2s3_rt1015p_platforms;
--				dai_link->num_platforms =
--					ARRAY_SIZE(i2s3_rt1015p_platforms);
--			}
-+		ret = mt8192_mt6359_card_set_be_link(card, dai_link, speaker_codec, "I2S3");
-+		if (ret) {
-+			dev_err_probe(&pdev->dev, ret, "%s set speaker_codec fail\n",
-+				      dai_link->name);
-+			goto err_probe;
-+		}
-+
-+		ret = mt8192_mt6359_card_set_be_link(card, dai_link, headset_codec, "I2S8");
-+		if (ret) {
-+			dev_err_probe(&pdev->dev, ret, "%s set headset_codec fail\n",
-+				      dai_link->name);
-+			goto err_probe;
-+		}
-+
-+		ret = mt8192_mt6359_card_set_be_link(card, dai_link, headset_codec, "I2S9");
-+		if (ret) {
-+			dev_err_probe(&pdev->dev, ret, "%s set %s headset_codec fail\n",
-+				      dai_link->name);
-+			goto err_probe;
- 		}
- 
- 		if (hdmi_codec && strcmp(dai_link->name, "TDM") == 0) {
-@@ -1156,6 +1190,9 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- 			dai_link->ignore = 0;
- 		}
- 
-+		if (strcmp(dai_link->codecs[0].dai_name, RT1015_CODEC_DAI) == 0)
-+			dai_link->ops = &mt8192_rt1015_i2s_ops;
-+
- 		if (!dai_link->platforms->name)
- 			dai_link->platforms->of_node = platform_node;
- 	}
-@@ -1163,34 +1200,47 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
- 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
- 	if (!priv) {
- 		ret = -ENOMEM;
--		goto put_hdmi_codec;
-+		goto err_probe;
- 	}
- 	snd_soc_card_set_drvdata(card, priv);
- 
- 	ret = mt8192_afe_gpio_init(&pdev->dev);
- 	if (ret) {
--		dev_err(&pdev->dev, "init gpio error %d\n", ret);
--		goto put_hdmi_codec;
-+		dev_err_probe(&pdev->dev, ret, "%s init gpio error\n", __func__);
-+		goto err_probe;
- 	}
- 
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
--
--put_hdmi_codec:
-+	if (ret)
-+		dev_err_probe(&pdev->dev, ret,
-+			      "%s snd_soc_register_card fail\n", __func__);
-+
-+err_probe:
-+	of_node_put(headset_codec);
-+err_headset_codec:
-+	of_node_put(speaker_codec);
-+err_speaker_codec:
- 	of_node_put(hdmi_codec);
--put_platform_node:
-+err_hdmi_codec:
- 	of_node_put(platform_node);
-+err_platform_node:
-+
- 	return ret;
- }
- 
- #ifdef CONFIG_OF
- static const struct of_device_id mt8192_mt6359_dt_match[] = {
- 	{
--		.compatible = "mediatek,mt8192_mt6359_rt1015_rt5682",
-+		.compatible = RT1015_RT5682_OF_NAME,
- 		.data = &mt8192_mt6359_rt1015_rt5682_card,
- 	},
- 	{
--		.compatible = "mediatek,mt8192_mt6359_rt1015p_rt5682",
--		.data = &mt8192_mt6359_rt1015p_rt5682_card,
-+		.compatible = RT1015P_RT5682_OF_NAME,
-+		.data = &mt8192_mt6359_rt1015p_rt5682x_card,
-+	},
-+	{
-+		.compatible = RT1015P_RT5682S_OF_NAME,
-+		.data = &mt8192_mt6359_rt1015p_rt5682x_card,
- 	},
- 	{}
- };
--- 
-2.18.0
+The initial mute state is rather controlled via alsactl, restoring the
+previous state.  Also, the sound server like PulseAudio or pipewire
+does unmute automatically.  If this doesn't work as expected, that's a
+more problem to diagnose.
 
+
+Takashi
+
+> 
+> Thanks.
+> 
+> ------------------ Original ------------------
+> From:  "Takashi Iwai"<tiwai@suse.de>;
+> Date:  Thu, Mar 10, 2022 10:03 PM
+> To:  "黄文辉"<huangwenhuia@uniontech.com>;
+> Cc:  "perex"<perex@perex.cz>; "tiwai"<tiwai@suse.com>; "jeremy.szu"
+> <jeremy.szu@canonical.com>; "hui.wang"<hui.wang@canonical.com>; "wse"
+> <wse@tuxedocomputers.com>; "cam"<cam@neo-zeon.de>; "kailang"
+> <kailang@realtek.com>; "tanureal"<tanureal@opensource.cirrus.com>; "sami"
+> <sami@loone.fi>; "alsa-devel"<alsa-devel@alsa-project.org>; "linux-kernel"
+> <linux-kernel@vger.kernel.org>;
+> Subject:  Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
+> machine with alc671
+>  
+> On Thu, 10 Mar 2022 14:58:36 +0100,
+> huangwenhui wrote:
+> >
+> > Hi  Takashi,
+> >
+> > Thank you for your reply.
+> >
+> > When booting with plugged headset, the headphone will be muted.
+> 
+> The muted state is the default behavior.  Wouldn't it be unmuted if
+> you adjust the corresponding mixer element?
+> 
+> Takashi
+> 
+> >
+> > Thanks.
+> > 
+> > ------------------ Original ------------------
+> > From:  "Takashi Iwai"<tiwai@suse.de>;
+> > Date:  Thu, Mar 10, 2022 09:29 PM
+> > To:  "huangwenhui"<huangwenhuia@uniontech.com>;
+> > Cc:  "perex"<perex@perex.cz>; "tiwai"<tiwai@suse.com>; "jeremy.szu"
+> > <jeremy.szu@canonical.com>; "hui.wang"<hui.wang@canonical.com>; "wse"
+> > <wse@tuxedocomputers.com>; "cam"<cam@neo-zeon.de>; "kailang"
+> > <kailang@realtek.com>; "tanureal"<tanureal@opensource.cirrus.com>; "sami"
+> > <sami@loone.fi>; "alsa-devel"<alsa-devel@alsa-project.org>; "linux-kernel"
+> > <linux-kernel@vger.kernel.org>;
+> > Subject:  Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
+> > machine with alc671
+> > 
+> > On Thu, 10 Mar 2022 14:03:01 +0100,
+> > huangwenhui wrote:
+> > >
+> > > On a HP 288 Pro G8, the front Mic could not be detected.
+> > >
+> > > Signed-off-by: huangwenhui <huangwenhuia@uniontech.com>
+> >
+> > Thanks for the patch.  Most of the changes look OK, but one thing I
+> > still don't get:
+> >
+> > > + case HDA_FIXUP_ACT_INIT:
+> > > + alc_write_coef_idx(codec, 0x19, 0xa054);
+> > > + msleep(80);
+> > > + snd_hda_codec_write(codec, hp_pin, 0,
+> > > +     AC_VERB_SET_AMP_GAIN_MUTE, AMP_OUT_UNMUTE);
+> >
+> > Why this unconditional unmute is required for fixing the mic problem?
+> >
+> > Takashi
+> >
+> >
+> 
+> 

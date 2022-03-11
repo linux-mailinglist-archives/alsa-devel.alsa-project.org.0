@@ -2,48 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 072224D5684
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 01:25:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F33194D5800
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 03:17:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84A141891;
-	Fri, 11 Mar 2022 01:24:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A141891
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1181E190A;
+	Fri, 11 Mar 2022 03:16:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1181E190A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646958344;
-	bh=hfRBmwVghNbcVI9cBhUy/gGposRjrhs72wQ5qRBn244=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ec3mvS1ZFvAisFpbhACc7iiPUQOdXYdhObbsJBU0AsHXKqPW29/J1qiOmZNyBBWep
-	 SVlHlLTdnX0SKpF1Q0dO9lYH4c5vwVBaKEL4VHfDSnEqrSTEvWAzhIBALNB6bBiIpz
-	 7dHQPesq68E9ir3EkzQXZMgJ93qIH8qxo7eJdH4E=
+	s=default; t=1646965039;
+	bh=zRJz7UhGbB2i0o+v4kMSahmBPNLdzOiEnKNrhbZP1e0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VXAXyTX6ienJlb0WEyV+nVKwzYzGJ+9Oz7X2kdxSsl93vcvwh7eu0sWZ98Rx9Brv4
+	 b0FXwgToWqGZJcB+n531iit/N3tTZoLWloD7VpISlGe5fn5M8o1+QcLy20Y3ay7tvN
+	 lwpbUGvs+E9eiXOa+anOafQTeYc+4y2F6ISmtJqc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C62E2F8013C;
-	Fri, 11 Mar 2022 01:24:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F4F0F80425;
+	Fri, 11 Mar 2022 03:15:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C02CF80137; Fri, 11 Mar 2022 01:24:35 +0100 (CET)
+ id 51F95F8012F; Fri, 11 Mar 2022 03:15:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 7BA3AF800FD
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 01:24:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BA3AF800FD
+X-Spam-Level: 
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93F25F80137
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 03:15:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93F25F80137
+X-UUID: c3ff8d614a35446e8f6ac851d2fa3467-20220311
+X-UUID: c3ff8d614a35446e8f6ac851d2fa3467-20220311
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 333112247; Fri, 11 Mar 2022 10:15:12 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Fri, 11 Mar 2022 10:15:11 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Fri, 11 Mar 2022 10:15:10 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>
+Subject: [v3 0/2] ASoC: mediatek: mt8192: support rt1015p_rt5682s
+Date: Fri, 11 Mar 2022 10:15:07 +0800
+Message-ID: <20220311021509.31669-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1646958271190315962-webhooks-bot@alsa-project.org>
-References: <1646958271190315962-webhooks-bot@alsa-project.org>
-Subject: Presence of "default" device name crashes unity3d games
-Message-Id: <20220311002435.0C02CF80137@alsa1.perex.cz>
-Date: Fri, 11 Mar 2022 01:24:35 +0100 (CET)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, linmq006@gmail.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ Jiaxin Yu <jiaxin.yu@mediatek.corp-partner.google.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,29 +80,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #214 was opened from the3dfxdude:
+From: Jiaxin Yu <jiaxin.yu@mediatek.corp-partner.google.com>
 
-In a recent Slackware 15.0 distro release, the alsa-lib version is now 1.2.5.1. This causes a crash in Kerbal Space Program similar to issue #27. A change was made to close issue #27 in alsa-lib 1.2.3. That change did not correct the crash however in 1.2.3 or 1.2.5.1 in my case.
+The series reuses mt8192-mt6359-rt10150rt5682.c for supporting machine
+driver with rt1015p speaker amplifier and rt5682s headset codec.
 
-This is the noted difference for "aplay -L" between 1.2.3 and 1.2.1:
---- dump_1_2_1	2022-03-10 12:38:16.991433004 -0700
-+++ dump_1_2_3	2022-03-10 12:37:53.467443226 -0700
-@@ -1,5 +1,9 @@
- null
-     Discard all samples (playback) or generate zero samples (capture)
-+default
-+    Default Audio Device
-+sysdefault
-+    Default Audio Device
- default:CARD=IXP
-     ATI IXP, ATI IXP AC97
-     Default Audio Device
+Changes from v2:
+  - fix build warnings such as "data argument not used by format string"
 
-Removing this "default" device entry fixes the issue on this system. You may remove the default device name by editing src/conf/pcm/default.conf and adding under the hint section "omit_noargs true".
+Changes from v1:
+  - uses the snd_soc_of_get_dai_link_codecs to complete the
+  configuration of dai_link's codecs
+  - uses definitions to simplifies card name and compatible name
 
-Unity must be parsing the device name, and with certain device names, if there is no ':' doing something bad, as there is a pattern here on what it trips on. I have no idea how to get them to correct this, so opening the issue here at least for the record if anyone else has an issue with this.
+Jiaxin Yu (2):
+  ASoC: dt-bindings: mt8192-mt6359: add new compatible for using rt1015p
+    and rt5682
+  ASoC: mediatek: mt8192: support rt1015p_rt5682s
 
-Also, I am not sure what triggers "default" to show. I did a survey and 3 out of 5 of my slackware 15.0 systems have it. And 2 do not. Does this have something to do with parsing the system alsa config and the available sound devices in the system? I don't define any asound.conf for any of these, so these are almost 100% stock slackware systems, there should otherwise be no difference.
+ .../sound/mt8192-mt6359-rt1015-rt5682.yaml    |   1 +
+ sound/soc/mediatek/Kconfig                    |   1 +
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 204 +++++++++++-------
+ 3 files changed, 129 insertions(+), 77 deletions(-)
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/214
-Repository URL: https://github.com/alsa-project/alsa-lib
+-- 
+2.18.0
+

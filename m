@@ -2,88 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F2384D558E
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 00:37:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 072224D5684
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 01:25:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A155918E3;
-	Fri, 11 Mar 2022 00:36:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A155918E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84A141891;
+	Fri, 11 Mar 2022 01:24:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A141891
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646955451;
-	bh=IfMyjbjgS47zkN0zWj18Lc+KZGU3yzDnw9Z4Svojixs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1646958344;
+	bh=hfRBmwVghNbcVI9cBhUy/gGposRjrhs72wQ5qRBn244=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=APjZ62PDT2i8gv2jnPpGJ8haZt0Q9oKWj/LmdXDkcN931hbQQdz0EHp3RlbNCFzeK
-	 NNU+oa8Oaqkk4VFNVZgrkx+Q6p45S0GnSzpYHHWGbuqFvwchCvShjAvFiBzYX7zorW
-	 lnAmOJ7q2oXalSxBWYd4hww4biTybjDQ3mkZq9G8=
+	b=Ec3mvS1ZFvAisFpbhACc7iiPUQOdXYdhObbsJBU0AsHXKqPW29/J1qiOmZNyBBWep
+	 SVlHlLTdnX0SKpF1Q0dO9lYH4c5vwVBaKEL4VHfDSnEqrSTEvWAzhIBALNB6bBiIpz
+	 7dHQPesq68E9ir3EkzQXZMgJ93qIH8qxo7eJdH4E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E615BF800FD;
-	Fri, 11 Mar 2022 00:36:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C62E2F8013C;
+	Fri, 11 Mar 2022 01:24:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0560CF80137; Fri, 11 Mar 2022 00:36:21 +0100 (CET)
+ id 0C02CF80137; Fri, 11 Mar 2022 01:24:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
- [209.85.161.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 852D3F8012C
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 00:36:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 852D3F8012C
-Received: by mail-oo1-f44.google.com with SMTP id
- u30-20020a4a6c5e000000b00320d8dc2438so8663506oof.12
- for <alsa-devel@alsa-project.org>; Thu, 10 Mar 2022 15:36:10 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=PN2mbzwXUHAto8HEAzTj4rJG8ZQQNjc7Bn/bempRCVw=;
- b=07H6M59C/ZqTwA9Kx/MThUu7M8EoocNygxLmqkDpVYKQT9AD7XL5YcDC4odOoJEwX+
- VxlcqMgG6F23RFT+Lwf2lWOmomRkn3DaDjn6/1yzwzEoj44qUbFfvPXMk5oqM1vN0vIV
- DjcvkdypsmqKQOXsTaZBUcXmtsHGub9mBGMx1BuHGIBg9r/Hhm0fkPIcJHGnM9EANOiS
- rS5frjKNw5Lb1L5Yd+VVHJNssvEr7N2I4rsNQ0AAYSsOYOycLgoy4SRjFOlkb9FVj3Un
- hYnzRTbsNlWtcoiQ+NaBzrBRHSFawJtuQcY+J6mIsGh9zy19Ec1hQ5EsPxDRE7XJnG0L
- eSvA==
-X-Gm-Message-State: AOAM53382d8jiZCaHHEsP6uefoF+VPWordiiA9sAd1TniEz1WCna3b2m
- XJUE1tXWEvw6x9v5GQSltg==
-X-Google-Smtp-Source: ABdhPJy3WyBuiJCTvq7ROLUbeX9qqGYkbaV0JeTVbnxhQPBonkoYgM8I+g7Jc0luE+fcUw2ZTX8vyQ==
-X-Received: by 2002:a05:6871:7a8:b0:c5:a1b3:43eb with SMTP id
- o40-20020a05687107a800b000c5a1b343ebmr4189847oap.103.1646955368603; 
- Thu, 10 Mar 2022 15:36:08 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- 36-20020a9d0ba7000000b005ad59f1f783sm3112902oth.3.2022.03.10.15.36.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Mar 2022 15:36:08 -0800 (PST)
-Received: (nullmailer pid 2331942 invoked by uid 1000);
- Thu, 10 Mar 2022 23:36:06 -0000
-Date: Thu, 10 Mar 2022 17:36:06 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [v2 1/2] ASoC: dt-bindings: mt8192-mt6359: add new compatible
- for using rt1015p and rt5682
-Message-ID: <YiqLZiRO4K4fbSNt@robh.at.kernel.org>
-References: <20220310153707.29722-1-jiaxin.yu@mediatek.com>
- <20220310153707.29722-2-jiaxin.yu@mediatek.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7BA3AF800FD
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 01:24:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BA3AF800FD
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220310153707.29722-2-jiaxin.yu@mediatek.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- broonie@kernel.org, linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- linmq006@gmail.com, matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1646958271190315962-webhooks-bot@alsa-project.org>
+References: <1646958271190315962-webhooks-bot@alsa-project.org>
+Subject: Presence of "default" device name crashes unity3d games
+Message-Id: <20220311002435.0C02CF80137@alsa1.perex.cz>
+Date: Fri, 11 Mar 2022 01:24:35 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,14 +59,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Mar 2022 23:37:06 +0800, Jiaxin Yu wrote:
-> Adds new compatible string "mt8192_mt6359_rt1015p_rt5682s" for machines
-> with rt1015p and rt5682s.
-> 
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> ---
->  .../devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml   | 1 +
->  1 file changed, 1 insertion(+)
-> 
+alsa-project/alsa-lib issue #214 was opened from the3dfxdude:
 
-Acked-by: Rob Herring <robh@kernel.org>
+In a recent Slackware 15.0 distro release, the alsa-lib version is now 1.2.5.1. This causes a crash in Kerbal Space Program similar to issue #27. A change was made to close issue #27 in alsa-lib 1.2.3. That change did not correct the crash however in 1.2.3 or 1.2.5.1 in my case.
+
+This is the noted difference for "aplay -L" between 1.2.3 and 1.2.1:
+--- dump_1_2_1	2022-03-10 12:38:16.991433004 -0700
++++ dump_1_2_3	2022-03-10 12:37:53.467443226 -0700
+@@ -1,5 +1,9 @@
+ null
+     Discard all samples (playback) or generate zero samples (capture)
++default
++    Default Audio Device
++sysdefault
++    Default Audio Device
+ default:CARD=IXP
+     ATI IXP, ATI IXP AC97
+     Default Audio Device
+
+Removing this "default" device entry fixes the issue on this system. You may remove the default device name by editing src/conf/pcm/default.conf and adding under the hint section "omit_noargs true".
+
+Unity must be parsing the device name, and with certain device names, if there is no ':' doing something bad, as there is a pattern here on what it trips on. I have no idea how to get them to correct this, so opening the issue here at least for the record if anyone else has an issue with this.
+
+Also, I am not sure what triggers "default" to show. I did a survey and 3 out of 5 of my slackware 15.0 systems have it. And 2 do not. Does this have something to do with parsing the system alsa config and the available sound devices in the system? I don't define any asound.conf for any of these, so these are almost 100% stock slackware systems, there should otherwise be no difference.
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/214
+Repository URL: https://github.com/alsa-project/alsa-lib

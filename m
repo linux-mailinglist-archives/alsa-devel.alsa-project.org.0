@@ -2,90 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AC704D5D5D
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 09:32:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ED6B4D5F26
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 11:07:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 332D1185F;
-	Fri, 11 Mar 2022 09:31:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 332D1185F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC7E817B4;
+	Fri, 11 Mar 2022 11:07:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC7E817B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1646987528;
-	bh=L+96nSdfyhlOe1Ls62aQL/baNKdlBJzs9a1pW3RT1bc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OIqHggXBOs0FzQZhgBifc8pjJVgIhWGADQ0sznE8WFTg7us2I9ppE6Np0uKaTn2ra
-	 bU69BNaMm1xoa/iusB9tXZQrUqmAsBqB1E4/b/+k96yBDkvb6QhkwsvhXSnBha7f16
-	 xtWVIdLdU/glJyflpKC4V47l/SbFFxYI5iZNFUpY=
+	s=default; t=1646993279;
+	bh=4e4QluxUYturNwHU5F9VOEmVx5jcDahK0vUlQ1uTaDg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TAvzjLnw84xCOgsQGBmeZzy2BboIKGydf7E8ANFfaeIFz/6EQCDg5YSDZWlmRYDSl
+	 kHFmys1tUspV6Z+I0Vf/lstTsu6bUGVFPIiVM+Cd6Nvbjh7ktDsZaAommeQClB6i9x
+	 MKXgyFiSgDLEZdDVXT8Dhm0myj5RlzcRhVS0Bybw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91451F80238;
-	Fri, 11 Mar 2022 09:31:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 577CCF80085;
+	Fri, 11 Mar 2022 11:06:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 699E3F80227; Fri, 11 Mar 2022 09:30:58 +0100 (CET)
+ id CD87AF80227; Fri, 11 Mar 2022 11:06:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::228])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 768CFF800D2
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 09:30:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 768CFF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60B76F80085
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 11:06:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60B76F80085
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VN+qHiXE"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="hYQytmMr"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 2B7E41F441;
- Fri, 11 Mar 2022 08:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1646987450; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dzGcwM7v+f34q9OHR146SuStt4YJu5AWHYm6yTSEKbU=;
- b=VN+qHiXECN9MeWHI6qSXge+yel8gPdwl2Vp8yAg/VuNjvwOdqDdSepXjm9VAgjlgEg2/XV
- whFUy28AcFcgi8Or3j1P/VBicHdar4zDrEq2C+nE/8YkdNTcpYtNGfMI2QQVEcR3+Jfl19
- nMS23lpKQCBdCI9JHkkBcSv99h1E4VA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1646987450;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dzGcwM7v+f34q9OHR146SuStt4YJu5AWHYm6yTSEKbU=;
- b=hYQytmMrUrlQ/l8hINoIKeISYAqXeTfzMjJZc1EwUnqwjrKQOgjSwI/p46vgpzEUcSdlzM
- 8113T2KyKJ4nRXBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 77DECA3B93;
- Fri, 11 Mar 2022 08:30:49 +0000 (UTC)
-Date: Fri, 11 Mar 2022 09:30:49 +0100
-Message-ID: <s5ho82cevra.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "huangwenhui" <huangwenhuia@uniontech.com>
-Subject: Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
- machine with alc671
-In-Reply-To: <tencent_080B040F1CE2D7D83D6FD0C8@qq.com>
-References: <tencent_080B040F1CE2D7D83D6FD0C8@qq.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
+ dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com
+ header.b="Smy34Rd4"
+Received: (Authenticated sender: gregory.clement@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id 071921BF205;
+ Fri, 11 Mar 2022 10:06:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1646993200;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=llGYuhNKxBL0E6/d3vK4t1hI1EI6u830rzt/YiiK4Mg=;
+ b=Smy34Rd4T1XCgENWAE4kxUfpJ8kqu3IGPHUIDjUPfhxq2UwrliYBkQ1G2An2DMuIMR0eNV
+ zLRUc0xjvH40sM/NSb9WDlKdXpULcjQWwNdQ1OLpVuIxng3BmToP2zNAP3r8ja1jeUa6hK
+ Mw8Cv1USIR4L/HvMDi7Qh8eEWmUhp5hLVRUR6nDVLiXaWi2GftW5OCEDqF+Mo63BsSTxZh
+ a7QYxmkGiaVCm1Yml/rYT1XT4GzNduT5hQ9dnFp+WBQSUv7s+ZzGdaU8lxhrZ+pWrz9ePn
+ 8aPhSVuDZrb/mc9cQtJu1fQF+Vy6c7K728oiR3yKMeZkYFzj+WbzkyUM1hUBGQ==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: tlv320aic3x: add dmic widget support
+Date: Fri, 11 Mar 2022 11:06:27 +0100
+Message-Id: <20220311100627.2181756-1-gregory.clement@bootlin.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel <alsa-devel@alsa-project.org>, kailang <kailang@realtek.com>,
- tanureal <tanureal@opensource.cirrus.com>,
- "jeremy.szu" <jeremy.szu@canonical.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, tiwai <tiwai@suse.com>,
- wse <wse@tuxedocomputers.com>, "hui.wang" <hui.wang@canonical.com>,
- sami <sami@loone.fi>, cam <cam@neo-zeon.de>
+Cc: Gregory CLEMENT <gregory.clement@bootlin.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,92 +80,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Mar 2022 02:20:42 +0100,
-huangwenhui wrote:
-> 
-> Hi  Takashi,
-> 
-> if adjusting the mixer element or replugging the headset, the headphone would
-> be unmuted.
-> But most users hope that the default state is unmuted.
-> Should this unconditional unmute be required?
+This patch allows to use dmic to record sound.
 
-It's the standard behavior for most of ALSA drivers.
+This is a port from a variscite patch written by Eran Matityahu
+<eran.m@variscite.com>.
 
-The initial mute state is rather controlled via alsactl, restoring the
-previous state.  Also, the sound server like PulseAudio or pipewire
-does unmute automatically.  If this doesn't work as expected, that's a
-more problem to diagnose.
+Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
+---
+ sound/soc/codecs/tlv320aic3x.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
+diff --git a/sound/soc/codecs/tlv320aic3x.c b/sound/soc/codecs/tlv320aic3x.c
+index d53037b1509d..426f92cc44da 100644
+--- a/sound/soc/codecs/tlv320aic3x.c
++++ b/sound/soc/codecs/tlv320aic3x.c
+@@ -296,6 +296,11 @@ static SOC_ENUM_SINGLE_DECL(aic3x_poweron_time_enum, HPOUT_POP_REDUCTION, 4,
+ static const char * const aic3x_rampup_step[] = { "0ms", "1ms", "2ms", "4ms" };
+ static SOC_ENUM_SINGLE_DECL(aic3x_rampup_step_enum, HPOUT_POP_REDUCTION, 2,
+ 			    aic3x_rampup_step);
++static const char * const aic3x_dmic_rates[] = { "off", "128x", "64x", "32x" };
++static SOC_ENUM_SINGLE_DECL(aic3x_dmic_rates_enum, AIC3X_ASD_INTF_CTRLA, 0,
++			    aic3x_dmic_rates);
++static const struct snd_kcontrol_new aic3x_dmic_rates_controls =
++	SOC_DAPM_ENUM("Route", aic3x_dmic_rates_enum);
+ 
+ /*
+  * DAC digital volumes. From -63.5 to 0 dB in 0.5 dB steps
+@@ -751,6 +756,9 @@ static const struct snd_soc_dapm_widget aic3x_extra_dapm_widgets[] = {
+ 	SND_SOC_DAPM_INPUT("MIC3R"),
+ 	SND_SOC_DAPM_INPUT("LINE2L"),
+ 	SND_SOC_DAPM_INPUT("LINE2R"),
++
++	SND_SOC_DAPM_MUX("DMic Rate", SND_SOC_NOPM, 0, 0, &aic3x_dmic_rates_controls),
++	SND_SOC_DAPM_INPUT("DMIC"),
+ };
+ 
+ /* For tlv320aic3104 */
+@@ -939,6 +947,12 @@ static const struct snd_soc_dapm_route intercon_extra[] = {
+ 	{"GPIO1 dmic modclk", NULL, "DMic Rate 64"},
+ 	{"GPIO1 dmic modclk", NULL, "DMic Rate 32"},
+ 
++	{"GPIO1 dmic modclk", NULL, "DMic Rate"},
++	{"DMic Rate", "128x", "DMIC"},
++	{"DMic Rate", "64x", "DMIC"},
++	{"DMic Rate", "32x", "DMIC"},
++	{"DMic Rate", "off", "DMIC"},
++
+ 	/* Left Line Output */
+ 	{"Left Line Mixer", "Line2L Bypass Switch", "Left Line2L Mux"},
+ 	{"Left Line Mixer", "Line2R Bypass Switch", "Right Line2R Mux"},
+-- 
+2.34.1
 
-Takashi
-
-> 
-> Thanks.
-> 
-> ------------------ Original ------------------
-> From:  "Takashi Iwai"<tiwai@suse.de>;
-> Date:  Thu, Mar 10, 2022 10:03 PM
-> To:  "黄文辉"<huangwenhuia@uniontech.com>;
-> Cc:  "perex"<perex@perex.cz>; "tiwai"<tiwai@suse.com>; "jeremy.szu"
-> <jeremy.szu@canonical.com>; "hui.wang"<hui.wang@canonical.com>; "wse"
-> <wse@tuxedocomputers.com>; "cam"<cam@neo-zeon.de>; "kailang"
-> <kailang@realtek.com>; "tanureal"<tanureal@opensource.cirrus.com>; "sami"
-> <sami@loone.fi>; "alsa-devel"<alsa-devel@alsa-project.org>; "linux-kernel"
-> <linux-kernel@vger.kernel.org>;
-> Subject:  Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
-> machine with alc671
->  
-> On Thu, 10 Mar 2022 14:58:36 +0100,
-> huangwenhui wrote:
-> >
-> > Hi  Takashi,
-> >
-> > Thank you for your reply.
-> >
-> > When booting with plugged headset, the headphone will be muted.
-> 
-> The muted state is the default behavior.  Wouldn't it be unmuted if
-> you adjust the corresponding mixer element?
-> 
-> Takashi
-> 
-> >
-> > Thanks.
-> > 
-> > ------------------ Original ------------------
-> > From:  "Takashi Iwai"<tiwai@suse.de>;
-> > Date:  Thu, Mar 10, 2022 09:29 PM
-> > To:  "huangwenhui"<huangwenhuia@uniontech.com>;
-> > Cc:  "perex"<perex@perex.cz>; "tiwai"<tiwai@suse.com>; "jeremy.szu"
-> > <jeremy.szu@canonical.com>; "hui.wang"<hui.wang@canonical.com>; "wse"
-> > <wse@tuxedocomputers.com>; "cam"<cam@neo-zeon.de>; "kailang"
-> > <kailang@realtek.com>; "tanureal"<tanureal@opensource.cirrus.com>; "sami"
-> > <sami@loone.fi>; "alsa-devel"<alsa-devel@alsa-project.org>; "linux-kernel"
-> > <linux-kernel@vger.kernel.org>;
-> > Subject:  Re: [PATCH] ALSA: hda/realtek - Fix headset mic problem for a HP
-> > machine with alc671
-> > 
-> > On Thu, 10 Mar 2022 14:03:01 +0100,
-> > huangwenhui wrote:
-> > >
-> > > On a HP 288 Pro G8, the front Mic could not be detected.
-> > >
-> > > Signed-off-by: huangwenhui <huangwenhuia@uniontech.com>
-> >
-> > Thanks for the patch.  Most of the changes look OK, but one thing I
-> > still don't get:
-> >
-> > > + case HDA_FIXUP_ACT_INIT:
-> > > + alc_write_coef_idx(codec, 0x19, 0xa054);
-> > > + msleep(80);
-> > > + snd_hda_codec_write(codec, hp_pin, 0,
-> > > +     AC_VERB_SET_AMP_GAIN_MUTE, AMP_OUT_UNMUTE);
-> >
-> > Why this unconditional unmute is required for fixing the mic problem?
-> >
-> > Takashi
-> >
-> >
-> 
-> 

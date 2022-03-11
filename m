@@ -2,76 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1005C4D628B
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 14:43:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C21D4D6290
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Mar 2022 14:49:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C46A1887;
-	Fri, 11 Mar 2022 14:42:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C46A1887
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0B6B1899;
+	Fri, 11 Mar 2022 14:48:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0B6B1899
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647006210;
-	bh=wI6UuXlLPmF+qv4XpIJMKmpFK9hfMx3Ab58Dr4Epttg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1647006542;
+	bh=C/X03sE1jBF1tRQNmXS3VPS/Tw6o6topBvr8ZMbRmgs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UmY17Jmbm0IhLDL7T1GNE7eCJgDGrVyHvQ8vcimzoqUrgqmBaUBsUVUYq+aGKqkDY
-	 hXUyaheGbmPxDB5bf7le+at61eygJlZFg7hlOUDMl4517Zl/29+1GOYr6De4q5ujNy
-	 CjEnLIXX6YJeMB/cirlxCJMqFx6TEEulUL9mxJOw=
+	b=uuWR60oKqG2ZLxm8oqUuAM0YIVjMUpbBCPDuvxn+3YV0D3T94sin/cU8XaCfR/8kI
+	 WZqUkT7lUriIOemOhZiCO0dzoYsblgRWWpeYZF6Z64yAtqNsVXxhq0hFuCA4VnvXla
+	 lww67XqDuk958slVgvjiRG8rHFGaNlcCpStJIwtM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAA2BF80085;
-	Fri, 11 Mar 2022 14:42:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2804EF80085;
+	Fri, 11 Mar 2022 14:47:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47DB4F80227; Fri, 11 Mar 2022 14:42:21 +0100 (CET)
+ id C4026F80227; Fri, 11 Mar 2022 14:47:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EAA43F8012C
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 14:42:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAA43F8012C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="S4HVB2ll"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1EBF8B82B6E;
- Fri, 11 Mar 2022 13:42:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99FFEC340ED;
- Fri, 11 Mar 2022 13:42:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647006136;
- bh=wI6UuXlLPmF+qv4XpIJMKmpFK9hfMx3Ab58Dr4Epttg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=S4HVB2ll2W5NBFeOEgZwnkeKASyGnhD13eZyBm68QNV3CbXV8VDbrFbHUc+9a6RXH
- Yqx3S8jap69MDRuHAAsvAvhrLwvWV6tn4OvgPyjhA7l+BIOAj+UaHbBRJ8MvDGILGM
- dMAEM7pjO5CJJkZZmFOm3PRSupbArAbI28rSFBe4A+3PYKKlrb+9nzJpoyL95OhrmU
- zPEqioWhJSiJOxLcseBuiB63MSEtG+6jFfehF4F4vhvDho/wvcbrGjHWYTD9DkTfn9
- qtuL499OHGeV7xkq/Z4uE7n8SWNIAUIChlINwbAfX99E2FjOZGXWgo0fSxtZYdZFal
- y44him4yy6XFQ==
-Date: Fri, 11 Mar 2022 13:42:11 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Zhen Ni <nizhen@uniontech.com>
-Subject: Re: [PATCH] ASoC: Intel: boards: Use temporary variable for struct
- device
-Message-ID: <YitRs1YveURmYtJ/@sirena.org.uk>
-References: <20220310065354.14493-1-nizhen@uniontech.com>
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 90EA4F80085
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 14:47:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90EA4F80085
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="PVsnp86vmEPqoFG0"
-Content-Disposition: inline
-In-Reply-To: <20220310065354.14493-1-nizhen@uniontech.com>
-X-Cookie: We just joined the civil hair patrol!
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - edited <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1647006466786098957-webhooks-bot@alsa-project.org>
+References: <1647006466786098957-webhooks-bot@alsa-project.org>
+Subject: jack: implement pcm operation sw_params
+Message-Id: <20220311134753.C4026F80227@alsa1.perex.cz>
+Date: Fri, 11 Mar 2022 14:47:53 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,29 +60,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-plugins pull request #43 was edited from aditpape:
 
---PVsnp86vmEPqoFG0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Alsa-lib commit #88e4ae27 introduced a dynamic recalculation of the avail_min
+value on the underlaying slave devices.
+This updated avail_min value is not reaching the alsa-jack plugin due to lack
+of the sw_params operation.
+This patch adds this missing operation to correctly apply an updated avail_min
+setting during runtime.
 
-On Thu, Mar 10, 2022 at 02:53:54PM +0800, Zhen Ni wrote:
-> Use temporary variable for struct device to make code neater.
+Signed-off-by: Andreas Pape <apape@de.adit-jv.com>
 
-This doesn't apply against current code, please check and resend.
-
---PVsnp86vmEPqoFG0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmIrUbIACgkQJNaLcl1U
-h9CBRwf9Hq8LMCKweiAiVucGSDGqVOMiINe743Xoxg0p+QIgN85lxu2KcjAE2NRQ
-hi6R66z+i4M92QZQRxoCBBKv8WsR0jMvDN/msmxdQkY1tFkqtFhiJvuwSbZJrip6
-fIN4z57K5VhfhP48ze6f0AzO/caY/CWCsBgcrIDS+UFM5DkFgksWjt129FRyrEuv
-cu+YwqtDsLU0eRvV/MsqXAB7209ViZV7U1yg+jvpGFtsnStHqZuYgssaw1ZH5KKN
-OQD8Hh7pxRUZn2GyIpCqzRDW78hNwVPTOlJc7m9niLf0GNY+zryvKy21qi+CZDuI
-EmdVaP6rjlVTiQ+0bQY0q7vtsfOjgw==
-=HNGE
------END PGP SIGNATURE-----
-
---PVsnp86vmEPqoFG0--
+Request URL   : https://github.com/alsa-project/alsa-plugins/pull/43
+Patch URL     : https://github.com/alsa-project/alsa-plugins/pull/43.patch
+Repository URL: https://github.com/alsa-project/alsa-plugins

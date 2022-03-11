@@ -2,86 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 420484D7B31
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:04:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022C74D7B32
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:04:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B456D17A2;
-	Mon, 14 Mar 2022 08:03:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B456D17A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90E0A17BC;
+	Mon, 14 Mar 2022 08:03:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90E0A17BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647241455;
-	bh=pvm/KgBDnzIKh347R/KZye+8mI7tPmKi9KRDC+Gg5o8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CD1k6y66w2M3SmOnFqbFqA9AnBXOPXlWHu2OIIcINVot/11EwE6cE/S+TA0Vyid2Y
-	 4oG/l/w8UP1Eu+aukLmg7uzZY1E/XwBGIsSsNPP+MRCvAB7DcRH+QG+DD2moBff432
-	 zYFLtAYLbZlTmKTDoy8+oCTD0izLlXBw8/WYkrDc=
+	s=default; t=1647241472;
+	bh=yuDYsigMfxICt10t57pHMm+yZj5r1ZXXMzr8CGtNf3g=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=f58CxtdC92ou9QnfwgfVxgUpI7dIS9WhPYGtPWn0YxZqan3J2Oj4JLqkXfNfHKwOZ
+	 FyovuqqM9JQ9YnSJJJBm7yoE2/k4SyV2kx4UZMmbS/GPoUAktWOGLgBI1BxZ3VGXWa
+	 IQaEg0+C2bq4VAsBsI7nFfuYWtmYCt+wVEQJmE6g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47219F80570;
+	by alsa1.perex.cz (Postfix) with ESMTP id E443FF80571;
 	Mon, 14 Mar 2022 07:59:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55597F80227; Fri, 11 Mar 2022 12:15:10 +0100 (CET)
+ id 0BCDCF80227; Fri, 11 Mar 2022 12:27:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from lizzy.crudebyte.com (lizzy.crudebyte.com [91.194.90.13])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.153.233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AA5FF80085
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 12:15:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AA5FF80085
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2523FF8012C
+ for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 12:27:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2523FF8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=crudebyte.com header.i=@crudebyte.com
- header.b="D1ru1+dv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=crudebyte.com; s=lizzy; h=Content-Type:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
- Content-ID:Content-Description;
- bh=Ss8ETPefgdaXLbY9caJk2IDTTgCtxdbOIi5PTl6SeJU=; b=D1ru1+dvoMpCvyQnSVD7/rJFX9
- a5IatPaZCNCD9opk/LeNy6cujbEx16s/YZrzMTJ2sERpt29bpMw/SlkVuO+xHl1ppvdVAaaV3w+Xw
- gowZIfsaDzVgEGjGMgqFPIrYreG8cMMVtQMZIjzRQSPmlq/T5kWXR+dBXajY9/YcUcqA3k9hHMI2H
- 1ROHBWJCTBAY7ksZRm/IcSWDW+l1I61s4cobgGl1FiSYa27uDZapFFqYXT+Hgu83Zgx1ed+SmaiEg
- r74bK5zceyCkd7PBtUTyvG2X9Uv9pZ38h1DjsZ7JA9W2NWvRfLtF6GIM3NI1ZEEB1EQXbuNwBjXBe
- TbozhPPg==;
-From: Christian Schoenebeck <linux_oss@crudebyte.com>
-To: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 2/2] xen/grant-table: remove readonly parameter from
- functions
-Date: Fri, 11 Mar 2022 12:14:28 +0100
-Message-ID: <3814243.sK7fzVy7lh@silver>
-In-Reply-To: <20220311103429.12845-3-jgross@suse.com>
-References: <20220311103429.12845-1-jgross@suse.com>
- <20220311103429.12845-3-jgross@suse.com>
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="ljDWY9qX"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1646998041; x=1678534041;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=yuDYsigMfxICt10t57pHMm+yZj5r1ZXXMzr8CGtNf3g=;
+ b=ljDWY9qXBU9jqrqPyzg5jwg9BvsVKhx/fKVJQnaOOftveEASp58/wSID
+ TIm4eIGAnnYMjB9bLLIM+u8VHCwWLkM0kjCiC/JQb+rRz9onutFjfDfM0
+ M5a2a5rtcVyfSSj7mHE0OBzLoEhY6WxX28fk+Dfb2DTW90VQxNOFZbE67
+ FlCQ5uP7XYzO+Heos8UlfbT86cfL5cRUQrMebK3Kub+HRkRbqeIowAPBR
+ Eoc82u3REJwZ/bhGFur3Ff0AYE3igfR97khzzYyrpLIZpA1aqAPSP5nz3
+ zywKTdVhZldXTN6LA0f9U6wX6NNJa7lBJWMHsicCxkmzY30efGF6TEk6b A==;
+X-IronPort-AV: E=Sophos;i="5.90,173,1643698800"; d="scan'208";a="156565303"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 11 Mar 2022 04:27:16 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.17; Fri, 11 Mar 2022 04:27:15 -0700
+Received: from localhost.localdomain (10.10.115.15) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2375.17 via Frontend Transport; Fri, 11 Mar 2022 04:27:13 -0700
+From: Claudiu Beznea <claudiu.beznea@microchip.com>
+To: <codrin.ciubotariu@microchip.com>, <lgirdwood@gmail.com>,
+ <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
+ <nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
+ <ludovic.desroches@microchip.com>
+Subject: [PATCH] ASoC: mchp-spdifrx: fix typo
+Date: Fri, 11 Mar 2022 13:28:18 +0200
+Message-ID: <20220311112818.1482372-1-claudiu.beznea@microchip.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Mon, 14 Mar 2022 07:58:51 +0100
-Cc: Latchesar Ionkov <lucho@ionkov.net>, alsa-devel@alsa-project.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, David Airlie <airlied@linux.ie>,
- linux-pci@vger.kernel.org, Dominique Martinet <asmadeus@codewreck.org>,
- dri-devel@lists.freedesktop.org, Peter Huewe <peterhuewe@gmx.de>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-scsi@vger.kernel.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Takashi Iwai <tiwai@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- linux-input@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
- Eric Van Hensbergen <ericvh@gmail.com>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, linux-block@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, xen-devel@lists.xenproject.org,
- Bjorn Helgaas <bhelgaas@google.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jens Axboe <axboe@kernel.dk>,
- "Martin K. Petersen" <martin.petersen@oracle.com>, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jarkko Sakkinen <jarkko@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-integrity@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,32 +95,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Freitag, 11. M=E4rz 2022 11:34:29 CET Juergen Gross wrote:
-> The gnttab_end_foreign_access() family of functions is taking a
-> "readonly" parameter, which isn't used. Remove it from the function
-> parameters.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
+Fix typo in log describing failure of devm_snd_dmaengine_pcm_register().
 
-Acked-by: Christian Schoenebeck <qemu_oss@crudebyte.com>
+Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
+---
+ sound/soc/atmel/mchp-spdifrx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->  drivers/block/xen-blkfront.c                |  8 ++---
->  drivers/char/tpm/xen-tpmfront.c             |  2 +-
->  drivers/gpu/drm/xen/xen_drm_front_evtchnl.c |  2 +-
->  drivers/input/misc/xen-kbdfront.c           |  4 +--
->  drivers/net/xen-netfront.c                  | 13 ++++---
->  drivers/pci/xen-pcifront.c                  |  2 +-
->  drivers/scsi/xen-scsifront.c                |  4 +--
->  drivers/usb/host/xen-hcd.c                  |  4 +--
->  drivers/xen/gntalloc.c                      |  2 +-
->  drivers/xen/gntdev-dmabuf.c                 |  2 +-
->  drivers/xen/grant-table.c                   | 38 +++++++++------------
->  drivers/xen/pvcalls-front.c                 |  6 ++--
->  drivers/xen/xen-front-pgdir-shbuf.c         |  3 +-
->  include/xen/grant_table.h                   |  5 ++-
->  net/9p/trans_xen.c                          |  8 ++---
->  sound/xen/xen_snd_front_evtchnl.c           |  2 +-
->  16 files changed, 48 insertions(+), 57 deletions(-)
-
+diff --git a/sound/soc/atmel/mchp-spdifrx.c b/sound/soc/atmel/mchp-spdifrx.c
+index bcd4f3e4fb0f..5fc968483f2c 100644
+--- a/sound/soc/atmel/mchp-spdifrx.c
++++ b/sound/soc/atmel/mchp-spdifrx.c
+@@ -920,7 +920,7 @@ static int mchp_spdifrx_probe(struct platform_device *pdev)
+ 
+ 	err = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
+ 	if (err) {
+-		dev_err(&pdev->dev, "failed to register PMC: %d\n", err);
++		dev_err(&pdev->dev, "failed to register PCM: %d\n", err);
+ 		return err;
+ 	}
+ 
+-- 
+2.32.0
 

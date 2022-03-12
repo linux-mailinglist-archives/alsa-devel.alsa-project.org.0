@@ -2,99 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543754D7B3A
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:06:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F7A54D7B3C
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:06:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD7B3181C;
-	Mon, 14 Mar 2022 08:05:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD7B3181C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE1661816;
+	Mon, 14 Mar 2022 08:05:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE1661816
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647241572;
-	bh=+8rpeGk2uecRzz7AaVAGQuAyzyj/iNyvhVku6fu9XLk=;
+	s=default; t=1647241606;
+	bh=pZ0q2J3ZO0W3fqfRtqg69sYpvG40Ar8AO2Q8aiZSGO0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SAIiR5bXTLB9ecXTt+kXUTJZAoME3g8Fa8+WW4sLKZk43CJxh92e+Iyt07BDEPZnI
-	 UI0kKuaUp63EbjBzb0KJbMh0nIxNUkcCFzmSFF0fxkBiXgq1HNPTuRGu2Kr2peHfb/
-	 lpId7Vx2H7aZO1WX5slMbb4SRQ7NwMa65LjA4rTc=
+	b=c4nQhbJJrMLOQqrsMPZqYV1aEVVtS8ouMV9dgp8OECXptFwoLIgHePmxWWt3t8SJt
+	 8sqASbolSh25E2EPh+1cK1G5+Z+tV0p1xagEULB6QR8fQkZMobVWRyU+76HxKC3MtT
+	 MIs7yGRIPRGoa3GBzvNkpPzAEOwGkGvJkR0Dwt0Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98B45F805BB;
-	Mon, 14 Mar 2022 07:59:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C022F805C2;
+	Mon, 14 Mar 2022 07:59:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 191FDF80171; Sat, 12 Mar 2022 14:29:28 +0100 (CET)
+ id 8A5A6F8027D; Sat, 12 Mar 2022 14:29:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8423F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19DC9F8025C
  for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 14:29:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8423F800D2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19DC9F8025C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="riQs3aOy"
+ header.b="vH/yLUyH"
 Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
  [209.85.128.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 5F5E140826
- for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 13:29:17 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 290FE4001E
+ for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 13:29:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1647091757;
- bh=omHdnhYiVzDdXVNfQeQ6+CS2gK0y2vQxkHVBCoxIVic=;
+ s=20210705; t=1647091759;
+ bh=LvGhGHRX+cWouXlMRKBzVPzfChdflKFXN6IyahVuGew=;
  h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=riQs3aOyr5F7izurCZgv4oj94XANlFy/Qrnr7mcfU1U5RCfUAaR8oDFeKjIWE4stW
- OYG9f8vO57nzQkWYu6UhEnTWulomHWZf6I78MKvC+oPNvwjrC/DAaduPDY8dBfzVsb
- IMZLQpDAGJn+Ol+JeuWPUYpfN+gJshJ/aEUL6BXr477ibC5SiC8SJIrbAmZShdgjSN
- xHKFZw32eInYbYqOoe15ah5n9ToD2H6p8XvV81GavXju9kJ2hhesjqnpVCy8kWR+cS
- 5iBocKa7VWdX0Gbqgd9OyoraJMDetZXSiC5/WEI64jpLwyB5dEUG9s37WlTJXsbnUn
- CEQC6f6fOWkfw==
+ b=vH/yLUyHuhEXyiJI1xqyl8E/aQtUPGRtTM9LfqSfNKuBMSwpiolUjPqNS9e0WA8sV
+ EBJdIQMMSoXiG1OQgZQT20nx2H6GxIUqMVn7veA1NWj0vgoR5H5hUApNEJ2uE3qn8B
+ 1rXJE+AGTbQAL1rHlJTXb0OcS0ptdRjj+wJqvl3XLQ0jfF9KdQv0jUJjPy6DieGILH
+ MOkbVngbZuPs/my0/Al96Y2oGhA/QP3TnTSVooTbasKUQPxz97zxcis2UAjvYOMFFr
+ gLm/miPIy+R8LD/7cMoGHJHclHee/4sbCV/Vlc6ADsdvsNBITZrCD93YdWRX1KAy8T
+ yK1bg5d0OtBrg==
 Received: by mail-wm1-f70.google.com with SMTP id
- q189-20020a1c43c6000000b003898de01de4so1318156wma.7
- for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 05:29:17 -0800 (PST)
+ h206-20020a1c21d7000000b003552c13626cso6906579wmh.3
+ for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 05:29:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=omHdnhYiVzDdXVNfQeQ6+CS2gK0y2vQxkHVBCoxIVic=;
- b=zmyQcghjK9wPDjDkMZ6wNJoVEkC8kSIeRXPyQhAxHlyu3dcFdOPWQWgOc8y19y1TF6
- OsT5FHrrAZAlLHFG8cJNIMsrpJ4stezt3i5d5qeh87ESEEJ+DlwpXpZ7IMfmXrjvKQJ8
- U/XGkNIhAa383WcBNRK4p6napc69I1Ioh0+G0rubWZxR63NfdTffSA8jg8IpdPRl55gL
- CiaWj/7Fr8TepOZA8yNfQ9rhXkoRg1uJx9a8ctwvkq4xcTglQW4Z03tRvPu9Zks+rd7v
- QeaBdCqSlcT3J4oDME4amEGYTAHGGq6kVsi6YJ6SMYzLTbav3wQNWUeTWhbXNAwGkCSF
- KuNg==
-X-Gm-Message-State: AOAM531pF44iB/pxTKal5GoSx+4zUIZFBOsYF0BCrvkuxLoX9kiSAVez
- hxEQ/b2gXo3ETCWkNBlAi4omf0iLiGcmBVFnzQmFDTMlpdW7K0UThvm89tKjFkACC/V1713ksPo
- XfNTDwvKvmsDQi/DuU7bxpI+UH56m1XtZdPJopcSG
-X-Received: by 2002:adf:f44d:0:b0:1f0:49bb:fead with SMTP id
- f13-20020adff44d000000b001f049bbfeadmr10583036wrp.586.1647091756882; 
- Sat, 12 Mar 2022 05:29:16 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy/VzmVA5JNvsX6TR5L7X8QpqfI/POyM5THNfZEIE7XxPWAZ/IgTk7OADHiVtKc+QUuykZL9Q==
-X-Received: by 2002:adf:f44d:0:b0:1f0:49bb:fead with SMTP id
- f13-20020adff44d000000b001f049bbfeadmr10583014wrp.586.1647091756718; 
- Sat, 12 Mar 2022 05:29:16 -0800 (PST)
+ bh=LvGhGHRX+cWouXlMRKBzVPzfChdflKFXN6IyahVuGew=;
+ b=JsRC+3NcRq46w4oSaliVL08SeDBLo+O2JjZVMJxOtXJR+bF3ex/gCDtpT60J20ZXOG
+ o/REuhfhYf0T3Zvb3G0rs93j4JK13Nr4EON1XzXwIe4NYk+lPSqTn4vBK8gBoNVuBBE2
+ x+495LKsvC9d+ln+DI/itxyezfyvVyR4Net0h8Nk6Ze1eDjtCsaVprkgIGXE1gogovbg
+ aciifzYV3lNaXxfB1bGqabYb8+Z9CYNNM85HjrCdgrf1J7BKxsSAQWyU58VlkTNxE9yz
+ IH33gxXF6DcXmNUL25ecn+srphq15dBL/1iDLrSXaSzBYX+HUQkbcx1Vt772jyKNETw4
+ iWJg==
+X-Gm-Message-State: AOAM531JbH6Npu3Yqrg10xMG5hP5up+mC9/0zFJMCfzfxlIdbj8yH3nr
+ TWqfGK4srr00KgHb05fu37lnQN5bWRkhrhimIx1NS+7U+ibVeDYEoluZMY7IwuF2iSru5uyXgWs
+ phUTjMEkOsk3bOVzmEFp24XalA9eyL3gj73EQBemj
+X-Received: by 2002:adf:c444:0:b0:203:9078:47a7 with SMTP id
+ a4-20020adfc444000000b00203907847a7mr8545381wrg.355.1647091758528; 
+ Sat, 12 Mar 2022 05:29:18 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxcbUuA5Azax9SMwrH1Yx4BInTaqxjL2pAuKiWGJSR5gaJ62UjEiFqy7nmiSZn+2WWM/iG5SA==
+X-Received: by 2002:adf:c444:0:b0:203:9078:47a7 with SMTP id
+ a4-20020adfc444000000b00203907847a7mr8545367wrg.355.1647091758331; 
+ Sat, 12 Mar 2022 05:29:18 -0800 (PST)
 Received: from localhost.localdomain (xdsl-188-155-174-239.adslplus.ch.
  [188.155.174.239]) by smtp.gmail.com with ESMTPSA id
- p22-20020a1c5456000000b00389e7e62800sm5751550wmi.8.2022.03.12.05.29.15
+ p22-20020a1c5456000000b00389e7e62800sm5751550wmi.8.2022.03.12.05.29.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Mar 2022 05:29:16 -0800 (PST)
+ Sat, 12 Mar 2022 05:29:17 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: [PATCH v4 02/11] amba: Use driver_set_override() instead of
+Subject: [PATCH v4 03/11] fsl-mc: Use driver_set_override() instead of
  open-coding
-Date: Sat, 12 Mar 2022 14:28:47 +0100
-Message-Id: <20220312132856.65163-3-krzysztof.kozlowski@canonical.com>
+Date: Sat, 12 Mar 2022 14:28:48 +0100
+Message-Id: <20220312132856.65163-4-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220312132856.65163-1-krzysztof.kozlowski@canonical.com>
 References: <20220312132856.65163-1-krzysztof.kozlowski@canonical.com>
@@ -149,21 +149,25 @@ the core and it matches other subsystems.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- drivers/amba/bus.c       | 28 ++++------------------------
- include/linux/amba/bus.h |  6 +++++-
- 2 files changed, 9 insertions(+), 25 deletions(-)
+ drivers/bus/fsl-mc/fsl-mc-bus.c | 25 ++++---------------------
+ include/linux/fsl/mc.h          |  6 ++++--
+ 2 files changed, 8 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/amba/bus.c b/drivers/amba/bus.c
-index d3bd14aaabf6..f3d26d698b77 100644
---- a/drivers/amba/bus.c
-+++ b/drivers/amba/bus.c
-@@ -94,31 +94,11 @@ static ssize_t driver_override_store(struct device *_dev,
+diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
+index 8fd4a356a86e..ba01c7f4de92 100644
+--- a/drivers/bus/fsl-mc/fsl-mc-bus.c
++++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
+@@ -166,31 +166,14 @@ static ssize_t driver_override_store(struct device *dev,
  				     const char *buf, size_t count)
  {
- 	struct amba_device *dev = to_amba_device(_dev);
--	char *driver_override, *old, *cp;
--
--	/* We need to keep extra room for a newline */
+ 	struct fsl_mc_device *mc_dev = to_fsl_mc_device(dev);
+-	char *driver_override, *old = mc_dev->driver_override;
+-	char *cp;
++	int ret;
+ 
+ 	if (WARN_ON(dev->bus != &fsl_mc_bus_type))
+ 		return -EINVAL;
+ 
 -	if (count >= (PAGE_SIZE - 1))
 -		return -EINVAL;
 -
@@ -175,41 +179,44 @@ index d3bd14aaabf6..f3d26d698b77 100644
 -	if (cp)
 -		*cp = '\0';
 -
--	device_lock(_dev);
--	old = dev->driver_override;
 -	if (strlen(driver_override)) {
--		dev->driver_override = driver_override;
+-		mc_dev->driver_override = driver_override;
 -	} else {
 -		kfree(driver_override);
--		dev->driver_override = NULL;
+-		mc_dev->driver_override = NULL;
 -	}
--	device_unlock(_dev);
-+	int ret;
- 
+-
 -	kfree(old);
-+	ret = driver_set_override(_dev, &dev->driver_override, buf, count);
++	ret = driver_set_override(dev, &mc_dev->driver_override, buf, count);
 +	if (ret)
 +		return ret;
  
  	return count;
  }
-diff --git a/include/linux/amba/bus.h b/include/linux/amba/bus.h
-index 6562f543c3e0..93799a72ff82 100644
---- a/include/linux/amba/bus.h
-+++ b/include/linux/amba/bus.h
-@@ -70,7 +70,11 @@ struct amba_device {
- 	unsigned int		cid;
- 	struct amba_cs_uci_id	uci;
- 	unsigned int		irq[AMBA_NR_IRQS];
--	char			*driver_override;
-+	/*
-+	 * Driver name to force a match.  Do not set directly, because core
-+	 * frees it.  Use driver_set_override() to set or clear it.
-+	 */
-+	const char		*driver_override;
+diff --git a/include/linux/fsl/mc.h b/include/linux/fsl/mc.h
+index 7b6c42bfb660..7a87ab9eba99 100644
+--- a/include/linux/fsl/mc.h
++++ b/include/linux/fsl/mc.h
+@@ -170,7 +170,9 @@ struct fsl_mc_obj_desc {
+  * @regions: pointer to array of MMIO region entries
+  * @irqs: pointer to array of pointers to interrupts allocated to this device
+  * @resource: generic resource associated with this MC object device, if any.
+- * @driver_override: driver name to force a match
++ * @driver_override: driver name to force a match; do not set directly,
++ *                   because core frees it; use driver_set_override() to
++ *                   set or clear it.
+  *
+  * Generic device object for MC object devices that are "attached" to a
+  * MC bus.
+@@ -204,7 +206,7 @@ struct fsl_mc_device {
+ 	struct fsl_mc_device_irq **irqs;
+ 	struct fsl_mc_resource *resource;
+ 	struct device_link *consumer_link;
+-	char   *driver_override;
++	const char *driver_override;
  };
  
- struct amba_driver {
+ #define to_fsl_mc_device(_dev) \
 -- 
 2.32.0
 

@@ -2,85 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89D6B4D6E6D
-	for <lists+alsa-devel@lfdr.de>; Sat, 12 Mar 2022 12:25:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F79C4D6F37
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Mar 2022 14:33:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9FB017C5;
-	Sat, 12 Mar 2022 12:24:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9FB017C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB6B01746;
+	Sat, 12 Mar 2022 14:32:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB6B01746
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647084310;
-	bh=xMGkdMd9dfsE/d9DxAKriQcequG5d/py+/v1DEVjTck=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1647091986;
+	bh=AXG4AaOM30WRmXMVqa46r8vMoUYBquyrVZpZ7OwY4Ws=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wk4vJjpfbrp06lttik9om1M7gAL/FCybgjA4HRzrECrTN0TB1LKCFAoUa4ZiNxE6j
-	 9uClUtuU4ueFgYs/dtouIE3CMgMgv53Yq8aiIPhrqAQQckeJBqOlt3RaWPMPmyPVi7
-	 S4jYR5vVNI9PYby9u40Ie3jmciIXPqq5U6Ui2w40=
+	b=di6Qj4XGR4wcjSgri2PNLaoYund86dxyM7d08FDBOvXiydi9VeGgFqyliE4nAIUzz
+	 /bCzARWPcTkqpoCHSdtTmnRRbsCqHUaxWxUTDnNWC5bmCC0xTBvg32+2t1/lffIPTQ
+	 DE7yHiiKBVDwCqrV0G+85dnu9eiPTQfqfQI4C+OY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 389E0F8025C;
-	Sat, 12 Mar 2022 12:24:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4249BF8025C;
+	Sat, 12 Mar 2022 14:32:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A405F801D5; Sat, 12 Mar 2022 12:24:02 +0100 (CET)
+ id 6A315F801D5; Sat, 12 Mar 2022 14:31:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.0
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED9B6F800B0
- for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 12:23:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED9B6F800B0
-Received: by mail-ed1-f52.google.com with SMTP id r29so4675863edc.0
- for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 03:23:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=OSf1OwJ7magl6qu7qroFSGgkU8xwtM3u7m6pE+i/ZuY=;
- b=St1F8Ns6q/sVzO+b3ERIEYJiMx0UHSMqXjLr9GE1KVZEqRMQ+Mpike7rnTFgHh6af1
- FJQqML5kW1ln5D2M+RiFMkTfK68JxiAo1W5fK7UsIxafWgB8CMxNrylwljfpkxMbCDof
- qR6u/PkpGJHQ9vN9j/vNxwJjbjbH1yY/lCFYSpGtjwQuHNJtkxOeja5LWpdV0qyMoPpE
- A/FgWgNkAWAxTCHha3mYMsKKu6qc0cLSyXnFtEIXSzmU417cabsvuAN/xXfe/e3a2qLc
- SZYHJkXxxT883oCnNisl0tV7pLLZqRq7S/7CwsUXmiZRv6RnXKw7xjIaLkGUwpgHJ9uk
- G1Kg==
-X-Gm-Message-State: AOAM533FmCpZFgiXFi1kOnQteOqkK/LnHC1/2mIBrAuHddF0jiok73+g
- xSe+v19sDtkRNqB7wenLlyE=
-X-Google-Smtp-Source: ABdhPJwNOq5DkxOgDmvFW1pYBkpqCGq0vx2MY/WBchfflM8IP0pOMftZ8a2mga9NeAkMM5ra2LlHpQ==
-X-Received: by 2002:a05:6402:11ce:b0:418:633b:ed95 with SMTP id
- j14-20020a05640211ce00b00418633bed95mr2058091edw.0.1647084239107; 
- Sat, 12 Mar 2022 03:23:59 -0800 (PST)
-Received: from [192.168.0.148] (xdsl-188-155-174-239.adslplus.ch.
- [188.155.174.239]) by smtp.googlemail.com with ESMTPSA id
- v2-20020a17090606c200b006a728f4a9bcsm4210406ejb.148.2022.03.12.03.23.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 12 Mar 2022 03:23:58 -0800 (PST)
-Message-ID: <c80eed69-088b-cfaa-a041-cdd6d5fe160c@kernel.org>
-Date: Sat, 12 Mar 2022 12:23:57 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25E0EF80095
+ for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 14:31:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25E0EF80095
+X-UUID: 99baf5ba28184cf080b2aedc2d23801a-20220312
+X-UUID: 99baf5ba28184cf080b2aedc2d23801a-20220312
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1999243638; Sat, 12 Mar 2022 21:31:45 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Sat, 12 Mar 2022 21:31:44 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Sat, 12 Mar 2022 21:31:43 +0800
+Message-ID: <bb5737baf5c7430ccc40d7cfeaa1bc1a7c8890af.camel@mediatek.com>
+Subject: Re: [PATCH 2/5] dt-bindings: mediatek: mt8195: add reset property
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: Rob Herring <robh@kernel.org>
+Date: Sat, 12 Mar 2022 21:31:43 +0800
+In-Reply-To: <Yip3z3XoarN8TeMn@robh.at.kernel.org>
+References: <20220308072435.22460-1-trevor.wu@mediatek.com>
+ <20220308072435.22460-3-trevor.wu@mediatek.com>
+ <Yip3z3XoarN8TeMn@robh.at.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] ASoC: dt-bindings: Fix patternProperties with fixed
- strings
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <20220311234802.417610-1-robh@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20220311234802.417610-1-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, yc.hung@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,21 +84,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12/03/2022 00:48, Rob Herring wrote:
-> The simple-audio-card and renesas,rsnd bindings used 'patternProperties'
-> with fixed strings to work-around a dtschema meta-schema limitation. This
-> is now fixed and the schemas can be fixed to use 'properties' instead.
+On Thu, 2022-03-10 at 16:12 -0600, Rob Herring wrote:
+> On Tue, Mar 08, 2022 at 03:24:32PM +0800, Trevor Wu wrote:
+> > Add required properties "resets" and "reset_names", which are used
+> > to
+> > specify audiosys hw reset for mt8195 afe driver.
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  .../bindings/sound/renesas,rsnd.yaml          | 16 ++++---
->  .../bindings/sound/simple-card.yaml           | 42 +++++++++----------
->  2 files changed, 28 insertions(+), 30 deletions(-)
+> The subject needs to be more specific and indicate this applies to
+> ASoC 
+> and mt8195-afe-pcm. Try to write subjects that could only ever
+> appear 
+> once as you can never make the same change twice.
 > 
+> Rob
 
+Hi Rob,
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Thanks for your suggestion.
+I will revise the subject to "ASoC: dt-bindings: mediatek: mt8195-afe-
+pcm: add reset property" in v2.
 
+Thanks,
+Trevor
 
-Best regards,
-Krzysztof

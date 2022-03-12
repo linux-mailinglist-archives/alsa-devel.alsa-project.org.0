@@ -2,82 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 325574D6D53
-	for <lists+alsa-devel@lfdr.de>; Sat, 12 Mar 2022 08:52:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AF4B4D6E1C
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Mar 2022 11:28:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA7E616FB;
-	Sat, 12 Mar 2022 08:51:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA7E616FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFF81171E;
+	Sat, 12 Mar 2022 11:27:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFF81171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647071547;
-	bh=eM/rGY52M64KqS2MqBB0ARJw5p++HT5aDQk0KrUUY1M=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YJ/jcis/QukOJws0RH/WWtTxCR+u74jcehyIoFFlp+AI+mLKyam89Lsz0QEj2/m5Y
-	 Z22KxLXxxlsuaHZGfmH38LPgkASdLoGjKSizs7zqJwGsuJr/rnle+Go0KPL1p0TO9o
-	 Pxq10/Thj/6civfhP93d38wWt5ltGQzm/K6Ab7UA=
+	s=default; t=1647080907;
+	bh=EHQNhKJgn+oXPjosIvOZ3fzLWL1oHmTSrDrPrF5TrO4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dZzETMu+ry2sFOQ+JOBTJRD4baRaOsekWKFUJl+ODQ4K0vZcKVrF6CpwDBBzabCjq
+	 QGn0fJtwYoWny5nstc1MDBPPsas79puFVLT6HynALybviUWNap1Q8CBkA6iBlwjEOa
+	 HNyIdsNCmjRluYRRcGSDObggCTKC+Bn3hFBlNo90=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20C00F80095;
-	Sat, 12 Mar 2022 08:51:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68C5CF8025C;
+	Sat, 12 Mar 2022 11:27:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1DA8F80095; Sat, 12 Mar 2022 08:51:17 +0100 (CET)
+ id 913B8F8025C; Sat, 12 Mar 2022 11:27:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.0
+Received: from mail2-relais-roc.national.inria.fr
+ (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFC0EF800D2
- for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 08:51:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFC0EF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4FE25F800B0
+ for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 11:27:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FE25F800B0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VSWvgGlz"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="cJrN4Yvh"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id ADB6E212C7;
- Sat, 12 Mar 2022 07:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647071468; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AN8Q/HgMFOSTOxh7KG0treMk3GTuK19Yz0/4GoB/P6Q=;
- b=VSWvgGlzSC3fH3BS3mNmv1sVmJe0gRTVam63b8wUuQXzOTMA3eaHkxgeWHlCH/WvPgLOGb
- icCrl7o9LsmpOVgXvfEkMwZSboi4AO7dvZsXUFh7nJ9hIYHfqWU2yVame7307zuLq+v1dU
- L26rfHBr7prAFKNxHpUEbX6GRi1KNjo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647071468;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AN8Q/HgMFOSTOxh7KG0treMk3GTuK19Yz0/4GoB/P6Q=;
- b=cJrN4YvhTu7I/lJ2UYTAfBk9340nnJ02Y/LlmEX/I8IMThuViY3Fb0Bb6LIou93V6zYq1x
- 8WrTOvTTrc86aBCQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 8FC82A3B81;
- Sat, 12 Mar 2022 07:51:08 +0000 (UTC)
-Date: Sat, 12 Mar 2022 08:51:08 +0100
-Message-ID: <s5hilsjd2xf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Lars-Peter Clausen <lars@metafoo.de>
-Subject: Re: [PATCH] ALSA: usb-audio: Add mute TLV for playback volumes on
- RODE NT-USB
-In-Reply-To: <20220311201400.235892-1-lars@metafoo.de>
-References: <20220311201400.235892-1-lars@metafoo.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
+ dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr
+ header.b="j6QWgrxG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inria.fr; s=dc;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=sADzXucFbvYQxoGycjfde7/Wl6yGzio2SkMVBhdfarY=;
+ b=j6QWgrxGryMhxSMA3Gi6JmdMZ2AEEwpWhkicG5GEBsR5gb7tpaRO9MKN
+ qxPbbNFJS0mb0JLudfu5b6E/NXBAkB7IARm729wGXywLtuY0+WhQ5PUO4
+ UwsVAy58sLeTRSxGNU80+9aDaVFZn9QhCg6B6X2BMu1tuitCTOC6d9UkD Y=;
+Authentication-Results: mail2-relais-roc.national.inria.fr;
+ dkim=none (message not signed) header.i=none;
+ spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr;
+ dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="5.90,175,1643670000"; d="scan'208";a="25781346"
+Received: from i80.paris.inria.fr (HELO i80.paris.inria.fr.) ([128.93.90.48])
+ by mail2-relais-roc.national.inria.fr with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Mar 2022 11:27:11 +0100
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: linux-wireless@vger.kernel.org
+Subject: [PATCH 0/6] use kzalloc
+Date: Sat, 12 Mar 2022 11:26:59 +0100
+Message-Id: <20220312102705.71413-1-Julia.Lawall@inria.fr>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: linux-cifs@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-scsi@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, Andrey Konovalov <andreyknvl@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,19 +83,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Mar 2022 21:14:00 +0100,
-Lars-Peter Clausen wrote:
-> 
-> For the RODE NT-USB the lowest Playback mixer volume setting mutes the
-> audio output. But it is not reported as such causing e.g. PulseAudio to
-> accidentally mute the device when selecting a low volume.
-> 
-> Fix this by applying the existing quirk for this kind of issue when the
-> device is detected.
-> 
-> Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
+Use kzalloc instead of kmalloc + memset.
 
-Thanks, applied now.
+---
 
-
-Takashi
+ drivers/net/ethernet/mellanox/mlx4/en_rx.c |    3 +--
+ drivers/net/wireless/zydas/zd1201.c        |    3 +--
+ drivers/scsi/lpfc/lpfc_debugfs.c           |    9 ++-------
+ drivers/usb/gadget/legacy/raw_gadget.c     |    3 +--
+ fs/cifs/transport.c                        |    3 +--
+ sound/core/seq/oss/seq_oss_init.c          |    3 +--
+ 6 files changed, 7 insertions(+), 17 deletions(-)

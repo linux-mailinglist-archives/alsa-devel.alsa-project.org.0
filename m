@@ -2,105 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F7A54D7B3C
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:06:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFE784D7B3F
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:07:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE1661816;
-	Mon, 14 Mar 2022 08:05:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE1661816
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFDA9186B;
+	Mon, 14 Mar 2022 08:06:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFDA9186B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647241606;
-	bh=pZ0q2J3ZO0W3fqfRtqg69sYpvG40Ar8AO2Q8aiZSGO0=;
+	s=default; t=1647241651;
+	bh=XJnMSjYTtnNNa5Ny/BXTnZMGBygvP/u91rN/XUBBplA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c4nQhbJJrMLOQqrsMPZqYV1aEVVtS8ouMV9dgp8OECXptFwoLIgHePmxWWt3t8SJt
-	 8sqASbolSh25E2EPh+1cK1G5+Z+tV0p1xagEULB6QR8fQkZMobVWRyU+76HxKC3MtT
-	 MIs7yGRIPRGoa3GBzvNkpPzAEOwGkGvJkR0Dwt0Q=
+	b=J3TwRCgIrD1IcNy5RMoUtZyQWMYN1P3cEpTWqe+oUKve8xU5BtUSYZKIWHhruLp+4
+	 NvoP6tZ6gC9jE7gSCjjp48q1pyjUjsEXjpuwaUA+8sF8Uk04Qvlj/E+JWZ1DKsX868
+	 f/vMSLsc8XuOrFkxKDBYycOoQFSQH+3l+n2bFYX0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C022F805C2;
-	Mon, 14 Mar 2022 07:59:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 852AFF805D7;
+	Mon, 14 Mar 2022 07:59:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A5A6F8027D; Sat, 12 Mar 2022 14:29:29 +0100 (CET)
+ id 9F29CF8027D; Sat, 12 Mar 2022 14:29:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 19DC9F8025C
- for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 14:29:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19DC9F8025C
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC380F800D2
+ for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 14:29:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC380F800D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="vH/yLUyH"
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70])
+ header.b="Cd/jriyb"
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 290FE4001E
- for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 13:29:19 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 5E36C405B3
+ for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 13:29:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1647091759;
- bh=LvGhGHRX+cWouXlMRKBzVPzfChdflKFXN6IyahVuGew=;
+ s=20210705; t=1647091771;
+ bh=Fv0wjNs2b5QtUq9euXNEr2b5kaqy1J/ffW8/38DamY4=;
  h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=vH/yLUyHuhEXyiJI1xqyl8E/aQtUPGRtTM9LfqSfNKuBMSwpiolUjPqNS9e0WA8sV
- EBJdIQMMSoXiG1OQgZQT20nx2H6GxIUqMVn7veA1NWj0vgoR5H5hUApNEJ2uE3qn8B
- 1rXJE+AGTbQAL1rHlJTXb0OcS0ptdRjj+wJqvl3XLQ0jfF9KdQv0jUJjPy6DieGILH
- MOkbVngbZuPs/my0/Al96Y2oGhA/QP3TnTSVooTbasKUQPxz97zxcis2UAjvYOMFFr
- gLm/miPIy+R8LD/7cMoGHJHclHee/4sbCV/Vlc6ADsdvsNBITZrCD93YdWRX1KAy8T
- yK1bg5d0OtBrg==
-Received: by mail-wm1-f70.google.com with SMTP id
- h206-20020a1c21d7000000b003552c13626cso6906579wmh.3
- for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 05:29:19 -0800 (PST)
+ b=Cd/jriybVCnYNDZa2LHjnuMtabf5H1tXszwxqpnm45s9u4PI0MYxczPyUyEO2U0g9
+ j4uRe1QoEkU6XgKJczLiEadFXq3nfJKAVwTqGFa/G/0UKamM2RY6rbFr5EOdwQuErc
+ b2lJwGgKnQtO+kvVoQ9457OB9Xzx9HISeU/lO4qOVYHwFGAWHUwfT0wxZWopeJfDbu
+ ZTvNlOkMvjImko7/40yx9lk7v6m1UD7S2Pbo6HuKhotOU7Kxlsmfnfl3cb2EHB7gEO
+ 0Rykz55Kj9BwEOnQ4TeyRxbpjTlGzHwB3Wwa6ghKvoILhfCqCF4YFUnvOz9PaFxwad
+ CObkn32Q3PQLg==
+Received: by mail-wr1-f71.google.com with SMTP id
+ e6-20020a5d4e86000000b001f045d4a962so3732794wru.21
+ for <alsa-devel@alsa-project.org>; Sat, 12 Mar 2022 05:29:31 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=LvGhGHRX+cWouXlMRKBzVPzfChdflKFXN6IyahVuGew=;
- b=JsRC+3NcRq46w4oSaliVL08SeDBLo+O2JjZVMJxOtXJR+bF3ex/gCDtpT60J20ZXOG
- o/REuhfhYf0T3Zvb3G0rs93j4JK13Nr4EON1XzXwIe4NYk+lPSqTn4vBK8gBoNVuBBE2
- x+495LKsvC9d+ln+DI/itxyezfyvVyR4Net0h8Nk6Ze1eDjtCsaVprkgIGXE1gogovbg
- aciifzYV3lNaXxfB1bGqabYb8+Z9CYNNM85HjrCdgrf1J7BKxsSAQWyU58VlkTNxE9yz
- IH33gxXF6DcXmNUL25ecn+srphq15dBL/1iDLrSXaSzBYX+HUQkbcx1Vt772jyKNETw4
- iWJg==
-X-Gm-Message-State: AOAM531JbH6Npu3Yqrg10xMG5hP5up+mC9/0zFJMCfzfxlIdbj8yH3nr
- TWqfGK4srr00KgHb05fu37lnQN5bWRkhrhimIx1NS+7U+ibVeDYEoluZMY7IwuF2iSru5uyXgWs
- phUTjMEkOsk3bOVzmEFp24XalA9eyL3gj73EQBemj
-X-Received: by 2002:adf:c444:0:b0:203:9078:47a7 with SMTP id
- a4-20020adfc444000000b00203907847a7mr8545381wrg.355.1647091758528; 
- Sat, 12 Mar 2022 05:29:18 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxcbUuA5Azax9SMwrH1Yx4BInTaqxjL2pAuKiWGJSR5gaJ62UjEiFqy7nmiSZn+2WWM/iG5SA==
-X-Received: by 2002:adf:c444:0:b0:203:9078:47a7 with SMTP id
- a4-20020adfc444000000b00203907847a7mr8545367wrg.355.1647091758331; 
- Sat, 12 Mar 2022 05:29:18 -0800 (PST)
+ bh=Fv0wjNs2b5QtUq9euXNEr2b5kaqy1J/ffW8/38DamY4=;
+ b=bShbQSPezXHxU+5dCCJ6bfJFLlI6DNBJJzEx+fardSWIDv7QINkvWqsE+/fbve9DR9
+ CigTfcNsvhFA/tgv/TSW3js//usrLjOjgPW1Pl6dTkpc1cDxgQpxenlp1JDeTMPe8kVm
+ e4xhj9XQfxyXAn4JXRhfXj9IGHWu1rx8fpPN5zhTe/JORorMXh9/SUm3EywGddwHbSOU
+ pZGzHIndasRB46kuB5zNP06JItTuCnzuHFZtx1Yqz5V3427zaMSiJAeO2E9furRPoMAS
+ iAwNt2SBwMb4QaTjYpGcSbb2LOFISfvR5dT9cSFZEYuBGqwWH194p/ksn6gNZbEMV88I
+ Qkrg==
+X-Gm-Message-State: AOAM533duZHmrrp5hImxgwUQGISwmbwkp1mETQd95rSwTlgfGhMu6QpL
+ mt2RBJ3VbW6oJqYa/nKkEjXryO/PfLJTrdb4atAHzdHDt0TVMJoKD0hzz+PyjeLWy/3Oa3zP/Y3
+ PkHhL5xppBfnH3pegHJT1sIjGpT2ghumzS9jw2gmj
+X-Received: by 2002:a5d:458b:0:b0:1f1:f876:48e2 with SMTP id
+ p11-20020a5d458b000000b001f1f87648e2mr10681297wrq.76.1647091760271; 
+ Sat, 12 Mar 2022 05:29:20 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyDBzysSy5dJPpClWLlHuYPvBegFX8iikOsVYCIkiLzfLC7xpzwCpZjF6/7zZtW5qI29WBIOg==
+X-Received: by 2002:a5d:458b:0:b0:1f1:f876:48e2 with SMTP id
+ p11-20020a5d458b000000b001f1f87648e2mr10681251wrq.76.1647091760021; 
+ Sat, 12 Mar 2022 05:29:20 -0800 (PST)
 Received: from localhost.localdomain (xdsl-188-155-174-239.adslplus.ch.
  [188.155.174.239]) by smtp.gmail.com with ESMTPSA id
- p22-20020a1c5456000000b00389e7e62800sm5751550wmi.8.2022.03.12.05.29.16
+ p22-20020a1c5456000000b00389e7e62800sm5751550wmi.8.2022.03.12.05.29.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Mar 2022 05:29:17 -0800 (PST)
+ Sat, 12 Mar 2022 05:29:19 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: [PATCH v4 03/11] fsl-mc: Use driver_set_override() instead of
- open-coding
-Date: Sat, 12 Mar 2022 14:28:48 +0100
-Message-Id: <20220312132856.65163-4-krzysztof.kozlowski@canonical.com>
+Subject: [PATCH v4 04/11] hv: Use driver_set_override() instead of open-coding
+Date: Sat, 12 Mar 2022 14:28:49 +0100
+Message-Id: <20220312132856.65163-5-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220312132856.65163-1-krzysztof.kozlowski@canonical.com>
 References: <20220312132856.65163-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 14 Mar 2022 07:58:50 +0100
+X-Mailman-Approved-At: Mon, 14 Mar 2022 07:58:51 +0100
 Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
  "Michael S. Tsirkin" <mst@redhat.com>, linux-pci@vger.kernel.org,
  Jason Wang <jasowang@redhat.com>, linux-remoteproc@vger.kernel.org,
@@ -123,6 +122,7 @@ Cc: linux-hyperv@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>,
  Bjorn Helgaas <bhelgaas@google.com>, virtualization@lists.linux-foundation.org,
  linux-arm-kernel@lists.infradead.org,
  Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+ Michael Kelley <mikelley@microsoft.com>,
  Mathieu Poirier <mathieu.poirier@linaro.org>,
  Linus Torvalds <torvalds@linux-foundation.org>,
  Haiyang Zhang <haiyangz@microsoft.com>,
@@ -148,26 +148,23 @@ Make the driver_override field const char, because it is not modified by
 the core and it matches other subsystems.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Reviewed-by: Michael Kelley <mikelley@microsoft.com>
 ---
- drivers/bus/fsl-mc/fsl-mc-bus.c | 25 ++++---------------------
- include/linux/fsl/mc.h          |  6 ++++--
- 2 files changed, 8 insertions(+), 23 deletions(-)
+ drivers/hv/vmbus_drv.c | 28 ++++------------------------
+ include/linux/hyperv.h |  6 +++++-
+ 2 files changed, 9 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
-index 8fd4a356a86e..ba01c7f4de92 100644
---- a/drivers/bus/fsl-mc/fsl-mc-bus.c
-+++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
-@@ -166,31 +166,14 @@ static ssize_t driver_override_store(struct device *dev,
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index 60ee8b329f9e..66213ce5579d 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -575,31 +575,11 @@ static ssize_t driver_override_store(struct device *dev,
  				     const char *buf, size_t count)
  {
- 	struct fsl_mc_device *mc_dev = to_fsl_mc_device(dev);
--	char *driver_override, *old = mc_dev->driver_override;
--	char *cp;
-+	int ret;
- 
- 	if (WARN_ON(dev->bus != &fsl_mc_bus_type))
- 		return -EINVAL;
- 
+ 	struct hv_device *hv_dev = device_to_hv_device(dev);
+-	char *driver_override, *old, *cp;
+-
+-	/* We need to keep extra room for a newline */
 -	if (count >= (PAGE_SIZE - 1))
 -		return -EINVAL;
 -
@@ -179,44 +176,41 @@ index 8fd4a356a86e..ba01c7f4de92 100644
 -	if (cp)
 -		*cp = '\0';
 -
+-	device_lock(dev);
+-	old = hv_dev->driver_override;
 -	if (strlen(driver_override)) {
--		mc_dev->driver_override = driver_override;
+-		hv_dev->driver_override = driver_override;
 -	} else {
 -		kfree(driver_override);
--		mc_dev->driver_override = NULL;
+-		hv_dev->driver_override = NULL;
 -	}
--
+-	device_unlock(dev);
++	int ret;
+ 
 -	kfree(old);
-+	ret = driver_set_override(dev, &mc_dev->driver_override, buf, count);
++	ret = driver_set_override(dev, &hv_dev->driver_override, buf, count);
 +	if (ret)
 +		return ret;
  
  	return count;
  }
-diff --git a/include/linux/fsl/mc.h b/include/linux/fsl/mc.h
-index 7b6c42bfb660..7a87ab9eba99 100644
---- a/include/linux/fsl/mc.h
-+++ b/include/linux/fsl/mc.h
-@@ -170,7 +170,9 @@ struct fsl_mc_obj_desc {
-  * @regions: pointer to array of MMIO region entries
-  * @irqs: pointer to array of pointers to interrupts allocated to this device
-  * @resource: generic resource associated with this MC object device, if any.
-- * @driver_override: driver name to force a match
-+ * @driver_override: driver name to force a match; do not set directly,
-+ *                   because core frees it; use driver_set_override() to
-+ *                   set or clear it.
-  *
-  * Generic device object for MC object devices that are "attached" to a
-  * MC bus.
-@@ -204,7 +206,7 @@ struct fsl_mc_device {
- 	struct fsl_mc_device_irq **irqs;
- 	struct fsl_mc_resource *resource;
- 	struct device_link *consumer_link;
--	char   *driver_override;
-+	const char *driver_override;
- };
+diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+index fe2e0179ed51..12e2336b23b7 100644
+--- a/include/linux/hyperv.h
++++ b/include/linux/hyperv.h
+@@ -1257,7 +1257,11 @@ struct hv_device {
+ 	u16 device_id;
  
- #define to_fsl_mc_device(_dev) \
+ 	struct device device;
+-	char *driver_override; /* Driver name to force a match */
++	/*
++	 * Driver name to force a match.  Do not set directly, because core
++	 * frees it.  Use driver_set_override() to set or clear it.
++	 */
++	const char *driver_override;
+ 
+ 	struct vmbus_channel *channel;
+ 	struct kset	     *channels_kset;
 -- 
 2.32.0
 

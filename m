@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EF254D73E6
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Mar 2022 09:57:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB7EE4D7517
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Mar 2022 13:00:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4062016D1;
-	Sun, 13 Mar 2022 09:57:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4062016D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32B9416E2;
+	Sun, 13 Mar 2022 12:59:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32B9416E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647161876;
-	bh=fkRPoci9Rw3YfAmFTNDhONZVzqnIc15tyPywRygtNh8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pwFnn/3afAGt+dakFD1lZ63XLcOtEpyRxVVI5CAZLoWOWL07DwcV9MXI9PzBZg4xW
-	 Pob2x4tmB6QqiYGwgW3wTzjGDeTzXEvOyVcKJYzgkuNPFQfIiNBgHqmmqdPGCkscCP
-	 kBzE7vdJnK0QY0ukyI4aQGmPB460A4gL8/X+8foM=
+	s=default; t=1647172841;
+	bh=2KHd2mtefEmvKWJtyswFnBPxpf8PGYWwKivi8REA7VM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nY4Zp+J9wWbpnYdqQOLT6aJg9gAN17za8BpoSvujWz8DU0hnWDQJ7McpYF2HfNSAC
+	 AURtdZuSJEfeImZOKjgB9e+7NLKc095DjNiRsOTBxQG2FmZD3aS2Byows/x9m0itTG
+	 6ckQQhUPeuDp3SQi817+nuw+N4gDGq7KVo7B5ht8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3F83F8047C;
-	Sun, 13 Mar 2022 09:56:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6CF7F80095;
+	Sun, 13 Mar 2022 12:59:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23272F80310; Sun, 13 Mar 2022 09:56:47 +0100 (CET)
+ id 76595F80095; Sun, 13 Mar 2022 12:59:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail2-relais-roc.national.inria.fr
- (mail2-relais-roc.national.inria.fr [192.134.164.83])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [IPv6:2001:4b98:dc2:55:216:3eff:fef7:d647])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D34F5F80095
- for <alsa-devel@alsa-project.org>; Sun, 13 Mar 2022 09:56:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D34F5F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2AE3BF80154
+ for <alsa-devel@alsa-project.org>; Sun, 13 Mar 2022 12:59:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AE3BF80154
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr
- header.b="XrHrNfTD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inria.fr; s=dc;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=p6RhWnOgz5gn6ZKATCVUa/Wp+aXaVj0QweG0UGMuM2M=;
- b=XrHrNfTD7tmUVD3KV5sKgKY2jHOQhL1FgXEuMg11nDFFB+SJHfiZDahv
- YmTzt3nnxfg4ZQYG00cjcwbMllpTZECyJTf0+pahIImsDp0ySt/GWF3dA
- 7KpM6yii8IOk2coec+you88s317RvYr6GrIGVmxRLfGcJVfkXrftZI5JX 0=;
-Authentication-Results: mail2-relais-roc.national.inria.fr;
- dkim=none (message not signed) header.i=none;
- spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr;
- dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="5.90,178,1643670000"; d="scan'208";a="25843487"
-Received: from i80.paris.inria.fr (HELO i80.paris.inria.fr.) ([128.93.90.48])
- by mail2-relais-roc.national.inria.fr with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Mar 2022 09:56:40 +0100
-From: Julia Lawall <Julia.Lawall@inria.fr>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Joe Perches <joe@perches.com>
-Subject: [PATCH] ALSA: seq: oss: fix typo
-Date: Sun, 13 Mar 2022 09:56:35 +0100
-Message-Id: <20220313085635.102123-1-Julia.Lawall@inria.fr>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com
+ header.b="C5+2f3qY"
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id C062C492;
+ Sun, 13 Mar 2022 12:59:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1647172761;
+ bh=2KHd2mtefEmvKWJtyswFnBPxpf8PGYWwKivi8REA7VM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=C5+2f3qYyNhsh21BGuAPQGSxoecJTUCJk94W9DXtfWsOw00Kc1GM0oL3isbgklIKQ
+ CDWWQ8knRJepBSoDBwdpKkxe8IqfPKwaET5JbC/22rGpc37fpIXX/NrpYXVDCs6wwE
+ q1G08QnFez/16rZ4PwJ+Fv7hdFXmQBa/6L8+pZd4=
+Date: Sun, 13 Mar 2022 13:59:04 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH] media: Kconfig: cleanup VIDEO_DEV dependencies
+Message-ID: <Yi3ciCTbHrxYUatX@pendragon.ideasonboard.com>
+References: <42ae3d28d4d822f3e14db76b99f2f4c41688ae3e.1647155467.git.mchehab@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <42ae3d28d4d822f3e14db76b99f2f4c41688ae3e.1647155467.git.mchehab@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,34 +81,223 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix typo in "announcement".
+Hi Mauro,
 
-Reported-by: Joe Perches <joe@perches.com>
-Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
+Thank you for the patch.
 
----
+Trimming the CC list to keep a few mailing lists only.
 
-This applies on top of:
+On Sun, Mar 13, 2022 at 08:12:05AM +0100, Mauro Carvalho Chehab wrote:
+> media Kconfig has two entries associated to V4L API:
+> VIDEO_DEV and VIDEO_V4L2.
+> 
+> On Kernel 2.6.x, there were two V4L APIs, each one with its own flag.
+> VIDEO_DEV were meant to:
+> 	1) enable Video4Linux and make its Kconfig options to appear;
+> 	2) it makes the Kernel build the V4L core.
+> 
+> while VIDEO_V4L2 where used to distinguish between drivers that
+> implement the newer API and drivers that implemented the former one.
+> 
+> With time, such meaning changed, specially after the removal of
+> all V4L version 1 drivers.
+> 
+> At the current implementation, VIDEO_DEV only does (1): it enables
+> the media options related to V4L, that now has:
+> 
+> 	menu "Video4Linux options"
+> 		visible if VIDEO_DEV
+> 
+> 	source "drivers/media/v4l2-core/Kconfig"
+> 	endmenu
+> 
+> but it doesn't affect anymore the V4L core drivers.
+> 
+> The rationale is that the V4L2 core has a "soft" dependency
+> at the I2C bus, and now requires to select a number of other
+> Kconfig options:
+> 
+> 	config VIDEO_V4L2
+> 		tristate
+> 		depends on (I2C || I2C=n) && VIDEO_DEV
+> 		select RATIONAL
+> 		select VIDEOBUF2_V4L2 if VIDEOBUF2_CORE
+> 		default (I2C || I2C=n) && VIDEO_DEV
+> 
+> In the past, merging them would be tricky, but it seems that it is now
+> possible to merge those symbols, in order to simplify V4L dependencies.
+> 
+> Let's keep VIDEO_DEV, as this one is used on some make *defconfig
+> configurations.
 
-From: Julia Lawall <Julia.Lawall@inria.fr>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>,alsa-devel@alsa-project.org,linux-kernel@vger.kernel.org
-Subject: [PATCH 3/6] ALSA: seq: oss: use kzalloc
+I would have gone for VIDEO_V4L2, but if it makes configuration changes
+easier to handle, VIDEO_DEV is fine with me too.
 
- sound/core/seq/oss/seq_oss_init.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> ---
+>  drivers/input/rmi4/Kconfig                    |   2 +-
+>  drivers/input/touchscreen/Kconfig             |   4 +-
+>  drivers/media/Kconfig                         |   3 +
+>  drivers/media/common/saa7146/Kconfig          |   2 +-
+>  drivers/media/dvb-core/Kconfig                |   2 +-
+>  drivers/media/dvb-frontends/Kconfig           |   4 +-
+>  drivers/media/i2c/Kconfig                     | 250 +++++++++---------
+>  drivers/media/i2c/ccs/Kconfig                 |   2 +-
+>  drivers/media/i2c/cx25840/Kconfig             |   2 +-
+>  drivers/media/i2c/et8ek8/Kconfig              |   2 +-
+>  drivers/media/i2c/m5mols/Kconfig              |   2 +-
+>  drivers/media/pci/Kconfig                     |   2 +-
+>  drivers/media/pci/bt8xx/Kconfig               |   2 +-
+>  drivers/media/pci/cobalt/Kconfig              |   2 +-
+>  drivers/media/pci/cx18/Kconfig                |   2 +-
+>  drivers/media/pci/dt3155/Kconfig              |   2 +-
+>  drivers/media/pci/intel/ipu3/Kconfig          |   2 +-
+>  drivers/media/pci/ivtv/Kconfig                |   2 +-
+>  drivers/media/pci/meye/Kconfig                |   2 +-
+>  drivers/media/pci/saa7146/Kconfig             |   6 +-
+>  drivers/media/pci/sta2x11/Kconfig             |   2 +-
+>  drivers/media/pci/tw5864/Kconfig              |   2 +-
+>  drivers/media/pci/tw68/Kconfig                |   2 +-
+>  drivers/media/pci/tw686x/Kconfig              |   2 +-
+>  drivers/media/platform/Kconfig                |   6 +-
+>  drivers/media/platform/allegro-dvt/Kconfig    |   2 +-
+>  drivers/media/platform/am437x/Kconfig         |   2 +-
+>  drivers/media/platform/amphion/Kconfig        |   2 +-
+>  drivers/media/platform/aspeed/Kconfig         |   2 +-
+>  drivers/media/platform/atmel/Kconfig          |   8 +-
+>  drivers/media/platform/cadence/Kconfig        |   4 +-
+>  drivers/media/platform/coda/Kconfig           |   2 +-
+>  drivers/media/platform/davinci/Kconfig        |  12 +-
+>  drivers/media/platform/exynos-gsc/Kconfig     |   2 +-
+>  drivers/media/platform/exynos4-is/Kconfig     |   2 +-
+>  drivers/media/platform/intel/Kconfig          |   2 +-
+>  drivers/media/platform/marvell-ccic/Kconfig   |   4 +-
+>  drivers/media/platform/meson/ge2d/Kconfig     |   2 +-
+>  drivers/media/platform/mtk-jpeg/Kconfig       |   2 +-
+>  drivers/media/platform/mtk-mdp/Kconfig        |   2 +-
+>  drivers/media/platform/mtk-vcodec/Kconfig     |   2 +-
+>  drivers/media/platform/mtk-vpu/Kconfig        |   2 +-
+>  drivers/media/platform/nxp/Kconfig            |   8 +-
+>  drivers/media/platform/nxp/imx-jpeg/Kconfig   |   2 +-
+>  drivers/media/platform/omap/Kconfig           |   2 +-
+>  drivers/media/platform/omap3isp/Kconfig       |   2 +-
+>  drivers/media/platform/qcom/camss/Kconfig     |   2 +-
+>  drivers/media/platform/qcom/venus/Kconfig     |   2 +-
+>  drivers/media/platform/renesas/Kconfig        |  12 +-
+>  .../media/platform/renesas/rcar-vin/Kconfig   |   4 +-
+>  drivers/media/platform/rockchip/rga/Kconfig   |   2 +-
+>  .../media/platform/rockchip/rkisp1/Kconfig    |   2 +-
+>  drivers/media/platform/s3c-camif/Kconfig      |   2 +-
+>  drivers/media/platform/s5p-g2d/Kconfig        |   2 +-
+>  drivers/media/platform/s5p-jpeg/Kconfig       |   2 +-
+>  drivers/media/platform/s5p-mfc/Kconfig        |   2 +-
+>  drivers/media/platform/sti/bdisp/Kconfig      |   2 +-
+>  drivers/media/platform/sti/delta/Kconfig      |   2 +-
+>  drivers/media/platform/sti/hva/Kconfig        |   2 +-
+>  drivers/media/platform/stm32/Kconfig          |   4 +-
+>  .../media/platform/sunxi/sun4i-csi/Kconfig    |   2 +-
+>  .../media/platform/sunxi/sun6i-csi/Kconfig    |   2 +-
+>  drivers/media/platform/sunxi/sun8i-di/Kconfig |   2 +-
+>  .../media/platform/sunxi/sun8i-rotate/Kconfig |   2 +-
+>  drivers/media/platform/tegra/vde/Kconfig      |   2 +-
+>  drivers/media/platform/ti-vpe/Kconfig         |   4 +-
+>  drivers/media/platform/via/Kconfig            |   2 +-
+>  drivers/media/platform/xilinx/Kconfig         |   2 +-
+>  drivers/media/radio/Kconfig                   |  54 ++--
+>  drivers/media/radio/si470x/Kconfig            |   2 +-
+>  drivers/media/radio/wl128x/Kconfig            |   2 +-
+>  drivers/media/spi/Kconfig                     |   4 +-
+>  drivers/media/test-drivers/Kconfig            |   2 +-
+>  drivers/media/test-drivers/vicodec/Kconfig    |   2 +-
+>  drivers/media/test-drivers/vimc/Kconfig       |   2 +-
+>  drivers/media/test-drivers/vivid/Kconfig      |   2 +-
+>  drivers/media/tuners/Kconfig                  |   6 +-
+>  drivers/media/tuners/e4000.c                  |   6 +-
+>  drivers/media/tuners/fc2580.c                 |   6 +-
+>  drivers/media/usb/airspy/Kconfig              |   2 +-
+>  drivers/media/usb/au0828/Kconfig              |   6 +-
+>  drivers/media/usb/cpia2/Kconfig               |   2 +-
+>  drivers/media/usb/dvb-usb-v2/Kconfig          |   8 +-
+>  drivers/media/usb/dvb-usb/Kconfig             |   4 +-
+>  drivers/media/usb/gspca/Kconfig               |  96 +++----
+>  drivers/media/usb/gspca/gl860/Kconfig         |   2 +-
+>  drivers/media/usb/gspca/m5602/Kconfig         |   2 +-
+>  drivers/media/usb/hackrf/Kconfig              |   2 +-
+>  drivers/media/usb/hdpvr/Kconfig               |   2 +-
+>  drivers/media/usb/msi2500/Kconfig             |   2 +-
+>  drivers/media/usb/pvrusb2/Kconfig             |   2 +-
+>  drivers/media/usb/pwc/Kconfig                 |   2 +-
+>  drivers/media/usb/s2255/Kconfig               |   2 +-
+>  drivers/media/usb/stkwebcam/Kconfig           |   2 +-
+>  drivers/media/usb/usbtv/Kconfig               |   2 +-
+>  drivers/media/usb/uvc/Kconfig                 |   2 +-
+>  drivers/media/usb/zr364xx/Kconfig             |   2 +-
+>  drivers/media/v4l2-core/Kconfig               |  12 +-
+>  drivers/media/v4l2-core/Makefile              |   2 +-
+>  drivers/staging/media/atomisp/Kconfig         |   2 +-
+>  drivers/staging/media/atomisp/i2c/Kconfig     |  14 +-
+>  drivers/staging/media/hantro/Kconfig          |   2 +-
+>  drivers/staging/media/imx/Kconfig             |   2 +-
+>  drivers/staging/media/ipu3/Kconfig            |   2 +-
+>  drivers/staging/media/max96712/Kconfig        |   2 +-
+>  drivers/staging/media/meson/vdec/Kconfig      |   2 +-
+>  drivers/staging/media/omap4iss/Kconfig        |   2 +-
+>  drivers/staging/media/rkvdec/Kconfig          |   2 +-
+>  drivers/staging/media/sunxi/cedrus/Kconfig    |   2 +-
+>  drivers/staging/media/tegra-video/Kconfig     |   2 +-
+>  drivers/staging/media/zoran/Kconfig           |   2 +-
+>  drivers/staging/most/video/Kconfig            |   2 +-
+>  .../vc04_services/bcm2835-camera/Kconfig      |   2 +-
+>  drivers/usb/gadget/Kconfig                    |   2 +-
+>  drivers/usb/gadget/legacy/Kconfig             |   2 +-
+>  sound/pci/Kconfig                             |   4 +-
+>  116 files changed, 363 insertions(+), 368 deletions(-)
 
-diff --git a/sound/core/seq/oss/seq_oss_init.c b/sound/core/seq/oss/seq_oss_init.c
-index 04a3376a6e66..42d4e7535a82 100644
---- a/sound/core/seq/oss/seq_oss_init.c
-+++ b/sound/core/seq/oss/seq_oss_init.c
-@@ -80,7 +80,7 @@ snd_seq_oss_create_client(void)
- 
- 	system_client = rc;
- 
--	/* create annoucement receiver port */
-+	/* create announcement receiver port */
- 	strcpy(port->name, "Receiver");
- 	port->addr.client = system_client;
- 	port->capability = SNDRV_SEQ_PORT_CAP_WRITE; /* receive only */
+[snip]
 
+> diff --git a/drivers/media/pci/tw5864/Kconfig b/drivers/media/pci/tw5864/Kconfig
+> index d376d4ed65b9..0a0f3191f238 100644
+> --- a/drivers/media/pci/tw5864/Kconfig
+> +++ b/drivers/media/pci/tw5864/Kconfig
+> @@ -1,7 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+>  config VIDEO_TW5864
+>  	tristate "Techwell TW5864 video/audio grabber and encoder"
+> -	depends on VIDEO_DEV && PCI && VIDEO_V4L2
+> +	depends on VIDEO_DEV && PCI && VIDEO_DEV
+
+You can drop the second VIDEO_DEV.
+
+>  	select VIDEOBUF2_DMA_CONTIG
+>  	help
+>  	  Support for boards based on Techwell TW5864 chip which provides
+> diff --git a/drivers/media/pci/tw68/Kconfig b/drivers/media/pci/tw68/Kconfig
+> index af0cb60337bb..ef29be7db493 100644
+> --- a/drivers/media/pci/tw68/Kconfig
+> +++ b/drivers/media/pci/tw68/Kconfig
+> @@ -1,7 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+>  config VIDEO_TW68
+>  	tristate "Techwell tw68x Video For Linux"
+> -	depends on VIDEO_DEV && PCI && VIDEO_V4L2
+> +	depends on VIDEO_DEV && PCI && VIDEO_DEV
+
+Here too.
+
+Apart from that, the patch looks good to me.
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+I have however not evaluated the impact it will have on make oldconfig.
+
+>  	select VIDEOBUF2_DMA_SG
+>  	help
+>  	  Support for Techwell tw68xx based frame grabber boards.
+
+[snip]
+
+-- 
+Regards,
+
+Laurent Pinchart

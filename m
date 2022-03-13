@@ -2,83 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 616A54D73AE
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Mar 2022 09:11:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EF254D73E6
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Mar 2022 09:57:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEAC416D7;
-	Sun, 13 Mar 2022 09:10:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEAC416D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4062016D1;
+	Sun, 13 Mar 2022 09:57:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4062016D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647159069;
-	bh=VdBeSoLUr/9sB2lqy6G9Flnp3AwBVf790ixuGnanhk8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cx+evjE4G3NEAsvlFab7h15ksapBOnVekkU6HNKWUJnXp9hTr+mB5HCWBm9ZNnSjL
-	 6c2c+BBSWjBDBc7kEEESuneEcts2mibQn8ZyEMNIUgBejT/Eh1IDK5yJSQmf4lQl7O
-	 7OK9A43Ty+LPcsg7Wznu0qKuOe0fApsWbW42Od7M=
+	s=default; t=1647161876;
+	bh=fkRPoci9Rw3YfAmFTNDhONZVzqnIc15tyPywRygtNh8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pwFnn/3afAGt+dakFD1lZ63XLcOtEpyRxVVI5CAZLoWOWL07DwcV9MXI9PzBZg4xW
+	 Pob2x4tmB6QqiYGwgW3wTzjGDeTzXEvOyVcKJYzgkuNPFQfIiNBgHqmmqdPGCkscCP
+	 kBzE7vdJnK0QY0ukyI4aQGmPB460A4gL8/X+8foM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BDAEF8047C;
-	Sun, 13 Mar 2022 09:10:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3F83F8047C;
+	Sun, 13 Mar 2022 09:56:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 702C7F80310; Sun, 13 Mar 2022 09:10:00 +0100 (CET)
+ id 23272F80310; Sun, 13 Mar 2022 09:56:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail2-relais-roc.national.inria.fr
+ (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C353F80154
- for <alsa-devel@alsa-project.org>; Sun, 13 Mar 2022 09:09:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C353F80154
+ by alsa1.perex.cz (Postfix) with ESMTPS id D34F5F80095
+ for <alsa-devel@alsa-project.org>; Sun, 13 Mar 2022 09:56:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D34F5F80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="koBY2n6P"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="mV2u/8Bs"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9CC38212C6;
- Sun, 13 Mar 2022 08:09:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647158993; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NeSB+jHq6YcFTSHppR+CSlD97vyl7qDeXaqfoy6cbFY=;
- b=koBY2n6PTzkyxuUgBZjixpgA31crlNAju/YLchRDI/d04UYCWGTuqZvp06cG3k63B+u8Os
- 4EnqzNLPdboenPOWfz4VW+/y/ccUdoZpvPDBIisf11sGj2ZiixiuI5Zk8GsvJvymAgRbto
- K2VwqSxngDIwh5HoqpZGDmX93GJV5/0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647158993;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NeSB+jHq6YcFTSHppR+CSlD97vyl7qDeXaqfoy6cbFY=;
- b=mV2u/8Bsw8T7bo/NI3rX+R+NmmrQ5gcs4N5yhpFbccCHHzonw7soJfxbDZgSorQDEmJ9Io
- mUs1sEzPIq7+2dBA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 83175A3B8A;
- Sun, 13 Mar 2022 08:09:53 +0000 (UTC)
-Date: Sun, 13 Mar 2022 09:09:53 +0100
-Message-ID: <s5h8rteclym.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Julia Lawall <Julia.Lawall@inria.fr>
-Subject: Re: [PATCH 3/6] ALSA: seq: oss: use kzalloc
-In-Reply-To: <20220312102705.71413-4-Julia.Lawall@inria.fr>
-References: <20220312102705.71413-1-Julia.Lawall@inria.fr>
- <20220312102705.71413-4-Julia.Lawall@inria.fr>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+ dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr
+ header.b="XrHrNfTD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inria.fr; s=dc;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=p6RhWnOgz5gn6ZKATCVUa/Wp+aXaVj0QweG0UGMuM2M=;
+ b=XrHrNfTD7tmUVD3KV5sKgKY2jHOQhL1FgXEuMg11nDFFB+SJHfiZDahv
+ YmTzt3nnxfg4ZQYG00cjcwbMllpTZECyJTf0+pahIImsDp0ySt/GWF3dA
+ 7KpM6yii8IOk2coec+you88s317RvYr6GrIGVmxRLfGcJVfkXrftZI5JX 0=;
+Authentication-Results: mail2-relais-roc.national.inria.fr;
+ dkim=none (message not signed) header.i=none;
+ spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr;
+ dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="5.90,178,1643670000"; d="scan'208";a="25843487"
+Received: from i80.paris.inria.fr (HELO i80.paris.inria.fr.) ([128.93.90.48])
+ by mail2-relais-roc.national.inria.fr with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Mar 2022 09:56:40 +0100
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Joe Perches <joe@perches.com>
+Subject: [PATCH] ALSA: seq: oss: fix typo
+Date: Sun, 13 Mar 2022 09:56:35 +0100
+Message-Id: <20220313085635.102123-1-Julia.Lawall@inria.fr>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,27 +81,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 12 Mar 2022 11:27:02 +0100,
-Julia Lawall wrote:
-> 
-> Use kzalloc instead of kmalloc + memset.
-> 
-> The semantic patch that makes this change is:
-> (https://coccinelle.gitlabpages.inria.fr/website/)
-> 
-> //<smpl>
-> @@
-> expression res, size, flag;
-> @@
-> - res = kmalloc(size, flag);
-> + res = kzalloc(size, flag);
->   ...
-> - memset(res, 0, size);
-> //</smpl>
-> 
-> Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
+Fix typo in "announcement".
 
-Applied, thanks.
+Reported-by: Joe Perches <joe@perches.com>
+Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
 
+---
 
-Takashi
+This applies on top of:
+
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>,alsa-devel@alsa-project.org,linux-kernel@vger.kernel.org
+Subject: [PATCH 3/6] ALSA: seq: oss: use kzalloc
+
+ sound/core/seq/oss/seq_oss_init.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/core/seq/oss/seq_oss_init.c b/sound/core/seq/oss/seq_oss_init.c
+index 04a3376a6e66..42d4e7535a82 100644
+--- a/sound/core/seq/oss/seq_oss_init.c
++++ b/sound/core/seq/oss/seq_oss_init.c
+@@ -80,7 +80,7 @@ snd_seq_oss_create_client(void)
+ 
+ 	system_client = rc;
+ 
+-	/* create annoucement receiver port */
++	/* create announcement receiver port */
+ 	strcpy(port->name, "Receiver");
+ 	port->addr.client = system_client;
+ 	port->capability = SNDRV_SEQ_PORT_CAP_WRITE; /* receive only */
+

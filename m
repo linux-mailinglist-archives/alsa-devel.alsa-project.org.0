@@ -2,70 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB7EE4D7517
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Mar 2022 13:00:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 648B94D762C
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Mar 2022 16:11:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32B9416E2;
-	Sun, 13 Mar 2022 12:59:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32B9416E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE11D16D4;
+	Sun, 13 Mar 2022 16:10:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE11D16D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647172841;
-	bh=2KHd2mtefEmvKWJtyswFnBPxpf8PGYWwKivi8REA7VM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nY4Zp+J9wWbpnYdqQOLT6aJg9gAN17za8BpoSvujWz8DU0hnWDQJ7McpYF2HfNSAC
-	 AURtdZuSJEfeImZOKjgB9e+7NLKc095DjNiRsOTBxQG2FmZD3aS2Byows/x9m0itTG
-	 6ckQQhUPeuDp3SQi817+nuw+N4gDGq7KVo7B5ht8=
+	s=default; t=1647184308;
+	bh=/sWR/26OJ/sTkjOQE658n332eXv1pS1btA4ZbB4QSWM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dNwPIBEC9AB7QagTkutBmtd60lreabkTVr1dSIJMVsOy4YHsBI4I7MynC6BFZ66GL
+	 AnBU4CpwfTeKA86M5JQirAn/HU7+Pu7TyZpT0J2ErAABVoC+4f1SO9Eu62etqGpRsz
+	 DJgGgP7Xx1nfuq8LJv0fScGTCZsmYXDxbotWWVFY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6CF7F80095;
-	Sun, 13 Mar 2022 12:59:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E58E7F804F1;
+	Sun, 13 Mar 2022 16:10:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76595F80095; Sun, 13 Mar 2022 12:59:32 +0100 (CET)
+ id D93B2F80310; Sun, 13 Mar 2022 16:10:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [IPv6:2001:4b98:dc2:55:216:3eff:fef7:d647])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2AE3BF80154
- for <alsa-devel@alsa-project.org>; Sun, 13 Mar 2022 12:59:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AE3BF80154
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com
- header.b="C5+2f3qY"
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C062C492;
- Sun, 13 Mar 2022 12:59:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1647172761;
- bh=2KHd2mtefEmvKWJtyswFnBPxpf8PGYWwKivi8REA7VM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=C5+2f3qYyNhsh21BGuAPQGSxoecJTUCJk94W9DXtfWsOw00Kc1GM0oL3isbgklIKQ
- CDWWQ8knRJepBSoDBwdpKkxe8IqfPKwaET5JbC/22rGpc37fpIXX/NrpYXVDCs6wwE
- q1G08QnFez/16rZ4PwJ+Fv7hdFXmQBa/6L8+pZd4=
-Date: Sun, 13 Mar 2022 13:59:04 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [PATCH] media: Kconfig: cleanup VIDEO_DEV dependencies
-Message-ID: <Yi3ciCTbHrxYUatX@pendragon.ideasonboard.com>
-References: <42ae3d28d4d822f3e14db76b99f2f4c41688ae3e.1647155467.git.mchehab@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A634F80154
+ for <alsa-devel@alsa-project.org>; Sun, 13 Mar 2022 16:10:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A634F80154
+X-UUID: 91800bc740854a36b5fbd7aa0e8a5e0d-20220313
+X-UUID: 91800bc740854a36b5fbd7aa0e8a5e0d-20220313
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1640908282; Sun, 13 Mar 2022 23:10:27 +0800
+Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
+ mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Sun, 13 Mar 2022 23:10:26 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb02.mediatek.inc
+ (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Sun, 13 Mar 2022 23:10:25 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Sun, 13 Mar 2022 23:10:24 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>,
+ <angelogioacchino.delregno@collabora.com>
+Subject: [v3 00/19] ASoC: mediatek: Add support for MT8186 SoC
+Date: Sun, 13 Mar 2022 23:10:04 +0800
+Message-ID: <20220313151023.21229-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <42ae3d28d4d822f3e14db76b99f2f4c41688ae3e.1647155467.git.mchehab@kernel.org>
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
+ Jiaxin Yu <jiaxin.yu@mediatek.corp-partner.google.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,223 +84,126 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mauro,
+From: Jiaxin Yu <jiaxin.yu@mediatek.corp-partner.google.com>
 
-Thank you for the patch.
+This series of patches adds support for Mediatek AFE of MT8186 Soc.
+Patches are based on broonie tree "for-next" branch.
 
-Trimming the CC list to keep a few mailing lists only.
+Changes since v2:
+  - add a new compatible string "mediatek,mt6366-sound"
+  - modify the log level for simplicity
+  - use dev_err_probe(...) instead of dev_err(...) in dev probe()
+  - optimized the logic of some code
+  - use BIT() and GENMASK() macros to descript the registers
 
-On Sun, Mar 13, 2022 at 08:12:05AM +0100, Mauro Carvalho Chehab wrote:
-> media Kconfig has two entries associated to V4L API:
-> VIDEO_DEV and VIDEO_V4L2.
-> 
-> On Kernel 2.6.x, there were two V4L APIs, each one with its own flag.
-> VIDEO_DEV were meant to:
-> 	1) enable Video4Linux and make its Kconfig options to appear;
-> 	2) it makes the Kernel build the V4L core.
-> 
-> while VIDEO_V4L2 where used to distinguish between drivers that
-> implement the newer API and drivers that implemented the former one.
-> 
-> With time, such meaning changed, specially after the removal of
-> all V4L version 1 drivers.
-> 
-> At the current implementation, VIDEO_DEV only does (1): it enables
-> the media options related to V4L, that now has:
-> 
-> 	menu "Video4Linux options"
-> 		visible if VIDEO_DEV
-> 
-> 	source "drivers/media/v4l2-core/Kconfig"
-> 	endmenu
-> 
-> but it doesn't affect anymore the V4L core drivers.
-> 
-> The rationale is that the V4L2 core has a "soft" dependency
-> at the I2C bus, and now requires to select a number of other
-> Kconfig options:
-> 
-> 	config VIDEO_V4L2
-> 		tristate
-> 		depends on (I2C || I2C=n) && VIDEO_DEV
-> 		select RATIONAL
-> 		select VIDEOBUF2_V4L2 if VIDEOBUF2_CORE
-> 		default (I2C || I2C=n) && VIDEO_DEV
-> 
-> In the past, merging them would be tricky, but it seems that it is now
-> possible to merge those symbols, in order to simplify V4L dependencies.
-> 
-> Let's keep VIDEO_DEV, as this one is used on some make *defconfig
-> configurations.
+  Thanks for AngeloGioacchino's careful reviews.
 
-I would have gone for VIDEO_V4L2, but if it makes configuration changes
-easier to handle, VIDEO_DEV is fine with me too.
+Changes since v1:
+  [v2 01/17]
+    - add a new ID to the existing mt6358 codec driver
+  [v2 03/17]
+    - modify log level in DAPM events
+    - use standard numeric control with name ending in Switch
+    - return 1 when the value changed in mixer control's .get callback
+  [v2 05/17]
+    - ending in Switch to the standard on/off controls
+    - change to "HW Gain 1 Volume" and "HW Gain 2 Volume"
+  [v2 09/17]
+    - return an error in the default case rather than just picking one of
+      the behaviours when do .set_fmt
+    - use the new defines that are _PROVIDER_MASK, _DAIFMT_CBP_CFP and
+      _DAIFMT_CBC_CFC
+  [v2 10/17]
+  [v2 11/17]
+    - the clock and gpio are aplit out into separate  patches
 
-> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-> ---
->  drivers/input/rmi4/Kconfig                    |   2 +-
->  drivers/input/touchscreen/Kconfig             |   4 +-
->  drivers/media/Kconfig                         |   3 +
->  drivers/media/common/saa7146/Kconfig          |   2 +-
->  drivers/media/dvb-core/Kconfig                |   2 +-
->  drivers/media/dvb-frontends/Kconfig           |   4 +-
->  drivers/media/i2c/Kconfig                     | 250 +++++++++---------
->  drivers/media/i2c/ccs/Kconfig                 |   2 +-
->  drivers/media/i2c/cx25840/Kconfig             |   2 +-
->  drivers/media/i2c/et8ek8/Kconfig              |   2 +-
->  drivers/media/i2c/m5mols/Kconfig              |   2 +-
->  drivers/media/pci/Kconfig                     |   2 +-
->  drivers/media/pci/bt8xx/Kconfig               |   2 +-
->  drivers/media/pci/cobalt/Kconfig              |   2 +-
->  drivers/media/pci/cx18/Kconfig                |   2 +-
->  drivers/media/pci/dt3155/Kconfig              |   2 +-
->  drivers/media/pci/intel/ipu3/Kconfig          |   2 +-
->  drivers/media/pci/ivtv/Kconfig                |   2 +-
->  drivers/media/pci/meye/Kconfig                |   2 +-
->  drivers/media/pci/saa7146/Kconfig             |   6 +-
->  drivers/media/pci/sta2x11/Kconfig             |   2 +-
->  drivers/media/pci/tw5864/Kconfig              |   2 +-
->  drivers/media/pci/tw68/Kconfig                |   2 +-
->  drivers/media/pci/tw686x/Kconfig              |   2 +-
->  drivers/media/platform/Kconfig                |   6 +-
->  drivers/media/platform/allegro-dvt/Kconfig    |   2 +-
->  drivers/media/platform/am437x/Kconfig         |   2 +-
->  drivers/media/platform/amphion/Kconfig        |   2 +-
->  drivers/media/platform/aspeed/Kconfig         |   2 +-
->  drivers/media/platform/atmel/Kconfig          |   8 +-
->  drivers/media/platform/cadence/Kconfig        |   4 +-
->  drivers/media/platform/coda/Kconfig           |   2 +-
->  drivers/media/platform/davinci/Kconfig        |  12 +-
->  drivers/media/platform/exynos-gsc/Kconfig     |   2 +-
->  drivers/media/platform/exynos4-is/Kconfig     |   2 +-
->  drivers/media/platform/intel/Kconfig          |   2 +-
->  drivers/media/platform/marvell-ccic/Kconfig   |   4 +-
->  drivers/media/platform/meson/ge2d/Kconfig     |   2 +-
->  drivers/media/platform/mtk-jpeg/Kconfig       |   2 +-
->  drivers/media/platform/mtk-mdp/Kconfig        |   2 +-
->  drivers/media/platform/mtk-vcodec/Kconfig     |   2 +-
->  drivers/media/platform/mtk-vpu/Kconfig        |   2 +-
->  drivers/media/platform/nxp/Kconfig            |   8 +-
->  drivers/media/platform/nxp/imx-jpeg/Kconfig   |   2 +-
->  drivers/media/platform/omap/Kconfig           |   2 +-
->  drivers/media/platform/omap3isp/Kconfig       |   2 +-
->  drivers/media/platform/qcom/camss/Kconfig     |   2 +-
->  drivers/media/platform/qcom/venus/Kconfig     |   2 +-
->  drivers/media/platform/renesas/Kconfig        |  12 +-
->  .../media/platform/renesas/rcar-vin/Kconfig   |   4 +-
->  drivers/media/platform/rockchip/rga/Kconfig   |   2 +-
->  .../media/platform/rockchip/rkisp1/Kconfig    |   2 +-
->  drivers/media/platform/s3c-camif/Kconfig      |   2 +-
->  drivers/media/platform/s5p-g2d/Kconfig        |   2 +-
->  drivers/media/platform/s5p-jpeg/Kconfig       |   2 +-
->  drivers/media/platform/s5p-mfc/Kconfig        |   2 +-
->  drivers/media/platform/sti/bdisp/Kconfig      |   2 +-
->  drivers/media/platform/sti/delta/Kconfig      |   2 +-
->  drivers/media/platform/sti/hva/Kconfig        |   2 +-
->  drivers/media/platform/stm32/Kconfig          |   4 +-
->  .../media/platform/sunxi/sun4i-csi/Kconfig    |   2 +-
->  .../media/platform/sunxi/sun6i-csi/Kconfig    |   2 +-
->  drivers/media/platform/sunxi/sun8i-di/Kconfig |   2 +-
->  .../media/platform/sunxi/sun8i-rotate/Kconfig |   2 +-
->  drivers/media/platform/tegra/vde/Kconfig      |   2 +-
->  drivers/media/platform/ti-vpe/Kconfig         |   4 +-
->  drivers/media/platform/via/Kconfig            |   2 +-
->  drivers/media/platform/xilinx/Kconfig         |   2 +-
->  drivers/media/radio/Kconfig                   |  54 ++--
->  drivers/media/radio/si470x/Kconfig            |   2 +-
->  drivers/media/radio/wl128x/Kconfig            |   2 +-
->  drivers/media/spi/Kconfig                     |   4 +-
->  drivers/media/test-drivers/Kconfig            |   2 +-
->  drivers/media/test-drivers/vicodec/Kconfig    |   2 +-
->  drivers/media/test-drivers/vimc/Kconfig       |   2 +-
->  drivers/media/test-drivers/vivid/Kconfig      |   2 +-
->  drivers/media/tuners/Kconfig                  |   6 +-
->  drivers/media/tuners/e4000.c                  |   6 +-
->  drivers/media/tuners/fc2580.c                 |   6 +-
->  drivers/media/usb/airspy/Kconfig              |   2 +-
->  drivers/media/usb/au0828/Kconfig              |   6 +-
->  drivers/media/usb/cpia2/Kconfig               |   2 +-
->  drivers/media/usb/dvb-usb-v2/Kconfig          |   8 +-
->  drivers/media/usb/dvb-usb/Kconfig             |   4 +-
->  drivers/media/usb/gspca/Kconfig               |  96 +++----
->  drivers/media/usb/gspca/gl860/Kconfig         |   2 +-
->  drivers/media/usb/gspca/m5602/Kconfig         |   2 +-
->  drivers/media/usb/hackrf/Kconfig              |   2 +-
->  drivers/media/usb/hdpvr/Kconfig               |   2 +-
->  drivers/media/usb/msi2500/Kconfig             |   2 +-
->  drivers/media/usb/pvrusb2/Kconfig             |   2 +-
->  drivers/media/usb/pwc/Kconfig                 |   2 +-
->  drivers/media/usb/s2255/Kconfig               |   2 +-
->  drivers/media/usb/stkwebcam/Kconfig           |   2 +-
->  drivers/media/usb/usbtv/Kconfig               |   2 +-
->  drivers/media/usb/uvc/Kconfig                 |   2 +-
->  drivers/media/usb/zr364xx/Kconfig             |   2 +-
->  drivers/media/v4l2-core/Kconfig               |  12 +-
->  drivers/media/v4l2-core/Makefile              |   2 +-
->  drivers/staging/media/atomisp/Kconfig         |   2 +-
->  drivers/staging/media/atomisp/i2c/Kconfig     |  14 +-
->  drivers/staging/media/hantro/Kconfig          |   2 +-
->  drivers/staging/media/imx/Kconfig             |   2 +-
->  drivers/staging/media/ipu3/Kconfig            |   2 +-
->  drivers/staging/media/max96712/Kconfig        |   2 +-
->  drivers/staging/media/meson/vdec/Kconfig      |   2 +-
->  drivers/staging/media/omap4iss/Kconfig        |   2 +-
->  drivers/staging/media/rkvdec/Kconfig          |   2 +-
->  drivers/staging/media/sunxi/cedrus/Kconfig    |   2 +-
->  drivers/staging/media/tegra-video/Kconfig     |   2 +-
->  drivers/staging/media/zoran/Kconfig           |   2 +-
->  drivers/staging/most/video/Kconfig            |   2 +-
->  .../vc04_services/bcm2835-camera/Kconfig      |   2 +-
->  drivers/usb/gadget/Kconfig                    |   2 +-
->  drivers/usb/gadget/legacy/Kconfig             |   2 +-
->  sound/pci/Kconfig                             |   4 +-
->  116 files changed, 363 insertions(+), 368 deletions(-)
+  The source file's GPL comment use c++ style, and the header fils's GPL
+  comment use c style. We have added "Switch" after the names of all the
+  controls that just are simple on/off.
 
-[snip]
+Jiaxin Yu (19):
+  ASoC: mediatek: mt6366: support for mt6366 codec
+  dt-bindings: mediatek: mt6358: add new compatible for using mt6366
+  ASoC: mediatek: mt8186: support audsys clock control
+  ASoC: mediatek: mt8186: support adda in platform driver
+  ASoC: mediatek: mt8186: support hostless in platform driver
+  ASoC: mediatek: mt8186: support hw gain in platform driver
+  ASoC: mediatek: mt8186: support i2s in platform driver
+  ASoC: mediatek: mt8186: support pcm in platform driver
+  ASoC: mediatek: mt8186: support src in platform driver
+  ASoC: mediatek: mt8186: support tdm in platform driver
+  ASoC: mediatek: mt8186: support audio clock control in platform driver
+  ASoC: mediatek: mt8186: support gpio control in platform driver
+  ASoC: mediatek: mt8186: add platform driver
+  dt-bindings: mediatek: mt8186: add audio afe document
+  ASoC: mediatek: mt8186: add machine driver with mt6366, da7219 and
+    max98357
+  dt-bindings: mediatek: mt8186: add mt8186-mt6366-da7219-max98357
+    document
+  ASoC: mediatek: mt8186: add machine driver with mt6366, rt1019 and
+    rt5682s
+  dt-bindings: mediatek: mt8186: add mt8186-mt6366-rt1019-rt5682s
+    document
+  ASoC: mediatek: mt6358: add missing EXPORT_SYMBOLs
 
-> diff --git a/drivers/media/pci/tw5864/Kconfig b/drivers/media/pci/tw5864/Kconfig
-> index d376d4ed65b9..0a0f3191f238 100644
-> --- a/drivers/media/pci/tw5864/Kconfig
-> +++ b/drivers/media/pci/tw5864/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  config VIDEO_TW5864
->  	tristate "Techwell TW5864 video/audio grabber and encoder"
-> -	depends on VIDEO_DEV && PCI && VIDEO_V4L2
-> +	depends on VIDEO_DEV && PCI && VIDEO_DEV
-
-You can drop the second VIDEO_DEV.
-
->  	select VIDEOBUF2_DMA_CONTIG
->  	help
->  	  Support for boards based on Techwell TW5864 chip which provides
-> diff --git a/drivers/media/pci/tw68/Kconfig b/drivers/media/pci/tw68/Kconfig
-> index af0cb60337bb..ef29be7db493 100644
-> --- a/drivers/media/pci/tw68/Kconfig
-> +++ b/drivers/media/pci/tw68/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  config VIDEO_TW68
->  	tristate "Techwell tw68x Video For Linux"
-> -	depends on VIDEO_DEV && PCI && VIDEO_V4L2
-> +	depends on VIDEO_DEV && PCI && VIDEO_DEV
-
-Here too.
-
-Apart from that, the patch looks good to me.
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-
-I have however not evaluated the impact it will have on make oldconfig.
-
->  	select VIDEOBUF2_DMA_SG
->  	help
->  	  Support for Techwell tw68xx based frame grabber boards.
-
-[snip]
+ .../devicetree/bindings/sound/mt6358.txt      |    4 +-
+ .../bindings/sound/mt8186-afe-pcm.yaml        |  175 +
+ .../sound/mt8186-mt6366-da7219-max98357.yaml  |   47 +
+ .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   |   47 +
+ sound/soc/codecs/mt6358.c                     |    5 +
+ sound/soc/mediatek/Kconfig                    |   44 +
+ sound/soc/mediatek/Makefile                   |    1 +
+ sound/soc/mediatek/mt8186/Makefile            |   21 +
+ sound/soc/mediatek/mt8186/mt8186-afe-clk.c    |  651 ++++
+ sound/soc/mediatek/mt8186/mt8186-afe-clk.h    |  106 +
+ sound/soc/mediatek/mt8186/mt8186-afe-common.h |  235 ++
+ .../soc/mediatek/mt8186/mt8186-afe-control.c  |  261 ++
+ sound/soc/mediatek/mt8186/mt8186-afe-gpio.c   |  244 ++
+ sound/soc/mediatek/mt8186/mt8186-afe-gpio.h   |   19 +
+ sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    | 3001 +++++++++++++++++
+ sound/soc/mediatek/mt8186/mt8186-audsys-clk.c |  150 +
+ sound/soc/mediatek/mt8186/mt8186-audsys-clk.h |   15 +
+ .../soc/mediatek/mt8186/mt8186-audsys-clkid.h |   45 +
+ sound/soc/mediatek/mt8186/mt8186-dai-adda.c   |  878 +++++
+ .../soc/mediatek/mt8186/mt8186-dai-hostless.c |  298 ++
+ .../soc/mediatek/mt8186/mt8186-dai-hw-gain.c  |  236 ++
+ sound/soc/mediatek/mt8186/mt8186-dai-i2s.c    | 1355 ++++++++
+ sound/soc/mediatek/mt8186/mt8186-dai-pcm.c    |  423 +++
+ sound/soc/mediatek/mt8186/mt8186-dai-src.c    |  726 ++++
+ sound/soc/mediatek/mt8186/mt8186-dai-tdm.c    |  695 ++++
+ .../mediatek/mt8186/mt8186-interconnection.h  |   69 +
+ .../soc/mediatek/mt8186/mt8186-misc-control.c |  295 ++
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    |  924 +++++
+ .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     |  900 +++++
+ sound/soc/mediatek/mt8186/mt8186-reg.h        | 2913 ++++++++++++++++
+ 30 files changed, 14782 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8186-afe-pcm.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
+ create mode 100644 sound/soc/mediatek/mt8186/Makefile
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-clk.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-clk.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-common.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-control.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-gpio.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-audsys-clk.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-audsys-clk.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-audsys-clkid.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-adda.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-hostless.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-hw-gain.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-i2s.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-pcm.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-src.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-tdm.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-interconnection.h
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-misc-control.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+ create mode 100644 sound/soc/mediatek/mt8186/mt8186-reg.h
 
 -- 
-Regards,
+2.18.0
 
-Laurent Pinchart

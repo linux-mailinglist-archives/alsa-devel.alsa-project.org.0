@@ -2,76 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0E514D7DE5
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 09:56:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A3874D7E0E
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 10:02:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BECA186C;
-	Mon, 14 Mar 2022 09:55:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BECA186C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 176B417F6;
+	Mon, 14 Mar 2022 10:01:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 176B417F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647248172;
-	bh=pOJJw1xO8gJXjWgBRnxa5bjvsoFtsXrMDM88AR9YVYs=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1647248535;
+	bh=oPfRK2FlwSAxSpdbLvSWmWhgfzN2gWEN45IqscDe+ks=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g3H49xAwqTYKHt2PWlC0Y3sDaHE4KeoKB7AUnpYcrxRnDZZVYpRgsbMmaLZlqlCxa
-	 R9HiKpTKbmGA0UvmUnQZo7hFZOOLaQcAIPdUSfwIq+OtZv8frLCDum+8p4n+cwoxH1
-	 I9dCJeLce4p+ZIvHH16hMSvM+YMzEnxdiTtVWG90=
+	b=sf+Yb6PKXmOx+GXRHigTvRFzP1J3I7WRzVylF6MVDOtCkw/oOBQZA9OSBukN6ydAi
+	 UocfJdC3Zn/rrcH6qwj6xYLomhsMmJ+zJyRHAWLGsvcWTGCZWeYm/eIc50MnH3aN8C
+	 vle/N6mWq9MuPVCyfDAnUnOAGzMLgEYG2uAmURTA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5302DF804E4;
-	Mon, 14 Mar 2022 09:54:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FDF2F80100;
+	Mon, 14 Mar 2022 10:01:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96CB9F80475; Mon, 14 Mar 2022 09:54:31 +0100 (CET)
+ id EF4BAF80100; Mon, 14 Mar 2022 10:01:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=disabled
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F15CEF80095
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 09:54:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F15CEF80095
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="h9yMSvcs"
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 9886ECE108B;
- Mon, 14 Mar 2022 08:54:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70F3C340F6;
- Mon, 14 Mar 2022 08:54:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647248064;
- bh=pOJJw1xO8gJXjWgBRnxa5bjvsoFtsXrMDM88AR9YVYs=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=h9yMSvcsMlqsjB/0bz0VkbzBh7ZYDkkImBHp/r5frg0YOIiSdj5e9H8HZydZNAqNG
- GB5OLl8/ejWx6WR/MTIZxFc4qP+B0uTJfR8v1m1rgbJofLJXslHGY+Jxs+2OVJa4Wl
- +4WvYgAyStpZVYvyHc7XRrlNB4LK3X0SfWN5HjG2+7OU9bmLOCB5eEyQ3QFen8eVCP
- oOc16u0ClC7qotQaBYoOh0SrFB6/5VS2qZyXZMN92zM1qgQ9he3foRnl5bFyPquGDc
- eYZN1dNPeg6wgURs7QAa+BwgfPiYGsOjl8PbcTl7iJFBZkHKLrXR1UGYvDl18hnqQS
- XaBuUU4nBsTWw==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Rob Herring <robh@kernel.org>
-In-Reply-To: <20220311234802.417610-1-robh@kernel.org>
-References: <20220311234802.417610-1-robh@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: Fix patternProperties with fixed
- strings
-Message-Id: <164724806240.972788.14565468208010113949.b4-ty@kernel.org>
-Date: Mon, 14 Mar 2022 08:54:22 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D17DF80095
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 10:01:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D17DF80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
+ header.b="MgZCFoLm"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id DEE661F43B23
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1647248461;
+ bh=oPfRK2FlwSAxSpdbLvSWmWhgfzN2gWEN45IqscDe+ks=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=MgZCFoLmTFJGMbknh/8pjSR/JiUHD+6YaHFhKIVmrBhpIBcBYt9IFSW5i0ncGVp+m
+ JKf2Nlu29xtCS2ueo+4WCVabQN40X3r9W24iLPvekAJoTnETCwpdr0gY5qp6dtnM7i
+ OsJboo2zNhr6vAcf/S7SRi+dHu4PpAPnZGYJ4+cGjachXrtMBZRx96IhZzx2P3nBj5
+ vmkj/8C3nd3ynT4TF5rKLD/cNy7rpXt/BIxBhLfdwtHPpFyZvMfdvoRV0B6M9ZSFzN
+ +nV/waCUpEP/IjqvwAnt4pdWqr/1d16RM4i1DrSWEuX8bW782zjK3j11qjarOUbIRE
+ h3KWww5Xz6WMw==
+Message-ID: <db4d4b19-0c44-0bad-3544-01237bbb6c07@collabora.com>
+Date: Mon, 14 Mar 2022 10:00:58 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Subject: Re: [PATCH 4/5] ASoC: mediatek: mt8195: add machine driver with
+ mt6359, max98390 and rt5682
+Content-Language: en-US
+To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, matthias.bgg@gmail.com
+References: <20220308072435.22460-1-trevor.wu@mediatek.com>
+ <20220308072435.22460-5-trevor.wu@mediatek.com>
+ <e812796f-6b9b-fe9d-50a7-b681d7b174fd@collabora.com>
+ <5fafa7d8a23fbdce82272529d817816f42c4ac37.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <5fafa7d8a23fbdce82272529d817816f42c4ac37.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ yc.hung@mediatek.com, aaronyu@google.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,37 +90,112 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Mar 2022 17:48:01 -0600, Rob Herring wrote:
-> The simple-audio-card and renesas,rsnd bindings used 'patternProperties'
-> with fixed strings to work-around a dtschema meta-schema limitation. This
-> is now fixed and the schemas can be fixed to use 'properties' instead.
+Il 12/03/22 17:18, Trevor Wu ha scritto:
+> On Thu, 2022-03-10 at 16:21 +0100, AngeloGioacchino Del Regno wrote:
+>> Il 08/03/22 08:24, Trevor Wu ha scritto:
+>>> This patch adds support for mt8195 board with mt6359, max98390 and
+>>> rt5682.
+>>>
+>>> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+>>
+>> Hello Trevor,
+>> thanks for the patch! However, there's something to improve...
+>>
+>>> ---
+>>>    sound/soc/mediatek/Kconfig                    |   16 +
+>>>    sound/soc/mediatek/mt8195/Makefile            |    5 +
+>>>    .../mt8195/mt8195-mt6359-max98390-rt5682.c    | 1058
+>>> +++++++++++++++++
+>>>    3 files changed, 1079 insertions(+)
+>>>    create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-
+>>> max98390-rt5682.c
+>>>    
+>>>
 > 
+> [...]
+>>> +
+>>> +static const struct snd_soc_dapm_widget
+>>> +	mt8195_mt6359_max98390_rt5682_widgets[] = {
+>>> +	SND_SOC_DAPM_SPK("Left Speaker", NULL),
+>>> +	SND_SOC_DAPM_SPK("Right Speaker", NULL),
+>>> +	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+>>
+>> We can at least partially reuse existing UCM2 configuration if you
+>> slightly change the names for these controls.
+>>
+> 
+> I don't know what the UCM2 configuration means.
+> Could you give me more information?
 > 
 
-Applied to
+UCM == Use Case Manager;
+In short, it's userspace (alsa-lib) configuration for sound cards, allowing
+to configure the various mixers for various usecases (speaker/headphone/HDMI
+playback, headset/internal microphone, etc).
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Check this GitHub repository for more information:
+https://github.com/alsa-project/alsa-ucm-conf/tree/master/ucm2
 
-Thanks!
+> 
+>> Specifically, MAX98090 (yes I know it's a different codec) has names
+>> "Speaker Left", "Speaker Right" instead, we will be able to at least
+>> partially reuse these (or get uniform naming, which is still good).
+>> As for the "Headphone Jack", it's simply "Headphone".
+>>
+>> Please note that the actual control names in userspace will be,
+>> exactly,
+>>
+>> "Speaker Left Switch", "Speaker Right Switch",
+>> "Headphone Left Switch", "Headphone Right Switch"...
+>>
+>> ....where "Switch" gets automatically appended because of the control
+>> type.
+>>
+>>> +	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+>>
+>> This "Headset Mic" name is fine.
+>>
+>>> +	SND_SOC_DAPM_MIXER(SOF_DMA_DL2, SND_SOC_NOPM, 0, 0, NULL, 0),
+>>> +	SND_SOC_DAPM_MIXER(SOF_DMA_DL3, SND_SOC_NOPM, 0, 0, NULL, 0),
+>>> +	SND_SOC_DAPM_MIXER(SOF_DMA_UL4, SND_SOC_NOPM, 0, 0, NULL, 0),
+>>> +	SND_SOC_DAPM_MIXER(SOF_DMA_UL5, SND_SOC_NOPM, 0, 0, NULL, 0),
+>>> +};
+>>> +
+> [...]
+>>> +
+>>> +static struct snd_soc_dai_link
+>>> mt8195_mt6359_max98390_rt5682_dai_links[] = {
+>>
+>>
+>> ... again, different name, same contents ...
+>>
+>>
+>> And I won't go on repeating the same thing over and over again.
+>> I think that the best idea here is to either create a mt8195-mt6359-
+>> rt5682-common.c
+>> file, or to rename the others to something else and get them all in
+>> the same file.
+>>
+>>
+>> Regards,
+>> Angelo
+> 
+> Hi Angelo,
+> 
+> Thanks for your review.
+> Please forgive me for deleting some comments above.
+> I totally agree that most code can be reused.
+> I will try revising and merging all mt8195 machine drivers in a file.
 
-[1/1] ASoC: dt-bindings: Fix patternProperties with fixed strings
-      commit: 910f42bfe96783fc633196bd975731a420c7a066
+No worries. Looking forward to see the next version.
+Thank you!
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Regards,
+Angelo
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> 
+> Thanks,
+> Trevor
+> 
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

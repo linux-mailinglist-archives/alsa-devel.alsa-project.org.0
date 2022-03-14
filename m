@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF80B4D7B01
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 07:53:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ADD44D7B0A
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 07:54:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23F8D16E2;
-	Mon, 14 Mar 2022 07:52:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23F8D16E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90D8716E2;
+	Mon, 14 Mar 2022 07:54:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90D8716E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647240821;
-	bh=bZ4b4qR3mQX6wQ7pxPYCSsuiOSwt3QRijG2J+u8JFIs=;
+	s=default; t=1647240891;
+	bh=AyrEZxP9zwJ5qr992l3oYZhjAibXdOk84oKci/5qVb8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SeoWDkk13jItO838EA/Inn1NJJv6N+/ecKfz+i9+AmmTJUruAGDbJnnRbFcIciGGi
-	 BlOV6WDnAA9IYpyW5nRaKDevJf3LjpES7dlMuHjUHac9KIl4taiFuCVqA1Hyo2iqDn
-	 7x9/xmKi8XEWjlC5Q7+2xeAqT4a/q/lWftd/Nbas=
+	b=Y4cp5/pNDPibKz0twAmoPsC8RR9heaSFR8VD6JNIG1veHYd18BgJJ2FvwLvILoUGg
+	 ct2JVh4JNocCLu6e2Q8MkKpICdGMGSiHAs4P8EEji5vRIsNgEx+zzj6n5iv1L6VtqM
+	 K4skYtCgjk9ozpkeH4j7KfuoP6zxBXx+szpZnYmE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54628F804E4;
-	Mon, 14 Mar 2022 07:52:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BBF9F8012C;
+	Mon, 14 Mar 2022 07:53:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE395F80475; Mon, 14 Mar 2022 07:52:38 +0100 (CET)
+ id 17A35F80139; Mon, 14 Mar 2022 07:53:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,49 +34,49 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6306DF8011C
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 07:52:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6306DF8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBCC0F8011C
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 07:53:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBCC0F8011C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="2X5vzwyx"; 
+ header.b="Ypb3sD06"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Wp+sIkfx"
+ header.b="iTuwTUR6"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 3292A210FE;
- Mon, 14 Mar 2022 06:52:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 795FB212C6;
+ Mon, 14 Mar 2022 06:53:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647240756; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1647240820; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UfvHpzbhcn2w3OtoQRb4j7MOu/kjOV1I5l9RZtfrsG0=;
- b=2X5vzwyx57pX+2g5/00OtES2kH426khiEgQptDgseK46yConWiP996DV9x+de8G+TeER4Y
- tJ6mQ9WUaFCQ04V+t0K6T9dagvxyVAZoUkBPK6IzVK5ANrIaJQN+e3MWYC8crUX2kJi3Tt
- mO90Al9pOUb2KWfyoDzW5dbgYQ6sRlk=
+ bh=ZQ1RcgOkGnhi1txuQRcGQ+jxwUwkiEPikbAdoFSPFT4=;
+ b=Ypb3sD06FDMrG9dfnyyFWJYs24+DT4+yqoCz895WEtTBWMEJ1abNcPNvxhQrft6CtrYXEU
+ uG88HPNKMrxgKC05mL/NaOsgebWyZMfkvDy1yYNAtlMXE6JPkBb0aTzfqRAhozJ5rodPLi
+ NOyqWi/4Kx8Z97lijvihPxeUoC3dO0g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647240756;
+ s=susede2_ed25519; t=1647240820;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UfvHpzbhcn2w3OtoQRb4j7MOu/kjOV1I5l9RZtfrsG0=;
- b=Wp+sIkfxPqSU4vWD6EKgHOd8svzM9D9kN0Cq40SAJ+SBKrSTpzEa06U5+03AJTipnjo9SW
- 87qY1bA68bL0hrAA==
+ bh=ZQ1RcgOkGnhi1txuQRcGQ+jxwUwkiEPikbAdoFSPFT4=;
+ b=iTuwTUR6hcJlVhGQCEPEDsDEMvpUB69yQcmdaBIfDQyZDNx8nqehk4aCGcUwJywm6PV1rt
+ JXkWj2rita5VyRDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1F764A3B81;
- Mon, 14 Mar 2022 06:52:36 +0000 (UTC)
-Date: Mon, 14 Mar 2022 07:52:36 +0100
-Message-ID: <s5h4k41c9fv.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 68C16A3B83;
+ Mon, 14 Mar 2022 06:53:40 +0000 (UTC)
+Date: Mon, 14 Mar 2022 07:53:40 +0100
+Message-ID: <s5h35jlc9e3.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jason Zheng <jasonzheng2004@gmail.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASUS GA402
-In-Reply-To: <20220313092216.29858-1-jasonzheng2004@gmail.com>
-References: <20220313092216.29858-1-jasonzheng2004@gmail.com>
+To: Jonathan Teh <jonathan.teh@outlook.com>
+Subject: Re: [PATCH] ALSA: cmipci: Restore aux vol on suspend/resume
+In-Reply-To: <DBAPR04MB7366CB3EA9C8521C35C56E8B920E9@DBAPR04MB7366.eurprd04.prod.outlook.com>
+References: <DBAPR04MB7366CB3EA9C8521C35C56E8B920E9@DBAPR04MB7366.eurprd04.prod.outlook.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,15 +92,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 13 Mar 2022 10:22:16 +0100,
-Jason Zheng wrote:
+On Sun, 13 Mar 2022 20:56:17 +0100,
+Jonathan Teh wrote:
 > 
-> ASUS GA402 requires a workaround to manage the routing of its 4 speakers
-> like the other ASUS models. Add a corresponding quirk entry to fix it.
+> Save and restore CM_REG_AUX_VOL instead of register 0x24 twice on
+> suspend/resume.
 > 
-> Signed-off-by: Jason Zheng <jasonzheng2004@gmail.com>
+> Tested on CMI8738LX.
+> 
+> Fixes: cb60e5f5b2b1 ("[ALSA] cmipci - Add PM support")
+> Signed-off-by: Jonathan Teh <jonathan.teh@outlook.com>
 
-Thanks, applied.
+Thanks, applied now.
 
 
 Takashi

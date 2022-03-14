@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0C9A4D8DEE
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 21:11:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90A1E4D8DEB
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 21:10:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7707917D6;
-	Mon, 14 Mar 2022 21:10:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7707917D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2867818B8;
+	Mon, 14 Mar 2022 21:09:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2867818B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647288666;
-	bh=w3S9W6gWT3L+wropLpgQA8Tcj43Qg57AAWLS9JoRIAc=;
+	s=default; t=1647288641;
+	bh=RO12hlXGbb8/icUyg0KQNpeqvnvRA0gd1mw9+jPXWcQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RzLhBpj58P0TuThy1cqpWgnliHVva3m0YK/GbxbNP00FBLgIe4hOw9UmW98jvY3v+
-	 RTsS1mSnmefp+3F3m23uCJ0NhU+qFsZCf3XWcVoAixMp7ppdD5Pkwlh/B9Hzn3yWhu
-	 Uy9a28A8m260GBHy51gQBYIH5a9+Tp/DF+dOEytc=
+	b=i1uEgBOO4Dz21A83EyUbmf4iBqWiWSOSG7pEMetpCrCYKgrkY3p+F7N+8t9EtgNu5
+	 dOTF2oKPxUE0DsNZ2k2wyrtPCpVS3Zc65EcJONcvKmOwHW3/Mvv0MZouOnsJG6FY5a
+	 M5ISiGCh+0uireyoVc5E7hr2p1otDQv6XPezqxgA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11440F8059F;
-	Mon, 14 Mar 2022 21:06:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D26FCF80578;
+	Mon, 14 Mar 2022 21:06:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B977F8053E; Mon, 14 Mar 2022 21:06:01 +0100 (CET)
+ id 39822F8051B; Mon, 14 Mar 2022 21:06:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2ED3FF80528
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2EC88F80527
  for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 21:05:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2ED3FF80528
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EC88F80527
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="HqO69I53"
+ header.b="O77YLFm5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1647288349; x=1678824349;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w3S9W6gWT3L+wropLpgQA8Tcj43Qg57AAWLS9JoRIAc=;
- b=HqO69I53vh0MZdKarBKf+P5LGHq/hZrCwyej+oXuq5/jjXeN1mH38iVa
- UsMFWvWrKb+5We2RWZzME4DnKFWZ5h1QGll/C6VQGpnwjPC0q42b/+joT
- qJpgNrxPwLOV9tH1Y2GVt9n8eQDn2s8E0Zi+PHWO7sWjij7JLLV053df+
- qWXYGRXYBc6CFC241krNrr83PWa3WZ4/i1ymJCqYkHA37MWboaWVNMYo1
- pnejlRd0IOU3GB7btEn8A6Eu6IJ4FE1tpbT0OhxgZ/dS3ZsWwi6vb7XE3
- TPVMAL24Dgh75I8dq988zZakANFcBEcCGDb3aDFnJe4hokMrGPBbMG9wy Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="342563479"
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="342563479"
+ bh=RO12hlXGbb8/icUyg0KQNpeqvnvRA0gd1mw9+jPXWcQ=;
+ b=O77YLFm5PjAeJDE4SM3C1/irO9PaQ/uG+esg3iEsoHelAi/m0xTQUm3c
+ 4t2Sr/FrPTh5wBmsjzsfqge7c2YHPPWzGA3ASuV9BbYfSuBZWFPIJ9aNo
+ PHH0jaOMprp4NkYOk0zRZmwAQw43Dij11GHpDGE3vIuqQ84KHg904vuHE
+ wco0NTxDhwbbSotzN2+YtX06GmcsBmrz5EUBK7sEA07HdHHRu0W5yrqCw
+ 2mhdeRixq823se96QlqSdeUDw5473qiXDKYqTtUcl9kcDTFBsyBlZb3bi
+ 2qhNJ/nS2XunLite35ZZbv5MZlxP8Tmi+qKWefS7Ejjs6gBaT890ypQVB g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="342563480"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="342563480"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Mar 2022 13:05:33 -0700
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="634339899"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="634339900"
 Received: from pmishr1-mobl1.amr.corp.intel.com (HELO
  rsridh2-mobl1.localdomain) ([10.254.25.117])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Mar 2022 13:05:33 -0700
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 12/18] ASoC: SOF: topology: Make siggen widget parsing IPC
+Subject: [PATCH 13/18] ASoC: SOF: topology: Make effect widget parsing IPC
  agnostic
-Date: Mon, 14 Mar 2022 13:05:14 -0700
-Message-Id: <20220314200520.1233427-14-ranjani.sridharan@linux.intel.com>
+Date: Mon, 14 Mar 2022 13:05:15 -0700
+Message-Id: <20220314200520.1233427-15-ranjani.sridharan@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220314200520.1233427-1-ranjani.sridharan@linux.intel.com>
 References: <20220314200520.1233427-1-ranjani.sridharan@linux.intel.com>
@@ -94,163 +94,644 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Define the list of tokens pertaining to the siggen widgets, parse and
+Define the list of tokens pertaining to effect type widgets, parse and
 save them as part of the swidget tuples array. Once topology parsing is
 complete, these tokens will be applied to create the IPC structure for the
-tone component based on the topology widget_setup op in ipc3_tplg_ops.
+process component based on the topology widget_setup op in ipc3_tplg_ops.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/ipc3-topology.c | 36 +++++++++++++++++++++
- sound/soc/sof/topology.c      | 60 +----------------------------------
- 2 files changed, 37 insertions(+), 59 deletions(-)
+ sound/soc/sof/ipc3-topology.c | 248 ++++++++++++++++++++++++++++++
+ sound/soc/sof/topology.c      | 277 ++--------------------------------
+ 2 files changed, 257 insertions(+), 268 deletions(-)
 
 diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index 7dc6530efdba..6fef96fee5f2 100644
+index 6fef96fee5f2..b710129374c8 100644
 --- a/sound/soc/sof/ipc3-topology.c
 +++ b/sound/soc/sof/ipc3-topology.c
-@@ -212,6 +212,39 @@ static void sof_ipc3_widget_free_comp(struct snd_sof_widget *swidget)
- 	kfree(swidget->private);
- }
+@@ -13,6 +13,51 @@
+ #include "sof-audio.h"
+ #include "ops.h"
  
-+static int sof_ipc3_widget_setup_comp_tone(struct snd_sof_widget *swidget)
++struct sof_widget_data {
++	int ctrl_type;
++	int ipc_cmd;
++	struct sof_abi_hdr *pdata;
++	struct snd_sof_control *control;
++};
++
++struct sof_process_types {
++	const char *name;
++	enum sof_ipc_process_type type;
++	enum sof_comp_type comp_type;
++};
++
++static const struct sof_process_types sof_process[] = {
++	{"EQFIR", SOF_PROCESS_EQFIR, SOF_COMP_EQ_FIR},
++	{"EQIIR", SOF_PROCESS_EQIIR, SOF_COMP_EQ_IIR},
++	{"KEYWORD_DETECT", SOF_PROCESS_KEYWORD_DETECT, SOF_COMP_KEYWORD_DETECT},
++	{"KPB", SOF_PROCESS_KPB, SOF_COMP_KPB},
++	{"CHAN_SELECTOR", SOF_PROCESS_CHAN_SELECTOR, SOF_COMP_SELECTOR},
++	{"MUX", SOF_PROCESS_MUX, SOF_COMP_MUX},
++	{"DEMUX", SOF_PROCESS_DEMUX, SOF_COMP_DEMUX},
++	{"DCBLOCK", SOF_PROCESS_DCBLOCK, SOF_COMP_DCBLOCK},
++	{"SMART_AMP", SOF_PROCESS_SMART_AMP, SOF_COMP_SMART_AMP},
++};
++
++static enum sof_ipc_process_type find_process(const char *name)
 +{
-+	struct snd_soc_component *scomp = swidget->scomp;
-+	struct sof_ipc_comp_tone *tone;
-+	size_t ipc_size = sizeof(*tone);
-+	int ret;
++	int i;
 +
-+	tone = sof_comp_alloc(swidget, &ipc_size, swidget->pipeline_id);
-+	if (!tone)
-+		return -ENOMEM;
-+
-+	swidget->private = tone;
-+
-+	/* configure siggen IPC message */
-+	tone->comp.type = SOF_COMP_TONE;
-+	tone->config.hdr.size = sizeof(tone->config);
-+
-+	/* parse one set of comp tokens */
-+	ret = sof_update_ipc_object(scomp, &tone->config, SOF_COMP_TOKENS, swidget->tuples,
-+				    swidget->num_tuples, sizeof(tone->config), 1);
-+	if (ret < 0) {
-+		kfree(swidget->private);
-+		swidget->private = NULL;
-+		return ret;
++	for (i = 0; i < ARRAY_SIZE(sof_process); i++) {
++		if (strcmp(name, sof_process[i].name) == 0)
++			return sof_process[i].type;
 +	}
 +
-+	dev_dbg(scomp->dev, "tone %s: frequency %d amplitude %d\n",
-+		swidget->widget->name, tone->frequency, tone->amplitude);
-+	sof_dbg_comp_config(scomp, &tone->config);
++	return SOF_PROCESS_NONE;
++}
++
++static int get_token_process_type(void *elem, void *object, u32 offset)
++{
++	u32 *val = (u32 *)((u8 *)object + offset);
++
++	*val = find_process((const char *)elem);
++	return 0;
++}
++
+ /* Buffers */
+ static const struct sof_topology_token buffer_tokens[] = {
+ 	{SOF_TKN_BUF_SIZE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
+@@ -71,6 +116,12 @@ static const struct sof_topology_token asrc_tokens[] = {
+ 		offsetof(struct sof_ipc_comp_asrc, operation_mode)},
+ };
+ 
++/* EFFECT */
++static const struct sof_topology_token process_tokens[] = {
++	{SOF_TKN_PROCESS_TYPE, SND_SOC_TPLG_TUPLE_TYPE_STRING, get_token_process_type,
++		offsetof(struct sof_ipc_comp_process, type)},
++};
++
+ /* PCM */
+ static const struct sof_topology_token pcm_tokens[] = {
+ 	{SOF_TKN_PCM_DMAC_CONFIG, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
+@@ -111,6 +162,7 @@ static const struct sof_token_info ipc3_token_list[SOF_TOKEN_COUNT] = {
+ 	[SOF_VOLUME_TOKENS] = {"Volume tokens", volume_tokens, ARRAY_SIZE(volume_tokens)},
+ 	[SOF_SRC_TOKENS] = {"SRC tokens", src_tokens, ARRAY_SIZE(src_tokens)},
+ 	[SOF_ASRC_TOKENS] = {"ASRC tokens", asrc_tokens, ARRAY_SIZE(asrc_tokens)},
++	[SOF_PROCESS_TOKENS] = {"Process tokens", process_tokens, ARRAY_SIZE(process_tokens)},
+ };
+ 
+ /**
+@@ -558,6 +610,193 @@ static int sof_ipc3_widget_setup_comp_pga(struct snd_sof_widget *swidget)
+ 	return ret;
+ }
+ 
++static int sof_get_control_data(struct snd_soc_component *scomp,
++				struct snd_soc_dapm_widget *widget,
++				struct sof_widget_data *wdata, size_t *size)
++{
++	const struct snd_kcontrol_new *kc;
++	struct soc_mixer_control *sm;
++	struct soc_bytes_ext *sbe;
++	struct soc_enum *se;
++	int i;
++
++	*size = 0;
++
++	for (i = 0; i < widget->num_kcontrols; i++) {
++		kc = &widget->kcontrol_news[i];
++
++		switch (widget->dobj.widget.kcontrol_type[i]) {
++		case SND_SOC_TPLG_TYPE_MIXER:
++			sm = (struct soc_mixer_control *)kc->private_value;
++			wdata[i].control = sm->dobj.private;
++			break;
++		case SND_SOC_TPLG_TYPE_BYTES:
++			sbe = (struct soc_bytes_ext *)kc->private_value;
++			wdata[i].control = sbe->dobj.private;
++			break;
++		case SND_SOC_TPLG_TYPE_ENUM:
++			se = (struct soc_enum *)kc->private_value;
++			wdata[i].control = se->dobj.private;
++			break;
++		default:
++			dev_err(scomp->dev, "Unknown kcontrol type %u in widget %s\n",
++				widget->dobj.widget.kcontrol_type[i], widget->name);
++			return -EINVAL;
++		}
++
++		if (!wdata[i].control) {
++			dev_err(scomp->dev, "No scontrol for widget %s\n", widget->name);
++			return -EINVAL;
++		}
++
++		wdata[i].pdata = wdata[i].control->control_data->data;
++		if (!wdata[i].pdata)
++			return -EINVAL;
++
++		/* make sure data is valid - data can be updated at runtime */
++		if (widget->dobj.widget.kcontrol_type[i] == SND_SOC_TPLG_TYPE_BYTES &&
++		    wdata[i].pdata->magic != SOF_ABI_MAGIC)
++			return -EINVAL;
++
++		*size += wdata[i].pdata->size;
++
++		/* get data type */
++		switch (wdata[i].control->control_data->cmd) {
++		case SOF_CTRL_CMD_VOLUME:
++		case SOF_CTRL_CMD_ENUM:
++		case SOF_CTRL_CMD_SWITCH:
++			wdata[i].ipc_cmd = SOF_IPC_COMP_SET_VALUE;
++			wdata[i].ctrl_type = SOF_CTRL_TYPE_VALUE_CHAN_SET;
++			break;
++		case SOF_CTRL_CMD_BINARY:
++			wdata[i].ipc_cmd = SOF_IPC_COMP_SET_DATA;
++			wdata[i].ctrl_type = SOF_CTRL_TYPE_DATA_SET;
++			break;
++		default:
++			break;
++		}
++	}
 +
 +	return 0;
 +}
 +
- static int sof_ipc3_widget_setup_comp_mixer(struct snd_sof_widget *swidget)
- {
- 	struct snd_soc_component *scomp = swidget->scomp;
-@@ -585,6 +618,9 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc3_widget_ops[SND_SOC_DAPM_TY
- 			      src_token_list, ARRAY_SIZE(src_token_list), NULL},
- 	[snd_soc_dapm_asrc] = {sof_ipc3_widget_setup_comp_asrc, sof_ipc3_widget_free_comp,
- 			       asrc_token_list, ARRAY_SIZE(asrc_token_list), NULL},
-+	[snd_soc_dapm_siggen] = {sof_ipc3_widget_setup_comp_tone, sof_ipc3_widget_free_comp,
-+				 comp_generic_token_list, ARRAY_SIZE(comp_generic_token_list),
-+				 NULL},
- 	[snd_soc_dapm_scheduler] = {sof_ipc3_widget_setup_comp_pipeline, sof_ipc3_widget_free_comp,
- 				    pipeline_token_list, ARRAY_SIZE(pipeline_token_list), NULL},
- 	[snd_soc_dapm_pga] = {sof_ipc3_widget_setup_comp_pga, sof_ipc3_widget_free_comp,
++static int sof_process_load(struct snd_soc_component *scomp,
++			    struct snd_sof_widget *swidget, int type)
++{
++	struct snd_soc_dapm_widget *widget = swidget->widget;
++	struct sof_ipc_comp_process *process;
++	struct sof_widget_data *wdata = NULL;
++	size_t ipc_data_size = 0;
++	size_t ipc_size;
++	int offset = 0;
++	int ret;
++	int i;
++
++	/* allocate struct for widget control data sizes and types */
++	if (widget->num_kcontrols) {
++		wdata = kcalloc(widget->num_kcontrols, sizeof(*wdata), GFP_KERNEL);
++		if (!wdata)
++			return -ENOMEM;
++
++		/* get possible component controls and get size of all pdata */
++		ret = sof_get_control_data(scomp, widget, wdata, &ipc_data_size);
++		if (ret < 0)
++			goto out;
++	}
++
++	ipc_size = sizeof(struct sof_ipc_comp_process) + ipc_data_size;
++
++	/* we are exceeding max ipc size, config needs to be sent separately */
++	if (ipc_size > SOF_IPC_MSG_MAX_SIZE) {
++		ipc_size -= ipc_data_size;
++		ipc_data_size = 0;
++	}
++
++	process = sof_comp_alloc(swidget, &ipc_size, swidget->pipeline_id);
++	if (!process) {
++		ret = -ENOMEM;
++		goto out;
++	}
++
++	swidget->private = process;
++
++	/* configure iir IPC message */
++	process->comp.type = type;
++	process->config.hdr.size = sizeof(process->config);
++
++	/* parse one set of comp tokens */
++	ret = sof_update_ipc_object(scomp, &process->config, SOF_COMP_TOKENS,
++				    swidget->tuples, swidget->num_tuples,
++				    sizeof(process->config), 1);
++	if (ret < 0)
++		goto err;
++
++	dev_dbg(scomp->dev, "loaded process %s\n", swidget->widget->name);
++	sof_dbg_comp_config(scomp, &process->config);
++
++	/*
++	 * found private data in control, so copy it.
++	 * get possible component controls - get size of all pdata,
++	 * then memcpy with headers
++	 */
++	if (ipc_data_size) {
++		for (i = 0; i < widget->num_kcontrols; i++) {
++			memcpy(&process->data[offset],
++			       wdata[i].pdata->data,
++			       wdata[i].pdata->size);
++			offset += wdata[i].pdata->size;
++		}
++	}
++
++	process->size = ipc_data_size;
++
++	kfree(wdata);
++
++	return 0;
++err:
++	kfree(swidget->private);
++	swidget->private = NULL;
++out:
++	kfree(wdata);
++	return ret;
++}
++
++static enum sof_comp_type find_process_comp_type(enum sof_ipc_process_type type)
++{
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(sof_process); i++) {
++		if (sof_process[i].type == type)
++			return sof_process[i].comp_type;
++	}
++
++	return SOF_COMP_NONE;
++}
++
++/*
++ * Processing Component Topology - can be "effect", "codec", or general
++ * "processing".
++ */
++
++static int sof_widget_update_ipc_comp_process(struct snd_sof_widget *swidget)
++{
++	struct snd_soc_component *scomp = swidget->scomp;
++	struct sof_ipc_comp_process config;
++	int ret;
++
++	memset(&config, 0, sizeof(config));
++	config.comp.core = swidget->core;
++
++	/* parse one set of process tokens */
++	ret = sof_update_ipc_object(scomp, &config, SOF_PROCESS_TOKENS, swidget->tuples,
++				    swidget->num_tuples, sizeof(config), 1);
++	if (ret < 0)
++		return ret;
++
++	/* now load process specific data and send IPC */
++	return sof_process_load(scomp, swidget, find_process_comp_type(config.type));
++}
++
+ /* token list for each topology object */
+ static enum sof_tokens host_token_list[] = {
+ 	SOF_CORE_TOKENS,
+@@ -604,6 +843,13 @@ static enum sof_tokens pga_token_list[] = {
+ 	SOF_COMP_TOKENS,
+ };
+ 
++static enum sof_tokens process_token_list[] = {
++	SOF_CORE_TOKENS,
++	SOF_COMP_EXT_TOKENS,
++	SOF_PROCESS_TOKENS,
++	SOF_COMP_TOKENS,
++};
++
+ static const struct sof_ipc_tplg_widget_ops tplg_ipc3_widget_ops[SND_SOC_DAPM_TYPE_COUNT] = {
+ 	[snd_soc_dapm_aif_in] =  {sof_ipc3_widget_setup_comp_host, sof_ipc3_widget_free_comp,
+ 				  host_token_list, ARRAY_SIZE(host_token_list), NULL},
+@@ -630,6 +876,8 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc3_widget_ops[SND_SOC_DAPM_TY
+ 	[snd_soc_dapm_demux] = {sof_ipc3_widget_setup_comp_mux, sof_ipc3_widget_free_comp,
+ 				 comp_generic_token_list, ARRAY_SIZE(comp_generic_token_list),
+ 				 NULL},
++	[snd_soc_dapm_effect] = {sof_widget_update_ipc_comp_process, sof_ipc3_widget_free_comp,
++				 process_token_list, ARRAY_SIZE(process_token_list), NULL},
+ };
+ 
+ static const struct sof_ipc_tplg_ops ipc3_tplg_ops = {
 diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 94449ed370af..f5b25ffee5b7 100644
+index f5b25ffee5b7..187f7c46a42b 100644
 --- a/sound/soc/sof/topology.c
 +++ b/sound/soc/sof/topology.c
-@@ -629,10 +629,6 @@ static const struct sof_topology_token dai_link_tokens[] = {
+@@ -141,13 +141,6 @@ int sof_update_ipc_object(struct snd_soc_component *scomp, void *object, enum so
+ 	return 0;
+ }
+ 
+-struct sof_widget_data {
+-	int ctrl_type;
+-	int ipc_cmd;
+-	struct sof_abi_hdr *pdata;
+-	struct snd_sof_control *control;
+-};
+-
+ /* send pcm params ipc */
+ static int ipc_pcm_params(struct snd_sof_widget *swidget, int dir)
+ {
+@@ -517,48 +510,6 @@ static enum sof_ipc_frame find_format(const char *name)
+ 	return SOF_IPC_FRAME_S32_LE;
+ }
+ 
+-struct sof_process_types {
+-	const char *name;
+-	enum sof_ipc_process_type type;
+-	enum sof_comp_type comp_type;
+-};
+-
+-static const struct sof_process_types sof_process[] = {
+-	{"EQFIR", SOF_PROCESS_EQFIR, SOF_COMP_EQ_FIR},
+-	{"EQIIR", SOF_PROCESS_EQIIR, SOF_COMP_EQ_IIR},
+-	{"KEYWORD_DETECT", SOF_PROCESS_KEYWORD_DETECT, SOF_COMP_KEYWORD_DETECT},
+-	{"KPB", SOF_PROCESS_KPB, SOF_COMP_KPB},
+-	{"CHAN_SELECTOR", SOF_PROCESS_CHAN_SELECTOR, SOF_COMP_SELECTOR},
+-	{"MUX", SOF_PROCESS_MUX, SOF_COMP_MUX},
+-	{"DEMUX", SOF_PROCESS_DEMUX, SOF_COMP_DEMUX},
+-	{"DCBLOCK", SOF_PROCESS_DCBLOCK, SOF_COMP_DCBLOCK},
+-	{"SMART_AMP", SOF_PROCESS_SMART_AMP, SOF_COMP_SMART_AMP},
+-};
+-
+-static enum sof_ipc_process_type find_process(const char *name)
+-{
+-	int i;
+-
+-	for (i = 0; i < ARRAY_SIZE(sof_process); i++) {
+-		if (strcmp(name, sof_process[i].name) == 0)
+-			return sof_process[i].type;
+-	}
+-
+-	return SOF_PROCESS_NONE;
+-}
+-
+-static enum sof_comp_type find_process_comp_type(enum sof_ipc_process_type type)
+-{
+-	int i;
+-
+-	for (i = 0; i < ARRAY_SIZE(sof_process); i++) {
+-		if (sof_process[i].type == type)
+-			return sof_process[i].comp_type;
+-	}
+-
+-	return SOF_COMP_NONE;
+-}
+-
+ int get_token_u32(void *elem, void *object, u32 offset)
+ {
+ 	struct snd_soc_tplg_vendor_value_elem *velem = elem;
+@@ -603,14 +554,6 @@ int get_token_dai_type(void *elem, void *object, u32 offset)
+ 	return 0;
+ }
+ 
+-static int get_token_process_type(void *elem, void *object, u32 offset)
+-{
+-	u32 *val = (u32 *)((u8 *)object + offset);
+-
+-	*val = find_process((const char *)elem);
+-	return 0;
+-}
+-
+ /* DAI */
+ static const struct sof_topology_token dai_tokens[] = {
+ 	{SOF_TKN_DAI_TYPE, SND_SOC_TPLG_TUPLE_TYPE_STRING, get_token_dai_type,
+@@ -629,13 +572,6 @@ static const struct sof_topology_token dai_link_tokens[] = {
  		offsetof(struct sof_ipc_dai_config, dai_index)},
  };
  
--/* Tone */
--static const struct sof_topology_token tone_tokens[] = {
+-/* EFFECT */
+-static const struct sof_topology_token process_tokens[] = {
+-	{SOF_TKN_PROCESS_TYPE, SND_SOC_TPLG_TUPLE_TYPE_STRING,
+-		get_token_process_type,
+-		offsetof(struct sof_ipc_comp_process, type)},
 -};
 -
- /* EFFECT */
- static const struct sof_topology_token process_tokens[] = {
- 	{SOF_TKN_PROCESS_TYPE, SND_SOC_TPLG_TUPLE_TYPE_STRING,
-@@ -1770,58 +1766,6 @@ static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_s
+ /* PCM */
+ static const struct sof_topology_token stream_tokens[] = {
+ 	{SOF_TKN_STREAM_PLAYBACK_COMPATIBLE_D0I3,
+@@ -1766,207 +1702,6 @@ static int sof_widget_parse_tokens(struct snd_soc_component *scomp, struct snd_s
  	return ret;
  }
  
--/*
-- * Signal Generator Topology
-- */
--
--static int sof_widget_load_siggen(struct snd_soc_component *scomp, int index,
--				  struct snd_sof_widget *swidget,
--				  struct snd_soc_tplg_dapm_widget *tw)
+-static int sof_get_control_data(struct snd_soc_component *scomp,
+-				struct snd_soc_dapm_widget *widget,
+-				struct sof_widget_data *wdata,
+-				size_t *size)
 -{
--	struct snd_soc_tplg_private *private = &tw->priv;
--	struct sof_ipc_comp_tone *tone;
--	size_t ipc_size = sizeof(*tone);
--	int ret;
+-	const struct snd_kcontrol_new *kc;
+-	struct soc_mixer_control *sm;
+-	struct soc_bytes_ext *sbe;
+-	struct soc_enum *se;
+-	int i;
 -
--	tone = (struct sof_ipc_comp_tone *)
--	       sof_comp_alloc(swidget, &ipc_size, index);
--	if (!tone)
--		return -ENOMEM;
+-	*size = 0;
 -
--	/* configure siggen IPC message */
--	tone->comp.type = SOF_COMP_TONE;
--	tone->config.hdr.size = sizeof(tone->config);
+-	for (i = 0; i < widget->num_kcontrols; i++) {
+-		kc = &widget->kcontrol_news[i];
 -
--	ret = sof_parse_tokens(scomp, tone, tone_tokens,
--			       ARRAY_SIZE(tone_tokens), private->array,
--			       le32_to_cpu(private->size));
--	if (ret != 0) {
--		dev_err(scomp->dev, "error: parse tone tokens failed %d\n",
--			le32_to_cpu(private->size));
--		goto err;
+-		switch (widget->dobj.widget.kcontrol_type[i]) {
+-		case SND_SOC_TPLG_TYPE_MIXER:
+-			sm = (struct soc_mixer_control *)kc->private_value;
+-			wdata[i].control = sm->dobj.private;
+-			break;
+-		case SND_SOC_TPLG_TYPE_BYTES:
+-			sbe = (struct soc_bytes_ext *)kc->private_value;
+-			wdata[i].control = sbe->dobj.private;
+-			break;
+-		case SND_SOC_TPLG_TYPE_ENUM:
+-			se = (struct soc_enum *)kc->private_value;
+-			wdata[i].control = se->dobj.private;
+-			break;
+-		default:
+-			dev_err(scomp->dev, "error: unknown kcontrol type %u in widget %s\n",
+-				widget->dobj.widget.kcontrol_type[i],
+-				widget->name);
+-			return -EINVAL;
+-		}
+-
+-		if (!wdata[i].control) {
+-			dev_err(scomp->dev, "error: no scontrol for widget %s\n",
+-				widget->name);
+-			return -EINVAL;
+-		}
+-
+-		wdata[i].pdata = wdata[i].control->control_data->data;
+-		if (!wdata[i].pdata)
+-			return -EINVAL;
+-
+-		/* make sure data is valid - data can be updated at runtime */
+-		if (widget->dobj.widget.kcontrol_type[i] == SND_SOC_TPLG_TYPE_BYTES &&
+-		    wdata[i].pdata->magic != SOF_ABI_MAGIC)
+-			return -EINVAL;
+-
+-		*size += wdata[i].pdata->size;
+-
+-		/* get data type */
+-		switch (wdata[i].control->control_data->cmd) {
+-		case SOF_CTRL_CMD_VOLUME:
+-		case SOF_CTRL_CMD_ENUM:
+-		case SOF_CTRL_CMD_SWITCH:
+-			wdata[i].ipc_cmd = SOF_IPC_COMP_SET_VALUE;
+-			wdata[i].ctrl_type = SOF_CTRL_TYPE_VALUE_CHAN_SET;
+-			break;
+-		case SOF_CTRL_CMD_BINARY:
+-			wdata[i].ipc_cmd = SOF_IPC_COMP_SET_DATA;
+-			wdata[i].ctrl_type = SOF_CTRL_TYPE_DATA_SET;
+-			break;
+-		default:
+-			break;
+-		}
 -	}
 -
--	ret = sof_parse_tokens(scomp, &tone->config, comp_tokens,
+-	return 0;
+-}
+-
+-static int sof_process_load(struct snd_soc_component *scomp, int index,
+-			    struct snd_sof_widget *swidget,
+-			    struct snd_soc_tplg_dapm_widget *tw,
+-			    int type)
+-{
+-	struct snd_soc_dapm_widget *widget = swidget->widget;
+-	struct snd_soc_tplg_private *private = &tw->priv;
+-	struct sof_ipc_comp_process *process;
+-	struct sof_widget_data *wdata = NULL;
+-	size_t ipc_data_size = 0;
+-	size_t ipc_size;
+-	int offset = 0;
+-	int ret;
+-	int i;
+-
+-	/* allocate struct for widget control data sizes and types */
+-	if (widget->num_kcontrols) {
+-		wdata = kcalloc(widget->num_kcontrols,
+-				sizeof(*wdata),
+-				GFP_KERNEL);
+-
+-		if (!wdata)
+-			return -ENOMEM;
+-
+-		/* get possible component controls and get size of all pdata */
+-		ret = sof_get_control_data(scomp, widget, wdata,
+-					   &ipc_data_size);
+-
+-		if (ret < 0)
+-			goto out;
+-	}
+-
+-	ipc_size = sizeof(struct sof_ipc_comp_process) + ipc_data_size;
+-
+-	/* we are exceeding max ipc size, config needs to be sent separately */
+-	if (ipc_size > SOF_IPC_MSG_MAX_SIZE) {
+-		ipc_size -= ipc_data_size;
+-		ipc_data_size = 0;
+-	}
+-
+-	process = (struct sof_ipc_comp_process *)
+-		  sof_comp_alloc(swidget, &ipc_size, index);
+-	if (!process) {
+-		ret = -ENOMEM;
+-		goto out;
+-	}
+-
+-	/* configure iir IPC message */
+-	process->comp.type = type;
+-	process->config.hdr.size = sizeof(process->config);
+-
+-	ret = sof_parse_tokens(scomp, &process->config, comp_tokens,
 -			       ARRAY_SIZE(comp_tokens), private->array,
 -			       le32_to_cpu(private->size));
 -	if (ret != 0) {
--		dev_err(scomp->dev, "error: parse tone.cfg tokens failed %d\n",
+-		dev_err(scomp->dev, "error: parse process.cfg tokens failed %d\n",
 -			le32_to_cpu(private->size));
 -		goto err;
 -	}
 -
--	dev_dbg(scomp->dev, "tone %s: frequency %d amplitude %d\n",
--		swidget->widget->name, tone->frequency, tone->amplitude);
--	sof_dbg_comp_config(scomp, &tone->config);
+-	sof_dbg_comp_config(scomp, &process->config);
 -
--	swidget->private = tone;
+-	/*
+-	 * found private data in control, so copy it.
+-	 * get possible component controls - get size of all pdata,
+-	 * then memcpy with headers
+-	 */
+-	if (ipc_data_size) {
+-		for (i = 0; i < widget->num_kcontrols; i++) {
+-			memcpy(&process->data[offset],
+-			       wdata[i].pdata->data,
+-			       wdata[i].pdata->size);
+-			offset += wdata[i].pdata->size;
+-		}
+-	}
 -
--	return 0;
+-	process->size = ipc_data_size;
+-	swidget->private = process;
 -err:
--	kfree(tone);
+-	if (ret < 0)
+-		kfree(process);
+-out:
+-	kfree(wdata);
 -	return ret;
 -}
 -
- static int sof_get_control_data(struct snd_soc_component *scomp,
- 				struct snd_soc_dapm_widget *widget,
- 				struct sof_widget_data *wdata,
-@@ -2152,13 +2096,11 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
- 	case snd_soc_dapm_aif_in:
- 	case snd_soc_dapm_src:
- 	case snd_soc_dapm_asrc:
-+	case snd_soc_dapm_siggen:
- 	case snd_soc_dapm_mux:
+-/*
+- * Processing Component Topology - can be "effect", "codec", or general
+- * "processing".
+- */
+-
+-static int sof_widget_load_process(struct snd_soc_component *scomp, int index,
+-				   struct snd_sof_widget *swidget,
+-				   struct snd_soc_tplg_dapm_widget *tw)
+-{
+-	struct snd_soc_tplg_private *private = &tw->priv;
+-	struct sof_ipc_comp_process config;
+-	int ret;
+-
+-	/* check we have some tokens - we need at least process type */
+-	if (le32_to_cpu(private->size) == 0) {
+-		dev_err(scomp->dev, "error: process tokens not found\n");
+-		return -EINVAL;
+-	}
+-
+-	memset(&config, 0, sizeof(config));
+-	config.comp.core = swidget->core;
+-
+-	/* get the process token */
+-	ret = sof_parse_tokens(scomp, &config, process_tokens,
+-			       ARRAY_SIZE(process_tokens), private->array,
+-			       le32_to_cpu(private->size));
+-	if (ret != 0) {
+-		dev_err(scomp->dev, "error: parse process tokens failed %d\n",
+-			le32_to_cpu(private->size));
+-		return ret;
+-	}
+-
+-	/* now load process specific data and send IPC */
+-	ret = sof_process_load(scomp, index, swidget, tw, find_process_comp_type(config.type));
+-	if (ret < 0) {
+-		dev_err(scomp->dev, "error: process loading failed\n");
+-		return ret;
+-	}
+-
+-	return 0;
+-}
+-
+ static int sof_widget_bind_event(struct snd_soc_component *scomp,
+ 				 struct snd_sof_widget *swidget,
+ 				 u16 event_type)
+@@ -2080,6 +1815,15 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 		list_add(&dai->list, &sdev->dai_list);
+ 		swidget->private = dai;
+ 		break;
++	case snd_soc_dapm_effect:
++		/* check we have some tokens - we need at least process type */
++		if (le32_to_cpu(tw->priv.size) == 0) {
++			dev_err(scomp->dev, "error: process tokens not found\n");
++			ret = -EINVAL;
++			break;
++		}
++		ret = sof_widget_parse_tokens(scomp, swidget, tw, token_list, token_list_size);
++		break;
+ 	case snd_soc_dapm_pga:
+ 		if (!le32_to_cpu(tw->num_kcontrols)) {
+ 			dev_err(scomp->dev, "invalid kcontrol count %d for volume\n",
+@@ -2101,9 +1845,6 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
  	case snd_soc_dapm_demux:
  		ret = sof_widget_parse_tokens(scomp, swidget, tw,  token_list, token_list_size);
  		break;
--	case snd_soc_dapm_siggen:
--		ret = sof_widget_load_siggen(scomp, index, swidget, tw);
+-	case snd_soc_dapm_effect:
+-		ret = sof_widget_load_process(scomp, index, swidget, tw);
 -		break;
- 	case snd_soc_dapm_effect:
- 		ret = sof_widget_load_process(scomp, index, swidget, tw);
- 		break;
+ 	case snd_soc_dapm_switch:
+ 	case snd_soc_dapm_dai_link:
+ 	case snd_soc_dapm_kcontrol:
 -- 
 2.25.1
 

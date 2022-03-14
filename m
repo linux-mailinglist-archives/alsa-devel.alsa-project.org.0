@@ -2,78 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 671504D81CE
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 12:56:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 515BD4D86E7
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 15:24:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C192617E7;
-	Mon, 14 Mar 2022 12:55:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C192617E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C3CF175C;
+	Mon, 14 Mar 2022 15:23:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C3CF175C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647259007;
-	bh=vpv44WyMr9l2XxHdjsyQScHpDhJeEN2amHuvUwv9piQ=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EFWSX/LvLt/wDPNDO3x0AUl8t0NU3jirhqg9ljL8STLA/hODxVeE6dr8qdSocPG4p
-	 o09Us4O2U6sIthTd8I1qyrfeDqFSuaN6LmvVyLR+3ktQRhfBlzpaMea8Nx0tPl4T4e
-	 lTvAAswX8aItvb4bCU5OuUqpLcgTBg4TCPlRNRzw=
+	s=default; t=1647267871;
+	bh=m0J3jP/1oFF8EQXdjMj+N0aJGWOkbTKiawH2Yd11FM8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ODsA7plQlwplxBY+mG1J7EQe2kUDu8vUliufutwvvJDsLeJpnXCDDhvjVcBmxoPvt
+	 O4H86v6jCyYScjasFvw2JUXK26/RB3sKC7hBnl1BVOJR6TIgFiSnqlpt3Pqnm0iWbs
+	 wrz0VqRNFNhg9xU34zOK1uWdEuThdUvOsNGPL+OQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22E04F80095;
-	Mon, 14 Mar 2022 12:55:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A903FF8011C;
+	Mon, 14 Mar 2022 15:23:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C990CF80139; Mon, 14 Mar 2022 12:55:38 +0100 (CET)
+ id 11D09F80139; Mon, 14 Mar 2022 15:23:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C9DFF80100
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 12:55:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C9DFF80100
-X-UUID: 8e5afcbc685345658257b8f04900fa8c-20220314
-X-UUID: 8e5afcbc685345658257b8f04900fa8c-20220314
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 316277914; Mon, 14 Mar 2022 19:55:18 +0800
-Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Mon, 14 Mar 2022 19:55:17 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb02.mediatek.inc
- (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Mon, 14 Mar 2022 19:55:16 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Mon, 14 Mar 2022 19:55:16 +0800
-Message-ID: <632e51a931d1c7253eb72d8b2df281e25621bfa1.camel@mediatek.com>
-Subject: Re: [v3 19/19] ASoC: mediatek: mt6358: add missing EXPORT_SYMBOLs
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- <broonie@kernel.org>, <robh+dt@kernel.org>
-Date: Mon, 14 Mar 2022 19:55:15 +0800
-In-Reply-To: <a497b403-5b20-9a2f-498e-b43727b26675@collabora.com>
-References: <20220313151023.21229-1-jiaxin.yu@mediatek.com>
- <20220313151023.21229-20-jiaxin.yu@mediatek.com>
- <a497b403-5b20-9a2f-498e-b43727b26675@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0501BF8011C
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 15:23:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0501BF8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="m6AFUwQG"
+Received: from localhost.localdomain (unknown [10.101.197.31])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 573663F7E1; 
+ Mon, 14 Mar 2022 14:23:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1647267791;
+ bh=dYP9n+9ZiLQtINhhSZR+LCQtgVyYHHqH/JL5P9eptWA=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=m6AFUwQGWaBaGC+cdpSpajath+yktgZlTUEC9UMrSq26IIRj5EOcgVwC47Cyx9pGv
+ 7IySM5xswIv8Hy1OfIqpGOO4ZviewW9315zLKX9yKG6NR023rwUfNyfQNDeDxuj9hC
+ J8V7s0rqYfUt8ITwdCVb2eoWyCCwMttbcG4OJ5FyeEsFFgqTmHS3j6vWDEZlBPE7Xp
+ On0RjeNTD2Vh3ykWYaLMvEChH05lyUs9dbrB8vAzEzbwddbu+4ZfuuXszho8bc8gGZ
+ HYZJes9g3WIlOxDIRgJgoioDN3+bjhe7E2UbXV4Zd4GNJ6kvkZcrA9evSk0QPHgGaZ
+ S5bWVXRZ3DTzQ==
+From: Andy Chi <andy.chi@canonical.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Jeremy Szu <jeremy.szu@canonical.com>, Hui Wang <hui.wang@canonical.com>,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Cameron Berkenpas <cam@neo-zeon.de>, Kailang Yang <kailang@realtek.com>,
+ Sami Loone <sami@loone.fi>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: fix right sounds and mute/micmute LEDs for
+ HP machines
+Date: Mon, 14 Mar 2022 22:21:19 +0800
+Message-Id: <20220314142122.71602-1-andy.chi@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: andy.chi@canonical.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,87 +87,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2022-03-14 at 11:18 +0100, AngeloGioacchino Del Regno wrote:
-> Il 13/03/22 16:10, Jiaxin Yu ha scritto:
-> > This fixes the following build errors when mt6358 is configured as
-> > module:
-> > 
-> > > > ERROR: modpost: "mt6358_set_mtkaif_protocol"
-> > > > [sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.ko]
-> > > > undefined!
-> > > > ERROR: modpost: "mt6358_set_mtkaif_protocol"
-> > > > [sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.ko]
-> > > > undefined!
-> > 
-> > Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> 
-> Hello Jiaxin,
-> 
-> Can you please add a Fixes tag to this patch and send it separately
-> from
-> the MT8186 series?
-> 
-> After adding the Fixes tag:
-> Reviewed-by: AngeloGioacchino Del Regno <
-> angelogioacchino.delregno@collabora.com>
-> 
-> Thanks,
-> Angelo
-> 
-Hello Angelo,
+* The HP ProBook 440/450 and EliteBook 640/650 are
+  using ALC236 codec which used 0x02 to control mute LED
+  and 0x01 to control micmute LED. Therefore, add a quirk to make it works.
 
-OK, I will send this patch with the Fixes tag separately from the
-MT8186 series.
+Signed-off-by: Andy Chi <andy.chi@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thanks,
-Jiaxin.Yu
-
-> > ---
-> >   sound/soc/codecs/mt6358.c | 4 ++++
-> >   1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/sound/soc/codecs/mt6358.c b/sound/soc/codecs/mt6358.c
-> > index 1fdd2f8cf877..61f2a7632fd4 100644
-> > --- a/sound/soc/codecs/mt6358.c
-> > +++ b/sound/soc/codecs/mt6358.c
-> > @@ -107,6 +107,7 @@ int mt6358_set_mtkaif_protocol(struct
-> > snd_soc_component *cmpnt,
-> >   	priv->mtkaif_protocol = mtkaif_protocol;
-> >   	return 0;
-> >   }
-> > +EXPORT_SYMBOL_GPL(mt6358_set_mtkaif_protocol);
-> >   
-> >   static void playback_gpio_set(struct mt6358_priv *priv)
-> >   {
-> > @@ -273,6 +274,7 @@ int mt6358_mtkaif_calibration_enable(struct
-> > snd_soc_component *cmpnt)
-> >   			   1 << RG_AUD_PAD_TOP_DAT_MISO_LOOPBACK_SFT);
-> >   	return 0;
-> >   }
-> > +EXPORT_SYMBOL_GPL(mt6358_mtkaif_calibration_enable);
-> >   
-> >   int mt6358_mtkaif_calibration_disable(struct snd_soc_component
-> > *cmpnt)
-> >   {
-> > @@ -296,6 +298,7 @@ int mt6358_mtkaif_calibration_disable(struct
-> > snd_soc_component *cmpnt)
-> >   	capture_gpio_reset(priv);
-> >   	return 0;
-> >   }
-> > +EXPORT_SYMBOL_GPL(mt6358_mtkaif_calibration_disable);
-> >   
-> >   int mt6358_set_mtkaif_calibration_phase(struct snd_soc_component
-> > *cmpnt,
-> >   					int phase_1, int phase_2)
-> > @@ -310,6 +313,7 @@ int mt6358_set_mtkaif_calibration_phase(struct
-> > snd_soc_component *cmpnt,
-> >   			   phase_2 << RG_AUD_PAD_TOP_PHASE_MODE2_SFT);
-> >   	return 0;
-> >   }
-> > +EXPORT_SYMBOL_GPL(mt6358_set_mtkaif_calibration_phase);
-> >   
-> >   /* dl pga gain */
-> >   enum {
-> 
-> 
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index c34b4888978b..4650ef9110d6 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9017,6 +9017,10 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8992, "HP EliteBook 845 G9", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8994, "HP EliteBook 855 G9", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8995, "HP EliteBook 855 G9", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x103c, 0x89a4, "HP ProBook 440 G9", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x89a6, "HP ProBook 450 G9", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x89ac, "HP EliteBook 640 G9", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x89ae, "HP EliteBook 650 G9", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89c3, "Zbook Studio G9", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x89c6, "Zbook Fury 17 G9", ALC245_FIXUP_CS35L41_SPI_2),
+ 	SND_PCI_QUIRK(0x103c, 0x89ca, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+-- 
+2.25.1
 

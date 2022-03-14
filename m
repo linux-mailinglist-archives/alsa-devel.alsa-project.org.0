@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0D704D7FB5
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 11:19:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47A5B4D7FB8
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 11:19:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D92F17DD;
-	Mon, 14 Mar 2022 11:18:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D92F17DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id B94A31884;
+	Mon, 14 Mar 2022 11:19:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B94A31884
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647253163;
-	bh=nQGCEaQV4SSt7P7Vs4H6IutV6PQurOMGF3CTakySQ4Y=;
+	s=default; t=1647253190;
+	bh=Xhm3zTCf6fMF/1xTFWS49KczB8qcaMTMqtJUqaWvAOQ=;
 	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LdZrKAJ6/yAKpsn4clqwnlZVpPf5my02/5m4R/zRbbj4M4HMciw1MzthpPQrnw/gc
-	 WKP4BpN3JUaNroyg3vfYr3MxTHXN5Nx6us65B7TcV0JDegrUk0nTAzgKxbu5zSfBah
-	 quQHanlmRijRKn/lKV34S75CDblcrhWEnAf3y4Pg=
+	b=Sa/LNoLj5uEDL2iamlbEOHO01h8UXshDxrOWQ+x3crQUCVJyCI7bmDykLCFdp0XPf
+	 p4EfiK8AE9d89prCFskU1MIjbgU3hWZQmtM8Oe6V+azPeLIiL8KbI9IwjZeb9v0zpO
+	 lpgIZblTNkelcEtxLqbv56AngUdtiM9rI5oyprzQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB91EF801EC;
-	Mon, 14 Mar 2022 11:18:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 453CCF80516;
+	Mon, 14 Mar 2022 11:18:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 856A8F80139; Mon, 14 Mar 2022 11:18:15 +0100 (CET)
+ id 90B37F804E5; Mon, 14 Mar 2022 11:18:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78DD4F80100
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 11:18:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78DD4F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24679F804E5
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 11:18:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24679F804E5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="dZPSbnMF"
+ header.b="HebpY9GH"
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id 503631F43E42
+ (Authenticated sender: kholk11) with ESMTPSA id 9BB481F43E42
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1647253086;
- bh=nQGCEaQV4SSt7P7Vs4H6IutV6PQurOMGF3CTakySQ4Y=;
+ s=mail; t=1647253108;
+ bh=Xhm3zTCf6fMF/1xTFWS49KczB8qcaMTMqtJUqaWvAOQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dZPSbnMF4ru8XqiTI61+q3Z0UEJ7yUYvUGIdlnPn8gD/ZAKNSSa9xQKI6cEe39jCT
- yEn5aSAbkzH4PgPoFNVjWXMx09Knhf/u9WT41z1wMPWXxjAl4e34+gi2RL4gFrD4ZF
- sm5PKK1jQRFrwxhYg95pzkz9pL9aQgrB/SAjl1aAfSA7ClNhLIOX0G2TNkoHbmfr5s
- hckhD84BpWv2LmD71gMNYe8wiqVfNke5nffD8VZHRQIGarIxuTViBB3NTIBi+8iTt2
- aFhq4s1Rrx2Iby/cyGUWO9kkNZaaRVmFoMBdHRzILvvqZNzd5njH38XEpiJU3I0H9V
- jiA5EFb9NLzHQ==
-Message-ID: <a497b403-5b20-9a2f-498e-b43727b26675@collabora.com>
-Date: Mon, 14 Mar 2022 11:18:02 +0100
+ b=HebpY9GHsh4/EF1tb4cHCYjdHjqFoVaMStCWf+GYjxlRAznKIX3amuZoiYtQxjE8M
+ IIUk+s1KDRkDTFgsSTXfphKdFlww+OayPkTXu+Jf3EYt5xxqmqgguuIIvvuTOVcZVZ
+ ln9nTOWYrtlF0uoLsEngQLKneKZsZQUE6nB4ez+0c6/gAsrYLdxLLcF9B2yaj47abM
+ Qn150wl9SlffmS6MUiRrpGFpuTBJctTNO79R6IRtJtPfKlyg377hLtWqpE3kLermgu
+ 3YlGn4WBRNl4DkHPKZuUZmVqhXH219FD3YThf3h7kDgqzlJkB08my6jvOx9f7vHvdV
+ Hx/+EuJRSsfLQ==
+Message-ID: <5f79e76b-1333-159c-2dc7-0f7e8927e4df@collabora.com>
+Date: Mon, 14 Mar 2022 11:18:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
-Subject: Re: [v3 19/19] ASoC: mediatek: mt6358: add missing EXPORT_SYMBOLs
+Subject: Re: [v3 03/19] ASoC: mediatek: mt8186: support audsys clock control
 Content-Language: en-US
 To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org, robh+dt@kernel.org
 References: <20220313151023.21229-1-jiaxin.yu@mediatek.com>
- <20220313151023.21229-20-jiaxin.yu@mediatek.com>
+ <20220313151023.21229-4-jiaxin.yu@mediatek.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20220313151023.21229-20-jiaxin.yu@mediatek.com>
+In-Reply-To: <20220313151023.21229-4-jiaxin.yu@mediatek.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -88,64 +88,19 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Il 13/03/22 16:10, Jiaxin Yu ha scritto:
-> This fixes the following build errors when mt6358 is configured as module:
-> 
->>> ERROR: modpost: "mt6358_set_mtkaif_protocol"
->>> [sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.ko] undefined!
->>> ERROR: modpost: "mt6358_set_mtkaif_protocol"
->>> [sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.ko] undefined!
+> Add mt8186 audio cg control. Audio clock gates are registered to
+> CCF for reference count and clock parent management.
 > 
 > Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
 
-Hello Jiaxin,
-
-Can you please add a Fixes tag to this patch and send it separately from
-the MT8186 series?
-
-After adding the Fixes tag:
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Thanks,
-Angelo
-
 > ---
->   sound/soc/codecs/mt6358.c | 4 ++++
->   1 file changed, 4 insertions(+)
+>   sound/soc/mediatek/mt8186/mt8186-audsys-clk.c | 150 ++++++++++++++++++
+>   sound/soc/mediatek/mt8186/mt8186-audsys-clk.h |  15 ++
+>   .../soc/mediatek/mt8186/mt8186-audsys-clkid.h |  45 ++++++
+>   3 files changed, 210 insertions(+)
+>   create mode 100644 sound/soc/mediatek/mt8186/mt8186-audsys-clk.c
+>   create mode 100644 sound/soc/mediatek/mt8186/mt8186-audsys-clk.h
+>   create mode 100644 sound/soc/mediatek/mt8186/mt8186-audsys-clkid.h
 > 
-> diff --git a/sound/soc/codecs/mt6358.c b/sound/soc/codecs/mt6358.c
-> index 1fdd2f8cf877..61f2a7632fd4 100644
-> --- a/sound/soc/codecs/mt6358.c
-> +++ b/sound/soc/codecs/mt6358.c
-> @@ -107,6 +107,7 @@ int mt6358_set_mtkaif_protocol(struct snd_soc_component *cmpnt,
->   	priv->mtkaif_protocol = mtkaif_protocol;
->   	return 0;
->   }
-> +EXPORT_SYMBOL_GPL(mt6358_set_mtkaif_protocol);
->   
->   static void playback_gpio_set(struct mt6358_priv *priv)
->   {
-> @@ -273,6 +274,7 @@ int mt6358_mtkaif_calibration_enable(struct snd_soc_component *cmpnt)
->   			   1 << RG_AUD_PAD_TOP_DAT_MISO_LOOPBACK_SFT);
->   	return 0;
->   }
-> +EXPORT_SYMBOL_GPL(mt6358_mtkaif_calibration_enable);
->   
->   int mt6358_mtkaif_calibration_disable(struct snd_soc_component *cmpnt)
->   {
-> @@ -296,6 +298,7 @@ int mt6358_mtkaif_calibration_disable(struct snd_soc_component *cmpnt)
->   	capture_gpio_reset(priv);
->   	return 0;
->   }
-> +EXPORT_SYMBOL_GPL(mt6358_mtkaif_calibration_disable);
->   
->   int mt6358_set_mtkaif_calibration_phase(struct snd_soc_component *cmpnt,
->   					int phase_1, int phase_2)
-> @@ -310,6 +313,7 @@ int mt6358_set_mtkaif_calibration_phase(struct snd_soc_component *cmpnt,
->   			   phase_2 << RG_AUD_PAD_TOP_PHASE_MODE2_SFT);
->   	return 0;
->   }
-> +EXPORT_SYMBOL_GPL(mt6358_set_mtkaif_calibration_phase);
->   
->   /* dl pga gain */
->   enum {
-

@@ -2,87 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CC814D7B1C
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 08:01:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19C8B4D7A7C
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 06:47:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B534172B;
-	Mon, 14 Mar 2022 08:00:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B534172B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CAFE169F;
+	Mon, 14 Mar 2022 06:47:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CAFE169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647241288;
-	bh=q6LEjZWiUmVtO6dBJg7Mp6/2FdVmuE0KsYKfGy3NuGs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lgJvvzpgvZ4Ph+9e9/na7HvgTBzP7cxZYLXJMR/KnKY5rgEKQf05HvQQJsIspz9yN
-	 L7Y3j4V5W/yYrbBKfJipfbJ2IW+rZpHtCsPIGuruyM+CN+UvOcWzr53U/hOKIZKTIb
-	 2J7HTPoVibr6Hjwj7Wy+ytt66XeC2C6qKCsuGRTc=
+	s=default; t=1647236878;
+	bh=VgYdOZBZufX/I9WQ0v33g4iqgeSkQUbXC8tJSC4t35o=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OhRBxL46kaiAiZJvY/WlSAjYbKUSJKj5wj3PARBHnn83OlaWUXI+1+7iH8yXB0p0Z
+	 slg9maEaF6HjomdHau4cnrPH08TcgzYQwjp3xfhBl2O2EyfpkHWnLsGTGHyQMYkBGA
+	 nQa2MnF1lwZaJspFLC/eolxr6xgH2dU74zr4EBXU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28A6CF80526;
-	Mon, 14 Mar 2022 07:58:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08FF3F80095;
+	Mon, 14 Mar 2022 06:46:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8898AF80227; Fri, 11 Mar 2022 23:25:15 +0100 (CET)
+ id 93449F80139; Mon, 14 Mar 2022 06:46:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
- autolearn=disabled version=3.4.0
-Received: from mail-il1-x142.google.com (mail-il1-x142.google.com
- [IPv6:2607:f8b0:4864:20::142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtpbg511.qq.com (smtpbg511.qq.com [203.205.250.109])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E80F3F800D2
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 23:25:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E80F3F800D2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="dS5amww7"
-Received: by mail-il1-x142.google.com with SMTP id l13so6963421iln.13
- for <alsa-devel@alsa-project.org>; Fri, 11 Mar 2022 14:25:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GyRIcZoZdI7XJjcQT5Ld8APIti4p48Wxyfw1hBRxBYU=;
- b=dS5amww75jfn2iQvjxVUBXupGO2l6Bys4O6ss8C+vdIfjfPMJaujEm9TMdOfi7JJyn
- dbbcd0UFSTRfv2jADGOoSFe/5DqenzhVZiNNC5D7pcNNV5fNMn6qY9YozZdE73LxFZtI
- pnveBYNUf9BYXlTbd1eXM3UPGIUa98Z7uBLitXc8JdYSGBw9ETqBFQmoAbHVTtll4cyU
- K/KBDNv6YGh/NENGPHCdN9wCmBkbzE/D2e0bK4dxrorUsqRcpcKs9cG9AgxQA5ylD2nc
- RtdafaGoBCkTZ1oFaqNQ1swY2EvaLzVFAERsNeGJjn6VO9ThV34v6kZ9RrIh6DJTNqRs
- LhkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=GyRIcZoZdI7XJjcQT5Ld8APIti4p48Wxyfw1hBRxBYU=;
- b=SUqMbEvkbrF5MZ1L6TSwjPAaipRDQKdurnzNr1GiXVcsAuptuplfwtg7gR7WjWMAri
- jVXFdrKFgSRc5uqtsCI30p841Qz73ErRhzbEhY5iW/A9qPkPltZZ18f47wyj10AYcPjv
- jzy05+9+9pgdGBZYRjQu5RZWdGpXEvhErf8i0t52GlhsCbjTQpQrmt1tpuFVrMe8hFlz
- EegP3t115zXBQvBe2q/yuUA+v0zN9y9LP7kidXn4iwCf3QudkHAcjGvBB2y5fRtOziB8
- fjucvbbSruIza5Cltb47E/R59K8I5lf/YeACip+XOLhXpbgPbhFd9IFZ4nFLmvCsM3iM
- Cobw==
-X-Gm-Message-State: AOAM531gT//4yN7PMWVxh91eT+egGVOSpUBtBMNj5oZnluxiw2Q8m2M2
- pJOzRAggOp5o68vW08u684J3yqEyPdracV9Xe24=
-X-Google-Smtp-Source: ABdhPJxZl3L+TKpxjt4oWEG4AolAgkwpnkj2tGpgqjLVYdjTm0XEwk6syLuzVL7BUndaT96BlC3Ga8o+TnZXMlpD/Yc=
-X-Received: by 2002:a05:6e02:20c3:b0:2c2:9e23:8263 with SMTP id
- 3-20020a056e0220c300b002c29e238263mr9686933ilq.248.1647037508686; Fri, 11 Mar
- 2022 14:25:08 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70F1AF80100
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 06:46:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70F1AF80100
+X-QQ-mid: bizesmtp67t1647236789tdocdkcc
+Received: from localhost.localdomain ( [58.240.82.166])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Mon, 14 Mar 2022 13:46:24 +0800 (CST)
+X-QQ-SSF: 0140000000200070E000B00A0000000
+X-QQ-FEAT: UldK9Jsj7VMaphog27S4lw8S9PU+rNC28DUg751c7z6NeXGelP3fAJx6SMVLa
+ l20Xt/iZS2Bdt+ynmnbguGsw+2WSBXglsIc3mBtubwdLLamJGGnqKIy1ACfHGxyYWhgQiE4
+ ftWYOQ+ldrZpFHYP65yZgPk48WWeX9EzqpEVUIgKyJWmW+tPQt4y7QJj0PyFafPrJ4kV7FN
+ KEYzH332IPtsEuODzKYDF/dq2zWvcU1207Y1kwTyKOhNUBeT3ROo/FZUxUwwNwVARnezjok
+ oew/bMle8pepnV5L2HS5dMgZcE2rZC41HNALNQkfKsQ3T8P+FuNC2a0BmYrRTRNmZJjdMFr
+ 2M/M2M8OPDU5FDr+JkxNPE9mbui6tl+ZN3HmM/Q
+X-QQ-GoodBg: 2
+From: Zhen Ni <nizhen@uniontech.com>
+To: broonie@kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz
+Subject: [PATCH v2] ASoC: Intel: boards: Use temporary variable for struct
+ device
+Date: Mon, 14 Mar 2022 13:46:21 +0800
+Message-Id: <20220314054621.14694-1-nizhen@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <20220311132906.32292-1-steve.lee.analog@gmail.com>
- <Yit5v+JkYDiWz0z0@sirena.org.uk>
-In-Reply-To: <Yit5v+JkYDiWz0z0@sirena.org.uk>
-From: Lee Steve <steve.lee.analog@gmail.com>
-Date: Sat, 12 Mar 2022 07:24:57 +0900
-Message-ID: <CA+Fz0PY9bi7cJpbmD4LSMRyDFEyJ4JQPqWWNoV-PZm01=KboNw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: max98390: Add reset gpio control
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Mon, 14 Mar 2022 07:58:50 +0100
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- ryans.lee@maximintegrated.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
+X-QQ-Bgrelay: 1
+Cc: Zhen Ni <nizhen@uniontech.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,11 +78,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Mar 12, 2022 at 1:33 AM Mark Brown <broonie@kernel.org> wrote:
->
-> On Fri, Mar 11, 2022 at 10:29:05PM +0900, Steve Lee wrote:
-> >  Add reset gpio control to support RESET PIN connected to gpio.
->
-> This doesn't apply against current code, please check and resend.
+Use temporary variable for struct device to make code neater.
 
-I will check and resend patch.
+Signed-off-by: Zhen Ni <nizhen@uniontech.com>
+---
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+index b3d7a0725ef2..183edd0fd446 100644
+--- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
++++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+@@ -538,7 +538,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 	const char *platform_name;
+ 	bool sof_parent;
+ 
+-	drv = devm_kzalloc(&pdev->dev, sizeof(*drv), GFP_KERNEL);
++	drv = devm_kzalloc(dev, sizeof(*drv), GFP_KERNEL);
+ 	if (!drv)
+ 		return -ENOMEM;
+ 
+@@ -559,8 +559,8 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* override platform name, if required */
+-	snd_soc_card_cht.dev = &pdev->dev;
+-	mach = pdev->dev.platform_data;
++	snd_soc_card_cht.dev = dev;
++	mach = dev->platform_data;
+ 	platform_name = mach->mach_params.platform;
+ 
+ 	ret_val = snd_soc_fixup_dai_links_platform_name(&snd_soc_card_cht,
+@@ -576,9 +576,9 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 	else
+ 		mclk_name = "pmc_plt_clk_3";
+ 
+-	drv->mclk = devm_clk_get(&pdev->dev, mclk_name);
++	drv->mclk = devm_clk_get(dev, mclk_name);
+ 	if (IS_ERR(drv->mclk)) {
+-		dev_err(&pdev->dev,
++		dev_err(dev,
+ 			"Failed to get MCLK from %s: %ld\n",
+ 			mclk_name, PTR_ERR(drv->mclk));
+ 		return PTR_ERR(drv->mclk);
+@@ -594,12 +594,12 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 	if (drv->quirks & QUIRK_PMC_PLT_CLK_0) {
+ 		ret_val = clk_prepare_enable(drv->mclk);
+ 		if (ret_val < 0) {
+-			dev_err(&pdev->dev, "MCLK enable error: %d\n", ret_val);
++			dev_err(dev, "MCLK enable error: %d\n", ret_val);
+ 			return ret_val;
+ 		}
+ 	}
+ 
+-	sof_parent = snd_soc_acpi_sof_parent(&pdev->dev);
++	sof_parent = snd_soc_acpi_sof_parent(dev);
+ 
+ 	/* set card and driver name */
+ 	if (sof_parent) {
+@@ -614,9 +614,9 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 	if (sof_parent)
+ 		dev->driver->pm = &snd_soc_pm_ops;
+ 
+-	ret_val = devm_snd_soc_register_card(&pdev->dev, &snd_soc_card_cht);
++	ret_val = devm_snd_soc_register_card(dev, &snd_soc_card_cht);
+ 	if (ret_val) {
+-		dev_err(&pdev->dev,
++		dev_err(dev,
+ 			"snd_soc_register_card failed %d\n", ret_val);
+ 		return ret_val;
+ 	}
+-- 
+2.20.1
+
+
+

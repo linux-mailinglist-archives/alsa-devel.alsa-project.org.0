@@ -2,77 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8595D4D7FF3
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 11:35:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24544D7FFF
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Mar 2022 11:38:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E9F918C0;
-	Mon, 14 Mar 2022 11:34:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E9F918C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B81C18DA;
+	Mon, 14 Mar 2022 11:37:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B81C18DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1647254143;
-	bh=NDvmjZYnQWqznSyedRPSl/wQ+D9+4vjA/lAgqizfY98=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JGSiWo2Hptv+QOmRfVqplXp2srOZEprxEe0oR+loNM7VEp6LOZFOtbh9U2QyzOk08
-	 YDb3jdxj1loGDz8mESX/Y0VJJjr1FivHNGh7yaTzdyVbJiWqA0v4eb5gyzjTKcjs4O
-	 LEHijfpMQ/Ue5++5Io9mBCeo7+vlACuBGj+36x3w=
+	s=default; t=1647254310;
+	bh=hWMwKpQJCKvQv8EqN/cC0MsL60FZLHQQH1uuj9Q2eSU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lhoW/awTpEbploKg1/DlNYz4nHkDbDxPLZp/2u/x0ibwEf6VX5LqfvCuvBlao2E/b
+	 K3omCoo6X2BRaySvGpvwdc4OSACqw4Q6opkR+t9cdWT+Qc2wLmxJRJAuJ5xB2L56nk
+	 HI/Ek9FR1Go41oteMSXIZTmQrID7AiPjJZaIhtK0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7433AF8011C;
-	Mon, 14 Mar 2022 11:34:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0DAEF801EC;
+	Mon, 14 Mar 2022 11:37:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FDC0F80139; Mon, 14 Mar 2022 11:34:35 +0100 (CET)
+ id E499DF80139; Mon, 14 Mar 2022 11:37:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HELO_DYNAMIC_IPADDR,RDNS_DYNAMIC,SPF_HELO_NONE,
+ SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from out203-205-251-59.mail.qq.com (out203-205-251-59.mail.qq.com
+ [203.205.251.59])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66E77F80100
- for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 11:34:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66E77F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC47FF80100
+ for <alsa-devel@alsa-project.org>; Mon, 14 Mar 2022 11:37:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC47FF80100
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com
- header.b="I6YlEfdp"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id 41CC61F43B0F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1647254067;
- bh=NDvmjZYnQWqznSyedRPSl/wQ+D9+4vjA/lAgqizfY98=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=I6YlEfdpUsEa48Pi5JMaX0Hp6Ta/m7aIphZKlTbj6jqKOFI14X7kPLe/lB8Z2SO9u
- dwwmeIYyFn3csID3+l0U1ZwEMSD6UfxgSgHvGPlPWgstjypHioci7zIg6maXYP8cSY
- i5jOeJIeI894XBqm51exce6kp5fdxjL5qrAsfH0jLgPvcWTEOqyIST7ZhcIEaHQG4c
- +1Ob6Rg5a0y+XGZcy8pIV5aLtVqU3hqc+66VSC/c3HgaAhaWRdf+a6ODRSCzj+6abn
- HC6hdgPxazs1rFtj5jfSe+6wervU0afSScuZL0eQQ6dGis/51ChQBsTaz+QxP0CV3U
- ammt+a0KEqKGA==
-Message-ID: <4c695b65-a30b-f17c-762b-055987c7682e@collabora.com>
-Date: Mon, 14 Mar 2022 11:34:23 +0100
+ dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com
+ header.b="El0dNCTY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1647254226;
+ bh=9Zh1V8PHB9LW8Q/vm2MDOYSA5hA0RUHKkZ1Rx574OAo=;
+ h=From:To:Cc:Subject:Date;
+ b=El0dNCTYQ8ToY+g0SqzkJ2vaWZcSMe0el8908OmVsMcuY5y4eNpPl8mLzEsH9IsRH
+ QIQPbtHkzC+7EOBhOLbTOXLSNZtvLsk1ENnqB1GWwVZo+ZpiIpyNpM1dcKxayP77kd
+ /dINwMziZ8RjYFlYCViB6yDj+/8Io+CKH52r6s4Y=
+Received: from localhost.localdomain ([43.227.136.188])
+ by newxmesmtplogicsvrszc11.qq.com (NewEsmtp) with SMTP
+ id 942A8224; Mon, 14 Mar 2022 18:37:02 +0800
+X-QQ-mid: xmsmtpt1647254222tmu00snbw
+Message-ID: <tencent_EC21778DC383823CBC4069EA9F0B84943905@qq.com>
+X-QQ-XMAILINFO: MVKy59SpMLfUo3k1xaX1QzfgHUhMh8nppnBD0M4qC+XJPMIQlXgZgBTv3nb6Ha
+ gy5C4fvCIgbP3XSmSORLepmkXgVEDfwuxexwcceZkGY4m1WFxFcorgsOqLMRMKzatEzMcqivsu0k
+ c42EmTtf9+Y/q9s5sKlSnxUAXp/coEnWekNJ1bPaVpK6iXAQezCwGvT3nJP/ze5cyEai5HkocGJx
+ 9SumW4ZZHxGOoKb7cTnO/GKcbzkhwx3JhFjW4zoyWx0L6hEeO+xfqPRWx23X1yErITOwH11S7qwV
+ 3fDVc1fyL5vo/VokI9dTCqFBeRQr8Cut65GxCAAesmny/oHzBQ0p2OstDpRlAyBS3WrYX3ytbWz5
+ VnG8wG2EeeB0iU4FkEQNUBssqJCWNjrlKpv1SZzGVszOuLefvLEgOzUsSAVvF2Gm/FVqjKlzL1ju
+ xVeGOFLPCAovE1Nw6MyvoyD6Ggja2pvfx2dIMO0XyIMy2MHA9zO6EXZCaTbB6VBHkNRCsRVpjBtt
+ BmVNAaKTrw8/v1X+4mdvw0Wl8R3jPUCFwqrBxJfQ+4hWOchI2Ra83NnfhuR2N0WsrtNqEsZq3zoL
+ SbwR/JqgxJLC43qasxbXS+Nc32PCamwyOubVMryzIAJ24gwzX4/At2fRotcKNB60wXjumWB2lPuN
+ G/z+ottul/vYVDUgBDZWFth8ccwBC7uV//0WeFs78qSHFsD3y38xv5eD38NNH3EnLfkJQPAiqFXM
+ XX4VCQZUgTHGhGimJtLxz1RmXJbxLseLYaP4zBckxd8eSXi0oxn5UPrMQ1SJ03R+15pidPVmRkJ4
+ T+hoD7S6LVFVXDRip079UXGOTi5sOTMpI0whrUn1J8bSGmpRDyD6CdR++263y+ZPcODqKax1kQur
+ qxiH/vNIRB3m/7/MTvkgQS2GiWoxkRZs7cFett5LT3iElQk9ImWHfdyHoYqIL+3jMIPZ0B9JkgjF
+ CqNDHEx64=
+From: xkernel.wang@foxmail.com
+To: broonie@kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz
+Subject: [PATCH v2] ASoC: samsung: i2s: check the return value of kstrdup()
+Date: Mon, 14 Mar 2022 18:36:45 +0800
+X-OQ-MSGID: <20220314103645.462-1-xkernel.wang@foxmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Subject: Re: [v3 09/19] ASoC: mediatek: mt8186: support src in platform driver
-Content-Language: en-US
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org, robh+dt@kernel.org
-References: <20220313151023.21229-1-jiaxin.yu@mediatek.com>
- <20220313151023.21229-10-jiaxin.yu@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20220313151023.21229-10-jiaxin.yu@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- matthias.bgg@gmail.com, aaronyu@google.com, julianbraha@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ krzysztof.kozlowski@canonical.com, Xiaoke Wang <xkernel.wang@foxmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,252 +93,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 13/03/22 16:10, Jiaxin Yu ha scritto:
-> Add mt8186 src dai driver
-> 
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> ---
->   sound/soc/mediatek/mt8186/mt8186-dai-src.c | 726 +++++++++++++++++++++
->   1 file changed, 726 insertions(+)
->   create mode 100644 sound/soc/mediatek/mt8186/mt8186-dai-src.c
-> 
-> diff --git a/sound/soc/mediatek/mt8186/mt8186-dai-src.c b/sound/soc/mediatek/mt8186/mt8186-dai-src.c
-> new file mode 100644
-> index 000000000000..0277cb0ad3f2
-> --- /dev/null
-> +++ b/sound/soc/mediatek/mt8186/mt8186-dai-src.c
-> @@ -0,0 +1,726 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +//  MediaTek ALSA SoC Audio DAI SRC Control
-> +//
-> +// Copyright (c) 2022 MediaTek Inc.
-> +// Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> +
-> +#include <linux/regmap.h>
-> +#include "mt8186-afe-common.h"
-> +#include "mt8186-interconnection.h"
-> +
+From: Xiaoke Wang <xkernel.wang@foxmail.com>
 
-..snip..
+kstrdup() is a memory allocation function which can return NULL when
+some internal memory errors happen. It is better to check the return
+value of it to catch the error in time.
 
-> +
-> +static const unsigned int *get_iir_coeff(unsigned int rate_in,
-> +					 unsigned int rate_out,
-> +					 unsigned int *param_num)
-> +{
-> +	if (rate_in == 32000 && rate_out == 16000) {
-> +		*param_num = ARRAY_SIZE(src_iir_coeff_32_to_16);
-> +		return src_iir_coeff_32_to_16;
-> +	} else if (rate_in == 44100 && rate_out == 16000) {
-> +		*param_num = ARRAY_SIZE(src_iir_coeff_44_to_16);
-> +		return src_iir_coeff_44_to_16;
-> +	} else if (rate_in == 44100 && rate_out == 32000) {
-> +		*param_num = ARRAY_SIZE(src_iir_coeff_44_to_32);
-> +		return src_iir_coeff_44_to_32;
-> +	} else if ((rate_in == 48000 && rate_out == 16000) ||
-> +		   (rate_in == 96000 && rate_out == 32000)) {
-> +		*param_num = ARRAY_SIZE(src_iir_coeff_48_to_16);
-> +		return src_iir_coeff_48_to_16;
-> +	} else if (rate_in == 48000 && rate_out == 32000) {
-> +		*param_num = ARRAY_SIZE(src_iir_coeff_48_to_32);
-> +		return src_iir_coeff_48_to_32;
-> +	} else if (rate_in == 48000 && rate_out == 44100) {
-> +		*param_num = ARRAY_SIZE(src_iir_coeff_48_to_44);
-> +		return src_iir_coeff_48_to_44;
-> +	} else if (rate_in == 96000 && rate_out == 16000) {
-> +		*param_num = ARRAY_SIZE(src_iir_coeff_96_to_16);
-> +		return src_iir_coeff_96_to_16;
-> +	} else if ((rate_in == 96000 && rate_out == 44100) ||
-> +		   (rate_in == 48000 && rate_out == 22050)) {
-> +		*param_num = ARRAY_SIZE(src_iir_coeff_96_to_44);
-> +		return src_iir_coeff_96_to_44;
-> +	}
-> +
-> +	*param_num = 0;
-> +	return NULL;
-> +}
-> +
-> +#define DEBUG_COEFF
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
+---
+ChangeLog:
+v1->v2 update the mail list and attach the tag 'Reviewed-by'.
+ sound/soc/samsung/i2s.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I think that this debugging hackery unintentionally slipped through... or was
-that intentional?
-In the latter case, if you want to provide a way to debug that, you should
-use debugfs instead...
-
-Please, either remove this debugging code, or use debugfs.
-
-Thanks,
-Angelo
-
-> +static int mtk_set_src_1_param(struct mtk_base_afe *afe, int id)
-> +{
-> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	struct mtk_afe_src_priv *src_priv = afe_priv->dai_priv[id];
-> +	unsigned int iir_coeff_num;
-> +	unsigned int iir_stage;
-> +	int rate_in = src_priv->dl_rate;
-> +	int rate_out = src_priv->ul_rate;
-> +	unsigned int out_freq_mode = mtk_get_src_freq_mode(afe, rate_out);
-> +	unsigned int in_freq_mode = mtk_get_src_freq_mode(afe, rate_in);
-> +
-> +	/* set out freq mode */
-> +	regmap_update_bits(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON3,
-> +			   G_SRC_ASM_FREQ_4_MASK_SFT,
-> +			   out_freq_mode << G_SRC_ASM_FREQ_4_SFT);
-> +
-> +	/* set in freq mode */
-> +	regmap_update_bits(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON4,
-> +			   G_SRC_ASM_FREQ_5_MASK_SFT,
-> +			   in_freq_mode << G_SRC_ASM_FREQ_5_SFT);
-> +
-> +	regmap_write(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON5, 0x3f5986);
-> +	regmap_write(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON5, 0x3f5987);
-> +	regmap_write(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON6, 0x1fbd);
-> +	regmap_write(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON2, 0);
-> +
-> +	/* set iir if in_rate > out_rate */
-> +	if (rate_in > rate_out) {
-> +		int i;
-> +#ifdef DEBUG_COEFF
-> +		int reg_val;
-> +#endif
-> +		const unsigned int *iir_coeff = get_iir_coeff(rate_in, rate_out,
-> +							      &iir_coeff_num);
-> +
-> +		if (iir_coeff_num == 0 || !iir_coeff) {
-> +			dev_err(afe->dev, "%s(), iir coeff error, num %d, coeff %p\n",
-> +				__func__, iir_coeff_num, iir_coeff);
-> +			return -EINVAL;
-> +		}
-> +
-> +		/* COEFF_SRAM_CTRL */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON0,
-> +				   G_SRC_COEFF_SRAM_CTRL_MASK_SFT,
-> +				   BIT(G_SRC_COEFF_SRAM_CTRL_SFT));
-> +		/* Clear coeff history to r/w coeff from the first position */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON13,
-> +				   G_SRC_COEFF_SRAM_ADR_MASK_SFT, 0);
-> +		/* Write SRC coeff, should not read the reg during write */
-> +		for (i = 0; i < iir_coeff_num; i++)
-> +			regmap_write(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON12,
-> +				     iir_coeff[i]);
-> +
-> +#ifdef DEBUG_COEFF
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON13,
-> +				   G_SRC_COEFF_SRAM_ADR_MASK_SFT, 0);
-> +
-> +		for (i = 0; i < iir_coeff_num; i++) {
-> +			regmap_read(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON12,
-> +				    &reg_val);
-> +			dev_info(afe->dev, "%s(), i = %d, coeff = 0x%x\n",
-> +				 __func__, i, reg_val);
-> +		}
-> +#endif
-> +		/* disable sram access */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON0,
-> +				   G_SRC_COEFF_SRAM_CTRL_MASK_SFT, 0);
-> +		/* CHSET_IIR_STAGE */
-> +		iir_stage = (iir_coeff_num / 6) - 1;
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON2,
-> +				   G_SRC_CHSET_IIR_STAGE_MASK_SFT,
-> +				   iir_stage << G_SRC_CHSET_IIR_STAGE_SFT);
-> +		/* CHSET_IIR_EN */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON2,
-> +				   G_SRC_CHSET_IIR_EN_MASK_SFT,
-> +				   BIT(G_SRC_CHSET_IIR_EN_SFT));
-> +	} else {
-> +		/* CHSET_IIR_EN off */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL1_ASRC_2CH_CON2,
-> +				   G_SRC_CHSET_IIR_EN_MASK_SFT, 0);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int mtk_set_src_2_param(struct mtk_base_afe *afe, int id)
-> +{
-> +	struct mt8186_afe_private *afe_priv = afe->platform_priv;
-> +	struct mtk_afe_src_priv *src_priv = afe_priv->dai_priv[id];
-> +	unsigned int iir_coeff_num;
-> +	unsigned int iir_stage;
-> +	int rate_in = src_priv->dl_rate;
-> +	int rate_out = src_priv->ul_rate;
-> +	unsigned int out_freq_mode = mtk_get_src_freq_mode(afe, rate_out);
-> +	unsigned int in_freq_mode = mtk_get_src_freq_mode(afe, rate_in);
-> +
-> +	/* set out freq mode */
-> +	regmap_update_bits(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON3,
-> +			   G_SRC_ASM_FREQ_4_MASK_SFT,
-> +			   out_freq_mode << G_SRC_ASM_FREQ_4_SFT);
-> +
-> +	/* set in freq mode */
-> +	regmap_update_bits(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON4,
-> +			   G_SRC_ASM_FREQ_5_MASK_SFT,
-> +			   in_freq_mode << G_SRC_ASM_FREQ_5_SFT);
-> +
-> +	regmap_write(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON5, 0x3f5986);
-> +	regmap_write(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON5, 0x3f5987);
-> +	regmap_write(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON6, 0x1fbd);
-> +	regmap_write(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON2, 0);
-> +
-> +	/* set iir if in_rate > out_rate */
-> +	if (rate_in > rate_out) {
-> +		int i;
-> +#ifdef DEBUG_COEFF
-> +		int reg_val;
-> +#endif
-> +		const unsigned int *iir_coeff = get_iir_coeff(rate_in, rate_out,
-> +							      &iir_coeff_num);
-> +
-> +		if (iir_coeff_num == 0 || !iir_coeff) {
-> +			dev_err(afe->dev, "%s(), iir coeff error, num %d, coeff %p\n",
-> +				 __func__, iir_coeff_num, iir_coeff);
-> +			return -EINVAL;
-> +		}
-> +
-> +		/* COEFF_SRAM_CTRL */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON0,
-> +				   G_SRC_COEFF_SRAM_CTRL_MASK_SFT,
-> +				   BIT(G_SRC_COEFF_SRAM_CTRL_SFT));
-> +		/* Clear coeff history to r/w coeff from the first position */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON13,
-> +				   G_SRC_COEFF_SRAM_ADR_MASK_SFT, 0);
-> +		/* Write SRC coeff, should not read the reg during write */
-> +		for (i = 0; i < iir_coeff_num; i++)
-> +			regmap_write(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON12,
-> +				     iir_coeff[i]);
-> +
-> +#ifdef DEBUG_COEFF
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON13,
-> +				   G_SRC_COEFF_SRAM_ADR_MASK_SFT, 0);
-> +
-> +		for (i = 0; i < iir_coeff_num; i++) {
-> +			regmap_read(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON12,
-> +				    &reg_val);
-> +			dev_info(afe->dev, "%s(), i = %d, coeff = 0x%x\n",
-> +				 __func__, i, reg_val);
-> +		}
-> +#endif
-> +		/* disable sram access */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON0,
-> +				   G_SRC_COEFF_SRAM_CTRL_MASK_SFT, 0);
-> +		/* CHSET_IIR_STAGE */
-> +		iir_stage = (iir_coeff_num / 6) - 1;
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON2,
-> +				   G_SRC_CHSET_IIR_STAGE_MASK_SFT,
-> +				   iir_stage << G_SRC_CHSET_IIR_STAGE_SFT);
-> +		/* CHSET_IIR_EN */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON2,
-> +				   G_SRC_CHSET_IIR_EN_MASK_SFT,
-> +				   BIT(G_SRC_CHSET_IIR_EN_SFT));
-> +	} else {
-> +		/* CHSET_IIR_EN off */
-> +		regmap_update_bits(afe->regmap, AFE_GENERAL2_ASRC_2CH_CON2,
-> +				   G_SRC_CHSET_IIR_EN_MASK_SFT, 0);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-
+diff --git a/sound/soc/samsung/i2s.c b/sound/soc/samsung/i2s.c
+index 309badc..70c8271 100644
+--- a/sound/soc/samsung/i2s.c
++++ b/sound/soc/samsung/i2s.c
+@@ -1349,6 +1349,10 @@ static int i2s_create_secondary_device(struct samsung_i2s_priv *priv)
+ 		return -ENOMEM;
+ 
+ 	pdev_sec->driver_override = kstrdup("samsung-i2s", GFP_KERNEL);
++	if (!pdev_sec->driver_override) {
++		platform_device_put(pdev_sec);
++		return -ENOMEM;
++	}
+ 
+ 	ret = platform_device_add(pdev_sec);
+ 	if (ret < 0) {
+-- 
